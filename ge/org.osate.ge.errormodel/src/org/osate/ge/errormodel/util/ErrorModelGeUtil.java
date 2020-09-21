@@ -35,6 +35,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
@@ -67,7 +69,7 @@ public class ErrorModelGeUtil {
 				ErrorModelLibrary.class);
 	}
 
-	private static ErrorModelSubclause getOrCreateErrorModelSubclause(final Classifier classifier) {
+	public static ErrorModelSubclause getOrCreateErrorModelSubclause(final Classifier classifier) {
 		return GraphicalAnnexUtil.getOrCreateParsedAnnexSubclause(classifier, EMV2Util.ErrorModelAnnexName,
 				ErrorModelPackage.eINSTANCE.getErrorModelSubclause(), ErrorModelSubclause.class);
 	}
@@ -80,6 +82,21 @@ public class ErrorModelGeUtil {
 	public static Stream<ErrorModelSubclause> getAllErrorModelSubclauses(final Classifier classifier) {
 		return GraphicalAnnexUtil.getAllParsedAnnexSubclauses(classifier, EMV2Util.ErrorModelAnnexName,
 				ErrorModelSubclause.class);
+	}
+
+	public static Stream<ErrorModelSubclause> getAllInheritedErrorModelSubclauses(final Classifier classifier) {
+		if (classifier == null) {
+			return Stream.empty();
+		}
+
+		Stream<Classifier> classifiers = classifier.getSelfPlusAllExtended().stream();
+		if (classifier instanceof ComponentImplementation) {
+			final ComponentType ct = ((ComponentImplementation) classifier).getType();
+			if (ct != null) {
+				classifiers = Stream.concat(classifiers, ct.getSelfPlusAllExtended().stream());
+			}
+		}
+		return classifiers.flatMap(tmpClassifier -> getAllErrorModelSubclauses(tmpClassifier));
 	}
 
 	public static final Style topCenteredLabelStyle = StyleBuilder.create().labelsTop().labelsHorizontalCenter()
@@ -223,17 +240,27 @@ public class ErrorModelGeUtil {
 	 * @return the classifier
 	 */
 	public static Optional<Classifier> getClassifier(BusinessObjectContext boc) {
-		return getClassifierSourceBoc(boc).map(t -> {
+		return getClassifierSourceBoc(boc).flatMap(t -> {
 			final Object bo = t.getBusinessObject();
-			if (bo instanceof Classifier) {
-				return (Classifier) bo;
-			} else if (bo instanceof Subcomponent) {
-				final ComponentClassifier cc = ((Subcomponent) bo).getAllClassifier();
-				return cc;
-			} else {
-				return null;
-			}
+			return getClassifierFromBusinessObject(bo);
 		});
+	}
+
+	/**
+	 * Returns the classifier associated with the specified business object. In order to return a classifier, the business object must be a
+	 * subcomponent or a classifier
+	 * @param bo the business object for which to retrieve the classifier.
+	 * @return the classifier
+	 */
+	public static Optional<Classifier> getClassifierFromBusinessObject(Object bo) {
+		if (bo instanceof Classifier) {
+			return Optional.of((Classifier) bo);
+		} else if (bo instanceof Subcomponent) {
+			final ComponentClassifier cc = ((Subcomponent) bo).getAllClassifier();
+			return Optional.ofNullable(cc);
+		} else {
+			return Optional.empty();
+		}
 	}
 
 	/**

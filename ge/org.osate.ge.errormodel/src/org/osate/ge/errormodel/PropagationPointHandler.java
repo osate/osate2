@@ -23,11 +23,8 @@
  */
 package org.osate.ge.errormodel;
 
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
-import org.osate.aadl2.Classifier;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.GraphicalConfiguration;
@@ -42,14 +39,12 @@ import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
-import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
 public class PropagationPointHandler implements BusinessObjectHandler {
@@ -103,16 +98,6 @@ public class PropagationPointHandler implements BusinessObjectHandler {
 
 	@Override
 	public Optional<String> validateName(final RenameContext ctx) {
-		return ctx.getBusinessObject(PropagationPoint.class).map(pp -> {
-			final ErrorModelSubclause containingSubclause = (ErrorModelSubclause) pp.eContainer();
-			final Set<String> names = new HashSet<String>();
-			final Classifier classifier = containingSubclause.getContainingClassifier();
-			ErrorModelNamingUtil.addToNameSet(names, classifier.getMembers());
-			ErrorModelGeUtil.getAllErrorModelSubclauses(classifier).forEachOrdered(subclause -> {
-				ErrorModelNamingUtil.addToNameSet(names, subclause.getPoints());
-			});
-
-			return ErrorModelNamingUtil.validateName(names, pp.getName(), ctx.getNewName());
-		});
+		return ErrorModelNamingUtil.validateSubclauseChildName(ctx);
 	}
 }

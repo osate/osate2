@@ -49,6 +49,8 @@ public class ErrorModelPaletteContributor implements PaletteContributor {
 		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.IN, false));
 		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.OUT, true));
 		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.OUT, false));
+		commands.add(CreateErrorSourceOrSinkPaletteCommand.createErrorSinkPaletteCommand());
+		commands.add(CreateErrorSourceOrSinkPaletteCommand.createErrorSourcePaletteCommand());
 		commands.add(new CreateErrorTypePaletteCommand());
 		commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getErrorEvent()));
 		commands.add(new CreatePropagationPointPaleteCommand());
@@ -68,6 +70,7 @@ public class ErrorModelPaletteContributor implements PaletteContributor {
 			final PaletteCommandProviderContext ctx) {
 		final List<CreateConnectionPaletteCommand> commands = new ArrayList<>();
 
+		commands.add(new CreateErrorPathPaletteCommand());
 		commands.add(new CreatePropagatonPathPaletteCommand());
 		commands.add(new CreateTransitionPaletteCommand());
 		commands.add(new CreateTypeExtensionPaletteCommand());

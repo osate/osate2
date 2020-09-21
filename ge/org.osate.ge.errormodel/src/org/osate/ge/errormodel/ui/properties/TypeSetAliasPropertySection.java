@@ -71,8 +71,8 @@ public class TypeSetAliasPropertySection extends AbstractPropertySection {
 
 		aliasedTypeField = new FilteringListSelectorField<>(container, "Select Aliased Type Set",
 				new LabelFilteringListSelectorModel<>(model));
-		aliasedTypeField.setLabelTestingId(WIDGET_ID_ALIASED_TYPE_SET_LABEL);
-		aliasedTypeField.setChooseButtonTestingId(WIDGET_ID_ALIASED_TYPE_SET_CHOOSE_BUTTON);
+		aliasedTypeField.setValueLabelTestingId(WIDGET_ID_ALIASED_TYPE_SET_LABEL);
+		aliasedTypeField.setModifyButtonTestingId(WIDGET_ID_ALIASED_TYPE_SET_CHOOSE_BUTTON);
 		fd = new FormData();
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		fd.top = new FormAttachment(label, 0, SWT.CENTER);

@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Adapters;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
@@ -45,7 +44,7 @@ import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 
 import com.google.common.base.Objects;
@@ -96,8 +95,7 @@ public class TransitionBranchPropertySection extends AbstractPropertySection {
 					final String newValueStr = value;
 
 					selectedBos.modify(TransitionBranch.class, branch -> {
-						final BranchValue newValue = (BranchValue) EcoreUtil
-								.create(ErrorModelPackage.eINSTANCE.getBranchValue());
+						final BranchValue newValue = ErrorModelFactory.eINSTANCE.createBranchValue();
 						newValue.setRealvalue(newValueStr);
 						branch.setValue(newValue);
 					});

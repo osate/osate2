@@ -70,8 +70,8 @@ public class TypeSetPropertySection extends AbstractPropertySection {
 		final Label label = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Types:");
 
 		typeTokens = new TypeTokenListField(container, model);
-		typeTokens.setLabelTestingId(WIDGET_ID_TYPE_TOKENS_LABEL);
-		typeTokens.setChooseButtonTestingId(WIDGET_ID_TYPE_TOKENS_CHOOSE_BUTTON);
+		typeTokens.setValueLabelTestingId(WIDGET_ID_TYPE_TOKENS_LABEL);
+		typeTokens.setModifyButtonTestingId(WIDGET_ID_TYPE_TOKENS_CHOOSE_BUTTON);
 		typeTokens
 		.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 

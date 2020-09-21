@@ -35,12 +35,16 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.GraphicalExtensionUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanDeleteContext;
+import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
+import org.osate.ge.businessobjecthandling.RenameContext;
 import org.osate.ge.errormodel.model.KeywordPropagationPoint;
 import org.osate.ge.errormodel.model.KeywordPropagationPointType;
+import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.FlowIndicatorBuilder;
@@ -135,8 +139,23 @@ public class ErrorFlowHandler implements BusinessObjectHandler {
 	}
 
 	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
+		return true;
+	}
+
+	@Override
 	public String getName(final GetNameContext ctx) {
 		return ctx.getBusinessObject(ErrorFlow.class).map(bo -> bo.getName()).orElse("");
+	}
+
+	@Override
+	public boolean canRename(final CanRenameContext ctx) {
+		return true;
+	}
+
+	@Override
+	public Optional<String> validateName(final RenameContext ctx) {
+		return ErrorModelNamingUtil.validateSubclauseChildName(ctx);
 	}
 
 	private static Optional<ErrorFlowEnd> getErrorFlowEnd(final QueryService queryService,

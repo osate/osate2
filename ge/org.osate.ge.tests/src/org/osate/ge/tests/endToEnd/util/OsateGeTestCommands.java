@@ -321,21 +321,21 @@ public class OsateGeTestCommands {
 	}
 
 	/**
-	 * Creates a flow specification using the palette tool.
+	 * Creates an element represented by a flow indicator using the palette tool.
 	 * Preconditions: OSATE shell is active.  Specified parent element exists.
-	 * Postconditions: New flow specification has been created, renamed to match the specified name
-	 * @param diagram is the diagram in which to create the flow specification
-	 * @param parentElement is the reference to the element in which the flow specification will be created
-	 * @param toolType is the text of the palette item to use to create the flow specifcation
-	 * @param featureRef is the relative reference of the feature that the flow specification will be attached to
+	 * Postconditions: New flow indicator has been created, renamed to match the specified name
+	 * @param diagram is the diagram in which to create the flow indicator
+	 * @param parentElement is the reference to the element in which the flow indicator will be created
+	 * @param toolType is the text of the palette item to use to create the flow indicator.
+	 * @param endpointElement is the relative reference of the feature that the flow indicator will be attached to
 	 * @param newReferenceAfterCreate is the relative reference of the diagram element which will be created by the tool.
 	 * @param finalName is the name to which the element should be renamed
 	 */
-	public static void createFlowSpecification(final DiagramReference diagram,
+	public static void createFlowIndicatorAndLayout(final DiagramReference diagram,
 			final DiagramElementReference parentElement, final String toolType,
-			final RelativeBusinessObjectReference featureRef,
+			final DiagramElementReference endpointElement,
 			final RelativeBusinessObjectReference newReferenceAfterCreate, final String finalName) {
-		createFlowSpecificationElement(diagram, parentElement, toolType, featureRef, newReferenceAfterCreate);
+		createFlowIndicator(diagram, parentElement, toolType, endpointElement, newReferenceAfterCreate);
 		renameElementFromOutlineView(diagram, parentElement, newReferenceAfterCreate, finalName);
 	}
 
@@ -563,7 +563,7 @@ public class OsateGeTestCommands {
 		clickButton("OK");
 
 		// Wait until the current classifier label has been updated
-		waitUntilCLabelWithIdTextMatches(SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL,
+		waitUntilBorderedCLabelWithIdTextMatches(SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL,
 				expectedNewLabelText);
 	}
 
@@ -578,7 +578,7 @@ public class OsateGeTestCommands {
 		clickPropertiesViewTab("AADL");
 
 		// Wait until the current classifier label is the expected value
-		waitUntilCLabelWithIdTextMatches(SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL,
+		waitUntilBorderedCLabelWithIdTextMatches(SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL,
 				labelText);
 	}
 
@@ -622,7 +622,7 @@ public class OsateGeTestCommands {
 		}
 
 		// Wait until the classifier's prototype bindings label has been updated
-		waitUntilCLabelWithIdTextMatches(PrototypeBindingsField.WIDGET_ID_SELECTED_LABEL, expectedNewLabelText);
+		waitUntilBorderedCLabelWithIdTextMatches(PrototypeBindingsField.WIDGET_ID_SELECTED_LABEL, expectedNewLabelText);
 	}
 
 	/**
@@ -639,7 +639,7 @@ public class OsateGeTestCommands {
 		clickPropertiesViewTab("AADL");
 
 		// Wait until the classifier's prototype bindings label is the expected value
-		waitUntilCLabelWithIdTextMatches(PrototypeBindingsField.WIDGET_ID_SELECTED_LABEL, labelText);
+		waitUntilBorderedCLabelWithIdTextMatches(PrototypeBindingsField.WIDGET_ID_SELECTED_LABEL, labelText);
 	}
 
 	/**

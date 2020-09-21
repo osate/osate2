@@ -24,6 +24,7 @@
 package org.osate.ge.tests.endToEnd.util;
 
 import static org.eclipse.swtbot.swt.finder.SWTBotAssert.*;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.*;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -60,12 +62,14 @@ import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBotControl;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotCLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCanvas;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotSpinner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
@@ -84,6 +88,7 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.swt.BorderedCLabel;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
@@ -217,6 +222,14 @@ public class UiTestUtil {
 	public static void setTextFieldWithIdText(final String id, final String value) {
 		bot.textWithId(id).setText(value);
 		assertTextFieldWithIdText("New value not valid", id, value);
+	}
+
+	/**
+	 * Sets the focus to a text widget with the specified ID
+	 * @param id is the ID of the text widget
+	 */
+	public static void setFocusToTextFieldWithId(final String id) {
+		bot.textWithId(id).setFocus();
 	}
 
 	/**
@@ -421,10 +434,17 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Returns whether the text for a CLabel with the specified id
+	 * Returns whether the text for a {@link BorderedCLabel} with the specified id
 	 */
-	public static String getTextForClabelWithId(final String id) {
-		return bot.clabelWithId(id).getText();
+	public static String getTextForBorderedClabelWithId(final String id) {
+		@SuppressWarnings("unchecked")
+		final BorderedCLabel label = bot.widget(allOf(widgetOfType(BorderedCLabel.class), withId(id)), 0);
+		final String[] value = { "" };
+		UIThreadRunnable.syncExec(() -> {
+			value[0] = new SWTBotCLabel((CLabel) label.getChildren()[0]).getText();
+		});
+
+		return value[0];
 	}
 
 	/**

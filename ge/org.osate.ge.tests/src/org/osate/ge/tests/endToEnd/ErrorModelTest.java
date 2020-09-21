@@ -28,19 +28,27 @@ import static org.osate.ge.tests.endToEnd.util.OsateGeTestCommands.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
 import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
+import java.util.Objects;
+
 import org.junit.Test;
 import org.osate.aadl2.DirectionType;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.errormodel.ErrorModelReferenceUtil;
 import org.osate.ge.errormodel.model.KeywordPropagationPointType;
+import org.osate.ge.errormodel.ui.properties.ErrorFlowPropertySection;
 import org.osate.ge.errormodel.ui.properties.ErrorModelLibraryPropertySection;
+import org.osate.ge.errormodel.ui.properties.ErrorModelSubclausePropertySection;
+import org.osate.ge.errormodel.ui.properties.ErrorPathPropertySection;
 import org.osate.ge.errormodel.ui.properties.ErrorPropagationPropertySection;
+import org.osate.ge.errormodel.ui.properties.ErrorSourcePropertySection;
 import org.osate.ge.errormodel.ui.properties.ErrorTypeAliasPropertySection;
 import org.osate.ge.errormodel.ui.properties.TransitionBranchPropertySection;
 import org.osate.ge.errormodel.ui.properties.TypeSetAliasPropertySection;
 import org.osate.ge.errormodel.ui.properties.TypeSetPropertySection;
+import org.osate.ge.errormodel.ui.swt.FaultSourceEditorDialog;
 import org.osate.ge.tests.endToEnd.util.DiagramElementReference;
 import org.osate.ge.tests.endToEnd.util.DiagramReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 
 /**
  * This class is an end to end test focusing on EMV2 annex support.
@@ -101,7 +109,7 @@ public class ErrorModelTest {
 					element(pkgRef, ErrorModelReferenceUtil.getRelativeReferenceForErrorType("ta1")));
 
 			// Check label to ensure that the aliased type matches the expected value
-			waitUntilCLabelWithIdTextMatches(ErrorTypeAliasPropertySection.WIDGET_ID_ALIASED_TYPE_LABEL,
+			waitUntilBorderedCLabelWithIdTextMatches(ErrorTypeAliasPropertySection.WIDGET_ID_ALIASED_TYPE_LABEL,
 					"emv2_test::t1");
 
 			clickButtonWithId(ErrorTypeAliasPropertySection.WIDGET_ID_ALIASED_TYPE_CHOOSE_BUTTON);
@@ -110,7 +118,7 @@ public class ErrorModelTest {
 			clickButton("OK");
 
 			// Check the label to ensure it reflects the changes
-			waitUntilCLabelWithIdTextMatches(ErrorTypeAliasPropertySection.WIDGET_ID_ALIASED_TYPE_LABEL,
+			waitUntilBorderedCLabelWithIdTextMatches(ErrorTypeAliasPropertySection.WIDGET_ID_ALIASED_TYPE_LABEL,
 					"emv2_test::t2");
 		}
 
@@ -156,7 +164,7 @@ public class ErrorModelTest {
 			openAadlPropertiesTab(diagram, element(pkgRef, ErrorModelReferenceUtil.getRelativeReferenceForTypeSet("ts1")));
 
 			// Check label to ensure that the types match the expected value
-			waitUntilCLabelWithIdTextMatches(TypeSetPropertySection.WIDGET_ID_TYPE_TOKENS_LABEL,
+			waitUntilBorderedCLabelWithIdTextMatches(TypeSetPropertySection.WIDGET_ID_TYPE_TOKENS_LABEL,
 					"emv2_test::t1, ErrorLibrary::AboveRange, emv2_test::t2 * emv2_test::t4");
 
 			clickButtonWithId(TypeSetPropertySection.WIDGET_ID_TYPE_TOKENS_CHOOSE_BUTTON);
@@ -171,7 +179,7 @@ public class ErrorModelTest {
 			clickButton("OK");
 
 			// Check the label to ensure it reflects the changes
-			waitUntilCLabelWithIdTextMatches(TypeSetPropertySection.WIDGET_ID_TYPE_TOKENS_LABEL,
+			waitUntilBorderedCLabelWithIdTextMatches(TypeSetPropertySection.WIDGET_ID_TYPE_TOKENS_LABEL,
 					"emv2_test::t1, ErrorLibrary::AboveRange, emv2_test::t2 * emv2_test::t4, emv2_test::t1, emv2_test::t3");
 		}
 
@@ -203,7 +211,7 @@ public class ErrorModelTest {
 					element(pkgRef, ErrorModelReferenceUtil.getRelativeReferenceForTypeSet("tsa1")));
 
 			// Check label to ensure that the aliased type set matches the expected value
-			waitUntilCLabelWithIdTextMatches(TypeSetAliasPropertySection.WIDGET_ID_ALIASED_TYPE_SET_LABEL,
+			waitUntilBorderedCLabelWithIdTextMatches(TypeSetAliasPropertySection.WIDGET_ID_ALIASED_TYPE_SET_LABEL,
 					"emv2_test::ts1");
 
 			clickButtonWithId(TypeSetAliasPropertySection.WIDGET_ID_ALIASED_TYPE_SET_CHOOSE_BUTTON);
@@ -212,7 +220,7 @@ public class ErrorModelTest {
 			clickButton("OK");
 
 			// Check the label to ensure it reflects the changes
-			waitUntilCLabelWithIdTextMatches(TypeSetAliasPropertySection.WIDGET_ID_ALIASED_TYPE_SET_LABEL,
+			waitUntilBorderedCLabelWithIdTextMatches(TypeSetAliasPropertySection.WIDGET_ID_ALIASED_TYPE_SET_LABEL,
 					"emv2_test::ts2");
 		}
 
@@ -470,17 +478,17 @@ public class ErrorModelTest {
 		// Verify error propagation type set is correct and can be set using the property section
 		{
 			openAadlPropertiesTab(diagram, o1PropagationRef);
-			addTypeToSelectedPropgationTypeSet();
+			addTypeToSelectedPropagationTypeSet();
 		}
 
 		// Select two not-identical type sets and confirm label
 		openAadlPropertiesTab(diagram, o1PropagationRef, pp1PropagationRef);
-		waitUntilCLabelWithIdTextMatches(ErrorPropagationPropertySection.WIDGET_ID_TYPE_TOKENS_LABEL,
+		waitUntilBorderedCLabelWithIdTextMatches(ErrorPropagationPropertySection.WIDGET_ID_TYPE_TOKENS_LABEL,
 				"<Multiple Type Sets Selected>");
 
 		// Select two other propagations with identical type sets and change
 		openAadlPropertiesTab(diagram, i1PropagationRef, pp1PropagationRef);
-		addTypeToSelectedPropgationTypeSet();
+		addTypeToSelectedPropagationTypeSet();
 
 
 		layoutDiagram(diagram, sysImplElement);
@@ -501,12 +509,182 @@ public class ErrorModelTest {
 				.join(ErrorModelReferenceUtil.getRelativeReferenceForPropagationPath("test_propagation_path1")));
 
 		//
+		// Error Flows
+		//
+		createConnectionAndLayout(diagram, i1Ref, o1Ref, "Error Path", sysImplElement,
+				ErrorModelReferenceUtil.getRelativeReferenceForErrorFlow("test_system_impl_new_error_flow"), "epath1");
+		final DiagramElementReference errorPathElement = sysImplElement
+				.join(ErrorModelReferenceUtil.getRelativeReferenceForErrorFlow("epath1"));
+		createFlowIndicatorAndLayout(diagram, sysImplElement, "Error Source", o1Ref,
+				ErrorModelReferenceUtil.getRelativeReferenceForErrorFlow("test_system_impl_new_error_flow"), "esrc1");
+		final DiagramElementReference errorSourceElement = sysImplElement
+				.join(ErrorModelReferenceUtil.getRelativeReferenceForErrorFlow("esrc1"));
+		createFlowIndicatorAndLayout(diagram, sysImplElement, "Error Sink", i1Ref,
+				ErrorModelReferenceUtil.getRelativeReferenceForErrorFlow("test_system_impl_new_error_flow"), "esnk1");
+
+		// Error Type Set - Add
+		{
+			openAadlPropertiesTab(diagram, errorPathElement);
+
+			// Select the error type set for the error flow
+			clickButtonWithId(ErrorFlowPropertySection.WIDGET_ID_ERROR_TYPE_SET_TOKENS_CHOOSE_BUTTON);
+			waitForWindowWithTitle("Edit Type Set");
+			clickButton("Add Error Type(s)");
+			waitForWindowWithTitle("Add Types");
+			selectListItems(0, "ErrorLibrary::AboveRange");
+			clickButton("OK");
+			clickButton("OK");
+
+			// Check the label to ensure it reflects the changes
+			waitUntilBorderedCLabelWithIdTextMatches(ErrorFlowPropertySection.WIDGET_ID_ERROR_TYPE_SET_TOKENS_LABEL,
+					"ErrorLibrary::AboveRange");
+		}
+
+		// Error Type Set - Clear
+		{
+			openAadlPropertiesTab(diagram, errorPathElement);
+
+			// Select the error type set for the error flow
+			clickButtonWithId(ErrorFlowPropertySection.WIDGET_ID_ERROR_TYPE_SET_TOKENS_CHOOSE_BUTTON);
+			waitForWindowWithTitle("Edit Type Set");
+			selectListItems(0, "ErrorLibrary::AboveRange");
+			clickButton("Remove");
+			clickButton("OK");
+
+			// Check the label to ensure it reflects the changes
+			waitUntilBorderedCLabelWithIdTextMatches(ErrorFlowPropertySection.WIDGET_ID_ERROR_TYPE_SET_TOKENS_LABEL,
+					"");
+		}
+
+		// Target Error Type Instance - Add
+		{
+			openAadlPropertiesTab(diagram, errorPathElement);
+
+			// Select the error type set for the error flow
+			clickButtonWithId(ErrorPathPropertySection.WIDGET_ID_ERROR_TARGET_ERROR_TYPE_INSTANCE_CHOOSE_BUTTON);
+			waitForWindowWithTitle("Edit Type Set");
+			clickButton("Add Error Type(s)");
+			waitForWindowWithTitle("Add Types");
+			selectListItems(0, "ErrorLibrary::AboveRange");
+			clickButton("OK");
+			clickButton("OK");
+
+			// Check the label to ensure it reflects the changes
+			waitUntilBorderedCLabelWithIdTextMatches(
+					ErrorPathPropertySection.WIDGET_ID_ERROR_TARGET_ERROR_TYPE_INSTANCE_LABEL,
+					"ErrorLibrary::AboveRange");
+		}
+
+		// Target Error Type Instance - Clear
+		{
+			openAadlPropertiesTab(diagram, errorPathElement);
+
+			// Select the error type set for the error flow
+			clickButtonWithId(ErrorPathPropertySection.WIDGET_ID_ERROR_TARGET_ERROR_TYPE_INSTANCE_CHOOSE_BUTTON);
+			waitForWindowWithTitle("Edit Type Set");
+			selectListItems(0, "ErrorLibrary::AboveRange");
+			clickButton("Remove");
+			clickButton("OK");
+
+			// Check the label to ensure it reflects the changes
+			waitUntilBorderedCLabelWithIdTextMatches(
+					ErrorPathPropertySection.WIDGET_ID_ERROR_TARGET_ERROR_TYPE_INSTANCE_LABEL,
+					"");
+		}
+
+		// Set the error behavior of the classifier. This is needed to select a state for the error source
+		{
+			openAadlPropertiesTab(diagram, sysImplElement);
+
+			// Select button to choose the error behavior
+			clickButtonWithId(ErrorModelSubclausePropertySection.WIDGET_ID_BEHAVIOR_CHOOSE_BUTTON);
+			waitForWindowWithTitle("Select Error Behavior State Machine");
+			selectListItem(0, "ErrorLibrary::FailAndRecover");
+			clickButton("OK");
+
+			// Check the label to ensure it reflects the changes
+			waitUntilBorderedCLabelWithIdTextMatches(ErrorModelSubclausePropertySection.WIDGET_ID_BEHAVIOR_VALUE_LABEL,
+					"ErrorLibrary::FailAndRecover");
+		}
+
+		// Fault Source - Text Description
+		{
+			openAadlPropertiesTab(diagram, errorSourceElement);
+
+			// Select button to choose the error behavior
+			clickButtonWithId(ErrorSourcePropertySection.WIDGET_ID_FAULT_SOURCE_CHOOSE_BUTTON);
+			waitForWindowWithTitle("Edit Fault Source");
+			clickRadioButton("Description");
+			setTextFieldWithIdText(FaultSourceEditorDialog.WIDGET_ID_DESCRIPTION_TEXT, "Test Fault Source");
+			clickButton("OK");
+
+			// Check the label to ensure it reflects the changes
+			waitUntilBorderedCLabelWithIdTextMatches(ErrorSourcePropertySection.WIDGET_ID_FAULT_SOURCE_LABEL,
+					"Test Fault Source");
+		}
+
+		// Fault Source - Error Type Set
+		{
+			openAadlPropertiesTab(diagram, errorSourceElement);
+
+			// Select button to choose the error behavior
+			clickButtonWithId(ErrorSourcePropertySection.WIDGET_ID_FAULT_SOURCE_CHOOSE_BUTTON);
+			waitForWindowWithTitle("Edit Fault Source");
+			clickRadioButton("Error Type Set");
+
+			// Select the Error Behavior State
+			clickButtonWithId(FaultSourceEditorDialog.WIDGET_ID_STATE_MODIFY_BUTTON);
+			waitForWindowWithTitle("Select");
+			selectListItem(0, "Failed");
+			clickButton("OK");
+
+			// Select the Type Set
+			clickButtonWithId(FaultSourceEditorDialog.WIDGET_ID_TYPE_SET_MODIFY_BUTTON);
+			waitForWindowWithTitle("Edit Type Set");
+			clickButton("Add Error Type(s)");
+			waitForWindowWithTitle("Add Types");
+			selectListItems(0, "ErrorLibrary::BadValue");
+			clickButton("OK");
+			clickButton("OK");
+
+			clickButton("OK");
+
+			// Check the label to ensure it reflects the changes
+			waitUntilBorderedCLabelWithIdTextMatches(ErrorSourcePropertySection.WIDGET_ID_FAULT_SOURCE_LABEL,
+					"Failed {ErrorLibrary::BadValue}");
+		}
+
+		// Set the fault condition
+		{
+			openAadlPropertiesTab(diagram, errorSourceElement);
+			setFocusToTextFieldWithId(ErrorSourcePropertySection.WIDGET_ID_FAULT_CONDITION_TEXT);
+			final String faultCondition = "Test Fault Condition";
+			setTextFieldWithIdText(ErrorSourcePropertySection.WIDGET_ID_FAULT_CONDITION_TEXT,
+					"Test Fault Condition");
+			focusDiagramEditor(diagram);
+			waitForDiagramElementCondition(diagram, errorSourceElement,
+					"Fault condition does not match '" + faultCondition + "'",
+					de -> {
+						return de.getBusinessObject(ErrorSource.class)
+								.map(s -> s.getFlowcondition() == null ? null : s.getFlowcondition().getDescription())
+								.filter(d -> Objects.equals(d, faultCondition)).isPresent();
+					});
+		}
+
+		//
+		// Delete error flows
+		//
+		deleteElement(diagram, errorSourceElement);
+		deleteElement(diagram, sysImplElement.join(ErrorModelReferenceUtil.getRelativeReferenceForErrorFlow("epath1")));
+
+		//
 		// Delete a propagation
 		//
 		deleteElement(diagram,
 				o1Ref.join(ErrorModelReferenceUtil.getRelativeReferenceForPropagation(false, DirectionType.OUT)));
 
 		saveAndCloseTextEditorByTitle(ERROR_FLOW_TEST + ".aadl");
+		saveAndCloseDiagramEditor(diagram);
 	}
 
 	/**
@@ -528,9 +706,9 @@ public class ErrorModelTest {
 	 * Helper function for tests that require adding an error type to a type set.
 	 * Assumes that a single error type has already been set using {@link #selectSingleErrorType()}
 	 */
-	private static void addTypeToSelectedPropgationTypeSet() {
+	private static void addTypeToSelectedPropagationTypeSet() {
 		// Check label to ensure that the types match the expected value
-		waitUntilCLabelWithIdTextMatches(ErrorPropagationPropertySection.WIDGET_ID_TYPE_TOKENS_LABEL,
+		waitUntilBorderedCLabelWithIdTextMatches(ErrorPropagationPropertySection.WIDGET_ID_TYPE_TOKENS_LABEL,
 				"ErrorLibrary::AboveRange");
 
 		clickButtonWithId(ErrorPropagationPropertySection.WIDGET_ID_TYPE_TOKENS_CHOOSE_BUTTON);
@@ -545,7 +723,7 @@ public class ErrorModelTest {
 		clickButton("OK");
 
 		// Check the label to ensure it reflects the changes
-		waitUntilCLabelWithIdTextMatches(ErrorPropagationPropertySection.WIDGET_ID_TYPE_TOKENS_LABEL,
+		waitUntilBorderedCLabelWithIdTextMatches(ErrorPropagationPropertySection.WIDGET_ID_TYPE_TOKENS_LABEL,
 				"ErrorLibrary::AboveRange, ErrorLibrary::BelowRange");
 	}
 }

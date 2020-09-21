@@ -33,8 +33,8 @@ import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.AadlPackage;
 import org.osate.ge.ProjectUtil;
+import org.osate.ge.errormodel.ui.ErrorModelUiUtil;
 import org.osate.ge.errormodel.ui.swt.TypeTokenListEditorModel;
 import org.osate.ge.swt.BaseObservableModel;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
@@ -46,23 +46,42 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
  * Only a single type set is supported. If multiple type sets are provided an error label will be provided as the label.
  *
  */
-public abstract class BaseTypeSetTypeTokensModel extends BaseObservableModel
-		implements TypeTokenListEditorModel {
-
+public abstract class BaseTypeSetTypeTokensModel extends BaseObservableModel implements TypeTokenListEditorModel {
+	private final boolean allowEmpty;
 	private BasicTypeTokenListEditorModel inner;
 	private String error = null;
+	private NamedObjectsProvider<ErrorTypes> knownErrorTypes;
 
 	public BaseTypeSetTypeTokensModel() {
+		this(false);
+	}
+
+	/**
+	 * Creates a new instance
+	 * @param allowEmpty is whether the model should allow removing all type tokens from a type set.
+	 */
+	public BaseTypeSetTypeTokensModel(final boolean allowEmpty) {
+		this.allowEmpty = allowEmpty;
 		setTypeSets(Collections.emptyList());
 	}
 
 	/**
-	* Refreshes the internal state of the model based on the specified type sets.
-	* Must be called to update the state of the model.
+	* Updates the state of the model. If possible, retrieves the project from the first type set in the list.
+	* {@link BaseTypeSetTypeTokensModel#setState(List, IProject)}
 	*/
-	protected final void setTypeSets(List<TypeSet> typeSets) {
+	protected final void setTypeSets(final List<TypeSet> typeSets) {
+		final IProject project = typeSets.isEmpty() ? null : ProjectUtil.getProjectForBo(typeSets.get(0)).orElse(null);
+		setState(typeSets, project);
+	}
+
+	/**
+	 * Refreshes the internal state of the model based on the specified type sets.
+	 * Must be called to update the state of the model.
+	 */
+	protected final void setState(List<TypeSet> typeSets, final IProject project) {
 		inner = null;
 		error = null;
+		knownErrorTypes = EmptyNamedObjectsProvider.instance();
 
 		// If there are multiple error types provided, then check if the type sets are equal.
 		// If they are all equal, then only use the first type set. This allows editing
@@ -83,15 +102,14 @@ public abstract class BaseTypeSetTypeTokensModel extends BaseObservableModel
 
 		if (typeSets.size() == 1) {
 			final TypeSet typeSet = typeSets.get(0);
-			final AadlPackage pkg = (AadlPackage) typeSet.getElementRoot();
 
 			// When switching from the text editor the project is often not available.
 			// This issue is transient and is usually not noticeable.
-			final IProject project = ProjectUtil.getProjectForBo(pkg).orElse(null);
 			if (project == null) {
 				error = "<Unable to retrieve project>";
 			} else {
-				inner = new BasicTypeTokenListEditorModel(project, typeSet.getTypeTokens());
+				knownErrorTypes = new ProjectErrorTypesProvider(project);
+				inner = new BasicTypeTokenListEditorModel(knownErrorTypes, typeSet.getTypeTokens(), allowEmpty);
 			}
 		}
 		triggerChangeEvent();
@@ -147,6 +165,12 @@ public abstract class BaseTypeSetTypeTokensModel extends BaseObservableModel
 		return inner == null ? "" : inner.validate(value);
 	}
 
+
+	@Override
+	public String getTypeTokenLabel(final TypeToken value) {
+		return ErrorModelUiUtil.getTypeTokenLabel(value, knownErrorTypes::getName);
+	}
+
 	@Override
 	public final String getTypeTokensLabel() {
 		if (error != null) {
@@ -157,6 +181,6 @@ public abstract class BaseTypeSetTypeTokensModel extends BaseObservableModel
 			return "<Multiple Type Sets Selected>";
 		}
 
-		return TypeTokenListEditorModel.super.getTypeTokensLabel();
+		return ErrorModelUiUtil.getTypeTokensLabel(getTypeTokens(), knownErrorTypes::getName);
 	}
 }

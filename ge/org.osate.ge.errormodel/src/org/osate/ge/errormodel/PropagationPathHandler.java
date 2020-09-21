@@ -39,6 +39,8 @@ import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
+import org.osate.ge.businessobjecthandling.RenameContext;
+import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
@@ -115,6 +117,11 @@ public class PropagationPathHandler implements BusinessObjectHandler {
 	@Override
 	public boolean canRename(final CanRenameContext ctx) {
 		return true;
+	}
+
+	@Override
+	public Optional<String> validateName(final RenameContext ctx) {
+		return ErrorModelNamingUtil.validateSubclauseChildName(ctx);
 	}
 
 	private static Object[] getBusinessObjectPath(final QualifiedPropagationPoint p) {

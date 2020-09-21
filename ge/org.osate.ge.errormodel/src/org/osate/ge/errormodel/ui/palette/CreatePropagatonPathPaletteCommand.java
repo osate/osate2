@@ -30,7 +30,6 @@ import java.util.Optional;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.NamedElement;
@@ -45,7 +44,7 @@ import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.CanStartConnectionContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.GetCreateConnectionOperationContext;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
@@ -78,8 +77,7 @@ public class CreatePropagatonPathPaletteCommand extends BasePaletteCommand imple
 		}
 
 		return ErrorModelGeUtil.createErrorModelSubclauseModifyOperation(classifierSourceBoc, (subclause) -> {
-			final PropagationPath newPath = (PropagationPath) EcoreUtil
-					.create(ErrorModelPackage.eINSTANCE.getPropagationPath());
+			final PropagationPath newPath = ErrorModelFactory.eINSTANCE.createPropagationPath();
 			final String newName = ErrorModelNamingUtil.buildUniqueIdentifier(subclause.getContainingClassifier(),
 					"new_propagation_path");
 			newPath.setName(newName);
@@ -118,11 +116,9 @@ public class CreatePropagatonPathPaletteCommand extends BasePaletteCommand imple
 			final EObject pathSegment = rs.getEObject(pathSegmentUri, true);
 
 			// Create the QualifiedPropagationPoint instance for the path segment
-			final QualifiedPropagationPoint newPoint = (QualifiedPropagationPoint) EcoreUtil
-					.create(ErrorModelPackage.eINSTANCE.getQualifiedPropagationPoint());
+			final QualifiedPropagationPoint newPoint = ErrorModelFactory.eINSTANCE.createQualifiedPropagationPoint();
 			if (pathSegment instanceof Subcomponent) {
-				final SubcomponentElement scElement = (SubcomponentElement) EcoreUtil
-						.create(ErrorModelPackage.eINSTANCE.getSubcomponentElement());
+				final SubcomponentElement scElement = ErrorModelFactory.eINSTANCE.createSubcomponentElement();
 				scElement.setSubcomponent((Subcomponent) pathSegment);
 				newPoint.setSubcomponent(scElement);
 			} else if (pathSegment instanceof NamedElement) {

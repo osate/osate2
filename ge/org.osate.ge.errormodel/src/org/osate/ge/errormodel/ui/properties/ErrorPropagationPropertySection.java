@@ -69,8 +69,8 @@ public class ErrorPropagationPropertySection extends AbstractPropertySection {
 		final Label label = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Type Set:");
 
 		typeSetTokens = new TypeTokenListField(container, typeSetTokensModel);
-		typeSetTokens.setLabelTestingId(WIDGET_ID_TYPE_TOKENS_LABEL);
-		typeSetTokens.setChooseButtonTestingId(WIDGET_ID_TYPE_TOKENS_CHOOSE_BUTTON);
+		typeSetTokens.setValueLabelTestingId(WIDGET_ID_TYPE_TOKENS_LABEL);
+		typeSetTokens.setModifyButtonTestingId(WIDGET_ID_TYPE_TOKENS_CHOOSE_BUTTON);
 		typeSetTokens
 		.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 

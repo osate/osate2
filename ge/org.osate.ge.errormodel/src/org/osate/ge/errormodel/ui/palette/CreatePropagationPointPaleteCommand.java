@@ -25,7 +25,6 @@ package org.osate.ge.errormodel.ui.palette;
 
 import java.util.Optional;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.operations.Operation;
@@ -33,7 +32,7 @@ import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
 public class CreatePropagationPointPaleteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
@@ -44,8 +43,7 @@ public class CreatePropagationPointPaleteCommand extends BasePaletteCommand impl
 	@Override
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return ErrorModelGeUtil.createErrorModelSubclauseModifyOperation(ctx.getTarget(), (subclause) -> {
-			final PropagationPoint newPoint = (PropagationPoint) EcoreUtil
-					.create(ErrorModelPackage.eINSTANCE.getPropagationPoint());
+			final PropagationPoint newPoint = ErrorModelFactory.eINSTANCE.createPropagationPoint();
 			final String newName = ErrorModelNamingUtil.buildUniqueIdentifier(subclause.getContainingClassifier(),
 					"new_propagation_point");
 			newPoint.setName(newName);

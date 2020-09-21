@@ -176,6 +176,34 @@ censes only apply to the Third Party Software and not any other portion of this 
                id="org.osate.ge.errormodel.propertySections.transitionBranch"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.errormodel.ui.properties.ErrorFlowPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorFlowPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorFlow"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.errormodel.propertySections.errorFlow"
+               class="org.osate.ge.errormodel.ui.properties.ErrorSourcePropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorSourcePropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorSource"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.errormodel.propertySections.errorFlow"
+               class="org.osate.ge.errormodel.ui.properties.ErrorPathPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorPathPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorPath"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.prototypesPropertySection"
+               class="org.osate.ge.errormodel.ui.properties.ErrorModelSubclausePropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorModelSubclausePropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorModelSubclause"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
          </propertySections>
          </extension>
     <extension

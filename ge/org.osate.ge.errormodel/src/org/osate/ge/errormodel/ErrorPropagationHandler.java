@@ -38,11 +38,15 @@ import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
+import org.osate.ge.errormodel.combined.CombinedErrorModelSubclause;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
@@ -103,7 +107,23 @@ public class ErrorPropagationHandler implements BusinessObjectHandler {
 
 	@Override
 	public boolean canDelete(final CanDeleteContext ctx) {
-		return true;
+		final ErrorPropagation bo = ctx.getBusinessObject(ErrorPropagation.class).get();
+
+		// Don't allow deleting if there exists an error flow that references the error propagation
+		final CombinedErrorModelSubclause combined = CombinedErrorModelSubclause.create(bo.getContainingClassifier());
+		return !combined.getFlows().anyMatch(f -> {
+			if (f instanceof ErrorSource) {
+				final ErrorSource src = (ErrorSource) f;
+				return src.getSourceModelElement() == bo;
+			} else if (f instanceof ErrorSink) {
+				final ErrorSink snk = (ErrorSink) f;
+				return snk.getIncoming() == bo;
+			} else if (f instanceof ErrorPath) {
+				final ErrorPath path = (ErrorPath) f;
+				return path.getIncoming() == bo || path.getOutgoing() == bo;
+			}
+			return false;
+		});
 	}
 
 	@Override

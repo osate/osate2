@@ -169,7 +169,7 @@ public class OsateGePrototypeTestCommands {
 		doubleClickListItem(0, constrainingClassifier);
 
 		// Wait for the updated value
-		waitUntilCLabelWithIdTextMatches(PrototypeEditor.WIDGET_ID_CLASSIFIER_LABEL, constrainingClassifier);
+		waitUntilBorderedCLabelWithIdTextMatches(PrototypeEditor.WIDGET_ID_CLASSIFIER_LABEL, constrainingClassifier);
 	}
 
 	/**

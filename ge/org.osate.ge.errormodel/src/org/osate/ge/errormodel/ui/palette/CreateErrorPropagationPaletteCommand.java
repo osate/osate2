@@ -31,7 +31,6 @@ import java.util.function.BiConsumer;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.AadlPackage;
@@ -52,7 +51,7 @@ import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
@@ -99,8 +98,7 @@ public class CreateErrorPropagationPaletteCommand extends BasePaletteCommand imp
 				final String boName = ((PropagationPoint) bo).getName();
 				final PropagationPoint pp = combined.getPoints().filter(p -> Objects.equal(p.getName(), boName))
 						.findAny().orElseThrow(() -> new AadlGraphicalEditorException("Unable to find propagation point"));
-				final FeatureorPPReference ppRef = (FeatureorPPReference) EcoreUtil
-						.create(ErrorModelPackage.eINSTANCE.getFeatureorPPReference());
+				final FeatureorPPReference ppRef = ErrorModelFactory.eINSTANCE.createFeatureorPPReference();
 				ppRef.setFeatureorPP(pp);
 				newPropagation.setFeatureorPPRef(ppRef);
 			});
@@ -140,8 +138,7 @@ public class CreateErrorPropagationPaletteCommand extends BasePaletteCommand imp
 				throw new AadlGraphicalEditorException("Unexpected path segment: " + pathSegment);
 			}
 
-			final FeatureorPPReference ppRef = (FeatureorPPReference) EcoreUtil
-					.create(ErrorModelPackage.eINSTANCE.getFeatureorPPReference());
+			final FeatureorPPReference ppRef = ErrorModelFactory.eINSTANCE.createFeatureorPPReference();
 			ppRef.setFeatureorPP((Feature) pathSegment);
 
 			if (lastPpRef == null) {
@@ -182,8 +179,7 @@ public class CreateErrorPropagationPaletteCommand extends BasePaletteCommand imp
 
 				return ErrorModelUiUtil.promptForTypeSet(pkg);
 			}, (subclause, typeSet) -> {
-				final ErrorPropagation newPropagation = (ErrorPropagation) EcoreUtil
-						.create(ErrorModelPackage.eINSTANCE.getErrorPropagation());
+				final ErrorPropagation newPropagation = ErrorModelFactory.eINSTANCE.createErrorPropagation();
 				newPropagation.setTypeSet(typeSet);
 				newPropagation.setNot(containment);
 				newPropagation.setDirection(direction);

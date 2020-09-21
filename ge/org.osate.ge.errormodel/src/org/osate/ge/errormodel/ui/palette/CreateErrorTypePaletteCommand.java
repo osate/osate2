@@ -25,7 +25,6 @@ package org.osate.ge.errormodel.ui.palette;
 
 import java.util.Optional;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.operations.Operation;
@@ -33,7 +32,7 @@ import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class CreateErrorTypePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
@@ -45,7 +44,7 @@ public class CreateErrorTypePaletteCommand extends BasePaletteCommand implements
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return ErrorModelGeUtil.createErrorModelLibraryModifyOperation(ctx.getTarget(), lib -> {
 			// Create the ErrorType
-			final ErrorType newErrorType = (ErrorType) EcoreUtil.create(ErrorModelPackage.eINSTANCE.getErrorType());
+			final ErrorType newErrorType = ErrorModelFactory.eINSTANCE.createErrorType();
 			final String newErrorTypeName = ErrorModelNamingUtil.buildUniqueIdentifier(lib, "new_error_type");
 			newErrorType.setName(newErrorTypeName);
 

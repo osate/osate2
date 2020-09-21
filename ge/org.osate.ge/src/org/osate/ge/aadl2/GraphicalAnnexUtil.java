@@ -64,7 +64,7 @@ public class GraphicalAnnexUtil {
 	/**
 	 * Finds and returns the parsed annex library for the first annex library in the package with the specified name. Creates a new annex
 	 * library if one does not exist.
-	 * An exception is thrown if the parsed annex library is not an instance of the expected type.
+	 * An exception is thrown if an existing annex library is found but it does not have a parsed annex library of the expected type.
 	 * @param <T> the type of the parsed annex library
 	 * @param pkg is the package in which to look for the annex library
 	 * @param annexName is the name of the annex library to look for
@@ -90,13 +90,21 @@ public class GraphicalAnnexUtil {
 		});
 
 		// Create the parsed library as needed
-		return getParsedAnnexLibrary(defaultLib, parsedType)
-				.orElseGet(() -> parsedType.cast(parsedType.cast(defaultLib.createParsedAnnexLibrary(parsedEType))));
+		final T result = getParsedAnnexLibrary(defaultLib, parsedType).orElse(null);
+		if(result != null) {
+			return result;
+		}
+
+		if (isEmptyAnnexSource(defaultLib.getSourceText())) {
+			return parsedType.cast(defaultLib.createParsedAnnexLibrary(parsedEType));
+		} else {
+			throw new AadlGraphicalEditorException("Parsed annex library is null but source text is not empty");
+		}
 	}
 
 	/**
 	 * Finds and returns the parsed annex library for the first annex library in the package with the specified name.
-	 * An exception is thrown if the annex library is not an instance of the expected type.
+	 * An exception is thrown if an annex library is found and it has a parsed annex library which is not an instance of the expected type.
 	 * @param <T> the type of the parsed annex library
 	 * @param pkg is the package in which to look for the annex library
 	 * @param annexName is the name of the annex library to look for
@@ -136,17 +144,13 @@ public class GraphicalAnnexUtil {
 	 * @param <T> is the type of the parsed annex library
 	 * @param defaultLib is the annex library to return the parsed library for
 	 * @param parsedType is the java type that the parsed library is expected to be an instance of.
-	 * @return an optional describing the library. Empty if the annex library is empty and the parsed library is null.
+	 * @return an optional describing the library. Empty if the parsed library is null.
 	 */
 	private static <T> Optional<T> getParsedAnnexLibrary(final DefaultAnnexLibrary defaultLib,
 			final Class<T> parsedType) {
 		final AnnexLibrary parsedAnnexLibrary = defaultLib.getParsedAnnexLibrary();
 		if (parsedAnnexLibrary == null) {
-			if (isEmptyAnnexSource(defaultLib.getSourceText())) {
-				return Optional.empty();
-			} else {
-				throw new AadlGraphicalEditorException("Parsed annex library is null but source text is not empty");
-			}
+			return Optional.empty();
 		}
 
 		if (parsedType.isInstance(parsedAnnexLibrary)) {
@@ -159,12 +163,14 @@ public class GraphicalAnnexUtil {
 	}
 
 	/**
-	 * Finds and returns the parsed annex subclause for the first annex subclause in the classifier with the specified name
+	 * Finds and returns the parsed annex subclause for the first annex subclause in the classifier with the specified name.
+	 * Creates a new annex subclause if one does not exist.
+	 * An exception is thrown if an existing annex subclause is found but it does not have a parsed annex subclause of the expected type.
 	 * @param <T> the type of the parsed annex subclause
 	 * @param classifier is the classifier in which to look for the annex subclause
 	 * @param annexName is the name of the annex subclause to look for
 	 * @param parsedEType is the {@link EClass} of the parsed annex subclause created if the annex subclause doesn't exist.
-	 * @param parsedTypeis the java type that the parsed subclause is expected to be an instance of.
+	 * @param parsedType is the java type that the parsed subclause is expected to be an instance of.
 	 * @return the parsed annex subclause
 	 */
 	public static <T> T getOrCreateParsedAnnexSubclause(final Classifier classifier, final String annexName,
@@ -180,13 +186,21 @@ public class GraphicalAnnexUtil {
 				});
 
 		// Create the parsed subclause as needed
-		return getParsedAnnexSubclause(defaultSubclause, parsedType)
-				.orElseGet(() -> parsedType.cast(defaultSubclause.createParsedAnnexSubclause(parsedEType)));
+		final T result =  getParsedAnnexSubclause(defaultSubclause, parsedType).orElse(null);
+		if (result != null) {
+			return result;
+		}
+
+		if (isEmptyAnnexSource(defaultSubclause.getSourceText())) {
+			return parsedType.cast(defaultSubclause.createParsedAnnexSubclause(parsedEType));
+		} else {
+			throw new AadlGraphicalEditorException("Parsed annex subclause is null but source text is not empty");
+		}
 	}
 
 	/**
 	 * Finds and returns the parsed annex subclause for the first annex subclause in the classifier with the specified name.
-	 * An exception is thrown if the annex subclause is not an instance of the expected type.
+	 * An exception is thrown if an annex subclause is found and it has a parsed annex subclause which is not an instance of the expected type.
 	 * @param <T> the type of the parsed annex subclause
 	 * @param classifier is the classifier in which to look for the annex subclause
 	 * @param annexName is the name of the annex subclause to look for
@@ -214,7 +228,7 @@ public class GraphicalAnnexUtil {
 	/**
 	 * Returns a stream of all the non-null parsed annex subclauses of the annex subclauses in the specified classifier with the
 	 * specified annex name.
-	 * Throws an exception if a parsed annex subclause is not of the expected type.
+	 * Throws an exception if a parsed annex subclause is non-null but is not of the expected type.
 	 * @param <T> is the type of the parsed annex subclause
 	 * @param classifier is the classifier in which to look for the annex subclauses.
 	 * @param annexName is the name of the annex subclauses to look for.
@@ -229,22 +243,18 @@ public class GraphicalAnnexUtil {
 	}
 
 	/**
-	 * Retrieves the parsed annex subclausey from a {@link DefaultAnnexSubclause} instance.
+	 * Retrieves the parsed annex subclause from a {@link DefaultAnnexSubclause} instance.
 	 * Throws an exception if a parsed subclause was found but was of an unexpected type.
 	 * @param <T> is the type of the parsed annex subclause
 	 * @param defaultSubclause is the annex subclause to return the parsed subclause for
 	 * @param parsedType is the java type that the parsed subclause is expected to be an instance of.
-	 * @return an optional describing the subclause. Empty if the annex subclause is empty and the parsed subclause is null.
+	 * @return an optional describing the subclause. Empty if the parsed subclause is null.
 	 */
 	private static <T> Optional<T> getParsedAnnexSubclause(final DefaultAnnexSubclause defaultSubclause,
 			final Class<T> parsedType) {
 		final AnnexSubclause parsedSubclause = defaultSubclause.getParsedAnnexSubclause();
 		if (parsedSubclause == null) {
-			if (isEmptyAnnexSource(defaultSubclause.getSourceText())) {
-				return Optional.empty();
-			} else {
-				throw new AadlGraphicalEditorException("Parsed annex subclause is null but source text is not empty");
-			}
+			return Optional.empty();
 		}
 
 		if (parsedType.isInstance(parsedSubclause)) {

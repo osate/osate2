@@ -28,9 +28,12 @@ import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.swt.BorderedCLabel;
 
 /**
  * Additional assertions and commands for testing the OSATE Graphical Editor.
@@ -149,21 +152,23 @@ public class OsateGeTestUtil {
 	}
 
 	/**
-	 * Creates a flow specification on the specified diagram on the referenced feature.
+	 * Creates an element represented a a flow indicator on the specified diagram.
+	 * This function assumes that the element is created by targeting an element and that the resulting
+	 * element is a child of the parent element.
 	 * @param diagram the diagram the flow specification will be created on
 	 * @param parentElement the parent element of the referenced feature
 	 * @param paletteItem the type of the element to create
-	 * @param featureRef the feature the flow specification will attached to
+	 * @param endpointElement the element the flow specification will attached to
 	 * @param referenceAfterCreate the reference of the created flow specification
 	 */
-	public static void createFlowSpecificationElement(final DiagramReference diagram,
+	public static void createFlowIndicator(final DiagramReference diagram,
 			final DiagramElementReference parentElement, final String paletteItem,
-			final RelativeBusinessObjectReference featureRef,
+			final DiagramElementReference endpointElement,
 			final RelativeBusinessObjectReference referenceAfterCreate) {
 		openDiagramEditor(diagram);
 
 		selectPaletteItem(diagram, paletteItem);
-		clickDiagramElement(diagram, parentElement.join(featureRef));
+		clickDiagramElement(diagram, endpointElement);
 		activateSelectionTool(diagram);
 
 		// Wait for element to be created
@@ -207,6 +212,16 @@ public class OsateGeTestUtil {
 	}
 
 	/**
+	 * Waits until a condition is met for a diagram condition
+	 */
+	public static void waitForDiagramElementCondition(final DiagramReference diagram,
+			final DiagramElementReference element, final String failureMessage, Predicate<DiagramElement> condition) {
+		waitUntil(() -> {
+			return getDiagramElement(diagram, element).filter(condition).isPresent();
+		}, failureMessage);
+	}
+
+	/**
 	 * Waits until the diagram element is removed
 	 */
 	public static void waitForDiagramElementRemoval(final DiagramReference diagram,
@@ -214,7 +229,7 @@ public class OsateGeTestUtil {
 		waitUntil(() -> {
 			assertDiagramEditorActive(diagram);
 			return !getDiagramElement(diagram, element).isPresent();
-		}, "Expected removed element '" + element + "' exist.");
+		}, "Expected removed element '" + element + "' to not exist.");
 	}
 
 	/**
@@ -345,11 +360,11 @@ public class OsateGeTestUtil {
 	}
 
 	/**
-	 * Waits until the text contained in a CLabel with the specified ID matches the specified value.
+	 * Waits until the text contained in a {@link BorderedCLabel} with the specified ID matches the specified value.
 	 */
-	public static void waitUntilCLabelWithIdTextMatches(final String id, final String value) {
-		waitUntil(() -> Objects.deepEquals(getTextForClabelWithId(id), value),
-				"Label text of '" + id + "' is not '" + value + "'. Label Value '" + getTextForClabelWithId(id) + "'");
+	public static void waitUntilBorderedCLabelWithIdTextMatches(final String id, final String value) {
+		waitUntil(() -> Objects.deepEquals(getTextForBorderedClabelWithId(id), value),
+				"Label text of '" + id + "' is not '" + value + "'. Label Value '" + getTextForBorderedClabelWithId(id) + "'");
 	}
 
 	/**
