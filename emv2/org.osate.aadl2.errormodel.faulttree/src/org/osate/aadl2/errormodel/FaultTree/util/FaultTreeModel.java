@@ -25,7 +25,6 @@ public class FaultTreeModel {
 
 	public static final int getPrecision() {
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-		System.out.println("GETPrecision-> " + store.getInt(PREF_PRECISION));
 		return store.getInt(PREF_PRECISION);
 	}
 
@@ -39,11 +38,8 @@ public class FaultTreeModel {
 		}
 		// It's possible the above may have failed for some reason, in which case we revert to the workspace preferences
 		if (precision == -1) {
-			final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-			precision = store.getInt(PREF_PRECISION);
+			precision = getPrecision();
 		}
-
-		System.out.println("GETPrecision project-> " + precision);
 
 		return precision;
 	}
@@ -51,7 +47,6 @@ public class FaultTreeModel {
 	public static final void setPrecision(int value, IProject project) {
 		final IScopeContext context = new ProjectScope(project);
 		final Preferences prefs = context.getNode(PREFS_QUALIFIER);
-		System.out.println("setPrecision-> " + value + " <-project");
 		if (!prefs.getBoolean(PREF_PRECISION_USE_WORKSPACE, true)) {
 			prefs.putInt(PREF_PRECISION, value);
 			try {
@@ -60,13 +55,10 @@ public class FaultTreeModel {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else {
-			setPrecision(value);
 		}
 	}
 
 	public static final void setPrecision(int value) {
-		System.out.println("setPrecision-> " + value);
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
 		store.setValue(PREF_PRECISION, value);
 	}

@@ -29,6 +29,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.DirectionType;
@@ -424,9 +426,9 @@ public class FaultTreeUtils {
 		Event ev = (Event) context;
 		String specProb = "";
 
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(context.eResource().getURI().segment(1));
 
-		String precisionPref = "." + FaultTreeModel.getPrecision() + "e";
-		System.out.println("probability setting here is " + precisionPref);
+		String precisionPref = "." + FaultTreeModel.getPrecision(project) + "e";
 		if (ev.getComputedProbability() != null && ev.getComputedProbability().compareTo(BigZero) != 0
 				&& ev.getAssignedProbability() != null && ev.getAssignedProbability().compareTo(BigZero) != 0) {
 			specProb = String.format(" (Spec %1$" + precisionPref + ")", ev.getAssignedProbability());
@@ -444,7 +446,12 @@ public class FaultTreeUtils {
 		if (ev.getAssignedProbability() == null || ev.getAssignedProbability().compareTo(BigZero) == 0) {
 			return "";
 		}
-		return String.format("%1$.1e", ev.getAssignedProbability()) + getScale(context);
+
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(context.eResource().getURI().segment(1));
+		String specProb = String.format("%1$." + FaultTreeModel.getPrecision(project) + "e",
+				ev.getAssignedProbability());
+
+		return specProb + getScale(context);
 	}
 
 	/**
@@ -457,7 +464,12 @@ public class FaultTreeUtils {
 		if (ev.getComputedProbability() == null || ev.getComputedProbability().compareTo(BigZero) == 0) {
 			return "";
 		}
-		return String.format("%1$.1e", ev.getComputedProbability()) + getScale(context);
+
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(context.eResource().getURI().segment(1));
+		String specProb = String.format("%1$." + FaultTreeModel.getPrecision(project) + "e",
+				ev.getComputedProbability());
+
+		return specProb + getScale(context);
 	}
 
 	// return scaling factor if different from 1.0, otherwise empty string
@@ -472,6 +484,7 @@ public class FaultTreeUtils {
 	public static String getDescriptionAndProbability(EObject context) {
 		if (context instanceof Event) {
 			Event ev = (Event) context;
+
 			FaultTree ft = (FaultTree) ev.eContainer();
 			String labeltext = ft.getFaultTreeType().equals(FaultTreeType.MINIMAL_CUT_SET)
 					? FaultTreeUtils.getCutsetLabel(ev)
