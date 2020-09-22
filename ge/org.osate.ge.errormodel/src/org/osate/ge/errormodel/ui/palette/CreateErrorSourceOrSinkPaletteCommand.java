@@ -59,7 +59,7 @@ public class CreateErrorSourceOrSinkPaletteCommand extends BasePaletteCommand im
 
 	private CreateErrorSourceOrSinkPaletteCommand(final String label, final EClass eclass,
 			DirectionType propagationDirection) {
-		super(label, ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super(label, ErrorModelPaletteCategories.ERROR_FLOWS, null);
 		this.eclass = Objects.requireNonNull(eclass, "eclass must not be null");
 		this.requiredPropagationDirection = Objects.requireNonNull(propagationDirection,
 				"propagationDirection must not be null");

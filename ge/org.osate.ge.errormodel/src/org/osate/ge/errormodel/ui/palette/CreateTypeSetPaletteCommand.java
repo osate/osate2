@@ -37,7 +37,7 @@ import org.osate.ge.palette.TargetedPaletteCommand;
 
 public class CreateTypeSetPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateTypeSetPaletteCommand() {
-		super("Error Type Set", ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super("Error Type Set", ErrorModelPaletteCategories.ERROR_TYPES, null);
 	}
 
 	@Override

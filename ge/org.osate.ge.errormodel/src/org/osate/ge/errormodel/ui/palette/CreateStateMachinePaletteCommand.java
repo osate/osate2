@@ -37,7 +37,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 
 public class CreateStateMachinePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateStateMachinePaletteCommand() {
-		super("Error Behavior State Machine", ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super("Error Behavior State Machine", ErrorModelPaletteCategories.ERROR_BEHAVIOR, null);
 	}
 
 	@Override

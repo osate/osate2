@@ -44,8 +44,7 @@ public class ErrorPropagationFilter implements ContentFilter {
 
 	@Override
 	public boolean isApplicable(final Object bo) {
-		return (bo instanceof Feature || bo instanceof PropagationPoint || bo instanceof KeywordPropagationPoint)
-				&& ErrorModelFilterUtil.hasApplicableErrorModelSubclause(bo);
+		return bo instanceof Feature || bo instanceof PropagationPoint || bo instanceof KeywordPropagationPoint;
 	}
 
 	@Override

@@ -61,7 +61,7 @@ public class TextUtil {
 		final IGaService gaService = Graphiti.getGaService();
 		text.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
 		text.setFilled(false);
-		text.setHorizontalAlignment(Orientation.ALIGNMENT_LEFT);
+		text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
 		text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
 		text.setFont(gaService.manageFont(diagram, "Arial",
 				getScaledFontPointSize(fontSize == null ? Style.DEFAULT.getFontSize() : fontSize), false, true));

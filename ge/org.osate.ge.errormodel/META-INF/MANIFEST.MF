@@ -18,3 +18,4 @@ Export-Package: org.osate.ge.errormodel;x-friends:="org.osate.ge.tests",
  org.osate.ge.errormodel.model;x-friends:="org.osate.ge.tests",
  org.osate.ge.errormodel.ui.properties;x-friends:="org.osate.ge.tests",
  org.osate.ge.errormodel.ui.swt;x-friends:="org.osate.ge.tests"
+Bundle-ActivationPolicy: lazy

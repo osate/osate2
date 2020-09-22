@@ -41,7 +41,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 
 public class CreateErrorPathPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
 	public CreateErrorPathPaletteCommand() {
-		super("Error Path", ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super("Error Path", ErrorModelPaletteCategories.ERROR_FLOWS, null);
 	}
 
 	@Override

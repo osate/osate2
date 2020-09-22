@@ -21,56 +21,36 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.aadl2.internal.contentfilters;
+package org.osate.ge.aadl2;
 
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.ComponentCategory;
-import org.osate.ge.ContentFilter;
-import org.osate.ge.aadl2.AadlContentFilterIds;
-
-public abstract class ClassifierClassFilter implements ContentFilter {
-	@Override
-	public String getParentId() {
-		return AadlContentFilterIds.CLASSIFIERS;
+/**
+ * Contains IDs for content filters so that they can be referenced by annex plugins.
+ * @since 2.0
+ */
+public class AadlContentFilterIds {
+	private AadlContentFilterIds() {
 	}
 
-	@Override
-	public boolean isApplicable(final Object bo) {
-		return bo instanceof AadlPackage;
-	}
-
-	protected String categoryToSingularName(final ComponentCategory category) {
-		switch (category) {
-		case ABSTRACT:
-			return "Abstract";
-		case BUS:
-			return "Bus";
-		case DATA:
-			return "Data";
-		case DEVICE:
-			return "Device";
-		case MEMORY:
-			return "Memory";
-		case PROCESS:
-			return "Process";
-		case PROCESSOR:
-			return "Processor";
-		case SUBPROGRAM:
-			return "Subprogram";
-		case SUBPROGRAM_GROUP:
-			return "Subprogram Group";
-		case SYSTEM:
-			return "System";
-		case THREAD:
-			return "Thread";
-		case THREAD_GROUP:
-			return "Thread Group";
-		case VIRTUAL_BUS:
-			return "Virtual Bus";
-		case VIRTUAL_PROCESSOR:
-			return "Virtual Processor";
-		default:
-			throw new RuntimeException("Unsupported category: " + category);
-		}
-	}
+	public static final String INTERNAL_FEATURES = "internalFeatures";
+	public static final String ACCESS_CONNECTIONS = "accessConnections";
+	public static final String CONNECTIONS = "connections";
+	public static final String CALLED_SUBPROGRAMS = "calledSubprogram";
+	public static final String CLASSIFIERS = "classifiers";
+	public static final String FEATURE_CONECTIONS = "featureConnections";
+	public static final String FEATURES = "features";
+	public static final String FEATURE_GROUP_CONNECTIONS = "featureGroupConnections";
+	public static final String FEATURE_GROUP_TYPES = "featureGroupTypes";
+	public static final String FLOW_SPECIFICATIONS = "flowSpecifications";
+	public static final String GENERALIZATIONS = "generalizations";
+	public static final String MODES = "modes";
+	public static final String MODE_TRANSITIONS = "modeTransitions";
+	public static final String MODE_TRANSITION_TRIGGER_NAMES = "modeTransitionTriggerNames";
+	public static final String PARAMETER_CONNECTIONS = "parameterConnections";
+	public static final String PORT_CONNECTIONS = "portConnections";
+	public static final String PROCESSOR_FEATURES = "processorFeatures";
+	public static final String SUBCOMPONENTS = "subcomponents";
+	public static final String SUBCOMPONENT_TYPE = "subcomponentType";
+	public static final String SUBPROGRAM_CALLS = "subprogramCalls";
+	public static final String SUBPROGRAM_CALL_ORDERS = "subprogramCallOrders";
+	public static final String SUBPROGRAM_CALL_SEQUENCES = "subprogramCallSequences";
 }

@@ -65,7 +65,7 @@ public class CreateErrorPropagationPaletteCommand extends BasePaletteCommand imp
 
 	public CreateErrorPropagationPaletteCommand(final DirectionType direction, final boolean containment) {
 		super(StringUtil.capitalize(direction.getName()) + (containment ? " Error Containment" : " Error Propagation"),
-				ErrorModelPaletteCategories.ERROR_MODEL, null);
+				ErrorModelPaletteCategories.ERROR_PROPAGATION, null);
 		this.direction = direction;
 		this.containment = containment;
 	}

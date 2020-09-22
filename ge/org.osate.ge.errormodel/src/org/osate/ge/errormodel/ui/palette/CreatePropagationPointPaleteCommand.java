@@ -37,7 +37,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
 public class CreatePropagationPointPaleteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreatePropagationPointPaleteCommand() {
-		super("Propagation Point", ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super("Propagation Point", ErrorModelPaletteCategories.ERROR_PROPAGATION, null);
 	}
 
 	@Override

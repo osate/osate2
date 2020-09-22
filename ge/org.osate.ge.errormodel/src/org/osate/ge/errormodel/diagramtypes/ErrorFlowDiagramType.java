@@ -21,56 +21,56 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.aadl2.internal.contentfilters;
+package org.osate.ge.errormodel.diagramtypes;
 
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.ComponentCategory;
-import org.osate.ge.ContentFilter;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.Subcomponent;
+import org.osate.ge.DiagramType;
 import org.osate.ge.aadl2.AadlContentFilterIds;
+import org.osate.ge.errormodel.filters.ErrorFlowFilter;
+import org.osate.ge.errormodel.filters.ErrorPropagationFilter;
+import org.osate.ge.errormodel.filters.KeywordPropagationPointFilter;
+import org.osate.ge.errormodel.filters.PropagationPointFilter;
 
-public abstract class ClassifierClassFilter implements ContentFilter {
+import com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.ImmutableSet;
+
+public class ErrorFlowDiagramType implements DiagramType {
+	private final static String ID = "em.errorFlow";
+	private final ImmutableSet<String> defaultClassifierAndSubcomponentFilters = ImmutableSet.of(
+			AadlContentFilterIds.FEATURES, AadlContentFilterIds.INTERNAL_FEATURES, AadlContentFilterIds.PROCESSOR_FEATURES,
+			KeywordPropagationPointFilter.ID, PropagationPointFilter.ID, ErrorFlowFilter.ID);
+	private final ImmutableSet<String> defaultFeatureFilters = ImmutableSet.of(ErrorPropagationFilter.ID);
+
 	@Override
-	public String getParentId() {
-		return AadlContentFilterIds.CLASSIFIERS;
+	public String getId() {
+		return ID;
 	}
 
 	@Override
-	public boolean isApplicable(final Object bo) {
-		return bo instanceof AadlPackage;
+	public String getName() {
+		return "Error Flow Diagram";
 	}
 
-	protected String categoryToSingularName(final ComponentCategory category) {
-		switch (category) {
-		case ABSTRACT:
-			return "Abstract";
-		case BUS:
-			return "Bus";
-		case DATA:
-			return "Data";
-		case DEVICE:
-			return "Device";
-		case MEMORY:
-			return "Memory";
-		case PROCESS:
-			return "Process";
-		case PROCESSOR:
-			return "Processor";
-		case SUBPROGRAM:
-			return "Subprogram";
-		case SUBPROGRAM_GROUP:
-			return "Subprogram Group";
-		case SYSTEM:
-			return "System";
-		case THREAD:
-			return "Thread";
-		case THREAD_GROUP:
-			return "Thread Group";
-		case VIRTUAL_BUS:
-			return "Virtual Bus";
-		case VIRTUAL_PROCESSOR:
-			return "Virtual Processor";
-		default:
-			throw new RuntimeException("Unsupported category: " + category);
+	@Override
+	public boolean isApplicableToContext(Object contextBo) {
+		return contextBo instanceof Classifier;
+	}
+
+	@Override
+	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
+		if (bo instanceof Classifier || bo instanceof Subcomponent) {
+			return defaultClassifierAndSubcomponentFilters;
+		} else if (bo instanceof Feature) {
+			return defaultFeatureFilters;
 		}
+
+		return ImmutableSet.of();
+	}
+
+	@Override
+	public ImmutableCollection<String> getDefaultAadlPropertyNames() {
+		return ImmutableSet.of();
 	}
 }

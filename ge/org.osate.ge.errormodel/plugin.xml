@@ -213,4 +213,13 @@ censes only apply to the Third Party Software and not any other portion of this 
              priority="5">
        </tooltipContributor>
     </extension>
+   <extension
+         point="org.osate.ge.diagramTypes">
+      <diagramType
+            class="org.osate.ge.errormodel.diagramtypes.ErrorLibraryDiagramType">
+      </diagramType>
+      <diagramType
+            class="org.osate.ge.errormodel.diagramtypes.ErrorFlowDiagramType">
+      </diagramType>
+   </extension>
 </plugin>

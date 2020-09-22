@@ -56,7 +56,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 
 public class CreateTransitionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
 	public CreateTransitionPaletteCommand() {
-		super("Error Behavior Transition", ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super("Error Behavior Transition", ErrorModelPaletteCategories.ERROR_BEHAVIOR, null);
 	}
 
 	@Override

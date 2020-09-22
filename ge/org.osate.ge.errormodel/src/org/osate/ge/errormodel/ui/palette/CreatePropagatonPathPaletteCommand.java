@@ -53,7 +53,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 
 public class CreatePropagatonPathPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
 	public CreatePropagatonPathPaletteCommand() {
-		super("Propagation Path", ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super("Propagation Path", ErrorModelPaletteCategories.ERROR_PROPAGATION, null);
 	}
 
 	@Override

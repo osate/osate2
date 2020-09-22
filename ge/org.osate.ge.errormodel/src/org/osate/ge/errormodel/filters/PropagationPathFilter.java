@@ -38,7 +38,7 @@ public class PropagationPathFilter implements ContentFilter {
 
 	@Override
 	public String getName() {
-		return "Error Propagation Path";
+		return "Error Propagation Paths";
 	}
 
 	@Override

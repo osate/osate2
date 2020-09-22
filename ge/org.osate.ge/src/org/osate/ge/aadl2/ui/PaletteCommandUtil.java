@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.aadl2.ui.internal.palette;
+package org.osate.ge.aadl2.ui;
 
 import org.eclipse.core.resources.IProject;
 import org.osate.aadl2.AadlPackage;
@@ -33,6 +33,7 @@ import org.osate.ge.palette.PaletteCommandProviderContext;
 /**
  * Class with methods to check what elements could potentially be in a diagram to allow limiting the palette commands
  * contributed.
+ * @since 2.0
  *
  */
 public class PaletteCommandUtil {
