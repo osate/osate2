@@ -39,6 +39,7 @@ import org.eclipse.xtext.formatting2.ITextReplacerContext
 import org.eclipse.xtext.formatting2.internal.AbstractTextReplacer
 import org.eclipse.xtext.formatting2.regionaccess.ISemanticRegion
 import org.eclipse.xtext.formatting2.regionaccess.TextRegionAccessBuilder
+import org.eclipse.xtext.formatting2.regionaccess.internal.NodeModelBasedRegionAccess
 import org.eclipse.xtext.resource.FileExtensionProvider
 import org.eclipse.xtext.resource.IResourceFactory
 import org.eclipse.xtext.resource.XtextResource
@@ -2346,7 +2347,10 @@ class Aadl2Formatter extends PropertiesFormatter {
 		int indentationLevel,
 		IFormattableDocument document
 	) {
-		if (annexObject !== null && sourceTextRegion !== null) {
+		if (textRegionAccess instanceof NodeModelBasedRegionAccess &&
+			annexObject !== null &&
+			sourceTextRegion !== null
+		) {
 			try {
 				unsafeFormatAnnexText(annexObject, sourceTextRegion, indentationLevel, document)
 			} catch (ConfigurationException e) {
