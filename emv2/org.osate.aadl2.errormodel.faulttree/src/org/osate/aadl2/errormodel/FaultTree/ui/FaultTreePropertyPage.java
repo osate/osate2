@@ -183,8 +183,11 @@ public class FaultTreePropertyPage extends PropertyPage {
 	@Override
 	public boolean performOk() {
 		if (isValid) {
-			FaultTreeModel.setWorkspacePref(useWorkspaceSettingsButton.getSelection(), project);
-			FaultTreeModel.setPrecision(Integer.parseInt(PrecisionText.getText()), project);
+			boolean useWorkspace = useWorkspaceSettingsButton.getSelection();
+			FaultTreeModel.setWorkspacePref(useWorkspace, project);
+			if (!useWorkspace) {
+				FaultTreeModel.setPrecision(Integer.parseInt(PrecisionText.getText()), project);
+			}
 		}
 
 		return isValid;
