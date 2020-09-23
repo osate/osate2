@@ -23,9 +23,9 @@
  */
 package org.osate.ge.ba.businessobjecthandlers;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.osate.aadl2.Classifier;
@@ -100,20 +100,28 @@ public class BehaviorSpecificationHandler implements BusinessObjectHandler {
 
 			final StringBuilder builder = new StringBuilder();
 			final Object diagramRootBo = getDiagramRootBusinessObject(boc);
-			builder.append("behavior");
 			if (diagramRootBo instanceof BehaviorAnnex) {
-				builder.append(" in classifier ");
 				builder.append(classifier.getName());
+				builder.append("::");
+				appendBehaviorAnnexName(builder);
+				appendInModes(behaviorAnnex, builder);
+			} else {
+				appendBehaviorAnnexName(builder);
 			}
 
-			appendInModes(behaviorAnnex, builder);
 			return builder.toString();
-		}).orElse(BehaviorAnnexReferenceUtil.ANNEX_NAME);
+		}).orElse("");
+	}
+
+	private static void appendBehaviorAnnexName(final StringBuilder builder) {
+		builder.append("<");
+		builder.append(BehaviorAnnexReferenceUtil.ANNEX_NAME);
+		builder.append(">");
 	}
 
 	private static void appendInModes(final BehaviorAnnex behaviorAnnex, final StringBuilder builder) {
-		final List<String> inModes = behaviorAnnex.getAllInModes().stream().map(Mode::getName)
-				.collect(Collectors.toList());
+		final Set<String> inModes = behaviorAnnex.getAllInModes().stream().map(Mode::getName)
+				.collect(Collectors.toSet());
 		if (!inModes.isEmpty()) {
 			builder.append(" in modes (");
 			builder.append(String.join(", ", inModes));

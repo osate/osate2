@@ -30,7 +30,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorPart;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.ge.aadl2.AnnexHandler;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 
 public class BehaviorAnnexHandlerUtil {
@@ -51,8 +50,8 @@ public class BehaviorAnnexHandlerUtil {
 	 * Creates the file name for the behavior annex diagram
 	 */
 	public static String getFilename(final Classifier classifier, final DefaultAnnexSubclause annexSubclause) {
-		final StringBuilder fileName = new StringBuilder(classifier.getQualifiedName().replaceAll("::|:|\\.", "_"));
-		fileName.append("_behavior_");
-		return fileName.append(AnnexHandler.getAnnexSubclauseIndex(annexSubclause, true)).toString();
+		final StringBuilder fileName = new StringBuilder(classifier.getQualifiedName().replaceAll("::|:|\\.", "_"))
+				.append("_behavior");
+		return fileName.toString();
 	}
 }

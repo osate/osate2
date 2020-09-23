@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -42,6 +42,9 @@ public class SelectionPropertyTester extends PropertyTester {
 	@Override
 	public boolean test(final Object receiver, final String property, final Object[] args, final Object expectedValue) {
 		final ISelection selection = (ISelection) receiver;
+		System.err.println(property + " propertyAAA");
+		System.err.println(expectedValue + " expectedValue");
+		System.err.println(selection + " selection");
 		if (property.equals("allAreDiagramElementsWithSameParent")) {
 			return DiagramElementUtil.allHaveSameParent(SelectionUtil.getSelectedDiagramElements(selection, false));
 		} else if (property.equals("singleNamedElementInComponentImplementation")) { // Returns false if there is more than one element or if the element is not
@@ -65,6 +68,8 @@ public class SelectionPropertyTester extends PropertyTester {
 			// Require all component implementation BOCs to be equal
 			final BusinessObjectContext firstBoc = ciBocs.get(0);
 			return ciBocs.stream().allMatch(tmpBoc -> tmpBoc == firstBoc);
+		} else if (property.equals("isBehaviorAnnexDiagramContext")) {
+			// while()
 		}
 		return false;
 	}

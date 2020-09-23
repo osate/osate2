@@ -45,7 +45,7 @@ public class BehaviorAnnexPaletteContributor implements PaletteContributor {
 	@Override
 	public Stream<TargetedPaletteCommand> getTargetedCommands(final PaletteCommandProviderContext ctx) {
 		final List<TargetedPaletteCommand> commands = new ArrayList<>();
-		// Do not show BehaviorAnnex palette option when diagram bo is BehaviorAnnex
+		// Do not show BehaviorAnnex specification palette option when diagram bo is BehaviorAnnex
 		if (!(ctx.getDiagramBusinessObject() instanceof BehaviorAnnex)) {
 			commands.add(new CreateSpecificationPaletteCommand());
 		}

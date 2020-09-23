@@ -149,7 +149,7 @@ public class BehaviorAnnexTest {
 		final DiagramElementReference baDiagramSpecRef = new DiagramElementReference(behaviorSpecification);
 
 		// Create destination state
-		createElementAndLayout(baDiagram, baDiagramSpecRef, "State",
+		createElementAndLayout(baDiagram, baDiagramSpecRef, "Behavior State",
 				BehaviorAnnexReferenceUtil.getStateRelativeReference(newStatePrefix + "_new_state"), "dest_state");
 
 		// Create variable
@@ -186,9 +186,15 @@ public class BehaviorAnnexTest {
 			clickCheckboxInPropertiesView(diagram, "AADL", 0, src);
 		}
 
+		final RelativeBusinessObjectReference transitionRef = BehaviorAnnexReferenceUtil
+				.getTransitionRelativeReference(0);
+
 		// Create a transition between the states
-		createConnectionElement(diagram, src, dest, "Transition",
-				element(behaviorSpecification, BehaviorAnnexReferenceUtil.getTransitionRelativeReference(0)));
+		createConnectionElement(diagram, src, dest, "Behavior Transition",
+				element(behaviorSpecification, transitionRef));
+
+		renameElementFromContextMenu(diagram, element(behaviorSpecification), transitionRef, "new_transition",
+				transitionRef);
 
 		// Cannot set source to final
 		assertTrue(!isCheckboxInPropertiesViewEnabled(diagram, "AADL", 1, src));

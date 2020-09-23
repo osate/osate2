@@ -78,6 +78,24 @@ public class UiUtil {
 		return null;
 	}
 
+	private static IWorkbenchPage getActivePage() {
+		final IWorkbenchWindow window = getActiveWorkbenchWindow();
+		if (window == null) {
+			return null;
+		}
+
+		return window.getActivePage();
+	}
+
+	public static Optional<IEditorPart> getActiveEditor() {
+		final IWorkbenchPage page = getActivePage();
+		if (page == null) {
+			return Optional.empty();
+		}
+
+		return Optional.ofNullable(page.getActiveEditor());
+	}
+
 	public static void openPropertiesView() {
 		final IWorkbenchWindow win = getActiveWorkbenchWindow();
 		if (win == null) {

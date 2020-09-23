@@ -55,6 +55,7 @@ import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import com.google.common.collect.Lists;
 
 /**
+ * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0
  */
 public class AnnexHandler extends AadlBusinessObjectHandler {

@@ -36,6 +36,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
+import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
@@ -72,30 +73,30 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 	@Override
 	public boolean canDelete(final CanDeleteContext ctx) {
 		return ctx.getBusinessObject(BehaviorState.class).map(bs -> {
-			final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) bs.getOwner();
-
-			// Cannot delete a source or destination of transition
-			if (behaviorAnnex.getTransitions().stream()
-					.anyMatch(bt -> bt.getSourceState() == bs || bt.getDestinationState() == bs)) {
-				return false;
-			}
-
-			final Classifier classifier = behaviorAnnex.getContainingClassifier();
-			if (bs.isInitial() && BehaviorAnnexUtil.requireSingleInitialState(classifier)) {
-				return false;
-			}
-
-			if (bs.isComplete() && BehaviorAnnexUtil.requiresCompleteState(classifier)) {
-				// Can delete if there are more than 1 complete states
-				final long completeStates = behaviorAnnex.getStates().stream().filter(BehaviorState::isComplete)
-						.count();
-				return completeStates > 1;
-			}
-
-			// Subprogram requires single final state
-			if (bs.isFinal() && classifier instanceof Subprogram) {
-				return false;
-			}
+			// final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) bs.getOwner();
+//
+//			// Cannot delete a source or destination of transition
+//			if (behaviorAnnex.getTransitions().stream()
+//					.anyMatch(bt -> bt.getSourceState() == bs || bt.getDestinationState() == bs)) {
+//				return false;
+//			}
+//
+//			final Classifier classifier = behaviorAnnex.getContainingClassifier();
+//			if (bs.isInitial() && BehaviorAnnexUtil.requireSingleInitialState(classifier)) {
+//				return false;
+//			}
+//
+//			if (bs.isComplete() && BehaviorAnnexUtil.requiresCompleteState(classifier)) {
+//				// Can delete if there are more than 1 complete states
+//				final long completeStates = behaviorAnnex.getStates().stream().filter(BehaviorState::isComplete)
+//						.count();
+//				return completeStates > 1;
+//			}
+//
+//			// Subprogram requires single final state
+//			if (bs.isFinal() && classifier instanceof Subprogram) {
+//				return false;
+//			}
 
 			return true;
 		}).orElse(false);
@@ -152,12 +153,14 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 			final Classifier containingClassifier = Objects.requireNonNull(behaviorAnnex.getContainingClassifier(),
 					"containing classifier cannot be null");
 
-			// Abstract and system can have multiple initials and finals
-			// Always will have an initial, determine if multiple are allowed
 			if (containingClassifier instanceof Subprogram) {
-				// Make sure there is only one final and one initial state
-				behaviorState.setInitial(false);
+				// Make sure there is only one final
 				behaviorState.setFinal(false);
+				// Subprograms cannot have complete states
+				behaviorState.setComplete(false);
+			} else if (BehaviorAnnexUtil.requireSingleInitialState(containingClassifier)) {
+				// Remove initial if classifier only allows single initial state
+				behaviorState.setInitial(false);
 			}
 		});
 	}

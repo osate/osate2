@@ -1479,6 +1479,13 @@ censes only apply to the Third Party Software and not any other portion of this 
            properties="allAreDiagramElementsWithSameParent,singleNamedElementInComponentImplementation,namedElementsInSameComponentImplementation"
            type="org.eclipse.jface.viewers.ISelection">
      </propertyTester>
+     <propertyTester
+     	   class="org.osate.ge.internal.expressions.DiagramContextPropertyTester"
+     	   id="org.osate.ge.expressions.diagramContextPropertyTester"
+     	   namespace="org.osate.ge"
+     	   properties="isDiagramContext"
+     	   type="org.eclipse.emf.ecore.EObject">
+     </propertyTester>
   </extension>
   
  <extension
