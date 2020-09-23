@@ -23,6 +23,8 @@
  */
 package org.osate.xtext.aadl2.ui.outline;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
@@ -54,6 +56,7 @@ import org.osate.aadl2.impl.EndToEndFlowImpl;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.annexsupport.ParseResultHolder;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.ConfigurationException;
 import com.google.inject.Injector;
@@ -76,7 +79,7 @@ public class Aadl2BackgroundOutlineTreeProvider extends BackgroundOutlineTreePro
 				createNode(parentNode, modelUnit);
 			}
 		} else if (modelElement instanceof SystemInstance) {
-			createNode(parentNode, modelElement); // cast to SystemInstance?
+			createNode(parentNode, modelElement);
 		} else {
 			super.internalCreateChildren(parentNode, modelElement);
 		}
@@ -95,8 +98,19 @@ public class Aadl2BackgroundOutlineTreeProvider extends BackgroundOutlineTreePro
 					Injector injector = AnnexUtil.getInjector(annexParseResult);
 					if (injector != null) {
 						try {
-							injector.getInstance(IOutlineTreeStructureProvider.class).createChildren(parentNode,
-									element);
+							final IOutlineTreeStructureProvider outlineTree = injector
+									.getInstance(IOutlineTreeStructureProvider.class);
+							if (outlineTree instanceof BackgroundOutlineTreeProvider) {
+								outlineTree.createChildren(parentNode,
+										element);
+							} else {
+								Aadl2Activator.getInstance().getLog().log(
+										new Status(IStatus.ERROR, Aadl2Activator.PLUGIN_ID, IStatus.OK,
+												"Annex outline tree structure provider '"
+														+ outlineTree.getClass().getCanonicalName()
+														+ "' does not implement BackgroundOutlineTreeProvider",
+												null));
+							}
 						} catch (ConfigurationException e) {
 							// ignore: no outline provider for this annex
 						}
@@ -116,13 +130,6 @@ public class Aadl2BackgroundOutlineTreeProvider extends BackgroundOutlineTreePro
 			}
 		}
 	}
-
-	// May not need this?
-//	protected void _createChildren(IOutlineNode parentNode, SystemInstance sysInstance) {
-//		for (EObject childElement : sysInstance.eContents()) {
-//			createNode(parentNode, childElement);
-//		}
-//	}
 
 	@Override
 	protected boolean isLeaf(final EObject modelElement) {
@@ -156,14 +163,6 @@ public class Aadl2BackgroundOutlineTreeProvider extends BackgroundOutlineTreePro
 		} else if (modelElement instanceof ReferenceValue) {
 			return modelElement.eContainer() instanceof RecordValue;
 		} else if (modelElement instanceof IntegerLiteral) {
-			// Original code is
-			//
-			// if (bpa.eContainer() instanceof RecordValue) {
-			// return false;
-			// }
-			// return false;
-			//
-			// which seems very weird.
 			return false;
 		} else {
 			return super.isLeaf(modelElement);
