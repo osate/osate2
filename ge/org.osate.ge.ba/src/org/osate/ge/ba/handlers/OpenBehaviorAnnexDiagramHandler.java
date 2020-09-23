@@ -30,6 +30,8 @@ public class OpenBehaviorAnnexDiagramHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
+		System.err.println("set enabledAADFF");
+
 		setBaseEnabled(BehaviorAnnexHandlerUtil
 				.getBehaviorAnnexDiagramContext(BehaviorAnnexSelectionUtil.getActiveEditorFromContext(evaluationContext)).isPresent());
 	}

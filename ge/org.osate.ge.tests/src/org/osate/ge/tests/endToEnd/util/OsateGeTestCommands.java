@@ -44,6 +44,7 @@ import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem;
 import org.osate.ge.aadl2.ui.internal.properties.AbstractFeaturePrototypePropertySection;
 import org.osate.ge.aadl2.ui.internal.properties.SetSubcomponentClassifierPropertySection;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
+import org.osate.ge.ba.ui.properties.SetVariableDataClassifierPropertySection;
 import org.osate.ge.swt.classifiers.PrototypeBindingsField;
 
 /**
@@ -263,7 +264,7 @@ public class OsateGeTestCommands {
 			final String defaultVariableName, final String newName) {
 		openDiagramEditor(diagram);
 
-		selectPaletteItem(diagram, "Variable");
+		selectPaletteItem(diagram, "Behavior Variable");
 		clickDiagramElement(diagram, parentSpec);
 
 		waitForWindowWithTitle("Set the Variable's Data Classifier");
@@ -291,6 +292,10 @@ public class OsateGeTestCommands {
 
 		waitForWindowWithTitle("Set the Variable's Data Classifier");
 		doubleClickListItem(0, dataClassifierQualifiedName);
+
+		// Wait until the current classifier label has been updated
+		waitUntilLabelWithIdTextMatches(SetVariableDataClassifierPropertySection.WIDGET_ID_DATA_CLASSIFIER_LABEL,
+				dataClassifierQualifiedName);
 	}
 
 	/**
@@ -397,7 +402,7 @@ public class OsateGeTestCommands {
 		final RelativeBusinessObjectReference classifierRef = getClassifierRelativeReference(classifierName);
 
 		// Create Behavior Annex specification
-		createShapeElement(diagram, element(pkgRef, classifierRef), "Specification", behaviorSpecification);
+		createShapeElement(diagram, element(pkgRef, classifierRef), "Behavior Specification", behaviorSpecification);
 
 		final DiagramElementReference behaviorSpecDiagramRef = element(pkgRef, classifierRef, behaviorSpecification);
 
@@ -409,7 +414,7 @@ public class OsateGeTestCommands {
 		final DiagramElementReference newStateDiagramRef = behaviorSpecDiagramRef.join(newStateRef);
 		if (!elementExists(diagram, newStateDiagramRef)) {
 			// Create state if needed
-			createShapeElement(diagram, behaviorSpecDiagramRef, "State", newStateRef);
+			createShapeElement(diagram, behaviorSpecDiagramRef, "Behavior State", newStateRef);
 		}
 
 		// Rename initial state
@@ -751,6 +756,25 @@ public class OsateGeTestCommands {
 		// Assert that the element has been renamed
 		waitForDiagramElementToExist(diagram,
 				parent.join(new RelativeBusinessObjectReference(element.getSegments().get(0), newName)));
+	}
+
+	/**
+	 * Renames an element using the diagram context menu. NOTE: This function currently assumes that the relative reference
+	 * is composed of exactly two elements and the second element is the name.
+	 * @param parent the parent of the new element
+	 * @param element is the element to rename
+	 * @param newName the name of the new element
+	 */
+	public static void renameElementFromContextMenu(final DiagramReference diagram,
+			final DiagramElementReference parent, final RelativeBusinessObjectReference element, final String newName,
+			final RelativeBusinessObjectReference afterCreateRef) {
+		clickContextMenuOfDiagramElement(diagram, parent.join(element), "Rename...");
+		waitForWindowWithTitle("Rename");
+		setTextField(0, newName);
+		clickButton("OK");
+
+		// Assert that the element has been renamed
+		waitForDiagramElementToExist(diagram, parent.join(afterCreateRef));
 	}
 
 	/**

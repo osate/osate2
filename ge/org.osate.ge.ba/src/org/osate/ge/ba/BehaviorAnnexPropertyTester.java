@@ -10,9 +10,14 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 
 public class BehaviorAnnexPropertyTester extends PropertyTester {
+	public BehaviorAnnexPropertyTester() {
+		System.err.println("behaviorAnnexProper");
+	}
+
 	@Override
 	public boolean test(final Object receiver, final String property, final Object[] args, final Object expectedValue) {
-		if ("isBehaviorAnnexContext".equals(property)) {
+		System.err.println(property + " propertyBBBBB");
+		if ("isBehaviorAnnexDiagramContext".equals(property)) {
 			if (receiver instanceof ITextSelection) {
 				return getActiveXtextEditor().map(xtextEditor -> {
 					final ISelectionProvider selectionProvider = xtextEditor.getSelectionProvider();

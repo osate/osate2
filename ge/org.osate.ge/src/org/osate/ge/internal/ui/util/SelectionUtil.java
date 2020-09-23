@@ -233,7 +233,7 @@ public class SelectionUtil {
 		return null;
 	}
 
-	private static EObject getEObjectFromSelection(XtextEditor editor, final ISelection selection) {
+	public static EObject getEObjectFromSelection(XtextEditor editor, final ISelection selection) {
 		// Check the selection before accessing the document
 		if (selection instanceof IStructuredSelection) {
 			final IStructuredSelection ss = (IStructuredSelection) selection;

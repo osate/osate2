@@ -30,16 +30,6 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.ge.ba.diagram.diagramType.BehaviorAnnexDiagramType">
       </diagramType>
    </extension>
-     <extension
-        point="org.eclipse.core.expressions.propertyTesters">
-     <propertyTester
-           class="org.osate.ge.ba.BehaviorAnnexPropertyTester"
-           id="org.osate.ge.expressions.selectionPropertyTester"
-           namespace="org.osate.ge.ba"
-           properties="isBehaviorAnnexContext"
-           type="org.eclipse.jface.viewers.ISelection">
-     </propertyTester>
-     </extension>
    <extension
          point="org.osate.ge.contentFilters">
       <contentFilter
@@ -90,16 +80,6 @@ censes only apply to the Third Party Software and not any other portion of this 
      </propertySection>
      </propertySections>
      </extension>
-   <extension point="org.eclipse.ui.commands">
-   	   <command
-            id="org.osate.ge.ba.diagram.open"
-            name="Open Behavior Annex Diagram">
-      </command>
-      <command
-            id="org.osate.ge.ba.createNewDiagram"
-            name="Create Behavior Annex Diagram">
-      </command>
-    </extension>
    <extension
          point="org.osate.ge.businessObjectHandlers">
       <handler
@@ -124,51 +104,27 @@ censes only apply to the Third Party Software and not any other portion of this 
           class="org.osate.ge.ba.handlers.CreateBehaviorAnnexDiagramHandler"
           commandId="org.osate.ge.createNewDiagram">
        <activeWhen>
-          <with
-                variable="selection">
-             <count
-                   value="1">
-             </count>
-             <and>
-                <test
-                      property="org.osate.ge.ba.isBehaviorAnnexContext">
-                </test>
-             </and>
-          </with>
+       		<reference
+       			definitionId="org.osate.ge.ba.expressions.diagramContext">
+       		</reference>
        </activeWhen>
     </handler>
     <handler
           class="org.osate.ge.ba.handlers.CreateBehaviorAnnexDiagramHandler"
           commandId="org.osate.ge.commands.creatediagram">
        <activeWhen>
-          <with
-                variable="selection">
-             <count
-                   value="1">
-             </count>
-             <and>
-                <test
-                      property="org.osate.ge.ba.isBehaviorAnnexContext">
-                </test>
-             </and>
-          </with>
+          <reference
+                definitionId="org.osate.ge.ba.expressions.diagramContext">
+          </reference>
        </activeWhen>
     </handler>
     <handler
           class="org.osate.ge.ba.handlers.OpenBehaviorAnnexDiagramHandler"
           commandId="org.osate.ge.commands.opendiagram">
        <activeWhen>
-          <with
-                variable="selection">
-             <count
-                   value="1">
-             </count>
-             <and>
-                <test
-                      property="org.osate.ge.ba.isBehaviorAnnexContext">
-                </test>
-             </and>
-          </with>
+          <reference
+                definitionId="org.osate.ge.ba.expressions.diagramContext">
+          </reference>
        </activeWhen>
     </handler>
     </extension>
@@ -190,4 +146,32 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension point="org.osate.ge.referenceResolvers">
 	   <factory class="org.osate.ge.ba.BehaviorAnnexReferenceResolver$Factory"/>
 	</extension>
+	<extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="org.osate.ge.ba.expressions.diagramContext">
+         <with
+            variable="selection">
+            <and>
+            	<reference
+                   definitionId="oneElementSelected">
+             	</reference>
+             	<adapt
+             		type="org.eclipse.emf.ecore.EObject">
+	                <test
+	               		property="org.osate.ge.isDiagramContext"
+	               		value="BehaviorAnnex">
+	            	</test>
+            	</adapt>
+            </and>
+          </with>
+      </definition>
+      </extension>
+      <extension point="org.eclipse.core.runtime.adapters">
+      <factory
+        	adaptableType="org.eclipse.jface.viewers.ISelection"
+        	class="org.osate.ge.ba.SelectionAdapterFactory">
+        	<adapter type="org.eclipse.emf.ecore.EObject"/>
+       </factory>
+      </extension>
 </plugin>

@@ -47,7 +47,7 @@ import org.osate.ge.palette.TargetedPaletteCommand;
  */
 public class CreateSpecificationPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateSpecificationPaletteCommand() {
-		super("Specification", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
+		super("Behavior Specification", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 			behaviorState.setComplete(isComplete);
 
 			// Set state name
-			final String newName = BehaviorAnnexNamingUtil.buildUniqueIdentifier(ba, "new_state");
+			final String newName = BehaviorAnnexNamingUtil.buildUniqueIdentifier(ba, "new_behavior_state");
 			behaviorState.setName(newName);
 
 			return behaviorState;

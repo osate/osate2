@@ -59,6 +59,7 @@ import org.osate.ge.ba.util.BehaviorAnnexUtil.VariableOperation;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResult;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
 /**
@@ -72,6 +73,7 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 		}
 	}
 
+	public static final String WIDGET_ID_DATA_CLASSIFIER_LABEL = "org.osate.ge.ba.ui.properties.setVariableDataClassifierPropertySection.label";
 	private BusinessObjectSelection selectedBos;
 	private Label curDataClassifier;
 	private Button chooseBtn;
@@ -97,6 +99,7 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 		fd.left = new FormAttachment(0, 0);
 		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
 		curDataClassifier.setLayoutData(fd);
+		SwtUtil.setTestingId(curDataClassifier, WIDGET_ID_DATA_CLASSIFIER_LABEL);
 
 		chooseBtn = PropertySectionUtil.createButton(getWidgetFactory(), container, null, setDataClassifierListener,
 				"Choose...", SWT.PUSH);

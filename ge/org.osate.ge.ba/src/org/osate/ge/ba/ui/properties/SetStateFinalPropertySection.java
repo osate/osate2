@@ -77,10 +77,12 @@ public class SetStateFinalPropertySection extends StatePropertySection {
 			} else {
 				// Determine if final can be set for state
 				// If behavior state is a source of a transition, it cannot be final
-				final boolean isSourceState = BehaviorAnnexUtil.getTransitionsForSourceState(selectedState)
-						.findAny().isPresent();
+				final boolean isSourceState = BehaviorAnnexUtil.getTransitionsForSourceState(selectedState).findAny()
+						.isPresent();
 				setFinalStateBtn.setEnabled(!isSourceState);
 			}
+
+			setFinalStateBtn.setEnabled(true);
 		} else {
 			// Always disabled for multiple selection
 			setFinalStateBtn.setEnabled(false);

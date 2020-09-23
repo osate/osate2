@@ -34,6 +34,7 @@ import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.DispatchCondition;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
@@ -52,7 +53,7 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof BehaviorAnnex).first());
 
 	public CreateTransitionPaletteCommand() {
-		super("Transition", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
+		super("Behavior Transition", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
 	}
 
 	@Override
@@ -61,7 +62,7 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 		return ctx.getSource().getBusinessObject(BehaviorState.class).map(behaviorState -> {
 			final Classifier classifier = behaviorState.getContainingClassifier();
 			return !behaviorState.isFinal()
-					&& (!behaviorState.isComplete() || BehaviorAnnexUtil.allowsOnDispatchConditions(classifier));
+					|| (behaviorState.isComplete() && BehaviorAnnexUtil.allowsOnDispatchConditions(classifier));
 		})
 				.orElse(false);
 	}
@@ -109,8 +110,9 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 						});
 					}
 
-					// Source states that are complete require dispatch conditions
-					if (srcState.isComplete()) {
+					// Source states that are complete and are not modes require dispatch conditions
+					if (srcState.isComplete() && !BehaviorAnnexNamingUtil
+							.stateIsMode(boToModify.getContainingClassifier(), srcName)) {
 						final DispatchCondition dispatchCondition = (DispatchCondition) EcoreUtil
 								.create(AadlBaPackage.eINSTANCE.getDispatchCondition());
 						baTransition.setCondition(dispatchCondition);

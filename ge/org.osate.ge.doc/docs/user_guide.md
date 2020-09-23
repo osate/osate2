@@ -314,13 +314,13 @@ Select the desired implementation from the palette and place it on the diagram o
 Select *Mode Transition* from the palette and select the starting mode then the ending mode.
 
 ## Creating Behavior Annexes
-Select *Specification* from the palette and place it on a classifier.
+Select *Behavior Specification* from the palette and place it on a classifier.
 
 ### Creating Behavior Transitions
-Select *Transition* from the palette and select the starting state and then the ending state.
+Select *Behavior Transition* from the palette and select the starting state and then the ending state.
 
 ### Creating Behavior Variables
-1. Select *Variable* from the palette.
+1. Select *Behavior Variable* from the palette.
 2. Place it on a behavior annex.
 3. Select the desired data classifier from the *Set the Variable's Data Classifier* window.
 4. Select "OK".

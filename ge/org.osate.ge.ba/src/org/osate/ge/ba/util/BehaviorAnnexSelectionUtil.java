@@ -176,7 +176,7 @@ public class BehaviorAnnexSelectionUtil {
 		return null;
 	}
 
-	private static EObject getEObjectFromSelection(final XtextEditor editor, final ISelection selection) {
+	public static EObject getEObjectFromSelection(final XtextEditor editor, final ISelection selection) {
 		// Check the selection before accessing the document
 		if (selection instanceof IStructuredSelection) {
 			final IStructuredSelection ss = (IStructuredSelection) selection;

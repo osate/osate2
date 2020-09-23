@@ -50,7 +50,7 @@ import org.osate.ge.palette.TargetedPaletteCommand;
  */
 public class CreateVariablePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateVariablePaletteCommand() {
-		super("Variable", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
+		super("Behavior Variable", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
 	}
 
 	@Override
@@ -81,7 +81,8 @@ public class CreateVariablePaletteCommand extends BasePaletteCommand implements 
 									(tag, behaviorAnnexToModify, prevResult) -> {
 								final BehaviorVariable newVariable = (BehaviorVariable) EcoreUtil
 										.create(AadlBaPackage.eINSTANCE.getBehaviorVariable());
-								final String newName = BehaviorAnnexNamingUtil.buildUniqueIdentifier(behaviorAnnexToModify, "new_variable");
+										final String newName = BehaviorAnnexNamingUtil
+												.buildUniqueIdentifier(behaviorAnnexToModify, "new_behavior_variable");
 								newVariable.setName(newName);
 										newVariable.setDataClassifier(prevResult.getDataClassifier());
 

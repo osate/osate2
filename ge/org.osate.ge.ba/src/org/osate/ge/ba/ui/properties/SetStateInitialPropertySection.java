@@ -76,15 +76,17 @@ public class SetStateInitialPropertySection extends StatePropertySection {
 		// Set selection state for first selection
 		setInitialStateBtn.setSelection(isInitialState);
 		if (isSingleSelection) {
-			if (isInitialState) {
-				// Removing initial state
-				final Classifier classifier = selectedState.getContainingClassifier();
-				// Cannot remove if classifier requires only one initial state
-				setInitialStateBtn.setEnabled(!BehaviorAnnexUtil.requireSingleInitialState(classifier));
-			} else {
-				// Setting initial state
-				setInitialStateBtn.setEnabled(true);
-			}
+//			if (isInitialState) {
+//				// Removing initial state
+//				final Classifier classifier = selectedState.getContainingClassifier();
+//				// Cannot remove if classifier requires only one initial state
+//				setInitialStateBtn.setEnabled(!BehaviorAnnexUtil.requireSingleInitialState(classifier));
+//			} else {
+//				// Setting initial state
+//				setInitialStateBtn.setEnabled(true);
+//			}
+
+			setInitialStateBtn.setEnabled(true);
 		} else {
 			// Always disabled for multiple selection
 			setInitialStateBtn.setEnabled(false);
