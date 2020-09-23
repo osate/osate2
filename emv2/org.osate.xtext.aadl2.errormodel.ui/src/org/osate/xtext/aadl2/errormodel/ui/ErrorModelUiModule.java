@@ -25,11 +25,8 @@ package org.osate.xtext.aadl2.errormodel.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.resource.containers.IAllContainersState;
-import org.eclipse.xtext.ui.editor.outline.IOutlineTreeProvider;
-import org.eclipse.xtext.ui.editor.outline.impl.IOutlineTreeStructureProvider;
 import org.eclipse.xtext.ui.shared.Access;
 import org.osate.xtext.aadl2.errormodel.ui.contentassist.antlr.AnnexAwareEntryPointFinder;
-import org.osate.xtext.aadl2.errormodel.ui.outline.ErrorModelBackgroundOutlineTreeProvider;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsState;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsStateHelper;
 
@@ -52,17 +49,5 @@ public class ErrorModelUiModule extends org.osate.xtext.aadl2.errormodel.ui.Abst
 
 	public Class<? extends Aadl2ProjectsStateHelper> bindWorkspaceProjectsStateHelper() {
 		return Aadl2ProjectsStateHelper.class;
-	}
-
-	// contributed by org.eclipse.xtext.xtext.generator.ui.outline.OutlineTreeProviderFragment2
-	@Override
-	public Class<? extends IOutlineTreeProvider> bindIOutlineTreeProvider() {
-		return ErrorModelBackgroundOutlineTreeProvider.class;
-	}
-
-	// contributed by org.eclipse.xtext.xtext.generator.ui.outline.OutlineTreeProviderFragment2
-	@Override
-	public Class<? extends IOutlineTreeStructureProvider> bindIOutlineTreeStructureProvider() {
-		return ErrorModelBackgroundOutlineTreeProvider.class;
 	}
 }
