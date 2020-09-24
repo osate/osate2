@@ -77,6 +77,16 @@ public class AnnexParserProxy extends AnnexProxy implements AnnexParser {
 		}
 		return parser.parseAnnexSubclause(annexName, source, filename, line, column, errReporter);
 	}
+	
+	@Override
+	public String getFileExtension() {
+		AnnexParser parser = getParser();
+		
+		if (parser == null) {
+			return null;
+		}
+		return parser.getFileExtension();
+	}
 
 	private AnnexParser getParser() {
 		if (parser != null) {
