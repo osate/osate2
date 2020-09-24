@@ -25,7 +25,6 @@ package org.osate.ge.errormodel;
 
 import java.util.Optional;
 
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.AadlPackage;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
@@ -37,7 +36,6 @@ import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
-import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
@@ -52,7 +50,6 @@ import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.services.ReferenceBuilderService;
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 
@@ -137,23 +134,6 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(ErrorBehaviorTransition.class).map(bo -> bo.getName()).orElse("");
-	}
-
-	@Override
-	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
-		return ctx.getBusinessObjectContext().getBusinessObject(ErrorBehaviorTransition.class).map(bo -> {
-			final String name = bo.getName() == null ? "" : bo.getName() + ": ";
-			return name + getText(bo.getCondition()).map(t -> "-[" + t + "]").orElse("");
-		}).orElse("");
-	}
-
-	private static Optional<String> getText(final ConditionExpression e) {
-		return Optional.ofNullable(e).map(el -> NodeModelUtils.findActualNodeFor(el)).map(n -> n.getText());
-	}
-
-	@Override
-	public String getNameForRenaming(final GetNameContext ctx) {
 		return ctx.getBusinessObject(ErrorBehaviorTransition.class).map(bo -> bo.getName()).orElse("");
 	}
 
