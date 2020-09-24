@@ -100,4 +100,16 @@ public interface AnnexParser {
 	 */
 	AnnexSubclause parseAnnexSubclause(String annexName, String source, String filename, int line, int column,
 			ParseErrorReporter errReporter) throws RecognitionException;
+	
+	/**
+	 * Returns the annex's file extension which is registered with Xtext. This is meant to support the retrieval of an
+	 * annex injector in cases where an IParseResult is not available. This is considered to be optional, so the default
+	 * implementation simply returns {@code null}. Subclasses may override and supply an extension for their annex.
+	 * 
+	 * @return The Xtext-registered file extension for the annex or {@code null} if an extension is not specified.
+	 * @since 3.0
+	 */
+	default String getFileExtension() {
+		return null;
+	}
 }
