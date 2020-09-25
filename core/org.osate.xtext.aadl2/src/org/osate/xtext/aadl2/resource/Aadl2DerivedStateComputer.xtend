@@ -42,8 +42,8 @@ import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.PackageSection
-import org.osate.annexsupport.AnnexParseUtil
 import org.osate.annexsupport.AnnexUtil
+import org.osate.annexsupport.ParseResultHolder
 
 // TODO: cache injectors per resource
 @Singleton
@@ -113,7 +113,7 @@ class Aadl2DerivedStateComputer implements IDerivedStateComputer {
 		val injectors = new ArrayList
 		for (annex : annexElements) {
 			if (!names.contains(annex.name)) {
-				val annexParseResult = AnnexParseUtil.getParseResult(annex)
+				val annexParseResult = ParseResultHolder.Factory.INSTANCE.adapt(annex).parseResult
 				if (annexParseResult !== null) {
 					val injector = AnnexUtil.getInjector(annexParseResult)
 					if(injector !== null) injectors += injector

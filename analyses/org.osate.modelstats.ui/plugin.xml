@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.osate.modelstats.ui.countcomponents"
+            name="Model Statistics">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.osate.modelstats.ui.CountComponentsHandler"
+            commandId="org.osate.modelstats.ui.countcomponents">
+            <enabledWhen>
+             <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+			</reference>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.osate.ui.modelCleanupMenu?after=core">
+         <command
+               commandId="org.osate.modelstats.ui.countcomponents"
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
+	<extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="toc_modelStatistics.xml"
+            primary="true">
+      </toc>
+   </extension>
+</plugin>
