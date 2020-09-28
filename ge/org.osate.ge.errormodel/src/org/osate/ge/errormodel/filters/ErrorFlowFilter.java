@@ -48,7 +48,7 @@ public class ErrorFlowFilter implements ContentFilter {
 	}
 
 	@Override
-	public boolean test(Object bo) {
+	public boolean test(final Object bo) {
 		return bo instanceof ErrorFlow;
 	}
 }
