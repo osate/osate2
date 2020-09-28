@@ -24,7 +24,6 @@
 package org.osate.ge.errormodel;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
@@ -32,6 +31,7 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.GraphicalExtensionUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanCopyContext;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
@@ -48,7 +48,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 import com.google.common.base.Strings;
 
@@ -127,6 +126,11 @@ public class ErrorPropagationHandler implements BusinessObjectHandler {
 	}
 
 	@Override
+	public boolean canCopy(final CanCopyContext ctx) {
+		return false;
+	}
+
+	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		// Determine style
 		final StyleBuilder sb = StyleBuilder.create(GraphicalExtensionUtil.isInherited(ctx.getBusinessObjectContext())
@@ -147,18 +151,8 @@ public class ErrorPropagationHandler implements BusinessObjectHandler {
 	@Override
 	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
 		return ctx.getBusinessObjectContext().getBusinessObject(ErrorPropagation.class)
-				.map(bo -> (bo.isNot() ? " not " : "") + (bo.getDirection() == null ? "" : (bo.getDirection() + " "))
-						+ "propagation " + getLabelForTypeSet(bo.getTypeSet()))
+				.map(bo -> (bo.isNot() ? "not " : "") + (bo.getDirection() == null ? "" : (bo.getDirection() + " "))
+						+ "propagation")
 				.orElse("");
-	}
-
-	private static String getLabelForTypeSet(final TypeSet ts) {
-		if (ts == null || ts.getTypeTokens() == null) {
-			return "{}";
-		}
-
-		return "{" + ts.getTypeTokens().stream().flatMap(t -> t.getType().stream())
-				.map(t -> (t == null || t.getName() == null) ? "?" : t.getName()).collect(Collectors.joining(","))
-				+ "}";
 	}
 }

@@ -32,6 +32,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanCopyContext;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleter;
@@ -79,6 +80,11 @@ public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, Cu
 	@Override
 	public boolean canDelete(final CanDeleteContext ctx) {
 		return true;
+	}
+
+	@Override
+	public boolean canCopy(final CanCopyContext ctx) {
+		return false;
 	}
 
 	@Override

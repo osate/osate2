@@ -21,43 +21,42 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.query;
+package org.osate.ge.businessobjecthandling;
 
-import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
 
-import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.query.Query;
-import org.osate.ge.query.QueryResult;
-import org.osate.ge.query.StandaloneQuery;
+/**
+ * Contains contextual information for determining if a business object can be copied.
+ *
+ * @since 2.0
+ * @noextend This class is not intended to be subclassed by clients.
+ */
+public class CanCopyContext {
+	private final Object bo;
 
-public class DefaultStandaloneQuery implements StandaloneQuery {
-	private final DefaultQuery rootQuery = new RootQuery(() -> this.rootNode);
-	private BusinessObjectContext rootNode;
-	private final DefaultQuery query;
-
-	public DefaultStandaloneQuery(Function<Query, Query> queryCreator) {
-		this.query = (DefaultQuery)queryCreator.apply(rootQuery);
+	/**
+	 * Creates a new instance.
+	 * @param bo is the business object which is being copied.
+	 * @noreference This constructor is not intended to be referenced by clients.
+	 */
+	public CanCopyContext(final Object bo) {
+		this.bo = Objects.requireNonNull(bo, "bo must not be null");
 	}
 
-	public Optional<QueryResult> getFirstResult(final QueryRunner qr, final BusinessObjectContext rootNode,
-			final Object arg) {
-		try {
-			this.rootNode = rootNode;
-			return qr.getFirstResult(query, arg);
-		} finally {
-			this.rootNode = null;
+	/**
+	 * Retrieves the business object which is being copied if it is an instance
+	 * of the specified class.
+	 * @param <T> is the requested type.
+	 * @param c is the class to which to cast the business object.
+	 * @return an optional containing the context's business object. An empty optional if the context's business object is not
+	 * an instance the specified class.
+	 */
+	public <T> Optional<T> getBusinessObject(final Class<T> boType) {
+		if (!boType.isInstance(bo)) {
+			return Optional.empty();
 		}
-	}
 
-	public List<QueryResult> getResults(final QueryRunner qr, final BusinessObjectContext rootNode,
-			final Object arg) {
-		try {
-			this.rootNode = rootNode;
-			return qr.getResults(query, arg);
-		} finally {
-			this.rootNode = null;
-		}
+		return Optional.of(boType.cast(bo));
 	}
 }

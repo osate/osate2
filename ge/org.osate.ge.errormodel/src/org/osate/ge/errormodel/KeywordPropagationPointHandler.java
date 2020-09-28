@@ -31,6 +31,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanCopyContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
@@ -76,5 +77,10 @@ public class KeywordPropagationPointHandler implements BusinessObjectHandler {
 	public String getName(final GetNameContext ctx) {
 		return "<" + ctx.getBusinessObject(KeywordPropagationPoint.class).get().getType().getKind()
 				+ ">";
+	}
+
+	@Override
+	public boolean canCopy(final CanCopyContext ctx) {
+		return false;
 	}
 }

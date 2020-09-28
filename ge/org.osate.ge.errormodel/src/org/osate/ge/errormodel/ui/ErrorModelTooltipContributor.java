@@ -78,9 +78,8 @@ public class ErrorModelTooltipContributor implements TooltipContributor {
 			return;
 		}
 
-		final Label lbl = new Label(parent, SWT.NONE);
+		final Label lbl = new Label(parent, SWT.WRAP);
 		lbl.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_INFO_FOREGROUND));
 		lbl.setText(txt);
 	}
-
 }

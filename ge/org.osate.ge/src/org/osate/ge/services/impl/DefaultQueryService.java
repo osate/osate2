@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.query.DefaultStandaloneQuery;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.query.QueryResult;
@@ -42,21 +41,21 @@ public class DefaultQueryService implements QueryService {
 	}
 
 	@Override
-	public final Optional<QueryResult> getFirstResult(StandaloneQuery query, BusinessObjectContext boc,
+	public final Optional<QueryResult> getFirstResult(final StandaloneQuery query, final BusinessObjectContext boc,
 			final Object arg) {
-		return ((DefaultStandaloneQuery) query).getFirstResult(queryRunner, boc, arg);
+		return query.getFirstResult(queryRunner, boc, arg);
 	}
 
 	@Override
 	public final Optional<Object> getFirstBusinessObject(final StandaloneQuery query, final BusinessObjectContext boc,
 			final Object arg) {
-		return ((DefaultStandaloneQuery) query).getFirstResult(queryRunner, boc, arg)
+		return query.getFirstResult(queryRunner, boc, arg)
 				.map(result -> result.getBusinessObjectContext().getBusinessObject());
 	}
 
 	@Override
 	public final List<QueryResult> getResults(final StandaloneQuery query, final BusinessObjectContext boc,
 			final Object arg) {
-		return ((DefaultStandaloneQuery) query).getResults(queryRunner, boc, arg);
+		return query.getResults(queryRunner, boc, arg);
 	}
 }
