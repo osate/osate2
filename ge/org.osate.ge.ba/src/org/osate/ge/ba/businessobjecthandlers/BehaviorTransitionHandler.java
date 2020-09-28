@@ -36,6 +36,7 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanCopyContext;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.CustomDeleteContext;
@@ -82,7 +83,7 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	}
 
 	@Override
-	public boolean canCopy() {
+	public boolean canCopy(final CanCopyContext ctx) {
 		return false;
 	}
 

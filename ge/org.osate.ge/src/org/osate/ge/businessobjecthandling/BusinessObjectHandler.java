@@ -155,14 +155,10 @@ public interface BusinessObjectHandler {
 
 	/**
 	 * Returns true if the business object specified in the context can be copied.
-	 * Copyable business objects must match one of the following criteria:
-	 * <ul>
-	 * <li>It must be an instance of {@link org.eclipse.emf.ecore.EObject}.</li>
-	 * <li>It must be an instance of {@link org.osate.ge.internal.model.EmbeddedBusinessObject}}</li>
-	 * </ul>
-	 * @return whether the business object can be deleted.
+	 * Copyable business objects must be an instance of {@link org.eclipse.emf.ecore.EObject}.
+	 * @return whether the business object can be copied.
 	 */
-	default boolean canCopy() {
+	default boolean canCopy(final CanCopyContext ctx) {
 		return true;
 	}
 

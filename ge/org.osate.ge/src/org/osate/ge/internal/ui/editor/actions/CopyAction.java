@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.ActionFactory;
+import org.osate.ge.businessobjecthandling.CanCopyContext;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
@@ -129,7 +130,7 @@ public class CopyAction extends ActionStackAction {
 	 */
 	private static boolean allBusinessObjectsAreCopyable(final Collection<DiagramElement> diagramElements) {
 		return diagramElements.stream().allMatch(de -> {
-			if (!de.getBusinessObjectHandler().canCopy()) {
+			if (!de.getBusinessObjectHandler().canCopy(new CanCopyContext(de.getBusinessObject()))) {
 				return false;
 			}
 
