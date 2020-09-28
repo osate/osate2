@@ -35,6 +35,7 @@ public class SecurityLabelChecker {
 	}
 
 	public AnalysisResult invoke(SystemInstance root) {
+		SecurityLabel.init(root);
 		LabelPropagator propagator = new LabelPropagator(null, null);
 		propagator.propagate(root);
 		AnalysisResult analysisResult = ResultUtil.createAnalysisResult("Security", root);

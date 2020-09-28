@@ -37,10 +37,6 @@ public class SecurityLabel {
 	private static Map<Integer, EnumerationLiteral> level2literal = new HashMap<Integer, EnumerationLiteral>();
 
 	public static Optional<SecurityLabel> of(NamedElement ne) {
-		if (levelProperty == null) {
-			init(ne);
-		}
-
 		int level = -1;
 		try {
 			NamedValue levelValue = (NamedValue) ne.getSimplePropertyValue(levelProperty);
@@ -62,7 +58,7 @@ public class SecurityLabel {
 		}
 	}
 
-	private static void init(NamedElement ne) {
+	static void init(NamedElement ne) {
 		levelProperty = Aadl2GlobalScopeUtil.get(ne, Aadl2Package.eINSTANCE.getProperty(), LEVEL_PROPERTY_NAME);
 		categoryProperty = Aadl2GlobalScopeUtil.get(ne, Aadl2Package.eINSTANCE.getProperty(), CATEGORY_PROPERTY_NAME);
 		EnumerationType levelType = Aadl2GlobalScopeUtil.get(ne, Aadl2Package.eINSTANCE.getPropertyType(),
