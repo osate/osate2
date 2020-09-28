@@ -87,8 +87,6 @@ import com.google.inject.Inject;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
 
-	private static final boolean useCache = Boolean.valueOf(System.getProperty("org.osate.linking.cache", "false"));
-
 	@Inject
 	IResourceScopeCache linkingCache;
 
@@ -112,19 +110,15 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		String crossRefString = getCrossRefNodeAsString(node);
 		boolean global = crossRefString.contains("::");
 
-		if (useCache) {
-			result = linkingCache.get(global ? crossRefString : node, context.eResource(),
-					() -> doGetLinkedObjects(context, reference, node));
-		} else {
-			result = doGetLinkedObjects(context, reference, node);
-		}
+		result = linkingCache.get(global ? crossRefString : node, context.eResource(),
+				() -> doGetLinkedObjects(context, reference, node));
 		return result;
 	}
 
 	private List<EObject> doGetLinkedObjects(EObject context, EReference reference, INode node)
 			throws IllegalNodeException {
 		NamedElement annex = AadlUtil.getContainingAnnex(context);
-		if (annex != null) {
+		if (annex != null && !(reference == Aadl2Package.eINSTANCE.getModalElement_InMode())) {
 			String annexName = annex.getName();
 			if (annexName != null) {
 				if (annexlinkingserviceregistry == null) {

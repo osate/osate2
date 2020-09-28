@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.alisa.common" version="2">
+    <resource path="src-gen/org/osate/alisa/common/AbstractCommonRuntimeModule.java" type="org.osate.alisa.common.AbstractCommonRuntimeModule">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindCommonValidator()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindIFormatter2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="configureFormatterPreferences(Binder)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/alisa/common/scoping/AbstractCommonScopeProvider.java" type="org.osate.alisa.common.scoping.AbstractCommonScopeProvider">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.alisa.common.scoping.AbstractCommonScopeProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/alisa/common/serializer/CommonSemanticSequencer.java" type="org.osate.alisa.common.serializer.CommonSemanticSequencer">
         <filter comment="xtext" id="576720909">
             <message_arguments>

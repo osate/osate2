@@ -960,7 +960,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     (
 	 *         (name=ID | refined=[AbstractFeature|REFINEDNAME]) 
 	 *         (in?='in' | out?='out')? 
-	 *         (featurePrototype=[FeaturePrototype|QCREF] | abstractFeatureClassifier=[FeatureClassifier|QCREF])? 
+	 *         (featurePrototype=[FeaturePrototype|QCREF] | abstractFeatureClassifier=[AbstractFeatureClassifier|QCREF])? 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
@@ -985,7 +985,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedMemorySubcomponent+=MemorySubcomponent? 
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent? 
 	 *                 (
 	 *                     (
 	 *                         ownedSystemSubcomponent+=SystemSubcomponent | 
@@ -996,60 +996,39 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *                         ownedProcessSubcomponent+=ProcessSubcomponent | 
 	 *                         ownedProcessorSubcomponent+=ProcessorSubcomponent | 
 	 *                         ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent | 
+	 *                         ownedMemorySubcomponent+=MemorySubcomponent | 
 	 *                         ownedDeviceSubcomponent+=DeviceSubcomponent | 
 	 *                         ownedBusSubcomponent+=BusSubcomponent | 
-	 *                         ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
 	 *                         ownedDataSubcomponent+=DataSubcomponent | 
 	 *                         ownedAbstractSubcomponent+=AbstractSubcomponent
 	 *                     )? 
-	 *                     ownedMemorySubcomponent+=MemorySubcomponent?
+	 *                     ownedVirtualBusSubcomponent+=VirtualBusSubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
 	 *         ownedEventDataSource+=EventDataSource? 
 	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
-	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
+	 *         ownedPortProxy+=PortProxy? 
+	 *         (ownedSubprogramProxy+=SubprogramProxy? ownedPortProxy+=PortProxy?)* 
 	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
 	 *         (
 	 *             (
+	 *                 ownedParameterConnection+=ParameterConnection? 
 	 *                 (
-	 *                     (
-	 *                         (
-	 *                             ownedFeatureGroupConnection+=FeatureGroupConnection? 
-	 *                             (
-	 *                                 ownedPortConnection+=PortConnection | 
-	 *                                 ownedAccessConnection+=AccessConnection | 
-	 *                                 ownedFeatureConnection+=FeatureConnection | 
-	 *                                 ownedParameterConnection+=ParameterConnection
-	 *                             )?
-	 *                         )* 
-	 *                         ownedFeatureGroupConnection+=FeatureGroupConnection? 
-	 *                         ownedFlowImplementation+=FlowImplementation?
-	 *                     ) | 
-	 *                     (noConnections?='none'? ownedFlowImplementation+=FlowImplementation?)
-	 *                 ) 
-	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
-	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')?
-	 *             ) | 
-	 *             (
-	 *                 (
-	 *                     ownedFeatureGroupConnection+=FeatureGroupConnection? 
 	 *                     (
 	 *                         ownedPortConnection+=PortConnection | 
 	 *                         ownedAccessConnection+=AccessConnection | 
-	 *                         ownedFeatureConnection+=FeatureConnection | 
-	 *                         ownedParameterConnection+=ParameterConnection
-	 *                     )?
-	 *                 )* 
-	 *                 (
-	 *                     (ownedFeatureGroupConnection+=FeatureGroupConnection? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
-	 *                     (ownedFeatureGroupConnection+=FeatureGroupConnection? noFlows?='none'? noModes?='none')
-	 *                 )
+	 *                         ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                         ownedFeatureConnection+=FeatureConnection
+	 *                     )? 
+	 *                     ownedParameterConnection+=ParameterConnection?
+	 *                 )*
 	 *             ) | 
-	 *             (noConnections?='none'? noFlows?='none'? noModes?='none') | 
-	 *             (noConnections?='none'? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*)
-	 *         ) 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -1113,19 +1092,19 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedEventPort+=EventPort? 
+	 *                 ownedSubprogramAccess+=SubprogramAccess? 
 	 *                 (
 	 *                     (
 	 *                         ownedDataPort+=DataPort | 
+	 *                         ownedEventPort+=EventPort | 
 	 *                         ownedEventDataPort+=EventDataPort | 
 	 *                         ownedFeatureGroup+=FeatureGroup | 
 	 *                         ownedDataAccess+=DataAccess | 
 	 *                         ownedBusAccess+=BusAccess | 
-	 *                         ownedSubprogramAccess+=SubprogramAccess | 
 	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                         ownedAbstractFeature+=AbstractFeature
 	 *                     )? 
-	 *                     ownedEventPort+=EventPort?
+	 *                     ownedSubprogramAccess+=SubprogramAccess?
 	 *                 )*
 	 *             )
 	 *         )? 
@@ -1265,8 +1244,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         ownedEventDataSource+=EventDataSource? 
-	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
+	 *         ownedEventSource+=EventSource? 
+	 *         (ownedEventDataSource+=EventDataSource? ownedEventSource+=EventSource?)* 
 	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
@@ -1331,16 +1310,16 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedFeatureGroup+=FeatureGroup? 
+	 *                 ownedEventDataPort+=EventDataPort? 
 	 *                 (
 	 *                     (
+	 *                         ownedFeatureGroup+=FeatureGroup | 
 	 *                         ownedBusAccess+=BusAccess | 
 	 *                         ownedDataPort+=DataPort | 
 	 *                         ownedEventPort+=EventPort | 
-	 *                         ownedEventDataPort+=EventDataPort | 
 	 *                         ownedAbstractFeature+=AbstractFeature
 	 *                     )? 
-	 *                     ownedFeatureGroup+=FeatureGroup?
+	 *                     ownedEventDataPort+=EventDataPort?
 	 *                 )*
 	 *             )
 	 *         )? 
@@ -1541,38 +1520,38 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *             (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent)+ | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         (ownedEventDataSource+=EventDataSource? ownedEventSource+=EventSource?)* 
+	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
 	 *         (
 	 *             (
 	 *                 (
-	 *                     (ownedEventDataSource+=EventDataSource? noConnections?='none'? ownedFlowImplementation+=FlowImplementation?) | 
+	 *                     (ownedEventSource+=EventSource? noConnections?='none'? ownedEndToEndFlow+=EndToEndFlow?) | 
 	 *                     (
-	 *                         ownedEventDataSource+=EventDataSource? 
-	 *                         (ownedAccessConnection+=AccessConnection? (ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?)* 
-	 *                         ownedAccessConnection+=AccessConnection? 
-	 *                         ownedFlowImplementation+=FlowImplementation?
+	 *                         ownedEventSource+=EventSource? 
+	 *                         (ownedFeatureConnection+=FeatureConnection? (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection)?)* 
+	 *                         ownedFeatureConnection+=FeatureConnection? 
+	 *                         ownedEndToEndFlow+=EndToEndFlow?
 	 *                     )
 	 *                 ) 
-	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
+	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)* 
 	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')?
 	 *             ) | 
 	 *             (
-	 *                 ownedEventDataSource+=EventDataSource? 
+	 *                 ownedEventSource+=EventSource? 
 	 *                 noConnections?='none'? 
 	 *                 noFlows?='none'? 
 	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')
 	 *             ) | 
 	 *             (
-	 *                 ownedEventDataSource+=EventDataSource? 
-	 *                 (ownedAccessConnection+=AccessConnection? (ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?)* 
+	 *                 ownedEventSource+=EventSource? 
+	 *                 (ownedFeatureConnection+=FeatureConnection? (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection)?)* 
 	 *                 (
 	 *                     (
-	 *                         ownedAccessConnection+=AccessConnection? 
+	 *                         ownedFeatureConnection+=FeatureConnection? 
 	 *                         noFlows?='none'? 
 	 *                         ownedModeTransition+=ModeTransition? 
 	 *                         (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*
 	 *                     ) | 
-	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'? noModes?='none')
+	 *                     (ownedFeatureConnection+=FeatureConnection? noFlows?='none'? noModes?='none')
 	 *                 )
 	 *             )
 	 *         ) 
@@ -1657,19 +1636,20 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedDataAccess+=DataAccess | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
+	 *                 ownedSubprogramAccess+=SubprogramAccess? 
+	 *                 (
+	 *                     (
+	 *                         ownedFeatureGroup+=FeatureGroup | 
+	 *                         ownedDataAccess+=DataAccess | 
+	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                         ownedAbstractFeature+=AbstractFeature
+	 *                     )? 
+	 *                     ownedSubprogramAccess+=SubprogramAccess?
+	 *                 )*
+	 *             )
 	 *         )? 
 	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (
-	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
-	 *             (ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
-	 *             noModes?='none'
-	 *         )? 
+	 *         ((derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -1729,45 +1709,37 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedBusSubcomponent+=BusSubcomponent? 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent? 
 	 *                 (
-	 *                     (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)? 
-	 *                     ownedBusSubcomponent+=BusSubcomponent?
+	 *                     (ownedDataSubcomponent+=DataSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | ownedBusSubcomponent+=BusSubcomponent)? 
+	 *                     ownedAbstractSubcomponent+=AbstractSubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         ownedEventSource+=EventSource? 
-	 *         (ownedEventDataSource+=EventDataSource? ownedEventSource+=EventSource?)* 
-	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
+	 *         ownedEventDataSource+=EventDataSource? 
+	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
+	 *         ownedSubprogramProxy+=SubprogramProxy? 
+	 *         (ownedPortProxy+=PortProxy? ownedSubprogramProxy+=SubprogramProxy?)* 
 	 *         (
 	 *             (
-	 *                 (
-	 *                     (
-	 *                         (
-	 *                             ownedAccessConnection+=AccessConnection? 
-	 *                             (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
-	 *                         )* 
-	 *                         ownedAccessConnection+=AccessConnection? 
-	 *                         ownedEndToEndFlow+=EndToEndFlow?
-	 *                     ) | 
-	 *                     (noConnections?='none'? ownedEndToEndFlow+=EndToEndFlow?)
-	 *                 ) 
-	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)* 
-	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')?
-	 *             ) | 
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         (
 	 *             (
+	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
 	 *                 (
-	 *                     ownedAccessConnection+=AccessConnection? 
-	 *                     (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
-	 *                 )* 
-	 *                 (
-	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
-	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'? noModes?='none')
+	 *                     (ownedEndToEndFlow+=EndToEndFlow? noModes?='none'?) | 
+	 *                     (ownedEndToEndFlow+=EndToEndFlow? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*)
 	 *                 )
 	 *             ) | 
-	 *             (noConnections?='none'? noFlows?='none'? noModes?='none') | 
-	 *             (noConnections?='none'? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*)
+	 *             (noFlows?='none'? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
+	 *             (noFlows?='none'? noModes?='none'?)
 	 *         ) 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
@@ -1832,22 +1804,23 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedBusAccess+=BusAccess | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
+	 *                 ownedEventPort+=EventPort? 
+	 *                 (
+	 *                     (
+	 *                         ownedDataPort+=DataPort | 
+	 *                         ownedEventDataPort+=EventDataPort | 
+	 *                         ownedFeatureGroup+=FeatureGroup | 
+	 *                         ownedBusAccess+=BusAccess | 
+	 *                         ownedSubprogramAccess+=SubprogramAccess | 
+	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                         ownedAbstractFeature+=AbstractFeature
+	 *                     )? 
+	 *                     ownedEventPort+=EventPort?
+	 *                 )*
+	 *             )
 	 *         )? 
 	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (
-	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
-	 *             (ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
-	 *             noModes?='none'
-	 *         )? 
+	 *         ((derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -2546,13 +2519,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
 	 *         (
 	 *             (
-	 *                 (ownedFeatureGroupConnection+=FeatureGroupConnection? (ownedAccessConnection+=AccessConnection | ownedFeatureConnection+=FeatureConnection)?)* 
+	 *                 (ownedFeatureConnection+=FeatureConnection? (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection)?)* 
 	 *                 (
-	 *                     (ownedFeatureGroupConnection+=FeatureGroupConnection? noModes?='none'?) | 
-	 *                     (ownedFeatureGroupConnection+=FeatureGroupConnection? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*)
+	 *                     (ownedFeatureConnection+=FeatureConnection? noModes?='none'?) | 
+	 *                     (ownedFeatureConnection+=FeatureConnection? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*)
 	 *                 )
 	 *             ) | 
-	 *             (noConnections?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
+	 *             (noConnections?='none'? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
 	 *             (noConnections?='none'? noModes?='none'?)
 	 *         ) 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
@@ -2618,16 +2591,16 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedEventDataPort+=EventDataPort? 
+	 *                 ownedEventPort+=EventPort? 
 	 *                 (
 	 *                     (
 	 *                         ownedFeatureGroup+=FeatureGroup | 
 	 *                         ownedBusAccess+=BusAccess | 
 	 *                         ownedDataPort+=DataPort | 
-	 *                         ownedEventPort+=EventPort | 
+	 *                         ownedEventDataPort+=EventDataPort | 
 	 *                         ownedAbstractFeature+=AbstractFeature
 	 *                     )? 
-	 *                     ownedEventDataPort+=EventDataPort?
+	 *                     ownedEventPort+=EventPort?
 	 *                 )*
 	 *             )
 	 *         )? 
@@ -2818,42 +2791,47 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         ownedEventDataSource+=EventDataSource? 
-	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
-	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         (ownedPortProxy+=PortProxy? ownedSubprogramProxy+=SubprogramProxy?)* 
 	 *         (
 	 *             (
 	 *                 (
+	 *                     (ownedPortProxy+=PortProxy? noConnections?='none'? ownedFlowImplementation+=FlowImplementation?) | 
 	 *                     (
+	 *                         ownedPortProxy+=PortProxy? 
 	 *                         (
-	 *                             ownedPortConnection+=PortConnection? 
-	 *                             (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
+	 *                             ownedFeatureConnection+=FeatureConnection? 
+	 *                             (ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection)?
 	 *                         )* 
-	 *                         ownedPortConnection+=PortConnection? 
-	 *                         ownedEndToEndFlow+=EndToEndFlow?
-	 *                     ) | 
-	 *                     (noConnections?='none'? ownedEndToEndFlow+=EndToEndFlow?)
+	 *                         ownedFeatureConnection+=FeatureConnection? 
+	 *                         ownedFlowImplementation+=FlowImplementation?
+	 *                     )
 	 *                 ) 
-	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)* 
+	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
 	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')?
 	 *             ) | 
 	 *             (
+	 *                 ownedPortProxy+=PortProxy? 
+	 *                 noConnections?='none'? 
+	 *                 noFlows?='none'? 
+	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')
+	 *             ) | 
+	 *             (
+	 *                 ownedPortProxy+=PortProxy? 
 	 *                 (
-	 *                     ownedPortConnection+=PortConnection? 
-	 *                     (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
+	 *                     ownedFeatureConnection+=FeatureConnection? 
+	 *                     (ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection)?
 	 *                 )* 
 	 *                 (
 	 *                     (
-	 *                         ownedPortConnection+=PortConnection? 
+	 *                         ownedFeatureConnection+=FeatureConnection? 
 	 *                         noFlows?='none'? 
 	 *                         ownedModeTransition+=ModeTransition? 
 	 *                         (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*
 	 *                     ) | 
-	 *                     (ownedPortConnection+=PortConnection? noFlows?='none'? noModes?='none')
+	 *                     (ownedFeatureConnection+=FeatureConnection? noFlows?='none'? noModes?='none')
 	 *                 )
-	 *             ) | 
-	 *             (noConnections?='none'? noFlows?='none'? noModes?='none') | 
-	 *             (noConnections?='none'? noFlows?='none'? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*)
+	 *             )
 	 *         ) 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
@@ -2918,10 +2896,10 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedDataPort+=DataPort? 
+	 *                 ownedEventPort+=EventPort? 
 	 *                 (
 	 *                     (
-	 *                         ownedEventPort+=EventPort | 
+	 *                         ownedDataPort+=DataPort | 
 	 *                         ownedEventDataPort+=EventDataPort | 
 	 *                         ownedFeatureGroup+=FeatureGroup | 
 	 *                         ownedDataAccess+=DataAccess | 
@@ -2929,7 +2907,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                         ownedAbstractFeature+=AbstractFeature
 	 *                     )? 
-	 *                     ownedDataPort+=DataPort?
+	 *                     ownedEventPort+=EventPort?
 	 *                 )*
 	 *             )
 	 *         )? 
@@ -2959,40 +2937,48 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent? 
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent? 
 	 *                 (
 	 *                     (
 	 *                         ownedMemorySubcomponent+=MemorySubcomponent | 
+	 *                         ownedAbstractSubcomponent+=AbstractSubcomponent | 
 	 *                         ownedBusSubcomponent+=BusSubcomponent | 
-	 *                         ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
 	 *                         ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent
 	 *                     )? 
-	 *                     ownedAbstractSubcomponent+=AbstractSubcomponent?
+	 *                     ownedVirtualBusSubcomponent+=VirtualBusSubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         ownedEventSource+=EventSource? 
-	 *         (ownedEventDataSource+=EventDataSource? ownedEventSource+=EventSource?)* 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
 	 *         (
 	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         (
-	 *             (
-	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
 	 *                 (
-	 *                     (ownedEndToEndFlow+=EndToEndFlow? noModes?='none'?) | 
-	 *                     (ownedEndToEndFlow+=EndToEndFlow? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*)
+	 *                     (
+	 *                         (
+	 *                             ownedPortConnection+=PortConnection? 
+	 *                             (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
+	 *                         )* 
+	 *                         ownedPortConnection+=PortConnection? 
+	 *                         ownedEndToEndFlow+=EndToEndFlow?
+	 *                     ) | 
+	 *                     (noConnections?='none'? ownedEndToEndFlow+=EndToEndFlow?)
+	 *                 ) 
+	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)* 
+	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')?
+	 *             ) | 
+	 *             (
+	 *                 (
+	 *                     ownedPortConnection+=PortConnection? 
+	 *                     (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
+	 *                 )* 
+	 *                 (
+	 *                     (ownedPortConnection+=PortConnection? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
+	 *                     (ownedPortConnection+=PortConnection? noFlows?='none'? noModes?='none')
 	 *                 )
 	 *             ) | 
-	 *             (noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
-	 *             (noFlows?='none'? noModes?='none'?)
+	 *             (noConnections?='none'? noFlows?='none'? noModes?='none') | 
+	 *             (noConnections?='none'? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*)
 	 *         ) 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
@@ -3096,22 +3082,23 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedBusAccess+=BusAccess | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
+	 *                 ownedEventDataPort+=EventDataPort? 
+	 *                 (
+	 *                     (
+	 *                         ownedDataPort+=DataPort | 
+	 *                         ownedEventPort+=EventPort | 
+	 *                         ownedFeatureGroup+=FeatureGroup | 
+	 *                         ownedBusAccess+=BusAccess | 
+	 *                         ownedSubprogramAccess+=SubprogramAccess | 
+	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                         ownedAbstractFeature+=AbstractFeature
+	 *                     )? 
+	 *                     ownedEventDataPort+=EventDataPort?
+	 *                 )*
+	 *             )
 	 *         )? 
 	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (
-	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
-	 *             (ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
-	 *             noModes?='none'
-	 *         )? 
+	 *         ((derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -3471,22 +3458,22 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedDataSubcomponent+=DataSubcomponent? 
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent? 
 	 *                 (
 	 *                     (
-	 *                         ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
 	 *                         ownedAbstractSubcomponent+=AbstractSubcomponent | 
-	 *                         ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
+	 *                         ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
+	 *                         ownedDataSubcomponent+=DataSubcomponent
 	 *                     )? 
-	 *                     ownedDataSubcomponent+=DataSubcomponent?
+	 *                     ownedSubprogramSubcomponent+=SubprogramSubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
 	 *         ownedEventDataSource+=EventDataSource? 
 	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
-	 *         ownedPortProxy+=PortProxy? 
-	 *         (ownedSubprogramProxy+=SubprogramProxy? ownedPortProxy+=PortProxy?)* 
+	 *         ownedSubprogramProxy+=SubprogramProxy? 
+	 *         (ownedPortProxy+=PortProxy? ownedSubprogramProxy+=SubprogramProxy?)* 
 	 *         (
 	 *             (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ | 
 	 *             noConnections?='none'
@@ -3597,24 +3584,24 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
-	 *         ownedPortProxy+=PortProxy? 
-	 *         (ownedSubprogramProxy+=SubprogramProxy? ownedPortProxy+=PortProxy?)* 
+	 *         ownedEventDataSource+=EventDataSource? 
+	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
+	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
 	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
 	 *         (
 	 *             (
 	 *                 (
 	 *                     (
 	 *                         (
-	 *                             ownedParameterConnection+=ParameterConnection? 
+	 *                             ownedPortConnection+=PortConnection? 
 	 *                             (
-	 *                                 ownedPortConnection+=PortConnection | 
 	 *                                 ownedAccessConnection+=AccessConnection | 
 	 *                                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                                 ownedFeatureConnection+=FeatureConnection
+	 *                                 ownedFeatureConnection+=FeatureConnection | 
+	 *                                 ownedParameterConnection+=ParameterConnection
 	 *                             )?
 	 *                         )* 
-	 *                         ownedParameterConnection+=ParameterConnection? 
+	 *                         ownedPortConnection+=PortConnection? 
 	 *                         ownedEndToEndFlow+=EndToEndFlow?
 	 *                     ) | 
 	 *                     (noConnections?='none'? ownedEndToEndFlow+=EndToEndFlow?)
@@ -3624,22 +3611,22 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *             ) | 
 	 *             (
 	 *                 (
-	 *                     ownedParameterConnection+=ParameterConnection? 
+	 *                     ownedPortConnection+=PortConnection? 
 	 *                     (
-	 *                         ownedPortConnection+=PortConnection | 
 	 *                         ownedAccessConnection+=AccessConnection | 
 	 *                         ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                         ownedFeatureConnection+=FeatureConnection
+	 *                         ownedFeatureConnection+=FeatureConnection | 
+	 *                         ownedParameterConnection+=ParameterConnection
 	 *                     )?
 	 *                 )* 
 	 *                 (
 	 *                     (
-	 *                         ownedParameterConnection+=ParameterConnection? 
+	 *                         ownedPortConnection+=PortConnection? 
 	 *                         noFlows?='none'? 
 	 *                         ownedModeTransition+=ModeTransition? 
 	 *                         (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*
 	 *                     ) | 
-	 *                     (ownedParameterConnection+=ParameterConnection? noFlows?='none'? noModes?='none')
+	 *                     (ownedPortConnection+=PortConnection? noFlows?='none'? noModes?='none')
 	 *                 )
 	 *             ) | 
 	 *             (noConnections?='none'? noFlows?='none'? noModes?='none') | 
@@ -3723,18 +3710,18 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedSubprogramAccess+=SubprogramAccess? 
+	 *                 ownedDataAccess+=DataAccess? 
 	 *                 (
 	 *                     (
 	 *                         ownedParameter+=Parameter | 
 	 *                         ownedEventPort+=EventPort | 
 	 *                         ownedEventDataPort+=EventDataPort | 
 	 *                         ownedFeatureGroup+=FeatureGroup | 
-	 *                         ownedDataAccess+=DataAccess | 
+	 *                         ownedSubprogramAccess+=SubprogramAccess | 
 	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                         ownedAbstractFeature+=AbstractFeature
 	 *                     )? 
-	 *                     ownedSubprogramAccess+=SubprogramAccess?
+	 *                     ownedDataAccess+=DataAccess?
 	 *                 )*
 	 *             )
 	 *         )? 
@@ -3764,56 +3751,65 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedSystemSubcomponent+=SystemSubcomponent | 
-	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
-	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
-	 *                 ownedProcessSubcomponent+=ProcessSubcomponent | 
-	 *                 ownedProcessorSubcomponent+=ProcessorSubcomponent | 
-	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent | 
-	 *                 ownedMemorySubcomponent+=MemorySubcomponent | 
-	 *                 ownedDeviceSubcomponent+=DeviceSubcomponent | 
-	 *                 ownedBusSubcomponent+=BusSubcomponent | 
-	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
-	 *                 ownedDataSubcomponent+=DataSubcomponent | 
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
-	 *             )+ | 
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent? 
+	 *                 (
+	 *                     (
+	 *                         ownedSystemSubcomponent+=SystemSubcomponent | 
+	 *                         ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
+	 *                         ownedProcessSubcomponent+=ProcessSubcomponent | 
+	 *                         ownedProcessorSubcomponent+=ProcessorSubcomponent | 
+	 *                         ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent | 
+	 *                         ownedMemorySubcomponent+=MemorySubcomponent | 
+	 *                         ownedDeviceSubcomponent+=DeviceSubcomponent | 
+	 *                         ownedBusSubcomponent+=BusSubcomponent | 
+	 *                         ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
+	 *                         ownedDataSubcomponent+=DataSubcomponent | 
+	 *                         ownedAbstractSubcomponent+=AbstractSubcomponent
+	 *                     )? 
+	 *                     ownedSubprogramSubcomponent+=SubprogramSubcomponent?
+	 *                 )*
+	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         ownedEventDataSource+=EventDataSource? 
-	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
-	 *         (ownedPortProxy+=PortProxy? ownedSubprogramProxy+=SubprogramProxy?)* 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         (ownedSubprogramProxy+=SubprogramProxy? ownedPortProxy+=PortProxy?)* 
 	 *         (
 	 *             (
 	 *                 (
-	 *                     (ownedPortProxy+=PortProxy? noConnections?='none'? ownedEndToEndFlow+=EndToEndFlow?) | 
+	 *                     (ownedSubprogramProxy+=SubprogramProxy? noConnections?='none'? ownedFlowImplementation+=FlowImplementation?) | 
 	 *                     (
-	 *                         ownedPortProxy+=PortProxy? 
+	 *                         ownedSubprogramProxy+=SubprogramProxy? 
 	 *                         (
-	 *                             ownedFeatureGroupConnection+=FeatureGroupConnection? 
-	 *                             (ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection | ownedFeatureConnection+=FeatureConnection)?
+	 *                             ownedAccessConnection+=AccessConnection? 
+	 *                             (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
 	 *                         )* 
-	 *                         ownedFeatureGroupConnection+=FeatureGroupConnection? 
-	 *                         ownedEndToEndFlow+=EndToEndFlow?
+	 *                         ownedAccessConnection+=AccessConnection? 
+	 *                         ownedFlowImplementation+=FlowImplementation?
 	 *                     )
 	 *                 ) 
-	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)* 
-	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')?
+	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
+	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')?
 	 *             ) | 
 	 *             (
-	 *                 ownedPortProxy+=PortProxy? 
+	 *                 ownedSubprogramProxy+=SubprogramProxy? 
 	 *                 noConnections?='none'? 
 	 *                 noFlows?='none'? 
-	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')
+	 *                 ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')
 	 *             ) | 
 	 *             (
-	 *                 ownedPortProxy+=PortProxy? 
+	 *                 ownedSubprogramProxy+=SubprogramProxy? 
 	 *                 (
-	 *                     ownedFeatureGroupConnection+=FeatureGroupConnection? 
-	 *                     (ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection | ownedFeatureConnection+=FeatureConnection)?
+	 *                     ownedAccessConnection+=AccessConnection? 
+	 *                     (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
 	 *                 )* 
 	 *                 (
-	 *                     (ownedFeatureGroupConnection+=FeatureGroupConnection? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
-	 *                     (ownedFeatureGroupConnection+=FeatureGroupConnection? noFlows?='none'? noModes?='none')
+	 *                     (
+	 *                         ownedAccessConnection+=AccessConnection? 
+	 *                         noFlows?='none'? 
+	 *                         ownedModeTransition+=ModeTransition? 
+	 *                         (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*
+	 *                     ) | 
+	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'? noModes?='none')
 	 *                 )
 	 *             )
 	 *         ) 
@@ -3921,56 +3917,51 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent? 
+	 *                 ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent? 
 	 *                 (
 	 *                     (
-	 *                         ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | 
 	 *                         ownedThreadSubcomponent+=ThreadSubcomponent | 
+	 *                         ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
 	 *                         ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
 	 *                         ownedDataSubcomponent+=DataSubcomponent | 
 	 *                         ownedAbstractSubcomponent+=AbstractSubcomponent
 	 *                     )? 
-	 *                     ownedSubprogramSubcomponent+=SubprogramSubcomponent?
+	 *                     ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
-	 *         (ownedSubprogramProxy+=SubprogramProxy? ownedPortProxy+=PortProxy?)* 
+	 *         ownedEventDataSource+=EventDataSource? 
+	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
+	 *         (ownedPortProxy+=PortProxy | ownedSubprogramProxy+=SubprogramProxy)* 
 	 *         (
 	 *             (
 	 *                 (
-	 *                     (ownedSubprogramProxy+=SubprogramProxy? noConnections?='none'? ownedFlowImplementation+=FlowImplementation?) | 
 	 *                     (
-	 *                         ownedSubprogramProxy+=SubprogramProxy? 
 	 *                         (
-	 *                             ownedFeatureGroupConnection+=FeatureGroupConnection? 
-	 *                             (ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection | ownedFeatureConnection+=FeatureConnection)?
+	 *                             ownedAccessConnection+=AccessConnection? 
+	 *                             (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
 	 *                         )* 
-	 *                         ownedFeatureGroupConnection+=FeatureGroupConnection? 
-	 *                         ownedFlowImplementation+=FlowImplementation?
-	 *                     )
+	 *                         ownedAccessConnection+=AccessConnection? 
+	 *                         ownedEndToEndFlow+=EndToEndFlow?
+	 *                     ) | 
+	 *                     (noConnections?='none'? ownedEndToEndFlow+=EndToEndFlow?)
 	 *                 ) 
-	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
+	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)* 
 	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')?
 	 *             ) | 
 	 *             (
-	 *                 ownedSubprogramProxy+=SubprogramProxy? 
-	 *                 noConnections?='none'? 
-	 *                 noFlows?='none'? 
-	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')
-	 *             ) | 
-	 *             (
-	 *                 ownedSubprogramProxy+=SubprogramProxy? 
 	 *                 (
-	 *                     ownedFeatureGroupConnection+=FeatureGroupConnection? 
-	 *                     (ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection | ownedFeatureConnection+=FeatureConnection)?
+	 *                     ownedAccessConnection+=AccessConnection? 
+	 *                     (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
 	 *                 )* 
 	 *                 (
-	 *                     (ownedFeatureGroupConnection+=FeatureGroupConnection? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
-	 *                     (ownedFeatureGroupConnection+=FeatureGroupConnection? noFlows?='none'? noModes?='none')
+	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
+	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'? noModes?='none')
 	 *                 )
-	 *             )
+	 *             ) | 
+	 *             (noConnections?='none'? noFlows?='none'? noModes?='none') | 
+	 *             (noConnections?='none'? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*)
 	 *         ) 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
@@ -4078,22 +4069,22 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedDataSubcomponent+=DataSubcomponent? 
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent? 
 	 *                 (
 	 *                     (
-	 *                         ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
 	 *                         ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
+	 *                         ownedDataSubcomponent+=DataSubcomponent | 
 	 *                         ownedAbstractSubcomponent+=AbstractSubcomponent
 	 *                     )? 
-	 *                     ownedDataSubcomponent+=DataSubcomponent?
+	 *                     ownedSubprogramSubcomponent+=SubprogramSubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         ownedEventSource+=EventSource? 
-	 *         (ownedEventDataSource+=EventDataSource? ownedEventSource+=EventSource?)* 
-	 *         ownedPortProxy+=PortProxy? 
-	 *         (ownedSubprogramProxy+=SubprogramProxy? ownedPortProxy+=PortProxy?)* 
+	 *         ownedEventDataSource+=EventDataSource? 
+	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
+	 *         ownedSubprogramProxy+=SubprogramProxy? 
+	 *         (ownedPortProxy+=PortProxy? ownedSubprogramProxy+=SubprogramProxy?)* 
 	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
 	 *         (
 	 *             (
@@ -4107,10 +4098,10 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         )? 
 	 *         (
 	 *             (
-	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
+	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)* 
 	 *                 (
-	 *                     (ownedEndToEndFlow+=EndToEndFlow? noModes?='none'?) | 
-	 *                     (ownedEndToEndFlow+=EndToEndFlow? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*)
+	 *                     (ownedFlowImplementation+=FlowImplementation? noModes?='none'?) | 
+	 *                     (ownedFlowImplementation+=FlowImplementation? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*)
 	 *                 )
 	 *             ) | 
 	 *             (noFlows?='none'? ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
@@ -4179,23 +4170,22 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedDataPort+=DataPort? 
-	 *                 (
-	 *                     (
-	 *                         ownedEventPort+=EventPort | 
-	 *                         ownedEventDataPort+=EventDataPort | 
-	 *                         ownedFeatureGroup+=FeatureGroup | 
-	 *                         ownedDataAccess+=DataAccess | 
-	 *                         ownedSubprogramAccess+=SubprogramAccess | 
-	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                         ownedAbstractFeature+=AbstractFeature
-	 *                     )? 
-	 *                     ownedDataPort+=DataPort?
-	 *                 )*
-	 *             )
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
 	 *         )? 
 	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         ((derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (
+	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
+	 *             (ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | 
+	 *             noModes?='none'
+	 *         )? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -4433,10 +4423,15 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedExtension=ImplementationExtension? 
 	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')? 
-	 *         ownedEventDataSource+=EventDataSource? 
-	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
-	 *         ((ownedModeTransition+=ModeTransition? (ownedMode+=Mode? ownedModeTransition+=ModeTransition?)*) | noModes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent? 
+	 *                 (ownedVirtualBusSubcomponent+=VirtualBusSubcomponent? ownedAbstractSubcomponent+=AbstractSubcomponent?)*
+	 *             ) | 
+	 *             noSubcomponents?='none'
+	 *         )? 
+	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -4500,19 +4495,20 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedAbstractFeature+=AbstractFeature | 
-	 *                 ownedBusAccess+=BusAccess
-	 *             )+
+	 *                 ownedEventDataPort+=EventDataPort? 
+	 *                 (
+	 *                     (
+	 *                         ownedFeatureGroup+=FeatureGroup | 
+	 *                         ownedDataPort+=DataPort | 
+	 *                         ownedEventPort+=EventPort | 
+	 *                         ownedAbstractFeature+=AbstractFeature | 
+	 *                         ownedBusAccess+=BusAccess
+	 *                     )? 
+	 *                     ownedEventDataPort+=EventDataPort?
+	 *                 )*
+	 *             )
 	 *         )? 
-	 *         (
-	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
-	 *             (ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
-	 *             noModes?='none'
-	 *         )? 
+	 *         ((derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -4537,39 +4533,18 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         (
 	 *             (
-	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent? 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent? 
 	 *                 (
-	 *                     (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent)? 
-	 *                     ownedVirtualBusSubcomponent+=VirtualBusSubcomponent?
+	 *                     (ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent)? 
+	 *                     ownedAbstractSubcomponent+=AbstractSubcomponent?
 	 *                 )*
 	 *             ) | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         (ownedEventSource+=EventSource | ownedEventDataSource+=EventDataSource)* 
+	 *         ownedEventDataSource+=EventDataSource? 
+	 *         (ownedEventSource+=EventSource? ownedEventDataSource+=EventDataSource?)* 
 	 *         (ownedSubprogramProxy+=SubprogramProxy? ownedPortProxy+=PortProxy?)* 
 	 *         (
-	 *             (
-	 *                 (
-	 *                     (ownedSubprogramProxy+=SubprogramProxy? noConnections?='none'? ownedFlowImplementation+=FlowImplementation?) | 
-	 *                     (
-	 *                         ownedSubprogramProxy+=SubprogramProxy? 
-	 *                         (
-	 *                             ownedAccessConnection+=AccessConnection? 
-	 *                             (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
-	 *                         )* 
-	 *                         ownedAccessConnection+=AccessConnection? 
-	 *                         ownedFlowImplementation+=FlowImplementation?
-	 *                     )
-	 *                 ) 
-	 *                 (ownedEndToEndFlow+=EndToEndFlow? ownedFlowImplementation+=FlowImplementation?)* 
-	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')?
-	 *             ) | 
-	 *             (
-	 *                 ownedSubprogramProxy+=SubprogramProxy? 
-	 *                 noConnections?='none'? 
-	 *                 noFlows?='none'? 
-	 *                 ((ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | noModes?='none')
-	 *             ) | 
 	 *             (
 	 *                 ownedSubprogramProxy+=SubprogramProxy? 
 	 *                 (
@@ -4577,11 +4552,23 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *                     (ownedPortConnection+=PortConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)?
 	 *                 )* 
 	 *                 (
-	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'? ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
-	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'? noModes?='none')
+	 *                     (ownedAccessConnection+=AccessConnection? noFlows?='none'?) | 
+	 *                     (
+	 *                         ownedAccessConnection+=AccessConnection? 
+	 *                         ownedEndToEndFlow+=EndToEndFlow? 
+	 *                         (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)*
+	 *                     )
 	 *                 )
-	 *             )
+	 *             ) | 
+	 *             (
+	 *                 ownedSubprogramProxy+=SubprogramProxy? 
+	 *                 noConnections?='none'? 
+	 *                 ownedEndToEndFlow+=EndToEndFlow? 
+	 *                 (ownedFlowImplementation+=FlowImplementation? ownedEndToEndFlow+=EndToEndFlow?)*
+	 *             ) | 
+	 *             (ownedSubprogramProxy+=SubprogramProxy? noConnections?='none'? noFlows?='none'?)
 	 *         ) 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
@@ -4648,22 +4635,23 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature | 
-	 *                 ownedBusAccess+=BusAccess
-	 *             )+
+	 *                 ownedDataPort+=DataPort? 
+	 *                 (
+	 *                     (
+	 *                         ownedEventPort+=EventPort | 
+	 *                         ownedEventDataPort+=EventDataPort | 
+	 *                         ownedFeatureGroup+=FeatureGroup | 
+	 *                         ownedSubprogramAccess+=SubprogramAccess | 
+	 *                         ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                         ownedAbstractFeature+=AbstractFeature | 
+	 *                         ownedBusAccess+=BusAccess
+	 *                     )? 
+	 *                     ownedDataPort+=DataPort?
+	 *                 )*
+	 *             )
 	 *         )? 
 	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (
-	 *             (derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | 
-	 *             (ownedMode+=Mode? (ownedModeTransition+=ModeTransition? ownedMode+=Mode?)*) | 
-	 *             noModes?='none'
-	 *         )? 
+	 *         ((derivedModes?=RequiresModesKeywords ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )

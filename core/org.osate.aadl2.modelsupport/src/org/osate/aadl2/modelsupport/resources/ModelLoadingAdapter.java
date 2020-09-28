@@ -35,7 +35,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.workspace.WorkspacePlugin;
+import org.osate.aadl2.modelsupport.FileNameConstants;
 
 /* Author: Robert Coop
  * Adapted by Peter Feiler
@@ -73,7 +73,7 @@ public class ModelLoadingAdapter implements IAdapterFactory {
 				if (ext == null) {
 					return null;
 				}
-				if (ext.toLowerCase().equals(WorkspacePlugin.SOURCE_FILE_EXT)) {
+				if (ext.toLowerCase().equals(FileNameConstants.SOURCE_FILE_EXT)) {
 					ModelUnit model;
 					ResourceSet resourceSet = new ResourceSetImpl();
 					String sp = file.getFullPath().toString();

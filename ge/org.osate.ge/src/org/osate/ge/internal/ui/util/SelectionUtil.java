@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -26,19 +26,12 @@ package org.osate.ge.internal.ui.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Adapters;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
@@ -59,13 +52,15 @@ import org.osate.aadl2.Generalization;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.EObjectURIWrapper;
+import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.navigator.DiagramGroup;
-import org.osate.workspace.WorkspacePlugin;
+
+import com.google.common.collect.ImmutableList;
 public class SelectionUtil {
 	private static EObjectAtOffsetHelper eObjectAtOffsetHelper = new EObjectAtOffsetHelper();
 
@@ -105,23 +100,23 @@ public class SelectionUtil {
 		return results;
 	}
 
-	public static List<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection) {
+	public static ImmutableList<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection) {
 		if (!(selection instanceof IStructuredSelection)) {
-			return Collections.emptyList();
+			return ImmutableList.of();
 		}
 
 		final IStructuredSelection ss = (IStructuredSelection) selection;
-		final List<BusinessObjectContext> bocs = new ArrayList<>(ss.size());
+		final ImmutableList.Builder<BusinessObjectContext> bocs = ImmutableList.builderWithExpectedSize(ss.size());
 		for (final Object sel : ss.toList()) {
 			final BusinessObjectContext boc = Adapters.adapt(sel, BusinessObjectContext.class);
 			if (boc == null) {
-				return Collections.emptyList();
+				return ImmutableList.of();
 			}
 
 			bocs.add(boc);
 		}
 
-		return bocs;
+		return bocs.build();
 	}
 
 	/**
@@ -150,8 +145,8 @@ public class SelectionUtil {
 	private static Element findDiagramContextForSelectedObject(final Object selectedObject) {
 		if (selectedObject instanceof IFile) {
 			final String ext = ((IFile) selectedObject).getFileExtension();
-			if (WorkspacePlugin.SOURCE_FILE_EXT.equalsIgnoreCase(ext)
-					|| WorkspacePlugin.INSTANCE_FILE_EXT.equalsIgnoreCase(ext)) {
+			if (FileNameConstants.SOURCE_FILE_EXT.equalsIgnoreCase(ext)
+					|| FileNameConstants.INSTANCE_FILE_EXT.equalsIgnoreCase(ext)) {
 				URI uri = OsateResourceUtil.toResourceURI((IFile) selectedObject);
 				final EList<EObject> contents = new ResourceSetImpl().getResource(uri, true).getContents();
 				if (contents != null && !contents.isEmpty()) {
@@ -283,24 +278,5 @@ public class SelectionUtil {
 
 					return targetElement;
 				});
-	}
-
-	public static IProject getProjectOrThrow(final Resource resource) {
-		return getProjectOrThrow(resource.getURI());
-	}
-
-	public static IProject getProjectOrThrow(final URI resourceUri) {
-		return getProject(resourceUri).orElseThrow(() -> new RuntimeException(
-				"Unable to receive project. URI: " + resourceUri));
-	}
-
-	public static Optional<IProject> getProject(final URI resourceUri) {
-		final IPath projectPath = new Path(resourceUri.toPlatformString(true)).uptoSegment(1);
-		final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath);
-		if(projectResource instanceof IProject) {
-			return Optional.of((IProject) projectResource);
-		}
-
-		return Optional.empty();
 	}
 }

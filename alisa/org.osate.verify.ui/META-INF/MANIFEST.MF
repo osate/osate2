@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.verify.ui
-Bundle-Vendor: SEI
-Bundle-Version: 2.0.1.qualifier
+Bundle-Name: OSATE Verification UI
+Bundle-Vendor: CMU/SEI
+Bundle-Version: 3.0.0.qualifier
 Bundle-SymbolicName: org.osate.verify.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle: org.osate.verify;bundle-version="[2.0.0,3.0.0)";visibility:=reexport,
+Require-Bundle: org.osate.verify;bundle-version="[3.0.0,4.0.0)";visibility:=reexport,
  org.eclipse.xtext.ui;bundle-version="[2.20.0,3.0.0)",
  org.eclipse.ui.editors;bundle-version="[3.5.0,4.0.0)",
  org.eclipse.ui.ide;bundle-version="[3.5.0,4.0.0)",
@@ -15,23 +15,24 @@ Require-Bundle: org.osate.verify;bundle-version="[2.0.0,3.0.0)";visibility:=reex
  org.antlr.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.xtext.ui.codetemplates.ui;bundle-version="[2.20.0,3.0.0)",
  org.eclipse.compare;bundle-version="[3.7.0,4.0.0)",
- org.osate.alisa.common.ui;bundle-version="[2.0.0,3.0.0)",
- org.osate.reqspec.ui;bundle-version="[1.0.0,2.0.0)",
+ org.osate.alisa.common.ui;bundle-version="[3.0.0,4.0.0)",
+ org.osate.reqspec.ui;bundle-version="[3.0.0,4.0.0)",
  org.eclipse.jdt.debug.ui;bundle-version="[3.10.0,4.0.0)",
- org.osate.aadl2;bundle-version="[2.1.0,3.0.0)",
- org.osate.reqspec;bundle-version="[2.0.0,3.0.0)",
+ org.osate.aadl2;bundle-version="[4.0.0,5.0.0)",
+ org.osate.reqspec;bundle-version="[3.0.0,4.0.0)",
  org.eclipse.xtext.xbase.lib;bundle-version="[2.20.0,3.0.0)",
- org.osate.categories;bundle-version="[2.0.0,3.0.0)",
- org.osate.aadl2.modelsupport;bundle-version="[3.0.0,4.0.0)",
- org.osate.xtext.aadl2.ui;bundle-version="[3.0.0,4.0.0)",
- org.osate.ui;bundle-version="[3.0.0,4.0.0)",
- org.osate.assure;bundle-version="[3.0.0,4.0.0)"
+ org.osate.categories;bundle-version="[3.0.0,4.0.0)",
+ org.osate.aadl2.modelsupport;bundle-version="[5.0.0,6.0.0)",
+ org.osate.xtext.aadl2.ui;bundle-version="[5.0.0,6.0.0)",
+ org.osate.ui;bundle-version="[5.0.0,6.0.0)",
+ org.osate.assure;bundle-version="[3.0.0,4.0.0)",
+ org.eclipse.xtend.lib;bundle-version="[2.20.0,3.0.0)";resolution:=optional
 Import-Package: org.apache.log4j;version="[1.2.0,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.verify.ui.quickfix,
  org.osate.verify.ui.contentassist,
- org.osate.verify.ui.contentassist.antlr,
  org.osate.verify.ui.internal,
- org.osate.verify.ui.contentassist.antlr.internal
+ org.osate.verify.ide.contentassist.antlr,
+ org.osate.verify.ide.contentassist.antlr.internal
 Bundle-Activator: org.osate.verify.ui.internal.VerifyActivator
 Automatic-Module-Name: org.osate.verify.ui

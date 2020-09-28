@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -393,6 +394,15 @@ public interface ErrorModelFactory extends EFactory
    * @generated
    */
   ErrorDetection createErrorDetection();
+
+  /**
+   * Returns a new object of class '<em>Reporting Port Reference</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Reporting Port Reference</em>'.
+   * @generated
+   */
+  ReportingPortReference createReportingPortReference();
 
   /**
    * Returns a new object of class '<em>Error Code Value</em>'.

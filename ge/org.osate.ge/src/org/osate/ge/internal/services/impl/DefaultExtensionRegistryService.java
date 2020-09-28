@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -54,7 +54,6 @@ package org.osate.ge.internal.services.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -63,17 +62,26 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
-import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.osate.ge.Categories;
+import org.eclipse.emf.ecore.EObject;
+import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
 import org.osate.ge.FundamentalContentFilter;
-import org.osate.ge.di.IsApplicable;
-import org.osate.ge.di.Names;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.IsApplicableContext;
+import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.services.ExtensionRegistryService;
+import org.osate.ge.internal.util.EclipseExtensionUtil;
+import org.osate.ge.palette.PaletteCategory;
+import org.osate.ge.palette.PaletteContributor;
+import org.osate.ge.palette.internal.PaletteContributorRegistry;
+import org.osate.ge.ui.TooltipContributor;
+import org.osgi.framework.FrameworkUtil;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
@@ -89,10 +97,11 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		}
 	}
 
-	private static class PrioritizedExtensionInfo {
+	private static class PrioritizedExtensionInfo<T> {
 		final private int priority;
-		final private Object object;
-		public PrioritizedExtensionInfo(final int priority, final Object object) {
+		final private T object;
+
+		public PrioritizedExtensionInfo(final int priority, final T object) {
 			this.priority = priority;
 			this.object = object;
 		}
@@ -101,82 +110,88 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 			return priority;
 		}
 
-		public Object getObject() {
+		public T getObject() {
 			return object;
 		}
 	}
 
 	private static final String BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID = "org.osate.ge.businessObjectHandlers";
 	private static final String TOOLTIP_EXTENSION_POINT_ID = "org.osate.ge.tooltips";
-	private static final String CATEGORIES_EXTENSION_POINT_ID = "org.osate.ge.categories";
 	private static final String BUSINESS_OBJECT_PROVIDERS_EXTENSION_POINT_ID = "org.osate.ge.businessObjectProviders";
 	private static final String CONTENT_FILTERS_EXTENSION_POINT_ID = "org.osate.ge.contentFilters";
 	private static final String DIAGRAM_TYPES_EXTENSION_POINT_ID = "org.osate.ge.diagramTypes";
 
-	private final ImmutableCollection<Object> boHandlers;
-	private final ImmutableList<Category> categories;
-	private final ImmutableCollection<Object> tooltipContributors;
-	private final ImmutableCollection<Object> businessObjectProviders;
+	private final ImmutableList<BusinessObjectHandler> boHandlers;
+	private final ImmutableList<TooltipContributor> tooltipContributors;
+	private final ImmutableCollection<BusinessObjectProvider> businessObjectProviders;
 	private final ImmutableCollection<ContentFilter> configurableContentFilters;
 	private final ImmutableCollection<FundamentalContentFilter> fundamentalContentFilters;
 	private final ImmutableCollection<DiagramType> diagramTypes;
+	private final PaletteContributorRegistry paletteExtensions;
 
 	public DefaultExtensionRegistryService() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
-		boHandlers = instantiatePrioritizedExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler");
+		boHandlers = instantiatePrioritizedExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler",
+				BusinessObjectHandler.class);
 		tooltipContributors = instantiatePrioritizedExtensions(registry, TOOLTIP_EXTENSION_POINT_ID,
-				"tooltipContributor");
-		categories = instantiateCategories(registry);
-		businessObjectProviders = instantiateSimpleExtensions(registry, BUSINESS_OBJECT_PROVIDERS_EXTENSION_POINT_ID,
-				"provider");
-		configurableContentFilters = instantiateSimpleExtensions(registry, CONTENT_FILTERS_EXTENSION_POINT_ID,
+				"tooltipContributor", TooltipContributor.class);
+		businessObjectProviders = EclipseExtensionUtil.instantiateSimpleExtensions(registry,
+				BUSINESS_OBJECT_PROVIDERS_EXTENSION_POINT_ID,
+				"provider", BusinessObjectProvider.class);
+		configurableContentFilters = EclipseExtensionUtil.instantiateSimpleExtensions(registry,
+				CONTENT_FILTERS_EXTENSION_POINT_ID,
 				"contentFilter", ContentFilter.class);
-		fundamentalContentFilters = instantiateSimpleExtensions(registry, CONTENT_FILTERS_EXTENSION_POINT_ID,
+		fundamentalContentFilters = EclipseExtensionUtil.instantiateSimpleExtensions(registry,
+				CONTENT_FILTERS_EXTENSION_POINT_ID,
 				"fundamentalContentFilter", FundamentalContentFilter.class);
-		diagramTypes = instantiateSimpleExtensions(registry, DIAGRAM_TYPES_EXTENSION_POINT_ID, "diagramType",
+		diagramTypes = EclipseExtensionUtil.instantiateSimpleExtensions(registry, DIAGRAM_TYPES_EXTENSION_POINT_ID,
+				"diagramType",
 				DiagramType.class);
+		paletteExtensions = new PaletteContributorRegistry(registry);
 	}
 
 	@Override
-	public Collection<Object> getBusinessObjectHandlers() {
+	public List<BusinessObjectHandler> getBusinessObjectHandlers() {
 		return boHandlers;
 	}
 
 	@Override
-	public Object getApplicableBusinessObjectHandler(final Object bo) {
-		final IEclipseContext eclipseCtx =  EclipseContextFactory.create();
+	public BusinessObjectHandler getApplicableBusinessObjectHandler(final Object bo) {
+		if (bo == null) {
+			return null;
+		}
 
-		try {
-			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
-
-			// Find the business object handler which is applicable for this business object
-			for(final Object handler : getBusinessObjectHandlers()) {
-				final boolean isApplicable = (boolean)ContextInjectionFactory.invoke(handler, IsApplicable.class, eclipseCtx, false);
-				if(isApplicable) {
-					return handler;
-				}
-
+		// Don't return a handler for an EObject proxy
+		if (bo instanceof EObject) {
+			if (((EObject) bo).eIsProxy()) {
+				return null;
 			}
+		}
 
-		} finally {
-			eclipseCtx.dispose();
+		final IsApplicableContext ctx = new IsApplicableContext(bo);
+
+		// Find the business object handler which is applicable for this business object
+		for (final BusinessObjectHandler handler : getBusinessObjectHandlers()) {
+			if (handler.isApplicable(ctx)) {
+				return handler;
+			}
 		}
 
 		return null;
 	}
 
 	@Override
-	public List<Category> getCategories() {
-		return categories;
+	public List<PaletteCategory> getCategories() {
+		return paletteExtensions.getCategories();
 	}
 
 	@Override
-	public Collection<Object> getTooltipContributors() {
+	public List<TooltipContributor> getTooltipContributors() {
 		return tooltipContributors;
 	}
 
 	@Override
-	public Collection<Object> getBusinessObjectProviders() {
+	public Collection<BusinessObjectProvider> getBusinessObjectProviders() {
 		return businessObjectProviders;
 	}
 
@@ -195,139 +210,50 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		return diagramTypes;
 	}
 
-	// Returns an immutable collection containing the objects created by instantiating class referenced by the "class" attribute of all configuration elements
-	// with the specified name for a specified extension point.
-	private static <T> ImmutableCollection<T> instantiateSimpleExtensions(final IExtensionRegistry registry,
-			final String extensionPointId, final String elementName, final Class<T> extClass) {
-		final ImmutableList.Builder<T> extensionListBuilder = ImmutableList.builder();
-		instantiateSimpleExtensions(extensionListBuilder, registry, extensionPointId, elementName, extClass);
-		return extensionListBuilder.build();
-	}
-
-	private static <T> void instantiateSimpleExtensions(final ImmutableList.Builder<T> extensionListBuilder,
-			final IExtensionRegistry registry,
-			final String extensionPointId, final String elementName, final Class<T> extClass) {
-		final IExtensionPoint point = registry.getExtensionPoint(extensionPointId);
-		if (point != null) {
-			// Iterate over all the extensions
-			for (final IExtension extension : point.getExtensions()) {
-				for (final IConfigurationElement ce : extension.getConfigurationElements()) {
-					if (ce.getName().equals(elementName)) {
-						try {
-							final Object extObj = ce.createExecutableExtension("class");
-
-							// If object is iterable, add each element
-							final Iterable<?> exts;
-							if (extObj instanceof Iterable) {
-								exts = (Iterable<?>) extObj;
-							} else {
-								exts = Collections.singletonList(extObj);
-							}
-
-							for (final Object ext : exts) {
-								if (extClass.isInstance(ext)) {
-									extensionListBuilder.add(extClass.cast(ext));
-								}
-							}
-						} catch (final CoreException ex) {
-							throw new RuntimeException(ex);
-						}
-					}
-				}
-			}
-		}
-	}
-
-	private static <T> ImmutableCollection<Object> instantiateSimpleExtensions(final IExtensionRegistry registry,
-			final String extensionPointId, final String elementName) {
-		return instantiateSimpleExtensions(registry, extensionPointId, elementName, Object.class);
+	@Override
+	public ImmutableCollection<PaletteContributor> getPaletteContributors() {
+		return paletteExtensions.getPaletteContributors();
 	}
 
 	// Extensions with a lower priority values are sorted so that they are earlier in the resulting collection
-	private static ImmutableCollection<Object> instantiatePrioritizedExtensions(final IExtensionRegistry registry,
+	private static <T> ImmutableList<T> instantiatePrioritizedExtensions(
+			final IExtensionRegistry registry,
 			final String extensionPointId,
-			final String elementName) {
-		final ImmutableList.Builder<Object> extensionListBuilder = ImmutableList.builder();
-		final Comparator<PrioritizedExtensionInfo> priorityComparator = (tooltipContributor1, tooltipContributor2) -> Integer.compare(tooltipContributor1.getPriority(), tooltipContributor2.getPriority());
+			final String elementName, final Class<T> extClass) {
+		final ILog logger = Platform.getLog(FrameworkUtil.getBundle(DefaultExtensionRegistryService.class));
 
-		final IExtensionPoint extPoint = registry.getExtensionPoint(extensionPointId);
-		if(extPoint != null) {
-			final ArrayList<PrioritizedExtensionInfo> prioritizedExtensionInfos = new ArrayList<>();
-			for(final IExtension extension : extPoint.getExtensions()) {
-				for(final IConfigurationElement ce : extension.getConfigurationElements()) {
-					if(ce.getName().equals(elementName)) {
-						final String priorityStr = ce.getAttribute("priority");
-						final int priority = priorityStr == null ? Integer.MAX_VALUE : Integer.parseInt(priorityStr);
-						try {
-							final Object contributor = ce.createExecutableExtension("class");
-							final PrioritizedExtensionInfo tooltipContributerInfo = new PrioritizedExtensionInfo(priority, contributor);
-							prioritizedExtensionInfos.add(tooltipContributerInfo);
-						} catch (final CoreException e) {
-							throw new RuntimeException(e);
+		final ImmutableList.Builder<T> extensionListBuilder = ImmutableList.builder();
+		final Comparator<PrioritizedExtensionInfo<T>> priorityComparator = (tooltipContributor1,
+				tooltipContributor2) -> Integer.compare(tooltipContributor1.getPriority(),
+						tooltipContributor2.getPriority());
+
+				final IExtensionPoint extPoint = registry.getExtensionPoint(extensionPointId);
+				if(extPoint != null) {
+					final ArrayList<PrioritizedExtensionInfo<T>> prioritizedExtensionInfos = new ArrayList<>();
+					for(final IExtension extension : extPoint.getExtensions()) {
+						for(final IConfigurationElement ce : extension.getConfigurationElements()) {
+							if(ce.getName().equals(elementName)) {
+								final String priorityStr = ce.getAttribute("priority");
+								final int priority = priorityStr == null ? Integer.MAX_VALUE : Integer.parseInt(priorityStr);
+								try {
+									final T contributor = extClass.cast(ce.createExecutableExtension("class"));
+									final PrioritizedExtensionInfo<T> tooltipContributerInfo = new PrioritizedExtensionInfo<>(
+											priority, contributor);
+									prioritizedExtensionInfos.add(tooltipContributerInfo);
+								} catch (final CoreException | ClassCastException e) {
+									logger.log(new Status(IStatus.ERROR, Activator.PLUGIN_ID,
+											"Error instantiating extension", e));
+								}
+							}
 						}
 					}
+
+					prioritizedExtensionInfos.sort(priorityComparator);
+					for (final PrioritizedExtensionInfo<T> info : prioritizedExtensionInfos) {
+						extensionListBuilder.add(info.getObject());
+					}
 				}
-			}
 
-			prioritizedExtensionInfos.sort(priorityComparator);
-			for (final PrioritizedExtensionInfo info : prioritizedExtensionInfos) {
-				extensionListBuilder.add(info.getObject());
-			}
-		}
-
-		return extensionListBuilder.build();
-	}
-
-	// Returns an immutable list containing the categories created using the id and name attribute of all configuration elements
-	// with the specified name for a specified extension point.
-	private static ImmutableList<Category> instantiateCategories(IExtensionRegistry registry) {
-		final ImmutableList.Builder<Category> extensionListBuilder = ImmutableList.builder();
-		final IExtensionPoint point = registry.getExtensionPoint(CATEGORIES_EXTENSION_POINT_ID);
-		if(point != null) {
-			// Build a list of category config elements from all extensions so that they can be sorted.
-			final List<IConfigurationElement> categoryConfigElements = new ArrayList<>();
-			for(final IExtension extension : point.getExtensions()) {
-				final IConfigurationElement[] tempConfigElements = extension.getConfigurationElements();
-				for(final IConfigurationElement ce : tempConfigElements) {
-					categoryConfigElements.add(ce);
-				}
-			}
-
-			categoryConfigElements.sort(orderComparator);
-
-			// Create the category objects
-			for(final IConfigurationElement ce : categoryConfigElements) {
-				final String categoryId = ce.getAttribute("id");
-				final String categoryName = ce.getAttribute("name");
-				final SimpleCategory category = new SimpleCategory(categoryId, categoryName);
-				extensionListBuilder.add(category);
-			}
-		}
-
-		extensionListBuilder.add(new SimpleCategory(Categories.MISC, "Miscellaneous"));
-		return extensionListBuilder.build();
-	}
-
-	private static final Comparator<IConfigurationElement> orderComparator
-	= (ce1, ce2) -> Integer.valueOf(ce1.getAttribute("order")).compareTo(Integer.valueOf(ce2.getAttribute("order")));
-
-	private static class SimpleCategory implements Category {
-		private String id;
-		private String name;
-
-		public SimpleCategory(final String id, final String name) {
-			this.id = id;
-			this.name = name;
-		}
-
-		@Override
-		public String getId() {
-			return id;
-		}
-
-		@Override
-		public String getName() {
-			return name;
-		}
+				return extensionListBuilder.build();
 	}
 }

@@ -33,28 +33,13 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension
          point="org.osate.ge.businessObjectHandlers">
       <handler
-            class="org.osate.ge.ba.businessObjectHandlers.BehaviorAnnexHandler">
+            class="org.osate.ge.ba.businessobjecthandlers.BehaviorAnnexHandler">
       </handler>
       <handler
-            class="org.osate.ge.ba.businessObjectHandlers.BaStateHandler">
+            class="org.osate.ge.ba.businessobjecthandlers.BaStateHandler">
       </handler>
    </extension>
-   <extension
-         point="org.osate.ge.categories">
-      <category
-            id="org.osate.ge.errormodel.categories.ba"
-            name="Behavior Annex"
-            order="300">
-      </category>
+   <extension point="org.osate.ge.paletteContributors">
+      <contributor class="org.osate.ge.ba.ui.palette.BaPaletteContributor" />
    </extension>
-   <extension
-         point="org.osate.ge.references">
-      <referenceBuilder
-            class="org.osate.ge.ba.BaReferenceHandler">
-      </referenceBuilder>
-      <referenceResolver
-            class="org.osate.ge.ba.BaReferenceHandler">
-      </referenceResolver>
-   </extension>
-
 </plugin>

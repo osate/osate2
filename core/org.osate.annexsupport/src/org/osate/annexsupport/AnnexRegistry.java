@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -100,21 +100,21 @@ public abstract class AnnexRegistry {
 	}
 
 	protected static AnnexRegistry createRegistry(String extensionId) {
-		if (extensionId == ANNEX_PARSER_EXT_ID) {
+		if (extensionId.equalsIgnoreCase(ANNEX_PARSER_EXT_ID)) {
 			return new AnnexParserRegistry();
-		} else if (extensionId == ANNEX_UNPARSER_EXT_ID) {
+		} else if (extensionId.equalsIgnoreCase(ANNEX_UNPARSER_EXT_ID)) {
 			return new AnnexUnparserRegistry();
-		} else if (extensionId == ANNEX_RESOLVER_EXT_ID) {
+		} else if (extensionId.equalsIgnoreCase(ANNEX_RESOLVER_EXT_ID)) {
 			return new AnnexResolverRegistry();
-		} else if (extensionId == ANNEX_LINKINGSERVICE_EXT_ID) {
+		} else if (extensionId.equalsIgnoreCase(ANNEX_LINKINGSERVICE_EXT_ID)) {
 			return new AnnexLinkingServiceRegistry();
-		} else if (extensionId == ANNEX_TEXTPOSITIONRESOLVER_EXT_ID) {
+		} else if (extensionId.equalsIgnoreCase(ANNEX_TEXTPOSITIONRESOLVER_EXT_ID)) {
 			return new AnnexTextPositionResolverRegistry();
-		} else if (extensionId == ANNEX_INSTANTIATOR_EXT_ID) {
+		} else if (extensionId.equalsIgnoreCase(ANNEX_INSTANTIATOR_EXT_ID)) {
 			return new AnnexInstantiatorRegistry();
-		} else if (extensionId == ANNEX_HIGHLIGHTER_EXT_ID) {
+		} else if (extensionId.equalsIgnoreCase(ANNEX_HIGHLIGHTER_EXT_ID)) {
 			return new AnnexHighlighterRegistry();
-		} else if (extensionId == ANNEX_CONTENT_ASSIST_EXT_ID) {
+		} else if (extensionId.equalsIgnoreCase(ANNEX_CONTENT_ASSIST_EXT_ID)) {
 			return new AnnexContentAssistRegistry();
 		}
 

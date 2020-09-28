@@ -5,6 +5,9 @@ import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.osate.aadl2.modelsupport.scoping.IDelegatingEClassGlobalScopeProvider;
 import org.osate.aadl2.modelsupport.scoping.IEClassGlobalScopeProvider;
 
+/**
+ * @since 5.0
+ */
 public class ErrorModelGlobalScopeProvider implements IDelegatingEClassGlobalScopeProvider {
 
 	static IEClassGlobalScopeProvider delegate = IResourceServiceProvider.Registry.INSTANCE

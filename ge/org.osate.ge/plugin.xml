@@ -25,13 +25,14 @@ censes only apply to the Third Party Software and not any other portion of this 
 <?eclipse version="3.4"?>
 <plugin>
    <extension-point id="org.osate.ge.tooltips" name="Tooltips" schema="schema/org.osate.ge.tooltips.exsd"/>
-   <extension-point id="org.osate.ge.categories" name="Categories" schema="schema/org.osate.ge.categories.exsd"/>
    <extension-point id="org.osate.ge.images" name="Images" schema="schema/org.osate.ge.images.exsd"/>
-   <extension-point id="org.osate.ge.references" name="Reference Handling" schema="schema/org.osate.ge.references.exsd"/>
+   <extension-point id="org.osate.ge.referenceLabelProviders" name="Reference Labels" schema="schema/org.osate.ge.referenceLabelProviders.exsd"/>
+   <extension-point id="org.osate.ge.referenceResolvers" name="Reference Resolvers" schema="schema/org.osate.ge.referenceResolvers.exsd"/>
    <extension-point id="org.osate.ge.businessObjectHandlers" name="Business Object Handlers" schema="schema/org.osate.ge.businessObjectHandlers.exsd"/>
    <extension-point id="org.osate.ge.businessObjectProviders" name="Business Object Providers" schema="schema/org.osate.ge.businessObjectProviders.exsd"/>
    <extension-point id="org.osate.ge.contentFilters" name="Content Filters" schema="schema/org.osate.ge.contentFilters.exsd"/>
    <extension-point id="org.osate.ge.diagramTypes" name="Diagram Types" schema="schema/org.osate.ge.diagramTypes.exsd"/>
+   <extension-point id="org.osate.ge.paletteContributors" name="OSATE Graphical Editor Palette Contributors" schema="schema/org.osate.ge.paletteContributors.exsd"/>
 	<extension point="org.eclipse.ui.commands">
     <category
           id="org.osate.ge.commands.categories.tool"
@@ -372,7 +373,7 @@ censes only apply to the Third Party Software and not any other portion of this 
           </with></enabledWhen>
     </handler>
     <handler
-          class="org.osate.ge.internal.ui.handlers.CreateEndToEndFlowSpecificationHandler"
+          class="org.osate.ge.aadl2.ui.internal.handlers.CreateEndToEndFlowSpecificationHandler"
           commandId="org.osate.ge.commands.createEndToEndFlowSpecification">
        <enabledWhen>
           <with
@@ -384,7 +385,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        </enabledWhen>
     </handler>
     <handler
-          class="org.osate.ge.internal.ui.handlers.CreateFlowImplementationHandler"
+          class="org.osate.ge.aadl2.ui.internal.handlers.CreateFlowImplementationHandler"
           commandId="org.osate.ge.commands.createFlowImplementation">
        <enabledWhen>
           <with
@@ -481,35 +482,35 @@ censes only apply to the Third Party Software and not any other portion of this 
           commandId="org.osate.ge.configureDiagram">
     </handler>
     <handler
-          class="org.osate.ge.internal.ui.handlers.ShowElementsInModeHandler"
+          class="org.osate.ge.aadl2.ui.internal.handlers.ShowElementsInModeHandler"
           commandId="org.osate.ge.showElementsInMode">
     </handler>
     <handler
-          class="org.osate.ge.internal.ui.handlers.ShowConnectedElementsHandler"
+          class="org.osate.ge.aadl2.ui.internal.handlers.ShowConnectedElementsHandler"
            commandId="org.osate.ge.showConnectedElements">
     </handler>
     <handler
-          class="org.osate.ge.internal.ui.handlers.GoToAadlSourceHandler"
+          class="org.osate.ge.aadl2.ui.internal.handlers.GoToAadlSourceHandler"
           commandId="org.osate.ge.goToAadlSource">
     </handler>
     <handler
-          class="org.osate.ge.internal.ui.handlers.OpenAssociatedDiagramHandler"
+          class="org.osate.ge.aadl2.ui.internal.handlers.OpenAssociatedDiagramHandler"
           commandId="org.osate.ge.openAssociatedDiagram">
     </handler>
     <handler
-          class="org.osate.ge.internal.ui.handlers.CreateNewDiagramHandler"
+          class="org.osate.ge.aadl2.ui.internal.handlers.CreateNewDiagramHandler"
           commandId="org.osate.ge.createNewDiagram">
     </handler>
     <handler
-          class="org.osate.ge.internal.ui.handlers.GoToTypeDiagramHandler"
+          class="org.osate.ge.aadl2.ui.internal.handlers.GoToTypeDiagramHandler"
           commandId="org.osate.ge.goToTypeDiagram">
     </handler>
     <handler
-          class="org.osate.ge.internal.ui.handlers.GoToPackageDiagramHandler"
+          class="org.osate.ge.aadl2.ui.internal.handlers.GoToPackageDiagramHandler"
           commandId="org.osate.ge.goToPackageDiagram">
     </handler>
     <handler
-          class="org.osate.ge.internal.ui.handlers.InstantiateHandler"
+          class="org.osate.ge.aadl2.ui.internal.handlers.InstantiateHandler"
           commandId="org.osate.ge.instantiate">
     </handler>
     <handler
@@ -517,7 +518,7 @@ censes only apply to the Third Party Software and not any other portion of this 
           commandId="org.osate.ge.selectContainer">
     </handler>
     <handler
-          class="org.osate.ge.internal.ui.handlers.DeleteHandler"
+          class="org.osate.ge.aadl2.ui.internal.handlers.DeleteHandler"
           commandId="org.osate.ge.delete">
     </handler>
     <handler
@@ -529,7 +530,7 @@ censes only apply to the Third Party Software and not any other portion of this 
           commandId="org.osate.ge.saveImage">
     </handler>
     <handler
-          class="org.osate.ge.internal.ui.handlers.GoToImplementationDiagramHandler"
+          class="org.osate.ge.aadl2.ui.internal.handlers.GoToImplementationDiagramHandler"
           commandId="org.osate.ge.goToImplementationDiagram">
     </handler>
     <handler
@@ -1390,31 +1391,6 @@ censes only apply to the Third Party Software and not any other portion of this 
      </adapter>
   </factory>
 	</extension>
-
-  <extension
-        point="org.eclipse.ui.navigator.navigatorContent">
-     <navigatorContent
-           activeByDefault="true"
-           contentProvider="org.osate.ge.internal.ui.navigator.ContentProvider"
-           id="org.osate.ge.navigatorContent"
-           labelProvider="org.osate.ge.internal.ui.navigator.LabelProvider"
-           name="AADL Diagrams (Legacy)"
-           priority="highest">
-        <enablement>
-           <or>
-              <and>
-                 <instanceof
-                       value="org.eclipse.core.resources.IFile">
-                 </instanceof>
-                 <test
-                       property="org.eclipse.core.resources.extension"
-                       value="aadl_diagram">
-                 </test>
-              </and>
-           </or>
-        </enablement>
-     </navigatorContent>
-  </extension>
   
   <extension
         point="org.eclipse.ui.navigator.viewer">
@@ -1666,449 +1642,41 @@ censes only apply to the Third Party Software and not any other portion of this 
        </definition>
     </extension>
         
-    <extension
-          point="org.osate.ge.tooltips">
-       <tooltipContributor 
-       		class="org.osate.ge.internal.tooltips.FeatureInstanceTooltipContributor"
-       		priority="1">
-       </tooltipContributor>
+    <extension point="org.osate.ge.tooltips">
        <tooltipContributor
-       		class="org.osate.ge.internal.tooltips.ModeTransitionInstanceTooltipContributor"
-       		priority="1">
-       </tooltipContributor>
-       <tooltipContributor
-       		class="org.osate.ge.internal.tooltips.ConnectionReferenceTooltipContributor"
-       		priority="1">
-       </tooltipContributor>
-       <tooltipContributor
-             class="org.osate.ge.internal.tooltips.AadlSourceTooltipContributor"
-             priority="1">
-       </tooltipContributor>
-       <tooltipContributor
-             class="org.osate.ge.internal.tooltips.PropertyValueTooltipContributor"
-             priority="1">
-       </tooltipContributor>
-       <tooltipContributor
-       		 class="org.osate.ge.internal.tooltips.ImageErrorTooltipContributor"
+       		 class="org.osate.ge.internal.ui.tooltips.ImageErrorTooltipContributor"
        		 priority="1">
        </tooltipContributor>
        <tooltipContributor
-             class="org.osate.ge.internal.tooltips.EObjectDocumentationTooltipContributor"
+             class="org.osate.ge.internal.ui.tooltips.EObjectDocumentationTooltipContributor"
              priority="2">
        </tooltipContributor>
     </extension>
+	<extension point="org.osate.ge.tooltips">
+       <tooltipContributor 
+       		class="org.osate.ge.aadl2.ui.internal.tooltips.FeatureInstanceTooltipContributor"
+       		priority="1">
+       </tooltipContributor>
+       <tooltipContributor
+       		class="org.osate.ge.aadl2.ui.internal.tooltips.ModeTransitionInstanceTooltipContributor"
+       		priority="1">
+       </tooltipContributor>
+       <tooltipContributor
+       		class="org.osate.ge.aadl2.ui.internal.tooltips.ConnectionReferenceTooltipContributor"
+       		priority="1">
+       </tooltipContributor>
+       <tooltipContributor
+             class="org.osate.ge.aadl2.ui.internal.tooltips.AadlSourceTooltipContributor"
+             priority="1">
+       </tooltipContributor>
+       <tooltipContributor
+             class="org.osate.ge.aadl2.ui.internal.tooltips.PropertyValueTooltipContributor"
+             priority="1">
+       </tooltipContributor>
+	</extension>
 
     <extension
-          point="org.osate.ge.categories">
-       <category
-             id="org.osate.ge.categories.annotation"
-             name="Annotation"
-             order="1">
-       </category>
-       
-       <category
-             id="org.osate.ge.categories.classifiers"
-             name="Classifiers"
-             order="10">
-       </category>
-       <category
-             id="org.osate.ge.categories.connections"
-             name="Connections"
-             order="20">
-       </category>
-       <category
-             id="org.osate.ge.categories.features"
-             name="Features"
-             order="30">
-       </category>
-       <category
-             id="org.osate.ge.categories.subcomponents"
-             name="Subcomponents"
-             order="40">
-       </category>
-       <category
-             id="org.osate.ge.categories.flows"
-             name="Flows"
-             order="50">
-       </category>
-       <category
-             id="org.osate.ge.categories.modes"
-             name="Modes"
-             order="60">
-       </category>
-       <category
-             id="org.osate.ge.categories.subprogram_calls"
-             name="Subprogram Calls"
-             order="80">
-       </category>
-    </extension>
-    <extension
           point="org.osate.ge.images">
-       <image
-             id="org.osate.ge.AbstractType"
-             path="/icons/full/obj16/AbstractType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.AbstractImplementation"
-             path="/icons/full/obj16/AbstractImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.BusType"
-             path="/icons/full/obj16/BusType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-           <image
-             id="org.osate.ge.BusImplementation"
-             path="/icons/full/obj16/BusImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.DataType"
-             path="/icons/full/obj16/DataType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.DataImplementation"
-             path="/icons/full/obj16/DataImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.DeviceType"
-             path="/icons/full/obj16/DeviceType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.DeviceImplementation"
-             path="/icons/full/obj16/DeviceImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.FeatureGroupType"
-             path="/icons/full/obj16/FeatureGroup.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.MemoryType"
-             path="/icons/full/obj16/MemoryType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.MemoryImplementation"
-             path="/icons/full/obj16/MemoryImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ProcessType"
-             path="/icons/full/obj16/ProcessType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ProcessImplementation"
-             path="/icons/full/obj16/ProcessImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ProcessorType"
-             path="/icons/full/obj16/ProcessorType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ProcessorImplementation"
-             path="/icons/full/obj16/ProcessorImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SubprogramType"
-             path="/icons/full/obj16/SubprogramType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SubprogramImplementation"
-             path="/icons/full/obj16/SubprogramImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SubprogramGroupType"
-             path="/icons/full/obj16/SubprogramGroupType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SubprogramGroupImplementation"
-             path="/icons/full/obj16/SubprogramGroupImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SystemType"
-             path="/icons/full/obj16/SystemType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SystemImplementation"
-             path="/icons/full/obj16/SystemImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ThreadType"
-             path="/icons/full/obj16/ThreadType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ThreadImplementation"
-             path="/icons/full/obj16/ThreadImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ThreadGroupType"
-             path="/icons/full/obj16/ThreadGroupType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ThreadGroupImplementation"
-             path="/icons/full/obj16/ThreadGroupImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.VirtualBusType"
-             path="/icons/full/obj16/VirtualBusType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.VirtualBusImplementation"
-             path="/icons/full/obj16/VirtualBusImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.VirtualProcessorType"
-             path="/icons/full/obj16/VirtualProcessorType.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.VirtualProcessorImplementation"
-             path="/icons/full/obj16/VirtualProcessorImplementation.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.AbstractFeature"
-             path="/icons/full/obj16/AbstractFeature.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.BusAccess"
-             path="/icons/full/obj16/BusAccess.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.DataAccess"
-             path="/icons/full/obj16/DataAccess.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.DataPort"
-             path="/icons/full/obj16/DataPort.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.EventDataPort"
-             path="/icons/full/obj16/EventDataPort.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.EventPort"
-             path="/icons/full/obj16/EventPort.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.FeatureGroup"
-             path="/icons/full/obj16/FeatureGroup.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SubprogramAccess"
-             path="/icons/full/obj16/SubprogramAccess.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.SubprogramGroupAccess"
-             path="/icons/full/obj16/SubprogramGroupAccess.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.AccessConnection"
-             path="/icons/full/obj16/AccessConnection.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.FeatureConnection"
-             path="/icons/full/obj16/FeatureConnection.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.FeatureGroupConnection"
-             path="/icons/full/obj16/FeatureGroupConnection.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.ParameterConnection"
-             path="/icons/full/obj16/AccessConnection.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.PortConnection"
-             path="/icons/full/obj16/PortConnection.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-        <image
-             id="org.osate.ge.AbstractSubcomponent"
-             path="/icons/full/obj16/AbstractSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.BusSubcomponent"
-             path="/icons/full/obj16/BusSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.DataSubcomponent"
-             path="/icons/full/obj16/DataSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.DeviceSubcomponent"
-             path="/icons/full/obj16/DeviceSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.MemorySubcomponent"
-             path="/icons/full/obj16/MemorySubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.ProcessorSubcomponent"
-             path="/icons/full/obj16/ProcessorSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.ProcessSubcomponent"
-             path="/icons/full/obj16/ProcessSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.SubprogramSubcomponent"
-             path="/icons/full/obj16/SubprogramSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.SubprogramGroupSubcomponent"
-             path="/icons/full/obj16/SubprogramGroupSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.SystemSubcomponent"
-             path="/icons/full/obj16/SystemSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.ThreadSubcomponent"
-             path="/icons/full/obj16/ThreadSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.ThreadGroupSubcomponent"
-             path="/icons/full/obj16/ThreadGroupSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.VirtualBusSubcomponent"
-             path="/icons/full/obj16/VirtualBusSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.VirtualProcessorSubcomponent"
-             path="/icons/full/obj16/VirtualProcessorSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.Mode"
-             path="/icons/full/obj16/Mode.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.ModeTransition"
-             path="/icons/full/obj16/ModeTransition.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.Parameter"
-             path="/icons/full/obj16/Parameter.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.EventSource"
-             path="/icons/full/obj16/EventPort.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.EventDataSource"
-             path="/icons/full/obj16/EventDataPort.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.PortProxy"
-             path="/icons/full/obj16/AbstractFeature.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.SubprogramProxy"
-             path="/icons/full/obj16/SubprogramAccess.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.FlowPath"
-             path="/icons/full/obj16/FlowPath.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.FlowSink"
-             path="/icons/full/obj16/FlowSink.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.FlowSource"
-             path="/icons/full/obj16/FlowSource.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.Generalization"
-             path="/icons/full/obj16/ModeTransition.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.SubprogramCall"
-             path="/icons/full/obj16/SubprogramSubcomponent.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.SubprogramCallSequence"
-             path="/icons/full/obj16/SubprogramCallSequence.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.DefaultAnnexLibrary"
-             path="/icons/full/obj16/DefaultAnnexLibrary.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.DefaultAnnexSubclause"
-             path="/icons/full/obj16/DefaultAnnexSubclause.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
-       <image
-             id="org.osate.ge.AadlPackage"
-             path="/icons/full/obj16/AadlPackage.gif"
-             plugin="org.osate.aadl2.edit">
-       </image>
        <image
              id="org.osate.ge.Note"
              path="/icons/note.png">
@@ -2119,123 +1687,26 @@ censes only apply to the Third Party Software and not any other portion of this 
        </image>
     </extension>
     <extension
-          point="org.osate.ge.references">
-       <referenceBuilder
-             class="org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder">
-       </referenceBuilder>
-		<referenceBuilder
-             class="org.osate.ge.internal.services.impl.InstanceReferenceBuilder">
-       </referenceBuilder>
-       <referenceResolver
-             class="org.osate.ge.internal.services.impl.InstanceReferenceResolver">
-       </referenceResolver>
-       <referenceBuilder
-             class="org.osate.ge.internal.services.impl.GraphicalEditorModelReferenceBuilder">
-       </referenceBuilder>
-       <referenceLabelProvider
-             class="org.osate.ge.internal.services.impl.DeclarativeReferenceLabelProvider">
-       </referenceLabelProvider>
-       <referenceLabelProvider
-             class="org.osate.ge.internal.services.impl.InstanceReferenceLabelProvider">
-       </referenceLabelProvider>
-    </extension>
-    <extension
           point="org.osate.ge.businessObjectHandlers">
 		<handler
-             class="org.osate.ge.internal.businessObjectHandlers.ClassifierHandler">
-		</handler>
-		<handler
-             class="org.osate.ge.internal.businessObjectHandlers.GeneralizatonHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.PackageHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.ConnectionReferenceHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.AnnexHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.ComponentInstanceHandler">
-       </handler>
-       <handler
-       		 class="org.osate.ge.internal.businessObjectHandlers.FlowSourceSinkSpecificationInstanceHandler">
-       </handler>
-       <handler
-       		 class="org.osate.ge.internal.businessObjectHandlers.FlowPathSpecificationInstanceHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.FeatureInstanceHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.FeatureHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.ModeHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.ModeInstanceHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.ModeTransitionHandler">
-       </handler>
-        <handler
-             class="org.osate.ge.internal.businessObjectHandlers.ModeTransitionInstanceHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.ModeTransitionTriggerHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.SubprogramCallSequenceHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.SubprogramCallHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.SubprogramCallOrderHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.SubcomponentHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.ConnectionHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.FlowPathSpecificationHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.FlowSourceSinkSpecificationHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.TagHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.PropertyValueGroupHandler">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.TimingPropertyValueHandler"
+             class="org.osate.ge.internal.businessobjecthandlers.NoteHandler"
              priority="1">
        </handler>
        <handler
-             class="org.osate.ge.internal.businessObjectHandlers.NoteHandler"
-             priority="1">
-       </handler>
-       <handler
-             class="org.osate.ge.internal.businessObjectHandlers.NoteReferenceHandler"
+             class="org.osate.ge.internal.businessobjecthandlers.NoteReferenceHandler"
              priority="1">
        </handler>
     </extension>
     <extension
           point="org.osate.ge.businessObjectProviders">
        <provider
-             class="org.osate.ge.internal.AadlBusinessObjectProvider">
+             class="org.osate.ge.aadl2.internal.AadlBusinessObjectProvider">
        </provider>
     </extension>
     <extension
           point="org.eclipse.ltk.core.refactoring.renameParticipants">
        <renameParticipant
-             class="org.osate.ge.internal.refactoring.AgeRenameParticipant"
+             class="org.osate.ge.aadl2.internal.refactoring.AgeRenameParticipant"
              id="org.osate.ge.ltk.ageRenameParticipant"
              name="OSATE Graphical Editor Rename Participant">
           <enablement>
@@ -2252,134 +1723,148 @@ censes only apply to the Third Party Software and not any other portion of this 
       <propertySections
             contributorId="org.osate.ge.editor.AgeDiagramEditor">
          <propertySection
-               class="org.osate.ge.internal.ui.properties.InheritedElementNoticePropertySection"
-               filter="org.osate.ge.internal.ui.properties.InheritedElementNoticePropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.InheritedElementNoticePropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.InheritedElementNoticePropertySection$Filter"
                id="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                afterSection="org.osate.ge.ui.properties.changeFeatureTypePropertySection"
-               class="org.osate.ge.internal.ui.properties.DirectionalFeaturePropertySection"
-               filter="org.osate.ge.internal.ui.properties.DirectionalFeaturePropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.DirectionalFeaturePropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.DirectionalFeaturePropertySection$Filter"
                id="org.osate.ge.ui.properties.directionalFeatureSection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
 		<propertySection
                afterSection="org.osate.ge.ui.properties.changeFeatureTypePropertySection"
-               class="org.osate.ge.internal.ui.properties.VirtualBusAccessPropertySection"
-               filter="org.osate.ge.internal.ui.properties.VirtualBusAccessPropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.VirtualBusAccessPropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.VirtualBusAccessPropertySection$Filter"
                id="org.osate.ge.ui.properties.virtualBusAccessSection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                afterSection="org.osate.ge.ui.properties.accessSection"
-               class="org.osate.ge.internal.ui.properties.SetFeatureClassifierPropertySection"
-               filter="org.osate.ge.internal.ui.properties.SetFeatureClassifierPropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.SetFeatureClassifierPropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.SetFeatureClassifierPropertySection$Filter"
                id="org.osate.ge.ui.properties.setFeatureClassifierPropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
+               afterSection="org.osate.ge.ui.properties.setFeatureClassifierPropertySection"
+               class="org.osate.ge.aadl2.ui.internal.properties.AbstractFeaturePrototypePropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.AbstractFeaturePrototypePropertySection$Filter"
+               id="org.osate.ge.ui.properties.abstractFeaturePrototypePropertySection"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
                afterSection="org.osate.ge.ui.properties.changeFeatureTypePropertySection"
-               class="org.osate.ge.internal.ui.properties.AccessPropertySection"
-               filter="org.osate.ge.internal.ui.properties.AccessPropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.AccessPropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.AccessPropertySection$Filter"
                id="org.osate.ge.ui.properties.accessSection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                afterSection="org.osate.ge.ui.properties.setDerivedModesPropertySection"
-               class="org.osate.ge.internal.ui.properties.ConfigureInModesSection"
-               filter="org.osate.ge.internal.ui.properties.ConfigureInModesSection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.ConfigureInModesSection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.ConfigureInModesSection$Filter"
                id="org.osate.ge.ui.properties.configureInModesSection"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>         
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.configureInModesSection"
+               class="org.osate.ge.aadl2.ui.internal.properties.ClassifierPrototypeBindingsPropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.ClassifierPrototypeBindingsPropertySection$Filter"
+               id="org.osate.ge.ui.properties.classifierPrototypeBindingsPropertySection"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.classifierPrototypeBindingsPropertySection"
+               class="org.osate.ge.aadl2.ui.internal.properties.PrototypesPropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.PrototypesPropertySection$Filter"
+               id="org.osate.ge.ui.properties.prototypesPropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                afterSection="org.osate.ge.ui.properties.refineElementPropertySection"
-               class="org.osate.ge.internal.ui.properties.ChangeFeatureTypePropertySection"
-               filter="org.osate.ge.internal.ui.properties.ChangeFeatureTypePropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.ChangeFeatureTypePropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.ChangeFeatureTypePropertySection$Filter"
                id="org.osate.ge.ui.properties.changeFeatureTypePropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                afterSection="org.osate.ge.ui.properties.changeFeatureTypePropertySection"
-               class="org.osate.ge.internal.ui.properties.ChangeSubcomponentTypePropertySection"
-               filter="org.osate.ge.internal.ui.properties.ChangeSubcomponentTypePropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.ChangeSubcomponentTypePropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.ChangeSubcomponentTypePropertySection$Filter"
                id="org.osate.ge.ui.properties.changeSubcomponentTypePropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-               class="org.osate.ge.internal.ui.properties.SwitchDirectionOfConnectionPropertySection"
-               filter="org.osate.ge.internal.ui.properties.SwitchDirectionOfConnectionPropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.SwitchDirectionOfConnectionPropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.SwitchDirectionOfConnectionPropertySection$Filter"
                id="org.osate.ge.ui.properties.switchDirectionOfConnectionPropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
-               afterSection="org.osate.ge.ui.properties.setDimensionsPropertySection"
-               class="org.osate.ge.internal.ui.properties.EditFlowsPropertySection"
-               filter="org.osate.ge.internal.ui.properties.EditFlowsPropertySection$Filter"
-               id="org.osate.ge.ui.properties.editFlowsPropertySection"
-               tab="org.osate.ge.ui.properties.tabs.aadl">
-         </propertySection>
-         <propertySection
                afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-               class="org.osate.ge.internal.ui.properties.SetSubprogramCallSequenceOrderPropertySection"
-               filter="org.osate.ge.internal.ui.properties.SetSubprogramCallSequenceOrderPropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.SetSubprogramCallSequenceOrderPropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.SetSubprogramCallSequenceOrderPropertySection$Filter"
                id="org.osate.ge.ui.properties.setSubprogramCallSequenceOrderPropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-               class="org.osate.ge.internal.ui.properties.SetExtendedClassifierPropertySection"
-               filter="org.osate.ge.internal.ui.properties.SetExtendedClassifierPropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.SetExtendedClassifierPropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.SetExtendedClassifierPropertySection$Filter"
                id="org.osate.ge.ui.properties.setExtendedClassifierPropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                afterSection="org.osate.ge.internal.ui.properties.InheritedElementNoticePropertySection"
-               class="org.osate.ge.internal.ui.properties.RefineElementPropertySection"
-               filter="org.osate.ge.internal.ui.properties.RefineElementPropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.RefineElementPropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.RefineElementPropertySection$Filter"
                id="org.osate.ge.ui.properties.refineElementPropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                afterSection="org.osate.ge.ui.properties.setDimensionsPropertySection"
-               class="org.osate.ge.internal.ui.properties.SetDerivedModesPropertySection"
-               filter="org.osate.ge.internal.ui.properties.SetDerivedModesPropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.SetDerivedModesPropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.SetDerivedModesPropertySection$Filter"
                id="org.osate.ge.ui.properties.setDerivedModesPropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                afterSection="org.osate.ge.ui.properties.setSubcomponentClassifierPropertySection"
-               class="org.osate.ge.internal.ui.properties.SetDimensionsPropertySection"
-               filter="org.osate.ge.internal.ui.properties.SetDimensionsPropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.SetDimensionsPropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.SetDimensionsPropertySection$Filter"
                id="org.osate.ge.ui.properties.setDimensionsPropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-               class="org.osate.ge.internal.ui.properties.SetFeatureGroupInversePropertySection"
-               filter="org.osate.ge.internal.ui.properties.SetFeatureGroupInversePropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.SetFeatureGroupInversePropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.SetFeatureGroupInversePropertySection$Filter"
                id="org.osate.ge.ui.properties.setFeatureGroupInversePropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-               class="org.osate.ge.internal.ui.properties.SetInitialModePropertySection"
-               filter="org.osate.ge.internal.ui.properties.SetInitialModePropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.SetInitialModePropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.SetInitialModePropertySection$Filter"
                id="org.osate.ge.ui.properties.setInitialModePropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-               class="org.osate.ge.internal.ui.properties.SetModeTransitionTriggerPropertySection"
-               filter="org.osate.ge.internal.ui.properties.SetModeTransitionTriggerPropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.SetModeTransitionTriggerPropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.SetModeTransitionTriggerPropertySection$Filter"
                id="org.osate.ge.ui.properties.setModeTransitionTriggerPropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                afterSection="org.osate.ge.ui.properties.changeSubcomponentTypePropertySection"
-               class="org.osate.ge.internal.ui.properties.SetSubcomponentClassifierPropertySection"
-               filter="org.osate.ge.internal.ui.properties.SetSubcomponentClassifierPropertySection$Filter"
+               class="org.osate.ge.aadl2.ui.internal.properties.SetSubcomponentClassifierPropertySection"
+               filter="org.osate.ge.aadl2.ui.internal.properties.SetSubcomponentClassifierPropertySection$Filter"
                id="org.osate.ge.ui.properties.setSubcomponentClassifierPropertySection"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
@@ -2467,100 +1952,100 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension
          point="org.osate.ge.contentFilters">
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.GeneralizationFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.GeneralizationFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.SubcomponentTypeFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.SubcomponentTypeFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.SubprogramCallOrderFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.SubprogramCallOrderFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.CalledSubprogramFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.CalledSubprogramFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.FeatureFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ModeTransitionTriggerNameFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.ModeTransitionTriggerNameFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ModeTransitionFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.ModeTransitionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ModeFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.ModeFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FlowSpecificationFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.FlowSpecificationFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ClassifierFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.ClassifierFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.ConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.SubcomponentFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.SubcomponentFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.SubprogramCallFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.SubprogramCallFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.SubprogramCallSequenceFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.SubprogramCallSequenceFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ProcessorFeatureFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.ProcessorFeatureFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.InternalFeatureFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.InternalFeatureFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureCategoryFilterFactory">
+            class="org.osate.ge.aadl2.internal.contentfilters.FeatureCategoryFilterFactory">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FlowSpecificationKindFilterFactory">
+            class="org.osate.ge.aadl2.internal.contentfilters.FlowSpecificationKindFilterFactory">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.AccessConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.AccessConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.FeatureConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureGroupConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.FeatureGroupConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ParameterConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.ParameterConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.PortConnectionFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.PortConnectionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FeatureGroupTypeFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.FeatureGroupTypeFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.ComponentCategoryFilterFactory">
+            class="org.osate.ge.aadl2.internal.contentfilters.ComponentCategoryFilterFactory">
       </contentFilter>
       <fundamentalContentFilter
-            class="org.osate.ge.internal.diagram.runtime.filtering.FundamentalTagFilter">
+            class="org.osate.ge.aadl2.internal.contentfilters.FundamentalTagFilter">
       </fundamentalContentFilter>
    </extension>
    <extension
          point="org.osate.ge.diagramTypes">
       <diagramType
-            class="org.osate.ge.internal.diagram.runtime.types.CustomDiagramType">
+            class="org.osate.ge.aadl2.internal.diagramtypes.CustomDiagramType">
       </diagramType>
       <diagramType
-            class="org.osate.ge.internal.diagram.runtime.types.PackageDiagramType">
+            class="org.osate.ge.aadl2.internal.diagramtypes.PackageDiagramType">
       </diagramType>
       <diagramType
-            class="org.osate.ge.internal.diagram.runtime.types.StructureDiagramType">
+            class="org.osate.ge.aadl2.internal.diagramtypes.StructureDiagramType">
       </diagramType>
       <diagramType
-            class="org.osate.ge.internal.diagram.runtime.types.ModeDiagramType">
+            class="org.osate.ge.aadl2.internal.diagramtypes.ModeDiagramType">
       </diagramType>
       <diagramType
-            class="org.osate.ge.internal.diagram.runtime.types.ProcessorBindingDiagramType">
+            class="org.osate.ge.aadl2.internal.diagramtypes.ProcessorBindingDiagramType">
       </diagramType>
    </extension>
    <extension
@@ -2658,7 +2143,7 @@ censes only apply to the Third Party Software and not any other portion of this 
          point="org.eclipse.ui.newWizards">
       <wizard
             category="org.osate.Wizard.category.ID"
-            class="org.osate.ge.internal.ui.wizards.NewDiagramWizardFactory"
+            class="org.osate.ge.aadl2.ui.internal.wizards.NewDiagramWizardFactory"
             icon="icons/tango/x-office-drawing.png"
             id="org.osate.ge.newDiagramWizard"
             name="AADL Diagram">
@@ -2670,4 +2155,120 @@ censes only apply to the Third Party Software and not any other portion of this 
          </selection>
       </wizard>
    </extension>
+    <extension point="org.osate.ge.paletteContributors">
+       <contributor class="org.osate.ge.palette.internal.AgePaletteContributor" />
+    </extension>
+    
+	<extension point="org.osate.ge.images">
+        <image id="org.osate.ge.aadl2.images.AbstractType" path="/icons/full/obj16/AbstractType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.AbstractImplementation" path="/icons/full/obj16/AbstractImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.BusType" path="/icons/full/obj16/BusType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.BusImplementation" path="/icons/full/obj16/BusImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DataType" path="/icons/full/obj16/DataType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DataImplementation" path="/icons/full/obj16/DataImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DeviceType" path="/icons/full/obj16/DeviceType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DeviceImplementation" path="/icons/full/obj16/DeviceImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.FeatureGroupType" path="/icons/full/obj16/FeatureGroup.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.MemoryType" path="/icons/full/obj16/MemoryType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.MemoryImplementation" path="/icons/full/obj16/MemoryImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ProcessType" path="/icons/full/obj16/ProcessType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ProcessImplementation" path="/icons/full/obj16/ProcessImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ProcessorType" path="/icons/full/obj16/ProcessorType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ProcessorImplementation" path="/icons/full/obj16/ProcessorImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramType" path="/icons/full/obj16/SubprogramType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramImplementation" path="/icons/full/obj16/SubprogramImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramGroupType" path="/icons/full/obj16/SubprogramGroupType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramGroupImplementation" path="/icons/full/obj16/SubprogramGroupImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SystemType" path="/icons/full/obj16/SystemType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SystemImplementation" path="/icons/full/obj16/SystemImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ThreadType" path="/icons/full/obj16/ThreadType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ThreadImplementation" path="/icons/full/obj16/ThreadImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ThreadGroupType" path="/icons/full/obj16/ThreadGroupType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ThreadGroupImplementation" path="/icons/full/obj16/ThreadGroupImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.VirtualBusType" path="/icons/full/obj16/VirtualBusType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.VirtualBusImplementation" path="/icons/full/obj16/VirtualBusImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.VirtualProcessorType" path="/icons/full/obj16/VirtualProcessorType.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.VirtualProcessorImplementation" path="/icons/full/obj16/VirtualProcessorImplementation.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.AbstractFeature" path="/icons/full/obj16/AbstractFeature.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.BusAccess" path="/icons/full/obj16/BusAccess.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DataAccess" path="/icons/full/obj16/DataAccess.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DataPort" path="/icons/full/obj16/DataPort.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.EventDataPort" path="/icons/full/obj16/EventDataPort.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.EventPort" path="/icons/full/obj16/EventPort.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.FeatureGroup" path="/icons/full/obj16/FeatureGroup.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramAccess" path="/icons/full/obj16/SubprogramAccess.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramGroupAccess" path="/icons/full/obj16/SubprogramGroupAccess.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.AccessConnection" path="/icons/full/obj16/AccessConnection.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.FeatureConnection" path="/icons/full/obj16/FeatureConnection.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.FeatureGroupConnection" path="/icons/full/obj16/FeatureGroupConnection.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ParameterConnection" path="/icons/full/obj16/AccessConnection.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.PortConnection" path="/icons/full/obj16/PortConnection.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.AbstractSubcomponent" path="/icons/full/obj16/AbstractSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.BusSubcomponent" path="/icons/full/obj16/BusSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DataSubcomponent" path="/icons/full/obj16/DataSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DeviceSubcomponent" path="/icons/full/obj16/DeviceSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.MemorySubcomponent" path="/icons/full/obj16/MemorySubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ProcessorSubcomponent" path="/icons/full/obj16/ProcessorSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ProcessSubcomponent" path="/icons/full/obj16/ProcessSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramSubcomponent" path="/icons/full/obj16/SubprogramSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramGroupSubcomponent" path="/icons/full/obj16/SubprogramGroupSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SystemSubcomponent" path="/icons/full/obj16/SystemSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ThreadSubcomponent" path="/icons/full/obj16/ThreadSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ThreadGroupSubcomponent" path="/icons/full/obj16/ThreadGroupSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.VirtualBusSubcomponent" path="/icons/full/obj16/VirtualBusSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.VirtualProcessorSubcomponent" path="/icons/full/obj16/VirtualProcessorSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.Mode" path="/icons/full/obj16/Mode.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ModeTransition" path="/icons/full/obj16/ModeTransition.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.Parameter" path="/icons/full/obj16/Parameter.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.EventSource" path="/icons/full/obj16/EventPort.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.EventDataSource" path="/icons/full/obj16/EventDataPort.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.PortProxy" path="/icons/full/obj16/AbstractFeature.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramProxy" path="/icons/full/obj16/SubprogramAccess.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.FlowPath" path="/icons/full/obj16/FlowPath.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.FlowSink" path="/icons/full/obj16/FlowSink.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.FlowSource" path="/icons/full/obj16/FlowSource.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.Generalization" path="/icons/full/obj16/ModeTransition.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramCall" path="/icons/full/obj16/SubprogramSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramCallSequence" path="/icons/full/obj16/SubprogramCallSequence.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DefaultAnnexLibrary" path="/icons/full/obj16/DefaultAnnexLibrary.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.DefaultAnnexSubclause" path="/icons/full/obj16/DefaultAnnexSubclause.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.AadlPackage" path="/icons/full/obj16/AadlPackage.gif" plugin="org.osate.aadl2.edit" />
+    </extension>  
+    <extension point="org.osate.ge.paletteContributors">
+        <contributor class="org.osate.ge.aadl2.ui.internal.palette.AadlPaletteContributor" />
+    </extension>
+	<extension point="org.osate.ge.businessObjectHandlers">
+	   <handler class="org.osate.ge.aadl2.internal.ClassifierHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.GeneralizatonHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.PackageHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.PackageProxyHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ConnectionReferenceHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.AnnexHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ComponentInstanceHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.FlowSpecificationInstanceHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.FeatureInstanceHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.FeatureHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ModeHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ModeInstanceHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ModeTransitionHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ModeTransitionInstanceHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ModeTransitionTriggerHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.SubprogramCallSequenceHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.SubprogramCallHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.SubprogramCallOrderHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.SubcomponentHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.ConnectionHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.FlowSpecificationHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.TagHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.PropertyValueGroupHandler" />
+	   <handler class="org.osate.ge.aadl2.internal.TimingPropertyValueHandler" priority="1" />
+	</extension>
+	<extension point="org.osate.ge.referenceLabelProviders">
+	   <provider class="org.osate.ge.aadl2.internal.DeclarativeReferenceLabelProvider" />
+	   <provider class="org.osate.ge.aadl2.internal.InstanceReferenceLabelProvider" />
+	</extension>
+	<extension point="org.osate.ge.referenceResolvers">
+	   <factory class="org.osate.ge.aadl2.internal.DeclarativeReferenceResolver$Factory" />
+	   <factory class="org.osate.ge.aadl2.internal.InstanceReferenceResolver$Factory" />
+	</extension>
 </plugin>

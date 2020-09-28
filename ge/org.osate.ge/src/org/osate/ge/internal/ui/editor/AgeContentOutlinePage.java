@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -38,7 +38,6 @@ import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChang
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.ui.actions.ActionRegistry;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
@@ -69,22 +68,22 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.IPageSite;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
-import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.model.BusinessObjectProxy;
-import org.osate.ge.internal.query.Queryable;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
-import org.osate.ge.internal.ui.util.ImageUiHelper;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.internal.util.BusinessObjectContextHelper;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
+
+import com.google.common.base.Strings;
 
 public class AgeContentOutlinePage extends ContentOutlinePage {
 	private static final String PREFERENCE_OUTLINE_LINK_WITH_EDITOR = "outline.linkWithEditor";
@@ -94,9 +93,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private final AgeDiagramEditor editor;
 	private final ProjectProvider projectProvider;
 	private final ProjectReferenceService referenceService;
-	private final ExtensionService extService;
+	private final ExtensionRegistryService extRegistry;
 	private final BusinessObjectProviderHelper bopHelper;
-	private final BusinessObjectContextHelper bocHelper;
 	private final Action linkWithEditorAction = new ToggleLinkWithEditorAction();
 	private final Action showHiddenElementsAction = new ToggleShowHiddenElementsAction();
 
@@ -106,16 +104,15 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private boolean synchronizingSelection = false;
 
 	public AgeContentOutlinePage(final AgeDiagramEditor editor, final ProjectProvider projectProvider,
-			final ExtensionService extService,
+			final ExtensionRegistryService extRegistry,
 			final ProjectReferenceService referenceService) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 		preferences.addPreferenceChangeListener(preferenceChangeListener);
 
 		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
 		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
-		this.extService = Objects.requireNonNull(extService, "extService must not be null");
-		this.bopHelper = new BusinessObjectProviderHelper(extService);
-		this.bocHelper = new BusinessObjectContextHelper(extService);
+		this.extRegistry = Objects.requireNonNull(extRegistry, "extRegistry must not be null");
+		this.bopHelper = new BusinessObjectProviderHelper(extRegistry);
 	}
 
 	@Override
@@ -139,8 +136,6 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 	@Override
 	public void dispose() {
-		bocHelper.close();
-		bopHelper.close();
 		preferences.removePreferenceChangeListener(preferenceChangeListener);
 		super.dispose();
 	}
@@ -193,8 +188,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			public Object[] getElements(final Object inputElement) {
 				if(inputElement instanceof AgeDiagramEditor) {
 					final AgeDiagramEditor editor = (AgeDiagramEditor)inputElement;
-					final GraphitiAgeDiagram graphitiAgeDiagram = editor.getGraphitiAgeDiagram();
-					return getChildren(graphitiAgeDiagram.getAgeDiagram());
+					return getChildren(editor.getDiagram());
 				}
 
 				return new BusinessObjectContext[0];
@@ -224,7 +218,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 									.getContextBoReference() == null) {
 								parentForRetrieval = new BusinessObjectContext() {
 									@Override
-									public Collection<? extends Queryable> getChildren() {
+									public Collection<? extends BusinessObjectContext> getChildren() {
 										return parentNode.getChildren();
 									}
 
@@ -247,7 +241,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 								return !children.stream()
 										.map(AgeContentOutlinePage.this::getRelativeReferenceForElement)
 										.anyMatch(childRef::equals);
-							})
+							}).filter(
+									this::includeHiddenBusinessObjectContext)
 							.forEachOrdered(children::add);
 						}
 					} else if (parent instanceof BusinessObjectContext) {
@@ -256,6 +251,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 						// Add children which are hidden based on user preference
 						if (showHiddenElementsAction.isChecked()) {
 							getChildContextsFromProvider(parent, parent, childRef -> true)
+							.filter(
+									this::includeHiddenBusinessObjectContext)
 							.forEachOrdered(children::add);
 						}
 					}
@@ -264,6 +261,20 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 				}
 
 				return new BusinessObjectContext[0];
+			}
+
+			/**
+			 * Filter returns whether a hidden business object context should be shown. This is implemented to be consistent with
+			 * handling for diagram elements.
+			 */
+			private boolean includeHiddenBusinessObjectContext(final BusinessObjectContext boc) {
+				final Object bo = boc.getBusinessObject();
+				if (bo instanceof EObject) {
+					return true;
+				}
+
+				final BusinessObjectHandler boh = extRegistry.getApplicableBusinessObjectHandler(bo);
+				return boh != null && !Strings.isNullOrEmpty(boh.getName(new GetNameContext(bo)));
 			}
 
 			/**
@@ -288,7 +299,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 					return childRef != null && filterPredicate.test(childRef);
 				}).map(childBo -> new BusinessObjectContext() {
 					@Override
-					public Collection<? extends Queryable> getChildren() {
+					public Collection<? extends BusinessObjectContext> getChildren() {
 						// Returns an empty list. Shouldn't be needed. All children are hidden and such children will be provided by the content provider.
 						return Collections.emptyList();
 					}
@@ -331,7 +342,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			public String getText(final Object element) {
 				if (element instanceof BusinessObjectContext) {
 					final BusinessObjectContext boc = (BusinessObjectContext) element;
-					return UiUtil.getDescription(boc, extService, bocHelper);
+					return UiUtil.getDescription(boc, extRegistry);
 				}
 
 				return super.getText(element);
@@ -339,10 +350,13 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 			@Override
 			public Image getImage(final Object element) {
-				if (element instanceof BusinessObjectContext) {
+				if (element instanceof DiagramElement) {
+					final DiagramElement de = (DiagramElement) element;
+					return UiUtil.getImage(de.getBusinessObjectHandler(), de.getBusinessObject()).orElse(null);
+				} else if (element instanceof BusinessObjectContext) {
 					final BusinessObjectContext boc = (BusinessObjectContext) element;
 					final Object bo = boc.getBusinessObject();
-					return ImageUiHelper.getImage(bo);
+					return UiUtil.getImage(extRegistry, bo).orElse(null);
 				}
 
 				return null;
@@ -420,10 +434,10 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			try {
 				synchronizingSelection = true;
 				final TreeViewer treeViewer = getTreeViewer();
-				final Set<DiagramNode> outlineNodes = getCurrentlySelectedDiagramNodes();
+				final Set<DiagramElement> outlineNodes = getCurrentlySelectedDiagramElements();
 				if(treeViewer != null &&
 						treeViewer.getContentProvider() != null &&
-						!outlineNodes.equals(getSelectedDiagramNodesFromEditor())) {
+						!outlineNodes.equals(editor.getSelectedDiagramElements())) {
 					treeViewer.setSelection(buildDiagramNodeTreeSelectionFromEditor());
 				}
 			} finally {
@@ -433,12 +447,13 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	}
 
 	private TreeSelection buildDiagramNodeTreeSelectionFromEditor() {
-		final Set<DiagramNode> selectedDiagramNodes = getSelectedDiagramNodesFromEditor();
-		if(selectedDiagramNodes == null) {
+		final Set<DiagramElement> selectedDiagramElements = editor.getSelectedDiagramElements();
+		if (selectedDiagramElements == null) {
 			return TreeSelection.EMPTY;
 		}
 
-		final TreePath[] treePaths = selectedDiagramNodes.stream().map((dn) -> new TreePath(new Object[] { dn } )).toArray(TreePath[]::new);
+		final TreePath[] treePaths = selectedDiagramElements.stream().map((dn) -> new TreePath(new Object[] { dn }))
+				.toArray(TreePath[]::new);
 		return new TreeSelection(treePaths);
 	}
 
@@ -447,22 +462,21 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			if(!synchronizingSelection && linkWithEditorAction.isChecked() && !getSelection().isEmpty()) {
 				// Select TreeItems on editor
 				synchronizingSelection = true;
-				selectEditorPictogramElements();
+				selectEditorDiagramElements();
 			}
 		} finally {
 			synchronizingSelection = false;
 		}
 	}
 
-	private void selectEditorPictogramElements() {
+	private void selectEditorDiagramElements() {
 		// Compare using diagram nodes to allow selecting labels when link with editor is enabled
-		final Set<DiagramNode> outlineNodes = getCurrentlySelectedDiagramNodes();
-		final Set<DiagramNode> editorNodes = getSelectedDiagramNodesFromEditor();
+		final Set<DiagramElement> outlineElements = getCurrentlySelectedDiagramElements();
+		final Set<DiagramElement> editorElements = editor.getSelectedDiagramElements();
 		if(getTreeViewer() != null &&
 				getTreeViewer().getContentProvider() != null &&
-				!outlineNodes.equals(editorNodes)) {
-			// Select pictogram elements
-			editor.selectPictogramElements(getCurrentlySelectedPictogramElements());
+				!outlineElements.equals(editorElements)) {
+			editor.selectDiagramElements(outlineElements);
 		}
 	}
 
@@ -519,60 +533,19 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		return preferences.getBoolean(PREFERENCE_SHOW_HIDDEN_ELEMENTS, true);
 	}
 
-	private PictogramElement[] getCurrentlySelectedPictogramElements() {
-		final List<PictogramElement> pes = new ArrayList<>();
-		final GraphitiAgeDiagram graphitiAgeDiagram = editor.getGraphitiAgeDiagram();
-		for (final DiagramNode selectedDiagramNode : getCurrentlySelectedDiagramNodes()) {
-			final PictogramElement pe = graphitiAgeDiagram.getPictogramElement(selectedDiagramNode);
-			if (pe != null) {
-				pes.add(pe);
-			}
-		}
-
-		return pes.toArray(new PictogramElement[pes.size()]);
-	}
-
-
-	// Sets are used in the following methods to allow correct comparison between editor and outline selection. The editor may have multiple pictogram
-	// elements for the same diagram node.
-
 	/**
-	 * Will never return null. Will remove anything selected in the tree that isn't a DiagramNode
+	 * Will never return null. Will remove anything selected in the tree that isn't a DiagramElement
 	 * @return
 	 */
-	private Set<DiagramNode> getCurrentlySelectedDiagramNodes() {
+	private Set<DiagramElement> getCurrentlySelectedDiagramElements() {
 		final Object[] outlineSelection = ((IStructuredSelection)getSelection()).toArray();
-		final Set<DiagramNode> diagramNodes = new HashSet<>();
+		final Set<DiagramElement> diagramElements = new HashSet<>();
 		for (final Object selectedBusinessObjectContext : outlineSelection) {
-			if (selectedBusinessObjectContext instanceof DiagramNode) {
-				diagramNodes.add((DiagramNode) selectedBusinessObjectContext);
+			if (selectedBusinessObjectContext instanceof DiagramElement) {
+				diagramElements.add((DiagramElement) selectedBusinessObjectContext);
 			}
 		}
 
-		return diagramNodes;
-	}
-
-	/**
-	 * Will return null if it is unable to determine the diagram nodes for all the selected pictogram elements.
-	 * @return
-	 */
-	private Set<DiagramNode> getSelectedDiagramNodesFromEditor() {
-		final PictogramElement[] selectedPes = editor.getSelectedPictogramElements();
-		final Set<DiagramNode> selectedDiagramNodes = new HashSet<>();
-		final GraphitiAgeDiagram graphitiAgeDiagram = editor.getGraphitiAgeDiagram();
-		for(final PictogramElement selectedPe : selectedPes) {
-			if(selectedPe == null) {
-				return null;
-			}
-
-			final DiagramNode diagramNode = graphitiAgeDiagram.getClosestDiagramElement(selectedPe);
-			if(diagramNode == null) {
-				return null;
-			}
-
-			selectedDiagramNodes.add(diagramNode);
-		}
-
-		return selectedDiagramNodes;
+		return diagramElements;
 	}
 }

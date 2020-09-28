@@ -24,18 +24,21 @@ censes only apply to the Third Party Software and not any other portion of this 
 <!--
 Run with
 
-~/local/eclipse/osate2_2019-12-master/eclipse/eclipse \
+~/local/eclipse/osate2_2020-06-master/eclipse/eclipse \
     -application org.eclipse.ant.core.antRunner \
-    -buildfile mirror1.xml \
-    -Dtarget.dir=$HOME/tmp/mirrortest/p2mirror
+    -buildfile p2mirror.ant.xml \
+    -Dtarget.dir=$HOME/projects/osate/p2mirror
 
 -->
 <project name="Create Mirror" default="create-mirror" basedir=".">
     
     <target name="create-mirror">
-        
-        <p2.mirror source="http://download.eclipse.org/releases/2019-12">
-            <destination location="${target.dir}/releases/2019-12"/>
+
+    	<p2.mirror>
+            <source>
+                <repository location="http://download.eclipse.org/releases/2020-06"/>
+            </source>
+            <destination location="${target.dir}/releases/2020-06"/>
             <iu id="org.eclipse.e4.rcp.feature.group"/>
             <iu id="org.eclipse.egit.feature.group"/>
             <iu id="org.eclipse.emf.sdk.feature.group"/>
@@ -66,6 +69,15 @@ Run with
             <iu id="org.eclipse.xpand"/>
             <iu id="org.eclipse.xtend"/>
             <iu id="org.eclipse.xtend.typesystem.emf"/>
+        </p2.mirror>
+        
+    	<p2.mirror>
+            <source>
+                <repository location="http://download.eclipse.org/releases/2019-12"/>
+            </source>
+            <destination location="${target.dir}/releases/2020-06"/>
+            <iu id="org.eclipse.xtext.xbase.junit"/>
+            <slicingoptions includeNonGreedy="false" includeOptional="false" latestVersionOnly="true"/>
         </p2.mirror>
         
         <p2.mirror source="http://download.eclipse.org/birt/update-site/2018-09-interim">
@@ -110,7 +122,10 @@ Run with
             <iu id="org.apache.commons.io" version="2.2.0.v201405211200"/>
         </p2.mirror>
         
-        <p2.mirror source="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.20.0">
+        <p2.mirror>
+            <source>
+                <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.20.0"/>
+            </source>
             <destination location="${target.dir}/modeling/tmf/xtext/updates/releases/2.20.0"/>
             <iu id="org.eclipse.xtext.generator"/>
             <iu id="org.eclipse.xtext.redist.feature.group"/>
@@ -129,14 +144,20 @@ Run with
             <iu id="org.eclipse.xsemantics.runtime.feature.feature.group"/>
         </p2.mirror>
         
-        <p2.mirror source="http://download.eclipse.org/elk/updates/releases/0.5.0">
-            <destination location="${target.dir}/elk/updates/releases/0.5.0"/>
+        <!--p2.mirror source="http://download.eclipse.org/elk/updates/releases/0.6.1">
+            <destination location="${target.dir}/elk/updates/releases/0.6.1"/>
+            <iu id="org.eclipse.elk.feature.feature.group"/>
+            <iu id="org.eclipse.elk.algorithms.feature.feature.group"/>
+        </p2.mirror-->
+    	
+        <p2.mirror source="http://osate-build.sei.cmu.edu/p2/elk-nightly">
+            <destination location="${target.dir}/elk-nightly"/>
             <iu id="org.eclipse.elk.feature.feature.group"/>
             <iu id="org.eclipse.elk.algorithms.feature.feature.group"/>
         </p2.mirror>
-        
-        <p2.mirror source="http://download.eclipse.org/ease/update/release">
-            <destination location="${target.dir}/ease/update/release"/>
+    	
+        <p2.mirror source="http://download.eclipse.org/ease/release/0.7.0">
+            <destination location="${target.dir}/ease/release/0.7.0"/>
             <iu id="org.eclipse.ease.feature.feature.group"/>
             <iu id="org.eclipse.ease.lang.python.py4j.feature.feature.group"/>
             <iu id="org.eclipse.ease.lang.scriptarchive.feature.feature.group"/>

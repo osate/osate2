@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -295,6 +296,11 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
       public Adapter caseErrorDetection(ErrorDetection object)
       {
         return createErrorDetectionAdapter();
+      }
+      @Override
+      public Adapter caseReportingPortReference(ReportingPortReference object)
+      {
+        return createReportingPortReferenceAdapter();
       }
       @Override
       public Adapter caseErrorCodeValue(ErrorCodeValue object)
@@ -984,6 +990,21 @@ public class ErrorModelAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createErrorDetectionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference <em>Reporting Port Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference
+   * @generated
+   */
+  public Adapter createReportingPortReferenceAdapter()
   {
     return null;
   }

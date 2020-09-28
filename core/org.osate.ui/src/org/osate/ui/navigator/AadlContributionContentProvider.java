@@ -73,9 +73,9 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 			return PluginSupportUtil.getContributedAadl().stream().map(uri -> {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (!firstSignificantIndex.isPresent() || firstSignificantIndex.getAsInt() == uri.segmentCount() - 1) {
-					return new ContributedAadlStorage(element, uri);
+					return new ContributedAadlStorage((VirtualPluginResources) element, uri);
 				} else {
-					return new ContributedDirectory(element,
+					return new ContributedDirectory((VirtualPluginResources) element,
 							Collections.singletonList(uri.segment(firstSignificantIndex.getAsInt())));
 				}
 			}).distinct().toArray();
@@ -96,11 +96,11 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 				int nextSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri).getAsInt()
 						+ directoryPath.size();
 				if (nextSignificantIndex == uri.segmentCount() - 1) {
-					return new ContributedAadlStorage(element, uri);
+					return new ContributedAadlStorage((ContributedDirectory) element, uri);
 				} else {
 					ArrayList<String> newPath = new ArrayList<>(directoryPath);
 					newPath.add(uri.segment(nextSignificantIndex));
-					return new ContributedDirectory(element, newPath);
+					return new ContributedDirectory((ContributedDirectory) element, newPath);
 				}
 			}).distinct().toArray();
 		}

@@ -38,8 +38,11 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
@@ -59,12 +62,15 @@ import org.osate.analysis.flows.model.LatencyContributorComponent;
 import org.osate.analysis.flows.model.LatencyContributorConnection;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.model.LatencyReportEntry;
+import org.osate.contribution.sei.names.SEI;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
+import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
+import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 /**
  * @author phf
@@ -226,8 +232,15 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 //		double executionTimeLower = GetProperties.getScaledMinComputeExecutionTimeinMilliSec(componentInstance);
 //		double executionTimeHigher = GetProperties.getScaledMaxComputeExecutionTimeinMilliSec(componentInstance);
-		double executionTimeLower = getMinExecutionTimeInMilliSec(flowElementInstance, componentInstance, isPeriodic);
-		double executionTimeHigher = getMaxExecutionTimeInMilliSec(flowElementInstance, componentInstance, isPeriodic);
+		final double responseTimeLower = getMinResponseTimeInMilliSec(flowElementInstance, componentInstance,
+				isPeriodic);
+		final double responseTimeHigher = getMaxResponseTimeInMilliSec(flowElementInstance, componentInstance,
+				isPeriodic);
+
+		final double executionTimeLower = getMinExecutionTimeInMilliSec(flowElementInstance, componentInstance,
+				isPeriodic);
+		final double executionTimeHigher = getMaxExecutionTimeInMilliSec(flowElementInstance, componentInstance,
+				isPeriodic);
 
 		/**
 		 * The component is periodic. Therefore it will sample its input unless we have an immediate connection or delayed connection
@@ -243,7 +256,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					// period is set, and if thread, abstract, or device needs to be dispatched as periodic
 					// We sample only data ports. Event and event data ports have queuing latency
 					LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(
-							componentInstance, report.isMajorFrameDelay());
+							componentInstance, flowElementInstance, report.isMajorFrameDelay());
 					samplingLatencyContributor.setSamplingPeriod(period);
 					if ((InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance))
 							&& !GetProperties.hasAssignedPropertyValue(componentInstance, "Dispatch_Protocol")) {
@@ -279,7 +292,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				// The periodic component is the first component in the ETEF
 				// record fact that first element is periodic so we can process synchronous behavior correctly
 				LatencyContributorComponent samplingLatencyContributor = new LatencyContributorComponent(
-						componentInstance, report.isMajorFrameDelay());
+						componentInstance, flowElementInstance, report.isMajorFrameDelay());
 				samplingLatencyContributor.setBestCaseMethod(LatencyContributorMethod.FIRST_PERIODIC);
 				samplingLatencyContributor.setWorstCaseMethod(LatencyContributorMethod.FIRST_PERIODIC);
 				entry.addContributor(samplingLatencyContributor);
@@ -294,6 +307,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
 					double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
 					LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition,
+							flowElementInstance,
 							report.isMajorFrameDelay());
 					if (!FlowLatencyUtil.isInSchedule(firstPartition, schedule)) {
 						platencyContributor.reportWarning("Partition not found in ARINC653 schedule of processor "
@@ -328,9 +342,13 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		worstmethod = LatencyContributorMethod.UNKNOWN;
 
 		LatencyContributorComponent processingLatencyContributor = new LatencyContributorComponent(componentInstance,
+				flowElementInstance,
 				report.isMajorFrameDelay());
 
-		if (executionTimeHigher != 0.0) {
+		if (responseTimeHigher != 0.0) {
+			worstCaseValue = responseTimeHigher;
+			worstmethod = LatencyContributorMethod.RESPONSE_TIME;
+		} else if (executionTimeHigher != 0.0) {
 			if (!report.isWorstCaseDeadline()) {
 				// Use execution time for worst-case if preferences specify not deadline or no deadline is specified
 				worstCaseValue = executionTimeHigher;
@@ -363,11 +381,15 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		 * Selection of the best case value, generic cases.
 		 */
 		bestmethod = LatencyContributorMethod.UNKNOWN;
-		if (executionTimeLower != 0.0) {
+		if (responseTimeLower != 0.0) {
+			bestCaseValue = responseTimeLower;
+			bestmethod = LatencyContributorMethod.RESPONSE_TIME;
+		} else if (executionTimeLower != 0.0) {
 			bestCaseValue = executionTimeLower;
 			bestmethod = LatencyContributorMethod.PROCESSING_TIME;
 		}
-// For best case it does not make sense to use deadline
+
+		// For best case it does not make sense to use deadline
 
 		if ((bestCaseValue == 0.0) && (expectedMin != 0.0)) {
 			bestCaseValue = expectedMin;
@@ -378,7 +400,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		// take into account queuing delay
 		if (incomingConnectionFI != null) {
 			double qs = 0;
-			LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance,
+			LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance, flowElementInstance,
 					report.isMajorFrameDelay());
 			if (GetProperties.hasAssignedPropertyValue(incomingConnectionFI, CommunicationProperties.QUEUE_SIZE)) {
 				qs = GetProperties.getQueueSize(incomingConnectionFI);
@@ -454,6 +476,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(srcPartition, schedule);
 			if (partitionDuration > 0) {
 				LatencyContributor ioLatencyContributor = new LatencyContributorComponent(srcPartition,
+						flowElementInstance,
 						report.isMajorFrameDelay());
 				if (!FlowLatencyUtil.isInSchedule(srcPartition, schedule)) {
 					ioLatencyContributor.reportWarning("Partition not found in ARINC653 schedule of processor "
@@ -546,6 +569,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(dstPartition);
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(dstPartition, schedule);
 			LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition,
+					flowElementInstance,
 					report.isMajorFrameDelay());
 			if (!FlowLatencyUtil.isInSchedule(dstPartition, schedule)) {
 				platencyContributor.reportWarning("Partition not found in ARINC653 schedule of processor "
@@ -1175,8 +1199,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return ar;
 	}
 
-	private double getExecutionTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
-			final boolean isPeriodic, final Function<NamedElement, Double> getExecTime) {
+	private double getTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
+			final boolean isPeriodic, final Function<NamedElement, Boolean> propertyTester,
+			final Function<NamedElement, Double> getExecTime) {
 		/*
 		 * If the flow element is a component instance or if the thread is periodic, we use the thread's
 		 * computation time. Otherwise we try to use the compute execution time from the flow's input feature.
@@ -1187,8 +1212,14 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			final FlowSpecificationInstance fsi = (FlowSpecificationInstance) fei;
 			final FlowEnd allInEnd = fsi.getFlowSpecification().getAllInEnd();
 			if (allInEnd != null) { // we have an input feature
-				final FeatureInstance fi = ci.findFeatureInstance(allInEnd.getFeature());
-				if (GetProperties.hasComputeExecutionTime(fi)) {
+				FeatureInstance fi = null;
+				if (allInEnd.getContext() instanceof FeatureGroup) {
+					FeatureInstance fgi = ci.findFeatureInstance((FeatureGroup) allInEnd.getContext());
+					fi = fgi.findFeatureInstance(allInEnd.getFeature());
+				} else {
+					fi = ci.findFeatureInstance(allInEnd.getFeature());
+				}
+				if (propertyTester.apply(fi)) {
 					return getExecTime.apply(fi);
 				}
 			}
@@ -1196,15 +1227,27 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
+	private double getMinResponseTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
+			final boolean isPeriodic) {
+		return getTimeInMilliSec(fei, ci, isPeriodic, FlowLatencyAnalysisSwitch::hasResponseTime,
+				FlowLatencyAnalysisSwitch::getScaledMinResponseTimeinMilliSec);
+	}
+
+	private double getMaxResponseTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
+			final boolean isPeriodic) {
+		return getTimeInMilliSec(fei, ci, isPeriodic, FlowLatencyAnalysisSwitch::hasResponseTime,
+				FlowLatencyAnalysisSwitch::getScaledMaxResponseTimeinMilliSec);
+	}
+
 	private double getMinExecutionTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
 			final boolean isPeriodic) {
-		return getExecutionTimeInMilliSec(fei, ci, isPeriodic,
+		return getTimeInMilliSec(fei, ci, isPeriodic, GetProperties::hasComputeExecutionTime,
 				GetProperties::getScaledMinComputeExecutionTimeinMilliSec);
 	}
 
 	private double getMaxExecutionTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
 			final boolean isPeriodic) {
-		return getExecutionTimeInMilliSec(fei, ci, isPeriodic,
+		return getTimeInMilliSec(fei, ci, isPeriodic, GetProperties::hasComputeExecutionTime,
 				GetProperties::getScaledMaxComputeExecutionTimeinMilliSec);
 	}
 
@@ -1368,4 +1411,43 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			}
 		}
 	}
+
+	/*
+	 * Ideally these methods would be GetProperties, but changing that class really causes havoc with the
+	 * version numbers of the plug-ins.
+	 */
+
+	private static boolean hasResponseTime(final NamedElement ne) {
+		final Property responseTime = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
+		return PropertyUtils.hasPropertyValue(ne, responseTime);
+	}
+
+	/**
+	 * get max response time scaled in terms of the processor the thread is
+	 * bound to.
+	 *
+	 * @param ne
+	 *            thread component instance
+	 * @return scaled time or 0.0
+	 */
+	private static double getScaledMaxResponseTimeinMilliSec(final NamedElement ne) {
+		Property computeExecutionTime = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
+		UnitLiteral milliSecond = GetProperties.findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, milliSecond, 0.0);
+	}
+
+	/**
+	 * get min response time scaled in terms of the processor the thread is
+	 * bound to.
+	 *
+	 * @param ne
+	 *            thread component instance
+	 * @return scaled time or 0.0
+	 */
+	private static double getScaledMinResponseTimeinMilliSec(final NamedElement ne) {
+		Property computeExecutionTime = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
+		UnitLiteral milliSecond = GetProperties.findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledRangeMinimum(ne, computeExecutionTime, milliSecond, 0.0);
+	}
+
 }

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -43,22 +43,25 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DiagramType;
+import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.AadlReferenceUtil;
+import org.osate.ge.aadl2.internal.diagramtypes.CustomDiagramType;
+import org.osate.ge.aadl2.internal.diagramtypes.PackageDiagramType;
+import org.osate.ge.aadl2.internal.diagramtypes.StructureDiagramType;
 import org.osate.ge.diagram.Diagram;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.businessobjecthandlers.InternalReferenceUtil;
 import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
-import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
-import org.osate.ge.internal.diagram.runtime.types.PackageDiagramType;
-import org.osate.ge.internal.diagram.runtime.types.StructureDiagramType;
 import org.osate.ge.internal.diagram.runtime.types.UnrecognizedDiagramType;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.internal.services.impl.GraphicalEditorModelReferenceBuilder;
 
 /**
  * Class to help read and write the native diagram format used by the editor.
@@ -189,14 +192,14 @@ public class DiagramSerialization {
 			return;
 		}
 
-		// Older versions of property vlaue groups use legacy ids.
+		// Older versions of property value groups use legacy ids.
 		final Iterator<Object> it = EcoreUtil.getAllProperContents(diagram, true);
 		while (it.hasNext()) {
 			final Object o = it.next();
 			if (o instanceof org.osate.ge.diagram.RelativeBusinessObjectReference) {
 				org.osate.ge.diagram.RelativeBusinessObjectReference ref = (org.osate.ge.diagram.RelativeBusinessObjectReference) o;
 				if (ref.getSeg().size() == 3 && Objects.equals(ref.getSeg().get(0),
-						GraphicalEditorModelReferenceBuilder.TYPE_PROPERTY_VALUE_GROUP)) {
+						AadlReferenceUtil.PROPERTY_VALUE_GROUP_KEY)) {
 					final int idSegmentIndex = 2;
 					final UUID referencedUuid = legacyIdToUuidMap.get(Long.parseLong(ref.getSeg().get(idSegmentIndex)));
 
@@ -244,7 +247,7 @@ public class DiagramSerialization {
 		}
 
 		final RelativeBusinessObjectReference relReference = new RelativeBusinessObjectReference(refSegs);
-		final Object bo = GraphicalEditorModelReferenceBuilder.createEmbeddedObject(relReference,
+		final Object bo = InternalReferenceUtil.createEmbeddedObject(relReference,
 				mmChild.getBoData());
 
 		// Set the ID
@@ -385,7 +388,6 @@ public class DiagramSerialization {
 
 		newElement.setManual(true);
 
-		// Shape Specific
 		if (e.hasPosition()) {
 			newElement.setPosition(e.getPosition().toMetamodel());
 		}

@@ -1,5 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.categories" version="2">
+    <resource path="src-gen/org/osate/categories/AbstractCategoriesRuntimeModule.java" type="org.osate.categories.AbstractCategoriesRuntimeModule">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="bindIFormatter2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="configureFormatterPreferences(Binder)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesLexer.java" type="org.osate.categories.parser.antlr.internal.InternalCategoriesLexer">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.categories.parser.antlr.internal.InternalCategoriesLexer"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/categories/parser/antlr/internal/InternalCategoriesParser.java" type="org.osate.categories.parser.antlr.internal.InternalCategoriesParser">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__11"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__12"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__13"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__14"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="T__15"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/categories/scoping/AbstractCategoriesScopeProvider.java" type="org.osate.categories.scoping.AbstractCategoriesScopeProvider">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.categories.scoping.AbstractCategoriesScopeProvider"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/categories/serializer/CategoriesSemanticSequencer.java" type="org.osate.categories.serializer.CategoriesSemanticSequencer">
         <filter comment="xtext" id="576720909">
             <message_arguments>

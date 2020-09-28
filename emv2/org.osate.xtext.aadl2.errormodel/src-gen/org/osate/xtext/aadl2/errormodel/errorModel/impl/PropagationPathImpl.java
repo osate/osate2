@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -99,6 +100,7 @@ public class PropagationPathImpl extends NamedElementImpl implements Propagation
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public QualifiedPropagationPoint getSource()
   {
     return source;
@@ -126,6 +128,7 @@ public class PropagationPathImpl extends NamedElementImpl implements Propagation
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSource(QualifiedPropagationPoint newSource)
   {
     if (newSource != source)
@@ -147,6 +150,7 @@ public class PropagationPathImpl extends NamedElementImpl implements Propagation
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public QualifiedPropagationPoint getTarget()
   {
     return target;
@@ -174,6 +178,7 @@ public class PropagationPathImpl extends NamedElementImpl implements Propagation
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(QualifiedPropagationPoint newTarget)
   {
     if (newTarget != target)

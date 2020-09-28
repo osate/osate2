@@ -581,7 +581,7 @@ public class GetProperties {
 		try {
 			propertyValues = ne.getPropertyValueList(actualConnectionBinding);
 		} catch (Exception e) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		return propertyValues;
 	}
@@ -864,10 +864,16 @@ public class GetProperties {
 	}
 
 	public static double fromMStoSec(NamedElement ne, double value) {
+		if(getMSUnitLiteral(ne) == null) {
+			throw new NullPointerException("Unit literal 'ms' could not be found");
+		}
 		return convertToScale(value, getMSUnitLiteral(ne), getSecUnitLiteral(ne));
 	}
 
 	public static double fromUStoSec(NamedElement ne, double value) {
+		if (getUSUnitLiteral(ne) == null) {
+			throw new NullPointerException("Unit literal 'us' could not be found");
+		}
 		return convertToScale(value, getUSUnitLiteral(ne), getSecUnitLiteral(ne));
 	}
 

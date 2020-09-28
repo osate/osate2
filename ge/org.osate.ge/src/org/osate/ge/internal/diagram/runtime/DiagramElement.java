@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -31,13 +31,14 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
-import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
-import org.osate.ge.internal.query.Queryable;
+import org.osate.ge.internal.diagram.runtime.botree.Completeness;
 import org.osate.ge.internal.query.RelativeReferenceProvider;
 
 import com.google.common.collect.ImmutableList;
@@ -48,17 +49,18 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 
 	private final UUID id; // Identifier for the diagram element. Unique within a diagram.
 	private Object bo;
-	private Object boHandler;
+	private BusinessObjectHandler boHandler;
 	private RelativeBusinessObjectReference boRelReference;
 	private Completeness completeness = Completeness.UNKNOWN;
 	private final DiagramElementCollection children = new DiagramElementCollection();
 	private String labelName;
 	private String uiName;
-	private AgeGraphicalConfiguration graphicalConfig; // Required after initialization.
+	private GraphicalConfiguration graphicalConfig; // Required after initialization.
 	private Style style = Style.EMPTY; // Will never be null
 
-	// Shape Specific
 	private Point position; // Optional. Relative to container.
+
+	// Shape Specific
 	private Dimension size; // Optional
 	private DockArea dockArea; // Optional
 
@@ -76,7 +78,7 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 	 */
 	public DiagramElement(final DiagramNode container,
 			final Object bo,
-			final Object boHandler,
+			final BusinessObjectHandler boHandler,
 			final RelativeBusinessObjectReference boRelReference,
 			final UUID id) {
 		this.container = container;
@@ -101,7 +103,7 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 	}
 
 	@Override
-	public final Collection<Queryable> getChildren() {
+	public final Collection<BusinessObjectContext> getChildren() {
 		return Collections.unmodifiableCollection(children);
 	}
 
@@ -132,7 +134,7 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 		this.completeness = Objects.requireNonNull(value, "value must not be null");
 	}
 
-	public final Object getBusinessObjectHandler() {
+	public final BusinessObjectHandler getBusinessObjectHandler() {
 		return boHandler;
 	}
 
@@ -144,7 +146,7 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 		this.boRelReference = Objects.requireNonNull(value, "value must not be null");
 	}
 
-	public final void setBusinessObjectHandler(final Object value) {
+	public final void setBusinessObjectHandler(final BusinessObjectHandler value) {
 		this.boHandler = value;
 	}
 
@@ -241,20 +243,20 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 		this.size = value;
 	}
 
-	public final AgeGraphicalConfiguration getGraphicalConfiguration() {
+	public final GraphicalConfiguration getGraphicalConfiguration() {
 		return graphicalConfig;
 	}
 
-	final void setGraphicalConfiguration(final AgeGraphicalConfiguration value) {
+	final void setGraphicalConfiguration(final GraphicalConfiguration value) {
 		this.graphicalConfig = value;
 	}
 
 	public final Graphic getGraphic() {
-		return graphicalConfig == null ? null : graphicalConfig.graphic;
+		return graphicalConfig == null ? null : graphicalConfig.getGraphic();
 	}
 
 	public final boolean isDecoration() {
-		return graphicalConfig != null && graphicalConfig.isDecoration;
+		return graphicalConfig != null && graphicalConfig.isDecoration();
 	}
 
 	public final DockArea getDockArea() {
@@ -266,11 +268,11 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 	}
 
 	public final DiagramElement getStartElement() {
-		return graphicalConfig.connectionSource;
+		return graphicalConfig.getConnectionSource();
 	}
 
 	public final DiagramElement getEndElement() {
-		return graphicalConfig.connectionDestination;
+		return graphicalConfig.getConnectionDestination();
 	}
 
 	/**

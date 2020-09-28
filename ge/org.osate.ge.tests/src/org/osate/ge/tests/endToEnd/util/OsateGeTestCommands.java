@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -24,7 +24,7 @@
 package org.osate.ge.tests.endToEnd.util;
 
 import static org.junit.Assert.*;
-import static org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder.*;
+import static org.osate.ge.aadl2.internal.AadlReferenceUtil.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.setTextField;
 import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
@@ -39,8 +39,11 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
-import org.osate.ge.internal.ui.editor.FlowContributionItem;
+import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem;
+import org.osate.ge.aadl2.ui.internal.properties.AbstractFeaturePrototypePropertySection;
+import org.osate.ge.aadl2.ui.internal.properties.SetSubcomponentClassifierPropertySection;
+import org.osate.ge.swt.classifiers.PrototypeBindingsField;
 
 import com.google.common.collect.ImmutableList;
 
@@ -48,6 +51,10 @@ import com.google.common.collect.ImmutableList;
  * High level commands for testing the OSATE Graphical editor.
  */
 public class OsateGeTestCommands {
+	private static final String[] MENU_SHOW_CONTENTS_ALL = new String[] { "Show Contents", "All" };
+	private static final String[] MENU_HIDE_CONTENTS_ALL = new String[] { "Hide Contents", "All" };
+	private static final String[] MENU_FILE_NEW_AADL_PROJECT = new String[] { "File", "New", "AADL Project" };
+
 	// All methods are static
 	private OsateGeTestCommands() {
 	}
@@ -72,7 +79,7 @@ public class OsateGeTestCommands {
 	public static void createAadlProject(final String name) {
 		assertOsateShellIsActive();
 		assertAadlNavigatorIsVisible();
-		clickMenu(Menus.FILE_NEW_AADL_PROJECT);
+		clickMenu(MENU_FILE_NEW_AADL_PROJECT);
 
 		// Configure new project
 		waitForWindowWithTitle("New");
@@ -92,7 +99,7 @@ public class OsateGeTestCommands {
 	public static void createAadlProjectWithReferencedProjects(final String name, final String... projectsToReference) {
 		assertOsateShellIsActive();
 		assertAadlNavigatorIsVisible();
-		clickMenu(Menus.FILE_NEW_AADL_PROJECT);
+		clickMenu(MENU_FILE_NEW_AADL_PROJECT);
 
 		// Configure new project
 		waitForWindowWithTitle("New");
@@ -196,7 +203,7 @@ public class OsateGeTestCommands {
 			final DiagramElementReference pkg, final String toolType, final String implName, final String typeName) {
 		openDiagramEditor(diagram);
 
-		activatePaletteItem(diagram, toolType);
+		selectPaletteItem(diagram, toolType);
 		clickDiagramElement(diagram, pkg);
 
 		waitForWindowWithTitle("Create Component Implementation");
@@ -225,7 +232,7 @@ public class OsateGeTestCommands {
 			final String classifier) {
 		openDiagramEditor(diagram);
 
-		activatePaletteItem(diagram, toolType);
+		selectPaletteItem(diagram, toolType);
 		clickDiagramElement(diagram, pkg);
 
 		waitForWindowWithTitle("Create Component Implementation");
@@ -284,14 +291,33 @@ public class OsateGeTestCommands {
 	 * Postconditions: new diagram element has been created, renamed to match the specified name, and the diagram layout has been updated.
 	 * @param diagram is the diagram in which to create the diagram element
 	 * @param parentElement reference to the element in which the new diagram element will be created
-	 * @param toolType is the text of the palette item to use to create the element
+	 * @param paletteItemLabel is the text of the palette item to use to create the element
 	 * @param newReferenceAfterCreate is the relative reference of the diagram element which will be created by the tool
 	 * @param finalName is the name to which the element should be renamed
 	 */
 	public static void createElementAndLayout(final DiagramReference diagram,
-			final DiagramElementReference parentElement, final String toolType,
+			final DiagramElementReference parentElement, final String paletteItemLabel,
 			final RelativeBusinessObjectReference newReferenceAfterCreate, final String finalName) {
-		createShapeElement(diagram, parentElement, toolType, newReferenceAfterCreate);
+		createElementAndLayout(diagram, parentElement, paletteItemLabel, newReferenceAfterCreate, finalName, () -> {
+		});
+	}
+
+	/**
+	 * Creates a diagram element using a palette tool which will be represented as a shape.
+	 * Preconditions: OSATE shell is active. Specified parent element exists.
+	 * Postconditions: new diagram element has been created, renamed to match the specified name, and the diagram layout has been updated.
+	 * @param diagram is the diagram in which to create the diagram element
+	 * @param parentElement reference to the element in which the new diagram element will be created
+	 * @param paletteItemLabel is the text of the palette item to use to create the element
+	 * @param newReferenceAfterCreate is the relative reference of the diagram element which will be created by the tool
+	 * @param finalName is the name to which the element should be renamed
+	 * @param postExecPaletteItem runnable to run after the palette item is run.
+	 */
+	public static void createElementAndLayout(final DiagramReference diagram,
+			final DiagramElementReference parentElement, final String paletteItemLabel,
+			final RelativeBusinessObjectReference newReferenceAfterCreate, final String finalName,
+			final Runnable postExecPaletteItem) {
+		createShapeElement(diagram, parentElement, paletteItemLabel, newReferenceAfterCreate, postExecPaletteItem);
 		renameElementFromContextMenu(diagram, parentElement, newReferenceAfterCreate, finalName);
 		layoutDiagram(diagram, parentElement);
 	}
@@ -332,15 +358,15 @@ public class OsateGeTestCommands {
 
 		clickToolbarItem("Create End to End Flow Specification");
 
-		waitForWindowWithTitle("Create End To End Flow Specification");
+		waitForWindowWithTitle("End To End Flow Specification Tool");
 
 		clickElements(flowSegments);
 
 		final String eteName = eteQualifiedName.substring(eteQualifiedName.lastIndexOf(':') + 1);
-		setTextForShell("Create End To End Flow Specification", 0, eteName);
-		sendTextKeyUpEvent("Create End To End Flow Specification", 0, SWT.KeyUp, new Event());
+		setTextForShell("End To End Flow Specification Tool", 0, eteName);
+		sendTextKeyUpEvent("End To End Flow Specification Tool", 0, SWT.KeyUp, new Event());
 
-		clickButtonForShell("Create End To End Flow Specification", "OK");
+		clickButtonForShell("End To End Flow Specification Tool", "OK");
 
 		// Highlight flow to ensure it was created successfully
 		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, eteQualifiedName);
@@ -378,11 +404,11 @@ public class OsateGeTestCommands {
 
 		clickToolbarItem("Create Flow Implementation");
 
-		waitForWindowWithTitle("Create Flow Implementation");
+		waitForWindowWithTitle("Flow Implementation Tool");
 
 		clickElements(flowSegments);
 
-		clickButtonForShell("Create Flow Implementation", "OK");
+		clickButtonForShell("Flow Implementation Tool", "OK");
 
 		// Highlight flow to ensure it was created successfully
 		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, flowImpQualifiedlName);
@@ -401,23 +427,33 @@ public class OsateGeTestCommands {
 	 * @param toolType the type of connection to create using the palette
 	 * @param parentElement the parent of the new connection
 	 * @param newReferenceAfterCreate the reference to the connection
-	 * @param finalName the new name of the connection
+	 * @param finalName the new name of the connection. If null, the element will not be renamed.
 	 */
 	public static void createConnectionAndLayout(final DiagramReference diagram, final DiagramElementReference src,
 			final DiagramElementReference dest, final String toolType, final DiagramElementReference parentElement,
 			final RelativeBusinessObjectReference newReferenceAfterCreate, final String finalName) {
 		openDiagramEditor(diagram);
 		createConnectionElement(diagram, src, dest, toolType, parentElement.join(newReferenceAfterCreate));
-		renameElementFromOutlineView(diagram, parentElement, newReferenceAfterCreate, finalName);
+
+		if (finalName != null) {
+			renameElementFromOutlineView(diagram, parentElement, newReferenceAfterCreate, finalName);
+		}
 		layoutDiagram(diagram, parentElement);
 	}
 
 	/**
-	 * Show contents of element using the context menu.
+	 * Show contents of element using the context menu and layout the diagram.
 	 */
 	public static void showContentsAndLayout(final DiagramReference diagram, final DiagramElementReference element) {
-		// Show contents
-		clickContextMenuOfDiagramElement(diagram, element, Menus.SHOW_CONTENTS_ALL);
+		clickContextMenuOfDiagramElement(diagram, element, MENU_SHOW_CONTENTS_ALL);
+		layoutDiagram(diagram, element);
+	}
+
+	/**
+	 * Hide contents of element using the context menu and layout the diagram.
+	 */
+	public static void hideContentsAndLayout(final DiagramReference diagram, final DiagramElementReference element) {
+		clickContextMenuOfDiagramElement(diagram, element, MENU_HIDE_CONTENTS_ALL);
 		layoutDiagram(diagram, element);
 	}
 
@@ -443,23 +479,25 @@ public class OsateGeTestCommands {
 		clickButton("OK");
 	}
 
-	/**
-	 * Sets the classifier for elements using the Properties view.
-	 * @param classifier the classifier qualified name
-	 * @param elements the elements to set classifier
-	 */
-	public static void setClassifierFromPropertiesView(final DiagramReference diagram, final String classifier,
+	public static void openAadlPropertiesTab(final DiagramReference diagram,
 			final DiagramElementReference... elements) {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, elements);
-		setClassifierFromPropertiesView(classifier);
-	}
 
-	private static void setClassifierFromPropertiesView(final String classifier) {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
-		clickViewTab("AADL");
+		clickPropertiesViewTab("AADL");
+	}
+
+	/**
+	 * Sets the extended classifier of feature classifier for elements using the Properties view.
+	 * @param classifier the classifier qualified name
+	 * @param elements the elements to set classifier
+	 */
+	public static void setExtendedOrFeatureClassifierFromPropertiesView(final DiagramReference diagram, final String classifier,
+			final DiagramElementReference... elements) {
+		openAadlPropertiesTab(diagram, elements);
 		clickButton("Choose...");
 		waitForWindowWithTitle("Select a Classifier");
 
@@ -467,7 +505,156 @@ public class OsateGeTestCommands {
 		clickButton("OK");
 	}
 
-	private static void layoutDiagram(final DiagramReference diagram,
+	/**
+	 * Variant of {@link #setSubcomponentClassifierFromPropertiesView(DiagramReference, String, Runnable, String, DiagramElementReference...)
+	 * Assumes the final label will match the specified classifier value.
+	 */
+	public static void setSubcomponentClassifierFromPropertiesView(final DiagramReference diagram,
+			final String classifier, final DiagramElementReference... elements) {
+		setSubcomponentClassifierFromPropertiesView(diagram, classifier, () -> {
+		}, classifier, elements);
+	}
+
+	/**
+	 * Sets the classifier for subcomponent elements using the Properties view.
+	 * @param classifier the classifier qualified name
+	 * @param extra is a runnable called before selecting OK to perform additional operations. For example: to configure bindings.
+	 * @param expectedNewLabelText the text label that is expected after editing.
+	 * @param elements the elements for which to set the classifier
+	 */
+	public static void setSubcomponentClassifierFromPropertiesView(final DiagramReference diagram,
+			final String classifier, Runnable extra, final String expectedNewLabelText, final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab("AADL");
+		clickButtonWithId(SetSubcomponentClassifierPropertySection.WIDGET_ID_CHOOSE_CLASSIFIER_BUTTON);
+		waitForWindowWithTitle("Select Classifier and Prototype Bindings");
+
+		selectListItem(0, classifier);
+
+		extra.run();
+
+		clickButton("OK");
+
+		// Wait until the current classifier label has been updated
+		waitUntilCLabelWithIdTextMatches(SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL,
+				expectedNewLabelText);
+	}
+
+	public static void checkSubcomponentClassifier(final DiagramReference diagram, final String labelText,
+			final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab("AADL");
+
+		// Wait until the current classifier label is the expected value
+		waitUntilCLabelWithIdTextMatches(SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL,
+				labelText);
+	}
+
+	/**
+	 * Edits a classifier's bindings using the Properties view.
+	 * @param modifier is a runnable called to perform actual edits before selecting OK.
+	 * @param expectedNewLabelText the text for the classifier's current prototype bindings label that is expected after editing.
+	 * @param elements the elements for which to edit bindings.
+	 */
+	public static void setClassifierBindingsFromPropertiesView(final DiagramReference diagram, final Runnable modifier,
+			final String expectedNewLabelText,
+			final DiagramElementReference... elements) {
+		setClassifierPrototypeBindingsFromPropertiesView(diagram, modifier, false, expectedNewLabelText, elements);
+	}
+
+	/**
+	 * Edits a classifier's bindings using the Properties view.
+	 * @param modifier is a runnable called to perform actual edits before selecting OK.
+	 * @param expectedNewLabelText the text for the classifier's current prototype bindings label that is expected after editing.
+	 * @param cancel whether to cancel the edit. If true then "Cancel" is selected rather than "OK".
+	 * @param elements the elements for which to edit bindings.
+	 */
+	public static void setClassifierPrototypeBindingsFromPropertiesView(final DiagramReference diagram, final Runnable modifier,
+			final boolean cancel,
+			final String expectedNewLabelText,
+			final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab("AADL");
+		clickButtonWithId(PrototypeBindingsField.WIDGET_ID_EDIT_BUTTON);
+		waitForWindowWithTitle("Edit Prototype Bindings");
+
+		modifier.run();
+
+		if (cancel) {
+			clickButton("Cancel");
+		} else {
+			clickButton("OK");
+		}
+
+		// Wait until the classifier's prototype bindings label has been updated
+		waitUntilCLabelWithIdTextMatches(PrototypeBindingsField.WIDGET_ID_SELECTED_LABEL, expectedNewLabelText);
+	}
+
+	/**
+	 * Waits until the current prototype bindings label for the specified classifier matches the given label text
+	 */
+	public static void checkClassifierPrototypeBindings(final DiagramReference diagram, final String labelText,
+			final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab("AADL");
+
+		// Wait until the classifier's prototype bindings label is the expected value
+		waitUntilCLabelWithIdTextMatches(PrototypeBindingsField.WIDGET_ID_SELECTED_LABEL, labelText);
+	}
+
+	/**
+	 * Sets the feature prototype for elements using the Properties view.
+	 * @param prototype the prototype qualified name
+	 * @param elements the elements for which to set the prototype.
+	 */
+	public static void setFeaturePrototypeFromPropertiesView(final DiagramReference diagram, final String prototype,
+			final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab("AADL");
+		clickButtonWithId(AbstractFeaturePrototypePropertySection.WIDGET_ID_CHOOSE_BUTTON);
+		waitForWindowWithTitle("Select Feature Prototype");
+
+		selectListItem(0, prototype);
+		clickButton("OK");
+	}
+
+	/**
+	 * Sets the direction for directional features. Assumes that the only radio buttons with the specified label are the direction buttons.
+	 * @param directionLabel is the label for the radio button for the direction.
+	 * @param elements the element for which to set the direction.
+	 */
+	public static void setFeatureDirectionFromPropertiesView(final DiagramReference diagram,
+			final String directionLabel,
+			final DiagramElementReference... elements) {
+		clickRadioButtonInPropertiesView(diagram, "AADL", directionLabel, elements);
+	}
+
+	public static void layoutDiagram(final DiagramReference diagram,
 			final DiagramElementReference element) {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, element);
@@ -478,7 +665,8 @@ public class OsateGeTestCommands {
 	}
 
 	/**
-	 * Renames an element using the diagram context menu.
+	 * Renames an element using the diagram context menu. NOTE: This function currently assumes that the relative reference
+	 * is composed of exactly two elements and the second element is the name.
 	 * @param parent the parent of the new element
 	 * @param element is the element to rename
 	 * @param newName the name of the new element
@@ -496,7 +684,8 @@ public class OsateGeTestCommands {
 	}
 
 	/**
-	 * Rename an element using direct edit feature.
+	 * Rename an element using direct edit feature. NOTE: This function currently assumes that the relative reference
+	 * is composed of exactly two elements and the second element is the name.
 	 * @param parent the parent of the new element
 	 * @param element is the element to rename
 	 * @param newName the name of the new element
@@ -551,7 +740,7 @@ public class OsateGeTestCommands {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
-		clickViewTab("AADL");
+		clickPropertiesViewTab("AADL");
 		final int dimensionCount = getNumberOfTableRows(0);
 		clickButton("Add");
 		waitForWindowWithTitle("Modify Dimension");
@@ -580,7 +769,7 @@ public class OsateGeTestCommands {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
-		clickViewTab("AADL");
+		clickPropertiesViewTab("AADL");
 		clickTableItem(0, dimensionIndex);
 		clickButton("Modify...");
 		waitForWindowWithTitle("Modify Dimension");
@@ -609,12 +798,29 @@ public class OsateGeTestCommands {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
-		clickViewTab("AADL");
+		clickPropertiesViewTab("AADL");
 		final int dimensionCount = getNumberOfTableRows(0);
 		clickTableItem(0, dimensionIndex);
 		clickButton("Delete");
 		waitForWindowWithTitle("Confirm");
 		clickButton("Yes");
 		assertNumberOfTableRows(0, dimensionCount - 1);
+	}
+
+	/**
+	 * Opens a diagram editor, selects the specified diagram elements, and activates the AADL tab in
+	 * the properties view.
+	 * @param diagram the diagram for which to open the diagram editor
+	 * @param elements is the elements which to select.
+	 */
+	public static void openAadlTabInPropertiesView(final DiagramReference diagram,
+			final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+
+		selectDiagramElements(diagram, elements);
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab("AADL");
 	}
 }

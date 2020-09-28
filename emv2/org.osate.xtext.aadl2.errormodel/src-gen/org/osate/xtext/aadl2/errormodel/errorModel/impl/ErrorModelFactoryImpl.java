@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -124,6 +125,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
       case ErrorModelPackage.EVENT_OR_PROPAGATION: return createEventOrPropagation();
       case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION: return createOutgoingPropagationCondition();
       case ErrorModelPackage.ERROR_DETECTION: return createErrorDetection();
+      case ErrorModelPackage.REPORTING_PORT_REFERENCE: return createReportingPortReference();
       case ErrorModelPackage.ERROR_CODE_VALUE: return createErrorCodeValue();
       case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING: return createErrorStateToModeMapping();
       case ErrorModelPackage.COMPOSITE_STATE: return createCompositeState();
@@ -146,6 +148,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorModelSubclause createErrorModelSubclause()
   {
     ErrorModelSubclauseImpl errorModelSubclause = new ErrorModelSubclauseImpl();
@@ -157,6 +160,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorModelLibrary createErrorModelLibrary()
   {
     ErrorModelLibraryImpl errorModelLibrary = new ErrorModelLibraryImpl();
@@ -168,6 +172,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EMV2PropertyAssociation createEMV2PropertyAssociation()
   {
     EMV2PropertyAssociationImpl emv2PropertyAssociation = new EMV2PropertyAssociationImpl();
@@ -179,6 +184,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EMV2Path createEMV2Path()
   {
     EMV2PathImpl emv2Path = new EMV2PathImpl();
@@ -190,6 +196,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EMV2PathElement createEMV2PathElement()
   {
     EMV2PathElementImpl emv2PathElement = new EMV2PathElementImpl();
@@ -201,6 +208,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorTypes createErrorTypes()
   {
     ErrorTypesImpl errorTypes = new ErrorTypesImpl();
@@ -212,6 +220,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorType createErrorType()
   {
     ErrorTypeImpl errorType = new ErrorTypeImpl();
@@ -223,6 +232,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet createTypeSet()
   {
     TypeSetImpl typeSet = new TypeSetImpl();
@@ -234,6 +244,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeToken createTypeToken()
   {
     TypeTokenImpl typeToken = new TypeTokenImpl();
@@ -245,6 +256,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeTransformationSet createTypeTransformationSet()
   {
     TypeTransformationSetImpl typeTransformationSet = new TypeTransformationSetImpl();
@@ -256,6 +268,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeTransformation createTypeTransformation()
   {
     TypeTransformationImpl typeTransformation = new TypeTransformationImpl();
@@ -267,6 +280,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeMappingSet createTypeMappingSet()
   {
     TypeMappingSetImpl typeMappingSet = new TypeMappingSetImpl();
@@ -278,6 +292,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeMapping createTypeMapping()
   {
     TypeMappingImpl typeMapping = new TypeMappingImpl();
@@ -289,6 +304,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorPropagation createErrorPropagation()
   {
     ErrorPropagationImpl errorPropagation = new ErrorPropagationImpl();
@@ -300,6 +316,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public FeatureorPPReference createFeatureorPPReference()
   {
     FeatureorPPReferenceImpl featureorPPReference = new FeatureorPPReferenceImpl();
@@ -311,6 +328,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorFlow createErrorFlow()
   {
     ErrorFlowImpl errorFlow = new ErrorFlowImpl();
@@ -322,6 +340,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorSource createErrorSource()
   {
     ErrorSourceImpl errorSource = new ErrorSourceImpl();
@@ -333,6 +352,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorSink createErrorSink()
   {
     ErrorSinkImpl errorSink = new ErrorSinkImpl();
@@ -344,6 +364,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorPath createErrorPath()
   {
     ErrorPathImpl errorPath = new ErrorPathImpl();
@@ -355,6 +376,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public IfCondition createIfCondition()
   {
     IfConditionImpl ifCondition = new IfConditionImpl();
@@ -366,6 +388,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropagationPoint createPropagationPoint()
   {
     PropagationPointImpl propagationPoint = new PropagationPointImpl();
@@ -377,6 +400,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public PropagationPath createPropagationPath()
   {
     PropagationPathImpl propagationPath = new PropagationPathImpl();
@@ -388,6 +412,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public QualifiedPropagationPoint createQualifiedPropagationPoint()
   {
     QualifiedPropagationPointImpl qualifiedPropagationPoint = new QualifiedPropagationPointImpl();
@@ -399,6 +424,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorBehaviorStateMachine createErrorBehaviorStateMachine()
   {
     ErrorBehaviorStateMachineImpl errorBehaviorStateMachine = new ErrorBehaviorStateMachineImpl();
@@ -410,6 +436,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorBehaviorEvent createErrorBehaviorEvent()
   {
     ErrorBehaviorEventImpl errorBehaviorEvent = new ErrorBehaviorEventImpl();
@@ -421,6 +448,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorEvent createErrorEvent()
   {
     ErrorEventImpl errorEvent = new ErrorEventImpl();
@@ -432,6 +460,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public RepairEvent createRepairEvent()
   {
     RepairEventImpl repairEvent = new RepairEventImpl();
@@ -443,6 +472,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public RecoverEvent createRecoverEvent()
   {
     RecoverEventImpl recoverEvent = new RecoverEventImpl();
@@ -454,6 +484,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorBehaviorState createErrorBehaviorState()
   {
     ErrorBehaviorStateImpl errorBehaviorState = new ErrorBehaviorStateImpl();
@@ -465,6 +496,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorBehaviorTransition createErrorBehaviorTransition()
   {
     ErrorBehaviorTransitionImpl errorBehaviorTransition = new ErrorBehaviorTransitionImpl();
@@ -476,6 +508,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TransitionBranch createTransitionBranch()
   {
     TransitionBranchImpl transitionBranch = new TransitionBranchImpl();
@@ -487,6 +520,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BranchValue createBranchValue()
   {
     BranchValueImpl branchValue = new BranchValueImpl();
@@ -498,6 +532,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ConditionExpression createConditionExpression()
   {
     ConditionExpressionImpl conditionExpression = new ConditionExpressionImpl();
@@ -509,6 +544,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public OrmoreExpression createOrmoreExpression()
   {
     OrmoreExpressionImpl ormoreExpression = new OrmoreExpressionImpl();
@@ -520,6 +556,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public OrlessExpression createOrlessExpression()
   {
     OrlessExpressionImpl orlessExpression = new OrlessExpressionImpl();
@@ -531,6 +568,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ConditionElement createConditionElement()
   {
     ConditionElementImpl conditionElement = new ConditionElementImpl();
@@ -542,6 +580,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EventOrPropagation createEventOrPropagation()
   {
     EventOrPropagationImpl eventOrPropagation = new EventOrPropagationImpl();
@@ -553,6 +592,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public OutgoingPropagationCondition createOutgoingPropagationCondition()
   {
     OutgoingPropagationConditionImpl outgoingPropagationCondition = new OutgoingPropagationConditionImpl();
@@ -564,6 +604,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorDetection createErrorDetection()
   {
     ErrorDetectionImpl errorDetection = new ErrorDetectionImpl();
@@ -575,6 +616,19 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public ReportingPortReference createReportingPortReference()
+  {
+    ReportingPortReferenceImpl reportingPortReference = new ReportingPortReferenceImpl();
+    return reportingPortReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public ErrorCodeValue createErrorCodeValue()
   {
     ErrorCodeValueImpl errorCodeValue = new ErrorCodeValueImpl();
@@ -586,6 +640,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorStateToModeMapping createErrorStateToModeMapping()
   {
     ErrorStateToModeMappingImpl errorStateToModeMapping = new ErrorStateToModeMappingImpl();
@@ -597,6 +652,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public CompositeState createCompositeState()
   {
     CompositeStateImpl compositeState = new CompositeStateImpl();
@@ -608,6 +664,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public QualifiedErrorBehaviorState createQualifiedErrorBehaviorState()
   {
     QualifiedErrorBehaviorStateImpl qualifiedErrorBehaviorState = new QualifiedErrorBehaviorStateImpl();
@@ -619,6 +676,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SubcomponentElement createSubcomponentElement()
   {
     SubcomponentElementImpl subcomponentElement = new SubcomponentElementImpl();
@@ -630,6 +688,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EMV2Root createEMV2Root()
   {
     EMV2RootImpl emv2Root = new EMV2RootImpl();
@@ -641,6 +700,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public OrExpression createOrExpression()
   {
     OrExpressionImpl orExpression = new OrExpressionImpl();
@@ -652,6 +712,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AndExpression createAndExpression()
   {
     AndExpressionImpl andExpression = new AndExpressionImpl();
@@ -663,6 +724,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public AllExpression createAllExpression()
   {
     AllExpressionImpl allExpression = new AllExpressionImpl();
@@ -674,6 +736,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public QualifiedErrorEventOrPropagation createQualifiedErrorEventOrPropagation()
   {
     QualifiedErrorEventOrPropagationImpl qualifiedErrorEventOrPropagation = new QualifiedErrorEventOrPropagationImpl();
@@ -685,6 +748,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public QualifiedErrorPropagation createQualifiedErrorPropagation()
   {
     QualifiedErrorPropagationImpl qualifiedErrorPropagation = new QualifiedErrorPropagationImpl();
@@ -696,6 +760,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public SConditionElement createSConditionElement()
   {
     SConditionElementImpl sConditionElement = new SConditionElementImpl();
@@ -707,6 +772,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorModelPackage getErrorModelPackage()
   {
     return (ErrorModelPackage)getEPackage();

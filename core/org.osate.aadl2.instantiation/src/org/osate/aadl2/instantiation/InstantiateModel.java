@@ -40,7 +40,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -112,6 +114,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.AadlConstants;
+import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
@@ -120,7 +123,6 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.core.OsateCorePlugin;
-import org.osate.workspace.WorkspacePlugin;
 import org.osgi.service.prefs.Preferences;
 
 /**
@@ -227,14 +229,16 @@ public class InstantiateModel {
 		if (file != null && file.isAccessible()) {
 			file.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
 		}
-		Resource aadlResource = new ResourceSetImpl().createResource(instanceURI);
+		ResourceSet resourceSet = new ResourceSetImpl();
+		Resource aadlResource = resourceSet.createResource(instanceURI);
 		aadlResource.save(null);
 		aadlResource.unload();
 
 		// now instantiate the rest of the model
 		final InstantiateModel instantiateModel = new InstantiateModel(monitor, new AnalysisErrorReporterManager(
 				new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-		return instantiateModel.createSystemInstance(ci, aadlResource);
+		return instantiateModel.createSystemInstance(
+				(ComponentImplementation) resourceSet.getEObject(EcoreUtil.getURI(ci), true), aadlResource);
 	}
 
 	public static SystemInstance buildInstanceModelFile(ComponentImplementation ci) throws Exception {
@@ -380,8 +384,9 @@ public class InstantiateModel {
 			monitor.subTask("Saving instance model");
 			aadlResource.save(null);
 		} catch (IOException e) {
-			e.printStackTrace();
-			setErrorMessage(e.getMessage());
+			InstancePlugin.log(new Status(IStatus.ERROR, InstancePlugin.getPluginId(), IStatus.OK,
+					"Exception during instantiation", e));
+			setErrorMessage("Exception during instantiation, see error log");
 			return null;
 		}
 
@@ -401,7 +406,7 @@ public class InstantiateModel {
 			throws InterruptedException {
 		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
 		final String instanceName = ci.getTypeName() + "_" + ci.getImplementationName()
-				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
+				+ FileNameConstants.INSTANCE_MODEL_POSTFIX;
 
 		root.setComponentImplementation(ci);
 		root.setName(instanceName);
@@ -413,33 +418,13 @@ public class InstantiateModel {
 			if (save) {
 				aadlResource.save(null);
 			}
-
-			try {
-				fillSystemInstance(root);
-			} catch (InterruptedException e) {
-				throw e;
-			} catch (Exception e) {
-				InstantiateModel.setErrorMessage(e.getMessage());
-				e.printStackTrace();
-				return null;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			setErrorMessage(e.getMessage());
-			return null;
-		} catch (NullPointerException npe) {
-			npe.printStackTrace();
-			setErrorMessage(npe.getMessage());
-
-			npe.getMessage();
-			return null;
+			fillSystemInstance(root);
 		} catch (InterruptedException e) {
 			throw e;
 		} catch (Exception e) {
-			e.printStackTrace();
-			errorMessage = e.getMessage();
-
-			e.getMessage();
+			InstancePlugin.log(new Status(IStatus.ERROR, InstancePlugin.getPluginId(), IStatus.OK,
+					"Exception during instantiation", e));
+			setErrorMessage("Exception during instantiation, see error log");
 			return null;
 		}
 		return root;
@@ -467,7 +452,9 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
-		new ValidateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
+		final ValidateConnectionsSwitch vcs = new ValidateConnectionsSwitch(monitor, errManager, classifierCache);
+		vcs.processPreOrderAll(root);
+		vcs.postProcess();
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
@@ -515,9 +502,10 @@ public class InstantiateModel {
 		String last = modeluri.lastSegment();
 		String filename = last.substring(0, last.indexOf('.'));
 		URI path = modeluri.trimSegments(1);
-		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR).appendSegment(filename + "_"
-				+ ci.getTypeName() + "_" + ci.getImplementationName() + WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
-		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
+		URI instanceURI = path.appendSegment(FileNameConstants.AADL_INSTANCES_DIR)
+				.appendSegment(filename + "_" + ci.getTypeName() + "_" + ci.getImplementationName()
+						+ FileNameConstants.INSTANCE_MODEL_POSTFIX);
+		instanceURI = instanceURI.appendFileExtension(FileNameConstants.INSTANCE_FILE_EXT);
 		return instanceURI;
 	}
 
@@ -814,7 +802,7 @@ public class InstantiateModel {
 		if (ic == null) {
 			cc = null;
 		} else {
-			cc = (ComponentClassifier) ic.classifier;
+			cc = (ComponentClassifier) ic.getClassifier();
 		}
 		if (cc == null) {
 			errManager.warning(newInstance, "Instantiated subcomponent doesn't have a component classifier");
@@ -944,7 +932,7 @@ public class InstantiateModel {
 	 * Add feature instances to component instance
 	 */
 	protected void instantiateFeatures(final ComponentInstance ci) throws InterruptedException {
-		for (final Feature feature : getInstantiatedClassifier(ci).classifier.getAllFeatures()) {
+		for (final Feature feature : getInstantiatedClassifier(ci).getClassifier().getAllFeatures()) {
 			if (monitor.isCanceled()) {
 				throw new InterruptedException();
 			}
@@ -1098,16 +1086,16 @@ public class InstantiateModel {
 			inverse ^= fg.isInverse();
 
 			InstantiatedClassifier ic = getInstantiatedClassifier(fi);
-			if (ic.classifier == null) {
+			if (ic.getClassifier() == null) {
 				errManager.error(fi, "Could not resolve feature group type of feature group prototype "
 						+ fi.getInstanceObjectPath());
 				return;
-			} else if (ic.bindings != null && ic.bindings.isEmpty()) {
+			} else if (ic.getBindings() != null && ic.getBindings().isEmpty()) {
 				// prototype has not been bound yet
 				errManager.warning(fi, "Feature group prototype  of " + fi.getInstanceObjectPath()
 						+ " is not bound yet to feature group type");
 			}
-			FeatureGroupType fgt = (FeatureGroupType) ic.classifier;
+			FeatureGroupType fgt = (FeatureGroupType) ic.getClassifier();
 
 			List<Feature> localFeatures = fgt.getOwnedFeatures();
 			final FeatureGroupType inverseFgt = fgt.getInverse();
@@ -1568,8 +1556,9 @@ public class InstantiateModel {
 
 	private PropertyAssociation getPA(ConnectionInstance conni, String name) {
 		for (PropertyAssociation pa : conni.getOwnedPropertyAssociations()) {
-			if (pa.getProperty().getName().equalsIgnoreCase(name) && ((PropertySet) pa.getProperty().getOwner())
-					.getName().equalsIgnoreCase("Communication_Properties")) {
+			if (pa.getProperty().getName().equalsIgnoreCase(name)
+					&& ((PropertySet) pa.getProperty().getOwner()).getName()
+							.equalsIgnoreCase("Communication_Properties")) {
 				return pa;
 			}
 		}
@@ -2067,10 +2056,10 @@ public class InstantiateModel {
 			if (elem instanceof ComponentInstance) {
 				InstantiatedClassifier ic = getInstantiatedClassifier((ComponentInstance) elem);
 				if (ic != null) {
-					if (ic.classifier.equals(root.getComponentImplementation())) {
-						addUsedProperties(root, ic.classifier, result, false);
+					if (ic.getClassifier().equals(root.getComponentImplementation())) {
+						addUsedProperties(root, ic.getClassifier(), result, false);
 					} else {
-						addUsedProperties(root, ic.classifier, result);
+						addUsedProperties(root, ic.getClassifier(), result);
 					}
 				}
 			} else if (elem instanceof FeatureInstance) {

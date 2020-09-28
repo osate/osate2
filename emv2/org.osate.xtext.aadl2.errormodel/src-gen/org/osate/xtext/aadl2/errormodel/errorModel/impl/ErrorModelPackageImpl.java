@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -77,6 +78,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ReportingPortReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
@@ -373,6 +375,13 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass reportingPortReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass errorCodeValueEClass = null;
 
   /**
@@ -524,6 +533,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorModelSubclause()
   {
     return errorModelSubclauseEClass;
@@ -534,6 +544,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_UseTypes()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(0);
@@ -544,6 +555,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_TypeEquivalence()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(1);
@@ -554,6 +566,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_TypeMappingSet()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(2);
@@ -564,6 +577,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_UseBehavior()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(3);
@@ -574,6 +588,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_Propagations()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(4);
@@ -584,6 +599,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_Flows()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(5);
@@ -594,6 +610,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_UseTransformation()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(6);
@@ -604,6 +621,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_Events()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(7);
@@ -614,6 +632,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_Transitions()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(8);
@@ -624,6 +643,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_OutgoingPropagationConditions()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(9);
@@ -634,6 +654,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_ErrorDetections()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(10);
@@ -644,6 +665,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_ErrorStateToModeMappings()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(11);
@@ -654,6 +676,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_States()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(12);
@@ -664,6 +687,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_TypeTransformationSet()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(13);
@@ -674,6 +698,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_ConnectionErrorSources()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(14);
@@ -684,6 +709,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_Points()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(15);
@@ -694,6 +720,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_Paths()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(16);
@@ -704,6 +731,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelSubclause_Properties()
   {
     return (EReference)errorModelSubclauseEClass.getEStructuralFeatures().get(17);
@@ -714,6 +742,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorModelLibrary()
   {
     return errorModelLibraryEClass;
@@ -724,6 +753,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelLibrary_UseTypes()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(0);
@@ -734,6 +764,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelLibrary_Extends()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(1);
@@ -744,6 +775,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelLibrary_Types()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(2);
@@ -754,6 +786,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelLibrary_Typesets()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(3);
@@ -764,6 +797,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelLibrary_Properties()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(4);
@@ -774,6 +808,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelLibrary_Behaviors()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(5);
@@ -784,6 +819,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelLibrary_Mappings()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(6);
@@ -794,6 +830,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorModelLibrary_Transformations()
   {
     return (EReference)errorModelLibraryEClass.getEStructuralFeatures().get(7);
@@ -804,6 +841,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getEMV2PropertyAssociation()
   {
     return emv2PropertyAssociationEClass;
@@ -814,6 +852,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getEMV2PropertyAssociation_Property()
   {
     return (EReference)emv2PropertyAssociationEClass.getEStructuralFeatures().get(0);
@@ -824,6 +863,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getEMV2PropertyAssociation_OwnedValues()
   {
     return (EReference)emv2PropertyAssociationEClass.getEStructuralFeatures().get(1);
@@ -834,6 +874,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getEMV2PropertyAssociation_Emv2Path()
   {
     return (EReference)emv2PropertyAssociationEClass.getEStructuralFeatures().get(2);
@@ -844,6 +885,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getEMV2Path()
   {
     return emv2PathEClass;
@@ -854,6 +896,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getEMV2Path_ContainmentPath()
   {
     return (EReference)emv2PathEClass.getEStructuralFeatures().get(0);
@@ -864,6 +907,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getEMV2Path_Emv2Target()
   {
     return (EReference)emv2PathEClass.getEStructuralFeatures().get(1);
@@ -874,6 +918,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getEMV2PathElement()
   {
     return emv2PathElementEClass;
@@ -884,6 +929,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getEMV2PathElement_Emv2PropagationKind()
   {
     return (EAttribute)emv2PathElementEClass.getEStructuralFeatures().get(0);
@@ -894,6 +940,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getEMV2PathElement_ErrorType()
   {
     return (EReference)emv2PathElementEClass.getEStructuralFeatures().get(1);
@@ -904,6 +951,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getEMV2PathElement_NamedElement()
   {
     return (EReference)emv2PathElementEClass.getEStructuralFeatures().get(2);
@@ -914,6 +962,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getEMV2PathElement_Path()
   {
     return (EReference)emv2PathElementEClass.getEStructuralFeatures().get(3);
@@ -924,6 +973,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorTypes()
   {
     return errorTypesEClass;
@@ -934,6 +984,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorType()
   {
     return errorTypeEClass;
@@ -944,6 +995,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorType_SuperType()
   {
     return (EReference)errorTypeEClass.getEStructuralFeatures().get(0);
@@ -954,6 +1006,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorType_AliasedType()
   {
     return (EReference)errorTypeEClass.getEStructuralFeatures().get(1);
@@ -964,6 +1017,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTypeSet()
   {
     return typeSetEClass;
@@ -974,6 +1028,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypeSet_TypeTokens()
   {
     return (EReference)typeSetEClass.getEStructuralFeatures().get(0);
@@ -984,6 +1039,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypeSet_AliasedType()
   {
     return (EReference)typeSetEClass.getEStructuralFeatures().get(1);
@@ -994,6 +1050,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTypeToken()
   {
     return typeTokenEClass;
@@ -1004,6 +1061,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypeToken_Type()
   {
     return (EReference)typeTokenEClass.getEStructuralFeatures().get(0);
@@ -1014,6 +1072,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getTypeToken_NoError()
   {
     return (EAttribute)typeTokenEClass.getEStructuralFeatures().get(1);
@@ -1024,6 +1083,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTypeTransformationSet()
   {
     return typeTransformationSetEClass;
@@ -1034,6 +1094,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypeTransformationSet_UseTypes()
   {
     return (EReference)typeTransformationSetEClass.getEStructuralFeatures().get(0);
@@ -1044,6 +1105,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypeTransformationSet_Transformation()
   {
     return (EReference)typeTransformationSetEClass.getEStructuralFeatures().get(1);
@@ -1054,6 +1116,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTypeTransformation()
   {
     return typeTransformationEClass;
@@ -1064,6 +1127,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypeTransformation_Source()
   {
     return (EReference)typeTransformationEClass.getEStructuralFeatures().get(0);
@@ -1074,6 +1138,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getTypeTransformation_AllSources()
   {
     return (EAttribute)typeTransformationEClass.getEStructuralFeatures().get(1);
@@ -1084,6 +1149,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypeTransformation_Contributor()
   {
     return (EReference)typeTransformationEClass.getEStructuralFeatures().get(2);
@@ -1094,6 +1160,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypeTransformation_Target()
   {
     return (EReference)typeTransformationEClass.getEStructuralFeatures().get(3);
@@ -1104,6 +1171,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTypeMappingSet()
   {
     return typeMappingSetEClass;
@@ -1114,6 +1182,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypeMappingSet_UseTypes()
   {
     return (EReference)typeMappingSetEClass.getEStructuralFeatures().get(0);
@@ -1124,6 +1193,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypeMappingSet_Mapping()
   {
     return (EReference)typeMappingSetEClass.getEStructuralFeatures().get(1);
@@ -1134,6 +1204,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTypeMapping()
   {
     return typeMappingEClass;
@@ -1144,6 +1215,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypeMapping_Source()
   {
     return (EReference)typeMappingEClass.getEStructuralFeatures().get(0);
@@ -1154,6 +1226,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTypeMapping_Target()
   {
     return (EReference)typeMappingEClass.getEStructuralFeatures().get(1);
@@ -1164,6 +1237,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorPropagation()
   {
     return errorPropagationEClass;
@@ -1174,6 +1248,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getErrorPropagation_Kind()
   {
     return (EAttribute)errorPropagationEClass.getEStructuralFeatures().get(0);
@@ -1184,6 +1259,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorPropagation_FeatureorPPRef()
   {
     return (EReference)errorPropagationEClass.getEStructuralFeatures().get(1);
@@ -1194,6 +1270,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getErrorPropagation_Not()
   {
     return (EAttribute)errorPropagationEClass.getEStructuralFeatures().get(2);
@@ -1204,6 +1281,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getErrorPropagation_Direction()
   {
     return (EAttribute)errorPropagationEClass.getEStructuralFeatures().get(3);
@@ -1214,6 +1292,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorPropagation_TypeSet()
   {
     return (EReference)errorPropagationEClass.getEStructuralFeatures().get(4);
@@ -1224,6 +1303,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getFeatureorPPReference()
   {
     return featureorPPReferenceEClass;
@@ -1234,6 +1314,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getFeatureorPPReference_FeatureorPP()
   {
     return (EReference)featureorPPReferenceEClass.getEStructuralFeatures().get(0);
@@ -1244,6 +1325,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getFeatureorPPReference_Next()
   {
     return (EReference)featureorPPReferenceEClass.getEStructuralFeatures().get(1);
@@ -1254,6 +1336,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorFlow()
   {
     return errorFlowEClass;
@@ -1264,6 +1347,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorFlow_TypeTokenConstraint()
   {
     return (EReference)errorFlowEClass.getEStructuralFeatures().get(0);
@@ -1274,6 +1358,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorFlow_Flowcondition()
   {
     return (EReference)errorFlowEClass.getEStructuralFeatures().get(1);
@@ -1284,6 +1369,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorSource()
   {
     return errorSourceEClass;
@@ -1294,6 +1380,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorSource_SourceModelElement()
   {
     return (EReference)errorSourceEClass.getEStructuralFeatures().get(0);
@@ -1304,6 +1391,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getErrorSource_All()
   {
     return (EAttribute)errorSourceEClass.getEStructuralFeatures().get(1);
@@ -1314,6 +1402,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorSource_FailureModeReference()
   {
     return (EReference)errorSourceEClass.getEStructuralFeatures().get(2);
@@ -1324,6 +1413,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorSource_FailureModeType()
   {
     return (EReference)errorSourceEClass.getEStructuralFeatures().get(3);
@@ -1334,6 +1424,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getErrorSource_FailureModeDescription()
   {
     return (EAttribute)errorSourceEClass.getEStructuralFeatures().get(4);
@@ -1344,6 +1435,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorSink()
   {
     return errorSinkEClass;
@@ -1354,6 +1446,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorSink_Incoming()
   {
     return (EReference)errorSinkEClass.getEStructuralFeatures().get(0);
@@ -1364,6 +1457,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getErrorSink_AllIncoming()
   {
     return (EAttribute)errorSinkEClass.getEStructuralFeatures().get(1);
@@ -1374,6 +1468,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorPath()
   {
     return errorPathEClass;
@@ -1384,6 +1479,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorPath_Incoming()
   {
     return (EReference)errorPathEClass.getEStructuralFeatures().get(0);
@@ -1394,6 +1490,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getErrorPath_AllIncoming()
   {
     return (EAttribute)errorPathEClass.getEStructuralFeatures().get(1);
@@ -1404,6 +1501,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorPath_Outgoing()
   {
     return (EReference)errorPathEClass.getEStructuralFeatures().get(2);
@@ -1414,6 +1512,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getErrorPath_AllOutgoing()
   {
     return (EAttribute)errorPathEClass.getEStructuralFeatures().get(3);
@@ -1424,6 +1523,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorPath_TargetToken()
   {
     return (EReference)errorPathEClass.getEStructuralFeatures().get(4);
@@ -1434,6 +1534,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorPath_TypeMappingSet()
   {
     return (EReference)errorPathEClass.getEStructuralFeatures().get(5);
@@ -1444,6 +1545,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getIfCondition()
   {
     return ifConditionEClass;
@@ -1454,6 +1556,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getIfCondition_Description()
   {
     return (EAttribute)ifConditionEClass.getEStructuralFeatures().get(0);
@@ -1464,6 +1567,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getIfCondition_ResoluteFunction()
   {
     return (EReference)ifConditionEClass.getEStructuralFeatures().get(1);
@@ -1474,6 +1578,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getIfCondition_JavaMethod()
   {
     return (EAttribute)ifConditionEClass.getEStructuralFeatures().get(2);
@@ -1484,6 +1589,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPropagationPoint()
   {
     return propagationPointEClass;
@@ -1494,6 +1600,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getPropagationPath()
   {
     return propagationPathEClass;
@@ -1504,6 +1611,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getPropagationPath_Source()
   {
     return (EReference)propagationPathEClass.getEStructuralFeatures().get(0);
@@ -1514,6 +1622,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getPropagationPath_Target()
   {
     return (EReference)propagationPathEClass.getEStructuralFeatures().get(1);
@@ -1524,6 +1633,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getQualifiedPropagationPoint()
   {
     return qualifiedPropagationPointEClass;
@@ -1534,6 +1644,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getQualifiedPropagationPoint_Subcomponent()
   {
     return (EReference)qualifiedPropagationPointEClass.getEStructuralFeatures().get(0);
@@ -1544,6 +1655,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getQualifiedPropagationPoint_Next()
   {
     return (EReference)qualifiedPropagationPointEClass.getEStructuralFeatures().get(1);
@@ -1554,6 +1666,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getQualifiedPropagationPoint_PropagationPoint()
   {
     return (EReference)qualifiedPropagationPointEClass.getEStructuralFeatures().get(2);
@@ -1564,6 +1677,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorBehaviorStateMachine()
   {
     return errorBehaviorStateMachineEClass;
@@ -1574,6 +1688,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorBehaviorStateMachine_UseTypes()
   {
     return (EReference)errorBehaviorStateMachineEClass.getEStructuralFeatures().get(0);
@@ -1584,6 +1699,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorBehaviorStateMachine_UseTransformation()
   {
     return (EReference)errorBehaviorStateMachineEClass.getEStructuralFeatures().get(1);
@@ -1594,6 +1710,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorBehaviorStateMachine_Events()
   {
     return (EReference)errorBehaviorStateMachineEClass.getEStructuralFeatures().get(2);
@@ -1604,6 +1721,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorBehaviorStateMachine_States()
   {
     return (EReference)errorBehaviorStateMachineEClass.getEStructuralFeatures().get(3);
@@ -1614,6 +1732,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorBehaviorStateMachine_Transitions()
   {
     return (EReference)errorBehaviorStateMachineEClass.getEStructuralFeatures().get(4);
@@ -1624,6 +1743,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorBehaviorStateMachine_Properties()
   {
     return (EReference)errorBehaviorStateMachineEClass.getEStructuralFeatures().get(5);
@@ -1634,6 +1754,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorBehaviorEvent()
   {
     return errorBehaviorEventEClass;
@@ -1644,6 +1765,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorEvent()
   {
     return errorEventEClass;
@@ -1654,6 +1776,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorEvent_TypeSet()
   {
     return (EReference)errorEventEClass.getEStructuralFeatures().get(0);
@@ -1664,6 +1787,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorEvent_Eventcondition()
   {
     return (EReference)errorEventEClass.getEStructuralFeatures().get(1);
@@ -1674,6 +1798,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getRepairEvent()
   {
     return repairEventEClass;
@@ -1684,6 +1809,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRepairEvent_EventInitiator()
   {
     return (EReference)repairEventEClass.getEStructuralFeatures().get(0);
@@ -1694,6 +1820,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getRecoverEvent()
   {
     return recoverEventEClass;
@@ -1704,6 +1831,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRecoverEvent_EventInitiator()
   {
     return (EReference)recoverEventEClass.getEStructuralFeatures().get(0);
@@ -1714,6 +1842,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getRecoverEvent_Condition()
   {
     return (EReference)recoverEventEClass.getEStructuralFeatures().get(1);
@@ -1724,6 +1853,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorBehaviorState()
   {
     return errorBehaviorStateEClass;
@@ -1734,6 +1864,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getErrorBehaviorState_Intial()
   {
     return (EAttribute)errorBehaviorStateEClass.getEStructuralFeatures().get(0);
@@ -1744,6 +1875,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorBehaviorState_TypeSet()
   {
     return (EReference)errorBehaviorStateEClass.getEStructuralFeatures().get(1);
@@ -1754,6 +1886,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorBehaviorTransition()
   {
     return errorBehaviorTransitionEClass;
@@ -1764,6 +1897,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorBehaviorTransition_Source()
   {
     return (EReference)errorBehaviorTransitionEClass.getEStructuralFeatures().get(0);
@@ -1774,6 +1908,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorBehaviorTransition_TypeTokenConstraint()
   {
     return (EReference)errorBehaviorTransitionEClass.getEStructuralFeatures().get(1);
@@ -1784,6 +1919,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getErrorBehaviorTransition_AllStates()
   {
     return (EAttribute)errorBehaviorTransitionEClass.getEStructuralFeatures().get(2);
@@ -1794,6 +1930,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorBehaviorTransition_Condition()
   {
     return (EReference)errorBehaviorTransitionEClass.getEStructuralFeatures().get(3);
@@ -1804,6 +1941,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorBehaviorTransition_Target()
   {
     return (EReference)errorBehaviorTransitionEClass.getEStructuralFeatures().get(4);
@@ -1814,6 +1952,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorBehaviorTransition_TargetToken()
   {
     return (EReference)errorBehaviorTransitionEClass.getEStructuralFeatures().get(5);
@@ -1824,6 +1963,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getErrorBehaviorTransition_SteadyState()
   {
     return (EAttribute)errorBehaviorTransitionEClass.getEStructuralFeatures().get(6);
@@ -1834,6 +1974,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorBehaviorTransition_DestinationBranches()
   {
     return (EReference)errorBehaviorTransitionEClass.getEStructuralFeatures().get(7);
@@ -1844,6 +1985,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getTransitionBranch()
   {
     return transitionBranchEClass;
@@ -1854,6 +1996,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTransitionBranch_Target()
   {
     return (EReference)transitionBranchEClass.getEStructuralFeatures().get(0);
@@ -1864,6 +2007,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTransitionBranch_TargetToken()
   {
     return (EReference)transitionBranchEClass.getEStructuralFeatures().get(1);
@@ -1874,6 +2018,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getTransitionBranch_SteadyState()
   {
     return (EAttribute)transitionBranchEClass.getEStructuralFeatures().get(2);
@@ -1884,6 +2029,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getTransitionBranch_Value()
   {
     return (EReference)transitionBranchEClass.getEStructuralFeatures().get(3);
@@ -1894,6 +2040,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getBranchValue()
   {
     return branchValueEClass;
@@ -1904,6 +2051,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getBranchValue_Realvalue()
   {
     return (EAttribute)branchValueEClass.getEStructuralFeatures().get(0);
@@ -1914,6 +2062,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getBranchValue_Symboliclabel()
   {
     return (EReference)branchValueEClass.getEStructuralFeatures().get(1);
@@ -1924,6 +2073,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getBranchValue_Others()
   {
     return (EAttribute)branchValueEClass.getEStructuralFeatures().get(2);
@@ -1934,6 +2084,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getConditionExpression()
   {
     return conditionExpressionEClass;
@@ -1944,6 +2095,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getOrmoreExpression()
   {
     return ormoreExpressionEClass;
@@ -1954,6 +2106,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getOrmoreExpression_Count()
   {
     return (EAttribute)ormoreExpressionEClass.getEStructuralFeatures().get(0);
@@ -1964,6 +2117,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getOrmoreExpression_Operands()
   {
     return (EReference)ormoreExpressionEClass.getEStructuralFeatures().get(1);
@@ -1974,6 +2128,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getOrlessExpression()
   {
     return orlessExpressionEClass;
@@ -1984,6 +2139,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getOrlessExpression_Count()
   {
     return (EAttribute)orlessExpressionEClass.getEStructuralFeatures().get(0);
@@ -1994,6 +2150,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getOrlessExpression_Operands()
   {
     return (EReference)orlessExpressionEClass.getEStructuralFeatures().get(1);
@@ -2004,6 +2161,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getConditionElement()
   {
     return conditionElementEClass;
@@ -2014,6 +2172,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getConditionElement_QualifiedErrorPropagationReference()
   {
     return (EReference)conditionElementEClass.getEStructuralFeatures().get(0);
@@ -2024,6 +2183,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getConditionElement_Constraint()
   {
     return (EReference)conditionElementEClass.getEStructuralFeatures().get(1);
@@ -2034,6 +2194,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getEventOrPropagation()
   {
     return eventOrPropagationEClass;
@@ -2044,6 +2205,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getOutgoingPropagationCondition()
   {
     return outgoingPropagationConditionEClass;
@@ -2054,6 +2216,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getOutgoingPropagationCondition_State()
   {
     return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(0);
@@ -2064,6 +2227,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getOutgoingPropagationCondition_TypeTokenConstraint()
   {
     return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(1);
@@ -2074,6 +2238,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getOutgoingPropagationCondition_AllStates()
   {
     return (EAttribute)outgoingPropagationConditionEClass.getEStructuralFeatures().get(2);
@@ -2084,6 +2249,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getOutgoingPropagationCondition_Condition()
   {
     return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(3);
@@ -2094,6 +2260,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getOutgoingPropagationCondition_Outgoing()
   {
     return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(4);
@@ -2104,6 +2271,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getOutgoingPropagationCondition_AllPropagations()
   {
     return (EAttribute)outgoingPropagationConditionEClass.getEStructuralFeatures().get(5);
@@ -2114,6 +2282,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getOutgoingPropagationCondition_TypeToken()
   {
     return (EReference)outgoingPropagationConditionEClass.getEStructuralFeatures().get(6);
@@ -2124,6 +2293,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorDetection()
   {
     return errorDetectionEClass;
@@ -2134,6 +2304,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorDetection_State()
   {
     return (EReference)errorDetectionEClass.getEStructuralFeatures().get(0);
@@ -2144,6 +2315,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorDetection_TypeTokenConstraint()
   {
     return (EReference)errorDetectionEClass.getEStructuralFeatures().get(1);
@@ -2154,6 +2326,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getErrorDetection_AllStates()
   {
     return (EAttribute)errorDetectionEClass.getEStructuralFeatures().get(2);
@@ -2164,6 +2337,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorDetection_Condition()
   {
     return (EReference)errorDetectionEClass.getEStructuralFeatures().get(3);
@@ -2174,6 +2348,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorDetection_DetectionReportingPort()
   {
     return (EReference)errorDetectionEClass.getEStructuralFeatures().get(4);
@@ -2184,6 +2359,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorDetection_ErrorCode()
   {
     return (EReference)errorDetectionEClass.getEStructuralFeatures().get(5);
@@ -2194,6 +2370,40 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public EClass getReportingPortReference()
+  {
+    return reportingPortReferenceEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getReportingPortReference_Element()
+  {
+    return (EReference)reportingPortReferenceEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public EReference getReportingPortReference_Previous()
+  {
+    return (EReference)reportingPortReferenceEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
   public EClass getErrorCodeValue()
   {
     return errorCodeValueEClass;
@@ -2204,6 +2414,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getErrorCodeValue_IntValue()
   {
     return (EAttribute)errorCodeValueEClass.getEStructuralFeatures().get(0);
@@ -2214,6 +2425,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorCodeValue_Constant()
   {
     return (EReference)errorCodeValueEClass.getEStructuralFeatures().get(1);
@@ -2224,6 +2436,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getErrorCodeValue_EnumLiteral()
   {
     return (EAttribute)errorCodeValueEClass.getEStructuralFeatures().get(2);
@@ -2234,6 +2447,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getErrorStateToModeMapping()
   {
     return errorStateToModeMappingEClass;
@@ -2244,6 +2458,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorStateToModeMapping_ErrorState()
   {
     return (EReference)errorStateToModeMappingEClass.getEStructuralFeatures().get(0);
@@ -2254,6 +2469,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorStateToModeMapping_TypeToken()
   {
     return (EReference)errorStateToModeMappingEClass.getEStructuralFeatures().get(1);
@@ -2264,6 +2480,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getErrorStateToModeMapping_MappedModes()
   {
     return (EReference)errorStateToModeMappingEClass.getEStructuralFeatures().get(2);
@@ -2274,6 +2491,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getCompositeState()
   {
     return compositeStateEClass;
@@ -2284,6 +2502,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCompositeState_Condition()
   {
     return (EReference)compositeStateEClass.getEStructuralFeatures().get(0);
@@ -2294,6 +2513,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getCompositeState_Others()
   {
     return (EAttribute)compositeStateEClass.getEStructuralFeatures().get(1);
@@ -2304,6 +2524,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCompositeState_State()
   {
     return (EReference)compositeStateEClass.getEStructuralFeatures().get(2);
@@ -2314,6 +2535,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getCompositeState_TypedToken()
   {
     return (EReference)compositeStateEClass.getEStructuralFeatures().get(3);
@@ -2324,6 +2546,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getQualifiedErrorBehaviorState()
   {
     return qualifiedErrorBehaviorStateEClass;
@@ -2334,6 +2557,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getQualifiedErrorBehaviorState_Subcomponent()
   {
     return (EReference)qualifiedErrorBehaviorStateEClass.getEStructuralFeatures().get(0);
@@ -2344,6 +2568,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getQualifiedErrorBehaviorState_Next()
   {
     return (EReference)qualifiedErrorBehaviorStateEClass.getEStructuralFeatures().get(1);
@@ -2354,6 +2579,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getQualifiedErrorBehaviorState_State()
   {
     return (EReference)qualifiedErrorBehaviorStateEClass.getEStructuralFeatures().get(2);
@@ -2364,6 +2590,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSubcomponentElement()
   {
     return subcomponentElementEClass;
@@ -2374,6 +2601,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSubcomponentElement_Subcomponent()
   {
     return (EReference)subcomponentElementEClass.getEStructuralFeatures().get(0);
@@ -2384,6 +2612,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getEMV2Root()
   {
     return emv2RootEClass;
@@ -2394,6 +2623,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getEMV2Root_Library()
   {
     return (EReference)emv2RootEClass.getEStructuralFeatures().get(0);
@@ -2404,6 +2634,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getEMV2Root_Subclauses()
   {
     return (EReference)emv2RootEClass.getEStructuralFeatures().get(1);
@@ -2414,6 +2645,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getOrExpression()
   {
     return orExpressionEClass;
@@ -2424,6 +2656,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getOrExpression_Operands()
   {
     return (EReference)orExpressionEClass.getEStructuralFeatures().get(0);
@@ -2434,6 +2667,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAndExpression()
   {
     return andExpressionEClass;
@@ -2444,6 +2678,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAndExpression_Operands()
   {
     return (EReference)andExpressionEClass.getEStructuralFeatures().get(0);
@@ -2454,6 +2689,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getAllExpression()
   {
     return allExpressionEClass;
@@ -2464,6 +2700,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EAttribute getAllExpression_Count()
   {
     return (EAttribute)allExpressionEClass.getEStructuralFeatures().get(0);
@@ -2474,6 +2711,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getAllExpression_Operands()
   {
     return (EReference)allExpressionEClass.getEStructuralFeatures().get(1);
@@ -2484,6 +2722,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getQualifiedErrorEventOrPropagation()
   {
     return qualifiedErrorEventOrPropagationEClass;
@@ -2494,6 +2733,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getQualifiedErrorPropagation()
   {
     return qualifiedErrorPropagationEClass;
@@ -2504,6 +2744,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EClass getSConditionElement()
   {
     return sConditionElementEClass;
@@ -2514,6 +2755,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EReference getSConditionElement_QualifiedState()
   {
     return (EReference)sConditionElementEClass.getEStructuralFeatures().get(0);
@@ -2524,6 +2766,7 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorModelFactory getErrorModelFactory()
   {
     return (ErrorModelFactory)getEFactoryInstance();
@@ -2754,6 +2997,10 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     createEReference(errorDetectionEClass, ERROR_DETECTION__CONDITION);
     createEReference(errorDetectionEClass, ERROR_DETECTION__DETECTION_REPORTING_PORT);
     createEReference(errorDetectionEClass, ERROR_DETECTION__ERROR_CODE);
+
+    reportingPortReferenceEClass = createEClass(REPORTING_PORT_REFERENCE);
+    createEReference(reportingPortReferenceEClass, REPORTING_PORT_REFERENCE__ELEMENT);
+    createEReference(reportingPortReferenceEClass, REPORTING_PORT_REFERENCE__PREVIOUS);
 
     errorCodeValueEClass = createEClass(ERROR_CODE_VALUE);
     createEAttribute(errorCodeValueEClass, ERROR_CODE_VALUE__INT_VALUE);
@@ -3094,8 +3341,12 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
     initEReference(getErrorDetection_TypeTokenConstraint(), this.getTypeSet(), null, "typeTokenConstraint", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getErrorDetection_AllStates(), theEcorePackage.getEBoolean(), "allStates", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorDetection_Condition(), this.getConditionExpression(), null, "condition", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getErrorDetection_DetectionReportingPort(), theAadl2Package.getTriggerPort(), null, "detectionReportingPort", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getErrorDetection_DetectionReportingPort(), this.getReportingPortReference(), null, "detectionReportingPort", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getErrorDetection_ErrorCode(), this.getErrorCodeValue(), null, "errorCode", null, 0, 1, ErrorDetection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(reportingPortReferenceEClass, ReportingPortReference.class, "ReportingPortReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getReportingPortReference_Element(), theAadl2Package.getNamedElement(), null, "element", null, 0, 1, ReportingPortReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getReportingPortReference_Previous(), this.getReportingPortReference(), null, "previous", null, 0, 1, ReportingPortReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(errorCodeValueEClass, ErrorCodeValue.class, "ErrorCodeValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getErrorCodeValue_IntValue(), theEcorePackage.getEString(), "intValue", null, 0, 1, ErrorCodeValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

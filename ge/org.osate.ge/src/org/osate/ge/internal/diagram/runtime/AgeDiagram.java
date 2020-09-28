@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -31,17 +31,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Stream;
 
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.diagramtypes.CustomDiagramType;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.graphics.internal.AgeGraphicalConfiguration;
-import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
-import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
-import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
+import org.osate.ge.internal.diagram.runtime.botree.Completeness;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
-import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.impl.SimpleActionExecutor;
@@ -172,14 +172,8 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		return sb.toString();
 	}
 
-	private DockArea calculateDockArea(final DiagramElement e) {
-		return AgeDiagramUtil
-				.determineDockingPosition(e.getContainer(), e.getX(), e.getY(), e.getWidth(), e.getHeight())
-				.getDefaultDockArea();
-	}
-
 	@Override
-	public Collection<Queryable> getChildren() {
+	public Collection<BusinessObjectContext> getChildren() {
 		return Collections.unmodifiableCollection(elements);
 	}
 
@@ -220,14 +214,26 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		private ArrayList<DiagramChange> changes = new ArrayList<>(); // Used for undoing the modification
 
 		@Override
+		public AgeDiagram getDiagram() {
+			return AgeDiagram.this;
+		}
+
+		@Override
 		public void setDiagramConfiguration(final DiagramConfiguration config) {
 			Objects.requireNonNull(config, "config must not be null");
 
-			if (!getConfiguration().equals(config)) {
+			final boolean valuesAreEqual = getConfiguration().equals(config);
+
+			if (!valuesAreEqual) {
 				storeFieldChange(null, ModifiableField.DIAGRAM_CONFIGURATION, AgeDiagram.this.diagramConfiguration,
 						config);
-				AgeDiagram.this.diagramConfiguration = config;
+			}
 
+			// The reference is changed even if the configuration is logically equal. The case of the context reference may have changed that
+			// requires an update or indicator but needs to stored so that it will be serialized during the next save.
+			AgeDiagram.this.diagramConfiguration = config;
+
+			if (!valuesAreEqual) {
 				// Notify listeners. Diagram configuration doesn't get the usual update event. It gets a special one for diagram configuration.
 				final DiagramConfigurationChangedEvent event = new DiagramConfigurationChangedEvent();
 				for (final DiagramModificationListener ml : modificationListeners) {
@@ -252,12 +258,19 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			Objects.requireNonNull(e, "e must not be null");
 			Objects.requireNonNull(relativeReference, "relativeReference must not be null");
 
-			if (!Objects.equals(relativeReference, e.getRelativeReference())) {
-				final boolean wasRemoved = e.getModifiableContainer().getModifiableDiagramElements().remove(e);
+			final boolean valuesAreEqual = Objects.equals(relativeReference, e.getRelativeReference());
+			boolean wasRemoved = false;
+			if (!valuesAreEqual) {
+				wasRemoved = e.getModifiableContainer().getModifiableDiagramElements().remove(e);
 
 				storeFieldChange(e, ModifiableField.RELATIVE_REFERENCE, e.getRelativeReference(), relativeReference);
-				e.setRelativeReference(relativeReference);
+			}
 
+			// The relative reference is updated even when the objects are equal so that the case of the relative reference will be preserved.
+			// However, it will not be recorded as a change.
+			e.setRelativeReference(relativeReference);
+
+			if (!valuesAreEqual) {
 				if (wasRemoved) {
 					e.getModifiableContainer().getModifiableDiagramElements().add(e);
 				}
@@ -297,7 +310,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 
 		@Override
-		public void setBusinessObjectHandler(final DiagramElement e, final Object boh) {
+		public void setBusinessObjectHandler(final DiagramElement e, final BusinessObjectHandler boh) {
 			e.setBusinessObjectHandler(boh);
 			// Do not notify listeners
 		}
@@ -347,39 +360,16 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 
 		@Override
-		public void setPosition(final DiagramElement e, final Point value, final boolean updateDockArea,
-				final boolean updatedBendpoints) {
+		public void setPosition(final DiagramElement e, final Point value) {
 			if (!Objects.equals(e.getPosition(), value)) {
-				// Determine the different between X and Y
-				final Point delta = value == null ? null : new Point(value.x - e.getX(), value.y - e.getY());
-
 				storeFieldChange(e, ModifiableField.POSITION, e.getPosition(), value);
 				e.setPosition(value);
 				afterUpdate(e, ModifiableField.POSITION);
-
-				// Only update dock area and bendpoints if position is being set to an actual value
-				if (delta != null) {
-					if (updateDockArea) {
-						// Update the dock area based on the position
-						final DockArea currentDockArea = e.getDockArea();
-						if (currentDockArea != null) {
-							if (currentDockArea != DockArea.GROUP) {
-								setDockArea(e, calculateDockArea(e));
-							}
-						}
-					}
-
-					if (updatedBendpoints) {
-						DiagramElementLayoutUtil.shiftRelatedConnectionBendpoints(AgeDiagram.this, Stream.of(e),
-								new Point(delta.x, delta.y),
-								this);
-					}
-				}
 			}
 		}
 
 		@Override
-		public void setGraphicalConfiguration(final DiagramElement e, final AgeGraphicalConfiguration value) {
+		public void setGraphicalConfiguration(final DiagramElement e, final GraphicalConfiguration value) {
 			if (!Objects.equals(value, e.getGraphicalConfiguration())) {
 				storeFieldChange(e, ModifiableField.GRAPHICAL_CONFIGURATION, e.getGraphicalConfiguration(), value);
 				e.setGraphicalConfiguration(value);
@@ -559,9 +549,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	}
 
 	private static interface DiagramChange {
-		void undo(final DiagramModification m);
+		void undo(final AgeDiagramModification m);
 
-		void redo(final DiagramModification m);
+		void redo(final AgeDiagramModification m);
 
 		default boolean affectsChangeNumber() {
 			return true;
@@ -576,12 +566,12 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 
 		@Override
-		public void undo(DiagramModification m) {
+		public void undo(AgeDiagramModification m) {
 			m.removeElement(diagramElement);
 		}
 
 		@Override
-		public void redo(DiagramModification m) {
+		public void redo(AgeDiagramModification m) {
 			m.addElement(diagramElement);
 		}
 	}
@@ -594,12 +584,12 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 
 		@Override
-		public void undo(DiagramModification m) {
+		public void undo(AgeDiagramModification m) {
 			m.addElement(diagramElement);
 		}
 
 		@Override
-		public void redo(DiagramModification m) {
+		public void redo(AgeDiagramModification m) {
 			m.removeElement(diagramElement);
 		}
 	}
@@ -623,17 +613,17 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 
 		@Override
-		public void undo(final DiagramModification m) {
+		public void undo(final AgeDiagramModification m) {
 			setValue(m, previousValue);
 		}
 
 		@Override
-		public void redo(final DiagramModification m) {
+		public void redo(final AgeDiagramModification m) {
 			setValue(m, newValue);
 		}
 
 		@SuppressWarnings("unchecked")
-		private void setValue(final DiagramModification m, final Object value) {
+		private void setValue(final AgeDiagramModification m, final Object value) {
 			switch (field) {
 			case COMPLETENESS:
 				m.setCompleteness(element, (Completeness) value);
@@ -656,13 +646,11 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				break;
 
 			case GRAPHICAL_CONFIGURATION:
-				m.setGraphicalConfiguration(element, (AgeGraphicalConfiguration) value);
+				m.setGraphicalConfiguration(element, (GraphicalConfiguration) value);
 				break;
 
 			case POSITION:
-				// Don't update dock area or bendpoints during undo or redo. Such changes occur in an order that will result in erroneous
-				// values. If a value was changed during the original action, it will have its own entry in the change list.
-				m.setPosition(element, (Point) value, false, false);
+				m.setPosition(element, (Point) value);
 				break;
 
 			case SIZE:
@@ -683,9 +671,11 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 			case RELATIVE_REFERENCE:
 				((AgeDiagramModification) m).setRelativeReference(element, (RelativeBusinessObjectReference) value);
+				break;
 
 			case EMBEDDED_BUSINESS_OBJECT:
 				m.updateBusinessObjectWithSameRelativeReference(element, value);
+				break;
 
 			default:
 				break;
@@ -695,8 +685,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		@Override
 		public boolean affectsChangeNumber() {
 			if (field == ModifiableField.COMPLETENESS || field == ModifiableField.USER_INTERFACE_NAME
-					|| field == ModifiableField.LABEL_NAME
-					|| field == ModifiableField.GRAPHICAL_CONFIGURATION) {
+					|| field == ModifiableField.LABEL_NAME || field == ModifiableField.GRAPHICAL_CONFIGURATION) {
 				return false;
 			}
 

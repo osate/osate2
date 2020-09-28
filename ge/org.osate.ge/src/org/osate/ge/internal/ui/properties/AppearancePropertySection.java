@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -83,6 +83,7 @@ import org.eclipse.ui.model.BaseWorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
+import org.osate.ge.StringUtil;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.graphics.internal.AgeConnection;
@@ -95,7 +96,7 @@ import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.internal.util.StringUtil;
+import org.osate.ge.swt.SwtUtil;
 
 import com.google.common.collect.Lists;
 
@@ -139,8 +140,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.top = new FormAttachment(primaryLabelVisibleLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(primaryLabelVisibleLabel, 10);
 		primaryLabelVisibleViewer.getCombo().setLayoutData(fd);
-		primaryLabelVisibleViewer.getControl().setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY,
-				primaryLabelVisibilityCombo);
+		SwtUtil.setTestingId(primaryLabelVisibleViewer.getControl(), primaryLabelVisibilityCombo);
 
 		fontSizeLabel = createLabel(parent, "Font Size:");
 		fd = new FormData();
@@ -153,7 +153,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.top = new FormAttachment(fontSizeLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(primaryLabelVisibleViewer.getControl(), 0, SWT.LEFT);
 		fontSizeComboViewer.getCombo().setLayoutData(fd);
-		fontSizeComboViewer.getControl().setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, fontSizeCombo);
+		SwtUtil.setTestingId(fontSizeComboViewer.getControl(), fontSizeCombo);
 
 		lineWidthLabel = createLabel(parent, "Line Width:");
 		fd = new FormData();
@@ -166,7 +166,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.top = new FormAttachment(lineWidthLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(primaryLabelVisibleViewer.getControl(), 0, SWT.LEFT);
 		lineWidthComboViewer.getCombo().setLayoutData(fd);
-		lineWidthComboViewer.getControl().setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, lineWidthCombo);
+		SwtUtil.setTestingId(lineWidthComboViewer.getControl(), lineWidthCombo);
 	}
 
 	private void createButtonSection(final Composite parent) {
@@ -342,7 +342,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		final Button outlineButton = outlinePaintListener.getButton();
 		outlineButton.setEnabled(enableOutlineOption);
 
-		final Style defaultStyle = StyleBuilder.create(diagramElement.getGraphicalConfiguration().style, Style.DEFAULT)
+		final Style defaultStyle = StyleBuilder.create(diagramElement.getGraphicalConfiguration().getStyle(), Style.DEFAULT)
 				.build();
 		backgroundPaintListener.setDefaultColor(toRGB(defaultStyle.getBackgroundColor()));
 		fontColorPaintListener.setDefaultColor(toRGB(defaultStyle.getFontColor()));
@@ -419,7 +419,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		final Button button = new Button(parent, SWT.PUSH);
 		button.setImage(imageDescriptor.createImage());
 		button.setToolTipText(toolTipText);
-		button.setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, id);
+		SwtUtil.setTestingId(button, id);
 
 		return button;
 	}
@@ -467,7 +467,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		private Button createColorButton(final Composite parent, final ImageDescriptor imgDescriptor) {
 			final Button btn = new Button(parent, SWT.PUSH);
 			btn.setImage(imgDescriptor.createImage());
-			btn.setData(UiUtil.AUTOMATED_SWTBOT_TESTING_KEY, presetColorId);
+			SwtUtil.setTestingId(btn, presetColorId);
 			btn.addDisposeListener(e -> {
 				btn.getImage().dispose();
 			});
