@@ -481,7 +481,7 @@
     <repository
         url="http://download.eclipse.org/ease/release/0.7.0"/>
     <repository
-        url="https://eclipse.py4j.org"/>
+        url="http://eclipse.py4j.org"/>
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
