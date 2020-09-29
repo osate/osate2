@@ -470,7 +470,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		checkFlowConnectionEnds(flow);
 		checkFlowSegmentModes(flow);
 		checkSubcomponentFlows(flow);
-		// checkFlowPathElements(flow);
+		checkFlowPathElements(flow);
 		checkEmptyFlowImplementation(flow);
 	}
 
@@ -1446,7 +1446,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					if (Aadl2Util.isNull(inEnd)) {
 						return;
 					}
-					if (!isMatchingConnectionPoint(null, inEnd.getFeature(), inEnd.getContext(), connectedElement)) {
+					if (!isMatchingConnectionPoint(null, inEnd.getFeature(),
+							inEnd.getContext(), connectedElement)) {
 						boolean noMatch = false;
 						if (connection.isAllBidirectional()) {
 							didReverse = true;
@@ -1467,6 +1468,35 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 											+ (inEnd.getContext() != null ? inEnd.getContext().getName() + '.' : "")
 											+ inEnd.getFeature().getName() + '\'');
 						}
+					} else { // working on checking destination of first element
+						ce = connection.getAllLastDestination();
+						cxt = connection.getAllDestinationContext();
+						connectedElement = connection.getRootConnection().getDestination();
+						if (i <= flow.getOwnedFlowSegments().size() - 2) {
+							FlowSegment flowSegment = flow.getOwnedFlowSegments().get(i + 1);
+							FlowElement nextElem = flowSegment.getFlowElement();
+							if (nextElem instanceof FlowSpecification) {
+								FlowSpecification nextFlowSegment = (FlowSpecification) nextElem;
+								inEnd = nextFlowSegment.getAllInEnd();
+								if (Aadl2Util.isNull(inEnd)) {
+									return;
+								}
+								if (ce instanceof Feature) {
+									String segmentName = flowSegment.getContext().getName();
+									String connectedName = connectedElement.getContext().getName();
+
+									if (!segmentName.equals(connectedName)
+											|| !isMatchingConnectionPoint(flowSegment.getContext(), inEnd.getFeature(),
+											inEnd.getContext(), connectedElement)) {
+										error(flow.getOwnedFlowSegments().get(i), "The destination of connection '"
+												+ connection.getName()
+												+ "' does not match the in flow feature of the succeeding subcomponent flow specification '"
+												+ flow.getOwnedFlowSegments().get(i + 1).getContext().getName() + '.'
+												+ nextFlowSegment.getName() + '\'');
+									}
+								}
+							}
+						}
 					}
 				} else {
 					FlowSegment flowSegment = flow.getOwnedFlowSegments().get(i - 1);
@@ -1478,7 +1508,9 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 							return;
 						}
 						if (!isMatchingConnectionPoint(flowSegment.getContext(), outEnd.getFeature(),
-								outEnd.getContext(), connectedElement)) {
+								outEnd.getContext(), connectedElement)
+								|| !connectedElement.getContext().getName()
+										.equals(flowSegment.getContext().getName())) {
 							boolean noMatch = false;
 							if (connection.isAllBidirectional()) {
 								didReverse = true;
@@ -1900,6 +1932,42 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			}
 		}
 		return result;
+	}
+
+	@SuppressWarnings("incomplete-switch")
+	private void checkFlowPathElements(FlowImplementation flowImpl) {
+		FlowKind kind = flowImpl.getKind();
+
+		for (int i = 0; i < flowImpl.getOwnedFlowSegments().size(); i++) {
+			FlowSegment segment = flowImpl.getOwnedFlowSegments().get(i);
+			if (segment.getContext() instanceof Subcomponent && !segment.getContext().eIsProxy()
+					&& segment.getFlowElement() instanceof FlowSpecification && !segment.getFlowElement().eIsProxy()) {
+				if (kind == FlowKind.PATH) {
+					switch (((FlowSpecification) segment.getFlowElement()).getKind()) {
+					case SOURCE:
+						error(segment,
+								"Flow source in only allowed as the first element of a flow source implementation");
+						break;
+					case SINK:
+						error(segment, "Flow sink in only allowed as the last element of a flow sink implementation");
+						break;
+					}
+				} else {
+					if (i != 0 && i != flowImpl.getOwnedFlowSegments().size() - 1) {
+						switch (((FlowSpecification) segment.getFlowElement()).getKind()) {
+						case SOURCE:
+							error(segment,
+									"Flow source in only allowed as the first element of a flow source implementation");
+							break;
+						case SINK:
+							error(segment,
+									"Flow sink in only allowed as the last element of a flow sink implementation");
+							break;
+						}
+					}
+				}
+			}
+		}
 	}
 
 	// private void checkFlowPathElements(FlowImplementation flowimplementation)
