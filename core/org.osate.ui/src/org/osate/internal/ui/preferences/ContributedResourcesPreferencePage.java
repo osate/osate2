@@ -34,6 +34,7 @@
  */
 package org.osate.internal.ui.preferences;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,19 +48,23 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.ListViewer;
-import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -67,6 +72,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
@@ -88,7 +95,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 
 	private Button overrideButton;
 	private Button restoreButton;
-	private ListViewer contributedList;
+//	private ListViewer contributedList;
 	private Label uriLabel;
 
 	public ContributedResourcesPreferencePage() {
@@ -107,36 +114,68 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(2, true));
 
-		final List<URI> contributedAadl = PluginSupportUtil.getContributedAadl();
-		contributedList = new ListViewer(composite, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-		contributedList.getList().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-		contributedList.setContentProvider((IStructuredContentProvider) inputElement -> {
-			if (inputElement == null) {
-				return new String[0];
-			} else {
-				return ((List<?>) inputElement).toArray();
-			}
-		});
-		contributedList.setLabelProvider(new LabelProvider() {
-			@Override
-			public String getText(final Object element) {
-				return uriToLabel((URI) element);
-			}
-		});
-		contributedList.addSelectionChangedListener(event -> {
-			final ISelection selection = event.getSelection();
-			if (selection.isEmpty()) {
-				restoreButton.setEnabled(false);
-				uriLabel.setText("");
-			} else {
-				final URI uri = getURIFromSelection(selection);
-				final boolean overridden = overriddenAadl.containsKey(uri);
-				restoreButton.setEnabled(overridden);
-				uriLabel.setText(uriToReadable(overridden ? overriddenAadl.get(uri) : uri));
-			}
-		});
-		contributedList.setInput(contributedAadl);
+		// anna start
+		SashForm sashForm = new SashForm(composite, SWT.HORIZONTAL);
+		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
+		sashForm.setLayoutData(gd);
+		initializeDialogUnits(sashForm);
+		getShell().setSize(convertWidthInCharsToPixels(150), getShell().getSize().y);
 
+		final TreeViewer tree = createTree(sashForm);
+		tree.setLabelProvider(new FileLabelProvider(null, null));
+		tree.setContentProvider(new TreeContentProvider());
+
+		final List<URI> contributedAadl = PluginSupportUtil.getContributedAadl();
+		// build tree content
+		TreeNode root = new TreeNode();
+		for (URI fullPath : contributedAadl) {
+			String[] segments = fullPath.segments(); /// users/anya/documents/abc.mp4
+			TreeNode currentNode = root; // users
+
+			for (String s : segments) {
+				// if children of this node do not have this, add it in
+				if (currentNode.getNode() == null || currentNode.getNode().stream()
+						.filter(x -> x.label != null && s != null && x.label.compareToIgnoreCase(s) == 0)
+						.count() < 1) {
+					currentNode.addNode(new TreeNode(fullPath, s));
+				}
+
+				// get current node object
+				currentNode = currentNode.getNode().stream()
+						.filter(x -> x.label != null && s != null && x.label.compareToIgnoreCase(s) == 0)
+								.toArray(TreeNode[]::new)[0];
+			}
+		}
+
+		tree.setInput(root);
+		tree.setComparator(new ViewerComparator());
+
+		// anna end
+		/*
+		 * contributedList = new ListViewer(composite, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+		 * contributedList.getList().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		 * contributedList.setContentProvider((IStructuredContentProvider) inputElement -> {
+		 * if (inputElement == null) {
+		 * return new String[0];
+		 * } else {
+		 * return ((List<?>) inputElement).toArray();
+		 * }
+		 * });
+		 *
+		 * contributedList.addSelectionChangedListener(event -> {
+		 * final ISelection selection = event.getSelection();
+		 * if (selection.isEmpty()) {
+		 * restoreButton.setEnabled(false);
+		 * uriLabel.setText("");
+		 * } else {
+		 * final URI uri = getURIFromSelection(selection);
+		 * final boolean overridden = overriddenAadl.containsKey(uri);
+		 * restoreButton.setEnabled(overridden);
+		 * uriLabel.setText(uriToReadable(overridden ? overriddenAadl.get(uri) : uri));
+		 * }
+		 * });
+		 * contributedList.setInput(contributedAadl);
+		 */
 		overrideButton = new Button(composite, SWT.PUSH);
 		overrideButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
 		overrideButton.setText("Override");
@@ -144,16 +183,18 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		overrideButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				final URI uri = getURIFromSelection(contributedList.getSelection());
-				if (uri != null) {
-					final URI newURI = getWorkspaceContributedResource(uri.lastSegment());
-					if (newURI != null) {
-						overriddenAadl.put(uri, newURI);
-						restoreButton.setEnabled(true);
-						contributedList.refresh();
-						uriLabel.setText(uriToReadable(newURI));
-					}
-				}
+				/*
+				 * TODO FIX final URI uri = getURIFromSelection(contributedList.getSelection());
+				 * if (uri != null) {
+				 * final URI newURI = getWorkspaceContributedResource(uri.lastSegment());
+				 * if (newURI != null) {
+				 * overriddenAadl.put(uri, newURI);
+				 * restoreButton.setEnabled(true);
+				 * contributedList.refresh();
+				 * uriLabel.setText(uriToReadable(newURI));
+				 * }
+				 * }
+				 */
 			}
 		});
 
@@ -164,13 +205,15 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		restoreButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				final URI uri = getURIFromSelection(contributedList.getSelection());
-				if (uri != null) {
-					overriddenAadl.remove(uri);
-					restoreButton.setEnabled(false);
-					contributedList.refresh();
-					uriLabel.setText(uriToReadable(uri));
-				}
+				/*
+				 * TODO FIX final URI uri = getURIFromSelection(contributedList.getSelection());
+				 * if (uri != null) {
+				 * overriddenAadl.remove(uri);
+				 * restoreButton.setEnabled(false);
+				 * contributedList.refresh();
+				 * uriLabel.setText(uriToReadable(uri));
+				 * }
+				 */
 			}
 		});
 
@@ -188,7 +231,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		if (contributedAadl.isEmpty()) {
 			uriLabel.setText("");
 		} else {
-			contributedList.setSelection(new StructuredSelection(contributedAadl.get(0)));
+//TODO FIX			contributedList.setSelection(new StructuredSelection(contributedAadl.get(0)));
 		}
 
 		return composite;
@@ -290,6 +333,132 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 			return URI.createPlatformResourceURI(((IResource) dialog.getFirstResult()).getFullPath().toString(), false);
 		} else {
 			return null;
+		}
+	}
+
+	protected TreeViewer createTree(Composite parent) {
+		GridData compLayout = new GridData(GridData.FILL_BOTH);
+		compLayout.heightHint = 200;
+		compLayout.widthHint = 200;
+
+		Composite treeComposite = new Composite(parent, SWT.NONE);
+		treeComposite.setLayoutData(compLayout);
+
+		GridData dataLayout = new GridData(GridData.FILL_BOTH);
+		dataLayout.heightHint = compLayout.heightHint;
+		dataLayout.widthHint = compLayout.widthHint;
+
+		int style = SWT.SINGLE | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL;
+		Tree tree = new Tree(treeComposite, style);
+		tree.setLayoutData(dataLayout);
+		tree.setLinesVisible(true);
+		tree.setHeaderVisible(false);
+		tree.setFont(parent.getFont());
+
+		TreeColumn col = new TreeColumn(tree, SWT.LEFT);
+
+		TreeColumnLayout treeLayout = new TreeColumnLayout();
+		treeLayout.setColumnData(col, new ColumnWeightData(dataLayout.widthHint));
+		treeComposite.setLayout(treeLayout);
+
+		return new TreeViewer(tree);
+	}
+
+	public class TreeContentProvider implements ITreeContentProvider {
+		Object treeContent;
+
+		@Override
+		public void dispose() {
+			// Nothing to do.
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+			treeContent = newInput;
+		}
+
+		@Override
+		public Object[] getElements(Object inputElement) {
+			return getChildren(inputElement);
+		}
+
+		@Override
+		public Object[] getChildren(Object parentElement) {
+			if (parentElement instanceof TreeNode) {
+				return ((TreeNode) parentElement).getNode().toArray();
+			} else {
+				return null;
+			}
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public Object getParent(Object element) {
+			if (element instanceof TreeNode) {
+				return ((TreeNode) element).getParent();
+			}
+
+			return null;
+		}
+
+		@Override
+		public boolean hasChildren(Object element) {
+			return getChildren(element).length > 0;
+		}
+	}
+
+	public class FileLabelProvider extends LabelProvider {
+		public FileLabelProvider(Image fileImg, Image categoryImg) {
+			super();
+		}
+
+		@Override
+		public Image getImage(Object element) {
+			return null;
+		}
+
+		@Override
+		public void dispose() {
+			super.dispose();
+		}
+
+		@Override
+		public String getText(Object element) {
+			return ((TreeNode) element).label;
+		}
+	}
+
+	public class TreeNode {
+		public TreeNode() {
+		}
+
+		public TreeNode(URI pathURI, String label) {
+			this.pathURI = pathURI;
+			this.label = label;
+		}
+
+		public TreeNode(String label) {
+			this.label = label;
+		}
+
+		public String label;
+		public URI pathURI;
+
+		protected List<TreeNode> nodes = new ArrayList<>();
+		protected TreeNode parent;
+
+		public List<TreeNode> getNode() {
+			return nodes;
+		}
+
+		protected void addNode(TreeNode node) {
+			nodes.add(node);
+			node.parent = this;
+		}
+
+		protected TreeNode getParent() {
+			return parent;
 		}
 	}
 }
