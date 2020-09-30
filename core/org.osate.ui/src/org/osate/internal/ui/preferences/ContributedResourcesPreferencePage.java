@@ -36,6 +36,7 @@ package org.osate.internal.ui.preferences;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -95,7 +96,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 
 	private Button overrideButton;
 	private Button restoreButton;
-//	private ListViewer contributedList;
+	private TreeNode selectedNode;
 	private Label uriLabel;
 
 	public ContributedResourcesPreferencePage() {
@@ -116,66 +117,38 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 
 		// anna start
 		SashForm sashForm = new SashForm(composite, SWT.HORIZONTAL);
-		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
+		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1);
 		sashForm.setLayoutData(gd);
 		initializeDialogUnits(sashForm);
-		getShell().setSize(convertWidthInCharsToPixels(150), getShell().getSize().y);
+//		getShell().setSize(convertWidthInCharsToPixels(150), getShell().getSize().y);
 
 		final TreeViewer tree = createTree(sashForm);
 		tree.setLabelProvider(new FileLabelProvider(null, null));
 		tree.setContentProvider(new TreeContentProvider());
 
 		final List<URI> contributedAadl = PluginSupportUtil.getContributedAadl();
-		// build tree content
-		TreeNode root = new TreeNode();
-		for (URI fullPath : contributedAadl) {
-			String[] segments = fullPath.segments(); /// users/anya/documents/abc.mp4
-			TreeNode currentNode = root; // users
-
-			for (String s : segments) {
-				// if children of this node do not have this, add it in
-				if (currentNode.getNode() == null || currentNode.getNode().stream()
-						.filter(x -> x.label != null && s != null && x.label.compareToIgnoreCase(s) == 0)
-						.count() < 1) {
-					currentNode.addNode(new TreeNode(fullPath, s));
-				}
-
-				// get current node object
-				currentNode = currentNode.getNode().stream()
-						.filter(x -> x.label != null && s != null && x.label.compareToIgnoreCase(s) == 0)
-								.toArray(TreeNode[]::new)[0];
-			}
-		}
-
-		tree.setInput(root);
+		tree.setInput(createTreeHierarchy(contributedAadl));
 		tree.setComparator(new ViewerComparator());
 
-		// anna end
-		/*
-		 * contributedList = new ListViewer(composite, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-		 * contributedList.getList().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-		 * contributedList.setContentProvider((IStructuredContentProvider) inputElement -> {
-		 * if (inputElement == null) {
-		 * return new String[0];
-		 * } else {
-		 * return ((List<?>) inputElement).toArray();
-		 * }
-		 * });
-		 *
-		 * contributedList.addSelectionChangedListener(event -> {
-		 * final ISelection selection = event.getSelection();
-		 * if (selection.isEmpty()) {
-		 * restoreButton.setEnabled(false);
-		 * uriLabel.setText("");
-		 * } else {
-		 * final URI uri = getURIFromSelection(selection);
-		 * final boolean overridden = overriddenAadl.containsKey(uri);
-		 * restoreButton.setEnabled(overridden);
-		 * uriLabel.setText(uriToReadable(overridden ? overriddenAadl.get(uri) : uri));
-		 * }
-		 * });
-		 * contributedList.setInput(contributedAadl);
-		 */
+		tree.addSelectionChangedListener(event -> {
+			IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+
+			if (selection.isEmpty()) {
+				restoreButton.setEnabled(false);
+				uriLabel.setText("");
+			}
+
+			for (final Iterator<?> iter = selection.iterator(); iter.hasNext();) {
+				final Object object = iter.next();
+				if (object instanceof TreeNode) {
+					selectedNode = (TreeNode) object;
+					restoreButton.setEnabled(selectedNode.overridden);
+					overrideButton.setEnabled(selectedNode.canOverride());
+					uriLabel.setText(selectedNode.path);
+				}
+			}
+		});
+
 		overrideButton = new Button(composite, SWT.PUSH);
 		overrideButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
 		overrideButton.setText("Override");
@@ -183,18 +156,19 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		overrideButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				/*
-				 * TODO FIX final URI uri = getURIFromSelection(contributedList.getSelection());
-				 * if (uri != null) {
-				 * final URI newURI = getWorkspaceContributedResource(uri.lastSegment());
-				 * if (newURI != null) {
-				 * overriddenAadl.put(uri, newURI);
-				 * restoreButton.setEnabled(true);
-				 * contributedList.refresh();
-				 * uriLabel.setText(uriToReadable(newURI));
-				 * }
-				 * }
-				 */
+				if (selectedNode != null && selectedNode.canOverride()) {
+					URI uri = URI.createURI(selectedNode.path);
+					if (uri != null) {
+						final URI newURI = getWorkspaceContributedResource(uri.lastSegment());
+						if (newURI != null) {
+							overriddenAadl.put(uri, newURI);
+							restoreButton.setEnabled(true);
+							selectedNode.overridden = true;
+							tree.refresh();
+							uriLabel.setText(uriToReadable(newURI));
+						}
+					}
+				}
 			}
 		});
 
@@ -205,15 +179,16 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		restoreButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				/*
-				 * TODO FIX final URI uri = getURIFromSelection(contributedList.getSelection());
-				 * if (uri != null) {
-				 * overriddenAadl.remove(uri);
-				 * restoreButton.setEnabled(false);
-				 * contributedList.refresh();
-				 * uriLabel.setText(uriToReadable(uri));
-				 * }
-				 */
+				if (selectedNode != null) {
+					URI uri = URI.createURI(selectedNode.path);
+					if (uri != null) {
+						overriddenAadl.remove(uri);
+						restoreButton.setEnabled(false);
+						selectedNode.overridden = false;
+						tree.refresh();
+						uriLabel.setText(uriToReadable(uri));
+					}
+				}
 			}
 		});
 
@@ -225,7 +200,6 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		uriLabel = new Label(labelGroup, SWT.NONE);
 		uriLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		uriLabel.setText("Label!");
-
 
 		// Initialize the list selection and the label text
 		if (contributedAadl.isEmpty()) {
@@ -364,6 +338,32 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		return new TreeViewer(tree);
 	}
 
+	protected TreeNode createTreeHierarchy(List<URI> contributedAadl) {
+		TreeNode root = new TreeNode();
+		for (URI fullPath : contributedAadl) {
+			String[] segments = fullPath.segments();
+			TreeNode currentNode = root;
+			String currentPath = "";
+
+			for (String s : segments) {
+				currentPath += "/" + s;
+				// if children of this node do not have this, add it in
+				if (currentNode.getNode() == null || currentNode.getNode().stream()
+						.filter(x -> x.label != null && s != null && x.label.compareToIgnoreCase(s) == 0).count() < 1) {
+					currentNode.addNode(
+							new TreeNode(currentPath, s, overriddenAadl.containsKey(URI.createURI(currentPath))));
+				}
+
+				// get current node object
+				currentNode = currentNode.getNode().stream()
+						.filter(x -> x.label != null && s != null && x.label.compareToIgnoreCase(s) == 0)
+						.toArray(TreeNode[]::new)[0];
+			}
+		}
+
+		return root;
+	}
+
 	public class TreeContentProvider implements ITreeContentProvider {
 		Object treeContent;
 
@@ -425,7 +425,11 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 
 		@Override
 		public String getText(Object element) {
-			return ((TreeNode) element).label;
+			if (element instanceof TreeNode) {
+				return ((TreeNode) element).getLabel();
+			}
+
+			return "";
 		}
 	}
 
@@ -433,32 +437,38 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		public TreeNode() {
 		}
 
-		public TreeNode(URI pathURI, String label) {
-			this.pathURI = pathURI;
+		public TreeNode(String path, String label, Boolean overridden) {
+			this.path = path;
 			this.label = label;
+			this.overridden = overridden;
 		}
 
-		public TreeNode(String label) {
-			this.label = label;
-		}
-
-		public String label;
-		public URI pathURI;
+		private String label;
+		public String path;
+		public Boolean overridden;
 
 		protected List<TreeNode> nodes = new ArrayList<>();
 		protected TreeNode parent;
 
+		public Boolean canOverride() {
+			return this.path != null && this.path.contains(".");
+		}
+
+		public String getLabel() {
+			return (this.overridden ? "[Overriden] " : "") + this.label;
+		}
+
 		public List<TreeNode> getNode() {
-			return nodes;
+			return this.nodes;
 		}
 
 		protected void addNode(TreeNode node) {
-			nodes.add(node);
+			this.nodes.add(node);
 			node.parent = this;
 		}
 
 		protected TreeNode getParent() {
-			return parent;
+			return this.parent;
 		}
 	}
 }
