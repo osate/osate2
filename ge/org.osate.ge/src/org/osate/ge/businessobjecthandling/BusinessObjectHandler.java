@@ -152,4 +152,13 @@ public interface BusinessObjectHandler {
 	default boolean canDelete(final CanDeleteContext ctx) {
 		return false;
 	}
+
+	/**
+	 * Returns true if the business object specified in the context can be copied.
+	 * Copyable business objects must be an instance of {@link org.eclipse.emf.ecore.EObject}.
+	 * @return whether the business object can be copied.
+	 */
+	default boolean canCopy(final CanCopyContext ctx) {
+		return true;
+	}
 }
