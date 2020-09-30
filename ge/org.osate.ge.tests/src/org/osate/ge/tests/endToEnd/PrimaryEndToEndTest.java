@@ -528,11 +528,11 @@ public class PrimaryEndToEndTest {
 						getFeatureRelativeReference("range_i")));
 
 		// Create flow sink
-		createFlowSpecification(softwareDiagram,
-				element(getRelativeReferenceForPackage(
-						SOFTWARE),
-						getClassifierRelativeReference("point_cloud_generator.impl")),
-				"Flow Sink Specification", getFeatureRelativeReference("point_cloud"),
+		final DiagramElementReference pcGeneratorImpl = element(getRelativeReferenceForPackage(SOFTWARE),
+				getClassifierRelativeReference("point_cloud_generator.impl"));
+		createFlowIndicatorAndLayout(softwareDiagram,
+				pcGeneratorImpl, "Flow Sink Specification",
+				pcGeneratorImpl.join(getFeatureRelativeReference("point_cloud")),
 				getFlowSpecificationRelativeReference("point_cloud_generator_new_flow_spec"),
 				"f_sink");
 
@@ -755,19 +755,19 @@ public class PrimaryEndToEndTest {
 				getConnectionRelativeReference("threads_impl_new_connection"), "direction_connection");
 
 		// Create flow source specification for pointer.direction
-		createFlowSpecification(softwareDiagram,
-				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
-						"threads.impl"),
-						getSubcomponentRelativeReference("pointer")),
-				"Flow Source Specification", getFeatureRelativeReference("direction"),
+		final DiagramElementReference pointerScElement = element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+				"threads.impl"),
+				getSubcomponentRelativeReference("pointer"));
+		createFlowIndicatorAndLayout(softwareDiagram,pointerScElement,
+				"Flow Source Specification", pointerScElement.join(getFeatureRelativeReference("direction")),
 				getFlowSpecificationRelativeReference("pointer_new_flow_spec"), "f_source");
 
 		// Create flow source specification for pointer.direction
-		createFlowSpecification(softwareDiagram,
-				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
-						"threads.impl"),
-						getSubcomponentRelativeReference("integrator")),
-				"Flow Sink Specification", getFeatureRelativeReference("direction"),
+		final DiagramElementReference integratorScImpl = element(getRelativeReferenceForPackage(SOFTWARE),
+				getClassifierRelativeReference("threads.impl"), getSubcomponentRelativeReference("integrator"));
+		createFlowIndicatorAndLayout(softwareDiagram,
+				integratorScImpl,
+				"Flow Sink Specification", integratorScImpl.join(getFeatureRelativeReference("direction")),
 				getFlowSpecificationRelativeReference("integrator_new_flow_spec"),
 				"f_sink");
 
@@ -787,18 +787,15 @@ public class PrimaryEndToEndTest {
 						getSubcomponentRelativeReference("integrator"), getFlowSpecificationRelativeReference("f_sink")));
 
 		// Create flow source threads.impl.point_cloud
-		createFlowSpecification(softwareDiagram,
-				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
-						"threads.impl")),
-				"Flow Source Specification", getFeatureRelativeReference("point_cloud"),
+		final DiagramElementReference threadsImplElement = element(getRelativeReferenceForPackage(SOFTWARE),
+				getClassifierRelativeReference("threads.impl"));
+		createFlowIndicatorAndLayout(softwareDiagram, threadsImplElement, "Flow Source Specification",
+				threadsImplElement.join(getFeatureRelativeReference("point_cloud")),
 				getFlowSpecificationRelativeReference("threads_new_flow_spec"), "point_cloud_source");
 
 		// Create flow sink threads.impl.integrator.point_cloud
-		createFlowSpecification(softwareDiagram,
-				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
-						"threads.impl"),
-						getSubcomponentRelativeReference("integrator")),
-				"Flow Sink Specification", getFeatureRelativeReference("point_cloud"),
+		createFlowIndicatorAndLayout(softwareDiagram, integratorScImpl,
+				"Flow Sink Specification", integratorScImpl.join(getFeatureRelativeReference("point_cloud")),
 				getFlowSpecificationRelativeReference("integrator_new_flow_spec"), "point_cloud_sink");
 
 		// Create connection threads.impl.point_cloud -> threads.impl.integrator.point_cloud

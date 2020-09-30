@@ -597,16 +597,16 @@ class ElkGraphBuilder {
 	 * Adds an offset to the position along the side's axis and returns the position along the axis.
 	 * @param port
 	 * @param side
-	 * @param position
+	 * @param offset
 	 * @return
 	 */
-	private static double addPositionOffset(final ElkPort port, final PortSide side, final double position) {
+	private static double addPositionOffset(final ElkPort port, final PortSide side, final double offset) {
 		if (PortSide.SIDES_EAST_WEST.contains(side)) {
-			final double newPosition = port.getY() + position;
+			final double newPosition = port.getY() + offset;
 			port.setY(newPosition);
 			return newPosition;
 		} else if (PortSide.SIDES_NORTH_SOUTH.contains(side)) {
-			final double newPosition = port.getX() + position;
+			final double newPosition = port.getX() + offset;
 			port.setX(newPosition);
 			return newPosition;
 		} else {
@@ -686,6 +686,14 @@ class ElkGraphBuilder {
 					}
 
 					final ElkEdge newEdge = ElkGraphUtil.createSimpleEdge(start, end);
+
+
+					// Ignore edges that have the same start and end port. These do not layout as intended.
+					// See https://github.com/eclipse/elk/issues/532.
+					// Allow edges with the same start and end shape because they layout as intended.
+					if (start == end && start instanceof ElkPort) {
+						continue;
+					}
 
 					// Ensure the edge has at least one section. Fixes NPE that can occur when laying out connections
 					// with the same source and destination port.

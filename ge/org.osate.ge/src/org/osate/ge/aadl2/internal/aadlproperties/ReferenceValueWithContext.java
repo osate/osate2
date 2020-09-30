@@ -75,11 +75,11 @@ public class ReferenceValueWithContext {
 		final boolean hasFinalDestination;
 		final BusinessObjectContext dst;
 		if(referenceOwnerInTree) {
-			dst = queryService.getFirstResult(partialCneQuery, tmp, referenceValue);
+			dst = queryService.getFirstBusinessObjectContextOrNull(partialCneQuery, tmp, referenceValue);
 			hasPartialDestination = dst != null;
 
 			if(hasPartialDestination) {
-				final BusinessObjectContext referencedQueryable = queryService.getFirstResult(cneQuery, tmp, referenceValue);
+				final BusinessObjectContext referencedQueryable = queryService.getFirstBusinessObjectContextOrNull(cneQuery, tmp, referenceValue);
 				hasFinalDestination = dst == referencedQueryable && !containsArrayElementReference(referenceValue);
 			} else {
 				hasFinalDestination = false;

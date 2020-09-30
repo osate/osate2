@@ -32,6 +32,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.ge.aadl2.internal.util.AadlConnectionUtil;
 import org.osate.ge.aadl2.internal.util.AadlFeatureUtil;
 import org.osate.ge.aadl2.internal.util.AadlSubcomponentUtil;
+import org.osate.ge.aadl2.ui.PaletteCommandUtil;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.PaletteCategory;
 import org.osate.ge.palette.PaletteCommandProviderContext;
