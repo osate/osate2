@@ -115,12 +115,10 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(2, true));
 
-		// anna start
 		SashForm sashForm = new SashForm(composite, SWT.HORIZONTAL);
 		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1);
 		sashForm.setLayoutData(gd);
 		initializeDialogUnits(sashForm);
-//		getShell().setSize(convertWidthInCharsToPixels(150), getShell().getSize().y);
 
 		final TreeViewer tree = createTree(sashForm);
 		tree.setLabelProvider(new FileLabelProvider(null, null));
@@ -204,8 +202,6 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		// Initialize the list selection and the label text
 		if (contributedAadl.isEmpty()) {
 			uriLabel.setText("");
-		} else {
-//TODO FIX			contributedList.setSelection(new StructuredSelection(contributedAadl.get(0)));
 		}
 
 		return composite;
@@ -220,11 +216,6 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		final int firstSlash = uriAsString.indexOf('/');
 		final int secondSlash = uriAsString.indexOf('/', firstSlash + 1);
 		return uriAsString.substring(secondSlash + 1);
-	}
-
-	private String uriToLabel(final URI uri) {
-		final String suffix = overriddenAadl.containsKey(uri) ? " [Overridden]" : "";
-		return uriToReadable(uri) + suffix;
 	}
 
 	@Override
