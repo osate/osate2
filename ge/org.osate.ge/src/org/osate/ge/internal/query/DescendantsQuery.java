@@ -33,7 +33,7 @@ class DescendantsQuery extends DefaultQuery {
 	}
 	
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResults result) {
 		for(final BusinessObjectContext child : ctx.getChildren()) {
 			processResultValue(remainingQueries, child, state, result);
 			if(result.isDone()) {

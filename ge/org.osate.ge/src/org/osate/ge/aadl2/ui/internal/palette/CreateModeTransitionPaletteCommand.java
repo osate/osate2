@@ -143,7 +143,7 @@ public class CreateModeTransitionPaletteCommand extends BasePaletteCommand imple
 
 	private static BusinessObjectContext getOwnerBoc(final BusinessObjectContext modeBoc,
 			final QueryService queryService) {
-		return queryService.getFirstResult(containerQuery, modeBoc);
+		return queryService.getFirstBusinessObjectContextOrNull(containerQuery, modeBoc);
 	}
 
 	private static List<ComponentClassifier> getPotentialOwnersByMode(final BusinessObjectContext modeBoc,

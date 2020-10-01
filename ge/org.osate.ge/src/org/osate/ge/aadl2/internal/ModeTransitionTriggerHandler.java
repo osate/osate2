@@ -118,6 +118,6 @@ public class ModeTransitionTriggerHandler extends AadlBusinessObjectHandler {
 // Destination - trigger feature
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc,
 			final QueryService queryService) {
-		return queryService.getFirstResult(dstQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
 	}
 }
