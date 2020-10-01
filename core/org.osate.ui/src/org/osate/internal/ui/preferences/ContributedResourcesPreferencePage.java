@@ -98,6 +98,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 	private Map<URI, URI> originalOverriddenAadl;
 	private final Map<URI, URI> overriddenAadl = new HashMap<>();
 
+	private TreeViewer tree;
 	private Button overrideButton;
 	private Button restoreButton;
 	private TreeNode selectedNode;
@@ -124,7 +125,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		sashForm.setLayoutData(gd);
 		initializeDialogUnits(sashForm);
 
-		final TreeViewer tree = createTree(sashForm);
+		tree = createTree(sashForm);
 		tree.setLabelProvider(new FileLabelProvider(null, null));
 		tree.setContentProvider(new TreeContentProvider());
 		tree.setAutoExpandLevel(3);
@@ -153,6 +154,18 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 				}
 			}
 		});
+		tree.addDoubleClickListener(event -> {
+			final TreeViewer viewer = (TreeViewer) event.getViewer();
+			final IStructuredSelection thisSelection = (IStructuredSelection) event.getSelection();
+			final TreeNode selectedNode = (TreeNode) thisSelection.getFirstElement();
+			if (selectedNode != null) {
+				if (selectedNode.getNode().isEmpty()) {
+					doOverrideAction(selectedNode);
+				} else {
+					viewer.setExpandedState(selectedNode, !viewer.getExpandedState(selectedNode));
+				}
+			}
+		});
 
 		overrideButton = new Button(composite, SWT.PUSH);
 		overrideButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
@@ -161,18 +174,8 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		overrideButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				if (selectedNode != null && selectedNode.canOverride()) {
-					URI uri = URI.createURI(selectedNode.path);
-					if (uri != null) {
-						final URI newURI = getWorkspaceContributedResource(uri.lastSegment());
-						if (newURI != null) {
-							overriddenAadl.put(uri, newURI);
-							restoreButton.setEnabled(true);
-							selectedNode.overridden = true;
-							tree.refresh();
-							uriLabel.setText(uriToReadable(newURI));
-						}
-					}
+				if (selectedNode != null) {
+					doOverrideAction(selectedNode);
 				}
 			}
 		});
@@ -207,6 +210,22 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		uriLabel.setText("");
 
 		return composite;
+	}
+
+	private void doOverrideAction(final TreeNode selectedNode) {
+		if (selectedNode.canOverride()) {
+			URI uri = URI.createURI(selectedNode.path);
+			if (uri != null) {
+				final URI newURI = getWorkspaceContributedResource(uri.lastSegment());
+				if (newURI != null) {
+					overriddenAadl.put(uri, newURI);
+					restoreButton.setEnabled(true);
+					selectedNode.overridden = true;
+					tree.refresh();
+					uriLabel.setText(uriToReadable(newURI));
+				}
+			}
+		}
 	}
 
 	private static URI getURIFromSelection(final ISelection selection) {
