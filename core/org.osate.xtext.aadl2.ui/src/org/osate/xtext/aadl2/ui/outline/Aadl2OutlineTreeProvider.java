@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,12 +23,12 @@
  */
 package org.osate.xtext.aadl2.ui.outline;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider;
-import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
-import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
+import org.eclipse.xtext.ui.editor.outline.impl.BackgroundOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.eclipse.xtext.ui.editor.outline.impl.IOutlineTreeStructureProvider;
 import org.osate.aadl2.AadlPackage;
@@ -54,172 +54,115 @@ import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.impl.EndToEndFlowImpl;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.annexsupport.AnnexParseUtil;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.annexsupport.ParseResultHolder;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.ConfigurationException;
 import com.google.inject.Injector;
 
 /**
  * customization of the default outline structure
- *
  */
-public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
-	protected void _createChildren(DocumentRootNode parentNode, ModelUnit aadlModel) {
-		if (aadlModel instanceof AadlPackage) {
-			for (Element element : aadlModel.getChildren()) {
-				createNode(parentNode, element);
+public class Aadl2OutlineTreeProvider extends BackgroundOutlineTreeProvider {
+	@Override
+	protected void internalCreateChildren(final DocumentRootNode parentNode, final EObject modelElement) {
+		if (modelElement instanceof ModelUnit) {
+			final ModelUnit modelUnit = (ModelUnit) modelElement;
+			if (modelElement instanceof AadlPackage) {
+				for (Element element : modelUnit.getChildren()) {
+					createNode(parentNode, element);
+				}
+			} else {
+				createNode(parentNode, modelUnit);
 			}
+		} else if (modelElement instanceof SystemInstance) {
+			createNode(parentNode, modelElement);
 		} else {
-			createNode(parentNode, aadlModel);
+			super.internalCreateChildren(parentNode, modelElement);
 		}
 	}
 
-	protected void _createChildren(IOutlineNode parentNode, Element modelElement) {
-		EObject annexRoot = AnnexUtil.getAnnexRoot(modelElement);
+	@Override
+	protected void internalCreateChildren(final IOutlineNode parentNode, final EObject modelElement) {
+		if (modelElement instanceof Element) {
+			final Element element = (Element) modelElement;
+			final EObject annexRoot = AnnexUtil.getAnnexRoot(element);
 
-		if (annexRoot != null) {
-			// delegate to annex specific outline tree provider
-			IParseResult annexParseResult = AnnexParseUtil.getParseResult(annexRoot);
-			if (annexParseResult != null) {
-				Injector injector = AnnexUtil.getInjector(annexParseResult);
-				if (injector != null) {
-					try {
-						injector.getInstance(IOutlineTreeStructureProvider.class).createChildren(parentNode,
-								modelElement);
-					} catch (ConfigurationException e) {
-						// ignore: no outline provider for this annex
+			if (annexRoot != null) {
+				// delegate to annex specific outline tree provider
+				IParseResult annexParseResult = ParseResultHolder.Factory.INSTANCE.adapt(annexRoot).getParseResult();
+				if (annexParseResult != null) {
+					Injector injector = AnnexUtil.getInjector(annexParseResult);
+					if (injector != null) {
+						try {
+							final IOutlineTreeStructureProvider outlineTree = injector
+									.getInstance(IOutlineTreeStructureProvider.class);
+							if (outlineTree instanceof BackgroundOutlineTreeProvider) {
+								outlineTree.createChildren(parentNode, element);
+							} else {
+								Aadl2Activator.getInstance().getLog()
+										.log(new Status(IStatus.ERROR, Aadl2Activator.PLUGIN_ID, IStatus.OK,
+												"Annex outline tree structure provider '"
+														+ outlineTree.getClass().getCanonicalName()
+														+ "' does not implement BackgroundOutlineTreeProvider",
+												null));
+							}
+						} catch (ConfigurationException e) {
+							// ignore: no outline provider for this annex
+						}
 					}
 				}
-			}
-		} else {
-			for (EObject childElement : modelElement.getChildren()) {
-				if (childElement instanceof Realization || childElement instanceof TypeExtension
-						|| childElement instanceof ImplementationExtension
-						|| childElement instanceof ContainmentPathElement
-						|| childElement instanceof PropertyAssociation) {
-					continue;
-				}
+			} else {
+				for (EObject childElement : element.getChildren()) {
+					if (childElement instanceof Realization || childElement instanceof TypeExtension
+							|| childElement instanceof ImplementationExtension
+							|| childElement instanceof ContainmentPathElement
+							|| childElement instanceof PropertyAssociation) {
+						continue;
+					}
 
-				createNode(parentNode, childElement);
+					createNode(parentNode, childElement);
+				}
 			}
 		}
 	}
 
 	@Override
-	protected Object _text(Object modelElement) {
-		String initialText;
-
-		initialText = labelProvider.getText(modelElement);
-		if (labelProvider instanceof IStyledLabelProvider) {
-			StyledString styledString;
-
-			styledString = ((IStyledLabelProvider) labelProvider).getStyledText(modelElement);
-			return styledString;
-		} else {
-			return initialText;
-		}
-	}
-
-	protected void _createChildren(DocumentRootNode parentNode, SystemInstance aadlModel) {
-		createNode(parentNode, aadlModel);
-	}
-
-	protected boolean _isLeaf(ContainmentPathElement cpe) {
-		return true;
-	}
-
-	protected boolean _isLeaf(ContainedNamedElement cpe) {
-		return true;
-	}
-
-	protected boolean _isLeaf(SystemInstance feature) {
-		return false;
-	}
-
-	protected boolean _isLeaf(FlowSpecification flowspec) {
-		return true;
-	}
-
-	protected boolean _isLeaf(FlowImplementation flowimpl) {
-		return true;
-	}
-
-	protected boolean _isLeaf(EndToEndFlowImpl flowimpl) {
-		return true;
-	}
-
-	protected boolean _isLeaf(RangeValue rv) {
-		return false;
-	}
-
-	protected boolean _isLeaf(ModalPropertyValue ml) {
-		if (ml.getInModes().isEmpty()) {
-			if (ml.getOwnedValue() instanceof RangeValue) {
-				return false;
-			}
-
-			if (ml.getOwnedValue() instanceof ListValue) {
-				return false;
-			}
-
-			if (ml.getOwnedValue() instanceof RecordValue) {
-				return false;
-			}
-
+	protected boolean isLeaf(final EObject modelElement) {
+		if (modelElement instanceof ContainmentPathElement || modelElement instanceof ContainedNamedElement
+				|| modelElement instanceof FlowSpecification || modelElement instanceof FlowImplementation
+				|| modelElement instanceof EndToEndFlowImpl || modelElement instanceof Property
+				|| modelElement instanceof PropertyConstant || modelElement instanceof PropertyType) {
 			return true;
-		}
-		return false;
-	}
-
-	protected boolean _isLeaf(BasicPropertyAssociation bpa) {
-
-		if (bpa.eContainer() instanceof RecordValue) {
-			return true;
-		}
-		return false;
-	}
-
-	protected boolean _isLeaf(ReferenceValue bpa) {
-
-		if (bpa.eContainer() instanceof RecordValue) {
-			return true;
-		}
-		return false;
-	}
-
-	protected boolean _isLeaf(IntegerLiteral bpa) {
-
-		if (bpa.eContainer() instanceof RecordValue) {
+		} else if (modelElement instanceof SystemInstance || modelElement instanceof RangeValue) {
 			return false;
+		} else if (modelElement instanceof ModalPropertyValue) {
+			final ModalPropertyValue ml = (ModalPropertyValue) modelElement;
+			if (ml.getInModes().isEmpty()) {
+				if (ml.getOwnedValue() instanceof RangeValue) {
+					return false;
+				}
+
+				if (ml.getOwnedValue() instanceof ListValue) {
+					return false;
+				}
+
+				if (ml.getOwnedValue() instanceof RecordValue) {
+					return false;
+				}
+
+				return true;
+			}
+			return false;
+		} else if (modelElement instanceof BasicPropertyAssociation) {
+			return modelElement.eContainer() instanceof RecordValue;
+		} else if (modelElement instanceof ReferenceValue) {
+			return modelElement.eContainer() instanceof RecordValue;
+		} else if (modelElement instanceof IntegerLiteral) {
+			return false;
+		} else {
+			return super.isLeaf(modelElement);
 		}
-		return false;
 	}
-
-	protected void _createChildren(IOutlineNode parentNode, SystemInstance sysInstance) {
-		super._createChildren(parentNode, sysInstance);
-	}
-
-	// Uncomment the next set to limit outline for package and property set to
-
-//	// Classifier nodes are leafs and not expandable
-//	protected boolean _isLeaf(Classifier feature) {
-//	    return true;
-//	}
-
-	// Property nodes are leafs and not expandable
-	protected boolean _isLeaf(Property feature) {
-		return true;
-	}
-
-	// PropertyConstant nodes are leafs and not expandable
-	protected boolean _isLeaf(PropertyConstant feature) {
-		return true;
-	}
-
-	// PropertyType nodes are leafs and not expandable
-	protected boolean _isLeaf(PropertyType feature) {
-		return true;
-	}
-
 }
