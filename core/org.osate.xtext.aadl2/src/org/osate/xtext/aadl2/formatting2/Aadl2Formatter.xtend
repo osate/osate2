@@ -182,12 +182,8 @@ import org.osate.aadl2.VirtualProcessorImplementation
 import org.osate.aadl2.VirtualProcessorPrototype
 import org.osate.aadl2.VirtualProcessorSubcomponent
 import org.osate.aadl2.VirtualProcessorType
-import org.osate.aadl2.modelsupport.errorreporting.NullParseErrorReporter
-import org.osate.annexsupport.AnnexParseUtil
-import org.osate.annexsupport.AnnexParser
-import org.osate.annexsupport.AnnexParserRegistry
-import org.osate.annexsupport.AnnexRegistry
 import org.osate.annexsupport.AnnexUtil
+import org.osate.annexsupport.ParseResultHolder
 import org.osate.xtext.aadl2.properties.formatting2.PropertiesFormatter
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
 
@@ -735,14 +731,10 @@ class Aadl2Formatter extends PropertiesFormatter {
 		defaultAnnexLibrary.conditionalAppend(document, [setNewLines(newLineCount, newLineCount, 2)])
 		defaultAnnexLibrary.regionFor.assignment(defaultAnnexLibraryAccess.nameAssignment_1).surround[oneSpace]
 		
-		val annexName = defaultAnnexLibrary.name
+		val parsedLibrary = defaultAnnexLibrary.parsedAnnexLibrary
 		val sourceTextRegion = defaultAnnexLibrary.regionFor.assignment(defaultAnnexLibraryAccess.sourceTextAssignment_2)
-		formatAnnexText(annexName, sourceTextRegion, 1, document, [annexParser, source |
-			val library = annexParser.parseAnnexLibrary(annexName, source, "", 0, 0, NullParseErrorReporter.prototype)
-			AnnexParseUtil.saveParseResult(defaultAnnexLibrary)
-			defaultAnnexLibrary.parsedAnnexLibrary = library
-			library
-		])
+		formatAnnexText(parsedLibrary, sourceTextRegion, 1, document)
+		defaultAnnexLibrary.parsedAnnexLibrary = parsedLibrary
 		
 		defaultAnnexLibrary.regionFor.keyword(defaultAnnexLibraryAccess.semicolonKeyword_3).prepend[noSpace]
 	}
@@ -1495,14 +1487,10 @@ class Aadl2Formatter extends PropertiesFormatter {
 		defaultAnnexSubclause.conditionalAppend(document, [setNewLines(1, 1, 2)])
 		defaultAnnexSubclause.regionFor.assignment(defaultAnnexSubclauseAccess.nameAssignment_1).surround[oneSpace]
 		
-		val annexName = defaultAnnexSubclause.name
+		val parsedSubclause = defaultAnnexSubclause.parsedAnnexSubclause
 		val sourceTextRegion = defaultAnnexSubclause.regionFor.assignment(defaultAnnexSubclauseAccess.sourceTextAssignment_2)
-		formatAnnexText(annexName, sourceTextRegion, 2, document, [annexParser, source |
-			val subclause = annexParser.parseAnnexSubclause(annexName, source, "", 0, 0, NullParseErrorReporter.prototype)
-			AnnexParseUtil.saveParseResult(defaultAnnexSubclause)
-			defaultAnnexSubclause.parsedAnnexSubclause = subclause
-			subclause
-		])
+		formatAnnexText(parsedSubclause, sourceTextRegion, 2, document)
+		defaultAnnexSubclause.parsedAnnexSubclause = parsedSubclause
 		
 		//In modes
 		val leftParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.leftParenthesisKeyword_3_1)
@@ -2321,16 +2309,16 @@ class Aadl2Formatter extends PropertiesFormatter {
 	
 	/**
 	 * The process for formatting an annex is as follows:
-	 * 1. Parse the annex text and place it into its own resource. This causes the annex text to effectively
-	 *    exist isolated and independent of the surrounding core text.
+	 * 1. Place the annex object into its own resource. This causes the annex text to effectively exist isolated and
+	 *    independent of the surrounding core text.
 	 * 2. Inject the annex formatter and format the annex text.
 	 * 3. Replace the annex text in the aadl file with the formatted annex text.
 	 *
-	 * We take the effort to parse the annex text so that we can get an XtextResource with the AnnexLibrary
-	 * or AnnexSubclause as the root object. The XtextResource also needs the IParseResult attached as well.
-	 * This is necessary because the annex formatter takes a resource as a parameter and then it formats
-	 * the AnnexLibrary or AnnexSubclause contained as a top level element of the resource.
-	 *
+	 * We need to setup an XtextResource with the AnnexLibrary or AnnexSubclause as the root object. The XtextResource
+	 * also needs the IParseResult attached as well. This is necessary because the annex formatter takes a resource as a
+	 * parameter and then it formats the AnnexLibrary or AnnexSubclause contained as a top level element of the
+	 * resource.
+	 * 
 	 * For figuring out how to invoke the formatter such that a String is returned, I looked at
 	 * FormatterTestHelper to learn how to do that. The method of most interest is
 	 * assertFormatted(FormatterTestRequest).
@@ -2338,28 +2326,27 @@ class Aadl2Formatter extends PropertiesFormatter {
 	 * It was not obvious how to replace an ISemanticRegion with a given String. It is not enough to simply
 	 * call ISemanticRegion.replaceWith(String). This must be wrapped in an ITextReplacer which is then
 	 * added to the document. See https://www.eclipse.org/forums/index.php/t/1093069/
+	 * 
+	 * Since the annex object is placed into its resource, it is removed from its existing resource. The caller of this
+	 * method is responsible for re-attaching the annex object to the DefaultAnnexLibrary or DefaultAnnexSubclause.
 	 *
-	 * @param annexName The name field of the DefaultAnnexLibrary or DefaultAnnexSubclause.
+	 * @param annexObject The AnnexLibrary or AnnexSubclause to format.
 	 * @param sourceTextRegion The ISemanticRegion for the sourceText assignment of the DefaultAnnexLibrary
 	 *        or DefaultAnnexSubclause.
 	 * @param indentationLevel Indentation level of the DefaultAnnexLibrary or DefaultAnnexSubclause. The
 	 *        closing "**}" is placed at indentationLevel. All lines of the formatted annex text are placed
 	 *        at indentationLevel + 1.
 	 * @param document The document passed to the format method.
-	 * @param parseAnnexObject Lambda for calling the appropriate parse method on AnnexParser. The first
-	 *        parameter is the AnnexParser retrieved from the AnnexRegistry and the second parameter is the
-	 *        trimmed annex text.
 	 */
 	def private void formatAnnexText(
-		String annexName,
+		NamedElement annexObject,
 		ISemanticRegion sourceTextRegion,
 		int indentationLevel,
-		IFormattableDocument document,
-		(AnnexParser, String)=>NamedElement parseAnnexObject
+		IFormattableDocument document
 	) {
-		if (annexName !== null && sourceTextRegion !== null) {
+		if (annexObject !== null && sourceTextRegion !== null) {
 			try {
-				unsafeFormatAnnexText(annexName, sourceTextRegion, indentationLevel, document, parseAnnexObject)
+				unsafeFormatAnnexText(annexObject, sourceTextRegion, indentationLevel, document)
 			} catch (ConfigurationException e) {
 				// ignore
 			} catch (ProvisionException e) {
@@ -2369,18 +2356,12 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def private void unsafeFormatAnnexText(
-		String annexName,
+		NamedElement annexObject,
 		ISemanticRegion sourceTextRegion,
 		int indentationLevel,
-		IFormattableDocument document,
-		(AnnexParser, String)=>NamedElement parseAnnexObject
+		IFormattableDocument document
 	) {
-		// Parse the annex text.
-		val annexRegistry = AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID) as AnnexParserRegistry
-		val annexParser = annexRegistry.getAnnexParser(annexName)
-		val trimmedText = sourceTextRegion.text.substring(3, sourceTextRegion.length - 3)
-		val annexObject = parseAnnexObject.apply(annexParser, trimmedText)
-		val annexParseResult = AnnexParseUtil.getParseResult(annexObject)
+		val annexParseResult = ParseResultHolder.Factory.INSTANCE.adapt(annexObject).parseResult
 		if (annexParseResult !== null) {
 			// Get the injector for the annex.
 			val annexInjector = AnnexUtil.getInjector(annexParseResult)
@@ -2430,6 +2411,5 @@ class Aadl2Formatter extends PropertiesFormatter {
 				}
 			}
 		}
-
 	}
 }

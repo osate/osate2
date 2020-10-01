@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.osate.aadl2.DirectionType;
+import org.osate.ge.aadl2.ui.PaletteCommandUtil;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.PaletteCategory;
 import org.osate.ge.palette.PaletteCommandProviderContext;
@@ -37,22 +39,36 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 public class ErrorModelPaletteContributor implements PaletteContributor {
 	@Override
 	public Stream<PaletteCategory> getCategories() {
-		return Stream.of(new PaletteCategory(ErrorModelPaletteCategories.ERROR_MODEL, "Error Model"));
+		return Stream.of(new PaletteCategory(ErrorModelPaletteCategories.ERROR_BEHAVIOR, "Error Behavior"),
+				new PaletteCategory(ErrorModelPaletteCategories.ERROR_FLOWS, "Error Flows"),
+				new PaletteCategory(ErrorModelPaletteCategories.ERROR_PROPAGATION, "Error Propagation"),
+				new PaletteCategory(ErrorModelPaletteCategories.ERROR_TYPES, "Error Types"));
 	}
 
 	@Override
 	public Stream<TargetedPaletteCommand> getTargetedCommands(final PaletteCommandProviderContext ctx) {
 		final List<TargetedPaletteCommand> commands = new ArrayList<>();
 
-		commands.add(new CreateTypePaletteCommand());
-		commands.add(new CreateTypeAliasPaletteCommand());
-		commands.add(new CreateTypeSetPaletteCommand());
-		commands.add(new CreateTypeSetAliasPaletteCommand());
-		commands.add(new CreateStateMachinePaletteCommand());
+		if (PaletteCommandUtil.diagramMayContainPackage(ctx)) {
+			commands.add(new CreateErrorTypePaletteCommand());
+			commands.add(new CreateTypeAliasPaletteCommand());
+			commands.add(new CreateTypeSetPaletteCommand());
+			commands.add(new CreateTypeSetAliasPaletteCommand());
+		}
+
+		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.IN, true));
+		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.IN, false));
+		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.OUT, true));
+		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.OUT, false));
+		commands.add(CreateErrorSourceOrSinkPaletteCommand.createErrorSinkPaletteCommand());
+		commands.add(CreateErrorSourceOrSinkPaletteCommand.createErrorSourcePaletteCommand());
+
 		commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getErrorEvent()));
+		commands.add(new CreatePropagationPointPaleteCommand());
 		commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getRepairEvent()));
 		commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getRecoverEvent()));
 		commands.add(new CreateStatePaletteCommand());
+		commands.add(new CreateStateMachinePaletteCommand());
 
 		return commands.stream();
 	}
@@ -62,8 +78,13 @@ public class ErrorModelPaletteContributor implements PaletteContributor {
 			final PaletteCommandProviderContext ctx) {
 		final List<CreateConnectionPaletteCommand> commands = new ArrayList<>();
 
+		if (PaletteCommandUtil.diagramMayContainPackage(ctx)) {
+			commands.add(new CreateTypeExtensionPaletteCommand());
+		}
+
+		commands.add(new CreateErrorPathPaletteCommand());
+		commands.add(new CreatePropagatonPathPaletteCommand());
 		commands.add(new CreateTransitionPaletteCommand());
-		commands.add(new CreateTypeExtensionPaletteCommand());
 
 		return commands.stream();
 	}
