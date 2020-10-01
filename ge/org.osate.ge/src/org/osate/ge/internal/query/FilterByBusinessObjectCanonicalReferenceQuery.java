@@ -41,7 +41,7 @@ class FilterByBusinessObjectCanonicalReferenceQuery extends DefaultQuery {
 	}
 	
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResults result) {
 		// Look in the cache for the reference and build a new reference string if it is not found
 		CanonicalBusinessObjectReference boRef = (CanonicalBusinessObjectReference)state.cache.get(this);
 		if(boRef == null) {
