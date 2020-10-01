@@ -700,6 +700,11 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	}
 
 	@Check(CheckType.FAST)
+	public void caseModalAssociation(final PropertyAssociation pa) {
+		checkPropertyAssociationIsModal(pa);
+	}
+
+	@Check(CheckType.FAST)
 	public void caseModeTransitionTrigger(ModeTransitionTrigger trigger) {
 		typeCheckModeTransitionTrigger(trigger);
 	}
@@ -5435,6 +5440,19 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				return;
 			}
 		});
+	}
+
+	private void checkPropertyAssociationIsModal(PropertyAssociation pa) {
+		Property classifierMatchingRuleProperty = Aadl2GlobalScopeUtil.get(pa.getOwner(),
+				Aadl2Package.eINSTANCE.getProperty(),
+				ModelingProperties._NAME + "::" + ModelingProperties.CLASSIFIER_MATCHING_RULE);
+
+		if (pa.getProperty() == classifierMatchingRuleProperty
+				&& (pa.getOwnedValues().size() > 1 || !pa.getOwnedValues().get(0).getInModes().isEmpty())) {
+			error(ModelingProperties.CLASSIFIER_MATCHING_RULE + ": Property can not be modal", pa,
+					Aadl2Package.eINSTANCE.getPropertyAssociation_Property());
+			return;
+		}
 	}
 
 	private boolean testAccessClassifierMatchRule(Connection connection, ConnectionEnd source,

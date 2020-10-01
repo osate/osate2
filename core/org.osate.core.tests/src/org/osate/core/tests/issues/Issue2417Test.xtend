@@ -101,4 +101,49 @@ class Issue2417Test extends XtextTest {
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
+	
+		@Test
+	def void testIssue2417_propertyAssociation(){
+		val pkg1 = '''
+			package pkg1
+			public
+			  system s
+			    modes
+			      m1: initial mode;
+			      m2: mode;
+			  end s;
+			
+			  system implementation s.i
+			    subcomponents
+			      sub1: abstract a;
+			      sub2: abstract a;
+			    connections
+			      conn1: port sub1.p -> sub2.p;
+			    properties
+			      Classifier_Matching_Rule => Classifier_Match in modes (m1), Subset in modes (m2);
+			  end s.i;
+			
+			  abstract a
+			    features
+			      p: in out data port d;
+			  end a;
+			
+			  data d
+			  end d;
+			end pkg1;
+		'''
+		val testFileResult = issues = testHelper.testString(pkg1)
+      
+		val issueCollection = new FluentIssueCollection(testFileResult.getResource(), newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
+			"pkg1".assertEquals(name)
+			publicSection.ownedClassifiers.findFirst[name == "s.i"] as SystemImplementation => [
+				"s.i".assertEquals(name)
+				
+				ownedPropertyAssociations.get(0).assertError(testFileResult.issues, issueCollection, ModelingProperties.CLASSIFIER_MATCHING_RULE + ": Property can not be modal");
+			]
+		]
+		issueCollection.sizeIs(testFileResult.issues.size)
+		assertConstraints(issueCollection)
+	}
 }
