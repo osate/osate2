@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalInt;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -60,6 +61,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -75,8 +77,10 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
@@ -123,10 +127,13 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		final TreeViewer tree = createTree(sashForm);
 		tree.setLabelProvider(new FileLabelProvider(null, null));
 		tree.setContentProvider(new TreeContentProvider());
+		tree.setAutoExpandLevel(3);
 
-		final List<URI> contributedAadl = PluginSupportUtil.getContributedAadl();
-		tree.setInput(createTreeHierarchy(contributedAadl));
+		tree.setInput(createTreeHierarchy());
 		tree.setComparator(new ViewerComparator());
+
+		Sorter sort = new Sorter();
+		tree.setSorter(sort);
 
 		tree.addSelectionChangedListener(event -> {
 			IStructuredSelection selection = (IStructuredSelection) event.getSelection();
@@ -197,12 +204,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		labelGroup.setText("Contributed URI");
 		uriLabel = new Label(labelGroup, SWT.NONE);
 		uriLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		uriLabel.setText("Label!");
-
-		// Initialize the list selection and the label text
-		if (contributedAadl.isEmpty()) {
-			uriLabel.setText("");
-		}
+		uriLabel.setText("");
 
 		return composite;
 	}
@@ -329,28 +331,33 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		return new TreeViewer(tree);
 	}
 
-	protected TreeNode createTreeHierarchy(List<URI> contributedAadl) {
+	protected TreeNode createTreeHierarchy() {
+		final List<URI> contributedAadl = PluginSupportUtil.getContributedAadl();
+
 		TreeNode root = new TreeNode();
+		TreeNode cont = new TreeNode("Plug-in Contributions", 0);
+		TreeNode pSet = new TreeNode("Predeclared_Property_Sets", 1);
+
+		HashMap<URI, Boolean> isInPropSet = new HashMap<URI, Boolean>();
+
+		PredeclaredProperties.getContributedResources().stream().forEach(uri -> {
+			OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
+			isInPropSet.put(uri, !(!firstSignificantIndex.isPresent()
+					|| firstSignificantIndex.getAsInt() == uri.segmentCount() - 1));
+		});
+
 		for (URI fullPath : contributedAadl) {
-			String[] segments = fullPath.segments();
-			TreeNode currentNode = root;
-			String currentPath = "";
-
-			for (String s : segments) {
-				currentPath += "/" + s;
-				// if children of this node do not have this, add it in
-				if (currentNode.getNode() == null || currentNode.getNode().stream()
-						.filter(x -> x.label != null && s != null && x.label.compareToIgnoreCase(s) == 0).count() < 1) {
-					currentNode.addNode(
-							new TreeNode(currentPath, s, overriddenAadl.containsKey(URI.createURI(currentPath))));
-				}
-
-				// get current node object
-				currentNode = currentNode.getNode().stream()
-						.filter(x -> x.label != null && s != null && x.label.compareToIgnoreCase(s) == 0)
-						.toArray(TreeNode[]::new)[0];
+			if (isInPropSet.containsKey(fullPath) && isInPropSet.get(fullPath)) {
+				pSet.addNode(new TreeNode(fullPath.toString(), fullPath.lastSegment(),
+						overriddenAadl.containsKey(fullPath)));
+			} else {
+				cont.addNode(new TreeNode(fullPath.toString(), fullPath.lastSegment(),
+						overriddenAadl.containsKey(fullPath)));
 			}
 		}
+
+		cont.addNode(pSet);
+		root.addNode(cont);
 
 		return root;
 	}
@@ -406,7 +413,22 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 
 		@Override
 		public Image getImage(Object element) {
-			return null;
+			Image image = null;
+			if (element instanceof TreeNode) {
+				switch (((TreeNode) element).imageType) {
+				case 0:
+					image = OsateUiPlugin.getImageDescriptor("icons/library_obj.gif").createImage();
+					break;
+				case 1:
+					image = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FOLDER);
+					break;
+				default:
+					image = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FILE);
+					break;
+				}
+			}
+
+			return image;
 		}
 
 		@Override
@@ -432,11 +454,20 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 			this.path = path;
 			this.label = label;
 			this.overridden = overridden;
+			this.imageType = 2;
+		}
+
+		public TreeNode(String label, int imageType) {
+			this.label = label;
+			this.overridden = false;
+			this.imageType = imageType;
+			this.path = "";
 		}
 
 		private String label;
 		public String path;
 		public Boolean overridden;
+		public int imageType;
 
 		protected List<TreeNode> nodes = new ArrayList<>();
 		protected TreeNode parent;
@@ -460,6 +491,19 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 
 		protected TreeNode getParent() {
 			return this.parent;
+		}
+	}
+
+	public class Sorter extends ViewerSorter {
+		@Override
+		public int category(Object element) {
+			if (element instanceof TreeNode) {
+				if (((TreeNode) element).imageType == 1) {
+					return 0;
+				}
+			}
+
+			return 1 + super.category(element);
 		}
 	}
 }
