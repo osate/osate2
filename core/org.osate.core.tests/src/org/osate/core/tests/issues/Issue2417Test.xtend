@@ -101,8 +101,8 @@ class Issue2417Test extends XtextTest {
 		issueCollection.sizeIs(testFileResult.issues.size)
 		assertConstraints(issueCollection)
 	}
-	
-		@Test
+
+	@Test
 	def void testIssue2417_propertyAssociation(){
 		val pkg1 = '''
 			package pkg1
