@@ -23,86 +23,37 @@
  */
 package org.osate.ge.errormodel.ui.swt;
 
-import java.util.Objects;
-import java.util.function.Consumer;
-
-import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
+import org.osate.ge.swt.selectors.BaseField;
 
 /**
  * Field that displays a type tokens as a text label and provided a button to edit the type token using {@link TypeTokenListEditorDialog}.
  *
  */
-public class TypeTokenListField extends Composite {
-	private final TypeTokenListEditorModel model;
-	private final CLabel selectedLbl;
-	private final Button chooseBtn;
-	private final Consumer<ChangeEvent> changeListener = e -> refresh();
-
+public class TypeTokenListField extends BaseField<TypeTokenListEditorModel> {
 	/**
 	 * Create a new instance.
 	 * @param parent is the container for the new component.
 	 * @param model provides the information for the component.
 	 */
 	public TypeTokenListField(final Composite parent, final TypeTokenListEditorModel model) {
-		super(parent, SWT.NONE);
-		this.model = Objects.requireNonNull(model, "model must not be null");
-
-		SwtUtil.setColorsToMatchParent(this);
-
-		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
-
-		this.selectedLbl = new CLabel(this, SWT.BORDER);
-		this.selectedLbl.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER)
-				.minSize(200, SWT.DEFAULT).create());
-		SwtUtil.setColorsToMatchParent(this.selectedLbl);
-
-		this.chooseBtn = new Button(this, SWT.FLAT);
-		this.chooseBtn
-				.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.CENTER, SWT.CENTER).create());
-		this.chooseBtn.setText("Choose...");
-		this.chooseBtn.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(final SelectionEvent e) {
-				TypeTokenListEditorDialog.open(getShell(), "Edit Type Set", model);
-			}
-		});
-		SwtUtil.setColorsToMatchParent(this.chooseBtn);
-
-		model.changed().addListener(changeListener);
-
-		refresh();
+		super(parent, model);
 	}
 
-	/**
-	 * Sets the testing ID of the label indicating the selected value
-	 * @param value is the testing ID
-	 */
-	public void setLabelTestingId(final String value) {
-		SwtUtil.setTestingId(selectedLbl, value);
+	@Override
+	protected final void onModify() {
+		TypeTokenListEditorDialog.open(getShell(), "Edit Type Set", getModel());
 	}
 
-	/**
-	 * Sets the testing ID of the button for choose button.
-	 * @param value is the testing ID
-	 */
-	public void setChooseButtonTestingId(final String value) {
-		SwtUtil.setTestingId(chooseBtn, value);
+	@Override
+	protected final String getValueLabel() {
+		return getModel().getTypeTokensLabel();
 	}
 
-	private void refresh() {
-		if (!this.isDisposed()) {
-			selectedLbl.setText(model.getTypeTokensLabel());
-			chooseBtn.setEnabled(model.getTypeTokens().limit(1).count() != 0);
-		}
+	@Override
+	protected final boolean isModifyButtonEnabled() {
+		return getModel().getErrorTypes().limit(1).count() != 0;
 	}
 
 	public static void main(String[] args) {
