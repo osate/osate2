@@ -1491,7 +1491,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								if (Aadl2Util.isNull(inEnd)) {
 									return;
 								}
-								if (ce instanceof Feature) {
+								if (ce instanceof Feature && nextFlowSegment.getKind() == FlowKind.PATH) {
 									String segmentName = flowSegment.getContext().getName();
 									String connectedName = connectedElement.getContext().getName();
 
