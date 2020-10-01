@@ -21,38 +21,47 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.errormodel.ui.palette;
+package org.osate.ge.errormodel.ui.swt;
 
-import java.util.Optional;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.ge.errormodel.util.ErrorModelGeUtil;
-import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
-import org.osate.ge.operations.Operation;
-import org.osate.ge.operations.StepResultBuilder;
-import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.GetTargetedOperationContext;
-import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+/**
+ * Represents a fault source. The referenced type set and behavior state should be treated as immutable.
+ */
+public class FaultSource {
+	private final ErrorBehaviorState errorBehaviorState;
+	private final TypeSet errorTypeSet;
+	private final String failureModeDescription;
 
-public class CreateTypePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
-	public CreateTypePaletteCommand() {
-		super("Error Type", ErrorModelPaletteCategories.ERROR_MODEL, null);
+	public FaultSource() {
+		this.errorBehaviorState = null;
+		this.errorTypeSet = null;
+		this.failureModeDescription = null;
 	}
 
-	@Override
-	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
-		return ErrorModelGeUtil.createErrorModelLibraryModifyOperation(ctx.getTarget(), lib -> {
-			// Create the ErrorType
-			final ErrorType newErrorType = (ErrorType) EcoreUtil.create(ErrorModelPackage.eINSTANCE.getErrorType());
-			final String newErrorTypeName = ErrorModelNamingUtil.buildUniqueIdentifier(lib, "new_error_type");
-			newErrorType.setName(newErrorTypeName);
+	public FaultSource(final ErrorBehaviorState errorBehaviorState,
+			final TypeSet errorTypeSet) {
+		this.errorBehaviorState = errorBehaviorState;
+		this.errorTypeSet = errorTypeSet;
+		this.failureModeDescription = null;
+	}
 
-			// Add the new type to the error model library
-			lib.getTypes().add(newErrorType);
+	public FaultSource(final String failureModeDescription) {
+		this.errorBehaviorState = null;
+		this.errorTypeSet = null;
+		this.failureModeDescription = failureModeDescription;
+	}
 
-			return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), newErrorType).build();
-		});
+	public final ErrorBehaviorState getErrorBehaviorState() {
+		return errorBehaviorState;
+	}
+
+	public final TypeSet getErrorTypeSet() {
+		return errorTypeSet;
+	}
+
+	public final String getFailureModeDescription() {
+		return failureModeDescription;
 	}
 }

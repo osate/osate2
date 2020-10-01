@@ -21,40 +21,36 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.aadl2.ui.internal.palette;
+package org.osate.ge.errormodel.ui.palette;
 
-import org.eclipse.core.resources.IProject;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.ge.palette.PaletteCommandProviderContext;
+import java.util.Optional;
 
-/**
- * Class with methods to check what elements could potentially be in a diagram to allow limiting the palette commands
- * contributed.
- *
- */
-public class PaletteCommandUtil {
-	public static boolean diagramMayContainPackageOrClassifiers(final PaletteCommandProviderContext ctx) {
-		final Object diagramBo = ctx.getDiagramBusinessObject();
-		return diagramBo instanceof IProject || diagramBo instanceof AadlPackage || diagramBo instanceof Classifier;
+import org.osate.ge.errormodel.util.ErrorModelGeUtil;
+import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
+import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.StepResultBuilder;
+import org.osate.ge.palette.BasePaletteCommand;
+import org.osate.ge.palette.GetTargetedOperationContext;
+import org.osate.ge.palette.TargetedPaletteCommand;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+
+public class CreatePropagationPointPaleteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
+	public CreatePropagationPointPaleteCommand() {
+		super("Propagation Point", ErrorModelPaletteCategories.ERROR_PROPAGATION, null);
 	}
 
-	public static boolean diagramMayContainPackageOrComponentClassifiers(final PaletteCommandProviderContext ctx) {
-		final Object diagramBo = ctx.getDiagramBusinessObject();
-		return diagramBo instanceof IProject || diagramBo instanceof AadlPackage
-				|| diagramBo instanceof ComponentClassifier;
-	}
+	@Override
+	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
+		return ErrorModelGeUtil.createErrorModelSubclauseModifyOperation(ctx.getTarget(), (subclause) -> {
+			final PropagationPoint newPoint = ErrorModelFactory.eINSTANCE.createPropagationPoint();
+			final String newName = ErrorModelNamingUtil.buildUniqueIdentifier(subclause.getContainingClassifier(),
+					"new_propagation_point");
+			newPoint.setName(newName);
+			subclause.getPoints().add(newPoint);
 
-	public static boolean diagramMayContainPackageOrComponentImplementations(final PaletteCommandProviderContext ctx) {
-		final Object diagramBo = ctx.getDiagramBusinessObject();
-		return diagramBo instanceof IProject || diagramBo instanceof AadlPackage
-				|| diagramBo instanceof ComponentImplementation;
-	}
+			return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), newPoint).build();
+		});
 
-	public static boolean diagramMayContainPackage(final PaletteCommandProviderContext ctx) {
-		final Object diagramBo = ctx.getDiagramBusinessObject();
-		return diagramBo instanceof IProject || diagramBo instanceof AadlPackage;
 	}
 }

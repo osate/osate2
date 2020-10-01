@@ -37,7 +37,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class CreateTypeExtensionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
 	public CreateTypeExtensionPaletteCommand() {
-		super("Error Type Extension", ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super("Error Type Extension", ErrorModelPaletteCategories.ERROR_TYPES, null);
 	}
 
 	@Override
