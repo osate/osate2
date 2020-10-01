@@ -164,6 +164,22 @@ public final class PredeclaredProperties {
 	 */
 	public static synchronized void setOverriddenResources(final Map<URI, URI> replaced) {
 		selfUpdating = true;
+
+		/*
+		 * First clean up the old settings. This isn't strictly necessary, but things can bet confusing if the
+		 * number of overrides shrinks but the old key and value preferences are still left hanging around.
+		 */
+		final int oldSize = preferenceStore.getInt(NUMBER_OF_WORKSPACE_OVERRIDES);
+		for (int i = 0; i < oldSize; i++) {
+			final String keyName = WORKSPACE_OVERRIDE_KEY_PREFIX + i;
+			preferenceStore.setToDefault(keyName);
+
+			final String valueName = WORKSPACE_OVERRIDE_VALUE_PREFIX + i;
+			preferenceStore.setToDefault(valueName);
+		}
+		preferenceStore.setToDefault(NUMBER_OF_WORKSPACE_OVERRIDES);
+
+		/* Now set the new values */
 		final int size = replaced.size();
 		preferenceStore.setValue(NUMBER_OF_WORKSPACE_OVERRIDES, size);
 		int i = 0;
