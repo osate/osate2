@@ -43,7 +43,7 @@ import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 
 public class ErrorModelLibraryPropertySection extends AbstractPropertySection {
-	private static String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorModelLibrary.";
+	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorModelLibrary.";
 	public static final String WIDGET_ID_EXTENDED_LIBRARIES_LIST = WIDGET_ID_PREFIX + "extendedLibraries.label";
 	public static final String WIDGET_ID_EXTENDED_LIBRARIES_ADD_BUTTON = WIDGET_ID_PREFIX + "extendedLibraries.add";
 	public static final String WIDGET_ID_EXTENDED_LIBRARIES_REMOVE_BUTTON = WIDGET_ID_PREFIX

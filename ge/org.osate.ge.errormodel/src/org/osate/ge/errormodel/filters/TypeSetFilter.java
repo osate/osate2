@@ -23,7 +23,6 @@
  */
 package org.osate.ge.errormodel.filters;
 
-import org.osate.aadl2.AadlPackage;
 import org.osate.ge.ContentFilter;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
@@ -42,11 +41,11 @@ public class TypeSetFilter implements ContentFilter {
 
 	@Override
 	public boolean isApplicable(final Object bo) {
-		return bo instanceof AadlPackage;
+		return ErrorModelFilterUtil.isPackageWithErrorModelLibrary(bo);
 	}
 
 	@Override
-	public boolean test(Object bo) {
+	public boolean test(final Object bo) {
 		return bo instanceof TypeSet;
 	}
 }
