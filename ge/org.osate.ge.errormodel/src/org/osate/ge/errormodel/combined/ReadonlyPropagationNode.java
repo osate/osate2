@@ -21,21 +21,27 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.query;
+package org.osate.ge.errormodel.combined;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.osate.ge.BusinessObjectContext;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
-public class QueryResult {
-	public final List<BusinessObjectContext> result = new ArrayList<BusinessObjectContext>();
-	private boolean done = false;
+/**
+ * Readonly interface to a {@link PropagationNode}.
+ *
+ */
+public interface ReadonlyPropagationNode {
+	Optional<ReadonlyPropagationNode> getChild(final String kindOrElementName);
 
-	public boolean isDone() {
-		return done;
-	}
-	public void setDone(boolean done) {
-		this.done = done;
-	}
+	Stream<ErrorPropagation> getPropagations();
+
+	/**
+	 * Returns a stream of error propagations associated with the target business object context.
+	 * @param boc the business object context of a feature, propagation point or keyword propagation point
+	 * @return a stream containing propagations
+	 */
+	Stream<ErrorPropagation> getPropagationsForBusinessObjectContext(final BusinessObjectContext boc);
 }
