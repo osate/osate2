@@ -1478,7 +1478,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 											+ (inEnd.getContext() != null ? inEnd.getContext().getName() + '.' : "")
 											+ inEnd.getFeature().getName() + '\'');
 						}
-					} else { // working on checking destination of first element
+					} else {
 						ce = connection.getAllLastDestination();
 						cxt = connection.getAllDestinationContext();
 						connectedElement = connection.getRootConnection().getDestination();
@@ -1600,7 +1600,9 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						}
 						if (ce instanceof Feature) {
 							if (!isMatchingConnectionPoint(flowSegment.getContext(), inEnd.getFeature(),
-									inEnd.getContext(), connectedElement)) {
+									inEnd.getContext(), connectedElement)
+									|| !connectedElement.getContext().getName()
+											.equals(flowSegment.getContext().getName())) {
 								error(flow.getOwnedFlowSegments().get(i), "The destination of connection '"
 										+ connection.getName()
 										+ "' does not match the in flow feature of the succeeding subcomponent flow specification '"
