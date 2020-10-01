@@ -29,11 +29,11 @@ import java.util.function.Consumer;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.osate.ge.swt.BorderedCLabel;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 
@@ -49,7 +49,7 @@ import org.osate.ge.swt.SwtUtil;
 public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 	private final PrototypeBindingsModel<N, D, T, C> model;
 	private N node;
-	private final CLabel selectedLbl;
+	private final BorderedCLabel selectedLbl;
 	private final Button chooseBtn;
 	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
@@ -68,7 +68,7 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
-		this.selectedLbl = new CLabel(this, SWT.BORDER);
+		this.selectedLbl = new BorderedCLabel(this);
 		this.selectedLbl
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER)
 						.minSize(200, SWT.DEFAULT)

@@ -43,8 +43,8 @@ import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorTypeAliasPropertySection extends AbstractPropertySection {
-	private static String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorTypeAlias.";
-	public static final String WIDGET_ID_ALIASED_TYPE_LABEL = WIDGET_ID_PREFIX + "aliasedType.Llabel";
+	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorTypeAlias.";
+	public static final String WIDGET_ID_ALIASED_TYPE_LABEL = WIDGET_ID_PREFIX + "aliasedType.label";
 	public static final String WIDGET_ID_ALIASED_TYPE_CHOOSE_BUTTON = WIDGET_ID_PREFIX + "aliasedType.choose";
 
 	public static class Filter implements IFilter {
@@ -71,8 +71,8 @@ public class ErrorTypeAliasPropertySection extends AbstractPropertySection {
 
 		aliasedTypeField = new FilteringListSelectorField<>(container, "Select Aliased Type",
 				new LabelFilteringListSelectorModel<>(model));
-		aliasedTypeField.setLabelTestingId(WIDGET_ID_ALIASED_TYPE_LABEL);
-		aliasedTypeField.setChooseButtonTestingId(WIDGET_ID_ALIASED_TYPE_CHOOSE_BUTTON);
+		aliasedTypeField.setValueLabelTestingId(WIDGET_ID_ALIASED_TYPE_LABEL);
+		aliasedTypeField.setModifyButtonTestingId(WIDGET_ID_ALIASED_TYPE_CHOOSE_BUTTON);
 		fd = new FormData();
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		fd.top = new FormAttachment(label, 0, SWT.CENTER);
