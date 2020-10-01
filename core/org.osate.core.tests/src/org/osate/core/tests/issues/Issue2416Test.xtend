@@ -54,7 +54,7 @@ class Issue2416Test extends XtextTest {
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
 				"A.i".assertEquals(name)
 				allFlowImplementations.get(1) => [
-					it.ownedFlowSegments.get(2).assertError(testFileResult.issues, issueCollection, "The source of connection 'cml' does not match the out flow feature of the preceding subcomponent flow specification 'mm1.fpth'")
+					it.ownedFlowSegments.get(2).assertError(testFileResult.issues, issueCollection, "The source of connection 'cml' does not match the out flow feature of the preceding subcomponent flow specification 'mm1.fpth'", "The destination of connection 'cml' does not match the in flow feature of the succeeding subcomponent flow specification 'mm2.fpth'")
 				]
 				allFlowImplementations.get(2) => [
 					it.ownedFlowSegments.get(2).assertError(testFileResult.issues, issueCollection, "The source of connection 'cmr' does not match the out flow feature of the preceding subcomponent flow specification 'mm1.fpth'",
@@ -70,16 +70,19 @@ class Issue2416Test extends XtextTest {
 					it.ownedFlowSegments.get(0).assertError(testFileResult.issues, issueCollection, "The destination of connection 'cml' does not match the in flow feature of the succeeding subcomponent flow specification 'mm2.fpth'")
 				]
 				allFlowImplementations.get(6) => [
-					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "The source of connection 'cml' does not match the out flow feature of the preceding subcomponent flow specification 'mm1.fpth'")
+					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "The source of connection 'cml' does not match the out flow feature of the preceding subcomponent flow specification 'mm1.fpth'", "The destination of connection 'cml' does not match the in flow feature of the succeeding subcomponent flow specification 'mm2.fpth'")
 				]
 				allFlowImplementations.get(7) => [
 					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "The source of connection 'cmr' does not match the out flow feature of the preceding subcomponent flow specification 'mm1.fpth'")
 				]
 				allFlowImplementations.get(9) => [
-					it.ownedFlowSegments.get(2).assertError(testFileResult.issues, issueCollection, "The source of connection 'cml' does not match the out flow feature of the preceding subcomponent flow specification 'mm1.fpth'")
+					it.ownedFlowSegments.get(2).assertError(testFileResult.issues, issueCollection, "The source of connection 'cml' does not match the out flow feature of the preceding subcomponent flow specification 'mm1.fpth'", "The destination of connection 'cml' does not match the in flow feature of the succeeding subcomponent flow specification 'mm2.fpth'")
 				]
 				allFlowImplementations.get(10) => [
 					it.ownedFlowSegments.get(0).assertError(testFileResult.issues, issueCollection, "The destination of connection 'cml' does not match the in flow feature of the succeeding subcomponent flow specification 'mm2.fpth'")
+				]
+				allFlowImplementations.get(11) => [
+					it.ownedFlowSegments.get(0).assertError(testFileResult.issues, issueCollection, "The source of connection 'cmm' does not match the in flow feature 'i'")
 				]
 			]
 		]

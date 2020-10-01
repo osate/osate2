@@ -44,6 +44,8 @@ public
             fsnk: flow sink i -> cml -> mm1.fpth -> cml -> mm2.fpth;  
             -- there should be an error on cml
             fsnk: flow sink i -> cml -> mm2.fpth;     
+            -- there should be an error on cmm
+            fsnk: flow sink i -> cmm -> mm2.fpth;
             
     end A.i;
 
