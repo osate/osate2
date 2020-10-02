@@ -26,7 +26,7 @@ package org.osate.xtext.aadl2.errormodel.ui.outline;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.RuleCall;
+import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
@@ -90,59 +90,66 @@ public class ErrorModelOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		 * Create Error Propagations, Component Error Behavior, Composite Error Behavior, Connection Error, and
 		 * Propagation Paths outline nodes.
 		 */
-		INode errorPropagationsNode = null;
+		INode errorNode = null;
 		INode endPropagationsSemiNode = null;
-		INode componentErrorBehaviorNode = null;
+		INode componentNode = null;
 		INode endComponentSemiNode = null;
-		INode compositeErrorBehaviorNode = null;
+		INode compositeNode = null;
 		INode endCompositeSemiNode = null;
-		INode connectionErrorNode = null;
+		INode connectionNode = null;
 		INode endConnectionSemiNode = null;
-		INode propagationPathsNode = null;
+		INode propagationNode = null;
 		INode endPathsSemiNode = null;
 		for (INode node : NodeModelUtils.getNode(errorModelSubclause).getChildren()) {
-			if (node.getGrammarElement() instanceof RuleCall) {
-				RuleCall ruleCall = (RuleCall) node.getGrammarElement();
-				if (ruleCall.getRule() == grammarAccess.getErrorPropagationsKeywordsRule()) {
-					errorPropagationsNode = node;
-				} else if (ruleCall.getRule() == grammarAccess.getEndPropagationsKeywordsRule()) {
-					endPropagationsSemiNode = node.getNextSibling();
-				} else if (ruleCall.getRule() == grammarAccess.getComponentErrorBehaviorKeywordsRule()) {
-					componentErrorBehaviorNode = node;
-				} else if (ruleCall.getRule() == grammarAccess.getEndComponentKeywordsRule()) {
-					endComponentSemiNode = node.getNextSibling();
-				} else if (ruleCall.getRule() == grammarAccess.getCompositeErrorBehaviorKeywordsRule()) {
-					compositeErrorBehaviorNode = node;
-				} else if (ruleCall.getRule() == grammarAccess.getEndCompositeKeywordsRule()) {
-					endCompositeSemiNode = node.getNextSibling();
-				} else if (ruleCall.getRule() == grammarAccess.getConnectionErrorKeywordsRule()) {
-					connectionErrorNode = node;
-				} else if (ruleCall.getRule() == grammarAccess.getEndConnectionKeywordsRule()) {
-					endConnectionSemiNode = node.getNextSibling();
-				} else if (ruleCall.getRule() == grammarAccess.getPropagationPathsKeywordsRule()) {
-					propagationPathsNode = node;
-				} else if (ruleCall.getRule() == grammarAccess.getEndPathsKeywordsRule()) {
-					endPathsSemiNode = node.getNextSibling();
+			if (node.getGrammarElement() instanceof Keyword) {
+				Keyword keyword = (Keyword) node.getGrammarElement();
+				if (keyword == grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_5_0()
+						|| keyword == grammarAccess.getEMV2SubclauseAccess().getErrorKeyword_7_0()) {
+					errorNode = node;
+				} else if (keyword == grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_5_6()
+						|| keyword == grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_7_6()) {
+					endPropagationsSemiNode = node;
+				} else if (keyword == grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_6_0()
+						|| keyword == grammarAccess.getEMV2SubclauseAccess().getComponentKeyword_8_0()) {
+					componentNode = node;
+				} else if (keyword == grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_6_11()
+						|| keyword == grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_8_11()) {
+					endComponentSemiNode = node;
+				} else if (keyword == grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_7_0()
+						|| keyword == grammarAccess.getEMV2SubclauseAccess().getCompositeKeyword_9_0()) {
+					compositeNode = node;
+				} else if (keyword == grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_7_6()
+						|| keyword == grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_9_6()) {
+					endCompositeSemiNode = node;
+				} else if (keyword == grammarAccess.getErrorModelSubclauseAccess().getConnectionKeyword_8_0()
+						|| keyword == grammarAccess.getEMV2SubclauseAccess().getConnectionKeyword_10_0()) {
+					connectionNode = node;
+				} else if (keyword == grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_8_6()
+						|| keyword == grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_10_6()) {
+					endConnectionSemiNode = node;
+				} else if (keyword == grammarAccess.getErrorModelSubclauseAccess().getPropagationKeyword_9_0()
+						|| keyword == grammarAccess.getEMV2SubclauseAccess().getPropagationKeyword_11_0()) {
+					propagationNode = node;
+				} else if (keyword == grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_9_6()
+						|| keyword == grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_11_6()) {
+					endPathsSemiNode = node;
 				}
 			}
 		}
-		if (errorPropagationsNode != null && endPropagationsSemiNode != null) {
-			new ErrorPropagationsOutlineNode(parentNode, errorModelSubclause, errorPropagationsNode,
-					endPropagationsSemiNode);
+		if (errorNode != null && endPropagationsSemiNode != null) {
+			new ErrorPropagationsOutlineNode(parentNode, errorModelSubclause, errorNode, endPropagationsSemiNode);
 		}
-		if (componentErrorBehaviorNode != null && endComponentSemiNode != null) {
-			new ComponentErrorBehaviorOutlineNode(parentNode, errorModelSubclause, componentErrorBehaviorNode,
-					endComponentSemiNode);
+		if (componentNode != null && endComponentSemiNode != null) {
+			new ComponentErrorBehaviorOutlineNode(parentNode, errorModelSubclause, componentNode, endComponentSemiNode);
 		}
-		if (compositeErrorBehaviorNode != null && endCompositeSemiNode != null) {
-			new CompositeErrorBehaviorOutlineNode(parentNode, errorModelSubclause, compositeErrorBehaviorNode,
-					endCompositeSemiNode);
+		if (compositeNode != null && endCompositeSemiNode != null) {
+			new CompositeErrorBehaviorOutlineNode(parentNode, errorModelSubclause, compositeNode, endCompositeSemiNode);
 		}
-		if (connectionErrorNode != null && endConnectionSemiNode != null) {
-			new ConnectionErrorOutlineNode(parentNode, errorModelSubclause, connectionErrorNode, endConnectionSemiNode);
+		if (connectionNode != null && endConnectionSemiNode != null) {
+			new ConnectionErrorOutlineNode(parentNode, errorModelSubclause, connectionNode, endConnectionSemiNode);
 		}
-		if (propagationPathsNode != null && endPathsSemiNode != null) {
-			new PropagationPathsOutlineNode(parentNode, errorModelSubclause, propagationPathsNode, endPathsSemiNode);
+		if (propagationNode != null && endPathsSemiNode != null) {
+			new PropagationPathsOutlineNode(parentNode, errorModelSubclause, propagationNode, endPathsSemiNode);
 		}
 	}
 
@@ -176,20 +183,24 @@ public class ErrorModelOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 	protected void _createChildren(IOutlineNode parentNode, ErrorModelLibrary errorModelLibrary) {
 		// Create Error Types outline node.
-		INode errorTypesNode = null;
+		INode errorNode = null;
 		INode endTypesSemiNode = null;
 		for (INode node : NodeModelUtils.getNode(errorModelLibrary).getChildren()) {
-			if (node.getGrammarElement() instanceof RuleCall) {
-				RuleCall ruleCall = (RuleCall) node.getGrammarElement();
-				if (ruleCall.getRule() == grammarAccess.getErrorTypesKeywordsRule()) {
-					errorTypesNode = node;
-				} else if (ruleCall.getRule() == grammarAccess.getEndTypesKeywordsRule()) {
-					endTypesSemiNode = node.getNextSibling();
+			if (node.getGrammarElement() instanceof Keyword) {
+				Keyword keyword = (Keyword) node.getGrammarElement();
+				if (keyword == grammarAccess.getErrorModelLibraryAccess().getErrorKeyword_1_0()
+						|| keyword == grammarAccess.getEMV2LibraryAccess().getErrorKeyword_0_1_2_0()
+						|| keyword == grammarAccess.getEMV2LibraryAccess().getErrorKeyword_1_6_0()) {
+					errorNode = node;
+				} else if (keyword == grammarAccess.getErrorModelLibraryAccess().getSemicolonKeyword_1_8()
+						|| keyword == grammarAccess.getEMV2LibraryAccess().getSemicolonKeyword_0_1_2_8()
+						|| keyword == grammarAccess.getEMV2LibraryAccess().getSemicolonKeyword_1_6_8()) {
+					endTypesSemiNode = node;
 				}
 			}
 		}
-		if (errorTypesNode != null && endTypesSemiNode != null) {
-			new ErrorTypesOutlineNode(parentNode, errorModelLibrary, errorTypesNode, endTypesSemiNode);
+		if (errorNode != null && endTypesSemiNode != null) {
+			new ErrorTypesOutlineNode(parentNode, errorModelLibrary, errorNode, endTypesSemiNode);
 		}
 
 		errorModelLibrary.getBehaviors().forEach(behavior -> createNode(parentNode, behavior));
