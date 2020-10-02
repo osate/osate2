@@ -212,8 +212,8 @@ public final class PrototypeEditor<C> extends Composite {
 				}));
 		classifierSelector
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
-		classifierSelector.setLabelTestingId(WIDGET_ID_CLASSIFIER_LABEL);
-		classifierSelector.setChooseButtonTestingId(WIDGET_ID_CHOOSE_CLASSIFIER_BUTTON);
+		classifierSelector.setValueLabelTestingId(WIDGET_ID_CLASSIFIER_LABEL);
+		classifierSelector.setModifyButtonTestingId(WIDGET_ID_CHOOSE_CLASSIFIER_BUTTON);
 
 		//
 		// Direction

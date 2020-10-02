@@ -49,6 +49,7 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
+import org.osate.ge.query.QueryResult;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -58,22 +59,10 @@ public class ConnectionHandler extends AadlBusinessObjectHandler {
 			.create((rootQuery) -> rootQuery.parent()
 					.descendantsByBusinessObjectsRelativeReference(
 							(Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllSourceContext(),
-									c.getRootConnection().getSource()))
-					.first());
-	private static StandaloneQuery partialSrcQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent()
-					.descendantsByBusinessObjectsRelativeReference(
-							(Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllSourceContext(),
 									c.getRootConnection().getSource()),
 							1)
 					.first());
 	private static StandaloneQuery dstQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent()
-					.descendantsByBusinessObjectsRelativeReference(
-							(Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllDestinationContext(),
-									c.getRootConnection().getDestination()))
-					.first());
-	private static StandaloneQuery partialDstQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent()
 					.descendantsByBusinessObjectsRelativeReference(
 							(Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllDestinationContext(),
@@ -110,19 +99,9 @@ public class ConnectionHandler extends AadlBusinessObjectHandler {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final QueryService queryService = ctx.getQueryService();
 
-		BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
-		BusinessObjectContext dst = queryService.getFirstResult(dstQuery, boc);
-		boolean partial = false;
-
-		if (src == null) {
-			src = queryService.getFirstResult(partialSrcQuery, boc);
-			partial = true;
-		}
-
-		if (dst == null) {
-			dst = queryService.getFirstResult(partialDstQuery, boc);
-			partial = true;
-		}
+		final QueryResult src = queryService.getFirstResult(srcQuery, boc).orElse(null);
+		final QueryResult dst = queryService.getFirstResult(dstQuery, boc).orElse(null);
+		final boolean partial = (src != null && src.isPartial()) || (dst != null && dst.isPartial());
 
 		final StyleBuilder sb = StyleBuilder
 				.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
@@ -131,8 +110,9 @@ public class ConnectionHandler extends AadlBusinessObjectHandler {
 			sb.dotted();
 		}
 
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build()).source(src)
-				.destination(dst).build());
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build())
+				.source(src == null ? null : src.getBusinessObjectContext())
+				.destination(dst == null ? null : dst.getBusinessObjectContext()).build());
 	}
 
 	/**
