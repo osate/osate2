@@ -381,7 +381,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		}
 		checkDirectionOfFeatureGroupMembers(connection);
 		checkNoConnectedSubcomponents(connection);
-		checkConnectionPropertyIsModal(connection);
 	}
 
 	@Check(CheckType.FAST)
@@ -699,9 +698,11 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		checkAadlinteger(ai);
 	}
 
+	@Override
 	@Check(CheckType.FAST)
-	public void caseModalAssociation(final PropertyAssociation pa) {
-		checkPropertyAssociationIsModal(pa);
+	public void casePropertyAssociation(final PropertyAssociation pa) {
+		super.casePropertyAssociation(pa);
+		checkPropertyAssociationIsModal(pa, ModelingProperties._NAME, ModelingProperties.CLASSIFIER_MATCHING_RULE);
 	}
 
 	@Check(CheckType.FAST)
@@ -5427,29 +5428,14 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		}
 	}
 
-	private void checkConnectionPropertyIsModal(Connection connection) {
-		Property classifierMatchingRuleProperty = Aadl2GlobalScopeUtil.get(connection,
+	private void checkPropertyAssociationIsModal(PropertyAssociation pa, String psname, String pname) {
+		Property property = Aadl2GlobalScopeUtil.get(pa.getOwner(),
 				Aadl2Package.eINSTANCE.getProperty(),
-				ModelingProperties._NAME + "::" + ModelingProperties.CLASSIFIER_MATCHING_RULE);
+				psname + "::" + pname);
 
-		connection.getOwnedPropertyAssociations().forEach(pa -> {
-			if (pa.getProperty() == classifierMatchingRuleProperty
-					&& (pa.getOwnedValues().size() > 1 || !pa.getOwnedValues().get(0).getInModes().isEmpty())) {
-				error(ModelingProperties.CLASSIFIER_MATCHING_RULE + ": Property can not be modal",
-						pa, Aadl2Package.eINSTANCE.getPropertyAssociation_Property());
-				return;
-			}
-		});
-	}
-
-	private void checkPropertyAssociationIsModal(PropertyAssociation pa) {
-		Property classifierMatchingRuleProperty = Aadl2GlobalScopeUtil.get(pa.getOwner(),
-				Aadl2Package.eINSTANCE.getProperty(),
-				ModelingProperties._NAME + "::" + ModelingProperties.CLASSIFIER_MATCHING_RULE);
-
-		if (pa.getProperty() == classifierMatchingRuleProperty
+		if (pa.getProperty() == property
 				&& (pa.getOwnedValues().size() > 1 || !pa.getOwnedValues().get(0).getInModes().isEmpty())) {
-			error(ModelingProperties.CLASSIFIER_MATCHING_RULE + ": Property can not be modal", pa,
+			error(pname + ": Property can not be modal", pa,
 					Aadl2Package.eINSTANCE.getPropertyAssociation_Property());
 			return;
 		}
