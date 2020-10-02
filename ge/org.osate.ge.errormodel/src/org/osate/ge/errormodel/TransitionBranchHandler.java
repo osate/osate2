@@ -33,6 +33,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanCopyContext;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleter;
@@ -80,15 +81,19 @@ public class TransitionBranchHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION_BRANCH,
-				ErrorModelReferenceUtil.getTargetNameForSerialization(ctx.getBusinessObject(TransitionBranch.class)
-						.get()),
-				Integer.toString(getTransitionBranchIndex(ctx.getBusinessObject(TransitionBranch.class).get())));
+		final TransitionBranch b= ctx.getBusinessObject(TransitionBranch.class).get();
+		return ErrorModelReferenceUtil.getRelativeReferenceForTransitionBranch(
+				ErrorModelReferenceUtil.getTargetNameForSerialization(b), getTransitionBranchIndex(b));
 	}
 
 	@Override
 	public boolean canDelete(final CanDeleteContext ctx) {
 		return true;
+	}
+
+	@Override
+	public boolean canCopy(final CanCopyContext ctx) {
+		return false;
 	}
 
 	@Override
@@ -102,11 +107,11 @@ public class TransitionBranchHandler implements BusinessObjectHandler, CustomDel
 	}
 
 	private BusinessObjectContext getSource(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstResult(srcQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(srcQuery, boc);
 	}
 
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstResult(dstQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
 	}
 
 	@Override
@@ -166,6 +171,6 @@ public class TransitionBranchHandler implements BusinessObjectHandler, CustomDel
 		final ErrorBehaviorTransition t = (ErrorBehaviorTransition) b.eContainer();
 		return ErrorModelReferenceUtil.getIndex(
 				b,
-				t.getDestinationBranches().stream().filter(tmpBranch -> tmpBranch.getTarget() == t.getTarget()));
+				t.getDestinationBranches().stream().filter(tmpBranch -> tmpBranch.getTarget() == b.getTarget()));
 	}
 }

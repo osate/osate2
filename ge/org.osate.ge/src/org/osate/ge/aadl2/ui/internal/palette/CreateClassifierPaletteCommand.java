@@ -222,7 +222,7 @@ public class CreateClassifierPaletteCommand extends BasePaletteCommand implement
 		} else if (targetBo instanceof Classifier) {
 			// Get the AadlPackage based on the query. This ensures that the package is the one represented by the diagram rather than the one in which the
 			// target business object is contained.
-			return queryService.getFirstResult(packageQuery, targetBoc);
+			return queryService.getFirstBusinessObjectContextOrNull(packageQuery, targetBoc);
 		}
 
 		return null;

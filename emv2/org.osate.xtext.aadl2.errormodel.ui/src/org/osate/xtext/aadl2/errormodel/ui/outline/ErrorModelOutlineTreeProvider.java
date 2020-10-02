@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -31,7 +31,7 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.AbstractOutlineNode;
-import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
+import org.eclipse.xtext.ui.editor.outline.impl.BackgroundOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.eclipse.xtext.util.ITextRegion;
 import org.osate.aadl2.DefaultAnnexLibrary;
@@ -61,16 +61,84 @@ import com.google.inject.Inject;
  * customization of the default outline structure
  *
  */
-public class ErrorModelOutlineTreeProvider extends DefaultOutlineTreeProvider {
+public class ErrorModelOutlineTreeProvider extends BackgroundOutlineTreeProvider {
 	@Inject
 	private ErrorModelGrammarAccess grammarAccess;
 
-	protected void _createChildren(DocumentRootNode parentNode, EMV2Root emv2Root) {
-		if (emv2Root.getLibrary() != null) {
-			createNode(parentNode, emv2Root.getLibrary());
+	@Override
+	protected void internalCreateChildren(final DocumentRootNode parentNode, final EObject modelElement) {
+		if (modelElement instanceof EMV2Root) {
+			final EMV2Root emv2Root = (EMV2Root) modelElement;
+			if (emv2Root.getLibrary() != null) {
+				createNode(parentNode, emv2Root.getLibrary());
+			} else {
+				emv2Root.getSubclauses().forEach(subclause -> createNode(parentNode, subclause));
+			}
 		} else {
-			emv2Root.getSubclauses().forEach(subclause -> createNode(parentNode, subclause));
+			super.internalCreateChildren(parentNode, modelElement);
 		}
+	}
+
+	@Override
+	protected void internalCreateChildren(final IOutlineNode parentNode, final EObject modelElement) {
+		if (parentNode instanceof ErrorPropagationsOutlineNode) {
+			_createChildren((ErrorPropagationsOutlineNode) parentNode, (ErrorModelSubclause) modelElement);
+		} else if (parentNode instanceof ComponentErrorBehaviorOutlineNode) {
+			_createChildren((ComponentErrorBehaviorOutlineNode) parentNode, (ErrorModelSubclause) modelElement);
+		} else if (parentNode instanceof CompositeErrorBehaviorOutlineNode) {
+			_createChildren((CompositeErrorBehaviorOutlineNode) parentNode, (ErrorModelSubclause) modelElement);
+		} else if (parentNode instanceof ConnectionErrorOutlineNode) {
+			_createChildren((ConnectionErrorOutlineNode) parentNode, (ErrorModelSubclause) modelElement);
+		} else if (parentNode instanceof PropagationPathsOutlineNode) {
+			_createChildren((PropagationPathsOutlineNode) parentNode, (ErrorModelSubclause) modelElement);
+		} else if (parentNode instanceof ErrorTypesOutlineNode) {
+			_createChildren((ErrorTypesOutlineNode) parentNode, (ErrorModelLibrary) modelElement);
+		} else {
+			if (modelElement instanceof DefaultAnnexLibrary) {
+				_createChildren(parentNode, (DefaultAnnexLibrary) modelElement);
+			} else if (modelElement instanceof DefaultAnnexSubclause) {
+				_createChildren(parentNode, (DefaultAnnexSubclause) modelElement);
+			} else if (modelElement instanceof ErrorModelSubclause) {
+				_createChildren(parentNode, (ErrorModelSubclause) modelElement);
+			} else if (modelElement instanceof ErrorBehaviorStateMachine) {
+				_createChildren(parentNode, (ErrorBehaviorStateMachine) modelElement);
+			} else if (modelElement instanceof ErrorModelLibrary) {
+				_createChildren(parentNode, (ErrorModelLibrary) modelElement);
+			}
+		}
+	}
+
+	protected void _createChildren(ErrorPropagationsOutlineNode parentNode, ErrorModelSubclause errorModelSubclause) {
+		errorModelSubclause.getPropagations().forEach(propagation -> createNode(parentNode, propagation));
+		errorModelSubclause.getFlows().forEach(flow -> createNode(parentNode, flow));
+	}
+
+	protected void _createChildren(ComponentErrorBehaviorOutlineNode parentNode,
+			ErrorModelSubclause errorModelSubclause) {
+		errorModelSubclause.getEvents().forEach(event -> createNode(parentNode, event));
+		errorModelSubclause.getTransitions().forEach(transition -> createNode(parentNode, transition));
+		errorModelSubclause.getOutgoingPropagationConditions().forEach(condition -> createNode(parentNode, condition));
+		errorModelSubclause.getErrorDetections().forEach(detection -> createNode(parentNode, detection));
+		errorModelSubclause.getErrorStateToModeMappings().forEach(mapping -> createNode(parentNode, mapping));
+	}
+
+	protected void _createChildren(CompositeErrorBehaviorOutlineNode parentNode,
+			ErrorModelSubclause errorModelSubclause) {
+		errorModelSubclause.getStates().forEach(state -> createNode(parentNode, state));
+	}
+
+	protected void _createChildren(ConnectionErrorOutlineNode parentNode, ErrorModelSubclause errorModelSubclause) {
+		errorModelSubclause.getConnectionErrorSources().forEach(errorSource -> createNode(parentNode, errorSource));
+	}
+
+	protected void _createChildren(PropagationPathsOutlineNode parentNode, ErrorModelSubclause errorModelSubclause) {
+		errorModelSubclause.getPoints().forEach(point -> createNode(parentNode, point));
+		errorModelSubclause.getPaths().forEach(path -> createNode(parentNode, path));
+	}
+
+	protected void _createChildren(ErrorTypesOutlineNode parentNode, ErrorModelLibrary errorModelLibrary) {
+		errorModelLibrary.getTypes().forEach(type -> createNode(parentNode, type));
+		errorModelLibrary.getTypesets().forEach(typeSet -> createNode(parentNode, typeSet));
 	}
 
 	protected void _createChildren(IOutlineNode parentNode, DefaultAnnexLibrary defaultAnnexLibrary) {
@@ -153,34 +221,6 @@ public class ErrorModelOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		}
 	}
 
-	protected void _createChildren(ErrorPropagationsOutlineNode parentNode, ErrorModelSubclause errorModelSubclause) {
-		errorModelSubclause.getPropagations().forEach(propagation -> createNode(parentNode, propagation));
-		errorModelSubclause.getFlows().forEach(flow -> createNode(parentNode, flow));
-	}
-
-	protected void _createChildren(ComponentErrorBehaviorOutlineNode parentNode,
-			ErrorModelSubclause errorModelSubclause) {
-		errorModelSubclause.getEvents().forEach(event -> createNode(parentNode, event));
-		errorModelSubclause.getTransitions().forEach(transition -> createNode(parentNode, transition));
-		errorModelSubclause.getOutgoingPropagationConditions().forEach(condition -> createNode(parentNode, condition));
-		errorModelSubclause.getErrorDetections().forEach(detection -> createNode(parentNode, detection));
-		errorModelSubclause.getErrorStateToModeMappings().forEach(mapping -> createNode(parentNode, mapping));
-	}
-
-	protected void _createChildren(CompositeErrorBehaviorOutlineNode parentNode,
-			ErrorModelSubclause errorModelSubclause) {
-		errorModelSubclause.getStates().forEach(state -> createNode(parentNode, state));
-	}
-
-	protected void _createChildren(ConnectionErrorOutlineNode parentNode, ErrorModelSubclause errorModelSubclause) {
-		errorModelSubclause.getConnectionErrorSources().forEach(errorSource -> createNode(parentNode, errorSource));
-	}
-
-	protected void _createChildren(PropagationPathsOutlineNode parentNode, ErrorModelSubclause errorModelSubclause) {
-		errorModelSubclause.getPoints().forEach(point -> createNode(parentNode, point));
-		errorModelSubclause.getPaths().forEach(path -> createNode(parentNode, path));
-	}
-
 	protected void _createChildren(IOutlineNode parentNode, ErrorModelLibrary errorModelLibrary) {
 		// Create Error Types outline node.
 		INode errorNode = null;
@@ -208,67 +248,21 @@ public class ErrorModelOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		errorModelLibrary.getTransformations().forEach(transformation -> createNode(parentNode, transformation));
 	}
 
-	protected void _createChildren(ErrorTypesOutlineNode parentNode, ErrorModelLibrary errorModelLibrary) {
-		errorModelLibrary.getTypes().forEach(type -> createNode(parentNode, type));
-		errorModelLibrary.getTypesets().forEach(typeSet -> createNode(parentNode, typeSet));
-	}
-
 	protected void _createChildren(IOutlineNode parentNode, ErrorBehaviorStateMachine errorBehaviorStateMachine) {
 		errorBehaviorStateMachine.getEvents().forEach(event -> createNode(parentNode, event));
 		errorBehaviorStateMachine.getStates().forEach(state -> createNode(parentNode, state));
 		errorBehaviorStateMachine.getTransitions().forEach(transition -> createNode(parentNode, transition));
 	}
 
-	protected boolean _isLeaf(TypeSet typeSet) {
-		return true;
-	}
-
-	protected boolean _isLeaf(TypeTransformation typeTransformation) {
-		return true;
-	}
-
-	protected boolean _isLeaf(TypeMapping typeMapping) {
-		return true;
-	}
-
-	protected boolean _isLeaf(ErrorPropagation errorPropagation) {
-		return true;
-	}
-
-	protected boolean _isLeaf(ErrorFlow errorFlow) {
-		return true;
-	}
-
-	protected boolean _isLeaf(PropagationPath propagationPath) {
-		return true;
-	}
-
-	protected boolean _isLeaf(ErrorBehaviorEvent errorBehaviorEvent) {
-		return true;
-	}
-
-	protected boolean _isLeaf(ErrorBehaviorState errorBehaviorState) {
-		return true;
-	}
-
-	protected boolean _isLeaf(ErrorBehaviorTransition errorBehaviorTransition) {
-		return true;
-	}
-
-	protected boolean _isLeaf(OutgoingPropagationCondition outgoingPropagationCondition) {
-		return true;
-	}
-
-	protected boolean _isLeaf(ErrorDetection errorDetection) {
-		return true;
-	}
-
-	protected boolean _isLeaf(ErrorStateToModeMapping errorStateToModeMapping) {
-		return true;
-	}
-
-	protected boolean _isLeaf(CompositeState compositeState) {
-		return true;
+	@Override
+	protected boolean isLeaf(final EObject modelElement) {
+		return modelElement instanceof TypeSet || modelElement instanceof TypeTransformation
+				|| modelElement instanceof TypeMapping || modelElement instanceof ErrorPropagation
+				|| modelElement instanceof ErrorFlow || modelElement instanceof PropagationPath
+				|| modelElement instanceof ErrorBehaviorEvent || modelElement instanceof ErrorBehaviorState
+				|| modelElement instanceof ErrorBehaviorTransition
+				|| modelElement instanceof OutgoingPropagationCondition || modelElement instanceof ErrorDetection
+				|| modelElement instanceof ErrorStateToModeMapping || modelElement instanceof CompositeState;
 	}
 
 	private abstract class AbstractSectionOutlineNode extends AbstractOutlineNode {
@@ -277,7 +271,7 @@ public class ErrorModelOutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 		public AbstractSectionOutlineNode(IOutlineNode parent, EObject modelElement, String text, INode startNode,
 				INode endNode) {
-			super(parent, labelProvider.getImage(AbstractSectionOutlineNode.class), text, false);
+			super(parent, getLabelProvider().getImage(AbstractSectionOutlineNode.class), text, false);
 			eObjectURI = EcoreUtil.getURI(modelElement);
 			significantRegion = startNode.getTextRegionWithLineInformation();
 			setTextRegion(significantRegion.merge(endNode.getTextRegionWithLineInformation()));

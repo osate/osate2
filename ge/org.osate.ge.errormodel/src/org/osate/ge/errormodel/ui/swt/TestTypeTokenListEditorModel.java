@@ -27,10 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.ge.errormodel.ui.ErrorModelUiUtil;
 import org.osate.ge.swt.BaseObservableModel;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -48,12 +48,11 @@ class TestTypeTokenListEditorModel extends BaseObservableModel implements TypeTo
 		tokens = new ArrayList<>();
 		errorTypes = new ArrayList<>();
 
-		final ErrorModelLibrary lib = (ErrorModelLibrary) EcoreUtil
-				.create(ErrorModelPackage.eINSTANCE.getErrorModelLibrary());
+		final ErrorModelLibrary lib = ErrorModelFactory.eINSTANCE.createErrorModelLibrary();
 
 		// Create error types and type aliases
 		for (int i = 0; i < 5; i++) {
-			final ErrorType t = (ErrorType) EcoreUtil.create(ErrorModelPackage.eINSTANCE.getErrorType());
+			final ErrorType t = ErrorModelFactory.eINSTANCE.createErrorType();
 			lib.getTypes().add(t);
 			t.setName("type" + i);
 
@@ -65,16 +64,16 @@ class TestTypeTokenListEditorModel extends BaseObservableModel implements TypeTo
 		}
 
 		// Create type set
-		final TypeSet ts = (TypeSet) EcoreUtil.create(ErrorModelPackage.eINSTANCE.getTypeSet());
+		final TypeSet ts = ErrorModelFactory.eINSTANCE.createTypeSet();
 		lib.getTypesets().add(ts);
 		ts.setName("ts1");
-		final TypeToken tk1 = (TypeToken) EcoreUtil.create(ErrorModelPackage.eINSTANCE.getTypeToken());
+		final TypeToken tk1 = ErrorModelFactory.eINSTANCE.createTypeToken();
 		tk1.getType().add(errorTypes.get(0));
 		ts.getTypeTokens().add(tk1);
 		errorTypes.add(ts);
 
 		// Create type set alias
-		final TypeSet tsAlias = (TypeSet) EcoreUtil.create(ErrorModelPackage.eINSTANCE.getTypeSet());
+		final TypeSet tsAlias = ErrorModelFactory.eINSTANCE.createTypeSet();
 		lib.getTypesets().add(tsAlias);
 		tsAlias.setName("ts1Alias");
 		tsAlias.setAliasedType(ts);
@@ -82,13 +81,13 @@ class TestTypeTokenListEditorModel extends BaseObservableModel implements TypeTo
 
 		// Create type tokens for individual types and type products
 		{
-			final TypeToken newToken = (TypeToken) EcoreUtil.create(ErrorModelPackage.eINSTANCE.getTypeToken());
+			final TypeToken newToken = ErrorModelFactory.eINSTANCE.createTypeToken();
 			newToken.getType().add(errorTypes.get(0));
 			tokens.add(newToken);
 		}
 
 		{
-			final TypeToken newToken = (TypeToken) EcoreUtil.create(ErrorModelPackage.eINSTANCE.getTypeToken());
+			final TypeToken newToken = ErrorModelFactory.eINSTANCE.createTypeToken();
 			newToken.getType().add(errorTypes.get(1));
 			newToken.getType().add(errorTypes.get(2));
 			tokens.add(newToken);
@@ -124,5 +123,15 @@ class TestTypeTokenListEditorModel extends BaseObservableModel implements TypeTo
 	@Override
 	public String getErrorTypeLabel(final ErrorTypes value) {
 		return value.getName();
+	}
+
+	@Override
+	public String getTypeTokenLabel(final TypeToken value) {
+		return ErrorModelUiUtil.getTypeTokenLabel(value, t -> t.getName());
+	}
+
+	@Override
+	public String getTypeTokensLabel() {
+		return ErrorModelUiUtil.getTypeTokensLabel(getTypeTokens(), t -> t.getName());
 	}
 }
