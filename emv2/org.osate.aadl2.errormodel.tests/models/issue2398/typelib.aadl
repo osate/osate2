@@ -1,0 +1,10 @@
+package typelib
+public
+	annex EMV2 {**
+		error types
+			t1: type;
+			t1_alias renames type other_typelib::t1;
+			new_error_type: type;
+		end types;
+	**};
+end typelib;
