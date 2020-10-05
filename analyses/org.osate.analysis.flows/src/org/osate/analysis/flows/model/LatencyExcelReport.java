@@ -111,7 +111,8 @@ public class LatencyExcelReport {
 					// Excel has a length limitation of 31 characters for worksheet name
 					// adjust the name to keep worksheet name unique
 					if (sheetName != null && sheetName.length() > 31) {
-						sheetName = sheetName.substring(0, 30) + (i++);
+						String s = String.valueOf(i++);
+						sheetName = sheetName.substring(0, 31 - s.length()) + s;
 					}
 
 					WritableSheet sheet = workbook.createSheet(sheetName, sheetNumber);
