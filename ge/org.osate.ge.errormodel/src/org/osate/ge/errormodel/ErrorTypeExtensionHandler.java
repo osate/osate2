@@ -32,6 +32,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanCopyContext;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleter;
@@ -89,6 +90,11 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 	}
 
 	@Override
+	public boolean canCopy(final CanCopyContext ctx) {
+		return false;
+	}
+
+	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final QueryService queryService = ctx.getQueryService();
@@ -134,7 +140,7 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 			// Not supported. Package was not contained in the diagram.
 			return null;
 		} else {
-			return queryService.getFirstResult(dstQuery, boc);
+			return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
 		}
 	}
 

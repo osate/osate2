@@ -26,7 +26,6 @@ package org.osate.ge.errormodel.ui.palette;
 import java.util.Optional;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.AadlPackage;
 import org.osate.ge.ProjectUtil;
@@ -41,12 +40,13 @@ import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.swt.selectors.FilteringSelectorDialog;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 public class CreateTypeSetAliasPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateTypeSetAliasPaletteCommand() {
-		super("Error Type Set Alias", ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super("Error Type Set Alias", ErrorModelPaletteCategories.ERROR_TYPES, null);
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class CreateTypeSetAliasPaletteCommand extends BasePaletteCommand impleme
 			final TypeSet typeSet = (TypeSet) model.getSelectedElement().getEObjectOrProxy();
 			return Optional.of(typeSet);
 		}, (lib, typeSetToAlias) -> {
-			final TypeSet newTypeSet = (TypeSet) EcoreUtil.create(ErrorModelPackage.eINSTANCE.getTypeSet());
+			final TypeSet newTypeSet = ErrorModelFactory.eINSTANCE.createTypeSet();
 			final String newTypeSetName = ErrorModelNamingUtil.buildUniqueIdentifier(lib, "new_error_type_set_alias");
 			newTypeSet.setName(newTypeSetName);
 			newTypeSet.setAliasedType(typeSetToAlias);

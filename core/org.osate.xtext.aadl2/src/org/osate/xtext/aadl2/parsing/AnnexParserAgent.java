@@ -52,13 +52,13 @@ import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter.Message;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
-import org.osate.annexsupport.AnnexParseUtil;
 import org.osate.annexsupport.AnnexParser;
 import org.osate.annexsupport.AnnexParserRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexResolver;
 import org.osate.annexsupport.AnnexResolverRegistry;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.annexsupport.ParseResultHolder;
 import org.osate.xtext.aadl2.Activator;
 
 import antlr.RecognitionException;
@@ -196,7 +196,7 @@ public class AnnexParserAgent extends LazyLinker {
 						parseErrReporter);
 				if(defaultAnnexSection instanceof AnnexSubclause)
 					AnnexUtil.setCurrentAnnexSubclause(null);
-				if (AnnexParseUtil.saveParseResult(defaultAnnexSection) == null) {
+				if (ParseResultHolder.Factory.INSTANCE.adapt(defaultAnnexSection).getParseResult() == null) {
 					// Only consume messages for non-Xtext annexes
 					consumeMessages(parseErrReporter, diagnosticsConsumer, annexText, line, offset);
 				}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contexts>
+   <context id="help_dialog">
+      <description>This dialog provides information about how to use the Model Statistics analyses.</description>
+      <topic label="Using Model Statistics"/>
+   </context>
+</contexts>

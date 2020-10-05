@@ -26,7 +26,6 @@ package org.osate.ge.errormodel.ui.palette;
 import java.util.Optional;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.AadlPackage;
 import org.osate.ge.ProjectUtil;
@@ -41,12 +40,13 @@ import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.swt.selectors.FilteringSelectorDialog;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class CreateTypeAliasPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateTypeAliasPaletteCommand() {
-		super("Error Type Alias", ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super("Error Type Alias", ErrorModelPaletteCategories.ERROR_TYPES, null);
 	}
 
 	@Override
@@ -67,8 +67,7 @@ public class CreateTypeAliasPaletteCommand extends BasePaletteCommand implements
 			return Optional.of(errorType);
 		}, (lib, aliasedType) -> {
 			// Type aliases are just error types with an alias set. Create a new type and set the aliased type
-			final ErrorType newErrorTypeAlias = (ErrorType) EcoreUtil
-					.create(ErrorModelPackage.eINSTANCE.getErrorType());
+			final ErrorType newErrorTypeAlias = ErrorModelFactory.eINSTANCE.createErrorType();
 			final String newErrorTypeName = ErrorModelNamingUtil.buildUniqueIdentifier(lib, "new_error_type_alias");
 			newErrorTypeAlias.setName(newErrorTypeName);
 			newErrorTypeAlias.setAliasedType(aliasedType);

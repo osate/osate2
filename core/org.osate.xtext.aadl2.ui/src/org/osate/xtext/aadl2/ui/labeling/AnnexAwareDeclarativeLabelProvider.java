@@ -31,8 +31,8 @@ import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.ui.label.DeclarativeLabelProvider;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 import org.eclipse.xtext.util.PolymorphicDispatcher.ErrorHandler;
-import org.osate.annexsupport.AnnexParseUtil;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.annexsupport.ParseResultHolder;
 
 import com.google.inject.ConfigurationException;
 import com.google.inject.Injector;
@@ -88,7 +88,7 @@ public class AnnexAwareDeclarativeLabelProvider extends DeclarativeLabelProvider
 
 			if (annexRoot != null) {
 				// delegate to annex specific outline tree provider
-				IParseResult annexParseResult = AnnexParseUtil.getParseResult(modelElement);
+				IParseResult annexParseResult = ParseResultHolder.Factory.INSTANCE.adapt(modelElement).getParseResult();
 				if (annexParseResult != null) {
 					Injector injector = AnnexUtil.getInjector(annexParseResult);
 					if (injector != null) {
