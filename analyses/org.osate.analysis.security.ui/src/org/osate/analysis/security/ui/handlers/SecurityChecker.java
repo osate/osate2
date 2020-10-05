@@ -52,6 +52,7 @@ import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
+import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
 public final class SecurityChecker extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
@@ -135,15 +136,23 @@ public final class SecurityChecker extends AbstractInstanceOrDeclarativeModelRea
 		final SecurityLabelChecker checker = new SecurityLabelChecker(null);
 		AnalysisResult analysisResult = checker.invoke(root);
 
+		int errors = 0;
+		int warnings = 0;
+
 		for (Result result : analysisResult.getResults()) {
 			for (Diagnostic diag : result.getDiagnostics()) {
 				if (diag.getDiagnosticType() == DiagnosticType.ERROR) {
 					error((Element) diag.getModelElement(), diag.getMessage());
+					errors += 1;
 				} else if (diag.getDiagnosticType() == DiagnosticType.WARNING) {
 					warning((Element) diag.getModelElement(), diag.getMessage());
+					warnings += 1;
 				}
 			}
 		}
 		monitor.done();
+
+		Dialog.showInfo("Security Label Checking Result",
+				"Detected " + errors + " errors and " + warnings + " warnings.\nSee Problems view for details.");
 	}
 }
