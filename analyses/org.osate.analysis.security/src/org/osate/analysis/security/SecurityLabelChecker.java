@@ -132,7 +132,10 @@ public class SecurityLabelChecker {
 				FeatureInstance src = fsi.getSource();
 				FeatureInstance dst = fsi.getDestination();
 
-				checkValidFlow(fsi, src, dst);
+				// ignore flow sources and sinks
+				if (src != null && dst != null) {
+					checkValidFlow(fsi, src, dst);
+				}
 			}
 			return DONE;
 		}
