@@ -11,25 +11,15 @@ Occasionally it may be necessary to "override" a contribution, for example to cu
 
 ![Contributed Resources Preference Pane](images/AdvancedOSATEFeatures/ContributedResourcesPreferencePane.png)
 
-The pane is divided into two sections:
+The top of the pane shows a tree that closely mimics the sub-tree shown below the `Plug-in Contributions` item in the `AADL Navigator`.  Selecting an item in the tree shows the Xtext URI of the contributed resource.  
+Double-clicking on an item or pressing the `Override` button brings up a selection dialog box.  This dialog is used to select an resource in the workspace that will be used to override the plug-in contributed resource.
+The overriding resource must have the same filename as the original resource; the selection dialog only shows those files in the workspace that have the same name.  The below selection dialog shows the a replacement 
+resource for `AADL_Project` being selected:
 
-1. _A section listing all the plug-in contributions._  Here you can uncheck those contributions that you wish to ignore.
-2. _A section allowing the management of workspace contributions._  Here you can add and remove files from the workspace.  Files listed here become global contributions to the workspace, and do not need to be copied to your project to be referenced.
+![Selecting a Replacement Resource from the Workspace](images/AdvancedOSATEFeatures/Selection.png)
 
-The idea is that if you need to override a plug-in contribution, you would
+When a contributed resource is overridden, the tree marks it as such, and the URI shows the workspace URi of the overriding resource:
 
-1. Copy it into a new project in your workspace.
-2. Modify the copy as necessary.
-3. Uncheck the plug-in contribution in the preferences.
-4. Add the workspace copy to the workspace contributions in the preference pane.
+![An Overridden Resource](images/AdvancedOSATEFeatures/Contributed2.png)
 
-The preference pane will not allow you contribute multiple resources with the same name.
-
-The preference pane below shows that the `AADL_Projects` property set has been been replaced by a copy in the workspace, and that an additional property set `Other` has been contributed.
-
-![Contributed Resources Preference Pane](images/AdvancedOSATEFeatures/ContributedResourcesExample.png)
-
-The changes to the contributed resources are reflected in the `AADL Navigator` view.  The list of resources under `Plug-in Contributions` no longer shows the resource `AADL_Project.aadl` (it would be under the `Predeclared_Property_Sets` folder).  Additionally, a new heading `Workspace Contributions` is present, and it shows the contributed `AADL_Project.aadl` and `Other.aadl` resources.  (The `Workspace Contributions` heading is only visible when such contributions exist.)
-
-![Contributed Resources Preference Pane](images/AdvancedOSATEFeatures/AADLNavigator_WorkspaceContributions.png)
- 
+To restore an overridden resource to its original contributed URI, select it in the tree and press the "Restore" button. 

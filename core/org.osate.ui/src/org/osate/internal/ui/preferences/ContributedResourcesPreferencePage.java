@@ -496,7 +496,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		}
 
 		public String getLabel() {
-			return (this.overridden ? "[Overriden] " : "") + this.label;
+			return (this.overridden ? "[Overridden] " : "") + this.label;
 		}
 
 		public List<TreeNode> getNode() {
