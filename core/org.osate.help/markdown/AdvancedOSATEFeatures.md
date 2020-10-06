@@ -18,7 +18,7 @@ resource for `AADL_Project` being selected:
 
 ![Selecting a Replacement Resource from the Workspace](images/AdvancedOSATEFeatures/Selection.png)
 
-When a contributed resource is overridden, the tree marks it as such, and the URI shows the workspace URi of the overriding resource:
+When a contributed resource is overridden, the tree marks it as such, and the URI shows the workspace URI of the overriding resource:
 
 ![An Overridden Resource](images/AdvancedOSATEFeatures/Contributed2.png)
 
