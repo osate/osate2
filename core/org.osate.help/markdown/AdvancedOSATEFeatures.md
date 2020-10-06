@@ -13,7 +13,7 @@ Occasionally it may be necessary to "override" a contribution, for example to cu
 
 The top of the pane shows a tree that closely mimics the sub-tree shown below the `Plug-in Contributions` item in the `AADL Navigator`.  Selecting an item in the tree shows the Xtext URI of the contributed resource.  
 Double-clicking on an item or pressing the `Override` button brings up a selection dialog box.  This dialog is used to select an resource in the workspace that will be used to override the plug-in contributed resource.
-The overriding resource must have the same filename as the original resource; the selection dialog only shows those files in the workspace that have the same name.  The below selection dialog shows the a replacement 
+The overriding resource must have the same filename as the original resource; the selection dialog only shows those files in the workspace that have the same name.  The below selection dialog shows the replacement 
 resource for `AADL_Project` being selected:
 
 ![Selecting a Replacement Resource from the Workspace](images/AdvancedOSATEFeatures/Selection.png)
