@@ -1485,25 +1485,30 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						if (i <= flow.getOwnedFlowSegments().size() - 2) {
 							FlowSegment flowSegment = flow.getOwnedFlowSegments().get(i + 1);
 							FlowElement nextElem = flowSegment.getFlowElement();
+
 							if (nextElem instanceof FlowSpecification) {
 								FlowSpecification nextFlowSegment = (FlowSpecification) nextElem;
 								inEnd = nextFlowSegment.getAllInEnd();
 								if (Aadl2Util.isNull(inEnd)) {
 									return;
 								}
-								if (ce instanceof Feature && nextFlowSegment.getKind() == FlowKind.PATH) {
+								if (ce instanceof Feature) {
 									String segmentName = flowSegment.getContext().getName();
 									String connectedName = connectedElement.getContext().getName();
-
-									if (!segmentName.equals(connectedName)
-											|| !isMatchingConnectionPoint(flowSegment.getContext(), inEnd.getFeature(),
-											inEnd.getContext(), connectedElement)) {
-										error(flow.getOwnedFlowSegments().get(i), "The destination of connection '"
-												+ connection.getName()
-												+ "' does not match the in flow feature of the succeeding subcomponent flow specification '"
-												+ flow.getOwnedFlowSegments().get(i + 1).getContext().getName() + '.'
-												+ nextFlowSegment.getName() + '\'');
-									}
+									if ((!segmentName.equals(connectedName)
+											&& !(ce instanceof Parameter)
+											&& (flowSegment.getContext() instanceof Subcomponent
+											&& !(((Subcomponent) flowSegment.getContext())
+															.getSubcomponentType() instanceof Prototype)))
+												|| !isMatchingConnectionPoint(flowSegment.getContext(),
+														inEnd.getFeature(), inEnd.getContext(), connectedElement)) {
+//
+											error(flow.getOwnedFlowSegments().get(i), "The destination of connection '"
+													+ connection.getName()
+													+ "' does not match the in flow feature of the succeeding subcomponent flow specification '"
+													+ flow.getOwnedFlowSegments().get(i + 1).getContext().getName()
+													+ '.' + nextFlowSegment.getName() + '\'');
+										}
 								}
 							}
 						}
@@ -1519,8 +1524,12 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						}
 						if (!isMatchingConnectionPoint(flowSegment.getContext(), outEnd.getFeature(),
 								outEnd.getContext(), connectedElement)
-								|| !connectedElement.getContext().getName()
-										.equals(flowSegment.getContext().getName())) {
+								|| (!connectedElement.getContext().getName().equals(flowSegment.getContext().getName())
+										&& !(ce instanceof Parameter)
+										&& (flowSegment.getContext() instanceof Subcomponent)
+										&& !(((Subcomponent) flowSegment.getContext())
+												.getSubcomponentType() instanceof Prototype))
+						) {
 							boolean noMatch = false;
 							if (connection.isAllBidirectional()) {
 								didReverse = true;
@@ -1599,10 +1608,17 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 							return;
 						}
 						if (ce instanceof Feature) {
+//							error(flow.getOwnedFlowSegments().get(i),
+//									" " + ((((Subcomponent) flowSegment.getContext() instanceof Prototype))
+//											&& !(ce instanceof Parameter)));
+
 							if (!isMatchingConnectionPoint(flowSegment.getContext(), inEnd.getFeature(),
 									inEnd.getContext(), connectedElement)
-									|| !connectedElement.getContext().getName()
-											.equals(flowSegment.getContext().getName())) {
+									|| (!connectedElement.getContext().getName()
+											.equals(flowSegment.getContext().getName())
+											&& ((flowSegment.getContext() instanceof Subcomponent)
+													&& !((Subcomponent) flowSegment.getContext() instanceof Prototype))
+											&& !(ce instanceof Parameter))) {
 								error(flow.getOwnedFlowSegments().get(i), "The destination of connection '"
 										+ connection.getName()
 										+ "' does not match the in flow feature of the succeeding subcomponent flow specification '"
