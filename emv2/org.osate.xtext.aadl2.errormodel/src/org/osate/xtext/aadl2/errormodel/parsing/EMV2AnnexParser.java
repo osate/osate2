@@ -67,5 +67,9 @@ public class EMV2AnnexParser implements AnnexParser {
 				getGrammarAccess().getErrorModelSubclauseRule(), filename, line, column, errReporter);
 		return eas;
 	}
-
+	
+	@Override
+	public String getFileExtension() {
+		return "emv2";
+	}
 }
