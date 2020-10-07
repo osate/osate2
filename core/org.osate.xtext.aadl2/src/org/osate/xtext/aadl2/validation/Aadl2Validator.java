@@ -1608,10 +1608,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 							return;
 						}
 						if (ce instanceof Feature) {
-//							error(flow.getOwnedFlowSegments().get(i),
-//									" " + ((((Subcomponent) flowSegment.getContext() instanceof Prototype))
-//											&& !(ce instanceof Parameter)));
-
 							if (!isMatchingConnectionPoint(flowSegment.getContext(), inEnd.getFeature(),
 									inEnd.getContext(), connectedElement)
 									|| (!connectedElement.getContext().getName()
