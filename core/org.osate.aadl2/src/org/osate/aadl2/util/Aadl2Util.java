@@ -154,9 +154,9 @@ public class Aadl2Util {
 		}
 		for (ModeInstance mode : som.getCurrentModes()) {
 			if (members.isEmpty()) {
-				members = mode.getComponentInstancePath();
+				members = "\"" + mode.getComponentInstancePath() + "\"";
 			} else {
-				members = members + ", " + mode.getComponentInstancePath();
+				members = members + ", \"" + mode.getComponentInstancePath() + "\"";
 			}
 		}
 		return "(" + members + ")";
