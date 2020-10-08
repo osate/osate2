@@ -39,7 +39,7 @@ class FilterByPredicate extends DefaultQuery {
 	}
 	
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResults result) {
 		// Set filter arguments
 		ExpressionArguments filterArgs = (ExpressionArguments)state.cache.get(this);
 		if(filterArgs == null) {

@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.categories.ui" version="2">
-    <resource path="src-gen/org/osate/categories/ui/contentassist/antlr/PartialCategoriesContentAssistParser.java" type="org.osate.categories.ui.contentassist.antlr.PartialCategoriesContentAssistParser">
-        <filter comment="xtext" id="576725006">
+    <resource path="src-gen/org/osate/categories/ide/contentassist/antlr/CategoriesParser.java" type="org.osate.categories.ide.contentassist.antlr.CategoriesParser">
+        <filter comment="Xtext generated code" id="1110441988">
             <message_arguments>
-                <message_argument value="IPartialContentAssistParser"/>
-                <message_argument value="PartialCategoriesContentAssistParser"/>
+                <message_argument value="org.osate.categories.ide.contentassist.antlr.CategoriesParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/categories/ide/contentassist/antlr/PartialCategoriesContentAssistParser.java" type="org.osate.categories.ide.contentassist.antlr.PartialCategoriesContentAssistParser">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.categories.ide.contentassist.antlr.PartialCategoriesContentAssistParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/categories/ide/contentassist/antlr/internal/InternalCategoriesLexer.java" type="org.osate.categories.ide.contentassist.antlr.internal.InternalCategoriesLexer">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.categories.ide.contentassist.antlr.internal.InternalCategoriesLexer"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/categories/ide/contentassist/antlr/internal/InternalCategoriesParser.java" type="org.osate.categories.ide.contentassist.antlr.internal.InternalCategoriesParser">
+        <filter comment="Xtext generated code" id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.categories.ide.contentassist.antlr.internal.InternalCategoriesParser"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/categories/ui/internal/CategoriesActivator.java" type="org.osate.categories.ui.internal.CategoriesActivator">
+        <filter comment="Xtext generated code" id="1143996420">
+            <message_arguments>
+                <message_argument value="PLUGIN_ID"/>
             </message_arguments>
         </filter>
     </resource>

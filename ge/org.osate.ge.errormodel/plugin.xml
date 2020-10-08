@@ -24,9 +24,6 @@ censes only apply to the Third Party Software and not any other portion of this 
 -->
 <?eclipse version="3.4"?>
 <plugin>
-	<extension point="org.osate.ge.referenceResolvers">
-	   <factory class="org.osate.ge.errormodel.ErrorModelReferenceResolver$Factory" />
-	</extension>
    <extension
          point="org.osate.ge.businessObjectHandlers">
       <handler
@@ -61,6 +58,21 @@ censes only apply to the Third Party Software and not any other portion of this 
       </handler>
 	  <handler
             class="org.osate.ge.errormodel.TypeSetHandler">
+      </handler>
+	  <handler
+            class="org.osate.ge.errormodel.KeywordPropagationPointHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.PropagationPointHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.ErrorPropagationHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.PropagationPathHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.ErrorFlowHandler">
       </handler>
    </extension>
    <extension point="org.osate.ge.paletteContributors">
@@ -98,6 +110,21 @@ censes only apply to the Third Party Software and not any other portion of this 
       <contentFilter
             class="org.osate.ge.errormodel.filters.TypeSetFilter">
       </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.PropagationPointFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.KeywordPropagationPointFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorPropagationFilter">
+      </contentFilter>
+            <contentFilter
+            class="org.osate.ge.errormodel.filters.PropagationPathFilter">
+      </contentFilter>
+            <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorFlowFilter">
+      </contentFilter>
       <fundamentalContentFilter
             class="org.osate.ge.errormodel.filters.FundamentalErrorBusinessObjectFilter">
       </fundamentalContentFilter>
@@ -131,6 +158,13 @@ censes only apply to the Third Party Software and not any other portion of this 
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
+		       afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.errormodel.ui.properties.ErrorPropagationPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorPropagationPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorPropagation"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
                class="org.osate.ge.errormodel.ui.properties.ErrorBehaviorStatePropertySection"
                filter="org.osate.ge.errormodel.ui.properties.ErrorBehaviorStatePropertySection$Filter"
                id="org.osate.ge.errormodel.propertySections.errorBehaviorState"
@@ -142,6 +176,34 @@ censes only apply to the Third Party Software and not any other portion of this 
                id="org.osate.ge.errormodel.propertySections.transitionBranch"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.errormodel.ui.properties.ErrorFlowPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorFlowPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorFlow"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.errormodel.propertySections.errorFlow"
+               class="org.osate.ge.errormodel.ui.properties.ErrorSourcePropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorSourcePropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorSource"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.errormodel.propertySections.errorFlow"
+               class="org.osate.ge.errormodel.ui.properties.ErrorPathPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorPathPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorPath"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.prototypesPropertySection"
+               class="org.osate.ge.errormodel.ui.properties.ErrorModelSubclausePropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorModelSubclausePropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorModelSubclause"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
          </propertySections>
          </extension>
     <extension
@@ -151,4 +213,13 @@ censes only apply to the Third Party Software and not any other portion of this 
              priority="5">
        </tooltipContributor>
     </extension>
+   <extension
+         point="org.osate.ge.diagramTypes">
+      <diagramType
+            class="org.osate.ge.errormodel.diagramtypes.ErrorLibraryDiagramType">
+      </diagramType>
+      <diagramType
+            class="org.osate.ge.errormodel.diagramtypes.ErrorFlowDiagramType">
+      </diagramType>
+   </extension>
 </plugin>

@@ -63,6 +63,7 @@ public final class ListEditor<T> extends Composite {
 		// Add and remove buttons
 		//
 		this.addButton = new Button(this, SWT.FLAT);
+		SwtUtil.setColorsToMatchParent(addButton);
 		this.addButton.setText("Add");
 		this.addButton
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.BEGINNING).create());
@@ -74,6 +75,7 @@ public final class ListEditor<T> extends Composite {
 		});
 
 		this.removeButton = new Button(this, SWT.FLAT);
+		SwtUtil.setColorsToMatchParent(removeButton);
 		this.removeButton.setText("Remove");
 		this.removeButton
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.BEGINNING).create());

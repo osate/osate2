@@ -26,15 +26,10 @@ package org.osate.annexsupport;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.nodemodel.INode;
@@ -47,20 +42,6 @@ import org.osate.aadl2.modelsupport.errorreporting.AbstractParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 
 public class AnnexParseUtil {
-
-	private static Map<String, IParseResult> parseResults = Collections
-			.synchronizedMap(new HashMap<String, IParseResult>());
-
-	/* Use ThreadLocal in case we use parallel build in the future */
-	private static ThreadLocal<IParseResult> lastParseResult = new ThreadLocal<IParseResult>();
-
-	/**
-	 * Must be called before parsing an annex
-	 */
-	public static void reset() {
-		lastParseResult.remove();
-	}
-
 	/**
 	 * Parse an annex.
 	 * Note: After parsing the returned element must be added to a default annex library/subclause
@@ -82,7 +63,9 @@ public class AnnexParseUtil {
 		try {
 			editString = genWhitespace(offset) + editString;
 			IParseResult parseResult = parser.parse(parserRule, new StringReader(editString));
-			lastParseResult.set(parseResult);
+			ParseResultHolder parseResultHolder = ParseResultHolder.Factory.INSTANCE
+					.adapt(parseResult.getRootASTElement());
+			parseResultHolder.setParseResult(parseResult);
 
 			if (parseResult.getRootASTElement() != null) {
 				if (parseResult.hasSyntaxErrors()) {
@@ -94,24 +77,6 @@ public class AnnexParseUtil {
 			AnnexPlugin.logError(exc);
 			return null;
 		}
-	}
-
-	public static IParseResult getParseResult(EObject annexObject) {
-		EObject defaultAnnexObject = annexObject.eContainer();
-		URI uri = EcoreUtil.getURI(defaultAnnexObject);
-		return parseResults.get(uri.toString());
-	}
-
-	/**
-	 * This method must be called after parsing with the DefaultAnnexLibrary or
-	 * DefaultAnnexSubclasue that contains the parsed annex library/subclause.
-	 *
-	 * @param defaultAnnexObject
-	 * @return
-	 */
-	public static IParseResult saveParseResult(EObject defaultAnnexObject) {
-		URI uri = EcoreUtil.getURI(defaultAnnexObject);
-		return parseResults.put(uri.toString(), lastParseResult.get());
 	}
 
 	public static String genWhitespace(int length) {

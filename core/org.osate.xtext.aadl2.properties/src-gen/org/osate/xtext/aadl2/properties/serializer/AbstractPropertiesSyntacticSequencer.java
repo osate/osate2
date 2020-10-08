@@ -63,7 +63,7 @@ public abstract class AbstractPropertiesSyntacticSequencer extends AbstractSynta
 	protected String getAppliesToKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
-		return "appliesto";
+		return "applies to";
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public abstract class AbstractPropertiesSyntacticSequencer extends AbstractSynta
 	protected String getInBindingKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
-		return "inbinding";
+		return "in binding";
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public abstract class AbstractPropertiesSyntacticSequencer extends AbstractSynta
 	protected String getInModesKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
-		return "inmodes";
+		return "in modes";
 	}
 	
 	@Override
