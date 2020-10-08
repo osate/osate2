@@ -38,6 +38,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
@@ -1211,8 +1212,14 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			final FlowSpecificationInstance fsi = (FlowSpecificationInstance) fei;
 			final FlowEnd allInEnd = fsi.getFlowSpecification().getAllInEnd();
 			if (allInEnd != null) { // we have an input feature
-				final FeatureInstance fi = ci.findFeatureInstance(allInEnd.getFeature());
-				if (propertyTester.apply(fi)) { // (GetProperties.hasComputeExecutionTime(fi)) {
+				FeatureInstance fi = null;
+				if (allInEnd.getContext() instanceof FeatureGroup) {
+					FeatureInstance fgi = ci.findFeatureInstance((FeatureGroup) allInEnd.getContext());
+					fi = fgi.findFeatureInstance(allInEnd.getFeature());
+				} else {
+					fi = ci.findFeatureInstance(allInEnd.getFeature());
+				}
+				if (propertyTester.apply(fi)) {
 					return getExecTime.apply(fi);
 				}
 			}

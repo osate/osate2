@@ -61,7 +61,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	 * issue.getData()[0]: The URI of the StakeHoldersGoals
 	 */
 	@Fix(ReqSpecValidator.DUPLICATE_GOAL_WITHIN_STAKEHOLDER_GOALS)
-	def public void fixDuplicateGoal(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixDuplicateGoal(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Remove goal", null, null,
 				new ISemanticModification() {
 
@@ -82,13 +82,13 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 */
 	@Fix(ReqSpecValidator.DUPLICATE_STAKEHOLDER_GOALS)
-	def public void fixDuplicateStakeholderGoals(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixDuplicateStakeholderGoals(Issue issue, IssueResolutionAcceptor acceptor) {
 		val offset = Integer.parseInt(issue.getData().get(0))
 		val length = Integer.parseInt(issue.getData().get(1))
 
 		acceptor.accept(issue, "Remove StakeholderGoals", null, null, 
 			new IModification() {
-				override public void apply(IModificationContext context) throws Exception {
+				override void apply(IModificationContext context) throws Exception {
 					context.getXtextDocument().replace(offset, length, "");
 			}
 		});
@@ -101,7 +101,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	 * issue.getData()[2]: the uri of what it needs changed to
 	 */
 	@Fix(ReqSpecValidator.REQSPEC_FOR_DIFFERS_FROM_STAKEHOLDERGOALS_FOR)
-	def public void fixDifferingFor(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixDifferingFor(Issue issue, IssueResolutionAcceptor acceptor) {
 		val fromName = issue.getData().get(0)
 		val toName = issue.getData().get(1)
 		val fromURI = issue.getData().get(2)
@@ -129,13 +129,13 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 */
 	@Fix(ReqSpecValidator.DUPLICATE_REQUIREMENTS)
-	def public void fixDuplicateSystemRequirements(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixDuplicateSystemRequirements(Issue issue, IssueResolutionAcceptor acceptor) {
 		val offset = Integer.parseInt(issue.getData().get(0))
 		val length = Integer.parseInt(issue.getData().get(1))
 
 		acceptor.accept(issue, "Remove SystemsRequirement", null, null, 
 			new IModification() {
-				override public void apply(IModificationContext context) throws Exception {
+				override void apply(IModificationContext context) throws Exception {
 					context.getXtextDocument().replace(offset, length, "")
 			}
 		});
@@ -147,7 +147,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	 * issue.getData()[0]: The URI of the StakeHoldersGoals
 	 */
 	@Fix(ReqSpecValidator.DUPLICATE_REQUIREMENT_WITHIN_REQUIREMENTS)
-	def public void fixDuplicateRequirement(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixDuplicateRequirement(Issue issue, IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Remove requirement", null, null,
 				new ISemanticModification() {
 
@@ -169,7 +169,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 */
 	@Fix(ReqSpecValidator.CYCLE_IN_GOAL_REFINE_HIERARCHY)
-	def public void fixCycleInGoalRefineHierarchy(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixCycleInGoalRefineHierarchy(Issue issue, IssueResolutionAcceptor acceptor) {
 		val refinedGoalName = issue.getData().head
 		val refinedGoalURI = issue.getData().get(1)
 
@@ -193,7 +193,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 */
 	@Fix(ReqSpecValidator.CYCLE_IN_REQUIREMENT_REFINE_HIERARCHY)
-	def public void fixCycleInRequiremntRefineHierarchy(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixCycleInRequiremntRefineHierarchy(Issue issue, IssueResolutionAcceptor acceptor) {
 		val refinedReqName = issue.getData().head
 		val refinedReqURI = issue.getData().get(1)
 
@@ -216,7 +216,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 */
 	@Fix(ReqSpecValidator.ILLEGAL_OBJECT_FOR_FILETYPE_IN_DOCUMENTSECTION)
-	def public void fixIllegalObjectForFileTypeInDocumentSection(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixIllegalObjectForFileTypeInDocumentSection(Issue issue, IssueResolutionAcceptor acceptor) {
 		val elementType = issue.getData().head
 		val sectionURI = issue.getData().get(1)
 
@@ -240,7 +240,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 */
 	@Fix(ReqSpecValidator.ILLEGAL_OBJECT_FOR_FILETYPE_IN_REQDOCUMENT)
-	def public void fixIllegalObjectForFileTypeInReqDocument(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixIllegalObjectForFileTypeInReqDocument(Issue issue, IssueResolutionAcceptor acceptor) {
 		val elementType = issue.getData().head
 		val reqDocURI = issue.getData().get(1)
 
@@ -264,7 +264,7 @@ class ReqSpecQuickfixProvider extends DefaultQuickfixProvider {
 	 * 
 	 */
 	@Fix(ReqSpecValidator.ILLEGAL_OBJECT_FOR_FILETYPE_IN_REQSPEC)
-	def public void fixIllegalObjectForFileTypeInReqSpec(Issue issue, IssueResolutionAcceptor acceptor) {
+	def void fixIllegalObjectForFileTypeInReqSpec(Issue issue, IssueResolutionAcceptor acceptor) {
 		val elementType = issue.getData().head
 		val reqSpecURI = issue.getData().get(1)
 

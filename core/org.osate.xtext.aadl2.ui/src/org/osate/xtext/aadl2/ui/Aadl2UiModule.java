@@ -163,5 +163,4 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 	public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
 		return Aadl2EObjectHoverProvider.class;
 	}
-
 }

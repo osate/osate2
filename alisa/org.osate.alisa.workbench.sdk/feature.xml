@@ -2,7 +2,7 @@
 <feature
       id="org.osate.alisa.workbench.sdk"
       label="ALISA Requirement Specification and Verification"
-      version="3.0.3.qualifier"
+      version="4.0.0.qualifier"
       license-feature="org.osate.license"
       license-feature-version="1.0.0.qualifier">
 

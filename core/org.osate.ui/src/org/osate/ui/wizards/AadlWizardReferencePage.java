@@ -25,7 +25,6 @@ package org.osate.ui.wizards;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
@@ -66,13 +65,11 @@ public class AadlWizardReferencePage extends WizardNewProjectReferencePage {
 					} catch (CoreException e) {
 						MessageDialog.openError(getShell(), "Project Problems", //$NON-NLS-1$
 								MessageFormat.format("Project does not exist or is not open",
-										Arrays.toString(e.getStackTrace())));
+										e.getStackTrace() != null ? e.getStackTrace().toString() : ""));
 					}
 				}
 
 				return projectsWithNatures.toArray();
-
-				// return projects == null ? new Object[0] : projects;
 			}
 		};
 	}

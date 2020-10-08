@@ -24,19 +24,19 @@
 module org.osate.xtext.aadl2.properties.Properties
 
 import org.eclipse.emf.mwe.utils.*
-import org.eclipse.xtext.generator.*
-import org.eclipse.xtext.ui.generator.*
+import org.eclipse.xtext.xtext.generator.*
+import org.eclipse.xtext.xtext.generator.model.project.*
 
-var grammarURI = "classpath:/org/osate/xtext/aadl2/properties/Properties.xtext"
-var file.extensions = "aapl2"
 var projectName = "org.osate.xtext.aadl2.properties"
 var runtimeProject = "../${projectName}"
+var fileHeader =
+"/**\n * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). \n * All Rights Reserved.\n * \n * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN \"AS-IS\" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY\n * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE\n * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT\n * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.\n * \n * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0\n * which is available at https://www.eclipse.org/legal/epl-2.0/\n * SPDX-License-Identifier: EPL-2.0\n * \n * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).\n * \n * This program includes and/or can make use of certain third party source code, object code, documentation and other\n * files (\"Third Party Software\"). The Third Party Software that is used by this program is dependent upon your system\n * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and\n * conditions contained in any such Third Party Software or separate license file distributed with such Third Party\n * Software. The parties who own the Third Party Software (\"Third Party Licensors\") are intended third party benefici-\n * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-\n * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.\n */"
 
 Workflow {
-    bean = StandaloneSetup {
-        scanClassPath = true
-        platformUri = "${runtimeProject}/.."
-        uriMap = {
+	bean = StandaloneSetup {
+		scanClassPath = true
+		platformUri = "${runtimeProject}/.."
+		uriMap = {
 			from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
 			to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
 		}
@@ -77,20 +77,19 @@ Workflow {
 			to = "platform:/resource/org.eclipse.uml2.uml/model/UML.ecore"
 		}
 		//
-        registerGeneratedEPackage = "org.eclipse.emf.ecore.EcorePackage"
-        registerGeneratedEPackage = "org.eclipse.uml2.types.TypesPackage"
-        registerGeneratedEPackage = "org.eclipse.uml2.uml.UMLPackage"
-        registerGeneratedEPackage = "org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage"
-        registerGeneratedEPackage = "org.eclipse.uml2.codegen.ecore.genmodel.GenModelPackage"
-        registerGenModelFile = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
-        registerGenModelFile = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
-        registerGenModelFile = "platform:/resource/org.eclipse.uml2.types/model/Types.genmodel"
-        registerGenModelFile = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
-        registerGenModelFile = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
-
+		registerGeneratedEPackage = "org.eclipse.emf.ecore.EcorePackage"
+		registerGeneratedEPackage = "org.eclipse.uml2.types.TypesPackage"
+		registerGeneratedEPackage = "org.eclipse.uml2.uml.UMLPackage"
+		registerGeneratedEPackage = "org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage"
+		registerGeneratedEPackage = "org.eclipse.uml2.codegen.ecore.genmodel.GenModelPackage"
+		registerGenModelFile = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.uml2.types/model/Types.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
 		registerGeneratedEPackage = "org.osate.aadl2.Aadl2Package"
 		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
-    }
+	}
 
 	component = DirectoryCleaner {
 		directory = "${runtimeProject}/src-gen"
@@ -100,118 +99,80 @@ Workflow {
 		directory = "${runtimeProject}.ui/src-gen"
 	}
 
-	component = Generator {
-		pathRtProject = runtimeProject
-		pathUiProject = "${runtimeProject}.ui"
-		projectNameRt = projectName
-		projectNameUi = "${projectName}.ui"
-		language = {
-			uri = grammarURI
-			fileExtensions = file.extensions
-
-			// Java API to access grammar elements (required by several other fragments)
-			fragment = grammarAccess.GrammarAccessFragment {}
-
-			// generates Java API for the generated EPackages 
-//			fragment = ecore.EcoreGeneratorFragment {
-//			 		referencedGenModels = "platform:/resource/edu.cmu.sei.aadl.aadl2/model/aadl2.genmodel"
-//			// referencedGenModels = "
-//			// 	platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel,
-//			// 	platform:/resource/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel
-//			// "
-//			}
-
-//			// the serialization component
-//			fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
-            // Serializer 2.0
-            fragment = serializer.SerializerFragment {}
-
-			// a custom ResourceFactory for use with EMF 
-			fragment = resourceFactory.ResourceFactoryFragment {
-				fileExtensions = file.extensions
+	component = XtextGenerator {
+		configuration = {
+			project = StandardProjectConfig {
+				baseName = projectName
+				rootPath = ".."
+				runtimeTest = {
+					enabled = false
+				}
+				genericIde = {
+					name = "${projectName}.ui"
+				}
+				eclipsePlugin = {
+					enabled = true
+				}
+				eclipsePluginTest = {
+					enabled = false
+				}
+				createEclipseMetaData = true
 			}
-
-			// The antlr parser generator fragment.
-//			fragment = parser.antlr.XtextAntlrGeneratorFragment {
-//			  options = {
-//					backtrack = true
-//				}
-//			}
-			fragment = parser.antlr.ex.rt.AntlrGeneratorFragment {
-    		options = {
-        		ignoreCase = true
-//					backtrack = true
+			code = {
+				preferXtendStubs = false
+				encoding = "UTF-8"
+				lineDelimiter = "\n"
+				fileHeader = fileHeader
+			}
+		}
+		language = XtextGeneratorLanguage {
+			name = "org.osate.xtext.aadl2.properties.Properties"
+			fileExtensions = "aapl2"
+			fragment = grammarAccess.GrammarAccessFragment2 {}
+			//fragment = ecore.EMFGeneratorFragment2 {}
+			fragment = serializer.SerializerFragment2 {}
+			fragment = resourceFactory.ResourceFactoryFragment2 {}
+			fragment = parser.antlr.XtextAntlrGeneratorFragment2 {
+				options = {
 					classSplitting = true
-    		}
-			}
-			
-			// java-based API for validation 
-			fragment = validation.JavaValidatorFragment {
-//				composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
-				composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
-				// registerForImportedPackages = true
-			}
-
-			// scoping and exporting API
-			// fragment = scoping.ImportURIScopingFragment {}
-			// fragment = exporting.SimpleNamesFragment {}
-
-			// scoping and exporting API 
-			fragment = scoping.ImportNamespacesScopingFragment {
-				generateXtendStub=true
-			}
-			fragment = exporting.QualifiedNamesFragment {}
-			fragment = builder.BuilderIntegrationFragment {}
-
-//			// generator API
-//			fragment = generator.GeneratorFragment {
-//				generateMwe = true
-//				generateJavaMain = true
-//			}
-			
-			// formatter API 
-			 fragment = formatting2.Formatter2Fragment {}
-
-			// labeling API 
-			fragment = labeling.LabelProviderFragment {}
-
-			// outline API 
-			fragment = outline.OutlineTreeProviderFragment {}
-			fragment = outline.QuickOutlineFragment {}
-
-			// quickfix API 
-			fragment = quickfix.QuickfixProviderFragment auto-inject {
-				generateXtendStub = true
-			}
-
-			// content assist API  
-			fragment = contentAssist.ContentAssistFragment {}
-			
-			// rename refactoring  
-			fragment = refactoring.RefactorElementNameFragment {}
-
-			// generates a more lightweight Antlr parser and lexer tailored for content assist  
-//			fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
-			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
-				    options = {
-        		ignoreCase = true
-//				backtrack = true
-			classSplitting = true
+					ignoreCase = true
 				}
 			}
-
-			// generates junit test support classes into Generator#pathTestProject
-//			fragment = junit.Junit4Fragment {}
-
-			// project wizard (optional) 
-			// fragment = projectWizard.SimpleProjectWizardFragment {
-			// 		generatorProjectName = "${projectName}.generator" 
-			//		modelFileExtension = file.extensions
-			// }
-			
-//			fragment = types.TypesGeneratorFragment {}
-//			// generates the required bindings only if the grammar inherits from Xbase
-//			fragment = xbase.XbaseGeneratorFragment {}
+			fragment = ecore2xtext.Ecore2XtextValueConverterServiceFragment2 {}
+			fragment = validation.ValidatorFragment2 {			
+				composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+			}
+			fragment = scoping.ImportNamespacesScopingFragment2 {
+				generateXtendStub = true
+				ignoreCase = true
+			}
+			fragment = exporting.QualifiedNamesFragment2 {}
+			fragment = builder.BuilderIntegrationFragment2 {}
+			//fragment = generator.GeneratorFragment2 {}
+			fragment = formatting.Formatter2Fragment2 {
+				generateXtendStub = true
+			}
+			fragment = ui.labeling.LabelProviderFragment2 {}
+			fragment = ui.outline.QuickOutlineFragment2 {}
+			fragment = ui.outline.OutlineTreeProviderFragment2 {}
+			fragment = ui.quickfix.QuickfixProviderFragment2 {
+				generateXtendStub = true
+			}
+			fragment = ui.contentAssist.ContentAssistFragment2 {
+				generateXtendStub = true
+			}
+			//fragment = junit.JunitFragment {}
+			fragment = ui.refactoring.RefactorElementNameFragment2 {}
+			//fragment = types.TypesGeneratorFragment2 {}
+			//fragment = xbase.XtypeGeneratorFragment2 {}
+			//fragment = xbase.XbaseGeneratorFragment2 {}
+			fragment = ui.templates.CodetemplatesGeneratorFragment2 {}
+			fragment = ui.compare.CompareFragment2 {}
+			//fragment = web.WebIntegrationFragment {
+			//	framework = "Ace"
+			//}
+			//fragment = ui.projectWizard.TemplateProjectWizardFragment {}
+			//fragment = ui.fileWizard.TemplateFileWizardFragment {}
 		}
 	}
 }

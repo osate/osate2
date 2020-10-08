@@ -31,6 +31,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanCopyContext;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
@@ -50,7 +51,8 @@ public class ErrorTypeHandler implements BusinessObjectHandler {
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(ErrorType.class).map(bo -> bo.getElementRoot() instanceof AadlPackage).isPresent();
+		return ctx.getBusinessObject(ErrorType.class).filter(bo -> bo.getElementRoot() instanceof AadlPackage)
+				.isPresent();
 	}
 
 	@Override
@@ -71,6 +73,11 @@ public class ErrorTypeHandler implements BusinessObjectHandler {
 	@Override
 	public boolean canDelete(final CanDeleteContext ctx) {
 		return true;
+	}
+
+	@Override
+	public boolean canCopy(final CanCopyContext ctx) {
+		return false;
 	}
 
 	@Override

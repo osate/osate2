@@ -1,0 +1,7 @@
+<contexts>
+	<context id="help_dialog" title="Help Dialog">
+		<description>This dialog provides information about importing an example project into your workspace.
+		</description>
+		<topic href="html/ImportWizard.html#introduction" label="Import an Example Project"/>
+	</context>
+</contexts>

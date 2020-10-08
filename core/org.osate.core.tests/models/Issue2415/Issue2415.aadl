@@ -1,0 +1,43 @@
+package Issue2415
+public
+			
+	abstract A
+		features
+			i: in data port;
+			o: out data port;
+		flows
+			fsrc: flow source o;
+			fpth: flow path i -> o;
+			fsnk: flow sink i;
+	end A;
+			
+	abstract implementation A.impl
+		subcomponents
+			mm1: abstract A;
+			mm2: abstract A;
+		connections
+			cml: port i -> mm1.i;
+			cmm: port mm1.o -> mm2.i;
+			cmr: port mm2.o -> o;
+		flows
+			--this one is ok
+			fpth: flow path i -> cml -> mm1.fpth -> cmm -> mm2.fpth -> cmr -> o;
+			fpth: flow path i -> cml -> mm1.fsrc -> cmm -> mm2.fpth -> cmr -> o; 
+			fpth: flow path i -> cml -> mm1.fsnk -> cmm -> mm2.fpth -> cmr -> o;
+			fpth: flow path i -> cml -> mm2.fsrc -> cmm -> mm2.fpth -> cmr -> o; 
+			fpth: flow path i -> cml -> mm2.fsnk -> cmm -> mm2.fpth -> cmr -> o;
+			-- this one is ok
+			fsrc: flow source mm2.fsrc -> cmr -> o; 
+			-- this one is ok
+			fsrc: flow source mm1.fsrc -> cmm -> mm2.fpth -> cmr -> o;
+			fsrc: flow source mm1.fsrc -> cmm -> mm2.fsrc -> cmr -> o; 
+			fsrc: flow source mm1.fsrc -> cmm -> mm2.fsnk -> cmr -> o;
+			-- this one is ok
+			fsnk: flow sink i -> cml -> mm1.fsnk;
+			-- this one is ok
+			fsnk: flow sink i -> cml -> mm1.fpth -> cmm -> mm2.fsnk; 
+			fsnk: flow sink i -> cml -> mm2.fsrc -> cmm -> mm2.fsnk; 
+			fsnk: flow sink i -> cml -> mm1.fsnk -> cmm -> mm2.fsnk;
+	end A.impl;
+	
+end Issue2415;

@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Tests
+Bundle-Name: Resource Analysis Tests
 Bundle-SymbolicName: org.osate.analysis.resource.budgets.tests
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: org.osate.analysis.resource.budgets.tests
@@ -12,3 +12,4 @@ Require-Bundle: com.google.guava,
  org.osate.results;bundle-version="1.0.0",
  org.osate.testsupport;bundle-version="1.0.0",
  org.osate.analysis.resource.budgets;bundle-version="3.0.0"
+Bundle-Vendor: CMU/SEI

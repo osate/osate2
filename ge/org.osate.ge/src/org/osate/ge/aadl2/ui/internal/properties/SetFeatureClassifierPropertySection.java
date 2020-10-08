@@ -100,6 +100,7 @@ import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.operations.Operation;
+import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osgi.framework.FrameworkUtil;
 
@@ -276,6 +277,8 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 					.getServiceContext(FrameworkUtil.getBundle(getClass()).getBundleContext());
 			final AadlModificationService aadlModService = Objects.requireNonNull(
 					context.getActive(AadlModificationService.class), "Unable to retrieve AADL modification service");
+			final ReferenceBuilderService referenceBuilder = Objects.requireNonNull(
+					context.getActive(ReferenceBuilderService.class), "Unable to retrieve reference builder service");
 
 			// Determine project to use
 			final IProject project = AgeAadlUtil.getCommonProject(features)
@@ -337,7 +340,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 				});
 
 				// Execute the operation
-				new OperationExecutor(aadlModService).execute(op);
+				new OperationExecutor(aadlModService, referenceBuilder).execute(op);
 			}
 		}
 	};
@@ -355,7 +358,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 
 		createBtn.setEnabled(
 				!features.isEmpty() && features.stream().allMatch(f -> f.eClass() == features.get(0).eClass())
-						&& AadlUiUtil.allHaveSameValidResourceSet(features)
+				&& AadlUiUtil.allHaveSameValidResourceSet(features)
 				&& AgeAadlUtil.getCommonProject(features).isPresent());
 	}
 
