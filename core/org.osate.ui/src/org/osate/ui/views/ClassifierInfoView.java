@@ -27,11 +27,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
@@ -43,6 +46,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.layout.TreeColumnLayout;
@@ -74,18 +78,46 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.GroupExtension;
+import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Prototype;
+import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.search.AadlFinder;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
 
 public final class ClassifierInfoView extends ViewPart {
-	public static final String VIEW_ID = "org.osate.ui.classifier_info_view";
+	private static final String UNNAMED = "<unnamed>";
 
+	private static final String CONNECTIONS_SECTION = "Connections";
+	private static final String CALLS_SECTION = "Calls";
+	private static final String PROCESSOR_FEATURES_SECTION = "Processor features";
+	private static final String INTERNAL_FEATURES_SECTION = "Internal features";
+	private static final String SUBCOMPONENTS_SECTION = "Subcomponents";
+	private static final String MODES_SECTION = "Modes";
+	private static final String FLOWS_SECTION = "Flows";
+	private static final String FEATURES_SECTION = "Features";
+	private static final String PROTOTYPES_SECTION = "Prototypes";
+
+	private static final String NO_PREFIX = "";
+	private static final String INVERSE_OF = "inverse of ";
+	private static final String IMPLEMENTS = "implements ";
+	private static final String EXTENDS = "extends ";
+	private static final String INVERTED_BY = "inverted by ";
+	private static final String IMPLEMENTED_BY = "implemented by ";
+	private static final String EXTENDED_BY = "extended by ";
+
+	private static final String AADL_ICON = "/icons/aadl.gif";
 	private static final String LINK_ICON = "icons/link_to_editor.png";
+
+	private static final String LINK_WITH_EDITOR_ACTION_NAME = "Link with Editor";
+
+	public static final String VIEW_ID = "org.osate.ui.classifier_info_view";
 
 	/**
 	 * The most recently selected element in the view, or <code>null</code> is there is no
@@ -95,6 +127,7 @@ public final class ClassifierInfoView extends ViewPart {
 	private Element lastSelectedElement = null;
 
 	private TreeViewer ancestorTree;
+	private TreeViewer descendantTree;
 	private TreeViewer memberTree;
 
 	private final ILabelProvider modelElementLabelProvider;
@@ -147,11 +180,12 @@ public final class ClassifierInfoView extends ViewPart {
 		final SashForm sash = new SashForm(parent, SWT.HORIZONTAL);
 
 		ancestorTree = createAncestorTree(sash);
+		descendantTree = createDescendantTree(sash);
 		memberTree = createMemberTree(sash);
 
-		final IAction syncWithEditorAction = new Action("Link with Editor", SWT.TOGGLE) {
+		final IAction syncWithEditorAction = new Action(LINK_WITH_EDITOR_ACTION_NAME, SWT.TOGGLE) {
 			{
-				setToolTipText("Link with Editor");
+				setToolTipText(LINK_WITH_EDITOR_ACTION_NAME);
 				setImageDescriptor(OsateUiPlugin.getImageDescriptor(LINK_ICON));
 				setChecked(syncWithEditor);
 			}
@@ -170,7 +204,7 @@ public final class ClassifierInfoView extends ViewPart {
 	@Override
 	public void init(final IViewSite site) throws PartInitException {
 		aadlImage = new Image(site.getShell().getDisplay(),
-				ClassifierInfoView.class.getResourceAsStream("/icons/aadl.gif"));
+				ClassifierInfoView.class.getResourceAsStream(AADL_ICON));
 		super.init(site);
 
 		rsrcListener = new Listener();
@@ -261,6 +295,84 @@ public final class ClassifierInfoView extends ViewPart {
 			gotoElement(selectedElement);
 			lastSelectedElement = selectedElement;
 		});
+
+		return treeViewer;
+	}
+
+	private TreeViewer createDescendantTree(final Composite parent) {
+		final Composite treeComposite = new Composite(parent, SWT.NONE);
+		final TreeColumnLayout treeColumnLayout = new TreeColumnLayout();
+		treeComposite.setLayout(treeColumnLayout);
+
+		final TreeViewer treeViewer = new TreeViewer(treeComposite, SWT.H_SCROLL | SWT.V_SCROLL);
+		treeViewer.getTree().setLinesVisible(false);
+		treeViewer.getTree().setHeaderVisible(false);
+		treeViewer.getTree().setFont(parent.getFont());
+
+		final TreeViewerColumn treeViewerCol = new TreeViewerColumn(treeViewer, SWT.LEFT);
+		treeColumnLayout.setColumnData(treeViewerCol.getColumn(), new ColumnWeightData(1, true));
+		treeViewerCol.setLabelProvider(new ColumnLabelProvider() {
+			@Override
+			public Image getImage(Object element) {
+				return ((DescendantTreeNode) element).getImage();
+			}
+
+			@Override
+			public String getText(final Object element) {
+				return ((DescendantTreeNode) element).getText();
+			}
+		});
+		treeViewer.setContentProvider(new ITreeContentProvider() {
+			@Override
+			public boolean hasChildren(final Object element) {
+				return ((DescendantTreeNode) element).hasChildren();
+			}
+
+			@Override
+			public Object getParent(final Object element) {
+				return ((DescendantTreeNode) element).getParent();
+			}
+
+			@Override
+			public Object[] getElements(final Object inputElement) {
+				if (inputElement != null) {
+					return ((DescendantTree) inputElement).getChildren();
+				} else {
+					return new Object[0];
+				}
+			}
+
+			@Override
+			public Object[] getChildren(final Object parentElement) {
+				return ((DescendantTreeNode) parentElement).getChildren();
+			}
+		});
+
+		// TODO: Update this
+//		treeViewer.addSelectionChangedListener(event -> {
+//			Element selectedElement = null;
+//			final ISelection selection = event.getSelection();
+//			if (selection instanceof IStructuredSelection) {
+//				final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+//				if (structuredSelection.size() == 1) {
+//					final AncestorTreeNode selectedNode = (AncestorTreeNode) structuredSelection.getFirstElement();
+//					selectedElement = selectedNode.getClassifier();
+//					if (syncWithEditor) {
+//						gotoElement(selectedElement);
+//					}
+//				}
+//			}
+//			lastSelectedElement = selectedElement;
+//		});
+
+		// TODO: Update this
+//		treeViewer.addDoubleClickListener(event -> {
+//			final IStructuredSelection selected = (IStructuredSelection) event.getSelection();
+//			final AncestorTreeNode selectedNode = (AncestorTreeNode) selected.getFirstElement();
+//			final Classifier selectedElement = selectedNode.getClassifier();
+//			gotoElement(selectedElement);
+//			lastSelectedElement = selectedElement;
+//		});
 
 		return treeViewer;
 	}
@@ -375,6 +487,11 @@ public final class ClassifierInfoView extends ViewPart {
 			classifierResources.clear();
 			ancestorTree.setInput(createAncestorTree(input));
 			ancestorTree.expandToLevel(2);
+
+			buildHierarchy(input);
+			descendantTree.setInput(buildHierarchy(input));
+			descendantTree.expandToLevel(2);
+
 			if (input instanceof ComponentType) {
 				memberTree.setInput(createMemberTree((ComponentType) input));
 				memberTree.expandToLevel(2);
@@ -448,21 +565,21 @@ public final class ClassifierInfoView extends ViewPart {
 	}
 
 	private AncestorTree createAncestorTree(final Classifier classifier) {
-		return new AncestorTree(createAncestorTreeNode(classifier, ""));
+		return new AncestorTree(createAncestorTreeNode(classifier, NO_PREFIX));
 	}
 
 	private final class AncestorTreeNode {
 		protected final Classifier classifier;
 		private final String prefix;
 		private AncestorTreeNode parent;
-		private AncestorTreeNode[] children;
+		private final AncestorTreeNode[] children;
 
 		private AncestorTreeNode(final Classifier classifier, final String prefix, final AncestorTreeNode[] children) {
 			this.classifier = classifier;
 			this.prefix = prefix;
 			this.children = children;
 			for (final AncestorTreeNode child : children) {
-				child.setParent(this);
+				child.parent = this;
 			}
 		}
 
@@ -489,10 +606,6 @@ public final class ClassifierInfoView extends ViewPart {
 		public final AncestorTreeNode getParent() {
 			return parent;
 		}
-
-		final void setParent(final AncestorTreeNode parent) {
-			this.parent = parent;
-		}
 	}
 
 	private AncestorTreeNode createAncestorTreeNode(final Classifier classifier, final String prefix) {
@@ -507,17 +620,17 @@ public final class ClassifierInfoView extends ViewPart {
 		if (classifier instanceof ComponentType) {
 			final ComponentType extended = ((ComponentType) classifier.getExtended());
 			if (extended != null) {
-				children = new AncestorTreeNode[] { createAncestorTreeNode(extended, "extends ") };
+				children = new AncestorTreeNode[] { createAncestorTreeNode(extended, EXTENDS) };
 			}
 		} else if (classifier instanceof ComponentImplementation) {
 			final ComponentImplementation asCompImpl = (ComponentImplementation) classifier;
 			final ComponentType implemented = asCompImpl.getType();
 			final ComponentImplementation extended = asCompImpl.getExtended();
 			if (extended == null) {
-				children = new AncestorTreeNode[] { createAncestorTreeNode(implemented, "implements ") };
+				children = new AncestorTreeNode[] { createAncestorTreeNode(implemented, IMPLEMENTS) };
 			} else {
-				children = new AncestorTreeNode[] { createAncestorTreeNode(implemented, "implements "),
-						createAncestorTreeNode(extended, "extends ") };
+				children = new AncestorTreeNode[] { createAncestorTreeNode(implemented, IMPLEMENTS),
+						createAncestorTreeNode(extended, EXTENDS) };
 			}
 		} else if (classifier instanceof FeatureGroupType) {
 			final FeatureGroupType asFeatureGroup = (FeatureGroupType) classifier;
@@ -525,14 +638,146 @@ public final class ClassifierInfoView extends ViewPart {
 			final FeatureGroupType extended = asFeatureGroup.getExtended();
 			final List<AncestorTreeNode> childrenList = new ArrayList<>(2);
 			if (inverseOf != null) {
-				childrenList.add(createAncestorTreeNode(inverseOf, "inverse of "));
+				childrenList.add(createAncestorTreeNode(inverseOf, INVERSE_OF));
 			}
 			if (extended != null) {
-				childrenList.add(createAncestorTreeNode(extended, "extends "));
+				childrenList.add(createAncestorTreeNode(extended, EXTENDS));
 			}
 			children = childrenList.toArray(children);
 		}
 		return new AncestorTreeNode(classifier, prefix, children);
+	}
+
+	// ----------------------------------------------------------------------
+	// -- Descendant tree
+	// ----------------------------------------------------------------------
+
+	private final class DescendantTree {
+		private final DescendantTreeNode[] children;
+
+		private DescendantTree(final DescendantTreeNode root) {
+			children = new DescendantTreeNode[] { root };
+		}
+
+		public DescendantTreeNode[] getChildren() {
+			return children;
+		}
+	}
+
+	private final class DescendantTreeNode {
+		private final URI classifierURI;
+		private final String label;
+		private final Image image;
+		private DescendantTreeNode parent;
+		private final List<DescendantTreeNode> children = new LinkedList<>();
+
+		private DescendantTreeNode(final EObject classifier, final String prefix) {
+			this.classifierURI = EcoreUtil.getURI(classifier);
+			this.label = prefix + modelElementLabelProvider.getText(classifier);
+			this.image = modelElementLabelProvider.getImage(classifier);
+		}
+
+		public URI getClassifierURI() {
+			return classifierURI;
+		}
+
+		public Image getImage() {
+			return image;
+		}
+
+		public String getText() {
+			return label;
+		}
+
+		public boolean hasChildren() {
+			return children.size() > 0;
+		}
+
+		public DescendantTreeNode[] getChildren() {
+			return children.toArray(new DescendantTreeNode[children.size()]);
+		}
+
+		public DescendantTreeNode getParent() {
+			return parent;
+		}
+
+		private void addChild(final DescendantTreeNode child) {
+			child.parent = this;
+			children.add(child);
+		}
+	}
+
+	private DescendantTree buildHierarchy(final Classifier rootClassifier) {
+		/*
+		 * Find all the projects that depend on the project that declares the
+		 * root classifier. Use them to build a constraining search scope.
+		 */
+		final Set<IProject> projects = getDependantProjects(rootClassifier);
+		final AadlFinder.Scope scope = new AadlFinder.ResourceSetScope(projects);
+
+		final Deque<DescendantTreeNode> deque = new LinkedList<>();
+		final DescendantTreeNode root = new DescendantTreeNode(rootClassifier, NO_PREFIX);
+		deque.addLast(root);
+
+		while (!deque.isEmpty()) {
+			final DescendantTreeNode current = deque.removeFirst();
+
+			/* Find all the references to the root classifier */
+			AadlFinder.getInstance().getAllReferencesToTypeInScope(scope, refDesc -> {
+				if (refDesc.getTargetEObjectUri().equals(current.getClassifierURI())) {
+					final URI sourceEObjectUri = refDesc.getSourceEObjectUri();
+					final EObject eObj = new ResourceSetImpl().getEObject(sourceEObjectUri, true);
+
+					EObject childObject = null;
+					String childPrefix = null;
+					if (eObj instanceof TypeExtension) {
+						childObject = ((TypeExtension) eObj).eContainer();
+						childPrefix = EXTENDED_BY;
+					} else if (eObj instanceof Realization) {
+						childObject = ((Realization) eObj).eContainer();
+						childPrefix = IMPLEMENTED_BY;
+					} else if (eObj instanceof ImplementationExtension) {
+						childObject = ((ImplementationExtension) eObj).eContainer();
+						childPrefix = EXTENDED_BY;
+					} else if (eObj instanceof GroupExtension) {
+						childObject = ((GroupExtension) eObj).eContainer();
+						childPrefix = EXTENDED_BY;
+					} else if (eObj instanceof FeatureGroupType) {
+						childObject = eObj;
+						childPrefix = INVERTED_BY;
+					}
+
+					if (childObject != null) {
+						final DescendantTreeNode child = new DescendantTreeNode(childObject, childPrefix);
+						current.addChild(child);
+						deque.addLast(child);
+
+						/*
+						 * XXX
+						 * This is not enough, because they can add new uses to files
+						 * that we aren't watching.
+						 */
+						classifierResources.add(OsateResourceUtil.toIFile(eObj.eResource().getURI()));
+					}
+				}
+			});
+		}
+
+		return new DescendantTree(root);
+	}
+
+	private static final Set<IProject> getDependantProjects(final Classifier rootClassifier) {
+		final Set<IProject> projects = new HashSet<>();
+		final IProject rootProject = OsateResourceUtil.toIFile(rootClassifier.eResource().getURI()).getProject();
+		getDependantProjects(rootProject, projects);
+		return Collections.unmodifiableSet(projects);
+	}
+
+	private static final void getDependantProjects(final IProject project, final Set<IProject> projects) {
+		projects.add(project);
+		for (final IProject child : project.getReferencingProjects()) {
+			getDependantProjects(child, projects);
+		}
 	}
 
 	// ----------------------------------------------------------------------
@@ -553,7 +798,7 @@ public final class ClassifierInfoView extends ViewPart {
 
 	private MemberTree createMemberTree(final FeatureGroupType fgt) {
 		final List<SectionNode> sections = new ArrayList<>();
-		addSection(sections, "Prototypes", fgt, fgt.getAllPrototypes(), ClassifierInfoView::getRefinedPrototype);
+		addSection(sections, PROTOTYPES_SECTION, fgt, fgt.getAllPrototypes(), ClassifierInfoView::getRefinedPrototype);
 		final EList<Feature> allFeatures = fgt.getAllFeatures();
 		addFeatureGroupFeaturesSection(sections, fgt, allFeatures);
 		return new MemberTree(sections);
@@ -561,28 +806,28 @@ public final class ClassifierInfoView extends ViewPart {
 
 	private MemberTree createMemberTree(final ComponentType ct) {
 		final List<SectionNode> sections = new ArrayList<>();
-		addSection(sections, "Prototypes", ct, ct.getAllPrototypes(), ClassifierInfoView::getRefinedPrototype);
-		addSection(sections, "Features", ct, ct.getAllFeatures(), ClassifierInfoView::getRefinedFeature);
-		addSection(sections, "Flows", ct, ct.getAllFlowSpecifications(), ClassifierInfoView::getRefinedFlowSpec);
-		addSection(sections, "Modes", ct, getAllModesAndModeTransitions(ct), ClassifierInfoView::cannotBeRefined);
+		addSection(sections, PROTOTYPES_SECTION, ct, ct.getAllPrototypes(), ClassifierInfoView::getRefinedPrototype);
+		addSection(sections, FEATURES_SECTION, ct, ct.getAllFeatures(), ClassifierInfoView::getRefinedFeature);
+		addSection(sections, FLOWS_SECTION, ct, ct.getAllFlowSpecifications(), ClassifierInfoView::getRefinedFlowSpec);
+		addSection(sections, MODES_SECTION, ct, getAllModesAndModeTransitions(ct), ClassifierInfoView::cannotBeRefined);
 		return new MemberTree(sections);
 	}
 
 	private MemberTree createMemberTree(final ComponentImplementation ci) {
 		final List<SectionNode> sections = new ArrayList<>();
-		addSection(sections, "Prototypes", ci, ci.getAllPrototypes(), ClassifierInfoView::getRefinedPrototype);
-		addSection(sections, "Features", ci, ci.getType().getAllFeatures(), ClassifierInfoView::getRefinedFeature);
-		addSection(sections, "Subcomponents", ci, ci.getAllSubcomponents(), ClassifierInfoView::getRefinedSubcomponent);
-		addSection(sections, "Internal features", ci, ci.getAllInternalFeatures(), ClassifierInfoView::cannotBeRefined);
-		addSection(sections, "Processor features", ci, ci.getAllProcessorFeatures(),
+		addSection(sections, PROTOTYPES_SECTION, ci, ci.getAllPrototypes(), ClassifierInfoView::getRefinedPrototype);
+		addSection(sections, FEATURES_SECTION, ci, ci.getType().getAllFeatures(), ClassifierInfoView::getRefinedFeature);
+		addSection(sections, SUBCOMPONENTS_SECTION, ci, ci.getAllSubcomponents(), ClassifierInfoView::getRefinedSubcomponent);
+		addSection(sections, INTERNAL_FEATURES_SECTION, ci, ci.getAllInternalFeatures(), ClassifierInfoView::cannotBeRefined);
+		addSection(sections, PROCESSOR_FEATURES_SECTION, ci, ci.getAllProcessorFeatures(),
 				ClassifierInfoView::cannotBeRefined);
 		if (ci instanceof BehavioredImplementation) {
-			addSection(sections, "Calls", ci, ((BehavioredImplementation) ci).getAllSubprogramCallSequences(),
+			addSection(sections, CALLS_SECTION, ci, ((BehavioredImplementation) ci).getAllSubprogramCallSequences(),
 					ClassifierInfoView::cannotBeRefined);
 		}
-		addSection(sections, "Connections", ci, ci.getAllConnections(), ClassifierInfoView::getRefinedConnection);
+		addSection(sections, CONNECTIONS_SECTION, ci, ci.getAllConnections(), ClassifierInfoView::getRefinedConnection);
 		addFlowImplementationSection(sections, ci);
-		addSection(sections, "Modes", ci, getAllModesAndModeTransitions(ci), ClassifierInfoView::cannotBeRefined);
+		addSection(sections, MODES_SECTION, ci, getAllModesAndModeTransitions(ci), ClassifierInfoView::cannotBeRefined);
 		return new MemberTree(sections);
 	}
 
@@ -671,7 +916,7 @@ public final class ClassifierInfoView extends ViewPart {
 		for (final Feature member : members) {
 			memberNodes.add(createMemberNode(fgt, ancestors, member, ClassifierInfoView::getRefinedFeature));
 		}
-		return new SectionNode("Features", memberNodes);
+		return new SectionNode(FEATURES_SECTION, memberNodes);
 	}
 
 	public SectionNode createSectionFromFlowImplementations(final ComponentImplementation ci,
@@ -687,10 +932,13 @@ public final class ClassifierInfoView extends ViewPart {
 		for (final EndToEndFlow e2e : end2endFlows) {
 			memberNodes.add(createMemberNode(ci, e2e, ClassifierInfoView::getRefinedEndToEndFlow));
 		}
-		return new SectionNode("Flows", memberNodes);
+		return new SectionNode(FLOWS_SECTION, memberNodes);
 	}
 
 	private final class MemberNode implements MemberTreeNode {
+		private static final String FROM_CLOSE = "]";
+		private static final String FROM_OPEN = " [from ";
+		private static final String REFINED = "refined ";
 		private final Element member;
 		private final String name;
 		private final Classifier inheritedFrom;
@@ -719,8 +967,8 @@ public final class ClassifierInfoView extends ViewPart {
 
 		@Override
 		public String getText() {
-			return (isInverted ? "inverse of " : "") + (isRefined ? "refined " : "") + unparseMember(member, name)
-					+ (inheritedFrom != null ? (" [from " + inheritedFrom.getName() + "]") : "");
+			return (isInverted ? INVERSE_OF : NO_PREFIX) + (isRefined ? REFINED : NO_PREFIX) + unparseMember(member, name)
+					+ (inheritedFrom != null ? (FROM_OPEN + inheritedFrom.getName() + FROM_CLOSE) : NO_PREFIX);
 		}
 
 		@Override
@@ -834,6 +1082,6 @@ public final class ClassifierInfoView extends ViewPart {
 	}
 
 	private static String getName(NamedElement ne) {
-		return (ne != null && !ne.eIsProxy() && ne.getName() != null) ? ne.getName() : "<unnamed>";
+		return (ne != null && !ne.eIsProxy() && ne.getName() != null) ? ne.getName() : UNNAMED;
 	}
 }
