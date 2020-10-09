@@ -52,10 +52,14 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.swt.SWT;
@@ -179,8 +183,9 @@ public final class ClassifierInfoView extends ViewPart {
 	public void createPartControl(final Composite parent) {
 		final SashForm sash = new SashForm(parent, SWT.HORIZONTAL);
 
-		ancestorTree = createAncestorTree(sash);
-		descendantTree = createDescendantTree(sash);
+		final SelectionAndDoubleClickHandler handler = new SelectionAndDoubleClickHandler();
+		ancestorTree = createAncestorTree(sash, handler);
+		descendantTree = createDescendantTree(sash, handler);
 		memberTree = createMemberTree(sash);
 
 		final IAction syncWithEditorAction = new Action(LINK_WITH_EDITOR_ACTION_NAME, SWT.TOGGLE) {
@@ -225,7 +230,7 @@ public final class ClassifierInfoView extends ViewPart {
 		memberTree.getControl().setFocus();
 	}
 
-	private TreeViewer createAncestorTree(final Composite parent) {
+	private TreeViewer createAncestorTree(final Composite parent, final SelectionAndDoubleClickHandler handler) {
 		final Composite treeComposite = new Composite(parent, SWT.NONE);
 		final TreeColumnLayout treeColumnLayout = new TreeColumnLayout();
 		treeComposite.setLayout(treeColumnLayout);
@@ -273,33 +278,13 @@ public final class ClassifierInfoView extends ViewPart {
 				return ((AncestorTreeNode) parentElement).getChildren();
 			}
 		});
-		treeViewer.addSelectionChangedListener(event -> {
-			URI selectedURI = null;
-			final ISelection selection = event.getSelection();
-			if (selection instanceof IStructuredSelection) {
-				final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-				if (structuredSelection.size() == 1) {
-					final AncestorTreeNode selectedNode = (AncestorTreeNode) structuredSelection.getFirstElement();
-					selectedURI = selectedNode.getClassifierURI();
-					if (syncWithEditor) {
-						gotoURI(selectedURI);
-					}
-				}
-			}
-			lastSelectedURI = selectedURI;
-		});
-		treeViewer.addDoubleClickListener(event -> {
-			final IStructuredSelection selected = (IStructuredSelection) event.getSelection();
-			final AncestorTreeNode selectedNode = (AncestorTreeNode) selected.getFirstElement();
-			final URI selectedURI = selectedNode.getClassifierURI();
-			gotoURI(selectedURI);
-			lastSelectedURI = selectedURI;
-		});
+		treeViewer.addSelectionChangedListener(handler);
+		treeViewer.addDoubleClickListener(handler);
 
 		return treeViewer;
 	}
 
-	private TreeViewer createDescendantTree(final Composite parent) {
+	private TreeViewer createDescendantTree(final Composite parent, final SelectionAndDoubleClickHandler handler) {
 		final Composite treeComposite = new Composite(parent, SWT.NONE);
 		final TreeColumnLayout treeColumnLayout = new TreeColumnLayout();
 		treeComposite.setLayout(treeColumnLayout);
@@ -347,32 +332,8 @@ public final class ClassifierInfoView extends ViewPart {
 				return ((DescendantTreeNode) parentElement).getChildren();
 			}
 		});
-
-		// TODO: Update this
-//		treeViewer.addSelectionChangedListener(event -> {
-//			Element selectedElement = null;
-//			final ISelection selection = event.getSelection();
-//			if (selection instanceof IStructuredSelection) {
-//				final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-//				if (structuredSelection.size() == 1) {
-//					final AncestorTreeNode selectedNode = (AncestorTreeNode) structuredSelection.getFirstElement();
-//					selectedElement = selectedNode.getClassifier();
-//					if (syncWithEditor) {
-//						gotoElement(selectedElement);
-//					}
-//				}
-//			}
-//			lastSelectedElement = selectedElement;
-//		});
-
-		// TODO: Update this
-//		treeViewer.addDoubleClickListener(event -> {
-//			final IStructuredSelection selected = (IStructuredSelection) event.getSelection();
-//			final AncestorTreeNode selectedNode = (AncestorTreeNode) selected.getFirstElement();
-//			final Classifier selectedElement = selectedNode.getClassifier();
-//			gotoElement(selectedElement);
-//			lastSelectedElement = selectedElement;
-//		});
+		treeViewer.addSelectionChangedListener(handler);
+		treeViewer.addDoubleClickListener(handler);
 
 		return treeViewer;
 	}
@@ -507,6 +468,39 @@ public final class ClassifierInfoView extends ViewPart {
 	// ======================================================================
 	// == Helper classes
 	// ======================================================================
+
+	// ----------------------------------------------------------------------
+	// -- Selection and Double-click Listener
+	// ----------------------------------------------------------------------
+
+	private class SelectionAndDoubleClickHandler implements ISelectionChangedListener, IDoubleClickListener {
+		@Override
+		public void selectionChanged(final SelectionChangedEvent event) {
+			URI selectedURI = null;
+			final ISelection selection = event.getSelection();
+			if (selection instanceof IStructuredSelection) {
+				final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
+				if (structuredSelection.size() == 1) {
+					final HierarchyTreeNode<?> selectedNode = (HierarchyTreeNode<?>) structuredSelection
+							.getFirstElement();
+					selectedURI = selectedNode.getClassifierURI();
+					if (syncWithEditor) {
+						gotoURI(selectedURI);
+					}
+				}
+			}
+			lastSelectedURI = selectedURI;
+		}
+
+		@Override
+		public void doubleClick(final DoubleClickEvent event) {
+			final IStructuredSelection selected = (IStructuredSelection) event.getSelection();
+			final HierarchyTreeNode<?> selectedNode = (HierarchyTreeNode<?>) selected.getFirstElement();
+			final URI selectedURI = selectedNode.getClassifierURI();
+			gotoURI(selectedURI);
+			lastSelectedURI = selectedURI;
+		}
+	}
 
 	// ----------------------------------------------------------------------
 	// -- Resource Listener
