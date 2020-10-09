@@ -426,29 +426,29 @@ public final class ClassifierInfoView extends ViewPart {
 			}
 		});
 		treeViewer.addSelectionChangedListener(event -> {
-			Element selectedElement = null;
+			URI selectedURI = null;
 			final ISelection selection = event.getSelection();
 			if (selection instanceof IStructuredSelection) {
 				final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
 				if (structuredSelection.size() == 1) {
 					final MemberTreeNode selectedNode = (MemberTreeNode) structuredSelection.getFirstElement();
 					if (selectedNode instanceof MemberNode) {
-						selectedElement = ((MemberNode) selectedNode).getMember();
+						selectedURI = ((MemberNode) selectedNode).getMemberURI();
 						if (syncWithEditor) {
-							gotoElement(selectedElement);
+							gotoURI(selectedURI);
 						}
 					}
 				}
 			}
-			lastSelectedURI = EcoreUtil.getURI(selectedElement);
+			lastSelectedURI = selectedURI;
 		});
 		treeViewer.addDoubleClickListener(event -> {
 			final IStructuredSelection selected = (IStructuredSelection) event.getSelection();
 			final MemberTreeNode selectedNode = (MemberTreeNode) selected.getFirstElement();
 			if (selectedNode instanceof MemberNode) {
-				final Element selectedElement = ((MemberNode) selectedNode).getMember();
-				gotoElement(selectedElement);
-				lastSelectedURI = EcoreUtil.getURI(selectedElement);
+				final URI selectedURI = ((MemberNode) selectedNode).getMemberURI();
+				gotoURI(selectedURI);
+				lastSelectedURI = selectedURI;
 			} else {
 				if (treeViewer.isExpandable(selectedNode)) {
 					if (treeViewer.getExpandedState(selectedNode)) {
@@ -956,20 +956,21 @@ public final class ClassifierInfoView extends ViewPart {
 		private static final String FROM_CLOSE = "]";
 		private static final String FROM_OPEN = " [from ";
 		private static final String REFINED = "refined ";
-		private final Element member;
-		private final String name;
-		private final Classifier inheritedFrom;
-		private final boolean isInverted;
-		private final boolean isRefined;
+
+		private final URI memberURI;
+		private final String label;
+		private final Image image;
 		private final MemberNode[] ancestorMember;
 
-		private MemberNode(final NamedElement m, final Classifier from, final boolean inverted, final boolean refined,
-				final MemberNode ancestor) {
-			member = m;
-			name = getName(m);
-			inheritedFrom = from;
-			isInverted = inverted;
-			isRefined = refined;
+		private MemberNode(final NamedElement member, final Classifier inheritedFrom, final boolean isInverted,
+				final boolean isRefined, final MemberNode ancestor) {
+			memberURI = EcoreUtil.getURI(member);
+
+			final String name = getName(member);
+			label = (isInverted ? INVERSE_OF : NO_PREFIX) + (isRefined ? REFINED : NO_PREFIX)
+					+ unparseMember(member, name)
+					+ (inheritedFrom != null ? (FROM_OPEN + inheritedFrom.getName() + FROM_CLOSE) : NO_PREFIX);
+			image = modelElementLabelProvider.getImage(member);
 			ancestorMember = ancestor == null ? new MemberNode[0] : new MemberNode[] { ancestor };
 		}
 
@@ -978,19 +979,18 @@ public final class ClassifierInfoView extends ViewPart {
 			this(m, from, false, refined, ancestor);
 		}
 
-		public Element getMember() {
-			return member;
+		public URI getMemberURI() {
+			return memberURI;
 		}
 
 		@Override
 		public String getText() {
-			return (isInverted ? INVERSE_OF : NO_PREFIX) + (isRefined ? REFINED : NO_PREFIX) + unparseMember(member, name)
-					+ (inheritedFrom != null ? (FROM_OPEN + inheritedFrom.getName() + FROM_CLOSE) : NO_PREFIX);
+			return label;
 		}
 
 		@Override
 		public Image getImage() {
-			return modelElementLabelProvider.getImage(member);
+			return image;
 		}
 
 		@Override
@@ -1095,11 +1095,7 @@ public final class ClassifierInfoView extends ViewPart {
 	}
 
 	private void gotoURI(final URI gotoURI) {
-		gotoElement((Element) (new ResourceSetImpl()).getEObject(gotoURI, true));
-	}
-
-	private void gotoElement(final Element gotoElement) {
-		UiUtil.getInstance().openDeclarativeModelElementAsJob(getSite().getPage(), gotoElement);
+		UiUtil.getInstance().openDeclarativeModelElementAsJob(getSite().getPage(), (Element) (new ResourceSetImpl()).getEObject(gotoURI, true));
 	}
 
 	private static String getName(NamedElement ne) {
