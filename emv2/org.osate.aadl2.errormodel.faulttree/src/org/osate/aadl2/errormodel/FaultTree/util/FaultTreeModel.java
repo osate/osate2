@@ -41,6 +41,10 @@ public class FaultTreeModel {
 			precision = getPrecision();
 		}
 
+		if (precision < 1) {
+			precision = 1; // use default setting
+		}
+
 		return precision;
 	}
 
