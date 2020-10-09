@@ -548,18 +548,69 @@ public final class ClassifierInfoView extends ViewPart {
 	}
 
 	// ----------------------------------------------------------------------
+	// -- Generic hierarchy tree
+	// ----------------------------------------------------------------------
+
+	private abstract class HierarchyTree<X extends HierarchyTreeNode<?>> {
+		private final X[] children;
+
+		private HierarchyTree(final X root) {
+			children = createChildren(root);
+		}
+
+		protected abstract X[] createChildren(final X root);
+
+		public final X[] getChildren() {
+			return children;
+		}
+	}
+
+	private abstract class HierarchyTreeNode<SELF extends HierarchyTreeNode<?>> {
+		protected SELF parent;
+		private final URI classifierURI;
+		private final String label;
+		private final Image image;
+
+		private HierarchyTreeNode(final EObject classifier, final String prefix) {
+			this.classifierURI = EcoreUtil.getURI(classifier);
+			this.label = prefix + modelElementLabelProvider.getText(classifier);
+			this.image = modelElementLabelProvider.getImage(classifier);
+		}
+
+		public final URI getClassifierURI() {
+			return classifierURI;
+		}
+
+		public final Image getImage() {
+			return image;
+		}
+
+		public final String getText() {
+			return label;
+		}
+
+		public abstract boolean hasChildren();
+
+		public abstract HierarchyTreeNode<SELF>[] getChildren();
+
+		public final SELF getParent() {
+			return parent;
+		}
+	}
+
+
+	// ----------------------------------------------------------------------
 	// -- Ancestor tree
 	// ----------------------------------------------------------------------
 
-	private final class AncestorTree {
-		private final AncestorTreeNode[] children;
-
+	private final class AncestorTree extends HierarchyTree<AncestorTreeNode> {
 		private AncestorTree(final AncestorTreeNode root) {
-			children = new AncestorTreeNode[] { root };
+			super(root);
 		}
 
-		public AncestorTreeNode[] getChildren() {
-			return children;
+		@Override
+		protected final AncestorTreeNode[] createChildren(final AncestorTreeNode root) {
+			return new AncestorTreeNode[] { root };
 		}
 	}
 
@@ -567,45 +618,25 @@ public final class ClassifierInfoView extends ViewPart {
 		return new AncestorTree(createAncestorTreeNode(classifier, NO_PREFIX));
 	}
 
-	private final class AncestorTreeNode {
-		protected final URI classifierURI;
-		private final String label;
-		private final Image image;
-		private AncestorTreeNode parent;
+	private final class AncestorTreeNode extends HierarchyTreeNode<AncestorTreeNode> {
 		private final AncestorTreeNode[] children;
 
 		private AncestorTreeNode(final Classifier classifier, final String prefix, final AncestorTreeNode[] children) {
-			this.classifierURI = EcoreUtil.getURI(classifier);
-			this.label = prefix + modelElementLabelProvider.getText(classifier);
-			this.image = modelElementLabelProvider.getImage(classifier);
+			super(classifier, prefix);
 			this.children = children;
 			for (final AncestorTreeNode child : children) {
 				child.parent = this;
 			}
 		}
 
-		public URI getClassifierURI() {
-			return classifierURI;
-		}
-
-		public Image getImage() {
-			return image;
-		}
-
-		public String getText() {
-			return label;
-		}
-
+		@Override
 		public final boolean hasChildren() {
 			return children.length > 0;
 		}
 
+		@Override
 		public final AncestorTreeNode[] getChildren() {
 			return children;
-		}
-
-		public final AncestorTreeNode getParent() {
-			return parent;
 		}
 	}
 
@@ -653,58 +684,38 @@ public final class ClassifierInfoView extends ViewPart {
 	// -- Descendant tree
 	// ----------------------------------------------------------------------
 
-	private final class DescendantTree {
-		private final DescendantTreeNode[] children;
 
+	private final class DescendantTree extends HierarchyTree<DescendantTreeNode> {
 		private DescendantTree(final DescendantTreeNode root) {
-			children = new DescendantTreeNode[] { root };
+			super(root);
 		}
 
-		public DescendantTreeNode[] getChildren() {
-			return children;
+		@Override
+		protected final DescendantTreeNode[] createChildren(final DescendantTreeNode root) {
+			return new DescendantTreeNode[] { root };
 		}
 	}
 
-	private final class DescendantTreeNode {
-		private final URI classifierURI;
-		private final String label;
-		private final Image image;
-		private DescendantTreeNode parent;
+	private final class DescendantTreeNode extends HierarchyTreeNode<DescendantTreeNode> {
 		private final List<DescendantTreeNode> children = new LinkedList<>();
 
 		private DescendantTreeNode(final EObject classifier, final String prefix) {
-			this.classifierURI = EcoreUtil.getURI(classifier);
-			this.label = prefix + modelElementLabelProvider.getText(classifier);
-			this.image = modelElementLabelProvider.getImage(classifier);
-		}
-
-		public URI getClassifierURI() {
-			return classifierURI;
-		}
-
-		public Image getImage() {
-			return image;
-		}
-
-		public String getText() {
-			return label;
-		}
-
-		public boolean hasChildren() {
-			return children.size() > 0;
-		}
-
-		public DescendantTreeNode[] getChildren() {
-			return children.toArray(new DescendantTreeNode[children.size()]);
-		}
-
-		public DescendantTreeNode getParent() {
-			return parent;
+			super(classifier, prefix);
 		}
 
 		private void addChild(final DescendantTreeNode child) {
 			child.parent = this;
 			children.add(child);
+		}
+
+		@Override
+		public boolean hasChildren() {
+			return children.size() > 0;
+		}
+
+		@Override
+		public DescendantTreeNode[] getChildren() {
+			return children.toArray(new DescendantTreeNode[children.size()]);
 		}
 	}
 
