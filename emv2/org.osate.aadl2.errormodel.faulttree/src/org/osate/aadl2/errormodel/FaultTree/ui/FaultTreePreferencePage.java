@@ -24,14 +24,27 @@
 
 package org.osate.aadl2.errormodel.FaultTree.ui;
 
+import java.util.ArrayList;
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IntegerFieldEditor;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.osate.aadl2.errormodel.FaultTree.util.FaultTreeModel;
+import org.osate.core.AadlNature;
 import org.osate.core.OsateCorePlugin;
+import org.osate.ui.dialogs.ProjectSelectionDialog;
 
 /**
  * This class represents the OSATE > Fault Tree workspace preferences.
@@ -39,17 +52,48 @@ import org.osate.core.OsateCorePlugin;
  */
 public class FaultTreePreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 	private IntegerFieldEditor precisionField;
+	private static final String LABEL = "Configure Project Specific Settings...";
+	private static final String TITLE = "Project Specific Configuration";
+	private static final String MESSAGE = "Select the project to configure:";
+	private static final String ID = "org.osate.aadl2.errormodel.FaultTree.ui.FaultTreePropertyPage";
+	private static final String[] ID_LIST = { ID };
+	private static final Object DUMMY_DATA = new Object();
+
+	private Link changeWorkspaceSettings;
 
 	public FaultTreePreferencePage() {
 		super(GRID);
 		setPreferenceStore(OsateCorePlugin.getDefault().getPreferenceStore());
-		setDescription("Probability precision preferences for fault tree analysis");
+		setDescription("Probability precision (number of decimal digits):");
+
+		getPreferenceStore().setDefault(FaultTreeModel.PREF_PRECISION, "1");
 	}
 
 	@Override
 	protected Label createDescriptionLabel(final Composite parent) {
+		changeWorkspaceSettings = createLink(parent, LABEL);
+		changeWorkspaceSettings.setLayoutData(new GridData(SWT.END, SWT.CENTER, true, false));
 		return super.createDescriptionLabel(parent);
 	}
+
+	private Link createLink(final Composite composite, final String text) {
+		Link link = new Link(composite, SWT.NONE);
+		link.setFont(composite.getFont());
+		link.setText("<A>" + text + "</A>");
+		link.addSelectionListener(new SelectionListener() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				doLinkActivated((Link) e.widget);
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				doLinkActivated((Link) e.widget);
+			}
+		});
+		return link;
+	}
+
 	/**
 	 * Create the field editors.
 	 */
@@ -58,12 +102,30 @@ public class FaultTreePreferencePage extends FieldEditorPreferencePage implement
 		precisionField = new IntegerFieldEditor(FaultTreeModel.PREF_PRECISION,
 				"Probability precision",
 				getFieldEditorParent());
-		precisionField.setValidRange(1, Integer.MAX_VALUE);
+		precisionField.setValidRange(1, 16);
+		precisionField.setErrorMessage("Number of decimal digits must be between 1 and 16");
 		addField(precisionField);
 	}
 
 	@Override
 	public void init(final IWorkbench workbench) {
+	}
+
+	final void doLinkActivated(final Link link) {
+		final ArrayList<IProject> projectsWithSpecifics = new ArrayList<>();
+		final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+		for (IProject project : projects) {
+			if (AadlNature.hasNature(project)) {
+				projectsWithSpecifics.add(project);
+			}
+		}
+
+		final ProjectSelectionDialog dialog = new ProjectSelectionDialog(getShell(), projectsWithSpecifics, TITLE,
+				MESSAGE);
+		if (dialog.open() == Window.OK) {
+			final IProject project = dialog.getSelectedProject();
+			PreferencesUtil.createPropertyDialogOn(getShell(), project, ID, ID_LIST, DUMMY_DATA).open();
+		}
 	}
 
 	@Override
