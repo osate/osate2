@@ -55,7 +55,7 @@ import org.osate.aadl2.errormodel.FaultTree.util.FaultTreeModel;
  * @since 5.0
  */
 public class FaultTreePropertyPage extends PropertyPage {
-	private static String BAD_VALUE = "Must be an integer >= 1";
+	private static String BAD_VALUE = "Number of decimal digits must be between 1 and 16";
 
 	private Text PrecisionText;
 	private IProject project;
@@ -104,7 +104,7 @@ public class FaultTreePropertyPage extends PropertyPage {
 
 		// Create the actual property field that we want to edit
 		final Label label = new Label(composite, SWT.NONE);
-		label.setText("Probability precision preferences for fault tree analysis:");
+		label.setText("Probability precision (number of decimal digits):");
 		label.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false, 1, 1));
 
 		PrecisionText = new Text(composite, SWT.BORDER);
@@ -152,7 +152,7 @@ public class FaultTreePropertyPage extends PropertyPage {
 			final String s = localText.getText();
 			try {
 				final int v = Integer.parseInt(s);
-				if (v < 1) {
+				if (v < 1 || v > 16) {
 					enterErrorState();
 				} else {
 					clearErrorState();
