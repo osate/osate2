@@ -186,7 +186,7 @@ public final class ClassifierInfoView extends ViewPart {
 		final SelectionAndDoubleClickHandler handler = new SelectionAndDoubleClickHandler();
 		ancestorTree = createAncestorTree(sash, handler);
 		descendantTree = createDescendantTree(sash, handler);
-		memberTree = createMemberTree(sash);
+		memberTree = createMemberTree(sash, handler);
 
 		final IAction syncWithEditorAction = new Action(LINK_WITH_EDITOR_ACTION_NAME, SWT.TOGGLE) {
 			{
@@ -338,7 +338,7 @@ public final class ClassifierInfoView extends ViewPart {
 		return treeViewer;
 	}
 
-	private TreeViewer createMemberTree(final Composite parent) {
+	private TreeViewer createMemberTree(final Composite parent, final SelectionAndDoubleClickHandler handler) {
 		final Composite treeComposite = new Composite(parent, SWT.NONE);
 		final TreeColumnLayout treeColumnLayout = new TreeColumnLayout();
 		treeComposite.setLayout(treeColumnLayout);
@@ -386,40 +386,8 @@ public final class ClassifierInfoView extends ViewPart {
 				return ((MemberTreeNode) parentElement).getChildren();
 			}
 		});
-		treeViewer.addSelectionChangedListener(event -> {
-			URI selectedURI = null;
-			final ISelection selection = event.getSelection();
-			if (selection instanceof IStructuredSelection) {
-				final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-				if (structuredSelection.size() == 1) {
-					final MemberTreeNode selectedNode = (MemberTreeNode) structuredSelection.getFirstElement();
-					if (selectedNode instanceof MemberNode) {
-						selectedURI = ((MemberNode) selectedNode).getMemberURI();
-						if (syncWithEditor) {
-							gotoURI(selectedURI);
-						}
-					}
-				}
-			}
-			lastSelectedURI = selectedURI;
-		});
-		treeViewer.addDoubleClickListener(event -> {
-			final IStructuredSelection selected = (IStructuredSelection) event.getSelection();
-			final MemberTreeNode selectedNode = (MemberTreeNode) selected.getFirstElement();
-			if (selectedNode instanceof MemberNode) {
-				final URI selectedURI = ((MemberNode) selectedNode).getMemberURI();
-				gotoURI(selectedURI);
-				lastSelectedURI = selectedURI;
-			} else {
-				if (treeViewer.isExpandable(selectedNode)) {
-					if (treeViewer.getExpandedState(selectedNode)) {
-						treeViewer.collapseToLevel(selectedNode, 1);
-					} else {
-						treeViewer.expandToLevel(selectedNode, 1);
-					}
-				}
-			}
-		});
+		treeViewer.addSelectionChangedListener(handler);
+		treeViewer.addDoubleClickListener(handler);
 
 		return treeViewer;
 	}
@@ -481,11 +449,14 @@ public final class ClassifierInfoView extends ViewPart {
 			if (selection instanceof IStructuredSelection) {
 				final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
 				if (structuredSelection.size() == 1) {
-					final HierarchyTreeNode<?> selectedNode = (HierarchyTreeNode<?>) structuredSelection
-							.getFirstElement();
-					selectedURI = selectedNode.getClassifierURI();
-					if (syncWithEditor) {
-						gotoURI(selectedURI);
+					final URIProvider selectedNode = (URIProvider) structuredSelection.getFirstElement();
+					if (selectedNode != null) {
+						selectedURI = selectedNode.getURI();
+						if (selectedURI != null) {
+							if (syncWithEditor) {
+								gotoURI(selectedURI);
+							}
+						}
 					}
 				}
 			}
@@ -495,10 +466,14 @@ public final class ClassifierInfoView extends ViewPart {
 		@Override
 		public void doubleClick(final DoubleClickEvent event) {
 			final IStructuredSelection selected = (IStructuredSelection) event.getSelection();
-			final HierarchyTreeNode<?> selectedNode = (HierarchyTreeNode<?>) selected.getFirstElement();
-			final URI selectedURI = selectedNode.getClassifierURI();
-			gotoURI(selectedURI);
-			lastSelectedURI = selectedURI;
+			final URIProvider selectedNode = (URIProvider) selected.getFirstElement();
+			if (selectedNode != null) {
+				final URI selectedURI = selectedNode.getURI();
+				if (selectedURI != null) {
+					gotoURI(selectedURI);
+				}
+				lastSelectedURI = selectedURI;
+			}
 		}
 	}
 
@@ -545,6 +520,10 @@ public final class ClassifierInfoView extends ViewPart {
 	// -- Generic hierarchy tree
 	// ----------------------------------------------------------------------
 
+	private interface URIProvider {
+		public URI getURI();
+	}
+
 	private abstract static class HierarchyTree<X extends HierarchyTreeNode<?>> {
 		private final X[] children;
 
@@ -559,7 +538,7 @@ public final class ClassifierInfoView extends ViewPart {
 		}
 	}
 
-	private abstract class HierarchyTreeNode<SELF extends HierarchyTreeNode<?>> {
+	private abstract class HierarchyTreeNode<SELF extends HierarchyTreeNode<?>> implements URIProvider {
 		protected SELF parent;
 		private final URI classifierURI;
 		private final String label;
@@ -571,7 +550,8 @@ public final class ClassifierInfoView extends ViewPart {
 			this.image = modelElementLabelProvider.getImage(classifier);
 		}
 
-		public final URI getClassifierURI() {
+		@Override
+		public final URI getURI() {
 			return classifierURI;
 		}
 
@@ -734,7 +714,7 @@ public final class ClassifierInfoView extends ViewPart {
 
 			/* Find all the references to the current classifier */
 			AadlFinder.getInstance().getAllReferencesToTypeInScope(scope, refDesc -> {
-				if (refDesc.getTargetEObjectUri().equals(current.getClassifierURI())) {
+				if (refDesc.getTargetEObjectUri().equals(current.getURI())) {
 					final URI sourceEObjectUri = refDesc.getSourceEObjectUri();
 					final EObject eObj = new ResourceSetImpl().getEObject(sourceEObjectUri, true);
 
@@ -870,7 +850,7 @@ public final class ClassifierInfoView extends ViewPart {
 		}
 	}
 
-	private static interface MemberTreeNode {
+	private static interface MemberTreeNode extends URIProvider {
 		public String getText();
 
 		public Image getImage();
@@ -887,6 +867,11 @@ public final class ClassifierInfoView extends ViewPart {
 		private SectionNode(final String heading, List<MemberNode> membersList) {
 			this.heading = heading;
 			this.members = membersList.toArray(new MemberNode[membersList.size()]);
+		}
+
+		@Override
+		public URI getURI() {
+			return null;
 		}
 
 		@Override
@@ -973,7 +958,8 @@ public final class ClassifierInfoView extends ViewPart {
 			this(m, from, false, refined, ancestor);
 		}
 
-		public URI getMemberURI() {
+		@Override
+		public URI getURI() {
 			return memberURI;
 		}
 
