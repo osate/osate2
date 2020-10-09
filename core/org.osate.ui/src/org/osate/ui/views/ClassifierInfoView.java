@@ -551,7 +551,7 @@ public final class ClassifierInfoView extends ViewPart {
 	// -- Generic hierarchy tree
 	// ----------------------------------------------------------------------
 
-	private abstract class HierarchyTree<X extends HierarchyTreeNode<?>> {
+	private abstract static class HierarchyTree<X extends HierarchyTreeNode<?>> {
 		private final X[] children;
 
 		private HierarchyTree(final X root) {
@@ -603,7 +603,7 @@ public final class ClassifierInfoView extends ViewPart {
 	// -- Ancestor tree
 	// ----------------------------------------------------------------------
 
-	private final class AncestorTree extends HierarchyTree<AncestorTreeNode> {
+	private final static class AncestorTree extends HierarchyTree<AncestorTreeNode> {
 		private AncestorTree(final AncestorTreeNode root) {
 			super(root);
 		}
@@ -685,7 +685,7 @@ public final class ClassifierInfoView extends ViewPart {
 	// ----------------------------------------------------------------------
 
 
-	private final class DescendantTree extends HierarchyTree<DescendantTreeNode> {
+	private final static class DescendantTree extends HierarchyTree<DescendantTreeNode> {
 		private DescendantTree(final DescendantTreeNode root) {
 			super(root);
 		}
