@@ -488,8 +488,7 @@ public final class ClassifierInfoView extends ViewPart {
 			ancestorTree.setInput(createAncestorTree(input));
 			ancestorTree.expandToLevel(2);
 
-			buildHierarchy(input);
-			descendantTree.setInput(buildHierarchy(input));
+			descendantTree.setInput(createDescenantTree(input));
 			descendantTree.expandToLevel(2);
 
 			if (input instanceof ComponentType) {
@@ -707,7 +706,7 @@ public final class ClassifierInfoView extends ViewPart {
 		}
 	}
 
-	private DescendantTree buildHierarchy(final Classifier rootClassifier) {
+	private DescendantTree createDescenantTree(final Classifier rootClassifier) {
 		/*
 		 * Find all the projects that depend on the project that declares the
 		 * root classifier. Use them to build a constraining search scope.
@@ -719,10 +718,14 @@ public final class ClassifierInfoView extends ViewPart {
 		final DescendantTreeNode root = new DescendantTreeNode(rootClassifier, NO_PREFIX);
 		deque.addLast(root);
 
+		/* We maintain a queue of classifiers to search for, starting with our root classifier. For each
+		 * one, we look for all references to it, and then process all references that appear in a context
+		 * where it is being implemented/extended/inverted.
+		 */
 		while (!deque.isEmpty()) {
 			final DescendantTreeNode current = deque.removeFirst();
 
-			/* Find all the references to the root classifier */
+			/* Find all the references to the current classifier */
 			AadlFinder.getInstance().getAllReferencesToTypeInScope(scope, refDesc -> {
 				if (refDesc.getTargetEObjectUri().equals(current.getClassifierURI())) {
 					final URI sourceEObjectUri = refDesc.getSourceEObjectUri();
@@ -747,6 +750,7 @@ public final class ClassifierInfoView extends ViewPart {
 						childPrefix = INVERTED_BY;
 					}
 
+					/* Add the referencing node to the tree */
 					if (childObject != null) {
 						final DescendantTreeNode child = new DescendantTreeNode(childObject, childPrefix);
 						current.addChild(child);
