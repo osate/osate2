@@ -124,7 +124,7 @@ public final class ClassifierInfoView extends ViewPart {
 	 * selection.  Remembered so that if we toggle from DONT_SYNC to SYNC, we know where to
 	 * jump to.
 	 */
-	private Element lastSelectedElement = null;
+	private URI lastSelectedURI = null;
 
 	private TreeViewer ancestorTree;
 	private TreeViewer descendantTree;
@@ -194,7 +194,7 @@ public final class ClassifierInfoView extends ViewPart {
 			public void run() {
 				syncWithEditor = !syncWithEditor;
 				if (syncWithEditor) {
-					gotoElement(lastSelectedElement);
+					gotoURI(lastSelectedURI);
 				}
 			}
 		};
@@ -274,26 +274,26 @@ public final class ClassifierInfoView extends ViewPart {
 			}
 		});
 		treeViewer.addSelectionChangedListener(event -> {
-			Element selectedElement = null;
+			URI selectedURI = null;
 			final ISelection selection = event.getSelection();
 			if (selection instanceof IStructuredSelection) {
 				final IStructuredSelection structuredSelection = (IStructuredSelection) selection;
 				if (structuredSelection.size() == 1) {
 					final AncestorTreeNode selectedNode = (AncestorTreeNode) structuredSelection.getFirstElement();
-					selectedElement = selectedNode.getClassifier();
+					selectedURI = selectedNode.getClassifierURI();
 					if (syncWithEditor) {
-						gotoElement(selectedElement);
+						gotoURI(selectedURI);
 					}
 				}
 			}
-			lastSelectedElement = selectedElement;
+			lastSelectedURI = selectedURI;
 		});
 		treeViewer.addDoubleClickListener(event -> {
 			final IStructuredSelection selected = (IStructuredSelection) event.getSelection();
 			final AncestorTreeNode selectedNode = (AncestorTreeNode) selected.getFirstElement();
-			final Classifier selectedElement = selectedNode.getClassifier();
-			gotoElement(selectedElement);
-			lastSelectedElement = selectedElement;
+			final URI selectedURI = selectedNode.getClassifierURI();
+			gotoURI(selectedURI);
+			lastSelectedURI = selectedURI;
 		});
 
 		return treeViewer;
@@ -440,7 +440,7 @@ public final class ClassifierInfoView extends ViewPart {
 					}
 				}
 			}
-			lastSelectedElement = selectedElement;
+			lastSelectedURI = EcoreUtil.getURI(selectedElement);
 		});
 		treeViewer.addDoubleClickListener(event -> {
 			final IStructuredSelection selected = (IStructuredSelection) event.getSelection();
@@ -448,7 +448,7 @@ public final class ClassifierInfoView extends ViewPart {
 			if (selectedNode instanceof MemberNode) {
 				final Element selectedElement = ((MemberNode) selectedNode).getMember();
 				gotoElement(selectedElement);
-				lastSelectedElement = selectedElement;
+				lastSelectedURI = EcoreUtil.getURI(selectedElement);
 			} else {
 				if (treeViewer.isExpandable(selectedNode)) {
 					if (treeViewer.getExpandedState(selectedNode)) {
@@ -568,30 +568,32 @@ public final class ClassifierInfoView extends ViewPart {
 	}
 
 	private final class AncestorTreeNode {
-		protected final Classifier classifier;
-		private final String prefix;
+		protected final URI classifierURI;
+		private final String label;
+		private final Image image;
 		private AncestorTreeNode parent;
 		private final AncestorTreeNode[] children;
 
 		private AncestorTreeNode(final Classifier classifier, final String prefix, final AncestorTreeNode[] children) {
-			this.classifier = classifier;
-			this.prefix = prefix;
+			this.classifierURI = EcoreUtil.getURI(classifier);
+			this.label = prefix + modelElementLabelProvider.getText(classifier);
+			this.image = modelElementLabelProvider.getImage(classifier);
 			this.children = children;
 			for (final AncestorTreeNode child : children) {
 				child.parent = this;
 			}
 		}
 
-		public Classifier getClassifier() {
-			return classifier;
+		public URI getClassifierURI() {
+			return classifierURI;
 		}
 
 		public Image getImage() {
-			return modelElementLabelProvider.getImage(classifier);
+			return image;
 		}
 
 		public String getText() {
-			return prefix + modelElementLabelProvider.getText(classifier);
+			return label;
 		}
 
 		public final boolean hasChildren() {
@@ -1079,6 +1081,10 @@ public final class ClassifierInfoView extends ViewPart {
 
 	private static EndToEndFlow getRefinedEndToEndFlow(final EndToEndFlow e) {
 		return e.getRefined();
+	}
+
+	private void gotoURI(final URI gotoURI) {
+		gotoElement((Element) (new ResourceSetImpl()).getEObject(gotoURI, true));
 	}
 
 	private void gotoElement(final Element gotoElement) {
