@@ -157,7 +157,7 @@ public final class ClassifierInfoView extends ViewPart {
 	// ======================================================================
 
 	/**
-	 * Make the view is open and in front.
+	 * Make sure the view is open and in front.
 	 */
 	public static ClassifierInfoView open(final IWorkbenchWindow window) {
 		/* I basically stole this from org.eclipse.jdt.internal.ui.util.OpenTypeHiearchyUtil.openInViewPart() */
@@ -488,7 +488,7 @@ public final class ClassifierInfoView extends ViewPart {
 			ancestorTree.setInput(createAncestorTree(input));
 			ancestorTree.expandToLevel(2);
 
-			descendantTree.setInput(createDescenantTree(input));
+			descendantTree.setInput(createDescendantTree(input));
 			descendantTree.expandToLevel(2);
 
 			if (input instanceof ComponentType) {
@@ -706,7 +706,7 @@ public final class ClassifierInfoView extends ViewPart {
 		}
 	}
 
-	private DescendantTree createDescenantTree(final Classifier rootClassifier) {
+	private DescendantTree createDescendantTree(final Classifier rootClassifier) {
 		/*
 		 * Find all the projects that depend on the project that declares the
 		 * root classifier. Use them to build a constraining search scope.
