@@ -713,10 +713,10 @@ public final class ClassifierInfoView extends ViewPart {
 			final DescendantTreeNode current = deque.removeFirst();
 
 			/* Find all the references to the current classifier */
-			AadlFinder.getInstance().getAllReferencesToTypeInScope(scope, refDesc -> {
+			AadlFinder.getInstance().getAllReferencesToTypeInScope(scope, (resourceSet, refDesc) -> {
 				if (refDesc.getTargetEObjectUri().equals(current.getURI())) {
 					final URI sourceEObjectUri = refDesc.getSourceEObjectUri();
-					final EObject eObj = new ResourceSetImpl().getEObject(sourceEObjectUri, true);
+					final EObject eObj = resourceSet.getEObject(sourceEObjectUri, true);
 
 					EObject childObject = null;
 					String childPrefix = null;
