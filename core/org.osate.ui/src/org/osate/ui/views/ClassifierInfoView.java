@@ -499,7 +499,9 @@ public final class ClassifierInfoView extends ViewPart {
 					try {
 						docDelta.accept(delta -> {
 							final IResource resource = delta.getResource();
-							if (classifierResources.contains(resource)) {
+							// See if the resource is being watched, or the resource is in a project that is being watched
+							if (classifierResources.contains(resource)
+									|| classifierResources.contains(resource.getProject())) {
 								changed.set(true);
 							}
 							return true;
@@ -699,6 +701,7 @@ public final class ClassifierInfoView extends ViewPart {
 		 * root classifier. Use them to build a constraining search scope.
 		 */
 		final Set<IProject> projects = getDependantProjects(rootClassifier);
+		classifierResources.addAll(projects);
 		final AadlFinder.Scope scope = new AadlFinder.ResourceSetScope(projects);
 
 		final Deque<DescendantTreeNode> deque = new LinkedList<>();
@@ -742,13 +745,6 @@ public final class ClassifierInfoView extends ViewPart {
 						final DescendantTreeNode child = new DescendantTreeNode(childObject, childPrefix);
 						current.addChild(child);
 						deque.addLast(child);
-
-						/*
-						 * XXX
-						 * This is not enough, because they can add new uses to files
-						 * that we aren't watching.
-						 */
-						classifierResources.add(OsateResourceUtil.toIFile(eObj.eResource().getURI()));
 					}
 				}
 			});
