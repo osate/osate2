@@ -122,7 +122,10 @@ public final class AadlFinder {
 
 	@FunctionalInterface
 	public interface FinderConsumer<T> {
-		public void found(T objDesc);
+		/**
+		 * @since 5.0
+		 */
+		public void found(ResourceSet resourceSet, T objDesc);
 	}
 
 	public static abstract class ResourceConsumer<T> {
@@ -230,8 +233,16 @@ public final class AadlFinder {
 
 	public void getAllObjectsOfTypeInResource(final IResourceDescription rsrcDesc,
 			final EClass eClass, final FinderConsumer<IEObjectDescription> consumer) {
+		getAllObjectsOfTypeInResource(rsrcDesc, eClass, new ResourceSetImpl(), consumer);
+	}
+
+	/**
+	 * @since 5.0
+	 */
+	public void getAllObjectsOfTypeInResource(final IResourceDescription rsrcDesc, final EClass eClass,
+			final ResourceSet resourceSet, final FinderConsumer<IEObjectDescription> consumer) {
 		for (final IEObjectDescription objDesc : rsrcDesc.getExportedObjectsByType(eClass)) {
-			consumer.found(objDesc);
+			consumer.found(resourceSet, objDesc);
 		}
 	}
 
@@ -293,7 +304,7 @@ public final class AadlFinder {
 
 			@Override
 			public void accept(final IReferenceDescription refDesc) {
-				consumer.found(refDesc);
+				consumer.found(resourceSet, refDesc);
 			}
 		}, null);
 	}
