@@ -14,11 +14,14 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.ListValue;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.pluginsupport.properties.CodeGenUtil;
 
 public class SecurityLabel {
 
@@ -32,28 +35,55 @@ public class SecurityLabel {
 
 	private static Property categoryProperty = null;
 
-	private static Map<EnumerationLiteral, Integer> literal2level = new HashMap<EnumerationLiteral, Integer>();
+	private static Map<EnumerationLiteral, Integer> literal2level;
 
-	private static Map<Integer, EnumerationLiteral> level2literal = new HashMap<Integer, EnumerationLiteral>();
+	private static Map<Integer, EnumerationLiteral> level2literal;
 
 	public static Optional<SecurityLabel> of(NamedElement ne) {
 		int level = -1;
-		try {
-			NamedValue levelValue = (NamedValue) ne.getSimplePropertyValue(levelProperty);
-			EnumerationLiteral levelLiteral = (EnumerationLiteral) levelValue.getNamedValue();
-			level = literal2level.get(levelLiteral);
-		} catch (Exception e) {
+
+		Optional<EnumerationLiteral> levelLiteral = getLevelEnum(ne, Optional.empty());
+		if (levelLiteral.isPresent()) {
+			level = literal2level.get(levelLiteral.get());
+		} else {
+			throw new InternalError("Level enumeration literal not found for " + ne.getQualifiedName());
 		}
 		try {
 			Set<EnumerationLiteral> tags = new HashSet<EnumerationLiteral>();
-			ListValue caveatsValue = (ListValue) ne.getSimplePropertyValue(categoryProperty);
-			List<PropertyExpression> lelems = caveatsValue.getOwnedListElements();
-			for (PropertyExpression nv : lelems) {
-				EnumerationLiteral literal = (EnumerationLiteral) ((NamedValue) nv).getNamedValue();
-				tags.add(literal);
+			Optional<ListValue> caveatsValue = getCategoryList(ne, Optional.empty());
+			if (caveatsValue.isPresent()) {
+				List<PropertyExpression> lelems = caveatsValue.get().getOwnedListElements();
+				for (PropertyExpression nv : lelems) {
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(nv, ne, Optional.empty());
+					EnumerationLiteral literal = (EnumerationLiteral) ((NamedValue) resolved).getNamedValue();
+					tags.add(literal);
+				}
 			}
 			return Optional.of(new SecurityLabel(level, tags));
 		} catch (Exception e) {
+			return Optional.empty();
+		}
+	}
+
+	public static Optional<EnumerationLiteral> getLevelEnum(NamedElement lookupContext, Optional<Mode> mode) {
+		try {
+			PropertyExpression value = CodeGenUtil.lookupProperty(levelProperty, lookupContext, mode);
+			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			return Optional.of((EnumerationLiteral) ((NamedValue) resolved).getNamedValue());
+		} catch (PropertyNotPresentException e) {
+			return Optional.empty();
+		}
+	}
+
+	public static Optional<ListValue> getCategoryList(NamedElement lookupContext, Optional<Mode> mode) {
+		try {
+			PropertyExpression value = CodeGenUtil.lookupProperty(categoryProperty, lookupContext, mode);
+			if (value instanceof ListValue) {
+				return Optional.of((ListValue) value);
+			}
+			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
+			return Optional.of((ListValue) ((NamedValue) resolved).getNamedValue());
+		} catch (PropertyNotPresentException e) {
 			return Optional.empty();
 		}
 	}
@@ -64,6 +94,8 @@ public class SecurityLabel {
 		EnumerationType levelType = Aadl2GlobalScopeUtil.get(ne, Aadl2Package.eINSTANCE.getPropertyType(),
 				"Security_Type_Specifications::Level_Type");
 		List<EnumerationLiteral> literals = levelType.getOwnedLiterals();
+		literal2level = new HashMap<EnumerationLiteral, Integer>();
+		level2literal = new HashMap<Integer, EnumerationLiteral>();
 		for (int i = 0; i < literals.size(); i += 1) {
 			// enumeration is ordered from high to low security
 			int index = literals.size() - i;
@@ -117,8 +149,7 @@ public class SecurityLabel {
 	 */
 	@Override
 	public String toString() {
-		return "SecurityLabel [" + level2literal.get(level).getName()
-				+ ", "
+		return "SecurityLabel [" + level2literal.get(level).getName() + ", "
 				+ categories.stream().map(EnumerationLiteral::getName).collect(Collectors.joining(", ", "{", "}"))
 				+ "]";
 	}
