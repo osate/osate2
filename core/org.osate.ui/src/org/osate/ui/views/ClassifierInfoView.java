@@ -54,6 +54,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -124,8 +125,10 @@ public final class ClassifierInfoView extends ViewPart {
 
 	private static final String AADL_ICON = "/icons/aadl.gif";
 	private static final String LINK_ICON = "icons/link_to_editor.png";
+	private static final String CLEAR_ICON = "icons/delete.png";
 
 	private static final String LINK_WITH_EDITOR_ACTION_NAME = "Link with Editor";
+	private static final String CLEAR_ACTION_NAME = "Clear View";
 
 	public static final String VIEW_ID = "org.osate.ui.classifier_info_view";
 
@@ -194,7 +197,19 @@ public final class ClassifierInfoView extends ViewPart {
 		descendantTree = createDescendantTree(sash, handler);
 		memberTree = createMemberTree(sash, handler);
 
-		final IAction syncWithEditorAction = new Action(LINK_WITH_EDITOR_ACTION_NAME, SWT.TOGGLE) {
+		final IToolBarManager toolBarManager = getViewSite().getActionBars().getToolBarManager();
+		toolBarManager.add(new Action(CLEAR_ACTION_NAME, IAction.AS_PUSH_BUTTON) {
+			{
+				setToolTipText(CLEAR_ACTION_NAME);
+				setImageDescriptor(OsateUiPlugin.getImageDescriptor(CLEAR_ICON));
+			}
+
+			@Override
+			public void run() {
+				clearDisplay();
+			}
+		});
+		toolBarManager.add(new Action(LINK_WITH_EDITOR_ACTION_NAME, IAction.AS_CHECK_BOX) {
 			{
 				setToolTipText(LINK_WITH_EDITOR_ACTION_NAME);
 				setImageDescriptor(OsateUiPlugin.getImageDescriptor(LINK_ICON));
@@ -208,8 +223,7 @@ public final class ClassifierInfoView extends ViewPart {
 					gotoURI(lastSelectedURI);
 				}
 			}
-		};
-		getViewSite().getActionBars().getToolBarManager().add(syncWithEditorAction);
+		});
 	}
 
 	@Override
@@ -417,6 +431,15 @@ public final class ClassifierInfoView extends ViewPart {
 		}
 	}
 
+	private void clearDisplay() {
+		viewedClassifierURI = null;
+		getViewSite().getShell().getDisplay().asyncExec(() -> {
+			ancestorTree.setInput(AncestorTree.EMTPY_TREE);
+			descendantTree.setInput(DescendantTree.EMPTY_TREE);
+			memberTree.setInput(MemberTree.EMPTY_TREE);
+		});
+	}
+
 	private void updateDisplay(final Classifier input) {
 		// Compute the tree in a separate job and then update the view on the display thread.
 		final IWorkbenchSiteProgressService service = getSite().getService(IWorkbenchSiteProgressService.class);
@@ -561,10 +584,15 @@ public final class ClassifierInfoView extends ViewPart {
 	private abstract static class HierarchyTree<X extends HierarchyTreeNode<?>> {
 		private final X[] children;
 
+		private HierarchyTree() {
+			children = emptyChildren();
+		}
+
 		private HierarchyTree(final X root) {
 			children = createChildren(root);
 		}
 
+		protected abstract X[] emptyChildren();
 		protected abstract X[] createChildren(final X root);
 
 		public final X[] getChildren() {
@@ -612,10 +640,21 @@ public final class ClassifierInfoView extends ViewPart {
 	// ----------------------------------------------------------------------
 
 	private final static class AncestorTree extends HierarchyTree<AncestorTreeNode> {
+		private final static AncestorTreeNode[] EMPTY_CHILDREN = new AncestorTreeNode[0];
+		public final static AncestorTree EMTPY_TREE = new AncestorTree();
+
+		private AncestorTree() {
+			super();
+		}
+
 		private AncestorTree(final AncestorTreeNode root) {
 			super(root);
 		}
 
+		@Override
+		protected final AncestorTreeNode[] emptyChildren() {
+			return EMPTY_CHILDREN;
+		}
 		@Override
 		protected final AncestorTreeNode[] createChildren(final AncestorTreeNode root) {
 			return new AncestorTreeNode[] { root };
@@ -694,8 +733,20 @@ public final class ClassifierInfoView extends ViewPart {
 
 
 	private final static class DescendantTree extends HierarchyTree<DescendantTreeNode> {
+		private static final DescendantTreeNode[] EMPTY_CHILDREN = new DescendantTreeNode[0];
+		public static final DescendantTree EMPTY_TREE = new DescendantTree();
+
+		private DescendantTree() {
+			super();
+		}
+
 		private DescendantTree(final DescendantTreeNode root) {
 			super(root);
+		}
+
+		@Override
+		protected final DescendantTreeNode[] emptyChildren() {
+			return EMPTY_CHILDREN;
 		}
 
 		@Override
@@ -804,7 +855,14 @@ public final class ClassifierInfoView extends ViewPart {
 	// ----------------------------------------------------------------------
 
 	private final static class MemberTree {
+		private static final SectionNode[] EMPTY_SECTIONS = new SectionNode[0];
+		private static final MemberTree EMPTY_TREE = new MemberTree();
+
 		private final SectionNode[] sections;
+
+		private MemberTree() {
+			sections = EMPTY_SECTIONS;
+		}
 
 		private MemberTree(List<SectionNode> sectionsList) {
 			sections = sectionsList.toArray(new SectionNode[sectionsList.size()]);
