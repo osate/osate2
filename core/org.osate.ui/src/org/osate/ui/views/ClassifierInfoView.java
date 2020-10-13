@@ -41,6 +41,11 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -71,6 +76,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.ui.progress.IWorkbenchSiteProgressService;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -412,25 +418,51 @@ public final class ClassifierInfoView extends ViewPart {
 	}
 
 	private void updateDisplay(final Classifier input) {
-		getViewSite().getShell().getDisplay().asyncExec(() -> {
-			classifierResources.clear();
-			ancestorTree.setInput(createAncestorTree(input));
-			ancestorTree.expandToLevel(2);
+		// Compute the tree in a separate job and then update the view on the display thread.
+		final IWorkbenchSiteProgressService service = getSite().getService(IWorkbenchSiteProgressService.class);
+		final Job refreshJob = new Job("Classifier Info View Refresh") {
+			@Override
+			protected IStatus run(final IProgressMonitor monitor) {
+				final SubMonitor subMonitor = SubMonitor.convert(monitor, 2);
 
-			descendantTree.setInput(createDescendantTree(input));
-			descendantTree.expandToLevel(2);
+				classifierResources.clear();
+				final AncestorTree ancestorTreeModel = createAncestorTree(input);
+				subMonitor.worked(1);
+				final DescendantTree descendantTreeModel = createDescendantTree(input);
+				subMonitor.worked(1);
+				subMonitor.done();
 
-			if (input instanceof ComponentType) {
-				memberTree.setInput(createMemberTree((ComponentType) input));
-				memberTree.expandToLevel(2);
-			} else if (input instanceof ComponentImplementation) {
-				memberTree.setInput(createMemberTree((ComponentImplementation) input));
-				memberTree.expandToLevel(2);
-			} else if (input instanceof FeatureGroupType) {
-				memberTree.setInput(createMemberTree((FeatureGroupType) input));
-				memberTree.expandToLevel(2);
+				// Update the view contents in the UI thread
+				getViewSite().getShell().getDisplay().asyncExec(() -> {
+					ancestorTree.setInput(ancestorTreeModel);
+					ancestorTree.expandToLevel(2);
+
+					descendantTree.setInput(descendantTreeModel);
+					descendantTree.expandToLevel(2);
+
+					if (input instanceof ComponentType) {
+						memberTree.setInput(createMemberTree((ComponentType) input));
+						memberTree.expandToLevel(2);
+					} else if (input instanceof ComponentImplementation) {
+						memberTree.setInput(createMemberTree((ComponentImplementation) input));
+						memberTree.expandToLevel(2);
+					} else if (input instanceof FeatureGroupType) {
+						memberTree.setInput(createMemberTree((FeatureGroupType) input));
+						memberTree.expandToLevel(2);
+					}
+				});
+
+				// Mark the view as changed (should show up with a bold title)
+				service.warnOfContentChange();
+				return Status.OK_STATUS;
 			}
-		});
+		};
+		refreshJob.setRule(null); // doesn't write resources
+		refreshJob.setUser(true); // background helper job, don't let the user see it
+		refreshJob.setSystem(false); // background helper job, don't let the user see it
+
+		// Run the job using the progress service so that the view is marked as busy (italics)
+		service.schedule(refreshJob, 0, true);
 	}
 
 	// ======================================================================
