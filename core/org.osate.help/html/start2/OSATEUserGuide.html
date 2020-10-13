@@ -476,7 +476,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 
 <p><img src="images/OSATEUserGuide/NewProjectNavigator.png" alt="New Project Wizard"></p>
 
-<h3 id="toc_10">Built-in Property Sets</h3>
+<h3 id="toc_10"><span id="builtin">Built-in Property Sets</span></h3>
 
 <p>Also visible in the view is a library icon labeled <code>Plugin_Contributions</code>.  This view element collects all the AADL property sets available by default in OSATE:</p>
 
@@ -579,10 +579,13 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p><img src="images/OSATEUserGuide/AadlSearch.png" alt="AADL Search Window"></p>
 
-<p>You can search for the declarations of or references to classifiers or properties whose name contains the given substring.  The above search looks for all classifier declarations and references where the the classifier name contains the substring <code>find</code>.  AADL names are case insensitive so the search is always case insensitive.  The scope of search (which resources are looked in) is also specified:
-* It can be the entire workspace, in which all the AADL packages and property sets in the workspace, including plug-in contributions are searched.
-* It can be the the selected resources in the <code>AADL Navigator</code> view.  This button is only enabled when there is a selection in the view.
-* It can be the limited to the currently active editor window.  This button is only enabled when there is an active selected editor.</p>
+<p>You can search for the declarations of or references to classifiers or properties whose name contains the given substring.  The above search looks for all classifier declarations and references where the the classifier name contains the substring <code>find</code>.  AADL names are case insensitive so the search is always case insensitive.  The scope of search (which resources are looked in) is also specified:</p>
+
+<ul>
+<li>It can be the entire workspace, in which all the AADL packages and property sets in the workspace, including plug-in contributions are searched.</li>
+<li>It can be the the selected resources in the <code>AADL Navigator</code> view.  This button is only enabled when there is a selection in the view.</li>
+<li>It can be the limited to the currently active editor window.  This button is only enabled when there is an active selected editor.</li>
+</ul>
 
 <p>The search results are displayed grouped by the containing resource.  Resources are listed alphabetically by their workspace path.  Under each resource the results are listed in syntactic order.  Here we see the results of the above search:</p>
 
@@ -614,7 +617,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <h2 id="toc_21"><span id="instance">Instance Models</span></h2>
 
-<p>Most analyses are executed over the <em>instance model</em> of a system.  The instance model represents the complete nested architecture of a system.  Generally an instance model would be created from a system implementation classifier.  But OSATE allows an instance model to be created from all implementation classifiers except for <code>subprogram</code>.</p>
+<p>Most analyses are executed over the <em>instance model</em> of a system.  The instance model represents the complete nested architecture of a system.  Generally an instance model would be created from a system implementation classifier.  But OSATE allows an instance model to be created from all implementation classifiers except for <code>subprogram</code> and <code>subprogram group</code>.</p>
 
 <p>An instance model can be created in 3 ways:</p>
 
@@ -917,7 +920,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p><img src="images/OSATEUserGuide/Latency_CSV.png" alt="CSV Results"></p>
 
-<p>Here we see the full results for the end-to-end flow <code>etef0</code>, includingng individual components&#39; contributions to the latency.</p>
+<p>Here we see the full results for the end-to-end flow <code>etef0</code>, including individual components&#39; contributions to the latency.</p>
 
 <h2 id="toc_45"><span id="properties">AADL Property Values</span></h2>
 
@@ -1179,9 +1182,12 @@ view&#39;s menu opens a dialog which allows you to choose which property sets sh
 1. The left half shows the extension hierarchy
 2. The right half shows the members of the classifier grouped by kind.</p>
 
-<p>In the above, the view shows information about the classifier <code>T2.i2</code>.  From the hierarchy tree we see that 
-* It implements <code>T2</code> which extends <code>T1</code>. 
-* It extends <code>T2.i1</code>.</p>
+<p>In the above, the view shows information about the classifier <code>T2.i2</code>.  From the hierarchy tree we see that </p>
+
+<ul>
+<li>It implements <code>T2</code> which extends <code>T1</code>. </li>
+<li>It extends <code>T2.i1</code>.</li>
+</ul>
 
 <p>Double-clicking on any of the ancestors opens the AADL source text for the ancestor in an editor.</p>
 
@@ -1197,9 +1203,12 @@ view&#39;s menu opens a dialog which allows you to choose which property sets sh
 
 <h3 id="toc_66">Synchronizing with the Editor</h3>
 
-<p>The view&#39;s toolbar contains a single button that controls whether the view&#39;s selection is synchronized with the editor:
-* <img src="images/OSATEUserGuide/linked.png" alt=""> When the action is selected, simply selecting an item in the view is enough to open an editor to the associated AADL source text.
-* <img src="images/OSATEUserGuide/not_linked.png" alt=""> When the action is deselected, an item in the view must be double-clicked on to open the AADL source in an editor.</p>
+<p>The view&#39;s toolbar contains a single button that controls whether the view&#39;s selection is synchronized with the editor:</p>
+
+<ul>
+<li><img src="images/OSATEUserGuide/linked.png" alt=""> When the action is selected, simply selecting an item in the view is enough to open an editor to the associated AADL source text.</li>
+<li><img src="images/OSATEUserGuide/not_linked.png" alt=""> When the action is deselected, an item in the view must be double-clicked on to open the AADL source in an editor.</li>
+</ul>
 
 
 

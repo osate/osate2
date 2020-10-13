@@ -152,7 +152,7 @@ Enter `MyFirstAADLProject` as the project name and click on the `Finish` button.
 
 
 
-### Built-in Property Sets
+### <span id="builtin">Built-in Property Sets</span>
 
 Also visible in the view is a library icon labeled `Plugin_Contributions`.  This view element collects all the AADL property sets available by default in OSATE:
 
@@ -270,6 +270,7 @@ You can search for AADL classifiers and properties using the OSATE-provided `AAD
 ![AADL Search Window](images/OSATEUserGuide/AadlSearch.png)
 
 You can search for the declarations of or references to classifiers or properties whose name contains the given substring.  The above search looks for all classifier declarations and references where the the classifier name contains the substring `find`.  AADL names are case insensitive so the search is always case insensitive.  The scope of search (which resources are looked in) is also specified:
+
 * It can be the entire workspace, in which all the AADL packages and property sets in the workspace, including plug-in contributions are searched.
 * It can be the the selected resources in the `AADL Navigator` view.  This button is only enabled when there is a selection in the view.
 * It can be the limited to the currently active editor window.  This button is only enabled when there is an active selected editor.
@@ -627,7 +628,7 @@ The files in the `reports` directory contain more specific results (in three dif
 
 ![CSV Results](images/OSATEUserGuide/Latency_CSV.png)
 
-Here we see the full results for the end-to-end flow `etef0`, includingng individual components' contributions to the latency.
+Here we see the full results for the end-to-end flow `etef0`, including individual components' contributions to the latency.
 
 
 
@@ -896,6 +897,7 @@ The view is split in half:
 2. The right half shows the members of the classifier grouped by kind.
 
 In the above, the view shows information about the classifier `T2.i2`.  From the hierarchy tree we see that 
+
 * It implements `T2` which extends `T1`. 
 * It extends `T2.i1`.
 
@@ -915,8 +917,6 @@ Double-clicking on any of the members opens the AADL source text for the member 
 ### Synchronizing with the Editor
 
 The view's toolbar contains a single button that controls whether the view's selection is synchronized with the editor:
+
 * ![](images/OSATEUserGuide/linked.png) When the action is selected, simply selecting an item in the view is enough to open an editor to the associated AADL source text.
 * ![](images/OSATEUserGuide/not_linked.png) When the action is deselected, an item in the view must be double-clicked on to open the AADL source in an editor.
-
-
-
