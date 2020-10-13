@@ -21,37 +21,36 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ui.handlers;
+package org.osate.aadl2.errormodel.tests.issues
 
-import org.eclipse.core.commands.AbstractHandler;
-import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.TreeSelection;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
-import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
+import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextTest
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.serializer.SerializerTestHelper
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
+import org.osate.testsupport.TestHelper
 
-public class SetAadlProjectPropertiesHandler extends AbstractHandler {
-	@Override
-	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IWorkbenchWindow win = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		IWorkbenchPage page = win.getActivePage();
-		ISelection selection = page.getSelection();
-		if (selection instanceof TreeSelection) {
-			TreeSelection tree = (TreeSelection) selection;
-			if (tree.size() == 1) {
-				if (tree.getFirstElement() instanceof IResource) {
-					IResource newAadlProject = (IResource) tree.getFirstElement();
-					PredeclaredProperties.setAadlProject(newAadlProject);
-				} else if (tree.getFirstElement() instanceof ContributedAadlStorage) {
-					PredeclaredProperties.resetAadlProject();
-				}
-			}
-		}
-		return null;
+@RunWith(XtextRunner)
+@InjectWith(ErrorModelInjectorProvider)
+class Issue2398Test extends XtextTest {
+	val static PROJECT_LOCATION = "org.osate.aadl2.errormodel.tests/models/issue2398/"
+
+	@Inject
+	TestHelper<AadlPackage> testHelper
+
+	@Inject
+	SerializerTestHelper serializerHelper
+
+	@Test
+	def void testPkg1() {
+		val file1 = PROJECT_LOCATION + "typelib.aadl"
+		val file2 = PROJECT_LOCATION + "typelib2.aadl"
+		val pkg = testHelper.parseFile(file1, file2)
+
+		serializerHelper.assertSerializable(pkg)	
 	}
 }
