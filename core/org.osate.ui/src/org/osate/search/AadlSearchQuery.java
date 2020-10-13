@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -157,21 +158,23 @@ public final class AadlSearchQuery implements ISearchQuery {
 			final AadlFinder aadlFinder = AadlFinder.getInstance();
 			final EClass declarationEClass = searchFor.declarationEClass();
 			aadlFinder.processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
+				private SubMonitor subMonitor = null;
+
 				@Override
 				protected void begin(final int count) {
 					searchResult.setResourceSet(getResourceSet());
-					nonNullmonitor.beginTask(getLabel(), count);
+					subMonitor = SubMonitor.convert(nonNullmonitor, 2 * count);
 				}
 
 				@Override
 				protected void skipped(final IResourceDescription rsrcDesc) {
-					nonNullmonitor.worked(1);
+					subMonitor.worked(2);
 				}
 
 				@Override
 				protected void inScope(final IResourceDescription rsrcDesc) {
 					final String fileString = rsrcDesc.getURI().lastSegment();
-					nonNullmonitor.subTask(fileString);
+					subMonitor.subTask(fileString);
 					if (limitTo.declarations()) {
 						aadlFinder.getAllObjectsOfTypeInResource(rsrcDesc, searchFor.declarationEClass(),
 								getResourceSet(), (resourceSet, objDesc) -> {
@@ -182,8 +185,8 @@ public final class AadlSearchQuery implements ISearchQuery {
 										searchResult.addFoundDeclaration(resourceSet, objDesc);
 									}
 								});
-						nonNullmonitor.worked(1);
 					}
+					subMonitor.worked(1);
 
 					if (nonNullmonitor.isCanceled()) {
 						throw new OperationCanceledException();
@@ -205,8 +208,9 @@ public final class AadlSearchQuery implements ISearchQuery {
 											}
 										}
 									}
-								});
-						nonNullmonitor.worked(1);
+								}, subMonitor.split(1));
+					} else {
+						subMonitor.worked(1);
 					}
 
 					if (nonNullmonitor.isCanceled()) {

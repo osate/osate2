@@ -103,7 +103,7 @@ public final class FindUnusedClassifiersAnalysis {
 
 		@Override
 		public IStatus runInWorkspace(final IProgressMonitor monitor) throws CoreException {
-			final SubMonitor subMonitor = SubMonitor.convert(monitor, 3);
+			final SubMonitor subMonitor = SubMonitor.convert(monitor, 4);
 
 			// Clear out the old warning markers
 			for (final IFile packageFile : packageFiles) {
@@ -145,7 +145,7 @@ public final class FindUnusedClassifiersAnalysis {
 							subMon.worked(1);
 						}
 					},
-					(resourceSet, refDesc) -> referencedThings.add(refDesc.getTargetEObjectUri()));
+					(resourceSet, refDesc) -> referencedThings.add(refDesc.getTargetEObjectUri()), subMonitor.split(1));
 
 			// (3) See if the declarations in the set of referenced things
 			final SubMonitor lastMonitor = subMonitor.split(1);

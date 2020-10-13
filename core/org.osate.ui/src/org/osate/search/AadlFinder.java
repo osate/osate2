@@ -28,6 +28,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -246,18 +247,58 @@ public final class AadlFinder {
 		}
 	}
 
+	/**
+	 * @deprecated Use {@link #getAllReferencesToTypeInWorkspace(FinderConsumer, IProgressMonitor)
+	 */
+	@Deprecated
 	public void getAllReferencesToTypeInWorkspace(final FinderConsumer<IReferenceDescription> consumer) {
-		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, consumer);
+		getAllReferencesToTypeInWorkspace(consumer, null);
 	}
 
+	/**
+	 * @param progressMonitor May be {@code null}.
+	 * @since 5.0
+	 */
+	public void getAllReferencesToTypeInWorkspace(final FinderConsumer<IReferenceDescription> consumer,
+			final IProgressMonitor progressMonitor) {
+		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, consumer, progressMonitor);
+	}
+
+	/**
+	 * @deprecated Use {@link #getAllReferencesToTypeInWorkspace(ResourceConsumer, FinderConsumer, IProgressMonitor)
+	 */
+	@Deprecated
 	public void getAllReferencesToTypeInWorkspace(final ResourceConsumer<IResourceDescription> rsrcConsumer,
 			final FinderConsumer<IReferenceDescription> consumer) {
-		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, rsrcConsumer, consumer);
+		getAllReferencesToTypeInWorkspace(rsrcConsumer, consumer, null);
 	}
 
+	/**
+	 * @param progressMonitor May be {@code null}.
+	 * @since 5.0
+	 */
+	public void getAllReferencesToTypeInWorkspace(final ResourceConsumer<IResourceDescription> rsrcConsumer,
+			final FinderConsumer<IReferenceDescription> consumer, final IProgressMonitor progressMonitor) {
+		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, rsrcConsumer, consumer, progressMonitor);
+	}
+
+	/**
+	 * @deprecated Use {@link #getAllReferencesToTypeInScope(Scope, ResourceConsumer, FinderConsumer, IProgressMonitor)
+	 */
+	@Deprecated
 	public void getAllReferencesToTypeInScope(final Scope scope,
 			final ResourceConsumer<IResourceDescription> rsrcConsumer,
 			final FinderConsumer<IReferenceDescription> consumer) {
+		getAllReferencesToTypeInScope(scope, rsrcConsumer, consumer, null);
+	}
+
+	/**
+	 * @param progressMonitor May be {@code null}.
+	 * @since 5.0
+	 */
+	public void getAllReferencesToTypeInScope(final Scope scope,
+			final ResourceConsumer<IResourceDescription> rsrcConsumer,
+			final FinderConsumer<IReferenceDescription> consumer, final IProgressMonitor progressMonitor) {
 		processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
 			@Override
 			protected void begin(int count) {
@@ -266,7 +307,7 @@ public final class AadlFinder {
 
 			@Override
 			protected void inScope(final IResourceDescription rsrcDesc) {
-				getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), consumer);
+				getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), consumer, progressMonitor);
 				rsrcConsumer.inScope(rsrcDesc);
 			}
 
@@ -282,23 +323,48 @@ public final class AadlFinder {
 		});
 	}
 
-	public void getAllReferencesToTypeInScope(final Scope scope,
-			final FinderConsumer<IReferenceDescription> consumer) {
+	/**
+	 * @deprecated Use {@link #getAllReferencesToTypeInScope(Scope, FinderConsumer, IProgressMonitor)
+	 */
+	@Deprecated
+	public void getAllReferencesToTypeInScope(final Scope scope, final FinderConsumer<IReferenceDescription> consumer) {
+		getAllReferencesToTypeInScope(scope, consumer, null);
+	}
+
+	/**
+	 * @param progressMonitor May be {@code null}.
+	 * @since 5.0
+	 */
+	public void getAllReferencesToTypeInScope(final Scope scope, final FinderConsumer<IReferenceDescription> consumer,
+			IProgressMonitor progressMonitor) {
 		processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
 			@Override
 			protected void inScope(final IResourceDescription rsrcDesc) {
-				getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), consumer);
+				getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), consumer, progressMonitor);
 			}
 		});
 	}
 
+	/**
+	 * @deprecated Use {@link #getAllReferencesToTypeInResource(IResourceDescription, ResourceSet, FinderConsumer, IProgressMonitor)
+	 */
+	@Deprecated
 	public void getAllReferencesToTypeInResource(final IResourceDescription rsrcDesc, final ResourceSet resourceSet,
 			final FinderConsumer<IReferenceDescription> consumer) {
+		getAllReferencesToTypeInResource(rsrcDesc, resourceSet, consumer, null);
+	}
+
+	/**
+	 * @param progressMonitor May be {@code null}.
+	 * @since 5.0
+	 */
+	public void getAllReferencesToTypeInResource(final IResourceDescription rsrcDesc, final ResourceSet resourceSet,
+			final FinderConsumer<IReferenceDescription> consumer, final IProgressMonitor progressMonitor) {
 		final Resource rsrc = resourceSet.getResource(rsrcDesc.getURI(), true);
 		referenceFinder.findAllReferences(rsrc, new IReferenceFinder.Acceptor() {
 			@Override
-			public void accept(final EObject source, final URI sourceURI, final EReference eReference,
-					final int index, final EObject targetOrProxy, final URI targetURI) {
+			public void accept(final EObject source, final URI sourceURI, final EReference eReference, final int index,
+					final EObject targetOrProxy, final URI targetURI) {
 				accept(new DefaultReferenceDescription(sourceURI, targetURI, eReference, index, null));
 			}
 
@@ -306,6 +372,6 @@ public final class AadlFinder {
 			public void accept(final IReferenceDescription refDesc) {
 				consumer.found(resourceSet, refDesc);
 			}
-		}, null);
+		}, progressMonitor);
 	}
 }
