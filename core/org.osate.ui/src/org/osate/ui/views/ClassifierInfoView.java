@@ -451,8 +451,7 @@ public final class ClassifierInfoView extends ViewPart {
 				classifierResources.clear();
 				final AncestorTree ancestorTreeModel = createAncestorTree(input);
 				subMonitor.worked(1);
-				final DescendantTree descendantTreeModel = createDescendantTree(input);
-				subMonitor.worked(1);
+				final DescendantTree descendantTreeModel = createDescendantTree(input, subMonitor.split(1));
 				subMonitor.done();
 
 				// Update the view contents in the UI thread
@@ -778,7 +777,9 @@ public final class ClassifierInfoView extends ViewPart {
 		}
 	}
 
-	private DescendantTree createDescendantTree(final Classifier rootClassifier) {
+	private DescendantTree createDescendantTree(final Classifier rootClassifier,
+			final IProgressMonitor progressMonitor) {
+		final SubMonitor subMonitor = SubMonitor.convert(progressMonitor);
 		/*
 		 * Find all the projects that depend on the project that declares the
 		 * root classifier. Use them to build a constraining search scope.
@@ -799,8 +800,12 @@ public final class ClassifierInfoView extends ViewPart {
 			final DescendantTreeNode current = deque.removeFirst();
 
 			/* Find all the references to the current classifier */
+			subMonitor.subTask(current.getText());
+			subMonitor.setWorkRemaining(10);
 			AadlFinder.getInstance().getAllReferencesToTypeInScope(scope, (resourceSet, refDesc) -> {
 				if (refDesc.getTargetEObjectUri().equals(current.getURI())) {
+					subMonitor.setWorkRemaining(10);
+					subMonitor.split(1);
 					final URI sourceEObjectUri = refDesc.getSourceEObjectUri();
 					final EObject eObj = resourceSet.getEObject(sourceEObjectUri, true);
 
@@ -830,7 +835,7 @@ public final class ClassifierInfoView extends ViewPart {
 						deque.addLast(child);
 					}
 				}
-			});
+			}, subMonitor.split(1));
 		}
 
 		return new DescendantTree(root);
