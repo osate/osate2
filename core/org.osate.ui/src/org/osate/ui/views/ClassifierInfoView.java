@@ -43,6 +43,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
@@ -149,6 +150,12 @@ public final class ClassifierInfoView extends ViewPart {
 	private volatile boolean syncWithEditor = true;
 
 	/*
+	 * The Job (if any currently running to refresh the view. If another refresh occurs, we need to cancel
+	 * this job first. Protected by synchronizing on the view object.
+	 */
+	private Job currentRefreshJob = null;
+
+	/*
 	 * Keep track of the URI of the classifier being viewed so that we can refresh if
 	 * the workspace changes. Need to keep the URI and not the classifier object
 	 * itself so that we can reparse it and pick up the changes.
@@ -206,7 +213,7 @@ public final class ClassifierInfoView extends ViewPart {
 
 			@Override
 			public void run() {
-				clearDisplay();
+				clearDisplay(true);
 			}
 		});
 		toolBarManager.add(new Action(LINK_WITH_EDITOR_ACTION_NAME, IAction.AS_CHECK_BOX) {
@@ -431,8 +438,11 @@ public final class ClassifierInfoView extends ViewPart {
 		}
 	}
 
-	private void clearDisplay() {
-		viewedClassifierURI = null;
+	private void clearDisplay(final boolean resetURI) {
+		if (resetURI) {
+			viewedClassifierURI = null;
+			classifierResources.clear();
+		}
 		getViewSite().getShell().getDisplay().asyncExec(() -> {
 			ancestorTree.setInput(AncestorTree.EMTPY_TREE);
 			descendantTree.setInput(DescendantTree.EMPTY_TREE);
@@ -440,50 +450,87 @@ public final class ClassifierInfoView extends ViewPart {
 		});
 	}
 
-	private void updateDisplay(final Classifier input) {
+	// Synchronized to make manipulation of the currentRefreshJob atomic
+	private synchronized void updateDisplay(final Classifier input) {
+		// STop any current refresh job
+		if (currentRefreshJob != null) {
+			currentRefreshJob.cancel();
+		}
+		final Job waitForJob = currentRefreshJob;
+
 		// Compute the tree in a separate job and then update the view on the display thread.
 		final IWorkbenchSiteProgressService service = getSite().getService(IWorkbenchSiteProgressService.class);
 		final Job refreshJob = new Job("Classifier Info View Refresh") {
 			@Override
+			protected void canceling() {
+				System.out.println("Cancelled");
+			}
+
+			@Override
 			protected IStatus run(final IProgressMonitor monitor) {
+				// Wait for the current refresh to finish (it should have been cancelled)
+				if (waitForJob != null) {
+					try {
+						waitForJob.join();
+					} catch (final InterruptedException e) {
+						/*
+						 * We there interrupted while waiting. Not sure this should be possible, but
+						 * if it happens, we clear the display.
+						 */
+						clearDisplay(false);
+						return Status.CANCEL_STATUS;
+					}
+				}
+
 				final SubMonitor subMonitor = SubMonitor.convert(monitor, 2);
 
+				boolean cancelled = false;
 				classifierResources.clear();
-				final AncestorTree ancestorTreeModel = createAncestorTree(input);
-				subMonitor.worked(1);
-				final DescendantTree descendantTreeModel = createDescendantTree(input, subMonitor.split(1));
-				subMonitor.done();
+				try {
+					final AncestorTree ancestorTreeModel = createAncestorTree(input, subMonitor);
+					subMonitor.worked(1);
+					final DescendantTree descendantTreeModel = createDescendantTree(input, subMonitor.split(1));
+					subMonitor.done();
 
-				// Update the view contents in the UI thread
-				getViewSite().getShell().getDisplay().asyncExec(() -> {
-					ancestorTree.setInput(ancestorTreeModel);
-					ancestorTree.expandToLevel(2);
+					// Update the view contents in the UI thread
+					getViewSite().getShell().getDisplay().asyncExec(() -> {
+						ancestorTree.setInput(ancestorTreeModel);
+						ancestorTree.expandToLevel(2);
 
-					descendantTree.setInput(descendantTreeModel);
-					descendantTree.expandToLevel(2);
+						descendantTree.setInput(descendantTreeModel);
+						descendantTree.expandToLevel(2);
 
-					if (input instanceof ComponentType) {
-						memberTree.setInput(createMemberTree((ComponentType) input));
-						memberTree.expandToLevel(2);
-					} else if (input instanceof ComponentImplementation) {
-						memberTree.setInput(createMemberTree((ComponentImplementation) input));
-						memberTree.expandToLevel(2);
-					} else if (input instanceof FeatureGroupType) {
-						memberTree.setInput(createMemberTree((FeatureGroupType) input));
-						memberTree.expandToLevel(2);
-					}
-				});
+						if (input instanceof ComponentType) {
+							memberTree.setInput(createMemberTree((ComponentType) input));
+							memberTree.expandToLevel(2);
+						} else if (input instanceof ComponentImplementation) {
+							memberTree.setInput(createMemberTree((ComponentImplementation) input));
+							memberTree.expandToLevel(2);
+						} else if (input instanceof FeatureGroupType) {
+							memberTree.setInput(createMemberTree((FeatureGroupType) input));
+							memberTree.expandToLevel(2);
+						}
+					});
+				} catch (final OperationCanceledException | InterruptedException e) {
+					/*
+					 * N.B. OperationCanceledException may be thrown by the ReferenceFinder classes used by
+					 * AadlFinder.
+					 */
+					cancelled = true;
+					clearDisplay(false);
+				}
 
 				// Mark the view as changed (should show up with a bold title)
 				service.warnOfContentChange();
-				return Status.OK_STATUS;
+				return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
 			}
 		};
 		refreshJob.setRule(null); // doesn't write resources
-		refreshJob.setUser(true); // background helper job, don't let the user see it
-		refreshJob.setSystem(false); // background helper job, don't let the user see it
+		refreshJob.setUser(true);
+		refreshJob.setSystem(false);
 
 		// Run the job using the progress service so that the view is marked as busy (italics)
+		currentRefreshJob = refreshJob;
 		service.schedule(refreshJob, 0, true);
 	}
 
@@ -660,8 +707,9 @@ public final class ClassifierInfoView extends ViewPart {
 		}
 	}
 
-	private AncestorTree createAncestorTree(final Classifier classifier) {
-		return new AncestorTree(createAncestorTreeNode(classifier, NO_PREFIX));
+	private AncestorTree createAncestorTree(final Classifier classifier, final IProgressMonitor progressMonitor)
+			throws InterruptedException {
+		return new AncestorTree(createAncestorTreeNode(classifier, NO_PREFIX, progressMonitor));
 	}
 
 	private final class AncestorTreeNode extends HierarchyTreeNode<AncestorTreeNode> {
@@ -686,7 +734,12 @@ public final class ClassifierInfoView extends ViewPart {
 		}
 	}
 
-	private AncestorTreeNode createAncestorTreeNode(final Classifier classifier, final String prefix) {
+	private AncestorTreeNode createAncestorTreeNode(final Classifier classifier, final String prefix,
+			final IProgressMonitor progressMonitor) throws InterruptedException {
+		if (progressMonitor.isCanceled()) {
+			throw new InterruptedException();
+		}
+
 		final Resource eResource = classifier.eResource();
 		// If the AADL file has parse errors then we may get a null result here
 		if (eResource != null) {
@@ -698,17 +751,17 @@ public final class ClassifierInfoView extends ViewPart {
 		if (classifier instanceof ComponentType) {
 			final ComponentType extended = ((ComponentType) classifier.getExtended());
 			if (extended != null) {
-				children = new AncestorTreeNode[] { createAncestorTreeNode(extended, EXTENDS) };
+				children = new AncestorTreeNode[] { createAncestorTreeNode(extended, EXTENDS, progressMonitor) };
 			}
 		} else if (classifier instanceof ComponentImplementation) {
 			final ComponentImplementation asCompImpl = (ComponentImplementation) classifier;
 			final ComponentType implemented = asCompImpl.getType();
 			final ComponentImplementation extended = asCompImpl.getExtended();
 			if (extended == null) {
-				children = new AncestorTreeNode[] { createAncestorTreeNode(implemented, IMPLEMENTS) };
+				children = new AncestorTreeNode[] { createAncestorTreeNode(implemented, IMPLEMENTS, progressMonitor) };
 			} else {
-				children = new AncestorTreeNode[] { createAncestorTreeNode(implemented, IMPLEMENTS),
-						createAncestorTreeNode(extended, EXTENDS) };
+				children = new AncestorTreeNode[] { createAncestorTreeNode(implemented, IMPLEMENTS, progressMonitor),
+						createAncestorTreeNode(extended, EXTENDS, progressMonitor) };
 			}
 		} else if (classifier instanceof FeatureGroupType) {
 			final FeatureGroupType asFeatureGroup = (FeatureGroupType) classifier;
@@ -716,10 +769,10 @@ public final class ClassifierInfoView extends ViewPart {
 			final FeatureGroupType extended = asFeatureGroup.getExtended();
 			final List<AncestorTreeNode> childrenList = new ArrayList<>(2);
 			if (inverseOf != null) {
-				childrenList.add(createAncestorTreeNode(inverseOf, INVERSE_OF));
+				childrenList.add(createAncestorTreeNode(inverseOf, INVERSE_OF, progressMonitor));
 			}
 			if (extended != null) {
-				childrenList.add(createAncestorTreeNode(extended, EXTENDS));
+				childrenList.add(createAncestorTreeNode(extended, EXTENDS, progressMonitor));
 			}
 			children = childrenList.toArray(children);
 		}
@@ -778,7 +831,7 @@ public final class ClassifierInfoView extends ViewPart {
 	}
 
 	private DescendantTree createDescendantTree(final Classifier rootClassifier,
-			final IProgressMonitor progressMonitor) {
+			final IProgressMonitor progressMonitor) throws InterruptedException {
 		final SubMonitor subMonitor = SubMonitor.convert(progressMonitor);
 		/*
 		 * Find all the projects that depend on the project that declares the
@@ -797,12 +850,21 @@ public final class ClassifierInfoView extends ViewPart {
 		 * where it is being implemented/extended/inverted.
 		 */
 		while (!deque.isEmpty()) {
+			if (subMonitor.isCanceled()) {
+				throw new InterruptedException();
+			}
+
 			final DescendantTreeNode current = deque.removeFirst();
 
 			/* Find all the references to the current classifier */
+			// Use the "logarithmic progress pattern described in SubMonitor JavaDoc
 			subMonitor.subTask(current.getText());
 			subMonitor.setWorkRemaining(10);
+			final AtomicBoolean cancelled = new AtomicBoolean(false);
 			AadlFinder.getInstance().getAllReferencesToTypeInScope(scope, (resourceSet, refDesc) -> {
+				if (subMonitor.isCanceled()) {
+					cancelled.set(true);
+				}
 				if (refDesc.getTargetEObjectUri().equals(current.getURI())) {
 					subMonitor.setWorkRemaining(10);
 					subMonitor.split(1);
@@ -836,6 +898,9 @@ public final class ClassifierInfoView extends ViewPart {
 					}
 				}
 			}, subMonitor.split(1));
+			if (cancelled.get()) {
+				throw new InterruptedException();
+			}
 		}
 
 		return new DescendantTree(root);
