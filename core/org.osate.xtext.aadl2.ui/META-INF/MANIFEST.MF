@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Aadl2 Xtext UI
 Bundle-Vendor: CMU/SEI
-Bundle-Version: 5.0.0.qualifier
+Bundle-Version: 5.0.1.qualifier
 Bundle-SymbolicName: org.osate.xtext.aadl2.ui;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.ui.editors;bundle-version="[3.7.0,4.0.0)",
