@@ -1,0 +1,1 @@
+Arrow and Marquee icons are copied from [GEF-legacy](https://github.com/eclipse/gef-legacy/tree/master/org.eclipse.gef/src/org/eclipse/gef/internal/icons).

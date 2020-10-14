@@ -54,6 +54,7 @@ package org.osate.ge.internal.services;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
@@ -84,6 +85,13 @@ extends BusinessObjectHandlerProvider, ContentFilterProvider, DiagramTypeProvide
 	List<PaletteCategory> getCategories();
 
 	Collection<BusinessObjectProvider> getBusinessObjectProviders();
+
+	// TODO: Rename?
+	/**
+	 * Returns a mapping between the image id and the path to the image.
+	 * @return an unmodifiable map with the mapping.
+	 */
+	Map<String, String> getImageIdToPathMap();
 
 	/**
 	 * Returns a collection containing palette command providers

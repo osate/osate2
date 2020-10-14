@@ -14,7 +14,7 @@
    </configIni>
 
    <launcherArgs>
-      <vmArgs>-Dosgi.requiredJavaVersion=1.8 -Xms40m -Xmx768m --add-modules=ALL-SYSTEM
+      <vmArgs>-Dosgi.requiredJavaVersion=1.8 -Dosgi.framework.extensions=org.eclipse.fx.osgi -Xms40m -Xmx768m --add-modules=ALL-SYSTEM
       </vmArgs>
    </launcherArgs>
 
@@ -63,6 +63,9 @@
       <feature id="org.eclipse.ease.modules.feature"/>
       <feature id="org.eclipse.ease.ui.feature"/>
       <feature id="org.py4j.feature"/>
+      <feature id="org.eclipse.fx.runtime.min.feature"/>
+      <feature id="openjfx.standard.feature"/>
+      <feature id="openjfx.swt.feature"/>
    </features>
 
    <configurations>
@@ -71,8 +74,8 @@
       <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
-      <property name="org.eclipse.update.reconcile" value="false" />
       <property name="preferenceCustomization" value="plugin_customization.ini" />
+      <property name="org.eclipse.update.reconcile" value="false" />
    </configurations>
 
    <repositories>

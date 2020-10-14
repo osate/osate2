@@ -40,6 +40,10 @@ censes only apply to the Third Party Software and not any other portion of this 
 
 	<modules>
 		<module>org.osate.ge</module>
+		<module>org.osate.ge.fx</module>
+		<module>org.osate.ge.graphics.fx</module>
+		<module>org.osate.ge.gef</module>
+		<module>org.osate.ge.gef.ui</module>
 		<module>org.osate.ge.swt</module>
 		<module>org.osate.ge.diagram</module>
 		<module>org.osate.ge.doc</module>
