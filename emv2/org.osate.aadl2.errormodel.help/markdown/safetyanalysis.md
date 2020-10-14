@@ -476,6 +476,15 @@ gate with two sub-events representing the redundant sensors.
 
 ![GPS2SensorTable](images/fta-gps2sensorstatetable.png "GPS2SensorTable")
 
+### Fault Tree Analysis Configuration
+
+The number of decimal digits shown for probability values shown the the table and graphical view is configurable.
+
+A global configuration for all projects in the workspace can be set using _Window_ > _Preferences_ > _OSATE_ >
+_Analysis_ > _Fault Tree_. Valid values are between 1 and 16 decimal digits, the default is 1 digit. 
+The workspace settings can be overridden on a per-project basis: In the navigator select the project, right click,
+and select _Properties_ in the project's context menu.
+
 ### Composite Error State-based Parts Fault Tree Generation
 
 One use early in the process is a composite parts fault tree generation. In this case users define a 
