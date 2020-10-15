@@ -123,9 +123,14 @@ public final class AadlFinder {
 
 	@FunctionalInterface
 	public interface FinderConsumer<T> {
-		/**
-		 * @since 5.0
-		 */
+		public void found(T objDesc);
+	}
+
+	/**
+	 * @since 5.1
+	 */
+	@FunctionalInterface
+	public interface FinderConsumerWithResourceSet<T> {
 		public void found(ResourceSet resourceSet, T objDesc);
 	}
 
@@ -199,106 +204,123 @@ public final class AadlFinder {
 		}
 	}
 
-	/**
-	 * Get all the {@code EObject}s of the given type in the workspace.
-	 */
+	@Deprecated
 	public void getAllObjectsOfTypeInWorkspace(final EClass eClass,
 			final FinderConsumer<IEObjectDescription> consumer) {
+		getAllObjectsOfTypeInWorkspace(eClass, (rs, o) -> consumer.found(o));
+	}
+
+	/**
+	 * Get all the {@code EObject}s of the given type in the workspace.
+	 * @since 5.1
+	 */
+	public void getAllObjectsOfTypeInWorkspace(final EClass eClass,
+			final FinderConsumerWithResourceSet<IEObjectDescription> consumer) {
 		getAllObjectsOfTypeInScope(eClass, WORKSPACE_SCOPE, consumer);
+	}
+
+	@Deprecated
+	public void getAllObjectsOfTypeInScope(final EClass eClass, final Scope scope,
+			final FinderConsumer<IEObjectDescription> consumer) {
+		getAllObjectsOfTypeInScope(eClass, scope, (rs, o) -> consumer.found(o));
 	}
 
 	/**
 	 * Get all the {@code EObject}s of the given type contained in the given scope.
+	 * @since 5.1
 	 */
 	public void getAllObjectsOfTypeInScope(final EClass eClass, final Scope scope,
-			final FinderConsumer<IEObjectDescription> consumer) {
+			final FinderConsumerWithResourceSet<IEObjectDescription> consumer) {
 		processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
 			@Override
 			protected void inScope(final IResourceDescription rsrcDesc) {
-				getAllObjectsOfTypeInResource(rsrcDesc, eClass, consumer);
+				getAllObjectsOfTypeInResource(rsrcDesc, eClass, getResourceSet(), consumer);
 			}
 		});
 	}
 
+	@Deprecated
 	public void getAllObjectsOfTypeInCollection(final EClass eClass, final Collection<IFile> fileSet,
 			final FinderConsumer<IEObjectDescription> consumer) {
+		getAllObjectsOfTypeInCollection(eClass, fileSet, (rs, o) -> consumer.found(o));
+	}
+
+	/**
+	 * @since 5.1
+	 */
+	public void getAllObjectsOfTypeInCollection(final EClass eClass, final Collection<IFile> fileSet,
+			final FinderConsumerWithResourceSet<IEObjectDescription> consumer) {
 		final ResourceSet resourceSet = new ResourceSetImpl();
 		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
 				.getResourceDescriptions(resourceSet);
 		for (final IFile file : fileSet) {
 			final IResourceDescription rsrcDesc = resourceDescriptions
 					.getResourceDescription(OsateResourceUtil.toResourceURI(file));
-			getAllObjectsOfTypeInResource(rsrcDesc, eClass, consumer);
+			getAllObjectsOfTypeInResource(rsrcDesc, eClass, resourceSet, consumer);
 		}
 	}
 
+	@Deprecated
 	public void getAllObjectsOfTypeInResource(final IResourceDescription rsrcDesc,
 			final EClass eClass, final FinderConsumer<IEObjectDescription> consumer) {
-		getAllObjectsOfTypeInResource(rsrcDesc, eClass, new ResourceSetImpl(), consumer);
+		getAllObjectsOfTypeInResource(rsrcDesc, eClass, new ResourceSetImpl(), (rs, o) -> consumer.found(o));
 	}
 
 	/**
-	 * @since 5.0
+	 * @since 5.1
 	 */
 	public void getAllObjectsOfTypeInResource(final IResourceDescription rsrcDesc, final EClass eClass,
-			final ResourceSet resourceSet, final FinderConsumer<IEObjectDescription> consumer) {
+			final ResourceSet resourceSet, final FinderConsumerWithResourceSet<IEObjectDescription> consumer) {
 		for (final IEObjectDescription objDesc : rsrcDesc.getExportedObjectsByType(eClass)) {
 			consumer.found(resourceSet, objDesc);
 		}
 	}
 
-	/**
-	 * @deprecated Use {@link #getAllReferencesToTypeInWorkspace(FinderConsumer, IProgressMonitor)
-	 */
 	@Deprecated
 	public void getAllReferencesToTypeInWorkspace(final FinderConsumer<IReferenceDescription> consumer) {
-		getAllReferencesToTypeInWorkspace(consumer, null);
+		getAllReferencesToTypeInWorkspace((rs, o) -> consumer.found(o), null);
 	}
 
 	/**
 	 * @param progressMonitor May be {@code null}.
-	 * @since 5.0
+	 * @since 5.1
 	 */
-	public void getAllReferencesToTypeInWorkspace(final FinderConsumer<IReferenceDescription> consumer,
+	public void getAllReferencesToTypeInWorkspace(final FinderConsumerWithResourceSet<IReferenceDescription> consumer,
 			final IProgressMonitor progressMonitor) {
 		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, consumer, progressMonitor);
 	}
 
-	/**
-	 * @deprecated Use {@link #getAllReferencesToTypeInWorkspace(ResourceConsumer, FinderConsumer, IProgressMonitor)
-	 */
 	@Deprecated
 	public void getAllReferencesToTypeInWorkspace(final ResourceConsumer<IResourceDescription> rsrcConsumer,
 			final FinderConsumer<IReferenceDescription> consumer) {
-		getAllReferencesToTypeInWorkspace(rsrcConsumer, consumer, null);
+		getAllReferencesToTypeInWorkspace(rsrcConsumer, (rs, o) -> consumer.found(o), null);
 	}
 
 	/**
 	 * @param progressMonitor May be {@code null}.
-	 * @since 5.0
+	 * @since 5.1
 	 */
 	public void getAllReferencesToTypeInWorkspace(final ResourceConsumer<IResourceDescription> rsrcConsumer,
-			final FinderConsumer<IReferenceDescription> consumer, final IProgressMonitor progressMonitor) {
+			final FinderConsumerWithResourceSet<IReferenceDescription> consumer,
+			final IProgressMonitor progressMonitor) {
 		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, rsrcConsumer, consumer, progressMonitor);
 	}
 
-	/**
-	 * @deprecated Use {@link #getAllReferencesToTypeInScope(Scope, ResourceConsumer, FinderConsumer, IProgressMonitor)
-	 */
 	@Deprecated
 	public void getAllReferencesToTypeInScope(final Scope scope,
 			final ResourceConsumer<IResourceDescription> rsrcConsumer,
 			final FinderConsumer<IReferenceDescription> consumer) {
-		getAllReferencesToTypeInScope(scope, rsrcConsumer, consumer, null);
+		getAllReferencesToTypeInScope(scope, rsrcConsumer, (rs, o) -> consumer.found(o), null);
 	}
 
 	/**
 	 * @param progressMonitor May be {@code null}.
-	 * @since 5.0
+	 * @since 5.1
 	 */
 	public void getAllReferencesToTypeInScope(final Scope scope,
 			final ResourceConsumer<IResourceDescription> rsrcConsumer,
-			final FinderConsumer<IReferenceDescription> consumer, final IProgressMonitor progressMonitor) {
+			final FinderConsumerWithResourceSet<IReferenceDescription> consumer,
+			final IProgressMonitor progressMonitor) {
 		processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
 			@Override
 			protected void begin(int count) {
@@ -323,19 +345,17 @@ public final class AadlFinder {
 		});
 	}
 
-	/**
-	 * @deprecated Use {@link #getAllReferencesToTypeInScope(Scope, FinderConsumer, IProgressMonitor)
-	 */
 	@Deprecated
 	public void getAllReferencesToTypeInScope(final Scope scope, final FinderConsumer<IReferenceDescription> consumer) {
-		getAllReferencesToTypeInScope(scope, consumer, null);
+		getAllReferencesToTypeInScope(scope, (rs, o) -> consumer.found(o), null);
 	}
 
 	/**
 	 * @param progressMonitor May be {@code null}.
-	 * @since 5.0
+	 * @since 5.1
 	 */
-	public void getAllReferencesToTypeInScope(final Scope scope, final FinderConsumer<IReferenceDescription> consumer,
+	public void getAllReferencesToTypeInScope(final Scope scope,
+			final FinderConsumerWithResourceSet<IReferenceDescription> consumer,
 			IProgressMonitor progressMonitor) {
 		processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
 			@Override
@@ -345,21 +365,19 @@ public final class AadlFinder {
 		});
 	}
 
-	/**
-	 * @deprecated Use {@link #getAllReferencesToTypeInResource(IResourceDescription, ResourceSet, FinderConsumer, IProgressMonitor)
-	 */
 	@Deprecated
 	public void getAllReferencesToTypeInResource(final IResourceDescription rsrcDesc, final ResourceSet resourceSet,
 			final FinderConsumer<IReferenceDescription> consumer) {
-		getAllReferencesToTypeInResource(rsrcDesc, resourceSet, consumer, null);
+		getAllReferencesToTypeInResource(rsrcDesc, resourceSet, (rs, o) -> consumer.found(o), null);
 	}
 
 	/**
 	 * @param progressMonitor May be {@code null}.
-	 * @since 5.0
+	 * @since 5.1
 	 */
 	public void getAllReferencesToTypeInResource(final IResourceDescription rsrcDesc, final ResourceSet resourceSet,
-			final FinderConsumer<IReferenceDescription> consumer, final IProgressMonitor progressMonitor) {
+			final FinderConsumerWithResourceSet<IReferenceDescription> consumer,
+			final IProgressMonitor progressMonitor) {
 		final Resource rsrc = resourceSet.getResource(rsrcDesc.getURI(), true);
 		referenceFinder.findAllReferences(rsrc, new IReferenceFinder.Acceptor() {
 			@Override
