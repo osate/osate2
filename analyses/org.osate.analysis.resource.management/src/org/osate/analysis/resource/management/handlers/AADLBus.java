@@ -49,7 +49,8 @@ public class AADLBus extends Link {
 
 	public static AADLBus createInstance(ComponentInstance bi) {
 		double bytesPerSec = 0;
-		bytesPerSec = getTransmissionTimePerByte(bi) != 0 ? 1.0 / getTransmissionTimePerByte(bi) : 0;
+		double transmissionTimePerByte = getTransmissionTimePerByte(bi);
+		bytesPerSec = transmissionTimePerByte != 0 ? 1.0 / transmissionTimePerByte : 0;
 		AADLBus bus = new AADLBus(bytesPerSec);
 		bus.setSemanticObject(bi);
 		return bus;

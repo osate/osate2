@@ -116,9 +116,9 @@ public abstract class AnnexRegistry {
 			return new AnnexHighlighterRegistry();
 		} else if (extensionId.equalsIgnoreCase(ANNEX_CONTENT_ASSIST_EXT_ID)) {
 			return new AnnexContentAssistRegistry();
+		} else {
+			throw new NullPointerException(extensionId + " is an invalid extension ID");
 		}
-
-		return null;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
