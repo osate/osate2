@@ -1,0 +1,220 @@
+--AADL2
+--SAE Aerospace Standard AS5506B
+--Appendix A: Predeclared Property Sets
+
+-- @codegen-package org.osate.aadl2.contrib.aadlproject
+property set AADL_Project is
+
+--- The <b>Supported_Active_Thread_Handling_Protocols</b> property enumeration type specifies the set of possible
+--- actions that can be taken to handle threads that are in the state of performing computation at the time instant of
+--- actual mode switch. 
+
+	Supported_Active_Thread_Handling_Protocols: type enumeration (abort);
+	
+---The <b>Supported_Connection_Patterns</b> property enumeration type specifies the set of patterns that are supported
+--- to connect together a source component array and a destination component array.<p> 
+--- <b>One_To_One</b> represents the case when each item of the source component array is connected to the 
+---corresponding item of the destination component array. This property can only be used if the source and the
+--- destination component arrays of the connection have the same dimension and same dimension size.<p>
+--- <b>All_To_All</b> represents the case when each item of the source component array is connected to each item of the
+--- destination component array. 
+--- A <b>Next</b> or <b>Previous</b> value indicates that elements of the ultimate source array dimension are connected
+--- to the next (previous) element in the ultimate destination array dimension without wrapping between the first and
+--- last.<p>
+--- A <b>Cyclic_Next</b> or <b>Cyclic_Previous</b> value indicates that elements of the ultimate source array dimension
+--- are connected to the next (previous) element in the ultimate destination array dimension.<p>
+--- <b>A One_to_All</b> value indicates that a single element of the ultimate source has a semantic connection to each
+--- element in the ultimate destination.<p>  
+--- A <b>All_to_One</b> value indicates that each array element of the ultimate source has a semantic connection to a
+--- single element in the ultimate destination.  
+	
+	Supported_Connection_Patterns: type enumeration (One_To_One, All_To_All, One_To_All, All_To_One,
+			 Next, Previous, Cyclic_Next, Cyclic_Previous,
+			 Odd_To_Odd, Even_To_Even, Next_Next, Cyclic_Next_Next, Previous_Previous, Cyclic_Previous_Previous);
+			 
+---The <b>Supported_Concurrency_Control_Protocols</b> property enumeration type specifies the set of concurrency
+--- control protocols that are supported. 	 
+	
+	Supported_Concurrency_Control_Protocols: type enumeration (None_Specified, Interrupt_Masking, 
+	                Maximum_Priority, Priority_Inheritance, Priority_Ceiling, Spin_Lock, Semaphore, Protected_Access);
+	                
+--- The <b>Supported_Dispatch_Protocols</b> property enumeration type specifies the set of thread dispatch protocols
+--- that are supported.<p> 
+--- <b>Periodic</b> represents periodic dispatch of threads with deadlines. <b>Sporadic</b> represents event-triggered
+--- dispatching of threads with soft deadlines. <b>Aperiodic</b> represents event-triggered dispatch of threads with
+--- hard deadlines. <b>Timed</b> represents threads that are dispatched after a given time unless they are dispatched
+--- by arrival of an event or event data. <b>Hybrid</b> represents threads that are dispatched by both an event or
+--- event data arrival and periodically. <b>Background</b> represents threads that are dispatched once and execute 
+---until completion.  The <b>Period</b> is required for <b>Periodic, Timed, and Hybrid</b> threads.
+	                
+	
+	Supported_Dispatch_Protocols: type enumeration (Periodic, Sporadic, Aperiodic, Timed, Hybrid, Background);
+	
+--- The <b>Supported_Queue_Processing_Protocols</b> property enumeration type specifies the set of queue processing
+--- protocols that are supported.<p> 
+--- <b>Fifo</b> represents first-in first-out processing of queues. Other prototcols are project specific.
+	
+	Supported_Queue_Processing_Protocols: type enumeration (Fifo);
+	
+--- The <b>Supported_Hardware_Source_Languages</b> property enumeration type specifies the set of hardware description
+--- languages that are supported
+	
+	Supported_Hardware_Source_Languages: type enumeration (VHDL);
+	
+--- The <b>Supported_Connection_QoS</b> property specifies the quality of services.
+	
+	Supported_Connection_QoS: type enumeration (GuaranteedDelivery, OrderedDelivery, SecureDelivery);
+	
+--- The <b>Supported_Scheduling_Protocols</b> property enumeration type specifies the set of scheduling protocols
+--- that are supported.<p>
+--- Scheduling protocols that can be provided by implementers include:<p> 
+--- <ul><li>None (single thread).</li>
+---	<li>Interrupt-driven (handling of interrupt service routines (ISR)).</li>
+--- <li>For periodic task sets: fixed timeline, cooperative (cyclic executive), deadline monotonic, least laxity.</li></ul>
+---	<ul><li>For hybrid task set:</li> 
+--- <li>Fixed priority server based on Rate Monotonic Scheduling (RMS) (polling server, deferrable server, sporadic
+--- server, slack stealer).</li> 
+--- <li>Dynamic priority server based on Earliest Deadline First (EDF) (dynamic polling server, dynamic deferrable
+--- server,</li> 
+--- <li>dynamic sporadic server, total bandwidth server, constant bandwidth server).</li></ul>
+--- Scheduling protocols have a policy for scheduling periodic threads, for aperiodic/sporadic threads, and for
+--- background threads.  In the case of RMS, the periodic thread policy is priority assignment according to decreasing
+--- rate, aperiodic and sporadic threads according to their minimum inter-arrival time, and background as <b>FIFO</b>.
+---  Others have similar characteristics.  
+	
+	Supported_Scheduling_Protocols: type enumeration (Static, Round_Robin_Protocol, POSIX_1003_HIGHEST_PRIORITY_FIRST_PROTOCOL, FixedTimeline, Cooperative, RMS, DMS, EDF, SporadicServer, SlackServer, ARINC653);
+
+--- The <b>Supported_Source_Languages</b> property enumeration type specifies the set of software source languages that
+--- are supported.
+	
+	Supported_Source_Languages: type enumeration (Ada95, Ada2005, C, Java, Simulink_6_5, SCADE);
+	
+--- The <b>Supported_Distribution</b> property enumeration type specifies the set of distribution functions that are
+--- supported.
+	
+	Supported_Distributions: type enumeration (Fixed, Poisson);
+
+---The <b>Supported_Classifier_Substitutions</b> property enumeration type specifies the set of classifier 
+--- substitutions that are supported for prototypes and refinement declarations.  Three kinds of substitutions are
+--- defined as part of the standard.  A candidate for additional substitution rules signature matching with name
+--- mapping.
+
+	Supported_Classifier_Substitutions: type enumeration (Classifier_Match, Type_Extension, Signature_Match);
+	
+--- The following four property constants support values which are lists of pairs of classifiers.  An example value could be the following:
+---	((classifier (pkg::a), classifier (pkg::b)), (classifier (pkg::c), classifier (pkg::d)), (classifier (pkg::e), classifier (pkg::f)))
+--- The size of each inner list must be exactly two.  There are no restrictions on the size of the outer list.
+	
+	
+	Supported_Classifier_Equivalence_Matches: constant list of list of classifier (data, bus, subprogram, subprogram group, feature group) => ();
+	
+	Supported_Classifier_Subset_Matches: constant list of list of classifier (data, bus, subprogram, subprogram group) => ();
+	
+	Supported_Type_Conversions: constant list of list of classifier (data, bus, subprogram, subprogram group) => ();
+	
+	Supported_Classifier_Complement_Matches: constant list of list of classifier (feature group) => ();
+	
+--- The property constant <b>Max_Aadlinteger</b> specifies the largest machine representable integer value that may be
+--- used as the maximum value in property associations. This property does not specify the maximum integer
+--- representation on a target processor.
+	
+	Max_Aadlinteger: constant aadlinteger => 2#1#e32;
+	
+--- The property constant <b>Max_Target_Integer</b> specifies the largest machine representable integer value on a
+--- target processor. 
+	
+	Max_Target_Integer: constant aadlinteger => 2#1#e32;
+	
+--- The property constant <b>Max_Base_Address</b> specifies the maximum value that can be declared in for the
+--- <b>Base_Address</b> property.
+	
+	Max_Base_Address: constant aadlinteger => 2#1#e32;
+	
+--- The property constant <b>Max_Memory_Size</b> specifies the maximum memory size that can be declared in for the
+--- <b>Size</b> property, expressed in the specified unit of <b>Size</b>.	
+
+	Max_Memory_Size: constant Size => 2#1#e32 Bytes;
+	
+--- The property constant <b>Max_Queue_Size</b> specifies the maximum value that can be declared in for the
+--- <b>Queue_Size</b> property.
+	
+	Max_Queue_Size: constant aadlinteger => 512;
+	
+--- The property constant <b>Max_Thread_Limit</b> specifies the maximum value that can be declared in for the
+--- <b>Thread_Limit</b> property.
+	
+	Max_Thread_Limit: constant aadlinteger => 32;
+	
+--- The property constant <b>Max_Time</b> specifies the maximum value that can be declared in for the <b>Time</b>
+--- property, expressed in the specified  unit of <b>Time</b>.
+	
+	Max_Time: constant Time => 1000 hr;
+	
+--- The property constant <b>Max_Urgency</b> specifies the maximum value that can be declared in for the <b>Urgency</b>
+--- property.
+	
+	Max_Urgency: constant aadlinteger => 12;
+	
+--- The property constant <b>Max_Byte_Count</b> specifies the maximum value that can be declared in for the
+--- <b>Byte_Count</b> property.
+	
+	Max_Byte_Count: constant aadlinteger => 2#1#e32;
+	
+--- The property constant <b>Max_Word_Space</b> specifies the maximum value that can be declared in for the
+--- Word_Space property
+	
+	Max_Word_Space: constant aadlinteger => 64;
+
+--- The <b>Time</b> property type specifies a property type for time that is expressed as numbers with predefined time
+--- units.
+	
+	Time: type aadlinteger units Time_Units; --0 ps .. Max_Time units Time_Units;
+	
+--- The <b>Time_Range property</b> type specifies a property type for a closed range of time, i.e., a time span
+--- including the lower and upper bound.<p> 
+--- The property type is Time.  The standard units are ps (picoseconds), ns (nanoseconds), us (microseconds), ms
+--- (milliseconds), sec (seconds), min (minutes) and hr (hours).
+	
+	Time_Range: type range of Time;
+	
+--- Memory size as integers with predefined size units.
+	
+	Size: type aadlinteger units Size_Units; -- 0 Bytes .. Max_Memory_Size units Size_Units;
+	
+--- The <b>Size_Range</b> property specifies a closed range of memory size values, i.e., a memory size range including
+--- the lower and upper bound.
+	
+	Size_Range: type range of Size;
+	
+--- The type <b>Size_Units</b> defines a measurement of size that is available for use in other property definitions.
+---  Users may append to this type.<p>
+--- Note: conversion factor of 1000 consistent with ISO/SI.<p>
+--- Note: B, KB, etc. in AADL 2004 have been replaced by Byte, Kbyte etc. in AADL V2. Since AADL is case insensitive,
+--- Kb could have been interpreted a K bits rather than K bytes.<p>
+--- Note: There is a proposal to add the binary units as defined by IEC, i.e., KiByte => Bytes * 1024, MiByte => KiByte
+--- * 1024, etc.
+	
+	Size_Units: type units (bits, Bytes => bits * 8, KByte => Bytes * 1000, MByte => KByte * 1000,
+							GByte => MByte * 1000, TByte => GByte * 1000);
+	
+--- The type <b>Time_Units</b> defines a measurement of time that is available for use in other property definitions.
+--- Users may append to this type
+	
+	Time_Units: type units (ps, ns => ps * 1000, us => ns * 1000, ms => us * 1000, sec => ms * 1000, min => sec * 60, hr => min * 60);
+
+--- The <b>Data_Rate_Units</b> property type units for the rate of data per time unit as a property type.  The
+--- predeclared unit literals are expressed in terms of seconds as time unit.<p>  
+--- Note: Conversion factor of 1000 consistent with ISO.
+
+	Data_Rate_Units: type	units (bitsps, Bytesps => bitsps * 8, KBytesps => Bytesps * 1000, MBytesps => KBytesps * 1000, GBytesps => MBytesps * 1000);
+
+	Data_Volume_Units: type	units (bitsps, Bytesps => bitsps * 8, KBytesps => Bytesps * 1000, MBytesps => KBytesps * 1000, GBytesps => MBytesps * 1000);
+	Max_Volume: constant Data_Volume => 1000 GBytesps;
+
+	Data_Volume: type aadlinteger 0 bitsps .. Max_Volume units Data_Volume_Units;
+
+        -- Speed in terms of instructions executed per second
+        Processor_Speed_Units: type units (KIPS, MIPS => KIPS * 1000, GIPS => MIPS * 1000);
+
+
+end AADL_Project;

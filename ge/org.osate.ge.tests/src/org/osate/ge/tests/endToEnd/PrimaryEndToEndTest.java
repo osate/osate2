@@ -23,16 +23,15 @@
  */
 package org.osate.ge.tests.endToEnd;
 
-import static org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder.*;
+import static org.osate.ge.aadl2.internal.AadlReferenceUtil.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestCommands.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
 import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
 import org.junit.Test;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.tests.endToEnd.util.DiagramElementReference;
 import org.osate.ge.tests.endToEnd.util.DiagramReference;
-import org.osate.ge.tests.endToEnd.util.Menus;
 
 /**
  * This class is the primary end to end test. It creates a complete model and exercises a large part of the graphical editor.
@@ -121,7 +120,7 @@ public class PrimaryEndToEndTest {
 				hardwareComponentsPkg, "Device Type",
 				getClassifierRelativeReference("new_classifier"), "servo");
 
-		final RelativeBusinessObjectReference componentsPackage = getPackageRelativeReference(
+		final RelativeBusinessObjectReference componentsPackage = getRelativeReferenceForPackage(
 				HARDWARE_COMPONENTS_PACKAGE);
 
 		// Bus Access eth
@@ -176,33 +175,38 @@ public class PrimaryEndToEndTest {
 		createElementAndLayout(hardwareComponentsDiagram, hardwareComponentsPkg, "Memory Type",
 				getClassifierRelativeReference("new_classifier"), "ram");
 
-		final RelativeBusinessObjectReference hardwarePkgRef = getPackageRelativeReference(HARDWARE);
+		final RelativeBusinessObjectReference hardwarePkgRef = getRelativeReferenceForPackage(HARDWARE);
 		final DiagramElementReference robotImpl = element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"));
 
 		// Feature group interface
 		createElementAndLayout(hardwareDiagram,
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl")),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl")),
 				"Feature Group", getFeatureRelativeReference("robot_new_feature"), "interface");
 
 		// Set classifier to shared::ServoInterface
 		setExtendedOrFeatureClassifierFromPropertiesView(hardwareDiagram, "shared::ServoInterface",
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl"),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl"),
 						getFeatureRelativeReference("interface")));
 
 		// Data Port range_o
 		createElementAndLayout(hardwareDiagram,
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl")),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl")),
 				"Data Port",
 				getFeatureRelativeReference("robot_new_feature"), "range_o");
 
 		// Set range_o to output
 		setFeatureDirectionFromPropertiesView(hardwareDiagram, "Output",
-				element(getPackageRelativeReference(HARDWARE),
+				element(getRelativeReferenceForPackage(
+						HARDWARE),
 				getClassifierRelativeReference("robot.impl"), getFeatureRelativeReference("range_o")));
 
 		// Set classifier Base_Types::Integer
 		setExtendedOrFeatureClassifierFromPropertiesView(hardwareDiagram, "Base_Types::Integer",
-				element(getPackageRelativeReference(HARDWARE),
+				element(getRelativeReferenceForPackage(
+						HARDWARE),
 				getClassifierRelativeReference("robot.impl"), getFeatureRelativeReference("range_o")));
 
 		// Create device subcomponent yaw_servo
@@ -253,7 +257,8 @@ public class PrimaryEndToEndTest {
 		// Create RAM subcomponent
 		createElementAndLayout(hardwareDiagram, robotImpl, "Memory Subcomponent",
 				getSubcomponentRelativeReference("robot_impl_new_subcomponent"), "ram");
-		final DiagramElementReference ram = element(getPackageRelativeReference(HARDWARE),
+		final DiagramElementReference ram = element(getRelativeReferenceForPackage(
+				HARDWARE),
 				getClassifierRelativeReference("robot.impl"),
 				getSubcomponentRelativeReference("ram"));
 
@@ -309,7 +314,8 @@ public class PrimaryEndToEndTest {
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("pitch_servo"), getFeatureRelativeReference("eth")),
 				"Access Connection",
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl")),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl")),
 				getConnectionRelativeReference("robot_impl_new_connection"), "pitch_servo_con");
 
 		createConnectionAndLayout(hardwareDiagram,
@@ -318,7 +324,8 @@ public class PrimaryEndToEndTest {
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("rangefinder"), getFeatureRelativeReference("eth")),
 				"Access Connection",
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl")),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl")),
 				getConnectionRelativeReference("robot_impl_new_connection"), "rangefinder_con");
 
 		createConnectionAndLayout(hardwareDiagram,
@@ -327,35 +334,45 @@ public class PrimaryEndToEndTest {
 				element(hardwarePkgRef, getClassifierRelativeReference("robot.impl"),
 						getSubcomponentRelativeReference("yaw_servo"), getFeatureRelativeReference("eth")),
 				"Access Connection",
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl")),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl")),
 				getConnectionRelativeReference("robot_impl_new_connection"), "yaw_servo_con");
 
 		// Create connections
 		createConnectionAndLayout(hardwareDiagram,
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl"),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl"),
 						getFeatureRelativeReference("interface")),
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl"),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl"),
 						getSubcomponentRelativeReference("yaw_servo"), getFeatureRelativeReference("interface")),
 				"Feature Group Connection",
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl")),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl")),
 				getConnectionRelativeReference("robot_impl_new_connection"), "yaw_interface_connection");
 
 		createConnectionAndLayout(hardwareDiagram,
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl"),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl"),
 						getFeatureRelativeReference("interface")),
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl"),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl"),
 						getSubcomponentRelativeReference("pitch_servo"), getFeatureRelativeReference("interface")),
 				"Feature Group Connection",
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl")),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl")),
 				getConnectionRelativeReference("robot_impl_new_connection"), "pitch_interface_connection");
 
 		createConnectionAndLayout(hardwareDiagram,
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl"),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl"),
 						getSubcomponentRelativeReference("rangefinder"), getFeatureRelativeReference("range_o")),
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl"),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl"),
 						getFeatureRelativeReference("range_o")),
 				"Port Connection",
-				element(getPackageRelativeReference(HARDWARE), getClassifierRelativeReference("robot.impl")),
+				element(getRelativeReferenceForPackage(HARDWARE), getClassifierRelativeReference(
+						"robot.impl")),
 				getConnectionRelativeReference("robot_impl_new_connection"), "range_connection");
 	}
 
@@ -399,7 +416,8 @@ public class PrimaryEndToEndTest {
 
 		// Create feature group for servo interface
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl")),
 				"Feature Group", getFeatureRelativeReference("point_cloud_generator_new_feature"), "interface");
 
@@ -417,43 +435,50 @@ public class PrimaryEndToEndTest {
 
 		// Create point_cloud data access in point_cloud_generator.impl
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl")),
 				"Data Access", getFeatureRelativeReference("point_cloud_generator_new_feature"), "point_cloud");
 
 		// Set point_cloud data access to provides
 		clickRadioButtonInPropertiesView(softwareDiagram, "AADL", "Provides",
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getFeatureRelativeReference("point_cloud")));
 
 		// Set point_cloud classifier to software::PointCloud
 		setExtendedOrFeatureClassifierFromPropertiesView(softwareDiagram, "software::PointCloud",
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getFeatureRelativeReference("point_cloud")));
 
 		// Create range_i data port in point_cloud_generator.impl
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl")),
 				"Data Port", getFeatureRelativeReference("point_cloud_generator_new_feature"), "range_i");
 
 		// Set range_i data port to input
 		setFeatureDirectionFromPropertiesView(softwareDiagram, "Input",
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getFeatureRelativeReference("range_i")));
 
 		// Set range_in classifier to Base_Types::Integer
 		setExtendedOrFeatureClassifierFromPropertiesView(softwareDiagram, "Base_Types::Integer",
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getFeatureRelativeReference("range_i")));
 
 		// Create threads subcomponent
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl")),
 				"Thread Group Subcomponent",
 				getSubcomponentRelativeReference("point_cloud_generator_impl_new_subcomponent"),
@@ -461,308 +486,375 @@ public class PrimaryEndToEndTest {
 
 		// Set classifier to software::threads.impl
 		setSubcomponentClassifierFromPropertiesView(softwareDiagram, "software::threads.impl",
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getSubcomponentRelativeReference("threads")));
 
 		// Create point_cloud in threads.impl
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl")),
 				"Data Access", getFeatureRelativeReference("threads_new_feature"), "point_cloud");
 
 		// Set point_cloud to provides
 		clickRadioButtonInPropertiesView(softwareDiagram, "AADL", "Provides",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getFeatureRelativeReference("point_cloud")));
 
 		// Set point_cloud classifier to software::PointCloud
 		setExtendedOrFeatureClassifierFromPropertiesView(softwareDiagram, "software::PointCloud",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getFeatureRelativeReference("point_cloud")));
 
 		// Create range_i in threads.impl
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl")),
 				"Data Port", getFeatureRelativeReference("threads_new_feature"), "range_i");
 
 		// Set range_i to input
 		setFeatureDirectionFromPropertiesView(softwareDiagram, "Input",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getFeatureRelativeReference("range_i")));
 
 		// Set range_i classifier to Base_Types::Integer
 		setExtendedOrFeatureClassifierFromPropertiesView(softwareDiagram, "Base_Types::Integer",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getFeatureRelativeReference("range_i")));
 
 		// Create flow sink
-		createFlowSpecification(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE),
-						getClassifierRelativeReference("point_cloud_generator.impl")),
-				"Flow Sink Specification", getFeatureRelativeReference("point_cloud"),
+		final DiagramElementReference pcGeneratorImpl = element(getRelativeReferenceForPackage(SOFTWARE),
+				getClassifierRelativeReference("point_cloud_generator.impl"));
+		createFlowIndicatorAndLayout(softwareDiagram,
+				pcGeneratorImpl, "Flow Sink Specification",
+				pcGeneratorImpl.join(getFeatureRelativeReference("point_cloud")),
 				getFlowSpecificationRelativeReference("point_cloud_generator_new_flow_spec"),
 				"f_sink");
 
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl")),
 				"Feature Group", getFeatureRelativeReference("threads_new_feature"), "servo_interface");
 
 		// Set classifier
 		setExtendedOrFeatureClassifierFromPropertiesView(softwareDiagram, "shared::ServoInterface",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getFeatureRelativeReference("servo_interface")));
 
 		// Show contents of threads
 		showContentsAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getSubcomponentRelativeReference("threads")));
 
 		// Create connection
 		createConnectionAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getSubcomponentRelativeReference("threads"), getFeatureRelativeReference("servo_interface")),
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getFeatureRelativeReference("interface")),
 				"Feature Group Connection",
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl")),
 				getConnectionRelativeReference("point_cloud_generator_impl_new_connection"), "interface_connection");
 
 		// Create connection
 		createConnectionAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getFeatureRelativeReference("range_i")),
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getSubcomponentRelativeReference("threads"), getFeatureRelativeReference("range_i")),
 				"Port Connection",
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl")),
 				getConnectionRelativeReference("point_cloud_generator_impl_new_connection"), "range_connection");
 
 		// Create pointer subcomponent in threads.impl
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl")),
 				"Thread Subcomponent", getSubcomponentRelativeReference("threads_impl_new_subcomponent"), "pointer");
 
 		// Set classifier for pointer to shared::pointer
 		setSubcomponentClassifierFromPropertiesView(softwareDiagram, "software::pointer",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getSubcomponentRelativeReference("pointer")));
 
 		// Show pointer contents
-		showContentsAndLayout(softwareDiagram, element(getPackageRelativeReference(SOFTWARE),
+		showContentsAndLayout(softwareDiagram, element(getRelativeReferenceForPackage(
+				SOFTWARE),
 				getClassifierRelativeReference("threads.impl"), getSubcomponentRelativeReference("pointer")));
 
 		// Create integrator subcomponent in threads.impl
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl")),
 				"Thread Subcomponent", getSubcomponentRelativeReference("threads_impl_new_subcomponent"), "integrator");
 
 		// Set classifier for integrator to shared::integrator
 		setSubcomponentClassifierFromPropertiesView(softwareDiagram, "software::integrator.impl",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getSubcomponentRelativeReference("integrator")));
 
 		// Create yaw_servo_interface feature group in pointer
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("pointer")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"pointer")),
 				"Feature Group", getFeatureRelativeReference("pointer_new_feature"), "yaw_servo_interface");
 
 		// Set yaw_servo_interface classifier to shared::ServoInterface
 		setExtendedOrFeatureClassifierFromPropertiesView(softwareDiagram, "shared::ServoInterface",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("pointer"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"pointer"),
 						getFeatureRelativeReference("yaw_servo_interface")));
 
 		// Create pitch_servo_interface feature group in pointer
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("pointer")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"pointer")),
 				"Feature Group", getFeatureRelativeReference("pointer_new_feature"), "pitch_servo_interface");
 
 		// Set pitch_servo_interface classifier to shared::ServoInterface
 		setExtendedOrFeatureClassifierFromPropertiesView(softwareDiagram, "shared::ServoInterface",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("pointer"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"pointer"),
 						getFeatureRelativeReference("pitch_servo_interface")));
 
 		// Create direction data port in pointer
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("pointer")), "Data Port",
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference("pointer")),
+				"Data Port",
 				getFeatureRelativeReference("pointer_new_feature"), "direction");
 
 		// Set direction to output
 		setFeatureDirectionFromPropertiesView(softwareDiagram, "Output",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("pointer"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"pointer"),
 						getFeatureRelativeReference("direction")));
 
 		// Set direction classifier to Direction
 		setExtendedOrFeatureClassifierFromPropertiesView(softwareDiagram, "software::Direction",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("pointer"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"pointer"),
 						getFeatureRelativeReference("direction")));
 
-		showContentsAndLayout(softwareDiagram, element(getPackageRelativeReference(SOFTWARE),
+		showContentsAndLayout(softwareDiagram, element(getRelativeReferenceForPackage(
+				SOFTWARE),
 				getClassifierRelativeReference("threads.impl"), getSubcomponentRelativeReference("pointer")));
 
 		// Create connection pointer.pitch_server and yaw_server to threads.impl.servo_interface
 		createConnectionAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getSubcomponentRelativeReference("pointer"),
 						getFeatureRelativeReference("yaw_servo_interface")),
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getFeatureRelativeReference("servo_interface")),
 				"Feature Group Connection",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl")),
 				getConnectionRelativeReference("threads_impl_new_connection"), "yaw_interface_connection");
 
 		createConnectionAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getSubcomponentRelativeReference("pointer"),
 						getFeatureRelativeReference("pitch_servo_interface")),
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getFeatureRelativeReference("servo_interface")),
 				"Feature Group Connection",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl")),
 				getConnectionRelativeReference("threads_impl_new_connection"), "pitch_interface_connection");
 
 		// Create point_cloud data access in integrator.impl
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("integrator.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"integrator.impl")),
 				"Data Access", getFeatureRelativeReference("integrator_new_feature"), "point_cloud");
 
 		// Set point_cloud to provides
 		clickRadioButtonInPropertiesView(softwareDiagram, "AADL", "Provides",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("integrator.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"integrator.impl"),
 						getFeatureRelativeReference("point_cloud")));
 
 		// Set point_cloud classifier to software::PointCloud
 		setExtendedOrFeatureClassifierFromPropertiesView(softwareDiagram, "software::PointCloud",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("integrator.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"integrator.impl"),
 						getFeatureRelativeReference("point_cloud")));
 
 		// Create direction data port in integrator.impl
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("integrator.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"integrator.impl")),
 				"Data Port", getFeatureRelativeReference("integrator_new_feature"), "direction");
 
 		// Set direction classifier to Direction
 		setExtendedOrFeatureClassifierFromPropertiesView(softwareDiagram, "software::Direction",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("integrator.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"integrator.impl"),
 						getFeatureRelativeReference("direction")));
 
 		// Set direction to input
 		clickRadioButtonInPropertiesView(softwareDiagram, "AADL", "Input",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("integrator.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"integrator.impl"),
 						getFeatureRelativeReference("direction")));
 
 		// Create range_i data port in integrator.impl
 		createElementAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("integrator.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"integrator.impl")),
 				"Data Port", getFeatureRelativeReference("integrator_new_feature"), "range_i");
 
 		// Set range_i classifier to Integer
 		setExtendedOrFeatureClassifierFromPropertiesView(softwareDiagram, "Base_Types::Integer",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("integrator.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"integrator.impl"),
 						getFeatureRelativeReference("range_i")));
 
 		// Show integrator contents
-		showContentsAndLayout(softwareDiagram, element(getPackageRelativeReference(SOFTWARE),
+		showContentsAndLayout(softwareDiagram, element(getRelativeReferenceForPackage(
+				SOFTWARE),
 				getClassifierRelativeReference("threads.impl"), getSubcomponentRelativeReference("integrator")));
 
 		// Create connection between pointer.direction and integrator.direction
 		createConnectionAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getSubcomponentRelativeReference("pointer"), getFeatureRelativeReference("direction")),
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getSubcomponentRelativeReference("integrator"), getFeatureRelativeReference("direction")),
 				"Port Connection",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl")),
 				getConnectionRelativeReference("threads_impl_new_connection"), "direction_connection");
 
 		// Create flow source specification for pointer.direction
-		createFlowSpecification(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
-						getSubcomponentRelativeReference("pointer")),
-				"Flow Source Specification", getFeatureRelativeReference("direction"),
+		final DiagramElementReference pointerScElement = element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+				"threads.impl"),
+				getSubcomponentRelativeReference("pointer"));
+		createFlowIndicatorAndLayout(softwareDiagram,pointerScElement,
+				"Flow Source Specification", pointerScElement.join(getFeatureRelativeReference("direction")),
 				getFlowSpecificationRelativeReference("pointer_new_flow_spec"), "f_source");
 
 		// Create flow source specification for pointer.direction
-		createFlowSpecification(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
-						getSubcomponentRelativeReference("integrator")),
-				"Flow Sink Specification", getFeatureRelativeReference("direction"),
+		final DiagramElementReference integratorScImpl = element(getRelativeReferenceForPackage(SOFTWARE),
+				getClassifierRelativeReference("threads.impl"), getSubcomponentRelativeReference("integrator"));
+		createFlowIndicatorAndLayout(softwareDiagram,
+				integratorScImpl,
+				"Flow Sink Specification", integratorScImpl.join(getFeatureRelativeReference("direction")),
 				getFlowSpecificationRelativeReference("integrator_new_flow_spec"),
 				"f_sink");
 
 		// Create end to end flow spec
 		createEndToEndFlowSpecification(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl")),
 				"software::threads.impl::direction_flow",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getSubcomponentRelativeReference("pointer"), getFlowSpecificationRelativeReference("f_source")),
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getConnectionRelativeReference("direction_connection")),
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getSubcomponentRelativeReference("integrator"), getFlowSpecificationRelativeReference("f_sink")));
 
 		// Create flow source threads.impl.point_cloud
-		createFlowSpecification(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl")),
-				"Flow Source Specification", getFeatureRelativeReference("point_cloud"),
+		final DiagramElementReference threadsImplElement = element(getRelativeReferenceForPackage(SOFTWARE),
+				getClassifierRelativeReference("threads.impl"));
+		createFlowIndicatorAndLayout(softwareDiagram, threadsImplElement, "Flow Source Specification",
+				threadsImplElement.join(getFeatureRelativeReference("point_cloud")),
 				getFlowSpecificationRelativeReference("threads_new_flow_spec"), "point_cloud_source");
 
 		// Create flow sink threads.impl.integrator.point_cloud
-		createFlowSpecification(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
-						getSubcomponentRelativeReference("integrator")),
-				"Flow Sink Specification", getFeatureRelativeReference("point_cloud"),
+		createFlowIndicatorAndLayout(softwareDiagram, integratorScImpl,
+				"Flow Sink Specification", integratorScImpl.join(getFeatureRelativeReference("point_cloud")),
 				getFlowSpecificationRelativeReference("integrator_new_flow_spec"), "point_cloud_sink");
 
 		// Create connection threads.impl.point_cloud -> threads.impl.integrator.point_cloud
 		createConnectionAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getSubcomponentRelativeReference("integrator"), getFeatureRelativeReference("point_cloud")),
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getFeatureRelativeReference("point_cloud")),
 				"Access Connection",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl")),
 				getConnectionRelativeReference("threads_impl_new_connection"), "point_cloud_connection");
 
 		// Create connection threads.impl.range_i -> threads.impl.integrator.range_i
 		createConnectionAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getFeatureRelativeReference("range_i")),
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getSubcomponentRelativeReference("integrator"), getFeatureRelativeReference("range_i")),
 				"Port Connection",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl")),
 				getConnectionRelativeReference("threads_impl_new_connection"), "range_connection");
 
 		// Create flow impl
 		createFlowImplementation(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl")),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl")),
 				"software::threads.impl::point_cloud_source",
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getFlowSpecificationRelativeReference("point_cloud_source")),
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getSubcomponentRelativeReference("integrator"),
 						getFlowSpecificationRelativeReference("point_cloud_sink")),
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getConnectionRelativeReference("point_cloud_connection")),
-				element(getPackageRelativeReference(SOFTWARE), getClassifierRelativeReference("threads.impl"),
+				element(getRelativeReferenceForPackage(SOFTWARE), getClassifierRelativeReference(
+						"threads.impl"),
 						getFeatureRelativeReference("point_cloud")));
 
 		createConnectionAndLayout(softwareDiagram,
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getSubcomponentRelativeReference("threads"), getFeatureRelativeReference("point_cloud")),
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl"),
 						getFeatureRelativeReference("point_cloud")),
 				"Access Connection",
-				element(getPackageRelativeReference(SOFTWARE),
+				element(getRelativeReferenceForPackage(
+						SOFTWARE),
 						getClassifierRelativeReference("point_cloud_generator.impl")),
 				getConnectionRelativeReference("point_cloud_generator_impl_new_connection"), "point_cloud_connection");
 	}
@@ -801,7 +893,8 @@ public class PrimaryEndToEndTest {
 
 		// Extend robotic_system.base
 		setExtendedOrFeatureClassifierFromPropertiesView(integratedDiagram, "integrated::robotic_system.base",
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized")));
 
 		// Create specialized_app Process Implementation
@@ -814,54 +907,65 @@ public class PrimaryEndToEndTest {
 
 		// Create specialized_thread subcomponent in specialized_app
 		createElementAndLayout(integratedDiagram,
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("specialized_app.impl")),
 				"Thread Subcomponent", getSubcomponentRelativeReference("specialized_app_impl_new_subcomponent"),
 				"specialized_thread");
 
 		// Set classifier of specialized_thread to specialized_thread type
 		setSubcomponentClassifierFromPropertiesView(integratedDiagram, "integrated::specialized_thread",
-				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("specialized_app.impl"),
+				element(getRelativeReferenceForPackage(INTEGRATED), getClassifierRelativeReference(
+						"specialized_app.impl"),
 						getSubcomponentRelativeReference("specialized_thread")));
 
 		// Create point_cloud data access in specialized_thread
 		createElementAndLayout(integratedDiagram,
-				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("specialized_thread")),
+				element(getRelativeReferenceForPackage(INTEGRATED), getClassifierRelativeReference(
+						"specialized_thread")),
 				"Data Access", getFeatureRelativeReference("specialized_thread_new_feature"), "point_cloud");
 
 		// Set point_cloud classifier to software::PointCloud
 		setExtendedOrFeatureClassifierFromPropertiesView(integratedDiagram, "software::PointCloud",
-				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("specialized_thread"),
+				element(getRelativeReferenceForPackage(INTEGRATED), getClassifierRelativeReference(
+						"specialized_thread"),
 						getFeatureRelativeReference("point_cloud")));
 
 		// Show specialized_thread contents
 		showContentsAndLayout(integratedDiagram,
-				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("specialized_app.impl"),
+				element(getRelativeReferenceForPackage(INTEGRATED), getClassifierRelativeReference(
+						"specialized_app.impl"),
 						getSubcomponentRelativeReference("specialized_thread")));
 
 		// Create point_cloud data access in specialized_app
 		createElementAndLayout(integratedDiagram,
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("specialized_app.impl")),
 				"Data Access", getFeatureRelativeReference("specialized_app_new_feature"), "point_cloud");
 
 		// Set point_cloud classifier to shared::PointCloud
 		setExtendedOrFeatureClassifierFromPropertiesView(integratedDiagram, "software::PointCloud",
-				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("specialized_app.impl"),
+				element(getRelativeReferenceForPackage(INTEGRATED), getClassifierRelativeReference(
+						"specialized_app.impl"),
 						getFeatureRelativeReference("point_cloud")));
 
 		// Create connection specialized_app.impl.point_cloud -> specialized_app.impl.specialized_thread.point_cloud
-		createConnectionAndLayout(integratedDiagram, element(getPackageRelativeReference(INTEGRATED),
+		createConnectionAndLayout(integratedDiagram, element(getRelativeReferenceForPackage(
+				INTEGRATED),
 				getClassifierRelativeReference("specialized_app.impl"), getFeatureRelativeReference("point_cloud")),
-				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("specialized_app.impl"),
+				element(getRelativeReferenceForPackage(INTEGRATED), getClassifierRelativeReference(
+						"specialized_app.impl"),
 						getSubcomponentRelativeReference("specialized_thread"),
 						getFeatureRelativeReference("point_cloud")),
 				"Access Connection",
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("specialized_app.impl")),
 				getConnectionRelativeReference("specialized_app_impl_new_connection"), "point_connection");
 
-		final DiagramElementReference roboticSysBase = element(getPackageRelativeReference(INTEGRATED),
+		final DiagramElementReference roboticSysBase = element(getRelativeReferenceForPackage(
+				INTEGRATED),
 				getClassifierRelativeReference("robotic_system.base"));
 		// Create robot in robotic_system.base
 		createElementAndLayout(integratedDiagram, roboticSysBase, "System Subcomponent",
@@ -870,7 +974,8 @@ public class PrimaryEndToEndTest {
 
 		// Set robot classifier to hardware::robot.impl
 		setSubcomponentClassifierFromPropertiesView(integratedDiagram, "hardware::robot.impl",
-				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("robotic_system.base"),
+				element(getRelativeReferenceForPackage(INTEGRATED), getClassifierRelativeReference(
+						"robotic_system.base"),
 						getSubcomponentRelativeReference("robot")));
 
 		// Create point_cloud_generator subcomponent in robotic_system_base
@@ -880,7 +985,8 @@ public class PrimaryEndToEndTest {
 
 		// Set point_cloud_generator to software::point_cloud_generator.impl
 		setSubcomponentClassifierFromPropertiesView(integratedDiagram, "software::point_cloud_generator.impl",
-				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("robotic_system.base"),
+				element(getRelativeReferenceForPackage(INTEGRATED), getClassifierRelativeReference(
+						"robotic_system.base"),
 						getSubcomponentRelativeReference("point_cloud_generator")));
 
 		// Create specialized_app subcomponent in robotic_system.base
@@ -899,116 +1005,140 @@ public class PrimaryEndToEndTest {
 				getSubcomponentRelativeReference("robotic_system_base_new_subcomponent"), "sched2");
 
 		// Show contents of robotic_system.specialized
-		showContentsAndLayout(integratedDiagram, element(getPackageRelativeReference(INTEGRATED),
+		showContentsAndLayout(integratedDiagram, element(getRelativeReferenceForPackage(
+				INTEGRATED),
 				getClassifierRelativeReference("robotic_system.specialized")));
 
 		// Set specialized_app refined
 		clickCheckboxInPropertiesView(integratedDiagram, "AADL", 0,
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized"),
 						getSubcomponentRelativeReference("specialized_app")));
 
 		// Set classifier for specialized_app
 		setSubcomponentClassifierFromPropertiesView(integratedDiagram, "integrated::specialized_app.impl",
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized"),
 						getSubcomponentRelativeReference("specialized_app")));
 
 		// Show robotic_system.specialized contents
-		showContentsAndLayout(integratedDiagram, element(getPackageRelativeReference(INTEGRATED),
+		showContentsAndLayout(integratedDiagram, element(getRelativeReferenceForPackage(
+				INTEGRATED),
 				getClassifierRelativeReference("robotic_system.specialized")));
 
 		// Show contents of specialized_app
 		showContentsAndLayout(integratedDiagram,
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized"),
 						getSubcomponentRelativeReference("specialized_app")));
 
 		// Show contents of point cloud generator
 		showContentsAndLayout(integratedDiagram,
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized"),
 						getSubcomponentRelativeReference("point_cloud_generator")));
 
 		// Show contents of robot
 		showContentsAndLayout(integratedDiagram,
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized"),
 				getSubcomponentRelativeReference("robot")));
 
 		// Create connection in robotic_system.specialized from robot.range_o point_cloud_generator.range_i
 		createConnectionAndLayout(integratedDiagram,
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized"),
 						getSubcomponentRelativeReference("robot"), getFeatureRelativeReference("range_o")),
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized"),
 						getSubcomponentRelativeReference("point_cloud_generator"),
 						getFeatureRelativeReference("range_i")),
 				"Port Connection",
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized")),
 				getConnectionRelativeReference("robotic_system_specialized_new_connection"), "range_connection");
 
 		// Create connection in robotic_system.specialized from point_cloud_generator.point_cloud to specialized_app.point_cloud
 		createConnectionAndLayout(integratedDiagram,
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized"),
 						getSubcomponentRelativeReference("point_cloud_generator"),
 						getFeatureRelativeReference("point_cloud")),
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized"),
 						getSubcomponentRelativeReference("specialized_app"),
 						getFeatureRelativeReference("point_cloud")),
 				"Access Connection",
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized")),
 				getConnectionRelativeReference("robotic_system_specialized_new_connection"), "point_cloud_connection");
 
 		// Create connection in robotic_system.specialized from point_cloud_generator.interface to robot.interface
-		createConnectionAndLayout(integratedDiagram, element(getPackageRelativeReference(INTEGRATED),
+		createConnectionAndLayout(integratedDiagram, element(getRelativeReferenceForPackage(
+				INTEGRATED),
 				getClassifierRelativeReference("robotic_system.specialized"),
 				getSubcomponentRelativeReference("point_cloud_generator"), getFeatureRelativeReference("interface")),
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized"),
 						getSubcomponentRelativeReference("robot"), getFeatureRelativeReference("interface")),
 				"Feature Group Connection",
-				element(getPackageRelativeReference(INTEGRATED),
+				element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.specialized")),
 				getConnectionRelativeReference("robotic_system_specialized_new_connection"),
 				"servo_interface_connection");
 
 		// Create binding for specialized_app => sched2
 		createBindPropertyAssociations(integratedDiagram,
-				new DiagramElementReference[] { element(getPackageRelativeReference(INTEGRATED),
+				new DiagramElementReference[] { element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.base"),
 						getSubcomponentRelativeReference("specialized_app")) },
-				new DiagramElementReference[] { element(getPackageRelativeReference(INTEGRATED),
+				new DiagramElementReference[] { element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.base"),
 						getSubcomponentRelativeReference("sched2")) },
 				"Actual_Processor_Binding");
 
 		// Create binding for point_cloud_generator => sched1
 		createBindPropertyAssociations(integratedDiagram,
-				new DiagramElementReference[] { element(getPackageRelativeReference(INTEGRATED),
+				new DiagramElementReference[] { element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.base"),
 						getSubcomponentRelativeReference("point_cloud_generator")) },
-				new DiagramElementReference[] { element(getPackageRelativeReference(INTEGRATED),
+				new DiagramElementReference[] { element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.base"),
 						getSubcomponentRelativeReference("sched1")) },
 				"Actual_Processor_Binding");
 
 		// Show robot contents
-		showContentsAndLayout(integratedDiagram, element(getPackageRelativeReference(INTEGRATED),
+		showContentsAndLayout(integratedDiagram, element(getRelativeReferenceForPackage(
+				INTEGRATED),
 				getClassifierRelativeReference("robotic_system.base"), getSubcomponentRelativeReference("robot")));
 
 		// Create binding for sched1 & sched2 => cpu
 		createBindPropertyAssociations(integratedDiagram, new DiagramElementReference[] {
-				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("robotic_system.base"),
+				element(getRelativeReferenceForPackage(INTEGRATED), getClassifierRelativeReference(
+						"robotic_system.base"),
 						getSubcomponentRelativeReference("sched2")),
-				element(getPackageRelativeReference(INTEGRATED), getClassifierRelativeReference("robotic_system.base"),
+				element(getRelativeReferenceForPackage(INTEGRATED), getClassifierRelativeReference(
+						"robotic_system.base"),
 						getSubcomponentRelativeReference("sched1")) },
-				new DiagramElementReference[] { element(getPackageRelativeReference(INTEGRATED),
+				new DiagramElementReference[] { element(getRelativeReferenceForPackage(
+						INTEGRATED),
 						getClassifierRelativeReference("robotic_system.base"),
 						getSubcomponentRelativeReference("robot"), getSubcomponentRelativeReference("cpu")) },
 				"Actual_Processor_Binding");
@@ -1019,11 +1149,7 @@ public class PrimaryEndToEndTest {
 	 */
 	private void additionalTests() {
 		final DiagramReference diagram = defaultDiagram(HARDWARE, HARDWARE);
-
-		// Hide Contents
-		clickContextMenuOfDiagramElement(diagram, packageElement(HARDWARE), Menus.HIDE_CONTENTS_ALL);
-
-		// Show contents
-		clickContextMenuOfDiagramElement(diagram, packageElement(HARDWARE), Menus.SHOW_CONTENTS_ALL);
+		hideContentsAndLayout(diagram, packageElement(HARDWARE));
+		showContentsAndLayout(diagram, packageElement(HARDWARE));
 	}
 }

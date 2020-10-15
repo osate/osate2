@@ -353,7 +353,7 @@ public class AnnexUtil {
 	public static AnnexSubclause getActualAnnexSubclause(PropertySet root, EClass eClass) {
 		for (AnnexSubclause annexSubclause : root.getOwnedAnnexSubclauses()) {
 			AnnexSubclause actualAnnexSubclause = (AnnexSubclause) getParsedAnnex(annexSubclause);
-			if (actualAnnexSubclause.eClass().equals(eClass)) {
+			if (actualAnnexSubclause != null && actualAnnexSubclause.eClass().equals(eClass)) {
 				return actualAnnexSubclause;
 			}
 		}
@@ -394,6 +394,25 @@ public class AnnexUtil {
 					.getResourceServiceProvider(URI.createURI("dummy." + extension));
 			IGrammarAccess grammarAccess = provider.get(IGrammarAccess.class);
 			if (grammarAccess != null && grammarAccess.getGrammar() == grammar) {
+				return provider.get(Injector.class);
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Retrieve an Annex's injector from its name.
+	 * 
+	 * @since 3.0
+	 */
+	public static Injector getInjector(String annexName) {
+		AnnexParserRegistry parserRegistry = (AnnexParserRegistry) AnnexRegistry
+				.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
+		String extension = parserRegistry.getAnnexParser(annexName).getFileExtension();
+		if (extension != null) {
+			IResourceServiceProvider provider = IResourceServiceProvider.Registry.INSTANCE
+					.getResourceServiceProvider(URI.createURI("dummy." + extension));
+			if (provider != null) {
 				return provider.get(Injector.class);
 			}
 		}

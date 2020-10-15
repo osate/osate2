@@ -481,7 +481,7 @@
     <repository
         url="http://download.eclipse.org/ease/release/0.7.0"/>
     <repository
-        url="https://eclipse.py4j.org"/>
+        url="http://eclipse.py4j.org"/>
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
@@ -689,7 +689,7 @@
       <repository
           url="http://download.eclipse.org/efxclipse/updates-released/3.6.0/site"/>
       <repository
-          url="http://osate-build.sei.cmu.edu/p2/elk-nightly/"/>
+          url="http://download.eclipse.org/elk/updates/releases/0.7.0/"/>
       <description>Additional features for the graphical editor</description>
     </setupTask>
   </setupTask>
@@ -735,7 +735,8 @@
       <requirement
           name="de.itemis.xtext.antlr.sdk.feature.group"/>
       <requirement
-          name="org.eclipse.xtext.testing"/>
+          name="org.eclipse.xtext.testing"
+          versionRange="[2.20.0,2.21.0)"/>
       <requirement
           name="com.itemis.xtext.testing.feature.feature.group"/>
       <requirement
@@ -815,7 +816,7 @@
         <repository
             url="http://download.eclipse.org/ease/release/0.7.0"/>
         <repository
-            url="http://osate-build.sei.cmu.edu/p2/elk-nightly/"/>
+            url="http://download.eclipse.org/elk/updates/releases/0.7.0/"/>
         <repository
             url="http://download.eclipse.org/xsemantics/milestones/1.19"/>
         <repository
@@ -842,7 +843,7 @@
         <repository
             url="http://download.eclipse.org/ease/release/0.7.0"/>
         <repository
-            url="http://osate-build.sei.cmu.edu/p2/elk-nightly/"/>
+            url="http://download.eclipse.org/elk/updates/releases/0.7.0/"/>
         <repository
             url="http://download.eclipse.org/xsemantics/milestones/1.19"/>
         <repository
@@ -872,6 +873,15 @@
         <operand
             xsi:type="predicates:LocationPredicate"
             pattern="${git.clone.osate2.location|path}/core/.*"/>
+      </predicate>
+    </workingSet>
+    <workingSet
+        name="examples">
+      <predicate
+          xsi:type="predicates:AndPredicate">
+        <operand
+            xsi:type="predicates:LocationPredicate"
+            pattern="${git.clone.osate2.location|path}/examples/.*"/>
       </predicate>
     </workingSet>
     <workingSet
@@ -919,14 +929,23 @@
             pattern="${git.clone.osate2.location|path}/ba/.*"/>
       </predicate>
     </workingSet>
+    <workingSet
+        name="tools">
+      <predicate
+          xsi:type="predicates:AndPredicate">
+        <operand
+            xsi:type="predicates:LocationPredicate"
+            pattern="${git.clone.osate2.location|path}/tools/.*"/>
+      </predicate>
+    </workingSet>
     <description>The dynamic working sets for ${scope.project.label}</description>
   </setupTask>
   <setupTask
       xsi:type="pde:APIBaselineTask"
       id="api.baseline"
       name="OSATE-API"
-      version="2.8.0"
-      remoteURI="https://osate-build.sei.cmu.edu/download/osate/stable/2.8.0-vfinal/osate.repository-2.8.0.vfinal.zip">
+      version="2.9.0"
+      remoteURI="https://osate-build.sei.cmu.edu/download/osate/stable/2.9.0-vfinal/osate.repository-2.9.0.vfinal.zip">
     <description></description>
   </setupTask>
   <setupTask

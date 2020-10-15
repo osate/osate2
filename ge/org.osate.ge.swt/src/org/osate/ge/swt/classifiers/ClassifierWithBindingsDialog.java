@@ -44,11 +44,12 @@ import org.osate.ge.swt.EventSource;
 import org.osate.ge.swt.selectors.FilteringListSelector;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 import org.osate.ge.swt.selectors.SelectionDoubleClickedEvent;
-import org.osate.ge.swt.selectors.SelectorModel;
+import org.osate.ge.swt.selectors.SingleSelectorModel;
 
 /**
  * Dialog for selecting a classifier and prototype bindings. Values are set while the dialog is open and then reverted if the dialog is closed without pressing the OK button.
  * This behavior is important because options displayed by the dialog may change based on current values.
+ * @since 1.1
  *
  */
 public class ClassifierWithBindingsDialog {
@@ -133,7 +134,7 @@ public class ClassifierWithBindingsDialog {
 			classifierGroup.setLayout(GridLayoutFactory.swtDefaults().numColumns(1).create());
 
 			final FilteringListSelector<C> classifierSelector = new FilteringListSelector<>(classifierGroup,
-					new LabelFilteringListSelectorModel<>(new SelectorModel<C>() {
+					new LabelFilteringListSelectorModel<>(new SingleSelectorModel<C>() {
 
 						@Override
 						public EventSource<ChangeEvent> changed() {

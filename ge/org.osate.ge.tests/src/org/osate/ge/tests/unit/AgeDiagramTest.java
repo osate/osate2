@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,15 +23,17 @@
  */
 package org.osate.ge.tests.unit;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 import java.util.EnumSet;
 import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.diagramtypes.CustomDiagramType;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.BeforeModificationsCompletedEvent;
@@ -45,15 +47,13 @@ import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
 import org.osate.ge.internal.diagram.runtime.ModifiableField;
 import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
-import org.osate.ge.internal.diagram.runtime.types.CustomDiagramType;
 
 /**
  * Contains tests for the AgeDiagram class.
  *
  */
 public class AgeDiagramTest {
-	private Object dummyBoh = new Object(); // Dummy business object handler
+	private BusinessObjectHandler stubBoh = new StubBusinessObjectHandler();
 
 	class TestModificationListener implements DiagramModificationListener {
 		public int elementUpdatedEventsReceived = 0;
@@ -137,7 +137,7 @@ public class AgeDiagramTest {
 	@Test
 	public void testElementAddedEvent() {
 		// Test an add event
-		final DiagramElement newElement = new DiagramElement(diagram, 1, dummyBoh,
+		final DiagramElement newElement = new DiagramElement(diagram, 1, stubBoh,
 				new RelativeBusinessObjectReference("1"), UUID.randomUUID());
 		diagram.modify("Add Element", m -> m.addElement(newElement));
 
@@ -191,7 +191,7 @@ public class AgeDiagramTest {
 	}
 
 	private DiagramElement addRootElementAndResetCounter(final int id) {
-		final DiagramElement newElement = new DiagramElement(diagram, id, dummyBoh,
+		final DiagramElement newElement = new DiagramElement(diagram, id, stubBoh,
 				new RelativeBusinessObjectReference(Integer.toString(id)), UUID.randomUUID());
 		diagram.modify("Add Element", m -> m.addElement(newElement));
 

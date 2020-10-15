@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -28,13 +28,26 @@ import java.util.function.Supplier;
 
 import org.eclipse.emf.ecore.EObject;
 
+/**
+ * Builder uses for creating operations. In most cases, this builder should not be used to create an operation.
+ * Rather, the static methods in {@link Operation} should be used.
+ *
+ * @param <PrevResultUserType>
+ */
 public interface OperationBuilder<PrevResultUserType> {
-	interface BusinessObjectProvider<TagType, BusinessObjectType, PrevResultUserType> {
+	/**
+	 * @since 2.0
+	 */
+	interface BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> {
 		BusinessObjectType getBusinessObject(TagType tag, PrevResultUserType previousUserValue);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	<TagType, BusinessObjectType extends EObject, ResultUserType> OperationBuilder<ResultUserType> modifyModel(
-			TagType obj, BusinessObjectProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider,
+			TagType obj,
+			BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider,
 			ModelModifier<TagType, BusinessObjectType, PrevResultUserType, ResultUserType> modifier);
 
 	/**
@@ -56,6 +69,14 @@ public interface OperationBuilder<PrevResultUserType> {
 
 	<ResultUserType> OperationBuilder<ResultUserType> map(
 			Function<PrevResultUserType, StepResult<ResultUserType>> mapper);
+
+	/**
+	 * Execute a suboperation. This function is intended for use only in the rare cases that the number of steps is not known
+	 * until runtime.
+	 * @param opProvider a function that provides a suboperation to execute.
+	 * @since 2.0
+	 */
+	void executeOperation(Function<PrevResultUserType, Operation> opProvider);
 
 	/**
 	 * A map which ignores the previous result.

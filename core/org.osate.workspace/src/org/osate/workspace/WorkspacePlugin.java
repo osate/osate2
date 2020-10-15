@@ -30,11 +30,16 @@ import java.util.ResourceBundle;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
+import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osgi.framework.BundleContext;
 
 /**
  * The main plugin class to be used in the desktop.
+ * 
+ * @deprecated Use {@link FileNameConstants} instead. Will be removed in 2.9.1. Internal
+ * note: when removing this class, the entire plugin org.osate.workspace should be removed.
  */
+@Deprecated
 public class WorkspacePlugin extends Plugin {
 	/**
 	 * ID of the AADL core plugin (value

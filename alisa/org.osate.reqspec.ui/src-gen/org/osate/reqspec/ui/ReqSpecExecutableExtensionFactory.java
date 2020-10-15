@@ -23,12 +23,11 @@
  */
 package org.osate.reqspec.ui;
 
-import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
-import org.osgi.framework.Bundle;
-
 import com.google.inject.Injector;
-
-import org.osate.reqspec.ui.internal.ReqSpecActivator;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
+import org.osate.reqspec.ui.internal.ReqspecActivator;
+import org.osgi.framework.Bundle;
 
 /**
  * This class was generated. Customizations should only happen in a newly
@@ -38,12 +37,13 @@ public class ReqSpecExecutableExtensionFactory extends AbstractGuiceAwareExecuta
 
 	@Override
 	protected Bundle getBundle() {
-		return ReqSpecActivator.getInstance().getBundle();
+		return Platform.getBundle(ReqspecActivator.PLUGIN_ID);
 	}
 	
 	@Override
 	protected Injector getInjector() {
-		return ReqSpecActivator.getInstance().getInjector(ReqSpecActivator.ORG_OSATE_REQSPEC_REQSPEC);
+		ReqspecActivator activator = ReqspecActivator.getInstance();
+		return activator != null ? activator.getInjector(ReqspecActivator.ORG_OSATE_REQSPEC_REQSPEC) : null;
 	}
-	
+
 }

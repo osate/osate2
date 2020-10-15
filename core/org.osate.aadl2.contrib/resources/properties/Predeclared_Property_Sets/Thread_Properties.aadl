@@ -1,0 +1,174 @@
+--AADL2
+--SAE Aerospace Standard AS5506B
+--Appendix A: Predeclared Property Sets
+
+-- @codegen-package org.osate.aadl2.contrib.thread
+property set Thread_Properties is
+
+--- The <b>Dispatch_Protocol</b> property specifies the dispatch behavior for a thread.<p>
+--- A method used to construct a actual system from a specification is permitted to support only a subset of the
+--- standard scheduling protocols.  A method used to construct a actual system is permitted to support additional
+--- non-standard scheduling protocols.
+
+	Dispatch_Protocol: Supported_Dispatch_Protocols
+		applies to (thread, device, virtual processor);
+		
+--- The <b>Dispatch_Trigger</b> property specifies the list of ports that can trigger the dispatch of a thread or
+--- device. 
+	
+	Dispatch_Trigger: list of reference (port)
+		applies to (device, thread);
+		
+---The <b>Dispatch_Able</b> property specifies whether a thread should be dispatched. Threads can be activated for
+--- dispatch in given modes, which is specified as part of the subcomponent declaration of the component using the
+--- thread. In some cases the thread itself may have modes and that mode determines whether the thread is active or
+--- idle. For example, various combinations of low level control threads may be active or idle at various points in
+--- time.<p>
+--- Expressing this through modes in the enclosing component would lead to possibly having to model many mode
+--- combinations of subcomponents. Specification of zero <b>compute_execution_time</b> for a thread indicates that
+--- thread is dispatched and its application code decides there is nothing to do.
+		
+	Dispatch_Able: aadlboolean applies to (thread);
+	
+--- The <b>POSIX_Scheduling_Policy</b> property is used for the modeling of the scheduling protocols defined by 
+--- POSIX 1003.1b. Such a property specifies the policy assign to a given thread. The policy may be either
+--- <b>SCHED_FIFO</b>, <b>SCHED_RR</b> or <b>SCHED_OTHER</b>. In a POSIX 1003.1b architecture, the policy allows the
+---  scheduler to choose the thread to run when several threads have the same fixed priority. If a thread does not 
+--- define the <b>POSIX_Scheduling_Policy</B> property, it has by default the <b>SCHED_FIFO</b> policy. The policy
+---  semantics are:<p>
+---�<ul><li><b>SCHED_FIFO</b> : this policy implements a FIFO scheduling protocol on the set of equal fixed priority :
+---  a thread stays on the processor until it has terminated or until a highest priority thread is released.</li><p> 
+--- Li><b>SCHED_RR</b> : this policy is similar to <b>SCHED_FIFO</b> except that the quantum is used. At the end of the
+--- quantum, the running thread is pre-empted from the processor and a equal priority thread has to be released.</li><p> 
+--- <li><b>SCHED_OTHER</b> : its semantic is defined by POSIX policy implementers. This policy usually implements a
+--- timing sharing scheduling protocol.</ul> 
+	
+	POSIX_Scheduling_Policy: enumeration (SCHED_FIFO, SCHED_RR, SCHED_OTHERS)
+		applies to (thread, thread group);
+	
+--- The <b>Priority</b> property specifies the priority of the thread that is taken into consideration by some
+--- scheduling protocols in scheduling the execution order of threads.  When applied to data or data access, it
+--- specifies priority for concurrency control protocols that use priority based conflict resolution. A larger value
+--- represents a higher priority.<p>
+---The property type is <b>aadlinteger</b>.  Its value is expected to be within the range of priority values supported
+--- by a given processor. 
+
+	Priority: inherit aadlinteger
+		applies to (thread, thread group, process, system, device, data, data access);
+
+--- This property specifies the criticality level of a thread. This property is used by maximum urgency first
+--- scheduling protocols. Such a property can also be used by any project specific  scheduling protocols. 
+	
+	Criticality: aadlinteger
+		applies to (thread, thread group);
+	
+--- The <b>Time_Slot</b> property specifies statically allocated slots on a timeline.  This property is used by
+--- scheduling protocols with a time slot allocation approach, such as the protocol for scheduling partitions on a
+--- static timeline	
+	
+	Time_Slot: list of aadlinteger
+		applies to (thread, thread group, process, virtual processor, system);
+		
+--- The <b>Concurrency_Control_Protocol</b> property specifies the concurrency control protocol used to ensure mutually
+--- exclusive access, i.e., a critical region, to a shared data component.  If no value is specified the default value 
+--- is <b>None_Specified</b>, i.e., no concurrency control protocol.
+	
+	Concurrency_Control_Protocol: Supported_Concurrency_Control_Protocols
+		applies to (data, data access);
+
+--- The <b>Urgency</b> property specifies the urgency with which an event at an in port is to be serviced relative to
+--- other events arriving at or queued at other in ports of the same thread.  A numerically larger number represents
+--- higher urgency
+	
+	Urgency: aadlinteger 0 .. Max_Urgency
+		applies to (port, subprogram);
+		
+---The <b>Dequeue_Protocol</b> property specifies different dequeuing options.<p>
+--- <ul><li><b>OneItem</b>: (default) a single frozen item is dequeued at input time and made available to the source
+---  text unless the queue is empty. The <b>Next_Value</b> service call has no effect.</li><p>
+--- <li><b>AllItems</b>: all items that are frozen at input time are dequeued and made available to the source text via
+--- the port variable, unless the queue is empty.  Individual items become accessible as port variable value through
+--- the <b>Next_Value</b> service call. Any element in the frozen queue that are not retrieved through the
+--- <b>Next_Value</b> service call are discarded, i.e., are removed from the queue and are not available at the next
+--- input time.</li><p> 
+--- <li><b>MultipleItems</b>: multiple items can be dequeued one at a time from the frozen queue and made available to
+-- the source text via the port variable.  One item is dequeued and its value made available via the port variable with
+--- each <b>Next_Value</b> service call.  Any items not dequeued remain in the queue and are available at the next
+--- input time.</li><p>
+--- If the <b>Dequeued_Items</b> property is set, then it imposes a maximum on the number of elements that are made
+--- accessible to a thread at input time when the <b>Dequeue_Protocol</b> property is set to <b>AllItems</b> or
+--- <b>MultipleItems</b>.</li><p>
+--- The default property value is <b>OneItem</b>.
+
+	
+	Dequeue_Protocol: enumeration (OneItem, MultipleItems, AllItems) => OneItem
+		applies to (event port, event data port);
+		
+---The <b>Dequeued_Items<b> property specifies the maximum number of items that are made available to the application
+---  via a port variable for event or event data ports when the input is frozen at input time.  Its value cannot exceed
+--- that of the <b>Queue_Size</b> property for the same port.  See also <b>Dequeue_Protocol</b> property.
+	
+	Dequeued_Items: aadlinteger
+		applies to (event port, event data port);
+		
+--- The <b>Mode_Transition_Response</b> property specifies whether the mode transition occurs immediately due to an
+--- emergency, or whether it is planned in that the completion of thread execution can be coordinated before performing
+--- the mode transition. If not specified the mode transition is considered to be planned.
+	
+	Mode_Transition_Response: enumeration (emergency, planned)
+		applies to (mode transition);
+		
+--- The <b>Resumption_Policy</b> property specifies whether as result of a mode transition activation a component that
+--- has modes itself starts in the initial mode or resumes in the current mode at the time of its deactivation.  
+	
+	Resumption_Policy: enumeration (restart, resume)
+		applies to (thread, thread group, process, system, device, processor, memory, bus, system, virtual bus, virtual processor, subprogram);
+		
+--- The <b>Active_Thread_Handling_Protocol</b> property specifies the protocol to use to handle execution at the time
+--- instant of an actual mode switch. The available choices are implementation defined. The default value is abort
+	
+	Active_Thread_Handling_Protocol:
+		inherit Supported_Active_Thread_Handling_Protocols => abort
+		applies to (thread, thread group, process, system);
+		
+--- The <b>Active_Thread_Queue_Handling_Protocol</b> property specifies the protocol to use to handle the content of
+--- any event port or event data port queue of a thread at the time instant of an actual mode switch. The available
+--- choices are flush and hold.  Flush empties the queue. Hold keeps the content in the queue of the thread being
+--- deactivated until it is reactivated.  The default value is flush.
+	
+	Active_Thread_Queue_Handling_Protocol:
+		inherit enumeration (flush, hold) => flush
+		applies to (thread, thread group, process, system);
+	
+--- The <b>Deactivation_Policy</b> property specifies whether a process is to be unloaded when it is deactivated. If
+--- the policy is unload, then the process is unloaded on deactivate and loaded on activate. In the case of threads,
+--- the property indicates whether thread state is saved.<p>
+--- The default is that the process is loaded during startup and is not unloaded when deactivated.
+
+	
+	Deactivation_Policy: enumeration (inactive, unload) => inactive
+		applies to (thread, process, virtual processor, processor);
+		
+--- This property specifies whether a process requires runtime enforcement of address space protection. If no value is
+--- specified the default is assumed to be <b>true<b>.
+	
+	Runtime_Protection: inherit aadlboolean
+		applies to (process, system, virtual processor);
+		
+--- The <b>Subprogram_Call_Type</b> property specifies whether the call is to be performed synchronous or
+---  semi-synchronous. In case of a semi-synchronous call the user of the result is may be suspended until the result
+---  is available. The default is <b>Synchronous</b> if no property value is specified.
+	
+	Subprogram_Call_Type: enumeration (Synchronous, SemiSynchronous)
+		=> Synchronous
+		applies to (subprogram);
+		
+--- The <b>Synchronized_Component</b> property specifies whether a periodic thread will be synchronized with 
+---transitions into and out of a mode.  In other words, the thread affects the hyperperiod for mode switching of the
+--- property value is true.<p>
+--- The default value is true.
+
+	
+	Synchronized_Component: inherit aadlboolean => true
+		applies to (thread, thread group, process, system);
+end Thread_Properties;

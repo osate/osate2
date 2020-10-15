@@ -25,11 +25,11 @@ package org.osate.ge.swt;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.WeakHashMap;
 import java.util.function.Consumer;
 
 /**
  * A basic EventSource implementation. Manages a thread-safe list of listeners.
+ * @since 1.1
  *
  */
 public class DefaultEventSource<T> implements EventSource<T> {
@@ -63,7 +63,5 @@ public class DefaultEventSource<T> implements EventSource<T> {
 		if(hasClearedReferences) {
 			listeners.removeIf(w -> w.get() == null);
 		}
-
-		new WeakHashMap<Integer, Integer>();
 	}
 }

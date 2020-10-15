@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -133,6 +134,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorBehaviorState getTarget()
   {
     if (target != null && target.eIsProxy())
@@ -163,6 +165,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTarget(ErrorBehaviorState newTarget)
   {
     ErrorBehaviorState oldTarget = target;
@@ -176,6 +179,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTargetToken()
   {
     return targetToken;
@@ -203,6 +207,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTargetToken(TypeSet newTargetToken)
   {
     if (newTargetToken != targetToken)
@@ -224,6 +229,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isSteadyState()
   {
     return steadyState;
@@ -234,6 +240,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setSteadyState(boolean newSteadyState)
   {
     boolean oldSteadyState = steadyState;
@@ -247,6 +254,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public BranchValue getValue()
   {
     return value;
@@ -274,6 +282,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setValue(BranchValue newValue)
   {
     if (newValue != value)

@@ -24,6 +24,7 @@
 package org.osate.ge.tests.endToEnd.util;
 
 import static org.eclipse.swtbot.swt.finder.SWTBotAssert.*;
+import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.*;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -33,35 +34,42 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BooleanSupplier;
+import java.util.stream.Collectors;
 
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swtbot.eclipse.finder.finders.WorkbenchContentsFinder;
+import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
 import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
 import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
+import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
 import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.AbstractSWTBotControl;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotCLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCanvas;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotSpinner;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
@@ -72,13 +80,15 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
-import org.hamcrest.Matcher;
+import org.hamcrest.core.IsAnything;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.swt.BorderedCLabel;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
@@ -191,9 +201,35 @@ public class UiTestUtil {
 	 * @param index
 	 * @param value
 	 */
-	public static void setTextField(final int index, final String value) {
+	public static void setTextFieldText(final int index, final String value) {
 		bot.text(index).setText(value);
 		assertTextFieldText("New value not valid", index, value);
+	}
+
+	/**
+	 * Asserts that the text field with the specified ID has the specified value.
+	 */
+	public static void assertTextFieldWithIdText(final String message, final String id, final String expectedValue) {
+		final SWTBotText text = bot.textWithId(id);
+		assertEquals(message, expectedValue, text.getText());
+	}
+
+	/**
+	 * Sets the text for the text with the specified ID.
+	 * @param id is the text field's id
+	 * @param value is the new value
+	 */
+	public static void setTextFieldWithIdText(final String id, final String value) {
+		bot.textWithId(id).setText(value);
+		assertTextFieldWithIdText("New value not valid", id, value);
+	}
+
+	/**
+	 * Sets the focus to a text widget with the specified ID
+	 * @param id is the ID of the text widget
+	 */
+	public static void setFocusToTextFieldWithId(final String id) {
+		bot.textWithId(id).setFocus();
 	}
 
 	/**
@@ -370,12 +406,20 @@ public class UiTestUtil {
 				bot.table(tableIndex).getTableItem(rowIndex).getText());
 	}
 
+	public static void selectListWithIdItems(final String id, final String... texts) {
+		bot.listWithId(id).select(texts);
+	}
+
 	public static void selectListWithIdItem(final String id, final String text) {
-		bot.listWithId(id).select(text);
+		selectListWithIdItems(id, text);
+	}
+
+	public static void selectListItems(final int listIndex, final String... texts) {
+		bot.list(listIndex).select(texts);
 	}
 
 	public static void selectListItem(final int listIndex, final String text) {
-		bot.list(listIndex).select(text);
+		selectListItems(listIndex, text);
 	}
 
 	public static void doubleClickListItem(final int listIndex, final String text) {
@@ -385,23 +429,43 @@ public class UiTestUtil {
 	/**
 	 * Returns whether the text for a Label with the specified id
 	 */
-	public static String getTextForlabelWithId(final String id) {
+	public static String getTextForLabelWithId(final String id) {
 		return bot.labelWithId(id).getText();
 	}
 
 	/**
-	 * Returns whether the text for a CLabel with the specified id
+	 * Returns whether the text for a {@link BorderedCLabel} with the specified id
 	 */
-	public static String getTextForClabelWithId(final String id) {
-		return bot.clabelWithId(id).getText();
+	public static String getTextForBorderedClabelWithId(final String id) {
+		@SuppressWarnings("unchecked")
+		final BorderedCLabel label = bot.widget(allOf(widgetOfType(BorderedCLabel.class), withId(id)), 0);
+		final String[] value = { "" };
+		UIThreadRunnable.syncExec(() -> {
+			value[0] = new SWTBotCLabel((CLabel) label.getChildren()[0]).getText();
+		});
+
+		return value[0];
+	}
+
+	/**
+	 * Returns the text for the text field with the specified id
+	 */
+	public static String getTextForTextFieldWithId(final String id) {
+		return bot.textWithId(id).getText();
 	}
 
 	/**
 	 * Returns whether an item with the specified text is contained in the list with the specified ID.
-	 * Throws an exception if it is unable to find the tree.
 	 */
 	public static boolean doesItemExistsInListWithId(final String id, final String text) {
 		return Arrays.asList(bot.listWithId(id).getItems()).contains(text);
+	}
+
+	/**
+	 * Returns whether the text of the items in the list with a specified ID matches a specified value.
+	 */
+	public static boolean itemsMatchInListWithId(final String id, final String[] texts) {
+		return Arrays.deepEquals(bot.listWithId(id).getItems(), texts);
 	}
 
 	/**
@@ -518,6 +582,13 @@ public class UiTestUtil {
 	}
 
 	/**
+	 * Focus the specified editor
+	 */
+	public static void focusDiagramEditor(final DiagramReference diagram) {
+		getDiagramEditorBot(diagram).setFocus();
+	}
+
+	/**
 	 * Saves the specified editor
 	 */
 	public static void saveDiagramEditor(final DiagramReference diagram) {
@@ -525,10 +596,18 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Saves and closes the specified editor
+	 * Saves and closes the specified diagram editor
 	 */
 	public static void saveAndCloseDiagramEditor(final DiagramReference diagram) {
 		getDiagramEditorBot(diagram).saveAndClose();
+	}
+
+	/**
+	 * Saves and closes the specified editor
+	 */
+	public static void saveAndCloseTextEditorByTitle(final String inputName) {
+		final IEditorReference editor = getEditorReference(XtextEditor.class, inputName);
+		new SWTBotEditor(editor, bot).saveAndClose();
 	}
 
 	/**
@@ -557,7 +636,7 @@ public class UiTestUtil {
 	/**
 	 * Returns a bot for the focused widget
 	 */
-	private static AbstractSWTBot<?> getFocusedWidget() {
+	public static AbstractSWTBot<?> getFocusedWidget() {
 		final Control focused = bot.getFocusedWidget();
 		assertTrue("Focused widget is null", focused != null);
 		return new AbstractSWTBotControl<Control>(focused);
@@ -579,11 +658,11 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Activates the palette item
+	 * Selects an item from the command
 	 * @param editor the editor
 	 * @param itemText the text for the palette item
 	 */
-	public static void activatePaletteItem(final DiagramReference diagram, final String itemText) {
+	public static void selectPaletteItem(final DiagramReference diagram, final String itemText) {
 		getDiagramEditorBot(diagram).activateTool(itemText);
 	}
 
@@ -606,7 +685,7 @@ public class UiTestUtil {
 		final AgeDiagramEditor editor = getDiagramEditor(diagram);
 
 		final DiagramElement de = getDiagramElement(diagram, element)
-				.orElseThrow(() -> new RuntimeException("Cannot find relative reference for '" + element + "'."));
+				.orElseThrow(() -> new RuntimeException("Cannot find diagram element for '" + element + "'."));
 
 		// Get the edit part
 		final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
@@ -620,7 +699,6 @@ public class UiTestUtil {
 
 		scrollToEditPart(editorRef, editPart);
 
-		// Click element
 		editorBot.click(botEditParts.get(0));
 	}
 
@@ -666,19 +744,29 @@ public class UiTestUtil {
 
 	private static List<SWTBotGefEditPart> findEditParts(final SWTBotGefEditor editor,
 			final List<EditPart> editPartsToFind) {
-		final Matcher<EditPart> matcher = new BaseMatcher<EditPart>() {
-			@Override
-			public boolean matches(final Object editPart) {
-				return editPartsToFind.contains(editPart);
-			}
+		final Set<SWTBotGefEditPart> foundEditParts = new HashSet<>();
 
-			@Override
-			public void describeTo(final Description description) {
-				description.appendText("Find edit parts");
-			}
-		};
+		// Connection edit parts are not returned by this method.
+		final List<SWTBotGefEditPart> shapeEditParts = editor.editParts(new IsAnything<>());
 
-		return editor.editParts(matcher);
+		// Make a list of any connection edit parts for which we are looking.
+		final List<EditPart> connectionEditPartsToFind = editPartsToFind.stream()
+				.filter(ConnectionEditPart.class::isInstance).collect(Collectors.toList());
+
+		for (final SWTBotGefEditPart aPart : shapeEditParts) {
+			if (editPartsToFind.contains(aPart.part())) {
+				foundEditParts.add(aPart);
+			} else if(!connectionEditPartsToFind.isEmpty()) {
+				// Look in the source and target connections for the connection edit parts because they
+				// are not returned by the editor's editPart() method
+				aPart.sourceConnections().stream().filter(p -> connectionEditPartsToFind.contains(p.part()))
+						.forEachOrdered(foundEditParts::add);
+				aPart.targetConnections().stream().filter(p -> connectionEditPartsToFind.contains(p.part()))
+						.forEachOrdered(foundEditParts::add);
+			}
+		}
+
+		return new ArrayList<>(foundEditParts);
 	}
 
 	/**
@@ -864,7 +952,7 @@ public class UiTestUtil {
 	public static Optional<DiagramElement> getDiagramElement(final DiagramReference diagram,
 			final DiagramElementReference element) {
 		final AgeDiagramEditor editor = getDiagramEditor(diagram);
-		final AgeDiagram ageDiagram = editor.getAgeDiagram();
+		final AgeDiagram ageDiagram = editor.getDiagram();
 		ImmutableList<RelativeBusinessObjectReference> refs = element.pathToElement;
 		DiagramElement de = ageDiagram.getByRelativeReference(refs.get(0));
 		for (int i = 1; i < refs.size() && de != null; i++) {

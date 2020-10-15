@@ -49,7 +49,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.ComponentCategory;
@@ -61,7 +60,6 @@ import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
@@ -71,18 +69,17 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.ProcessorFeature;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.contrib.modeling.ClassifierMatchingRule;
+import org.osate.aadl2.contrib.modeling.ModelingProperties;
 import org.osate.aadl2.impl.ParameterImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -100,9 +97,7 @@ import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 
 /**
@@ -1782,15 +1777,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	}
 
 	private boolean isSubsetMatch(Connection conn) {
-		Property property = Aadl2GlobalScopeUtil.get(conn, Aadl2Package.eINSTANCE.getProperty(),
-				"Modeling_Properties::Classifier_Matching_Rule");
-		try {
-			PropertyExpression value = conn.getSimplePropertyValue(property);
-			EnumerationLiteral enumLit = (EnumerationLiteral) ((NamedValue) value).getNamedValue();
-			return enumLit.getName().equalsIgnoreCase("subset");
-		} catch (PropertyNotPresentException e) {
-			return false;
-		}
+		return ModelingProperties.getClassifierMatchingRule(conn).orElse(null) == ClassifierMatchingRule.SUBSET;
 	}
 
 	boolean subsetMatch(List<Connection> conns) {

@@ -137,13 +137,13 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.EObjectURIWrapper;
+import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.aadl2.modelsupport.modeltraversal.SimpleSubclassCounter;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.parsesupport.AObject;
 import org.osate.aadl2.parsesupport.LocationReference;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.workspace.WorkspacePlugin;
 
 /**
  * Static utility methods for processing AADL meta model objects.
@@ -1354,7 +1354,7 @@ public final class AadlUtil {
 			}
 		}
 		if (object instanceof IFile
-				&& WorkspacePlugin.INSTANCE_FILE_EXT.equalsIgnoreCase(((IFile) object).getFileExtension())) {
+				&& FileNameConstants.INSTANCE_FILE_EXT.equalsIgnoreCase(((IFile) object).getFileExtension())) {
 			Resource res = new ResourceSetImpl().getResource(OsateResourceUtil.toResourceURI((IResource) object), true);
 			EList<EObject> rl = res.getContents();
 			if (!rl.isEmpty() && rl.get(0) instanceof Element) {
@@ -1362,7 +1362,7 @@ public final class AadlUtil {
 			}
 		}
 		if (object instanceof IFile
-				&& WorkspacePlugin.SOURCE_FILE_EXT.equalsIgnoreCase(((IFile) object).getFileExtension())) {
+				&& FileNameConstants.SOURCE_FILE_EXT.equalsIgnoreCase(((IFile) object).getFileExtension())) {
 			Resource res = new ResourceSetImpl().getResource(OsateResourceUtil.toResourceURI((IResource) object), true);
 			EList<EObject> rl = res.getContents();
 

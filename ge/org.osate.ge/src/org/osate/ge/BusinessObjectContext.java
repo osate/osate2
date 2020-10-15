@@ -23,20 +23,87 @@
  */
 package org.osate.ge;
 
-import org.osate.ge.internal.query.Queryable;
+import java.util.Collection;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
+ * Interface for objects which are part of a hierarchical structure where each node references a business object.
  *
- * @noimplement
  */
-public interface BusinessObjectContext extends Queryable {
-	@Override
+public interface BusinessObjectContext {
+	/**
+	 * Returns the parent of the context.
+	 * @return the parent of the context. May return null.
+	 */
 	BusinessObjectContext getParent();
-	@Override
+
+	/**
+	 * The children which are available for this context.
+	 * @return the context's children.
+	 * @since 2.0
+	 */
+	Collection<? extends BusinessObjectContext> getChildren();
+
+	/**
+	 * Returns the business object associated with this context.
+	 * @return the business object for the context.
+	 */
 	Object getBusinessObject();
 
-	@Override
+	/**
+	 * @since 2.0
+	 */
+	public default Stream<BusinessObjectContext> getAllDescendants() {
+		return Stream.concat(Stream.of(this), getChildren().stream().flatMap(BusinessObjectContext::getAllDescendants));
+	}
+
+	/**
+	 * Returns the ancestors which has a specified depth relative to this query.
+	 * @param depth must be {@literal >} 0. A value of 1 returns the immediate ancestor.
+	 * @return the new query
+	 */
 	public default BusinessObjectContext getAncestor(final int depth) {
-		return (BusinessObjectContext) Queryable.super.getAncestor(depth);
+		BusinessObjectContext e = this;
+		for (int i = 0; i < depth && e != null; i++) {
+			e = e.getParent();
+		}
+
+		return e;
+	}
+
+	/**
+	 * Retrieves the business object contained in the business object context if it is an instance of the specified class.
+	 * @param <T> is the requested type.
+	 * @param c is the class to which to cast the business object.
+	 * @return an optional containing the context's business object. An empty optional if the context's business object is not
+	 * an instance the specified class.
+	 *
+	 * @since 2.0
+	 */
+	public default <T> Optional<T> getBusinessObject(final Class<T> c) {
+		final Object bo = getBusinessObject();
+		return c.isInstance(bo) ? Optional.of(c.cast(bo)) : Optional.empty();
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	static Optional<BusinessObjectContext> getFirstCommonAncestor(final BusinessObjectContext q1,
+			final BusinessObjectContext q2) {
+		BusinessObjectContext temp1 = q1;
+		while (temp1 != null) {
+			BusinessObjectContext temp2 = q2;
+			while (temp2 != null) {
+				if (temp1 == temp2) {
+					return Optional.of(temp1);
+				}
+				temp2 = temp2.getParent();
+			}
+
+			temp1 = temp1.getParent();
+		}
+
+		return Optional.empty();
 	}
 }

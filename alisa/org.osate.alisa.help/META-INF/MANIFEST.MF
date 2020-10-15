@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.alisa.help
+Bundle-Name: Alisa Help
 Bundle-SymbolicName: org.osate.alisa.help;singleton:=true
-Bundle-Version: 1.0.1.qualifier
-Bundle-Vendor: SEI
+Bundle-Version: 1.0.2.qualifier
+Bundle-Vendor: CMU/SEI
 Require-Bundle: org.eclipse.help;bundle-version="[3.8.0,4.0.0)"

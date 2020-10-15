@@ -34,12 +34,13 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.internal.InternalUtil;
+import org.osate.ge.swt.SwtUtil;
 
 /**
  * View for editing a list of objects.
  *
  * Sorts items provided by model.
+ * @since 1.1
  */
 public final class ListEditor<T> extends Composite {
 	private final ListEditorModel<T> model;
@@ -51,10 +52,10 @@ public final class ListEditor<T> extends Composite {
 	public ListEditor(final Composite parent, final ListEditorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
-		InternalUtil.setColorsToMatchParent(this);
+		SwtUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
-		this.listViewer = new ListSelector<>(this, model);
+		this.listViewer = new ListSelector<>(this, new SingleSelectorModelToSelectorModelAdapter<T>(model));
 		this.listViewer.setLayoutData(
 				GridDataFactory.swtDefaults().span(2, 1).grab(true, true).align(SWT.FILL, SWT.FILL).create());
 
@@ -62,6 +63,7 @@ public final class ListEditor<T> extends Composite {
 		// Add and remove buttons
 		//
 		this.addButton = new Button(this, SWT.FLAT);
+		SwtUtil.setColorsToMatchParent(addButton);
 		this.addButton.setText("Add");
 		this.addButton
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.BEGINNING).create());
@@ -73,6 +75,7 @@ public final class ListEditor<T> extends Composite {
 		});
 
 		this.removeButton = new Button(this, SWT.FLAT);
+		SwtUtil.setColorsToMatchParent(removeButton);
 		this.removeButton.setText("Remove");
 		this.removeButton
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.BEGINNING).create());
@@ -98,6 +101,22 @@ public final class ListEditor<T> extends Composite {
 		this.listViewer.setListTestingId(value);
 	}
 
+	/**
+	 * Sets the testing ID for the add button
+	 * @param value is the testing ID
+	 */
+	public void setAddButtonTestingId(final String value) {
+		SwtUtil.setTestingId(this.addButton, value);
+	}
+
+	/**
+	 * Sets the testing ID for the remove button
+	 * @param value is the testing ID
+	 */
+	public void setRemoveButtonTestingId(final String value) {
+		SwtUtil.setTestingId(this.removeButton, value);
+	}
+
 	private void refresh() {
 		if (!this.isDisposed()) {
 			setEnabled(this.isEnabled()); // Refresh enabled status
@@ -113,7 +132,7 @@ public final class ListEditor<T> extends Composite {
 
 
 	public static void main(String[] args) {
-		InternalUtil.run(shell -> {
+		SwtUtil.run(shell -> {
 			new ListEditor<>(shell, new TestListEditorModel());
 		});
 	}

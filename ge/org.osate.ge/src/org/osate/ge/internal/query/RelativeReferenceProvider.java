@@ -23,7 +23,7 @@
  */
 package org.osate.ge.internal.query;
 
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.RelativeBusinessObjectReference;
 
 /**
  * Indicates that the object can provide the relative reference associated with it's business object.

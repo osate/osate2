@@ -24,18 +24,20 @@
 package org.osate.alisa.workbench.ui.contentassist;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.*;
-import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
+import org.eclipse.xtext.Assignment;
+import org.eclipse.xtext.CrossReference;
+import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext;
+import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor;
+import org.osate.alisa.common.ui.contentassist.CommonProposalProvider;
 
 /**
- * Represents a generated, default implementation of superclass {@link org.osate.alisa.common.ui.contentassist.CommonProposalProvider}.
+ * Represents a generated, default implementation of superclass {@link CommonProposalProvider}.
  * Methods are dynamically dispatched on the first parameter, i.e., you can override them 
  * with a more concrete subtype. 
  */
-@SuppressWarnings("all")
-public class AbstractAlisaProposalProvider extends org.osate.alisa.common.ui.contentassist.CommonProposalProvider {
-		
+public abstract class AbstractAlisaProposalProvider extends CommonProposalProvider {
+
 	public void completeAssuranceCase_Name(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
 	}
@@ -105,7 +107,7 @@ public class AbstractAlisaProposalProvider extends org.osate.alisa.common.ui.con
 	public void completeAssuranceTask_Issues(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		completeRuleCall(((RuleCall)assignment.getTerminal()), context, acceptor);
 	}
-    
+
 	public void complete_AssuranceCase(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		// subclasses may override
 	}

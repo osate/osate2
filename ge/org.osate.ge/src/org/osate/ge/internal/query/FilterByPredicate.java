@@ -26,6 +26,8 @@ package org.osate.ge.internal.query;
 import java.util.Deque;
 import java.util.Objects;
 import java.util.function.Predicate;
+
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.query.FilterArguments;
 
 class FilterByPredicate extends DefaultQuery {
@@ -37,7 +39,7 @@ class FilterByPredicate extends DefaultQuery {
 	}
 	
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResults result) {
 		// Set filter arguments
 		ExpressionArguments filterArgs = (ExpressionArguments)state.cache.get(this);
 		if(filterArgs == null) {

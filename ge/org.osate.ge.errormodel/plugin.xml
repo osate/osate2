@@ -27,55 +27,56 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension
          point="org.osate.ge.businessObjectHandlers">
       <handler
-            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorTypeLibraryHandler">
+            class="org.osate.ge.errormodel.ErrorTypeHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorTypeHandler">
+            class="org.osate.ge.errormodel.ErrorTypeExtensionHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorTypeExtensionHandler">
+            class="org.osate.ge.errormodel.ErrorBehaviorStateMachineHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorBehaviorStateMachineHandler">
+            class="org.osate.ge.errormodel.ErrorModelLibraryHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorModelLibraryHandler">
+            class="org.osate.ge.errormodel.ErrorModelSubclauseHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorModelSubclauseHandler">
+            class="org.osate.ge.errormodel.ErrorBehaviorEventHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorBehaviorEventHandler">
+            class="org.osate.ge.errormodel.ErrorBehaviorStateHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorBehaviorStateHandler">
+            class="org.osate.ge.errormodel.ErrorBehaviorTransitionHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorBehaviorTransitionHandler">
-      </handler>
-      <handler
-            class="org.osate.ge.errormodel.businessObjectHandlers.BehaviorTransitionTrunkHandler">
+            class="org.osate.ge.errormodel.BehaviorTransitionTrunkHandler">
       </handler>
 	  <handler
-            class="org.osate.ge.errormodel.businessObjectHandlers.TransitionBranchHandler">
+            class="org.osate.ge.errormodel.TransitionBranchHandler">
+      </handler>
+	  <handler
+            class="org.osate.ge.errormodel.TypeSetHandler">
+      </handler>
+	  <handler
+            class="org.osate.ge.errormodel.KeywordPropagationPointHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.PropagationPointHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.ErrorPropagationHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.PropagationPathHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.errormodel.ErrorFlowHandler">
       </handler>
    </extension>
-   <extension
-         point="org.osate.ge.categories">
-      <category
-            id="org.osate.ge.errormodel.categories.emv"
-            name="Error Model"
-            order="200">
-      </category>
-   </extension>
-   <extension
-         point="org.osate.ge.references">
-      <referenceBuilder
-            class="org.osate.ge.errormodel.ErrorModelReferenceHandler">
-      </referenceBuilder>
-      <referenceResolver
-            class="org.osate.ge.errormodel.ErrorModelReferenceHandler">
-      </referenceResolver>
+   <extension point="org.osate.ge.paletteContributors">
+      <contributor class="org.osate.ge.errormodel.ui.palette.ErrorModelPaletteContributor" />
    </extension>
    <extension
          point="org.osate.ge.businessObjectProviders">
@@ -85,9 +86,6 @@ censes only apply to the Third Party Software and not any other portion of this 
    </extension>
    <extension
          point="org.osate.ge.contentFilters">
-      <contentFilter
-            class="org.osate.ge.errormodel.filters.ErrorTypeLibraryFilter">
-      </contentFilter>
       <contentFilter
             class="org.osate.ge.errormodel.filters.ErrorTypeFilter">
       </contentFilter>
@@ -109,44 +107,119 @@ censes only apply to the Third Party Software and not any other portion of this 
       <contentFilter
             class="org.osate.ge.errormodel.filters.ErrorBehaviorEventTypeFilterFactory">
       </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.TypeSetFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.PropagationPointFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.KeywordPropagationPointFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorPropagationFilter">
+      </contentFilter>
+            <contentFilter
+            class="org.osate.ge.errormodel.filters.PropagationPathFilter">
+      </contentFilter>
+            <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorFlowFilter">
+      </contentFilter>
       <fundamentalContentFilter
             class="org.osate.ge.errormodel.filters.FundamentalErrorBusinessObjectFilter">
       </fundamentalContentFilter>
    </extension>
-   <extension point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-      <propertyTabs contributorId="org.osate.ge.editor.AgeDiagramEditor">
-         <propertyTab
-               afterTab="org.osate.ge.ui.properties.tabs.aadl"
-               category="org.osate.ge.contributions"
-               id="org.osate.ge.errormodel.propertyTabs.emv2"
-               indented="false"
-               label="EMV2">
-         </propertyTab>
-	</propertyTabs>
-	</extension>
 	   <extension
          point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <propertySections
             contributorId="org.osate.ge.editor.AgeDiagramEditor">
          <propertySection
+               class="org.osate.ge.errormodel.ui.properties.ErrorModelLibraryPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorModelLibraryPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorModelLibrary"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               class="org.osate.ge.errormodel.ui.properties.ErrorTypeAliasPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorTypeAliasPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorTypeAlias"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               class="org.osate.ge.errormodel.ui.properties.TypeSetAliasPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.TypeSetAliasPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.typeSetAlias"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               class="org.osate.ge.errormodel.ui.properties.TypeSetPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.TypeSetPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.typeSet"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+		       afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.errormodel.ui.properties.ErrorPropagationPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorPropagationPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorPropagation"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
                class="org.osate.ge.errormodel.ui.properties.ErrorBehaviorStatePropertySection"
                filter="org.osate.ge.errormodel.ui.properties.ErrorBehaviorStatePropertySection$Filter"
                id="org.osate.ge.errormodel.propertySections.errorBehaviorState"
-               tab="org.osate.ge.errormodel.propertyTabs.emv2">
+               tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
                class="org.osate.ge.errormodel.ui.properties.TransitionBranchPropertySection"
                filter="org.osate.ge.errormodel.ui.properties.TransitionBranchPropertySection$Filter"
                id="org.osate.ge.errormodel.propertySections.transitionBranch"
-               tab="org.osate.ge.errormodel.propertyTabs.emv2">
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+               class="org.osate.ge.errormodel.ui.properties.ErrorFlowPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorFlowPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorFlow"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.errormodel.propertySections.errorFlow"
+               class="org.osate.ge.errormodel.ui.properties.ErrorSourcePropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorSourcePropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorSource"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.errormodel.propertySections.errorFlow"
+               class="org.osate.ge.errormodel.ui.properties.ErrorPathPropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorPathPropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorPath"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
+         <propertySection
+               afterSection="org.osate.ge.ui.properties.prototypesPropertySection"
+               class="org.osate.ge.errormodel.ui.properties.ErrorModelSubclausePropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorModelSubclausePropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorModelSubclause"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          </propertySections>
          </extension>
     <extension
           point="org.osate.ge.tooltips">
        <tooltipContributor
-             class="org.osate.ge.errormodel.tooltips.ErrorModelTooltipContributor"
+             class="org.osate.ge.errormodel.ui.ErrorModelTooltipContributor"
              priority="5">
        </tooltipContributor>
     </extension>
+   <extension
+         point="org.osate.ge.diagramTypes">
+      <diagramType
+            class="org.osate.ge.errormodel.diagramtypes.ErrorLibraryDiagramType">
+      </diagramType>
+      <diagramType
+            class="org.osate.ge.errormodel.diagramtypes.ErrorFlowDiagramType">
+      </diagramType>
+   </extension>
 </plugin>

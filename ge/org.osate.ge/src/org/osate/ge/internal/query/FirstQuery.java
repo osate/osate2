@@ -25,6 +25,8 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 
+import org.osate.ge.BusinessObjectContext;
+
 public class FirstQuery extends DefaultQuery {
 	private int maximumNumberOfResults;
 	
@@ -43,7 +45,7 @@ public class FirstQuery extends DefaultQuery {
 	}
 	
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResults result) {
 		final Integer currentCountInteger = (Integer)state.cache.get(this);
 		int currentCount;
 		if(currentCountInteger == null) {
@@ -60,7 +62,7 @@ public class FirstQuery extends DefaultQuery {
 		
 		if(maximumNumberOfResults <= currentCount) {
 			// Mark query as done. 
-			result.done = true;
+			result.setDone(true);
 		}
 	}
 }

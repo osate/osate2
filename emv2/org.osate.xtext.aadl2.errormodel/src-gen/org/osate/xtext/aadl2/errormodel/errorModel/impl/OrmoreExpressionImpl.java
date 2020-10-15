@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -116,6 +117,7 @@ public class OrmoreExpressionImpl extends ElementImpl implements OrmoreExpressio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public long getCount()
   {
     return count;
@@ -126,6 +128,7 @@ public class OrmoreExpressionImpl extends ElementImpl implements OrmoreExpressio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setCount(long newCount)
   {
     long oldCount = count;
@@ -139,6 +142,7 @@ public class OrmoreExpressionImpl extends ElementImpl implements OrmoreExpressio
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ConditionExpression> getOperands()
   {
     if (operands == null)

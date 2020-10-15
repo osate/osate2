@@ -33,15 +33,15 @@ import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.FutureElementInfo;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.services.ReferenceBuilderService;
@@ -61,15 +61,15 @@ class ShowContentsUtil {
 
 		final AgeDiagramEditor diagramEditor = (AgeDiagramEditor) activeEditor;
 
-		final ExtensionService extService = Objects.requireNonNull(
-				Adapters.adapt(diagramEditor, ExtensionService.class), "Unable to retrieve extension service");
+		final ExtensionRegistryService extService = Objects.requireNonNull(
+				Adapters.adapt(diagramEditor, ExtensionRegistryService.class), "Unable to retrieve extension service");
 		final AgeFeatureProvider featureProvider = Objects.requireNonNull(
 				(AgeFeatureProvider) diagramEditor.getDiagramTypeProvider().getFeatureProvider(),
 				"Unable to retrieve feature provider");
 		final ActionService actionService = Objects.requireNonNull(Adapters.adapt(diagramEditor, ActionService.class),
 				"Unable to retrieve action service");
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
-		final AgeDiagram diagram = diagramEditor.getAgeDiagram();
+		final AgeDiagram diagram = diagramEditor.getDiagram();
 		if (diagram == null) {
 			throw new RuntimeException("Unable to retrieve diagram");
 		}
@@ -87,7 +87,8 @@ class ShowContentsUtil {
 				// Update the diagram
 				final IUpdateContext updateCtx = new UpdateContext(
 						diagramEditor.getGraphitiAgeDiagram().getGraphitiDiagram());
-				diagramEditor.getDiagramBehavior().executeFeature(featureProvider.getUpdateFeature(updateCtx), updateCtx);
+				diagramEditor.getDiagramBehavior().executeFeature(featureProvider.getUpdateFeature(updateCtx),
+						updateCtx);
 
 				return null;
 			});
@@ -99,22 +100,20 @@ class ShowContentsUtil {
 	 * Adds children of the specified diagram elements to the list of elements which will be added during the next diagram update.
 	 * @return whether children were added to the diagram.
 	 */
-	private static boolean addChildrenDuringNextUpdate(final List<DiagramElement> diagramElements, final DiagramUpdater diagramUpdater,
-			final ExtensionService extService, final ReferenceBuilderService referenceBuilder,
-			final BiFunction<DiagramElement, Object, Boolean> filter) {
+	private static boolean addChildrenDuringNextUpdate(final List<DiagramElement> diagramElements,
+			final DiagramUpdater diagramUpdater, final ExtensionRegistryService extService,
+			final ReferenceBuilderService referenceBuilder, final BiFunction<DiagramElement, Object, Boolean> filter) {
 		boolean childrenAdded = false;
-		try (BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService)) {
-			for (final DiagramElement selectedElement : diagramElements) {
-				for (final Object childBo : bopHelper.getChildBusinessObjects(selectedElement)) {
-					final RelativeBusinessObjectReference relativeReference = referenceBuilder
-							.getRelativeReference(childBo);
+		final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService);
+		for (final DiagramElement selectedElement : diagramElements) {
+			for (final Object childBo : bopHelper.getChildBusinessObjects(selectedElement)) {
+				final RelativeBusinessObjectReference relativeReference = referenceBuilder
+						.getRelativeReference(childBo);
 
-					if (relativeReference != null
-							&& selectedElement.getByRelativeReference(relativeReference) == null) {
-						if (filter.apply(selectedElement, childBo)) {
-							diagramUpdater.addToNextUpdate(selectedElement, relativeReference, new FutureElementInfo());
-							childrenAdded = true;
-						}
+				if (relativeReference != null && selectedElement.getByRelativeReference(relativeReference) == null) {
+					if (filter.apply(selectedElement, childBo)) {
+						diagramUpdater.addToNextUpdate(selectedElement, relativeReference, new FutureElementInfo());
+						childrenAdded = true;
 					}
 				}
 			}
