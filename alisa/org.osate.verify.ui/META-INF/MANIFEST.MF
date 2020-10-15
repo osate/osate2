@@ -24,7 +24,7 @@ Require-Bundle: org.osate.verify;bundle-version="[3.0.0,4.0.0)";visibility:=reex
  org.osate.categories;bundle-version="[3.0.0,4.0.0)",
  org.osate.aadl2.modelsupport;bundle-version="[5.0.0,6.0.0)",
  org.osate.xtext.aadl2.ui;bundle-version="[5.0.0,6.0.0)",
- org.osate.ui;bundle-version="[5.0.0,6.0.0)",
+ org.osate.ui;bundle-version="[5.1.0,6.0.0)",
  org.osate.assure;bundle-version="[3.0.0,4.0.0)",
  org.eclipse.xtend.lib;bundle-version="[2.20.0,3.0.0)";resolution:=optional
 Import-Package: org.apache.log4j;version="[1.2.0,2.0.0)"
