@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -55,8 +55,8 @@ public class Component implements Comparable {
 	 * These two lists are here to keep track of the order of the
 	 * ports.
 	 */
-	public List<Component> inports;
-	public List<Component> outports;
+	private List<Component> inports;
+	private List<Component> outports;
 
 	public final int COMPONENT_TYPE_EXTERNAL_INPORT = 1;
 	public final int COMPONENT_TYPE_EXTERNAL_OUTPORT = 2;
@@ -166,7 +166,7 @@ public class Component implements Comparable {
 	/**
 	 * indicate if the current component has block
 	 * subcomponents.
-	 * 
+	 *
 	 * @return - true if the components has subcomponents that are block. false otherwise
 	 */
 	public boolean hasSubcomponents() {
@@ -371,7 +371,7 @@ public class Component implements Comparable {
 		result = new ArrayList<Component>();
 
 		for (Connection ec : connections) {
-			if ((ec.getDestination().getName() == this.getName()) && (!result.contains(ec.getSource()))) {
+			if ((ec.getDestination().getName().equals(this.getName())) && (!result.contains(ec.getSource()))) {
 				result.add(ec.getSource());
 			}
 		}
@@ -385,7 +385,7 @@ public class Component implements Comparable {
 		result = new ArrayList<Component>();
 
 		for (Connection ec : connections) {
-			if ((ec.getSource().getName() == this.getName()) && (!result.contains(ec.getDestination()))) {
+			if ((ec.getSource().getName().equals(this.getName())) && (!result.contains(ec.getDestination()))) {
 				result.add(ec.getDestination());
 			}
 		}
@@ -399,8 +399,8 @@ public class Component implements Comparable {
 
 	public void addConnection(Connection ec) {
 		for (Connection c : connections) {
-			if ((c.getSource().getName() == ec.getSource().getName())
-					&& (c.getDestination().getName() == ec.getDestination().getName())) {
+			if ((c.getSource().getName().equals(ec.getSource().getName()))
+					&& (c.getDestination().getName().equals(ec.getDestination().getName()))) {
 				OsateDebug.osateDebug("[Component] not adding the connection");
 				return;
 			}
@@ -408,6 +408,7 @@ public class Component implements Comparable {
 		this.connections.add(ec);
 	}
 
+	@Override
 	public String toString() {
 		String r;
 		r = "Component " + this.name;
@@ -434,6 +435,7 @@ public class Component implements Comparable {
 		return null;
 	}
 
+	@Override
 	public int compareTo(Object arg0) {
 		if (arg0 instanceof Component) {
 			return (this.name.equalsIgnoreCase(((Component) arg0).getName())) ? 0 : 1;
