@@ -87,6 +87,15 @@ public class EObjectURIWrapper {
 	private final Image image;
 	private final String text;
 
+	/**
+	 * @deprecated Use {@link Factory.createWrapperFor}
+	 * @param eObject
+	 */
+	@Deprecated
+	public EObjectURIWrapper(EObject eObject) {
+		this(eObject, "", null);
+	}
+
 	private EObjectURIWrapper(EObject eObject, String text, Image image) {
 		uri = EcoreUtil.getURI(eObject);
 		eClass = eObject.eClass();
