@@ -49,11 +49,11 @@ public class ModeTransitionInstanceHandler extends AadlBusinessObjectHandler {
 			.filterByBusinessObjectRelativeReference((ModeTransitionInstance mt) -> mt.getDestination()));
 
 	private BusinessObjectContext getSource(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstResult(srcQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(srcQuery, boc);
 	}
 
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstResult(dstQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
 	}
 
 	@Override

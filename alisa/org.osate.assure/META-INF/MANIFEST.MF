@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Alisa Assurance
 Bundle-Vendor: CMU/SEI
-Bundle-Version: 3.0.3.qualifier
+Bundle-Version: 3.0.4.qualifier
 Bundle-SymbolicName: org.osate.assure; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=reexport,
@@ -42,7 +42,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=re
  org.osate.results;bundle-version="[2.0.0,3.0.0)",
  org.osate.xtext.aadl2;bundle-version="[5.0.0,6.0.0)",
  org.osate.organization;bundle-version="[3.0.0,4.0.0)",
- org.osate.annexsupport;bundle-version="[2.1.0,3.0.0)"
+ org.osate.annexsupport;bundle-version="[3.0.0,4.0.0)"
 Import-Package: com.rockwellcollins.atc.resolute.analysis.execution;resolution:=optional,
  com.rockwellcollins.atc.resolute.analysis.results;resolution:=optional,
  com.rockwellcollins.atc.resolute.analysis.values;resolution:=optional,

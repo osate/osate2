@@ -36,6 +36,9 @@ censes only apply to the Third Party Software and not any other portion of this 
 		<topic href="html/start2/OSATEUserGuide.html#properties" label="Viewing AADL Property Values" />
 		<topic href="html/start2/OSATEUserGuide.html#classifierView" label="Viewing Classifier Members" />
 	</topic>
+	<topic href="html/advanced/AdvancedOSATEFeatures.html" label="Advanced OSATE Features">
+		<topic href="html/advanced/AdvancedOSATEFeatures.html#contributedResources" label="Managing Contributed Resources" />
+	</topic>
 	<topic label="Concepts">
 		<anchor id="_workingSets"/>
   		<anchor id="_importWizard"/>
@@ -52,6 +55,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 		<anchor id="_check_binding_constraints"/>
 		<anchor id="_check_connection_binding_consistency"/>
 		<anchor id="_model_maintenance"/>
+  <anchor id="_model_statistics"/>
     	<topic href="html/plugins/index.html" label="Other Analyses">
     	</topic>
 	</topic>
