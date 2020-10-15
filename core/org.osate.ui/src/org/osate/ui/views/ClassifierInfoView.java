@@ -55,6 +55,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -73,6 +74,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -127,9 +129,12 @@ public final class ClassifierInfoView extends ViewPart {
 	private static final String AADL_ICON = "/icons/aadl.gif";
 	private static final String LINK_ICON = "icons/link_to_editor.png";
 	private static final String CLEAR_ICON = "icons/delete.png";
+	private static final String REFRESH_ICON = "icons/refresh.png";
 
 	private static final String LINK_WITH_EDITOR_ACTION_NAME = "Link with Editor";
 	private static final String CLEAR_ACTION_NAME = "Clear View";
+	private static final String REFRESH_ACTION_NAME = "Refresh View";
+	private static final String REFRESH_TOOL_TOP = "Refreshes the view.  Only enabled when a refresh is required.";
 
 	public static final String VIEW_ID = "org.osate.ui.classifier_info_view";
 
@@ -148,6 +153,15 @@ public final class ClassifierInfoView extends ViewPart {
 	private Image aadlImage;
 
 	private volatile boolean syncWithEditor = true;
+	private volatile boolean autoRefresh = true;
+
+	/*
+	 * Do not set directly. Use the setNeedsRefresh() method so that the refresh button is properly
+	 * enabled.
+	 */
+	private volatile boolean needsRefresh = false;
+
+	private Action refreshAction;
 
 	/*
 	 * The Job (if any currently running to refresh the view. If another refresh occurs, we need to cancel
@@ -204,7 +218,22 @@ public final class ClassifierInfoView extends ViewPart {
 		descendantTree = createDescendantTree(sash, handler);
 		memberTree = createMemberTree(sash, handler);
 
-		final IToolBarManager toolBarManager = getViewSite().getActionBars().getToolBarManager();
+		final IActionBars actionBars = getViewSite().getActionBars();
+		final IToolBarManager toolBarManager = actionBars.getToolBarManager();
+		final IMenuManager menuManager = actionBars.getMenuManager();
+		refreshAction = new Action(REFRESH_ACTION_NAME, IAction.AS_PUSH_BUTTON) {
+			{
+				setToolTipText(REFRESH_TOOL_TOP);
+				setImageDescriptor(OsateUiPlugin.getImageDescriptor(REFRESH_ICON));
+				setEnabled(false);
+			}
+
+			@Override
+			public void run() {
+				refresh();
+			}
+		};
+		toolBarManager.add(refreshAction);
 		toolBarManager.add(new Action(CLEAR_ACTION_NAME, IAction.AS_PUSH_BUTTON) {
 			{
 				setToolTipText(CLEAR_ACTION_NAME);
@@ -228,6 +257,26 @@ public final class ClassifierInfoView extends ViewPart {
 				syncWithEditor = !syncWithEditor;
 				if (syncWithEditor) {
 					gotoURI(lastSelectedURI);
+				}
+			}
+		});
+
+		menuManager.add(new Action("Auto refresh", IAction.AS_CHECK_BOX) {
+			{
+				setToolTipText("When checked, the view will automatically refresh");
+				setChecked(autoRefresh);
+			}
+
+			@Override
+			public void run() {
+				final boolean isChecked = isChecked();
+				autoRefresh = isChecked;
+				// force the refresh action to update its state
+				setNeedsRefresh(needsRefresh);
+
+				// If we just not checked to "auto refresh" and a refresh is necessary, do the refresh
+				if (isChecked && needsRefresh) {
+					refresh();
 				}
 			}
 		});
@@ -256,6 +305,19 @@ public final class ClassifierInfoView extends ViewPart {
 	public void setFocus() {
 		memberTree.getControl().setFocus();
 	}
+
+	// ======================================================================
+	// == Manage the refresh button
+	// ======================================================================
+
+	private void setNeedsRefresh(final boolean value) {
+		needsRefresh = value;
+		refreshAction.setEnabled(!autoRefresh && value);
+	}
+
+	// ======================================================================
+	// == Trees
+	// ======================================================================
 
 	private TreeViewer createAncestorTree(final Composite parent, final SelectionAndDoubleClickHandler handler) {
 		final Composite treeComposite = new Composite(parent, SWT.NONE);
@@ -510,6 +572,7 @@ public final class ClassifierInfoView extends ViewPart {
 							memberTree.setInput(createMemberTree((FeatureGroupType) input));
 							memberTree.expandToLevel(2);
 						}
+						setNeedsRefresh(false);
 					});
 				} catch (final OperationCanceledException | InterruptedException e) {
 					/*
@@ -614,7 +677,11 @@ public final class ClassifierInfoView extends ViewPart {
 			}
 
 			if (changed.get()) {
-				refresh();
+				if (autoRefresh) {
+					refresh();
+				} else {
+					setNeedsRefresh(true);
+				}
 			}
 		}
 	}
