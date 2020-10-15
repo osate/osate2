@@ -153,7 +153,7 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSink"));
 		}
 
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowImplementation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowPath"));
 	}
 
 	/**
