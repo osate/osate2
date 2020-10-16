@@ -2,11 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.analysis.flows;singleton:=true
-<<<<<<< HEAD
 Bundle-Version: 5.0.0.qualifier
-=======
-Bundle-Version: 4.0.2.qualifier
->>>>>>> refs/heads/master
 Bundle-Activator: org.osate.analysis.flows.FlowanalysisPlugin
 Bundle-Vendor: CMU/SEI
 Bundle-Localization: plugin
