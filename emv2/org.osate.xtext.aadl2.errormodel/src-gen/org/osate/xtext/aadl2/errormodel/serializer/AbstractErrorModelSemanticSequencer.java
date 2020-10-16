@@ -843,7 +843,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         condition=ConditionExpression 
 	 *         (
 	 *             (target=[ErrorBehaviorState|ID] targetToken=TypeToken?) | 
-	 *             steadyState?=SameStateKeywords | 
+	 *             steadyState?='same' | 
 	 *             (destinationBranches+=TransitionBranch destinationBranches+=TransitionBranch+)
 	 *         )
 	 *     )
@@ -1434,7 +1434,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     TransitionBranch returns TransitionBranch
 	 *
 	 * Constraint:
-	 *     (((target=[ErrorBehaviorState|ID] targetToken=TypeToken?) | steadyState?=SameStateKeywords) value=BranchValue)
+	 *     (((target=[ErrorBehaviorState|ID] targetToken=TypeToken?) | steadyState?='same') value=BranchValue)
 	 */
 	protected void sequence_TransitionBranch(ISerializationContext context, TransitionBranch semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

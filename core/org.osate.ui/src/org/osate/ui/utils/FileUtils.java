@@ -35,7 +35,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
-import org.osate.workspace.WorkspacePlugin;
+import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osgi.framework.Bundle;
 
 import com.google.common.io.Files;
@@ -51,7 +51,7 @@ public class FileUtils {
 
 			String extension = fileName.substring(i + 1, fileName.length());
 
-			return WorkspacePlugin.SOURCE_FILE_EXT.equalsIgnoreCase(extension);
+			return FileNameConstants.SOURCE_FILE_EXT.equalsIgnoreCase(extension);
 		}
 	}
 

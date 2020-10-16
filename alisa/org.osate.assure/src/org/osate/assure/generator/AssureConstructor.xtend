@@ -492,6 +492,7 @@ class AssureConstructor implements IAssureConstructor {
 		if (parent instanceof Claim) {
 			val NestedClaimReference parentNcr = factory.createNestedClaimReference
 			parentNcr.requirement = parent.requirement
+			parentNcr.sub = ncr
 			return constructClaimReferencePath(parent, parentNcr)
 		}
 		return ncr

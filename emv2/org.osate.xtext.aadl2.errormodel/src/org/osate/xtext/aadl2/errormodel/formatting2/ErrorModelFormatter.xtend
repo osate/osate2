@@ -71,6 +71,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
 import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess
 import org.osate.xtext.aadl2.properties.formatting2.PropertiesFormatter
 
+/**
+ * @since 5.0
+ */
 class ErrorModelFormatter extends PropertiesFormatter {
 	@Inject extension ErrorModelGrammarAccess
 
@@ -95,21 +98,22 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		nameAssignment.prepend[oneSpace].append[setNewLines(1, 1, 2)]
 
 		// End subclause
-		val endSubclauseKeyword = errorModelSubclause.regionFor.keyword(endSubclauseKeywordsAccess.endKeyword_0)
+		val endSubclauseKeyword = errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.endKeyword_13)
 		endSubclauseKeyword.append[oneSpace]
-		errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_14).prepend[noSpace]
+		errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_15).prepend[noSpace]
 
 		// Indentation in subclause declaration
 		interior(nameAssignment, endSubclauseKeyword, [indent])
 
 		// Use types
-		val typesKeyword = errorModelSubclause.regionFor.keyword(useTypesKeywordsAccess.typesKeyword_1)
-		val useTypesSemicolon = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.semicolonKeyword_1_3) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_3_3)
+		val typesKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.typesKeyword_1_1) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.typesKeyword_3_1)
+		val useTypesSemicolon = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.semicolonKeyword_1_4) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_3_4)
 		interior(typesKeyword, useTypesSemicolon, [indent])
 		typesKeyword.surround[oneSpace]
-		val useTypesCommas = errorModelSubclause.regionFor.keywords(errorModelSubclauseAccess.commaKeyword_1_2_0) +
-			errorModelSubclause.regionFor.keywords(EMV2SubclauseAccess.commaKeyword_3_2_0)
+		val useTypesCommas = errorModelSubclause.regionFor.keywords(errorModelSubclauseAccess.commaKeyword_1_3_0) +
+			errorModelSubclause.regionFor.keywords(EMV2SubclauseAccess.commaKeyword_3_3_0)
 		useTypesCommas.forEach[prepend[noSpace].append[oneSpace; autowrap]]
 		useTypesSemicolon.prepend[noSpace]
 		switch nextSemantic : useTypesSemicolon?.nextSemanticRegion?.text?.toLowerCase {
@@ -119,11 +123,15 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		}
 
 		// Use type equivalence
-		errorModelSubclause.regionFor.keyword(useTypeEquivalenceKeywordsAccess.typeKeyword_1).surround[oneSpace]
-		errorModelSubclause.regionFor.keyword(useTypeEquivalenceKeywordsAccess.equivalenceKeyword_2).append[oneSpace]
+		val typeKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.typeKeyword_2_1) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.typeKeyword_4_1)
+		typeKeyword.surround[oneSpace]
+		val equivalenceKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.equivalenceKeyword_2_2) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.equivalenceKeyword_4_2)
+		equivalenceKeyword.append[oneSpace]
 		val useTypeEquivalenceSemicolon = errorModelSubclause.regionFor.keyword(
-			errorModelSubclauseAccess.semicolonKeyword_2_2) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_4_2)
+			errorModelSubclauseAccess.semicolonKeyword_2_4) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_4_4)
 		useTypeEquivalenceSemicolon.prepend[noSpace]
 		switch nextSemantic : useTypeEquivalenceSemicolon?.nextSemanticRegion?.text?.toLowerCase {
 			case "end",
@@ -132,10 +140,12 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		}
 
 		// Use mappings
-		errorModelSubclause.regionFor.keyword(useMappingsKeywordsAccess.mappingsKeyword_1).surround[oneSpace]
+		val mappingsKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.mappingsKeyword_3_1) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.mappingsKeyword_5_1)
+		mappingsKeyword.surround[oneSpace]
 		val useMappingsSemicolon = errorModelSubclause.regionFor.keyword(
-			errorModelSubclauseAccess.semicolonKeyword_3_2) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_5_2)
+			errorModelSubclauseAccess.semicolonKeyword_3_3) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_5_3)
 		useMappingsSemicolon.prepend[noSpace]
 		switch nextSemantic : useMappingsSemicolon?.nextSemanticRegion?.text?.toLowerCase {
 			case "end",
@@ -144,10 +154,12 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		}
 
 		// Use behavior
-		errorModelSubclause.regionFor.keyword(useBehaviorKeywordsAccess.behaviorKeyword_1).surround[oneSpace]
+		val behaviorKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.behaviorKeyword_4_1) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.behaviorKeyword_6_1)
+		behaviorKeyword.surround[oneSpace]
 		val useBehaviorSemicolon = errorModelSubclause.regionFor.keyword(
-			errorModelSubclauseAccess.semicolonKeyword_4_2) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_6_2)
+			errorModelSubclauseAccess.semicolonKeyword_4_3) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_6_3)
 		useBehaviorSemicolon.prepend[noSpace]
 		switch nextSemantic : useBehaviorSemicolon?.nextSemanticRegion {
 			case endSubclauseKeyword: useBehaviorSemicolon.append[newLines = 1]
@@ -185,10 +197,11 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		ISemanticRegion endSubclauseKeyword
 	) {
 		// Error propagations (begin line)
-		val propagationsKeyword = errorModelSubclause.regionFor.keyword(
-			errorPropagationsKeywordsAccess.propagationsKeyword_1)
+		val propagationsKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.propagationsKeyword_5_1) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.propagationsKeyword_7_1)
 		propagationsKeyword.prepend[oneSpace].append[setNewLines(1, 1, 2)]
-		val endKeyword = errorModelSubclause.regionFor.keyword(endPropagationsKeywordsAccess.endKeyword_0)
+		val endKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.endKeyword_5_4) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.endKeyword_7_4)
 		interior(propagationsKeyword, endKeyword, [indent])
 		// Error propagations (propagations)
 		errorModelSubclause.propagations.forEach [
@@ -197,8 +210,8 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		]
 		
 		// Error propagations (flows)
-		val flowsKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.flowsKeyword_5_2_0) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.flowsKeyword_7_2_0)
+		val flowsKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.flowsKeyword_5_3_0) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.flowsKeyword_7_3_0)
 		flowsKeyword.append[setNewLines(1, 1, 2)]
 		interior(flowsKeyword, endKeyword, [indent])
 		errorModelSubclause.flows.forEach [
@@ -207,11 +220,12 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		]
 		
 		// Error propagations (end line)
-		errorModelSubclause.regionFor.keyword(endPropagationsKeywordsAccess.propagationsKeyword_1).prepend[oneSpace].
-			append[noSpace]
+		val endPropagationsKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.propagationsKeyword_5_5) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.propagationsKeyword_7_5)
+		endPropagationsKeyword.prepend[oneSpace].append[noSpace]
 		val errorPropagationsSemicolon = errorModelSubclause.regionFor.keyword(
-			errorModelSubclauseAccess.semicolonKeyword_5_4) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_7_4)
+			errorModelSubclauseAccess.semicolonKeyword_5_6) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_7_6)
 		switch nextSemantic : errorPropagationsSemicolon?.nextSemanticRegion {
 			case endSubclauseKeyword: errorPropagationsSemicolon.append[setNewLines(1, 1, 2)]
 			case nextSemantic !== null: errorPropagationsSemicolon.append[newLines = 2]
@@ -224,35 +238,38 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		ISemanticRegion endSubclauseKeyword
 	) {
 		// Component error behavior (begin line)
-		errorModelSubclause.regionFor.keyword(componentErrorBehaviorKeywordsAccess.errorKeyword_1).surround[oneSpace]
-		val behaviorKeyword = errorModelSubclause.regionFor.keyword(
-			componentErrorBehaviorKeywordsAccess.behaviorKeyword_2)
+		val errorKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.errorKeyword_6_1) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.errorKeyword_8_1)
+		errorKeyword.surround[oneSpace]
+		val behaviorKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.behaviorKeyword_6_2) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.behaviorKeyword_8_2)
 		behaviorKeyword.append[setNewLines(1, 1, 2)]
-		val endKeyword = errorModelSubclause.regionFor.keyword(endComponentKeywordsAccess.endKeyword_0)
+		val endKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.endKeyword_6_9) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.endKeyword_8_9)
 		interior(behaviorKeyword, endKeyword, [indent])
 		
 		// Component error behavior (use transformations)
-		// The transformations keyword is used in connection error as well, so we format both here.
-		errorModelSubclause.regionFor.keywords(useTransformationsKeywordsAccess.transformationsKeyword_1).forEach [
-			surround[oneSpace]
-		]
+		val transformationsKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.transformationsKeyword_6_3_1) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.transformationsKeyword_8_3_1)
+		transformationsKeyword.surround[oneSpace]
 		val useTransformationsSemicolon = errorModelSubclause.regionFor.keyword(
-			errorModelSubclauseAccess.semicolonKeyword_6_1_2) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_8_1_2)
+			errorModelSubclauseAccess.semicolonKeyword_6_3_3) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_8_3_3)
 		useTransformationsSemicolon.prepend[noSpace].append[setNewLines(1, 1, 2)]
 		
-		val eventsKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.eventsKeyword_6_2_0) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.eventsKeyword_8_2_0)
+		val eventsKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.eventsKeyword_6_4_0) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.eventsKeyword_8_4_0)
 		val transitionsKeyword = errorModelSubclause.regionFor.keyword(
-			errorModelSubclauseAccess.transitionsKeyword_6_3_0) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.transitionsKeyword_8_3_0)
+			errorModelSubclauseAccess.transitionsKeyword_6_5_0) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.transitionsKeyword_8_5_0)
 		val propagationsKeyword = errorModelSubclause.regionFor.keyword(
-			errorModelSubclauseAccess.propagationsKeyword_6_4_0) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.propagationsKeyword_8_4_0)
+			errorModelSubclauseAccess.propagationsKeyword_6_6_0) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.propagationsKeyword_8_6_0)
 		val detectionsKeyword = errorModelSubclause.regionFor.keyword(
-			errorModelSubclauseAccess.detectionsKeyword_6_5_0) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.detectionsKeyword_8_5_0)
-		val modeKeyword = errorModelSubclause.regionFor.keyword(modeMappingsKeywordsAccess.modeKeyword_0)
+			errorModelSubclauseAccess.detectionsKeyword_6_7_0) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.detectionsKeyword_8_7_0)
+		val modeKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.modeKeyword_6_8_0) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.modeKeyword_8_8_0)
 		
 		// Component error behavior (events)
 		if (eventsKeyword !== null) {
@@ -299,7 +316,8 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		]
 		
 		// Component error behavior (mode mappings)
-		val mappingsKeyword = errorModelSubclause.regionFor.keyword(modeMappingsKeywordsAccess.mappingsKeyword_1)
+		val mappingsKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.mappingsKeyword_6_8_1) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.mappingsKeyword_8_8_1)
 		if (mappingsKeyword !== null) {
 			mappingsKeyword.prepend[oneSpace].append[setNewLines(1, 1, 2)]
 			interior(mappingsKeyword, endKeyword, [indent])
@@ -310,12 +328,12 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		]
 		
 		// Component error behavior (end line)
-		errorModelSubclause.regionFor.keyword(endComponentKeywordsAccess.componentKeyword_1).prepend[oneSpace].append [
-			noSpace
-		]
+		val componentKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.componentKeyword_6_10) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.componentKeyword_8_10)
+		componentKeyword.prepend[oneSpace].append[noSpace]
 		val componentErrorBehaviorSemicolon = errorModelSubclause.regionFor.keyword(
-			errorModelSubclauseAccess.semicolonKeyword_6_8) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_8_8)
+			errorModelSubclauseAccess.semicolonKeyword_6_11) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_8_11)
 		switch nextSemantic : componentErrorBehaviorSemicolon?.nextSemanticRegion {
 			case endSubclauseKeyword: componentErrorBehaviorSemicolon.append[setNewLines(1, 1, 2)]
 			case nextSemantic !== null: componentErrorBehaviorSemicolon.append[newLines = 2]
@@ -328,16 +346,19 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		ISemanticRegion endSubclauseKeyword
 	) {
 		// Composite error behavior (begin line)
-		errorModelSubclause.regionFor.keyword(compositeErrorBehaviorKeywordsAccess.errorKeyword_1).surround[oneSpace]
-		val behaviorKeyword = errorModelSubclause.regionFor.keyword(
-			compositeErrorBehaviorKeywordsAccess.behaviorKeyword_2)
+		val errorKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.errorKeyword_7_1) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.errorKeyword_9_1)
+		errorKeyword.surround[oneSpace]
+		val behaviorKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.behaviorKeyword_7_2) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.behaviorKeyword_9_2)
 		behaviorKeyword.append[setNewLines(1, 1, 2)]
-		val endKeyword = errorModelSubclause.regionFor.keyword(endCompositeKeywordsAccess.endKeyword_0)
+		val endKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.endKeyword_7_4) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.endKeyword_9_4)
 		interior(behaviorKeyword, endKeyword, [indent])
 		
 		// Composite error behavior (states)
-		val statesKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.statesKeyword_7_1_0) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.statesKeyword_9_1_0)
+		val statesKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.statesKeyword_7_3_0) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.statesKeyword_9_3_0)
 		statesKeyword.append[setNewLines(1, 1, 2)]
 		interior(statesKeyword, endKeyword, [indent])
 		errorModelSubclause.states.forEach [
@@ -346,12 +367,12 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		]
 		
 		// Composite error behavior (end line)
-		errorModelSubclause.regionFor.keyword(endCompositeKeywordsAccess.compositeKeyword_1).prepend[oneSpace].append [
-			noSpace
-		]
+		val compositeKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.compositeKeyword_7_5) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.compositeKeyword_9_5)
+		compositeKeyword.prepend[oneSpace].append[noSpace]
 		val compositeErrorBehaviorSemicolon = errorModelSubclause.regionFor.keyword(
-			errorModelSubclauseAccess.semicolonKeyword_7_3) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_9_3)
+			errorModelSubclauseAccess.semicolonKeyword_7_6) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_9_6)
 		switch nextSemantic : compositeErrorBehaviorSemicolon?.nextSemanticRegion {
 			case endSubclauseKeyword: compositeErrorBehaviorSemicolon.append[setNewLines(1, 1, 2)]
 			case nextSemantic !== null: compositeErrorBehaviorSemicolon.append[newLines = 2]
@@ -364,15 +385,20 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		ISemanticRegion endSubclauseKeyword
 	) {
 		// Connection error (begin line)
-		val errorKeyword = errorModelSubclause.regionFor.keyword(connectionErrorKeywordsAccess.errorKeyword_1)
+		val errorKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.errorKeyword_8_1) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.errorKeyword_10_1)
 		errorKeyword.prepend[oneSpace].append[setNewLines(1, 1, 2)]
-		interior(errorKeyword, errorModelSubclause.regionFor.keyword(endConnectionKeywordsAccess.endKeyword_0), [indent])
+		val endKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.endKeyword_8_4) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.endKeyword_10_4)
+		interior(errorKeyword, endKeyword, [indent])
 		
 		// Connection error (use transformations)
-		// The transformations keyword is handled earlier for component error behavior
+		val transformationsKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.transformationsKeyword_8_2_1) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.transformationsKeyword_10_2_1)
+		transformationsKeyword.surround[oneSpace]
 		val connectionErrorUseTransformationsSemicolon = errorModelSubclause.regionFor.keyword(
-			errorModelSubclauseAccess.semicolonKeyword_8_1_2) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_10_1_2)
+			errorModelSubclauseAccess.semicolonKeyword_8_2_3) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_10_2_3)
 		connectionErrorUseTransformationsSemicolon.prepend[noSpace].append[setNewLines(1, 1, 2)]
 		
 		// Connection error (sources)
@@ -382,12 +408,12 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		]
 		
 		// Connection error (end line)
-		errorModelSubclause.regionFor.keyword(endConnectionKeywordsAccess.connectionKeyword_1).prepend[oneSpace].append [
-			noSpace
-		]
+		val connectionKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.connectionKeyword_8_5) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.connectionKeyword_10_5)
+		connectionKeyword.prepend[oneSpace].append[noSpace]
 		val connectionErrorSemicolon = errorModelSubclause.regionFor.keyword(
-			errorModelSubclauseAccess.semicolonKeyword_8_4) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_10_4)
+			errorModelSubclauseAccess.semicolonKeyword_8_6) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_10_6)
 		switch nextSemantic : connectionErrorSemicolon?.nextSemanticRegion {
 			case endSubclauseKeyword: connectionErrorSemicolon.append[setNewLines(1, 1, 2)]
 			case nextSemantic !== null: connectionErrorSemicolon.append[newLines = 2]
@@ -400,9 +426,12 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		ISemanticRegion endSubclauseKeyword
 	) {
 		// Propagation paths (begin line)
-		val pathsKeyword = errorModelSubclause.regionFor.keyword(propagationPathsKeywordsAccess.pathsKeyword_1)
+		val pathsKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.pathsKeyword_9_1) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.pathsKeyword_11_1)
 		pathsKeyword.prepend[oneSpace].append[setNewLines(1, 1, 2)]
-		interior(pathsKeyword, errorModelSubclause.regionFor.keyword(endPathsKeywordsAccess.endKeyword_0), [indent])
+		val endKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.endKeyword_9_4) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.endKeyword_11_4)
+		interior(pathsKeyword, endKeyword, [indent])
 		
 		// Propagation paths (points)
 		errorModelSubclause.points.forEach [
@@ -417,10 +446,12 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		]
 		
 		// Propagation paths (end line)
-		errorModelSubclause.regionFor.keyword(endPathsKeywordsAccess.pathsKeyword_1).prepend[oneSpace].append[noSpace]
+		val endPathsKeyword = errorModelSubclause.regionFor.keyword(errorModelSubclauseAccess.pathsKeyword_9_5) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.pathsKeyword_11_5)
+		endPathsKeyword.prepend[oneSpace].append[noSpace]
 		val propagationPathsSemicolon = errorModelSubclause.regionFor.keyword(
-			errorModelSubclauseAccess.semicolonKeyword_9_4) ?:
-			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_11_4)
+			errorModelSubclauseAccess.semicolonKeyword_9_6) ?:
+			errorModelSubclause.regionFor.keyword(EMV2SubclauseAccess.semicolonKeyword_11_6)
 		switch nextSemantic : propagationPathsSemicolon?.nextSemanticRegion {
 			case endSubclauseKeyword: propagationPathsSemicolon.append[setNewLines(1, 1, 2)]
 			case nextSemantic !== null: propagationPathsSemicolon.append[newLines = 2]
@@ -452,36 +483,42 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		leftCurly.prepend[oneSpace].append[setNewLines(1, 1, 2)]
 
 		// Begin error types
-		val errorTypesKeyword = errorModelLibrary.regionFor.keyword(errorTypesKeywordsAccess.typesKeyword_1)
+		val errorTypesKeyword = errorModelLibrary.regionFor.keyword(errorModelLibraryAccess.typesKeyword_1_1) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.typesKeyword_0_1_2_1) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.typesKeyword_1_6_1)
 		errorTypesKeyword.prepend[oneSpace].append[setNewLines(1, 1, 2)]
-		val endKeyword = errorModelLibrary.regionFor.keyword(endTypesKeywordsAccess.endKeyword_0)
+		val endKeyword = errorModelLibrary.regionFor.keyword(errorModelLibraryAccess.endKeyword_1_6) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.endKeyword_0_1_2_6) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.endKeyword_1_6_6)
 		interior(errorTypesKeyword, endKeyword, [indent])
 
 		// Use types
-		val typesKeyword = errorModelLibrary.regionFor.keyword(useTypesKeywordsAccess.typesKeyword_1)
-		val useTypesSemicolon = errorModelLibrary.regionFor.keyword(errorModelLibraryAccess.semicolonKeyword_1_1_3) ?:
-			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.semicolonKeyword_0_1_2_1_3) ?:
-			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.semicolonKeyword_1_6_1_3)
+		val typesKeyword = errorModelLibrary.regionFor.keyword(errorModelLibraryAccess.typesKeyword_1_2_1) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.typesKeyword_0_1_2_2_1) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.typesKeyword_1_6_2_1)
+		val useTypesSemicolon = errorModelLibrary.regionFor.keyword(errorModelLibraryAccess.semicolonKeyword_1_2_4) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.semicolonKeyword_0_1_2_2_4) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.semicolonKeyword_1_6_2_4)
 		interior(typesKeyword, useTypesSemicolon, [indent])
 		typesKeyword.surround[oneSpace]
-		val useTypesCommas = errorModelLibrary.regionFor.keywords(errorModelLibraryAccess.commaKeyword_1_1_2_0) +
-			errorModelLibrary.regionFor.keywords(EMV2LibraryAccess.commaKeyword_0_1_2_1_2_0) +
-			errorModelLibrary.regionFor.keywords(EMV2LibraryAccess.commaKeyword_1_6_1_2_0)
+		val useTypesCommas = errorModelLibrary.regionFor.keywords(errorModelLibraryAccess.commaKeyword_1_2_3_0) +
+			errorModelLibrary.regionFor.keywords(EMV2LibraryAccess.commaKeyword_0_1_2_2_3_0) +
+			errorModelLibrary.regionFor.keywords(EMV2LibraryAccess.commaKeyword_1_6_2_3_0)
 		useTypesCommas.forEach[prepend[noSpace].append[oneSpace; autowrap]]
 		useTypesSemicolon.prepend[noSpace].append[setNewLines(1, 1, 2)]
 
 		// Extends
-		val extendsKeyword = errorModelLibrary.regionFor.keyword(errorModelLibraryAccess.extendsKeyword_1_2_0) ?:
-			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.extendsKeyword_0_1_2_2_0) ?:
-			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.extendsKeyword_1_6_2_0)
-		val with = errorModelLibrary.regionFor.keyword(errorModelLibraryAccess.withKeyword_1_2_3) ?:
-			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.withKeyword_0_1_2_2_3) ?:
-			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.withKeyword_1_6_2_3)
+		val extendsKeyword = errorModelLibrary.regionFor.keyword(errorModelLibraryAccess.extendsKeyword_1_3_0) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.extendsKeyword_0_1_2_3_0) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.extendsKeyword_1_6_3_0)
+		val with = errorModelLibrary.regionFor.keyword(errorModelLibraryAccess.withKeyword_1_3_3) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.withKeyword_0_1_2_3_3) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.withKeyword_1_6_3_3)
 		interior(extendsKeyword, with, [indent])
 		extendsKeyword.append[oneSpace]
-		val extendsCommas = errorModelLibrary.regionFor.keywords(errorModelLibraryAccess.commaKeyword_1_2_2_0) +
-			errorModelLibrary.regionFor.keywords(EMV2LibraryAccess.commaKeyword_0_1_2_2_2_0) +
-			errorModelLibrary.regionFor.keywords(EMV2LibraryAccess.commaKeyword_1_6_2_2_0)
+		val extendsCommas = errorModelLibrary.regionFor.keywords(errorModelLibraryAccess.commaKeyword_1_3_2_0) +
+			errorModelLibrary.regionFor.keywords(EMV2LibraryAccess.commaKeyword_0_1_2_3_2_0) +
+			errorModelLibrary.regionFor.keywords(EMV2LibraryAccess.commaKeyword_1_6_3_2_0)
 		extendsCommas.forEach[prepend[noSpace].append[oneSpace; autowrap]]
 		with.prepend[oneSpace].append[setNewLines(1, 1, 2)]
 
@@ -496,9 +533,9 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		]
 
 		// Properties
-		val propertiesKeyword = errorModelLibrary.regionFor.keyword(errorModelLibraryAccess.propertiesKeyword_1_4_0) ?:
-			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.propertiesKeyword_0_1_2_4_0) ?:
-			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.propertiesKeyword_1_6_4_0)
+		val propertiesKeyword = errorModelLibrary.regionFor.keyword(errorModelLibraryAccess.propertiesKeyword_1_5_0) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.propertiesKeyword_0_1_2_5_0) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.propertiesKeyword_1_6_5_0)
 		propertiesKeyword.append[setNewLines(1, 1, 2)]
 		interior(propertiesKeyword, endKeyword, [indent])
 		errorModelLibrary.properties.forEach [
@@ -507,12 +544,15 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		]
 
 		// End error types
-		errorModelLibrary.regionFor.keyword(endTypesKeywordsAccess.typesKeyword_1).prepend[oneSpace].append[noSpace]
+		val endTypesKeyword = errorModelLibrary.regionFor.keyword(errorModelLibraryAccess.typesKeyword_1_7) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.typesKeyword_0_1_2_7) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.typesKeyword_1_6_7)
+		endTypesKeyword.prepend[oneSpace].append[noSpace]
 		val rightCurly = errorModelLibrary.regionFor.keyword(
 			EMV2LibraryAccess.asteriskAsteriskRightCurlyBracketKeyword_1_10)
-		val endTypesSemicolon = errorModelLibrary.regionFor.keyword(errorModelLibraryAccess.semicolonKeyword_1_6) ?:
-			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.semicolonKeyword_0_1_2_6) ?:
-			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.semicolonKeyword_1_6_6)
+		val endTypesSemicolon = errorModelLibrary.regionFor.keyword(errorModelLibraryAccess.semicolonKeyword_1_8) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.semicolonKeyword_0_1_2_8) ?:
+			errorModelLibrary.regionFor.keyword(EMV2LibraryAccess.semicolonKeyword_1_6_8)
 		if (endTypesSemicolon !== null) {
 			if (endTypesSemicolon.nextSemanticRegion == rightCurly && rightCurly !== null) {
 				endTypesSemicolon.append[setNewLines(1, 1, 2)]
@@ -577,12 +617,16 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		valuesCommas.forEach[prepend[noSpace].append[oneSpace]]
 
 		// Applies to
-		emv2PropertyAssociation.regionFor.keyword(appliesToKeywordsAccess.appliesKeyword_0).surround[oneSpace]
-		emv2PropertyAssociation.regionFor.keyword(appliesToKeywordsAccess.toKeyword_1).append[oneSpace]
+		val appliesKeyword = emv2PropertyAssociation.regionFor.keyword(EMV2PropertyAssociationAccess.appliesKeyword_3_0) ?:
+			emv2PropertyAssociation.regionFor.keyword(basicEMV2PropertyAssociationAccess.appliesKeyword_3_0)
+		appliesKeyword.surround[oneSpace]
+		val toKeyword = emv2PropertyAssociation.regionFor.keyword(EMV2PropertyAssociationAccess.toKeyword_3_1) ?:
+			emv2PropertyAssociation.regionFor.keyword(basicEMV2PropertyAssociationAccess.toKeyword_3_1)
+		toKeyword.append[oneSpace]
 		emv2PropertyAssociation.emv2Path.forEach[it.format(document)]
 		val appliesToCommas = emv2PropertyAssociation.regionFor.keywords(
-			EMV2PropertyAssociationAccess.commaKeyword_3_1_1_0) +
-			emv2PropertyAssociation.regionFor.keywords(basicEMV2PropertyAssociationAccess.commaKeyword_3_1_1_0)
+			EMV2PropertyAssociationAccess.commaKeyword_3_2_1_0) +
+			emv2PropertyAssociation.regionFor.keywords(basicEMV2PropertyAssociationAccess.commaKeyword_3_2_1_0)
 		appliesToCommas.forEach[prepend[noSpace].append[oneSpace]]
 
 		// Semicolon
@@ -631,18 +675,20 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		// Named and renames
 		typeSet.regionFor.keyword(typeSetDefinitionAccess.colonKeyword_1_0_0).prepend[noSpace].append[oneSpace]
 		typeSet.regionFor.keyword(typeSetDefinitionAccess.renamesKeyword_1_1_0).surround[oneSpace]
-		typeSet.regionFor.keyword(typeSetKeywordsAccess.setKeyword_1).surround[oneSpace]
+		val setKeyword = typeSet.regionFor.keyword(typeSetDefinitionAccess.setKeyword_1_0_2) ?:
+			typeSet.regionFor.keyword(typeSetDefinitionAccess.setKeyword_1_1_2)
+		setKeyword.surround[oneSpace]
 
 		// Curly braces
-		val leftCurly = typeSet.regionFor.keyword(typeSetDefinitionAccess.leftCurlyBracketKeyword_1_0_2) ?:
+		val leftCurly = typeSet.regionFor.keyword(typeSetDefinitionAccess.leftCurlyBracketKeyword_1_0_3) ?:
 			typeSet.regionFor.keyword(typeSetConstructorAccess.leftCurlyBracketKeyword_0) ?:
 			typeSet.regionFor.keyword(noErrorTypeSetAccess.leftCurlyBracketKeyword_1)
-		val rightCurly = typeSet.regionFor.keyword(typeSetDefinitionAccess.rightCurlyBracketKeyword_1_0_5) ?:
+		val rightCurly = typeSet.regionFor.keyword(typeSetDefinitionAccess.rightCurlyBracketKeyword_1_0_6) ?:
 			typeSet.regionFor.keyword(typeSetConstructorAccess.rightCurlyBracketKeyword_3) ?:
 			typeSet.regionFor.keyword(noErrorTypeSetAccess.rightCurlyBracketKeyword_3)
 		interior(leftCurly, rightCurly, [indent])
 		leftCurly.append[noSpace]
-		val commas = typeSet.regionFor.keywords(typeSetDefinitionAccess.commaKeyword_1_0_4_0) +
+		val commas = typeSet.regionFor.keywords(typeSetDefinitionAccess.commaKeyword_1_0_5_0) +
 			typeSet.regionFor.keywords(typeSetConstructorAccess.commaKeyword_2_0)
 		commas.forEach[prepend[noSpace].append[oneSpace; autowrap]]
 		typeSet.typeTokens.forEach[it.format(document)]
@@ -661,23 +707,21 @@ class ErrorModelFormatter extends PropertiesFormatter {
 
 	def dispatch void format(TypeTransformationSet typeTransformationSet, extension IFormattableDocument document) {
 		// Type transformations
-		typeTransformationSet.regionFor.keyword(typeTransformationsKeywordsAccess.transformationsKeyword_1).surround [
-			oneSpace
-		]
-		val nameAssignment = typeTransformationSet.regionFor.assignment(typeTransformationSetAccess.nameAssignment_1)
+		typeTransformationSet.regionFor.keyword(typeTransformationSetAccess.transformationsKeyword_1).surround[oneSpace]
+		val nameAssignment = typeTransformationSet.regionFor.assignment(typeTransformationSetAccess.nameAssignment_2)
 		nameAssignment.append[setNewLines(1, 1, 2)]
 		interior(
 			nameAssignment,
-			typeTransformationSet.regionFor.keyword(endTransformationsKeywordsAccess.endKeyword_0),
+			typeTransformationSet.regionFor.keyword(typeTransformationSetAccess.endKeyword_5),
 			[indent]
 		)
 
 		// Use types
-		val typesKeyword = typeTransformationSet.regionFor.keyword(useTypesKeywordsAccess.typesKeyword_1)
-		val semicolon = typeTransformationSet.regionFor.keyword(typeTransformationSetAccess.semicolonKeyword_2_3)
+		val typesKeyword = typeTransformationSet.regionFor.keyword(typeTransformationSetAccess.typesKeyword_3_1)
+		val semicolon = typeTransformationSet.regionFor.keyword(typeTransformationSetAccess.semicolonKeyword_3_4)
 		interior(typesKeyword, semicolon, [indent])
 		typesKeyword.surround[oneSpace]
-		typeTransformationSet.regionFor.keywords(typeTransformationSetAccess.commaKeyword_2_2_0).forEach [
+		typeTransformationSet.regionFor.keywords(typeTransformationSetAccess.commaKeyword_3_3_0).forEach [
 			prepend[noSpace].append[oneSpace; autowrap]
 		]
 		semicolon.prepend[noSpace].append[setNewLines(1, 1, 2)]
@@ -689,9 +733,8 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		]
 
 		// End transformations
-		typeTransformationSet.regionFor.keyword(endTransformationsKeywordsAccess.transformationsKeyword_1).prepend [
-			oneSpace
-		].append[noSpace]
+		typeTransformationSet.regionFor.keyword(typeTransformationSetAccess.transformationsKeyword_6).prepend[oneSpace].
+			append[noSpace]
 	}
 
 	def dispatch void format(TypeTransformation typeTransformation, extension IFormattableDocument document) {
@@ -710,17 +753,17 @@ class ErrorModelFormatter extends PropertiesFormatter {
 
 	def dispatch void format(TypeMappingSet typeMappingSet, extension IFormattableDocument document) {
 		// Type mappings
-		typeMappingSet.regionFor.keyword(typeMappingsKeywordsAccess.mappingsKeyword_1).surround[oneSpace]
-		val nameAssignment = typeMappingSet.regionFor.assignment(typeMappingSetAccess.nameAssignment_1)
+		typeMappingSet.regionFor.keyword(typeMappingSetAccess.mappingsKeyword_1).surround[oneSpace]
+		val nameAssignment = typeMappingSet.regionFor.assignment(typeMappingSetAccess.nameAssignment_2)
 		nameAssignment.append[setNewLines(1, 1, 2)]
-		interior(nameAssignment, typeMappingSet.regionFor.keyword(endMappingsKeywordsAccess.endKeyword_0), [indent])
+		interior(nameAssignment, typeMappingSet.regionFor.keyword(typeMappingSetAccess.endKeyword_5), [indent])
 
 		// Use types
-		val typesKeyword = typeMappingSet.regionFor.keyword(useTypesKeywordsAccess.typesKeyword_1)
-		val semicolon = typeMappingSet.regionFor.keyword(typeMappingSetAccess.semicolonKeyword_2_3)
+		val typesKeyword = typeMappingSet.regionFor.keyword(typeMappingSetAccess.typesKeyword_3_1)
+		val semicolon = typeMappingSet.regionFor.keyword(typeMappingSetAccess.semicolonKeyword_3_4)
 		interior(typesKeyword, semicolon, [indent])
 		typesKeyword.surround[oneSpace]
-		typeMappingSet.regionFor.keywords(typeMappingSetAccess.commaKeyword_2_2_0).forEach [
+		typeMappingSet.regionFor.keywords(typeMappingSetAccess.commaKeyword_3_3_0).forEach [
 			prepend[noSpace].append[oneSpace; autowrap]
 		]
 		semicolon.prepend[noSpace].append[setNewLines(1, 1, 2)]
@@ -732,7 +775,7 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		]
 
 		// End mappings
-		typeMappingSet.regionFor.keyword(endMappingsKeywordsAccess.mappingsKeyword_1).prepend[oneSpace].append[noSpace]
+		typeMappingSet.regionFor.keyword(typeMappingSetAccess.mappingsKeyword_6).prepend[oneSpace].append[noSpace]
 	}
 
 	def dispatch void format(TypeMapping typeMapping, extension IFormattableDocument document) {
@@ -758,44 +801,42 @@ class ErrorModelFormatter extends PropertiesFormatter {
 
 	def dispatch void format(ErrorSource errorSource, extension IFormattableDocument document) {
 		errorSource.regionFor.keyword(errorSourceAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
-		errorSource.regionFor.keyword(errorSourceKeywordsAccess.sourceKeyword_1).surround[oneSpace]
+		errorSource.regionFor.keyword(errorSourceAccess.sourceKeyword_3).surround[oneSpace]
 		errorSource.typeTokenConstraint.prepend[oneSpace]
 		errorSource.typeTokenConstraint.format(document)
-		errorSource.regionFor.keyword(errorSourceAccess.whenKeyword_5_0).surround[oneSpace]
+		errorSource.regionFor.keyword(errorSourceAccess.whenKeyword_6_0).surround[oneSpace]
 		errorSource.failureModeType.prepend[oneSpace]
 		errorSource.failureModeType.format(document)
-		errorSource.regionFor.keyword(errorSourceAccess.ifKeyword_6_0).surround[oneSpace]
-		errorSource.regionFor.keyword(errorSourceAccess.semicolonKeyword_7).prepend[noSpace]
+		errorSource.regionFor.keyword(errorSourceAccess.ifKeyword_7_0).surround[oneSpace]
+		errorSource.regionFor.keyword(errorSourceAccess.semicolonKeyword_8).prepend[noSpace]
 	}
 
 	def dispatch void format(ErrorSink errorSink, extension IFormattableDocument document) {
 		errorSink.regionFor.keyword(errorSinkAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
-		errorSink.regionFor.keyword(errorSinkKeywordsAccess.sinkKeyword_1).surround[oneSpace]
+		errorSink.regionFor.keyword(errorSinkAccess.sinkKeyword_3).surround[oneSpace]
 		errorSink.typeTokenConstraint.prepend[oneSpace]
 		errorSink.typeTokenConstraint.format(document)
-		errorSink.regionFor.keyword(errorSinkAccess.ifKeyword_5_0).surround[oneSpace]
-		errorSink.regionFor.keyword(errorSinkAccess.semicolonKeyword_6).prepend[noSpace]
+		errorSink.regionFor.keyword(errorSinkAccess.ifKeyword_6_0).surround[oneSpace]
+		errorSink.regionFor.keyword(errorSinkAccess.semicolonKeyword_7).prepend[noSpace]
 	}
 
 	def dispatch void format(ErrorPath errorPath, extension IFormattableDocument document) {
 		errorPath.regionFor.keyword(errorPathAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
-		errorPath.regionFor.keyword(errorPathKeywordsAccess.pathKeyword_1).surround[oneSpace]
+		errorPath.regionFor.keyword(errorPathAccess.pathKeyword_3).surround[oneSpace]
 		errorPath.typeTokenConstraint.prepend[oneSpace]
 		errorPath.typeTokenConstraint.format(document)
-		errorPath.regionFor.keyword(errorPathAccess.hyphenMinusGreaterThanSignKeyword_5).surround[oneSpace]
+		errorPath.regionFor.keyword(errorPathAccess.hyphenMinusGreaterThanSignKeyword_6).surround[oneSpace]
 		errorPath.targetToken.prepend[oneSpace]
 		errorPath.targetToken.format(document)
-		errorPath.regionFor.keyword(useMappingsKeywordsAccess.useKeyword_0).surround[oneSpace]
-		errorPath.regionFor.keyword(useMappingsKeywordsAccess.mappingsKeyword_1).append[oneSpace]
-		errorPath.regionFor.keyword(errorPathAccess.ifKeyword_8_0).surround[oneSpace]
-		errorPath.regionFor.keyword(errorPathAccess.semicolonKeyword_9).prepend[noSpace]
+		errorPath.regionFor.keyword(errorPathAccess.useKeyword_8_1_0).surround[oneSpace]
+		errorPath.regionFor.keyword(errorPathAccess.mappingsKeyword_8_1_1).append[oneSpace]
+		errorPath.regionFor.keyword(errorPathAccess.ifKeyword_9_0).surround[oneSpace]
+		errorPath.regionFor.keyword(errorPathAccess.semicolonKeyword_10).prepend[noSpace]
 	}
 
 	def dispatch void format(PropagationPoint propagationPoint, extension IFormattableDocument document) {
 		propagationPoint.regionFor.keyword(propagationPointAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
-		propagationPoint.regionFor.keyword(propagationPointKeywordsAccess.pointKeyword_1).prepend[oneSpace].append [
-			noSpace
-		]
+		propagationPoint.regionFor.keyword(propagationPointAccess.pointKeyword_3).prepend[oneSpace].append[noSpace]
 	}
 
 	def dispatch void format(PropagationPath propagationPath, extension IFormattableDocument document) {
@@ -818,40 +859,40 @@ class ErrorModelFormatter extends PropertiesFormatter {
 	def dispatch void format(ErrorBehaviorStateMachine errorBehaviorStateMachine,
 		extension IFormattableDocument document) {
 		// Error behavior
-		errorBehaviorStateMachine.regionFor.keyword(errorBehaviorKeywordsAccess.behaviorKeyword_1).surround[oneSpace]
+		errorBehaviorStateMachine.regionFor.keyword(errorBehaviorStateMachineAccess.behaviorKeyword_1).surround[oneSpace]
 		val nameAssignment = errorBehaviorStateMachine.regionFor.assignment(
-			errorBehaviorStateMachineAccess.nameAssignment_1)
+			errorBehaviorStateMachineAccess.nameAssignment_2)
 		nameAssignment.append[setNewLines(1, 1, 2)]
-		val endKeyword = errorBehaviorStateMachine.regionFor.keyword(endBehaviorKeywordsAccess.endKeyword_0)
+		val endKeyword = errorBehaviorStateMachine.regionFor.keyword(errorBehaviorStateMachineAccess.endKeyword_9)
 		interior(nameAssignment, endKeyword, [indent])
 
 		// Use types
-		val typesKeyword = errorBehaviorStateMachine.regionFor.keyword(useTypesKeywordsAccess.typesKeyword_1)
+		val typesKeyword = errorBehaviorStateMachine.regionFor.keyword(errorBehaviorStateMachineAccess.typesKeyword_3_1)
 		val useTypesSemicolon = errorBehaviorStateMachine.regionFor.keyword(
-			errorBehaviorStateMachineAccess.semicolonKeyword_2_3)
+			errorBehaviorStateMachineAccess.semicolonKeyword_3_4)
 		interior(typesKeyword, useTypesSemicolon, [indent])
 		typesKeyword.surround[oneSpace]
-		errorBehaviorStateMachine.regionFor.keywords(errorBehaviorStateMachineAccess.commaKeyword_2_2_0).forEach [
+		errorBehaviorStateMachine.regionFor.keywords(errorBehaviorStateMachineAccess.commaKeyword_3_3_0).forEach [
 			prepend[noSpace].append[oneSpace; autowrap]
 		]
 		useTypesSemicolon.prepend[noSpace].append[setNewLines(1, 1, 2)]
 
 		// Use transformations
-		errorBehaviorStateMachine.regionFor.keyword(useTransformationsKeywordsAccess.transformationsKeyword_1).surround [
+		errorBehaviorStateMachine.regionFor.keyword(errorBehaviorStateMachineAccess.transformationsKeyword_4_1).surround [
 			oneSpace
 		]
-		errorBehaviorStateMachine.regionFor.keyword(errorBehaviorStateMachineAccess.semicolonKeyword_3_2).prepend [
+		errorBehaviorStateMachine.regionFor.keyword(errorBehaviorStateMachineAccess.semicolonKeyword_4_3).prepend [
 			noSpace
 		].append[setNewLines(1, 1, 2)]
 		
 		val eventsKeyword = errorBehaviorStateMachine.regionFor.keyword(
-			errorBehaviorStateMachineAccess.eventsKeyword_4_0)
+			errorBehaviorStateMachineAccess.eventsKeyword_5_0)
 		val statesKeyword = errorBehaviorStateMachine.regionFor.keyword(
-			errorBehaviorStateMachineAccess.statesKeyword_5_0)
+			errorBehaviorStateMachineAccess.statesKeyword_6_0)
 		val transitionsKeyword = errorBehaviorStateMachine.regionFor.keyword(
-			errorBehaviorStateMachineAccess.transitionsKeyword_6_0)
+			errorBehaviorStateMachineAccess.transitionsKeyword_7_0)
 		val propertiesKeyword = errorBehaviorStateMachine.regionFor.keyword(
-			errorBehaviorStateMachineAccess.propertiesKeyword_7_0)
+			errorBehaviorStateMachineAccess.propertiesKeyword_8_0)
 
 		// Events
 		if (eventsKeyword !== null) {
@@ -897,27 +938,28 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		]
 
 		// End behavior
-		errorBehaviorStateMachine.regionFor.keyword(endBehaviorKeywordsAccess.behaviorKeyword_1).prepend[oneSpace].
-			append[noSpace]
+		errorBehaviorStateMachine.regionFor.keyword(errorBehaviorStateMachineAccess.behaviorKeyword_10).prepend [
+			oneSpace
+		].append[noSpace]
 	}
 
 	def dispatch void format(ErrorEvent errorEvent, extension IFormattableDocument document) {
 		errorEvent.regionFor.keyword(errorEventAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
-		errorEvent.regionFor.keyword(errorEventKeywordsAccess.eventKeyword_1).prepend[oneSpace]
+		errorEvent.regionFor.keyword(errorEventAccess.eventKeyword_3).prepend[oneSpace]
 		errorEvent.typeSet.prepend[oneSpace]
 		errorEvent.typeSet.format(document)
-		errorEvent.regionFor.keyword(errorEventAccess.ifKeyword_4_0).surround[oneSpace]
-		errorEvent.regionFor.keyword(errorEventAccess.semicolonKeyword_5).prepend[noSpace]
+		errorEvent.regionFor.keyword(errorEventAccess.ifKeyword_5_0).surround[oneSpace]
+		errorEvent.regionFor.keyword(errorEventAccess.semicolonKeyword_6).prepend[noSpace]
 	}
 
 	def dispatch void format(RepairEvent repairEvent, extension IFormattableDocument document) {
 		repairEvent.regionFor.keyword(repairEventAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
-		repairEvent.regionFor.keyword(repairEventKeywordsAccess.eventKeyword_1).prepend[oneSpace]
-		val whenKeyword = repairEvent.regionFor.keyword(repairEventAccess.whenKeyword_3_0)
-		val semicolon = repairEvent.regionFor.keyword(repairEventAccess.semicolonKeyword_4)
+		repairEvent.regionFor.keyword(repairEventAccess.eventKeyword_3).prepend[oneSpace]
+		val whenKeyword = repairEvent.regionFor.keyword(repairEventAccess.whenKeyword_4_0)
+		val semicolon = repairEvent.regionFor.keyword(repairEventAccess.semicolonKeyword_5)
 		interior(whenKeyword, semicolon, [indent])
 		whenKeyword.surround[oneSpace]
-		repairEvent.regionFor.keywords(repairEventAccess.commaKeyword_3_2_0).forEach [
+		repairEvent.regionFor.keywords(repairEventAccess.commaKeyword_4_2_0).forEach [
 			prepend[noSpace].append[oneSpace; autowrap]
 		]
 		semicolon.prepend[noSpace]
@@ -925,15 +967,15 @@ class ErrorModelFormatter extends PropertiesFormatter {
 
 	def dispatch void format(RecoverEvent recoverEvent, extension IFormattableDocument document) {
 		recoverEvent.regionFor.keyword(recoverEventAccess.colonKeyword_1).prepend[noSpace].append[oneSpace]
-		recoverEvent.regionFor.keyword(recoverEventKeywordsAccess.eventKeyword_1).prepend[oneSpace]
-		val whenKeyword = recoverEvent.regionFor.keyword(recoverEventAccess.whenKeyword_3_0)
-		val semicolon = recoverEvent.regionFor.keyword(recoverEventAccess.semicolonKeyword_5)
+		recoverEvent.regionFor.keyword(recoverEventAccess.eventKeyword_3).prepend[oneSpace]
+		val whenKeyword = recoverEvent.regionFor.keyword(recoverEventAccess.whenKeyword_4_0)
+		val semicolon = recoverEvent.regionFor.keyword(recoverEventAccess.semicolonKeyword_6)
 		interior(whenKeyword, semicolon, [indent])
 		whenKeyword.surround[oneSpace]
-		recoverEvent.regionFor.keywords(recoverEventAccess.commaKeyword_3_2_0).forEach [
+		recoverEvent.regionFor.keywords(recoverEventAccess.commaKeyword_4_2_0).forEach [
 			prepend[noSpace].append[oneSpace; autowrap]
 		]
-		recoverEvent.regionFor.keyword(recoverEventAccess.ifKeyword_4_0).surround[oneSpace]
+		recoverEvent.regionFor.keyword(recoverEventAccess.ifKeyword_5_0).surround[oneSpace]
 		semicolon.prepend[noSpace]
 	}
 
@@ -967,7 +1009,9 @@ class ErrorModelFormatter extends PropertiesFormatter {
 		// Target
 		errorBehaviorTransition.targetToken.prepend[oneSpace]
 		errorBehaviorTransition.targetToken.format(document)
-		errorBehaviorTransition.regionFor.keyword(sameStateKeywordsAccess.sameKeyword_0).append[oneSpace]
+		errorBehaviorTransition.regionFor.keyword(errorBehaviorTransitionAccess.steadyStateSameKeyword_5_1_0_0).append [
+			oneSpace
+		]
 
 		// Destination branches
 		val leftParen = errorBehaviorTransition.regionFor.keyword(
@@ -989,7 +1033,7 @@ class ErrorModelFormatter extends PropertiesFormatter {
 	def dispatch void format(TransitionBranch transitionBranch, extension IFormattableDocument document) {
 		transitionBranch.targetToken.prepend[oneSpace]
 		transitionBranch.targetToken.format(document)
-		transitionBranch.regionFor.keyword(sameStateKeywordsAccess.sameKeyword_0).append[oneSpace]
+		transitionBranch.regionFor.keyword(transitionBranchAccess.steadyStateSameKeyword_0_1_0_0).append[oneSpace]
 		transitionBranch.regionFor.keyword(transitionBranchAccess.withKeyword_1).surround[oneSpace]
 		transitionBranch.value.format(document)
 	}
@@ -1118,14 +1162,14 @@ class ErrorModelFormatter extends PropertiesFormatter {
 	def dispatch void format(ErrorStateToModeMapping errorStateToModeMapping, extension IFormattableDocument document) {
 		errorStateToModeMapping.typeToken.prepend[oneSpace]
 		errorStateToModeMapping.typeToken.format(document)
-		errorStateToModeMapping.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
+		errorStateToModeMapping.regionFor.keyword(errorStateToModeMappingAccess.inKeyword_2).surround[oneSpace]
 		val leftParen = errorStateToModeMapping.regionFor.keyword(
-			errorStateToModeMappingAccess.leftParenthesisKeyword_3)
+			errorStateToModeMappingAccess.leftParenthesisKeyword_4)
 		val rightParen = errorStateToModeMapping.regionFor.keyword(
-			errorStateToModeMappingAccess.rightParenthesisKeyword_6)
+			errorStateToModeMappingAccess.rightParenthesisKeyword_7)
 		interior(leftParen, rightParen, [indent])
 		leftParen.prepend[oneSpace].append[noSpace]
-		errorStateToModeMapping.regionFor.keywords(errorStateToModeMappingAccess.commaKeyword_5_0).forEach [
+		errorStateToModeMapping.regionFor.keywords(errorStateToModeMappingAccess.commaKeyword_6_0).forEach [
 			prepend[noSpace].append[oneSpace; autowrap]
 		]
 		rightParen.surround[noSpace]

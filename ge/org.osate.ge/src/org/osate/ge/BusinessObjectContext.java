@@ -41,7 +41,7 @@ public interface BusinessObjectContext {
 	/**
 	 * The children which are available for this context.
 	 * @return the context's children.
-	 * @noreference This method is not intended to be referenced by clients.
+	 * @since 2.0
 	 */
 	Collection<? extends BusinessObjectContext> getChildren();
 
