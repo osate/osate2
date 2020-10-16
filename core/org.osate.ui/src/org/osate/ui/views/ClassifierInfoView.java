@@ -79,6 +79,7 @@ import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.part.PageBook;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.progress.IWorkbenchSiteProgressService;
 import org.osate.aadl2.BehavioredImplementation;
@@ -130,11 +131,15 @@ public final class ClassifierInfoView extends ViewPart {
 	private static final String LINK_ICON = "icons/link_to_editor.png";
 	private static final String CLEAR_ICON = "icons/delete.png";
 	private static final String REFRESH_ICON = "icons/refresh.png";
+	private static final String ANCESTORS_ICON = "icons/super_co.png";
+	private static final String DESCENDANTS_ICON = "icons/sub_co.png";
 
 	private static final String LINK_WITH_EDITOR_ACTION_NAME = "Link with Editor";
 	private static final String CLEAR_ACTION_NAME = "Clear View";
 	private static final String REFRESH_ACTION_NAME = "Refresh View";
 	private static final String REFRESH_TOOL_TOP = "Refreshes the view.  Only enabled when a refresh is required.";
+	private static final String ANCESTORS_ACTION_NAME = "Ancestors Tree";
+	private static final String DESCENDANTS_ACTION_NAME = "Descendants Tree";
 
 	public static final String VIEW_ID = "org.osate.ui.classifier_info_view";
 
@@ -145,29 +150,38 @@ public final class ClassifierInfoView extends ViewPart {
 	 */
 	private URI lastSelectedURI = null;
 
-	private TreeViewer ancestorTree;
-	private TreeViewer descendantTree;
-	private TreeViewer memberTree;
+	private PageBook treePages;
+	private Composite ancestorTreeComposite;
+	private TreeViewer ancestorTreeViewer;
+	private Composite descendantTreeComposite;
+	private TreeViewer descendantTreeViewer;
+	private TreeViewer memberTreeViewer;
+
+	private Action ancestorAction;
+	private Action descendantAction;
+	private Action refreshAction;
 
 	private final ILabelProvider modelElementLabelProvider;
 	private Image aadlImage;
 
+	/* Mark these all as volatile because they are touched by UI and work threads. */
+
+	// Does clicking on a tree element automatically jump the editor location
 	private volatile boolean syncWithEditor = true;
-	private volatile boolean autoRefresh = true;
 
-	/*
-	 * Do not set directly. Use the setNeedsRefresh() method so that the refresh button is properly
-	 * enabled.
-	 */
-	private volatile boolean needsRefresh = false;
-
-	private Action refreshAction;
+	private volatile Trees<?> whichTree;
 
 	/*
 	 * The Job (if any currently running to refresh the view. If another refresh occurs, we need to cancel
 	 * this job first. Protected by synchronizing on the view object.
 	 */
 	private Job currentRefreshJob = null;
+	/*
+	 * Do not set directly. Use the setNeedsRefresh() method so that the refresh button is properly
+	 * enabled.
+	 */
+	private volatile boolean needsRefresh = false;
+	private volatile boolean autoRefresh = true;
 
 	/*
 	 * Keep track of the URI of the classifier being viewed so that we can refresh if
@@ -175,6 +189,7 @@ public final class ClassifierInfoView extends ViewPart {
 	 * itself so that we can reparse it and pick up the changes.
 	 */
 	private URI viewedClassifierURI = null;
+
 	/*
 	 * Synchronized because it is used by the dispaly thread and whatever thread exeuctes
 	 * the resource change listener.
@@ -182,8 +197,17 @@ public final class ClassifierInfoView extends ViewPart {
 	private final Set<IResource> classifierResources = Collections.synchronizedSet(new HashSet<>());
 	private IResourceChangeListener rsrcListener = null;
 
+	// ======================================================================
+	// == Constructor
+	// ======================================================================
+
 	public ClassifierInfoView() {
 		modelElementLabelProvider = UiUtil.getModelElementLabelProvider();
+		/*
+		 * Init this here in the constructor and not in the field declaration because the instance field
+		 * ANCESTOR_TREE needs to be initialized first. It is declared later in the class because it makes more sense logically.
+		 */
+		whichTree = ANCESTOR_TREE;
 	}
 
 	// ======================================================================
@@ -213,14 +237,49 @@ public final class ClassifierInfoView extends ViewPart {
 	public void createPartControl(final Composite parent) {
 		final SashForm sash = new SashForm(parent, SWT.HORIZONTAL);
 
+		// Create the trees
 		final SelectionAndDoubleClickHandler handler = new SelectionAndDoubleClickHandler();
-		ancestorTree = createAncestorTree(sash, handler);
-		descendantTree = createDescendantTree(sash, handler);
-		memberTree = createMemberTree(sash, handler);
+		treePages = new PageBook(sash, SWT.NULL);
+		createAncestorTree(treePages, handler);
+		createDescendantTree(treePages, handler);
+		createMemberTree(sash, handler);
+		whichTree.switchTo();
 
 		final IActionBars actionBars = getViewSite().getActionBars();
 		final IToolBarManager toolBarManager = actionBars.getToolBarManager();
 		final IMenuManager menuManager = actionBars.getMenuManager();
+
+		// Tree selection radio buttons
+		ancestorAction = new Action(ANCESTORS_ACTION_NAME, IAction.AS_RADIO_BUTTON) {
+			{
+				setToolTipText(ANCESTORS_ACTION_NAME);
+				setImageDescriptor(OsateUiPlugin.getImageDescriptor(ANCESTORS_ICON));
+			}
+
+			@Override
+			public void run() {
+				whichTree = ANCESTOR_TREE;
+				whichTree.switchTo();
+			}
+		};
+		toolBarManager.add(ancestorAction);
+		descendantAction = new Action(DESCENDANTS_ACTION_NAME, IAction.AS_RADIO_BUTTON) {
+			{
+				setToolTipText(DESCENDANTS_ACTION_NAME);
+				setImageDescriptor(OsateUiPlugin.getImageDescriptor(DESCENDANTS_ICON));
+				setChecked(false);
+			}
+
+			@Override
+			public void run() {
+				whichTree = DESCENDANT_TREE;
+				whichTree.switchTo();
+			}
+		};
+		toolBarManager.add(descendantAction);
+		whichTree.setChecked();
+
+		// Refresh button
 		refreshAction = new Action(REFRESH_ACTION_NAME, IAction.AS_PUSH_BUTTON) {
 			{
 				setToolTipText(REFRESH_TOOL_TOP);
@@ -234,6 +293,8 @@ public final class ClassifierInfoView extends ViewPart {
 			}
 		};
 		toolBarManager.add(refreshAction);
+
+		// Clear view button
 		toolBarManager.add(new Action(CLEAR_ACTION_NAME, IAction.AS_PUSH_BUTTON) {
 			{
 				setToolTipText(CLEAR_ACTION_NAME);
@@ -245,6 +306,8 @@ public final class ClassifierInfoView extends ViewPart {
 				clearDisplay(true);
 			}
 		});
+
+		// Link button
 		toolBarManager.add(new Action(LINK_WITH_EDITOR_ACTION_NAME, IAction.AS_CHECK_BOX) {
 			{
 				setToolTipText(LINK_WITH_EDITOR_ACTION_NAME);
@@ -261,6 +324,7 @@ public final class ClassifierInfoView extends ViewPart {
 			}
 		});
 
+		// Create the view menu
 		menuManager.add(new Action("Auto refresh", IAction.AS_CHECK_BOX) {
 			{
 				setToolTipText("When checked, the view will automatically refresh");
@@ -303,7 +367,7 @@ public final class ClassifierInfoView extends ViewPart {
 
 	@Override
 	public void setFocus() {
-		memberTree.getControl().setFocus();
+		memberTreeViewer.getControl().setFocus();
 	}
 
 	// ======================================================================
@@ -319,17 +383,58 @@ public final class ClassifierInfoView extends ViewPart {
 	// == Trees
 	// ======================================================================
 
-	private TreeViewer createAncestorTree(final Composite parent, final SelectionAndDoubleClickHandler handler) {
-		final Composite treeComposite = new Composite(parent, SWT.NONE);
+	/*
+	 * Cannot use a proper Java enum here because I need the enum instances to read local state of the view and enums
+	 * are always static.
+	 */
+	private abstract class Trees<T extends HierarchyTree<?>> {
+		public final void switchTo() {
+			treePages.showPage(getPage());
+		}
+		public final void setChecked() {
+			getAction().setChecked(true);
+		}
+
+		protected abstract Action getAction();
+
+		protected abstract Composite getPage();
+	}
+
+	private final Trees<AncestorTree> ANCESTOR_TREE = new Trees<AncestorTree>() {
+		@Override
+		protected Action getAction() {
+			return ancestorAction;
+		}
+
+		@Override
+		protected Composite getPage() {
+			return ancestorTreeComposite;
+		}
+	};
+
+	private final Trees<DescendantTree> DESCENDANT_TREE = new Trees<DescendantTree>() {
+		@Override
+		protected Action getAction() {
+			return descendantAction;
+		}
+
+		@Override
+		protected Composite getPage() {
+			return descendantTreeComposite;
+		}
+	};
+
+	private void createAncestorTree(final Composite parent, final SelectionAndDoubleClickHandler handler) {
+		ancestorTreeComposite = new Composite(parent, SWT.NONE);
 		final TreeColumnLayout treeColumnLayout = new TreeColumnLayout();
-		treeComposite.setLayout(treeColumnLayout);
+		ancestorTreeComposite.setLayout(treeColumnLayout);
 
-		final TreeViewer treeViewer = new TreeViewer(treeComposite, SWT.H_SCROLL | SWT.V_SCROLL);
-		treeViewer.getTree().setLinesVisible(false);
-		treeViewer.getTree().setHeaderVisible(false);
-		treeViewer.getTree().setFont(parent.getFont());
+		ancestorTreeViewer = new TreeViewer(ancestorTreeComposite, SWT.H_SCROLL | SWT.V_SCROLL);
+		ancestorTreeViewer.getTree().setLinesVisible(false);
+		ancestorTreeViewer.getTree().setHeaderVisible(false);
+		ancestorTreeViewer.getTree().setFont(parent.getFont());
 
-		final TreeViewerColumn treeViewerCol = new TreeViewerColumn(treeViewer, SWT.LEFT);
+		final TreeViewerColumn treeViewerCol = new TreeViewerColumn(ancestorTreeViewer, SWT.LEFT);
 		treeColumnLayout.setColumnData(treeViewerCol.getColumn(), new ColumnWeightData(1, true));
 		treeViewerCol.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -342,7 +447,7 @@ public final class ClassifierInfoView extends ViewPart {
 				return ((AncestorTreeNode) element).getText();
 			}
 		});
-		treeViewer.setContentProvider(new ITreeContentProvider() {
+		ancestorTreeViewer.setContentProvider(new ITreeContentProvider() {
 			@Override
 			public boolean hasChildren(final Object element) {
 				return ((AncestorTreeNode) element).hasChildren();
@@ -367,23 +472,21 @@ public final class ClassifierInfoView extends ViewPart {
 				return ((AncestorTreeNode) parentElement).getChildren();
 			}
 		});
-		treeViewer.addSelectionChangedListener(handler);
-		treeViewer.addDoubleClickListener(handler);
-
-		return treeViewer;
+		ancestorTreeViewer.addSelectionChangedListener(handler);
+		ancestorTreeViewer.addDoubleClickListener(handler);
 	}
 
-	private TreeViewer createDescendantTree(final Composite parent, final SelectionAndDoubleClickHandler handler) {
-		final Composite treeComposite = new Composite(parent, SWT.NONE);
+	private void createDescendantTree(final Composite parent, final SelectionAndDoubleClickHandler handler) {
+		descendantTreeComposite = new Composite(parent, SWT.NONE);
 		final TreeColumnLayout treeColumnLayout = new TreeColumnLayout();
-		treeComposite.setLayout(treeColumnLayout);
+		descendantTreeComposite.setLayout(treeColumnLayout);
 
-		final TreeViewer treeViewer = new TreeViewer(treeComposite, SWT.H_SCROLL | SWT.V_SCROLL);
-		treeViewer.getTree().setLinesVisible(false);
-		treeViewer.getTree().setHeaderVisible(false);
-		treeViewer.getTree().setFont(parent.getFont());
+		descendantTreeViewer = new TreeViewer(descendantTreeComposite, SWT.H_SCROLL | SWT.V_SCROLL);
+		descendantTreeViewer.getTree().setLinesVisible(false);
+		descendantTreeViewer.getTree().setHeaderVisible(false);
+		descendantTreeViewer.getTree().setFont(parent.getFont());
 
-		final TreeViewerColumn treeViewerCol = new TreeViewerColumn(treeViewer, SWT.LEFT);
+		final TreeViewerColumn treeViewerCol = new TreeViewerColumn(descendantTreeViewer, SWT.LEFT);
 		treeColumnLayout.setColumnData(treeViewerCol.getColumn(), new ColumnWeightData(1, true));
 		treeViewerCol.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -396,7 +499,7 @@ public final class ClassifierInfoView extends ViewPart {
 				return ((DescendantTreeNode) element).getText();
 			}
 		});
-		treeViewer.setContentProvider(new ITreeContentProvider() {
+		descendantTreeViewer.setContentProvider(new ITreeContentProvider() {
 			@Override
 			public boolean hasChildren(final Object element) {
 				return ((DescendantTreeNode) element).hasChildren();
@@ -421,23 +524,21 @@ public final class ClassifierInfoView extends ViewPart {
 				return ((DescendantTreeNode) parentElement).getChildren();
 			}
 		});
-		treeViewer.addSelectionChangedListener(handler);
-		treeViewer.addDoubleClickListener(handler);
-
-		return treeViewer;
+		descendantTreeViewer.addSelectionChangedListener(handler);
+		descendantTreeViewer.addDoubleClickListener(handler);
 	}
 
-	private TreeViewer createMemberTree(final Composite parent, final SelectionAndDoubleClickHandler handler) {
+	private void createMemberTree(final Composite parent, final SelectionAndDoubleClickHandler handler) {
 		final Composite treeComposite = new Composite(parent, SWT.NONE);
 		final TreeColumnLayout treeColumnLayout = new TreeColumnLayout();
 		treeComposite.setLayout(treeColumnLayout);
 
-		final TreeViewer treeViewer = new TreeViewer(treeComposite, SWT.H_SCROLL | SWT.V_SCROLL);
-		treeViewer.getTree().setLinesVisible(false);
-		treeViewer.getTree().setHeaderVisible(false);
-		treeViewer.getTree().setFont(parent.getFont());
+		memberTreeViewer = new TreeViewer(treeComposite, SWT.H_SCROLL | SWT.V_SCROLL);
+		memberTreeViewer.getTree().setLinesVisible(false);
+		memberTreeViewer.getTree().setHeaderVisible(false);
+		memberTreeViewer.getTree().setFont(parent.getFont());
 
-		final TreeViewerColumn treeViewerCol = new TreeViewerColumn(treeViewer, SWT.LEFT);
+		final TreeViewerColumn treeViewerCol = new TreeViewerColumn(memberTreeViewer, SWT.LEFT);
 		treeColumnLayout.setColumnData(treeViewerCol.getColumn(), new ColumnWeightData(1, true));
 		treeViewerCol.setLabelProvider(new ColumnLabelProvider() {
 			@Override
@@ -450,7 +551,7 @@ public final class ClassifierInfoView extends ViewPart {
 				return ((MemberTreeNode) element).getText();
 			}
 		});
-		treeViewer.setContentProvider(new ITreeContentProvider() {
+		memberTreeViewer.setContentProvider(new ITreeContentProvider() {
 			@Override
 			public boolean hasChildren(final Object element) {
 				return ((MemberTreeNode) element).hasChildren();
@@ -475,10 +576,8 @@ public final class ClassifierInfoView extends ViewPart {
 				return ((MemberTreeNode) parentElement).getChildren();
 			}
 		});
-		treeViewer.addSelectionChangedListener(handler);
-		treeViewer.addDoubleClickListener(handler);
-
-		return treeViewer;
+		memberTreeViewer.addSelectionChangedListener(handler);
+		memberTreeViewer.addDoubleClickListener(handler);
 	}
 
 	// ======================================================================
@@ -506,9 +605,9 @@ public final class ClassifierInfoView extends ViewPart {
 			classifierResources.clear();
 		}
 		getViewSite().getShell().getDisplay().asyncExec(() -> {
-			ancestorTree.setInput(AncestorTree.EMTPY_TREE);
-			descendantTree.setInput(DescendantTree.EMPTY_TREE);
-			memberTree.setInput(MemberTree.EMPTY_TREE);
+			ancestorTreeViewer.setInput(AncestorTree.EMTPY_TREE);
+			descendantTreeViewer.setInput(DescendantTree.EMPTY_TREE);
+			memberTreeViewer.setInput(MemberTree.EMPTY_TREE);
 		});
 	}
 
@@ -556,21 +655,21 @@ public final class ClassifierInfoView extends ViewPart {
 
 					// Update the view contents in the UI thread
 					getViewSite().getShell().getDisplay().asyncExec(() -> {
-						ancestorTree.setInput(ancestorTreeModel);
-						ancestorTree.expandToLevel(2);
+						ancestorTreeViewer.setInput(ancestorTreeModel);
+						ancestorTreeViewer.expandToLevel(2);
 
-						descendantTree.setInput(descendantTreeModel);
-						descendantTree.expandToLevel(2);
+						descendantTreeViewer.setInput(descendantTreeModel);
+						descendantTreeViewer.expandToLevel(2);
 
 						if (input instanceof ComponentType) {
-							memberTree.setInput(createMemberTree((ComponentType) input));
-							memberTree.expandToLevel(2);
+							memberTreeViewer.setInput(createMemberTree((ComponentType) input));
+							memberTreeViewer.expandToLevel(2);
 						} else if (input instanceof ComponentImplementation) {
-							memberTree.setInput(createMemberTree((ComponentImplementation) input));
-							memberTree.expandToLevel(2);
+							memberTreeViewer.setInput(createMemberTree((ComponentImplementation) input));
+							memberTreeViewer.expandToLevel(2);
 						} else if (input instanceof FeatureGroupType) {
-							memberTree.setInput(createMemberTree((FeatureGroupType) input));
-							memberTree.expandToLevel(2);
+							memberTreeViewer.setInput(createMemberTree((FeatureGroupType) input));
+							memberTreeViewer.expandToLevel(2);
 						}
 						setNeedsRefresh(false);
 					});
