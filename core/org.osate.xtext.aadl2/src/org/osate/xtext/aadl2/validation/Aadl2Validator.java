@@ -69,8 +69,10 @@ import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.*;
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.modelsupport.scoping.IEClassGlobalScopeProvider;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
@@ -472,6 +474,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		checkSubcomponentFlows(flow);
 		checkFlowPathElements(flow);
 		checkEmptyFlowImplementation(flow);
+		checkFlowImplementationDirection(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -694,6 +697,13 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	@Check(CheckType.FAST)
 	public void caseAadlinteger(final AadlInteger ai) {
 		checkAadlinteger(ai);
+	}
+
+	@Override
+	@Check(CheckType.FAST)
+	public void casePropertyAssociation(final PropertyAssociation pa) {
+		super.casePropertyAssociation(pa);
+		checkPropertyAssociationIsModal(pa, ModelingProperties._NAME, ModelingProperties.CLASSIFIER_MATCHING_RULE);
 	}
 
 	@Check(CheckType.FAST)
@@ -5372,49 +5382,64 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						+ "' to have classifier '" + sourceClassifier.getQualifiedName() + '\'', connection,
 						Aadl2Package.eINSTANCE.getConnection_Destination());
 			} else if (sourceClassifier != null && destinationClassifier != null) {
-				String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
-				if (ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue)) {
-					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
-							destinationClassifier)) {
-						error(connection, '\'' + source.getName() + "' and '" + destination.getName()
-								+ "' have incompatible classifiers.");
+				try {
+					String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
+					if (ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue)) {
+						if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
+								destinationClassifier)) {
+							error(connection, '\'' + source.getName() + "' and '" + destination.getName()
+									+ "' have incompatible classifiers.");
+						}
+					} else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue)) {
+						if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
+								destinationClassifier)
+								&& !classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection,
+										sourceClassifier, destinationClassifier)) {
+							error(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
+									+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
+									+ destinationClassifier.getQualifiedName()
+									+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
+									+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
+						}
+					} else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue)) {
+						if (!classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier,
+								destinationClassifier) && !isDataSubset(sourceClassifier, destinationClassifier)) {
+							error(connection, "The data type of '" + source.getName() + "' ('"
+									+ sourceClassifier.getQualifiedName() + "') is not a subset of the data type of '"
+									+ destination.getName() + "' ('" + destinationClassifier.getQualifiedName()
+									+ "') based on name matching or the property constant '"
+									+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
+						}
+					} else if (ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue)) {
+						if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
+								destinationClassifier)
+								&& !classifiersFoundInSupportedTypeConversionsProperty(connection, sourceClassifier,
+										destinationClassifier)) {
+							error(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
+									+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
+									+ destinationClassifier.getQualifiedName()
+									+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
+									+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
+						}
 					}
-				} else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue)) {
-					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
-							destinationClassifier)
-							&& !classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection,
-									sourceClassifier, destinationClassifier)) {
-						error(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
-								+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
-								+ destinationClassifier.getQualifiedName()
-								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-								+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
-					}
-				} else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue)) {
-					if (!classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier,
-							destinationClassifier) && !isDataSubset(sourceClassifier, destinationClassifier)) {
-						error(connection,
-								"The data type of '" + source.getName() + "' ('" + sourceClassifier.getQualifiedName()
-										+ "') is not a subset of the data type of '" + destination.getName() + "' ('"
-										+ destinationClassifier.getQualifiedName()
-										+ "') based on name matching or the property constant '"
-										+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
-					}
-				} else if (ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue)) {
-					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
-							destinationClassifier)
-							&& !classifiersFoundInSupportedTypeConversionsProperty(connection, sourceClassifier,
-									destinationClassifier)) {
-						error(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
-								+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
-								+ destinationClassifier.getQualifiedName()
-								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-								+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
-					}
+				} catch (PropertyIsModalException e) {
+					// ignored exception. handled in separate validation method checkConnectionPropertyIsModal(Connection connection)
 				}
 			}
 		}
+	}
 
+	private void checkPropertyAssociationIsModal(PropertyAssociation pa, String psname, String pname) {
+		Property property = Aadl2GlobalScopeUtil.get(pa.getOwner(),
+				Aadl2Package.eINSTANCE.getProperty(),
+				psname + "::" + pname);
+
+		if (pa.getProperty() == property
+				&& (pa.getOwnedValues().size() > 1 || !pa.getOwnedValues().get(0).getInModes().isEmpty())) {
+			error(pname + ": Property can not be modal", pa,
+					Aadl2Package.eINSTANCE.getPropertyAssociation_Property());
+			return;
+		}
 	}
 
 	private boolean testAccessClassifierMatchRule(Connection connection, ConnectionEnd source,
@@ -6640,7 +6665,119 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		}
 	}
 
+	private void checkFlowImplementationDirection(FlowImplementation flow) {
+		FlowEnd inEnd = flow.getInEnd();
+		if (inEnd != null) {
+			Feature inFeature = inEnd.getFeature();
+			Context inCxt = inEnd.getContext();
+			FeatureGroup fg = inCxt instanceof FeatureGroup ? (FeatureGroup) inCxt : null;
+			if (fg == null) {
+				return;
+			}
+			FeatureGroupType fgt = fg.getAllFeatureGroupType();
+			boolean inverseBoolean = false;
+			if (fg.isInverse()) {
+				inverseBoolean = true;
+			}
+			if (fgt.getInverse() != null) {
+				inverseBoolean = true;
+			}
+			checkIncomingFeatureDirection(inFeature, flow, inverseBoolean, true);
+		}
+		FlowEnd outEnd = flow.getOutEnd();
+		if (outEnd != null) {
+			Feature outFeature = outEnd.getFeature();
+			Context outCxt = outEnd.getContext();
+			FeatureGroup fg = outCxt instanceof FeatureGroup ? (FeatureGroup) outCxt : null;
+			if (fg == null) {
+				return;
+			}
+			FeatureGroupType fgt = fg.getAllFeatureGroupType();
+			boolean inverseBoolean = false;
+			if (fg.isInverse()) {
+				inverseBoolean = true;
+			}
+			if (fgt.getInverse() != null) {
+				inverseBoolean = true;
+			}
+			checkOutgoingFeatureDirection(outFeature, flow, inverseBoolean, true);
+		}
+
+	}
+
 	private boolean checkIncomingFeatureDirection(Feature inFeature, FlowSpecification flow, boolean inverseOf,
+			boolean report) {
+		// Test for L2
+		if (inFeature instanceof Port || inFeature instanceof Parameter || inFeature instanceof AbstractFeature) {
+			DirectionType fDirection = ((DirectedFeature) inFeature).getDirection();
+			if (inverseOf) {
+				fDirection = fDirection.getInverseDirection();
+			}
+			if (!fDirection.incoming()) {
+				if (report) {
+					error(flow.getInEnd(), '\''
+							+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
+							+ inFeature.getName() + "' must be an in or in out feature.");
+				}
+				return false;
+			} else {
+				return true;
+			}
+		}
+		// Test for L4
+		else if (inFeature instanceof DataAccess) {
+			Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
+					MemoryProperties.ACCESS_RIGHT);
+			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(inFeature, accessRightProperty);
+			String accessrightname = accessRightValue.getName();
+			if (inverseOf) {
+				accessrightname = MemoryProperties.getInverseDirection(accessrightname);
+			}
+			if (!accessrightname.equalsIgnoreCase(MemoryProperties.READ_ONLY)
+					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
+				if (report) {
+					error(flow.getInEnd(), '\''
+							+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
+							+ inFeature.getName() + "' must have an access right of Read_Only or Read_Write.");
+				}
+				return false;
+			} else {
+				return true;
+			}
+		}
+		// Test for L6
+		else if (inFeature instanceof FeatureGroup) {
+			FeatureGroupType fgt = ((FeatureGroup) inFeature).getAllFeatureGroupType();
+			boolean inInverseof = ((FeatureGroup) inFeature).isInverse();
+			if (!Aadl2Util.isNull(fgt)) {
+				if (!Aadl2Util.isNull(fgt.getInverse()) && fgt.getOwnedFeatures().isEmpty()) {
+					inInverseof = !inInverseof;
+				}
+				if (fgt.getAllFeatures().isEmpty()) {
+					return true;
+				}
+				for (Feature f : fgt.getAllFeatures()) {
+					// check to see if there is at least one incoming feature in
+					// the feature group
+					if (checkIncomingFeatureDirection(f, flow, inInverseof ? !inverseOf : inverseOf, false)) {
+						return true;
+					}
+				}
+				if (report) {
+					error(flow.getInEnd(), '\''
+							+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
+							+ inFeature.getName()
+							+ "' must contain at least one in or in out port or parameter, at least data access with an access right of Read_Only or Read_Write, or be empty.");
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
+
+	}
+
+	private boolean checkIncomingFeatureDirection(Feature inFeature, FlowImplementation flow, boolean inverseOf,
 			boolean report) {
 		// Test for L2
 		if (inFeature instanceof Port || inFeature instanceof Parameter || inFeature instanceof AbstractFeature) {
@@ -6721,6 +6858,83 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				fDirection = fDirection.getInverseDirection();
 			}
 
+			if (!fDirection.outgoing()) {
+				if (report) {
+					error(flow.getOutEnd(),
+							'\'' + (flow.getOutEnd().getContext() != null
+									? flow.getOutEnd().getContext().getName() + '.'
+									: "") + outFeature.getName() + "' must be an out or in out feature.");
+				}
+				return false;
+			} else {
+				return true;
+			}
+		}
+		// Test for L5
+		else if (outFeature instanceof DataAccess) {
+			Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
+					MemoryProperties.ACCESS_RIGHT);
+			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(outFeature, accessRightProperty);
+			String accessrightname = accessRightValue.getName();
+
+			if (!accessrightname.equalsIgnoreCase(MemoryProperties.WRITE_ONLY)
+					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
+				if (report) {
+					error(flow.getOutEnd(), '\''
+							+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.'
+									: "")
+							+ outFeature.getName() + "' must have an access right of Write_Only or Read_Write.");
+				}
+				return false;
+			} else {
+				return true;
+			}
+		}
+		// Test for L7
+		else if (outFeature instanceof FeatureGroup) {
+			FeatureGroupType fgt = ((FeatureGroup) outFeature).getAllFeatureGroupType();
+			boolean outInverseof = ((FeatureGroup) outFeature).isInverse();
+			if (fgt != null) {
+				if (!Aadl2Util.isNull(fgt.getInverse()) && fgt.getOwnedFeatures().isEmpty()) {
+					// change direction only if inverse of and no features.
+					// Otherwise, we check features in this fgt
+					outInverseof = !outInverseof;
+					// set up inverse fgt to be examined for features of the
+					// correct direction
+					fgt = fgt.getInverse();
+				}
+				if (fgt.getAllFeatures().isEmpty()) {
+					return true;
+				}
+				for (Feature f : fgt.getAllFeatures()) {
+					if (checkOutgoingFeatureDirection(f, flow, outInverseof ? !inverseOf : inverseOf, false)) {
+						return true;
+					}
+				}
+				if (report) {
+					error(flow.getOutEnd(), '\''
+							+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.'
+									: "")
+							+ outFeature.getName()
+							+ "' must contain at least one out or in out port or parameter, at least one data access with an access right of Write_Only or Read_Write, or be empty.");
+				}
+				return false;
+			} else {
+				return true;
+			}
+		}
+		return false;
+
+	}
+
+	private boolean checkOutgoingFeatureDirection(Feature outFeature, FlowImplementation flow, boolean inverseOf,
+			boolean report) {
+		// Test for L3
+		if (outFeature instanceof Port || outFeature instanceof Parameter || outFeature instanceof AbstractFeature) {
+			DirectionType fDirection = ((DirectedFeature) outFeature).getDirection();
+			if (inverseOf) {
+				fDirection = fDirection.getInverseDirection();
+			}
 			if (!fDirection.outgoing()) {
 				if (report) {
 					error(flow.getOutEnd(),

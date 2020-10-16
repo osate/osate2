@@ -175,12 +175,16 @@ public class FlowContributionItem extends ComboContributionItem {
 					// Determine which flows have elements contained in the diagram and whether the flow is partial.
 					queryService.getResults(flowContainerQuery, diagram).stream().flatMap(flowContainerQueryable -> {
 						if (flowContainerQueryable.getBusinessObject() instanceof ComponentInstance) {
-							return AadlInstanceObjectUtil.getComponentInstance(flowContainerQueryable)
-									.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
+							return AadlInstanceObjectUtil
+									.getComponentInstance(flowContainerQueryable.getBusinessObjectContext())
+									.map(ci -> createFlowSegmentReferences(
+											flowContainerQueryable.getBusinessObjectContext(), ci))
 									.orElse(Stream.empty());
 						} else {
-							return AadlClassifierUtil.getComponentImplementation(flowContainerQueryable)
-									.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
+							return AadlClassifierUtil
+									.getComponentImplementation(flowContainerQueryable.getBusinessObjectContext())
+									.map(ci -> createFlowSegmentReferences(
+											flowContainerQueryable.getBusinessObjectContext(), ci))
 									.orElse(Stream.empty());
 						}
 					}).map(HighlightableFlowInfo::create).filter(Predicates.notNull())
