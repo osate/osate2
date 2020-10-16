@@ -31,13 +31,26 @@ import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.URIConverter
 import org.eclipse.xtend.lib.annotations.Accessors
 
-@Accessors
-class ContributedAadlStorage extends PlatformObject implements IStorage {
-
-	val Object parent
+class ContributedAadlStorage extends PlatformObject implements IStorage, ProjectMember {
+	val ProjectMember parent
 	
+	@Accessors
 	val URI uri
 	
+	/**
+	 * @since 5.0
+	 */
+	new(ProjectMember parent, URI uri) {
+		this.parent = parent
+		this.uri = uri
+	}
+	
+	/**
+	 * @since 5.0
+	 */
+	def ProjectMember getParent() {
+		parent
+	}
 	
 	override getContents() throws CoreException {
 		URIConverter.INSTANCE.createInputStream(uri)
@@ -53,6 +66,10 @@ class ContributedAadlStorage extends PlatformObject implements IStorage {
 	
 	override isReadOnly() {
 		true
+	}
+	
+	override getProject() {
+		parent.project
 	}
 	
 	override equals(Object obj) {

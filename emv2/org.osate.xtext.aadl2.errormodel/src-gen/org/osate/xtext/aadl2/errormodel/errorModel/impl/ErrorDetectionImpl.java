@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -157,6 +158,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorBehaviorState getState()
   {
     if (state != null && state.eIsProxy())
@@ -187,6 +189,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setState(ErrorBehaviorState newState)
   {
     ErrorBehaviorState oldState = state;
@@ -200,6 +203,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public TypeSet getTypeTokenConstraint()
   {
     return typeTokenConstraint;
@@ -227,6 +231,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setTypeTokenConstraint(TypeSet newTypeTokenConstraint)
   {
     if (newTypeTokenConstraint != typeTokenConstraint)
@@ -248,6 +253,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public boolean isAllStates()
   {
     return allStates;
@@ -258,6 +264,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setAllStates(boolean newAllStates)
   {
     boolean oldAllStates = allStates;
@@ -271,6 +278,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ConditionExpression getCondition()
   {
     return condition;
@@ -298,6 +306,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setCondition(ConditionExpression newCondition)
   {
     if (newCondition != condition)
@@ -319,6 +328,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ReportingPortReference getDetectionReportingPort()
   {
     return detectionReportingPort;
@@ -346,6 +356,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setDetectionReportingPort(ReportingPortReference newDetectionReportingPort)
   {
     if (newDetectionReportingPort != detectionReportingPort)
@@ -367,6 +378,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public ErrorCodeValue getErrorCode()
   {
     return errorCode;
@@ -394,6 +406,7 @@ public class ErrorDetectionImpl extends NamedElementImpl implements ErrorDetecti
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public void setErrorCode(ErrorCodeValue newErrorCode)
   {
     if (newErrorCode != errorCode)

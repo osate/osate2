@@ -27,7 +27,7 @@ import static org.junit.Assert.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestCommands.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
 import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
-import static org.osate.ge.tests.endToEnd.util.UiTestUtil.setTextField;
+import static org.osate.ge.tests.endToEnd.util.UiTestUtil.setTextFieldText;
 
 import org.osate.ge.swt.prototypes.PrototypeEditor;
 import org.osate.ge.swt.prototypes.PrototypesEditor;
@@ -88,7 +88,7 @@ public class OsateGePrototypeTestCommands {
 		// Rename
 		clickButton("Rename");
 		waitForWindowWithTitle("Rename");
-		setTextField(0, newName);
+		setTextFieldText(0, newName);
 		clickButton("OK");
 
 		// Wait for prototype to no longer exists
@@ -169,7 +169,7 @@ public class OsateGePrototypeTestCommands {
 		doubleClickListItem(0, constrainingClassifier);
 
 		// Wait for the updated value
-		waitUntilCLabelWithIdTextMatches(PrototypeEditor.WIDGET_ID_CLASSIFIER_LABEL, constrainingClassifier);
+		waitUntilBorderedCLabelWithIdTextMatches(PrototypeEditor.WIDGET_ID_CLASSIFIER_LABEL, constrainingClassifier);
 	}
 
 	/**

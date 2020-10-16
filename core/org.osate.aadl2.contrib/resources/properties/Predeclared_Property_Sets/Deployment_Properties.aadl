@@ -1,0 +1,297 @@
+--AADL2
+--SAE Aerospace Standard AS5506B
+--Appendix A: Predeclared Property Sets
+
+-- @codegen-package org.osate.aadl2.contrib.deployment
+property set Deployment_Properties is
+
+--- The <b>Allowed_Processor_Binding_Class</b> property specifies a set of virtual processor, processor and system 
+--- classifiers. These component classifiers constrain the set of candidate virtual processors and processors for
+--- binding to the subset that satisfies the component classifier.<p> 
+--- The value may be inherited from the containing component.<p>
+--- If this property has no associated value, then all processors specified in the <b>Allowed_Processor_Binding</b> are
+--- acceptable candidates.
+
+	Allowed_Processor_Binding_Class:
+		inherit list of classifier (processor, virtual processor, system, device, abstract)
+		applies to (thread, thread group, process, system, virtual processor, device);
+		
+--- The <b>Allowed_Processor_Binding</b> property specifies the set of virtual processors and processors that are
+--- available for binding.  The set is specified by a list of virtual processor, processor and system component names.
+--- System names represent the processors contained in them.<p>
+--- If the property is specified for a thread, the thread can be bound to any of the specified set of virtual 
+--- processors or processors for execution. If the property is specified for a thread group, process, or system, then 
+--- it applies to all contained threads, i.e., the contained threads inherit the property association unless 
+--- overridden. If this property is specified for a device, then the thread associated with the device driver code can
+--- be bound to one of the set of processors for execution. The <b>Allowed_Processor_Binding</b> property may specify
+--- a single processor, thus specifying the exact processor binding. <p> 
+--- The allowed binding may be further constrained by the processor classifier reference specified in the 
+--- <b>Allowed_Processor_Binding_Class</b> property. <p>
+--- If this property has no associated value, then all processors declared in n AADL specification are
+--- acceptable candidates.
+
+
+	Allowed_Processor_Binding: inherit list of reference (processor, virtual processor, system, device, abstract)
+		applies to (thread, thread group, process, system, virtual processor, device);
+		
+--- A thread is bound to the processor specified by the <b>Actual_Processor_Binding</b> property.  The process of 
+--- binding threads to processors determines the value of this property.  If there is more than one processor listed, 
+--- a scheduler will dynamically assign the thread to one at a time.  This allows modeling of multi-core processors 
+--- without explicit binding to one of the cores.<p>
+--- If a device is bound to a processor this indicates the binding of the device driver software. 
+--- A virtual processor may be bound to a processor. This indicates that the virtual processor executes on the 
+--- processor it is bound to.<p>
+--- Threads, devices, and virtual processors can be bound to virtual processors, which in turn are bound to virtual
+--- processors or processors.
+	
+	Actual_Processor_Binding: inherit list of reference (processor, virtual processor, system, device, abstract)
+		applies to (thread, thread group, process, system, virtual processor, device);
+		
+--- The <b>Allowed_Memory_Binding_Class</b> property specifies a set of memory, device, and system classifiers.  These
+--- classifiers constrain the set of memory components in the <b>Allowed_Memory_Binding</b> property to the subset that
+--- satisfies the component classifier.<p> 
+--- The value of the <b>Allowed_Memory_Binding</b> property may be inherited from the component that contains the 
+--- component or feature.<p>
+--- If this property has no associated value, then all memory components specified in the <b>Allowed_Memory_Binding</b>
+--- are acceptable candidates.
+		
+	
+	Allowed_Memory_Binding_Class:
+		inherit list of classifier (memory, system, processor, virtual processor, abstract)
+		applies to (thread, thread group, process, system, device, data, data port, event data port, subprogram, subprogram group, processor, virtual processor);
+		
+--- Code and data produced from source text can be bound to the set of memory components that is specified by 
+--- the <b>Allowed_Memory_Binding</b> property.  The set is specified by a list of memory and system component
+--- names.  System names represent the memories contained in them.  The <b>Allowed_Memory_Binding</b> property
+--- may specify a single memory, thus specifying the exact memory binding.<p>  
+--- The allowed binding may be further constrained by the memory classifier specified in the
+--- <b>Allowed_Memory_Binding_Class</b>.<p> 
+--- The value of the <b>Allowed_Memory_Binding</b> property may be inherited from the component that contains the 
+--- component or feature.<p>
+--- If this property has no associated value, then all memory components declared in an AADL specification are 
+--- acceptable candidates.
+		
+	Allowed_Memory_Binding: inherit list of reference (memory, system, processor, virtual processor, abstract)
+		applies to (memory, thread, thread group, process, system, device, data, data port, event data port, subprogram, subprogram group, processor, virtual processor);
+		
+--- Code and data from source text is bound to the memory specified by the <b>Actual_Memory_Binding</b> property.  The
+--- property can hold a list of values to reflect the possibility of code and data being bound to different memory 
+--- components, for example.
+
+	Actual_Memory_Binding: inherit list of reference (memory, system, processor, virtual processor, abstract)
+		applies to (memory, thread, thread group, process, system, processor, virtual processor, device, data, data port, event data port, subprogram, subprogram group);
+		
+--- The <b>Allowed_Connection_Binding_Class</b> property specifies a set of execution platform classifiers to constrain
+--- the binding of connections and virtual buses.  The named component classifiers must belong to a processor, virtual
+--- processor, bus, virtual bus, device, or memory category, i.e., any execution platform component that supports 
+--- communication between threads.  When specified for a feature it indicates a binding constraint for all connections
+--- through that feature, e.g., any protocol assumptions a component makes about its communication through the port.		
+	
+	Allowed_Connection_Binding_Class:
+		inherit list of classifier (processor, virtual processor, bus, virtual bus, device, memory, system, abstract)
+		applies to (feature, connection, thread, thread group, process, system, virtual bus);
+		
+--- The <b>Allowed_Connection_Binding</b> property specifies a set of execution platform components to constrain the
+--- binding of connections and virtual buses.  The named components must belong to a processor, virtual processor,
+--- bus, virtual bus, device, or memory category. When specified for a feature such as a port it indicates a binding
+--- constraint for all connections through that feature, e.g., any protocol assumptions a component makes about its
+--- communication through the port.
+	
+	Allowed_Connection_Binding: inherit list of reference (processor, virtual processor, bus, virtual bus, device, memory, system, abstract)
+		applies to (feature, connection, thread, thread group, process, system, virtual bus);
+		
+--- Connections and virtual buses are bound to the bus, virtual bus, processor, virtual processor, device, and memory
+--- specified by the <b>Actual_Connection_Binding</b> property.  The entries in the list represent the flow sequence
+--- of the connection through the execution platform.
+	
+	Actual_Connection_Binding: inherit list of reference (processor, virtual processor, bus, virtual bus, device, memory, system, abstract)
+		applies to (feature, connection, thread, thread group, process, system, virtual bus);
+
+--- This property allows users to define mappings from functional architectures to system architectures.
+
+	Actual_Function_Binding: inherit list of reference (processor, virtual processor, bus, virtual bus, device, memory, system, process, thread, feature, abstract)
+		applies to (subprogram, thread, thread group, process, system, abstract, feature);
+	
+--- A subprogram call can be bound to any member of the set of subprogras specified by the
+--- <b>Allowed_Subprogram_Call</b> property. These may be remote subprograms, i.e., subprogram instances in other
+--- threads, or local subprogram instances.  In the latter case the property identifies a specific code instance. If no
+--- value is specified, then subprogram call must be a local call.
+	
+	Allowed_Subprogram_Call: list of reference (subprogram)
+		applies to (subprogram access);
+	
+--- The <b>Actual_Subprogram_Call</b> property specifies the subprogram instance whose code is servicing the subprogram
+--- call. These may be remote subprograms, i.e., subprogram instances in other threads, or local subprogram instances.
+--- In the latter case the property identifies a specific local code instance, i.e., it can model sharing of 
+--- subprogram. If no value is specified, the subprogram call is a local call.
+	
+	Actual_Subprogram_Call: reference (subprogram)
+		applies to (subprogram access);
+		
+--- Remote subprogram calls can be bound to the physical connection of an execution platform that is specified by the
+--- <b>Allowed_Subprogram_Call_Binding</b> property. If no value is specified, then subprogram call may be a local call
+--- or the binding may be inferred from the bindings of the caller and callee.
+	
+	Allowed_Subprogram_Call_Binding:
+		list of reference (bus, processor, device)
+		applies to (subprogram, thread, thread group, process, system);
+		
+--- The <b>Actual_Subprogram_Call_Binding</b> property specifies the bus, processor, device, or memory to which a 
+--- remote subprogram call is bound. If no value is specified, the subprogram call is a local call or the binding can
+--- be inferred from the binding of the caller and callee
+	
+	Actual_Subprogram_Call_Binding: list of reference (bus, processor, memory, device)
+		applies to (subprogram);
+
+--- The <b>Provided_Virtual_Bus_Class</b> property specifies the set of virtual bus classifiers (protocols) supported
+--- by a  bus, virtual bus, virtual processor, device, or processor.  The property indicates that a component with a
+--- binding requirement for a virtual bus classifier can be bound to a component whose
+--- <b>Provided_Virtual_Bus_Class</b> property value includes the desired virtual bus classifier.  Note that the
+--- component with this property is not required to have virtual bus subcomponents.
+	
+	Provided_Virtual_Bus_Class: inherit list of classifier (virtual bus)
+	applies to (bus, virtual bus, processor, virtual processor, device, memory, system);
+
+--- The <b>Required_Virtual_Bus_Class</b> property specifies the set of virtual bus classifiers (protocols) that this
+---  connection or virtual bus needs to be bound to, i.e., that it requires to be bound to one instance of each of the
+--- specified classifiers.  This property complements the <b>Allowed_Connection_Binding_Class</b> property, which
+--- specifies that the connection binding must be to components of one of the specified classifiers. 
+
+	
+	Required_Virtual_Bus_Class: inherit list of classifier (virtual bus)
+		applies to (virtual bus, connection, port, thread, thread group, process, system, device);
+
+--- The <b>Provided_Connection_Quality_Of_Service</b> property specifies the quality of service provided by a protocol,
+--- i.e., a virtual bus, bus, virtual processor, or processor supporting protocols, for its transmission.
+
+	
+	Provided_Connection_Quality_Of_Service: inherit list of Supported_Connection_QoS
+		applies to (bus, virtual bus, processor, virtual processor, system, device, memory);
+
+--- The <b>Required_Connection_Quality_Of_Service</b>, property specifies that a connection or virtual bus expects a
+--- certain quality of service from the protocol that is used for its transmission.
+	
+	Required_Connection_Quality_Of_Service: inherit list of Supported_Connection_QoS
+		applies to (port, connection, virtual bus, thread, thread group, process, system, device);
+		
+---	The <b>Not_Collocated</b> property specifies that hardware resources used by several software components must be
+---  distinct.  The components referenced by <b>Target</b> must not be bound to the same hardware of the type specified
+--- in the <b>Location</b> field.  If the <b>Location</b> is a system component, then they may not be collocated to any
+--- component contained in the system component.
+	
+	Not_Collocated: record (
+		Targets: list of reference (data, thread, process, system, connection);
+		Location: classifier (processor, memory, bus, system);)
+		applies to (process, system);
+	
+--- The <b>Collocated</b> property specifies that several software components must be bound to the same hardware.  The
+---  components referenced by <b>Target</b> must be bound to the same hardware of the type specified in the 
+--- <b>Location</b> field.  If the <b>Location</b> is a system component, then they must be collocated on any component
+---  contained in the system component.
+	
+	Collocated: record (
+		Targets: list of reference (data, thread, process, system, connection);
+		Location: classifier (processor, memory, bus, system);)
+		applies to (process, system);
+
+
+--- The <b>Allowed_Connection_Type</b> property specifies the categories of connections a bus supports.  That is, a
+--- connection may only be legally bound to a bus if the bus supports that category of connection.<p>    
+--- If a list of allowed connection protocols is not specified for a bus, then any category of connection can be bound
+---  to the bus.
+	
+	Allowed_Connection_Type: list of enumeration
+							(Sampled_Data_Connection, Immediate_Data_Connection,
+							 Delayed_Data_Connection, Port_Connection,
+							 Data_Access_Connection,
+							 Subprogram_Access_Connection)
+		applies to (bus, device);
+	
+	
+--- The <b>Allowed_Dispatch_Protocol</b> property specifies the thread dispatch protocols are supported by a processor.
+---  That is, a thread may only be legally bound to the processor if the specified thread dispatch protocol of the
+--- processor corresponds to the dispatch protocol required by the thread.<p>
+--- If a list of allowed scheduling protocols is not specified for a processor, then a thread with any dispatch
+--- protocol can be bound to and executed by the processor.
+
+	Allowed_Dispatch_Protocol: list of Supported_Dispatch_Protocols
+		applies to (processor, virtual processor);
+	
+--- The <b>Allowed_Period</b> property specifies a set of allowed periods for periodic tasks bound to a processor.<p> 
+--- The period of every thread bound to the processor must fall within one of the specified ranges.<p>
+--- If an allowed period is not specified for a processor, then there are no restrictions on the periods of threads
+---  bound to that processor.
+	
+	Allowed_Period: list of Time_Range
+		applies to (processor, system, virtual processor);
+		
+--- The <b>Allowed_Physical_Access_Class</b> property specifies the classifiers of processors, devices, memory, and
+---  buses that are allowed to be connected to the bus, i.e., whose connection is supported by the bus.<p>
+--- If the property is not specified for a bus, then the bus may be used to connect both devices and memory to the
+---  processor.
+
+	
+	Allowed_Physical_Access_Class: list of classifier (device, processor, memory, bus)
+		applies to (bus);
+		
+--- The <b>Allowed_Physical_Access</b> property specifies the classifiers of processors, devices, memory, and buses
+---  that are allowed to be connected to the bus, i.e., whose connection is supported by the bus.<p>
+--- If the property is not specified for a bus, then the bus may be used to connect both devices and memory to the
+---  processor.
+		
+	
+	Allowed_Physical_Access: list of reference (device, processor, memory, bus)
+		applies to (bus);
+		
+--- The <b>Memory_Protocol</b> property specifies memory access and storage behaviors and restrictions.  Writeable data
+---  produced from software source text may only be bound to memory components that have the <b>write_only</b> or
+--- <b>read_write</b> property value.		
+	
+	Memory_Protocol: enumeration (execute_only, read_only, write_only, read_write) => read_write
+		applies to (memory);
+		
+--- The <b>Runtime_Protection_Support</b> property specifies whether the processor or virtual processor is able to
+---  support runtime enforcement of protected address spaces. Processes and virtual processors bound to virtual
+--- processors and processors specify the demand for such runtime enforcement.
+		
+	Runtime_Protection_Support : aadlboolean 
+   		applies to (processor, virtual processor);
+   		
+--- The <b>Scheduling_Protocol</b> property specifies what scheduling protocol the thread scheduler of the processor
+--- uses.  The core standard does not prescribe a particular scheduling protocol.<p>
+--- Scheduling protocols may result in schedulers that coordinate scheduling of threads across multiple processors.
+
+	Scheduling_Protocol: inherit list of Supported_Scheduling_Protocols
+		applies to (virtual processor, processor, system);
+		
+--- This property specifies if the processor can preempt a thread during its execution. By default, if this property is
+--- not specified, the processor owns a preemptive scheduler.		
+	
+	Preemptive_Scheduler: aadlboolean
+		applies to (processor);
+
+--- The <b>Thread_Limit</b> property specifies the maximum number of threads supported by the processor.
+  
+	Thread_Limit: aadlinteger 0 .. Max_Thread_Limit
+		applies to (processor, virtual processor);
+		
+--- The <b>Priority_Map</b> property specifies a mapping of AADL priorities into priorities of the underlying real-time
+---  operating system. This map consists of a list of <b>aadlinteger</b> pairs. 
+
+	Priority_Map: list of Priority_Mapping
+		applies to (processor);
+		
+--- The <b>Priority_Mapping</b> property specifies a mapping of a single AADL priority value into a single priority 
+--- value of the underlying real-time operating system. This property is used to define the elements of a  consists of
+--- a <b>Priority_Map</b>. 
+	
+	Priority_Mapping: type record (
+		Aadl_Priority: aadlinteger;
+		RTOS_Priority: aadlinteger;);
+	
+--- The <b>Priority_Range</b> property specifies the range of thread priority values that are acceptable to the
+--- processor.
+	
+	Priority_Range: range of aadlinteger
+		applies to (processor, virtual processor);
+end Deployment_Properties;

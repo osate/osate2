@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Examples
+Bundle-SymbolicName: org.osate.examples;singleton:=true
+Bundle-Version: 1.0.1.qualifier
+Automatic-Module-Name: org.osate.examples
+Require-Bundle: org.osate.ui;bundle-version="[5.0.0,6.0.0)"
+Bundle-Vendor: CMU SEI

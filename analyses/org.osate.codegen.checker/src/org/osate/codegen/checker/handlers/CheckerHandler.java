@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -35,16 +35,20 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
+import org.osate.codegen.checker.Activator;
 import org.osate.codegen.checker.checks.AbstractCheck;
 import org.osate.codegen.checker.checks.DataCheck;
 import org.osate.codegen.checker.checks.MemoryCheck;
@@ -84,11 +88,12 @@ public class CheckerHandler extends AbstractHandler {
 			checkInstance.perform(si);
 			return (checkInstance.getErrors());
 		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
+			IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e);
+			StatusManager manager = StatusManager.getManager();
+			manager.handle(status, StatusManager.LOG);
 		}
 
 		return null;
-
 	}
 
 	/**
@@ -136,7 +141,10 @@ public class CheckerHandler extends AbstractHandler {
 			try {
 				selectedSystemInstance = InstantiateModel.buildInstanceModelFile((SystemImplementation) selectedObject);
 			} catch (Exception e) {
-				e.printStackTrace();
+				MessageDialog.openError(window.getShell(), e.getMessage(), e.getStackTrace().toString());
+				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, e.getMessage(), e);
+				StatusManager manager = StatusManager.getManager();
+				manager.handle(status, StatusManager.LOG);
 				selectedSystemInstance = null;
 			}
 		}
@@ -156,6 +164,7 @@ public class CheckerHandler extends AbstractHandler {
 		/**
 		 * For now, we print the errors.
 		 */
+		String msg = new String();
 		for (ErrorReport e : errors) {
 			try {
 				IMarker marker = getIResource(e.getComponent().eResource()).createMarker(MARKER_TYPE);
@@ -163,11 +172,16 @@ public class CheckerHandler extends AbstractHandler {
 				marker.setAttribute(IMarker.SEVERITY, IMarker.SEVERITY_ERROR);
 //				marker.setAttribute(IMarker.LINE_NUMBER, lineNumber);
 			} catch (CoreException exception) {
-				exception.printStackTrace();
+				msg += exception.getMessage() + System.lineSeparator();
+				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, exception.getMessage(), exception);
+				StatusManager manager = StatusManager.getManager();
+				manager.handle(status, StatusManager.LOG);
 			}
 		}
 
-		if (errors.isEmpty()) {
+		if (!msg.isEmpty()) {
+			MessageDialog.openError(window.getShell(), msg, "1");
+		} else if (errors.isEmpty()) {
 			MessageDialog.openInformation(window.getShell(), "Code Generation Checker", "No problems found");
 		} else {
 			MessageDialog.openError(window.getShell(), "Code Generation Checker", errors.size() + " problem(s) found");

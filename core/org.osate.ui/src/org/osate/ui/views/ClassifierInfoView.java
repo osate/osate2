@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -527,7 +527,9 @@ public final class ClassifierInfoView extends ViewPart {
 		public String getText();
 
 		public Image getImage();
+
 		public boolean hasChildren();
+
 		public Object[] getChildren();
 	}
 
@@ -605,20 +607,19 @@ public final class ClassifierInfoView extends ViewPart {
 		private final boolean isRefined;
 		private final MemberNode[] ancestorMember;
 
-		private MemberNode(final Element m, final String n, final Classifier from, final boolean inverted,
-				final boolean refined,
+		private MemberNode(final NamedElement m, final Classifier from, final boolean inverted, final boolean refined,
 				final MemberNode ancestor) {
 			member = m;
-			name = n;
+			name = getName(m);
 			inheritedFrom = from;
 			isInverted = inverted;
 			isRefined = refined;
 			ancestorMember = ancestor == null ? new MemberNode[0] : new MemberNode[] { ancestor };
 		}
 
-		private MemberNode(final Element m, final String n, final Classifier from, final boolean refined,
+		private MemberNode(final NamedElement m, final Classifier from, final boolean refined,
 				final MemberNode ancestor) {
-			this(m, n, from, false, refined, ancestor);
+			this(m, from, false, refined, ancestor);
 		}
 
 		public Element getMember() {
@@ -657,8 +658,7 @@ public final class ClassifierInfoView extends ViewPart {
 		final boolean isLocal = q.equals(classifier);
 		final M refined = gr.getRefined(member);
 		final boolean isRefined = refined != null;
-		return new MemberNode(member, member.getName(),
-				isLocal ? null : q, isRefined,
+		return new MemberNode(member, isLocal ? null : q, isRefined,
 				!isRefined ? null : createMemberNode(classifier, refined, gr));
 	}
 
@@ -668,16 +668,17 @@ public final class ClassifierInfoView extends ViewPart {
 		final boolean isLocal = q.equals(fgt);
 		final M refined = gr.getRefined(member);
 		final boolean isRefined = refined != null;
-		return new MemberNode(member, member.getName(), isLocal ? null : q, !ancestors.contains(q), isRefined,
+		return new MemberNode(member, isLocal ? null : q, !ancestors.contains(q), isRefined,
 				!isRefined ? null : createMemberNode(fgt, refined, gr));
 	}
 
-	public MemberNode createMemberNodeFromFlowImplementation(final ComponentImplementation ci, final FlowImplementation flowImpl) {
+	public MemberNode createMemberNodeFromFlowImplementation(final ComponentImplementation ci,
+			final FlowImplementation flowImpl) {
 		final Classifier q = (Classifier) flowImpl.eContainer();
 		final boolean isLocal = q.equals(ci);
 		final FlowSpecification flowSpec = flowImpl.getSpecification();
-		return new MemberNode(flowImpl, flowSpec.getName(), isLocal ? null : q, false,
-				createMemberNode(ci, flowSpec, ClassifierInfoView::getRefinedFlowSpec));
+		return new MemberNode(flowImpl, isLocal ? null : q, false,
+				flowSpec.eIsProxy() ? null : createMemberNode(ci, flowSpec, ClassifierInfoView::getRefinedFlowSpec));
 	}
 
 	private static final List<ModeFeature> getAllModesAndModeTransitions(final ComponentType ct) {
@@ -699,7 +700,7 @@ public final class ClassifierInfoView extends ViewPart {
 	private static final class MemberComparator implements Comparator<NamedElement> {
 		@Override
 		public int compare(final NamedElement o1, final NamedElement o2) {
-			return String.CASE_INSENSITIVE_ORDER.compare(o1.getName(), o2.getName());
+			return String.CASE_INSENSITIVE_ORDER.compare(getName(o1), getName(o2));
 		}
 	}
 
@@ -739,5 +740,9 @@ public final class ClassifierInfoView extends ViewPart {
 
 	private void gotoElement(final Element gotoElement) {
 		UiUtil.getInstance().openDeclarativeModelElementAsJob(getSite().getPage(), gotoElement);
+	}
+
+	private static String getName(NamedElement ne) {
+		return (ne != null && !ne.eIsProxy() && ne.getName() != null) ? ne.getName() : "<unnamed>";
 	}
 }
