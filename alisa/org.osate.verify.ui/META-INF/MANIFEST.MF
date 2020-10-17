@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OSATE Verification UI
 Bundle-Vendor: CMU/SEI
-Bundle-Version: 3.0.0.qualifier
+Bundle-Version: 3.0.1.qualifier
 Bundle-SymbolicName: org.osate.verify.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.osate.verify;bundle-version="[3.0.0,4.0.0)";visibility:=reexport,

@@ -43,7 +43,7 @@ import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 public class TypeSetAliasPropertySection extends AbstractPropertySection {
-	private static String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.typeSetAlias.";
+	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.typeSetAlias.";
 	public static final String WIDGET_ID_ALIASED_TYPE_SET_LABEL = WIDGET_ID_PREFIX + "aliasedTypeSet.Label";
 	public static final String WIDGET_ID_ALIASED_TYPE_SET_CHOOSE_BUTTON = WIDGET_ID_PREFIX + "aliasedTypeSet.Choose";
 
@@ -71,8 +71,8 @@ public class TypeSetAliasPropertySection extends AbstractPropertySection {
 
 		aliasedTypeField = new FilteringListSelectorField<>(container, "Select Aliased Type Set",
 				new LabelFilteringListSelectorModel<>(model));
-		aliasedTypeField.setLabelTestingId(WIDGET_ID_ALIASED_TYPE_SET_LABEL);
-		aliasedTypeField.setChooseButtonTestingId(WIDGET_ID_ALIASED_TYPE_SET_CHOOSE_BUTTON);
+		aliasedTypeField.setValueLabelTestingId(WIDGET_ID_ALIASED_TYPE_SET_LABEL);
+		aliasedTypeField.setModifyButtonTestingId(WIDGET_ID_ALIASED_TYPE_SET_CHOOSE_BUTTON);
 		fd = new FormData();
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		fd.top = new FormAttachment(label, 0, SWT.CENTER);

@@ -29,47 +29,36 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.resource.IEObjectDescription;
-import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
+import org.osate.ge.errormodel.ui.ErrorModelUiUtil;
 import org.osate.ge.errormodel.ui.swt.TypeTokenListEditorModel;
 import org.osate.ge.swt.BaseObservableModel;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 
 /**
  * {@link TypeTokenListEditorModel} implementation which maintains an internal list of type tokens. Does not modify the original model.
  *
  */
 public class BasicTypeTokenListEditorModel extends BaseObservableModel implements TypeTokenListEditorModel {
-	private final ImmutableList<ErrorTypes> errorTypes;
-	private final ImmutableMap<URI, String> typeToNameMap;
+	private final NamedObjectsProvider<ErrorTypes> accessibleErrorTypes;
 	private List<TypeToken> tokens;
+	private boolean allowEmpty;
 
-	public BasicTypeTokenListEditorModel(final IProject project, final List<TypeToken> tokens) {
-		// Build a list of available error types and a mapping from URI to type name
-		final ImmutableList.Builder<ErrorTypes> errorTypesBuilder = ImmutableList.builder();
-		final ImmutableMap.Builder<URI, String> typeToNameMap = new ImmutableMap.Builder<>();
-		for (final IEObjectDescription d : AadlModelAccessUtil.getAllEObjectsByType(project,
-				ErrorModelPackage.eINSTANCE.getErrorTypes())) {
-			final String qualifiedName = ErrorModelViewModelUtil.getQualifiedName(d);
-			final ErrorTypes type = (ErrorTypes) d.getEObjectOrProxy();
-
-			errorTypesBuilder.add(type);
-			typeToNameMap.put(EcoreUtil.getURI(type), qualifiedName);
-		}
-
-		this.errorTypes = errorTypesBuilder.build();
-		this.typeToNameMap = typeToNameMap.build();
+	/**
+	 * Creates a new instance
+	 * @param accessibleErrorTypes is the source for accessible error types
+	 * @param tokens the type tokens currently in the list being edited.
+	 * @param allowEmpty is whether the model should allow removing all type tokens from a type set.
+	 */
+	public BasicTypeTokenListEditorModel(final NamedObjectsProvider<ErrorTypes> accessibleErrorTypes,
+			final List<TypeToken> tokens, final boolean allowEmpty) {
+		this.accessibleErrorTypes = Objects.requireNonNull(accessibleErrorTypes, "accessibleErrorTypes must not be null");
 
 		// Make a copy of the tokens
 		this.tokens = new ArrayList<>(EcoreUtil.copyAll(tokens));
+
+		this.allowEmpty = allowEmpty;
 	}
 
 	@Override
@@ -91,13 +80,13 @@ public class BasicTypeTokenListEditorModel extends BaseObservableModel implement
 
 	@Override
 	public Stream<ErrorTypes> getErrorTypes() {
-		return errorTypes.stream();
+		return accessibleErrorTypes.getValues();
 	}
 
 	@Override
 	public String validate(List<TypeToken> value) {
 		// Type tokens must have at least one type.
-		if (value.isEmpty()) {
+		if (!allowEmpty && value.isEmpty()) {
 			return "At least one token must be contained in the list";
 		}
 
@@ -110,12 +99,22 @@ public class BasicTypeTokenListEditorModel extends BaseObservableModel implement
 	}
 
 	private String getNameFromMap(final ErrorTypes value) {
-		return typeToNameMap.get(EcoreUtil.getURI(value));
+		return accessibleErrorTypes.getName(value);
 	}
 
 	@Override
 	public String getErrorTypeLabel(final ErrorTypes value) {
 		final String label = getNameFromMap(value);
 		return label == null ? "<Unknown Error Type>" : label;
+	}
+
+	@Override
+	public String getTypeTokenLabel(final TypeToken value) {
+		return ErrorModelUiUtil.getTypeTokenLabel(value, accessibleErrorTypes::getName);
+	}
+
+	@Override
+	public String getTypeTokensLabel() {
+		return ErrorModelUiUtil.getTypeTokensLabel(getTypeTokens(), accessibleErrorTypes::getName);
 	}
 }
