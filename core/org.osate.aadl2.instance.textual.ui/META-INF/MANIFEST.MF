@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Aadl2 Textual Instance UI
 Bundle-Vendor: CMU/SEI
-Bundle-Version: 2.0.4.qualifier
+Bundle-Version: 2.0.5.qualifier
 Bundle-SymbolicName: org.osate.aadl2.instance.textual.ui;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.osate.aadl2.instance.textual;bundle-version="[2.0.0,3.0.0)";visibility:=reexport,

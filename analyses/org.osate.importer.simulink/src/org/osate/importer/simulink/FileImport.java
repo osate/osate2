@@ -44,7 +44,7 @@ import org.w3c.dom.NodeList;
 
 public class FileImport {
 
-	public static List<Model> models;
+	private static List<Model> models;
 
 	public static void init() {
 		models = new ArrayList<Model>();
