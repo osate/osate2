@@ -45,7 +45,7 @@ import static org.osate.categories.util.CategoriesUtil.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 
-/** @since 3.0  */
+/** @since 4.0  */
 class VerifyUtilExtension {
 
 	static val HashMultimap <String,String> hasRunRecord = HashMultimap.create//Collections.synchronizedMap(newHashMap)

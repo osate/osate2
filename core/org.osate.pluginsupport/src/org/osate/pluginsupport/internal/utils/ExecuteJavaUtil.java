@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.xbase.lib.Pair;
 
 /**
- * @since 5.0
+ * @since 6.0
  */
 public final class ExecuteJavaUtil {
 	private ExecuteJavaUtil() {

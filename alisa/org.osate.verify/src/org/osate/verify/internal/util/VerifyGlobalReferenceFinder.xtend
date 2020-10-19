@@ -37,7 +37,7 @@ import org.osate.verify.verify.VerifyPackage
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 
 /**
- * @since 3.0
+ * @since 4.0
  */
  @ImplementedBy(VerifyGlobalReferenceFinder)
 interface IVerifyGlobalReferenceFinder {
@@ -59,7 +59,7 @@ interface IVerifyGlobalReferenceFinder {
 }
 
 /**
- * @since 3.0
+ * @since 4.0
  */
  class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 		
