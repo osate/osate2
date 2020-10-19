@@ -523,7 +523,7 @@ public final class ClassifierInfoView extends ViewPart {
 		if (end2endFlows == null) {
 			end2endFlows = Collections.emptyList();
 		}
-		if (!flowImpls.isEmpty() || !end2endFlows.isEmpty()) {
+		if (!flowSpecs.isEmpty() || !flowImpls.isEmpty() || !end2endFlows.isEmpty()) {
 			sections.add(createSectionFromFlowImplementations(ci, flowSpecs, flowImpls, end2endFlows));
 		}
 	}
