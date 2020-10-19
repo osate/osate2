@@ -1,6 +1,6 @@
 package PulseOx_Forwarding_Logic
 public
-	with ErrorLibrary, MAP_Errors, PulseOx_Forwarding_Errors;
+	with PulseOx_Forwarding_Errors;
 with PulseOx_Forwarding_Types, MAP_Properties, MAP_Error_Properties, PulseOx_Forwarding_Properties;
 
 	process PulseOx_Logic_Process
@@ -15,7 +15,7 @@ with PulseOx_Forwarding_Types, MAP_Properties, MAP_Error_Properties, PulseOx_For
 			use types PulseOx_Forwarding_Errors;
 			
 			error propagations
-				LogicSpO2: in propagation {SpO2ValueHigh, SpO2ValueLow, EarlySpO2, LateSpO2, NoSpO2, ErraticSpO2};
+				LogicSpO2: in propagation {SpO2ValueHigh, SpO2ValueLow, EarlySpO2, LateSpO2, NoSpO2};
 				LogicDerivedAlarm: out propagation {MissedAlarm, BogusAlarm};
 			end propagations;
 		**};
