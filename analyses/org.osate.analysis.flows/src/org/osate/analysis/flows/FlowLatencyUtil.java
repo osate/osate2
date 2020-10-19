@@ -308,10 +308,11 @@ public class FlowLatencyUtil {
 	 */
 	public static ComponentInstance getPartition(ComponentInstance componentInstance) {
 		Collection<ComponentInstance> vprocessors = InstanceModelUtil.getBoundVirtualProcessors(componentInstance);
-		for (ComponentInstance vproc : vprocessors) {
-			return vproc;
+		if (!vprocessors.isEmpty()) {
+			return vprocessors.iterator().next();
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 	/**
