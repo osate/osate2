@@ -1,4 +1,4 @@
-package org.osate.alisa2.view.tests;
+package org.osate.asap.view.tests;
 
 public class FocusTests {
 

@@ -25,33 +25,33 @@
     <semanticResources>pulseox-forwarding/aadl/PulseOx_Forwarding_Doctor.aadl</semanticResources>
     <semanticResources>pulseox-forwarding/aadl/PulseOx_Forwarding_EHR.aadl</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_BcLo8JuaEeqTg54o42Y3cA">
-      <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']"/>
+      <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_QTN50bsDEeqKAqResCpS-A" name="new Containment" repPath="#_QSzqILsDEeqKAqResCpS-A" changeId="8fb797fd-5ad9-471d-9c3e-f2524d52316d">
-        <description xmi:type="description_1:TreeDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']"/>
+        <description xmi:type="description_1:TreeDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']"/>
         <target xmi:type="instance:SystemInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#/"/>
       </ownedRepresentationDescriptors>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="__Y-KkL-1EeqYk_ckmfg_gw" name="Neighbors of appLogic" repPath="#__Q0UIL-1EeqYk_ckmfg_gw" changeId="e1b9d7fc-b175-4bc9-853f-b91f4e03045d">
-        <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
+        <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
         <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
       </ownedRepresentationDescriptors>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_yYStEb-2EeqYk_ckmfg_gw" name="Neighbors of appDisplay" repPath="#_yYLYUL-2EeqYk_ckmfg_gw" changeId="730c4f92-e6c8-45a9-a921-831c383ca9f1">
-        <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
+        <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
         <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
       </ownedRepresentationDescriptors>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_1QnAEcFNEeqYk_ckmfg_gw" name="Neighbors of clinician" repPath="#_1QiuoMFNEeqYk_ckmfg_gw" changeId="7e9a68bf-8dba-47a9-8c2b-d0bc482622a4">
-        <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
+        <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
         <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
       </ownedRepresentationDescriptors>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_4aCPIMFNEeqYk_ckmfg_gw" name="Neighbors of pulseOx" repPath="#_4Z99sMFNEeqYk_ckmfg_gw" changeId="dde37aa8-3ad8-4a7d-9bc5-a7be49b2a687">
-        <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
+        <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
         <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       </ownedRepresentationDescriptors>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_SFD3UcFYEeqYk_ckmfg_gw" name="Neighbors of patient" repPath="#_SE_l4MFYEeqYk_ckmfg_gw" changeId="8c9c83f8-a458-41ba-87d7-527ee9004124">
-        <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
+        <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
         <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
       </ownedRepresentationDescriptors>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_ixi8IMHvEeqR7o_JaLOh5g" name="new Fundamentals" repPath="#_ixDz8MHvEeqR7o_JaLOh5g" changeId="3f1f5836-342d-434b-8213-81c5d8d2048c">
-        <description xmi:type="description_1:TreeDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']"/>
+        <description xmi:type="description_1:TreeDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']"/>
         <target xmi:type="safe2:SystemOverview" href="pulseox-forwarding/pulseox-forwarding.safe2#/"/>
       </ownedRepresentationDescriptors>
     </ownedViews>
@@ -62,19 +62,19 @@
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
       <ownedStyle xmi:type="tree:TreeItemStyle" uid="_QTBskbsDEeqKAqResCpS-A"/>
-      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']"/>
+      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']"/>
     </ownedTreeItems>
     <ownedTreeItems xmi:type="tree:DTreeItem" uid="_QTHMILsDEeqKAqResCpS-A" name="clinician">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
       <ownedStyle xmi:type="tree:TreeItemStyle" uid="_QTHMIbsDEeqKAqResCpS-A"/>
-      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']"/>
+      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']"/>
     </ownedTreeItems>
     <ownedTreeItems xmi:type="tree:DTreeItem" uid="_QTHMI7sDEeqKAqResCpS-A" name="doctor">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.2"/>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.2"/>
       <ownedStyle xmi:type="tree:TreeItemStyle" uid="_QTHMJLsDEeqKAqResCpS-A"/>
-      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']"/>
+      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']"/>
     </ownedTreeItems>
     <ownedTreeItems xmi:type="tree:DTreeItem" uid="_QTHMJrsDEeqKAqResCpS-A" name="pulseOx">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
@@ -82,11 +82,11 @@
         <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3/@componentInstance.0"/>
         <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3/@componentInstance.0"/>
         <ownedStyle xmi:type="tree:TreeItemStyle" uid="_QTK2gbsDEeqKAqResCpS-A" labelColor="209,209,209" backgroundColor="209,209,209"/>
-        <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']/@subItemMappings[name='subcomponent']"/>
+        <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']/@subItemMappings[name='subcomponent']"/>
       </ownedTreeItems>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="tree:TreeItemStyle" uid="_QTHMJ7sDEeqKAqResCpS-A"/>
-      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']"/>
+      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']"/>
     </ownedTreeItems>
     <ownedTreeItems xmi:type="tree:DTreeItem" uid="_QTHMKbsDEeqKAqResCpS-A" name="electronicHealthRecord">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.4"/>
@@ -94,11 +94,11 @@
         <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.4/@componentInstance.0"/>
         <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.4/@componentInstance.0"/>
         <ownedStyle xmi:type="tree:TreeItemStyle" uid="_QTK2g7sDEeqKAqResCpS-A" labelColor="209,209,209" backgroundColor="209,209,209"/>
-        <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']/@subItemMappings[name='subcomponent']"/>
+        <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']/@subItemMappings[name='subcomponent']"/>
       </ownedTreeItems>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.4"/>
       <ownedStyle xmi:type="tree:TreeItemStyle" uid="_QTHMKrsDEeqKAqResCpS-A"/>
-      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']"/>
+      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']"/>
     </ownedTreeItems>
     <ownedTreeItems xmi:type="tree:DTreeItem" uid="_-MizsL-1EeqYk_ckmfg_gw" name="appLogic">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
@@ -106,11 +106,11 @@
         <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
         <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5/@componentInstance.0"/>
         <ownedStyle xmi:type="tree:TreeItemStyle" uid="_-MwPEb-1EeqYk_ckmfg_gw" labelColor="209,209,209" backgroundColor="209,209,209"/>
-        <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']/@subItemMappings[name='subcomponent']"/>
+        <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']/@subItemMappings[name='subcomponent']"/>
       </ownedTreeItems>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
       <ownedStyle xmi:type="tree:TreeItemStyle" uid="_-Mizsb-1EeqYk_ckmfg_gw"/>
-      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']"/>
+      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']"/>
     </ownedTreeItems>
     <ownedTreeItems xmi:type="tree:DTreeItem" uid="_-MtLwL-1EeqYk_ckmfg_gw" name="appDisplay">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
@@ -118,13 +118,13 @@
         <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6/@componentInstance.0"/>
         <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6/@componentInstance.0"/>
         <ownedStyle xmi:type="tree:TreeItemStyle" uid="_-MwPE7-1EeqYk_ckmfg_gw" labelColor="209,209,209" backgroundColor="209,209,209"/>
-        <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']/@subItemMappings[name='subcomponent']"/>
+        <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']/@subItemMappings[name='subcomponent']"/>
       </ownedTreeItems>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
       <ownedStyle xmi:type="tree:TreeItemStyle" uid="_-MtLwb-1EeqYk_ckmfg_gw"/>
-      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']"/>
+      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']/@subItemMappings[name='component']"/>
     </ownedTreeItems>
-    <description xmi:type="description_1:TreeDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']"/>
+    <description xmi:type="description_1:TreeDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Containment']"/>
   </tree:DTree>
   <diagram:DSemanticDiagram uid="__Q0UIL-1EeqYk_ckmfg_gw">
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="__Y7HQL-1EeqYk_ckmfg_gw" source="DANNOTATION_CUSTOMIZATION_KEY">
@@ -294,9 +294,9 @@
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
       <ownedStyle xmi:type="diagram:BundledImage" uid="__YqBgL-1EeqYk_ckmfg_gw" labelSize="18" labelPosition="node" color="209,209,209">
         <customFeatures>labelSize</customFeatures>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="__Yu6AL-1EeqYk_ckmfg_gw" name="appDisplay" outgoingEdges="__Y5SEL-1EeqYk_ckmfg_gw" incomingEdges="__Y3c4L-1EeqYk_ckmfg_gw __Y5SGr-1EeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
@@ -306,9 +306,9 @@
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
       <ownedStyle xmi:type="diagram:BundledImage" uid="__YvhEL-1EeqYk_ckmfg_gw" labelSize="18" labelPosition="node" color="194,239,255">
         <customFeatures>labelSize</customFeatures>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="__YvhEr-1EeqYk_ckmfg_gw" name="pulseOx" outgoingEdges="__Y5SFb-1EeqYk_ckmfg_gw __Y5SGr-1EeqYk_ckmfg_gw" incomingEdges="__Y55JL-1EeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
@@ -318,9 +318,9 @@
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
       <ownedStyle xmi:type="diagram:BundledImage" uid="__YvhE7-1EeqYk_ckmfg_gw" labelSize="18" labelPosition="node" color="194,239,255">
         <customFeatures>labelSize</customFeatures>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="__YwvML-1EeqYk_ckmfg_gw" name="clinician" outgoingEdges="__Y5SH7-1EeqYk_ckmfg_gw" incomingEdges="__Y5SEL-1EeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
@@ -330,9 +330,9 @@
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
       <ownedStyle xmi:type="diagram:BundledImage" uid="__YwvMb-1EeqYk_ckmfg_gw" labelSize="18" labelPosition="node" color="246,139,139">
         <customFeatures>labelSize</customFeatures>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="__YwvM7-1EeqYk_ckmfg_gw" name="patient" outgoingEdges="__Y55JL-1EeqYk_ckmfg_gw" incomingEdges="__Y5SH7-1EeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
@@ -342,65 +342,65 @@
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
       <ownedStyle xmi:type="diagram:BundledImage" uid="__YwvNL-1EeqYk_ckmfg_gw" labelSize="18" labelPosition="node" color="246,139,139">
         <customFeatures>labelSize</customFeatures>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="__Y3c4L-1EeqYk_ckmfg_gw" sourceNode="__YlwEL-1EeqYk_ckmfg_gw" targetNode="__Yu6AL-1EeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="__Y4rAL-1EeqYk_ckmfg_gw" size="2" routingStyle="manhattan">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="__Y4rAb-1EeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="__Y5SEL-1EeqYk_ckmfg_gw" sourceNode="__Yu6AL-1EeqYk_ckmfg_gw" targetNode="__YwvML-1EeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="__Y5SEb-1EeqYk_ckmfg_gw" size="2" routingStyle="manhattan">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="__Y5SEr-1EeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="__Y5SFb-1EeqYk_ckmfg_gw" sourceNode="__YvhEr-1EeqYk_ckmfg_gw" targetNode="__YlwEL-1EeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="__Y5SFr-1EeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="__Y5SF7-1EeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="__Y5SGr-1EeqYk_ckmfg_gw" sourceNode="__YvhEr-1EeqYk_ckmfg_gw" targetNode="__Yu6AL-1EeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="__Y5SG7-1EeqYk_ckmfg_gw" size="2" routingStyle="manhattan">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="__Y5SHL-1EeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="__Y5SH7-1EeqYk_ckmfg_gw" sourceNode="__YwvML-1EeqYk_ckmfg_gw" targetNode="__YwvM7-1EeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="__Y55IL-1EeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="__Y55Ib-1EeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="__Y55JL-1EeqYk_ckmfg_gw" sourceNode="__YwvM7-1EeqYk_ckmfg_gw" targetNode="__YvhEr-1EeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="__Y55Jb-1EeqYk_ckmfg_gw" size="2" routingStyle="manhattan">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="__Y55Jr-1EeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
-    <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
+    <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
     <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="__Q7B0L-1EeqYk_ckmfg_gw"/>
-    <activatedLayers xmi:type="description_2:Layer" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer"/>
+    <activatedLayers xmi:type="description_2:Layer" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer"/>
     <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
   </diagram:DSemanticDiagram>
   <diagram:DSemanticDiagram uid="_yYLYUL-2EeqYk_ckmfg_gw">
@@ -567,93 +567,93 @@
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
       <ownedStyle xmi:type="diagram:BundledImage" uid="_yYN0kb-2EeqYk_ckmfg_gw" labelPosition="node" color="209,209,209">
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_yYOboL-2EeqYk_ckmfg_gw" name="clinician" outgoingEdges="_yYRe8r-2EeqYk_ckmfg_gw" incomingEdges="_yYQ34L-2EeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
       <ownedStyle xmi:type="diagram:BundledImage" uid="_yYObob-2EeqYk_ckmfg_gw" labelPosition="node" color="194,239,255">
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_yYObo7-2EeqYk_ckmfg_gw" name="appLogic" outgoingEdges="_yYRe97-2EeqYk_ckmfg_gw" incomingEdges="_yYRe_L-2EeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
       <ownedStyle xmi:type="diagram:BundledImage" uid="_yYObpL-2EeqYk_ckmfg_gw" labelPosition="node" color="194,239,255">
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_yYObpr-2EeqYk_ckmfg_gw" name="pulseOx" outgoingEdges="_yYRe_L-2EeqYk_ckmfg_gw _yYRfAb-2EeqYk_ckmfg_gw" incomingEdges="_yYSGAr-2EeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="diagram:BundledImage" uid="_yYPCsL-2EeqYk_ckmfg_gw" labelPosition="node" color="194,239,255">
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_yYPpwL-2EeqYk_ckmfg_gw" name="patient" outgoingEdges="_yYSGAr-2EeqYk_ckmfg_gw" incomingEdges="_yYRe8r-2EeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
       <ownedStyle xmi:type="diagram:BundledImage" uid="_yYPpwb-2EeqYk_ckmfg_gw" labelPosition="node" color="246,139,139">
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_yYQ34L-2EeqYk_ckmfg_gw" sourceNode="_yYN0kL-2EeqYk_ckmfg_gw" targetNode="_yYOboL-2EeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_yYQ34b-2EeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_yYQ34r-2EeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_yYRe8r-2EeqYk_ckmfg_gw" sourceNode="_yYOboL-2EeqYk_ckmfg_gw" targetNode="_yYPpwL-2EeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_yYRe87-2EeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_yYRe9L-2EeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_yYRe97-2EeqYk_ckmfg_gw" sourceNode="_yYObo7-2EeqYk_ckmfg_gw" targetNode="_yYN0kL-2EeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_yYRe-L-2EeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_yYRe-b-2EeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_yYRe_L-2EeqYk_ckmfg_gw" sourceNode="_yYObpr-2EeqYk_ckmfg_gw" targetNode="_yYObo7-2EeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_yYRe_b-2EeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_yYRe_r-2EeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_yYRfAb-2EeqYk_ckmfg_gw" sourceNode="_yYObpr-2EeqYk_ckmfg_gw" targetNode="_yYN0kL-2EeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_yYRfAr-2EeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_yYRfA7-2EeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_yYSGAr-2EeqYk_ckmfg_gw" sourceNode="_yYPpwL-2EeqYk_ckmfg_gw" targetNode="_yYObpr-2EeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_yYSGA7-2EeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_yYSGBL-2EeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
-    <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
+    <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
     <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_yYLYUb-2EeqYk_ckmfg_gw"/>
-    <activatedLayers xmi:type="description_2:Layer" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer"/>
+    <activatedLayers xmi:type="description_2:Layer" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer"/>
     <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
   </diagram:DSemanticDiagram>
   <diagram:DSemanticDiagram uid="_1QiuoMFNEeqYk_ckmfg_gw">
@@ -853,9 +853,9 @@
         <customFeatures>labelSize</customFeatures>
         <labelFormat>italic</labelFormat>
         <labelFormat>bold</labelFormat>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']/@conditionnalStyles.0/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_1Qkj0MFNEeqYk_ckmfg_gw" name="appDisplay" outgoingEdges="_1Qlx9cFNEeqYk_ckmfg_gw" incomingEdges="_1QmZBcFNEeqYk_ckmfg_gw _1QmZD8FNEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
@@ -867,9 +867,9 @@
         <customFeatures>labelSize</customFeatures>
         <labelFormat>italic</labelFormat>
         <labelFormat>bold</labelFormat>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@conditionnalStyles.0/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_1Qkj08FNEeqYk_ckmfg_gw" name="patient" outgoingEdges="_1Qlx-sFNEeqYk_ckmfg_gw" incomingEdges="_1Qlx8MFNEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
@@ -881,9 +881,9 @@
         <customFeatures>labelSize</customFeatures>
         <labelFormat>italic</labelFormat>
         <labelFormat>bold</labelFormat>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@conditionnalStyles.0/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_1Qkj1sFNEeqYk_ckmfg_gw" name="doctor" outgoingEdges="_1QmZAMFNEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.2"/>
@@ -895,9 +895,9 @@
         <customFeatures>labelSize</customFeatures>
         <labelFormat>italic</labelFormat>
         <labelFormat>bold</labelFormat>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@conditionnalStyles.2/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@conditionnalStyles.2/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_1QlK4MFNEeqYk_ckmfg_gw" name="appLogic" outgoingEdges="_1QmZBcFNEeqYk_ckmfg_gw" incomingEdges="_1QmZCsFNEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
@@ -909,9 +909,9 @@
         <customFeatures>labelSize</customFeatures>
         <labelFormat>italic</labelFormat>
         <labelFormat>bold</labelFormat>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@conditionnalStyles.0/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_1QlK48FNEeqYk_ckmfg_gw" name="pulseOx" outgoingEdges="_1QmZCsFNEeqYk_ckmfg_gw _1QmZD8FNEeqYk_ckmfg_gw" incomingEdges="_1Qlx-sFNEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
@@ -923,74 +923,74 @@
         <customFeatures>labelSize</customFeatures>
         <labelFormat>italic</labelFormat>
         <labelFormat>bold</labelFormat>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@conditionnalStyles.0/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_1Qlx8MFNEeqYk_ckmfg_gw" sourceNode="_1Qj8wMFNEeqYk_ckmfg_gw" targetNode="_1Qkj08FNEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_Y7WlQMFOEeqYk_ckmfg_gw" size="2" routingStyle="manhattan" strokeColor="173,127,168">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_Y7WlQcFOEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_1Qlx9cFNEeqYk_ckmfg_gw" sourceNode="_1Qkj0MFNEeqYk_ckmfg_gw" targetNode="_1Qj8wMFNEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_Y7XMUMFOEeqYk_ckmfg_gw" size="2" routingStyle="manhattan" strokeColor="173,127,168">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_Y7XMUcFOEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_1Qlx-sFNEeqYk_ckmfg_gw" sourceNode="_1Qkj08FNEeqYk_ckmfg_gw" targetNode="_1QlK48FNEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_Y7XMUsFOEeqYk_ckmfg_gw" size="2" strokeColor="173,127,168">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_Y7XMU8FOEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_1QmZAMFNEeqYk_ckmfg_gw" sourceNode="_1Qkj1sFNEeqYk_ckmfg_gw" targetNode="_1Qj8wMFNEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.2"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_Y7XMVsFOEeqYk_ckmfg_gw" size="2" routingStyle="manhattan" strokeColor="239,41,41">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.2/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.2/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_Y7XMV8FOEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_1QmZBcFNEeqYk_ckmfg_gw" sourceNode="_1QlK4MFNEeqYk_ckmfg_gw" targetNode="_1Qkj0MFNEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_Y7XMWMFOEeqYk_ckmfg_gw" size="2" strokeColor="173,127,168">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_Y7XMWcFOEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_1QmZCsFNEeqYk_ckmfg_gw" sourceNode="_1QlK48FNEeqYk_ckmfg_gw" targetNode="_1QlK4MFNEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_Y7XMXMFOEeqYk_ckmfg_gw" size="2" routingStyle="manhattan" strokeColor="173,127,168">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_Y7XMXcFOEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_1QmZD8FNEeqYk_ckmfg_gw" sourceNode="_1QlK48FNEeqYk_ckmfg_gw" targetNode="_1Qkj0MFNEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_Y7XzYMFOEeqYk_ckmfg_gw" size="2" routingStyle="manhattan" strokeColor="173,127,168">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_Y7XzYcFOEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
-    <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
+    <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
     <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_1QiuocFNEeqYk_ckmfg_gw"/>
-    <activatedLayers xmi:type="description_2:Layer" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer"/>
+    <activatedLayers xmi:type="description_2:Layer" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer"/>
     <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
   </diagram:DSemanticDiagram>
   <diagram:DSemanticDiagram uid="_4Z99sMFNEeqYk_ckmfg_gw">
@@ -1184,109 +1184,109 @@
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="diagram:BundledImage" uid="_4Z_L0cFNEeqYk_ckmfg_gw" labelPosition="node" color="209,209,209">
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_4Z_L08FNEeqYk_ckmfg_gw" name="appLogic" outgoingEdges="_4aBBD8FNEeqYk_ckmfg_gw" incomingEdges="_4aBBAMFNEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
       <ownedStyle xmi:type="diagram:BundledImage" uid="_4Z_y4MFNEeqYk_ckmfg_gw" labelPosition="node" color="194,239,255">
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_4Z_y4sFNEeqYk_ckmfg_gw" name="appDisplay" outgoingEdges="_4aBBFMFNEeqYk_ckmfg_gw" incomingEdges="_4aBBBcFNEeqYk_ckmfg_gw _4aBBD8FNEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
       <ownedStyle xmi:type="diagram:BundledImage" uid="_4Z_y48FNEeqYk_ckmfg_gw" labelPosition="node" color="194,239,255">
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_4Z_y5cFNEeqYk_ckmfg_gw" name="electronicHealthRecord" incomingEdges="_4aBBCsFNEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.4"/>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.4"/>
       <ownedStyle xmi:type="diagram:BundledImage" uid="_4Z_y5sFNEeqYk_ckmfg_gw" labelPosition="node" color="194,239,255">
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_4Z_y6MFNEeqYk_ckmfg_gw" name="patient" outgoingEdges="_4aBoEsFNEeqYk_ckmfg_gw" incomingEdges="_4aBoF8FNEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
       <ownedStyle xmi:type="diagram:BundledImage" uid="_4Z_y6cFNEeqYk_ckmfg_gw" labelPosition="node" color="194,239,255">
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_4aAZ8MFNEeqYk_ckmfg_gw" name="clinician" outgoingEdges="_4aBoF8FNEeqYk_ckmfg_gw" incomingEdges="_4aBBFMFNEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
       <semanticElements xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
       <ownedStyle xmi:type="diagram:BundledImage" uid="_4aAZ8cFNEeqYk_ckmfg_gw" labelPosition="node" color="246,139,139">
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_4aBBAMFNEeqYk_ckmfg_gw" sourceNode="_4Z_L0MFNEeqYk_ckmfg_gw" targetNode="_4Z_L08FNEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_4aBBAcFNEeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_4aBBAsFNEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_4aBBBcFNEeqYk_ckmfg_gw" sourceNode="_4Z_L0MFNEeqYk_ckmfg_gw" targetNode="_4Z_y4sFNEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_4aBBBsFNEeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_4aBBB8FNEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_4aBBCsFNEeqYk_ckmfg_gw" sourceNode="_4Z_L0MFNEeqYk_ckmfg_gw" targetNode="_4Z_y5cFNEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_4aBBC8FNEeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_4aBBDMFNEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_4aBBD8FNEeqYk_ckmfg_gw" sourceNode="_4Z_L08FNEeqYk_ckmfg_gw" targetNode="_4Z_y4sFNEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_4aBBEMFNEeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_4aBBEcFNEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_4aBBFMFNEeqYk_ckmfg_gw" sourceNode="_4Z_y4sFNEeqYk_ckmfg_gw" targetNode="_4aAZ8MFNEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_4aBBFcFNEeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_4aBBFsFNEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_4aBoEsFNEeqYk_ckmfg_gw" sourceNode="_4Z_y6MFNEeqYk_ckmfg_gw" targetNode="_4Z_L0MFNEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_4aBoE8FNEeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_4aBoFMFNEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_4aBoF8FNEeqYk_ckmfg_gw" sourceNode="_4aAZ8MFNEeqYk_ckmfg_gw" targetNode="_4Z_y6MFNEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_4aBoGMFNEeqYk_ckmfg_gw" size="2">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_4aBoGcFNEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
-    <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
+    <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
     <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_4Z99scFNEeqYk_ckmfg_gw"/>
-    <activatedLayers xmi:type="description_2:Layer" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer"/>
+    <activatedLayers xmi:type="description_2:Layer" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer"/>
     <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
   </diagram:DSemanticDiagram>
   <diagram:DSemanticDiagram uid="_SE_l4MFYEeqYk_ckmfg_gw">
@@ -1513,9 +1513,9 @@
         <customFeatures>labelSize</customFeatures>
         <labelFormat>italic</labelFormat>
         <labelFormat>bold</labelFormat>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']/@conditionnalStyles.0/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='RootNode']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_SFA0A8FYEeqYk_ckmfg_gw" name="clinician" outgoingEdges="_SFDQQMFYEeqYk_ckmfg_gw" incomingEdges="_SFDQWcFYEeqYk_ckmfg_gw _SFDQXsFYEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
@@ -1527,9 +1527,9 @@
         <customFeatures>labelSize</customFeatures>
         <labelFormat>italic</labelFormat>
         <labelFormat>bold</labelFormat>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@conditionnalStyles.0/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_SFBbEMFYEeqYk_ckmfg_gw" name="pulseOx" outgoingEdges="_SFDQRcFYEeqYk_ckmfg_gw _SFDQSsFYEeqYk_ckmfg_gw _SFDQT8FYEeqYk_ckmfg_gw" incomingEdges="_SFCpMMFYEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
@@ -1541,9 +1541,9 @@
         <customFeatures>labelSize</customFeatures>
         <labelFormat>italic</labelFormat>
         <labelFormat>bold</labelFormat>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']/@conditionnalStyles.0/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='ImmediateNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_SFBbE8FYEeqYk_ckmfg_gw" name="appLogic" outgoingEdges="_SFDQVMFYEeqYk_ckmfg_gw" incomingEdges="_SFDQRcFYEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
@@ -1555,9 +1555,9 @@
         <customFeatures>labelSize</customFeatures>
         <labelFormat>italic</labelFormat>
         <labelFormat>bold</labelFormat>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@conditionnalStyles.0/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_SFBbFsFYEeqYk_ckmfg_gw" name="appDisplay" outgoingEdges="_SFDQWcFYEeqYk_ckmfg_gw" incomingEdges="_SFDQSsFYEeqYk_ckmfg_gw _SFDQVMFYEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
@@ -1569,9 +1569,9 @@
         <customFeatures>labelSize</customFeatures>
         <labelFormat>italic</labelFormat>
         <labelFormat>bold</labelFormat>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@conditionnalStyles.0/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_SFBbGcFYEeqYk_ckmfg_gw" name="electronicHealthRecord" incomingEdges="_SFDQT8FYEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.4"/>
@@ -1583,9 +1583,9 @@
         <customFeatures>labelSize</customFeatures>
         <labelFormat>italic</labelFormat>
         <labelFormat>bold</labelFormat>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@conditionnalStyles.1/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@conditionnalStyles.1/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNode" uid="_SFCCIsFYEeqYk_ckmfg_gw" name="doctor" outgoingEdges="_SFDQXsFYEeqYk_ckmfg_gw" width="20" height="20" resizeKind="NSEW">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.2"/>
@@ -1597,85 +1597,85 @@
         <customFeatures>labelSize</customFeatures>
         <labelFormat>italic</labelFormat>
         <labelFormat>bold</labelFormat>
-        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@conditionnalStyles.2/@style"/>
+        <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']/@conditionnalStyles.2/@style"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
+      <actualMapping xmi:type="description_2:NodeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@nodeMappings[name='OneHopNeighbors']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_SFCpMMFYEeqYk_ckmfg_gw" sourceNode="_SFA0AMFYEeqYk_ckmfg_gw" targetNode="_SFBbEMFYEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_WEoEMMFYEeqYk_ckmfg_gw" size="2" routingStyle="manhattan" strokeColor="173,127,168">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_WEoEMcFYEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_SFDQQMFYEeqYk_ckmfg_gw" sourceNode="_SFA0A8FYEeqYk_ckmfg_gw" targetNode="_SFA0AMFYEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.1"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_WEoENMFYEeqYk_ckmfg_gw" size="2" routingStyle="manhattan" strokeColor="173,127,168">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_WEoENcFYEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_SFDQRcFYEeqYk_ckmfg_gw" sourceNode="_SFBbEMFYEeqYk_ckmfg_gw" targetNode="_SFBbE8FYEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_WEoEOMFYEeqYk_ckmfg_gw" size="2" routingStyle="manhattan" strokeColor="173,127,168">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_WEoEOcFYEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_SFDQSsFYEeqYk_ckmfg_gw" sourceNode="_SFBbEMFYEeqYk_ckmfg_gw" targetNode="_SFBbFsFYEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_WEoEPMFYEeqYk_ckmfg_gw" size="2" routingStyle="manhattan" strokeColor="173,127,168">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_WEoEPcFYEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_SFDQT8FYEeqYk_ckmfg_gw" sourceNode="_SFBbEMFYEeqYk_ckmfg_gw" targetNode="_SFBbGcFYEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.3"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_WEorQsFYEeqYk_ckmfg_gw" size="2" routingStyle="manhattan" strokeColor="173,127,168">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_WEorQ8FYEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_SFDQVMFYEeqYk_ckmfg_gw" sourceNode="_SFBbE8FYEeqYk_ckmfg_gw" targetNode="_SFBbFsFYEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.5"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_WEorRsFYEeqYk_ckmfg_gw" size="2" routingStyle="manhattan" strokeColor="173,127,168">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_WEorR8FYEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_SFDQWcFYEeqYk_ckmfg_gw" sourceNode="_SFBbFsFYEeqYk_ckmfg_gw" targetNode="_SFA0A8FYEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.6"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_WEorSsFYEeqYk_ckmfg_gw" size="2" routingStyle="manhattan" strokeColor="173,127,168">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.0/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_WEorS8FYEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_SFDQXsFYEeqYk_ckmfg_gw" sourceNode="_SFCCIsFYEeqYk_ckmfg_gw" targetNode="_SFA0A8FYEeqYk_ckmfg_gw">
       <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.2"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_WEorTsFYEeqYk_ckmfg_gw" size="2" routingStyle="manhattan" strokeColor="239,41,41">
         <customFeatures>routingStyle</customFeatures>
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.2/@style"/>
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']/@conditionnalStyles.2/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_WEorT8FYEeqYk_ckmfg_gw"/>
       </ownedStyle>
-      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
+      <actualMapping xmi:type="description_2:EdgeMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer/@edgeMappings[name='ConnectedEdges']"/>
     </ownedDiagramElements>
-    <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
+    <description xmi:type="description_2:DiagramDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']"/>
     <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_SE_l4cFYEeqYk_ckmfg_gw"/>
-    <activatedLayers xmi:type="description_2:Layer" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer"/>
+    <activatedLayers xmi:type="description_2:Layer" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='ConnectedNeighbors']/@defaultLayer"/>
     <target xmi:type="instance:ComponentInstance" href="pulseox-forwarding/aadl/instances/PulseOx_Forwarding_System_PulseOx_Forwarding_System_imp_Instance.aaxl2#//@componentInstance.0"/>
   </diagram:DSemanticDiagram>
   <tree:DTree uid="_ixDz8MHvEeqR7o_JaLOh5g">
@@ -1690,14 +1690,14 @@
             <target xmi:type="safe2:Constraint" href="pulseox-forwarding/pulseox-forwarding.safe2#//@fundamentals.0/@accident.0/@hazard.0/@constraint.0"/>
             <semanticElements xmi:type="safe2:Constraint" href="pulseox-forwarding/pulseox-forwarding.safe2#//@fundamentals.0/@accident.0/@hazard.0/@constraint.0"/>
             <ownedStyle xmi:type="tree:TreeItemStyle" uid="_pFniQcHvEeqR7o_JaLOh5g"/>
-            <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@subItemMappings[name='Accident%20Level']/@subItemMappings[name='Accident']/@subItemMappings[name='Hazard']/@subItemMappings[name='Constraint']"/>
+            <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@subItemMappings[name='Accident%20Level']/@subItemMappings[name='Accident']/@subItemMappings[name='Hazard']/@subItemMappings[name='Constraint']"/>
           </ownedTreeItems>
           <semanticElements xmi:type="safe2:Hazard" href="pulseox-forwarding/pulseox-forwarding.safe2#//@fundamentals.0/@accident.0/@hazard.0"/>
           <ownedStyle xmi:type="tree:TreeItemStyle" uid="_o3auMcHvEeqR7o_JaLOh5g" labelColor="156,12,12">
             <labelFormat>italic</labelFormat>
             <labelFormat>bold</labelFormat>
           </ownedStyle>
-          <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@subItemMappings[name='Accident%20Level']/@subItemMappings[name='Accident']/@subItemMappings[name='Hazard']"/>
+          <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@subItemMappings[name='Accident%20Level']/@subItemMappings[name='Accident']/@subItemMappings[name='Hazard']"/>
         </ownedTreeItems>
         <ownedTreeItems xmi:type="tree:DTreeItem" uid="_pFm7MMHvEeqR7o_JaLOh5g" name="InfoLate" expanded="true">
           <target xmi:type="safe2:Hazard" href="pulseox-forwarding/pulseox-forwarding.safe2#//@fundamentals.0/@accident.0/@hazard.1"/>
@@ -1705,26 +1705,26 @@
             <target xmi:type="safe2:Constraint" href="pulseox-forwarding/pulseox-forwarding.safe2#//@fundamentals.0/@accident.0/@hazard.1/@constraint.0"/>
             <semanticElements xmi:type="safe2:Constraint" href="pulseox-forwarding/pulseox-forwarding.safe2#//@fundamentals.0/@accident.0/@hazard.1/@constraint.0"/>
             <ownedStyle xmi:type="tree:TreeItemStyle" uid="_pFniQ8HvEeqR7o_JaLOh5g"/>
-            <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@subItemMappings[name='Accident%20Level']/@subItemMappings[name='Accident']/@subItemMappings[name='Hazard']/@subItemMappings[name='Constraint']"/>
+            <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@subItemMappings[name='Accident%20Level']/@subItemMappings[name='Accident']/@subItemMappings[name='Hazard']/@subItemMappings[name='Constraint']"/>
           </ownedTreeItems>
           <semanticElements xmi:type="safe2:Hazard" href="pulseox-forwarding/pulseox-forwarding.safe2#//@fundamentals.0/@accident.0/@hazard.1"/>
           <ownedStyle xmi:type="tree:TreeItemStyle" uid="_pFm7McHvEeqR7o_JaLOh5g"/>
-          <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@subItemMappings[name='Accident%20Level']/@subItemMappings[name='Accident']/@subItemMappings[name='Hazard']"/>
+          <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@subItemMappings[name='Accident%20Level']/@subItemMappings[name='Accident']/@subItemMappings[name='Hazard']"/>
         </ownedTreeItems>
         <semanticElements xmi:type="safe2:Accident" href="pulseox-forwarding/pulseox-forwarding.safe2#//@fundamentals.0/@accident.0"/>
         <ownedStyle xmi:type="tree:TreeItemStyle" uid="_ixf40cHvEeqR7o_JaLOh5g" labelColor="156,12,12">
           <labelFormat>italic</labelFormat>
           <labelFormat>bold</labelFormat>
         </ownedStyle>
-        <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@subItemMappings[name='Accident%20Level']/@subItemMappings[name='Accident']"/>
+        <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@subItemMappings[name='Accident%20Level']/@subItemMappings[name='Accident']"/>
       </ownedTreeItems>
       <semanticElements xmi:type="safe2:AccidentLevel" href="pulseox-forwarding/pulseox-forwarding.safe2#//@fundamentals.0"/>
       <ownedStyle xmi:type="tree:TreeItemStyle" uid="_ixTEgcHvEeqR7o_JaLOh5g" labelColor="156,12,12">
         <labelFormat>italic</labelFormat>
         <labelFormat>bold</labelFormat>
       </ownedStyle>
-      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@subItemMappings[name='Accident%20Level']"/>
+      <actualMapping xmi:type="description_1:TreeItemMapping" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@subItemMappings[name='Accident%20Level']"/>
     </ownedTreeItems>
-    <description xmi:type="description_1:TreeDescription" href="platform:/plugin/org.osate.alisa2.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']"/>
+    <description xmi:type="description_1:TreeDescription" href="platform:/plugin/org.osate.asap.view/description/view.odesign#//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']"/>
   </tree:DTree>
 </xmi:XMI>

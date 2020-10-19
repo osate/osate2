@@ -1,4 +1,4 @@
-package org.osate.alisa2.view;
+package org.osate.asap.view;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +13,7 @@ import org.osgi.framework.BundleContext;
  */
 public class Activator extends AbstractUIPlugin {
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.osate.alisa2.view";
+    public static final String PLUGIN_ID = "org.osate.asap.view";
 
     // The shared instance
     private static Activator plugin;

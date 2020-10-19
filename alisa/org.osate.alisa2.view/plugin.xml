@@ -2,24 +2,24 @@
 <?eclipse version="3.0"?>
 <plugin>
   <extension point="org.eclipse.sirius.componentization">
-    <component class="org.osate.alisa2.view.Activator"
-               id="org.osate.alisa2.view"
+    <component class="org.osate.asap.view.Activator"
+               id="org.osate.asap.view"
 	       name="view">
     </component>
   </extension>
   <extension
         point="org.eclipse.sirius.externalJavaAction">
      <javaActions
-           actionClass="org.osate.alisa2.view.DoFocusAction"
-           id="org.osate.alisa2.view.DoFocusActionID">
+           actionClass="org.osate.asap.view.DoFocusAction"
+           id="org.osate.asap.view.DoFocusActionID">
      </javaActions>
      <javaActions
-           actionClass="org.osate.alisa2.view.ForceVariableInitializationAction"
-           id="org.osate.alisa2.view.ForceVariableInitializationActionID">
+           actionClass="org.osate.asap.view.ForceVariableInitializationAction"
+           id="org.osate.asap.view.ForceVariableInitializationActionID">
      </javaActions>
      <javaActions
-           actionClass="org.osate.alisa2.view.ClearFocusAction"
-           id="org.osate.alisa2.view.ClearFocusActionID">
+           actionClass="org.osate.asap.view.ClearFocusAction"
+           id="org.osate.asap.view.ClearFocusActionID">
      </javaActions>
   </extension>
 </plugin>

@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Tests
-Bundle-SymbolicName: org.osate.alisa2.view.tests
+Bundle-SymbolicName: org.osate.asap.view.tests
 Bundle-Version: 1.0.0.qualifier
-Fragment-Host: org.osate.alisa2.view;bundle-version="1.0.0"
-Automatic-Module-Name: org.osate.alisa2.view.tests
+Fragment-Host: org.osate.asap.view;bundle-version="1.0.0"
+Automatic-Module-Name: org.osate.asap.view.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.junit,
  org.eclipse.swtbot.junit4_x,

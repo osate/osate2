@@ -1,4 +1,4 @@
-package org.osate.alisa2.view.tests;
+package org.osate.asap.view.tests;
 
 import org.eclipse.sirius.tests.swtbot.support.api.AbstractSiriusSwtBotGefTestCase;
 import org.junit.Rule;
@@ -6,7 +6,7 @@ import org.junit.rules.ExpectedException;
 
 public class TestBase extends AbstractSiriusSwtBotGefTestCase {
 
-	private static final String PLUGIN_ID = "org.osate.alisa2.view.tests";
+	private static final String PLUGIN_ID = "org.osate.asap.view.tests";
 
 	protected static final String AIRD_FILE = "representations.aird";
 	private static final String SAFE2_FILE1 = "pca-interlock.safe2";

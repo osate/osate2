@@ -1,4 +1,4 @@
-package org.osate.alisa2.model.safe2.builder;
+package org.osate.asap.model.safe2.builder;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;

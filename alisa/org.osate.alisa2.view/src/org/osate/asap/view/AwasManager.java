@@ -1,4 +1,4 @@
-package org.osate.alisa2.view;
+package org.osate.asap.view;
 
 import java.util.Collection;
 import java.util.Collections;

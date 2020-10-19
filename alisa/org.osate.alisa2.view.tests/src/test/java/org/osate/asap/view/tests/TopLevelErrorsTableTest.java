@@ -1,4 +1,4 @@
-package org.osate.alisa2.view.tests;
+package org.osate.asap.view.tests;
 
 import org.eclipse.sirius.tests.swtbot.support.api.business.UIResource;
 import org.eclipse.sirius.tests.swtbot.support.api.business.UITableRepresentation;

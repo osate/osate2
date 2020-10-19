@@ -1,4 +1,4 @@
-package org.osate.alisa2.view;
+package org.osate.asap.view;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -27,7 +27,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.parsesupport.AObject;
-import org.osate.alisa2.model.safe2.Constraint;
+import org.osate.asap.model.safe2.Constraint;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
@@ -440,7 +440,7 @@ public class Services {
 		protected boolean containment(EObject eObject) {
 			// This restricts the search to SAFE2 objects that point at the feature instance
 			// (as opposed to, eg, sirius or AADL objects)
-			return eObject instanceof org.osate.alisa2.model.safe2.Node;
+			return eObject instanceof org.osate.asap.model.safe2.Node;
 		}
 
 		@Override

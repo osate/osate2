@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.alisa2.model.safe2.tests;
+package org.osate.asap.model.safe2.tests;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,9 +19,9 @@ import org.eclipse.emf.ecore.util.Diagnostician;
 
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-import org.osate.alisa2.model.safe2.Accident;
-import org.osate.alisa2.model.safe2.Safe2Factory;
-import org.osate.alisa2.model.safe2.Safe2Package;
+import org.osate.asap.model.safe2.Accident;
+import org.osate.asap.model.safe2.Safe2Factory;
+import org.osate.asap.model.safe2.Safe2Package;
 
 /**
  * <!-- begin-user-doc -->

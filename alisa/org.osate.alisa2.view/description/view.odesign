@@ -143,13 +143,13 @@
           <ownedTools xsi:type="tool:OperationAction" name="Set Focus">
             <view name="views"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.alisa2.view.DoFocusActionID"/>
+              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.asap.view.DoFocusActionID"/>
             </initialOperation>
           </ownedTools>
           <ownedTools xsi:type="tool:OperationAction" name="Clear Focus">
             <view name="views"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.alisa2.view.ClearFocusActionID"/>
+              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.asap.view.ClearFocusActionID"/>
             </initialOperation>
           </ownedTools>
         </toolSections>
@@ -200,13 +200,13 @@
               <menuItemDescriptions xsi:type="tool:OperationAction" name="Set Focus">
                 <view name="views"/>
                 <initialOperation>
-                  <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.alisa2.view.DoFocusActionID"/>
+                  <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.asap.view.DoFocusActionID"/>
                 </initialOperation>
               </menuItemDescriptions>
               <menuItemDescriptions xsi:type="tool:OperationAction" name="Clear Focus">
                 <view name="views"/>
                 <initialOperation>
-                  <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.alisa2.view.ClearFocusActionID"/>
+                  <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.asap.view.ClearFocusActionID"/>
                 </initialOperation>
               </menuItemDescriptions>
             </popupMenus>
@@ -215,13 +215,13 @@
             <menuItemDescriptions xsi:type="tool:OperationAction" name="Set Focus">
               <view name="views"/>
               <initialOperation>
-                <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.alisa2.view.DoFocusActionID"/>
+                <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.asap.view.DoFocusActionID"/>
               </initialOperation>
             </menuItemDescriptions>
             <menuItemDescriptions xsi:type="tool:OperationAction" name="Clear Focus">
               <view name="views"/>
               <initialOperation>
-                <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.alisa2.view.ClearFocusActionID"/>
+                <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.asap.view.ClearFocusActionID"/>
               </initialOperation>
             </menuItemDescriptions>
           </popupMenus>
@@ -230,13 +230,13 @@
           <menuItemDescriptions xsi:type="tool:OperationAction" name="Set Focus">
             <view name="views"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.alisa2.view.DoFocusActionID"/>
+              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.asap.view.DoFocusActionID"/>
             </initialOperation>
           </menuItemDescriptions>
           <menuItemDescriptions xsi:type="tool:OperationAction" name="Clear Focus">
             <view name="views"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.alisa2.view.ClearFocusActionID"/>
+              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.asap.view.ClearFocusActionID"/>
             </initialOperation>
           </menuItemDescriptions>
         </popupMenus>
@@ -248,7 +248,7 @@
       </ownedRepresentationCreationDescriptions>
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_2:TreeDescription" endUserDocumentation="The fundamentals (accident levels, accidents, hazards, and constraints) associated with the component." name="Fundamentals" initialisation="true" domainClass="safe2.SystemOverview">
-      <metamodel href="../../org.osate.alisa2.model/model/safe2.ecore#/"/>
+      <metamodel href="../../org.osate.asap.model/model/safe2.ecore#/"/>
       <subItemMappings name="Accident Level" navigationDescriptions="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='Fundamentals']/@ownedRepresentationNavigationDescriptions[name='ToFundamentals']" domainClass="safe2.AccidentLevel" semanticCandidatesExpression="feature:eAllContents">
         <defaultStyle>
           <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -305,13 +305,13 @@
                 <menuItemDescriptions xsi:type="tool:OperationAction" name="Set Focus">
                   <view name="views"/>
                   <initialOperation>
-                    <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.alisa2.view.DoFocusActionID"/>
+                    <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.asap.view.DoFocusActionID"/>
                   </initialOperation>
                 </menuItemDescriptions>
                 <menuItemDescriptions xsi:type="tool:OperationAction" name="Clear Focus">
                   <view name="views"/>
                   <initialOperation>
-                    <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.alisa2.view.ClearFocusActionID"/>
+                    <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.asap.view.ClearFocusActionID"/>
                   </initialOperation>
                 </menuItemDescriptions>
               </popupMenus>
@@ -320,13 +320,13 @@
               <menuItemDescriptions xsi:type="tool:OperationAction" name="Set Focus">
                 <view name="views"/>
                 <initialOperation>
-                  <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.alisa2.view.DoFocusActionID"/>
+                  <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.asap.view.DoFocusActionID"/>
                 </initialOperation>
               </menuItemDescriptions>
               <menuItemDescriptions xsi:type="tool:OperationAction" name="Clear Focus">
                 <view name="views"/>
                 <initialOperation>
-                  <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.alisa2.view.ClearFocusActionID"/>
+                  <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.asap.view.ClearFocusActionID"/>
                 </initialOperation>
               </menuItemDescriptions>
             </popupMenus>
@@ -341,7 +341,7 @@
             <menuItemDescriptions xsi:type="tool:OperationAction" name="Clear Focus">
               <view name="views"/>
               <initialOperation>
-                <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.alisa2.view.ClearFocusActionID"/>
+                <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.asap.view.ClearFocusActionID"/>
               </initialOperation>
             </menuItemDescriptions>
           </popupMenus>
@@ -350,13 +350,13 @@
           <menuItemDescriptions xsi:type="tool:OperationAction" name="Set Focus">
             <view name="views"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.alisa2.view.DoFocusActionID"/>
+              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoFocusAction" id="org.osate.asap.view.DoFocusActionID"/>
             </initialOperation>
           </menuItemDescriptions>
           <menuItemDescriptions xsi:type="tool:OperationAction" name="Clear Focus">
             <view name="views"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.alisa2.view.ClearFocusActionID"/>
+              <firstModelOperations xsi:type="tool:ExternalJavaAction" name="DoClearAction" id="org.osate.asap.view.ClearFocusActionID"/>
             </initialOperation>
           </menuItemDescriptions>
         </popupMenus>
@@ -472,10 +472,10 @@
     <ownedRepresentations xsi:type="description_3:CrossTableDescription" endUserDocumentation="A table, similar to the unsafe control action table of STPA, showing the selected component's connections and the specific error types in one family propagated on those convnections." name="UCA-Refinement" titleExpression="service:getUCARefinementTitle()" domainClass="instance.ComponentInstance">
       <metamodel href="../../org.osate.aadl2/model/instance.ecore#/"/>
       <metamodel href="../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#/"/>
-      <metamodel href="../../org.osate.alisa2.model/model/safe2.ecore#/"/>
+      <metamodel href="../../org.osate.asap.model/model/safe2.ecore#/"/>
       <ownedRepresentationCreationDescriptions xsi:type="description_3:TableCreationDescription" name="CreateUCA-Refinement" browseExpression="service:getContainer()" tableDescription="//@ownedViewpoints[name='Hazard%20Analyst']/@ownedRepresentations[name='UCA-Refinement']">
         <initialOperation>
-          <firstModelOperations xsi:type="tool:ExternalJavaAction" name="ForceVariableInitialization" id="org.osate.alisa2.view.ForceVariableInitializationActionID"/>
+          <firstModelOperations xsi:type="tool:ExternalJavaAction" name="ForceVariableInitialization" id="org.osate.asap.view.ForceVariableInitializationActionID"/>
         </initialOperation>
         <containerViewVariable name="TLECellContainerView"/>
         <representationNameVariable name="tableName"/>
@@ -507,6 +507,6 @@
         </foregroundConditionalStyle>
       </intersection>
     </ownedRepresentations>
-    <ownedJavaExtensions qualifiedClassName="org.osate.alisa2.view.Services"/>
+    <ownedJavaExtensions qualifiedClassName="org.osate.asap.view.Services"/>
   </ownedViewpoints>
 </description:Group>

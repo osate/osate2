@@ -230,10 +230,10 @@
         <ownedValue>
           <ownedValue xsi:type="aadl2:RangeValue">
             <minimum xsi:type="aadl2:IntegerLiteral" value="200">
-              <unit href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+              <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
             </minimum>
             <maximum xsi:type="aadl2:IntegerLiteral" value="400">
-              <unit href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+              <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
             </maximum>
           </ownedValue>
         </ownedValue>
@@ -281,10 +281,10 @@
     </componentInstance>
     <componentInstance name="CheckSpO2Thread" category="thread">
       <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
-        <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Thread_Properties.aadl#Thread_Properties.Dispatch_Protocol"/>
+        <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Thread_Properties.aadl#Thread_Properties.Dispatch_Protocol"/>
         <ownedValue>
           <ownedValue xsi:type="aadl2:NamedValue">
-            <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.3/@ownedLiteral.0"/>
+            <namedValue xsi:type="aadl2:EnumerationLiteral" href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.3/@ownedLiteral.0"/>
           </ownedValue>
         </ownedValue>
         <propertyAssociation href="../PulseOx_Forwarding_Logic.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedPropertyAssociation.0"/>
@@ -390,19 +390,19 @@
     </componentInstance>
     <componentInstance name="HandleAlarmThread" category="thread">
       <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
-        <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Timing_Properties.aadl#Timing_Properties.Deadline"/>
+        <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Timing_Properties.aadl#Timing_Properties.Deadline"/>
         <ownedValue>
           <ownedValue xsi:type="aadl2:IntegerLiteral" value="75">
-            <unit href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+            <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
           </ownedValue>
         </ownedValue>
         <propertyAssociation href="../PulseOx_Forwarding_Display.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedPropertyAssociation.0"/>
       </ownedPropertyAssociation>
       <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
-        <property href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/Timing_Properties.aadl#Timing_Properties.Period"/>
+        <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Timing_Properties.aadl#Timing_Properties.Period"/>
         <ownedValue>
           <ownedValue xsi:type="aadl2:IntegerLiteral" value="95">
-            <unit href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+            <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
           </ownedValue>
         </ownedValue>
         <propertyAssociation href="../PulseOx_Forwarding_Display.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedPropertyAssociation.1"/>
@@ -411,7 +411,7 @@
         <property href="../MAP_Properties.aadl#MAP_Properties.Worst_Case_Execution_Time"/>
         <ownedValue>
           <ownedValue xsi:type="aadl2:IntegerLiteral" value="7">
-            <unit href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+            <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
           </ownedValue>
         </ownedValue>
         <propertyAssociation href="../PulseOx_Forwarding_Display.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedPropertyAssociation.2"/>
@@ -452,7 +452,7 @@
       <property href="../MAP_Properties.aadl#MAP_Properties.Channel_Delay"/>
       <ownedValue>
         <ownedValue xsi:type="aadl2:IntegerLiteral" value="150">
-          <unit href="platform:/plugin/org.osate.workspace/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+          <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
         </ownedValue>
       </ownedValue>
       <propertyAssociation href="../PulseOx_Forwarding_System.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.1/@ownedPropertyAssociation.0"/>

@@ -1,4 +1,4 @@
-package org.osate.alisa2.view;
+package org.osate.asap.view;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,11 +6,11 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.alisa2.model.safe2.Accident;
-import org.osate.alisa2.model.safe2.AccidentLevel;
-import org.osate.alisa2.model.safe2.Constraint;
-import org.osate.alisa2.model.safe2.Fundamental;
-import org.osate.alisa2.model.safe2.Hazard;
+import org.osate.asap.model.safe2.Accident;
+import org.osate.asap.model.safe2.AccidentLevel;
+import org.osate.asap.model.safe2.Constraint;
+import org.osate.asap.model.safe2.Fundamental;
+import org.osate.asap.model.safe2.Hazard;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 /**

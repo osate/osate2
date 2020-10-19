@@ -1,13 +1,13 @@
 /**
  */
-package org.osate.alisa2.model.safe2.tests;
+package org.osate.asap.model.safe2.tests;
 
 import junit.framework.TestCase;
 
 import junit.textui.TestRunner;
 
-import org.osate.alisa2.model.safe2.Accident;
-import org.osate.alisa2.model.safe2.Safe2Factory;
+import org.osate.asap.model.safe2.Accident;
+import org.osate.asap.model.safe2.Safe2Factory;
 
 /**
  * <!-- begin-user-doc -->

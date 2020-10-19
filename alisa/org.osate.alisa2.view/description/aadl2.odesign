@@ -283,7 +283,7 @@
         </customization>
       </defaultLayer>
     </ownedRepresentations>
-    <ownedJavaExtensions qualifiedClassName="org.osate.alisa2.view.Services"/>
+    <ownedJavaExtensions qualifiedClassName="org.osate.asap.view.Services"/>
   </ownedViewpoints>
   <ownedViewpoints name="Aadl2PackageViewpoint" modelFileExtension="aadl">
     <ownedRepresentations xsi:type="description_2:TreeDescription" name="PackageTree" domainClass="aadl2.AadlPackage">
@@ -339,6 +339,6 @@
         </subItemMappings>
       </subItemMappings>
     </ownedRepresentations>
-    <ownedJavaExtensions qualifiedClassName="org.osate.alisa2.view.Services"/>
+    <ownedJavaExtensions qualifiedClassName="org.osate.asap.view.Services"/>
   </ownedViewpoints>
 </description:Group>

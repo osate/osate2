@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.alisa2.model.safe2.tests;
+package org.osate.asap.model.safe2.tests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;

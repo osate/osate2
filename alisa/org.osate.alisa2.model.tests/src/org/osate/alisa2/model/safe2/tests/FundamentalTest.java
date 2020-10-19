@@ -1,10 +1,10 @@
 /**
  */
-package org.osate.alisa2.model.safe2.tests;
+package org.osate.asap.model.safe2.tests;
 
 import junit.framework.TestCase;
 
-import org.osate.alisa2.model.safe2.Fundamental;
+import org.osate.asap.model.safe2.Fundamental;
 
 /**
  * <!-- begin-user-doc -->

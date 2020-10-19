@@ -1,4 +1,4 @@
-package org.osate.alisa2.view;
+package org.osate.asap.view;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 

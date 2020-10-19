@@ -1,4 +1,4 @@
-package org.osate.alisa2.model.tests;
+package org.osate.asap.model.tests;
 
 import static org.junit.Assert.assertTrue;
 
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
-import org.osate.alisa2.model.safe2.builder.MineSAFEAnnotationsSwitchHandler;
+import org.osate.asap.model.safe2.builder.MineSAFEAnnotationsSwitchHandler;
 import org.osate.testsupport.Aadl2InjectorProvider;
 import org.osate.testsupport.TestHelper;
 
@@ -27,7 +27,7 @@ class MineSAFEAnnotationsSwitchHandlerTests extends XtextTest {
 	public void setUpOnce() {
 		handler = new MineSAFEAnnotationsSwitchHandler();
 		try {
-			testHelper.testFile("org.osate.alisa2.model.tests/pkg.aadl");
+			testHelper.testFile("org.osate.asap.model.tests/pkg.aadl");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
