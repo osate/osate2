@@ -58,7 +58,7 @@ import org.osate.verify.verify.JavaParameter
 import org.osate.verify.verify.VerificationMethod
 
 /**
- * @since 3.0
+ * @since 4.0
  */
  class VerifyJavaUtil {
 

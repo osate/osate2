@@ -57,7 +57,7 @@ import org.osgi.framework.Bundle;
  *
  * @author lwrage
  * @version $Id: PluginSupportUtil.java,v 1.2 2007-06-04 17:03:01 lwrage Exp $
- * @since 5.0
+ * @since 6.0
  */
 public final class PluginSupportUtil {
 	private PluginSupportUtil() {

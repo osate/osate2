@@ -33,7 +33,7 @@ import org.osate.verify.verify.PluginMethod
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
 
 /**
- * @since 3.0
+ * @since 4.0
  */
  class VerificationMethodDispatchers {
 

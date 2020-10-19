@@ -48,7 +48,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 
 /**
  * @author phf
- * @since 5.0
+ * @since 6.0
  */
 public class ResolvePrototypeUtil {
 

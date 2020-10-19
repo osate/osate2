@@ -24,15 +24,14 @@
 package org.osate.analysis.flows.internal.utils;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.Collection;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.Classifier;
@@ -42,6 +41,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.VirtualBus;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -55,12 +55,11 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.analysis.flows.model.ConnectionType;
 import org.osate.contribution.sei.names.DataModel;
 import org.osate.result.AnalysisResult;
+import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
-
-import javafx.beans.property.Property;
 
 public class FlowLatencyUtil {
 	//XXX: [Code Coverage] Dead code.
