@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.osate.asap.feature"
+      label="ASAP Feature"
+      version="1.0.0.qualifier">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.osate.aadl2"/>
+      <import plugin="org.osate.xtext.aadl2.errormodel"/>
+      <import plugin="org.eclipse.uml2.uml"/>
+      <import plugin="org.eclipse.uml2.types"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.osate.aadl2.modelsupport"/>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="org.osate.aadl2.edit"/>
+      <import plugin="org.eclipse.emf.ecore.edit"/>
+      <import plugin="org.osate.xtext.aadl2.errormodel.edit"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.emf.edit.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.sireum.aadl.osate.awas"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.sirius"/>
+      <import plugin="org.eclipse.sirius.common.acceleo.aql"/>
+      <import plugin="org.osate.asap.model" version="0.1.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.aadl2.edit" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.sirius.diagram"/>
+      <import plugin="org.eclipse.sirius.table"/>
+      <import plugin="org.sireum.aadl.osate"/>
+      <import plugin="org.osate.xtext.aadl2"/>
+      <import plugin="org.eclipse.core.commands"/>
+      <import plugin="org.osate.aadl2.errormodel.faulttree.generation"/>
+      <import plugin="org.eclipse.core.expressions"/>
+   </requires>
+
+   <plugin
+         id="org.osate.asap.model"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.asap.model.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.asap.model.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.asap.view"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

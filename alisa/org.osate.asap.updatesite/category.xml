@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="org.osate.asap.feature">
+      <category name="org.osate.asap.category"/>
+   </feature>
+   <category-def name="org.osate.asap.category" label="Architecture Supported Audit Processor"/>
+</site>
