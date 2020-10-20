@@ -31,6 +31,7 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanCopyContext;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
@@ -69,13 +70,18 @@ public class ErrorBehaviorEventHandler implements BusinessObjectHandler {
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_EVENT,
-				ctx.getBusinessObject(ErrorBehaviorEvent.class).get().getName());
+		return ErrorModelReferenceUtil
+				.getRelativeReferenceForEvent(ctx.getBusinessObject(ErrorBehaviorEvent.class).get().getName());
 	}
 
 	@Override
 	public boolean canDelete(final CanDeleteContext ctx) {
 		return true;
+	}
+
+	@Override
+	public boolean canCopy(final CanCopyContext ctx) {
+		return false;
 	}
 
 	@Override

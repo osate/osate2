@@ -417,7 +417,7 @@
     <repository
         url="http://download.eclipse.org/gendoc/updates/releases/0.6.0"/>
     <repository
-        url="https://eclipse.py4j.org"/>
+        url="http://eclipse.py4j.org"/>
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
@@ -887,7 +887,7 @@
         <repository
             url="http://download.eclipse.org/ease/update/release"/>
         <repository
-            url="https://eclipse.py4j.org"/>
+            url="http://eclipse.py4j.org"/>
       </repositoryList>
     </targlet>
     <description></description>
