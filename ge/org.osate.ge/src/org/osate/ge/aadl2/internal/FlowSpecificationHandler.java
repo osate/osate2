@@ -46,22 +46,16 @@ import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
+import org.osate.ge.query.QueryResult;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
 			.descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(
-					fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd()))
-			.first());
-	private static StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
-			.descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(
 					fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd()), 1)
 			.first());
 	private static StandaloneQuery dstQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
-					(FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd())).first());
-	private static StandaloneQuery partialDstQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
 					(FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd()), 1).first());
 
@@ -103,21 +97,15 @@ public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final FlowSpecification fs = boc.getBusinessObject(FlowSpecification.class).get();
 		final QueryService queryService = ctx.getQueryService();
-		BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
-		boolean partial = false;
-
-		if (src == null) {
-			src = queryService.getFirstResult(partialSrcQuery, boc);
-			partial = true;
-		}
+		final QueryResult srcResult = queryService.getFirstResult(srcQuery, boc).orElse(null);
+		final BusinessObjectContext src = srcResult == null ? null : srcResult.getBusinessObjectContext();
+		boolean partial = (srcResult != null && srcResult.isPartial());
 
 		BusinessObjectContext dst = null;
 		if (fs.getKind() == FlowKind.PATH) {
-			dst = queryService.getFirstResult(dstQuery, boc);
-			if (dst == null) {
-				dst = queryService.getFirstResult(partialDstQuery, boc);
-				partial = true;
-			}
+			final QueryResult dstResult = queryService.getFirstResult(dstQuery, boc).orElse(null);
+			dst = dstResult == null ? null : dstResult.getBusinessObjectContext();
+			partial |= (dstResult != null && dstResult.isPartial());
 		}
 
 		final StyleBuilder sb = StyleBuilder

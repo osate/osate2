@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Model Support Plug-in
 Bundle-SymbolicName: org.osate.aadl2.modelsupport;singleton:=true
-Bundle-Version: 5.0.0.qualifier
+Bundle-Version: 5.0.1.qualifier
 Bundle-Activator: org.osate.aadl2.modelsupport.Activator
 Require-Bundle: org.osate.aadl2;bundle-version="[4.0.0,5.0.0)",
  org.apache.log4j;bundle-version="[1.2.0,2.0.0)",

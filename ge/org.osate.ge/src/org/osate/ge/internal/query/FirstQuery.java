@@ -45,7 +45,7 @@ public class FirstQuery extends DefaultQuery {
 	}
 	
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResults result) {
 		final Integer currentCountInteger = (Integer)state.cache.get(this);
 		int currentCount;
 		if(currentCountInteger == null) {
