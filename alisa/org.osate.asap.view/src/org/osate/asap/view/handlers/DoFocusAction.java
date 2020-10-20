@@ -1,10 +1,11 @@
-package org.osate.asap.view;
+package org.osate.asap.view.handlers;
 
 import java.util.Collection;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.sirius.tools.api.ui.IExternalJavaAction;
+import org.osate.asap.view.FocusManager;
 
 public class DoFocusAction implements IExternalJavaAction {
 

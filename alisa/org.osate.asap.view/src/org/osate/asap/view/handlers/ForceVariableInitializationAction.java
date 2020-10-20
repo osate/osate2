@@ -1,4 +1,4 @@
-package org.osate.asap.view;
+package org.osate.asap.view.handlers;
 
 import java.util.Collection;
 import java.util.Map;

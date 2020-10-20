@@ -18,7 +18,10 @@ Require-Bundle: org.sireum.aadl.osate.awas,
  org.sireum.aadl.osate,
  org.osate.xtext.aadl2.errormodel,
  org.osate.xtext.aadl2,
- org.osate.aadl2
+ org.osate.aadl2,
+ org.eclipse.core.commands,
+ org.osate.aadl2.modelsupport,
+ org.osate.aadl2.errormodel.faulttree.generation
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: %providerName
