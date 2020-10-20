@@ -34,7 +34,7 @@ import org.osate.core.OsateCorePlugin;
  *
  * @author lwrage
  * @version $Id: OsatePreferencePage.java,v 1.15 2007-06-18 18:47:27 jseibel Exp $
- * @since 5.0
+ * @since 6.0
  */
 
 public class OsatePreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {

@@ -49,7 +49,7 @@ import org.osate.core.AadlNature;
 import org.osate.ui.OsateUiPlugin;
 
 /**
- * @since 5.0
+ * @since 6.0
  */
 public final class ReinstantiationEngine extends AbstractInstantiationEngine<IFile> {
 	public ReinstantiationEngine(final List<?> selectionAsList) {

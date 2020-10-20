@@ -45,7 +45,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
  * An <code>IRunnableWithProgress</code> that adapts and  <code>IWorkspaceRunnable</code>
  * so that is can be executed inside <code>IRunnableContext</code>. <code>OperationCanceledException</code>
  * thrown by the adapted runnable are caught and re-thrown as a <code>InterruptedException</code>.
- * @since 5.0
+ * @since 6.0
  */
 public class WorkbenchRunnableAdapter implements IRunnableWithProgress {
 
