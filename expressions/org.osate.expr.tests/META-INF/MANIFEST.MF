@@ -16,8 +16,7 @@ Require-Bundle: org.osate.aadl2;bundle-version="1.0.0",
  org.eclipse.xtext.junit4,
  org.osate.expr.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.osate.expr.tests;x-internal=true,
- org.osate.expr
+Export-Package: org.osate.expr.tests;x-internal=true
 Import-Package: org.junit.runner;version="4.5.0",
  org.junit.runner.manipulation;version="4.5.0",
  org.junit.runner.notification;version="4.5.0",

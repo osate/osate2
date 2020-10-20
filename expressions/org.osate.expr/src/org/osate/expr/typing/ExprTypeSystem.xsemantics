@@ -49,9 +49,9 @@ import org.osate.expr.expr.TupleLiteral
 import org.osate.expr.expr.UnaryOperation
 import org.osate.expr.expr.UnionLiteral
 import org.osate.expr.expr.VarDecl
-import org.osate.expr.validation.AbstractExprJavaValidator
+import org.osate.expr.validation.AbstractExprValidator
 
-system org.osate.expr.ExprTypeSystem validatorExtends AbstractExprJavaValidator
+system org.osate.expr.ExprTypeSystem validatorExtends AbstractExprValidator
 
 
 auxiliary {

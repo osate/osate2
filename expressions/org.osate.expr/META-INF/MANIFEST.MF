@@ -35,5 +35,6 @@ Export-Package: org.osate.expr,
  org.osate.expr.serializer,
  org.osate.expr.services,
  org.osate.expr.typing,
- org.osate.expr.validation
+ org.osate.expr.validation,
+ org.osate.expr.formatting2
 Import-Package: org.apache.log4j

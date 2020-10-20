@@ -45,4 +45,9 @@ public class ExprAnnexParser implements AnnexParser {
 		return eas;
 	}
 
+	@Override
+	public String getFileExtension() {
+		return "expr";
+	}
+
 }

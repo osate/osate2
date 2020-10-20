@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.osate.expr/src-gen" editDirectory="/org.osate.expr.edit/src"
-    editorDirectory="/org.osate.expr.editor/src" modelPluginID="org.osate.expr" forceOverwrite="true"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="*&#xA;Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).&#xA;All Rights Reserved.&#xA; *&#xA;NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN &quot;AS-IS&quot; BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY&#xA;KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE&#xA;OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT&#xA;MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.&#xA; *&#xA;This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0&#xA;which is available at https://www.eclipse.org/legal/epl-2.0/&#xA;SPDX-License-Identifier: EPL-2.0&#xA; *&#xA;Created, in part, with funding and support from the United States Government. (see Acknowledgments file).&#xA; *&#xA;This program includes and/or can make use of certain third party source code, object code, documentation and other&#xA;files (&quot;Third Party Software&quot;). The Third Party Software that is used by this program is dependent upon your system&#xA;configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and&#xA;conditions contained in any such Third Party Software or separate license file distributed with such Third Party&#xA;Software. The parties who own the Third Party Software (&quot;Third Party Licensors&quot;) are intended third party benefici-&#xA;aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-&#xA;censes only apply to the Third Party Software and not any other portion of this program or this program as a whole."
+    modelDirectory="/org.osate.expr/src-gen" modelPluginID="org.osate.expr" forceOverwrite="true"
     modelName="Expr" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
-    complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.expr.edit"
-    editorPluginID="org.osate.expr.editor" runtimeVersion="2.17" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
+    complianceLevel="8.0" copyrightFields="false" runtimeVersion="2.22" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2">
   <genPackages prefix="Expr" basePackage="org.osate.expr" disposableProviderFactory="true"
-      ecorePackage="Expr.ecore#/">
+      fileExtensions="expr" ecorePackage="Expr.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="Expr.ecore#//MetaClassEnum">
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/COMPONENT"/>
       <genEnumLiterals ecoreEnumLiteral="Expr.ecore#//MetaClassEnum/FEATURE"/>
@@ -63,7 +62,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//FunDecl/java"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expr.ecore#//FunDecl/fqn"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//FunDecl/exp"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//FunDecl/type"/>
     </genClasses>
     <genClasses ecoreClass="Expr.ecore#//Argument">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Expr.ecore#//Argument/type"/>
