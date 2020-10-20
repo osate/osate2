@@ -18,7 +18,7 @@ public class ContainmentHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		SystemInstance systemInstance;
-		InstanceObject object = AsapUtil.getTarget(HandlerUtil.getCurrentSelection(event));
+		InstanceObject object = AsapUtil.getTarget(HandlerUtil.getCurrentSelection(event), SystemInstance.class);
 		if (object == null) {
 			Dialog.showInfo("ASAP Containment Representation", "Please choose an instance model");
 			return IStatus.ERROR;

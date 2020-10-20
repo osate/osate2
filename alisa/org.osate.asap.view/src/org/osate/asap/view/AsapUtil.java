@@ -37,28 +37,26 @@ public class AsapUtil {
 	}
 
 	/**
-	 * Get the target of a user's selection for launching an ASAP representation,
-	 * which should be an instance object.
+	 * Gets the target of the user's selection and tries to cast it to what the caller wants
 	 *
-	 * Adapted from
-	 * org.osate.aadl2.errormodel.faulttree.handler.FTAHandler.getTarget(ISelection)
-	 *
-	 * @param currentSelection User's selection
-	 * @return The instance object, or null if we can't get an instance object
-	 * from whatever we got
+	 * @param <T> The type the caller wants (eg, an InstanceObject or SAFE2 System Overview)
+	 * @param currentSelection The user's selection
+	 * @param desiredType The type the caller wants (eg, an InstanceObject or SAFE2 System Overview)
+	 * @return The user's selection as an instance of T, or null if we can't get one from
+	 * what the user has selected
 	 */
-	public static InstanceObject getTarget(ISelection currentSelection) {
+	public static <T> T getTarget(ISelection currentSelection, Class<T> desiredType) {
 		if (currentSelection instanceof IStructuredSelection) {
 			IStructuredSelection iss = (IStructuredSelection) currentSelection;
 			if (iss.size() == 1) {
 				Object obj = iss.getFirstElement();
-				if (obj instanceof InstanceObject) {
-					return (InstanceObject) obj;
+				if (desiredType.isInstance(obj)) {
+					return (T) obj;
 				}
 				if (obj instanceof EObjectURIWrapper) {
 					EObject eObject = new ResourceSetImpl().getEObject(((EObjectURIWrapper) obj).getUri(), true);
 					if (eObject instanceof InstanceObject) {
-						return (InstanceObject) eObject;
+						return (T) eObject;
 					}
 				}
 				if (obj instanceof IFile) {
@@ -66,7 +64,7 @@ public class AsapUtil {
 					Resource res = new ResourceSetImpl().getResource(uri, true);
 					EList<EObject> rl = res.getContents();
 					if (!rl.isEmpty()) {
-						return (InstanceObject) rl.get(0);
+						return (T) rl.get(0);
 					}
 				}
 			}
