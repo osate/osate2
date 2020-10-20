@@ -8,17 +8,16 @@ import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.testsupport.AssertHelper.assertError
-
+import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider
 
 @RunWith(XtextRunner)
-@InjectWith(Aadl2InjectorProvider)
+@InjectWith(ErrorModelInjectorProvider)
 class Issue2455Test extends XtextTest {
 	@Inject
 	TestHelper<AadlPackage> testHelper
