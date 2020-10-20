@@ -27,11 +27,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.layout.TreeColumnLayout;
@@ -67,6 +80,7 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
 
@@ -90,6 +104,19 @@ public final class ClassifierInfoView extends ViewPart {
 
 	private volatile boolean syncWithEditor = true;
 
+	/*
+	 * Keep track of the URI of the classifier being viewed so that we can refresh if
+	 * the workspace changes. Need to keep the URI and not the classifier object
+	 * itself so that we can reparse it and pick up the changes.
+	 */
+	private URI viewedClassifierURI = null;
+	/*
+	 * Synchronized because it is used by the dispaly thread and whatever thread exeuctes
+	 * the resource change listener.
+	 */
+	private final Set<IResource> classifierResources = Collections.synchronizedSet(new HashSet<>());
+	private IResourceChangeListener rsrcListener = null;
+
 	public ClassifierInfoView() {
 		modelElementLabelProvider = UiUtil.getModelElementLabelProvider();
 	}
@@ -105,7 +132,6 @@ public final class ClassifierInfoView extends ViewPart {
 		/* I basically stole this from org.eclipse.jdt.internal.ui.util.OpenTypeHiearchyUtil.openInViewPart() */
 		final IWorkbenchPage page = window.getActivePage();
 		try {
-//			ClassifierInfoView result = (ClassifierInfoView) page.findView(VIEW_ID);
 			final ClassifierInfoView result = (ClassifierInfoView) page.showView(VIEW_ID);
 			return result;
 		} catch (CoreException e) {
@@ -148,10 +174,16 @@ public final class ClassifierInfoView extends ViewPart {
 		aadlImage = new Image(site.getShell().getDisplay(),
 				ClassifierInfoView.class.getResourceAsStream("/icons/aadl.gif"));
 		super.init(site);
+
+		rsrcListener = new Listener();
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(rsrcListener);
 	}
 
 	@Override
 	public void dispose() {
+		if (rsrcListener != null) {
+			ResourcesPlugin.getWorkspace().removeResourceChangeListener(rsrcListener);
+		}
 		aadlImage.dispose();
 		aadlImage = null;
 	}
@@ -325,10 +357,25 @@ public final class ClassifierInfoView extends ViewPart {
 	// == Set the view input
 	// ======================================================================
 
-	public void setInput(final Classifier input) {
-		if (input != null) {
-			final AncestorTree tree = createAncestorTree(input);
-			ancestorTree.setInput(tree);
+	public void setInput(final URI classifierURI) {
+		if (classifierURI != null) {
+			viewedClassifierURI = classifierURI;
+			final Classifier classifier = (Classifier) new ResourceSetImpl().getEObject(classifierURI, true);
+			updateDisplay(classifier);
+		}
+	}
+
+	private void refresh() {
+		if (viewedClassifierURI != null) {
+			final Classifier classifier = (Classifier) new ResourceSetImpl().getEObject(viewedClassifierURI, true);
+			updateDisplay(classifier);
+		}
+	}
+
+	private void updateDisplay(final Classifier input) {
+		getViewSite().getShell().getDisplay().asyncExec(() -> {
+			classifierResources.clear();
+			ancestorTree.setInput(createAncestorTree(input));
 			ancestorTree.expandToLevel(2);
 			if (input instanceof ComponentType) {
 				memberTree.setInput(createMemberTree((ComponentType) input));
@@ -340,12 +387,51 @@ public final class ClassifierInfoView extends ViewPart {
 				memberTree.setInput(createMemberTree((FeatureGroupType) input));
 				memberTree.expandToLevel(2);
 			}
-		}
+		});
 	}
 
 	// ======================================================================
 	// == Helper classes
 	// ======================================================================
+
+	// ----------------------------------------------------------------------
+	// -- Resource Listener
+	// ----------------------------------------------------------------------
+
+	/**
+	 * When a resource in the workspace is moved or deleted we check to see if it is overrides a
+	 * plug-in contributed resource.  If so, we need to update the global preferences.
+	 */
+	private class Listener implements IResourceChangeListener {
+		@Override
+		public void resourceChanged(final IResourceChangeEvent event) {
+			/*
+			 * Going to be quite dumb about this. If any of the resources we care
+			 * about change in any way, then we update the view.
+			 */
+			final AtomicBoolean changed = new AtomicBoolean(false);
+			if (event.getType() == IResourceChangeEvent.POST_CHANGE) {
+				final IResourceDelta docDelta = event.getDelta();
+				if (docDelta != null) {
+					try {
+						docDelta.accept(delta -> {
+							final IResource resource = delta.getResource();
+							if (classifierResources.contains(resource)) {
+								changed.set(true);
+							}
+							return true;
+						});
+					} catch (final CoreException e) {
+						OsateUiPlugin.log(e);
+					}
+				}
+			}
+
+			if (changed.get()) {
+				refresh();
+			}
+		}
+	}
 
 	// ----------------------------------------------------------------------
 	// -- Ancestor tree
@@ -412,6 +498,13 @@ public final class ClassifierInfoView extends ViewPart {
 	}
 
 	private AncestorTreeNode createAncestorTreeNode(final Classifier classifier, final String prefix) {
+		final Resource eResource = classifier.eResource();
+		// If the AADL file has parse errors then we may get a null result here
+		if (eResource != null) {
+			final URI uri = eResource.getURI();
+			classifierResources.add(OsateResourceUtil.toIFile(uri));
+		}
+
 		AncestorTreeNode[] children = new AncestorTreeNode[0];
 		if (classifier instanceof ComponentType) {
 			final ComponentType extended = ((ComponentType) classifier.getExtended());
@@ -510,6 +603,10 @@ public final class ClassifierInfoView extends ViewPart {
 	}
 
 	private void addFlowImplementationSection(final List<SectionNode> sections, final ComponentImplementation ci) {
+		List<FlowSpecification> flowSpecs = ci.getType().getAllFlowSpecifications();
+		if (flowSpecs == null) {
+			flowSpecs = Collections.emptyList();
+		}
 		List<FlowImplementation> flowImpls = ci.getAllFlowImplementations();
 		if (flowImpls == null) {
 			flowImpls = Collections.emptyList();
@@ -518,8 +615,8 @@ public final class ClassifierInfoView extends ViewPart {
 		if (end2endFlows == null) {
 			end2endFlows = Collections.emptyList();
 		}
-		if (!flowImpls.isEmpty() || !end2endFlows.isEmpty()) {
-			sections.add(createSectionFromFlowImplementations(ci, flowImpls, end2endFlows));
+		if (!flowSpecs.isEmpty() || !flowImpls.isEmpty() || !end2endFlows.isEmpty()) {
+			sections.add(createSectionFromFlowImplementations(ci, flowSpecs, flowImpls, end2endFlows));
 		}
 	}
 
@@ -584,18 +681,32 @@ public final class ClassifierInfoView extends ViewPart {
 	}
 
 	public SectionNode createSectionFromFlowImplementations(final ComponentImplementation ci,
-			List<FlowImplementation> flowImpls, List<EndToEndFlow> end2endFlows) {
+			List<FlowSpecification> flowSpecs, List<FlowImplementation> flowImpls, List<EndToEndFlow> end2endFlows) {
+		/*
+		 * Get all the flow specifications from the type. Overlay on top of them the flow implementations
+		 * from the implementation. That is, anything that is implemented in the implementation will be
+		 * replaced by the Flow implementation in the map.
+		 */
+		final Map<String, NamedElement> flowSpecsAndImplsMap = new HashMap<>();
+		flowSpecs.forEach(fs -> flowSpecsAndImplsMap.put(fs.getName(), fs));
+		flowImpls.forEach(fi -> flowSpecsAndImplsMap.put(fi.getSpecification().getFullName(), fi));
+		final List<NamedElement> flowSpecsAndImpls = new ArrayList<>(flowSpecsAndImplsMap.values());
+
 		final List<MemberNode> memberNodes = new ArrayList<>();
 
-		Collections.sort(flowImpls, MEMBER_COMPARATOR);
-		for (final FlowImplementation flowImpl : flowImpls) {
-			memberNodes.add(createMemberNodeFromFlowImplementation(ci, flowImpl));
-		}
+		Collections.sort(flowSpecsAndImpls, MEMBER_COMPARATOR);
+		flowSpecsAndImpls.forEach(f -> {
+			if (f instanceof FlowSpecification) {
+				memberNodes.add(createMemberNode(ci, (FlowSpecification) f, ClassifierInfoView::getRefinedFlowSpec));
+			} else {
+				memberNodes.add(createMemberNodeFromFlowImplementation(ci, (FlowImplementation) f));
+			}
+		});
 
 		Collections.sort(end2endFlows, MEMBER_COMPARATOR);
-		for (final EndToEndFlow e2e : end2endFlows) {
-			memberNodes.add(createMemberNode(ci, e2e, ClassifierInfoView::getRefinedEndToEndFlow));
-		}
+		end2endFlows
+				.forEach(e2e -> memberNodes.add(createMemberNode(ci, e2e, ClassifierInfoView::getRefinedEndToEndFlow)));
+
 		return new SectionNode("Flows", memberNodes);
 	}
 

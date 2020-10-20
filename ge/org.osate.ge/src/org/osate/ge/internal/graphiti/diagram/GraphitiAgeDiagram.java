@@ -489,8 +489,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable, La
 						: (de.getLabelName() + completenessSuffix);
 
 		if (pe instanceof ContainerShape) {
-			final double fontSize = de.getStyle().getFontSize() == null ? Style.DEFAULT.getFontSize()
-					: de.getStyle().getFontSize();
+			final double fontSize = finalStyle.getFontSize();
 
 			// Create Labels
 			if (primaryLabelStr != null) {
@@ -865,7 +864,10 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable, La
 		final IGaService gaService = Graphiti.getGaService();
 		switch (size) {
 		case REGULAR:
-			return gaService.createPlainPolyline(gaContainer, new int[] { -10, 6, 2, 0, -10, -6 });
+			final Polyline ga = gaService.createPlainPolyline(gaContainer,
+					new int[] { -14, 8, 2, 0, -14, -8 });
+			ga.setLineWidth(1);
+			return ga;
 		case SMALL:
 			return gaService.createPlainPolyline(gaContainer, new int[] { -6, 5, 2, 0, -6, -5 });
 		}

@@ -24,7 +24,6 @@
 package org.osate.ge.errormodel.ui.swt;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.osate.ge.swt.ObservableModel;
@@ -68,11 +67,7 @@ public interface TypeTokenListEditorModel extends ObservableModel {
 	 */
 	String getErrorTypeLabel(ErrorTypes value);
 
-	default String getTypeTokenLabel(TypeToken value) {
-		return value.getType().stream().map(this::getErrorTypeLabel).collect(Collectors.joining(" * "));
-	}
+	String getTypeTokenLabel(TypeToken value);
 
-	default String getTypeTokensLabel() {
-		return getTypeTokens().map(this::getTypeTokenLabel).collect(Collectors.joining(", "));
-	}
+	String getTypeTokensLabel();
 }

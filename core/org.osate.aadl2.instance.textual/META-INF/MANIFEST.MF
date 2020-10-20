@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Aadl2 Textual Instance Plug-in
 Bundle-Vendor: CMU/SEI
-Bundle-Version: 2.0.4.qualifier
+Bundle-Version: 2.0.5.qualifier
 Bundle-SymbolicName: org.osate.aadl2.instance.textual;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=reexport,
