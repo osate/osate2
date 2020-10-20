@@ -44,10 +44,70 @@
      <handler
            class="org.osate.asap.view.handlers.ContainmentHandler"
            commandId="org.osate.asap.view.containment">
+        <enabledWhen>
+           <or>
+              <reference
+                    definitionId="org.osate.core.isInstanceFileSelected">
+              </reference>
+              <with
+                    variable="selection">
+                 <and>
+                    <count
+                          value="1">
+                    </count>
+                    <iterate>
+                       <or>
+                          <instanceof
+                                value="org.osate.aadl2.instance.ComponentInstance">
+                          </instanceof>
+                          <adapt
+                                type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                             <test
+                                   forcePluginActivation="true"
+                                   property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                   value="ComponentInstance">
+                             </test>
+                          </adapt>
+                       </or>
+                    </iterate>
+                 </and>
+              </with>
+           </or>
+        </enabledWhen>
      </handler>
      <handler
            class="org.osate.asap.view.handlers.FundamentalsHandler"
            commandId="org.osate.asap.view.fundamentals">
+        <enabledWhen>
+           <or>
+              <reference
+                    definitionId="org.osate.asap.isSafe2FileSelected">
+              </reference>
+              <with
+                    variable="selection">
+                 <and>
+                    <count
+                          value="1">
+                    </count>
+                    <iterate>
+                       <or>
+                          <instanceof
+                                value="org.osate.asap.model.safe2.SystemOverview">
+                          </instanceof>
+                          <adapt
+                                type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                             <test
+                                   forcePluginActivation="true"
+                                   property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                   value="ComponentInstance">
+                             </test>
+                          </adapt>
+                       </or>
+                    </iterate>
+                 </and>
+              </with>
+           </or>
+        </enabledWhen>
      </handler>
   </extension>
   <extension
@@ -64,5 +124,46 @@
               style="push">
         </command>
      </menuContribution>
+  </extension>
+  <extension
+        point="org.eclipse.core.contenttype.contentTypes">
+     <content-type
+           file-extensions="safe2"
+           id="org.osate.asap.safe2File"
+           name="SAFE2 Model File"
+           priority="normal">
+        <describer
+              class="org.eclipse.core.runtime.content.XMLRootElementContentDescriber2">
+           <parameter
+                 name="element"
+                 value="{ttp://www.example.org/safe2}SystemOverview">
+           </parameter>
+        </describer>
+     </content-type>
+  </extension>
+  <extension
+        point="org.eclipse.core.expressions.definitions">
+     <definition
+           id="org.osate.asap.isSafe2FileSelected">
+        <with
+              variable="selection">
+           <and>
+              <count
+                    value="1">
+              </count>
+              <iterate
+                    ifEmpty="false"
+                    operator="and">
+                 <adapt
+                       type="org.eclipse.core.resources.IFile">
+                    <test
+                          property="org.eclipse.core.resources.contentTypeId"
+                          value="org.osate.asap.safe2File">
+                    </test>
+                 </adapt>
+              </iterate>
+           </and>
+        </with>
+     </definition>
   </extension>
 </plugin>
