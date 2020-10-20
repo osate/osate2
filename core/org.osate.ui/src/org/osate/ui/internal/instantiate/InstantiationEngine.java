@@ -83,7 +83,7 @@ import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import com.google.inject.Inject;
 
 /**
- * @since 5.0
+ * @since 6.0
  */
 public final class InstantiationEngine extends AbstractInstantiationEngine<ComponentImplementation> {
 	@Inject
