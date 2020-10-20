@@ -39,8 +39,8 @@ import org.osate.ge.aadl2.ui.internal.viewmodels.AbstractFeaturePrototypeModel;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.swt.selectors.FilteringListSelectorField;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
-import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.ge.ui.PropertySectionUtil;
+import org.osate.ge.ui.UiBusinessObjectSelection;
 
 /**
  * Property section for setting the feature prototype for abstract features.
@@ -69,7 +69,7 @@ public class AbstractFeaturePrototypePropertySection extends AbstractPropertySec
 		PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Prototype:");
 
 		currentPrototype = new FilteringListSelectorField<>(container, "Select Feature Prototype", new LabelFilteringListSelectorModel<>(model));
-		currentPrototype.setChooseButtonTestingId(WIDGET_ID_CHOOSE_BUTTON);
+		currentPrototype.setModifyButtonTestingId(WIDGET_ID_CHOOSE_BUTTON);
 		fd = new FormData();
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);

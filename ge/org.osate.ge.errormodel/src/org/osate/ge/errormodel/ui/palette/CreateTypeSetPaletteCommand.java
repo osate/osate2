@@ -23,16 +23,10 @@
  */
 package org.osate.ge.errormodel.ui.palette;
 
-import java.util.Collections;
 import java.util.Optional;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.AadlPackage;
-import org.osate.ge.ProjectUtil;
-import org.osate.ge.errormodel.ui.swt.TypeTokenListEditorDialog;
-import org.osate.ge.errormodel.ui.viewmodels.BasicTypeTokenListEditorModel;
+import org.osate.ge.errormodel.ui.ErrorModelUiUtil;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.operations.Operation;
@@ -40,12 +34,10 @@ import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 public class CreateTypeSetPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateTypeSetPaletteCommand() {
-		super("Error Type Set", ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super("Error Type Set", ErrorModelPaletteCategories.ERROR_TYPES, null);
 	}
 
 	@Override
@@ -53,20 +45,10 @@ public class CreateTypeSetPaletteCommand extends BasePaletteCommand implements T
 		return ErrorModelGeUtil.createErrorModelLibraryPromptAndModifyOperation(ctx.getTarget(), () -> {
 			// Prompt for contents of type set. This just gets the first type for testing..
 			final AadlPackage pkg = ctx.getTarget().getBusinessObject(AadlPackage.class).get();
-			final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
-			final BasicTypeTokenListEditorModel model = new BasicTypeTokenListEditorModel(project,
-					Collections.emptyList());
-			if (TypeTokenListEditorDialog.open(Display.getDefault().getActiveShell(), "Select Type Tokens",
-					model)) {
-				return Optional.of(model.getTypeTokenList());
-			} else {
-				return Optional.empty();
-			}
-		}, (lib, typeTokens) -> {
-			final TypeSet newTypeSet = (TypeSet) EcoreUtil.create(ErrorModelPackage.eINSTANCE.getTypeSet());
+			return ErrorModelUiUtil.promptForTypeSet(pkg);
+		}, (lib, newTypeSet) -> {
 			final String newTypeSetName = ErrorModelNamingUtil.buildUniqueIdentifier(lib, "new_error_type_set");
 			newTypeSet.setName(newTypeSetName);
-			newTypeSet.getTypeTokens().addAll(typeTokens);
 			lib.getTypesets().add(newTypeSet);
 
 			return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), newTypeSet).build();
