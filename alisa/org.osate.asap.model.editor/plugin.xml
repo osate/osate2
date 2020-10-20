@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated safe2 -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="org.osate.asap.model.safe2.presentation.Safe2ModelWizardID"
+            name="%_UI_Safe2ModelWizard_label"
+            class="org.osate.asap.model.safe2.presentation.Safe2ModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/Safe2ModelFile.gif">
+         <description>%_UI_Safe2ModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated safe2 -->
+      <editor
+            id="org.osate.asap.model.safe2.presentation.Safe2EditorID"
+            name="%_UI_Safe2Editor_label"
+            icon="icons/full/obj16/Safe2ModelFile.gif"
+            extensions="safe2"
+            class="org.osate.asap.model.safe2.presentation.Safe2Editor"
+            contributorClass="org.osate.asap.model.safe2.presentation.Safe2ActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>
