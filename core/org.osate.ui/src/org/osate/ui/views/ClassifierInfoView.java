@@ -28,9 +28,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -1159,6 +1161,10 @@ public final class ClassifierInfoView extends ViewPart {
 	}
 
 	private void addFlowImplementationSection(final List<SectionNode> sections, final ComponentImplementation ci) {
+		List<FlowSpecification> flowSpecs = ci.getType().getAllFlowSpecifications();
+		if (flowSpecs == null) {
+			flowSpecs = Collections.emptyList();
+		}
 		List<FlowImplementation> flowImpls = ci.getAllFlowImplementations();
 		if (flowImpls == null) {
 			flowImpls = Collections.emptyList();
@@ -1167,8 +1173,8 @@ public final class ClassifierInfoView extends ViewPart {
 		if (end2endFlows == null) {
 			end2endFlows = Collections.emptyList();
 		}
-		if (!flowImpls.isEmpty() || !end2endFlows.isEmpty()) {
-			sections.add(createSectionFromFlowImplementations(ci, flowImpls, end2endFlows));
+		if (!flowSpecs.isEmpty() || !flowImpls.isEmpty() || !end2endFlows.isEmpty()) {
+			sections.add(createSectionFromFlowImplementations(ci, flowSpecs, flowImpls, end2endFlows));
 		}
 	}
 
@@ -1238,18 +1244,31 @@ public final class ClassifierInfoView extends ViewPart {
 	}
 
 	public SectionNode createSectionFromFlowImplementations(final ComponentImplementation ci,
-			List<FlowImplementation> flowImpls, List<EndToEndFlow> end2endFlows) {
+			List<FlowSpecification> flowSpecs, List<FlowImplementation> flowImpls, List<EndToEndFlow> end2endFlows) {
+		/*
+		 * Get all the flow specifications from the type. Overlay on top of them the flow implementations
+		 * from the implementation. That is, anything that is implemented in the implementation will be
+		 * replaced by the Flow implementation in the map.
+		 */
+		final Map<String, NamedElement> flowSpecsAndImplsMap = new HashMap<>();
+		flowSpecs.forEach(fs -> flowSpecsAndImplsMap.put(fs.getName(), fs));
+		flowImpls.forEach(fi -> flowSpecsAndImplsMap.put(fi.getSpecification().getFullName(), fi));
+		final List<NamedElement> flowSpecsAndImpls = new ArrayList<>(flowSpecsAndImplsMap.values());
+
 		final List<MemberNode> memberNodes = new ArrayList<>();
 
-		Collections.sort(flowImpls, MEMBER_COMPARATOR);
-		for (final FlowImplementation flowImpl : flowImpls) {
-			memberNodes.add(createMemberNodeFromFlowImplementation(ci, flowImpl));
-		}
+		Collections.sort(flowSpecsAndImpls, MEMBER_COMPARATOR);
+		flowSpecsAndImpls.forEach(f -> {
+			if (f instanceof FlowSpecification) {
+				memberNodes.add(createMemberNode(ci, (FlowSpecification) f, ClassifierInfoView::getRefinedFlowSpec));
+			} else {
+				memberNodes.add(createMemberNodeFromFlowImplementation(ci, (FlowImplementation) f));
+			}
+		});
 
 		Collections.sort(end2endFlows, MEMBER_COMPARATOR);
-		for (final EndToEndFlow e2e : end2endFlows) {
-			memberNodes.add(createMemberNode(ci, e2e, ClassifierInfoView::getRefinedEndToEndFlow));
-		}
+		end2endFlows
+				.forEach(e2e -> memberNodes.add(createMemberNode(ci, e2e, ClassifierInfoView::getRefinedEndToEndFlow)));
 		return new SectionNode(FLOWS_SECTION, memberNodes);
 	}
 
