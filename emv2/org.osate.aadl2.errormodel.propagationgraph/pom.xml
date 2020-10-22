@@ -12,11 +12,7 @@
 
 	<groupId>org.osate</groupId>
 	<artifactId>org.osate.aadl2.errormodel.propagationgraph</artifactId>
-<<<<<<< HEAD
-	<version>4.0.1-SNAPSHOT</version>
-=======
 	<version>5.0.1-SNAPSHOT</version>
->>>>>>> refs/heads/master
 	<packaging>eclipse-plugin</packaging>
 
 </project>
