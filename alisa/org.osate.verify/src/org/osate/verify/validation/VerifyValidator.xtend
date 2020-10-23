@@ -55,13 +55,13 @@ import org.osate.alisa.common.common.ModelRef
 import org.osate.alisa.common.common.PropertyRef
 import org.osate.alisa.common.common.TargetType
 import org.osate.alisa.common.common.TypeRef
-import org.osate.pluginsupport.ExecuteJavaUtil
+import org.osate.pluginsupport.internal.utils.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.verify.typing.validation.VerifyTypeSystemValidator
-import org.osate.verify.util.IVerifyGlobalReferenceFinder
-import org.osate.verify.util.VerificationMethodDispatchers
-import org.osate.verify.util.VerifyJavaUtil
+import org.osate.verify.internal.util.IVerifyGlobalReferenceFinder
+import org.osate.verify.internal.util.VerificationMethodDispatchers
+import org.osate.verify.internal.util.VerifyJavaUtil
 import org.osate.verify.verify.AgreeMethod
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.JUnit4Method
@@ -76,7 +76,7 @@ import org.osate.verify.verify.VerificationMethodRegistry
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyPackage
 
-import static extension org.osate.verify.util.VerifyUtilExtension.*
+import static extension org.osate.verify.internal.util.VerifyUtilExtension.*
 
 /**
  * Custom validation rules. 
