@@ -114,8 +114,8 @@ import org.osate.ba.aadlba.ValueExpression;
 import org.osate.ba.aadlba.WhileOrDoUntilStatement;
 import org.osate.ba.aadlba.util.AadlBaSwitch;
 import org.osate.ba.utils.AadlBaVisitors;
-import org.osate.utils.Aadl2Visitors;
-import org.osate.utils.PropertyUtils;
+import org.osate.utils.internal.Aadl2Visitors ;
+import org.osate.utils.internal.PropertyUtils ;
 
 public class AadlBaUnparser {
   
