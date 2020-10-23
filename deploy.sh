@@ -9,6 +9,7 @@ cp products/*.zip ${TODIR}/products/.
 cp products/*.tar.gz ${TODIR}/products/.
 
 mkdir -p ${TODIR}/updates
+cd ../../org.osate.build.repository/targetw
 cp --recursive repository/* ${TODIR}/updates/.
 ln -s ${TODIR}/updates ${TODIR}/update-site
 
