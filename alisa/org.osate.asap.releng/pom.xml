@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <tycho.version>2.0.0</tycho.version>
+        <tycho.version>1.7.0</tycho.version>
         <eclipse-repo.url>http://download.eclipse.org/releases/2020-06/</eclipse-repo.url>
         <osate-repo.url>http://osate-build.sei.cmu.edu/download/osate/testing/updates/</osate-repo.url>
         <elk-stable.url>http://download.eclipse.org/elk/updates/releases/0.7.0/</elk-stable.url>
