@@ -25,7 +25,7 @@ class Issue2455Test extends XtextTest {
 	@Test
 	def void issue2455Test(){
 
-		val testFileResult = issues = testHelper.testFile("org.osate.aadl2.errormodel.tests/models/Issue2455/Cyclic_Error_Types.aadl")
+		val testFileResult = issues = testHelper.testFile("org.osate.aadl2.errormodel.tests/models/Issue2455/Cyclic_Error_types.aadl")
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		
 		testFileResult.resource.contents.head as AadlPackage => [
