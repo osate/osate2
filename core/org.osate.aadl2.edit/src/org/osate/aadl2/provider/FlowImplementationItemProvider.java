@@ -148,12 +148,12 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 				&& ((FlowImplementationImpl) object).getOutEnd() == null) {
 			return null;
 		} else if (((FlowImplementationImpl) object).getInEnd() == null) {
-			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSource"));
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSourceImplementation"));
 		} else if (((FlowImplementationImpl) object).getOutEnd() == null) {
-			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSink"));
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSinkImplementation"));
 		}
 
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowPath"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowPathImplementation"));
 	}
 
 	/**
