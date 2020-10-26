@@ -12,6 +12,7 @@
         <tycho.version>2.0.0</tycho.version>
         <eclipse-repo.url>http://download.eclipse.org/releases/2020-06/</eclipse-repo.url>
         <osate-repo.url>http://osate-build.sei.cmu.edu/download/osate/testing/updates/</osate-repo.url>
+        <elk-stable.url>http://download.eclipse.org/elk/updates/releases/0.7.0/</elk-stable.url>
         <xtext.version>2.20.0</xtext.version>
         <osate.version>[0.0.0,3.0.0)</osate.version>
         <asap.version>[0.0.0,2.0.0)</asap.version>
@@ -43,16 +44,27 @@
             <url>${osate-repo.url}</url>
             <layout>p2</layout>
         </repository>
-		<repository>
-			<id>Sireum OSATE Plugin</id>
-			<url>https://raw.githubusercontent.com/sireum/osate-plugin-update-site/master/</url>
-			<layout>p2</layout>
-		</repository>
-		<repository>
-			<id>yakindu</id>
-			<url>http://updates.yakindu.com/statecharts/releases/3.5.9</url>
-			<layout>p2</layout>
-		</repository>
+        <repository>
+            <id>Sireum OSATE Plugin</id>
+            <url>https://raw.githubusercontent.com/sireum/osate-plugin-update-site/master/</url>
+            <layout>p2</layout>
+        </repository>
+        <repository>
+            <id>yakindu</id>
+            <url>http://updates.yakindu.com/statecharts/releases/3.5.9</url>
+            <layout>p2</layout>
+        </repository>
+        <repository>
+            <id>ease</id>
+            <url>http://download.eclipse.org/ease/release/latest</url>
+            <layout>p2</layout>
+        </repository>
+        <repository>
+            <!-- The graphical editor uses this -->
+            <id>elk</id>
+            <url>${elk-stable.url}</url>
+            <layout>p2</layout>
+        </repository>
     </repositories>
     <build>
         <pluginManagement>
@@ -61,6 +73,9 @@
                     <groupId>org.eclipse.tycho</groupId>
                     <artifactId>tycho-compiler-plugin</artifactId>
                     <version>${tycho.version}</version>
+                    <configuration>
+                        <compilerArgument>-err:-forbidden</compilerArgument>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
