@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -52,7 +53,6 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.action.Action;
@@ -193,10 +193,10 @@ public final class ClassifierInfoView extends ViewPart {
 	private URI viewedClassifierURI = null;
 
 	/*
-	 * Synchronized because it is used by the dispaly thread and whatever thread exeuctes
+	 * Synchronized because it is used by the display thread and whatever thread executes
 	 * the resource change listener.
 	 */
-	private final Set<IResource> classifierResources = Collections.synchronizedSet(new HashSet<>());
+	private final Set<IResource> projectDependancies = Collections.synchronizedSet(new HashSet<>());
 	private IResourceChangeListener rsrcListener = null;
 
 	// ======================================================================
@@ -596,15 +596,20 @@ public final class ClassifierInfoView extends ViewPart {
 
 	private void refresh() {
 		if (viewedClassifierURI != null) {
-			final Classifier classifier = (Classifier) new ResourceSetImpl().getEObject(viewedClassifierURI, true);
-			updateDisplay(classifier);
+			final IFile rsrc = OsateResourceUtil.toIFile(viewedClassifierURI);
+			if (rsrc.exists()) {
+				final Classifier classifier = (Classifier) new ResourceSetImpl().getEObject(viewedClassifierURI, true);
+				updateDisplay(classifier);
+			} else {
+				clearDisplay(true);
+			}
 		}
 	}
 
 	private void clearDisplay(final boolean resetURI) {
 		if (resetURI) {
 			viewedClassifierURI = null;
-			classifierResources.clear();
+			projectDependancies.clear();
 		}
 		getViewSite().getShell().getDisplay().asyncExec(() -> {
 			ancestorTreeViewer.setInput(AncestorTree.EMTPY_TREE);
@@ -625,11 +630,6 @@ public final class ClassifierInfoView extends ViewPart {
 		final IWorkbenchSiteProgressService service = getSite().getService(IWorkbenchSiteProgressService.class);
 		final Job refreshJob = new Job("Classifier Info View Refresh") {
 			@Override
-			protected void canceling() {
-				System.out.println("Cancelled");
-			}
-
-			@Override
 			protected IStatus run(final IProgressMonitor monitor) {
 				// Wait for the current refresh to finish (it should have been cancelled)
 				if (waitForJob != null) {
@@ -648,7 +648,7 @@ public final class ClassifierInfoView extends ViewPart {
 				final SubMonitor subMonitor = SubMonitor.convert(monitor, 2);
 
 				boolean cancelled = false;
-				classifierResources.clear();
+				projectDependancies.clear();
 				try {
 					final AncestorTree ancestorTreeModel = createAncestorTree(input, subMonitor);
 					subMonitor.worked(1);
@@ -754,8 +754,8 @@ public final class ClassifierInfoView extends ViewPart {
 		@Override
 		public void resourceChanged(final IResourceChangeEvent event) {
 			/*
-			 * Going to be quite dumb about this. If any of the resources we care
-			 * about change in any way, then we update the view.
+			 * See Issue #2436. Need to check for changes to .aadlbin files in the projects that
+			 * we care about.
 			 */
 			final AtomicBoolean changed = new AtomicBoolean(false);
 			if (event.getType() == IResourceChangeEvent.POST_CHANGE) {
@@ -763,10 +763,12 @@ public final class ClassifierInfoView extends ViewPart {
 				if (docDelta != null) {
 					try {
 						docDelta.accept(delta -> {
+							/*
+							 * Must be an ".aadlbin" file in one the projects we care about to be interesting.
+							 */
 							final IResource resource = delta.getResource();
-							// See if the resource is being watched, or the resource is in a project that is being watched
-							if (classifierResources.contains(resource)
-									|| classifierResources.contains(resource.getProject())) {
+							if (resource instanceof IFile && resource.getFileExtension().equalsIgnoreCase("aadlbin")
+									&& projectDependancies.contains(resource.getProject())) {
 								changed.set(true);
 							}
 							return true;
@@ -908,13 +910,6 @@ public final class ClassifierInfoView extends ViewPart {
 			throw new InterruptedException();
 		}
 
-		final Resource eResource = classifier.eResource();
-		// If the AADL file has parse errors then we may get a null result here
-		if (eResource != null) {
-			final URI uri = eResource.getURI();
-			classifierResources.add(OsateResourceUtil.toIFile(uri));
-		}
-
 		AncestorTreeNode[] children = new AncestorTreeNode[0];
 		if (classifier instanceof ComponentType) {
 			final ComponentType extended = ((ComponentType) classifier.getExtended());
@@ -1006,7 +1001,7 @@ public final class ClassifierInfoView extends ViewPart {
 		 * root classifier. Use them to build a constraining search scope.
 		 */
 		final Set<IProject> projects = getDependantProjects(rootClassifier);
-		classifierResources.addAll(projects);
+		projectDependancies.addAll(projects);
 		final AadlFinder.Scope scope = new AadlFinder.ResourceSetScope(projects);
 
 		final Deque<DescendantTreeNode> deque = new LinkedList<>();
