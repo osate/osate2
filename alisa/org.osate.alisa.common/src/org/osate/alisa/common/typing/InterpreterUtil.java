@@ -36,7 +36,7 @@ import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.alisa.common.common.AModelReference;
-import org.osate.pluginsupport.ExecuteJavaUtil;
+import org.osate.pluginsupport.internal.utils.ExecuteJavaUtil;
 
 public class InterpreterUtil {
 

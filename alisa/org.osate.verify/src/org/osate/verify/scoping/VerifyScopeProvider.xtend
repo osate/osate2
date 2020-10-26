@@ -40,7 +40,7 @@ import org.osate.verify.verify.Claim
 import org.osate.verify.verify.VerificationActivity
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
-import static org.osate.verify.util.VerifyUtilExtension.*
+import static org.osate.verify.internal.util.VerifyUtilExtension.*
 import org.eclipse.xtext.resource.EObjectDescription
 import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirementSet
