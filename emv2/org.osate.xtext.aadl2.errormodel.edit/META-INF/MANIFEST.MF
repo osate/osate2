@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Errormodel Edit Plugin
+Bundle-SymbolicName: org.osate.xtext.aadl2.errormodel.edit;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: org.osate.xtext.aadl2.errormodel.edit
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.18.0,4.0.0)",
+ org.eclipse.emf.edit;bundle-version="[2.16.0,3.0.0)",
+ org.eclipse.emf.ecore.edit;bundle-version="[2.13.0,3.0.0)",
+ org.osate.aadl2;bundle-version="[4.0.0,5.0.0)",
+ org.osate.aadl2.edit;bundle-version="[4.0.0,5.0.0)",
+ org.osate.xtext.aadl2.errormodel;bundle-version="[5.0.0,6.0.0)"
+Bundle-Vendor: CMU/SEI

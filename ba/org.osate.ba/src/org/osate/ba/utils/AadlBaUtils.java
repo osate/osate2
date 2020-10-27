@@ -141,11 +141,11 @@ import org.osate.ba.aadlba.ValueConstant ;
 import org.osate.ba.aadlba.ValueExpression ;
 import org.osate.ba.aadlba.ValueVariable ;
 import org.osate.ba.analyzers.TypeHolder ;
-import org.osate.utils.Aadl2Utils ;
-import org.osate.utils.Aadl2Utils.DataAccessRight ;
-import org.osate.utils.Aadl2Visitors ;
-import org.osate.utils.PropertyUtils ;
-import org.osate.utils.names.DataModelProperties ;
+import org.osate.utils.internal.Aadl2Utils ;
+import org.osate.utils.internal.Aadl2Utils.DataAccessRight ;
+import org.osate.utils.internal.Aadl2Visitors ;
+import org.osate.utils.internal.PropertyUtils ;
+import org.osate.utils.internal.names.DataModelProperties ;
 
 /**
  * A collection of static utils methods.
@@ -2208,8 +2208,13 @@ public class AadlBaUtils {
    * DataComponentReference object which the last element is a DataAccessHolder
    * object, it returns the data access right or "unknown" if the default
    * data access right is not set.
+<<<<<<< HEAD
+   * 
+   * @see org.osate.utils.internal.Aadl2Utils#getAccessRight
+=======
    *
    * @see org.osate.utils.Aadl2Utils#getAccessRight
+>>>>>>> refs/heads/master
    * @param tar the given Target object
    * @return the data access right or "unknown"
    */
@@ -2243,12 +2248,17 @@ public class AadlBaUtils {
    * Same as {@link #getAccessRight(Target)}, if the given Target object is a
    * DataAccessHolder object or a DataComponentReference object which the last
    * element is a DataAccessHolder object, it returns the DataAccessRight enum
-   * reference or {@link org.osate.utils.Aadl2Utils.DataAccessRight#unknown} if the default data access
+   * reference or {@link org.osate.utils.internal.Aadl2Utils.DataAccessRight#unknown} if the default data access
    * right is not set.
+<<<<<<< HEAD
+   * 
+   * @see org.osate.utils.internal.Aadl2Utils#getAccessRight
+=======
    *
    * @see org.osate.utils.Aadl2Utils#getAccessRight
+>>>>>>> refs/heads/master
    * @param tar the given Target object
-   * @return the data access right or {@link org.osate.utils.Aadl2Utils.DataAccessRight#unknown}
+   * @return the data access right or {@link org.osate.utils.internal.Aadl2Utils.DataAccessRight#unknown}
    */
   public static DataAccessRight getDataAccessRight(Target tar)
   {
