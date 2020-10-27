@@ -24,11 +24,16 @@
 
 package org.osate.ui.wizards;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -85,7 +90,7 @@ public class OsateExampleWizardPage extends WizardPage {
 	protected Browser browser;
 	protected PluginInfo selectedProject;
 
-	public PluginInfo getSelectedProject() {
+	PluginInfo getSelectedProject() {
 		return selectedProject;
 	}
 
@@ -97,7 +102,6 @@ public class OsateExampleWizardPage extends WizardPage {
 			// Nothing to do.
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 			treeContent = (PluginInfo) newInput;
@@ -111,13 +115,12 @@ public class OsateExampleWizardPage extends WizardPage {
 		@Override
 		public Object[] getChildren(Object parentElement) {
 			if (parentElement instanceof PluginInfo) {
-				return ((PluginInfo) parentElement).getNode().toArray();
+				return ((PluginInfo) parentElement).getNodes().toArray();
 			} else {
 				return null;
 			}
 		}
 
-		@SuppressWarnings("unchecked")
 		@Override
 		public Object getParent(Object element) {
 			if (element instanceof PluginInfo) {
@@ -202,13 +205,10 @@ public class OsateExampleWizardPage extends WizardPage {
 							return;
 						}
 						if (selectedProject.readmeURI != null) {
-							try {
-								File f = new File(selectedProject.readmeURI.getPath());
-								if (f.exists()) {
-									browser.setUrl(f.toURL().toString());
-								} else {
-									throw new IOException("Readme file not found");
-								}
+							try (InputStream inputStream = selectedProject.readmeURI.openConnection().getInputStream();
+									BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));) {
+								String html = in.lines().collect(Collectors.joining("\n"));
+								browser.setText(html.toString());
 							} catch (IllegalArgumentException | IOException e) {
 								browser.setText("<p>Failed to load readme</p>");
 								setErrorMessage("Failed to load readme");
@@ -256,13 +256,15 @@ public class OsateExampleWizardPage extends WizardPage {
 				if (configElems != null) {
 					Bundle bundle = Platform.getBundle(exts[i].getContributor().getName());
 					for (int j = 0; j < configElems.length; j++) {
-
 						PluginInfo project = new PluginInfo(
 								org.eclipse.core.runtime.FileLocator
 										.toFileURL(bundle.getEntry(configElems[j].getAttribute(ATT_EXAMPLEURI))),
-								org.eclipse.core.runtime.FileLocator
-										.toFileURL(bundle.getEntry(combine(configElems[j].getAttribute(ATT_EXAMPLEURI),
-												configElems[j].getAttribute(ATT_READMEURI)))),
+								new URL("platform:/plugin/" + exts[i].getContributor().getName() + "/"
+										+ configElems[j].getAttribute(ATT_EXAMPLEURI) + "/"
+										+ configElems[j].getAttribute(ATT_READMEURI)),
+//								org.eclipse.core.runtime.FileLocator
+//										.toFileURL(bundle.getEntry(combine(configElems[j].getAttribute(ATT_EXAMPLEURI),
+//												configElems[j].getAttribute(ATT_READMEURI)))),
 								configElems[j].getAttribute(ATT_NAME), configElems[j].getAttribute(ATT_CATEGORY),
 								exts[i].getContributor().getName());
 
@@ -291,7 +293,7 @@ public class OsateExampleWizardPage extends WizardPage {
 	/**
 	 * @since 4.0
 	 */
-	protected PluginInfo loadExamples() {
+	PluginInfo loadExamples() {
 		PluginInfo result = new PluginInfo();
 
 		List<PluginInfo> projectInfo = loadExamplesFromPlugin();
@@ -313,9 +315,11 @@ public class OsateExampleWizardPage extends WizardPage {
 				}
 
 				// check if node with this category exists
-				List<PluginInfo> existingCategories = result.getNode();
-				Object[] currentNodeCategory = existingCategories.stream().filter(x -> x.category != null
-						&& p.category != null && x.category.compareToIgnoreCase(p.category) == 0).toArray();
+				List<PluginInfo> existingCategories = result.getNodes();
+				Object[] currentNodeCategory = existingCategories.stream()
+						.filter(x -> x.category != null && p.category != null
+								&& x.category.compareToIgnoreCase(p.category) == 0)
+						.toArray();
 				if (currentNodeCategory != null && currentNodeCategory.length > 0) {
 					for (int j = 0; j < currentNodeCategory.length; j++) {
 						((PluginInfo) currentNodeCategory[j]).addNode(p);
@@ -326,8 +330,7 @@ public class OsateExampleWizardPage extends WizardPage {
 					cNode.addNode(p);
 					result.addNode(cNode);
 				}
-			}
-			catch (IOException e) {
+			} catch (IOException e) {
 				catchError(e, e.getMessage());
 			}
 		}

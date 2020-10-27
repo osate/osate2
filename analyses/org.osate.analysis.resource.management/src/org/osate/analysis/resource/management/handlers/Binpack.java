@@ -275,7 +275,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 
 			reportResults(som, result);
 
-			if (result.success) {
+			if (result.isSuccess()) {
 				showResults(som, root, result);
 			} else {
 				showNoResults(som);
@@ -375,7 +375,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 				if (proc != null) {
 					System.out.println("Processor cycles Per sec:" + proc.getCyclesPerSecond());
 					siteArchitecture.addSiteGuest(proc, theSite);
-					problem.hardwareGraph.add(proc);
+					problem.getHardwareGraph().add(proc);
 					// add reverse mapping
 					procToHardware.put(ci, proc);
 				}
@@ -472,7 +472,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 				existsThreadWithReferenceProcessor |= (refmips != 0);
 				existsThreadWithoutReferenceProcessor |= (refmips == 0);
 
-				problem.softwareGraph.add(thread);
+				problem.getSoftwareGraph().add(thread);
 //				logInfo(thread.getReport());
 				// add reverse mapping
 				threadToSoftwareNode.put(ci, thread);
@@ -648,14 +648,14 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 	}
 
 	public void showResults(final SystemOperationMode som, final SystemInstance root, final AssignmentResult result) {
-		final Map threadsToProc = getThreadBindings(result.problem.hardwareGraph);
+		final Map threadsToProc = getThreadBindings(result.getProblem().getHardwareGraph());
 
 		final String propText = getBindingText(threadsToProc);
 		boolean done = false;
 		final Shell sh = getShell();
 		while (sh != null && !done) {
 			final Dialog d = new PackingSuccessfulDialog(getShell(), som, root.getComponentImplementation().getName(),
-					threadsToProc, result.problem.hardwareGraph, propText);
+					threadsToProc, result.getProblem().getHardwareGraph(), propText);
 			final ShowDialog sd = new ShowDialog() {
 				@Override
 				public void run() {
@@ -705,24 +705,24 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 	}
 
 	public void reportResults(SystemOperationMode som, final AssignmentResult result) {
-		final Map threadsToProc = getThreadBindings(result.problem.hardwareGraph);
+		final Map threadsToProc = getThreadBindings(result.getProblem().getHardwareGraph());
 
 		logInfo("\nBinpacking results"
 				+ (!som.getName().equalsIgnoreCase("No Modes") ? " for SOM " + som.getName() : "") + ": "
-				+ (result.success ? "Success" : "FAILED"));
-		for (final Iterator i = result.problem.hardwareGraph.iterator(); i.hasNext();) {
+				+ (result.isSuccess() ? "Success" : "FAILED"));
+		for (final Iterator i = result.getProblem().getHardwareGraph().iterator(); i.hasNext();) {
 			final HardwareNode hn = (HardwareNode) i.next();
 			final ComponentInstance proc = (ComponentInstance) hn.getSemanticObject();
-			double load = hn.cyclesPerSecond - hn.getAvailableCapacity();
-			load /= hn.cyclesPerSecond;
+			double load = hn.getCyclesPerSecond() - hn.getAvailableCapacity();
+			load /= hn.getCyclesPerSecond();
 			load *= 100.0;
 			long longLoad = (long) Math.ceil(load);
-			double overload = (hn.cyclesPerSecond - hn.getAvailableCapacity()) - (hn.cyclesPerSecond);
-			overload /= hn.cyclesPerSecond;
+			double overload = (hn.getCyclesPerSecond() - hn.getAvailableCapacity()) - (hn.getCyclesPerSecond());
+			overload /= hn.getCyclesPerSecond();
 			overload *= 100.0;
 			long longOverload = (long) Math.ceil(overload);
 			long available = longOverload * -1;
-			logInfo("Processor " + proc.getInstanceObjectPath() + " (" + hn.cyclesPerSecond / 1000000 + " MIPS) Load: "
+			logInfo("Processor " + proc.getInstanceObjectPath() + " (" + hn.getCyclesPerSecond() / 1000000 + " MIPS) Load: "
 					+ Long.toString(longLoad) + "%" + " Available: " + Long.toString(available) + "%");
 		}
 		logInfo("\nThread to Processor Bindings");
