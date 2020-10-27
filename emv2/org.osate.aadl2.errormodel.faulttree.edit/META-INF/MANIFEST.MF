@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.aadl2.errormodel.faulttree.edit;singleton:=true
-Bundle-Version: 5.0.0.qualifier
+Bundle-Version: 5.0.1.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.osate.aadl2.errormodel.FaultTree.provider.FaultTreeEditPlugin$Implementation
 Bundle-Vendor: %providerName

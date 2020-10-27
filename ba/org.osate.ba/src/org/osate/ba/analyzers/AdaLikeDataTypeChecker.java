@@ -40,9 +40,9 @@ import org.osate.ba.aadlba.UnaryAddingOperator ;
 import org.osate.ba.aadlba.UnaryBooleanOperator ;
 import org.osate.ba.aadlba.UnaryNumericOperator ;
 import org.osate.ba.aadlba.Value ;
-import org.osate.utils.Aadl2Utils ;
-import org.osate.utils.PropertyUtils ;
-import org.osate.utils.names.DataModelProperties ;
+import org.osate.utils.internal.Aadl2Utils ;
+import org.osate.utils.internal.PropertyUtils ;
+import org.osate.utils.internal.names.DataModelProperties ;
 
 
 public class AdaLikeDataTypeChecker implements DataTypeChecker
