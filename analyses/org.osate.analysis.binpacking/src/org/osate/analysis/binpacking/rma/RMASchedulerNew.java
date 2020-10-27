@@ -104,7 +104,7 @@ public final class RMASchedulerNew extends BaseScheduler {
 	 * associated with this scheduler.
 	 */
 	private double getUtilization(final ProcessingLoad task) {
-		return task.getBandwidth() / node.cyclesPerSecond;
+		return task.getBandwidth() / node.getCyclesPerSecond();
 	}
 
 	/**
@@ -112,7 +112,7 @@ public final class RMASchedulerNew extends BaseScheduler {
 	 * associated with this scheduler.
 	 */
 	private double getComputeTime(final ProcessingLoad task) {
-		return (task.getCycles() / node.cyclesPerSecond) * 1000000000.0;
+		return (task.getCycles() / node.getCyclesPerSecond()) * 1000000000.0;
 	}
 
 	public boolean canAddToFeasibility(final ProcessingLoad task) {
