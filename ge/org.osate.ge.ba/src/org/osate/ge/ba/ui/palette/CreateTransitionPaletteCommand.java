@@ -128,6 +128,6 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 
 	private static BusinessObjectContext getOwnerBoc(final BusinessObjectContext modeBoc,
 			final QueryService queryService) {
-		return queryService.getFirstResult(containerQuery, modeBoc);
+		return queryService.getFirstBusinessObjectContextOrNull(containerQuery, modeBoc);
 	}
 }

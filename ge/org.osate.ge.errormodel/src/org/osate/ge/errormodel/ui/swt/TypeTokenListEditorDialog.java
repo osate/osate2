@@ -55,7 +55,7 @@ import org.osate.ge.swt.selectors.ListSelector;
 import org.osate.ge.swt.selectors.SelectorModel;
 import org.osate.ge.swt.selectors.SingleSelectorModel;
 import org.osate.ge.swt.selectors.SingleSelectorModelToSelectorModelAdapter;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -156,8 +156,7 @@ public class TypeTokenListEditorDialog {
 							new LabelFilteringListSelectorModel<>(selectorModel))) {
 						for (final ErrorTypes errorType : selectorModel.selection) {
 							// Create token with single type.
-							final TypeToken newToken = (TypeToken) EcoreUtil
-									.create(ErrorModelPackage.eINSTANCE.getTypeToken());
+							final TypeToken newToken = ErrorModelFactory.eINSTANCE.createTypeToken();
 							newToken.getType().add(errorType);
 
 							model.addTypeToken(newToken);
@@ -180,8 +179,7 @@ public class TypeTokenListEditorDialog {
 							"Select Error Types for Product",
 							new LabelFilteringListSelectorModel<>(selectorModel))) {
 						// Create token with single type.
-						final TypeToken newToken = (TypeToken) EcoreUtil
-								.create(ErrorModelPackage.eINSTANCE.getTypeToken());
+						final TypeToken newToken = ErrorModelFactory.eINSTANCE.createTypeToken();
 						newToken.getType().addAll(selectorModel.selection);
 						model.addTypeToken(newToken);
 					}
@@ -203,8 +201,7 @@ public class TypeTokenListEditorDialog {
 							token.getType().stream().map(EcoreUtil::getURI).collect(Collectors.toList()));
 					if (FilteringSelectorDialog.open(getShell(), "Select Error Types for Product",
 							new LabelFilteringListSelectorModel<>(selectorModel))) {
-						final TypeToken updatedToken = (TypeToken) EcoreUtil
-								.create(ErrorModelPackage.eINSTANCE.getTypeToken());
+						final TypeToken updatedToken = ErrorModelFactory.eINSTANCE.createTypeToken();
 						updatedToken.getType().addAll(selectorModel.selection);
 						model.replaceSelectedToken(updatedToken);
 					}

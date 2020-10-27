@@ -109,6 +109,7 @@ public class PropertySectionUtil {
 	 * @param txt is the text for the button
 	 * @param type is the type of button
 	 * @return is the created button
+	 * @since 2.0
 	 */
 	public static Button createButton(final TabbedPropertySheetWidgetFactory widgetFactory, final Composite container,
 			final Object data, final SelectionListener listener, final String txt, final int type) {

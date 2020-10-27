@@ -26,7 +26,6 @@ package org.osate.ge.ba;
 import java.util.stream.Stream;
 
 import org.osate.aadl2.Classifier;
-import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
@@ -49,6 +48,6 @@ public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvid
 
 	private static Stream<BehaviorAnnex> getBehaviorAnnexes(final Classifier c) {
 		return GraphicalAnnexUtil.getAllParsedAnnexSubclauses(c, BehaviorAnnexReferenceUtil.ANNEX_NAME,
-				AadlBaPackage.eINSTANCE.getBehaviorAnnex()).map(BehaviorAnnex.class::cast);
+				BehaviorAnnex.class);
 	}
 }

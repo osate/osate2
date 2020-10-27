@@ -119,7 +119,7 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
-            class="org.osate.aadl2.modelsupport.internal.EObjectURIWrapperPropertyTester"
+            class="org.osate.aadl2.modelsupport.internal.propertytester.EObjectURIWrapperPropertyTester"
             id="org.osate.aadl2.modelsupport.eObjectURIWrapperPropertyTester"
             namespace="org.osate.aadl2.modelsupport"
             properties="wrapperSuperType"
