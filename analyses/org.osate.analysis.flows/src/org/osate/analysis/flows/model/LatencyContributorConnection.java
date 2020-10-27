@@ -24,7 +24,7 @@
 package org.osate.analysis.flows.model;
 
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.analysis.flows.FlowLatencyUtil;
+import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 
 /**
  * A latency Result represents something in the flow
