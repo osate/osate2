@@ -7,24 +7,11 @@
     <artifactId>org.osate.asap.releng</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <tycho.version>1.7.0</tycho.version>
-        <eclipse-repo.url>http://download.eclipse.org/releases/2020-06/</eclipse-repo.url>
-        <osate-repo.url>http://osate-build.sei.cmu.edu/download/osate/testing/updates/</osate-repo.url>
-        <elk-stable.url>http://download.eclipse.org/elk/updates/releases/0.7.0/</elk-stable.url>
-        <xtext.version>2.20.0</xtext.version>
-        <osate.version>[0.0.0,3.0.0)</osate.version>
-        <asap.version>[0.0.0,2.0.0)</asap.version>
-        <code-coverage.ratio>0.00</code-coverage.ratio>
-        <jacoco.version>0.8.6</jacoco.version>
-        <maven.surefire.version>3.0.0</maven.surefire.version>
-        <java.version>1.8</java.version>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
-        <maven.compiler.testSource>1.8</maven.compiler.testSource>
-    </properties>
+    <parent>
+        <groupId>org.osate</groupId>
+        <artifactId>osate2.main-pom</artifactId>
+        <version>2.9.0-SNAPSHOT</version>
+    </parent>
     <modules>
         <module>../org.osate.asap.model</module>
         <module>../org.osate.asap.model.edit</module>
@@ -35,13 +22,8 @@
     </modules>
     <repositories>
         <repository>
-            <id>eclipse</id>
-            <url>${eclipse-repo.url}</url>
-            <layout>p2</layout>
-        </repository>
-        <repository>
             <id>osate</id>
-            <url>${osate-repo.url}</url>
+            <url>http://osate-build.sei.cmu.edu/download/osate/testing/updates/</url>
             <layout>p2</layout>
         </repository>
         <repository>
@@ -49,123 +31,5 @@
             <url>https://raw.githubusercontent.com/sireum/osate-plugin-update-site/master/</url>
             <layout>p2</layout>
         </repository>
-        <repository>
-            <id>yakindu</id>
-            <url>http://updates.yakindu.com/statecharts/releases/3.5.9</url>
-            <layout>p2</layout>
-        </repository>
-        <repository>
-            <id>ease</id>
-            <url>http://download.eclipse.org/ease/release/latest</url>
-            <layout>p2</layout>
-        </repository>
-        <repository>
-            <!-- The graphical editor uses this -->
-            <id>elk</id>
-            <url>${elk-stable.url}</url>
-            <layout>p2</layout>
-        </repository>
     </repositories>
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.eclipse.tycho</groupId>
-                    <artifactId>tycho-compiler-plugin</artifactId>
-                    <version>${tycho.version}</version>
-                    <configuration>
-                        <compilerArgument>-err:-forbidden</compilerArgument>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.eclipse.tycho</groupId>
-                <artifactId>tycho-maven-plugin</artifactId>
-                <version>${tycho.version}</version>
-                <extensions>true</extensions>
-            </plugin>
-            <plugin>
-                <groupId>org.eclipse.tycho</groupId>
-                <artifactId>target-platform-configuration</artifactId>
-                <version>${tycho.version}</version>
-                <configuration>
-                    <environments>
-                        <environment>
-                            <os>linux</os>
-                            <ws>gtk</ws>
-                            <arch>x86_64</arch>
-                        </environment>
-                        <environment>
-                            <os>win32</os>
-                            <ws>win32</ws>
-                            <arch>x86_64</arch>
-                        </environment>
-                        <environment>
-                            <os>macosx</os>
-                            <ws>cocoa</ws>
-                            <arch>x86_64</arch>
-                        </environment>
-                    </environments>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>xtend-gen</directory>
-                            <excludes>
-                                <exclude>.gitignore</exclude>
-                            </excludes>
-                        </fileset>
-                        <fileset>
-                            <directory>xsemantics-gen</directory>
-                            <excludes>
-                                <exclude>**/.gitignore</exclude>
-                            </excludes>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.eclipse.xtend</groupId>
-                <artifactId>xtend-maven-plugin</artifactId>
-                <version>${xtext.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>testCompile</goal>
-                            <goal>xtend-install-debug-info</goal>
-                            <goal>xtend-test-install-debug-info</goal>
-                        </goals>
-                        <configuration>
-                            <xtendAsPrimaryDebugSource>true</xtendAsPrimaryDebugSource>
-                            <outputDirectory>${basedir}/xtend-gen</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
-                <executions>
-                    <execution>
-                        <id>integration-agent-prep</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>prepare-agent-integration</goal>
-                        </goals>
-                        <configuration>
-                            <destFile>jacoco-integration.exec</destFile>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
