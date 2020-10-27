@@ -42,9 +42,6 @@ public class SelectionPropertyTester extends PropertyTester {
 	@Override
 	public boolean test(final Object receiver, final String property, final Object[] args, final Object expectedValue) {
 		final ISelection selection = (ISelection) receiver;
-		System.err.println(property + " propertyAAA");
-		System.err.println(expectedValue + " expectedValue");
-		System.err.println(selection + " selection");
 		if (property.equals("allAreDiagramElementsWithSameParent")) {
 			return DiagramElementUtil.allHaveSameParent(SelectionUtil.getSelectedDiagramElements(selection, false));
 		} else if (property.equals("singleNamedElementInComponentImplementation")) { // Returns false if there is more than one element or if the element is not
@@ -68,8 +65,6 @@ public class SelectionPropertyTester extends PropertyTester {
 			// Require all component implementation BOCs to be equal
 			final BusinessObjectContext firstBoc = ciBocs.get(0);
 			return ciBocs.stream().allMatch(tmpBoc -> tmpBoc == firstBoc);
-		} else if (property.equals("isBehaviorAnnexDiagramContext")) {
-			// while()
 		}
 		return false;
 	}

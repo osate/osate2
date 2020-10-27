@@ -23,13 +23,11 @@
  */
 package org.osate.ge.ba.handlers;
 
-import java.util.Objects;
 import java.util.Optional;
 
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorPart;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 
 public class BehaviorAnnexHandlerUtil {
@@ -40,16 +38,14 @@ public class BehaviorAnnexHandlerUtil {
 	 * Retrieves the diagram context for the selected behavior diagram elements
 	 * Will return empty if the selected element is not a behavior diagram element
 	 */
-	public static Optional<DefaultAnnexSubclause> getBehaviorAnnexDiagramContext(final IEditorPart activeEditor) {
-		final ISelection selection = Objects.requireNonNull(BehaviorAnnexSelectionUtil.getCurrentSelection(),
-				"ISelection cannot be null");
-		return BehaviorAnnexSelectionUtil.getDiagramContext(selection, activeEditor);
+	public static Optional<BehaviorAnnex> getBehaviorAnnexDiagramContext(final IEditorPart activeEditor) {
+		return BehaviorAnnexSelectionUtil.getDiagramContext(activeEditor);
 	}
 
 	/**
 	 * Creates the file name for the behavior annex diagram
 	 */
-	public static String getFilename(final Classifier classifier, final DefaultAnnexSubclause annexSubclause) {
+	public static String getFilename(final Classifier classifier) {
 		final StringBuilder fileName = new StringBuilder(classifier.getQualifiedName().replaceAll("::|:|\\.", "_"))
 				.append("_behavior");
 		return fileName.toString();

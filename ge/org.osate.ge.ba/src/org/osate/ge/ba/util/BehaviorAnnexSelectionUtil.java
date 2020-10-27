@@ -29,7 +29,6 @@ import java.util.Optional;
 import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -39,13 +38,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.xtext.nodemodel.ILeafNode;
-import org.eclipse.xtext.nodemodel.INode;
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
-import org.eclipse.xtext.parser.IParseResult;
-import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.ui.editor.XtextEditor;
-import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
@@ -55,6 +48,7 @@ import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
+import org.osate.ui.utils.SelectionHelper;
 
 import com.google.common.collect.ImmutableList;
 
@@ -62,9 +56,7 @@ public class BehaviorAnnexSelectionUtil {
 	private BehaviorAnnexSelectionUtil() {
 	}
 
-	private static EObjectAtOffsetHelper eObjectAtOffsetHelper = new EObjectAtOffsetHelper();
-
-	public static ISelection getCurrentSelection() {
+	private static ISelection getCurrentSelection() {
 		final IWorkbenchWindow win = getActiveWorkbenchWindow();
 		if (win == null) {
 			return StructuredSelection.EMPTY;
@@ -91,7 +83,7 @@ public class BehaviorAnnexSelectionUtil {
 		return window.getActivePage();
 	}
 
-	public static Optional<IEditorPart> getActiveEditor() {
+	private static Optional<IEditorPart> getActiveEditor() {
 		final IWorkbenchPage page = getActivePage();
 		if (page == null) {
 			return Optional.empty();
@@ -135,91 +127,53 @@ public class BehaviorAnnexSelectionUtil {
 	 * @param activeEditor
 	 * @return
 	 */
-	public static Optional<DefaultAnnexSubclause> getDiagramContext(final ISelection selection,
-			final IEditorPart activeEditor) {
-		DefaultAnnexSubclause contextBo = null;
+	public static Optional<BehaviorAnnex> getDiagramContext(final IEditorPart activeEditor) {
 		if (activeEditor instanceof XtextEditor) {
-			final EObject selectedObject = getEObjectFromSelection((XtextEditor) activeEditor, selection);
-			contextBo = findDiagramContextForSelectedObject(selectedObject);
+			final EObject selectedObject = SelectionHelper
+					.getEObjectFromSelection(((XtextEditor) activeEditor).getSelectionProvider().getSelection());
+			return Optional.ofNullable(findDiagramContextForSelectedObject(selectedObject));
 		}
 
+		final ISelection selection = getCurrentSelection();
 		if (selection instanceof IStructuredSelection) {
 			final List<BusinessObjectContext> selectedBusinessObjectContexts = getSelectedBusinessObjectContexts(
 					selection);
 			if (selectedBusinessObjectContexts.size() == 1) {
-				contextBo = findDiagramContextForSelectedObject(
-						selectedBusinessObjectContexts.get(0).getBusinessObject());
+				return Optional.ofNullable(
+						findDiagramContextForSelectedObject(selectedBusinessObjectContexts.get(0).getBusinessObject()));
 			}
 		}
 
-		return Optional.ofNullable(contextBo);
+		return Optional.empty();
 	}
 
-	private static DefaultAnnexSubclause findDiagramContextForSelectedObject(final Object element) {
+	/**
+	 * Returns a business object which is a valid diagram context based on the currnent selection. Returns null if such a business object could not be determined based on the current selection.
+	 * @param selection
+	 * @param activeEditor
+	 * @return
+	 */
+	public static Optional<BehaviorAnnex> getDiagramContext() {
+		final IEditorPart activeEditor = getActiveEditor().orElse(null);
+		return getDiagramContext(activeEditor);
+	}
+
+	private static BehaviorAnnex findDiagramContextForSelectedObject(final Object element) {
 		if (element instanceof BehaviorState || element instanceof BehaviorTransition
 				|| element instanceof BehaviorVariable) {
 			return findDiagramContextForSelectedObject(((Element) element).getOwner());
 		}
 
-		// Get default annex subclause as context
-		if (element instanceof BehaviorAnnex) {
-			return ((BehaviorAnnex) element).getOwner() instanceof DefaultAnnexSubclause
-					? (DefaultAnnexSubclause) ((BehaviorAnnex) element).getOwner()
-					: null;
-		}
-
 		if (element instanceof DefaultAnnexSubclause
 				&& BehaviorAnnexReferenceUtil.ANNEX_NAME.equalsIgnoreCase(((NamedElement) element).getName())) {
-			return (DefaultAnnexSubclause) element;
+			return findDiagramContextForSelectedObject(((DefaultAnnexSubclause) element).getParsedAnnexSubclause());
+		}
+
+		// BehaviorAnnex as diagram context
+		if (element instanceof BehaviorAnnex) {
+			return (BehaviorAnnex) element;
 		}
 
 		return null;
-	}
-
-	public static EObject getEObjectFromSelection(final XtextEditor editor, final ISelection selection) {
-		// Check the selection before accessing the document
-		if (selection instanceof IStructuredSelection) {
-			final IStructuredSelection ss = (IStructuredSelection) selection;
-			if (ss.size() != 1) {
-				return null;
-			}
-
-			if (!(ss.getFirstElement() instanceof EObjectNode)) {
-				return null;
-			}
-		} else if (!(selection instanceof ITextSelection)) {
-			return null;
-		}
-
-		return editor.getDocument().readOnly(
-				resource -> {
-					EObject targetElement = null;
-					if (selection instanceof IStructuredSelection) {
-						final IStructuredSelection ss = (IStructuredSelection) selection;
-						targetElement = ((EObjectNode) ss.getFirstElement()).getEObject(resource);
-					} else if (selection instanceof ITextSelection) {
-						final int offset = ((ITextSelection) selection).getOffset();
-						targetElement = eObjectAtOffsetHelper.resolveContainedElementAt(resource, offset);
-
-						// Check if the node for the semantic element that was retrieved by the offset helper starts after the line number of the node
-						// retrieved using the offset. If it is, return the container. This prevents returning a classifier when the select is actually in
-						// whitespace before the classifier.
-						final IParseResult parseResult = resource.getParseResult();
-						if(targetElement != null && parseResult != null) {
-							final ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);
-							final INode targetElementNode = NodeModelUtils.getNode(targetElement);
-							if(leaf.getStartLine() < targetElementNode.getStartLine()) {
-								targetElement = targetElement.eContainer();
-							}
-						}
-
-						// If there isn't a selected element, that usually means the selection is outside of the root package. Get the first EObject in the resource
-						if(targetElement == null && resource.getContents().size() > 0) {
-							targetElement = resource.getContents().get(0);
-						}
-					}
-
-					return targetElement;
-				});
 	}
 }

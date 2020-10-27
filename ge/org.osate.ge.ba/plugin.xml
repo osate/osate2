@@ -42,6 +42,17 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.ge.ba.diagram.contentFilters.BehaviorVariableFilter">
       </contentFilter>
    </extension>
+   
+   <extension
+        point="org.eclipse.core.expressions.propertyTesters">
+     <propertyTester
+           class="org.osate.ge.ba.BehaviorAnnexPropertyTester"
+           id="org.osate.ge.ba.baPropertyTester"
+           namespace="org.osate.ge.ba"
+           properties="isDiagramContext"
+           type="org.eclipse.jface.viewers.ISelection">
+     </propertyTester>
+     </extension>
    <extension
          point="org.osate.ge.businessObjectProviders">
       <provider
@@ -156,22 +167,12 @@ censes only apply to the Third Party Software and not any other portion of this 
             	<reference
                    definitionId="oneElementSelected">
              	</reference>
-             	<adapt
-             		type="org.eclipse.emf.ecore.EObject">
-	                <test
-	               		property="org.osate.ge.isDiagramContext"
-	               		value="BehaviorAnnex">
-	            	</test>
-            	</adapt>
+             	<test
+             		property="org.osate.ge.ba.isDiagramContext"
+             		forcePluginActivation="true">
+             	</test>
             </and>
           </with>
       </definition>
-      </extension>
-      <extension point="org.eclipse.core.runtime.adapters">
-      <factory
-        	adaptableType="org.eclipse.jface.viewers.ISelection"
-        	class="org.osate.ge.ba.SelectionAdapterFactory">
-        	<adapter type="org.eclipse.emf.ecore.EObject"/>
-       </factory>
       </extension>
 </plugin>

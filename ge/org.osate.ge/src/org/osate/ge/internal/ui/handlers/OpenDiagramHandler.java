@@ -38,7 +38,6 @@ import org.osate.ge.internal.util.Log;
 
 /**
  * Handler for the open diagram menu commands
- *
  */
 public class OpenDiagramHandler extends AbstractHandler {
 	@Override
@@ -68,7 +67,6 @@ public class OpenDiagramHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
-		System.err.println("setEnabled");
 		final Object contextBo = SelectionUtil.getDiagramContext(
 				AgeHandlerUtil.getCurrentSelection(),
 				AgeHandlerUtil.getActiveEditorFromContext(evaluationContext));
