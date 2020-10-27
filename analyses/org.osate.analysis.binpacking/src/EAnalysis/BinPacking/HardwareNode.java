@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -25,6 +25,9 @@ package EAnalysis.BinPacking;
 
 import java.util.TreeSet;
 
+/**
+ * @since 3.0
+ */
 public class HardwareNode implements CapacityProvider, SiteGuest {
 
 	static long nextUniqueID = 0;
@@ -48,8 +51,9 @@ public class HardwareNode implements CapacityProvider, SiteGuest {
 	/**
 	 * in watts
 	 */
-	public double powerRequirement = 0.0;
+	private double powerRequirement = 0.0;
 
+	@Override
 	public double getPowerRequirement() {
 		return powerRequirement;
 	}
@@ -57,14 +61,16 @@ public class HardwareNode implements CapacityProvider, SiteGuest {
 	/**
 	 * in square centimeters
 	 */
-	public double spaceRequirement = 0.0;
+	private double spaceRequirement = 0.0;
 
+	@Override
 	public double getSpaceRequirement() {
 		return spaceRequirement;
 	}
 
 	Location hostSite = null;
 
+	@Override
 	public void setHost(Location l) {
 		hostSite = l;
 	}
@@ -73,32 +79,33 @@ public class HardwareNode implements CapacityProvider, SiteGuest {
 		return hostSite;
 	}
 
-	public String name;
+	private String name;
 
 	/**
 	 * Speed: either cycles per second or bits per second.
 	 */
-	public double cyclesPerSecond = 0.0;
+	private double cyclesPerSecond = 0.0;
 
 	/**
 	 * cycles per second.
 	 */
 
+	@Override
 	public double getAvailableCapacity() {
-		return (scheduler.getAvailableCapacity() * cyclesPerSecond);
+		return (scheduler.getAvailableCapacity() * getCyclesPerSecond());
 	}
 
 	protected Scheduler scheduler;
 
 	public static void cloneTo(HardwareNode from, HardwareNode to) {
 		try {
-			to.scheduler = (Scheduler) from.scheduler.getClass().newInstance();
+			to.scheduler = from.scheduler.getClass().newInstance();
 			to.scheduler.cloneTo(from.scheduler, to.scheduler);
 			to.scheduler.setHardwareNode(to);
-			to.cyclesPerSecond = from.cyclesPerSecond;
-			to.name = from.name;
-			to.powerRequirement = from.powerRequirement;
-			to.spaceRequirement = from.spaceRequirement;
+			to.setCyclesPerSecond(from.getCyclesPerSecond());
+			to.setName(from.getName());
+			to.setPowerRequirement(from.getPowerRequirement());
+			to.setSpaceRequirement(from.getSpaceRequirement());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -112,12 +119,12 @@ public class HardwareNode implements CapacityProvider, SiteGuest {
 		this();
 		scheduler = s;
 		s.setHardwareNode(this);
-		cyclesPerSecond = cyclesPerSec;
+		setCyclesPerSecond(cyclesPerSec);
 	}
 
 	public HardwareNode(String n, Scheduler s, double c) {
 		this(s, c);
-		name = n;
+		setName(n);
 	}
 
 	public TreeSet getTaskSet() {
@@ -155,8 +162,42 @@ public class HardwareNode implements CapacityProvider, SiteGuest {
 	}
 
 	public double getCyclesPerSecond() {
-		// TODO Auto-generated method stub
 		return cyclesPerSecond;
+	}
+
+	/**
+	 * @since 3.0
+	 */
+	public void setPowerRequirement(double powerRequirement) {
+		this.powerRequirement = powerRequirement;
+	}
+
+	/**
+	 * @since 3.0
+	 */
+	public void setSpaceRequirement(double spaceRequirement) {
+		this.spaceRequirement = spaceRequirement;
+	}
+
+	/**
+	 * @since 3.0
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @since 3.0
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @since 3.0
+	 */
+	public void setCyclesPerSecond(double cyclesPerSecond) {
+		this.cyclesPerSecond = cyclesPerSecond;
 	}
 
 }
