@@ -45,7 +45,7 @@ import org.eclipse.swt.widgets.Label
 import org.eclipse.swt.widgets.Shell
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.EqualsHashCode
-import org.osate.pluginsupport.internal.utils.PluginSupportUtil
+import org.osate.pluginsupport.PluginSupportUtil
 
 package class PropertySetFilterDialog extends Dialog {
 	val contentProvider = new DialogContentProvider
