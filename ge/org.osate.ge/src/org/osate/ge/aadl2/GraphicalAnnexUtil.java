@@ -203,6 +203,16 @@ public class GraphicalAnnexUtil {
 	}
 
 	/**
+	 * @since 2.0
+	 */
+	public static <T> T createParsedAnnexSubclause(final Classifier c, final String annexName, final EClass parsedEType,
+			final Class<T> parsedType) {
+		// Must create new annex
+		final DefaultAnnexSubclause defaultSubclause = createAnnexSubclause(c, annexName);
+		return parsedType.cast(defaultSubclause.createParsedAnnexSubclause(parsedEType));
+	}
+
+	/**
 	 * Finds and returns the parsed annex subclause for the first annex subclause in the classifier with the specified name.
 	 * An exception is thrown if an annex subclause is found and it has a parsed annex subclause which is not an instance of the expected type.
 	 * @param <T> the type of the parsed annex subclause
@@ -284,18 +294,5 @@ public class GraphicalAnnexUtil {
 		}
 
 		return false;
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public static AnnexSubclause createParsedAnnexSubclause(final Classifier c, final String annexName,
-			final EClass parsedType) {
-		// Must create new annex
-		DefaultAnnexSubclause defaultSubclause = c.createOwnedAnnexSubclause();
-		defaultSubclause.setName(annexName);
-		defaultSubclause.setSourceText("{** **}");
-
-		return defaultSubclause.createParsedAnnexSubclause(parsedType);
 	}
 }

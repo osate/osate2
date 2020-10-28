@@ -195,7 +195,6 @@ public class PasteAction extends ActionStackAction {
 					throw new RuntimeException("Unsupported case:  " + boFromCopiedDiagramElement);
 				}
 
-
 				newDiagramElement = CopyAndPasteUtil.copyDiagramElement(copiedDiagramElement.getDiagramElement(),
 						dstDiagramNode, newRelativeRef, refBuilder);
 			}
