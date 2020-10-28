@@ -88,8 +88,8 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 	}
 
 	private static BehaviorAnnex createBehaviorAnnex(final Classifier c) {
-		return (BehaviorAnnex) GraphicalAnnexUtil.createParsedAnnexSubclause(c, BehaviorAnnexReferenceUtil.ANNEX_NAME,
-				AadlBaPackage.eINSTANCE.getBehaviorAnnex());
+		return GraphicalAnnexUtil.createParsedAnnexSubclause(c, BehaviorAnnexReferenceUtil.ANNEX_NAME,
+				AadlBaPackage.eINSTANCE.getBehaviorAnnex(), BehaviorAnnex.class);
 	}
 
 	/**
