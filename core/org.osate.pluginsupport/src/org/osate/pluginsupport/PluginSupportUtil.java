@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.pluginsupport.internal.utils;
+package org.osate.pluginsupport;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,7 +49,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.ui.statushandlers.StatusManager;
-import org.osate.pluginsupport.PluginSupportPlugin;
 import org.osgi.framework.Bundle;
 
 /**
