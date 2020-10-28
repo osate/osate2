@@ -44,6 +44,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobGroup;
 import org.eclipse.ui.PlatformUI;
@@ -99,32 +100,47 @@ abstract class AbstractInstantiationEngine<T> {
 			if (!saveDirtyEditors()) {
 				cancelled = true;
 			} else {
+				/*
+				 * NB. Chances are the prerequisites (helper.performPrereqs()) will run code using Workspace.run(). This will cause
+				 * the auto build thread to be interrupted and rescheduled if it is currently running.
+				 */
 				if (helper.performPrereqs()) {
-					final JobGroup jobGroup = new JobGroup("Instantiation", 0, 0);
-					final Job myJobs[] = new Job[size];
-					for (int i = 0; i < size; i++) {
-						final Job job = helper.getJob(i, results);
-						job.setUser(true);
-						job.setJobGroup(jobGroup);
-						myJobs[i] = job;
-					}
-
-					final Job resultJob = new ResultJob(jobGroup, results);
-					resultJob.setRule(null); // doesn't use resources
-					resultJob.setUser(false); // background helper job, don't let the user see it
-					resultJob.setSystem(true); // background helper job, don't let the user see it
-					resultJob.schedule();
-
-					// now launch the main jobs
-					for (final Job job : myJobs) {
-						job.schedule();
-					}
-
-					// Wait for the whole thing to complete
+					/* Wait for any builds to finish: Taken from DebugUIPlugin.launchInBackground(). */
+					final IJobManager jobManager = Job.getJobManager();
 					try {
-						resultJob.join();
-					} catch (final InterruptedException e) {
+						jobManager.join(ResourcesPlugin.FAMILY_MANUAL_BUILD, null);
+						jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
+					} catch (OperationCanceledException | InterruptedException e) {
 						cancelled = true;
+					}
+
+					/* NB. THere really isn't any way to guarantee that a new build doesn't start here */
+					if (!cancelled) {
+						final JobGroup jobGroup = new JobGroup("Instantiation", 0, 0);
+						for (int i = 0; i < size; i++) {
+							final Job job = helper.getJob(i, results);
+							job.setUser(true);
+							job.setJobGroup(jobGroup);
+							job.schedule();
+							/*
+							 * NB. These jobs will interrupt the build job, if there is a new one. More accurately,
+							 * the auto build job periodically checks to see if its rule blocks any other jobs, and
+							 * if so, it interrupts and reschedules itself.
+							 */
+						}
+
+						final Job resultJob = new ResultJob(jobGroup, results);
+						resultJob.setRule(null); // doesn't use resources
+						resultJob.setUser(false); // background helper job, don't let the user see it
+						resultJob.setSystem(true); // background helper job, don't let the user see it
+						resultJob.schedule();
+
+						// Wait for the whole thing to complete
+						try {
+							resultJob.join();
+						} catch (final InterruptedException e) {
+							cancelled = true;
+						}
 					}
 				}
 			}
