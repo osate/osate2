@@ -87,8 +87,8 @@ import com.google.common.collect.HashMultimap;
 
 public class PropagationGraphBackwardTraversal {
 
-	public static BigDecimal BigZero = BigDecimal.valueOf(0.0);
-	public static BigDecimal BigOne = BigDecimal.valueOf(1.0);
+	public static final BigDecimal BigZero = BigDecimal.valueOf(0.0);
+	public static final BigDecimal BigOne = BigDecimal.valueOf(1.0);
 
 	private PropagationGraph currentAnalysisModel;
 
@@ -96,7 +96,7 @@ public class PropagationGraphBackwardTraversal {
 		currentAnalysisModel = m;
 	}
 
-	public static EObject foundCycle = ErrorModelFactory.eINSTANCE.createTypeToken();
+	public static final EObject foundCycle = ErrorModelFactory.eINSTANCE.createTypeToken();
 
 	/**
 	 * process an Outgoing Error Propagation by going backwards in the propagation graph
