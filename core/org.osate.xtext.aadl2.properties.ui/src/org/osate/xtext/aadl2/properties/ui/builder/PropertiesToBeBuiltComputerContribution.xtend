@@ -7,7 +7,7 @@ import org.eclipse.core.runtime.CoreException
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.xtext.builder.impl.IToBeBuiltComputerContribution
 import org.eclipse.xtext.builder.impl.ToBeBuilt
-import org.osate.pluginsupport.internal.utils.PluginSupportUtil
+import org.osate.pluginsupport.PluginSupportUtil
 import org.osate.pluginsupport.PredeclaredProperties
 
 class PropertiesToBeBuiltComputerContribution implements IToBeBuiltComputerContribution {

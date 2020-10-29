@@ -55,7 +55,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.pluginsupport.internal.utils.ExecuteJavaUtil;
+import org.osate.pluginsupport.ExecuteJavaUtil;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;

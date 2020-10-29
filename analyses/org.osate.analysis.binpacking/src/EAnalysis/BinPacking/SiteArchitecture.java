@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -31,6 +31,7 @@ import java.util.Vector;
 
 public class SiteArchitecture implements Cloneable {
 
+	@Override
 	public Object clone() {
 		Hashtable originalToClone = new Hashtable();
 		SiteArchitecture sa = new SiteArchitecture();
@@ -51,8 +52,9 @@ public class SiteArchitecture implements Cloneable {
 				// TreeSet clonedConnVector = new TreeSet(new HostComparator());
 				for (Iterator ducts = connectivityVector.iterator(); ducts.hasNext();) {
 					Duct d = (Duct) ducts.next();
-					if (processedDucts.contains(d))
+					if (processedDucts.contains(d)) {
 						continue;
+					}
 
 					processedDucts.add(d);
 
@@ -97,28 +99,31 @@ public class SiteArchitecture implements Cloneable {
 	/**
 	 * The size of the site is calculated by their available hosting capacity
 	 */
-	public TreeSet sitesBySize = new TreeSet(new HostComparator());
+	final TreeSet sitesBySize = new TreeSet(new HostComparator());
 
 	/**
 	 * Set of Connetivity vectors ordered by site.
 	 */
-	public TreeMap siteConnectivityMatrix = new TreeMap(new HostComparator());
+	final TreeMap siteConnectivityMatrix = new TreeMap(new HostComparator());
 
 	public boolean neighbor(Site siteOne, Site siteTwo) {
 		TreeSet connectivityVector = (TreeSet) siteConnectivityMatrix.get(siteOne);
-		if (connectivityVector == null)
+		if (connectivityVector == null) {
 			return false;
+		}
 		for (Iterator iter = connectivityVector.iterator(); iter.hasNext();) {
 			Duct d = (Duct) iter.next();
-			if (d.siteMembers.contains(siteTwo))
+			if (d.siteMembers.contains(siteTwo)) {
 				return true;
+			}
 		}
 		return false;
 	}
 
 	public Duct getDuctBetween(Site siteOne, Site siteTwo) {
-		if (siteOne == null || siteTwo == null)
+		if (siteOne == null || siteTwo == null) {
 			return null;
+		}
 
 		TreeSet connectivityVector = (TreeSet) siteConnectivityMatrix.get(siteOne);
 		if (connectivityVector == null) {
@@ -128,8 +133,9 @@ public class SiteArchitecture implements Cloneable {
 
 		for (Iterator iter = connectivityVector.iterator(); iter.hasNext();) {
 			Duct d = (Duct) iter.next();
-			if (d.siteMembers.contains(siteTwo))
+			if (d.siteMembers.contains(siteTwo)) {
 				return d;
+			}
 		}
 		System.out.println("\t\t no common duct from site(" + siteOne + ")");
 		return null;
@@ -165,7 +171,7 @@ public class SiteArchitecture implements Cloneable {
 		}
 		boolean b = d.addGuest(l);
 		System.out.println(
-				"Adding duct guest.space(" + l.spaceRequirement + ") duct(" + d + ").space(" + d.availableSpace + ")");
+				"Adding duct guest.space(" + l.getSpaceRequirement() + ") duct(" + d + ").space(" + d.availableSpace + ")");
 		for (int i = 0; i < siteMemberSize; i++) {
 			TreeSet siteConnVector = (TreeSet) siteConnectivityMatrix.get(d.siteMembers.get(i));
 
@@ -181,8 +187,9 @@ public class SiteArchitecture implements Cloneable {
 			if (site1ConnVector == null) {
 				site1ConnVector = new TreeSet(new HostComparator());
 			}
-			if (!site1ConnVector.contains(d))
+			if (!site1ConnVector.contains(d)) {
 				site1ConnVector.add(d);
+			}
 			siteConnectivityMatrix.put(site1, site1ConnVector);
 		}
 	}

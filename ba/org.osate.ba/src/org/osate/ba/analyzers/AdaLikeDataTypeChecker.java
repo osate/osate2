@@ -148,9 +148,9 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
                                                                 TypeHolder type2)
    {
       TypeHolder result = new TypeHolder();
-      result.dataRep = type1.dataRep ;
-      DataClassifier c = (type1.klass != null) ? type1.klass : type2.klass ;
-      result.klass = c ;
+      result.setDataRep(type1.getDataRep()) ;
+      DataClassifier c = (type1.getKlass() != null) ? type1.getKlass() : type2.getKlass() ;
+      result.setKlass(c) ;
       return result ;
    }
 
@@ -170,7 +170,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
       
       if(operator instanceof LogicalOperator)
       {
-         if(operand1.dataRep == DataRepresentation.BOOLEAN)
+         if(operand1.getDataRep() == DataRepresentation.BOOLEAN)
          {
             return getTopLevelTypeWithoutConsistencyChecking(operand1, operand1) ;
          }
@@ -194,7 +194,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
          
          expectedTypes = _alphaNumTypes ; 
          
-         if (Aadl2Utils.contains(operand1.dataRep, expectedTypes))
+         if (Aadl2Utils.contains(operand1.getDataRep(), expectedTypes))
          {
             return new TypeHolder(DataRepresentation.BOOLEAN, null) ;
          }
@@ -206,7 +206,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
       }
       else if(operator instanceof BinaryAddingOperator)
       {
-         if(Aadl2Utils.contains(operand1.dataRep, _numTypes))
+         if(Aadl2Utils.contains(operand1.getDataRep(), _numTypes))
          {
             return getTopLevelTypeWithoutConsistencyChecking(operand1, operand2) ;
          }
@@ -225,7 +225,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
             case MULTIPLY :
             case DIVIDE :
             {
-               if(Aadl2Utils.contains(operand1.dataRep, _numTypes))
+               if(Aadl2Utils.contains(operand1.getDataRep(), _numTypes))
                {
                   return getTopLevelTypeWithoutConsistencyChecking(operand1,
                                                                    operand2);
@@ -240,7 +240,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
             case MOD :
             case REM :
             {
-               if(operand1.dataRep == DataRepresentation.INTEGER)
+               if(operand1.getDataRep() == DataRepresentation.INTEGER)
                {
                   return getTopLevelTypeWithoutConsistencyChecking(operand1,
                                                                    operand2) ;
@@ -258,17 +258,17 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
       else if(operator instanceof BinaryNumericOperator)
       {
          // Checks operands consistency:
-         if(Aadl2Utils.contains(operand1.dataRep, _numTypesWithoutFixed))
+         if(Aadl2Utils.contains(operand1.getDataRep(), _numTypesWithoutFixed))
          {
             boolean reportError = false ;
             
-            if(operand2.dataRep == DataRepresentation.INTEGER)
+            if(operand2.getDataRep() == DataRepresentation.INTEGER)
             {
                // Datatyped operand case : checks if operand2 is a natural.
-               if(operand2.klass != null)
+               if(operand2.getKlass() != null)
                {
                   EList<org.osate.aadl2.PropertyExpression> l = 
-                     PropertyUtils.findPropertyExpression(operand2.klass,
+                     PropertyUtils.findPropertyExpression(operand2.getKlass(),
                     		                DataModelProperties.INTEGER_RANGE) ;
                   if(l.size() > 0)
                   {
@@ -355,8 +355,8 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
                                      TypeHolder operand)
    {
       if(operator == null || operator.getValue() == 0 || operand == null ||
-         operand.dataRep == null ||
-         operand.dataRep == DataRepresentation.UNKNOWN && operand.klass == null)   
+         operand.getDataRep() == null ||
+         operand.getDataRep() == DataRepresentation.UNKNOWN && operand.getKlass() == null)   
       {
          reportErrorUnaryOperator(e, operator, operand);
          return null ;
@@ -365,7 +365,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
       if(operator instanceof UnaryAddingOperator || 
          operator instanceof UnaryNumericOperator)
       {
-         if(Aadl2Utils.contains(operand.dataRep, _numTypes))
+         if(Aadl2Utils.contains(operand.getDataRep(), _numTypes))
          {
             return operand ;
          }
@@ -377,7 +377,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
       }
       else if(operator instanceof UnaryBooleanOperator)
       {
-         if(operand.dataRep == DataRepresentation.BOOLEAN)
+         if(operand.getDataRep() == DataRepresentation.BOOLEAN)
          {
             return operand ;
          }

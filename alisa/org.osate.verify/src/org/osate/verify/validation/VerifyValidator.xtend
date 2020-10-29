@@ -55,7 +55,7 @@ import org.osate.alisa.common.common.ModelRef
 import org.osate.alisa.common.common.PropertyRef
 import org.osate.alisa.common.common.TargetType
 import org.osate.alisa.common.common.TypeRef
-import org.osate.pluginsupport.internal.utils.ExecuteJavaUtil
+import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.verify.typing.validation.VerifyTypeSystemValidator
