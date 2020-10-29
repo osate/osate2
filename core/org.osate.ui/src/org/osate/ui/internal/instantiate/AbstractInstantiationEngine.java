@@ -72,7 +72,7 @@ abstract class AbstractInstantiationEngine<T> {
 	 *
 	 * XXX: Say something about the abstract methods here
 	 */
-	public final List<IFile> instantiate() {
+	public final List<IFile> instantiate(final IProgressMonitor monitor) {
 		final Set<T> inputs = getInputsFromSelection(selectionAsList);
 		final int size = inputs.size();
 
@@ -105,11 +105,13 @@ abstract class AbstractInstantiationEngine<T> {
 				 * the auto build thread to be interrupted and rescheduled if it is currently running.
 				 */
 				if (helper.performPrereqs()) {
+					final SubMonitor subMonitor = SubMonitor.convert(monitor, 3);
+					subMonitor.subTask("Waiting for build to finish");
 					/* Wait for any builds to finish: Taken from DebugUIPlugin.launchInBackground(). */
 					final IJobManager jobManager = Job.getJobManager();
 					try {
-						jobManager.join(ResourcesPlugin.FAMILY_MANUAL_BUILD, null);
-						jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
+						jobManager.join(ResourcesPlugin.FAMILY_MANUAL_BUILD, subMonitor.split(1));
+						jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, subMonitor.split(1));
 					} catch (OperationCanceledException | InterruptedException e) {
 						cancelled = true;
 					}
@@ -137,8 +139,9 @@ abstract class AbstractInstantiationEngine<T> {
 
 						// Wait for the whole thing to complete
 						try {
-							resultJob.join();
-						} catch (final InterruptedException e) {
+							subMonitor.subTask("Waiting for (re)instantiations to finish");
+							resultJob.join(0L, subMonitor.split(1));
+						} catch (final OperationCanceledException | InterruptedException e) {
 							cancelled = true;
 						}
 					}
