@@ -12,7 +12,6 @@ Require-Bundle: org.osate.aadl2;bundle-version="[4.0.0,5.0.0)",
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.aadl2.modelsupport,
  org.osate.aadl2.modelsupport.errorreporting,
- org.osate.aadl2.modelsupport.internal.prototypes,
  org.osate.aadl2.modelsupport.modeltraversal,
  org.osate.aadl2.modelsupport.resources,
  org.osate.aadl2.modelsupport.scoping,
