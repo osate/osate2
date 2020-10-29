@@ -30,7 +30,7 @@ import org.antlr.v4.runtime.RecognitionException ;
 import org.antlr.v4.runtime.Recognizer ;
 import org.antlr.v4.runtime.Token ;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter ;
-import org.osate.utils.Aadl2Utils ;
+import org.osate.utils.internal.Aadl2Utils ;
 
 
 public class AadlAntlrErrorReporter extends BaseErrorListener

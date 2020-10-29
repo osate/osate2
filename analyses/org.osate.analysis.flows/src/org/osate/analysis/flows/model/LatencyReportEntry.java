@@ -35,7 +35,7 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.analysis.flows.FlowLatencyUtil;
+import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyContributor.LatencyContributorMethod;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;

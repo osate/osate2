@@ -51,7 +51,7 @@ public class DFBPBinPacker extends BaseLowLevelBinPacker {
 
 		expansor.createInitialHardware(problem, validProcessors, aggregateBandwidth);
 
-		System.out.println("\n\n *** DFBPBinPacker initial Hardware.size(" + problem.hardwareGraph.size()
+		System.out.println("\n\n *** DFBPBinPacker initial Hardware.size(" + problem.getHardwareGraph().size()
 				+ ") validProcessor.size(" + validProcessors.size() + ") for total bandwidth(" + aggregateBandwidth
 				+ ") ** \n");
 
@@ -84,7 +84,7 @@ public class DFBPBinPacker extends BaseLowLevelBinPacker {
 			System.out.println("\n --- AFFINITY PROCESSORS ---");
 			for (Iterator iter = affinityProcessorList.iterator(); iter.hasNext();) {
 				HardwareNode p = (HardwareNode) iter.next();
-				System.out.println("\t proc(" + p + ").name(" + p.name + ")");
+				System.out.println("\t proc(" + p + ").name(" + p.getName() + ")");
 				System.out.println("\t\t links = " + problem.hardwareConnectivity.get(p));
 			}
 			System.out.println("------ END OF AFFINITY LIST ---");
@@ -96,7 +96,7 @@ public class DFBPBinPacker extends BaseLowLevelBinPacker {
 				if (processor.canAddToFeasibility(composite)) {
 					deploymentCount++;
 					/* reorder processor */
-					if (!problem.hardwareGraph.remove(processor)) {
+					if (!problem.getHardwareGraph().remove(processor)) {
 						System.out.println("\n **** processor not properly removed *** \n");
 					}
 					if (!validProcessors.remove(processor)) {
@@ -107,7 +107,7 @@ public class DFBPBinPacker extends BaseLowLevelBinPacker {
 							"\n \t\t--- AFFINITY PROCESSORS before addIfFeasible to proc(" + processor + ")---");
 					for (Iterator iter = affinityProcessorList.iterator(); iter.hasNext();) {
 						HardwareNode p = (HardwareNode) iter.next();
-						System.out.println("\t\t\t proc(" + p + ").name(" + p.name + ")");
+						System.out.println("\t\t\t proc(" + p + ").name(" + p.getName() + ")");
 						System.out.println("\t\t\t\t links = " + problem.hardwareConnectivity.get(p));
 					}
 					System.out.println("\t\t ------ END OF AFFINITY LIST ---");
@@ -121,14 +121,14 @@ public class DFBPBinPacker extends BaseLowLevelBinPacker {
 					System.out.println("\n \t\t--- AFFINITY PROCESSORS  after addIfFeasible---");
 					for (Iterator iter = affinityProcessorList.iterator(); iter.hasNext();) {
 						HardwareNode p = (HardwareNode) iter.next();
-						System.out.println("\t\t\t proc(" + p + ").name(" + p.name + ")");
+						System.out.println("\t\t\t proc(" + p + ").name(" + p.getName() + ")");
 						System.out.println("\t\t\t\t links = " + problem.hardwareConnectivity.get(p));
 					}
 					System.out.println("\t\t ------ END OF AFFINITY LIST ---");
 
 					TreeSet members = composite.getBasicComponents();
 					System.out.println(" \t\t ++++ ADDED COMPOSITE(" + composite.name + ") TO PROCESSOR(" + processor
-							+ ").NAME(" + processor.name + ")");
+							+ ").NAME(" + processor.getName() + ")");
 					/* add messages to neighbors already deployed */
 					TreeMap connVector = (TreeMap) problem.softwareConnectivity.get(composite);
 					if (connVector != null) {
@@ -211,7 +211,7 @@ public class DFBPBinPacker extends BaseLowLevelBinPacker {
 
 					subGraphsList.remove();
 					problem.removeSoftwareNode(composite);
-					problem.hardwareGraph.add(processor);
+					problem.getHardwareGraph().add(processor);
 					validProcessors.add(processor);
 					break;
 				} else {
@@ -291,7 +291,7 @@ public class DFBPBinPacker extends BaseLowLevelBinPacker {
 							/* partition failed */
 							System.out.println("\t\t partition failed! -- trying to expand...");
 							System.out.println("--- DEPLOYED NODES ------");
-							for (Iterator iter = problem.softwareGraph.iterator(); iter.hasNext();) {
+							for (Iterator iter = problem.getSoftwareGraph().iterator(); iter.hasNext();) {
 								SoftwareNode n = (SoftwareNode) iter.next();
 								if (n instanceof CompositeSoftNode) {
 									for (Iterator iter1 = ((CompositeSoftNode) n).getBasicComponents().iterator(); iter1

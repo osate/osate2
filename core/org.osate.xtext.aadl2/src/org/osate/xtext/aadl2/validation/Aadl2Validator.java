@@ -6717,6 +6717,9 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			Feature inFeature = inEnd.getFeature();
 			Context inCxt = inEnd.getContext();
 			FeatureGroup fg = inCxt instanceof FeatureGroup ? (FeatureGroup) inCxt : null;
+			if (fg == null) {
+				return;
+			}
 			FeatureGroupType fgt = fg.getAllFeatureGroupType();
 			boolean inverseBoolean = false;
 			if (fg.isInverse()) {
@@ -6732,6 +6735,9 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			Feature outFeature = outEnd.getFeature();
 			Context outCxt = outEnd.getContext();
 			FeatureGroup fg = outCxt instanceof FeatureGroup ? (FeatureGroup) outCxt : null;
+			if (fg == null) {
+				return;
+			}
 			FeatureGroupType fgt = fg.getAllFeatureGroupType();
 			boolean inverseBoolean = false;
 			if (fg.isInverse()) {
