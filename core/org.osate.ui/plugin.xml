@@ -45,6 +45,12 @@ censes only apply to the Third Party Software and not any other portion of this 
       		name="Instantiation"
       		class="org.osate.internal.ui.preferences.InstantiationPreferencePage">
       </page>
+      <page
+      		id="org.osate.ui.preferences.OsateContributedResourcesPage"
+      		category="org.osate.internal.ui.preferences.OsatePreferencePage"
+      		name="Contributed Resources"
+      		class="org.osate.internal.ui.preferences.ContributedResourcesPreferencePage">
+      </page>
    </extension>
    
    <extension
@@ -728,12 +734,6 @@ censes only apply to the Third Party Software and not any other portion of this 
              </visibleWhen>
           </command>
           <command
-                commandId="org.osate.ui.setAadlProjectProperties">
-             <visibleWhen
-                   checkEnabled="true">
-             </visibleWhen>
-          </command>
-          <command
                 commandId="org.osate.ui.visualizeProjectDependencies">
              <visibleWhen
                    checkEnabled="true">
@@ -1271,26 +1271,6 @@ censes only apply to the Third Party Software and not any other portion of this 
 	                      </or>
 	                   </iterate>
                    </or>
-                </and>
-             </with>
-          </enabledWhen>
-       </handler>
-       <handler
-             class="org.osate.ui.handlers.SetAadlProjectPropertiesHandler"
-             commandId="org.osate.ui.setAadlProjectProperties">
-          <enabledWhen>
-             <with
-                   variable="selection">
-                <and>
-                   <count
-                         value="1">
-                   </count>
-                   <iterate
-                         ifEmpty="false">
-                      <reference
-                            definitionId="org.osate.is_aadl_project_propertyset">
-                      </reference>
-                   </iterate>
                 </and>
              </with>
           </enabledWhen>

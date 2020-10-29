@@ -72,7 +72,7 @@ public class NFCExpansor implements Expansor {
 		double capacity = 0.0;
 
 		/* initialize the capacity to whatever we already have */
-		for (Iterator procs = problem.hardwareGraph.iterator(); procs.hasNext();) {
+		for (Iterator procs = problem.getHardwareGraph().iterator(); procs.hasNext();) {
 			HardwareNode proc = (HardwareNode) procs.next();
 			capacity += proc.getAvailableCapacity();
 		}
@@ -109,14 +109,14 @@ public class NFCExpansor implements Expansor {
 					e.printStackTrace();
 				}
 				Processor.cloneTo(p, p1);
-				p1.name = Integer.toString(processorNumber++);
+				p1.setName(Integer.toString(processorNumber++));
 				siteArchitecture.addSiteGuest(p1, site);
 				// site.addGuest(p1);
 				/* this processor type fits */
 				capacity += p1.getAvailableCapacity();
 				// System.out.println("\n\n********* 1 new
 				// Proc.netInterfaces.size("+p1.classNetInterfaces.size()+")\n");
-				problem.hardwareGraph.add(p1);
+				problem.getHardwareGraph().add(p1);
 				// DebugMonitor.println(DebugMonitor.channels[2]," NEW
 				// PROCESSOR("+p1.toString()+") 1 ");
 				validProcessors.add(p1);
@@ -195,14 +195,14 @@ public class NFCExpansor implements Expansor {
 						e.printStackTrace();
 					}
 					Processor.cloneTo(newHardware, p1);
-					p1.name = Integer.toString(processorNumber++);
+					p1.setName(Integer.toString(processorNumber++));
 					siteArchitecture.addSiteGuest((HardwareNode) p1, (Site) site);
 					// site.addGuest(p1);
 					// System.out.println("\n\n********* 2 new
 					// Proc.netInterfaces.size("+p1.classNetInterfaces.size()+")
 					// newHardware.netIntf.size("+
 					// newHardware.classNetInterfaces.size()+")\n");
-					problem.hardwareGraph.add(p1);
+					problem.getHardwareGraph().add(p1);
 					// DebugMonitor.println(DebugMonitor.channels[2]," NEW
 					// PROCESSOR("+p1.toString()+") 2");
 					validProcessors.add(p1);
@@ -262,14 +262,14 @@ public class NFCExpansor implements Expansor {
 								e.printStackTrace();
 							}
 							Processor.cloneTo(newHardware, p1);
-							p1.name = Integer.toString(processorNumber++);
+							p1.setName(Integer.toString(processorNumber++));
 							siteArchitecture.addSiteGuest((HardwareNode) p1, (Site) neighborSite);
 							// neighborSite.addGuest(p1);
 							largestProcessor[0] = p1;
 							largestSite[0] = (Site) neighborSite;
 							// System.out.println("\n\n********* 3 new
 							// Proc.netInterfaces.size("+p1.classNetInterfaces.size()+")\n");
-							problem.hardwareGraph.add(p1);
+							problem.getHardwareGraph().add(p1);
 							// DebugMonitor.println(DebugMonitor.channels[2],"
 							// NEW PROCESSOR("+p1.toString()+") 3");
 							validProcessors.add(p1);
@@ -302,12 +302,12 @@ public class NFCExpansor implements Expansor {
 		// System.out.println("cloneInto()
 		// n.interfaces.size("+n.classNetInterfaces.size()+
 		// ") p1.interfaces.size("+p1.classNetInterfaces.size()+")");
-		p1.name = Integer.toString(processorNumber++);
+		p1.setName(Integer.toString(processorNumber++));
 		siteArchitecture.addSiteGuest(p1, (Site) site);
 		// site.addGuest(p1);
 		// System.out.println("\n\n********* 4 new
 		// Proc.netInterfaces.size("+p1.classNetInterfaces.size()+")\n");
-		problem.hardwareGraph.add(p1);
+		problem.getHardwareGraph().add(p1);
 		// DebugMonitor.println(DebugMonitor.channels[2]," NEW
 		// PROCESSOR("+p1.toString()+") 4");
 		validProcessors.add(p1);
@@ -375,7 +375,7 @@ public class NFCExpansor implements Expansor {
 							try {
 								link2 = (Link) link.getClass().newInstance();
 								HardwareNode.cloneTo(link, link2);
-								link2.name = Integer.toString(linkNumber++);
+								link2.setName(Integer.toString(linkNumber++));
 								// site1.addGuest(link2);
 								link2.addIfFeasible(msg);
 								link2.add(node1);
@@ -441,7 +441,7 @@ public class NFCExpansor implements Expansor {
 						try {
 							link2 = (Link) link.getClass().newInstance();
 							HardwareNode.cloneTo(link, link2);
-							link2.name = Integer.toString(linkNumber++);
+							link2.setName(Integer.toString(linkNumber++));
 							// duct.addGuest(link2);
 							link2.addIfFeasible(msg);
 							link2.add(node1);

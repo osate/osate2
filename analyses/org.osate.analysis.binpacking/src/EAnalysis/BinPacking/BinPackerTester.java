@@ -146,7 +146,7 @@ public class BinPackerTester {
 			for (int j = 0; j < problem.length; j++) {
 				softwareNodes[j][i] = new SoftwareNode(cycles, period, deadline, problem[j].bwComparator,
 						Integer.toString(i));
-				problem[j].softwareGraph.add(softwareNodes[j][i]);
+				problem[j].getSoftwareGraph().add(softwareNodes[j][i]);
 			}
 		}
 
@@ -299,9 +299,9 @@ public class BinPackerTester {
 			OutDegreeAssignmentProblem[] targets, long minimumMessageBits, long maximumMessageBits, long minimumPeriod,
 			long maximumPeriod, int outDegree) {
 		double bandwidthGenerated = 0.0;
-		long procSize = (long) ((HardwareNode) hardwareTemplate.hardwareGraph.iterator().next()).cyclesPerSecond;
+		long procSize = (long) ((HardwareNode) hardwareTemplate.getHardwareGraph().iterator().next()).getCyclesPerSecond();
 		long epsilon = (long) (procSize * 0.01);
-		int numberOfProcessors = hardwareTemplate.hardwareGraph.size();
+		int numberOfProcessors = hardwareTemplate.getHardwareGraph().size();
 
 		long[] sizes = createWorstSoftwareSizesForProcessor(procSize, epsilon);
 		long[] sizeSet1 = createSoftwareSizesForProcessor(sizes[0]);
@@ -890,9 +890,9 @@ public class BinPackerTester {
 			OutDegreeAssignmentProblem target, long minimumMessageBits, long maximumMessageBits, long minimumPeriod,
 			long maximumPeriod, int outDegree) {
 		Hashtable procToModules = new Hashtable();
-		HardwareNode[] hardwareNodes = new HardwareNode[hardwareTemplate.hardwareGraph.size()];
+		HardwareNode[] hardwareNodes = new HardwareNode[hardwareTemplate.getHardwareGraph().size()];
 		int hardIndex = 0;
-		for (Iterator iter = hardwareTemplate.hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = hardwareTemplate.getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode proc = (HardwareNode) iter.next();
 			hardwareNodes[hardIndex++] = proc;
 			Vector modules = new Vector();
@@ -900,8 +900,8 @@ public class BinPackerTester {
 			// Random upper limit in module sizes between 30-45%
 			double sizeUpperBoundPercentage = 15.0 * randomGenerator.nextDouble();
 			sizeUpperBoundPercentage = (sizeUpperBoundPercentage + 30.0) / 100.0;
-			long[] moduleSizes = createSoftwareSizesForProcessor((long) proc.cyclesPerSecond,
-					(long) (proc.cyclesPerSecond * sizeUpperBoundPercentage));// 1000000l);
+			long[] moduleSizes = createSoftwareSizesForProcessor((long) proc.getCyclesPerSecond(),
+					(long) (proc.getCyclesPerSecond() * sizeUpperBoundPercentage));// 1000000l);
 			double remainder = 0.0;
 			for (int i = 0; i < moduleSizes.length; i++) {
 				/* Period in nanos */
@@ -943,7 +943,7 @@ public class BinPackerTester {
 
 		Vector processedLinks = new Vector();
 		Vector fullAssociation = new Vector();
-		for (Iterator iter = hardwareTemplate.hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = hardwareTemplate.getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode proc = (HardwareNode) iter.next();
 			Vector modules = (Vector) procToModules.get(proc);
 			int numberOfPartitions = 2;// (int)(randomGenerator.nextDouble() *
@@ -1000,9 +1000,9 @@ public class BinPackerTester {
 		for (int i = 0; i < targets.length; i++) {
 			procToModules[i] = new Hashtable();
 		}
-		HardwareNode[][] hardwareNodes = new HardwareNode[targets.length][hardwareTemplate.hardwareGraph.size()];
+		HardwareNode[][] hardwareNodes = new HardwareNode[targets.length][hardwareTemplate.getHardwareGraph().size()];
 		int hardIndex = 0;
-		for (Iterator iter = hardwareTemplate.hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = hardwareTemplate.getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode proc = (HardwareNode) iter.next();
 			for (int i = 0; i < targets.length; i++) {
 				hardwareNodes[i][hardIndex] = proc;
@@ -1018,8 +1018,8 @@ public class BinPackerTester {
 			// Random upper limit in module sizes between 30-45%
 			double sizeUpperBoundPercentage = 15.0 * randomGenerator.nextDouble();
 			sizeUpperBoundPercentage = (sizeUpperBoundPercentage + 30.0) / 100.0;
-			long[] moduleSizes = createSoftwareSizesForProcessor((long) proc.cyclesPerSecond,
-					(long) (proc.cyclesPerSecond * sizeUpperBoundPercentage));// 1000000l);
+			long[] moduleSizes = createSoftwareSizesForProcessor((long) proc.getCyclesPerSecond(),
+					(long) (proc.getCyclesPerSecond() * sizeUpperBoundPercentage));// 1000000l);
 			double remainder = 0.0;
 			for (int i = 0; i < moduleSizes.length; i++) {
 				/* Period in nanos */
@@ -1073,7 +1073,7 @@ public class BinPackerTester {
 
 		Vector processedLinks = new Vector();
 		Vector fullAssociation = new Vector();
-		for (Iterator iter = hardwareTemplate.hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = hardwareTemplate.getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode proc = (HardwareNode) iter.next();
 			Vector[] modules = new Vector[targets.length];
 			for (int i = 0; i < targets.length; i++) {
@@ -1459,7 +1459,7 @@ public class BinPackerTester {
 
 			HardwareNode node = new HardwareNode(Long.toString(i), new EDFScheduler(problem.bwComparator),
 					cyclesPerSecond);
-			problem.hardwareGraph.add(node);
+			problem.getHardwareGraph().add(node);
 			hardwareNodes[i] = node;
 		}
 
@@ -1587,9 +1587,9 @@ public class BinPackerTester {
 					minimumNumberOfLinksPerProcessor, maximumNumberOfLinksPerProcessor);
 
 			long totalCyclesPerSecond = 0;
-			for (Iterator iter = p.hardwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = p.getHardwareGraph().iterator(); iter.hasNext();) {
 				HardwareNode proc = (HardwareNode) iter.next();
-				totalCyclesPerSecond += proc.cyclesPerSecond;
+				totalCyclesPerSecond += proc.getCyclesPerSecond();
 			}
 
 			// System.out.println("\t Total Cycles Per
@@ -1750,9 +1750,9 @@ public class BinPackerTester {
 		CANBus canbus500k = new CANBus(500000.0);
 		CANBus canbus100k = new CANBus(100000.0);
 
-		canbus1M.powerRequirement = 10;
-		canbus500k.powerRequirement = 10;
-		canbus100k.powerRequirement = 10;
+		canbus1M.setPowerRequirement(10);
+		canbus500k.setPowerRequirement(10);
+		canbus100k.setPowerRequirement(10);
 
 		NetInterface[] netInterfaces = new NetInterface[] { new NetInterface(canbus1M), new NetInterface(canbus500k),
 				new NetInterface(canbus100k) };
@@ -1859,7 +1859,7 @@ public class BinPackerTester {
 			}
 
 			textArea.append("######## SOFTWARE GRAPH #########\n");
-			for (Iterator iter = p.softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = p.getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode module = (SoftwareNode) iter.next();
 				textArea.append("\t Module(" + Integer.toString(module.hashCode()) + ").name(" + module.name + ") C("
 						+ Long.toString(module.getCycles()) + " cycles) T(" + Long.toString(module.getPeriod())
@@ -1979,7 +1979,7 @@ public class BinPackerTester {
 		int resultsSize = results.size();
 		for (int i = 0; i < resultsSize; i++) {
 			AssignmentResult result = (AssignmentResult) results.elementAt(i);
-			if (!result.success) {
+			if (!result.isSuccess()) {
 				failedExperiments++;
 				continue;
 			}
@@ -1996,7 +1996,7 @@ public class BinPackerTester {
 			Vector linksProcessed = new Vector();
 			Vector msgsProcessed = new Vector();
 			int linkNumber = 0;
-			for (Iterator iter = result.problem.hardwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = result.getProblem().getHardwareGraph().iterator(); iter.hasNext();) {
 				HardwareNode n = (HardwareNode) iter.next();
 				for (Iterator taskSet = n.getTaskSet().iterator(); taskSet.hasNext();) {
 					SoftwareNode m = (SoftwareNode) taskSet.next();
@@ -2009,9 +2009,9 @@ public class BinPackerTester {
 					}
 					totalBandwidthRequirement += m.getBandwidth();
 				}
-				totalCapacityGap += (n.getAvailableCapacity() / n.cyclesPerSecond);
+				totalCapacityGap += (n.getAvailableCapacity() / n.getCyclesPerSecond());
 				totalCapacity += n.getAvailableCapacity();
-				TreeSet connVector = (TreeSet) result.problem.hardwareConnectivity.get(n);
+				TreeSet connVector = (TreeSet) result.getProblem().hardwareConnectivity.get(n);
 				if (connVector != null) {
 					for (Iterator iter1 = connVector.iterator(); iter1.hasNext();) {
 						Link l = (Link) iter1.next();
@@ -2022,7 +2022,7 @@ public class BinPackerTester {
 						linkNumber++;
 						linksProcessed.add(l);
 						totalLinkCapacity += l.getAvailableCapacity();
-						totalLinkCapacityGap += (l.getAvailableCapacity() / l.cyclesPerSecond);
+						totalLinkCapacityGap += (l.getAvailableCapacity() / l.getCyclesPerSecond());
 						for (Iterator msgs = l.getTaskSet().iterator(); msgs.hasNext();) {
 							Message m = (Message) msgs.next();
 							if (m instanceof CompositeMsgNode) {
@@ -2051,10 +2051,10 @@ public class BinPackerTester {
 
 			}
 			totalLinkCapacityGap = linkNumber != 0 ? totalLinkCapacityGap / linkNumber : 0.0;
-			totalCapacityGap /= result.problem.hardwareGraph.size();
+			totalCapacityGap /= result.getProblem().getHardwareGraph().size();
 			bgmap.put(new Double(totalBandwidthRequirement), new Double(totalCapacityGap));
 			ngmap.put(new Integer(moduleNumber), new Double(totalCapacityGap));
-			hbmap.put(new Double(totalBandwidthRequirement), new Integer(result.problem.hardwareGraph.size()));
+			hbmap.put(new Double(totalBandwidthRequirement), new Integer(result.getProblem().getHardwareGraph().size()));
 			mbgmap.put(new Double(totalMessageBandwidth), new Double(totalLinkCapacityGap));
 			lbmap.put(new Double(totalMessageBandwidth), new Integer(linkNumber));
 			bcmap.put(new Double(totalBandwidthRequirement), new Double(totalCapacity));
@@ -2118,7 +2118,7 @@ public class BinPackerTester {
 		for (int i = 0; i < resultsSize; i++) {
 			AssignmentResult result = (AssignmentResult) results.elementAt(i);
 			textArea.append("\n\n -----  ASSIGNMENTS FOR PROBLEM(" + Integer.toString(i) + ") SUCCESS("
-					+ Boolean.toString(result.success) + ")------\n");
+					+ Boolean.toString(result.isSuccess()) + ")------\n");
 			double totalCapacityGap = 0.0;
 			double totalBandwidthRequirement = 0.0;
 			int moduleNumber = 0;
@@ -2128,9 +2128,9 @@ public class BinPackerTester {
 			Vector linksProcessed = new Vector();
 			Vector msgsProcessed = new Vector();
 			int linkNumber = 0;
-			for (Iterator iter = result.problem.hardwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = result.getProblem().getHardwareGraph().iterator(); iter.hasNext();) {
 				HardwareNode n = (HardwareNode) iter.next();
-				textArea.append("Node " + n.name + ":\n ");
+				textArea.append("Node " + n.getName() + ":\n ");
 				for (Iterator taskSet = n.getTaskSet().iterator(); taskSet.hasNext();) {
 					SoftwareNode m = (SoftwareNode) taskSet.next();
 					if (m instanceof CompositeSoftNode) {
@@ -2148,22 +2148,22 @@ public class BinPackerTester {
 				}
 				textArea.append(
 						"\t\t Available Capacity = " + Double.toString(n.getAvailableCapacity()) + " cycles / sec \n");
-				totalCapacityGap += (n.getAvailableCapacity() / n.cyclesPerSecond);
+				totalCapacityGap += (n.getAvailableCapacity() / n.getCyclesPerSecond());
 
-				TreeSet connVector = (TreeSet) result.problem.hardwareConnectivity.get(n);
+				TreeSet connVector = (TreeSet) result.getProblem().hardwareConnectivity.get(n);
 				if (connVector != null) {
 					for (Iterator iter1 = connVector.iterator(); iter1.hasNext();) {
 						Link l = (Link) iter1.next();
 
 						textArea.append("LINK(" + Integer.toString(l.hashCode()) + ") BW("
-								+ Double.toString(l.cyclesPerSecond) + " bits/s) Available Capacity("
-								+ Double.toString((l.getAvailableCapacity() / l.cyclesPerSecond)) + ")\n");
+								+ Double.toString(l.getCyclesPerSecond()) + " bits/s) Available Capacity("
+								+ Double.toString((l.getAvailableCapacity() / l.getCyclesPerSecond())) + ")\n");
 						if (linksProcessed.contains(l)) {
 							continue;
 						}
 						linkNumber++;
 						linksProcessed.add(l);
-						totalLinkCapacityGap += (l.getAvailableCapacity() / l.cyclesPerSecond);
+						totalLinkCapacityGap += (l.getAvailableCapacity() / l.getCyclesPerSecond());
 						for (Iterator msgs = l.getTaskSet().iterator(); msgs.hasNext();) {
 							Message m = (Message) msgs.next();
 							if (m instanceof CompositeMsgNode) {
@@ -2192,9 +2192,9 @@ public class BinPackerTester {
 
 			}
 			totalLinkCapacityGap = linkNumber != 0 ? totalLinkCapacityGap / linkNumber : 0.0;
-			totalCapacityGap /= result.problem.hardwareGraph.size();
+			totalCapacityGap /= result.getProblem().getHardwareGraph().size();
 			textArea.append("---------- END OF ASSIGNMENT PROBLEM --------------\n");
-			textArea.append(" Number of Processors(" + Integer.toString(result.problem.hardwareGraph.size())
+			textArea.append(" Number of Processors(" + Integer.toString(result.getProblem().getHardwareGraph().size())
 					+ ") Number of Links(" + Integer.toString(linkNumber) + ")\n");
 			textArea.append("total Load(" + Double.toString(totalBandwidthRequirement) + ") total Message Bandwidth("
 					+ totalMessageBandwidth + ")\n");
@@ -2219,7 +2219,7 @@ public class BinPackerTester {
 					/* remove this one completely */
 					guest.setHost(null);
 					iter1.remove();
-					problem.hardwareGraph.remove(guest);
+					problem.getHardwareGraph().remove(guest);
 				}
 			}
 		}
@@ -2245,7 +2245,7 @@ public class BinPackerTester {
 					for (Iterator nics = p2.classNetInterfaces.iterator(); nics.hasNext();) {
 						p1.classNetInterfaces.add(nics.next());
 					}
-					for (Iterator nics = p2.netInterfaces.iterator(); nics.hasNext();) {
+					for (Iterator nics = p2.getNetInterfaces().iterator(); nics.hasNext();) {
 						NetInterface nic = (NetInterface) nics.next();
 						p1.classNetInterfaces.add(nic.clone());
 					}
@@ -2280,8 +2280,8 @@ public class BinPackerTester {
 				cloneVector.addAll(connVector);
 				problem.hardwareConnectivity.put(clone, cloneVector);
 			}
-			problem.hardwareGraph.remove(original);
-			problem.hardwareGraph.add(clone);
+			problem.getHardwareGraph().remove(original);
+			problem.getHardwareGraph().add(clone);
 
 			Location s = original.getHost();
 			if (s != null) {
@@ -2392,9 +2392,9 @@ public class BinPackerTester {
 		// DebugMonitor.show();
 	}
 
-	public static int progress = 0;
+	private static int progress = 0;
 
-	public static int toDeploy = 0;
+	static int toDeploy = 0;
 
 	public static void main(String args[]) {
 		BinPackerTester tester = new BinPackerTester();
@@ -2416,9 +2416,9 @@ public class BinPackerTester {
 		System.exit(0);
 	}
 
-	public static DecimalFormat decFormat = new DecimalFormat("###,###,###,##0");
+	private static final DecimalFormat decFormat = new DecimalFormat("###,###,###,##0");
 
-	public static int failureCode = 0;
+	static int failureCode = 0;
 
 	public static void runPerfectFitExperiment(String args[]) {
 		int round = Integer.parseInt(args[0]);
@@ -2455,7 +2455,7 @@ public class BinPackerTester {
 		supportedHardware[12] = netInterfaces[2].link;
 
 		for (int i = 0; i < 100; i++) {
-			hardwareTemplate.hardwareGraph
+			hardwareTemplate.getHardwareGraph()
 					.add(new MPC555("", new EDFScheduler(new BandwidthComparator()), 1000000000l, netInterfaces));
 
 		}
@@ -2479,13 +2479,13 @@ public class BinPackerTester {
 
 		for (int i = 0; i < targets.length; i++) {
 			double totalDemand = 0.0;
-			for (Iterator iter = targets[i].softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = targets[i].getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode n = (SoftwareNode) iter.next();
 				totalDemand += n.getBandwidth();
 			}
 
 			System.out.println("Original Software(" + i + ") Demand(" + decFormat.format(totalDemand)
-					+ " cycles/s) number of Modules (" + targets[i].softwareGraph.size() + ")");
+					+ " cycles/s) number of Modules (" + targets[i].getSoftwareGraph().size() + ")");
 		}
 
 		for (int i = 0; i < targets.length; i++) {
@@ -2518,7 +2518,7 @@ public class BinPackerTester {
 			v.add(result);
 
 			double totalDemand = 0.0;
-			for (Iterator iter = result.problem.softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = result.getProblem().getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode n = (SoftwareNode) iter.next();
 				totalDemand += n.getBandwidth();
 			}
@@ -2574,9 +2574,9 @@ public class BinPackerTester {
 		// netInterfaces[2].link.powerRequirement = 10.0;
 
 		// we will use "space" to limit the number of links in ducts
-		netInterfaces[0].link.spaceRequirement = 10.0;
-		netInterfaces[1].link.spaceRequirement = 10.0;
-		netInterfaces[2].link.spaceRequirement = 10.0;
+		netInterfaces[0].link.setSpaceRequirement(10.0);
+		netInterfaces[1].link.setSpaceRequirement(10.0);
+		netInterfaces[2].link.setSpaceRequirement(10.0);
 
 		SiteGuest[] supportedHardware = new SiteGuest[13];
 		SiteGuest[] supportedProcessors = new SiteGuest[10];
@@ -2587,7 +2587,7 @@ public class BinPackerTester {
 			supportedHardware[i] = new MPC555("", new EDFScheduler(new BandwidthComparator()), size, netInterfaces);
 			// Set power requirements to limit the number of processors that can
 			// fit.
-			((HardwareNode) supportedHardware[i]).powerRequirement = 100.0;
+			((HardwareNode) supportedHardware[i]).setPowerRequirement(100.0);
 			supportedProcessors[i] = supportedHardware[i];
 			System.out.println("Processor Size(" + format.format(size) + ")");
 			size += 100000000l;
@@ -2601,7 +2601,7 @@ public class BinPackerTester {
 		supportedNets[2] = netInterfaces[2].link;
 
 		for (int i = 0; i < 100; i++) {
-			hardwareTemplate.hardwareGraph
+			hardwareTemplate.getHardwareGraph()
 					.add(new MPC555("", new EDFScheduler(new BandwidthComparator()), 1000000000l, netInterfaces));
 
 		}
@@ -2625,13 +2625,13 @@ public class BinPackerTester {
 
 		for (int i = 0; i < targets.length; i++) {
 			double totalDemand = 0.0;
-			for (Iterator iter = targets[i].softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = targets[i].getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode n = (SoftwareNode) iter.next();
 				totalDemand += n.getBandwidth();
 			}
 
 			System.out.println("Original Software(" + i + ") Demand(" + decFormat.format(totalDemand)
-					+ " cycles/s) number of Modules (" + targets[i].softwareGraph.size() + ")");
+					+ " cycles/s) number of Modules (" + targets[i].getSoftwareGraph().size() + ")");
 		}
 
 		SiteArchitecture[] siteArchitectures = tester.createSiteArchitecture(targets.length, // number of clones
@@ -2684,7 +2684,7 @@ public class BinPackerTester {
 			v.add(result);
 
 			double totalDemand = 0.0;
-			for (Iterator iter = result.problem.softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = result.getProblem().getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode n = (SoftwareNode) iter.next();
 				totalDemand += n.getBandwidth();
 			}
@@ -2744,7 +2744,7 @@ public class BinPackerTester {
 		supportedHardware[12] = netInterfaces[2].link;
 
 		for (int i = 0; i < 99; i++) {
-			hardwareTemplate.hardwareGraph
+			hardwareTemplate.getHardwareGraph()
 					.add(new MPC555("", new EDFScheduler(new BandwidthComparator()), 1000000000l, netInterfaces));
 
 		}
@@ -2755,7 +2755,7 @@ public class BinPackerTester {
 													// (1000000000l/numberOfProcessors);
 
 		for (int i = 0; i < numberOfProcessors; i++) {
-			diminishedHardwareTemplate.hardwareGraph.add(new MPC555("", new EDFScheduler(new BandwidthComparator()),
+			diminishedHardwareTemplate.getHardwareGraph().add(new MPC555("", new EDFScheduler(new BandwidthComparator()),
 					diminishedProcessorSize, netInterfaces));
 
 		}
@@ -2778,13 +2778,13 @@ public class BinPackerTester {
 
 		for (int i = 0; i < targets.length; i++) {
 			double totalDemand = 0.0;
-			for (Iterator iter = targets[i].softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = targets[i].getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode n = (SoftwareNode) iter.next();
 				totalDemand += n.getBandwidth();
 			}
 
 			System.out.println("Original Software(" + i + ") Demand(" + decFormat.format(totalDemand)
-					+ " cycles/s) number of Modules (" + targets[i].softwareGraph.size() + ")");
+					+ " cycles/s) number of Modules (" + targets[i].getSoftwareGraph().size() + ")");
 		}
 
 		for (int i = 0; i < targets.length; i++) {
@@ -2827,7 +2827,7 @@ public class BinPackerTester {
 			v.add(result);
 
 			double totalDemand = 0.0;
-			for (Iterator iter = result.problem.softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = result.getProblem().getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode n = (SoftwareNode) iter.next();
 				totalDemand += n.getBandwidth();
 			}
@@ -2867,7 +2867,7 @@ public class BinPackerTester {
 				new NetInterface(canbus100k) };
 
 		for (int i = 0; i < 100; i++) {
-			hardwareTemplate.hardwareGraph
+			hardwareTemplate.getHardwareGraph()
 					.add(new MPC555("", new EDFScheduler(new BandwidthComparator()), 1000000000l, netInterfaces));
 		}
 
@@ -2887,20 +2887,20 @@ public class BinPackerTester {
 		// writer.flush();
 
 		double totalCapacity = 0.0;
-		for (Iterator iter = hardwareTemplate.hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = hardwareTemplate.getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode node = (HardwareNode) iter.next();
 			totalCapacity += node.getAvailableCapacity();
 		}
 
 		for (int i = 0; i < targets.length; i++) {
 			double totalDemand = 0.0;
-			for (Iterator iter = targets[i].softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = targets[i].getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode node = (SoftwareNode) iter.next();
 				totalDemand += node.getBandwidth();
 			}
 
 			System.out.println("Total clone(" + i + ") Capacity(" + totalCapacity + ") Total Demand(" + totalDemand
-					+ ") Gap(" + (totalCapacity - totalDemand) + ") #modules(" + targets[i].softwareGraph.size() + ")");
+					+ ") Gap(" + (totalCapacity - totalDemand) + ") #modules(" + targets[i].getSoftwareGraph().size() + ")");
 		}
 		// writer.close();
 	}
@@ -3046,8 +3046,8 @@ public class BinPackerTester {
 		siteArchitecture.addSiteGuest(supportedProcessor, site);
 		siteArchitecture.addSiteGuest(supportedProcessor1, site);
 
-		problem.hardwareGraph.add(supportedProcessor);
-		problem.hardwareGraph.add(supportedProcessor1);
+		problem.getHardwareGraph().add(supportedProcessor);
+		problem.getHardwareGraph().add(supportedProcessor1);
 
 		CANBus link = new CANBus(1000000.0);
 		link.add(supportedProcessor);
@@ -3064,12 +3064,12 @@ public class BinPackerTester {
 		SoftwareNode nE = new SoftwareNode(5, 50000, 50000, problem.bwComparator, "E");
 		SoftwareNode nJ = new SoftwareNode(5, 50000, 50000, problem.bwComparator, "J");
 
-		problem.softwareGraph.add(nA);
-		problem.softwareGraph.add(nB);
-		problem.softwareGraph.add(nC);
-		problem.softwareGraph.add(nD);
-		problem.softwareGraph.add(nE);
-		problem.softwareGraph.add(nJ);
+		problem.getSoftwareGraph().add(nA);
+		problem.getSoftwareGraph().add(nB);
+		problem.getSoftwareGraph().add(nC);
+		problem.getSoftwareGraph().add(nD);
+		problem.getSoftwareGraph().add(nE);
+		problem.getSoftwareGraph().add(nJ);
 
 		Message m1 = new Message(64, 50000, 50000, nA, nC);
 		problem.addMessage(m1);
@@ -3083,14 +3083,14 @@ public class BinPackerTester {
 		problem.addMessage(m7);
 
 		SoftwareNode nF = new SoftwareNode(25, 100000, 100000, problem.bwComparator, "F");
-		problem.softwareGraph.add(nF);
+		problem.getSoftwareGraph().add(nF);
 
 		SoftwareNode nG = new SoftwareNode(25, 100000, 100000, problem.bwComparator, "G");
 		SoftwareNode nH = new SoftwareNode(60, 200000, 200000, problem.bwComparator, "H");
 		SoftwareNode nI = new SoftwareNode(25, 100000, 100000, problem.bwComparator, "I");
-		problem.softwareGraph.add(nG);
-		problem.softwareGraph.add(nH);
-		problem.softwareGraph.add(nI);
+		problem.getSoftwareGraph().add(nG);
+		problem.getSoftwareGraph().add(nH);
+		problem.getSoftwareGraph().add(nI);
 
 		Message m5 = new Message(30, 100000, 100000, nG, nH);
 		problem.addMessage(m5);
@@ -3146,8 +3146,8 @@ public class BinPackerTester {
 		siteArchitecture.addSiteGuest(supportedProcessor, site);
 		siteArchitecture.addSiteGuest(supportedProcessor1, site);
 
-		problem.hardwareGraph.add(supportedProcessor);
-		problem.hardwareGraph.add(supportedProcessor1);
+		problem.getHardwareGraph().add(supportedProcessor);
+		problem.getHardwareGraph().add(supportedProcessor1);
 
 		CANBus link = new CANBus(1000000.0);
 		link.add(supportedProcessor);
@@ -3164,12 +3164,12 @@ public class BinPackerTester {
 		SoftwareNode nE = new SoftwareNode(5, 50000, 50000, problem.bwComparator, "E");
 		SoftwareNode nJ = new SoftwareNode(5, 50000, 50000, problem.bwComparator, "J");
 
-		problem.softwareGraph.add(nA);
-		problem.softwareGraph.add(nB);
-		problem.softwareGraph.add(nC);
-		problem.softwareGraph.add(nD);
-		problem.softwareGraph.add(nE);
-		problem.softwareGraph.add(nJ);
+		problem.getSoftwareGraph().add(nA);
+		problem.getSoftwareGraph().add(nB);
+		problem.getSoftwareGraph().add(nC);
+		problem.getSoftwareGraph().add(nD);
+		problem.getSoftwareGraph().add(nE);
+		problem.getSoftwareGraph().add(nJ);
 
 		Message m1 = new Message(64, 50000, 50000, nA, nC);
 		problem.addMessage(m1);
@@ -3183,14 +3183,14 @@ public class BinPackerTester {
 		problem.addMessage(m7);
 
 		SoftwareNode nF = new SoftwareNode(25, 100000, 100000, problem.bwComparator, "F");
-		problem.softwareGraph.add(nF);
+		problem.getSoftwareGraph().add(nF);
 
 		SoftwareNode nG = new SoftwareNode(25, 100000, 100000, problem.bwComparator, "G");
 		SoftwareNode nH = new SoftwareNode(60, 200000, 200000, problem.bwComparator, "H");
 		SoftwareNode nI = new SoftwareNode(25, 100000, 100000, problem.bwComparator, "I");
-		problem.softwareGraph.add(nG);
-		problem.softwareGraph.add(nH);
-		problem.softwareGraph.add(nI);
+		problem.getSoftwareGraph().add(nG);
+		problem.getSoftwareGraph().add(nH);
+		problem.getSoftwareGraph().add(nI);
 
 		Message m5 = new Message(30, 100000, 100000, nG, nH);
 		problem.addMessage(m5);
