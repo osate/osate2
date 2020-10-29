@@ -1121,7 +1121,7 @@ public class AadlBaTypeChecker
     }
     catch(DimensionException e)
     {
-      e._element = errorRef ;
+      e.setElement(errorRef) ;
       reportDimensionException(e) ;
       return null ;
     }
@@ -1615,16 +1615,16 @@ public class AadlBaTypeChecker
   {
     StringBuilder msg = new StringBuilder();
 
-    if(de._element instanceof BehaviorElement)
+    if(de.getElement() instanceof BehaviorElement)
     {
       msg.append('"') ;
-      msg.append(this.unparseNameElement((BehaviorElement) de._element)) ;
+      msg.append(this.unparseNameElement((BehaviorElement) de.getElement())) ;
       msg.append("\" ") ;
     }
 
     msg.append(de.getMessage());
 
-    _errManager.error(de._element, msg.toString()) ;
+    _errManager.error(de.getElement(), msg.toString()) ;
   }
 
  // This method checks the given object and returns a value constant
@@ -1966,7 +1966,7 @@ public class AadlBaTypeChecker
         eleType = _dataChecker.getTopLevelType(t1, t2) ;
         // Integer Ranges are one dimension kind of integer collection.
         // => pass the arrayness checking.
-        eleType.dimension = 1 ;
+        eleType.setDimension(1) ;
       }
       else // Name or DataComponentReference cases.
       {
@@ -1984,7 +1984,7 @@ public class AadlBaTypeChecker
         {
           // Event ports are one dimension events queue.
           // => pass the arrayness checking.
-          eleType.dimension = 1 ;
+          eleType.setDimension(1) ;
         }
       }
 
@@ -2002,7 +2002,7 @@ public class AadlBaTypeChecker
       // ([] are not allowed). Also, this implementation of AADL behavior
       // annex, doesn't allow the use of iterative variable's types which are
       // declared as array (data model annex).
-      if(uccrType.dimension > 0)
+      if(uccrType.getDimension() > 0)
       {
          StringBuilder message = new StringBuilder(
             "the for/forall iterative variable's type cannot be an array.") ;
@@ -2031,7 +2031,7 @@ public class AadlBaTypeChecker
       }
 
       // Checks data component reference arrayness and reports any error.
-      if(eleType.dimension == 0)
+      if(eleType.getDimension() == 0)
       {
          String message = "\'" + unparseNameElement(tmp) +
                "\' is not an array" ;
@@ -2334,7 +2334,7 @@ public class AadlBaTypeChecker
           }
           catch (DimensionException de)
           {
-            de._element = comAct ;
+            de.setElement(comAct) ;
             reportDimensionException(de) ;
             return null  ;
           }
@@ -3256,7 +3256,7 @@ public class AadlBaTypeChecker
 
     if(holder != null)
     {
-      result = expectedDataRepresentation == holder.typeHolder.dataRep ;
+      result = expectedDataRepresentation == holder.typeHolder.getDataRep() ;
 
       if(! result)
       {
@@ -3357,8 +3357,8 @@ public class AadlBaTypeChecker
   // Convenient class that holds a value and its type representation.
   private class ValueAndTypeHolder
   {
-    public Value value ;
-    public TypeHolder typeHolder ;
+    Value value ;
+    TypeHolder typeHolder ;
 
     public ValueAndTypeHolder(Value v, TypeHolder typeHolder)
     {

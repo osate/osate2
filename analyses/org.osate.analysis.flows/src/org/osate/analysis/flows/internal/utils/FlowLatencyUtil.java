@@ -64,14 +64,14 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 public class FlowLatencyUtil {
 	//XXX: [Code Coverage] Dead code.
 	public static String getEndToEndFlowString(EndToEndFlowInstance etef) {
-		StringBuffer ret;
+		StringBuilder ret;
 		boolean firstPassed = false;
 
-		ret = new StringBuffer();
+		ret = new StringBuilder();
 		ret.append(etef.getName() + " : ");
 
 		for (FlowElementInstance fei : etef.getFlowElements()) {
-			if (firstPassed == true) {
+			if (firstPassed) {
 				ret.append("->");
 			}
 			ret.append(fei.getName());
@@ -598,7 +598,7 @@ public class FlowLatencyUtil {
 		return latencyResults;
 	}
 
-	public static String LatencyAnalysisName = "latency";
+	public static final String LatencyAnalysisName = "latency";
 
 	public static URI getLantencyAnalysisResultURI(AnalysisResult results) {
 		EObject root = results.getModelElement();

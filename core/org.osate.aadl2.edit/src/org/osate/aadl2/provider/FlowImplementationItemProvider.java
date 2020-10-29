@@ -36,6 +36,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.impl.FlowImplementationImpl;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.FlowImplementation} object.
@@ -60,6 +61,7 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -110,6 +112,7 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
@@ -125,6 +128,7 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EStructuralFeature getChildFeature(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -136,10 +140,20 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * This returns FlowImplementation.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
+	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowImplementation"));
+		if (((FlowImplementationImpl) object).getInEnd() == null
+				&& ((FlowImplementationImpl) object).getOutEnd() == null) {
+			return null;
+		} else if (((FlowImplementationImpl) object).getInEnd() == null) {
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSourceImplementation"));
+		} else if (((FlowImplementationImpl) object).getOutEnd() == null) {
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSinkImplementation"));
+		}
+
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowPathImplementation"));
 	}
 
 	/**
@@ -164,6 +178,7 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((FlowImplementation) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_FlowImplementation_type")
@@ -177,6 +192,7 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
@@ -200,6 +216,7 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -219,6 +236,7 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
 		Object childFeature = feature;
 		Object childObject = child;

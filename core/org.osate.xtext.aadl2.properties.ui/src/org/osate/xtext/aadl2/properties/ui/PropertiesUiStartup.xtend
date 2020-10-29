@@ -44,7 +44,7 @@ import org.eclipse.jface.dialogs.MessageDialog
 import org.eclipse.swt.widgets.Display
 import org.eclipse.ui.IStartup
 import org.eclipse.ui.actions.WorkspaceModifyOperation
-import org.osate.pluginsupport.internal.utils.PluginSupportUtil
+import org.osate.pluginsupport.PluginSupportUtil
 import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator
 
 class PropertiesUiStartup implements IStartup {
