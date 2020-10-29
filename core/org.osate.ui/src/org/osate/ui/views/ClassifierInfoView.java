@@ -597,10 +597,16 @@ public final class ClassifierInfoView extends ViewPart {
 	private void refresh() {
 		if (viewedClassifierURI != null) {
 			final IFile rsrc = OsateResourceUtil.toIFile(viewedClassifierURI);
+			boolean shouldClear = true;
 			if (rsrc.exists()) {
 				final Classifier classifier = (Classifier) new ResourceSetImpl().getEObject(viewedClassifierURI, true);
-				updateDisplay(classifier);
-			} else {
+				if (classifier != null) {
+					updateDisplay(classifier);
+					shouldClear = false;
+				}
+			}
+
+			if (shouldClear ) {
 				clearDisplay(true);
 			}
 		}
