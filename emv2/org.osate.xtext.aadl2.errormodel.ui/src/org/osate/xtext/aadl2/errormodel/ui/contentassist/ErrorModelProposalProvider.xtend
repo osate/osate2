@@ -118,6 +118,9 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 //		}
 //	}
 
+	/**
+	 * @since 6.0.0
+	 */
 	def filterTypeSetTokenTypes(TypeSet typeSet, EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor){
 		val validErrorTypesList = new ArrayList<ErrorTypes> 
 		typeSet.typeTokens.forEach[token | token.type.getValidTypes( validErrorTypesList) ]
