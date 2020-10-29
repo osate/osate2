@@ -6,3 +6,4 @@ Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: org.osate.examples
 Require-Bundle: org.osate.ui;bundle-version="[5.0.0,6.0.0)"
 Bundle-Vendor: CMU SEI
+Eclipse-BundleShape: dir
