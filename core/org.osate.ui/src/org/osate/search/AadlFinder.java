@@ -127,7 +127,7 @@ public final class AadlFinder {
 	}
 
 	/**
-	 * @since 5.1
+	 * @since 6.0
 	 */
 	@FunctionalInterface
 	public interface FinderConsumerWithResourceSet<T> {
@@ -212,7 +212,7 @@ public final class AadlFinder {
 
 	/**
 	 * Get all the {@code EObject}s of the given type in the workspace.
-	 * @since 5.1
+	 * @since 6.0
 	 */
 	public void getAllObjectsOfTypeInWorkspace(final EClass eClass,
 			final FinderConsumerWithResourceSet<IEObjectDescription> consumer) {
@@ -227,7 +227,7 @@ public final class AadlFinder {
 
 	/**
 	 * Get all the {@code EObject}s of the given type contained in the given scope.
-	 * @since 5.1
+	 * @since 6.0
 	 */
 	public void getAllObjectsOfTypeInScope(final EClass eClass, final Scope scope,
 			final FinderConsumerWithResourceSet<IEObjectDescription> consumer) {
@@ -246,7 +246,7 @@ public final class AadlFinder {
 	}
 
 	/**
-	 * @since 5.1
+	 * @since 6.0
 	 */
 	public void getAllObjectsOfTypeInCollection(final EClass eClass, final Collection<IFile> fileSet,
 			final FinderConsumerWithResourceSet<IEObjectDescription> consumer) {
@@ -267,7 +267,7 @@ public final class AadlFinder {
 	}
 
 	/**
-	 * @since 5.1
+	 * @since 6.0
 	 */
 	public void getAllObjectsOfTypeInResource(final IResourceDescription rsrcDesc, final EClass eClass,
 			final ResourceSet resourceSet, final FinderConsumerWithResourceSet<IEObjectDescription> consumer) {
@@ -283,7 +283,7 @@ public final class AadlFinder {
 
 	/**
 	 * @param progressMonitor May be {@code null}.
-	 * @since 5.1
+	 * @since 6.0
 	 */
 	public void getAllReferencesToTypeInWorkspace(final FinderConsumerWithResourceSet<IReferenceDescription> consumer,
 			final IProgressMonitor progressMonitor) {
@@ -298,7 +298,7 @@ public final class AadlFinder {
 
 	/**
 	 * @param progressMonitor May be {@code null}.
-	 * @since 5.1
+	 * @since 6.0
 	 */
 	public void getAllReferencesToTypeInWorkspace(final ResourceConsumer<IResourceDescription> rsrcConsumer,
 			final FinderConsumerWithResourceSet<IReferenceDescription> consumer,
@@ -315,7 +315,7 @@ public final class AadlFinder {
 
 	/**
 	 * @param progressMonitor May be {@code null}.
-	 * @since 5.1
+	 * @since 6.0
 	 */
 	public void getAllReferencesToTypeInScope(final Scope scope,
 			final ResourceConsumer<IResourceDescription> rsrcConsumer,
@@ -352,7 +352,7 @@ public final class AadlFinder {
 
 	/**
 	 * @param progressMonitor May be {@code null}.
-	 * @since 5.1
+	 * @since 6.0
 	 */
 	public void getAllReferencesToTypeInScope(final Scope scope,
 			final FinderConsumerWithResourceSet<IReferenceDescription> consumer,
@@ -373,7 +373,7 @@ public final class AadlFinder {
 
 	/**
 	 * @param progressMonitor May be {@code null}.
-	 * @since 5.1
+	 * @since 6.0
 	 */
 	public void getAllReferencesToTypeInResource(final IResourceDescription rsrcDesc, final ResourceSet resourceSet,
 			final FinderConsumerWithResourceSet<IReferenceDescription> consumer,
