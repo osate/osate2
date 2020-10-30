@@ -1260,12 +1260,73 @@ censes only apply to the Third Party Software and not any other portion of this 
                                       forcePluginActivation="true">
                                 </test>
 	                         </adapt>
-	
-	                      	 <!-- For the Outline View -->
+	                         <adapt
+                                   type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                                <test
+                                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                      value="Subcomponent"
+                                      forcePluginActivation="true">
+                                </test>
+	                         </adapt>
+	                         <adapt
+                                   type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                                <test
+                                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                      value="DataPort"
+                                      forcePluginActivation="true">
+                                </test>
+	                         </adapt>
+	                         <adapt
+                                   type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                                <test
+                                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                      value="Prototype"
+                                      forcePluginActivation="true">
+                                </test>
+	                         </adapt>
+	                         <adapt
+                                   type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                                <test
+                                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                      value="Feature"
+                                      forcePluginActivation="true">
+                                </test>
+	                         </adapt>
+	                         <!-- For the Outline View -->
 	                      	 <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
 		                         <test
 		                               property="org.osate.ui.superType"
 		                               value="Classifier"
+		                               forcePluginActivation="true"/>
+		                     </adapt>
+		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+		                         <test
+		                               property="org.osate.ui.superType"
+		                               value="Subcomponent"
+		                               forcePluginActivation="true"/>
+		                     </adapt>
+		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+		                         <test
+		                               property="org.osate.ui.superType"
+		                               value="DataPort"
+		                               forcePluginActivation="true"/>
+		                     </adapt>
+		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+		                         <test
+		                               property="org.osate.ui.superType"
+		                               value="ParameterConnection"
+		                               forcePluginActivation="true"/>
+		                     </adapt>
+		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+		                         <test
+		                               property="org.osate.ui.superType"
+		                               value="Prototype"
+		                               forcePluginActivation="true"/>
+		                     </adapt>
+		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+		                         <test
+		                               property="org.osate.ui.superType"
+		                               value="Feature"
 		                               forcePluginActivation="true"/>
 		                     </adapt>
 	                      </or>
@@ -1554,5 +1615,14 @@ censes only apply to the Third Party Software and not any other portion of this 
    </extension>
    <extension point="org.eclipse.help.contexts">
       <contexts file="help/importWizard.xml" />
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="org.osate.ui.showInClassifierInfoView"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="Alt+C">
+      </key>
    </extension>   
 </plugin>
