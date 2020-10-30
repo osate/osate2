@@ -1260,6 +1260,14 @@ censes only apply to the Third Party Software and not any other portion of this 
                                       forcePluginActivation="true">
                                 </test>
 	                         </adapt>
+	                          <adapt
+                                   type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                                <test
+                                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                      value="Access"
+                                      forcePluginActivation="true">
+                                </test>
+	                         </adapt>
 	                         <adapt
                                    type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
                                 <test
@@ -1280,7 +1288,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                                    type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
                                 <test
                                       property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                      value="Prototype"
+                                      value="Parameter"
                                       forcePluginActivation="true">
                                 </test>
 	                         </adapt>
@@ -1288,7 +1296,15 @@ censes only apply to the Third Party Software and not any other portion of this 
                                    type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
                                 <test
                                       property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                      value="Feature"
+                                      value="FeatureGroup"
+                                      forcePluginActivation="true">
+                                </test>
+	                         </adapt>
+	                         <adapt
+                                   type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                                <test
+                                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                      value="Prototype"
                                       forcePluginActivation="true">
                                 </test>
 	                         </adapt>
@@ -1314,7 +1330,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
 		                         <test
 		                               property="org.osate.ui.superType"
-		                               value="ParameterConnection"
+		                               value="Parameter"
 		                               forcePluginActivation="true"/>
 		                     </adapt>
 		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
@@ -1326,7 +1342,13 @@ censes only apply to the Third Party Software and not any other portion of this 
 		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
 		                         <test
 		                               property="org.osate.ui.superType"
-		                               value="Feature"
+		                               value="FeatureGroup"
+		                               forcePluginActivation="true"/>
+		                     </adapt>
+		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+		                         <test
+		                               property="org.osate.ui.superType"
+		                               value="Access"
 		                               forcePluginActivation="true"/>
 		                     </adapt>
 	                      </or>
@@ -1622,7 +1644,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             commandId="org.osate.ui.showInClassifierInfoView"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="Alt+C">
+            sequence="M3+C">
       </key>
    </extension>   
 </plugin>
