@@ -34,7 +34,7 @@ import java.util.List;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.analysis.flows.FlowLatencyUtil;
+import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.result.Diagnostic;

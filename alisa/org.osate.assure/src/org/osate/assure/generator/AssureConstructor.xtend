@@ -62,7 +62,7 @@ import org.osate.reqspec.reqSpec.RequirementSet
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
-import org.osate.verify.util.IVerifyGlobalReferenceFinder
+import org.osate.verify.internal.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.ArgumentExpr
 import org.osate.verify.verify.Claim
@@ -77,7 +77,7 @@ import org.osate.verify.verify.VerificationValidation
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
-import static extension org.osate.verify.util.VerifyUtilExtension.*
+import static extension org.osate.verify.internal.util.VerifyUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import org.osate.result.ResultType
 import org.osate.aadl2.ComponentType

@@ -29,6 +29,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -51,7 +52,7 @@ public class OpenInClassifierInfoViewHandler extends AbstractHandler {
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		// (1) Set the input on the view to the currently selected classifier
 		final ISelection selection = HandlerUtil.getCurrentSelection(event);
-		Classifier input = null;
+		URI inputURI = null;
 		if (!selection.isEmpty() && selection instanceof IStructuredSelection) {
 			final Object selectedObject = ((IStructuredSelection) selection).getFirstElement();
 			if (selectedObject != null) {
@@ -60,9 +61,9 @@ public class OpenInClassifierInfoViewHandler extends AbstractHandler {
 					final URI uri = wrapper.getUri();
 					EObject result = new ResourceSetImpl().getEObject(uri, true);
 					if (result instanceof Classifier) {
-						input = (Classifier) new ResourceSetImpl().getEObject(uri, true);
+						inputURI = EcoreUtil.getURI(new ResourceSetImpl().getEObject(uri, true));
 					} else {
-						input = getClassifierFrom(result);
+						inputURI = EcoreUtil.getURI(getClassifierFrom(result));
 					}
 
 				} else if (selectedObject instanceof EObjectNode) {
@@ -71,26 +72,30 @@ public class OpenInClassifierInfoViewHandler extends AbstractHandler {
 						final URI eObjectURI = eObjectNode.getEObjectURI();
 						EObject result = new ResourceSetImpl().getEObject(eObjectURI, true);
 						if (result instanceof Classifier) {
-							input = (Classifier) new ResourceSetImpl().getEObject(eObjectURI, true);
+							inputURI = EcoreUtil.getURI(new ResourceSetImpl().getEObject(eObjectURI, true));
 						} else {
-							input = getClassifierFrom(result);
+							inputURI = EcoreUtil.getURI(getClassifierFrom(result));
 						}
 					} catch (final Exception e) {
-						input = null;
+						inputURI = null;
 					}
 				}
 			}
 		} else if (selection instanceof TextSelection) {
 			final EObject selectedObject = SelectionHelper.getEObjectFromSelection(selection);
-			input = getClassifierFrom(selectedObject);
+			// If the AADL file has parse errors then we may get a null result here
+			final Classifier classifier = getClassifierFrom(selectedObject);
+			if (classifier != null) {
+				inputURI = EcoreUtil.getURI(classifier);
+			}
 		}
 
-		if (input != null) {
+		if (inputURI != null) {
 			// (2) Bring the classifier info view to the front and make sure it is open
 			final ClassifierInfoView view = ClassifierInfoView.open(HandlerUtil.getActiveWorkbenchWindow(event));
 
 			// (3) Set the input
-			view.setInput(input);
+			view.setInput(inputURI);
 		}
 
 		// Done, we are always supposed to return null
