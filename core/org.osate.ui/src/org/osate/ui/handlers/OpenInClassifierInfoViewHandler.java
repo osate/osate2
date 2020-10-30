@@ -59,22 +59,22 @@ public class OpenInClassifierInfoViewHandler extends AbstractHandler {
 				if (selectedObject instanceof EObjectURIWrapper) {
 					final EObjectURIWrapper wrapper = (EObjectURIWrapper) selectedObject;
 					final URI uri = wrapper.getUri();
-					EObject result = new ResourceSetImpl().getEObject(uri, true);
-					if (result instanceof Classifier) {
-						inputURI = EcoreUtil.getURI(new ResourceSetImpl().getEObject(uri, true));
+					EObject resultEobject = new ResourceSetImpl().getEObject(uri, true);
+					if (resultEobject instanceof Classifier) {
+						inputURI = uri;
 					} else {
-						inputURI = EcoreUtil.getURI(getClassifierFrom(result));
+						inputURI = EcoreUtil.getURI(getClassifierFrom(resultEobject));
 					}
 
 				} else if (selectedObject instanceof EObjectNode) {
 					try {
 						final EObjectNode eObjectNode = (EObjectNode) selectedObject;
 						final URI eObjectURI = eObjectNode.getEObjectURI();
-						EObject result = new ResourceSetImpl().getEObject(eObjectURI, true);
-						if (result instanceof Classifier) {
-							inputURI = EcoreUtil.getURI(new ResourceSetImpl().getEObject(eObjectURI, true));
+						EObject resultEobject = new ResourceSetImpl().getEObject(eObjectURI, true);
+						if (resultEobject instanceof Classifier) {
+							inputURI = eObjectURI;
 						} else {
-							inputURI = EcoreUtil.getURI(getClassifierFrom(result));
+							inputURI = EcoreUtil.getURI(getClassifierFrom(resultEobject));
 						}
 					} catch (final Exception e) {
 						inputURI = null;
