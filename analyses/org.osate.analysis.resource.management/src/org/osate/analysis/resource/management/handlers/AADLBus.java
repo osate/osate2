@@ -70,7 +70,7 @@ public class AADLBus extends Link {
 	}
 
 	public String getReport() {
-		String res = "Bus " + this.name + "Bytes per sec " + this.cyclesPerSecond;
+		String res = "Bus " + this.getName() + "Bytes per sec " + this.getCyclesPerSecond();
 		return res;
 	}
 
