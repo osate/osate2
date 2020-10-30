@@ -39,5 +39,12 @@ censes only apply to the Third Party Software and not any other portion of this 
           uri="http://aadl.info/AADL/2.0/instance"/>
   </extension>
 
+	<extension point="org.eclipse.ui.decorators"> 
+	  <decorator id="org.osate.aadl2.provider.Decorator.LightweightDecorator" label="LightweightDecorator" state="false" class="org.osate.aadl2.provider.Decorator.LightweightDecorator" lightweight="true" location="TOP_LEFT">
+<enablement>
+     <object Class="org.eclipse.core.resources.IResource"/> 
+     </enablement> 
+	  </decorator>
+	</extension> 
 
 </plugin>
