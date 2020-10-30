@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -37,6 +37,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.PortSpecification;
@@ -57,12 +58,23 @@ public class OpenInClassifierInfoViewHandler extends AbstractHandler {
 				if (selectedObject instanceof EObjectURIWrapper) {
 					final EObjectURIWrapper wrapper = (EObjectURIWrapper) selectedObject;
 					final URI uri = wrapper.getUri();
-					input = (Classifier) new ResourceSetImpl().getEObject(uri, true);
+					EObject result = new ResourceSetImpl().getEObject(uri, true);
+					if (result instanceof Classifier) {
+						input = (Classifier) new ResourceSetImpl().getEObject(uri, true);
+					} else {
+						input = getClassifierFrom(result);
+					}
+
 				} else if (selectedObject instanceof EObjectNode) {
 					try {
 						final EObjectNode eObjectNode = (EObjectNode) selectedObject;
 						final URI eObjectURI = eObjectNode.getEObjectURI();
-						input = (Classifier) new ResourceSetImpl().getEObject(eObjectURI, true);
+						EObject result = new ResourceSetImpl().getEObject(eObjectURI, true);
+						if (result instanceof Classifier) {
+							input = (Classifier) new ResourceSetImpl().getEObject(eObjectURI, true);
+						} else {
+							input = getClassifierFrom(result);
+						}
 					} catch (final Exception e) {
 						input = null;
 					}
@@ -93,14 +105,20 @@ public class OpenInClassifierInfoViewHandler extends AbstractHandler {
 		} else if (eObject instanceof ClassifierValue) {
 			return ((ClassifierValue) eObject).getClassifier();
 		} else if (eObject instanceof Feature) {
-			return ((Feature) eObject).getClassifier();
+			return ((Feature) eObject).getClassifier() != null ? ((Feature) eObject).getClassifier()
+						: ((Feature) eObject).getFeaturingClassifiers().get(0);
 		} else if (eObject instanceof FeatureGroup) {
 			return ((FeatureGroup) eObject).getClassifier();
 		} else if (eObject instanceof PortSpecification) {
 			return ((PortSpecification) eObject).getClassifier();
 		} else if (eObject instanceof Subcomponent) {
-			return ((Subcomponent) eObject).getClassifier();
-		} else {
+			return ((Subcomponent) eObject).getClassifier() != null ? ((Subcomponent) eObject).getClassifier()
+					: ((Subcomponent) eObject).getFeaturingClassifiers().get(0);
+		} else if (eObject instanceof ComponentPrototype) {
+			return ((ComponentPrototype) eObject).getConstrainingClassifier() != null
+					? ((ComponentPrototype) eObject).getConstrainingClassifier()
+					: ((ComponentPrototype) eObject).getFeaturingClassifiers().get(0);
+		}else {
 			// See if we are inside a Classifier
 			EObject current = eObject;
 			while (current != null && !(current instanceof Classifier)) {
