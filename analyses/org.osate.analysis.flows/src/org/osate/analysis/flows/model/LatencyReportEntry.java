@@ -632,7 +632,7 @@ public class LatencyReportEntry {
 		line = new Line();
 		line.addHeaderContent(
 				"Latency results for end-to-end flow '" + sectionName + "' of system '" + systemName + "'" + inMode
-						+ SOMMembers);
+						+ "\"" + SOMMembers + "\"");
 		section.addLine(line);
 		line = new Line();
 		section.addLine(line);
