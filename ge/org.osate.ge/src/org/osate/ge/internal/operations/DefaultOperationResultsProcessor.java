@@ -89,7 +89,7 @@ public class DefaultOperationResultsProcessor implements OperationExecutor.Resul
 						? (EmbeddedBusinessObject) newValue.bo
 								: null;
 
-				diagramUpdater.addToNextUpdate(containerNode, newValue.ref,
+						diagramUpdater.addToNextUpdate(containerNode, newValue.ref,
 								new FutureElementInfo(position, embeddedBo));
 			}
 		}

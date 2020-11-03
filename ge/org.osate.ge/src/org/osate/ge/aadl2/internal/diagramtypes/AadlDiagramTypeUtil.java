@@ -25,8 +25,7 @@ package org.osate.ge.aadl2.internal.diagramtypes;
 
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.ge.aadl2.internal.contentfilters.ModeTransitionTriggerNameFilter;
-import org.osate.ge.aadl2.internal.contentfilters.SubprogramCallOrderFilter;
+import org.osate.ge.aadl2.AadlContentFilterIds;
 
 import com.google.common.collect.ImmutableSet;
 
@@ -37,10 +36,10 @@ import com.google.common.collect.ImmutableSet;
  */
 public class AadlDiagramTypeUtil {
 	private static final ImmutableSet<String> defaultModeTransitionFilters = ImmutableSet
-			.of(ModeTransitionTriggerNameFilter.ID);
+			.of(AadlContentFilterIds.MODE_TRANSITION_TRIGGER_NAMES);
 
 	private static final ImmutableSet<String> defaultSubprogramCallSequenceFilters = ImmutableSet
-			.of(SubprogramCallOrderFilter.ID);
+			.of(AadlContentFilterIds.SUBPROGRAM_CALL_ORDERS);
 
 	static ImmutableSet<String> getDefaultContentFilters(final Object bo) {
 		if (bo instanceof ModeTransition) {

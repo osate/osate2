@@ -55,8 +55,8 @@ import org.eclipse.swt.widgets.TreeColumn ;
 import org.osate.ba.utils.AadlBaNames ;
 import org.osate.ui.wizards.AadlProjectWizard ;
 import org.osate.ui.wizards.AadlWizardReferencePage ;
-import org.osate.utils.Aadl2Utils ;
-import org.osate.utils.FileUtils.AadlFileFilter ;
+import org.osate.utils.internal.Aadl2Utils ;
+import org.osate.utils.internal.FileUtils.AadlFileFilter ;
 
 public abstract class AadlBaAbstractWizard extends AadlProjectWizard
 {
