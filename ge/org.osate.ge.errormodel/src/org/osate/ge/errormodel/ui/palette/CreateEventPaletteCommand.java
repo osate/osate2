@@ -32,8 +32,8 @@ import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
+import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 
@@ -41,7 +41,7 @@ public class CreateEventPaletteCommand extends BasePaletteCommand implements Tar
 	private final EClass eventType;
 
 	public CreateEventPaletteCommand(final EClass eventType) {
-		super(StringUtil.camelCaseToUser(eventType.getName()), ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super(StringUtil.camelCaseToUser(eventType.getName()), ErrorModelPaletteCategories.ERROR_BEHAVIOR, null);
 		this.eventType = eventType;
 	}
 

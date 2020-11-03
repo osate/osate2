@@ -33,7 +33,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.analysis.flows.FlowLatencyUtil;
+import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.Result;

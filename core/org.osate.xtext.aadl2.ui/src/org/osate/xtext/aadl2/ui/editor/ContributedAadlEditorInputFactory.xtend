@@ -26,6 +26,7 @@ package org.osate.xtext.aadl2.ui.editor
 import org.eclipse.ui.IElementFactory
 import org.eclipse.ui.IMemento
 import org.osate.pluginsupport.PluginSupportUtil
+
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage
 
 import static extension org.eclipse.emf.common.util.URI.createURI

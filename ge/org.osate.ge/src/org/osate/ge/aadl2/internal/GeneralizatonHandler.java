@@ -156,7 +156,7 @@ public class GeneralizatonHandler extends AadlBusinessObjectHandler {
 			return null;
 		}
 
-		return queryService.getFirstResult(nestedClassifierQuery, packageParentBoc, boc.getBusinessObject());
+		return queryService.getFirstBusinessObjectContextOrNull(nestedClassifierQuery, packageParentBoc, boc.getBusinessObject());
 	}
 
 	private static Object[] getBusinessObjectPath(final Classifier c) {

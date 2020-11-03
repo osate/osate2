@@ -28,9 +28,12 @@ import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.swt.BorderedCLabel;
 
 /**
  * Additional assertions and commands for testing the OSATE Graphical Editor.
@@ -78,7 +81,7 @@ public class OsateGeTestUtil {
 
 	public static void setTextField(final int index, final String value, final String expectedOriginalValue) {
 		assertTextFieldText("Original value is not the expected value", index, expectedOriginalValue);
-		org.osate.ge.tests.endToEnd.util.UiTestUtil.setTextField(index, value);
+		org.osate.ge.tests.endToEnd.util.UiTestUtil.setTextFieldText(index, value);
 	}
 
 	/**
@@ -149,21 +152,23 @@ public class OsateGeTestUtil {
 	}
 
 	/**
-	 * Creates a flow specification on the specified diagram on the referenced feature.
+	 * Creates an element represented a a flow indicator on the specified diagram.
+	 * This function assumes that the element is created by targeting an element and that the resulting
+	 * element is a child of the parent element.
 	 * @param diagram the diagram the flow specification will be created on
 	 * @param parentElement the parent element of the referenced feature
 	 * @param paletteItem the type of the element to create
-	 * @param featureRef the feature the flow specification will attached to
+	 * @param endpointElement the element the flow specification will attached to
 	 * @param referenceAfterCreate the reference of the created flow specification
 	 */
-	public static void createFlowSpecificationElement(final DiagramReference diagram,
+	public static void createFlowIndicator(final DiagramReference diagram,
 			final DiagramElementReference parentElement, final String paletteItem,
-			final RelativeBusinessObjectReference featureRef,
+			final DiagramElementReference endpointElement,
 			final RelativeBusinessObjectReference referenceAfterCreate) {
 		openDiagramEditor(diagram);
 
 		selectPaletteItem(diagram, paletteItem);
-		clickDiagramElement(diagram, parentElement.join(featureRef));
+		clickDiagramElement(diagram, endpointElement);
 		activateSelectionTool(diagram);
 
 		// Wait for element to be created
@@ -178,15 +183,17 @@ public class OsateGeTestUtil {
 	 * @param dest the destination of the connection
 	 * @param paletteItem the type of connection to be created
 	 * @param referenceAfterCreate the reference of the created connection
+	 * @param postExecPaletteItem runnable to call after the palette item is executed
 	 */
 	public static void createConnectionElement(final DiagramReference diagram, final DiagramElementReference src,
 			final DiagramElementReference dest, final String paletteItem,
-			final DiagramElementReference referenceAfterCreate) {
+			final DiagramElementReference referenceAfterCreate, final Runnable postExecPaletteItem) {
 		openDiagramEditor(diagram);
 
 		selectPaletteItem(diagram, paletteItem);
 		clickDiagramElement(diagram, src);
 		clickDiagramElement(diagram, dest);
+		postExecPaletteItem.run();
 		activateSelectionTool(diagram);
 
 		// Wait for element to be created
@@ -202,6 +209,27 @@ public class OsateGeTestUtil {
 			assertDiagramEditorActive(diagram);
 			return getDiagramElement(diagram, element).isPresent();
 		}, "Expected element '" + element + "' doesn't exist.");
+	}
+
+	/**
+	 * Waits until a condition is met for a diagram condition
+	 */
+	public static void waitForDiagramElementCondition(final DiagramReference diagram,
+			final DiagramElementReference element, final String failureMessage, Predicate<DiagramElement> condition) {
+		waitUntil(() -> {
+			return getDiagramElement(diagram, element).filter(condition).isPresent();
+		}, failureMessage);
+	}
+
+	/**
+	 * Waits until the diagram element is removed
+	 */
+	public static void waitForDiagramElementRemoval(final DiagramReference diagram,
+			final DiagramElementReference element) {
+		waitUntil(() -> {
+			assertDiagramEditorActive(diagram);
+			return !getDiagramElement(diagram, element).isPresent();
+		}, "Expected removed element '" + element + "' to not exist.");
 	}
 
 	/**
@@ -327,15 +355,23 @@ public class OsateGeTestUtil {
 	 * Waits until the text contained in a Label with the specified ID matches the specified value.
 	 */
 	public static void waitUntilLabelWithIdTextMatches(final String id, final String value) {
-		waitUntil(() -> Objects.deepEquals(getTextForlabelWithId(id), value),
-				"Label text of '" + id + "' is not '" + value + "'. Label Value '" + getTextForlabelWithId(id) + "'");
+		waitUntil(() -> Objects.deepEquals(getTextForLabelWithId(id), value),
+				"Label text of '" + id + "' is not '" + value + "'. Label Value '" + getTextForLabelWithId(id) + "'");
 	}
 
 	/**
-	 * Waits until the text contained in a CLabel with the specified ID matches the specified value.
+	 * Waits until the text contained in a {@link BorderedCLabel} with the specified ID matches the specified value.
 	 */
-	public static void waitUntilCLabelWithIdTextMatches(final String id, final String value) {
-		waitUntil(() -> Objects.deepEquals(getTextForClabelWithId(id), value),
-				"Label text of '" + id + "' is not '" + value + "'. Label Value '" + getTextForClabelWithId(id) + "'");
+	public static void waitUntilBorderedCLabelWithIdTextMatches(final String id, final String value) {
+		waitUntil(() -> Objects.deepEquals(getTextForBorderedClabelWithId(id), value),
+				"Label text of '" + id + "' is not '" + value + "'. Label Value '" + getTextForBorderedClabelWithId(id) + "'");
+	}
+
+	/**
+	 * Waits until the text contained in a text field with the specified index matches the specified value.
+	 */
+	public static void waitUntilTextFieldWithIdTextMatches(final String id, final String value) {
+		waitUntil(() -> Objects.deepEquals(getTextForTextFieldWithId(id), value), "Text field text of text field'"
+				+ id + "' is not '" + value + "'. Text Value '" + getTextForTextFieldWithId(id) + "'");
 	}
 }
