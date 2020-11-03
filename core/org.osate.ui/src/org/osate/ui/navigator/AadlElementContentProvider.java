@@ -67,7 +67,8 @@ public class AadlElementContentProvider implements ITreeContentProvider {
 			EObject eObject = new ResourceSetImpl().getEObject(wrapper.getUri(), true);
 			if (eObject instanceof AadlPackage || eObject instanceof PropertySet
 					|| eObject instanceof ComponentInstance) {
-				children = eObject.eContents().stream();
+				children = eObject.eContents().stream().filter(
+						element -> !(element instanceof SystemOperationMode || element instanceof PropertyAssociation));
 			} else if (eObject instanceof PackageSection) {
 				children = eObject.eContents().stream()
 						.filter(element -> element instanceof Classifier || element instanceof AnnexLibrary);
@@ -79,9 +80,8 @@ public class AadlElementContentProvider implements ITreeContentProvider {
 			}
 		}
 		final EObjectURIWrapper.Factory factory = new EObjectURIWrapper.Factory(UiUtil.getModelElementLabelProvider());
-		// Issue 2430: Filter out System Operation Modes and limit the number of children to 150
-		return children.filter(eObject -> !(eObject instanceof SystemOperationMode)).limit(150)
-				.map(element -> factory.createWrapperFor(element)).toArray();
+		// Issue 2430: limit the number of children to 150
+		return children.limit(150).map(element -> factory.createWrapperFor(element)).toArray();
 	}
 
 	@Override
@@ -102,7 +102,8 @@ public class AadlElementContentProvider implements ITreeContentProvider {
 			EObject eObject = new ResourceSetImpl().getEObject(wrapper.getUri(), true);
 			if (eObject instanceof AadlPackage || eObject instanceof PropertySet
 					|| eObject instanceof ComponentInstance) {
-				return !eObject.eContents().isEmpty();
+				return eObject.eContents().stream().anyMatch(
+						member -> !(member instanceof SystemOperationMode || member instanceof PropertyAssociation));
 			} else if (eObject instanceof PackageSection) {
 				return eObject.eContents().stream()
 						.anyMatch(member -> member instanceof Classifier || member instanceof AnnexLibrary);
