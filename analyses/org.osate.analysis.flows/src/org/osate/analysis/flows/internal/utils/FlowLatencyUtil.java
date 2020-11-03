@@ -699,7 +699,7 @@ public class FlowLatencyUtil {
 
 	public static String getParametersAsDescriptions(AnalysisResult results) {
 		String labels = results.getMessage();
-		if (results.getParameters().size() == 4) {
+		if (results.getParameters().size() == 5) {
 			labels = FlowLatencyUtil.getParametersAsDescriptions((boolean) results.getParameters().get(0).getValue(),
 					(boolean) results.getParameters().get(1).getValue(),
 					(boolean) results.getParameters().get(2).getValue(),
