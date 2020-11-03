@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.osate.annexsupport">
+<schema targetNamespace="org.osate.annexsupport" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
          <meta.schema plugin="org.osate.annexsupport" id="parser" name="Annex Parser"/>
@@ -13,6 +13,11 @@
    </annotation>
 
    <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
       <complexType>
          <sequence>
             <element ref="parser" minOccurs="1" maxOccurs="unbounded"/>
@@ -64,7 +69,7 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="annexNSURI" type="string" use="optional">
+         <attribute name="annexNSURI" type="string" use="required">
             <annotation>
                <documentation>
                   The NSURI of the annex this parser can process.

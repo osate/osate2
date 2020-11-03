@@ -31,6 +31,16 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.parsesupport.ParseUtil;
 
 /**
@@ -145,6 +155,9 @@ public abstract class AnnexRegistry {
 						} else {
 							ParseUtil.setAnnexNS(annexName, annexNSURI);
 
+							// Issue #2459
+							registerAnnexValidator( annexNSURI ); 
+
 							extensions.put(annexName.toLowerCase(), createProxy(configElems[j]));
 						}
 					}
@@ -160,6 +173,97 @@ public abstract class AnnexRegistry {
 			}
 		}
 	}
+	
+	// Issue #2459
+	private static void registerAnnexValidator( final String ePackageNsUri ) {
+		if ( ePackageNsUri != null ) {
+			final EPackage pack = EPackage.Registry.INSTANCE.getEPackage( ePackageNsUri );
+			
+			if ( pack != null ) {
+	
+				// Add annex validator
+			    EValidator.Registry.INSTANCE.put( pack, new EValidator.Descriptor() {
+			      
+			    	@Override
+			    	public EValidator getEValidator() {
+			    		return ANNEX_VALIDATOR;
+			    	}
+			    });
+			}
+		}
+	}
+	
+	// Issue #2459
+	private static class NoValidationAdaper implements Adapter {
+
+		@Override
+		public void notifyChanged(Notification notification) {
+		}
+
+		@Override
+		public Notifier getTarget() {
+			return null;
+		}
+
+		@Override
+		public void setTarget(Notifier newTarget) {
+		}
+
+		@Override
+		public boolean isAdapterForType(Object type) {
+			return false;
+		}
+	}
+	
+	// Issue #2459
+	private static final Adapter NO_VALIDATION_ADAPTER = new NoValidationAdaper();
+	
+	// Issue #2459
+	private static final EValidator ANNEX_VALIDATOR = new EObjectValidator() {
+
+		@Override
+		public boolean validate(EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+			if ( !isValidating( eObject ) ) {
+				return true;
+			}
+
+			return super.validate( eObject, diagnostics, context );
+		}
+		
+		@Override
+		public boolean validate(EClass eClass, EObject eObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+			if ( !isValidating( eObject ) ) {
+				return true;
+			}
+			
+			return super.validate(eClass, eObject, diagnostics, context);
+		}
+	};
+	
+	// Issue #2459
+	private static boolean isValidating( final EObject object ) {
+		if ( object == null ) {
+			return true;
+		}
+		
+		for (  final Adapter adapter : object.eAdapters() ) {
+			if ( adapter == NO_VALIDATION_ADAPTER ) {
+				return false;
+			}
+		}
+		
+		if ( !isValidating( object.eContainer() ) ) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	public static <A extends NamedElement, D extends A> void setNoValidation( D defaultAnnexSection ) {
+		if ( isValidating( defaultAnnexSection ) ) {
+			defaultAnnexSection.eAdapters().add( NO_VALIDATION_ADAPTER );
+		}
+ 	}
 
 	protected Object getDefault() {
 		// By default, there is no default thing to do

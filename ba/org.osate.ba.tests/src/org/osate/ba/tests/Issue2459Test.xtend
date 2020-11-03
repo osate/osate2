@@ -11,7 +11,6 @@ import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
-import static extension org.junit.Assert.assertTrue
 import org.osate.ba.unparser.AadlBaUnparser
 import org.osate.ba.aadlba.BehaviorElement
 
@@ -31,10 +30,11 @@ class Issue2459Test {
 				"top".assertEquals(name)
 				ownedAnnexSubclauses.head as DefaultAnnexSubclause => [
 					"behavior_specification".assertEquals(name)
-					val unparser = new AadlBaUnparser();
-					val unparsedText = unparser.process(parsedAnnexSubclause as BehaviorElement);
-					InputOutput.<String>println(unparsedText);
-					sourceText.assertEquals("{**"+unparsedText+"        **}");
+					val unparser = new AadlBaUnparser()
+					val textLeft = sourceText
+					val unparsedText = unparser.process(parsedAnnexSubclause as BehaviorElement)
+					val textRight = "{**" + unparsedText + "        **}"
+					textLeft.assertEquals(textRight)
 				]
 			]
 		]
