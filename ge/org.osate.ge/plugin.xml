@@ -1455,13 +1455,6 @@ censes only apply to the Third Party Software and not any other portion of this 
   <extension
         point="org.eclipse.core.expressions.propertyTesters">
      <propertyTester
-           class="org.osate.ge.internal.expressions.ResourcePropertyTester"
-           id="org.osate.ge.navigator.propertyTester"
-           namespace="org.osate.ge"
-           properties="name,isAadlPackage"
-           type="org.eclipse.core.resources.IResource">
-     </propertyTester>
-     <propertyTester
            class="org.osate.ge.internal.expressions.DiagramElementPropertyTester"
            id="org.osate.ge.expressions.diagramElementPropertyTester"
            namespace="org.osate.ge"
@@ -1603,9 +1596,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 	              <or>
 	                <adapt type="org.eclipse.core.resources.IFile">
                        <or>
-                          <test
-                                property="org.osate.ge.isAadlPackage">
-                          </test>
+                          <test property="org.osate.ui.aadlPackage" forcePluginActivation="true" />
                           <test
                                 args="extension"
                                 property="org.eclipse.core.resources.extension"
