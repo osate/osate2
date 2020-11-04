@@ -47,6 +47,7 @@ import javafx.scene.image.WritableImage;
 // TODO: Categories and command should be driven by extensions
 // TODO; Can share some of implementation with test palette model
 // TODO: Test icon on build..
+// TODO: Consider moving to org.osate.ge.gef and just passing in the shared image.
 public class ActualPaletteModel implements PaletteModel<SimplePaletteGroup, SimplePaletteItem> {
 	private final ReadOnlyObjectWrapper<SimplePaletteItem> activeItem = new ReadOnlyObjectWrapper<>();
 	private final Image selectIcon = new Image("./icons/arrow16.gif");

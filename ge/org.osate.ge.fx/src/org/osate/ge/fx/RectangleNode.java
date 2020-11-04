@@ -26,6 +26,7 @@ package org.osate.ge.fx;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
 
 // TODO: Rename
 public class RectangleNode extends Region implements Styleable {
@@ -42,6 +43,7 @@ public class RectangleNode extends Region implements Styleable {
 		setBackgroundColor(Color.WHITE);
 		setOutlineColor(Color.BLACK);
 		setRounded(rounded);
+		rect.setStrokeType(StrokeType.INSIDE);
 	}
 
 	public void setRounded(final boolean value) {

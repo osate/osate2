@@ -15,6 +15,7 @@ public interface PaletteModel<G, I> {
 	 * Provides the groups for the palette.
 	 * @return an array of palette groups
 	 */
+	// TODO: Consider making this an immutable collection
 	G[] getGroups();
 
 	/**
@@ -36,6 +37,7 @@ public interface PaletteModel<G, I> {
 	 * @param group is the group for which to return items. A value of null indicates that root items should be returned.
 	 * @return the items for the group or root items when group is null.
 	 */
+	// TODO: Consider making this an immutable collection
 	I[] getItems(G group);
 
 	/**

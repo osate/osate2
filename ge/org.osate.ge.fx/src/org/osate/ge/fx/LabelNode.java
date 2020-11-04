@@ -64,6 +64,8 @@ public class LabelNode extends Region implements Styleable {
 	@Override
 	public void setFont(final Font font) {
 		text.setFont(font);
+
+		// TODO: Is this needed?
 		requestLayout();
 	}
 

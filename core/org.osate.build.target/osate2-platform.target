@@ -10,7 +10,6 @@
       <unit id="org.eclipse.equinox.executable.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.equinox.p2.discovery.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.fx.runtime.min.feature.feature.group" version="0.0.0"/>
-      <unit id="org.eclipse.gef.mvc.fx.ui.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.gmf.runtime.sdk.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.graphiti.feature.feature.group" version="0.0.0"/>
       <unit id="org.eclipse.graphiti.export.feature.feature.group" version="0.0.0"/>

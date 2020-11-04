@@ -25,7 +25,6 @@ package org.osate.ge.gef.ui.editor;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -39,8 +38,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gef.mvc.fx.models.SelectionModel;
-import org.eclipse.gef.mvc.fx.ui.parts.AbstractFXEditor;
+import org.eclipse.gef.fx.nodes.InfiniteCanvas;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -52,13 +50,12 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.part.EditorPart;
 import org.osate.ge.fx.DiagramEditorNode;
-import org.osate.ge.gef.AgeModule;
-import org.osate.ge.gef.ui.AgeUiModule;
+import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
-import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
 import org.osate.ge.internal.diagram.runtime.botree.DefaultBusinessObjectNodeFactory;
 import org.osate.ge.internal.diagram.runtime.botree.DefaultTreeUpdater;
@@ -80,16 +77,13 @@ import org.osate.ge.services.impl.DefaultQueryService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
-import com.google.inject.Guice;
-import com.google.inject.util.Modules;
-
 import javafx.embed.swt.FXCanvas;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 
 // TODO: Implement selection notification..
 // TODO: Rename to AgeDiagramEditor to match name of existing editor?
-public class AgeEditor extends AbstractFXEditor {
+public class AgeEditor extends EditorPart {
 	// TODO: Review names
 	private final ReferenceService referenceService;
 	private final ExtensionRegistryService extRegistry;
@@ -103,12 +97,13 @@ public class AgeEditor extends AbstractFXEditor {
 	private final DiagramUpdater diagramUpdater;
 	private IProject project;
 	private AgeDiagram diagram;
+	private GefAgeDiagram gefDiagram; // TODO: Rename
 	private ProjectProvider projectProvider = () -> project; // TODO
 	private AgeDiagramProvider diagramProvider = () -> diagram; // TODO
+	private FXCanvas fxCanvas;
+	private InfiniteCanvas canvas; // TODO: Rename?
 
 	public AgeEditor() {
-		super(Guice.createInjector(Modules.override(new AgeModule()).with(new AgeUiModule())));
-
 		// TODO; Need to look at AgeDiagramTypeProvider... create diagram specific items.. TODO: Need to dispose objects as appropriate
 
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
@@ -145,7 +140,8 @@ public class AgeEditor extends AbstractFXEditor {
 
 	@Override
 	public void init(final IEditorSite site, final IEditorInput input) throws PartInitException {
-		super.init(site, input);
+		setInput(input);
+		setSite(site);
 
 		if (!(input instanceof IFileEditorInput)) {
 			throw new RuntimeException("Input must implement " + IFileEditorInput.class.getName());
@@ -204,7 +200,22 @@ public class AgeEditor extends AbstractFXEditor {
 			return null;
 		});
 
-		getContentViewer().getContents().setAll(diagram.getDiagramElements());
+		// TODO: Update contents of the infinite canvas
+		// getContentViewer().getContents().setAll(diagram.getDiagramElements());
+
+		// TODO: Must dispose:
+		// Project Reference Serivce
+		// Context - If any
+	}
+
+	@Override
+	public void dispose() {
+		if (gefDiagram != null) {
+			gefDiagram.close();
+			gefDiagram = null;
+		}
+
+		super.dispose();
 	}
 
 	private void updateProjectByUri(final URI uri) {
@@ -217,38 +228,24 @@ public class AgeEditor extends AbstractFXEditor {
 		project = (IProject) projectResource;
 	}
 
-	// Provide access to the SWT widget. This should only be used for testing.
-	@Override
-	public FXCanvas getCanvas() {
-		return super.getCanvas();
-	}
-
 	@Override
 	public void createPartControl(final Composite parent) {
-		super.createPartControl(parent);
+		fxCanvas = new FXCanvas(parent, SWT.NONE); // TODO: Look at what GEF factory does?
 
 		// Create SWT Menu for testing purposes. In reality it would be registered to accept contributions
-		final FXCanvas canvas = getCanvas();
-		final Menu testMenu = new Menu(canvas);
-		canvas.setMenu(testMenu);
+		final Menu testMenu = new Menu(fxCanvas);
+		fxCanvas.setMenu(testMenu);
 
 		final MenuItem miTest = new MenuItem(testMenu, SWT.NONE);
 		miTest.setText("Test Menu Item");
 		miTest.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				final SelectionModel selectionModel = getContentViewer().getAdapter(SelectionModel.class);
-				final String selectionDescription = selectionModel.getSelectionUnmodifiable().stream()
-						.map(cp -> cp.getContent()).filter(c -> c instanceof DiagramElement).map(de -> de.toString())
-						.collect(Collectors.joining("\n"));
-				MessageDialog.openInformation(canvas.getShell(), "Test",
-						"Test Menu Item was selected.\nEditor Selection:\n" + selectionDescription);
+				MessageDialog.openInformation(fxCanvas.getShell(), "Test", "Test Menu Item");
 			}
 		});
-	}
 
-	@Override
-	protected void hookViewers() {
+		// Initialize things
 		// TODO: Get extension service....
 
 		// TODO: Check if diagram i s null?
@@ -266,18 +263,17 @@ public class AgeEditor extends AbstractFXEditor {
 				return Optional.empty();
 			}
 
-			// TODO:
-			System.err.println(path);
-
 			return Optional.of(new Image(path));
 		};
 
 		// TODO: Rename and review
-		getCanvas()
-				.setScene(new Scene(
+		canvas = new InfiniteCanvas();
+		fxCanvas.setScene(new Scene(
 						new DiagramEditorNode(new ActualPaletteModel(extRegistry.getPaletteContributors(),
 								diagramBo, imageProvider),
-								getContentViewer().getCanvas())));
+						canvas)));
+		gefDiagram = new GefAgeDiagram(diagram);
+		canvas.getContentGroup().getChildren().add(gefDiagram.getNode());
 	}
 
 	@Override
@@ -297,6 +293,17 @@ public class AgeEditor extends AbstractFXEditor {
 	}
 
 	@Override
+	public boolean isDirty() {
+		// TODO
+		return true;// false;
+	}
+
+	@Override
+	public void setFocus() {
+		fxCanvas.setFocus();
+	}
+
+	@Override
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class required) {
 		// TODO; Outline
 //		if (IContentOutlinePage.class.equals(required)) {
@@ -311,7 +318,19 @@ public class AgeEditor extends AbstractFXEditor {
 		// TODO: Properties...
 
 		// TODO: Other services
-
+//		Global Services
+//		context.set(UiService.class, uiService);
+//		context.set(ProjectReferenceService.class, projectReferenceService);
+//		context.set(ColoringService.class, coloringService);
+//		context.set(GraphitiService.class, graphitiService);
+//		context.set(ProjectProvider.class, graphitiService);
+//		context.set(EditorProvider.class, graphitiService);
+//		context.set(QueryService.class, queryService);
+//		context.set(GraphitiAgeDiagramProvider.class, graphitiService);
+//		context.set(AgeDiagramProvider.class, graphitiService);
+//		context.set(LayoutInfoProvider.class, graphitiService);
+//		context.set(ReferenceResolutionService.class, new DefaultReferenceResolutionService(projectReferenceService));
+//
 		return super.getAdapter(required);
 	}
 

@@ -1,11 +1,11 @@
 package org.osate.ge.fx;
 
-import javafx.geometry.Pos;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-// TODO: Document
+// TODO: Document. Consider renaming
+// TODO: Consider reworking into separate interfaces based on what type of Node. Just have a Graphic interface, etc
+// remove methods that aren't relevant to them. Consider usage.
 public interface Styleable {
 	default void setBackgroundColor(final Color value) {
 	}
@@ -17,12 +17,6 @@ public interface Styleable {
 	}
 
 	default void setFont(final Font value) {
-	}
-
-	default void setImage(final Image image) {
-	}
-
-	default void setLabelPosition(Pos value) {
 	}
 
 	default void setStrokeDashOffset(double value) {

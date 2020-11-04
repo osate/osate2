@@ -25,42 +25,57 @@ package org.osate.ge.fx;
 
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ClosePath;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.StrokeType;
 
+// TODO: Need a generic node that contains a path which has elements created based on size.
+// TODO: Consider using GEF Geometry node with a GEF Path
+// TODO: Bus node should change/rotate shape if it is taller than it is wide.
 public class BusNode extends Region implements Styleable {
-	private final javafx.scene.shape.Polygon poly = new javafx.scene.shape.Polygon();
+	private Path path = new Path();
 
 	public BusNode() {
-		this.getChildren().addAll(poly);
-
+		this.getChildren().addAll(path);
 		setLineWidth(2);
 		setBackgroundColor(Color.WHITE);
 		setOutlineColor(Color.BLACK);
+		path.setStrokeType(StrokeType.INSIDE);
 	}
 
 	@Override
 	public void resize(final double width, final double height) {
 		super.resize(width, height);
+
 		final double arrowHeadWidth = Math.max(Math.min(width, height) / 4.0, 20.0);
 		final double arrowHeadVerticalExtensionSize = height / 4;
-		poly.getPoints().setAll(0.0, height / 2.0, arrowHeadWidth, 0.0, arrowHeadWidth, arrowHeadVerticalExtensionSize,
-				width - arrowHeadWidth, arrowHeadVerticalExtensionSize, width - arrowHeadWidth, 0.0, width,
-				height / 2.0, width - arrowHeadWidth, height, width - arrowHeadWidth,
-				height - arrowHeadVerticalExtensionSize, arrowHeadWidth, height - arrowHeadVerticalExtensionSize,
-				arrowHeadWidth, height);
+
+		// TODO: Create a path builders that could be used to build Path, GEF Path, or SVG string depending on need
+		path.getElements().setAll(new MoveTo(0.0, height / 2.0), new LineTo(arrowHeadWidth, 0.0),
+				new LineTo(arrowHeadWidth, arrowHeadVerticalExtensionSize),
+				new LineTo(width - arrowHeadWidth, arrowHeadVerticalExtensionSize),
+				new LineTo(width - arrowHeadWidth, 0.0), new LineTo(width, height / 2.0),
+				new LineTo(width - arrowHeadWidth, height),
+				new LineTo(width - arrowHeadWidth, height - arrowHeadVerticalExtensionSize),
+				new LineTo(arrowHeadWidth, height - arrowHeadVerticalExtensionSize), new LineTo(arrowHeadWidth, height),
+				new ClosePath()
+		);
 	}
 
 	@Override
 	public final void setBackgroundColor(final Color value) {
-		poly.setFill(value);
+		path.setFill(value);
 	}
 
 	@Override
 	public final void setOutlineColor(final Color value) {
-		poly.setStroke(value);
+		path.setStroke(value);
 	}
 
 	@Override
 	public final void setLineWidth(final double value) {
-		poly.setStrokeWidth(value);
+		path.setStrokeWidth(value);
 	}
 }
