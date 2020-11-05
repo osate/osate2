@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -43,28 +43,28 @@ public class AssignmentProblem implements Cloneable {
 	/**
 	 * SoftwareNodes set ordered byte non-increasing bandwidth requirement
 	 */
-	public TreeSet softwareGraph;
+	private TreeSet softwareGraph;
 
-	public TreeSet nonDeployableModules;
+	TreeSet nonDeployableModules;
 
 	/**
 	 * Connectivity matrix: each row is indexed by software node object. Each
 	 * row contains another TreeMap with (key, value) pairs as (message,
 	 * software node) ordered by non-increasing bandwidth requirement.
 	 */
-	public TreeMap softwareConnectivity;
+	TreeMap softwareConnectivity;
 
 	/**
 	 * This is a matrix (hashtable of hashtables) to address node-to-node
 	 * indexing of the messages. This speeds up the lookup of the messages to a
 	 * particular target
 	 */
-	public Hashtable softConnectivityByTarget;
+	Hashtable softConnectivityByTarget;
 
 	/**
 	 * Hardware nodes ordered byte non-decreasing available bandwidth capacity
 	 */
-	public TreeSet hardwareGraph;
+	private TreeSet hardwareGraph;
 
 	/**
 	 * Hardware connectivity. Rows indexed byte hardwareNode. Each row contains
@@ -72,7 +72,7 @@ public class AssignmentProblem implements Cloneable {
 	 * {hardware Node}. These rows are ordered int non-decreasing available
 	 * bandwidth capacity
 	 */
-	public TreeMap hardwareConnectivity;
+	TreeMap hardwareConnectivity;
 
 	/**
 	 * The constraints is a set of SoftwareNode groups of two types: jointion
@@ -83,11 +83,11 @@ public class AssignmentProblem implements Cloneable {
 	 * This way each time we try to deploy a node we would be able to check the
 	 * constraints.
 	 */
-	public Hashtable constraints = new Hashtable();
+	Hashtable constraints = new Hashtable();
 
-	public Comparator bwComparator;
+	Comparator bwComparator;
 
-	public Comparator capComparator;
+	Comparator capComparator;
 
 	public AssignmentProblem() {
 	}
@@ -97,8 +97,8 @@ public class AssignmentProblem implements Cloneable {
 			throw new IllegalArgumentException("Comparators are null");
 		}
 
-		hardwareGraph = new TreeSet(capComparator);
-		softwareGraph = new TreeSet(bwComparator);
+		setHardwareGraph(new TreeSet(capComparator));
+		setSoftwareGraph(new TreeSet(bwComparator));
 		nonDeployableModules = new TreeSet(bwComparator);
 		hardwareConnectivity = new TreeMap(capComparator);
 		softwareConnectivity = new TreeMap(bwComparator);
@@ -107,10 +107,11 @@ public class AssignmentProblem implements Cloneable {
 		this.capComparator = capComparator;
 	}
 
+	@Override
 	public Object clone() {
 		AssignmentProblem p = new AssignmentProblem();
-		p.hardwareGraph = (TreeSet) hardwareGraph.clone();
-		p.softwareGraph = (TreeSet) softwareGraph.clone();
+		p.setHardwareGraph((TreeSet) getHardwareGraph().clone());
+		p.setSoftwareGraph((TreeSet) getSoftwareGraph().clone());
 		p.nonDeployableModules = (TreeSet) nonDeployableModules.clone();
 		p.hardwareConnectivity = (TreeMap) hardwareConnectivity.clone();
 		p.softwareConnectivity = (TreeMap) softwareConnectivity.clone();
@@ -135,7 +136,7 @@ public class AssignmentProblem implements Cloneable {
 			CompositeSoftNode compNode = new CompositeSoftNode(bwComparator);
 			for (int i = 0; i < c.members.size(); i++) {
 				compNode.add((SoftwareNode) c.members.elementAt(i), softwareConnectivity, softConnectivityByTarget);
-				softwareGraph.remove(c.members.elementAt(i));
+				getSoftwareGraph().remove(c.members.elementAt(i));
 				Vector v = (Vector) constraints.get(c.members.get(i));
 				if (v == null) {
 					v = new Vector();
@@ -149,7 +150,7 @@ public class AssignmentProblem implements Cloneable {
 								compNode.add((SoftwareNode) joint.members.get(k), softwareConnectivity,
 										softConnectivityByTarget);
 							}
-							softwareGraph.remove(joint.getCompositeNode());
+							getSoftwareGraph().remove(joint.getCompositeNode());
 							// TODO do I need to remove the old joint
 							// constraint?
 						} else if (v.get(j) instanceof Disjoint) {
@@ -160,7 +161,7 @@ public class AssignmentProblem implements Cloneable {
 				v.add(c);
 			}
 			compNode.breakable = false;
-			softwareGraph.add(compNode);
+			getSoftwareGraph().add(compNode);
 			((Joint) c).setCompositeNode(compNode);
 		} else if (c.members.size() > 0) // Disjoint or Isolation
 		{
@@ -193,7 +194,7 @@ public class AssignmentProblem implements Cloneable {
 
 	/**
 	 * Add the
-	 * 
+	 *
 	 * @param link
 	 *            to the hardware connectivity matrix
 	 */
@@ -207,8 +208,9 @@ public class AssignmentProblem implements Cloneable {
 				// CONNECTIVITY: LINK("+link.toString()+")
 				// PROC("+node.toString()+")");
 			}
-			if (!connectivitySet.contains(link))
+			if (!connectivitySet.contains(link)) {
 				connectivitySet.add(link);
+			}
 			hardwareConnectivity.put(node, connectivitySet);
 		}
 	}
@@ -234,20 +236,22 @@ public class AssignmentProblem implements Cloneable {
 
 	public Link getConnectingLink(HardwareNode n1, HardwareNode n2) {
 		TreeSet cs = (TreeSet) hardwareConnectivity.get(n1);
-		if (cs == null)
+		if (cs == null) {
 			return null;
+		}
 
 		for (Iterator iter = cs.iterator(); iter.hasNext();) {
 			Link l = (Link) iter.next();
-			if (l.getConnectedNodes().contains(n2))
+			if (l.getConnectedNodes().contains(n2)) {
 				return l;
+			}
 		}
 		return null;
 	}
 
 	/**
 	 * Add the message
-	 * 
+	 *
 	 * @param m
 	 *            to the software connectivity matrix. FIXME: we should use
 	 *            multicast messages similar to links in hardware.
@@ -290,7 +294,7 @@ public class AssignmentProblem implements Cloneable {
 		/* check if */
 		Vector v = (Vector) constraints.get(n);
 		if (v != null) {
-			set = (TreeSet) hardwareGraph.clone();
+			set = (TreeSet) getHardwareGraph().clone();
 			int vSize = v.size();
 			for (int i = 0; i < vSize; i++) {
 				Constraint c = (Constraint) v.get(i);
@@ -314,8 +318,9 @@ public class AssignmentProblem implements Cloneable {
 								}
 							}
 						}
-						if (!belongs)
+						if (!belongs) {
 							iter.remove();
+						}
 					}
 				} else if (c instanceof Disjoint) {
 					int cSize = c.members.size();
@@ -327,21 +332,23 @@ public class AssignmentProblem implements Cloneable {
 								SoftwareNode elem = (SoftwareNode) iter.next();
 								HardwareNode hn = elem.getDeployedTo();
 								/* remove where the other is deployed */
-								if (hn != null)
+								if (hn != null) {
 									set.remove(hn);
+								}
 							}
 						} else {
 							HardwareNode hn = other.getDeployedTo();
 							/* remove where the other is deployed */
-							if (hn != null)
+							if (hn != null) {
 								set.remove(hn);
+							}
 						}
 					}
 				}
 			}
 			return set;
 		}
-		return (set != null) ? set : hardwareGraph;
+		return (set != null) ? set : getHardwareGraph();
 	}
 
 	public int dumpHardwareText(PrintWriter writer, int initialNodeID, int initY, boolean printGraphHeader) {
@@ -353,7 +360,7 @@ public class AssignmentProblem implements Cloneable {
 		int nodeYposition = initY;
 		int nextLinkID = nextNodeID;
 
-		for (Iterator iter = hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode node = (HardwareNode) iter.next();
 			Integer nodeInt = (Integer) nodeToID.get(node);
 			if (nodeInt == null) {
@@ -364,7 +371,7 @@ public class AssignmentProblem implements Cloneable {
 			writer.println("node[" + nodeID + "]C(" + node.getAvailableCapacity() + ")");
 
 			TreeSet connSet = (TreeSet) hardwareConnectivity.get(node);
-			if (connSet != null)
+			if (connSet != null) {
 				for (Iterator links = connSet.iterator(); links.hasNext();) {
 					Link link = (Link) links.next();
 
@@ -388,10 +395,12 @@ public class AssignmentProblem implements Cloneable {
 						}
 					}
 				}
+			}
 		}
 
-		if (printGraphHeader)
+		if (printGraphHeader) {
 			writer.println("]");
+		}
 
 		return nextLinkID;
 	}
@@ -411,7 +420,7 @@ public class AssignmentProblem implements Cloneable {
 		}
 
 		int nodeYposition = initY;
-		for (Iterator iter = hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode node = (HardwareNode) iter.next();
 			Integer nodeInt = (Integer) nodeToID.get(node);
 			if (nodeInt == null) {
@@ -430,7 +439,7 @@ public class AssignmentProblem implements Cloneable {
 				taskList += l.getName();
 			}
 
-			writer.println("\t\t label \"" + node.name + ":" + taskList + ":" + node.cyclesPerSecond + " cycles/s\"");
+			writer.println("\t\t label \"" + node.getName() + ":" + taskList + ":" + node.getCyclesPerSecond() + " cycles/s\"");
 			writer.println("\t\t graphics [");
 			writer.println("\t\t\t Image [");
 			writer.println("\t\t\t\t Type \"URL\"");
@@ -455,7 +464,7 @@ public class AssignmentProblem implements Cloneable {
 
 		int nextLinkID = nextNodeID;
 
-		for (Iterator iter = hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode node = (HardwareNode) iter.next();
 			int nodeID = ((Integer) nodeToID.get(node)).intValue();
 			TreeSet connSet = (TreeSet) hardwareConnectivity.get(node);
@@ -468,7 +477,7 @@ public class AssignmentProblem implements Cloneable {
 					printedLinks.add(link);
 					writer.println("\t node [");
 					writer.println("\t\t id " + linkID);
-					writer.println("\t\t label \"" + link.name + ":" + link.cyclesPerSecond + " bits/s\"");
+					writer.println("\t\t label \"" + link.getName() + ":" + link.getCyclesPerSecond() + " bits/s\"");
 					writer.println("\t\t graphics [");
 					writer.println("\t\t\t Image [");
 					writer.println("\t\t\t\t Type \"URL\"");
@@ -504,8 +513,9 @@ public class AssignmentProblem implements Cloneable {
 			}
 		}
 
-		if (printGraphHeader)
+		if (printGraphHeader) {
 			writer.println("]");
+		}
 
 		return nextLinkID;
 	}
@@ -515,7 +525,7 @@ public class AssignmentProblem implements Cloneable {
 	 * smallest node id unused
 	 */
 	public int dumpSoftwareGML(PrintWriter writer, int initialNodeID, int initY, boolean printGraphHeader) {
-		return dumpSoftGraphGML(softwareGraph, writer, initialNodeID, initY, printGraphHeader);
+		return dumpSoftGraphGML(getSoftwareGraph(), writer, initialNodeID, initY, printGraphHeader);
 	}
 
 	public int dumpNonDeployableGML(PrintWriter writer, int initialNodeID, int initY, boolean printGraphHeader) {
@@ -588,8 +598,9 @@ public class AssignmentProblem implements Cloneable {
 
 					String msgID = Integer.toString((nodeID > partnerID) ? nodeID : partnerID)
 							+ Integer.toString((nodeID < partnerID) ? nodeID : partnerID);
-					if (printedMessages.contains(msgID))
+					if (printedMessages.contains(msgID)) {
 						continue;
+					}
 
 					printedMessages.add(msgID);
 
@@ -605,8 +616,9 @@ public class AssignmentProblem implements Cloneable {
 			}
 		}
 
-		if (printGraphHeader)
+		if (printGraphHeader) {
 			writer.println("]");
+		}
 
 		return nextNodeID;
 	}
@@ -657,5 +669,33 @@ public class AssignmentProblem implements Cloneable {
 			}
 		}
 		return nextNodeID;
+	}
+
+	/**
+	 * @since 3.0
+	 */
+	public TreeSet getSoftwareGraph() {
+		return softwareGraph;
+	}
+
+	/**
+	 * @since 3.0
+	 */
+	public void setSoftwareGraph(TreeSet softwareGraph) {
+		this.softwareGraph = softwareGraph;
+	}
+
+	/**
+	 * @since 3.0
+	 */
+	public TreeSet getHardwareGraph() {
+		return hardwareGraph;
+	}
+
+	/**
+	 * @since 3.0
+	 */
+	public void setHardwareGraph(TreeSet hardwareGraph) {
+		this.hardwareGraph = hardwareGraph;
 	}
 }

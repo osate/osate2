@@ -59,9 +59,9 @@ public class FixedPriorityPollingScheduler implements Scheduler {
 					continue;
 
 				if (sNode.getPriority() <= p.getPriority()) {
-					if (((p.getCycles() * 1000000000) / ((long) node.cyclesPerSecond)) > largestPreemption) {
+					if (((p.getCycles() * 1000000000) / ((long) node.getCyclesPerSecond())) > largestPreemption) {
 						System.out.println("\t\t Largest preemption from task(" + p.getName() + ")");
-						largestPreemption = (p.getCycles() * 1000000000) / ((long) node.cyclesPerSecond);
+						largestPreemption = (p.getCycles() * 1000000000) / ((long) node.getCyclesPerSecond());
 					}
 				}
 			}
@@ -75,10 +75,10 @@ public class FixedPriorityPollingScheduler implements Scheduler {
 			do {
 				largestCompletion = currentCompletion;
 				System.out.println("Preemption: msg cycles(" + sNode.getCycles() + ") node.cyclesps("
-						+ node.cyclesPerSecond + ")");
+						+ node.getCyclesPerSecond() + ")");
 
 				// preemption in nanoseconds
-				currentCompletion = ((sNode.getCycles() * 1000000000) / ((long) node.cyclesPerSecond))
+				currentCompletion = ((sNode.getCycles() * 1000000000) / ((long) node.getCyclesPerSecond()))
 						+ pollingTimePerTask;
 				// largestPreemption+( (sNode.getCycles() * 1000000000)/
 				// ((long)node.cyclesPerSecond)) + pollingTimePerTask;
@@ -93,7 +93,7 @@ public class FixedPriorityPollingScheduler implements Scheduler {
 						System.out.println("\t calculating preemption from task(" + p.getName() + ") largestCompletion("
 								+ largestCompletion + ") numPreemptions(" + numberOfPreemptions + ")");
 						currentCompletion += numberOfPreemptions
-								* (((p.getCycles() * 1000000000) / ((long) node.cyclesPerSecond)) + pollingTimePerTask);
+								* (((p.getCycles() * 1000000000) / ((long) node.getCyclesPerSecond())) + pollingTimePerTask);
 					}
 				}
 			} while ((currentCompletion != largestCompletion) && (largestCompletion <= sNode.getDeadline()));
@@ -147,7 +147,7 @@ public class FixedPriorityPollingScheduler implements Scheduler {
 	public static void main(String[] args) {
 		FixedPriorityPollingScheduler scheduler = new FixedPriorityPollingScheduler();
 		HardwareNode net = new HardwareNode();
-		net.cyclesPerSecond = 1000000000.0;
+		net.setCyclesPerSecond(1000000000.0);
 		scheduler.setHardwareNode(net);
 
 		FixedPrioritySoftwareNode n1 = new FixedPrioritySoftwareNode(1, 10, 100, 100, "one");

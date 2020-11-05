@@ -130,7 +130,7 @@ public class RMScheduler extends BaseScheduler {
 		if (!schedulable) {
 			taskSet.remove(n);
 		} else {
-			double additionalCapacity = n.getBandwidth() / node.cyclesPerSecond;
+			double additionalCapacity = n.getBandwidth() / node.getCyclesPerSecond();
 			currentCapacity = currentCapacity + additionalCapacity;
 			currentLoadCyclesPerSecond += n.getCyclesPerSecond();
 		}
@@ -142,7 +142,7 @@ public class RMScheduler extends BaseScheduler {
 		if (taskSet.contains(n)) {
 			taskSet.remove(n);
 			n.setDeployedTo(null);
-			currentCapacity -= n.getBandwidth() / node.cyclesPerSecond;
+			currentCapacity -= n.getBandwidth() / node.getCyclesPerSecond();
 			currentLoadCyclesPerSecond -= n.getCyclesPerSecond();
 		}
 	}
@@ -153,7 +153,7 @@ public class RMScheduler extends BaseScheduler {
 	}
 
 	public long getAvailableCyclesPerSecond() {
-		return ((long) node.cyclesPerSecond) - currentLoadCyclesPerSecond;
+		return ((long) node.getCyclesPerSecond()) - currentLoadCyclesPerSecond;
 	}
 
 	/**

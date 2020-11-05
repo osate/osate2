@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -157,40 +158,43 @@ public final class AadlSearchQuery implements ISearchQuery {
 			final AadlFinder aadlFinder = AadlFinder.getInstance();
 			final EClass declarationEClass = searchFor.declarationEClass();
 			aadlFinder.processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
+				private SubMonitor subMonitor = null;
+
 				@Override
 				protected void begin(final int count) {
 					searchResult.setResourceSet(getResourceSet());
-					nonNullmonitor.beginTask(getLabel(), count);
+					subMonitor = SubMonitor.convert(nonNullmonitor, 2 * count);
 				}
 
 				@Override
 				protected void skipped(final IResourceDescription rsrcDesc) {
-					nonNullmonitor.worked(1);
+					subMonitor.worked(2);
 				}
 
 				@Override
 				protected void inScope(final IResourceDescription rsrcDesc) {
 					final String fileString = rsrcDesc.getURI().lastSegment();
-					nonNullmonitor.subTask(fileString);
+					subMonitor.subTask(fileString);
 					if (limitTo.declarations()) {
-						aadlFinder.getAllObjectsOfTypeInResource(rsrcDesc, 
-								searchFor.declarationEClass(), objDesc -> {
+						aadlFinder.getAllObjectsOfTypeInResource(rsrcDesc, searchFor.declarationEClass(),
+								getResourceSet(), (resourceSet, objDesc) -> {
 									// now check the name, which in the last segment (skip over the package names)
 									final String testIdentifier = objDesc.getName().getLastSegment();
 									if (findSubstring(testIdentifier)) {
 										// FOUND A MATCH
-										searchResult.addFoundDeclaration(getResourceSet(), objDesc);
+										searchResult.addFoundDeclaration(resourceSet, objDesc);
 									}
 								});
-						nonNullmonitor.worked(1);
 					}
+					subMonitor.worked(1);
 
 					if (nonNullmonitor.isCanceled()) {
 						throw new OperationCanceledException();
 					}
 
 					if (limitTo.references()) {
-						aadlFinder.getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), refDesc -> {
+						aadlFinder.getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(),
+								(resourceSet, refDesc) -> {
 							final URI targetURI = refDesc.getTargetEObjectUri();
 							final EObject eObj = getResourceSet().getEObject(targetURI, true);
 									if (eObj != null) { // target object might be null if the file being searched has errors
@@ -200,12 +204,13 @@ public final class AadlSearchQuery implements ISearchQuery {
 											if (eObj instanceof NamedElement
 													&& findSubstring(((NamedElement) eObj).getName())) {
 												// FOUND A MATCH
-										searchResult.addFoundReference(getResourceSet(), refDesc);
+												searchResult.addFoundReference(resourceSet, refDesc);
 											}
 										}
 									}
-								});
-						nonNullmonitor.worked(1);
+								}, subMonitor.split(1));
+					} else {
+						subMonitor.worked(1);
 					}
 
 					if (nonNullmonitor.isCanceled()) {

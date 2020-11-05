@@ -25,7 +25,7 @@ import java.io.File ;
 import java.util.List ;
 
 import org.eclipse.core.runtime.IPath ;
-import org.osate.utils.FileUtils ;
+import org.osate.utils.internal.FileUtils ;
 
 
 public class AadlBaExamplesWizard extends AadlBaAbstractWizard
