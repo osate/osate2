@@ -33,7 +33,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.analysis.flows.FlowLatencyUtil;
+import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.Result;
@@ -53,9 +53,9 @@ public class LatencyCSVReport {
 			SystemInstance si = ((InstanceObject) result.getModelElement()).getSystemInstance();
 			String systemName = si.getComponentClassifier().getName();
 			String inMode = ResultUtil.getString(result, 0);
-			String analysisheader = "Latency results for end-to-end flow '" + flowname + "' of system '" + systemName
-					+ "'"
-					+ inMode;
+			String analysisheader = "\"Latency results for end-to-end flow '" + flowname + "' of system '" + systemName
+					+ "' "
+					+ inMode + "\"";
 			report.append(analysisheader + System.lineSeparator() + System.lineSeparator());
 			report.append("Result,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments"
 					+ System.lineSeparator());

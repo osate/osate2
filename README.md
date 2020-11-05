@@ -21,7 +21,9 @@ Software. The parties who own the Third Party Software ("Third Party Licensors")
 aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 -->
-# OSATE2
-Open Source AADL2 Tool Environment
 
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=org.osate%3Aosate2.parent)
+
+# OSATE2
+
+This is the source code repository for the Open Source AADL Tool Environment (OSATE) project. Documentation, installation, and setup instructions are maintained on [OSATE.org](https://osate.org). You can also post questions and subscribe for announcements on the [mailing list](https://groups.google.com/g/osate).
