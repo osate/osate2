@@ -50,11 +50,11 @@ public class DFCPBinPacker extends BaseLowLevelBinPacker {
 
 		expansor.createInitialHardware(problem, validProcessors, aggregateBandwidth);
 
-		System.out.println("\n\n *** DFCPBinPacker initial Hardware.size(" + problem.hardwareGraph.size()
+		System.out.println("\n\n *** DFCPBinPacker initial Hardware.size(" + problem.getHardwareGraph().size()
 				+ ") validProcessor.size(" + validProcessors.size() + ") for total bandwidth(" + aggregateBandwidth
 				+ ") *** \n");
 
-		for (Iterator iter = problem.hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = problem.getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode n = (HardwareNode) iter.next();
 			if (n.getHost() == null)
 				System.out.println("Node(" + n + ").hashCode(" + n.hashCode() + ") host == null");
@@ -100,7 +100,7 @@ public class DFCPBinPacker extends BaseLowLevelBinPacker {
 				/* verify constraints */
 				if (processor.canAddToFeasibility(composite)) {
 					/* reorder processor */
-					if (!problem.hardwareGraph.remove(processor)) {
+					if (!problem.getHardwareGraph().remove(processor)) {
 						// DebugMonitor.println(DebugMonitor.channels[1]," NOT
 						// PROPERLY REMOVE
 						// processor("+processor.toString()+")");
@@ -227,7 +227,7 @@ public class DFCPBinPacker extends BaseLowLevelBinPacker {
 
 					subGraphsList.remove();
 					problem.removeSoftwareNode(composite);
-					problem.hardwareGraph.add(processor);
+					problem.getHardwareGraph().add(processor);
 					validProcessors.add(processor);
 					break;
 				} else {

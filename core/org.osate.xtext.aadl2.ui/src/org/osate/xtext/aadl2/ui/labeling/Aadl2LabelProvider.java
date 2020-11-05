@@ -400,6 +400,7 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 		if (flowimpl.getSpecification() != null) {
 			ret += " " + flowimpl.getSpecification().getName();
 		}
+
 		return ret;
 	}
 

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -32,9 +32,9 @@ import java.util.TreeSet;
 import java.util.Vector;
 
 public class OutDegreeAssignmentProblem extends AssignmentProblem {
-	public SiteArchitecture siteArchitecture;
+	SiteArchitecture siteArchitecture;
 
-	public TreeSet orderedModulesByOutDegree;
+	TreeSet orderedModulesByOutDegree;
 
 	Comparator outDegreeComparator;
 
@@ -48,12 +48,13 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 		orderedModulesByOutDegree = new TreeSet(outDegreeComparator);
 	}
 
+	@Override
 	public Object clone() {
 		OutDegreeAssignmentProblem p = new OutDegreeAssignmentProblem();
 		p.siteArchitecture = (SiteArchitecture) siteArchitecture.clone();
 		// BinPackerTester.showSiteArchitecture(p.siteArchitecture);
-		p.hardwareGraph = (TreeSet) hardwareGraph.clone();
-		p.softwareGraph = new TreeSet(softwareGraph.comparator());
+		p.setHardwareGraph((TreeSet) getHardwareGraph().clone());
+		p.setSoftwareGraph(new TreeSet(getSoftwareGraph().comparator()));
 		p.orderedModulesByOutDegree = new TreeSet(orderedModulesByOutDegree.comparator());
 		p.nonDeployableModules = (TreeSet) nonDeployableModules.clone();
 		p.hardwareConnectivity = (TreeMap) hardwareConnectivity.clone();
@@ -67,11 +68,11 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 		System.out.println("Cloning modules...");
 		// clone software modules
 		Hashtable originalToClone = new Hashtable();
-		for (Iterator iter = softwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = getSoftwareGraph().iterator(); iter.hasNext();) {
 			SoftwareNode n = (SoftwareNode) iter.next();
 			SoftwareNode clone = (SoftwareNode) n.clone();
 			originalToClone.put(n, clone);
-			p.softwareGraph.add(clone);
+			p.getSoftwareGraph().add(clone);
 			p.orderedModulesByOutDegree.add(clone);
 		}
 
@@ -79,7 +80,7 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 
 		System.out.println("Cloning messages...");
 		int moduleCount = 0;
-		for (Iterator iter = softwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = getSoftwareGraph().iterator(); iter.hasNext();) {
 			moduleCount++;
 			SoftwareNode n = (SoftwareNode) iter.next();
 			SoftwareNode clone = (SoftwareNode) originalToClone.get(n);
@@ -97,21 +98,24 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 					Message msg = (Message) entry.getKey();
 					SoftwareNode partner = (SoftwareNode) entry.getValue();
 					SoftwareNode clonedPartner = (SoftwareNode) originalToClone.get(partner);
-					if (partner == null || clonedPartner == null)
+					if (partner == null || clonedPartner == null) {
 						continue;
+					}
 					if (processedMessages
 							.contains(Integer.toString(clone.hashCode()) + Integer.toString(clonedPartner.hashCode()))
 							|| processedMessages.contains(
-									Integer.toString(clonedPartner.hashCode()) + Integer.toString(clone.hashCode())))
+									Integer.toString(clonedPartner.hashCode()) + Integer.toString(clone.hashCode()))) {
 						continue;
+					}
 
 					processedMessages
 							.add(Integer.toString(clone.hashCode()) + Integer.toString(clonedPartner.hashCode()));
 					Message clonedMsg = new Message(msg.cycles, msg.period, msg.deadline, clone, clonedPartner);
 					clonedConnVector.put(msg, clonedPartner);
 					TreeMap clonedPartnerConn = (TreeMap) p.softwareConnectivity.remove(clonedPartner);
-					if (clonedPartnerConn == null)
+					if (clonedPartnerConn == null) {
 						clonedPartnerConn = new TreeMap(connVector.comparator());
+					}
 					clonedPartnerConn.put(msg, clone);
 					p.softwareConnectivity.put(clonedPartner, clonedPartnerConn);
 				}
@@ -122,6 +126,7 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 		return p;
 	}
 
+	@Override
 	public void addConstraint(Constraint c) {
 		if (c instanceof SetConstraint) {
 			for (int i = 0; i < c.members.size(); i++) {
@@ -138,7 +143,7 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 			CompositeSoftNode compNode = new CompositeSoftNode(bwComparator);
 			for (int i = 0; i < c.members.size(); i++) {
 				compNode.add((SoftwareNode) c.members.elementAt(i), softwareConnectivity, softConnectivityByTarget);
-				softwareGraph.remove(c.members.elementAt(i));
+				getSoftwareGraph().remove(c.members.elementAt(i));
 				orderedModulesByOutDegree.remove(c.members.elementAt(i));
 				Vector v = (Vector) constraints.get(c.members.get(i));
 				if (v == null) {
@@ -153,7 +158,7 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 								compNode.add((SoftwareNode) joint.members.get(k), softwareConnectivity,
 										softConnectivityByTarget);
 							}
-							softwareGraph.remove(joint.getCompositeNode());
+							getSoftwareGraph().remove(joint.getCompositeNode());
 							// TODO do I need to remove the old joint
 							// constraint?
 						} else if (v.get(j) instanceof Disjoint) {
@@ -164,13 +169,15 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 				v.add(c);
 			}
 			compNode.breakable = false;
-			softwareGraph.add(compNode);
+			getSoftwareGraph().add(compNode);
 			orderedModulesByOutDegree.add(compNode);
 			((Joint) c).setCompositeNode(compNode);
-		} else
+		} else {
 			super.addConstraint(c);
+		}
 	}
 
+	@Override
 	public void addMessage(Message m) {
 		super.addMessage(m);
 		orderedModulesByOutDegree.remove(m.getSender());
@@ -184,13 +191,14 @@ public class OutDegreeAssignmentProblem extends AssignmentProblem {
 	}
 
 	public void addSoftwareNode(SoftwareNode n) {
-		if (!softwareGraph.add(n))
+		if (!getSoftwareGraph().add(n)) {
 			System.out.println(this + ".addSoftwareNode(" + n + "): Failed ARGGG! ");
+		}
 		orderedModulesByOutDegree.add(n);
 	}
 
 	public void removeSoftwareNode(SoftwareNode n) {
-		softwareGraph.remove(n);
+		getSoftwareGraph().remove(n);
 		orderedModulesByOutDegree.remove(n);
 	}
 }
