@@ -139,7 +139,7 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 		if (pe instanceof ReferenceValue) {
 			ReferenceValue rv = ((ReferenceValue) pe);
 			List<ContainmentPathElement> cpe = rv.getContainmentPathElements();
-			return "reference " + cpe.get(0).getNamedElement().getName();
+			return "ref " + cpe.get(0).getNamedElement().getName();
 		}
 
 		if (pe instanceof RangeValue) {
@@ -160,15 +160,15 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	// Labels and icons can be computed like this:
 
 	String text(AadlPackage ele) {
-		return "Package " + ele.getName();
+		return "Pkg " + ele.getName();
 	}
 
 	String text(PublicPackageSection ele) {
-		return "Package Public " + ele.getName();
+		return "Pkg Public " + ele.getName();
 	}
 
 	String text(PrivatePackageSection ele) {
-		return "Package Private " + ele.getName();
+		return "Pkg Private " + ele.getName();
 	}
 
 	String text(SystemType ele) {
@@ -188,7 +188,7 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	}
 
 	String text(ThreadGroupType ele) {
-		return "Thread Group " + ele.getName();
+		return "Thread Grp " + ele.getName();
 	}
 
 	String text(ThreadType ele) {
@@ -200,11 +200,11 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	}
 
 	String text(SubprogramGroupType ele) {
-		return "Subprogram Group " + ele.getName();
+		return "Subprogram Grp " + ele.getName();
 	}
 
 	String text(AbstractType ele) {
-		return "Abstract " + ele.getName();
+		return "Abst " + ele.getName();
 	}
 
 	String text(BusType ele) {
@@ -220,11 +220,11 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	}
 
 	String text(VirtualBusType ele) {
-		return "Virtual Bus " + ele.getName();
+		return "Virt Bus " + ele.getName();
 	}
 
 	String text(VirtualProcessorType ele) {
-		return "Virtual Processor " + ele.getName();
+		return "Virt Processor " + ele.getName();
 	}
 
 	String text(SystemImplementation ele) {
@@ -244,7 +244,7 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	}
 
 	String text(ThreadGroupImplementation ele) {
-		return "Thread Group Impl " + ele.getName();
+		return "Thread Grp Impl " + ele.getName();
 	}
 
 	String text(ThreadImplementation ele) {
@@ -256,11 +256,11 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	}
 
 	String text(SubprogramGroupImplementation ele) {
-		return "Subprogram Group Impl " + ele.getName();
+		return "Subprogram Grp Impl " + ele.getName();
 	}
 
 	String text(AbstractImplementation ele) {
-		return "Abstract Impl " + ele.getName();
+		return "Abst Impl " + ele.getName();
 	}
 
 	String text(BusImplementation ele) {
@@ -276,38 +276,38 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	}
 
 	String text(VirtualBusImplementation ele) {
-		return "Virtual Bus Impl " + ele.getName();
+		return "Virt Bus Impl " + ele.getName();
 	}
 
 	String text(VirtualProcessorImplementation ele) {
-		return "Virtual Processor Impl " + ele.getName();
+		return "Virt Processor Impl " + ele.getName();
 	}
 
 	// Property set and properties
 	String text(PropertySet ele) {
-		return "Propertyset " + ele.getName();
+		return "Propset " + ele.getName();
 	}
 
 	String text(PropertyType ele) {
 		if (ele.getName() == null) {
-			return "Unnamed Property Type";
+			return "Unnamed Prop Type";
 		}
-		return "Property Type " + ele.getName();
+		return "Prop Type " + ele.getName();
 	}
 
 	String text(PropertyConstant ele) {
-		return "Property Constant " + ele.getName();
+		return "Prop Const " + ele.getName();
 	}
 
 	String text(Property ele) {
-		return "Property " + ele.getName();
+		return "Prop " + ele.getName();
 	}
 
 	String text(PropertyAssociation ele) {
 		if (ele.getProperty() != null) {
-			return "Property " + ele.getProperty().getName();
+			return "Prop " + ele.getProperty().getName();
 		}
-		return "Property";
+		return "Prop";
 	}
 
 	String text(AnnexSubclause as) {
@@ -327,7 +327,7 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 		String ret;
 
 		val = null;
-		ret = "Basic Property Association";
+		ret = "Basic Prop Assoc";
 		if (ele.eContainer() instanceof RecordValue) {
 //			OsateDebug.osateDebug("val=" + ele.getValue());
 			ret = "Field " + ele.getProperty().getName();
@@ -359,18 +359,18 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 				modes = modes + " " + m.getName();
 			}
 
-			label = "Modal property value (" + modes + ")";
+			label = "Modal prop value (" + modes + ")";
 		}
 		return label;
 	}
 
 	// these next ones we need only if we go deeper than classifiers
 	String text(SystemSubcomponent ele) {
-		return "System Subcomponent " + ele.getName();
+		return "System Subcomp " + ele.getName();
 	}
 
 	String text(DataSubcomponent ele) {
-		return "Data Subcomponent " + ele.getName();
+		return "Data Subcomp " + ele.getName();
 	}
 
 	String text(EventPort ele) {
@@ -386,7 +386,7 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	}
 
 	String text(FeatureGroup ele) {
-		return "Feature Group " + ele.getName();
+		return "Feature Grp " + ele.getName();
 	}
 
 	String text(Feature ele) {
@@ -396,7 +396,7 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	String text(FlowImplementation flowimpl) {
 		String ret;
 
-		ret = "Flow Implementation";
+		ret = "Flow Impl";
 		if (flowimpl.getName() != null) {
 			ret += " " + flowimpl.getName();
 		}
@@ -406,7 +406,7 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	String text(EndToEndFlow etei) {
 		String ret;
 
-		ret = "End to End Flow";
+		ret = "EtE Flow";
 		if (etei.getName() != null) {
 			ret += " " + etei.getName();
 		}
@@ -416,7 +416,7 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	String text(EndToEndFlowInstance etei) {
 		String ret;
 
-		ret = "End to End Flow";
+		ret = "EtE Flow";
 		if (etei.getName() != null) {
 			ret += " " + etei.getName();
 		}
@@ -426,7 +426,7 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	String text(FlowSpecification flowspec) {
 		String ret;
 
-		ret = "Flow Specification";
+		ret = "Flow Spec";
 		if (flowspec.getName() != null) {
 			ret += " " + flowspec.getName();
 		}
@@ -555,11 +555,11 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	}
 
 	String text(AadlInteger ele) {
-		return "Property Type " + ele.getName();
+		return "Prop Type " + ele.getName();
 	}
 
 	String text(AadlReal ele) {
-		return "Property Type " + ele.getName();
+		return "Prop Type " + ele.getName();
 	}
 
 	/*
