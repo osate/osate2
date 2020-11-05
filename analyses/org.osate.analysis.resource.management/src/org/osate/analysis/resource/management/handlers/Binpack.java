@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -108,7 +108,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 	private static final int DEFER_EXEC_TIME = 1;
 	private static final int DEFER_BANDWIDTH = 2;
 
-	public static double defaultMIPS = 1000.0;
+	static final double defaultMIPS = 1000.0;
 
 	private int partitionChoice = 2;
 
@@ -275,7 +275,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 
 			reportResults(som, result);
 
-			if (result.success) {
+			if (result.isSuccess()) {
 				showResults(som, root, result);
 			} else {
 				showNoResults(som);
@@ -375,7 +375,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 				if (proc != null) {
 					System.out.println("Processor cycles Per sec:" + proc.getCyclesPerSecond());
 					siteArchitecture.addSiteGuest(proc, theSite);
-					problem.hardwareGraph.add(proc);
+					problem.getHardwareGraph().add(proc);
 					// add reverse mapping
 					procToHardware.put(ci, proc);
 				}
@@ -472,7 +472,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 				existsThreadWithReferenceProcessor |= (refmips != 0);
 				existsThreadWithoutReferenceProcessor |= (refmips == 0);
 
-				problem.softwareGraph.add(thread);
+				problem.getSoftwareGraph().add(thread);
 //				logInfo(thread.getReport());
 				// add reverse mapping
 				threadToSoftwareNode.put(ci, thread);
@@ -632,7 +632,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 	}
 
 	private abstract static class ShowDialog implements Runnable {
-		public volatile int result;
+		protected volatile int result;
 	}
 
 	String getBindingText(final Map threadsToProc) {
@@ -648,14 +648,14 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 	}
 
 	public void showResults(final SystemOperationMode som, final SystemInstance root, final AssignmentResult result) {
-		final Map threadsToProc = getThreadBindings(result.problem.hardwareGraph);
+		final Map threadsToProc = getThreadBindings(result.getProblem().getHardwareGraph());
 
 		final String propText = getBindingText(threadsToProc);
 		boolean done = false;
 		final Shell sh = getShell();
 		while (sh != null && !done) {
 			final Dialog d = new PackingSuccessfulDialog(getShell(), som, root.getComponentImplementation().getName(),
-					threadsToProc, result.problem.hardwareGraph, propText);
+					threadsToProc, result.getProblem().getHardwareGraph(), propText);
 			final ShowDialog sd = new ShowDialog() {
 				@Override
 				public void run() {
@@ -705,24 +705,24 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 	}
 
 	public void reportResults(SystemOperationMode som, final AssignmentResult result) {
-		final Map threadsToProc = getThreadBindings(result.problem.hardwareGraph);
+		final Map threadsToProc = getThreadBindings(result.getProblem().getHardwareGraph());
 
 		logInfo("\nBinpacking results"
 				+ (!som.getName().equalsIgnoreCase("No Modes") ? " for SOM " + som.getName() : "") + ": "
-				+ (result.success ? "Success" : "FAILED"));
-		for (final Iterator i = result.problem.hardwareGraph.iterator(); i.hasNext();) {
+				+ (result.isSuccess() ? "Success" : "FAILED"));
+		for (final Iterator i = result.getProblem().getHardwareGraph().iterator(); i.hasNext();) {
 			final HardwareNode hn = (HardwareNode) i.next();
 			final ComponentInstance proc = (ComponentInstance) hn.getSemanticObject();
-			double load = hn.cyclesPerSecond - hn.getAvailableCapacity();
-			load /= hn.cyclesPerSecond;
+			double load = hn.getCyclesPerSecond() - hn.getAvailableCapacity();
+			load /= hn.getCyclesPerSecond();
 			load *= 100.0;
 			long longLoad = (long) Math.ceil(load);
-			double overload = (hn.cyclesPerSecond - hn.getAvailableCapacity()) - (hn.cyclesPerSecond);
-			overload /= hn.cyclesPerSecond;
+			double overload = (hn.getCyclesPerSecond() - hn.getAvailableCapacity()) - (hn.getCyclesPerSecond());
+			overload /= hn.getCyclesPerSecond();
 			overload *= 100.0;
 			long longOverload = (long) Math.ceil(overload);
 			long available = longOverload * -1;
-			logInfo("Processor " + proc.getInstanceObjectPath() + " (" + hn.cyclesPerSecond / 1000000 + " MIPS) Load: "
+			logInfo("Processor " + proc.getInstanceObjectPath() + " (" + hn.getCyclesPerSecond() / 1000000 + " MIPS) Load: "
 					+ Long.toString(longLoad) + "%" + " Available: " + Long.toString(available) + "%");
 		}
 		logInfo("\nThread to Processor Bindings");

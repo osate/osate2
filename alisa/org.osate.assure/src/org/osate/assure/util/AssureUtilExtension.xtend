@@ -82,7 +82,7 @@ import org.osate.verify.verify.VerificationPlan
 
 import static extension org.osate.aadl2.instantiation.InstantiateModel.instantiate
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import static extension org.osate.verify.util.VerifyUtilExtension.*
+import static extension org.osate.verify.internal.util.VerifyUtilExtension.*
 import org.osate.result.ResultType
 import org.eclipse.core.runtime.CoreException
 import org.osate.result.AnalysisResult

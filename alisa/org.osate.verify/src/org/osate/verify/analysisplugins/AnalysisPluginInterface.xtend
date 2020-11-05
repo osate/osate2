@@ -33,7 +33,7 @@ import org.osate.analysis.architecture.handlers.DoPortConnectionConsistency
 import org.osate.analysis.architecture.handlers.DoPropertyTotals
 import org.osate.analysis.resource.management.handlers.Binpack
 
-import static org.osate.verify.util.VerifyUtilExtension.*
+import static org.osate.verify.internal.util.VerifyUtilExtension.*
 import org.osate.analysis.resource.budgets.handlers.BoundResourceAnalysisHandler
 import org.osate.analysis.resource.budgets.handlers.PowerAnalysisHandler
 import org.osate.analysis.resource.budgets.handlers.NotBoundResourceAnalysisHandler
