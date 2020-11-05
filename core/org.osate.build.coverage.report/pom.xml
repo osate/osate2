@@ -547,11 +547,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.ba</artifactId>
-<<<<<<< HEAD
-			<version>4.0.2-SNAPSHOT</version>
-=======
 			<version>5.0.0-SNAPSHOT</version>
->>>>>>> refs/heads/master
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>

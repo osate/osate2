@@ -93,21 +93,21 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.aadl2.errormodel.analysis.handlers.FHAHandler"
             commandId="org.osate.aadl2.errormodel.analysis.fha">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrComponentInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrComponentInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.aadl2.errormodel.analysis.handlers.FaultImpactHandler"
             commandId="org.osate.aadl2.errormodel.analysis.faultImpact">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrComponentInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrComponentInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.aadl2.errormodel.analysis.handlers.UnhandledFaultsHandler"
             commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrComponentInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrComponentInstanceSelected"/>
          </enabledWhen>
       </handler>
    </extension>
@@ -128,7 +128,7 @@ censes only apply to the Third Party Software and not any other portion of this 
    </extension>
    <extension
          point="org.eclipse.core.expressions.definitions">
-      <definition id="org.osate.ui.definition.public.inAadlPerspective">
+      <definition id="org.osate.ui.definition.inAadlPerspective">
          <with
                variable="activeWorkbenchWindow.activePerspective">
             <equals
@@ -162,7 +162,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -174,7 +174,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -186,7 +186,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
       </menuContribution>

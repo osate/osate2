@@ -152,7 +152,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 <and>
                    <count value="+" />
                    <iterate>
-                      <reference definitionId="org.osate.ui.definition.private.isAADLFile"/>
+                      <reference definitionId="org.osate.ui.definition.isPackageFile"/>
                    </iterate>
                 </and>
              </with>
@@ -162,35 +162,35 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.analysis.architecture.handlers.CheckConnectionBindingConsistency"
             commandId="org.osate.analysis.architecture.checkConnectionBindingConsistency">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.architecture.handlers.DoPortConnectionConsistency"
             commandId="org.osate.analysis.architecture.portConnectionConsistency">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.architecture.handlers.CheckA429PortConnectionConsistency"
             commandId="org.osate.analysis.architecture.checkA429PortConnectionConsistency">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.architecture.handlers.DoPropertyTotals"
             commandId="org.osate.analysis.architecture.propertyTotals">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.architecture.handlers.CheckBindingConstraints"
             commandId="org.osate.analysis.architecture.checkBindingConstraints">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
    </extension>
@@ -257,7 +257,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
       </menuContribution>
@@ -272,7 +272,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -284,7 +284,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -296,7 +296,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -308,7 +308,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
       </menuContribution>

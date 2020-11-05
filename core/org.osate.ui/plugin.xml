@@ -527,7 +527,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        </definition>
 
        <!-- open AADL project or any closed project -->
-       <definition id="org.osate.ui.definition.private.isAADLProject">
+       <definition id="org.osate.ui.definition.isAADLProject">
           <and>
              <instanceof value="org.eclipse.core.resources.IProject" />
              <or>
@@ -542,7 +542,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        </definition>
 
        <!-- folder in an AADL project -->
-       <definition id="org.osate.ui.definition.private.isAADLFolder">
+       <definition id="org.osate.ui.definition.isAADLFolder">
           <and>
              <instanceof value="org.eclipse.core.resources.IFolder" />
              <test
@@ -552,7 +552,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        </definition>
 
        <!-- Instance model file -->
-       <definition id="org.osate.ui.definition.private.isAAXLFile">
+       <definition id="org.osate.ui.definition.isInstanceFile">
           <adapt
                 type="org.eclipse.core.resources.IFile">
              <test
@@ -563,15 +563,23 @@ censes only apply to the Third Party Software and not any other portion of this 
        </definition>
 
        <!-- Declarative model file: AADL Package -->
-       <definition id="org.osate.ui.definition.private.isAADLFile">
+       <definition id="org.osate.ui.definition.isPackageFile">
           <adapt
                 type="org.eclipse.core.resources.IFile">
              <test property="org.osate.ui.aadlPackage" forcePluginActivation="true" />
           </adapt>
        </definition>
 
+       <!-- Declarative model file: AADL Property Set -->
+       <definition id="org.osate.ui.definition.isPropertySetFile">
+          <adapt
+                type="org.eclipse.core.resources.IFile">
+             <test property="org.osate.ui.aadlPropertySet" forcePluginActivation="true" />
+          </adapt>
+       </definition>
+
        <!-- Instantiatable ComponentImplementation as an EObjectURIWrapper (navigator view) -->
-       <definition id="org.osate.ui.definition.private.isInstantiatableEObjectURIWrapper">
+       <definition id="org.osate.ui.definition.isInstantiatableEObjectURIWrapper">
           <adapt
                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
              <and>
@@ -599,7 +607,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        </definition>
 
        <!-- Instantiatable ComponentImplementation as an EObjectNode (aadl outline view) -->
-       <definition id="org.osate.ui.definition.private.isInstantiatableEObjectNode">
+       <definition id="org.osate.ui.definition.isInstantiatableEObjectNode">
           <adapt
                 type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
              <and>
@@ -627,17 +635,17 @@ censes only apply to the Third Party Software and not any other portion of this 
        </definition>
 
        <!-- A SystemInstance (instance editor and instance outline view) -->
-       <definition id="org.osate.ui.definition.private.isSystemInstance">
+       <definition id="org.osate.ui.definition.isSystemInstance">
           <instanceof value="org.osate.aadl2.instance.SystemInstance" />
        </definition>
 
        <!-- An Eclipse working set (aadl navigator) -->
-       <definition id="org.osate.ui.definition.private.isWorkingSet">
+       <definition id="org.osate.ui.definition.isWorkingSet">
           <instanceof value="org.eclipse.ui.IWorkingSet" />
        </definition>
        
        <!-- A working set or open project -->
-       <definition id="org.osate.ui.definition.private.isWorkingSetOrOpenProject">
+       <definition id="org.osate.ui.definition.isWorkingSetOrOpenProject">
           <or>
              <adapt
                    type="org.eclipse.ui.IWorkingSet">
@@ -654,7 +662,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        <!-- For visibleWhen: Be visible when there are 1 or more selected objects and AT LEAST ONE of them
             is a working set, AADL Project, folder in an AADL Project, an AAXL file, or an instantiatable
             component implementation. -->
-       <definition id="org.osate.ui.definition.public.instanceAnalysisCommandVisibility">
+       <definition id="org.osate.ui.definition.instanceAnalysisCommandVisibility">
           <with
                 variable="selection">
              <and>
@@ -665,13 +673,13 @@ censes only apply to the Third Party Software and not any other portion of this 
                       ifEmpty="false"
                       operator="or">
                    <or>
-                      <reference definitionId="org.osate.ui.definition.private.isWorkingSet"/>
-                      <reference definitionId="org.osate.ui.definition.private.isAADLProject"/>
-                      <reference definitionId="org.osate.ui.definition.private.isAADLFolder"/>
-                      <reference definitionId="org.osate.ui.definition.private.isAAXLFile"/>
-                      <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectURIWrapper"/>
-                      <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectNode"/>
-                      <reference definitionId="org.osate.ui.definition.private.isSystemInstance"/>
+                      <reference definitionId="org.osate.ui.definition.isWorkingSet"/>
+                      <reference definitionId="org.osate.ui.definition.isAADLProject"/>
+                      <reference definitionId="org.osate.ui.definition.isAADLFolder"/>
+                      <reference definitionId="org.osate.ui.definition.isInstanceFile"/>
+                      <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectURIWrapper"/>
+                      <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectNode"/>
+                      <reference definitionId="org.osate.ui.definition.isSystemInstance"/>
                    </or>
                 </iterate>
              </and>
@@ -681,7 +689,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        <!-- For enabledWhen: Be enabled when there are 1 or more selected objects and ALL OF THEM are one of
             working set, AADL Project, folder in an AADL Project, an AAXL file, or an instantiatable
             component implementation. -->
-       <definition id="org.osate.ui.definition.public.instanceAnalysisCommandEnabled">
+       <definition id="org.osate.ui.definition.instanceAnalysisCommandEnabled">
           <with
                 variable="selection">
              <and>
@@ -692,13 +700,13 @@ censes only apply to the Third Party Software and not any other portion of this 
                       ifEmpty="false"
                       operator="and">
                    <or>
-                      <reference definitionId="org.osate.ui.definition.private.isWorkingSet"/>
-                      <reference definitionId="org.osate.ui.definition.private.isAADLProject"/>
-                      <reference definitionId="org.osate.ui.definition.private.isAADLFolder"/>
-                      <reference definitionId="org.osate.ui.definition.private.isAAXLFile"/>
-                      <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectURIWrapper"/>
-                      <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectNode"/>
-                      <reference definitionId="org.osate.ui.definition.private.isSystemInstance"/>
+                      <reference definitionId="org.osate.ui.definition.isWorkingSet"/>
+                      <reference definitionId="org.osate.ui.definition.isAADLProject"/>
+                      <reference definitionId="org.osate.ui.definition.isAADLFolder"/>
+                      <reference definitionId="org.osate.ui.definition.isInstanceFile"/>
+                      <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectURIWrapper"/>
+                      <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectNode"/>
+                      <reference definitionId="org.osate.ui.definition.isSystemInstance"/>
                    </or>
                 </iterate>
              </and>
@@ -706,7 +714,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        </definition> 
        
        <!-- For enabledWhen: Be enabled when we are in the AADL Perspective -->
-       <definition id="org.osate.ui.definition.public.inAadlPerspective">
+       <definition id="org.osate.ui.definition.inAadlPerspective">
           <with
                 variable="activeWorkbenchWindow.activePerspective">
              <equals
@@ -716,7 +724,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        </definition>
 
       <!-- LEGACY: should become obsolete when we update all the command handlers -->
-      <definition id="org.osate.ui.definition.private.isInstanceFileOrComponentInstanceSelected">
+      <definition id="org.osate.ui.definition.isInstanceFileOrComponentInstanceSelected">
          <or>
             <reference
                   definitionId="org.osate.core.isInstanceFileSelected">
@@ -748,7 +756,7 @@ censes only apply to the Third Party Software and not any other portion of this 
       </definition>
 
       <!-- LEGACY: should become obsolete when we update all the command handlers -->
-      <definition id="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected">
+      <definition id="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected">
          <or>
             <reference
                   definitionId="org.osate.core.isInstanceFileSelected">
@@ -807,7 +815,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 	                         value="+">
 	                   </count>
 	                   <iterate operator="or">
-	                      <reference definitionId="org.osate.ui.definition.private.isSystemInstance"/>
+	                      <reference definitionId="org.osate.ui.definition.isSystemInstance"/>
 	                   </iterate>
 	                </and>
 	             </with>
@@ -854,7 +862,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 	                         value="+">
 	                   </count>
 	                   <iterate operator="or">
-	                      <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectNode" />
+	                      <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectNode" />
 	                   </iterate>
 	                </and>
 	             </with>
@@ -916,8 +924,8 @@ censes only apply to the Third Party Software and not any other portion of this 
 	                   <iterate
 	                   		operator="or">
 	                     <or>
-	                        <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectURIWrapper" />
-	                        <reference definitionId="org.osate.ui.definition.private.isAADLFile" />
+	                        <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectURIWrapper" />
+	                        <reference definitionId="org.osate.ui.definition.isPackageFile" />
                          </or>
 	                   </iterate>
 	                </and>
@@ -937,10 +945,10 @@ censes only apply to the Third Party Software and not any other portion of this 
 	                         ifEmpty="false"
 	                         operator="or">
 	                      <or>
-                             <reference definitionId="org.osate.ui.definition.private.isWorkingSet"/>
-   	                         <reference definitionId="org.osate.ui.definition.private.isAADLProject" />
-  	                         <reference definitionId="org.osate.ui.definition.private.isAADLFolder" />
-  	                         <reference definitionId="org.osate.ui.definition.private.isAAXLFile" />
+                             <reference definitionId="org.osate.ui.definition.isWorkingSet"/>
+   	                         <reference definitionId="org.osate.ui.definition.isAADLProject" />
+  	                         <reference definitionId="org.osate.ui.definition.isAADLFolder" />
+  	                         <reference definitionId="org.osate.ui.definition.isInstanceFile" />
 	                      </or>
 	                   </iterate>
 	                </and>
@@ -1091,7 +1099,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="OSATE">
              <visibleWhen
                    checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
              </visibleWhen>
              <menu
                    id="org.osate.ui.openWorkflowMenu"
@@ -1151,7 +1159,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Analyses">
              <visibleWhen
                    checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
              </visibleWhen>
              <menu
                    id="org.osate.ui.budgetMenu"
@@ -1244,7 +1252,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="OSATE Wizards">
              <visibleWhen
                    checkEnabled="false">
-                <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+                <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
              </visibleWhen>
              <command
                    commandId="org.osate.ui.wizards.aadlProjectWizard"
@@ -1255,7 +1263,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 -->
                 <visibleWhen
                       checkEnabled="false">
-                   <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+                   <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
                 </visibleWhen>
              </command>
              <command
@@ -1267,7 +1275,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 -->
                 <visibleWhen
                       checkEnabled="false">
-                   <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+                   <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
                 </visibleWhen>
              </command>
              <command
@@ -1279,7 +1287,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 -->
                 <visibleWhen
                       checkEnabled="false">
-                   <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+                   <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
                 </visibleWhen>
              </command>
              <separator
@@ -1291,7 +1299,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Budget">
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
             <separator
                   name="core">
@@ -1305,7 +1313,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Semantic Checks">
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
             <separator
                   name="core">
@@ -1323,7 +1331,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Timing">
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
             <separator
                   name="core">
@@ -1337,7 +1345,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Safety">
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
             <separator
                   name="core">
@@ -1451,9 +1459,9 @@ censes only apply to the Third Party Software and not any other portion of this 
                    </count>
                    <iterate>
                       <or>
-                         <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectURIWrapper" />
-                         <reference definitionId="org.osate.ui.definition.private.isAADLFile" />
-                         <reference definitionId="org.osate.ui.definition.private.isInstantiatableEObjectNode" />
+                         <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectURIWrapper" />
+                         <reference definitionId="org.osate.ui.definition.isPackageFile" />
+                         <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectNode" />
                       </or>
                    </iterate>
                 </and>
@@ -1474,11 +1482,11 @@ censes only apply to the Third Party Software and not any other portion of this 
                          ifEmpty="false"
                          operator="and">
                       <or>
-                         <reference definitionId="org.osate.ui.definition.private.isWorkingSet"/>
-                         <reference definitionId="org.osate.ui.definition.private.isAADLProject" />
-                         <reference definitionId="org.osate.ui.definition.private.isAADLFolder" />
-                         <reference definitionId="org.osate.ui.definition.private.isAAXLFile" />
-	                     <reference definitionId="org.osate.ui.definition.private.isSystemInstance"/>
+                         <reference definitionId="org.osate.ui.definition.isWorkingSet"/>
+                         <reference definitionId="org.osate.ui.definition.isAADLProject" />
+                         <reference definitionId="org.osate.ui.definition.isAADLFolder" />
+                         <reference definitionId="org.osate.ui.definition.isInstanceFile" />
+	                     <reference definitionId="org.osate.ui.definition.isSystemInstance"/>
                       </or>
                    </iterate>
                 </and>
@@ -1512,7 +1520,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                          value="1">
                    </count>
                    <iterate>
-                      <reference definitionId="org.osate.ui.definition.private.isWorkingSetOrOpenProject"/>
+                      <reference definitionId="org.osate.ui.definition.isWorkingSetOrOpenProject"/>
                    </iterate>
                 </and>
              </with>
@@ -1529,7 +1537,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                          value="1">
                    </count>
                    <iterate>
-                      <reference definitionId="org.osate.ui.definition.private.isWorkingSetOrOpenProject"/>
+                      <reference definitionId="org.osate.ui.definition.isWorkingSetOrOpenProject"/>
                    </iterate>
                 </and>
              </with>

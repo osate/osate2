@@ -90,28 +90,28 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.analysis.resource.budgets.handlers.NotBoundResourceAnalysisHandler"
             commandId="org.osate.analysis.resource.budgets.notBoundResourceAnalysis">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.resource.budgets.handlers.BoundResourceAnalysisHandler"
             commandId="org.osate.analysis.resource.budgets.boundResourceAnalysis">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.resource.budgets.handlers.PowerAnalysisHandler"
             commandId="org.osate.analysis.resource.budgets.powerAnalysis">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.resource.budgets.handlers.NewBusLoadAnalysisHandler"
             commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.public.instanceAnalysisCommandEnabled" />
+            <reference definitionId="org.osate.ui.definition.instanceAnalysisCommandEnabled" />
          </enabledWhen>
       </handler>
    </extension>
@@ -160,7 +160,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             <command
                   commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
                <visibleWhen>
-                  <reference definitionId="org.osate.ui.definition.public.instanceAnalysisCommandVisibility"/>
+                  <reference definitionId="org.osate.ui.definition.instanceAnalysisCommandVisibility"/>
                </visibleWhen>
             </command>
             <separator
@@ -177,7 +177,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             <command
                   commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
                <visibleWhen>
-                  <reference definitionId="org.osate.ui.definition.public.instanceAnalysisCommandVisibility"/>
+                  <reference definitionId="org.osate.ui.definition.instanceAnalysisCommandVisibility"/>
                </visibleWhen>
             </command>
             <separator
@@ -197,7 +197,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -209,7 +209,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -221,7 +221,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -233,7 +233,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
       </menuContribution>
@@ -242,7 +242,7 @@ censes only apply to the Third Party Software and not any other portion of this 
          <command
                commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
             <visibleWhen>
-               <reference definitionId="org.osate.ui.definition.public.instanceAnalysisCommandVisibility"/>
+               <reference definitionId="org.osate.ui.definition.instanceAnalysisCommandVisibility"/>
             </visibleWhen>
          </command>
          <command

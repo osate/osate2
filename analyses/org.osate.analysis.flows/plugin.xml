@@ -67,7 +67,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.analysis.flows.handlers.CheckFlowLatency"
             commandId="org.osate.analysis.flows.checkFlowLatency">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
    </extension>
@@ -97,7 +97,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
       </menuContribution>

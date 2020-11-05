@@ -59,7 +59,7 @@ Disable importer preferences for now
                path="menu.analyses/top.grp">
             <groupMarker name="stuff.grp"/>
                          <visibleWhen checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
          </visibleWhen>
          </menu>
          <action

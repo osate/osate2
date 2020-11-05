@@ -76,21 +76,21 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.analysis.resource.management.handlers.CheckPriorityInversion"
             commandId="org.osate.analysis.resource.management.checkPriorityInversion">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.resource.management.handlers.Schedule"
             commandId="org.osate.analysis.resource.management.schedule">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.resource.management.handlers.Binpack"
             commandId="org.osate.analysis.resource.management.binpack">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.private.isInstanceFileOrSystemInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
    </extension>
@@ -137,7 +137,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -149,7 +149,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -161,7 +161,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <reference definitionId="org.osate.ui.definition.public.inAadlPerspective"/>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
       </menuContribution>
