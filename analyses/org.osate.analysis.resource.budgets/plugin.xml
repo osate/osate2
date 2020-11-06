@@ -82,54 +82,6 @@ censes only apply to the Third Party Software and not any other portion of this 
             categoryId="org.osate.analysis.resource.budgets.category"
             id="org.osate.analysis.resource.budgets.BusLoadAnalysis"
             name="Analyze Bus Load">
-          <visibleWhen>
-             <with
-                   variable="selection">
-                <and>
-                   <count
-                         value="+">
-                   </count>
-                   <iterate
-                         ifEmpty="false"
-                         operator="or">
-                      <or>
-                         <!-- Working set -->
-                            <instanceof value="org.eclipse.ui.IWorkingSet" />
-							 
-                         <!-- open AADL project or any closed project -->
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IProject" />
-                            <or>
-                                <test
-                                    property="org.eclipse.core.resources.projectNature"
-   	                                value="org.osate.core.aadlnature" />
-                                <not>
-                                    <test property="org.eclipse.core.resources.open" />
-   	                            </not>
-                            </or>
-                         </and>
-	                         
-                         <!-- folder in an AADL project -->
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IFolder" />
-                            <test
-                                property="org.eclipse.core.resources.projectNature"
-                                value="org.osate.core.aadlnature" />
-                         </and>
-                         
-                         <!-- Instance model file -->
-                         <adapt
-                                type="org.eclipse.core.resources.IFile">
-                            <test
-                                  property="org.eclipse.core.resources.contentTypeId"
-                                  value="org.osate.core.instanceModelFile">
-                            </test>
-                         </adapt>
-                      </or>
-                   </iterate>
-                </and>
-             </with>
-          </visibleWhen>
       </command>
    </extension>
    <extension
@@ -138,155 +90,29 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.analysis.resource.budgets.handlers.NotBoundResourceAnalysisHandler"
             commandId="org.osate.analysis.resource.budgets.notBoundResourceAnalysis">
          <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                              <test
-                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                    value="SystemInstance"
-                                    forcePluginActivation="true">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.resource.budgets.handlers.BoundResourceAnalysisHandler"
             commandId="org.osate.analysis.resource.budgets.boundResourceAnalysis">
          <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                              <test
-                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                    value="SystemInstance"
-                                    forcePluginActivation="true">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.resource.budgets.handlers.PowerAnalysisHandler"
             commandId="org.osate.analysis.resource.budgets.powerAnalysis">
          <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.SystemInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                              <test
-                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                    value="SystemInstance"
-                                    forcePluginActivation="true">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.analysis.resource.budgets.handlers.NewBusLoadAnalysisHandler"
             commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
-          <enabledWhen>
-             <with
-                   variable="selection">
-                <and>
-                   <count
-                         value="+">
-                   </count>
-                   <iterate
-                         ifEmpty="false"
-                         operator="and">
-                      <or>
-                         <!-- Working Set -->
-                         <instanceof value="org.eclipse.ui.IWorkingSet" />
-                         
-                         <!-- open AADL project -->
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IProject" />
-                            <or>
-                                <test
-                                    property="org.eclipse.core.resources.projectNature"
-	                                value="org.osate.core.aadlnature" />
-                                 <not>
-                                     <test property="org.eclipse.core.resources.open" />
-	                             </not>
-                            </or>
-                         </and>
-                         
-                         <!-- folder in an AADL project -->
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IFolder" />
-                            <test
-                                property="org.eclipse.core.resources.projectNature"
-                                value="org.osate.core.aadlnature" />
-                         </and>
-                         
-                         <!-- Instance model file -->
-                         <adapt
-                                type="org.eclipse.core.resources.IFile">
-                            <test
-                                  property="org.eclipse.core.resources.contentTypeId"
-                                  value="org.osate.core.instanceModelFile">
-                            </test>
-                         </adapt>
-                      </or>
-                   </iterate>
-                </and>
-             </with>
-          </enabledWhen>
+         <enabledWhen>
+            <reference definitionId="org.osate.ui.definition.instanceAnalysisCommandEnabled" />
+         </enabledWhen>
       </handler>
    </extension>
    <extension
@@ -326,6 +152,41 @@ censes only apply to the Third Party Software and not any other portion of this 
          </command>
       </menuContribution>
       <menuContribution
+             locationURI="popup:org.osate.ui.analysesOutlinePopup?after=additions">
+         <menu id="org.osate.analysis.resource.budgets.outlineBudgetMenu" label="Budget">
+            <separator
+                  name="core">
+            </separator>
+            <command
+                  commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
+               <visibleWhen>
+                  <reference definitionId="org.osate.ui.definition.instanceAnalysisCommandVisibility"/>
+               </visibleWhen>
+            </command>
+            <separator
+                  name="third_party">
+            </separator>
+         </menu>
+      </menuContribution>
+      <menuContribution
+             locationURI="popup:org.osate.ui.analysesInstanceOutlinePopup?after=additions">
+         <menu id="org.osate.analysis.resource.budgets.instanceOutlineBudgetMenu" label="Budget">
+            <separator
+                  name="core">
+            </separator>
+            <command
+                  commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
+               <visibleWhen>
+                  <reference definitionId="org.osate.ui.definition.instanceAnalysisCommandVisibility"/>
+               </visibleWhen>
+            </command>
+            <separator
+                  name="third_party">
+            </separator>
+         </menu>
+      </menuContribution>
+     
+      <menuContribution
             locationURI="toolbar:org.osate.ui.budgetToolbar?after=core">
          <command
                commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis"
@@ -336,12 +197,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -353,12 +209,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -370,12 +221,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -387,12 +233,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
       </menuContribution>
@@ -400,8 +241,8 @@ censes only apply to the Third Party Software and not any other portion of this 
             locationURI="popup:org.osate.ui.budgetNavigatorPopup?after=core">
          <command
                commandId="org.osate.analysis.resource.budgets.BusLoadAnalysis">
-            <visibleWhen
-                  checkEnabled="true">
+            <visibleWhen>
+               <reference definitionId="org.osate.ui.definition.instanceAnalysisCommandVisibility"/>
             </visibleWhen>
          </command>
          <command

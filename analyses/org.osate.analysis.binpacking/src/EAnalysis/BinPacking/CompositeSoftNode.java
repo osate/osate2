@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -36,17 +36,20 @@ import javax.swing.JOptionPane;
 
 public class CompositeSoftNode extends SoftwareNode {
 
+	@Override
 	public boolean deployed() {
 		for (Iterator iter = getBasicComponents().iterator(); iter.hasNext();) {
 			SoftwareNode n = (SoftwareNode) iter.next();
-			if (!n.deployed())
+			if (!n.deployed()) {
 				return false;
+			}
 		}
 		return true;
 	}
 
 	double bandwidthCompressionFactor = 0.0;
 
+	@Override
 	public double getBandwidthCompressionFactor() {
 		return bandwidthCompressionFactor;
 	}
@@ -62,6 +65,7 @@ public class CompositeSoftNode extends SoftwareNode {
 
 	protected boolean breakable = true;
 
+	@Override
 	public double getBandwidth() {
 		return totalBandwidth;
 	}
@@ -69,7 +73,7 @@ public class CompositeSoftNode extends SoftwareNode {
 	/**
 	 * Cummulative external message bandwidth from this composite to the outside
 	 */
-	public double totalMsgBandwidth = 0.0;
+	double totalMsgBandwidth = 0.0;
 
 	public double getTotalMsgBandwidth() {
 		return totalMsgBandwidth;
@@ -82,6 +86,7 @@ public class CompositeSoftNode extends SoftwareNode {
 
 	TreeSet componentsByOutDegree;
 
+	@Override
 	public Object clone() {
 		CompositeSoftNode n = (CompositeSoftNode) super.clone();
 		n.components = (TreeSet) components.clone();
@@ -98,16 +103,19 @@ public class CompositeSoftNode extends SoftwareNode {
 	}
 
 	public boolean containsComponent(SoftwareNode n) {
-		if (n.equals(this))
+		if (n.equals(this)) {
 			return true;
+		}
 		boolean result = components.contains(n);
 		if (!result) {
 			for (Iterator iter = components.iterator(); iter.hasNext();) {
 				SoftwareNode node = (SoftwareNode) iter.next();
-				if (node instanceof CompositeSoftNode)
+				if (node instanceof CompositeSoftNode) {
 					result = ((CompositeSoftNode) node).containsComponent(n);
-				if (result)
+				}
+				if (result) {
 					break;
+				}
 			}
 		}
 		return result;
@@ -129,6 +137,7 @@ public class CompositeSoftNode extends SoftwareNode {
 	/**
 	 * Deploy all components to same hardware
 	 */
+	@Override
 	public void setDeployedTo(HardwareNode n) {
 		for (Iterator iter = components.iterator(); iter.hasNext();) {
 			ProcessingLoad l = (ProcessingLoad) iter.next();
@@ -140,6 +149,7 @@ public class CompositeSoftNode extends SoftwareNode {
 	 * Cannot provide consistent answer, i.e., a component can be deployed
 	 * individually.
 	 */
+	@Override
 	public HardwareNode getDeployedTo() {
 		return null;
 	}
@@ -230,7 +240,7 @@ public class CompositeSoftNode extends SoftwareNode {
 
 	/**
 	 * add
-	 * 
+	 *
 	 * @param n
 	 *            to the set of components add to the totalMsgBandwidth all the
 	 *            messages from
@@ -282,10 +292,11 @@ public class CompositeSoftNode extends SoftwareNode {
 		Hashtable connVectorByTarget = (Hashtable) softConnectivityByTarget.get(n);
 
 		if (thisConnectivityVector == null) {
-			if (connectivityVector != null)
+			if (connectivityVector != null) {
 				thisConnectivityVector = new TreeMap(connectivityVector.comparator());
-			else
+			} else {
 				thisConnectivityVector = new TreeMap(new BandwidthComparator());
+			}
 		}
 
 		if (thisConnVectorByTarget == null) {
@@ -302,15 +313,17 @@ public class CompositeSoftNode extends SoftwareNode {
 			int i = 0;
 			for (Object[] neighbors = connectivityVector.entrySet().toArray(); i < neighbors.length; i++) {
 				Map.Entry entry = (Map.Entry) neighbors[i];
-				if (entry == null || entry.getValue() == null)
+				if (entry == null || entry.getValue() == null) {
 					continue;
+				}
 
 				Message message = (Message) entry.getKey();
 
 				// process only messages to basic nodes
 				if ((message.getSender() instanceof CompositeSoftNode)
-						|| (message.getReceiver() instanceof CompositeSoftNode))
+						|| (message.getReceiver() instanceof CompositeSoftNode)) {
 					continue;
+				}
 
 				if (addedMsgs.contains(entry.getKey())) {
 					// It is included in the pending additions
@@ -619,10 +632,11 @@ public class CompositeSoftNode extends SoftwareNode {
 	public void getSoftwareNodes(Vector v) {
 		for (Iterator iter = components.iterator(); iter.hasNext();) {
 			SoftwareNode n = (SoftwareNode) iter.next();
-			if (n instanceof CompositeSoftNode)
+			if (n instanceof CompositeSoftNode) {
 				((CompositeSoftNode) n).getSoftwareNodes(v);
-			else
+			} else {
 				v.add(n);
+			}
 		}
 	}
 
@@ -631,10 +645,11 @@ public class CompositeSoftNode extends SoftwareNode {
 
 		for (Iterator iter = components.iterator(); iter.hasNext();) {
 			SoftwareNode n = (SoftwareNode) iter.next();
-			if (n instanceof CompositeSoftNode)
+			if (n instanceof CompositeSoftNode) {
 				temp += "[" + ((CompositeSoftNode) n).componentsToString() + "]";
-			else
+			} else {
 				temp += ":" + n.name;
+			}
 		}
 		return temp;
 	}

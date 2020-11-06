@@ -110,7 +110,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.impl.OrExpressionImpl;
 
 public class EMV2Util {
 
-	public final static String ErrorModelAnnexName = "EMV2";
+	private EMV2Util() {
+	}
+
+	public static final String ErrorModelAnnexName = "EMV2";
 
 	public static String getLibraryName(ErrorModelLibrary lib) {
 		AadlPackage root = EcoreUtil2.getContainerOfType(lib, AadlPackage.class);
@@ -2656,7 +2659,7 @@ public class EMV2Util {
 		return null;
 	}
 
-	public static EList<ErrorModelLibrary> EmptyElist = new BasicEList<ErrorModelLibrary>();
+	public static final EList<ErrorModelLibrary> EmptyElist = new BasicEList<ErrorModelLibrary>();
 
 	/**
 	 * get list of ErrorModelLibraries listed in UseTypes
