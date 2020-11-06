@@ -51,8 +51,6 @@ public final class InstantiationHandler extends AbstractHandler {
 
 		final Job job = new KickoffJob(selectionAsList);
 		job.setRule(null); // doesn't use resources
-		job.setUser(false); // background helper job, don't let the user see it
-		job.setSystem(true); // background helper job, don't let the user see it
 		job.schedule();
 
 		// Supposed to always return null
@@ -63,14 +61,14 @@ public final class InstantiationHandler extends AbstractHandler {
 		private final List<?> selectionAsList;
 
 		public KickoffJob(final List<?> selectionAsList) {
-			super("Instantiation Handler (hidden)");
+			super("Instantiation");
 			this.selectionAsList = selectionAsList;
 		}
 
 		@Override
 		protected IStatus run(final IProgressMonitor monitor) {
 			final InstantiationEngine engine = new InstantiationEngine(selectionAsList);
-			engine.instantiate();
+			engine.instantiate(monitor);
 			return Status.OK_STATUS;
 		}
 	}
