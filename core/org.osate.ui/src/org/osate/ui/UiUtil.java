@@ -24,6 +24,7 @@
 package org.osate.ui;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -162,7 +163,9 @@ public final class UiUtil {
 	 * goto declarative model object through the editor associated with aadl files.
 	 * @param page Workbench page
 	 * @param io InstanceObject whose source in the declarative model is the target of the goto
+	 * @deprecated Use {@link #gotoInstanceObjectSource(InstanceObject)}
 	 */
+	@Deprecated
 	public static void gotoInstanceObjectSource(IWorkbenchPage page, InstanceObject io) {
 		if (io != null) {
 			gotoDeclarativeModelElement(page, AadlUtil.getInstanceOrigin(io));
@@ -173,7 +176,9 @@ public final class UiUtil {
 	 * Goto declarative model object through the editor associated with aadl files.
 	 * @param page Workbench page
 	 * @param pai instance model property association whose source in the declarative model is the target of the goto
+	 * @deprecated Use {@link #gotoInstanceObjectSource(PropertyAssociationInstance)}
 	 */
+	@Deprecated
 	public static void gotoInstanceObjectSource(IWorkbenchPage page, PropertyAssociationInstance pai) {
 		if (pai != null) {
 			gotoDeclarativeModelElement(page, pai.getPropertyAssociation());
@@ -181,14 +186,44 @@ public final class UiUtil {
 	}
 
 	/**
+	 * goto declarative model object through the editor associated with aadl files.
+	 * @param page Workbench page
+	 * @param io InstanceObject whose source in the declarative model is the target of the goto
+	 * @since 6.0
+	 */
+	public void gotoInstanceObjectSource(final InstanceObject io) {
+		gotoInstanceObjectSource(io, x -> AadlUtil.getInstanceOrigin(io));
+	}
+
+	/**
+	 * Goto declarative model object through the editor associated with aadl files.
+	 * @param page Workbench page
+	 * @param pai instance model property association whose source in the declarative model is the target of the goto
+	 * @since 6.0
+	 */
+	public void gotoInstanceObjectSource(PropertyAssociationInstance pai) {
+		gotoInstanceObjectSource(pai, x -> x.getPropertyAssociation());
+	}
+
+	private <X extends Element> void gotoInstanceObjectSource(final X instanceElement,
+			final Function<X, EObject> getDeclarative) {
+		if (instanceElement != null) {
+			final EObject srcObject = getDeclarative.apply(instanceElement);
+			openDeclarativeModelElement(EcoreUtil.getURI(srcObject), srcObject);
+		}
+	}
+
+	/**
 	 * goto Xtext model through the editor associated with aadl files.
 	 * @param page Workbench page
 	 * @param target Element that is the target object
+	 * @deprecated use {@link #openDeclarativeModelElement(URI)
 	 */
 	/*
 	 * XXX this method is obsolete, I think, it does a poor job of locating the
 	 * source text in the declarative model.
 	 */
+	@Deprecated
 	public static void gotoDeclarativeModelElement(IWorkbenchPage page, Element target) {
 		if (target == null) {
 			return;
@@ -286,7 +321,10 @@ public final class UiUtil {
 	 * @since 6.0
 	 */
 	public void openDeclarativeModelElement(final URI gotoURI) {
-		final EObject eObject = (new ResourceSetImpl()).getEObject(gotoURI, true);
+		openDeclarativeModelElement(gotoURI, (new ResourceSetImpl()).getEObject(gotoURI, true));
+	}
+
+	private void openDeclarativeModelElement(final URI gotoURI, final EObject eObject) {
 		final ITextRegion where = locationProvider.getFullTextRegion(eObject);
 		final IEditorPart editorPart = editorOpener.open(gotoURI, false);
 		((ITextEditor) editorPart).selectAndReveal(where.getOffset(), where.getLength());
