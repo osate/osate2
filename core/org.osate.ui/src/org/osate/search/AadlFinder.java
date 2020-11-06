@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -28,6 +28,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -58,7 +59,7 @@ public final class AadlFinder {
 	public static class ResourceSetScope implements Scope {
 		private final URI[] uris;
 
-		public ResourceSetScope(final Set<IResource> resources) {
+		public ResourceSetScope(final Set<? extends IResource> resources) {
 			final URI[] temp = new URI[resources.size()];
 			int i = 0;
 			for (final IResource resource : resources) {
@@ -123,6 +124,14 @@ public final class AadlFinder {
 	@FunctionalInterface
 	public interface FinderConsumer<T> {
 		public void found(T objDesc);
+	}
+
+	/**
+	 * @since 6.0
+	 */
+	@FunctionalInterface
+	public interface FinderConsumerWithResourceSet<T> {
+		public void found(ResourceSet resourceSet, T objDesc);
 	}
 
 	public static abstract class ResourceConsumer<T> {
@@ -195,58 +204,123 @@ public final class AadlFinder {
 		}
 	}
 
-	/**
-	 * Get all the {@code EObject}s of the given type in the workspace.
-	 */
+	@Deprecated
 	public void getAllObjectsOfTypeInWorkspace(final EClass eClass,
 			final FinderConsumer<IEObjectDescription> consumer) {
+		getAllObjectsOfTypeInWorkspace(eClass, (rs, o) -> consumer.found(o));
+	}
+
+	/**
+	 * Get all the {@code EObject}s of the given type in the workspace.
+	 * @since 6.0
+	 */
+	public void getAllObjectsOfTypeInWorkspace(final EClass eClass,
+			final FinderConsumerWithResourceSet<IEObjectDescription> consumer) {
 		getAllObjectsOfTypeInScope(eClass, WORKSPACE_SCOPE, consumer);
+	}
+
+	@Deprecated
+	public void getAllObjectsOfTypeInScope(final EClass eClass, final Scope scope,
+			final FinderConsumer<IEObjectDescription> consumer) {
+		getAllObjectsOfTypeInScope(eClass, scope, (rs, o) -> consumer.found(o));
 	}
 
 	/**
 	 * Get all the {@code EObject}s of the given type contained in the given scope.
+	 * @since 6.0
 	 */
 	public void getAllObjectsOfTypeInScope(final EClass eClass, final Scope scope,
-			final FinderConsumer<IEObjectDescription> consumer) {
+			final FinderConsumerWithResourceSet<IEObjectDescription> consumer) {
 		processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
 			@Override
 			protected void inScope(final IResourceDescription rsrcDesc) {
-				getAllObjectsOfTypeInResource(rsrcDesc, eClass, consumer);
+				getAllObjectsOfTypeInResource(rsrcDesc, eClass, getResourceSet(), consumer);
 			}
 		});
 	}
 
+	@Deprecated
 	public void getAllObjectsOfTypeInCollection(final EClass eClass, final Collection<IFile> fileSet,
 			final FinderConsumer<IEObjectDescription> consumer) {
+		getAllObjectsOfTypeInCollection(eClass, fileSet, (rs, o) -> consumer.found(o));
+	}
+
+	/**
+	 * @since 6.0
+	 */
+	public void getAllObjectsOfTypeInCollection(final EClass eClass, final Collection<IFile> fileSet,
+			final FinderConsumerWithResourceSet<IEObjectDescription> consumer) {
 		final ResourceSet resourceSet = new ResourceSetImpl();
 		final IResourceDescriptions resourceDescriptions = resourcesDescriptionProvider
 				.getResourceDescriptions(resourceSet);
 		for (final IFile file : fileSet) {
 			final IResourceDescription rsrcDesc = resourceDescriptions
 					.getResourceDescription(OsateResourceUtil.toResourceURI(file));
-			getAllObjectsOfTypeInResource(rsrcDesc, eClass, consumer);
+			getAllObjectsOfTypeInResource(rsrcDesc, eClass, resourceSet, consumer);
 		}
 	}
 
+	@Deprecated
 	public void getAllObjectsOfTypeInResource(final IResourceDescription rsrcDesc,
 			final EClass eClass, final FinderConsumer<IEObjectDescription> consumer) {
+		getAllObjectsOfTypeInResource(rsrcDesc, eClass, new ResourceSetImpl(), (rs, o) -> consumer.found(o));
+	}
+
+	/**
+	 * @since 6.0
+	 */
+	public void getAllObjectsOfTypeInResource(final IResourceDescription rsrcDesc, final EClass eClass,
+			final ResourceSet resourceSet, final FinderConsumerWithResourceSet<IEObjectDescription> consumer) {
 		for (final IEObjectDescription objDesc : rsrcDesc.getExportedObjectsByType(eClass)) {
-			consumer.found(objDesc);
+			consumer.found(resourceSet, objDesc);
 		}
 	}
 
+	@Deprecated
 	public void getAllReferencesToTypeInWorkspace(final FinderConsumer<IReferenceDescription> consumer) {
-		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, consumer);
+		getAllReferencesToTypeInWorkspace((rs, o) -> consumer.found(o), null);
 	}
 
+	/**
+	 * @param progressMonitor May be {@code null}.
+	 * @since 6.0
+	 */
+	public void getAllReferencesToTypeInWorkspace(final FinderConsumerWithResourceSet<IReferenceDescription> consumer,
+			final IProgressMonitor progressMonitor) {
+		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, consumer, progressMonitor);
+	}
+
+	@Deprecated
 	public void getAllReferencesToTypeInWorkspace(final ResourceConsumer<IResourceDescription> rsrcConsumer,
 			final FinderConsumer<IReferenceDescription> consumer) {
-		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, rsrcConsumer, consumer);
+		getAllReferencesToTypeInWorkspace(rsrcConsumer, (rs, o) -> consumer.found(o), null);
 	}
 
+	/**
+	 * @param progressMonitor May be {@code null}.
+	 * @since 6.0
+	 */
+	public void getAllReferencesToTypeInWorkspace(final ResourceConsumer<IResourceDescription> rsrcConsumer,
+			final FinderConsumerWithResourceSet<IReferenceDescription> consumer,
+			final IProgressMonitor progressMonitor) {
+		getAllReferencesToTypeInScope(WORKSPACE_SCOPE, rsrcConsumer, consumer, progressMonitor);
+	}
+
+	@Deprecated
 	public void getAllReferencesToTypeInScope(final Scope scope,
 			final ResourceConsumer<IResourceDescription> rsrcConsumer,
 			final FinderConsumer<IReferenceDescription> consumer) {
+		getAllReferencesToTypeInScope(scope, rsrcConsumer, (rs, o) -> consumer.found(o), null);
+	}
+
+	/**
+	 * @param progressMonitor May be {@code null}.
+	 * @since 6.0
+	 */
+	public void getAllReferencesToTypeInScope(final Scope scope,
+			final ResourceConsumer<IResourceDescription> rsrcConsumer,
+			final FinderConsumerWithResourceSet<IReferenceDescription> consumer,
+			final IProgressMonitor progressMonitor) {
 		processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
 			@Override
 			protected void begin(int count) {
@@ -255,7 +329,7 @@ public final class AadlFinder {
 
 			@Override
 			protected void inScope(final IResourceDescription rsrcDesc) {
-				getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), consumer);
+				getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), consumer, progressMonitor);
 				rsrcConsumer.inScope(rsrcDesc);
 			}
 
@@ -271,30 +345,51 @@ public final class AadlFinder {
 		});
 	}
 
+	@Deprecated
+	public void getAllReferencesToTypeInScope(final Scope scope, final FinderConsumer<IReferenceDescription> consumer) {
+		getAllReferencesToTypeInScope(scope, (rs, o) -> consumer.found(o), null);
+	}
+
+	/**
+	 * @param progressMonitor May be {@code null}.
+	 * @since 6.0
+	 */
 	public void getAllReferencesToTypeInScope(final Scope scope,
-			final FinderConsumer<IReferenceDescription> consumer) {
+			final FinderConsumerWithResourceSet<IReferenceDescription> consumer,
+			IProgressMonitor progressMonitor) {
 		processAllAadlFilesInScope(scope, new ResourceConsumer<IResourceDescription>() {
 			@Override
 			protected void inScope(final IResourceDescription rsrcDesc) {
-				getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), consumer);
+				getAllReferencesToTypeInResource(rsrcDesc, getResourceSet(), consumer, progressMonitor);
 			}
 		});
 	}
 
+	@Deprecated
 	public void getAllReferencesToTypeInResource(final IResourceDescription rsrcDesc, final ResourceSet resourceSet,
 			final FinderConsumer<IReferenceDescription> consumer) {
+		getAllReferencesToTypeInResource(rsrcDesc, resourceSet, (rs, o) -> consumer.found(o), null);
+	}
+
+	/**
+	 * @param progressMonitor May be {@code null}.
+	 * @since 6.0
+	 */
+	public void getAllReferencesToTypeInResource(final IResourceDescription rsrcDesc, final ResourceSet resourceSet,
+			final FinderConsumerWithResourceSet<IReferenceDescription> consumer,
+			final IProgressMonitor progressMonitor) {
 		final Resource rsrc = resourceSet.getResource(rsrcDesc.getURI(), true);
 		referenceFinder.findAllReferences(rsrc, new IReferenceFinder.Acceptor() {
 			@Override
-			public void accept(final EObject source, final URI sourceURI, final EReference eReference,
-					final int index, final EObject targetOrProxy, final URI targetURI) {
+			public void accept(final EObject source, final URI sourceURI, final EReference eReference, final int index,
+					final EObject targetOrProxy, final URI targetURI) {
 				accept(new DefaultReferenceDescription(sourceURI, targetURI, eReference, index, null));
 			}
 
 			@Override
 			public void accept(final IReferenceDescription refDesc) {
-				consumer.found(refDesc);
+				consumer.found(resourceSet, refDesc);
 			}
-		}, null);
+		}, progressMonitor);
 	}
 }

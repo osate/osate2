@@ -413,8 +413,8 @@ public class FaultTreeUtils {
 		return description;
 	}
 
-	public static BigDecimal BigZero = new BigDecimal(0.0);
-	public static BigDecimal BigOne = new BigDecimal(1.0);
+	public static final BigDecimal BigZero = new BigDecimal(0.0);
+	public static final BigDecimal BigOne = new BigDecimal(1.0);
 
 	/**
 	 * return computed & spec probability - if computed is zero then only spec.

@@ -58,8 +58,8 @@ public final class AADLProcessor extends Processor {
 	private AADLProcessor() {
 		super("PROTOTYPE", new EDFScheduler(new BandwidthComparator()), 1000000000);
 		// Not worrying about site architecture
-		this.powerRequirement = 0.0;
-		this.spaceRequirement = 0.0;
+		this.setPowerRequirement(0.0);
+		this.setSpaceRequirement(0.0);
 	}
 
 	/**
@@ -74,8 +74,8 @@ public final class AADLProcessor extends Processor {
 		setSemanticObject(proc);
 
 		// Not worrying about site architecture
-		this.powerRequirement = 0.0;
-		this.spaceRequirement = 0.0;
+		this.setPowerRequirement(0.0);
+		this.setSpaceRequirement(0.0);
 	}
 
 	/** Get the AADL processor component instance represented by this object. */
@@ -122,7 +122,7 @@ public final class AADLProcessor extends Processor {
 	}
 
 	public String getReport() {
-		String res = "Processor " + this.name + " instructions per second " + this.cyclesPerSecond + " Scheduler "
+		String res = "Processor " + this.getName() + " instructions per second " + this.getCyclesPerSecond() + " Scheduler "
 				+ (this.scheduler instanceof EDFScheduler ? "EDF"
 						: (this.scheduler instanceof RMScheduler ? "RMS" : "DMS"));
 		return res;

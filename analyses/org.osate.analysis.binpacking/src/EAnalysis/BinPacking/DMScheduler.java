@@ -98,7 +98,7 @@ public class DMScheduler extends BaseScheduler {
 		if (!schedulable) {
 			taskSet.remove(n);
 		} else {
-			currentCapacity += n.getBandwidth() / node.cyclesPerSecond;
+			currentCapacity += n.getBandwidth() / node.getCyclesPerSecond();
 			currentLoadCyclesPerSecond += n.getCyclesPerSecond();
 		}
 
@@ -109,7 +109,7 @@ public class DMScheduler extends BaseScheduler {
 		if (taskSet.contains(n)) {
 			taskSet.remove(n);
 			n.setDeployedTo(null);
-			currentCapacity -= n.getBandwidth() / node.cyclesPerSecond;
+			currentCapacity -= n.getBandwidth() / node.getCyclesPerSecond();
 			currentLoadCyclesPerSecond -= n.getCyclesPerSecond();
 		}
 	}
@@ -119,7 +119,7 @@ public class DMScheduler extends BaseScheduler {
 	}
 
 	public long getAvailableCyclesPerSecond() {
-		return ((long) node.cyclesPerSecond) - currentLoadCyclesPerSecond;
+		return ((long) node.getCyclesPerSecond()) - currentLoadCyclesPerSecond;
 	}
 
 	/**

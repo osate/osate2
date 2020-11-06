@@ -41,7 +41,7 @@ import org.osate.aadl2.NamedElement
 import org.osate.aadl2.SystemImplementation
 import org.osate.alisa.common.common.TargetType
 import org.osate.alisa.common.util.CommonUtilExtension
-import org.osate.pluginsupport.internal.utils.ExecuteJavaUtil
+import org.osate.pluginsupport.ExecuteJavaUtil
 import org.osate.reqspec.reqSpec.ContractualElement
 import org.osate.reqspec.reqSpec.DocumentSection
 import org.osate.reqspec.reqSpec.GlobalConstants

@@ -37,7 +37,7 @@ Require-Bundle: org.eclipse.xtext;bundle-version="[2.20.0,3.0.0)";visibility:=re
  org.eclipse.jface;bundle-version="[3.13.2,4.0.0)",
  org.osate.aadl2.modelsupport;bundle-version="[6.0.0,7.0.0)",
  org.osate.pluginsupport;bundle-version="[6.0.0,7.0.0)",
- org.osate.ui;bundle-version="[5.0.0,6.0.0)"
+ org.osate.ui;bundle-version="[6.0.0,7.0.0)"
 Import-Package: com.rockwellcollins.atc.resolute.resolute;resolution:=optional,
  org.apache.log4j;version="[1.2.0,2.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
@@ -47,10 +47,10 @@ Export-Package: org.osate.verify,
  org.osate.verify.scoping,
  org.osate.verify.serializer,
  org.osate.verify.services,
- org.osate.verify.internal.util,
  org.osate.verify.validation,
  org.osate.verify.verify,
  org.osate.verify.verify.impl,
+ org.osate.verify.internal.util,
  org.osate.verify.verify.util,
  org.osate.verify.formatting2
 Automatic-Module-Name: org.osate.verify

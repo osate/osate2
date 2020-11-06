@@ -35,7 +35,7 @@ import org.eclipse.xtext.serializer.tokens.SerializerScopeProviderBinding
 import org.eclipse.xtext.validation.Issue
 import org.junit.ComparisonFailure
 import org.osate.aadl2.modelsupport.util.AadlUtil
-import org.osate.pluginsupport.internal.utils.PluginSupportUtil
+import org.osate.pluginsupport.PluginSupportUtil
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.junit.Assert.assertEquals

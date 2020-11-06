@@ -1,13 +1,13 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Eclipse Public License as published by Eclipse,
  * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
@@ -15,7 +15,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * along with this program.  If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
@@ -36,10 +36,10 @@ import org.eclipse.swt.SWT;
 public class AadlBaCodeScanner extends RuleBasedScanner
 {
    private static Aadl2ColorProvider _colorProvider = new Aadl2ColorProvider();
-   
+
    // Imported from Osate2.
-   public final static String[] AADL2_KEYWORDS = new String[]
-   {  
+   private final static String[] AADL2_KEYWORDS = new String[]
+   {
       "aadlboolean",
       "aadlinteger",
       "aadlreal",
@@ -118,9 +118,9 @@ public class AadlBaCodeScanner extends RuleBasedScanner
       "virtual",
       "with"
    };
-   
-   public final static String[] BA_KEYWORDS = new String[]
-   {  
+
+   private final static String[] BA_KEYWORDS = new String[]
+   {
       "behavior_specification",
       "variables",
       "states",
@@ -144,7 +144,7 @@ public class AadlBaCodeScanner extends RuleBasedScanner
       "while",
       "do",
       "until",
-      "any",   
+      "any",
       "computation",
        "'",
       "count",
@@ -155,8 +155,8 @@ public class AadlBaCodeScanner extends RuleBasedScanner
       "rem",
       "abs"
    };
- 
-   public final static String[] BA_SIGNS = new String[]
+
+   private final static String[] BA_SIGNS = new String[]
    {
       ":=",
       "!",
@@ -169,7 +169,7 @@ public class AadlBaCodeScanner extends RuleBasedScanner
       "!<",
       "!>"
    } ;
-  
+
    public AadlBaCodeScanner()
    {
       Token commentToken = new Token(new TextAttribute(
@@ -184,46 +184,46 @@ public class AadlBaCodeScanner extends RuleBasedScanner
                                        _colorProvider.getColor(
                                            Aadl2ColorProvider.BACKGROUND),
                                            SWT.BOLD));
-      
+
       Token baSignToken = new Token (new TextAttribute(
                                     _colorProvider.getColor(
                                        Aadl2ColorProvider.SIGN),
                                     _colorProvider.getColor(
                                        Aadl2ColorProvider.BACKGROUND),
                                        SWT.BOLD));
-      
+
       Token defaultToken = new Token(new TextAttribute(
                                        _colorProvider.getColor(
                                            Aadl2ColorProvider.DEFAULT)));
-      
+
       ArrayList<IRule> rules = new ArrayList<IRule>();
-      
+
       rules.add(new EndOfLineRule("--", commentToken));
       rules.add(new SingleLineRule("\"", "\"", stringToken));
-      
+
       WordRule wordRule = new WordRule(new Aadl2WordDetector(), defaultToken,
                                                                 true);
-      
+
       for (String keyword : AADL2_KEYWORDS)
       {
          wordRule.addWord(keyword, keywordToken);
       }
-      
+
       for (String keyword : BA_KEYWORDS)
       {
          wordRule.addWord(keyword, keywordToken);
       }
-      
+
       for(String sign : BA_SIGNS)
       {
          wordRule.addWord(sign, baSignToken);
       }
-      
+
       rules.add(wordRule);
-      
+
       setRules(rules.toArray(new IRule[rules.size()]));
    }
-   
+
    private static class Aadl2WordDetector implements IWordDetector
    {
       @Override
@@ -237,11 +237,11 @@ public class AadlBaCodeScanner extends RuleBasedScanner
             case '*':
             case ':':
             case '!' : return true ;
-            
+
             default : return Character.isJavaIdentifierPart(c) ;
          }
       }
-      
+
       @Override
       public boolean isWordPart(char c)
       {
@@ -251,7 +251,7 @@ public class AadlBaCodeScanner extends RuleBasedScanner
             case '<':
             case '!':
             case '=': return true ;
-            
+
             default : return Character.isJavaIdentifierPart(c) ;
          }
       }

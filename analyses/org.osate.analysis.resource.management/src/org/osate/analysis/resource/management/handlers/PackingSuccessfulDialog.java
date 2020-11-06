@@ -193,7 +193,7 @@ public class PackingSuccessfulDialog extends MessageDialog {
 
 		for (final Iterator i = hwGraph.iterator(); i.hasNext();) {
 			final Processor p = (Processor) i.next();
-			for (Iterator nics = p.netInterfaces.iterator(); nics.hasNext();) {
+			for (Iterator nics = p.getNetInterfaces().iterator(); nics.hasNext();) {
 				NetInterface nic = (NetInterface) nics.next();
 				Link link = nic.getLink();
 
@@ -241,12 +241,12 @@ public class PackingSuccessfulDialog extends MessageDialog {
 			final HardwareNode hn = (HardwareNode) i.next();
 			final ComponentInstance proc = (ComponentInstance) hn.getSemanticObject();
 			final TableItem row = new TableItem(table, SWT.NONE);
-			double load = hn.cyclesPerSecond - hn.getAvailableCapacity();
-			load /= hn.cyclesPerSecond;
+			double load = hn.getCyclesPerSecond() - hn.getAvailableCapacity();
+			load /= hn.getCyclesPerSecond();
 			load *= 100.0;
 			long longLoad = (long) Math.ceil(load);
-			double overload = (hn.cyclesPerSecond - hn.getAvailableCapacity()) - hn.cyclesPerSecond;
-			overload /= hn.cyclesPerSecond;
+			double overload = (hn.getCyclesPerSecond() - hn.getAvailableCapacity()) - hn.getCyclesPerSecond();
+			overload /= hn.getCyclesPerSecond();
 			overload *= 100.0;
 			long longOverload = (long) Math.ceil(overload);
 			long available = longOverload * -1;
@@ -276,7 +276,7 @@ public class PackingSuccessfulDialog extends MessageDialog {
 
 		for (final Iterator i = hwGraph.iterator(); i.hasNext();) {
 			final Processor p = (Processor) i.next();
-			for (Iterator nics = p.netInterfaces.iterator(); nics.hasNext();) {
+			for (Iterator nics = p.getNetInterfaces().iterator(); nics.hasNext();) {
 				NetInterface nic = (NetInterface) nics.next();
 				Link link = nic.getLink();
 
@@ -285,7 +285,7 @@ public class PackingSuccessfulDialog extends MessageDialog {
 					continue;
 				processed.add(link);
 
-				final double available = link.getAvailableCapacity() / link.cyclesPerSecond;
+				final double available = link.getAvailableCapacity() / link.getCyclesPerSecond();
 				final TableItem row = new TableItem(table, SWT.NONE);
 				final ComponentInstance bus = (ComponentInstance) link.getSemanticObject();
 				row.setText(
