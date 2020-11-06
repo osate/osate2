@@ -32,6 +32,7 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor
 import org.eclipse.xtext.serializer.tokens.CrossReferenceSerializer
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.NamedElement
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 
@@ -42,6 +43,12 @@ class ErrorModelCrossReferenceSerializer extends CrossReferenceSerializer {
 
 	override serializeCrossRef(EObject semanticObject, CrossReference crossref, EObject target, INode node,
 		Acceptor errors) {
+		// Fix for https://github.com/osate/osate2/issues/2483
+		val ref = GrammarUtil.getReference(crossref, semanticObject.eClass)
+		if (ref == ErrorModelPackage.Literals.FEATUREOR_PP_REFERENCE__FEATUREOR_PP) {
+			return (target as NamedElement).name
+		}
+		
 		val crossRefString = super.serializeCrossRef(semanticObject, crossref, target, node, errors)
 		if (crossRefString.startsWith(PREFIX)) {
 			crossRefString.substring(PREFIX.length)
