@@ -216,10 +216,7 @@ public class AnnexParserAgent extends LazyLinker {
 						resolver.resolveAnnex(annexName, Collections.singletonList(annexSection), resolveErrManager);
 						consumeMessages(resolveErrReporter, diagnosticsConsumer, annexText, line, offset);
 						if (resolveErrReporter.getNumErrors() != 0) {
-
-							// Issue #2459
-							AnnexRegistry.setNoValidation( defaultAnnexSection );
-//							setParsedAnnexSection.accept(null);
+							setParsedAnnexSection.accept(null);
 						}
 					} else if (linkingService != null) {
 						try {
@@ -233,11 +230,8 @@ public class AnnexParserAgent extends LazyLinker {
 						}
 					}
 				}
-				if(parseErrReporter.getNumErrors()>0) {
-					// Issue #2459
-					AnnexRegistry.setNoValidation( defaultAnnexSection );
-//					setParsedAnnexSection.accept(null);
-				}
+				if(parseErrReporter.getNumErrors()>0)
+					setParsedAnnexSection.accept(null);
 			} catch (RecognitionException e) {
 				String message = "Major parsing error in " + filename + " at line " + line;
 				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e);
@@ -320,16 +314,6 @@ public class AnnexParserAgent extends LazyLinker {
 				@Override
 				public int getLength() {
 					return diagnosticLength;
-				}
-
-				@Override
-				public int getLineEnd() {
-					return getLine();
-				}
-
-				@Override
-				public int getColumnEnd() {
-					return getColumn();
 				}
 			};
 
