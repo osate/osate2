@@ -2697,8 +2697,9 @@ public class AadlBaTypeChecker
     else
     {
       result = _fact.createUnlockAction() ;
-      if(comAct.getQualifiedName() != null && comAct
-                                                    .getQualifiedName() instanceof DataAccess)
+      if(comAct.getQualifiedName().getOsateRef() != null && comAct
+                                                                  .getQualifiedName()
+                                                                  .getOsateRef() instanceof DataAccess)
       {
         dah = _fact.createDataAccessHolder() ;
         dah.setElement((DataAccess) comAct.getQualifiedName().getOsateRef()) ;

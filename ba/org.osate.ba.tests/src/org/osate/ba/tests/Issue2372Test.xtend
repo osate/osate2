@@ -37,6 +37,9 @@ class Issue2372Test {
 							actions.get(1) as SharedDataAction => [
 								(dataAccess.dataAccess!==null).assertTrue
 							]
+							actions.get(3) as SharedDataAction => [
+								(dataAccess.dataAccess!==null).assertTrue
+							]
 						]
 					]
 				]
