@@ -58,6 +58,7 @@ import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexResolver;
 import org.osate.annexsupport.AnnexResolverRegistry;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.annexsupport.AnnexValidator;
 import org.osate.annexsupport.ParseResultHolder;
 import org.osate.xtext.aadl2.Activator;
 
@@ -187,6 +188,7 @@ public class AnnexParserAgent extends LazyLinker {
 				annexText = annexText.substring(3, annexText.length() - 3);
 			}
 			AnnexParser ap = PARSER_REGISTRY.getAnnexParser(annexName);
+
 			try {
 				QueuingParseErrorReporter parseErrReporter = new QueuingParseErrorReporter();
 				parseErrReporter.setContextResource(defaultAnnexSection.eResource());
@@ -216,7 +218,10 @@ public class AnnexParserAgent extends LazyLinker {
 						resolver.resolveAnnex(annexName, Collections.singletonList(annexSection), resolveErrManager);
 						consumeMessages(resolveErrReporter, diagnosticsConsumer, annexText, line, offset);
 						if (resolveErrReporter.getNumErrors() != 0) {
-							setParsedAnnexSection.accept(null);
+							
+							// Issue #2459
+							AnnexValidator.setNoValidation( defaultAnnexSection, annexName );
+//							setParsedAnnexSection.accept(null);
 						}
 					} else if (linkingService != null) {
 						try {
@@ -230,8 +235,13 @@ public class AnnexParserAgent extends LazyLinker {
 						}
 					}
 				}
-				if(parseErrReporter.getNumErrors()>0)
-					setParsedAnnexSection.accept(null);
+				
+				if ( parseErrReporter.getNumErrors()>0 ) {
+					
+					// Issue #2459
+					AnnexValidator.setNoValidation( defaultAnnexSection, annexName );
+//					setParsedAnnexSection.accept(null);
+				}
 			} catch (RecognitionException e) {
 				String message = "Major parsing error in " + filename + " at line " + line;
 				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e);
@@ -314,6 +324,16 @@ public class AnnexParserAgent extends LazyLinker {
 				@Override
 				public int getLength() {
 					return diagnosticLength;
+				}
+
+				@Override
+				public int getLineEnd() {
+					return getLine();
+				}
+
+				@Override
+				public int getColumnEnd() {
+					return getColumn();
 				}
 			};
 
