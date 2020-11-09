@@ -1,0 +1,9 @@
+package other_typelib
+public
+	annex EMV2 {**
+		error types
+			t1: type;
+			t3: type;
+		end types;
+	**};
+end other_typelib;

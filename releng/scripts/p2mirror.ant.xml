@@ -144,18 +144,12 @@ Run with
             <iu id="org.eclipse.xsemantics.runtime.feature.feature.group"/>
         </p2.mirror>
         
-        <!--p2.mirror source="http://download.eclipse.org/elk/updates/releases/0.6.1">
-            <destination location="${target.dir}/elk/updates/releases/0.6.1"/>
-            <iu id="org.eclipse.elk.feature.feature.group"/>
-            <iu id="org.eclipse.elk.algorithms.feature.feature.group"/>
-        </p2.mirror-->
-    	
-        <p2.mirror source="http://osate-build.sei.cmu.edu/p2/elk-nightly">
-            <destination location="${target.dir}/elk-nightly"/>
+        <p2.mirror source="http://download.eclipse.org/elk/updates/releases/0.7.0">
+            <destination location="${target.dir}/elk/updates/releases/0.7.0"/>
             <iu id="org.eclipse.elk.feature.feature.group"/>
             <iu id="org.eclipse.elk.algorithms.feature.feature.group"/>
         </p2.mirror>
-    	
+    	    	
         <p2.mirror source="http://download.eclipse.org/ease/release/0.7.0">
             <destination location="${target.dir}/ease/release/0.7.0"/>
             <iu id="org.eclipse.ease.feature.feature.group"/>

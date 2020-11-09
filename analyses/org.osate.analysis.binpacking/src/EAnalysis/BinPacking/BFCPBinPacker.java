@@ -50,7 +50,7 @@ public class BFCPBinPacker extends BaseLowLevelBinPacker {
 		}
 
 		expansor.createInitialHardware(problem, validProcessors, aggregateBandwidth);
-		System.out.println("\n\n *** BFCPBinPacker initial Hardware.size(" + problem.hardwareGraph.size()
+		System.out.println("\n\n *** BFCPBinPacker initial Hardware.size(" + problem.getHardwareGraph().size()
 				+ ") validProcessor.size(" + validProcessors.size() + ") for total bandwidth(" + aggregateBandwidth
 				+ ") ** \n");
 
@@ -127,7 +127,7 @@ public class BFCPBinPacker extends BaseLowLevelBinPacker {
 				if (processor.canAddToFeasibility(composite)) {
 					deploymentCount++;
 					/* reorder processor */
-					if (!problem.hardwareGraph.remove(processor)) {
+					if (!problem.getHardwareGraph().remove(processor)) {
 						// System.out.println("\n **** processor not properly
 						// removed *** \n");
 					}
@@ -232,7 +232,7 @@ public class BFCPBinPacker extends BaseLowLevelBinPacker {
 
 					subGraphsList.remove();
 					problem.removeSoftwareNode(composite);
-					problem.hardwareGraph.add(processor);
+					problem.getHardwareGraph().add(processor);
 					validProcessors.add(processor);
 					break;
 				} else {

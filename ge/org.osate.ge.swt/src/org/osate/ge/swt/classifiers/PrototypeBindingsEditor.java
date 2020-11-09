@@ -29,9 +29,9 @@ import java.util.function.Consumer;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.osate.ge.swt.BorderedCLabel;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 
@@ -66,8 +66,9 @@ public class PrototypeBindingsEditor<B, D, T, C> extends Composite {
 			int nextChildIndex = 0;
 			for (B b : (Iterable<B>) model.getChildren(parentBinding)::iterator) {
 				// Label
-				final CLabel label = children.length > nextChildIndex ? (CLabel) children[nextChildIndex]
-						: new CLabel(this, SWT.BORDER);
+				final BorderedCLabel label = children.length > nextChildIndex
+						? (BorderedCLabel) children[nextChildIndex]
+						: new BorderedCLabel(this);
 				SwtUtil.setColorsToMatchParent(label);
 				label.setText(model.getLabel(b));
 				label.setLayoutData(

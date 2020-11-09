@@ -250,7 +250,7 @@ public class NFCHoBinPacker {
 		// }
 		// System.out.println("----- END OF INITIAL SOFTWARE GRAPH -------");
 
-		BinPackerTester.toDeploy = problem.softwareGraph.size();
+		BinPackerTester.toDeploy = problem.getSoftwareGraph().size();
 
 		buildConstrainedArchitecture(problem);
 		// System.out.println("---- CONSTRAINED ARCHITECTURE -------");
@@ -274,7 +274,7 @@ public class NFCHoBinPacker {
 		// DebugMonitor.println(DebugMonitor.channels[3], "--- END OF
 		// CONSTRAINED COMPONENTS ---");
 
-		Iterator orderedComposites = problem.softwareGraph.iterator();
+		Iterator orderedComposites = problem.getSoftwareGraph().iterator();
 //		System.out.println("OrderedComposites.size("
 //				+ problem.softwareGraph.size() + ")");
 		SoftwareNode composite = null;
@@ -312,7 +312,7 @@ public class NFCHoBinPacker {
 					if (inIter.hasNext())
 						composite.setDeployedTo(((SoftwareNode) inIter.next()).getDeployedTo());
 				}
-				orderedComposites = problem.softwareGraph.iterator();
+				orderedComposites = problem.getSoftwareGraph().iterator();
 
 				if (orderedComposites.hasNext()) {
 					/* explore neighbors */
@@ -410,31 +410,31 @@ public class NFCHoBinPacker {
 		// 1000001.0);
 		MPC555 h1 = new MPC555("1", new EDFScheduler(comparator), 1000000.0, new NetInterface[] {
 				new NetInterface(new Ethernet()), new NetInterface(new CANBus()), new NetInterface(new CANBus()) });
-		prob.hardwareGraph.add(h1);
+		prob.getHardwareGraph().add(h1);
 		// HardwareNode h2 = new HardwareNode("2", new EDFScheduler(comparator),
 		// 1000002.0);
 		MPC555 h2 = new MPC555("2", new EDFScheduler(comparator), 1000000.0,
 				new NetInterface[] { new NetInterface(new Ethernet()), new NetInterface(new CANBus()) });
-		prob.hardwareGraph.add(h2);
+		prob.getHardwareGraph().add(h2);
 		// HardwareNode h3 = new HardwareNode("3", new EDFScheduler(comparator),
 		// 1000000.0);
 		MPC555 h3 = new MPC555("3", new EDFScheduler(comparator), 1000000.0, new NetInterface[] {
 				new NetInterface(new Ethernet()), new NetInterface(new CANBus()), new NetInterface(new CANBus()) });
-		prob.hardwareGraph.add(h3);
+		prob.getHardwareGraph().add(h3);
 
 		/*
 		 * links
 		 */
 
 		Ethernet ethernet = new Ethernet();
-		ethernet.name = "Ethernet";
+		ethernet.setName("Ethernet");
 		ethernet.add(h1);
 		ethernet.add(h2);
 		h1.attachToLink(ethernet);
 		h2.attachToLink(ethernet);
 
 		CANBus canBus = new CANBus();
-		canBus.name = "CanBus";
+		canBus.setName("CanBus");
 		canBus.add(h2);
 		canBus.add(h3);
 		h2.attachToLink(canBus);
@@ -447,7 +447,7 @@ public class NFCHoBinPacker {
 
 		PrintWriter stdout = new PrintWriter(System.out);
 		int next = prob.dumpHardwareText(stdout, 0, 0, true);
-		prob.dumpSoftGraphText(prob.softwareGraph, stdout, next, 0, false);
+		prob.dumpSoftGraphText(prob.getSoftwareGraph(), stdout, next, 0, false);
 		stdout.flush();
 
 		Site site = (Site) siteArchitecture.sitesBySize.iterator().next();
@@ -472,9 +472,9 @@ public class NFCHoBinPacker {
 		/* Display assignments */
 		System.out.println("\n\n -----  ASSIGNMENTS ------");
 		int i = 0;
-		for (Iterator iter = prob.hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = prob.getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode n = (HardwareNode) iter.next();
-			System.out.println("Node " + n.name + ":");
+			System.out.println("Node " + n.getName() + ":");
 			for (Iterator taskSet = n.getTaskSet().iterator(); taskSet.hasNext();) {
 				SoftwareNode m = (SoftwareNode) taskSet.next();
 				System.out.println("\t Module " + m.name + " " + "C(" + m.cycles + " cycles)," + "T(" + m.period
@@ -546,7 +546,7 @@ public class NFCHoBinPacker {
 
 		PrintWriter stdout = new PrintWriter(System.out);
 		int next = prob.dumpHardwareText(stdout, 0, 0, true);
-		prob.dumpSoftGraphText(prob.softwareGraph, stdout, next, 0, false);
+		prob.dumpSoftGraphText(prob.getSoftwareGraph(), stdout, next, 0, false);
 		stdout.flush();
 
 		NFCHoBinPacker test = new NFCHoBinPacker(lowLevelBinPacker);
@@ -563,9 +563,9 @@ public class NFCHoBinPacker {
 		System.out.println("----- END OF HARDWARE ---------\n");
 		System.out.println("\n\n -----  ASSIGNMENTS  ------");
 		int i = 0;
-		for (Iterator iter = prob.hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = prob.getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode n = (HardwareNode) iter.next();
-			System.out.println("Node " + n.name + ":");
+			System.out.println("Node " + n.getName() + ":");
 			for (Iterator taskSet = n.getTaskSet().iterator(); taskSet.hasNext();) {
 				SoftwareNode m = (SoftwareNode) taskSet.next();
 				System.out.println("\t Module " + m.name + " " + "C(" + m.cycles + " cycles)," + "T(" + m.period
