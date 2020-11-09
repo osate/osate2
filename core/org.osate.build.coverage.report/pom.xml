@@ -42,6 +42,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.osate</groupId>
+			<artifactId>org.osate.xtext.aadl2.errormodel.edit</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<optional>true</optional>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.errormodel.faulttree</artifactId>
 			<version>6.0.0-SNAPSHOT</version>
 			<optional>true</optional>
@@ -120,7 +127,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.codegen.checker</artifactId>
-			<version>1.0.4-SNAPSHOT</version>
+			<version>1.0.5-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>

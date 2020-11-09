@@ -53,9 +53,9 @@ public class LatencyCSVReport {
 			SystemInstance si = ((InstanceObject) result.getModelElement()).getSystemInstance();
 			String systemName = si.getComponentClassifier().getName();
 			String inMode = ResultUtil.getString(result, 0);
-			String analysisheader = "Latency results for end-to-end flow '" + flowname + "' of system '" + systemName
-					+ "'"
-					+ inMode;
+			String analysisheader = "\"Latency results for end-to-end flow '" + flowname + "' of system '" + systemName
+					+ "' "
+					+ inMode + "\"";
 			report.append(analysisheader + System.lineSeparator() + System.lineSeparator());
 			report.append("Result,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments"
 					+ System.lineSeparator());
