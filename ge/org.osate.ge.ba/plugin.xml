@@ -89,6 +89,13 @@ censes only apply to the Third Party Software and not any other portion of this 
 			id="org.osate.ge.ba.properties.setVariableDataClassifierPropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>
+     <propertySection
+            afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+			class="org.osate.ge.ba.ui.properties.EditDispatchConditionsPropertySection"
+			filter="org.osate.ge.ba.ui.properties.EditDispatchConditionsPropertySection$Filter"
+			id="org.osate.ge.ba.properties.editDispatchConditionsPropertySection"
+			tab="org.osate.ge.ui.properties.tabs.aadl">
+     </propertySection>
      </propertySections>
      </extension>
    <extension
