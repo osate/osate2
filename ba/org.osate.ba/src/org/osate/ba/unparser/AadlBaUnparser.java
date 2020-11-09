@@ -126,8 +126,8 @@ import org.osate.ba.declarative.Identifier ;
 import org.osate.ba.declarative.QualifiedNamedElement ;
 import org.osate.ba.declarative.Reference ;
 import org.osate.ba.utils.AadlBaVisitors;
-import org.osate.utils.Aadl2Visitors;
-import org.osate.utils.PropertyUtils;
+import org.osate.utils.internal.Aadl2Visitors ;
+import org.osate.utils.internal.PropertyUtils ;
 
 public class AadlBaUnparser {
 

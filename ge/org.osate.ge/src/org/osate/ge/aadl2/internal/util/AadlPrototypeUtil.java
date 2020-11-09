@@ -34,7 +34,7 @@ import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
+import org.osate.aadl2.modelsupport.ResolvePrototypeUtil;
 import org.osate.ge.BusinessObjectContext;
 
 public class AadlPrototypeUtil {

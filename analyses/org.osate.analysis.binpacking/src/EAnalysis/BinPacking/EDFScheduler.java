@@ -54,11 +54,11 @@ public class EDFScheduler extends BaseScheduler {
 	}
 
 	public boolean canAddToFeasibility(ProcessingLoad n) {
-		return ((currentCapacity + n.getBandwidth() / node.cyclesPerSecond) <= 1.0);
+		return ((currentCapacity + n.getBandwidth() / node.getCyclesPerSecond()) <= 1.0);
 	}
 
 	public boolean addIfFeasible(ProcessingLoad n) {
-		if ((currentCapacity + n.getBandwidth() / node.cyclesPerSecond) <= 1.0) {
+		if ((currentCapacity + n.getBandwidth() / node.getCyclesPerSecond()) <= 1.0) {
 			// long potentialLoad = 0;
 			// potentialLoad += node.cyclesPerSecond;
 			// potentialLoad -= currentLoadCyclesPerSecond;
@@ -67,7 +67,7 @@ public class EDFScheduler extends BaseScheduler {
 			// if (potentialLoad>=0)
 			// {
 			taskSet.add(n);
-			currentCapacity += n.getBandwidth() / node.cyclesPerSecond;
+			currentCapacity += n.getBandwidth() / node.getCyclesPerSecond();
 			currentLoadCyclesPerSecond += n.getCyclesPerSecond();
 			n.setDeployedTo(getHardwareNode());
 			return true;
@@ -87,7 +87,7 @@ public class EDFScheduler extends BaseScheduler {
 		if (taskSet.contains(n)) {
 			taskSet.remove(n);
 			n.setDeployedTo(null);
-			currentCapacity -= n.getBandwidth() / node.cyclesPerSecond;
+			currentCapacity -= n.getBandwidth() / node.getCyclesPerSecond();
 			currentLoadCyclesPerSecond -= n.getCyclesPerSecond();
 		}
 	}
@@ -97,7 +97,7 @@ public class EDFScheduler extends BaseScheduler {
 	}
 
 	public long getAvailableCyclesPerSecond() {
-		return ((long) node.cyclesPerSecond) - currentLoadCyclesPerSecond;
+		return ((long) node.getCyclesPerSecond()) - currentLoadCyclesPerSecond;
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class EDFScheduler extends BaseScheduler {
 		for (Iterator iter = tSet.iterator(); iter.hasNext();) {
 			SoftwareNode n = (SoftwareNode) iter.next();
 			// capacity += n.getCyclesPerSecond();
-			capacity += n.getBandwidth() / node.cyclesPerSecond;
+			capacity += n.getBandwidth() / node.getCyclesPerSecond();
 			if (capacity > 1.0) // node.cyclesPerSecond)
 				return false;
 		}

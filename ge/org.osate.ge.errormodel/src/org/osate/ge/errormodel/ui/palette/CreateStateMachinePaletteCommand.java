@@ -25,7 +25,6 @@ package org.osate.ge.errormodel.ui.palette;
 
 import java.util.Optional;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.operations.Operation;
@@ -34,19 +33,18 @@ import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 
 public class CreateStateMachinePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateStateMachinePaletteCommand() {
-		super("Error Behavior State Machine", ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super("Error Behavior State Machine", ErrorModelPaletteCategories.ERROR_BEHAVIOR, null);
 	}
 
 	@Override
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return ErrorModelGeUtil.createErrorModelLibraryModifyOperation(ctx.getTarget(), lib -> {
 			// Create the ErrorBehaviorStateMachine
-			final ErrorBehaviorStateMachine newBehavior = (ErrorBehaviorStateMachine) EcoreUtil
-					.create(ErrorModelPackage.eINSTANCE.getErrorBehaviorStateMachine());
+			final ErrorBehaviorStateMachine newBehavior = ErrorModelFactory.eINSTANCE.createErrorBehaviorStateMachine();
 			final String newName = ErrorModelNamingUtil.buildUniqueIdentifier(lib, "new_state_machine");
 			newBehavior.setName(newName);
 

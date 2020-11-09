@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -49,7 +49,7 @@ public final class AADLProcessor extends Processor {
 	 * Public prototype value to use a "template" processor when defining
 	 * suitable site guests, etc.
 	 */
-	public static AADLProcessor PROTOTYPE = new AADLProcessor();
+	public static final AADLProcessor PROTOTYPE = new AADLProcessor();
 
 	/**
 	 * Create a prototype instances of this processor.  Only to be used to
@@ -58,8 +58,8 @@ public final class AADLProcessor extends Processor {
 	private AADLProcessor() {
 		super("PROTOTYPE", new EDFScheduler(new BandwidthComparator()), 1000000000);
 		// Not worrying about site architecture
-		this.powerRequirement = 0.0;
-		this.spaceRequirement = 0.0;
+		this.setPowerRequirement(0.0);
+		this.setSpaceRequirement(0.0);
 	}
 
 	/**
@@ -74,8 +74,8 @@ public final class AADLProcessor extends Processor {
 		setSemanticObject(proc);
 
 		// Not worrying about site architecture
-		this.powerRequirement = 0.0;
-		this.spaceRequirement = 0.0;
+		this.setPowerRequirement(0.0);
+		this.setSpaceRequirement(0.0);
 	}
 
 	/** Get the AADL processor component instance represented by this object. */
@@ -122,7 +122,7 @@ public final class AADLProcessor extends Processor {
 	}
 
 	public String getReport() {
-		String res = "Processor " + this.name + " instructions per second " + this.cyclesPerSecond + " Scheduler "
+		String res = "Processor " + this.getName() + " instructions per second " + this.getCyclesPerSecond() + " Scheduler "
 				+ (this.scheduler instanceof EDFScheduler ? "EDF"
 						: (this.scheduler instanceof RMScheduler ? "RMS" : "DMS"));
 		return res;

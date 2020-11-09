@@ -30,7 +30,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -55,10 +54,13 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.FileNameConstants;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
 import org.osate.core.AadlNature;
+import org.osate.ui.internal.instantiate.InstantiationEngine;
 
 /**
  * Working replacement for {@link #AaxlReadOnlyHandlerAsJob}.  Not at all "ready for prime-time", which
@@ -93,8 +95,8 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 		final List<Object> selectionAsList = HandlerUtil.getCurrentStructuredSelection(event).toList();
 		final Job job = new KickoffJob(selectionAsList);
 		job.setRule(null); // doesn't use resources
-		job.setUser(false); // background helper job, don't let the user see it
-		job.setSystem(true); // background helper job, don't let the user see it
+//		job.setUser(false); // background helper job, don't let the user see it
+//		job.setSystem(true); // background helper job, don't let the user see it
 		job.schedule();
 
 		// Supposed to always return null
@@ -115,14 +117,26 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 		private final List<Object> selectionAsList;
 
 		public KickoffJob(final List<Object> selectionAsList) {
-			super("Analysis Kickoff (hidden)");
+			super("Analysis kickoff");
 			this.selectionAsList = selectionAsList;
 		}
 
 		@Override
 		protected IStatus run(final IProgressMonitor monitor) {
-			// Get all the Aaxl files from the selection
-			final List<IFile> aaxlFiles = findAllInstanceFiles(selectionAsList);
+			/* Find the aaxl files and the component implementations from the UI selection */
+			final Set<IFile> aaxlFiles = new HashSet<>();
+			final Set<Object> forEngine = new HashSet<>();
+			findAllInstanceFilesAndComponentImpls(selectionAsList, aaxlFiles, forEngine);
+
+			/*
+			 * Instantiate the component implementations and add those that were successful to the
+			 * set of aaxl files.
+			 */
+			if (!forEngine.isEmpty()) {
+				final InstantiationEngine engine = new InstantiationEngine(forEngine);
+				final List<IFile> newAaxlFiles = engine.instantiate(monitor);
+				aaxlFiles.addAll(newAaxlFiles);
+			}
 			final int size = aaxlFiles.size();
 
 			/*
@@ -267,30 +281,32 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 
 	/**
 	 * Given a collection of resources, find all the resources that are instance model ({@code .aaxl})
-	 * files.  If a resource is an AADL project, working set, or folder then the contents are recursively searched.
+	 * files.  Also finds all the COmponentImplementations that are selected and adds those to the
+	 * set referenced by {@code forEngine}.  If a resource is an AADL project, working set, or folder then the contents are recursively searched.
 	 * Duplicates are handled: if a resource is encountered more than once it only appears once in
 	 * the returned list.  Hidden folders (those that start with {@code .}) are ignored.
 	 *
 	 * @param A collection of Eclipse {@link IResource} objects and {@link IWorkingSet} objects.
 	 * @return A list of {@link IFile} objects that refer to AADL instance model files.
 	 */
-	public static List<IFile> findAllInstanceFiles(final Collection<Object> rsrcs) {
-		final List<IFile> instanceFiles = new ArrayList<>();
-		findAllInstanceFiles(rsrcs.toArray(new Object[rsrcs.size()]), instanceFiles);
-		// remove duplicates
-		return instanceFiles.stream().distinct().collect(Collectors.toList());
+	private static void findAllInstanceFilesAndComponentImpls(final Collection<Object> rsrcs,
+			final Set<IFile> instanceFiles, final Set<Object> forEngine) {
+		findAllInstanceFilesAndComponentImpls(rsrcs.toArray(new Object[rsrcs.size()]), instanceFiles, forEngine);
 	}
 
-	private static void findAllInstanceFiles(final Object[] rsrcs, final List<IFile> instanceFiles) {
+	private static void findAllInstanceFilesAndComponentImpls(final Object[] rsrcs, final Set<IFile> instanceFiles,
+			final Set<Object> forEngine) {
 		for (final Object rsrc : rsrcs) {
 			if (rsrc instanceof IWorkingSet) {
-				findAllInstanceFiles(((IWorkingSet) rsrc).getElements(), instanceFiles);
+				findAllInstanceFilesAndComponentImpls(((IWorkingSet) rsrc).getElements(), instanceFiles, forEngine);
 			} else if (rsrc instanceof IFile) {
 				final IFile file = (IFile) rsrc;
 				final String ext = file.getFileExtension();
 				if (ext != null && ext.equals(FileNameConstants.INSTANCE_FILE_EXT)) {
 					instanceFiles.add(file);
 				}
+			} else if (rsrc instanceof SystemInstance) {
+				instanceFiles.add(OsateResourceUtil.toIFile(((SystemInstance) rsrc).eResource().getURI()));
 			} else if (rsrc instanceof IContainer) {
 				final IContainer container = (IContainer) rsrc;
 				if (container instanceof IProject) {
@@ -303,11 +319,14 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 
 				if (!container.getName().startsWith(".")) {
 					try {
-						findAllInstanceFiles(container.members(), instanceFiles);
+						findAllInstanceFilesAndComponentImpls(container.members(), instanceFiles, forEngine);
 					} catch (final CoreException e) {
 						ResourceBudgetPlugin.getDefault().getLog().error(e.getMessage(), e);
 					}
 				}
+			} else {
+				// pass through to the instantiation engine
+				forEngine.add(rsrc);
 			}
 		}
 	}
