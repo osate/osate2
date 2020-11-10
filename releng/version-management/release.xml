@@ -5,7 +5,6 @@
 		<feature name="org.osate.plugins.feature" version="5.1.0"/>
 		<feature name="org.osate.xtext.aadl2.errormodel.feature" version="6.0.0"/>
 		<feature name="org.osate.ge.feature" version="4.0.0"/>
-		<feature name="org.osate.ge.errormodel.feature" version="3.0.0"/>
 		<feature name="org.osate.ba.feature" version="4.0.1"/>
 		<feature name="org.osate.utils.feature" version="1.1.1"/>
 		<feature name="org.osate.alisa.workbench.sdk" version="4.0.0"/>
