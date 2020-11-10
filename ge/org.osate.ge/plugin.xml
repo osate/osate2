@@ -575,7 +575,9 @@ censes only apply to the Third Party Software and not any other portion of this 
              tooltip="Open Diagram" 
              style="push"
              mnemonic="O">
-          <visibleWhen checkEnabled="true"/>
+          <visibleWhen>
+          	<reference definitionId="org.osate.ge.selectionIsAadlCoreDiagramContextFile" />
+          </visibleWhen>
          </command>
          
          <command
@@ -583,7 +585,9 @@ censes only apply to the Third Party Software and not any other portion of this 
              label="Create Diagram..."
              tooltip="Create Diagram" 
              style="push">
-          <visibleWhen checkEnabled="true"/>
+          <visibleWhen>
+          	<reference definitionId="org.osate.ge.selectionIsAadlCoreDiagramContextFile" />
+          </visibleWhen>
          </command>
       </menuContribution>
 	<menuContribution
@@ -1568,14 +1572,21 @@ censes only apply to the Third Party Software and not any other portion of this 
  <extension
        point="org.eclipse.core.expressions.definitions">
     <definition
-          id="oneElementSelected">
-       <with
-             variable="selection">
-            <count
-                  value="1">
-            </count>
-             
-       </with>
+          id="org.osate.ge.selectionIsAadlCoreDiagramContextFile">
+			<with
+                   variable="selection">
+                <and>
+                   <count
+                         value="1">
+                   </count>
+                   <iterate>
+                      <or>
+                         <reference definitionId="org.osate.ui.definition.isPackageFile" />
+                         <reference definitionId="org.osate.ui.definition.isInstanceFile" />
+                      </or>
+                   </iterate>
+                </and>
+             </with>
     </definition>
  </extension>
         
