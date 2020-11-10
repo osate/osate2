@@ -828,7 +828,6 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [ 
 			switch model {
 				Connection : filterConnectionContext(model)
-				ConnectedElement : filterConnectionEnd(model)
 				default : false
 			}
 		])

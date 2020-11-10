@@ -32,8 +32,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Connection;
 
@@ -60,6 +58,7 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -139,27 +138,24 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider {
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @not generated
 	 */
+	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getConnection_Destination());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getConnection_Source());
-		}
-		return childrenFeatures;
+		return null;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @not generated
 	 */
+	@Override
 	protected EStructuralFeature getChildFeature(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
 
-		return super.getChildFeature(object, child);
+		return null;
 	}
 
 	/**
@@ -168,6 +164,7 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((Connection) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_Connection_type")
@@ -179,21 +176,10 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider {
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @not generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
-		updateChildren(notification);
-
-		switch (notification.getFeatureID(Connection.class)) {
-		case Aadl2Package.CONNECTION__BIDIRECTIONAL:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
-		case Aadl2Package.CONNECTION__DESTINATION:
-		case Aadl2Package.CONNECTION__SOURCE:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
-		}
-		super.notifyChanged(notification);
 	}
 
 	/**
@@ -201,16 +187,10 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider {
 	 * that can be created under this object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @not generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
-		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getConnection_Destination(),
-				Aadl2Factory.eINSTANCE.createConnectedElement()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getConnection_Source(),
-				Aadl2Factory.eINSTANCE.createConnectedElement()));
 	}
 
 	/**
@@ -219,6 +199,7 @@ public class ConnectionItemProvider extends StructuralFeatureItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
 		Object childFeature = feature;
 		Object childObject = child;

@@ -53,6 +53,7 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.impl.EndToEndFlowImpl;
+import org.osate.aadl2.impl.PortConnectionImpl;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.annexsupport.ParseResultHolder;
@@ -118,8 +119,14 @@ public class Aadl2OutlineTreeProvider extends BackgroundOutlineTreeProvider {
 					if (childElement instanceof Realization || childElement instanceof TypeExtension
 							|| childElement instanceof ImplementationExtension
 							|| childElement instanceof ContainmentPathElement
-							|| childElement instanceof PropertyAssociation) {
+							|| childElement instanceof PropertyAssociation
+					) {
 						continue;
+					}
+
+					if (childElement instanceof PortConnectionImpl) {
+						((PortConnectionImpl) childElement).setDestination(null);
+						((PortConnectionImpl) childElement).setSource(null);
 					}
 
 					createNode(parentNode, childElement);
