@@ -2208,13 +2208,8 @@ public class AadlBaUtils {
    * DataComponentReference object which the last element is a DataAccessHolder
    * object, it returns the data access right or "unknown" if the default
    * data access right is not set.
-<<<<<<< HEAD
    * 
    * @see org.osate.utils.internal.Aadl2Utils#getAccessRight
-=======
-   *
-   * @see org.osate.utils.Aadl2Utils#getAccessRight
->>>>>>> refs/heads/master
    * @param tar the given Target object
    * @return the data access right or "unknown"
    */
@@ -2250,13 +2245,8 @@ public class AadlBaUtils {
    * element is a DataAccessHolder object, it returns the DataAccessRight enum
    * reference or {@link org.osate.utils.internal.Aadl2Utils.DataAccessRight#unknown} if the default data access
    * right is not set.
-<<<<<<< HEAD
    * 
    * @see org.osate.utils.internal.Aadl2Utils#getAccessRight
-=======
-   *
-   * @see org.osate.utils.Aadl2Utils#getAccessRight
->>>>>>> refs/heads/master
    * @param tar the given Target object
    * @return the data access right or {@link org.osate.utils.internal.Aadl2Utils.DataAccessRight#unknown}
    */

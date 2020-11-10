@@ -60,11 +60,11 @@ import org.osate.aadl2.FeatureGroupPrototypeActual
 import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.FeaturePrototype
 import org.osate.aadl2.FeatureType
+import org.osate.aadl2.Flow
 import org.osate.aadl2.FlowElement
 import org.osate.aadl2.FlowEnd
 import org.osate.aadl2.FlowImplementation
 import org.osate.aadl2.FlowSegment
-import org.osate.aadl2.FlowSpecification
 import org.osate.aadl2.MemorySubcomponentType
 import org.osate.aadl2.ModeTransition
 import org.osate.aadl2.ModeTransitionTrigger
@@ -476,7 +476,10 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	}
 
 	// Reference is from FlowEnd in Aadl2.xtext
-	def scope_FlowEnd_context(ComponentType context, EReference reference) {
+	/**
+	 * @since 6.0
+	 */
+	def scope_FlowEnd_context(ComponentClassifier context, EReference reference) {
 		context.allContexts.filterRefined.scopeFor
 	}
 
@@ -487,7 +490,10 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	 * though we can't access it and check it here.  When the FlowEnd is a qualified reference, e.g. "featuregroup1.port1", then the passed context is a
 	 * FlowEnd, thus calling the other scope method.
 	 */
-	def scope_FlowEnd_feature(FlowSpecification context, EReference reference) {
+	/**
+	 * @since 6.0
+	 */
+	def scope_FlowEnd_feature(Flow context, EReference reference) {
 		context.getContainerOfType(Classifier).getAllFeatures().filterRefined.scopeFor
 	}
 
@@ -499,7 +505,7 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	def scope_FlowEnd_feature(FlowEnd context, EReference reference) {
 		context.context?.scopeForElementsOfContext(context.getContainerOfType(Classifier), [
 			getAllFeatures().filterRefined
-		]) ?: scope_FlowEnd_feature(context.owner as FlowSpecification, reference)
+		])
 	}
 
 	// Reference is from FlowSpecRefinement in Aadl2.xtext
