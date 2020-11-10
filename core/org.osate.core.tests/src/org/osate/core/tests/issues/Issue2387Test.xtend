@@ -47,13 +47,17 @@ class Issue2387Test {
 	val static PS = "ps.aadl"
 
 	val static S_I = "s.i"
+	val static X_I = "X.i"
 
-	val static INSTANCE_NAME = "s_i_Instance"
+	val static INSTANCE_NAME1 = "s_i_Instance"
+	val static INSTANCE_NAME2 = "X_i_Instance"
 	
 	val static STRING_PROPERTY = "string_property"
+	val static STRING_WITH_DEFAULT = "string_with_default"
 	
 	val static DEFAULT_VALUE = "default value"
 	val static BOB = "bob"
+	val static XXX = "XXX"
 	
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -66,7 +70,7 @@ class Issue2387Test {
 		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
 		
 		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
-		assertEquals(INSTANCE_NAME, instance.name)
+		assertEquals(INSTANCE_NAME1, instance.name)
 
 		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
 		// No errors or warnings
@@ -100,6 +104,56 @@ class Issue2387Test {
 				]
 			]
 			
+		]
+	}
+
+	
+	@Test
+	def void test_default_values_do_not_bleed_through() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + FILE1, PROJECT_LOCATION + PS)
+		val sysImpl = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == X_I] as SystemImplementation
+		
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		
+		val instance = InstantiateModel.instantiate(sysImpl, errorManager)
+		assertEquals(INSTANCE_NAME2, instance.name)
+
+		val messages = (errorManager.getReporter(instance.eResource) as QueuingAnalysisErrorReporter).errors
+		// No errors or warnings
+		assertTrue(messages.size == 0)
+		
+		instance => [
+			assertEquals(0, ownedPropertyAssociations.size)
+			assertEquals(2, componentInstances.size)
+			componentInstances.get(0) => [
+				assertEquals(1, ownedPropertyAssociations.size)
+				ownedPropertyAssociations.get(0) => [
+					assertEquals(STRING_WITH_DEFAULT, property.name)
+					assertEquals(1, ownedValues.size)
+					ownedValues.get(0) => [
+						assertTrue(ownedValue instanceof StringLiteral)
+						assertEquals(XXX, (ownedValue as StringLiteral).value)
+					]
+				]
+			]
+			componentInstances.get(1) => [
+				assertEquals(0, ownedPropertyAssociations.size)
+				assertEquals(2, featureInstances.size)
+				featureInstances.get(0) => [
+					assertEquals(0, ownedPropertyAssociations.size)
+				]
+				featureInstances.get(1) => [
+					assertEquals(0, ownedPropertyAssociations.size)
+				]
+			]
+			
+			assertEquals(2, systemOperationModes.size)
+			systemOperationModes.get(0) => [
+				assertEquals(0, ownedPropertyAssociations.size)
+			]
+			systemOperationModes.get(1) => [
+				assertEquals(0, ownedPropertyAssociations.size)
+			]
 		]
 	}
 }
