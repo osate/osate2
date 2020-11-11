@@ -25,6 +25,7 @@ package org.osate.xtext.aadl2.errormodel.serializer
 
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.CrossReference
+import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.GrammarUtil
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.nodemodel.INode
@@ -33,10 +34,12 @@ import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor
 import org.eclipse.xtext.serializer.tokens.CrossReferenceSerializer
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.NamedElement
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
+import org.osate.aadl2.Aadl2Package
 
 class ErrorModelCrossReferenceSerializer extends CrossReferenceSerializer {
 	val public static PREFIX = "emv2$"
@@ -84,6 +87,10 @@ class ErrorModelCrossReferenceSerializer extends CrossReferenceSerializer {
 				} else {
 					simpleName
 				}
+			}
+			case ErrorModelPackage.Literals.ERROR_MODEL_LIBRARY__EXTENDS: {
+				val package = target.getContainerOfType(AadlPackage)
+				package?.name
 			}
 			default:
 				super.getCrossReferenceNameFromScope(semanticObject, crossref, target, scope, errors)

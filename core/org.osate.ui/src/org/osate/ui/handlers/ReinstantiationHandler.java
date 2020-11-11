@@ -52,8 +52,6 @@ public final class ReinstantiationHandler extends AbstractHandler {
 
 		final Job job = new KickoffJob(selectionAsList);
 		job.setRule(null); // doesn't use resources
-		job.setUser(false); // background helper job, don't let the user see it
-		job.setSystem(true); // background helper job, don't let the user see it
 		job.schedule();
 
 		// Supposed to always return null
@@ -64,7 +62,7 @@ public final class ReinstantiationHandler extends AbstractHandler {
 		private final List<?> selectionAsList;
 
 		public KickoffJob(final List<?> selectionAsList) {
-			super("Reinstantiation Handler (hidden)");
+			super("Reinstantiation");
 			this.selectionAsList = selectionAsList;
 
 		}
@@ -72,7 +70,7 @@ public final class ReinstantiationHandler extends AbstractHandler {
 		@Override
 		protected IStatus run(final IProgressMonitor monitor) {
 			final ReinstantiationEngine engine = new ReinstantiationEngine(selectionAsList);
-			engine.instantiate();
+			engine.instantiate(monitor);
 			return Status.OK_STATUS;
 		}
 	}
