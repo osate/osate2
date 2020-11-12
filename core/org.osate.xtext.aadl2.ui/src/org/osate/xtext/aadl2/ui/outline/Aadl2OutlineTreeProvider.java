@@ -31,10 +31,12 @@ import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.BackgroundOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.eclipse.xtext.ui.editor.outline.impl.IOutlineTreeStructureProvider;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.DataType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSpecification;
@@ -58,6 +60,7 @@ import org.osate.annexsupport.AnnexUtil;
 import org.osate.annexsupport.ParseResultHolder;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
+import com.google.common.collect.Iterables;
 import com.google.inject.ConfigurationException;
 import com.google.inject.Injector;
 
@@ -133,7 +136,8 @@ public class Aadl2OutlineTreeProvider extends BackgroundOutlineTreeProvider {
 		if (modelElement instanceof ContainmentPathElement || modelElement instanceof ContainedNamedElement
 				|| modelElement instanceof FlowSpecification || modelElement instanceof FlowImplementation
 				|| modelElement instanceof EndToEndFlowImpl || modelElement instanceof Property
-				|| modelElement instanceof PropertyConstant || modelElement instanceof PropertyType) {
+				|| modelElement instanceof PropertyConstant || modelElement instanceof PropertyType
+				|| modelElement instanceof DataType) {
 			return true;
 		} else if (modelElement instanceof SystemInstance || modelElement instanceof RangeValue) {
 			return false;
@@ -162,7 +166,21 @@ public class Aadl2OutlineTreeProvider extends BackgroundOutlineTreeProvider {
 		} else if (modelElement instanceof IntegerLiteral) {
 			return false;
 		} else {
-			return super.isLeaf(modelElement);
+			return !Iterables.any(modelElement.eClass().getEAllContainments(), containmentRef -> {
+				if (containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getRealization()
+						|| containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getTypeExtension()
+						|| containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getImplementationExtension()
+						|| containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getContainmentPathElement()
+						|| containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getPropertyAssociation()
+				) {
+					return true;
+				} else {
+					// check modelElement to skip certain elements
+					// component impl or feature group type skip reference
+					// skip classifiers
+					return modelElement.eIsSet(containmentRef);
+				}
+			});
 		}
 	}
 }
