@@ -1466,7 +1466,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					if (Aadl2Util.isNull(inEnd)) {
 						return;
 					}
-					if (!isMatchingConnectionPoint(null, inEnd.getFeature(), inEnd.getContext(), connectedElement)) {
+					if (!isMatchingConnectionPoint(null, inEnd.getFeature(),
+							inEnd.getContext(), connectedElement)) {
 						boolean noMatch = false;
 						if (connection.isAllBidirectional()) {
 							didReverse = true;
@@ -1487,6 +1488,40 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 											+ (inEnd.getContext() != null ? inEnd.getContext().getName() + '.' : "")
 											+ inEnd.getFeature().getName() + '\'');
 						}
+					} else {
+						ce = connection.getAllLastDestination();
+						cxt = connection.getAllDestinationContext();
+						connectedElement = connection.getRootConnection().getDestination();
+						if (i <= flow.getOwnedFlowSegments().size() - 2) {
+							FlowSegment flowSegment = flow.getOwnedFlowSegments().get(i + 1);
+							FlowElement nextElem = flowSegment.getFlowElement();
+
+							if (nextElem instanceof FlowSpecification) {
+								FlowSpecification nextFlowSegment = (FlowSpecification) nextElem;
+								inEnd = nextFlowSegment.getAllInEnd();
+								if (Aadl2Util.isNull(inEnd)) {
+									return;
+								}
+								if (ce instanceof Feature) {
+									String segmentName = flowSegment.getContext().getName();
+									String connectedName = connectedElement.getContext().getName();
+									if ((!segmentName.equals(connectedName)
+											&& !(ce instanceof Parameter)
+											&& (flowSegment.getContext() instanceof Subcomponent
+											&& !(((Subcomponent) flowSegment.getContext())
+															.getSubcomponentType() instanceof Prototype)))
+												|| !isMatchingConnectionPoint(flowSegment.getContext(),
+														inEnd.getFeature(), inEnd.getContext(), connectedElement)) {
+//
+											error(flow.getOwnedFlowSegments().get(i), "The destination of connection '"
+													+ connection.getName()
+													+ "' does not match the in flow feature of the succeeding subcomponent flow specification '"
+													+ flow.getOwnedFlowSegments().get(i + 1).getContext().getName()
+													+ '.' + nextFlowSegment.getName() + '\'');
+										}
+								}
+							}
+						}
 					}
 				} else {
 					FlowSegment flowSegment = flow.getOwnedFlowSegments().get(i - 1);
@@ -1498,7 +1533,13 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 							return;
 						}
 						if (!isMatchingConnectionPoint(flowSegment.getContext(), outEnd.getFeature(),
-								outEnd.getContext(), connectedElement)) {
+								outEnd.getContext(), connectedElement)
+								|| (!connectedElement.getContext().getName().equals(flowSegment.getContext().getName())
+										&& !(ce instanceof Parameter)
+										&& (flowSegment.getContext() instanceof Subcomponent)
+										&& !(((Subcomponent) flowSegment.getContext())
+												.getSubcomponentType() instanceof Prototype))
+						) {
 							boolean noMatch = false;
 							if (connection.isAllBidirectional()) {
 								didReverse = true;
@@ -1578,7 +1619,12 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						}
 						if (ce instanceof Feature) {
 							if (!isMatchingConnectionPoint(flowSegment.getContext(), inEnd.getFeature(),
-									inEnd.getContext(), connectedElement)) {
+									inEnd.getContext(), connectedElement)
+									|| (!connectedElement.getContext().getName()
+											.equals(flowSegment.getContext().getName())
+											&& ((flowSegment.getContext() instanceof Subcomponent)
+													&& !((Subcomponent) flowSegment.getContext() instanceof Prototype))
+											&& !(ce instanceof Parameter))) {
 								error(flow.getOwnedFlowSegments().get(i), "The destination of connection '"
 										+ connection.getName()
 										+ "' does not match the in flow feature of the succeeding subcomponent flow specification '"
@@ -6671,6 +6717,9 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			Feature inFeature = inEnd.getFeature();
 			Context inCxt = inEnd.getContext();
 			FeatureGroup fg = inCxt instanceof FeatureGroup ? (FeatureGroup) inCxt : null;
+			if (fg == null) {
+				return;
+			}
 			FeatureGroupType fgt = fg.getAllFeatureGroupType();
 			boolean inverseBoolean = false;
 			if (fg.isInverse()) {
@@ -6686,6 +6735,9 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			Feature outFeature = outEnd.getFeature();
 			Context outCxt = outEnd.getContext();
 			FeatureGroup fg = outCxt instanceof FeatureGroup ? (FeatureGroup) outCxt : null;
+			if (fg == null) {
+				return;
+			}
 			FeatureGroupType fgt = fg.getAllFeatureGroupType();
 			boolean inverseBoolean = false;
 			if (fg.isInverse()) {

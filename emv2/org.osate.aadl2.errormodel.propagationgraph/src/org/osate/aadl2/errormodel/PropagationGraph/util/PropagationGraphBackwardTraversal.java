@@ -87,8 +87,8 @@ import com.google.common.collect.HashMultimap;
 
 public class PropagationGraphBackwardTraversal {
 
-	public static BigDecimal BigZero = BigDecimal.valueOf(0.0);
-	public static BigDecimal BigOne = BigDecimal.valueOf(1.0);
+	public static final BigDecimal BigZero = BigDecimal.valueOf(0.0);
+	public static final BigDecimal BigOne = BigDecimal.valueOf(1.0);
 
 	private PropagationGraph currentAnalysisModel;
 
@@ -96,7 +96,7 @@ public class PropagationGraphBackwardTraversal {
 		currentAnalysisModel = m;
 	}
 
-	public static EObject foundCycle = ErrorModelFactory.eINSTANCE.createTypeToken();
+	public static final EObject foundCycle = ErrorModelFactory.eINSTANCE.createTypeToken();
 
 	/**
 	 * process an Outgoing Error Propagation by going backwards in the propagation graph
@@ -201,7 +201,7 @@ public class PropagationGraphBackwardTraversal {
 							BigDecimal newscale = scale;
 							double pathprobability = EMV2Properties.getProbability(component, ep, type);
 							if (pathprobability > 0) {
-								newscale = scale.multiply(new BigDecimal(pathprobability));
+								newscale = scale.multiply(BigDecimal.valueOf((pathprobability)));
 							}
 							if (ep.getTargetToken() != null) {
 								Collection<TypeToken> mappedTypes = filterTokenThroughConstraint(ep.getTargetToken(),
@@ -524,7 +524,7 @@ public class PropagationGraphBackwardTraversal {
 							List<EMV2PropertyAssociation> pa = EMV2Properties
 									.getProperty(val.getSymboliclabel().getQualifiedName(), cl, ebt, null);
 							for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
-								branchscale = new BigDecimal(EMV2Properties.getRealValue(emv2PropertyAssociation));
+								branchscale = BigDecimal.valueOf(EMV2Properties.getRealValue(emv2PropertyAssociation));
 							}
 						} else if (val.isOthers()) {
 							branchscale = BigOne;

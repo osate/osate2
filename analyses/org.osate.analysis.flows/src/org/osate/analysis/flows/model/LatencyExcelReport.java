@@ -36,8 +36,8 @@ import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.analysis.flows.FlowLatencyUtil;
 import org.osate.analysis.flows.FlowanalysisPlugin;
+import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.Result;
@@ -95,7 +95,7 @@ public class LatencyExcelReport {
 
 				WritableWorkbook workbook = Workbook.createWorkbook(file.getLocation().toFile(), wbSettings);
 
-				int sheetNumber = 0;
+				int sheetNumber = 0, i = 1;
 				for (Result result : latres.getResults()) {
 					InstanceObject instanceObject = (InstanceObject) result.getModelElement();
 					String flowName = instanceObject.getComponentInstancePath();
@@ -107,6 +107,14 @@ public class LatencyExcelReport {
 					} else {
 						sheetName = flowName + " in mode " + inMode;
 					}
+
+					// Excel has a length limitation of 31 characters for worksheet name
+					// adjust the name to keep worksheet name unique
+					if (sheetName != null && sheetName.length() > 31) {
+						String s = String.valueOf(i++);
+						sheetName = sheetName.substring(0, 31 - s.length()) + s;
+					}
+
 					WritableSheet sheet = workbook.createSheet(sheetName, sheetNumber);
 					sheet.addCell(new Label(0, 0, reportHeader, BOLD_FORMAT));
 					sheet.addCell(new Label(0, 2, "Latency results for end-to-end flow '" + flowName + "' of system '"

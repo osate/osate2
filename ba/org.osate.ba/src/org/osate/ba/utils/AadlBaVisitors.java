@@ -49,7 +49,7 @@ import org.osate.ba.aadlba.DispatchTriggerLogicalExpression ;
 import org.osate.ba.aadlba.ElseStatement ;
 import org.osate.ba.aadlba.IfStatement ;
 import org.osate.ba.aadlba.LoopStatement ;
-import org.osate.utils.Aadl2Visitors ;
+import org.osate.utils.internal.Aadl2Visitors ;
 
 
 /**

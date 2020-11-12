@@ -354,7 +354,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 
 <h1 id="toc_0">OSATE User Guide</h1>
 
-<p>OSATE is a complete modeling environment providing support for describing AADL models. It is composed of many features to model and analyse systems.  Also, a user can build their own tools based on OSATE and extend its initial capability.</p>
+<p>OSATE is a complete modeling environment providing support for describing AADL models. It is composed of many features to model and analyze systems.  Also, a user can build their own tools based on OSATE and extend its initial capability.</p>
 
 <p>This manual provides an overview of the basic features of OSATE and describes how to work with AADL models:</p>
 
@@ -379,7 +379,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 <li><strong>Views.</strong>  A view is a read-only display of information.  A view may be connected to a specific object in the OSATE workspace (often times the currently selected element).</li>
 <li><strong>Editors.</strong>  Not surprisingly, an editor provides write access to information in a project.  For example, OSATE has both a textual and graphical editor for AADL packages.</li>
 <li><strong>Perspectives.</strong>  A perspective is a prearranged collection of views, editors, and toolbars focused around a particular task.  In OSATE, you mainly use the <code>AADL</code> perspective.</li>
-<li><strong>Markers.</strong>   A marker is a piece of information attached to a location in a file.  They are commonly used to report errors and warnings about files.  For example, OSATE uses markers to report syntax errors in AADL files.  Ananlysis plug-ins often use markers to communicate their results.  Markers are visible in several ways.  They are most commonly interacted with as annotations within editors and as a list in the <code>Problems</code> view.</li>
+<li><strong>Markers.</strong>   A marker is a piece of information attached to a location in a file.  They are commonly used to report errors and warnings about files.  For example, OSATE uses markers to report syntax errors in AADL files.  Analysis plug-ins often use markers to communicate their results.  Markers are visible in several ways.  They are most commonly interacted with as annotations within editors and as a list in the <code>Problems</code> view.</li>
 </ul>
 
 <h3 id="toc_2">Eclipse Help</h3>
@@ -424,12 +424,12 @@ censes only apply to the Third Party Software and not any other portion of this 
 <ul>
 <li>In an OSATE menu.</li>
 <li>In a toolbar.</li>
-<li>In a context menu, when appropriate to the currently selected object.  (A context menu is uaually opened with a right-click in Windows, or a <code>CTRL</code> + click in MacOS.)</li>
+<li>In a context menu, when appropriate to the currently selected object.  (A context menu is usually opened with a right-click in Windows, or a <code>CTRL</code> + click in MacOS.)</li>
 </ul>
 
 <h4 id="toc_5">Missing Views</h4>
 
-<p>If you accidently close a view or simply want to add an additional view to the workbench, you can open a view by using the <code>Window &gt; Show View</code> submenu in the main OSATE menubar:</p>
+<p>If you accidentally close a view or simply want to add an additional view to the workbench, you can open a view by using the <code>Window &gt; Show View</code> submenu in the main OSATE menubar:</p>
 
 <p><img src="images/OSATEUserGuide/ShowView.png" alt="Show View Menu"></p>
 
@@ -453,7 +453,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 
 <ul>
 <li>For windows, the preferences are under <code>Window &gt; Preferences</code>.</li>
-<li>For MacOS, the prefernece are under <code>OSATE &gt; Preferences...</code>.</li>
+<li>For MacOS, the preference are under <code>OSATE &gt; Preferences...</code>.</li>
 </ul>
 
 <p>This brings up a window with a hierarchical list of settings on the left-hand side.</p>
@@ -476,7 +476,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 
 <p><img src="images/OSATEUserGuide/NewProjectNavigator.png" alt="New Project Wizard"></p>
 
-<h3 id="toc_10">Built-in Property Sets</h3>
+<h3 id="toc_10"><span id="builtin">Built-in Property Sets</span></h3>
 
 <p>Also visible in the view is a library icon labeled <code>Plugin_Contributions</code>.  This view element collects all the AADL property sets available by default in OSATE:</p>
 
@@ -525,21 +525,21 @@ end aadlmodel;</code></pre></div>
 <li><p>The editor automatically closes blocks.  For example, when you type <code>process MyProcess</code> and enter a new line, the editor automatically inserts <code>end MyProcess;</code>.</p></li>
 <li><p>You can access the automatic completion (a.k.a. <em>autocomplete</em>) feature by typing <code>CTRL + Space</code> in Windows or <code>Command + Space</code> in MacOS.  This brings up a small context menu displaying options for how the current string in the editor can be completed.  For example, below shows the result of activating autocomplete after typing <code>syst</code>:
 <img src="images/OSATEUserGuide/AutoComplete1.png" alt="Autocomplete">
-The menu shows that <code>syst</code> can be completed with the keywords <code>system</code> or <code>system implementation</code>.  In this case, we want <code>system implementaton</code>.  You can select the completion with the mouse or by using the arrow keys and hitting <code>return</code>.</p>
+The menu shows that <code>syst</code> can be completed with the keywords <code>system</code> or <code>system implementation</code>.  In this case, we want <code>system implementatideclaringon</code>.  You can select the completion with the mouse or by using the arrow keys and hitting <code>return</code>.</p>
 
 <p>The list of completions also shows two more options.   These are <em>templates</em> that insert a more complete system type or system implementation declaration into the text.</p></li>
 <li><p>Autocompletion also works with declared names.  For example, below shows the result of activating autocomplete after typing <code>My</code>:
 <img src="images/OSATEUserGuide/AutoComplete2.png" alt="Autocomplete">
-In this case, autocomplete suggests the system type name <code>MySystem</code>.  In particular, it <em>does not</em> suggest the process type name <code>MyProcess</code> because it would be erroneous in the context of declaraing a system implementation.</p></li>
+In this case, autocomplete suggests the system type name <code>MySystem</code>.  In particular, it <em>does not</em> suggest the process type name <code>MyProcess</code> because it would be erroneous in the context of declaring a system implementation.</p></li>
 </ul>
 
 <h4 id="toc_12">Error Markers</h4>
 
-<p>As you type you will notice that the editor underlines syntax errors in red.  The right sidebar of the editor will also show a small red<code>x</code> indicating that an <em>error marker</em> exists for that line of text.  For example, before the declaration of the system implementation is completed, the package has several errors:</p>
+<p>As you type you will notice that the editor underlines syntax errors in red.  The right sidebar of the editor will also show a small red <code>x</code> indicating that an <em>error marker</em> exists for that line of text.  For example, before the declaration of the system implementation is completed, the package has several errors:</p>
 
 <p><img src="images/OSATEUserGuide/Errors.png" alt="Error Markers"></p>
 
-<p>The details of the error markers are visible in the <code>Problems</code> view.  This is a standard Eclipse view.  Despite the name <em>Problems</em>, not all markers necessarily mark problems or errors.  Some OSATE analsyses generate information markers (visible with a blue <code>i</code>) as output.</p>
+<p>The details of the error markers are visible in the <code>Problems</code> view.  This is a standard Eclipse view.  Despite the name <em>Problems</em>, not all markers necessarily mark problems or errors.  Some OSATE analyses generate information markers (visible with a blue <code>i</code>) as output.</p>
 
 <p>The details of a marker can also be seen by hovering over the icon in the editor sidebar.</p>
 
@@ -579,10 +579,13 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p><img src="images/OSATEUserGuide/AadlSearch.png" alt="AADL Search Window"></p>
 
-<p>You can search for the declarations of or references to classifiers or properties whose name contains the given substring.  The above search looks for all classifier declarations and references where the the classifier name contains the substring <code>find</code>.  AADL names are case insensitive so the search is always case insensitive.  The scope of search (which resources are looked in) is also specified:
-* It can be the entire workspace, in which all the AADL packages and property sets in the workspace, including plug-in contributions are searched.
-* It can be the the selected resources in the <code>AADL Navigator</code> view.  This button is only enabled when there is a selection in the view.
-* It can be the limited to the currently active editor window.  This button is only enabled when there is an active selected editor.</p>
+<p>You can search for the declarations of or references to classifiers or properties whose name contains the given substring.  The above search looks for all classifier declarations and references where the the classifier name contains the substring <code>find</code>.  AADL names are case insensitive so the search is always case insensitive.  The scope of search (which resources are looked in) is also specified:</p>
+
+<ul>
+<li>It can be the entire workspace, in which all the AADL packages and property sets in the workspace, including plug-in contributions are searched.</li>
+<li>It can be the the selected resources in the <code>AADL Navigator</code> view.  This button is only enabled when there is a selection in the view.</li>
+<li>It can be the limited to the currently active editor window.  This button is only enabled when there is an active selected editor.</li>
+</ul>
 
 <p>The search results are displayed grouped by the containing resource.  Resources are listed alphabetically by their workspace path.  Under each resource the results are listed in syntactic order.  Here we see the results of the above search:</p>
 
@@ -614,7 +617,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <h2 id="toc_21"><span id="instance">Instance Models</span></h2>
 
-<p>Most analyses are executed over the <em>instance model</em> of a system.  The instance model represents the complete nested architecture of a system.  Generally an instance model would be created from a system implementation classifier.  But OSATE allows an instance model to be created from all implementation classifiers except for <code>subprogram</code>.</p>
+<p>Most analyses are executed over the <em>instance model</em> of a system.  The instance model represents the complete nested architecture of a system.  Generally an instance model would be created from a system implementation classifier.  But OSATE allows an instance model to be created from all implementation classifiers except for <code>subprogram</code> and <code>subprogram group</code>.</p>
 
 <p>An instance model can be created in 3 ways:</p>
 
@@ -769,7 +772,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <h3 id="toc_34"><span id="git">Importing a Project from a Git Repository</span></h3>
 
-<p>While archive files provide a quick-and-dirty mechanism for sharing projects, this becomes problematic when you want to collaborate.  It is better to store projects in a version control system (VCS) so that changes to the models can be coordianted.  Eclipse (and thus OSATE) supports all the popular VCS, including <strong>svn</strong> and <strong>git</strong>.  In this section, we show how to import a project from a git repository.</p>
+<p>While archive files provide a quick-and-dirty mechanism for sharing projects, this becomes problematic when you want to collaborate.  It is better to store projects in a version control system (VCS) so that changes to the models can be coordinated.  Eclipse (and thus OSATE) supports all the popular VCS, including <strong>svn</strong> and <strong>git</strong>.  In this section, we show how to import a project from a git repository.</p>
 
 <h4 id="toc_35">Clean Up Your Workspace (Removing a Project)</h4>
 
@@ -917,7 +920,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <p><img src="images/OSATEUserGuide/Latency_CSV.png" alt="CSV Results"></p>
 
-<p>Here we see the full results for the end-to-end flow <code>etef0</code>, includingng individual components&#39; contributions to the latency.</p>
+<p>Here we see the full results for the end-to-end flow <code>etef0</code>, including individual components&#39; contributions to the latency.</p>
 
 <h2 id="toc_45"><span id="properties">AADL Property Values</span></h2>
 
@@ -949,7 +952,7 @@ In this case, autocomplete suggests the system type name <code>MySystem</code>. 
 
 <h3 id="toc_47">Selecting the Model Element</h3>
 
-<p>The view displays all of the properties of the AADL model element that is currently selected in the worksapce.  Selections can be made in the editor or in the outline view.  For example, to show the properties of the process subcomponent <code>Sampler_B</code> of system implementation <code>Software.Basic</code> in project <code>Page_220</code> as shown above, you can </p>
+<p>The view displays all of the properties of the AADL model element that is currently selected in the workspace.  Selections can be made in the editor or in the outline view.  For example, to show the properties of the process subcomponent <code>Sampler_B</code> of system implementation <code>Software.Basic</code> in project <code>Page_220</code> as shown above, you can </p>
 
 <ul>
 <li>Open <code>Page_220</code> in the editor and move the text cursor to be within the syntax for subcomponent <code>Sampler_B</code>.</li>
@@ -1175,19 +1178,31 @@ view&#39;s menu opens a dialog which allows you to choose which property sets sh
 
 <p><img src="images/OSATEUserGuide/classifierView1.png" alt="Classifier view"></p>
 
-<p>The view is split in half:
-1. The left half shows the extension hierarchy
-2. The right half shows the members of the classifier grouped by kind.</p>
+<p>The view is split in half:</p>
 
-<p>In the above, the view shows information about the classifier <code>T2.i2</code>.  From the hierarchy tree we see that 
-* It implements <code>T2</code> which extends <code>T1</code>. 
-* It extends <code>T2.i1</code>.</p>
+<ol>
+<li><p>The left half shows the extension hierarchy.  It can be toggled between showing either the ancestors or the descendants of the current classifier.  Initially the ancestors are shown.</p></li>
+<li><p>The right half shows the members of the classifier grouped by kind.</p></li>
+</ol>
+
+<p>In the above, the view shows information about the classifier <code>T2.i2</code>.  From the hierarchy tree we see that </p>
+
+<ul>
+<li><p>It implements <code>T2</code> which extends <code>T1</code>. </p></li>
+<li><p>It extends <code>T2.i1</code>.</p></li>
+</ul>
+
+<p>Clicking on the toolbar icon <img src="images/OSATEUserGuide/sub_co.png" alt="Descendants Tree"> switches the left-hand pane to show the descendants (or subtypes) of the current classifier.  Below we see that subtypes of <code>T2.i2</code>: it is extended by <code>T2.i3</code>.</p>
+
+<p><img src="images/OSATEUserGuide/classifierView2.png" alt="Classifier view"></p>
+
+<p>Clicking on the toolbar icon <img src="images/OSATEUserGuide/super_co.png" alt="Ancestor Tree"> switches back to showing the ancestors of the current classifier.</p>
 
 <p>Double-clicking on any of the ancestors opens the AADL source text for the ancestor in an editor.</p>
 
 <p>The members tree shows all the members of <code>T2.i2</code>.  If a member is not declared locally it is annotated with the ancestor that declares it, e.g., the feature <code>f2 [from T2]</code>.  If a member is a refinement it is annotated with the prefix <code>refined</code> and lists the refined member as a child in the tree.  These annotations interact, for example, the feature <code>refined f1 [from T2]</code> indicates that a refinement of feature <code>f1</code> is inherited from type <code>T2</code>.  The child <code>f1 [from T1]</code> indicates that the feature was originally declared in type <code>T1</code>.</p>
 
-<p>Feature group types may have the additional annotation <code>inverse of</code> indicating that the feature is the inverse of given feature.  For example, in the screenshot below, the features groups <code>IG1</code> and <code>IG2</code> are declared to be inverses of the feature groups <code>FG1</code> and <code>FG2</code>, respectively.  Neither declares any explicit features.  The <code>Classifier Info</code> view shows that feature group type <code>IG2</code> has two features:
+<p>Feature group types may have the additional annotation <code>inverse of</code> indicating that the feature is the inverse of given feature.  For example, in the screenshot below, the feature groups <code>IG1</code> and <code>IG2</code> are declared to be inverses of the feature groups <code>FG1</code> and <code>FG2</code>, respectively.  Neither declares any explicit features.  The <code>Classifier Info</code> view shows that feature group type <code>IG2</code> has two features:
 1. A feature that is the inverse of the feature <code>f1</code> declared in <code>FG1</code>.
 2. A feature that is the inverse of the feature <code>f2</code> declared in <code>FG2</code>.</p>
 
@@ -1197,9 +1212,25 @@ view&#39;s menu opens a dialog which allows you to choose which property sets sh
 
 <h3 id="toc_66">Synchronizing with the Editor</h3>
 
-<p>The view&#39;s toolbar contains a single button that controls whether the view&#39;s selection is synchronized with the editor:
-* <img src="images/OSATEUserGuide/linked.png" alt=""> When the action is selected, simply selecting an item in the view is enough to open an editor to the associated AADL source text.
-* <img src="images/OSATEUserGuide/not_linked.png" alt=""> When the action is deselected, an item in the view must be double-clicked on to open the AADL source in an editor.</p>
+<p>The view&#39;s toolbar contains a button that controls whether the view&#39;s selection is synchronized with the editor:</p>
+
+<ul>
+<li><img src="images/OSATEUserGuide/linked.png" alt=""> When the action is selected, simply selecting an item in the view is enough to open an editor to the associated AADL source text.</li>
+<li><img src="images/OSATEUserGuide/not_linked.png" alt=""> When the action is deselected, an item in the view must be double-clicked on to open the AADL source in an editor.</li>
+</ul>
+
+<h3 id="toc_67">Refreshing the View</h3>
+
+<p>By default, the view automatically refreshes when the relevant files are changed.  Although the refresh happens in a background thread, it can be slow when the project that contains the classifier being viewed has many large <code>.aadl</code> files.  If the refresh becomes annoying, there are two options:</p>
+
+<ol>
+<li><p>The current classifier can be cleared by checking on the <img src="images/OSATEUserGuide/delete.png" alt="Delete"> button in the toolbar.</p></li>
+<li><p>The automatic refresh can be disabled by deselecting the &quot;Auto Refresh&quot; option in the view&#39;s menu:</p></li>
+</ol>
+
+<p><img src="images/OSATEUserGuide/autoRefresh.png" alt="The &quot;Auto RefresH&quot; menu option"></p>
+
+<p>When automatic refresh is disabled, the refresh toolbar button <img src="images/OSATEUserGuide/refresh.png" alt="Refresh"> becomes enabled whenever the view determines that a refresh is required.  Pressing the button will cause a manual refresh to occur and reset the state of the button.</p>
 
 
 
