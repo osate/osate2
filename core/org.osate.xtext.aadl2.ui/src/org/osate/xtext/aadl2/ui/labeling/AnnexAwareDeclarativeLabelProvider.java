@@ -26,9 +26,7 @@ package org.osate.xtext.aadl2.ui.labeling;
 import java.util.Collections;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jface.preference.JFacePreferences;
 import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.ui.label.DeclarativeLabelProvider;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
@@ -78,12 +76,8 @@ public class AnnexAwareDeclarativeLabelProvider extends DeclarativeLabelProvider
 					|| element instanceof MemoryImplementation || element instanceof DeviceImplementation
 					|| element instanceof VirtualBusImplementation || element instanceof VirtualProcessorImplementation
 					|| element instanceof FlowImplementation) {
-				StyledString str = this.convertToStyledString(
-						text.toString().replaceAll("Implementation", "").replaceAll("Impl", "").replaceAll("  ", " "));
-				str.setStyle(0, str.length(),
-						StyledString.createColorRegistryStyler(JFacePreferences.ACTIVE_HYPERLINK_COLOR, null));
 
-				return str;
+				return text.toString().replaceAll("Implementation", "").replaceAll("Impl", "").replaceAll("  ", " ");
 			}
 			return text;
 		}

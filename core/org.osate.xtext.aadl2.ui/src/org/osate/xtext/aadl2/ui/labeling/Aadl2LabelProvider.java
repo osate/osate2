@@ -396,9 +396,21 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	String text(FlowImplementation flowimpl) {
 		String ret;
 
-		ret = "Flow Implementation";
+		ret = "Flow ";
 
 		if (flowimpl.getSpecification() != null) {
+
+			if (!(flowimpl.getSpecification().getAllInEnd() == null
+					&& flowimpl.getSpecification().getAllOutEnd() == null)) {
+				if (flowimpl.getSpecification().getAllInEnd() == null) {
+					ret += " Source";
+				} else if (flowimpl.getSpecification().getAllOutEnd() == null) {
+					ret += " Sink";
+				} else {
+					ret += " Path";
+				}
+			}
+
 			ret += " " + flowimpl.getSpecification().getName();
 		}
 
@@ -428,7 +440,18 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	String text(FlowSpecification flowspec) {
 		String ret;
 
-		ret = "Flow Specification";
+		ret = "Flow";
+
+		if (!(flowspec.getAllInEnd() == null && flowspec.getAllOutEnd() == null)) {
+			if (flowspec.getAllInEnd() == null) {
+				ret += " Source";
+			} else if (flowspec.getAllOutEnd() == null) {
+				ret += " Sink";
+			} else {
+				ret += " Path";
+			}
+		}
+
 		if (flowspec.getName() != null) {
 			ret += " " + flowspec.getName();
 		}
