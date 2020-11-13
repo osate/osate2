@@ -113,6 +113,15 @@ public class UiTestUtil {
 	static {
 		bot = new SWTGefBot();
 		SWTBotPreferences.TIMEOUT = 10000;
+
+		// Workaround. Adapted from fix for https://bugs.eclipse.org/bugs/show_bug.cgi?id=566490 in
+		// org.eclipse.urischeme.internal.registration.RegistrationLinux
+		final String launcher = System.getProperty("eclipse.launcher");
+		if(launcher == null) {
+			final String newValue = System.getProperty("eclipse.home.location").replaceAll("file:(.*)", "$1")
+					+ "eclipse";
+			System.setProperty("eclipse.launcher", newValue);
+		}
 	}
 
 	/**
