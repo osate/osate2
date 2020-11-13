@@ -180,7 +180,7 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((FlowImplementation) object).getName();
+		String label = ((FlowImplementation) object).getSpecification().getName();
 
 		if (label == null || label.length() == 0) {
 			return getString("_UI_Flow_type");
