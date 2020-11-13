@@ -119,14 +119,6 @@ public class UiTestUtil {
 	 * Function that should be called to perform test setup which is shared with all tests
 	 */
 	public static void prepareForTesting() {
-		// Workaround. Adapted from fix for https://bugs.eclipse.org/bugs/show_bug.cgi?id=566490 in
-		// org.eclipse.urischeme.internal.registration.RegistrationLinux
-		final String launcher = System.getProperty("eclipse.launcher");
-		if(launcher == null) {
-			System.err.println("Setting eclipse.launcher to workaround issue");
-			System.setProperty("eclipse.launcher", "/dev/null");
-		}
-
 		// Sets the window size. Most of the test functions are size independent but selecting tabs in the properties view requires the tab to be visible.
 		Display.getDefault().syncExec(() -> {
 			PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().setSize(1920, 1080);
