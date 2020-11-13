@@ -589,7 +589,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 									if (nextDst instanceof Feature) {
 										Feature nextDstFeature = (Feature) nextDst;
-										FeatureInstance nextDstFi = nextCi.findFeatureInstance(nextDstFeature);
+										FeatureInstance nextDstFi = (goOpposite ? ci : nextCi).findFeatureInstance(nextDstFeature);
 
 										if (nextDstFi == null) {
 											// next goes across
