@@ -28,11 +28,8 @@ import static org.osate.ge.tests.endToEnd.util.OsateGeTestCommands.*;
 import static org.osate.ge.tests.endToEnd.util.OsateGeTestUtil.*;
 import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Objects;
 
-import org.eclipse.core.runtime.Platform;
 import org.junit.Test;
 import org.osate.aadl2.DirectionType;
 import org.osate.ge.RelativeBusinessObjectReference;
@@ -52,8 +49,6 @@ import org.osate.ge.errormodel.ui.swt.FaultSourceEditorDialog;
 import org.osate.ge.tests.endToEnd.util.DiagramElementReference;
 import org.osate.ge.tests.endToEnd.util.DiagramReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
-
-import com.google.common.io.Files;
 
 /**
  * This class is an end to end test focusing on EMV2 annex support.
@@ -79,24 +74,8 @@ public class ErrorModelTest {
 		doubleClickInAadlNavigator(EMV2_TEST, EMV2_TEST + ".aadl");
 
 		// Create several error types
-		try {
 		createElementAndLayout(diagram, pkgElement, "Error Type",
 				ErrorModelReferenceUtil.getRelativeReferenceForErrorType("new_error_type"), "t1");
-		} catch(RuntimeException ex) {
-			// TODO: Hack to try to retrieve additional information. Remove this once error has been identified.
-			System.err.println("LOG FILE PATH: " + Platform.getLogFileLocation().toFile().getAbsolutePath());
-			try {
-				for (final String line : Files.readLines(Platform.getLogFileLocation().toFile(),
-						Charset.defaultCharset())) {
-					System.err.println("GE LOG DUMP: " + line);
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			throw ex;
-		}
 
 		createElementAndLayout(diagram, pkgElement, "Error Type",
 				ErrorModelReferenceUtil.getRelativeReferenceForErrorType("new_error_type"), "t2");
