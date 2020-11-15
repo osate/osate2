@@ -1,0 +1,26 @@
+package test_dequeue_data_port
+
+public
+
+  thread t
+  features
+    d_in: in data port d;
+  annex behavior_specification {**
+  variables
+    v: d;
+  states
+    s: initial complete final state;
+  transitions
+    s-[on dispatch]->s
+    {
+    	d_in?(v);
+    	d_in?
+    };
+  **};
+  end t;
+  
+  
+  data d
+  end d;
+
+end test_dequeue_data_port;
