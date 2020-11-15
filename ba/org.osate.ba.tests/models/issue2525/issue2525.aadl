@@ -1,4 +1,4 @@
-package test_dequeue_data_port
+package issue2525
 
 public
 
@@ -23,4 +23,4 @@ public
   data d
   end d;
 
-end test_dequeue_data_port;
+end issue2525;
