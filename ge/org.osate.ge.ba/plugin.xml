@@ -166,6 +166,16 @@ censes only apply to the Third Party Software and not any other portion of this 
 	</extension>
 	<extension
          point="org.eclipse.core.expressions.definitions">
+         <definition
+          id="oneElementSelected">
+       <with
+             variable="selection">
+            <count
+                  value="1">
+            </count>
+             
+       </with>
+    	</definition>
       <definition
             id="org.osate.ge.ba.expressions.diagramContext">
          <with
