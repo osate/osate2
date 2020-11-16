@@ -89,7 +89,6 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
@@ -1410,8 +1409,8 @@ public final class ClassifierInfoView extends ViewPart {
 		return e.getRefined();
 	}
 
-	private void gotoURI(final URI gotoURI) {
-		UiUtil.getInstance().openDeclarativeModelElementAsJob(getSite().getPage(), (Element) (new ResourceSetImpl()).getEObject(gotoURI, true));
+	private static void gotoURI(final URI gotoURI) {
+		UiUtil.getInstance().openDeclarativeModelElement(gotoURI);
 	}
 
 	private static String getName(NamedElement ne) {

@@ -190,13 +190,26 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		String label = ((FlowSpecification) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_FlowSpecification_type")
-				: getString("_UI_FlowSpecification_type") + " " + label;
+
+		if (label == null || label.length() == 0) {
+			return getString("_UI_Flow_type");
+		} else if (!(((FlowSpecification) object).getAllInEnd() == null
+				&& ((FlowSpecification) object).getAllOutEnd() == null)) {
+			if (((FlowSpecification) object).getAllInEnd() == null) {
+				return getString("_UI_Flow_type") + " Source " + label;
+			} else if (((FlowSpecification) object).getAllOutEnd() == null) {
+				return getString("_UI_Flow_type") + " Sink " + label;
+			} else {
+				return getString("_UI_Flow_type") + " Path " + label;
+			}
+		}
+
+		return getString("_UI_Flow_type");
 	}
 
 	/**

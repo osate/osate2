@@ -326,7 +326,7 @@ public class OsateGeTestUtil {
 	 */
 	public static void waitUntilListWithIdItemsExists(final String id, final String... texts) {
 		waitUntil(() -> itemsMatchInListWithId(id, texts),
-				"List items do not matchin expected value: '" + Arrays.toString(texts) + "'.");
+				"List items do not match expected value: '" + Arrays.toString(texts) + "'.");
 	}
 
 	/**

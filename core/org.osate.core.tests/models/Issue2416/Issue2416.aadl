@@ -1,0 +1,52 @@
+package Issue2416
+public
+    
+    abstract A
+        features
+            i: in data port;
+            o: out data port;
+        flows
+            fsrc: flow source o;
+            fpth: flow path i -> o;
+            fsnk: flow sink i;
+    end A;
+    
+    abstract implementation A.i
+        subcomponents
+            mm1: abstract A;
+            mm2: abstract A;
+        connections
+            cml: port i -> mm1.i; 
+            cmm: port mm1.o -> mm2.i;
+            cmr: port mm2.o -> o;
+        flows
+            -- this one is ok
+            fpth: flow path i -> cml -> mm1.fpth -> cmm -> mm2.fpth -> cmr -> o;
+            -- this one is correctly marked with an error on the second cml
+            fpth: flow path i -> cml -> mm1.fpth -> cml -> mm2.fpth -> cmr -> o; 
+            -- this one is correctly marked with errors on cmr and cmm
+            fpth: flow path i -> cml -> mm1.fpth -> cmr -> mm2.fpth -> cmm -> o; 
+            -- there should be an error that mm1.fpth is not connected to cmr 
+            fpth: flow path i -> cml -> mm1.fpth -> cmr -> o; 
+            -- there should be an error that cml is not connected to mm2.fpth
+            fpth: flow path i -> cml -> mm2.fpth -> cmr -> o; 
+            
+            -- ok 
+            fsrc: flow source mm1.fpth -> cmm -> mm2.fpth -> cmr -> o;
+            -- error as expected on cml
+            fsrc: flow source mm1.fpth -> cml -> mm2.fpth -> cmr -> o; 
+            -- there should e an error on cmr
+            fsrc: flow source mm1.fpth -> cmr -> o;
+                        
+            -- ok
+            fsnk: flow sink i -> cml -> mm1.fpth -> cmm -> mm2.fpth;   
+            -- error as expected on cml
+            fsnk: flow sink i -> cml -> mm1.fpth -> cml -> mm2.fpth;  
+            -- there should be an error on cml
+            fsnk: flow sink i -> cml -> mm2.fpth;     
+            -- there should be an error on cmm
+            fsnk: flow sink i -> cmm -> mm2.fpth;
+            
+    end A.i;
+
+end Issue2416;

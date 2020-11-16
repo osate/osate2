@@ -33,6 +33,8 @@ import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.eclipse.xtext.ui.editor.outline.impl.IOutlineTreeStructureProvider;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.ConnectedElement;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
@@ -122,6 +124,10 @@ public class Aadl2OutlineTreeProvider extends BackgroundOutlineTreeProvider {
 						continue;
 					}
 
+					if (element instanceof Connection && childElement instanceof ConnectedElement) {
+						continue;
+					}
+
 					createNode(parentNode, childElement);
 				}
 			}
@@ -133,7 +139,8 @@ public class Aadl2OutlineTreeProvider extends BackgroundOutlineTreeProvider {
 		if (modelElement instanceof ContainmentPathElement || modelElement instanceof ContainedNamedElement
 				|| modelElement instanceof FlowSpecification || modelElement instanceof FlowImplementation
 				|| modelElement instanceof EndToEndFlowImpl || modelElement instanceof Property
-				|| modelElement instanceof PropertyConstant || modelElement instanceof PropertyType) {
+				|| modelElement instanceof PropertyConstant || modelElement instanceof PropertyType
+				|| modelElement instanceof Connection) {
 			return true;
 		} else if (modelElement instanceof SystemInstance || modelElement instanceof RangeValue) {
 			return false;

@@ -881,7 +881,7 @@ Note that executing this action on a **shared local contained** property impacts
 
 ## <span id="classifierView">Viewing Classifier Members</span>
 
-The `Classifier Information` view makes it easy to see the complete ancestry of an AADL classifier (component type, component implementation, or feature group type), and to see the full list of members of the classifier.  To open a classifier in the view, select a classifier in the `AADL Navigator` or `Outline` view and choose `Open in Classifier Information View` from the context menu:
+The `Classifier Information` view makes it easy to see the complete ancestry of an AADL classifier (component type, component implementation, or feature group type), and to see the full list of members of the classifier. If a classifier's member (prototypes, subcomponents, parameters, data ports, feature groups, or access) references a different AADL classifier, then the `Classifier Information` view will open the referenced AADL classifier. To open a classifier in the view, select a classifier or its member in the `AADL Navigator` or `Outline` view and choose `Open in Classifier Information View` from the context menu or use the keyboard short cut **Alt+C**/**Option+C**:
 
 ![Classifier view](images/OSATEUserGuide/AADLNavigator_OpenInClassifierInfoView.png)
 ![Classifier view](images/OSATEUserGuide/Outline_OpenInClassifierInfoView.png)
