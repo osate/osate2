@@ -70,6 +70,8 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreePath;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.TreeViewerColumn;
 import org.eclipse.swt.SWT;
@@ -189,7 +191,8 @@ public final class ClassifierInfoView extends ViewPart {
 	 * the workspace changes. Need to keep the URI and not the classifier object
 	 * itself so that we can reparse it and pick up the changes.
 	 */
-	private URI viewedClassifierURI = null;
+	private URI hierarchyClassifierURI = null;
+	private URI memberClassifierURI = null;
 
 	/*
 	 * Synchronized because it is used by the display thread and whatever thread executes
@@ -261,6 +264,7 @@ public final class ClassifierInfoView extends ViewPart {
 			public void run() {
 				whichTree = ANCESTOR_TREE;
 				whichTree.switchTo();
+				clearMembers(true);
 			}
 		};
 		toolBarManager.add(ancestorAction);
@@ -269,6 +273,7 @@ public final class ClassifierInfoView extends ViewPart {
 				setToolTipText(DESCENDANTS_ACTION_NAME);
 				setImageDescriptor(OsateUiPlugin.getImageDescriptor(DESCENDANTS_ICON));
 				setChecked(false);
+				clearMembers(true);
 			}
 
 			@Override
@@ -339,7 +344,7 @@ public final class ClassifierInfoView extends ViewPart {
 				// force the refresh action to update its state
 				setNeedsRefresh(needsRefresh);
 
-				// If we just not checked to "auto refresh" and a refresh is necessary, do the refresh
+				// If we just now checked to "auto refresh" and a refresh is necessary, do the refresh
 				if (isChecked && needsRefresh) {
 					refresh();
 				}
@@ -587,39 +592,80 @@ public final class ClassifierInfoView extends ViewPart {
 
 	public void setInput(final URI classifierURI) {
 		if (classifierURI != null) {
-			viewedClassifierURI = classifierURI;
+			hierarchyClassifierURI = classifierURI;
+			memberClassifierURI = classifierURI;
 			final Classifier classifier = (Classifier) new ResourceSetImpl().getEObject(classifierURI, true);
-			updateDisplay(classifier);
+			updateDisplay(classifier, classifier);
+		}
+	}
+
+	public void setMember(final URI memberURI) {
+		if (memberURI != null) {
+			memberClassifierURI = memberURI;
+			final Classifier classifier = (Classifier) new ResourceSetImpl().getEObject(memberURI, true);
+			updateDisplay(null, classifier);
 		}
 	}
 
 	private void refresh() {
-		if (viewedClassifierURI != null) {
-			final IFile rsrc = OsateResourceUtil.toIFile(viewedClassifierURI);
-			if (rsrc.exists()) {
-				final Classifier classifier = (Classifier) new ResourceSetImpl().getEObject(viewedClassifierURI, true);
-				updateDisplay(classifier);
+		/*
+		 * NB. If hierarhcyClassiferURI is null, then the memberClassifierURI is null. It may be the case
+		 * that hierarhcyClassiferURI is non-null and memberClassifierURI is null.
+		 */
+		if (hierarchyClassifierURI != null) {
+			final Classifier hierarchyClassifier = getClassifierFromURI(hierarchyClassifierURI);
+			if (hierarchyClassifier != null) {
+				// Reset the member classifier to the hierarchy root
+				memberClassifierURI = hierarchyClassifierURI;
+				updateDisplay(hierarchyClassifier, hierarchyClassifier);
 			} else {
+				// root node no longer exists, reset the display
 				clearDisplay(true);
 			}
 		}
 	}
 
+	/**
+	 * Get the Classifier from the URI.  Return {@code null} if the resource
+	 * no longer exits, or the resource no longer contains the classifier.
+	 */
+	private static Classifier getClassifierFromURI(final URI uri) {
+		final IFile rsrc = OsateResourceUtil.toIFile(uri);
+		if (rsrc.exists()) {
+			return (Classifier) new ResourceSetImpl().getEObject(uri, true);
+		} else {
+			return null;
+		}
+	}
+
 	private void clearDisplay(final boolean resetURI) {
+		clearHierarchy(resetURI);
+		clearMembers(resetURI);
+	}
+
+	private void clearHierarchy(final boolean resetURI) {
 		if (resetURI) {
-			viewedClassifierURI = null;
+			hierarchyClassifierURI = null;
 			projectDependancies.clear();
 		}
 		getViewSite().getShell().getDisplay().asyncExec(() -> {
 			ancestorTreeViewer.setInput(AncestorTree.EMTPY_TREE);
 			descendantTreeViewer.setInput(DescendantTree.EMPTY_TREE);
+		});
+	}
+
+	private void clearMembers(final boolean resetURI) {
+		if (resetURI) {
+			memberClassifierURI = null;
+		}
+		getViewSite().getShell().getDisplay().asyncExec(() -> {
 			memberTreeViewer.setInput(MemberTree.EMPTY_TREE);
 		});
 	}
 
 	// Synchronized to make manipulation of the currentRefreshJob atomic
-	private synchronized void updateDisplay(final Classifier input) {
-		// STop any current refresh job
+	private synchronized void updateDisplay(final Classifier inputHierarchy, final Classifier inputMember) {
+		// Stop any current refresh job
 		if (currentRefreshJob != null) {
 			currentRefreshJob.cancel();
 		}
@@ -634,9 +680,9 @@ public final class ClassifierInfoView extends ViewPart {
 				if (waitForJob != null) {
 					try {
 						waitForJob.join();
-					} catch (final InterruptedException e) {
+					} catch (final OperationCanceledException | InterruptedException e) {
 						/*
-						 * We there interrupted while waiting. Not sure this should be possible, but
+						 * We were interrupted while waiting. Not sure this should be possible, but
 						 * if it happens, we clear the display.
 						 */
 						clearDisplay(false);
@@ -644,48 +690,76 @@ public final class ClassifierInfoView extends ViewPart {
 					}
 				}
 
+				boolean needsRefresh = false;
+				boolean skipMember = false;
 				final SubMonitor subMonitor = SubMonitor.convert(monitor, 2);
+				if (inputHierarchy != null) {
+					subMonitor.subTask("Buidling classifier hiearchy");
+					final Set<IProject> projects = getDependantProjects(inputHierarchy);
+					projectDependancies.addAll(projects);
 
-				boolean cancelled = false;
-				projectDependancies.clear();
-				try {
-					final AncestorTree ancestorTreeModel = createAncestorTree(input, subMonitor);
-					subMonitor.worked(1);
-					final DescendantTree descendantTreeModel = createDescendantTree(input, subMonitor.split(1));
+					try {
+						final AncestorTree ancestorTreeModel = createAncestorTree(inputHierarchy, subMonitor);
+						subMonitor.worked(1);
+						final DescendantTree descendantTreeModel = createDescendantTree(inputHierarchy, projects,
+								subMonitor.split(1));
+						// Update the view contents in the UI thread
+						getViewSite().getShell().getDisplay().asyncExec(() -> {
+							ancestorTreeViewer.setInput(ancestorTreeModel);
+							ancestorTreeViewer.expandToLevel(2);
+							ancestorTreeViewer
+									.setSelection(new TreeSelection(new TreePath(ancestorTreeModel.getChildren())));
+
+							descendantTreeViewer.setInput(descendantTreeModel);
+							descendantTreeViewer.expandToLevel(2);
+							descendantTreeViewer
+									.setSelection(new TreeSelection(new TreePath(descendantTreeModel.getChildren())));
+						});
+					} catch (final OperationCanceledException | InterruptedException e) {
+						/*
+						 * Hierarchy build cancelled-- clear both panes. Originally we just cleared the
+						 * hierarchy pane, but then it is confusing what is being shown in the member pane.
+						 * Set the 'skip' flag so we don't readd the member pane below.
+						 */
+						clearDisplay(false);
+						// Update incomplete, so we still need to refresh later
+						needsRefresh = true;
+						skipMember = true;
+					}
 					subMonitor.done();
-
-					// Update the view contents in the UI thread
-					getViewSite().getShell().getDisplay().asyncExec(() -> {
-						ancestorTreeViewer.setInput(ancestorTreeModel);
-						ancestorTreeViewer.expandToLevel(2);
-
-						descendantTreeViewer.setInput(descendantTreeModel);
-						descendantTreeViewer.expandToLevel(2);
-
-						if (input instanceof ComponentType) {
-							memberTreeViewer.setInput(createMemberTree((ComponentType) input));
-							memberTreeViewer.expandToLevel(2);
-						} else if (input instanceof ComponentImplementation) {
-							memberTreeViewer.setInput(createMemberTree((ComponentImplementation) input));
-							memberTreeViewer.expandToLevel(2);
-						} else if (input instanceof FeatureGroupType) {
-							memberTreeViewer.setInput(createMemberTree((FeatureGroupType) input));
-							memberTreeViewer.expandToLevel(2);
-						}
-						setNeedsRefresh(false);
-					});
-				} catch (final OperationCanceledException | InterruptedException e) {
-					/*
-					 * N.B. OperationCanceledException may be thrown by the ReferenceFinder classes used by
-					 * AadlFinder.
-					 */
-					cancelled = true;
-					clearDisplay(false);
+				} else {
+					subMonitor.worked(2);
 				}
+
+				if (inputMember != null && !skipMember) {
+					final MemberTree memberTree;
+					if (inputMember instanceof ComponentType) {
+						memberTree = createMemberTree((ComponentType) inputMember);
+					} else if (inputMember instanceof ComponentImplementation) {
+						memberTree = createMemberTree((ComponentImplementation) inputMember);
+					} else if (inputMember instanceof FeatureGroupType) {
+						memberTree = createMemberTree((FeatureGroupType) inputMember);
+					} else {
+						// Shouldn't get here
+						memberTree = null;
+					}
+
+					if (memberTree != null) {
+						// Update the view contents in the UI thread
+						getViewSite().getShell().getDisplay().asyncExec(() -> {
+							memberTreeViewer.setInput(memberTree);
+							memberTreeViewer.expandToLevel(2);
+						});
+					} else {
+						clearMembers(false);
+					}
+				}
+
+				setNeedsRefresh(needsRefresh);
 
 				// Mark the view as changed (should show up with a bold title)
 				service.warnOfContentChange();
-				return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
+				return Status.OK_STATUS;
 			}
 		};
 		refreshJob.setRule(null); // doesn't write resources
@@ -717,6 +791,11 @@ public final class ClassifierInfoView extends ViewPart {
 					if (selectedNode != null) {
 						selectedURI = selectedNode.getURI();
 						if (selectedURI != null) {
+							// Update the member view if the selection is NOT from the member view
+							if (event.getSource() != memberTreeViewer) {
+								setMember(selectedURI);
+							}
+							// Jump in the text editor if we are synchronizing
 							if (syncWithEditor) {
 								gotoURI(selectedURI);
 							}
@@ -992,16 +1071,9 @@ public final class ClassifierInfoView extends ViewPart {
 		}
 	}
 
-	private DescendantTree createDescendantTree(final Classifier rootClassifier,
+	private DescendantTree createDescendantTree(final Classifier rootClassifier, final Set<IProject> projects,
 			final IProgressMonitor progressMonitor) throws InterruptedException {
 		final SubMonitor subMonitor = SubMonitor.convert(progressMonitor);
-		/*
-		 * Find all the projects that depend on the project that declares the
-		 * root classifier. Use them to build a constraining search scope.
-		 */
-		final Set<IProject> projects = getDependantProjects(rootClassifier);
-		projectDependancies.addAll(projects);
-		final AadlFinder.Scope scope = new AadlFinder.ResourceSetScope(projects);
 
 		final Deque<DescendantTreeNode> deque = new LinkedList<>();
 		final DescendantTreeNode root = new DescendantTreeNode(rootClassifier, NO_PREFIX);
@@ -1011,6 +1083,7 @@ public final class ClassifierInfoView extends ViewPart {
 		 * one, we look for all references to it, and then process all references that appear in a context
 		 * where it is being implemented/extended/inverted.
 		 */
+		final AadlFinder.Scope scope = new AadlFinder.ResourceSetScope(projects);
 		while (!deque.isEmpty()) {
 			if (subMonitor.isCanceled()) {
 				throw new InterruptedException();
