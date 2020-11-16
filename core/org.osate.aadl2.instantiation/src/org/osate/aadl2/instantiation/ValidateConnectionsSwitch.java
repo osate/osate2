@@ -420,7 +420,7 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 								+ requiresEnd.getComponentInstancePath() + "' to have classifier '"
 								+ providesClassifier.getQualifiedName() + '\'');
 			}
-		} else {
+		} else if (providesClassifier != null && requiresClassifier != null) {
 			checkEndPointClassifierMatching(conni, providesEnd, requiresEnd, providesClassifier, requiresClassifier);
 		}
 	}
@@ -447,7 +447,7 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 									+ destEnd.getComponentInstancePath() + "' to have classifier '"
 									+ srcClassifier.getQualifiedName() + '\'');
 				}
-			} else {
+			} else if (srcClassifier != null && destClassifier != null) {
 				checkEndPointClassifierMatching(conni, srcEnd, destEnd, srcClassifier, destClassifier);
 			}
 		}
