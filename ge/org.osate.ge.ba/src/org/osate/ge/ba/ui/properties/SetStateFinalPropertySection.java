@@ -27,11 +27,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.swt.widgets.Button;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Subprogram;
-import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ge.ba.util.BehaviorAnnexUtil;
 
 /**
  * Property section for setting {@link BehaviorState} to final.
@@ -41,18 +37,9 @@ public class SetStateFinalPropertySection extends StatePropertySection {
 		super("Final:", "Set Final State", (e) -> {
 			final Button btn = (Button) e.widget;
 			final boolean isFinal = btn.getSelection();
-			return (behaviorState, boc) -> {
-				final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorState.eContainer();
-				final Classifier classifier = behaviorAnnex.getContainingClassifier();
-				// Subprogram requires one and only one final state
-				if (isFinal && classifier instanceof Subprogram) {
-					// Remove final from other states
-					behaviorAnnex.getStates().forEach(state -> state.setFinal(false));
-				}
-
+			return (behaviorState, boc) ->
 				// Set final state
 				behaviorState.setFinal(isFinal);
-			};
 		});
 	}
 
@@ -68,24 +55,8 @@ public class SetStateFinalPropertySection extends StatePropertySection {
 		final Button setFinalStateBtn = getStateButton();
 		// Set selection state for first selection
 		setFinalStateBtn.setSelection(isFinalState);
-		if (isSingleSelection) {
-			if (isFinalState) {
-				// Determine if final can be removed from state
-				final Classifier classifier = selectedState.getContainingClassifier();
-				// Subprograms require single final state
-				setFinalStateBtn.setEnabled(!(classifier instanceof Subprogram));
-			} else {
-				// Determine if final can be set for state
-				// If behavior state is a source of a transition, it cannot be final
-				final boolean isSourceState = BehaviorAnnexUtil.getTransitionsForSourceState(selectedState).findAny()
-						.isPresent();
-				setFinalStateBtn.setEnabled(!isSourceState);
-			}
 
-			setFinalStateBtn.setEnabled(true);
-		} else {
-			// Always disabled for multiple selection
-			setFinalStateBtn.setEnabled(false);
-		}
+		// Always disabled for multiple selection
+		setFinalStateBtn.setEnabled(isSingleSelection);
 	}
 }

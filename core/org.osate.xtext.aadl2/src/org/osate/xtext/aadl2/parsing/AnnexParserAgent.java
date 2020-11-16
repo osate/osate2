@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -58,6 +58,7 @@ import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexResolver;
 import org.osate.annexsupport.AnnexResolverRegistry;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.annexsupport.AnnexValidator;
 import org.osate.annexsupport.ParseResultHolder;
 import org.osate.xtext.aadl2.Activator;
 
@@ -136,7 +137,7 @@ public class AnnexParserAgent extends LazyLinker {
 	 * which of {@code parser}'s methods to call. Expected to be either
 	 * {@link AnnexParser#parseAnnexLibrary(String, String, String, int, int, ParseErrorReporter)} or
 	 * {@link AnnexParser#parseAnnexSubclause(String, String, String, int, int, ParseErrorReporter)}.
-	 * 
+	 *
 	 * @param <A> The annex section type, either {@link AnnexLibrary} or {@link AnnexSubclause}.
 	 */
 	@FunctionalInterface
@@ -154,7 +155,7 @@ public class AnnexParserAgent extends LazyLinker {
 	 * detached from the {@link DefaultAnnexLibrary} or {@link DefaultAnnexSubclause}. All error, warning, and info
 	 * messages that are produced from the parser, resolver, or linker will be passed along to
 	 * {@code diagnosticsConsumer}.
-	 * 
+	 *
 	 * @param <A> Type of the resulting annex section. Expected to be {@link AnnexLibrary} or {@link AnnexSubclause}.
 	 * @param <D> Type of the default annex section. Expected to be {@link DefaultAnnexLibrary} or
 	 *            {@link DefaultAnnexSubclause}.
@@ -182,20 +183,23 @@ public class AnnexParserAgent extends LazyLinker {
 		// look for plug-in parser
 		String annexName = defaultAnnexSection.getName();
 		if (annexText != null && annexText.length() > 6 && annexName != null) {
-			// strip {** **}
+			// strip {** **} from annex text
 			if (annexText.startsWith("{**")) {
 				annexText = annexText.substring(3, annexText.length() - 3);
 			}
 			AnnexParser ap = PARSER_REGISTRY.getAnnexParser(annexName);
+
 			try {
 				QueuingParseErrorReporter parseErrReporter = new QueuingParseErrorReporter();
 				parseErrReporter.setContextResource(defaultAnnexSection.eResource());
-				if(defaultAnnexSection instanceof AnnexSubclause)
+				if (defaultAnnexSection instanceof AnnexSubclause) {
 					AnnexUtil.setCurrentAnnexSubclause((AnnexSubclause) defaultAnnexSection);
+				}
 				A annexSection = parserFunction.parse(ap, annexName, annexText, filename, line, offset,
 						parseErrReporter);
-				if(defaultAnnexSection instanceof AnnexSubclause)
+				if (defaultAnnexSection instanceof AnnexSubclause) {
 					AnnexUtil.setCurrentAnnexSubclause(null);
+				}
 				if (ParseResultHolder.Factory.INSTANCE.adapt(defaultAnnexSection).getParseResult() == null) {
 					// Only consume messages for non-Xtext annexes
 					consumeMessages(parseErrReporter, diagnosticsConsumer, annexText, line, offset);
@@ -216,7 +220,7 @@ public class AnnexParserAgent extends LazyLinker {
 						resolver.resolveAnnex(annexName, Collections.singletonList(annexSection), resolveErrManager);
 						consumeMessages(resolveErrReporter, diagnosticsConsumer, annexText, line, offset);
 						if (resolveErrReporter.getNumErrors() != 0) {
-							setParsedAnnexSection.accept(null);
+							AnnexValidator.setNoValidation(defaultAnnexSection, annexName);
 						}
 					} else if (linkingService != null) {
 						try {
@@ -230,8 +234,9 @@ public class AnnexParserAgent extends LazyLinker {
 						}
 					}
 				}
-				if(parseErrReporter.getNumErrors()>0)
-					setParsedAnnexSection.accept(null);
+				if (parseErrReporter.getNumErrors() > 0) {
+					AnnexValidator.setNoValidation(defaultAnnexSection, annexName);
+				}
 			} catch (RecognitionException e) {
 				String message = "Major parsing error in " + filename + " at line " + line;
 				IStatus status = new Status(IStatus.ERROR, Activator.PLUGIN_ID, message, e);
@@ -241,7 +246,6 @@ public class AnnexParserAgent extends LazyLinker {
 	}
 
 	// Compute the number of line between the token "annex" and the token "{**".
-	// TODO test under windows.
 	private int computeLineOffset(INode node) {
 		int result = 0;
 		boolean next = true;
@@ -251,7 +255,7 @@ public class AnnexParserAgent extends LazyLinker {
 
 		// Trim the space or new line before the keyword "annex".
 		while (text.charAt(index++) != 'a' && index < text.length()) {
-			continue;
+			;
 		}
 
 		index += 4; // Complete the word "annex".
@@ -278,7 +282,7 @@ public class AnnexParserAgent extends LazyLinker {
 			int endOfLine = annexText.indexOf('\n', lineOffset);
 			if (endOfLine == -1) {
 				endOfLine = annexText.length();
-			} else if (annexText.charAt(endOfLine - 1) == '\r') {
+			} else if (endOfLine > 0 && annexText.charAt(endOfLine - 1) == '\r') {
 				endOfLine--;
 			}
 
@@ -315,6 +319,7 @@ public class AnnexParserAgent extends LazyLinker {
 				public int getLength() {
 					return diagnosticLength;
 				}
+
 			};
 
 			Severity severity;
