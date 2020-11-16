@@ -28,6 +28,7 @@ import java.util.Optional;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ba.declarative.DeclarativeBehaviorTransition;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
@@ -74,7 +75,14 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(BehaviorTransition.class).isPresent();
+
+		Optional<DeclarativeBehaviorTransition> t = ctx.getBusinessObject(DeclarativeBehaviorTransition.class);
+		if (t.isPresent()) {
+			t.get().getSrcStates().forEach(i -> System.err.println(i + " i"));
+		}
+		return ctx.getBusinessObject(DeclarativeBehaviorTransition.class).isPresent()
+				|| ctx.getBusinessObject(BehaviorTransition.class).isPresent();
+		// return ctx.getBusinessObject(BehaviorTransition.class).isPresent();
 	}
 
 	@Override
@@ -94,19 +102,41 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
-		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.eContainer();
-		final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
-		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE,
-				Integer.toString(index));
+		final Optional<BehaviorTransition> b = ctx.getBusinessObject(BehaviorTransition.class);
+		if (b.isPresent()) {
+			final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
+			final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.eContainer();
+			final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
+			return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE,
+					Integer.toString(index));
+		} else {
+			final DeclarativeBehaviorTransition behaviorTransition = ctx
+					.getBusinessObject(DeclarativeBehaviorTransition.class).get();
+			final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.eContainer();
+			final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
+			return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE,
+					Integer.toString(index));
+		}
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
-		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.eContainer();
-		final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
-		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE, Integer.toString(index));
+		final Optional<BehaviorTransition> b = ctx.getBusinessObject(BehaviorTransition.class);
+		if (b.isPresent()) {
+			final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
+			final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.eContainer();
+
+			final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
+			return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE,
+					Integer.toString(index));
+		} else {
+			final DeclarativeBehaviorTransition behaviorTransition = ctx
+					.getBusinessObject(DeclarativeBehaviorTransition.class).get();
+			final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.eContainer();
+			final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
+			return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE,
+					Integer.toString(index));
+		}
 	}
 
 	@Override

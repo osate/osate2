@@ -17,8 +17,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
@@ -62,13 +60,32 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 	private XtextResource xtextResource;
 	private IXtextDocument xtextDocument;
 	private BehaviorAnnexStyledTextXtextAdapter xtextAdapter;
-	private AadlBaLocationReference conditionLocationReference;
+	private int offset = 0;
 
 	@Override
 	public void setInput(IWorkbenchPart part, ISelection selection) {
 		super.setInput(part, selection);
 		selectedBos = Adapters.adapt(selection, BusinessObjectSelection.class);
 	}
+
+//	@Override
+//	public void createControls(Composite parent, TabbedPropertySheetPage aTabbedPropertySheetPage) {
+//		super.createControls(parent, aTabbedPropertySheetPage);
+//		super.createControls(parent, aTabbedPropertySheetPage);
+//		final Composite composite = getWidgetFactory().createPlainComposite(parent, SWT.NONE);
+//		composite.setLayout(GridLayoutFactory.swtDefaults().numColumns(1).create());
+//		transitionText = new StyledText(composite, SWT.BORDER | SWT.V_SCROLL);
+//		transitionText.setLayoutData(
+//				GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(100, 100).create());
+//
+//		transitionText.addListener(SWT.FocusOut, event -> {
+//			selectedBos.modify(BehaviorTransition.class, bt -> {
+//				BehaviorAnnex ba = (BehaviorAnnex) bt.getOwner();
+//				System.err.println(ba.getTransitions().indexOf(bt) + " index");
+//
+//			});
+//		});
+//	}
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -79,7 +96,9 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 		transitionText.setLayoutData(
 				GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(100, 100).create());
 
+
 		transitionText.addListener(SWT.FocusOut, event -> {
+			System.err.println("out");
 			if (xtextDocument != null) {
 				xtextDocument.modify(work);
 			} else {
@@ -106,38 +125,26 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 				}
 			}
 		});
-
-		transitionText.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				System.err.println(conditionLocationReference.getOffset() + 1 + " offset");
-				System.err.println(transitionText.getText().length() + " length");
-				xtextAdapter.getSourceviewer().setVisibleRegion(conditionLocationReference.getOffset() + 1,
-						transitionText.getText().length());
-			}
-		});
 	}
 
 	int i = 0;
 	@Override
 	public void refresh() {
+		// TODO call behaviorannexaction to make sure it's valid?
 		// TODO support multiple selection?
+		// TODO filter out eproxy or resolve?
 		final Optional<BusinessObjectContext> selected = selectedBos.bocStream()
-				.filter(boc -> boc.getBusinessObject() instanceof BehaviorTransition).findAny();
+				.filter(boc -> boc.getBusinessObject() instanceof BehaviorTransition
+						&& !((BehaviorTransition) boc.getBusinessObject()).eIsProxy()
+						&& ProjectUtil.getProjectForBo(boc.getBusinessObject()).isPresent())
+				.findAny();
 		if (selected.isPresent()) {
 			final BusinessObjectContext selectedBoc = selected.get();
 			final BehaviorTransition behaviorTransition = (BehaviorTransition) selectedBoc.getBusinessObject();
+			System.err.println(behaviorTransition.eIsProxy() + " proxy");
+			System.err.println(behaviorTransition + " behaviorTransiton");
 			xtextAdapter = getXtextAdapter(
 					ProjectUtil.getProjectForBoOrThrow(behaviorTransition));
-
-			final BehaviorCondition condition = behaviorTransition.getCondition();
-			if (condition != null) {
-			// Xtext location reference for transition condition
-			conditionLocationReference = behaviorTransition.getCondition()
-					.getAadlBaLocationReference();
-		} else {
-			conditionLocationReference = new AadlBaLocationReference();
-		}
 
 			xtextResource = getXtextResource(behaviorTransition)
 					.orElseThrow(() -> new RuntimeException("resource must be XtextResource"));
@@ -150,41 +157,94 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 
 			// Root text
 			final String rootNodeText = parseResult.getRootNode().getText();
+			final BehaviorCondition condition = behaviorTransition.getCondition();
+			final String wholeText;
+			final String conditionText;
 
-			// Build text
-			final String prefix = rootNodeText.substring(0, conditionLocationReference.getOffset()) + "\n";
-			final String conditionText = rootNodeText.substring(conditionLocationReference.getOffset()).split("]")[0] + "\n";
-			final String suffix = "]" + rootNodeText
-					.substring(conditionLocationReference.getOffset() + conditionLocationReference.getLength())
-					.split("]", 2)[1];
-			final String wholeText = new StringBuilder().append(prefix).append(conditionText).append(suffix).toString();
-			transitionText.setText(wholeText);
+			if (condition != null) {
+				System.err.println("AAA");
+				// Xtext location reference for transition condition
+				final AadlBaLocationReference conditionLocationReference = behaviorTransition.getCondition()
+						.getAadlBaLocationReference();
+				final String prefix = rootNodeText.substring(0, conditionLocationReference.getOffset()) + "\n";
+				conditionText = rootNodeText.substring(conditionLocationReference.getOffset()).split("]")[0];
+				final String suffix = "\n]" + rootNodeText
+						.substring(conditionLocationReference.getOffset() + conditionLocationReference.getLength())
+						.split("]", 2)[1];
 
-			xtextAdapter.getSourceviewer().setDocument(xtextAdapter.getXtextDocument(),
-					xtextAdapter.getSourceviewer().getAnnotationModel(),
-					conditionLocationReference.getOffset() + 1, conditionLocationReference.getLength());
-			System.err.println(conditionLocationReference.getLength() + " getLength");
+				wholeText = new StringBuilder().append(prefix).append(conditionText).append(suffix).toString();
 
-			editingDomain = (TransactionalEditingDomain) AdapterFactoryEditingDomain
-					.getEditingDomainFor(behaviorTransition);
-			work = new IUnitOfWork.Void<XtextResource>() {
-				@Override
-				public void process(final XtextResource state) throws Exception {
-					state.update(conditionLocationReference.getOffset(), conditionLocationReference.getLength(),
-							transitionText.getText());
-				}
-			};
+				transitionText.setText(wholeText);
 
-			cmd = new RecordingCommand(editingDomain) {
-				@Override
-				protected void doExecute() {
-					try {
-						work.exec(xtextResource);
-					} catch (final Exception e) {
-						throw new RuntimeException(e.getMessage());
+				offset = conditionLocationReference.getOffset() + 1;
+				xtextAdapter.getSourceviewer().setDocument(xtextAdapter.getXtextDocument(),
+						xtextAdapter.getSourceviewer().getAnnotationModel(), conditionLocationReference.getOffset() + 1,
+						conditionText.trim().length());
+
+				editingDomain = (TransactionalEditingDomain) AdapterFactoryEditingDomain
+						.getEditingDomainFor(behaviorTransition);
+				work = new IUnitOfWork.Void<XtextResource>() {
+					@Override
+					public void process(final XtextResource state) throws Exception {
+						System.err.println(transitionText.getText() + " GETTEXT");
+						state.update(conditionLocationReference.getOffset(),
+								conditionText.length(),
+								transitionText.getText());
 					}
-				}
-			};
+				};
+
+				cmd = new RecordingCommand(editingDomain) {
+					@Override
+					protected void doExecute() {
+						try {
+							work.exec(xtextResource);
+						} catch (final Exception e) {
+							throw new RuntimeException(e.getMessage());
+						}
+					}
+				};
+			} else {
+				System.err.println("BB");
+				final AadlBaLocationReference conditionLocationReference = behaviorTransition
+						.getAadlBaLocationReference();
+				final String toTransitionText = rootNodeText.substring(0, conditionLocationReference.getOffset());
+				final String transitionToConditionText = rootNodeText.substring(conditionLocationReference.getOffset())
+						.split("\\[", 2)[0] + "[\n";
+
+				final String suffixA = "\n]" + rootNodeText
+						.substring(toTransitionText.length() + transitionToConditionText.length() - 1).split("]", 2)[1];
+				wholeText = new StringBuilder().append(toTransitionText).append(transitionToConditionText)
+						.append(suffixA).toString();
+				conditionText = "";
+
+				transitionText.setText(wholeText);
+				offset = toTransitionText.length() + transitionToConditionText.length();
+				xtextAdapter.getSourceviewer().setDocument(xtextAdapter.getXtextDocument(),
+						xtextAdapter.getSourceviewer().getAnnotationModel(),
+						toTransitionText.length() + transitionToConditionText.length(), 0);
+
+				editingDomain = (TransactionalEditingDomain) AdapterFactoryEditingDomain
+						.getEditingDomainFor(behaviorTransition);
+				work = new IUnitOfWork.Void<XtextResource>() {
+					@Override
+					public void process(final XtextResource state) throws Exception {
+						state.update(toTransitionText.length() + transitionToConditionText.length() - 1,
+								0/* conditionLocationReference.getLength() */,
+								transitionText.getText());
+					}
+				};
+
+				cmd = new RecordingCommand(editingDomain) {
+					@Override
+					protected void doExecute() {
+						try {
+							work.exec(xtextResource);
+						} catch (final Exception e) {
+							throw new RuntimeException(e.getMessage());
+						}
+					}
+				};
+			}
 		}
 	}
 
@@ -197,7 +257,6 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 		final BehaviorAnnexStyledTextXtextAdapter xtextAdapter = new BehaviorAnnexStyledTextXtextAdapter(injector,
 				IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER, project);
 		xtextAdapter.adapt(transitionText);
-
 		return xtextAdapter;
 	}
 
