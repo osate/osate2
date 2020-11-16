@@ -22,7 +22,7 @@ class Issue2525Test {
 	@Test
 	def void testIssue2525() {
 		// Not using FluentIssueCollection because the BA issues aren't associated with an EObject.
-		val result = testHelper.testFile("org.osate.ba.tests/models/2525/issue2525.aadl")
+		val result = testHelper.testFile("org.osate.ba.tests/models/issue2525/issue2525.aadl")
 		result.resource.contents.head as AadlPackage => [
 			"issue2525".assertEquals(name)
 			publicSection.ownedClassifiers.head => [
