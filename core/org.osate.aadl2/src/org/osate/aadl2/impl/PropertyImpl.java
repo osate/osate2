@@ -486,6 +486,14 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 				break;
 			}
 		}
+
+		/*
+		 * NB. Do not fix Issue 2387 here! Doing so caused a different problem. Namely,
+		 * if a property with a default value is explicit associated with a value in one place
+		 * in the model, it's going to force model instantiation to create explicit property
+		 * associations in the instance model that bind the default value to the property AT
+		 * ALL OTHER PLACES THE PROPERTY IS APPLICABLE. This is undesirable.
+		 */
 		return new PropertyEvaluationResult(pas.isEmpty() ? null : pas.get(0), vals);
 	}
 

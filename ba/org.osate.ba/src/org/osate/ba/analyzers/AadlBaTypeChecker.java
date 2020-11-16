@@ -2293,7 +2293,6 @@ public class AadlBaTypeChecker
 
   private PortDequeueAction portDequeueActionResolver(CommAction comAct)
   {
-
     // if already resolved, check port ref is event or event data port
     QualifiedNamedElement qne = comAct.getQualifiedName() ;
 
@@ -2335,67 +2334,15 @@ public class AadlBaTypeChecker
 
     Target tarTmp = null ;
     boolean tarCheckResult = true ;
+
     TypeCheckRule stopOnThisRule = TypeCheckRule.IN_PORT ;
     TypeCheckRule checkRule = TypeCheckRule.PORT_DEQUEUE_VALUE ;
     List<ElementHolder> resolvedRef = refResolver(comAct.getReference(), null,
                                                   stopOnThisRule, checkRule) ;
-
-    if(comAct.getTarget() != null)
-    {
-      tarTmp = targetCheck(comAct.getTarget(), stopOnThisRule) ;
-      if(tarTmp == null)
-      {
-        tarCheckResult = false ;
-      }
-    }
-
     if(resolvedRef != null)
     {
-      if(tarCheckResult)
-      {
-        PortHolder portHolder = (PortHolder) resolvedRef.get(0) ;
-        PortDequeueAction result = _fact.createPortDequeueAction() ;
-        result.setPort((ActualPortHolder) portHolder) ;
-
-        // Port dequeue action may not have any target.
-        if(tarTmp != null)
-        {
-          result.setTarget(tarTmp) ;
-
-          // Matches the target's data type with the input port's one
-          // when port dequeue action.
-          TypeHolder tarType, portType ;
-
-          try
-          {
-              portType = AadlBaUtils.getTypeHolder(portHolder,
-                                                   _baParentContainer) ;
-              tarType = AadlBaUtils.getTypeHolder(tarTmp, _baParentContainer) ;
-          }
-          catch (DimensionException de)
-          {
-            de.setElement(comAct) ;
-            reportDimensionException(de) ;
-            return null  ;
-          }
-
-          if (false == _dataChecker.conformsTo(portType, tarType, true))
-          {
-            reportTypeError(comAct, "port dequeue action",
-                            portType.toString(),
-                            tarType.toString()) ;
-            return null ;
-          }
-        }
-
-        result.setLocationReference(comAct.getLocationReference()) ;
-
-        return result ;
-      }
-      else
-      {
-        return null ;
-      }
+      PortHolder portHolder = (PortHolder) resolvedRef.get(0) ;
+      return portDequeueActionResolver(portHolder, comAct) ;
     }
     else
     {
@@ -2404,7 +2351,8 @@ public class AadlBaTypeChecker
   }
 
 
-  private CommunicationAction qualifiedSubprogramClassifierCallOrPortSendActionActionResolver
+  private CommunicationAction
+          qualifiedSubprogramClassifierCallOrPortCommunicationActionResolver
                                                              (CommAction comAct)
   {
     QualifiedNamedElement qne = comAct.getQualifiedName() ;
@@ -2413,12 +2361,20 @@ public class AadlBaTypeChecker
     {
       EventPortHolder tmp  = _fact.createEventPortHolder() ;
       tmp.setEventPort((EventPort)qne.getOsateRef()) ;
+      if(comAct.isPortDequeue())
+      {
+        return portDequeueActionResolver(tmp, comAct) ;
+      }
       return portSendActionResolver(tmp, comAct) ;
     }
     else if (qne.getOsateRef() instanceof EventDataPort)
     {
       EventDataPortHolder tmp  = _fact.createEventDataPortHolder() ;
       tmp.setEventDataPort((EventDataPort)qne.getOsateRef()) ;
+      if(comAct.isPortDequeue())
+      {
+        return portDequeueActionResolver(tmp, comAct) ;
+      }
       return portSendActionResolver(tmp, comAct) ;
     }
     else if(qne.getOsateRef() instanceof SubprogramAccess)
@@ -2440,6 +2396,53 @@ public class AadlBaTypeChecker
     return null;
   }
 
+
+  private PortDequeueAction portDequeueActionResolver(
+                                                      PortHolder portHolder,
+                                                      CommAction comAct)
+  {
+    PortDequeueAction portDequeueAction = _fact.createPortDequeueAction() ;
+
+    TypeCheckRule stopOnThisRule = TypeCheckRule.IN_PORT ;
+
+    if(comAct.getTarget() != null)
+    {
+      final Target tarTmp = targetCheck(comAct.getTarget(), stopOnThisRule) ;
+      if(tarTmp == null)
+      {
+        return null ;
+      }
+
+      portDequeueAction.setTarget(tarTmp) ;
+
+      // Matches the target's data type with the input port's one
+      // when port dequeue action.
+      TypeHolder tarType, portType ;
+
+      try
+      {
+        portType = AadlBaUtils.getTypeHolder(portHolder, _baParentContainer) ;
+        tarType = AadlBaUtils.getTypeHolder(tarTmp, _baParentContainer) ;
+      }
+      catch(DimensionException de)
+      {
+        de.setElement(comAct) ;
+        reportDimensionException(de) ;
+        return null ;
+      }
+
+      if(false == _dataChecker.conformsTo(portType, tarType, true))
+      {
+        reportTypeError(comAct, "port dequeue action", portType.toString(),
+                        tarType.toString()) ;
+        return null ;
+      }
+    }
+    portDequeueAction.setPort((ActualPortHolder) portHolder) ;
+    portDequeueAction.setLocationReference(comAct.getLocationReference()) ;
+    return portDequeueAction ;
+  }
+
   // This method checks the given object and returns a communication action
   // resolved from semantic ambiguities. On error, reports error and returns
   // null.
@@ -2456,9 +2459,9 @@ public class AadlBaTypeChecker
     CommAction comAct = (CommAction) ca ;
 
     // Subprogram qualified classifier call.
-    if(isSubprogramClassifierCallOrPortSendAction(comAct))
+    if(isSubprogramClassifierCallOrPortCommunicationAction(comAct))
     {
-      return qualifiedSubprogramClassifierCallOrPortSendActionActionResolver(comAct) ;
+      return qualifiedSubprogramClassifierCallOrPortCommunicationActionResolver(comAct) ;
     }
     // Port dequeue call.
     else if(comAct.isPortDequeue())
@@ -2481,7 +2484,7 @@ public class AadlBaTypeChecker
     }
   }
 
-  private boolean isSubprogramClassifierCallOrPortSendAction(CommAction comAct)
+  private boolean isSubprogramClassifierCallOrPortCommunicationAction(CommAction comAct)
   {
     QualifiedNamedElement qne = comAct.getQualifiedName() ;
 
@@ -2632,7 +2635,8 @@ public class AadlBaTypeChecker
     }
   }
 
-  private CommunicationAction portSendActionResolver(ActualPortHolder portHolder,
+  private CommunicationAction portSendActionResolver(
+                                                     ActualPortHolder portHolder,
                                                      CommAction comAct)
   {
     PortSendAction portSendActionResult = _fact.createPortSendAction() ;

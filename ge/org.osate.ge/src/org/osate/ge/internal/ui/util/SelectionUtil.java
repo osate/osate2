@@ -61,16 +61,19 @@ import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.navigator.DiagramGroup;
 
 import com.google.common.collect.ImmutableList;
+
 public class SelectionUtil {
 	private static EObjectAtOffsetHelper eObjectAtOffsetHelper = new EObjectAtOffsetHelper();
 
 	// Returns the current selection as diagram elements.
 	// If one or more of the selected objects cannot be adapted to DiagramElement then an empty list is returned.
-	public static List<DiagramElement> getSelectedDiagramElements(final ISelection selection, final boolean ignoreInvalidType) {
+	public static List<DiagramElement> getSelectedDiagramElements(final ISelection selection,
+			final boolean ignoreInvalidType) {
 		return getAdaptedSelection(selection, DiagramElement.class, ignoreInvalidType);
 	}
 
-	public static List<DiagramNode> getSelectedDiagramNodes(final ISelection selection, final boolean ignoreInvalidType) {
+	public static List<DiagramNode> getSelectedDiagramNodes(final ISelection selection,
+			final boolean ignoreInvalidType) {
 		return getAdaptedSelection(selection, DiagramNode.class, ignoreInvalidType);
 	}
 
@@ -140,6 +143,30 @@ public class SelectionUtil {
 		}
 
 		return contextBo;
+	}
+
+	/**
+	 * Returns whether the selection contains a single {@link IFile} which has an extension matching an AADL
+	 * source file or an instance file.
+	 * @param selection the selection to check,.
+	 * @return whether is contains an AADL source file or an instance model file.
+	 */
+	public static boolean isAadlOrInstanceModelFile(final ISelection selection) {
+		if (selection instanceof IStructuredSelection) {
+			final IStructuredSelection ss = (IStructuredSelection) selection;
+			if (ss.size() == 1) {
+				final Object selectedObject = ss.getFirstElement();
+				if (selectedObject instanceof IFile) {
+					final String ext = ((IFile) selectedObject).getFileExtension();
+					if (FileNameConstants.SOURCE_FILE_EXT.equalsIgnoreCase(ext)
+							|| FileNameConstants.INSTANCE_FILE_EXT.equalsIgnoreCase(ext)) {
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
 	}
 
 	private static Element findDiagramContextForSelectedObject(final Object selectedObject) {
@@ -248,35 +275,34 @@ public class SelectionUtil {
 			return null;
 		}
 
-		return editor.getDocument().readOnly(
-				resource -> {
-					EObject targetElement = null;
-					if (selection instanceof IStructuredSelection) {
-						final IStructuredSelection ss = (IStructuredSelection) selection;
-						targetElement = ((EObjectNode) ss.getFirstElement()).getEObject(resource);
-					} else if (selection instanceof ITextSelection) {
-						final int offset = ((ITextSelection) selection).getOffset();
-						targetElement = eObjectAtOffsetHelper.resolveContainedElementAt(resource, offset);
+		return editor.getDocument().readOnly(resource -> {
+			EObject targetElement = null;
+			if (selection instanceof IStructuredSelection) {
+				final IStructuredSelection ss = (IStructuredSelection) selection;
+				targetElement = ((EObjectNode) ss.getFirstElement()).getEObject(resource);
+			} else if (selection instanceof ITextSelection) {
+				final int offset = ((ITextSelection) selection).getOffset();
+				targetElement = eObjectAtOffsetHelper.resolveContainedElementAt(resource, offset);
 
-						// Check if the node for the semantic element that was retrieved by the offset helper starts after the line number of the node
-						// retrieved using the offset. If it is, return the container. This prevents returning a classifier when the select is actually in
-						// whitespace before the classifier.
-						final IParseResult parseResult = resource.getParseResult();
-						if(targetElement != null && parseResult != null) {
-							final ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);
-							final INode targetElementNode = NodeModelUtils.getNode(targetElement);
-							if(leaf.getStartLine() < targetElementNode.getStartLine()) {
-								targetElement = targetElement.eContainer();
-							}
-						}
-
-						// If there isn't a selected element, that usually means the selection is outside of the root package. Get the first EObject in the resource
-						if(targetElement == null && resource.getContents().size() > 0) {
-							targetElement = resource.getContents().get(0);
-						}
+				// Check if the node for the semantic element that was retrieved by the offset helper starts after the line number of the node
+				// retrieved using the offset. If it is, return the container. This prevents returning a classifier when the select is actually in
+				// whitespace before the classifier.
+				final IParseResult parseResult = resource.getParseResult();
+				if (targetElement != null && parseResult != null) {
+					final ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);
+					final INode targetElementNode = NodeModelUtils.getNode(targetElement);
+					if (leaf.getStartLine() < targetElementNode.getStartLine()) {
+						targetElement = targetElement.eContainer();
 					}
+				}
 
-					return targetElement;
-				});
+				// If there isn't a selected element, that usually means the selection is outside of the root package. Get the first EObject in the resource
+				if (targetElement == null && resource.getContents().size() > 0) {
+					targetElement = resource.getContents().get(0);
+				}
+			}
+
+			return targetElement;
+		});
 	}
 }

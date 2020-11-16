@@ -54,8 +54,6 @@ import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FlowImplementation;
-import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.MemoryImplementation;
@@ -393,18 +391,6 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 		return "Feature " + ele.getName();
 	}
 
-	String text(FlowImplementation flowimpl) {
-		String ret;
-
-		ret = "Flow Implementation";
-
-		if (flowimpl.getSpecification() != null) {
-			ret += " " + flowimpl.getSpecification().getName();
-		}
-
-		return ret;
-	}
-
 	String text(EndToEndFlow etei) {
 		String ret;
 
@@ -421,16 +407,6 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 		ret = "End to End Flow";
 		if (etei.getName() != null) {
 			ret += " " + etei.getName();
-		}
-		return ret;
-	}
-
-	String text(FlowSpecification flowspec) {
-		String ret;
-
-		ret = "Flow Specification";
-		if (flowspec.getName() != null) {
-			ret += " " + flowspec.getName();
 		}
 		return ret;
 	}
