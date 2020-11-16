@@ -24,19 +24,11 @@
 package org.osate.ge.ba.ui.properties;
 
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.swt.widgets.Button;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Subprogram;
-import org.osate.ba.aadlba.AadlBaPackage;
-import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ba.aadlba.BehaviorTransition;
-import org.osate.ba.aadlba.DispatchCondition;
 import org.osate.ge.ui.PropertySectionUtil;
 
 /**
@@ -56,36 +48,10 @@ public class SetStateCompletePropertySection extends StatePropertySection {
 		super("Complete:", "Set Complete State", (e) -> {
 			final Button btn = (Button) e.widget;
 			final boolean isComplete = btn.getSelection();
-			return (behaviorState, boc) -> {
-				// final Consumer<BehaviorTransition> modifyTransitionForCompleteSourceStates = getModificationForTransition(
-				// isComplete);
-				// BehaviorAnnexUtil.getTransitionsForSourceState(behaviorState).forEach(behaviorTransition -> {
-				// modifyTransitionForCompleteSourceStates.accept(behaviorTransition);
-				// });
-
+			return (behaviorState, boc) ->
 				// Set initial state
 				behaviorState.setComplete(isComplete);
-			};
 		});
-	}
-
-	private static Consumer<BehaviorTransition> getModificationForTransition(final boolean isComplete) {
-		final Consumer<BehaviorTransition> modifyTransitionForCompleteSourceStates;
-		if (isComplete) {
-			modifyTransitionForCompleteSourceStates = (behaviorTransition) -> {
-				// Source states that are complete require dispatch conditions
-				final DispatchCondition dispatchCondition = (DispatchCondition) EcoreUtil
-						.create(AadlBaPackage.eINSTANCE.getDispatchCondition());
-				behaviorTransition.setCondition(dispatchCondition);
-			};
-		} else {
-			modifyTransitionForCompleteSourceStates = (behaviorTransition) -> {
-				// Remove dispatch condition for transitions
-				behaviorTransition.setCondition(null);
-			};
-		}
-
-		return modifyTransitionForCompleteSourceStates;
 	}
 
 	@Override
@@ -102,52 +68,8 @@ public class SetStateCompletePropertySection extends StatePropertySection {
 		// Set selection based on selected state(s)
 		setCompleteStateBtn.setSelection(isCompleteState);
 
-		if (isSingleSelection) {
-			final Classifier classifier = selectedState.getContainingClassifier();
-			if (classifier instanceof Subprogram) {
-				// Subprograms do not allow complete states
-				setCompleteStateBtn.setEnabled(false);
-			} else if (isCompleteState) {
-//				// Removing complete state
-//				// If classifier requires complete state, check if this complete state can be removed.
-//				boolean allowRemovingCompleteness = true;
-//				if (BehaviorAnnexUtil.requiresCompleteState(classifier)) {
-//					// Check if completeness can be removed
-//					allowRemovingCompleteness = allowRemoveCompleteness(classifier, selectedState);
-//				}
-//
-//				if (classifier instanceof ComponentClassifier) {
-//					// If name matches mode, cannot remove completeness
-//					allowRemovingCompleteness = !((ComponentClassifier) classifier).getAllModes().stream()
-//							.filter(mode -> mode.getName().equalsIgnoreCase(selectedState.getName())).findAny()
-//							.isPresent();
-//				}
-
-				setCompleteStateBtn.setEnabled(true);
-			} else {
-				// Setting complete state
-				// Check if state is a source, if dispatch is not allowed, cannot make state complete
-				// If already a source, cannot make complete if dispatch is not allowed
-//				final Optional<BehaviorTransition> transition = BehaviorAnnexUtil
-//						.getTransitionsForSourceState(selectedState).findAny();
-//				boolean allowAddingCompleteness = true;
-//				if (transition.isPresent()) {
-//					allowAddingCompleteness = BehaviorAnnexUtil.allowsOnDispatchConditions(classifier);
-//				}
-
-				setCompleteStateBtn.setEnabled(true);
-			}
-		} else {
-			// Set selection state for first selection
-			// Always disabled for multiple selection
-			setCompleteStateBtn.setEnabled(false);
-		}
-	}
-
-	// Determine if completeness can be removed from behavior state by checking if another
-	// complete state exists
-	private static boolean allowRemoveCompleteness(final Classifier classifier, final BehaviorState behaviorState) {
-		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorState.getOwner();
-		return behaviorAnnex.getStates().stream().filter(BehaviorState::isComplete).count() > 1;
+		// Set selection state for first selection
+		// Always disabled for multiple selection
+		setCompleteStateBtn.setEnabled(isSingleSelection);
 	}
 }
