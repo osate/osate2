@@ -2293,6 +2293,48 @@ public class AadlBaTypeChecker
 
   private PortDequeueAction portDequeueActionResolver(CommAction comAct)
   {
+    // if already resolved, check port ref is event or event data port
+    QualifiedNamedElement qne = comAct.getQualifiedName() ;
+
+    if(qne != null)
+    {
+      boolean isOfExpectedType = qne.getOsateRef() instanceof EventPort
+          || qne
+                                                                              .getOsateRef() instanceof EventDataPort ;
+      if(!isOfExpectedType)
+      {
+        String name = "referenced object" ;
+        if(qne.getOsateRef() instanceof NamedElement)
+        {
+          NamedElement ne = (NamedElement) qne.getOsateRef() ;
+          name = ne.getName() ;
+        }
+        else if(qne.getBaRef() instanceof BehaviorNamedElement)
+        {
+          BehaviorNamedElement bne = (BehaviorNamedElement) qne.getBaRef() ;
+          name = bne.getName() ;
+        }
+        else if(qne.getBaName().getId() != null)
+        {
+          name = qne.getBaName().getId() ;
+        }
+        else if(qne.getName() != null)
+        {
+          name = qne.getName() ;
+        }
+        reportError(comAct, "incorrect port dequeue action, " + name +
+                            " is not an event [data] port") ;
+        return null ;
+      }
+    }
+    else if(comAct.getReference() == null)
+    {
+      return null ;
+    }
+
+    Target tarTmp = null ;
+    boolean tarCheckResult = true ;
+
     TypeCheckRule stopOnThisRule = TypeCheckRule.IN_PORT ;
     TypeCheckRule checkRule = TypeCheckRule.PORT_DEQUEUE_VALUE ;
     List<ElementHolder> resolvedRef = refResolver(comAct.getReference(), null,
