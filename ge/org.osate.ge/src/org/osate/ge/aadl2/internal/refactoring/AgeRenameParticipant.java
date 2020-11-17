@@ -399,7 +399,6 @@ public class AgeRenameParticipant extends RenameParticipant {
 	private static boolean isHandledRefinedReference(final EStructuralFeature sf) {
 		return sf == Aadl2Package.eINSTANCE.getFeature_Refined() || sf == Aadl2Package.eINSTANCE.getConnection_Refined()
 				|| sf == Aadl2Package.eINSTANCE.getSubcomponent_Refined()
-				|| sf == Aadl2Package.eINSTANCE.getSubcomponent_Refined()
 				|| sf == Aadl2Package.eINSTANCE.getFlowSpecification_Refined();
 	}
 
