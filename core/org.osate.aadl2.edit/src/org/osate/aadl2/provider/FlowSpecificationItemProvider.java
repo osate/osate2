@@ -36,6 +36,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.impl.FlowSpecificationImpl;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.FlowSpecification} object.
@@ -60,6 +61,7 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -126,6 +128,7 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
@@ -140,6 +143,7 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EStructuralFeature getChildFeature(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -166,22 +170,46 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 	 * This returns FlowSpecification.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
+	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSpecification"));
+		if (((FlowSpecificationImpl) object).getAllInEnd() == null
+				&& ((FlowSpecificationImpl) object).getAllOutEnd() == null) {
+			return null;
+		} else if (((FlowSpecificationImpl) object).getAllInEnd() == null) {
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSource"));
+		} else if (((FlowSpecificationImpl) object).getAllOutEnd() == null) {
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSink"));
+		}
+
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowPath"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((FlowSpecification) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_FlowSpecification_type")
-				: getString("_UI_FlowSpecification_type") + " " + label;
+
+		if (label == null || label.length() == 0) {
+			return getString("_UI_Flow_type");
+		} else if (!(((FlowSpecification) object).getAllInEnd() == null
+				&& ((FlowSpecification) object).getAllOutEnd() == null)) {
+			if (((FlowSpecification) object).getAllInEnd() == null) {
+				return getString("_UI_Flow_type") + " Source " + label;
+			} else if (((FlowSpecification) object).getAllOutEnd() == null) {
+				return getString("_UI_Flow_type") + " Sink " + label;
+			} else {
+				return getString("_UI_Flow_type") + " Path " + label;
+			}
+		}
+
+		return getString("_UI_Flow_type");
 	}
 
 	/**
@@ -191,6 +219,7 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
@@ -213,6 +242,7 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -229,6 +259,7 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
 		Object childFeature = feature;
 		Object childObject = child;

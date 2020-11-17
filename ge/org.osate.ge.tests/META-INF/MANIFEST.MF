@@ -23,7 +23,8 @@ Require-Bundle: org.osate.ge;bundle-version="1.0.0",
  org.hamcrest.library;bundle-version="1.3.0",
  org.osate.ge.swt;bundle-version="1.0.0",
  org.eclipse.xtext.ui,
- org.osate.xtext.aadl2.errormodel
+ org.osate.xtext.aadl2.errormodel,
+ org.osate.ge.errormodel
 Import-Package: com.google.inject.matcher,
  org.apache.log4j;version="1.2.15",
  org.eclipse.core.resources,

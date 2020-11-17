@@ -56,8 +56,13 @@ import org.osgi.framework.Bundle;
  *
  * @author lwrage
  * @version $Id: PluginSupportUtil.java,v 1.2 2007-06-04 17:03:01 lwrage Exp $
+ * @since 6.0
  */
-public class PluginSupportUtil {
+public final class PluginSupportUtil {
+	private PluginSupportUtil() {
+		// no instances please
+	}
+
 	private static List<URI> getContributedAadl(final Function<IConfigurationElement, URI> makeUri) {
 		ArrayList<URI> result = new ArrayList<URI>();
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
