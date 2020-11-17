@@ -23,15 +23,17 @@
  */
 package org.osate.ge.gef;
 
-import org.osate.ge.fx.BusNode;
+import org.osate.ge.fx.DataPortNode;
 import org.osate.ge.fx.NodeApplication;
 import org.osate.ge.fx.RectangleNode;
 import org.osate.ge.gef.nodes.ContainerShape;
-import org.osate.ge.gef.nodes.ContainerShape.LabelPosition;
 
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 
+// TODO: Rename?
 public class ContainerShapeTest {
 	private ContainerShapeTest() {
 	}
@@ -57,31 +59,70 @@ public class ContainerShapeTest {
 			//
 			// Create Free Children
 			//
-			final ContainerShape freeChild1 = new ContainerShape();
-			freeChild1.getGraphics().setAll(new BusNode());
-			freeChild1.getLabels().setAll(new Label("Child Node #1"));
-			ContainerShape.setPrefPosition(freeChild1, new Point2D(50, 200));
-			top.getFreeChildren().add(freeChild1);
+			// TODO: Reenable
+//			final ContainerShape freeChild1 = new ContainerShape();
+//			freeChild1.getGraphics().setAll(new BusNode());
+//			freeChild1.getLabels().setAll(new Label("Child Node #1"));
+//			ContainerShape.setPrefPosition(freeChild1, new Point2D(50, 200));
+//			top.getFreeChildren().add(freeChild1);
+//
+//			// TODO: Set position. Set an explicit preferred size
+//			final ContainerShape freeChild2 = new ContainerShape();
+//			freeChild2.setHorizontalLabelPosition(LabelPosition.CENTER);
+//			freeChild2.setVerticalLabelPosition(LabelPosition.BEGINNING);
+//			freeChild2.getGraphics().setAll(new BusNode());
+//			freeChild2.getLabels().setAll(new Label("Child Node #2"));
+//			top.getFreeChildren().add(freeChild2);
+//			ContainerShape.setPrefPosition(freeChild2, new Point2D(100, 350));
+//
+//			// TODO: Suggest a size
+//			freeChild2.setConfiguredWidth(300);
+//			freeChild2.setConfiguredHeight(100);
 
-			// TODO: Set position. Set an explicit preferred size
-			final ContainerShape freeChild2 = new ContainerShape();
-			freeChild2.getGraphics().setAll(new BusNode());
-			freeChild2.getLabels().setAll(new Label("Child Node #2"));
-			top.getFreeChildren().add(freeChild2);
-			ContainerShape.setPrefPosition(freeChild2, new Point2D(100, 350));
+			// TODO; Change node types to distinguish them
+			// TODO: Create docked children(features)
+			final Node leftChild1 = createDataPortNode(0);
 
-			// TODO: Suggest a size
-			freeChild2.setConfiguredWidth(300);
-			freeChild2.setConfiguredHeight(100);
+			ContainerShape.setPrefPosition(leftChild1, new Point2D(0, 100));
+			top.getLeftChildren().add(leftChild1);
+			ContainerShape.setPrefPosition(leftChild1, new Point2D(0, 200));
+			top.getLeftChildren().add(createDataPortNode(0));
+			top.getLeftChildren().add(createDataPortNode(0));
+			top.getRightChildren().add(createDataPortNode(180));
+			top.getRightChildren().add(createDataPortNode(180));
+			top.getTopChildren().add(createDataPortNode(90));
+			top.getTopChildren().add(createDataPortNode(90));
+			top.getBottomChildren().add(createDataPortNode(-90));
+			top.getBottomChildren().add(createDataPortNode(-90));
 
-			// TODO: Create undocked children
-			// TODO: Add connections
-			// TODO: Create nested dock shapes(feature groups)
+			// TODO: Top
+			// TODO: Bottom
+			// TODO; Preferred position for docked children
 
-			freeChild2.setHorizontalLabelPosition(LabelPosition.CENTER);
-			freeChild2.setVerticalLabelPosition(LabelPosition.BEGINNING);
+//			final FeatureNode leftChild1 = new FeatureNode();
+//			leftChild1.getGraphics().setAll(new DataPortNode());
+//			leftChild1.getLabels().setAll(new Label("i1"));
+//			top.getLeftChildren().add(leftChild1);
+
+			// TODO: Experiment with longer nodes as well
+
+			// TODO; Create nested docked children(feature groups)
+			// TODO: Add connections to docked and undocked.
 
 			return top;
 		});
+	}
+
+	// TODO; Rename. Decide where pref width and height should be determined. Returns a wrapper that exposes the
+	// post rotation(if any) sizing.
+	private static Node createDataPortNode(final double rotation) {
+		final DataPortNode n = new DataPortNode();
+		n.setPrefWidth(20);
+		n.setPrefHeight(16);
+		n.setRotate(rotation);
+
+		final Group g = new Group();
+		g.getChildren().add(n);
+		return g;
 	}
 }

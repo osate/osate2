@@ -23,6 +23,8 @@
  */
 package org.osate.ge.gef.nodes;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Objects;
 
 import javafx.collections.FXCollections;
@@ -39,6 +41,10 @@ import javafx.scene.Parent;
  *
  * This node is intended to be a general used node that is used to present most undocked diagram elements.
  * A child node is considered docked if has a left, right, top, or bottom category assigned.
+ *
+ * Labels are positioned in an area and have padding on each side. The top and bottom padding are equal.
+ * The left and right padding is equal. Padding must be at least the minimum value but will otherwise be calculated
+ * based on size of docked nodes.
  *
  * The minimum size of the shape is such that all children must be sized to at least their minimum size.
  * Additionally, the minimum size includes the preferred size and preferred position of free and docked children.
@@ -69,28 +75,33 @@ public class ContainerShape extends Parent {
 	public static double NOT_SPECIFIED = -1;
 
 	/**
-	 * Vertical padding on each side of the label region..
+	 * Minimum vertical padding on each side of the label area.
 	 */
-	private final double verticalLabelPadding = 3;
+	private static final double MIN_VERTICAL_LABEL_PADDING = 3;
 
 	/**
-	 * Horizontal padding on each side of label region.
+	 * Minimum horizontal padding on each side of label area.
 	 */
-	private final double horizontalLabelPadding = 10;
+	private static final double MIN_HORIZONTAL_LABEL_PADDING = 10;
 
 	/**
 	* Minimum value returned by {@link ContainerShape#computePrefWidth(double)}.
 	* Chosen based on visual experiments. Typically, computed values will not be used. The graphical editor
 	* will set a preferred size based on an incremental layout ELK.
 	*/
-	private final double MIN_COMPUTED_PREF_WIDTH = 140;
+	private static final double MIN_COMPUTED_PREF_WIDTH = 140;
 
 	/**
 	 * Minimum value returned by {@link ContainerShape#computePrefHeight(double)}.
 	 * Chosen based on visual experiments. Typically, computed values will not be used. The graphical editor
 	 * will set a preferred size based on an incremental layout ELK.
 	 */
-	private final double MIN_COMPUTED_PREF_HEIGHT = 80;
+	private static final double MIN_COMPUTED_PREF_HEIGHT = 80;
+
+	/**
+	 * Minimum spacing between docked shapes on the axis on which they are layed out.
+	 */
+	private static final double DOCKED_SHAPE_SPACING = 5;
 
 	/**
 	 * {@link Category} s a classification of a child which determines how it will be layed out. The category
@@ -99,7 +110,7 @@ public class ContainerShape extends Parent {
 	 */
 	public static enum Category {
 		/**
-		 * Graphics are positioned and sized to match the size of the region.
+		 * Graphics are positioned and sized to match the size of the node.
 		 */
 		GRAPHIC,
 
@@ -152,12 +163,204 @@ public class ContainerShape extends Parent {
 		END
 	}
 
+	/**
+	 * Entry for the docked node cache. Contains information about the position and size of a docked node.
+	 */
+	private static class DockedNodeCacheEntry {
+		/**
+		 * Comparator for sorting cache entries by the X value of their preferred position.
+		 * Nodes without preferred positions are greater than those with preferred positions.
+		 * Such nodes are sorted to be after nodes with preferred positions.
+		 */
+		private final static Comparator<DockedNodeCacheEntry> PREF_POSITION_X_COMPARATOR = (n1, n2) -> {
+			final Point2D p1 = n1.prefPosition;
+			final Point2D p2 = n2.prefPosition;
+			if (p1 == null) {
+				return p2 == null ? 0 : 1;
+			} else if (p2 == null) {
+				return -1;
+			}
+
+			return Double.compare(p1.getX(), p2.getX());
+		};
+
+		/**
+		 * Comparator for sorting cache entries by the Y value of their preferred position.
+		 * Nodes without preferred positions are greater than those with preferred positions.
+		 * Such nodes are sorted to be after nodes with preferred positions.
+		 */
+		private final static Comparator<DockedNodeCacheEntry> PREF_POSITION_Y_COMPARATOR = (n1, n2) -> {
+			final Point2D p1 = n1.prefPosition;
+			final Point2D p2 = n2.prefPosition;
+			if (p1 == null) {
+				return p2 == null ? 0 : 1;
+			} else if (p2 == null) {
+				return -1;
+			}
+
+			return Double.compare(p1.getY(), p2.getY());
+		};
+
+		/*
+		 * Creates a new instance. Populates the node, width, height and prefPosition fields.
+		 */
+		DockedNodeCacheEntry(final Node node) {
+			this.node = node;
+			this.width = node.prefWidth(-1);
+			this.height = node.prefHeight(-1);
+			this.prefPosition = getPrefPosition(node);
+		}
+
+		Node node;
+		double width;
+		double height;
+
+		/**
+		 * The preferred position of the docked node.
+		 */
+		Point2D prefPosition;
+
+		/**
+		 * X value of the computed layout position relative to the border of the {@link ContainerShape} on which
+		 * the node is docked.
+		 */
+		double x;
+
+		/**
+		 * Y value of the computed layout position relative to the border of the {@link ContainerShape} on which the node is docked.
+		 */
+		double y;
+	}
+
+
+	/**
+	 * Holds docked nodes and a sorted cache containing the layout. One instance will be created for each category of
+	 * docked node.
+	 */
+	private class DockedNodes {
+		private final ObservableList<Node> dockedNodes = FXCollections.observableArrayList();
+
+		/**
+		 * Whether the nodes for this category should be positioned out vertically. Otherwise, they are positioned horizontally.
+		 */
+		private final boolean vertical;
+
+		/**
+		 * Whether the end(left or bottom) of the node should be aligned to the alignment position.
+		 * Vertically positioned children are aligned horizontally and vice-versa.
+		 */
+		private final boolean alignEnd;
+
+		/**
+		 * List of cache entries that contains how the layout information for each docked node for this category.
+		 */
+		private final ArrayList<DockedNodeCacheEntry> cache = new ArrayList<>();
+
+		/**
+		 * Width of the bounds of the nodes in this category. Cleared when the cache is cleared.
+		 */
+		private double width = 0.0;
+
+		/**
+		 * Height of the bounds of the nodes in this category. Cleared when the cache is cleared.
+		 */
+		private double height = 0.0;
+
+		/**
+		 * Creates a new instance
+		 * @param category the category that determines the configuration of this instance.
+		 * A {@link CategoryListChangeListener} is registered for the node list;
+		 */
+		public DockedNodes(final Category category) {
+			dockedNodes.addListener(new CategoryListChangeListener(category));
+			this.vertical = category == Category.LEFT || category == Category.RIGHT;
+			this.alignEnd = category == Category.RIGHT || category == Category.BOTTOM;
+		}
+
+		/**
+		 * Computes and stores cached values. Specifically creates the cache entries containing the layout
+		 * information for the docked nodes in this category and the total width and height.
+		 */
+		private void computeCachedValues() {
+			clearCache();
+			if (dockedNodes.isEmpty()) {
+				return;
+			}
+
+			// Populate cache which objects
+			for (final Node n : dockedNodes) {
+				cache.add(new DockedNodeCacheEntry(n));
+			}
+
+			// Sort the nodes in the cache
+			final Comparator<DockedNodeCacheEntry> sortComparator = vertical
+					? DockedNodeCacheEntry.PREF_POSITION_Y_COMPARATOR
+					: DockedNodeCacheEntry.PREF_POSITION_X_COMPARATOR;
+			cache.sort(sortComparator);
+
+			// Calculate the position for each child and the total width and height
+			if (vertical) {
+				double y = 0;
+				for (final DockedNodeCacheEntry child : cache) {
+					if (child.node.isManaged()) {
+						if (child.prefPosition != null) {
+							y = Math.max(child.prefPosition.getY(), y);
+						}
+						child.x = -(alignEnd ? child.width : 0);
+						child.y = y;
+						y += child.height + DOCKED_SHAPE_SPACING;
+
+						width = Math.max(width, child.width);
+					}
+
+					height = y - DOCKED_SHAPE_SPACING;
+				}
+			} else {
+				double x = 0;
+				for (final DockedNodeCacheEntry child : cache) {
+					if (child.node.isManaged()) {
+						if (child.prefPosition != null) {
+							x = Math.max(child.prefPosition.getX(), x);
+						}
+						child.x = x;
+						child.y = -(alignEnd ? child.height : 0);
+						x += child.width + DOCKED_SHAPE_SPACING;
+
+						height = Math.max(height, child.height);
+					}
+					width = x - DOCKED_SHAPE_SPACING;
+				}
+			}
+		}
+
+		public void clearCache() {
+			cache.clear();
+			width = 0;
+			height = 0;
+		}
+
+		/**
+		 * Resizes and relocates the nodes stored in this instance based on cached values and the specified offset.
+		 * @param xOffset the x-offset to add to the cached node position
+		 * @param yOffset the y-offset to add to the cached node position
+		 */
+		public void applyCachedLayout(final double xOffset, final double yOffset) {
+			for (final DockedNodeCacheEntry c : cache) {
+				c.node.resizeRelocate(c.x + xOffset, c.y + yOffset, c.width, c.height);
+			}
+		}
+	}
+
+	/**
+	 * Whether cached values are valid.
+	 */
+	private boolean cachesAreValid = false;
 	private final ObservableList<Node> graphics = FXCollections.observableArrayList();
 	private final ObservableList<Node> labels = FXCollections.observableArrayList();
-	private final ObservableList<Node> leftChildren = FXCollections.observableArrayList();
-	private final ObservableList<Node> rightChildren = FXCollections.observableArrayList();
-	private final ObservableList<Node> topChildren = FXCollections.observableArrayList();
-	private final ObservableList<Node> bottomChildren = FXCollections.observableArrayList();
+	private final DockedNodes leftChildren = new DockedNodes(Category.LEFT);
+	private final DockedNodes rightChildren = new DockedNodes(Category.RIGHT);
+	private final DockedNodes topChildren = new DockedNodes(Category.TOP);
+	private final DockedNodes bottomChildren = new DockedNodes(Category.BOTTOM);
 	private final ObservableList<Node> freeChildren = FXCollections.observableArrayList();
 	private LabelPosition horizontalLabelPosition = LabelPosition.CENTER;
 	private LabelPosition verticalLabelPosition = LabelPosition.BEGINNING;
@@ -193,10 +396,6 @@ public class ContainerShape extends Parent {
 		// Graphics have special handling to ensure that they are before other children.
 		graphics.addListener(new GraphicListChangeListener());
 		labels.addListener(new CategoryListChangeListener(Category.LABEL));
-		leftChildren.addListener(new CategoryListChangeListener(Category.LEFT));
-		rightChildren.addListener(new CategoryListChangeListener(Category.RIGHT));
-		topChildren.addListener(new CategoryListChangeListener(Category.TOP));
-		bottomChildren.addListener(new CategoryListChangeListener(Category.BOTTOM));
 		freeChildren.addListener(new CategoryListChangeListener(Category.FREE));
 	}
 
@@ -209,19 +408,20 @@ public class ContainerShape extends Parent {
 	}
 
 	public ObservableList<Node> getLeftChildren() {
-		return leftChildren;
+		return leftChildren.dockedNodes;
 	}
 
 	public ObservableList<Node> getRightChildren() {
-		return rightChildren;
+		return rightChildren.dockedNodes;
+
 	}
 
 	public ObservableList<Node> getTopChildren() {
-		return topChildren;
+		return topChildren.dockedNodes;
 	}
 
 	public ObservableList<Node> getBottomChildren() {
-		return bottomChildren;
+		return bottomChildren.dockedNodes;
 	}
 
 	public ObservableList<Node> getFreeChildren() {
@@ -247,13 +447,32 @@ public class ContainerShape extends Parent {
 	}
 
 	@Override
+	public void requestLayout() {
+		if (cachesAreValid) {
+			leftChildren.clearCache();
+			rightChildren.clearCache();
+			topChildren.clearCache();
+			bottomChildren.clearCache();
+			cachesAreValid = false;
+		}
+
+		super.requestLayout();
+	}
+
+	@Override
 	protected void layoutChildren() {
+		// Ensure any cached values are valid
+		ensureValidLayoutCache();
+
 		// Size and position graphics
 		for (final Node graphic : graphics) {
 			if (graphic.isManaged()) {
 				graphic.resizeRelocate(0, 0, width, height);
 			}
 		}
+
+		final double verticalLabelPadding = computeVerticalLabelPadding();
+		final double horizontalLabelPadding = computeHorizontalLabelPadding();
 
 		//
 		// Size and position labels
@@ -272,6 +491,9 @@ public class ContainerShape extends Parent {
 		}
 
 		// Position and size labels
+		// Ensure that labels are always allocated their minimum height. Eagerly allocate additional space based on preferred
+		// height.
+		double remainingLabelHeightBeyondMinimum = height - computeMinLabelHeight();
 		for (final Node child : labels) {
 			if (child.isManaged()) {
 				double childX = 0;
@@ -288,12 +510,22 @@ public class ContainerShape extends Parent {
 					break;
 				}
 
-				final double remainingHeight = Math.max(0, height - labelY);
-				final double childHeight = Math.min(remainingHeight, child.prefHeight(childWidth));
+				// final double remainingHeight = Math.max(0, height - labelY);
+				final double childMinHeight = child.minHeight(childWidth);
+				final double childPrefHeight = child.prefHeight(childWidth);
+				final double childHeight = Math.min(childPrefHeight,
+						remainingLabelHeightBeyondMinimum + childMinHeight);
 				child.resizeRelocate(childX, labelY, childWidth, childHeight);
 				labelY += childHeight;
+				remainingLabelHeightBeyondMinimum -= (childHeight - childMinHeight);
 			}
 		}
+
+		// Apply the cached layout
+		leftChildren.applyCachedLayout(0, 0);
+		rightChildren.applyCachedLayout(width, 0);
+		topChildren.applyCachedLayout(0, 0);
+		bottomChildren.applyCachedLayout(0, height);
 
 		// Position and size free children
 		for (final Node child : freeChildren) {
@@ -304,6 +536,19 @@ public class ContainerShape extends Parent {
 		}
 	};
 
+	/**
+	 * Ensures that any values cached by this class are valid. Specifically, it ensures layout information for docked
+	 * nodes have been calculated.
+	 */
+	private void ensureValidLayoutCache() {
+		if (!cachesAreValid) {
+			leftChildren.computeCachedValues();
+			rightChildren.computeCachedValues();
+			topChildren.computeCachedValues();
+			bottomChildren.computeCachedValues();
+			cachesAreValid = true;
+		}
+	}
 
 	/**
 	 * Returns the preferred position for the child. If the child does not have a preferred position, a default
@@ -405,9 +650,27 @@ public class ContainerShape extends Parent {
 		}
 	}
 
+	/**
+	 * Computes the horizontal padding for the label area.
+	 * @return the horizontal padding for each side of the label area.
+	 */
+	private double computeHorizontalLabelPadding() {
+		return Math.max(MIN_HORIZONTAL_LABEL_PADDING, Math.max(leftChildren.width, rightChildren.width));
+	}
+
+	/**
+	 * Computes the vertical padding for the label area.
+	 * @return the vertical padding for each side of the label area.
+	 */
+	private double computeVerticalLabelPadding() {
+		return Math.max(MIN_VERTICAL_LABEL_PADDING, Math.max(topChildren.height, bottomChildren.height));
+	}
+
 	@Override
 	protected double computeMinWidth(final double height) {
-		double result = 0;
+		ensureValidLayoutCache();
+		double result = Math.max(leftChildren.width + rightChildren.width,
+				Math.max(topChildren.width, bottomChildren.width));
 
 		// Take into consideration minimum width of graphics
 		for (final Node graphic : graphics) {
@@ -417,6 +680,7 @@ public class ContainerShape extends Parent {
 		}
 
 		// Take into consideration the minimum width of labels
+		final double horizontalLabelPadding = computeHorizontalLabelPadding();
 		for (final Node label : labels) {
 			if (label.isManaged()) {
 				result = Math.max(result, label.minWidth(-1) - (2 * horizontalLabelPadding));
@@ -431,7 +695,10 @@ public class ContainerShape extends Parent {
 
 	@Override
 	protected double computeMinHeight(final double width) {
-		double result = 0;
+		ensureValidLayoutCache();
+		double result = Math.max(topChildren.height + bottomChildren.height,
+				Math.max(leftChildren.height, rightChildren.height));
+
 		// Take into consideration min height of graphics
 		for (final Node graphic : graphics) {
 			if (graphic.isManaged()) {
@@ -439,9 +706,20 @@ public class ContainerShape extends Parent {
 			}
 		}
 
-		// Take into account the minimum space needed to have the minimum space for all labels. Please note that
-		// the current layout algorithm will assign the first label the most space and then additional labels may
-		// not have sufficient space available.
+		// Take into account the minimum space needed to have the minimum space for all labels.
+		result = Math.max(result, computeMinLabelHeight());
+
+		// Include minimum height for free children
+		result = Math.max(result, computeMinHeightForFreeChildren());
+
+		return result;
+	}
+
+	/**
+	 * Computes the minimum vertical space needed for labels. This value includes vertical padding.
+	 * @return the minimum height needed for labels. Includes vertical padding.
+	 */
+	private final double computeMinLabelHeight() {
 		double minLabelHeight = 0;
 		for (final Node label : labels) {
 			if (label.isManaged()) {
@@ -450,15 +728,10 @@ public class ContainerShape extends Parent {
 		}
 
 		if (minLabelHeight > 0) {
-			minLabelHeight += 2.0 * verticalLabelPadding;
+			minLabelHeight += 2.0 * computeVerticalLabelPadding();
 		}
 
-		result = Math.max(result, minLabelHeight);
-
-		// Include minimum height for free children
-		result = Math.max(result, computeMinHeightForFreeChildren());
-
-		return result;
+		return minLabelHeight;
 	}
 
 	/**
@@ -513,6 +786,9 @@ public class ContainerShape extends Parent {
 	 * @return the sum of the preferred height of all labels and padding.
 	 */
 	private double prefLabelHeight(double width) {
+		ensureValidLayoutCache();
+		final double verticalLabelPadding = computeVerticalLabelPadding();
+		final double horizontalLabelPadding = computeHorizontalLabelPadding();
 		final double labelWidth = width > 0 ? -1 : Math.max(width - 2 * horizontalLabelPadding, 0);
 		double totalLabelHeight = 0;
 		for (final Node label : labels) {
@@ -540,13 +816,13 @@ public class ContainerShape extends Parent {
 		case LABEL:
 			return labels;
 		case LEFT:
-			return leftChildren;
+			return leftChildren.dockedNodes;
 		case RIGHT:
-			return rightChildren;
+			return rightChildren.dockedNodes;
 		case TOP:
-			return topChildren;
+			return topChildren.dockedNodes;
 		case BOTTOM:
-			return bottomChildren;
+			return bottomChildren.dockedNodes;
 		case FREE:
 			return freeChildren;
 		default:

@@ -25,6 +25,7 @@ package org.osate.ge.fx;
 
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.StrokeType;
 
 public class DataPortNode extends Region implements Styleable {
 	private final javafx.scene.shape.Polygon poly = new javafx.scene.shape.Polygon();
@@ -32,6 +33,7 @@ public class DataPortNode extends Region implements Styleable {
 	public DataPortNode() {
 		this.getChildren().addAll(poly);
 
+		poly.setStrokeType(StrokeType.INSIDE);
 		setLineWidth(2);
 		setBackgroundColor(Color.BLACK);
 		setOutlineColor(Color.BLACK);
