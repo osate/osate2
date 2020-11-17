@@ -584,27 +584,65 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 								final ConnectionInfo clone = connInfo.cloneInfo();
 								boolean opposite = false;
 
+								/*
+								 * XXX: LAST COMMENT OF THE NIGHT: I think all of this opposite stuff here works. I need
+								 * to better enumerate all the cases (what the src/dest ctx would be). I think the real
+								 * problem for 2318 is with the NAME-BASED look up.
+								 */
+
 								if (nextConn.isAllBidirectional()) {
-									ConnectionEnd nextDst = nextConn.getAllDestination();
+									/*
+									 * The next connection is bidirectional, but we need to figure out if we are
+									 * traveling from its src to dest or from its dest to src.
+									 *
+									 * Put another way, we traverse the next connection in the opposite direction
+									 * only if the destination feature instance of the next connection is equal to
+									 * the destination feature instance of the current connection (based on "toFeature" which
+									 * already takes it's own opposite direction into account via "goOpposite" at
+									 * the start of the method).
+									 */
+									final ConnectionEnd nextConnDest = nextConn.getAllDestination();
 
-									if (nextDst instanceof Feature) {
-										Feature nextDstFeature = (Feature) nextDst;
-										FeatureInstance nextDstFi = nextCi.findFeatureInstance(nextDstFeature);
+									if (nextConnDest instanceof Feature) {
+										final Feature nextConnDstFeature = (Feature) nextConnDest;
+										FeatureInstance nextConnDstFi = nextCi.findFeatureInstance(nextConnDstFeature);
 
-										if (nextDstFi == null) {
-											// next goes across
-											Context nextDstCtx = nextConn.getAllDestinationContext();
+										/*
+										 * If we find the connection destination in the containing component instance, then
+										 * the connection is a normal (not reversed) traversal of the connection. The
+										 * value of `opposite` will stay `false`.
+										 */
+										if (nextConnDstFi == null) {
+											/*
+											 * Didn't find the next destination in the containing component, so the question
+											 * still is, is the destination in a sibling subcomponent or is it a reversed
+											 * traversal from the containing component, or even a reversed traversal from
+											 * a sibling subcomponent?
+											 */
+											// next goes across, maybe?
+											Context nextConnDstCtx = nextConn.getAllDestinationContext();
 
-											if (nextDstCtx instanceof Subcomponent) {
-												ComponentInstance nextDstSubi = nextCi
-														.findSubcomponentInstance((Subcomponent) nextDstCtx);
-												nextDstFi = nextDstSubi.findFeatureInstance(nextDstFeature);
+											if (nextConnDstCtx instanceof Subcomponent) {
+												final ComponentInstance nextConnDstSubi = nextCi
+														.findSubcomponentInstance((Subcomponent) nextConnDstCtx);
+												nextConnDstFi = nextConnDstSubi.findFeatureInstance(nextConnDstFeature);
+											}
+
+											if (nextConnDstFi != null) {
+												/*
+												 * Opposite is true if the dest of the next connection the same feature instance as the
+												 * dest of the current connection.
+												 */
+												opposite = ci.findFeatureInstance(toFeature) == nextConnDstFi;
 											}
 										}
-										if (nextDstFi != null) {
-											opposite = ci.findFeatureInstance(toFeature) == nextDstFi;
-										}
 									}
+								} else {
+									/*
+									 * not bidirectional, so the src of nextConn is a feature of 'ci', and the dest
+									 * is a feature of either 'nextCi` or a sibling subcomponent. We are following
+									 * the connection in its natural direction, so `opposite` is `false`.
+									 */
 								}
 								appendSegment(clone, nextConn, nextCi, opposite);
 							}
