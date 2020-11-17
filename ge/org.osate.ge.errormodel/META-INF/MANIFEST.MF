@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OSATE Graphical Editor EMV2
 Bundle-SymbolicName: org.osate.ge.errormodel;singleton:=true
-Bundle-Version: 1.0.1.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.17.100,4.0.0)",
  org.osate.aadl2;bundle-version="[4.0.0,5.0.0)",

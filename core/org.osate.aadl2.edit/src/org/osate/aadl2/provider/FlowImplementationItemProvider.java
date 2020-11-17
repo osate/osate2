@@ -176,13 +176,26 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((FlowImplementation) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_FlowImplementation_type")
-				: getString("_UI_FlowImplementation_type") + " " + label;
+		String label = ((FlowImplementation) object).getSpecification().getName();
+
+		if (label == null || label.length() == 0) {
+			return getString("_UI_Flow_type");
+		} else if (!(((FlowImplementation) object).getSpecification().getAllInEnd() == null
+				&& ((FlowImplementation) object).getSpecification().getAllOutEnd() == null)) {
+			if (((FlowImplementation) object).getSpecification().getAllInEnd() == null) {
+				return getString("_UI_Flow_type") + " Source " + label;
+			} else if (((FlowImplementation) object).getSpecification().getAllOutEnd() == null) {
+				return getString("_UI_Flow_type") + " Sink " + label;
+			} else {
+				return getString("_UI_Flow_type") + " Path " + label;
+			}
+		}
+
+		return getString("_UI_Flow_type");
 	}
 
 	/**
