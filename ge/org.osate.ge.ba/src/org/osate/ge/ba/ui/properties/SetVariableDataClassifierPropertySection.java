@@ -79,7 +79,7 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 	private Button chooseBtn;
 
 	@Override
-	public void createControls(Composite parent, TabbedPropertySheetPage aTabbedPropertySheetPage) {
+	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
 		FormData fd;
 
@@ -122,6 +122,7 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 				return;
 			}
 
+			// Set data classifier
 			final Operation op = Operation.createWithBuilder(builder -> {
 				builder.supply(() -> {
 					final Optional<VariableOperation> variableOperation = getVariableBuildOperation(section, behaviorAnnex);
@@ -131,6 +132,7 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 					final OperationBuilder<VariableOperation> opBuilder = innerBuilder.modifyModel(
 							variableOp.getPublicSection(), (tag, prevResult) -> tag,
 							(tag, sectionToModify, prevResult) -> {
+								// Import package if needed
 								BehaviorAnnexUtil.addImportIfNeeded(sectionToModify,
 										variableOp.getDataClassifierPackage());
 								return StepResult.forValue(variableOp);

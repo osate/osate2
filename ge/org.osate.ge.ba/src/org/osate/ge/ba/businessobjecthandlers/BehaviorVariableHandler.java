@@ -80,7 +80,7 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 	@Override
 	public void delete(final CustomDeleteContext ctx) {
 		final BehaviorVariable behaviorVariableToModify = ctx.getContainerBusinessObject(BehaviorVariable.class).get();
-		final BehaviorAnnex behaviorAnnexToModify = (BehaviorAnnex) behaviorVariableToModify.eContainer();
+		final BehaviorAnnex behaviorAnnexToModify = (BehaviorAnnex) behaviorVariableToModify.getOwner();
 		EcoreUtil.remove(behaviorVariableToModify);
 		if (behaviorAnnexToModify.getVariables().isEmpty()) {
 			behaviorAnnexToModify.unsetVariables();

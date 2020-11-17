@@ -29,7 +29,6 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -114,15 +113,10 @@ public class BehaviorAnnexNamingUtil {
 	/**
 	 * Returns whether an behavior annex element is conflicting with features, modes, or data subcomponents.
 	 */
-	private static boolean nameIsConflictingInClassifiers(final Classifier classifier, final boolean allowModeName,
+	private static boolean nameIsConflictingInClassifiers(final Classifier classifier,
 			final String newName) {
 		final Stream.Builder<String> builder = Stream.builder();
 		classifier.getAllFeatures().forEach(feature -> builder.add(feature.getName()));
-
-		// Check against mode names if it cannot conflict with modes
-		if (!allowModeName && classifier instanceof ComponentClassifier) {
-			((ComponentClassifier) classifier).getAllModes().forEach(mode -> builder.add(mode.getName()));
-		}
 
 		if (classifier instanceof ComponentImplementation) {
 			((ComponentImplementation) classifier).getAllSubcomponents().stream()
@@ -166,39 +160,18 @@ public class BehaviorAnnexNamingUtil {
 			return Optional.of("The specified name conflicts with an existing member of the behavior annex.");
 		}
 
-		// If state is complete, and is source of transition and name matches mode. Transition has a logical condition like a=0, so only can rename to another
-		// mode.
-		// could check if transition has logical condition?
-		// If name matches a mode, and is source, that transition has a logical condition like a=0, so they can only rename to another mode (assumed to already
-		// be complete because they are already source states
-
 		if (ne instanceof BehaviorState) {
 			final BehaviorState behaviorState = (BehaviorState) ne;
-			// Can rename to anything unless it is a source state
-			if (behaviorState.isComplete()
-					&& BehaviorAnnexUtil.getTransitionsForSourceState(behaviorState).count() > 0) {
-				final Set<String> modeNames = getModeNames(behaviorState.getContainingClassifier())
-						.collect(Collectors.toSet());
-				final boolean newNameMatchesMode = BehaviorAnnexNamingUtil.nameIsMode(modeNames, newName);
-
-				if (BehaviorAnnexNamingUtil.nameIsMode(modeNames, behaviorState.getName())) {
-					// New name has to be a mode
-					if (!BehaviorAnnexNamingUtil.nameIsMode(modeNames, newName)) {
-						return Optional.of("State must be a mode");
-					}
-				} else {
-					// New name cannot be a mode
-					if (BehaviorAnnexNamingUtil.nameIsMode(modeNames, newName)) {
-						return Optional.of("State cannot be a mode");
-					}
-				}
+			final Optional<String> modeNameMatch = getModeNames(behaviorState.getContainingClassifier())
+					.filter(modeName -> newName.equalsIgnoreCase(modeName)).findAny();
+			// States can match mode names
+			if (modeNameMatch.isPresent()) {
+				return Optional.empty();
 			}
 		}
 
 		// Check for conflicts of modes, features, and data subcomponents, including inherited elements.
-		// Behavior states can be renamed to mode names if they are complete.
 		if (BehaviorAnnexNamingUtil.nameIsConflictingInClassifiers(ne.getContainingClassifier(),
-				ne instanceof BehaviorState && ((BehaviorState) ne).isComplete(),
 				newName)) {
 			return Optional.of("The specified name conflicts with an existing element.");
 		}
@@ -206,34 +179,8 @@ public class BehaviorAnnexNamingUtil {
 		return Optional.empty();
 	}
 
-	private static boolean getAllowModeName(final NamedElement ne, final String newName) {
-		// If state is complete, and is source of transition and name matches mode. Transition has a logical condition like a=0, so only can rename to another
-		// mode.
-		// could check if transition has logical condition?
-		// If name matches a mode, and is source, that transition has a logical condition like a=0, so they can only rename to another mode (assumed to already
-		// be complete because they are already source states
-
-		if (ne instanceof BehaviorState) {
-			final BehaviorState behaviorState = (BehaviorState) ne;
-			if (behaviorState.isComplete()) {
-				// cc.getAllModes()
-				if (BehaviorAnnexUtil.getTransitionsForSourceState(behaviorState).count() > 0) {
-					if (behaviorState.getContainingClassifier() instanceof ComponentClassifier) {
-						final ComponentClassifier cc = (ComponentClassifier) behaviorState.getContainingClassifier();
-
-					}
-				}
-			}
-		}
-		return ne instanceof BehaviorState && ((BehaviorState) ne).isComplete();
-	}
-
 	public static boolean nameIsMode(final Set<String> modeNames, final String name) {
 		return modeNames.stream().anyMatch(modeName -> name.equalsIgnoreCase(modeName));
-	}
-
-	public static boolean stateIsMode(final Classifier classifier, final String stateName) {
-		return getModeNames(classifier).anyMatch(modeName -> stateName.equalsIgnoreCase(modeName));
 	}
 
 	public static Stream<String> getModeNames(final Classifier classifier) {

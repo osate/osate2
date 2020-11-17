@@ -25,17 +25,12 @@ package org.osate.ge.ba.ui.palette;
 
 import java.util.Optional;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.Classifier;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
-import org.osate.ba.aadlba.DispatchCondition;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
-import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -58,13 +53,7 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 
 	@Override
 	public boolean canStartConnection(final CanStartConnectionContext ctx) {
-		// Cannot start a connection in a state that is final, or is complete and does not allow dispatch conditions
-		return ctx.getSource().getBusinessObject(BehaviorState.class).map(behaviorState -> {
-			final Classifier classifier = behaviorState.getContainingClassifier();
-			return !behaviorState.isFinal()
-					|| (behaviorState.isComplete() && BehaviorAnnexUtil.allowsOnDispatchConditions(classifier));
-		})
-				.orElse(false);
+		return ctx.getSource().getBusinessObject(BehaviorState.class).isPresent();
 	}
 
 	@Override
@@ -94,28 +83,20 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 					final BehaviorTransition baTransition = (BehaviorTransition) EcoreUtil
 							.create(AadlBaPackage.eINSTANCE.getBehaviorTransition());
 
-					final EList<BehaviorState> behaviorStates = boToModify.getStates();
-
 					final String srcName = srcState.getName();
 					final String dstName = dstState.getName();
-
-					// Set source and destination for transition
-					for (final BehaviorState behaviorState : behaviorStates) {
-						Optional.ofNullable(behaviorState.getName()).ifPresent(name -> {
-							if (name.equalsIgnoreCase(srcName)) { // Source
-								baTransition.setSourceState(behaviorState);
-							} else if (name.equalsIgnoreCase(dstName)) { // Destination
-								baTransition.setDestinationState(behaviorState);
-							}
-						});
+					if (srcName == null || dstName == null) {
+						return StepResultBuilder.create().abort().build();
 					}
 
-					// Source states that are complete and are not modes require dispatch conditions
-					if (srcState.isComplete() && !BehaviorAnnexNamingUtil
-							.stateIsMode(boToModify.getContainingClassifier(), srcName)) {
-						final DispatchCondition dispatchCondition = (DispatchCondition) EcoreUtil
-								.create(AadlBaPackage.eINSTANCE.getDispatchCondition());
-						baTransition.setCondition(dispatchCondition);
+					// Set source and destination for transition
+					for (final BehaviorState behaviorState : boToModify.getStates()) {
+						final String name = behaviorState.getName();
+						if (srcName.equalsIgnoreCase(name)) { // Source
+							baTransition.setSourceState(behaviorState);
+						} else if (dstName.equalsIgnoreCase(name)) { // Destination
+							baTransition.setDestinationState(behaviorState);
+						}
 					}
 
 					// Add new transition
