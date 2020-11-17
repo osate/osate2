@@ -23,22 +23,28 @@
  */
 package org.osate.xtext.aadl2.ui.outline;
 
+import javax.lang.model.type.ErrorType;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.BackgroundOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.eclipse.xtext.ui.editor.outline.impl.IOutlineTreeStructureProvider;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AbstractImplementation;
+import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DataType;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSpecification;
@@ -57,6 +63,7 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.impl.EndToEndFlowImpl;
+import org.osate.aadl2.impl.RealizationImpl;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.annexsupport.ParseResultHolder;
@@ -143,8 +150,8 @@ public class Aadl2OutlineTreeProvider extends BackgroundOutlineTreeProvider {
 				|| modelElement instanceof FlowSpecification || modelElement instanceof FlowImplementation
 				|| modelElement instanceof EndToEndFlowImpl || modelElement instanceof Property
 				|| modelElement instanceof PropertyConstant || modelElement instanceof PropertyType
-				|| modelElement instanceof DataType
-				|| modelElement instanceof Connection) {
+				|| modelElement instanceof DataType || modelElement instanceof AbstractSubcomponent
+				|| modelElement instanceof Connection || modelElement instanceof ErrorType) {
 
 			return true;
 		} else if (modelElement instanceof SystemInstance || modelElement instanceof RangeValue) {
@@ -173,22 +180,51 @@ public class Aadl2OutlineTreeProvider extends BackgroundOutlineTreeProvider {
 			return modelElement.eContainer() instanceof RecordValue;
 		} else if (modelElement instanceof IntegerLiteral) {
 			return false;
-		} else {
-			return !Iterables.any(modelElement.eClass().getEAllContainments(), containmentRef -> {
-				if (containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getRealization()
-						|| containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getTypeExtension()
-						|| containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getImplementationExtension()
-						|| containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getContainmentPathElement()
-						|| containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getPropertyAssociation()
-				) {
-					return true;
-				} else {
-					// check modelElement to skip certain elements
-					// component impl or feature group type skip reference
-					// skip classifiers
-					return modelElement.eIsSet(containmentRef);
-				}
+		}
+		else {
+			Boolean result = !Iterables.any(modelElement.eClass().getEAllContainments(), containmentRef -> {
+				return modelElement.eIsSet(containmentRef);
 			});
+
+			if (!result) {
+
+				if (modelElement instanceof DefaultAnnexSubclause) {
+					EList<Element> contents = ((DefaultAnnexSubclause) modelElement).getChildren();
+					if (contents == null || contents.isEmpty() || contents.size() < 1) {
+						result = true;
+					} else {
+						result = !(Iterables.any(contents, element -> {
+							return !(element instanceof RealizationImpl || element instanceof Realization
+									|| element instanceof BasicPropertyAssociation
+									|| element instanceof PropertyAssociation);
+						}));
+					}
+				} else if (modelElement instanceof BehavioredImplementation) {
+					EList<Element> contents = ((BehavioredImplementation) modelElement).getChildren();
+					if (contents == null || contents.isEmpty() || contents.size() < 1) {
+						result = true;
+					} else {
+						result = !(Iterables.any(contents, element -> {
+							return !(element instanceof RealizationImpl || element instanceof Realization);
+						}));
+					}
+				} else if (modelElement instanceof AbstractImplementation) {
+					EList<Element> contents = ((AbstractImplementation) modelElement).getChildren();
+					if (contents == null || contents.isEmpty() || contents.size() < 1) {
+						result = true;
+					} else {
+						result = !(Iterables.any(contents, element -> {
+							return !(element instanceof RealizationImpl || element instanceof Realization);
+						}));
+					}
+				} else {
+						result = !(Iterables.any(modelElement.eClass().getEAllContainments(), element -> {
+							return !(element instanceof RealizationImpl || element instanceof Realization);
+						}));
+					}
+			}
+
+			return result;
 		}
 	}
 }
