@@ -23,9 +23,12 @@
  */
 package org.osate.ge.ba.ui.properties;
 
+import java.util.Iterator;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
+import org.antlr.v4.runtime.misc.Pair;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
@@ -40,7 +43,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
@@ -56,27 +58,18 @@ class StatePropertySection extends AbstractPropertySection {
 
 	private final String labelText;
 	private final String modifyLabel;
-	private final Function<SelectionEvent, BiConsumer<BehaviorState, BusinessObjectContext>> consumer;
+	private final Function<Boolean, BiConsumer<BehaviorState, BusinessObjectContext>> setStateProperty;
+	private final Function<BehaviorState, Boolean> getPropertyValue;
 	private BusinessObjectSelection selectedBos;
 	private Button statePropertyBtn;
 
 	public StatePropertySection(final String labelText, final String modifyLabel,
-			final Function<SelectionEvent, BiConsumer<BehaviorState, BusinessObjectContext>> consumer) {
+			final Function<Boolean, BiConsumer<BehaviorState, BusinessObjectContext>> setStateProperty,
+			final Function<BehaviorState, Boolean> getPropertyValue) {
 		this.labelText = labelText;
 		this.modifyLabel = modifyLabel;
-		this.consumer = consumer;
-	}
-
-	public void setSelectedBos(BusinessObjectSelection selectedBos) {
-		this.selectedBos = selectedBos;
-	}
-
-	public BusinessObjectSelection getSelectedBos() {
-		return selectedBos;
-	}
-
-	public Button getStateButton() {
-		return statePropertyBtn;
+		this.setStateProperty = setStateProperty;
+		this.getPropertyValue = getPropertyValue;
 	}
 
 	@Override
@@ -94,9 +87,10 @@ class StatePropertySection extends AbstractPropertySection {
 				new SelectionAdapter() {
 					@Override
 					public void widgetSelected(final SelectionEvent e) {
-						selectedBos.modify(modifyLabel, boc -> boc.getBusinessObject(BehaviorState.class)
-								.map(behaviorState -> behaviorState.eContainer() instanceof BehaviorAnnex).isPresent(),
-								boc -> boc.getBusinessObject(BehaviorState.class).get(), consumer.apply(e));
+						selectedBos.modify(modifyLabel,
+								boc -> boc.getBusinessObject(BehaviorState.class).isPresent(),
+								boc -> boc.getBusinessObject(BehaviorState.class).get(),
+								setStateProperty.apply(statePropertyBtn.getSelection()));
 					}
 				}, "", SWT.CHECK);
 
@@ -104,5 +98,29 @@ class StatePropertySection extends AbstractPropertySection {
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		fd.top = new FormAttachment(sectionLabel, 0, SWT.CENTER);
 		statePropertyBtn.setLayoutData(fd);
+	}
+
+	@Override
+	public void refresh() {
+		final Stream<BehaviorState> behaviorStates = selectedBos.boStream(BehaviorState.class);
+		final Pair<Boolean, Boolean> btnSelectionAndGray = getButtonSelectionAndGrayedState(
+				behaviorStates.iterator());
+
+		// Set button grayed and selection state
+		statePropertyBtn.setSelection(btnSelectionAndGray.a);
+		statePropertyBtn.setGrayed(btnSelectionAndGray.b);
+	}
+
+	private Pair<Boolean, Boolean> getButtonSelectionAndGrayedState(final Iterator<BehaviorState> it) {
+		final boolean isPropertyValue = getPropertyValue.apply(it.next());
+		while (it.hasNext()) {
+			if (getPropertyValue.apply(it.next()) != isPropertyValue) {
+				// Set grayed and selection to true
+				return new Pair<Boolean, Boolean>(true, true);
+			}
+		}
+
+		// Return selection state and grayed state
+		return new Pair<Boolean, Boolean>(isPropertyValue, false);
 	}
 }

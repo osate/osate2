@@ -23,21 +23,20 @@
  */
 package org.osate.ge.ba.businessobjecthandlers;
 
-import java.util.Objects;
 import java.util.Optional;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Subprogram;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
+import org.osate.ba.declarative.DeclarativeBehaviorTransition;
+import org.osate.ba.declarative.Identifier;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
-import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
@@ -47,7 +46,6 @@ import org.osate.ge.businessobjecthandling.CustomRenamer;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
-import org.osate.ge.businessobjecthandling.PasteContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
 import org.osate.ge.graphics.EllipseBuilder;
@@ -72,34 +70,7 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 
 	@Override
 	public boolean canDelete(final CanDeleteContext ctx) {
-		return ctx.getBusinessObject(BehaviorState.class).map(bs -> {
-			// final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) bs.getOwner();
-//
-//			// Cannot delete a source or destination of transition
-//			if (behaviorAnnex.getTransitions().stream()
-//					.anyMatch(bt -> bt.getSourceState() == bs || bt.getDestinationState() == bs)) {
-//				return false;
-//			}
-//
-//			final Classifier classifier = behaviorAnnex.getContainingClassifier();
-//			if (bs.isInitial() && BehaviorAnnexUtil.requireSingleInitialState(classifier)) {
-//				return false;
-//			}
-//
-//			if (bs.isComplete() && BehaviorAnnexUtil.requiresCompleteState(classifier)) {
-//				// Can delete if there are more than 1 complete states
-//				final long completeStates = behaviorAnnex.getStates().stream().filter(BehaviorState::isComplete)
-//						.count();
-//				return completeStates > 1;
-//			}
-//
-//			// Subprogram requires single final state
-//			if (bs.isFinal() && classifier instanceof Subprogram) {
-//				return false;
-//			}
-
-			return true;
-		}).orElse(false);
+		return true;
 	}
 
 	@Override
@@ -127,7 +98,7 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 	@Override
 	public void delete(final CustomDeleteContext ctx) {
 		final BehaviorState behaviorStateToModify = ctx.getContainerBusinessObject(BehaviorState.class).get();
-		final BehaviorAnnex behaviorAnnexToModify = (BehaviorAnnex) behaviorStateToModify.eContainer();
+		final BehaviorAnnex behaviorAnnexToModify = (BehaviorAnnex) behaviorStateToModify.getOwner();
 		EcoreUtil.remove(behaviorStateToModify);
 		if (behaviorAnnexToModify.getStates().isEmpty()) {
 			behaviorAnnexToModify.unsetStates();
@@ -137,31 +108,36 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 	@Override
 	public void rename(final RenameContext ctx) {
 		final BehaviorState behaviorState = ctx.getBusinessObject(BehaviorState.class).get();
-		behaviorState.setName(ctx.getNewName());
+		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorState.getOwner();
+		final String originalName = behaviorState.getName();
+		final String newName = ctx.getNewName();
+
+		// Set the ID for source and destination states because they do not update if an invalid state name change occurs
+		behaviorAnnex.getTransitions().stream().filter(DeclarativeBehaviorTransition.class::isInstance)
+				.forEach(transition -> {
+			final DeclarativeBehaviorTransition dt = (DeclarativeBehaviorTransition) transition;
+			final EList<Identifier> srcStates = dt.getSrcStates();
+			if (!srcStates.isEmpty()) {
+				final Identifier srcState = srcStates.get(0);
+				setId(srcState, originalName, newName);
+
+				final Identifier destState = dt.getDestState();
+				setId(destState, originalName, newName);
+			}
+		});
+
+		behaviorState.setName(newName);
+	}
+
+	private static void setId(final Identifier identifier, final String originalName, final String newName) {
+		final String id = identifier.getId();
+		if (originalName.equalsIgnoreCase(id)) {
+			identifier.setId(newName);
+		}
 	}
 
 	@Override
 	public Optional<String> validateName(final RenameContext ctx) {
 		return BehaviorAnnexNamingUtil.checkNameValidity(ctx);
-	}
-
-	@Override
-	public void afterPaste(final PasteContext ctx) {
-		ctx.getBusinessObject(BehaviorState.class).ifPresent(behaviorState -> {
-			final BehaviorAnnex behaviorAnnex = Objects.requireNonNull((BehaviorAnnex) behaviorState.getOwner(),
-					"behavior annex cannot be null");
-			final Classifier containingClassifier = Objects.requireNonNull(behaviorAnnex.getContainingClassifier(),
-					"containing classifier cannot be null");
-
-			if (containingClassifier instanceof Subprogram) {
-				// Make sure there is only one final
-				behaviorState.setFinal(false);
-				// Subprograms cannot have complete states
-				behaviorState.setComplete(false);
-			} else if (BehaviorAnnexUtil.requireSingleInitialState(containingClassifier)) {
-				// Remove initial if classifier only allows single initial state
-				behaviorState.setInitial(false);
-			}
-		});
 	}
 }

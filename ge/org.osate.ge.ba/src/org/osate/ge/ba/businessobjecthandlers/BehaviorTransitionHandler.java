@@ -26,8 +26,12 @@ package org.osate.ge.ba.businessobjecthandlers;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ba.declarative.DeclarativeBehaviorTransition;
+import org.osate.ba.declarative.Identifier;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
@@ -61,9 +65,35 @@ import org.osate.ge.services.QueryService;
  */
 public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
 	private static final StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
-			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> bt.getSourceState()));
+			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> {
+				if (bt instanceof DeclarativeBehaviorTransition) {
+					final DeclarativeBehaviorTransition dt = (DeclarativeBehaviorTransition) bt;
+					if (!dt.getSrcStates().isEmpty()) {
+						final Identifier src = dt.getSrcStates().get(0);
+						final BehaviorAnnex ba = (BehaviorAnnex) bt.getOwner();
+						return getState(ba, src.getId());
+					}
+				}
+
+				return bt.getSourceState();
+			}));
+
 	private static final StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
-			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> bt.getDestinationState()));
+			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> {
+				if (bt instanceof DeclarativeBehaviorTransition) {
+					final Identifier dest = ((DeclarativeBehaviorTransition) bt).getDestState();
+					final BehaviorAnnex ba = (BehaviorAnnex) bt.getOwner();
+					return getState(ba, dest.getId());
+				}
+
+				return bt.getDestinationState();
+			}));
+
+	private static Element getState(final BehaviorAnnex ba, final String id) {
+		return ba.getChildren().stream()
+				.filter(c -> c instanceof NamedElement && id.equals(((NamedElement) c).getName())).findAny()
+				.orElse(null);
+	}
 
 	public static final Graphic transitionConnectionGraphic = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().small().filled().build()).build();
@@ -95,7 +125,7 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
 		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
-		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.eContainer();
+		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.getOwner();
 		final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
 		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE,
 				Integer.toString(index));
@@ -104,7 +134,7 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
-		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.eContainer();
+		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.getOwner();
 		final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
 		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE, Integer.toString(index));
 	}
@@ -152,7 +182,7 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	public void delete(final CustomDeleteContext ctx) {
 		final BehaviorTransition behaviorTransitionToModify = ctx.getContainerBusinessObject(BehaviorTransition.class)
 				.get();
-		final BehaviorAnnex behaviorAnnexToModify = (BehaviorAnnex) behaviorTransitionToModify.eContainer();
+		final BehaviorAnnex behaviorAnnexToModify = (BehaviorAnnex) behaviorTransitionToModify.getOwner();
 		EcoreUtil.remove(behaviorTransitionToModify);
 		if (behaviorAnnexToModify.getTransitions().isEmpty()) {
 			behaviorAnnexToModify.unsetTransitions();

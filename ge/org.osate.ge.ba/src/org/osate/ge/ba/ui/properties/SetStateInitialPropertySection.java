@@ -23,15 +23,8 @@
  */
 package org.osate.ge.ba.ui.properties;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import org.eclipse.jface.viewers.IFilter;
-import org.eclipse.swt.widgets.Button;
-import org.osate.aadl2.Classifier;
-import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
 /**
@@ -46,37 +39,9 @@ public class SetStateInitialPropertySection extends StatePropertySection {
 	}
 
 	public SetStateInitialPropertySection() {
-		super("Initial:", "Set Initial State", (e) -> {
-			final Button btn = (Button) e.widget;
-			final boolean isInitial = btn.getSelection();
-			return (behaviorState, boc) -> {
-				final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorState.eContainer();
-				final Classifier classifier = behaviorAnnex.getContainingClassifier();
-				if (isInitial && BehaviorAnnexUtil.requireSingleInitialState(classifier)) {
-					// Clear initial states
-					behaviorAnnex.getStates().forEach(state -> state.setInitial(false));
-				}
-
+		super("Initial:", "Set Initial State",
 				// Set initial state
-				behaviorState.setInitial(isInitial);
-			};
-		});
-	}
-
-	@Override
-	public void refresh() {
-		final Set<BehaviorState> behaviorStates = getSelectedBos().boStream(BehaviorState.class)
-				.collect(Collectors.toSet());
-		// Only allow editing 1 element
-		final boolean isSingleSelection = behaviorStates.size() == 1;
-		final BehaviorState selectedState = behaviorStates.iterator().next();
-		// Set button enabled and selection state
-		final boolean isInitialState = selectedState.isInitial();
-		final Button setInitialStateBtn = getStateButton();
-		// Set selection state for first selection
-		setInitialStateBtn.setSelection(isInitialState);
-
-		// Always disabled for multiple selection
-		setInitialStateBtn.setEnabled(isSingleSelection);
+				(isPropertyState) -> (behaviorState, boc) -> behaviorState.setInitial(isPropertyState),
+				behaviorState -> behaviorState.isInitial());
 	}
 }
