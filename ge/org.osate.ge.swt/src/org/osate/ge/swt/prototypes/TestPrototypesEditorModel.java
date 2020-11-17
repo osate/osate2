@@ -76,9 +76,9 @@ final class TestPrototypesEditorModel extends BaseObservableModel
 		String refineLabel = "";
 		if (prototype.refined == null) {
 			refineLabel = "U";
-		} else if (prototype.refined == Boolean.TRUE) {
+		} else if (prototype.refined.equals(Boolean.TRUE)) {
 			refineLabel = "R";
-		} else if (prototype.refined == Boolean.FALSE) {
+		} else if (prototype.refined.equals(Boolean.FALSE)) {
 			refineLabel = "N";
 		}
 

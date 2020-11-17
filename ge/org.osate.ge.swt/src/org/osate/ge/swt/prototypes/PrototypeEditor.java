@@ -296,7 +296,7 @@ public final class PrototypeEditor<C> extends Composite {
 
 			// Make the refine checkbox visible when the refinement status can be adjusted or the refinement status is not false.
 			SwtUtil.setVisibilityAndExclusion(refinedEditor, model.isEnabled()
-					&& (model.getRefineableElementLabel() != null || model.isRefined() != Boolean.FALSE));
+					&& (model.getRefineableElementLabel() != null || !model.isRefined().equals(Boolean.FALSE)));
 
 			// Update visibility of direction editor and label
 			final boolean directionVisible = type == PrototypeType.FEATURE;
