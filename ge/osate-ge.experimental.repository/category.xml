@@ -23,8 +23,4 @@ aries to this license with respect to the terms applicable to their Third Party 
 censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 -->
 <site>
-   <feature id="org.osate.ge.errormodel.feature">
-      <category name="emv2"/>
-   </feature>
-   <category-def name="emv2" label="Graphical Editor for the Error Model Annex V2"/>
 </site>
