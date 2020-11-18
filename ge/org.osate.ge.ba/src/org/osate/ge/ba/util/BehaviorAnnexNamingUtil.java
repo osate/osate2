@@ -102,7 +102,7 @@ public class BehaviorAnnexNamingUtil {
 	 * @param value
 	 * @return
 	 */
-	public static boolean isValidIdentifier(final String value) {
+	private static boolean isValidIdentifier(final String value) {
 		if (reservedWords.contains(value)) {
 			return false;
 		}
@@ -127,7 +127,7 @@ public class BehaviorAnnexNamingUtil {
 		return builder.build().anyMatch(name -> newName.equalsIgnoreCase(name));
 	}
 
-	public static NamedElement getRootRefinedElement(NamedElement ne) {
+	private static NamedElement getRootRefinedElement(NamedElement ne) {
 		if (ne instanceof RefinableElement) {
 			NamedElement refined = ne;
 			do {
@@ -179,11 +179,7 @@ public class BehaviorAnnexNamingUtil {
 		return Optional.empty();
 	}
 
-	public static boolean nameIsMode(final Set<String> modeNames, final String name) {
-		return modeNames.stream().anyMatch(modeName -> name.equalsIgnoreCase(modeName));
-	}
-
-	public static Stream<String> getModeNames(final Classifier classifier) {
+	private static Stream<String> getModeNames(final Classifier classifier) {
 		if (classifier instanceof ComponentClassifier) {
 			return ((ComponentClassifier) classifier).getAllModes().stream().map(Mode::getName);
 		}

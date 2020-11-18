@@ -1155,8 +1155,8 @@ public class AadlBaUtils {
   private static TypeHolder getTypeHolder(DataClassifier klass)
   {
     TypeHolder result = new TypeHolder() ;
-    result.klass = klass ;
-    result.dataRep = getDataRepresentation(klass) ;
+    result.setKlass(klass) ;
+    result.setDataRep(getDataRepresentation(klass)) ;
     return result ;
   }
 
@@ -1180,10 +1180,10 @@ public class AadlBaUtils {
 
     try
     {
-      result.dataRep = getDataRepresentation(v) ;
+      result.setDataRep(getDataRepresentation(v)) ;
     } catch (UnsupportedOperationException e)
     {
-      result.dataRep = DataRepresentation.UNKNOWN ;
+      result.setDataRep(DataRepresentation.UNKNOWN) ;
     }
 
     // Port count value and port fresh value are, respectively, universal
@@ -1193,7 +1193,7 @@ public class AadlBaUtils {
        (! (v instanceof PortCountValue || v instanceof PortFreshValue))
       )
     {
-      result.klass = getDataClassifier(v, parentContainer) ;
+      result.setKlass(getDataClassifier(v, parentContainer)) ;
     }
     // else: nothing.
     // getDataClassifier doesn't support property constant and property reference
@@ -1213,8 +1213,8 @@ public class AadlBaUtils {
   private static TypeHolder getTypeHolder(IterativeVariable iv)
   {
     TypeHolder result = new TypeHolder();
-    result.klass = iv.getDataClassifier() ;
-    result.dataRep = getDataRepresentation(result.klass) ;
+    result.setKlass(iv.getDataClassifier()) ;
+    result.setDataRep(getDataRepresentation(result.getKlass())) ;
 
     return result ;
   }
@@ -1356,7 +1356,7 @@ public class AadlBaUtils {
             {
               ds[i-exprDim]=adl.get(i).getSize().getSize();
             }
-            result.dimension_sizes=ds;
+            result.setDimensionSizes(ds);
           }
         }
       }
@@ -1374,7 +1374,7 @@ public class AadlBaUtils {
       {
         if(exprDim <= declaredDim)
         {
-          result.dimension = declaredDim - exprDim ;
+          result.setDimension(declaredDim - exprDim) ;
         }
         else
         {
@@ -1414,24 +1414,24 @@ public class AadlBaUtils {
                                                       throws DimensionException
   {
     // Treats only type declared as an array. Otherwise returns.
-    if(type.dataRep == DataRepresentation.ARRAY)
+    if(type.getDataRep() == DataRepresentation.ARRAY)
     {
       // Fetches the array element data type.
-      ClassifierValue cv = AadlBaUtils.getBaseType(type.klass) ;
+      ClassifierValue cv = AadlBaUtils.getBaseType(type.getKlass()) ;
 
       if(cv != null && cv.getClassifier() instanceof DataClassifier)
       {
         DataClassifier dc = (DataClassifier) cv.getClassifier() ;
-        type.klass = dc ;
-        type.dataRep = AadlBaUtils.getDataRepresentation(dc) ;
+        type.setKlass(dc) ;
+        type.setDataRep(AadlBaUtils.getDataRepresentation(dc)) ;
       }
       else
       {
-        type.klass = null ;
+        type.setKlass(null) ;
       }
 
       EList<PropertyExpression> pel =
-                                 PropertyUtils.findPropertyExpression(type.klass,
+                                 PropertyUtils.findPropertyExpression(type.getKlass(),
                                                 DataModelProperties.DIMENSION) ;
       int declareDimBT = 0 ;
       long[] declareDimSizeBT ;
@@ -1457,13 +1457,13 @@ public class AadlBaUtils {
               declareDimSizeBT[i - exprDim] = il.getValue() ;
             }
 
-            type.dimension = declareDimBT - exprDim ;
-            type.dimension_sizes = declareDimSizeBT ;
+            type.setDimension(declareDimBT - exprDim) ;
+            type.setDimensionSizes(declareDimSizeBT) ;
           }
           else
           {
             String msg = "must be an array but is resolved as " +
-                           type.klass.getQualifiedName() ;
+                           type.getKlass().getQualifiedName() ;
 
             throw new DimensionException(el, msg, false) ;
           }
@@ -1474,8 +1474,8 @@ public class AadlBaUtils {
         // Returning -1 and null means that the expression is declared as an
         // array but the dimension property is not set.
 
-        type.dimension = -1 ;
-        type.dimension_sizes = null ;
+        type.setDimension(-1) ;
+        type.setDimensionSizes(null) ;
         return ;
 //        String msg = "is declared as an array but the dimension property is not set" ;
 //        throw new DimensionException(el, msg, true) ;
@@ -2208,13 +2208,8 @@ public class AadlBaUtils {
    * DataComponentReference object which the last element is a DataAccessHolder
    * object, it returns the data access right or "unknown" if the default
    * data access right is not set.
-<<<<<<< HEAD
    * 
    * @see org.osate.utils.internal.Aadl2Utils#getAccessRight
-=======
-   *
-   * @see org.osate.utils.Aadl2Utils#getAccessRight
->>>>>>> refs/heads/master
    * @param tar the given Target object
    * @return the data access right or "unknown"
    */
@@ -2250,13 +2245,8 @@ public class AadlBaUtils {
    * element is a DataAccessHolder object, it returns the DataAccessRight enum
    * reference or {@link org.osate.utils.internal.Aadl2Utils.DataAccessRight#unknown} if the default data access
    * right is not set.
-<<<<<<< HEAD
    * 
    * @see org.osate.utils.internal.Aadl2Utils#getAccessRight
-=======
-   *
-   * @see org.osate.utils.Aadl2Utils#getAccessRight
->>>>>>> refs/heads/master
    * @param tar the given Target object
    * @return the data access right or {@link org.osate.utils.internal.Aadl2Utils.DataAccessRight#unknown}
    */

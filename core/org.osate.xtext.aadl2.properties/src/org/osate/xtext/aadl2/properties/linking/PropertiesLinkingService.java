@@ -103,7 +103,7 @@ import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
-import org.osate.aadl2.modelsupport.internal.prototypes.ResolvePrototypeUtil;
+import org.osate.aadl2.modelsupport.ResolvePrototypeUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.xtext.aadl2.properties.util.PSNode;
 

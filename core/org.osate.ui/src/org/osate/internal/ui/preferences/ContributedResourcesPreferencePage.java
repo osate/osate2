@@ -85,8 +85,8 @@ import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.osate.pluginsupport.PluginSupportPlugin;
+import org.osate.pluginsupport.PluginSupportUtil;
 import org.osate.pluginsupport.PredeclaredProperties;
-import org.osate.pluginsupport.internal.utils.PluginSupportUtil;
 import org.osate.ui.OsateUiPlugin;
 
 /**

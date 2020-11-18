@@ -132,9 +132,7 @@ public class OsateGeTestCommands {
 	}
 
 	public static void saveAndClose(final DiagramReference diagram) {
-		sleep(5);
 		saveAndCloseDiagramEditor(diagram);
-		sleep(5);
 		waitForDiagramClosed(diagram);
 	}
 

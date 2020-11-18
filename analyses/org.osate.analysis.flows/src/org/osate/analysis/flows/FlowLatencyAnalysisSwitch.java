@@ -120,6 +120,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		this(new NullProgressMonitor(), si);
 	}
 
+	/**
+	 * @since 5.0
+	 */
 	public FlowLatencyAnalysisSwitch(final IProgressMonitor monitor, SystemInstance si) {
 		super(monitor, PROCESS_PRE_ORDER_ALL);
 		report = new LatencyReport();

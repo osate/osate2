@@ -44,7 +44,7 @@ import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.SubprogramProxy;
-import org.osate.aadl2.modelsupport.internal.prototypes.ResolvePrototypeUtil;
+import org.osate.aadl2.modelsupport.ResolvePrototypeUtil;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DockingPosition;

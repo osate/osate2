@@ -104,6 +104,7 @@ censes only apply to the Third Party Software and not any other portion of this 
    </extension>
    <extension
          point="org.eclipse.core.expressions.definitions">
+	  <!-- LEGACY # Should eventually become obsolete--> 
       <definition
             id="org.osate.core.isInstanceFileSelected">
          <with
@@ -115,17 +116,13 @@ censes only apply to the Third Party Software and not any other portion of this 
                <iterate
                      ifEmpty="false"
                      operator="and">
-                  <adapt
-                        type="org.eclipse.core.resources.IFile">
-                     <test
-                           property="org.eclipse.core.resources.contentTypeId"
-                           value="org.osate.core.instanceModelFile">
-                     </test>
-                  </adapt>
+                  <reference definitionId="org.osate.ui.definition.isInstanceFile" />
                </iterate>
             </and>
          </with>
       </definition>
+
+	  <!-- LEGACY # Unused!--> 
       <definition
             id="org.osate.core.areOnlyInstanceFilesSelected">
          <with
@@ -137,17 +134,13 @@ censes only apply to the Third Party Software and not any other portion of this 
                <iterate
                      ifEmpty="false"
                      operator="and">
-                  <adapt
-                        type="org.eclipse.core.resources.IFile">
-                     <test
-                           property="org.eclipse.core.resources.contentTypeId"
-                           value="org.osate.core.instanceModelFile">
-                     </test>
-                  </adapt>
+                  <reference definitionId="org.osate.ui.definition.isInstanceFile" />
                </iterate>
             </and>
          </with>
       </definition>
+
+	  <!-- LEGACY # Unused! --> 
       <definition
             id="org.osate.core.areSomeInstanceFilesSelected">
          <with
@@ -159,13 +152,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                <iterate
                      ifEmpty="false"
                      operator="or">
-                  <adapt
-                        type="org.eclipse.core.resources.IFile">
-                     <test
-                           property="org.eclipse.core.resources.contentTypeId"
-                           value="org.osate.core.instanceModelFile">
-                     </test>
-                  </adapt>
+                  <reference definitionId="org.osate.ui.definition.isInstanceFile" />
                </iterate>
             </and>
          </with>
