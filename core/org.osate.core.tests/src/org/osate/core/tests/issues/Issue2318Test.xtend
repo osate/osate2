@@ -75,6 +75,8 @@ class Issue2318Test {
 	val static XORIGINAL = "X.original"
 	val static XREFINED = "X.refinedd" // yes, two d's --- "refined" is a keyword, so cannot be a name
 	val static XUNRELATED = "X.unrelated"
+
+	val static FIND_FLOW_SPEC = "findTests/findFlowSpecInstance.aadl"
 	
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -527,14 +529,14 @@ class Issue2318Test {
 
 		assertEquals(f_original_ci, original_ci.findFeatureInstance(f_original))
 		assertEquals(f_original_ci, original_ci.findFeatureInstance(f_refined))
-		assertEquals(null, original_ci.findFeatureInstance(f_unrelated))  // should be null, but due to bug is not
+		assertEquals(null, original_ci.findFeatureInstance(f_unrelated))  
 
 		assertEquals(f_refined_ci, refined_ci.findFeatureInstance(f_original))
 		assertEquals(f_refined_ci, refined_ci.findFeatureInstance(f_refined))
-		assertEquals(null, refined_ci.findFeatureInstance(f_unrelated)) // should be null, but due to bug is not
+		assertEquals(null, refined_ci.findFeatureInstance(f_unrelated))
 
-		assertEquals(null, unrelated_ci.findFeatureInstance(f_original))// should be null, but due to bug is not
-		assertEquals(null, unrelated_ci.findFeatureInstance(f_refined))// should be null, but due to bug is not
+		assertEquals(null, unrelated_ci.findFeatureInstance(f_original))
+		assertEquals(null, unrelated_ci.findFeatureInstance(f_refined))
 		assertEquals(f_unrelated_ci, unrelated_ci.findFeatureInstance(f_unrelated))
 	}
 
@@ -569,19 +571,56 @@ class Issue2318Test {
 
 		assertEquals(s_original_ci, original_ci.findSubcomponentInstance(s_original))
 		assertEquals(s_original_ci, original_ci.findSubcomponentInstance(s_refined))
-		assertEquals(null, original_ci.findSubcomponentInstance(s_unrelated))  // should be null, but due to bug is not
-//		assertEquals(s_original_ci, original_ci.findSubcomponentInstance(s_unrelated))  // should be null, but due to bug is not
+		assertEquals(null, original_ci.findSubcomponentInstance(s_unrelated))
 
 		assertEquals(s_refined_ci, refined_ci.findSubcomponentInstance(s_original))
 		assertEquals(s_refined_ci, refined_ci.findSubcomponentInstance(s_refined))
-		assertEquals(null, refined_ci.findSubcomponentInstance(s_unrelated)) // should be null, but due to bug is not
-//		assertEquals(s_refined_ci, refined_ci.findSubcomponentInstance(s_unrelated)) // should be null, but due to bug is not
+		assertEquals(null, refined_ci.findSubcomponentInstance(s_unrelated)) 
 
-//		assertEquals(s_unrelated_ci, unrelated_ci.findSubcomponentInstance(s_original))// should be null, but due to bug is not
-		assertEquals(null, unrelated_ci.findSubcomponentInstance(s_original))// should be null, but due to bug is not
-//		assertEquals(s_unrelated_ci, unrelated_ci.findSubcomponentInstance(s_refined))// should be null, but due to bug is not
-		assertEquals(null, unrelated_ci.findSubcomponentInstance(s_refined))// should be null, but due to bug is not
+		assertEquals(null, unrelated_ci.findSubcomponentInstance(s_original))
+		assertEquals(null, unrelated_ci.findSubcomponentInstance(s_refined))
 		assertEquals(s_unrelated_ci, unrelated_ci.findSubcomponentInstance(s_unrelated))
+	}
+	
+	@Test
+	def void findFlowSpec() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + FIND_FLOW_SPEC)
+		
+		// Get the declarative features
+		val original = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == ORIGINAL] as SystemType
+		val fs_original = original.ownedFlowSpecifications.get(0)
+		
+		val refined = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == REFINED] as SystemType
+		val fs_refined = refined.ownedFlowSpecifications.get(0)
+		
+		val unrelated = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == UNRELATED] as SystemType
+		val fs_unrelated = unrelated.ownedFlowSpecifications.get(0)
+		
+		// instantiate
+		val toplevel = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == TOPLEVEL_I] as SystemImplementation
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(toplevel, errorManager)
+
+		val original_ci = instance.componentInstances.get(0)
+		val fs_original_ci = original_ci.flowSpecifications.get(0)
+		
+		val refined_ci = instance.componentInstances.get(1)
+		val fs_refined_ci = refined_ci.flowSpecifications.get(0)
+		
+		val unrelated_ci = instance.componentInstances.get(2)
+		val fs_unrelated_ci = unrelated_ci.flowSpecifications.get(0)
+
+		assertEquals(fs_original_ci, original_ci.findFlowSpecInstance(fs_original))
+		assertEquals(fs_original_ci, original_ci.findFlowSpecInstance(fs_refined))
+		assertEquals(null, original_ci.findFlowSpecInstance(fs_unrelated))  // should be null, but due to bug is not
+
+		assertEquals(fs_refined_ci, refined_ci.findFlowSpecInstance(fs_original))
+		assertEquals(fs_refined_ci, refined_ci.findFlowSpecInstance(fs_refined))
+		assertEquals(null, refined_ci.findFlowSpecInstance(fs_unrelated)) // should be null, but due to bug is not
+
+		assertEquals(null, unrelated_ci.findFlowSpecInstance(fs_original))// should be null, but due to bug is not
+		assertEquals(null, unrelated_ci.findFlowSpecInstance(fs_refined))// should be null, but due to bug is not
+		assertEquals(fs_unrelated_ci, unrelated_ci.findFlowSpecInstance(fs_unrelated))
 	}
 
 }

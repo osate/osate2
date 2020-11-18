@@ -906,18 +906,26 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @param flowspec flowspec whose instance is to be found
 	 * @return flowspec instance with the specified flowspec, or null
 	 */
-	public FlowSpecificationInstance findFlowSpecInstance(FlowSpecification flowspec) {
+	public FlowSpecificationInstance findFlowSpecInstance(final FlowSpecification flowspec) {
 		if (flowspec == null) {
 			return null;
-		}
-		EList<FlowSpecificationInstance> subcil = getFlowSpecifications();
-		for (Iterator<FlowSpecificationInstance> it = subcil.iterator(); it.hasNext();) {
-			FlowSpecificationInstance fi = it.next();
-			if (fi.getFlowSpecification().getName().equalsIgnoreCase(flowspec.getName())) {
-				return fi;
+		} else {
+			for (final FlowSpecificationInstance fs : getFlowSpecifications()) {
+				if (isSameOrRefined(flowspec, fs.getFlowSpecification())) {
+					return fs;
+				}
 			}
+			return null;
 		}
-		return null;
+
+		// EList<FlowSpecificationInstance> subcil = getFlowSpecifications();
+//		for (Iterator<FlowSpecificationInstance> it = subcil.iterator(); it.hasNext();) {
+//			FlowSpecificationInstance fi = it.next();
+//			if (fi.getFlowSpecification().getName().equalsIgnoreCase(flowspec.getName())) {
+//				return fi;
+//			}
+//		}
+//		return null;
 	}
 
 	/**
@@ -1021,6 +1029,27 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		rsub = sub2;
 		while (rsub != null) {
 			if (sub1 == rsub) {
+				return true;
+			}
+			rsub = rsub.getRefined();
+		}
+		return false;
+	}
+
+	private static boolean isSameOrRefined(FlowSpecification fs1, FlowSpecification fs2) {
+		if (fs1 == fs2) {
+			return true;
+		}
+		FlowSpecification rsub = fs1;
+		while (rsub != null) {
+			if (fs2 == rsub) {
+				return true;
+			}
+			rsub = rsub.getRefined();
+		}
+		rsub = fs2;
+		while (rsub != null) {
+			if (fs1 == rsub) {
 				return true;
 			}
 			rsub = rsub.getRefined();
