@@ -245,6 +245,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.COMPONENT_INSTANCE;
 	}
@@ -567,6 +568,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
@@ -592,6 +594,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
@@ -633,6 +636,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -690,6 +694,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
@@ -737,6 +742,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
@@ -772,6 +778,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -785,6 +792,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		result.append(')');
 		return result.toString();
 	}
+	@Override
 	public boolean acceptsProperty(Property property) {
 		ComponentClassifier cc = getComponentClassifier();
 		Subcomponent sub = getSubcomponent();
@@ -853,25 +861,17 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @param sc subcomponent
 	 * @return component instance with the specified subcomponent, or null
 	 */
-	public ComponentInstance findSubcomponentInstance(Subcomponent sc) {
+	public ComponentInstance findSubcomponentInstance(final Subcomponent sc) {
 		if (sc == null) {
 			return null;
-		}
-		EList<ComponentInstance> subcil = getComponentInstances();
-		for (Iterator<ComponentInstance> it = subcil.iterator(); it.hasNext();) {
-			ComponentInstance ci = it.next();
-			// had to introduce name matching. The subcomponent may be from an access connection end in an original implementation
-			// while the component instance is from a refined subcomponent in the implementation extension.
-			if (ci.getName().equalsIgnoreCase(sc.getName())) {
-				return ci;
+		} else {
+			for (final ComponentInstance ci : getComponentInstances()) {
+				if (isSameOrRefined(sc, ci.getSubcomponent())) {
+					return ci;
+				}
 			}
-			// // XXX: Do we need to do this for modes and end-to-end flows too???
-			// EList<Subcomponent> scl = ci.getSubcomponent().getAllSubcomponentRefinements();
-			// if (scl.contains(sc)) {
-			// return ci;
-			// }
+			return null;
 		}
-		return null;
 	}
 
 	/**
@@ -879,25 +879,17 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @param feature feature whose instance is to be found
 	 * @return feature instance with the specified feature, or null
 	 */
-	public FeatureInstance findFeatureInstance(Feature feature) {
+	public FeatureInstance findFeatureInstance(final Feature feature) {
 		if (feature == null) {
 			return null;
-		}
-		EList<FeatureInstance> subcil = getFeatureInstances();
-		for (Iterator<FeatureInstance> it = subcil.iterator(); it.hasNext();) {
-			FeatureInstance fi = it.next();
-			// had to introduce name matching. The feature may be from a connection end in an original implementation
-			// while the feature instance is from a refined subcomponent in the implementation extension.
-			if (fi.getName().equalsIgnoreCase(feature.getName())) {
-				return fi;
+		} else {
+			for (final FeatureInstance fi : getFeatureInstances()) {
+				if (isSameOrRefined(feature, fi.getFeature())) {
+					return fi;
+				}
 			}
-			// XXX We would have to also check features in subcomponents that have been refined.
-			// EList<Feature> fl = fi.getFeature().getAllFeatureRefinements();
-			// if (fl.contains(feature)) {
-			// return fi;
-			// }
+			return null;
 		}
-		return null;
 	}
 
 	/**
@@ -993,6 +985,71 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		}
 		return false;
 	}
+
+	private static boolean isSameOrRefined(Feature f1, Feature f2) {
+		if (f1 == f2) {
+			return true;
+		}
+		Feature cfi = f1;
+		while (cfi != null) {
+			if (f2 == cfi) {
+				return true;
+			}
+			cfi = cfi.getRefined();
+		}
+		cfi = f2;
+		while (cfi != null) {
+			if (f1 == cfi) {
+				return true;
+			}
+			cfi = cfi.getRefined();
+		}
+		return false;
+	}
+
+	private static boolean isSameOrRefined(Subcomponent sub1, Subcomponent sub2) {
+		if (sub1 == sub2) {
+			return true;
+		}
+		Subcomponent rsub = sub1;
+		while (rsub != null) {
+			if (sub2 == rsub) {
+				return true;
+			}
+			rsub = rsub.getRefined();
+		}
+		rsub = sub2;
+		while (rsub != null) {
+			if (sub1 == rsub) {
+				return true;
+			}
+			rsub = rsub.getRefined();
+		}
+		return false;
+	}
+
+//	private static <T> boolean isSameOrRefined(T firstconn, T secondconn, Function<T, T> getRefined) {
+//		if (firstconn == secondconn) {
+//			return true;
+//		}
+//		T cfi = firstconn;
+//		while (cfi != null) {
+//			if (secondconn == cfi) {
+//				return true;
+//			}
+//			cfi = getRefined.apply(cfi);
+//		}
+//		cfi = secondconn;
+//		while (cfi != null) {
+//			if (firstconn == cfi) {
+//				return true;
+//			}
+//			cfi = getRefined.apply(cfi);
+//		}
+//		return false;
+//	}
+
+	@Override
 	public List<? extends NamedElement> getInstantiatedObjects() {
 		return Collections.singletonList(getSubcomponent());
 	}
@@ -1109,6 +1166,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 *
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
 	 */
+	@Override
 	public String getFullName() {
 		String array = "";
 		for (Long i : getIndices()) {
@@ -1124,6 +1182,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 *
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#findInstanceObjectsHelper(java.util.ListIterator, java.util.List)
 	 */
+	@Override
 	protected boolean findInstanceObjectsHelper(ListIterator<ContainmentPathElement> pathIter,
 			List<InstanceObject> ios) {
 		boolean result = super.findInstanceObjectsHelper(pathIter, ios);
@@ -1147,6 +1206,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 *
 	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
 	 */
+	@Override
 	public boolean matchesIndex(List<ArrayRange> ranges) {
 		if (ranges.size() == 0) {
 			return true;
