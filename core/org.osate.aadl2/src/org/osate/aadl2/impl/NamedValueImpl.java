@@ -23,6 +23,7 @@
  */
 package org.osate.aadl2.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -78,6 +79,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNamedValue();
 	}
@@ -129,6 +131,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
@@ -145,6 +148,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
@@ -159,6 +163,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
@@ -173,6 +178,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
@@ -180,6 +186,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 		}
 		return super.eIsSet(featureID);
 	}
+	@Override
 	public boolean sameAs(PropertyExpression pe) {
 		if (this == pe) {
 			return true;
@@ -196,6 +203,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 *
 	 * @see org.osate.aadl2.impl.PropertyExpressionImpl#evaluate(org.osate.aadl2.properties.EvaluationContext)
 	 */
+	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
 		AbstractNamedValue nv = getNamedValue();
 		if (depth > 50) {
@@ -205,8 +213,23 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 		PropertyEvaluationResult pev = nv.evaluate(ctx, depth + 1);
 		List<EvaluatedProperty> evaluated = pev.getEvaluated();
 		if (evaluated.isEmpty()) {
-			throw new InvalidModelException(ctx.getInstanceObject(),
-					"Property " + ((Property) nv).getQualifiedName() + " is undefined");
+			/*
+			 * Issue 2387: If this NamedValue is a reference to a property value, and the
+			 * property value doesn't exist, we need to check for the property's default
+			 * value. (This cannot be done in PropertyImpl.evaluate(), because it is used to
+			 * broadly. See the comment in PropertyImpl.evaluate().)
+			 */
+			if (nv instanceof Property) {
+				final PropertyExpression defaultValueExpression = ((Property) nv).getDefaultValue();
+				if (defaultValueExpression != null) {
+					evaluated = Collections.singletonList(defaultValueExpression.evaluate(ctx, depth));
+				}
+			}
+			// Test it again...
+			if (evaluated.isEmpty()) {
+				throw new InvalidModelException(ctx.getInstanceObject(),
+						"Property " + ((Property) nv).getQualifiedName() + " is undefined");
+			}
 		}
 		return evaluated.get(0);
 	}

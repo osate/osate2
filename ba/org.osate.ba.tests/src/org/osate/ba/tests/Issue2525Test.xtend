@@ -12,39 +12,26 @@ import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertTrue
-import org.osate.ba.aadlba.BehaviorAnnex
-import org.osate.ba.aadlba.BehaviorActionCollection
-import org.osate.ba.aadlba.SharedDataAction
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
-class Issue2372Test {
+class Issue2525Test {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 	
 	@Test
-	def void testIssue2372() {
+	def void testIssue2525() {
 		// Not using FluentIssueCollection because the BA issues aren't associated with an EObject.
-		val result = testHelper.testFile("org.osate.ba.tests/models/issue2372/issue2372.aadl")
+		val result = testHelper.testFile("org.osate.ba.tests/models/issue2525/issue2525.aadl")
 		result.resource.contents.head as AadlPackage => [
-			"test_lock_actions".assertEquals(name)
-			publicSection.ownedClassifiers.get(0) => [
+			"issue2525".assertEquals(name)
+			publicSection.ownedClassifiers.head => [
+				"t".assertEquals(name)
 				ownedAnnexSubclauses.head as DefaultAnnexSubclause => [
 					"behavior_specification".assertEquals(name)
-					(parsedAnnexSubclause!==null).assertTrue
-					parsedAnnexSubclause as BehaviorAnnex => [
-						actions.get(0).content as BehaviorActionCollection => [
-							actions.get(1) as SharedDataAction => [
-								(dataAccess.dataAccess!==null).assertTrue
-							]
-							actions.get(3) as SharedDataAction => [
-								(dataAccess.dataAccess!==null).assertTrue
-							]
-						]
-					]
 				]
 			]
 		]
-		0.assertEquals(result.issues.size)
+		2.assertEquals(result.issues.size)
 	}
 }

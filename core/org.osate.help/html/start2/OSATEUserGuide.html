@@ -1167,7 +1167,7 @@ view&#39;s menu opens a dialog which allows you to choose which property sets sh
 
 <h2 id="toc_65"><span id="classifierView">Viewing Classifier Members</span></h2>
 
-<p>The <code>Classifier Information</code> view makes it easy to see the complete ancestry of an AADL classifier (component type, component implementation, or feature group type), and to see the full list of members of the classifier.  To open a classifier in the view, select a classifier in the <code>AADL Navigator</code> or <code>Outline</code> view and choose <code>Open in Classifier Information View</code> from the context menu:</p>
+<p>The <code>Classifier Information</code>  view makes it easy to see the complete ancestry of an AADL classifier (component type, component implementation, or feature group type), and to see the full list of members of the classifier. If a classifier's member (prototype, subcomponent, parameter, data port, feature group, or access) references a different AADL classifier, then the <code>Classifier Information</code> view will open the referenced AADL classifier. To open a classifier in the view, select a classifier or its member in the <code>AADL Navigator</code> or <code>Outline</code> view and choose <code>Open in Classifier Information View</code> from the context menu or use the keyboard short cut <strong>Alt+C</strong>/<strong>Option+C</strong>:</p>
 
 <p><img src="images/OSATEUserGuide/AADLNavigator_OpenInClassifierInfoView.png" alt="Classifier view">
 <img src="images/OSATEUserGuide/Outline_OpenInClassifierInfoView.png" alt="Classifier view"></p>
@@ -1182,7 +1182,7 @@ view&#39;s menu opens a dialog which allows you to choose which property sets sh
 
 <ol>
 <li><p>The left half shows the extension hierarchy.  It can be toggled between showing either the ancestors or the descendants of the current classifier.  Initially the ancestors are shown.</p></li>
-<li><p>The right half shows the members of the classifier grouped by kind.</p></li>
+<li><p>The right half shows the members of the classifier grouped by kind.  Clicking on a classifier in the hierarchy tree focuses the member tree on the selected classifier.  You can always tell which classifier&#39;s members are being shown by which classifier is selected in the hierarchy tree.</p></li>
 </ol>
 
 <p>In the above, the view shows information about the classifier <code>T2.i2</code>.  From the hierarchy tree we see that </p>
@@ -1196,7 +1196,7 @@ view&#39;s menu opens a dialog which allows you to choose which property sets sh
 
 <p><img src="images/OSATEUserGuide/classifierView2.png" alt="Classifier view"></p>
 
-<p>Clicking on the toolbar icon <img src="images/OSATEUserGuide/super_co.png" alt="Ancestor Tree"> switches back to showing the ancestors of the current classifier.</p>
+<p>Switching from from ancestor to descendant tree (or back again) clears the member tree on the right.  Clicking on the toolbar icon <img src="images/OSATEUserGuide/super_co.png" alt="Ancestor Tree"> switches back to showing the ancestors of the current classifier.</p>
 
 <p>Double-clicking on any of the ancestors opens the AADL source text for the ancestor in an editor.</p>
 
