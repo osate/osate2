@@ -39,7 +39,6 @@ import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.*
-import org.osate.aadl2.instance.FeatureInstance
 import org.osate.aadl2.SystemType
 
 @RunWith(XtextRunner)
@@ -70,9 +69,12 @@ class Issue2318Test {
 	val static ORIGINAL = "original"
 	val static REFINED = "refinedd" // yes, two d's --- "refined" is a keyword, so cannot be a name
 	val static UNRELATED = "unrelated"
-	
-	val static FEATURE = "f"
-	
+
+	val static FIND_SUBCOMPONENT = "findTests/findSubcomponentInstance.aadl"
+		
+	val static XORIGINAL = "X.original"
+	val static XREFINED = "X.refinedd" // yes, two d's --- "refined" is a keyword, so cannot be a name
+	val static XUNRELATED = "X.unrelated"
 	
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -506,7 +508,7 @@ class Issue2318Test {
 		val refined = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == REFINED] as SystemType
 		val f_refined = refined.ownedFeatures.get(0)
 		
-		val unrelated = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == REFINED] as SystemType
+		val unrelated = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == UNRELATED] as SystemType
 		val f_unrelated = unrelated.ownedFeatures.get(0)
 		
 		// instantiate
@@ -525,15 +527,61 @@ class Issue2318Test {
 
 		assertEquals(f_original_ci, original_ci.findFeatureInstance(f_original))
 		assertEquals(f_original_ci, original_ci.findFeatureInstance(f_refined))
-		assertEquals(f_original_ci, original_ci.findFeatureInstance(f_unrelated))  // should be null, but due to bug is not
+		assertEquals(null, original_ci.findFeatureInstance(f_unrelated))  // should be null, but due to bug is not
 
 		assertEquals(f_refined_ci, refined_ci.findFeatureInstance(f_original))
 		assertEquals(f_refined_ci, refined_ci.findFeatureInstance(f_refined))
-		assertEquals(f_refined_ci, refined_ci.findFeatureInstance(f_unrelated)) // should be null, but due to bug is not
+		assertEquals(null, refined_ci.findFeatureInstance(f_unrelated)) // should be null, but due to bug is not
 
-		assertEquals(f_unrelated_ci, unrelated_ci.findFeatureInstance(f_original))// should be null, but due to bug is not
-		assertEquals(f_unrelated_ci, unrelated_ci.findFeatureInstance(f_refined))// should be null, but due to bug is not
+		assertEquals(null, unrelated_ci.findFeatureInstance(f_original))// should be null, but due to bug is not
+		assertEquals(null, unrelated_ci.findFeatureInstance(f_refined))// should be null, but due to bug is not
 		assertEquals(f_unrelated_ci, unrelated_ci.findFeatureInstance(f_unrelated))
+	}
+
+	
+	@Test
+	def void findSubcomponent() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + FIND_SUBCOMPONENT)
+		
+		// Get the declarative features
+		val original = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == XORIGINAL] as SystemImplementation
+		val s_original = original.ownedSubcomponents.get(0)
+		
+		val refined = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == XREFINED] as SystemImplementation
+		val s_refined = refined.ownedSubcomponents.get(0)
+		
+		val unrelated = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == XUNRELATED] as SystemImplementation
+		val s_unrelated = unrelated.ownedSubcomponents.get(0)
+		
+		// instantiate
+		val toplevel = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == TOPLEVEL_I] as SystemImplementation
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(toplevel, errorManager)
+
+		val original_ci = instance.componentInstances.get(0)
+		val s_original_ci = original_ci.componentInstances.get(0)
+		
+		val refined_ci = instance.componentInstances.get(1)
+		val s_refined_ci = refined_ci.componentInstances.get(0)
+		
+		val unrelated_ci = instance.componentInstances.get(2)
+		val s_unrelated_ci = unrelated_ci.componentInstances.get(0)
+
+		assertEquals(s_original_ci, original_ci.findSubcomponentInstance(s_original))
+		assertEquals(s_original_ci, original_ci.findSubcomponentInstance(s_refined))
+		assertEquals(null, original_ci.findSubcomponentInstance(s_unrelated))  // should be null, but due to bug is not
+//		assertEquals(s_original_ci, original_ci.findSubcomponentInstance(s_unrelated))  // should be null, but due to bug is not
+
+		assertEquals(s_refined_ci, refined_ci.findSubcomponentInstance(s_original))
+		assertEquals(s_refined_ci, refined_ci.findSubcomponentInstance(s_refined))
+		assertEquals(null, refined_ci.findSubcomponentInstance(s_unrelated)) // should be null, but due to bug is not
+//		assertEquals(s_refined_ci, refined_ci.findSubcomponentInstance(s_unrelated)) // should be null, but due to bug is not
+
+//		assertEquals(s_unrelated_ci, unrelated_ci.findSubcomponentInstance(s_original))// should be null, but due to bug is not
+		assertEquals(null, unrelated_ci.findSubcomponentInstance(s_original))// should be null, but due to bug is not
+//		assertEquals(s_unrelated_ci, unrelated_ci.findSubcomponentInstance(s_refined))// should be null, but due to bug is not
+		assertEquals(null, unrelated_ci.findSubcomponentInstance(s_refined))// should be null, but due to bug is not
+		assertEquals(s_unrelated_ci, unrelated_ci.findSubcomponentInstance(s_unrelated))
 	}
 
 }
