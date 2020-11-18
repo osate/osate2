@@ -613,7 +613,6 @@ public class UiTestUtil {
 	 * Saves and closes the specified diagram editor
 	 */
 	public static void saveAndCloseDiagramEditor(final DiagramReference diagram) {
-		sleep(10);
 		getDiagramEditorBot(diagram).saveAndClose();
 	}
 
@@ -855,10 +854,6 @@ public class UiTestUtil {
 	public static void clickButtonForShell(final String title, final String text) {
 		final SWTBotButton btn = bot.shell(title).bot().button(text);
 		btn.click();
-	}
-
-	public static void sleep(final int sec) {
-		bot.sleep(sec * 1000);
 	}
 
 	/**

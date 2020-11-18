@@ -59,9 +59,7 @@ Disable importer preferences for now
                path="menu.analyses/top.grp">
             <groupMarker name="stuff.grp"/>
                          <visibleWhen checkEnabled="false">
-            <with variable="activeWorkbenchWindow.activePerspective">
-                <equals value="AADL"/>
-            </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
          </visibleWhen>
          </menu>
          <action

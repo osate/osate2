@@ -53,6 +53,8 @@ import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorVariable;
+import org.osate.ba.declarative.Identifier;
+import org.osate.ba.declarative.QualifiedNamedElement;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.ba.util.BehaviorAnnexUtil.VariableOperation;
@@ -162,12 +164,21 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 
 	private static String getDataClassifierLabel(final List<BehaviorVariable> behaviorVariables) {
 		final Iterator<BehaviorVariable> it = behaviorVariables.iterator();
-		final DataClassifier dc = it.next().getDataClassifier();
+		BehaviorVariable bv = it.next();
+		final DataClassifier dc = bv.getDataClassifier();
 		while (it.hasNext()) {
+			bv = it.next();
 			// If variable data classifiers are not the same, set to multiple
-			if (dc != it.next().getDataClassifier()) {
+			if (dc != bv.getDataClassifier()) {
 				return "<Multiple>";
 			}
+		}
+		if (dc instanceof QualifiedNamedElement) {
+			final QualifiedNamedElement qualNamedElement = (QualifiedNamedElement) dc;
+			final Identifier baNamespace = qualNamedElement.getBaNamespace();
+			final Identifier baName = qualNamedElement.getBaName();
+			return new StringBuilder(baNamespace == null ? "" : baNamespace.getId()).append("::")
+					.append(baName == null ? "" : baName.getId()).toString();
 		}
 
 		return dc.getQualifiedName();
