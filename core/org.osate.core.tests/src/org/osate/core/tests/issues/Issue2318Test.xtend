@@ -39,6 +39,8 @@ import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.*
+import org.osate.aadl2.instance.FeatureInstance
+import org.osate.aadl2.SystemType
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -62,6 +64,15 @@ class Issue2318Test {
 	val static SUBSYSTEM_I = "subsystem.i"
 	val static CONN = "conn"
 	val static CONN2 = "conn2"
+
+	val static FIND_FEATURE = "findTests/findFeatureInstance.aadl"
+
+	val static ORIGINAL = "original"
+	val static REFINED = "refinedd" // yes, two d's --- "refined" is a keyword, so cannot be a name
+	val static UNRELATED = "unrelated"
+	
+	val static FEATURE = "f"
+	
 	
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -482,4 +493,47 @@ class Issue2318Test {
 			assertEquals(cr1.source, cr0.destination)
 		}
 	}
+
+	
+	@Test
+	def void findFeature() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + FIND_FEATURE)
+		
+		// Get the declarative features
+		val original = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == ORIGINAL] as SystemType
+		val f_original = original.ownedFeatures.get(0)
+		
+		val refined = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == REFINED] as SystemType
+		val f_refined = refined.ownedFeatures.get(0)
+		
+		val unrelated = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == REFINED] as SystemType
+		val f_unrelated = unrelated.ownedFeatures.get(0)
+		
+		// instantiate
+		val toplevel = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == TOPLEVEL_I] as SystemImplementation
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(toplevel, errorManager)
+
+		val original_ci = instance.componentInstances.get(0)
+		val f_original_ci = original_ci.featureInstances.get(0)
+		
+		val refined_ci = instance.componentInstances.get(1)
+		val f_refined_ci = refined_ci.featureInstances.get(0)
+		
+		val unrelated_ci = instance.componentInstances.get(2)
+		val f_unrelated_ci = unrelated_ci.featureInstances.get(0)
+
+		assertEquals(f_original_ci, original_ci.findFeatureInstance(f_original))
+		assertEquals(f_original_ci, original_ci.findFeatureInstance(f_refined))
+		assertEquals(f_original_ci, original_ci.findFeatureInstance(f_unrelated))  // should be null, but due to bug is not
+
+		assertEquals(f_refined_ci, refined_ci.findFeatureInstance(f_original))
+		assertEquals(f_refined_ci, refined_ci.findFeatureInstance(f_refined))
+		assertEquals(f_refined_ci, refined_ci.findFeatureInstance(f_unrelated)) // should be null, but due to bug is not
+
+		assertEquals(f_unrelated_ci, unrelated_ci.findFeatureInstance(f_original))// should be null, but due to bug is not
+		assertEquals(f_unrelated_ci, unrelated_ci.findFeatureInstance(f_refined))// should be null, but due to bug is not
+		assertEquals(f_unrelated_ci, unrelated_ci.findFeatureInstance(f_unrelated))
+	}
+
 }
