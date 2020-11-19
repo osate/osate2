@@ -654,18 +654,14 @@ class Issue2318Test {
 
 		assertEquals(e2e_original_ci, original_ci.findEndToEndFlowInstance(e2e_original))
 		assertEquals(e2e_original_ci, original_ci.findEndToEndFlowInstance(e2e_refined))
-//		assertEquals(null, original_ci.findEndToEndFlowInstance(e2e_unrelated))  // should be null, but due to bug is not
-		assertEquals(e2e_original_ci, original_ci.findEndToEndFlowInstance(e2e_unrelated))  // should be null, but due to bug is not
+		assertEquals(null, original_ci.findEndToEndFlowInstance(e2e_unrelated))  // should be null, but due to bug is not
 
 		assertEquals(e2e_refined_ci, refined_ci.findEndToEndFlowInstance(e2e_original))
 		assertEquals(e2e_refined_ci, refined_ci.findEndToEndFlowInstance(e2e_refined))
-//		assertEquals(null, refined_ci.findEndToEndFlowInstance(e2e_unrelated)) // should be null, but due to bug is not
-		assertEquals(e2e_refined_ci, refined_ci.findEndToEndFlowInstance(e2e_unrelated)) // should be null, but due to bug is not
+		assertEquals(null, refined_ci.findEndToEndFlowInstance(e2e_unrelated)) // should be null, but due to bug is not
 
-//		assertEquals(null, unrelated_ci.findEndToEndFlowInstance(e2e_original))// should be null, but due to bug is not
-		assertEquals(e2e_unrelated_ci, unrelated_ci.findEndToEndFlowInstance(e2e_original))// should be null, but due to bug is not
-//		assertEquals(null, unrelated_ci.findEndToEndFlowInstance(e2e_refined))// should be null, but due to bug is not
-		assertEquals(e2e_unrelated_ci, unrelated_ci.findEndToEndFlowInstance(e2e_refined))// should be null, but due to bug is not
+		assertEquals(null, unrelated_ci.findEndToEndFlowInstance(e2e_original))// should be null, but due to bug is not
+		assertEquals(null, unrelated_ci.findEndToEndFlowInstance(e2e_refined))// should be null, but due to bug is not
 		assertEquals(e2e_unrelated_ci, unrelated_ci.findEndToEndFlowInstance(e2e_unrelated))
 	}
 }

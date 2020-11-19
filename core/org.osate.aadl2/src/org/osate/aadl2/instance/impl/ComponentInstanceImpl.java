@@ -947,15 +947,14 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	public EndToEndFlowInstance findEndToEndFlowInstance(EndToEndFlow ete) {
 		if (ete == null) {
 			return null;
-		}
-		EList<EndToEndFlowInstance> subcil = getEndToEndFlows();
-		for (Iterator<EndToEndFlowInstance> it = subcil.iterator(); it.hasNext();) {
-			EndToEndFlowInstance fi = it.next();
-			if (fi.getEndToEndFlow() == ete) {
-				return fi;
+		} else {
+			for (final EndToEndFlowInstance e2ei : getEndToEndFlows()) {
+				if (isSameOrRefined(ete, e2ei.getEndToEndFlow())) {
+					return e2ei;
+				}
 			}
+			return null;
 		}
-		return null;
 	}
 
 	/**
@@ -1041,6 +1040,27 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		rsub = fs2;
 		while (rsub != null) {
 			if (fs1 == rsub) {
+				return true;
+			}
+			rsub = rsub.getRefined();
+		}
+		return false;
+	}
+
+	private static boolean isSameOrRefined(EndToEndFlow e2e1, EndToEndFlow e2e2) {
+		if (e2e1 == e2e2) {
+			return true;
+		}
+		EndToEndFlow rsub = e2e1;
+		while (rsub != null) {
+			if (e2e2 == rsub) {
+				return true;
+			}
+			rsub = rsub.getRefined();
+		}
+		rsub = e2e2;
+		while (rsub != null) {
+			if (e2e1 == rsub) {
 				return true;
 			}
 			rsub = rsub.getRefined();
