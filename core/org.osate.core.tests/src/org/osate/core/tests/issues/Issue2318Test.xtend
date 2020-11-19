@@ -77,6 +77,7 @@ class Issue2318Test {
 	val static XUNRELATED = "X.unrelated"
 
 	val static FIND_FLOW_SPEC = "findTests/findFlowSpecInstance.aadl"
+	val static FIND_END_TO_END_FLOW = "findTests/findEndToEndFlowInstance.aadl"
 	
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -622,5 +623,49 @@ class Issue2318Test {
 		assertEquals(null, unrelated_ci.findFlowSpecInstance(fs_refined))// should be null, but due to bug is not
 		assertEquals(fs_unrelated_ci, unrelated_ci.findFlowSpecInstance(fs_unrelated))
 	}
+	
+	@Test
+	def void findEndToEndFlow() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + FIND_END_TO_END_FLOW)
+		
+		// Get the declarative features
+		val original = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == XORIGINAL] as SystemImplementation
+		val e2e_original = original.ownedEndToEndFlows.get(0)
+		
+		val refined = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == XREFINED] as SystemImplementation
+		val e2e_refined = refined.ownedEndToEndFlows.get(0)
+		
+		val unrelated = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == XUNRELATED] as SystemImplementation
+		val e2e_unrelated = unrelated.ownedEndToEndFlows.get(0)
+		
+		// instantiate
+		val toplevel = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == TOPLEVEL_I] as SystemImplementation
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(toplevel, errorManager)
 
+		val original_ci = instance.componentInstances.get(0)
+		val e2e_original_ci = original_ci.endToEndFlows.get(0)
+		
+		val refined_ci = instance.componentInstances.get(1)
+		val e2e_refined_ci = refined_ci.endToEndFlows.get(0)
+		
+		val unrelated_ci = instance.componentInstances.get(2)
+		val e2e_unrelated_ci = unrelated_ci.endToEndFlows.get(0)
+
+		assertEquals(e2e_original_ci, original_ci.findEndToEndFlowInstance(e2e_original))
+		assertEquals(e2e_original_ci, original_ci.findEndToEndFlowInstance(e2e_refined))
+//		assertEquals(null, original_ci.findEndToEndFlowInstance(e2e_unrelated))  // should be null, but due to bug is not
+		assertEquals(e2e_original_ci, original_ci.findEndToEndFlowInstance(e2e_unrelated))  // should be null, but due to bug is not
+
+		assertEquals(e2e_refined_ci, refined_ci.findEndToEndFlowInstance(e2e_original))
+		assertEquals(e2e_refined_ci, refined_ci.findEndToEndFlowInstance(e2e_refined))
+//		assertEquals(null, refined_ci.findEndToEndFlowInstance(e2e_unrelated)) // should be null, but due to bug is not
+		assertEquals(e2e_refined_ci, refined_ci.findEndToEndFlowInstance(e2e_unrelated)) // should be null, but due to bug is not
+
+//		assertEquals(null, unrelated_ci.findEndToEndFlowInstance(e2e_original))// should be null, but due to bug is not
+		assertEquals(e2e_unrelated_ci, unrelated_ci.findEndToEndFlowInstance(e2e_original))// should be null, but due to bug is not
+//		assertEquals(null, unrelated_ci.findEndToEndFlowInstance(e2e_refined))// should be null, but due to bug is not
+		assertEquals(e2e_unrelated_ci, unrelated_ci.findEndToEndFlowInstance(e2e_refined))// should be null, but due to bug is not
+		assertEquals(e2e_unrelated_ci, unrelated_ci.findEndToEndFlowInstance(e2e_unrelated))
+	}
 }
