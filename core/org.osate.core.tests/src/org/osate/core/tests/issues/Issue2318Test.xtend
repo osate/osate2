@@ -84,6 +84,10 @@ class Issue2318Test {
 	val static FIND_END_TO_END_FLOW = "findTests/findEndToEndFlowInstance.aadl"
 	val static FIND_CONNECTION = "findTests/findConnectionInstance.aadl"
 	
+	val static BI_DIR_PORT_SIMPLE_SAMENAMES = "issueTests/BiDirPortSimple_samenames.aadl"
+	val static BI_DIR_PORT_SIMPLE_UNIQUENAMES = "issueTests/BiDirPortSimple_uniquenames.aadl"
+	val static FEATURE_GROUP_TEST = "issueTests/FeatureGroupTest.aadl"
+
 	@Inject
 	TestHelper<AadlPackage> testHelper
 	
@@ -723,11 +727,12 @@ class Issue2318Test {
 		checkFound(unrelated_ci, conn_unrelated, ci_unrelated_ci)
 	}
 	
-	def void testConnectionReferences(ConnectionInstance ci, Connection c1, Connection c2, Connection c3) {
+	def void testConnectionReferences(ConnectionInstance ci, Connection... connections) {
 		val connRefs = ci.connectionReferences
-		assertEquals(c1, connRefs.get(0).connection)
-		assertEquals(c2, connRefs.get(1).connection)
-		assertEquals(c3, connRefs.get(2).connection)
+		assertEquals(connections.size, connRefs.size)
+		for (var i = 0; i < connections.size; i++) {
+			assertEquals(connections.get(i), connRefs.get(i).connection)
+		}
 	}
 	
 	def void checkFound(ComponentInstance compInstance, Connection connection, ConnectionInstance expected) {
@@ -740,4 +745,68 @@ class Issue2318Test {
 		val found = compInstance.findConnectionInstance(connection)
 		assertEquals(0, found.size)
 	}
+	
+	@Test
+	def void BiDirPortSimple_samenames() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + BI_DIR_PORT_SIMPLE_SAMENAMES)
+		
+		// Get the declarative connections
+		val toplevel = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == TOPLEVEL_I] as SystemImplementation
+		val conn = toplevel.ownedConnections.get(0)
+		
+		val subsystem_i = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == SUBSYSTEM_I] as ProcessImplementation
+		val conn2 = subsystem_i.ownedConnections.get(0)
+		
+		// instantiate
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(toplevel, errorManager)
+
+
+		// Check that the connection instances are built correctly
+		testConnectionReferences(instance.connectionInstances.get(0), conn, conn2)
+		testConnectionReferences(instance.connectionInstances.get(1), conn2, conn)		
+	}
+	
+	@Test
+	def void BiDirPortSimple_uniquenames() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + BI_DIR_PORT_SIMPLE_UNIQUENAMES)
+		
+		// Get the declarative connections
+		val toplevel = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == TOPLEVEL_I] as SystemImplementation
+		val conn = toplevel.ownedConnections.get(0)
+		
+		val subsystem_i = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == SUBSYSTEM_I] as ProcessImplementation
+		val conn2 = subsystem_i.ownedConnections.get(0)
+		
+		// instantiate
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(toplevel, errorManager)
+
+
+		// Check that the connection instances are built correctly
+		testConnectionReferences(instance.connectionInstances.get(0), conn, conn2)
+		testConnectionReferences(instance.connectionInstances.get(1), conn2, conn)		
+	}
+	
+	@Test
+	def void featureGroupTest() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + FEATURE_GROUP_TEST)
+		
+		// Get the declarative connections
+		val toplevel = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == TOPLEVEL_I] as SystemImplementation
+		val conn = toplevel.ownedConnections.get(0)
+		
+		val subsystem_i = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == SUBSYSTEM_I] as ProcessImplementation
+		val conn2 = subsystem_i.ownedConnections.get(0)
+		
+		// instantiate
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(toplevel, errorManager)
+
+
+		// Check that the connection instances are built correctly
+		testConnectionReferences(instance.connectionInstances.get(0), conn, conn2)
+		testConnectionReferences(instance.connectionInstances.get(1), conn2, conn)		
+	}
+	
 }
