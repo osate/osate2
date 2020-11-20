@@ -28,7 +28,7 @@ public
 		subcomponents
 			original: system X.original;
 			refinedd: system X.refinedd;
-			unrealted: system X.unrelated;
+			unrelated: system X.unrelated;
 	end toplevel.i;
 	
 end findSubcomponentInstance;
