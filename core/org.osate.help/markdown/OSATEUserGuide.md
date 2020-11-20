@@ -881,7 +881,7 @@ Note that executing this action on a **shared local contained** property impacts
 
 ## <span id="classifierView">Viewing Classifier Members</span>
 
-The `Classifier Information` view makes it easy to see the complete ancestry of an AADL classifier (component type, component implementation, or feature group type), and to see the full list of members of the classifier.  To open a classifier in the view, select a classifier in the `AADL Navigator` or `Outline` view and choose `Open in Classifier Information View` from the context menu:
+The `Classifier Information` view makes it easy to see the complete ancestry of an AADL classifier (component type, component implementation, or feature group type), and to see the full list of members of the classifier. If a classifier's member (prototypes, subcomponents, parameters, data ports, feature groups, or access) references a different AADL classifier, then the `Classifier Information` view will open the referenced AADL classifier. To open a classifier in the view, select a classifier or its member in the `AADL Navigator` or `Outline` view and choose `Open in Classifier Information View` from the context menu or use the keyboard short cut **Alt+C**/**Option+C**:
 
 ![Classifier view](images/OSATEUserGuide/AADLNavigator_OpenInClassifierInfoView.png)
 ![Classifier view](images/OSATEUserGuide/Outline_OpenInClassifierInfoView.png)
@@ -896,7 +896,7 @@ The view is split in half:
 
 1. The left half shows the extension hierarchy.  It can be toggled between showing either the ancestors or the descendants of the current classifier.  Initially the ancestors are shown.
 
-2. The right half shows the members of the classifier grouped by kind.
+2. The right half shows the members of the classifier grouped by kind.  Clicking on a classifier in the hierarchy tree focuses the member tree on the selected classifier.  You can always tell which classifier's members are being shown by which classifier is selected in the hierarchy tree.
 
 In the above, the view shows information about the classifier `T2.i2`.  From the hierarchy tree we see that 
 
@@ -908,7 +908,7 @@ Clicking on the toolbar icon ![Descendants Tree](images/OSATEUserGuide/sub_co.pn
 
 ![Classifier view](images/OSATEUserGuide/classifierView2.png)
 
-Clicking on the toolbar icon ![Ancestor Tree](images/OSATEUserGuide/super_co.png) switches back to showing the ancestors of the current classifier.
+Switching from from ancestor to descendant tree (or back again) clears the member tree on the right.  Clicking on the toolbar icon ![Ancestor Tree](images/OSATEUserGuide/super_co.png) switches back to showing the ancestors of the current classifier.
 
 Double-clicking on any of the ancestors opens the AADL source text for the ancestor in an editor.
 
