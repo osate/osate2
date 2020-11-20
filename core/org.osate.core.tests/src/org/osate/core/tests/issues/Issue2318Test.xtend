@@ -40,6 +40,10 @@ import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.*
 import org.osate.aadl2.SystemType
+import org.osate.aadl2.instance.ConnectionInstance
+import org.osate.aadl2.Connection
+import java.util.List
+import org.osate.aadl2.instance.ComponentInstance
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -78,6 +82,7 @@ class Issue2318Test {
 
 	val static FIND_FLOW_SPEC = "findTests/findFlowSpecInstance.aadl"
 	val static FIND_END_TO_END_FLOW = "findTests/findEndToEndFlowInstance.aadl"
+	val static FIND_CONNECTION = "findTests/findConnectionInstance.aadl"
 	
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -663,5 +668,76 @@ class Issue2318Test {
 		assertEquals(null, unrelated_ci.findEndToEndFlowInstance(e2e_original))// should be null, but due to bug is not
 		assertEquals(null, unrelated_ci.findEndToEndFlowInstance(e2e_refined))// should be null, but due to bug is not
 		assertEquals(e2e_unrelated_ci, unrelated_ci.findEndToEndFlowInstance(e2e_unrelated))
+	}
+
+	
+	@Test
+	def void findConnection() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + FIND_CONNECTION)
+		
+		// Get the declarative connections
+		val toplevel = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == TOPLEVEL_I] as SystemImplementation
+		val co = toplevel.ownedConnections.get(0)
+		val cr = toplevel.ownedConnections.get(1)
+		val cu = toplevel.ownedConnections.get(2)
+		
+		val original = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == XORIGINAL] as SystemImplementation
+		val conn_original = original.ownedConnections.get(0)
+		
+		val refined = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == XREFINED] as SystemImplementation
+		val conn_refined = refined.ownedConnections.get(0)
+		
+		val unrelated = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == XUNRELATED] as SystemImplementation
+		val conn_unrelated = unrelated.ownedConnections.get(0)
+		
+		val subsystem = pkg.ownedPublicSection.ownedClassifiers.findFirst[name == SUBSYSTEM_I] as ProcessImplementation
+		val conn2 = subsystem.ownedConnections.get(0)
+		
+		// instantiate
+		val errorManager = new AnalysisErrorReporterManager(QueuingAnalysisErrorReporter.factory)
+		val instance = InstantiateModel.instantiate(toplevel, errorManager)
+
+		val original_ci = instance.componentInstances.get(0)
+		val refined_ci = instance.componentInstances.get(1)
+		val unrelated_ci = instance.componentInstances.get(2)
+
+		val ci_original_ci = instance.connectionInstances.get(0)
+		val ci_refined_ci = instance.connectionInstances.get(1)
+		val ci_unrelated_ci = instance.connectionInstances.get(2)
+
+		// Check that the connection instances are built correctly
+		testConnectionReferences(ci_original_ci, conn2, conn_original, co)
+		testConnectionReferences(ci_refined_ci, conn2, conn_refined, cr)
+		testConnectionReferences(ci_unrelated_ci, conn2, conn_unrelated, cu)
+
+		checkFound(original_ci, conn_original, ci_original_ci);
+		checkFound(original_ci, conn_refined, ci_original_ci);
+		checkNotFound(original_ci, conn_unrelated)
+
+		checkFound(refined_ci, conn_original, ci_refined_ci);
+		checkFound(refined_ci, conn_refined, ci_refined_ci);
+		checkNotFound(refined_ci, conn_unrelated)
+		
+		checkNotFound(unrelated_ci, conn_original)
+		checkNotFound(unrelated_ci, conn_refined)
+		checkFound(unrelated_ci, conn_unrelated, ci_unrelated_ci)
+	}
+	
+	def void testConnectionReferences(ConnectionInstance ci, Connection c1, Connection c2, Connection c3) {
+		val connRefs = ci.connectionReferences
+		assertEquals(c1, connRefs.get(0).connection)
+		assertEquals(c2, connRefs.get(1).connection)
+		assertEquals(c3, connRefs.get(2).connection)
+	}
+	
+	def void checkFound(ComponentInstance compInstance, Connection connection, ConnectionInstance expected) {
+		val found = compInstance.findConnectionInstance(connection)
+		assertEquals(1, found.size)
+		assertEquals(expected, found.get(0))
+	} 
+	
+	def void checkNotFound(ComponentInstance compInstance, Connection connection) {
+		val found = compInstance.findConnectionInstance(connection)
+		assertEquals(0, found.size)
 	}
 }

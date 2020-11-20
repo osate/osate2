@@ -26,6 +26,6 @@ public
 		subcomponents
 			original: system original;
 			refinedd: system refinedd;
-			unrealted: system unrelated;
+			unrelated: system unrelated;
 	end toplevel.i;
 end findFlowSpecInstance;
