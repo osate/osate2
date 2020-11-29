@@ -493,11 +493,6 @@ public class AadlBaTypeChecker
 
   private void reportError (BehaviorElement el, String msg)
   {
-//    if(el.eContainer() == null)
-//    {
-//      DeclarativeUtils.setEcontainer(_ba, el) ;
-//    }
-
     _errManager.error(el, msg);
   }
 

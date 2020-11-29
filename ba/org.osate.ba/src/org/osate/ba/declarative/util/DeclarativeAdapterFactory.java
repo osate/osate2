@@ -28,6 +28,7 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl ;
 
 import org.eclipse.emf.ecore.EObject ;
 
+import org.osate.aadl2.AbstractFeatureClassifier ;
 import org.osate.aadl2.AbstractNamedValue ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.BasicProperty ;
@@ -333,6 +334,13 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                      }
 
                                                      @Override
+                                                     public Adapter
+                                                            caseDeclarativeBehaviorAnnex(DeclarativeBehaviorAnnex object)
+                                                     {
+                                                       return createDeclarativeBehaviorAnnexAdapter() ;
+                                                     }
+
+                                                     @Override
                                                      public Adapter caseElement(
                                                                                 Element object)
                                                      {
@@ -526,6 +534,13 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
                                                                              Data object)
                                                      {
                                                        return createDataAdapter() ;
+                                                     }
+
+                                                     @Override
+                                                     public Adapter
+                                                            caseAbstractFeatureClassifier(AbstractFeatureClassifier object)
+                                                     {
+                                                       return createAbstractFeatureClassifierAdapter() ;
                                                      }
 
                                                      @Override
@@ -1198,15 +1213,30 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.aadl2.Element <em>Element</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.ba.declarative.DeclarativeBehaviorAnnex <em>Behavior Annex</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.aadl2.Element
+   * @see org.osate.ba.declarative.DeclarativeBehaviorAnnex
    * @generated
    */
+  public Adapter createDeclarativeBehaviorAnnexAdapter()
+  {
+    return null ;
+  }
+
+  /**
+  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.Element <em>Element</em>}'.
+  	 * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+  	 * @return the new adapter.
+  	 * @see org.osate.aadl2.Element
+  	 * @generated
+  	 */
   public Adapter createElementAdapter()
   {
     return null ;
@@ -1528,6 +1558,21 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.AbstractFeatureClassifier <em>Abstract Feature Classifier</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.aadl2.AbstractFeatureClassifier
+   * @generated
+   */
+  public Adapter createAbstractFeatureClassifierAdapter()
+  {
+    return null ;
+  }
+
+  /**
   	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.DataSubcomponentType <em>Data Subcomponent Type</em>}'.
   	 * <!-- begin-user-doc -->
   	 * This default implementation returns null so that we can easily ignore cases;
@@ -1543,30 +1588,30 @@ public class DeclarativeAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-  	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.DataClassifier <em>Data Classifier</em>}'.
-  	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.osate.aadl2.DataClassifier <em>Data Classifier</em>}'.
+   * <!-- begin-user-doc -->
   	 * This default implementation returns null so that we can easily ignore cases;
   	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
   	 * <!-- end-user-doc -->
-  	 * @return the new adapter.
-  	 * @see org.osate.aadl2.DataClassifier
-  	 * @generated
-  	 */
+   * @return the new adapter.
+   * @see org.osate.aadl2.DataClassifier
+   * @generated
+   */
   public Adapter createDataClassifierAdapter()
   {
     return null ;
   }
 
   /**
-  	 * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.Value <em>Value</em>}'.
-  	 * <!-- begin-user-doc -->
+   * Creates a new adapter for an object of class '{@link org.osate.ba.aadlba.Value <em>Value</em>}'.
+   * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
-  	 * @return the new adapter.
-  	 * @see org.osate.ba.aadlba.Value
-  	 * @generated
-  	 */
+   * @return the new adapter.
+   * @see org.osate.ba.aadlba.Value
+   * @generated
+   */
   public Adapter createValueAdapter()
   {
     return null ;
