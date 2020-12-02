@@ -33,7 +33,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.osate.ge.swt.SwtUtil;
 
 /**
- * @since 1.1
+ * @since 1.2
  */
 public class DiagramNameDialog {
 	private DiagramNameDialog() {
