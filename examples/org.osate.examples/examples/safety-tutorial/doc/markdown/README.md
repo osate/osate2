@@ -1,3 +1,5 @@
+# Safety Tutorial
+
 Documentation for the Safety Tutorial Example is in the OSATE Help system. To access it go to Help->Help Contents->Error Model Annex Documentation. The two documents "Safety Analysis with Error Model V2" and "Safety Analysis of a GPS System" use the Safety Tutorial as the example. The first document explains support for FHA, Fault Impact, and Fault Tree analysis, the second is a walk through the GPS receiver example. It is worthwhile consulting both documents when looking at this example.
 
 There are minor differences between what is currently generated with OSATE and what is shown in the documents. Most of them are not worth calling out (just wording changes, formatting, etc.) There are a few substantive differences highlighted here.
@@ -30,5 +32,3 @@ Doing a FTA on GPS.BasicRedundancy produces a tree with an extra leaf "'processi
 In *Functional Architecture Bound to Physical Architecture* a FTA from GPS.BasicBound yields a tree with two additional nodes (over what is shown in the documentation), namely "'network' source 'network_binding_es'", and "'network' source 'network_access_es'".
 
 In *Redundant Processors within GPS System Architecture* the example does not "absorb" one of the processors. The FTA is different but the overall results are the same.
-
-08/21/2020
