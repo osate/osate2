@@ -14,7 +14,9 @@ import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.parsesupport.ParseUtil;
 
-// Issue #2459
+/**
+ * @since 3.1
+ */
 public class AnnexValidator extends EObjectValidator {
 
 	private static class NoValidationAdaper implements Adapter {

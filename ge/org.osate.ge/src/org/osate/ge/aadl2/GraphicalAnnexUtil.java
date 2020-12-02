@@ -39,7 +39,7 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 /**
  * Class containing utility functions useful for implementing plugins adding annex support to the OSATE graphical editor.
  * @noextend
- * @since 2.0
+ * @since 2.1
  */
 public class GraphicalAnnexUtil {
 	/**
@@ -203,7 +203,7 @@ public class GraphicalAnnexUtil {
 	}
 
 	/**
-	 * @since 2.0
+	 * @since 2.1
 	 */
 	public static <T> T createParsedAnnexSubclause(final Classifier c, final String annexName, final EClass parsedEType,
 			final Class<T> parsedType) {

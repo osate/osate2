@@ -35,7 +35,7 @@ import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.EditorUtil;
 
 /**
- * @since 2.0
+ * @since 2.1
  */
 public class DiagramCreationUtil {
 	public static void createDiagram(final IEditorPart activeEditor, final String fileName,
