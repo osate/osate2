@@ -23,24 +23,18 @@
  */
 package org.osate.ge.gef.nodes;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Objects;
-
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
+import javafx.scene.layout.Region;
 
 /**
- * {@link ContainerShape} is a {@link Node} which contains children which are grouped into distinct categories.
- * The {@link Category} determines how the child is treated during layout.
+ * {@link ContainerShape} is a {@link Node} which contains children which are grouped into distinct groupings. The
+ * list to which a child is added will determine how it is laid out.
  *
  * This node is intended to be a general used node that is used to present most undocked diagram elements.
- * A child node is considered docked if has a left, right, top, or bottom category assigned.
+ * A child node is considered docked if is attached to the left, right, top, or bottom side of a {@link ContainerShape}
  *
  * Labels are positioned in an area and have padding on each side. The top and bottom padding are equal.
  * The left and right padding is equal. Padding must be at least the minimum value but will otherwise be calculated
@@ -49,7 +43,7 @@ import javafx.scene.Parent;
  * The minimum size of the shape is such that all children must be sized to at least their minimum size.
  * Additionally, the minimum size includes the preferred size and preferred position of free and docked children.
  *
- * The preferred position of free and docked children can be set using {@link #setPrefPosition(Node, Point2D)}.
+ * The preferred position of free and docked children can be set using {@link PreferredPosition#set(Node, Point2D)}.
  * Free shapes will be positioned at the preferred position. Docked children may be positioned at a different
  * location based to avoid overlapping with existing children. For docked children, only the X or Y value is used
  * depending on the side to which the shape is docked.
@@ -57,18 +51,9 @@ import javafx.scene.Parent;
  * The preferred size is dependent on the configured size. If the shape has a configured size, then the preferred
  * size is the max of the configured size and the minimum size. If the shape does not have a configured size,
  * it is calculated based on the preferred position and sizes of children.
+ *
  **/
-public class ContainerShape extends Parent {
-	/**
-	 * Key for the property for category of nodes.
-	 */
-	private static final Object CATEGORY_KEY = new Object();
-
-	/**
-	 * Key for the property for the preferred position of the node.
-	 */
-	private static final Object PREF_POSITION_KEY = new Object();
-
+public class ContainerShape extends Region {
 	/**
 	 * Indicates that a value has not been specified. Used to indicate the lack of a configured width or height.
 	 */
@@ -99,51 +84,9 @@ public class ContainerShape extends Parent {
 	private static final double MIN_COMPUTED_PREF_HEIGHT = 80;
 
 	/**
-	 * Minimum spacing between docked shapes on the axis on which they are layed out.
+	 * Minimum spacing between docked shapes on the axis on which they are laid out.
 	 */
-	private static final double DOCKED_SHAPE_SPACING = 5;
-
-	/**
-	 * {@link Category} s a classification of a child which determines how it will be layed out. The category
-	 * of a child is determined by the child list to which it is added. A child may be moved to another category
-	 * by calling {@link ContainerShape#setCategory(Node, Category)}.
-	 */
-	public static enum Category {
-		/**
-		 * Graphics are positioned and sized to match the size of the node.
-		 */
-		GRAPHIC,
-
-		/**
-		 * Docked to the left side.
-		 */
-		LEFT,
-
-		/**
-		 * Docked to the right side
-		 */
-		RIGHT,
-
-		/**
-		 * Docked to the top side
-		 */
-		TOP,
-
-		/**
-		 * Docked to the bottom side
-		 */
-		BOTTOM,
-
-		/**
-		 * Labels are positioned based on the parent node's label configuration.
-		 */
-		LABEL,
-
-		/**
-		 * A child that may be freely positioned.
-		 */
-		FREE,
-	}
+	static final double DOCKED_SHAPE_SPACING = 5;
 
 	/**
 	 * Support positions for label children.
@@ -164,189 +107,24 @@ public class ContainerShape extends Parent {
 	}
 
 	/**
-	 * Entry for the docked node cache. Contains information about the position and size of a docked node.
+	 * {@link ListChangeListener} which sets the {@link DockedShape#sideProperty()} of the elements of a list to
+	 * a specific value when added to the list.
 	 */
-	private static class DockedNodeCacheEntry {
-		/**
-		 * Comparator for sorting cache entries by the X value of their preferred position.
-		 * Nodes without preferred positions are greater than those with preferred positions.
-		 * Such nodes are sorted to be after nodes with preferred positions.
-		 */
-		private final static Comparator<DockedNodeCacheEntry> PREF_POSITION_X_COMPARATOR = (n1, n2) -> {
-			final Point2D p1 = n1.prefPosition;
-			final Point2D p2 = n2.prefPosition;
-			if (p1 == null) {
-				return p2 == null ? 0 : 1;
-			} else if (p2 == null) {
-				return -1;
-			}
+	private class SideSettingListListener implements ListChangeListener<DockedShape> {
+		private DockSide side;
 
-			return Double.compare(p1.getX(), p2.getX());
-		};
-
-		/**
-		 * Comparator for sorting cache entries by the Y value of their preferred position.
-		 * Nodes without preferred positions are greater than those with preferred positions.
-		 * Such nodes are sorted to be after nodes with preferred positions.
-		 */
-		private final static Comparator<DockedNodeCacheEntry> PREF_POSITION_Y_COMPARATOR = (n1, n2) -> {
-			final Point2D p1 = n1.prefPosition;
-			final Point2D p2 = n2.prefPosition;
-			if (p1 == null) {
-				return p2 == null ? 0 : 1;
-			} else if (p2 == null) {
-				return -1;
-			}
-
-			return Double.compare(p1.getY(), p2.getY());
-		};
-
-		/*
-		 * Creates a new instance. Populates the node, width, height and prefPosition fields.
-		 */
-		DockedNodeCacheEntry(final Node node) {
-			this.node = node;
-			this.width = node.prefWidth(-1);
-			this.height = node.prefHeight(-1);
-			this.prefPosition = getPrefPosition(node);
+		public SideSettingListListener(DockSide side) {
+			this.side = side;
 		}
 
-		Node node;
-		double width;
-		double height;
-
-		/**
-		 * The preferred position of the docked node.
-		 */
-		Point2D prefPosition;
-
-		/**
-		 * X value of the computed layout position relative to the border of the {@link ContainerShape} on which
-		 * the node is docked.
-		 */
-		double x;
-
-		/**
-		 * Y value of the computed layout position relative to the border of the {@link ContainerShape} on which the node is docked.
-		 */
-		double y;
-	}
-
-
-	/**
-	 * Holds docked nodes and a sorted cache containing the layout. One instance will be created for each category of
-	 * docked node.
-	 */
-	private class DockedNodes {
-		private final ObservableList<Node> dockedNodes = FXCollections.observableArrayList();
-
-		/**
-		 * Whether the nodes for this category should be positioned out vertically. Otherwise, they are positioned horizontally.
-		 */
-		private final boolean vertical;
-
-		/**
-		 * Whether the end(left or bottom) of the node should be aligned to the alignment position.
-		 * Vertically positioned children are aligned horizontally and vice-versa.
-		 */
-		private final boolean alignEnd;
-
-		/**
-		 * List of cache entries that contains how the layout information for each docked node for this category.
-		 */
-		private final ArrayList<DockedNodeCacheEntry> cache = new ArrayList<>();
-
-		/**
-		 * Width of the bounds of the nodes in this category. Cleared when the cache is cleared.
-		 */
-		private double width = 0.0;
-
-		/**
-		 * Height of the bounds of the nodes in this category. Cleared when the cache is cleared.
-		 */
-		private double height = 0.0;
-
-		/**
-		 * Creates a new instance
-		 * @param category the category that determines the configuration of this instance.
-		 * A {@link CategoryListChangeListener} is registered for the node list;
-		 */
-		public DockedNodes(final Category category) {
-			dockedNodes.addListener(new CategoryListChangeListener(category));
-			this.vertical = category == Category.LEFT || category == Category.RIGHT;
-			this.alignEnd = category == Category.RIGHT || category == Category.BOTTOM;
-		}
-
-		/**
-		 * Computes and stores cached values. Specifically creates the cache entries containing the layout
-		 * information for the docked nodes in this category and the total width and height.
-		 */
-		private void computeCachedValues() {
-			clearCache();
-			if (dockedNodes.isEmpty()) {
-				return;
-			}
-
-			// Populate cache which objects
-			for (final Node n : dockedNodes) {
-				cache.add(new DockedNodeCacheEntry(n));
-			}
-
-			// Sort the nodes in the cache
-			final Comparator<DockedNodeCacheEntry> sortComparator = vertical
-					? DockedNodeCacheEntry.PREF_POSITION_Y_COMPARATOR
-					: DockedNodeCacheEntry.PREF_POSITION_X_COMPARATOR;
-			cache.sort(sortComparator);
-
-			// Calculate the position for each child and the total width and height
-			if (vertical) {
-				double y = 0;
-				for (final DockedNodeCacheEntry child : cache) {
-					if (child.node.isManaged()) {
-						if (child.prefPosition != null) {
-							y = Math.max(child.prefPosition.getY(), y);
-						}
-						child.x = -(alignEnd ? child.width : 0);
-						child.y = y;
-						y += child.height + DOCKED_SHAPE_SPACING;
-
-						width = Math.max(width, child.width);
+		@Override
+		public void onChanged(Change<? extends DockedShape> c) {
+			while (c.next()) {
+				if (c.wasAdded()) {
+					for (final DockedShape child : c.getAddedSubList()) {
+						child.setSide(side);
 					}
-
-					height = y - DOCKED_SHAPE_SPACING;
 				}
-			} else {
-				double x = 0;
-				for (final DockedNodeCacheEntry child : cache) {
-					if (child.node.isManaged()) {
-						if (child.prefPosition != null) {
-							x = Math.max(child.prefPosition.getX(), x);
-						}
-						child.x = x;
-						child.y = -(alignEnd ? child.height : 0);
-						x += child.width + DOCKED_SHAPE_SPACING;
-
-						height = Math.max(height, child.height);
-					}
-					width = x - DOCKED_SHAPE_SPACING;
-				}
-			}
-		}
-
-		public void clearCache() {
-			cache.clear();
-			width = 0;
-			height = 0;
-		}
-
-		/**
-		 * Resizes and relocates the nodes stored in this instance based on cached values and the specified offset.
-		 * @param xOffset the x-offset to add to the cached node position
-		 * @param yOffset the y-offset to add to the cached node position
-		 */
-		public void applyCachedLayout(final double xOffset, final double yOffset) {
-			for (final DockedNodeCacheEntry c : cache) {
-				c.node.resizeRelocate(c.x + xOffset, c.y + yOffset, c.width, c.height);
 			}
 		}
 	}
@@ -354,26 +132,15 @@ public class ContainerShape extends Parent {
 	/**
 	 * Whether cached values are valid.
 	 */
-	private boolean cachesAreValid = false;
-	private final ObservableList<Node> graphics = FXCollections.observableArrayList();
-	private final ObservableList<Node> labels = FXCollections.observableArrayList();
-	private final DockedNodes leftChildren = new DockedNodes(Category.LEFT);
-	private final DockedNodes rightChildren = new DockedNodes(Category.RIGHT);
-	private final DockedNodes topChildren = new DockedNodes(Category.TOP);
-	private final DockedNodes bottomChildren = new DockedNodes(Category.BOTTOM);
-	private final ObservableList<Node> freeChildren = FXCollections.observableArrayList();
+	private final Partition<Node> graphics = new Partition<>(getChildren(), true);
+	private final Partition<Node> labels = new Partition<>(getChildren(), false);
+	private final DockedNodes leftChildren = createDockedNodes(DockSide.LEFT);
+	private final DockedNodes rightChildren = createDockedNodes(DockSide.RIGHT);
+	private final DockedNodes topChildren = createDockedNodes(DockSide.TOP);
+	private final DockedNodes bottomChildren = createDockedNodes(DockSide.BOTTOM);
+	private final Partition<Node> freeChildren = new Partition<>(getChildren(), false);
 	private LabelPosition horizontalLabelPosition = LabelPosition.CENTER;
 	private LabelPosition verticalLabelPosition = LabelPosition.BEGINNING;
-
-	/**
-	 * The width of the shape. Set by container during layout by calling {@link #resize(double, double)
-	 */
-	private double width = 0;
-
-	/**
-	 * The height of the shape. Set by container during layout by calling {@link #resize(double, double)
-	 */
-	private double height = 0;
 
 	/**
 	 * The preferred width of the shape as specified by the the application.
@@ -387,82 +154,63 @@ public class ContainerShape extends Parent {
 	 */
 	private double configuredHeight = NOT_SPECIFIED;
 
-	/**
-	 * Create a new {@link ContainerShape}.
-	 */
 	public ContainerShape() {
-		// Add listeners to each exposed child list. These listeners are responsible for updating the node's
-		// category and adding / removing children from the node's children list at the appropriate location.
-		// Graphics have special handling to ensure that they are before other children.
-		graphics.addListener(new GraphicListChangeListener());
-		labels.addListener(new CategoryListChangeListener(Category.LABEL));
-		freeChildren.addListener(new CategoryListChangeListener(Category.FREE));
+		this.getChildren().addListener(new PartitionCleanerListener());
+	}
+
+	/**
+	 * Creates a {@link DockedNodes} instance with an attached {@link SideSettingListListener}
+	 * @param side the side for which the instance will contain nodes
+	 * @return the new instance
+	 */
+	private DockedNodes createDockedNodes(final DockSide side) {
+		final DockedNodes result = new DockedNodes(getChildren(), side);
+		result.getNodes().addListener(new SideSettingListListener(side));
+		return result;
 	}
 
 	public ObservableList<Node> getGraphics() {
-		return graphics;
+		return graphics.getNodes();
 	}
 
 	public ObservableList<Node> getLabels() {
-		return labels;
+		return labels.getNodes();
 	}
 
-	public ObservableList<Node> getLeftChildren() {
-		return leftChildren.dockedNodes;
+	public ObservableList<DockedShape> getLeftChildren() {
+		return leftChildren.getNodes();
 	}
 
-	public ObservableList<Node> getRightChildren() {
-		return rightChildren.dockedNodes;
-
+	public ObservableList<DockedShape> getRightChildren() {
+		return rightChildren.getNodes();
 	}
 
-	public ObservableList<Node> getTopChildren() {
-		return topChildren.dockedNodes;
+	public ObservableList<DockedShape> getTopChildren() {
+		return topChildren.getNodes();
 	}
 
-	public ObservableList<Node> getBottomChildren() {
-		return bottomChildren.dockedNodes;
+	public ObservableList<DockedShape> getBottomChildren() {
+		return bottomChildren.getNodes();
 	}
 
 	public ObservableList<Node> getFreeChildren() {
-		return freeChildren;
-	}
-
-	@Override
-	public final boolean isResizable() {
-		return true;
-	}
-
-	@Override
-	public final void resize(double newWidth, double newHeight) {
-		final boolean changed = width != newWidth || height != newHeight;
-		if (changed) {
-			width = newWidth;
-			height = newHeight;
-
-			// Trigger a layout
-			setNeedsLayout(true);
-			requestParentLayout();
-		}
+		return freeChildren.getNodes();
 	}
 
 	@Override
 	public void requestLayout() {
-		if (cachesAreValid) {
-			leftChildren.clearCache();
-			rightChildren.clearCache();
-			topChildren.clearCache();
-			bottomChildren.clearCache();
-			cachesAreValid = false;
-		}
+		leftChildren.clearCache();
+		rightChildren.clearCache();
+		topChildren.clearCache();
+		bottomChildren.clearCache();
 
 		super.requestLayout();
 	}
 
 	@Override
 	protected void layoutChildren() {
-		// Ensure any cached values are valid
-		ensureValidLayoutCache();
+		final double width = getWidth();
+		final double height = getHeight();
 
 		// Size and position graphics
 		for (final Node graphic : graphics) {
@@ -522,10 +270,10 @@ public class ContainerShape extends Parent {
 		}
 
 		// Apply the cached layout
-		leftChildren.applyCachedLayout(0, 0);
-		rightChildren.applyCachedLayout(width, 0);
-		topChildren.applyCachedLayout(0, 0);
-		bottomChildren.applyCachedLayout(0, height);
+		leftChildren.layout(0, 0);
+		rightChildren.layout(width, 0);
+		topChildren.layout(0, 0);
+		bottomChildren.layout(0, height);
 
 		// Position and size free children
 		for (final Node child : freeChildren) {
@@ -537,27 +285,13 @@ public class ContainerShape extends Parent {
 	};
 
 	/**
-	 * Ensures that any values cached by this class are valid. Specifically, it ensures layout information for docked
-	 * nodes have been calculated.
-	 */
-	private void ensureValidLayoutCache() {
-		if (!cachesAreValid) {
-			leftChildren.computeCachedValues();
-			rightChildren.computeCachedValues();
-			topChildren.computeCachedValues();
-			bottomChildren.computeCachedValues();
-			cachesAreValid = true;
-		}
-	}
-
-	/**
 	 * Returns the preferred position for the child. If the child does not have a preferred position, a default
 	 * value of zero is returned.
 	 * @param child is the child node to return the preferred position for.
 	 * @return the preferred position.
 	 */
 	private Point2D getPreferredPositionOrDefault(final Node child) {
-		final Point2D prefPosition = getPrefPosition(child);
+		final Point2D prefPosition = PreferredPosition.get(child);
 		return prefPosition == null ? Point2D.ZERO : prefPosition;
 	}
 
@@ -591,7 +325,7 @@ public class ContainerShape extends Parent {
 	/**
 	 * Computes the preferred width of the node. If a configured width is specified, then that value will be
 	 * returned as long as it is not less than the minimum width. If the configured width is {@link #NOT_SPECIFIED}
-	 * then it will be computed based on the category and preferred position and sizes of children.
+	 * then it will be computed based on the grouping, preferred position and sizes of children.
 	 *
 	 * When calculating the preferred width during layout, this function is called
 	 * with the configured which that has been specified by {@link #setConfiguredWidth(double)}
@@ -628,7 +362,7 @@ public class ContainerShape extends Parent {
 	/**
 	 * Computes the preferred height of the node. If a configured height is specified, then that value will be
 	 * returned as long as it is not less than the minimum height. If the configured height is {@link #NOT_SPECIFIED}
-	 * then it will be computed based on the category and preferred position and sizes of children.
+	 * then it will be computed based on the grouping, preferred position and sizes of children.
 	 *
 	 * When calculating the preferred height during layout, this function is called
 	 * with the configured which that has been specified by {@link #setConfiguredHeight(double)}
@@ -655,7 +389,7 @@ public class ContainerShape extends Parent {
 	 * @return the horizontal padding for each side of the label area.
 	 */
 	private double computeHorizontalLabelPadding() {
-		return Math.max(MIN_HORIZONTAL_LABEL_PADDING, Math.max(leftChildren.width, rightChildren.width));
+		return Math.max(MIN_HORIZONTAL_LABEL_PADDING, Math.max(leftChildren.getWidth(), rightChildren.getWidth()));
 	}
 
 	/**
@@ -663,14 +397,13 @@ public class ContainerShape extends Parent {
 	 * @return the vertical padding for each side of the label area.
 	 */
 	private double computeVerticalLabelPadding() {
-		return Math.max(MIN_VERTICAL_LABEL_PADDING, Math.max(topChildren.height, bottomChildren.height));
+		return Math.max(MIN_VERTICAL_LABEL_PADDING, Math.max(topChildren.getHeight(), bottomChildren.getHeight()));
 	}
 
 	@Override
 	protected double computeMinWidth(final double height) {
-		ensureValidLayoutCache();
-		double result = Math.max(leftChildren.width + rightChildren.width,
-				Math.max(topChildren.width, bottomChildren.width));
+		double result = Math.max(leftChildren.getWidth() + rightChildren.getWidth(),
+				Math.max(topChildren.getWidth(), bottomChildren.getWidth()));
 
 		// Take into consideration minimum width of graphics
 		for (final Node graphic : graphics) {
@@ -683,7 +416,7 @@ public class ContainerShape extends Parent {
 		final double horizontalLabelPadding = computeHorizontalLabelPadding();
 		for (final Node label : labels) {
 			if (label.isManaged()) {
-				result = Math.max(result, label.minWidth(-1) - (2 * horizontalLabelPadding));
+				result = Math.max(result, label.minWidth(-1) + (2 * horizontalLabelPadding));
 			}
 		}
 
@@ -695,9 +428,8 @@ public class ContainerShape extends Parent {
 
 	@Override
 	protected double computeMinHeight(final double width) {
-		ensureValidLayoutCache();
-		double result = Math.max(topChildren.height + bottomChildren.height,
-				Math.max(leftChildren.height, rightChildren.height));
+		double result = Math.max(topChildren.getHeight() + bottomChildren.getHeight(),
+				Math.max(leftChildren.getHeight(), rightChildren.getHeight()));
 
 		// Take into consideration min height of graphics
 		for (final Node graphic : graphics) {
@@ -720,6 +452,8 @@ public class ContainerShape extends Parent {
 	 * @return the minimum height needed for labels. Includes vertical padding.
 	 */
 	private final double computeMinLabelHeight() {
+		final double width = getWidth();
+
 		double minLabelHeight = 0;
 		for (final Node label : labels) {
 			if (label.isManaged()) {
@@ -770,23 +504,12 @@ public class ContainerShape extends Parent {
 		return result;
 	}
 
-	@Override
-	public final double maxWidth(double height) {
-		return Double.MAX_VALUE;
-	}
-
-	@Override
-	public final double maxHeight(double height) {
-		return Double.MAX_VALUE;
-	}
-
 	/**
 	 * Returns the height needed for labels.
 	 * @param width the of the label block including padding. May be -1.
 	 * @return the sum of the preferred height of all labels and padding.
 	 */
 	private double prefLabelHeight(double width) {
-		ensureValidLayoutCache();
 		final double verticalLabelPadding = computeVerticalLabelPadding();
 		final double horizontalLabelPadding = computeHorizontalLabelPadding();
 		final double labelWidth = width > 0 ? -1 : Math.max(width - 2 * horizontalLabelPadding, 0);
@@ -805,184 +528,32 @@ public class ContainerShape extends Parent {
 	}
 
 	/**
-	 * Returns the list containing children with the specified category.
-	 * @param category the category for which to return the list.
-	 * @return is the modifiable list.
+	 * Removes a child from the container shape.
+	 * @param child the child to remove.
 	 */
-	private ObservableList<Node> childrenByCategory(final Category category) {
-		switch (category) {
-		case GRAPHIC:
-			return graphics;
-		case LABEL:
-			return labels;
-		case LEFT:
-			return leftChildren.dockedNodes;
-		case RIGHT:
-			return rightChildren.dockedNodes;
-		case TOP:
-			return topChildren.dockedNodes;
-		case BOTTOM:
-			return bottomChildren.dockedNodes;
-		case FREE:
-			return freeChildren;
-		default:
-			throw new IllegalArgumentException("Invalid category: " + category);
-		}
+	public void removeChild(final Node child) {
+		Partition.remove(child);
 	}
 
+	/**
+	 * Update the configured width of the node
+	 * @param value is the new configured width.
+	 */
 	public void setConfiguredWidth(final double value) {
-		this.configuredWidth = value;
+		if (this.configuredWidth != value) {
+			this.configuredWidth = value;
+			requestLayout();
+		}
 	}
 
+	/**
+	 * Update the configured height of the node
+	 * @param value is the new configured height.
+	 */
 	public void setConfiguredHeight(final double value) {
-		this.configuredHeight = value;
-	}
-
-	/**
-	 * Returns the category for the node. The category determines how the child will be layed out. It is set based
-	 * on the child list the node is added to. If the node is not a child of an {@link ContainerShape} the category
-	 * will be null.
-	 * @param node the node for which to retrieve the category.
-	 * @return the node's category.
-	 */
-	private static Category getCategory(final Node node) {
-		return (Category) node.getProperties().get(CATEGORY_KEY);
-	}
-
-	/**
-	 * Sets the category of node which is a child of {@link ContainerShape}. The category is set when adding a node to
-	 * the child so calling this function on a node which isn't a child of an {@link ContainerShape} is a no-op.
-	 * @param node the node to set the category for
-	 * @param value the new category
-	 */
-	public static void setCategory(final Node node, final Category value) {
-		if (node.getParent() instanceof ContainerShape) {
-			final ContainerShape parent = (ContainerShape) node.getParent();
-			final Category oldValue = getCategory(node);
-			if (value != oldValue) {
-				if (oldValue != null) {
-					parent.childrenByCategory(oldValue).remove(node);
-				}
-
-				if (value != null) {
-					parent.childrenByCategory(value).add(node);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Returns the preferred position of a node. If one has not been set, this will return null.
-	 * @param node the node for which to retrieve the preferred position
-	 * @return the node's preferred position.
-	 */
-	private static Point2D getPrefPosition(final Node node) {
-		return (Point2D) node.getProperties().get(PREF_POSITION_KEY);
-	}
-
-	/**
-	 * Sets the preferred position of a node. The preferred position is the position where the node should be placed.
-	 * The layout algorithm will use it determine the actual position of the node.
-	 * Only used for docked and free children.
-	 * @param node the node for which to set the preferred position
-	 * @param value the new preferred position
-	 */
-	public static void setPrefPosition(final Node node, final Point2D value) {
-		final Point2D oldValue = getPrefPosition(node);
-		if (!Objects.equals(value, oldValue)) {
-			if (value == null) {
-				node.getProperties().remove(PREF_POSITION_KEY, value);
-			} else {
-				node.getProperties().put(PREF_POSITION_KEY, value);
-			}
-
-			// Request that the parent reposition this child
-			if (node.getParent() != null) {
-				node.getParent().requestLayout();
-			}
-		}
-	}
-
-	/**
-	 * Update the children list to contain the contents of the list for which changes are being listened.
-	 * Updates the node's category. Nodes are added to the end of the children list.
-	 * The ordering in the children list may not match the ordering the list for which changes are being listened.
-	 */
-	private class CategoryListChangeListener implements ListChangeListener<Node> {
-		private Category category;
-
-		/**
-		 * Creates a new instance
-		 * @param category is the category to assign to added nodes.
-		 */
-		CategoryListChangeListener(final Category category) {
-			this.category = category;
-		}
-
-		@Override
-		public void onChanged(Change<? extends Node> c) {
-			while (c.next()) {
-				for (final Node node : c.getRemoved()) {
-					node.getProperties().remove(CATEGORY_KEY);
-					getChildren().remove(node);
-				}
-
-				if (c.wasAdded()) {
-					for (final Node node : c.getAddedSubList()) {
-						node.getProperties().put(CATEGORY_KEY, category);
-						getChildren().add(node);
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * Listener which ensures graphics appear at the start of the children list and are in the same order as they
-	 * appear in the graphics list. Ensures graphic category is set when nodes are added to the graphics list.
-	 */
-	private class GraphicListChangeListener implements ListChangeListener<Node> {
-		@Override
-		public void onChanged(Change<? extends Node> c) {
-			while (c.next()) {
-				// Rearrange children to match the order in the graphics list.
-				if (c.wasPermutated()) {
-					// This process isn't efficient but it is simple. Will need to revisit if graphics are
-					// sorted regularly.
-					// Replace each changed element with new dummy groups. This is needed to avoid exceptions
-					// caused by nodes appearing in multiple places in the list.
-					for (int i = c.getFrom(); i < c.getTo(); ++i) {
-						final int newIndex = c.getPermutation(i);
-						if (i != newIndex) {
-							getChildren().set(newIndex, new Group());
-						}
-					}
-
-					// Replace the groups with the appropriate elements.
-					for (int i = c.getFrom(); i < c.getTo(); ++i) {
-						final int newIndex = c.getPermutation(i);
-						if (i != newIndex) {
-							getChildren().set(newIndex, c.getList().get(newIndex));
-						}
-					}
-				}
-
-				// Handle removals
-				for (final Node node : c.getRemoved()) {
-					node.getProperties().remove(CATEGORY_KEY);
-					getChildren().remove(node);
-				}
-
-				// Handle additions
-				if (c.wasAdded()) {
-					// Add the nodes at the location in which they are located in the graphics node.
-					for (int i = c.getFrom(); i < c.getTo(); i++) {
-						final Node node = c.getList().get(i);
-						node.getProperties().put(CATEGORY_KEY, Category.GRAPHIC);
-						getChildren().add(i, node);
-					}
-				}
-			}
+		if (this.configuredHeight != value) {
+			this.configuredHeight = value;
+			requestLayout();
 		}
 	}
 }

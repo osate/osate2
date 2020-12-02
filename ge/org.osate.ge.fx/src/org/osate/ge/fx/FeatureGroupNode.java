@@ -23,43 +23,70 @@
  */
 package org.osate.ge.fx;
 
-import javafx.scene.Parent;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcTo;
+import javafx.scene.shape.ClosePath;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.StrokeType;
 
-//n.setPrefWidth(20);
-//n.setPrefHeight(16);
+public class FeatureGroupNode extends Region implements Styleable {
+	public static final double featureGroupSymbolWidth = 30;
+	private static final double featureGroupCircleRadius = featureGroupSymbolWidth / 3.0;
+	private static final double featureGroupCircleWidth = 2.0 * featureGroupCircleRadius;
+	private Path path = new Path();
 
-public class DataPortNode extends Parent implements Styleable {
-	private final javafx.scene.shape.Polygon poly = new javafx.scene.shape.Polygon();
-
-	// TODO; Move to shared location
-	private final double width = 20.0;
-	private final double height = 16.0;
-	// TODO: Shouldn't be resizable? Should be fixed size. Could wrap in non-resizable object if desired. Other
-	// TODO; If resizable.. should extend region
-
-	public DataPortNode() {
-		this.getChildren().addAll(poly);
-		poly.getPoints().setAll(0.0, 0.0, width, height / 2.0, 0.0, height);
-		poly.setStrokeType(StrokeType.INSIDE);
+	public FeatureGroupNode() {
+		this.getChildren().addAll(path);
 		setLineWidth(2);
 		setBackgroundColor(Color.BLACK);
 		setOutlineColor(Color.BLACK);
+		path.setStrokeType(StrokeType.INSIDE);
+	}
+
+	@Override
+	public void resize(final double width, final double height) {
+		super.resize(width, height);
+
+		// TODO: Should this be in layoutChildren?
+		double cy = height / 2.0;
+		path.getElements().setAll(new MoveTo(0.0, cy), new ArcTo(featureGroupCircleRadius, featureGroupCircleRadius, 0,
+				featureGroupCircleWidth, cy, true,
+				false), new ArcTo(featureGroupCircleRadius, featureGroupCircleRadius, 0, 0.0, cy, true,
+						false),
+				new MoveTo(featureGroupCircleWidth, 0.0), new LineTo(width, 0.0), new LineTo(width, height),
+				new LineTo(featureGroupCircleWidth, height), new ClosePath());
 	}
 
 	@Override
 	public final void setBackgroundColor(final Color value) {
-		poly.setFill(value);
+		path.setFill(value);
 	}
 
 	@Override
 	public final void setOutlineColor(final Color value) {
-		poly.setStroke(value);
+		path.setStroke(value);
 	}
 
 	@Override
 	public final void setLineWidth(final double value) {
-		poly.setStrokeWidth(value);
+		path.setStrokeWidth(value);
+	}
+
+	@Override
+	public double computePrefWidth(double height) {
+		return featureGroupSymbolWidth;
+	}
+
+	@Override
+	public double computePrefHeight(double height) {
+		return featureGroupSymbolWidth;
+	}
+
+	@Override
+	public double computeMaxWidth(double height) {
+		return featureGroupSymbolWidth;
 	}
 }

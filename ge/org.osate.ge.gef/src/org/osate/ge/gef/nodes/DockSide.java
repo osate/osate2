@@ -21,45 +21,19 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.fx;
+package org.osate.ge.gef.nodes;
 
-import javafx.scene.Parent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.StrokeType;
+/**
+ * Determines how children are laid out
+ */
+public enum DockSide {
+	LEFT(true, false), RIGHT(true, true), TOP(false, false), BOTTOM(false, true);
 
-//n.setPrefWidth(20);
-//n.setPrefHeight(16);
+	final boolean vertical;
+	final boolean alignEnd;
 
-public class DataPortNode extends Parent implements Styleable {
-	private final javafx.scene.shape.Polygon poly = new javafx.scene.shape.Polygon();
-
-	// TODO; Move to shared location
-	private final double width = 20.0;
-	private final double height = 16.0;
-	// TODO: Shouldn't be resizable? Should be fixed size. Could wrap in non-resizable object if desired. Other
-	// TODO; If resizable.. should extend region
-
-	public DataPortNode() {
-		this.getChildren().addAll(poly);
-		poly.getPoints().setAll(0.0, 0.0, width, height / 2.0, 0.0, height);
-		poly.setStrokeType(StrokeType.INSIDE);
-		setLineWidth(2);
-		setBackgroundColor(Color.BLACK);
-		setOutlineColor(Color.BLACK);
-	}
-
-	@Override
-	public final void setBackgroundColor(final Color value) {
-		poly.setFill(value);
-	}
-
-	@Override
-	public final void setOutlineColor(final Color value) {
-		poly.setStroke(value);
-	}
-
-	@Override
-	public final void setLineWidth(final double value) {
-		poly.setStrokeWidth(value);
+	DockSide(final boolean vertical, final boolean alignEnd) {
+		this.vertical = vertical;
+		this.alignEnd = alignEnd;
 	}
 }

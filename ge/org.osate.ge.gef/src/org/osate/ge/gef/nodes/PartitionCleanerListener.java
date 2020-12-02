@@ -21,45 +21,24 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.fx;
+package org.osate.ge.gef.nodes;
 
-import javafx.scene.Parent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.StrokeType;
+import javafx.collections.ListChangeListener;
+import javafx.scene.Node;
 
-//n.setPrefWidth(20);
-//n.setPrefHeight(16);
-
-public class DataPortNode extends Parent implements Styleable {
-	private final javafx.scene.shape.Polygon poly = new javafx.scene.shape.Polygon();
-
-	// TODO; Move to shared location
-	private final double width = 20.0;
-	private final double height = 16.0;
-	// TODO: Shouldn't be resizable? Should be fixed size. Could wrap in non-resizable object if desired. Other
-	// TODO; If resizable.. should extend region
-
-	public DataPortNode() {
-		this.getChildren().addAll(poly);
-		poly.getPoints().setAll(0.0, 0.0, width, height / 2.0, 0.0, height);
-		poly.setStrokeType(StrokeType.INSIDE);
-		setLineWidth(2);
-		setBackgroundColor(Color.BLACK);
-		setOutlineColor(Color.BLACK);
-	}
-
+/**
+ * List listener which will remove a node from the registered {@link Partition} when it is removed from the list to
+ * which the listener is attached. An instance of this class should be attached to a partition children list
+ * to ensure partitions are updated if the children list is modified directly. This can occur if a node is added
+ * to a difference parent.
+ */
+class PartitionCleanerListener implements ListChangeListener<Node> {
 	@Override
-	public final void setBackgroundColor(final Color value) {
-		poly.setFill(value);
-	}
-
-	@Override
-	public final void setOutlineColor(final Color value) {
-		poly.setStroke(value);
-	}
-
-	@Override
-	public final void setLineWidth(final double value) {
-		poly.setStrokeWidth(value);
+	public void onChanged(Change<? extends Node> c) {
+		while (c.next()) {
+			for (final Node node : c.getRemoved()) {
+				Partition.remove(node);
+			}
+		}
 	}
 }

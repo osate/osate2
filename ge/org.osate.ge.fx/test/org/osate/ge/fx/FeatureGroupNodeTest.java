@@ -23,43 +23,11 @@
  */
 package org.osate.ge.fx;
 
-import javafx.scene.Parent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.StrokeType;
-
-//n.setPrefWidth(20);
-//n.setPrefHeight(16);
-
-public class DataPortNode extends Parent implements Styleable {
-	private final javafx.scene.shape.Polygon poly = new javafx.scene.shape.Polygon();
-
-	// TODO; Move to shared location
-	private final double width = 20.0;
-	private final double height = 16.0;
-	// TODO: Shouldn't be resizable? Should be fixed size. Could wrap in non-resizable object if desired. Other
-	// TODO; If resizable.. should extend region
-
-	public DataPortNode() {
-		this.getChildren().addAll(poly);
-		poly.getPoints().setAll(0.0, 0.0, width, height / 2.0, 0.0, height);
-		poly.setStrokeType(StrokeType.INSIDE);
-		setLineWidth(2);
-		setBackgroundColor(Color.BLACK);
-		setOutlineColor(Color.BLACK);
+public class FeatureGroupNodeTest {
+	private FeatureGroupNodeTest() {
 	}
 
-	@Override
-	public final void setBackgroundColor(final Color value) {
-		poly.setFill(value);
-	}
-
-	@Override
-	public final void setOutlineColor(final Color value) {
-		poly.setStroke(value);
-	}
-
-	@Override
-	public final void setLineWidth(final double value) {
-		poly.setStrokeWidth(value);
+	public static void main(final String[] args) {
+		NodeApplication.run(() -> new FeatureGroupNode());
 	}
 }

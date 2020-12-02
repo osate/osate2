@@ -21,45 +21,52 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.fx;
+package org.osate.ge.gef.nodes;
 
-import javafx.scene.Parent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.StrokeType;
+import java.util.Objects;
 
-//n.setPrefWidth(20);
-//n.setPrefHeight(16);
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 
-public class DataPortNode extends Parent implements Styleable {
-	private final javafx.scene.shape.Polygon poly = new javafx.scene.shape.Polygon();
+/**
+ * Class for accessing the preferred position property used by {@link ContainerShape} and {@link PreferredPosition} to
+ * layout children. Ultimately the container will decide how to position the node and the property may not be used
+ * for all children.
+ */
+public class PreferredPosition {
+	/**
+	 * Key for the property for the preferred position of the node.
+	 */
+	private static final Object KEY = new Object();
 
-	// TODO; Move to shared location
-	private final double width = 20.0;
-	private final double height = 16.0;
-	// TODO: Shouldn't be resizable? Should be fixed size. Could wrap in non-resizable object if desired. Other
-	// TODO; If resizable.. should extend region
-
-	public DataPortNode() {
-		this.getChildren().addAll(poly);
-		poly.getPoints().setAll(0.0, 0.0, width, height / 2.0, 0.0, height);
-		poly.setStrokeType(StrokeType.INSIDE);
-		setLineWidth(2);
-		setBackgroundColor(Color.BLACK);
-		setOutlineColor(Color.BLACK);
+	/**
+	 * Returns the preferred position of a node. If one has not been set, this will return null.
+	 * @param node the node for which to retrieve the preferred position
+	 * @return the node's preferred position.
+	 */
+	public static Point2D get(final Node node) {
+		return (Point2D) node.getProperties().get(KEY);
 	}
 
-	@Override
-	public final void setBackgroundColor(final Color value) {
-		poly.setFill(value);
-	}
+	/**
+	 * Sets the preferred position of a node. The preferred position is the position where the node should be placed.
+	 * The layout algorithm will use it determine the actual position of the node.
+	 * @param node the node for which to set the preferred position
+	 * @param value the new preferred position
+	 */
+	public static void set(final Node node, final Point2D value) {
+		final Point2D oldValue = get(node);
+		if (!Objects.equals(value, oldValue)) {
+			if (value == null) {
+				node.getProperties().remove(KEY, value);
+			} else {
+				node.getProperties().put(KEY, value);
+			}
 
-	@Override
-	public final void setOutlineColor(final Color value) {
-		poly.setStroke(value);
-	}
-
-	@Override
-	public final void setLineWidth(final double value) {
-		poly.setStrokeWidth(value);
+			// Request that the parent reposition this child
+			if (node.getParent() != null) {
+				node.getParent().requestLayout();
+			}
+		}
 	}
 }

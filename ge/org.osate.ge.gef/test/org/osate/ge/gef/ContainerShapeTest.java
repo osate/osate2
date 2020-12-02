@@ -25,13 +25,15 @@ package org.osate.ge.gef;
 
 import org.osate.ge.fx.BusNode;
 import org.osate.ge.fx.DataPortNode;
+import org.osate.ge.fx.FeatureGroupNode;
 import org.osate.ge.fx.NodeApplication;
 import org.osate.ge.fx.RectangleNode;
 import org.osate.ge.gef.nodes.ContainerShape;
 import org.osate.ge.gef.nodes.ContainerShape.LabelPosition;
+import org.osate.ge.gef.nodes.DockedShape;
+import org.osate.ge.gef.nodes.PreferredPosition;
 
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 
@@ -64,7 +66,7 @@ public class ContainerShapeTest {
 			final ContainerShape freeChild1 = new ContainerShape();
 			freeChild1.getGraphics().setAll(new BusNode());
 			freeChild1.getLabels().setAll(new Label("Child Node #1"));
-			ContainerShape.setPrefPosition(freeChild1, new Point2D(50, 200));
+			PreferredPosition.set(freeChild1, new Point2D(50, 300));
 			top.getFreeChildren().add(freeChild1);
 
 			// TODO: Set position. Set an explicit preferred size
@@ -74,56 +76,80 @@ public class ContainerShapeTest {
 			freeChild2.getGraphics().setAll(new RectangleNode());
 			freeChild2.getLabels().setAll(new Label("Child Node #2"));
 			top.getFreeChildren().add(freeChild2);
-			ContainerShape.setPrefPosition(freeChild2, new Point2D(100, 350));
+			PreferredPosition.set(freeChild2, new Point2D(100, 400));
 
 			// TODO: Suggest a size
 			freeChild2.setConfiguredWidth(300);
 			freeChild2.setConfiguredHeight(100);
 
+			//
+			// TODO: Docking test
+			//
 			// TODO; Change node types to distinguish them
 			// TODO: Create docked children(features)
-			final Node leftChild1 = createDataPortNode(0);
+//			final DockedShape leftChild1 = createDockedShape("Data Port", new DataPortNode());
+//			top.getLeftChildren().add(leftChild1);
+//			ContainerShape.setPrefPosition(leftChild1, new Point2D(0, 100));
 
-			ContainerShape.setPrefPosition(leftChild1, new Point2D(0, 100));
-			top.getLeftChildren().add(leftChild1);
-			ContainerShape.setPrefPosition(leftChild1, new Point2D(0, 200));
-			top.getLeftChildren().add(createDataPortNode(0));
-			top.getLeftChildren().add(createDataPortNode(0));
-			top.getRightChildren().add(createDataPortNode(180));
-			top.getRightChildren().add(createDataPortNode(180));
-			top.getTopChildren().add(createDataPortNode(90));
-			top.getTopChildren().add(createDataPortNode(90));
-			top.getBottomChildren().add(createDataPortNode(-90));
-			top.getBottomChildren().add(createDataPortNode(-90));
+			// TODO: Reenable when layout bounds issue is worked out
+			final DockedShape fg = createDockedShape("Feature Group", new FeatureGroupNode());
+			top.getLeftChildren().add(fg);
+			// top.getRightChildren().add(fg);
+			// top.getTopChildren().add(fg);
+			// top.getBottomChildren().add(fg);
+			fg.setConfiguredWidth(400.0);
+			fg.setConfiguredHeight(50.0);
+			PreferredPosition.set(fg, new Point2D(0, 50));
 
+			final DockedShape fgChild1 = createDockedShape("FG Child #1", new DataPortNode());
+			fg.getNestedChildren().add(fgChild1);
+			// TODO: Need a way to set a preferred position for feature group child
+
+			final DockedShape fgChild2 = createDockedShape("FG Child #2", new DataPortNode());
+			fg.getNestedChildren().add(fgChild2);
+			// TODO: Need a way to set a preferred position for feature group child
+
+			//
+			// Nested feature groups
+			//
+			final DockedShape nestedFg = createDockedShape("Feature Group", new FeatureGroupNode());
+			fg.getNestedChildren().add(nestedFg);
+			nestedFg.getNestedChildren().add(createDockedShape("NFG Child #1", new DataPortNode()));
+			nestedFg.getNestedChildren().add(createDockedShape("NFG Child #2", new DataPortNode()));
+
+			// TODO: Remove
+			// top.getTopChildren().add(leftChild1);
+//
+//			top.getLeftChildren().add(createDataPortNode(0));
+//			top.getLeftChildren().add(createDataPortNode(0));
+//			top.getRightChildren().add(createDataPortNode(180));
+//			top.getRightChildren().add(createDataPortNode(180));
+//			top.getTopChildren().add(createDataPortNode(90));
+//			top.getTopChildren().add(createDataPortNode(90));
+//			top.getBottomChildren().add(createDataPortNode(-90));
+//			top.getBottomChildren().add(createDataPortNode(-90));
+//
 			// TODO: Top
 			// TODO: Bottom
 			// TODO; Preferred position for docked children
 
-//			final FeatureNode leftChild1 = new FeatureNode();
-//			leftChild1.getGraphics().setAll(new DataPortNode());
-//			leftChild1.getLabels().setAll(new Label("i1"));
-//			top.getLeftChildren().add(leftChild1);
-
 			// TODO: Experiment with longer nodes as well
 
 			// TODO; Create nested docked children(feature groups)
+			// TODO: Replace with adding it to something that is using a feature group graphic, etc
+			// final DockedShape nested1 = createDockedShape("Nested #1");
+//			leftChild1.getNestedChildren().add(nested1);
+
 			// TODO: Add connections to docked and undocked.
 
 			return top;
 		});
 	}
 
-	// TODO; Rename. Decide where pref width and height should be determined. Returns a wrapper that exposes the
-	// post rotation(if any) sizing.
-	private static Node createDataPortNode(final double rotation) {
-		final DataPortNode n = new DataPortNode();
-		n.setPrefWidth(20);
-		n.setPrefHeight(16);
-		n.setRotate(rotation);
-
-		final Group g = new Group();
-		g.getChildren().add(n);
-		return g;
+	private static DockedShape createDockedShape(final String label, final Node graphic) {
+		final DockedShape newNode = new DockedShape();
+		newNode.getLabels().setAll(new Label(label));
+		newNode.setGraphic(graphic);
+		return newNode;
 	}
 }
