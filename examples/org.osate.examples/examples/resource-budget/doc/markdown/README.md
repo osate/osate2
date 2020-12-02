@@ -66,5 +66,3 @@ The result of running "Analyze Resource Budget (Not Bound)" on the tier2 system 
 The result of running "Analyze Resource Allocation (Bound)" on the tier2 system is a .csv report that includes an error:
 
 ![png](../images/tier2_bound_resource_report.png)
-
-7/2/2020

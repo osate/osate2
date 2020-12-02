@@ -7,5 +7,3 @@ A white paper in the Doc folder describes the different use scenarios for this e
 You can also find a powerpoint presentation with the same material.
 
 This example pretty much tracks the documents mentioned.
-
-08/24/2020
