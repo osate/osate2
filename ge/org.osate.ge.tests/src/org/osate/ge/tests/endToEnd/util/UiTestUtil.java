@@ -324,20 +324,6 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Returns whether check box with the specified index is checked
-	 */
-	public static boolean isCheckboxChecked(final int index) {
-		return bot.checkBox(index).isChecked();
-	}
-
-	/**
-	 * Returns whether the check box at the specified index is enabled.
-	 */
-	public static boolean isCheckboxEnabled(final int index) {
-		return bot.checkBox(index).isEnabled();
-	}
-
-	/**
 	 * Clicks the button which has the specified text.
 	 */
 	public static void clickButton(final String text) {
