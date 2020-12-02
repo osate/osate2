@@ -1,0 +1,24 @@
+<h1><a href="#stepper-motor-example" id="stepper-motor-example"></a>Stepper Motor Example</h1>
+<p>This example shows an analytical architectural-fault-modeling approach can be used to diagnose hard to test and correct time-sensitive design errors in a control system early in the lifecycle leading to reduced rework cost.</p>
+<p>A complete description this example is available in the case-study is available in <a href="https://resources.sei.cmu.edu/asset_files/TechnicalReport/2015_005_001_435065.pdf">Improving Quality Using Architecture Fault Analysis with Confidence Arguments (CMU/SEI-2015-TR-006)</a></p>
+<p>This example differs in some details from that shown in the report but covers similar ground.</p>
+<h3><a href="#organization-of-the-example" id="organization-of-the-example"></a>Organization of the example</h3>
+<p>The example is contained in CasePosiitonControl.aadl with supporting error-types in SMErrorTypes.aadl. There are several implementations of the stepper motor within CasePositionControl.aadl, all of which are described a various levels of detail in the referenced report.</p>
+<ul>
+<li>SMS.Original</li>
+<li>SMS.MidFrame</li>
+<li>SMS.buffered</li>
+<li>SMS.Position</li>
+</ul>
+<h3><a href="#analyses-supported-by-this-model" id="analyses-supported-by-this-model"></a>Analyses supported by this model</h3>
+<ul>
+<li>EMV</li>
+<li>Latency</li>
+</ul>
+<h3><a href="#differences-from-the-technical-report" id="differences-from-the-technical-report"></a>Differences from the technical report</h3>
+<p>There are many differences between the example and what is shown in the technical report. The meaningful ones are shown below. * Behavior analysis is not supported in the current version of OSATE * A figure similar (but not identical) to Figure 8, <em>SMS in Its Operational Environment</em> is created from &quot;system implementation SMS_Operational_Environment.original&quot; * Figure 10, <em>Details of Logical SM_PCS Architecture</em> shows the period of the SM_PCS and the health monitor (HM). The current diagramming functionality of OSATE does not support this display. Otherwise diagramming System Impl SMS.Original will produce a similar diagram. * Figure 13, <em>Position Control System Behavior Specification</em> shows the &quot;thread implementation SM_PCS.impl&quot;. Within it is an &quot;annex Behavior_Specification&quot; that is commented out in the example file. Apparently the behavior specification annex is purely informative at this point. * There are many naming differences but the semantics are pretty much the same.</p>
+<h3><a href="#conducting-analysis" id="conducting-analysis"></a>Conducting analysis</h3>
+<ul>
+<li>The fault impact analysis discussed in Figure 25 is created by instantiating system implementation SMS.Original and then selecting Analyses -&gt; Safety -&gt; Analyze Fault Impact. The result is identical.</li>
+</ul>
+<p>5/27/2020</p>
