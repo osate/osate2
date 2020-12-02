@@ -55,7 +55,6 @@ import org.osate.ge.aadl2.internal.util.classifiers.ClassifierCreationHelper;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
-import org.osate.ge.businessobjecthandling.PasteContext;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -189,8 +188,6 @@ public class PasteAction extends ActionStackAction {
 					ensurePackagesAreImported(copiedEObject);
 
 					newRelativeRef = refBuilder.getRelativeReference(copiedEObject);
-					copiedDiagramElement.getDiagramElement()
-							.getBusinessObjectHandler().afterPaste(new PasteContext(copiedEObject));
 				} else {
 					throw new RuntimeException("Unsupported case:  " + boFromCopiedDiagramElement);
 				}

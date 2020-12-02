@@ -69,19 +69,18 @@ public class BehaviorAnnexTest {
 
 		// Test classifiers
 		createAndTestBehaviorSpecificationForClassifier("Abstract", diagram, pkgElement, pkgRef);
-		createAndTestBehaviorSpecificationForClassifier("Bus", diagram, pkgElement, pkgRef);
-		createAndTestBehaviorSpecificationForClassifier("Data", diagram, pkgElement, pkgRef);
-		createAndTestBehaviorSpecificationForClassifier("Device", diagram, pkgElement, pkgRef);
-		createAndTestBehaviorSpecificationForClassifier("Memory", diagram, pkgElement, pkgRef);
-		createAndTestBehaviorSpecificationForClassifier("Process", diagram, pkgElement, pkgRef);
-		createAndTestBehaviorSpecificationForClassifier("Processor", diagram, pkgElement, pkgRef);
-		createAndTestBehaviorSpecificationForClassifier("Subprogram", diagram, pkgElement, pkgRef);
-		createAndTestBehaviorSpecificationForClassifier("Subprogram Group", diagram, pkgElement, pkgRef);
-		createAndTestBehaviorSpecificationForClassifier("System", diagram, pkgElement, pkgRef);
-		createAndTestBehaviorSpecificationForClassifier("Thread", diagram, pkgElement, pkgRef);
-		createAndTestBehaviorSpecificationForClassifier("Thread Group", diagram, pkgElement, pkgRef);
-		createAndTestBehaviorSpecificationForClassifier("Virtual Bus", diagram, pkgElement, pkgRef);
-		createAndTestBehaviorSpecificationForClassifier("Virtual Processor", diagram, pkgElement, pkgRef);
+//		createAndTestBehaviorSpecificationForClassifier("Bus", diagram, pkgElement, pkgRef);
+//		createAndTestBehaviorSpecificationForClassifier("Data", diagram, pkgElement, pkgRef);
+//		createAndTestBehaviorSpecificationForClassifier("Device", diagram, pkgElement, pkgRef);
+//		createAndTestBehaviorSpecificationForClassifier("Memory", diagram, pkgElement, pkgRef);
+//		createAndTestBehaviorSpecificationForClassifier("Process", diagram, pkgElement, pkgRef);
+//		createAndTestBehaviorSpecificationForClassifier("Processor", diagram, pkgElement, pkgRef);
+//		createAndTestBehaviorSpecificationForClassifier("Subprogram", diagram, pkgElement, pkgRef);
+//		createAndTestBehaviorSpecificationForClassifier("System", diagram, pkgElement, pkgRef);
+//		createAndTestBehaviorSpecificationForClassifier("Thread", diagram, pkgElement, pkgRef);
+//		createAndTestBehaviorSpecificationForClassifier("Thread Group", diagram, pkgElement, pkgRef);
+//		createAndTestBehaviorSpecificationForClassifier("Virtual Bus", diagram, pkgElement, pkgRef);
+//		createAndTestBehaviorSpecificationForClassifier("Virtual Processor", diagram, pkgElement, pkgRef);
 	}
 
 	/*
@@ -103,8 +102,6 @@ public class BehaviorAnnexTest {
 		// Create type
 		createElementAndLayout(diagram, pkgElement, getType(classifier),
 				getClassifierRelativeReference("new_classifier"), classifierName);
-
-		System.err.println(classifierName + " classifierName");
 
 		final String srcStateName = "src_state";
 
@@ -129,6 +126,8 @@ public class BehaviorAnnexTest {
 		// Run tests for impl
 		createAndTestBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(1),
 				classifierName + ".impl", diagram, pkgRef, srcStateName, openNewDiagramCommand);
+
+		saveTextEditorByTitle(BA_TEST + ".aadl");
 	}
 
 	private static void createAndTestBehaviorSpecification(final RelativeBusinessObjectReference behaviorSpecification,
@@ -148,13 +147,14 @@ public class BehaviorAnnexTest {
 		// New specification reference for BA diagram
 		final DiagramElementReference baDiagramSpecRef = new DiagramElementReference(behaviorSpecification);
 
-		// Create destination state
+		// Create state to delete
 		createElementAndLayout(baDiagram, baDiagramSpecRef, "Behavior State",
 				BehaviorAnnexReferenceUtil.getStateRelativeReference("new_state"), "delete_state");
 
-		final DiagramElementReference delete = new DiagramElementReference(behaviorSpecification)
+		// Test deletion
+		final DiagramElementReference stateToDelete = new DiagramElementReference(behaviorSpecification)
 				.join(BehaviorAnnexReferenceUtil.getStateRelativeReference("delete_state"));
-		deleteElement(baDiagram, delete);
+		deleteElement(baDiagram, stateToDelete);
 
 		// Create destination state
 		createElementAndLayout(baDiagram, baDiagramSpecRef, "Behavior State",
@@ -176,6 +176,8 @@ public class BehaviorAnnexTest {
 				new DiagramElementReference(behaviorSpecification,
 						BehaviorAnnexReferenceUtil.getStateRelativeReference(srcStateName)),
 				dest, baDiagram, behaviorSpecification);
+
+
 
 		saveAndCloseDiagramEditor(baDiagram);
 	}
@@ -199,6 +201,11 @@ public class BehaviorAnnexTest {
 
 		renameElementFromContextMenu(diagram, element(behaviorSpecification), transitionRef, "new_transition",
 				transitionRef);
+
+		renameElementDirectEdit(diagram, element(behaviorSpecification),
+				BehaviorAnnexReferenceUtil.getStateRelativeReference("src_state"), "new_mode");
+		renameElementDirectEdit(diagram, element(behaviorSpecification),
+				BehaviorAnnexReferenceUtil.getStateRelativeReference("new_mode"), "src_state");
 
 		deleteElement(diagram, element(behaviorSpecification).join(transitionRef));
 
