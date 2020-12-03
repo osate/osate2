@@ -23,10 +23,9 @@
  */
 package org.osate.xtext.aadl2.ui.outline;
 
-import javax.lang.model.type.ErrorType;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
@@ -35,13 +34,11 @@ import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.eclipse.xtext.ui.editor.outline.impl.IOutlineTreeStructureProvider;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AbstractSubcomponent;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
-import org.osate.aadl2.DataType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSpecification;
@@ -146,8 +143,8 @@ public class Aadl2OutlineTreeProvider extends BackgroundOutlineTreeProvider {
 				|| modelElement instanceof FlowSpecification || modelElement instanceof FlowImplementation
 				|| modelElement instanceof EndToEndFlowImpl || modelElement instanceof Property
 				|| modelElement instanceof PropertyConstant || modelElement instanceof PropertyType
-				|| modelElement instanceof DataType || modelElement instanceof AbstractSubcomponent
-				|| modelElement instanceof Connection || modelElement instanceof ErrorType) {
+				// || modelElement instanceof DataType || modelElement instanceof AbstractSubcomponent
+				|| modelElement instanceof Connection) {
 
 			return true;
 		} else if (modelElement instanceof SystemInstance || modelElement instanceof RangeValue) {
@@ -179,11 +176,12 @@ public class Aadl2OutlineTreeProvider extends BackgroundOutlineTreeProvider {
 		}
 		else {
 			return !Iterables.any(modelElement.eClass().getEAllContainments(), containmentRef -> {
-				if (containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getRealization()
-						|| containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getTypeExtension()
-						|| containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getImplementationExtension()
-						|| containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getContainmentPathElement()
-						|| containmentRef.getEReferenceType() == Aadl2Package.eINSTANCE.getPropertyAssociation()) {
+				EClass refType = containmentRef.getEReferenceType();
+				if (refType == Aadl2Package.eINSTANCE.getRealization()
+						|| refType == Aadl2Package.eINSTANCE.getTypeExtension()
+						|| refType == Aadl2Package.eINSTANCE.getImplementationExtension()
+						|| refType == Aadl2Package.eINSTANCE.getContainmentPathElement()
+						|| refType == Aadl2Package.eINSTANCE.getPropertyAssociation()) {
 					return false;
 				} else {
 					return modelElement.eIsSet(containmentRef);
