@@ -2,9 +2,9 @@
 
 This example shows an analytical architectural-fault-modeling approach can be used to model speed regulation in a self-driving automobile.
 
-A complete description this example is available in the case-study is available in the handout materials for the webinar Architecture Analysis with
+A complete description this example is available in the case-study is available in the handout materials for the webinar [Architecture Analysis with
 AADL
-The Speed Regulation CaseStudy
+The Speed Regulation CaseStudy](https://resources.sei.cmu.edu/asset_files/Webinar/2014_018_101_424910.pdf)
 
 ### Organization of the example
 
