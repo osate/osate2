@@ -143,7 +143,6 @@ public class Aadl2OutlineTreeProvider extends BackgroundOutlineTreeProvider {
 				|| modelElement instanceof FlowSpecification || modelElement instanceof FlowImplementation
 				|| modelElement instanceof EndToEndFlowImpl || modelElement instanceof Property
 				|| modelElement instanceof PropertyConstant || modelElement instanceof PropertyType
-				// || modelElement instanceof DataType || modelElement instanceof AbstractSubcomponent
 				|| modelElement instanceof Connection) {
 
 			return true;
