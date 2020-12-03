@@ -2,9 +2,7 @@
 
 This example shows an analytical architectural-fault-modeling approach can be used to diagnose hard to test and correct time-sensitive design errors in a control system early in the lifecycle leading to reduced rework cost.
 
-A complete description this example is available in the case-study is available in [Improving Quality Using Architecture
-Fault Analysis with Confidence
-Arguments (CMU/SEI-2015-TR-006)](https://resources.sei.cmu.edu/asset_files/TechnicalReport/2015_005_001_435065.pdf)
+A complete description this example is available in the case-study is available in [Improving Quality Using Architecture Fault Analysis with Confidence Arguments (CMU/SEI-2015-TR-006)](https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=446617)
 
 This example differs in some details from that shown in the report but covers similar ground.
 

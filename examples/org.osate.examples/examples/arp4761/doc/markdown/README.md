@@ -10,7 +10,7 @@ capabilities of OSATE:
 * Fault Impact (FMEA/FMES)
 * Fault Tree Analysis
 
-A complete description of the case-study is available in [AADL Fault Modeling and Analysis Within an ARP4761 Safety Assessment (CMU/SEI-2014-TR-020)](file:///resources.sei.cmu.edu/asset_files/TechnicalReport/2014_005_001_311911.pdf)
+A complete description of the case-study is available in [AADL Fault Modeling and Analysis Within an ARP4761 Safety Assessment (CMU/SEI-2014-TR-020)](https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=311884)
 
 The TR is based upon an earlier version of OSATE. This README is based on OSATE 2.7.1.
 
