@@ -6,11 +6,11 @@ designed by the Software Engineering Institute (SEI) at
 Carnegie Mellon University (CMU) to demonstrate the following
 capabilities of OSATE:
 
-* Fault Hazard Assesment
+* Fault Hazard Assessment
 * Fault Impact (FMEA/FMES)
 * Fault Tree Analysis
 
-A complete description of the case-study is available in [AADL Fault Modeling and Analysis Within an ARP4761 Safety Assessment (CMU/SEI-2014-TR-020)
+A complete description of the case-study is available in [AADL Fault Modeling and Analysis Within an ARP4761 Safety Assessment (CMU/SEI-2014-TR-020)](file:///resources.sei.cmu.edu/asset_files/TechnicalReport/2014_005_001_311911.pdf)
 
 The TR is based upon an earlier version of OSATE. This README is based on OSATE 2.7.1.
 
