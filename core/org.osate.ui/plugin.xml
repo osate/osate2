@@ -1295,6 +1295,17 @@ censes only apply to the Third Party Software and not any other portion of this 
              </separator>
           </toolbar>
           <toolbar
+                id="org.osate.ui.rerunAnalysisToolbar"
+                label="Rerun analysis">
+             <command
+                   commandId="org.osate.ui.rerunLastAnalysis"
+                   icon="icons/rerun_analysis.gif"
+                   label="Rerun analysis"
+                   style="pulldown"
+                   tooltip="Rerun the last analysis">
+             </command>
+          </toolbar>
+          <toolbar
                 id="org.osate.ui.budgetToolbar"
                 label="Budget">
             <visibleWhen
@@ -1355,6 +1366,14 @@ censes only apply to the Third Party Software and not any other portion of this 
             </separator>
           </toolbar>
        </menuContribution>
+       <menuContribution
+             allPopups="false"
+             locationURI="menu:org.osate.ui.rerunLastAnalysis">
+          <dynamic
+                class="org.osate.ui.handlers.RerunAnalysisDynamicMenuContribution"
+                id="org.osage.ui.rerunDynamic">
+          </dynamic>
+       </menuContribution>
     </extension>
     <extension
           point="org.eclipse.ui.commands">
@@ -1404,9 +1423,17 @@ censes only apply to the Third Party Software and not any other portion of this 
              id="org.osate.ui.visualizeModelUnitDependencies"
              name="Visualize Package and Property Set Dependencies">
        </command>
+       <command
+             id="org.osate.ui.rerunLastAnalysis"
+             name="Rerun Last Analysis">
+       </command>
     </extension>
     <extension
           point="org.eclipse.ui.handlers">
+       <handler
+             class="org.osate.ui.handlers.RerunAnalysisHandler"
+             commandId="org.osate.ui.rerunLastAnalysis">
+       </handler>          
        <handler
              class="org.osate.ui.handlers.OpenInClassifierInfoViewHandler"
              commandId="org.osate.ui.showInClassifierInfoView">
