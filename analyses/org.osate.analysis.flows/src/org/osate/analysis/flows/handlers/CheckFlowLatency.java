@@ -26,8 +26,11 @@ package org.osate.analysis.flows.handlers;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.Element;
@@ -49,9 +52,14 @@ import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
+import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler;
+import org.osate.ui.rerun.Runner;
 
 public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelModifyHandler {
+	private static final String ICON = "icons/checkFlowLatency.gif";
+	private static final ImageDescriptor ICON_DESCRIPTOR = FlowanalysisPlugin.getImageDescriptor(ICON);
+
 	protected static AnalysisResult latResult = null;
 	protected static boolean isAsynchronousSystem = true;
 	protected static boolean isMajorFrameDelay = true;
@@ -149,9 +157,50 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		return obj.getComponentInstancePath() + ": ";
 	}
 
+	private static int count = 0;
+
 	@Override
 	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			SystemInstance root, SystemOperationMode som) {
+
+		// New: Issue 842 -- Record a rerunner!
+		OsateUiPlugin.getRerunManager().ran(new Runner() {
+			private final URI uri = EcoreUtil.getURI(root);
+			private final String name = "Check Flow Latency " + (count++);
+
+			@Override
+			public void run(final IProgressMonitor progress) {
+				// TODO Auto-generated method stub
+				System.out.println("**** Check Flow Latency");
+			}
+
+			@Override
+			public String getName() {
+				return name;
+			}
+
+			@Override
+			public URI getInstanceURI() {
+				return uri;
+			}
+
+			@Override
+			public ImageDescriptor getImageDescriptor() {
+				return ICON_DESCRIPTOR;
+			}
+
+			@Override
+			public String getDescription() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public boolean equals(final Object other) {
+				return uri.equals(((Runner) other).getInstanceURI());
+			}
+		});
+
 		monitor.beginTask(getActionName(), 1);
 		// Note: analyzeInstanceModel is called for each mode. We add the results to the same 'latreport'
 		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root);
