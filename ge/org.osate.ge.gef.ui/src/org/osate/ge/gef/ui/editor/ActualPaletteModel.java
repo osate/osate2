@@ -30,9 +30,9 @@ import java.util.Map;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
-import org.osate.ge.fx.PaletteModel;
-import org.osate.ge.fx.SimplePaletteGroup;
-import org.osate.ge.fx.SimplePaletteItem;
+import org.osate.ge.gef.graphics.SimplePaletteGroup;
+import org.osate.ge.gef.graphics.SimplePaletteItem;
+import org.osate.ge.gef.palette.PaletteModel;
 import org.osate.ge.palette.PaletteCommandProviderContext;
 import org.osate.ge.palette.PaletteContributor;
 

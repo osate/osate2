@@ -28,20 +28,20 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.DoubleStream;
 
-import org.osate.ge.fx.BusNode;
-import org.osate.ge.fx.DeviceNode;
-import org.osate.ge.fx.EllipseNode;
-import org.osate.ge.fx.FeatureGroupTypeNode;
-import org.osate.ge.fx.FolderNode;
-import org.osate.ge.fx.LabelNode;
-import org.osate.ge.fx.MemoryNode;
-import org.osate.ge.fx.ModeNode;
-import org.osate.ge.fx.ParallelogramNode;
-import org.osate.ge.fx.PolygonNode;
-import org.osate.ge.fx.PolylineNode;
-import org.osate.ge.fx.ProcessorNode;
-import org.osate.ge.fx.RectangleNode;
-import org.osate.ge.fx.Styleable;
+import org.osate.ge.gef.graphics.BusNode;
+import org.osate.ge.gef.graphics.DeviceNode;
+import org.osate.ge.gef.graphics.EllipseNode;
+import org.osate.ge.gef.graphics.FeatureGroupTypeNode;
+import org.osate.ge.gef.graphics.FolderNode;
+import org.osate.ge.gef.graphics.GraphicNode;
+import org.osate.ge.gef.graphics.LabelNode;
+import org.osate.ge.gef.graphics.MemoryNode;
+import org.osate.ge.gef.graphics.ModeNode;
+import org.osate.ge.gef.graphics.ParallelogramNode;
+import org.osate.ge.gef.graphics.PolygonNode;
+import org.osate.ge.gef.graphics.PolylineNode;
+import org.osate.ge.gef.graphics.ProcessorNode;
+import org.osate.ge.gef.graphics.RectangleNode;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.internal.BusGraphic;
@@ -131,7 +131,7 @@ public class AgeToFx {
 	// Diagram Element Nodes. However, it should not affect children. Just parts that are inherent.
 	// Connections
 	// Apply's an OSATE graphical editor style to a node
-	public static void applyStyle(final Styleable node, final Style style) {
+	public static void applyStyle(final GraphicNode node, final Style style) {
 		if (!style.isComplete()) {
 			throw new RuntimeException("Specified style must be complete");
 		}

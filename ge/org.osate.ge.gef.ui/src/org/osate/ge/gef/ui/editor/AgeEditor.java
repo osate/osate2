@@ -51,7 +51,7 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.EditorPart;
-import org.osate.ge.fx.DiagramEditorNode;
+import org.osate.ge.gef.graphics.DiagramEditorNode;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
