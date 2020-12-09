@@ -17,7 +17,7 @@ import org.osate.analysis.resource.budgets.power.PowerRequirementAnalysis;
 import org.osate.result.AnalysisResult;
 
 /**
- * @since 4.0
+ * @since 4.1
  */
 public class NewPowerAnalysisHandler extends NewAbstractAaxlHandler {
 	private static final String MARKER_TYPE = "org.osate.analysis.resource.budgets.PowerAnalysisMarker";
@@ -35,8 +35,7 @@ public class NewPowerAnalysisHandler extends NewAbstractAaxlHandler {
 
 	@Override
 	protected Job createAnalysisJob(IFile aaxlFile, IFile outputFile) {
-		// TODO Auto-generated method stub
-		return null;
+		return new PowerReqJob(aaxlFile, outputFile);
 	}
 
 	private final class PowerReqJob extends WorkspaceJob {
