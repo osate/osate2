@@ -101,10 +101,10 @@ censes only apply to the Third Party Software and not any other portion of this 
          </enabledWhen>
       </handler>
       <handler
-            class="org.osate.analysis.resource.budgets.handlers.PowerAnalysisHandler"
+            class="org.osate.analysis.resource.budgets.handlers.NewPowerAnalysisHandler"
             commandId="org.osate.analysis.resource.budgets.powerAnalysis">
          <enabledWhen>
-            <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>
+            <reference definitionId="org.osate.ui.definition.instanceAnalysisCommandEnabled"/>
          </enabledWhen>
       </handler>
       <handler
