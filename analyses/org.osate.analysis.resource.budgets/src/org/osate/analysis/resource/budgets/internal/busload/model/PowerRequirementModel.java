@@ -66,9 +66,13 @@ public class PowerRequirementModel extends ModelElement {
 			protected void process(final Element obj) {
 				final ComponentInstance ci = (ComponentInstance) obj;
 
-				model.capacity = GetProperties.getPowerCapacity(ci, 0.0);
-				if (model.capacity == 0) {
-					return;
+				try {
+					model.capacity = GetProperties.getPowerCapacity(ci, 0.0);
+					if (model.capacity == 0) {
+						return;
+					}
+				} catch (Exception e) {
+					return; // figure out why it started crashing on get power capacity
 				}
 
 				model.powerComponentHeader = "Computing Electrical Power for " + ci.getName();
@@ -78,6 +82,7 @@ public class PowerRequirementModel extends ModelElement {
 					if ((supply > 0) && (!fi.getDstConnectionInstances().isEmpty()
 							|| !fi.getSrcConnectionInstances().isEmpty())) {
 						addFeature(model, fi, som, 0, supply);
+						model.supplyTotal += supply;
 					}
 
 					for (ConnectionInstance inconni : fi.getDstConnectionInstances()) {
@@ -86,6 +91,7 @@ public class PowerRequirementModel extends ModelElement {
 						supply = GetProperties.getPowerSupply(srcfi, 0.0);
 						if (supply > 0) {
 							addConnectionEnd(model, srcfi, som, 0, supply);
+							model.supplyTotal += supply;
 						}
 					}
 					for (ConnectionInstance outconni : fi.getSrcConnectionInstances()) {
@@ -94,6 +100,7 @@ public class PowerRequirementModel extends ModelElement {
 						double budget = GetProperties.getPowerBudget(dstfi, 0.0);
 						if (budget > 0) {
 							addConnectionEnd(model, dstfi, som, budget, 0);
+							model.budgetTotal += budget;
 						}
 					}
 				}
@@ -106,10 +113,12 @@ public class PowerRequirementModel extends ModelElement {
 					double budget = GetProperties.getPowerBudget(dstfi, 0.0);
 					if (budget > 0) {
 						addFeature(model, dstfi, som, budget, 0);
+						model.budgetTotal += budget;
 					}
 					double supply = GetProperties.getPowerSupply(dstfi, 0.0);
 					if (supply > 0) {
 						addFeature(model, dstfi, som, 0, supply);
+						model.supplyTotal += supply;
 					}
 				}
 				for (ConnectionInstance ac : ci.getDstConnectionInstances()) {
@@ -118,10 +127,12 @@ public class PowerRequirementModel extends ModelElement {
 					double budget = GetProperties.getPowerBudget(srcfi, 0.0);
 					if (budget > 0) {
 						addFeature(model, srcfi, som, budget, 0);
+						model.budgetTotal += budget;
 					}
 					double supply = GetProperties.getPowerSupply(srcfi, 0.0);
 					if (supply > 0) {
 						addFeature(model, srcfi, som, 0, supply);
+						model.supplyTotal += supply;
 					}
 				}
 			}
@@ -166,5 +177,17 @@ public class PowerRequirementModel extends ModelElement {
 			connectionEnds.put(cie, connEnd);
 		}
 		return connEnd;
+	}
+
+	public double getCapacity() {
+		return this.capacity;
+	}
+
+	public double getTotalBudget() {
+		return this.budgetTotal;
+	}
+
+	public double getTotalSupply() {
+		return this.supplyTotal;
 	}
 }
