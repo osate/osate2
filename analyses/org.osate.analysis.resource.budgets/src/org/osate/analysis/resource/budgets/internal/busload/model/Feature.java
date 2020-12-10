@@ -20,18 +20,20 @@ public class Feature extends AnalysisElement {
 
 	@Override
 	void visitSelfPrefix(Visitor visitor) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	void visitChildren(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+		visitor.visitFeaturePrefix(this);
 	}
 
 	@Override
 	void visitSelfPostfix(Visitor visitor) {
+		visitor.visitFeaturePostfix(this);
+	}
+
+	public final double getSupply() {
+		return supply;
+	}
+
+	@Override
+	void visitChildren(Visitor visitor) {
 		// TODO Auto-generated method stub
 
 	}

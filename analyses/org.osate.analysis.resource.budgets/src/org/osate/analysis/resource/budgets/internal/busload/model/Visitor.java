@@ -70,4 +70,20 @@ public interface Visitor {
 	// N.B. Leaf node
 	public default void visitConnection(Connection connection) {
 	}
+
+	public default void visitConnectionEndPrefix(ConnectionEnd connEnd) {
+		visitConnectionEndPrefix(connEnd);
+	}
+
+	public default void visitConnectionEndPostfix(ConnectionEnd connEnd) {
+		visitConnectionEndPostfix(connEnd);
+	}
+
+	public default void visitFeaturePrefix(Feature feature) {
+		visitFeaturePrefix(feature);
+	}
+
+	public default void visitFeaturePostfix(Feature feature) {
+		visitFeaturePostfix(feature);
+	}
 }
