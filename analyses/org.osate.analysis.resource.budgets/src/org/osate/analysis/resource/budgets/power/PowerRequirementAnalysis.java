@@ -111,32 +111,34 @@ public class PowerRequirementAnalysis {
 				final AnalysisErrorReporterManager errManager = new AnalysisErrorReporterManager(
 						new MarkerAnalysisErrorReporter.Factory(AadlConstants.AADLOBJECTMARKER));
 				if (chosenSOM != null) {
-					analyzeInstanceModelInMode(monitor, errManager, si, chosenSOM);
+					// analyzeInstanceModelInMode(monitor, errManager, si, chosenSOM);
+					final Result somResult = ResultUtil.createResult(
+							Aadl2Util.isPrintableSOMName(chosenSOM) ? Aadl2Util.getPrintableSOMMembers(chosenSOM) : "",
+							chosenSOM, ResultType.SUCCESS);
+					analysisResult.getResults().add(somResult);
+
+					// final BusLoadModel model = BusLoadModel.buildModel(root, som);
+
+					// Analyze the model
+					// model.visit(new PowerAnalysisVisitor(somResult));
 				} else {
 					final SOMIterator soms = new SOMIterator(si);
 					while (soms.hasNext()) {
 						final SystemOperationMode som = soms.nextSOM();
-						analyzeInstanceModelInMode(monitor, errManager, si, som);
+						// analyzeInstanceModelInMode(monitor, errManager, si, som);
+						final Result somResult = ResultUtil.createResult(
+								Aadl2Util.isPrintableSOMName(som) ? Aadl2Util.getPrintableSOMMembers(som) : "", som,
+								ResultType.SUCCESS);
+						analysisResult.getResults().add(somResult);
+
+						// final BusLoadModel model = BusLoadModel.buildModel(root, som);
+
+						// Analyze the model
+						// model.visit(new PowerAnalysisVisitor(somResult));
 					}
 				}
-
-				// finalize to csv file
-
 			}
 
-			final SOMIterator soms = new SOMIterator(root);
-			while (soms.hasNext()) {
-				final SystemOperationMode som = soms.nextSOM();
-				final Result somResult = ResultUtil.createResult(
-						Aadl2Util.isPrintableSOMName(som) ? Aadl2Util.getPrintableSOMMembers(som) : "", som,
-						ResultType.SUCCESS);
-				analysisResult.getResults().add(somResult);
-
-				// final BusLoadModel model = BusLoadModel.buildModel(root, som);
-
-				// Analyze the model
-				// model.visit(new PowerAnalysisVisitor(somResult));
-			}
 			monitor.done();
 
 			return analysisResult;
