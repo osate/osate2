@@ -30,7 +30,13 @@ public interface Visitor {
 	public default void visitModelPrefix(BusLoadModel model) {
 	}
 
+	public default void visitModelPrefix(PowerRequirementModel model) {
+	}
+
 	public default void visitModelPostfix(BusLoadModel model) {
+	}
+
+	public default void visitModelPostfix(PowerRequirementModel model) {
 	}
 
 	public default void visitBusOrVirtualBusPrefix(BusOrVirtualBus bus) {
