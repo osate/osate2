@@ -20,17 +20,22 @@ public class ConnectionEnd extends AnalysisElement {
 	}
 
 	@Override
-	void visitChildren(final Visitor visitor) {
-		// no children
-	}
-
-	@Override
 	void visitSelfPrefix(final Visitor visitor) {
-		// visitor.visitConnectionEnd(this);
+		visitor.visitConnectionEndPrefix(this);
 	}
 
 	@Override
 	void visitSelfPostfix(final Visitor visitor) {
-		// leaf node, already visited with prefix
+		visitor.visitConnectionEndPostfix(this);
+	}
+
+	public final double getSupply() {
+		return supply;
+	}
+
+	@Override
+	void visitChildren(Visitor visitor) {
+		// TODO Auto-generated method stub
+
 	}
 }
