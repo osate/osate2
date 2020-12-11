@@ -1,13 +1,13 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright © 2013 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Eclipse Public License as published by Eclipse,
  * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
@@ -15,34 +15,32 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * along with this program.  If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
 package org.osate.ba.declarative.impl ;
 
 import java.util.Collection ;
+
 import org.eclipse.emf.common.notify.Notification ;
 import org.eclipse.emf.common.notify.NotificationChain ;
+import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.ecore.EClass ;
 import org.eclipse.emf.ecore.EObject ;
 import org.eclipse.emf.ecore.InternalEObject ;
 import org.eclipse.emf.ecore.impl.ENotificationImpl ;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList ;
 import org.eclipse.emf.ecore.util.InternalEList ;
+import org.osate.aadl2.Aadl2Factory ;
 import org.osate.aadl2.Aadl2Package ;
 import org.osate.aadl2.AbstractNamedValue ;
 import org.osate.aadl2.BasicProperty ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentCategory ;
-import org.osate.aadl2.ComponentClassifier ;
-import org.osate.aadl2.ContainedNamedElement ;
-import org.osate.aadl2.ContainmentPathElement ;
 import org.osate.aadl2.Element ;
 import org.osate.aadl2.EnumerationLiteral ;
 import org.osate.aadl2.Feature ;
-import org.osate.aadl2.FeatureClassifier ;
 import org.osate.aadl2.MetaclassReference ;
 import org.osate.aadl2.Mode ;
 import org.osate.aadl2.ModeTransition ;
@@ -54,14 +52,10 @@ import org.osate.aadl2.Property ;
 import org.osate.aadl2.PropertyExpression ;
 import org.osate.aadl2.PropertyOwner ;
 import org.osate.aadl2.PropertyType ;
-import org.osate.aadl2.PropertyValue ;
 import org.osate.aadl2.Prototype ;
-import org.osate.aadl2.ReferenceValue ;
-import org.osate.aadl2.SubcomponentType ;
 import org.osate.aadl2.Type ;
 import org.osate.aadl2.TypedElement ;
 import org.osate.aadl2.UnitLiteral ;
-import org.osate.aadl2.impl.ClassifierImpl ;
 import org.osate.aadl2.impl.DataClassifierImpl ;
 import org.osate.aadl2.properties.EvaluatedProperty ;
 import org.osate.aadl2.properties.EvaluationContext ;
@@ -296,9 +290,11 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
       if(osateRef != oldOsateRef)
       {
         if(eNotificationRequired())
+        {
           eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                                         DeclarativePackage.QUALIFIED_NAMED_ELEMENT__OSATE_REF,
                                         oldOsateRef, osateRef)) ;
+        }
       }
     }
     return osateRef ;
@@ -325,9 +321,11 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
     Element oldOsateRef = osateRef ;
     osateRef = newOsateRef ;
     if(eNotificationRequired())
+    {
       eNotify(new ENotificationImpl(this, Notification.SET,
                                     DeclarativePackage.QUALIFIED_NAMED_ELEMENT__OSATE_REF,
                                     oldOsateRef, osateRef)) ;
+    }
   }
 
   /**
@@ -345,9 +343,11 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
       if(baRef != oldBaRef)
       {
         if(eNotificationRequired())
+        {
           eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                                         DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_REF,
                                         oldBaRef, baRef)) ;
+        }
       }
     }
     return baRef ;
@@ -374,9 +374,11 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
     BehaviorElement oldBaRef = baRef ;
     baRef = newBaRef ;
     if(eNotificationRequired())
+    {
       eNotify(new ENotificationImpl(this, Notification.SET,
                                     DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_REF,
                                     oldBaRef, baRef)) ;
+    }
   }
 
   /**
@@ -394,9 +396,11 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
       if(type != oldType)
       {
         if(eNotificationRequired())
+        {
           eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                                         DeclarativePackage.QUALIFIED_NAMED_ELEMENT__TYPE,
                                         oldType, type)) ;
+        }
       }
     }
     return type ;
@@ -423,9 +427,11 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
     Type oldType = type ;
     type = newType ;
     if(eNotificationRequired())
+    {
       eNotify(new ENotificationImpl(this, Notification.SET,
                                     DeclarativePackage.QUALIFIED_NAMED_ELEMENT__TYPE,
                                     oldType, type)) ;
+    }
   }
 
   /**
@@ -446,10 +452,12 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
       if(referencedPropertyType != oldReferencedPropertyType)
       {
         if(eNotificationRequired())
+        {
           eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                                         DeclarativePackage.QUALIFIED_NAMED_ELEMENT__REFERENCED_PROPERTY_TYPE,
                                         oldReferencedPropertyType,
                                         referencedPropertyType)) ;
+        }
       }
     }
     return referencedPropertyType ;
@@ -476,10 +484,12 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
     PropertyType oldReferencedPropertyType = referencedPropertyType ;
     referencedPropertyType = newReferencedPropertyType ;
     if(eNotificationRequired())
+    {
       eNotify(new ENotificationImpl(this, Notification.SET,
                                     DeclarativePackage.QUALIFIED_NAMED_ELEMENT__REFERENCED_PROPERTY_TYPE,
                                     oldReferencedPropertyType,
                                     referencedPropertyType)) ;
+    }
   }
 
   /**
@@ -512,9 +522,13 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
                                                              oldOwnedPropertyType,
                                                              newOwnedPropertyType) ;
       if(msgs == null)
+      {
         msgs = notification ;
+      }
       else
+      {
         msgs.add(notification) ;
+      }
     }
     return msgs ;
   }
@@ -531,26 +545,34 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
     {
       NotificationChain msgs = null ;
       if(ownedPropertyType != null)
+      {
         msgs = ((InternalEObject) ownedPropertyType).eInverseRemove(this,
                                                                     EOPPOSITE_FEATURE_BASE -
                                                                           DeclarativePackage.QUALIFIED_NAMED_ELEMENT__OWNED_PROPERTY_TYPE,
                                                                     null,
                                                                     msgs) ;
+      }
       if(newOwnedPropertyType != null)
+      {
         msgs = ((InternalEObject) newOwnedPropertyType).eInverseAdd(this,
                                                                     EOPPOSITE_FEATURE_BASE -
                                                                           DeclarativePackage.QUALIFIED_NAMED_ELEMENT__OWNED_PROPERTY_TYPE,
                                                                     null,
                                                                     msgs) ;
+      }
       msgs = basicSetOwnedPropertyType(newOwnedPropertyType, msgs) ;
       if(msgs != null)
+      {
         msgs.dispatch() ;
+      }
     }
     else if(eNotificationRequired())
+    {
       eNotify(new ENotificationImpl(this, Notification.SET,
                                     DeclarativePackage.QUALIFIED_NAMED_ELEMENT__OWNED_PROPERTY_TYPE,
                                     newOwnedPropertyType,
                                     newOwnedPropertyType)) ;
+    }
   }
 
   /**
@@ -570,14 +592,15 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
   /**
    * <!-- begin-user-doc -->
   	 * <!-- end-user-doc -->
-   * @generated
+   * @generated NOT
    */
   public PropertyType basicGetPropertyType()
   {
-    // TODO: implement this method to return the 'Property Type' reference
-    // -> do not perform proxy resolution
-    // Ensure that you remove @generated or mark it @generated NOT
-    throw new UnsupportedOperationException() ;
+    // return any property type; just to avoid validation errors
+    // which property type is returned is not relevant because
+    // qualified name are either resolved and replaced in the ba
+    // model; or it is used to raise an error and for unparsing.
+    return Aadl2Factory.eINSTANCE.createAadlBoolean() ;
   }
 
   /**
@@ -609,9 +632,13 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
                                                              oldBaNamespace,
                                                              newBaNamespace) ;
       if(msgs == null)
+      {
         msgs = notification ;
+      }
       else
+      {
         msgs.add(notification) ;
+      }
     }
     return msgs ;
   }
@@ -628,23 +655,31 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
     {
       NotificationChain msgs = null ;
       if(baNamespace != null)
+      {
         msgs = ((InternalEObject) baNamespace).eInverseRemove(this,
                                                               EOPPOSITE_FEATURE_BASE -
                                                                     DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_NAMESPACE,
                                                               null, msgs) ;
+      }
       if(newBaNamespace != null)
+      {
         msgs = ((InternalEObject) newBaNamespace).eInverseAdd(this,
                                                               EOPPOSITE_FEATURE_BASE -
                                                                     DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_NAMESPACE,
                                                               null, msgs) ;
+      }
       msgs = basicSetBaNamespace(newBaNamespace, msgs) ;
       if(msgs != null)
+      {
         msgs.dispatch() ;
+      }
     }
     else if(eNotificationRequired())
+    {
       eNotify(new ENotificationImpl(this, Notification.SET,
                                     DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_NAMESPACE,
                                     newBaNamespace, newBaNamespace)) ;
+    }
   }
 
   /**
@@ -676,9 +711,13 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
                                                              oldBaName,
                                                              newBaName) ;
       if(msgs == null)
+      {
         msgs = notification ;
+      }
       else
+      {
         msgs.add(notification) ;
+      }
     }
     return msgs ;
   }
@@ -695,23 +734,31 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
     {
       NotificationChain msgs = null ;
       if(baName != null)
+      {
         msgs = ((InternalEObject) baName).eInverseRemove(this,
                                                          EOPPOSITE_FEATURE_BASE -
                                                                DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_NAME,
                                                          null, msgs) ;
+      }
       if(newBaName != null)
+      {
         msgs = ((InternalEObject) newBaName).eInverseAdd(this,
                                                          EOPPOSITE_FEATURE_BASE -
                                                                DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_NAME,
                                                          null, msgs) ;
+      }
       msgs = basicSetBaName(newBaName, msgs) ;
       if(msgs != null)
+      {
         msgs.dispatch() ;
+      }
     }
     else if(eNotificationRequired())
+    {
       eNotify(new ENotificationImpl(this, Notification.SET,
                                     DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_NAME,
                                     newBaName, newBaName)) ;
+    }
   }
 
   /**
@@ -767,25 +814,35 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
     {
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__OSATE_REF :
         if(resolve)
+        {
           return getOsateRef() ;
+        }
         return basicGetOsateRef() ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BA_REF :
         if(resolve)
+        {
           return getBaRef() ;
+        }
         return basicGetBaRef() ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__TYPE :
         if(resolve)
+        {
           return getType() ;
+        }
         return basicGetType() ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__REFERENCED_PROPERTY_TYPE :
         if(resolve)
+        {
           return getReferencedPropertyType() ;
+        }
         return basicGetReferencedPropertyType() ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__OWNED_PROPERTY_TYPE :
         return getOwnedPropertyType() ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__PROPERTY_TYPE :
         if(resolve)
+        {
           return getPropertyType() ;
+        }
         return basicGetPropertyType() ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__INHERIT :
         return isInherit() ;
@@ -801,7 +858,9 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
         return isEmptyListDefault() ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BASE_UNIT :
         if(resolve)
+        {
           return getBaseUnit() ;
+        }
         return basicGetBaseUnit() ;
       case DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR :
         return getFactor() ;
@@ -1308,7 +1367,9 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
   public String toString()
   {
     if(eIsProxy())
+    {
       return super.toString() ;
+    }
 
     StringBuilder result = new StringBuilder(super.toString()) ;
     result.append(" (inherit: ") ;
@@ -1420,9 +1481,13 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
                                                              oldDefaultValue,
                                                              newDefaultValue) ;
       if(msgs == null)
+      {
         msgs = notification ;
+      }
       else
+      {
         msgs.add(notification) ;
+      }
     }
     return msgs ;
   }
@@ -1477,9 +1542,11 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
       if(baseUnit != oldBaseUnit)
       {
         if(eNotificationRequired())
+        {
           eNotify(new ENotificationImpl(this, Notification.RESOLVE,
                                         DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BASE_UNIT,
                                         oldBaseUnit, baseUnit)) ;
+        }
       }
     }
     return baseUnit ;
@@ -1506,9 +1573,11 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
     UnitLiteral oldBaseUnit = baseUnit ;
     baseUnit = newBaseUnit ;
     if(eNotificationRequired())
+    {
       eNotify(new ENotificationImpl(this, Notification.SET,
                                     DeclarativePackage.QUALIFIED_NAMED_ELEMENT__BASE_UNIT,
                                     oldBaseUnit, baseUnit)) ;
+    }
   }
 
   /**
@@ -1540,9 +1609,13 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
                                                              oldFactor,
                                                              newFactor) ;
       if(msgs == null)
+      {
         msgs = notification ;
+      }
       else
+      {
         msgs.add(notification) ;
+      }
     }
     return msgs ;
   }
@@ -1559,23 +1632,31 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
     {
       NotificationChain msgs = null ;
       if(factor != null)
+      {
         msgs = ((InternalEObject) factor).eInverseRemove(this,
                                                          EOPPOSITE_FEATURE_BASE -
                                                                DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR,
                                                          null, msgs) ;
+      }
       if(newFactor != null)
+      {
         msgs = ((InternalEObject) newFactor).eInverseAdd(this,
                                                          EOPPOSITE_FEATURE_BASE -
                                                                DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR,
                                                          null, msgs) ;
+      }
       msgs = basicSetFactor(newFactor, msgs) ;
       if(msgs != null)
+      {
         msgs.dispatch() ;
+      }
     }
     else if(eNotificationRequired())
+    {
       eNotify(new ENotificationImpl(this, Notification.SET,
                                     DeclarativePackage.QUALIFIED_NAMED_ELEMENT__FACTOR,
                                     newFactor, newFactor)) ;
+    }
   }
 
   @Override
@@ -1588,15 +1669,13 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
   @Override
   public EList<MetaclassReference> getAppliesToMetaclasses()
   {
-    // TODO Auto-generated method stub
-    return null ;
+    return new BasicEList<MetaclassReference>() ;
   }
 
   @Override
   public EList<Classifier> getAppliesToClassifiers()
   {
-    // TODO Auto-generated method stub
-    return null ;
+    return new BasicEList<Classifier>() ;
   }
 
   @Override
