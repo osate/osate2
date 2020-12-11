@@ -68,6 +68,7 @@ public class PowerRequirementAnalysis {
 	private AnalysisResult analyzeBody(final IProgressMonitor monitor, final Element obj) {
 		if (obj instanceof InstanceObject) {
 			final SystemInstance root = ((InstanceObject) obj).getSystemInstance();
+
 			final AnalysisResult analysisResult = ResultUtil.createAnalysisResult("Power  Requirements", root);
 			analysisResult.setResultType(ResultType.SUCCESS);
 			analysisResult.setMessage("Power requirements analysis of " + root.getFullName());
