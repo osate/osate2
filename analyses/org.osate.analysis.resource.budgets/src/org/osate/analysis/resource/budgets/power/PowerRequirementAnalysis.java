@@ -129,7 +129,7 @@ public class PowerRequirementAnalysis {
 
 					// Analyze the model
 					model.visit(new PowerRequirementAnalysisVisitor(somResult, model.getCapacity(),
-							model.getTotalBudget(), model.getTotalSupply()));
+							model.getTotalBudget(), model.getTotalSupply(), model.getsystemSOMname()));
 				} else {
 					final SOMIterator soms = new SOMIterator(si);
 					while (soms.hasNext()) {
@@ -144,7 +144,7 @@ public class PowerRequirementAnalysis {
 
 						// Analyze the model
 						model.visit(new PowerRequirementAnalysisVisitor(somResult, model.getCapacity(),
-								model.getTotalBudget(), model.getTotalSupply()));
+								model.getTotalBudget(), model.getTotalSupply(), model.getsystemSOMname()));
 					}
 				}
 			}
@@ -361,12 +361,15 @@ public class PowerRequirementAnalysis {
 		private Result currentResult;
 
 		private final double capacity, tBudget, tSupply;
+		private final String systemSOMname;
 
-		public PowerRequirementAnalysisVisitor(final Result rootResult, double capacity, double budget, double supply) {
+		public PowerRequirementAnalysisVisitor(final Result rootResult, double capacity, double budget, double supply,
+				String systemSOMname) {
 			this.currentResult = rootResult;
 			this.capacity = capacity;
 			this.tBudget = budget;
 			this.tSupply = supply;
+			this.systemSOMname = systemSOMname;
 		}
 
 		@Override
@@ -393,14 +396,17 @@ public class PowerRequirementAnalysis {
 			ResultUtil.addRealValue(connEndResult, budget);
 			ResultUtil.addRealValue(connEndResult, supply);
 
+			ResultUtil.addStringValue(connEndResult, "System name " + this.systemSOMname);
 			ResultUtil.addStringValue(connEndResult,
 					"Budget " + PowerRequirementAnalysis.toString(budget) + " for "
-							+ connEnd.getConnectionInstanceEnd().getName() + " out of total "
+							+ connEnd.getConnectionInstanceEnd().getContainingComponentInstance().getName()
+							+ " out of total "
 							+ PowerRequirementAnalysis.toString(tBudget));
 
 			ResultUtil.addStringValue(connEndResult,
 					"Supply " + PowerRequirementAnalysis.toString(supply) + " from "
-							+ connEnd.getConnectionInstanceEnd().getName() + " out of total "
+							+ connEnd.getConnectionInstanceEnd().getContainingComponentInstance().getName()
+							+ " out of total "
 							+ PowerRequirementAnalysis.toString(tSupply));
 
 			ResultUtil.addStringValue(connEndResult, "Total capacity " + PowerRequirementAnalysis.toString(capacity));
@@ -421,26 +427,27 @@ public class PowerRequirementAnalysis {
 		@Override
 		public void visitFeaturePostfix(final Feature feature) {
 			// unroll the result stack
-			final Result connEndResult = currentResult;
+			final Result featureResult = currentResult;
 			currentResult = previousResult.pop();
 
 			double budget = feature.getBudget();
 			double supply = feature.getSupply();
 
-			ResultUtil.addRealValue(connEndResult, budget);
-			ResultUtil.addRealValue(connEndResult, supply);
+			ResultUtil.addRealValue(featureResult, budget);
+			ResultUtil.addRealValue(featureResult, supply);
 
-			ResultUtil.addStringValue(connEndResult,
+			ResultUtil.addStringValue(featureResult, "System name " + this.systemSOMname);
+			ResultUtil.addStringValue(featureResult,
 					"Budget " + PowerRequirementAnalysis.toString(budget) + " for "
-							+ feature.getFeatureInstance().getName() + " out of total "
+							+ feature.getFeatureInstance().getContainingComponentInstance().getName() + " out of total "
 							+ PowerRequirementAnalysis.toString(budgetTotal));
 
-			ResultUtil.addStringValue(connEndResult,
+			ResultUtil.addStringValue(featureResult,
 					"Supply " + PowerRequirementAnalysis.toString(supply) + " from "
-							+ feature.getFeatureInstance().getName() + " out of total "
+							+ feature.getFeatureInstance().getContainingComponentInstance().getName() + " out of total "
 							+ PowerRequirementAnalysis.toString(supplyTotal));
 
-			ResultUtil.addStringValue(connEndResult, "Total capacity " + PowerRequirementAnalysis.toString(capacity));
+			ResultUtil.addStringValue(featureResult, "Total capacity " + PowerRequirementAnalysis.toString(capacity));
 		}
 
 	}
