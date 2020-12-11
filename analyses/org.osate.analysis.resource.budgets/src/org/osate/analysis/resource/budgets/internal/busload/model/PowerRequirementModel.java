@@ -40,18 +40,19 @@ public class PowerRequirementModel extends ModelElement {
 
 	@Override
 	void visitSelfPrefix(final Visitor visitor) {
-		visitor.visitModelPrefix(this);
+		rootFeatures.forEach(e -> visitor.visitFeaturePrefix(e));
+		rootConnectionEnds.forEach(e -> visitor.visitConnectionEndPrefix(e));
 	}
 
 	@Override
 	void visitChildren(final Visitor visitor) {
-		visit(rootFeatures, visitor);
-		visit(rootConnectionEnds, visitor);
+		// no children
 	}
 
 	@Override
 	void visitSelfPostfix(final Visitor visitor) {
-		visitor.visitModelPostfix(this);
+		rootFeatures.forEach(e -> visitor.visitFeaturePostfix(e));
+		rootConnectionEnds.forEach(e -> visitor.visitConnectionEndPostfix(e));
 	}
 
 	public static PowerRequirementModel buildModel(final SystemInstance root, final SystemOperationMode som) {
@@ -61,18 +62,16 @@ public class PowerRequirementModel extends ModelElement {
 		String systemName = root.getComponentClassifier().getName();
 		model.sectionName = systemName + somName;
 
+
+
 		final ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(final Element obj) {
 				final ComponentInstance ci = (ComponentInstance) obj;
 
-				try {
-					model.capacity = GetProperties.getPowerCapacity(ci, 0.0);
-					if (model.capacity == 0) {
-						return;
-					}
-				} catch (Exception e) {
-					return; // figure out why it started crashing on get power capacity
+				model.capacity = GetProperties.getPowerCapacity(ci, 0.0);
+				if (model.capacity == 0) {
+					return;
 				}
 
 				model.powerComponentHeader = "Computing Electrical Power for " + ci.getName();
