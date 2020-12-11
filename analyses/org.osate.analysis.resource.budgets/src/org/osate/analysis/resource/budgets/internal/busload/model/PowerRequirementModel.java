@@ -17,7 +17,7 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class PowerRequirementModel extends ModelElement {
-	private String sectionName = new String();
+	private String systemSOMname = new String();
 	private String powerComponentHeader = new String();
 
 	private double capacity = 0;
@@ -60,9 +60,7 @@ public class PowerRequirementModel extends ModelElement {
 
 		final String somName = Aadl2Util.getPrintableSOMName(som);
 		String systemName = root.getComponentClassifier().getName();
-		model.sectionName = systemName + somName;
-
-
+		model.systemSOMname = systemName + " " + somName;
 
 		final ForAllElement mal = new ForAllElement() {
 			@Override
@@ -70,6 +68,7 @@ public class PowerRequirementModel extends ModelElement {
 				final ComponentInstance ci = (ComponentInstance) obj;
 
 				model.capacity = GetProperties.getPowerCapacity(ci, 0.0);
+
 				if (model.capacity == 0) {
 					return;
 				}
@@ -188,5 +187,9 @@ public class PowerRequirementModel extends ModelElement {
 
 	public double getTotalSupply() {
 		return this.supplyTotal;
+	}
+
+	public String getsystemSOMname() {
+		return this.systemSOMname;
 	}
 }
