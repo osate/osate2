@@ -31,6 +31,7 @@ public interface Visitor {
 	}
 
 	public default void visitModelPrefix(PowerRequirementModel model) {
+
 	}
 
 	public default void visitModelPostfix(BusLoadModel model) {
