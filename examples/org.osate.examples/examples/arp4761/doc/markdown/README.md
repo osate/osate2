@@ -26,7 +26,7 @@ To generate the diagram shown in Figure 26 of TR, open simple->wbs.aadl, right c
 
 To analyze the model start by right clicking on one of the implementations in the Outline perspective and select "Instantiate". The instantiation is placed in the instance folder within the model in the AADL Navigator. Click the instantiation (e.g., wbs_wbs_ima_instance.aaxl2) and then select the desired analysis (e.g., from the Analyses menu).
 
-![png](../images/analyses-menu.png)
+![png](images/analyses-menu.png)
 
 Note that due to differences in the various analysis engines and/or the graphics display the outputs will not match the TR exactly. For example, running the Fault Tree Analysis (Analyses->Safety->Run Fault Tree Analysis) will produce a fault tree that looks significantly different from that shown in the TR.
 

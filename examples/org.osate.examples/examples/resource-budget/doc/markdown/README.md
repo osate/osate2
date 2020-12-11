@@ -53,16 +53,16 @@ Because the tier0 system does not contain processor or bus information it is onl
 
 While the tier2 system specifies bus bindings, it does not specify a budget for either of the pci or canbus bus. The result of running "Analyze Bus Load" is:
 
-![png](../images/tier2_busload.png)
+![png](images/tier2_busload.png)
 
 ### Not Bound Resources ###
 
 The result of running "Analyze Resource Budget (Not Bound)" on the tier2 system is a .csv report that includes errors:
 
-![png](../images/tier2_not_bound_resource_report.png)
+![png](images/tier2_not_bound_resource_report.png)
 
 ### Bound Resources ###
 
 The result of running "Analyze Resource Allocation (Bound)" on the tier2 system is a .csv report that includes an error:
 
-![png](../images/tier2_bound_resource_report.png)
+![png](images/tier2_bound_resource_report.png)
