@@ -2,6 +2,7 @@ package org.osate.ui.handlers;
 
 import java.util.List;
 
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ContributionItem;
 import org.eclipse.jface.action.IMenuListener;
@@ -37,6 +38,7 @@ public final class RerunAnalysisDynamicMenuContribution extends ContributionItem
 		@Override
 		public void run() {
 			System.out.println(runner.getName());
+			runner.run(new NullProgressMonitor());
 		}
 	}
 

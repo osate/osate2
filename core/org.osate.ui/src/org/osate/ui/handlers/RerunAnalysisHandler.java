@@ -5,6 +5,7 @@ import java.util.List;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.rerun.RerunManager;
 import org.osate.ui.rerun.Runner;
@@ -22,7 +23,9 @@ public final class RerunAnalysisHandler extends AbstractHandler {
 		// Get the most recent run, if any
 		final List<Runner> runs = rerunManager.getPastRuns();
 		if (!runs.isEmpty()) {
-			System.out.println("Rerunning \"" + runs.get(0).getName() + "\"");
+			final Runner runner = runs.get(0);
+			System.out.println("Rerunning \"" + runner.getName() + "\"");
+			runner.run(new NullProgressMonitor());
 		} else {
 			System.err.println("No past runs!");
 		}
