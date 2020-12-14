@@ -1,12 +1,34 @@
+/**
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
 package org.osate.analysis.resource.budgets.power;
 
 import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -103,38 +125,27 @@ public class PowerRequirementAnalysis {
 								lastDefaultModeChoice);
 
 						chosenSOM = si.getSystemOperationModes().get(choosen);
-
-						/*
-						 * final SOMChooserDialog somDialog = new SOMChooserDialog(getShell(), si, false);
-						 * if (somDialog.openThreadSafe() == Window.OK) {
-						 * chosenSOM = somDialog.getSOM();
-						 * } else {
-						 * return null;
-						 * }
-						 */
 					}
 				}
 
 				final AnalysisErrorReporterManager errManager = new AnalysisErrorReporterManager(
 						new MarkerAnalysisErrorReporter.Factory(AadlConstants.AADLOBJECTMARKER));
 				if (chosenSOM != null) {
-					// analyzeInstanceModelInMode(monitor, errManager, si, chosenSOM);
 					final Result somResult = ResultUtil.createResult(
 							Aadl2Util.isPrintableSOMName(chosenSOM) ? Aadl2Util.getPrintableSOMMembers(chosenSOM) : "",
 							chosenSOM, ResultType.SUCCESS);
 					analysisResult.getResults().add(somResult);
 
 					final PowerRequirementModel model = PowerRequirementModel.buildModel(root, chosenSOM);
-					// i can get totals from everything in the model
 
 					// Analyze the model
-					model.visit(new PowerRequirementAnalysisVisitor(somResult, model.getCapacity(),
-							model.getTotalBudget(), model.getTotalSupply(), model.getsystemSOMname()));
+					model.visit(new PowerRequirementAnalysisVisitor(somResult, model.getTotalCapacity(),
+							model.getTotalBudget(), model.getTotalSupply(), model.getSystemSOMname(),
+							model.getComponentName()));
 				} else {
 					final SOMIterator soms = new SOMIterator(si);
 					while (soms.hasNext()) {
 						final SystemOperationMode som = soms.nextSOM();
-						// analyzeInstanceModelInMode(monitor, errManager, si, som);
 						final Result somResult = ResultUtil.createResult(
 								Aadl2Util.isPrintableSOMName(som) ? Aadl2Util.getPrintableSOMMembers(som) : "", som,
 								ResultType.SUCCESS);
@@ -143,8 +154,9 @@ public class PowerRequirementAnalysis {
 						final PowerRequirementModel model = PowerRequirementModel.buildModel(root, som);
 
 						// Analyze the model
-						model.visit(new PowerRequirementAnalysisVisitor(somResult, model.getCapacity(),
-								model.getTotalBudget(), model.getTotalSupply(), model.getsystemSOMname()));
+						model.visit(new PowerRequirementAnalysisVisitor(somResult, model.getTotalCapacity(),
+								model.getTotalBudget(), model.getTotalSupply(), model.getSystemSOMname(),
+								model.getComponentName()));
 					}
 				}
 			}
@@ -357,19 +369,19 @@ public class PowerRequirementAnalysis {
 	// ==== Analysis Visitor ====
 
 	private class PowerRequirementAnalysisVisitor implements Visitor {
-		private Deque<Result> previousResult = new LinkedList<>();
 		private Result currentResult;
 
 		private final double capacity, tBudget, tSupply;
-		private final String systemSOMname;
+		private final String systemSOMname, componentName;
 
 		public PowerRequirementAnalysisVisitor(final Result rootResult, double capacity, double budget, double supply,
-				String systemSOMname) {
+				String systemSOMname, String componentName) {
 			this.currentResult = rootResult;
 			this.capacity = capacity;
 			this.tBudget = budget;
 			this.tSupply = supply;
 			this.systemSOMname = systemSOMname;
+			this.componentName = componentName;
 		}
 
 		@Override
@@ -377,39 +389,50 @@ public class PowerRequirementAnalysis {
 			final ConnectionInstanceEnd connInstanceEnd = connEnd.getConnectionInstanceEnd();
 
 			// Create a new result object for the connection end
-			final Result connEndResult = ResultUtil.createResult(connInstanceEnd.getName(), connInstanceEnd,
+			final Result connEndResult = ResultUtil.createResult(connInstanceEnd.getName() + connEnd.getID().toString(),
+					connInstanceEnd,
 					ResultType.SUCCESS);
+
 			currentResult.getSubResults().add(connEndResult);
-			previousResult.push(currentResult);
-			currentResult = connEndResult;
 		}
 
 		@Override
 		public void visitConnectionEndPostfix(final ConnectionEnd connEnd) {
 			// unroll the result stack
-			final Result connEndResult = currentResult;
-			currentResult = previousResult.pop();
 
-			double budget = connEnd.getBudget();
-			double supply = connEnd.getSupply();
+			EList<Result> results = currentResult.getSubResults();
+			String visitConnEndID = connEnd.getID().toString();
 
-			ResultUtil.addRealValue(connEndResult, budget);
-			ResultUtil.addRealValue(connEndResult, supply);
+			results.forEach(result -> {
+				String msg = result.getMessage();
 
-			ResultUtil.addStringValue(connEndResult, "System name " + this.systemSOMname);
-			ResultUtil.addStringValue(connEndResult,
-					"Budget " + PowerRequirementAnalysis.toString(budget) + " for "
-							+ connEnd.getConnectionInstanceEnd().getContainingComponentInstance().getName()
-							+ " out of total "
-							+ PowerRequirementAnalysis.toString(tBudget));
+				if (msg.contains(visitConnEndID)) {
+					result.setMessage(msg.replaceAll(visitConnEndID, ""));
 
-			ResultUtil.addStringValue(connEndResult,
-					"Supply " + PowerRequirementAnalysis.toString(supply) + " from "
-							+ connEnd.getConnectionInstanceEnd().getContainingComponentInstance().getName()
-							+ " out of total "
-							+ PowerRequirementAnalysis.toString(tSupply));
+					double budget = connEnd.getBudget();
+					double supply = connEnd.getSupply();
+					String name = connEnd.getConnectionInstanceEnd().getContainingComponentInstance().getName();
 
-			ResultUtil.addStringValue(connEndResult, "Total capacity " + PowerRequirementAnalysis.toString(capacity));
+					ResultUtil.addRealValue(result, budget);
+					ResultUtil.addRealValue(result, supply);
+					ResultUtil.addRealValue(result, capacity);
+					ResultUtil.addRealValue(result, tBudget);
+					ResultUtil.addRealValue(result, tSupply);
+
+					ResultUtil.addStringValue(result, this.componentName);
+					ResultUtil.addStringValue(result, "System name " + this.systemSOMname);
+					ResultUtil.addStringValue(result, name);
+					ResultUtil.addStringValue(result,
+							"Budget " + PowerRequirementAnalysis.toString(budget) + " for " + name
+									+ " out of total " + PowerRequirementAnalysis.toString(tBudget));
+
+					ResultUtil.addStringValue(result,
+							"Supply " + PowerRequirementAnalysis.toString(supply) + " from " + name
+									+ " out of total " + PowerRequirementAnalysis.toString(tSupply));
+
+					ResultUtil.addStringValue(result, "Total capacity: " + PowerRequirementAnalysis.toString(capacity));
+				}
+			});
 		}
 
 		@Override
@@ -417,42 +440,52 @@ public class PowerRequirementAnalysis {
 			final FeatureInstance featureInstance = feature.getFeatureInstance();
 
 			// Create a new result object for the connection end
-			final Result featureResult = ResultUtil.createResult(featureInstance.getName(), featureInstance,
+			final Result featureResult = ResultUtil.createResult(featureInstance.getName() + feature.getID(),
+					featureInstance,
 					ResultType.SUCCESS);
+
 			currentResult.getSubResults().add(featureResult);
-			previousResult.push(currentResult);
-			currentResult = featureResult;
 		}
 
 		@Override
 		public void visitFeaturePostfix(final Feature feature) {
 			// unroll the result stack
-			final Result featureResult = currentResult;
-			currentResult = previousResult.pop();
+			String visitFeatureID = feature.getID().toString();
 
-			double budget = feature.getBudget();
-			double supply = feature.getSupply();
+			currentResult.getSubResults().forEach(result -> {
+				String msg = result.getMessage();
 
-			ResultUtil.addRealValue(featureResult, budget);
-			ResultUtil.addRealValue(featureResult, supply);
+				if (msg.contains(visitFeatureID)) {
+					result.setMessage(msg.replaceAll(visitFeatureID, ""));
 
-			ResultUtil.addStringValue(featureResult, "System name " + this.systemSOMname);
-			ResultUtil.addStringValue(featureResult,
-					"Budget " + PowerRequirementAnalysis.toString(budget) + " for "
-							+ feature.getFeatureInstance().getContainingComponentInstance().getName() + " out of total "
-							+ PowerRequirementAnalysis.toString(budgetTotal));
+					double budget = feature.getBudget();
+					double supply = feature.getSupply();
+					String name = feature.getFeatureInstance().getContainingComponentInstance().getName();
 
-			ResultUtil.addStringValue(featureResult,
-					"Supply " + PowerRequirementAnalysis.toString(supply) + " from "
-							+ feature.getFeatureInstance().getContainingComponentInstance().getName() + " out of total "
-							+ PowerRequirementAnalysis.toString(supplyTotal));
+					ResultUtil.addRealValue(result, budget); // 0
+					ResultUtil.addRealValue(result, supply); // 1
+					ResultUtil.addRealValue(result, capacity);// 2
+					ResultUtil.addRealValue(result, tBudget); // 3
+					ResultUtil.addRealValue(result, tSupply); // 4
 
-			ResultUtil.addStringValue(featureResult, "Total capacity " + PowerRequirementAnalysis.toString(capacity));
+					ResultUtil.addStringValue(result, this.componentName); // 5
+					ResultUtil.addStringValue(result, "System name " + this.systemSOMname); // 6
+					ResultUtil.addStringValue(result, name); // 7
+					ResultUtil.addStringValue(result,
+							"Budget " + PowerRequirementAnalysis.toString(budget) + " for " + name
+									+ " out of total " + PowerRequirementAnalysis.toString(tBudget));
+
+					ResultUtil.addStringValue(result,
+							"Supply " + PowerRequirementAnalysis.toString(supply) + " from " + name
+									+ " out of total " + PowerRequirementAnalysis.toString(tSupply));
+
+					ResultUtil.addStringValue(result, "Total capacity: " + PowerRequirementAnalysis.toString(capacity));
+				}
+			});
 		}
-
 	}
 
-	private static String toString(double value) {
+	public static String toString(double value) {
 		return value > 2000.0 ? value / 1000 + " W" : value + " mW";
 	}
 }

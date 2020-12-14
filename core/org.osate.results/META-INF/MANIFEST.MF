@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: CMU/SEI
 Bundle-Localization: plugin
-Bundle-Version: 2.0.1.qualifier
+Bundle-Version: 2.1.0.qualifier
 Bundle-ClassPath: .
 Bundle-SymbolicName: org.osate.results;singleton:=true
 Bundle-ActivationPolicy: lazy
