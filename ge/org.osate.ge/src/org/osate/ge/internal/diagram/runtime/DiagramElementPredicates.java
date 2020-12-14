@@ -36,7 +36,9 @@ public class DiagramElementPredicates {
 
 	public static boolean isMoveable(final DiagramElement de) {
 		final Graphic graphic = de.getGraphic();
-		return graphic instanceof AgeShape && ((AgeShape)graphic).isMoveable();
+		final boolean shapeSecondaryLabel = graphic instanceof Label && de.getParent() instanceof DiagramElement
+				&& ((DiagramElement) de.getParent()).getGraphic() instanceof AgeShape;
+		return graphic instanceof AgeShape && !shapeSecondaryLabel;
 	}
 
 	public static boolean isUndocked(final DiagramElement de) {
