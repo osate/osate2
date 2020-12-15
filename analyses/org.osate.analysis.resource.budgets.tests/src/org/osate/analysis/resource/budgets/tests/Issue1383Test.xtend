@@ -54,7 +54,6 @@ class Issue1383Test extends XtextTest {
 
 	val static PROJECT_LOCATION = "org.osate.analysis.resource.budgets.tests/models/Issue1383/"
 	
-
 	@Test
 	def void testBasicResourceBudgetExample() {
 		val pkg = testHelper.parseFile(PROJECT_LOCATION + "Example.aadl")
@@ -69,22 +68,110 @@ class Issue1383Test extends XtextTest {
 		val analysisResult = checker.invoke(null, instance)
 		val somResult = analysisResult.results.get(0)
 		val powerResult = somResult.subResults.get(0)
-		checkValues(powerResult);
+		checkRBValues(powerResult);
 		
 		val powerResult2 = somResult.subResults.get(1)
-		checkValues(powerResult2);
+		checkRBValues(powerResult2);
 		
 		val powerResult3 = somResult.subResults.get(2)
-		checkValues(powerResult3);
+		checkRBValues(powerResult3);
 		
 		val powerResult4 = somResult.subResults.get(3)
-		checkValues(powerResult4);
+		checkRBValues(powerResult4);
 		
 		val powerResult5 = somResult.subResults.get(4)
-		checkValues(powerResult5);
+		checkRBValues(powerResult5);
 	}
 	
-	private static def void checkValues(Result result){
+	@Test
+	def void testOverloadedCapacity() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestOverCapacity.aadl")
+
+		// instantiate
+		val cls = pkg.ownedPublicSection.ownedClassifiers
+		val sysImpl = cls.findFirst[name == "MySystem.Tier0"] as SystemImplementation
+		val instance = InstantiateModel.instantiate(sysImpl)
+
+		// check power requirements
+		val checker = new PowerRequirementAnalysis()
+		val analysisResult = checker.invoke(null, instance)
+		val somResult = analysisResult.results.get(0)
+		val powerResult = somResult.subResults.get(0)
+		checkOverValues(powerResult);
+		
+		val powerResult2 = somResult.subResults.get(1)
+		checkOverValues(powerResult2);
+		
+		val powerResult3 = somResult.subResults.get(2)
+		checkOverValues(powerResult3);
+		
+		val powerResult4 = somResult.subResults.get(3)
+		checkOverValues(powerResult4);
+		
+		val powerResult5 = somResult.subResults.get(4)
+		checkOverValues(powerResult5);
+	}
+	
+	@Test
+	def void testNoSupply() {
+		val pkg = testHelper.parseFile(PROJECT_LOCATION + "TestNoSupply.aadl")
+
+		// instantiate
+		val cls = pkg.ownedPublicSection.ownedClassifiers
+		val sysImpl = cls.findFirst[name == "MySystem.Tier0"] as SystemImplementation
+		val instance = InstantiateModel.instantiate(sysImpl)
+
+		// check power requirements
+		val checker = new PowerRequirementAnalysis()
+		val analysisResult = checker.invoke(null, instance)
+		val somResult = analysisResult.results.get(0)
+		val powerResult = somResult.subResults.get(0)
+		checkNoSupplyValues(powerResult);
+		
+		val powerResult2 = somResult.subResults.get(1)
+		checkNoSupplyValues(powerResult2);
+		
+		val powerResult3 = somResult.subResults.get(2)
+		checkNoSupplyValues(powerResult3);
+		
+		val powerResult4 = somResult.subResults.get(3)
+		checkNoSupplyValues(powerResult4);
+		
+		val powerResult5 = somResult.subResults.get(4)
+		checkNoSupplyValues(powerResult5);
+	}
+
+	private static def void checkNoSupplyValues(Result result){
+		val compName = ResultUtil.getString(result, 7)
+		
+		if (compName == "EPSU")
+		checkValues(result, #[0.0, 0.0, 40000.0, 92500.0, 0.0], #[error("Grid budget total 92.5 W exceeds capacity 40.0 W"), error("budget total 92.5 W exceeds capacity 40.0 W")])
+		else if (compName == "hw")
+		checkValues(result, #[800.0, 0.0, 40000.0, 92500.0, 0.0], #[error("Grid budget total 92.5 W exceeds capacity 40.0 W"), error("budget total 92.5 W exceeds capacity 40.0 W")])
+		else if (compName == "sensor1")
+		checkValues(result, #[450.0, 0.0, 40000.0, 92500.0, 0.0], #[error("Grid budget total 92.5 W exceeds capacity 40.0 W"), error("budget total 92.5 W exceeds capacity 40.0 W")])
+		else if (compName == "sensor2")
+		checkValues(result, #[450.0, 0.0, 40000.0, 92500.0, 0.0], #[error("Grid budget total 92.5 W exceeds capacity 40.0 W"), error("budget total 92.5 W exceeds capacity 40.0 W")])
+		else if (compName == "actuator")
+		checkValues(result, #[90800.0, 0.0, 40000.0, 92500.0, 0.0], #[error("Grid budget total 92.5 W exceeds capacity 40.0 W"), error("budget total 92.5 W exceeds capacity 40.0 W")])
+	}
+
+	private static def void checkOverValues(Result result){
+		val compName = ResultUtil.getString(result, 7)
+		
+		if (compName == "EPSU")
+		checkValues(result, #[0.0, 80000.0, 40000.0, 92500.0, 80000.0], #[error("Grid budget total 92.5 W exceeds capacity 40.0 W"), error("budget total 92.5 W exceeds supply 80.0 W")])
+		else if (compName == "hw")
+		checkValues(result, #[800.0, 0.0, 40000.0, 92500.0, 80000.0], #[error("Grid budget total 92.5 W exceeds capacity 40.0 W"), error("budget total 92.5 W exceeds supply 80.0 W")])
+		else if (compName == "sensor1")
+		checkValues(result, #[450.0, 0.0, 40000.0, 92500.0, 80000.0], #[error("Grid budget total 92.5 W exceeds capacity 40.0 W"), error("budget total 92.5 W exceeds supply 80.0 W")])
+		else if (compName == "sensor2")
+		checkValues(result, #[450.0, 0.0, 40000.0, 92500.0, 80000.0], #[error("Grid budget total 92.5 W exceeds capacity 40.0 W"), error("budget total 92.5 W exceeds supply 80.0 W")])
+		else if (compName == "actuator")
+		checkValues(result, #[90800.0, 0.0, 40000.0, 92500.0, 80000.0], #[error("Grid budget total 92.5 W exceeds capacity 40.0 W"), error("budget total 92.5 W exceeds supply 80.0 W")])
+	}
+	
+	private static def void checkRBValues(Result result){
 		val compName = ResultUtil.getString(result, 7)
 		
 		if (compName == "EPSU")
