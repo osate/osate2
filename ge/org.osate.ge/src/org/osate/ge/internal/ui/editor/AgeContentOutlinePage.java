@@ -207,7 +207,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 						// Add child diagram nodes
 						parentNode.getDiagramElements().stream().filter(
-								(de) -> de.getUserInterfaceName() != null || de.getBusinessObject() instanceof EObject)
+								(de) -> !Strings.isNullOrEmpty(de.getUserInterfaceName())
+										|| de.getBusinessObject() instanceof EObject)
 						.forEach(children::add);
 
 						// Add children which are hidden based on user preference

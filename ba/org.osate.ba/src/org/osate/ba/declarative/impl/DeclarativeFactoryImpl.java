@@ -128,6 +128,8 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
         return createDeclarativeReferenceValue() ;
       case DeclarativePackage.DECLARATIVE_CLASSIFIER_VALUE :
         return createDeclarativeClassifierValue() ;
+      case DeclarativePackage.DECLARATIVE_BEHAVIOR_ANNEX :
+        return createDeclarativeBehaviorAnnex() ;
       default :
         throw new IllegalArgumentException("The class '" + eClass.getName() +
                                            "' is not a valid classifier") ;
@@ -421,6 +423,19 @@ public class DeclarativeFactoryImpl extends EFactoryImpl implements
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
+  public DeclarativeBehaviorAnnex createDeclarativeBehaviorAnnex()
+  {
+    DeclarativeBehaviorAnnexImpl declarativeBehaviorAnnex =
+                                                          new DeclarativeBehaviorAnnexImpl() ;
+    return declarativeBehaviorAnnex ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @generated
+  	 */
   @Override
   public DeclarativePackage getDeclarativePackage()
   {
