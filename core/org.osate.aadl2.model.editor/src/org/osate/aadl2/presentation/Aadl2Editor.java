@@ -22,7 +22,7 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  *
  */
-package org.osate.aadl2.instance.presentation;
+package org.osate.aadl2.presentation;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -147,7 +147,7 @@ import org.osate.aadl2.provider.Aadl2ItemProviderAdapterFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InstanceEditor extends MultiPageEditorPart implements IEditingDomainProvider, ISelectionProvider,
+public class Aadl2Editor extends MultiPageEditorPart implements IEditingDomainProvider, ISelectionProvider,
 		IMenuListener, IViewerProvider, IGotoMarker, IRevertablePart {
 	/**
 	 * This keeps track of the editing domain that is used to track all changes to the model.
@@ -258,16 +258,16 @@ public class InstanceEditor extends MultiPageEditorPart implements IEditingDomai
 		public void partActivated(IWorkbenchPart p) {
 			if (p instanceof ContentOutline) {
 				if (((ContentOutline) p).getCurrentPage() == contentOutlinePage) {
-					getActionBarContributor().setActiveEditor(InstanceEditor.this);
+					getActionBarContributor().setActiveEditor(Aadl2Editor.this);
 
 					setCurrentViewer(contentOutlineViewer);
 				}
 			} else if (p instanceof PropertySheet) {
 				if (propertySheetPages.contains(((PropertySheet) p).getCurrentPage())) {
-					getActionBarContributor().setActiveEditor(InstanceEditor.this);
+					getActionBarContributor().setActiveEditor(Aadl2Editor.this);
 					handleActivate();
 				}
-			} else if (p == InstanceEditor.this) {
+			} else if (p == Aadl2Editor.this) {
 				handleActivate();
 			}
 		}
@@ -439,7 +439,7 @@ public class InstanceEditor extends MultiPageEditorPart implements IEditingDomai
 				getSite().getShell().getDisplay().asyncExec(() -> {
 					removedResources.addAll(visitor.getRemovedResources());
 					if (!isDirty()) {
-						getSite().getPage().closeEditor(InstanceEditor.this, false);
+						getSite().getPage().closeEditor(Aadl2Editor.this, false);
 					}
 				});
 			}
@@ -447,7 +447,7 @@ public class InstanceEditor extends MultiPageEditorPart implements IEditingDomai
 			if (!visitor.getChangedResources().isEmpty()) {
 				getSite().getShell().getDisplay().asyncExec(() -> {
 					changedResources.addAll(visitor.getChangedResources());
-					if (getSite().getPage().getActiveEditor() == InstanceEditor.this) {
+					if (getSite().getPage().getActiveEditor() == Aadl2Editor.this) {
 						handleActivate();
 					}
 				});
@@ -476,7 +476,7 @@ public class InstanceEditor extends MultiPageEditorPart implements IEditingDomai
 
 		if (!removedResources.isEmpty()) {
 			if (handleDirtyConflict()) {
-				getSite().getPage().closeEditor(InstanceEditor.this, false);
+				getSite().getPage().closeEditor(Aadl2Editor.this, false);
 			} else {
 				removedResources.clear();
 				changedResources.clear();
@@ -593,7 +593,7 @@ public class InstanceEditor extends MultiPageEditorPart implements IEditingDomai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InstanceEditor() {
+	public Aadl2Editor() {
 		super();
 		initializeEditingDomain();
 	}
@@ -891,7 +891,7 @@ public class InstanceEditor extends MultiPageEditorPart implements IEditingDomai
 		if (getResource() != null && !getResource().getContents().isEmpty()) {
 			// Create a page for the selection tree view.
 			//
-			ViewerPane viewerPane = new ViewerPane(getSite().getPage(), InstanceEditor.this) {
+			ViewerPane viewerPane = new ViewerPane(getSite().getPage(), Aadl2Editor.this) {
 				@Override
 				public Viewer createViewer(Composite composite) {
 					Tree tree = new Tree(composite, SWT.MULTI);
@@ -1097,8 +1097,8 @@ public class InstanceEditor extends MultiPageEditorPart implements IEditingDomai
 		PropertySheetPage propertySheetPage = new ExtendedPropertySheetPage(editingDomain) {
 			@Override
 			public void setSelectionToViewer(List<?> selection) {
-				InstanceEditor.this.setSelectionToViewer(selection);
-				InstanceEditor.this.setFocus();
+				Aadl2Editor.this.setSelectionToViewer(selection);
+				Aadl2Editor.this.setFocus();
 			}
 
 			@Override

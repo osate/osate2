@@ -35,8 +35,8 @@
             name="%_UI_InstanceEditor_label"
             icon="icons/full/obj16/InstanceModelFile.gif"
             extensions="aaxl2,aail2"
-            class="org.osate.aadl2.instance.presentation.InstanceEditor"
-            contributorClass="org.osate.aadl2.instance.presentation.InstanceActionBarContributor">
+            class="org.osate.aadl2.presentation.Aadl2Editor"
+            contributorClass="org.osate.aadl2.presentation.Aadl2ActionBarContributor">
       </editor>
    </extension>
 
