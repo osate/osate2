@@ -6,7 +6,7 @@ designed by the Software Engineering Institute (SEI) at
 Carnegie Mellon University (CMU) to demonstrate the following
 capabilities of OSATE:
 
-* Fault Hazard Assessment
+* Functional Hazard Assessment
 * Fault Impact (FMEA/FMES)
 * Fault Tree Analysis
 
@@ -20,7 +20,7 @@ There are two models contained within this project. The one used for much of the
 
 ### Creating a diagram
 
-To generate the diagram shown in Figure 26 of TR, open simple->wbs.aadl, right click on one of the implementations in the Outline perspective and select "Create Diagram...". The resulting diagram will be somewhat different in appearance to the one in the figure due to the newer version of OSATE.
+To generate the diagram shown in Figure 26 of TR, open simple/wbs.aadl, right click on one of the implementations in the Outline perspective and select "Create Diagram...". The resulting diagram will be somewhat different in appearance to the one in the figure due to the newer version of OSATE.
 
 ### Conducting analysis
 
