@@ -70,7 +70,6 @@ import org.osate.aadl2.StringLiteral ;
 import org.osate.aadl2.Subcomponent ;
 import org.osate.aadl2.UnitLiteral ;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
-import org.osate.aadl2.modelsupport.util.AadlUtil ;
 import org.osate.ba.aadlba.AadlBaPackage ;
 import org.osate.ba.aadlba.Any ;
 import org.osate.ba.aadlba.AssignmentAction ;
@@ -243,12 +242,16 @@ public class AadlBaNameResolver
       for (int i = 0 ; i < ltrans.size() - 1 ; i++)
       {
         if(ltrans.get(i).getName()==null)
+        {
           continue ;
+        }
         
         for(int j = i+1 ; j < ltrans.size() ; j++)
         {
           if (ltrans.get(j).getName()==null)
+          {
             continue;
+          }
           if(ltrans.get(i).getName().equalsIgnoreCase(ltrans.get(j).getName()))
           {
             reportDuplicateNameError(ltrans.get(j), ltrans.get(i)) ;
@@ -1145,12 +1148,12 @@ public class AadlBaNameResolver
 
    private boolean integerValueVariableResolver(IntegerValueVariable value)
    {
-      return valueVariableResolver((ValueVariable)value, (ValueVariable)value) ;
+      return valueVariableResolver(value, value) ;
    }
 
    private boolean integerValueConstantResolver(IntegerValueConstant value)
    {
-      return valueConstantResolver((ValueConstant)value) ;
+      return valueConstantResolver(value) ;
    }
 
    /**
@@ -1492,14 +1495,20 @@ public class AadlBaNameResolver
        ne = Aadl2Visitors.findSubcomponentInComponent((Classifier) parent,
                                                       qne.getBaName().getId());
        if(ne==null)
-         ne = Aadl2Visitors.findFeatureInComponent((Classifier) parent,
+      {
+        ne = Aadl2Visitors.findFeatureInComponent((Classifier) parent,
                                                    qne.getBaName().getId());
+      }
        if(ne==null)
-         ne = Aadl2Visitors.findElementInPackage(qne.getBaName().getId(),
+      {
+        ne = Aadl2Visitors.findElementInPackage(qne.getBaName().getId(),
                                                  packageName, context) ;
+      }
        if(ne == null)
-         ne = Aadl2Visitors.findElementInPropertySet(qne.getBaName().getId(),
+      {
+        ne = Aadl2Visitors.findElementInPropertySet(qne.getBaName().getId(),
                                                      packageName, context) ;
+      }
        // An element is found.
        if(ne != null && ne instanceof NamedElement)
        {
@@ -2067,7 +2076,7 @@ public class AadlBaNameResolver
   private boolean enumerationTypeResolver(EnumerationType type,
                                           DeclarativePropertyName declPropertyName)
   {
-    EnumerationType enumType = (EnumerationType) type ;
+    EnumerationType enumType = type ;
     for(EnumerationLiteral literal : enumType.getOwnedLiterals())
     {
       if(literal.getName().equalsIgnoreCase(declPropertyName.getPropertyName().getId()))
@@ -2516,16 +2525,22 @@ public class AadlBaNameResolver
        {
          ContainmentPathElement currentCne;
          if(!first)
-           currentCne = Aadl2Factory.eINSTANCE.createContainmentPathElement();
-         else
-           currentCne = firstCne;
+        {
+          currentCne = Aadl2Factory.eINSTANCE.createContainmentPathElement();
+        }
+        else
+        {
+          currentCne = firstCne;
+        }
          first = false;
          
          NamedElement ne = Aadl2Visitors.findSubcomponentInComponent(context,
                                                                      subPath.getId());
          if(ne==null)
-           ne = Aadl2Visitors.findFeatureInComponent(context,
+        {
+          ne = Aadl2Visitors.findFeatureInComponent(context,
                                                      subPath.getId());
+        }
          if(ne == null)
          {
            _errManager.error(bv, "Element \'" + subPath.getId() + "\' is not found in "+ context.getName() + "(property "+propertyName+")");
@@ -2535,7 +2550,9 @@ public class AadlBaNameResolver
          {
            currentCne.setNamedElement(ne);
            if(prevCne!=null)
-             prevCne.setPath(currentCne);           
+          {
+            prevCne.setPath(currentCne);
+          }           
            if(ne instanceof Subcomponent)
            {
              Subcomponent sub = (Subcomponent) ne;
@@ -2578,7 +2595,9 @@ public class AadlBaNameResolver
        {
          String cvQualifiedName = "";
          if(!qneClassPackageName.isEmpty())
-           cvQualifiedName+=qneClassPackageName+"::";
+        {
+          cvQualifiedName+=qneClassPackageName+"::";
+        }
          cvQualifiedName+=classifierQne.getBaName().getId();
          _errManager.error(bv, "Classifier \'" + cvQualifiedName + "\' associated to property "+ propertyName +" is not found");
          result = false;
@@ -2601,7 +2620,9 @@ public class AadlBaNameResolver
       for(BasicProperty bp: rt.getOwnedFields())
       {
         if(bp.getName().equalsIgnoreCase(basicPropertyName))
+        {
           return bp;
+        }
       }
     }
     
@@ -2635,12 +2656,14 @@ public class AadlBaNameResolver
      Property propNE = resolveProperty(qne);
      if(propNE != null)
      {
-       Property prop = (Property) propNE;
+       Property prop = propNE;
        String unitLiteralName = ((QualifiedNamedElement) nv.getUnit()).getBaName().getId();
        UnitLiteral ul = PropertiesLinkingService.findUnitLiteral(prop, unitLiteralName);
        if(ul!=null)
-         nv.setUnit(ul);
-       else
+      {
+        nv.setUnit(ul);
+      }
+      else
        {
          _errManager.error(bv, "Unit \'" + unitLiteralName + "\' is not found");
          result = false;
@@ -2688,20 +2711,28 @@ public class AadlBaNameResolver
           QualifiedNamedElement p = (QualifiedNamedElement) pa.getProperty();
           boolean valid = qualifiedNamedElementResolver(p, false) ;
           if(valid)
+          {
             for(ModalPropertyValue mpv : pa.getOwnedValues())
             {
               result &= propertyExpressionResolver(v, p, mpv.getOwnedValue());
               paPropertyValueError.add(pa);
             }
+          }
           if(!valid)
+          {
             paPropertyNotFound.add(pa);
+          }
           result &= valid;
         }
         StringBuilder msg = new StringBuilder();
         if(paPropertyNotFound.size()>1)
+        {
           msg.append("Properties ");
+        }
         else
+        {
           msg.append("Property ");
+        }
         
         boolean first = true;
         for(PropertyAssociation paToRemove: paPropertyNotFound)
@@ -2717,9 +2748,13 @@ public class AadlBaNameResolver
           qualifiedName.append(p.getBaName().getId());
           
           if(first)
+          {
             msg.append("\'"+qualifiedName+"\' ");
+          }
           else
+          {
             msg.append(" and \'"+qualifiedName+"\' ");
+          }
           first = false;
         }
         paList.removeAll(paPropertyNotFound);
@@ -2737,11 +2772,6 @@ public class AadlBaNameResolver
    // TODO Provide column number.
    private void reportNameError(BehaviorElement el, String name) 
    {
-//     if(el.eContainer() == null)
-//     {
-//       DeclarativeUtils.setEcontainer(_ba, el) ;
-//     } 
-     
      _errManager.error(el, "\'" + name + "\' is not found");
    }
 }

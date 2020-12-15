@@ -25,7 +25,6 @@ package org.osate.xtext.aadl2.errormodel.serializer
 
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.CrossReference
-import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.GrammarUtil
 import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.nodemodel.INode
@@ -34,24 +33,17 @@ import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor
 import org.eclipse.xtext.serializer.tokens.CrossReferenceSerializer
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.NamedElement
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
-import org.osate.aadl2.Aadl2Package
 
 class ErrorModelCrossReferenceSerializer extends CrossReferenceSerializer {
 	val public static PREFIX = "emv2$"
 
 	override serializeCrossRef(EObject semanticObject, CrossReference crossref, EObject target, INode node,
 		Acceptor errors) {
-		// Fix for https://github.com/osate/osate2/issues/2483
-		val ref = GrammarUtil.getReference(crossref, semanticObject.eClass)
-		if (ref == ErrorModelPackage.Literals.FEATUREOR_PP_REFERENCE__FEATUREOR_PP) {
-			return (target as NamedElement).name
-		}
-		
+
 		val crossRefString = super.serializeCrossRef(semanticObject, crossref, target, node, errors)
 		if (crossRefString.startsWith(PREFIX)) {
 			crossRefString.substring(PREFIX.length)
@@ -80,9 +72,8 @@ class ErrorModelCrossReferenceSerializer extends CrossReferenceSerializer {
 			case ErrorModelPackage.Literals.TYPE_SET__ALIASED_TYPE: {
 				val simpleName = (target as ErrorTypes).name
 				val fromScope = scope.getSingleElement(QualifiedName.create(simpleName))
-				if (fromScope === null ||
-					fromScope.EObjectOrProxy.getContainerOfType(AadlPackage) !=
-						target.getContainerOfType(AadlPackage)) {
+				if (fromScope === null || fromScope.EObjectOrProxy.getContainerOfType(AadlPackage) !=
+					target.getContainerOfType(AadlPackage)) {
 					target.getContainerOfType(AadlPackage).name + "::" + simpleName
 				} else {
 					simpleName
@@ -91,6 +82,9 @@ class ErrorModelCrossReferenceSerializer extends CrossReferenceSerializer {
 			case ErrorModelPackage.Literals.ERROR_MODEL_LIBRARY__EXTENDS: {
 				val package = target.getContainerOfType(AadlPackage)
 				package?.name
+			}
+			case ErrorModelPackage.Literals.FEATUREOR_PP_REFERENCE__FEATUREOR_PP: {
+				(target as NamedElement)?.name
 			}
 			default:
 				super.getCrossReferenceNameFromScope(semanticObject, crossref, target, scope, errors)

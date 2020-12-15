@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EPackage ;
 
 import org.eclipse.emf.ecore.util.Switch ;
 
+import org.osate.aadl2.AbstractFeatureClassifier ;
 import org.osate.aadl2.AbstractNamedValue ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.BasicProperty ;
@@ -406,7 +407,7 @@ public class DeclarativeSwitch<T> extends Switch<T>
         if(result == null)
           result = caseSubcomponentType(qualifiedNamedElement) ;
         if(result == null)
-          result = caseFeatureClassifier(qualifiedNamedElement) ;
+          result = caseAbstractFeatureClassifier(qualifiedNamedElement) ;
         if(result == null)
           result = caseBehaviorElement(qualifiedNamedElement) ;
         if(result == null)
@@ -417,6 +418,8 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = caseNamespace(qualifiedNamedElement) ;
         if(result == null)
           result = caseType(qualifiedNamedElement) ;
+        if(result == null)
+          result = caseFeatureClassifier(qualifiedNamedElement) ;
         if(result == null)
           result = caseNamedElement(qualifiedNamedElement) ;
         if(result == null)
@@ -746,6 +749,15 @@ public class DeclarativeSwitch<T> extends Switch<T>
           result = casePropertyExpression(declarativeClassifierValue) ;
         if(result == null)
           result = caseElement(declarativeClassifierValue) ;
+        if(result == null)
+          result = defaultCase(theEObject) ;
+        return result ;
+      }
+      case DeclarativePackage.DECLARATIVE_BEHAVIOR_ANNEX :
+      {
+        DeclarativeBehaviorAnnex declarativeBehaviorAnnex =
+                                                          (DeclarativeBehaviorAnnex) theEObject ;
+        T result = caseDeclarativeBehaviorAnnex(declarativeBehaviorAnnex) ;
         if(result == null)
           result = defaultCase(theEObject) ;
         return result ;
@@ -1144,16 +1156,32 @@ public class DeclarativeSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Behavior Annex</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Element</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Behavior Annex</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
+  public T caseDeclarativeBehaviorAnnex(DeclarativeBehaviorAnnex object)
+  {
+    return null ;
+  }
+
+  /**
+  	 * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
+  	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+  	 * @param object the target of the switch.
+  	 * @return the result of interpreting the object as an instance of '<em>Element</em>'.
+  	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+  	 * @generated
+  	 */
   public T caseElement(Element object)
   {
     return null ;
@@ -1496,6 +1524,22 @@ public class DeclarativeSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Abstract Feature Classifier</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Abstract Feature Classifier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAbstractFeatureClassifier(AbstractFeatureClassifier object)
+  {
+    return null ;
+  }
+
+  /**
   	 * Returns the result of interpreting the object as an instance of '<em>Data Subcomponent Type</em>'.
   	 * <!-- begin-user-doc -->
   	 * This implementation returns null;
@@ -1512,32 +1556,32 @@ public class DeclarativeSwitch<T> extends Switch<T>
   }
 
   /**
-  	 * Returns the result of interpreting the object as an instance of '<em>Data Classifier</em>'.
-  	 * <!-- begin-user-doc -->
+   * Returns the result of interpreting the object as an instance of '<em>Data Classifier</em>'.
+   * <!-- begin-user-doc -->
   	 * This implementation returns null;
   	 * returning a non-null result will terminate the switch.
   	 * <!-- end-user-doc -->
-  	 * @param object the target of the switch.
-  	 * @return the result of interpreting the object as an instance of '<em>Data Classifier</em>'.
-  	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-  	 * @generated
-  	 */
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Data Classifier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
   public T caseDataClassifier(DataClassifier object)
   {
     return null ;
   }
 
   /**
-  	 * Returns the result of interpreting the object as an instance of '<em>Value</em>'.
-  	 * <!-- begin-user-doc -->
+   * Returns the result of interpreting the object as an instance of '<em>Value</em>'.
+   * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
-  	 * @param object the target of the switch.
-  	 * @return the result of interpreting the object as an instance of '<em>Value</em>'.
-  	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-  	 * @generated
-  	 */
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
   public T caseValue(Value object)
   {
     return null ;
