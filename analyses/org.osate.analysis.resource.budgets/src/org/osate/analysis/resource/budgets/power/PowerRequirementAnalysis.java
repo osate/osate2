@@ -45,6 +45,7 @@ import org.osate.analysis.resource.budgets.internal.busload.model.ConnectionEnd;
 import org.osate.analysis.resource.budgets.internal.busload.model.Feature;
 import org.osate.analysis.resource.budgets.internal.busload.model.PowerRequirementModel;
 import org.osate.analysis.resource.budgets.internal.busload.model.Visitor;
+import org.osate.analysis.resource.budgets.logic.GenericAnalysis;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
 import org.osate.result.ResultType;
@@ -85,18 +86,19 @@ import org.osate.ui.dialogs.Dialog;
  *           <li>values[5] = components that represent a power system with capacity (StringValue)
  *           <li>values[6] = "System name ..." (StringValue)
  *           <li>values[7] = {@code Feature} or {@code ConnectionEnd} instance's name (StringValue)
- *           <li>values[8] = "Budget ... for EPSU out of total ..." (StringValue)
- *           <li>values[9] = "Supply ... for EPSU out of total ..." (StringValue)
+ *           <li>values[8] = "Budget ... for ... out of total ..." (StringValue)
+ *           <li>values[9] = "Supply ... for ... out of total ..." (StringValue)
  *           <li>values[10] = "Total capacity: ..." (StringValue)
- *           <li>diagnostics is empty
+ *           <li>diagnostics = Diagnostics associated with this {@code Feature} or {@code ConnectionEnd} instance object
  *           <li>subResults is empty
  *           </ul>
  *         </ul>
  *     </ul>
  * </ul>
+ * @since 4.1
  */
 
-public class PowerRequirementAnalysis {
+public class PowerRequirementAnalysis extends GenericAnalysis {
 	private static final String INITIAL_MODE_LABEL = "Initial Mode";
 	private static final String CHOOSE_MODE_LABEL = "Choose Mode...";
 	private static final String ALL_MODES_LABEL = "All Modes";
@@ -258,15 +260,43 @@ public class PowerRequirementAnalysis {
 					ResultUtil.addStringValue(result, this.componentName);
 					ResultUtil.addStringValue(result, "System name " + this.systemSOMname);
 					ResultUtil.addStringValue(result, name);
+
+					String stBudget = PowerRequirementAnalysis.toString(tBudget);
+
 					ResultUtil.addStringValue(result,
 							"Budget " + PowerRequirementAnalysis.toString(budget) + " for " + name
-									+ " out of total " + PowerRequirementAnalysis.toString(tBudget));
+									+ " out of total " + stBudget);
 
 					ResultUtil.addStringValue(result,
 							"Supply " + PowerRequirementAnalysis.toString(supply) + " from " + name
 									+ " out of total " + PowerRequirementAnalysis.toString(tSupply));
 
-					ResultUtil.addStringValue(result, "Total capacity: " + PowerRequirementAnalysis.toString(capacity));
+					String stCapacity = PowerRequirementAnalysis.toString(capacity);
+
+					ResultUtil.addStringValue(result, "Total capacity: " + stCapacity);
+
+					// diagnostics -> markers
+					final ConnectionInstanceEnd connEndInstance = connEnd.getConnectionInstanceEnd();
+
+					if (capacity > 0.0 && tBudget > 0.0 && tBudget > capacity) {
+						error(result, connEndInstance,
+								this.componentName + " budget total " + stBudget + " exceeds capacity " + stCapacity);
+					}
+
+					double available = 0.0;
+					String suppliedmsg = "";
+					if (tSupply == 0.0) {
+						available = capacity;
+						suppliedmsg = " capacity ";
+					} else {
+						available = tSupply;
+						suppliedmsg = " supply ";
+					}
+
+					if (tBudget > available) {
+						error(result, connEndInstance, " budget total " + stBudget + " exceeds capacity " + suppliedmsg
+								+ PowerRequirementAnalysis.toString(available));
+					}
 				}
 			});
 		}
@@ -307,15 +337,43 @@ public class PowerRequirementAnalysis {
 					ResultUtil.addStringValue(result, this.componentName); // 5
 					ResultUtil.addStringValue(result, "System name " + this.systemSOMname); // 6
 					ResultUtil.addStringValue(result, name); // 7
+
+					String stBudget = PowerRequirementAnalysis.toString(tBudget);
+
 					ResultUtil.addStringValue(result,
 							"Budget " + PowerRequirementAnalysis.toString(budget) + " for " + name
-									+ " out of total " + PowerRequirementAnalysis.toString(tBudget));
+									+ " out of total " + stBudget);
 
 					ResultUtil.addStringValue(result,
 							"Supply " + PowerRequirementAnalysis.toString(supply) + " from " + name
 									+ " out of total " + PowerRequirementAnalysis.toString(tSupply));
 
-					ResultUtil.addStringValue(result, "Total capacity: " + PowerRequirementAnalysis.toString(capacity));
+					String stCapacity = PowerRequirementAnalysis.toString(capacity);
+
+					ResultUtil.addStringValue(result, "Total capacity: " + stCapacity);
+
+					// diagnostics -> markers
+					final FeatureInstance featureInstance = feature.getFeatureInstance();
+
+					if (capacity > 0.0 && tBudget > 0.0 && tBudget > capacity) {
+						error(result, featureInstance,
+								this.componentName + " budget total " + stBudget + " exceeds capacity " + stCapacity);
+					}
+
+					double available = 0.0;
+					String suppliedmsg = "";
+					if (tSupply == 0.0) {
+						available = capacity;
+						suppliedmsg = " capacity ";
+					} else {
+						available = tSupply;
+						suppliedmsg = " supply ";
+					}
+
+					if (tBudget > available) {
+						error(result, featureInstance, " budget total " + stBudget + " exceeds capacity " + suppliedmsg
+								+ PowerRequirementAnalysis.toString(available));
+					}
 				}
 			});
 		}

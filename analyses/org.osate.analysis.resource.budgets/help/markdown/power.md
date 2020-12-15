@@ -52,3 +52,66 @@ One example is available on [Github/Osate](https://github.com/osate/examples) an
 A second example is available on [Github/Osate](https://github.com/osate/alisa-examples) and is called *MutliTierAircraftExample*. You will find a set of project under *MultiTierAircraft* with the AADL model. The example is from the System Architecture Virtual Integration (SAVI) initiative. It has a backbone transmission system as well as a subsystem within the IMA of the aircraft.
 The project AircraftSpecified represents *Tier1*, i.e., a single layer. AircraftIntegrated represents variants of *Tier2*, which includes the Integrated Modular Avionics (IMA) at one level of detail.
 > Note: The example also includes a requirement and verification plan specification for automated incremental life cycle assurance under the ALISA plug-ins (see ALISA help for details).
+
+## Running the Analysis
+
+The analysis can be run over multiple models at the same time:
+
+1. Select one or more working set, project, directory, or instance model `.aaxl` file in the `AADL Navigator`. 
+2. Select `Analyses > Budget > Analyze Power Requirements` from the menu bar or navigator context menu, or select the "Analyze power requirements" icon in the toolbar.
+
+The analysis finds all the instance models (`.aaxl` files) in the selected items and runs over each one.
+
+*  _The analysis runs for each system operation mode in each model._  
+* An output comma-separated-values (`.csv`) file is generated for each analyzed model.  The file is located in the `reports/Power` folder.  The file has the same name as the model file, but with `__Power` appended to the end.
+* If the analysis finds inconsistencies, it will produce error or warning markers on the instance model file.
+
+## Invoking Programmatically
+
+The analysis can be invoked programmatically by other tools by calling the method
+
+        AnalysisResult invoke(IProgressMonitor, SystemInstance)
+
+on an instance of the class `PowerRequirementAnalysis` in the package `org.osate.analysis.resource.budgets.power`.  This is found in the plug-in `org.osate.analysis.resource.budgets`.
+
+As the signature indicates, the method takes a possibly-`null` progress monitor, and the `SystemInstance` object of the model to analyze.  All the system operation modes of the model are analyzed.
+
+A new instance of the class `PowerRequirementAnalysis` should be used for each system instance.   
+
+### Result format
+
+The format for the `AnalysisResult` tree returned by `invoke()` is as follows: 
+
+`AnalysisResult`
+
+* `analysis` = "Power Requirements"
+* `modelElement` = `SystemInstance` being analyzed
+* `resultType` = `SUCCESS`
+* `message = `"Power analysis of _name of system instance_"`
+* `diagnostics` = _empty list_
+* `parameters` = _empty list_
+* `results` = one `Result` for each system operation mode
+
+    * `modelElement` = `SystemOperationMode` instance object
+    * `resultType` = `SUCCESS`
+    * `message` = _empty_
+    * `values` = _empty list_
+    * `diagnostics` = _empty list_
+    * `subResults` = one `Result` for each `ComponentInstance` with `category` of `Feature` or `Connection End`
+    
+        * `modelElement` = `FeatureInstance` or `ConnectionEndInstance` instance object
+        * `resultType` = `SUCCESS`
+        * `message` = The component's name from `getName()`
+        * `values[0]` = The budget of the feature or connection end in W (`RealValue`)
+        * `values[1]` = The supply in form of power budget drawn from other supply. This could be a requires bus access, or an incoming abstract feature. There must be a connection on this feature (`RealValue`)
+        * `values[2]` = The capacity of the power supplier system in W as specified by `SEI::PowerCapacity` property (`RealValue`)
+        * `values[3]` = Total Budget across the whole system (`RealValue`)
+        * `values[4]` = Total Supply across the whole system (`RealValue`)
+        * `values[5]` = Components that represent a power system with capacity (`StringValue`)
+        * `values[6]` = System name (`StringValue`)
+        * `values[7]` = `Feature` or `ConnectionEnd` instance's name (`StringValue`)
+        * `values[8]` = Budget ... for ... out of total ... (`StringValue`)
+        * `values[9]` = Supply ... for ... out of total ... (`StringValue`)
+        * `values[10]` = Total capacity: ... (`StringValue`)
+        * `diagnostics` = Diagnostics associated with this Feature or Connection End.
+        * `subResults` = _empty_

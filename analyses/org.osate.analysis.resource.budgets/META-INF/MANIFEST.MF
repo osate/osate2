@@ -22,6 +22,7 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.analysis.resource.budgets,
  org.osate.analysis.resource.budgets.busload,
  org.osate.analysis.resource.budgets.handlers,
- org.osate.analysis.resource.budgets.logic
+ org.osate.analysis.resource.budgets.logic,
+ org.osate.analysis.resource.budgets.power
 Automatic-Module-Name: org.osate.analysis.resource.budgets
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
