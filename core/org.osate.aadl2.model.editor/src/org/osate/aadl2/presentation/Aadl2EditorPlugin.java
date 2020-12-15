@@ -22,7 +22,7 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.aadl2.instance.presentation;
+package org.osate.aadl2.presentation;
 
 import org.eclipse.emf.common.EMFPlugin;
 

@@ -22,7 +22,7 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  *
  */
-package org.osate.aadl2.instance.presentation;
+package org.osate.aadl2.presentation;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -68,7 +68,7 @@ import org.osate.ui.UiUtil;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InstanceActionBarContributor extends EditingDomainActionBarContributor
+public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 		implements ISelectionChangedListener {
 	/**
 	 * This keeps track of the active editor.
@@ -138,7 +138,7 @@ public class InstanceActionBarContributor extends EditingDomainActionBarContribu
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InstanceActionBarContributor() {
+	public Aadl2ActionBarContributor() {
 		super(ADDITIONS_LAST_STYLE);
 		loadResourceAction = new LoadResourceAction();
 		validateAction = new ValidateAction();
@@ -285,8 +285,8 @@ public class InstanceActionBarContributor extends EditingDomainActionBarContribu
 
 		@Override
 		public void run() {
-			if (activeEditorPart instanceof InstanceEditor) {
-				InstanceEditor editor = (InstanceEditor) activeEditorPart;
+			if (activeEditorPart instanceof Aadl2Editor) {
+				Aadl2Editor editor = (Aadl2Editor) activeEditorPart;
 
 				if (currentSelection instanceof InstanceObject) {
 					if (editor.isDirty()) {
