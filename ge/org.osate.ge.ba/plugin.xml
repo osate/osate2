@@ -78,7 +78,7 @@ censes only apply to the Third Party Software and not any other portion of this 
      <propertySection
             afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
 			class="org.osate.ge.ba.ui.properties.SetStateCompletePropertySection"
-			filter="org.osate.ge.ba.ui.properties.SetStateCompletePropertySection$Filter"
+			filter="org.osate.ge.ba.ui.properties.StatePropertySection$Filter"
 			id="org.osate.ge.ba.properties.setBehaviorStateCompletePropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>

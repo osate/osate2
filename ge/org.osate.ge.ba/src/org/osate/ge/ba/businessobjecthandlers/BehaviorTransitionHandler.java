@@ -81,9 +81,12 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	private static final StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
 			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> {
 				if (bt instanceof DeclarativeBehaviorTransition) {
-					final Identifier dest = ((DeclarativeBehaviorTransition) bt).getDestState();
-					final BehaviorAnnex ba = (BehaviorAnnex) bt.getOwner();
-					return getState(ba, dest.getId());
+					final DeclarativeBehaviorTransition dt = (DeclarativeBehaviorTransition) bt;
+					final Identifier dest = dt.getDestState();
+					if (dest != null) {
+						final BehaviorAnnex ba = (BehaviorAnnex) bt.getOwner();
+						return getState(ba, dest.getId());
+					}
 				}
 
 				return bt.getDestinationState();
@@ -180,12 +183,13 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 
 	@Override
 	public void delete(final CustomDeleteContext ctx) {
-		final BehaviorTransition behaviorTransitionToModify = ctx.getContainerBusinessObject(BehaviorTransition.class)
-				.get();
-		final BehaviorAnnex behaviorAnnexToModify = (BehaviorAnnex) behaviorTransitionToModify.getOwner();
-		EcoreUtil.remove(behaviorTransitionToModify);
-		if (behaviorAnnexToModify.getTransitions().isEmpty()) {
-			behaviorAnnexToModify.unsetTransitions();
+		final BehaviorAnnex behaviorAnnex = ctx.getContainerBusinessObject(BehaviorAnnex.class).get();
+		// Find transition by URI.
+		final BehaviorTransition behaviorTransition = (BehaviorTransition) behaviorAnnex.eResource().getResourceSet()
+				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorTransition.class).get()), true);
+		EcoreUtil.remove(behaviorTransition);
+		if (behaviorAnnex.getTransitions().isEmpty()) {
+			behaviorAnnex.unsetTransitions();
 		}
 	}
 
@@ -193,7 +197,7 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	public void rename(final RenameContext ctx) {
 		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
 		final String newName = ctx.getNewName();
-		// Transition names can be null, but not an empty string
+		// An unnamed transition's name must be set to null
 		behaviorTransition.setName(isEmptyOrMatchesName(newName, unnamedLabel) ? null : newName);
 	}
 

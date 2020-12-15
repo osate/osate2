@@ -23,21 +23,12 @@
  */
 package org.osate.ge.ba.ui.properties;
 
-import org.eclipse.jface.viewers.IFilter;
 import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ge.ui.PropertySectionUtil;
 
 /**
  * Property section for setting {@link BehaviorState} to initial.
  */
 public class SetStateInitialPropertySection extends StatePropertySection {
-	public static class Filter implements IFilter {
-		@Override
-		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> bo instanceof BehaviorState);
-		}
-	}
-
 	public SetStateInitialPropertySection() {
 		super("Initial:", "Set Initial State",
 				// Set initial state

@@ -23,23 +23,12 @@
  */
 package org.osate.ge.ba.ui.properties;
 
-import org.eclipse.jface.viewers.IFilter;
 import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ge.ui.PropertySectionUtil;
 
 /**
  * Property section for setting {@link BehaviorState} to complete.
  */
 public class SetStateCompletePropertySection extends StatePropertySection {
-	public static class Filter implements IFilter {
-		@Override
-		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				return bo instanceof BehaviorState;
-			});
-		}
-	}
-
 	public SetStateCompletePropertySection() {
 		super("Complete:", "Set Complete State", (isPropertyState) -> (behaviorState, boc) ->
 		// Set complete state
