@@ -51,21 +51,21 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension
          point="org.eclipse.ui.commands">
       <category
-            id="org.osate.analysis.resource.management.category"
+            id="org.osate.analysis.category"
             name="%actionSet.label">
       </category>
       <command
-            categoryId="org.osate.analysis.resource.management.category"
+            categoryId="org.osate.analysis.category"
             id="org.osate.analysis.resource.management.checkPriorityInversion"
             name="%CheckPriorityInversion.label">
       </command>
       <command
-            categoryId="org.osate.analysis.resource.management.category"
+            categoryId="org.osate.analysis.category"
             id="org.osate.analysis.resource.management.schedule"
             name="%Schedule.label">
       </command>
       <command
-            categoryId="org.osate.analysis.resource.management.category"
+            categoryId="org.osate.analysis.category"
             id="org.osate.analysis.resource.management.binpack"
             name="%Binpack.label">
       </command>
