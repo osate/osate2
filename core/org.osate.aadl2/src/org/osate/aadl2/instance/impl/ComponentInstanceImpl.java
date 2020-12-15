@@ -1068,27 +1068,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return false;
 	}
 
-//	private static <T> boolean isSameOrRefined(T firstconn, T secondconn, Function<T, T> getRefined) {
-//		if (firstconn == secondconn) {
-//			return true;
-//		}
-//		T cfi = firstconn;
-//		while (cfi != null) {
-//			if (secondconn == cfi) {
-//				return true;
-//			}
-//			cfi = getRefined.apply(cfi);
-//		}
-//		cfi = secondconn;
-//		while (cfi != null) {
-//			if (firstconn == cfi) {
-//				return true;
-//			}
-//			cfi = getRefined.apply(cfi);
-//		}
-//		return false;
-//	}
-
 	@Override
 	public List<? extends NamedElement> getInstantiatedObjects() {
 		return Collections.singletonList(getSubcomponent());
