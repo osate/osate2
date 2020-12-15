@@ -83,5 +83,8 @@
     <genClasses ecoreClass="declarative.ecore#//DeclarativeClassifierValue">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeClassifierValue/classifier"/>
     </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//DeclarativeBehaviorAnnex">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//DeclarativeBehaviorAnnex/declarativeBehaviorElements"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

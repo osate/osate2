@@ -29,7 +29,7 @@ class Issue1884Test {
 				"parser_error".assertEquals(name)
 				ownedAnnexSubclauses.head as DefaultAnnexSubclause => [
 					"behavior_specification".assertEquals(name)
-					(parsedAnnexSubclause===null).assertTrue
+					(parsedAnnexSubclause!==null).assertTrue
 				]
 			]
 		]
