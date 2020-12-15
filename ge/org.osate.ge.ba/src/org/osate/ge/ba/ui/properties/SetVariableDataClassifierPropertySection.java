@@ -166,6 +166,7 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 		final Iterator<BehaviorVariable> it = behaviorVariables.iterator();
 		BehaviorVariable bv = it.next();
 		final DataClassifier dc = bv.getDataClassifier();
+		System.err.println(dc + " dc");
 		while (it.hasNext()) {
 			bv = it.next();
 			// If variable data classifiers are not the same, set to multiple
@@ -173,6 +174,7 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 				return "<Multiple>";
 			}
 		}
+
 		if (dc instanceof QualifiedNamedElement) {
 			final QualifiedNamedElement qualNamedElement = (QualifiedNamedElement) dc;
 			final Identifier baNamespace = qualNamedElement.getBaNamespace();
@@ -181,6 +183,7 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 					.append(baName == null ? "" : baName.getId()).toString();
 		}
 
+		System.err.println("DC WORKED");
 		return dc.getQualifiedName();
 	}
 }

@@ -281,13 +281,15 @@ public class DeleteHandler extends AbstractHandler {
 
 			if (boHandler instanceof CustomDeleter) {
 				final CustomDeleter deleter = (CustomDeleter) boHandler;
-				return new BusinessObjectRemoval(boEObj,
-						boToModify -> deleter.delete(new CustomDeleteContext(boToModify, bo)));
+				final EObject ownerBo = boEObj.eContainer();
+				return new BusinessObjectRemoval(ownerBo, (boToModify) -> {
+					deleter.delete(new CustomDeleteContext(boToModify, bo));
+				});
 			}
 
-			// Get container for AnnexSubclause to be modified
+			// When deleting AnnexSubclauses, the deletion must executed on the container DefaultAnnexSubclause
 			if (boEObj instanceof AnnexSubclause && boEObj.eContainer() instanceof DefaultAnnexSubclause) {
-				boEObj = ((EObject) bo).eContainer();
+				boEObj = boEObj.eContainer();
 			}
 
 			return new BusinessObjectRemoval(boEObj, (boToModify) -> EcoreUtil.remove(boToModify));
@@ -300,7 +302,6 @@ public class DeleteHandler extends AbstractHandler {
 
 			final CustomDeleter deleter = (CustomDeleter) boHandler;
 			final EObject ownerBo = ((EmfContainerProvider) bo).getEmfContainer();
-
 			return new BusinessObjectRemoval(ownerBo, (boToModify) -> {
 				deleter.delete(new CustomDeleteContext(boToModify, bo));
 			});

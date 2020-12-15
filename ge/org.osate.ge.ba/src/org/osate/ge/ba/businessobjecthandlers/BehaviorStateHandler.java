@@ -75,14 +75,15 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final BehaviorState behaviorState = ctx.getBusinessObject(BehaviorState.class).get();
 		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.STATE_TYPE,
-				ctx.getBusinessObject(BehaviorState.class).get().getName());
+				behaviorState.getName());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.STATE_TYPE,
-				ctx.getBusinessObject(BehaviorState.class).get().getName());
+		final BehaviorState behaviorState = ctx.getBusinessObject(BehaviorState.class).get();
+		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.STATE_TYPE, behaviorState.getName());
 	}
 
 	@Override
@@ -97,11 +98,13 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 
 	@Override
 	public void delete(final CustomDeleteContext ctx) {
-		final BehaviorState behaviorStateToModify = ctx.getContainerBusinessObject(BehaviorState.class).get();
-		final BehaviorAnnex behaviorAnnexToModify = (BehaviorAnnex) behaviorStateToModify.getOwner();
-		EcoreUtil.remove(behaviorStateToModify);
-		if (behaviorAnnexToModify.getStates().isEmpty()) {
-			behaviorAnnexToModify.unsetStates();
+		final BehaviorAnnex behaviorAnnex = ctx.getContainerBusinessObject(BehaviorAnnex.class).get();
+		// Find state by URI.
+		final BehaviorState behaviorState = (BehaviorState) behaviorAnnex.eResource().getResourceSet()
+				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorState.class).get()), true);
+		EcoreUtil.remove(behaviorState);
+		if (behaviorAnnex.getStates().isEmpty()) {
+			behaviorAnnex.unsetStates();
 		}
 	}
 
