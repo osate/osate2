@@ -287,14 +287,14 @@ public class PowerRequirementAnalysis extends GenericAnalysis {
 					String suppliedmsg = "";
 					if (tSupply == 0.0) {
 						available = capacity;
-						suppliedmsg = " capacity ";
+						suppliedmsg = "capacity ";
 					} else {
 						available = tSupply;
-						suppliedmsg = " supply ";
+						suppliedmsg = "supply ";
 					}
 
 					if (tBudget > available) {
-						error(result, connEndInstance, " budget total " + stBudget + " exceeds capacity " + suppliedmsg
+						error(result, connEndInstance, "budget total " + stBudget + " exceeds " + suppliedmsg
 								+ PowerRequirementAnalysis.toString(available));
 					}
 				}
@@ -364,14 +364,14 @@ public class PowerRequirementAnalysis extends GenericAnalysis {
 					String suppliedmsg = "";
 					if (tSupply == 0.0) {
 						available = capacity;
-						suppliedmsg = " capacity ";
+						suppliedmsg = "capacity ";
 					} else {
 						available = tSupply;
-						suppliedmsg = " supply ";
+						suppliedmsg = "supply ";
 					}
 
 					if (tBudget > available) {
-						error(result, featureInstance, " budget total " + stBudget + " exceeds capacity " + suppliedmsg
+						error(result, featureInstance, "budget total " + stBudget + " exceeds " + suppliedmsg
 								+ PowerRequirementAnalysis.toString(available));
 					}
 				}
