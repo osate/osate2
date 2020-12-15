@@ -1,0 +1,91 @@
+package rbtest
+public
+	with sei;
+	
+	abstract Electricity
+	end Electricity;
+
+	system ElectricGrid
+		features
+			Supplier: in feature Electricity;
+			Consumer: out feature Electricity;
+		properties
+			SEI::PowerCapacity => 40.0W;
+	end ElectricGrid;
+	
+	system MySystem
+	end MySystem;
+
+	-- use this as system root for electrical power consumption and weight
+	system implementation MySystem.Tier0
+		subcomponents
+			EPSU: system ElectrialPowerSupply;
+			Grid: system ElectricGrid;
+			scs: system SCS.tier0;
+		connections
+			psupply: feature EPSU.Supplier -> Grid.Supplier;
+			pconsume: feature Grid.Consumer -> scs.power;
+	end MySystem.Tier0;
+	
+	system ElectrialPowerSupply
+		features
+			Supplier: out feature Electricity;
+		properties
+			SEI::PowerSupply => 40.0W applies to Supplier;
+	end ElectrialPowerSupply;
+	
+	system SCS
+		features
+			power: in feature Electricity;
+		properties
+			SEI::PowerBudget => 2.5w applies to power;
+			SEI::WeightLimit => 2.5kg;
+	end SCS;
+
+	system implementation SCS.tier0
+		subcomponents
+			dcs: system DCS.singletier0;
+			sensor1: device sensor;
+			sensor2: device sensor;
+			actuator: device actuator;
+		connections
+			p1: feature power -> dcs.power;
+			p2: feature power -> sensor1.power;
+			p3: feature power -> sensor2.power;
+			p4: feature power -> actuator.power;
+	end SCS.tier0;
+	
+	device sensor
+		features
+			power: in feature Electricity;
+		properties
+			SEI::PowerBudget => 0.45w applies to power;
+	end sensor;
+
+	device actuator
+		features
+			power: in feature Electricity;
+		properties
+			SEI::PowerBudget => 0.8w applies to power;
+	end actuator;
+
+	system DCS
+		features
+			power: in feature Electricity;
+	end DCS;
+	
+	system implementation DCS.singletier0
+		subcomponents
+			hw: system platform;
+		connections
+			p1: feature power -> hw.power;
+	end DCS.singletier0;
+	
+	system platform
+		features
+			power: in feature Electricity;
+	
+		properties
+			SEI::PowerBudget => 0.8w applies to power;
+	end platform;
+end rbtest;
