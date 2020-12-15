@@ -36,10 +36,10 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Element;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.EmfContainerProvider;
+import org.osate.ge.ProjectUtil;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
-import org.osate.ge.internal.util.ProjectUtil;
 
 public class GoToPackageDiagramHandler extends AbstractHandler {
 	@Override

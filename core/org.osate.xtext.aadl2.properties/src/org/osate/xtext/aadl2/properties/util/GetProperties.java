@@ -864,10 +864,16 @@ public class GetProperties {
 	}
 
 	public static double fromMStoSec(NamedElement ne, double value) {
+		if(getMSUnitLiteral(ne) == null) {
+			throw new NullPointerException("Unit literal 'ms' could not be found");
+		}
 		return convertToScale(value, getMSUnitLiteral(ne), getSecUnitLiteral(ne));
 	}
 
 	public static double fromUStoSec(NamedElement ne, double value) {
+		if (getUSUnitLiteral(ne) == null) {
+			throw new NullPointerException("Unit literal 'us' could not be found");
+		}
 		return convertToScale(value, getUSUnitLiteral(ne), getSecUnitLiteral(ne));
 	}
 
@@ -1342,10 +1348,11 @@ public class GetProperties {
 			Property schedulingprotocol = lookupPropertyDefinition(ne, DeploymentProperties._NAME,
 					DeploymentProperties.SCHEDULING_PROTOCOL);
 			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(schedulingprotocol);
-			for (PropertyExpression propertyExpression : propertyValues) {
-				return ((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue()).getName();
+			if (!propertyValues.isEmpty()) {
+				return ((EnumerationLiteral) ((NamedValue) propertyValues.iterator().next()).getNamedValue()).getName();
+			} else {
+				return null;
 			}
-			return null;
 		} catch (PropertyLookupException e) {
 			return null;
 		}
@@ -1372,10 +1379,11 @@ public class GetProperties {
 			Property concurrencyControlProtocol = lookupPropertyDefinition(ne, ThreadProperties._NAME,
 					DeploymentProperties.CONCURRENCY_CONTROL_PROTOCOL);
 			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(concurrencyControlProtocol);
-			for (PropertyExpression propertyExpression : propertyValues) {
-				return ((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue()).getName();
+			if (!propertyValues.isEmpty()) {
+				return ((EnumerationLiteral) ((NamedValue) propertyValues.iterator().next()).getNamedValue()).getName();
+			} else {
+				return null;
 			}
-			return null;
 		} catch (PropertyLookupException e) {
 			return null;
 		}

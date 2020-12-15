@@ -30,7 +30,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>ge.parent</artifactId>
-		<version>2.9.0-SNAPSHOT</version>
+		<version>2.9.1-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.osate</groupId>
@@ -81,6 +81,11 @@ censes only apply to the Third Party Software and not any other portion of this 
 							<requirement>
 								<type>eclipse-feature</type>
 								<id>org.osate.core.feature</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>org.osate.xtext.aadl2.errormodel.feature</id>
 								<versionRange>0.0.0</versionRange>
 							</requirement>
 						</extraRequirements>

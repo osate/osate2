@@ -27,6 +27,7 @@ import org.osate.ge.swt.ObservableModel;
 
 /**
  * View Model interface for {@link CheckboxEditor}
+ * @since 1.1
  *
  */
 public interface CheckboxEditorModel extends ObservableModel {

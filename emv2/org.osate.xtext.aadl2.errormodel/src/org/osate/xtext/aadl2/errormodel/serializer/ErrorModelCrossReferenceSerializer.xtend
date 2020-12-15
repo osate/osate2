@@ -32,6 +32,7 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor
 import org.eclipse.xtext.serializer.tokens.CrossReferenceSerializer
 import org.osate.aadl2.AadlPackage
+import org.osate.aadl2.NamedElement
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 
@@ -39,8 +40,10 @@ import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 
 class ErrorModelCrossReferenceSerializer extends CrossReferenceSerializer {
 	val public static PREFIX = "emv2$"
-	
-	override serializeCrossRef(EObject semanticObject, CrossReference crossref, EObject target, INode node, Acceptor errors) {
+
+	override serializeCrossRef(EObject semanticObject, CrossReference crossref, EObject target, INode node,
+		Acceptor errors) {
+
 		val crossRefString = super.serializeCrossRef(semanticObject, crossref, target, node, errors)
 		if (crossRefString.startsWith(PREFIX)) {
 			crossRefString.substring(PREFIX.length)
@@ -48,7 +51,7 @@ class ErrorModelCrossReferenceSerializer extends CrossReferenceSerializer {
 			crossRefString
 		}
 	}
-	
+
 	override protected getCrossReferenceNameFromScope(EObject semanticObject, CrossReference crossref, EObject target,
 		IScope scope, Acceptor errors) {
 		/*
@@ -68,13 +71,23 @@ class ErrorModelCrossReferenceSerializer extends CrossReferenceSerializer {
 			case ErrorModelPackage.Literals.ERROR_TYPE__ALIASED_TYPE,
 			case ErrorModelPackage.Literals.TYPE_SET__ALIASED_TYPE: {
 				val simpleName = (target as ErrorTypes).name
-				if (scope.getSingleElement(QualifiedName.create(simpleName)) === null) {
+				val fromScope = scope.getSingleElement(QualifiedName.create(simpleName))
+				if (fromScope === null || fromScope.EObjectOrProxy.getContainerOfType(AadlPackage) !=
+					target.getContainerOfType(AadlPackage)) {
 					target.getContainerOfType(AadlPackage).name + "::" + simpleName
 				} else {
 					simpleName
 				}
 			}
-			default: super.getCrossReferenceNameFromScope(semanticObject, crossref, target, scope, errors)
+			case ErrorModelPackage.Literals.ERROR_MODEL_LIBRARY__EXTENDS: {
+				val package = target.getContainerOfType(AadlPackage)
+				package?.name
+			}
+			case ErrorModelPackage.Literals.FEATUREOR_PP_REFERENCE__FEATUREOR_PP: {
+				(target as NamedElement)?.name
+			}
+			default:
+				super.getCrossReferenceNameFromScope(semanticObject, crossref, target, scope, errors)
 		}
 	}
 }

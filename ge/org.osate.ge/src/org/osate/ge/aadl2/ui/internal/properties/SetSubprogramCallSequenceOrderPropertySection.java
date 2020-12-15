@@ -154,7 +154,7 @@ public class SetSubprogramCallSequenceOrderPropertySection extends AbstractPrope
 		fd.top = new FormAttachment(upBtn, -ITabbedPropertyConstants.VMARGIN);
 		downBtn.setLayoutData(fd);
 
-		InternalPropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Call Order:");
+		PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Call Order:");
 		InternalPropertySectionUtil.setPropertiesHelp(aTabbedPropertySheetPage.getControl());
 	}
 

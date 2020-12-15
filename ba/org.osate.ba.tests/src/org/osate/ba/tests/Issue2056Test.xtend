@@ -16,6 +16,8 @@ import static extension org.junit.Assert.assertTrue
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
+
+// EB: Tests Issue 2065, not 2056 !!!
 class Issue2056Test {
 	@Inject
 	TestHelper<AadlPackage> testHelper
@@ -30,7 +32,7 @@ class Issue2056Test {
 				"threadA.impl".assertEquals(name)
 				ownedAnnexSubclauses.head as DefaultAnnexSubclause => [
 					"behavior_specification".assertEquals(name)
-					(parsedAnnexSubclause===null).assertTrue
+					(parsedAnnexSubclause!==null).assertTrue
 				]
 			]
 		]

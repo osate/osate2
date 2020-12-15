@@ -40,8 +40,8 @@ import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.AgeAction;
-import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
+import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.services.ReferenceBuilderService;
 
@@ -98,10 +98,10 @@ public class PaletteCommandCreateFeature extends AbstractCreateFeature implement
 					final DiagramNode targetNode = (DiagramNode) c.getTarget();
 					cmd.getOperation(c).ifPresent(operation -> {
 						// Perform modification
-						final OperationExecutor opExecutor = new OperationExecutor(aadlModService);
+						final OperationExecutor opExecutor = new OperationExecutor(aadlModService, refBuilder);
 						opExecutor.execute(operation,
 								new GraphitiOperationResultsProcessor(getDiagram(), getFeatureProvider(),
-										diagramUpdater, refBuilder, targetNode,
+										diagramUpdater, targetNode,
 										new Point(context.getX(), context.getY())));
 						result = EMPTY;
 					});

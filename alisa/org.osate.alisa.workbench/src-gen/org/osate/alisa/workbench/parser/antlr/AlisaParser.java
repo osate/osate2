@@ -24,36 +24,37 @@
 package org.osate.alisa.workbench.parser.antlr;
 
 import com.google.inject.Inject;
-
+import org.eclipse.xtext.parser.antlr.AbstractAntlrParser;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
+import org.osate.alisa.workbench.parser.antlr.internal.InternalAlisaParser;
 import org.osate.alisa.workbench.services.AlisaGrammarAccess;
 
-public class AlisaParser extends org.eclipse.xtext.parser.antlr.AbstractAntlrParser {
-	
+public class AlisaParser extends AbstractAntlrParser {
+
 	@Inject
 	private AlisaGrammarAccess grammarAccess;
-	
+
 	@Override
 	protected void setInitialHiddenTokens(XtextTokenStream tokenStream) {
 		tokenStream.setInitialHiddenTokens("RULE_WS", "RULE_ML_COMMENT", "RULE_SL_COMMENT");
 	}
 	
+
 	@Override
-	protected org.osate.alisa.workbench.parser.antlr.internal.InternalAlisaParser createParser(XtextTokenStream stream) {
-		return new org.osate.alisa.workbench.parser.antlr.internal.InternalAlisaParser(stream, getGrammarAccess());
+	protected InternalAlisaParser createParser(XtextTokenStream stream) {
+		return new InternalAlisaParser(stream, getGrammarAccess());
 	}
-	
+
 	@Override 
 	protected String getDefaultRuleName() {
 		return "AssuranceCase";
 	}
-	
+
 	public AlisaGrammarAccess getGrammarAccess() {
 		return this.grammarAccess;
 	}
-	
+
 	public void setGrammarAccess(AlisaGrammarAccess grammarAccess) {
 		this.grammarAccess = grammarAccess;
 	}
-	
 }

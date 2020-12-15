@@ -36,11 +36,11 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.ui.internal.viewmodels.AbstractFeaturePrototypeModel;
-import org.osate.ge.internal.selection.AgeBusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.swt.selectors.FilteringListSelectorField;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 import org.osate.ge.ui.PropertySectionUtil;
+import org.osate.ge.ui.UiBusinessObjectSelection;
 
 /**
  * Property section for setting the feature prototype for abstract features.
@@ -57,7 +57,7 @@ public class AbstractFeaturePrototypePropertySection extends AbstractPropertySec
 
 	private BusinessObjectSelection selectedBos;
 	private final AbstractFeaturePrototypeModel model = new AbstractFeaturePrototypeModel(
-			new AgeBusinessObjectSelection());
+			new UiBusinessObjectSelection());
 	private FilteringListSelectorField<?> currentPrototype;
 
 	@Override
@@ -66,10 +66,10 @@ public class AbstractFeaturePrototypePropertySection extends AbstractPropertySec
 		FormData fd;
 
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
-		InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Prototype:");
+		PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Prototype:");
 
 		currentPrototype = new FilteringListSelectorField<>(container, "Select Feature Prototype", new LabelFilteringListSelectorModel<>(model));
-		currentPrototype.setChooseButtonTestingId(WIDGET_ID_CHOOSE_BUTTON);
+		currentPrototype.setModifyButtonTestingId(WIDGET_ID_CHOOSE_BUTTON);
 		fd = new FormData();
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);
 		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);

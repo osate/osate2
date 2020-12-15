@@ -26,14 +26,15 @@ package org.osate.alisa.common.validation;
 import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.xtext.validation.AbstractDeclarativeValidator;
 
-public class AbstractCommonValidator extends org.eclipse.xtext.validation.AbstractDeclarativeValidator {
-
+public abstract class AbstractCommonValidator extends AbstractDeclarativeValidator {
+	
 	@Override
 	protected List<EPackage> getEPackages() {
-	    List<EPackage> result = new ArrayList<EPackage>();
-	    result.add(org.osate.alisa.common.common.CommonPackage.eINSTANCE);
-	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
+		List<EPackage> result = new ArrayList<EPackage>();
+		result.add(org.osate.alisa.common.common.CommonPackage.eINSTANCE);
+		result.add(EPackage.Registry.INSTANCE.getEPackage("http://aadl.info/AADL/2.0"));
 		return result;
 	}
 }

@@ -35,19 +35,20 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.check.CheckboxEditor;
 import org.osate.ge.swt.check.CheckboxEditorModel;
-import org.osate.ge.swt.internal.InternalUtil;
 import org.osate.ge.swt.name.NameEditor;
 import org.osate.ge.swt.name.NameEditorModel;
 import org.osate.ge.swt.selectors.ComboSelector;
 import org.osate.ge.swt.selectors.FilteringListSelectorField;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 import org.osate.ge.swt.selectors.RadioSelector;
-import org.osate.ge.swt.selectors.SelectorModel;
+import org.osate.ge.swt.selectors.SingleSelectorModel;
 
 /**
  * View for editing a prototype.
+ * @since 1.1
  *
  */
 public final class PrototypeEditor<C> extends Composite {
@@ -66,7 +67,7 @@ public final class PrototypeEditor<C> extends Composite {
 	public PrototypeEditor(final Composite parent, final PrototypeEditorModel<C> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
-		InternalUtil.setColorsToMatchParent(this);
+		SwtUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
 		//
@@ -141,7 +142,7 @@ public final class PrototypeEditor<C> extends Composite {
 		// Type
 		//
 		addLabel("Type:");
-		final ComboSelector<PrototypeType> typeSelector = new ComboSelector<>(this, new SelectorModel<PrototypeType>() {
+		final ComboSelector<PrototypeType> typeSelector = new ComboSelector<>(this, new SingleSelectorModel<PrototypeType>() {
 			@Override
 			public EventSource<ChangeEvent> changed() {
 				return model.changed();
@@ -181,7 +182,7 @@ public final class PrototypeEditor<C> extends Composite {
 		//
 		addLabel("Classifier:");
 		final FilteringListSelectorField<C> classifierSelector = new FilteringListSelectorField<>(this,
-				new LabelFilteringListSelectorModel<>(new SelectorModel<C>() {
+				new LabelFilteringListSelectorModel<>(new SingleSelectorModel<C>() {
 
 					@Override
 					public EventSource<ChangeEvent> changed() {
@@ -211,14 +212,14 @@ public final class PrototypeEditor<C> extends Composite {
 				}));
 		classifierSelector
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
-		classifierSelector.setLabelTestingId(WIDGET_ID_CLASSIFIER_LABEL);
-		classifierSelector.setChooseButtonTestingId(WIDGET_ID_CHOOSE_CLASSIFIER_BUTTON);
+		classifierSelector.setValueLabelTestingId(WIDGET_ID_CLASSIFIER_LABEL);
+		classifierSelector.setModifyButtonTestingId(WIDGET_ID_CHOOSE_CLASSIFIER_BUTTON);
 
 		//
 		// Direction
 		//
 		this.directionLabel = addLabel("Direction:");
-		this.directionEditor = new RadioSelector<>(this, new SelectorModel<PrototypeDirection>() {
+		this.directionEditor = new RadioSelector<>(this, new SingleSelectorModel<PrototypeDirection>() {
 			@Override
 			public EventSource<ChangeEvent> changed() {
 				return model.changed();
@@ -294,16 +295,16 @@ public final class PrototypeEditor<C> extends Composite {
 			final PrototypeType type = model.getType();
 
 			// Make the refine checkbox visible when the refinement status can be adjusted or the refinement status is not false.
-			InternalUtil.setVisibilityAndExclusion(refinedEditor, model.isEnabled()
+			SwtUtil.setVisibilityAndExclusion(refinedEditor, model.isEnabled()
 					&& (model.getRefineableElementLabel() != null || model.isRefined() != Boolean.FALSE));
 
 			// Update visibility of direction editor and label
 			final boolean directionVisible = type == PrototypeType.FEATURE;
-			InternalUtil.setVisibilityAndExclusion(directionLabel, directionVisible);
-			InternalUtil.setVisibilityAndExclusion(directionEditor, directionVisible);
+			SwtUtil.setVisibilityAndExclusion(directionLabel, directionVisible);
+			SwtUtil.setVisibilityAndExclusion(directionEditor, directionVisible);
 
 			// Hide the array checkbox unless the component is an array.
-			InternalUtil.setVisibilityAndExclusion(arrayFlagEditor,
+			SwtUtil.setVisibilityAndExclusion(arrayFlagEditor,
 					model.isEnabled() && type != null && type.isComponent());
 
 			// Update enabled state
@@ -313,7 +314,7 @@ public final class PrototypeEditor<C> extends Composite {
 
 	private Control addLabel(final String txt) {
 		final CLabel label = new CLabel(this, SWT.NONE);
-		InternalUtil.setColorsToMatchParent(label);
+		SwtUtil.setColorsToMatchParent(label);
 		label.setText(txt);
 		label.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create());
 		return label;

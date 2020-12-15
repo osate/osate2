@@ -38,10 +38,10 @@ public class RootQuery extends DefaultQuery {
 	}
 
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResult result) {		
+	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResults result) {		
 		final BusinessObjectContext suppliedObject = supplier.get();
 		if(suppliedObject == null) {
-			result.done = true;
+			result.setDone(true);
 			return;
 		}
 

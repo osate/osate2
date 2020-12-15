@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -35,6 +35,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.osate.core.AadlNature;
 import org.osate.pluginsupport.PluginSupportUtil;
+import org.osate.pluginsupport.PredeclaredProperties;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 public class AadlContributionContentProvider extends WorkbenchContentProvider {
@@ -62,26 +63,27 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 			IProject project = (IProject) element;
 			try {
 				if (project.getNature(AadlNature.ID) != null) {
-					Object[] result = { new VirtualPluginResources(project) };
-					return result;
+					// Assume there are always plug-in contributions
+					return new Object[] { new VirtualPluginResources(project) };
 				}
 			} catch (CoreException e) {
 				// couldn't retrieve AADL nature from project
 			}
 			return new Object[0];
 		} else if (element instanceof VirtualPluginResources) {
-			return PluginSupportUtil.getContributedAadl().stream().map(uri -> {
+			return PredeclaredProperties.getContributedResources().stream().map(uri -> {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (!firstSignificantIndex.isPresent() || firstSignificantIndex.getAsInt() == uri.segmentCount() - 1) {
-					return new ContributedAadlStorage(element, uri);
+					final URI replacedBy = PredeclaredProperties.getOverriddenResources().getOrDefault(uri, uri);
+					return new ContributedAadlStorage((VirtualPluginResources) element, replacedBy);
 				} else {
-					return new ContributedDirectory(element,
+					return new ContributedDirectory((VirtualPluginResources) element,
 							Collections.singletonList(uri.segment(firstSignificantIndex.getAsInt())));
 				}
 			}).distinct().toArray();
 		} else if (element instanceof ContributedDirectory) {
 			List<String> directoryPath = ((ContributedDirectory) element).getPath();
-			Stream<URI> inDirectory = PluginSupportUtil.getContributedAadl().stream().filter(uri -> {
+			Stream<URI> inDirectory = PredeclaredProperties.getContributedResources().stream().filter(uri -> {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (firstSignificantIndex.isPresent() && firstSignificantIndex.getAsInt() < uri.segmentCount() - 1) {
 					List<String> uriDirectory = uri.segmentsList().subList(firstSignificantIndex.getAsInt(),
@@ -96,11 +98,12 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 				int nextSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri).getAsInt()
 						+ directoryPath.size();
 				if (nextSignificantIndex == uri.segmentCount() - 1) {
-					return new ContributedAadlStorage(element, uri);
+					final URI replacedBy = PredeclaredProperties.getOverriddenResources().getOrDefault(uri, uri);
+					return new ContributedAadlStorage((ContributedDirectory) element, replacedBy);
 				} else {
 					ArrayList<String> newPath = new ArrayList<>(directoryPath);
 					newPath.add(uri.segment(nextSignificantIndex));
-					return new ContributedDirectory(element, newPath);
+					return new ContributedDirectory((ContributedDirectory) element, newPath);
 				}
 			}).distinct().toArray();
 		}

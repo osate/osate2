@@ -28,10 +28,9 @@ import java.util.Optional;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.aadl2.ui.internal.dialogs.ElementSelectionDialog;
+import org.osate.ge.aadl2.ui.NamedElementCollectionSingleSelectorModel;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.operations.Operation;
@@ -41,6 +40,8 @@ import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.CanStartConnectionContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.GetCreateConnectionOperationContext;
+import org.osate.ge.swt.selectors.FilteringSelectorDialog;
+import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
@@ -48,13 +49,14 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 
 public class CreateTransitionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
 	public CreateTransitionPaletteCommand() {
-		super("Error Behavior Transition", ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super("Error Behavior Transition", ErrorModelPaletteCategories.ERROR_BEHAVIOR, null);
 	}
 
 	@Override
@@ -92,19 +94,18 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 							final ErrorBehaviorState srcState = (ErrorBehaviorState) stateMachine.eResource()
 									.getResourceSet().getEObject(srcStateUri, true);
 
-							final ElementSelectionDialog selectEventDialog = new ElementSelectionDialog(
-									Display.getCurrent().getActiveShell(), "Select Event", "Select event",
+							final NamedElementCollectionSingleSelectorModel<ErrorBehaviorEvent> model = new NamedElementCollectionSingleSelectorModel<>(
 									stateMachine.getEvents());
-
-							if (selectEventDialog.open() == Window.CANCEL) {
+							if (!FilteringSelectorDialog.open(Display.getCurrent().getActiveShell(), "Select Event",
+									new LabelFilteringListSelectorModel<>(
+											model))) {
 								return null;
 							}
 
-							final ErrorBehaviorEvent event = (ErrorBehaviorEvent) selectEventDialog
-									.getFirstSelectedElement();
+							final ErrorBehaviorEvent event = model.getSelectedElement();
 							// Create the transition
-							final ErrorBehaviorTransition newTransition = (ErrorBehaviorTransition) EcoreUtil
-									.create(ErrorModelPackage.eINSTANCE.getErrorBehaviorTransition());
+							final ErrorBehaviorTransition newTransition = ErrorModelFactory.eINSTANCE
+									.createErrorBehaviorTransition();
 
 							newTransition.setSource(srcState);
 
@@ -118,17 +119,17 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 							newTransition.setName(
 									ErrorModelNamingUtil.buildUniqueIdentifier(stateMachine, "new_transition"));
 
-							final ConditionElement conditionElement = (ConditionElement) EcoreUtil
-									.create(ErrorModelPackage.eINSTANCE.getConditionElement());
+							final ConditionElement conditionElement = ErrorModelFactory.eINSTANCE
+									.createConditionElement();
 
 							newTransition.setCondition(conditionElement);
 
-							final EMV2PathElement conditionPathElement = (EMV2PathElement) EcoreUtil
-									.create(ErrorModelPackage.eINSTANCE.getEMV2PathElement());
+							final EMV2PathElement conditionPathElement = ErrorModelFactory.eINSTANCE
+									.createEMV2PathElement();
 							conditionPathElement.setNamedElement(event);
 
-							final QualifiedErrorEventOrPropagation errorEventOrPropogation = (QualifiedErrorEventOrPropagation) EcoreUtil
-									.create(ErrorModelPackage.eINSTANCE.getQualifiedErrorEventOrPropagation());
+							final QualifiedErrorEventOrPropagation errorEventOrPropogation = ErrorModelFactory.eINSTANCE
+									.createQualifiedErrorEventOrPropagation();
 							errorEventOrPropogation.setEmv2Target(conditionPathElement);
 
 							conditionElement.setQualifiedErrorPropagationReference(errorEventOrPropogation);
@@ -137,7 +138,6 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 
 							return StepResultBuilder.create().showNewBusinessObject(srcBoc.getParent(), newTransition)
 									.build();
-
 						});
 			});
 		} else if (srcBo instanceof ErrorBehaviorTransition || srcBo instanceof BehaviorTransitionTrunk
@@ -161,11 +161,8 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 
 					// Convert from using steady state and target field to using branches.
 					if (transition.getDestinationBranches().isEmpty()) {
-						final TransitionBranch firstBranch = (TransitionBranch) EcoreUtil
-								.create(ErrorModelPackage.eINSTANCE.getTransitionBranch());
-
-						final BranchValue firstBranchValue = (BranchValue) EcoreUtil
-								.create(ErrorModelPackage.eINSTANCE.getBranchValue());
+						final TransitionBranch firstBranch = ErrorModelFactory.eINSTANCE.createTransitionBranch();
+						final BranchValue firstBranchValue = ErrorModelFactory.eINSTANCE.createBranchValue();
 						firstBranchValue.setRealvalue("1.0");
 
 						if (transition.isSteadyState()) {
@@ -182,11 +179,8 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 					}
 
 					// Create the new branch
-					final TransitionBranch newBranch = (TransitionBranch) EcoreUtil
-							.create(ErrorModelPackage.eINSTANCE.getTransitionBranch());
-
-					final BranchValue newBranchValue = (BranchValue) EcoreUtil
-							.create(ErrorModelPackage.eINSTANCE.getBranchValue());
+					final TransitionBranch newBranch = ErrorModelFactory.eINSTANCE.createTransitionBranch();
+					final BranchValue newBranchValue = ErrorModelFactory.eINSTANCE.createBranchValue();
 					newBranchValue.setRealvalue("1.0");
 
 					// Set the target

@@ -91,7 +91,7 @@ import org.osate.ba.unparser.AadlBaUnparser ;
 import org.osate.ba.utils.AadlBaUtils ;
 import org.osate.ba.utils.AadlBaVisitors ;
 import org.osate.ba.utils.DimensionException ;
-import org.osate.utils.Aadl2Utils ;
+import org.osate.utils.internal.Aadl2Utils ;
 
 
 
@@ -493,11 +493,6 @@ public class AadlBaTypeChecker
 
   private void reportError (BehaviorElement el, String msg)
   {
-//    if(el.eContainer() == null)
-//    {
-//      DeclarativeUtils.setEcontainer(_ba, el) ;
-//    }
-
     _errManager.error(el, msg);
   }
 
@@ -1121,7 +1116,7 @@ public class AadlBaTypeChecker
     }
     catch(DimensionException e)
     {
-      e._element = errorRef ;
+      e.setElement(errorRef) ;
       reportDimensionException(e) ;
       return null ;
     }
@@ -1615,16 +1610,16 @@ public class AadlBaTypeChecker
   {
     StringBuilder msg = new StringBuilder();
 
-    if(de._element instanceof BehaviorElement)
+    if(de.getElement() instanceof BehaviorElement)
     {
       msg.append('"') ;
-      msg.append(this.unparseNameElement((BehaviorElement) de._element)) ;
+      msg.append(this.unparseNameElement((BehaviorElement) de.getElement())) ;
       msg.append("\" ") ;
     }
 
     msg.append(de.getMessage());
 
-    _errManager.error(de._element, msg.toString()) ;
+    _errManager.error(de.getElement(), msg.toString()) ;
   }
 
  // This method checks the given object and returns a value constant
@@ -1966,7 +1961,7 @@ public class AadlBaTypeChecker
         eleType = _dataChecker.getTopLevelType(t1, t2) ;
         // Integer Ranges are one dimension kind of integer collection.
         // => pass the arrayness checking.
-        eleType.dimension = 1 ;
+        eleType.setDimension(1) ;
       }
       else // Name or DataComponentReference cases.
       {
@@ -1984,7 +1979,7 @@ public class AadlBaTypeChecker
         {
           // Event ports are one dimension events queue.
           // => pass the arrayness checking.
-          eleType.dimension = 1 ;
+          eleType.setDimension(1) ;
         }
       }
 
@@ -2002,7 +1997,7 @@ public class AadlBaTypeChecker
       // ([] are not allowed). Also, this implementation of AADL behavior
       // annex, doesn't allow the use of iterative variable's types which are
       // declared as array (data model annex).
-      if(uccrType.dimension > 0)
+      if(uccrType.getDimension() > 0)
       {
          StringBuilder message = new StringBuilder(
             "the for/forall iterative variable's type cannot be an array.") ;
@@ -2031,7 +2026,7 @@ public class AadlBaTypeChecker
       }
 
       // Checks data component reference arrayness and reports any error.
-      if(eleType.dimension == 0)
+      if(eleType.getDimension() == 0)
       {
          String message = "\'" + unparseNameElement(tmp) +
                "\' is not an array" ;
@@ -2293,69 +2288,56 @@ public class AadlBaTypeChecker
 
   private PortDequeueAction portDequeueActionResolver(CommAction comAct)
   {
+    // if already resolved, check port ref is event or event data port
+    QualifiedNamedElement qne = comAct.getQualifiedName() ;
+
+    if(qne != null)
+    {
+      boolean isOfExpectedType = qne.getOsateRef() instanceof EventPort
+          || qne
+                                                                              .getOsateRef() instanceof EventDataPort ;
+      if(!isOfExpectedType)
+      {
+        String name = "referenced object" ;
+        if(qne.getOsateRef() instanceof NamedElement)
+        {
+          NamedElement ne = (NamedElement) qne.getOsateRef() ;
+          name = ne.getName() ;
+        }
+        else if(qne.getBaRef() instanceof BehaviorNamedElement)
+        {
+          BehaviorNamedElement bne = (BehaviorNamedElement) qne.getBaRef() ;
+          name = bne.getName() ;
+        }
+        else if(qne.getBaName().getId() != null)
+        {
+          name = qne.getBaName().getId() ;
+        }
+        else if(qne.getName() != null)
+        {
+          name = qne.getName() ;
+        }
+        reportError(comAct, "incorrect port dequeue action, " + name +
+                            " is not an event [data] port") ;
+        return null ;
+      }
+    }
+    else if(comAct.getReference() == null)
+    {
+      return null ;
+    }
+
     Target tarTmp = null ;
     boolean tarCheckResult = true ;
+
     TypeCheckRule stopOnThisRule = TypeCheckRule.IN_PORT ;
     TypeCheckRule checkRule = TypeCheckRule.PORT_DEQUEUE_VALUE ;
     List<ElementHolder> resolvedRef = refResolver(comAct.getReference(), null,
                                                   stopOnThisRule, checkRule) ;
-
-    if(comAct.getTarget() != null)
-    {
-      tarTmp = targetCheck(comAct.getTarget(), stopOnThisRule) ;
-      if(tarTmp == null)
-      {
-        tarCheckResult = false ;
-      }
-    }
-
     if(resolvedRef != null)
     {
-      if(tarCheckResult)
-      {
-        PortHolder portHolder = (PortHolder) resolvedRef.get(0) ;
-        PortDequeueAction result = _fact.createPortDequeueAction() ;
-        result.setPort((ActualPortHolder) portHolder) ;
-
-        // Port dequeue action may not have any target.
-        if(tarTmp != null)
-        {
-          result.setTarget(tarTmp) ;
-
-          // Matches the target's data type with the input port's one
-          // when port dequeue action.
-          TypeHolder tarType, portType ;
-
-          try
-          {
-              portType = AadlBaUtils.getTypeHolder(portHolder,
-                                                   _baParentContainer) ;
-              tarType = AadlBaUtils.getTypeHolder(tarTmp, _baParentContainer) ;
-          }
-          catch (DimensionException de)
-          {
-            de._element = comAct ;
-            reportDimensionException(de) ;
-            return null  ;
-          }
-
-          if (false == _dataChecker.conformsTo(portType, tarType, true))
-          {
-            reportTypeError(comAct, "port dequeue action",
-                            portType.toString(),
-                            tarType.toString()) ;
-            return null ;
-          }
-        }
-
-        result.setLocationReference(comAct.getLocationReference()) ;
-
-        return result ;
-      }
-      else
-      {
-        return null ;
-      }
+      PortHolder portHolder = (PortHolder) resolvedRef.get(0) ;
+      return portDequeueActionResolver(portHolder, comAct) ;
     }
     else
     {
@@ -2364,7 +2346,8 @@ public class AadlBaTypeChecker
   }
 
 
-  private CommunicationAction qualifiedSubprogramClassifierCallOrPortSendActionActionResolver
+  private CommunicationAction
+          qualifiedSubprogramClassifierCallOrPortCommunicationActionResolver
                                                              (CommAction comAct)
   {
     QualifiedNamedElement qne = comAct.getQualifiedName() ;
@@ -2373,12 +2356,20 @@ public class AadlBaTypeChecker
     {
       EventPortHolder tmp  = _fact.createEventPortHolder() ;
       tmp.setEventPort((EventPort)qne.getOsateRef()) ;
+      if(comAct.isPortDequeue())
+      {
+        return portDequeueActionResolver(tmp, comAct) ;
+      }
       return portSendActionResolver(tmp, comAct) ;
     }
     else if (qne.getOsateRef() instanceof EventDataPort)
     {
       EventDataPortHolder tmp  = _fact.createEventDataPortHolder() ;
       tmp.setEventDataPort((EventDataPort)qne.getOsateRef()) ;
+      if(comAct.isPortDequeue())
+      {
+        return portDequeueActionResolver(tmp, comAct) ;
+      }
       return portSendActionResolver(tmp, comAct) ;
     }
     else if(qne.getOsateRef() instanceof SubprogramAccess)
@@ -2400,6 +2391,53 @@ public class AadlBaTypeChecker
     return null;
   }
 
+
+  private PortDequeueAction portDequeueActionResolver(
+                                                      PortHolder portHolder,
+                                                      CommAction comAct)
+  {
+    PortDequeueAction portDequeueAction = _fact.createPortDequeueAction() ;
+
+    TypeCheckRule stopOnThisRule = TypeCheckRule.IN_PORT ;
+
+    if(comAct.getTarget() != null)
+    {
+      final Target tarTmp = targetCheck(comAct.getTarget(), stopOnThisRule) ;
+      if(tarTmp == null)
+      {
+        return null ;
+      }
+
+      portDequeueAction.setTarget(tarTmp) ;
+
+      // Matches the target's data type with the input port's one
+      // when port dequeue action.
+      TypeHolder tarType, portType ;
+
+      try
+      {
+        portType = AadlBaUtils.getTypeHolder(portHolder, _baParentContainer) ;
+        tarType = AadlBaUtils.getTypeHolder(tarTmp, _baParentContainer) ;
+      }
+      catch(DimensionException de)
+      {
+        de.setElement(comAct) ;
+        reportDimensionException(de) ;
+        return null ;
+      }
+
+      if(false == _dataChecker.conformsTo(portType, tarType, true))
+      {
+        reportTypeError(comAct, "port dequeue action", portType.toString(),
+                        tarType.toString()) ;
+        return null ;
+      }
+    }
+    portDequeueAction.setPort((ActualPortHolder) portHolder) ;
+    portDequeueAction.setLocationReference(comAct.getLocationReference()) ;
+    return portDequeueAction ;
+  }
+
   // This method checks the given object and returns a communication action
   // resolved from semantic ambiguities. On error, reports error and returns
   // null.
@@ -2416,9 +2454,9 @@ public class AadlBaTypeChecker
     CommAction comAct = (CommAction) ca ;
 
     // Subprogram qualified classifier call.
-    if(isSubprogramClassifierCallOrPortSendAction(comAct))
+    if(isSubprogramClassifierCallOrPortCommunicationAction(comAct))
     {
-      return qualifiedSubprogramClassifierCallOrPortSendActionActionResolver(comAct) ;
+      return qualifiedSubprogramClassifierCallOrPortCommunicationActionResolver(comAct) ;
     }
     // Port dequeue call.
     else if(comAct.isPortDequeue())
@@ -2441,7 +2479,7 @@ public class AadlBaTypeChecker
     }
   }
 
-  private boolean isSubprogramClassifierCallOrPortSendAction(CommAction comAct)
+  private boolean isSubprogramClassifierCallOrPortCommunicationAction(CommAction comAct)
   {
     QualifiedNamedElement qne = comAct.getQualifiedName() ;
 
@@ -2592,7 +2630,8 @@ public class AadlBaTypeChecker
     }
   }
 
-  private CommunicationAction portSendActionResolver(ActualPortHolder portHolder,
+  private CommunicationAction portSendActionResolver(
+                                                     ActualPortHolder portHolder,
                                                      CommAction comAct)
   {
     PortSendAction portSendActionResult = _fact.createPortSendAction() ;
@@ -2697,8 +2736,9 @@ public class AadlBaTypeChecker
     else
     {
       result = _fact.createUnlockAction() ;
-      if(comAct.getQualifiedName() != null && comAct
-                                                    .getQualifiedName() instanceof DataAccess)
+      if(comAct.getQualifiedName().getOsateRef() != null && comAct
+                                                                  .getQualifiedName()
+                                                                  .getOsateRef() instanceof DataAccess)
       {
         dah = _fact.createDataAccessHolder() ;
         dah.setElement((DataAccess) comAct.getQualifiedName().getOsateRef()) ;
@@ -3256,7 +3296,7 @@ public class AadlBaTypeChecker
 
     if(holder != null)
     {
-      result = expectedDataRepresentation == holder.typeHolder.dataRep ;
+      result = expectedDataRepresentation == holder.typeHolder.getDataRep() ;
 
       if(! result)
       {
@@ -3357,8 +3397,8 @@ public class AadlBaTypeChecker
   // Convenient class that holds a value and its type representation.
   private class ValueAndTypeHolder
   {
-    public Value value ;
-    public TypeHolder typeHolder ;
+    Value value ;
+    TypeHolder typeHolder ;
 
     public ValueAndTypeHolder(Value v, TypeHolder typeHolder)
     {

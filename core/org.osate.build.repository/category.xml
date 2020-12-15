@@ -32,7 +32,16 @@ censes only apply to the Third Party Software and not any other portion of this 
    <feature id="org.osate.ge.feature">
       <category name="osate2"/>
    </feature>
+   <feature id="org.osate.ge.errormodel.feature">
+      <category name="osate2"/>
+   </feature>
+   <feature id="org.osate.examples.feature">
+      <category name="osate2"/>
+   </feature>
    <feature id="org.osate.ge.feature.source">
+      <category name="osate2.source"/>
+   </feature>
+   <feature id="org.osate.ge.errormodel.feature.source">
       <category name="osate2.source"/>
    </feature>
    <feature id="org.osate.core.feature.source">
@@ -62,6 +71,7 @@ censes only apply to the Third Party Software and not any other portion of this 
    <feature id="org.osate.dependencies.birt"/>
    <bundle id="com.itemis.xtext.testing"/>
    <bundle id="org.osate.testsupport"/>
+   <bundle id="org.osate.xtext.aadl2.errormodel.edit"/>
    <category-def name="osate2" label="OSATE2 for AADL2">
       <description>
          OSATE

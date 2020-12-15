@@ -23,7 +23,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 -->
 # OSATE User Guide
 
-OSATE is a complete modeling environment providing support for describing AADL models. It is composed of many features to model and analyse systems.  Also, a user can build their own tools based on OSATE and extend its initial capability.
+OSATE is a complete modeling environment providing support for describing AADL models. It is composed of many features to model and analyze systems.  Also, a user can build their own tools based on OSATE and extend its initial capability.
 
 This manual provides an overview of the basic features of OSATE and describes how to work with AADL models:
 
@@ -46,7 +46,7 @@ OSATE is built on the Eclipse framework.  You may be familiar with Eclipse from 
 * **Views.**  A view is a read-only display of information.  A view may be connected to a specific object in the OSATE workspace (often times the currently selected element).
 * **Editors.**  Not surprisingly, an editor provides write access to information in a project.  For example, OSATE has both a textual and graphical editor for AADL packages.
 * **Perspectives.**  A perspective is a prearranged collection of views, editors, and toolbars focused around a particular task.  In OSATE, you mainly use the `AADL` perspective.
-* **Markers.**   A marker is a piece of information attached to a location in a file.  They are commonly used to report errors and warnings about files.  For example, OSATE uses markers to report syntax errors in AADL files.  Ananlysis plug-ins often use markers to communicate their results.  Markers are visible in several ways.  They are most commonly interacted with as annotations within editors and as a list in the `Problems` view.
+* **Markers.**   A marker is a piece of information attached to a location in a file.  They are commonly used to report errors and warnings about files.  For example, OSATE uses markers to report syntax errors in AADL files.  Analysis plug-ins often use markers to communicate their results.  Markers are visible in several ways.  They are most commonly interacted with as annotations within editors and as a list in the `Problems` view.
 
 
 
@@ -91,13 +91,13 @@ As an Eclipse-based application, OSATE makes its commands available in multiple 
 
 * In an OSATE menu.
 * In a toolbar.
-* In a context menu, when appropriate to the currently selected object.  (A context menu is uaually opened with a right-click in Windows, or a `CTRL` + click in MacOS.)
+* In a context menu, when appropriate to the currently selected object.  (A context menu is usually opened with a right-click in Windows, or a `CTRL` + click in MacOS.)
 
 
 
 #### Missing Views
 
-If you accidently close a view or simply want to add an additional view to the workbench, you can open a view by using the `Window > Show View` submenu in the main OSATE menubar:
+If you accidentally close a view or simply want to add an additional view to the workbench, you can open a view by using the `Window > Show View` submenu in the main OSATE menubar:
 
 ![Show View Menu](images/OSATEUserGuide/ShowView.png)
 
@@ -124,7 +124,7 @@ This returns the arrangement of views and editors to a the default layout define
 OSATE (via its Eclipse underpinnings) has an exhaustive set of preferences that can be changed.  These are accessed via the `Preferences` window.  Access to preferences follows the host operating system standards:
 
 * For windows, the preferences are under `Window > Preferences`.
-* For MacOS, the prefernece are under `OSATE > Preferences...`.
+* For MacOS, the preference are under `OSATE > Preferences...`.
 
 This brings up a window with a hierarchical list of settings on the left-hand side.
 
@@ -152,7 +152,7 @@ Enter `MyFirstAADLProject` as the project name and click on the `Finish` button.
 
 
 
-### Built-in Property Sets
+### <span id="builtin">Built-in Property Sets</span>
 
 Also visible in the view is a library icon labeled `Plugin_Contributions`.  This view element collects all the AADL property sets available by default in OSATE:
 
@@ -203,23 +203,23 @@ You can use copy-and-paste to copy the above into the editor, but if you type it
 
 * You can access the automatic completion (a.k.a. _autocomplete_) feature by typing `CTRL + Space` in Windows or `Command + Space` in MacOS.  This brings up a small context menu displaying options for how the current string in the editor can be completed.  For example, below shows the result of activating autocomplete after typing `syst`:
 ![Autocomplete](images/OSATEUserGuide/AutoComplete1.png)
-The menu shows that `syst` can be completed with the keywords `system` or `system implementation`.  In this case, we want `system implementaton`.  You can select the completion with the mouse or by using the arrow keys and hitting `return`.
+The menu shows that `syst` can be completed with the keywords `system` or `system implementation`.  In this case, we want `system implementatideclaringon`.  You can select the completion with the mouse or by using the arrow keys and hitting `return`.
 
   The list of completions also shows two more options.   These are _templates_ that insert a more complete system type or system implementation declaration into the text.
 
 * Autocompletion also works with declared names.  For example, below shows the result of activating autocomplete after typing `My`:
 ![Autocomplete](images/OSATEUserGuide/AutoComplete2.png)
-In this case, autocomplete suggests the system type name `MySystem`.  In particular, it _does not_ suggest the process type name `MyProcess` because it would be erroneous in the context of declaraing a system implementation.
+In this case, autocomplete suggests the system type name `MySystem`.  In particular, it _does not_ suggest the process type name `MyProcess` because it would be erroneous in the context of declaring a system implementation.
 
 
 
 #### Error Markers
 
-As you type you will notice that the editor underlines syntax errors in red.  The right sidebar of the editor will also show a small red`x` indicating that an _error marker_ exists for that line of text.  For example, before the declaration of the system implementation is completed, the package has several errors:
+As you type you will notice that the editor underlines syntax errors in red.  The right sidebar of the editor will also show a small red `x` indicating that an _error marker_ exists for that line of text.  For example, before the declaration of the system implementation is completed, the package has several errors:
 
 ![Error Markers](images/OSATEUserGuide/Errors.png)
 
-The details of the error markers are visible in the `Problems` view.  This is a standard Eclipse view.  Despite the name _Problems_, not all markers necessarily mark problems or errors.  Some OSATE analsyses generate information markers (visible with a blue `i`) as output.
+The details of the error markers are visible in the `Problems` view.  This is a standard Eclipse view.  Despite the name _Problems_, not all markers necessarily mark problems or errors.  Some OSATE analyses generate information markers (visible with a blue `i`) as output.
 
 The details of a marker can also be seen by hovering over the icon in the editor sidebar.
 
@@ -270,6 +270,7 @@ You can search for AADL classifiers and properties using the OSATE-provided `AAD
 ![AADL Search Window](images/OSATEUserGuide/AadlSearch.png)
 
 You can search for the declarations of or references to classifiers or properties whose name contains the given substring.  The above search looks for all classifier declarations and references where the the classifier name contains the substring `find`.  AADL names are case insensitive so the search is always case insensitive.  The scope of search (which resources are looked in) is also specified:
+
 * It can be the entire workspace, in which all the AADL packages and property sets in the workspace, including plug-in contributions are searched.
 * It can be the the selected resources in the `AADL Navigator` view.  This button is only enabled when there is a selection in the view.
 * It can be the limited to the currently active editor window.  This button is only enabled when there is an active selected editor.
@@ -469,7 +470,7 @@ The wizard dialog will close when the export process finishes.  The new archive 
 
 ### <span id="git">Importing a Project from a Git Repository</span>
 
-While archive files provide a quick-and-dirty mechanism for sharing projects, this becomes problematic when you want to collaborate.  It is better to store projects in a version control system (VCS) so that changes to the models can be coordianted.  Eclipse (and thus OSATE) supports all the popular VCS, including **svn** and **git**.  In this section, we show how to import a project from a git repository.
+While archive files provide a quick-and-dirty mechanism for sharing projects, this becomes problematic when you want to collaborate.  It is better to store projects in a version control system (VCS) so that changes to the models can be coordinated.  Eclipse (and thus OSATE) supports all the popular VCS, including **svn** and **git**.  In this section, we show how to import a project from a git repository.
 
 
 
@@ -627,7 +628,7 @@ The files in the `reports` directory contain more specific results (in three dif
 
 ![CSV Results](images/OSATEUserGuide/Latency_CSV.png)
 
-Here we see the full results for the end-to-end flow `etef0`, includingng individual components' contributions to the latency.
+Here we see the full results for the end-to-end flow `etef0`, including individual components' contributions to the latency.
 
 
 
@@ -663,7 +664,7 @@ Choose `AADL > AADL Property Values` and click on the `Open` button.
 
 ### Selecting the Model Element
 
-The view displays all of the properties of the AADL model element that is currently selected in the worksapce.  Selections can be made in the editor or in the outline view.  For example, to show the properties of the process subcomponent `Sampler_B` of system implementation `Software.Basic` in project `Page_220` as shown above, you can 
+The view displays all of the properties of the AADL model element that is currently selected in the workspace.  Selections can be made in the editor or in the outline view.  For example, to show the properties of the process subcomponent `Sampler_B` of system implementation `Software.Basic` in project `Page_220` as shown above, you can 
 
 * Open `Page_220` in the editor and move the text cursor to be within the syntax for subcomponent `Sampler_B`.
 
@@ -880,7 +881,7 @@ Note that executing this action on a **shared local contained** property impacts
 
 ## <span id="classifierView">Viewing Classifier Members</span>
 
-The `Classifier Information` view makes it easy to see the complete ancestry of an AADL classifier (component type, component implementation, or feature group type), and to see the full list of members of the classifier.  To open a classifier in the view, select a classifier in the `AADL Navigator` or `Outline` view and choose `Open in Classifier Information View` from the context menu:
+The `Classifier Information` view makes it easy to see the complete ancestry of an AADL classifier (component type, component implementation, or feature group type), and to see the full list of members of the classifier. If a classifier's member (prototypes, subcomponents, parameters, data ports, feature groups, or access) references a different AADL classifier, then the `Classifier Information` view will open the referenced AADL classifier. To open a classifier in the view, select a classifier or its member in the `AADL Navigator` or `Outline` view and choose `Open in Classifier Information View` from the context menu or use the keyboard short cut **Alt+C**/**Option+C**:
 
 ![Classifier view](images/OSATEUserGuide/AADLNavigator_OpenInClassifierInfoView.png)
 ![Classifier view](images/OSATEUserGuide/Outline_OpenInClassifierInfoView.png)
@@ -892,18 +893,28 @@ The `Classifier Information` view becomes populated with information about the c
 ![Classifier view](images/OSATEUserGuide/classifierView1.png)
 
 The view is split in half:
-1. The left half shows the extension hierarchy
-2. The right half shows the members of the classifier grouped by kind.
+
+1. The left half shows the extension hierarchy.  It can be toggled between showing either the ancestors or the descendants of the current classifier.  Initially the ancestors are shown.
+
+2. The right half shows the members of the classifier grouped by kind.  Clicking on a classifier in the hierarchy tree focuses the member tree on the selected classifier.  You can always tell which classifier's members are being shown by which classifier is selected in the hierarchy tree.
 
 In the above, the view shows information about the classifier `T2.i2`.  From the hierarchy tree we see that 
+
 * It implements `T2` which extends `T1`. 
+
 * It extends `T2.i1`.
+
+Clicking on the toolbar icon ![Descendants Tree](images/OSATEUserGuide/sub_co.png) switches the left-hand pane to show the descendants (or subtypes) of the current classifier.  Below we see that subtypes of `T2.i2`: it is extended by `T2.i3`.
+
+![Classifier view](images/OSATEUserGuide/classifierView2.png)
+
+Switching from from ancestor to descendant tree (or back again) clears the member tree on the right.  Clicking on the toolbar icon ![Ancestor Tree](images/OSATEUserGuide/super_co.png) switches back to showing the ancestors of the current classifier.
 
 Double-clicking on any of the ancestors opens the AADL source text for the ancestor in an editor.
 
 The members tree shows all the members of `T2.i2`.  If a member is not declared locally it is annotated with the ancestor that declares it, e.g., the feature `f2 [from T2]`.  If a member is a refinement it is annotated with the prefix `refined` and lists the refined member as a child in the tree.  These annotations interact, for example, the feature `refined f1 [from T2]` indicates that a refinement of feature `f1` is inherited from type `T2`.  The child `f1 [from T1]` indicates that the feature was originally declared in type `T1`.
 
-Feature group types may have the additional annotation `inverse of` indicating that the feature is the inverse of given feature.  For example, in the screenshot below, the features groups `IG1` and `IG2` are declared to be inverses of the feature groups `FG1` and `FG2`, respectively.  Neither declares any explicit features.  The `Classifier Info` view shows that feature group type `IG2` has two features:
+Feature group types may have the additional annotation `inverse of` indicating that the feature is the inverse of given feature.  For example, in the screenshot below, the feature groups `IG1` and `IG2` are declared to be inverses of the feature groups `FG1` and `FG2`, respectively.  Neither declares any explicit features.  The `Classifier Info` view shows that feature group type `IG2` has two features:
 1. A feature that is the inverse of the feature `f1` declared in `FG1`.
 2. A feature that is the inverse of the feature `f2` declared in `FG2`.
 
@@ -914,9 +925,22 @@ Double-clicking on any of the members opens the AADL source text for the member 
 
 ### Synchronizing with the Editor
 
-The view's toolbar contains a single button that controls whether the view's selection is synchronized with the editor:
+The view's toolbar contains a button that controls whether the view's selection is synchronized with the editor:
+
 * ![](images/OSATEUserGuide/linked.png) When the action is selected, simply selecting an item in the view is enough to open an editor to the associated AADL source text.
 * ![](images/OSATEUserGuide/not_linked.png) When the action is deselected, an item in the view must be double-clicked on to open the AADL source in an editor.
 
+
+### Refreshing the View
+
+By default, the view automatically refreshes when the relevant files are changed.  Although the refresh happens in a background thread, it can be slow when the project that contains the classifier being viewed has many large `.aadl` files.  If the refresh becomes annoying, there are two options:
+
+1. The current classifier can be cleared by checking on the ![Delete](images/OSATEUserGuide/delete.png) button in the toolbar.
+
+2. The automatic refresh can be disabled by deselecting the "Auto Refresh" option in the view's menu:
+
+![The "Auto RefresH" menu option](images/OSATEUserGuide/autoRefresh.png)
+
+When automatic refresh is disabled, the refresh toolbar button ![Refresh](images/OSATEUserGuide/refresh.png) becomes enabled whenever the view determines that a refresh is required.  Pressing the button will cause a manual refresh to occur and reset the state of the button.
 
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.categories.ui" version="2">
-    <resource path="src-gen/org/osate/categories/ui/contentassist/antlr/PartialCategoriesContentAssistParser.java" type="org.osate.categories.ui.contentassist.antlr.PartialCategoriesContentAssistParser">
-        <filter comment="xtext" id="576725006">
+    <resource path="META-INF/MANIFEST.MF" type="org.osate.categories.scoping.AbstractCategoriesScopeProvider">
+        <filter comment="Xtext generated code" id="305426566">
             <message_arguments>
-                <message_argument value="IPartialContentAssistParser"/>
-                <message_argument value="PartialCategoriesContentAssistParser"/>
+                <message_argument value="org.osate.categories.scoping.AbstractCategoriesScopeProvider"/>
+                <message_argument value="org.osate.categories.ui_3.0.0"/>
             </message_arguments>
         </filter>
     </resource>

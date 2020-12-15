@@ -47,14 +47,13 @@ import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.AadlReferenceUtil;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.aadl2.ui.internal.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.internal.util.ProjectUtil;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
 import com.google.common.base.Strings;
 
@@ -164,13 +163,13 @@ public class DiagramContextChecker {
 		String searchPrefix = "";
 		if (isPackageRef || isClassifierRef) {
 			// Find all packages
-			final Collection<IEObjectDescription> packageDescriptions = ScopedEMFIndexRetrieval
+			final Collection<IEObjectDescription> packageDescriptions = AadlModelAccessUtil
 					.getAllEObjectsByType(project, Aadl2Package.eINSTANCE.getAadlPackage());
 
 			if (isPackageRef) {
 				options = packageDescriptions;
 			} else if (isClassifierRef) {
-				options = ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
+				options = AadlModelAccessUtil.getAllEObjectsByType(project,
 						Aadl2Package.eINSTANCE.getClassifier());
 
 				// Check if the package portion of the qualified name is a valid package.
@@ -228,7 +227,7 @@ public class DiagramContextChecker {
 			final EObject newContextProxy = (EObject) dlg.getFirstSelectedElement();
 
 			// Find the live object
-			final ResourceSet liveResourceSet = ProjectUtil.getLiveResourceSet(project);
+			final ResourceSet liveResourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
 
 			newContext = EcoreUtil.resolve(newContextProxy, liveResourceSet);
 			if (((EObject) newContext).eIsProxy()) {

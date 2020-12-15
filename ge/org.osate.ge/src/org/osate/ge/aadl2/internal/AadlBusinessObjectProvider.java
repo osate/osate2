@@ -81,9 +81,9 @@ import org.osate.ge.aadl2.internal.util.AadlFeatureUtil;
 import org.osate.ge.aadl2.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.aadl2.internal.util.AadlSubprogramCallUtil;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
 public class AadlBusinessObjectProvider implements BusinessObjectProvider {
 	private final ModeTransitionTriggerHandler mttHandler = new ModeTransitionTriggerHandler();
@@ -159,7 +159,7 @@ public class AadlBusinessObjectProvider implements BusinessObjectProvider {
 	private static Stream<Object> getPackages(final IProject project) {
 		Stream.Builder<Object> packages = null;
 
-		for (final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project,
+		for (final IEObjectDescription desc : AadlModelAccessUtil.getAllEObjectsByType(project,
 				Aadl2Package.eINSTANCE.getAadlPackage())) {
 			if (packages == null) {
 				packages = Stream.builder();

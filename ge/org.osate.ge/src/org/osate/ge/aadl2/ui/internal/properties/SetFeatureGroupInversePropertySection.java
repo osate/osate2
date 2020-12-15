@@ -49,7 +49,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
 public class SetFeatureGroupInversePropertySection extends AbstractPropertySection {
@@ -87,7 +87,7 @@ public class SetFeatureGroupInversePropertySection extends AbstractPropertySecti
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
-		final Label sectionLabel = InternalPropertySectionUtil.createSectionLabel(container, getWidgetFactory(),
+		final Label sectionLabel = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(),
 				"Inverse:");
 
 		inverseBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, SWT.NONE,
@@ -95,7 +95,7 @@ public class SetFeatureGroupInversePropertySection extends AbstractPropertySecti
 				"", SWT.CHECK);
 
 		// Set data used for automated testing
-		SwtTestUtil.setTestingId(inverseBtn, setFeatureGroupInverseUniqueId);
+		SwtUtil.setTestingId(inverseBtn, setFeatureGroupInverseUniqueId);
 
 		final FormData fd = new FormData();
 		fd.left = new FormAttachment(0, STANDARD_LABEL_WIDTH);

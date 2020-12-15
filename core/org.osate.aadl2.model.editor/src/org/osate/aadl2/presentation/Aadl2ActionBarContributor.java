@@ -132,6 +132,58 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 		}
 	};
 
+	protected IAction gotoSrcTextAction = new Action(Aadl2EditorPlugin.INSTANCE.getString("_UI_GotoSource_menu_item")) {
+		private final UiUtil uiUtilInstance = UiUtil.getInstance();
+
+		{
+			setId("Aadl2ActionBarContributor.gotoSrcTextAction");
+		}
+
+		@Override
+		public void run() {
+			if (activeEditorPart instanceof Aadl2ModelEditor) {
+				if (currentSelection instanceof InstanceObject) {
+					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
+						((Aadl2ModelEditor) activeEditorPart).doSave(null);
+					}
+					uiUtilInstance.gotoInstanceObjectSource((InstanceObject) currentSelection);
+				} else if (currentSelection instanceof PropertyAssociationInstance) {
+					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
+						((Aadl2ModelEditor) activeEditorPart).doSave(null);
+					}
+					uiUtilInstance.gotoInstanceObjectSource((PropertyAssociationInstance) currentSelection);
+				} else if (currentSelection instanceof EndToEndFlowInstanceFlowElementItemProvider) {
+					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
+						((Aadl2ModelEditor) activeEditorPart).doSave(null);
+					}
+					uiUtilInstance.gotoInstanceObjectSource(
+							((EndToEndFlowInstanceFlowElementItemProvider) currentSelection).getFlowElement());
+				} else if (currentSelection instanceof SubModeItemProvider) {
+					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
+						((Aadl2ModelEditor) activeEditorPart).doSave(null);
+					}
+					uiUtilInstance
+							.gotoInstanceObjectSource(((SubModeItemProvider) currentSelection).getSubMode());
+				}
+			}
+		}
+	};
+
+	private IAction gotoFlowElement = new Action("Goto Flow Element") {
+		@Override
+		public void run() {
+			gotoInstanceObject(((EndToEndFlowInstanceFlowElementItemProvider) currentSelection).getFlowElement());
+		}
+	};
+
+	private IAction gotoModeInstance = new Action("Goto Mode Instance") {
+		@Override
+		public void run() {
+			gotoInstanceObject(((SubModeItemProvider) currentSelection).getSubMode());
+		}
+	};
+
+
 	/**
 	 * This creates an instance of the contributor.
 	 * <!-- begin-user-doc -->
@@ -278,60 +330,6 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 		return true;
 	}
 
-	protected IAction gotoSrcTextAction = new Action(Aadl2EditorPlugin.INSTANCE.getString("_UI_GotoSource_menu_item")) {
-		{
-			setId("Aadl2ActionBarContributor.gotoSrcTextAction");
-		}
-
-		@Override
-		public void run() {
-			if (activeEditorPart instanceof Aadl2Editor) {
-				Aadl2Editor editor = (Aadl2Editor) activeEditorPart;
-
-				if (currentSelection instanceof InstanceObject) {
-					if (editor.isDirty()) {
-						editor.doSave(null);
-					}
-					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
-							(InstanceObject) currentSelection);
-				} else if (currentSelection instanceof PropertyAssociationInstance) {
-					if (editor.isDirty()) {
-						editor.doSave(null);
-					}
-					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
-							(PropertyAssociationInstance) currentSelection);
-				} else if (currentSelection instanceof EndToEndFlowInstanceFlowElementItemProvider) {
-					if (editor.isDirty()) {
-						editor.doSave(null);
-					}
-					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
-							((EndToEndFlowInstanceFlowElementItemProvider) currentSelection).getFlowElement());
-				} else if (currentSelection instanceof SubModeItemProvider) {
-					if (editor.isDirty()) {
-						editor.doSave(null);
-					}
-					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
-							((SubModeItemProvider) currentSelection).getSubMode());
-				}
-			}
-		}
-	};
-
-	protected IAction gotoFlowElement = new Action("Goto Flow Element") {
-		@Override
-		public void run() {
-			gotoInstanceObject(
-					((EndToEndFlowInstanceFlowElementItemProvider) currentSelection).getFlowElement());
-		}
-	};
-
-	protected IAction gotoModeInstance = new Action("Goto Mode Instance") {
-		@Override
-		public void run() {
-			gotoInstanceObject(((SubModeItemProvider) currentSelection).getSubMode());
-		}
-	};
-
 	private void gotoInstanceObject(InstanceObject io) {
 		IFile instanceFile = OsateResourceUtil.toIFile(io.eResource().getURI());
 		try {
@@ -343,5 +341,4 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 			Aadl2EditorPlugin.INSTANCE.log(e);
 		}
 	}
-
 }

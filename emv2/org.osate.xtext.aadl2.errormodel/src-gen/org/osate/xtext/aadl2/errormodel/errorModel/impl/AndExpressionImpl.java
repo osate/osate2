@@ -1,4 +1,5 @@
 /**
+ * *
  * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
@@ -90,6 +91,7 @@ public class AndExpressionImpl extends ConditionExpressionImpl implements AndExp
    * <!-- end-user-doc -->
    * @generated
    */
+  @Override
   public EList<ConditionExpression> getOperands()
   {
     if (operands == null)

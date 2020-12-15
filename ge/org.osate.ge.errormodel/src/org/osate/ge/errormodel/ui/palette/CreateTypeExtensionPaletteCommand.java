@@ -37,12 +37,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class CreateTypeExtensionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
 	public CreateTypeExtensionPaletteCommand() {
-		super("Error Type Extension", ErrorModelPaletteCategories.ERROR_MODEL, null);
+		super("Error Type Extension", ErrorModelPaletteCategories.ERROR_TYPES, null);
 	}
 
 	@Override
 	public boolean canStartConnection(final CanStartConnectionContext ctx) {
-		return ctx.getSource().getBusinessObject(ErrorType.class).isPresent();
+		return ctx.getSource().getBusinessObject(ErrorType.class).filter(t -> t.getAliasedType() == null).isPresent();
 	}
 
 	@Override
