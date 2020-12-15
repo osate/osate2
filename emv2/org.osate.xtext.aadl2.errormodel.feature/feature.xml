@@ -2,7 +2,7 @@
 <feature
       id="org.osate.xtext.aadl2.errormodel.feature"
       label="Error Model Annex V2 for OSATE2"
-      version="5.0.2.qualifier"
+      version="7.0.0.qualifier"
       provider-name="CMU-SEI"
       plugin="org.osate.branding"
       license-feature="org.osate.license"
@@ -17,7 +17,7 @@
    </copyright>
 
    <url>
-      <update label="OSATE2" url="http://www.aadl.info/osate2/updates"/>
+      <update label="OSATE2" url="https://osate-build.sei.cmu.edu/download/osate/stable/latest/updates/"/>
    </url>
 
    <requires>
@@ -119,5 +119,12 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+
+   <plugin
+         id="org.osate.xtext.aadl2.errormodel.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>

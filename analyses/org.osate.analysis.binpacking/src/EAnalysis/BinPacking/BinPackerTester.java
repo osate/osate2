@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -42,7 +42,7 @@ import javax.swing.JTextArea;
 
 /**
  * @author Dionisio de Niz
- * 
+ *
  * This class generates random: task sets, connectivity, and hardware platform
  * to try to bin pack it.
  */
@@ -57,7 +57,7 @@ public class BinPackerTester {
 	 * This method creates random software nodes (modules) and random messages
 	 * among them. The randomness of the parameters of the software nodes are
 	 * controlled by ranges of values.
-	 * 
+	 *
 	 * @param problem
 	 *            The assigment problem to which the software graph will be
 	 *            added
@@ -91,9 +91,9 @@ public class BinPackerTester {
 			int maximumMessagesPerModule, double minimumProcessorSpeed) {
 		int numberOfModules;
 
-		if ((numberOfModules = maximumNumberOfModules - minimumNumberOfModules) <= 0)
+		if ((numberOfModules = maximumNumberOfModules - minimumNumberOfModules) <= 0) {
 			numberOfModules = maximumNumberOfModules;
-		else {
+		} else {
 			numberOfModules *= randomGenerator.nextDouble();
 			numberOfModules += minimumNumberOfModules;
 		}
@@ -146,7 +146,7 @@ public class BinPackerTester {
 			for (int j = 0; j < problem.length; j++) {
 				softwareNodes[j][i] = new SoftwareNode(cycles, period, deadline, problem[j].bwComparator,
 						Integer.toString(i));
-				problem[j].softwareGraph.add(softwareNodes[j][i]);
+				problem[j].getSoftwareGraph().add(softwareNodes[j][i]);
 			}
 		}
 
@@ -154,9 +154,9 @@ public class BinPackerTester {
 		for (int i = 0; i < numberOfModules; i++) {
 			int numberOfMessages;
 
-			if ((numberOfMessages = maximumMessagesPerModule - minimumMessagesPerModule) <= 0)
+			if ((numberOfMessages = maximumMessagesPerModule - minimumMessagesPerModule) <= 0) {
 				numberOfMessages = maximumMessagesPerModule;
-			else {
+			} else {
 				numberOfMessages *= randomGenerator.nextDouble();
 				numberOfMessages += minimumMessagesPerModule;
 			}
@@ -190,17 +190,19 @@ public class BinPackerTester {
 					SoftwareNode other = softwareNodes[k][partner];
 
 					// avoid two messages to same target
-					if (connByTarget[k] != null)
+					if (connByTarget[k] != null) {
 						if (connByTarget[k].get(other) != null) {
 							connected = true;
 							break;
 						}
+					}
 
 					Message message = new Message(size, node[k].getPeriod(), node[k].getDeadline(), node[k],
 							softwareNodes[k][partner]);
 					problem[k].addMessage(message);
-					if (connByTarget[k] == null)
+					if (connByTarget[k] == null) {
 						connByTarget[k] = (Hashtable) problem[k].softConnectivityByTarget.get(node[k]);
+					}
 				}
 			}
 		}
@@ -209,27 +211,30 @@ public class BinPackerTester {
 	public long[] createSoftwareSizesForProcessor(long procSize, long largestSize) {
 		Vector vectorSizes = new Vector();
 		Vector toSplit = new Vector();
-		if (procSize > largestSize)
+		if (procSize > largestSize) {
 			toSplit.add(new Long(procSize));
+		}
 		while (toSplit.size() > 0) {
 			long bigSize = ((Long) toSplit.remove(0)).longValue();
 			long[] sizes = createSoftwareSizesForProcessor(bigSize);
 			for (int i = 0; i < sizes.length; i++) {
-				if (sizes[i] > largestSize)
+				if (sizes[i] > largestSize) {
 					toSplit.add(new Long(sizes[i]));
-				else
+				} else {
 					vectorSizes.add(new Long(sizes[i]));
+				}
 			}
 		}
 		long[] res = new long[vectorSizes.size()];
-		for (int i = 0; i < vectorSizes.size(); i++)
+		for (int i = 0; i < vectorSizes.size(); i++) {
 			res[i] = ((Long) vectorSizes.get(i)).longValue();
+		}
 		return res;
 	}
 
 	/**
 	 * it would generate < log_2(procSize) different sizes
-	 * 
+	 *
 	 * @return the exact number of sizes generated
 	 */
 	public long[] createSoftwareSizesForProcessor(long procSize) {
@@ -240,15 +245,17 @@ public class BinPackerTester {
 		long nextSize = (procSize / 2);
 		long difference = (procSize / 2) - (long) (nextSize * percentage[(int) (4 * randomGenerator.nextDouble())]);
 		// primes[(int) (6 * randomGenerator.nextDouble())];
-		while (((procSize % difference) == 0) && ((procSize % (nextSize - difference)) == 0))
+		while (((procSize % difference) == 0) && ((procSize % (nextSize - difference)) == 0)) {
 			difference--;
+		}
 		moduleSizes[0] = procSize - difference;
 		while (difference > 30) {
 			long nextDifference = (difference / 2)
 					- (long) ((difference / 2) * percentage[(int) (4 * randomGenerator.nextDouble())]);
 			// primes[(int) (6 * randomGenerator.nextDouble())];
-			while (((procSize % nextDifference) == 0) && ((procSize % (difference - nextDifference)) == 0))
+			while (((procSize % nextDifference) == 0) && ((procSize % (difference - nextDifference)) == 0)) {
 				nextDifference--;
+			}
 			moduleSizes[++numSize] = difference - nextDifference;
 			difference = nextDifference;
 		}
@@ -279,9 +286,9 @@ public class BinPackerTester {
 
 	public long generateMessageBits(long minimumBits, long maximumBits) {
 		long bits = 0;
-		if (minimumBits == maximumBits)
+		if (minimumBits == maximumBits) {
 			bits = maximumBits;
-		else {
+		} else {
 			bits = (long) ((maximumBits - minimumBits) * randomGenerator.nextDouble());
 			bits += minimumBits;
 		}
@@ -292,9 +299,9 @@ public class BinPackerTester {
 			OutDegreeAssignmentProblem[] targets, long minimumMessageBits, long maximumMessageBits, long minimumPeriod,
 			long maximumPeriod, int outDegree) {
 		double bandwidthGenerated = 0.0;
-		long procSize = (long) ((HardwareNode) hardwareTemplate.hardwareGraph.iterator().next()).cyclesPerSecond;
+		long procSize = (long) ((HardwareNode) hardwareTemplate.getHardwareGraph().iterator().next()).getCyclesPerSecond();
 		long epsilon = (long) (procSize * 0.01);
-		int numberOfProcessors = hardwareTemplate.hardwareGraph.size();
+		int numberOfProcessors = hardwareTemplate.getHardwareGraph().size();
 
 		long[] sizes = createWorstSoftwareSizesForProcessor(procSize, epsilon);
 		long[] sizeSet1 = createSoftwareSizesForProcessor(sizes[0]);
@@ -362,17 +369,21 @@ public class BinPackerTester {
 		long ss2 = 0;
 		long ss3 = 0;
 		long ss4 = 0;
-		for (int i = 0; i < sizeSet1.length; i++)
+		for (int i = 0; i < sizeSet1.length; i++) {
 			ss1 += sizeSet1[i];
+		}
 
-		for (int i = 0; i < sizeSet2.length; i++)
+		for (int i = 0; i < sizeSet2.length; i++) {
 			ss2 += sizeSet2[i];
+		}
 
-		for (int i = 0; i < sizeSet3.length; i++)
+		for (int i = 0; i < sizeSet3.length; i++) {
 			ss3 += sizeSet3[i];
+		}
 
-		for (int i = 0; i < sizeSet4.length; i++)
+		for (int i = 0; i < sizeSet4.length; i++) {
 			ss4 += sizeSet4[i];
+		}
 
 		System.out.println("size[0](" + BinPackerTester.decFormat.format(sizes[0]) + ") sizeSet1.total("
 				+ BinPackerTester.decFormat.format(ss1) + ")");
@@ -416,7 +427,7 @@ public class BinPackerTester {
 			// Generate messages
 			for (int j = 0; j < sizeSet1.length; j++) {
 				for (int k = j + 1; k < sizeSet1.length; k++) {
-					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++)
+					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++) {
 						for (int l = 0; l < targets.length; l++) {
 							long bits = generateMessageBits(minimumMessageBits, maximumMessageBits);
 							// (long) ((maximumMessageBits - minimumMessageBits)
@@ -427,6 +438,7 @@ public class BinPackerTester {
 									module2);
 							targets[l].addMessage(msg);
 						}
+					}
 				}
 			}
 
@@ -442,7 +454,7 @@ public class BinPackerTester {
 			// Generate messages
 			for (int j = 0; j < sizeSet2.length; j++) {
 				for (int k = j + 1; k < sizeSet2.length; k++) {
-					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++)
+					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++) {
 						for (int l = 0; l < targets.length; l++) {
 							long bits = generateMessageBits(minimumMessageBits, maximumMessageBits);
 							// (long) ((maximumMessageBits - minimumMessageBits)
@@ -453,6 +465,7 @@ public class BinPackerTester {
 									module2);
 							targets[l].addMessage(msg);
 						}
+					}
 				}
 			}
 
@@ -468,7 +481,7 @@ public class BinPackerTester {
 			// Generate messages
 			for (int j = 0; j < sizeSet3.length; j++) {
 				for (int k = j + 1; k < sizeSet3.length; k++) {
-					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++)
+					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++) {
 						for (int l = 0; l < targets.length; l++) {
 							long bits = generateMessageBits(minimumMessageBits, maximumMessageBits);
 							// (long) ((maximumMessageBits - minimumMessageBits)
@@ -479,12 +492,14 @@ public class BinPackerTester {
 									module2);
 							targets[l].addMessage(msg);
 						}
+					}
 				}
 			}
 
 			/* SECOND PROCESSOR */
-			for (int k = 0; k < targets.length; k++)
+			for (int k = 0; k < targets.length; k++) {
 				modules[k][0].clear();
+			}
 
 			for (int j = 0; j < sizeSet1.length; j++) {
 				for (int k = 0; k < targets.length; k++) {
@@ -498,7 +513,7 @@ public class BinPackerTester {
 			// Generate messages
 			for (int j = 0; j < sizeSet1.length; j++) {
 				for (int k = j + 1; k < sizeSet1.length; k++) {
-					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++)
+					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++) {
 						for (int l = 0; l < targets.length; l++) {
 							long bits = generateMessageBits(minimumMessageBits, maximumMessageBits);
 							// (long) ((maximumMessageBits - minimumMessageBits)
@@ -509,11 +524,13 @@ public class BinPackerTester {
 									module2);
 							targets[l].addMessage(msg);
 						}
+					}
 				}
 			}
 
-			for (int k = 0; k < targets.length; k++)
+			for (int k = 0; k < targets.length; k++) {
 				modules[k][1].clear();
+			}
 
 			for (int j = 0; j < sizeSet2.length; j++) {
 				for (int k = 0; k < targets.length; k++) {
@@ -527,7 +544,7 @@ public class BinPackerTester {
 			// Generate messages
 			for (int j = 0; j < sizeSet2.length; j++) {
 				for (int k = j + 1; k < sizeSet2.length; k++) {
-					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++)
+					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++) {
 						for (int l = 0; l < targets.length; l++) {
 							long bits = generateMessageBits(minimumMessageBits, maximumMessageBits);
 							// (long) ((maximumMessageBits - minimumMessageBits)
@@ -538,11 +555,13 @@ public class BinPackerTester {
 									module2);
 							targets[l].addMessage(msg);
 						}
+					}
 				}
 			}
 
-			for (int k = 0; k < targets.length; k++)
+			for (int k = 0; k < targets.length; k++) {
 				modules[k][2].clear();
+			}
 
 			for (int j = 0; j < sizeSet3.length; j++) {
 				for (int k = 0; k < targets.length; k++) {
@@ -556,7 +575,7 @@ public class BinPackerTester {
 			// Generate messages
 			for (int j = 0; j < sizeSet3.length; j++) {
 				for (int k = j + 1; k < sizeSet3.length; k++) {
-					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++)
+					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++) {
 						for (int l = 0; l < targets.length; l++) {
 							long bits = generateMessageBits(minimumMessageBits, maximumMessageBits);
 							// (long) ((maximumMessageBits - minimumMessageBits)
@@ -567,13 +586,15 @@ public class BinPackerTester {
 									module2);
 							targets[l].addMessage(msg);
 						}
+					}
 				}
 			}
 
 			/* THIRD PROCESSOR - COMPLEMENT */
 
-			for (int k = 0; k < targets.length; k++)
+			for (int k = 0; k < targets.length; k++) {
 				modules[k][3].clear();
+			}
 
 			for (int j = 0; j < sizeSet4.length; j++) {
 				for (int k = 0; k < targets.length; k++) {
@@ -587,7 +608,7 @@ public class BinPackerTester {
 			// Generate messages
 			for (int j = 0; j < sizeSet4.length; j++) {
 				for (int k = j + 1; k < sizeSet4.length; k++) {
-					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++)
+					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++) {
 						for (int l = 0; l < targets.length; l++) {
 							long bits = generateMessageBits(minimumMessageBits, maximumMessageBits);
 							// (long) ((maximumMessageBits - minimumMessageBits)
@@ -598,11 +619,13 @@ public class BinPackerTester {
 									module2);
 							targets[l].addMessage(msg);
 						}
+					}
 				}
 			}
 
-			for (int k = 0; k < targets.length; k++)
+			for (int k = 0; k < targets.length; k++) {
 				modules[k][3].clear();
+			}
 
 			for (int j = 0; j < sizeSet4.length; j++) {
 				for (int k = 0; k < targets.length; k++) {
@@ -616,7 +639,7 @@ public class BinPackerTester {
 			// Generate messages
 			for (int j = 0; j < sizeSet4.length; j++) {
 				for (int k = j + 1; k < sizeSet4.length; k++) {
-					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++)
+					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++) {
 						for (int l = 0; l < targets.length; l++) {
 							long bits = generateMessageBits(minimumMessageBits, maximumMessageBits);
 							// (long) ((maximumMessageBits - minimumMessageBits)
@@ -627,11 +650,13 @@ public class BinPackerTester {
 									module2);
 							targets[l].addMessage(msg);
 						}
+					}
 				}
 			}
 
-			for (int k = 0; k < targets.length; k++)
+			for (int k = 0; k < targets.length; k++) {
 				modules[k][1].clear();
+			}
 
 			for (int j = 0; j < sizeSet3.length; j++) {
 				for (int k = 0; k < targets.length; k++) {
@@ -645,7 +670,7 @@ public class BinPackerTester {
 			// Generate messages
 			for (int j = 0; j < sizeSet3.length; j++) {
 				for (int k = j + 1; k < sizeSet3.length; k++) {
-					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++)
+					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++) {
 						for (int l = 0; l < targets.length; l++) {
 							long bits = generateMessageBits(minimumMessageBits, maximumMessageBits);
 							// (long) ((maximumMessageBits - minimumMessageBits)
@@ -656,11 +681,13 @@ public class BinPackerTester {
 									module2);
 							targets[l].addMessage(msg);
 						}
+					}
 				}
 			}
 
-			for (int k = 0; k < targets.length; k++)
+			for (int k = 0; k < targets.length; k++) {
 				modules[k][1].clear();
+			}
 
 			for (int j = 0; j < sizeSet3.length; j++) {
 				for (int k = 0; k < targets.length; k++) {
@@ -674,7 +701,7 @@ public class BinPackerTester {
 			// Generate messages
 			for (int j = 0; j < sizeSet3.length; j++) {
 				for (int k = j + 1; k < sizeSet3.length; k++) {
-					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++)
+					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++) {
 						for (int l = 0; l < targets.length; l++) {
 							long bits = generateMessageBits(minimumMessageBits, maximumMessageBits);
 							// (long) ((maximumMessageBits - minimumMessageBits)
@@ -685,6 +712,7 @@ public class BinPackerTester {
 									module2);
 							targets[l].addMessage(msg);
 						}
+					}
 				}
 			}
 
@@ -760,7 +788,7 @@ public class BinPackerTester {
 			// Generate messages
 			for (int j = 0; j < sizeSet1.length; j++) {
 				for (int k = j + 1; k < sizeSet1.length; k++) {
-					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++)
+					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++) {
 						for (int l = 0; l < targets.length; l++) {
 							long bits = generateMessageBits(minimumMessageBits, maximumMessageBits);
 							// (long) ((maximumMessageBits - minimumMessageBits)
@@ -771,6 +799,7 @@ public class BinPackerTester {
 									module2);
 							targets[l].addMessage(msg);
 						}
+					}
 				}
 			}
 
@@ -786,7 +815,7 @@ public class BinPackerTester {
 			// Generate messages
 			for (int j = 0; j < sizeSet2.length; j++) {
 				for (int k = j + 1; k < sizeSet2.length; k++) {
-					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++)
+					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++) {
 						for (int l = 0; l < targets.length; l++) {
 							long bits = generateMessageBits(minimumMessageBits, maximumMessageBits);
 							// (long) ((maximumMessageBits - minimumMessageBits)
@@ -797,6 +826,7 @@ public class BinPackerTester {
 									module2);
 							targets[l].addMessage(msg);
 						}
+					}
 				}
 			}
 
@@ -812,7 +842,7 @@ public class BinPackerTester {
 			// Generate messages
 			for (int j = 0; j < sizeSet3.length; j++) {
 				for (int k = j + 1; k < sizeSet3.length; k++) {
-					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++)
+					for (int degreeIndex = 0; degreeIndex < outDegree; degreeIndex++) {
 						for (int l = 0; l < targets.length; l++) {
 							long bits = generateMessageBits(minimumMessageBits, maximumMessageBits);
 							// (long) ((maximumMessageBits - minimumMessageBits)
@@ -823,6 +853,7 @@ public class BinPackerTester {
 									module2);
 							targets[l].addMessage(msg);
 						}
+					}
 				}
 			}
 
@@ -848,7 +879,7 @@ public class BinPackerTester {
 
 	/**
 	 * Generates a software graph that perfectly fits the hardware given in
-	 * @link{hardwareTemplate}. 
+	 * @link{hardwareTemplate}.
 	 * @param hardwareTemplate
 	 *            the assignment problem with the hardware graph for which to
 	 *            create software graph.
@@ -859,9 +890,9 @@ public class BinPackerTester {
 			OutDegreeAssignmentProblem target, long minimumMessageBits, long maximumMessageBits, long minimumPeriod,
 			long maximumPeriod, int outDegree) {
 		Hashtable procToModules = new Hashtable();
-		HardwareNode[] hardwareNodes = new HardwareNode[hardwareTemplate.hardwareGraph.size()];
+		HardwareNode[] hardwareNodes = new HardwareNode[hardwareTemplate.getHardwareGraph().size()];
 		int hardIndex = 0;
-		for (Iterator iter = hardwareTemplate.hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = hardwareTemplate.getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode proc = (HardwareNode) iter.next();
 			hardwareNodes[hardIndex++] = proc;
 			Vector modules = new Vector();
@@ -869,8 +900,8 @@ public class BinPackerTester {
 			// Random upper limit in module sizes between 30-45%
 			double sizeUpperBoundPercentage = 15.0 * randomGenerator.nextDouble();
 			sizeUpperBoundPercentage = (sizeUpperBoundPercentage + 30.0) / 100.0;
-			long[] moduleSizes = createSoftwareSizesForProcessor((long) proc.cyclesPerSecond,
-					(long) (proc.cyclesPerSecond * sizeUpperBoundPercentage));// 1000000l);
+			long[] moduleSizes = createSoftwareSizesForProcessor((long) proc.getCyclesPerSecond(),
+					(long) (proc.getCyclesPerSecond() * sizeUpperBoundPercentage));// 1000000l);
 			double remainder = 0.0;
 			for (int i = 0; i < moduleSizes.length; i++) {
 				/* Period in nanos */
@@ -884,8 +915,9 @@ public class BinPackerTester {
 						period = maximumPeriod - minimumPeriod;
 						period *= randomGenerator.nextDouble();
 						period += minimumPeriod;
-					} else
+					} else {
 						period = maximumPeriod;
+					}
 
 					cycles = (moduleSizes[i] * period) / 1000000000;
 				}
@@ -911,7 +943,7 @@ public class BinPackerTester {
 
 		Vector processedLinks = new Vector();
 		Vector fullAssociation = new Vector();
-		for (Iterator iter = hardwareTemplate.hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = hardwareTemplate.getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode proc = (HardwareNode) iter.next();
 			Vector modules = (Vector) procToModules.get(proc);
 			int numberOfPartitions = 2;// (int)(randomGenerator.nextDouble() *
@@ -930,19 +962,22 @@ public class BinPackerTester {
 
 			boolean[][] usedEdge = new boolean[modules.size()][modules.size()];
 			int modulesSize = modules.size();
-			for (int i = 0; i < modulesSize; i++)
-				for (int j = i; j < modulesSize; j++)
+			for (int i = 0; i < modulesSize; i++) {
+				for (int j = i; j < modulesSize; j++) {
 					usedEdge[i][j] = false;
+				}
+			}
 
 			for (int i = 0; i < modulesSize; i++) {
 				int partner = (int) (randomGenerator.nextDouble()
 						* (partRegions[i % numberOfPartitions][1] - partRegions[i % numberOfPartitions][0])); // (modulesSize - 1));
 				partner += partRegions[i % numberOfPartitions][0];
 				if (partner == i) {
-					if (partner < modulesSize - 1)
+					if (partner < modulesSize - 1) {
 						partner++;
-					else
+					} else {
 						partner--;
+					}
 				}
 				if (!usedEdge[i][partner]) {
 					long bits = generateMessageBits(minimumMessageBits, maximumMessageBits);
@@ -962,14 +997,16 @@ public class BinPackerTester {
 			OutDegreeAssignmentProblem[] targets, long minimumMessageBits, long maximumMessageBits, long minimumPeriod,
 			long maximumPeriod, int outDegree) {
 		Hashtable[] procToModules = new Hashtable[targets.length];
-		for (int i = 0; i < targets.length; i++)
+		for (int i = 0; i < targets.length; i++) {
 			procToModules[i] = new Hashtable();
-		HardwareNode[][] hardwareNodes = new HardwareNode[targets.length][hardwareTemplate.hardwareGraph.size()];
+		}
+		HardwareNode[][] hardwareNodes = new HardwareNode[targets.length][hardwareTemplate.getHardwareGraph().size()];
 		int hardIndex = 0;
-		for (Iterator iter = hardwareTemplate.hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = hardwareTemplate.getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode proc = (HardwareNode) iter.next();
-			for (int i = 0; i < targets.length; i++)
+			for (int i = 0; i < targets.length; i++) {
 				hardwareNodes[i][hardIndex] = proc;
+			}
 
 			hardIndex++;
 
@@ -981,8 +1018,8 @@ public class BinPackerTester {
 			// Random upper limit in module sizes between 30-45%
 			double sizeUpperBoundPercentage = 15.0 * randomGenerator.nextDouble();
 			sizeUpperBoundPercentage = (sizeUpperBoundPercentage + 30.0) / 100.0;
-			long[] moduleSizes = createSoftwareSizesForProcessor((long) proc.cyclesPerSecond,
-					(long) (proc.cyclesPerSecond * sizeUpperBoundPercentage));// 1000000l);
+			long[] moduleSizes = createSoftwareSizesForProcessor((long) proc.getCyclesPerSecond(),
+					(long) (proc.getCyclesPerSecond() * sizeUpperBoundPercentage));// 1000000l);
 			double remainder = 0.0;
 			for (int i = 0; i < moduleSizes.length; i++) {
 				/* Period in nanos */
@@ -996,8 +1033,9 @@ public class BinPackerTester {
 						period = maximumPeriod - minimumPeriod;
 						period *= randomGenerator.nextDouble();
 						period += minimumPeriod;
-					} else
+					} else {
 						period = maximumPeriod;
+					}
 
 					cycles = (moduleSizes[i] * period) / 1000000000;
 				}
@@ -1035,7 +1073,7 @@ public class BinPackerTester {
 
 		Vector processedLinks = new Vector();
 		Vector fullAssociation = new Vector();
-		for (Iterator iter = hardwareTemplate.hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = hardwareTemplate.getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode proc = (HardwareNode) iter.next();
 			Vector[] modules = new Vector[targets.length];
 			for (int i = 0; i < targets.length; i++) {
@@ -1051,8 +1089,9 @@ public class BinPackerTester {
 			// to different
 			// partitions
 			Vector allNumbers = new Vector();
-			for (int i = 0; i < modules[0].size(); i++)
+			for (int i = 0; i < modules[0].size(); i++) {
 				allNumbers.add(new Integer(i));
+			}
 
 			Vector[] partitions = new Vector[numberOfPartitions];
 			for (int i = 0; i < numberOfPartitions; i++) {
@@ -1068,9 +1107,11 @@ public class BinPackerTester {
 
 			boolean[][] usedEdge = new boolean[modules[0].size()][modules[0].size()];
 			int modulesSize = modules[0].size();
-			for (int i = 0; i < modulesSize; i++)
-				for (int j = i; j < modulesSize; j++)
+			for (int i = 0; i < modulesSize; i++) {
+				for (int j = i; j < modulesSize; j++) {
 					usedEdge[i][j] = false;
+				}
+			}
 
 			for (int i = 0; i < partitions.length; i++) {
 				if (partitions[i].size() > 2) {
@@ -1122,7 +1163,7 @@ public class BinPackerTester {
 	 * This method creates random hardware nodes and links. The random creation
 	 * of nodes is controlled by ranges (max,min) for each of the parameter of
 	 * the modules
-	 * 
+	 *
 	 * @param problem
 	 *            Assignment problem to which the hardware is to be added
 	 * @param minimumNumberOfProcessors
@@ -1159,8 +1200,9 @@ public class BinPackerTester {
 		// for (int i=0; i<supportedProcessors.length;i++)
 		// System.out.println("\t\t proce("+supportedProcessors[i]+")");
 		SiteArchitecture[] siteArchitecture = new SiteArchitecture[numberOfClones];
-		for (int i = 0; i < numberOfClones; i++)
+		for (int i = 0; i < numberOfClones; i++) {
 			siteArchitecture[i] = new SiteArchitecture();
+		}
 
 		int numberOfSites;
 
@@ -1201,8 +1243,9 @@ public class BinPackerTester {
 		for (int i = 0; i < numberOfSites; i++) {
 			long numberOfDucts;
 			Site[] site = new Site[numberOfClones];
-			for (int j = 0; j < numberOfClones; j++)
+			for (int j = 0; j < numberOfClones; j++) {
 				site[j] = sites[j][i]; // sites[0][i];
+			}
 
 			if ((numberOfDucts = (maximumDuctsPerSite - minimumDuctsPerSite)) <= 0) {
 				numberOfDucts = maximumDuctsPerSite;
@@ -1222,16 +1265,16 @@ public class BinPackerTester {
 					long powerCapacity;
 					long spaceCapacity;
 
-					if ((powerCapacity = maximumDuctPower - minimumDuctPower) <= 0)
+					if ((powerCapacity = maximumDuctPower - minimumDuctPower) <= 0) {
 						powerCapacity = maximumDuctPower;
-					else {
+					} else {
 						powerCapacity *= randomGenerator.nextDouble();
 						powerCapacity += minimumDuctPower;
 					}
 
-					if ((spaceCapacity = maximumDuctSpace - minimumDuctSpace) <= 0)
+					if ((spaceCapacity = maximumDuctSpace - minimumDuctSpace) <= 0) {
 						spaceCapacity = maximumDuctSpace;
-					else {
+					} else {
 						spaceCapacity *= randomGenerator.nextDouble();
 						spaceCapacity += minimumDuctSpace;
 					}
@@ -1251,12 +1294,14 @@ public class BinPackerTester {
 					Vector checkedPartners = new Vector();
 					while (connected) {
 						// if checked all potential partners
-						if (checkedPartners.size() == sites[0].length)
+						if (checkedPartners.size() == sites[0].length) {
 							break;
+						}
 
 						// if no tickets to select finish
-						if (tickets.size() == 0)
+						if (tickets.size() == 0) {
 							break;
+						}
 
 						// partner = numberOfSites - 1;
 						int selected = tickets.size();
@@ -1310,8 +1355,9 @@ public class BinPackerTester {
 						duct.addSite(other);
 						// System.out.println("Adding Duct("++",)");
 						siteArchitecture[k].addDuct(duct);
-						if (connVector[k] == null)
+						if (connVector[k] == null) {
 							connVector[k] = (TreeSet) siteArchitecture[k].siteConnectivityMatrix.get(site[k]);
+						}
 					}
 					// // if connected skip this duct
 					// if (connected)
@@ -1363,7 +1409,7 @@ public class BinPackerTester {
 	 * This method creates random hardware nodes and links. The random creation
 	 * of nodes is controlled by ranges (max,min) for each of the parameter of
 	 * the modules
-	 * 
+	 *
 	 * @param problem
 	 *            Assignment problem to which the hardware is to be added
 	 * @param minimumNumberOfProcessors
@@ -1413,7 +1459,7 @@ public class BinPackerTester {
 
 			HardwareNode node = new HardwareNode(Long.toString(i), new EDFScheduler(problem.bwComparator),
 					cyclesPerSecond);
-			problem.hardwareGraph.add(node);
+			problem.getHardwareGraph().add(node);
 			hardwareNodes[i] = node;
 		}
 
@@ -1431,9 +1477,9 @@ public class BinPackerTester {
 			for (int j = 0; j < numberOfLinks; j++) {
 				long bitsPerSecond;
 
-				if ((bitsPerSecond = maximumLinkBitsPerSecond - minimumLinkBitsPerSecond) <= 0)
+				if ((bitsPerSecond = maximumLinkBitsPerSecond - minimumLinkBitsPerSecond) <= 0) {
 					bitsPerSecond = maximumLinkBitsPerSecond;
-				else {
+				} else {
 					bitsPerSecond *= randomGenerator.nextDouble();
 					bitsPerSecond += minimumLinkBitsPerSecond;
 				}
@@ -1457,7 +1503,7 @@ public class BinPackerTester {
 	 * Creates an experiment (vector of AssignmentProblems), to be run and
 	 * plotted. Metrics for the experiement are. Fit - how well the assignement
 	 * was done Time - How long it took to run
-	 * 
+	 *
 	 * @param minimumNumberOfProcessors
 	 *            Starting number of processors
 	 * @param processorNumberIncrement
@@ -1541,9 +1587,9 @@ public class BinPackerTester {
 					minimumNumberOfLinksPerProcessor, maximumNumberOfLinksPerProcessor);
 
 			long totalCyclesPerSecond = 0;
-			for (Iterator iter = p.hardwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = p.getHardwareGraph().iterator(); iter.hasNext();) {
 				HardwareNode proc = (HardwareNode) iter.next();
-				totalCyclesPerSecond += proc.cyclesPerSecond;
+				totalCyclesPerSecond += proc.getCyclesPerSecond();
 			}
 
 			// System.out.println("\t Total Cycles Per
@@ -1594,7 +1640,7 @@ public class BinPackerTester {
 
 	/**
 	 * run the experiment (vector of assignment problems)
-	 * 
+	 *
 	 * @param experiment
 	 *            Vector of assignment problems
 	 * @return Vector of AssignmentResults
@@ -1629,7 +1675,7 @@ public class BinPackerTester {
 	 * Creates an experiment (vector of AssignmentProblems), to be run and
 	 * plotted. Metrics for the experiement are. Fit - how well the assignement
 	 * was done Time - How long it took to run
-	 * 
+	 *
 	 * @param minimumNumberOfProcessors
 	 *            Starting number of processors
 	 * @param processorNumberIncrement
@@ -1704,9 +1750,9 @@ public class BinPackerTester {
 		CANBus canbus500k = new CANBus(500000.0);
 		CANBus canbus100k = new CANBus(100000.0);
 
-		canbus1M.powerRequirement = 10;
-		canbus500k.powerRequirement = 10;
-		canbus100k.powerRequirement = 10;
+		canbus1M.setPowerRequirement(10);
+		canbus500k.setPowerRequirement(10);
+		canbus100k.setPowerRequirement(10);
 
 		NetInterface[] netInterfaces = new NetInterface[] { new NetInterface(canbus1M), new NetInterface(canbus500k),
 				new NetInterface(canbus100k) };
@@ -1728,12 +1774,14 @@ public class BinPackerTester {
 		}
 
 		SiteGuest[] supportedProcessors = new SiteGuest[siteGuest.size()];
-		for (int i = 0; i < siteGuest.size(); i++)
+		for (int i = 0; i < siteGuest.size(); i++) {
 			supportedProcessors[i] = (SiteGuest) siteGuest.get(i);
+		}
 
 		SiteGuest[] supportedLinks = new SiteGuest[interfaces.size()];
-		for (int i = 0; i < interfaces.size(); i++)
+		for (int i = 0; i < interfaces.size(); i++) {
 			supportedLinks[i] = (SiteGuest) interfaces.get(i);
+		}
 
 		for (int i = minimumNumberOfSites; i <= maximumNumberOfSites; i = (i + siteNumberIncrement)
 				* siteNumberFactor) {
@@ -1751,8 +1799,9 @@ public class BinPackerTester {
 			p.siteArchitecture = siteArchitecture[0];
 
 			Vector[] experiments = new Vector[numberOfClones];
-			for (int k = 0; k < numberOfClones; k++)
+			for (int k = 0; k < numberOfClones; k++) {
 				experiments[k] = new Vector();
+			}
 			for (int j = minimumNumberOfModules; j <= maximumNumberOfModules; j = (j + moduleNumberIncrement)
 					* moduleNumberFactor) {
 				OutDegreeAssignmentProblem[] p1 = new OutDegreeAssignmentProblem[numberOfClones];
@@ -1764,12 +1813,14 @@ public class BinPackerTester {
 						minimumCyclesPerModule, maximumCyclesPerModule, minimumPeriod, maximumPeriod,
 						minimumMessageSize, maximumMessageSize, minimumNumberOfMessagesPerModule,
 						maximumNumberOfMessagesPerModule, minimumCyclesPerSecond);
-				for (int k = 0; k < numberOfClones; k++)
+				for (int k = 0; k < numberOfClones; k++) {
 					experiments[k].add(p1[k]);
+				}
 			}
 
-			for (int k = 0; k < numberOfClones; k++)
+			for (int k = 0; k < numberOfClones; k++) {
 				problems.add(experiments[k]);
+			}
 		}
 		return problems;
 	}
@@ -1808,7 +1859,7 @@ public class BinPackerTester {
 			}
 
 			textArea.append("######## SOFTWARE GRAPH #########\n");
-			for (Iterator iter = p.softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = p.getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode module = (SoftwareNode) iter.next();
 				textArea.append("\t Module(" + Integer.toString(module.hashCode()) + ").name(" + module.name + ") C("
 						+ Long.toString(module.getCycles()) + " cycles) T(" + Long.toString(module.getPeriod())
@@ -1834,6 +1885,7 @@ public class BinPackerTester {
 
 	public void saveStatistics(Vector results, String prefix) {
 		Comparator intComparator = new Comparator() {
+			@Override
 			public int compare(Object o1, Object o2) {
 				// Allow duplicates
 				if (o1.hashCode() == o2.hashCode()) {
@@ -1845,39 +1897,46 @@ public class BinPackerTester {
 				int diff = i1 - i2;
 
 				// Allow duplicates
-				if (diff == 0)
+				if (diff == 0) {
 					return o1.hashCode() - o2.hashCode();
+				}
 
 				return diff;
 			}
 
+			@Override
 			public boolean equals(Object o) {
 				return getClass().equals(o.getClass());
 			}
 		};
 
 		Comparator doubleComparator = new Comparator() {
+			@Override
 			public int compare(Object o1, Object o2) {
 				// Allow Duplicates
-				if (o1.hashCode() == o2.hashCode())
+				if (o1.hashCode() == o2.hashCode()) {
 					return -1;
+				}
 
 				double i1 = ((Double) o1).doubleValue();
 				double i2 = ((Double) o2).doubleValue();
 				double diff = i1 - i2;
 
 				int answer;
-				if (diff < 0)
+				if (diff < 0) {
 					answer = (int) Math.floor(diff);
-				else
+				} else {
 					answer = (int) Math.ceil(diff);
+				}
 
-				if (answer == 0)
+				if (answer == 0) {
 					answer = o1.hashCode() - o2.hashCode();
+				}
 
 				return answer;
 			}
 
+			@Override
 			public boolean equals(Object o) {
 				return getClass().equals(o.getClass());
 			}
@@ -1920,7 +1979,7 @@ public class BinPackerTester {
 		int resultsSize = results.size();
 		for (int i = 0; i < resultsSize; i++) {
 			AssignmentResult result = (AssignmentResult) results.elementAt(i);
-			if (!result.success) {
+			if (!result.isSuccess()) {
 				failedExperiments++;
 				continue;
 			}
@@ -1937,7 +1996,7 @@ public class BinPackerTester {
 			Vector linksProcessed = new Vector();
 			Vector msgsProcessed = new Vector();
 			int linkNumber = 0;
-			for (Iterator iter = result.problem.hardwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = result.getProblem().getHardwareGraph().iterator(); iter.hasNext();) {
 				HardwareNode n = (HardwareNode) iter.next();
 				for (Iterator taskSet = n.getTaskSet().iterator(); taskSet.hasNext();) {
 					SoftwareNode m = (SoftwareNode) taskSet.next();
@@ -1945,39 +2004,43 @@ public class BinPackerTester {
 						CompositeSoftNode cn = (CompositeSoftNode) m;
 						TreeSet set = cn.getBasicComponents();
 						moduleNumber += set.size();
-					} else
+					} else {
 						moduleNumber++;
+					}
 					totalBandwidthRequirement += m.getBandwidth();
 				}
-				totalCapacityGap += (n.getAvailableCapacity() / n.cyclesPerSecond);
+				totalCapacityGap += (n.getAvailableCapacity() / n.getCyclesPerSecond());
 				totalCapacity += n.getAvailableCapacity();
-				TreeSet connVector = (TreeSet) result.problem.hardwareConnectivity.get(n);
+				TreeSet connVector = (TreeSet) result.getProblem().hardwareConnectivity.get(n);
 				if (connVector != null) {
 					for (Iterator iter1 = connVector.iterator(); iter1.hasNext();) {
 						Link l = (Link) iter1.next();
 
-						if (linksProcessed.contains(l))
+						if (linksProcessed.contains(l)) {
 							continue;
+						}
 						linkNumber++;
 						linksProcessed.add(l);
 						totalLinkCapacity += l.getAvailableCapacity();
-						totalLinkCapacityGap += (l.getAvailableCapacity() / l.cyclesPerSecond);
+						totalLinkCapacityGap += (l.getAvailableCapacity() / l.getCyclesPerSecond());
 						for (Iterator msgs = l.getTaskSet().iterator(); msgs.hasNext();) {
 							Message m = (Message) msgs.next();
 							if (m instanceof CompositeMsgNode) {
 								for (Iterator basicMsgs = ((CompositeMsgNode) m).components.iterator(); basicMsgs
 										.hasNext();) {
 									Message bm = (Message) basicMsgs.next();
-									if (msgsProcessed.contains(bm))
+									if (msgsProcessed.contains(bm)) {
 										continue;
+									}
 
 									messageNumber++;
 									msgsProcessed.add(bm);
 									totalMessageBandwidth += bm.getBandwidth();
 								}
 							} else {
-								if (msgsProcessed.contains(m))
+								if (msgsProcessed.contains(m)) {
 									continue;
+								}
 								messageNumber++;
 								msgsProcessed.add(m);
 								totalMessageBandwidth += m.getBandwidth();
@@ -1987,11 +2050,11 @@ public class BinPackerTester {
 				}
 
 			}
-			totalLinkCapacityGap /= linkNumber;
-			totalCapacityGap /= result.problem.hardwareGraph.size();
+			totalLinkCapacityGap = linkNumber != 0 ? totalLinkCapacityGap / linkNumber : 0.0;
+			totalCapacityGap /= result.getProblem().getHardwareGraph().size();
 			bgmap.put(new Double(totalBandwidthRequirement), new Double(totalCapacityGap));
 			ngmap.put(new Integer(moduleNumber), new Double(totalCapacityGap));
-			hbmap.put(new Double(totalBandwidthRequirement), new Integer(result.problem.hardwareGraph.size()));
+			hbmap.put(new Double(totalBandwidthRequirement), new Integer(result.getProblem().getHardwareGraph().size()));
 			mbgmap.put(new Double(totalMessageBandwidth), new Double(totalLinkCapacityGap));
 			lbmap.put(new Double(totalMessageBandwidth), new Integer(linkNumber));
 			bcmap.put(new Double(totalBandwidthRequirement), new Double(totalCapacity));
@@ -2055,7 +2118,7 @@ public class BinPackerTester {
 		for (int i = 0; i < resultsSize; i++) {
 			AssignmentResult result = (AssignmentResult) results.elementAt(i);
 			textArea.append("\n\n -----  ASSIGNMENTS FOR PROBLEM(" + Integer.toString(i) + ") SUCCESS("
-					+ Boolean.toString(result.success) + ")------\n");
+					+ Boolean.toString(result.isSuccess()) + ")------\n");
 			double totalCapacityGap = 0.0;
 			double totalBandwidthRequirement = 0.0;
 			int moduleNumber = 0;
@@ -2065,17 +2128,18 @@ public class BinPackerTester {
 			Vector linksProcessed = new Vector();
 			Vector msgsProcessed = new Vector();
 			int linkNumber = 0;
-			for (Iterator iter = result.problem.hardwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = result.getProblem().getHardwareGraph().iterator(); iter.hasNext();) {
 				HardwareNode n = (HardwareNode) iter.next();
-				textArea.append("Node " + n.name + ":\n ");
+				textArea.append("Node " + n.getName() + ":\n ");
 				for (Iterator taskSet = n.getTaskSet().iterator(); taskSet.hasNext();) {
 					SoftwareNode m = (SoftwareNode) taskSet.next();
 					if (m instanceof CompositeSoftNode) {
 						CompositeSoftNode cn = (CompositeSoftNode) m;
 						TreeSet set = cn.getBasicComponents();
 						moduleNumber += set.size();
-					} else
+					} else {
 						moduleNumber++;
+					}
 					totalBandwidthRequirement += m.getBandwidth();
 					textArea.append("\t Module " + m.name + " " + "C(" + Long.toString(m.cycles) + " cycles)," + "T("
 							+ Long.toString(m.period) + " nanos)," + "D(" + Long.toString(m.deadline) + " nanos)\n"
@@ -2084,37 +2148,40 @@ public class BinPackerTester {
 				}
 				textArea.append(
 						"\t\t Available Capacity = " + Double.toString(n.getAvailableCapacity()) + " cycles / sec \n");
-				totalCapacityGap += (n.getAvailableCapacity() / n.cyclesPerSecond);
+				totalCapacityGap += (n.getAvailableCapacity() / n.getCyclesPerSecond());
 
-				TreeSet connVector = (TreeSet) result.problem.hardwareConnectivity.get(n);
+				TreeSet connVector = (TreeSet) result.getProblem().hardwareConnectivity.get(n);
 				if (connVector != null) {
 					for (Iterator iter1 = connVector.iterator(); iter1.hasNext();) {
 						Link l = (Link) iter1.next();
 
 						textArea.append("LINK(" + Integer.toString(l.hashCode()) + ") BW("
-								+ Double.toString(l.cyclesPerSecond) + " bits/s) Available Capacity("
-								+ Double.toString((l.getAvailableCapacity() / l.cyclesPerSecond)) + ")\n");
-						if (linksProcessed.contains(l))
+								+ Double.toString(l.getCyclesPerSecond()) + " bits/s) Available Capacity("
+								+ Double.toString((l.getAvailableCapacity() / l.getCyclesPerSecond())) + ")\n");
+						if (linksProcessed.contains(l)) {
 							continue;
+						}
 						linkNumber++;
 						linksProcessed.add(l);
-						totalLinkCapacityGap += (l.getAvailableCapacity() / l.cyclesPerSecond);
+						totalLinkCapacityGap += (l.getAvailableCapacity() / l.getCyclesPerSecond());
 						for (Iterator msgs = l.getTaskSet().iterator(); msgs.hasNext();) {
 							Message m = (Message) msgs.next();
 							if (m instanceof CompositeMsgNode) {
 								for (Iterator basicMsgs = ((CompositeMsgNode) m).components.iterator(); basicMsgs
 										.hasNext();) {
 									Message bm = (Message) basicMsgs.next();
-									if (msgsProcessed.contains(bm))
+									if (msgsProcessed.contains(bm)) {
 										continue;
+									}
 
 									messageNumber++;
 									msgsProcessed.add(bm);
 									totalMessageBandwidth += bm.getBandwidth();
 								}
 							} else {
-								if (msgsProcessed.contains(m))
+								if (msgsProcessed.contains(m)) {
 									continue;
+								}
 								messageNumber++;
 								msgsProcessed.add(m);
 								totalMessageBandwidth += m.getBandwidth();
@@ -2124,10 +2191,10 @@ public class BinPackerTester {
 				}
 
 			}
-			totalLinkCapacityGap /= linkNumber;
-			totalCapacityGap /= result.problem.hardwareGraph.size();
+			totalLinkCapacityGap = linkNumber != 0 ? totalLinkCapacityGap / linkNumber : 0.0;
+			totalCapacityGap /= result.getProblem().getHardwareGraph().size();
 			textArea.append("---------- END OF ASSIGNMENT PROBLEM --------------\n");
-			textArea.append(" Number of Processors(" + Integer.toString(result.problem.hardwareGraph.size())
+			textArea.append(" Number of Processors(" + Integer.toString(result.getProblem().getHardwareGraph().size())
 					+ ") Number of Links(" + Integer.toString(linkNumber) + ")\n");
 			textArea.append("total Load(" + Double.toString(totalBandwidthRequirement) + ") total Message Bandwidth("
 					+ totalMessageBandwidth + ")\n");
@@ -2144,14 +2211,15 @@ public class BinPackerTester {
 			Site s = (Site) iter.next();
 			for (Iterator iter1 = s.guests.iterator(); iter1.hasNext();) {
 				HardwareNode guest = (HardwareNode) iter1.next();
-				if (!(guest instanceof Processor))
+				if (!(guest instanceof Processor)) {
 					continue;
+				}
 
 				if (guest.getTaskSet() == null || guest.getTaskSet().size() == 0) {
 					/* remove this one completely */
 					guest.setHost(null);
 					iter1.remove();
-					problem.hardwareGraph.remove(guest);
+					problem.getHardwareGraph().remove(guest);
 				}
 			}
 		}
@@ -2161,13 +2229,15 @@ public class BinPackerTester {
 			Site s = (Site) iter.next();
 			for (Iterator iter1 = s.guests.iterator(); iter1.hasNext();) {
 				HardwareNode guest = (HardwareNode) iter1.next();
-				if (!(guest instanceof Processor))
+				if (!(guest instanceof Processor)) {
 					continue;
+				}
 
 				HardwareNode replacement = s.replaceWithBestFit(guest);
 
-				if (replacement == null)
+				if (replacement == null) {
 					continue;
+				}
 
 				Processor p1 = (Processor) replacement;
 				Processor p2 = (Processor) guest;
@@ -2175,7 +2245,7 @@ public class BinPackerTester {
 					for (Iterator nics = p2.classNetInterfaces.iterator(); nics.hasNext();) {
 						p1.classNetInterfaces.add(nics.next());
 					}
-					for (Iterator nics = p2.netInterfaces.iterator(); nics.hasNext();) {
+					for (Iterator nics = p2.getNetInterfaces().iterator(); nics.hasNext();) {
 						NetInterface nic = (NetInterface) nics.next();
 						p1.classNetInterfaces.add(nic.clone());
 					}
@@ -2210,8 +2280,8 @@ public class BinPackerTester {
 				cloneVector.addAll(connVector);
 				problem.hardwareConnectivity.put(clone, cloneVector);
 			}
-			problem.hardwareGraph.remove(original);
-			problem.hardwareGraph.add(clone);
+			problem.getHardwareGraph().remove(original);
+			problem.getHardwareGraph().add(clone);
 
 			Location s = original.getHost();
 			if (s != null) {
@@ -2237,11 +2307,13 @@ public class BinPackerTester {
 			Site s = (Site) iter.next();
 			for (Iterator iter1 = s.guests.iterator(); iter1.hasNext();) {
 				HardwareNode guest = (HardwareNode) iter1.next();
-				if (!(guest instanceof Link))
+				if (!(guest instanceof Link)) {
 					continue;
+				}
 
-				if (replacedLinks.contains(guest))
+				if (replacedLinks.contains(guest)) {
 					continue;
+				}
 
 				replacedLinks.add(guest);
 
@@ -2293,8 +2365,9 @@ public class BinPackerTester {
 				Site s = (Site) iter.next();
 				for (Iterator iter1 = s.guests.iterator(); iter1.hasNext();) {
 					HardwareNode guest = (HardwareNode) iter1.next();
-					if (!(guest instanceof Link))
+					if (!(guest instanceof Link)) {
 						continue;
+					}
 
 					Link l = (Link) guest;
 					for (Iterator iter2 = l.getConnectedNodes().iterator(); iter2.hasNext();) {
@@ -2319,9 +2392,9 @@ public class BinPackerTester {
 		// DebugMonitor.show();
 	}
 
-	public static int progress = 0;
+	private static int progress = 0;
 
-	public static int toDeploy = 0;
+	static int toDeploy = 0;
 
 	public static void main(String args[]) {
 		BinPackerTester tester = new BinPackerTester();
@@ -2343,9 +2416,9 @@ public class BinPackerTester {
 		System.exit(0);
 	}
 
-	public static DecimalFormat decFormat = new DecimalFormat("###,###,###,##0");
+	private static final DecimalFormat decFormat = new DecimalFormat("###,###,###,##0");
 
-	public static int failureCode = 0;
+	static int failureCode = 0;
 
 	public static void runPerfectFitExperiment(String args[]) {
 		int round = Integer.parseInt(args[0]);
@@ -2382,7 +2455,7 @@ public class BinPackerTester {
 		supportedHardware[12] = netInterfaces[2].link;
 
 		for (int i = 0; i < 100; i++) {
-			hardwareTemplate.hardwareGraph
+			hardwareTemplate.getHardwareGraph()
 					.add(new MPC555("", new EDFScheduler(new BandwidthComparator()), 1000000000l, netInterfaces));
 
 		}
@@ -2406,13 +2479,13 @@ public class BinPackerTester {
 
 		for (int i = 0; i < targets.length; i++) {
 			double totalDemand = 0.0;
-			for (Iterator iter = targets[i].softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = targets[i].getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode n = (SoftwareNode) iter.next();
 				totalDemand += n.getBandwidth();
 			}
 
 			System.out.println("Original Software(" + i + ") Demand(" + decFormat.format(totalDemand)
-					+ " cycles/s) number of Modules (" + targets[i].softwareGraph.size() + ")");
+					+ " cycles/s) number of Modules (" + targets[i].getSoftwareGraph().size() + ")");
 		}
 
 		for (int i = 0; i < targets.length; i++) {
@@ -2437,14 +2510,15 @@ public class BinPackerTester {
 			if (res) {
 				tester.fitProcessors(problem);
 				tester.fitLinks(problem);
-			} else
+			} else {
 				System.out.println("Failure Code(" + failureCode + ")");
+			}
 			AssignmentResult result = new AssignmentResult(problem, res);
 			Vector v = new Vector();
 			v.add(result);
 
 			double totalDemand = 0.0;
-			for (Iterator iter = result.problem.softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = result.getProblem().getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode n = (SoftwareNode) iter.next();
 				totalDemand += n.getBandwidth();
 			}
@@ -2500,9 +2574,9 @@ public class BinPackerTester {
 		// netInterfaces[2].link.powerRequirement = 10.0;
 
 		// we will use "space" to limit the number of links in ducts
-		netInterfaces[0].link.spaceRequirement = 10.0;
-		netInterfaces[1].link.spaceRequirement = 10.0;
-		netInterfaces[2].link.spaceRequirement = 10.0;
+		netInterfaces[0].link.setSpaceRequirement(10.0);
+		netInterfaces[1].link.setSpaceRequirement(10.0);
+		netInterfaces[2].link.setSpaceRequirement(10.0);
 
 		SiteGuest[] supportedHardware = new SiteGuest[13];
 		SiteGuest[] supportedProcessors = new SiteGuest[10];
@@ -2513,7 +2587,7 @@ public class BinPackerTester {
 			supportedHardware[i] = new MPC555("", new EDFScheduler(new BandwidthComparator()), size, netInterfaces);
 			// Set power requirements to limit the number of processors that can
 			// fit.
-			((HardwareNode) supportedHardware[i]).powerRequirement = 100.0;
+			((HardwareNode) supportedHardware[i]).setPowerRequirement(100.0);
 			supportedProcessors[i] = supportedHardware[i];
 			System.out.println("Processor Size(" + format.format(size) + ")");
 			size += 100000000l;
@@ -2527,7 +2601,7 @@ public class BinPackerTester {
 		supportedNets[2] = netInterfaces[2].link;
 
 		for (int i = 0; i < 100; i++) {
-			hardwareTemplate.hardwareGraph
+			hardwareTemplate.getHardwareGraph()
 					.add(new MPC555("", new EDFScheduler(new BandwidthComparator()), 1000000000l, netInterfaces));
 
 		}
@@ -2551,13 +2625,13 @@ public class BinPackerTester {
 
 		for (int i = 0; i < targets.length; i++) {
 			double totalDemand = 0.0;
-			for (Iterator iter = targets[i].softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = targets[i].getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode n = (SoftwareNode) iter.next();
 				totalDemand += n.getBandwidth();
 			}
 
 			System.out.println("Original Software(" + i + ") Demand(" + decFormat.format(totalDemand)
-					+ " cycles/s) number of Modules (" + targets[i].softwareGraph.size() + ")");
+					+ " cycles/s) number of Modules (" + targets[i].getSoftwareGraph().size() + ")");
 		}
 
 		SiteArchitecture[] siteArchitectures = tester.createSiteArchitecture(targets.length, // number of clones
@@ -2602,14 +2676,15 @@ public class BinPackerTester {
 			if (res) {
 				tester.fitProcessors(problem);
 				tester.fitLinks(problem);
-			} else
+			} else {
 				System.out.println("Failure Code(" + failureCode + ")");
+			}
 			AssignmentResult result = new AssignmentResult(problem, res);
 			Vector v = new Vector();
 			v.add(result);
 
 			double totalDemand = 0.0;
-			for (Iterator iter = result.problem.softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = result.getProblem().getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode n = (SoftwareNode) iter.next();
 				totalDemand += n.getBandwidth();
 			}
@@ -2669,7 +2744,7 @@ public class BinPackerTester {
 		supportedHardware[12] = netInterfaces[2].link;
 
 		for (int i = 0; i < 99; i++) {
-			hardwareTemplate.hardwareGraph
+			hardwareTemplate.getHardwareGraph()
 					.add(new MPC555("", new EDFScheduler(new BandwidthComparator()), 1000000000l, netInterfaces));
 
 		}
@@ -2680,7 +2755,7 @@ public class BinPackerTester {
 													// (1000000000l/numberOfProcessors);
 
 		for (int i = 0; i < numberOfProcessors; i++) {
-			diminishedHardwareTemplate.hardwareGraph.add(new MPC555("", new EDFScheduler(new BandwidthComparator()),
+			diminishedHardwareTemplate.getHardwareGraph().add(new MPC555("", new EDFScheduler(new BandwidthComparator()),
 					diminishedProcessorSize, netInterfaces));
 
 		}
@@ -2703,13 +2778,13 @@ public class BinPackerTester {
 
 		for (int i = 0; i < targets.length; i++) {
 			double totalDemand = 0.0;
-			for (Iterator iter = targets[i].softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = targets[i].getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode n = (SoftwareNode) iter.next();
 				totalDemand += n.getBandwidth();
 			}
 
 			System.out.println("Original Software(" + i + ") Demand(" + decFormat.format(totalDemand)
-					+ " cycles/s) number of Modules (" + targets[i].softwareGraph.size() + ")");
+					+ " cycles/s) number of Modules (" + targets[i].getSoftwareGraph().size() + ")");
 		}
 
 		for (int i = 0; i < targets.length; i++) {
@@ -2743,15 +2818,16 @@ public class BinPackerTester {
 			if (res) {
 				tester.fitProcessors(problem);
 				tester.fitLinks(problem);
-			} else
+			} else {
 				System.out.println("Failure Code(" + failureCode + ")");
+			}
 
 			AssignmentResult result = new AssignmentResult(problem, res);
 			Vector v = new Vector();
 			v.add(result);
 
 			double totalDemand = 0.0;
-			for (Iterator iter = result.problem.softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = result.getProblem().getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode n = (SoftwareNode) iter.next();
 				totalDemand += n.getBandwidth();
 			}
@@ -2778,9 +2854,10 @@ public class BinPackerTester {
 				new BandwidthComparator(), new CapacityComparator());
 		OutDegreeAssignmentProblem[] targets = new OutDegreeAssignmentProblem[4];
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++) {
 			targets[i] = new OutDegreeAssignmentProblem(new OutDegreeComparator(), new BandwidthComparator(),
 					new CapacityComparator());
+		}
 
 		CANBus canbus1M = new CANBus(1000000.0);
 		CANBus canbus500k = new CANBus(500000.0);
@@ -2790,7 +2867,7 @@ public class BinPackerTester {
 				new NetInterface(canbus100k) };
 
 		for (int i = 0; i < 100; i++) {
-			hardwareTemplate.hardwareGraph
+			hardwareTemplate.getHardwareGraph()
 					.add(new MPC555("", new EDFScheduler(new BandwidthComparator()), 1000000000l, netInterfaces));
 		}
 
@@ -2810,20 +2887,20 @@ public class BinPackerTester {
 		// writer.flush();
 
 		double totalCapacity = 0.0;
-		for (Iterator iter = hardwareTemplate.hardwareGraph.iterator(); iter.hasNext();) {
+		for (Iterator iter = hardwareTemplate.getHardwareGraph().iterator(); iter.hasNext();) {
 			HardwareNode node = (HardwareNode) iter.next();
 			totalCapacity += node.getAvailableCapacity();
 		}
 
 		for (int i = 0; i < targets.length; i++) {
 			double totalDemand = 0.0;
-			for (Iterator iter = targets[i].softwareGraph.iterator(); iter.hasNext();) {
+			for (Iterator iter = targets[i].getSoftwareGraph().iterator(); iter.hasNext();) {
 				SoftwareNode node = (SoftwareNode) iter.next();
 				totalDemand += node.getBandwidth();
 			}
 
 			System.out.println("Total clone(" + i + ") Capacity(" + totalCapacity + ") Total Demand(" + totalDemand
-					+ ") Gap(" + (totalCapacity - totalDemand) + ") #modules(" + targets[i].softwareGraph.size() + ")");
+					+ ") Gap(" + (totalCapacity - totalDemand) + ") #modules(" + targets[i].getSoftwareGraph().size() + ")");
 		}
 		// writer.close();
 	}
@@ -2969,8 +3046,8 @@ public class BinPackerTester {
 		siteArchitecture.addSiteGuest(supportedProcessor, site);
 		siteArchitecture.addSiteGuest(supportedProcessor1, site);
 
-		problem.hardwareGraph.add(supportedProcessor);
-		problem.hardwareGraph.add(supportedProcessor1);
+		problem.getHardwareGraph().add(supportedProcessor);
+		problem.getHardwareGraph().add(supportedProcessor1);
 
 		CANBus link = new CANBus(1000000.0);
 		link.add(supportedProcessor);
@@ -2987,12 +3064,12 @@ public class BinPackerTester {
 		SoftwareNode nE = new SoftwareNode(5, 50000, 50000, problem.bwComparator, "E");
 		SoftwareNode nJ = new SoftwareNode(5, 50000, 50000, problem.bwComparator, "J");
 
-		problem.softwareGraph.add(nA);
-		problem.softwareGraph.add(nB);
-		problem.softwareGraph.add(nC);
-		problem.softwareGraph.add(nD);
-		problem.softwareGraph.add(nE);
-		problem.softwareGraph.add(nJ);
+		problem.getSoftwareGraph().add(nA);
+		problem.getSoftwareGraph().add(nB);
+		problem.getSoftwareGraph().add(nC);
+		problem.getSoftwareGraph().add(nD);
+		problem.getSoftwareGraph().add(nE);
+		problem.getSoftwareGraph().add(nJ);
 
 		Message m1 = new Message(64, 50000, 50000, nA, nC);
 		problem.addMessage(m1);
@@ -3006,14 +3083,14 @@ public class BinPackerTester {
 		problem.addMessage(m7);
 
 		SoftwareNode nF = new SoftwareNode(25, 100000, 100000, problem.bwComparator, "F");
-		problem.softwareGraph.add(nF);
+		problem.getSoftwareGraph().add(nF);
 
 		SoftwareNode nG = new SoftwareNode(25, 100000, 100000, problem.bwComparator, "G");
 		SoftwareNode nH = new SoftwareNode(60, 200000, 200000, problem.bwComparator, "H");
 		SoftwareNode nI = new SoftwareNode(25, 100000, 100000, problem.bwComparator, "I");
-		problem.softwareGraph.add(nG);
-		problem.softwareGraph.add(nH);
-		problem.softwareGraph.add(nI);
+		problem.getSoftwareGraph().add(nG);
+		problem.getSoftwareGraph().add(nH);
+		problem.getSoftwareGraph().add(nI);
 
 		Message m5 = new Message(30, 100000, 100000, nG, nH);
 		problem.addMessage(m5);
@@ -3069,8 +3146,8 @@ public class BinPackerTester {
 		siteArchitecture.addSiteGuest(supportedProcessor, site);
 		siteArchitecture.addSiteGuest(supportedProcessor1, site);
 
-		problem.hardwareGraph.add(supportedProcessor);
-		problem.hardwareGraph.add(supportedProcessor1);
+		problem.getHardwareGraph().add(supportedProcessor);
+		problem.getHardwareGraph().add(supportedProcessor1);
 
 		CANBus link = new CANBus(1000000.0);
 		link.add(supportedProcessor);
@@ -3087,12 +3164,12 @@ public class BinPackerTester {
 		SoftwareNode nE = new SoftwareNode(5, 50000, 50000, problem.bwComparator, "E");
 		SoftwareNode nJ = new SoftwareNode(5, 50000, 50000, problem.bwComparator, "J");
 
-		problem.softwareGraph.add(nA);
-		problem.softwareGraph.add(nB);
-		problem.softwareGraph.add(nC);
-		problem.softwareGraph.add(nD);
-		problem.softwareGraph.add(nE);
-		problem.softwareGraph.add(nJ);
+		problem.getSoftwareGraph().add(nA);
+		problem.getSoftwareGraph().add(nB);
+		problem.getSoftwareGraph().add(nC);
+		problem.getSoftwareGraph().add(nD);
+		problem.getSoftwareGraph().add(nE);
+		problem.getSoftwareGraph().add(nJ);
 
 		Message m1 = new Message(64, 50000, 50000, nA, nC);
 		problem.addMessage(m1);
@@ -3106,14 +3183,14 @@ public class BinPackerTester {
 		problem.addMessage(m7);
 
 		SoftwareNode nF = new SoftwareNode(25, 100000, 100000, problem.bwComparator, "F");
-		problem.softwareGraph.add(nF);
+		problem.getSoftwareGraph().add(nF);
 
 		SoftwareNode nG = new SoftwareNode(25, 100000, 100000, problem.bwComparator, "G");
 		SoftwareNode nH = new SoftwareNode(60, 200000, 200000, problem.bwComparator, "H");
 		SoftwareNode nI = new SoftwareNode(25, 100000, 100000, problem.bwComparator, "I");
-		problem.softwareGraph.add(nG);
-		problem.softwareGraph.add(nH);
-		problem.softwareGraph.add(nI);
+		problem.getSoftwareGraph().add(nG);
+		problem.getSoftwareGraph().add(nH);
+		problem.getSoftwareGraph().add(nI);
 
 		Message m5 = new Message(30, 100000, 100000, nG, nH);
 		problem.addMessage(m5);

@@ -29,35 +29,38 @@ import java.util.function.Consumer;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.osate.ge.swt.BorderedCLabel;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.internal.InternalUtil;
+import org.osate.ge.swt.SwtUtil;
 
 /**
  * View for displaying a name and allowing it to be edited using the {@link NameEditorDialog}
+ * @since 1.1
  *
  */
 public final class NameEditor extends Composite {
 	private final NameEditorModel model;
-	private final CLabel nameLbl;
+	private final BorderedCLabel nameLbl;
 	private final Button renameBtn;
 	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
 	public NameEditor(final Composite parent, final NameEditorModel model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
-		InternalUtil.setColorsToMatchParent(this);
+		SwtUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
-		this.nameLbl = new CLabel(this, SWT.BORDER);
+		this.nameLbl = new BorderedCLabel(this);
 		this.nameLbl
 				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
+		SwtUtil.setColorsToMatchParent(this.nameLbl);
 
 		this.renameBtn = new Button(this, SWT.FLAT);
+		SwtUtil.setColorsToMatchParent(renameBtn);
 		this.renameBtn
 				.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.CENTER, SWT.CENTER).create());
 		this.renameBtn.setText("Rename");
@@ -87,7 +90,7 @@ public final class NameEditor extends Composite {
 	}
 
 	public static void main(String[] args) {
-		InternalUtil.run(shell -> {
+		SwtUtil.run(shell -> {
 			new NameEditor(shell, new TestNameEditorModel());
 		});
 	}

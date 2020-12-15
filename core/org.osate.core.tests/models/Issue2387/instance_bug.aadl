@@ -1,0 +1,43 @@
+package instance_bug
+public
+  with ps;
+
+  system s
+  	features
+  		f: in event port {
+  			ps::string_property => "bob";
+  		};
+    properties
+      ps::string_property => ps::string_with_default;
+  end s;
+
+  system implementation s.i
+  end s.i;
+
+
+  system s11
+     modes
+     	m1: initial mode;
+     	m2: mode; 
+    properties
+ 	  -- don't want this to force the explicit binding of the default
+ 	  -- value to the property in the subcomponent s2 below
+       ps::string_with_default => "XXX";
+  end s11;
+
+  system s22
+  	features
+  		f1: in event port;
+  		f2: out event port;
+  end s22;
+
+
+  system X
+  end X;
+  
+  system implementation X.i
+  	subcomponents
+  		s1: system s11;
+  		s2: system s22;
+  end X.i;
+end instance_bug;

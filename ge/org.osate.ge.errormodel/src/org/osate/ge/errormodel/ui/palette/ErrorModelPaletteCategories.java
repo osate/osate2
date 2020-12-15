@@ -24,5 +24,11 @@
 package org.osate.ge.errormodel.ui.palette;
 
 public class ErrorModelPaletteCategories {
-	public static final String ERROR_MODEL = "org.osate.ge.errormodel.categories.em";
+	private ErrorModelPaletteCategories() {
+	}
+
+	public static final String ERROR_BEHAVIOR = "org.osate.ge.errormodel.categories.em.behavior";
+	public static final String ERROR_FLOWS = "org.osate.ge.errormodel.categories.em.flows";
+	public static final String ERROR_PROPAGATION = "org.osate.ge.errormodel.categories.em.propagation";
+	public static final String ERROR_TYPES = "org.osate.ge.errormodel.categories.em.types";
 }

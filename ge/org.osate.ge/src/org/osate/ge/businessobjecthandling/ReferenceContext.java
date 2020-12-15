@@ -55,7 +55,7 @@ public class ReferenceContext {
 	 *
 	 * @since 2.0
 	 */
-	public <T> Object getBusinessObject() {
+	public Object getBusinessObject() {
 		return bo;
 	}
 

@@ -65,6 +65,13 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.statushandlers.StatusManager;
+import org.eclipse.xtext.formatting2.FormatterPreferenceKeys;
+import org.eclipse.xtext.formatting2.FormatterPreferences;
+import org.eclipse.xtext.preferences.IPreferenceValues;
+import org.eclipse.xtext.preferences.IPreferenceValuesProvider;
+import org.eclipse.xtext.preferences.ITypedPreferenceValues;
+import org.eclipse.xtext.preferences.TypedPreferenceValues;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
@@ -78,6 +85,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUnparserRegistry;
+import org.osate.ge.ProjectUtil;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionService;
@@ -85,11 +93,14 @@ import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
-import org.osate.ge.internal.util.ProjectUtil;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.io.CharStreams;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
+@SuppressWarnings("restriction")
 public class DefaultAadlModificationService implements AadlModificationService {
 	public static class ContextFunction extends SimpleServiceContextFunction<AadlModificationService> {
 		@Override
@@ -102,11 +113,18 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	private final ModelChangeNotifier modelChangeNotifier;
 	private final ActionService actionService;
 
+	@Inject
+	@FormatterPreferences
+	private IPreferenceValuesProvider preferencesProvider;
+
 	public DefaultAadlModificationService(final ModelChangeNotifier modelChangeNotifier,
 			final ActionService actionService) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier,
 				"modelChangeNotifier must not be null");
 		this.actionService = Objects.requireNonNull(actionService, "activeService must not be null");
+
+		IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(URI.createFileURI("dummy.aadl"))
+		.get(Injector.class).injectMembers(this);
 	}
 
 	@Override
@@ -469,18 +487,53 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			// Unparse the annex text of the cloned object and update the Xtext document
 			if(parsedAnnexRootClone instanceof AnnexLibrary) {
 				final DefaultAnnexLibrary defaultAnnexLibrary = (DefaultAnnexLibrary)defaultAnnexElement1;
-				final String sourceTxt1 = "{**" + getAnnexUnparserRegistry().getAnnexUnparser(defaultAnnexLibrary.getName()).unparseAnnexLibrary((AnnexLibrary)parsedAnnexRootClone, "  ") + "**}";
+				final String annexText = getAnnexUnparserRegistry().getAnnexUnparser(defaultAnnexLibrary.getName())
+						.unparseAnnexLibrary((AnnexLibrary) parsedAnnexRootClone, "  ");
+				final String sourceTxt1 = alignAnnexTextToCore(resource, annexText, 1);
 				EcoreUtil.delete(defaultAnnexLibrary.getParsedAnnexLibrary());
 				defaultAnnexLibrary.setSourceText(sourceTxt1);
 			} else if(parsedAnnexRootClone instanceof AnnexSubclause) {
 				final DefaultAnnexSubclause defaultAnnexSubclause = (DefaultAnnexSubclause)defaultAnnexElement1;
-				final String sourceTxt2 = "{**" + getAnnexUnparserRegistry().getAnnexUnparser(defaultAnnexSubclause.getName()).unparseAnnexSubclause((AnnexSubclause)parsedAnnexRootClone, "  ") + "**}";
+				final String annexText = getAnnexUnparserRegistry().getAnnexUnparser(defaultAnnexSubclause.getName())
+						.unparseAnnexSubclause((AnnexSubclause) parsedAnnexRootClone, "  ");
+				final String sourceTxt2 = alignAnnexTextToCore(resource, annexText, 2);
 				EcoreUtil.delete(defaultAnnexSubclause.getParsedAnnexSubclause());
 				defaultAnnexSubclause.setSourceText(sourceTxt2);
 			} else {
 				throw new RuntimeException("Unhandled case, parsedAnnexRoot is of type: " + parsedAnnexRootClone.getClass());
 			}
 		}, false);
+	}
+
+	private String alignAnnexTextToCore(XtextResource resource, String annexText, int indentationLevel) {
+		// Get indentation string from preferences if there is one. Otherwise, defaults to '\t'.
+		IPreferenceValues preferences = preferencesProvider.getPreferenceValues(resource);
+		ITypedPreferenceValues typedPreferences = TypedPreferenceValues.castOrWrap(preferences);
+		String indentation = typedPreferences.getPreference(FormatterPreferenceKeys.indentation);
+
+		// Add indentation to every line of the annex text
+		StringBuilder builder = new StringBuilder(annexText);
+		if (builder.length() != 0) {
+			String annexIndentation = Strings.repeat(indentation, indentationLevel + 1);
+			builder.insert(0, annexIndentation);
+			int index = annexIndentation.length();
+			while (index < builder.length() - 1) {
+				if (builder.charAt(index) == '\n') {
+					builder.insert(index + 1, annexIndentation);
+					index += 1 + annexIndentation.length();
+				} else {
+					index++;
+				}
+			}
+			if (builder.charAt(builder.length() - 1) != '\n') {
+				builder.append(System.lineSeparator());
+			}
+		}
+
+		builder.insert(0, "{**" + System.lineSeparator());
+		builder.append(Strings.repeat(indentation, indentationLevel));
+		builder.append("**}");
+		return builder.toString();
 	}
 
 	private AnnexUnparserRegistry getAnnexUnparserRegistry() {

@@ -56,7 +56,7 @@ import org.osate.ge.internal.ui.editor.ComboContributionItem;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.SwtUtil;
 
 import com.google.common.base.Predicates;
 
@@ -146,7 +146,7 @@ public class FlowContributionItem extends ComboContributionItem {
 			}
 		});
 
-		SwtTestUtil.setTestingId(comboViewer.getCombo(), highlightFlow);
+		SwtUtil.setTestingId(comboViewer.getCombo(), highlightFlow);
 		refresh(); // Populate the combo box
 		return control;
 	}
@@ -175,12 +175,16 @@ public class FlowContributionItem extends ComboContributionItem {
 					// Determine which flows have elements contained in the diagram and whether the flow is partial.
 					queryService.getResults(flowContainerQuery, diagram).stream().flatMap(flowContainerQueryable -> {
 						if (flowContainerQueryable.getBusinessObject() instanceof ComponentInstance) {
-							return AadlInstanceObjectUtil.getComponentInstance(flowContainerQueryable)
-									.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
+							return AadlInstanceObjectUtil
+									.getComponentInstance(flowContainerQueryable.getBusinessObjectContext())
+									.map(ci -> createFlowSegmentReferences(
+											flowContainerQueryable.getBusinessObjectContext(), ci))
 									.orElse(Stream.empty());
 						} else {
-							return AadlClassifierUtil.getComponentImplementation(flowContainerQueryable)
-									.map(ci -> createFlowSegmentReferences(flowContainerQueryable, ci))
+							return AadlClassifierUtil
+									.getComponentImplementation(flowContainerQueryable.getBusinessObjectContext())
+									.map(ci -> createFlowSegmentReferences(
+											flowContainerQueryable.getBusinessObjectContext(), ci))
 									.orElse(Stream.empty());
 						}
 					}).map(HighlightableFlowInfo::create).filter(Predicates.notNull())

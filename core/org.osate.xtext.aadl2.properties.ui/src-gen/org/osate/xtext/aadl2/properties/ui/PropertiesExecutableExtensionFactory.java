@@ -23,12 +23,11 @@
  */
 package org.osate.xtext.aadl2.properties.ui;
 
-import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
-import org.osgi.framework.Bundle;
-
 import com.google.inject.Injector;
-
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.xtext.ui.guice.AbstractGuiceAwareExecutableExtensionFactory;
 import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
+import org.osgi.framework.Bundle;
 
 /**
  * This class was generated. Customizations should only happen in a newly
@@ -38,12 +37,13 @@ public class PropertiesExecutableExtensionFactory extends AbstractGuiceAwareExec
 
 	@Override
 	protected Bundle getBundle() {
-		return PropertiesActivator.getInstance().getBundle();
+		return Platform.getBundle(PropertiesActivator.PLUGIN_ID);
 	}
 	
 	@Override
 	protected Injector getInjector() {
-		return PropertiesActivator.getInstance().getInjector(PropertiesActivator.ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES);
+		PropertiesActivator activator = PropertiesActivator.getInstance();
+		return activator != null ? activator.getInjector(PropertiesActivator.ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES) : null;
 	}
-	
+
 }

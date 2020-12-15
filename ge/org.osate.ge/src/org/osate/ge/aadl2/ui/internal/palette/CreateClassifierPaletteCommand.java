@@ -37,6 +37,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.ProjectUtil;
 import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
@@ -49,7 +50,6 @@ import org.osate.ge.aadl2.internal.util.classifiers.ClassifierOperationPartType;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
 import org.osate.ge.aadl2.ui.internal.dialogs.ClassifierOperationDialog;
 import org.osate.ge.aadl2.ui.internal.dialogs.DefaultCreateSelectClassifierDialogModel;
-import org.osate.ge.internal.util.ProjectUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResult;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -222,7 +222,7 @@ public class CreateClassifierPaletteCommand extends BasePaletteCommand implement
 		} else if (targetBo instanceof Classifier) {
 			// Get the AadlPackage based on the query. This ensures that the package is the one represented by the diagram rather than the one in which the
 			// target business object is contained.
-			return queryService.getFirstResult(packageQuery, targetBoc);
+			return queryService.getFirstBusinessObjectContextOrNull(packageQuery, targetBoc);
 		}
 
 		return null;

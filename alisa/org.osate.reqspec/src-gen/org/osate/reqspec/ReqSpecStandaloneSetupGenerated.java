@@ -23,22 +23,22 @@
  */
 package org.osate.reqspec;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.ISetup;
+import org.eclipse.xtext.resource.IResourceFactory;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.osate.alisa.common.CommonStandaloneSetup;
+import org.osate.reqspec.reqSpec.ReqSpecPackage;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
-/**
- * Generated from StandaloneSetup.xpt!
- */
 @SuppressWarnings("all")
 public class ReqSpecStandaloneSetupGenerated implements ISetup {
 
 	@Override
 	public Injector createInjectorAndDoEMFRegistration() {
-		org.osate.alisa.common.CommonStandaloneSetup.doSetup();
+		CommonStandaloneSetup.doSetup();
 
 		Injector injector = createInjector();
 		register(injector);
@@ -46,28 +46,25 @@ public class ReqSpecStandaloneSetupGenerated implements ISetup {
 	}
 	
 	public Injector createInjector() {
-		return Guice.createInjector(new org.osate.reqspec.ReqSpecRuntimeModule());
+		return Guice.createInjector(new ReqSpecRuntimeModule());
 	}
 	
 	public void register(Injector injector) {
-	if (!EPackage.Registry.INSTANCE.containsKey("http://www.osate.org/reqspec/ReqSpec")) {
-		EPackage.Registry.INSTANCE.put("http://www.osate.org/reqspec/ReqSpec", org.osate.reqspec.reqSpec.ReqSpecPackage.eINSTANCE);
-	}
-
-		org.eclipse.xtext.resource.IResourceFactory resourceFactory = injector.getInstance(org.eclipse.xtext.resource.IResourceFactory.class);
-		org.eclipse.xtext.resource.IResourceServiceProvider serviceProvider = injector.getInstance(org.eclipse.xtext.resource.IResourceServiceProvider.class);
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("reqspec", resourceFactory);
-		org.eclipse.xtext.resource.IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("reqspec", serviceProvider);
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("goals", resourceFactory);
-		org.eclipse.xtext.resource.IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("goals", serviceProvider);
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("constants", resourceFactory);
-		org.eclipse.xtext.resource.IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("constants", serviceProvider);
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("reqdoc", resourceFactory);
-		org.eclipse.xtext.resource.IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("reqdoc", serviceProvider);
-		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("goaldoc", resourceFactory);
-		org.eclipse.xtext.resource.IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("goaldoc", serviceProvider);
+		if (!EPackage.Registry.INSTANCE.containsKey("http://www.osate.org/reqspec/ReqSpec")) {
+			EPackage.Registry.INSTANCE.put("http://www.osate.org/reqspec/ReqSpec", ReqSpecPackage.eINSTANCE);
+		}
+		IResourceFactory resourceFactory = injector.getInstance(IResourceFactory.class);
+		IResourceServiceProvider serviceProvider = injector.getInstance(IResourceServiceProvider.class);
 		
-
-
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("reqspec", resourceFactory);
+		IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("reqspec", serviceProvider);
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("goals", resourceFactory);
+		IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("goals", serviceProvider);
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("constants", resourceFactory);
+		IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("constants", serviceProvider);
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("reqdoc", resourceFactory);
+		IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("reqdoc", serviceProvider);
+		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("goaldoc", resourceFactory);
+		IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("goaldoc", serviceProvider);
 	}
 }

@@ -123,7 +123,7 @@ class FlowSpecificationCreationUtil {
 	}
 
 	static Context getContext(final BusinessObjectContext featureBoc, final QueryService queryService) {
-		return (Context) queryService.getFirstBusinessObject(contextQuery, featureBoc);
+		return (Context) queryService.getFirstBusinessObject(contextQuery, featureBoc).orElse(null);
 	}
 
 	private static boolean hasFeatureWithName(final ComponentType ct, final String nameToCheck) {
@@ -138,7 +138,7 @@ class FlowSpecificationCreationUtil {
 	 */
 	protected static BusinessObjectContext getFlowSpecificationOwnerBoc(BusinessObjectContext featureBoc,
 			final QueryService queryService) {
-		return queryService.getFirstResult(componentClassifierOrSubcomponentQuery, featureBoc);
+		return queryService.getFirstBusinessObjectContextOrNull(componentClassifierOrSubcomponentQuery, featureBoc);
 	}
 
 	protected static boolean canOwnFlowSpecification(final Object bo) {

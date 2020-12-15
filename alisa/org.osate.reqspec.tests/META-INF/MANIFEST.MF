@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.reqspec.tests
-Bundle-Vendor: SEI
+Bundle-Name: Requirement Specification Tests
+Bundle-Vendor: CMU/SEI
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: org.osate.reqspec.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
@@ -10,14 +10,15 @@ Require-Bundle: org.osate.reqspec,
  org.eclipse.core.runtime,
  org.eclipse.ui.workbench;resolution:=optional,
  org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional,
- org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtext.xbase.lib;bundle-version="2.14.0",
  org.eclipse.xtext.testing,
  org.osate.xtext.aadl2,
  org.osate.organization.tests,
  org.osate.categories,
  com.itemis.xtext.testing;bundle-version="0.2.0",
  org.osate.testsupport;bundle-version="1.0.0",
- org.osate.alisa.common;bundle-version="1.0.0"
+ org.osate.alisa.common;bundle-version="1.0.0",
+ org.osate.organization
 Import-Package: org.apache.log4j,
  org.junit;version="4.5.0",
  org.junit.runner;version="4.5.0",
@@ -27,5 +28,5 @@ Import-Package: org.apache.log4j,
  org.junit.runners.model;version="4.5.0",
  org.hamcrest.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.osate.reqspec
+Export-Package: org.osate.reqspec.tests;x-internal=true
 Automatic-Module-Name: org.osate.reqspec.tests

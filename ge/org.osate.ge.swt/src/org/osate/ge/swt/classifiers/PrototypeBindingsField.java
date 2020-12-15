@@ -23,20 +23,9 @@
  */
 package org.osate.ge.swt.classifiers;
 
-import java.util.Objects;
-import java.util.function.Consumer;
-
-import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.internal.InternalUtil;
-import org.osate.ge.swt.util.SwtTestUtil;
+import org.osate.ge.swt.SwtUtil;
+import org.osate.ge.swt.selectors.BaseField;
 
 /**
  * A component which allows viewing and editing bindings for a node provided by a {@link PrototypeBindingsModel}.
@@ -45,17 +34,14 @@ import org.osate.ge.swt.util.SwtTestUtil;
  * @param <D> is the type of the direction options.
  * @param <T> is the type of the type options.
  * @param <C> is the type of the classifiers.
+ * @since 1.1
  */
-public final class PrototypeBindingsField<N, D, T, C> extends Composite {
+public final class PrototypeBindingsField<N, D, T, C> extends BaseField<PrototypeBindingsModel<N, D, T, C>> {
 	private static final String WIDGET_ID_PREFIX = "org.osate.ge.swt.classifiers.prototypeBindingsField.";
 	public static final String WIDGET_ID_SELECTED_LABEL = WIDGET_ID_PREFIX + "selectedLabel";
 	public static final String WIDGET_ID_EDIT_BUTTON = WIDGET_ID_PREFIX + "editButton";
 
-	private final PrototypeBindingsModel<N, D, T, C> model;
 	private N node;
-	private final CLabel bindingsLbl;
-	private final Button editBtn;
-	private final Consumer<ChangeEvent> changeListener = e -> refresh();
 
 	/**
 	 * Create a new instance.
@@ -65,37 +51,25 @@ public final class PrototypeBindingsField<N, D, T, C> extends Composite {
 	 */
 	public PrototypeBindingsField(final Composite parent, final PrototypeBindingsModel<N, D, T, C> model,
 			final N initNode) {
-		super(parent, SWT.NONE);
-		this.model = Objects.requireNonNull(model, "model must not be null");
+		super(parent, model);
 		this.node = initNode;
-		InternalUtil.setColorsToMatchParent(this);
+		this.setValueLabelTestingId(WIDGET_ID_SELECTED_LABEL);
+		this.setModifyButtonTestingId(WIDGET_ID_EDIT_BUTTON);
+	}
 
-		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
+	@Override
+	protected final void onModify() {
+		PrototypeBindingsEditorDialog.open(getShell(), "Edit Prototype Bindings", getModel(), node);
+	}
 
-		this.bindingsLbl = new CLabel(this, SWT.BORDER);
-		SwtTestUtil.setTestingId(this.bindingsLbl, WIDGET_ID_SELECTED_LABEL);
-		this.bindingsLbl
-				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER)
-						.minSize(200, SWT.DEFAULT)
-						.create());
-		InternalUtil.setColorsToMatchParent(this.bindingsLbl);
+	@Override
+	protected final String getValueLabel() {
+		return getModel().getChildrenLabel(node);
+	}
 
-		this.editBtn = new Button(this, SWT.FLAT);
-		SwtTestUtil.setTestingId(this.editBtn, WIDGET_ID_EDIT_BUTTON);
-		this.editBtn
-				.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.CENTER, SWT.CENTER).create());
-		this.editBtn.setText("Edit...");
-		this.editBtn.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(final SelectionEvent e) {
-				PrototypeBindingsEditorDialog.open(getShell(), "Edit Prototype Bindings", model, node);
-			}
-		});
-		InternalUtil.setColorsToMatchParent(this.editBtn);
-
-		model.changed().addListener(changeListener);
-
-		refresh();
+	@Override
+	protected final boolean isModifyButtonEnabled() {
+		return getModel().getChildren(node).findAny().isPresent();
 	}
 
 	/**
@@ -106,15 +80,8 @@ public final class PrototypeBindingsField<N, D, T, C> extends Composite {
 		this.node = node;
 	}
 
-	private void refresh() {
-		if (!this.isDisposed()) {
-			bindingsLbl.setText(model.getChildrenLabel(node));
-			editBtn.setEnabled(model.getChildren(node).findAny().isPresent());
-		}
-	}
-
 	public static void main(String[] args) {
-		InternalUtil.run(shell -> {
+		SwtUtil.run(shell -> {
 			new PrototypeBindingsField<>(shell, new TestPrototypeBindingsModel(), null);
 		});
 	}

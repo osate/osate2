@@ -61,8 +61,8 @@ public abstract class AaxlModifyHandlerAsJob extends AaxlReadOnlyHandlerAsJob {
 
 			resource.setTrackingModification(prev);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			IStatus status = new Status(IStatus.ERROR, OsateUiPlugin.PLUGIN_ID, e.getMessage(), e);
+			StatusManager.getManager().handle(status);
 		}
 	}
 }

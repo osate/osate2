@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -32,12 +32,14 @@ public class SoftwareNode implements FixedPriorityProcessingLoad, Cloneable, Ban
 
 	long uniqueID = 0;
 
+	@Override
 	public long getUniqueID() {
 		return uniqueID;
 	}
 
 	double bandwidthCompressionFactor = 0.0;
 
+	@Override
 	public double getBandwidthCompressionFactor() {
 		return bandwidthOutDegree / getBandwidth();
 	}
@@ -70,12 +72,14 @@ public class SoftwareNode implements FixedPriorityProcessingLoad, Cloneable, Ban
 		return semanticObject;
 	}
 
-	public HardwareNode deployedTo = null;
+	private HardwareNode deployedTo = null;
 
+	@Override
 	public void setDeployedTo(HardwareNode n) {
 		deployedTo = n;
 	}
 
+	@Override
 	public HardwareNode getDeployedTo() {
 		return deployedTo;
 	}
@@ -89,6 +93,7 @@ public class SoftwareNode implements FixedPriorityProcessingLoad, Cloneable, Ban
 	 */
 	protected long period;
 
+	@Override
 	public long getPeriod() {
 		return period;
 	}
@@ -100,10 +105,12 @@ public class SoftwareNode implements FixedPriorityProcessingLoad, Cloneable, Ban
 
 	protected long cyclesPerSecond = 0;
 
+	@Override
 	public long getCyclesPerSecond() {
 		return cyclesPerSecond;
 	}
 
+	@Override
 	public long getCycles() {
 		return cycles;
 	}
@@ -111,8 +118,9 @@ public class SoftwareNode implements FixedPriorityProcessingLoad, Cloneable, Ban
 	/**
 	 * return the required bandwidth in cycles/second
 	 */
+	@Override
 	public double getBandwidth() {
-		return (double) cycles / ((double) period / 1000000000.0);
+		return cycles / (period / 1000000000.0);
 	}
 
 	/**
@@ -120,6 +128,7 @@ public class SoftwareNode implements FixedPriorityProcessingLoad, Cloneable, Ban
 	 */
 	protected long deadline;
 
+	@Override
 	public long getDeadline() {
 		return deadline;
 	}
@@ -136,14 +145,13 @@ public class SoftwareNode implements FixedPriorityProcessingLoad, Cloneable, Ban
 		return messages;
 	}
 
-	public Comparator comparator;
-
-	public String name = "";
+	String name = "";
 
 	public void setName(String s) {
 		name = s;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -152,16 +160,18 @@ public class SoftwareNode implements FixedPriorityProcessingLoad, Cloneable, Ban
 		uniqueID = ++nextUniqueID;
 	}
 
+	@Override
 	public Object clone() {
 		SoftwareNode n = null;
 		try {
-			n = (SoftwareNode) getClass().newInstance();
+			n = getClass().newInstance();
 			n.cycles = cycles;
 			n.period = period;
 			n.deadline = deadline;
 			n.deployedTo = deployedTo;
-			if (messages != null)
+			if (messages != null) {
 				n.messages = (TreeMap) messages.clone();
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -204,10 +214,12 @@ public class SoftwareNode implements FixedPriorityProcessingLoad, Cloneable, Ban
 
 	long priority = 0;
 
+	@Override
 	public void setPriority(long priority) {
 		this.priority = priority;
 	}
 
+	@Override
 	public long getPriority() {
 		return priority;
 	}

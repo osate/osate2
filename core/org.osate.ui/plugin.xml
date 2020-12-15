@@ -24,6 +24,8 @@ censes only apply to the Third Party Software and not any other portion of this 
 -->
 <?eclipse version="3.0"?>
 <plugin>
+   <extension-point id="examples" name="OSATE Examples" schema="schema/examples.exsd"/>
+
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
@@ -41,7 +43,13 @@ censes only apply to the Third Party Software and not any other portion of this 
       		id="org.osate.ui.preferences.OsateInstantiationPage"
       		category="org.osate.internal.ui.preferences.OsatePreferencePage"
       		name="Instantiation"
-      		class="org.osate.internal.ui.preferences.InstantiationPreferencePage">
+      		class="org.osate.ui.internal.preferences.InstantiationPreferencePage">
+      </page>
+      <page
+      		id="org.osate.ui.preferences.OsateContributedResourcesPage"
+      		category="org.osate.internal.ui.preferences.OsatePreferencePage"
+      		name="Contributed Resources"
+      		class="org.osate.internal.ui.preferences.ContributedResourcesPreferencePage">
       </page>
    </extension>
    
@@ -59,7 +67,7 @@ censes only apply to the Third Party Software and not any other portion of this 
          </enabledWhen>
       </page>
       <page
-            class="org.osate.internal.ui.properties.InstantiationPropertyPage"
+            class="org.osate.ui.internal.properties.InstantiationPropertyPage"
             category="org.osate.ui.properties.OSATE"
             id="org.osate.internal.ui.properties.InstantiationPropertyPage"
             name="Instantiation">
@@ -112,6 +120,22 @@ censes only apply to the Third Party Software and not any other portion of this 
             project="true">
          <description>
             %_UI_AadlProjectWizard_description
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+      <wizard
+            id="org.osate.ui.wizards.OsateExampleWizardID"
+            name="%_UI_OsateExampleWizard_label"
+            icon="icons/new_aadl_project.gif"
+            category="org.osate.Wizard.category.ID"
+            class="org.osate.ui.wizards.OsateExampleWizard"
+            preferredPerspectives="org.osate.ui.perspective.AadlPerspective"
+            finalPerspective="org.osate.ui.perspective.AadlPerspective"
+            project="true">
+         <description>
+            %_UI_OsateExampleWizard_description
          </description>
          <selection
                class="org.eclipse.core.resources.IResource">
@@ -475,7 +499,7 @@ censes only apply to the Third Party Software and not any other portion of this 
         point="org.eclipse.ui.newWizards">
      <wizard
            category="org.eclipse.ui.Examples/org.osate.Wizard.category.examples"
-           class="org.osate.ui.wizards.AadlExamplesWizard"
+           class="org.osate.ui.wizards.OsateExampleWizard"
            icon="icons/aadl.gif"
            id="org.osate.wizard.examples"
            name="AADL Examples"
@@ -501,6 +525,267 @@ censes only apply to the Third Party Software and not any other portion of this 
              </adapt>
           </or>
        </definition>
+
+       <!-- open AADL project or any closed project -->
+       <definition id="org.osate.ui.definition.isAADLProject">
+          <and>
+             <instanceof value="org.eclipse.core.resources.IProject" />
+             <or>
+                <test
+                    property="org.eclipse.core.resources.projectNature"
+                    value="org.osate.core.aadlnature" />
+                <not>
+                   <test property="org.eclipse.core.resources.open" />
+                </not>
+             </or>
+          </and>
+       </definition>
+
+       <!-- folder in an AADL project -->
+       <definition id="org.osate.ui.definition.isAADLFolder">
+          <and>
+             <instanceof value="org.eclipse.core.resources.IFolder" />
+             <test
+                   property="org.eclipse.core.resources.projectNature"
+                   value="org.osate.core.aadlnature" />
+             </and>
+       </definition>
+
+       <!-- Instance model file -->
+       <definition id="org.osate.ui.definition.isInstanceFile">
+          <adapt
+                type="org.eclipse.core.resources.IFile">
+             <test
+                   property="org.eclipse.core.resources.contentTypeId"
+                   value="org.osate.core.instanceModelFile">
+             </test>
+          </adapt>
+       </definition>
+
+       <!-- Declarative model file: AADL Package -->
+       <definition id="org.osate.ui.definition.isPackageFile">
+          <adapt
+                type="org.eclipse.core.resources.IFile">
+             <test property="org.osate.ui.aadlPackage" forcePluginActivation="true" />
+          </adapt>
+       </definition>
+
+       <!-- Declarative model file: AADL Property Set -->
+       <definition id="org.osate.ui.definition.isPropertySetFile">
+          <adapt
+                type="org.eclipse.core.resources.IFile">
+             <test property="org.osate.ui.aadlPropertySet" forcePluginActivation="true" />
+          </adapt>
+       </definition>
+
+       <!-- Instantiatable ComponentImplementation as an EObjectURIWrapper (navigator view) -->
+       <definition id="org.osate.ui.definition.isInstantiatableEObjectURIWrapper">
+          <adapt
+                type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+             <and>
+                <test
+                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                      value="ComponentImplementation"
+                      forcePluginActivation="true">
+                </test>
+                <not>
+                   <test
+                         property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                         value="SubprogramImplementation"
+                         forcePluginActivation="true">
+                   </test>
+                </not>
+                <not>
+                   <test
+                         property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                         value="SubprogramGroupImplementation"
+                         forcePluginActivation="true">
+                    </test>
+                 </not>
+              </and>
+           </adapt>
+       </definition>
+
+       <!-- Instantiatable ComponentImplementation as an EObjectNode (aadl outline view) -->
+       <definition id="org.osate.ui.definition.isInstantiatableEObjectNode">
+          <adapt
+                type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+             <and>
+                <test
+                      property="org.osate.ui.superType"
+                      value="ComponentImplementation"
+                      forcePluginActivation="true">
+                </test>
+                <not>
+                   <test
+                         property="org.osate.ui.superType"
+                         value="SubprogramImplementation"
+                         forcePluginActivation="true">
+                   </test>
+                </not>
+                <not>
+                   <test
+                         property="org.osate.ui.superType"
+                         value="SubprogramGroupImplementation"
+                         forcePluginActivation="true">
+                   </test>
+                </not>
+             </and>
+          </adapt>
+       </definition>
+
+       <!-- A SystemInstance (instance editor and instance outline view) -->
+       <definition id="org.osate.ui.definition.isSystemInstance">
+          <instanceof value="org.osate.aadl2.instance.SystemInstance" />
+       </definition>
+
+       <!-- An Eclipse working set (aadl navigator) -->
+       <definition id="org.osate.ui.definition.isWorkingSet">
+          <instanceof value="org.eclipse.ui.IWorkingSet" />
+       </definition>
+       
+       <!-- A working set or open project -->
+       <definition id="org.osate.ui.definition.isWorkingSetOrOpenProject">
+          <or>
+             <adapt
+                   type="org.eclipse.ui.IWorkingSet">
+             </adapt>
+             <adapt
+                   type="org.eclipse.core.resources.IProject">
+                <test
+                      property="org.eclipse.core.resources.open">
+                </test>
+             </adapt>
+          </or>
+       </definition>
+       
+       <!-- For visibleWhen: Be visible when there are 1 or more selected objects and AT LEAST ONE of them
+            is a working set, AADL Project, folder in an AADL Project, an AAXL file, or an instantiatable
+            component implementation. -->
+       <definition id="org.osate.ui.definition.instanceAnalysisCommandVisibility">
+          <with
+                variable="selection">
+             <and>
+                <count
+                      value="+">
+                </count>
+                <iterate
+                      ifEmpty="false"
+                      operator="or">
+                   <or>
+                      <reference definitionId="org.osate.ui.definition.isWorkingSet"/>
+                      <reference definitionId="org.osate.ui.definition.isAADLProject"/>
+                      <reference definitionId="org.osate.ui.definition.isAADLFolder"/>
+                      <reference definitionId="org.osate.ui.definition.isInstanceFile"/>
+                      <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectURIWrapper"/>
+                      <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectNode"/>
+                      <reference definitionId="org.osate.ui.definition.isSystemInstance"/>
+                   </or>
+                </iterate>
+             </and>
+          </with>
+       </definition> 
+
+       <!-- For enabledWhen: Be enabled when there are 1 or more selected objects and ALL OF THEM are one of
+            working set, AADL Project, folder in an AADL Project, an AAXL file, or an instantiatable
+            component implementation. -->
+       <definition id="org.osate.ui.definition.instanceAnalysisCommandEnabled">
+          <with
+                variable="selection">
+             <and>
+                <count
+                      value="+">
+                </count>
+                <iterate
+                      ifEmpty="false"
+                      operator="and">
+                   <or>
+                      <reference definitionId="org.osate.ui.definition.isWorkingSet"/>
+                      <reference definitionId="org.osate.ui.definition.isAADLProject"/>
+                      <reference definitionId="org.osate.ui.definition.isAADLFolder"/>
+                      <reference definitionId="org.osate.ui.definition.isInstanceFile"/>
+                      <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectURIWrapper"/>
+                      <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectNode"/>
+                      <reference definitionId="org.osate.ui.definition.isSystemInstance"/>
+                   </or>
+                </iterate>
+             </and>
+          </with>
+       </definition> 
+       
+       <!-- For enabledWhen: Be enabled when we are in the AADL Perspective -->
+       <definition id="org.osate.ui.definition.inAadlPerspective">
+          <with
+                variable="activeWorkbenchWindow.activePerspective">
+             <equals
+                   value="org.osate.ui.perspective.AadlPerspective">
+             </equals>
+          </with>
+       </definition>
+
+      <!-- LEGACY: should become obsolete when we update all the command handlers -->
+      <definition id="org.osate.ui.definition.isInstanceFileOrComponentInstanceSelected">
+         <or>
+            <reference
+                  definitionId="org.osate.core.isInstanceFileSelected">
+            </reference>
+            <with
+                  variable="selection">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <or>
+                        <instanceof
+                              value="org.osate.aadl2.instance.ComponentInstance">
+                        </instanceof>
+                        <adapt
+                              type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                           <test
+                                 property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                 value="ComponentInstance"
+                                 forcePluginActivation="true">
+                           </test>
+                        </adapt>
+                     </or>
+                  </iterate>
+               </and>
+            </with>
+         </or>
+      </definition>
+
+      <!-- LEGACY: should become obsolete when we update all the command handlers -->
+      <definition id="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected">
+         <or>
+            <reference
+                  definitionId="org.osate.core.isInstanceFileSelected">
+            </reference>
+            <with
+                  variable="selection">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <or>
+                        <instanceof
+                              value="org.osate.aadl2.instance.SystemInstance">
+                        </instanceof>
+                        <adapt
+                              type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                           <test
+                                 property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                 value="SystemInstance"
+                                 forcePluginActivation="true">
+                           </test>
+                        </adapt>
+                     </or>
+                  </iterate>
+               </and>
+            </with>
+         </or>
+      </definition>
     </extension>
     <extension
           point="org.eclipse.ui.menus">
@@ -517,6 +802,44 @@ censes only apply to the Third Party Software and not any other portion of this 
           </command>
        </menuContribution> 
 
+       <!-- Add to the instance model editor and the instance model outline view context menus -->
+       <menuContribution
+             locationURI="popup:org.osate.aadl2.presentation.Aadl2ModelEditorID">
+          <command
+                commandId="org.osate.ui.reinstantiate">
+	          <visibleWhen>
+	             <with
+	                   variable="selection">
+	                <and>
+	                   <count
+	                         value="+">
+	                   </count>
+	                   <iterate operator="or">
+	                      <reference definitionId="org.osate.ui.definition.isSystemInstance"/>
+	                   </iterate>
+	                </and>
+	             </with>
+	          </visibleWhen>
+          </command>
+          <menu
+                id="org.osate.ui.analysesInstanceOutlinePopup"
+                label="Analyses">
+             <menu
+                   id="org.osate.ui.semanticChecksInstanceOutlinePopup"
+                   label="Semantic Checks">
+                <separator
+                      name="code_generation">
+                </separator>
+                <separator
+                      name="third_party">
+                </separator>
+             </menu>
+             <separator
+                   name="third_party">
+             </separator>
+          </menu>
+       </menuContribution>
+   
        <menuContribution
              locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
           <separator
@@ -539,30 +862,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 	                         value="+">
 	                   </count>
 	                   <iterate operator="or">
-                         <adapt
-                               type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
-                            <and>
-                               <test
-                                     property="org.osate.ui.superType"
-                                     value="ComponentImplementation"
-                                     forcePluginActivation="true">
-                               </test>
-                               <not>
-                                  <test
-                                        property="org.osate.ui.superType"
-                                        value="SubprogramImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                               <not>
-                                  <test
-                                        property="org.osate.ui.superType"
-                                        value="SubprogramGroupImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                            </and>
-                         </adapt>
+	                      <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectNode" />
 	                   </iterate>
 	                </and>
 	             </with>
@@ -624,34 +924,8 @@ censes only apply to the Third Party Software and not any other portion of this 
 	                   <iterate
 	                   		operator="or">
 	                     <or>
-                            <adapt
-                                  type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                               <and>
-                                  <test
-                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                        value="ComponentImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                                  <not>
-                                     <test
-                                           property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                           value="SubprogramImplementation"
-                                           forcePluginActivation="true">
-                                     </test>
-                                  </not>
-                                  <not>
-                                     <test
-                                           property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                           value="SubprogramGroupImplementation"
-                                           forcePluginActivation="true">
-                                     </test>
-                                  </not>
-                               </and>
-                            </adapt>
-                            <and>
-                               <instanceof value="org.eclipse.core.resources.IFile" />
-                               <test property="org.osate.ui.aadlPackage" forcePluginActivation="true" />
-                            </and>
+	                        <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectURIWrapper" />
+	                        <reference definitionId="org.osate.ui.definition.isPackageFile" />
                          </or>
 	                   </iterate>
 	                </and>
@@ -671,48 +945,14 @@ censes only apply to the Third Party Software and not any other portion of this 
 	                         ifEmpty="false"
 	                         operator="or">
 	                      <or>
-	                         <!-- Working set -->
-                             <instanceof value="org.eclipse.ui.IWorkingSet" />
-							 
-	                         <!-- open AADL project or any closed project -->
-	                         <and>
-	                            <instanceof value="org.eclipse.core.resources.IProject" />
-	                            <or>
-	                                <test
-	                                    property="org.eclipse.core.resources.projectNature"
-    	                                value="org.osate.core.aadlnature" />
-	                                <not>
-	                                    <test property="org.eclipse.core.resources.open" />
-    	                            </not>
-	                            </or>
-	                         </and>
-	                         
-	                         <!-- folder in an AADL project -->
-	                         <and>
-	                            <instanceof value="org.eclipse.core.resources.IFolder" />
-	                            <test
-	                                property="org.eclipse.core.resources.projectNature"
-	                                value="org.osate.core.aadlnature" />
-	                         </and>
-	                         
-	                         <!-- Instance model file -->
-	                         <adapt
-	                                type="org.eclipse.core.resources.IFile">
-	                            <test
-	                                  property="org.eclipse.core.resources.contentTypeId"
-	                                  value="org.osate.core.instanceModelFile">
-	                            </test>
-	                         </adapt>
+                             <reference definitionId="org.osate.ui.definition.isWorkingSet"/>
+   	                         <reference definitionId="org.osate.ui.definition.isAADLProject" />
+  	                         <reference definitionId="org.osate.ui.definition.isAADLFolder" />
+  	                         <reference definitionId="org.osate.ui.definition.isInstanceFile" />
 	                      </or>
 	                   </iterate>
 	                </and>
 	             </with>
-             </visibleWhen>
-          </command>
-          <command
-                commandId="org.osate.ui.setAadlProjectProperties">
-             <visibleWhen
-                   checkEnabled="true">
              </visibleWhen>
           </command>
           <command
@@ -859,12 +1099,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="OSATE">
              <visibleWhen
                    checkEnabled="false">
-                <with
-                      variable="activeWorkbenchWindow.activePerspective">
-                   <equals
-                         value="org.osate.ui.perspective.AadlPerspective">
-                   </equals>
-                </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
              </visibleWhen>
              <menu
                    id="org.osate.ui.openWorkflowMenu"
@@ -924,12 +1159,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Analyses">
              <visibleWhen
                    checkEnabled="false">
-                <with
-                      variable="activeWorkbenchWindow.activePerspective">
-                   <equals
-                         value="org.osate.ui.perspective.AadlPerspective">
-                   </equals>
-                </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
              </visibleWhen>
              <menu
                    id="org.osate.ui.budgetMenu"
@@ -1022,12 +1252,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="OSATE Wizards">
              <visibleWhen
                    checkEnabled="false">
-                <with
-                      variable="activeWorkbenchWindow.activePerspective">
-                   <equals
-                         value="org.osate.ui.perspective.AadlPerspective">
-                   </equals>
-                </with>
+                <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
              </visibleWhen>
              <command
                    commandId="org.osate.ui.wizards.aadlProjectWizard"
@@ -1038,12 +1263,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 -->
                 <visibleWhen
                       checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
+                   <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
                 </visibleWhen>
              </command>
              <command
@@ -1055,12 +1275,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 -->
                 <visibleWhen
                       checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
+                   <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
                 </visibleWhen>
              </command>
              <command
@@ -1072,12 +1287,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 -->
                 <visibleWhen
                       checkEnabled="false">
-                   <with
-                         variable="activeWorkbenchWindow.activePerspective">
-                      <equals
-                            value="org.osate.ui.perspective.AadlPerspective">
-                      </equals>
-                   </with>
+                   <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
                 </visibleWhen>
              </command>
              <separator
@@ -1089,12 +1299,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Budget">
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
             <separator
                   name="core">
@@ -1108,12 +1313,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Semantic Checks">
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
             <separator
                   name="core">
@@ -1131,12 +1331,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Timing">
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
             <separator
                   name="core">
@@ -1150,12 +1345,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                 label="Safety">
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
             <separator
                   name="core">
@@ -1242,37 +1432,100 @@ censes only apply to the Third Party Software and not any other portion of this 
                                       forcePluginActivation="true">
                                 </test>
 	                         </adapt>
-	
-	                      	 <!-- For the Outline View -->
+	                          <adapt
+                                   type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                                <test
+                                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                      value="Access"
+                                      forcePluginActivation="true">
+                                </test>
+	                         </adapt>
+	                         <adapt
+                                   type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                                <test
+                                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                      value="Subcomponent"
+                                      forcePluginActivation="true">
+                                </test>
+	                         </adapt>
+	                         <adapt
+                                   type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                                <test
+                                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                      value="DataPort"
+                                      forcePluginActivation="true">
+                                </test>
+	                         </adapt>
+	                         <adapt
+                                   type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                                <test
+                                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                      value="Parameter"
+                                      forcePluginActivation="true">
+                                </test>
+	                         </adapt>
+	                         <adapt
+                                   type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                                <test
+                                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                      value="FeatureGroup"
+                                      forcePluginActivation="true">
+                                </test>
+	                         </adapt>
+	                         <adapt
+                                   type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
+                                <test
+                                      property="org.osate.aadl2.modelsupport.wrapperSuperType"
+                                      value="Prototype"
+                                      forcePluginActivation="true">
+                                </test>
+	                         </adapt>
+	                         <!-- For the Outline View -->
 	                      	 <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
 		                         <test
 		                               property="org.osate.ui.superType"
 		                               value="Classifier"
 		                               forcePluginActivation="true"/>
 		                     </adapt>
+		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+		                         <test
+		                               property="org.osate.ui.superType"
+		                               value="Subcomponent"
+		                               forcePluginActivation="true"/>
+		                     </adapt>
+		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+		                         <test
+		                               property="org.osate.ui.superType"
+		                               value="DataPort"
+		                               forcePluginActivation="true"/>
+		                     </adapt>
+		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+		                         <test
+		                               property="org.osate.ui.superType"
+		                               value="Parameter"
+		                               forcePluginActivation="true"/>
+		                     </adapt>
+		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+		                         <test
+		                               property="org.osate.ui.superType"
+		                               value="Prototype"
+		                               forcePluginActivation="true"/>
+		                     </adapt>
+		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+		                         <test
+		                               property="org.osate.ui.superType"
+		                               value="FeatureGroup"
+		                               forcePluginActivation="true"/>
+		                     </adapt>
+		                     <adapt type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
+		                         <test
+		                               property="org.osate.ui.superType"
+		                               value="Access"
+		                               forcePluginActivation="true"/>
+		                     </adapt>
 	                      </or>
 	                   </iterate>
                    </or>
-                </and>
-             </with>
-          </enabledWhen>
-       </handler>
-       <handler
-             class="org.osate.ui.handlers.SetAadlProjectPropertiesHandler"
-             commandId="org.osate.ui.setAadlProjectProperties">
-          <enabledWhen>
-             <with
-                   variable="selection">
-                <and>
-                   <count
-                         value="1">
-                   </count>
-                   <iterate
-                         ifEmpty="false">
-                      <reference
-                            definitionId="org.osate.is_aadl_project_propertyset">
-                      </reference>
-                   </iterate>
                 </and>
              </with>
           </enabledWhen>
@@ -1289,62 +1542,9 @@ censes only apply to the Third Party Software and not any other portion of this 
                    </count>
                    <iterate>
                       <or>
-                         <!-- For the AADL Navigator View -->
-                         <adapt
-                               type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                            <and>
-                               <test
-                                     property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                     value="ComponentImplementation"
-                                     forcePluginActivation="true">
-                               </test>
-                               <not>
-                                  <test
-                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                        value="SubprogramImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                               <not>
-                                  <test
-                                        property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                        value="SubprogramGroupImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                            </and>
-                         </adapt>
-
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IFile" />
-                            <test property="org.osate.ui.aadlPackage" forcePluginActivation="true" />
-                         </and>
-
-                         <!-- For the Outline View -->
-                         <adapt
-                               type="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode">
-                            <and>
-                               <test
-                                     property="org.osate.ui.superType"
-                                     value="ComponentImplementation"
-                                     forcePluginActivation="true">
-                               </test>
-                               <not>
-                                  <test
-                                        property="org.osate.ui.superType"
-                                        value="SubprogramImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                               <not>
-                                  <test
-                                        property="org.osate.ui.superType"
-                                        value="SubprogramGroupImplementation"
-                                        forcePluginActivation="true">
-                                  </test>
-                               </not>
-                            </and>
-                         </adapt>
+                         <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectURIWrapper" />
+                         <reference definitionId="org.osate.ui.definition.isPackageFile" />
+                         <reference definitionId="org.osate.ui.definition.isInstantiatableEObjectNode" />
                       </or>
                    </iterate>
                 </and>
@@ -1365,38 +1565,11 @@ censes only apply to the Third Party Software and not any other portion of this 
                          ifEmpty="false"
                          operator="and">
                       <or>
-                         <!-- Working Set -->
-                         <instanceof value="org.eclipse.ui.IWorkingSet" />
-                         
-                         <!-- open AADL project -->
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IProject" />
-                            <or>
-                                <test
-                                    property="org.eclipse.core.resources.projectNature"
-	                                value="org.osate.core.aadlnature" />
-                                 <not>
-                                     <test property="org.eclipse.core.resources.open" />
-	                             </not>
-                            </or>
-                         </and>
-                         
-                         <!-- folder in an AADL project -->
-                         <and>
-                            <instanceof value="org.eclipse.core.resources.IFolder" />
-                            <test
-                                property="org.eclipse.core.resources.projectNature"
-                                value="org.osate.core.aadlnature" />
-                         </and>
-                         
-                         <!-- Instance model file -->
-                         <adapt
-                                type="org.eclipse.core.resources.IFile">
-                            <test
-                                  property="org.eclipse.core.resources.contentTypeId"
-                                  value="org.osate.core.instanceModelFile">
-                            </test>
-                         </adapt>
+                         <reference definitionId="org.osate.ui.definition.isWorkingSet"/>
+                         <reference definitionId="org.osate.ui.definition.isAADLProject" />
+                         <reference definitionId="org.osate.ui.definition.isAADLFolder" />
+                         <reference definitionId="org.osate.ui.definition.isInstanceFile" />
+	                     <reference definitionId="org.osate.ui.definition.isSystemInstance"/>
                       </or>
                    </iterate>
                 </and>
@@ -1430,17 +1603,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                          value="1">
                    </count>
                    <iterate>
-                      <or>
-                         <adapt
-                               type="org.eclipse.ui.IWorkingSet">
-                         </adapt>
-                         <adapt
-                               type="org.eclipse.core.resources.IProject">
-                            <test
-                                  property="org.eclipse.core.resources.open">
-                            </test>
-                         </adapt>
-                      </or>
+                      <reference definitionId="org.osate.ui.definition.isWorkingSetOrOpenProject"/>
                    </iterate>
                 </and>
              </with>
@@ -1457,17 +1620,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                          value="1">
                    </count>
                    <iterate>
-                      <or>
-                         <adapt
-                               type="org.eclipse.ui.IWorkingSet">
-                         </adapt>
-                         <adapt
-                               type="org.eclipse.core.resources.IProject">
-                            <test
-                                  property="org.eclipse.core.resources.open">
-                            </test>
-                         </adapt>
-                      </or>
+                      <reference definitionId="org.osate.ui.definition.isWorkingSetOrOpenProject"/>
                    </iterate>
                 </and>
              </with>
@@ -1507,7 +1660,7 @@ censes only apply to the Third Party Software and not any other portion of this 
              class="org.osate.ui.handlers.ContributedAadlStoragePropertyTester"
              id="org.osate.ui.ContributedAadlStoragePropertyTester"
              namespace="org.osate.ui"
-             properties="name"
+             properties="name,aadlPropertySet"
              type="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
        </propertyTester>
        
@@ -1549,5 +1702,21 @@ censes only apply to the Third Party Software and not any other portion of this 
             file="toc_modelUnitVisualization.xml"
             primary="true">
       </toc>
+        <toc
+            file="toc_importWizard.xml"
+            primary="true">
+      </toc>
    </extension>
+   <extension point="org.eclipse.help.contexts">
+      <contexts file="help/importWizard.xml" />
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="org.osate.ui.showInClassifierInfoView"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M3+C">
+      </key>
+   </extension>   
 </plugin>

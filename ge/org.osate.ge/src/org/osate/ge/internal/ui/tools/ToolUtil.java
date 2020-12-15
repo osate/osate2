@@ -53,7 +53,8 @@ import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.util.ProjectUtil;
+import org.osate.ge.ProjectUtil;
+import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 
 import com.google.common.base.Predicates;
 
@@ -125,7 +126,7 @@ public class ToolUtil {
 		final List<DiagnosticBuilder> diagnosticBuilders = new ArrayList<>();
 		for (final AadlPackage pkg : packages) {
 			final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
-			final ResourceSet resourceSet = ProjectUtil.getLiveResourceSet(project);
+			final ResourceSet resourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
 			final DiagnosticBuilder diagnosticBuilder = new DiagnosticBuilder(pkg);
 			// Model error and warning diagnostics
 			populateDiagnostics(diagnosticBuilder,
@@ -176,7 +177,7 @@ public class ToolUtil {
 	public static Set<Diagnostic> getModificationDiagnostics(final Element elementToModify,
 			final Function<ResourceSet, EObject> getModifiedObject) {
 		final IProject project = ProjectUtil.getProjectForBoOrThrow(elementToModify);
-		final ResourceSet resourceSet = ProjectUtil.getLiveResourceSet(project);
+		final ResourceSet resourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
 		// Make modification
 		final EObject modifiedObject = getModifiedObject.apply(resourceSet);
 

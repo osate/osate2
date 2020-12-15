@@ -32,11 +32,13 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanCopyContext;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleteContext;
 import org.osate.ge.businessobjecthandling.CustomDeleter;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
+import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
@@ -46,6 +48,7 @@ import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 
 /**
+ * Business object handler for {@link BehaviorTransitionTrunk}
  * @see ErrorBehaviorTransitionHandler for details about how transitions are represented.
  */
 public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, CustomDeleter
@@ -80,6 +83,11 @@ public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, Cu
 	}
 
 	@Override
+	public boolean canCopy(final CanCopyContext ctx) {
+		return false;
+	}
+
+	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		return Optional.of(GraphicalConfigurationBuilder.create().graphic(
 				ErrorModelGeUtil.transitionConnectionGraphic)
@@ -90,16 +98,21 @@ public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, Cu
 
 	private BusinessObjectContext getSource(final BusinessObjectContext boc,
 			final QueryService queryService) {
-		return queryService.getFirstResult(srcQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(srcQuery, boc);
 	}
 
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc,
 			final QueryService queryService) {
-		return queryService.getFirstResult(dstQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
 	}
 
 	@Override
 	public String getName(final GetNameContext ctx) {
+		return "Trunk";
+	}
+
+	@Override
+	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
 		return "";
 	}
 

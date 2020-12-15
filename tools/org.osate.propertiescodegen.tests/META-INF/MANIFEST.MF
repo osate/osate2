@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Properties Code Generator Tests
+Bundle-SymbolicName: org.osate.propertiescodegen.tests
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: org.osate.propertiescodegen.tests
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro,
+ org.osate.propertiescodegen;bundle-version="1.0.0",
+ org.osate.testsupport;bundle-version="1.0.0",
+ org.osate.aadl2;bundle-version="1.0.0"
+Export-Package: org.osate.propertiescodegen.tests
+Bundle-Vendor: CMU/SEI

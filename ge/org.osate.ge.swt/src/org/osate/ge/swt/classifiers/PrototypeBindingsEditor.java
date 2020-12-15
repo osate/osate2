@@ -29,11 +29,11 @@ import java.util.function.Consumer;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.osate.ge.swt.BorderedCLabel;
 import org.osate.ge.swt.ChangeEvent;
-import org.osate.ge.swt.internal.InternalUtil;
+import org.osate.ge.swt.SwtUtil;
 
 /**
  * View for editing prototype bindings
@@ -42,6 +42,7 @@ import org.osate.ge.swt.internal.InternalUtil;
  * @param <D> is the type of the direction options.
  * @param <T> is the type of the type options.
  * @param <C> is the type of the classifiers.
+ * @since 1.1
  */
 public class PrototypeBindingsEditor<B, D, T, C> extends Composite {
 	private final PrototypeBindingsModel<B, D, T, C> model;
@@ -53,7 +54,7 @@ public class PrototypeBindingsEditor<B, D, T, C> extends Composite {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.parentBinding = parentBinding;
-		InternalUtil.setColorsToMatchParent(this);
+		SwtUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
 		model.changed().addListener(changeListener);
 		refresh();
@@ -65,9 +66,10 @@ public class PrototypeBindingsEditor<B, D, T, C> extends Composite {
 			int nextChildIndex = 0;
 			for (B b : (Iterable<B>) model.getChildren(parentBinding)::iterator) {
 				// Label
-				final CLabel label = children.length > nextChildIndex ? (CLabel) children[nextChildIndex]
-						: new CLabel(this, SWT.BORDER);
-				InternalUtil.setColorsToMatchParent(label);
+				final BorderedCLabel label = children.length > nextChildIndex
+						? (BorderedCLabel) children[nextChildIndex]
+						: new BorderedCLabel(this);
+				SwtUtil.setColorsToMatchParent(label);
 				label.setText(model.getLabel(b));
 				label.setLayoutData(
 						GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create());
@@ -94,7 +96,7 @@ public class PrototypeBindingsEditor<B, D, T, C> extends Composite {
 	}
 
 	public static void main(String[] args) {
-		InternalUtil.run(shell -> {
+		SwtUtil.run(shell -> {
 			new PrototypeBindingsEditor<>(shell, new TestPrototypeBindingsModel(), null);
 		});
 	}
