@@ -23,6 +23,8 @@
  */
 package org.osate.ge.gef.layout;
 
+import java.nio.file.Paths;
+
 import org.eclipse.gef.fx.nodes.InfiniteCanvas;
 import org.osate.ge.gef.FxStyle;
 import org.osate.ge.gef.FxStyleUtil;
@@ -31,6 +33,8 @@ import org.osate.ge.gef.StyleRoot;
 import org.osate.ge.gef.graphics.BusNode;
 import org.osate.ge.gef.graphics.DataPortNode;
 import org.osate.ge.gef.graphics.FeatureGroupNode;
+import org.osate.ge.gef.graphics.ImageManager;
+import org.osate.ge.gef.graphics.ImageReference;
 import org.osate.ge.gef.graphics.LabelNode;
 import org.osate.ge.gef.graphics.NodeApplication;
 import org.osate.ge.gef.graphics.PolygonNode;
@@ -40,12 +44,15 @@ import org.osate.ge.gef.graphics.RectangleNode;
 import com.google.common.collect.ImmutableList;
 
 import javafx.beans.value.ChangeListener;
+import javafx.concurrent.ScheduledService;
+import javafx.concurrent.Task;
 import javafx.geometry.Bounds;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 // TODO: Rename?
 public class ContainerShapeTest {
@@ -237,18 +244,40 @@ public class ContainerShapeTest {
 				top.setConfiguredHeight(newValue.getHeight());
 			});
 
+			// Image manager
+			final ImageManager images = new ImageManager();
+
+			// Start a service which will reload images
+			ScheduledService<Void> svc = new ScheduledService<Void>() {
+				@Override
+				protected Task<Void> createTask() {
+					return new Task<Void>() {
+						@Override
+						protected Void call() {
+							images.refreshImages();
+							return null;
+						}
+					};
+				}
+			};
+			svc.setPeriod(Duration.seconds(1));
+			svc.start();
+
+			final ImageReference testImage = args.length > 0 ? images.getImageReference(Paths.get(args[0])) : null;
+
 			//
 			// Style test
 			//
-			final FxStyle s1 = new FxStyle.Builder().outlineColor(Color.RED).primaryLabelVisible(false).build();
+			final FxStyle s1 = new FxStyle.Builder().primaryLabelVisible(false).image(testImage)
+					.build();
 			final FxStyle s2 = new FxStyle.Builder().outlineColor(Color.BLUE).primaryLabelVisible(false).build();
 			StyleRoot.set(top, true);
 			StyleRoot.set(freeChild1, true);
 			StyleRoot.set(freeChild2, true);
-			FxStyleUtil.applyStyle(freeChild1, s2);
-			FxStyleUtil.applyStyle(freeChild2, s2);
+//			FxStyleUtil.applyStyle(freeChild1, s2);
+//			FxStyleUtil.applyStyle(freeChild2, s2);
 			FxStyleUtil.applyStyle(top, s1);
-			FxStyleUtil.applyStyle(canvas, s1);
+//			FxStyleUtil.applyStyle(canvas, s1);
 
 			return canvas;
 		});

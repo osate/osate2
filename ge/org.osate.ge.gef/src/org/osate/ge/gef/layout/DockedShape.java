@@ -65,8 +65,8 @@ public class DockedShape extends Region implements GraphicNode {
 
 	private ObjectProperty<DockSide> side = new SimpleObjectProperty<DockSide>(DockSide.LEFT);
 	private final Group graphicWrapper = new Group();
-	private final Partition<Node> labels = new Partition<>(getChildren(), false);
-	private final DockedNodes dockedChildren = new DockedNodes(getChildren(), getSide());
+	private final Group labels = new Group();
+	private final DockedNodes dockedChildren = new DockedNodes(getSide());
 	private final StaticAnchor interiorAnchor = new StaticAnchor(this,
 			new org.eclipse.gef.geometry.planar.Point(0.0, 0.0));
 	private final StaticAnchor exteriorAnchor = new StaticAnchor(this,
@@ -105,12 +105,12 @@ public class DockedShape extends Region implements GraphicNode {
 	}
 
 	public DockedShape() {
-		// Disable auto sizing of the contents of the graphics group
+		// Disable auto sizing of the contents of groups
 		graphicWrapper.setAutoSizeChildren(false);
+		labels.setAutoSizeChildren(false);
 
-		this.getChildren().add(graphicWrapper);
+		this.getChildren().addAll(graphicWrapper, labels, dockedChildren.getGroup());
 		dockedChildren.getNodes().addListener(new ChildListener());
-		this.getChildren().addListener(new PartitionCleanerListener());
 		side.addListener((p, o, n) -> {
 			setGraphicRotation();
 			dockedChildren.setSide(n);
@@ -142,7 +142,7 @@ public class DockedShape extends Region implements GraphicNode {
 	}
 
 	public ObservableList<Node> getLabels() {
-		return labels.getNodes();
+		return labels.getChildren();
 	}
 
 	/**
@@ -203,10 +203,9 @@ public class DockedShape extends Region implements GraphicNode {
 	 * @param child the child to remove.
 	 */
 	public void removeChild(final Node child) {
-		if (!Partition.remove(child)) {
-			// Assume the child is the graphic and try to remove it from the graphic group
-			graphicWrapper.getChildren().remove(child);
-		}
+		// Assume the child is contained in a group.
+		final Group g = (Group) child.getParent();
+		g.getChildren().remove(g);
 	}
 
 	/**
@@ -315,7 +314,7 @@ public class DockedShape extends Region implements GraphicNode {
 	 */
 	private double maxLabelPrefWidth() {
 		double result = 0;
-		for (final Node label : labels) {
+		for (final Node label : labels.getChildren()) {
 			if (label.isManaged()) {
 				result = Math.max(result, label.prefWidth(-1));
 			}
@@ -330,7 +329,7 @@ public class DockedShape extends Region implements GraphicNode {
 	 */
 	private double maxLabelPrefHeight() {
 		double result = 0;
-		for (final Node label : labels) {
+		for (final Node label : labels.getChildren()) {
 			if (label.isManaged()) {
 				result = Math.max(result, label.prefHeight(-1));
 			}
@@ -377,7 +376,7 @@ public class DockedShape extends Region implements GraphicNode {
 		// Position Labels
 		double y = 0;
 		double maxLabelWidth = 0;
-		for (final Node label : labels) {
+		for (final Node label : labels.getChildren()) {
 			if (label.isManaged()) {
 				final double childWidth = label.prefWidth(-1);
 				final double childHeight = label.prefHeight(-1);
@@ -491,8 +490,8 @@ public class DockedShape extends Region implements GraphicNode {
 	 * @param value whether to show the first label node.
 	 */
 	public void setPrimaryLabelVisible(final boolean value) {
-		if (labels.getNodes().size() > 0) {
-			final Node label = labels.getNodes().get(0);
+		if (labels.getChildren().size() > 0) {
+			final Node label = labels.getChildren().get(0);
 			if (label.isVisible() != value) {
 				label.setManaged(value);
 				label.setVisible(value);

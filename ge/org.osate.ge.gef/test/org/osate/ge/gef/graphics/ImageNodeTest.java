@@ -58,7 +58,9 @@ public class ImageNodeTest {
 			svc.setPeriod(Duration.seconds(1));
 			svc.start();
 
-			final ImageNode image = new ImageNode(images.getImageReference(Paths.get(args[0])));
+			final ImageNode image = new ImageNode();
+			image.setImageReference(images.getImageReference(Paths.get(args[0])));
+
 			return image;
 		});
 	}

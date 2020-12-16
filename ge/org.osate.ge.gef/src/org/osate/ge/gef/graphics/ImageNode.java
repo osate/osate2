@@ -31,23 +31,16 @@ public class ImageNode extends Region implements GraphicNode {
 			newValue) -> {
 		imageView.setImage(newValue);
 		imageView.setVisible(newValue != null);
+		rectangle.setVisible(newValue != null);
 		errorImage.setVisible(newValue == null);
 	};
 
-	public ImageNode(final ImageReference imageReference) {
-		Objects.requireNonNull(imageReference, "image must not be null");
+	public ImageNode() {
 		imageView.setPreserveRatio(true);
-		setImageReference(imageReference);
-		imageReference.imageProperty().addListener(imageChangeListener);
+		setImageReference(null);
 
 		// Add children
 		this.getChildren().addAll(rectangle, errorImage, imageView);
-
-		// TODo
-//		setLineWidth(2);
-//		setBackgroundColor(Color.WHITE);
-//		setOutlineColor(Color.BLACK);
-//		rect.setStrokeType(StrokeType.INSIDE);
 	}
 
 	@Override
@@ -62,17 +55,28 @@ public class ImageNode extends Region implements GraphicNode {
 		rectangle.resize(width, height);
 	}
 
+	public ImageReference getImageReference() {
+		return this.imageReference;
+	}
+
 	/**
 	 * Updates the image displayed
 	 */
 	public void setImageReference(final ImageReference value) {
-		if(imageReference != null) {
-			imageReference.imageProperty().removeListener(imageChangeListener);
-		}
+		if (!Objects.equals(imageReference, value)) {
+			if (imageReference != null) {
+				imageReference.imageProperty().removeListener(imageChangeListener);
+			}
 
-		this.imageReference = value;
-		imageReference.imageProperty().addListener(new WeakChangeListener<>(imageChangeListener));
-		imageChangeListener.changed(null, null, imageReference.getImage());
+			this.imageReference = value;
+
+			if (imageReference == null) {
+				imageChangeListener.changed(null, null, null);
+			} else {
+				imageReference.imageProperty().addListener(new WeakChangeListener<>(imageChangeListener));
+				imageChangeListener.changed(null, null, imageReference.getImage());
+			}
+		}
 	}
 
 	public final void setBackgroundColor(final Color value) {

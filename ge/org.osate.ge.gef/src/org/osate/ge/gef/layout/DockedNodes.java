@@ -25,14 +25,13 @@ package org.osate.ge.gef.layout;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
+import javafx.scene.Group;
 
 /**
- * Contains a partition for a side containing docked shapes and performs layout of nodes is the partition.
+ * Contains a group for a side containing docked shapes and performs layout of nodes is the group.
  * Manages a cache to improve layout performance. User of the class must call {@link DockedNodes#clearCache()}
  * and {@link DockedNodes#layout(double, double)}.
  */
@@ -114,9 +113,9 @@ class DockedNodes {
 	private boolean valid = false;
 
 	/**
-	 * The partition containing the nodes that are be laid out
+	 * The group containing the nodes that are be laid out
 	 */
-	private final Partition<DockedShape> partition;
+	private final Group group;
 
 	/**
 	 * List of cache entries that contains how the layout information for each docked node.
@@ -139,11 +138,13 @@ class DockedNodes {
 	private double height = 0.0;
 
 	/**
-	 * Creates a new instance
+	 * Creates a new instance. After creation, the group provided by {@link #getGroup()} must be added to the
+	 * scene graph.
 	 * @param side determines how the nodes are laid out and the value to which to set the side property of all added nodes.
 	 */
-	public DockedNodes(final List<Node> allChildren, final DockSide side) {
-		this.partition = new Partition<>(allChildren, false);
+	public DockedNodes(final DockSide side) {
+		this.group = new Group();
+		group.setAutoSizeChildren(false);
 		setSide(side);
 	}
 
@@ -181,11 +182,13 @@ class DockedNodes {
 	}
 
 	/**
-	 * Returns all the nodes in the partition
-	 * @return all the nodes contained in the partition
+	 * Returns all the nodes in the group. This function assumes that only {@link DockedShape} instances are added
+	 * to the group.
+	 * @return all the nodes contained in the group
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ObservableList<DockedShape> getNodes() {
-		return partition.getNodes();
+		return (ObservableList) group.getChildren();
 	}
 
 	/**
@@ -195,6 +198,14 @@ class DockedNodes {
 	public final double getWidth() {
 		ensureValidLayoutCache();
 		return width;
+	}
+
+	/**
+	 * Groups to add to the scene graph. The group must only contain only {@link DockedShape} instances.
+	 * @return the group to add to scene graph.
+	 */
+	protected Group getGroup() {
+		return group;
 	}
 
 	/**
@@ -222,12 +233,12 @@ class DockedNodes {
 	 */
 	private void computeCachedValues() {
 		clearCache();
-		if (partition.getNodes().isEmpty()) {
+		if (group.getChildren().isEmpty()) {
 			return;
 		}
 
 		// Populate cache which objects
-		for (final DockedShape n : partition.getNodes()) {
+		for (final DockedShape n : getNodes()) {
 			cache.add(new DockedNodeCacheEntry(n));
 		}
 

@@ -23,4 +23,6 @@ public class ImageReference {
 	public ObjectProperty<Image> imageProperty() {
 		return image;
 	}
+
+	// TODO; Implement equals
 }

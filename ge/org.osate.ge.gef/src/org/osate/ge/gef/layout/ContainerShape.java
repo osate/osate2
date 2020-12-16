@@ -32,6 +32,8 @@ import org.eclipse.gef.geometry.planar.IGeometry;
 import org.osate.ge.gef.FxStyle;
 import org.osate.ge.gef.LabelPosition;
 import org.osate.ge.gef.graphics.GraphicNode;
+import org.osate.ge.gef.graphics.ImageNode;
+import org.osate.ge.gef.graphics.ImageReference;
 
 import com.google.common.collect.Lists;
 
@@ -40,6 +42,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Region;
 
@@ -125,17 +128,15 @@ public class ContainerShape extends Region implements GraphicNode {
 		}
 	}
 
-	/**
-	 * Whether cached values are valid.
-	 */
-	private final Partition<Node> graphics = new Partition<>(getChildren(), true);
-	private final Partition<Node> labels = new Partition<>(getChildren(), false);
+	private final Group graphics = new Group();
+	private ImageNode image;
+	private final Group labels = new Group();
 	private final DockedNodes leftChildren = createDockedNodes(DockSide.LEFT);
 	private final DockedNodes rightChildren = createDockedNodes(DockSide.RIGHT);
 	private final DockedNodes topChildren = createDockedNodes(DockSide.TOP);
 	private final DockedNodes bottomChildren = createDockedNodes(DockSide.BOTTOM);
 	private final DynamicAnchor anchor = new DynamicAnchor(this, new ChopBoxStrategy());
-	private final Partition<Node> freeChildren = new Partition<>(getChildren(), false);
+	private final Group freeChildren = new Group();
 	private LabelPosition horizontalLabelPosition = LabelPosition.CENTER;
 	private LabelPosition verticalLabelPosition = LabelPosition.BEGINNING;
 
@@ -152,7 +153,14 @@ public class ContainerShape extends Region implements GraphicNode {
 	private double configuredHeight = NOT_SPECIFIED;
 
 	public ContainerShape() {
-		this.getChildren().addListener(new PartitionCleanerListener());
+		// Prevent autosizing of children contained in the groups
+		graphics.setAutoSizeChildren(false);
+		labels.setAutoSizeChildren(false);
+		freeChildren.setAutoSizeChildren(false);
+
+		// Add groups
+		this.getChildren().addAll(graphics, labels, leftChildren.getGroup(), rightChildren.getGroup(),
+				topChildren.getGroup(), bottomChildren.getGroup(), freeChildren);
 
 		// Initialize chopbox anchor
 		anchor.getComputationParameter(AnchorageReferenceGeometry.class).bind(new ObjectBinding<IGeometry>() {
@@ -186,17 +194,17 @@ public class ContainerShape extends Region implements GraphicNode {
 	 * @return the new instance
 	 */
 	private DockedNodes createDockedNodes(final DockSide side) {
-		final DockedNodes result = new DockedNodes(getChildren(), side);
+		final DockedNodes result = new DockedNodes(side);
 		result.getNodes().addListener(new SideSettingListListener(side));
 		return result;
 	}
 
 	public ObservableList<Node> getGraphics() {
-		return graphics.getNodes();
+		return graphics.getChildren();
 	}
 
 	public ObservableList<Node> getLabels() {
-		return labels.getNodes();
+		return labels.getChildren();
 	}
 
 	public ObservableList<DockedShape> getLeftChildren() {
@@ -216,7 +224,7 @@ public class ContainerShape extends Region implements GraphicNode {
 	}
 
 	public ObservableList<Node> getFreeChildren() {
-		return freeChildren.getNodes();
+		return freeChildren.getChildren();
 	}
 
 	public final IAnchor getAnchor() {
@@ -238,8 +246,12 @@ public class ContainerShape extends Region implements GraphicNode {
 		final double width = getWidth();
 		final double height = getHeight();
 
+		if (image != null) {
+			image.resizeRelocate(0, 0, width, height);
+		}
+
 		// Size and position graphics
-		for (final Node graphic : graphics) {
+		for (final Node graphic : graphics.getChildren()) {
 			if (graphic.isManaged()) {
 				graphic.resizeRelocate(0, 0, width, height);
 			}
@@ -268,7 +280,7 @@ public class ContainerShape extends Region implements GraphicNode {
 		// Ensure that labels are always allocated their minimum height. Eagerly allocate additional space based on preferred
 		// height.
 		double remainingLabelHeightBeyondMinimum = height - computeMinLabelHeight();
-		for (final Node child : labels) {
+		for (final Node child : labels.getChildren()) {
 			if (child.isManaged()) {
 				double childX = 0;
 				final double childWidth = Math.min(width - 2.0 * horizontalLabelPadding, child.prefWidth(-1));
@@ -302,7 +314,7 @@ public class ContainerShape extends Region implements GraphicNode {
 		bottomChildren.layout(0, height);
 
 		// Position and size free children
-		for (final Node child : freeChildren) {
+		for (final Node child : freeChildren.getChildren()) {
 			if (child.isManaged()) {
 				final Point2D position = getPreferredPositionOrDefault(child);
 				child.resizeRelocate(position.getX(), position.getY(), child.prefWidth(-1), child.prefHeight(-1));
@@ -349,8 +361,8 @@ public class ContainerShape extends Region implements GraphicNode {
 	 * @param value whether to show the first label node.
 	 */
 	public void setPrimaryLabelVisible(final boolean value) {
-		if (labels.getNodes().size() > 0) {
-			final Node label = labels.getNodes().get(0);
+		if (labels.getChildren().size() > 0) {
+			final Node label = labels.getChildren().get(0);
 			if (label.isVisible() != value) {
 				label.setManaged(value);
 				label.setVisible(value);
@@ -359,17 +371,40 @@ public class ContainerShape extends Region implements GraphicNode {
 		}
 	}
 
+	/**
+	 * Sets the image to display in place of the graphics
+	 * @param value a reference to an image to display instead of graphics. If null, the graphics will be displayed.
+	 */
+	public void setImage(final ImageReference value) {
+		if (this.image == null) {
+			if (value == null) {
+				getChildren().remove(image);
+			} else {
+				image = new ImageNode();
+				image.setImageReference(value);
+				getChildren().add(0, image);
+			}
+		} else {
+			image.setImageReference(value);
+		}
+
+		final boolean showGraphics = image == null;
+		graphics.setManaged(showGraphics);
+		graphics.setVisible(showGraphics);
+	}
+
 	@Override
 	public void apply(final FxStyle style) {
 		setHorizontalLabelPosition(style.getHorizontalLabelPosition());
 		setVerticalLabelPosition(style.getVerticalLabelPosition());
 		setPrimaryLabelVisible(style.isPrimaryLabelVisible());
+		setImage(style.getImage());
 	}
 
 	@Override
 	public IGeometry getOutline() {
 		// Loop through graphics in reverse order and use the first available outline.
-		for (final Node graphic : Lists.reverse(graphics.getNodes())) {
+		for (final Node graphic : Lists.reverse(graphics.getChildren())) {
 			if (graphic instanceof GraphicNode) {
 				final IGeometry outline = ((GraphicNode) graphic).getOutline();
 				if (outline != null && outline.getBounds().getWidth() > 0) {
@@ -403,7 +438,7 @@ public class ContainerShape extends Region implements GraphicNode {
 			double result = Math.max(MIN_COMPUTED_PREF_WIDTH, configuredWidth);
 
 			// Include the preferred with of the labels
-			for (final Node label : labels) {
+			for (final Node label : labels.getChildren()) {
 				if (label.isManaged()) {
 					result = Math.max(result, label.prefWidth(-1));
 				}
@@ -471,7 +506,7 @@ public class ContainerShape extends Region implements GraphicNode {
 				Math.max(topChildren.getWidth(), bottomChildren.getWidth()));
 
 		// Take into consideration minimum width of graphics
-		for (final Node graphic : graphics) {
+		for (final Node graphic : graphics.getChildren()) {
 			if (graphic.isManaged()) {
 				result = Math.max(result, graphic.minWidth(-1));
 			}
@@ -479,7 +514,7 @@ public class ContainerShape extends Region implements GraphicNode {
 
 		// Take into consideration the minimum width of labels
 		final double horizontalLabelPadding = computeHorizontalLabelPadding();
-		for (final Node label : labels) {
+		for (final Node label : labels.getChildren()) {
 			if (label.isManaged()) {
 				result = Math.max(result, label.minWidth(-1) + (2 * horizontalLabelPadding));
 			}
@@ -497,7 +532,7 @@ public class ContainerShape extends Region implements GraphicNode {
 				Math.max(leftChildren.getHeight(), rightChildren.getHeight()));
 
 		// Take into consideration min height of graphics
-		for (final Node graphic : graphics) {
+		for (final Node graphic : graphics.getChildren()) {
 			if (graphic.isManaged()) {
 				result = Math.max(result, graphic.minHeight(width));
 			}
@@ -520,7 +555,7 @@ public class ContainerShape extends Region implements GraphicNode {
 		final double width = getWidth();
 
 		double minLabelHeight = 0;
-		for (final Node label : labels) {
+		for (final Node label : labels.getChildren()) {
 			if (label.isManaged()) {
 				minLabelHeight += label.minHeight(width);
 			}
@@ -540,7 +575,7 @@ public class ContainerShape extends Region implements GraphicNode {
 	 */
 	private final double computeMinWidthForFreeChildren() {
 		double result = 0;
-		for (final Node child : freeChildren) {
+		for (final Node child : freeChildren.getChildren()) {
 			if (child.isManaged()) {
 				final Point2D childPosition = getPreferredPositionOrDefault(child);
 				final double childWidth = child.prefWidth(-1);
@@ -558,7 +593,7 @@ public class ContainerShape extends Region implements GraphicNode {
 	 */
 	private final double computeMinHeightForFreeChildren() {
 		double result = 0;
-		for (final Node child : freeChildren) {
+		for (final Node child : freeChildren.getChildren()) {
 			if (child.isManaged()) {
 				final Point2D childPosition = getPreferredPositionOrDefault(child);
 				final double childHeight = child.prefHeight(-1);
@@ -579,7 +614,7 @@ public class ContainerShape extends Region implements GraphicNode {
 		final double horizontalLabelPadding = computeHorizontalLabelPadding();
 		final double labelWidth = width > 0 ? -1 : Math.max(width - 2 * horizontalLabelPadding, 0);
 		double totalLabelHeight = 0;
-		for (final Node label : labels) {
+		for (final Node label : labels.getChildren()) {
 			if (label.isManaged()) {
 				totalLabelHeight += label.prefHeight(labelWidth);
 			}
@@ -597,7 +632,9 @@ public class ContainerShape extends Region implements GraphicNode {
 	 * @param child the child to remove.
 	 */
 	public void removeChild(final Node child) {
-		Partition.remove(child);
+		// Assume the child is contained in a group.
+		final Group g = (Group) child.getParent();
+		g.getChildren().remove(g);
 	}
 
 	/**

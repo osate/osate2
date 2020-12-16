@@ -279,7 +279,7 @@ public class FxStyle {
 	 * If null, the node's graphic should be displayed.
 	 * @return the image to display in place of the node's graphic.
 	 */
-	public final ImageReference image() {
+	public final ImageReference getImage() {
 		return image;
 	}
 }
