@@ -1,17 +1,13 @@
 package org.osate.analysis.resource.budgets.internal.busload.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.SystemInstance;
 
 
-public class Processor extends AnalysisElement {
-	private final ComponentInstance procInstance;
+public class ProcessorOrVirtualProcessor extends AnalysisElement {
+	private final SystemInstance procInstance;
 	private double capacity;
-	private String somName, totalCapacityUnit;
+	private String totalCapacityUnit;
 	private int resources, capacityResources;
-	private List<String> capacityUnits = new ArrayList();
 
 	public final String getTotalCapacityUnit() {
 		return totalCapacityUnit;
@@ -19,18 +15,6 @@ public class Processor extends AnalysisElement {
 
 	public final void setTotalCapacityUnit(final String totalCapacityUnit) {
 		this.totalCapacityUnit = totalCapacityUnit;
-	}
-
-	public final List<String> getCapacityUnit() {
-		return capacityUnits;
-	}
-
-	public final void addCapacityUnit(final String capacityUnit) {
-		this.capacityUnits.add(capacityUnit);
-	}
-
-	public final void setCapacityUnit(final List<String> capacityUnits) {
-		this.capacityUnits = capacityUnits;
 	}
 
 	public final int getCapacityResources() {
@@ -57,21 +41,12 @@ public class Processor extends AnalysisElement {
 		this.capacity = capacity;
 	}
 
-	public final String getSomName() {
-		return somName;
-	}
-
-	public final void setSomName(final String somName) {
-		this.somName = somName;
-	}
-
-	public Processor(final ComponentInstance procInstance, final String somName) {
-		super("processor");
+	public ProcessorOrVirtualProcessor(final SystemInstance procInstance, String category) {
+		super(category);
 		this.procInstance = procInstance;
-		this.somName = somName;
 	}
 
-	public final ComponentInstance getProcessorInstance() {
+	public final SystemInstance getProcessorInstance() {
 		return procInstance;
 	}
 

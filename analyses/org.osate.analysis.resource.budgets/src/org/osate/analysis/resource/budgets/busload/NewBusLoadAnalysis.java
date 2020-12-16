@@ -23,6 +23,9 @@
  */
 package org.osate.analysis.resource.budgets.busload;
 
+import static org.osate.analysis.resource.budgets.logic.GenericAnalysis.error;
+import static org.osate.analysis.resource.budgets.logic.GenericAnalysis.warning;
+
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -44,8 +47,8 @@ import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadModel;
 import org.osate.analysis.resource.budgets.internal.busload.model.BusOrVirtualBus;
 import org.osate.analysis.resource.budgets.internal.busload.model.Connection;
 import org.osate.analysis.resource.budgets.internal.busload.model.Visitor;
+import org.osate.analysis.resource.budgets.logic.GenericAnalysis;
 import org.osate.result.AnalysisResult;
-import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
 import org.osate.result.ResultType;
 import org.osate.result.util.ResultUtil;
@@ -121,7 +124,7 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  *
  * @since 3.0
  */
-public final class NewBusLoadAnalysis {
+public final class NewBusLoadAnalysis extends GenericAnalysis {
 	public NewBusLoadAnalysis() {
 		super();
 	}
@@ -376,15 +379,5 @@ public final class NewBusLoadAnalysis {
 			actualDataRate = datasize * srcRate;
 		}
 		return actualDataRate;
-	}
-
-	// ==== Error reporting methods for the visitor ===
-
-	private static void error(final Result result, final InstanceObject io, final String msg) {
-		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.ERROR));
-	}
-
-	private static void warning(final Result result, final InstanceObject io, final String msg) {
-		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.WARNING));
 	}
 }

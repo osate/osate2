@@ -23,17 +23,25 @@
  */
 package org.osate.analysis.resource.budgets.internal.busload.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @since 3.0
  */
 abstract class AnalysisElement extends ModelElement {
 	private String label;
+	private String somName;
+	private String category;
 
 	/** Actual data requirements in KB/s. */
 	private double actual;
 
 	/** Budgeted data requirements in KB/s. */
 	private double budget;
+
+	/** children **/
+	private List<Component> components = new ArrayList();
 
 	AnalysisElement(final String label) {
 		this.label = label;
@@ -57,5 +65,33 @@ abstract class AnalysisElement extends ModelElement {
 
 	public final void setBudget(final double budget) {
 		this.budget = budget;
+	}
+
+	public final List<Component> getComponents() {
+		return components;
+	}
+
+	public final void addComponent(final Component comp) {
+		this.components.add(comp);
+	}
+
+	public final void setCapacityUnit(final List<Component> components) {
+		this.components = components;
+	}
+
+	public final String getSomName() {
+		return somName;
+	}
+
+	public final void setSomName(final String somName) {
+		this.somName = somName;
+	}
+
+	public final String getCategory() {
+		return category;
+	}
+
+	public final void setCategory(final String category) {
+		this.category = category;
 	}
 }
