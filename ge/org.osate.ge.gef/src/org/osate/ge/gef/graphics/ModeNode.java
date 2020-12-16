@@ -25,6 +25,7 @@ package org.osate.ge.gef.graphics;
 
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
+import org.osate.ge.gef.FxStyle;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -137,16 +138,20 @@ public class ModeNode extends Region implements GraphicNode {
 	}
 
 	@Override
+	public final void apply(final FxStyle style) {
+		setBackgroundColor(style.getBackgroundColor());
+		setOutlineColor(style.getOutlineColor());
+		setLineWidth(style.getLineWidth());
+	}
+
 	public final void setBackgroundColor(final Color value) {
 		outline.setFill(value);
 	}
 
-	@Override
 	public final void setOutlineColor(final Color value) {
 		outline.setStroke(value);
 	}
 
-	@Override
 	public final void setLineWidth(final double value) {
 		outline.setStrokeWidth(value);
 		initialModeCircle.setStrokeWidth(value);

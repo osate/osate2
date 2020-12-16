@@ -21,13 +21,17 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.graphics;
+package org.osate.ge.gef;
 
-public class PolylineNodeTest {
-	private PolylineNodeTest() {
-	}
-
-	public static void main(final String[] args) {
-		NodeApplication.run(() -> new PolylineNode(null, 0.5, 0.0, 0.0, 1.0, 1.0, 1.0));
-	}
+/**
+ * Interface that allows applying an {#link FxStyle} to a node.
+ */
+public interface StyledNode {
+	/**
+	 * Updates the node based on the specified style. Nodes may only support a subset of style properties.
+	 * The node does not style descendants. It should only apply the style to itself an internal created children nodes
+	 * which do not implement {@link StyledNode}
+	 * @param style the style to apply
+	 */
+	void apply(final FxStyle style);
 }

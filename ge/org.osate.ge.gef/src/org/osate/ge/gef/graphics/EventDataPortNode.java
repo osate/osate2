@@ -25,6 +25,7 @@ package org.osate.ge.gef.graphics;
 
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
+import org.osate.ge.gef.FxStyle;
 
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Region;
@@ -60,17 +61,21 @@ public class EventDataPortNode extends Region implements GraphicNode {
 	}
 
 	@Override
+	public final void apply(final FxStyle style) {
+		setBackgroundColor(style.getBackgroundColor());
+		setOutlineColor(style.getOutlineColor());
+		setLineWidth(style.getLineWidth());
+	}
+
 	public final void setBackgroundColor(final Color value) {
 		dataPort.setBackgroundColor(value);
 	}
 
-	@Override
 	public final void setOutlineColor(final Color value) {
 		dataPort.setOutlineColor(value);
 		eventPort.setOutlineColor(value);
 	}
 
-	@Override
 	public final void setLineWidth(final double value) {
 		dataPort.setLineWidth(value);
 		eventPort.setLineWidth(value);

@@ -40,6 +40,7 @@ import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
@@ -51,21 +52,17 @@ public class TimingPropertyValueHandler extends AadlBusinessObjectHandler {
 	private static final Graphic immediateGraphic = PolyBuilder.create().
 			polyline().
 			points(
-					new Point(8.0, -6), new Point(0.0, 0.0), new Point(8.0, 6.0),
-
-					new Point(0.0, 0.0), new Point(8.0, 0.0),
-
-					new Point(16.0, -6), new Point(8.0, 0.0), new Point(16.0, 6.0))
+					new Point(0.5, 0.0), new Point(0.0, 0.5), new Point(0.5, 1.0), new Point(0.0, 0.5),
+					new Point(0.5, 0.5), new Point(1.0, 0.0), new Point(0.5, 0.5), new Point(1.0, 1.0))
+			.fixedSize(new Dimension(16.0, 12.0))
 			.build();
 
 	private static final Graphic delayedGraphic = PolyBuilder.create().
 			polyline().
 			points(
-					new Point(0.0, -10), new Point(0.0, 10.0),
-
-					new Point(0.0, 0.0), new Point(5.0, 0.0),
-
-					new Point(5.0, -10), new Point(5.0, 10.0))
+					new Point(0.0, 0.0), new Point(0.0, 1.0), new Point(0.0, 0.5), new Point(1.0, 0.5),
+					new Point(1.0, 0.0), new Point(1.0, 1.0))
+			.fixedSize(new Dimension(5.0, 20.0))
 			.build();
 
 	private final PropertyValueGroupHandler pvgBoh = new PropertyValueGroupHandler();

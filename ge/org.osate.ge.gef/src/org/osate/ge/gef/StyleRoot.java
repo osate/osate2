@@ -21,13 +21,42 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.graphics;
+package org.osate.ge.gef;
 
-public class PolylineNodeTest {
-	private PolylineNodeTest() {
+import java.util.Objects;
+
+import javafx.scene.Node;
+
+/**
+ * Class for accessing the style root property. The property is used to mark an element as a style root.
+ * A style root is a node which may have have a separate style from its parent. Styles are applied from the style root
+ * and descendants until another style root is reached. The style root flag should be set by the creators of the
+ * nodes as needed.
+ */
+public class StyleRoot {
+	/**
+	 * Key for whether a node is a style root.
+	 */
+	private static final Object KEY = new Object();
+
+	/**
+	 * Returns whether a node is a style root.
+	 * @param node the node for which to check if it is a style root.
+	 * @return whether the node is a style root.
+	 */
+	public static boolean get(final Node node) {
+		return (Boolean) node.getProperties().getOrDefault(KEY, Boolean.FALSE);
 	}
 
-	public static void main(final String[] args) {
-		NodeApplication.run(() -> new PolylineNode(null, 0.5, 0.0, 0.0, 1.0, 1.0, 1.0));
+	/**
+	 * Sets whether the node is a style root.
+	 * @param node the node for which to set whether it is a style root
+	 * @param value is whether the node is a style root
+	 */
+	public static void set(final Node node, final boolean value) {
+		final boolean oldValue = get(node);
+		if (!Objects.equals(value, oldValue)) {
+			node.getProperties().put(KEY, value);
+		}
 	}
 }

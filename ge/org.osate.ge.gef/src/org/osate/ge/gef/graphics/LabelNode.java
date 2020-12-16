@@ -25,25 +25,26 @@ package org.osate.ge.gef.graphics;
 
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
+import org.osate.ge.gef.FxStyle;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * Nodes for displaying and styling labels. Lightweight wrapper around {@link Label}
+ * Labels do not have backgrounds.
+ */
 public class LabelNode extends Region implements GraphicNode {
 	private final Label text = new Label();
 
 	public LabelNode(final String txt) {
 		this.getChildren().addAll(text);
-		setBackgroundColor(Color.WHITE);
-		setBackgroundColor(Color.RED);
 		setFontColor(Color.BLACK);
 		setText(txt);
+		text.setPadding(new Insets(0.0, 4.0, 0.0, 4.0)); // TODO: Review hat is appropriate. Would like top and bottom to match current
 	}
 
 	public LabelNode() {
@@ -60,19 +61,45 @@ public class LabelNode extends Region implements GraphicNode {
 	}
 
 	@Override
-	public final void setBackgroundColor(final Color value) {
-		text.setBackground(new Background(new BackgroundFill(value, CornerRadii.EMPTY, Insets.EMPTY)));
+	protected double computeMinWidth(double height) {
+		return text.minWidth(height);
 	}
 
 	@Override
+	protected double computeMinHeight(double width) {
+		return text.minHeight(width);
+	}
+
+	@Override
+	protected double computePrefWidth(double height) {
+		return text.prefWidth(height);
+	}
+
+	@Override
+	protected double computePrefHeight(double width) {
+		return text.prefHeight(width);
+	}
+
+	@Override
+	protected double computeMaxWidth(double height) {
+		return text.maxWidth(height);
+	}
+
+	@Override
+	protected double computeMaxHeight(double width) {
+		return text.maxHeight(width);
+	}
+
+	@Override
+	public final void apply(final FxStyle style) {
+		setFont(style.getFont());
+		setFontColor(style.getFontColor());
+	}
+
 	public void setFont(final Font font) {
 		text.setFont(font);
-
-		// TODO: Is this needed?
-		requestLayout();
 	}
 
-	@Override
 	public void setFontColor(final Color value) {
 		text.setTextFill(value);
 	}
@@ -80,6 +107,10 @@ public class LabelNode extends Region implements GraphicNode {
 	public void setText(final String value) {
 		text.setText(value);
 		requestLayout();
+	}
+
+	public void setWrapText(final boolean value) {
+		text.setWrapText(value);
 	}
 
 	@Override

@@ -27,7 +27,9 @@ import java.util.Objects;
 
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
+import org.osate.ge.gef.FxStyle;
 
+import javafx.geometry.Dimension2D;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
@@ -37,12 +39,25 @@ public class PolylineNode extends Region implements GraphicNode {
 	private final javafx.scene.shape.Polyline poly = new Polyline();
 	private double[] points; // TODO: Document meaning/range
 
-	public PolylineNode(final double... points) {
+	public PolylineNode(final Dimension2D fixedSize, final double... points) {
 		this.points = Objects.requireNonNull(points, "points must not be null").clone();
 		this.getChildren().addAll(poly);
 
+		// For fixed sized nodes, set the min=pref=max=fixed size
+		if (fixedSize != null) {
+			setPrefWidth(fixedSize.getWidth());
+			setPrefHeight(fixedSize.getHeight());
+			setMinWidth(fixedSize.getWidth());
+			setMinHeight(fixedSize.getHeight());
+			setMaxWidth(fixedSize.getWidth());
+			setMaxHeight(fixedSize.getHeight());
+			resize(fixedSize.getWidth(), fixedSize.getHeight());
+		}
+
 		// TODO: Require multiple of 2
 		// TODO: Set points?
+
+		// TODO: Using INSIDE breaks polyline
 
 		setLineWidth(2);
 		setOutlineColor(Color.BLACK);
@@ -60,14 +75,19 @@ public class PolylineNode extends Region implements GraphicNode {
 		}
 
 		poly.getPoints().setAll(sizedPoints);
+
 	}
 
 	@Override
+	public final void apply(final FxStyle style) {
+		setOutlineColor(style.getOutlineColor());
+		setLineWidth(style.getLineWidth());
+	}
+
 	public final void setOutlineColor(final Color value) {
 		poly.setStroke(value);
 	}
 
-	@Override
 	public final void setLineWidth(final double value) {
 		poly.setStrokeWidth(value);
 	}

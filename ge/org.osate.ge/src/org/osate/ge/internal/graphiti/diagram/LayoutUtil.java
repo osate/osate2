@@ -132,9 +132,11 @@ public class LayoutUtil {
 					final DiagramElement decorationElement = (DiagramElement) decoratorNode;
 					if (decorationElement.getGraphic() instanceof Poly) {
 						final Poly poly = (Poly) decorationElement.getGraphic();
-						AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, cd,
+						final GraphicsAlgorithm polyGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(
+								graphitiDiagram, cd,
 								decorationElement.getGraphic(), 1, 1, true, decorationElement.getStyle());
-						totalNonLabelWidth += poly.right + nonLabelDecorationSpacing; // Extra padding is added to space decorations apart from each other
+						totalNonLabelWidth += polyGa.getWidth() + nonLabelDecorationSpacing; // Extra padding is added to space decorations apart from each
+						// other
 					}
 				}
 			}
@@ -168,15 +170,15 @@ public class LayoutUtil {
 							labelY += 15;
 						}
 					} else if (decorationElement.getGraphic() instanceof Poly) {
-						final Poly poly = (Poly) decorationElement.getGraphic();
 						final org.eclipse.graphiti.mm.algorithms.Polyline polyline = (org.eclipse.graphiti.mm.algorithms.Polyline) AgeGraphitiGraphicsUtil
 								.createGraphicsAlgorithm(graphitiDiagram, cd, decorationElement.getGraphic(), 1, 1,
 										true, decorationElement.getStyle());
 						for (Point p : polyline.getPoints()) {
 							p.setX(p.getX() + nonLabelShiftX);
+							p.setY(p.getY() - polyline.getHeight() / 2);
 						}
 
-						nonLabelShiftX += Math.ceil(poly.right) + nonLabelDecorationSpacing;
+						nonLabelShiftX += polyline.getWidth() + nonLabelDecorationSpacing;
 					} else {
 						throw new RuntimeException(
 								"Unsupported connection child graphic: " + decorationElement.getGraphic());

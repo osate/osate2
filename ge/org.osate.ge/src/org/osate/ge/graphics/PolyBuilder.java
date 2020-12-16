@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -35,6 +35,7 @@ import org.osate.ge.graphics.internal.Poly.Type;
  */
 public class PolyBuilder {
 	private Point[] points;
+	private Dimension fixedSize;
 	private Type type = Type.POLYGON;
 
 	private PolyBuilder() {}
@@ -49,11 +50,22 @@ public class PolyBuilder {
 
 	/**
 	 * Configures the poly builder to build a poly composed of the specified points.
-	 * @param points the points to use when creating the poly. All coordinates must be in the range of [0.0, 1.0]. Polylines are scaled by the editor.
+	 * @param points the points to use when creating the poly. All coordinates must be in the range of [0.0, 1.0]. Polys are scaled by the editor.
 	 * @return this builder to allow method chaining.
 	 */
 	public PolyBuilder points(final Point... points) {
 		this.points = Objects.requireNonNull(points, "points must not be null").clone();
+		return this;
+	}
+
+	/**
+	 * Configures the poly builder to build a poly that has a fixed size and is not resizable.
+	 * @param value is the size of the  poly
+	 * @return this builder to allow method chaining.
+	 * @since 2.1
+	 */
+	public PolyBuilder fixedSize(final Dimension value) {
+		fixedSize = value;
 		return this;
 	}
 
@@ -80,6 +92,6 @@ public class PolyBuilder {
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new Poly(points, type);
+		return new Poly(points, fixedSize, type);
 	}
 }

@@ -43,9 +43,12 @@ import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.graphics.ArrowBuilder;
+import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
+import org.osate.ge.graphics.Style;
+import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
@@ -53,8 +56,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomDeleter {
 	private static final Graphic labelGraphic = LabelBuilder.create().build();
+	private static final Style style = StyleBuilder.create().backgroundColor(Color.WHITE).build();
 	private static final Graphic connectionGraphic = ConnectionBuilder.create()
-			.destinationTerminator(ArrowBuilder.create().open().build()).build();
+			.destinationTerminator(ArrowBuilder.create().filled().build()).build();
 
 	// Only works if the package is displayed in the diagram.
 	private static StandaloneQuery dstQuery = StandaloneQuery
@@ -103,7 +107,8 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 		if (destination == null) {
 			return Optional.of(GraphicalConfigurationBuilder.create().graphic(labelGraphic).decoration().build());
 		} else {
-			return Optional.of(GraphicalConfigurationBuilder.create().graphic(connectionGraphic).source(boc.getParent())
+			return Optional.of(GraphicalConfigurationBuilder.create().graphic(connectionGraphic).style(style)
+					.source(boc.getParent())
 					.destination(destination).build());
 		}
 	}

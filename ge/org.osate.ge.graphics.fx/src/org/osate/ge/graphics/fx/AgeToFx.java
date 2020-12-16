@@ -28,12 +28,12 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.DoubleStream;
 
+import org.osate.ge.gef.FxStyle;
 import org.osate.ge.gef.graphics.BusNode;
 import org.osate.ge.gef.graphics.DeviceNode;
 import org.osate.ge.gef.graphics.EllipseNode;
 import org.osate.ge.gef.graphics.FeatureGroupTypeNode;
 import org.osate.ge.gef.graphics.FolderNode;
-import org.osate.ge.gef.graphics.GraphicNode;
 import org.osate.ge.gef.graphics.LabelNode;
 import org.osate.ge.gef.graphics.MemoryNode;
 import org.osate.ge.gef.graphics.ModeNode;
@@ -43,6 +43,7 @@ import org.osate.ge.gef.graphics.PolylineNode;
 import org.osate.ge.gef.graphics.ProcessorNode;
 import org.osate.ge.gef.graphics.RectangleNode;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.LabelPosition;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.internal.BusGraphic;
 import org.osate.ge.graphics.internal.DeviceGraphic;
@@ -57,8 +58,10 @@ import org.osate.ge.graphics.internal.Poly;
 import org.osate.ge.graphics.internal.ProcessorGraphic;
 import org.osate.ge.graphics.internal.Rectangle;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
+import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -84,12 +87,16 @@ public class AgeToFx {
 		addCreator(mapBuilder, Poly.class, poly -> {
 			final double[] points = Arrays.stream(poly.getPoints()).flatMapToDouble(p -> DoubleStream.of(p.x, p.y))
 					.toArray();
+			final Dimension2D fixedSize = poly.fixedSize == null ? null
+					: new Dimension2D(poly.fixedSize.width, poly.fixedSize.height);
 			switch (poly.type) {
 			case POLYGON:
-				return new PolygonNode(points);
+				return new PolygonNode(
+						fixedSize,
+						points);
 
 			case POLYLINE:
-				return new PolylineNode(points);
+				return new PolylineNode(fixedSize, points);
 
 			default:
 				throw new RuntimeException("Unhandled type: " + poly.type);
@@ -123,37 +130,39 @@ public class AgeToFx {
 		return c.apply(graphic);
 	}
 
-	// TODO
-	// Ideally applying a style is as simple as :
-	// AgeToFx.applyStyle(node, style);
-	// This should work for:
-	// Shape Nodes. Including those with annotations.
-	// Diagram Element Nodes. However, it should not affect children. Just parts that are inherent.
-	// Connections
-	// Apply's an OSATE graphical editor style to a node
-	public static void applyStyle(final GraphicNode node, final Style style) {
+	public static FxStyle createStyle(final Style style) {
 		if (!style.isComplete()) {
 			throw new RuntimeException("Specified style must be complete");
 		}
 
-		node.setBackgroundColor(ageToFxColor(style.getBackgroundColor()));
-		node.setOutlineColor(ageToFxColor(style.getOutlineColor()));
-		node.setFontColor(ageToFxColor(style.getFontColor()));
+		// TODO: Add additional fields
+		return new FxStyle.Builder().backgroundColor(ageToFxColor(style.getBackgroundColor()))
+				.outlineColor(ageToFxColor(style.getOutlineColor())).fontColor(ageToFxColor(style.getFontColor()))
+				.font(new Font("Arial", style.getFontSize())).strokeDashOffset(1.0) // TODO: Convert line style to stroke dash offset
+				.strokeDashArray(ImmutableList.of()) // TODO: Convert line style to stroke dash array
+				.lineWidth(style.getLineWidth()).horizontalLabelPosition(convert(style.getHorizontalLabelPosition()))
+				.verticalLabelPosition(convert(style.getVerticalLabelPosition()))
+				.primaryLabelVisible(style.getPrimaryLabelVisible()).
+				build();
+	}
 
-		// TODO: Avoid creating fonts repeatedly?
-		final Font font = new Font("Arial", style.getFontSize());
-		node.setFont(font);
-
-		node.setLineWidth(style.getLineWidth());
-
-		// TODO: Implement
-		// style.getShowAsImage()
-		// node.setImage(image);
-
-		// setLabelPosition(Pos value)
-		// setStrokeDashOffset(double value)
-		// setStrokeDashArray(double... values)
-		// void setLineWidth(final double value)
+	private static org.osate.ge.gef.LabelPosition convert(final LabelPosition value) {
+		switch (value) {
+		case BEFORE_GRAPHIC:
+			// The output type doesn't have a matching value. Use beginning.
+			return org.osate.ge.gef.LabelPosition.BEGINNING;
+		case GRAPHIC_BEGINNING:
+			return org.osate.ge.gef.LabelPosition.BEGINNING;
+		case GRAPHIC_CENTER:
+			return org.osate.ge.gef.LabelPosition.CENTER;
+		case GRAPHIC_END:
+			return org.osate.ge.gef.LabelPosition.END;
+		case AFTER_GRAPHIC:
+			// The output type doesn't have a matching value. Use end.
+			return org.osate.ge.gef.LabelPosition.END;
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + value);
+		}
 	}
 
 	private static Color ageToFxColor(final org.osate.ge.graphics.Color color) {

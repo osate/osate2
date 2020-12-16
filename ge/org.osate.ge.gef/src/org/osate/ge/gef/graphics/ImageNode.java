@@ -2,6 +2,10 @@ package org.osate.ge.gef.graphics;
 
 import java.util.Objects;
 
+import org.eclipse.gef.geometry.convert.fx.FX2Geometry;
+import org.eclipse.gef.geometry.planar.IGeometry;
+import org.osate.ge.gef.FxStyle;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.WeakChangeListener;
 import javafx.scene.image.Image;
@@ -16,8 +20,9 @@ import javafx.scene.shape.StrokeLineCap;
  * Resizable node that displays an image reference. If the referenced image is updated, then the displayed image is updated.
  *
  */
-public class ImageNode extends Region {
+public class ImageNode extends Region implements GraphicNode {
 	private ImageReference imageReference;
+	private final RectangleNode rectangle = new RectangleNode();
 	private final ErrorImage errorImage = new ErrorImage();
 	private final ImageView imageView = new ImageView();
 
@@ -36,7 +41,13 @@ public class ImageNode extends Region {
 		imageReference.imageProperty().addListener(imageChangeListener);
 
 		// Add children
-		this.getChildren().addAll(errorImage, imageView);
+		this.getChildren().addAll(rectangle, errorImage, imageView);
+
+		// TODo
+//		setLineWidth(2);
+//		setBackgroundColor(Color.WHITE);
+//		setOutlineColor(Color.BLACK);
+//		rect.setStrokeType(StrokeType.INSIDE);
 	}
 
 	@Override
@@ -48,6 +59,7 @@ public class ImageNode extends Region {
 		imageView.setFitHeight(height);
 		imageView.resize(width, height);
 		errorImage.resize(width, height);
+		rectangle.resize(width, height);
 	}
 
 	/**
@@ -61,6 +73,28 @@ public class ImageNode extends Region {
 		this.imageReference = value;
 		imageReference.imageProperty().addListener(new WeakChangeListener<>(imageChangeListener));
 		imageChangeListener.changed(null, null, imageReference.getImage());
+	}
+
+	public final void setBackgroundColor(final Color value) {
+		rectangle.setBackgroundColor(value);
+	}
+
+	public final void setOutlineColor(final Color value) {
+		rectangle.setOutlineColor(value);
+	}
+
+	public final void setLineWidth(final double value) {
+		rectangle.setLineWidth(value);
+	}
+
+	@Override
+	public void apply(FxStyle style) {
+		// Applying style is handled by the rectangle child which is styled node.
+	}
+
+	@Override
+	public IGeometry getOutline() {
+		return FX2Geometry.toRectangle(getLayoutBounds());
 	}
 }
 

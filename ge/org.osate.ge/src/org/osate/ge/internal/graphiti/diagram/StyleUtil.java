@@ -142,17 +142,14 @@ class StyleUtil {
 			final org.eclipse.graphiti.mm.algorithms.styles.Color fontColor, final int lineWidth) {
 		final boolean isStylingContainer = PropertyUtil.isStylingContainer(ga);
 		final boolean isStylingChild = PropertyUtil.isStylingChild(ga);
-		final boolean isStylingOutlineEnabled = PropertyUtil.isStylingOutlineEnabled(ga);
 
-		if (isStylingOutlineEnabled) {
+		if (isStylingChild) {
 			if (ga.getForeground() != null && !(ga instanceof AbstractText)) {
 				if (outline != null) {
 					ga.setForeground(outline);
 				}
 			}
-		}
 
-		if (isStylingChild) {
 			if (ga.getForeground() != null) {
 				if (ga instanceof AbstractText) {
 					ga.setForeground(fontColor);

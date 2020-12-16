@@ -21,13 +21,25 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.graphics;
+package org.osate.ge.gef.layout;
 
-public class PolylineNodeTest {
-	private PolylineNodeTest() {
+import org.eclipse.gef.fx.anchors.IAnchor;
+import org.eclipse.gef.fx.anchors.StaticAnchor;
+import org.eclipse.gef.geometry.planar.Point;
+
+/**
+ * Extension of {@link BaseConnectionNode} which is intended to represent a flow indicator. Allows setting the start
+ * anchor. The end anchor of the connection is placed at the local origin.
+ */
+public class FlowIndicatorNode extends BaseConnectionNode {
+	private StaticAnchor anchor = new StaticAnchor(this, new Point(0.0, 0.0));
+
+	public FlowIndicatorNode() {
+		setEndAnchor(anchor);
 	}
 
-	public static void main(final String[] args) {
-		NodeApplication.run(() -> new PolylineNode(null, 0.5, 0.0, 0.0, 1.0, 1.0, 1.0));
+	@Override
+	public void setStartAnchor(final IAnchor anchor) {
+		super.setStartAnchor(anchor);
 	}
 }

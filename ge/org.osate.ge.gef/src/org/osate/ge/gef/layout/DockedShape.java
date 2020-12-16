@@ -25,7 +25,11 @@ package org.osate.ge.gef.layout;
 
 import org.eclipse.gef.fx.anchors.IAnchor;
 import org.eclipse.gef.fx.anchors.StaticAnchor;
+import org.eclipse.gef.geometry.convert.fx.FX2Geometry;
+import org.eclipse.gef.geometry.planar.IGeometry;
 import org.eclipse.gef.geometry.planar.Point;
+import org.osate.ge.gef.FxStyle;
+import org.osate.ge.gef.graphics.GraphicNode;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -53,7 +57,7 @@ import javafx.scene.layout.Region;
  * Labels and nested {@link DockedShape} instances are laid out based on the configured {@link DockSide}
  * The preferred position of nested children can be set using {@link PreferredPosition#set(Node, Point2D)}.
  */
-public class DockedShape extends Region {
+public class DockedShape extends Region implements GraphicNode {
 	/**
 	 * Indicates that a value has not been specified. Used to indicate the lack of a configured width or height.
 	 */
@@ -63,8 +67,6 @@ public class DockedShape extends Region {
 	private final Group graphicWrapper = new Group();
 	private final Partition<Node> labels = new Partition<>(getChildren(), false);
 	private final DockedNodes dockedChildren = new DockedNodes(getChildren(), getSide());
-
-	// TODO: Update document, and update position during layout.
 	private final StaticAnchor interiorAnchor = new StaticAnchor(this,
 			new org.eclipse.gef.geometry.planar.Point(0.0, 0.0));
 	private final StaticAnchor exteriorAnchor = new StaticAnchor(this,
@@ -229,10 +231,18 @@ public class DockedShape extends Region {
 		}
 	}
 
+	/**
+	 * Anchor intended for use to connect to the docked shape from within the containing {@link ContainerShape}
+	 * @return the interior anchor
+	 */
 	public final IAnchor getInteriorAnchor() {
 		return interiorAnchor;
 	}
 
+	/**
+	 * Anchor intended for use to connect to the docked shape from outside the containing {@link ContainerShape}
+	 * @return the exterior anchor
+	 */
 	public final IAnchor getExteriorAnchor() {
 		return exteriorAnchor;
 	}
@@ -453,25 +463,52 @@ public class DockedShape extends Region {
 			final double anchorY = (graphicWrapperBounds.getMinY() + graphicWrapperBounds.getMaxY()) / 2.0;
 			if (side.alignEnd) {
 				// Right
-				interiorAnchor.setReferencePosition(new Point(graphicWrapperBounds.getMinX(), anchorY));
-				exteriorAnchor.setReferencePosition(new Point(graphicWrapperBounds.getMaxX(), anchorY));
+				interiorAnchor.setReferencePosition(new Point(graphicWrapperBounds.getMinX() + 1, anchorY));
+				exteriorAnchor.setReferencePosition(new Point(graphicWrapperBounds.getMaxX() - 1, anchorY));
 			} else {
 				// Left
-				interiorAnchor.setReferencePosition(new Point(graphicWrapperBounds.getMaxX(), anchorY));
-				exteriorAnchor.setReferencePosition(new Point(graphicWrapperBounds.getMinX(), anchorY));
+				interiorAnchor.setReferencePosition(new Point(graphicWrapperBounds.getMaxX() - 1, anchorY));
+				exteriorAnchor.setReferencePosition(new Point(graphicWrapperBounds.getMinX() + 1, anchorY));
 			}
 		} else {
 			final Bounds graphicWrapperBounds = graphicWrapper.getBoundsInParent();
 			final double anchorX = (graphicWrapperBounds.getMinX() + graphicWrapperBounds.getMaxX()) / 2.0;
 			if (side.alignEnd) {
 				// Bottom
-				interiorAnchor.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMinY()));
-				exteriorAnchor.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMaxY()));
+				interiorAnchor.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMinY() + 1));
+				exteriorAnchor.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMaxY() - 1));
 			} else {
 				// Top
-				interiorAnchor.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMaxY()));
-				exteriorAnchor.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMinY()));
+				interiorAnchor.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMaxY() - 1));
+				exteriorAnchor.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMinY() + 1));
 			}
 		}
+	}
+
+	/**
+	 * Sets the managed and visible flags of the first label to the specified value. This setting is not retained
+	 * if the first label changes to a different node.
+	 * @param value whether to show the first label node.
+	 */
+	public void setPrimaryLabelVisible(final boolean value) {
+		if (labels.getNodes().size() > 0) {
+			final Node label = labels.getNodes().get(0);
+			if (label.isVisible() != value) {
+				label.setManaged(value);
+				label.setVisible(value);
+				setNeedsLayout(true);
+			}
+		}
+	}
+
+	@Override
+	public void apply(final FxStyle style) {
+		setPrimaryLabelVisible(style.isPrimaryLabelVisible());
+	}
+
+	@Override
+	public IGeometry getOutline() {
+		// Use the rectangle bounds of the node
+		return FX2Geometry.toRectangle(getLayoutBounds());
 	}
 }

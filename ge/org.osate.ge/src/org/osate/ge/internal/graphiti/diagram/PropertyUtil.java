@@ -43,10 +43,6 @@ public class PropertyUtil {
 	private static final String IS_STYLING_CHILD_KEY = "is_styling_child"; // True if the GA's color should be adjusted during styling
 	private static final String IMAGE_KEY = "image_path"; // Image path stored as a portable string
 
-	// True if the GA's outline should be adjusted during styling. Outline styling
-	// will be performed if either the styling child or styling outline value is set.
-	private static final String IS_STYLING_OUTLINE_KEY = "is_styling_outline";
-
 	public static String getName(final PropertyContainer pc) {
 		return Graphiti.getPeService().getPropertyValue(pc, NAME_KEY);
 	}
@@ -121,14 +117,5 @@ public class PropertyUtil {
 
 	public static void setImage(final GraphicsAlgorithm ga, String value) {
 		Graphiti.getPeService().setPropertyValue(ga, IMAGE_KEY, value);
-	}
-
-	public static boolean isStylingOutlineEnabled(final GraphicsAlgorithm ga) {
-		return "true".equals(Graphiti.getPeService().getPropertyValue(ga, IS_STYLING_OUTLINE_KEY))
-				|| isStylingChild(ga);
-	}
-
-	public static void setIsStylingOutlineEnabled(final GraphicsAlgorithm ga, boolean value) {
-		Graphiti.getPeService().setPropertyValue(ga, IS_STYLING_OUTLINE_KEY, value ? "true" : "false");
 	}
 }

@@ -27,23 +27,44 @@ import java.util.Objects;
 
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
+import org.osate.ge.gef.FxStyle;
 
+import javafx.geometry.Dimension2D;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.StrokeType;
 
 // TODO: Rename?
 public class PolygonNode extends Region implements GraphicNode {
 	private final javafx.scene.shape.Polygon poly = new Polygon();
 	private double[] points; // TODO: Document meaning/range
 
-	public PolygonNode(final double... points) {
+	// TODO: Document
+	/**
+	 *
+	 * @param fixedSize may be null
+	 * @param points
+	 */
+	public PolygonNode(final Dimension2D fixedSize, final double... points) {
 		this.points = Objects.requireNonNull(points, "points must not be null").clone();
 		this.getChildren().addAll(poly);
+
+		// For fixed sized nodes, set the min=pref=max=fixed size
+		if (fixedSize != null) {
+			setPrefWidth(fixedSize.getWidth());
+			setPrefHeight(fixedSize.getHeight());
+			setMinWidth(fixedSize.getWidth());
+			setMinHeight(fixedSize.getHeight());
+			setMaxWidth(fixedSize.getWidth());
+			setMaxHeight(fixedSize.getHeight());
+			resize(fixedSize.getWidth(), fixedSize.getHeight());
+		}
 
 		// TODO: Require multiple of 2
 		// TODO: Set points?
 
+		poly.setStrokeType(StrokeType.INSIDE);
 		setLineWidth(2);
 		setBackgroundColor(Color.WHITE);
 		setOutlineColor(Color.BLACK);
@@ -64,16 +85,20 @@ public class PolygonNode extends Region implements GraphicNode {
 	}
 
 	@Override
+	public final void apply(final FxStyle style) {
+		setBackgroundColor(style.getBackgroundColor());
+		setOutlineColor(style.getOutlineColor());
+		setLineWidth(style.getLineWidth());
+	}
+
 	public final void setBackgroundColor(final Color value) {
 		poly.setFill(value);
 	}
 
-	@Override
 	public final void setOutlineColor(final Color value) {
 		poly.setStroke(value);
 	}
 
-	@Override
 	public final void setLineWidth(final double value) {
 		poly.setStrokeWidth(value);
 	}

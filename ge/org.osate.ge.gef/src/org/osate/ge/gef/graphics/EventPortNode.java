@@ -25,6 +25,7 @@ package org.osate.ge.gef.graphics;
 
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
+import org.osate.ge.gef.FxStyle;
 
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -47,11 +48,15 @@ public class EventPortNode extends Region implements GraphicNode {
 	}
 
 	@Override
+	public final void apply(final FxStyle style) {
+		setOutlineColor(style.getOutlineColor());
+		setLineWidth(style.getLineWidth());
+	}
+
 	public final void setOutlineColor(final Color value) {
 		poly.setStroke(value);
 	}
 
-	@Override
 	public final void setLineWidth(final double value) {
 		poly.setStrokeWidth(value);
 	}

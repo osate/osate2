@@ -25,12 +25,13 @@ package org.osate.ge.gef.graphics;
 
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
+import org.osate.ge.gef.FxStyle;
 
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 
-// TODO: Rename
+// TODO: Rename. Need to support fixed size?
 public class EllipseNode extends Region implements GraphicNode {
 	private final javafx.scene.shape.Ellipse ellipse = new Ellipse();
 
@@ -52,16 +53,20 @@ public class EllipseNode extends Region implements GraphicNode {
 	}
 
 	@Override
+	public final void apply(final FxStyle style) {
+		setBackgroundColor(style.getBackgroundColor());
+		setOutlineColor(style.getOutlineColor());
+		setLineWidth(style.getLineWidth());
+	}
+
 	public final void setBackgroundColor(final Color value) {
 		ellipse.setFill(value);
 	}
 
-	@Override
 	public final void setOutlineColor(final Color value) {
 		ellipse.setStroke(value);
 	}
 
-	@Override
 	public final void setLineWidth(final double value) {
 		ellipse.setStrokeWidth(value);
 	}

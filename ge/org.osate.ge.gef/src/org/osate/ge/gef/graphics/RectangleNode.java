@@ -25,6 +25,7 @@ package org.osate.ge.gef.graphics;
 
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
+import org.osate.ge.gef.FxStyle;
 
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
@@ -63,16 +64,20 @@ public class RectangleNode extends Region implements GraphicNode {
 	}
 
 	@Override
+	public final void apply(final FxStyle style) {
+		setBackgroundColor(style.getBackgroundColor());
+		setOutlineColor(style.getOutlineColor());
+		setLineWidth(style.getLineWidth());
+	}
+
 	public final void setBackgroundColor(final Color value) {
 		rect.setFill(value);
 	}
 
-	@Override
 	public final void setOutlineColor(final Color value) {
 		rect.setStroke(value);
 	}
 
-	@Override
 	public final void setLineWidth(final double value) {
 		rect.setStrokeWidth(value);
 	}

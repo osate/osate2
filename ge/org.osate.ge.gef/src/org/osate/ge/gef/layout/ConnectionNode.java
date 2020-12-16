@@ -21,13 +21,21 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.graphics;
+package org.osate.ge.gef.layout;
 
-public class PolylineNodeTest {
-	private PolylineNodeTest() {
+import org.eclipse.gef.fx.anchors.IAnchor;
+
+/**
+ * Extension of {@link BaseConnectionNode} that allows setting the start and end anchors.
+ */
+public class ConnectionNode extends BaseConnectionNode {
+	@Override
+	public void setStartAnchor(final IAnchor anchor) {
+		super.setStartAnchor(anchor);
 	}
 
-	public static void main(final String[] args) {
-		NodeApplication.run(() -> new PolylineNode(null, 0.5, 0.0, 0.0, 1.0, 1.0, 1.0));
+	@Override
+	public void setEndAnchor(final IAnchor anchor) {
+		super.setEndAnchor(anchor);
 	}
 }

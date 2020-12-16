@@ -28,6 +28,6 @@ public class PolygonNodeTest {
 	}
 
 	public static void main(final String[] args) {
-		NodeApplication.run(() -> new PolygonNode(0.5, 0.0, 0.0, 1.0, 1.0, 1.0));
+		NodeApplication.run(() -> new PolygonNode(null, 0.5, 0.0, 0.0, 1.0, 1.0, 1.0));
 	}
 }

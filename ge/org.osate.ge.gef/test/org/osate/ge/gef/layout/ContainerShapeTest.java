@@ -23,22 +23,29 @@
  */
 package org.osate.ge.gef.layout;
 
-import org.eclipse.gef.fx.nodes.Connection;
-import org.eclipse.gef.fx.nodes.GeometryNode;
 import org.eclipse.gef.fx.nodes.InfiniteCanvas;
+import org.osate.ge.gef.FxStyle;
+import org.osate.ge.gef.FxStyleUtil;
+import org.osate.ge.gef.LabelPosition;
+import org.osate.ge.gef.StyleRoot;
 import org.osate.ge.gef.graphics.BusNode;
 import org.osate.ge.gef.graphics.DataPortNode;
 import org.osate.ge.gef.graphics.FeatureGroupNode;
+import org.osate.ge.gef.graphics.LabelNode;
 import org.osate.ge.gef.graphics.NodeApplication;
+import org.osate.ge.gef.graphics.PolygonNode;
+import org.osate.ge.gef.graphics.PolylineNode;
 import org.osate.ge.gef.graphics.RectangleNode;
-import org.osate.ge.gef.layout.ContainerShape.LabelPosition;
+
+import com.google.common.collect.ImmutableList;
 
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Bounds;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 // TODO: Rename?
 public class ContainerShapeTest {
@@ -56,9 +63,10 @@ public class ContainerShapeTest {
 			//
 			// Create Labels
 			//
-			final Label label1 = new Label("Top Node");
-			final Label label2 = new Label("Longer single-line label. This should be truncated if there isn't space.");
-			final Label label3 = new Label(
+			final LabelNode label1 = new LabelNode("Top Node");
+			final LabelNode label2 = new LabelNode(
+					"Longer single-line label. This should be truncated if there isn't space.");
+			final LabelNode label3 = new LabelNode(
 					"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 			label3.setWrapText(true);
 			top.getLabels().setAll(label1, label2, label3);
@@ -68,8 +76,8 @@ public class ContainerShapeTest {
 			//
 			final ContainerShape freeChild1 = new ContainerShape();
 			freeChild1.getGraphics().setAll(new BusNode());
-			freeChild1.getLabels().setAll(new Label("Child Node #1"));
-			PreferredPosition.set(freeChild1, new Point2D(200, 300));
+			freeChild1.getLabels().setAll(new LabelNode("Child Node #1"));
+			PreferredPosition.set(freeChild1, new Point2D(200, 200));
 			top.getFreeChildren().add(freeChild1);
 
 			// TODO: Set position. Set an explicit preferred size
@@ -77,9 +85,9 @@ public class ContainerShapeTest {
 			freeChild2.setHorizontalLabelPosition(LabelPosition.CENTER);
 			freeChild2.setVerticalLabelPosition(LabelPosition.BEGINNING);
 			freeChild2.getGraphics().setAll(new RectangleNode());
-			freeChild2.getLabels().setAll(new Label("Child Node #2"));
+			freeChild2.getLabels().setAll(new LabelNode("Child Node #2"));
 			top.getFreeChildren().add(freeChild2);
-			PreferredPosition.set(freeChild2, new Point2D(100, 400));
+			PreferredPosition.set(freeChild2, new Point2D(50, 400));
 
 			// TODO: Suggest a size
 			freeChild2.setConfiguredWidth(300);
@@ -102,7 +110,7 @@ public class ContainerShapeTest {
 			// top.getBottomChildren().add(fg);
 			fg.setConfiguredWidth(400.0);
 			fg.setConfiguredHeight(50.0);
-			PreferredPosition.set(fg, new Point2D(0, 50));
+			PreferredPosition.set(fg, new Point2D(0, 388));
 
 			final DockedShape fgChild1 = createDockedShape("FG Child #1", new DataPortNode());
 			fg.getNestedChildren().add(fgChild1);
@@ -124,6 +132,22 @@ public class ContainerShapeTest {
 			final DockedShape freeChild2Port1 = createDockedShape("Data Port", new DataPortNode());
 			freeChild2.getRightChildren().add(freeChild2Port1);
 
+			// Flow Indicator
+			final FlowIndicatorNode fi1 = new FlowIndicatorNode();
+			fi1.setPrimaryLabel(new LabelNode("<FLOW INDICATOR>"));
+			fi1.setStartDecoration(new PolygonNode(new Dimension2D(20.0, 12.0), 1.0, 1.0, 0.0, 0.5, 1.0, 0.0));
+			fi1.setEndDecoration(new PolylineNode(new Dimension2D(0.0, 16.0), 0.0, 0.0, 0.0, 1.0));
+			PreferredPosition.set(fi1, new Point2D(50.0, 26.0));
+			fi1.setBendpoints(ImmutableList.of(new org.eclipse.gef.geometry.planar.Point(120, 0),
+					new org.eclipse.gef.geometry.planar.Point(120, 50),
+					new org.eclipse.gef.geometry.planar.Point(80, 50),
+					new org.eclipse.gef.geometry.planar.Point(80, 0)));
+
+// TDO: Add labels
+
+			fi1.setStartAnchor(freeChild2Port1.getInteriorAnchor());
+			freeChild2.getFreeChildren().add(fi1);
+
 			//
 			// Connections
 			//
@@ -132,19 +156,28 @@ public class ContainerShapeTest {
 			// TODO: Add connections to docked and undocked.
 
 			// TODO: Instead of being a group, should be its own type of node to ensure consistent behavior?
-			final Connection c1 = new Connection();
-			final GeometryNode<?> cgn1 = (GeometryNode<?>) c1.getCurve();
-			cgn1.setStrokeWidth(2.0);
-			cgn1.setClickableAreaWidth(10.0);
+			final BaseConnectionNode c1 = new ConnectionNode();
 			c1.setStartAnchor(fgChild1.getInteriorAnchor());
 			c1.setEndAnchor(freeChild2Port1.getExteriorAnchor());
+			c1.setPrimaryLabel(new LabelNode("Connection #1"));
+			c1.getOtherLabels().setAll(new LabelNode("Label 2"), new LabelNode("L2"));
+//			c1.setBendpoints(ImmutableList.of(new org.eclipse.gef.geometry.planar.Point(530, 200),
+//					new org.eclipse.gef.geometry.planar.Point(480, 200),
+//					new org.eclipse.gef.geometry.planar.Point(480, 430)));
 
-			final Connection c2 = new Connection();
-			final GeometryNode<?> cgn2 = (GeometryNode<?>) c1.getCurve();
-			cgn2.setStrokeWidth(2.0);
-			cgn2.setClickableAreaWidth(10.0);
+			//			c1.getCenterDecorators().setAll(new PolygonNode(new Dimension2D(20.0, 12.0), 1.0, 1.0, 0.0, 0.5, 1.0, 0.0));
+			c1.getMidpointDecorations().setAll(new PolygonNode(new Dimension2D(20.0, 12.0), 1.0, 1.0, 0.0, 0.5, 1.0, 0.0),
+					new PolygonNode(new Dimension2D(10.0, 12.0), 1.0, 1.0, 0.0, 0.5, 1.0, 0.0));
+			// TODO: Test with another decorator
+
+			// TODO: Decorators must be sized by something... prefWIdth and prefHeight not enough
+			// TODO: Unless conenction wrapper handles it..
+			c1.setStartDecoration(new PolygonNode(new Dimension2D(8.0, 12.0), 1.0, 1.0, 0.0, 0.5, 1.0, 0.0));
+			c1.setEndDecoration(new PolygonNode(new Dimension2D(20.0, 10.0), 1.0, 1.0, 0.0, 0.5, 1.0, 0.0));
+
+			final BaseConnectionNode c2 = new ConnectionNode();
 			c2.setStartAnchor(freeChild1.getAnchor());
-			c2.setEndAnchor(nestedFg.getInteriorAnchor());
+			c2.setEndAnchor(c1.getMidpointAnchor());// nestedFg.getInteriorAnchor()); // TODO
 
 			//
 			// TODO: Integrate with a connection object that will support layout, etc
@@ -152,18 +185,16 @@ public class ContainerShapeTest {
 
 //			final Group cg1 = new Group();
 //			cg1.getChildren().add(connection);
-//			final Label connectionLabel = new Label("connection #1");
+//			final Label connectionLabel = new LabelNode("connection #1");
 //			cg1.getChildren().add(connectionLabel);
-//			connection.getChildren().add(new Label("test 2"));
+//			connection.getChildren().add(new LabelNode("test 2"));
 //			connection.pointsUnmodifiableProperty()
 //					.addListener((ChangeListener<ObservableList<org.eclipse.gef.geometry.planar.Point>>) (observable,
 //							oldValue, newValue) -> {
-//				System.err.println("ZZZZ");
 //			});
 //
 //			c1.pointsUnmodifiableProperty().addListener((InvalidationListener) observable -> {
 //				// TODO Auto-generated method stub
-//				System.err.println("BBBDDD");
 //			});
 			// TODO: Check invalidation listener too
 			// TODO: this appears to work but it it realy a good idea? Should do it as part of layout instead
@@ -180,7 +211,9 @@ public class ContainerShapeTest {
 			top.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 				System.err.println("Clicked");
 				// TODO: Move - Free shape
-				PreferredPosition.set(freeChild2, new Point2D(200, 400));
+				PreferredPosition.set(freeChild1, new Point2D(100, 250));
+
+				PreferredPosition.set(freeChild2, new Point2D(10, 350));
 
 				// TODO: Move Feature group
 				PreferredPosition.set(fg, new Point2D(0, 200));
@@ -193,6 +226,8 @@ public class ContainerShapeTest {
 
 			final InfiniteCanvas canvas = new InfiniteCanvas();
 			canvas.getContentGroup().getChildren().add(top);
+
+			// TODO:
 			canvas.getContentGroup().getChildren().add(c1);
 			canvas.getContentGroup().getChildren().add(c2);
 
@@ -202,13 +237,26 @@ public class ContainerShapeTest {
 				top.setConfiguredHeight(newValue.getHeight());
 			});
 
+			//
+			// Style test
+			//
+			final FxStyle s1 = new FxStyle.Builder().outlineColor(Color.RED).primaryLabelVisible(false).build();
+			final FxStyle s2 = new FxStyle.Builder().outlineColor(Color.BLUE).primaryLabelVisible(false).build();
+			StyleRoot.set(top, true);
+			StyleRoot.set(freeChild1, true);
+			StyleRoot.set(freeChild2, true);
+			FxStyleUtil.applyStyle(freeChild1, s2);
+			FxStyleUtil.applyStyle(freeChild2, s2);
+			FxStyleUtil.applyStyle(top, s1);
+			FxStyleUtil.applyStyle(canvas, s1);
+
 			return canvas;
 		});
 	}
 
 	private static DockedShape createDockedShape(final String label, final Node graphic) {
 		final DockedShape newNode = new DockedShape();
-		newNode.getLabels().setAll(new Label(label));
+		newNode.getLabels().setAll(new LabelNode(label));
 		newNode.setGraphic(graphic);
 		return newNode;
 	}

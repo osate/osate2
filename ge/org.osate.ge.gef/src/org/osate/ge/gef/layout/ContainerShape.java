@@ -29,6 +29,8 @@ import org.eclipse.gef.fx.anchors.DynamicAnchor.AnchorageReferenceGeometry;
 import org.eclipse.gef.fx.anchors.IAnchor;
 import org.eclipse.gef.geometry.convert.fx.FX2Geometry;
 import org.eclipse.gef.geometry.planar.IGeometry;
+import org.osate.ge.gef.FxStyle;
+import org.osate.ge.gef.LabelPosition;
 import org.osate.ge.gef.graphics.GraphicNode;
 
 import com.google.common.collect.Lists;
@@ -65,7 +67,7 @@ import javafx.scene.layout.Region;
  * it is calculated based on the preferred position and sizes of children.
  *
  **/
-public class ContainerShape extends Region {
+public class ContainerShape extends Region implements GraphicNode {
 	/**
 	 * Indicates that a value has not been specified. Used to indicate the lack of a configured width or height.
 	 */
@@ -99,24 +101,6 @@ public class ContainerShape extends Region {
 	 * Minimum spacing between docked shapes on the axis on which they are laid out.
 	 */
 	static final double DOCKED_SHAPE_SPACING = 5;
-
-	/**
-	 * Support positions for label children.
-	 */
-	public enum LabelPosition {
-		/**
-		 * Left/Top
-		 */
-		BEGINNING,
-		/**
-		 * Horizontal/Vertical Middle
-		 */
-		CENTER,
-		/**
-		 * Right/Bottom
-		 */
-		END
-	}
 
 	/**
 	 * {@link ListChangeListener} which sets the {@link DockedShape#sideProperty()} of the elements of a list to
@@ -170,10 +154,10 @@ public class ContainerShape extends Region {
 	public ContainerShape() {
 		this.getChildren().addListener(new PartitionCleanerListener());
 
-		// TODO: Finish initializing chop box anchor
+		// Initialize chopbox anchor
 		anchor.getComputationParameter(AnchorageReferenceGeometry.class).bind(new ObjectBinding<IGeometry>() {
 			{
-				// TODO: Taken from DefaultAnchorProvider.. consider wheter this is appropriate
+				// Taken from DefaultAnchorProvider..
 				// XXX: Binding value needs to be recomputed when the
 				// anchorage changes or when the layout bounds of the
 				// respective anchorage changes.
@@ -191,18 +175,7 @@ public class ContainerShape extends Region {
 
 			@Override
 			protected IGeometry computeValue() {
-				// Loop through graphics in reverse order and use the first available outline.
-				for (final Node graphic : Lists.reverse(graphics.getNodes())) {
-					if (graphic instanceof GraphicNode) {
-						final IGeometry outline = ((GraphicNode) graphic).getOutline();
-						if (outline != null && outline.getBounds().getWidth() > 0) {
-							return outline;
-						}
-					}
-				}
-
-				// Fallback to a rectangle based on layout bounds
-				return FX2Geometry.toRectangle(getLayoutBounds());
+				return getOutline();
 			}
 		});
 	}
@@ -335,7 +308,7 @@ public class ContainerShape extends Region {
 				child.resizeRelocate(position.getX(), position.getY(), child.prefWidth(-1), child.prefHeight(-1));
 			}
 		}
-	};
+	}
 
 	/**
 	 * Returns the preferred position for the child. If the child does not have a preferred position, a default
@@ -368,6 +341,45 @@ public class ContainerShape extends Region {
 			this.verticalLabelPosition = value;
 			setNeedsLayout(true);
 		}
+	}
+
+	/**
+	 * Sets the managed and visible flags of the first label to the specified value. This setting is not retained
+	 * if the first label changes to a different node.
+	 * @param value whether to show the first label node.
+	 */
+	public void setPrimaryLabelVisible(final boolean value) {
+		if (labels.getNodes().size() > 0) {
+			final Node label = labels.getNodes().get(0);
+			if (label.isVisible() != value) {
+				label.setManaged(value);
+				label.setVisible(value);
+				setNeedsLayout(true);
+			}
+		}
+	}
+
+	@Override
+	public void apply(final FxStyle style) {
+		setHorizontalLabelPosition(style.getHorizontalLabelPosition());
+		setVerticalLabelPosition(style.getVerticalLabelPosition());
+		setPrimaryLabelVisible(style.isPrimaryLabelVisible());
+	}
+
+	@Override
+	public IGeometry getOutline() {
+		// Loop through graphics in reverse order and use the first available outline.
+		for (final Node graphic : Lists.reverse(graphics.getNodes())) {
+			if (graphic instanceof GraphicNode) {
+				final IGeometry outline = ((GraphicNode) graphic).getOutline();
+				if (outline != null && outline.getBounds().getWidth() > 0) {
+					return outline;
+				}
+			}
+		}
+
+		// Fallback to a rectangle based on layout bounds
+		return FX2Geometry.toRectangle(getLayoutBounds());
 	}
 
 	@Override

@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.osate.ge.gef.graphics.GraphicNode;
+import org.osate.ge.gef.FxStyleUtil;
 import org.osate.ge.gef.graphics.LabelNode;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
@@ -104,8 +104,7 @@ public class AgeFxNodeDemoApplication extends Application {
 		final int numberOfColumns = 2;
 		int row = 0, col = -1;
 		for (final Node node : nodes) {
-			AgeToFx.applyStyle((GraphicNode) node, style); // TODO: Need to continually test without style.. Have option to disable?
-
+			FxStyleUtil.applyStyle(node, AgeToFx.createStyle(style));
 			// Increment the row and column first so that the final values will be the indices of the last node
 			col++;
 			if (col > (numberOfColumns - 1)) {

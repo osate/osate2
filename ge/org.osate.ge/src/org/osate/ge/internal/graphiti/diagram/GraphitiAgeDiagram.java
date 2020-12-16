@@ -817,14 +817,6 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable, La
 				PropertyUtil.setIsStylingChild(ga, true);
 				break;
 
-			case OPEN_ARROW:
-				ga = createPolygonArrow(cd, terminator.size);
-				ga.setForeground(black);
-				ga.setBackground(white);
-				PropertyUtil.setIsStylingChild(ga, false);
-				PropertyUtil.setIsStylingOutlineEnabled(ga, true);
-				break;
-
 			case LINE_ARROW:
 				ga = createLineArrow(cd, terminator.size);
 				ga.setForeground(black);

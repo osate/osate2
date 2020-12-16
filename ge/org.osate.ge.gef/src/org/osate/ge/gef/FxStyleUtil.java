@@ -21,13 +21,30 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.graphics;
+package org.osate.ge.gef;
 
-public class PolylineNodeTest {
-	private PolylineNodeTest() {
+import javafx.scene.Node;
+import javafx.scene.Parent;
+
+// TODO: Rename, refactor, rework. WIP experimentation for applying styles
+// TODO; Use this in AgeToFx/remove functons from AgeToFx
+public class FxStyleUtil {
+	private FxStyleUtil() {
 	}
 
-	public static void main(final String[] args) {
-		NodeApplication.run(() -> new PolylineNode(null, 0.5, 0.0, 0.0, 1.0, 1.0, 1.0));
+	public static void applyStyle(final Node node, final FxStyle style) {
+		// TODO: Separate out style pat of graphic node
+		if (node instanceof StyledNode) {
+			((StyledNode) node).apply(style);
+		}
+
+		// Apply to descendants. Stop once a style root is reached.
+		if (node instanceof Parent) {
+			for (final Node child : ((Parent) node).getChildrenUnmodifiable()) {
+				if (!StyleRoot.get(child)) {
+					applyStyle(child, style);
+				}
+			}
+		}
 	}
 }

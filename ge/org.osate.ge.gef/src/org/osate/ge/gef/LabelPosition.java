@@ -21,13 +21,22 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.graphics;
+package org.osate.ge.gef;
 
-public class PolylineNodeTest {
-	private PolylineNodeTest() {
-	}
-
-	public static void main(final String[] args) {
-		NodeApplication.run(() -> new PolylineNode(null, 0.5, 0.0, 0.0, 1.0, 1.0, 1.0));
-	}
+/**
+ * Support positions for label children.
+ */
+public enum LabelPosition {
+	/**
+	 * Left/Top
+	 */
+	BEGINNING,
+	/**
+	 * Horizontal/Vertical Middle
+	 */
+	CENTER,
+	/**
+	 * Right/Bottom
+	 */
+	END
 }
