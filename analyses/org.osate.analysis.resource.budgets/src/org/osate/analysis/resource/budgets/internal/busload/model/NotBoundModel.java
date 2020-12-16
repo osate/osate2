@@ -75,15 +75,8 @@ public class NotBoundModel {
 				final ComponentInstance ci = (ComponentInstance) obj;
 				final ComponentCategory cat = ci.getCategory();
 				if (cat == ComponentCategory.PROCESSOR) {
-					UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(root);
 
-					@SuppressWarnings("unchecked")
-					EList<ComponentInstance> proclist = (EList<ComponentInstance>) (EList<?>) new ForAllElement()
-							.processPreOrderComponentInstance(root, ComponentCategory.PROCESSOR);
-					double capacity = sumCapacity(proclist, ResourceKind.MIPS, "processor", mipsliteral);
-					proclist.forEach(comp -> {
-						addProcessor(model, comp, som);
-					});
+					addProcessor(model, root, ci, som);
 
 				} else if (cat == ComponentCategory.VIRTUAL_BUS) {
 					// addVirtualBus(model, ci, som);
@@ -94,9 +87,36 @@ public class NotBoundModel {
 		return model;
 	}
 
-	private static void addProcessor(final NotBoundModel model, final ComponentInstance ci,
+	private static void addProcessor(final NotBoundModel model, final SystemInstance si, final ComponentInstance ci,
 			final SystemOperationMode som) {
 		final Processor theProcessor = model.getProcessor(ci, Aadl2Util.getPrintableSOMName(som));
+
+		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(si);
+		@SuppressWarnings("unchecked")
+		EList<ComponentInstance> proclist = (EList<ComponentInstance>) (EList<?>) new ForAllElement()
+				.processPreOrderComponentInstance(si, ComponentCategory.PROCESSOR);
+
+		double capacity = 0;
+		int resources = 0;
+		int capacityResources = 0;
+
+		for (ComponentInstance io : proclist) {
+			double tmpCapacity = getCapacity(io, ResourceKind.MIPS, mipsliteral);
+			capacity += tmpCapacity;
+
+			theProcessor.addCapacityUnit(detailedLogTotal1(io, capacity, mipsliteral));
+
+			resources++;
+			if (tmpCapacity > 0) {
+				capacityResources++;
+			}
+		}
+
+		theProcessor.setCapacity(capacity);
+		theProcessor.setResources(resources);
+		theProcessor.setCapacityResources(capacityResources);
+		theProcessor.setTotalCapacityUnit(detailedLogTotal1(null, capacity, mipsliteral));
+
 		model.addProcessor(theProcessor);
 	}
 
@@ -112,21 +132,14 @@ public class NotBoundModel {
 		MIPS, RAM, ROM, Memory
 	}
 
-	private double sumCapacity(EList<ComponentInstance> ilist, ResourceKind rk, String resourceName, UnitLiteral unit) {
-		double total = 0.0;
-		for (ComponentInstance io : ilist) {
-			double capacity = getCapacity(io, rk, unit);
-			total += capacity;
-			// detailedLogTotal1(io, capacity, unit);
-			resources++;
-			if (capacity > 0) {
-				capacityResources++; // might need to be moved into child model
-			}
-		}
-		return total;
+	protected static String detailedLogTotal1(ComponentInstance ci, double budget, UnitLiteral unit) {
+		String budgetmsg = GetProperties.toStringScaled(budget, unit) + ",";
+		String front = ci == null ? "Total" : ci.getCategory().getName() + " " + ci.getComponentInstancePath();
+		return front + ", " + budgetmsg;
+		// this is add to excel file errManager.logInfo(front + ", " + budgetmsg);
 	}
 
-	private double getCapacity(ComponentInstance ne, ResourceKind kind, UnitLiteral unit) {
+	private static double getCapacity(ComponentInstance ne, ResourceKind kind, UnitLiteral unit) {
 		switch (kind) {
 		case MIPS:
 			if (ne.getCategory().equals(ComponentCategory.PROCESSOR)) {
