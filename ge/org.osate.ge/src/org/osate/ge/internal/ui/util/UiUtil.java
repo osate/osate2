@@ -28,8 +28,6 @@ import java.util.Optional;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.ui.IEditorPart;
@@ -78,33 +76,6 @@ public class UiUtil {
 			}
 		}
 		return null;
-	}
-
-	private static IWorkbenchPage getActivePage() {
-		final IWorkbenchWindow window = getActiveWorkbenchWindow();
-		if (window == null) {
-			return null;
-		}
-
-		return window.getActivePage();
-	}
-
-	public static Optional<IEditorPart> getActiveEditor() {
-		final IWorkbenchPage page = getActivePage();
-		if (page == null) {
-			return Optional.empty();
-		}
-
-		return Optional.ofNullable(page.getActiveEditor());
-	}
-
-	public static ISelection getCurrentSelection() {
-		final IWorkbenchWindow win = getActiveWorkbenchWindow();
-		if (win == null) {
-			return StructuredSelection.EMPTY;
-		}
-
-		return win.getSelectionService().getSelection();
 	}
 
 	public static void openPropertiesView() {
