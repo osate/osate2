@@ -355,7 +355,7 @@ public class PasteAction extends ActionStackAction {
 	}
 
 	private static void setName(final Object bo, final BusinessObjectHandler handler, final String newName) {
-		if (bo instanceof NamedElement && !RenameUtil.supportsNonLtkRename(handler)) {
+		if (bo instanceof NamedElement) {
 			((NamedElement) bo).setName(newName);
 		} else {
 			RenameUtil.performNonLtkRename(bo, handler, newName);

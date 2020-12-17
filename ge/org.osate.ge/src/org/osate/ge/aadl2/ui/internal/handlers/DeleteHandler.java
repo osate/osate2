@@ -302,6 +302,7 @@ public class DeleteHandler extends AbstractHandler {
 
 			final CustomDeleter deleter = (CustomDeleter) boHandler;
 			final EObject ownerBo = ((EmfContainerProvider) bo).getEmfContainer();
+
 			return new BusinessObjectRemoval(ownerBo, (boToModify) -> {
 				deleter.delete(new CustomDeleteContext(boToModify, bo));
 			});
