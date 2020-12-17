@@ -64,4 +64,37 @@ public interface Visitor {
 	// N.B. Leaf node
 	public default void visitConnection(Connection connection) {
 	}
+
+	// Not Bound resource budgets analysis
+	public default void visitModelPrefix(NotBoundModel model) {
+	}
+
+	public default void visitModelPostfix(NotBoundModel model) {
+	}
+
+	public default void visitMIPSPrefix(MIPS mips) {
+	}
+
+	public default void visitMIPSPostfix(MIPS mips) {
+	}
+
+	public default void visitMemoryPrefix(Memory memory) {
+	}
+
+	public default void visitMemoryPostfix(Memory memory) {
+	}
+
+	public default void visitProcessorOrVirtualProcessorPrefix(ProcessorOrVirtualProcessor processor) {
+	}
+
+	public default void visitProcessorOrVirtualProcessorPostfix(ProcessorOrVirtualProcessor processor) {
+	}
+
+	// Leaf node
+	public default void visitComponent(Component component) {
+	}
+
+	// Leaf node
+	public default void visitMIPSBudget(MIPSBudget mipsBudget) {
+	}
 }

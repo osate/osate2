@@ -43,7 +43,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-public class NotBoundModel {
+public class NotBoundModel extends ModelElement {
 	private final List<ProcessorOrVirtualProcessor> rootProcessors = new ArrayList<>();
 	private final Map<SystemInstance, ProcessorOrVirtualProcessor> processors = new HashMap<>();
 
@@ -53,8 +53,8 @@ public class NotBoundModel {
 	private final List<Memory> rootMemories = new ArrayList<>();
 	private final Map<SystemInstance, Memory> memories = new HashMap<>();
 
-	private int resources = 0;
-	private int capacityResources = 0;
+	private final List<MIPS> rootMIPS = new ArrayList<>();
+	private final Map<SystemInstance, MIPS> mips = new HashMap<>();
 
 	/*
 	 * Use {@link #buildModel(SystemInstance, SystemOperationMode)} to get an instance of the
@@ -64,13 +64,22 @@ public class NotBoundModel {
 		super();
 	}
 
-	private Memory getMemory(final SystemInstance si, String somName) {
+	private MIPS getMIPS(final SystemInstance si) {
+		MIPS mip = mips.get(si);
+		if (mip == null) {
+			mip = new MIPS(si.getName(), si);
+
+			mips.put(si, mip);
+		}
+		return mip;
+	}
+
+	private Memory getMemory(final SystemInstance si, final ComponentInstance ci, String somName) {
 		Memory mem = memories.get(si);
 		if (mem == null) {
-			mem = new Memory(si);
+			mem = new Memory(si, ci);
 			mem.setSomName(somName);
 			mem.setCategory("Memory");
-			mem.setSomName(somName);
 
 			memories.put(si, mem);
 		}
@@ -99,6 +108,24 @@ public class NotBoundModel {
 		return proc;
 	}
 
+	@Override
+	void visitSelfPrefix(final Visitor visitor) {
+		visitor.visitModelPrefix(this);
+	}
+
+	@Override
+	void visitChildren(final Visitor visitor) {
+		visit(rootMemories, visitor);
+		visit(rootProcessors, visitor);
+		visit(rootVirtProcessors, visitor);
+		visit(rootMIPS, visitor);
+	}
+
+	@Override
+	void visitSelfPostfix(final Visitor visitor) {
+		visitor.visitModelPostfix(this);
+	}
+
 	// ==== Methods to build the model ====
 
 	public static NotBoundModel buildModel(final SystemInstance root, final SystemOperationMode som) {
@@ -113,7 +140,7 @@ public class NotBoundModel {
 				} else if (cat == ComponentCategory.VIRTUAL_PROCESSOR) {
 					addVirtualProcessor(model, root, ci, som);
 				} else if (cat == ComponentCategory.MEMORY) {
-					addMemory(model, root, ci, som); // on line 85
+					addMemory(model, root, ci, som);
 				}
 			}
 		};
@@ -126,27 +153,55 @@ public class NotBoundModel {
 
 	private static void addMemory(final NotBoundModel model, final SystemInstance si, final ComponentInstance ci,
 			final SystemOperationMode som) {
+		final Memory theMemory = model.getMemory(si, ci, Aadl2Util.getPrintableSOMName(som));
+
 		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(si);
-		// capacity = capacityTotal(memlist, ResourceKind.Memory, "Memory", kbliteral);
-		double capacity = getCapacity(ci, ResourceKind.Memory, kbliteral);
-		// add capacity
+
 		Component comp = new Component(ci.getName());
-		comp.setCapacity(capacity);
+		comp.setCapacity(getCapacity(ci, ResourceKind.Memory, kbliteral));
+		comp.setCapacityRAM(getCapacity(ci, ResourceKind.RAM, kbliteral));
+		comp.setCapacityROM(getCapacity(ci, ResourceKind.ROM, kbliteral));
+
+		int components = 0;
+		int budgetedComponents = 0;
+		comp.setBudget(sumBudgets(null, ci, ResourceKind.Memory, kbliteral, som, "", components, budgetedComponents));
+		comp.setComponentsCount(components);
+		comp.setBudgetedComponentsCount(budgetedComponents);
+
+		components = 0;
+		budgetedComponents = 0;
+		comp.setBudgetRAM(sumBudgets(null, ci, ResourceKind.RAM, kbliteral, som, "", components, budgetedComponents));
+		comp.setComponentsCountRAM(components);
+		comp.setBudgetedComponentsCountRAM(budgetedComponents);
+
+		components = 0;
+		budgetedComponents = 0;
+		comp.setBudgetROM(sumBudgets(null, ci, ResourceKind.ROM, kbliteral, som, "", components, budgetedComponents));
+		comp.setComponentsCountROM(components);
+		comp.setBudgetedComponentsCountROM(budgetedComponents);
+
+		theMemory.addComponent(comp);
+		model.addMemory(theMemory);
 	}
 
 	private static void addMIPS(final NotBoundModel model, final SystemInstance si, final SystemOperationMode som) {
 		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(si);
-		MIPS mips = new MIPS("MIPS", si);
+		MIPS theMIPS = new MIPS("MIPS", si);
 
 		int components = 0, budgetedComponents = 0;
 
-		double budgetTotal = sumBudgets(mips, si, ResourceKind.MIPS, mipsliteral, som, "", components,
+		double budgetTotal = sumBudgets(theMIPS, si, ResourceKind.MIPS, mipsliteral, som, "", components,
 				budgetedComponents);
 
+		theMIPS.setTotalComponents(components);
+		theMIPS.setTotalBudgetedComponents(budgetedComponents);
+
 		if (budgetTotal >= 0) {
-			mips.setTotalBudget(budgetTotal);
-			mips.setTotalBudgetWithUnit(String.format("%.3f " + mipsliteral.getName() + ",", budgetTotal));
+			theMIPS.setTotalBudget(budgetTotal);
+			theMIPS.setTotalBudgetWithUnit(String.format("%.3f " + mipsliteral.getName() + ",", budgetTotal));
 		}
+
+		model.addMIPS(theMIPS);
 	}
 
 	private static void addVirtualProcessor(final NotBoundModel model, final SystemInstance si,
@@ -182,6 +237,10 @@ public class NotBoundModel {
 
 		theProcessor.addComponent(comp);
 		model.addProcessor(theProcessor);
+	}
+
+	void addMIPS(final MIPS mip) {
+		rootMIPS.add(mip);
 	}
 
 	void addMemory(final Memory mem) {
@@ -300,31 +359,25 @@ public class NotBoundModel {
 			subtotal += actualsize;
 		}
 		String resourceName = ci.getCategory().getName();
-		String notes = "";
+
 		if (rk == ResourceKind.MIPS && ci.getCategory() == ComponentCategory.THREAD) {
 			subtotal = GetProperties.getThreadExecutioninMIPS(ci);
 		}
 		components = components + subcount;
 		budgetedComponents = budgetedComponents + subbudgetcount;
-		if (budget > 0 && subtotal > budget) {
-			notes = String.format("Error: subtotal/actual exceeds budget %.3f by %.3f " + unit.getName(), budget,
-					(subtotal - budget));
-		} else if (budget > 0 && subtotal < budget) {
-			notes = String.format(
-					resourceName + " " + ci.getInstanceObjectPath() + " total %.3f " + unit.getName()
-							+ " below budget %.3f " + unit.getName() + " (%.1f %% slack)",
-					subtotal, budget, (budget - subtotal) / budget * 100);
-		}
-		if (!isSystemInstance) {
-			MIPSBudget mipsBudget = new MIPSBudget(resourceName);
-			mipsBudget.setActual(subtotal);
-			mipsBudget.setActualBudgetWithUnit(prefix + GetProperties.toStringScaled(subtotal, unit));
-			mipsBudget.setBudget(budget);
-			mipsBudget.setBudgetWithUnit(prefix + GetProperties.toStringScaled(budget, unit));
-			mipsBudget.setCategoryName(ci.getCategory().getName());
-			mipsBudget.setComponentPath(ci.getComponentInstancePath());
 
-			mips.addBudget(mipsBudget);
+		if (!isSystemInstance) {
+			if (mips != null) {
+				MIPSBudget mipsBudget = new MIPSBudget(resourceName);
+				mipsBudget.setActual(subtotal);
+				mipsBudget.setActualBudgetWithUnit(prefix + GetProperties.toStringScaled(subtotal, unit));
+				mipsBudget.setBudget(budget);
+				mipsBudget.setBudgetWithUnit(prefix + GetProperties.toStringScaled(budget, unit));
+				mipsBudget.setCategoryName(ci.getCategory().getName());
+				mipsBudget.setComponentPath(ci.getComponentInstancePath());
+
+				mips.addBudget(mipsBudget);
+			}
 		}
 		return subtotal == 0 ? budget : subtotal;
 	}

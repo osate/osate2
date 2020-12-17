@@ -40,20 +40,17 @@ public class MIPSBudget extends AnalysisElement {
 	}
 
 	@Override
-	void visitSelfPrefix(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	void visitChildren(final Visitor visitor) {
+		// no children
 	}
 
 	@Override
-	void visitChildren(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	void visitSelfPrefix(final Visitor visitor) {
+		visitor.visitMIPSBudget(this);
 	}
 
 	@Override
-	void visitSelfPostfix(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	void visitSelfPostfix(final Visitor visitor) {
+		// leaf node, already visited with prefix
 	}
 }

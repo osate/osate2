@@ -40,8 +40,11 @@ abstract class AnalysisElement extends ModelElement {
 	/** Budgeted data requirements in KB/s. */
 	private double budget;
 
+	private double totalBudget;
+	private String totalBudgetWithUnit;
+
 	/** children **/
-	private List<Component> components = new ArrayList();
+	protected List<Component> components = new ArrayList();
 
 	AnalysisElement(final String label) {
 		this.label = label;
@@ -75,7 +78,7 @@ abstract class AnalysisElement extends ModelElement {
 		this.components.add(comp);
 	}
 
-	public final void setCapacityUnit(final List<Component> components) {
+	public final void setComponents(final List<Component> components) {
 		this.components = components;
 	}
 
@@ -93,5 +96,21 @@ abstract class AnalysisElement extends ModelElement {
 
 	public final void setCategory(final String category) {
 		this.category = category;
+	}
+
+	public double getTotalBudget() {
+		return totalBudget;
+	}
+
+	public void setTotalBudget(double totalBudget) {
+		this.totalBudget = totalBudget;
+	}
+
+	public String getTotalBudgetWithUnit() {
+		return totalBudgetWithUnit;
+	}
+
+	public void setTotalBudgetWithUnit(String totalBudgetWithUnit) {
+		this.totalBudgetWithUnit = totalBudgetWithUnit;
 	}
 }

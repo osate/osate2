@@ -7,10 +7,9 @@ import org.osate.aadl2.instance.SystemInstance;
 
 public class MIPS extends AnalysisElement {
 	private SystemInstance si;
+	private int totalComponents, totalBudgetedComponents;
 
 	private List<MIPSBudget> budgets = new ArrayList();
-	private double totalBudget;
-	private String totalBudgetWithUnit;
 
 	public MIPS(String label, final SystemInstance si) {
 		super(label);
@@ -21,20 +20,20 @@ public class MIPS extends AnalysisElement {
 		return si;
 	}
 
-	public String getTotalBudgetWithUnit() {
-		return totalBudgetWithUnit;
+	public int getTotalComponents() {
+		return totalComponents;
 	}
 
-	public void setTotalBudgetWithUnit(String totalBudgetWithUnit) {
-		this.totalBudgetWithUnit = totalBudgetWithUnit;
+	public void setTotalComponents(int totalComponents) {
+		this.totalComponents = totalComponents;
 	}
 
-	public double getTotalBudget() {
-		return totalBudget;
+	public int getTotalBudgetedComponents() {
+		return totalBudgetedComponents;
 	}
 
-	public void setTotalBudget(double totalBudget) {
-		this.totalBudget = totalBudget;
+	public void setTotalBudgetedComponents(int totalBudgetedComponents) {
+		this.totalBudgetedComponents = totalBudgetedComponents;
 	}
 
 	public List<MIPSBudget> getBudgets() {
@@ -50,20 +49,17 @@ public class MIPS extends AnalysisElement {
 	}
 
 	@Override
-	void visitSelfPrefix(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	void visitSelfPrefix(final Visitor visitor) {
+		visitor.visitMIPSPrefix(this);
 	}
 
 	@Override
-	void visitChildren(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	void visitSelfPostfix(final Visitor visitor) {
+		visitor.visitMIPSPostfix(this);
 	}
 
 	@Override
-	void visitSelfPostfix(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	protected final void visitChildren(final Visitor visitor) {
+		visit(budgets, visitor);
 	}
 }

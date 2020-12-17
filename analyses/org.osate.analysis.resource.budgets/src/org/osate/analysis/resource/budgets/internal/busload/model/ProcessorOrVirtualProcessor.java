@@ -51,20 +51,17 @@ public class ProcessorOrVirtualProcessor extends AnalysisElement {
 	}
 
 	@Override
-	void visitSelfPrefix(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	void visitSelfPrefix(final Visitor visitor) {
+		visitor.visitProcessorOrVirtualProcessorPrefix(this);
 	}
 
 	@Override
-	void visitChildren(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	void visitSelfPostfix(final Visitor visitor) {
+		visitor.visitProcessorOrVirtualProcessorPostfix(this);
 	}
 
 	@Override
-	void visitSelfPostfix(Visitor visitor) {
-		// TODO Auto-generated method stub
-
+	protected final void visitChildren(final Visitor visitor) {
+		visit(components, visitor);
 	}
 }

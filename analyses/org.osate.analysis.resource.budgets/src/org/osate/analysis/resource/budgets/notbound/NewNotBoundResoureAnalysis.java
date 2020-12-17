@@ -23,15 +23,22 @@
  */
 package org.osate.analysis.resource.budgets.notbound;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadModel;
+import org.osate.analysis.resource.budgets.internal.busload.model.Component;
+import org.osate.analysis.resource.budgets.internal.busload.model.Memory;
+import org.osate.analysis.resource.budgets.internal.busload.model.Visitor;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
 import org.osate.result.ResultType;
@@ -65,7 +72,7 @@ public class NewNotBoundResoureAnalysis {
 				final BusLoadModel model = BusLoadModel.buildModel(root, som);
 
 				// Analyze the model
-				// model.visit(new BusLoadAnalysisVisitor(somResult));
+				model.visit(new NotBoundAnalysisVisitor(somResult));
 			}
 			monitor.done();
 
@@ -76,4 +83,71 @@ public class NewNotBoundResoureAnalysis {
 		}
 	}
 
+	// ==== Analysis Visitor ====
+
+	private class NotBoundAnalysisVisitor implements Visitor {
+		private Deque<Result> previousResult = new LinkedList<>();
+		private Result currentResult;
+
+		public NotBoundAnalysisVisitor(final Result rootResult) {
+			this.currentResult = rootResult;
+		}
+
+		@Override
+		public void visitMemoryPrefix(final Memory memory) {
+			final ComponentInstance memInstance = memory.getMemoryInstance();
+
+			// Create a new result object for the memory
+			final Result memResult = ResultUtil.createResult(memInstance.getName(), memInstance, ResultType.SUCCESS);
+			currentResult.getSubResults().add(memResult);
+			previousResult.push(currentResult);
+			currentResult = memResult;
+		}
+
+		@Override
+		public void visitMemoryPostfix(final Memory memory) {
+			// unroll the result stack
+			final Result memResult = currentResult;
+			currentResult = previousResult.pop();
+
+			// Compute total capacity
+			double totalCapacityMemory = 0.0;
+			double totalCapacityRAM = 0.0;
+			double totalCapacityROM = 0.0;
+
+			for (final Component c : memory.getComponents()) {
+				totalCapacityMemory += c.getCapacity();
+				totalCapacityRAM += c.getCapacityRAM();
+				totalCapacityROM += c.getCapacityROM();
+			}
+
+			memory.setTotalCapacityMemory(totalCapacityMemory); // in Kb
+			memory.setTotalCapacityRAM(totalCapacityRAM); // in Kb
+			memory.setTotalCapacityROM(totalCapacityROM); // in Kb
+
+			double totalBudgetMemory = 0.0;
+			double totalBudgetRAM = 0.0;
+			double totalBudgetROM = 0.0;
+
+			for (final Component c : memory.getComponents()) {
+				if (totalCapacityMemory > 0) {
+					totalBudgetMemory += c.getBudget();
+				}
+				if (totalCapacityRAM > 0) {
+					totalBudgetRAM += c.getBudgetRAM();
+				}
+				if (totalCapacityROM > 0) {
+					totalBudgetROM += c.getBudgetROM();
+				}
+			}
+
+			memory.setTotalBudgetMemory(totalBudgetMemory); // in Kb
+			memory.setTotalBudgetRAM(totalBudgetRAM); // in Kb
+			memory.setTotalBudgetROM(totalBudgetROM); // in Kb
+
+			// TODO record any other variables needed for excel file. Add in diagnosis
+
+
+		}
+	}
 }
