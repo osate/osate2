@@ -25,6 +25,7 @@ package org.osate.aadl2.operations;
 
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
@@ -62,7 +63,7 @@ public class NamedElementOperations extends ElementOperations {
 	 * @generated NOT
 	 */
 	public static Namespace getNamespace(NamedElement namedElement) {
-		if (!(namedElement.getOwner() instanceof Namespace)) {
+		if (namedElement.getOwner() instanceof AnnexLibrary) {
 			for (EObject e = namedElement; e != null; e = e.eContainer()) {
 				if (e instanceof Namespace) {
 					return (Namespace) e;
