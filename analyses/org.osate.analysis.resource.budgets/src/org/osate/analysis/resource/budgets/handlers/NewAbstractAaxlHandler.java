@@ -262,7 +262,7 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 	 * existing contents of the file are not guaranteed.  That is, the file may be new and empty, or it
 	 * may contain the results from a previous analysis run, or it could just be garbage.
 	 *
-	 * @return A job class that executes analysis on the given instnace model file.
+	 * @return A job class that executes analysis on the given instance model file.
 	 */
 	protected abstract Job createAnalysisJob(IFile aaxlFile, IFile outputFile);
 

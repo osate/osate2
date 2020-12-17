@@ -92,8 +92,8 @@ final class CheckFlowLatencyRunner implements Runner {
 
 		// Note: analyzeInstanceModel is called for each mode. We add the results to the same 'latreport'
 		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, systemInstance);
-		flas.invokeOnSOM(systemInstance, xx, asynchronousSystem,
-				majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue, disableQueuingLatency);
+//		flas.invokeOnSOM(systemInstance, xx, asynchronousSystem,
+//				majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue, disableQueuingLatency);
 		latResult.getResults().addAll(flas.finalizeResults());
 		monitor.done();
 
