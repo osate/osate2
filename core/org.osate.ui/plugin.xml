@@ -1733,7 +1733,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             commandId="org.osate.ui.instantiate"
             contextId="org.eclipse.ui.contexts.window"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-            sequence="Ctrl+I">
+            sequence="M1+I">
       </key>
    </extension>   
 </plugin>
