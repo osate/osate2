@@ -39,7 +39,7 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 /**
  * Class containing utility functions useful for implementing plugins adding annex support to the OSATE graphical editor.
  * @noextend
- * @since 2.1
+ * @since 2.0
  */
 public class GraphicalAnnexUtil {
 	/**
@@ -203,12 +203,20 @@ public class GraphicalAnnexUtil {
 	}
 
 	/**
+	 * Creates a new annex subclause.
+	 * @param <T> the type of the parsed annex subclause.
+	 * @param classifier is the owner of the annex subclause.
+	 * @param annexName is the name of the new annex subclause.
+	 * @param parsedEType is the {@link EClass} of the parsed annex subclause created.
+	 * @param parsedType is the java type that the parsed subclause is expected to be an instance of.
+	 * @return the parsed annex subclause.
 	 * @since 2.1
 	 */
-	public static <T> T createParsedAnnexSubclause(final Classifier c, final String annexName, final EClass parsedEType,
+	public static <T> T createParsedAnnexSubclause(final Classifier classifier, final String annexName,
+			final EClass parsedEType,
 			final Class<T> parsedType) {
 		// Must create new annex
-		final DefaultAnnexSubclause defaultSubclause = createAnnexSubclause(c, annexName);
+		final DefaultAnnexSubclause defaultSubclause = createAnnexSubclause(classifier, annexName);
 		return parsedType.cast(defaultSubclause.createParsedAnnexSubclause(parsedEType));
 	}
 
