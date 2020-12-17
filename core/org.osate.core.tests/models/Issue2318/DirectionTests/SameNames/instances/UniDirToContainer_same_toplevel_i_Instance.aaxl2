@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" name="toplevel_i_Instance" category="system">
+  <featureInstance name="p" category="eventPort" direction="in out">
+    <feature xsi:type="aadl2:EventPort" href="../UniDirToContainer_same.aadl#/0/@ownedPublicSection/@ownedClassifier.0/@ownedEventPort.0"/>
+  </featureInstance>
+  <componentInstance name="sub" category="process">
+    <featureInstance name="p" category="eventPort" direction="in out">
+      <feature xsi:type="aadl2:EventPort" href="../UniDirToContainer_same.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventPort.0"/>
+    </featureInstance>
+    <componentInstance name="th" category="thread">
+      <featureInstance name="p" category="eventPort" direction="in out">
+        <feature xsi:type="aadl2:EventPort" href="../UniDirToContainer_same.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedEventPort.0"/>
+      </featureInstance>
+      <subcomponent xsi:type="aadl2:ThreadSubcomponent" href="../UniDirToContainer_same.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedThreadSubcomponent.0"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:ThreadType" href="../UniDirToContainer_same.aadl#UniDirToContainer_same.th"/>
+    </componentInstance>
+    <subcomponent xsi:type="aadl2:ProcessSubcomponent" href="../UniDirToContainer_same.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedProcessSubcomponent.0"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:ProcessImplementation" href="../UniDirToContainer_same.aadl#UniDirToContainer_same.subsystem.i"/>
+  </componentInstance>
+  <connectionInstance name="sub.th.p -> p" kind="portConnection" destination="//@featureInstance.0" source="//@componentInstance.0/@componentInstance.0/@featureInstance.0">
+    <connectionReference context="//@componentInstance.0" source="//@componentInstance.0/@componentInstance.0/@featureInstance.0" destination="//@componentInstance.0/@featureInstance.0">
+      <connection xsi:type="aadl2:PortConnection" href="../UniDirToContainer_same.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedPortConnection.0"/>
+    </connectionReference>
+    <connectionReference context="/" source="//@componentInstance.0/@featureInstance.0" destination="//@featureInstance.0">
+      <connection xsi:type="aadl2:PortConnection" href="../UniDirToContainer_same.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.0"/>
+    </connectionReference>
+  </connectionInstance>
+  <systemOperationMode name="No Modes"/>
+  <componentImplementation xsi:type="aadl2:SystemImplementation" href="../UniDirToContainer_same.aadl#UniDirToContainer_same.toplevel.i"/>
+</instance:SystemInstance>
