@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -42,7 +42,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
@@ -75,11 +75,10 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	protected void doAaxlAction(IProgressMonitor monitor, Element root) {
 		if (root instanceof ComponentInstance) {
-			monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-
+			SubMonitor subMonitor = SubMonitor.convert(monitor).checkCanceled();
 			SystemInstance si = ((ComponentInstance) root).getSystemInstance();
 			if (si != null) {
-				List<Issue> issues = runAnalysis(monitor, si);
+				List<Issue> issues = runAnalysis(subMonitor, si);
 				issues.forEach(issue -> error(issue.target, issue.message));
 				if (issues.isEmpty()) {
 					getShell().getDisplay().asyncExec(() -> MessageDialog.openInformation(getShell(),
@@ -90,11 +89,6 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 				}
 			}
 
-			if (monitor.isCanceled()) {
-				throw new OperationCanceledException();
-			} else {
-				monitor.done();
-			}
 		} else {
 			Dialog.showWarning(getActionName(), "Please invoke command on an instance model");
 		}
@@ -107,24 +101,43 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 
 	public static List<Issue> runAnalysis(IProgressMonitor monitor, SystemInstance si) {
 		List<Issue> issuesList = new ArrayList<>();
+		SubMonitor subMonitor = SubMonitor.convert(monitor, 100);
+		System.out.println(si.getSystemOperationModes().size());
 
+		SubMonitor loopMonitor = subMonitor.split(100).setWorkRemaining(si.getSystemOperationModes().size());
 		for (SOMIterator somIter = new SOMIterator(si); somIter.hasNext();) {
 			SystemOperationMode som = somIter.next();
+			SubMonitor iterationMonitor = loopMonitor.split(1);
+			iterationMonitor.setWorkRemaining(8);
 
 			// Processor binding
+			SubMonitor processorChild = iterationMonitor.split(2);
+			subMonitor.setTaskName("Getting Processor Binding Components");
+			processorChild.split(1);
 			List<ComponentInstance> processorBindingComponents = getComponents(monitor, si, ComponentCategory.THREAD,
 					ComponentCategory.VIRTUAL_PROCESSOR, ComponentCategory.DEVICE).collect(Collectors.toList());
+			processorChild.setTaskName("Checking Processor Bindings");
+			processorChild.split(1);
 			issuesList.addAll(checkBindingConstraints(processorBindingComponents.stream(), "processor",
 					GetProperties::getActualProcessorBinding, GetProperties::getAllowedProcessorBinding,
 					GetProperties::getAllowedProcessorBindingClass, som));
 
+
 			// Dispatch Protocol
+			subMonitor.setTaskName("Checking Dispacth Protocols");
+			SubMonitor dispatchChild = iterationMonitor.split(1);
 			issuesList.addAll(checkDispatchProtocol(processorBindingComponents.stream(), som));
 
+
 			// Memory binding
+			subMonitor.setTaskName("Getting Memory Components");
+			SubMonitor memrChild = iterationMonitor.split(2);
+			memrChild.split(1);
 			Stream<ComponentInstance> memoryBindingComponents = getComponents(monitor, si, ComponentCategory.THREAD,
 					ComponentCategory.DEVICE, ComponentCategory.DATA, ComponentCategory.SUBPROGRAM,
 					ComponentCategory.PROCESSOR, ComponentCategory.VIRTUAL_PROCESSOR);
+			subMonitor.setTaskName("Checking Memory Bindings");
+			memrChild.split(1);
 			Stream<FeatureInstance> memoryBindingFeatures = getFeatures(monitor, si, FeatureCategory.DATA_PORT,
 					FeatureCategory.EVENT_DATA_PORT);
 			Stream<InstanceObject> memoryBindingElements = Stream.concat(memoryBindingComponents,
@@ -133,7 +146,10 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 					checkBindingConstraints(memoryBindingElements, "memory", GetProperties::getActualMemoryBinding,
 							GetProperties::getAllowedMemoryBinding, GetProperties::getAllowedMemoryBindingClass, som));
 
+
 			// Connection binding (only handles connection and virtual bus)
+			subMonitor.setTaskName("Checking Connection Bindings");
+			SubMonitor conenctionChild = iterationMonitor.split(1);
 			Stream<ComponentInstance> connectionBindingComponents = getComponents(monitor, si,
 					ComponentCategory.VIRTUAL_BUS);
 			Stream<ConnectionInstance> connectionBindingConnections = getConnections(monitor, si);
@@ -143,12 +159,17 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 					GetProperties::getActualConnectionBinding, GetProperties::getAllowedConnectionBinding,
 					GetProperties::getAllowedConnectionBindingClass, som));
 
+
 			// Connection Quality of Service
+			subMonitor.setTaskName("Checking Connection Quality of Services");
+			SubMonitor qualityChild = iterationMonitor.split(1);
 			issuesList.addAll(checkRequiredAndProvided(connectionBindingElements.stream(),
 					GetProperties::getRequiredConnectionQualityOfService, "Required_Connection_Quality_Of_Service",
 					GetProperties::getProvidedConnectionQualityOfService, qos -> qos.getName(), som));
 
 			// Virtual Bus Class
+			subMonitor.setTaskName("Checking Virtual Bus Bindings");
+			SubMonitor busChild = iterationMonitor.split(1);
 			Function<ComponentInstance, Collection<ComponentClassifier>> getProvidedVBClass = boundElement -> {
 				Stream<ComponentClassifier> providedProperty = GetProperties.getProvidedVirtualBusClass(boundElement)
 						.stream();
@@ -159,8 +180,9 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 			issuesList.addAll(checkRequiredAndProvided(connectionBindingElements.stream(),
 					GetProperties::getRequiredVirtualBusClass, "Required_Virtual_Bus_Class", getProvidedVBClass,
 					vbClass -> vbClass.getName(), som));
+			busChild.setWorkRemaining(0);
 		}
-
+		subMonitor.setWorkRemaining(0);
 		return issuesList;
 	}
 
@@ -237,6 +259,7 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 			Function<NamedElement, List<T>> getRequired, String requiredPropertyName,
 			Function<ComponentInstance, Collection<T>> getProvided, Function<T, String> getName,
 			SystemOperationMode som) {
+
 		return bindingElements.flatMap(element -> {
 			Set<T> required = Collections.unmodifiableSet(new HashSet<>(getRequired.apply(element)));
 			if (!required.isEmpty()) {
