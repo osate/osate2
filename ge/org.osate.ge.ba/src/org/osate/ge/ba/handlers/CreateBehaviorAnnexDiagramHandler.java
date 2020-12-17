@@ -28,19 +28,17 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ge.DiagramCreationUtil;
+import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 
 public class CreateBehaviorAnnexDiagramHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		final BehaviorAnnex diagramContext = BehaviorAnnexHandlerUtil
-				.getBehaviorAnnexDiagramContext(activeEditor)
+		final DefaultAnnexSubclause diagramContext = BehaviorAnnexSelectionUtil.getDiagramContext(activeEditor)
 				.orElseThrow(() -> new RuntimeException("diagram context cannot be null"));
-
 		DiagramCreationUtil.createDiagram(diagramContext);
-
 		return null;
 	}
 }

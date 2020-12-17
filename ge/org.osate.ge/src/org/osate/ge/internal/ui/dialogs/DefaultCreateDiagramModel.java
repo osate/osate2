@@ -84,6 +84,7 @@ public class DefaultCreateDiagramModel implements CreateDiagramDialog.Model<Diag
 		} else if (contextBo instanceof Classifier || contextBo instanceof SystemInstance) {
 			return diagramTypeProvider.getDiagramTypeById(StructureDiagramType.ID).orElse(null);
 		} else {
+			// Find default diagram type by applicable diagram types
 			final UnmodifiableIterator<DiagramType> applicableDiagramTypes = diagramTypeProvider
 					.getApplicableDiagramTypes(contextBo).iterator();
 			return applicableDiagramTypes.hasNext() ? applicableDiagramTypes.next() : null;

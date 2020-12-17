@@ -1,36 +1,8 @@
-/**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
- * All Rights Reserved.
- *
- * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
- * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
- * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
- * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
- * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
- * which is available at https://www.eclipse.org/legal/epl-2.0/
- * SPDX-License-Identifier: EPL-2.0
- *
- * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- *
- * This program includes and/or can make use of certain third party source code, object code, documentation and other
- * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
- * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
- * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
- * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
- * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
- * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
- */
 package org.osate.ge;
 
-import java.util.Optional;
-
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.ui.PlatformUI;
 import org.osate.ge.internal.services.DiagramService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.EditorUtil;
 
 /**
@@ -38,58 +10,26 @@ import org.osate.ge.internal.ui.util.EditorUtil;
  */
 public class DiagramCreationUtil {
 	/**
-	 *
-	 * @param activeEditor
-	 * @param fileName
-	 * @param diagramType
-	 * @param bo
+	 * Create a diagram for the business object
+	 * @param contextBo	the business object for which to create the diagram
 	 */
-	public static void createDiagram(final Object bo) {
+	public static void createDiagram(final Object contextBo) {
 		final DiagramService diagramService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 				.getService(DiagramService.class);
-		final IFile file = diagramService.createDiagram(bo);
-
+		final IFile file = diagramService.createDiagram(contextBo);
 		if (file != null) {
 			EditorUtil.openEditor(file, false);
 		}
 	}
 
 	/**
-	 *
-	 * @param contextBo
-	 * @param promptForCreate
-	 * @param promptForConfigureAfterCreate
-	 * @param diagramType
-	 * @param fileName
+	 * Open or create a diagram for the business object
+	 * @param bo the business object for which to open/create the diagram
 	 */
-	public static void openOrCreateDiagram(final Object contextBo, final boolean promptForCreate,
-			final boolean promptForConfigureAfterCreate, final DiagramType diagramType, final String fileName) {
-		final DiagramService diagramService = PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getService(DiagramService.class);
-
-		diagramService.openOrCreateDiagramForBusinessObject(contextBo, promptForCreate, promptForConfigureAfterCreate,
-				() -> {
-					final IProject project = ProjectUtil.getProjectForBoOrThrow(contextBo);
-					final IFile diagramFile = createDiagramFile(project, fileName);
-					diagramService.createDiagram(diagramFile, diagramType, contextBo);
-					return Optional.ofNullable(diagramFile);
-				});
+	public static void openOrCreateDiagram(final Object contextBo) {
+		final DiagramService diagramService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				.getService(DiagramService.class);
+		diagramService.openOrCreateDiagramForBusinessObject(contextBo);
 		return;
-	}
-
-
-	/**
-	 * Creates a diagram file in the diagrams directory of a project
-	 * @param project the project that will contain the diagram
-	 * @param name the name of the diagram file
-	 * @return null if project is null.
-	 */
-	public static IFile createDiagramFile(final IProject project, final String name) {
-		if (project == null) {
-			return null;
-		}
-
-		final IFolder diagramFolder = project.getFolder("diagrams/");
-		return diagramFolder.getFile(name + AgeDiagramEditor.EXTENSION);
 	}
 }

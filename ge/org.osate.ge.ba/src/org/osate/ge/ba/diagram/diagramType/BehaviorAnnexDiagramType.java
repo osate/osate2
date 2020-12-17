@@ -23,6 +23,7 @@
  */
 package org.osate.ge.ba.diagram.diagramType;
 
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.DiagramType;
 import org.osate.ge.ba.diagram.contentFilters.BehaviorStateFilter;
@@ -33,7 +34,7 @@ import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
 
 public class BehaviorAnnexDiagramType implements DiagramType {
-	public final static String ID = "behavior_annex";
+	public final static String ID = "behavior_specification";
 
 	@Override
 	public String getId() {
@@ -42,12 +43,13 @@ public class BehaviorAnnexDiagramType implements DiagramType {
 
 	@Override
 	public String getName() {
-		return "Behavior Annex";
+		return "Behavior Specification";
 	}
 
 	@Override
 	public boolean isApplicableToContext(final Object contextBo) {
-		return contextBo instanceof BehaviorAnnex;
+		return contextBo instanceof DefaultAnnexSubclause
+				&& ID.equalsIgnoreCase(((DefaultAnnexSubclause) contextBo).getName());
 	}
 
 	@Override
