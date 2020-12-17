@@ -28,7 +28,6 @@ import java.util.Optional;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
@@ -38,19 +37,31 @@ import org.osate.ge.internal.ui.util.EditorUtil;
  * @since 2.1
  */
 public class DiagramCreationUtil {
-	public static void createDiagram(final IEditorPart activeEditor, final String fileName,
-			final DiagramType diagramType, final Object bo) {
+	/**
+	 *
+	 * @param activeEditor
+	 * @param fileName
+	 * @param diagramType
+	 * @param bo
+	 */
+	public static void createDiagram(final Object bo) {
 		final DiagramService diagramService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 				.getService(DiagramService.class);
-		final IProject project = ProjectUtil.getProjectForBoOrThrow(bo);
-		final IFile file = createDiagramFile(project, fileName);
-		diagramService.createDiagram(file, diagramType, bo);
+		final IFile file = diagramService.createDiagram(bo);
 
 		if (file != null) {
 			EditorUtil.openEditor(file, false);
 		}
 	}
 
+	/**
+	 *
+	 * @param contextBo
+	 * @param promptForCreate
+	 * @param promptForConfigureAfterCreate
+	 * @param diagramType
+	 * @param fileName
+	 */
 	public static void openOrCreateDiagram(final Object contextBo, final boolean promptForCreate,
 			final boolean promptForConfigureAfterCreate, final DiagramType diagramType, final String fileName) {
 		final DiagramService diagramService = PlatformUI.getWorkbench()
