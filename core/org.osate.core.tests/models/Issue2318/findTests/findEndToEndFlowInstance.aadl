@@ -1,0 +1,62 @@
+package findEndToEndFlowInstance
+public
+	system sub1
+		features
+			fout: out event port;
+		flows
+			fsrc: flow source fout;
+	end sub1;
+	
+	system sub2
+		features
+			fin: in event port;
+			fout: out event port;
+		flows
+			fpath: flow path fin -> fout;
+	end sub;
+	
+	system sub3
+		features
+			fin: in event port;
+		flows
+			fsnk: flow sink fin;
+	end sub3;
+	
+	system X
+	end X;
+
+	system implementation X.root
+		subcomponents
+			s1: system sub1;
+			s2: system sub2;
+			s3: system sub3;
+		connections
+			c1: port s1.fout -> s2.fin;
+			c2:  port s2.fout -> s3.fin;
+	end X.root;
+	
+	system implementation X.original extends x.root
+		flows
+			e2e: end to end flow s1.fsrc -> c1 -> s2.fpath -> c2 -> s3.fsnk;
+	end X.original;
+	
+	system implementation X.refinedd extends X.original
+		flows
+			e2e: refined to end to end flow;
+	end X.refinedd;
+	
+	system implementation X.unrelated extends x.root
+		flows
+			e2e: end to end flow s1.fsrc -> c1 -> s2.fpath -> c2 -> s3.fsnk;
+	end X.unrelated;
+	
+	system toplevel
+	end toplevel;
+	
+	system implementation toplevel.i
+		subcomponents
+			original: system X.original;
+			refinedd: system X.refinedd;
+			unrelated: system X.unrelated;
+	end toplevel.i;
+end findEndToEndFlowInstance;
