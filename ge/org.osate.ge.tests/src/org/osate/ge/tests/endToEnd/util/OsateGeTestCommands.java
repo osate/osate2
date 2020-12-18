@@ -413,6 +413,7 @@ public class OsateGeTestCommands {
 		if (!elementExists(diagram, newStateDiagramRef)) {
 			// Create state if needed
 			createShapeElement(diagram, behaviorSpecDiagramRef, "Behavior State", newStateRef);
+			clickCheckboxInPropertiesView(diagram, "AADL", 2, newStateDiagramRef);
 		}
 
 		// Rename initial state
