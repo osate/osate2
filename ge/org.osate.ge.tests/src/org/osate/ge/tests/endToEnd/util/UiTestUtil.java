@@ -611,14 +611,6 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Saves the specified editor
-	 */
-	public static void saveTextEditorByTitle(final String inputName) {
-		final IEditorReference editor = getEditorReference(XtextEditor.class, inputName);
-		new SWTBotEditor(editor, bot).save();
-	}
-
-	/**
 	 * Returns whether there is an open editor with the specified input name
 	 */
 	public static boolean isEditorOpen(final Class<?> editorClass, final String inputName) {

@@ -51,7 +51,7 @@ public class DiagramCreationUtil {
 
 	/**
 	 * Open or create a diagram for the business object
-	 * @param bo the business object for which to open/create the diagram
+	 * @param contextBo the business object for which to open/create the diagram
 	 */
 	public static void openOrCreateDiagram(final Object contextBo) {
 		final DiagramService diagramService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
