@@ -7,6 +7,10 @@ pipeline {
       }
       steps {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository') {
+          sh(script: '''
+              mvn -s core/osate.releng/seisettings.xml org.codehaus.mojo:versions-maven-plugin:use-reactor \
+                  -DgenerateBackupPoms=false -Dtycho.mode=maven
+          ''')
           wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
             sh(script: '''
                 mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Pfull \
