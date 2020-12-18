@@ -31,6 +31,8 @@ import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
 import java.util.function.BiFunction;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.junit.Test;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
@@ -69,18 +71,6 @@ public class BehaviorAnnexTest {
 
 		// Test classifiers
 		createAndTestBehaviorSpecificationForClassifier("Abstract", diagram, pkgElement, pkgRef);
-//		createAndTestBehaviorSpecificationForClassifier("Bus", diagram, pkgElement, pkgRef);
-//		createAndTestBehaviorSpecificationForClassifier("Data", diagram, pkgElement, pkgRef);
-//		createAndTestBehaviorSpecificationForClassifier("Device", diagram, pkgElement, pkgRef);
-//		createAndTestBehaviorSpecificationForClassifier("Memory", diagram, pkgElement, pkgRef);
-//		createAndTestBehaviorSpecificationForClassifier("Process", diagram, pkgElement, pkgRef);
-//		createAndTestBehaviorSpecificationForClassifier("Processor", diagram, pkgElement, pkgRef);
-//		createAndTestBehaviorSpecificationForClassifier("Subprogram", diagram, pkgElement, pkgRef);
-//		createAndTestBehaviorSpecificationForClassifier("System", diagram, pkgElement, pkgRef);
-//		createAndTestBehaviorSpecificationForClassifier("Thread", diagram, pkgElement, pkgRef);
-//		createAndTestBehaviorSpecificationForClassifier("Thread Group", diagram, pkgElement, pkgRef);
-//		createAndTestBehaviorSpecificationForClassifier("Virtual Bus", diagram, pkgElement, pkgRef);
-//		createAndTestBehaviorSpecificationForClassifier("Virtual Processor", diagram, pkgElement, pkgRef);
 	}
 
 	/*
@@ -104,13 +94,14 @@ public class BehaviorAnnexTest {
 				getClassifierRelativeReference("new_classifier"), classifierName);
 
 		final String srcStateName = "src_state";
-
+		// Create mode to test when source states have the same name as modes
 		createElementAndLayout(diagram, pkgElement.join(getClassifierRelativeReference(classifierName)), "Mode",
 				getModeRelativeReference(classifierName + "_new_mode"), srcStateName);
 
 		// Use Open -> Behavior Annex Diagram command to create new behavior annex diagram
 		final BiFunction<DiagramElementReference, String, DiagramReference> openBehaviorAnnexDiagramCommand = (ref,
 				newStatePrefix) -> openDiagramFromReference(ref, newStatePrefix, 0);
+
 		// Run tests for type
 		createAndTestBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(0),
 				classifierName, diagram, pkgRef, srcStateName, openBehaviorAnnexDiagramCommand);
@@ -217,14 +208,23 @@ public class BehaviorAnnexTest {
 	private static DiagramReference openDiagramFromReference(final DiagramElementReference ref,
 			final String newStatePrefix,
 			final int index) {
-		clickContextMenuOfOutlineViewItem(ref.toOutlineTreeItemPath(),
-				new String[] { "Open", "Behavior Annex Diagram" });
+		final String diagramName = BA_TEST + "_" + newStatePrefix + "_behavior_specification";
+		// Look for existing diagram
+		final IFile diagramFile = (IFile) ResourcesPlugin.getWorkspace().getRoot()
+				.findMember(BA_TEST + "/diagrams/" + diagramName + ".aadl_diagram");
+		if (diagramFile == null) {
+			// Create diagram if necessary
+			clickContextMenuOfOutlineViewItem(ref.toOutlineTreeItemPath(),
+					new String[] { "Open", "Behavior Annex Diagram" });
 
-		waitForWindowWithTitle("Create New Diagram?");
-		clickButtonForShell("Create New Diagram?", "Yes");
+			waitForWindowWithTitle("Create New Diagram?");
+			clickButtonForShell("Create New Diagram?", "Yes");
 
-		final DiagramReference baDiagram = defaultDiagram(BA_TEST,
-				BA_TEST + "_" + newStatePrefix + "_behavior");
+			waitForWindowWithTitle("Create Diagram");
+			clickButtonForShell("Create Diagram", "OK");
+		}
+
+		final DiagramReference baDiagram = defaultDiagram(BA_TEST, diagramName);
 		waitForDiagramActive(baDiagram);
 
 		return baDiagram;
@@ -240,7 +240,7 @@ public class BehaviorAnnexTest {
 		clickButtonForShell("Create Diagram", "OK");
 
 		final DiagramReference baDiagram = defaultDiagram(BA_TEST,
-				BA_TEST + "_" + newStatePrefix + "_behavior");
+				BA_TEST + "_" + newStatePrefix + "_behavior_specification");
 		waitForDiagramActive(baDiagram);
 
 		return baDiagram;

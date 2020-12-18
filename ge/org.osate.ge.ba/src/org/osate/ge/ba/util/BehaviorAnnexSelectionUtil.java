@@ -26,14 +26,12 @@ package org.osate.ge.ba.util;
 import java.util.List;
 import java.util.Optional;
 
-import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.ISources;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -90,16 +88,6 @@ public class BehaviorAnnexSelectionUtil {
 		}
 
 		return Optional.ofNullable(page.getActiveEditor());
-	}
-
-	public static IEditorPart getActiveEditorFromContext(final Object evaluationContext) {
-		if (!(evaluationContext instanceof IEvaluationContext)) {
-			return null;
-		}
-
-		final IEvaluationContext context = (IEvaluationContext) evaluationContext;
-		final Object editorObj = context.getVariable(ISources.ACTIVE_EDITOR_NAME);
-		return editorObj instanceof IEditorPart ? (IEditorPart) editorObj : null;
 	}
 
 	private static ImmutableList<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection) {
