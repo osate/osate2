@@ -117,8 +117,6 @@ public class BehaviorAnnexTest {
 		// Run tests for impl
 		createAndTestBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(1),
 				classifierName + ".impl", diagram, pkgRef, srcStateName, openNewDiagramCommand);
-
-		saveTextEditorByTitle(BA_TEST + ".aadl");
 	}
 
 	private static void createAndTestBehaviorSpecification(final RelativeBusinessObjectReference behaviorSpecification,
