@@ -11,9 +11,25 @@ public class Memory extends AnalysisElement {
 	private double totalCapacityRAM;
 	private double totalCapacityROM;
 
-	private double totalBudgetMemory;
-	private double totalBudgetRAM;
-	private double totalBudgetROM;
+	private double totalBudgetMemory; // Kb
+	private double totalBudgetRAM; // Kb
+	private double totalBudgetROM; // Kb
+
+	private int resourcesMemory = 0;
+	private int resourcesRAM = 0;
+	private int resourcesROM = 0;
+
+	private int capacityResourcesMemory = 0;
+	private int capacityResourcesRAM = 0;
+	private int capacityResourcesROM = 0;
+
+	private int componentsMemory = 0;
+	private int componentsRAM = 0;
+	private int componentsROM = 0;
+
+	private int budgetedComponentsMemory = 0;
+	private int budgetedComponentsRAM = 0;
+	private int budgetedComponentsROM = 0;
 
 	public Memory(final SystemInstance si, ComponentInstance memoryInstance) {
 		super("Memory");
@@ -23,6 +39,106 @@ public class Memory extends AnalysisElement {
 
 	public final ComponentInstance getMemoryInstance() {
 		return memoryInstance;
+	}
+
+	public final SystemInstance getSystemInstance() {
+		return si;
+	}
+
+	public final int getBudgetedComponentsROM() {
+		return budgetedComponentsROM;
+	}
+
+	public final void setBudgetedComponentsROM(final int budgetedComponentsROM) {
+		this.budgetedComponentsROM = budgetedComponentsROM;
+	}
+
+	public final int getBudgetedComponentsRAM() {
+		return budgetedComponentsRAM;
+	}
+
+	public final void setBudgetedComponentsRAM(final int budgetedComponentsRAM) {
+		this.budgetedComponentsRAM = budgetedComponentsRAM;
+	}
+
+	public final int getBudgetedComponentsMemory() {
+		return budgetedComponentsMemory;
+	}
+
+	public final void setBudgetedComponentsMemory(final int budgetedComponentsMemory) {
+		this.budgetedComponentsMemory = budgetedComponentsMemory;
+	}
+
+	public final int getComponentsROM() {
+		return componentsROM;
+	}
+
+	public final void setComponentsROM(final int componentsROM) {
+		this.componentsROM = componentsROM;
+	}
+
+	public final int getComponentsRAM() {
+		return componentsRAM;
+	}
+
+	public final void setComponentsRAM(final int componentsRAM) {
+		this.componentsRAM = componentsRAM;
+	}
+
+	public final int getComponentsMemory() {
+		return componentsMemory;
+	}
+
+	public final void setComponentsMemory(final int componentsMemory) {
+		this.componentsMemory = componentsMemory;
+	}
+
+	public final int getCapacityResourcesROM() {
+		return capacityResourcesROM;
+	}
+
+	public final void setCapacityResourcesROM(final int capacityResourcesROM) {
+		this.capacityResourcesROM = capacityResourcesROM;
+	}
+
+	public final int getCapacityResourcesRAM() {
+		return capacityResourcesRAM;
+	}
+
+	public final void setCapacityResourcesRAM(final int capacityResourcesRAM) {
+		this.capacityResourcesRAM = capacityResourcesRAM;
+	}
+
+	public final int getCapacityResourcesMemory() {
+		return capacityResourcesMemory;
+	}
+
+	public final void setCapacityResourcesMemory(final int capacityResourcesMemory) {
+		this.capacityResourcesMemory = capacityResourcesMemory;
+	}
+
+	public final int getResourcesROM() {
+		return resourcesROM;
+	}
+
+	public final void setResourcesROM(final int resourcesROM) {
+		this.resourcesROM = resourcesROM;
+	}
+
+	public final int getResourcesRAM() {
+		return resourcesRAM;
+	}
+
+	public final void setResourcesRAM(final int resourcesRAM) {
+		this.resourcesRAM = resourcesRAM;
+	}
+
+	public final int getResourcesMemory() {
+		return resourcesMemory;
+	}
+
+	public final void setResourcesMemory(final int resourcesMemory) {
+		this.resourcesMemory = resourcesMemory;
 	}
 
 	public final double getTotalCapacityMemory() {

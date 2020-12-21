@@ -1,105 +1,63 @@
 package org.osate.analysis.resource.budgets.internal.busload.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Component extends AnalysisElement {
 
 	public Component(String label) {
 		super(label);
 	}
 
-	private int componentsCount, budgetedComponentsCount;
-	private int componentsCountRAM, budgetedComponentsCountRAM;
-	private int componentsCountROM, budgetedComponentsCountROM;
-
-	private double capacity, capacityRAM, capacityROM;
-	private double budgetRAM, budgetROM;
 	private String budgetWithUnit, categoryName, componentPath;
 
-	public final int getComponentsCount() {
-		return componentsCount;
+	private List<SubComponent> memories = new ArrayList();
+	private List<SubComponent> rams = new ArrayList();
+	private List<SubComponent> roms = new ArrayList();
+	private List<SubComponent> mips = new ArrayList();
+
+	public List<SubComponent> getMIPS() {
+		return mips;
 	}
 
-	public final void setComponentsCount(final int componentsCount) {
-		this.componentsCount = componentsCount;
+	public void setMIPS(List<SubComponent> subComps) {
+		this.mips = subComps;
 	}
 
-	public final int getComponentsCountRAM() {
-		return componentsCountRAM;
+	public List<SubComponent> getMemories() {
+		return memories;
 	}
 
-	public final void setComponentsCountRAM(final int componentsCountRAM) {
-		this.componentsCountRAM = componentsCountRAM;
+	public void setMemories(List<SubComponent> subComps) {
+		this.memories = subComps;
 	}
 
-	public final int getComponentsCountROM() {
-		return componentsCountROM;
+	public void addMemory(SubComponent subComp) {
+		this.memories.add(subComp);
 	}
 
-	public final void setComponentsCountROM(final int componentsCountROM) {
-		this.componentsCountROM = componentsCountROM;
+	public List<SubComponent> getRAMs() {
+		return rams;
 	}
 
-	public final int getBudgetedComponentsCount() {
-		return budgetedComponentsCount;
+	public void setRAMs(List<SubComponent> subComps) {
+		this.rams = subComps;
 	}
 
-	public final void setBudgetedComponentsCount(final int budgetedComponentsCount) {
-		this.budgetedComponentsCount = budgetedComponentsCount;
+	public void addRAM(SubComponent subComp) {
+		this.rams.add(subComp);
 	}
 
-	public final int getBudgetedComponentsCountRAM() {
-		return budgetedComponentsCountRAM;
+	public List<SubComponent> getROMs() {
+		return roms;
 	}
 
-	public final void setBudgetedComponentsCountRAM(final int budgetedComponentsCountRAM) {
-		this.budgetedComponentsCountRAM = budgetedComponentsCountRAM;
+	public void setROMs(List<SubComponent> subComps) {
+		this.roms = subComps;
 	}
 
-	public final int getBudgetedComponentsCountROM() {
-		return budgetedComponentsCountROM;
-	}
-
-	public final void setBudgetedComponentsCountROM(final int budgetedComponentsCountROM) {
-		this.budgetedComponentsCountROM = budgetedComponentsCountROM;
-	}
-
-	public final double getCapacity() {
-		return capacity;
-	}
-
-	public final void setCapacity(final double capacity) {
-		this.capacity = capacity;
-	}
-
-	public final double getCapacityRAM() {
-		return capacityRAM;
-	}
-
-	public final void setCapacityRAM(final double capacityRAM) {
-		this.capacityRAM = capacityRAM;
-	}
-
-	public final double getCapacityROM() {
-		return capacityROM;
-	}
-
-	public final void setCapacityROM(final double capacityROM) {
-		this.capacityROM = capacityROM;
-	}
-
-	public final double getBudgetRAM() {
-		return budgetRAM;
-	}
-
-	public final void setBudgetRAM(final double budgetRAM) {
-		this.budgetRAM = budgetRAM;
-	}
-
-	public final double getBudgetROM() {
-		return budgetROM;
-	}
-
-	public final void setBudgetROM(final double budgetROM) {
-		this.budgetROM = budgetROM;
+	public void addROM(SubComponent subComp) {
+		this.roms.add(subComp);
 	}
 
 	public final String getComponentPath() {
@@ -128,16 +86,18 @@ public class Component extends AnalysisElement {
 
 	@Override
 	void visitChildren(final Visitor visitor) {
-		// no children
+		visit(memories, visitor);
+		visit(rams, visitor);
+		visit(roms, visitor);
 	}
 
 	@Override
 	void visitSelfPrefix(final Visitor visitor) {
-		visitor.visitComponent(this);
+		visitor.visitComponentPrefix(this);
 	}
 
 	@Override
 	void visitSelfPostfix(final Visitor visitor) {
-		// leaf node, already visited with prefix
+		visitor.visitComponentPostfix(this);
 	}
 }

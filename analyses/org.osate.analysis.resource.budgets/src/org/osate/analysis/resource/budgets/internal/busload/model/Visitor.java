@@ -90,11 +90,13 @@ public interface Visitor {
 	public default void visitProcessorOrVirtualProcessorPostfix(ProcessorOrVirtualProcessor processor) {
 	}
 
-	// Leaf node
-	public default void visitComponent(Component component) {
+	public default void visitComponentPrefix(Component component) {
+	}
+
+	public default void visitComponentPostfix(Component component) {
 	}
 
 	// Leaf node
-	public default void visitMIPSBudget(MIPSBudget mipsBudget) {
+	public default void visitSubComponent(SubComponent component) {
 	}
 }

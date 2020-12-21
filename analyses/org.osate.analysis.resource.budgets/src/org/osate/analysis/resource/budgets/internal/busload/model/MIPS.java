@@ -1,23 +1,61 @@
 package org.osate.analysis.resource.budgets.internal.busload.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 
 public class MIPS extends AnalysisElement {
 	private SystemInstance si;
-	private int totalComponents, totalBudgetedComponents;
+	private final ComponentInstance ci;
+	private int totalComponents, totalBudgetedComponents, totalResources, totalCapacityResources;
+	private double totalBudget, totalCapacity;
 
-	private List<MIPSBudget> budgets = new ArrayList();
-
-	public MIPS(String label, final SystemInstance si) {
-		super(label);
+	public MIPS(final SystemInstance si, final ComponentInstance ci, String somName) {
+		super("MIPS");
 		this.si = si;
+		this.ci = ci;
+		this.setSomName(somName);
+	}
+
+	public final ComponentInstance getComponentInstance() {
+		return ci;
 	}
 
 	public SystemInstance getSystemInstance() {
 		return si;
+	}
+
+	public final int getResources() {
+		return totalResources;
+	}
+
+	public final void setResources(final int totalResources) {
+		this.totalResources = totalResources;
+	}
+
+	public final int getCapacityResources() {
+		return totalCapacityResources;
+	}
+
+	public final void setCapacityResources(final int totalCapacityResources) {
+		this.totalCapacityResources = totalCapacityResources;
+	}
+
+	public final double getTotalCapacity() {
+		return totalCapacity;
+	}
+
+	public final void setTotalCapacity(final double totalCapacity) {
+		this.totalCapacity = totalCapacity;
+	}
+
+	@Override
+	public final double getTotalBudget() {
+		return totalBudget;
+	}
+
+	@Override
+	public final void setTotalBudget(final double totalBudget) {
+		this.totalBudget = totalBudget;
 	}
 
 	public int getTotalComponents() {
@@ -36,18 +74,6 @@ public class MIPS extends AnalysisElement {
 		this.totalBudgetedComponents = totalBudgetedComponents;
 	}
 
-	public List<MIPSBudget> getBudgets() {
-		return budgets;
-	}
-
-	public void setBudgets(List<MIPSBudget> budgets) {
-		this.budgets = budgets;
-	}
-
-	public void addBudget(MIPSBudget budget) {
-		this.budgets.add(budget);
-	}
-
 	@Override
 	void visitSelfPrefix(final Visitor visitor) {
 		visitor.visitMIPSPrefix(this);
@@ -60,6 +86,6 @@ public class MIPS extends AnalysisElement {
 
 	@Override
 	protected final void visitChildren(final Visitor visitor) {
-		visit(budgets, visitor);
+		visit(components, visitor);
 	}
 }

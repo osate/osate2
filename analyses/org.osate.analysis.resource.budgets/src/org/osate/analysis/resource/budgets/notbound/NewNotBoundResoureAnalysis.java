@@ -29,23 +29,28 @@ import java.util.LinkedList;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadModel;
 import org.osate.analysis.resource.budgets.internal.busload.model.Component;
+import org.osate.analysis.resource.budgets.internal.busload.model.MIPS;
 import org.osate.analysis.resource.budgets.internal.busload.model.Memory;
+import org.osate.analysis.resource.budgets.internal.busload.model.NotBoundModel;
+import org.osate.analysis.resource.budgets.internal.busload.model.SubComponent;
 import org.osate.analysis.resource.budgets.internal.busload.model.Visitor;
+import org.osate.analysis.resource.budgets.logic.GenericAnalysis;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
 import org.osate.result.ResultType;
 import org.osate.result.util.ResultUtil;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-public class NewNotBoundResoureAnalysis {
+public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 	public NewNotBoundResoureAnalysis() {
 		super();
 	}
@@ -69,7 +74,7 @@ public class NewNotBoundResoureAnalysis {
 						Aadl2Util.isPrintableSOMName(som) ? Aadl2Util.getPrintableSOMMembers(som) : "", som,
 						ResultType.SUCCESS);
 				analysisResult.getResults().add(somResult);
-				final BusLoadModel model = BusLoadModel.buildModel(root, som);
+				final NotBoundModel model = NotBoundModel.buildModel(root, som);
 
 				// Analyze the model
 				model.visit(new NotBoundAnalysisVisitor(somResult));
@@ -110,44 +115,261 @@ public class NewNotBoundResoureAnalysis {
 			final Result memResult = currentResult;
 			currentResult = previousResult.pop();
 
-			// Compute total capacity
-			double totalCapacityMemory = 0.0;
-			double totalCapacityRAM = 0.0;
-			double totalCapacityROM = 0.0;
+			UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(memory.getSystemInstance());
 
 			for (final Component c : memory.getComponents()) {
-				totalCapacityMemory += c.getCapacity();
-				totalCapacityRAM += c.getCapacityRAM();
-				totalCapacityROM += c.getCapacityROM();
+				for (final SubComponent m : c.getMemories()) {
+					double capacity = m.getCapacity();
+					if (capacity > 0) {
+						memory.setCapacityResourcesMemory(memory.getCapacityResourcesMemory() + 1);
+					}
+
+					memory.setTotalCapacityMemory(memory.getTotalCapacityMemory() + capacity);
+					memory.setResourcesMemory(memory.getResourcesMemory() + 1);
+					memory.setComponentsMemory(memory.getComponentsMemory() + m.getComponentsCount());
+					memory.setBudgetedComponentsMemory(
+							memory.getBudgetedComponentsMemory() + m.getBudgetedComponentsCount());
+				}
+
+				for (final SubComponent ra : c.getRAMs()) {
+					double capacity = ra.getCapacity();
+					if (capacity > 0) {
+						memory.setCapacityResourcesRAM(memory.getCapacityResourcesRAM() + 1);
+					}
+
+					memory.setTotalCapacityRAM(memory.getTotalCapacityRAM() + capacity);
+					memory.setResourcesRAM(memory.getResourcesRAM() + 1);
+					memory.setComponentsRAM(memory.getComponentsRAM() + ra.getComponentsCount());
+					memory.setBudgetedComponentsRAM(
+							memory.getBudgetedComponentsRAM() + ra.getBudgetedComponentsCount());
+				}
+
+				for (final SubComponent ro : c.getROMs()) {
+					double capacity = ro.getCapacity();
+					if (capacity > 0) {
+						memory.setCapacityResourcesROM(memory.getCapacityResourcesROM() + 1);
+					}
+
+					memory.setTotalCapacityROM(memory.getTotalCapacityROM() + capacity);
+					memory.setResourcesROM(memory.getResourcesROM() + 1);
+					memory.setComponentsROM(memory.getComponentsROM() + ro.getComponentsCount());
+					memory.setBudgetedComponentsROM(
+							memory.getBudgetedComponentsROM() + ro.getBudgetedComponentsCount());
+				}
 			}
-
-			memory.setTotalCapacityMemory(totalCapacityMemory); // in Kb
-			memory.setTotalCapacityRAM(totalCapacityRAM); // in Kb
-			memory.setTotalCapacityROM(totalCapacityROM); // in Kb
-
-			double totalBudgetMemory = 0.0;
-			double totalBudgetRAM = 0.0;
-			double totalBudgetROM = 0.0;
 
 			for (final Component c : memory.getComponents()) {
-				if (totalCapacityMemory > 0) {
-					totalBudgetMemory += c.getBudget();
+				if (memory.getTotalCapacityMemory() > 0) {
+					for (final SubComponent m : c.getMemories()) {
+						memory.setTotalBudgetMemory(memory.getTotalBudgetMemory() + m.getBudget());
+
+						double budgetSub = m.getBudgetSub();
+						double budgetSubtotal = m.getBudgetSubtotal();
+
+						if (budgetSub > 0 && budgetSubtotal > budgetSub) {
+							error(memResult, memory.getMemoryInstance(),
+									String.format("Subtotal/actual exceeds budget %.3f by %.3f " + kbliteral.getName(),
+											budgetSub, (budgetSubtotal - budgetSub)));
+						}
+					}
 				}
-				if (totalCapacityRAM > 0) {
-					totalBudgetRAM += c.getBudgetRAM();
+
+				if (memory.getTotalCapacityRAM() > 0) {
+					for (final SubComponent ra : c.getRAMs()) {
+						memory.setTotalBudgetRAM(memory.getTotalBudgetRAM() + ra.getBudget());
+
+						double budgetSub = ra.getBudgetSub();
+						double budgetSubtotal = ra.getBudgetSubtotal();
+
+						if (budgetSub > 0 && budgetSubtotal > budgetSub) {
+							error(memResult, memory.getMemoryInstance(),
+									String.format("Subtotal/actual exceeds budget %.3f by %.3f " + kbliteral.getName(),
+											budgetSub, (budgetSubtotal - budgetSub)));
+						}
+					}
 				}
-				if (totalCapacityROM > 0) {
-					totalBudgetROM += c.getBudgetROM();
+
+				if (memory.getTotalCapacityROM() > 0) {
+					for (final SubComponent ro : c.getROMs()) {
+						memory.setTotalBudgetROM(memory.getTotalBudgetROM() + ro.getBudget());
+
+						double budgetSub = ro.getBudgetSub();
+						double budgetSubtotal = ro.getBudgetSubtotal();
+
+						if (budgetSub > 0 && budgetSubtotal > budgetSub) {
+							error(memResult, memory.getMemoryInstance(),
+									String.format("Subtotal/actual exceeds budget %.3f by %.3f " + kbliteral.getName(),
+											budgetSub, (budgetSubtotal - budgetSub)));
+						}
+					}
 				}
 			}
 
-			memory.setTotalBudgetMemory(totalBudgetMemory); // in Kb
-			memory.setTotalBudgetRAM(totalBudgetRAM); // in Kb
-			memory.setTotalBudgetROM(totalBudgetROM); // in Kb
+			ComponentInstance ci = memory.getMemoryInstance();
 
-			// TODO record any other variables needed for excel file. Add in diagnosis
+			ResultUtil.addStringValue(memResult, memory.getSomName()); // somName
 
+			ResultUtil.addStringValue(memResult,
+					GetProperties.toStringScaled(memory.getTotalCapacityMemory(), kbliteral)); // budget for Memory string in Kbytes
+			ResultUtil.addStringValue(memResult, GetProperties.toStringScaled(memory.getTotalCapacityRAM(), kbliteral)); // budget for RAM string in Kbytes
+			ResultUtil.addStringValue(memResult, GetProperties.toStringScaled(memory.getTotalCapacityROM(), kbliteral)); // budget for ROM string in Kbytes
 
+			ResultUtil.addStringValue(memResult, ci.getCategory().getName()); // component category name
+			ResultUtil.addStringValue(memResult, ci.getComponentInstancePath()); // component path
+
+			ResultUtil.addRealValue(memResult, memory.getTotalBudgetMemory(), kbliteral.getName()); // in Kbytes for Memory
+			ResultUtil.addRealValue(memResult, memory.getTotalBudgetRAM(), kbliteral.getName()); // in Kbytes for RAM
+			ResultUtil.addRealValue(memResult, memory.getTotalBudgetROM(), kbliteral.getName()); // in Kbytes for ROM
+
+			ResultUtil.addRealValue(memResult, memory.getTotalCapacityMemory(), kbliteral.getName()); // in Kbytes for Memory
+			ResultUtil.addRealValue(memResult, memory.getTotalCapacityRAM(), kbliteral.getName()); // in Kbytes for RAM
+			ResultUtil.addRealValue(memResult, memory.getTotalCapacityROM(), kbliteral.getName()); // in Kbytes for ROM
+
+			buildDiagnosys(memory, null, memResult, "Memory", kbliteral);
+			buildDiagnosys(memory, null, memResult, "RAM", kbliteral);
+			buildDiagnosys(memory, null, memResult, "ROM", kbliteral);
+		}
+
+		@Override
+		public void visitMIPSPrefix(final MIPS mips) {
+			final ComponentInstance compInstance = mips.getComponentInstance();
+
+			// Create a new result object for the MIPS
+			final Result compResult = ResultUtil.createResult(compInstance.getName(), compInstance, ResultType.SUCCESS);
+			currentResult.getSubResults().add(compResult);
+			previousResult.push(currentResult);
+			currentResult = compResult;
+		}
+
+		@Override
+		public void visitMIPSPostfix(final MIPS mips) {
+			// unroll the result stack
+			final Result compResult = currentResult;
+			currentResult = previousResult.pop();
+
+			UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(mips.getSystemInstance());
+
+			for (final Component c : mips.getComponents()) {
+				for (final SubComponent m : c.getMIPS()) {
+					double budget = m.getBudget();
+					if (budget > 0) {
+						mips.setTotalBudget(m.getBudget() + mips.getTotalBudget());
+					}
+
+					mips.setTotalComponents(mips.getTotalComponents() + m.getComponentsCount());
+					mips.setTotalBudgetedComponents(mips.getTotalBudgetedComponents() + m.getBudgetedComponentsCount());
+
+					double budgetSub = m.getBudgetSub();
+					double budgetSubtotal = m.getBudgetSubtotal();
+
+					if (budgetSub > 0 && budgetSubtotal > budgetSub) {
+						error(compResult, mips.getComponentInstance(),
+								String.format("Subtotal/actual exceeds budget %.3f by %.3f " + mipsliteral.getName(),
+										budgetSub, (budgetSubtotal - budgetSub)));
+					}
+				}
+			}
+
+			ComponentInstance ci = mips.getComponentInstance();
+
+			ResultUtil.addStringValue(compResult, mips.getSomName()); // somName
+			ResultUtil.addStringValue(compResult, GetProperties.toStringScaled(mips.getTotalCapacity(), mipsliteral)); // budget string in MIPS
+			ResultUtil.addStringValue(compResult, ci.getCategory().getName()); // component category name
+			ResultUtil.addStringValue(compResult, ci.getComponentInstancePath()); // component path
+
+			ResultUtil.addRealValue(compResult, mips.getTotalBudget(), mipsliteral.getName()); // in MIPS
+			ResultUtil.addRealValue(compResult, mips.getTotalCapacity(), mipsliteral.getName()); // in MIPS
+
+			buildDiagnosys(null, mips, compResult, "MIPS", mipsliteral);
+		}
+
+		private void buildDiagnosys(Memory memory, MIPS mips, Result result, String resourceName,
+				UnitLiteral unit) {
+			SystemInstance si = memory.getSystemInstance();
+			ComponentInstance ci = memory.getMemoryInstance();
+
+			double budgetTotal = 0;
+			double capacity = 0;
+			int capacityResources = 0;
+			int resources = 0;
+			int budgetedComponents = 0;
+			int components = 0;
+			String somName = "";
+
+			if (resourceName.equalsIgnoreCase("Memory")) {
+				somName = memory.getSomName();
+				budgetTotal = memory.getTotalBudgetMemory();
+				if (budgetTotal < 0) {
+					budgetTotal = 0;
+					memory.setTotalBudgetMemory(0);
+				}
+
+				capacity = memory.getTotalCapacityMemory();
+				capacityResources = memory.getCapacityResourcesMemory();
+				resources = memory.getResourcesMemory();
+				budgetedComponents = memory.getBudgetedComponentsMemory();
+				components = memory.getComponentsMemory();
+			} else if (resourceName.equalsIgnoreCase("RAM")) {
+				somName = memory.getSomName();
+				budgetTotal = memory.getTotalBudgetRAM();
+				if (budgetTotal < 0) {
+					budgetTotal = 0;
+					memory.setTotalBudgetRAM(0);
+				}
+
+				capacity = memory.getTotalCapacityRAM();
+				capacityResources = memory.getCapacityResourcesRAM();
+				resources = memory.getResourcesRAM();
+				budgetedComponents = memory.getBudgetedComponentsRAM();
+				components = memory.getComponentsRAM();
+			} else if (resourceName.equalsIgnoreCase("ROM")) {
+				somName = memory.getSomName();
+				budgetTotal = memory.getTotalBudgetROM();
+				if (budgetTotal < 0) {
+					budgetTotal = 0;
+					memory.setTotalBudgetROM(0);
+				}
+
+				capacity = memory.getTotalCapacityROM();
+				capacityResources = memory.getCapacityResourcesROM();
+				resources = memory.getResourcesROM();
+				budgetedComponents = memory.getBudgetedComponentsROM();
+				components = memory.getComponentsROM();
+			} else if (mips != null) {
+				somName = mips.getSomName();
+				budgetTotal = mips.getTotalBudget();
+				if (budgetTotal < 0) {
+					budgetTotal = 0;
+					mips.setTotalBudget(0);
+				}
+
+				capacity = mips.getTotalCapacity();
+				capacityResources = mips.getCapacityResources();
+				resources = mips.getResources();
+				budgetedComponents = mips.getTotalBudgetedComponents();
+				components = mips.getTotalComponents();
+			}
+
+			String modelStats = resourceName + " capacity " + GetProperties.toStringScaled(capacity, unit) + " : "
+					+ resourceName + " budget " + GetProperties.toStringScaled(budgetTotal, unit);
+			if (budgetTotal > capacity) {
+				modelStats = "System " + si.getName() + " budgets over capacity: " + modelStats;
+				error(result, ci, somName + " " + modelStats);
+			} else {
+				info(result, ci, somName + " " + modelStats);
+			}
+			modelStats = "  " + capacityResources + " out of " + resources + " with " + resourceName + " capacity";
+			if (capacityResources < resources) {
+				warning(result, ci, somName + " " + modelStats);
+			} else {
+				info(result, ci, somName + " " + modelStats);
+			}
+			modelStats = "  " + budgetedComponents + " out of " + components + " with " + resourceName + " budget\n";
+			if (budgetedComponents < components) {
+				warning(result, ci, somName + " " + modelStats);
+			} else {
+				info(result, ci, somName + " " + modelStats);
+			}
 		}
 	}
 }

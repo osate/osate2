@@ -18,4 +18,8 @@ public class GenericAnalysis {
 	public static void warning(final Result result, final InstanceObject io, final String msg) {
 		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.WARNING));
 	}
+
+	public static void info(final Result result, final InstanceObject io, final String msg) {
+		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.INFO));
+	}
 }

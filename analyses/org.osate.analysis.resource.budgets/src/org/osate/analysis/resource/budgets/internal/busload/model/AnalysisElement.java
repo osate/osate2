@@ -62,7 +62,7 @@ abstract class AnalysisElement extends ModelElement {
 		this.actual = actual;
 	}
 
-	public final double getBudget() {
+	public double getBudget() {
 		return budget;
 	}
 
