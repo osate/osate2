@@ -95,8 +95,6 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 		final List<Object> selectionAsList = HandlerUtil.getCurrentStructuredSelection(event).toList();
 		final Job job = new KickoffJob(selectionAsList);
 		job.setRule(null); // doesn't use resources
-//		job.setUser(false); // background helper job, don't let the user see it
-//		job.setSystem(true); // background helper job, don't let the user see it
 		job.schedule();
 
 		// Supposed to always return null

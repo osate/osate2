@@ -38,6 +38,9 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
@@ -51,6 +54,7 @@ import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
+import org.osate.ui.dialogs.MultiSelectSOMChooserDialog;
 
 /**
  * @since 3.0
@@ -98,8 +102,24 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 			boolean cancelled = false;
 
 			try {
+				/*
+				 * TODO Find a better place for this. Right now just want to play with the dialog box
+				 */
+				// Choose the SOMs to use
+				final SystemInstance systemInstance = (SystemInstance) AadlUtil.getElement(aaxlFile);
+				Display.getDefault().syncExec(() -> {
+					SystemOperationMode chosenSOM = null;
+					if (systemInstance.getSystemOperationModes().size() > 1) {
+						final MultiSelectSOMChooserDialog somDialog = new MultiSelectSOMChooserDialog(
+								PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), systemInstance, false);
+						if (somDialog.open() == Window.OK) {
+							chosenSOM = somDialog.getSOM();
+						}
+					}
+				});
+
 				final AnalysisResult analysisResult = new NewBusLoadAnalysis().invoke(subMonitor.split(1),
-						(SystemInstance) AadlUtil.getElement(aaxlFile));
+						systemInstance);
 				if (subMonitor.isCanceled()) {
 					throw new OperationCanceledException();
 				}
