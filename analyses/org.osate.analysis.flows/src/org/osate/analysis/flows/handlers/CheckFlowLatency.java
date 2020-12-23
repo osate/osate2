@@ -49,6 +49,7 @@ import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
+import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler;
 
 public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelModifyHandler {
@@ -153,10 +154,10 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			SystemInstance root, SystemOperationMode som) {
 
-//		// New: Issue 842 -- Record a rerunner!
-//		OsateUiPlugin.getRerunManager().ran(new CheckFlowLatencyRunner(root, isAsynchronousSystem, isMajorFrameDelay,
-//				isWorstCaseDeadline, isBestCaseEmptyQueue, isDisableQueuingLatency));
-//
+		// New: Issue 842 -- Record a rerunner!
+		OsateUiPlugin.getRerunManager().ran(new CheckFlowLatencyRunner(root, isAsynchronousSystem, isMajorFrameDelay,
+				isWorstCaseDeadline, isBestCaseEmptyQueue, isDisableQueuingLatency));
+
 		monitor.beginTask(getActionName(), 1);
 		// Note: analyzeInstanceModel is called for each mode. We add the results to the same 'latreport'
 		FlowLatencyAnalysisSwitch flas = new FlowLatencyAnalysisSwitch(monitor, root);

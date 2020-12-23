@@ -8,9 +8,12 @@ import org.eclipse.jface.action.ContributionItem;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.osate.ui.OsateUiPlugin;
+import org.osate.ui.dialogs.AnalysisRunsDialog;
 import org.osate.ui.rerun.RerunManager;
 import org.osate.ui.rerun.Runner;
 
@@ -25,6 +28,15 @@ public final class RerunAnalysisDynamicMenuContribution extends ContributionItem
 	private static final ImageDescriptor ICON_DESCRIPTOR = OsateUiPlugin.getImageDescriptor(ICON);
 
 	private final IMenuListener menuListener = manager -> fillMenu(manager);
+	private final Separator separator = new Separator();
+	private final Action showConfigurationsAction = new Action("Analysis Configurations...") {
+		@Override
+		public void run() {
+			System.out.println("Hi!");
+			final AnalysisRunsDialog d = new AnalysisRunsDialog(Display.getDefault().getActiveShell());
+			d.open();
+		}
+	};
 
 	// TODO: This should be shared with or the same as RerunAnalysisHandler
 	private static final class RerunAction extends Action {
@@ -67,5 +79,7 @@ public final class RerunAnalysisDynamicMenuContribution extends ContributionItem
 		for (final Runner runner : runners) {
 			menuManager.add(new RerunAction(runner));
 		}
+		menuManager.add(separator);
+		menuManager.add(showConfigurationsAction);
 	}
 }
