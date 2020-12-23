@@ -42,8 +42,20 @@ censes only apply to the Third Party Software and not any other portion of this 
           id="org.osate.ge.commands.categories.layout"
           name="Layout">
     </category>
-	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.internal.ui.handlers.OpenDiagramHandler"></command>
-	   <command id="org.osate.ge.commands.creatediagram" name="Create Diagram..." defaultHandler="org.osate.ge.internal.ui.handlers.CreateDiagramHandler"></command>
+    <category
+    	  id="org.osate.ge.commands.categories.diagramEditor"
+    	  name="OSATE Diagram Editor">
+    </category>
+	   <command
+          categoryId="org.osate.ge.commands.categories.diagramEditor"
+          defaultHandler="org.osate.ge.internal.ui.handlers.OpenDiagramHandler"
+          id="org.osate.ge.commands.opendiagram"
+          name="Open Diagram"></command>
+	   <command
+          categoryId="org.osate.ge.commands.categories.diagramEditor"
+          defaultHandler="org.osate.ge.internal.ui.handlers.CreateDiagramHandler"
+          id="org.osate.ge.commands.creatediagram"
+          name="Create Diagram..."></command>
       <command
             categoryId="org.osate.ge.commands.categories.layout"
             id="org.osate.ge.commands.arrangeInGrid"
@@ -125,6 +137,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             name="Align Bottom">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.commands.properties"
             name="Properties...">
       </command>
@@ -144,10 +157,12 @@ censes only apply to the Third Party Software and not any other portion of this 
             name="Remove Bendpoints">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.restoreMissingDiagramElements"
             name="Restore Missing Diagram Elements...">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.showContentFilter"
             name="Show Content Filter">
          <commandParameter
@@ -157,6 +172,7 @@ censes only apply to the Third Party Software and not any other portion of this 
          </commandParameter>
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.hideContentFilter"
             name="Hide Content Filter">
          <commandParameter
@@ -166,90 +182,112 @@ censes only apply to the Third Party Software and not any other portion of this 
          </commandParameter>
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.showAllContents"
             name="Show All">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.showDefaultContents"
             name="Show Default">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.showElement"
             name="Show">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.hideElement"
             name="Hide">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.hideAllContents"
             name="Hide All Contents">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.configureDiagram"
             name="Configure Diagram...">
       </command>
       <command
-      		id="org.osate.ge.showElementsInMode"
-      		name="Show Elements In Mode">
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
+            id="org.osate.ge.showElementsInMode"
+            name="Show Elements In Mode">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.showConnectedElements"
             name="Show Connected Elements">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.goToAadlSource"
             name="Go to AADL Source">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.openAssociatedDiagram"
             name="Open Associated Diagram">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.createNewDiagram"
             name="Create New Diagram">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.goToTypeDiagram"
             name="Go to Type Diagram">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.goToPackageDiagram"
             name="Go to Package Diagram">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.instantiate"
             name="Instantiate">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.selectContainer"
             name="Select Container">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.delete"
             name="Delete">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.rename"
             name="Rename...">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.saveImage"
             name="Export Diagram...">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.setDescendantsToAutomatic"
             name="Set Descendants to Automatic">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.goToImplementationDiagram"
             name="Go to Implementation Diagram">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.selectAllConnections"
             name="Select All Connections">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.copyDiagramElements"
             name="Copy Diagram Elements">
       </command>
