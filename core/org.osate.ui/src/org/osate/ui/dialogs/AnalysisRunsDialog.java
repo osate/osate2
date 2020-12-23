@@ -12,18 +12,21 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Text;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.rerun.Runner;
 
@@ -31,6 +34,8 @@ import org.osate.ui.rerun.Runner;
  * @since 6.0
  */
 public final class AnalysisRunsDialog extends Dialog {
+	private static final int BORDER = 5;
+
 	private static final int RUN_ID = 100;
 	private static final String RUN_LABEL = "Run";
 
@@ -105,6 +110,7 @@ public final class AnalysisRunsDialog extends Dialog {
 	private final List<Runner> runners;
 	private final Map<ImageDescriptor, Image> images = new HashMap<>();
 
+	private Text uriText;
 	private TableViewer analysisListView;
 	private ScrolledComposite scrolled;
 	private Composite pageContainer;
@@ -125,35 +131,60 @@ public final class AnalysisRunsDialog extends Dialog {
 	@Override
 	protected Control createDialogArea(final Composite parent) {
 		final Composite composite = (Composite) super.createDialogArea(parent);
+		composite.setLayout(new FormLayout());
 
-		final SashForm sash = new SashForm(composite, SWT.HORIZONTAL);
-
-		analysisListView = new TableViewer(sash, SWT.BORDER | SWT.V_SCROLL);
+		analysisListView = new TableViewer(composite, SWT.BORDER | SWT.V_SCROLL);
 		final Table table = analysisListView.getTable();
 		table.setHeaderVisible(false);
 		table.setLinesVisible(false);
 
 		final TableViewerColumn col1 = new TableViewerColumn(analysisListView, SWT.NONE);
-		col1.getColumn().setWidth(225);
+//		col1.getColumn().setWidth(225);
 		col1.setLabelProvider(new MyLabelProvider());
 		analysisListView.setContentProvider(ArrayContentProvider.getInstance());
 		analysisListView.setInput(runners);
 
-		createPageContainer(sash);
-		sash.setWeights(new int[] { 1, 3 });
+		final Label uriLabel = new Label(composite, SWT.LEFT);
+		uriLabel.setText("Model URI:");
+
+		uriText = new Text(composite, SWT.SINGLE | SWT.READ_ONLY);
+		uriText.setText("blah blah blah blah");
+
+		final Composite outerPageContainer = new Composite(composite, SWT.NONE);
+		createPageContainer(outerPageContainer);
+
+		FormData data = new FormData();
+		data.top = new FormAttachment(0, BORDER);
+		data.bottom = new FormAttachment(100, -BORDER);
+		data.left = new FormAttachment(0, BORDER);
+		data.right = new FormAttachment(30);
+		analysisListView.getControl().setLayoutData(data);
+
+		data = new FormData();
+		data.top = new FormAttachment(0, BORDER);
+		data.left = new FormAttachment(analysisListView.getControl(), BORDER);
+		uriLabel.setLayoutData(data);
+
+		data = new FormData();
+		data.top = new FormAttachment(0, BORDER);
+		data.left = new FormAttachment(uriLabel);
+		data.right = new FormAttachment(100, -BORDER);
+		uriText.setLayoutData(data);
+
+		data = new FormData();
+		data.left = new FormAttachment(analysisListView.getControl(), BORDER);
+		data.right = new FormAttachment(100, -BORDER);
+		data.top = new FormAttachment(uriLabel, BORDER);
+		data.bottom = new FormAttachment(100, -BORDER);
+		outerPageContainer.setLayoutData(data);
+
 		return composite;
 	}
 
 	/* This is taken from PreferenceDialog.createPageContainer() */
 	private void createPageContainer(final Composite parent) {
-		final Composite outer = new Composite(parent, SWT.NONE);
-		final GridData outerData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
-		outerData.horizontalIndent = IDialogConstants.HORIZONTAL_MARGIN;
-		outer.setLayout(new GridLayout());
-		outer.setLayoutData(outerData);
-
 		// Create an outer composite for spacing
-		scrolled = new ScrolledComposite(outer, SWT.V_SCROLL | SWT.H_SCROLL);
+		scrolled = new ScrolledComposite(parent, SWT.V_SCROLL | SWT.H_SCROLL);
 
 		// always show the focus control
 		scrolled.setShowFocusedControl(true);

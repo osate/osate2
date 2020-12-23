@@ -81,5 +81,6 @@ public final class RerunAnalysisDynamicMenuContribution extends ContributionItem
 		}
 		menuManager.add(separator);
 		menuManager.add(showConfigurationsAction);
+		showConfigurationsAction.setEnabled(!runners.isEmpty());
 	}
 }
