@@ -112,4 +112,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" lowerBound="1"
         eType="#//QualifiedNamedElement"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DeclarativeBehaviorAnnex">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declarativeBehaviorElements"
+        upperBound="-1" eType="#//DeclarativeBehaviorElement" containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

@@ -2055,7 +2055,7 @@ public class InstantiateModel {
 
 			if (elem instanceof ComponentInstance) {
 				InstantiatedClassifier ic = getInstantiatedClassifier((ComponentInstance) elem);
-				if (ic != null) {
+				if (ic != null && ic.getClassifier() != null) {
 					if (ic.getClassifier().equals(root.getComponentImplementation())) {
 						addUsedProperties(root, ic.getClassifier(), result, false);
 					} else {

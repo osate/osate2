@@ -1,0 +1,34 @@
+package findSubcomponentInstance
+public
+	system sub
+	end sub;
+	
+	system X
+	end X;
+	
+	system implementation X.original
+		subcomponents
+			s: system sub;
+	end X.original;
+	
+	system implementation X.refinedd extends X.original
+		subcomponents
+			s: refined to system sub;
+	end X.refinedd;
+	
+	system implementation X.unrelated
+		subcomponents
+			s: system sub;
+	end X.unrelated;
+	
+	system toplevel
+	end toplevel;
+	
+	system implementation toplevel.i
+		subcomponents
+			original: system X.original;
+			refinedd: system X.refinedd;
+			unrelated: system X.unrelated;
+	end toplevel.i;
+	
+end findSubcomponentInstance;
