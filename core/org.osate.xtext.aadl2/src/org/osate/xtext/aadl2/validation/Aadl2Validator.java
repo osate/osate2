@@ -2549,6 +2549,23 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			// Then check the subcomponents that qualify the features
 			return connectionContext instanceof Subcomponent && flowContext instanceof Subcomponent
 					&& doSubcomponentsMatch((Subcomponent) connectionContext, (Subcomponent) flowContext);
+		} else if (connectionContext.getName().equals(flowContext.getName())) {
+			List<NamedElement> chain = getConnectionChain(connectedElement);
+			if(!chain.isEmpty()) {
+				if(chain.get(0) instanceof Subcomponent) {
+					chain = chain.subList(1, chain.size());
+				}
+				if (!chain.isEmpty() && chain.get(0) instanceof RefinableElement) {
+					RefinableElement connFeature = (RefinableElement) chain.get(0);
+					if (flowEnd.getFeature().getName().equals(connFeature.getName())) {
+						return true;
+					}
+				}
+			}
+//			if (flowEnd.getFeature().getName() != null) {
+//				return true;
+//			}
+			return false;
 		} else {
 			return false;
 		}
