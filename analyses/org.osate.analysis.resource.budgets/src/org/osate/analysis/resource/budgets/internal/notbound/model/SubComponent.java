@@ -1,4 +1,7 @@
-package org.osate.analysis.resource.budgets.internal.busload.model;
+package org.osate.analysis.resource.budgets.internal.notbound.model;
+
+import org.osate.analysis.resource.budgets.internal.shared.model.AnalysisElement;
+import org.osate.analysis.resource.budgets.internal.shared.model.Visitor;
 
 public class SubComponent extends AnalysisElement {
 	public SubComponent(String category) {
@@ -57,17 +60,17 @@ public class SubComponent extends AnalysisElement {
 	}
 
 	@Override
-	void visitChildren(final Visitor visitor) {
+	protected void visitChildren(final Visitor visitor) {
 		// no children
 	}
 
 	@Override
-	void visitSelfPrefix(final Visitor visitor) {
+	protected void visitSelfPrefix(final Visitor visitor) {
 		visitor.visitSubComponent(this);
 	}
 
 	@Override
-	void visitSelfPostfix(final Visitor visitor) {
+	protected void visitSelfPostfix(final Visitor visitor) {
 		// leaf node, already visited with prefix
 	}
 }

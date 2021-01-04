@@ -42,6 +42,8 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.analysis.resource.budgets.internal.shared.model.ModelElement;
+import org.osate.analysis.resource.budgets.internal.shared.model.Visitor;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -95,17 +97,17 @@ public final class BusLoadModel extends ModelElement {
 	}
 
 	@Override
-	void visitSelfPrefix(final Visitor visitor) {
+	protected void visitSelfPrefix(final Visitor visitor) {
 		visitor.visitModelPrefix(this);
 	}
 
 	@Override
-	void visitChildren(final Visitor visitor) {
+	protected void visitChildren(final Visitor visitor) {
 		visit(rootBuses, visitor);
 	}
 
 	@Override
-	void visitSelfPostfix(final Visitor visitor) {
+	protected void visitSelfPostfix(final Visitor visitor) {
 		visitor.visitModelPostfix(this);
 	}
 

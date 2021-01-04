@@ -24,6 +24,8 @@
 package org.osate.analysis.resource.budgets.internal.busload.model;
 
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.analysis.resource.budgets.internal.shared.model.AnalysisElement;
+import org.osate.analysis.resource.budgets.internal.shared.model.Visitor;
 
 /**
  * @since 3.0
@@ -42,17 +44,17 @@ public final class Connection extends AnalysisElement {
 	}
 
 	@Override
-	void visitChildren(final Visitor visitor) {
+	protected void visitChildren(final Visitor visitor) {
 		// no children
 	}
 
 	@Override
-	void visitSelfPrefix(final Visitor visitor) {
+	protected void visitSelfPrefix(final Visitor visitor) {
 		visitor.visitConnection(this);
 	}
 
 	@Override
-	void visitSelfPostfix(final Visitor visitor) {
+	protected void visitSelfPostfix(final Visitor visitor) {
 		// leaf node, already visited with prefix
 	}
 }

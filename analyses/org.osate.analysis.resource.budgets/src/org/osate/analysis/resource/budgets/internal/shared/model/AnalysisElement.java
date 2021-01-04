@@ -21,15 +21,18 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.resource.budgets.internal.busload.model;
+package org.osate.analysis.resource.budgets.internal.shared.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.analysis.resource.budgets.internal.notbound.model.Component;
+
 /**
  * @since 3.0
  */
-abstract class AnalysisElement extends ModelElement {
+public abstract class AnalysisElement extends ModelElement {
 	private String label;
 	private String somName;
 	private String category;
@@ -43,11 +46,21 @@ abstract class AnalysisElement extends ModelElement {
 	private double totalBudget;
 	private String totalBudgetWithUnit;
 
+	private ComponentInstance componentInstance;
+
 	/** children **/
 	protected List<Component> components = new ArrayList();
 
-	AnalysisElement(final String label) {
+	protected AnalysisElement(final String label) {
 		this.label = label;
+	}
+
+	public final ComponentInstance getComponentInstance() {
+		return componentInstance;
+	}
+
+	public final void setComponentInstance(ComponentInstance componentInstance) {
+		this.componentInstance = componentInstance;
 	}
 
 	public String getLabel() {

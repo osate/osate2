@@ -24,6 +24,7 @@
 package org.osate.analysis.resource.budgets.internal.busload.model;
 
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.analysis.resource.budgets.internal.shared.model.Visitor;
 
 /**
  * @since 3.0
@@ -34,12 +35,12 @@ public final class VirtualBus extends BusOrVirtualBus {
 	}
 
 	@Override
-	void visitSelfPrefix(final Visitor visitor) {
+	protected void visitSelfPrefix(final Visitor visitor) {
 		visitor.visitVirtualBusPrefix(this);
 	}
 
 	@Override
-	void visitSelfPostfix(final Visitor visitor) {
+	protected void visitSelfPostfix(final Visitor visitor) {
 		visitor.visitVirtualBusPostfix(this);
 	}
 }

@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.resource.budgets.internal.busload.model;
+package org.osate.analysis.resource.budgets.internal.notbound.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,6 +41,8 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.analysis.resource.budgets.internal.shared.model.ModelElement;
+import org.osate.analysis.resource.budgets.internal.shared.model.Visitor;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class NotBoundModel extends ModelElement {
@@ -86,10 +88,11 @@ public class NotBoundModel extends ModelElement {
 		return mem;
 	}
 
-	private ProcessorOrVirtualProcessor getProcessor(final SystemInstance si, String somName) {
+	private ProcessorOrVirtualProcessor getProcessor(final SystemInstance si, final ComponentInstance ci,
+			String somName) {
 		ProcessorOrVirtualProcessor proc = processors.get(si);
 		if (proc == null) {
-			proc = new ProcessorOrVirtualProcessor(si, "Processor");
+			proc = new ProcessorOrVirtualProcessor(si, ci, "Processor");
 			proc.setSomName(somName);
 			proc.setCategory("Processor");
 			processors.put(si, proc);
@@ -97,10 +100,11 @@ public class NotBoundModel extends ModelElement {
 		return proc;
 	}
 
-	private ProcessorOrVirtualProcessor getVirtProcessor(final SystemInstance si, String somName) {
+	private ProcessorOrVirtualProcessor getVirtProcessor(final SystemInstance si, final ComponentInstance ci,
+			String somName) {
 		ProcessorOrVirtualProcessor proc = virtProcessors.get(si);
 		if (proc == null) {
-			proc = new ProcessorOrVirtualProcessor(si, "VirtualProcessor");
+			proc = new ProcessorOrVirtualProcessor(si, ci, "VirtualProcessor");
 			proc.setSomName(somName);
 			proc.setCategory("VirtualProcessor");
 			virtProcessors.put(si, proc);
@@ -109,12 +113,12 @@ public class NotBoundModel extends ModelElement {
 	}
 
 	@Override
-	void visitSelfPrefix(final Visitor visitor) {
+	protected void visitSelfPrefix(final Visitor visitor) {
 		visitor.visitModelPrefix(this);
 	}
 
 	@Override
-	void visitChildren(final Visitor visitor) {
+	protected void visitChildren(final Visitor visitor) {
 		visit(rootMemories, visitor);
 		visit(rootProcessors, visitor);
 		visit(rootVirtProcessors, visitor);
@@ -122,7 +126,7 @@ public class NotBoundModel extends ModelElement {
 	}
 
 	@Override
-	void visitSelfPostfix(final Visitor visitor) {
+	protected void visitSelfPostfix(final Visitor visitor) {
 		visitor.visitModelPostfix(this);
 	}
 
@@ -163,7 +167,9 @@ public class NotBoundModel extends ModelElement {
 
 		for (final MIPS m : model.getMIPS()) {
 			m.setTotalCapacity(capacity);
-
+			// carry over resources counts from processor to mips object -- to be used later for error diagnosis
+			m.setResources(resources);
+			m.setCapacityResources(capacityResources);
 		}
 
 		return model;
@@ -176,6 +182,7 @@ public class NotBoundModel extends ModelElement {
 		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(si);
 
 		Component comp = new Component(ci.getName());
+		comp.setComponentInstance(ci);
 
 		// Memory
 		SubComponent subMem = new SubComponent("Memory");
@@ -242,6 +249,8 @@ public class NotBoundModel extends ModelElement {
 		subMIPS.setComponentsCount(components);
 		subMIPS.setBudgetedComponentsCount(budgetedComponents);
 
+		comp.setComponentPath(ci.getInstanceObjectPath());
+		comp.setComponentInstance(ci);
 		comp.addMemory(subMIPS);
 		theMIPS.addComponent(comp);
 		model.addMIPS(theMIPS);
@@ -249,14 +258,16 @@ public class NotBoundModel extends ModelElement {
 
 	private static void addVirtualProcessor(final NotBoundModel model, final SystemInstance si,
 			final ComponentInstance ci, final SystemOperationMode som) {
-		final ProcessorOrVirtualProcessor theProcessor = model.getVirtProcessor(si, Aadl2Util.getPrintableSOMName(som));
+		final ProcessorOrVirtualProcessor theProcessor = model.getVirtProcessor(si, ci,
+				Aadl2Util.getPrintableSOMName(som));
 
 		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(si);
 		double budget = GetProperties.getMIPSBudgetInMIPS(ci);
 
 		Component comp = new Component(ci.getName());
-		comp.setBudget(budget);
-		comp.setBudgetWithUnit(String.format("%.3f " + mipsliteral.getName() + ",", budget));
+		comp.setComponentInstance(ci);
+		comp.setCapacity(budget);
+		comp.setCapacityWithUnit(String.format("%.3f " + mipsliteral.getName() + ",", budget));
 		comp.setCategoryName(ci.getCategory().getName());
 		comp.setComponentPath(ci.getComponentInstancePath());
 
@@ -266,15 +277,16 @@ public class NotBoundModel extends ModelElement {
 
 	private static void addProcessor(final NotBoundModel model, final SystemInstance si, final ComponentInstance ci,
 			final SystemOperationMode som) {
-		final ProcessorOrVirtualProcessor theProcessor = model.getProcessor(si, Aadl2Util.getPrintableSOMName(som));
+		final ProcessorOrVirtualProcessor theProcessor = model.getProcessor(si, ci, Aadl2Util.getPrintableSOMName(som));
 
 		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(si);
 
 		double capacity = getCapacity(ci, ResourceKind.MIPS, mipsliteral);
 
 		Component comp = new Component(ci.getName());
-		comp.setBudget(capacity);
-		comp.setBudgetWithUnit(GetProperties.toStringScaled(capacity, mipsliteral));
+		comp.setComponentInstance(ci);
+		comp.setCapacity(capacity);
+		comp.setCapacityWithUnit(GetProperties.toStringScaled(capacity, mipsliteral));
 		comp.setCategoryName(ci.getCategory().getName());
 		comp.setComponentPath(ci.getComponentInstancePath());
 
@@ -400,12 +412,12 @@ public class NotBoundModel extends ModelElement {
 		if (HWOnly) {
 			return -1;
 		}
-		double budget = getBudget(ci, rk);
+		// double budget = getBudget(ci, rk);
 		if (rk.equals(ResourceKind.RAM) || rk.equals(ResourceKind.ROM) || rk.equals(ResourceKind.Memory)) {
 			double actualsize = getMemoryUseActual(ci, rk.name(), unit);
 			subtotal += actualsize;
 		}
-		String resourceName = ci.getCategory().getName();
+		// String resourceName = ci.getCategory().getName();
 
 		if (rk == ResourceKind.MIPS && ci.getCategory() == ComponentCategory.THREAD) {
 			subtotal = GetProperties.getThreadExecutioninMIPS(ci);

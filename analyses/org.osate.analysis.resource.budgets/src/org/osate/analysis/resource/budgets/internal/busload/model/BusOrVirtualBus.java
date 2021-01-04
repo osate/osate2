@@ -28,6 +28,8 @@ import java.util.List;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.analysis.resource.budgets.internal.shared.model.AnalysisElement;
+import org.osate.analysis.resource.budgets.internal.shared.model.Visitor;
 
 /**
  * @since 3.0
@@ -61,10 +63,12 @@ public abstract class BusOrVirtualBus extends AnalysisElement {
 		this.capacity = capacity;
 	}
 
+	@Override
 	public final double getTotalBudget() {
 		return totalBudget;
 	}
 
+	@Override
 	public final void setTotalBudget(final double totalBudget) {
 		this.totalBudget = totalBudget;
 	}

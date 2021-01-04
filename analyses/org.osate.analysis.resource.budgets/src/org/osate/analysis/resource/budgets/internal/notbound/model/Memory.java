@@ -1,11 +1,12 @@
-package org.osate.analysis.resource.budgets.internal.busload.model;
+package org.osate.analysis.resource.budgets.internal.notbound.model;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.analysis.resource.budgets.internal.shared.model.AnalysisElement;
+import org.osate.analysis.resource.budgets.internal.shared.model.Visitor;
 
 public class Memory extends AnalysisElement {
 	private SystemInstance si;
-	private final ComponentInstance memoryInstance;
 
 	private double totalCapacityMemory;
 	private double totalCapacityRAM;
@@ -31,14 +32,10 @@ public class Memory extends AnalysisElement {
 	private int budgetedComponentsRAM = 0;
 	private int budgetedComponentsROM = 0;
 
-	public Memory(final SystemInstance si, ComponentInstance memoryInstance) {
+	public Memory(final SystemInstance si, ComponentInstance componentInstance) {
 		super("Memory");
 		this.si = si;
-		this.memoryInstance = memoryInstance;
-	}
-
-	public final ComponentInstance getMemoryInstance() {
-		return memoryInstance;
+		this.setComponentInstance(componentInstance);
 	}
 
 	public final SystemInstance getSystemInstance() {
@@ -190,12 +187,12 @@ public class Memory extends AnalysisElement {
 	}
 
 	@Override
-	void visitSelfPrefix(final Visitor visitor) {
+	protected void visitSelfPrefix(final Visitor visitor) {
 		visitor.visitMemoryPrefix(this);
 	}
 
 	@Override
-	void visitSelfPostfix(final Visitor visitor) {
+	protected void visitSelfPostfix(final Visitor visitor) {
 		visitor.visitMemoryPostfix(this);
 	}
 

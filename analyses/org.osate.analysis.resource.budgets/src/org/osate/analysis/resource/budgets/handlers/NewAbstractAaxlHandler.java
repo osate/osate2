@@ -25,6 +25,7 @@ package org.osate.analysis.resource.budgets.handlers;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -54,12 +55,17 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.FileNameConstants;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
 import org.osate.core.AadlNature;
+import org.osate.result.AnalysisResult;
+import org.osate.result.Diagnostic;
+import org.osate.result.Result;
 import org.osate.ui.internal.instantiate.InstantiationEngine;
 
 /**
@@ -347,4 +353,75 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 		}
 	}
 
+	public static void generateMarkers(final AnalysisResult analysisResult,
+			final AnalysisErrorReporterManager errManager) {
+		// Handle each SOM
+		analysisResult.getResults().forEach(r -> {
+			final String somName = r.getMessage();
+			final String somPostfix = somName.isEmpty() ? "" : (" in modes " + somName);
+			generateMarkersForSOM(r, errManager, somPostfix);
+		});
+	}
+
+	private static void generateMarkersForSOM(final Result result, final AnalysisErrorReporterManager errManager,
+			final String somPostfix) {
+		generateMarkersFromDiagnostics(result.getDiagnostics(), errManager, somPostfix);
+		result.getSubResults().forEach(r -> generateMarkersForSOM(r, errManager, somPostfix));
+	}
+
+	private static void generateMarkersFromDiagnostics(final List<Diagnostic> diagnostics,
+			final AnalysisErrorReporterManager errManager, final String somPostfix) {
+		diagnostics.forEach(issue -> {
+			switch (issue.getDiagnosticType()) {
+			case ERROR:
+				errManager.error((Element) issue.getModelElement(), issue.getMessage() + somPostfix);
+				break;
+			case INFO:
+				errManager.info((Element) issue.getModelElement(), issue.getMessage() + somPostfix);
+				break;
+			case WARNING:
+				errManager.warning((Element) issue.getModelElement(), issue.getMessage() + somPostfix);
+				break;
+			default:
+				// Do nothing.
+			}
+		});
+	}
+
+	// === CSV Output methods ===
+
+	public static void writeCSVFile(final InputStream inputStream, final IFile outputFile,
+			final IProgressMonitor monitor) {
+		try {
+			if (outputFile.exists()) {
+				outputFile.setContents(inputStream, true, true, monitor);
+			} else {
+				outputFile.create(inputStream, true, monitor);
+			}
+		} catch (final CoreException e) {
+			Activator.logThrowable(e);
+		}
+	}
+
+	// ==== Low-level CSV format, this should be abstracted somewhere
+
+	public static void printItems(final PrintWriter pw, final String item1, final String... items) {
+		printItem(pw, item1);
+		for (final String nextItem : items) {
+			printSeparator(pw);
+			printItem(pw, nextItem);
+		}
+		pw.println();
+	}
+
+	public static void printItem(final PrintWriter pw, final String item) {
+		// TODO: Doesn't handle quotes in the item!
+		pw.print('"');
+		pw.print(item);
+		pw.print('"');
+	}
+
+	public static void printSeparator(final PrintWriter pw) {
+		pw.print(",");
+	}
 }

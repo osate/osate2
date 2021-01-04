@@ -1,7 +1,10 @@
-package org.osate.analysis.resource.budgets.internal.busload.model;
+package org.osate.analysis.resource.budgets.internal.notbound.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.osate.analysis.resource.budgets.internal.shared.model.AnalysisElement;
+import org.osate.analysis.resource.budgets.internal.shared.model.Visitor;
 
 public class Component extends AnalysisElement {
 
@@ -9,7 +12,8 @@ public class Component extends AnalysisElement {
 		super(label);
 	}
 
-	private String budgetWithUnit, categoryName, componentPath;
+	private String budgetWithUnit, categoryName, componentPath, capacityWithUnit;
+	private double capacity;
 
 	private List<SubComponent> memories = new ArrayList();
 	private List<SubComponent> rams = new ArrayList();
@@ -84,20 +88,36 @@ public class Component extends AnalysisElement {
 		this.budgetWithUnit = budgetWithUnit;
 	}
 
+	public final String getCapacityWithUnit() {
+		return capacityWithUnit;
+	}
+
+	public final void setCapacityWithUnit(final String capacityWithUnit) {
+		this.capacityWithUnit = capacityWithUnit;
+	}
+
+	public final double getCapacity() {
+		return capacity;
+	}
+
+	public final void setCapacity(final double capacity) {
+		this.capacity = capacity;
+	}
+
 	@Override
-	void visitChildren(final Visitor visitor) {
+	protected void visitChildren(final Visitor visitor) {
 		visit(memories, visitor);
 		visit(rams, visitor);
 		visit(roms, visitor);
 	}
 
 	@Override
-	void visitSelfPrefix(final Visitor visitor) {
+	protected void visitSelfPrefix(final Visitor visitor) {
 		visitor.visitComponentPrefix(this);
 	}
 
 	@Override
-	void visitSelfPostfix(final Visitor visitor) {
+	protected void visitSelfPostfix(final Visitor visitor) {
 		visitor.visitComponentPostfix(this);
 	}
 }

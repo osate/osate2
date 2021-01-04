@@ -1,23 +1,20 @@
-package org.osate.analysis.resource.budgets.internal.busload.model;
+package org.osate.analysis.resource.budgets.internal.notbound.model;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.analysis.resource.budgets.internal.shared.model.AnalysisElement;
+import org.osate.analysis.resource.budgets.internal.shared.model.Visitor;
 
 public class MIPS extends AnalysisElement {
 	private SystemInstance si;
-	private final ComponentInstance ci;
 	private int totalComponents, totalBudgetedComponents, totalResources, totalCapacityResources;
 	private double totalBudget, totalCapacity;
 
 	public MIPS(final SystemInstance si, final ComponentInstance ci, String somName) {
 		super("MIPS");
 		this.si = si;
-		this.ci = ci;
+		this.setComponentInstance(ci);
 		this.setSomName(somName);
-	}
-
-	public final ComponentInstance getComponentInstance() {
-		return ci;
 	}
 
 	public SystemInstance getSystemInstance() {
@@ -75,12 +72,12 @@ public class MIPS extends AnalysisElement {
 	}
 
 	@Override
-	void visitSelfPrefix(final Visitor visitor) {
+	protected void visitSelfPrefix(final Visitor visitor) {
 		visitor.visitMIPSPrefix(this);
 	}
 
 	@Override
-	void visitSelfPostfix(final Visitor visitor) {
+	protected void visitSelfPostfix(final Visitor visitor) {
 		visitor.visitMIPSPostfix(this);
 	}
 

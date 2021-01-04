@@ -21,7 +21,20 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.resource.budgets.internal.busload.model;
+package org.osate.analysis.resource.budgets.internal.shared.model;
+
+import org.osate.analysis.resource.budgets.internal.busload.model.Broadcast;
+import org.osate.analysis.resource.budgets.internal.busload.model.Bus;
+import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadModel;
+import org.osate.analysis.resource.budgets.internal.busload.model.BusOrVirtualBus;
+import org.osate.analysis.resource.budgets.internal.busload.model.Connection;
+import org.osate.analysis.resource.budgets.internal.busload.model.VirtualBus;
+import org.osate.analysis.resource.budgets.internal.notbound.model.Component;
+import org.osate.analysis.resource.budgets.internal.notbound.model.MIPS;
+import org.osate.analysis.resource.budgets.internal.notbound.model.Memory;
+import org.osate.analysis.resource.budgets.internal.notbound.model.NotBoundModel;
+import org.osate.analysis.resource.budgets.internal.notbound.model.ProcessorOrVirtualProcessor;
+import org.osate.analysis.resource.budgets.internal.notbound.model.SubComponent;
 
 /**
  * @since 3.0

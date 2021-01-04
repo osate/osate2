@@ -87,7 +87,7 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="org.osate.analysis.resource.budgets.handlers.NotBoundResourceAnalysisHandler"
+            class="org.osate.analysis.resource.budgets.handlers.NewNotBoundResourceAnalysisHandler"
             commandId="org.osate.analysis.resource.budgets.notBoundResourceAnalysis">
          <enabledWhen>
             <reference definitionId="org.osate.ui.definition.isInstanceFileOrSystemInstanceSelected"/>

@@ -38,10 +38,8 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -105,7 +103,10 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 				}
 				generateMarkers(analysisResult, errManager);
 				subMonitor.worked(1);
-				writeCSVFile(analysisResult, outputFile, subMonitor.split(1));
+
+				final String csvContent = getCSVasString(analysisResult);
+				final InputStream inputStream = new ByteArrayInputStream(csvContent.getBytes());
+				writeCSVFile(inputStream, outputFile, subMonitor.split(1));
 			} catch (final OperationCanceledException e) {
 				cancelled = true;
 			}
@@ -123,58 +124,7 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 	 * somewhere;
 	 */
 
-	private static void generateMarkers(final AnalysisResult analysisResult,
-			final AnalysisErrorReporterManager errManager) {
-		// Handle each SOM
-		analysisResult.getResults().forEach(r -> {
-			final String somName = r.getMessage();
-			final String somPostfix = somName.isEmpty() ? "" : (" in modes " + somName);
-			generateMarkersForSOM(r, errManager, somPostfix);
-		});
-	}
-
-	private static void generateMarkersForSOM(final Result result, final AnalysisErrorReporterManager errManager,
-			final String somPostfix) {
-		generateMarkersFromDiagnostics(result.getDiagnostics(), errManager, somPostfix);
-		result.getSubResults().forEach(r -> generateMarkersForSOM(r, errManager, somPostfix));
-	}
-
-	private static void generateMarkersFromDiagnostics(final List<Diagnostic> diagnostics,
-			final AnalysisErrorReporterManager errManager, final String somPostfix) {
-		diagnostics.forEach(issue -> {
-			switch (issue.getDiagnosticType()) {
-			case ERROR:
-				errManager.error((Element) issue.getModelElement(), issue.getMessage() + somPostfix);
-				break;
-			case INFO:
-				errManager.info((Element) issue.getModelElement(), issue.getMessage() + somPostfix);
-				break;
-			case WARNING:
-				errManager.warning((Element) issue.getModelElement(), issue.getMessage() + somPostfix);
-				break;
-			default:
-				// Do nothing.
-			}
-		});
-	}
-
 	// === CSV Output methods ===
-
-	private static void writeCSVFile(final AnalysisResult analysisResult, final IFile outputFile,
-			final IProgressMonitor monitor) {
-		final String csvContent = getCSVasString(analysisResult);
-		final InputStream inputStream = new ByteArrayInputStream(csvContent.getBytes());
-
-		try {
-			if (outputFile.exists()) {
-				outputFile.setContents(inputStream, true, true, monitor);
-			} else {
-				outputFile.create(inputStream, true, monitor);
-			}
-		} catch (final CoreException e) {
-			Activator.logThrowable(e);
-		}
-	}
 
 	private static String getCSVasString(final AnalysisResult analysisResult) {
 		final StringWriter writer = new StringWriter();
@@ -308,27 +258,5 @@ public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 			printItem(pw, issue.getDiagnosticType().getName() + ": " + issue.getMessage());
 			pw.println();
 		}
-	}
-
-	// ==== Low-level CSV format, this should be abstracted somewhere
-
-	private static void printItems(final PrintWriter pw, final String item1, final String... items) {
-		printItem(pw, item1);
-		for (final String nextItem : items) {
-			printSeparator(pw);
-			printItem(pw, nextItem);
-		}
-		pw.println();
-	}
-
-	private static void printItem(final PrintWriter pw, final String item) {
-		// TODO: Doesn't handle quotes in the item!
-		pw.print('"');
-		pw.print(item);
-		pw.print('"');
-	}
-
-	private static void printSeparator(final PrintWriter pw) {
-		pw.print(",");
 	}
 }

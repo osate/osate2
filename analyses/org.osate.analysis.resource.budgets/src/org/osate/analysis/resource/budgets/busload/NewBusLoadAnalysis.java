@@ -46,7 +46,7 @@ import org.osate.analysis.resource.budgets.internal.busload.model.Bus;
 import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadModel;
 import org.osate.analysis.resource.budgets.internal.busload.model.BusOrVirtualBus;
 import org.osate.analysis.resource.budgets.internal.busload.model.Connection;
-import org.osate.analysis.resource.budgets.internal.busload.model.Visitor;
+import org.osate.analysis.resource.budgets.internal.shared.model.Visitor;
 import org.osate.analysis.resource.budgets.logic.GenericAnalysis;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
