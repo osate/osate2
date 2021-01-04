@@ -65,9 +65,9 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 	private AnalysisResult analyzeBody(final IProgressMonitor monitor, final Element obj) {
 		if (obj instanceof InstanceObject) {
 			final SystemInstance root = ((InstanceObject) obj).getSystemInstance();
-			final AnalysisResult analysisResult = ResultUtil.createAnalysisResult("Bus  Load", root);
+			final AnalysisResult analysisResult = ResultUtil.createAnalysisResult("Not  Bound", root);
 			analysisResult.setResultType(ResultType.SUCCESS);
-			analysisResult.setMessage("Bus load analysis of " + root.getFullName());
+			analysisResult.setMessage("Not bound resource analysis of " + root.getFullName());
 
 			final SOMIterator soms = new SOMIterator(root);
 			while (soms.hasNext()) {
@@ -85,7 +85,7 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 
 			return analysisResult;
 		} else {
-			Dialog.showError("Power Requirements Analysis Error", "Can only check system instances");
+			Dialog.showError("Not Bound Resource Analysis Error", "Can only check system instances");
 			return null;
 		}
 	}

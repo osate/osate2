@@ -138,14 +138,18 @@ public class NotBoundModel extends ModelElement {
 			@Override
 			protected void process(final Element obj) {
 				final ComponentInstance ci = (ComponentInstance) obj;
-				final ComponentCategory cat = ci.getCategory();
-				if (cat == ComponentCategory.PROCESSOR) {
-					addProcessor(model, root, ci, som);
-				} else if (cat == ComponentCategory.VIRTUAL_PROCESSOR) {
-					addVirtualProcessor(model, root, ci, som);
-				} else if (cat == ComponentCategory.MEMORY) {
-					addMemory(model, root, ci, som);
-				}
+
+				EList<ComponentInstance> proclist = (EList<ComponentInstance>) (EList<?>) new ForAllElement()
+						.processPreOrderComponentInstance(root, ComponentCategory.PROCESSOR);
+				proclist.forEach(elem -> addProcessor(model, root, elem, som));
+
+				EList<ComponentInstance> vproclist = (EList<ComponentInstance>) (EList<?>) new ForAllElement()
+						.processPreOrderComponentInstance(root, ComponentCategory.VIRTUAL_PROCESSOR);
+				vproclist.forEach(elem -> addVirtualProcessor(model, root, elem, som));
+
+				EList<ComponentInstance> memlist = (EList<ComponentInstance>) (EList<?>) new ForAllElement()
+						.processPreOrderComponentInstance(root, ComponentCategory.MEMORY);
+				memlist.forEach(elem -> addMemory(model, root, elem, som));
 
 				addMIPS(model, root, ci, som);
 			}
