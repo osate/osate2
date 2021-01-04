@@ -28,14 +28,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
+
 /**
  * @since 5.0
  */
-class PluginInfo {
-	PluginInfo() {
+public class PluginInfo {
+	public PluginInfo() {
 	}
 
-	PluginInfo(URL exampleURI, URL readmeURI, String name, String category, String bundle) {
+	public PluginInfo(URL exampleURI, URL readmeURI, String name, String category, String bundle) {
 		this.exampleURI = exampleURI;
 		this.readmeURI = readmeURI;
 		this.name = name;
@@ -43,25 +48,25 @@ class PluginInfo {
 		this.bundle = bundle;
 	}
 
-	PluginInfo(String name) {
+	public PluginInfo(String name) {
 		this.name = name;
 	}
 
-	String exampleS;
-	URL exampleURI;
-	URL readmeURI;
-	String name;
-	String category;
-	String bundle;
-	List<String> projectPath;
+	public String exampleS;
+	public URL exampleURI;
+	public URL readmeURI;
+	public String name;
+	public String category;
+	public String bundle;
+	public List<String> projectPath;
 	protected List<PluginInfo> nodes = new ArrayList<>();
 	protected PluginInfo parent;
 
-	List<PluginInfo> getNodes() {
+	public List<PluginInfo> getNode() {
 		return nodes;
 	}
 
-	void addProjectPath(String path) {
+	public void addProjectPath(String path) {
 		if (this.projectPath == null) {
 			this.projectPath = new ArrayList<String>();
 		}
@@ -78,5 +83,11 @@ class PluginInfo {
 		return parent;
 	}
 
+	public IProject getProject() {
+		return ResourcesPlugin.getWorkspace().getRoot().getProject(name);
+	}
 
+	public IFile getWorkspaceFile() {
+		return ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(exampleURI.getPath()));
+	}
 }

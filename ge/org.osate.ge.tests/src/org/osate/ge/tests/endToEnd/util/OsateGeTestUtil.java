@@ -323,34 +323,12 @@ public class OsateGeTestUtil {
 		clickCheckboxInPropertiesView(tabLabel, index);
 	}
 
-	public static boolean isCheckboxInPropertiesViewChecked(final DiagramReference diagram, final String tabLabel,
-			int index, final DiagramElementReference... elements) {
-		openDiagramEditor(diagram);
-		selectDiagramElements(diagram, elements);
-		return isCheckboxChecked(index);
-	}
-
-	public static boolean isCheckboxInPropertiesViewEnabled(final DiagramReference diagram, final String tabLabel,
-			int index, final DiagramElementReference... elements) {
-		openDiagramEditor(diagram);
-		selectDiagramElements(diagram, elements);
-		return isCheckboxInProptertiesViewEnabled(tabLabel, index);
-	}
-
 	private static void clickCheckboxInPropertiesView(final String tabLabel, final int index) {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
 		clickPropertiesViewTab(tabLabel);
 		clickCheckbox(index);
-	}
-
-	private static boolean isCheckboxInProptertiesViewEnabled(final String tabLabel, final int index) {
-		assertViewIsVisible("Properties");
-		setViewFocus("Properties");
-
-		clickPropertiesViewTab(tabLabel);
-		return isCheckboxEnabled(index);
 	}
 
 	private static void clickRadioButtonInPropertiesView(final String tabLabel, final String btnLabel) {
@@ -385,7 +363,7 @@ public class OsateGeTestUtil {
 	 */
 	public static void waitUntilListWithIdItemsExists(final String id, final String... texts) {
 		waitUntil(() -> itemsMatchInListWithId(id, texts),
-				"List items do not matchin expected value: '" + Arrays.toString(texts) + "'.");
+				"List items do not match expected value: '" + Arrays.toString(texts) + "'.");
 	}
 
 	/**

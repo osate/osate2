@@ -23,53 +23,15 @@
  */
 package org.osate.ge.ba.ui.properties;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.eclipse.jface.viewers.IFilter;
-import org.eclipse.swt.widgets.Button;
 import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ge.ui.PropertySectionUtil;
 
 /**
  * Property section for setting {@link BehaviorState} to complete.
  */
 public class SetStateCompletePropertySection extends StatePropertySection {
-	public static class Filter implements IFilter {
-		@Override
-		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				return bo instanceof BehaviorState;
-			});
-		}
-	}
-
 	public SetStateCompletePropertySection() {
-		super("Complete:", "Set Complete State", (e) -> {
-			final Button btn = (Button) e.widget;
-			final boolean isComplete = btn.getSelection();
-			return (behaviorState, boc) ->
-				// Set initial state
-				behaviorState.setComplete(isComplete);
-		});
-	}
-
-	@Override
-	public void refresh() {
-		final Set<BehaviorState> behaviorStates = getSelectedBos().boStream(BehaviorState.class)
-				.collect(Collectors.toSet());
-		// Only allow editing 1 element
-		final boolean isSingleSelection = behaviorStates.size() == 1;
-		final BehaviorState selectedState = behaviorStates.iterator().next();
-		// Set button enabled and selection state
-		final boolean isCompleteState = selectedState.isComplete();
-		final Button setCompleteStateBtn = getStateButton();
-
-		// Set selection based on selected state(s)
-		setCompleteStateBtn.setSelection(isCompleteState);
-
-		// Set selection state for first selection
-		// Always disabled for multiple selection
-		setCompleteStateBtn.setEnabled(isSingleSelection);
+		super("Complete:", "Set Complete State", (isPropertyState) -> (behaviorState, boc) ->
+		// Set complete state
+		behaviorState.setComplete(isPropertyState), behaviorState -> behaviorState.isComplete());
 	}
 }

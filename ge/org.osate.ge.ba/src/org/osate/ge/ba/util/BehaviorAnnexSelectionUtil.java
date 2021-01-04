@@ -26,14 +26,12 @@ package org.osate.ge.ba.util;
 import java.util.List;
 import java.util.Optional;
 
-import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.ISources;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -83,23 +81,13 @@ public class BehaviorAnnexSelectionUtil {
 		return window.getActivePage();
 	}
 
-	private static Optional<IEditorPart> getActiveEditor() {
+	public static Optional<IEditorPart> getActiveEditor() {
 		final IWorkbenchPage page = getActivePage();
 		if (page == null) {
 			return Optional.empty();
 		}
 
 		return Optional.ofNullable(page.getActiveEditor());
-	}
-
-	public static IEditorPart getActiveEditorFromContext(final Object evaluationContext) {
-		if (!(evaluationContext instanceof IEvaluationContext)) {
-			return null;
-		}
-
-		final IEvaluationContext context = (IEvaluationContext) evaluationContext;
-		final Object editorObj = context.getVariable(ISources.ACTIVE_EDITOR_NAME);
-		return editorObj instanceof IEditorPart ? (IEditorPart) editorObj : null;
 	}
 
 	private static ImmutableList<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection) {
@@ -123,11 +111,10 @@ public class BehaviorAnnexSelectionUtil {
 
 	/**
 	 * Returns a business object which is a valid diagram context based on the currnent selection. Returns null if such a business object could not be determined based on the current selection.
-	 * @param selection
 	 * @param activeEditor
 	 * @return
 	 */
-	public static Optional<BehaviorAnnex> getDiagramContext(final IEditorPart activeEditor) {
+	public static Optional<DefaultAnnexSubclause> getDiagramContext(final IEditorPart activeEditor) {
 		if (activeEditor instanceof XtextEditor) {
 			final EObject selectedObject = SelectionHelper
 					.getEObjectFromSelection(((XtextEditor) activeEditor).getSelectionProvider().getSelection());
@@ -147,31 +134,16 @@ public class BehaviorAnnexSelectionUtil {
 		return Optional.empty();
 	}
 
-	/**
-	 * Returns a business object which is a valid diagram context based on the currnent selection. Returns null if such a business object could not be determined based on the current selection.
-	 * @param selection
-	 * @param activeEditor
-	 * @return
-	 */
-	public static Optional<BehaviorAnnex> getDiagramContext() {
-		final IEditorPart activeEditor = getActiveEditor().orElse(null);
-		return getDiagramContext(activeEditor);
-	}
-
-	private static BehaviorAnnex findDiagramContextForSelectedObject(final Object element) {
-		if (element instanceof BehaviorState || element instanceof BehaviorTransition
+	private static DefaultAnnexSubclause findDiagramContextForSelectedObject(final Object element) {
+		if (element instanceof BehaviorAnnex || element instanceof BehaviorState
+				|| element instanceof BehaviorTransition
 				|| element instanceof BehaviorVariable) {
 			return findDiagramContextForSelectedObject(((Element) element).getOwner());
 		}
 
 		if (element instanceof DefaultAnnexSubclause
 				&& BehaviorAnnexReferenceUtil.ANNEX_NAME.equalsIgnoreCase(((NamedElement) element).getName())) {
-			return findDiagramContextForSelectedObject(((DefaultAnnexSubclause) element).getParsedAnnexSubclause());
-		}
-
-		// BehaviorAnnex as diagram context
-		if (element instanceof BehaviorAnnex) {
-			return (BehaviorAnnex) element;
+			return (DefaultAnnexSubclause) element;
 		}
 
 		return null;

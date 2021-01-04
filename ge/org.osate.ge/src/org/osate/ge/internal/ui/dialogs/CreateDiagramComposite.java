@@ -28,6 +28,7 @@ import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -43,7 +44,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.osate.ge.DiagramCreationUtil;
+import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.swt.SwtUtil;
 
 import com.google.common.collect.ImmutableCollection;
@@ -125,7 +126,7 @@ public class CreateDiagramComposite<DiagramType> extends Composite {
 			do {
 				final String suffix = nameCount == 1 ? "" : "(" + nameCount + ")";
 				name = baseName + suffix;
-				tmpFile = DiagramCreationUtil.createDiagramFile(project, name);
+				tmpFile = createFile(project, name);
 				nameCount++;
 			} while (tmpFile != null && tmpFile.exists());
 
@@ -175,9 +176,24 @@ public class CreateDiagramComposite<DiagramType> extends Composite {
 
 
 	private void updateFile() {
-		file = DiagramCreationUtil.createDiagramFile(model.getProject(), nameField.getText());
+		file = createFile(model.getProject(), nameField.getText());
 		validate();
 		notifySelectionListeners();
+	}
+
+	/**
+	 *
+	 * @param project
+	 * @param name
+	 * @return null if project is null.
+	 */
+	private IFile createFile(final IProject project, final String name) {
+		if (project == null) {
+			return null;
+		}
+
+		final IFolder diagramFolder = project.getFolder("diagrams/");
+		return diagramFolder.getFile(name + AgeDiagramEditor.EXTENSION);
 	}
 
 	/**

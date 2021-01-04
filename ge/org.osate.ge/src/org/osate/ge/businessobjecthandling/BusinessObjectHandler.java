@@ -161,13 +161,4 @@ public interface BusinessObjectHandler {
 	default boolean canCopy(final CanCopyContext ctx) {
 		return true;
 	}
-
-	/**
-	 * Runs after a paste is executed to make any modifications to the newly
-	 * pasted business object specified in the context if the business object is an instance
-	 * of {@link org.eclipse.emf.ecore.EObject}.
-	 * @param ctx the context for the paste
-	 */
-	default void afterPaste(final PasteContext ctx) {
-	}
 }

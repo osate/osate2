@@ -220,10 +220,7 @@ public class AnnexParserAgent extends LazyLinker {
 						resolver.resolveAnnex(annexName, Collections.singletonList(annexSection), resolveErrManager);
 						consumeMessages(resolveErrReporter, diagnosticsConsumer, annexText, line, offset);
 						if (resolveErrReporter.getNumErrors() != 0) {
-
-							// Issue #2459
 							AnnexValidator.setNoValidation(defaultAnnexSection, annexName);
-//							setParsedAnnexSection.accept(null);
 						}
 					} else if (linkingService != null) {
 						try {
@@ -238,9 +235,7 @@ public class AnnexParserAgent extends LazyLinker {
 					}
 				}
 				if (parseErrReporter.getNumErrors() > 0) {
-					// Issue #2459
 					AnnexValidator.setNoValidation(defaultAnnexSection, annexName);
-//					setParsedAnnexSection.accept(null);
 				}
 			} catch (RecognitionException e) {
 				String message = "Major parsing error in " + filename + " at line " + line;

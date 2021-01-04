@@ -23,10 +23,6 @@
  */
 package org.osate.ge.ba.ui.properties;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.eclipse.swt.widgets.Button;
 import org.osate.ba.aadlba.BehaviorState;
 
 /**
@@ -34,29 +30,8 @@ import org.osate.ba.aadlba.BehaviorState;
  */
 public class SetStateFinalPropertySection extends StatePropertySection {
 	public SetStateFinalPropertySection() {
-		super("Final:", "Set Final State", (e) -> {
-			final Button btn = (Button) e.widget;
-			final boolean isFinal = btn.getSelection();
-			return (behaviorState, boc) ->
-			// Set final state
-			behaviorState.setFinal(isFinal);
-		});
-	}
-
-	@Override
-	public void refresh() {
-		final Set<BehaviorState> behaviorStates = getSelectedBos().boStream(BehaviorState.class)
-				.collect(Collectors.toSet());
-		// Only allow editing 1 element
-		final boolean isSingleSelection = behaviorStates.size() == 1;
-		final BehaviorState selectedState = behaviorStates.iterator().next();
-		final boolean isFinalState = selectedState.isFinal();
-		// Set button enabled and selection state
-		final Button setFinalStateBtn = getStateButton();
-		// Set selection state for first selection
-		setFinalStateBtn.setSelection(isFinalState);
-
-		// Always disabled for multiple selection
-		setFinalStateBtn.setEnabled(isSingleSelection);
+		super("Final:", "Set Final State", (isPropertyState) -> (behaviorState, boc) ->
+		// Set final state
+		behaviorState.setFinal(isPropertyState), behaviorState -> behaviorState.isFinal());
 	}
 }

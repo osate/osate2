@@ -14,9 +14,8 @@ import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.parsesupport.ParseUtil;
 
-// Issue #2459
 /**
- * @since 3.0
+ * @since 3.1
  */
 public class AnnexValidator extends EObjectValidator {
 
@@ -117,8 +116,10 @@ public class AnnexValidator extends EObjectValidator {
 
 			if (!(registeredValidator instanceof AnnexValidator)) {
 
+				Descriptor desc = new AnnexValidatorDescriptor(registeredValidator);
 				// Add annex validator
-				EValidator.Registry.INSTANCE.put(ePackage, (Descriptor) () -> new AnnexValidator(registeredValidator));
+				EValidator.Registry.INSTANCE.put(ePackage, desc);
+
 			}
 		}
 	}

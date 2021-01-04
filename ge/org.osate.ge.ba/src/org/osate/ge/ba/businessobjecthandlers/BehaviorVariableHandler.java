@@ -79,24 +79,28 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public void delete(final CustomDeleteContext ctx) {
-		final BehaviorVariable behaviorVariableToModify = ctx.getContainerBusinessObject(BehaviorVariable.class).get();
-		final BehaviorAnnex behaviorAnnexToModify = (BehaviorAnnex) behaviorVariableToModify.eContainer();
-		EcoreUtil.remove(behaviorVariableToModify);
-		if (behaviorAnnexToModify.getVariables().isEmpty()) {
-			behaviorAnnexToModify.unsetVariables();
+		final BehaviorAnnex behaviorAnnex = ctx.getContainerBusinessObject(BehaviorAnnex.class).get();
+		// Find variable by URI.
+		final BehaviorVariable behaviorVariable = (BehaviorVariable) behaviorAnnex.eResource().getResourceSet()
+				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorVariable.class).get()), true);
+		EcoreUtil.remove(behaviorVariable);
+		if (behaviorAnnex.getVariables().isEmpty()) {
+			behaviorAnnex.unsetVariables();
 		}
 	}
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
+		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).get();
 		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.VARIABLE_TYPE,
-				ctx.getBusinessObject(BehaviorVariable.class).get().getQualifiedName());
+				behaviorVariable.getName());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
+		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).get();
 		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.VARIABLE_TYPE,
-				ctx.getBusinessObject(BehaviorVariable.class).get().getFullName());
+				behaviorVariable.getName());
 	}
 
 	@Override
@@ -106,16 +110,17 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(BehaviorVariable.class).map(behaviorTransition -> {
-			String name = (behaviorTransition.getName() == null ? "" : behaviorTransition.getName())
-					+ AadlArrayUtil.getDimensionUserString(behaviorTransition);
+		return ctx.getBusinessObject(BehaviorVariable.class).map(behaviorVariable -> {
+			final String name = (behaviorVariable.getName() == null ? "" : behaviorVariable.getName())
+					+ AadlArrayUtil.getDimensionUserString(behaviorVariable);
 			return name;
 		}).orElse("");
 	}
 
 	@Override
 	public String getNameForRenaming(final GetNameContext ctx) {
-		return ctx.getBusinessObject(BehaviorVariable.class).map(BehaviorVariable::getName).orElse("");
+		return ctx.getBusinessObject(BehaviorVariable.class).map(behaviorVariable -> behaviorVariable.getName())
+				.orElse("");
 	}
 
 	@Override
