@@ -136,17 +136,12 @@ class Issue1383Test extends XtextTest {
 		
 		val powerResult4 = somResult.subResults.get(3)
 		checkNoSupplyValues(powerResult4);
-		
-		val powerResult5 = somResult.subResults.get(4)
-		checkNoSupplyValues(powerResult5);
 	}
 
 	private static def void checkNoSupplyValues(Result result){
 		val compName = ResultUtil.getString(result, 7)
 		
-		if (compName == "EPSU")
-		checkValues(result, #[0.0, 0.0, 40000.0, 92500.0, 0.0], #[error("Grid budget total 92.5 W exceeds capacity 40.0 W"), error("budget total 92.5 W exceeds capacity 40.0 W")])
-		else if (compName == "hw")
+		if (compName == "hw")
 		checkValues(result, #[800.0, 0.0, 40000.0, 92500.0, 0.0], #[error("Grid budget total 92.5 W exceeds capacity 40.0 W"), error("budget total 92.5 W exceeds capacity 40.0 W")])
 		else if (compName == "sensor1")
 		checkValues(result, #[450.0, 0.0, 40000.0, 92500.0, 0.0], #[error("Grid budget total 92.5 W exceeds capacity 40.0 W"), error("budget total 92.5 W exceeds capacity 40.0 W")])
