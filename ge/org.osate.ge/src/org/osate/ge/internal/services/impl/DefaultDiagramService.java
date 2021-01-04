@@ -33,9 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IFile;
@@ -202,7 +200,7 @@ public class DefaultDiagramService implements DiagramService {
 
 	@Override
 	public AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo, final boolean promptForCreate,
-			final boolean promptForConfigureAfterCreate, final Supplier<Optional<IFile>> createDiagramFile) {
+			final boolean promptForConfigureAfterCreate) {
 		// Look for an existing diagram
 		final List<DiagramReference> diagramRefs = findDiagramsByContextBusinessObject(bo).stream()
 				.filter(dr -> dr.isValid()).collect(Collectors.toList());
@@ -222,10 +220,14 @@ public class DefaultDiagramService implements DiagramService {
 			// Prompt user to determine whether a new diagram should be created
 			if (!promptForCreate || MessageDialog.openQuestion(null, "Create New Diagram?",
 					"An existing diagram was not found for the specified model element.\nCreate new diagram?")) {
+				// Create and open a new diagram
+				final IFile diagramFile = createDiagram(bo);
+				if (diagramFile == null) {
+					return null;
+				}
 
-				return createDiagramFile.get()
-						.map(diagramFile -> EditorUtil.openEditor(diagramFile, promptForConfigureAfterCreate))
-						.orElse(null);
+				final AgeDiagramEditor editor = EditorUtil.openEditor(diagramFile, promptForConfigureAfterCreate);
+				return editor;
 			} else {
 				return null;
 			}
@@ -235,7 +237,7 @@ public class DefaultDiagramService implements DiagramService {
 		}
 	}
 
-	public DiagramReference promptForDiagram(final List<DiagramReference> diagramRefs) {
+	private DiagramReference promptForDiagram(final List<DiagramReference> diagramRefs) {
 		// Sort the diagram references
 		final InternalDiagramReference[] sortedDiagramRefs = diagramRefs.stream()
 				.sorted((r1, r2) -> r1.getFile().getName().compareToIgnoreCase(r2.getFile().getName()))

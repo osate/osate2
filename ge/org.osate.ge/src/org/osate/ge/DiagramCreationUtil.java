@@ -23,62 +23,40 @@
  */
 package org.osate.ge;
 
-import java.util.Optional;
-
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 import org.osate.ge.internal.services.DiagramService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.EditorUtil;
 
 /**
- * @since 2.0
+ * @noextend
+ * @since 2.1
  */
 public class DiagramCreationUtil {
-	public static void createDiagram(final IEditorPart activeEditor, final String fileName,
-			final DiagramType diagramType, final Object bo) {
+	private DiagramCreationUtil() {
+	}
+
+	/**
+	 * Create a diagram for the business object
+	 * @param contextBo	the business object for which to create the diagram
+	 */
+	public static void createDiagram(final Object contextBo) {
 		final DiagramService diagramService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 				.getService(DiagramService.class);
-		final IProject project = ProjectUtil.getProjectForBoOrThrow(bo);
-		final IFile file = createDiagramFile(project, fileName);
-		diagramService.createDiagram(file, diagramType, bo);
-
+		final IFile file = diagramService.createDiagram(contextBo);
 		if (file != null) {
 			EditorUtil.openEditor(file, false);
 		}
 	}
 
-	public static void openOrCreateDiagram(final Object contextBo, final boolean promptForCreate,
-			final boolean promptForConfigureAfterCreate, final DiagramType diagramType, final String fileName) {
-		final DiagramService diagramService = PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getService(DiagramService.class);
-
-		diagramService.openOrCreateDiagramForBusinessObject(contextBo, promptForCreate, promptForConfigureAfterCreate,
-				() -> {
-					final IProject project = ProjectUtil.getProjectForBoOrThrow(contextBo);
-					final IFile diagramFile = createDiagramFile(project, fileName);
-					diagramService.createDiagram(diagramFile, diagramType, contextBo);
-					return Optional.ofNullable(diagramFile);
-				});
-		return;
-	}
-
-
 	/**
-	 * Creates a diagram file in the diagrams directory of a project
-	 * @param project the project that will contain the diagram
-	 * @param name the name of the diagram file
-	 * @return null if project is null.
+	 * Open or create a diagram for the business object
+	 * @param contextBo the business object for which to open/create the diagram
 	 */
-	public static IFile createDiagramFile(final IProject project, final String name) {
-		if (project == null) {
-			return null;
-		}
-
-		final IFolder diagramFolder = project.getFolder("diagrams/");
-		return diagramFolder.getFile(name + AgeDiagramEditor.EXTENSION);
+	public static void openOrCreateDiagram(final Object contextBo) {
+		final DiagramService diagramService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				.getService(DiagramService.class);
+		diagramService.openOrCreateDiagramForBusinessObject(contextBo);
+		return;
 	}
 }

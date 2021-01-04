@@ -31,6 +31,8 @@ import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
 import java.util.function.BiFunction;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.junit.Test;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
@@ -68,20 +70,7 @@ public class BehaviorAnnexTest {
 		doubleClickInAadlNavigator(BA_TEST, BA_TEST + ".aadl");
 
 		// Test classifiers
-		createAndTestBehaviorSpecificationForClassifier("Abstract", diagram, pkgElement, pkgRef, false, true);
-		createAndTestBehaviorSpecificationForClassifier("Bus", diagram, pkgElement, pkgRef, false, false);
-		createAndTestBehaviorSpecificationForClassifier("Data", diagram, pkgElement, pkgRef, false, false);
-		createAndTestBehaviorSpecificationForClassifier("Device", diagram, pkgElement, pkgRef, true, true);
-		createAndTestBehaviorSpecificationForClassifier("Memory", diagram, pkgElement, pkgRef, false, false);
-		createAndTestBehaviorSpecificationForClassifier("Process", diagram, pkgElement, pkgRef, false, false);
-		createAndTestBehaviorSpecificationForClassifier("Processor", diagram, pkgElement, pkgRef, false, false);
-		createAndTestBehaviorSpecificationForClassifier("Subprogram", diagram, pkgElement, pkgRef, true, false);
-		createAndTestBehaviorSpecificationForClassifier("Subprogram Group", diagram, pkgElement, pkgRef, false, false);
-		createAndTestBehaviorSpecificationForClassifier("System", diagram, pkgElement, pkgRef, false, false);
-		createAndTestBehaviorSpecificationForClassifier("Thread", diagram, pkgElement, pkgRef, true, true);
-		createAndTestBehaviorSpecificationForClassifier("Thread Group", diagram, pkgElement, pkgRef, false, false);
-		createAndTestBehaviorSpecificationForClassifier("Virtual Bus", diagram, pkgElement, pkgRef, false, false);
-		createAndTestBehaviorSpecificationForClassifier("Virtual Processor", diagram, pkgElement, pkgRef, true, false);
+		createAndTestBehaviorSpecificationForClassifier("Abstract", diagram, pkgElement, pkgRef);
 	}
 
 	/*
@@ -96,23 +85,26 @@ public class BehaviorAnnexTest {
 	 * - Test state and transition properties for classifier
 	 * - Repeat for impl, but execute Open -> New Diagram...
 	 */
-	private void createAndTestBehaviorSpecificationForClassifier(final String classifier,
+	private static void createAndTestBehaviorSpecificationForClassifier(final String classifier,
 			final DiagramReference diagram,
-			final DiagramElementReference pkgElement, final RelativeBusinessObjectReference pkgRef, final boolean requiresInitialState,
-			final boolean allowsOnDispatchCondition) {
+			final DiagramElementReference pkgElement, final RelativeBusinessObjectReference pkgRef) {
 		final String classifierName = getName(classifier);
 		// Create type
 		createElementAndLayout(diagram, pkgElement, getType(classifier),
 				getClassifierRelativeReference("new_classifier"), classifierName);
 
 		final String srcStateName = "src_state";
+		// Create mode to test when source states have the same name as modes
+		createElementAndLayout(diagram, pkgElement.join(getClassifierRelativeReference(classifierName)), "Mode",
+				getModeRelativeReference(classifierName + "_new_mode"), srcStateName);
+
 		// Use Open -> Behavior Annex Diagram command to create new behavior annex diagram
 		final BiFunction<DiagramElementReference, String, DiagramReference> openBehaviorAnnexDiagramCommand = (ref,
 				newStatePrefix) -> openDiagramFromReference(ref, newStatePrefix, 0);
+
 		// Run tests for type
 		createAndTestBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(0),
-				classifierName, diagram, pkgRef, srcStateName, openBehaviorAnnexDiagramCommand, requiresInitialState,
-				allowsOnDispatchCondition);
+				classifierName, diagram, pkgRef, srcStateName, openBehaviorAnnexDiagramCommand);
 
 		// Create impl
 		createImplementationWithExistingType(diagram, pkgElement, classifier + " Implementation", "impl", BA_TEST,
@@ -124,16 +116,13 @@ public class BehaviorAnnexTest {
 
 		// Run tests for impl
 		createAndTestBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(1),
-				classifierName + ".impl", diagram, pkgRef, srcStateName, openNewDiagramCommand, requiresInitialState,
-				allowsOnDispatchCondition);
+				classifierName + ".impl", diagram, pkgRef, srcStateName, openNewDiagramCommand);
 	}
 
-	private void createAndTestBehaviorSpecification(final RelativeBusinessObjectReference behaviorSpecification,
+	private static void createAndTestBehaviorSpecification(final RelativeBusinessObjectReference behaviorSpecification,
 			final String classifierName,
 			final DiagramReference diagram, final RelativeBusinessObjectReference pkgRef, final String srcStateName,
-			final BiFunction<DiagramElementReference, String, DiagramReference> openDiagram,
-			final boolean requiresInitialState,
-			final boolean allowsOnDispatchCondition) {
+			final BiFunction<DiagramElementReference, String, DiagramReference> openDiagram) {
 		createBehaviorAnnexWithState(diagram, pkgRef, classifierName, behaviorSpecification, srcStateName);
 
 		final RelativeBusinessObjectReference classifierRef = getClassifierRelativeReference(classifierName);
@@ -147,13 +136,22 @@ public class BehaviorAnnexTest {
 		// New specification reference for BA diagram
 		final DiagramElementReference baDiagramSpecRef = new DiagramElementReference(behaviorSpecification);
 
+		// Create state to delete
+		createElementAndLayout(baDiagram, baDiagramSpecRef, "Behavior State",
+				BehaviorAnnexReferenceUtil.getStateRelativeReference("new_state"), "delete_state");
+
+		// Test deletion
+		final DiagramElementReference stateToDelete = new DiagramElementReference(behaviorSpecification)
+				.join(BehaviorAnnexReferenceUtil.getStateRelativeReference("delete_state"));
+		deleteElement(baDiagram, stateToDelete);
+
 		// Create destination state
 		createElementAndLayout(baDiagram, baDiagramSpecRef, "Behavior State",
 				BehaviorAnnexReferenceUtil.getStateRelativeReference("new_state"), "dest_state");
 
 		// Create variable
 		final String newVariableName = "ba_variable";
-		createBehaviorVariable(baDiagram, baDiagramSpecRef, "Base_Types::Character", "new_behavior_variable",
+		createBehaviorVariable(baDiagram, baDiagramSpecRef, "Base_Types::String", "new_behavior_variable",
 				newVariableName);
 
 		// Change variable data classifier
@@ -166,24 +164,22 @@ public class BehaviorAnnexTest {
 		testBehaviorSpecification(
 				new DiagramElementReference(behaviorSpecification,
 						BehaviorAnnexReferenceUtil.getStateRelativeReference(srcStateName)),
-				dest, baDiagram, behaviorSpecification, requiresInitialState, allowsOnDispatchCondition);
+				dest, baDiagram, behaviorSpecification);
 
-		// saveAndClose(baDiagram);
+
+
+		saveAndCloseDiagramEditor(baDiagram);
 	}
 
-	private void testBehaviorSpecification(final DiagramElementReference src, final DiagramElementReference dest,
-			final DiagramReference diagram, final RelativeBusinessObjectReference behaviorSpecification,
-			final boolean requiresInitialState, final boolean allowsOnDispatch) {
+	private static void testBehaviorSpecification(final DiagramElementReference src, final DiagramElementReference dest,
+			final DiagramReference diagram, final RelativeBusinessObjectReference behaviorSpecification) {
 		clickCheckboxInPropertiesView(diagram, "AADL", 1, dest);
 
-		// assertTrue(isCheckboxInPropertiesViewChecked(diagram, "AADL", 2, src) == requiresInitialState);
-		final boolean isComplete = isCheckboxInPropertiesViewChecked(diagram, "AADL", 0, src);
-		if (isComplete && !allowsOnDispatch) {
-			// Swap complete states from src to destination for classifiers
-			// that require complete states and do not allow dispatch conditions
-			clickCheckboxInPropertiesView(diagram, "AADL", 0, dest);
-			clickCheckboxInPropertiesView(diagram, "AADL", 0, src);
-		}
+		// Swap complete states from src to destination for classifiers
+		// that require complete states and do not allow dispatch conditions
+		clickCheckboxInPropertiesView(diagram, "AADL", 0, dest);
+		clickCheckboxInPropertiesView(diagram, "AADL", 0, src);
+
 
 		final RelativeBusinessObjectReference transitionRef = BehaviorAnnexReferenceUtil
 				.getTransitionRelativeReference(0);
@@ -195,36 +191,46 @@ public class BehaviorAnnexTest {
 		renameElementFromContextMenu(diagram, element(behaviorSpecification), transitionRef, "new_transition",
 				transitionRef);
 
-		// Cannot set source to final
-		// assertTrue(!isCheckboxInPropertiesViewEnabled(diagram, "AADL", 1, src));
+		renameElementDirectEdit(diagram, element(behaviorSpecification),
+				BehaviorAnnexReferenceUtil.getStateRelativeReference("src_state"), "new_mode");
+		renameElementDirectEdit(diagram, element(behaviorSpecification),
+				BehaviorAnnexReferenceUtil.getStateRelativeReference("new_mode"), "src_state");
 
-		// Assert if source states cannot be set to complete or already complete
-		// assertTrue(isComplete || isCheckboxInPropertiesViewEnabled(diagram, "AADL", 0, src) == allowsOnDispatch);
+		deleteElement(diagram, element(behaviorSpecification).join(transitionRef));
 
-		if (!isComplete && allowsOnDispatch) {
-			// Set completeness
-			clickCheckboxInPropertiesView(diagram, "AADL", 0, src);
-		}
+		// Set completeness
+		clickCheckboxInPropertiesView(diagram, "AADL", 0, src);
 	}
 
 	// Open Behavior Annex diagram
-	private DiagramReference openDiagramFromReference(final DiagramElementReference ref, final String newStatePrefix,
+	private static DiagramReference openDiagramFromReference(final DiagramElementReference ref,
+			final String newStatePrefix,
 			final int index) {
-		clickContextMenuOfOutlineViewItem(ref.toOutlineTreeItemPath(),
-				new String[] { "Open", "Behavior Annex Diagram" });
+		final String diagramName = BA_TEST + "_" + newStatePrefix + "_behavior_specification";
+		// Look for existing diagram
+		final IFile diagramFile = (IFile) ResourcesPlugin.getWorkspace().getRoot()
+				.findMember(BA_TEST + "/diagrams/" + diagramName + ".aadl_diagram");
+		if (diagramFile == null) {
+			// Create diagram if necessary
+			clickContextMenuOfOutlineViewItem(ref.toOutlineTreeItemPath(),
+					new String[] { "Open", "Behavior Annex Diagram" });
 
-		waitForWindowWithTitle("Create New Diagram?");
-		clickButtonForShell("Create New Diagram?", "Yes");
+			waitForWindowWithTitle("Create New Diagram?");
+			clickButtonForShell("Create New Diagram?", "Yes");
 
-		final DiagramReference baDiagram = defaultDiagram(BA_TEST,
-				BA_TEST + "_" + newStatePrefix + "_behavior");
+			waitForWindowWithTitle("Create Diagram");
+			clickButtonForShell("Create Diagram", "OK");
+		}
+
+		final DiagramReference baDiagram = defaultDiagram(BA_TEST, diagramName);
 		waitForDiagramActive(baDiagram);
 
 		return baDiagram;
 	}
 
 	// Create Behavior Annex diagram
-	private DiagramReference openNewDiagramFromReference(final DiagramElementReference ref, final String newStatePrefix,
+	private static DiagramReference openNewDiagramFromReference(final DiagramElementReference ref,
+			final String newStatePrefix,
 			final int index) {
 		clickContextMenuOfOutlineViewItem(ref.toOutlineTreeItemPath(), new String[] { "Open", "New Diagram..." });
 
@@ -232,7 +238,7 @@ public class BehaviorAnnexTest {
 		clickButtonForShell("Create Diagram", "OK");
 
 		final DiagramReference baDiagram = defaultDiagram(BA_TEST,
-				BA_TEST + "_" + newStatePrefix + "_behavior");
+				BA_TEST + "_" + newStatePrefix + "_behavior_specification");
 		waitForDiagramActive(baDiagram);
 
 		return baDiagram;

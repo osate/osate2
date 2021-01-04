@@ -1462,23 +1462,23 @@ public interface DeclarativePackage extends EPackage
                                         Aadl2Package.DATA_CLASSIFIER__NO_MODES ;
 
   /**
-  	 * The feature id for the '<em><b>Osate Ref</b></em>' reference.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Osate Ref</b></em>' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int QUALIFIED_NAMED_ELEMENT__OSATE_REF =
                                          Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
                                            0 ;
 
   /**
-  	 * The feature id for the '<em><b>Ba Ref</b></em>' reference.
-  	 * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Ba Ref</b></em>' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  	 * @generated
-  	 * @ordered
-  	 */
+   * @generated
+   * @ordered
+   */
   int QUALIFIED_NAMED_ELEMENT__BA_REF =
                                       Aadl2Package.DATA_CLASSIFIER_FEATURE_COUNT +
                                         1 ;
@@ -2490,13 +2490,41 @@ public interface DeclarativePackage extends EPackage
                                                    1 ;
 
   /**
-   * Returns the meta object for class '{@link org.osate.ba.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
+   * The meta object id for the '{@link org.osate.ba.declarative.impl.DeclarativeBehaviorAnnexImpl <em>Behavior Annex</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Arrayable Identifier</em>'.
-   * @see org.osate.ba.declarative.ArrayableIdentifier
+   * @see org.osate.ba.declarative.impl.DeclarativeBehaviorAnnexImpl
+   * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeBehaviorAnnex()
    * @generated
    */
+  int DECLARATIVE_BEHAVIOR_ANNEX = 24 ;
+
+  /**
+  	 * The feature id for the '<em><b>Declarative Behavior Elements</b></em>' containment reference list.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 * @ordered
+  	 */
+  int DECLARATIVE_BEHAVIOR_ANNEX__DECLARATIVE_BEHAVIOR_ELEMENTS = 0 ;
+
+  /**
+  	 * The number of structural features of the '<em>Behavior Annex</em>' class.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 * @ordered
+  	 */
+  int DECLARATIVE_BEHAVIOR_ANNEX_FEATURE_COUNT = 1 ;
+
+  /**
+  	 * Returns the meta object for class '{@link org.osate.ba.declarative.ArrayableIdentifier <em>Arrayable Identifier</em>}'.
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @return the meta object for class '<em>Arrayable Identifier</em>'.
+  	 * @see org.osate.ba.declarative.ArrayableIdentifier
+  	 * @generated
+  	 */
   EClass getArrayableIdentifier() ;
 
   /**
@@ -3115,12 +3143,33 @@ public interface DeclarativePackage extends EPackage
   EReference getDeclarativeClassifierValue_Classifier() ;
 
   /**
-   * Returns the factory that creates the instances of the model.
+   * Returns the meta object for class '{@link org.osate.ba.declarative.DeclarativeBehaviorAnnex <em>Behavior Annex</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the factory that creates the instances of the model.
+   * @return the meta object for class '<em>Behavior Annex</em>'.
+   * @see org.osate.ba.declarative.DeclarativeBehaviorAnnex
    * @generated
    */
+  EClass getDeclarativeBehaviorAnnex() ;
+
+  /**
+  	 * Returns the meta object for the containment reference list '{@link org.osate.ba.declarative.DeclarativeBehaviorAnnex#getDeclarativeBehaviorElements <em>Declarative Behavior Elements</em>}'.
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @return the meta object for the containment reference list '<em>Declarative Behavior Elements</em>'.
+  	 * @see org.osate.ba.declarative.DeclarativeBehaviorAnnex#getDeclarativeBehaviorElements()
+  	 * @see #getDeclarativeBehaviorAnnex()
+  	 * @generated
+  	 */
+  EReference getDeclarativeBehaviorAnnex_DeclarativeBehaviorElements() ;
+
+  /**
+  	 * Returns the factory that creates the instances of the model.
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @return the factory that creates the instances of the model.
+  	 * @generated
+  	 */
   DeclarativeFactory getDeclarativeFactory() ;
 
   /**
@@ -3691,6 +3740,26 @@ public interface DeclarativePackage extends EPackage
      */
     EReference DECLARATIVE_CLASSIFIER_VALUE__CLASSIFIER = eINSTANCE
                                                                    .getDeclarativeClassifierValue_Classifier() ;
+
+    /**
+    	 * The meta object literal for the '{@link org.osate.ba.declarative.impl.DeclarativeBehaviorAnnexImpl <em>Behavior Annex</em>}' class.
+    	 * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+    	 * @see org.osate.ba.declarative.impl.DeclarativeBehaviorAnnexImpl
+    	 * @see org.osate.ba.declarative.impl.DeclarativePackageImpl#getDeclarativeBehaviorAnnex()
+    	 * @generated
+    	 */
+    EClass DECLARATIVE_BEHAVIOR_ANNEX = eINSTANCE
+                                                 .getDeclarativeBehaviorAnnex() ;
+
+    /**
+    	 * The meta object literal for the '<em><b>Declarative Behavior Elements</b></em>' containment reference list feature.
+    	 * <!-- begin-user-doc -->
+    	 * <!-- end-user-doc -->
+    	 * @generated
+    	 */
+    EReference DECLARATIVE_BEHAVIOR_ANNEX__DECLARATIVE_BEHAVIOR_ELEMENTS =
+                                                                         eINSTANCE.getDeclarativeBehaviorAnnex_DeclarativeBehaviorElements() ;
 
   }
 

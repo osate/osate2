@@ -53,6 +53,8 @@ import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorVariable;
+import org.osate.ba.declarative.Identifier;
+import org.osate.ba.declarative.QualifiedNamedElement;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.ba.util.BehaviorAnnexUtil.VariableOperation;
@@ -79,7 +81,7 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 	private Button chooseBtn;
 
 	@Override
-	public void createControls(Composite parent, TabbedPropertySheetPage aTabbedPropertySheetPage) {
+	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
 		FormData fd;
 
@@ -122,6 +124,7 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 				return;
 			}
 
+			// Set data classifier
 			final Operation op = Operation.createWithBuilder(builder -> {
 				builder.supply(() -> {
 					final Optional<VariableOperation> variableOperation = getVariableBuildOperation(section, behaviorAnnex);
@@ -131,6 +134,7 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 					final OperationBuilder<VariableOperation> opBuilder = innerBuilder.modifyModel(
 							variableOp.getPublicSection(), (tag, prevResult) -> tag,
 							(tag, sectionToModify, prevResult) -> {
+								// Import package if needed
 								BehaviorAnnexUtil.addImportIfNeeded(sectionToModify,
 										variableOp.getDataClassifierPackage());
 								return StepResult.forValue(variableOp);
@@ -160,12 +164,23 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 
 	private static String getDataClassifierLabel(final List<BehaviorVariable> behaviorVariables) {
 		final Iterator<BehaviorVariable> it = behaviorVariables.iterator();
-		final DataClassifier dc = it.next().getDataClassifier();
+		BehaviorVariable bv = it.next();
+		final DataClassifier dc = bv.getDataClassifier();
 		while (it.hasNext()) {
+			bv = it.next();
 			// If variable data classifiers are not the same, set to multiple
-			if (dc != it.next().getDataClassifier()) {
+			if (dc != bv.getDataClassifier()) {
 				return "<Multiple>";
 			}
+		}
+
+		// TODO Review: This may change after BA bugs are fixed
+		if (dc instanceof QualifiedNamedElement) {
+			final QualifiedNamedElement qualNamedElement = (QualifiedNamedElement) dc;
+			final Identifier baNamespace = qualNamedElement.getBaNamespace();
+			final Identifier baName = qualNamedElement.getBaName();
+			return new StringBuilder(baNamespace == null ? "" : baNamespace.getId()).append("::")
+					.append(baName == null ? "" : baName.getId()).toString();
 		}
 
 		return dc.getQualifiedName();

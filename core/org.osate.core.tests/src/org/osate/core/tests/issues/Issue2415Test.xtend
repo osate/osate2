@@ -64,6 +64,7 @@ class Issue2415Test extends XtextTest {
 					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow sources are not allowed in a flow path implementation")
 				]
 				allFlowImplementations.get(4) => [
+					it.ownedFlowSegments.get(0).assertError(testFileResult.issues, issueCollection, "The destination of connection 'cml' does not match the in flow feature of the succeeding subcomponent flow specification 'mm2.fsnk'")
 					it.ownedFlowSegments.get(1).assertError(testFileResult.issues, issueCollection, "Flow sinks are not allowed in a flow path implementation")
 				]
 				allFlowImplementations.get(7) => [

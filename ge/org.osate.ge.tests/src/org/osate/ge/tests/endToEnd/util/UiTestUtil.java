@@ -324,20 +324,6 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Returns whether check box with the specified index is checked
-	 */
-	public static boolean isCheckboxChecked(final int index) {
-		return bot.checkBox(index).isChecked();
-	}
-
-	/**
-	 * Returns whether the check box at the specified index is enabled.
-	 */
-	public static boolean isCheckboxEnabled(final int index) {
-		return bot.checkBox(index).isEnabled();
-	}
-
-	/**
 	 * Clicks the button which has the specified text.
 	 */
 	public static void clickButton(final String text) {
@@ -613,7 +599,6 @@ public class UiTestUtil {
 	 * Saves and closes the specified diagram editor
 	 */
 	public static void saveAndCloseDiagramEditor(final DiagramReference diagram) {
-		sleep(10);
 		getDiagramEditorBot(diagram).saveAndClose();
 	}
 
@@ -855,10 +840,6 @@ public class UiTestUtil {
 	public static void clickButtonForShell(final String title, final String text) {
 		final SWTBotButton btn = bot.shell(title).bot().button(text);
 		btn.click();
-	}
-
-	public static void sleep(final int sec) {
-		bot.sleep(sec * 1000);
 	}
 
 	/**

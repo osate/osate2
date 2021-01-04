@@ -326,7 +326,7 @@ public class Location implements CapacityProvider {
 	/**
 	 * currently available space
 	 */
-	public double availableSpace;
+	double availableSpace;
 
 	/**
 	 * in dollars

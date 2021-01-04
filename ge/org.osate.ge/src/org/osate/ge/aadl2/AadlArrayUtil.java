@@ -35,7 +35,7 @@ import org.osate.aadl2.RefinableElement;
 
 /**
  * @noextend This class is not intended to be subclassed by clients.
- * @since 2.0
+ * @since 2.1
  */
 public class AadlArrayUtil {
 	private AadlArrayUtil() {

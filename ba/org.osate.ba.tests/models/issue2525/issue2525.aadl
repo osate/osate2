@@ -1,0 +1,26 @@
+package issue2525
+
+public
+
+  thread t
+  features
+    d_in: in data port d;
+  annex behavior_specification {**
+  variables
+    v: d;
+  states
+    s: initial complete final state;
+  transitions
+    s-[on dispatch]->s
+    {
+    	d_in?(v);
+    	d_in?
+    };
+  **};
+  end t;
+  
+  
+  data d
+  end d;
+
+end issue2525;

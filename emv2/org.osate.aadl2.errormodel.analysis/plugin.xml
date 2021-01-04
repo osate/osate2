@@ -86,108 +86,28 @@ censes only apply to the Third Party Software and not any other portion of this 
             name="%UnhandledFaults.label">
       </command>
    </extension>
+      
    <extension
          point="org.eclipse.ui.handlers">
       <handler
             class="org.osate.aadl2.errormodel.analysis.handlers.FHAHandler"
             commandId="org.osate.aadl2.errormodel.analysis.fha">
          <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.ComponentInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                              <test
-                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                    value="ComponentInstance"
-                                    forcePluginActivation="true">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrComponentInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.aadl2.errormodel.analysis.handlers.FaultImpactHandler"
             commandId="org.osate.aadl2.errormodel.analysis.faultImpact">
          <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.ComponentInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                              <test
-                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                    value="ComponentInstance"
-                                    forcePluginActivation="true">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrComponentInstanceSelected"/>
          </enabledWhen>
       </handler>
       <handler
             class="org.osate.aadl2.errormodel.analysis.handlers.UnhandledFaultsHandler"
             commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults">
          <enabledWhen>
-            <or>
-               <reference
-                     definitionId="org.osate.core.isInstanceFileSelected">
-               </reference>
-               <with
-                     variable="selection">
-                  <and>
-                     <count
-                           value="1">
-                     </count>
-                     <iterate>
-                        <or>
-                           <instanceof
-                                 value="org.osate.aadl2.instance.ComponentInstance">
-                           </instanceof>
-                           <adapt
-                                 type="org.osate.aadl2.modelsupport.EObjectURIWrapper">
-                              <test
-                                    property="org.osate.aadl2.modelsupport.wrapperSuperType"
-                                    value="ComponentInstance"
-                                    forcePluginActivation="true">
-                              </test>
-                           </adapt>
-                        </or>
-                     </iterate>
-                  </and>
-               </with>
-            </or>
+            <reference definitionId="org.osate.ui.definition.isInstanceFileOrComponentInstanceSelected"/>
          </enabledWhen>
       </handler>
    </extension>
@@ -205,6 +125,17 @@ censes only apply to the Third Party Software and not any other portion of this 
             commandId="org.osate.aadl2.errormodel.analysis.unhandledFaults"
             icon="icons/UnhandledFaults.gif">
       </image>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition id="org.osate.ui.definition.inAadlPerspective">
+         <with
+               variable="activeWorkbenchWindow.activePerspective">
+            <equals
+                  value="org.osate.ui.perspective.AadlPerspective">
+            </equals>
+         </with>
+      </definition>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -231,12 +162,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -248,12 +174,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
          <command
@@ -265,12 +186,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             -->
             <visibleWhen
                   checkEnabled="false">
-               <with
-                     variable="activeWorkbenchWindow.activePerspective">
-                  <equals
-                        value="org.osate.ui.perspective.AadlPerspective">
-                  </equals>
-               </with>
+               <reference definitionId="org.osate.ui.definition.inAadlPerspective"/>
             </visibleWhen>
          </command>
       </menuContribution>

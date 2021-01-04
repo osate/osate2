@@ -207,20 +207,20 @@ public class AadlBaUnparser {
     theEClass.eContainer() == AadlBaPackage.eINSTANCE || theEClass
                                                                   .eContainer() == DeclarativePackage.eINSTANCE)
     {
-      aadlbaSwitch.doSwitch(theElement) ;
+          aadlbaSwitch.doSwitch(theElement) ;
     }
     else
     {
-      //      if(theEClass.eContainer() == DeclarativePackage.eINSTANCE)
-      //      {
-      //        declBaSwitch.doSwitch(theElement) ;
-      //      }
-      //      else
-      //      {
-      System.err.println("aadlba unparsing failed for : " + theElement
-                                                                      .getClass()
-                                                                      .getSimpleName()) ;
-      //      }
+//      if(theEClass.eContainer() == DeclarativePackage.eINSTANCE)
+//      {
+//        declBaSwitch.doSwitch(theElement) ;
+//      }
+//      else
+//      {
+        System.err.println("aadlba unparsing failed for : " + theElement
+                                                                        .getClass()
+                                                                        .getSimpleName()) ;
+//      }
     }
 
     return this.getOutput();
@@ -707,7 +707,7 @@ public class AadlBaUnparser {
         aadlbaText.addOutputNewline( "else" );
         aadlbaText.incrementIndent();
 
-        process(object.getBehaviorActions()) ;
+        process(object.getBehaviorActions());
 
         aadlbaText.decrementIndent();
 
@@ -874,7 +874,7 @@ public class AadlBaUnparser {
       {
         if(el instanceof Reference)
         {
-          return processReference((Reference) el) ;
+          return processReference((Reference) el);
         }
         Element refContainer = Aadl2Visitors.getContainingPackageSection(el.getElement());
         Element holderPackageOrPropertySet = Aadl2Visitors.getContainingPackageSection(el);
@@ -920,10 +920,10 @@ public class AadlBaUnparser {
           caseArrayIndex(id.getArrayIndexes()) ;
           if(id != ref.getIds().get(ref.getIds().size() - 1))
           {
-            aadlbaText.addOutput(".") ;
+            aadlbaText.addOutput(".");
           }
         }
-        return DONE ;
+        return DONE;
       }
 
       private String processCommAction(CommAction object)
@@ -1034,7 +1034,7 @@ public class AadlBaUnparser {
           }
 
           aadlbaText.addOutput(dpr.getQualifiedName().getBaNamespace()
-                                  .getId()) ;
+                                    .getId()) ;
           aadlbaText.addOutput("::") ;
 
           if(false == dpr.getQualifiedName().getBaName().getId().isEmpty())
@@ -1308,7 +1308,7 @@ public class AadlBaUnparser {
               object.getBinaryAddingOperators().iterator();
           while(itTerm.hasNext())
           {
-            BinaryAddingOperator bao = itOp.next() ;
+            BinaryAddingOperator bao = itOp.next();
             if(bao!=BinaryAddingOperator.NONE)
             {
               aadlbaText.addOutput(" " + bao.getLiteral() + " ");

@@ -1,0 +1,54 @@
+package FeatureGroupTest
+public
+	feature group abstract_fg
+	end abstract_fg;
+	
+	feature group refined_fg extends abstract_fg
+		features 
+			test_feature1 : in data port;
+			test_feature2 : out data port;
+	end refined_fg;
+	
+	system abstract_toplevel
+		features 
+			fg_port : feature group abstract_fg;
+	end abstract_toplevel;
+	
+	system toplevel extends abstract_toplevel
+		features
+			fg_port : refined to feature group refined_fg;
+		properties
+			Classifier_Substitution_Rule => Type_Extension; --HT
+	end toplevel;
+	
+	system implementation toplevel.i
+		subcomponents
+			sub : process subsystem.i;
+		connections
+			conn:  feature group fg_port <-> sub.fg_port;
+	end toplevel.i;
+	
+	process abstract_subsystem
+		features 
+			fg_port : feature group abstract_fg;
+	end abstract_subsystem;
+	
+	process subsystem extends abstract_subsystem
+		features 
+			fg_port : refined to feature group refined_fg;
+		properties
+			Classifier_Substitution_Rule => Type_Extension; --HT
+	end subsystem;
+	
+	process implementation subsystem.i
+		subcomponents
+			th : thread subsub;
+		connections
+			conn2 : feature group fg_port <->th.fg_port;
+	end subsystem.i;
+	
+	thread subsub
+		features 
+			fg_port : feature group refined_fg;
+	end subsub;
+end FeatureGroupTest;

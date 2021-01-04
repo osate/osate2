@@ -23,100 +23,22 @@
  */
 package org.osate.ge.ba.handlers;
 
-import java.util.Objects;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.osate.aadl2.Classifier;
-import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ge.DiagramCreationUtil;
-import org.osate.ge.ProjectUtil;
-import org.osate.ge.ba.diagram.diagramType.BehaviorAnnexDiagramType;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
-import org.osate.ge.swt.name.DiagramNameDialog;
-import org.osate.ge.swt.name.NameEditorDialogModel;
 
 public class CreateBehaviorAnnexDiagramHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		final BehaviorAnnex diagramContext = BehaviorAnnexHandlerUtil
-				.getBehaviorAnnexDiagramContext(activeEditor)
+		final DefaultAnnexSubclause diagramContext = BehaviorAnnexSelectionUtil.getDiagramContext(activeEditor)
 				.orElseThrow(() -> new RuntimeException("diagram context cannot be null"));
-		final Classifier classifier = Objects.requireNonNull(diagramContext.getContainingClassifier(),
-				"Classifier cannot be null");
-
-		final NameEditorDialogModel model = getDialogModel(activeEditor, classifier, diagramContext);
-		DiagramNameDialog.open(Display.getCurrent().getActiveShell(), model);
-
+		DiagramCreationUtil.createDiagram(diagramContext);
 		return null;
-	}
-
-	private static NameEditorDialogModel getDialogModel(final IEditorPart activeEditor, final Classifier classifier,
-			final BehaviorAnnex diagramContext) {
-		final IProject project = ProjectUtil.getProjectForBoOrThrow(classifier);
-		final String initialFilename = getFilename(project, classifier, diagramContext);
-		return createNameDialogModel(initialFilename, project, activeEditor, diagramContext);
-	}
-
-	private static NameEditorDialogModel createNameDialogModel(final String initialFilename, final IProject project,
-			final IEditorPart activeEditor, final Object diagramContext) {
-		return new NameEditorDialogModel() {
-			@Override
-			public String validateName(final String name) {
-				// Invalid name if filename already exists
-				final IFile tmpFile = DiagramCreationUtil.createDiagramFile(project, name);
-				if (tmpFile.exists()) {
-					return "File " + name + " already exists";
-				}
-
-				return null;
-			}
-
-			@Override
-			public void setName(final String filename) {
-				// Create new diagram
-				DiagramCreationUtil.createDiagram(activeEditor, filename, new BehaviorAnnexDiagramType(), diagramContext);
-			}
-
-			@Override
-			public String getName() {
-				return initialFilename;
-			}
-		};
-	}
-
-	private static String getFilename(final IProject project, final Classifier classifier,
-			final BehaviorAnnex diagramContext) {
-		final String baseName = BehaviorAnnexHandlerUtil.getFilename(classifier);
-		return getUniqueFilename(project, baseName);
-	}
-
-	// Create unique filename
-	private static String getUniqueFilename(final IProject project, final String baseName) {
-		int nameCount = 1;
-		String name;
-		IFile tmpFile;
-		do {
-			final String suffix = nameCount == 1 ? "" : "(" + nameCount + ")";
-			name = baseName + suffix;
-			tmpFile = DiagramCreationUtil.createDiagramFile(project, name);
-			nameCount++;
-		} while (tmpFile != null && tmpFile.exists());
-
-		return name;
-	}
-
-	@Override
-	public void setEnabled(final Object evaluationContext) {
-		final IEditorPart activeEditor = BehaviorAnnexSelectionUtil.getActiveEditorFromContext(evaluationContext);
-		setBaseEnabled(
-				BehaviorAnnexHandlerUtil.getBehaviorAnnexDiagramContext(activeEditor).isPresent());
 	}
 }

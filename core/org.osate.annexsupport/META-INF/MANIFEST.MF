@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Annex Plug-in
 Bundle-SymbolicName: org.osate.annexsupport;singleton:=true
-Bundle-Version: 3.0.1.qualifier
+Bundle-Version: 3.1.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.osate.annexsupport.AnnexPlugin
 Bundle-Vendor: CMU/SEI

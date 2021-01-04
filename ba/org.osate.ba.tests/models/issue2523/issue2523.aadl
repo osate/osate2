@@ -1,0 +1,23 @@
+package issue2523
+public
+	
+	with Base_Types;
+
+    thread t
+		features
+			ed_in: in event data port Base_Types::Integer;
+		annex behavior_specification {**
+variables
+  v1 : Base_Types::Integer;
+states
+  s1 : initial complete state;
+  s2 : final state;
+transitions
+  s1 -[on dispatch]-> s1 {
+    ed_in ? (v1);
+    ed_in ?
+  };
+        **};
+	end t;
+		
+end issue2523;

@@ -132,9 +132,7 @@ public class OsateGeTestCommands {
 	}
 
 	public static void saveAndClose(final DiagramReference diagram) {
-		sleep(5);
 		saveAndCloseDiagramEditor(diagram);
-		sleep(5);
 		waitForDiagramClosed(diagram);
 	}
 
@@ -415,6 +413,7 @@ public class OsateGeTestCommands {
 		if (!elementExists(diagram, newStateDiagramRef)) {
 			// Create state if needed
 			createShapeElement(diagram, behaviorSpecDiagramRef, "Behavior State", newStateRef);
+			clickCheckboxInPropertiesView(diagram, "AADL", 2, newStateDiagramRef);
 		}
 
 		// Rename initial state

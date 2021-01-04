@@ -78,7 +78,7 @@ censes only apply to the Third Party Software and not any other portion of this 
      <propertySection
             afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
 			class="org.osate.ge.ba.ui.properties.SetStateCompletePropertySection"
-			filter="org.osate.ge.ba.ui.properties.SetStateCompletePropertySection$Filter"
+			filter="org.osate.ge.ba.ui.properties.StatePropertySection$Filter"
 			id="org.osate.ge.ba.properties.setBehaviorStateCompletePropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>
@@ -123,7 +123,7 @@ censes only apply to the Third Party Software and not any other portion of this 
           commandId="org.osate.ge.createNewDiagram">
        <activeWhen>
        		<reference
-       			definitionId="org.osate.ge.ba.expressions.diagramContext">
+       			definitionId="diagramContext">
        		</reference>
        </activeWhen>
     </handler>
@@ -132,7 +132,7 @@ censes only apply to the Third Party Software and not any other portion of this 
           commandId="org.osate.ge.commands.creatediagram">
        <activeWhen>
           <reference
-                definitionId="org.osate.ge.ba.expressions.diagramContext">
+                definitionId="diagramContext">
           </reference>
        </activeWhen>
     </handler>
@@ -141,7 +141,7 @@ censes only apply to the Third Party Software and not any other portion of this 
           commandId="org.osate.ge.commands.opendiagram">
        <activeWhen>
           <reference
-                definitionId="org.osate.ge.ba.expressions.diagramContext">
+                definitionId="diagramContext">
           </reference>
        </activeWhen>
     </handler>
@@ -177,13 +177,13 @@ censes only apply to the Third Party Software and not any other portion of this 
        </with>
     	</definition>
       <definition
-            id="org.osate.ge.ba.expressions.diagramContext">
+            id="diagramContext">
          <with
             variable="selection">
             <and>
-            	<reference
-                   definitionId="oneElementSelected">
-             	</reference>
+           		<count
+     	     		value="1">
+          		</count>
              	<test
              		property="org.osate.ge.ba.isDiagramContext"
              		forcePluginActivation="true">
