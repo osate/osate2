@@ -58,6 +58,7 @@ import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexResolver;
 import org.osate.annexsupport.AnnexResolverRegistry;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.annexsupport.AnnexValidator;
 import org.osate.annexsupport.ParseResultHolder;
 import org.osate.xtext.aadl2.Activator;
 
@@ -187,15 +188,16 @@ public class AnnexParserAgent extends LazyLinker {
 				annexText = annexText.substring(3, annexText.length() - 3);
 			}
 			AnnexParser ap = PARSER_REGISTRY.getAnnexParser(annexName);
+
 			try {
 				QueuingParseErrorReporter parseErrReporter = new QueuingParseErrorReporter();
 				parseErrReporter.setContextResource(defaultAnnexSection.eResource());
-				if(defaultAnnexSection instanceof AnnexSubclause) {
+				if (defaultAnnexSection instanceof AnnexSubclause) {
 					AnnexUtil.setCurrentAnnexSubclause((AnnexSubclause) defaultAnnexSection);
 				}
 				A annexSection = parserFunction.parse(ap, annexName, annexText, filename, line, offset,
 						parseErrReporter);
-				if(defaultAnnexSection instanceof AnnexSubclause) {
+				if (defaultAnnexSection instanceof AnnexSubclause) {
 					AnnexUtil.setCurrentAnnexSubclause(null);
 				}
 				if (ParseResultHolder.Factory.INSTANCE.adapt(defaultAnnexSection).getParseResult() == null) {
@@ -218,7 +220,7 @@ public class AnnexParserAgent extends LazyLinker {
 						resolver.resolveAnnex(annexName, Collections.singletonList(annexSection), resolveErrManager);
 						consumeMessages(resolveErrReporter, diagnosticsConsumer, annexText, line, offset);
 						if (resolveErrReporter.getNumErrors() != 0) {
-							setParsedAnnexSection.accept(null);
+							AnnexValidator.setNoValidation(defaultAnnexSection, annexName);
 						}
 					} else if (linkingService != null) {
 						try {
@@ -232,8 +234,8 @@ public class AnnexParserAgent extends LazyLinker {
 						}
 					}
 				}
-				if(parseErrReporter.getNumErrors()>0) {
-					setParsedAnnexSection.accept(null);
+				if (parseErrReporter.getNumErrors() > 0) {
+					AnnexValidator.setNoValidation(defaultAnnexSection, annexName);
 				}
 			} catch (RecognitionException e) {
 				String message = "Major parsing error in " + filename + " at line " + line;
@@ -317,6 +319,7 @@ public class AnnexParserAgent extends LazyLinker {
 				public int getLength() {
 					return diagnosticLength;
 				}
+
 			};
 
 			Severity severity;

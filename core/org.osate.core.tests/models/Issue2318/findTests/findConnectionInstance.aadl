@@ -1,0 +1,68 @@
+package findConnectionInstance
+public
+	system toplevel
+		features 
+			f_o: in out event port;
+			f_r: in out event port;
+			f_u: in out event port;
+	end toplevel;
+	
+	system implementation toplevel.i
+		subcomponents
+			original: system X.original;
+			refinedd: system X.refinedd;
+			unrelated: system X.unrelated;
+		connections
+			co: port original.tl_p -> f_o;
+			cr: port refinedd.tl_p -> f_r;
+			cu: port unrelated.tl_p -> f_u;
+	end toplevel.i;
+	
+	system X
+		features
+			tl_p : in out event port;
+	end X;
+	
+	system implementation X.root
+		subcomponents
+			sub : process subsystem.i;
+	end X.root;
+
+	system implementation X.original extends X.root
+		connections
+			conn:  port sub.ss_p -> tl_p {
+				Data_rate => 8 Bytesps;
+			};
+	end X.original;
+
+	system implementation X.refinedd extends X.original
+		connections
+			conn: refined to port  {
+				Data_rate => 16 Bytesps;
+			};
+	end X.refinedd;
+
+	system implementation X.unrelated extends X.root
+		connections
+			conn:  port sub.ss_p -> tl_p {
+				Data_rate => 32 Bytesps;
+			};
+	end X.unrelated;
+	
+	process subsystem 
+		features 
+			ss_p : in out event port;
+	end subsystem;
+	
+	process implementation subsystem.i
+		subcomponents
+			th : thread th;
+		connections
+			conn2 : port th.th_p -> ss_p;
+	end subsystem.i;
+	
+	thread th
+		features 
+			th_p : in out event port;
+	end th;
+end findConnectionInstance;
