@@ -52,6 +52,94 @@ import org.osate.result.util.ResultUtil;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
+/**
+ * Class for performing "not bound resource" analysis on a system.  Basically it makes sure all the connections and buses
+ * have enough actual capacity to carry the data loads bound to them.
+ *
+ * <p>The format for the returned {@code AnalysisResult} object is as follows:
+ *
+ * <p>For the {@code AnalysisResult} object itself:
+ * <ul>
+ *   <li>analysis = "Not Bound Resources"
+ *   <li>modelElement = {@code SystemInstance} being analyzed
+ *   <li>resultType = SUCCESS
+ *   <li>message = "Not bound resource analysis of ..."
+ *   <li>diagnostics = empty list
+ *   <li>parameters = empty list
+ *   <li>results = one {@code Result} for each system operation mode
+ *     <ul>
+ *       <li>modelElement = {@code SystemOperationMode} instance object
+ *       <li>resultType = SUCCESS
+ *       <li>message = "" if the SOM is {@code null} or the empty SOM, otherwise "(xxx, ..., yyy)"
+ *       <li>values = empty list
+ *       <li>diagnostics = empty list
+ *       <li>subResults = one {@code Result} for category of {@code Memory}
+ *         <ul>
+ *           <li>modelElement = {@code ComponentInstance} instance object
+ *           <li>resultType = SUCCESS
+ *           <li>message = The component's name from {@link ComponentInstance#getName()}
+ *
+ *           <li>values[0] = ComponentInstance category "Memory" (StringValue)
+ *           <li>values[1] = SOM name (StringValue)
+ *           <li>values[2] = Budget for Memory string in Kbytes (StringValue)
+ *           <li>values[3] = Budget for RAM string in Kbytes (StringValue)
+ *           <li>values[4] = Budget for ROM string in Kbytes (StringValue)
+ *           <li>values[5] = Component category name from {@link ComponentInstance#getCategory()} (StringValue)
+ *           <li>values[6] = Component path from {@link ComponentInstance#getComponentInstancePath()} (StringValue)
+ *        	 <li>values[7] = Budget for Memory in Kbytes (RealValue)
+ *           <li>values[8] = Budget for RAM in Kbytes (RealValue)
+ *           <li>values[9] = Budget for ROM in Kbytes (RealValue)
+ *           <li>values[10] = Capacity for Memory in Kbytes (RealValue)
+ *           <li>values[11] = Capacity for RAM in Kbytes (RealValue)
+ *           <li>values[12] = Capacity for ROM in Kbytes (RealValue)
+ *           <li>diagnostics = Diagnostics associated with this memory.
+ *           <li>subResults are empty
+ *         </ul>
+ *       <li>subResults = one {@code Result} for category of {@code MIPS}
+ *         <ul>
+ *           <li>modelElement = {@code ComponentInstance} instance object
+ *           <li>resultType = SUCCESS
+ *           <li>message = The component's name from {@link ComponentInstance#getName()}
+ *
+ *           <li>values[0] = ComponentInstance category "MIPS" (StringValue)
+ *           <li>values[1] = SOM name (StringValue)
+ *           <li>values[2] = Budget string in MIPS (StringValue)
+ *           <li>values[3] = Component category name from {@link ComponentInstance#getCategory()} (StringValue)
+ *           <li>values[4] = Component path from {@link ComponentInstance#getComponentInstancePath()} (StringValue)
+ *        	 <li>values[5] = Total budget in MIPS (RealValue)
+ *           <li>values[6] = Total capacity in MIPS (RealValue)
+ *           <li>diagnostics = Diagnostics associated with this mips.
+ *           <li>subResults per each MIPS component
+	 *           <ul>
+	 *           	<li>values[0] = Budget subtotal for MIPS Component (RealValue)
+	 *           	<li>values[1] = Actual budget for MIPS Component (RealValue)
+	 *           	<li>values[2] = Notes on how budget and actual budget compare to each other (StringValue)
+	 *           </ul>
+ *         </ul>
+ *       <li>subResults = one {@code Result} for category of {@code ProcessorOrVirtualProcessor}
+ *         <ul>
+ *           <li>modelElement = {@code ComponentInstance} instance object
+ *           <li>resultType = SUCCESS
+ *           <li>message = The component's name from {@link ComponentInstance#getName()}
+ *
+ *           <li>values[0] = ComponentInstance category "MIPS" (StringValue)
+ *           <li>values[1] = SOM name (StringValue)
+ *           <li>values[2] = Total capacity for processor in MIPS (StringValue)
+ *           <li>values[3] = Total capacity for virtual processor in MIPS (StringValue)
+ *           <li>values[4] = Component path from {@link ComponentInstance#getComponentInstancePath()} (StringValue)
+ *           <li>diagnostics is empty
+ *           <li>subResults per each Processor and Virtual Processor component
+	 *           <ul>
+	 *           	<li>values[0] = ComponentInstance category name (StringValue)
+	 *           	<li>values[1] = Capacity of Processor or Virtual Processor Component (RealValue)
+	 *           	<li>values[2] = Capacity with unit (StringValue)
+	 *              <li>values[3] = Component path from {@link ComponentInstance#getComponentInstancePath()} (StringValue)
+	 *           </ul>
+ *         </ul>
+ *     </ul>
+ * </ul>
+ */
+
 public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 	public NewNotBoundResoureAnalysis() {
 		super();
@@ -289,6 +377,8 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 					ResultUtil.addRealValue(subResult, budgetSub);
 					ResultUtil.addRealValue(subResult, budgetSubtotal); // actual
 					ResultUtil.addStringValue(subResult, notes);
+
+					compResult.getSubResults().add(subResult);
 				}
 			}
 
@@ -334,11 +424,11 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 
 					final Result pResult = ResultUtil.createResult(c.getSomName(), c.getComponentInstance(),
 							ResultType.SUCCESS);
-					compResult.getSubResults().add(pResult);
 					ResultUtil.addStringValue(pResult, c.getCategoryName()); // 0
 					ResultUtil.addRealValue(pResult, capacity); // 1
 					ResultUtil.addStringValue(pResult, c.getCapacityWithUnit()); // 2
 					ResultUtil.addStringValue(pResult, c.getComponentPath()); // 3
+					compResult.getSubResults().add(pResult);
 				} else if (c.getCategoryName().equalsIgnoreCase(ComponentCategory.VIRTUAL_PROCESSOR.getName())) {
 					double capacity = c.getCapacity();
 					processor.setVirtualCapacity(processor.getVirtualCapacity() + capacity);
@@ -349,11 +439,11 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 
 					final Result pResult = ResultUtil.createResult(c.getSomName(), c.getComponentInstance(),
 							ResultType.SUCCESS);
-					compResult.getSubResults().add(pResult);
 					ResultUtil.addStringValue(pResult, c.getCategoryName()); // 0
 					ResultUtil.addRealValue(pResult, capacity); // 1
 					ResultUtil.addStringValue(pResult, c.getCapacityWithUnit()); // 2
 					ResultUtil.addStringValue(pResult, c.getComponentPath()); // 3
+					compResult.getSubResults().add(pResult);
 				}
 			}
 
