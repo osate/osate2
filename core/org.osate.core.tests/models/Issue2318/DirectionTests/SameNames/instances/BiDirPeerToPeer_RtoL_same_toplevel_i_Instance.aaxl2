@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ASCII"?>
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" name="toplevel_i_Instance" category="system">
+  <componentInstance name="sub1" category="process">
+    <featureInstance name="p" category="eventPort" direction="in out">
+      <feature xsi:type="aadl2:EventPort" href="../BiDirPeerToPeer_RtoL_same.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventPort.0"/>
+    </featureInstance>
+    <subcomponent xsi:type="aadl2:ProcessSubcomponent" href="../BiDirPeerToPeer_RtoL_same.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedProcessSubcomponent.0"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:ProcessType" href="../BiDirPeerToPeer_RtoL_same.aadl#BiDirPeerToPeer_RtoL_same.subsystem"/>
+  </componentInstance>
+  <componentInstance name="sub2" category="process">
+    <featureInstance name="p" category="eventPort" direction="in out">
+      <feature xsi:type="aadl2:EventPort" href="../BiDirPeerToPeer_RtoL_same.aadl#/0/@ownedPublicSection/@ownedClassifier.2/@ownedEventPort.0"/>
+    </featureInstance>
+    <componentInstance name="th" category="thread">
+      <featureInstance name="p" category="eventPort" direction="in out">
+        <feature xsi:type="aadl2:EventPort" href="../BiDirPeerToPeer_RtoL_same.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedEventPort.0"/>
+      </featureInstance>
+      <subcomponent xsi:type="aadl2:ThreadSubcomponent" href="../BiDirPeerToPeer_RtoL_same.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedThreadSubcomponent.0"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:ThreadType" href="../BiDirPeerToPeer_RtoL_same.aadl#BiDirPeerToPeer_RtoL_same.th"/>
+    </componentInstance>
+    <subcomponent xsi:type="aadl2:ProcessSubcomponent" href="../BiDirPeerToPeer_RtoL_same.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedProcessSubcomponent.1"/>
+    <index>0</index>
+    <classifier xsi:type="aadl2:ProcessImplementation" href="../BiDirPeerToPeer_RtoL_same.aadl#BiDirPeerToPeer_RtoL_same.subsystem.i"/>
+  </componentInstance>
+  <connectionInstance name="sub1.p -> sub2.p" complete="true" kind="portConnection" destination="//@componentInstance.1/@featureInstance.0" source="//@componentInstance.0/@featureInstance.0">
+    <connectionReference context="/" source="//@componentInstance.0/@featureInstance.0" destination="//@componentInstance.1/@featureInstance.0" reverse="true">
+      <connection xsi:type="aadl2:PortConnection" href="../BiDirPeerToPeer_RtoL_same.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.0"/>
+    </connectionReference>
+  </connectionInstance>
+  <connectionInstance name="sub2.th.p -> sub1.p" complete="true" kind="portConnection" destination="//@componentInstance.0/@featureInstance.0" source="//@componentInstance.1/@componentInstance.0/@featureInstance.0">
+    <connectionReference context="//@componentInstance.1" source="//@componentInstance.1/@componentInstance.0/@featureInstance.0" destination="//@componentInstance.1/@featureInstance.0">
+      <connection xsi:type="aadl2:PortConnection" href="../BiDirPeerToPeer_RtoL_same.aadl#/0/@ownedPublicSection/@ownedClassifier.3/@ownedPortConnection.0"/>
+    </connectionReference>
+    <connectionReference context="/" source="//@componentInstance.1/@featureInstance.0" destination="//@componentInstance.0/@featureInstance.0">
+      <connection xsi:type="aadl2:PortConnection" href="../BiDirPeerToPeer_RtoL_same.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedPortConnection.0"/>
+    </connectionReference>
+  </connectionInstance>
+  <systemOperationMode name="No Modes"/>
+  <componentImplementation xsi:type="aadl2:SystemImplementation" href="../BiDirPeerToPeer_RtoL_same.aadl#BiDirPeerToPeer_RtoL_same.toplevel.i"/>
+</instance:SystemInstance>
