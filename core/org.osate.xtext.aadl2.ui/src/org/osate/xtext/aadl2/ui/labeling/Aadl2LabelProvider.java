@@ -54,6 +54,8 @@ import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.MemoryImplementation;
