@@ -34,6 +34,7 @@ import org.osate.ba.declarative.ArrayableIdentifier ;
 import org.osate.ba.declarative.CommAction ;
 import org.osate.ba.declarative.DeclarativeArrayDimension ;
 import org.osate.ba.declarative.DeclarativeBasicPropertyAssociation ;
+import org.osate.ba.declarative.DeclarativeBehaviorAnnex ;
 import org.osate.ba.declarative.DeclarativeBehaviorElement ;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition ;
 import org.osate.ba.declarative.DeclarativeBooleanLiteral ;
@@ -236,20 +237,27 @@ public class DeclarativePackageImpl extends EPackageImpl implements
   private EClass declarativeClassifierValueEClass = null ;
 
   /**
-   * Creates an instance of the model <b>Package</b>, registered with
-   * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
-   * package URI value.
-   * <p>Note: the correct way to create the package is via the static
-   * factory method {@link #init init()}, which also performs
-   * initialization of the package, or returns the registered package,
-   * if one already exists.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.eclipse.emf.ecore.EPackage.Registry
-   * @see org.osate.ba.declarative.DeclarativePackage#eNS_URI
-   * @see #init()
    * @generated
    */
+  private EClass declarativeBehaviorAnnexEClass = null ;
+
+  /**
+  	 * Creates an instance of the model <b>Package</b>, registered with
+  	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
+  	 * package URI value.
+  	 * <p>Note: the correct way to create the package is via the static
+  	 * factory method {@link #init init()}, which also performs
+  	 * initialization of the package, or returns the registered package,
+  	 * if one already exists.
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @see org.eclipse.emf.ecore.EPackage.Registry
+  	 * @see org.osate.ba.declarative.DeclarativePackage#eNS_URI
+  	 * @see #init()
+  	 * @generated
+  	 */
   private DeclarativePackageImpl()
   {
     super(eNS_URI, DeclarativeFactory.eINSTANCE) ;
@@ -982,6 +990,29 @@ public class DeclarativePackageImpl extends EPackageImpl implements
    * @generated
    */
   @Override
+  public EClass getDeclarativeBehaviorAnnex()
+  {
+    return declarativeBehaviorAnnexEClass ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+  	 * <!-- end-user-doc -->
+  	 * @generated
+  	 */
+  @Override
+  public EReference getDeclarativeBehaviorAnnex_DeclarativeBehaviorElements()
+  {
+    return (EReference) declarativeBehaviorAnnexEClass.getEStructuralFeatures()
+                                                      .get(0) ;
+  }
+
+  /**
+  	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  	 * @generated
+  	 */
+  @Override
   public DeclarativeFactory getDeclarativeFactory()
   {
     return (DeclarativeFactory) getEFactoryInstance() ;
@@ -1121,6 +1152,10 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                                                     DECLARATIVE_CLASSIFIER_VALUE) ;
     createEReference(declarativeClassifierValueEClass,
                      DECLARATIVE_CLASSIFIER_VALUE__CLASSIFIER) ;
+
+    declarativeBehaviorAnnexEClass = createEClass(DECLARATIVE_BEHAVIOR_ANNEX) ;
+    createEReference(declarativeBehaviorAnnexEClass,
+                     DECLARATIVE_BEHAVIOR_ANNEX__DECLARATIVE_BEHAVIOR_ELEMENTS) ;
   }
 
   /**
@@ -1556,6 +1591,16 @@ public class DeclarativePackageImpl extends EPackageImpl implements
                    !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
                    IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
                    IS_ORDERED) ;
+
+    initEClass(declarativeBehaviorAnnexEClass, DeclarativeBehaviorAnnex.class,
+               "DeclarativeBehaviorAnnex", !IS_ABSTRACT, !IS_INTERFACE,
+               IS_GENERATED_INSTANCE_CLASS) ;
+    initEReference(getDeclarativeBehaviorAnnex_DeclarativeBehaviorElements(),
+                   this.getDeclarativeBehaviorElement(), null,
+                   "declarativeBehaviorElements", null, 0, -1,
+                   DeclarativeBehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE,
+                   IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+                   !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED) ;
 
     // Create resource
     createResource(eNS_URI) ;

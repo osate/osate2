@@ -2,8 +2,15 @@ pipeline {
   agent any
   stages {
     stage('Build Products') {
+      tools {
+        jdk "OracleJDK8"
+      }
       steps {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository') {
+          sh(script: '''
+              mvn -s core/osate.releng/seisettings.xml org.codehaus.mojo:versions-maven-plugin:use-reactor \
+                  -DgenerateBackupPoms=false -Dtycho.mode=maven
+          ''')
           wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
             sh(script: '''
                 mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Pfull \
@@ -11,6 +18,15 @@ pipeline {
                     -Dcodecoverage=true -Dspotbugs=true
             ''')
           }
+        }
+      }
+    }
+    stage('SonarCloud analysis') {
+      tools {
+        jdk "OpenJDK11"
+      }
+      steps {
+        withMaven(maven: 'M3', mavenLocalRepo: '.repository') {
           withCredentials([string(credentialsId: 'osate-ci_sonarcloud', variable: 'SONARTOKEN')]) {
             sh(script: '''
                 mvn -s core/osate.releng/seisettings.xml sonar:sonar \

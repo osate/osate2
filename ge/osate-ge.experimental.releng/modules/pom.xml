@@ -39,8 +39,6 @@ censes only apply to the Third Party Software and not any other portion of this 
 
 	<modules>
 		<module>..</module>
-		<module>../../org.osate.ge.errormodel</module>
-		<module>../../org.osate.ge.errormodel.feature</module>
 		<module>../../osate-ge.experimental.repository</module>
 	</modules>
 

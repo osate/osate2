@@ -44,7 +44,6 @@ import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IContributionManager;
-import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
@@ -138,12 +137,14 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 			}
 		}
 	};
-	
+
 	protected IAction gotoSrcTextAction = new Action(Aadl2EditorPlugin.INSTANCE.getString("_UI_GotoSource_menu_item")) {
+		private final UiUtil uiUtilInstance = UiUtil.getInstance();
+
 		{
 			setId("Aadl2ActionBarContributor.gotoSrcTextAction");
 		}
-		
+
 		@Override
 		public void run() {
 			if (activeEditorPart instanceof Aadl2ModelEditor) {
@@ -151,45 +152,43 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
 						((Aadl2ModelEditor) activeEditorPart).doSave(null);
 					}
-					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
-							(InstanceObject) currentSelection);
+					uiUtilInstance.gotoInstanceObjectSource((InstanceObject) currentSelection);
 				} else if (currentSelection instanceof PropertyAssociationInstance) {
 					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
 						((Aadl2ModelEditor) activeEditorPart).doSave(null);
 					}
-					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
-							(PropertyAssociationInstance) currentSelection);
+					uiUtilInstance.gotoInstanceObjectSource((PropertyAssociationInstance) currentSelection);
 				} else if (currentSelection instanceof EndToEndFlowInstanceFlowElementItemProvider) {
 					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
 						((Aadl2ModelEditor) activeEditorPart).doSave(null);
 					}
-					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
+					uiUtilInstance.gotoInstanceObjectSource(
 							((EndToEndFlowInstanceFlowElementItemProvider) currentSelection).getFlowElement());
 				} else if (currentSelection instanceof SubModeItemProvider) {
 					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
 						((Aadl2ModelEditor) activeEditorPart).doSave(null);
 					}
-					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
-							((SubModeItemProvider) currentSelection).getSubMode());
+					uiUtilInstance
+							.gotoInstanceObjectSource(((SubModeItemProvider) currentSelection).getSubMode());
 				}
 			}
 		}
 	};
-	
+
 	private IAction gotoFlowElement = new Action("Goto Flow Element") {
 		@Override
 		public void run() {
 			gotoInstanceObject(((EndToEndFlowInstanceFlowElementItemProvider) currentSelection).getFlowElement());
 		}
 	};
-	
+
 	private IAction gotoModeInstance = new Action("Goto Mode Instance") {
 		@Override
 		public void run() {
 			gotoInstanceObject(((SubModeItemProvider) currentSelection).getSubMode());
 		}
 	};
-	
+
 	/**
 	 * This will contain one {@link org.eclipse.emf.edit.ui.action.CreateChildAction} corresponding to each descriptor
 	 * generated for the current selection by the item provider.
@@ -318,12 +317,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 
 		// Force an update because Eclipse hides empty menus now.
 		//
-		submenuManager.addMenuListener(new IMenuListener() {
-			@Override
-			public void menuAboutToShow(IMenuManager menuManager) {
-				menuManager.updateAll(true);
-			}
-		});
+		submenuManager.addMenuListener(menuManager1 -> menuManager1.updateAll(true));
 
 		addGlobalActions(submenuManager);
 	}
@@ -595,7 +589,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 		populateManager(submenuManager, createSiblingSubmenuActions, null);
 		populateManager(submenuManager, createSiblingActions, null);
 		menuManager.insertBefore("edit", submenuManager); //$NON-NLS-1$
-		
+
 		if (currentSelection instanceof EndToEndFlowInstanceFlowElementItemProvider) {
 			menuManager.insertAfter(gotoSrcTextAction.getId(), gotoFlowElement);
 		} else if (currentSelection instanceof SubModeItemProvider) {

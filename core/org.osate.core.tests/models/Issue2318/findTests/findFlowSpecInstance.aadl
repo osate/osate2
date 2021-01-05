@@ -1,0 +1,31 @@
+package findFlowSpecInstance
+public
+	system original
+		features
+			f: in event port;
+		flows
+			fs: flow sink f;
+	end original;
+	
+	system refinedd extends original
+		flows
+			fs: refined to flow sink;
+	end refinedd;
+	
+	system unrelated
+		features
+			f: in event port;
+		flows
+			fs: flow sink f;
+	end unrelated;
+	
+	system toplevel
+	end toplevel;
+	
+	system implementation toplevel.i
+		subcomponents
+			original: system original;
+			refinedd: system refinedd;
+			unrelated: system unrelated;
+	end toplevel.i;
+end findFlowSpecInstance;

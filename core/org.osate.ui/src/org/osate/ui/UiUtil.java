@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -24,6 +24,7 @@
 package org.osate.ui;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -39,8 +40,10 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -52,13 +55,15 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.jface.util.OpenStrategy;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
+import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.ILocationInFileProvider;
-import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.ui.editor.IURIEditorOpener;
 import org.eclipse.xtext.util.ITextRegion;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
@@ -68,9 +73,9 @@ import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.provider.Aadl2ItemProviderAdapterFactory;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.Inject;
-import com.google.inject.Injector;
 
 public final class UiUtil {
 	public static final int SUCCESS = 0;
@@ -83,14 +88,14 @@ public final class UiUtil {
 	private static AdapterFactoryContentProvider contentProvider = null;
 
 	@Inject
+	private IURIEditorOpener editorOpener;
+	@Inject
 	private ILocationInFileProvider locationProvider;
 
 	private static final UiUtil PROTOTYPE = new UiUtil();
 
 	private UiUtil() {
-		final Injector injector = IResourceServiceProvider.Registry.INSTANCE
-				.getResourceServiceProvider(URI.createFileURI("dummy.aadl")).get(Injector.class);
-		injector.injectMembers(this);
+		Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).injectMembers(this);
 	}
 
 	public static final UiUtil getInstance() {
@@ -158,7 +163,9 @@ public final class UiUtil {
 	 * goto declarative model object through the editor associated with aadl files.
 	 * @param page Workbench page
 	 * @param io InstanceObject whose source in the declarative model is the target of the goto
+	 * @deprecated Use {@link #gotoInstanceObjectSource(InstanceObject)}
 	 */
+	@Deprecated
 	public static void gotoInstanceObjectSource(IWorkbenchPage page, InstanceObject io) {
 		if (io != null) {
 			gotoDeclarativeModelElement(page, AadlUtil.getInstanceOrigin(io));
@@ -169,7 +176,9 @@ public final class UiUtil {
 	 * Goto declarative model object through the editor associated with aadl files.
 	 * @param page Workbench page
 	 * @param pai instance model property association whose source in the declarative model is the target of the goto
+	 * @deprecated Use {@link #gotoInstanceObjectSource(PropertyAssociationInstance)}
 	 */
+	@Deprecated
 	public static void gotoInstanceObjectSource(IWorkbenchPage page, PropertyAssociationInstance pai) {
 		if (pai != null) {
 			gotoDeclarativeModelElement(page, pai.getPropertyAssociation());
@@ -177,14 +186,44 @@ public final class UiUtil {
 	}
 
 	/**
+	 * goto declarative model object through the editor associated with aadl files.
+	 * @param page Workbench page
+	 * @param io InstanceObject whose source in the declarative model is the target of the goto
+	 * @since 6.0
+	 */
+	public void gotoInstanceObjectSource(final InstanceObject io) {
+		gotoInstanceObjectSource(io, x -> AadlUtil.getInstanceOrigin(io));
+	}
+
+	/**
+	 * Goto declarative model object through the editor associated with aadl files.
+	 * @param page Workbench page
+	 * @param pai instance model property association whose source in the declarative model is the target of the goto
+	 * @since 6.0
+	 */
+	public void gotoInstanceObjectSource(PropertyAssociationInstance pai) {
+		gotoInstanceObjectSource(pai, x -> x.getPropertyAssociation());
+	}
+
+	private <X extends Element> void gotoInstanceObjectSource(final X instanceElement,
+			final Function<X, EObject> getDeclarative) {
+		if (instanceElement != null) {
+			final EObject srcObject = getDeclarative.apply(instanceElement);
+			openDeclarativeModelElement(EcoreUtil.getURI(srcObject), srcObject);
+		}
+	}
+
+	/**
 	 * goto Xtext model through the editor associated with aadl files.
 	 * @param page Workbench page
 	 * @param target Element that is the target object
+	 * @deprecated use {@link #openDeclarativeModelElement(URI)
 	 */
 	/*
 	 * XXX this method is obsolete, I think, it does a poor job of locating the
 	 * source text in the declarative model.
 	 */
+	@Deprecated
 	public static void gotoDeclarativeModelElement(IWorkbenchPage page, Element target) {
 		if (target == null) {
 			return;
@@ -214,14 +253,17 @@ public final class UiUtil {
 	}
 
 	/**
-	 * Open an editor and hightlight the source text of the given declarative AADL element.
+	 * Open an editor and highlight the source text of the given declarative AADL element.
 	 *
 	 * <p><em>Assumes the caller has already locked the workspace.</em>  If the workspace
 	 * is not already locked, you can use {@link #openDeclarativeModelElementAsJob(IWorkbenchPage, Element)}.
 	 *
 	 * @param page The workbench page.
 	 * @param target The AADL element to highlight.
+	 *
+	 * @deprecated use {@link #openDeclarativeModelElement(URI)
 	 */
+	@Deprecated
 	public void openDeclarativeModelElement(final IWorkbenchPage page, final Element target) {
 		if (target == null) {
 			return;
@@ -252,6 +294,10 @@ public final class UiUtil {
 		}
 	}
 
+	/**
+	 * @deprecated use {@link #openDeclarativeModelElement(URI)
+	 */
+	@Deprecated
 	public void openDeclarativeModelElementAsJob(final IWorkbenchPage page, final Element target) {
 		if (page == null || target == null) {
 			return;
@@ -266,6 +312,22 @@ public final class UiUtil {
 		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 		job.setUser(true); // important!
 		job.schedule();
+	}
+
+	/**
+	 * Open an editor and highlight the source text of the given declarative AADL element.
+	 *
+	 * @param gotoURI The XText URI of the element.
+	 * @since 6.0
+	 */
+	public void openDeclarativeModelElement(final URI gotoURI) {
+		openDeclarativeModelElement(gotoURI, (new ResourceSetImpl()).getEObject(gotoURI, true));
+	}
+
+	private void openDeclarativeModelElement(final URI gotoURI, final EObject eObject) {
+		final ITextRegion where = locationProvider.getFullTextRegion(eObject);
+		final IEditorPart editorPart = editorOpener.open(gotoURI, false);
+		((ITextEditor) editorPart).selectAndReveal(where.getOffset(), where.getLength());
 	}
 
 //
