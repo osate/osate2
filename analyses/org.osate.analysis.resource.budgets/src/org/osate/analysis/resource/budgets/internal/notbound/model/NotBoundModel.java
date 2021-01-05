@@ -191,46 +191,25 @@ public class NotBoundModel extends ModelElement {
 		// Memory
 		SubComponent subMem = new SubComponent("Memory");
 		subMem.setCapacity(getCapacity(ci, ResourceKind.Memory, kbliteral));
-
-		int components = 0;
-		int budgetedComponents = 0;
-
 		subMem.setBudgetSub(getBudget(ci, ResourceKind.Memory));
-		subMem.setBudgetSubtotal(
-				sumBudgets(ci, ResourceKind.Memory, kbliteral, som, "", components, budgetedComponents));
-		subMem.setComponentsCount(components);
-		subMem.setBudgetedComponentsCount(budgetedComponents);
 
+		sumBudgets(subMem, ci, ResourceKind.Memory, kbliteral, som, "");
 		comp.addMemory(subMem);
 
 		// RAM
 		SubComponent subRAM = new SubComponent("RAM");
 		subRAM.setCapacity(getCapacity(ci, ResourceKind.RAM, kbliteral));
-
-		components = 0;
-		budgetedComponents = 0;
-
 		subRAM.setBudgetSub(getBudget(ci, ResourceKind.Memory));
-		subRAM.setBudgetSubtotal(
-				sumBudgets(ci, ResourceKind.RAM, kbliteral, som, "", components, budgetedComponents));
-		subRAM.setComponentsCount(components);
-		subRAM.setBudgetedComponentsCount(budgetedComponents);
 
+		sumBudgets(subRAM, ci, ResourceKind.RAM, kbliteral, som, "");
 		comp.addRAM(subRAM);
 
 		// ROM
 		SubComponent subROM = new SubComponent("ROM");
 		subROM.setCapacity(getCapacity(ci, ResourceKind.ROM, kbliteral));
-
-		components = 0;
-		budgetedComponents = 0;
-
 		subROM.setBudgetSub(getBudget(ci, ResourceKind.Memory));
-		subROM.setBudgetSubtotal(
-				sumBudgets(ci, ResourceKind.ROM, kbliteral, som, "", components, budgetedComponents));
-		subROM.setComponentsCount(components);
-		subROM.setBudgetedComponentsCount(budgetedComponents);
 
+		sumBudgets(subROM, ci, ResourceKind.ROM, kbliteral, som, "");
 		comp.addROM(subROM);
 
 		theMemory.addComponent(comp);
@@ -241,18 +220,13 @@ public class NotBoundModel extends ModelElement {
 			final SystemOperationMode som) {
 		MIPS theMIPS = model.getMIPS(si, ci, Aadl2Util.getPrintableSOMName(som));
 
-		Component comp = new Component(ci.getName());
 		SubComponent subMIPS = new SubComponent("MIPS");
-
-		int components = 0, budgetedComponents = 0;
 		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(si);
 
 		subMIPS.setBudgetSub(getBudget(ci, ResourceKind.MIPS));
-		subMIPS.setBudgetSubtotal(
-				sumBudgets(ci, ResourceKind.MIPS, mipsliteral, som, "", components, budgetedComponents));
-		subMIPS.setComponentsCount(components);
-		subMIPS.setBudgetedComponentsCount(budgetedComponents);
+		sumBudgets(subMIPS, ci, ResourceKind.MIPS, mipsliteral, som, "");
 
+		Component comp = new Component(ci.getName());
 		comp.setComponentPath(ci.getInstanceObjectPath());
 		comp.setComponentInstance(ci);
 		comp.addMemory(subMIPS);
@@ -365,6 +339,7 @@ public class NotBoundModel extends ModelElement {
 	 * components and devices For application components they are required,
 	 * while for devices they are optional
 	 *
+	 * @param subComp is a component to which budget stats should be appended to as children nodes
 	 * @param ci component instance whose subtree is to be added up
 	 * @param rk Property Definition of property to be added
 	 * @param unit Unit in which the property value should be retrieved
@@ -372,12 +347,13 @@ public class NotBoundModel extends ModelElement {
 	 * @return double total, zero, if no budget, -1 if hardware only in
 	 *         substructure
 	 */
-	protected static double sumBudgets(ComponentInstance ci, ResourceKind rk, UnitLiteral unit,
-			final SystemOperationMode som, String prefix, int components, int budgetedComponents) {
+	protected static double sumBudgets(SubComponent subComp, ComponentInstance ci,
+			ResourceKind rk, UnitLiteral unit, final SystemOperationMode som, String prefix) {
 		if (!ci.isActive(som)) {
 			return 0.0;
 		}
 		double subtotal = 0.0;
+
 		EList<ComponentInstance> subcis = ci.getComponentInstances();
 		boolean HWOnly = false;
 		boolean isSystemInstance = ci instanceof SystemInstance;
@@ -393,8 +369,7 @@ public class NotBoundModel extends ModelElement {
 		}
 		for (Iterator<ComponentInstance> it = subcis.iterator(); it.hasNext();) {
 			ComponentInstance subci = it.next();
-			double subresult = sumBudgets(subci, rk, unit, som, isSystemInstance ? "" : (prefix + "  "),
-					components, budgetedComponents);
+			double subresult = sumBudgets(subComp, subci, rk, unit, som, isSystemInstance ? "" : (prefix + "  "));
 			if (subresult >= 0) {
 				HWOnly = false;
 				subtotal += subresult;
@@ -416,20 +391,25 @@ public class NotBoundModel extends ModelElement {
 		if (HWOnly) {
 			return -1;
 		}
-		// double budget = getBudget(ci, rk);
+
 		if (rk.equals(ResourceKind.RAM) || rk.equals(ResourceKind.ROM) || rk.equals(ResourceKind.Memory)) {
 			double actualsize = getMemoryUseActual(ci, rk.name(), unit);
 			subtotal += actualsize;
 		}
-		// String resourceName = ci.getCategory().getName();
 
 		if (rk == ResourceKind.MIPS && ci.getCategory() == ComponentCategory.THREAD) {
 			subtotal = GetProperties.getThreadExecutioninMIPS(ci);
 		}
-		components = components + subcount;
-		budgetedComponents = budgetedComponents + subbudgetcount;
 
-		return subtotal;
+		Budget budgetComp = new Budget(ci.getCategory().getName()); // resourceName
+		budgetComp.setBudgetSub(getBudget(ci, rk));
+		budgetComp.setBudgetSubtotal(subtotal);
+		budgetComp.setComponentsCount(subcount);
+		budgetComp.setBudgetedComponentsCount(subbudgetcount);
+
+		subComp.addToBudgetList(budgetComp);
+
+		return 1;
 	}
 
 	private static boolean isHardware(ComponentInstance ci) {

@@ -37,6 +37,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.analysis.resource.budgets.internal.notbound.model.Budget;
 import org.osate.analysis.resource.budgets.internal.notbound.model.Component;
 import org.osate.analysis.resource.budgets.internal.notbound.model.MIPS;
 import org.osate.analysis.resource.budgets.internal.notbound.model.Memory;
@@ -341,44 +342,50 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 			UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(mips.getSystemInstance());
 
 			for (final Component c : mips.getComponents()) {
-				for (final SubComponent m : c.getMIPS()) {
-					double budget = m.getBudget();
-					if (budget > 0) {
-						mips.setTotalBudget(m.getBudget() + mips.getTotalBudget());
+				for (final SubComponent s : c.getMIPS()) {
+					for (final Budget m : s.getBudgetList()) {
+						double budget = m.getBudget();
+						if (budget > 0) {
+							mips.setTotalBudget(m.getBudget() + mips.getTotalBudget());
+						}
+
+						mips.setTotalComponents(mips.getTotalComponents() + m.getComponentsCount());
+						mips.setTotalBudgetedComponents(
+								mips.getTotalBudgetedComponents() + m.getBudgetedComponentsCount());
+
+						double budgetSub = m.getBudgetSub();
+						double budgetSubtotal = m.getBudgetSubtotal();
+						String notes = "";
+						if (budgetSub > 0 && budgetSubtotal > budgetSub) {
+							notes = String.format(
+									"Subtotal/actual exceeds budget %.3f by %.3f " + mipsliteral.getName(), budgetSub,
+									(budgetSubtotal - budgetSub));
+							error(compResult, mips.getComponentInstance(), notes);
+						} else if (budgetSub > 0 && budgetSubtotal < budgetSub) {
+							notes = String.format(
+									m.getCategory() + " " + c.getComponentPath() + " total %.3f "
+											+ mipsliteral.getName() + " below budget %.3f " + mipsliteral.getName()
+											+ " (%.1f %% slack)",
+									budgetSubtotal, budgetSub, (budgetSub - budgetSubtotal) / budgetSub * 100);
+						}
+
+						// detailedLog(prefix, ci, budget, subtotal, resourceName, unit, notes);
+						/*
+						 * String budgetmsg = prefix + GetProperties.toStringScaled(budget, unit) + ",";
+						 * String actualmsg = prefix + GetProperties.toStringScaled(actual, unit) + ",";
+						 * errManager.logInfo(prefix + ci.getCategory().getName() + " " + ci.getComponentInstancePath() + ", "
+						 * + budgetmsg + actualmsg + msg);
+						 */
+
+						final Result subResult = ResultUtil.createResult(c.getSomName(), c.getComponentInstance(),
+								ResultType.SUCCESS);
+						ResultUtil.addRealValue(subResult, budgetSub); // budget
+						ResultUtil.addRealValue(subResult, budgetSubtotal); // actual
+						ResultUtil.addStringValue(subResult, notes);
+						ResultUtil.addStringValue(subResult, m.getLabel()); // resourceName
+
+						compResult.getSubResults().add(subResult);
 					}
-
-					mips.setTotalComponents(mips.getTotalComponents() + m.getComponentsCount());
-					mips.setTotalBudgetedComponents(mips.getTotalBudgetedComponents() + m.getBudgetedComponentsCount());
-
-					double budgetSub = m.getBudgetSub();
-					double budgetSubtotal = m.getBudgetSubtotal();
-					String notes = "";
-					if (budgetSub > 0 && budgetSubtotal > budgetSub) {
-						notes = String.format("Subtotal/actual exceeds budget %.3f by %.3f " + mipsliteral.getName(),
-								budgetSub, (budgetSubtotal - budgetSub));
-						error(compResult, mips.getComponentInstance(), notes);
-					} else if (budgetSub > 0 && budgetSubtotal < budgetSub) {
-						notes = String.format(
-								m.getCategory() + " " + c.getComponentPath() + " total %.3f " + mipsliteral.getName()
-										+ " below budget %.3f " + mipsliteral.getName() + " (%.1f %% slack)",
-										budgetSubtotal, budgetSub, (budgetSub - budgetSubtotal) / budgetSub * 100);
-					}
-
-					// detailedLog(prefix, ci, budget, subtotal, resourceName, unit, notes);
-					/*
-					 * String budgetmsg = prefix + GetProperties.toStringScaled(budget, unit) + ",";
-					 * String actualmsg = prefix + GetProperties.toStringScaled(actual, unit) + ",";
-					 * errManager.logInfo(prefix + ci.getCategory().getName() + " " + ci.getComponentInstancePath() + ", "
-					 * + budgetmsg + actualmsg + msg);
-					 */
-
-					final Result subResult = ResultUtil.createResult(c.getSomName(), c.getComponentInstance(),
-							ResultType.SUCCESS);
-					ResultUtil.addRealValue(subResult, budgetSub);
-					ResultUtil.addRealValue(subResult, budgetSubtotal); // actual
-					ResultUtil.addStringValue(subResult, notes);
-
-					compResult.getSubResults().add(subResult);
 				}
 			}
 

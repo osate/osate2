@@ -1,23 +1,17 @@
 package org.osate.analysis.resource.budgets.internal.notbound.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.osate.analysis.resource.budgets.internal.shared.model.AnalysisElement;
 import org.osate.analysis.resource.budgets.internal.shared.model.Visitor;
 
-public class SubComponent extends AnalysisElement {
-	public SubComponent(String category) {
+public class Budget extends AnalysisElement {
+	public Budget(String category) {
 		super(category);
 	}
 
-	private double capacity;
 	private int componentsCount, budgetedComponentsCount;
 
 	private double budgetSubtotal;
 	private double budgetSub;
-
-	private List<Budget> budgetList = new ArrayList();
 
 	@Override
 	public double getBudget() {
@@ -40,14 +34,6 @@ public class SubComponent extends AnalysisElement {
 		this.budgetSub = budgetSub;
 	}
 
-	public final double getCapacity() {
-		return capacity;
-	}
-
-	public final void setCapacity(final double capacity) {
-		this.capacity = capacity;
-	}
-
 	public final int getComponentsCount() {
 		return componentsCount;
 	}
@@ -64,18 +50,6 @@ public class SubComponent extends AnalysisElement {
 		this.budgetedComponentsCount = budgetedComponentsCount;
 	}
 
-	public void setBudgetList(List<Budget> budgetList) {
-		this.budgetList = budgetList;
-	}
-
-	public void addToBudgetList(Budget budget) {
-		this.budgetList.add(budget);
-	}
-
-	public List<Budget> getBudgetList() {
-		return this.budgetList;
-	}
-
 	@Override
 	protected void visitChildren(final Visitor visitor) {
 		// no children
@@ -83,7 +57,7 @@ public class SubComponent extends AnalysisElement {
 
 	@Override
 	protected void visitSelfPrefix(final Visitor visitor) {
-		visitor.visitSubComponent(this);
+		visitor.visitBudgetPrefix(this);
 	}
 
 	@Override

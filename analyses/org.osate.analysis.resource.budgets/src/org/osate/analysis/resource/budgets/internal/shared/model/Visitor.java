@@ -29,6 +29,7 @@ import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadModel;
 import org.osate.analysis.resource.budgets.internal.busload.model.BusOrVirtualBus;
 import org.osate.analysis.resource.budgets.internal.busload.model.Connection;
 import org.osate.analysis.resource.budgets.internal.busload.model.VirtualBus;
+import org.osate.analysis.resource.budgets.internal.notbound.model.Budget;
 import org.osate.analysis.resource.budgets.internal.notbound.model.Component;
 import org.osate.analysis.resource.budgets.internal.notbound.model.MIPS;
 import org.osate.analysis.resource.budgets.internal.notbound.model.Memory;
@@ -111,5 +112,9 @@ public interface Visitor {
 
 	// Leaf node
 	public default void visitSubComponent(SubComponent component) {
+	}
+
+	// Leaf node
+	public default void visitBudgetPrefix(Budget budget) {
 	}
 }

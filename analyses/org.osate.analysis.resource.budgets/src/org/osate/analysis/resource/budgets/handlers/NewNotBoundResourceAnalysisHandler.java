@@ -30,8 +30,8 @@ import org.osate.result.util.ResultUtil;
  * @since 4.1
  */
 public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
-	private static final String MARKER_TYPE = "org.osate.analysis.resource.budgets.BusLoadAnalysisMarker";
-	private static final String REPORT_SUB_DIR = "BusLoad";
+	private static final String MARKER_TYPE = "org.osate.analysis.resource.budgets.NotBoundAnalysisMarker";
+	private static final String REPORT_SUB_DIR = "NotBound";
 
 	public NewNotBoundResourceAnalysisHandler() {
 		super();
@@ -49,15 +49,15 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 
 	@Override
 	protected Job createAnalysisJob(final IFile aaxlFile, final IFile outputFile) {
-		return new BusLoadJob(aaxlFile, outputFile);
+		return new NotBoundJob(aaxlFile, outputFile);
 	}
 
-	private final class BusLoadJob extends WorkspaceJob {
+	private final class NotBoundJob extends WorkspaceJob {
 		private final IFile aaxlFile;
 		private final IFile outputFile;
 
-		public BusLoadJob(final IFile aaxlFile, final IFile outputFile) {
-			super("Bus load analysis of " + aaxlFile.getName());
+		public NotBoundJob(final IFile aaxlFile, final IFile outputFile) {
+			super("Not bound resource analysis of " + aaxlFile.getName());
 			this.aaxlFile = aaxlFile;
 			this.outputFile = outputFile;
 		}
