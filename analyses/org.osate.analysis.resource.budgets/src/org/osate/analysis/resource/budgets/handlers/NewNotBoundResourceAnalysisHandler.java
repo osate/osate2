@@ -33,7 +33,7 @@ import org.osate.result.util.ResultUtil;
  */
 public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 	private static final String MARKER_TYPE = "org.osate.analysis.resource.budgets.NotBoundAnalysisMarker";
-	private static final String REPORT_SUB_DIR = "NotBound";
+	private static final String REPORT_SUB_DIR = "NotBoundResourceBudgets";
 
 	public NewNotBoundResourceAnalysisHandler() {
 		super();
@@ -222,14 +222,50 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 			}
 		}
 
-		// show total budget
-		/*
-		 * String budgetmsg = String.format("%.3f " + unit.getName() + ",", budget);// GetProperties.toStringScaled(budget, unit) + ",";
-		 * String front = ci == null ? "Total" : ci.getCategory().getName() + " " + ci.getComponentInstancePath();
-		 * errManager.logInfo(front + ", ," + budgetmsg);
-		 */
+		// memory
+		for (final Result subResult : somResult.getSubResults()) {
+			// loop through MIPS
+			if (ComponentCategory.MEMORY.getName().equalsIgnoreCase(ResultUtil.getString(subResult, 0))) {
+				/*
+				 * 0 ResultUtil.addStringValue(memResult, "Memory"); // category
+				 * 1 ResultUtil.addStringValue(memResult, memory.getSomName()); // somName
+				 *
+				 * 2 ResultUtil.addStringValue(memResult,
+				 * GetProperties.toStringScaled(memory.getTotalCapacityMemory(), kbliteral)); // budget for Memory string in Kbytes
+				 * 3 ResultUtil.addStringValue(memResult, GetProperties.toStringScaled(memory.getTotalCapacityRAM(), kbliteral)); // budget for RAM string in
+				 * Kbytes
+				 * 4 ResultUtil.addStringValue(memResult, GetProperties.toStringScaled(memory.getTotalCapacityROM(), kbliteral)); // budget for ROM string in
+				 * Kbytes
+				 *
+				 * 5 ResultUtil.addStringValue(memResult, ci.getCategory().getName()); // component category name
+				 * 6 ResultUtil.addStringValue(memResult, ci.getComponentInstancePath()); // component path
+				 *
+				 * 7 ResultUtil.addRealValue(memResult, memory.getTotalBudgetMemory(), kbliteral.getName()); // in Kbytes for Memory
+				 * 8 ResultUtil.addRealValue(memResult, memory.getTotalBudgetRAM(), kbliteral.getName()); // in Kbytes for RAM
+				 * 9 ResultUtil.addRealValue(memResult, memory.getTotalBudgetROM(), kbliteral.getName()); // in Kbytes for ROM
+				 *
+				 * 10 ResultUtil.addRealValue(memResult, memory.getTotalCapacityMemory(), kbliteral.getName()); // in Kbytes for Memory
+				 * 11 ResultUtil.addRealValue(memResult, memory.getTotalCapacityRAM(), kbliteral.getName()); // in Kbytes for RAM
+				 * 12 ResultUtil.addRealValue(memResult, memory.getTotalCapacityROM(), kbliteral.getName()); // in Kbytes for ROM
+				 */
+				if (ResultUtil.getReal(subResult, 10) > 0) { // total capacity > 0
+					pw.println();
+					printItem(pw, "Detailed Memory Capacity Report " + ResultUtil.getString(subResult, 1));
+					pw.println();
+					printItems(pw, "Component", "Capacity");
 
-		// NO DIAGNOSTICS AT THE SOM LEVEL
+					for (final Result capResult : subResult.getSubResults()) {
+						if ("Memory".equalsIgnoreCase(ResultUtil.getString(capResult, 2))) {
+							// print capacities
+							printItems(pw,
+									ResultUtil.getString(subResult, 5) + " " + ResultUtil.getString(subResult, 6),
+									ResultUtil.getString(capResult, 1));
+							pw.println();
+						}
+					}
+				}
+			}
+		}
 
 //			somResult.getSubResults().forEach(busResult -> generateCSVforBus(pw, busResult, null));
 		pw.println(); // add a second newline, the first is from the end of generateCSVforBus()

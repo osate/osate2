@@ -94,7 +94,12 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  *           <li>values[11] = Capacity for RAM in Kbytes (RealValue)
  *           <li>values[12] = Capacity for ROM in Kbytes (RealValue)
  *           <li>diagnostics = Diagnostics associated with this memory.
- *           <li>subResults are empty
+ *           <li>subResults = one {@code Result} for each capacity
+ *           	<ul>
+	 *           	<li>values[0] = Capacity (RealValue)
+	 *           	<li>values[1] = Capacity with unit (StringValue)
+	 *           	<li>values[2] = Category: Memory, RAM or ROM (StringValue)
+	 *           </ul>
  *         </ul>
  *       <li>subResults = one {@code Result} for category of {@code MIPS}
  *         <ul>
@@ -218,6 +223,19 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 						memory.setCapacityResourcesMemory(memory.getCapacityResourcesMemory() + 1);
 					}
 
+					/*
+					 * String budgetmsg = GetProperties.toStringScaled(budget, unit) + ",";
+					 * String front = ci == null ? "Total" : ci.getCategory().getName() + " " + ci.getComponentInstancePath();
+					 * errManager.logInfo(front + ", " + budgetmsg);
+					 */
+
+					final Result capResult = ResultUtil.createResult(c.getLabel(), c.getComponentInstance(),
+							ResultType.SUCCESS);
+					ResultUtil.addRealValue(capResult, capacity);
+					ResultUtil.addStringValue(capResult, GetProperties.toStringScaled(capacity, kbliteral));
+					ResultUtil.addStringValue(capResult, "Memory");
+					memResult.getSubResults().add(capResult);
+
 					memory.setTotalCapacityMemory(memory.getTotalCapacityMemory() + capacity);
 					memory.setResourcesMemory(memory.getResourcesMemory() + 1);
 					for (final Budget b : m.getBudgetList()) {
@@ -335,7 +353,7 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 			ResultUtil.addRealValue(memResult, memory.getTotalCapacityRAM(), kbliteral.getName()); // in Kbytes for RAM
 			ResultUtil.addRealValue(memResult, memory.getTotalCapacityROM(), kbliteral.getName()); // in Kbytes for ROM
 
-			buildDiagnosys(memory, null, memResult, "Memory", kbliteral);
+			buildDiagnosys(memory, null, memResult, "Memory", kbliteral); // repeat of above?
 			buildDiagnosys(memory, null, memResult, "RAM", kbliteral);
 			buildDiagnosys(memory, null, memResult, "ROM", kbliteral);
 		}
