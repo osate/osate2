@@ -191,7 +191,6 @@ public class NotBoundModel extends ModelElement {
 		// Memory
 		SubComponent subMem = new SubComponent("Memory");
 		subMem.setCapacity(getCapacity(ci, ResourceKind.Memory, kbliteral));
-		subMem.setBudgetSub(getBudget(ci, ResourceKind.Memory));
 
 		sumBudgets(subMem, ci, ResourceKind.Memory, kbliteral, som, "");
 		comp.addMemory(subMem);
@@ -199,7 +198,6 @@ public class NotBoundModel extends ModelElement {
 		// RAM
 		SubComponent subRAM = new SubComponent("RAM");
 		subRAM.setCapacity(getCapacity(ci, ResourceKind.RAM, kbliteral));
-		subRAM.setBudgetSub(getBudget(ci, ResourceKind.Memory));
 
 		sumBudgets(subRAM, ci, ResourceKind.RAM, kbliteral, som, "");
 		comp.addRAM(subRAM);
@@ -207,7 +205,6 @@ public class NotBoundModel extends ModelElement {
 		// ROM
 		SubComponent subROM = new SubComponent("ROM");
 		subROM.setCapacity(getCapacity(ci, ResourceKind.ROM, kbliteral));
-		subROM.setBudgetSub(getBudget(ci, ResourceKind.Memory));
 
 		sumBudgets(subROM, ci, ResourceKind.ROM, kbliteral, som, "");
 		comp.addROM(subROM);
@@ -223,7 +220,6 @@ public class NotBoundModel extends ModelElement {
 		SubComponent subMIPS = new SubComponent("MIPS");
 		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(si);
 
-		subMIPS.setBudgetSub(getBudget(ci, ResourceKind.MIPS));
 		sumBudgets(subMIPS, ci, ResourceKind.MIPS, mipsliteral, som, "");
 
 		Component comp = new Component(ci.getName());

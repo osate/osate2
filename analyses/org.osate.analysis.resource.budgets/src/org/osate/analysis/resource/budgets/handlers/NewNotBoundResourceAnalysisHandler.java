@@ -23,6 +23,8 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.resource.budgets.notbound.NewNotBoundResoureAnalysis;
 import org.osate.result.AnalysisResult;
+import org.osate.result.Diagnostic;
+import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
 
@@ -165,11 +167,67 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 
 		printItem(pw, "Detailed MIPS Budget Report " + somResult.getMessage());
 		printItems(pw, "Component", "Budget", "Actual", "Notes");
+		pw.println();
+		// detailedLog(prefix, ci, budget, subtotal, resourceName, unit, notes);
+		/*
+		 * String budgetmsg = prefix + GetProperties.toStringScaled(budget, unit) + ",";
+		 * String actualmsg = prefix + GetProperties.toStringScaled(actual, unit) + ",";
+		 * errManager.logInfo(prefix + ci.getCategory().getName() + " " + ci.getComponentInstancePath() + ", "
+		 * + budgetmsg + actualmsg + msg);
+		 *
+		 * 0 ResultUtil.addRealValue(subResult, budgetSub); // budget
+		 * 1 ResultUtil.addRealValue(subResult, budgetSubtotal); // actual
+		 * 2 ResultUtil.addStringValue(subResult, notes);
+		 * 3 ResultUtil.addStringValue(subResult, m.getLabel()); // resourceName
+		 * 4 ResultUtil.addStringValue(subResult, GetProperties.toStringScaled(budgetSub, mipsliteral)); // budget message
+		 * 5 ResultUtil.addStringValue(subResult, GetProperties.toStringScaled(budgetSubtotal, mipsliteral)); // actual budget message
+		 *
+		 * 0 ResultUtil.addStringValue(compResult, "MIPS"); // category
+		 * 1 ResultUtil.addStringValue(compResult, mips.getSomName()); // somName
+		 * 2 ResultUtil.addStringValue(compResult, GetProperties.toStringScaled(mips.getTotalCapacity(), mipsliteral)); // budget string in MIPS
+		 * 3 ResultUtil.addStringValue(compResult, ci.getCategory().getName()); // component category name
+		 * 4 ResultUtil.addStringValue(compResult, ci.getComponentInstancePath()); // component path
+		 *
+		 * 5 ResultUtil.addRealValue(compResult, mips.getTotalBudget(), mipsliteral.getName()); // in MIPS
+		 * 6 ResultUtil.addRealValue(compResult, mips.getTotalCapacity(), mipsliteral.getName()); // in MIPS
+		 *
+		 */
 
 		for (final Result subResult : somResult.getSubResults()) {
-			// loop through MIPS processors
+			// loop through MIPS
+			if ("MIPS".equalsIgnoreCase(ResultUtil.getString(subResult, 0))) {
+				for (final Result budgetResult : subResult.getSubResults()) {
+					printItems(pw, ResultUtil.getString(subResult, 3) + " " + ResultUtil.getString(subResult, 4),
+							ResultUtil.getString(budgetResult, 4), ResultUtil.getString(budgetResult, 5),
+							ResultUtil.getString(budgetResult, 2));
+					pw.println();
+				}
 
+				double total = ResultUtil.getReal(subResult, 5);
+				if (total > 0) {
+					printItems(pw, "Total", "", String.format("%.3f " + ResultUtil.getString(subResult, 7), total));
+					pw.println();
+
+					printItem(pw, "Resource Summary: " + ResultUtil.getString(subResult, 1));
+					pw.println();
+
+					for (final Diagnostic d : subResult.getDiagnostics()) {
+						String prefix = d.getDiagnosticType() == DiagnosticType.ERROR ? "** "
+								: (d.getDiagnosticType() == DiagnosticType.WARNING ? "* " : "");
+
+						printItem(pw, prefix + d.getMessage());
+						pw.println();
+					}
+				}
+			}
 		}
+
+		// show total budget
+		/*
+		 * String budgetmsg = String.format("%.3f " + unit.getName() + ",", budget);// GetProperties.toStringScaled(budget, unit) + ",";
+		 * String front = ci == null ? "Total" : ci.getCategory().getName() + " " + ci.getComponentInstancePath();
+		 * errManager.logInfo(front + ", ," + budgetmsg);
+		 */
 
 		// NO DIAGNOSTICS AT THE SOM LEVEL
 

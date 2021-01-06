@@ -115,6 +115,9 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 	 *           	<li>values[0] = Budget subtotal for MIPS Component (RealValue)
 	 *           	<li>values[1] = Actual budget for MIPS Component (RealValue)
 	 *           	<li>values[2] = Notes on how budget and actual budget compare to each other (StringValue)
+	 *              <li>values[3] = Resource name (StringValue)
+	 *              <li>values[4] = Budget message (StringValue)
+	 *              <li>values[5] = Actual budget message (StringValue)
 	 *           </ul>
  *         </ul>
  *       <li>subResults = one {@code Result} for category of {@code ProcessorOrVirtualProcessor}
@@ -217,9 +220,11 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 
 					memory.setTotalCapacityMemory(memory.getTotalCapacityMemory() + capacity);
 					memory.setResourcesMemory(memory.getResourcesMemory() + 1);
-					memory.setComponentsMemory(memory.getComponentsMemory() + m.getComponentsCount());
-					memory.setBudgetedComponentsMemory(
-							memory.getBudgetedComponentsMemory() + m.getBudgetedComponentsCount());
+					for (final Budget b : m.getBudgetList()) {
+						memory.setComponentsMemory(memory.getComponentsMemory() + b.getComponentsCount());
+						memory.setBudgetedComponentsMemory(
+								memory.getBudgetedComponentsMemory() + b.getBudgetedComponentsCount());
+					}
 				}
 
 				for (final SubComponent ra : c.getRAMs()) {
@@ -230,9 +235,11 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 
 					memory.setTotalCapacityRAM(memory.getTotalCapacityRAM() + capacity);
 					memory.setResourcesRAM(memory.getResourcesRAM() + 1);
-					memory.setComponentsRAM(memory.getComponentsRAM() + ra.getComponentsCount());
-					memory.setBudgetedComponentsRAM(
-							memory.getBudgetedComponentsRAM() + ra.getBudgetedComponentsCount());
+					for (final Budget b : ra.getBudgetList()) {
+						memory.setComponentsRAM(memory.getComponentsRAM() + b.getComponentsCount());
+						memory.setBudgetedComponentsRAM(
+								memory.getBudgetedComponentsRAM() + b.getBudgetedComponentsCount());
+					}
 				}
 
 				for (final SubComponent ro : c.getROMs()) {
@@ -243,54 +250,65 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 
 					memory.setTotalCapacityROM(memory.getTotalCapacityROM() + capacity);
 					memory.setResourcesROM(memory.getResourcesROM() + 1);
-					memory.setComponentsROM(memory.getComponentsROM() + ro.getComponentsCount());
-					memory.setBudgetedComponentsROM(
-							memory.getBudgetedComponentsROM() + ro.getBudgetedComponentsCount());
+					for (final Budget b : ro.getBudgetList()) {
+						memory.setComponentsROM(memory.getComponentsROM() + b.getComponentsCount());
+						memory.setBudgetedComponentsROM(
+								memory.getBudgetedComponentsROM() + b.getBudgetedComponentsCount());
+					}
 				}
 			}
 
 			for (final Component c : memory.getComponents()) {
 				if (memory.getTotalCapacityMemory() > 0) {
 					for (final SubComponent m : c.getMemories()) {
-						memory.setTotalBudgetMemory(memory.getTotalBudgetMemory() + m.getBudget());
+						for (final Budget b : m.getBudgetList()) {
+							memory.setTotalBudgetMemory(memory.getTotalBudgetMemory() + b.getBudget());
 
-						double budgetSub = m.getBudgetSub();
-						double budgetSubtotal = m.getBudgetSubtotal();
+							double budgetSub = b.getBudgetSub();
+							double budgetSubtotal = b.getBudgetSubtotal();
 
-						if (budgetSub > 0 && budgetSubtotal > budgetSub) {
-							error(memResult, memory.getComponentInstance(),
-									String.format("Subtotal/actual exceeds budget %.3f by %.3f " + kbliteral.getName(),
-											budgetSub, (budgetSubtotal - budgetSub)));
+							if (budgetSub > 0 && budgetSubtotal > budgetSub) {
+								error(memResult, memory.getComponentInstance(),
+										String.format(
+												"Subtotal/actual exceeds budget %.3f by %.3f " + kbliteral.getName(),
+												budgetSub, (budgetSubtotal - budgetSub)));
+							}
 						}
 					}
 				}
 
 				if (memory.getTotalCapacityRAM() > 0) {
 					for (final SubComponent ra : c.getRAMs()) {
-						memory.setTotalBudgetRAM(memory.getTotalBudgetRAM() + ra.getBudget());
+						for (final Budget b : ra.getBudgetList()) {
+							memory.setTotalBudgetRAM(memory.getTotalBudgetRAM() + b.getBudget());
 
-						double budgetSub = ra.getBudgetSub();
-						double budgetSubtotal = ra.getBudgetSubtotal();
+							double budgetSub = b.getBudgetSub();
+							double budgetSubtotal = b.getBudgetSubtotal();
 
-						if (budgetSub > 0 && budgetSubtotal > budgetSub) {
-							error(memResult, memory.getComponentInstance(),
-									String.format("Subtotal/actual exceeds budget %.3f by %.3f " + kbliteral.getName(),
-											budgetSub, (budgetSubtotal - budgetSub)));
+							if (budgetSub > 0 && budgetSubtotal > budgetSub) {
+								error(memResult, memory.getComponentInstance(),
+										String.format(
+												"Subtotal/actual exceeds budget %.3f by %.3f " + kbliteral.getName(),
+												budgetSub, (budgetSubtotal - budgetSub)));
+							}
 						}
 					}
 				}
 
 				if (memory.getTotalCapacityROM() > 0) {
 					for (final SubComponent ro : c.getROMs()) {
-						memory.setTotalBudgetROM(memory.getTotalBudgetROM() + ro.getBudget());
+						for (final Budget b : ro.getBudgetList()) {
+							memory.setTotalBudgetROM(memory.getTotalBudgetROM() + b.getBudget());
 
-						double budgetSub = ro.getBudgetSub();
-						double budgetSubtotal = ro.getBudgetSubtotal();
+							double budgetSub = b.getBudgetSub();
+							double budgetSubtotal = b.getBudgetSubtotal();
 
-						if (budgetSub > 0 && budgetSubtotal > budgetSub) {
-							error(memResult, memory.getComponentInstance(),
-									String.format("Subtotal/actual exceeds budget %.3f by %.3f " + kbliteral.getName(),
-											budgetSub, (budgetSubtotal - budgetSub)));
+							if (budgetSub > 0 && budgetSubtotal > budgetSub) {
+								error(memResult, memory.getComponentInstance(),
+										String.format(
+												"Subtotal/actual exceeds budget %.3f by %.3f " + kbliteral.getName(),
+												budgetSub, (budgetSubtotal - budgetSub)));
+							}
 						}
 					}
 				}
@@ -383,6 +401,8 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 						ResultUtil.addRealValue(subResult, budgetSubtotal); // actual
 						ResultUtil.addStringValue(subResult, notes);
 						ResultUtil.addStringValue(subResult, m.getLabel()); // resourceName
+						ResultUtil.addStringValue(subResult, GetProperties.toStringScaled(budgetSub, mipsliteral)); // budget message
+						ResultUtil.addStringValue(subResult, GetProperties.toStringScaled(budgetSubtotal, mipsliteral)); // actual budget message
 
 						compResult.getSubResults().add(subResult);
 					}
@@ -399,6 +419,7 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 
 			ResultUtil.addRealValue(compResult, mips.getTotalBudget(), mipsliteral.getName()); // in MIPS
 			ResultUtil.addRealValue(compResult, mips.getTotalCapacity(), mipsliteral.getName()); // in MIPS
+			ResultUtil.addStringValue(compResult, mipsliteral.getName());
 
 			buildDiagnosys(null, mips, compResult, "MIPS", mipsliteral);
 		}
