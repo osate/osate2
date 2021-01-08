@@ -4,11 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
@@ -20,8 +24,10 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Shell;
@@ -109,6 +115,8 @@ public final class AnalysisRunsDialog extends Dialog {
 
 	private final List<Runner> runners;
 	private final Map<ImageDescriptor, Image> images = new HashMap<>();
+	private final Map<Runner, Control> runnerToControl = new HashMap<>();
+	private Runner lastRunner = null;
 
 	private Text uriText;
 	private TableViewer analysisListView;
@@ -137,9 +145,16 @@ public final class AnalysisRunsDialog extends Dialog {
 		final Table table = analysisListView.getTable();
 		table.setHeaderVisible(false);
 		table.setLinesVisible(false);
+		analysisListView.addSelectionChangedListener(event -> {
+			final IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+			if (!selection.isEmpty()) {
+				final Runner runner = (Runner) selection.getFirstElement();
+				showRunner(runner);
+			}
+		});
 
 		final TableViewerColumn col1 = new TableViewerColumn(analysisListView, SWT.NONE);
-//		col1.getColumn().setWidth(225);
+		col1.getColumn().setWidth(175);
 		col1.setLabelProvider(new MyLabelProvider());
 		analysisListView.setContentProvider(ArrayContentProvider.getInstance());
 		analysisListView.setInput(runners);
@@ -152,6 +167,8 @@ public final class AnalysisRunsDialog extends Dialog {
 
 		final Composite outerPageContainer = new Composite(composite, SWT.NONE);
 		createPageContainer(outerPageContainer);
+		outerPageContainer.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
+		outerPageContainer.setLayout(new GridLayout());
 
 		FormData data = new FormData();
 		data.top = new FormAttachment(0, BORDER);
@@ -178,6 +195,11 @@ public final class AnalysisRunsDialog extends Dialog {
 		data.bottom = new FormAttachment(100, -BORDER);
 		outerPageContainer.setLayoutData(data);
 
+		// Select the first runner record
+		if (!runners.isEmpty()) {
+			analysisListView.setSelection(new StructuredSelection(runners.get(0)));
+		}
+
 		return composite;
 	}
 
@@ -200,8 +222,105 @@ public final class AnalysisRunsDialog extends Dialog {
 				GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 		pageContainer.setLayout(new PageLayout());
 		pageContainer.setLayoutData(pageContainerData);
+		pageContainer.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED));
 
 		scrolled.setContent(pageContainer);
+	}
+
+	/* inspired by PreferenceDialog.showPage() */
+	private void showRunner(final Runner runner) {
+		uriText.setText(runner.getInstanceURI().toString());
+
+		final Control[] result = { runnerToControl.get(runner) };
+		if (result[0] == null) {
+			final boolean[] failed = { false };
+			SafeRunnable.run(new ISafeRunnable() {
+				@Override
+				public void handleException(Throwable e) {
+					failed[0] = true;
+				}
+
+				@Override
+				public void run() {
+					result[0] = runner.createContents(pageContainer);
+				}
+			});
+			if (failed[0]) {
+				// Couldn't create the components, silently fail
+				return;
+			}
+			runnerToControl.put(runner, result[0]);
+		}
+		final Control currentControl = result[0];
+
+		/* Resize */
+		final Point[] size = new Point[1];
+		final Point failed = new Point(-1, -1);
+		SafeRunnable.run(new ISafeRunnable() {
+			@Override
+			public void handleException(Throwable e) {
+				size[0] = failed;
+			}
+
+			@Override
+			public void run() {
+				size[0] = currentControl.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
+			}
+		});
+		if (size[0].equals(failed)) {
+			// Failed, do nothing
+			return;
+		}
+		final Point contentSize = size[0];
+
+		// Do we need resizing. Computation not needed if the
+		// first page is inserted since computing the dialog's
+		// size is done by calling dialog.open().
+		// Also prevent auto resize if the user has manually resized
+		final Point shellSize = getShell().getSize();
+		if (lastRunner != null) {
+			final Rectangle rect = pageContainer.getClientArea();
+			final Point containerSize = new Point(rect.width, rect.height);
+			int hdiff = contentSize.x - containerSize.x;
+			int vdiff = contentSize.y - containerSize.y;
+			if ((hdiff > 0 || vdiff > 0)) {
+				hdiff = Math.max(0, hdiff);
+				vdiff = Math.max(0, vdiff);
+				setShellSize(shellSize.x + hdiff, shellSize.y + vdiff);
+				if (currentControl.getSize().x == 0) {
+					currentControl.setSize(containerSize);
+				}
+
+			} else {
+				currentControl.setSize(containerSize);
+			}
+		}
+		lastRunner = runner;
+
+		scrolled.setMinSize(contentSize);
+
+		/*
+		 * Ensure that all other pages are invisible.
+		 * (including ones that triggered an exception during
+		 * their creation).
+		 */
+		final Control[] children = pageContainer.getChildren();
+		for (final Control element : children) {
+			if (element != currentControl) {
+				element.setVisible(false);
+			}
+		}
+		// Make the new page visible
+		currentControl.setVisible(true);
+	}
+
+	/* From PreferenceDialong */
+	private void setShellSize(int width, int height) {
+		final Shell shell = getShell();
+		final Rectangle preferred = shell.getBounds();
+		preferred.width = width;
+		preferred.height = height;
+		shell.setBounds(getConstrainedShellBounds(preferred));
 	}
 
 	@Override

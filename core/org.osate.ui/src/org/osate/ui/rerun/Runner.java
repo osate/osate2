@@ -3,6 +3,8 @@ package org.osate.ui.rerun;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.osate.aadl2.instance.SystemInstance;
 
 /**
@@ -26,6 +28,12 @@ public interface Runner {
 	 * the URI from {@link #getInstanceURI}.
 	 */
 	public String getDescription();
+
+	/**
+	 * Create a component that displays the settings for this run.  Should not
+	 * included the URI from {@link #getInstanceURI}.
+	 */
+	public Control createContents(Composite parent);
 
 	/**
 	 * Get the image to display when showing information about this runner.

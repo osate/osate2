@@ -4,7 +4,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Text;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.analysis.flows.FlowanalysisPlugin;
 import org.osate.ui.rerun.Runner;
 
@@ -69,6 +74,13 @@ final class CheckFlowLatencyRunner implements Runner {
 	@Override
 	public ImageDescriptor getImageDescriptor() {
 		return ICON_DESCRIPTOR;
+	}
+
+	@Override
+	public Control createContents(final Composite parent) {
+		final Text textBox = new Text(parent, SWT.SINGLE | SWT.READ_ONLY);
+		textBox.setText(OsateResourceUtil.toIFile(instanceURI).toString());
+		return textBox;
 	}
 
 	@Override
