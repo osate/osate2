@@ -1,5 +1,6 @@
 package org.osate.ui.dialogs;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,13 +28,13 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.osate.ui.OsateUiPlugin;
+import org.osate.ui.rerun.RerunManager;
 import org.osate.ui.rerun.Runner;
 
 /**
@@ -44,6 +45,8 @@ public final class AnalysisRunsDialog extends Dialog {
 
 	private static final int RUN_ID = 100;
 	private static final String RUN_LABEL = "Run";
+	private static final int DELETE_ID = 101;
+	private static final String DELETE_LABEL = "Remove";
 
 	private static final Point minimumPageSize = new Point(300, 300);
 
@@ -62,14 +65,6 @@ public final class AnalysisRunsDialog extends Dialog {
 				x = Math.max(x, size.x);
 				y = Math.max(y, size.y);
 			}
-
-//			// As pages can implement thier own computeSize
-//			// take it into account
-//			if (currentPage != null) {
-//				Point size = currentPage.computeSize();
-//				x = Math.max(x, size.x);
-//				y = Math.max(y, size.y);
-//			}
 
 			if (wHint != SWT.DEFAULT) {
 				x = wHint;
@@ -113,6 +108,7 @@ public final class AnalysisRunsDialog extends Dialog {
 		}
 	}
 
+	private final RerunManager rerunManager;
 	private final List<Runner> runners;
 	private final Map<ImageDescriptor, Image> images = new HashMap<>();
 	private final Map<Runner, Control> runnerToControl = new HashMap<>();
@@ -126,13 +122,15 @@ public final class AnalysisRunsDialog extends Dialog {
 	public AnalysisRunsDialog(final Shell shell) {
 		super(shell);
 		setShellStyle(getShellStyle() | SWT.RESIZE);
-		runners = OsateUiPlugin.getRerunManager().getPastRuns();
+		rerunManager = OsateUiPlugin.getRerunManager();
+		runners = rerunManager.getPastRuns(new ArrayList<>());
 	}
 
 
 	@Override
 	protected void createButtonsForButtonBar(final Composite parent) {
 		createButton(parent, RUN_ID, RUN_LABEL, false);
+		createButton(parent, DELETE_ID, DELETE_LABEL, false);
 		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
 	}
 
@@ -167,7 +165,6 @@ public final class AnalysisRunsDialog extends Dialog {
 
 		final Composite outerPageContainer = new Composite(composite, SWT.NONE);
 		createPageContainer(outerPageContainer);
-		outerPageContainer.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_BLACK));
 		outerPageContainer.setLayout(new GridLayout());
 
 		FormData data = new FormData();
@@ -222,7 +219,6 @@ public final class AnalysisRunsDialog extends Dialog {
 				GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
 		pageContainer.setLayout(new PageLayout());
 		pageContainer.setLayoutData(pageContainerData);
-		pageContainer.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED));
 
 		scrolled.setContent(pageContainer);
 	}
@@ -330,5 +326,25 @@ public final class AnalysisRunsDialog extends Dialog {
 			image.dispose();
 		}
 		return super.close();
+	}
+
+	@Override
+	protected void buttonPressed(final int buttonId) {
+		if (buttonId == DELETE_ID) {
+			deletePressed();
+		} else {
+			super.buttonPressed(buttonId);
+		}
+	}
+
+	private void deletePressed() {
+		final IStructuredSelection selection = (IStructuredSelection) analysisListView.getSelection();
+		// weed out nonsense cases (shouldn't happen)
+		if (selection.size() == 1) {
+			final Runner current = (Runner) selection.getFirstElement();
+			runners.remove(current);
+			rerunManager.remove(current);
+			analysisListView.refresh();
+		}
 	}
 }

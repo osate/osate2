@@ -19,4 +19,15 @@ public interface RerunManager {
 	 * @return The list of past runs.  Will never be {@code null}.  May be empty.
 	 */
 	public List<Runner> getPastRuns();
+
+	/**
+	 * Append the list of past runs to an existing list.
+	 * @return The input list.
+	 */
+	public List<Runner> getPastRuns(final List<Runner> runners);
+
+	/**
+	 * Remove the given run from the list.  Has no effect if the run is not part of the list.
+	 */
+	public void remove(final Runner runner);
 }

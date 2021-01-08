@@ -38,7 +38,18 @@ public final class CyclicRerunManager implements RerunManager {
 	}
 
 	@Override
-	public synchronized List<Runner> getPastRuns() {
-		return Collections.unmodifiableList(new ArrayList<Runner>(runners));
+	public List<Runner> getPastRuns() {
+		return Collections.unmodifiableList(getPastRuns(new ArrayList<Runner>()));
+	}
+
+	@Override
+	public synchronized List<Runner> getPastRuns(final List<Runner> list) {
+		list.addAll(runners);
+		return list;
+	}
+
+	@Override
+	public synchronized void remove(final Runner runner) {
+		runners.remove(runner);
 	}
 }
