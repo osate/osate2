@@ -30,31 +30,22 @@ censes only apply to the Third Party Software and not any other portion of this 
 
 	<parent>
 		<groupId>org.osate</groupId>
-		<artifactId>examples</artifactId>
+		<artifactId>examples.parent</artifactId>
 		<version>2.9.1-SNAPSHOT</version>
-		<relativePath>..</relativePath>
-	</parent>
+		<relativePath>../..</relativePath>
+	</parent>	
 
 	<groupId>org.osate</groupId>
-	<artifactId>resource-budget</artifactId>
+	<artifactId>examples</artifactId>
 	<packaging>pom</packaging>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.ruleoftech</groupId>
-				<artifactId>markdown-page-generator-plugin</artifactId>
-				<version>2.1.0</version>
-				<configuration>
-					<inputDirectory>${project.basedir}/doc/markdown</inputDirectory>
-					<outputDirectory>${project.basedir}/doc/html</outputDirectory>
-					<copyDirectories>images,css</copyDirectories>
-					<attributes>
-						<attribute>BlockQuote|style="font-size:90%"</attribute>
-					</attributes>
-					<pegdownExtensions>EXTANCHORLINKS,TOC</pegdownExtensions>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+	<modules>
+		<module>arp4761</module>
+		<module>continuous-safety-risk-evaluation</module>
+		<module>resource-budget</module>
+		<module>safety-tutorial</module>
+		<module>speed-regulation</module>
+		<module>stepper-motor</module>
+	</modules>
+
 </project>

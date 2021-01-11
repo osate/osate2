@@ -28,22 +28,43 @@ censes only apply to the Third Party Software and not any other portion of this 
       <example
             exampleURI="/examples/arp4761"
             readmeURI="doc/html/README.html"
-            category="Flow Analysis Examples"
+            category="Safety Examples"
             name="ARP4761">
+         <project path=""/>
+      </example>
+      <example
+            exampleURI="/examples/stepper-motor"
+            readmeURI="doc/html/README.html"
+            category="Safety Examples"
+            name="Stepper Motor">
          <project path=""/>
       </example>
       <example
             exampleURI="/examples/resource-budget"
             readmeURI="doc/html/README.html"
-            category="Basic Examples"
+            category="Performance Examples"
             name="Resource Budget">
          <project path=""/>
       </example>
       <example
             exampleURI="/examples/speed-regulation"
             readmeURI="doc/html/README.html"
-            category="Basic Examples"
+            category="Performance Examples"							
             name="Speed Regulation">
+         <project path=""/>
+      </example>
+      <example
+            exampleURI="/examples/continuous-safety-risk-evaluation"
+            readmeURI="doc/html/README.html"
+            category="Safety Examples"
+            name="Continuous Safety Risk Evaluation">
+         <project path=""/>
+      </example>
+            <example
+            exampleURI="/examples/safety-tutorial"
+            readmeURI="doc/html/README.html"
+            category="Safety Examples"
+            name="Safety Tutorial">
          <project path=""/>
       </example>
    </extension>
