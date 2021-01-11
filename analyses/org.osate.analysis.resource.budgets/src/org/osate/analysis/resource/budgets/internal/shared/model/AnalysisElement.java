@@ -51,7 +51,7 @@ public abstract class AnalysisElement extends ModelElement {
 	/** children **/
 	protected List<Component> components = new ArrayList();
 
-	protected AnalysisElement(final String label) {
+	public AnalysisElement(final String label) {
 		this.label = label;
 	}
 

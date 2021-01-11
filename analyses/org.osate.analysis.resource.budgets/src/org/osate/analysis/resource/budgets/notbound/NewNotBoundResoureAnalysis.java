@@ -82,9 +82,9 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  *
  *           <li>values[0] = ComponentInstance category "Memory" (StringValue)
  *           <li>values[1] = SOM name (StringValue)
- *           <li>values[2] = Budget for Memory string in Kbytes (StringValue)
- *           <li>values[3] = Budget for RAM string in Kbytes (StringValue)
- *           <li>values[4] = Budget for ROM string in Kbytes (StringValue)
+ *           <li>values[2] = Capacity for Memory string in Kbytes (StringValue)
+ *           <li>values[3] = Capacity for RAM string in Kbytes (StringValue)
+ *           <li>values[4] = Capacity for ROM string in Kbytes (StringValue)
  *           <li>values[5] = Component category name from {@link ComponentInstance#getCategory()} (StringValue)
  *           <li>values[6] = Component path from {@link ComponentInstance#getComponentInstancePath()} (StringValue)
  *        	 <li>values[7] = Budget for Memory in Kbytes (RealValue)
@@ -93,12 +93,23 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  *           <li>values[10] = Capacity for Memory in Kbytes (RealValue)
  *           <li>values[11] = Capacity for RAM in Kbytes (RealValue)
  *           <li>values[12] = Capacity for ROM in Kbytes (RealValue)
- *           <li>diagnostics = Diagnostics associated with this memory.
+ *           <li>values[13] = Budget for Memory string in Kbytes (StringValue)
+ *           <li>values[14] = Budget for RAM string in Kbytes (StringValue)
+ *           <li>values[15] = Budget for ROM string in Kbytes (StringValue)
+ *           <li>diagnostics is empty
  *           <li>subResults = one {@code Result} for each capacity
  *           	<ul>
 	 *           	<li>values[0] = Capacity (RealValue)
 	 *           	<li>values[1] = Capacity with unit (StringValue)
 	 *           	<li>values[2] = Category: Memory, RAM or ROM (StringValue)
+		 *          <li>subResults = one {@code Result} for each budget
+		 *           	<ul>
+			 *           	<li>values[0] = Budget (RealValue)
+			 *           	<li>values[1] = Actual Budget (RealValue)
+			 *           	<li>values[2] = Budget with unit (StringValue)
+			 *           	<li>values[3] = Actual budget with unit (StringValue)
+			 *           	<li>diagnostics = Diagnostics associated with memory category(Memory, RAM or ROM) (StringValue)
+			 *          </ul>
 	 *           </ul>
  *         </ul>
  *       <li>subResults = one {@code Result} for category of {@code MIPS}
@@ -223,12 +234,6 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 						memory.setCapacityResourcesMemory(memory.getCapacityResourcesMemory() + 1);
 					}
 
-					/*
-					 * String budgetmsg = GetProperties.toStringScaled(budget, unit) + ",";
-					 * String front = ci == null ? "Total" : ci.getCategory().getName() + " " + ci.getComponentInstancePath();
-					 * errManager.logInfo(front + ", " + budgetmsg);
-					 */
-
 					final Result capResult = ResultUtil.createResult(c.getLabel(), c.getComponentInstance(),
 							ResultType.SUCCESS);
 					ResultUtil.addRealValue(capResult, capacity);
@@ -251,6 +256,13 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 						memory.setCapacityResourcesRAM(memory.getCapacityResourcesRAM() + 1);
 					}
 
+					final Result capResult = ResultUtil.createResult(c.getLabel(), c.getComponentInstance(),
+							ResultType.SUCCESS);
+					ResultUtil.addRealValue(capResult, capacity);
+					ResultUtil.addStringValue(capResult, GetProperties.toStringScaled(capacity, kbliteral));
+					ResultUtil.addStringValue(capResult, "RAM");
+					memResult.getSubResults().add(capResult);
+
 					memory.setTotalCapacityRAM(memory.getTotalCapacityRAM() + capacity);
 					memory.setResourcesRAM(memory.getResourcesRAM() + 1);
 					for (final Budget b : ra.getBudgetList()) {
@@ -265,6 +277,13 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 					if (capacity > 0) {
 						memory.setCapacityResourcesROM(memory.getCapacityResourcesROM() + 1);
 					}
+
+					final Result capResult = ResultUtil.createResult(c.getLabel(), c.getComponentInstance(),
+							ResultType.SUCCESS);
+					ResultUtil.addRealValue(capResult, capacity);
+					ResultUtil.addStringValue(capResult, GetProperties.toStringScaled(capacity, kbliteral));
+					ResultUtil.addStringValue(capResult, "ROM");
+					memResult.getSubResults().add(capResult);
 
 					memory.setTotalCapacityROM(memory.getTotalCapacityROM() + capacity);
 					memory.setResourcesROM(memory.getResourcesROM() + 1);
@@ -285,11 +304,37 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 							double budgetSub = b.getBudgetSub();
 							double budgetSubtotal = b.getBudgetSubtotal();
 
-							if (budgetSub > 0 && budgetSubtotal > budgetSub) {
-								error(memResult, memory.getComponentInstance(),
-										String.format(
-												"Subtotal/actual exceeds budget %.3f by %.3f " + kbliteral.getName(),
-												budgetSub, (budgetSubtotal - budgetSub)));
+							for (Result subRes : memResult.getSubResults()) {
+								if ("Memory".equalsIgnoreCase(ResultUtil.getString(subRes, 2))) {
+									final Result budgetResult = ResultUtil.createResult(c.getLabel(),
+											c.getComponentInstance(), ResultType.SUCCESS);
+									ResultUtil.addRealValue(budgetResult, budgetSub);
+									ResultUtil.addRealValue(budgetResult, budgetSubtotal); // actual
+									ResultUtil.addStringValue(budgetResult,
+											GetProperties.toStringScaled(budgetSub, kbliteral));
+									ResultUtil.addStringValue(budgetResult,
+											GetProperties.toStringScaled(budgetSubtotal, kbliteral));
+
+									if (budgetSub > 0 && budgetSubtotal > budgetSub) {
+										error(budgetResult, memory.getComponentInstance(),
+												String.format(
+														"** Subtotal/actual exceeds budget %.3f by %.3f "
+																+ kbliteral.getName(),
+														budgetSub, (budgetSubtotal - budgetSub)));
+									} else if (budgetSub > 0 && budgetSubtotal < budgetSub) {
+										ComponentInstance ci = c.getComponentInstance();
+										info(budgetResult, memory.getComponentInstance(), String.format(
+												ci.getCategory().getName() + " " + ci.getInstanceObjectPath()
+														+ " total %.3f " + kbliteral.getName() + " below budget %.3f "
+														+ kbliteral.getName() + " (%.1f %% slack)",
+												budgetSubtotal, budgetSub,
+												(budgetSub - budgetSubtotal) / budgetSub * 100));
+									}
+
+									buildDiagnosys(memory, null, budgetResult, "Memory", kbliteral);
+
+									subRes.getSubResults().add(budgetResult);
+								}
 							}
 						}
 					}
@@ -303,11 +348,27 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 							double budgetSub = b.getBudgetSub();
 							double budgetSubtotal = b.getBudgetSubtotal();
 
-							if (budgetSub > 0 && budgetSubtotal > budgetSub) {
-								error(memResult, memory.getComponentInstance(),
-										String.format(
+							for (Result subRes : memResult.getSubResults()) {
+								if ("RAM".equalsIgnoreCase(ResultUtil.getString(subRes, 2))) {
+									final Result budgetResult = ResultUtil.createResult(c.getLabel(),
+											c.getComponentInstance(), ResultType.SUCCESS);
+									ResultUtil.addRealValue(budgetResult, budgetSub);
+									ResultUtil.addRealValue(budgetResult, budgetSubtotal); // actual
+									ResultUtil.addStringValue(budgetResult,
+											GetProperties.toStringScaled(budgetSub, kbliteral));
+									ResultUtil.addStringValue(budgetResult,
+											GetProperties.toStringScaled(budgetSubtotal, kbliteral));
+
+									if (budgetSub > 0 && budgetSubtotal > budgetSub) {
+										error(budgetResult, memory.getComponentInstance(), String.format(
 												"Subtotal/actual exceeds budget %.3f by %.3f " + kbliteral.getName(),
 												budgetSub, (budgetSubtotal - budgetSub)));
+									}
+
+									buildDiagnosys(memory, null, budgetResult, "RAM", kbliteral);
+
+									subRes.getSubResults().add(budgetResult);
+								}
 							}
 						}
 					}
@@ -321,11 +382,27 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 							double budgetSub = b.getBudgetSub();
 							double budgetSubtotal = b.getBudgetSubtotal();
 
-							if (budgetSub > 0 && budgetSubtotal > budgetSub) {
-								error(memResult, memory.getComponentInstance(),
-										String.format(
+							for (Result subRes : memResult.getSubResults()) {
+								if ("ROM".equalsIgnoreCase(ResultUtil.getString(subRes, 2))) {
+									final Result budgetResult = ResultUtil.createResult(c.getLabel(),
+											c.getComponentInstance(), ResultType.SUCCESS);
+									ResultUtil.addRealValue(budgetResult, budgetSub);
+									ResultUtil.addRealValue(budgetResult, budgetSubtotal); // actual
+									ResultUtil.addStringValue(budgetResult,
+											GetProperties.toStringScaled(budgetSub, kbliteral));
+									ResultUtil.addStringValue(budgetResult,
+											GetProperties.toStringScaled(budgetSubtotal, kbliteral));
+
+									if (budgetSub > 0 && budgetSubtotal > budgetSub) {
+										error(budgetResult, memory.getComponentInstance(), String.format(
 												"Subtotal/actual exceeds budget %.3f by %.3f " + kbliteral.getName(),
 												budgetSub, (budgetSubtotal - budgetSub)));
+									}
+
+									buildDiagnosys(memory, null, budgetResult, "ROM", kbliteral);
+
+									subRes.getSubResults().add(budgetResult);
+								}
 							}
 						}
 					}
@@ -338,9 +415,9 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 			ResultUtil.addStringValue(memResult, memory.getSomName()); // somName
 
 			ResultUtil.addStringValue(memResult,
-					GetProperties.toStringScaled(memory.getTotalCapacityMemory(), kbliteral)); // budget for Memory string in Kbytes
-			ResultUtil.addStringValue(memResult, GetProperties.toStringScaled(memory.getTotalCapacityRAM(), kbliteral)); // budget for RAM string in Kbytes
-			ResultUtil.addStringValue(memResult, GetProperties.toStringScaled(memory.getTotalCapacityROM(), kbliteral)); // budget for ROM string in Kbytes
+					GetProperties.toStringScaled(memory.getTotalCapacityMemory(), kbliteral)); // capacity for Memory string in Kbytes
+			ResultUtil.addStringValue(memResult, GetProperties.toStringScaled(memory.getTotalCapacityRAM(), kbliteral)); // capacity for RAM string in Kbytes
+			ResultUtil.addStringValue(memResult, GetProperties.toStringScaled(memory.getTotalCapacityROM(), kbliteral)); // capacity for ROM string in Kbytes
 
 			ResultUtil.addStringValue(memResult, ci.getCategory().getName()); // component category name
 			ResultUtil.addStringValue(memResult, ci.getComponentInstancePath()); // component path
@@ -353,9 +430,10 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 			ResultUtil.addRealValue(memResult, memory.getTotalCapacityRAM(), kbliteral.getName()); // in Kbytes for RAM
 			ResultUtil.addRealValue(memResult, memory.getTotalCapacityROM(), kbliteral.getName()); // in Kbytes for ROM
 
-			buildDiagnosys(memory, null, memResult, "Memory", kbliteral); // repeat of above?
-			buildDiagnosys(memory, null, memResult, "RAM", kbliteral);
-			buildDiagnosys(memory, null, memResult, "ROM", kbliteral);
+			ResultUtil.addStringValue(memResult,
+					GetProperties.toStringScaled(memory.getTotalBudgetMemory(), kbliteral)); // budget for Memory string in Kbytes
+			ResultUtil.addStringValue(memResult, GetProperties.toStringScaled(memory.getTotalBudgetRAM(), kbliteral)); // budget for RAM string in Kbytes
+			ResultUtil.addStringValue(memResult, GetProperties.toStringScaled(memory.getTotalBudgetROM(), kbliteral)); // budget for ROM string in Kbytes
 		}
 
 		@Override

@@ -166,6 +166,8 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 		}
 
 		printItem(pw, "Detailed MIPS Budget Report " + somResult.getMessage());
+		pw.println();
+		pw.println();
 		printItems(pw, "Component", "Budget", "Actual", "Notes");
 		pw.println();
 		// detailedLog(prefix, ci, budget, subtotal, resourceName, unit, notes);
@@ -248,14 +250,16 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 				 * 11 ResultUtil.addRealValue(memResult, memory.getTotalCapacityRAM(), kbliteral.getName()); // in Kbytes for RAM
 				 * 12 ResultUtil.addRealValue(memResult, memory.getTotalCapacityROM(), kbliteral.getName()); // in Kbytes for ROM
 				 */
+				// Memory
 				if (ResultUtil.getReal(subResult, 10) > 0) { // total capacity > 0
 					pw.println();
 					printItem(pw, "Detailed Memory Capacity Report " + ResultUtil.getString(subResult, 1));
 					pw.println();
+					pw.println();
 					printItems(pw, "Component", "Capacity");
 
 					for (final Result capResult : subResult.getSubResults()) {
-						if ("Memory".equalsIgnoreCase(ResultUtil.getString(capResult, 2))) {
+						if (ComponentCategory.MEMORY.getName().equalsIgnoreCase(ResultUtil.getString(capResult, 2))) {
 							// print capacities
 							printItems(pw,
 									ResultUtil.getString(subResult, 5) + " " + ResultUtil.getString(subResult, 6),
@@ -263,11 +267,215 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 							pw.println();
 						}
 					}
+
+					printItems(pw, "Total", ResultUtil.getString(subResult, 10));
+					pw.println();
+					pw.println();
+
+					// budget
+					printItem(pw, "Detailed Memory Budget Report " + ResultUtil.getString(subResult, 1));
+					pw.println();
+					pw.println();
+					printItems(pw, "Component", "Budget", "Actual", "Notes");
+					pw.println();
+
+					if (ResultUtil.getReal(subResult, 7) > 0) { // total budget > 0
+						/*
+						 * <li>values[0] = Budget (RealValue)
+						 * <li>values[1] = Actual Budget (RealValue)
+						 * <li>values[2] = Budget with unit (StringValue)
+						 * <li>values[3] = Actual budget with unit (StringValue)
+						 * <li>Diagnostic notes (StringValue)
+						 */
+						for (final Result capResult : subResult.getSubResults()) {
+							if (ComponentCategory.MEMORY.getName()
+									.equalsIgnoreCase(ResultUtil.getString(capResult, 2))) {
+								for (final Result budgetResult : capResult.getSubResults()) {
+									StringBuilder sb = new StringBuilder();
+									for (Diagnostic diagnostic : budgetResult.getDiagnostics()) {
+										sb.append(diagnostic.getMessage());
+									}
+
+									printItems(pw,
+											ResultUtil.getString(subResult, 5) + " "
+													+ ResultUtil.getString(subResult, 6),
+											ResultUtil.getString(budgetResult, 2),
+											ResultUtil.getString(budgetResult, 3),
+											sb.toString());
+									pw.println();
+								}
+							}
+						}
+
+						// print a total budget
+						printItems(pw, "Total", "", ResultUtil.getString(subResult, 13));
+						pw.println();
+
+						// print diagnostic messages
+						for (final Result capResult : subResult.getSubResults()) {
+							if (ComponentCategory.MEMORY.getName()
+									.equalsIgnoreCase(ResultUtil.getString(capResult, 2))) {
+								for (final Result budgetResult : capResult.getSubResults()) {
+									printItem(pw, ResultUtil.getString(budgetResult, 4));
+									pw.println();
+								}
+							}
+						}
+
+						pw.println();
+					}
+				}
+
+				// RAM
+				if (ResultUtil.getReal(subResult, 11) > 0) { // total capacity > 0
+					pw.println();
+					printItem(pw, "Detailed RAM Capacity Report " + ResultUtil.getString(subResult, 1));
+					pw.println();
+					pw.println();
+					printItems(pw, "Component", "Capacity");
+
+					for (final Result capResult : subResult.getSubResults()) {
+						if ("RAM".equalsIgnoreCase(ResultUtil.getString(capResult, 2))) {
+							// print capacities
+							printItems(pw,
+									ResultUtil.getString(subResult, 5) + " " + ResultUtil.getString(subResult, 6),
+									ResultUtil.getString(capResult, 1));
+							pw.println();
+						}
+					}
+
+					printItems(pw, "Total", ResultUtil.getString(subResult, 11));
+					pw.println();
+					pw.println();
+
+					// budget
+					printItem(pw, "Detailed RAM Budget Report " + ResultUtil.getString(subResult, 1));
+					pw.println();
+					pw.println();
+					printItems(pw, "Component", "Budget", "Actual", "Notes");
+					pw.println();
+
+					if (ResultUtil.getReal(subResult, 8) > 0) { // total budget > 0
+						/*
+						 * <li>values[0] = Budget (RealValue)
+						 * <li>values[1] = Actual Budget (RealValue)
+						 * <li>values[2] = Budget with unit (StringValue)
+						 * <li>values[3] = Actual budget with unit (StringValue)
+						 * <li>Diagnostic notes (StringValue)
+						 */
+						for (final Result capResult : subResult.getSubResults()) {
+							if ("RAM".equalsIgnoreCase(ResultUtil.getString(capResult, 2))) {
+								for (final Result budgetResult : capResult.getSubResults()) {
+									StringBuilder sb = new StringBuilder();
+									for (Diagnostic diagnostic : budgetResult.getDiagnostics()) {
+										sb.append(diagnostic.getMessage());
+									}
+
+									printItems(pw,
+											ResultUtil.getString(subResult, 5) + " "
+													+ ResultUtil.getString(subResult, 6),
+											ResultUtil.getString(budgetResult, 2),
+											ResultUtil.getString(budgetResult, 3),
+											sb.toString());
+									pw.println();
+								}
+							}
+						}
+
+						// print a total budget
+						printItems(pw, "Total", "", ResultUtil.getString(subResult, 14));
+						pw.println();
+
+						// print diagnostic messages
+						for (final Result capResult : subResult.getSubResults()) {
+							if ("RAM".equalsIgnoreCase(ResultUtil.getString(capResult, 2))) {
+								for (final Result budgetResult : capResult.getSubResults()) {
+									printItem(pw, ResultUtil.getString(budgetResult, 4));
+									pw.println();
+								}
+							}
+						}
+
+						pw.println();
+					}
+				}
+
+				// ROM
+				if (ResultUtil.getReal(subResult, 12) > 0) { // total capacity > 0
+					pw.println();
+					printItem(pw, "Detailed ROM Capacity Report " + ResultUtil.getString(subResult, 1));
+					pw.println();
+					pw.println();
+					printItems(pw, "Component", "Capacity");
+
+					for (final Result capResult : subResult.getSubResults()) {
+						if ("ROM".equalsIgnoreCase(ResultUtil.getString(capResult, 2))) {
+							// print capacities
+							printItems(pw,
+									ResultUtil.getString(subResult, 5) + " " + ResultUtil.getString(subResult, 6),
+									ResultUtil.getString(capResult, 1));
+							pw.println();
+						}
+					}
+
+					printItems(pw, "Total", ResultUtil.getString(subResult, 12));
+					pw.println();
+					pw.println();
+
+					// budget
+					printItem(pw, "Detailed ROM Budget Report " + ResultUtil.getString(subResult, 1));
+					pw.println();
+					pw.println();
+					printItems(pw, "Component", "Budget", "Actual", "Notes");
+					pw.println();
+
+					if (ResultUtil.getReal(subResult, 9) > 0) { // total budget > 0
+						/*
+						 * <li>values[0] = Budget (RealValue)
+						 * <li>values[1] = Actual Budget (RealValue)
+						 * <li>values[2] = Budget with unit (StringValue)
+						 * <li>values[3] = Actual budget with unit (StringValue)
+						 * <li>Diagnostic notes (StringValue)
+						 */
+						for (final Result capResult : subResult.getSubResults()) {
+							if ("ROM".equalsIgnoreCase(ResultUtil.getString(capResult, 2))) {
+								for (final Result budgetResult : capResult.getSubResults()) {
+									StringBuilder sb = new StringBuilder();
+									for (Diagnostic diagnostic : budgetResult.getDiagnostics()) {
+										sb.append(diagnostic.getMessage());
+									}
+
+									printItems(pw,
+											ResultUtil.getString(subResult, 5) + " "
+													+ ResultUtil.getString(subResult, 6),
+											ResultUtil.getString(budgetResult, 2),
+											ResultUtil.getString(budgetResult, 3),
+											sb.toString());
+									pw.println();
+								}
+							}
+						}
+
+						// print a total budget
+						printItems(pw, "Total", "", ResultUtil.getString(subResult, 15));
+						pw.println();
+
+						// print diagnostic messages
+						for (final Result capResult : subResult.getSubResults()) {
+							if ("ROM".equalsIgnoreCase(ResultUtil.getString(capResult, 2))) {
+								for (final Result budgetResult : capResult.getSubResults()) {
+									printItem(pw, ResultUtil.getString(budgetResult, 4));
+									pw.println();
+								}
+							}
+						}
+
+						pw.println();
+					}
 				}
 			}
 		}
 
-//			somResult.getSubResults().forEach(busResult -> generateCSVforBus(pw, busResult, null));
-		pw.println(); // add a second newline, the first is from the end of generateCSVforBus()
+		pw.println();
 	}
 }
