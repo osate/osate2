@@ -24,10 +24,8 @@
 package org.osate.analysis.resource.budgets.internal.notbound.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
@@ -47,16 +45,9 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class NotBoundModel extends ModelElement {
 	private final List<ProcessorOrVirtualProcessor> rootProcessors = new ArrayList<>();
-	private final Map<SystemInstance, ProcessorOrVirtualProcessor> processors = new HashMap<>();
-
 	private final List<ProcessorOrVirtualProcessor> rootVirtProcessors = new ArrayList<>();
-	private final Map<SystemInstance, ProcessorOrVirtualProcessor> virtProcessors = new HashMap<>();
-
 	private final List<Memory> rootMemories = new ArrayList<>();
-	private final Map<SystemInstance, Memory> memories = new HashMap<>();
-
 	private final List<MIPS> rootMIPS = new ArrayList<>();
-	private final Map<SystemInstance, MIPS> mips = new HashMap<>();
 
 	/*
 	 * Use {@link #buildModel(SystemInstance, SystemOperationMode)} to get an instance of the
@@ -64,52 +55,6 @@ public class NotBoundModel extends ModelElement {
 	 */
 	public NotBoundModel() {
 		super();
-	}
-
-	private MIPS getMIPS(final SystemInstance si, final ComponentInstance ci, String somName) {
-		MIPS mip = mips.get(si);
-		if (mip == null) {
-			mip = new MIPS(si, ci, somName);
-
-			mips.put(si, mip);
-		}
-		return mip;
-	}
-
-	private Memory getMemory(final SystemInstance si, final ComponentInstance ci, String somName) {
-		Memory mem = memories.get(si);
-		if (mem == null) {
-			mem = new Memory(si, ci);
-			mem.setSomName(somName);
-			mem.setCategory("Memory");
-
-			memories.put(si, mem);
-		}
-		return mem;
-	}
-
-	private ProcessorOrVirtualProcessor getProcessor(final SystemInstance si, final ComponentInstance ci,
-			String somName) {
-		ProcessorOrVirtualProcessor proc = processors.get(si);
-		if (proc == null) {
-			proc = new ProcessorOrVirtualProcessor(si, ci, "Processor");
-			proc.setSomName(somName);
-			proc.setCategory("Processor");
-			processors.put(si, proc);
-		}
-		return proc;
-	}
-
-	private ProcessorOrVirtualProcessor getVirtProcessor(final SystemInstance si, final ComponentInstance ci,
-			String somName) {
-		ProcessorOrVirtualProcessor proc = virtProcessors.get(si);
-		if (proc == null) {
-			proc = new ProcessorOrVirtualProcessor(si, ci, "VirtualProcessor");
-			proc.setSomName(somName);
-			proc.setCategory("VirtualProcessor");
-			virtProcessors.put(si, proc);
-		}
-		return proc;
 	}
 
 	@Override
@@ -183,7 +128,7 @@ public class NotBoundModel extends ModelElement {
 
 	private static void addMemory(final NotBoundModel model, final SystemInstance si, final ComponentInstance ci,
 			final SystemOperationMode som) {
-		final Memory theMemory = model.getMemory(si, ci, Aadl2Util.getPrintableSOMName(som));
+		final Memory theMemory = (model.rootMemories.size() > 0) ? model.rootMemories.get(0) : new Memory(si, ci);
 
 		for (Component comp : theMemory.getComponents()) {
 			if (comp.getComponentInstance().equals(ci))
@@ -219,12 +164,16 @@ public class NotBoundModel extends ModelElement {
 		comp.addROM(subROM);
 
 		theMemory.addComponent(comp);
-		model.addMemory(theMemory);
+
+		if (model.rootMemories.size() < 1) { // only 1 root Memory is needed - this is more of a category
+			model.addMemory(theMemory); // components (Memory children) will have actual Memory info
+		}
 	}
 
 	private static void addMIPS(final NotBoundModel model, final SystemInstance si, final ComponentInstance ci,
 			final SystemOperationMode som) {
-		MIPS theMIPS = model.getMIPS(si, ci, Aadl2Util.getPrintableSOMName(som));
+		final MIPS theMIPS = (model.rootMIPS.size() > 0) ? model.rootMIPS.get(0)
+				: new MIPS(si, ci, Aadl2Util.getPrintableSOMName(som));
 
 		for (Component comp : theMIPS.getComponents()) {
 			if (comp.getComponentInstance().equals(ci)) {
@@ -242,13 +191,16 @@ public class NotBoundModel extends ModelElement {
 		comp.setComponentInstance(ci);
 		comp.addMemory(subMIPS);
 		theMIPS.addComponent(comp);
-		model.addMIPS(theMIPS);
+
+		if (model.rootMIPS.size() < 1) { // only 1 root MIPS is needed - this is more of a category
+			model.addMIPS(theMIPS); // components (MIPS children) will have actual MIPS info
+		}
 	}
 
 	private static void addVirtualProcessor(final NotBoundModel model, final SystemInstance si,
 			final ComponentInstance ci, final SystemOperationMode som) {
-		final ProcessorOrVirtualProcessor theProcessor = model.getVirtProcessor(si, ci,
-				Aadl2Util.getPrintableSOMName(som));
+		final ProcessorOrVirtualProcessor theProcessor = (model.rootProcessors.size() > 0) ? model.rootProcessors.get(0)
+				: new ProcessorOrVirtualProcessor(si, ci, "VirtualProcessor");
 
 		for (Component comp : theProcessor.getComponents()) {
 			if (comp.getComponentInstance().equals(ci)) {
@@ -267,7 +219,10 @@ public class NotBoundModel extends ModelElement {
 		comp.setComponentPath(ci.getComponentInstancePath());
 
 		theProcessor.addComponent(comp);
-		model.addVirtProcessor(theProcessor);
+
+		if (model.rootVirtProcessors.size() < 1) { // only 1 root processor is needed - this is more of a category
+			model.addVirtProcessor(theProcessor); // components (processor children) will have actual processor info
+		}
 	}
 
 	private static void addProcessor(final NotBoundModel model, final SystemInstance si, final ComponentInstance ci,
