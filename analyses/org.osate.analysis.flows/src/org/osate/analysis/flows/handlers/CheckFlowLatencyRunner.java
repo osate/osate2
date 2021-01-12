@@ -10,6 +10,7 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.osate.aadl2.instance.SystemInstance;
@@ -17,7 +18,7 @@ import org.osate.analysis.flows.FlowanalysisPlugin;
 import org.osate.ui.rerun.Runner;
 
 final class CheckFlowLatencyRunner implements Runner {
-	private static final int BORDER = 5;
+	private static final int BORDER = 0;
 	private static final String NAME = "Check Flow Latency";
 	private static final String ICON = "icons/checkFlowLatency.gif";
 	private static final ImageDescriptor ICON_DESCRIPTOR = FlowanalysisPlugin.getImageDescriptor(ICON);
@@ -97,6 +98,7 @@ final class CheckFlowLatencyRunner implements Runner {
 	public Control createContents(final Composite parent) {
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new FormLayout());
+		composite.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_GREEN));
 
 		final Label systemLabel = new Label(composite, SWT.LEFT);
 		systemLabel.setText(SYSTEM_LABEL);

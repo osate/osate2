@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -28,11 +29,13 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.rerun.RerunManager;
 import org.osate.ui.rerun.Runner;
@@ -158,14 +161,17 @@ public final class AnalysisRunsDialog extends Dialog {
 		analysisListView.setInput(runners);
 
 		final Label uriLabel = new Label(composite, SWT.LEFT);
-		uriLabel.setText("Model URI:");
+		uriLabel.setText("Model:");
 
 		uriText = new Text(composite, SWT.SINGLE | SWT.READ_ONLY);
-		uriText.setText("blah blah blah blah");
 
 		final Composite outerPageContainer = new Composite(composite, SWT.NONE);
 		createPageContainer(outerPageContainer);
-		outerPageContainer.setLayout(new GridLayout());
+		final GridLayout gl = new GridLayout();
+		gl.marginWidth = 0;
+		gl.marginHeight = 0;
+		outerPageContainer.setLayout(gl);
+		outerPageContainer.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_CYAN));
 
 		FormData data = new FormData();
 		data.top = new FormAttachment(0, BORDER);
@@ -209,6 +215,7 @@ public final class AnalysisRunsDialog extends Dialog {
 		scrolled.setShowFocusedControl(true);
 		scrolled.setExpandHorizontal(true);
 		scrolled.setExpandVertical(true);
+		scrolled.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_RED));
 
 		final GridData scrolledData = new GridData(
 				GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
@@ -225,7 +232,8 @@ public final class AnalysisRunsDialog extends Dialog {
 
 	/* inspired by PreferenceDialog.showPage() */
 	private void showRunner(final Runner runner) {
-		uriText.setText(runner.getInstanceURI().toString());
+		final IPath ipath = OsateResourceUtil.toIFile(runner.getInstanceURI()).getFullPath();
+		uriText.setText(ipath.toString());
 
 		final Control[] result = { runnerToControl.get(runner) };
 		if (result[0] == null) {
