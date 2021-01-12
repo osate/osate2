@@ -23,20 +23,26 @@
  */
 package org.osate.ge.gef;
 
+import org.eclipse.gef.fx.anchors.IAnchor;
+import org.eclipse.gef.fx.anchors.StaticAnchor;
+import org.eclipse.gef.geometry.planar.Point;
+
 /**
- * Supported positions for label children.
+ * Extension of {@link BaseConnectionNode} which is intended to represent a flow indicator. Allows setting the start
+ * anchor. The end anchor of the connection is placed at the local origin.
  */
-public enum LabelPosition {
+public class FlowIndicatorNode extends BaseConnectionNode {
+	private StaticAnchor anchor = new StaticAnchor(this, new Point(0.0, 0.0));
+
 	/**
-	 * Left/Top
+	 * Creates a new instance
 	 */
-	BEGINNING,
-	/**
-	 * Horizontal/Vertical Middle
-	 */
-	CENTER,
-	/**
-	 * Right/Bottom
-	 */
-	END
+	public FlowIndicatorNode() {
+		setEndAnchor(anchor);
+	}
+
+	@Override
+	public void setStartAnchor(final IAnchor anchor) {
+		super.setStartAnchor(anchor);
+	}
 }

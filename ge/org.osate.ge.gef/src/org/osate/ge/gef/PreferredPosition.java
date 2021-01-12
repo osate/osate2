@@ -23,20 +23,50 @@
  */
 package org.osate.ge.gef;
 
+import java.util.Objects;
+
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
+
 /**
- * Supported positions for label children.
+ * Class for accessing the preferred position property used by {@link ContainerShape} and {@link PreferredPosition} to
+ * layout children. Ultimately the container will decide how to position the node and the property may not be used
+ * for all children.
  */
-public enum LabelPosition {
+public class PreferredPosition {
 	/**
-	 * Left/Top
+	 * Key for the property for the preferred position of the node.
 	 */
-	BEGINNING,
+	private static final Object KEY = new Object();
+
 	/**
-	 * Horizontal/Vertical Middle
+	 * Returns the preferred position of a node. If one has not been set, this will return null.
+	 * @param node the node for which to retrieve the preferred position
+	 * @return the node's preferred position.
 	 */
-	CENTER,
+	public static Point2D get(final Node node) {
+		return (Point2D) node.getProperties().get(KEY);
+	}
+
 	/**
-	 * Right/Bottom
+	 * Sets the preferred position of a node. The preferred position is the position where the node should be placed.
+	 * The layout algorithm will use it determine the actual position of the node.
+	 * @param node the node for which to set the preferred position
+	 * @param value the new preferred position
 	 */
-	END
+	public static void set(final Node node, final Point2D value) {
+		final Point2D oldValue = get(node);
+		if (!Objects.equals(value, oldValue)) {
+			if (value == null) {
+				node.getProperties().remove(KEY, value);
+			} else {
+				node.getProperties().put(KEY, value);
+			}
+
+			// Request that the parent reposition this child
+			if (node.getParent() != null) {
+				node.getParent().requestLayout();
+			}
+		}
+	}
 }

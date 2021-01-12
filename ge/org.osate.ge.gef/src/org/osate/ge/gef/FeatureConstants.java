@@ -24,19 +24,22 @@
 package org.osate.ge.gef;
 
 /**
- * Supported positions for label children.
+ * Constants shared by nodes intended to represent fixed-size AADL features. These constants specify the size
+ * of all such features.
  */
-public enum LabelPosition {
+class FeatureConstants {
 	/**
-	 * Left/Top
+	 * Width of the feature.
 	 */
-	BEGINNING,
+	public static double WIDTH = 20.0;
+
 	/**
-	 * Horizontal/Vertical Middle
+	 * Height of the feature.
 	 */
-	CENTER,
+	public static double HEIGHT = 16.0;
+
 	/**
-	 * Right/Bottom
+	 * The smallest dimension.
 	 */
-	END
+	public static double MIN_DIMENSION = Math.min(WIDTH, HEIGHT);
 }

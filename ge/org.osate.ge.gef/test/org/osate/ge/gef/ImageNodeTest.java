@@ -23,20 +23,45 @@
  */
 package org.osate.ge.gef;
 
-/**
- * Supported positions for label children.
- */
-public enum LabelPosition {
+import java.nio.file.Paths;
+
+import javafx.concurrent.ScheduledService;
+import javafx.concurrent.Task;
+import javafx.util.Duration;
+
+public class ImageNodeTest {
+	private ImageNodeTest() {
+	}
+
 	/**
-	 * Left/Top
+	 * main() used for testing. First argument must contain the filepath to the image.
+	 * Periodically refreshes images.
 	 */
-	BEGINNING,
-	/**
-	 * Horizontal/Vertical Middle
-	 */
-	CENTER,
-	/**
-	 * Right/Bottom
-	 */
-	END
+	public static void main(final String[] args) {
+		NodeApplication.run(() -> {
+			@SuppressWarnings("resource")
+			final ImageManager images = new ImageManager();
+
+			// Start a service which will reload images
+			ScheduledService<Void> svc = new ScheduledService<Void>() {
+				@Override
+				protected Task<Void> createTask() {
+					return new Task<Void>() {
+						@Override
+						protected Void call() {
+							images.refreshImages();
+							return null;
+						}
+					};
+				}
+			};
+			svc.setPeriod(Duration.seconds(1));
+			svc.start();
+
+			final ImageNode image = new ImageNode();
+			image.setImageReference(images.getImageReference(Paths.get(args[0])));
+
+			return image;
+		});
+	}
 }

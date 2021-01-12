@@ -24,19 +24,14 @@
 package org.osate.ge.gef;
 
 /**
- * Supported positions for label children.
+ * Interface that allows applying an {@link FxStyle} to the object.
  */
-public enum LabelPosition {
+public interface Stylable {
 	/**
-	 * Left/Top
+	 * Updates the object based on the specified style. Objects may only support a subset of style properties.
+	 * The object does not style descendants. It should only apply the style to itself and internal created children nodes
+	 * which do not implement {@link Stylable}
+	 * @param style the style to apply
 	 */
-	BEGINNING,
-	/**
-	 * Horizontal/Vertical Middle
-	 */
-	CENTER,
-	/**
-	 * Right/Bottom
-	 */
-	END
+	void apply(final FxStyle style);
 }

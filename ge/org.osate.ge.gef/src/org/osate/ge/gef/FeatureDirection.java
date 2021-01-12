@@ -24,19 +24,10 @@
 package org.osate.ge.gef;
 
 /**
- * Supported positions for label children.
+ * Enumeration for specifying the direction for directional features.
  */
-public enum LabelPosition {
-	/**
-	 * Left/Top
-	 */
-	BEGINNING,
-	/**
-	 * Horizontal/Vertical Middle
-	 */
-	CENTER,
-	/**
-	 * Right/Bottom
-	 */
-	END
+public enum FeatureDirection {
+	IN,
+	OUT,
+	IN_OUT
 }

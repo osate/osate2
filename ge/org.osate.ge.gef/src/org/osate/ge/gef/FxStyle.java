@@ -25,15 +25,13 @@ package org.osate.ge.gef;
 
 import java.util.Objects;
 
-import org.osate.ge.gef.graphics.ImageReference;
-
 import com.google.common.collect.ImmutableList;
 
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 /**
- * Style which is implemented using JavaFX specific types.
+ * Describes the style of a node using JavaFX specific types.
  */
 public class FxStyle {
 	public static class Builder {
@@ -41,17 +39,16 @@ public class FxStyle {
 		private Color outlineColor = Color.BLACK;
 		private Color fontColor = Color.BLACK;
 		private Font font = Font.getDefault();
-		private double strokeDashOffset = 0.0;
 		private ImmutableList<Double> strokeDashArray = ImmutableList.of();
-		private double lineWidth = 1.0;
+		private double lineWidth = 2.0;
 		private LabelPosition horzontalLabelPosition = LabelPosition.CENTER;
 		private LabelPosition verticalLabelPosition = LabelPosition.BEGINNING;
-		private boolean primaryLabelVisible = true;
+		private boolean primaryLabelsVisible = true;
 		private ImageReference image;
 
 		/**
 		 * Sets the background color
-		 * @param value the new background color.
+		 * @param value the new background color. Must not be null.
 		 * @return this builder object
 		 */
 		public Builder backgroundColor(final Color value) {
@@ -61,7 +58,7 @@ public class FxStyle {
 
 		/**
 		 * Sets the outline color
-		 * @param value the new outline color.
+		 * @param value the new outline color. Must not be null.
 		 * @return this builder object
 		 */
 		public Builder outlineColor(final Color value) {
@@ -71,7 +68,7 @@ public class FxStyle {
 
 		/**
 		 * Sets the font color
-		 * @param value the new font color.
+		 * @param value the new font color. Must not be null.
 		 * @return this builder object
 		 */
 		public Builder fontColor(final Color value) {
@@ -81,7 +78,7 @@ public class FxStyle {
 
 		/**
 		 * Sets the font
-		 * @param value the new font.
+		 * @param value the new font. Must not be null.
 		 * @return this builder object
 		 */
 		public Builder font(final Font value) {
@@ -90,18 +87,8 @@ public class FxStyle {
 		}
 
 		/**
-		 * Sets the stroke dash offset
-		 * @param value the new stroke dash offset.
-		 * @return this builder object
-		 */
-		public Builder strokeDashOffset(final double value) {
-			this.strokeDashOffset = value;
-			return this;
-		}
-
-		/**
 		 * Sets the stroke dash array
-		 * @param value the new stroke dash array.
+		 * @param value the new stroke dash array. Must not be null.
 		 * @return this builder object
 		 */
 		public Builder strokeDashArray(final ImmutableList<Double> value) {
@@ -111,7 +98,7 @@ public class FxStyle {
 
 		/**
 		 * Sets the line width
-		 * @param value the new line width.
+		 * @param value the new line width. Must not be null.
 		 * @return this builder object
 		 */
 		public Builder lineWidth(final double value) {
@@ -121,7 +108,7 @@ public class FxStyle {
 
 		/**
 		 * Sets the horizontal label position
-		 * @param value the new horizontal label position.
+		 * @param value the new horizontal label position. Must not be null.
 		 * @return this builder object
 		 */
 		public Builder horizontalLabelPosition(final LabelPosition value) {
@@ -131,7 +118,7 @@ public class FxStyle {
 
 		/**
 		 * Sets the vertical label position
-		 * @param value the new vertical label position.
+		 * @param value the new vertical label position. Must not be null.
 		 * @return this builder object
 		 */
 		public Builder verticalLabelPosition(final LabelPosition value) {
@@ -140,12 +127,12 @@ public class FxStyle {
 		}
 
 		/**
-		 * Sets whether to show the primary label
-		 * @param value whether to show the primary label
+		 * Sets whether to show the primary labels
+		 * @param value whether to show the primary labels
 		 * @return this builder object
 		 */
-		public Builder primaryLabelVisible(final boolean value) {
-			this.primaryLabelVisible = value;
+		public Builder primaryLabelsVisible(final boolean value) {
+			this.primaryLabelsVisible = value;
 			return this;
 		}
 
@@ -160,8 +147,8 @@ public class FxStyle {
 		}
 
 		public FxStyle build() {
-			return new FxStyle(backgroundColor, outlineColor, fontColor, font, strokeDashOffset, strokeDashArray,
-					lineWidth, horzontalLabelPosition, verticalLabelPosition, primaryLabelVisible, image);
+			return new FxStyle(backgroundColor, outlineColor, fontColor, font, strokeDashArray,
+					lineWidth, horzontalLabelPosition, verticalLabelPosition, primaryLabelsVisible, image);
 		}
 	}
 
@@ -169,34 +156,32 @@ public class FxStyle {
 	private final Color outlineColor;
 	private final Color fontColor;
 	private final Font font;
-	private final double strokeDashOffset;
 	private final ImmutableList<Double> strokeDashArray;
 	private final double lineWidth;
 	private final LabelPosition horzontalLabelPosition;
 	private final LabelPosition verticalLabelPosition;
-	private final boolean primaryLabelVisible;
+	private final boolean primaryLabelsVisible;
 	private final ImageReference image;
 
 	private FxStyle(final Color backgroundColor, final Color outlineColor, final Color fontColor, final Font font,
-			final double strokeDashOffset, final ImmutableList<Double> strokeDashArray, final double lineWidth,
+			final ImmutableList<Double> strokeDashArray, final double lineWidth,
 			final LabelPosition horzontalLabelPosition, final LabelPosition verticalLabelPosition,
-			final boolean primaryLabelVisible, final ImageReference image) {
+			final boolean primaryLabelsVisible, final ImageReference image) {
 		this.backgroundColor = backgroundColor;
 		this.outlineColor = outlineColor;
 		this.fontColor = fontColor;
 		this.font = font;
-		this.strokeDashOffset = strokeDashOffset;
 		this.strokeDashArray = strokeDashArray;
 		this.lineWidth = lineWidth;
 		this.horzontalLabelPosition = horzontalLabelPosition;
 		this.verticalLabelPosition = verticalLabelPosition;
-		this.primaryLabelVisible = primaryLabelVisible;
+		this.primaryLabelsVisible = primaryLabelsVisible;
 		this.image = image;
 	}
 
 	/**
 	 * Returns the background color
-	 * @return the backgroundColor
+	 * @return the background color. Will not return null.
 	 */
 	public final Color getBackgroundColor() {
 		return backgroundColor;
@@ -204,7 +189,7 @@ public class FxStyle {
 
 	/**
 	 * Returns the outline color
-	 * @return the outlineColor
+	 * @return the outline color. Will not return null.
 	 */
 	public final Color getOutlineColor() {
 		return outlineColor;
@@ -212,7 +197,7 @@ public class FxStyle {
 
 	/**
 	 * Returns the font color
-	 * @return the fontColor
+	 * @return the font color. Will not return null.
 	 */
 	public final Color getFontColor() {
 		return fontColor;
@@ -220,23 +205,15 @@ public class FxStyle {
 
 	/**
 	 * Returns the font
-	 * @return the font
+	 * @return the font. Will not return null.
 	 */
 	public final Font getFont() {
 		return font;
 	}
 
 	/**
-	 * Returns the stroke dash offset
-	 * @return the strokeDashOffset
-	 */
-	public final double getStrokeDashOffset() {
-		return strokeDashOffset;
-	}
-
-	/**
 	 * Returns the stroke dash array
-	 * @return the strokeDashArray
+	 * @return the stroke dash array. Will not return null.
 	 */
 	public final ImmutableList<Double> getStrokeDashArray() {
 		return strokeDashArray;
@@ -252,7 +229,7 @@ public class FxStyle {
 
 	/**
 	 * Returns the horizontal label position
-	 * @return the horizontal label position
+	 * @return the horizontal label position. Will not return null.
 	 */
 	public final LabelPosition getHorizontalLabelPosition() {
 		return horzontalLabelPosition;
@@ -260,24 +237,24 @@ public class FxStyle {
 
 	/**
 	 * Returns the vertical label position
-	 * @return the vertical label position
+	 * @return the vertical label position. Will not return null.
 	 */
 	public final LabelPosition getVerticalLabelPosition() {
 		return verticalLabelPosition;
 	}
 
 	/**
-	 * Returns whether to show the primary label.
-	 * @return whether to show the primary label.
+	 * Returns whether to show the primary labels.
+	 * @return whether to show the primary labels.
 	 */
-	public final boolean isPrimaryLabelVisible() {
-		return primaryLabelVisible;
+	public final boolean getPrimaryLabelsVisible() {
+		return primaryLabelsVisible;
 	}
 
 	/**
 	 * Returns a reference to the image to display instead of using the node's graphic.
 	 * If null, the node's graphic should be displayed.
-	 * @return the image to display in place of the node's graphic.
+	 * @return the image to display in place of the node's graphic. May return null.
 	 */
 	public final ImageReference getImage() {
 		return image;

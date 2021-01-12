@@ -30,9 +30,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import org.osate.ge.gef.graphics.SimplePaletteGroup;
-import org.osate.ge.gef.graphics.SimplePaletteItem;
-
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyProperty;

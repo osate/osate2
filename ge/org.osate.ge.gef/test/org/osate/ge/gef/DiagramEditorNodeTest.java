@@ -23,20 +23,19 @@
  */
 package org.osate.ge.gef;
 
-/**
- * Supported positions for label children.
- */
-public enum LabelPosition {
-	/**
-	 * Left/Top
-	 */
-	BEGINNING,
-	/**
-	 * Horizontal/Vertical Middle
-	 */
-	CENTER,
-	/**
-	 * Right/Bottom
-	 */
-	END
+import org.osate.ge.gef.palette.TestPaletteModel;
+
+import javafx.scene.layout.VBox;
+
+// TODO: Rename
+public class DiagramEditorNodeTest {
+	private DiagramEditorNodeTest() {
+	}
+
+	// TODO; Separate from other class because of initialization order issues
+	public static void main(final String[] args) {
+		NodeApplication.run(() -> {
+			return new DiagramEditorNode(new TestPaletteModel(), new VBox());
+		});
+	}
 }

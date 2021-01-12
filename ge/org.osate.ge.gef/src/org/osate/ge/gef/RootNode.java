@@ -23,20 +23,32 @@
  */
 package org.osate.ge.gef;
 
+import javafx.geometry.Point2D;
+import javafx.scene.Group;
+import javafx.scene.Node;
+
 /**
- * Supported positions for label children.
+ * Node intended to be used as the container for all top level {@link ContainerShape} instances. Sizes children to
+ * preferred size and positions the nodes based on {@link PreferredPosition}
  */
-public enum LabelPosition {
-	/**
-	 * Left/Top
-	 */
-	BEGINNING,
-	/**
-	 * Horizontal/Vertical Middle
-	 */
-	CENTER,
-	/**
-	 * Right/Bottom
-	 */
-	END
+public class RootNode extends Group {
+	@Override
+	protected void layoutChildren() {
+		// Position and size children
+		for (final Node child : getChildren()) {
+			if (child.isManaged()) {
+				final Point2D position = getPreferredPositionOrDefault(child);
+				child.relocate(position.getX(), position.getY());
+
+				if (child.isResizable()) {
+					child.autosize();
+				}
+			}
+		}
+	}
+
+	private Point2D getPreferredPositionOrDefault(final Node child) {
+		final Point2D prefPosition = PreferredPosition.get(child);
+		return prefPosition == null ? Point2D.ZERO : prefPosition;
+	}
 }

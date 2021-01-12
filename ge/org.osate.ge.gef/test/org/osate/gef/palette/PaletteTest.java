@@ -21,22 +21,17 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef;
+package org.osate.gef.palette;
 
-/**
- * Supported positions for label children.
- */
-public enum LabelPosition {
-	/**
-	 * Left/Top
-	 */
-	BEGINNING,
-	/**
-	 * Horizontal/Vertical Middle
-	 */
-	CENTER,
-	/**
-	 * Right/Bottom
-	 */
-	END
+import org.osate.ge.gef.NodeApplication;
+import org.osate.ge.gef.palette.Palette;
+import org.osate.ge.gef.palette.TestPaletteModel;
+
+public class PaletteTest {
+	private PaletteTest() {
+	}
+
+	public static void main(final String[] args) {
+		NodeApplication.run(() -> new Palette<>(new TestPaletteModel()));
+	}
 }

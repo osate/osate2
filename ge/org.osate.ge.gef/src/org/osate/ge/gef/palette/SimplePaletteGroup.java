@@ -21,22 +21,20 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef;
+package org.osate.ge.gef.palette;
 
-/**
- * Supported positions for label children.
- */
-public enum LabelPosition {
-	/**
-	 * Left/Top
-	 */
-	BEGINNING,
-	/**
-	 * Horizontal/Vertical Middle
-	 */
-	CENTER,
-	/**
-	 * Right/Bottom
-	 */
-	END
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.scene.image.Image;
+
+public class SimplePaletteGroup {
+	public final String label;
+	public final Image icon;
+	public final List<SimplePaletteItem> items = new ArrayList<>();
+
+	public SimplePaletteGroup(final String label, Image icon) {
+		this.label = label;
+		this.icon = icon;
+	}
 }

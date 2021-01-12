@@ -23,20 +23,16 @@
  */
 package org.osate.ge.gef;
 
+import org.eclipse.gef.geometry.planar.IGeometry;
+
 /**
- * Supported positions for label children.
+ * Interfaces intended to allow providing geometry for use as a chopbox geometry. The geometry is typically an
+ * outline of a node.
  */
-public enum LabelPosition {
+public interface ChopBoxGeometryProvider {
 	/**
-	 * Left/Top
+	 * Returns geometry suitable for use as the geometry of a chopbox anchor for this instance.
+	 * @return the chopbox geometry for the instance. Must not return null.
 	 */
-	BEGINNING,
-	/**
-	 * Horizontal/Vertical Middle
-	 */
-	CENTER,
-	/**
-	 * Right/Bottom
-	 */
-	END
+	IGeometry getChopBoxGeometry();
 }

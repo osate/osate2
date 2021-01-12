@@ -24,19 +24,16 @@
 package org.osate.ge.gef;
 
 /**
- * Supported positions for label children.
+ * Determines how children are laid out
  */
-public enum LabelPosition {
-	/**
-	 * Left/Top
-	 */
-	BEGINNING,
-	/**
-	 * Horizontal/Vertical Middle
-	 */
-	CENTER,
-	/**
-	 * Right/Bottom
-	 */
-	END
+public enum DockSide {
+	LEFT(true, false), RIGHT(true, true), TOP(false, false), BOTTOM(false, true);
+
+	final boolean vertical;
+	final boolean alignEnd;
+
+	DockSide(final boolean vertical, final boolean alignEnd) {
+		this.vertical = vertical;
+		this.alignEnd = alignEnd;
+	}
 }

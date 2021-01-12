@@ -23,20 +23,19 @@
  */
 package org.osate.ge.gef;
 
+import org.eclipse.gef.fx.anchors.IAnchor;
+
 /**
- * Supported positions for label children.
+ * Extension of {@link BaseConnectionNode} that allows setting the start and end anchors.
  */
-public enum LabelPosition {
-	/**
-	 * Left/Top
-	 */
-	BEGINNING,
-	/**
-	 * Horizontal/Vertical Middle
-	 */
-	CENTER,
-	/**
-	 * Right/Bottom
-	 */
-	END
+public class ConnectionNode extends BaseConnectionNode {
+	@Override
+	public void setStartAnchor(final IAnchor anchor) {
+		super.setStartAnchor(anchor);
+	}
+
+	@Override
+	public void setEndAnchor(final IAnchor anchor) {
+		super.setEndAnchor(anchor);
+	}
 }

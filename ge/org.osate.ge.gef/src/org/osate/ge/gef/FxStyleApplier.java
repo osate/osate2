@@ -23,20 +23,33 @@
  */
 package org.osate.ge.gef;
 
+import javafx.scene.Node;
+import javafx.scene.Parent;
+
 /**
- * Supported positions for label children.
+ * Utility class for applying {@link FxStyle} instances to nodes while taking into account the {@link StyleRoot} property.
  */
-public enum LabelPosition {
+public class FxStyleApplier {
+	private FxStyleApplier() {
+	}
+
 	/**
-	 * Left/Top
+	 * Applies the specified to a node recursively. Does not apply to descendants which are style roots.
+	 * @param node the node to which to apply the style.
+	 * @param style the style to apply.
 	 */
-	BEGINNING,
-	/**
-	 * Horizontal/Vertical Middle
-	 */
-	CENTER,
-	/**
-	 * Right/Bottom
-	 */
-	END
+	public static void applyStyle(final Node node, final FxStyle style) {
+		if (node instanceof Stylable) {
+			((Stylable) node).apply(style);
+		}
+
+		// Apply to descendants. Stop once a style root is reached.
+		if (node instanceof Parent) {
+			for (final Node child : ((Parent) node).getChildrenUnmodifiable()) {
+				if (!StyleRoot.get(child)) {
+					applyStyle(child, style);
+				}
+			}
+		}
+	}
 }
