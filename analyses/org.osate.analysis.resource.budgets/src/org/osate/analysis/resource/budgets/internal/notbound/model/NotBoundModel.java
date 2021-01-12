@@ -138,20 +138,22 @@ public class NotBoundModel extends ModelElement {
 			@Override
 			protected void process(final Element obj) {
 				final ComponentInstance ci = (ComponentInstance) obj;
+				final SystemInstance si = ci.getSystemInstance();
 
 				EList<ComponentInstance> proclist = (EList<ComponentInstance>) (EList<?>) new ForAllElement()
-						.processPreOrderComponentInstance(root, ComponentCategory.PROCESSOR);
-				proclist.forEach(elem -> addProcessor(model, root, elem, som));
+						.processPreOrderComponentInstance(ci, ComponentCategory.PROCESSOR);
+				proclist.forEach(elem -> addProcessor(model, si, elem, som));
 
 				EList<ComponentInstance> vproclist = (EList<ComponentInstance>) (EList<?>) new ForAllElement()
-						.processPreOrderComponentInstance(root, ComponentCategory.VIRTUAL_PROCESSOR);
-				vproclist.forEach(elem -> addVirtualProcessor(model, root, elem, som));
+						.processPreOrderComponentInstance(ci, ComponentCategory.VIRTUAL_PROCESSOR);
+				vproclist.forEach(elem -> addVirtualProcessor(model, si, elem, som));
 
 				EList<ComponentInstance> memlist = (EList<ComponentInstance>) (EList<?>) new ForAllElement()
-						.processPreOrderComponentInstance(root, ComponentCategory.MEMORY);
-				memlist.forEach(elem -> addMemory(model, root, elem, som));
+						.processPreOrderComponentInstance(ci, ComponentCategory.MEMORY);
 
-				addMIPS(model, root, ci, som);
+				memlist.forEach(elem -> addMemory(model, si, elem, som));
+
+				addMIPS(model, si, ci, som);
 			}
 		};
 		mal.processPreOrderComponentInstance(root);
@@ -182,6 +184,13 @@ public class NotBoundModel extends ModelElement {
 	private static void addMemory(final NotBoundModel model, final SystemInstance si, final ComponentInstance ci,
 			final SystemOperationMode som) {
 		final Memory theMemory = model.getMemory(si, ci, Aadl2Util.getPrintableSOMName(som));
+
+		for (Component comp : theMemory.getComponents()) {
+			if (comp.getComponentInstance().equals(ci))
+			{
+				return; // this component has already been processed
+			}
+		}
 
 		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(si);
 
@@ -217,6 +226,12 @@ public class NotBoundModel extends ModelElement {
 			final SystemOperationMode som) {
 		MIPS theMIPS = model.getMIPS(si, ci, Aadl2Util.getPrintableSOMName(som));
 
+		for (Component comp : theMIPS.getComponents()) {
+			if (comp.getComponentInstance().equals(ci)) {
+				return; // this component has already been processed
+			}
+		}
+
 		SubComponent subMIPS = new SubComponent("MIPS");
 		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(si);
 
@@ -235,6 +250,12 @@ public class NotBoundModel extends ModelElement {
 		final ProcessorOrVirtualProcessor theProcessor = model.getVirtProcessor(si, ci,
 				Aadl2Util.getPrintableSOMName(som));
 
+		for (Component comp : theProcessor.getComponents()) {
+			if (comp.getComponentInstance().equals(ci)) {
+				return; // this component has already been processed
+			}
+		}
+
 		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(si);
 		double budget = GetProperties.getMIPSBudgetInMIPS(ci);
 
@@ -251,7 +272,14 @@ public class NotBoundModel extends ModelElement {
 
 	private static void addProcessor(final NotBoundModel model, final SystemInstance si, final ComponentInstance ci,
 			final SystemOperationMode som) {
-		final ProcessorOrVirtualProcessor theProcessor = model.getProcessor(si, ci, Aadl2Util.getPrintableSOMName(som));
+		final ProcessorOrVirtualProcessor theProcessor = (model.rootProcessors.size() > 0) ? model.rootProcessors.get(0)
+				: new ProcessorOrVirtualProcessor(si, ci, "Processor");
+
+		for (Component comp : theProcessor.getComponents()) {
+			if (comp.getComponentInstance().equals(ci)) {
+				return; // this component has already been processed
+			}
+		}
 
 		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(si);
 
@@ -265,7 +293,10 @@ public class NotBoundModel extends ModelElement {
 		comp.setComponentPath(ci.getComponentInstancePath());
 
 		theProcessor.addComponent(comp);
-		model.addProcessor(theProcessor);
+
+		if (model.rootProcessors.size() < 1) { // only 1 root processor is needed - this is more of a category
+			model.addProcessor(theProcessor); // components (processor children) will have actual processor info
+		}
 	}
 
 	void addMIPS(final MIPS mip) {
@@ -277,7 +308,9 @@ public class NotBoundModel extends ModelElement {
 	}
 
 	void addProcessor(final ProcessorOrVirtualProcessor proc) {
-		rootProcessors.add(proc);
+		if (rootProcessors.size() < 1) {
+			rootProcessors.add(proc);
+		}
 	}
 
 	void addVirtProcessor(final ProcessorOrVirtualProcessor proc) {
