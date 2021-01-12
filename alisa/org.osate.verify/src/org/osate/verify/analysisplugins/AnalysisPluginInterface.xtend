@@ -31,13 +31,12 @@ import org.osate.analysis.architecture.handlers.CheckA429PortConnectionConsisten
 import org.osate.analysis.architecture.handlers.CheckConnectionBindingConsistency
 import org.osate.analysis.architecture.handlers.DoPortConnectionConsistency
 import org.osate.analysis.architecture.handlers.DoPropertyTotals
-import org.osate.analysis.resource.management.handlers.Binpack
+import org.osate.analysis.resource.budgets.handlers.BoundResourceAnalysisHandler
+import org.osate.analysis.resource.budgets.handlers.BusLoadAnalysisHandler
+import org.osate.analysis.resource.budgets.handlers.NotBoundResourceAnalysisHandler
+import org.osate.analysis.resource.budgets.handlers.PowerAnalysisHandler
 
 import static org.osate.verify.internal.util.VerifyUtilExtension.*
-import org.osate.analysis.resource.budgets.handlers.BoundResourceAnalysisHandler
-import org.osate.analysis.resource.budgets.handlers.PowerAnalysisHandler
-import org.osate.analysis.resource.budgets.handlers.NotBoundResourceAnalysisHandler
-import org.osate.analysis.resource.budgets.handlers.BusLoadAnalysisHandler
 
 class AnalysisPluginInterface {
 
@@ -162,22 +161,4 @@ class AnalysisPluginInterface {
 		}
 		markerType
 	}
-
-//=======================resource management========================//	
-	def static String Binpack(InstanceObject ci) {
-		val checker = new Binpack()
-		val markerType = checker.getMarkerType
-		val instance = ci.elementRoot as SystemInstance
-		if (!getHasRun(markerType, instance)) {
-			val som = instance.systemOperationModes.head
-			try {
-				checker.invoke(new NullProgressMonitor, instance, som)
-				setHasRun(markerType, instance)
-			} catch (Throwable e) {
-				unsetHasRun(markerType, instance)
-			}
-		}
-		markerType
-	}
-
 }
