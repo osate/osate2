@@ -35,8 +35,10 @@ import java.util.Map;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -47,8 +49,10 @@ import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.ModeTransition;
@@ -292,6 +296,12 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 
 	@Check(CheckType.FAST)
 	public void caseErrorModelSubclause(ErrorModelSubclause subclause) {
+		if (EcoreUtil2.getContainerOfType(subclause, FeatureGroupType.class) != null) {
+			error("Error model subclauses are not permitted in feature group types.",
+					EcoreUtil2.getContainerOfType(subclause, DefaultAnnexSubclause.class),
+					Aadl2Package.eINSTANCE.getNamedElement_Name());
+			return;
+		}
 		checkSubclauseAssociationToClassifier(subclause);
 		checkDuplicateSubclause(subclause);
 		checkOnePropagationAndContainmentPoint(subclause);
