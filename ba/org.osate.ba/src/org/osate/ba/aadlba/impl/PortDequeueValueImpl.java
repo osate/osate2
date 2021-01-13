@@ -19,11 +19,10 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.PortDequeueValue ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.PortDequeueValue;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,31 +31,28 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public class PortDequeueValueImpl extends ActualPortHolderImpl implements PortDequeueValue
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected PortDequeueValueImpl()
-  {
-    super();
-  }
+public class PortDequeueValueImpl extends ActualPortHolderImpl implements PortDequeueValue {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PortDequeueValueImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.PORT_DEQUEUE_VALUE;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.PORT_DEQUEUE_VALUE;
+	}
 
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
 
-} //PortDequeueValueImpl
+} // PortDequeueValueImpl

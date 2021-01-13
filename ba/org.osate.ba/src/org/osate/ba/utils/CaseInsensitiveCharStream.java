@@ -21,20 +21,19 @@
 
 package org.osate.ba.utils;
 
-import org.antlr.v4.runtime.ANTLRInputStream ;
-import org.antlr.v4.runtime.CharStream ;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CharStream;
 
 public class CaseInsensitiveCharStream extends ANTLRInputStream {
 
-	public CaseInsensitiveCharStream(String src)
-	{
+	public CaseInsensitiveCharStream(String src) {
 		super(src);
 	}
-	
+
 	// Copied from edu.cmu.sei.aadl.parser.CaseInsensitiveStringStream
 	/*
 	 * <copyright>
-	 * Copyright  2004 by Carnegie Mellon University, all rights reserved.
+	 * Copyright 2004 by Carnegie Mellon University, all rights reserved.
 	 *
 	 * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
 	 * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -71,21 +70,21 @@ public class CaseInsensitiveCharStream extends ANTLRInputStream {
 	 */
 	@Override
 	public int LA(int i) {
-		if ( i==0 ) {
+		if (i == 0) {
 			return 0; // undefined
 		}
-		if ( i<0 ) {
-			i++; // e.g., translate LA(-1) to use offset 0 
+		if (i < 0) {
+			i++; // e.g., translate LA(-1) to use offset 0
 		}
 
-		if ( (p+i-1) >= n ) {
-            //System.out.println("char LA("+i+")=EOF; p="+p);
-            return CharStream.EOF;
-        }
-        //System.out.println("char LA("+i+")="+data.charAt(p+i-1)+";p="+p);
-		if (Character.isUpperCase(data[p+i-1]))
-        	return Character.toLowerCase(data[p+i-1]);
-		
-		return data[p+i-1];
+		if ((p + i - 1) >= n) {
+			// System.out.println("char LA("+i+")=EOF; p="+p);
+			return CharStream.EOF;
+		}
+		// System.out.println("char LA("+i+")="+data.charAt(p+i-1)+";p="+p);
+		if (Character.isUpperCase(data[p + i - 1]))
+			return Character.toLowerCase(data[p + i - 1]);
+
+		return data[p + i - 1];
 	}
 }

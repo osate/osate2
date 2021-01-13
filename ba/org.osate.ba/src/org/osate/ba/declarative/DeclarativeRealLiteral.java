@@ -17,9 +17,9 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
-import org.osate.ba.aadlba.BehaviorRealLiteral ;
+import org.osate.ba.aadlba.BehaviorRealLiteral;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +31,5 @@ import org.osate.ba.aadlba.BehaviorRealLiteral ;
  * @model
  * @generated
  */
-public interface DeclarativeRealLiteral extends BehaviorRealLiteral,
-                                        DeclarativePropertyExpression
-{
+public interface DeclarativeRealLiteral extends BehaviorRealLiteral, DeclarativePropertyExpression {
 } // DeclarativeRealLiteral

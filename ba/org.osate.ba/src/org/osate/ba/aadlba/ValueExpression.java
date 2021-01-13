@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.eclipse.emf.common.util.EList;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,63 +39,62 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface ValueExpression extends Value, ParameterLabel, ExecuteCondition
-{
-  /**
-   * Returns the value of the '<em><b>Relations</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.ba.aadlba.Relation}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Relations</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Relations</em>' containment reference list.
-   * @see org.osate.ba.aadlba.AadlBaPackage#getValueExpression_Relations()
-   * @model containment="true"
-   * @generated
-   */
-  EList<Relation> getRelations();
+public interface ValueExpression extends Value, ParameterLabel, ExecuteCondition {
+	/**
+	 * Returns the value of the '<em><b>Relations</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.ba.aadlba.Relation}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Relations</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Relations</em>' containment reference list.
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getValueExpression_Relations()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Relation> getRelations();
 
-  /**
-   * Returns the value of the '<em><b>Logical Operators</b></em>' attribute list.
-   * The list contents are of type {@link org.osate.ba.aadlba.LogicalOperator}.
-   * The literals are from the enumeration {@link org.osate.ba.aadlba.LogicalOperator}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Logical Operators</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Logical Operators</em>' attribute list.
-   * @see org.osate.ba.aadlba.LogicalOperator
-   * @see #isSetLogicalOperators()
-   * @see #unsetLogicalOperators()
-   * @see org.osate.ba.aadlba.AadlBaPackage#getValueExpression_LogicalOperators()
-   * @model unique="false" unsettable="true"
-   * @generated
-   */
-  EList<LogicalOperator> getLogicalOperators();
+	/**
+	 * Returns the value of the '<em><b>Logical Operators</b></em>' attribute list.
+	 * The list contents are of type {@link org.osate.ba.aadlba.LogicalOperator}.
+	 * The literals are from the enumeration {@link org.osate.ba.aadlba.LogicalOperator}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Logical Operators</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Logical Operators</em>' attribute list.
+	 * @see org.osate.ba.aadlba.LogicalOperator
+	 * @see #isSetLogicalOperators()
+	 * @see #unsetLogicalOperators()
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getValueExpression_LogicalOperators()
+	 * @model unique="false" unsettable="true"
+	 * @generated
+	 */
+	EList<LogicalOperator> getLogicalOperators();
 
-  /**
-   * Unsets the value of the '{@link org.osate.ba.aadlba.ValueExpression#getLogicalOperators <em>Logical Operators</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isSetLogicalOperators()
-   * @see #getLogicalOperators()
-   * @generated
-   */
-  void unsetLogicalOperators();
+	/**
+	 * Unsets the value of the '{@link org.osate.ba.aadlba.ValueExpression#getLogicalOperators <em>Logical Operators</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetLogicalOperators()
+	 * @see #getLogicalOperators()
+	 * @generated
+	 */
+	void unsetLogicalOperators();
 
-  /**
-   * Returns whether the value of the '{@link org.osate.ba.aadlba.ValueExpression#getLogicalOperators <em>Logical Operators</em>}' attribute list is set.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return whether the value of the '<em>Logical Operators</em>' attribute list is set.
-   * @see #unsetLogicalOperators()
-   * @see #getLogicalOperators()
-   * @generated
-   */
-  boolean isSetLogicalOperators();
+	/**
+	 * Returns whether the value of the '{@link org.osate.ba.aadlba.ValueExpression#getLogicalOperators <em>Logical Operators</em>}' attribute list is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Logical Operators</em>' attribute list is set.
+	 * @see #unsetLogicalOperators()
+	 * @see #getLogicalOperators()
+	 * @generated
+	 */
+	boolean isSetLogicalOperators();
 
 } // ValueExpression

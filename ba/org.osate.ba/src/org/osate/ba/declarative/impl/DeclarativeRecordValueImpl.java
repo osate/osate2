@@ -17,14 +17,14 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative.impl ;
+package org.osate.ba.declarative.impl;
 
-import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.EClass;
 
-import org.osate.aadl2.impl.RecordValueImpl ;
+import org.osate.aadl2.impl.RecordValueImpl;
 
-import org.osate.ba.declarative.DeclarativePackage ;
-import org.osate.ba.declarative.DeclarativeRecordValue ;
+import org.osate.ba.declarative.DeclarativePackage;
+import org.osate.ba.declarative.DeclarativeRecordValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,28 +33,24 @@ import org.osate.ba.declarative.DeclarativeRecordValue ;
  *
  * @generated
  */
-public class DeclarativeRecordValueImpl extends RecordValueImpl implements
-                                        DeclarativeRecordValue
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected DeclarativeRecordValueImpl()
-  {
-    super() ;
-  }
+public class DeclarativeRecordValueImpl extends RecordValueImpl implements DeclarativeRecordValue {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DeclarativeRecordValueImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return DeclarativePackage.Literals.DECLARATIVE_RECORD_VALUE ;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return DeclarativePackage.Literals.DECLARATIVE_RECORD_VALUE;
+	}
 
-} //DeclarativeRecordValueImpl
+} // DeclarativeRecordValueImpl

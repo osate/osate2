@@ -19,11 +19,10 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.DispatchTriggerConditionStop ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.DispatchTriggerConditionStop;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,31 +31,28 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public class DispatchTriggerConditionStopImpl extends BehaviorElementImpl implements DispatchTriggerConditionStop
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected DispatchTriggerConditionStopImpl()
-  {
-    super();
-  }
+public class DispatchTriggerConditionStopImpl extends BehaviorElementImpl implements DispatchTriggerConditionStop {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DispatchTriggerConditionStopImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.DISPATCH_TRIGGER_CONDITION_STOP;
-  }
-  
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.DISPATCH_TRIGGER_CONDITION_STOP;
+	}
 
-} //DispatchTriggerConditionStopImpl
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
+
+} // DispatchTriggerConditionStopImpl

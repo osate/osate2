@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.ClassifierFeature;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,22 +32,21 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface ClassifierFeatureHolder extends ElementHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model classifierFeatureRequired="true"
-   * @generated
-   */
-  void setClassifierFeature(ClassifierFeature classifierFeature);
+public interface ClassifierFeatureHolder extends ElementHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model classifierFeatureRequired="true"
+	 * @generated
+	 */
+	void setClassifierFeature(ClassifierFeature classifierFeature);
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   * @generated
-   */
-  ClassifierFeature getClassifierFeature();
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	ClassifierFeature getClassifierFeature();
 
 } // ClassifierFeatureHolder

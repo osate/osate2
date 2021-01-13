@@ -34,216 +34,199 @@ import org.eclipse.emf.common.util.Enumerator;
  * @model
  * @generated
  */
-public enum UnaryBooleanOperator implements Enumerator
-{
-  /**
-   * The '<em><b>None</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #NONE_VALUE
-   * @generated
-   * @ordered
-   */
-  NONE(0, "None", ""),
+public enum UnaryBooleanOperator implements Enumerator {
+	/**
+	 * The '<em><b>None</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NONE_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NONE(0, "None", ""),
 
-  /**
-   * The '<em><b>Not</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #NOT_VALUE
-   * @generated
-   * @ordered
-   */
-  NOT(1, "Not", "!");
+	/**
+	 * The '<em><b>Not</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NOT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	NOT(1, "Not", "!");
 
-  /**
-   * The '<em><b>None</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>None</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #NONE
-   * @model name="None" literal=""
-   * @generated
-   * @ordered
-   */
-  public static final int NONE_VALUE = 0;
+	/**
+	 * The '<em><b>None</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>None</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NONE
+	 * @model name="None" literal=""
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NONE_VALUE = 0;
 
-  /**
-   * The '<em><b>Not</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>Not</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #NOT
-   * @model name="Not" literal="!"
-   * @generated
-   * @ordered
-   */
-  public static final int NOT_VALUE = 1;
+	/**
+	 * The '<em><b>Not</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Not</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NOT
+	 * @model name="Not" literal="!"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NOT_VALUE = 1;
 
-  /**
-   * An array of all the '<em><b>Unary Boolean Operator</b></em>' enumerators.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private static final UnaryBooleanOperator[] VALUES_ARRAY =
-    new UnaryBooleanOperator[]
-    {
-      NONE,
-      NOT,
-    };
+	/**
+	 * An array of all the '<em><b>Unary Boolean Operator</b></em>' enumerators.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private static final UnaryBooleanOperator[] VALUES_ARRAY = new UnaryBooleanOperator[] { NONE, NOT, };
 
-  /**
-   * A public read-only list of all the '<em><b>Unary Boolean Operator</b></em>' enumerators.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public static final List<UnaryBooleanOperator> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	/**
+	 * A public read-only list of all the '<em><b>Unary Boolean Operator</b></em>' enumerators.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final List<UnaryBooleanOperator> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
-  /**
-   * Returns the '<em><b>Unary Boolean Operator</b></em>' literal with the specified literal value.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param literal the literal.
-   * @return the matching enumerator or <code>null</code>.
-   * @generated
-   */
-  public static UnaryBooleanOperator get(String literal)
-  {
-    for (int i = 0; i < VALUES_ARRAY.length; ++i)
-    {
-      UnaryBooleanOperator result = VALUES_ARRAY[i];
-      if (result.toString().equals(literal))
-      {
-        return result;
-      }
-    }
-    return null;
-  }
+	/**
+	 * Returns the '<em><b>Unary Boolean Operator</b></em>' literal with the specified literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param literal the literal.
+	 * @return the matching enumerator or <code>null</code>.
+	 * @generated
+	 */
+	public static UnaryBooleanOperator get(String literal) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			UnaryBooleanOperator result = VALUES_ARRAY[i];
+			if (result.toString().equals(literal)) {
+				return result;
+			}
+		}
+		return null;
+	}
 
-  /**
-   * Returns the '<em><b>Unary Boolean Operator</b></em>' literal with the specified name.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param name the name.
-   * @return the matching enumerator or <code>null</code>.
-   * @generated
-   */
-  public static UnaryBooleanOperator getByName(String name)
-  {
-    for (int i = 0; i < VALUES_ARRAY.length; ++i)
-    {
-      UnaryBooleanOperator result = VALUES_ARRAY[i];
-      if (result.getName().equals(name))
-      {
-        return result;
-      }
-    }
-    return null;
-  }
+	/**
+	 * Returns the '<em><b>Unary Boolean Operator</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param name the name.
+	 * @return the matching enumerator or <code>null</code>.
+	 * @generated
+	 */
+	public static UnaryBooleanOperator getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			UnaryBooleanOperator result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
 
-  /**
-   * Returns the '<em><b>Unary Boolean Operator</b></em>' literal with the specified integer value.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the integer value.
-   * @return the matching enumerator or <code>null</code>.
-   * @generated
-   */
-  public static UnaryBooleanOperator get(int value)
-  {
-    switch (value)
-    {
-      case NONE_VALUE: return NONE;
-      case NOT_VALUE: return NOT;
-    }
-    return null;
-  }
+	/**
+	 * Returns the '<em><b>Unary Boolean Operator</b></em>' literal with the specified integer value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the integer value.
+	 * @return the matching enumerator or <code>null</code>.
+	 * @generated
+	 */
+	public static UnaryBooleanOperator get(int value) {
+		switch (value) {
+		case NONE_VALUE:
+			return NONE;
+		case NOT_VALUE:
+			return NOT;
+		}
+		return null;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private final int value;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private final String name;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private final String literal;
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
-  /**
-   * Only this class can construct instances.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private UnaryBooleanOperator(int value, String name, String literal)
-  {
-    this.value = value;
-    this.name = name;
-    this.literal = literal;
-  }
+	/**
+	 * Only this class can construct instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private UnaryBooleanOperator(int value, String name, String literal) {
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public int getValue()
-  {
-    return value;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int getValue() {
+		return value;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String getName()
-  {
-    return name;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getName() {
+		return name;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String getLiteral()
-  {
-    return literal;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getLiteral() {
+		return literal;
+	}
 
-  /**
-   * Returns the literal value of the enumerator, which is its string representation.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    return literal;
-  }
-  
-} //UnaryBooleanOperator
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+
+} // UnaryBooleanOperator

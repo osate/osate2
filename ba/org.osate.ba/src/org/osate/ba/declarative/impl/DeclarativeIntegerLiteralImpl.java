@@ -17,14 +17,14 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative.impl ;
+package org.osate.ba.declarative.impl;
 
-import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.EClass;
 
-import org.osate.ba.aadlba.impl.BehaviorIntegerLiteralImpl ;
+import org.osate.ba.aadlba.impl.BehaviorIntegerLiteralImpl;
 
-import org.osate.ba.declarative.DeclarativeIntegerLiteral ;
-import org.osate.ba.declarative.DeclarativePackage ;
+import org.osate.ba.declarative.DeclarativeIntegerLiteral;
+import org.osate.ba.declarative.DeclarativePackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,28 +33,24 @@ import org.osate.ba.declarative.DeclarativePackage ;
  *
  * @generated
  */
-public class DeclarativeIntegerLiteralImpl extends BehaviorIntegerLiteralImpl
-                                           implements DeclarativeIntegerLiteral
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected DeclarativeIntegerLiteralImpl()
-  {
-    super() ;
-  }
+public class DeclarativeIntegerLiteralImpl extends BehaviorIntegerLiteralImpl implements DeclarativeIntegerLiteral {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DeclarativeIntegerLiteralImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return DeclarativePackage.Literals.DECLARATIVE_INTEGER_LITERAL ;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return DeclarativePackage.Literals.DECLARATIVE_INTEGER_LITERAL;
+	}
 
-} //DeclarativeIntegerLiteralImpl
+} // DeclarativeIntegerLiteralImpl

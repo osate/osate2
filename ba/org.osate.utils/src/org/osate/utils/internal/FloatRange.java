@@ -19,51 +19,46 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.utils.internal ;
+package org.osate.utils.internal;
 
 /**
  * Represents a range of float number.
  * @since 2.0
  */
-public class FloatRange
-{
+public class FloatRange {
 
-  public final static FloatRange nullValue = new FloatRange(0f, 0f) ;
+	public final static FloatRange nullValue = new FloatRange(0f, 0f);
 
-  private final float min, max ;
+	private final float min, max;
 
-  /**
-   * Builds a instance of FloatRange with the given parameters.
-   *
-   * @param min the float range's lower bound
-   * @param max the float range's upper bound
-   */
-  public FloatRange(float min, float max)
-  {
-    this.min = min ;
-    this.max = max ;
-  }
+	/**
+	 * Builds a instance of FloatRange with the given parameters.
+	 *
+	 * @param min the float range's lower bound
+	 * @param max the float range's upper bound
+	 */
+	public FloatRange(float min, float max) {
+		this.min = min;
+		this.max = max;
+	}
 
-  public FloatRange(float value)
-  {
-    this(value, value) ;
-  }
+	public FloatRange(float value) {
+		this(value, value);
+	}
 
-  /**
-   * Returns the float range's lower bound.
-   * @return the float range's lower bound
-   */
-  public float getMin()
-  {
-    return min ;
-  }
+	/**
+	 * Returns the float range's lower bound.
+	 * @return the float range's lower bound
+	 */
+	public float getMin() {
+		return min;
+	}
 
-  /**
-   * Returns the float range's upper bound.
-   * @return the float range's upper bound
-   */
-  public float getMax()
-  {
-    return max ;
-  }
+	/**
+	 * Returns the float range's upper bound.
+	 * @return the float range's upper bound
+	 */
+	public float getMax() {
+		return max;
+	}
 }

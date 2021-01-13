@@ -17,15 +17,15 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative.impl ;
+package org.osate.ba.declarative.impl;
 
-import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.EClass;
 
-import org.eclipse.emf.ecore.impl.EObjectImpl ;
-import org.osate.aadl2.impl.PropertyExpressionImpl ;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.osate.aadl2.impl.PropertyExpressionImpl;
 
-import org.osate.ba.declarative.DeclarativePackage ;
-import org.osate.ba.declarative.DeclarativePropertyExpression ;
+import org.osate.ba.declarative.DeclarativePackage;
+import org.osate.ba.declarative.DeclarativePropertyExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,30 +34,25 @@ import org.osate.ba.declarative.DeclarativePropertyExpression ;
  *
  * @generated
  */
-public abstract class DeclarativePropertyExpressionImpl extends
-                                                        PropertyExpressionImpl
-                                                        implements
-                                                        DeclarativePropertyExpression
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected DeclarativePropertyExpressionImpl()
-  {
-    super() ;
-  }
+public abstract class DeclarativePropertyExpressionImpl extends PropertyExpressionImpl
+		implements DeclarativePropertyExpression {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DeclarativePropertyExpressionImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return DeclarativePackage.Literals.DECLARATIVE_PROPERTY_EXPRESSION ;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return DeclarativePackage.Literals.DECLARATIVE_PROPERTY_EXPRESSION;
+	}
 
-} //DeclarativePropertyExpressionImpl
+} // DeclarativePropertyExpressionImpl

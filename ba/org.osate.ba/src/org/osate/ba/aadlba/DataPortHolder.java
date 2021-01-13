@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.DataPort;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,22 +32,21 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface DataPortHolder extends ActualPortHolder, Target
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model dataPortRequired="true"
-   * @generated
-   */
-  void setDataPort(DataPort dataPort);
+public interface DataPortHolder extends ActualPortHolder, Target {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model dataPortRequired="true"
+	 * @generated
+	 */
+	void setDataPort(DataPort dataPort);
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   * @generated
-   */
-  DataPort getDataPort();
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	DataPort getDataPort();
 
 } // DataPortHolder

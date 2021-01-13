@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.NumberValue;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,6 +32,5 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface NumericLiteral extends NumberValue, Literal
-{
+public interface NumericLiteral extends NumberValue, Literal {
 } // NumericLiteral

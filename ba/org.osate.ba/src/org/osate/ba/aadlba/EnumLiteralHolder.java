@@ -20,8 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.EnumerationLiteral;
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,22 +32,21 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface EnumLiteralHolder extends PropertyElementHolder
-{
+public interface EnumLiteralHolder extends PropertyElementHolder {
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model enumLiteralRequired="true"
-   * @generated
-   */
-  void setEnumLiteral(EnumerationLiteral enumLiteral);
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model enumLiteralRequired="true"
+	 * @generated
+	 */
+	void setEnumLiteral(EnumerationLiteral enumLiteral);
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   * @generated
-   */
-  EnumerationLiteral getEnumLiteral();
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	EnumerationLiteral getEnumLiteral();
 } // EnumLiteralHolder

@@ -19,12 +19,11 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.aadl2.Subprogram ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.SubprogramHolder ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.Subprogram;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.SubprogramHolder;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,53 +32,48 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public class SubprogramHolderImpl extends CalledSubprogramHolderImpl implements SubprogramHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected SubprogramHolderImpl()
-  {
-    super();
-  }
+public class SubprogramHolderImpl extends CalledSubprogramHolderImpl implements SubprogramHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramHolderImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.SUBPROGRAM_HOLDER;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.SUBPROGRAM_HOLDER;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setSubprogram(final Subprogram subprogram )
-  {
-    element = subprogram ;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setSubprogram(final Subprogram subprogram) {
+		element = subprogram;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Subprogram getSubprogram()
-  {
-    return (Subprogram) element;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Subprogram getSubprogram() {
+		return (Subprogram) element;
+	}
 
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
 
-} //SubprogramHolderImpl
+} // SubprogramHolderImpl

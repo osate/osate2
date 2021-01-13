@@ -19,11 +19,11 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.aadl2.BasicProperty ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.BasicPropertyHolder ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.BasicProperty;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.BasicPropertyHolder;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,53 +32,48 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public class BasicPropertyHolderImpl extends PropertyElementHolderImpl implements BasicPropertyHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected BasicPropertyHolderImpl()
-  {
-    super();
-  }
+public class BasicPropertyHolderImpl extends PropertyElementHolderImpl implements BasicPropertyHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BasicPropertyHolderImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.BASIC_PROPERTY_HOLDER;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.BASIC_PROPERTY_HOLDER;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setBasicProperty(final BasicProperty basicProperty)
-  {
-    element = basicProperty ;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setBasicProperty(final BasicProperty basicProperty) {
+		element = basicProperty;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public BasicProperty getBasicProperty()
-  {
-    return (BasicProperty) element;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public BasicProperty getBasicProperty() {
+		return (BasicProperty) element;
+	}
 
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
 
-} //BasicPropertyHolderImpl
+} // BasicPropertyHolderImpl

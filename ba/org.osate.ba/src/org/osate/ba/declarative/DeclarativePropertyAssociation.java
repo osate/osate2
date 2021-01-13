@@ -17,11 +17,11 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
-import org.eclipse.emf.ecore.EObject ;
+import org.eclipse.emf.ecore.EObject;
 
-import org.osate.ba.aadlba.BehaviorElement ;
+import org.osate.ba.aadlba.BehaviorElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,51 +40,49 @@ import org.osate.ba.aadlba.BehaviorElement ;
  * @model
  * @generated
  */
-public interface DeclarativePropertyAssociation extends
-                                                DeclarativeBehaviorElement
-{
+public interface DeclarativePropertyAssociation extends DeclarativeBehaviorElement {
 
-  /**
-   * Returns the value of the '<em><b>Property</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Property</em>' reference.
-   * @see #setProperty(QualifiedNamedElement)
-   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyAssociation_Property()
-   * @model required="true"
-   * @generated
-   */
-  QualifiedNamedElement getProperty() ;
+	/**
+	 * Returns the value of the '<em><b>Property</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Property</em>' reference.
+	 * @see #setProperty(QualifiedNamedElement)
+	 * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyAssociation_Property()
+	 * @model required="true"
+	 * @generated
+	 */
+	QualifiedNamedElement getProperty();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyAssociation#getProperty <em>Property</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Property</em>' reference.
-   * @see #getProperty()
-   * @generated
-   */
-  void setProperty(QualifiedNamedElement value) ;
+	/**
+	 * Sets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyAssociation#getProperty <em>Property</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Property</em>' reference.
+	 * @see #getProperty()
+	 * @generated
+	 */
+	void setProperty(QualifiedNamedElement value);
 
-  /**
-   * Returns the value of the '<em><b>Owned Value</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Owned Value</em>' containment reference.
-   * @see #setOwnedValue(DeclarativePropertyExpression)
-   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyAssociation_OwnedValue()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  DeclarativePropertyExpression getOwnedValue() ;
+	/**
+	 * Returns the value of the '<em><b>Owned Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Value</em>' containment reference.
+	 * @see #setOwnedValue(DeclarativePropertyExpression)
+	 * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyAssociation_OwnedValue()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	DeclarativePropertyExpression getOwnedValue();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyAssociation#getOwnedValue <em>Owned Value</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Owned Value</em>' containment reference.
-   * @see #getOwnedValue()
-   * @generated
-   */
-  void setOwnedValue(DeclarativePropertyExpression value) ;
+	/**
+	 * Sets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyAssociation#getOwnedValue <em>Owned Value</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Owned Value</em>' containment reference.
+	 * @see #getOwnedValue()
+	 * @generated
+	 */
+	void setOwnedValue(DeclarativePropertyExpression value);
 } // DeclarativePropertyAssociation

@@ -19,8 +19,7 @@
  */
 package org.osate.ba.aadlba;
 
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,6 +31,5 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model abstract="true"
  * @generated
  */
-public interface PortHolder extends ValueVariable, IntegerValueVariable, FeatureHolder
-{
+public interface PortHolder extends ValueVariable, IntegerValueVariable, FeatureHolder {
 } // PortHolder

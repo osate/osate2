@@ -20,8 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.PropertyAssociation;
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,22 +32,21 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface PropertyAssociationHolder extends PropertyElementHolder
-{
+public interface PropertyAssociationHolder extends PropertyElementHolder {
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model propertyAssociationRequired="true"
-   * @generated
-   */
-  void setPropertyAssociation(PropertyAssociation propertyAssociation);
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model propertyAssociationRequired="true"
+	 * @generated
+	 */
+	void setPropertyAssociation(PropertyAssociation propertyAssociation);
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   * @generated
-   */
-  PropertyAssociation getPropertyAssociation();
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	PropertyAssociation getPropertyAssociation();
 } // PropertyAssociationHolder

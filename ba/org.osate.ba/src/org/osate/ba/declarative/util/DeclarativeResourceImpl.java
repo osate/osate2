@@ -19,11 +19,11 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.ba.declarative.util ;
+package org.osate.ba.declarative.util;
 
-import org.eclipse.emf.common.util.URI ;
+import org.eclipse.emf.common.util.URI;
 
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl ;
+import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,18 +32,16 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl ;
  * @see org.osate.ba.declarative.util.DeclarativeResourceFactoryImpl
  * @generated
  */
-public class DeclarativeResourceImpl extends XMLResourceImpl
-{
-  /**
-   * Creates an instance of the resource.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param uri the URI of the new resource.
-   * @generated
-   */
-  public DeclarativeResourceImpl(URI uri)
-  {
-    super(uri) ;
-  }
+public class DeclarativeResourceImpl extends XMLResourceImpl {
+	/**
+	 * Creates an instance of the resource.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param uri the URI of the new resource.
+	 * @generated
+	 */
+	public DeclarativeResourceImpl(URI uri) {
+		super(uri);
+	}
 
-} //DeclarativeResourceImpl
+} // DeclarativeResourceImpl

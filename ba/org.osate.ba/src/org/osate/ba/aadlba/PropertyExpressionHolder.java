@@ -20,8 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.PropertyExpression;
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,22 +32,21 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface PropertyExpressionHolder extends PropertyElementHolder
-{
+public interface PropertyExpressionHolder extends PropertyElementHolder {
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model propertyExpressionRequired="true"
-   * @generated
-   */
-  void setPropertyExpression(PropertyExpression propertyExpression);
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model propertyExpressionRequired="true"
+	 * @generated
+	 */
+	void setPropertyExpression(PropertyExpression propertyExpression);
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   * @generated
-   */
-  PropertyExpression getPropertyExpression();
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	PropertyExpression getPropertyExpression();
 } // PropertyExpressionHolder

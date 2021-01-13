@@ -37,41 +37,40 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ModeSwitchConjunction extends BehaviorElement
-{
-  /**
-   * Returns the value of the '<em><b>Mode Switch Triggers</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.ba.aadlba.ModeSwitchTrigger}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Mode Switch Triggers</em>' containment reference list.
-   * @see #isSetModeSwitchTriggers()
-   * @see #unsetModeSwitchTriggers()
-   * @see org.osate.ba.aadlba.AadlBaPackage#getModeSwitchConjunction_ModeSwitchTriggers()
-   * @model containment="true" unsettable="true" required="true"
-   * @generated
-   */
-  EList<ModeSwitchTrigger> getModeSwitchTriggers();
+public interface ModeSwitchConjunction extends BehaviorElement {
+	/**
+	 * Returns the value of the '<em><b>Mode Switch Triggers</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.ba.aadlba.ModeSwitchTrigger}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Mode Switch Triggers</em>' containment reference list.
+	 * @see #isSetModeSwitchTriggers()
+	 * @see #unsetModeSwitchTriggers()
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getModeSwitchConjunction_ModeSwitchTriggers()
+	 * @model containment="true" unsettable="true" required="true"
+	 * @generated
+	 */
+	EList<ModeSwitchTrigger> getModeSwitchTriggers();
 
-  /**
-   * Unsets the value of the '{@link org.osate.ba.aadlba.ModeSwitchConjunction#getModeSwitchTriggers <em>Mode Switch Triggers</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isSetModeSwitchTriggers()
-   * @see #getModeSwitchTriggers()
-   * @generated
-   */
-  void unsetModeSwitchTriggers();
+	/**
+	 * Unsets the value of the '{@link org.osate.ba.aadlba.ModeSwitchConjunction#getModeSwitchTriggers <em>Mode Switch Triggers</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetModeSwitchTriggers()
+	 * @see #getModeSwitchTriggers()
+	 * @generated
+	 */
+	void unsetModeSwitchTriggers();
 
-  /**
-   * Returns whether the value of the '{@link org.osate.ba.aadlba.ModeSwitchConjunction#getModeSwitchTriggers <em>Mode Switch Triggers</em>}' containment reference list is set.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return whether the value of the '<em>Mode Switch Triggers</em>' containment reference list is set.
-   * @see #unsetModeSwitchTriggers()
-   * @see #getModeSwitchTriggers()
-   * @generated
-   */
-  boolean isSetModeSwitchTriggers();
+	/**
+	 * Returns whether the value of the '{@link org.osate.ba.aadlba.ModeSwitchConjunction#getModeSwitchTriggers <em>Mode Switch Triggers</em>}' containment reference list is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Mode Switch Triggers</em>' containment reference list is set.
+	 * @see #unsetModeSwitchTriggers()
+	 * @see #getModeSwitchTriggers()
+	 * @generated
+	 */
+	boolean isSetModeSwitchTriggers();
 
 } // ModeSwitchConjunction

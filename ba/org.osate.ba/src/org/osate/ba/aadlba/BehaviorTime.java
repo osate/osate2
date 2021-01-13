@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.UnitLiteral;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,58 +39,57 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface BehaviorTime extends BehaviorElement
-{
-  /**
-   * Returns the value of the '<em><b>Integer Value</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Integer Value</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Integer Value</em>' containment reference.
-   * @see #setIntegerValue(IntegerValue)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorTime_IntegerValue()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  IntegerValue getIntegerValue();
+public interface BehaviorTime extends BehaviorElement {
+	/**
+	 * Returns the value of the '<em><b>Integer Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Integer Value</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Integer Value</em>' containment reference.
+	 * @see #setIntegerValue(IntegerValue)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorTime_IntegerValue()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	IntegerValue getIntegerValue();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorTime#getIntegerValue <em>Integer Value</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Integer Value</em>' containment reference.
-   * @see #getIntegerValue()
-   * @generated
-   */
-  void setIntegerValue(IntegerValue value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorTime#getIntegerValue <em>Integer Value</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Integer Value</em>' containment reference.
+	 * @see #getIntegerValue()
+	 * @generated
+	 */
+	void setIntegerValue(IntegerValue value);
 
-  /**
-   * Returns the value of the '<em><b>Unit</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Unit</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Unit</em>' reference.
-   * @see #setUnit(UnitLiteral)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorTime_Unit()
-   * @model
-   * @generated
-   */
-  UnitLiteral getUnit();
+	/**
+	 * Returns the value of the '<em><b>Unit</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Unit</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Unit</em>' reference.
+	 * @see #setUnit(UnitLiteral)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorTime_Unit()
+	 * @model
+	 * @generated
+	 */
+	UnitLiteral getUnit();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorTime#getUnit <em>Unit</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Unit</em>' reference.
-   * @see #getUnit()
-   * @generated
-   */
-  void setUnit(UnitLiteral value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorTime#getUnit <em>Unit</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Unit</em>' reference.
+	 * @see #getUnit()
+	 * @generated
+	 */
+	void setUnit(UnitLiteral value);
 
 } // BehaviorTime

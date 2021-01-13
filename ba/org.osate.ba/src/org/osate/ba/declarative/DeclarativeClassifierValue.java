@@ -17,7 +17,7 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,29 +35,27 @@ package org.osate.ba.declarative ;
  * @model
  * @generated
  */
-public interface DeclarativeClassifierValue extends
-                                            DeclarativePropertyExpression
-{
-  /**
-   * Returns the value of the '<em><b>Classifier</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Classifier</em>' reference.
-   * @see #setClassifier(QualifiedNamedElement)
-   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeClassifierValue_Classifier()
-   * @model required="true"
-   * @generated
-   */
-  QualifiedNamedElement getClassifier() ;
+public interface DeclarativeClassifierValue extends DeclarativePropertyExpression {
+	/**
+	 * Returns the value of the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Classifier</em>' reference.
+	 * @see #setClassifier(QualifiedNamedElement)
+	 * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeClassifierValue_Classifier()
+	 * @model required="true"
+	 * @generated
+	 */
+	QualifiedNamedElement getClassifier();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.declarative.DeclarativeClassifierValue#getClassifier <em>Classifier</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Classifier</em>' reference.
-   * @see #getClassifier()
-   * @generated
-   */
-  void setClassifier(QualifiedNamedElement value) ;
+	/**
+	 * Sets the value of the '{@link org.osate.ba.declarative.DeclarativeClassifierValue#getClassifier <em>Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Classifier</em>' reference.
+	 * @see #getClassifier()
+	 * @generated
+	 */
+	void setClassifier(QualifiedNamedElement value);
 
 } // DeclarativeClassifierValue

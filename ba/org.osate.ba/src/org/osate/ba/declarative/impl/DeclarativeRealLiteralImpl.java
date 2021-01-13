@@ -17,14 +17,14 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative.impl ;
+package org.osate.ba.declarative.impl;
 
-import org.eclipse.emf.ecore.EClass ;
+import org.eclipse.emf.ecore.EClass;
 
-import org.osate.ba.aadlba.impl.BehaviorRealLiteralImpl ;
+import org.osate.ba.aadlba.impl.BehaviorRealLiteralImpl;
 
-import org.osate.ba.declarative.DeclarativePackage ;
-import org.osate.ba.declarative.DeclarativeRealLiteral ;
+import org.osate.ba.declarative.DeclarativePackage;
+import org.osate.ba.declarative.DeclarativeRealLiteral;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,28 +33,24 @@ import org.osate.ba.declarative.DeclarativeRealLiteral ;
  *
  * @generated
  */
-public class DeclarativeRealLiteralImpl extends BehaviorRealLiteralImpl
-                                        implements DeclarativeRealLiteral
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected DeclarativeRealLiteralImpl()
-  {
-    super() ;
-  }
+public class DeclarativeRealLiteralImpl extends BehaviorRealLiteralImpl implements DeclarativeRealLiteral {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DeclarativeRealLiteralImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return DeclarativePackage.Literals.DECLARATIVE_REAL_LITERAL ;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return DeclarativePackage.Literals.DECLARATIVE_REAL_LITERAL;
+	}
 
-} //DeclarativeRealLiteralImpl
+} // DeclarativeRealLiteralImpl

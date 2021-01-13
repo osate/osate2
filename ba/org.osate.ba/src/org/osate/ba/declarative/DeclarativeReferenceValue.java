@@ -17,7 +17,7 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,28 +35,27 @@ package org.osate.ba.declarative ;
  * @model
  * @generated
  */
-public interface DeclarativeReferenceValue extends DeclarativePropertyExpression
-{
-  /**
-   * Returns the value of the '<em><b>Ref</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Ref</em>' reference.
-   * @see #setRef(Reference)
-   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeReferenceValue_Ref()
-   * @model required="true"
-   * @generated
-   */
-  Reference getRef() ;
+public interface DeclarativeReferenceValue extends DeclarativePropertyExpression {
+	/**
+	 * Returns the value of the '<em><b>Ref</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Ref</em>' reference.
+	 * @see #setRef(Reference)
+	 * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeReferenceValue_Ref()
+	 * @model required="true"
+	 * @generated
+	 */
+	Reference getRef();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.declarative.DeclarativeReferenceValue#getRef <em>Ref</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Ref</em>' reference.
-   * @see #getRef()
-   * @generated
-   */
-  void setRef(Reference value) ;
+	/**
+	 * Sets the value of the '{@link org.osate.ba.declarative.DeclarativeReferenceValue#getRef <em>Ref</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Ref</em>' reference.
+	 * @see #getRef()
+	 * @generated
+	 */
+	void setRef(Reference value);
 
 } // DeclarativeReferenceValue

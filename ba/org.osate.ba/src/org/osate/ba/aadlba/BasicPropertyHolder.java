@@ -20,8 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.BasicProperty;
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,22 +32,21 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface BasicPropertyHolder extends PropertyElementHolder
-{
+public interface BasicPropertyHolder extends PropertyElementHolder {
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model basicPropertyRequired="true"
-   * @generated
-   */
-  void setBasicProperty(BasicProperty basicProperty);
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model basicPropertyRequired="true"
+	 * @generated
+	 */
+	void setBasicProperty(BasicProperty basicProperty);
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   * @generated
-   */
-  BasicProperty getBasicProperty();
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	BasicProperty getBasicProperty();
 } // BasicPropertyHolder

@@ -19,13 +19,12 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.aadl2.impl.ElementImpl ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.BehaviorElement ;
-import org.osate.ba.utils.AadlBaLocationReference ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.impl.ElementImpl;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.BehaviorElement;
+import org.osate.ba.utils.AadlBaLocationReference;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,36 +33,32 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public abstract class BehaviorElementImpl extends ElementImpl implements BehaviorElement
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected BehaviorElementImpl()
-  {
-    super();
-  }
+public abstract class BehaviorElementImpl extends ElementImpl implements BehaviorElement {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BehaviorElementImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.BEHAVIOR_ELEMENT;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.BEHAVIOR_ELEMENT;
+	}
 
-  @Override
-  public AadlBaLocationReference getAadlBaLocationReference()
-  {
-    return (AadlBaLocationReference) this.getLocationReference() ;
-  }
+	@Override
+	public AadlBaLocationReference getAadlBaLocationReference() {
+		return (AadlBaLocationReference) this.getLocationReference();
+	}
 
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
-} //BehaviorElementImpl
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
+} // BehaviorElementImpl
