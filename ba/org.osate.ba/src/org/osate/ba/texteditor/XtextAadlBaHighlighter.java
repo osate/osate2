@@ -21,63 +21,53 @@
 
 package org.osate.ba.texteditor;
 
-import java.util.ArrayList ;
-import java.util.List ;
-import java.util.Map ;
-import java.util.WeakHashMap ;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
-import org.antlr.v4.runtime.CommonToken ;
-import org.antlr.v4.runtime.Token ;
-import org.osate.aadl2.AnnexSubclause ;
-import org.osate.ba.utils.AadlBaLocationReference ;
+import org.antlr.v4.runtime.CommonToken;
+import org.antlr.v4.runtime.Token;
+import org.osate.aadl2.AnnexSubclause;
+import org.osate.ba.utils.AadlBaLocationReference;
 
+public class XtextAadlBaHighlighter implements AadlBaHighlighter {
 
-public class XtextAadlBaHighlighter implements AadlBaHighlighter
-{
+	private List<AadlBaLocationReference> _elementToHighlight = new ArrayList<AadlBaLocationReference>();
 
-  private List<AadlBaLocationReference> _elementToHighlight =
-        new ArrayList<AadlBaLocationReference>() ;
+	@Override
+	public void addToHighlighting(int annexOffset, Token token, String id) {
+		int offset = ((CommonToken) token).getStartIndex();
+		int length = token.getText().length();
+		int column = token.getCharPositionInLine();
 
-  @Override
-  public void addToHighlighting(int annexOffset, Token token, String id)
-  {
-    int offset = ((CommonToken)token).getStartIndex();
-    int length = token.getText().length() ;
-    int column = token.getCharPositionInLine() ;
+		_elementToHighlight.add(new AadlBaLocationReference(annexOffset, offset, length, column, id));
+	}
 
-    _elementToHighlight.add(new AadlBaLocationReference(annexOffset, offset, length, column,
-                                                        id));
-  }
+	public List<AadlBaLocationReference> getElementsToHighlitght() {
+		return _elementToHighlight;
+	}
 
-  public List<AadlBaLocationReference> getElementsToHighlitght()
-  {
-	  return _elementToHighlight;
-  }
+	@Override
+	public void addToHighlighting(int annexOffset, int relativeOffset, int length, String id) {
+		_elementToHighlight.add(new AadlBaLocationReference(annexOffset, relativeOffset, length, 0, id));
+	}
 
-  @Override
-  public void addToHighlighting(int annexOffset, int relativeOffset, int length, String id) {
-	_elementToHighlight.add(new AadlBaLocationReference(annexOffset, relativeOffset, length, 0,
-              id));
-  }
+	private XtextAadlBaHighlighter() {
+	}
 
-  private XtextAadlBaHighlighter() {}
+	private static Map<AnnexSubclause, XtextAadlBaHighlighter> _highlighterPerAnnex = new WeakHashMap<AnnexSubclause, XtextAadlBaHighlighter>();
 
-  private static Map<AnnexSubclause, XtextAadlBaHighlighter> _highlighterPerAnnex =
-                                                                                  new WeakHashMap<AnnexSubclause, XtextAadlBaHighlighter>() ;
+	public static XtextAadlBaHighlighter getHighlighter(AnnexSubclause as) {
+		if (_highlighterPerAnnex.get(as) == null) {
+			XtextAadlBaHighlighter ht = new XtextAadlBaHighlighter();
+			_highlighterPerAnnex.put(as, ht);
+		}
+		return _highlighterPerAnnex.get(as);
+	}
 
-  public static XtextAadlBaHighlighter getHighlighter(AnnexSubclause as)
-  {
-    if(_highlighterPerAnnex.get(as) == null)
-    {
-      XtextAadlBaHighlighter ht = new XtextAadlBaHighlighter() ;
-      _highlighterPerAnnex.put(as, ht) ;
-    }
-    return _highlighterPerAnnex.get(as) ;
-  }
-
-  public void cleanup()
-  {
-    _elementToHighlight.clear();
-  }
+	public void cleanup() {
+		_elementToHighlight.clear();
+	}
 
 }
