@@ -41,7 +41,6 @@ import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
@@ -427,12 +426,12 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		// now find it in use behavior clause
 		EList<ErrorModelSubclause> emslist = EMV2Util.getAllContainingClassifierEMV2Subclauses(subclause);
 		ErrorBehaviorStateMachine foundEBMS = null;
-		ComponentClassifier foundcl = null;
+		Classifier foundcl = null;
 		for (ErrorModelSubclause errorModelSubclause : emslist) {
 			ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
 			if (ebsm != null) {
 				if (foundEBMS != null && foundEBMS != ebsm) {
-					ComponentClassifier cl = EMV2Util.getAssociatedClassifier(errorModelSubclause);
+					Classifier cl = EMV2Util.getAssociatedClassifier(errorModelSubclause);
 					if (cl instanceof ComponentImplementation && foundcl instanceof ComponentType) {
 						error(foundcl,
 								"use behavior '" + foundEBMS.getName() + "' of '" + foundcl.getQualifiedName()
@@ -551,7 +550,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 
 	private void checkSubclauseAssociationToClassifier(ErrorModelSubclause emsc) {
 		if (emsc.eContainer() instanceof EMV2Root) {
-			ComponentClassifier cl = EMV2Util.getAssociatedClassifier(emsc);
+			Classifier cl = EMV2Util.getAssociatedClassifier(emsc);
 			if (cl == null) {
 				warning(emsc, "EMV2 subclause name '" + emsc.getName() + "' does not identify a component classifier.");
 			}
@@ -560,12 +559,12 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 
 	private void checkDuplicateSubclause(ErrorModelSubclause emsc) {
 		ErrorModelSubclause duplicate = null;
-		ComponentClassifier cl = null;
+		Classifier cl = null;
 		if (emsc.eContainer() instanceof EMV2Root) {
 			cl = EMV2Util.getAssociatedClassifier(emsc);
 			duplicate = EMV2Util.getEmbeddedEMV2Subclause(cl);
 		} else {
-			cl = (ComponentClassifier) emsc.getContainingClassifier();
+			cl = emsc.getContainingClassifier();
 			duplicate = EMV2Util.getAssociatedEMV2Subclause(cl);
 		}
 		if (duplicate != null) {
@@ -1086,7 +1085,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 			if (bv != null) {
 				prob = prob.add(new BigDecimal(bv, MathContext.UNLIMITED));
 			} else if (sl != null) {
-				ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
+				Classifier cl = EMV2Util.getAssociatedClassifier(ebt);
 				List<EMV2PropertyAssociation> pa = EMV2Properties.getProperty(sl.getQualifiedName(), cl, ebt, null);
 				for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
 					prob = prob.add(new BigDecimal(EMV2Properties.getRealValue(emv2PropertyAssociation),
