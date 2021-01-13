@@ -28,7 +28,7 @@ censes only apply to the Third Party Software and not any other portion of this 
       version="4.0.0.qualifier"
       provider-name="The University of Alabama in Huntsville"
       license-feature="org.osate.license"
-      license-feature-version="1.0.0.qualifier">
+      license-feature-version="1.0.1.qualifier">
 
    <description>
       OSATE Graphical Editor Error Model Support
