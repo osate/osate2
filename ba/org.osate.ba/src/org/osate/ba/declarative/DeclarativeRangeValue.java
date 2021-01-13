@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -17,9 +17,9 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
-import org.osate.aadl2.RangeValue ;
+import org.osate.aadl2.RangeValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +31,5 @@ import org.osate.aadl2.RangeValue ;
  * @model
  * @generated
  */
-public interface DeclarativeRangeValue extends RangeValue,
-                                       DeclarativePropertyExpression
-{
+public interface DeclarativeRangeValue extends RangeValue, DeclarativePropertyExpression {
 } // DeclarativeRangeValue

@@ -25,30 +25,23 @@ import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.annexsupport.AnnexHighlighter;
 import org.osate.annexsupport.AnnexHighlighterPositionAcceptor;
-import org.osate.ba.utils.AadlBaLocationReference ;
+import org.osate.ba.utils.AadlBaLocationReference;
 
-
-public class AadlBaSemanticHighlighter implements AnnexHighlighter
-{
+public class AadlBaSemanticHighlighter implements AnnexHighlighter {
 
 	@Override
-	public void highlightAnnexLibrary(AnnexLibrary library,
-			AnnexHighlighterPositionAcceptor acceptor) {
+	public void highlightAnnexLibrary(AnnexLibrary library, AnnexHighlighterPositionAcceptor acceptor) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void highlightAnnexSubclause(AnnexSubclause subclause,
-			AnnexHighlighterPositionAcceptor acceptor) {
-    XtextAadlBaHighlighter ht = XtextAadlBaHighlighter.getHighlighter(subclause);
-    for (AadlBaLocationReference location : ht.getElementsToHighlitght())
-	    {
-	       acceptor.addPosition(location.getRelativeOffset(),
-	                            location.getLength(),
-	                            location.getId());
-	    }
-    ht.cleanup();
+	public void highlightAnnexSubclause(AnnexSubclause subclause, AnnexHighlighterPositionAcceptor acceptor) {
+		XtextAadlBaHighlighter ht = XtextAadlBaHighlighter.getHighlighter(subclause);
+		for (AadlBaLocationReference location : ht.getElementsToHighlitght()) {
+			acceptor.addPosition(location.getRelativeOffset(), location.getLength(), location.getId());
+		}
+		ht.cleanup();
 	}
-	
+
 }
