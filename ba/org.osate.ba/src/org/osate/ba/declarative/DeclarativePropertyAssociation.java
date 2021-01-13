@@ -19,10 +19,6 @@
  */
 package org.osate.ba.declarative;
 
-import org.eclipse.emf.ecore.EObject;
-
-import org.osate.ba.aadlba.BehaviorElement;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Property Association</b></em>'.

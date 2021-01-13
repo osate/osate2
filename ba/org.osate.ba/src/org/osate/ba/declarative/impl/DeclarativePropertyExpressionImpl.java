@@ -20,10 +20,7 @@
 package org.osate.ba.declarative.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.osate.aadl2.impl.PropertyExpressionImpl;
-
 import org.osate.ba.declarative.DeclarativePackage;
 import org.osate.ba.declarative.DeclarativePropertyExpression;
 

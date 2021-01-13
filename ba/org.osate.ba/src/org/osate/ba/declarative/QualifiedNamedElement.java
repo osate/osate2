@@ -21,7 +21,6 @@
 
 package org.osate.ba.declarative;
 
-import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.ProcessorClassifier;

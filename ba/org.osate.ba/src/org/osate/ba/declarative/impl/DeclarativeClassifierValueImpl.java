@@ -20,12 +20,9 @@
 package org.osate.ba.declarative.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.osate.ba.declarative.DeclarativeClassifierValue;
 import org.osate.ba.declarative.DeclarativePackage;
 import org.osate.ba.declarative.QualifiedNamedElement;

@@ -24,9 +24,7 @@ package org.osate.ba.declarative.util;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
 import org.osate.ba.declarative.DeclarativePackage;
 

@@ -20,7 +20,6 @@
 package org.osate.ba.aadlba;
 
 import org.eclipse.emf.common.util.EList;
-import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->

@@ -24,9 +24,11 @@ package org.osate.ba.analyzers;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.ba.aadlba.*;
+import org.osate.ba.aadlba.BehaviorElement;
+import org.osate.ba.aadlba.BehaviorState;
+import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ba.aadlba.DispatchTriggerConditionStop;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition;
 import org.osate.ba.declarative.Identifier;
 

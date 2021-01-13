@@ -23,25 +23,19 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Data;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.PropertyAssociation;
-
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ba.aadlba.ValueConstant;

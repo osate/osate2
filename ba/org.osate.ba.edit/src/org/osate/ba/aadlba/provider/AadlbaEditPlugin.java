@@ -20,9 +20,7 @@
 package org.osate.ba.aadlba.provider;
 
 import org.eclipse.emf.common.EMFPlugin;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.osate.aadl2.provider.Aadl2EditPlugin;
 
 /**

@@ -24,7 +24,6 @@ import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Data;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.PropertyAssociation;
-import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->

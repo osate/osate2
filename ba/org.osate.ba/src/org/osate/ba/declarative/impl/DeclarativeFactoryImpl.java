@@ -24,11 +24,33 @@ package org.osate.ba.declarative.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.osate.ba.declarative.*;
+import org.osate.ba.declarative.ArrayableIdentifier;
+import org.osate.ba.declarative.CommAction;
+import org.osate.ba.declarative.DeclarativeArrayDimension;
+import org.osate.ba.declarative.DeclarativeBasicPropertyAssociation;
+import org.osate.ba.declarative.DeclarativeBehaviorAnnex;
+import org.osate.ba.declarative.DeclarativeBehaviorTransition;
+import org.osate.ba.declarative.DeclarativeBooleanLiteral;
+import org.osate.ba.declarative.DeclarativeClassifierValue;
+import org.osate.ba.declarative.DeclarativeFactory;
+import org.osate.ba.declarative.DeclarativeIntegerLiteral;
+import org.osate.ba.declarative.DeclarativeListValue;
+import org.osate.ba.declarative.DeclarativePackage;
+import org.osate.ba.declarative.DeclarativePropertyAssociation;
+import org.osate.ba.declarative.DeclarativePropertyName;
+import org.osate.ba.declarative.DeclarativePropertyReference;
+import org.osate.ba.declarative.DeclarativeRangeValue;
+import org.osate.ba.declarative.DeclarativeRealLiteral;
+import org.osate.ba.declarative.DeclarativeRecordValue;
+import org.osate.ba.declarative.DeclarativeReferenceValue;
+import org.osate.ba.declarative.DeclarativeStringLiteral;
+import org.osate.ba.declarative.DeclarativeTime;
+import org.osate.ba.declarative.Identifier;
+import org.osate.ba.declarative.NamedValue;
+import org.osate.ba.declarative.QualifiedNamedElement;
+import org.osate.ba.declarative.Reference;
 
 /**
  * <!-- begin-user-doc -->

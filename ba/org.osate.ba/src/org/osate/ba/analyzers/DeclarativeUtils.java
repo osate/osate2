@@ -24,14 +24,11 @@ package org.osate.ba.analyzers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.emf.ecore.InternalEObject;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.ba.aadlba.AadlBaFactory;
-import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorElement;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.IntegerValue;

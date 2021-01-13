@@ -21,9 +21,7 @@ package org.osate.ba.aadlba.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.BooleanLiteral;
@@ -33,7 +31,6 @@ import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.RealLiteral;

@@ -24,9 +24,7 @@ import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Element;
-import org.osate.ba.texteditor.AadlBaHighlighter;
 import org.osate.ba.utils.AadlBaLocationReference;
-import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->

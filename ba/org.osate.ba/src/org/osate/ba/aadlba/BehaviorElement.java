@@ -21,7 +21,6 @@ package org.osate.ba.aadlba;
 
 import org.osate.aadl2.Element;
 import org.osate.ba.utils.AadlBaLocationReference;
-import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->

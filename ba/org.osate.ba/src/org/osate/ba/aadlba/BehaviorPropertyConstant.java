@@ -21,7 +21,6 @@ package org.osate.ba.aadlba;
 
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertySet;
-import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->

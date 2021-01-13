@@ -25,9 +25,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.osate.aadl2.Aadl2Package;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.declarative.ArrayableIdentifier;
@@ -57,7 +55,6 @@ import org.osate.ba.declarative.Identifier;
 import org.osate.ba.declarative.NamedValue;
 import org.osate.ba.declarative.QualifiedNamedElement;
 import org.osate.ba.declarative.Reference;
-import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->

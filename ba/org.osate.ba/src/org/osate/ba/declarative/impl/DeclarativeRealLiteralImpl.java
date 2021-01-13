@@ -20,9 +20,7 @@
 package org.osate.ba.declarative.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.osate.ba.aadlba.impl.BehaviorRealLiteralImpl;
-
 import org.osate.ba.declarative.DeclarativePackage;
 import org.osate.ba.declarative.DeclarativeRealLiteral;
 

@@ -20,13 +20,9 @@
 package org.osate.ba.declarative.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.osate.aadl2.impl.BasicPropertyAssociationImpl;
-
 import org.osate.ba.declarative.DeclarativeBasicPropertyAssociation;
 import org.osate.ba.declarative.DeclarativePackage;
 

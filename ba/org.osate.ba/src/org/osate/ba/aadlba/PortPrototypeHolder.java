@@ -19,8 +19,6 @@
  */
 package org.osate.ba.aadlba;
 
-import org.osate.ba.utils.visitor.IBAVisitable;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Port Prototype Holder</b></em>'.
