@@ -6,7 +6,7 @@
       provider-name="CMU SEI"
       image="icons/osateupdate_120.jpg"
       license-feature="org.osate.license"
-      license-feature-version="1.0.0.qualifier">
+      license-feature-version="1.0.1.qualifier">
 
    <description>
       This feature provides a number of example AADL projects.
