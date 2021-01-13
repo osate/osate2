@@ -174,6 +174,7 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 		result.append('"');
 		return result.toString();
 	}
+
 	public boolean sameAs(PropertyExpression pe) {
 		if (this == pe) {
 			return true;

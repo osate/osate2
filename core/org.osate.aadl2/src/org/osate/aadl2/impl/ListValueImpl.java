@@ -173,6 +173,7 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 		}
 		return super.eIsSet(featureID);
 	}
+
 	public boolean sameAs(PropertyExpression pe) {
 		if (this == pe) {
 			return true;

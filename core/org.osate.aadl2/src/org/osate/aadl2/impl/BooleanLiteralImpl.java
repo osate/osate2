@@ -177,6 +177,7 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 		result.append(value);
 		return result.toString();
 	}
+
 	public boolean sameAs(PropertyExpression pe) {
 		if (this == pe) {
 			return true;

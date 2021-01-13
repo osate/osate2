@@ -774,6 +774,7 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		ConnectedElement end = getRootConnection().getSource();
 		return end.getContext();
 	}
+
 	public final void getPropertyValueInternal(final Property pn, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final ComponentImplementation partOf = (ComponentImplementation) getContainingClassifier();

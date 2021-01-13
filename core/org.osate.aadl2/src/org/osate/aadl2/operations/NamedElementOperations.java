@@ -97,5 +97,4 @@ public class NamedElementOperations extends ElementOperations {
 		}
 	}
 
-
 } // NamedElementOperations

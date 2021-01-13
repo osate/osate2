@@ -221,6 +221,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		newVal.setValue(getValue());
 		return newVal;
 	}
+
 	public boolean sameAs(PropertyExpression pe) {
 		if (this == pe) {
 			return true;

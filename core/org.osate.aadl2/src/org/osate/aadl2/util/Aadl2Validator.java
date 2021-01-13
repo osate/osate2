@@ -3486,6 +3486,7 @@ public class Aadl2Validator extends EObjectValidator {
 		}
 		return result;
 	}
+
 	public boolean validate_EveryDefaultConstraint(EObject object, DiagnosticChain theDiagnostics,
 			Map<Object, Object> context) {
 		if (!validate_NoCircularContainment(object, theDiagnostics, context)) {

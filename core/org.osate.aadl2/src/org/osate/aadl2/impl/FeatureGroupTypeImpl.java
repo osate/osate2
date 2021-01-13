@@ -1018,6 +1018,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	public boolean isSetGeneralizations() {
 		return super.isSetGeneralizations() || eIsSet(Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION);
 	}
+
 	public NamedElement findNamedElement(String name) {
 		NamedElement searchResult = super.findNamedElement(name);
 		if (searchResult != null) {

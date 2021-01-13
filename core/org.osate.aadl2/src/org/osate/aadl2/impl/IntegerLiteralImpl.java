@@ -328,6 +328,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 		newVal.setValue(getValue());
 		return newVal;
 	}
+
 	public boolean sameAs(PropertyExpression pe) {
 		if (this == pe) {
 			return true;

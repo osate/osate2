@@ -353,6 +353,7 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 		}
 		return getFeatureGroupType().getIndexOf(feature);
 	}
+
 	public boolean acceptsProperty(Property property) {
 		if (super.acceptsProperty(property)) {
 			return true;
@@ -362,6 +363,7 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 			return false;
 		}
 	}
+
 	public void getPropertyValueInternalHelper(final Property prop, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		// values from feature group type

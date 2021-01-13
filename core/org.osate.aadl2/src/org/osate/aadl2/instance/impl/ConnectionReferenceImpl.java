@@ -514,6 +514,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	public List<? extends NamedElement> getInstantiatedObjects() {
 		return Collections.singletonList(getConnection());
 	}
+
 	public final void getPropertyValueInternal(Property property, PropertyAcc pas, boolean fromInstanceSlaveCall,
 			final boolean all) throws InvalidModelException {
 		// Do nothing because there should be no properties looked up on a ConnectionReference.

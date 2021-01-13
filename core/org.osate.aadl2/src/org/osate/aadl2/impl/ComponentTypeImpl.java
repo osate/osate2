@@ -826,6 +826,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		} while (current != null && current != this);
 		return false;
 	}
+
 	public final void getPropertyValueInternal(final Property property, final PropertyAcc paa,
 			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		/*
