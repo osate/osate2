@@ -22,7 +22,6 @@
 package org.osate.ba.declarative;
 
 import org.eclipse.emf.ecore.EObject;
-
 import org.osate.aadl2.Element;
 import org.osate.ba.aadlba.BehaviorElement;
 

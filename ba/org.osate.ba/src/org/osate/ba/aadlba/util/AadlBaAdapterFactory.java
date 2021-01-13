@@ -21,11 +21,8 @@ package org.osate.ba.aadlba.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.BooleanLiteral;
@@ -35,7 +32,6 @@ import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.RealLiteral;

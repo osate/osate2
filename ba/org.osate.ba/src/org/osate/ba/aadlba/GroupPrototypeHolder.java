@@ -21,7 +21,6 @@ package org.osate.ba.aadlba;
 
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
-import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->

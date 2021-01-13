@@ -23,9 +23,7 @@ package org.osate.ba.declarative.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
 import org.osate.aadl2.AbstractFeatureClassifier;
 import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.ArrayDimension;
@@ -34,7 +32,6 @@ import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Data;
 import org.osate.aadl2.DataClassifier;
@@ -56,7 +53,6 @@ import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
-import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.Type;
@@ -98,7 +94,32 @@ import org.osate.ba.aadlba.Target;
 import org.osate.ba.aadlba.Value;
 import org.osate.ba.aadlba.ValueConstant;
 import org.osate.ba.aadlba.ValueVariable;
-import org.osate.ba.declarative.*;
+import org.osate.ba.declarative.ArrayableIdentifier;
+import org.osate.ba.declarative.CommAction;
+import org.osate.ba.declarative.DeclarativeArrayDimension;
+import org.osate.ba.declarative.DeclarativeBasicPropertyAssociation;
+import org.osate.ba.declarative.DeclarativeBehaviorAnnex;
+import org.osate.ba.declarative.DeclarativeBehaviorElement;
+import org.osate.ba.declarative.DeclarativeBehaviorTransition;
+import org.osate.ba.declarative.DeclarativeBooleanLiteral;
+import org.osate.ba.declarative.DeclarativeClassifierValue;
+import org.osate.ba.declarative.DeclarativeIntegerLiteral;
+import org.osate.ba.declarative.DeclarativeListValue;
+import org.osate.ba.declarative.DeclarativePackage;
+import org.osate.ba.declarative.DeclarativePropertyAssociation;
+import org.osate.ba.declarative.DeclarativePropertyExpression;
+import org.osate.ba.declarative.DeclarativePropertyName;
+import org.osate.ba.declarative.DeclarativePropertyReference;
+import org.osate.ba.declarative.DeclarativeRangeValue;
+import org.osate.ba.declarative.DeclarativeRealLiteral;
+import org.osate.ba.declarative.DeclarativeRecordValue;
+import org.osate.ba.declarative.DeclarativeReferenceValue;
+import org.osate.ba.declarative.DeclarativeStringLiteral;
+import org.osate.ba.declarative.DeclarativeTime;
+import org.osate.ba.declarative.Identifier;
+import org.osate.ba.declarative.NamedValue;
+import org.osate.ba.declarative.QualifiedNamedElement;
+import org.osate.ba.declarative.Reference;
 
 /**
  * <!-- begin-user-doc -->

@@ -28,7 +28,6 @@ import java.util.List;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;

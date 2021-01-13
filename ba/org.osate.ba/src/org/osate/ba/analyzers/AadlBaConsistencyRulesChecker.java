@@ -25,14 +25,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.ba.aadlba.*;
+import org.osate.ba.aadlba.ActualPortHolder;
+import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ba.aadlba.BehaviorElement;
+import org.osate.ba.aadlba.BehaviorState;
+import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ba.aadlba.DispatchCondition;
+import org.osate.ba.aadlba.DispatchTrigger;
+import org.osate.ba.aadlba.DispatchTriggerLogicalExpression;
 import org.osate.ba.declarative.Identifier;
 import org.osate.ba.utils.AadlBaUtils;
 import org.osate.ba.utils.AadlBaVisitors;

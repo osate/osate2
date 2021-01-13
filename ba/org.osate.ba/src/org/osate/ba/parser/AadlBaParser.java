@@ -23,34 +23,89 @@
 
 package org.osate.ba.parser;
 
-import org.eclipse.emf.common.util.BasicEList;
-
-import org.eclipse.emf.common.util.EList;
-
-import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
-
-import org.osate.aadl2.parsesupport.AObject;
-import org.osate.aadl2.parsesupport.LocationReference;
-
-import org.osate.annexsupport.AnnexHighlighterPositionAcceptor;
-
-import org.osate.ba.aadlba.*;
-import org.osate.ba.declarative.*;
-import org.osate.ba.analyzers.DeclarativeUtils;
-
-import org.osate.ba.utils.AadlBaLocationReference;
-
-import org.osate.aadl2.*;
-import org.osate.aadl2.parsesupport.ParseUtil;
-
-import org.antlr.v4.runtime.atn.*;
-import org.antlr.v4.runtime.dfa.DFA;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
-import org.antlr.v4.runtime.tree.*;
-import java.util.List;
-import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.antlr.v4.runtime.NoViableAltException;
+import org.antlr.v4.runtime.Parser;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.RuntimeMetaData;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.atn.ATN;
+import org.antlr.v4.runtime.atn.ATNDeserializer;
+import org.antlr.v4.runtime.atn.ParserATNSimulator;
+import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
+import org.antlr.v4.runtime.tree.ParseTreeVisitor;
+import org.antlr.v4.runtime.tree.TerminalNode;
+import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.ProcessorClassifier;
+import org.osate.aadl2.parsesupport.ParseUtil;
+import org.osate.ba.aadlba.AssignmentAction;
+import org.osate.ba.aadlba.BasicAction;
+import org.osate.ba.aadlba.BehaviorAction;
+import org.osate.ba.aadlba.BehaviorActionBlock;
+import org.osate.ba.aadlba.BehaviorActions;
+import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ba.aadlba.BehaviorBooleanLiteral;
+import org.osate.ba.aadlba.BehaviorCondition;
+import org.osate.ba.aadlba.BehaviorIntegerLiteral;
+import org.osate.ba.aadlba.BehaviorRealLiteral;
+import org.osate.ba.aadlba.BehaviorStringLiteral;
+import org.osate.ba.aadlba.BehaviorVariable;
+import org.osate.ba.aadlba.BinaryAddingOperator;
+import org.osate.ba.aadlba.BinaryNumericOperator;
+import org.osate.ba.aadlba.DispatchCondition;
+import org.osate.ba.aadlba.DispatchConjunction;
+import org.osate.ba.aadlba.DispatchTriggerCondition;
+import org.osate.ba.aadlba.DispatchTriggerLogicalExpression;
+import org.osate.ba.aadlba.ElementValues;
+import org.osate.ba.aadlba.ExecuteCondition;
+import org.osate.ba.aadlba.Factor;
+import org.osate.ba.aadlba.ForOrForAllStatement;
+import org.osate.ba.aadlba.IfStatement;
+import org.osate.ba.aadlba.IntegerRange;
+import org.osate.ba.aadlba.IntegerValue;
+import org.osate.ba.aadlba.IntegerValueConstant;
+import org.osate.ba.aadlba.LogicalOperator;
+import org.osate.ba.aadlba.ModeSwitchConjunction;
+import org.osate.ba.aadlba.ModeSwitchTriggerLogicalExpression;
+import org.osate.ba.aadlba.MultiplyingOperator;
+import org.osate.ba.aadlba.NumericLiteral;
+import org.osate.ba.aadlba.ParameterLabel;
+import org.osate.ba.aadlba.Relation;
+import org.osate.ba.aadlba.RelationalOperator;
+import org.osate.ba.aadlba.SimpleExpression;
+import org.osate.ba.aadlba.Target;
+import org.osate.ba.aadlba.Term;
+import org.osate.ba.aadlba.TimedAction;
+import org.osate.ba.aadlba.UnaryAddingOperator;
+import org.osate.ba.aadlba.UnaryBooleanOperator;
+import org.osate.ba.aadlba.UnaryNumericOperator;
+import org.osate.ba.aadlba.Value;
+import org.osate.ba.aadlba.ValueConstant;
+import org.osate.ba.aadlba.ValueExpression;
+import org.osate.ba.aadlba.ValueVariable;
+import org.osate.ba.aadlba.WhileOrDoUntilStatement;
+import org.osate.ba.declarative.ArrayableIdentifier;
+import org.osate.ba.declarative.CommAction;
+import org.osate.ba.declarative.DeclarativeBasicPropertyAssociation;
+import org.osate.ba.declarative.DeclarativeBehaviorTransition;
+import org.osate.ba.declarative.DeclarativeClassifierValue;
+import org.osate.ba.declarative.DeclarativeListValue;
+import org.osate.ba.declarative.DeclarativePropertyAssociation;
+import org.osate.ba.declarative.DeclarativePropertyExpression;
+import org.osate.ba.declarative.DeclarativePropertyName;
+import org.osate.ba.declarative.DeclarativePropertyReference;
+import org.osate.ba.declarative.DeclarativeRangeValue;
+import org.osate.ba.declarative.DeclarativeRecordValue;
+import org.osate.ba.declarative.DeclarativeReferenceValue;
+import org.osate.ba.declarative.DeclarativeTime;
+import org.osate.ba.declarative.QualifiedNamedElement;
+import org.osate.ba.declarative.Reference;
 
 @SuppressWarnings({ "all", "warnings", "unchecked", "unused", "cast" })
 public class AadlBaParser extends Parser {

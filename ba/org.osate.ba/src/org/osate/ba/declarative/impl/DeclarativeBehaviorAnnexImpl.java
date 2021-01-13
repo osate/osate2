@@ -22,17 +22,12 @@ package org.osate.ba.declarative.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.osate.ba.declarative.DeclarativeBehaviorAnnex;
 import org.osate.ba.declarative.DeclarativeBehaviorElement;
 import org.osate.ba.declarative.DeclarativePackage;

@@ -20,7 +20,6 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.Subprogram;
-import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
