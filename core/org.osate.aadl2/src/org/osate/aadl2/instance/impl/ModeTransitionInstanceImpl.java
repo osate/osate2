@@ -408,6 +408,7 @@ public class ModeTransitionInstanceImpl extends ConnectionInstanceEndImpl implem
 		}
 		return super.eIsSet(featureID);
 	}
+
 	public List<? extends NamedElement> getInstantiatedObjects() {
 		return Collections.singletonList(getModeTransition());
 	}

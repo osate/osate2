@@ -1852,6 +1852,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 		// try the type hierarchy
 		return getType().isDescendentOf(c);
 	}
+
 	public void getPropertyValueInternal(Property property, final PropertyAcc pas, final boolean fromInstanceSlaveCall,
 			final boolean all) throws InvalidModelException {
 		// this implementation's properties subclause

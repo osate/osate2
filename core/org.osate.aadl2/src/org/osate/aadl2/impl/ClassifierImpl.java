@@ -206,6 +206,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this, Aadl2Package.CLASSIFIER__MEMBER,
 				MEMBER_ESUBSETS);
 	}
+
 	public EList<NamedElement> getMembers() {
 		// DB This should be an EStructuralFeature.Setting
 		// BasicEList<NamedElement> results = new BasicEList<NamedElement>(

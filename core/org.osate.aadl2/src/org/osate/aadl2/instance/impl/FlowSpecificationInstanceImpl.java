@@ -445,6 +445,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 		}
 		return super.eIsSet(featureID);
 	}
+
 	public List<FlowSpecification> getInstantiatedObjects() {
 		return Collections.singletonList(getFlowSpecification());
 	}
@@ -460,6 +461,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 		}
 		return false;
 	}
+
 	public boolean matchesIndex(List<ArrayRange> ranges) {
 		/**
 		 * FIX JD

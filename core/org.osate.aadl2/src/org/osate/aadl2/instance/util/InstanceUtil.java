@@ -93,7 +93,7 @@ public class InstanceUtil {
 		 * @since 4.0
 		 */
 		public Classifier getClassifier() {
-			return this.classifier;
+			return classifier;
 		}
 
 		/**
@@ -103,7 +103,7 @@ public class InstanceUtil {
 		 * @since 4.0
 		 */
 		public EList<PrototypeBinding> getBindings() {
-			return this.bindings;
+			return bindings;
 		}
 	}
 
@@ -512,6 +512,5 @@ public class InstanceUtil {
 		}
 		return null;
 	}
-
 
 }

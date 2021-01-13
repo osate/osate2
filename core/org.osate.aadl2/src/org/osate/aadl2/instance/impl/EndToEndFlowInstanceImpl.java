@@ -312,6 +312,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 		}
 		return modesList;
 	}
+
 	public List<EndToEndFlow> getInstantiatedObjects() {
 		return Collections.singletonList(getEndToEndFlow());
 	}

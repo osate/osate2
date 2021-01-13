@@ -175,12 +175,14 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 		}
 		return super.eIsSet(featureID);
 	}
+
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((ownedFieldValues == null) ? 0 : ownedFieldValues.hashCode());
 		return result;
 	}
+
 	public boolean sameAs(PropertyExpression pv) {
 		if (this == pv) {
 			return true;
@@ -205,7 +207,7 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.impl.PropertyExpressionImpl#evaluate(org.osate.aadl2.properties.EvaluationContext, int)
 	 */
 	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
