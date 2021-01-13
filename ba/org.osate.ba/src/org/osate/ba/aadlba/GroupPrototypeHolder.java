@@ -21,8 +21,7 @@ package org.osate.ba.aadlba;
 
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,48 +39,47 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface GroupPrototypeHolder extends GroupHolder
-{
+public interface GroupPrototypeHolder extends GroupHolder {
 
-  /**
-   * Returns the value of the '<em><b>Prototype Binding</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Prototype Binding</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Prototype Binding</em>' reference.
-   * @see #setPrototypeBinding(PrototypeBinding)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getGroupPrototypeHolder_PrototypeBinding()
-   * @model
-   * @generated
-   */
-  PrototypeBinding getPrototypeBinding();
+	/**
+	 * Returns the value of the '<em><b>Prototype Binding</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Prototype Binding</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Prototype Binding</em>' reference.
+	 * @see #setPrototypeBinding(PrototypeBinding)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getGroupPrototypeHolder_PrototypeBinding()
+	 * @model
+	 * @generated
+	 */
+	PrototypeBinding getPrototypeBinding();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.GroupPrototypeHolder#getPrototypeBinding <em>Prototype Binding</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Prototype Binding</em>' reference.
-   * @see #getPrototypeBinding()
-   * @generated
-   */
-  void setPrototypeBinding(PrototypeBinding value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.GroupPrototypeHolder#getPrototypeBinding <em>Prototype Binding</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Prototype Binding</em>' reference.
+	 * @see #getPrototypeBinding()
+	 * @generated
+	 */
+	void setPrototypeBinding(PrototypeBinding value);
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model prototypeRequired="true"
-   * @generated
-   */
-  void setPrototype(Prototype prototype);
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model prototypeRequired="true"
+	 * @generated
+	 */
+	void setPrototype(Prototype prototype);
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   * @generated
-   */
-  Prototype getPrototype();
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	Prototype getPrototype();
 } // GroupPrototypeHolder

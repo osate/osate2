@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.Classifier;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,32 +38,31 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface ClassifierPropertyReference extends PropertyReference
-{
-  /**
-   * Returns the value of the '<em><b>Classifier</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Classifier</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Classifier</em>' reference.
-   * @see #setClassifier(Classifier)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getClassifierPropertyReference_Classifier()
-   * @model required="true"
-   * @generated
-   */
-  Classifier getClassifier();
+public interface ClassifierPropertyReference extends PropertyReference {
+	/**
+	 * Returns the value of the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Classifier</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Classifier</em>' reference.
+	 * @see #setClassifier(Classifier)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getClassifierPropertyReference_Classifier()
+	 * @model required="true"
+	 * @generated
+	 */
+	Classifier getClassifier();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.ClassifierPropertyReference#getClassifier <em>Classifier</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Classifier</em>' reference.
-   * @see #getClassifier()
-   * @generated
-   */
-  void setClassifier(Classifier value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.ClassifierPropertyReference#getClassifier <em>Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Classifier</em>' reference.
+	 * @see #getClassifier()
+	 * @generated
+	 */
+	void setClassifier(Classifier value);
 
 } // ClassifierPropertyReference

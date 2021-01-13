@@ -19,12 +19,11 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.aadl2.impl.NamedElementImpl ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.BehaviorNamedElement ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.impl.NamedElementImpl;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.BehaviorNamedElement;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,31 +32,28 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public abstract class BehaviorNamedElementImpl extends NamedElementImpl implements BehaviorNamedElement
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected BehaviorNamedElementImpl()
-  {
-    super();
-  }
+public abstract class BehaviorNamedElementImpl extends NamedElementImpl implements BehaviorNamedElement {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BehaviorNamedElementImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.BEHAVIOR_NAMED_ELEMENT;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.BEHAVIOR_NAMED_ELEMENT;
+	}
 
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
 
-} //BehaviorNamedElementImpl
+} // BehaviorNamedElementImpl

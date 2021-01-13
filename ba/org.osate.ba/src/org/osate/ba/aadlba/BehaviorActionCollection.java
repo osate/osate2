@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.eclipse.emf.common.util.EList;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,22 +38,21 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface BehaviorActionCollection extends BehaviorActions
-{
-  /**
-   * Returns the value of the '<em><b>Actions</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.ba.aadlba.BehaviorAction}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Actions</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Actions</em>' containment reference list.
-   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorActionCollection_Actions()
-   * @model containment="true" lower="2"
-   * @generated
-   */
-  EList<BehaviorAction> getActions();
+public interface BehaviorActionCollection extends BehaviorActions {
+	/**
+	 * Returns the value of the '<em><b>Actions</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.ba.aadlba.BehaviorAction}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Actions</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Actions</em>' containment reference list.
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorActionCollection_Actions()
+	 * @model containment="true" lower="2"
+	 * @generated
+	 */
+	EList<BehaviorAction> getActions();
 
 } // BehaviorActionCollection

@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.eclipse.emf.common.util.EList;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,45 +38,44 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface GroupableElement extends BehaviorElement
-{
-  /**
-   * Returns the value of the '<em><b>Group Holders</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.ba.aadlba.GroupHolder}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Group Holders</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Group Holders</em>' containment reference list.
-   * @see #isSetGroupHolders()
-   * @see #unsetGroupHolders()
-   * @see org.osate.ba.aadlba.AadlBaPackage#getGroupableElement_GroupHolders()
-   * @model containment="true" unsettable="true"
-   * @generated
-   */
-  EList<GroupHolder> getGroupHolders();
+public interface GroupableElement extends BehaviorElement {
+	/**
+	 * Returns the value of the '<em><b>Group Holders</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.ba.aadlba.GroupHolder}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Group Holders</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Group Holders</em>' containment reference list.
+	 * @see #isSetGroupHolders()
+	 * @see #unsetGroupHolders()
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getGroupableElement_GroupHolders()
+	 * @model containment="true" unsettable="true"
+	 * @generated
+	 */
+	EList<GroupHolder> getGroupHolders();
 
-  /**
-   * Unsets the value of the '{@link org.osate.ba.aadlba.GroupableElement#getGroupHolders <em>Group Holders</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isSetGroupHolders()
-   * @see #getGroupHolders()
-   * @generated
-   */
-  void unsetGroupHolders();
+	/**
+	 * Unsets the value of the '{@link org.osate.ba.aadlba.GroupableElement#getGroupHolders <em>Group Holders</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetGroupHolders()
+	 * @see #getGroupHolders()
+	 * @generated
+	 */
+	void unsetGroupHolders();
 
-  /**
-   * Returns whether the value of the '{@link org.osate.ba.aadlba.GroupableElement#getGroupHolders <em>Group Holders</em>}' containment reference list is set.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return whether the value of the '<em>Group Holders</em>' containment reference list is set.
-   * @see #unsetGroupHolders()
-   * @see #getGroupHolders()
-   * @generated
-   */
-  boolean isSetGroupHolders();
+	/**
+	 * Returns whether the value of the '{@link org.osate.ba.aadlba.GroupableElement#getGroupHolders <em>Group Holders</em>}' containment reference list is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Group Holders</em>' containment reference list is set.
+	 * @see #unsetGroupHolders()
+	 * @see #getGroupHolders()
+	 * @generated
+	 */
+	boolean isSetGroupHolders();
 
 } // GroupableElement

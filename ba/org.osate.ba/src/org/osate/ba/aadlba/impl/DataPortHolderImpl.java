@@ -19,12 +19,11 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.aadl2.DataPort ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.DataPortHolder ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.DataPort;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.DataPortHolder;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,53 +32,48 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public class DataPortHolderImpl extends ActualPortHolderImpl implements DataPortHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected DataPortHolderImpl()
-  {
-    super();
-  }
+public class DataPortHolderImpl extends ActualPortHolderImpl implements DataPortHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DataPortHolderImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.DATA_PORT_HOLDER;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.DATA_PORT_HOLDER;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setDataPort(final DataPort dataPort )
-  {
-    element = dataPort ;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDataPort(final DataPort dataPort) {
+		element = dataPort;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public DataPort getDataPort()
-  {
-    return (DataPort) element;
-  }
-  
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public DataPort getDataPort() {
+		return (DataPort) element;
+	}
 
-} //DataPortHolderImpl
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
+
+} // DataPortHolderImpl

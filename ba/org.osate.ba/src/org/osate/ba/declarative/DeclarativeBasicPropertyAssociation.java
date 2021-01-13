@@ -17,11 +17,11 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
-import org.eclipse.emf.ecore.EObject ;
+import org.eclipse.emf.ecore.EObject;
 
-import org.osate.aadl2.BasicPropertyAssociation ;
+import org.osate.aadl2.BasicPropertyAssociation;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,29 +39,27 @@ import org.osate.aadl2.BasicPropertyAssociation ;
  * @model
  * @generated
  */
-public interface DeclarativeBasicPropertyAssociation extends EObject,
-                                                     BasicPropertyAssociation
-{
-  /**
-   * Returns the value of the '<em><b>Basic Property Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Basic Property Name</em>' attribute.
-   * @see #setBasicPropertyName(String)
-   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeBasicPropertyAssociation_BasicPropertyName()
-   * @model dataType="org.osate.aadl2.String" required="true"
-   * @generated
-   */
-  String getBasicPropertyName() ;
+public interface DeclarativeBasicPropertyAssociation extends EObject, BasicPropertyAssociation {
+	/**
+	 * Returns the value of the '<em><b>Basic Property Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Basic Property Name</em>' attribute.
+	 * @see #setBasicPropertyName(String)
+	 * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeBasicPropertyAssociation_BasicPropertyName()
+	 * @model dataType="org.osate.aadl2.String" required="true"
+	 * @generated
+	 */
+	String getBasicPropertyName();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.declarative.DeclarativeBasicPropertyAssociation#getBasicPropertyName <em>Basic Property Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Basic Property Name</em>' attribute.
-   * @see #getBasicPropertyName()
-   * @generated
-   */
-  void setBasicPropertyName(String value) ;
+	/**
+	 * Sets the value of the '{@link org.osate.ba.declarative.DeclarativeBasicPropertyAssociation#getBasicPropertyName <em>Basic Property Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Basic Property Name</em>' attribute.
+	 * @see #getBasicPropertyName()
+	 * @generated
+	 */
+	void setBasicPropertyName(String value);
 
 } // DeclarativeBasicPropertyAssociation

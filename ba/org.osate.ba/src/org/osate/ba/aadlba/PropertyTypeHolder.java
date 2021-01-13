@@ -20,8 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.PropertyType;
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,22 +32,21 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface PropertyTypeHolder extends PropertyElementHolder
-{
+public interface PropertyTypeHolder extends PropertyElementHolder {
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model propertyTypeRequired="true"
-   * @generated
-   */
-  void setPropertyType(PropertyType propertyType);
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model propertyTypeRequired="true"
+	 * @generated
+	 */
+	void setPropertyType(PropertyType propertyType);
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   * @generated
-   */
-  PropertyType getPropertyType();
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	PropertyType getPropertyType();
 } // PropertyTypeHolder

@@ -19,12 +19,11 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.aadl2.Port ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.ActualPortHolder ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.Port;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.ActualPortHolder;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,52 +32,47 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public abstract class ActualPortHolderImpl extends PortHolderImpl implements ActualPortHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected ActualPortHolderImpl()
-  {
-    super();
-  }
+public abstract class ActualPortHolderImpl extends PortHolderImpl implements ActualPortHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ActualPortHolderImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.ACTUAL_PORT_HOLDER;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.ACTUAL_PORT_HOLDER;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setPort(final Port port )
-  {
-    element = port ;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPort(final Port port) {
+		element = port;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Port getPort()
-  {
-    return (Port) element;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Port getPort() {
+		return (Port) element;
+	}
 
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
-} //ActualPortHolderImpl
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
+} // ActualPortHolderImpl

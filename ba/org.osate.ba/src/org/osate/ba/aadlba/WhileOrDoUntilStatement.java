@@ -19,8 +19,7 @@
  */
 package org.osate.ba.aadlba;
 
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,59 +38,58 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface WhileOrDoUntilStatement extends LoopStatement
-{
-  /**
-   * Returns the value of the '<em><b>Logical Value Expression</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Logical Value Expression</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Logical Value Expression</em>' containment reference.
-   * @see #setLogicalValueExpression(ValueExpression)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getWhileOrDoUntilStatement_LogicalValueExpression()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  ValueExpression getLogicalValueExpression();
+public interface WhileOrDoUntilStatement extends LoopStatement {
+	/**
+	 * Returns the value of the '<em><b>Logical Value Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Logical Value Expression</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Logical Value Expression</em>' containment reference.
+	 * @see #setLogicalValueExpression(ValueExpression)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getWhileOrDoUntilStatement_LogicalValueExpression()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	ValueExpression getLogicalValueExpression();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.WhileOrDoUntilStatement#getLogicalValueExpression <em>Logical Value Expression</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Logical Value Expression</em>' containment reference.
-   * @see #getLogicalValueExpression()
-   * @generated
-   */
-  void setLogicalValueExpression(ValueExpression value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.WhileOrDoUntilStatement#getLogicalValueExpression <em>Logical Value Expression</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Logical Value Expression</em>' containment reference.
+	 * @see #getLogicalValueExpression()
+	 * @generated
+	 */
+	void setLogicalValueExpression(ValueExpression value);
 
-  /**
-   * Returns the value of the '<em><b>Do Until</b></em>' attribute.
-   * The default value is <code>"false"</code>.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Do Until</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Do Until</em>' attribute.
-   * @see #setDoUntil(boolean)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getWhileOrDoUntilStatement_DoUntil()
-   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
-   * @generated
-   */
-  boolean isDoUntil();
+	/**
+	 * Returns the value of the '<em><b>Do Until</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Do Until</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Do Until</em>' attribute.
+	 * @see #setDoUntil(boolean)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getWhileOrDoUntilStatement_DoUntil()
+	 * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
+	 * @generated
+	 */
+	boolean isDoUntil();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.WhileOrDoUntilStatement#isDoUntil <em>Do Until</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Do Until</em>' attribute.
-   * @see #isDoUntil()
-   * @generated
-   */
-  void setDoUntil(boolean value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.WhileOrDoUntilStatement#isDoUntil <em>Do Until</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Do Until</em>' attribute.
+	 * @see #isDoUntil()
+	 * @generated
+	 */
+	void setDoUntil(boolean value);
 
 } // WhileOrDoUntilStatement

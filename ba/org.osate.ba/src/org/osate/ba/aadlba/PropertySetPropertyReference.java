@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.PropertySet;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,32 +38,31 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface PropertySetPropertyReference extends PropertyReference
-{
-  /**
-   * Returns the value of the '<em><b>Property Set</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Property Set</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Property Set</em>' reference.
-   * @see #setPropertySet(PropertySet)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getPropertySetPropertyReference_PropertySet()
-   * @model
-   * @generated
-   */
-  PropertySet getPropertySet();
+public interface PropertySetPropertyReference extends PropertyReference {
+	/**
+	 * Returns the value of the '<em><b>Property Set</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Property Set</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Property Set</em>' reference.
+	 * @see #setPropertySet(PropertySet)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getPropertySetPropertyReference_PropertySet()
+	 * @model
+	 * @generated
+	 */
+	PropertySet getPropertySet();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.PropertySetPropertyReference#getPropertySet <em>Property Set</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Property Set</em>' reference.
-   * @see #getPropertySet()
-   * @generated
-   */
-  void setPropertySet(PropertySet value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.PropertySetPropertyReference#getPropertySet <em>Property Set</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Property Set</em>' reference.
+	 * @see #getPropertySet()
+	 * @generated
+	 */
+	void setPropertySet(PropertySet value);
 
 } // PropertySetPropertyReference

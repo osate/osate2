@@ -19,8 +19,7 @@
  */
 package org.osate.ba.aadlba;
 
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,32 +37,31 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model abstract="true"
  * @generated
  */
-public interface SharedDataAction extends CommunicationAction
-{
-  /**
-   * Returns the value of the '<em><b>Data Access</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Data Access</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Data Access</em>' containment reference.
-   * @see #setDataAccess(DataAccessHolder)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getSharedDataAction_DataAccess()
-   * @model containment="true"
-   * @generated
-   */
-  DataAccessHolder getDataAccess();
+public interface SharedDataAction extends CommunicationAction {
+	/**
+	 * Returns the value of the '<em><b>Data Access</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Data Access</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data Access</em>' containment reference.
+	 * @see #setDataAccess(DataAccessHolder)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getSharedDataAction_DataAccess()
+	 * @model containment="true"
+	 * @generated
+	 */
+	DataAccessHolder getDataAccess();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.SharedDataAction#getDataAccess <em>Data Access</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Data Access</em>' containment reference.
-   * @see #getDataAccess()
-   * @generated
-   */
-  void setDataAccess(DataAccessHolder value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.SharedDataAction#getDataAccess <em>Data Access</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Data Access</em>' containment reference.
+	 * @see #getDataAccess()
+	 * @generated
+	 */
+	void setDataAccess(DataAccessHolder value);
 
 } // SharedDataAction

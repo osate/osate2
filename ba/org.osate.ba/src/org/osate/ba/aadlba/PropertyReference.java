@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.eclipse.emf.common.util.EList;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,22 +38,21 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model abstract="true"
  * @generated
  */
-public interface PropertyReference extends ValueConstant, IntegerValueConstant
-{
-  /**
-   * Returns the value of the '<em><b>Properties</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.ba.aadlba.PropertyNameHolder}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Properties</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Properties</em>' containment reference list.
-   * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyReference_Properties()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  EList<PropertyNameHolder> getProperties();
+public interface PropertyReference extends ValueConstant, IntegerValueConstant {
+	/**
+	 * Returns the value of the '<em><b>Properties</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.ba.aadlba.PropertyNameHolder}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Properties</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Properties</em>' containment reference list.
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyReference_Properties()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	EList<PropertyNameHolder> getProperties();
 
 } // PropertyReference

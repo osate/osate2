@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.eclipse.emf.common.util.EList;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,22 +38,21 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface DispatchTriggerLogicalExpression extends DispatchTriggerCondition
-{
-  /**
-   * Returns the value of the '<em><b>Dispatch Conjunctions</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.ba.aadlba.DispatchConjunction}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Dispatch Conjunctions</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Dispatch Conjunctions</em>' containment reference list.
-   * @see org.osate.ba.aadlba.AadlBaPackage#getDispatchTriggerLogicalExpression_DispatchConjunctions()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  EList<DispatchConjunction> getDispatchConjunctions();
+public interface DispatchTriggerLogicalExpression extends DispatchTriggerCondition {
+	/**
+	 * Returns the value of the '<em><b>Dispatch Conjunctions</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.ba.aadlba.DispatchConjunction}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Dispatch Conjunctions</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Dispatch Conjunctions</em>' containment reference list.
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getDispatchTriggerLogicalExpression_DispatchConjunctions()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	EList<DispatchConjunction> getDispatchConjunctions();
 
 } // DispatchTriggerLogicalExpression

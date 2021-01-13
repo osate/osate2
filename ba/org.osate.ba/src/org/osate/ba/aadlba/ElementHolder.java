@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.NamedElement;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,32 +38,31 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface ElementHolder extends BehaviorElement
-{
-  /**
-   * Returns the value of the '<em><b>Element</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Element</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Element</em>' reference.
-   * @see #setElement(NamedElement)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getElementHolder_Element()
-   * @model
-   * @generated
-   */
-  NamedElement getElement();
+public interface ElementHolder extends BehaviorElement {
+	/**
+	 * Returns the value of the '<em><b>Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Element</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Element</em>' reference.
+	 * @see #setElement(NamedElement)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getElementHolder_Element()
+	 * @model
+	 * @generated
+	 */
+	NamedElement getElement();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.ElementHolder#getElement <em>Element</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Element</em>' reference.
-   * @see #getElement()
-   * @generated
-   */
-  void setElement(NamedElement value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.ElementHolder#getElement <em>Element</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Element</em>' reference.
+	 * @see #getElement()
+	 * @generated
+	 */
+	void setElement(NamedElement value);
 
 } // ElementHolder

@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.DataSubcomponent;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,22 +32,22 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface DataSubcomponentHolder extends DataHolder, Target, ElementValues, SubprogramHolderProxy, SubcomponentHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model dataSubcomponentRequired="true"
-   * @generated
-   */
-  void setDataSubcomponent(DataSubcomponent dataSubcomponent);
+public interface DataSubcomponentHolder
+		extends DataHolder, Target, ElementValues, SubprogramHolderProxy, SubcomponentHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model dataSubcomponentRequired="true"
+	 * @generated
+	 */
+	void setDataSubcomponent(DataSubcomponent dataSubcomponent);
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   * @generated
-   */
-  DataSubcomponent getDataSubcomponent();
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	DataSubcomponent getDataSubcomponent();
 
 } // DataSubcomponentHolder

@@ -17,10 +17,10 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
-import org.eclipse.emf.ecore.EObject ;
-import org.osate.aadl2.PropertyExpression ;
+import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.PropertyExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,7 +32,5 @@ import org.osate.aadl2.PropertyExpression ;
  * @model abstract="true"
  * @generated
  */
-public interface DeclarativePropertyExpression extends EObject,
-                                               PropertyExpression
-{
+public interface DeclarativePropertyExpression extends EObject, PropertyExpression {
 } // DeclarativePropertyExpression

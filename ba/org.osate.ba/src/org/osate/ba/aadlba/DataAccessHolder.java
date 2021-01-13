@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.DataAccess;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,22 +32,21 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface DataAccessHolder extends DataHolder, Target, ElementValues, SubprogramHolderProxy, FeatureHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model dataAccessRequired="true"
-   * @generated
-   */
-  void setDataAccess(DataAccess dataAccess);
+public interface DataAccessHolder extends DataHolder, Target, ElementValues, SubprogramHolderProxy, FeatureHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model dataAccessRequired="true"
+	 * @generated
+	 */
+	void setDataAccess(DataAccess dataAccess);
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   * @generated
-   */
-  DataAccess getDataAccess();
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	DataAccess getDataAccess();
 
 } // DataAccessHolder

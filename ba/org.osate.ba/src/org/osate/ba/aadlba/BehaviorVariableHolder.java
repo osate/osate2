@@ -19,8 +19,7 @@
  */
 package org.osate.ba.aadlba;
 
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,22 +31,22 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface BehaviorVariableHolder extends DataHolder, IndexableElement, Target, ElementValues, SubprogramHolderProxy, ClassifierFeatureHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model variableRequired="true"
-   * @generated
-   */
-  void setVariable(BehaviorVariable variable);
+public interface BehaviorVariableHolder
+		extends DataHolder, IndexableElement, Target, ElementValues, SubprogramHolderProxy, ClassifierFeatureHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model variableRequired="true"
+	 * @generated
+	 */
+	void setVariable(BehaviorVariable variable);
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   * @generated
-   */
-  BehaviorVariable getBehaviorVariable();
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	BehaviorVariable getBehaviorVariable();
 
 } // BehaviorVariableHolder

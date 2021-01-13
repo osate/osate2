@@ -20,7 +20,7 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.Element;
-import org.osate.ba.utils.visitor.IBAVisitable ;
+import org.osate.ba.utils.visitor.IBAVisitable;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,32 +38,31 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model abstract="true"
  * @generated
  */
-public interface PropertyElementHolder extends BehaviorElement, IndexableElement
-{
-  /**
-   * Returns the value of the '<em><b>Element</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Element</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Element</em>' reference.
-   * @see #setElement(Element)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyElementHolder_Element()
-   * @model required="true"
-   * @generated
-   */
-  Element getElement();
+public interface PropertyElementHolder extends BehaviorElement, IndexableElement {
+	/**
+	 * Returns the value of the '<em><b>Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Element</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Element</em>' reference.
+	 * @see #setElement(Element)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyElementHolder_Element()
+	 * @model required="true"
+	 * @generated
+	 */
+	Element getElement();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.PropertyElementHolder#getElement <em>Element</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Element</em>' reference.
-   * @see #getElement()
-   * @generated
-   */
-  void setElement(Element value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.PropertyElementHolder#getElement <em>Element</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Element</em>' reference.
+	 * @see #getElement()
+	 * @generated
+	 */
+	void setElement(Element value);
 
 } // PropertyElementHolder

@@ -17,9 +17,9 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
-import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
+import org.osate.ba.aadlba.BehaviorIntegerLiteral;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +31,5 @@ import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
  * @model
  * @generated
  */
-public interface DeclarativeIntegerLiteral extends BehaviorIntegerLiteral,
-                                           DeclarativePropertyExpression
-{
+public interface DeclarativeIntegerLiteral extends BehaviorIntegerLiteral, DeclarativePropertyExpression {
 } // DeclarativeIntegerLiteral

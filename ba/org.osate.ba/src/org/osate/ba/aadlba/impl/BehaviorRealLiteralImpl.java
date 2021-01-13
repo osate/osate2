@@ -19,13 +19,12 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.aadl2.impl.RealLiteralImpl ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.BehaviorRealLiteral ;
-import org.osate.ba.utils.AadlBaLocationReference ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.impl.RealLiteralImpl;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.BehaviorRealLiteral;
+import org.osate.ba.utils.AadlBaLocationReference;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,36 +33,32 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public class BehaviorRealLiteralImpl extends RealLiteralImpl implements BehaviorRealLiteral
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected BehaviorRealLiteralImpl()
-  {
-    super();
-  }
+public class BehaviorRealLiteralImpl extends RealLiteralImpl implements BehaviorRealLiteral {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BehaviorRealLiteralImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.BEHAVIOR_REAL_LITERAL;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.BEHAVIOR_REAL_LITERAL;
+	}
 
-  @Override
-  public AadlBaLocationReference getAadlBaLocationReference()
-  {
-    return (AadlBaLocationReference) this.getLocationReference() ;
-  }
+	@Override
+	public AadlBaLocationReference getAadlBaLocationReference() {
+		return (AadlBaLocationReference) this.getLocationReference();
+	}
 
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
-} //BehaviorRealLiteralImpl
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
+} // BehaviorRealLiteralImpl
