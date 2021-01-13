@@ -396,7 +396,7 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 	String text(FlowImplementation flowimpl) {
 		String ret;
 
-		ret = "Flow ";
+		ret = "Flow";
 
 		if (flowimpl.getSpecification() != null) {
 

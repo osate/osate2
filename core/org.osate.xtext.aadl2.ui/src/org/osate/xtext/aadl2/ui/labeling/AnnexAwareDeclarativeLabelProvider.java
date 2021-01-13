@@ -30,21 +30,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.ui.label.DeclarativeLabelProvider;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
-import org.osate.aadl2.AbstractImplementation;
-import org.osate.aadl2.BusImplementation;
-import org.osate.aadl2.DataImplementation;
-import org.osate.aadl2.DeviceImplementation;
-import org.osate.aadl2.FlowImplementation;
-import org.osate.aadl2.MemoryImplementation;
-import org.osate.aadl2.ProcessImplementation;
-import org.osate.aadl2.ProcessorImplementation;
-import org.osate.aadl2.SubprogramGroupImplementation;
-import org.osate.aadl2.SubprogramImplementation;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.ThreadGroupImplementation;
-import org.osate.aadl2.ThreadImplementation;
-import org.osate.aadl2.VirtualBusImplementation;
-import org.osate.aadl2.VirtualProcessorImplementation;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.annexsupport.ParseResultHolder;
 
@@ -68,15 +54,7 @@ public class AnnexAwareDeclarativeLabelProvider extends DeclarativeLabelProvider
 				Collections.singletonList(labelProvider), (params, e) -> handleTextError(params, e));
 		Object text = textDispatcher.invoke(element);
 		if (text != null) {
-			if (element instanceof SystemImplementation || element instanceof DataImplementation
-					|| element instanceof ProcessorImplementation || element instanceof ProcessImplementation
-					|| element instanceof ThreadGroupImplementation || element instanceof ThreadImplementation
-					|| element instanceof SubprogramImplementation || element instanceof SubprogramGroupImplementation
-					|| element instanceof AbstractImplementation || element instanceof BusImplementation
-					|| element instanceof MemoryImplementation || element instanceof DeviceImplementation
-					|| element instanceof VirtualBusImplementation || element instanceof VirtualProcessorImplementation
-					|| element instanceof FlowImplementation) {
-
+			if (element instanceof ComponentImplementation) {
 				return text.toString().replaceAll("Implementation", "").replaceAll("Impl", "").replaceAll("  ", " ");
 			}
 			return text;
