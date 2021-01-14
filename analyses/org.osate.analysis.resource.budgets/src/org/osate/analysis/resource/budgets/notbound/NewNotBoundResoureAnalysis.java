@@ -134,6 +134,8 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 	 *              <li>values[3] = Resource name (StringValue)
 	 *              <li>values[4] = Budget message (StringValue)
 	 *              <li>values[5] = Actual budget message (StringValue)
+	 *              <li>values[6] = Component category name (StringValue)
+	 *              <li>values[7] = Component path (StringValue)
 	 *           </ul>
  *         </ul>
  *       <li>subResults = one {@code Result} for category of {@code ProcessorOrVirtualProcessor}
@@ -239,6 +241,9 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 					ResultUtil.addRealValue(capResult, capacity);
 					ResultUtil.addStringValue(capResult, GetProperties.toStringScaled(capacity, kbliteral));
 					ResultUtil.addStringValue(capResult, "Memory");
+					ResultUtil.addStringValue(capResult, c.getCategoryName()); // component category name
+					ResultUtil.addStringValue(capResult, c.getComponentPath()); // component instance path
+
 					memResult.getSubResults().add(capResult);
 
 					memory.setTotalCapacityMemory(memory.getTotalCapacityMemory() + capacity);
@@ -499,6 +504,8 @@ public class NewNotBoundResoureAnalysis extends GenericAnalysis {
 						ResultUtil.addStringValue(subResult, m.getLabel()); // resourceName
 						ResultUtil.addStringValue(subResult, GetProperties.toStringScaled(budgetSub, mipsliteral)); // budget message
 						ResultUtil.addStringValue(subResult, GetProperties.toStringScaled(budgetSubtotal, mipsliteral)); // actual budget message
+						ResultUtil.addStringValue(subResult, c.getComponentInstance().getCategory().getName()); // component category name
+						ResultUtil.addStringValue(subResult, c.getComponentInstance().getComponentInstancePath()); // component path
 
 						compResult.getSubResults().add(subResult);
 					}

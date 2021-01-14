@@ -189,7 +189,7 @@ public class NotBoundModel extends ModelElement {
 		Component comp = new Component(ci.getName());
 		comp.setComponentPath(ci.getInstanceObjectPath());
 		comp.setComponentInstance(ci);
-		comp.addMemory(subMIPS);
+		comp.addMIPS(subMIPS);
 		theMIPS.addComponent(comp);
 
 		if (model.rootMIPS.size() < 1) { // only 1 root MIPS is needed - this is more of a category
@@ -290,13 +290,6 @@ public class NotBoundModel extends ModelElement {
 
 	protected enum ResourceKind {
 		MIPS, RAM, ROM, Memory
-	}
-
-	protected static String detailedLogTotal1(ComponentInstance ci, double budget, UnitLiteral unit) {
-		String budgetmsg = GetProperties.toStringScaled(budget, unit) + ",";
-		String front = ci == null ? "Total" : ci.getCategory().getName() + " " + ci.getComponentInstancePath();
-		return front + ", " + budgetmsg;
-		// this is add to excel file errManager.logInfo(front + ", " + budgetmsg);
 	}
 
 	private static double getCapacity(ComponentInstance ne, ResourceKind kind, UnitLiteral unit) {

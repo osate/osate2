@@ -118,9 +118,9 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 
 		printItem(pw, "Detailed Processor MIPS Capacity Report " + somResult.getMessage());
 		pw.println();
+		pw.println();
 
 		printItems(pw, "Component", "Capacity");
-		pw.println();
 
 		int virtProcessorCount = 0;
 		for (final Result subResult : somResult.getSubResults()) {
@@ -129,7 +129,6 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 				for (final Result compResult : subResult.getSubResults()) {
 					printItems(pw, ResultUtil.getString(compResult, 0) + " " + ResultUtil.getString(compResult, 3),
 							ResultUtil.getString(compResult, 2));
-					pw.println();
 				}
 
 				printItems(pw, "Total", ResultUtil.getString(subResult, 2));
@@ -146,9 +145,9 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 		if (virtProcessorCount > 0) {
 			printItem(pw, "Detailed Virtual Processor MIPS Capacity Report " + somResult.getMessage());
 			pw.println();
+			pw.println();
 
 			printItems(pw, "Component", "Capacity");
-			pw.println();
 
 			for (final Result subResult : somResult.getSubResults()) {
 				// loop through virtual processors
@@ -156,7 +155,6 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 					for (final Result compResult : subResult.getSubResults()) {
 						printItems(pw, ResultUtil.getString(compResult, 0) + " " + ResultUtil.getString(compResult, 3),
 								ResultUtil.getString(compResult, 2));
-						pw.println();
 					}
 
 					printItems(pw, "Total", ResultUtil.getString(subResult, 3));
@@ -169,7 +167,6 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 		pw.println();
 		pw.println();
 		printItems(pw, "Component", "Budget", "Actual", "Notes");
-		pw.println();
 		// detailedLog(prefix, ci, budget, subtotal, resourceName, unit, notes);
 		/*
 		 * String budgetmsg = prefix + GetProperties.toStringScaled(budget, unit) + ",";
@@ -199,10 +196,9 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 			// loop through MIPS
 			if ("MIPS".equalsIgnoreCase(ResultUtil.getString(subResult, 0))) {
 				for (final Result budgetResult : subResult.getSubResults()) {
-					printItems(pw, ResultUtil.getString(subResult, 3) + " " + ResultUtil.getString(subResult, 4),
+					printItems(pw, ResultUtil.getString(budgetResult, 6) + " " + ResultUtil.getString(budgetResult, 7),
 							ResultUtil.getString(budgetResult, 4), ResultUtil.getString(budgetResult, 5),
 							ResultUtil.getString(budgetResult, 2));
-					pw.println();
 				}
 
 				double total = ResultUtil.getReal(subResult, 5);
@@ -264,12 +260,10 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 							printItems(pw,
 									ResultUtil.getString(subResult, 5) + " " + ResultUtil.getString(subResult, 6),
 									ResultUtil.getString(capResult, 1));
-							pw.println();
 						}
 					}
 
-					printItems(pw, "Total", ResultUtil.getString(subResult, 10));
-					pw.println();
+					printItems(pw, "Total", ResultUtil.getString(subResult, 2));
 					pw.println();
 
 					// budget
@@ -277,7 +271,6 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 					pw.println();
 					pw.println();
 					printItems(pw, "Component", "Budget", "Actual", "Notes");
-					pw.println();
 
 					if (ResultUtil.getReal(subResult, 7) > 0) { // total budget > 0
 						/*
@@ -302,7 +295,6 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 											ResultUtil.getString(budgetResult, 2),
 											ResultUtil.getString(budgetResult, 3),
 											sb.toString());
-									pw.println();
 								}
 							}
 						}
@@ -340,17 +332,14 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 							printItems(pw,
 									ResultUtil.getString(subResult, 5) + " " + ResultUtil.getString(subResult, 6),
 									ResultUtil.getString(capResult, 1));
-							pw.println();
 						}
 					}
 
-					printItems(pw, "Total", ResultUtil.getString(subResult, 11));
-					pw.println();
+					printItems(pw, "Total", ResultUtil.getString(subResult, 3));
 					pw.println();
 
 					// budget
 					printItem(pw, "Detailed RAM Budget Report " + ResultUtil.getString(subResult, 1));
-					pw.println();
 					pw.println();
 					printItems(pw, "Component", "Budget", "Actual", "Notes");
 					pw.println();
@@ -377,7 +366,6 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 											ResultUtil.getString(budgetResult, 2),
 											ResultUtil.getString(budgetResult, 3),
 											sb.toString());
-									pw.println();
 								}
 							}
 						}
@@ -414,12 +402,10 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 							printItems(pw,
 									ResultUtil.getString(subResult, 5) + " " + ResultUtil.getString(subResult, 6),
 									ResultUtil.getString(capResult, 1));
-							pw.println();
 						}
 					}
 
-					printItems(pw, "Total", ResultUtil.getString(subResult, 12));
-					pw.println();
+					printItems(pw, "Total", ResultUtil.getString(subResult, 4));
 					pw.println();
 
 					// budget
@@ -427,7 +413,6 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 					pw.println();
 					pw.println();
 					printItems(pw, "Component", "Budget", "Actual", "Notes");
-					pw.println();
 
 					if (ResultUtil.getReal(subResult, 9) > 0) { // total budget > 0
 						/*
@@ -451,7 +436,6 @@ public class NewNotBoundResourceAnalysisHandler extends NewAbstractAaxlHandler {
 											ResultUtil.getString(budgetResult, 2),
 											ResultUtil.getString(budgetResult, 3),
 											sb.toString());
-									pw.println();
 								}
 							}
 						}

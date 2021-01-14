@@ -28,6 +28,10 @@ public class Component extends AnalysisElement {
 		this.mips = subComps;
 	}
 
+	public void addMIPS(SubComponent subComp) {
+		this.mips.add(subComp);
+	}
+
 	public List<SubComponent> getMemories() {
 		return memories;
 	}
