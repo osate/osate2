@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -19,11 +19,10 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.Target ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.Target;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,31 +31,28 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public class TargetImpl extends BehaviorElementImpl implements Target
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected TargetImpl()
-  {
-    super();
-  }
+public class TargetImpl extends BehaviorElementImpl implements Target {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TargetImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.TARGET;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.TARGET;
+	}
 
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
 
-} //TargetImpl
+} // TargetImpl
