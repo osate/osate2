@@ -21,23 +21,18 @@
 
 package org.osate.ba.texteditor;
 
-import org.antlr.v4.runtime.Token ;
+import org.antlr.v4.runtime.Token;
 
+public class DefaultAadlBaHighlighter implements AadlBaHighlighter {
+	@Override
+	public void addToHighlighting(int annexOffset, Token token, String id) {
+		// Does nothing.
+	}
 
-public class DefaultAadlBaHighlighter implements AadlBaHighlighter
-{
-  @Override
-  public void addToHighlighting(int annexOffset, Token token, String id)
-  {
-    // Does nothing.
-  }
+	@Override
+	public void addToHighlighting(int annexOffset, int relativeOffset, int length, String id) {
+		// Does nothing.
 
-  @Override
-  public void addToHighlighting(int annexOffset, int relativeOffset, int length,
-		String id) 
-  {
-	// Does nothing.
-	
-  }
+	}
 
 }
