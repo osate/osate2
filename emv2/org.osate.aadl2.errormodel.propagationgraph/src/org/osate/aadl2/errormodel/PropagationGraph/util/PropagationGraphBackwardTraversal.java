@@ -40,7 +40,7 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
@@ -520,7 +520,7 @@ public class PropagationGraphBackwardTraversal {
 						if (val.getRealvalue() != null) {
 							branchscale = new BigDecimal(EMV2Util.stripUnderScore(val.getRealvalue()));
 						} else if (val.getSymboliclabel() != null) {
-							ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
+							Classifier cl = EMV2Util.getAssociatedClassifier(ebt);
 							List<EMV2PropertyAssociation> pa = EMV2Properties
 									.getProperty(val.getSymboliclabel().getQualifiedName(), cl, ebt, null);
 							for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
@@ -534,7 +534,7 @@ public class PropagationGraphBackwardTraversal {
 									branchscale = branchscale.subtract(
 											new BigDecimal(EMV2Util.stripUnderScore(valcount.getRealvalue())));
 								} else if (valcount.getSymboliclabel() != null) {
-									ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
+									Classifier cl = EMV2Util.getAssociatedClassifier(ebt);
 									List<EMV2PropertyAssociation> pa = EMV2Properties
 											.getProperty(valcount.getSymboliclabel().getQualifiedName(), cl, ebt, null);
 									for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {

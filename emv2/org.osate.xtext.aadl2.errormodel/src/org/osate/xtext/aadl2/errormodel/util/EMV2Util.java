@@ -196,14 +196,15 @@ public class EMV2Util {
 	}
 
 	/**
-	 * return the component classifier that this subclause element belongs to.
+	 * return the classifier that this subclause element belongs to.
 	 * The subclause can be embedded or separate.
 	 * @param an EObject in a EMV2 subclause
-	 * @return ComponentClassifier
+	 * @return Classifier
+	 * @since 6.0
 	 */
-	public static ComponentClassifier getAssociatedClassifier(Element emv2Element) {
+	public static Classifier getAssociatedClassifier(Element emv2Element) {
 
-		ComponentClassifier cl = (ComponentClassifier) emv2Element.getContainingClassifier();
+		Classifier cl = emv2Element.getContainingClassifier();
 		if (cl != null) {
 			return cl;
 		}
@@ -217,10 +218,11 @@ public class EMV2Util {
 
 	/**
 	 * get the separately stored EMV2 subclause, which is assumed to have the name of the classifier
-	 * @param cl Component Classifier
+	 * @param cl Classifier
 	 * @return ErrorModelSubclause
+	 * @since 6.0
 	 */
-	public static ErrorModelSubclause getAssociatedEMV2Subclause(ComponentClassifier cl) {
+	public static ErrorModelSubclause getAssociatedEMV2Subclause(Classifier cl) {
 		return Aadl2GlobalScopeUtil.get(cl, ErrorModelPackage.eINSTANCE.getErrorModelSubclause(),
 				cl.getQualifiedName());
 	}
@@ -245,7 +247,10 @@ public class EMV2Util {
 		return getEmbeddedEMV2Subclause(cl);
 	}
 
-	public static ErrorModelSubclause getEmbeddedEMV2Subclause(ComponentClassifier cl) {
+	/**
+	 * @since 6.0
+	 */
+	public static ErrorModelSubclause getEmbeddedEMV2Subclause(Classifier cl) {
 		// embedded EMV2 subclause
 		EList<AnnexSubclause> asl = cl.getOwnedAnnexSubclauses();
 		for (AnnexSubclause al : asl) {
@@ -2313,7 +2318,7 @@ public class EMV2Util {
 			return prop;
 		}
 		String kind = target.getEmv2PropagationKind();
-		ComponentClassifier cxtcl = EMV2Util.getAssociatedClassifier(epath);
+		Classifier cxtcl = EMV2Util.getAssociatedClassifier(epath);
 		if (target.eContainer() instanceof EMV2PathElement) {
 			// should be a subcomponent reference
 			NamedElement cxt = ((EMV2PathElement) target.eContainer()).getNamedElement();

@@ -26,7 +26,12 @@ censes only apply to the Third Party Software and not any other portion of this 
 <plugin>
          <extension
                point="org.eclipse.ui.commands">
+            <category
+            	id="org.osate.core.modeling.category"
+            	name="OSATE Modeling">
+       		</category>
             <command
+            	  categoryId="org.osate.core.modeling.category"
                   id="org.osate.aadl2.instance.ui.generateTextualInstance"
                   name="Generate Textual Instance">
             </command>
