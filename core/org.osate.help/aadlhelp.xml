@@ -201,8 +201,10 @@ censes only apply to the Third Party Software and not any other portion of this 
 			<topic href="html/std/section-23-1.html" label="Appendix G - Profiles and Extensions" />
 		</topic>
 	</topic>
-	<topic href="html/about.html" label="Resources and Copyright">
+	<topic href="html/aadl-resources.html" label="AADL Resources">
 	</topic>
-	<topic href="html/feedback.html" label="Feedback and Bug Reporting">
+	<topic href="html/feedback.html" label="OSATE Help and Bug Reporting">
 	</topic>
+ <topic href="html/copyright.html" label="Copyright">
+ </topic>
 </toc>
