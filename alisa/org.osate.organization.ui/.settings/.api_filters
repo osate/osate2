@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.organization.ui" version="2">
+    <resource path="META-INF/MANIFEST.MF" type="org.osate.organization.scoping.AbstractOrganizationScopeProvider">
+        <filter comment="Xtext generated code" id="305426566">
+            <message_arguments>
+                <message_argument value="org.osate.organization.scoping.AbstractOrganizationScopeProvider"/>
+                <message_argument value="org.osate.organization.ui_3.0.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
