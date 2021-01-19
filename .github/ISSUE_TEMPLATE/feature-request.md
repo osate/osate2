@@ -1,5 +1,5 @@
 ---
-name: Feature Request
+name: Request a Feature
 about: Suggest an improvement to OSATE
 title: ''
 labels: ''
