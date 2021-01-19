@@ -2551,8 +2551,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					&& doSubcomponentsMatch((Subcomponent) connectionContext, (Subcomponent) flowContext);
 		} else if (connectionContext.getName().equals(flowContext.getName())) {
 			List<NamedElement> chain = getConnectionChain(connectedElement);
-			if(!chain.isEmpty()) {
-				if(chain.get(0) instanceof Subcomponent) {
+			if (!chain.isEmpty()) {
+				if (chain.get(0) instanceof Subcomponent) {
 					chain = chain.subList(1, chain.size());
 				}
 				if (!chain.isEmpty() && chain.get(0) instanceof RefinableElement) {
@@ -2562,9 +2562,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					}
 				}
 			}
-//			if (flowEnd.getFeature().getName() != null) {
-//				return true;
-//			}
 			return false;
 		} else {
 			return false;

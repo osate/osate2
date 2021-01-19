@@ -35,8 +35,8 @@ public
 		connections
 			C1: feature f_so.f_so -> f_pa.f_in;
 			C2: feature f_pa.f_out -> f_si.f_si;
---		flows
---			flow_pa: end to end flow f_so.flow_so -> C1 -> f_pa.flow_pa -> C2 -> f_si.flow_si;
+		flows
+			flow_pa: end to end flow f_so.flow_so -> C1 -> f_pa.flow_pa -> C2 -> f_si.flow_si;
 	end s.impl;
 
 	abstract f_path2 extends f_path
@@ -52,8 +52,8 @@ public
 			f_so2: abstract f_source;
 		connections
 			C3: feature f_so2.f_so -> f_pa.f_in2;
---		flows
---			flow_pa2: end to end flow f_so2.flow_so -> C3 -> f_pa.flow_pa2 -> C2 -> f_si.flow_si;
+		flows
+			flow_pa2: end to end flow f_so2.flow_so -> C3 -> f_pa.flow_pa2 -> C2 -> f_si.flow_si;
 	end s.impl2;
 
 	abstract f_path3 -- f_path3 has exactly the same features and flows as f_path2
@@ -77,5 +77,4 @@ public
 			--  out flow spec feature 'f_pa.f_out'	
 			flow_pa2: end to end flow f_so2.flow_so -> C3 -> f_pa.flow_pa2 -> C2 -> f_si.flow_si;
 	end s.impl3;
-
 end flow_order_test;  
