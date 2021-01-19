@@ -1,18 +1,18 @@
 /**
  * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -30,7 +30,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.ui.label.DeclarativeLabelProvider;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
-import org.eclipse.xtext.util.PolymorphicDispatcher.ErrorHandler;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.annexsupport.ParseResultHolder;
 
@@ -51,14 +51,12 @@ public class AnnexAwareDeclarativeLabelProvider extends DeclarativeLabelProvider
 	protected Object doGetText(Object element) {
 		ILabelProvider labelProvider = getLabelProvider(element);
 		PolymorphicDispatcher<Object> textDispatcher = new PolymorphicDispatcher<Object>("text", 1, 1,
-				Collections.singletonList(labelProvider), new ErrorHandler<Object>() {
-					@Override
-					public Object handle(Object[] params, Throwable e) {
-						return handleTextError(params, e);
-					}
-				});
+				Collections.singletonList(labelProvider), (params, e) -> handleTextError(params, e));
 		Object text = textDispatcher.invoke(element);
 		if (text != null) {
+			if (element instanceof ComponentImplementation) {
+				return text.toString().replaceAll("Implementation", "").replaceAll("Impl", "").replaceAll("  ", " ");
+			}
 			return text;
 		}
 		return null;
@@ -68,12 +66,7 @@ public class AnnexAwareDeclarativeLabelProvider extends DeclarativeLabelProvider
 	protected Object doGetImage(Object element) {
 		ILabelProvider labelProvider = getLabelProvider(element);
 		PolymorphicDispatcher<Object> imageDispatcher = new PolymorphicDispatcher<Object>("image", 1, 1,
-				Collections.singletonList(labelProvider), new ErrorHandler<Object>() {
-					@Override
-					public Object handle(Object[] params, Throwable e) {
-						return handleImageError(params, e);
-					}
-				});
+				Collections.singletonList(labelProvider), (params, e) -> handleImageError(params, e));
 		Object image = imageDispatcher.invoke(element);
 		if (image != null) {
 			return image;
