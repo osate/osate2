@@ -21,6 +21,7 @@
         eType="#//Connection"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="boundVirtualBuses" upperBound="-1"
         eType="#//VirtualBus"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="busInstance" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ComponentInstance"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualBus" eSuperTypes="#//BusOrVirtualBus"/>
   <eClassifiers xsi:type="ecore:EClass" name="Bus" eSuperTypes="#//BusOrVirtualBus"/>
