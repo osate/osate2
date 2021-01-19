@@ -274,4 +274,12 @@ censes only apply to the Third Party Software and not any other portion of this 
             primary="true">
       </toc>
    </extension>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated busload -->
+      <package
+            uri="http://osate.org/analysis/busload"
+            class="org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage"
+            genModel="model/busload.genmodel"/>
+   </extension>
+
 </plugin>
