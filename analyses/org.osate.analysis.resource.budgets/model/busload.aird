@@ -15,7 +15,7 @@
     <semanticResources>platform:/resource/org.osate.aadl2/model/instance.genmodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_V3TwQFp_EeuPULE7FLC7jA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_aSs9gVp_EeuPULE7FLC7jA" name="busload class diagram" repPath="#_aSlowFp_EeuPULE7FLC7jA" changeId="8f443605-8fb5-4b10-84cc-c00c54cfca24">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_aSs9gVp_EeuPULE7FLC7jA" name="busload class diagram" repPath="#_aSlowFp_EeuPULE7FLC7jA" changeId="44d023a0-b8cd-4a71-831b-a4f5804be996">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="busload.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -86,6 +86,10 @@
         <children xmi:type="notation:Node" xmi:id="_bGaSZFp_EeuPULE7FLC7jA" type="2003" element="_bGFiQVp_EeuPULE7FLC7jA">
           <children xmi:type="notation:Node" xmi:id="_bGaSZ1p_EeuPULE7FLC7jA" type="5007"/>
           <children xmi:type="notation:Node" xmi:id="_bGa5cFp_EeuPULE7FLC7jA" type="7004">
+            <children xmi:type="notation:Node" xmi:id="_ZtWwkFqGEeuPULE7FLC7jA" type="3010" element="_ZtONsVqGEeuPULE7FLC7jA">
+              <styles xmi:type="notation:FontStyle" xmi:id="_ZtWwkVqGEeuPULE7FLC7jA" fontName=".AppleSystemUIFont" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_ZtWwklqGEeuPULE7FLC7jA"/>
+            </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_bGa5cVp_EeuPULE7FLC7jA"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_bGa5clp_EeuPULE7FLC7jA"/>
           </children>
@@ -358,6 +362,14 @@
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@conditionnalStyles.1/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']"/>
+      <ownedElements xmi:type="diagram:DNodeListElement" uid="_ZtONsVqGEeuPULE7FLC7jA" name=" busInstance : ComponentInstance" tooltipText="">
+        <target xmi:type="ecore:EReference" href="busload.ecore#//BusOrVirtualBus/busInstance"/>
+        <semanticElements xmi:type="ecore:EReference" href="busload.ecore#//BusOrVirtualBus/busInstance"/>
+        <ownedStyle xmi:type="diagram:BundledImage" uid="_ZtONslqGEeuPULE7FLC7jA" labelAlignment="LEFT" color="114,159,207">
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EReferenceNode']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EReferenceNode']"/>
+      </ownedElements>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_bGGJUVp_EeuPULE7FLC7jA" name="VirtualBus" tooltipText="" outgoingEdges="_bGULw1p_EeuPULE7FLC7jA" incomingEdges="_bGRvgFp_EeuPULE7FLC7jA" width="12" height="10">
       <target xmi:type="ecore:EClass" href="busload.ecore#//VirtualBus"/>

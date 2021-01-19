@@ -280,6 +280,16 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 	 * @generated
 	 */
 	@Override
+	public EReference getBusOrVirtualBus_BusInstance() {
+		return (EReference)busOrVirtualBusEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getVirtualBus() {
 		return virtualBusEClass;
 	}
@@ -359,6 +369,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		createEReference(busOrVirtualBusEClass, BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS);
 		createEReference(busOrVirtualBusEClass, BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS);
 		createEReference(busOrVirtualBusEClass, BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES);
+		createEReference(busOrVirtualBusEClass, BUS_OR_VIRTUAL_BUS__BUS_INSTANCE);
 
 		virtualBusEClass = createEClass(VIRTUAL_BUS);
 
@@ -422,6 +433,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		initEReference(getBusOrVirtualBus_BoundBroadcasts(), this.getBroadcast(), null, "boundBroadcasts", null, 0, -1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBusOrVirtualBus_BoundConnections(), this.getConnection(), null, "boundConnections", null, 0, -1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBusOrVirtualBus_BoundVirtualBuses(), this.getVirtualBus(), null, "boundVirtualBuses", null, 0, -1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBusOrVirtualBus_BusInstance(), theInstancePackage.getComponentInstance(), null, "busInstance", null, 0, 1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(virtualBusEClass, VirtualBus.class, "VirtualBus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

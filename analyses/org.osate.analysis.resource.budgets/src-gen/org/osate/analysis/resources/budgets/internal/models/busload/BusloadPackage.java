@@ -313,13 +313,22 @@ public interface BusloadPackage extends EPackage {
 	int BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES = ANALYSIS_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Bus Instance</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_OR_VIRTUAL_BUS__BUS_INSTANCE = ANALYSIS_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Bus Or Virtual Bus</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS_FEATURE_COUNT = ANALYSIS_ELEMENT_FEATURE_COUNT + 3;
+	int BUS_OR_VIRTUAL_BUS_FEATURE_COUNT = ANALYSIS_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of operations of the '<em>Bus Or Virtual Bus</em>' class.
@@ -393,6 +402,15 @@ public interface BusloadPackage extends EPackage {
 	 * @ordered
 	 */
 	int VIRTUAL_BUS__BOUND_VIRTUAL_BUSES = BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES;
+
+	/**
+	 * The feature id for the '<em><b>Bus Instance</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIRTUAL_BUS__BUS_INSTANCE = BUS_OR_VIRTUAL_BUS__BUS_INSTANCE;
 
 	/**
 	 * The number of structural features of the '<em>Virtual Bus</em>' class.
@@ -475,6 +493,15 @@ public interface BusloadPackage extends EPackage {
 	 * @ordered
 	 */
 	int BUS__BOUND_VIRTUAL_BUSES = BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES;
+
+	/**
+	 * The feature id for the '<em><b>Bus Instance</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS__BUS_INSTANCE = BUS_OR_VIRTUAL_BUS__BUS_INSTANCE;
 
 	/**
 	 * The number of structural features of the '<em>Bus</em>' class.
@@ -672,6 +699,17 @@ public interface BusloadPackage extends EPackage {
 	EReference getBusOrVirtualBus_BoundVirtualBuses();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getBusInstance <em>Bus Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Bus Instance</em>'.
+	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getBusInstance()
+	 * @see #getBusOrVirtualBus()
+	 * @generated
+	 */
+	EReference getBusOrVirtualBus_BusInstance();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus <em>Virtual Bus</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -846,6 +884,14 @@ public interface BusloadPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES = eINSTANCE.getBusOrVirtualBus_BoundVirtualBuses();
+
+		/**
+		 * The meta object literal for the '<em><b>Bus Instance</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BUS_OR_VIRTUAL_BUS__BUS_INSTANCE = eINSTANCE.getBusOrVirtualBus_BusInstance();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.VirtualBusImpl <em>Virtual Bus</em>}' class.

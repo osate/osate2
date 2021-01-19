@@ -25,6 +25,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//BusOrVirtualBus/boundBroadcasts"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//BusOrVirtualBus/boundConnections"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//BusOrVirtualBus/boundVirtualBuses"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//BusOrVirtualBus/busInstance"/>
     </genClasses>
     <genClasses ecoreClass="busload.ecore#//VirtualBus"/>
     <genClasses ecoreClass="busload.ecore#//Bus"/>
