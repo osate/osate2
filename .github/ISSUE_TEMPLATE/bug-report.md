@@ -1,5 +1,5 @@
 ---
-name: Bug Report
+name: Report a Bug
 about: Report a problem with OSATE
 title: ''
 labels: ''
