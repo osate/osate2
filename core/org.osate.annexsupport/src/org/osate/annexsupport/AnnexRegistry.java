@@ -23,7 +23,9 @@
  */
 package org.osate.annexsupport;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -81,7 +83,7 @@ public abstract class AnnexRegistry {
 
 	/** The extensions in this registry */
 	@SuppressWarnings("rawtypes")
-	protected Map extensions;
+	protected Map<String, Object> extensions;
 
 	/**
 	 * Get the annex parser registry.
@@ -123,7 +125,7 @@ public abstract class AnnexRegistry {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void initialize(String extensionId) {
-		extensions = new HashMap();
+		extensions = new HashMap<String, Object>();
 
 		boolean hasExtensionPoints = false;
 		final IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
@@ -240,4 +242,47 @@ public abstract class AnnexRegistry {
 	 * Factory method for annex proxies that are created from reading the extension registry.
 	 */
 	protected abstract AnnexProxy createProxy(IConfigurationElement configElem);
+
+	/**
+	 * @since 3.1
+	 */
+	public List<String> getExtensions() {
+		List<String> extensionLists = new ArrayList<String>();
+
+		if (extensions != null) {
+			for (String key : extensions.keySet()) {
+				extensionLists.add(key);
+			}
+		}
+		return extensionLists;
+	}
+
+	/**
+	 * @since 3.1
+	 */
+	public static List<String> getAllAnnexNames() {
+		List<String> keys = new ArrayList<String>();
+		final IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+		if (extensionRegistry != null) {
+			IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(AnnexPlugin.PLUGIN_ID,
+					ANNEX_PARSER_EXT_ID);
+			if (extensionPoint != null) {
+				IExtension[] exts = extensionPoint.getExtensions();
+
+				for (int i = 0; i < exts.length; i++) {
+					IConfigurationElement[] configElems = exts[i].getConfigurationElements();
+
+					for (int j = 0; j < configElems.length; j++) {
+						String annexName = configElems[j].getAttribute(ATT_ANNEXNAME);
+
+						if (!keys.contains(annexName)) {
+							keys.add(annexName.toLowerCase());
+						}
+					}
+				}
+			}
+		}
+
+		return keys;
+	}
 }

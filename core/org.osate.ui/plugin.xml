@@ -39,6 +39,12 @@ censes only apply to the Third Party Software and not any other portion of this 
       		name="Analysis"
       		class="org.osate.ui.preferences.BlankPreferencePage">
       </page>
+       <page
+      		id="org.osate.ui.preferences.OsateAnnexPage"
+     		category="org.osate.internal.ui.preferences.OsatePreferencePage"
+      		name="Annex"
+      		class="org.osate.ui.internal.preferences.AnnexPreferencePage">
+      </page>
       <page
       		id="org.osate.ui.preferences.OsateInstantiationPage"
       		category="org.osate.internal.ui.preferences.OsatePreferencePage"
@@ -71,6 +77,18 @@ censes only apply to the Third Party Software and not any other portion of this 
             category="org.osate.ui.properties.OSATE"
             id="org.osate.internal.ui.properties.InstantiationPropertyPage"
             name="Instantiation">
+         <enabledWhen>
+            <adapt type="org.eclipse.core.resources.IProject">
+               <test property="org.eclipse.core.resources.projectNature" 
+                     value="org.osate.core.aadlnature"/>
+            </adapt>         
+         </enabledWhen>
+      </page>
+       <page
+            class="org.osate.ui.internal.properties.AnnexPropertyPage"
+            category="org.osate.ui.properties.OSATE"
+            id="org.osate.internal.ui.properties.AnnexPropertyPage"
+            name="Annex">
          <enabledWhen>
             <adapt type="org.eclipse.core.resources.IProject">
                <test property="org.eclipse.core.resources.projectNature" 
