@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2.properties" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/parser/antlr/internal/InternalPropertiesParser.java" type="org.osate.xtext.aadl2.properties.parser.antlr.internal.InternalPropertiesParser">
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.parser.antlr.internal.InternalPropertiesParser"/>
+                <message_argument value="entryRuleAppliesToKeywords()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.parser.antlr.internal.InternalPropertiesParser"/>
+                <message_argument value="entryRuleInBindingKeywords()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.parser.antlr.internal.InternalPropertiesParser"/>
+                <message_argument value="entryRuleInModesKeywords()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.parser.antlr.internal.InternalPropertiesParser"/>
+                <message_argument value="ruleAppliesToKeywords()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.parser.antlr.internal.InternalPropertiesParser"/>
+                <message_argument value="ruleInBindingKeywords()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.parser.antlr.internal.InternalPropertiesParser"/>
+                <message_argument value="ruleInModesKeywords()"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/properties/serializer/AbstractPropertiesSemanticSequencer.java" type="org.osate.xtext.aadl2.properties.serializer.AbstractPropertiesSemanticSequencer">
         <filter comment="xtext" id="576720909">
             <message_arguments>
@@ -9,6 +47,24 @@
         </filter>
     </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/properties/serializer/AbstractPropertiesSyntacticSequencer.java" type="org.osate.xtext.aadl2.properties.serializer.AbstractPropertiesSyntacticSequencer">
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.serializer.AbstractPropertiesSyntacticSequencer"/>
+                <message_argument value="getAppliesToKeywordsToken(EObject, RuleCall, INode)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.serializer.AbstractPropertiesSyntacticSequencer"/>
+                <message_argument value="getInBindingKeywordsToken(EObject, RuleCall, INode)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.serializer.AbstractPropertiesSyntacticSequencer"/>
+                <message_argument value="getInModesKeywordsToken(EObject, RuleCall, INode)"/>
+            </message_arguments>
+        </filter>
         <filter comment="xtext" id="576720909">
             <message_arguments>
                 <message_argument value="AbstractSyntacticSequencer"/>
@@ -20,6 +76,549 @@
                 <message_argument value="ISynTransition"/>
                 <message_argument value="AbstractPropertiesSyntacticSequencer"/>
                 <message_argument value="emitUnassignedTokens(EObject, ISyntacticSequencerPDAProviderISynTransition, INode, INode)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/services/PropertiesGrammarAccess.java">
+        <filter comment="Ignore API errors for Xtext generated code." id="0"/>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/services/PropertiesGrammarAccess.java" type="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess">
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess"/>
+                <message_argument value="getAppliesToKeywordsAccess()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess"/>
+                <message_argument value="getAppliesToKeywordsRule()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess"/>
+                <message_argument value="getInBindingKeywordsAccess()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess"/>
+                <message_argument value="getInBindingKeywordsRule()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess"/>
+                <message_argument value="getInModesKeywordsAccess()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess"/>
+                <message_argument value="getInModesKeywordsRule()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338886760">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.AppliesToKeywordsElements"/>
+                <message_argument value="org.osate.xtext.aadl2.properties_3.0.1"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338886760">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.InBindingKeywordsElements"/>
+                <message_argument value="org.osate.xtext.aadl2.properties_3.0.1"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338886760">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.InModesKeywordsElements"/>
+                <message_argument value="org.osate.xtext.aadl2.properties_3.0.1"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/services/PropertiesGrammarAccess.java" type="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess$ContainedPropertyAssociationElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ContainedPropertyAssociationElements"/>
+                <message_argument value="getAppliesToAssignment_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ContainedPropertyAssociationElements"/>
+                <message_argument value="getAppliesToAssignment_4_2_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ContainedPropertyAssociationElements"/>
+                <message_argument value="getAppliesToContainmentPathParserRuleCall_4_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ContainedPropertyAssociationElements"/>
+                <message_argument value="getAppliesToContainmentPathParserRuleCall_4_2_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ContainedPropertyAssociationElements"/>
+                <message_argument value="getAppliesToKeywordsParserRuleCall_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ContainedPropertyAssociationElements"/>
+                <message_argument value="getCommaKeyword_4_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ContainedPropertyAssociationElements"/>
+                <message_argument value="getGroup_4_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ContainedPropertyAssociationElements"/>
+                <message_argument value="getInBindingAssignment_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ContainedPropertyAssociationElements"/>
+                <message_argument value="getInBindingClassifierCrossReference_5_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ContainedPropertyAssociationElements"/>
+                <message_argument value="getInBindingClassifierQCREFParserRuleCall_5_2_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ContainedPropertyAssociationElements"/>
+                <message_argument value="getInBindingKeywordsParserRuleCall_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ContainedPropertyAssociationElements"/>
+                <message_argument value="getLeftParenthesisKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ContainedPropertyAssociationElements"/>
+                <message_argument value="getRightParenthesisKeyword_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesKeyword_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesToAssignment_4_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesToAssignment_4_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesToContainmentPathParserRuleCall_4_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesToContainmentPathParserRuleCall_4_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getBindingKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_4_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_4_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInBindingAssignment_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInBindingClassifierCrossReference_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInBindingClassifierQCREFParserRuleCall_5_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getToKeyword_4_1()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/services/PropertiesGrammarAccess.java" type="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess$ModalPropertyValueElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ModalPropertyValueElements"/>
+                <message_argument value="getCommaKeyword_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ModalPropertyValueElements"/>
+                <message_argument value="getGroup_4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ModalPropertyValueElements"/>
+                <message_argument value="getInModeAssignment_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ModalPropertyValueElements"/>
+                <message_argument value="getInModeAssignment_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ModalPropertyValueElements"/>
+                <message_argument value="getInModeModeCrossReference_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ModalPropertyValueElements"/>
+                <message_argument value="getInModeModeCrossReference_4_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ModalPropertyValueElements"/>
+                <message_argument value="getInModeModeIDTerminalRuleCall_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ModalPropertyValueElements"/>
+                <message_argument value="getInModeModeIDTerminalRuleCall_4_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ModalPropertyValueElements"/>
+                <message_argument value="getInModesKeywordsParserRuleCall_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ModalPropertyValueElements"/>
+                <message_argument value="getLeftParenthesisKeyword_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.ModalPropertyValueElements"/>
+                <message_argument value="getRightParenthesisKeyword_5()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeAssignment_4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeAssignment_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeCrossReference_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeCrossReference_5_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeIDTerminalRuleCall_4_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeIDTerminalRuleCall_5_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_6()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/services/PropertiesGrammarAccess.java" type="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess$OptionalModalPropertyValueElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.OptionalModalPropertyValueElements"/>
+                <message_argument value="getCommaKeyword_1_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.OptionalModalPropertyValueElements"/>
+                <message_argument value="getGroup_1_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.OptionalModalPropertyValueElements"/>
+                <message_argument value="getInModeAssignment_1_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.OptionalModalPropertyValueElements"/>
+                <message_argument value="getInModeAssignment_1_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.OptionalModalPropertyValueElements"/>
+                <message_argument value="getInModeModeCrossReference_1_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.OptionalModalPropertyValueElements"/>
+                <message_argument value="getInModeModeCrossReference_1_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.OptionalModalPropertyValueElements"/>
+                <message_argument value="getInModeModeIDTerminalRuleCall_1_2_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.OptionalModalPropertyValueElements"/>
+                <message_argument value="getInModeModeIDTerminalRuleCall_1_3_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.OptionalModalPropertyValueElements"/>
+                <message_argument value="getInModesKeywordsParserRuleCall_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.OptionalModalPropertyValueElements"/>
+                <message_argument value="getLeftParenthesisKeyword_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.OptionalModalPropertyValueElements"/>
+                <message_argument value="getRightParenthesisKeyword_1_4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_1_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_1_4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeAssignment_1_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeAssignment_1_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeCrossReference_1_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeCrossReference_1_4_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeIDTerminalRuleCall_1_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeIDTerminalRuleCall_1_4_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_1_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_1_5()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/services/PropertiesGrammarAccess.java" type="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess$PropertyAssociationElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.PropertyAssociationElements"/>
+                <message_argument value="getInBindingAssignment_4_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.PropertyAssociationElements"/>
+                <message_argument value="getInBindingClassifierCrossReference_4_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.PropertyAssociationElements"/>
+                <message_argument value="getInBindingClassifierQCREFParserRuleCall_4_2_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.PropertyAssociationElements"/>
+                <message_argument value="getInBindingKeywordsParserRuleCall_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.PropertyAssociationElements"/>
+                <message_argument value="getLeftParenthesisKeyword_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="338792546">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess.PropertyAssociationElements"/>
+                <message_argument value="getRightParenthesisKeyword_4_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getBindingKeyword_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInBindingAssignment_4_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInBindingClassifierCrossReference_4_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInBindingClassifierQCREFParserRuleCall_4_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_4_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_4_4()"/>
             </message_arguments>
         </filter>
     </resource>

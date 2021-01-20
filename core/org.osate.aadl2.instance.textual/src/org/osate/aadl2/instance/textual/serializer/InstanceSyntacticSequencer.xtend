@@ -23,41 +23,5 @@
  */
 package org.osate.aadl2.instance.textual.serializer
 
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.nodemodel.INode
-import org.eclipse.xtext.RuleCall
-
 class InstanceSyntacticSequencer extends AbstractInstanceSyntacticSequencer {
-	/**
-	 * AppliesToKeywords:
-	 * 	'applies' 'to'
-	 * ;
-	 */
-	override protected String getAppliesToKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node !== null)
-			return getTokenText(node);
-		return "applies to";
-	}
-	
-	/**
-	 * InBindingKeywords:
-	 * 	'in' 'binding'
-	 * ;
-	 */
-	override protected String getInBindingKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node !== null)
-			return getTokenText(node);
-		return "in binding";
-	}
-	
-	/**
-	 * InModesKeywords:
-	 * 	'in' 'modes'
-	 * ;
-	 */
-	override protected String getInModesKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node !== null)
-			return getTokenText(node);
-		return "in modes";
-	}
 }

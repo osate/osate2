@@ -562,12 +562,12 @@ class Aadl2Formatter extends PropertiesFormatter {
 		property.defaultValue.format(document)
 		
 		//Applies to
-		property.regionFor.keyword(appliesToKeywordsAccess.appliesKeyword_0).surround[oneSpace]
-		val leftParenthesis = property.regionFor.keyword(propertyDefinitionAccess.leftParenthesisKeyword_6)
-		val rightParenthesis = property.regionFor.keyword(propertyDefinitionAccess.rightParenthesisKeyword_8)
+		property.regionFor.keyword(propertyDefinitionAccess.appliesKeyword_5).surround[oneSpace]
+		val leftParenthesis = property.regionFor.keyword(propertyDefinitionAccess.leftParenthesisKeyword_7)
+		val rightParenthesis = property.regionFor.keyword(propertyDefinitionAccess.rightParenthesisKeyword_9)
 		interior(leftParenthesis, rightParenthesis, [indent])
 		leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
-		property.regionFor.keywords(propertyDefinitionAccess.commaKeyword_7_0_1_0).forEach[
+		property.regionFor.keywords(propertyDefinitionAccess.commaKeyword_8_0_1_0).forEach[
 			prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 		]
 		property.appliesTos.forEach[it.format(document)]
@@ -617,8 +617,8 @@ class Aadl2Formatter extends PropertiesFormatter {
 		propertyAssociation.regionFor.keywords(",").forEach[prepend[noSpace].append[oneSpace]]
 		
 		//Applies to
-		propertyAssociation.regionFor.keyword(appliesToKeywordsAccess.appliesKeyword_0).surround[oneSpace]
-		propertyAssociation.regionFor.keyword(appliesToKeywordsAccess.toKeyword_1).append[oneSpace]
+		propertyAssociation.regionFor.keyword(containedPropertyAssociationAccess.appliesKeyword_4_0).surround[oneSpace]
+		propertyAssociation.regionFor.keyword(containedPropertyAssociationAccess.toKeyword_4_1).append[oneSpace]
 		propertyAssociation.appliesTos.forEach[it.format(document)]
 		
 		//In binding
@@ -1500,13 +1500,13 @@ class Aadl2Formatter extends PropertiesFormatter {
 		performModification(defaultAnnexSubclause, [defaultAnnexSubclause.parsedAnnexSubclause = parsedSubclause])
 		
 		//In modes
-		val leftParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.leftParenthesisKeyword_3_1)
-		val rightParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.rightParenthesisKeyword_3_3)
+		val leftParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.leftParenthesisKeyword_3_2)
+		val rightParenthesis = defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.rightParenthesisKeyword_3_4)
 		if (leftParenthesis !== null && rightParenthesis !== null) {
-			defaultAnnexSubclause.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
+			defaultAnnexSubclause.regionFor.keyword(defaultAnnexSubclauseAccess.inKeyword_3_0).surround[oneSpace]
 			interior(leftParenthesis, rightParenthesis, [indent])
 			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
-			defaultAnnexSubclause.regionFor.keywords(defaultAnnexSubclauseAccess.commaKeyword_3_2_1_0).forEach[
+			defaultAnnexSubclause.regionFor.keywords(defaultAnnexSubclauseAccess.commaKeyword_3_3_1_0).forEach[
 				prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 			]
 			if (rightParenthesis.previousHiddenRegion.multiline) {
@@ -1935,13 +1935,13 @@ class Aadl2Formatter extends PropertiesFormatter {
 		)
 		
 		//In modes
-		val leftParenthesis = subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.leftParenthesisKeyword_6_1)
-		val rightParenthesis = subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.rightParenthesisKeyword_6_3)
+		val leftParenthesis = subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.leftParenthesisKeyword_6_2)
+		val rightParenthesis = subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.rightParenthesisKeyword_6_4)
 		if (leftParenthesis !== null && rightParenthesis !== null) {
-			subprogramCallSequence.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
+			subprogramCallSequence.regionFor.keyword(subprogramCallSequenceAccess.inKeyword_6_0).surround[oneSpace]
 			interior(leftParenthesis, rightParenthesis, [indent])
 			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
-			subprogramCallSequence.regionFor.keywords(subprogramCallSequenceAccess.commaKeyword_6_2_1_0).forEach[
+			subprogramCallSequence.regionFor.keywords(subprogramCallSequenceAccess.commaKeyword_6_3_1_0).forEach[
 				prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 			]
 			if (rightParenthesis.previousHiddenRegion.multiline) {
@@ -2280,13 +2280,13 @@ class Aadl2Formatter extends PropertiesFormatter {
 		)
 		
 		//In modes
-		val leftParenthesis = endToEndFlow.regionFor.keyword(endToEndFlowAccess.leftParenthesisKeyword_2_1)
-		val rightParenthesis = endToEndFlow.regionFor.keyword(endToEndFlowAccess.rightParenthesisKeyword_2_4)
+		val leftParenthesis = endToEndFlow.regionFor.keyword(endToEndFlowAccess.leftParenthesisKeyword_2_2)
+		val rightParenthesis = endToEndFlow.regionFor.keyword(endToEndFlowAccess.rightParenthesisKeyword_2_5)
 		if (leftParenthesis !== null && rightParenthesis !== null) {
-			endToEndFlow.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
+			endToEndFlow.regionFor.keyword(endToEndFlowAccess.inKeyword_2_0).surround[oneSpace]
 			interior(leftParenthesis, rightParenthesis, [indent])
 			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
-			endToEndFlow.regionFor.keywords(endToEndFlowAccess.commaKeyword_2_3_0).forEach[
+			endToEndFlow.regionFor.keywords(endToEndFlowAccess.commaKeyword_2_4_0).forEach[
 				prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 			]
 			if (rightParenthesis.previousHiddenRegion.multiline) {

@@ -1132,7 +1132,7 @@ SubprogramCallSequence returns aadl2::SubprogramCallSequence:
 	( ownedSubprogramCall+=SubprogramCall)+
 	'}'
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( InModesKeywords '(' (inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID])* ) ')')?
+	( 'in' 'modes' '(' (inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID])* ) ')')?
 	';'
 ;
 
@@ -1394,7 +1394,7 @@ AbstractSubcomponent returns aadl2::AbstractSubcomponent:
 	  ')' )?
 	 )?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')?
-	(InModesKeywords '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
 		 ) ')')?
 	';';
 
@@ -1411,7 +1411,7 @@ SystemSubcomponent returns aadl2::SystemSubcomponent:
 	  ')' )?
 	 )?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')?
-	(InModesKeywords '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
 		 ) ')')?
 	';';
 
@@ -1428,7 +1428,7 @@ ProcessSubcomponent returns aadl2::ProcessSubcomponent:
 	  ')' )?
 	 )?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')?
-	(InModesKeywords '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
 		 ) ')')?
 	';';
 
@@ -1445,7 +1445,7 @@ ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
 	  ')' )?
 	 )?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')?
-	(InModesKeywords '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
 		 ) ')')?
 	';';
 
@@ -1462,7 +1462,7 @@ ThreadSubcomponent returns aadl2::ThreadSubcomponent:
 	  ')' )?
 	 )?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')?
-	(InModesKeywords '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
 		 ) ')')?
 	';';
 
@@ -1479,7 +1479,7 @@ SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
 	  ')' )?
 	 )?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')?
-	(InModesKeywords '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
 		 ) ')')?
 	';';
 
@@ -1496,7 +1496,7 @@ SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
 	  ')' )?
 	 )?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')?
-	(InModesKeywords '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
 		 ) ')')?
 	';';
 
@@ -1513,7 +1513,7 @@ ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
 	  ')' )?
 	 )?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')?
-	(InModesKeywords '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
 		 ) ')')?
 	';';
 
@@ -1530,7 +1530,7 @@ VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
 	  ')' )?
 	 )?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')?
-	(InModesKeywords '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
 		 ) ')')?
 	';';
 
@@ -1547,7 +1547,7 @@ DeviceSubcomponent returns aadl2::DeviceSubcomponent:
 	  ')' )?
 	 )?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')?
-	(InModesKeywords '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
 		 ) ')')?
 	';';
 
@@ -1564,7 +1564,7 @@ MemorySubcomponent returns aadl2::MemorySubcomponent:
 	  ')' )?
 	 )?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')?
-	(InModesKeywords '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
 		 ) ')')?
 	';';
 
@@ -1581,7 +1581,7 @@ BusSubcomponent returns aadl2::BusSubcomponent:
 	  ')' )?
 	 )?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')?
-	(InModesKeywords '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
 		 ) ')')?
 	';';
 
@@ -1598,7 +1598,7 @@ VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
 	  ')' )?
 	 )?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')?
-	(InModesKeywords '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
 		 ) ')')?
 	';';
 
@@ -1615,7 +1615,7 @@ DataSubcomponent returns aadl2::DataSubcomponent:
 	  ')' )?
 	 )?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')?
-	(InModesKeywords '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)*
 		 ) ')')?
 	';';
 
@@ -1865,7 +1865,7 @@ PortConnection returns aadl2::PortConnection:
 	|
 	(refined=[aadl2::PortConnection|REFINEDNAME] ':' RefinedToKeywords 'port'))
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( InModesKeywords '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])*
+	( 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])*
 	) ')')?
 	';';
 
@@ -1877,7 +1877,7 @@ AccessConnection returns aadl2::AccessConnection:
 	|
 	(refined=[aadl2::AccessConnection|REFINEDNAME] ':' RefinedToKeywords accessCategory=AccessCategory 'access'))
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( InModesKeywords '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])*
+	( 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])*
 	) ')')?
 	';';
 
@@ -1889,7 +1889,7 @@ FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 	|
 	(refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' RefinedToKeywords FeatureGroupKeywords))
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( InModesKeywords '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])*
+	( 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])*
 	) ')')?
 	';';
 
@@ -1899,7 +1899,7 @@ FeatureConnection returns aadl2::FeatureConnection:
 		|
 	(refined=[aadl2::FeatureConnection|REFINEDNAME] ':' RefinedToKeywords 'feature'))
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( InModesKeywords '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])*
+	( 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])*
 	) ')')?
 	';';
 
@@ -1911,7 +1911,7 @@ ParameterConnection returns aadl2::ParameterConnection:
 	)|
 	(refined=[aadl2::ParameterConnection|REFINEDNAME] ':' RefinedToKeywords 'parameter'))
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( InModesKeywords '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])*
+	( 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])*
 	) ')')?
 	';';
 
@@ -1937,7 +1937,7 @@ FlowSourceSpec returns aadl2::FlowSpecification:
 	'flow' kind=FlowSource
 	outEnd=FlowEnd
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
-	(InModesKeywords '(' inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* ')')?
+	('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* ')')?
 	';'
 ;
 
@@ -1946,7 +1946,7 @@ FlowSinkSpec returns aadl2::FlowSpecification:
 	'flow' kind=FlowSink
 	InEnd=FlowEnd
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
-	(InModesKeywords '(' inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* ')')?
+	('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* ')')?
 	';'
 ;
 
@@ -1956,7 +1956,7 @@ FlowPathSpec returns aadl2::FlowSpecification:
 	InEnd=FlowEnd
 	'->' 	outEnd=FlowEnd
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
-	(InModesKeywords '(' inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* ')')?
+	('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* ')')?
 	';'
 ;
 
@@ -1968,7 +1968,7 @@ FlowSpecRefinement returns aadl2::FlowSpecification:
 	refined=[aadl2::FlowSpecification|REFINEDNAME]
 	':' RefinedToKeywords 'flow' kind=FlowKind
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
-	(InModesKeywords '(' inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* ')')?
+	('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* ')')?
 	';'
 	;
 
@@ -1982,7 +1982,7 @@ FlowSourceImpl returns aadl2::FlowImplementation:
     (  ownedFlowSegment+=SubcomponentFlow '->' ownedFlowSegment+=ConnectionFlow '->' )*
 	outEnd=FlowEnd
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( InModesKeywords '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?
 	';'
 ;
 
@@ -1992,7 +1992,7 @@ FlowSinkImpl returns aadl2::FlowImplementation:
 	inEnd = FlowEnd
     ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow  )*
     ('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( InModesKeywords '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?
 	';'
 ;
 
@@ -2004,7 +2004,7 @@ FlowPathImpl returns aadl2::FlowImplementation:
 	    '->' ownedFlowSegment+=ConnectionFlow )?
  '->' outEnd=FlowEnd
  	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( InModesKeywords '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?
 	';'
 ;
 
@@ -2016,7 +2016,7 @@ EndToEndFlow returns aadl2::EndToEndFlow:
     ( '->' ownedEndToEndFlowSegment+=ETEConnectionFlow '->' ownedEndToEndFlowSegment+=ETESubcomponentFlow )+)
     | (refined=[aadl2::EndToEndFlow|REFINEDNAME] ':' RefinedToKeywords EndToEndFlowKeywords))
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( InModesKeywords '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?
     ';'
     ;
 // refinement should have at elast one of property or in modes. We perform a validation check
@@ -2083,7 +2083,7 @@ AnnexSubclause returns aadl2::AnnexSubclause:
 DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
 	'annex' name=ID
 	 sourceText=ANNEXTEXT
-	( InModesKeywords '(' (inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID])* ) ')')?
+	( 'in' 'modes' '(' (inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID])* ) ')')?
 	';';
 
 
@@ -2250,7 +2250,7 @@ PropertyDefinition returns aadl2::Property:
 //	('list' 'of')* is handled as part of UnnamedPropertytype
 	(referencedPropertyType=[aadl2::PropertyType|QPREF]|ownedPropertyType=UnnamedPropertyType)
 	('=>' defaultValue=PropertyExpression)?
-	AppliesToKeywords '('
+	'applies' 'to' '('
 	((appliesTo+=PropertyOwner (',' appliesTo+=PropertyOwner)*)|
 	appliesTo+=AllReference)
 	')'

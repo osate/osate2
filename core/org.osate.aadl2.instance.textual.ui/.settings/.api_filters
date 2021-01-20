@@ -8,4 +8,61 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src-gen/org/osate/aadl2/instance/textual/ui/contentassist/antlr/internal/InternalInstanceParser.java" type="org.osate.aadl2.instance.textual.ui.contentassist.antlr.internal.InternalInstanceParser">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__ContainedPropertyAssociation__AppliesToAssignment_4_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__ContainedPropertyAssociation__AppliesToAssignment_4_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__ContainedPropertyAssociation__Group_4_3__0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__ContainedPropertyAssociation__Group_4_3__0__Impl()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__ContainedPropertyAssociation__Group_4_3__1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__ContainedPropertyAssociation__Group_4_3__1__Impl()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__ContainedPropertyAssociation__Group_4__3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__ContainedPropertyAssociation__Group_4__3__Impl()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__ContainedPropertyAssociation__Group_5__4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__ContainedPropertyAssociation__Group_5__4__Impl()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="rule__ContainedPropertyAssociation__InBindingAssignment_5_3()"/>
+            </message_arguments>
+        </filter>
+    </resource>
 </component>
