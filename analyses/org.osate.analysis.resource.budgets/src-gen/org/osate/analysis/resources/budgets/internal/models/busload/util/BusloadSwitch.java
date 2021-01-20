@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
+import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement;
 import org.osate.analysis.resources.budgets.internal.models.busload.*;
 
 /**
@@ -66,15 +67,17 @@ public class BusloadSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case BusloadPackage.ANALYSIS_ELEMENT: {
-				AnalysisElement analysisElement = (AnalysisElement)theEObject;
-				T result = caseAnalysisElement(analysisElement);
+			case BusloadPackage.BUSLOAD_ELEMENT: {
+				BusloadElement busloadElement = (BusloadElement)theEObject;
+				T result = caseBusloadElement(busloadElement);
+				if (result == null) result = caseAnalysisElement(busloadElement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case BusloadPackage.CONNECTION: {
 				Connection connection = (Connection)theEObject;
 				T result = caseConnection(connection);
+				if (result == null) result = caseBusloadElement(connection);
 				if (result == null) result = caseAnalysisElement(connection);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -82,6 +85,7 @@ public class BusloadSwitch<T> extends Switch<T> {
 			case BusloadPackage.BROADCAST: {
 				Broadcast broadcast = (Broadcast)theEObject;
 				T result = caseBroadcast(broadcast);
+				if (result == null) result = caseBusloadElement(broadcast);
 				if (result == null) result = caseAnalysisElement(broadcast);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -89,6 +93,7 @@ public class BusloadSwitch<T> extends Switch<T> {
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS: {
 				BusOrVirtualBus busOrVirtualBus = (BusOrVirtualBus)theEObject;
 				T result = caseBusOrVirtualBus(busOrVirtualBus);
+				if (result == null) result = caseBusloadElement(busOrVirtualBus);
 				if (result == null) result = caseAnalysisElement(busOrVirtualBus);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -97,6 +102,7 @@ public class BusloadSwitch<T> extends Switch<T> {
 				VirtualBus virtualBus = (VirtualBus)theEObject;
 				T result = caseVirtualBus(virtualBus);
 				if (result == null) result = caseBusOrVirtualBus(virtualBus);
+				if (result == null) result = caseBusloadElement(virtualBus);
 				if (result == null) result = caseAnalysisElement(virtualBus);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -105,6 +111,7 @@ public class BusloadSwitch<T> extends Switch<T> {
 				Bus bus = (Bus)theEObject;
 				T result = caseBus(bus);
 				if (result == null) result = caseBusOrVirtualBus(bus);
+				if (result == null) result = caseBusloadElement(bus);
 				if (result == null) result = caseAnalysisElement(bus);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -120,13 +127,28 @@ public class BusloadSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Analysis Element</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Analysis Element</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBusloadElement(BusloadElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Element</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */

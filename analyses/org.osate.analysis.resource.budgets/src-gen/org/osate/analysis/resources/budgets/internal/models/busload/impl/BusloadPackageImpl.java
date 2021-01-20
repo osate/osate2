@@ -13,11 +13,12 @@ import org.osate.aadl2.Aadl2Package;
 
 import org.osate.aadl2.instance.InstancePackage;
 
-import org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement;
+import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisPackage;
 import org.osate.analysis.resources.budgets.internal.models.busload.Broadcast;
 import org.osate.analysis.resources.budgets.internal.models.busload.Bus;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus;
+import org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusloadFactory;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage;
 import org.osate.analysis.resources.budgets.internal.models.busload.Connection;
@@ -35,7 +36,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass analysisElementEClass = null;
+	private EClass busloadElementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -127,6 +128,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		isInited = true;
 
 		// Initialize simple dependencies
+		AnalysisPackage.eINSTANCE.eClass();
 		Aadl2Package.eINSTANCE.eClass();
 		InstancePackage.eINSTANCE.eClass();
 
@@ -150,8 +152,8 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 	 * @generated
 	 */
 	@Override
-	public EClass getAnalysisElement() {
-		return analysisElementEClass;
+	public EClass getBusloadElement() {
+		return busloadElementEClass;
 	}
 
 	/**
@@ -160,8 +162,8 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getAnalysisElement_Label() {
-		return (EAttribute)analysisElementEClass.getEStructuralFeatures().get(0);
+	public EAttribute getBusloadElement_Label() {
+		return (EAttribute)busloadElementEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -170,8 +172,8 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getAnalysisElement_Actual() {
-		return (EAttribute)analysisElementEClass.getEStructuralFeatures().get(1);
+	public EAttribute getBusloadElement_Actual() {
+		return (EAttribute)busloadElementEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -180,8 +182,8 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 	 * @generated
 	 */
 	@Override
-	public EAttribute getAnalysisElement_Budget() {
-		return (EAttribute)analysisElementEClass.getEStructuralFeatures().get(2);
+	public EAttribute getBusloadElement_Budget() {
+		return (EAttribute)busloadElementEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -353,10 +355,10 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		isCreated = true;
 
 		// Create classes and their features
-		analysisElementEClass = createEClass(ANALYSIS_ELEMENT);
-		createEAttribute(analysisElementEClass, ANALYSIS_ELEMENT__LABEL);
-		createEAttribute(analysisElementEClass, ANALYSIS_ELEMENT__ACTUAL);
-		createEAttribute(analysisElementEClass, ANALYSIS_ELEMENT__BUDGET);
+		busloadElementEClass = createEClass(BUSLOAD_ELEMENT);
+		createEAttribute(busloadElementEClass, BUSLOAD_ELEMENT__LABEL);
+		createEAttribute(busloadElementEClass, BUSLOAD_ELEMENT__ACTUAL);
+		createEAttribute(busloadElementEClass, BUSLOAD_ELEMENT__BUDGET);
 
 		connectionEClass = createEClass(CONNECTION);
 		createEReference(connectionEClass, CONNECTION__CONNECTION_INSTANCE);
@@ -403,6 +405,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
+		AnalysisPackage theAnalysisPackage = (AnalysisPackage)EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
 		InstancePackage theInstancePackage = (InstancePackage)EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI);
 
 		// Create type parameters
@@ -410,17 +413,18 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		connectionEClass.getESuperTypes().add(this.getAnalysisElement());
-		broadcastEClass.getESuperTypes().add(this.getAnalysisElement());
-		busOrVirtualBusEClass.getESuperTypes().add(this.getAnalysisElement());
+		busloadElementEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisElement());
+		connectionEClass.getESuperTypes().add(this.getBusloadElement());
+		broadcastEClass.getESuperTypes().add(this.getBusloadElement());
+		busOrVirtualBusEClass.getESuperTypes().add(this.getBusloadElement());
 		virtualBusEClass.getESuperTypes().add(this.getBusOrVirtualBus());
 		busEClass.getESuperTypes().add(this.getBusOrVirtualBus());
 
 		// Initialize classes, features, and operations; add parameters
-		initEClass(analysisElementEClass, AnalysisElement.class, "AnalysisElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getAnalysisElement_Label(), ecorePackage.getEString(), "label", null, 0, 1, AnalysisElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAnalysisElement_Actual(), ecorePackage.getEDouble(), "actual", null, 0, 1, AnalysisElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAnalysisElement_Budget(), ecorePackage.getEDouble(), "budget", null, 0, 1, AnalysisElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(busloadElementEClass, BusloadElement.class, "BusloadElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBusloadElement_Label(), ecorePackage.getEString(), "label", null, 0, 1, BusloadElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBusloadElement_Actual(), ecorePackage.getEDouble(), "actual", null, 0, 1, BusloadElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBusloadElement_Budget(), ecorePackage.getEDouble(), "budget", null, 0, 1, BusloadElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(connectionEClass, Connection.class, "Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConnection_ConnectionInstance(), theInstancePackage.getConnectionInstance(), null, "connectionInstance", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

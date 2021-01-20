@@ -24,7 +24,7 @@ import org.osate.aadl2.instance.ComponentInstance;
  * @model abstract="true"
  * @generated
  */
-public interface BusOrVirtualBus extends AnalysisElement {
+public interface BusOrVirtualBus extends BusloadElement {
 	/**
 	 * Returns the value of the '<em><b>Bound Broadcasts</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.analysis.resources.budgets.internal.models.busload.Broadcast}.

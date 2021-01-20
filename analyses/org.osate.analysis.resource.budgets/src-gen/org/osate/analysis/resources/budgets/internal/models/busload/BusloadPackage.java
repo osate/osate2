@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -57,14 +58,14 @@ public interface BusloadPackage extends EPackage {
 	BusloadPackage eINSTANCE = org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.AnalysisElementImpl <em>Analysis Element</em>}' class.
+	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl <em>Element</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.AnalysisElementImpl
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getAnalysisElement()
+	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl
+	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getBusloadElement()
 	 * @generated
 	 */
-	int ANALYSIS_ELEMENT = 0;
+	int BUSLOAD_ELEMENT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -73,7 +74,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ANALYSIS_ELEMENT__LABEL = 0;
+	int BUSLOAD_ELEMENT__LABEL = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Actual</b></em>' attribute.
@@ -82,7 +83,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ANALYSIS_ELEMENT__ACTUAL = 1;
+	int BUSLOAD_ELEMENT__ACTUAL = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Budget</b></em>' attribute.
@@ -91,25 +92,43 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ANALYSIS_ELEMENT__BUDGET = 2;
+	int BUSLOAD_ELEMENT__BUDGET = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the '<em>Analysis Element</em>' class.
+	 * The number of structural features of the '<em>Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ANALYSIS_ELEMENT_FEATURE_COUNT = 3;
+	int BUSLOAD_ELEMENT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of operations of the '<em>Analysis Element</em>' class.
+	 * The operation id for the '<em>Is Leaf</em>' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ANALYSIS_ELEMENT_OPERATION_COUNT = 0;
+	int BUSLOAD_ELEMENT___IS_LEAF = AnalysisPackage.ANALYSIS_ELEMENT___IS_LEAF;
+
+	/**
+	 * The operation id for the '<em>Get Ordered Children</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUSLOAD_ELEMENT___GET_ORDERED_CHILDREN = AnalysisPackage.ANALYSIS_ELEMENT___GET_ORDERED_CHILDREN;
+
+	/**
+	 * The number of operations of the '<em>Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUSLOAD_ELEMENT_OPERATION_COUNT = AnalysisPackage.ANALYSIS_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.ConnectionImpl <em>Connection</em>}' class.
@@ -128,7 +147,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION__LABEL = ANALYSIS_ELEMENT__LABEL;
+	int CONNECTION__LABEL = BUSLOAD_ELEMENT__LABEL;
 
 	/**
 	 * The feature id for the '<em><b>Actual</b></em>' attribute.
@@ -137,7 +156,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION__ACTUAL = ANALYSIS_ELEMENT__ACTUAL;
+	int CONNECTION__ACTUAL = BUSLOAD_ELEMENT__ACTUAL;
 
 	/**
 	 * The feature id for the '<em><b>Budget</b></em>' attribute.
@@ -146,7 +165,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION__BUDGET = ANALYSIS_ELEMENT__BUDGET;
+	int CONNECTION__BUDGET = BUSLOAD_ELEMENT__BUDGET;
 
 	/**
 	 * The feature id for the '<em><b>Connection Instance</b></em>' reference.
@@ -155,7 +174,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION__CONNECTION_INSTANCE = ANALYSIS_ELEMENT_FEATURE_COUNT + 0;
+	int CONNECTION__CONNECTION_INSTANCE = BUSLOAD_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Connection</em>' class.
@@ -164,7 +183,25 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_FEATURE_COUNT = ANALYSIS_ELEMENT_FEATURE_COUNT + 1;
+	int CONNECTION_FEATURE_COUNT = BUSLOAD_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The operation id for the '<em>Is Leaf</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION___IS_LEAF = BUSLOAD_ELEMENT___IS_LEAF;
+
+	/**
+	 * The operation id for the '<em>Get Ordered Children</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION___GET_ORDERED_CHILDREN = BUSLOAD_ELEMENT___GET_ORDERED_CHILDREN;
 
 	/**
 	 * The number of operations of the '<em>Connection</em>' class.
@@ -173,7 +210,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_OPERATION_COUNT = ANALYSIS_ELEMENT_OPERATION_COUNT + 0;
+	int CONNECTION_OPERATION_COUNT = BUSLOAD_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BroadcastImpl <em>Broadcast</em>}' class.
@@ -192,7 +229,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BROADCAST__LABEL = ANALYSIS_ELEMENT__LABEL;
+	int BROADCAST__LABEL = BUSLOAD_ELEMENT__LABEL;
 
 	/**
 	 * The feature id for the '<em><b>Actual</b></em>' attribute.
@@ -201,7 +238,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BROADCAST__ACTUAL = ANALYSIS_ELEMENT__ACTUAL;
+	int BROADCAST__ACTUAL = BUSLOAD_ELEMENT__ACTUAL;
 
 	/**
 	 * The feature id for the '<em><b>Budget</b></em>' attribute.
@@ -210,7 +247,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BROADCAST__BUDGET = ANALYSIS_ELEMENT__BUDGET;
+	int BROADCAST__BUDGET = BUSLOAD_ELEMENT__BUDGET;
 
 	/**
 	 * The feature id for the '<em><b>Connections</b></em>' reference list.
@@ -219,7 +256,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BROADCAST__CONNECTIONS = ANALYSIS_ELEMENT_FEATURE_COUNT + 0;
+	int BROADCAST__CONNECTIONS = BUSLOAD_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
@@ -228,7 +265,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BROADCAST__SOURCE = ANALYSIS_ELEMENT_FEATURE_COUNT + 1;
+	int BROADCAST__SOURCE = BUSLOAD_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Broadcast</em>' class.
@@ -237,7 +274,25 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BROADCAST_FEATURE_COUNT = ANALYSIS_ELEMENT_FEATURE_COUNT + 2;
+	int BROADCAST_FEATURE_COUNT = BUSLOAD_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The operation id for the '<em>Is Leaf</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BROADCAST___IS_LEAF = BUSLOAD_ELEMENT___IS_LEAF;
+
+	/**
+	 * The operation id for the '<em>Get Ordered Children</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BROADCAST___GET_ORDERED_CHILDREN = BUSLOAD_ELEMENT___GET_ORDERED_CHILDREN;
 
 	/**
 	 * The number of operations of the '<em>Broadcast</em>' class.
@@ -246,7 +301,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BROADCAST_OPERATION_COUNT = ANALYSIS_ELEMENT_OPERATION_COUNT + 0;
+	int BROADCAST_OPERATION_COUNT = BUSLOAD_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl <em>Bus Or Virtual Bus</em>}' class.
@@ -265,7 +320,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__LABEL = ANALYSIS_ELEMENT__LABEL;
+	int BUS_OR_VIRTUAL_BUS__LABEL = BUSLOAD_ELEMENT__LABEL;
 
 	/**
 	 * The feature id for the '<em><b>Actual</b></em>' attribute.
@@ -274,7 +329,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__ACTUAL = ANALYSIS_ELEMENT__ACTUAL;
+	int BUS_OR_VIRTUAL_BUS__ACTUAL = BUSLOAD_ELEMENT__ACTUAL;
 
 	/**
 	 * The feature id for the '<em><b>Budget</b></em>' attribute.
@@ -283,7 +338,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__BUDGET = ANALYSIS_ELEMENT__BUDGET;
+	int BUS_OR_VIRTUAL_BUS__BUDGET = BUSLOAD_ELEMENT__BUDGET;
 
 	/**
 	 * The feature id for the '<em><b>Bound Broadcasts</b></em>' reference list.
@@ -292,7 +347,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS = ANALYSIS_ELEMENT_FEATURE_COUNT + 0;
+	int BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS = BUSLOAD_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Bound Connections</b></em>' reference list.
@@ -301,7 +356,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS = ANALYSIS_ELEMENT_FEATURE_COUNT + 1;
+	int BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS = BUSLOAD_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Bound Virtual Buses</b></em>' reference list.
@@ -310,7 +365,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES = ANALYSIS_ELEMENT_FEATURE_COUNT + 2;
+	int BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES = BUSLOAD_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Bus Instance</b></em>' reference.
@@ -319,7 +374,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__BUS_INSTANCE = ANALYSIS_ELEMENT_FEATURE_COUNT + 3;
+	int BUS_OR_VIRTUAL_BUS__BUS_INSTANCE = BUSLOAD_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Bus Or Virtual Bus</em>' class.
@@ -328,7 +383,25 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS_FEATURE_COUNT = ANALYSIS_ELEMENT_FEATURE_COUNT + 4;
+	int BUS_OR_VIRTUAL_BUS_FEATURE_COUNT = BUSLOAD_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
+	 * The operation id for the '<em>Is Leaf</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_OR_VIRTUAL_BUS___IS_LEAF = BUSLOAD_ELEMENT___IS_LEAF;
+
+	/**
+	 * The operation id for the '<em>Get Ordered Children</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_OR_VIRTUAL_BUS___GET_ORDERED_CHILDREN = BUSLOAD_ELEMENT___GET_ORDERED_CHILDREN;
 
 	/**
 	 * The number of operations of the '<em>Bus Or Virtual Bus</em>' class.
@@ -337,7 +410,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS_OPERATION_COUNT = ANALYSIS_ELEMENT_OPERATION_COUNT + 0;
+	int BUS_OR_VIRTUAL_BUS_OPERATION_COUNT = BUSLOAD_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.VirtualBusImpl <em>Virtual Bus</em>}' class.
@@ -420,6 +493,24 @@ public interface BusloadPackage extends EPackage {
 	 * @ordered
 	 */
 	int VIRTUAL_BUS_FEATURE_COUNT = BUS_OR_VIRTUAL_BUS_FEATURE_COUNT + 0;
+
+	/**
+	 * The operation id for the '<em>Is Leaf</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIRTUAL_BUS___IS_LEAF = BUS_OR_VIRTUAL_BUS___IS_LEAF;
+
+	/**
+	 * The operation id for the '<em>Get Ordered Children</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIRTUAL_BUS___GET_ORDERED_CHILDREN = BUS_OR_VIRTUAL_BUS___GET_ORDERED_CHILDREN;
 
 	/**
 	 * The number of operations of the '<em>Virtual Bus</em>' class.
@@ -513,6 +604,24 @@ public interface BusloadPackage extends EPackage {
 	int BUS_FEATURE_COUNT = BUS_OR_VIRTUAL_BUS_FEATURE_COUNT + 0;
 
 	/**
+	 * The operation id for the '<em>Is Leaf</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS___IS_LEAF = BUS_OR_VIRTUAL_BUS___IS_LEAF;
+
+	/**
+	 * The operation id for the '<em>Get Ordered Children</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS___GET_ORDERED_CHILDREN = BUS_OR_VIRTUAL_BUS___GET_ORDERED_CHILDREN;
+
+	/**
 	 * The number of operations of the '<em>Bus</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -560,47 +669,47 @@ public interface BusloadPackage extends EPackage {
 
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement <em>Analysis Element</em>}'.
+	 * Returns the meta object for class '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement <em>Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Analysis Element</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement
+	 * @return the meta object for class '<em>Element</em>'.
+	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement
 	 * @generated
 	 */
-	EClass getAnalysisElement();
+	EClass getBusloadElement();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement#getLabel <em>Label</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getLabel <em>Label</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Label</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement#getLabel()
-	 * @see #getAnalysisElement()
+	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getLabel()
+	 * @see #getBusloadElement()
 	 * @generated
 	 */
-	EAttribute getAnalysisElement_Label();
+	EAttribute getBusloadElement_Label();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement#getActual <em>Actual</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getActual <em>Actual</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Actual</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement#getActual()
-	 * @see #getAnalysisElement()
+	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getActual()
+	 * @see #getBusloadElement()
 	 * @generated
 	 */
-	EAttribute getAnalysisElement_Actual();
+	EAttribute getBusloadElement_Actual();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement#getBudget <em>Budget</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getBudget <em>Budget</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Budget</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement#getBudget()
-	 * @see #getAnalysisElement()
+	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getBudget()
+	 * @see #getBusloadElement()
 	 * @generated
 	 */
-	EAttribute getAnalysisElement_Budget();
+	EAttribute getBusloadElement_Budget();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.analysis.resources.budgets.internal.models.busload.Connection <em>Connection</em>}'.
@@ -774,14 +883,14 @@ public interface BusloadPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.AnalysisElementImpl <em>Analysis Element</em>}' class.
+		 * The meta object literal for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl <em>Element</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.AnalysisElementImpl
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getAnalysisElement()
+		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl
+		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getBusloadElement()
 		 * @generated
 		 */
-		EClass ANALYSIS_ELEMENT = eINSTANCE.getAnalysisElement();
+		EClass BUSLOAD_ELEMENT = eINSTANCE.getBusloadElement();
 
 		/**
 		 * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
@@ -789,7 +898,7 @@ public interface BusloadPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ANALYSIS_ELEMENT__LABEL = eINSTANCE.getAnalysisElement_Label();
+		EAttribute BUSLOAD_ELEMENT__LABEL = eINSTANCE.getBusloadElement_Label();
 
 		/**
 		 * The meta object literal for the '<em><b>Actual</b></em>' attribute feature.
@@ -797,7 +906,7 @@ public interface BusloadPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ANALYSIS_ELEMENT__ACTUAL = eINSTANCE.getAnalysisElement_Actual();
+		EAttribute BUSLOAD_ELEMENT__ACTUAL = eINSTANCE.getBusloadElement_Actual();
 
 		/**
 		 * The meta object literal for the '<em><b>Budget</b></em>' attribute feature.
@@ -805,7 +914,7 @@ public interface BusloadPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ANALYSIS_ELEMENT__BUDGET = eINSTANCE.getAnalysisElement_Budget();
+		EAttribute BUSLOAD_ELEMENT__BUDGET = eINSTANCE.getBusloadElement_Budget();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.ConnectionImpl <em>Connection</em>}' class.

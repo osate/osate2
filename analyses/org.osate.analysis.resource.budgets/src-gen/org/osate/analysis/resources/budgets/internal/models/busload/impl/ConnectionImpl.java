@@ -27,7 +27,7 @@ import org.osate.analysis.resources.budgets.internal.models.busload.Connection;
  *
  * @generated
  */
-public class ConnectionImpl extends AnalysisElementImpl implements Connection {
+public class ConnectionImpl extends BusloadElementImpl implements Connection {
 	/**
 	 * The cached value of the '{@link #getConnectionInstance() <em>Connection Instance</em>}' reference.
 	 * <!-- begin-user-doc -->

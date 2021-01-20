@@ -2,41 +2,41 @@
  */
 package org.osate.analysis.resources.budgets.internal.models.busload;
 
-import org.eclipse.emf.ecore.EObject;
+import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Analysis Element</b></em>'.
+ * A representation of the model object '<em><b>Element</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement#getLabel <em>Label</em>}</li>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement#getActual <em>Actual</em>}</li>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement#getBudget <em>Budget</em>}</li>
+ *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getLabel <em>Label</em>}</li>
+ *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getActual <em>Actual</em>}</li>
+ *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getBudget <em>Budget</em>}</li>
  * </ul>
  *
- * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getAnalysisElement()
+ * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusloadElement()
  * @model abstract="true"
  * @generated
  */
-public interface AnalysisElement extends EObject {
+public interface BusloadElement extends AnalysisElement {
 	/**
 	 * Returns the value of the '<em><b>Label</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Label</em>' attribute.
 	 * @see #setLabel(String)
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getAnalysisElement_Label()
+	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusloadElement_Label()
 	 * @model
 	 * @generated
 	 */
 	String getLabel();
 
 	/**
-	 * Sets the value of the '{@link org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement#getLabel <em>Label</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getLabel <em>Label</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Label</em>' attribute.
@@ -51,14 +51,14 @@ public interface AnalysisElement extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Actual</em>' attribute.
 	 * @see #setActual(double)
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getAnalysisElement_Actual()
+	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusloadElement_Actual()
 	 * @model
 	 * @generated
 	 */
 	double getActual();
 
 	/**
-	 * Sets the value of the '{@link org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement#getActual <em>Actual</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getActual <em>Actual</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Actual</em>' attribute.
@@ -73,14 +73,14 @@ public interface AnalysisElement extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Budget</em>' attribute.
 	 * @see #setBudget(double)
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getAnalysisElement_Budget()
+	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusloadElement_Budget()
 	 * @model
 	 * @generated
 	 */
 	double getBudget();
 
 	/**
-	 * Sets the value of the '{@link org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement#getBudget <em>Budget</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getBudget <em>Budget</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Budget</em>' attribute.
@@ -89,4 +89,4 @@ public interface AnalysisElement extends EObject {
 	 */
 	void setBudget(double value);
 
-} // AnalysisElement
+} // BusloadElement
