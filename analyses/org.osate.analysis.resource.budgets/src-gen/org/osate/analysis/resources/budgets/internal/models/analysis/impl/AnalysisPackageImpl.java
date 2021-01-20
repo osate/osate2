@@ -188,7 +188,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 
 		EOperation op = initEOperation(getAnalysisElement__GetOrderedChildren(), null, "getOrderedChildren", 0, 1, IS_UNIQUE, IS_ORDERED);
 		EGenericType g1 = createEGenericType(ecorePackage.getEEList());
-		EGenericType g2 = createEGenericType(this.getAnalysisElement());
+		EGenericType g2 = createEGenericType(ecorePackage.getEObject());
 		g1.getETypeArguments().add(g2);
 		initEOperation(op, g1);
 

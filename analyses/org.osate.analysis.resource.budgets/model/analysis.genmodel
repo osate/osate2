@@ -8,9 +8,12 @@
   <foreignModel>analysis.ecore</foreignModel>
   <genPackages prefix="Analysis" basePackage="org.osate.analysis.resources.budgets.internal.models"
       disposableProviderFactory="true" ecorePackage="analysis.ecore#/">
-    <genClasses image="false" ecoreClass="analysis.ecore#//AnalysisElement">
-      <genOperations ecoreOperation="analysis.ecore#//AnalysisElement/isLeaf"/>
-      <genOperations ecoreOperation="analysis.ecore#//AnalysisElement/getOrderedChildren"/>
+    <genClasses documentation="Root model class for analysis-specific model classes.  Contains methods related to traversing/visiting the model.&#xA;"
+        image="false" ecoreClass="analysis.ecore#//AnalysisElement">
+      <genOperations documentation="Does the model element have children?  This is the same as testing whether the list of children returned by getOrderedChildren is empty.&#xA;"
+          ecoreOperation="analysis.ecore#//AnalysisElement/isLeaf"/>
+      <genOperations documentation="Get the children of the model element.  All children are instances of AnalysisElement, but we leave the return type as list of EObject to avoid being forced to copy the list of children in order to create a list of AnalysisElements.  By default this is the same as eContents().  If you need the children to be returned in a specific order then this method needs to be overridden"
+          ecoreOperation="analysis.ecore#//AnalysisElement/getOrderedChildren"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
