@@ -29,6 +29,1849 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java">
+        <filter comment="Ignore API errors for Xtext generated code." id="0"/>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$AbstractSubcomponentElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$AccessConnectionElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_2_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_2_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_2_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_2_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_2_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_2_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_2_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_2_3_0_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_2_3_1_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_2_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_2_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_2_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$BusSubcomponentElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$DataSubcomponentElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$DefaultAnnexSubclauseElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_3_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_3_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_3_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeAssignment_3_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeAssignment_3_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeCrossReference_3_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeCrossReference_3_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeIDTerminalRuleCall_3_3_0_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeIDTerminalRuleCall_3_3_1_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_3_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_3_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$DeviceSubcomponentElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$EndToEndFlowElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_2_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_2_4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_2_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_2_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_2_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_2_4_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_2_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_2_4_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_2_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_2_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_2_5()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$FeatureConnectionElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_2_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_2_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_2_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_2_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_2_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_2_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_2_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_2_3_0_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_2_3_1_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_2_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_2_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_2_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$FeatureGroupConnectionElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_2_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_2_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_2_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_2_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_2_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_2_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_2_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_2_3_0_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_2_3_1_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_2_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_2_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_2_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$FlowPathImplElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_9_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_9_4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_9_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_9_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_9_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_9_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_9_4_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_9_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_9_4_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_9_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_9_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_9_5()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$FlowPathSpecElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_8_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_8_4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_8_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_8_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_8_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_8_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_8_4_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_8_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_8_4_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_8_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_8_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_8_5()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$FlowSinkImplElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_7_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_7_4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_7_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_7_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_7_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_7_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_7_4_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_7_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_7_4_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_7_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_7_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_7_5()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$FlowSinkSpecElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_6_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_6_4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_6_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_6_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_6_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_6_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_6_4_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_6_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_6_4_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_6_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_6_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_6_5()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$FlowSourceImplElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_7_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_7_4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_7_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_7_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_7_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_7_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_7_4_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_7_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_7_4_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_7_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_7_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_7_5()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$FlowSourceSpecElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_6_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_6_4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_6_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_6_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_6_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_6_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_6_4_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_6_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_6_4_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_6_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_6_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_6_5()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$FlowSpecRefinementElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_6_4_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_6_4()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_6_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_6_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_6_4_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_6_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_6_4_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_6_3_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_6_4_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_6_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_6_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_6_5()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$MemorySubcomponentElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$ParameterConnectionElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_2_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_2_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_2_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_2_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_2_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_2_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_2_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_2_3_0_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_2_3_1_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_2_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_2_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_2_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$PortConnectionElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_2_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_2_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_2_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_2_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_2_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionAssignment_2_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_2_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureCrossReference_2_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_2_3_0_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeOrTransitionModeFeatureIDTerminalRuleCall_2_3_1_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_2_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_2_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_2_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$ProcessSubcomponentElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$ProcessorSubcomponentElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$PropertyDefinitionElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getAlternatives_8()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesKeyword_5()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesToAllReferenceParserRuleCall_8_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesToAssignment_8_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesToAssignment_8_0_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesToAssignment_8_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesToPropertyOwnerParserRuleCall_8_0_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getAppliesToPropertyOwnerParserRuleCall_8_0_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_8_0_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_8_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_8_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_7()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_9()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getSemicolonKeyword_10()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getToKeyword_6()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$SubprogramCallSequenceElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_6_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_6_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_6_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_6_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeAssignment_6_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeAssignment_6_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeCrossReference_6_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeCrossReference_6_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeIDTerminalRuleCall_6_3_0_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInModeModeIDTerminalRuleCall_6_3_1_1_0_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_6_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_6_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_6_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$SubprogramGroupSubcomponentElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$SubprogramSubcomponentElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$SystemSubcomponentElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$ThreadGroupSubcomponentElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$ThreadSubcomponentElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$VirtualBusSubcomponentElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/xtext/aadl2/services/Aadl2GrammarAccess.java" type="org.osate.xtext.aadl2.services.Aadl2GrammarAccess$VirtualProcessorSubcomponentElements">
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getCommaKeyword_5_3_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getGroup_5_3_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getInKeyword_5_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getLeftParenthesisKeyword_5_2()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getModesKeyword_5_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingAssignment_5_3_1_1()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_0_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Ignore API errors for Xtext generated code." id="1143996420">
+            <message_arguments>
+                <message_argument value="getRightParenthesisKeyword_5_4()"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/xtext/aadl2/formatting2/regionaccess/Aadl2TextRegionAccessBuilder.java" type="org.osate.xtext.aadl2.formatting2.regionaccess.Aadl2TextRegionAccessBuilder">
         <filter comment="xtext" id="643842064">
             <message_arguments>

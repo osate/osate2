@@ -77,18 +77,6 @@ class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	}
 
 	/**
-	 * AppliesToKeywords:
-	 * 	'applies' 'to'
-	 * ;
-	 */
-	override protected String getAppliesToKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node !== null)
-			getTokenText(node)
-		else
-			"applies to"
-	}
-
-	/**
 	 * BusAccessKeywords:
 	 * 	'bus' 'access'
 	 * ;
@@ -220,30 +208,6 @@ class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 			getTokenText(node)
 		else
 			"feature group"
-	}
-
-	/**
-	 * InBindingKeywords:
-	 * 	'in' 'binding'
-	 * ;
-	 */
-	override protected String getInBindingKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node !== null)
-			getTokenText(node)
-		else
-			"in binding"
-	}
-
-	/**
-	 * InModesKeywords:
-	 * 	'in' 'modes'
-	 * ;
-	 */
-	override protected String getInModesKeywordsToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node !== null)
-			getTokenText(node)
-		else
-			"in modes"
 	}
 
 	/**

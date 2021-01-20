@@ -72,13 +72,13 @@ class PropertiesFormatter extends AbstractFormatter2 {
 		modalPropertyValue.ownedValue.format(document)
 		
 		//OptionalModalPropertyValue
-		val leftParenthesis = modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.leftParenthesisKeyword_1_1)
-		val rightParenthesis = modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.rightParenthesisKeyword_1_4)
+		val leftParenthesis = modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.leftParenthesisKeyword_1_2)
+		val rightParenthesis = modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.rightParenthesisKeyword_1_5)
 		if (leftParenthesis !== null && rightParenthesis !== null) {
-			modalPropertyValue.regionFor.keyword(inModesKeywordsAccess.inKeyword_0).surround[oneSpace]
+			modalPropertyValue.regionFor.keyword(optionalModalPropertyValueAccess.inKeyword_1_0).surround[oneSpace]
 			interior(leftParenthesis, rightParenthesis, [indent])
 			leftParenthesis.prepend[oneSpace].append[noSpace; setNewLines(0, 0, 1); autowrap]
-			modalPropertyValue.regionFor.keywords(optionalModalPropertyValueAccess.commaKeyword_1_3_0).forEach[
+			modalPropertyValue.regionFor.keywords(optionalModalPropertyValueAccess.commaKeyword_1_4_0).forEach[
 				prepend[noSpace].append[oneSpace; setNewLines(0, 0, 1); autowrap]
 			]
 			if (rightParenthesis.previousHiddenRegion.multiline) {
