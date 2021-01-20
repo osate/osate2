@@ -9,6 +9,7 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement;
 import org.osate.analysis.resources.budgets.internal.models.busload.*;
 
 /**
@@ -68,8 +69,8 @@ public class BusloadAdapterFactory extends AdapterFactoryImpl {
 	protected BusloadSwitch<Adapter> modelSwitch =
 		new BusloadSwitch<Adapter>() {
 			@Override
-			public Adapter caseAnalysisElement(AnalysisElement object) {
-				return createAnalysisElementAdapter();
+			public Adapter caseBusloadElement(BusloadElement object) {
+				return createBusloadElementAdapter();
 			}
 			@Override
 			public Adapter caseConnection(Connection object) {
@@ -96,6 +97,10 @@ public class BusloadAdapterFactory extends AdapterFactoryImpl {
 				return createBusLoadModelAdapter();
 			}
 			@Override
+			public Adapter caseAnalysisElement(AnalysisElement object) {
+				return createAnalysisElementAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -116,13 +121,27 @@ public class BusloadAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement <em>Analysis Element</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement <em>Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.AnalysisElement
+	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement
+	 * @generated
+	 */
+	public Adapter createBusloadElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement <em>Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement
 	 * @generated
 	 */
 	public Adapter createAnalysisElementAdapter() {

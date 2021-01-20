@@ -36,7 +36,7 @@ import org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus;
  *
  * @generated
  */
-public abstract class BusOrVirtualBusImpl extends AnalysisElementImpl implements BusOrVirtualBus {
+public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements BusOrVirtualBus {
 	/**
 	 * The cached value of the '{@link #getBoundBroadcasts() <em>Bound Broadcasts</em>}' reference list.
 	 * <!-- begin-user-doc -->

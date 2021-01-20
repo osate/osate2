@@ -20,7 +20,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
  * @model
  * @generated
  */
-public interface Connection extends AnalysisElement {
+public interface Connection extends BusloadElement {
 	/**
 	 * Returns the value of the '<em><b>Connection Instance</b></em>' reference.
 	 * <!-- begin-user-doc -->

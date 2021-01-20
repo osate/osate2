@@ -35,7 +35,7 @@ import org.osate.analysis.resources.budgets.internal.models.busload.Connection;
  *
  * @generated
  */
-public class BroadcastImpl extends AnalysisElementImpl implements Broadcast {
+public class BroadcastImpl extends BusloadElementImpl implements Broadcast {
 	/**
 	 * The cached value of the '{@link #getConnections() <em>Connections</em>}' reference list.
 	 * <!-- begin-user-doc -->

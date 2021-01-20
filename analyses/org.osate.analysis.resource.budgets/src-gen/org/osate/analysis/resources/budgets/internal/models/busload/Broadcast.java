@@ -23,7 +23,7 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
  * @model
  * @generated
  */
-public interface Broadcast extends AnalysisElement {
+public interface Broadcast extends BusloadElement {
 	/**
 	 * Returns the value of the '<em><b>Connections</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.analysis.resources.budgets.internal.models.busload.Connection}.
