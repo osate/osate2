@@ -5,11 +5,9 @@ package org.osate.analysis.resources.budgets.internal.models.analysis.impl;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement;
 import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisPackage;
 
@@ -43,25 +41,21 @@ public abstract class AnalysisElementImpl extends MinimalEObjectImpl.Container i
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public boolean isLeaf() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		return getOrderedChildren().isEmpty();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
-	public EList<AnalysisElement> getOrderedChildren() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+	public EList<EObject> getOrderedChildren() {
+		return eContents();
 	}
 
 	/**
