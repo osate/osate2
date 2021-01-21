@@ -2,6 +2,7 @@
  */
 package org.osate.analysis.resources.budgets.internal.models.busload.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -9,16 +10,20 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement;
+import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisPackage;
 import org.osate.analysis.resources.budgets.internal.models.busload.Broadcast;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage;
 import org.osate.analysis.resources.budgets.internal.models.busload.Connection;
 import org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus;
+import org.osate.result.Result;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,6 +33,7 @@ import org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus;
  * The following features are implemented:
  * </p>
  * <ul>
+ *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getResult <em>Result</em>}</li>
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getBoundBroadcasts <em>Bound Broadcasts</em>}</li>
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getBoundConnections <em>Bound Connections</em>}</li>
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getBoundVirtualBuses <em>Bound Virtual Buses</em>}</li>
@@ -38,6 +44,16 @@ import org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus;
  * @generated
  */
 public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements BusOrVirtualBus {
+	/**
+	 * The cached value of the '{@link #getResult() <em>Result</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getResult()
+	 * @generated
+	 * @ordered
+	 */
+	protected Result result;
+
 	/**
 	 * The cached value of the '{@link #getBoundBroadcasts() <em>Bound Broadcasts</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -115,6 +131,46 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 	@Override
 	protected EClass eStaticClass() {
 		return BusloadPackage.Literals.BUS_OR_VIRTUAL_BUS;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Result getResult() {
+		if (result != null && result.eIsProxy()) {
+			InternalEObject oldResult = (InternalEObject)result;
+			result = (Result)eResolveProxy(oldResult);
+			if (result != oldResult) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BusloadPackage.BUS_OR_VIRTUAL_BUS__RESULT, oldResult, result));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Result basicGetResult() {
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setResult(Result newResult) {
+		Result oldResult = result;
+		result = newResult;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BusloadPackage.BUS_OR_VIRTUAL_BUS__RESULT, oldResult, result));
 	}
 
 	/**
@@ -225,8 +281,35 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 	 * @generated
 	 */
 	@Override
+	public boolean isLeaf() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<EObject> getOrderedChildren() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__RESULT:
+				if (resolve) return getResult();
+				return basicGetResult();
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
 				return getBoundBroadcasts();
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS:
@@ -251,6 +334,9 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__RESULT:
+				setResult((Result)newValue);
+				return;
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
 				getBoundBroadcasts().clear();
 				getBoundBroadcasts().addAll((Collection<? extends Broadcast>)newValue);
@@ -281,6 +367,9 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__RESULT:
+				setResult((Result)null);
+				return;
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
 				getBoundBroadcasts().clear();
 				return;
@@ -308,6 +397,8 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__RESULT:
+				return result != null;
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
 				return boundBroadcasts != null && !boundBroadcasts.isEmpty();
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS:
@@ -320,6 +411,71 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 				return dataOverhead != DATA_OVERHEAD_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == AnalysisElement.class) {
+			switch (derivedFeatureID) {
+				case BusloadPackage.BUS_OR_VIRTUAL_BUS__RESULT: return AnalysisPackage.ANALYSIS_ELEMENT__RESULT;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == AnalysisElement.class) {
+			switch (baseFeatureID) {
+				case AnalysisPackage.ANALYSIS_ELEMENT__RESULT: return BusloadPackage.BUS_OR_VIRTUAL_BUS__RESULT;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedOperationID(int baseOperationID, Class<?> baseClass) {
+		if (baseClass == AnalysisElement.class) {
+			switch (baseOperationID) {
+				case AnalysisPackage.ANALYSIS_ELEMENT___IS_LEAF: return BusloadPackage.BUS_OR_VIRTUAL_BUS___IS_LEAF;
+				case AnalysisPackage.ANALYSIS_ELEMENT___GET_ORDERED_CHILDREN: return BusloadPackage.BUS_OR_VIRTUAL_BUS___GET_ORDERED_CHILDREN;
+				default: return -1;
+			}
+		}
+		return super.eDerivedOperationID(baseOperationID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+		switch (operationID) {
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS___IS_LEAF:
+				return isLeaf();
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS___GET_ORDERED_CHILDREN:
+				return getOrderedChildren();
+		}
+		return super.eInvoke(operationID, arguments);
 	}
 
 	/**

@@ -5,15 +5,11 @@ package org.osate.analysis.resources.budgets.internal.models.busload.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.analysis.resources.budgets.internal.models.analysis.impl.AnalysisElementImpl;
-
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage;
-import org.osate.result.Result;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,12 +22,11 @@ import org.osate.result.Result;
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl#getActual <em>Actual</em>}</li>
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl#getBudget <em>Budget</em>}</li>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl#getResult <em>Result</em>}</li>
  * </ul>
  *
  * @generated
  */
-public abstract class BusloadElementImpl extends AnalysisElementImpl implements BusloadElement {
+public abstract class BusloadElementImpl extends MinimalEObjectImpl.Container implements BusloadElement {
 	/**
 	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -91,16 +86,6 @@ public abstract class BusloadElementImpl extends AnalysisElementImpl implements 
 	 * @ordered
 	 */
 	protected double budget = BUDGET_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getResult() <em>Result</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getResult()
-	 * @generated
-	 * @ordered
-	 */
-	protected Result result;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -196,46 +181,6 @@ public abstract class BusloadElementImpl extends AnalysisElementImpl implements 
 	 * @generated
 	 */
 	@Override
-	public Result getResult() {
-		if (result != null && result.eIsProxy()) {
-			InternalEObject oldResult = (InternalEObject)result;
-			result = (Result)eResolveProxy(oldResult);
-			if (result != oldResult) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BusloadPackage.BUSLOAD_ELEMENT__RESULT, oldResult, result));
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Result basicGetResult() {
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setResult(Result newResult) {
-		Result oldResult = result;
-		result = newResult;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BusloadPackage.BUSLOAD_ELEMENT__RESULT, oldResult, result));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case BusloadPackage.BUSLOAD_ELEMENT__LABEL:
@@ -244,9 +189,6 @@ public abstract class BusloadElementImpl extends AnalysisElementImpl implements 
 				return getActual();
 			case BusloadPackage.BUSLOAD_ELEMENT__BUDGET:
 				return getBudget();
-			case BusloadPackage.BUSLOAD_ELEMENT__RESULT:
-				if (resolve) return getResult();
-				return basicGetResult();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -267,9 +209,6 @@ public abstract class BusloadElementImpl extends AnalysisElementImpl implements 
 				return;
 			case BusloadPackage.BUSLOAD_ELEMENT__BUDGET:
 				setBudget((Double)newValue);
-				return;
-			case BusloadPackage.BUSLOAD_ELEMENT__RESULT:
-				setResult((Result)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -292,9 +231,6 @@ public abstract class BusloadElementImpl extends AnalysisElementImpl implements 
 			case BusloadPackage.BUSLOAD_ELEMENT__BUDGET:
 				setBudget(BUDGET_EDEFAULT);
 				return;
-			case BusloadPackage.BUSLOAD_ELEMENT__RESULT:
-				setResult((Result)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -313,8 +249,6 @@ public abstract class BusloadElementImpl extends AnalysisElementImpl implements 
 				return actual != ACTUAL_EDEFAULT;
 			case BusloadPackage.BUSLOAD_ELEMENT__BUDGET:
 				return budget != BUDGET_EDEFAULT;
-			case BusloadPackage.BUSLOAD_ELEMENT__RESULT:
-				return result != null;
 		}
 		return super.eIsSet(featureID);
 	}

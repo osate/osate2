@@ -5,6 +5,7 @@ package org.osate.analysis.resources.budgets.internal.models.analysis;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -66,13 +67,22 @@ public interface AnalysisPackage extends EPackage {
 	int ANALYSIS_ELEMENT = 0;
 
 	/**
+	 * The feature id for the '<em><b>Result</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANALYSIS_ELEMENT__RESULT = 0;
+
+	/**
 	 * The number of structural features of the '<em>Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ANALYSIS_ELEMENT_FEATURE_COUNT = 0;
+	int ANALYSIS_ELEMENT_FEATURE_COUNT = 1;
 
 	/**
 	 * The operation id for the '<em>Is Leaf</em>' operation.
@@ -111,6 +121,17 @@ public interface AnalysisPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getAnalysisElement();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement#getResult <em>Result</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Result</em>'.
+	 * @see org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement#getResult()
+	 * @see #getAnalysisElement()
+	 * @generated
+	 */
+	EReference getAnalysisElement_Result();
 
 	/**
 	 * Returns the meta object for the '{@link org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement#isLeaf() <em>Is Leaf</em>}' operation.
@@ -164,6 +185,14 @@ public interface AnalysisPackage extends EPackage {
 		 * @generated
 		 */
 		EClass ANALYSIS_ELEMENT = eINSTANCE.getAnalysisElement();
+
+		/**
+		 * The meta object literal for the '<em><b>Result</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ANALYSIS_ELEMENT__RESULT = eINSTANCE.getAnalysisElement_Result();
 
 		/**
 		 * The meta object literal for the '<em><b>Is Leaf</b></em>' operation.
