@@ -7,11 +7,9 @@ import java.util.Collection;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
+import org.osate.analysis.resources.budgets.internal.models.analysis.impl.AnalysisElementImpl;
 import org.osate.analysis.resources.budgets.internal.models.busload.Bus;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage;
@@ -29,7 +27,7 @@ import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPacka
  *
  * @generated
  */
-public class BusLoadModelImpl extends MinimalEObjectImpl.Container implements BusLoadModel {
+public class BusLoadModelImpl extends AnalysisElementImpl implements BusLoadModel {
 	/**
 	 * The cached value of the '{@link #getRootBuses() <em>Root Buses</em>}' reference list.
 	 * <!-- begin-user-doc -->

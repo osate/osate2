@@ -3,6 +3,7 @@
 package org.osate.analysis.resources.budgets.internal.models.busload;
 
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,7 +21,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
  * @model
  * @generated
  */
-public interface Connection extends BusloadElement {
+public interface Connection extends BusloadElement, AnalysisElement {
 	/**
 	 * Returns the value of the '<em><b>Connection Instance</b></em>' reference.
 	 * <!-- begin-user-doc -->

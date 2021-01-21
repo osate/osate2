@@ -7,11 +7,13 @@ import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement;
 import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisFactory;
 import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisPackage;
+import org.osate.result.ResultPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -74,6 +76,9 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 
 		isInited = true;
 
+		// Initialize simple dependencies
+		ResultPackage.eINSTANCE.eClass();
+
 		// Create package meta-data objects
 		theAnalysisPackage.createPackageContents();
 
@@ -96,6 +101,16 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 	@Override
 	public EClass getAnalysisElement() {
 		return analysisElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getAnalysisElement_Result() {
+		return (EReference)analysisElementEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -148,6 +163,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 
 		// Create classes and their features
 		analysisElementEClass = createEClass(ANALYSIS_ELEMENT);
+		createEReference(analysisElementEClass, ANALYSIS_ELEMENT__RESULT);
 		createEOperation(analysisElementEClass, ANALYSIS_ELEMENT___IS_LEAF);
 		createEOperation(analysisElementEClass, ANALYSIS_ELEMENT___GET_ORDERED_CHILDREN);
 	}
@@ -175,6 +191,9 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		ResultPackage theResultPackage = (ResultPackage)EPackage.Registry.INSTANCE.getEPackage(ResultPackage.eNS_URI);
+
 		// Create type parameters
 
 		// Set bounds for type parameters
@@ -183,6 +202,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(analysisElementEClass, AnalysisElement.class, "AnalysisElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAnalysisElement_Result(), theResultPackage.getResult(), null, "result", null, 0, 1, AnalysisElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEOperation(getAnalysisElement__IsLeaf(), ecorePackage.getEBoolean(), "isLeaf", 0, 1, IS_UNIQUE, IS_ORDERED);
 

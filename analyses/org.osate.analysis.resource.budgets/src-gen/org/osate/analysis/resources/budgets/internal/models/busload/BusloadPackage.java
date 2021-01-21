@@ -74,7 +74,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUSLOAD_ELEMENT__LABEL = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 0;
+	int BUSLOAD_ELEMENT__LABEL = 0;
 
 	/**
 	 * The feature id for the '<em><b>Actual</b></em>' attribute.
@@ -83,7 +83,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUSLOAD_ELEMENT__ACTUAL = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 1;
+	int BUSLOAD_ELEMENT__ACTUAL = 1;
 
 	/**
 	 * The feature id for the '<em><b>Budget</b></em>' attribute.
@@ -92,16 +92,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUSLOAD_ELEMENT__BUDGET = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Result</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUSLOAD_ELEMENT__RESULT = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 3;
+	int BUSLOAD_ELEMENT__BUDGET = 2;
 
 	/**
 	 * The number of structural features of the '<em>Element</em>' class.
@@ -110,25 +101,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUSLOAD_ELEMENT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 4;
-
-	/**
-	 * The operation id for the '<em>Is Leaf</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUSLOAD_ELEMENT___IS_LEAF = AnalysisPackage.ANALYSIS_ELEMENT___IS_LEAF;
-
-	/**
-	 * The operation id for the '<em>Get Ordered Children</em>' operation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUSLOAD_ELEMENT___GET_ORDERED_CHILDREN = AnalysisPackage.ANALYSIS_ELEMENT___GET_ORDERED_CHILDREN;
+	int BUSLOAD_ELEMENT_FEATURE_COUNT = 3;
 
 	/**
 	 * The number of operations of the '<em>Element</em>' class.
@@ -137,7 +110,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUSLOAD_ELEMENT_OPERATION_COUNT = AnalysisPackage.ANALYSIS_ELEMENT_OPERATION_COUNT + 0;
+	int BUSLOAD_ELEMENT_OPERATION_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.ConnectionImpl <em>Connection</em>}' class.
@@ -183,7 +156,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION__RESULT = BUSLOAD_ELEMENT__RESULT;
+	int CONNECTION__RESULT = BUSLOAD_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Connection Instance</b></em>' reference.
@@ -192,7 +165,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION__CONNECTION_INSTANCE = BUSLOAD_ELEMENT_FEATURE_COUNT + 0;
+	int CONNECTION__CONNECTION_INSTANCE = BUSLOAD_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Connection</em>' class.
@@ -201,7 +174,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_FEATURE_COUNT = BUSLOAD_ELEMENT_FEATURE_COUNT + 1;
+	int CONNECTION_FEATURE_COUNT = BUSLOAD_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The operation id for the '<em>Is Leaf</em>' operation.
@@ -210,7 +183,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION___IS_LEAF = BUSLOAD_ELEMENT___IS_LEAF;
+	int CONNECTION___IS_LEAF = BUSLOAD_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The operation id for the '<em>Get Ordered Children</em>' operation.
@@ -219,7 +192,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION___GET_ORDERED_CHILDREN = BUSLOAD_ELEMENT___GET_ORDERED_CHILDREN;
+	int CONNECTION___GET_ORDERED_CHILDREN = BUSLOAD_ELEMENT_OPERATION_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Connection</em>' class.
@@ -228,7 +201,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_OPERATION_COUNT = BUSLOAD_ELEMENT_OPERATION_COUNT + 0;
+	int CONNECTION_OPERATION_COUNT = BUSLOAD_ELEMENT_OPERATION_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BroadcastImpl <em>Broadcast</em>}' class.
@@ -274,7 +247,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BROADCAST__RESULT = BUSLOAD_ELEMENT__RESULT;
+	int BROADCAST__RESULT = BUSLOAD_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Connections</b></em>' reference list.
@@ -283,7 +256,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BROADCAST__CONNECTIONS = BUSLOAD_ELEMENT_FEATURE_COUNT + 0;
+	int BROADCAST__CONNECTIONS = BUSLOAD_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Source</b></em>' reference.
@@ -292,7 +265,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BROADCAST__SOURCE = BUSLOAD_ELEMENT_FEATURE_COUNT + 1;
+	int BROADCAST__SOURCE = BUSLOAD_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Broadcast</em>' class.
@@ -301,7 +274,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BROADCAST_FEATURE_COUNT = BUSLOAD_ELEMENT_FEATURE_COUNT + 2;
+	int BROADCAST_FEATURE_COUNT = BUSLOAD_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The operation id for the '<em>Is Leaf</em>' operation.
@@ -310,7 +283,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BROADCAST___IS_LEAF = BUSLOAD_ELEMENT___IS_LEAF;
+	int BROADCAST___IS_LEAF = BUSLOAD_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The operation id for the '<em>Get Ordered Children</em>' operation.
@@ -319,7 +292,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BROADCAST___GET_ORDERED_CHILDREN = BUSLOAD_ELEMENT___GET_ORDERED_CHILDREN;
+	int BROADCAST___GET_ORDERED_CHILDREN = BUSLOAD_ELEMENT_OPERATION_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Broadcast</em>' class.
@@ -328,7 +301,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BROADCAST_OPERATION_COUNT = BUSLOAD_ELEMENT_OPERATION_COUNT + 0;
+	int BROADCAST_OPERATION_COUNT = BUSLOAD_ELEMENT_OPERATION_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl <em>Bus Or Virtual Bus</em>}' class.
@@ -374,7 +347,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__RESULT = BUSLOAD_ELEMENT__RESULT;
+	int BUS_OR_VIRTUAL_BUS__RESULT = BUSLOAD_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Bound Broadcasts</b></em>' reference list.
@@ -383,7 +356,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS = BUSLOAD_ELEMENT_FEATURE_COUNT + 0;
+	int BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS = BUSLOAD_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Bound Connections</b></em>' reference list.
@@ -392,7 +365,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS = BUSLOAD_ELEMENT_FEATURE_COUNT + 1;
+	int BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS = BUSLOAD_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Bound Virtual Buses</b></em>' reference list.
@@ -401,7 +374,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES = BUSLOAD_ELEMENT_FEATURE_COUNT + 2;
+	int BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES = BUSLOAD_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Bus Instance</b></em>' reference.
@@ -410,7 +383,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__BUS_INSTANCE = BUSLOAD_ELEMENT_FEATURE_COUNT + 3;
+	int BUS_OR_VIRTUAL_BUS__BUS_INSTANCE = BUSLOAD_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Data Overhead</b></em>' attribute.
@@ -419,7 +392,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__DATA_OVERHEAD = BUSLOAD_ELEMENT_FEATURE_COUNT + 4;
+	int BUS_OR_VIRTUAL_BUS__DATA_OVERHEAD = BUSLOAD_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Bus Or Virtual Bus</em>' class.
@@ -428,7 +401,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS_FEATURE_COUNT = BUSLOAD_ELEMENT_FEATURE_COUNT + 5;
+	int BUS_OR_VIRTUAL_BUS_FEATURE_COUNT = BUSLOAD_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The operation id for the '<em>Is Leaf</em>' operation.
@@ -437,7 +410,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS___IS_LEAF = BUSLOAD_ELEMENT___IS_LEAF;
+	int BUS_OR_VIRTUAL_BUS___IS_LEAF = BUSLOAD_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The operation id for the '<em>Get Ordered Children</em>' operation.
@@ -446,7 +419,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS___GET_ORDERED_CHILDREN = BUSLOAD_ELEMENT___GET_ORDERED_CHILDREN;
+	int BUS_OR_VIRTUAL_BUS___GET_ORDERED_CHILDREN = BUSLOAD_ELEMENT_OPERATION_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Bus Or Virtual Bus</em>' class.
@@ -455,7 +428,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS_OPERATION_COUNT = BUSLOAD_ELEMENT_OPERATION_COUNT + 0;
+	int BUS_OR_VIRTUAL_BUS_OPERATION_COUNT = BUSLOAD_ELEMENT_OPERATION_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.VirtualBusImpl <em>Virtual Bus</em>}' class.
@@ -722,13 +695,22 @@ public interface BusloadPackage extends EPackage {
 	int BUS_LOAD_MODEL = 6;
 
 	/**
+	 * The feature id for the '<em><b>Result</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_LOAD_MODEL__RESULT = AnalysisPackage.ANALYSIS_ELEMENT__RESULT;
+
+	/**
 	 * The feature id for the '<em><b>Root Buses</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_LOAD_MODEL__ROOT_BUSES = 0;
+	int BUS_LOAD_MODEL__ROOT_BUSES = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Bus Load Model</em>' class.
@@ -737,7 +719,25 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_LOAD_MODEL_FEATURE_COUNT = 1;
+	int BUS_LOAD_MODEL_FEATURE_COUNT = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The operation id for the '<em>Is Leaf</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_LOAD_MODEL___IS_LEAF = AnalysisPackage.ANALYSIS_ELEMENT___IS_LEAF;
+
+	/**
+	 * The operation id for the '<em>Get Ordered Children</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_LOAD_MODEL___GET_ORDERED_CHILDREN = AnalysisPackage.ANALYSIS_ELEMENT___GET_ORDERED_CHILDREN;
 
 	/**
 	 * The number of operations of the '<em>Bus Load Model</em>' class.
@@ -746,7 +746,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_LOAD_MODEL_OPERATION_COUNT = 0;
+	int BUS_LOAD_MODEL_OPERATION_COUNT = AnalysisPackage.ANALYSIS_ELEMENT_OPERATION_COUNT + 0;
 
 
 	/**
@@ -791,17 +791,6 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBusloadElement_Budget();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getResult <em>Result</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Result</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getResult()
-	 * @see #getBusloadElement()
-	 * @generated
-	 */
-	EReference getBusloadElement_Result();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.analysis.resources.budgets.internal.models.busload.Connection <em>Connection</em>}'.
@@ -1018,14 +1007,6 @@ public interface BusloadPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BUSLOAD_ELEMENT__BUDGET = eINSTANCE.getBusloadElement_Budget();
-
-		/**
-		 * The meta object literal for the '<em><b>Result</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference BUSLOAD_ELEMENT__RESULT = eINSTANCE.getBusloadElement_Result();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.ConnectionImpl <em>Connection</em>}' class.

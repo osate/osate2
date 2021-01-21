@@ -4,6 +4,7 @@ package org.osate.analysis.resources.budgets.internal.models.analysis;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.result.Result;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,12 +16,40 @@ import org.eclipse.emf.ecore.EObject;
  * 
  * <!-- end-model-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement#getResult <em>Result</em>}</li>
+ * </ul>
  *
  * @see org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisPackage#getAnalysisElement()
  * @model abstract="true"
  * @generated
  */
 public interface AnalysisElement extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Result</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Result</em>' reference.
+	 * @see #setResult(Result)
+	 * @see org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisPackage#getAnalysisElement_Result()
+	 * @model
+	 * @generated
+	 */
+	Result getResult();
+
+	/**
+	 * Sets the value of the '{@link org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement#getResult <em>Result</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Result</em>' reference.
+	 * @see #getResult()
+	 * @generated
+	 */
+	void setResult(Result value);
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -4,6 +4,7 @@ package org.osate.analysis.resources.budgets.internal.models.busload;
 
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,7 +26,7 @@ import org.osate.aadl2.instance.ComponentInstance;
  * @model abstract="true"
  * @generated
  */
-public interface BusOrVirtualBus extends BusloadElement {
+public interface BusOrVirtualBus extends BusloadElement, AnalysisElement {
 	/**
 	 * Returns the value of the '<em><b>Bound Broadcasts</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.analysis.resources.budgets.internal.models.busload.Broadcast}.

@@ -130,9 +130,9 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 
 		// Initialize simple dependencies
 		AnalysisPackage.eINSTANCE.eClass();
-		ResultPackage.eINSTANCE.eClass();
 		Aadl2Package.eINSTANCE.eClass();
 		InstancePackage.eINSTANCE.eClass();
+		ResultPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theBusloadPackage.createPackageContents();
@@ -186,16 +186,6 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 	@Override
 	public EAttribute getBusloadElement_Budget() {
 		return (EAttribute)busloadElementEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public EReference getBusloadElement_Result() {
-		return (EReference)busloadElementEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -381,7 +371,6 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		createEAttribute(busloadElementEClass, BUSLOAD_ELEMENT__LABEL);
 		createEAttribute(busloadElementEClass, BUSLOAD_ELEMENT__ACTUAL);
 		createEAttribute(busloadElementEClass, BUSLOAD_ELEMENT__BUDGET);
-		createEReference(busloadElementEClass, BUSLOAD_ELEMENT__RESULT);
 
 		connectionEClass = createEClass(CONNECTION);
 		createEReference(connectionEClass, CONNECTION__CONNECTION_INSTANCE);
@@ -430,7 +419,6 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 
 		// Obtain other dependent packages
 		AnalysisPackage theAnalysisPackage = (AnalysisPackage)EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
-		ResultPackage theResultPackage = (ResultPackage)EPackage.Registry.INSTANCE.getEPackage(ResultPackage.eNS_URI);
 		InstancePackage theInstancePackage = (InstancePackage)EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI);
 
 		// Create type parameters
@@ -438,19 +426,21 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		busloadElementEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisElement());
 		connectionEClass.getESuperTypes().add(this.getBusloadElement());
+		connectionEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisElement());
 		broadcastEClass.getESuperTypes().add(this.getBusloadElement());
+		broadcastEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisElement());
 		busOrVirtualBusEClass.getESuperTypes().add(this.getBusloadElement());
+		busOrVirtualBusEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisElement());
 		virtualBusEClass.getESuperTypes().add(this.getBusOrVirtualBus());
 		busEClass.getESuperTypes().add(this.getBusOrVirtualBus());
+		busLoadModelEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisElement());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(busloadElementEClass, BusloadElement.class, "BusloadElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBusloadElement_Label(), ecorePackage.getEString(), "label", null, 0, 1, BusloadElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBusloadElement_Actual(), ecorePackage.getEDouble(), "actual", null, 0, 1, BusloadElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBusloadElement_Budget(), ecorePackage.getEDouble(), "budget", null, 0, 1, BusloadElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBusloadElement_Result(), theResultPackage.getResult(), null, "result", null, 0, 1, BusloadElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(connectionEClass, Connection.class, "Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConnection_ConnectionInstance(), theInstancePackage.getConnectionInstance(), null, "connectionInstance", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
