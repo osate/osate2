@@ -18,6 +18,7 @@ import org.osate.aadl2.instance.ComponentInstance;
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getBoundConnections <em>Bound Connections</em>}</li>
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getBoundVirtualBuses <em>Bound Virtual Buses</em>}</li>
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getBusInstance <em>Bus Instance</em>}</li>
+ *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getDataOverhead <em>Data Overhead</em>}</li>
  * </ul>
  *
  * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusOrVirtualBus()
@@ -82,5 +83,27 @@ public interface BusOrVirtualBus extends BusloadElement {
 	 * @generated
 	 */
 	void setBusInstance(ComponentInstance value);
+
+	/**
+	 * Returns the value of the '<em><b>Data Overhead</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data Overhead</em>' attribute.
+	 * @see #setDataOverhead(double)
+	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusOrVirtualBus_DataOverhead()
+	 * @model
+	 * @generated
+	 */
+	double getDataOverhead();
+
+	/**
+	 * Sets the value of the '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getDataOverhead <em>Data Overhead</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Data Overhead</em>' attribute.
+	 * @see #getDataOverhead()
+	 * @generated
+	 */
+	void setDataOverhead(double value);
 
 } // BusOrVirtualBus

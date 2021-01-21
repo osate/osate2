@@ -4,7 +4,7 @@
     editorDirectory="" modelPluginID="org.osate.analysis.resource.budgets" modelName="Busload"
     rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" testsDirectory=""
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
-    usedGenPackages="analysis.genmodel#//analysis ../../org.osate.aadl2/model/aadl2.genmodel#//aadl2 ../../org.osate.aadl2/model/instance.genmodel#//instance"
+    usedGenPackages="analysis.genmodel#//analysis ../../org.osate.results/model/Result.genmodel#//result ../../org.osate.aadl2/model/aadl2.genmodel#//aadl2 ../../org.osate.aadl2/model/instance.genmodel#//instance"
     operationReflection="true" importOrganizing="true">
   <foreignModel>busload.ecore</foreignModel>
   <genPackages prefix="Busload" basePackage="org.osate.analysis.resources.budgets.internal.models"
@@ -13,6 +13,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute busload.ecore#//BusloadElement/label"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute busload.ecore#//BusloadElement/actual"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute busload.ecore#//BusloadElement/budget"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//BusloadElement/result"/>
     </genClasses>
     <genClasses ecoreClass="busload.ecore#//Connection">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//Connection/connectionInstance"/>
@@ -26,6 +27,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//BusOrVirtualBus/boundConnections"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//BusOrVirtualBus/boundVirtualBuses"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//BusOrVirtualBus/busInstance"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute busload.ecore#//BusOrVirtualBus/dataOverhead"/>
     </genClasses>
     <genClasses ecoreClass="busload.ecore#//VirtualBus"/>
     <genClasses ecoreClass="busload.ecore#//Bus"/>

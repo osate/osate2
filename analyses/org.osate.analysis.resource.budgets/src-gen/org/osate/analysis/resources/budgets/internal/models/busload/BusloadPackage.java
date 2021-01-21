@@ -95,13 +95,22 @@ public interface BusloadPackage extends EPackage {
 	int BUSLOAD_ELEMENT__BUDGET = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Result</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUSLOAD_ELEMENT__RESULT = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUSLOAD_ELEMENT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 3;
+	int BUSLOAD_ELEMENT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The operation id for the '<em>Is Leaf</em>' operation.
@@ -166,6 +175,15 @@ public interface BusloadPackage extends EPackage {
 	 * @ordered
 	 */
 	int CONNECTION__BUDGET = BUSLOAD_ELEMENT__BUDGET;
+
+	/**
+	 * The feature id for the '<em><b>Result</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION__RESULT = BUSLOAD_ELEMENT__RESULT;
 
 	/**
 	 * The feature id for the '<em><b>Connection Instance</b></em>' reference.
@@ -248,6 +266,15 @@ public interface BusloadPackage extends EPackage {
 	 * @ordered
 	 */
 	int BROADCAST__BUDGET = BUSLOAD_ELEMENT__BUDGET;
+
+	/**
+	 * The feature id for the '<em><b>Result</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BROADCAST__RESULT = BUSLOAD_ELEMENT__RESULT;
 
 	/**
 	 * The feature id for the '<em><b>Connections</b></em>' reference list.
@@ -341,6 +368,15 @@ public interface BusloadPackage extends EPackage {
 	int BUS_OR_VIRTUAL_BUS__BUDGET = BUSLOAD_ELEMENT__BUDGET;
 
 	/**
+	 * The feature id for the '<em><b>Result</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_OR_VIRTUAL_BUS__RESULT = BUSLOAD_ELEMENT__RESULT;
+
+	/**
 	 * The feature id for the '<em><b>Bound Broadcasts</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -377,13 +413,22 @@ public interface BusloadPackage extends EPackage {
 	int BUS_OR_VIRTUAL_BUS__BUS_INSTANCE = BUSLOAD_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Data Overhead</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS_OR_VIRTUAL_BUS__DATA_OVERHEAD = BUSLOAD_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Bus Or Virtual Bus</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS_FEATURE_COUNT = BUSLOAD_ELEMENT_FEATURE_COUNT + 4;
+	int BUS_OR_VIRTUAL_BUS_FEATURE_COUNT = BUSLOAD_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The operation id for the '<em>Is Leaf</em>' operation.
@@ -450,6 +495,15 @@ public interface BusloadPackage extends EPackage {
 	int VIRTUAL_BUS__BUDGET = BUS_OR_VIRTUAL_BUS__BUDGET;
 
 	/**
+	 * The feature id for the '<em><b>Result</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIRTUAL_BUS__RESULT = BUS_OR_VIRTUAL_BUS__RESULT;
+
+	/**
 	 * The feature id for the '<em><b>Bound Broadcasts</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -484,6 +538,15 @@ public interface BusloadPackage extends EPackage {
 	 * @ordered
 	 */
 	int VIRTUAL_BUS__BUS_INSTANCE = BUS_OR_VIRTUAL_BUS__BUS_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Data Overhead</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIRTUAL_BUS__DATA_OVERHEAD = BUS_OR_VIRTUAL_BUS__DATA_OVERHEAD;
 
 	/**
 	 * The number of structural features of the '<em>Virtual Bus</em>' class.
@@ -559,6 +622,15 @@ public interface BusloadPackage extends EPackage {
 	int BUS__BUDGET = BUS_OR_VIRTUAL_BUS__BUDGET;
 
 	/**
+	 * The feature id for the '<em><b>Result</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS__RESULT = BUS_OR_VIRTUAL_BUS__RESULT;
+
+	/**
 	 * The feature id for the '<em><b>Bound Broadcasts</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -593,6 +665,15 @@ public interface BusloadPackage extends EPackage {
 	 * @ordered
 	 */
 	int BUS__BUS_INSTANCE = BUS_OR_VIRTUAL_BUS__BUS_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Data Overhead</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BUS__DATA_OVERHEAD = BUS_OR_VIRTUAL_BUS__DATA_OVERHEAD;
 
 	/**
 	 * The number of structural features of the '<em>Bus</em>' class.
@@ -712,6 +793,17 @@ public interface BusloadPackage extends EPackage {
 	EAttribute getBusloadElement_Budget();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getResult <em>Result</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Result</em>'.
+	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getResult()
+	 * @see #getBusloadElement()
+	 * @generated
+	 */
+	EReference getBusloadElement_Result();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.analysis.resources.budgets.internal.models.busload.Connection <em>Connection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -819,6 +911,17 @@ public interface BusloadPackage extends EPackage {
 	EReference getBusOrVirtualBus_BusInstance();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getDataOverhead <em>Data Overhead</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Data Overhead</em>'.
+	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getDataOverhead()
+	 * @see #getBusOrVirtualBus()
+	 * @generated
+	 */
+	EAttribute getBusOrVirtualBus_DataOverhead();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus <em>Virtual Bus</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -917,6 +1020,14 @@ public interface BusloadPackage extends EPackage {
 		EAttribute BUSLOAD_ELEMENT__BUDGET = eINSTANCE.getBusloadElement_Budget();
 
 		/**
+		 * The meta object literal for the '<em><b>Result</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BUSLOAD_ELEMENT__RESULT = eINSTANCE.getBusloadElement_Result();
+
+		/**
 		 * The meta object literal for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.ConnectionImpl <em>Connection</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1001,6 +1112,14 @@ public interface BusloadPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BUS_OR_VIRTUAL_BUS__BUS_INSTANCE = eINSTANCE.getBusOrVirtualBus_BusInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Overhead</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BUS_OR_VIRTUAL_BUS__DATA_OVERHEAD = eINSTANCE.getBusOrVirtualBus_DataOverhead();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.VirtualBusImpl <em>Virtual Bus</em>}' class.

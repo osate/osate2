@@ -32,6 +32,7 @@ import org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus;
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getBoundConnections <em>Bound Connections</em>}</li>
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getBoundVirtualBuses <em>Bound Virtual Buses</em>}</li>
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getBusInstance <em>Bus Instance</em>}</li>
+ *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getDataOverhead <em>Data Overhead</em>}</li>
  * </ul>
  *
  * @generated
@@ -76,6 +77,26 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 	 * @ordered
 	 */
 	protected ComponentInstance busInstance;
+
+	/**
+	 * The default value of the '{@link #getDataOverhead() <em>Data Overhead</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataOverhead()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final double DATA_OVERHEAD_EDEFAULT = 0.0;
+
+	/**
+	 * The cached value of the '{@link #getDataOverhead() <em>Data Overhead</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataOverhead()
+	 * @generated
+	 * @ordered
+	 */
+	protected double dataOverhead = DATA_OVERHEAD_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -181,6 +202,29 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 	 * @generated
 	 */
 	@Override
+	public double getDataOverhead() {
+		return dataOverhead;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDataOverhead(double newDataOverhead) {
+		double oldDataOverhead = dataOverhead;
+		dataOverhead = newDataOverhead;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BusloadPackage.BUS_OR_VIRTUAL_BUS__DATA_OVERHEAD, oldDataOverhead, dataOverhead));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
@@ -192,6 +236,8 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BUS_INSTANCE:
 				if (resolve) return getBusInstance();
 				return basicGetBusInstance();
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__DATA_OVERHEAD:
+				return getDataOverhead();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -220,6 +266,9 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BUS_INSTANCE:
 				setBusInstance((ComponentInstance)newValue);
 				return;
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__DATA_OVERHEAD:
+				setDataOverhead((Double)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -244,6 +293,9 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BUS_INSTANCE:
 				setBusInstance((ComponentInstance)null);
 				return;
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__DATA_OVERHEAD:
+				setDataOverhead(DATA_OVERHEAD_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -264,8 +316,26 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 				return boundVirtualBuses != null && !boundVirtualBuses.isEmpty();
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BUS_INSTANCE:
 				return busInstance != null;
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__DATA_OVERHEAD:
+				return dataOverhead != DATA_OVERHEAD_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (dataOverhead: ");
+		result.append(dataOverhead);
+		result.append(')');
+		return result.toString();
 	}
 
 } //BusOrVirtualBusImpl

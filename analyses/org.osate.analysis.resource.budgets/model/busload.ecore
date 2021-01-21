@@ -5,6 +5,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="actual" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="budget" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="result" eType="ecore:EClass ../../org.osate.results/model/Result.ecore#//Result"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Connection" eSuperTypes="#//BusloadElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectionInstance" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ConnectionInstance"/>
@@ -22,6 +23,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="boundVirtualBuses" upperBound="-1"
         eType="#//VirtualBus"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="busInstance" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ComponentInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataOverhead" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualBus" eSuperTypes="#//BusOrVirtualBus"/>
   <eClassifiers xsi:type="ecore:EClass" name="Bus" eSuperTypes="#//BusOrVirtualBus"/>
