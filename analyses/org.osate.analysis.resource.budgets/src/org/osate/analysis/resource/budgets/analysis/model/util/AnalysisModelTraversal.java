@@ -16,7 +16,7 @@ import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisEle
  * traversal, the <em>same</em> progress monitor should also be referenced by and manipulated by the
  * {@code Switch} object.
  *
- * <p>Most anlayses should only need a simple preorder or postorder traversal of the model.  The {@code static}
+ * <p>Most analyses should only need a simple preorder or postorder traversal of the model.  The {@code static}
  * methods {@link #preOrder} and {@link #postOrder} accommodate this need.
  *
  * @author aarong
