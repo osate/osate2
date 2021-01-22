@@ -44,8 +44,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.dialogs.PropertyPage;
+import org.osate.annexsupport.AnnexModel;
 import org.osate.annexsupport.AnnexRegistry;
-import org.osate.ui.internal.annex.AnnexModel;
+import org.osate.pluginsupport.PredeclaredProperties;
 import org.osate.ui.internal.preferences.AnnexPreferencePage;
 import org.osgi.service.prefs.Preferences;
 
@@ -186,6 +187,8 @@ public class AnnexPropertyPage extends PropertyPage {
 								((Button) control).getText().replace(" ", "_"));
 					}
 				}
+
+				PredeclaredProperties.closeAndReopenProjects();
 			}
 		}
 
@@ -207,6 +210,8 @@ public class AnnexPropertyPage extends PropertyPage {
 
 		// Why? Because the default implementation does this
 		updateApplyButton();
+
+		PredeclaredProperties.closeAndReopenProjects();
 	}
 
 	private void configureWorkspaceSettings() {

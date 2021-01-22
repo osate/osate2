@@ -1,20 +1,20 @@
-package org.osate.ui.internal.annex;
+package org.osate.annexsupport;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ProjectScope;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.osate.aadl2.NamedElement;
 import org.osate.core.OsateCorePlugin;
 import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
-/*
- * Since number of installed annexes is unknown, annex's ExtensionId is used as a
- * preference name (all spaces in ExtensionId are replaced with underscore)
- * */
-
 /**
- * @since 5.0
+ * @since 3.1
  */
 public class AnnexModel {
 	public static final String PREFS_QUALIFIER = "org.osate.ui.internal.annex";
@@ -29,7 +29,7 @@ public class AnnexModel {
 
 	public static final boolean getAnnex(String annexExtensionId) {
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-		return store.getBoolean(annexExtensionId);
+		return store.getBoolean(annexExtensionId.toLowerCase());
 	}
 
 	public static final boolean getAnnex(final IProject project, String annexExtensionId) {
@@ -38,7 +38,7 @@ public class AnnexModel {
 
 		Boolean annexTurnedOn = null;
 		if (!prefs.getBoolean(PREF_ANNEX_USE_WORKSPACE, true)) {
-			annexTurnedOn = prefs.getBoolean(annexExtensionId, true);
+			annexTurnedOn = prefs.getBoolean(annexExtensionId.toLowerCase(), true);
 		}
 
 		// It's possible the above may have failed for some reason, in which case we revert to the workspace preferences
@@ -47,6 +47,14 @@ public class AnnexModel {
 		}
 
 		return annexTurnedOn;
+	}
+
+	public static final boolean getAnnexBasedOnWorkspacePreference(final IProject project, String annexExtensionId) {
+		if (getWorkspacePref(project)) { // preferences set per workspace
+			return getAnnex(annexExtensionId);
+		}
+
+		return getAnnex(project, annexExtensionId); // preference set per project
 	}
 
 	public static final void setAnnex(boolean value, IProject project, String annexExtensionId) {
@@ -72,5 +80,19 @@ public class AnnexModel {
 		final IScopeContext context = new ProjectScope(project);
 		final Preferences prefs = context.getNode(PREFS_QUALIFIER);
 		prefs.putBoolean(AnnexModel.PREF_ANNEX_USE_WORKSPACE, useWorkspace);
+	}
+
+	public static <A extends NamedElement, D extends A> String getAnnexParserNameBasedOnPreference(
+			D defaultAnnexSection,
+			String annexName) {
+		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+		IFile file = root.getFile(new Path(defaultAnnexSection.eResource().getURI().toPlatformString(true)));
+		IProject project = file.getProject();
+
+		if (org.osate.annexsupport.AnnexModel.getAnnexBasedOnWorkspacePreference(project, annexName)) {
+			return annexName; // if enabled, return the actual parser name
+		}
+
+		return "*"; // if disabled, return default parser instead
 	}
 }
