@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -19,18 +19,18 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import java.util.Collection ;
+import java.util.Collection;
 
-import org.eclipse.emf.common.notify.NotificationChain ;
-import org.eclipse.emf.common.util.EList ;
-import org.eclipse.emf.ecore.EClass ;
-import org.eclipse.emf.ecore.InternalEObject ;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList ;
-import org.eclipse.emf.ecore.util.InternalEList ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.PropertyNameHolder ;
-import org.osate.ba.aadlba.PropertyReference ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.PropertyNameHolder;
+import org.osate.ba.aadlba.PropertyReference;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -45,140 +45,126 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public abstract class PropertyReferenceImpl extends BehaviorElementImpl implements PropertyReference
-{
-  /**
-   * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getProperties()
-   * @generated
-   * @ordered
-   */
-  protected EList<PropertyNameHolder> properties;
+public abstract class PropertyReferenceImpl extends BehaviorElementImpl implements PropertyReference {
+	/**
+	 * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProperties()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<PropertyNameHolder> properties;
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected PropertyReferenceImpl()
-  {
-    super();
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PropertyReferenceImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.PROPERTY_REFERENCE;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.PROPERTY_REFERENCE;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EList<PropertyNameHolder> getProperties()
-  {
-    if (properties == null)
-    {
-      properties = new EObjectContainmentEList<PropertyNameHolder>(PropertyNameHolder.class, this, AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES);
-    }
-    return properties;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<PropertyNameHolder> getProperties() {
+		if (properties == null) {
+			properties = new EObjectContainmentEList<PropertyNameHolder>(PropertyNameHolder.class, this,
+					AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES);
+		}
+		return properties;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES:
-        return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES:
+			return ((InternalEList<?>) getProperties()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Object eGet(int featureID, boolean resolve, boolean coreType)
-  {
-    switch (featureID)
-    {
-      case AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES:
-        return getProperties();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+		case AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES:
+			return getProperties();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @SuppressWarnings("unchecked")
-  @Override
-  public void eSet(int featureID, Object newValue)
-  {
-    switch (featureID)
-    {
-      case AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES:
-        getProperties().clear();
-        getProperties().addAll((Collection<? extends PropertyNameHolder>)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+		case AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES:
+			getProperties().clear();
+			getProperties().addAll((Collection<? extends PropertyNameHolder>) newValue);
+			return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void eUnset(int featureID)
-  {
-    switch (featureID)
-    {
-      case AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES:
-        getProperties().clear();
-        return;
-    }
-    super.eUnset(featureID);
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+		case AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES:
+			getProperties().clear();
+			return;
+		}
+		super.eUnset(featureID);
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public boolean eIsSet(int featureID)
-  {
-    switch (featureID)
-    {
-      case AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES:
-        return properties != null && !properties.isEmpty();
-    }
-    return super.eIsSet(featureID);
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+		case AadlBaPackage.PROPERTY_REFERENCE__PROPERTIES:
+			return properties != null && !properties.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
 
-} //PropertyReferenceImpl
+} // PropertyReferenceImpl

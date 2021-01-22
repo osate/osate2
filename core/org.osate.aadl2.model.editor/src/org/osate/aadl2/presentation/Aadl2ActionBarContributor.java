@@ -1,26 +1,28 @@
 /**
- * <copyright>
+ * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
  *
- * Copyright (c) 2005, 2007 IBM Corporation and others.
- * All rights reserved.   This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
  *
- * Contributors:
- *   IBM - Initial API and implementation
- *   CMU/SEI - modifications for OSATE
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
  *
- * </copyright>
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ *
  */
 package org.osate.aadl2.presentation;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -29,38 +31,28 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.emf.edit.domain.IEditingDomainProvider;
+import org.eclipse.emf.edit.ui.action.CollapseAllAction;
 import org.eclipse.emf.edit.ui.action.ControlAction;
-import org.eclipse.emf.edit.ui.action.CreateChildAction;
-import org.eclipse.emf.edit.ui.action.CreateSiblingAction;
 import org.eclipse.emf.edit.ui.action.EditingDomainActionBarContributor;
+import org.eclipse.emf.edit.ui.action.ExpandAllAction;
+import org.eclipse.emf.edit.ui.action.FindAction;
 import org.eclipse.emf.edit.ui.action.LoadResourceAction;
+import org.eclipse.emf.edit.ui.action.RevertAction;
 import org.eclipse.emf.edit.ui.action.ValidateAction;
-import org.eclipse.emf.workspace.ui.actions.RedoActionWrapper;
-import org.eclipse.emf.workspace.ui.actions.UndoActionWrapper;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IContributionItem;
-import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.action.SubContributionItem;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.ide.IDE;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
@@ -76,7 +68,8 @@ import org.osate.ui.UiUtil;
  * <!-- end-user-doc -->
  * @generated
  */
-public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor implements ISelectionChangedListener {
+public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
+		implements ISelectionChangedListener {
 	/**
 	 * This keeps track of the active editor.
 	 * <!-- begin-user-doc -->
@@ -93,6 +86,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	 */
 	protected ISelectionProvider selectionProvider;
 
+	protected Object currentSelection;
 	/**
 	 * This action opens the Properties view.
 	 * <!-- begin-user-doc -->
@@ -189,57 +183,6 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 		}
 	};
 
-	/**
-	 * This will contain one {@link org.eclipse.emf.edit.ui.action.CreateChildAction} corresponding to each descriptor
-	 * generated for the current selection by the item provider.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected Collection<IAction> createChildActions;
-
-	/**
-	 * This will contain a map of {@link org.eclipse.emf.edit.ui.action.CreateChildAction}s, keyed by sub-menu text.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected Map<String, Collection<IAction>> createChildSubmenuActions;
-
-	/**
-	 * This is the menu manager into which menu contribution items should be added for CreateChild actions.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected IMenuManager createChildMenuManager;
-
-	/**
-	 * This will contain one {@link org.eclipse.emf.edit.ui.action.CreateSiblingAction} corresponding to each descriptor
-	 * generated for the current selection by the item provider.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected Collection<IAction> createSiblingActions;
-
-	/**
-	 * This will contain a map of {@link org.eclipse.emf.edit.ui.action.CreateSiblingAction}s, keyed by submenu text.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected Map<String, Collection<IAction>> createSiblingSubmenuActions;
-
-	/**
-	 * This is the menu manager into which menu contribution items should be added for CreateSibling actions.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected IMenuManager createSiblingMenuManager;
-
-	protected Object currentSelection = null;
 
 	/**
 	 * This creates an instance of the contributor.
@@ -252,26 +195,10 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 		loadResourceAction = new LoadResourceAction();
 		validateAction = new ValidateAction();
 		controlAction = new ControlAction();
-	}
-
-	/**
-	 * Extends the inherited method to replace the action handlers for undo and
-	 * redo with our operation-history-aware implementations.
-	 */
-	@Override
-	public void init(IActionBars actionBars) {
-		super.init(actionBars);
-
-		ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
-
-		// .CUSTOM: override the superclass implementation of these actions
-		undoAction = new UndoActionWrapper();
-		undoAction.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_UNDO));
-		actionBars.setGlobalActionHandler(ActionFactory.UNDO.getId(), undoAction);
-
-		redoAction = new RedoActionWrapper();
-		redoAction.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_REDO));
-		actionBars.setGlobalActionHandler(ActionFactory.REDO.getId(), redoAction);
+		findAction = FindAction.create();
+		revertAction = new RevertAction();
+		expandAllAction = new ExpandAllAction();
+		collapseAllAction = new CollapseAllAction();
 	}
 
 	/**
@@ -282,6 +209,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	 */
 	@Override
 	public void contributeToToolBar(IToolBarManager toolBarManager) {
+		super.contributeToToolBar(toolBarManager);
 		toolBarManager.add(new Separator("instance-settings")); //$NON-NLS-1$
 		toolBarManager.add(new Separator("instance-additions")); //$NON-NLS-1$
 	}
@@ -305,19 +233,8 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 		submenuManager.add(new Separator("additions")); //$NON-NLS-1$
 		submenuManager.add(new Separator("additions-end")); //$NON-NLS-1$
 
-		// Prepare for CreateChild item addition or removal.
-		//
-		createChildMenuManager = new MenuManager(Aadl2EditorPlugin.INSTANCE.getString("_UI_CreateChild_menu_item")); //$NON-NLS-1$
-		submenuManager.insertBefore("additions", createChildMenuManager); //$NON-NLS-1$
-
-		// Prepare for CreateSibling item addition or removal.
-		//
-		createSiblingMenuManager = new MenuManager(Aadl2EditorPlugin.INSTANCE.getString("_UI_CreateSibling_menu_item")); //$NON-NLS-1$
-		submenuManager.insertBefore("additions", createSiblingMenuManager); //$NON-NLS-1$
-
-		// Force an update because Eclipse hides empty menus now.
-		//
-		submenuManager.addMenuListener(menuManager1 -> menuManager1.updateAll(true));
+		// Add your contributions.
+		// Ensure that you remove @generated or mark it @generated NOT
 
 		addGlobalActions(submenuManager);
 	}
@@ -362,210 +279,9 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	 */
 	@Override
 	public void selectionChanged(SelectionChangedEvent event) {
-		// Remove any menu items for old selection.
-		//
-		if (createChildMenuManager != null) {
-			depopulateManager(createChildMenuManager, createChildSubmenuActions);
-			depopulateManager(createChildMenuManager, createChildActions);
-		}
-		if (createSiblingMenuManager != null) {
-			depopulateManager(createSiblingMenuManager, createSiblingSubmenuActions);
-			depopulateManager(createSiblingMenuManager, createSiblingActions);
-		}
-
-		// Query the new selection for appropriate new child/sibling descriptors
-		//
-		Collection<?> newChildDescriptors = null;
-		Collection<?> newSiblingDescriptors = null;
-
 		ISelection selection = event.getSelection();
 		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
 			currentSelection = ((IStructuredSelection) selection).getFirstElement();
-			EditingDomain domain = ((IEditingDomainProvider) activeEditorPart).getEditingDomain();
-
-			newChildDescriptors = domain.getNewChildDescriptors(currentSelection, null);
-			newSiblingDescriptors = domain.getNewChildDescriptors(null, currentSelection);
-		}
-
-		// Generate actions for selection; populate and redraw the menus.
-		//
-		createChildActions = generateCreateChildActions(newChildDescriptors, selection);
-		createChildSubmenuActions = extractSubmenuActions(createChildActions);
-		createSiblingActions = generateCreateSiblingActions(newSiblingDescriptors, selection);
-		createSiblingSubmenuActions = extractSubmenuActions(createSiblingActions);
-
-		if (createChildMenuManager != null) {
-			populateManager(createChildMenuManager, createChildSubmenuActions, null);
-			populateManager(createChildMenuManager, createChildActions, null);
-			createChildMenuManager.update(true);
-		}
-		if (createSiblingMenuManager != null) {
-			populateManager(createSiblingMenuManager, createSiblingSubmenuActions, null);
-			populateManager(createSiblingMenuManager, createSiblingActions, null);
-			createSiblingMenuManager.update(true);
-		}
-	}
-
-	/**
-	 * This generates a {@link org.eclipse.emf.edit.ui.action.CreateChildAction} for each object in <code>descriptors</code>,
-	 * and returns the collection of these actions.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected Collection<IAction> generateCreateChildActions(Collection<?> descriptors, ISelection selection) {
-		Collection<IAction> actions = new ArrayList<IAction>();
-		if (descriptors != null) {
-			for (Object descriptor : descriptors) {
-				actions.add(new CreateChildAction(activeEditorPart, selection, descriptor));
-			}
-		}
-		return actions;
-	}
-
-	/**
-	 * This generates a {@link org.eclipse.emf.edit.ui.action.CreateSiblingAction} for each object in <code>descriptors</code>,
-	 * and returns the collection of these actions.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected Collection<IAction> generateCreateSiblingActions(Collection<?> descriptors, ISelection selection) {
-		Collection<IAction> actions = new ArrayList<IAction>();
-		if (descriptors != null) {
-			for (Object descriptor : descriptors) {
-				actions.add(new CreateSiblingAction(activeEditorPart, selection, descriptor));
-			}
-		}
-		return actions;
-	}
-
-	/**
-	 * This populates the specified <code>manager</code> with {@link org.eclipse.jface.action.ActionContributionItem}s
-	 * based on the {@link org.eclipse.jface.action.IAction}s contained in the <code>actions</code> collection,
-	 * by inserting them before the specified contribution item <code>contributionID</code>.
-	 * If <code>contributionID</code> is <code>null</code>, they are simply added.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void populateManager(IContributionManager manager, Collection<? extends IAction> actions,
-			String contributionID) {
-		if (actions != null) {
-			for (IAction action : actions) {
-				if (contributionID != null) {
-					manager.insertBefore(contributionID, action);
-				} else {
-					manager.add(action);
-				}
-			}
-		}
-	}
-
-	/**
-	 * This removes from the specified <code>manager</code> all {@link org.eclipse.jface.action.ActionContributionItem}s
-	 * based on the {@link org.eclipse.jface.action.IAction}s contained in the <code>actions</code> collection.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void depopulateManager(IContributionManager manager, Collection<? extends IAction> actions) {
-		if (actions != null) {
-			IContributionItem[] items = manager.getItems();
-			for (int i = 0; i < items.length; i++) {
-				// Look into SubContributionItems
-				//
-				IContributionItem contributionItem = items[i];
-				while (contributionItem instanceof SubContributionItem) {
-					contributionItem = ((SubContributionItem) contributionItem).getInnerItem();
-				}
-
-				// Delete the ActionContributionItems with matching action.
-				//
-				if (contributionItem instanceof ActionContributionItem) {
-					IAction action = ((ActionContributionItem) contributionItem).getAction();
-					if (actions.contains(action)) {
-						manager.remove(contributionItem);
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 * This extracts those actions in the <code>submenuActions</code> collection whose text is qualified and returns
-	 * a map of these actions, keyed by submenu text.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected Map<String, Collection<IAction>> extractSubmenuActions(Collection<IAction> createActions) {
-		Map<String, Collection<IAction>> createSubmenuActions = new LinkedHashMap<String, Collection<IAction>>();
-		if (createActions != null) {
-			for (Iterator<IAction> actions = createActions.iterator(); actions.hasNext();) {
-				IAction action = actions.next();
-				StringTokenizer st = new StringTokenizer(action.getText(), "|"); //$NON-NLS-1$
-				if (st.countTokens() == 2) {
-					String text = st.nextToken().trim();
-					Collection<IAction> submenuActions = createSubmenuActions.get(text);
-					if (submenuActions == null) {
-						createSubmenuActions.put(text, submenuActions = new ArrayList<IAction>());
-					}
-					action.setText(st.nextToken().trim());
-					submenuActions.add(action);
-					actions.remove();
-				}
-			}
-		}
-		return createSubmenuActions;
-	}
-
-	/**
-	 * This populates the specified <code>manager</code> with {@link org.eclipse.jface.action.MenuManager}s containing
-	 * {@link org.eclipse.jface.action.ActionContributionItem}s based on the {@link org.eclipse.jface.action.IAction}s
-	 * contained in the <code>submenuActions</code> collection, by inserting them before the specified contribution
-	 * item <code>contributionID</code>.
-	 * If <code>contributionID</code> is <code>null</code>, they are simply added.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void populateManager(IContributionManager manager, Map<String, Collection<IAction>> submenuActions,
-			String contributionID) {
-		if (submenuActions != null) {
-			for (Map.Entry<String, Collection<IAction>> entry : submenuActions.entrySet()) {
-				MenuManager submenuManager = new MenuManager(entry.getKey());
-				if (contributionID != null) {
-					manager.insertBefore(contributionID, submenuManager);
-				} else {
-					manager.add(submenuManager);
-				}
-				populateManager(submenuManager, entry.getValue(), null);
-			}
-		}
-	}
-
-	/**
-	 * This removes from the specified <code>manager</code> all {@link org.eclipse.jface.action.MenuManager}s and their
-	 * {@link org.eclipse.jface.action.ActionContributionItem}s based on the {@link org.eclipse.jface.action.IAction}s
-	 * contained in the <code>submenuActions</code> map.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void depopulateManager(IContributionManager manager, Map<String, Collection<IAction>> submenuActions) {
-		if (submenuActions != null) {
-			IContributionItem[] items = manager.getItems();
-			for (int i = 0; i < items.length; i++) {
-				IContributionItem contributionItem = items[i];
-				if (contributionItem instanceof MenuManager) {
-					MenuManager submenuManager = (MenuManager) contributionItem;
-					if (submenuActions.containsKey(submenuManager.getMenuText())) {
-						depopulateManager(submenuManager, submenuActions.get(contributionItem));
-						manager.remove(contributionItem);
-					}
-				}
-			}
 		}
 	}
 
@@ -578,21 +294,9 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	@Override
 	public void menuAboutToShow(IMenuManager menuManager) {
 		super.menuAboutToShow(menuManager);
-		MenuManager submenuManager = null;
-
-		submenuManager = new MenuManager(Aadl2EditorPlugin.INSTANCE.getString("_UI_CreateChild_menu_item")); //$NON-NLS-1$
-		populateManager(submenuManager, createChildSubmenuActions, null);
-		populateManager(submenuManager, createChildActions, null);
-		menuManager.insertBefore("edit", submenuManager); //$NON-NLS-1$
-
-		submenuManager = new MenuManager(Aadl2EditorPlugin.INSTANCE.getString("_UI_CreateSibling_menu_item")); //$NON-NLS-1$
-		populateManager(submenuManager, createSiblingSubmenuActions, null);
-		populateManager(submenuManager, createSiblingActions, null);
-		menuManager.insertBefore("edit", submenuManager); //$NON-NLS-1$
-
-		if (currentSelection instanceof EndToEndFlowInstanceFlowElementItemProvider) {
+		if (selectionProvider.getSelection() instanceof EndToEndFlowInstanceFlowElementItemProvider) {
 			menuManager.insertAfter(gotoSrcTextAction.getId(), gotoFlowElement);
-		} else if (currentSelection instanceof SubModeItemProvider) {
+		} else if (selectionProvider.getSelection() instanceof SubModeItemProvider) {
 			menuManager.insertAfter(gotoSrcTextAction.getId(), gotoModeInstance);
 		}
 	}
@@ -601,7 +305,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	 * This inserts global actions before the "additions-end" separator.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	protected void addGlobalActions(IMenuManager menuManager) {

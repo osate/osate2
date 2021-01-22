@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -19,9 +19,6 @@
  */
 package org.osate.ba.aadlba;
 
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Iterative Variable Holder</b></em>'.
@@ -32,22 +29,21 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface IterativeVariableHolder extends DataHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model itVRequired="true"
-   * @generated
-   */
-  void setIterativeVariable(IterativeVariable itV);
+public interface IterativeVariableHolder extends DataHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model itVRequired="true"
+	 * @generated
+	 */
+	void setIterativeVariable(IterativeVariable itV);
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   * @generated
-   */
-  IterativeVariable getIterativeVariable();
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	IterativeVariable getIterativeVariable();
 
 } // IterativeVariableHolder
