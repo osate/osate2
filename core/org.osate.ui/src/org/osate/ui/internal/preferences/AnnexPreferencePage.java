@@ -44,8 +44,8 @@ import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.core.AadlNature;
 import org.osate.core.OsateCorePlugin;
+import org.osate.pluginsupport.PredeclaredProperties;
 import org.osate.ui.dialogs.ProjectSelectionDialog;
-import org.osate.ui.internal.annex.AnnexModel;
 
 /**
  * This class represents the OSATE > Instantiation workspace preferences.
@@ -139,8 +139,11 @@ public class AnnexPreferencePage extends FieldEditorPreferencePage implements IW
 	@Override
 	public boolean performOk() {
 		for (BooleanFieldEditor field : fields) {
-			AnnexModel.setAnnex(field.getBooleanValue(), field.getLabelText());
+			org.osate.annexsupport.AnnexModel.setAnnex(field.getBooleanValue(), field.getLabelText());
 		}
+
+		PredeclaredProperties.closeAndReopenProjects();
+
 		return true;
 	}
 }
