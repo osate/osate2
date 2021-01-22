@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -20,7 +20,6 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.DataClassifier;
-import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,32 +37,31 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface IterativeVariable extends BehaviorNamedElement
-{
-  /**
-   * Returns the value of the '<em><b>Data Classifier</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Data Classifier</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Data Classifier</em>' reference.
-   * @see #setDataClassifier(DataClassifier)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getIterativeVariable_DataClassifier()
-   * @model
-   * @generated
-   */
-  DataClassifier getDataClassifier();
+public interface IterativeVariable extends BehaviorNamedElement {
+	/**
+	 * Returns the value of the '<em><b>Data Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Data Classifier</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data Classifier</em>' reference.
+	 * @see #setDataClassifier(DataClassifier)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getIterativeVariable_DataClassifier()
+	 * @model
+	 * @generated
+	 */
+	DataClassifier getDataClassifier();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.IterativeVariable#getDataClassifier <em>Data Classifier</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Data Classifier</em>' reference.
-   * @see #getDataClassifier()
-   * @generated
-   */
-  void setDataClassifier(DataClassifier value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.IterativeVariable#getDataClassifier <em>Data Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Data Classifier</em>' reference.
+	 * @see #getDataClassifier()
+	 * @generated
+	 */
+	void setDataClassifier(DataClassifier value);
 
 } // IterativeVariable

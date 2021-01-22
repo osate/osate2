@@ -3,7 +3,12 @@
 <plugin>
    <extension
          point="org.eclipse.ui.commands">
+      <category
+            id="org.osate.analysis.category"
+            name="OSATE Analyses">
+      </category>
       <command
+      		categoryId="org.osate.analysis.category"
             id="org.osate.modelstats.ui.countcomponents"
             name="Model Statistics">
       </command>

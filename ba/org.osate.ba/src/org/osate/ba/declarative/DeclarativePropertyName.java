@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -17,11 +17,11 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
-import org.eclipse.emf.common.util.EList ;
-import org.osate.ba.aadlba.IntegerValue ;
-import org.osate.ba.aadlba.PropertyNameField ;
+import org.eclipse.emf.common.util.EList;
+import org.osate.ba.aadlba.IntegerValue;
+import org.osate.ba.aadlba.PropertyNameField;
 
 /**
  * <!-- begin-user-doc -->
@@ -41,97 +41,96 @@ import org.osate.ba.aadlba.PropertyNameField ;
  * @model
  * @generated
  */
-public interface DeclarativePropertyName extends DeclarativeBehaviorElement
-{
-  /**
-   * Returns the value of the '<em><b>Property Name</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Property Name</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Property Name</em>' containment reference.
-   * @see #setPropertyName(Identifier)
-   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyName_PropertyName()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  Identifier getPropertyName() ;
+public interface DeclarativePropertyName extends DeclarativeBehaviorElement {
+	/**
+	 * Returns the value of the '<em><b>Property Name</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Property Name</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Property Name</em>' containment reference.
+	 * @see #setPropertyName(Identifier)
+	 * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyName_PropertyName()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	Identifier getPropertyName();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getPropertyName <em>Property Name</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Property Name</em>' containment reference.
-   * @see #getPropertyName()
-   * @generated
-   */
-  void setPropertyName(Identifier value) ;
+	/**
+	 * Sets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getPropertyName <em>Property Name</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Property Name</em>' containment reference.
+	 * @see #getPropertyName()
+	 * @generated
+	 */
+	void setPropertyName(Identifier value);
 
-  /**
-   * Returns the value of the '<em><b>Field</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Field</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Field</em>' containment reference.
-   * @see #setField(PropertyNameField)
-   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyName_Field()
-   * @model containment="true"
-   * @generated
-   */
-  PropertyNameField getField() ;
+	/**
+	 * Returns the value of the '<em><b>Field</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Field</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Field</em>' containment reference.
+	 * @see #setField(PropertyNameField)
+	 * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyName_Field()
+	 * @model containment="true"
+	 * @generated
+	 */
+	PropertyNameField getField();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getField <em>Field</em>}' containment reference.
-   * <!-- begin-user-doc -->
-  	 * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Field</em>' containment reference.
-   * @see #getField()
-   * @generated
-   */
-  void setField(PropertyNameField value) ;
+	/**
+	 * Sets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getField <em>Field</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Field</em>' containment reference.
+	 * @see #getField()
+	 * @generated
+	 */
+	void setField(PropertyNameField value);
 
-  /**
-   * Returns the value of the '<em><b>Indexes</b></em>' reference list.
-   * The list contents are of type {@link org.osate.ba.aadlba.IntegerValue}.
-   * <!-- begin-user-doc -->
-    	 * <p>
-    	 * If the meaning of the '<em>Indexes</em>' containment reference list isn't clear,
-    	 * there really should be more of a description here...
-    	 * </p>
-    	 * <!-- end-user-doc -->
-   * @return the value of the '<em>Indexes</em>' reference list.
-   * @see #isSetIndexes()
-   * @see #unsetIndexes()
-   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyName_Indexes()
-   * @model unsettable="true"
-   * @generated
-   */
-  EList<IntegerValue> getIndexes() ;
+	/**
+	 * Returns the value of the '<em><b>Indexes</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.ba.aadlba.IntegerValue}.
+	 * <!-- begin-user-doc -->
+		 * <p>
+		 * If the meaning of the '<em>Indexes</em>' containment reference list isn't clear,
+		 * there really should be more of a description here...
+		 * </p>
+		 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Indexes</em>' reference list.
+	 * @see #isSetIndexes()
+	 * @see #unsetIndexes()
+	 * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativePropertyName_Indexes()
+	 * @model unsettable="true"
+	 * @generated
+	 */
+	EList<IntegerValue> getIndexes();
 
-  /**
-   * Unsets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getIndexes <em>Indexes</em>}' reference list.
-   * <!-- begin-user-doc -->
-  	 * <!-- end-user-doc -->
-   * @see #isSetIndexes()
-   * @see #getIndexes()
-   * @generated
-   */
-  void unsetIndexes() ;
+	/**
+	 * Unsets the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getIndexes <em>Indexes</em>}' reference list.
+	 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+	 * @see #isSetIndexes()
+	 * @see #getIndexes()
+	 * @generated
+	 */
+	void unsetIndexes();
 
-  /**
-   * Returns whether the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getIndexes <em>Indexes</em>}' reference list is set.
-   * <!-- begin-user-doc -->
-  	 * <!-- end-user-doc -->
-   * @return whether the value of the '<em>Indexes</em>' reference list is set.
-   * @see #unsetIndexes()
-   * @see #getIndexes()
-   * @generated
-   */
-  boolean isSetIndexes() ;
+	/**
+	 * Returns whether the value of the '{@link org.osate.ba.declarative.DeclarativePropertyName#getIndexes <em>Indexes</em>}' reference list is set.
+	 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Indexes</em>' reference list is set.
+	 * @see #unsetIndexes()
+	 * @see #getIndexes()
+	 * @generated
+	 */
+	boolean isSetIndexes();
 
 } // DeclarativePropertyName
