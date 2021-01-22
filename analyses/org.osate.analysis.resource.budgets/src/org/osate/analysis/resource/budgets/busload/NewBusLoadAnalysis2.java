@@ -161,7 +161,7 @@ public final class NewBusLoadAnalysis2 {
 						ResultType.SUCCESS);
 				analysisResult.getResults().add(somResult);
 
-				final BusLoadModel busLoadModel = new BusLoadModelBuilder(root, som).buildModel();
+				final BusLoadModel busLoadModel = BusLoadModelBuilder.buildModel(root, som);
 				analyzeBusLoadModel(busLoadModel, somResult, monitor);
 			}
 			monitor.done();
@@ -181,9 +181,24 @@ public final class NewBusLoadAnalysis2 {
 		}
 	}
 
-	// Analysis Switches
+	/*
+	 * ****************************** Analysis Switches ******************************
+	 * NB. The switches do not have a meaningful return value, but I cannot made their return type Void
+	 * because the only legal value for Void is "null". The problem with this is that a "null" return
+	 * value means that the switch should continue to call the "case" methods for the superclasses.
+	 * To prevent this, the methods need to return a non-null value of some sort. I have made the
+	 * switches Boolean, with a Boolean.TRUE indicating the the "case" method has successfully processed
+	 * the model element and that the super class cases should not be called.
+	 */
 
-	private static final class BandwidthAndResultPreOrderSwitch extends BusloadSwitch<Void> {
+	/*
+	 * Is adding a Result object to each model element a generic thing we want to do for every analysis?
+	 * I have the Result attribute on AnalysisElement right now. Is there a way to make the result
+	 * building more generic? It has a boilerplate pattern, but I'm not sure it can be completely
+	 * hidden away because the specifics of it still depend on the semantics of the model elements and
+	 * what Instance model elements they may relate to.
+	 */
+	private static final class BandwidthAndResultPreOrderSwitch extends BusloadSwitch<Boolean> {
 		private final Result somResult;
 
 		public BandwidthAndResultPreOrderSwitch(final Result somResult) {
@@ -198,23 +213,23 @@ public final class NewBusLoadAnalysis2 {
 		}
 
 		@Override
-		public Void caseConnection(final Connection connection) {
+		public Boolean caseConnection(final Connection connection) {
 			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
 			attachResult(connection, connectionInstance.getName(), connectionInstance);
 
-			return null;
+			return Boolean.TRUE;
 		}
 
 		@Override
-		public Void caseBroadcast(final Broadcast broadcast) {
+		public Boolean caseBroadcast(final Broadcast broadcast) {
 			final ConnectionInstanceEnd cie = broadcast.getSource();
 			attachResult(broadcast, "Broadcast from " + cie.getInstanceObjectPath(), cie);
 
-			return null;
+			return Boolean.TRUE;
 		}
 
 		@Override
-		public Void caseBusOrVirtualBus(final BusOrVirtualBus bus) {
+		public Boolean caseBusOrVirtualBus(final BusOrVirtualBus bus) {
 			final ComponentInstance busInstance = bus.getBusInstance();
 			attachResult(bus, busInstance.getName(), busInstance);
 
@@ -226,17 +241,17 @@ public final class NewBusLoadAnalysis2 {
 					GetProperties.getKBUnitLiteral(busInstance));
 			bus.setDataOverhead(parentOverhead + localOverheadKBytesps);
 
-			return null;
+			return Boolean.TRUE;
 		}
 
 		@Override
-		public Void caseBusLoadModel(final BusLoadModel busLoadModel) {
+		public Boolean caseBusLoadModel(final BusLoadModel busLoadModel) {
 			busLoadModel.setResult(somResult);
-			return null;
+			return Boolean.TRUE;
 		}
 	}
 
-	private static final class CapacityAndBudgetPostOrderSwitch extends BusloadSwitch<Void> {
+	private static final class CapacityAndBudgetPostOrderSwitch extends BusloadSwitch<Boolean> {
 		private double getOverhead(final EObject analysisElement) {
 			if (analysisElement instanceof BusOrVirtualBus) {
 				return ((BusOrVirtualBus) analysisElement).getDataOverhead();
@@ -246,7 +261,7 @@ public final class NewBusLoadAnalysis2 {
 		}
 
 		@Override
-		public Void caseConnection(final Connection connection) {
+		public Boolean caseConnection(final Connection connection) {
 			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
 			final double dataOverheadKBytes = getOverhead(connection);
 			final Result connectionResult = connection.getResult();
@@ -270,11 +285,11 @@ public final class NewBusLoadAnalysis2 {
 						"Connection " + connectionInstance.getName() + " has no bandwidth budget");
 			}
 
-			return null;
+			return Boolean.TRUE;
 		}
 
 		@Override
-		public Void caseBroadcast(final Broadcast broadcast) {
+		public Boolean caseBroadcast(final Broadcast broadcast) {
 			final double dataOverheadKBytes = getOverhead(broadcast);
 			final Result broadcastResult = broadcast.getResult();
 
@@ -308,11 +323,11 @@ public final class NewBusLoadAnalysis2 {
 				}
 			}
 
-			return null;
+			return Boolean.TRUE;
 		}
 
 		@Override
-		public Void caseBusOrVirtualBus(final BusOrVirtualBus bus) {
+		public Boolean caseBusOrVirtualBus(final BusOrVirtualBus bus) {
 			final long myDataOverheadInBytes = (long) (1000.0 * bus.getDataOverhead());
 			final Result busResult = bus.getResult();
 
@@ -372,7 +387,7 @@ public final class NewBusLoadAnalysis2 {
 				}
 			}
 
-			return null;
+			return Boolean.TRUE;
 		}
 
 		private static String getLabel(final BusOrVirtualBus bus) {
