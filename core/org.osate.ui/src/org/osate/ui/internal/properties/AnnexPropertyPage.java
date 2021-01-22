@@ -43,11 +43,10 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.dialogs.PropertyPage;
 import org.osate.annexsupport.AnnexRegistry;
+import org.osate.ui.internal.annex.AnnexModel;
 import org.osate.ui.internal.preferences.AnnexPreferencePage;
-import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
 /* NB: The parts of this that synchronized behavior between project properties
@@ -60,6 +59,7 @@ public class AnnexPropertyPage extends PropertyPage {
 //	private Text maxSOMText;
 	private Composite composite;
 	private Preferences preferences;
+	private IProject project;
 	private boolean isValid;
 
 	Button useWorkspaceSettingsButton;
@@ -69,7 +69,7 @@ public class AnnexPropertyPage extends PropertyPage {
 	@Override
 	protected Control createContents(final Composite parent) {
 		// Get the project
-		IProject project = Adapters.adapt(getElement(), IProject.class);
+		project = Adapters.adapt(getElement(), IProject.class);
 		if (project == null) {
 			IResource resource = Adapters.adapt(getElement(), IResource.class);
 			Assert.isNotNull(resource, "unable to adapt element to a project"); //$NON-NLS-1$
@@ -107,11 +107,6 @@ public class AnnexPropertyPage extends PropertyPage {
 		configureButton = new Button(selectionGroup, SWT.PUSH);
 		configureButton.setText("Configure Workspace Settings ...");
 
-		// Create the actual property field that we want to edit
-		final Label label = new Label(composite, SWT.NONE);
-		label.setText("Maximum number of system operation modes to generate:");
-		label.setLayoutData(new GridData(SWT.BEGINNING, SWT.CENTER, false, false, 1, 1));
-
 		boolean workspacePref = useWorkspacePreferences();
 		// get all installed annexes/plugins
 		for (String annex : AnnexRegistry.getAllAnnexNames()) {
@@ -119,6 +114,13 @@ public class AnnexPropertyPage extends PropertyPage {
 			Button checkBox = new Button(composite, SWT.CHECK);
 			checkBox.setText(annex);
 			checkBox.setEnabled(!workspacePref);
+			checkBox.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 2, 1));
+
+			if (workspacePref) {
+				checkBox.setSelection(AnnexModel.getAnnex(annex));
+			} else {
+				checkBox.setSelection(AnnexModel.getAnnex(project, annex));
+			}
 		}
 
 		// Configure button status
@@ -137,8 +139,6 @@ public class AnnexPropertyPage extends PropertyPage {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				configureButton.setEnabled(true);
-				// maxSOMText.setEnabled(false);
-
 				for (Control control : composite.getChildren()) {
 					if (control instanceof Button) {
 						control.setEnabled(false);
@@ -150,8 +150,6 @@ public class AnnexPropertyPage extends PropertyPage {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				configureButton.setEnabled(false);
-				// maxSOMText.setEnabled(true);
-
 				for (Control control : composite.getChildren()) {
 					if (control instanceof Button) {
 						control.setEnabled(true);
@@ -171,40 +169,34 @@ public class AnnexPropertyPage extends PropertyPage {
 	}
 
 	private boolean useWorkspacePreferences() {
-		return preferences.getBoolean("org.osate.ui.internal.annex.annex_use_workspace", true);
+		return AnnexModel.getWorkspacePref(project);
 	}
 
 	@Override
 	public boolean performOk() {
 		if (isValid) {
-			for (Control control : composite.getChildren()) {
-				if (control instanceof Button) {
-					control.setEnabled(false);
-					preferences.putBoolean(((Button) control).getText().replace(" ", "_"),
-							((Button) control).getSelection());
+			boolean useWorkspace = useWorkspaceSettingsButton.getSelection();
+			AnnexModel.setWorkspacePref(useWorkspace, project);
+
+			if (!useWorkspace) {
+				for (Control control : composite.getChildren()) {
+					if (control instanceof Button) {
+						control.setEnabled(false);
+						AnnexModel.setAnnex(((Button) control).getSelection(), project,
+								((Button) control).getText().replace(" ", "_"));
+					}
 				}
 			}
-
-			try {
-				preferences.flush();
-			} catch (final BackingStoreException e) {
-				// OsateUiPlugin.log(e);
-			}
-
-			return true;
-		} else {
-			return false;
 		}
+
+		return isValid;
 	}
 
 	@Override
 	protected void performDefaults() {
-		// maxSOMText.setText(Integer.toString(OsateCorePlugin.getDefault().getSOMLimit()));
-
 		useWorkspaceSettingsButton.setSelection(true);
 		useProjectSettingsButton.setSelection(false);
 		configureButton.setEnabled(true);
-		// maxSOMText.setEnabled(false);
 
 		for (Control control : composite.getChildren()) {
 			if (control instanceof Button) {
