@@ -24,6 +24,7 @@
 package org.osate.ui.internal.preferences;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -44,6 +45,7 @@ import org.osate.annexsupport.AnnexRegistry;
 import org.osate.core.AadlNature;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ui.dialogs.ProjectSelectionDialog;
+import org.osate.ui.internal.annex.AnnexModel;
 
 /**
  * This class represents the OSATE > Instantiation workspace preferences.
@@ -59,11 +61,17 @@ public class AnnexPreferencePage extends FieldEditorPreferencePage implements IW
 	private static final Object DUMMY_DATA = new Object();
 
 	private Link changeWorkspaceSettings;
+	private List<BooleanFieldEditor> fields = new ArrayList<>();
 
 	public AnnexPreferencePage() {
 		super(GRID);
 		setPreferenceStore(OsateCorePlugin.getDefault().getPreferenceStore());
 		setDescription("Annex Plugin preferences");
+
+		// set defaults for all installed annexes/plugins
+		for (String annex : AnnexRegistry.getAllAnnexNames()) {
+			getPreferenceStore().setDefault(annex.replace(" ", "_"), true);
+		}
 	}
 
 	@Override
@@ -102,6 +110,8 @@ public class AnnexPreferencePage extends FieldEditorPreferencePage implements IW
 			final BooleanFieldEditor annexField = new BooleanFieldEditor(annex.replace(" ", "_"), annex,
 					getFieldEditorParent());
 			addField(annexField);
+
+			fields.add(annexField);
 		}
 	}
 
@@ -124,5 +134,13 @@ public class AnnexPreferencePage extends FieldEditorPreferencePage implements IW
 			final IProject project = dialog.getSelectedProject();
 			PreferencesUtil.createPropertyDialogOn(getShell(), project, ID, ID_LIST, DUMMY_DATA).open();
 		}
+	}
+
+	@Override
+	public boolean performOk() {
+		for (BooleanFieldEditor field : fields) {
+			AnnexModel.setAnnex(field.getBooleanValue(), field.getLabelText());
+		}
+		return true;
 	}
 }
