@@ -57,9 +57,13 @@ final class BusLoadModelBuilder {
 	private final SystemInstance systemInstance;
 	private final SystemOperationMode som;
 
-	public BusLoadModelBuilder(final SystemInstance systemInstance, final SystemOperationMode som) {
+	private BusLoadModelBuilder(final SystemInstance systemInstance, final SystemOperationMode som) {
 		this.systemInstance = systemInstance;
 		this.som = som;
+	}
+
+	public static BusLoadModel buildModel(final SystemInstance systemInstance, final SystemOperationMode som) {
+		return new BusLoadModelBuilder(systemInstance, som).build();
 	}
 
 	// ==== Wrap instance model elements with analysis model elements ====
@@ -98,7 +102,7 @@ final class BusLoadModelBuilder {
 
 	// ==== Methods to build the model ====
 
-	public BusLoadModel buildModel() {
+	public BusLoadModel build() {
 		final BusLoadModel model = BusloadFactory.eINSTANCE.createBusLoadModel();
 		final ForAllElement mal = new ForAllElement() {
 			@Override
