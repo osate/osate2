@@ -53,7 +53,6 @@ import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.Keyword;
-import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
@@ -80,7 +79,6 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.MemoryProperties;
 import org.osate.xtext.aadl2.properties.util.ModelingProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
-import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
 
 import com.google.inject.Inject;
 
@@ -121,9 +119,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	public static final String MAKE_CONNECTION_BIDIRECTIONAL = "org.osate.xtext.aadl2.make_connection_bidirectional";
 	public static final String WITH_NOT_USED = "org.osate.xtext.aadl2.with_not_used";
 	public static final String DATA_SIZE_INCONSISTENT = "org.osate.xtext.aadl2.data_size_inconsistent";
-
-	@Inject
-	private Aadl2GrammarAccess grammarAccess;
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(ComponentImplementation componentImplementation) {
@@ -3228,8 +3223,9 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	 * keyword."
 	 */
 	private void checkComponentTypeModes(ComponentType componentType) {
+		INode requiresNode = getRequiresNode(componentType);
 		INode modesNode = getModesNode(componentType);
-		if (modesNode != null) {
+		if (requiresNode == null && modesNode != null) {
 			if (componentType.getExtended() != null && componentType.getExtended()
 					.getSelfPlusAllExtended()
 					.stream()
@@ -3257,17 +3253,15 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 							modesNode.getOffset(), modesNode.getLength(), null);
 				}
 			}
-		} else if (componentType.isDerivedModes()) {
+		} else if (requiresNode != null && modesNode != null) {
 			if (componentType.getExtended() != null && componentType.getExtended()
 					.getAllModes()
 					.stream()
 					.anyMatch(extendedMode -> !extendedMode.isDerived())) {
 				// Section 4.3 (L6): Only modes permitted when inheriting modes.
-				INode requiresModesNode = getRequiresModesNode(componentType);
-				if (requiresModesNode != null) { // requiresModesNode != null always evaluates to true. This is only for SonarCloud.
-					getMessageAcceptor().acceptError("Must be modes because modes are inherited.", componentType,
-							requiresModesNode.getOffset(), requiresModesNode.getLength(), null);
-				}
+				getMessageAcceptor().acceptError("Must be modes because modes are inherited.", componentType,
+						requiresNode.getOffset(),
+						modesNode.getOffset() - requiresNode.getOffset() + modesNode.getLength(), null);
 			} else {
 				// Section 12 (L2): Requires modes can't be initial.
 				for (Mode mode : componentType.getOwnedModes()) {
@@ -3290,15 +3284,11 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		return null;
 	}
 
-	private INode getRequiresModesNode(ComponentType componentType) {
+	private INode getRequiresNode(ComponentType componentType) {
 		for (INode node : NodeModelUtils.getNode(componentType).getChildren()) {
-			if (node instanceof CompositeNode) {
-				EObject grammarElement = node.getGrammarElement();
-				if (grammarElement instanceof RuleCall) {
-					if (((RuleCall) grammarElement).getRule() == grammarAccess.getRequiresModesKeywordsRule()) {
-						return node;
-					}
-				}
+			if (node.getGrammarElement() instanceof Keyword
+					&& ((Keyword) node.getGrammarElement()).getValue().equals("requires")) {
+				return node;
 			}
 		}
 		return null;
