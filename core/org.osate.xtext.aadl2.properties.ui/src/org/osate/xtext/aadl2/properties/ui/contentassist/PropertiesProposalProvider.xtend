@@ -28,8 +28,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.Assignment
 import org.eclipse.xtext.CrossReference
 import org.eclipse.xtext.EcoreUtil2
-import org.eclipse.xtext.Group
-import org.eclipse.xtext.Keyword
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext
 import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
@@ -91,14 +89,6 @@ class PropertiesProposalProvider extends AbstractPropertiesProposalProvider {
 				default: true
 			}
 		])
-	}
-	
-	//Based on example from https://blogs.itemis.com/en/xtext-hint-content-assist-for-multiple-consecutive-keywords
-	def protected void createKeywordProposal(Group group, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		if (group !== null) {
-			val proposalString = group.elements.filter(Keyword).map[value].join(" ")
-			acceptor.accept(createCompletionProposal(proposalString, proposalString, getImage(group), context))
-		}
 	}
 	
 	def private showCrossReference(IEObjectDescription objDesc, EObject model){
