@@ -426,15 +426,13 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		busloadElementEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisElement());
 		connectionEClass.getESuperTypes().add(this.getBusloadElement());
-		connectionEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisElement());
 		broadcastEClass.getESuperTypes().add(this.getBusloadElement());
-		broadcastEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisElement());
 		busOrVirtualBusEClass.getESuperTypes().add(this.getBusloadElement());
-		busOrVirtualBusEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisElement());
 		virtualBusEClass.getESuperTypes().add(this.getBusOrVirtualBus());
 		busEClass.getESuperTypes().add(this.getBusOrVirtualBus());
-		busLoadModelEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisElement());
+		busLoadModelEClass.getESuperTypes().add(this.getBusloadElement());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(busloadElementEClass, BusloadElement.class, "BusloadElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -446,13 +444,13 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		initEReference(getConnection_ConnectionInstance(), theInstancePackage.getConnectionInstance(), null, "connectionInstance", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(broadcastEClass, Broadcast.class, "Broadcast", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBroadcast_Connections(), this.getConnection(), null, "connections", null, 0, -1, Broadcast.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBroadcast_Connections(), this.getConnection(), null, "connections", null, 0, -1, Broadcast.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBroadcast_Source(), theInstancePackage.getConnectionInstanceEnd(), null, "source", null, 0, 1, Broadcast.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(busOrVirtualBusEClass, BusOrVirtualBus.class, "BusOrVirtualBus", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBusOrVirtualBus_BoundBroadcasts(), this.getBroadcast(), null, "boundBroadcasts", null, 0, -1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBusOrVirtualBus_BoundConnections(), this.getConnection(), null, "boundConnections", null, 0, -1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBusOrVirtualBus_BoundVirtualBuses(), this.getVirtualBus(), null, "boundVirtualBuses", null, 0, -1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBusOrVirtualBus_BoundBroadcasts(), this.getBroadcast(), null, "boundBroadcasts", null, 0, -1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBusOrVirtualBus_BoundConnections(), this.getConnection(), null, "boundConnections", null, 0, -1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBusOrVirtualBus_BoundVirtualBuses(), this.getVirtualBus(), null, "boundVirtualBuses", null, 0, -1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBusOrVirtualBus_BusInstance(), theInstancePackage.getComponentInstance(), null, "busInstance", null, 0, 1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBusOrVirtualBus_DataOverhead(), ecorePackage.getEDouble(), "dataOverhead", null, 0, 1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -461,7 +459,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		initEClass(busEClass, Bus.class, "Bus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(busLoadModelEClass, BusLoadModel.class, "BusLoadModel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBusLoadModel_RootBuses(), this.getBus(), null, "rootBuses", null, 0, -1, BusLoadModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBusLoadModel_RootBuses(), this.getBus(), null, "rootBuses", null, 0, -1, BusLoadModel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

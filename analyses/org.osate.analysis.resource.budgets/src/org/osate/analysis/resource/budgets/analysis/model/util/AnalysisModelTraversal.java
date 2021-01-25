@@ -41,7 +41,7 @@ public abstract class AnalysisModelTraversal<S extends Switch<?>> {
 	 * Visit the subtree of the model rooted at the given model element.
 	 * @param analysisElement The model element to visit; must not be {@code null}.
 	 */
-	public final void visitAnaylsisElement(final AnalysisElement analysisElement) {
+	public final void visitAnalysisElement(final AnalysisElement analysisElement) {
 		// check for cancellation
 		if (!progressMonitor.isCanceled()) {
 			doVisitAnalysisElement(analysisElement);
@@ -53,7 +53,7 @@ public abstract class AnalysisModelTraversal<S extends Switch<?>> {
 	 * element using {@link #visitSelf(AnalysisElement)} and
 	 * visit the children.  The method {@link #visitChildren(AnalysisElement)} can be used to visit all
 	 * the children, but is not suitable for an <em>in order</em> traversal.  To visit a child
-	 * explicitly, pass the child to {@link AnalysisModelTraversal#visitAnaylsisElement(AnalysisElement)}.
+	 * explicitly, pass the child to {@link AnalysisModelTraversal#visitAnalysisElement(AnalysisElement)}.
 	 *
 	 * @param analysisElement The model element to visit; must not be {@code null}.  This method <em>must</em> call
 	 * {@link #visitSelf(AnalysisElement)} on this element.
@@ -81,7 +81,7 @@ public abstract class AnalysisModelTraversal<S extends Switch<?>> {
 	protected final void visitChildren(final AnalysisElement analysisElement) {
 		analysisElement.getOrderedChildren().forEach(child -> {
 			// NB. getOrderedChildren() guarantees AnalysisElement objects
-			visitAnaylsisElement((AnalysisElement) child);
+			visitAnalysisElement((AnalysisElement) child);
 		});
 	}
 
@@ -102,7 +102,7 @@ public abstract class AnalysisModelTraversal<S extends Switch<?>> {
 				visitChildren(analysisElement);
 			}
 		};
-		amt.visitAnaylsisElement(root);
+		amt.visitAnalysisElement(root);
 	}
 
 	/**
@@ -122,6 +122,6 @@ public abstract class AnalysisModelTraversal<S extends Switch<?>> {
 				visitSelf(analysisElement);
 			}
 		};
-		amt.visitAnaylsisElement(root);
+		amt.visitAnalysisElement(root);
 	}
 }

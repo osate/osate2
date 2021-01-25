@@ -4,12 +4,13 @@ package org.osate.analysis.resources.budgets.internal.models.busload.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
-import org.osate.analysis.resources.budgets.internal.models.analysis.impl.AnalysisElementImpl;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.analysis.resources.budgets.internal.models.busload.Bus;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage;
@@ -27,9 +28,9 @@ import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPacka
  *
  * @generated
  */
-public class BusLoadModelImpl extends AnalysisElementImpl implements BusLoadModel {
+public class BusLoadModelImpl extends BusloadElementImpl implements BusLoadModel {
 	/**
-	 * The cached value of the '{@link #getRootBuses() <em>Root Buses</em>}' reference list.
+	 * The cached value of the '{@link #getRootBuses() <em>Root Buses</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getRootBuses()
@@ -65,9 +66,23 @@ public class BusLoadModelImpl extends AnalysisElementImpl implements BusLoadMode
 	@Override
 	public EList<Bus> getRootBuses() {
 		if (rootBuses == null) {
-			rootBuses = new EObjectResolvingEList<Bus>(Bus.class, this, BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES);
+			rootBuses = new EObjectContainmentEList<Bus>(Bus.class, this, BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES);
 		}
 		return rootBuses;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES:
+				return ((InternalEList<?>)getRootBuses()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
