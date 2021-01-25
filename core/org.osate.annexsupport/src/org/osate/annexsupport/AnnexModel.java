@@ -65,8 +65,7 @@ public class AnnexModel {
 			try {
 				prefs.flush();
 			} catch (BackingStoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				AnnexPlugin.logError(e);
 			}
 		}
 	}
@@ -89,10 +88,11 @@ public class AnnexModel {
 		IFile file = root.getFile(new Path(defaultAnnexSection.eResource().getURI().toPlatformString(true)));
 		IProject project = file.getProject();
 
+		// check if this annex plugin is enabled in osate annex preferences
 		if (org.osate.annexsupport.AnnexModel.getAnnexBasedOnWorkspacePreference(project, annexName)) {
-			return annexName; // if enabled, return the actual parser name
+			return annexName;
 		}
 
-		return "*"; // if disabled, return default parser instead
+		return "*";
 	}
 }

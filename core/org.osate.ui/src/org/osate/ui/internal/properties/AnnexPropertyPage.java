@@ -55,9 +55,6 @@ import org.osgi.service.prefs.Preferences;
  * <http://www.eclipse.org/articles/Article-Mutatis-mutandis/overlay-pages.html>
  */
 public class AnnexPropertyPage extends PropertyPage {
-//	private static String BAD_VALUE = "Must be an integer >= 1";
-
-//	private Text maxSOMText;
 	private Composite composite;
 	private Preferences preferences;
 	private IProject project;
