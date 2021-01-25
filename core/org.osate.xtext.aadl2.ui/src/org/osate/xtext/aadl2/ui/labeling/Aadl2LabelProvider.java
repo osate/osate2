@@ -54,6 +54,8 @@ import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.MemoryImplementation;
@@ -391,6 +393,30 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 		return "Feature " + ele.getName();
 	}
 
+	String text(FlowImplementation flowimpl) {
+		String ret;
+
+		ret = "Flow";
+
+		if (flowimpl.getSpecification() != null) {
+
+			if (!(flowimpl.getSpecification().getAllInEnd() == null
+					&& flowimpl.getSpecification().getAllOutEnd() == null)) {
+				if (flowimpl.getSpecification().getAllInEnd() == null) {
+					ret += " Source";
+				} else if (flowimpl.getSpecification().getAllOutEnd() == null) {
+					ret += " Sink";
+				} else {
+					ret += " Path";
+				}
+			}
+
+			ret += " " + flowimpl.getSpecification().getName();
+		}
+
+		return ret;
+	}
+
 	String text(EndToEndFlow etei) {
 		String ret;
 
@@ -407,6 +433,28 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 		ret = "End to End Flow";
 		if (etei.getName() != null) {
 			ret += " " + etei.getName();
+		}
+		return ret;
+	}
+
+
+	String text(FlowSpecification flowspec) {
+		String ret;
+
+		ret = "Flow";
+
+		if (!(flowspec.getAllInEnd() == null && flowspec.getAllOutEnd() == null)) {
+			if (flowspec.getAllInEnd() == null) {
+				ret += " Source";
+			} else if (flowspec.getAllOutEnd() == null) {
+				ret += " Sink";
+			} else {
+				ret += " Path";
+			}
+		}
+
+		if (flowspec.getName() != null) {
+			ret += " " + flowspec.getName();
 		}
 		return ret;
 	}
