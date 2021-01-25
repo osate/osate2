@@ -377,13 +377,13 @@ public interface BusloadPackage extends EPackage {
 	int BUS_OR_VIRTUAL_BUS__BUDGET = BUSLOAD_ELEMENT__BUDGET;
 
 	/**
-	 * The feature id for the '<em><b>Bound Broadcasts</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Bound Virtual Buses</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS = BUSLOAD_ELEMENT_FEATURE_COUNT + 0;
+	int BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES = BUSLOAD_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Bound Connections</b></em>' containment reference list.
@@ -395,13 +395,13 @@ public interface BusloadPackage extends EPackage {
 	int BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS = BUSLOAD_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Bound Virtual Buses</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Bound Broadcasts</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES = BUSLOAD_ELEMENT_FEATURE_COUNT + 2;
+	int BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS = BUSLOAD_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Bus Instance</b></em>' reference.
@@ -504,13 +504,13 @@ public interface BusloadPackage extends EPackage {
 	int VIRTUAL_BUS__BUDGET = BUS_OR_VIRTUAL_BUS__BUDGET;
 
 	/**
-	 * The feature id for the '<em><b>Bound Broadcasts</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Bound Virtual Buses</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VIRTUAL_BUS__BOUND_BROADCASTS = BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS;
+	int VIRTUAL_BUS__BOUND_VIRTUAL_BUSES = BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES;
 
 	/**
 	 * The feature id for the '<em><b>Bound Connections</b></em>' containment reference list.
@@ -522,13 +522,13 @@ public interface BusloadPackage extends EPackage {
 	int VIRTUAL_BUS__BOUND_CONNECTIONS = BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS;
 
 	/**
-	 * The feature id for the '<em><b>Bound Virtual Buses</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Bound Broadcasts</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VIRTUAL_BUS__BOUND_VIRTUAL_BUSES = BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES;
+	int VIRTUAL_BUS__BOUND_BROADCASTS = BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS;
 
 	/**
 	 * The feature id for the '<em><b>Bus Instance</b></em>' reference.
@@ -631,13 +631,13 @@ public interface BusloadPackage extends EPackage {
 	int BUS__BUDGET = BUS_OR_VIRTUAL_BUS__BUDGET;
 
 	/**
-	 * The feature id for the '<em><b>Bound Broadcasts</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Bound Virtual Buses</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUS__BOUND_BROADCASTS = BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS;
+	int BUS__BOUND_VIRTUAL_BUSES = BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES;
 
 	/**
 	 * The feature id for the '<em><b>Bound Connections</b></em>' containment reference list.
@@ -649,13 +649,13 @@ public interface BusloadPackage extends EPackage {
 	int BUS__BOUND_CONNECTIONS = BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS;
 
 	/**
-	 * The feature id for the '<em><b>Bound Virtual Buses</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Bound Broadcasts</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUS__BOUND_VIRTUAL_BUSES = BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES;
+	int BUS__BOUND_BROADCASTS = BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS;
 
 	/**
 	 * The feature id for the '<em><b>Bus Instance</b></em>' reference.
