@@ -28,9 +28,9 @@ import org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getBoundBroadcasts <em>Bound Broadcasts</em>}</li>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getBoundConnections <em>Bound Connections</em>}</li>
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getBoundVirtualBuses <em>Bound Virtual Buses</em>}</li>
+ *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getBoundConnections <em>Bound Connections</em>}</li>
+ *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getBoundBroadcasts <em>Bound Broadcasts</em>}</li>
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getBusInstance <em>Bus Instance</em>}</li>
  *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl#getDataOverhead <em>Data Overhead</em>}</li>
  * </ul>
@@ -39,14 +39,14 @@ import org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus;
  */
 public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements BusOrVirtualBus {
 	/**
-	 * The cached value of the '{@link #getBoundBroadcasts() <em>Bound Broadcasts</em>}' containment reference list.
+	 * The cached value of the '{@link #getBoundVirtualBuses() <em>Bound Virtual Buses</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBoundBroadcasts()
+	 * @see #getBoundVirtualBuses()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Broadcast> boundBroadcasts;
+	protected EList<VirtualBus> boundVirtualBuses;
 
 	/**
 	 * The cached value of the '{@link #getBoundConnections() <em>Bound Connections</em>}' containment reference list.
@@ -59,14 +59,14 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 	protected EList<Connection> boundConnections;
 
 	/**
-	 * The cached value of the '{@link #getBoundVirtualBuses() <em>Bound Virtual Buses</em>}' containment reference list.
+	 * The cached value of the '{@link #getBoundBroadcasts() <em>Bound Broadcasts</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBoundVirtualBuses()
+	 * @see #getBoundBroadcasts()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<VirtualBus> boundVirtualBuses;
+	protected EList<Broadcast> boundBroadcasts;
 
 	/**
 	 * The cached value of the '{@link #getBusInstance() <em>Bus Instance</em>}' reference.
@@ -227,12 +227,12 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
-				return ((InternalEList<?>)getBoundBroadcasts()).basicRemove(otherEnd, msgs);
-			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS:
-				return ((InternalEList<?>)getBoundConnections()).basicRemove(otherEnd, msgs);
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES:
 				return ((InternalEList<?>)getBoundVirtualBuses()).basicRemove(otherEnd, msgs);
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS:
+				return ((InternalEList<?>)getBoundConnections()).basicRemove(otherEnd, msgs);
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
+				return ((InternalEList<?>)getBoundBroadcasts()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -245,12 +245,12 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
-				return getBoundBroadcasts();
-			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS:
-				return getBoundConnections();
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES:
 				return getBoundVirtualBuses();
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS:
+				return getBoundConnections();
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
+				return getBoundBroadcasts();
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BUS_INSTANCE:
 				if (resolve) return getBusInstance();
 				return basicGetBusInstance();
@@ -269,17 +269,17 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
-				getBoundBroadcasts().clear();
-				getBoundBroadcasts().addAll((Collection<? extends Broadcast>)newValue);
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES:
+				getBoundVirtualBuses().clear();
+				getBoundVirtualBuses().addAll((Collection<? extends VirtualBus>)newValue);
 				return;
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS:
 				getBoundConnections().clear();
 				getBoundConnections().addAll((Collection<? extends Connection>)newValue);
 				return;
-			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES:
-				getBoundVirtualBuses().clear();
-				getBoundVirtualBuses().addAll((Collection<? extends VirtualBus>)newValue);
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
+				getBoundBroadcasts().clear();
+				getBoundBroadcasts().addAll((Collection<? extends Broadcast>)newValue);
 				return;
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BUS_INSTANCE:
 				setBusInstance((ComponentInstance)newValue);
@@ -299,14 +299,14 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
-				getBoundBroadcasts().clear();
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES:
+				getBoundVirtualBuses().clear();
 				return;
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS:
 				getBoundConnections().clear();
 				return;
-			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES:
-				getBoundVirtualBuses().clear();
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
+				getBoundBroadcasts().clear();
 				return;
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BUS_INSTANCE:
 				setBusInstance((ComponentInstance)null);
@@ -326,12 +326,12 @@ public abstract class BusOrVirtualBusImpl extends BusloadElementImpl implements 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
-				return boundBroadcasts != null && !boundBroadcasts.isEmpty();
-			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS:
-				return boundConnections != null && !boundConnections.isEmpty();
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES:
 				return boundVirtualBuses != null && !boundVirtualBuses.isEmpty();
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS:
+				return boundConnections != null && !boundConnections.isEmpty();
+			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS:
+				return boundBroadcasts != null && !boundBroadcasts.isEmpty();
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__BUS_INSTANCE:
 				return busInstance != null;
 			case BusloadPackage.BUS_OR_VIRTUAL_BUS__DATA_OVERHEAD:

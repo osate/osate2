@@ -255,7 +255,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 	 */
 	@Override
 	public EReference getBusOrVirtualBus_BoundBroadcasts() {
-		return (EReference)busOrVirtualBusEClass.getEStructuralFeatures().get(0);
+		return (EReference)busOrVirtualBusEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -275,7 +275,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 	 */
 	@Override
 	public EReference getBusOrVirtualBus_BoundVirtualBuses() {
-		return (EReference)busOrVirtualBusEClass.getEStructuralFeatures().get(2);
+		return (EReference)busOrVirtualBusEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -380,9 +380,9 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		createEReference(broadcastEClass, BROADCAST__SOURCE);
 
 		busOrVirtualBusEClass = createEClass(BUS_OR_VIRTUAL_BUS);
-		createEReference(busOrVirtualBusEClass, BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS);
-		createEReference(busOrVirtualBusEClass, BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS);
 		createEReference(busOrVirtualBusEClass, BUS_OR_VIRTUAL_BUS__BOUND_VIRTUAL_BUSES);
+		createEReference(busOrVirtualBusEClass, BUS_OR_VIRTUAL_BUS__BOUND_CONNECTIONS);
+		createEReference(busOrVirtualBusEClass, BUS_OR_VIRTUAL_BUS__BOUND_BROADCASTS);
 		createEReference(busOrVirtualBusEClass, BUS_OR_VIRTUAL_BUS__BUS_INSTANCE);
 		createEAttribute(busOrVirtualBusEClass, BUS_OR_VIRTUAL_BUS__DATA_OVERHEAD);
 
@@ -448,9 +448,9 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		initEReference(getBroadcast_Source(), theInstancePackage.getConnectionInstanceEnd(), null, "source", null, 0, 1, Broadcast.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(busOrVirtualBusEClass, BusOrVirtualBus.class, "BusOrVirtualBus", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBusOrVirtualBus_BoundBroadcasts(), this.getBroadcast(), null, "boundBroadcasts", null, 0, -1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBusOrVirtualBus_BoundConnections(), this.getConnection(), null, "boundConnections", null, 0, -1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBusOrVirtualBus_BoundVirtualBuses(), this.getVirtualBus(), null, "boundVirtualBuses", null, 0, -1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBusOrVirtualBus_BoundConnections(), this.getConnection(), null, "boundConnections", null, 0, -1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBusOrVirtualBus_BoundBroadcasts(), this.getBroadcast(), null, "boundBroadcasts", null, 0, -1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBusOrVirtualBus_BusInstance(), theInstancePackage.getComponentInstance(), null, "busInstance", null, 0, 1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBusOrVirtualBus_DataOverhead(), ecorePackage.getEDouble(), "dataOverhead", null, 0, 1, BusOrVirtualBus.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

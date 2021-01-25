@@ -15,12 +15,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ConnectionInstanceEnd"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusOrVirtualBus" abstract="true" eSuperTypes="#//BusloadElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="boundBroadcasts" upperBound="-1"
-        eType="#//Broadcast" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="boundConnections" upperBound="-1"
-        eType="#//Connection" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="boundVirtualBuses" upperBound="-1"
         eType="#//VirtualBus" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="boundConnections" upperBound="-1"
+        eType="#//Connection" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="boundBroadcasts" upperBound="-1"
+        eType="#//Broadcast" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="busInstance" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ComponentInstance"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataOverhead" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
