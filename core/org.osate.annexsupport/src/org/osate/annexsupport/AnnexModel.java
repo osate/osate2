@@ -81,7 +81,7 @@ public class AnnexModel {
 		prefs.putBoolean(AnnexModel.PREF_ANNEX_USE_WORKSPACE, useWorkspace);
 	}
 
-	public static <A extends NamedElement, D extends A> String getAnnexParserNameBasedOnPreference(
+	public static <A extends NamedElement, D extends A> String filterDisabledAnnexes(
 			D defaultAnnexSection,
 			String annexName) {
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
