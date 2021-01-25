@@ -48,7 +48,7 @@ import org.osate.pluginsupport.PredeclaredProperties;
 import org.osate.ui.dialogs.ProjectSelectionDialog;
 
 /**
- * This class represents the OSATE > Instantiation workspace preferences.
+ * This class represents the OSATE > Annex Plugin workspace preferences.
  * @since 6.0
  */
 

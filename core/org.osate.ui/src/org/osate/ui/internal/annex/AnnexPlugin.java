@@ -33,6 +33,7 @@ import org.osgi.framework.BundleContext;
 
 /**
  * The main plugin class to be used in the desktop.
+ * @since 6.0
  */
 public class AnnexPlugin extends AbstractUIPlugin {
 	// The shared instance.
