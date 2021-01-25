@@ -5,7 +5,6 @@ package org.osate.analysis.resources.budgets.internal.models.busload;
 import org.eclipse.emf.common.util.EList;
 
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
-import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,15 +23,15 @@ import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisEle
  * @model
  * @generated
  */
-public interface Broadcast extends BusloadElement, AnalysisElement {
+public interface Broadcast extends BusloadElement {
 	/**
-	 * Returns the value of the '<em><b>Connections</b></em>' reference list.
+	 * Returns the value of the '<em><b>Connections</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.analysis.resources.budgets.internal.models.busload.Connection}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Connections</em>' reference list.
+	 * @return the value of the '<em>Connections</em>' containment reference list.
 	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBroadcast_Connections()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Connection> getConnections();

@@ -4,7 +4,6 @@ package org.osate.analysis.resources.budgets.internal.models.busload;
 
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,39 +25,39 @@ import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisEle
  * @model abstract="true"
  * @generated
  */
-public interface BusOrVirtualBus extends BusloadElement, AnalysisElement {
+public interface BusOrVirtualBus extends BusloadElement {
 	/**
-	 * Returns the value of the '<em><b>Bound Broadcasts</b></em>' reference list.
+	 * Returns the value of the '<em><b>Bound Broadcasts</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.analysis.resources.budgets.internal.models.busload.Broadcast}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Bound Broadcasts</em>' reference list.
+	 * @return the value of the '<em>Bound Broadcasts</em>' containment reference list.
 	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusOrVirtualBus_BoundBroadcasts()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Broadcast> getBoundBroadcasts();
 
 	/**
-	 * Returns the value of the '<em><b>Bound Connections</b></em>' reference list.
+	 * Returns the value of the '<em><b>Bound Connections</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.analysis.resources.budgets.internal.models.busload.Connection}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Bound Connections</em>' reference list.
+	 * @return the value of the '<em>Bound Connections</em>' containment reference list.
 	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusOrVirtualBus_BoundConnections()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Connection> getBoundConnections();
 
 	/**
-	 * Returns the value of the '<em><b>Bound Virtual Buses</b></em>' reference list.
+	 * Returns the value of the '<em><b>Bound Virtual Buses</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Bound Virtual Buses</em>' reference list.
+	 * @return the value of the '<em>Bound Virtual Buses</em>' containment reference list.
 	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusOrVirtualBus_BoundVirtualBuses()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<VirtualBus> getBoundVirtualBuses();

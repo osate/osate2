@@ -3,7 +3,6 @@
 package org.osate.analysis.resources.budgets.internal.models.busload;
 
 import org.eclipse.emf.common.util.EList;
-import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,15 +20,15 @@ import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisEle
  * @model
  * @generated
  */
-public interface BusLoadModel extends AnalysisElement {
+public interface BusLoadModel extends BusloadElement {
 	/**
-	 * Returns the value of the '<em><b>Root Buses</b></em>' reference list.
+	 * Returns the value of the '<em><b>Root Buses</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.analysis.resources.budgets.internal.models.busload.Bus}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Root Buses</em>' reference list.
+	 * @return the value of the '<em>Root Buses</em>' containment reference list.
 	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusLoadModel_RootBuses()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Bus> getRootBuses();

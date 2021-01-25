@@ -2,7 +2,7 @@
  */
 package org.osate.analysis.resources.budgets.internal.models.busload;
 
-import org.eclipse.emf.ecore.EObject;
+import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface BusloadElement extends EObject {
+public interface BusloadElement extends AnalysisElement {
 	/**
 	 * Returns the value of the '<em><b>Label</b></em>' attribute.
 	 * <!-- begin-user-doc -->
