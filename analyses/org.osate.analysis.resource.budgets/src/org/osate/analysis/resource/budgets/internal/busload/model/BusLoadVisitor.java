@@ -23,23 +23,51 @@
  */
 package org.osate.analysis.resource.budgets.internal.busload.model;
 
-import org.osate.aadl2.instance.ComponentInstance;
-
 /**
  * @since 3.0
  */
-public final class VirtualBus extends BusOrVirtualBus {
-	public VirtualBus(final ComponentInstance busInstance) {
-		super("virtual bus", busInstance);
+public interface BusLoadVisitor<S> extends Visitor<S> {
+	public default S visitModelPrefix(BusLoadModel model, S state) {
+		return state;
 	}
 
-	@Override
-	<S> S visitSelfPrefix(final BusLoadVisitor<S> visitor, final S state) {
-		return visitor.visitVirtualBusPrefix(this, state);
+	public default void visitModelPostfix(BusLoadModel model, S state) {
 	}
 
-	@Override
-	<S> void visitSelfPostfix(final BusLoadVisitor<S> visitor, final S state) {
-		visitor.visitVirtualBusPostfix(this, state);
+	public default S visitBusOrVirtualBusPrefix(BusOrVirtualBus bus, S state) {
+		return state;
+	}
+
+	public default void visitBusOrVirtualBusPostfix(BusOrVirtualBus bus, S state) {
+	}
+
+	public default S visitBusPrefix(final Bus bus, S state) {
+		return visitBusOrVirtualBusPrefix(bus, state);
+	}
+
+	public default void visitBusPostfix(final Bus bus, S state) {
+		visitBusOrVirtualBusPostfix(bus, state);
+	}
+
+	public default S visitVirtualBusPrefix(final VirtualBus virtualBus, S state) {
+		return visitBusOrVirtualBusPrefix(virtualBus, state);
+	}
+
+	public default void visitVirtualBusPostfix(final VirtualBus virtualBus, S state) {
+		visitBusOrVirtualBusPostfix(virtualBus, state);
+	}
+
+	public default S visitBroadcastPrefix(final Broadcast broadcast, S state) {
+		return state;
+	}
+
+	public default void visitBroadcastPostfix(final Broadcast broadcast, S state) {
+	}
+
+	public default S visitConnectionPrefix(Connection connection, S state) {
+		return state;
+	}
+
+	public default void visitConnectionPostfix(Connection connection, S state) {
 	}
 }

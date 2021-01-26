@@ -42,17 +42,17 @@ public final class Connection extends AnalysisElement {
 	}
 
 	@Override
-	<S> void visitChildren(final Visitor<S> visitor, final S state) {
+	<S> void visitChildren(final BusLoadVisitor<S> visitor, final S state) {
 		// no children
 	}
 
 	@Override
-	<S> S visitSelfPrefix(final Visitor<S> visitor, final S state) {
+	<S> S visitSelfPrefix(final BusLoadVisitor<S> visitor, final S state) {
 		return visitor.visitConnectionPrefix(this, state);
 	}
 
 	@Override
-	<S> void visitSelfPostfix(final Visitor<S> visitor, final S state) {
+	<S> void visitSelfPostfix(final BusLoadVisitor<S> visitor, final S state) {
 		visitor.visitConnectionPostfix(this, state);
 	}
 }

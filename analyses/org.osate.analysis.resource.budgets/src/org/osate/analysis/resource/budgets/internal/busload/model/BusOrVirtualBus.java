@@ -99,7 +99,7 @@ public abstract class BusOrVirtualBus extends AnalysisElement {
 	}
 
 	@Override
-	protected final <S> void visitChildren(final Visitor<S> visitor, final S state) {
+	protected final <S> void visitChildren(final BusLoadVisitor<S> visitor, final S state) {
 		visit(boundBuses, visitor, state);
 		visit(boundConnections, visitor, state);
 		visit(boundBroadcasts, visitor, state);

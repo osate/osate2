@@ -23,9 +23,6 @@
  */
 package org.osate.analysis.resource.budgets.busload;
 
-import java.util.Deque;
-import java.util.LinkedList;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osate.aadl2.Element;
@@ -43,7 +40,8 @@ import org.osate.analysis.resource.budgets.internal.busload.model.Bus;
 import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadModel;
 import org.osate.analysis.resource.budgets.internal.busload.model.BusOrVirtualBus;
 import org.osate.analysis.resource.budgets.internal.busload.model.Connection;
-import org.osate.analysis.resource.budgets.internal.busload.model.Visitor;
+import org.osate.analysis.resource.budgets.internal.busload.model.ResultState;
+import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadVisitor;
 import org.osate.result.AnalysisResult;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
@@ -162,7 +160,7 @@ public final class NewBusLoadAnalysis {
 				final BusLoadModel model = BusLoadModel.buildModel(root, som);
 
 				// Analyze the model
-				model.visit(new BusLoadAnalysisVisitor(somResult));
+				model.visit(new State(somResult), new BusLoadAnalysisVisitor());
 			}
 			monitor.done();
 
@@ -175,44 +173,38 @@ public final class NewBusLoadAnalysis {
 
 	// ==== Analysis Visitor ====
 
-	private class BusLoadAnalysisVisitor implements Visitor {
-		private Deque<Result> previousResult = new LinkedList<>();
-		private Result currentResult;
+	private final class State extends ResultState {
+		public final double dataOverheadKBytesps;
 
-		private Deque<Double> previousOverhead = new LinkedList<>();
-		private double dataOverheadKBytes = 0.0;
-
-		public BusLoadAnalysisVisitor(final Result rootResult) {
-			this.currentResult = rootResult;
+		public State(final Result result) {
+			this(result, 0.0);
 		}
 
+		public State(final Result result, final double dataOverheadKBytesps) {
+			super(result);
+			this.dataOverheadKBytesps = dataOverheadKBytesps;
+		}
+	}
+
+	private class BusLoadAnalysisVisitor implements BusLoadVisitor<State> {
 		@Override
-		public void visitBusOrVirtualBusPrefix(final BusOrVirtualBus bus) {
+		public State visitBusOrVirtualBusPrefix(final BusOrVirtualBus bus, final State state) {
 			final ComponentInstance busInstance = bus.getBusInstance();
 
 			// Create a new result object for the bus
 			final Result busResult = ResultUtil.createResult(busInstance.getName(), busInstance,
 					ResultType.SUCCESS);
-			currentResult.getSubResults().add(busResult);
-			previousResult.push(currentResult);
-			currentResult = busResult;
+			state.result.getSubResults().add(busResult);
 
 			// Increment the data overhead
-			final double newOverheadKBytesps = GetProperties.getDataSize(busInstance,
+			final double localOverheadKBytesps = GetProperties.getDataSize(busInstance,
 					GetProperties.getKBUnitLiteral(busInstance));
-			previousOverhead.push(dataOverheadKBytes);
-			dataOverheadKBytes += newOverheadKBytesps;
+			return new State(busResult, state.dataOverheadKBytesps + localOverheadKBytesps);
 		}
 
 		@Override
-		public void visitBusOrVirtualBusPostfix(final BusOrVirtualBus bus) {
-			// unroll the result stack
-			final Result busResult = currentResult;
-			currentResult = previousResult.pop();
-
-			// Unroll the overhead calculation, but save the old value for output
-			final long myDataOverheadInBytes = (long) (1000.0 * dataOverheadKBytes);
-			dataOverheadKBytes = previousOverhead.pop();
+		public void visitBusOrVirtualBusPostfix(final BusOrVirtualBus bus, final State state) {
+			final long myDataOverheadInBytes = (long) (1000.0 * state.dataOverheadKBytesps);
 
 			// Compute the actual usage and budget requirements
 			double actual = 0.0;
@@ -239,6 +231,7 @@ public final class NewBusLoadAnalysis {
 			bus.setCapacity(capacity);
 			bus.setBudget(budget);
 
+			final Result busResult = state.result;
 			ResultUtil.addRealValue(busResult, capacity);
 			ResultUtil.addRealValue(busResult, budget);
 			ResultUtil.addRealValue(busResult, totalBudget);
@@ -279,25 +272,20 @@ public final class NewBusLoadAnalysis {
 		}
 
 		@Override
-		public void visitBroadcastPrefix(final Broadcast broadcast) {
+		public State visitBroadcastPrefix(final Broadcast broadcast, final State state) {
 			final ConnectionInstanceEnd cie = broadcast.getSource();
 
 			// Create a new result object for the bus
 			final Result broadcastResult = ResultUtil.createResult("Broadcast from " + cie.getInstanceObjectPath(), cie,
 					ResultType.SUCCESS);
-			currentResult.getSubResults().add(broadcastResult);
-			previousResult.push(currentResult);
-			currentResult = broadcastResult;
+			state.result.getSubResults().add(broadcastResult);
+			return new State(broadcastResult, state.dataOverheadKBytesps);
 		}
 
 		@Override
-		public void visitBroadcastPostfix(final Broadcast broadcast) {
-			// unroll the result stack
-			final Result broadcastResult = currentResult;
-			currentResult = previousResult.pop();
-
+		public void visitBroadcastPostfix(final Broadcast broadcast, final State state) {
 			// Compute the actual usage and budget requirements
-			final double actual = getConnectionActualKBytesps(broadcast.getSource(), dataOverheadKBytes);
+			final double actual = getConnectionActualKBytesps(broadcast.getSource(), state.dataOverheadKBytesps);
 			broadcast.setActual(actual);
 
 			// Use the maximum budget from the connections, warn if they are not equal
@@ -314,6 +302,7 @@ public final class NewBusLoadAnalysis {
 			}
 			broadcast.setBudget(maxBudget);
 
+			final Result broadcastResult = state.result;
 			ResultUtil.addRealValue(broadcastResult, maxBudget);
 			ResultUtil.addRealValue(broadcastResult, actual);
 
@@ -328,32 +317,39 @@ public final class NewBusLoadAnalysis {
 		}
 
 		@Override
-		public void visitConnection(final Connection connection) {
-			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
-			final Result connectionResult = ResultUtil.createResult(connectionInstance.getName(),
-					connectionInstance, ResultType.SUCCESS);
-			currentResult.getSubResults().add(connectionResult);
+		public State visitConnectionPrefix(final Connection connection, final State state) {
+			return null;
 
-			final double actual = getConnectionActualKBytesps(connectionInstance.getSource(), dataOverheadKBytes);
-			connection.setActual(actual);
+//			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
+//			final Result connectionResult = ResultUtil.createResult(connectionInstance.getName(),
+//					connectionInstance, ResultType.SUCCESS);
+//			state.result.getSubResults().add(connectionResult);
+//
+//			final double actual = getConnectionActualKBytesps(connectionInstance.getSource(), dataOverheadKBytes);
+//			connection.setActual(actual);
+//
+//			final double budget = GetProperties.getBandWidthBudgetInKBytesps(connectionInstance, 0.0);
+//			connection.setBudget(budget);
+//
+//			ResultUtil.addRealValue(connectionResult, budget);
+//			ResultUtil.addRealValue(connectionResult, actual);
+//
+//			if (budget > 0.0) {
+//				if (actual > budget) {
+//					error(connectionResult, connectionInstance,
+//							"Connection " + connectionInstance.getName() + " -- Actual bandwidth > budget: " + actual
+//									+ " KB/s > "
+//							+ budget + " KB/s");
+//				}
+//			} else {
+//				warning(connectionResult, connectionInstance,
+//						"Connection " + connectionInstance.getName() + " has no bandwidth budget");
+//			}
+		}
 
-			final double budget = GetProperties.getBandWidthBudgetInKBytesps(connectionInstance, 0.0);
-			connection.setBudget(budget);
+		@Override
+		public void visitConnectionPostfix(final Connection connectyion, final State state) {
 
-			ResultUtil.addRealValue(connectionResult, budget);
-			ResultUtil.addRealValue(connectionResult, actual);
-
-			if (budget > 0.0) {
-				if (actual > budget) {
-					error(connectionResult, connectionInstance,
-							"Connection " + connectionInstance.getName() + " -- Actual bandwidth > budget: " + actual
-									+ " KB/s > "
-							+ budget + " KB/s");
-				}
-			} else {
-				warning(connectionResult, connectionInstance,
-						"Connection " + connectionInstance.getName() + " has no bandwidth budget");
-			}
 		}
 	}
 

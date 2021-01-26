@@ -94,22 +94,22 @@ public final class BusLoadModel extends ModelElement {
 	}
 
 	@Override
-	<S> S visitSelfPrefix(final Visitor<S> visitor, final S state) {
+	<S> S visitSelfPrefix(final BusLoadVisitor<S> visitor, final S state) {
 		return visitor.visitModelPrefix(this, state);
 	}
 
 	@Override
-	<S> void visitChildren(final Visitor<S> visitor, final S state) {
+	<S> void visitChildren(final BusLoadVisitor<S> visitor, final S state) {
 		visit(rootBuses, visitor, state);
 	}
 
 	@Override
-	<S> void visitSelfPostfix(final Visitor<S> visitor, final S state) {
+	<S> void visitSelfPostfix(final BusLoadVisitor<S> visitor, final S state) {
 		visitor.visitModelPostfix(this, state);
 	}
 
 	public void print(final PrintWriter pw) {
-		visit("", new Visitor<String>() {
+		visit("", new BusLoadVisitor<String>() {
 			@Override
 			public String visitConnectionPrefix(final Connection c, final String prefix) {
 				pw.println(prefix + "Connection " + c.getConnectionInstance().getName());

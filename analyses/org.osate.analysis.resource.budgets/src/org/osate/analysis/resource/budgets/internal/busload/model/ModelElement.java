@@ -35,20 +35,20 @@ abstract class ModelElement {
 	 *
 	 * rootNode.visit(<initial state>, new Visitor<..> { ... });
 	 */
-	public final <S> void visit(final S state, final Visitor<S> visitor) {
+	public final <S> void visit(final S state, final BusLoadVisitor<S> visitor) {
 		final S newState = visitSelfPrefix(visitor, state);
 		visitChildren(visitor, newState);
 		visitSelfPostfix(visitor, state);
 	}
 
-	final <S> void visit(final List<? extends ModelElement> list, final Visitor<S> visitor,
+	final <S> void visit(final List<? extends ModelElement> list, final BusLoadVisitor<S> visitor,
 			final S state) {
-		list.forEach(e -> e.visit(state, visitor));
+		list.forEach(e -> e.visit(visitor.updateStateForChild(state), visitor));
 	}
 
-	abstract <S> S visitSelfPrefix(Visitor<S> visitor, S state);
+	abstract <S> S visitSelfPrefix(BusLoadVisitor<S> visitor, S state);
 
-	abstract <S> void visitChildren(Visitor<S> visitor, S state);
+	abstract <S> void visitChildren(BusLoadVisitor<S> visitor, S state);
 
-	abstract <S> void visitSelfPostfix(Visitor<S> visitor, S state);
+	abstract <S> void visitSelfPostfix(BusLoadVisitor<S> visitor, S state);
 }

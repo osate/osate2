@@ -34,12 +34,12 @@ public final class Bus extends BusOrVirtualBus {
 	}
 
 	@Override
-	<S> S visitSelfPrefix(final Visitor<S> visitor, final S state) {
+	<S> S visitSelfPrefix(final BusLoadVisitor<S> visitor, final S state) {
 		return visitor.visitBusPrefix(this, state);
 	}
 
 	@Override
-	<S> void visitSelfPostfix(final Visitor<S> visitor, final S state) {
+	<S> void visitSelfPostfix(final BusLoadVisitor<S> visitor, final S state) {
 		visitor.visitBusPostfix(this, state);
 	}
 }
