@@ -94,7 +94,7 @@ public final class BusLoadModel extends ModelElement {
 	}
 
 	public void analyzeModel(final Result somResult) {
-		rootBuses.forEach(bus -> bus.analyzeBus(somResult, 0.0));
+		rootBuses.forEach(bus -> bus.analyzeBus(bus.createAndAddResult(somResult), 0.0));
 	}
 
 //	public void print(final PrintWriter pw) {

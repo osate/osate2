@@ -102,18 +102,21 @@ public abstract class BusOrVirtualBus extends AnalysisElement {
 		return boundBroadcasts;
 	}
 
-	public final void analyzeBus(final Result parentResult, final double dataOverheadKBytes)  {
-		final Result busResult = ResultUtil.createResult(busInstance.getName(), busInstance,
-				ResultType.SUCCESS);
-		parentResult.getSubResults().add(busResult);
+	@Override
+	public Result createResult() {
+		return ResultUtil.createResult(busInstance.getName(), busInstance, ResultType.SUCCESS);
+	}
 
+	public final void analyzeBus(final Result busResult, final double dataOverheadKBytes) {
 		final double localOverheadKBytesps = GetProperties.getDataSize(busInstance,
 				GetProperties.getKBUnitLiteral(busInstance));
 		final double newOverheadKbytesps = dataOverheadKBytes + localOverheadKBytesps;
 
-		boundBuses.forEach(bus -> bus.analyzeBus(busResult, newOverheadKbytesps));
-		boundConnections.forEach(connection -> connection.analyzeConnection(busResult, newOverheadKbytesps));
-		boundBroadcasts.forEach(broadcast -> broadcast.analyzeBroadcast(busResult, newOverheadKbytesps));
+		boundBuses.forEach(bus -> bus.analyzeBus(bus.createAndAddResult(busResult), newOverheadKbytesps));
+		boundConnections.forEach(connection -> connection.analyzeConnection(connection.createAndAddResult(busResult),
+				newOverheadKbytesps));
+		boundBroadcasts.forEach(
+				broadcast -> broadcast.analyzeBroadcast(broadcast.createAndAddResult(busResult), newOverheadKbytesps));
 
 		// Compute the actual usage and budget requirements
 		double actual = 0.0;

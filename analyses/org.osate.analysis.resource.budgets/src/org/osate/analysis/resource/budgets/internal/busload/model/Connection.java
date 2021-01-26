@@ -45,11 +45,12 @@ public final class Connection extends AnalysisElement {
 		return connectionInstance;
 	}
 
-	public final void analyzeConnection(final Result parentResult, final double dataOverheadKBytes) {
-		final Result connectionResult = ResultUtil.createResult(connectionInstance.getName(), connectionInstance,
-				ResultType.SUCCESS);
-		parentResult.getSubResults().add(connectionResult);
+	@Override
+	public Result createResult() {
+		return ResultUtil.createResult(connectionInstance.getName(), connectionInstance, ResultType.SUCCESS);
+	}
 
+	public final void analyzeConnection(final Result connectionResult, final double dataOverheadKBytes) {
 		final double actual = getConnectionActualKBytesps(connectionInstance.getSource(), dataOverheadKBytes);
 		setActual(actual);
 

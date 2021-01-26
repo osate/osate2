@@ -67,6 +67,14 @@ abstract class AnalysisElement extends ModelElement {
 		this.budget = budget;
 	}
 
+	protected abstract Result createResult();
+
+	public final Result createAndAddResult(final Result parentResult) {
+		final Result newResult = createResult();
+		parentResult.getSubResults().add(newResult);
+		return newResult;
+	}
+
 	/**
 	 * Calculate bandwidth demand from rate & data size
 	 * @param ci The connection instance to calculate for

@@ -62,12 +62,15 @@ public final class Broadcast extends AnalysisElement {
 		return connections;
 	}
 
-	public final void analyzeBroadcast(final Result parentResult, final double dataOverheadKBytes) {
-		final Result broadcastResult = ResultUtil.createResult("Broadcast from " + source.getInstanceObjectPath(),
-				source, ResultType.SUCCESS);
-		parentResult.getSubResults().add(broadcastResult);
+	@Override
+	public Result createResult() {
+		return ResultUtil.createResult("Broadcast from " + source.getInstanceObjectPath(), source, ResultType.SUCCESS);
+	}
 
-		connections.forEach(connection -> connection.analyzeConnection(broadcastResult, dataOverheadKBytes));
+
+	public final void analyzeBroadcast(final Result broadcastResult, final double dataOverheadKBytes) {
+		connections.forEach(connection -> connection.analyzeConnection(connection.createAndAddResult(broadcastResult),
+				dataOverheadKBytes));
 
 		// Compute the actual usage and budget requirements
 		final double actual = getConnectionActualKBytesps(getSource(), dataOverheadKBytes);
