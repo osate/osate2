@@ -26,7 +26,6 @@ package org.osate.analysis.resource.budgets.internal.busload.model;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -95,79 +94,60 @@ public final class BusLoadModel extends ModelElement {
 	}
 
 	@Override
-	void visitSelfPrefix(final Visitor visitor) {
-		visitor.visitModelPrefix(this);
+	<S> S visitSelfPrefix(final Visitor<S> visitor, final S state) {
+		return visitor.visitModelPrefix(this, state);
 	}
 
 	@Override
-	void visitChildren(final Visitor visitor) {
-		visit(rootBuses, visitor);
+	<S> void visitChildren(final Visitor<S> visitor, final S state) {
+		visit(rootBuses, visitor, state);
 	}
 
 	@Override
-	void visitSelfPostfix(final Visitor visitor) {
-		visitor.visitModelPostfix(this);
+	<S> void visitSelfPostfix(final Visitor<S> visitor, final S state) {
+		visitor.visitModelPostfix(this, state);
 	}
 
 	public void print(final PrintWriter pw) {
-		visit(new Visitor() {
-			private Deque<String> stack = new LinkedList<>();
-			private String prefix = "";
-
+		visit("", new Visitor<String>() {
 			@Override
-			public void visitConnection(final Connection c) {
+			public String visitConnectionPrefix(final Connection c, final String prefix) {
 				pw.println(prefix + "Connection " + c.getConnectionInstance().getName());
-				stack.push(prefix);
-				prefix = prefix + "  ";
-				pw.println(prefix + "Budget = " + c.getBudget() + " KB/s");
-				pw.println(prefix + "Actual usage = " + c.getActual() + " KB/s");
-				prefix = stack.pop();
+				final String newPrefix = prefix + "  ";
+				pw.println(newPrefix + "  Budget = " + c.getBudget() + " KB/s");
+				pw.println(newPrefix + "  Actual usage = " + c.getActual() + " KB/s");
+				return newPrefix;
 			}
 
 			@Override
-			public void visitBroadcastPrefix(final Broadcast b) {
+			public String visitBroadcastPrefix(final Broadcast b, final String prefix) {
 				pw.println(prefix + "Broadcast from " + b.getSource().getName());
-				stack.push(prefix);
-				prefix = prefix + "  ";
+				final String newPrefix = prefix + "  ";
 				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
 				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
+				return newPrefix;
 			}
 
 			@Override
-			public void visitBroadcastPostfix(final Broadcast b) {
-				prefix = stack.pop();
-			}
-
-			@Override
-			public void visitBusPrefix(final Bus b) {
+			public String visitBusPrefix(final Bus b, final String prefix) {
 				pw.println(prefix + "Bus " + b.getBusInstance().getName());
-				stack.push(prefix);
-				prefix = prefix + "  ";
-				pw.println(prefix + "Capacity = " + b.getCapacity() + " KB/s");
-				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
-				pw.println(prefix + "Required budget = " + b.getTotalBudget() + " KB/s");
-				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
+				final String newPrefix = prefix + "  ";
+				pw.println(newPrefix + "Capacity = " + b.getCapacity() + " KB/s");
+				pw.println(newPrefix + "Budget = " + b.getBudget() + " KB/s");
+				pw.println(newPrefix + "Required budget = " + b.getTotalBudget() + " KB/s");
+				pw.println(newPrefix + "Actual usage = " + b.getActual() + " KB/s");
+				return newPrefix;
 			}
 
 			@Override
-			public void visitBusPostfix(final Bus b) {
-				prefix = stack.pop();
-			}
-
-			@Override
-			public void visitVirtualBusPrefix(final VirtualBus b) {
+			public String visitVirtualBusPrefix(final VirtualBus b, final String prefix) {
 				pw.println(prefix + "Virtual Bus " + b.getBusInstance().getName());
-				stack.push(prefix);
-				prefix = prefix + "  ";
-				pw.println(prefix + "Capacity = " + b.getCapacity() + " KB/s");
-				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
-				pw.println(prefix + "Required budget = " + b.getTotalBudget() + " KB/s");
-				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
-			}
-
-			@Override
-			public void visitVirtualBusPostfix(final VirtualBus b) {
-				prefix = stack.pop();
+				final String newPrefix = prefix + "  ";
+				pw.println(newPrefix + "Capacity = " + b.getCapacity() + " KB/s");
+				pw.println(newPrefix + "Budget = " + b.getBudget() + " KB/s");
+				pw.println(newPrefix + "Required budget = " + b.getTotalBudget() + " KB/s");
+				pw.println(newPrefix + "Actual usage = " + b.getActual() + " KB/s");
+				return newPrefix;
 			}
 		});
 	}

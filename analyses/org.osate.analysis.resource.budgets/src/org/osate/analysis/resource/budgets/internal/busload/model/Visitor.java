@@ -26,42 +26,48 @@ package org.osate.analysis.resource.budgets.internal.busload.model;
 /**
  * @since 3.0
  */
-public interface Visitor {
-	public default void visitModelPrefix(BusLoadModel model) {
+public interface Visitor<S> {
+	public default S visitModelPrefix(BusLoadModel model, S state) {
+		return state;
 	}
 
-	public default void visitModelPostfix(BusLoadModel model) {
+	public default void visitModelPostfix(BusLoadModel model, S state) {
 	}
 
-	public default void visitBusOrVirtualBusPrefix(BusOrVirtualBus bus) {
+	public default S visitBusOrVirtualBusPrefix(BusOrVirtualBus bus, S state) {
+		return state;
 	}
 
-	public default void visitBusOrVirtualBusPostfix(BusOrVirtualBus bus) {
+	public default void visitBusOrVirtualBusPostfix(BusOrVirtualBus bus, S state) {
 	}
 
-	public default void visitBusPrefix(final Bus bus) {
-		visitBusOrVirtualBusPrefix(bus);
+	public default S visitBusPrefix(final Bus bus, S state) {
+		return visitBusOrVirtualBusPrefix(bus, state);
 	}
 
-	public default void visitBusPostfix(final Bus bus) {
-		visitBusOrVirtualBusPostfix(bus);
+	public default void visitBusPostfix(final Bus bus, S state) {
+		visitBusOrVirtualBusPostfix(bus, state);
 	}
 
-	public default void visitVirtualBusPrefix(final VirtualBus virtualBus) {
-		visitBusOrVirtualBusPrefix(virtualBus);
+	public default S visitVirtualBusPrefix(final VirtualBus virtualBus, S state) {
+		return visitBusOrVirtualBusPrefix(virtualBus, state);
 	}
 
-	public default void visitVirtualBusPostfix(final VirtualBus virtualBus) {
-		visitBusOrVirtualBusPostfix(virtualBus);
+	public default void visitVirtualBusPostfix(final VirtualBus virtualBus, S state) {
+		visitBusOrVirtualBusPostfix(virtualBus, state);
 	}
 
-	public default void visitBroadcastPrefix(final Broadcast broadcast) {
+	public default S visitBroadcastPrefix(final Broadcast broadcast, S state) {
+		return state;
 	}
 
-	public default void visitBroadcastPostfix(final Broadcast broadcast) {
+	public default void visitBroadcastPostfix(final Broadcast broadcast, S state) {
 	}
 
-	// N.B. Leaf node
-	public default void visitConnection(Connection connection) {
+	public default S visitConnectionPrefix(Connection connection, S state) {
+		return state;
+	}
+
+	public default void visitConnectionPostfix(Connection connection, S state) {
 	}
 }

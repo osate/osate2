@@ -29,19 +29,26 @@ import java.util.List;
  * @since 3.0
  */
 abstract class ModelElement {
-	public final void visit(final Visitor visitor) {
-		visitSelfPrefix(visitor);
-		visitChildren(visitor);
-		visitSelfPostfix(visitor);
+	/*
+	 * Here we put the state before the visitor to make the initial state easier to find in the initial
+	 * method call. This is assuming the we have something like
+	 *
+	 * rootNode.visit(<initial state>, new Visitor<..> { ... });
+	 */
+	public final <S> void visit(final S state, final Visitor<S> visitor) {
+		final S newState = visitSelfPrefix(visitor, state);
+		visitChildren(visitor, newState);
+		visitSelfPostfix(visitor, state);
 	}
 
-	final <E extends ModelElement> void visit(final List<E> list, final Visitor visitor) {
-		list.forEach(e -> e.visit(visitor));
+	final <S> void visit(final List<? extends ModelElement> list, final Visitor<S> visitor,
+			final S state) {
+		list.forEach(e -> e.visit(state, visitor));
 	}
 
-	abstract void visitSelfPrefix(Visitor visitor);
+	abstract <S> S visitSelfPrefix(Visitor<S> visitor, S state);
 
-	abstract void visitChildren(Visitor visitor);
+	abstract <S> void visitChildren(Visitor<S> visitor, S state);
 
-	abstract void visitSelfPostfix(Visitor visitor);
+	abstract <S> void visitSelfPostfix(Visitor<S> visitor, S state);
 }

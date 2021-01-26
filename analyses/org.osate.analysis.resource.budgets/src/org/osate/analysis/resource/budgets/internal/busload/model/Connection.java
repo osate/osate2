@@ -42,17 +42,17 @@ public final class Connection extends AnalysisElement {
 	}
 
 	@Override
-	void visitChildren(final Visitor visitor) {
+	<S> void visitChildren(final Visitor<S> visitor, final S state) {
 		// no children
 	}
 
 	@Override
-	void visitSelfPrefix(final Visitor visitor) {
-		visitor.visitConnection(this);
+	<S> S visitSelfPrefix(final Visitor<S> visitor, final S state) {
+		return visitor.visitConnectionPrefix(this, state);
 	}
 
 	@Override
-	void visitSelfPostfix(final Visitor visitor) {
-		// leaf node, already visited with prefix
+	<S> void visitSelfPostfix(final Visitor<S> visitor, final S state) {
+		visitor.visitConnectionPostfix(this, state);
 	}
 }

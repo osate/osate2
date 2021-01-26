@@ -60,17 +60,17 @@ public final class Broadcast extends AnalysisElement {
 	}
 
 	@Override
-	void visitChildren(final Visitor visitor) {
-		visit(connections, visitor);
+	<S> void visitChildren(final Visitor<S> visitor, final S state) {
+		visit(connections, visitor, state);
 	}
 
 	@Override
-	void visitSelfPrefix(final Visitor visitor) {
-		visitor.visitBroadcastPrefix(this);
+	<S> S visitSelfPrefix(final Visitor<S> visitor, final S state) {
+		return visitor.visitBroadcastPrefix(this, state);
 	}
 
 	@Override
-	void visitSelfPostfix(final Visitor visitor) {
-		visitor.visitBroadcastPostfix(this);
+	<S> void visitSelfPostfix(final Visitor<S> visitor, final S state) {
+		visitor.visitBroadcastPostfix(this, state);
 	}
 }
