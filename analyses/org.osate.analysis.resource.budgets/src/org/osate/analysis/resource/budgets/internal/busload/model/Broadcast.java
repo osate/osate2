@@ -28,6 +28,9 @@ import java.util.List;
 
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.result.Result;
+import org.osate.result.ResultType;
+import org.osate.result.util.ResultUtil;
 
 /**
  * @since 3.0
@@ -59,18 +62,41 @@ public final class Broadcast extends AnalysisElement {
 		return connections;
 	}
 
-	@Override
-	void visitChildren(final Visitor visitor) {
-		visit(connections, visitor);
-	}
+	public final void analyzeBroadcast(final Result parentResult, final double dataOverheadKBytes) {
+		final Result broadcastResult = ResultUtil.createResult("Broadcast from " + source.getInstanceObjectPath(),
+				source, ResultType.SUCCESS);
+		parentResult.getSubResults().add(broadcastResult);
 
-	@Override
-	void visitSelfPrefix(final Visitor visitor) {
-		visitor.visitBroadcastPrefix(this);
-	}
+		connections.forEach(connection -> connection.analyzeConnection(broadcastResult, dataOverheadKBytes));
 
-	@Override
-	void visitSelfPostfix(final Visitor visitor) {
-		visitor.visitBroadcastPostfix(this);
+		// Compute the actual usage and budget requirements
+		final double actual = getConnectionActualKBytesps(getSource(), dataOverheadKBytes);
+		setActual(actual);
+
+		// Use the maximum budget from the connections, warn if they are not equal
+		double maxBudget = 0.0;
+		boolean unequal = false;
+		Connection last = null;
+		for (final Connection c : getConnections()) {
+			final double current = c.getBudget();
+			maxBudget = Math.max(maxBudget, current);
+			if (last != null) {
+				unequal = last.getBudget() != current;
+			}
+			last = c;
+		}
+		setBudget(maxBudget);
+
+		ResultUtil.addRealValue(broadcastResult, maxBudget);
+		ResultUtil.addRealValue(broadcastResult, actual);
+
+		if (unequal) {
+			for (final Connection c : getConnections()) {
+				warning(broadcastResult, c.getConnectionInstance(),
+						"Connection " + c.getConnectionInstance().getName() + " sharing broadcast source "
+								+ getSource().getInstanceObjectPath() + " has budget " + c.getBudget()
+								+ " KB/s; using maximum");
+			}
+		}
 	}
 }

@@ -24,35 +24,49 @@
 package org.osate.analysis.resource.budgets.internal.busload.model;
 
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.result.Result;
+import org.osate.result.ResultType;
+import org.osate.result.util.ResultUtil;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * @since 3.0
  */
 public final class Connection extends AnalysisElement {
 	/** The connection instance represented. */
-	private final ConnectionInstance connInstance;
+	private final ConnectionInstance connectionInstance;
 
-	public Connection(final ConnectionInstance connInstance) {
+	public Connection(final ConnectionInstance connectionInstance) {
 		super("connection");
-		this.connInstance = connInstance;
+		this.connectionInstance = connectionInstance;
 	}
 
 	public final ConnectionInstance getConnectionInstance() {
-		return connInstance;
+		return connectionInstance;
 	}
 
-	@Override
-	void visitChildren(final Visitor visitor) {
-		// no children
-	}
+	public final void analyzeConnection(final Result parentResult, final double dataOverheadKBytes) {
+		final Result connectionResult = ResultUtil.createResult(connectionInstance.getName(), connectionInstance,
+				ResultType.SUCCESS);
+		parentResult.getSubResults().add(connectionResult);
 
-	@Override
-	void visitSelfPrefix(final Visitor visitor) {
-		visitor.visitConnection(this);
-	}
+		final double actual = getConnectionActualKBytesps(connectionInstance.getSource(), dataOverheadKBytes);
+		setActual(actual);
 
-	@Override
-	void visitSelfPostfix(final Visitor visitor) {
-		// leaf node, already visited with prefix
+		final double budget = GetProperties.getBandWidthBudgetInKBytesps(connectionInstance, 0.0);
+		setBudget(budget);
+
+		ResultUtil.addRealValue(connectionResult, budget);
+		ResultUtil.addRealValue(connectionResult, actual);
+
+		if (budget > 0.0) {
+			if (actual > budget) {
+				error(connectionResult, connectionInstance, "Connection " + connectionInstance.getName()
+						+ " -- Actual bandwidth > budget: " + actual + " KB/s > " + budget + " KB/s");
+			}
+		} else {
+			warning(connectionResult, connectionInstance,
+					"Connection " + connectionInstance.getName() + " has no bandwidth budget");
+		}
 	}
 }

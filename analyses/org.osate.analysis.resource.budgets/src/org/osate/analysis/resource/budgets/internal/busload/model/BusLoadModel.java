@@ -23,10 +23,8 @@
  */
 package org.osate.analysis.resource.budgets.internal.busload.model;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,6 +40,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.result.Result;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -94,83 +93,72 @@ public final class BusLoadModel extends ModelElement {
 		return rootBuses;
 	}
 
-	@Override
-	void visitSelfPrefix(final Visitor visitor) {
-		visitor.visitModelPrefix(this);
+	public void analyzeModel(final Result somResult) {
+		rootBuses.forEach(bus -> bus.analyzeBus(somResult, 0.0));
 	}
 
-	@Override
-	void visitChildren(final Visitor visitor) {
-		visit(rootBuses, visitor);
-	}
-
-	@Override
-	void visitSelfPostfix(final Visitor visitor) {
-		visitor.visitModelPostfix(this);
-	}
-
-	public void print(final PrintWriter pw) {
-		visit(new Visitor() {
-			private Deque<String> stack = new LinkedList<>();
-			private String prefix = "";
-
-			@Override
-			public void visitConnection(final Connection c) {
-				pw.println(prefix + "Connection " + c.getConnectionInstance().getName());
-				stack.push(prefix);
-				prefix = prefix + "  ";
-				pw.println(prefix + "Budget = " + c.getBudget() + " KB/s");
-				pw.println(prefix + "Actual usage = " + c.getActual() + " KB/s");
-				prefix = stack.pop();
-			}
-
-			@Override
-			public void visitBroadcastPrefix(final Broadcast b) {
-				pw.println(prefix + "Broadcast from " + b.getSource().getName());
-				stack.push(prefix);
-				prefix = prefix + "  ";
-				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
-				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
-			}
-
-			@Override
-			public void visitBroadcastPostfix(final Broadcast b) {
-				prefix = stack.pop();
-			}
-
-			@Override
-			public void visitBusPrefix(final Bus b) {
-				pw.println(prefix + "Bus " + b.getBusInstance().getName());
-				stack.push(prefix);
-				prefix = prefix + "  ";
-				pw.println(prefix + "Capacity = " + b.getCapacity() + " KB/s");
-				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
-				pw.println(prefix + "Required budget = " + b.getTotalBudget() + " KB/s");
-				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
-			}
-
-			@Override
-			public void visitBusPostfix(final Bus b) {
-				prefix = stack.pop();
-			}
-
-			@Override
-			public void visitVirtualBusPrefix(final VirtualBus b) {
-				pw.println(prefix + "Virtual Bus " + b.getBusInstance().getName());
-				stack.push(prefix);
-				prefix = prefix + "  ";
-				pw.println(prefix + "Capacity = " + b.getCapacity() + " KB/s");
-				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
-				pw.println(prefix + "Required budget = " + b.getTotalBudget() + " KB/s");
-				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
-			}
-
-			@Override
-			public void visitVirtualBusPostfix(final VirtualBus b) {
-				prefix = stack.pop();
-			}
-		});
-	}
+//	public void print(final PrintWriter pw) {
+//		visit(new Visitor() {
+//			private Deque<String> stack = new LinkedList<>();
+//			private String prefix = "";
+//
+//			@Override
+//			public void visitConnection(final Connection c) {
+//				pw.println(prefix + "Connection " + c.getConnectionInstance().getName());
+//				stack.push(prefix);
+//				prefix = prefix + "  ";
+//				pw.println(prefix + "Budget = " + c.getBudget() + " KB/s");
+//				pw.println(prefix + "Actual usage = " + c.getActual() + " KB/s");
+//				prefix = stack.pop();
+//			}
+//
+//			@Override
+//			public void visitBroadcastPrefix(final Broadcast b) {
+//				pw.println(prefix + "Broadcast from " + b.getSource().getName());
+//				stack.push(prefix);
+//				prefix = prefix + "  ";
+//				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
+//				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
+//			}
+//
+//			@Override
+//			public void visitBroadcastPostfix(final Broadcast b) {
+//				prefix = stack.pop();
+//			}
+//
+//			@Override
+//			public void visitBusPrefix(final Bus b) {
+//				pw.println(prefix + "Bus " + b.getBusInstance().getName());
+//				stack.push(prefix);
+//				prefix = prefix + "  ";
+//				pw.println(prefix + "Capacity = " + b.getCapacity() + " KB/s");
+//				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
+//				pw.println(prefix + "Required budget = " + b.getTotalBudget() + " KB/s");
+//				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
+//			}
+//
+//			@Override
+//			public void visitBusPostfix(final Bus b) {
+//				prefix = stack.pop();
+//			}
+//
+//			@Override
+//			public void visitVirtualBusPrefix(final VirtualBus b) {
+//				pw.println(prefix + "Virtual Bus " + b.getBusInstance().getName());
+//				stack.push(prefix);
+//				prefix = prefix + "  ";
+//				pw.println(prefix + "Capacity = " + b.getCapacity() + " KB/s");
+//				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
+//				pw.println(prefix + "Required budget = " + b.getTotalBudget() + " KB/s");
+//				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
+//			}
+//
+//			@Override
+//			public void visitVirtualBusPostfix(final VirtualBus b) {
+//				prefix = stack.pop();
+//			}
+//		});
+//	}
 
 	// ==== Methods to build the model ====
 

@@ -23,6 +23,14 @@
  */
 package org.osate.analysis.resource.budgets.internal.busload.model;
 
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.result.DiagnosticType;
+import org.osate.result.Result;
+import org.osate.result.util.ResultUtil;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
+
 /**
  * @since 3.0
  */
@@ -57,5 +65,34 @@ abstract class AnalysisElement extends ModelElement {
 
 	public final void setBudget(final double budget) {
 		this.budget = budget;
+	}
+
+	/**
+	 * Calculate bandwidth demand from rate & data size
+	 * @param ci The connection instance to calculate for
+	 * @param dataOverheadKBytes The current data overhead from bound buses expressed in KB/s.  This is applied to
+	 * the connections message size.
+	 */
+	protected static double getConnectionActualKBytesps(final ConnectionInstanceEnd cie,
+			final double dataOverheadKBytes) {
+		double actualDataRate = 0;
+		if (cie instanceof FeatureInstance) {
+			final FeatureInstance fi = (FeatureInstance) cie;
+			final double datasize = dataOverheadKBytes
+					+ GetProperties.getSourceDataSize(fi, GetProperties.getKBUnitLiteral(fi));
+			final double srcRate = GetProperties.getOutgoingMessageRatePerSecond(fi);
+			actualDataRate = datasize * srcRate;
+		}
+		return actualDataRate;
+	}
+
+	// ==== Error reporting methods for the visitor ===
+
+	protected static void error(final Result result, final InstanceObject io, final String msg) {
+		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.ERROR));
+	}
+
+	protected static void warning(final Result result, final InstanceObject io, final String msg) {
+		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.WARNING));
 	}
 }

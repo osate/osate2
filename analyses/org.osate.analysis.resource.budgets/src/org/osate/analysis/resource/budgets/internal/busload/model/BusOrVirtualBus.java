@@ -28,6 +28,10 @@ import java.util.List;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.result.Result;
+import org.osate.result.ResultType;
+import org.osate.result.util.ResultUtil;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * @since 3.0
@@ -98,10 +102,74 @@ public abstract class BusOrVirtualBus extends AnalysisElement {
 		return boundBroadcasts;
 	}
 
-	@Override
-	protected final void visitChildren(final Visitor visitor) {
-		visit(boundBuses, visitor);
-		visit(boundConnections, visitor);
-		visit(boundBroadcasts, visitor);
+	public final void analyzeBus(final Result parentResult, final double dataOverheadKBytes)  {
+		final Result busResult = ResultUtil.createResult(busInstance.getName(), busInstance,
+				ResultType.SUCCESS);
+		parentResult.getSubResults().add(busResult);
+
+		final double localOverheadKBytesps = GetProperties.getDataSize(busInstance,
+				GetProperties.getKBUnitLiteral(busInstance));
+		final double newOverheadKbytesps = dataOverheadKBytes + localOverheadKBytesps;
+
+		boundBuses.forEach(bus -> bus.analyzeBus(busResult, newOverheadKbytesps));
+		boundConnections.forEach(connection -> connection.analyzeConnection(busResult, newOverheadKbytesps));
+		boundBroadcasts.forEach(broadcast -> broadcast.analyzeBroadcast(busResult, newOverheadKbytesps));
+
+		// Compute the actual usage and budget requirements
+		double actual = 0.0;
+		double totalBudget = 0.0;
+
+		for (final BusOrVirtualBus b : getBoundBuses()) {
+			actual += b.getActual();
+			totalBudget += b.getBudget();
+		}
+		for (final Connection c : getBoundConnections()) {
+			actual += c.getActual();
+			totalBudget += c.getBudget();
+		}
+		for (final Broadcast b : getBoundBroadcasts()) {
+			actual += b.getActual();
+			totalBudget += b.getBudget();
+		}
+		setActual(actual);
+		setTotalBudget(totalBudget);
+
+		final ComponentInstance busInstance = getBusInstance();
+		final double capacity = GetProperties.getBandWidthCapacityInKBytesps(busInstance, 0.0);
+		final double budget = GetProperties.getBandWidthBudgetInKBytesps(busInstance, 0.0);
+		setCapacity(capacity);
+		setBudget(budget);
+
+		ResultUtil.addRealValue(busResult, capacity);
+		ResultUtil.addRealValue(busResult, budget);
+		ResultUtil.addRealValue(busResult, totalBudget);
+		ResultUtil.addRealValue(busResult, actual);
+		ResultUtil.addIntegerValue(busResult, getBoundBuses().size());
+		ResultUtil.addIntegerValue(busResult, getBoundConnections().size());
+		ResultUtil.addIntegerValue(busResult, getBoundBroadcasts().size());
+		ResultUtil.addIntegerValue(busResult, (long) (1000.0 * newOverheadKbytesps));
+
+		final String busLabel = (this instanceof Bus ? "Bus " : "Virtual bus ") + busInstance.getName();
+		if (capacity == 0.0) {
+			warning(busResult, busInstance, busLabel + " has no capacity");
+		} else {
+			if (actual > capacity) {
+				error(busResult, busInstance,
+						busLabel + " -- Actual bandwidth > capacity: " + actual + " KB/s > " + capacity + " KB/s");
+			}
+		}
+
+		if (budget == 0.0) {
+			warning(busResult, busInstance, busLabel + " has no bandwidth budget");
+		} else {
+			if (budget > capacity) {
+				error(busResult, busInstance,
+						busLabel + " -- budget > capacity: " + budget + " KB/s > " + capacity + " KB/s");
+			}
+			if (totalBudget > budget) {
+				error(busResult, busInstance,
+						busLabel + " -- Required budget > budget: " + totalBudget + " KB/s > " + budget + " KB/s");
+			}
+		}
 	}
 }
