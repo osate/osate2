@@ -23,12 +23,13 @@
  */
 package org.osate.ge.ba.ui.properties;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import org.antlr.v4.runtime.misc.Pair;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
@@ -103,24 +104,24 @@ class StatePropertySection extends AbstractPropertySection {
 	@Override
 	public void refresh() {
 		final Stream<BehaviorState> behaviorStates = selectedBos.boStream(BehaviorState.class);
-		final Pair<Boolean, Boolean> btnSelectionAndGray = getButtonSelectionAndGrayedState(
+		final Entry<Boolean, Boolean> btnSelectionAndGray = getButtonSelectionAndGrayedState(
 				behaviorStates.iterator());
 
 		// Set button grayed and selection state
-		statePropertyBtn.setSelection(btnSelectionAndGray.a);
-		statePropertyBtn.setGrayed(btnSelectionAndGray.b);
+		statePropertyBtn.setSelection(btnSelectionAndGray.getKey());
+		statePropertyBtn.setGrayed(btnSelectionAndGray.getValue());
 	}
 
-	private Pair<Boolean, Boolean> getButtonSelectionAndGrayedState(final Iterator<BehaviorState> it) {
+	private SimpleEntry<Boolean, Boolean> getButtonSelectionAndGrayedState(final Iterator<BehaviorState> it) {
 		final boolean isPropertyValue = getPropertyValue.apply(it.next());
 		while (it.hasNext()) {
 			if (getPropertyValue.apply(it.next()) != isPropertyValue) {
 				// Set grayed and selection to true
-				return new Pair<Boolean, Boolean>(true, true);
+				return new SimpleEntry<Boolean, Boolean>(true, true);
 			}
 		}
 
 		// Return selection state and grayed state
-		return new Pair<Boolean, Boolean>(isPropertyValue, false);
+		return new SimpleEntry<Boolean, Boolean>(isPropertyValue, false);
 	}
 }
