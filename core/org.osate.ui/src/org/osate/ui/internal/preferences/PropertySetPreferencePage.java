@@ -30,25 +30,18 @@ import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.StringFieldEditor;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.osate.core.OsateCorePlugin;
 import org.osate.pluginsupport.PredeclaredProperties;
 import org.osate.ui.utils.PropertySetModel;
+import org.osate.ui.utils.StringSorter;
 
 /**
  * @since 6.0
  */
 public class PropertySetPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 	private List<FieldEditor> fields = new ArrayList<>();
-	private List<String> propertySetNameList = new ArrayList<>();
-	private Text textField;
 
 	public PropertySetPreferencePage() {
 		super();
@@ -75,30 +68,12 @@ public class PropertySetPreferencePage extends FieldEditorPreferencePage impleme
 		addField(input);
 		fields.add(input);
 
-		Button addTag = new Button(getFieldEditorParent(), SWT.NONE);// todo need to add to other fields
-		addTag.setText("Add Property Set Name");
-		addTag.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				String newPropertySetName = textField.getText();
-				if (newPropertySetName != null && newPropertySetName.length() > 0) {
-					propertySetNameList.add(newPropertySetName);
-				}
-				textField.setText("");
-			}
-		});
-
-		textField = new Text(getFieldEditorParent(), SWT.BORDER);
-
-		GridData textData = new GridData(GridData.FILL_HORIZONTAL);
-		textData.verticalAlignment = GridData.BEGINNING;
-		textField.setLayoutData(textData);
-
 		// get all property set names that were previously added by user
 		String[] addedNames = PropertySetModel.getAllAddedPropertySetNames();
 		if (addedNames != null) {
-			for (String prefName : addedNames) {
-				final BooleanFieldEditor propField = new BooleanFieldEditor(PropertySetModel.PREFS_QUALIFIER + prefName,
+			for (String prefName : StringSorter.sort(addedNames)) {
+				final BooleanFieldEditor propField = new BooleanFieldEditor(
+						PropertySetModel.PREFS_QUALIFIER + " " + prefName,
 						prefName, getFieldEditorParent());
 				addField(propField);
 				fields.add(propField);
@@ -113,8 +88,29 @@ public class PropertySetPreferencePage extends FieldEditorPreferencePage impleme
 	@Override
 	public boolean performOk() {
 		for (FieldEditor field : fields) {
-			// org.osate.annexsupport.AnnexModel.setAnnex(field.getBooleanValue(), field.getLabelText());
+			if (field instanceof StringFieldEditor) {
+				// add new property set name to the preferences. Set to ignore by default
+				PropertySetModel.setPreference(true, ((StringFieldEditor) field).getStringValue());
+
+				String newValue = ((StringFieldEditor) field).getStringValue();
+				final BooleanFieldEditor propField = new BooleanFieldEditor(
+						PropertySetModel.PREFS_QUALIFIER + " " + newValue, newValue, getFieldEditorParent());
+				addField(propField);
+				fields.add(propField);
+
+				((StringFieldEditor) field).setStringValue(""); // reset input field to empty string
+			} else {
+				super.performOk();
+				break;
+			}
 		}
+
+		// super.getShell().reskin(SWT.ALL);
+		super.performDefaults();
+		// getFieldEditorParent().redraw();
+		// getFieldEditorParent().update();
+		// getFieldEditorParent().getParent().pack(true);
+		// getFieldEditorParent().getParent().redraw();
 
 		PredeclaredProperties.closeAndReopenProjects();
 
