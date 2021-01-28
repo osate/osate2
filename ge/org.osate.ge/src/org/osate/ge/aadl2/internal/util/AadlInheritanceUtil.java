@@ -37,7 +37,8 @@ public class AadlInheritanceUtil {
 		if (boc.getParent() != null && boc.getBusinessObject() instanceof Element) {
 			final Element e = ((Element) boc.getBusinessObject());
 			final Classifier c = e.getContainingClassifier();
-			if (c != null && c != getClassifierOrSubcomponent(boc.getParent()).orElse(null)) {
+			final NamedElement ne = getClassifierOrSubcomponent(boc.getParent()).orElse(null);
+			if (c != null && ne != null && c != ne) {
 				return true;
 			}
 		}
