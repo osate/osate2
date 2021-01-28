@@ -157,6 +157,7 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 
 	@Override
 	public void refresh() {
+		System.err.println("refresh");
 		final List<BehaviorVariable> behaviorVariables = selectedBos.boStream(BehaviorVariable.class)
 				.collect(Collectors.toList());
 		curDataClassifier.setText(getDataClassifierLabel(behaviorVariables));
@@ -174,6 +175,7 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 			}
 		}
 
+		// System.err.println(dc.get + " dc");
 		// TODO Review: This may change after BA bugs are fixed
 		if (dc instanceof QualifiedNamedElement) {
 			final QualifiedNamedElement qualNamedElement = (QualifiedNamedElement) dc;
