@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -19,11 +19,11 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.aadl2.EnumerationLiteral ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.EnumLiteralHolder ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.EnumerationLiteral;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.EnumLiteralHolder;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,53 +32,48 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public class EnumLiteralHolderImpl extends PropertyElementHolderImpl implements EnumLiteralHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected EnumLiteralHolderImpl()
-  {
-    super();
-  }
+public class EnumLiteralHolderImpl extends PropertyElementHolderImpl implements EnumLiteralHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EnumLiteralHolderImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.ENUM_LITERAL_HOLDER;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.ENUM_LITERAL_HOLDER;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setEnumLiteral(final EnumerationLiteral enumLiteral)
-  {
-    element = enumLiteral ;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setEnumLiteral(final EnumerationLiteral enumLiteral) {
+		element = enumLiteral;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EnumerationLiteral getEnumLiteral()
-  {
-    return (EnumerationLiteral) element;
-  }
-  
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EnumerationLiteral getEnumLiteral() {
+		return (EnumerationLiteral) element;
+	}
 
-} //EnumLiteralHolderImpl
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
+
+} // EnumLiteralHolderImpl

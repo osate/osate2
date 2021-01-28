@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -172,7 +172,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubcomponent();
 	}
@@ -463,7 +462,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.SUBCOMPONENT__ARRAY_DIMENSION:
@@ -483,7 +481,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
@@ -527,7 +524,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -566,7 +562,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
@@ -599,7 +594,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBCOMPONENT__IN_MODE:
@@ -633,7 +627,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (derivedFeatureID) {
@@ -677,7 +670,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (baseFeatureID) {
@@ -721,7 +713,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String toString() {
 		if (eIsProxy()) {
 			return super.toString();
@@ -748,7 +739,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
@@ -761,7 +751,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public RefinableElement basicGetRefinedElement() {
 		if (eIsSet(Aadl2Package.SUBCOMPONENT__REFINED)) {
 			return basicGetRefined();
@@ -774,7 +763,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean isSetRefinedElement() {
 		return super.isSetRefinedElement() || eIsSet(Aadl2Package.SUBCOMPONENT__REFINED);
 	}
@@ -844,7 +832,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	@Override
 	public boolean acceptsProperty(Property property) {
 		if (super.acceptsProperty(property)) {
 			return true;
@@ -856,7 +843,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	}
 
 	// TODO-lw: Why don't we return immediately if a pa was found?
-	@Override
 	public final void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
 			final boolean fromInstanceSlaveCall, final boolean all) throws InvalidModelException {
 		final ComponentImplementation owner = (ComponentImplementation) getContainingClassifier();
