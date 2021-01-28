@@ -24,7 +24,6 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.KeyAdapter;
@@ -56,7 +55,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ProjectUtil;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
-import org.osate.ge.internal.services.ActionExecutor;
+import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.ModelChangeNotifier;
@@ -64,7 +63,6 @@ import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
-import org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource;
 import org.osate.xtext.aadl2.ui.propertyview.OsateStyledTextXtextAdapter;
 import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResourcesProvider;
 
@@ -109,29 +107,12 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 		saveBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				// if (executionModification != null) {
-				// TODO dicuss with philip
-				// Wrapping in modify seems to fix the issue and also allows undo
-				// But not sure if this is best practice
-
-				// Can set getMinimumSize to get around sizing problem?
-				/*
-				 * Sizing problem:
-				 * 1 select transition
-				 * 2 go to text editor and make change to transition
-				 * 3 go back to diagram and the styled text is only partially visible
-				 */
-				// selectedBos.modify(NamedElement.class, ne -> {
-				// selectedBos.modify(c, modifier);
-				// TODO action service
 				BehaviorAnnexSelectionUtil.getActiveEditor().ifPresent(editorPart -> {
-
 					final ActionService actionService = Adapters.adapt(editorPart, ActionService.class);
-
 					final ModelChangeNotifier modelChangeNotifier = Objects.requireNonNull(
 							editorPart.getAdapter(ModelChangeNotifier.class), "Unable to get model change notifier");
 
-					actionService.execute("Modifying BehaviorTranistion Condition", ActionExecutor.ExecutionMode.NORMAL,
+					actionService.execute("Modifying BehaviorTranistion Condition", ExecutionMode.NORMAL,
 							new ConditionModification(styledText.getText(), editingDomain, xtextDocument, xtextResource,
 									modelChangeNotifier, project, conditionTextValue));
 				});
@@ -141,8 +122,6 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 		saveBtn.setEnabled(isSingleSelection);
 		return saveBtn;
 	}
-
-	// TODO focus lost?
 
 	private StyledText getConditionText(final boolean isSingleSelection) {
 		// Create styled text
@@ -167,14 +146,9 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 					final IProject project = ProjectUtil.getProjectForBoOrThrow(behaviorTransition);
 					final XtextResource xtextResource = getXtextResource(behaviorTransition)
 							.orElseThrow(() -> new RuntimeException("resource must be XtextResource"));
-					// TODO fix
-					final IXtextDocument xtextDocumenta = getXtextDocument(behaviorTransition).orElse(null);
+					final IXtextDocument xtextDocument = getXtextDocument(behaviorTransition).orElse(null);
 
-					final IAadlPropertySource propertySource = Adapters.adapt(new StructuredSelection(selectedBoc),
-							IAadlPropertySource.class);
-					final IXtextDocument xtextDocument = propertySource.getDocument();
-
-					// Root text
+					// Source text
 					final String text = getText(xtextDocument, xtextResource);
 					// Create condition text value
 					final TextValue conditionTextValue = getConditionTextValue(behaviorTransition, text);
@@ -185,27 +159,32 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 					final Button saveBtn = createSaveButton(isSingleSelection, editingDomain, conditionStyledText,
 							conditionTextValue, project, xtextResource, xtextDocument);
 					conditionStyledText
-							.addKeyListener(new ConditionModificationKeyAdapter(behaviorTransition, saveBtn));
+							.addKeyListener(new ConditionModificationKeyAdapter(behaviorTransition, saveBtn,
+									conditionStyledText));
 
 
 					// Dispose of current adapter and create new one
 					setXtextAdapter(project, conditionStyledText, saveBtn);
 					updateAdapterDocument(conditionTextValue);
 
-					// Layout composite
-					composite.requestLayout();
 				});
+
+		// Layout composite
+		composite.requestLayout();
 	}
 
 	private class ConditionModificationKeyAdapter extends KeyAdapter {
 		private final BehaviorTransition behaviorTransition;
 		private final Button saveBtn;
 		private final XtextResource fakeResource;
+		private final StyledText conditionStyledText;
 
-		public ConditionModificationKeyAdapter(final BehaviorTransition behaviorTransition, final Button saveBtn) {
+		public ConditionModificationKeyAdapter(final BehaviorTransition behaviorTransition, final Button saveBtn,
+				final StyledText conditionStyledText) {
 			this.behaviorTransition = behaviorTransition;
 			this.saveBtn = saveBtn;
 			this.fakeResource = xtextAdapter.getFakeResourceContext().getFakeResource();
+			this.conditionStyledText = conditionStyledText;
 		}
 
 		@Override
@@ -222,12 +201,19 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 			// Load for error checking
 			loadResource(fakeResource, modifiedSrc);
 
+			boolean isEnabled = false;
 			// Check if BehaviorTransition still exists, meaning the modification did not break serialization
-			final EObject behaviorTransition = fakeResource
+			final BehaviorTransition behaviorTransition = (BehaviorTransition) fakeResource
 					.getEObject(EcoreUtil.getURI(this.behaviorTransition).fragment());
 
+			if (behaviorTransition != null) {
+				final BehaviorCondition condition = behaviorTransition.getCondition();
+				// Calculate enabled based on if condition should exist and if it exists
+				isEnabled = conditionStyledText.getText().isEmpty() ? condition == null : condition != null;
+			}
+
 			// Enable if modification was allowed
-			saveBtn.setEnabled(behaviorTransition != null);
+			saveBtn.setEnabled(isEnabled);
 
 			// Load original source
 			loadResource(fakeResource, originalSrc);
@@ -281,10 +267,7 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 	}
 
 	private static Optional<IXtextDocument> getXtextDocument(final BehaviorTransition behaviorTransition) {
-		// TODO why does this not work.
-		System.err.println(AgeXtextUtil.getDocumentByRootElement(behaviorTransition) + " btAA");
-
-		return Optional.ofNullable(AgeXtextUtil.getDocumentByRootElement(behaviorTransition));
+		return Optional.ofNullable(AgeXtextUtil.getDocumentByRootElement(behaviorTransition.getElementRoot()));
 	}
 
 	private void updateAdapterDocument(final TextValue val) {
@@ -378,10 +361,10 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 	 * Modification process to be executed to update the condition text
 	 */
 	private class ConditionModification implements AgeAction {
-		private final ModelChangeNotifier modelChangeNotifier;
 		private final TransactionalEditingDomain editingDomain;
 		private final IXtextDocument xtextDocument;
 		private final XtextResource xtextResource;
+		private final ModelChangeNotifier modelChangeNotifier;
 		private final IProject project;
 		private final Void<XtextResource> work;
 		private final RecordingCommand cmd;
@@ -433,13 +416,12 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 		@Override
 		public AgeAction execute() {
 			final String originalText = getText(xtextDocument, xtextResource);
-			try (Lock lock = modelChangeNotifier.lock()) {
+			try (final Lock lock = modelChangeNotifier.lock()) {
 				if (xtextDocument != null) {
 					xtextDocument.modify(work);
 					reconcile();
 				} else if (xtextResource instanceof XtextResource) {
-					editingDomain.getCommandStack().execute(cmd);
-					serialize();
+					executeCommand();
 					save();
 				} else {
 					throw new RuntimeException(
@@ -449,6 +431,7 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 				buildProject();
 			}
 
+			// Set action to restore original source text upon undo
 			return new ConditionModification(originalText, editingDomain, xtextDocument, xtextResource,
 					modelChangeNotifier, project, new TextValue(originalText));
 		}
@@ -471,7 +454,9 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 			}
 		}
 
-		private void serialize() {
+		private void executeCommand() {
+			editingDomain.getCommandStack().execute(cmd);
+
 			// Run the serializer. Otherwise if an invalid modification is made, the resource could be erased.
 			// Sanity check to ensure that we don't save if the modification caused serialization to fail.
 			// We need to undo to restore the resource to a valid state because the resource may still in use by the owner of the resource(such as the graphical
@@ -540,8 +525,8 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 
 		public TextValue(final String wholeText) {
 			this.wholeText = wholeText;
-			this.offset = 1;
-			this.length = wholeText.length();
+			offset = 1;
+			length = wholeText.length();
 		}
 
 		public TextValue(final String prefix, final String conditionText, final String suffix,
