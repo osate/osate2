@@ -66,11 +66,11 @@ public class AnnexPreferencePage extends FieldEditorPreferencePage implements IW
 	public AnnexPreferencePage() {
 		super(GRID);
 		setPreferenceStore(OsateCorePlugin.getDefault().getPreferenceStore());
-		setDescription("Annex Plugin preferences");
+		setDescription("Annex Plugin preferences. Use the following plugins: ");
 
 		// set defaults for all installed annexes/plugins
 		for (String annex : AnnexRegistry.getAllAnnexNames()) {
-			getPreferenceStore().setDefault(annex.replace(" ", "_"), true);
+			getPreferenceStore().setDefault(annex.toLowerCase(), true);
 		}
 	}
 
@@ -107,7 +107,7 @@ public class AnnexPreferencePage extends FieldEditorPreferencePage implements IW
 		// get all installed annexes/plugins
 		for (String annex : AnnexRegistry.getAllAnnexNames()) {
 			// create a preference checkbox for each installed annex/plugin
-			final BooleanFieldEditor annexField = new BooleanFieldEditor(annex.replace(" ", "_"), annex,
+			final BooleanFieldEditor annexField = new BooleanFieldEditor(annex.toLowerCase(), annex,
 					getFieldEditorParent());
 			addField(annexField);
 
@@ -138,11 +138,19 @@ public class AnnexPreferencePage extends FieldEditorPreferencePage implements IW
 
 	@Override
 	public boolean performOk() {
+		boolean hasChanged = false;
 		for (BooleanFieldEditor field : fields) {
+			if (field.getBooleanValue() != org.osate.annexsupport.AnnexModel.getAnnex(field.getLabelText())) {
+				if (!hasChanged) {
+					hasChanged = true;
+				}
+			}
 			org.osate.annexsupport.AnnexModel.setAnnex(field.getBooleanValue(), field.getLabelText());
 		}
 
-		PredeclaredProperties.closeAndReopenProjects();
+		if (hasChanged) {
+			PredeclaredProperties.closeAndReopenProjects();
+		}
 
 		return true;
 	}

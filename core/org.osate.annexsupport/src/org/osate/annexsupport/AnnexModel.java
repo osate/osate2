@@ -40,19 +40,36 @@ import org.osgi.service.prefs.Preferences;
  * @since 3.1
  */
 public class AnnexModel {
+	/*
+	 * Handles preferences for annexes\plugins.
+	 * Default: If no preference is set for specific annex name, then parses is used/turned on
+	 * If preferences for specific annex name is set to true, then parser is used/turned on
+	 * If preferences for specific annex name is set to false, then parser is NOT used/turned OFF
+	 *
+	 * Preferences are tracked per workspace and per project
+	 */
+	public static final Boolean DEFAULT_PREF_VALUE = true;
 	public static final String PREFS_QUALIFIER = "org.osate.ui.internal.annex";
 	public static final String PREF_ANNEX_USE_WORKSPACE = "org.osate.ui.internal.annex_use_workspace";
 
 	// Methods
 	public static final boolean getWorkspacePref(IProject project) {
+		if (project == null) {
+			return true; // if can not access project preferences, return use workspace preference = true
+		}
+
 		final IScopeContext context = new ProjectScope(project);
 		final Preferences prefs = context.getNode(PREFS_QUALIFIER);
-		return prefs.getBoolean(AnnexModel.PREF_ANNEX_USE_WORKSPACE, true);
+		return prefs.getBoolean(PREF_ANNEX_USE_WORKSPACE, DEFAULT_PREF_VALUE);
 	}
 
 	public static final boolean getAnnex(String annexExtensionId) {
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-		return store.getBoolean(annexExtensionId.toLowerCase());
+		if (store.contains(annexExtensionId.toLowerCase())) {
+			return store.getBoolean(annexExtensionId.toLowerCase());
+		}
+
+		return DEFAULT_PREF_VALUE;
 	}
 
 	public static final boolean getAnnex(final IProject project, String annexExtensionId) {
@@ -60,8 +77,8 @@ public class AnnexModel {
 		final Preferences prefs = context.getNode(PREFS_QUALIFIER);
 
 		Boolean annexTurnedOn = null;
-		if (!prefs.getBoolean(PREF_ANNEX_USE_WORKSPACE, true)) {
-			annexTurnedOn = prefs.getBoolean(annexExtensionId.toLowerCase(), true);
+		if (!prefs.getBoolean(PREF_ANNEX_USE_WORKSPACE, DEFAULT_PREF_VALUE)) {
+			annexTurnedOn = prefs.getBoolean(annexExtensionId.toLowerCase(), DEFAULT_PREF_VALUE);
 		}
 
 		// It's possible the above may have failed for some reason, in which case we revert to the workspace preferences
@@ -73,6 +90,7 @@ public class AnnexModel {
 	}
 
 	public static final boolean getAnnexBasedOnWorkspacePreference(final IProject project, String annexExtensionId) {
+		// return true if preference for annex is enabled, return false if preference for annex is disabled
 		if (getWorkspacePref(project)) { // preferences set per workspace
 			return getAnnex(annexExtensionId);
 		}
@@ -83,8 +101,8 @@ public class AnnexModel {
 	public static final void setAnnex(boolean value, IProject project, String annexExtensionId) {
 		final IScopeContext context = new ProjectScope(project);
 		final Preferences prefs = context.getNode(PREFS_QUALIFIER);
-		if (!prefs.getBoolean(PREF_ANNEX_USE_WORKSPACE, true)) {
-			prefs.putBoolean(annexExtensionId, value);
+		if (!prefs.getBoolean(PREF_ANNEX_USE_WORKSPACE, DEFAULT_PREF_VALUE)) {
+			prefs.putBoolean(annexExtensionId.toLowerCase(), value);
 			try {
 				prefs.flush();
 			} catch (BackingStoreException e) {
@@ -101,18 +119,22 @@ public class AnnexModel {
 	public static final void setWorkspacePref(boolean useWorkspace, IProject project) {
 		final IScopeContext context = new ProjectScope(project);
 		final Preferences prefs = context.getNode(PREFS_QUALIFIER);
-		prefs.putBoolean(AnnexModel.PREF_ANNEX_USE_WORKSPACE, useWorkspace);
+		prefs.putBoolean(PREF_ANNEX_USE_WORKSPACE, useWorkspace);
 	}
 
 	public static <A extends NamedElement, D extends A> String filterDisabledAnnexes(
 			D defaultAnnexSection,
 			String annexName) {
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-		IFile file = root.getFile(new Path(defaultAnnexSection.eResource().getURI().toPlatformString(true)));
-		IProject project = file.getProject();
+		IProject project = null;
 
+		if (defaultAnnexSection.eResource() != null
+				&& defaultAnnexSection.eResource().getURI().toPlatformString(true) != null) {
+			IFile file = root.getFile(new Path(defaultAnnexSection.eResource().getURI().toPlatformString(true)));
+			project = file.getProject();
+		}
 		// check if this annex plugin is enabled in osate annex preferences
-		if (org.osate.annexsupport.AnnexModel.getAnnexBasedOnWorkspacePreference(project, annexName)) {
+		if (getAnnexBasedOnWorkspacePreference(project, annexName)) {
 			return annexName;
 		}
 

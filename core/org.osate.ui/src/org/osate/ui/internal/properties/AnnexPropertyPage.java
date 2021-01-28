@@ -43,11 +43,14 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.dialogs.PropertyPage;
 import org.osate.annexsupport.AnnexModel;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.pluginsupport.PredeclaredProperties;
+import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.internal.preferences.AnnexPreferencePage;
+import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
 /* NB: The parts of this that synchronized behavior between project properties
@@ -104,6 +107,9 @@ public class AnnexPropertyPage extends PropertyPage {
 
 		configureButton = new Button(selectionGroup, SWT.PUSH);
 		configureButton.setText("Configure Workspace Settings ...");
+
+		Label label = new Label(composite, SWT.NONE);
+		label.setText("Annex Plugin preferences. Use the following plugins: ");
 
 		boolean workspacePref = useWorkspacePreferences();
 		// get all installed annexes/plugins
@@ -179,13 +185,18 @@ public class AnnexPropertyPage extends PropertyPage {
 			if (!useWorkspace) {
 				for (Control control : composite.getChildren()) {
 					if (control instanceof Button) {
-						control.setEnabled(false);
+						control.setEnabled(true);
 						AnnexModel.setAnnex(((Button) control).getSelection(), project,
-								((Button) control).getText().replace(" ", "_"));
+								((Button) control).getText());
 					}
 				}
 
 				PredeclaredProperties.closeAndReopenProjects();
+			}
+			try {
+				preferences.flush();
+			} catch (final BackingStoreException e) {
+				OsateUiPlugin.log(e);
 			}
 		}
 
@@ -198,10 +209,10 @@ public class AnnexPropertyPage extends PropertyPage {
 		useProjectSettingsButton.setSelection(false);
 		configureButton.setEnabled(true);
 
+		// default to using workspace preferences. it does not matter what project preferences are set to
 		for (Control control : composite.getChildren()) {
 			if (control instanceof Button) {
 				control.setEnabled(false);
-				((Button) control).setSelection(true);
 			}
 		}
 
