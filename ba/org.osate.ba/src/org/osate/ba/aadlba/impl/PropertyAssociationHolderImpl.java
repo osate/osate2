@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -19,11 +19,11 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.aadl2.PropertyAssociation ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.PropertyAssociationHolder ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.PropertyAssociationHolder;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,53 +32,48 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public class PropertyAssociationHolderImpl extends PropertyElementHolderImpl implements PropertyAssociationHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected PropertyAssociationHolderImpl()
-  {
-    super();
-  }
+public class PropertyAssociationHolderImpl extends PropertyElementHolderImpl implements PropertyAssociationHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected PropertyAssociationHolderImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.PROPERTY_ASSOCIATION_HOLDER;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.PROPERTY_ASSOCIATION_HOLDER;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setPropertyAssociation(final PropertyAssociation propertyAssociation)
-  {
-    element = propertyAssociation ;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPropertyAssociation(final PropertyAssociation propertyAssociation) {
+		element = propertyAssociation;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public PropertyAssociation getPropertyAssociation()
-  {
-    return (PropertyAssociation) element;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PropertyAssociation getPropertyAssociation() {
+		return (PropertyAssociation) element;
+	}
 
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
 
-} //PropertyAssociationHolderImpl
+} // PropertyAssociationHolderImpl

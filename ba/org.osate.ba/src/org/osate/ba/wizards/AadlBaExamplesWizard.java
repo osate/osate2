@@ -21,50 +21,38 @@
 
 package org.osate.ba.wizards;
 
-import java.io.File ;
-import java.util.List ;
+import java.io.File;
+import java.util.List;
 
-import org.eclipse.core.runtime.IPath ;
-import org.osate.utils.internal.FileUtils ;
+import org.eclipse.core.runtime.IPath;
+import org.osate.utils.internal.FileUtils;
 
+public class AadlBaExamplesWizard extends AadlBaAbstractWizard {
 
-public class AadlBaExamplesWizard extends AadlBaAbstractWizard
-{
+	@Override
+	public boolean performFinish() {
+		boolean result = super.performFinish();
 
-  @Override
-  public boolean performFinish()
-  {
-    boolean result = super.performFinish() ;
-    
-    if(result)
-    {
-      try
-      {
-        List<File> selectedExamples =
-                      this.fetchSelectedExamples(_SelectedExamplesTreeContent) ;
-        if(!selectedExamples.isEmpty())
-        {
-          IPath projectPath = this.newProject.getLocation() ;
+		if (result) {
+			try {
+				List<File> selectedExamples = this.fetchSelectedExamples(_SelectedExamplesTreeContent);
+				if (!selectedExamples.isEmpty()) {
+					IPath projectPath = this.newProject.getLocation();
 
-          File destFolder =
-                new File(projectPath.toString() + IPath.SEPARATOR +
-                      _EXAMPLE_ROOT_PATH) ;
-          destFolder.mkdir() ;
-          
-          FileUtils.copyFiles(selectedExamples, destFolder,
-                              _EXCLUDED_DIRECTORIES) ;
-          
-          this.newProject.refreshLocal(2, null) ;
-        }
-      }
-      catch (Exception e)
-      {
-        result = false ;
-        reportError("Save examples problem", e) ;
-      }
-    }
-    
-    return result ;
-  }
-  
+					File destFolder = new File(projectPath.toString() + IPath.SEPARATOR + _EXAMPLE_ROOT_PATH);
+					destFolder.mkdir();
+
+					FileUtils.copyFiles(selectedExamples, destFolder, _EXCLUDED_DIRECTORIES);
+
+					this.newProject.refreshLocal(2, null);
+				}
+			} catch (Exception e) {
+				result = false;
+				reportError("Save examples problem", e);
+			}
+		}
+
+		return result;
+	}
+
 }
