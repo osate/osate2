@@ -113,7 +113,7 @@ public class AnnexModel {
 
 	public static final void setAnnex(boolean value, String annexExtensionId) {
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-		store.setValue(annexExtensionId, value);
+		store.setValue(annexExtensionId.toLowerCase(), value);
 	}
 
 	public static final void setWorkspacePref(boolean useWorkspace, IProject project) {
