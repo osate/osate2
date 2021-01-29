@@ -486,6 +486,11 @@ public class PropagationGraphBackwardTraversal {
 				// deal with transition branches
 				EList<TransitionBranch> tbs = ebt.getDestinationBranches();
 				for (TransitionBranch transitionBranch : tbs) {
+					if (ebt.getSource() != null && EMV2Util.isSame(ebt.getSource(), transitionBranch.getTarget())
+							&& ebt.getSource().getTypeSet() == null
+							&& transitionBranch.getTarget().getTypeSet() == null) {
+						sameState = true;
+					}
 					if (transitionBranch.getTarget() != null) {
 						if (EMV2Util.isSame(transitionBranch.getTarget(), state)) {
 							if (ebt.getTargetToken() != null) {
