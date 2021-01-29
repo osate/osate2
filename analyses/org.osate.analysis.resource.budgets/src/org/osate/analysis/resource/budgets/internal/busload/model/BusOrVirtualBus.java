@@ -28,6 +28,11 @@ import java.util.List;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.Primed;
+import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.StateTransformer;
+import org.osate.result.Result;
+import org.osate.result.ResultType;
+import org.osate.result.util.ResultUtil;
 
 /**
  * @since 3.0
@@ -99,9 +104,25 @@ public abstract class BusOrVirtualBus extends AnalysisElement {
 	}
 
 	@Override
-	protected final <S> void visitChildren(final BusLoadVisitor<S> visitor, final S state) {
-		visit(boundBuses, visitor, state);
-		visit(boundConnections, visitor, state);
-		visit(boundBroadcasts, visitor, state);
+	<S> Primed<S> visitSelfPrefix(Visitor<S> visitor, S state) {
+		return ((BusLoadVisitor<S>) visitor).visitBusOrVirtualBusPrefix(this, state);
+	}
+
+	@Override
+	final <S> void visitChildren(Visitor<S> visitor, S state, StateTransformer<S> transformer) {
+		visit(boundBuses, visitor, state, transformer);
+		visit(boundConnections, visitor, state, transformer);
+		visit(boundBroadcasts, visitor, state, transformer);
+	}
+
+	@Override
+	<S> void visitSelfPostfix(Visitor<S> visitor, S state) {
+		((BusLoadVisitor<S>) visitor).visitBusOrVirtualBusPostfix(this, state);
+	}
+
+	@Override
+	public final Result makeResult(final Result parentResult) {
+		final Result busResult = ResultUtil.createResult(busInstance.getName(), busInstance, ResultType.SUCCESS);
+		return addResultToParent(parentResult, busResult);
 	}
 }

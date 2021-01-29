@@ -41,13 +41,16 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.Primed;
+import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.StateTransformer;
+import org.osate.result.Result;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
  * @since 3.0
  */
-public final class BusLoadModel extends ModelElement {
+public final class BusLoadModel extends AnalysisElement {
 	private final Map<ComponentInstance, Bus> buses = new HashMap<>();
 	private final Map<ComponentInstance, VirtualBus> virtualBuses = new HashMap<>();
 
@@ -58,7 +61,7 @@ public final class BusLoadModel extends ModelElement {
 	 * model.
 	 */
 	private BusLoadModel() {
-		super();
+		super("model");
 	}
 
 	private Bus getBus(final ComponentInstance ci) {
@@ -94,60 +97,60 @@ public final class BusLoadModel extends ModelElement {
 	}
 
 	@Override
-	<S> S visitSelfPrefix(final BusLoadVisitor<S> visitor, final S state) {
-		return visitor.visitModelPrefix(this, state);
+	<S> Primed<S> visitSelfPrefix(Visitor<S> visitor, S state) {
+		return ((BusLoadVisitor<S>) visitor).visitBusLoadModelPrefix(this, state);
 	}
 
 	@Override
-	<S> void visitChildren(final BusLoadVisitor<S> visitor, final S state) {
-		visit(rootBuses, visitor, state);
+	<S> void visitChildren(Visitor<S> visitor, S state, StateTransformer<S> transformer) {
+		visit(rootBuses, visitor, state, transformer);
 	}
 
 	@Override
-	<S> void visitSelfPostfix(final BusLoadVisitor<S> visitor, final S state) {
-		visitor.visitModelPostfix(this, state);
+	<S> void visitSelfPostfix(Visitor<S> visitor, S state) {
+		((BusLoadVisitor<S>) visitor).visitBusLoadModelPostfix(this, state);
 	}
 
 	public void print(final PrintWriter pw) {
 		visit("", new BusLoadVisitor<String>() {
 			@Override
-			public String visitConnectionPrefix(final Connection c, final String prefix) {
+			public Primed<String> visitConnectionPrefix(final Connection c, final String prefix) {
 				pw.println(prefix + "Connection " + c.getConnectionInstance().getName());
 				final String newPrefix = prefix + "  ";
 				pw.println(newPrefix + "  Budget = " + c.getBudget() + " KB/s");
 				pw.println(newPrefix + "  Actual usage = " + c.getActual() + " KB/s");
-				return newPrefix;
+				return Primed.identity(newPrefix);
 			}
 
 			@Override
-			public String visitBroadcastPrefix(final Broadcast b, final String prefix) {
+			public Primed<String> visitBroadcastPrefix(final Broadcast b, final String prefix) {
 				pw.println(prefix + "Broadcast from " + b.getSource().getName());
 				final String newPrefix = prefix + "  ";
 				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
 				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
-				return newPrefix;
+				return Primed.identity(newPrefix);
 			}
 
 			@Override
-			public String visitBusPrefix(final Bus b, final String prefix) {
+			public Primed<String> visitBusPrefix(final Bus b, final String prefix) {
 				pw.println(prefix + "Bus " + b.getBusInstance().getName());
 				final String newPrefix = prefix + "  ";
 				pw.println(newPrefix + "Capacity = " + b.getCapacity() + " KB/s");
 				pw.println(newPrefix + "Budget = " + b.getBudget() + " KB/s");
 				pw.println(newPrefix + "Required budget = " + b.getTotalBudget() + " KB/s");
 				pw.println(newPrefix + "Actual usage = " + b.getActual() + " KB/s");
-				return newPrefix;
+				return Primed.identity(newPrefix);
 			}
 
 			@Override
-			public String visitVirtualBusPrefix(final VirtualBus b, final String prefix) {
+			public Primed<String> visitVirtualBusPrefix(final VirtualBus b, final String prefix) {
 				pw.println(prefix + "Virtual Bus " + b.getBusInstance().getName());
 				final String newPrefix = prefix + "  ";
 				pw.println(newPrefix + "Capacity = " + b.getCapacity() + " KB/s");
 				pw.println(newPrefix + "Budget = " + b.getBudget() + " KB/s");
 				pw.println(newPrefix + "Required budget = " + b.getTotalBudget() + " KB/s");
 				pw.println(newPrefix + "Actual usage = " + b.getActual() + " KB/s");
-				return newPrefix;
+				return Primed.identity(newPrefix);
 			}
 		});
 	}
@@ -279,5 +282,11 @@ public final class BusLoadModel extends ModelElement {
 		}
 
 		return nonBroadcast;
+	}
+
+	// TODO: Find a better way around this, this seems lazy and sloppy
+	@Override
+	public Result makeResult(final Result parentResult) {
+		throw new UnsupportedOperationException("Model is not a child of any node!");
 	}
 }

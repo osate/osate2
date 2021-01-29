@@ -38,10 +38,12 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.resource.budgets.internal.busload.model.Broadcast;
 import org.osate.analysis.resource.budgets.internal.busload.model.Bus;
 import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadModel;
+import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadVisitor;
 import org.osate.analysis.resource.budgets.internal.busload.model.BusOrVirtualBus;
 import org.osate.analysis.resource.budgets.internal.busload.model.Connection;
+import org.osate.analysis.resource.budgets.internal.busload.model.ResultElement;
 import org.osate.analysis.resource.budgets.internal.busload.model.ResultState;
-import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadVisitor;
+import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.StateTransformer;
 import org.osate.result.AnalysisResult;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
@@ -160,7 +162,7 @@ public final class NewBusLoadAnalysis {
 				final BusLoadModel model = BusLoadModel.buildModel(root, som);
 
 				// Analyze the model
-				model.visit(new State(somResult), new BusLoadAnalysisVisitor());
+				model.visit(new BusLoadState(somResult), new BusLoadAnalysisVisitor());
 			}
 			monitor.done();
 
@@ -173,37 +175,45 @@ public final class NewBusLoadAnalysis {
 
 	// ==== Analysis Visitor ====
 
-	private final class State extends ResultState {
+	private final class BusLoadState extends ResultState {
 		public final double dataOverheadKBytesps;
 
-		public State(final Result result) {
+		public BusLoadState(final Result result) {
 			this(result, 0.0);
 		}
 
-		public State(final Result result, final double dataOverheadKBytesps) {
+		public BusLoadState(final Result result, final double dataOverheadKBytesps) {
 			super(result);
 			this.dataOverheadKBytesps = dataOverheadKBytesps;
 		}
+
+		public BusLoadState increaseOverhead(final double delta) {
+			return new BusLoadState(this.result, this.dataOverheadKBytesps + delta);
+		}
+
+		public BusLoadState setResult(final Result newResult) {
+			return new BusLoadState(newResult, this.dataOverheadKBytesps);
+		}
 	}
 
-	private class BusLoadAnalysisVisitor implements BusLoadVisitor<State> {
+	private final static StateTransformer<BusLoadState> CREATE_RESULT_FOR_CHILD = (state, child) -> state
+			.setResult(((ResultElement) child).makeResult(state.result));
+
+	private final class BusLoadAnalysisVisitor implements BusLoadVisitor<BusLoadState> {
 		@Override
-		public State visitBusOrVirtualBusPrefix(final BusOrVirtualBus bus, final State state) {
-			final ComponentInstance busInstance = bus.getBusInstance();
-
-			// Create a new result object for the bus
-			final Result busResult = ResultUtil.createResult(busInstance.getName(), busInstance,
-					ResultType.SUCCESS);
-			state.result.getSubResults().add(busResult);
-
-			// Increment the data overhead
-			final double localOverheadKBytesps = GetProperties.getDataSize(busInstance,
-					GetProperties.getKBUnitLiteral(busInstance));
-			return new State(busResult, state.dataOverheadKBytesps + localOverheadKBytesps);
+		public Primed<BusLoadState> visitBusLoadModelPrefix(final BusLoadModel model, final BusLoadState inState) {
+			return Primed.val(inState, CREATE_RESULT_FOR_CHILD);
 		}
 
 		@Override
-		public void visitBusOrVirtualBusPostfix(final BusOrVirtualBus bus, final State state) {
+		public Primed<BusLoadState> visitBusOrVirtualBusPrefix(final BusOrVirtualBus bus, final BusLoadState inState) {
+			final ComponentInstance busInstance = bus.getBusInstance();
+			final double localOverheadKBytesps = GetProperties.getDataSize(busInstance, GetProperties.getKBUnitLiteral(busInstance));
+			return Primed.val(inState.increaseOverhead(localOverheadKBytesps), CREATE_RESULT_FOR_CHILD);
+		}
+
+		@Override
+		public void visitBusOrVirtualBusPostfix(final BusOrVirtualBus bus, final BusLoadState state) {
 			final long myDataOverheadInBytes = (long) (1000.0 * state.dataOverheadKBytesps);
 
 			// Compute the actual usage and budget requirements
@@ -272,18 +282,13 @@ public final class NewBusLoadAnalysis {
 		}
 
 		@Override
-		public State visitBroadcastPrefix(final Broadcast broadcast, final State state) {
-			final ConnectionInstanceEnd cie = broadcast.getSource();
-
-			// Create a new result object for the bus
-			final Result broadcastResult = ResultUtil.createResult("Broadcast from " + cie.getInstanceObjectPath(), cie,
-					ResultType.SUCCESS);
-			state.result.getSubResults().add(broadcastResult);
-			return new State(broadcastResult, state.dataOverheadKBytesps);
+		public Primed<BusLoadState> visitBroadcastPrefix(final Broadcast broadcast,
+				final BusLoadState inState) {
+			return Primed.val(inState, CREATE_RESULT_FOR_CHILD);
 		}
 
 		@Override
-		public void visitBroadcastPostfix(final Broadcast broadcast, final State state) {
+		public void visitBroadcastPostfix(final Broadcast broadcast, final BusLoadState state) {
 			// Compute the actual usage and budget requirements
 			final double actual = getConnectionActualKBytesps(broadcast.getSource(), state.dataOverheadKBytesps);
 			broadcast.setActual(actual);
@@ -317,39 +322,28 @@ public final class NewBusLoadAnalysis {
 		}
 
 		@Override
-		public State visitConnectionPrefix(final Connection connection, final State state) {
-			return null;
+		public void visitConnectionPostfix(final Connection connection, final BusLoadState state) {
+			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
+			final double actual = getConnectionActualKBytesps(connectionInstance.getSource(),
+					state.dataOverheadKBytesps);
+			connection.setActual(actual);
 
-//			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
-//			final Result connectionResult = ResultUtil.createResult(connectionInstance.getName(),
-//					connectionInstance, ResultType.SUCCESS);
-//			state.result.getSubResults().add(connectionResult);
-//
-//			final double actual = getConnectionActualKBytesps(connectionInstance.getSource(), dataOverheadKBytes);
-//			connection.setActual(actual);
-//
-//			final double budget = GetProperties.getBandWidthBudgetInKBytesps(connectionInstance, 0.0);
-//			connection.setBudget(budget);
-//
-//			ResultUtil.addRealValue(connectionResult, budget);
-//			ResultUtil.addRealValue(connectionResult, actual);
-//
-//			if (budget > 0.0) {
-//				if (actual > budget) {
-//					error(connectionResult, connectionInstance,
-//							"Connection " + connectionInstance.getName() + " -- Actual bandwidth > budget: " + actual
-//									+ " KB/s > "
-//							+ budget + " KB/s");
-//				}
-//			} else {
-//				warning(connectionResult, connectionInstance,
-//						"Connection " + connectionInstance.getName() + " has no bandwidth budget");
-//			}
-		}
+			final double budget = GetProperties.getBandWidthBudgetInKBytesps(connectionInstance, 0.0);
+			connection.setBudget(budget);
 
-		@Override
-		public void visitConnectionPostfix(final Connection connectyion, final State state) {
+			final Result connectionResult = state.result;
+			ResultUtil.addRealValue(connectionResult, budget);
+			ResultUtil.addRealValue(connectionResult, actual);
 
+			if (budget > 0.0) {
+				if (actual > budget) {
+					error(connectionResult, connectionInstance, "Connection " + connectionInstance.getName()
+							+ " -- Actual bandwidth > budget: " + actual + " KB/s > " + budget + " KB/s");
+				}
+			} else {
+				warning(connectionResult, connectionInstance,
+						"Connection " + connectionInstance.getName() + " has no bandwidth budget");
+			}
 		}
 	}
 

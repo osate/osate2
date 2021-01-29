@@ -26,7 +26,7 @@ package org.osate.analysis.resource.budgets.internal.busload.model;
 /**
  * @since 3.0
  */
-abstract class AnalysisElement extends ModelElement {
+public abstract class AnalysisElement extends ResultElement {
 	private String label;
 
 	/** Actual data requirements in KB/s. */

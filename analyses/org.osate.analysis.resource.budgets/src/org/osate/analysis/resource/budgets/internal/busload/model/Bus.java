@@ -24,6 +24,7 @@
 package org.osate.analysis.resource.budgets.internal.busload.model;
 
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.Primed;
 
 /**
  * @since 3.0
@@ -34,12 +35,12 @@ public final class Bus extends BusOrVirtualBus {
 	}
 
 	@Override
-	<S> S visitSelfPrefix(final BusLoadVisitor<S> visitor, final S state) {
-		return visitor.visitBusPrefix(this, state);
+	<S> Primed<S> visitSelfPrefix(Visitor<S> visitor, S state) {
+		return ((BusLoadVisitor<S>) visitor).visitBusPrefix(this, state);
 	}
 
 	@Override
-	<S> void visitSelfPostfix(final BusLoadVisitor<S> visitor, final S state) {
-		visitor.visitBusPostfix(this, state);
+	<S> void visitSelfPostfix(Visitor<S> visitor, S state) {
+		((BusLoadVisitor<S>) visitor).visitBusPostfix(this, state);
 	}
 }

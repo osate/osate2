@@ -24,6 +24,11 @@
 package org.osate.analysis.resource.budgets.internal.busload.model;
 
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.Primed;
+import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.StateTransformer;
+import org.osate.result.Result;
+import org.osate.result.ResultType;
+import org.osate.result.util.ResultUtil;
 
 /**
  * @since 3.0
@@ -42,17 +47,23 @@ public final class Connection extends AnalysisElement {
 	}
 
 	@Override
-	<S> void visitChildren(final BusLoadVisitor<S> visitor, final S state) {
+	<S> Primed<S> visitSelfPrefix(Visitor<S> visitor, S state) {
+		return ((BusLoadVisitor<S>) visitor).visitConnectionPrefix(this, state);
+	}
+
+	@Override
+	<S> void visitChildren(Visitor<S> visitor, S state, StateTransformer<S> transformer) {
 		// no children
 	}
 
 	@Override
-	<S> S visitSelfPrefix(final BusLoadVisitor<S> visitor, final S state) {
-		return visitor.visitConnectionPrefix(this, state);
+	<S> void visitSelfPostfix(Visitor<S> visitor, S state) {
+		((BusLoadVisitor<S>) visitor).visitConnectionPostfix(this, state);
 	}
 
 	@Override
-	<S> void visitSelfPostfix(final BusLoadVisitor<S> visitor, final S state) {
-		visitor.visitConnectionPostfix(this, state);
+	public Result makeResult(final Result parentResult) {
+		final Result connectionResult = ResultUtil.createResult(connInstance.getName(),	connInstance, ResultType.SUCCESS);
+		return addResultToParent(parentResult, connectionResult);
 	}
 }

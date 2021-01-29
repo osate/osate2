@@ -27,21 +27,21 @@ package org.osate.analysis.resource.budgets.internal.busload.model;
  * @since 3.0
  */
 public interface BusLoadVisitor<S> extends Visitor<S> {
-	public default S visitModelPrefix(BusLoadModel model, S state) {
-		return state;
+	public default Primed<S> visitBusLoadModelPrefix(BusLoadModel model, S state) {
+		return Primed.identity(state);
 	}
 
-	public default void visitModelPostfix(BusLoadModel model, S state) {
+	public default void visitBusLoadModelPostfix(BusLoadModel model, S state) {
 	}
 
-	public default S visitBusOrVirtualBusPrefix(BusOrVirtualBus bus, S state) {
-		return state;
+	public default Primed<S> visitBusOrVirtualBusPrefix(BusOrVirtualBus bus, S state) {
+		return Primed.identity(state);
 	}
 
 	public default void visitBusOrVirtualBusPostfix(BusOrVirtualBus bus, S state) {
 	}
 
-	public default S visitBusPrefix(final Bus bus, S state) {
+	public default Primed<S> visitBusPrefix(final Bus bus, S state) {
 		return visitBusOrVirtualBusPrefix(bus, state);
 	}
 
@@ -49,7 +49,7 @@ public interface BusLoadVisitor<S> extends Visitor<S> {
 		visitBusOrVirtualBusPostfix(bus, state);
 	}
 
-	public default S visitVirtualBusPrefix(final VirtualBus virtualBus, S state) {
+	public default Primed<S> visitVirtualBusPrefix(final VirtualBus virtualBus, S state) {
 		return visitBusOrVirtualBusPrefix(virtualBus, state);
 	}
 
@@ -57,15 +57,15 @@ public interface BusLoadVisitor<S> extends Visitor<S> {
 		visitBusOrVirtualBusPostfix(virtualBus, state);
 	}
 
-	public default S visitBroadcastPrefix(final Broadcast broadcast, S state) {
-		return state;
+	public default Primed<S> visitBroadcastPrefix(final Broadcast broadcast, S state) {
+		return Primed.identity(state);
 	}
 
 	public default void visitBroadcastPostfix(final Broadcast broadcast, S state) {
 	}
 
-	public default S visitConnectionPrefix(Connection connection, S state) {
-		return state;
+	public default Primed<S> visitConnectionPrefix(Connection connection, S state) {
+		return Primed.identity(state);
 	}
 
 	public default void visitConnectionPostfix(Connection connection, S state) {

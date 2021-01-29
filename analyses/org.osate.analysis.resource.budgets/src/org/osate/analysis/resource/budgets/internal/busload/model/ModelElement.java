@@ -25,30 +25,33 @@ package org.osate.analysis.resource.budgets.internal.busload.model;
 
 import java.util.List;
 
+import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.Primed;
+import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.StateTransformer;
+
 /**
  * @since 3.0
  */
-abstract class ModelElement {
+public abstract class ModelElement {
 	/*
 	 * Here we put the state before the visitor to make the initial state easier to find in the initial
 	 * method call. This is assuming the we have something like
 	 *
 	 * rootNode.visit(<initial state>, new Visitor<..> { ... });
 	 */
-	public final <S> void visit(final S state, final BusLoadVisitor<S> visitor) {
-		final S newState = visitSelfPrefix(visitor, state);
-		visitChildren(visitor, newState);
-		visitSelfPostfix(visitor, state);
+	public final <S> void visit(final S state, final Visitor<S> visitor) {
+		final Primed<S> sv = visitSelfPrefix(visitor, state);
+		visitChildren(visitor, sv.state, sv.transformer);
+		visitSelfPostfix(visitor, sv.state);
 	}
 
-	final <S> void visit(final List<? extends ModelElement> list, final BusLoadVisitor<S> visitor,
-			final S state) {
-		list.forEach(e -> e.visit(visitor.updateStateForChild(state), visitor));
+	final <S> void visit(final List<? extends ModelElement> children, final Visitor<S> visitor, final S state,
+			final StateTransformer<S> transformer) {
+		children.forEach(e -> e.visit(transformer.transformState(state, e), visitor));
 	}
 
-	abstract <S> S visitSelfPrefix(BusLoadVisitor<S> visitor, S state);
+	abstract <S> Primed<S> visitSelfPrefix(Visitor<S> visitor, S state);
 
-	abstract <S> void visitChildren(BusLoadVisitor<S> visitor, S state);
+	abstract <S> void visitChildren(Visitor<S> visitor, S state, StateTransformer<S> transformer);
 
-	abstract <S> void visitSelfPostfix(BusLoadVisitor<S> visitor, S state);
+	abstract <S> void visitSelfPostfix(Visitor<S> visitor, S state);
 }

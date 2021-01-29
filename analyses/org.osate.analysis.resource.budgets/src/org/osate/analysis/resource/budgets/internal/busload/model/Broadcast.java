@@ -28,6 +28,11 @@ import java.util.List;
 
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.Primed;
+import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.StateTransformer;
+import org.osate.result.Result;
+import org.osate.result.ResultType;
+import org.osate.result.util.ResultUtil;
 
 /**
  * @since 3.0
@@ -60,17 +65,24 @@ public final class Broadcast extends AnalysisElement {
 	}
 
 	@Override
-	<S> void visitChildren(final BusLoadVisitor<S> visitor, final S state) {
-		visit(connections, visitor, state);
+	<S> Primed<S> visitSelfPrefix(Visitor<S> visitor, S state) {
+		return ((BusLoadVisitor<S>) visitor).visitBroadcastPrefix(this, state);
 	}
 
 	@Override
-	<S> S visitSelfPrefix(final BusLoadVisitor<S> visitor, final S state) {
-		return visitor.visitBroadcastPrefix(this, state);
+	<S> void visitChildren(Visitor<S> visitor, S state, StateTransformer<S> transformer) {
+		visit(connections, visitor, state, transformer);
 	}
 
 	@Override
-	<S> void visitSelfPostfix(final BusLoadVisitor<S> visitor, final S state) {
-		visitor.visitBroadcastPostfix(this, state);
+	<S> void visitSelfPostfix(Visitor<S> visitor, S state) {
+		((BusLoadVisitor<S>) visitor).visitBroadcastPostfix(this, state);
+	}
+
+	@Override
+	public Result makeResult(final Result parentResult) {
+		final Result broadcastResult = ResultUtil.createResult("Broadcast from " + source.getInstanceObjectPath(),
+				source, ResultType.SUCCESS);
+		return addResultToParent(parentResult, broadcastResult);
 	}
 }
