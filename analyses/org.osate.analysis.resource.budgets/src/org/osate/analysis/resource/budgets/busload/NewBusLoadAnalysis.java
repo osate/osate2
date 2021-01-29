@@ -41,9 +41,9 @@ import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadModel;
 import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadVisitor;
 import org.osate.analysis.resource.budgets.internal.busload.model.BusOrVirtualBus;
 import org.osate.analysis.resource.budgets.internal.busload.model.Connection;
+import org.osate.analysis.resource.budgets.internal.busload.model.ModelElement;
 import org.osate.analysis.resource.budgets.internal.busload.model.ResultElement;
 import org.osate.analysis.resource.budgets.internal.busload.model.ResultState;
-import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.StateTransformer;
 import org.osate.result.AnalysisResult;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
@@ -196,20 +196,31 @@ public final class NewBusLoadAnalysis {
 		}
 	}
 
-	private final static StateTransformer<BusLoadState> CREATE_RESULT_FOR_CHILD = (state, child) -> state
-			.setResult(((ResultElement) child).makeResult(state.result));
+//	private final static StateTransformer<BusLoadState> CREATE_RESULT_FOR_CHILD = (state, child) -> state
+//			.setResult(((ResultElement) child).makeResult(state.result));
 
 	private final class BusLoadAnalysisVisitor implements BusLoadVisitor<BusLoadState> {
-		@Override
-		public Primed<BusLoadState> visitBusLoadModelPrefix(final BusLoadModel model, final BusLoadState inState) {
-			return Primed.val(inState, CREATE_RESULT_FOR_CHILD);
+		private BusLoadState makeResultState(final BusLoadState inState, final ModelElement child) {
+			return inState.setResult(((ResultElement) child).makeResult(inState.result));
 		}
 
 		@Override
-		public Primed<BusLoadState> visitBusOrVirtualBusPrefix(final BusOrVirtualBus bus, final BusLoadState inState) {
+		public BusLoadState updateStateForChildOfBusLoadModel(final BusLoadModel model, final BusLoadState inState,
+				final ModelElement child) {
+			return makeResultState(inState, child);
+		}
+
+		@Override
+		public BusLoadState visitBusOrVirtualBusPrefix(final BusOrVirtualBus bus, final BusLoadState inState) {
 			final ComponentInstance busInstance = bus.getBusInstance();
 			final double localOverheadKBytesps = GetProperties.getDataSize(busInstance, GetProperties.getKBUnitLiteral(busInstance));
-			return Primed.val(inState.increaseOverhead(localOverheadKBytesps), CREATE_RESULT_FOR_CHILD);
+			return inState.increaseOverhead(localOverheadKBytesps);
+		}
+
+		@Override
+		public BusLoadState updateStateForChildOfBusOrVirtualBus(final BusOrVirtualBus model,
+				final BusLoadState inState, final ModelElement child) {
+			return makeResultState(inState, child);
 		}
 
 		@Override
@@ -282,9 +293,14 @@ public final class NewBusLoadAnalysis {
 		}
 
 		@Override
-		public Primed<BusLoadState> visitBroadcastPrefix(final Broadcast broadcast,
-				final BusLoadState inState) {
-			return Primed.val(inState, CREATE_RESULT_FOR_CHILD);
+		public BusLoadState visitBroadcastPrefix(final Broadcast broadcast, final BusLoadState inState) {
+			return inState;
+		}
+
+		@Override
+		public BusLoadState updateStateForChildOfBroadcast(final Broadcast model, final BusLoadState inState,
+				final ModelElement child) {
+			return makeResultState(inState, child);
 		}
 
 		@Override

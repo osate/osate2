@@ -27,45 +27,73 @@ package org.osate.analysis.resource.budgets.internal.busload.model;
  * @since 3.0
  */
 public interface BusLoadVisitor<S> extends Visitor<S> {
-	public default Primed<S> visitBusLoadModelPrefix(BusLoadModel model, S state) {
-		return Primed.identity(state);
+	public default S visitBusLoadModelPrefix(final BusLoadModel model, final S state) {
+		return state;
+	}
+
+	public default S updateStateForChildOfBusLoadModel(final BusLoadModel model, final S state,
+			final ModelElement child) {
+		return state;
 	}
 
 	public default void visitBusLoadModelPostfix(BusLoadModel model, S state) {
 	}
 
-	public default Primed<S> visitBusOrVirtualBusPrefix(BusOrVirtualBus bus, S state) {
-		return Primed.identity(state);
+	public default S visitBusOrVirtualBusPrefix(BusOrVirtualBus bus, S state) {
+		return state;
+	}
+
+	public default S updateStateForChildOfBusOrVirtualBus(final BusOrVirtualBus bus, final S state,
+			final ModelElement child) {
+		return state;
 	}
 
 	public default void visitBusOrVirtualBusPostfix(BusOrVirtualBus bus, S state) {
 	}
 
-	public default Primed<S> visitBusPrefix(final Bus bus, S state) {
+	public default S visitBusPrefix(final Bus bus, S state) {
 		return visitBusOrVirtualBusPrefix(bus, state);
+	}
+
+	public default S updateStateForChildOfBus(final Bus bus, final S state, final ModelElement child) {
+		return updateStateForChildOfBusOrVirtualBus(bus, state, child);
 	}
 
 	public default void visitBusPostfix(final Bus bus, S state) {
 		visitBusOrVirtualBusPostfix(bus, state);
 	}
 
-	public default Primed<S> visitVirtualBusPrefix(final VirtualBus virtualBus, S state) {
+	public default S visitVirtualBusPrefix(final VirtualBus virtualBus, S state) {
 		return visitBusOrVirtualBusPrefix(virtualBus, state);
+	}
+
+	public default S updateStateForChildOfVirtualBus(final VirtualBus bus, final S state, final ModelElement child) {
+		return updateStateForChildOfBusOrVirtualBus(bus, state, child);
 	}
 
 	public default void visitVirtualBusPostfix(final VirtualBus virtualBus, S state) {
 		visitBusOrVirtualBusPostfix(virtualBus, state);
 	}
 
-	public default Primed<S> visitBroadcastPrefix(final Broadcast broadcast, S state) {
-		return Primed.identity(state);
+	public default S visitBroadcastPrefix(final Broadcast broadcast, S state) {
+		return state;
+	}
+
+	public default S updateStateForChildOfBroadcast(final Broadcast broadcast, final S state,
+			final ModelElement child) {
+		return state;
 	}
 
 	public default void visitBroadcastPostfix(final Broadcast broadcast, S state) {
 	}
 
-	public default Primed<S> visitConnectionPrefix(Connection connection, S state) {
-		return Primed.identity(state);
+	public default S visitConnectionPrefix(Connection connection, S state) {
+		return state;
+	}
+
+	public default S updateStateForChildOfConnection(final Connection connection, final S state,
+			final ModelElement child) {
+		return state;
 	}
 
 	public default void visitConnectionPostfix(Connection connection, S state) {

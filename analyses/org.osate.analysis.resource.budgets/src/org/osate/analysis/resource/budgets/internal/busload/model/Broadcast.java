@@ -28,8 +28,6 @@ import java.util.List;
 
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
-import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.Primed;
-import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.StateTransformer;
 import org.osate.result.Result;
 import org.osate.result.ResultType;
 import org.osate.result.util.ResultUtil;
@@ -65,13 +63,18 @@ public final class Broadcast extends AnalysisElement {
 	}
 
 	@Override
-	<S> Primed<S> visitSelfPrefix(Visitor<S> visitor, S state) {
+	<S> S visitSelfPrefix(Visitor<S> visitor, S state) {
 		return ((BusLoadVisitor<S>) visitor).visitBroadcastPrefix(this, state);
 	}
 
 	@Override
-	<S> void visitChildren(Visitor<S> visitor, S state, StateTransformer<S> transformer) {
-		visit(connections, visitor, state, transformer);
+	<S> S updateStateForChild(Visitor<S> visitor, S state, ModelElement child) {
+		return ((BusLoadVisitor<S>) visitor).updateStateForChildOfBroadcast(this, state, child);
+	}
+
+	@Override
+	<S> void visitChildren(Visitor<S> visitor, S state) {
+		visit(connections, visitor, state);
 	}
 
 	@Override

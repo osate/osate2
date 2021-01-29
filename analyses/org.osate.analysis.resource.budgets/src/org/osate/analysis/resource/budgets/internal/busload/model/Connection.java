@@ -24,8 +24,6 @@
 package org.osate.analysis.resource.budgets.internal.busload.model;
 
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.Primed;
-import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.StateTransformer;
 import org.osate.result.Result;
 import org.osate.result.ResultType;
 import org.osate.result.util.ResultUtil;
@@ -47,13 +45,18 @@ public final class Connection extends AnalysisElement {
 	}
 
 	@Override
-	<S> Primed<S> visitSelfPrefix(Visitor<S> visitor, S state) {
+	<S> S visitSelfPrefix(Visitor<S> visitor, S state) {
 		return ((BusLoadVisitor<S>) visitor).visitConnectionPrefix(this, state);
 	}
 
 	@Override
-	<S> void visitChildren(Visitor<S> visitor, S state, StateTransformer<S> transformer) {
+	<S> void visitChildren(Visitor<S> visitor, S state) {
 		// no children
+	}
+
+	@Override
+	<S> S updateStateForChild(Visitor<S> visitor, S state, ModelElement child) {
+		return ((BusLoadVisitor<S>) visitor).updateStateForChildOfConnection(this, state, child);
 	}
 
 	@Override

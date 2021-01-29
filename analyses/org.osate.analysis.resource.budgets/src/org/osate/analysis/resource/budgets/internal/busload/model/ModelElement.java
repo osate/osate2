@@ -25,9 +25,6 @@ package org.osate.analysis.resource.budgets.internal.busload.model;
 
 import java.util.List;
 
-import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.Primed;
-import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.StateTransformer;
-
 /**
  * @since 3.0
  */
@@ -39,19 +36,20 @@ public abstract class ModelElement {
 	 * rootNode.visit(<initial state>, new Visitor<..> { ... });
 	 */
 	public final <S> void visit(final S state, final Visitor<S> visitor) {
-		final Primed<S> sv = visitSelfPrefix(visitor, state);
-		visitChildren(visitor, sv.state, sv.transformer);
-		visitSelfPostfix(visitor, sv.state);
+		final S sPrimed = visitSelfPrefix(visitor, state);
+		visitChildren(visitor, sPrimed);
+		visitSelfPostfix(visitor, sPrimed);
 	}
 
-	final <S> void visit(final List<? extends ModelElement> children, final Visitor<S> visitor, final S state,
-			final StateTransformer<S> transformer) {
-		children.forEach(e -> e.visit(transformer.transformState(state, e), visitor));
+	final <S> void visit(final List<? extends ModelElement> children, final Visitor<S> visitor, final S state) {
+		children.forEach(e -> e.visit(updateStateForChild(visitor, state, e), visitor));
 	}
 
-	abstract <S> Primed<S> visitSelfPrefix(Visitor<S> visitor, S state);
+	abstract <S> S visitSelfPrefix(Visitor<S> visitor, S state);
 
-	abstract <S> void visitChildren(Visitor<S> visitor, S state, StateTransformer<S> transformer);
+	abstract <S> void visitChildren(Visitor<S> visitor, S state);
+
+	abstract <S> S updateStateForChild(Visitor<S> visitor, S state, ModelElement child);
 
 	abstract <S> void visitSelfPostfix(Visitor<S> visitor, S state);
 }

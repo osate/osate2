@@ -28,8 +28,6 @@ import java.util.List;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.Primed;
-import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.StateTransformer;
 import org.osate.result.Result;
 import org.osate.result.ResultType;
 import org.osate.result.util.ResultUtil;
@@ -104,15 +102,20 @@ public abstract class BusOrVirtualBus extends AnalysisElement {
 	}
 
 	@Override
-	<S> Primed<S> visitSelfPrefix(Visitor<S> visitor, S state) {
+	<S> S visitSelfPrefix(Visitor<S> visitor, S state) {
 		return ((BusLoadVisitor<S>) visitor).visitBusOrVirtualBusPrefix(this, state);
 	}
 
 	@Override
-	final <S> void visitChildren(Visitor<S> visitor, S state, StateTransformer<S> transformer) {
-		visit(boundBuses, visitor, state, transformer);
-		visit(boundConnections, visitor, state, transformer);
-		visit(boundBroadcasts, visitor, state, transformer);
+	final <S> void visitChildren(Visitor<S> visitor, S state) {
+		visit(boundBuses, visitor, state);
+		visit(boundConnections, visitor, state);
+		visit(boundBroadcasts, visitor, state);
+	}
+
+	@Override
+	<S> S updateStateForChild(Visitor<S> visitor, S state, ModelElement child) {
+		return ((BusLoadVisitor<S>) visitor).updateStateForChildOfBusOrVirtualBus(this, state, child);
 	}
 
 	@Override

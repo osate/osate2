@@ -41,8 +41,6 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
-import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.Primed;
-import org.osate.analysis.resource.budgets.internal.busload.model.Visitor.StateTransformer;
 import org.osate.result.Result;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
@@ -97,13 +95,18 @@ public final class BusLoadModel extends AnalysisElement {
 	}
 
 	@Override
-	<S> Primed<S> visitSelfPrefix(Visitor<S> visitor, S state) {
+	<S> S visitSelfPrefix(Visitor<S> visitor, S state) {
 		return ((BusLoadVisitor<S>) visitor).visitBusLoadModelPrefix(this, state);
 	}
 
 	@Override
-	<S> void visitChildren(Visitor<S> visitor, S state, StateTransformer<S> transformer) {
-		visit(rootBuses, visitor, state, transformer);
+	<S> S updateStateForChild(Visitor<S> visitor, S state, ModelElement child) {
+		return ((BusLoadVisitor<S>) visitor).updateStateForChildOfBusLoadModel(this, state, child);
+	}
+
+	@Override
+	<S> void visitChildren(Visitor<S> visitor, S state) {
+		visit(rootBuses, visitor, state);
 	}
 
 	@Override
@@ -114,43 +117,43 @@ public final class BusLoadModel extends AnalysisElement {
 	public void print(final PrintWriter pw) {
 		visit("", new BusLoadVisitor<String>() {
 			@Override
-			public Primed<String> visitConnectionPrefix(final Connection c, final String prefix) {
+			public String visitConnectionPrefix(final Connection c, final String prefix) {
 				pw.println(prefix + "Connection " + c.getConnectionInstance().getName());
 				final String newPrefix = prefix + "  ";
 				pw.println(newPrefix + "  Budget = " + c.getBudget() + " KB/s");
 				pw.println(newPrefix + "  Actual usage = " + c.getActual() + " KB/s");
-				return Primed.identity(newPrefix);
+				return newPrefix;
 			}
 
 			@Override
-			public Primed<String> visitBroadcastPrefix(final Broadcast b, final String prefix) {
+			public String visitBroadcastPrefix(final Broadcast b, final String prefix) {
 				pw.println(prefix + "Broadcast from " + b.getSource().getName());
 				final String newPrefix = prefix + "  ";
 				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
 				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
-				return Primed.identity(newPrefix);
+				return newPrefix;
 			}
 
 			@Override
-			public Primed<String> visitBusPrefix(final Bus b, final String prefix) {
+			public String visitBusPrefix(final Bus b, final String prefix) {
 				pw.println(prefix + "Bus " + b.getBusInstance().getName());
 				final String newPrefix = prefix + "  ";
 				pw.println(newPrefix + "Capacity = " + b.getCapacity() + " KB/s");
 				pw.println(newPrefix + "Budget = " + b.getBudget() + " KB/s");
 				pw.println(newPrefix + "Required budget = " + b.getTotalBudget() + " KB/s");
 				pw.println(newPrefix + "Actual usage = " + b.getActual() + " KB/s");
-				return Primed.identity(newPrefix);
+				return newPrefix;
 			}
 
 			@Override
-			public Primed<String> visitVirtualBusPrefix(final VirtualBus b, final String prefix) {
+			public String visitVirtualBusPrefix(final VirtualBus b, final String prefix) {
 				pw.println(prefix + "Virtual Bus " + b.getBusInstance().getName());
 				final String newPrefix = prefix + "  ";
 				pw.println(newPrefix + "Capacity = " + b.getCapacity() + " KB/s");
 				pw.println(newPrefix + "Budget = " + b.getBudget() + " KB/s");
 				pw.println(newPrefix + "Required budget = " + b.getTotalBudget() + " KB/s");
 				pw.println(newPrefix + "Actual usage = " + b.getActual() + " KB/s");
-				return Primed.identity(newPrefix);
+				return newPrefix;
 			}
 		});
 	}
