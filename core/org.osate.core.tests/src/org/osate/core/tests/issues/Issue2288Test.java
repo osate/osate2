@@ -19,7 +19,7 @@ import com.google.inject.Inject;
 @RunWith(XtextRunner.class)
 @InjectWith(Aadl2InjectorProvider.class)
 public class Issue2288Test {
-	private static final String PATH = "org.osate.core.tests/models/issue2288/";
+	private static final String PATH = "org.osate.core.tests/models/Issue2288/";
 
 	@Inject
 	private TestHelper<AadlPackage> testHelper;
@@ -34,14 +34,12 @@ public class Issue2288Test {
 		store.setValue("behavior_specification", false); // annex is turned off
 
 		AadlPackage pkg = testHelper.parseFile(PATH + "Issue2288.aadl");
-		if (pkg != null && pkg.getPublicSection() != null) {
-			for (Classifier cl : pkg.getPublicSection().getOwnedClassifiers()) {
-				for (AnnexSubclause ac : cl.getOwnedAnnexSubclauses()) {
-					if (ac.getName().equalsIgnoreCase("behavior_specification")) {
-						if (!ac.getClass().getTypeName().contains("DefaultAnnexSubclause")) {
-							Assert.fail(
-									"behavior_specification annex is still being used to parse the file. Expected behavior_specification annex to be turned off per preference test");
-						}
+		for (Classifier cl : pkg.getPublicSection().getOwnedClassifiers()) {
+			for (AnnexSubclause ac : cl.getOwnedAnnexSubclauses()) {
+				if (ac.getName().equalsIgnoreCase("behavior_specification")) {
+					if (!ac.getClass().getTypeName().contains("DefaultAnnexSubclause")) {
+						Assert.fail(
+								"behavior_specification annex is still being used to parse the file. Expected behavior_specification annex to be turned off per preference test");
 					}
 				}
 			}
