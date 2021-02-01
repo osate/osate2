@@ -1,6 +1,5 @@
 package org.osate.core.tests.issues;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.xtext.testing.InjectWith;
 import org.eclipse.xtext.testing.XtextRunner;
@@ -35,8 +34,7 @@ public class Issue2288Test {
 		store.setValue("behavior_specification", false); // annex is turned off
 
 		AadlPackage pkg = testHelper.parseFile(PATH + "Issue2288.aadl");
-		EList<Classifier> classifiers = pkg.getPublicSection().getOwnedClassifiers();
-		for (Classifier cl : classifiers) {
+		for (Classifier cl : pkg.getPublicSection().getOwnedClassifiers()) {
 			for (AnnexSubclause ac : cl.getOwnedAnnexSubclauses()) {
 				if (ac.getName().equalsIgnoreCase("behavior_specification")) {
 					if (!ac.getClass().getTypeName().contains("DefaultAnnexSubclause")) {
@@ -47,6 +45,6 @@ public class Issue2288Test {
 			}
 		}
 
-		validationHelper.assertNoIssues(testHelper.parseFile(PATH + "Issue2288.aadl"));
+		validationHelper.assertNoIssues(pkg);
 	}
 }
