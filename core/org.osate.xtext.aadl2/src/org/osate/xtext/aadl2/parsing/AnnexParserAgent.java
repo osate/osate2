@@ -189,8 +189,8 @@ public class AnnexParserAgent extends LazyLinker {
 				annexText = annexText.substring(3, annexText.length() - 3);
 			}
 
-			AnnexParser ap = PARSER_REGISTRY
-					.getAnnexParser(AnnexModel.filterDisabledAnnexes(defaultAnnexSection, annexName));
+			annexName = AnnexModel.filterDisabledAnnexes(defaultAnnexSection, annexName);
+			AnnexParser ap = PARSER_REGISTRY.getAnnexParser(annexName);
 
 			try {
 				QueuingParseErrorReporter parseErrReporter = new QueuingParseErrorReporter();
