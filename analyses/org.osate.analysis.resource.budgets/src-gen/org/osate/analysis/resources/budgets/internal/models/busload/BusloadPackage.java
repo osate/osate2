@@ -68,15 +68,6 @@ public interface BusloadPackage extends EPackage {
 	int BUSLOAD_ELEMENT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Result</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUSLOAD_ELEMENT__RESULT = AnalysisPackage.ANALYSIS_ELEMENT__RESULT;
-
-	/**
 	 * The feature id for the '<em><b>Label</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -148,15 +139,6 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 */
 	int CONNECTION = 1;
-
-	/**
-	 * The feature id for the '<em><b>Result</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION__RESULT = BUSLOAD_ELEMENT__RESULT;
 
 	/**
 	 * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -239,15 +221,6 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 */
 	int BROADCAST = 2;
-
-	/**
-	 * The feature id for the '<em><b>Result</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BROADCAST__RESULT = BUSLOAD_ELEMENT__RESULT;
 
 	/**
 	 * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -339,15 +312,6 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 */
 	int BUS_OR_VIRTUAL_BUS = 3;
-
-	/**
-	 * The feature id for the '<em><b>Result</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_OR_VIRTUAL_BUS__RESULT = BUSLOAD_ELEMENT__RESULT;
 
 	/**
 	 * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -468,15 +432,6 @@ public interface BusloadPackage extends EPackage {
 	int VIRTUAL_BUS = 4;
 
 	/**
-	 * The feature id for the '<em><b>Result</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VIRTUAL_BUS__RESULT = BUS_OR_VIRTUAL_BUS__RESULT;
-
-	/**
 	 * The feature id for the '<em><b>Label</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -593,15 +548,6 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 */
 	int BUS = 5;
-
-	/**
-	 * The feature id for the '<em><b>Result</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS__RESULT = BUS_OR_VIRTUAL_BUS__RESULT;
 
 	/**
 	 * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -722,49 +668,13 @@ public interface BusloadPackage extends EPackage {
 	int BUS_LOAD_MODEL = 6;
 
 	/**
-	 * The feature id for the '<em><b>Result</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_LOAD_MODEL__RESULT = BUSLOAD_ELEMENT__RESULT;
-
-	/**
-	 * The feature id for the '<em><b>Label</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_LOAD_MODEL__LABEL = BUSLOAD_ELEMENT__LABEL;
-
-	/**
-	 * The feature id for the '<em><b>Actual</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_LOAD_MODEL__ACTUAL = BUSLOAD_ELEMENT__ACTUAL;
-
-	/**
-	 * The feature id for the '<em><b>Budget</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BUS_LOAD_MODEL__BUDGET = BUSLOAD_ELEMENT__BUDGET;
-
-	/**
 	 * The feature id for the '<em><b>Root Buses</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_LOAD_MODEL__ROOT_BUSES = BUSLOAD_ELEMENT_FEATURE_COUNT + 0;
+	int BUS_LOAD_MODEL__ROOT_BUSES = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Bus Load Model</em>' class.
@@ -773,7 +683,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_LOAD_MODEL_FEATURE_COUNT = BUSLOAD_ELEMENT_FEATURE_COUNT + 1;
+	int BUS_LOAD_MODEL_FEATURE_COUNT = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The operation id for the '<em>Is Leaf</em>' operation.
@@ -782,7 +692,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_LOAD_MODEL___IS_LEAF = BUSLOAD_ELEMENT___IS_LEAF;
+	int BUS_LOAD_MODEL___IS_LEAF = AnalysisPackage.ANALYSIS_ELEMENT___IS_LEAF;
 
 	/**
 	 * The operation id for the '<em>Get Ordered Children</em>' operation.
@@ -791,7 +701,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_LOAD_MODEL___GET_ORDERED_CHILDREN = BUSLOAD_ELEMENT___GET_ORDERED_CHILDREN;
+	int BUS_LOAD_MODEL___GET_ORDERED_CHILDREN = AnalysisPackage.ANALYSIS_ELEMENT___GET_ORDERED_CHILDREN;
 
 	/**
 	 * The number of operations of the '<em>Bus Load Model</em>' class.
@@ -800,7 +710,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_LOAD_MODEL_OPERATION_COUNT = BUSLOAD_ELEMENT_OPERATION_COUNT + 0;
+	int BUS_LOAD_MODEL_OPERATION_COUNT = AnalysisPackage.ANALYSIS_ELEMENT_OPERATION_COUNT + 0;
 
 
 	/**

@@ -22,9 +22,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//Broadcast/source"/>
     </genClasses>
     <genClasses image="false" ecoreClass="busload.ecore#//BusOrVirtualBus">
-      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//BusOrVirtualBus/boundBroadcasts"/>
-      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//BusOrVirtualBus/boundConnections"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//BusOrVirtualBus/boundVirtualBuses"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//BusOrVirtualBus/boundConnections"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//BusOrVirtualBus/boundBroadcasts"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference busload.ecore#//BusOrVirtualBus/busInstance"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute busload.ecore#//BusOrVirtualBus/dataOverhead"/>
     </genClasses>

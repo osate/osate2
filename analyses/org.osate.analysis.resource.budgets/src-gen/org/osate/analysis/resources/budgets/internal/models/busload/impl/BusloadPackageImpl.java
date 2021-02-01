@@ -432,7 +432,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		busOrVirtualBusEClass.getESuperTypes().add(this.getBusloadElement());
 		virtualBusEClass.getESuperTypes().add(this.getBusOrVirtualBus());
 		busEClass.getESuperTypes().add(this.getBusOrVirtualBus());
-		busLoadModelEClass.getESuperTypes().add(this.getBusloadElement());
+		busLoadModelEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisElement());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(busloadElementEClass, BusloadElement.class, "BusloadElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

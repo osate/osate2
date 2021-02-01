@@ -26,7 +26,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualBus" eSuperTypes="#//BusOrVirtualBus"/>
   <eClassifiers xsi:type="ecore:EClass" name="Bus" eSuperTypes="#//BusOrVirtualBus"/>
-  <eClassifiers xsi:type="ecore:EClass" name="BusLoadModel" eSuperTypes="#//BusloadElement">
+  <eClassifiers xsi:type="ecore:EClass" name="BusLoadModel" eSuperTypes="analysis.ecore#//AnalysisElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="rootBuses" upperBound="-1"
         eType="#//Bus" containment="true"/>
   </eClassifiers>

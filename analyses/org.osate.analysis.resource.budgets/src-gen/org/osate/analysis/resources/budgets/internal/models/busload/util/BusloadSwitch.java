@@ -119,7 +119,6 @@ public class BusloadSwitch<T> extends Switch<T> {
 			case BusloadPackage.BUS_LOAD_MODEL: {
 				BusLoadModel busLoadModel = (BusLoadModel)theEObject;
 				T result = caseBusLoadModel(busLoadModel);
-				if (result == null) result = caseBusloadElement(busLoadModel);
 				if (result == null) result = caseAnalysisElement(busLoadModel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;

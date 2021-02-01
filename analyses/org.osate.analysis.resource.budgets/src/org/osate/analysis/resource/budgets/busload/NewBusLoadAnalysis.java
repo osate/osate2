@@ -23,6 +23,10 @@
  */
 package org.osate.analysis.resource.budgets.busload;
 
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
@@ -175,10 +179,13 @@ public final class NewBusLoadAnalysis {
 
 	private void analyzeBusLoadModel(final BusLoadModel busLoadModel, final Result somResult,
 			final IProgressMonitor monitor) {
-		AnalysisModelTraversal.preOrder(busLoadModel, new BandwidthAndResultPreOrderSwitch(somResult), monitor);
+		final Map<AnalysisElement, Result> results = new HashMap<>();
+		AnalysisModelTraversal.preOrder(busLoadModel, new BandwidthAndResultPreOrderSwitch(results, somResult),
+				monitor);
 		if (!monitor.isCanceled()) {
-			AnalysisModelTraversal.postOrder(busLoadModel, new CapacityAndBudgetPostOrderSwitch(), monitor);
+			AnalysisModelTraversal.postOrder(busLoadModel, new CapacityAndBudgetPostOrderSwitch(results), monitor);
 		}
+		print(new PrintWriter(System.out), busLoadModel);
 	}
 
 	/*
@@ -200,16 +207,18 @@ public final class NewBusLoadAnalysis {
 	 */
 	private static final class BandwidthAndResultPreOrderSwitch extends BusloadSwitch<Boolean> {
 		private final Result somResult;
+		private final Map<AnalysisElement, Result> results;
 
-		public BandwidthAndResultPreOrderSwitch(final Result somResult) {
+		public BandwidthAndResultPreOrderSwitch(final Map<AnalysisElement, Result> results, final Result somResult) {
+			this.results = results;
 			this.somResult = somResult;
 		}
 
 		/* XXX Can we make this generic for all analyses? Do we need to? Need more experience... */
 		private void attachResult(final AnalysisElement analysisElement, final String label, final InstanceObject instanceObject) {
 			final Result newResult = ResultUtil.createResult(label, instanceObject, ResultType.SUCCESS);
-			((AnalysisElement) analysisElement.eContainer()).getResult().getSubResults().add(newResult);
-			analysisElement.setResult(newResult);
+			results.get(analysisElement.eContainer()).getSubResults().add(newResult);
+			results.put(analysisElement, newResult);
 		}
 
 		@Override
@@ -246,12 +255,18 @@ public final class NewBusLoadAnalysis {
 
 		@Override
 		public Boolean caseBusLoadModel(final BusLoadModel busLoadModel) {
-			busLoadModel.setResult(somResult);
+			results.put(busLoadModel, somResult);
 			return Boolean.TRUE;
 		}
 	}
 
 	private static final class CapacityAndBudgetPostOrderSwitch extends BusloadSwitch<Boolean> {
+		private final Map<AnalysisElement, Result> results;
+
+		public CapacityAndBudgetPostOrderSwitch(final Map<AnalysisElement, Result> results) {
+			this.results = results;
+		}
+
 		private double getOverhead(final EObject analysisElement) {
 			if (analysisElement instanceof BusOrVirtualBus) {
 				return ((BusOrVirtualBus) analysisElement).getDataOverhead();
@@ -260,11 +275,15 @@ public final class NewBusLoadAnalysis {
 			}
 		}
 
+		private Result getResult(final AnalysisElement analysisElement) {
+			return results.get(analysisElement);
+		}
+
 		@Override
 		public Boolean caseConnection(final Connection connection) {
 			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
 			final double dataOverheadKBytes = getOverhead(connection);
-			final Result connectionResult = connection.getResult();
+			final Result connectionResult = getResult(connection);
 
 			final double actual = getConnectionActualKBytesps(connectionInstance.getSource(), dataOverheadKBytes);
 			connection.setActual(actual);
@@ -291,7 +310,7 @@ public final class NewBusLoadAnalysis {
 		@Override
 		public Boolean caseBroadcast(final Broadcast broadcast) {
 			final double dataOverheadKBytes = getOverhead(broadcast);
-			final Result broadcastResult = broadcast.getResult();
+			final Result broadcastResult = getResult(broadcast);
 
 			// Compute the actual usage and budget requirements
 			final double actual = getConnectionActualKBytesps(broadcast.getSource(), dataOverheadKBytes);
@@ -329,7 +348,7 @@ public final class NewBusLoadAnalysis {
 		@Override
 		public Boolean caseBusOrVirtualBus(final BusOrVirtualBus bus) {
 			final long myDataOverheadInBytes = (long) (1000.0 * bus.getDataOverhead());
-			final Result busResult = bus.getResult();
+			final Result busResult = getResult(bus);
 
 			// Compute the actual usage and budget requirements
 			double actual = 0.0;
@@ -395,6 +414,9 @@ public final class NewBusLoadAnalysis {
 		}
 	}
 
+	// ==== Adapter classes ===
+
+
 	// ==== Helper methods for the visitor ===
 
 	/**
@@ -425,4 +447,67 @@ public final class NewBusLoadAnalysis {
 	private static void warning(final Result result, final InstanceObject io, final String msg) {
 		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.WARNING));
 	}
+
+	private static void print(final PrintWriter pw, final BusLoadModel busLoadModel) {
+		final Map<AnalysisElement, String> indents = new HashMap<>();
+		AnalysisModelTraversal.preOrder(busLoadModel, new BusloadSwitch<Boolean>() {
+			private String getIndent(final AnalysisElement analysisElement) {
+				return indents.get(analysisElement.eContainer());
+			}
+
+			@Override
+			public Boolean caseConnection(final Connection c) {
+				String prefix = getIndent(c);
+				pw.println(prefix + "Connection " + c.getConnectionInstance().getName());
+				prefix = prefix + "  ";
+				pw.println(prefix + "Budget = " + c.getBudget() + " KB/s");
+				pw.println(prefix + "Actual usage = " + c.getActual() + " KB/s");
+				indents.put(c, prefix);
+				return Boolean.TRUE;
+			}
+
+			@Override
+			public Boolean caseBroadcast(final Broadcast b) {
+				String prefix = getIndent(b);
+				pw.println(prefix + "Broadcast from " + b.getSource().getName());
+				prefix = prefix + "  ";
+				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
+				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
+				indents.put(b, prefix);
+				return Boolean.TRUE;
+			}
+
+			@Override
+			public Boolean caseBus(final Bus b) {
+				String prefix = getIndent(b);
+				pw.println(prefix + "Bus " + b.getBusInstance().getName());
+				prefix = prefix + "  ";
+				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
+				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
+				pw.println(prefix + "Data overhead = " + (int) (b.getDataOverhead() * 1000.0) + " bytes");
+				indents.put(b, prefix);
+				return Boolean.TRUE;
+			}
+
+			@Override
+			public Boolean caseVirtualBus(final VirtualBus b) {
+				String prefix = getIndent(b);
+				pw.println(prefix + "Virtual Bus " + b.getBusInstance().getName());
+				prefix = prefix + "  ";
+				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
+				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
+				pw.println(prefix + "Data overhead = " + (int) (b.getDataOverhead() * 1000.0) + " bytes");
+				indents.put(b, prefix);
+				return Boolean.TRUE;
+			}
+
+			@Override
+			public Boolean caseBusLoadModel(final BusLoadModel m) {
+				indents.put(m, "");
+				return Boolean.TRUE;
+			}
+		}, null);
+		pw.flush();
+	}
+
 }
