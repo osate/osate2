@@ -10,22 +10,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//ObjectValue" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="results" upperBound="-1"
-        eType="#//Result" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagnostics" upperBound="-1"
         eType="#//Diagnostic" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultType" eType="#//ResultType"
-        defaultValueLiteral="TBD"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Result">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="values" upperBound="-1"
-        eType="#//Value" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="diagnostics" upperBound="-1"
-        eType="#//Diagnostic" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="subResults" upperBound="-1"
-        eType="#//Result" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="resultType" eType="#//ResultType"
         defaultValueLiteral="TBD"/>
   </eClassifiers>

@@ -8,6 +8,5 @@
         <eTypeArguments eClassifier="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
       </eGenericType>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="result" eType="ecore:EClass ../../org.osate.results/model/Result.ecore#//Result"/>
   </eClassifiers>
 </ecore:EPackage>
