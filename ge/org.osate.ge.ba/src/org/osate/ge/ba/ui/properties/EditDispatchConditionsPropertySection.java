@@ -162,7 +162,6 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 							.addKeyListener(new ConditionModificationKeyAdapter(behaviorTransition, saveBtn,
 									conditionStyledText));
 
-
 					// Dispose of current adapter and create new one
 					setXtextAdapter(project, conditionStyledText, saveBtn);
 					updateAdapterDocument(conditionTextValue);
@@ -189,6 +188,7 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 
 		@Override
 		public void keyReleased(final KeyEvent e) {
+			System.err.println(e + " KEYEVENT");
 			// Link model
 			final EObject rootElement = xtextAdapter.getXtextParseResult().getRootASTElement();
 			fakeResource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
@@ -242,18 +242,23 @@ public class EditDispatchConditionsPropertySection extends AbstractPropertySecti
 		if (condition == null) {
 			// Transition offset
 			final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
+
 			// Find condition offset
-			final String updatePrefix = text.substring(transitionOffset).split("\\[", 2)[0] + "[";
+			final String updatePrefix = text.substring(transitionOffset).split("-\\[", 2)[0] + "-[";
+
 			// Update prefix and offset
 			prefix = new StringBuilder(text.substring(0, transitionOffset)).append(updatePrefix).toString();
+
 			// Update offset
 			updateOffset = transitionOffset + updatePrefix.length();
+
 			// Empty condition text
 			conditionText = "";
 		} else {
 			// Condition offset
 			updateOffset = condition.getAadlBaLocationReference().getOffset();
 			prefix = text.substring(0, updateOffset);
+
 			// Note: Condition length only counts until the first space (assuming).
 			// For example, when dispatch condition is "on dispatch" length is 2.
 			// Find closing "]", to get condition text

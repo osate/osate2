@@ -178,7 +178,6 @@ public class OsateGeTestCommands {
 		waitForWindowWithTitle("New AADL Package File");
 		setTextField(0, packageName, "");
 		clickRadioButton("Diagram Editor");
-		// Display.getDefault().syncExec(() -> {
 		clickButton("Finish");
 
 		// Create the diagram
@@ -228,6 +227,10 @@ public class OsateGeTestCommands {
 	public static void createImplementationWithExistingType(final DiagramReference diagram,
 			final DiagramElementReference pkg, final String toolType, final String implName, final String classifierPkg,
 			final String classifier) {
+		System.err.println(implName + " implName");
+		System.err.println(classifierPkg + " classifierPkg");
+		System.err.println(classifier + " classifier");
+
 		openDiagramEditor(diagram);
 
 		selectPaletteItem(diagram, toolType);
@@ -240,13 +243,17 @@ public class OsateGeTestCommands {
 		clickButton("...");
 		waitForWindowWithTitle("Select Base Classifier");
 
+		System.err.println(classifierPkg + "::" + classifier);
+
 		clickTableItem(0, classifierPkg + "::" + classifier);
 		clickButton("OK");
 
 		waitForWindowWithTitle("Create Component Implementation");
 		clickButton("OK");
 
-		waitForDiagramElementToExist(diagram, pkg.join(getClassifierRelativeReference(classifier + "." + implName)));
+		System.err.println(classifier.split("\\.")[0] + " split");
+		waitForDiagramElementToExist(diagram,
+				pkg.join(getClassifierRelativeReference(classifier.split("\\.")[0] + "." + implName)));
 
 		layoutDiagram(diagram, pkg);
 	}
@@ -404,17 +411,16 @@ public class OsateGeTestCommands {
 
 		final DiagramElementReference behaviorSpecDiagramRef = element(pkgRef, classifierRef, behaviorSpecification);
 
+		clickCheckboxInPropertiesView(diagram, "AADL", 0, behaviorSpecDiagramRef);
+
 		// Show contents of specification
 		showContentsAndLayout(diagram, behaviorSpecDiagramRef);
 
 		final RelativeBusinessObjectReference newStateRef = BehaviorAnnexReferenceUtil
 				.getStateRelativeReference("new_state");
 		final DiagramElementReference newStateDiagramRef = behaviorSpecDiagramRef.join(newStateRef);
-		if (!elementExists(diagram, newStateDiagramRef)) {
-			// Create state if needed
-			createShapeElement(diagram, behaviorSpecDiagramRef, "Behavior State", newStateRef);
-			clickCheckboxInPropertiesView(diagram, "AADL", 2, newStateDiagramRef);
-		}
+		createShapeElement(diagram, behaviorSpecDiagramRef, "Behavior State", newStateRef);
+		clickCheckboxInPropertiesView(diagram, "AADL", 2, newStateDiagramRef);
 
 		// Rename initial state
 		renameElementDirectEdit(diagram, behaviorSpecDiagramRef, newStateRef, newStateName);

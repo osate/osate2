@@ -72,6 +72,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCanvas;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotSpinner;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
@@ -307,6 +308,21 @@ public class UiTestUtil {
 	 */
 	public static void clickCheckbox(final int index) {
 		bot.checkBox(index).click();
+	}
+
+	/**
+	 * Types the specified text in the StyledText specified index.
+	 */
+	public static void typeInStyledText(final int index, final String text) {
+		final SWTBotStyledText styledText = bot.styledText(index);
+
+		styledText.setText(text);
+		Display.getDefault().syncExec(() -> {
+			// Send notification
+			styledText.widget.notifyListeners(SWT.KeyUp, new Event());
+		});
+
+		clickButton("Save");
 	}
 
 	/**
@@ -858,7 +874,6 @@ public class UiTestUtil {
 	public static void selectDiagramElements(final DiagramReference diagram,
 			final DiagramElementReference... elements) {
 		final AgeDiagramEditor editor = getDiagramEditor(diagram);
-
 		final List<PictogramElement> pictogramElementsToSelect = new ArrayList<>();
 		for (int i = 0; i < elements.length; i++) {
 			final DiagramElementReference element = elements[i];
@@ -868,11 +883,11 @@ public class UiTestUtil {
 			pictogramElementsToSelect.add(pe);
 		}
 
-		final PictogramElement[] pictogramElementsToSelectArray = pictogramElementsToSelect.toArray(new PictogramElement[pictogramElementsToSelect.size()]);
+		final PictogramElement[] pictogramElementsToSelectArray = pictogramElementsToSelect
+				.toArray(new PictogramElement[pictogramElementsToSelect.size()]);
 		Display.getDefault().syncExec(() -> {
 			editor.selectPictogramElements(pictogramElementsToSelectArray);
 		});
-
 		waitUntil(() -> {
 			return Arrays.equals(pictogramElementsToSelectArray, editor.getSelectedPictogramElements());
 		}, "Elements '" + getDiagramElementReferences(elements) + "' are not selected");
