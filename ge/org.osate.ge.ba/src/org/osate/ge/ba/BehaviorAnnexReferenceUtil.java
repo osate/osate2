@@ -27,6 +27,9 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.AnnexHandler;
 
 public class BehaviorAnnexReferenceUtil {
+	private BehaviorAnnexReferenceUtil() {
+	}
+
 	public static final String ANNEX_SUBCLAUSE = "annex_subclause";
 	public static final String ANNEX_NAME = "behavior_specification";
 	private static final String BA_REFERENCE_PREFIX = "ba.";

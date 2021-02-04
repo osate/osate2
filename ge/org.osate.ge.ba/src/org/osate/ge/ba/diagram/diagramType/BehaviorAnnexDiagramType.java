@@ -55,7 +55,7 @@ public class BehaviorAnnexDiagramType implements DiagramType {
 	@Override
 	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
 		if (bo instanceof BehaviorAnnex) {
-			return ImmutableSet.of(BehaviorTransitionFilter.ID, BehaviorStateFilter.ID, BehaviorVariableFilter.ID);
+			return ImmutableSet.of(BehaviorVariableFilter.ID, BehaviorTransitionFilter.ID, BehaviorStateFilter.ID);
 		}
 
 		return ImmutableSet.of();
