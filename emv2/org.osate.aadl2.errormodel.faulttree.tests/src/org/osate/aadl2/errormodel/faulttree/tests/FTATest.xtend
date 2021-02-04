@@ -220,7 +220,7 @@ class FTATest {
 		instanceIssue1384 = instanceGenerator(modelroot + Issue1384file, "sys.i")
 		instanceIssues21232425 = instanceGenerator(modelroot + ErrorStateWithTypesfile, "iPCA_Safety.i")
 		instanceIssue2177 = instanceGenerator(modelroot + Issue2177file, "SubSys1.EMV2")
-		instanceIssue2563 = instanceGenerator(modelroot + Issue2563File, "sys.i")
+		instanceIssue2563 = instanceGenerator(modelroot + Issue2563File, "GPS.parts_SingleSensorTransient")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -1105,7 +1105,7 @@ class FTATest {
 	
 	@Test
 	def void issue2563Test() {
-		val ft = CreateFTAModel.createFaultTree(instanceIssue2563, "outgoing propagation on dout{ItemValueError}")
-		assertEquals(ft.events.size, 3)	
+		val ft = CreateFTAModel.createFaultTree(instanceIssue2563, "state FailStop")
+		assertEquals(ft.events.size, 5)	
 	}
 }
