@@ -1738,6 +1738,7 @@ censes only apply to the Third Party Software and not any other portion of this 
    </extension>
    <extension point="org.eclipse.help.contexts">
       <contexts file="help/importWizard.xml" />
+      <contexts file="help/AnnexPreference.xml" />
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
