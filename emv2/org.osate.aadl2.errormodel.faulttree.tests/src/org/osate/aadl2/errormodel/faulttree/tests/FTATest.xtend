@@ -94,7 +94,7 @@ class FTATest {
 	var static SystemInstance instanceIssues21232425
 	var static SystemInstance instanceIssue2112
 	var static SystemInstance instanceIssue2177
-	var static SystemInstance instanceIssue2563
+	var static SystemInstance instanceIssue2391
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -139,7 +139,7 @@ class FTATest {
 	val Issue1384Errortypesfile = "emv2_errortype_definition.aadl"
 	val ErrorStateWithTypesfile = "ErrorStateWithTypes.aadl"
 	val Issue2177file = "Issue2177.aadl"
-	val Issue2563File = "Issue2563.aadl"
+	val Issue2391File = "Issue2391.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -182,7 +182,7 @@ class FTATest {
 			modelroot + Issue1384file,
 			modelroot + ErrorStateWithTypesfile,
 			modelroot + Issue2177file,
-			modelroot + Issue2563File
+			modelroot + Issue2391File
 			
 		)
 		instance1 = instanceGenerator(modelroot + fta1File, "main.i")
@@ -220,7 +220,7 @@ class FTATest {
 		instanceIssue1384 = instanceGenerator(modelroot + Issue1384file, "sys.i")
 		instanceIssues21232425 = instanceGenerator(modelroot + ErrorStateWithTypesfile, "iPCA_Safety.i")
 		instanceIssue2177 = instanceGenerator(modelroot + Issue2177file, "SubSys1.EMV2")
-		instanceIssue2563 = instanceGenerator(modelroot + Issue2563File, "GPS.parts_SingleSensorTransient")
+		instanceIssue2391 = instanceGenerator(modelroot + Issue2391File, "GPS.parts_SingleSensorTransient")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -1104,8 +1104,8 @@ class FTATest {
 	}
 	
 	@Test
-	def void issue2563Test() {
-		val ft = CreateFTAModel.createFaultTree(instanceIssue2563, "state FailStop")
-		assertEquals(ft.events.size, 5)	
+	def void issue2391Test() {
+		val ft = CreateFTAModel.createFaultTree(instanceIssue2391, "state FailStop")
+		assertEquals(ft.events.size, 5)
 	}
 }
