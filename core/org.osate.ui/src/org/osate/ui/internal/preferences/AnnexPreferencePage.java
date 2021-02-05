@@ -40,6 +40,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.core.AadlNature;
@@ -153,5 +154,11 @@ public class AnnexPreferencePage extends FieldEditorPreferencePage implements IW
 		}
 
 		return true;
+	}
+
+	@Override
+	public void performHelp() {
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(getShell(), "org.osate.ui.help_dialog_annex");
+		PlatformUI.getWorkbench().getHelpSystem().displayHelp("org.osate.ui.help_dialog_annex");
 	}
 }
