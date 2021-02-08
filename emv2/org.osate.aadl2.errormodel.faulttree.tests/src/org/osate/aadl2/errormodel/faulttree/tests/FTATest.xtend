@@ -1111,12 +1111,20 @@ class FTATest {
 	def void issue2546UntypedTest(){
 		val ft = CreateFTAModel.createFaultTree(instanceIssue2546Untyped, "outgoing propagation on dout{ItemValueError}")
 		assertEquals(ft.events.size, 2)	
+		assertEquals(ft.root.subEvents.size,1)
+		val ev1 = ft.root
+		assertEquals((ev1.relatedInstanceObject as NamedElement).name, "sys_i_Instance")
 	}
 	
 	@Test
 	def void issue2546TypedTest(){
 		val ft = CreateFTAModel.createFaultTree(instanceIssue2546Typed, "outgoing propagation on dout{NoValue}")
-		assertEquals(ft.events.size, 2)	
+		assertEquals(ft.events.size, 2)
+		assertEquals(ft.root.subEvents.size,1)
+		val ev1 = ft.root
+		assertEquals((ev1.relatedInstanceObject as NamedElement).name, "sys_i_Instance")
+		val ev2 = ev1.subEvents.get(0)
+		assertEquals((ev2.relatedEMV2Object as NamedElement).name, "esrc")
 	}
 
 }
