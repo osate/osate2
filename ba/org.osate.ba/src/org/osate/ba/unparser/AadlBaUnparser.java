@@ -129,6 +129,8 @@ import org.osate.ba.utils.AadlBaVisitors;
 import org.osate.utils.internal.Aadl2Visitors;
 import org.osate.utils.internal.PropertyUtils;
 
+import com.google.common.base.Strings;
+
 public class AadlBaUnparser {
 
 	protected static final String DEFAULT_INDENT_OFFSET = "          ";
@@ -417,6 +419,7 @@ public class AadlBaUnparser {
 				aadlbaText.addOutput(" : ");
 				if (object.getDataClassifier() instanceof QualifiedNamedElement) {
 					QualifiedNamedElement qn = (QualifiedNamedElement) object.getDataClassifier();
+					aadlbaText.addOutput(getNamespace(qn));
 					process(qn);
 				} else if (object.getDataClassifier() instanceof DataClassifier) {
 					aadlbaText.addOutput(object.getDataClassifier().getQualifiedName());
@@ -424,6 +427,16 @@ public class AadlBaUnparser {
 
 				aadlbaText.addOutputNewline(";");
 				return DONE;
+			}
+
+			private String getNamespace(final QualifiedNamedElement qn) {
+				final Identifier baNameSpace = qn.getBaNamespace();
+				final StringBuilder nameSpace = new StringBuilder();
+				if (baNameSpace != null && !Strings.isNullOrEmpty(baNameSpace.getId())) {
+					nameSpace.append(baNameSpace.getId()).append("::");
+				}
+
+				return nameSpace.toString();
 			}
 
 			/**
