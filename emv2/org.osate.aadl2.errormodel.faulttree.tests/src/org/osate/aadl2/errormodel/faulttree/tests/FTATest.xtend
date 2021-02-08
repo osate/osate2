@@ -1107,5 +1107,16 @@ class FTATest {
 	def void issue2391Test() {
 		val ft = CreateFTAModel.createFaultTree(instanceIssue2391, "state FailStop")
 		assertEquals(ft.events.size, 5)
+		assertEquals(ft.root.subEvents.size, 4)
+		val ev1 = ft.root
+		assertEquals((ev1.relatedInstanceObject as NamedElement).name, "GPS_parts_SingleSensorTransient_Instance")
+		val ev2 = ev1.subEvents.get(0)
+		assertEquals((ev2.relatedEMV2Object as NamedElement).name, "FailStop")
+		val ev3 = ev1.subEvents.get(1)
+		assertEquals((ev3.relatedInstanceObject as NamedElement).name, "network")
+		val ev4 = ev1.subEvents.get(2)
+		assertEquals((ev4.relatedInstanceObject as NamedElement).name, "SatelliteSignalReceiver1")
+		val ev5 = ev1.subEvents.get(3)
+		assertEquals((ev5.relatedInstanceObject as NamedElement).name, "powersupply1")
 	}
 }
