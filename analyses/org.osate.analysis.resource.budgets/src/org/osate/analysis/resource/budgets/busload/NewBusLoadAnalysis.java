@@ -185,7 +185,6 @@ public final class NewBusLoadAnalysis {
 		if (!monitor.isCanceled()) {
 			AnalysisModelTraversal.postOrder(busLoadModel, new CapacityAndBudgetPostOrderSwitch(results), monitor);
 		}
-		print(new PrintWriter(System.out), busLoadModel);
 	}
 
 	/*
