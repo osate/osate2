@@ -12,8 +12,6 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.osate.aadl2.Aadl2Package;
 
 import org.osate.aadl2.instance.InstancePackage;
-
-import org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisPackage;
 import org.osate.analysis.resources.budgets.internal.models.busload.Broadcast;
 import org.osate.analysis.resources.budgets.internal.models.busload.Bus;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel;
@@ -23,7 +21,6 @@ import org.osate.analysis.resources.budgets.internal.models.busload.BusloadFacto
 import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage;
 import org.osate.analysis.resources.budgets.internal.models.busload.Connection;
 import org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus;
-import org.osate.result.ResultPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -129,10 +126,9 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		isInited = true;
 
 		// Initialize simple dependencies
-		AnalysisPackage.eINSTANCE.eClass();
-		Aadl2Package.eINSTANCE.eClass();
+		org.osate.analysis.model.analysis.AnalysisPackage.eINSTANCE.eClass();
 		InstancePackage.eINSTANCE.eClass();
-		ResultPackage.eINSTANCE.eClass();
+		Aadl2Package.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theBusloadPackage.createPackageContents();
@@ -418,7 +414,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		AnalysisPackage theAnalysisPackage = (AnalysisPackage)EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
+		org.osate.analysis.model.analysis.AnalysisPackage theAnalysisPackage = (org.osate.analysis.model.analysis.AnalysisPackage)EPackage.Registry.INSTANCE.getEPackage(org.osate.analysis.model.analysis.AnalysisPackage.eNS_URI);
 		InstancePackage theInstancePackage = (InstancePackage)EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI);
 
 		// Create type parameters
