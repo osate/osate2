@@ -42,6 +42,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.model.analysis.AnalysisElement;
 import org.osate.analysis.model.traversal.AnalysisModelTraversal;
+import org.osate.analysis.model.traversal.AnalysisModelTraversal.Nothing;
 import org.osate.analysis.resources.budgets.internal.models.busload.Broadcast;
 import org.osate.analysis.resources.budgets.internal.models.busload.Bus;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel;
@@ -187,24 +188,7 @@ public final class NewBusLoadAnalysis {
 		}
 	}
 
-	/*
-	 * ****************************** Analysis Switches ******************************
-	 * NB. The switches do not have a meaningful return value, but I cannot made their return type Void
-	 * because the only legal value for Void is "null". The problem with this is that a "null" return
-	 * value means that the switch should continue to call the "case" methods for the superclasses.
-	 * To prevent this, the methods need to return a non-null value of some sort. I have made the
-	 * switches Boolean, with a Boolean.TRUE indicating the the "case" method has successfully processed
-	 * the model element and that the super class cases should not be called.
-	 */
-
-	/*
-	 * Is adding a Result object to each model element a generic thing we want to do for every analysis?
-	 * I have the Result attribute on AnalysisElement right now. Is there a way to make the result
-	 * building more generic? It has a boilerplate pattern, but I'm not sure it can be completely
-	 * hidden away because the specifics of it still depend on the semantics of the model elements and
-	 * what Instance model elements they may relate to.
-	 */
-	private static final class BandwidthAndResultPreOrderSwitch extends BusloadSwitch<Boolean> {
+	private static final class BandwidthAndResultPreOrderSwitch extends BusloadSwitch<Nothing> {
 		private final Result somResult;
 		private final Map<AnalysisElement, Result> results;
 
@@ -213,7 +197,6 @@ public final class NewBusLoadAnalysis {
 			this.somResult = somResult;
 		}
 
-		/* XXX Can we make this generic for all analyses? Do we need to? Need more experience... */
 		private void attachResult(final AnalysisElement analysisElement, final String label, final InstanceObject instanceObject) {
 			final Result newResult = ResultUtil.createResult(label, instanceObject, ResultType.SUCCESS);
 			results.get(analysisElement.eContainer()).getSubResults().add(newResult);
@@ -221,23 +204,23 @@ public final class NewBusLoadAnalysis {
 		}
 
 		@Override
-		public Boolean caseConnection(final Connection connection) {
+		public Nothing caseConnection(final Connection connection) {
 			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
 			attachResult(connection, connectionInstance.getName(), connectionInstance);
 
-			return Boolean.TRUE;
+			return Nothing.NONE;
 		}
 
 		@Override
-		public Boolean caseBroadcast(final Broadcast broadcast) {
+		public Nothing caseBroadcast(final Broadcast broadcast) {
 			final ConnectionInstanceEnd cie = broadcast.getSource();
 			attachResult(broadcast, "Broadcast from " + cie.getInstanceObjectPath(), cie);
 
-			return Boolean.TRUE;
+			return Nothing.NONE;
 		}
 
 		@Override
-		public Boolean caseBusOrVirtualBus(final BusOrVirtualBus bus) {
+		public Nothing caseBusOrVirtualBus(final BusOrVirtualBus bus) {
 			final ComponentInstance busInstance = bus.getBusInstance();
 			attachResult(bus, busInstance.getName(), busInstance);
 
@@ -249,17 +232,17 @@ public final class NewBusLoadAnalysis {
 					GetProperties.getKBUnitLiteral(busInstance));
 			bus.setDataOverhead(parentOverhead + localOverheadKBytesps);
 
-			return Boolean.TRUE;
+			return Nothing.NONE;
 		}
 
 		@Override
-		public Boolean caseBusLoadModel(final BusLoadModel busLoadModel) {
+		public Nothing caseBusLoadModel(final BusLoadModel busLoadModel) {
 			results.put(busLoadModel, somResult);
-			return Boolean.TRUE;
+			return Nothing.NONE;
 		}
 	}
 
-	private static final class CapacityAndBudgetPostOrderSwitch extends BusloadSwitch<Boolean> {
+	private static final class CapacityAndBudgetPostOrderSwitch extends BusloadSwitch<Nothing> {
 		private final Map<AnalysisElement, Result> results;
 
 		public CapacityAndBudgetPostOrderSwitch(final Map<AnalysisElement, Result> results) {
@@ -279,7 +262,7 @@ public final class NewBusLoadAnalysis {
 		}
 
 		@Override
-		public Boolean caseConnection(final Connection connection) {
+		public Nothing caseConnection(final Connection connection) {
 			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
 			final double dataOverheadKBytes = getOverhead(connection);
 			final Result connectionResult = getResult(connection);
@@ -303,11 +286,11 @@ public final class NewBusLoadAnalysis {
 						"Connection " + connectionInstance.getName() + " has no bandwidth budget");
 			}
 
-			return Boolean.TRUE;
+			return Nothing.NONE;
 		}
 
 		@Override
-		public Boolean caseBroadcast(final Broadcast broadcast) {
+		public Nothing caseBroadcast(final Broadcast broadcast) {
 			final double dataOverheadKBytes = getOverhead(broadcast);
 			final Result broadcastResult = getResult(broadcast);
 
@@ -341,11 +324,11 @@ public final class NewBusLoadAnalysis {
 				}
 			}
 
-			return Boolean.TRUE;
+			return Nothing.NONE;
 		}
 
 		@Override
-		public Boolean caseBusOrVirtualBus(final BusOrVirtualBus bus) {
+		public Nothing caseBusOrVirtualBus(final BusOrVirtualBus bus) {
 			final long myDataOverheadInBytes = (long) (1000.0 * bus.getDataOverhead());
 			final Result busResult = getResult(bus);
 
@@ -405,7 +388,7 @@ public final class NewBusLoadAnalysis {
 				}
 			}
 
-			return Boolean.TRUE;
+			return Nothing.NONE;
 		}
 
 		private static String getLabel(final BusOrVirtualBus bus) {
@@ -447,37 +430,38 @@ public final class NewBusLoadAnalysis {
 		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.WARNING));
 	}
 
+	@SuppressWarnings("unused")
 	private static void print(final PrintWriter pw, final BusLoadModel busLoadModel) {
 		final Map<AnalysisElement, String> indents = new HashMap<>();
-		AnalysisModelTraversal.preOrder(busLoadModel, new BusloadSwitch<Boolean>() {
+		AnalysisModelTraversal.preOrder(busLoadModel, new BusloadSwitch<Nothing>() {
 			private String getIndent(final AnalysisElement analysisElement) {
 				return indents.get(analysisElement.eContainer());
 			}
 
 			@Override
-			public Boolean caseConnection(final Connection c) {
+			public Nothing caseConnection(final Connection c) {
 				String prefix = getIndent(c);
 				pw.println(prefix + "Connection " + c.getConnectionInstance().getName());
 				prefix = prefix + "  ";
 				pw.println(prefix + "Budget = " + c.getBudget() + " KB/s");
 				pw.println(prefix + "Actual usage = " + c.getActual() + " KB/s");
 				indents.put(c, prefix);
-				return Boolean.TRUE;
+				return Nothing.NONE;
 			}
 
 			@Override
-			public Boolean caseBroadcast(final Broadcast b) {
+			public Nothing caseBroadcast(final Broadcast b) {
 				String prefix = getIndent(b);
 				pw.println(prefix + "Broadcast from " + b.getSource().getName());
 				prefix = prefix + "  ";
 				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
 				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
 				indents.put(b, prefix);
-				return Boolean.TRUE;
+				return Nothing.NONE;
 			}
 
 			@Override
-			public Boolean caseBus(final Bus b) {
+			public Nothing caseBus(final Bus b) {
 				String prefix = getIndent(b);
 				pw.println(prefix + "Bus " + b.getBusInstance().getName());
 				prefix = prefix + "  ";
@@ -485,11 +469,11 @@ public final class NewBusLoadAnalysis {
 				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
 				pw.println(prefix + "Data overhead = " + (int) (b.getDataOverhead() * 1000.0) + " bytes");
 				indents.put(b, prefix);
-				return Boolean.TRUE;
+				return Nothing.NONE;
 			}
 
 			@Override
-			public Boolean caseVirtualBus(final VirtualBus b) {
+			public Nothing caseVirtualBus(final VirtualBus b) {
 				String prefix = getIndent(b);
 				pw.println(prefix + "Virtual Bus " + b.getBusInstance().getName());
 				prefix = prefix + "  ";
@@ -497,13 +481,13 @@ public final class NewBusLoadAnalysis {
 				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
 				pw.println(prefix + "Data overhead = " + (int) (b.getDataOverhead() * 1000.0) + " bytes");
 				indents.put(b, prefix);
-				return Boolean.TRUE;
+				return Nothing.NONE;
 			}
 
 			@Override
-			public Boolean caseBusLoadModel(final BusLoadModel m) {
+			public Nothing caseBusLoadModel(final BusLoadModel m) {
 				indents.put(m, "");
-				return Boolean.TRUE;
+				return Nothing.NONE;
 			}
 		}, null);
 		pw.flush();
