@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,8 +23,10 @@
  */
 package org.osate.testsupport;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -137,7 +139,6 @@ public class TestHelper<T extends EObject> {
 		return null;
 	}
 
-
 	/**
 	 * load file as Xtext resource into resource set
 	 * @param filePath String
@@ -146,15 +147,25 @@ public class TestHelper<T extends EObject> {
 	 */
 	public Resource loadFile(String filePath, ResourceSet rs) {
 		try {
+			File file = new File(System.getProperty("user.dir") + "/../" + filePath);
+			String fileName = file.getCanonicalPath();
+			java.net.URI uri = new java.net.URI(fileName).normalize();
+
+			// Fail if the file path doesn't exactly match the file location
+			// e.g., uses different capitalization on Mac or Windows
+			if (!uri.getPath().equals(file.getCanonicalPath())) {
+				return null;
+			}
+
 			// This way of constructing the URL works in JUnit plug-in and standalone tests
-			URL url = new URL("file:" + System.getProperty("user.dir") + "/../" + filePath);
+			URL url = new URL("file:" + fileName);
 			InputStream stream = url.openConnection().getInputStream();
 			Resource res = rs.createResource(URI.createURI(filePath));
 			if (res != null) {
 				res.load(stream, Collections.EMPTY_MAP);
 			}
 			return res;
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			return null;
 		}
 	}
