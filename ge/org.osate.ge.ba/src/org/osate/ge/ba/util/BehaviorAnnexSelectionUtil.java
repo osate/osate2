@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.eclipse.core.runtime.Adapters;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -36,7 +35,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
@@ -46,7 +44,6 @@ import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
-import org.osate.ui.utils.SelectionHelper;
 
 import com.google.common.collect.ImmutableList;
 
@@ -110,17 +107,10 @@ public class BehaviorAnnexSelectionUtil {
 	}
 
 	/**
-	 * Returns a business object which is a valid diagram context based on the currnent selection. Returns null if such a business object could not be determined based on the current selection.
-	 * @param activeEditor
-	 * @return
+	 * Returns a business object which is a valid diagram context or
+	 * null if such a business object could not be determined based on the current selection.
 	 */
 	public static Optional<DefaultAnnexSubclause> getDiagramContext(final IEditorPart activeEditor) {
-		if (activeEditor instanceof XtextEditor) {
-			final EObject selectedObject = SelectionHelper
-					.getEObjectFromSelection(((XtextEditor) activeEditor).getSelectionProvider().getSelection());
-			return Optional.ofNullable(findDiagramContextForSelectedObject(selectedObject));
-		}
-
 		final ISelection selection = getCurrentSelection();
 		if (selection instanceof IStructuredSelection) {
 			final List<BusinessObjectContext> selectedBusinessObjectContexts = getSelectedBusinessObjectContexts(
