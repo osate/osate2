@@ -73,7 +73,10 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 					if (!suppressError) {
 						// check against preference
 						final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-						Boolean ignoreThisPropertySet = store.getBoolean(propName); // store returns false => use the property set
+						Boolean ignoreThisPropertySet = store.getBoolean(propName.toLowerCase()); // store returns false => use the property set
+						if (ignoreThisPropertySet) {
+							suppressError = true;
+						}
 					}
 				}
 
