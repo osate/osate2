@@ -418,7 +418,7 @@ public class AadlBaUnparser {
 
 				aadlbaText.addOutput(" : ");
 				if (object.getDataClassifier() instanceof QualifiedNamedElement) {
-					final QualifiedNamedElement qn = (QualifiedNamedElement) object.getDataClassifier();
+					QualifiedNamedElement qn = (QualifiedNamedElement) object.getDataClassifier();
 					aadlbaText.addOutput(getNamespace(qn));
 					process(qn);
 				} else if (object.getDataClassifier() instanceof DataClassifier) {

@@ -11,7 +11,7 @@
 	</parent>
 
 	<groupId>org.osate.build.product</groupId>
-	<artifactId>osate2</artifactId>
+	<artifactId>org.osate.branding.osate2</artifactId>
 	<packaging>eclipse-repository</packaging>
 	<name>OSATE2 RCP Product</name>
 
@@ -65,7 +65,7 @@
 					</formats>
 					<products>
 						<product>
-							<id>osate2</id>
+							<id>org.osate.branding.osate2</id>
 							<archiveFileName>${product.id}-${unqualifiedVersion}-${buildQualifier}</archiveFileName>
 							<rootFolders>
 								<rootFolder>${product.id}</rootFolder>
