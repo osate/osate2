@@ -130,10 +130,6 @@ public class BehaviorAnnexTest {
 		createAndTestBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(0),
 				classifierName, diagram, pkgRef, srcStateName, openBehaviorAnnexDiagramCommand);
 
-		// Create impl
-		createImplementationWithExistingType(diagram, pkgElement, classifier + " Implementation", "impl", BA_TEST,
-				classifierName);
-
 		// Open text editor
 		doubleClickInAadlNavigator(BA_TEST, BA_TEST + ".aadl");
 
