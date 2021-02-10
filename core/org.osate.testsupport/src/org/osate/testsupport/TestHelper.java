@@ -151,7 +151,9 @@ public class TestHelper<T extends EObject> {
 			// test if capitalization in filePath matches capitalization in file system
 			// necessary to assure tests don't fail on Linux while working on MacOS and Windows
 			String path = new File(filePath).toPath().toString();
-			String real = new File(fullPath).toPath().toRealPath(java.nio.file.LinkOption.NOFOLLOW_LINKS).toString();
+			// https://bugs.openjdk.java.net/browse/JDK-8069337
+			// can't use java.nio.file.LinkOption.NOFOLLOW_LINKS as arg to toRealPath()
+			String real = new File(fullPath).toPath().toRealPath().toString();
 			if (!real.endsWith(path)) {
 				return null;
 			}
