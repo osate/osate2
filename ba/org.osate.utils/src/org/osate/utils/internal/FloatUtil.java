@@ -19,110 +19,93 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.utils.internal ;
+package org.osate.utils.internal;
 
-import java.math.BigDecimal ;
+import java.math.BigDecimal;
 
 /**
  * BigDecimal framework front end for arithmetic operations on float values.
  * @since 2.0
  */
-public class FloatUtil
-{
-  /**
-   * Sums the given float values.
-   *
-   * @param values the given values
-   * @return the sum
-   */
-  public static float add(float... values)
-  {
-    BigDecimal res = new BigDecimal("0") ;
+public class FloatUtil {
+	/**
+	 * Sums the given float values.
+	 *
+	 * @param values the given values
+	 * @return the sum
+	 */
+	public static float add(float... values) {
+		BigDecimal res = new BigDecimal("0");
 
-    for(float f : values)
-    {
-      BigDecimal bf = new BigDecimal(f + "") ;
-      res = res.add(bf) ;
-    }
+		for (float f : values) {
+			BigDecimal bf = new BigDecimal(f + "");
+			res = res.add(bf);
+		}
 
-    return res.floatValue() ;
-  }
+		return res.floatValue();
+	}
 
-  /**
-   * Subtracts the given left float value by the given right float value.
-   *
-   * @param left the left float value
-   * @param right the right float value
-   * @return the subtraction result
-   */
-  public static float subtract(float left,
-                               float right)
-  {
-    BigDecimal iLeft = new BigDecimal(left + "") ;
-    BigDecimal iRight = new BigDecimal(right + "") ;
-    return iLeft.subtract(iRight).floatValue() ;
-  }
+	/**
+	 * Subtracts the given left float value by the given right float value.
+	 *
+	 * @param left the left float value
+	 * @param right the right float value
+	 * @return the subtraction result
+	 */
+	public static float subtract(float left, float right) {
+		BigDecimal iLeft = new BigDecimal(left + "");
+		BigDecimal iRight = new BigDecimal(right + "");
+		return iLeft.subtract(iRight).floatValue();
+	}
 
-  /**
-   * Divides the given left float value by the given right float value.
-   *
-   * @param left the left float value
-   * @param right the right float value
-   * @return the division result
-   */
-  public static float divide(float left,
-                             float right)
-  {
-    BigDecimal iLeft = new BigDecimal(left + "") ;
-    BigDecimal iRight = new BigDecimal(right + "") ;
+	/**
+	 * Divides the given left float value by the given right float value.
+	 *
+	 * @param left the left float value
+	 * @param right the right float value
+	 * @return the division result
+	 */
+	public static float divide(float left, float right) {
+		BigDecimal iLeft = new BigDecimal(left + "");
+		BigDecimal iRight = new BigDecimal(right + "");
 
-    try
-    {
-      return iLeft.divide(iRight).floatValue() ;
-    }
-    catch(Exception e)
-    {
-      return iLeft.divide(iRight, BigDecimal.ROUND_HALF_DOWN).floatValue() ;
-    }
-  }
+		try {
+			return iLeft.divide(iRight).floatValue();
+		} catch (Exception e) {
+			return iLeft.divide(iRight, BigDecimal.ROUND_HALF_DOWN).floatValue();
+		}
+	}
 
-  /**
-   * Divides the given left float value by the given right float value and
-   * returns the smallest integer value of division result that is not less than
-   * the result.
-   *
-   * @param left the left float value
-   * @param right the right float value
-   * @return the smallest integer value of division result that is not less than
-   * the result
-   */
-  public static int ceil_divide(float left,
-                                float right)
-  {
-    float resF = divide(left, right) ;
+	/**
+	 * Divides the given left float value by the given right float value and
+	 * returns the smallest integer value of division result that is not less than
+	 * the result.
+	 *
+	 * @param left the left float value
+	 * @param right the right float value
+	 * @return the smallest integer value of division result that is not less than
+	 * the result
+	 */
+	public static int ceil_divide(float left, float right) {
+		float resF = divide(left, right);
 
-    if(((int) resF) != resF)
-    {
-      return 1 + (int) resF ;
-    }
-    else
-    {
-      return (int) resF ;
-    }
-  }
+		if (((int) resF) != resF) {
+			return 1 + (int) resF;
+		} else {
+			return (int) resF;
+		}
+	}
 
-  /**
-   * Multiplies the given left float value by the given right float value.
-   *
-   * @param left the left float value
-   * @param right the right float value
-   * @return the multiplication result
-   */
-  public static float multiply(float left,
-                               float right)
-  {
-    BigDecimal iLeft = new BigDecimal(left + "") ;
-    BigDecimal iRight = new BigDecimal(right + "") ;
-    return iLeft.multiply(iRight).floatValue() ;
-  }
+	/**
+	 * Multiplies the given left float value by the given right float value.
+	 *
+	 * @param left the left float value
+	 * @param right the right float value
+	 * @return the multiplication result
+	 */
+	public static float multiply(float left, float right) {
+		BigDecimal iLeft = new BigDecimal(left + "");
+		BigDecimal iRight = new BigDecimal(right + "");
+		return iLeft.multiply(iRight).floatValue();
+	}
 }

@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -19,12 +19,11 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.aadl2.EventDataPort ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.EventDataPortHolder ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.EventDataPort;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.EventDataPortHolder;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,53 +32,48 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public class EventDataPortHolderImpl extends ActualPortHolderImpl implements EventDataPortHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected EventDataPortHolderImpl()
-  {
-    super();
-  }
+public class EventDataPortHolderImpl extends ActualPortHolderImpl implements EventDataPortHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EventDataPortHolderImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.EVENT_DATA_PORT_HOLDER;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.EVENT_DATA_PORT_HOLDER;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setEventDataPort(final EventDataPort eventDataPort )
-  {
-    element = eventDataPort ;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setEventDataPort(final EventDataPort eventDataPort) {
+		element = eventDataPort;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public EventDataPort geteventDataPort()
-  {
-    return (EventDataPort) element;
-  }
-  
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EventDataPort geteventDataPort() {
+		return (EventDataPort) element;
+	}
 
-} //EventDataPortHolderImpl
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
+
+} // EventDataPortHolderImpl

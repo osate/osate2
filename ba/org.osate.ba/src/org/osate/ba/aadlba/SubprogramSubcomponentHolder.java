@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -20,7 +20,6 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,22 +31,21 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface SubprogramSubcomponentHolder extends SubcomponentHolder, CalledSubprogramHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model subprogramSubcomponentRequired="true"
-   * @generated
-   */
-  void setSubprogramSubcomponent(SubprogramSubcomponent subprogramSubcomponent);
+public interface SubprogramSubcomponentHolder extends SubcomponentHolder, CalledSubprogramHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model subprogramSubcomponentRequired="true"
+	 * @generated
+	 */
+	void setSubprogramSubcomponent(SubprogramSubcomponent subprogramSubcomponent);
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   * @generated
-   */
-  SubprogramSubcomponent getSubprogramSubcomponent();
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	SubprogramSubcomponent getSubprogramSubcomponent();
 
 } // SubprogramSubcomponentHolder

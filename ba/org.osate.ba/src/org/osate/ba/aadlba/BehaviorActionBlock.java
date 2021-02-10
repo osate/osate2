@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -18,9 +18,6 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba;
-
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -39,58 +36,57 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface BehaviorActionBlock extends BehaviorAction, BehaviorElement
-{
-  /**
-   * Returns the value of the '<em><b>Content</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Content</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Content</em>' containment reference.
-   * @see #setContent(BehaviorActions)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorActionBlock_Content()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  BehaviorActions getContent();
+public interface BehaviorActionBlock extends BehaviorAction, BehaviorElement {
+	/**
+	 * Returns the value of the '<em><b>Content</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Content</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Content</em>' containment reference.
+	 * @see #setContent(BehaviorActions)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorActionBlock_Content()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	BehaviorActions getContent();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorActionBlock#getContent <em>Content</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Content</em>' containment reference.
-   * @see #getContent()
-   * @generated
-   */
-  void setContent(BehaviorActions value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorActionBlock#getContent <em>Content</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Content</em>' containment reference.
+	 * @see #getContent()
+	 * @generated
+	 */
+	void setContent(BehaviorActions value);
 
-  /**
-   * Returns the value of the '<em><b>Timeout</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Timeout</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Timeout</em>' containment reference.
-   * @see #setTimeout(BehaviorTime)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorActionBlock_Timeout()
-   * @model containment="true"
-   * @generated
-   */
-  BehaviorTime getTimeout();
+	/**
+	 * Returns the value of the '<em><b>Timeout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Timeout</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Timeout</em>' containment reference.
+	 * @see #setTimeout(BehaviorTime)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getBehaviorActionBlock_Timeout()
+	 * @model containment="true"
+	 * @generated
+	 */
+	BehaviorTime getTimeout();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorActionBlock#getTimeout <em>Timeout</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Timeout</em>' containment reference.
-   * @see #getTimeout()
-   * @generated
-   */
-  void setTimeout(BehaviorTime value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.BehaviorActionBlock#getTimeout <em>Timeout</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Timeout</em>' containment reference.
+	 * @see #getTimeout()
+	 * @generated
+	 */
+	void setTimeout(BehaviorTime value);
 
 } // BehaviorActionBlock
