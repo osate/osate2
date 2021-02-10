@@ -43,13 +43,11 @@ class Issue2533Test {
 	@Inject
 	TestHelper<AadlPackage> testHelper
 	
-//	FluentIssueCollection issues
-	
 	@Test
 	def void test(){
 		val testFileResult = testHelper.testFile(FILE_LOCATION + FILE_NAME)
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		
 		issueCollection.sizeIs(0)
-	}
+	}	
 }

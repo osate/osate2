@@ -73,6 +73,7 @@ public
 		connections
 			C3: feature f_so2.f_so -> f_pa.f_in2;
 		flows
+			--  issue 2533 produced the following error:
 			--  error on C2: The source of connection 'C2' does not match the preceding subcomponent or 
 			--  out flow spec feature 'f_pa.f_out'	
 			flow_pa2: end to end flow f_so2.flow_so -> C3 -> f_pa.flow_pa2 -> C2 -> f_si.flow_si;
