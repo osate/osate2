@@ -26,7 +26,6 @@ package org.osate.testsupport;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -147,25 +146,25 @@ public class TestHelper<T extends EObject> {
 	 */
 	public Resource loadFile(String filePath, ResourceSet rs) {
 		try {
-			File file = new File(System.getProperty("user.dir") + "/../" + filePath);
-			String fileName = file.getCanonicalPath();
-			java.net.URI uri = new java.net.URI(fileName).normalize();
+			String fullPath = System.getProperty("user.dir") + "/../" + filePath;
 
-			// Fail if the file path doesn't exactly match the file location
-			// e.g., uses different capitalization on Mac or Windows
-			if (!uri.getPath().equals(file.getCanonicalPath())) {
+			// test if capitalization in filePath matches capitalization in file system
+			// necessary to assure tests don't fail on Linux while working on MacOS and Windows
+			String path = new File(filePath).toPath().toString();
+			String real = new File(fullPath).toPath().toRealPath(java.nio.file.LinkOption.NOFOLLOW_LINKS).toString();
+			if (!real.endsWith(path)) {
 				return null;
 			}
 
 			// This way of constructing the URL works in JUnit plug-in and standalone tests
-			URL url = new URL("file:" + fileName);
+			URL url = new URL("file:" + fullPath);
 			InputStream stream = url.openConnection().getInputStream();
 			Resource res = rs.createResource(URI.createURI(filePath));
 			if (res != null) {
 				res.load(stream, Collections.EMPTY_MAP);
 			}
 			return res;
-		} catch (IOException | URISyntaxException e) {
+		} catch (IOException e) {
 			return null;
 		}
 	}
