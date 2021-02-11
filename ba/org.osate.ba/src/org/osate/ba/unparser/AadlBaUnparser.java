@@ -899,7 +899,6 @@ public class AadlBaUnparser {
 				} else if (object instanceof Reference) {
 					return processReference((Reference) object);
 				} else if (object instanceof QualifiedNamedElement) {
-					// TODO only gets ID for qualfiiednamedlement
 					QualifiedNamedElement qn = (QualifiedNamedElement) object;
 					aadlbaText.addOutput(qn.getBaName().getId());
 				} else if (object instanceof org.osate.ba.declarative.NamedValue) {
