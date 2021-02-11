@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9};
+var methods = {"i0":9,"i1":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -75,13 +75,13 @@ var activeTableTab = "activeTableTab";
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -112,7 +112,8 @@ var activeTableTab = "activeTableTab";
 extends java.lang.Object</pre>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
-<dd>2.0</dd>
+<dd>2.1</dd>
+<dt><span class="simpleTagLabel">No Extend:</span></dt>
 </dl>
 </li>
 </ul>
@@ -120,23 +121,6 @@ extends java.lang.Object</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<ul class="blockList">
-<li class="blockList"><a name="constructor.summary">
-<!--   -->
-</a>
-<h3>Constructor Summary</h3>
-<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
-<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colOne" scope="col">Constructor and Description</th>
-</tr>
-<tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../org/osate/ge/DiagramCreationUtil.html#DiagramCreationUtil--">DiagramCreationUtil</a></span>()</code>&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
 <!-- ========== METHOD SUMMARY =========== -->
 <ul class="blockList">
 <li class="blockList"><a name="method.summary">
@@ -151,25 +135,15 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../org/osate/ge/DiagramCreationUtil.html#createDiagram-IEditorPart-java.lang.String-org.osate.ge.DiagramType-java.lang.Object-">createDiagram</a></span>(IEditorPart&nbsp;activeEditor,
-             java.lang.String&nbsp;fileName,
-             <a href="../../../org/osate/ge/DiagramType.html" title="interface in org.osate.ge">DiagramType</a>&nbsp;diagramType,
-             java.lang.Object&nbsp;bo)</code>&nbsp;</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>static IFile</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../org/osate/ge/DiagramCreationUtil.html#createDiagramFile-IProject-java.lang.String-">createDiagramFile</a></span>(IProject&nbsp;project,
-                 java.lang.String&nbsp;name)</code>
-<div class="block">Creates a diagram file in the diagrams directory of a project</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../org/osate/ge/DiagramCreationUtil.html#createDiagram-java.lang.Object-">createDiagram</a></span>(java.lang.Object&nbsp;contextBo)</code>
+<div class="block">Create a diagram for the business object</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../org/osate/ge/DiagramCreationUtil.html#openOrCreateDiagram-java.lang.Object-boolean-boolean-org.osate.ge.DiagramType-java.lang.String-">openOrCreateDiagram</a></span>(java.lang.Object&nbsp;contextBo,
-                   boolean&nbsp;promptForCreate,
-                   boolean&nbsp;promptForConfigureAfterCreate,
-                   <a href="../../../org/osate/ge/DiagramType.html" title="interface in org.osate.ge">DiagramType</a>&nbsp;diagramType,
-                   java.lang.String&nbsp;fileName)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../org/osate/ge/DiagramCreationUtil.html#openOrCreateDiagram-java.lang.Object-">openOrCreateDiagram</a></span>(java.lang.Object&nbsp;contextBo)</code>
+<div class="block">Open or create a diagram for the business object</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -187,69 +161,37 @@ extends java.lang.Object</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<ul class="blockList">
-<li class="blockList"><a name="constructor.detail">
-<!--   -->
-</a>
-<h3>Constructor Detail</h3>
-<a name="DiagramCreationUtil--">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>DiagramCreationUtil</h4>
-<pre>public&nbsp;DiagramCreationUtil()</pre>
-</li>
-</ul>
-</li>
-</ul>
 <!-- ============ METHOD DETAIL ========== -->
 <ul class="blockList">
 <li class="blockList"><a name="method.detail">
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="createDiagram-IEditorPart-java.lang.String-org.osate.ge.DiagramType-java.lang.Object-">
+<a name="createDiagram-java.lang.Object-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>createDiagram</h4>
-<pre>public static&nbsp;void&nbsp;createDiagram(IEditorPart&nbsp;activeEditor,
-                                 java.lang.String&nbsp;fileName,
-                                 <a href="../../../org/osate/ge/DiagramType.html" title="interface in org.osate.ge">DiagramType</a>&nbsp;diagramType,
-                                 java.lang.Object&nbsp;bo)</pre>
+<pre>public static&nbsp;void&nbsp;createDiagram(java.lang.Object&nbsp;contextBo)</pre>
+<div class="block">Create a diagram for the business object</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>contextBo</code> - the business object for which to create the diagram</dd>
+</dl>
 </li>
 </ul>
-<a name="openOrCreateDiagram-java.lang.Object-boolean-boolean-org.osate.ge.DiagramType-java.lang.String-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>openOrCreateDiagram</h4>
-<pre>public static&nbsp;void&nbsp;openOrCreateDiagram(java.lang.Object&nbsp;contextBo,
-                                       boolean&nbsp;promptForCreate,
-                                       boolean&nbsp;promptForConfigureAfterCreate,
-                                       <a href="../../../org/osate/ge/DiagramType.html" title="interface in org.osate.ge">DiagramType</a>&nbsp;diagramType,
-                                       java.lang.String&nbsp;fileName)</pre>
-</li>
-</ul>
-<a name="createDiagramFile-IProject-java.lang.String-">
+<a name="openOrCreateDiagram-java.lang.Object-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>createDiagramFile</h4>
-<pre>public static&nbsp;IFile&nbsp;createDiagramFile(IProject&nbsp;project,
-                                      java.lang.String&nbsp;name)</pre>
-<div class="block">Creates a diagram file in the diagrams directory of a project</div>
+<h4>openOrCreateDiagram</h4>
+<pre>public static&nbsp;void&nbsp;openOrCreateDiagram(java.lang.Object&nbsp;contextBo)</pre>
+<div class="block">Open or create a diagram for the business object</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>project</code> - the project that will contain the diagram</dd>
-<dd><code>name</code> - the name of the diagram file</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>null if project is null.</dd>
+<dd><code>contextBo</code> - the business object for which to open/create the diagram</dd>
 </dl>
 </li>
 </ul>
@@ -308,13 +250,13 @@ extends java.lang.Object</pre>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
