@@ -41,8 +41,6 @@ import org.osate.ge.tests.endToEnd.util.DiagramReference;
 
 public class BehaviorAnnexTest {
 	private static final String BA_TEST = "ba_test";
-	private static final String TYPE = " Type";
-	private static final String NAME_SUFFIX = "_type";
 	private static final String DATA_PKG = "data_test";
 	private static final String DATA_CLASSIFIER = "temp";
 
@@ -63,72 +61,24 @@ public class BehaviorAnnexTest {
 
 		// Create default diagram for testing classifiers
 		final DiagramReference diagram = defaultDiagram(BA_TEST, BA_TEST);
-		final RelativeBusinessObjectReference pkgRef = getRelativeReferenceForPackage(BA_TEST);
 		final DiagramElementReference pkgElement = packageElement(BA_TEST);
+		final RelativeBusinessObjectReference pkgRef = getRelativeReferenceForPackage(BA_TEST);
 
 		// Open text editor
 		doubleClickInAadlNavigator(BA_TEST, BA_TEST + ".aadl");
 
-		// Test classifiers
-		createAndTestBehaviorSpecificationForClassifier("Abstract", diagram, pkgElement, pkgRef);
-	}
-
-	/*
-	 * - Create a type
-	 * - Create BA in classifier type
-	 * - Create source Behavior State
-	 * - Execute Open -> Behavior Annex Diagram
-	 * - Create destination Behavior State
-	 * - Create behavior variable with data classifier set as Base_Types::Character
-	 * - Set data classifier for variable to data classifier data_test::temp
-	 * - Create a behavior transition between source and destination
-	 * - Test state and transition properties for classifier
-	 * - Repeat for impl, but execute Open -> New Diagram...
-	 */
-	private static void createAndTestBehaviorSpecificationForClassifier(final String classifier,
-			final DiagramReference diagram,
-			final DiagramElementReference pkgElement, final RelativeBusinessObjectReference pkgRef) {
-		final String classifierName = getName(classifier);
-		// Create type
-		createElementAndLayout(diagram, pkgElement, getType(classifier),
-				getClassifierRelativeReference("new_classifier"), classifierName);
-
-		// Create impl
-		createImplementationWithExistingType(diagram, pkgElement, classifier + " Implementation", "impl1", BA_TEST,
-				classifierName);
-
-		final DiagramElementReference abstractImpl1 = pkgElement
-				.join(getClassifierRelativeReference("Abstract_type.impl1"));
-
-		// Create data subcomponent
-		createElementAndLayout(diagram, abstractImpl1, "Data Subcomponent",
-				getSubcomponentRelativeReference("Abstract_type_impl1_new_subcomponent"), "dataSub");
-
-		createImplementationWithExistingType(diagram, pkgElement, classifier + " Implementation", "impl2", BA_TEST,
-				"Abstract_type.impl1");
-
-		final DiagramElementReference abstractImpl2 = pkgElement
-				.join(getClassifierRelativeReference("Abstract_type.impl2"));
-
-		// Show
-		showContentsAndLayout(diagram, abstractImpl2);
-
-		// Set dataSub refined
-		clickCheckboxInPropertiesView(diagram, "AADL", 0, element(pkgRef,
-				getClassifierRelativeReference("Abstract_type.impl2"), getSubcomponentRelativeReference("dataSub")));
-
-		final String srcStateName = "src_state";
-		// Create mode to test when source states have the same name as modes
-		createElementAndLayout(diagram, pkgElement.join(getClassifierRelativeReference(classifierName)), "Mode",
-				getModeRelativeReference(classifierName + "_new_mode"), srcStateName);
+		// Setup classifiers for testing
+		final String typeName = "Abstract_type";
+		final String modeName = "src_state";
+		setupClassifiers(diagram, pkgElement, pkgRef, typeName, modeName);
 
 		// Use Open -> Behavior Annex Diagram command to create new behavior annex diagram
 		final BiFunction<DiagramElementReference, String, DiagramReference> openBehaviorAnnexDiagramCommand = (ref,
-				newStatePrefix) -> openDiagramFromReference(ref, newStatePrefix, 0);
+				diagramPrefix) -> openDiagramFromReference(ref, diagramPrefix, 0);
 
 		// Run tests for type
-		createAndTestBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(0),
-				classifierName, diagram, pkgRef, srcStateName, openBehaviorAnnexDiagramCommand);
+		testBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(0),
+				typeName, diagram, pkgRef, modeName, openBehaviorAnnexDiagramCommand);
 
 		// Open text editor
 		doubleClickInAadlNavigator(BA_TEST, BA_TEST + ".aadl");
@@ -138,46 +88,106 @@ public class BehaviorAnnexTest {
 				newStatePrefix) -> openNewDiagramFromReference(ref, newStatePrefix, 1);
 
 		// Run tests for impl
-		createAndTestBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(1),
-				classifierName + ".impl2", diagram, pkgRef, srcStateName, openNewDiagramCommand);
+		testBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(1),
+				typeName + ".impl2", diagram, pkgRef, modeName, openNewDiagramCommand);
 	}
 
-	private static void createAndTestBehaviorSpecification(final RelativeBusinessObjectReference behaviorSpecification,
+	/*
+	 * - Create an abstract type
+	 * - - - Create mode
+	 * - Create an abstract impl
+	 * - - - Create data subcomponent in impl
+	 * - Create another abstract impl extending first impl
+	 * - - - Refine data subcomponent
+	 */
+	private static void setupClassifiers(final DiagramReference diagram, final DiagramElementReference pkgElement,
+			final RelativeBusinessObjectReference pkgRef, final String typeName, final String modeName) {
+		// Create type
+		createElementAndLayout(diagram, pkgElement, "Abstract Type", getClassifierRelativeReference("new_classifier"),
+				typeName);
+
+		// Create mode to test when source states have the same name as modes
+		createElementAndLayout(diagram, pkgElement.join(getClassifierRelativeReference(typeName)), "Mode",
+				getModeRelativeReference(typeName + "_new_mode"), modeName);
+
+		// Create impl
+		createImplementationWithExistingType(diagram, pkgElement, "Abstract Implementation", "impl1", BA_TEST,
+				typeName);
+
+		final DiagramElementReference abstractImpl1 = pkgElement
+				.join(getClassifierRelativeReference("Abstract_type.impl1"));
+
+		// Create data subcomponent
+		createElementAndLayout(diagram, abstractImpl1, "Data Subcomponent",
+				getSubcomponentRelativeReference("Abstract_type_impl1_new_subcomponent"), "dataSub");
+
+		createImplementationWithExistingType(diagram, pkgElement, "Abstract Implementation", "impl2", BA_TEST,
+				"Abstract_type.impl1");
+
+		final DiagramElementReference abstractImpl2 = pkgElement
+				.join(getClassifierRelativeReference(typeName + ".impl2"));
+
+		// Show
+		showContentsAndLayout(diagram, abstractImpl2);
+
+		// Set dataSub refined
+		clickCheckboxInPropertiesView(diagram, "AADL", 0, element(pkgRef,
+				getClassifierRelativeReference("Abstract_type.impl2"), getSubcomponentRelativeReference("dataSub")));
+	}
+
+	/*
+	 * - Create BA with initial state in classifier type
+	 * - Set BA in mode
+	 * - Create source Behavior State
+	 * - Execute open diagram for ba
+	 * - Create destination Behavior State
+	 * - Create behavior variable with data classifier set as Base_Types::String
+	 * - Set data classifier for variable to data classifier data_test::temp
+	 * - Create a behavior transition between source and destination
+	 * - Test state and transition properties for classifier
+	 */
+	private static void testBehaviorSpecification(final RelativeBusinessObjectReference behaviorSpecification,
 			final String classifierName,
-			final DiagramReference diagram, final RelativeBusinessObjectReference pkgRef, final String srcStateName,
+			final DiagramReference diagram, final RelativeBusinessObjectReference pkgRef, final String modeName,
 			final BiFunction<DiagramElementReference, String, DiagramReference> openDiagram) {
 		// Create behavior specification
-		createBehaviorAnnexWithState(diagram, pkgRef, classifierName, behaviorSpecification, srcStateName);
+		createBehaviorAnnexWithInitialState(diagram, pkgRef, classifierName, behaviorSpecification, modeName);
 
 		final RelativeBusinessObjectReference classifierRef = getClassifierRelativeReference(classifierName);
 		final DiagramElementReference specificationDiagramRef = new DiagramElementReference(pkgRef, classifierRef,
 				behaviorSpecification);
-		final DiagramElementReference src = specificationDiagramRef
-				.join(BehaviorAnnexReferenceUtil.getStateRelativeReference(srcStateName));
-		final String newStatePrefix = classifierName.replace(".", "_");
-		final DiagramReference baDiagram = openDiagram.apply(src, newStatePrefix);
+
+		// Set in mode
+		clickCheckboxInPropertiesView(diagram, "AADL", 0, specificationDiagramRef);
+
+		// Source state with same name as mode
+		final DiagramElementReference srcState = specificationDiagramRef
+				.join(BehaviorAnnexReferenceUtil.getStateRelativeReference(modeName));
+		final DiagramReference baDiagram = openDiagram.apply(srcState, classifierName.replace(".", "_"));
 
 		// New specification reference for BA diagram
 		final DiagramElementReference baDiagramSpecRef = new DiagramElementReference(behaviorSpecification);
+		testBehaviorStates(baDiagram, baDiagramSpecRef);
 
-		// Create state to delete
-		createElementAndLayout(baDiagram, baDiagramSpecRef, "Behavior State",
-				BehaviorAnnexReferenceUtil.getStateRelativeReference("new_state"), "delete_state");
+		testBehaviorVariable(baDiagram, baDiagramSpecRef);
 
-		// Test deletion
-		final DiagramElementReference stateToDelete = new DiagramElementReference(behaviorSpecification)
-				.join(BehaviorAnnexReferenceUtil.getStateRelativeReference("delete_state"));
-		deleteElement(baDiagram, stateToDelete);
+		testBehaviorTransition(
+				new DiagramElementReference(behaviorSpecification,
+						BehaviorAnnexReferenceUtil.getStateRelativeReference(modeName)),
+				baDiagram, behaviorSpecification);
 
-		// Create destination state
-		createElementAndLayout(baDiagram, baDiagramSpecRef, "Behavior State",
-				BehaviorAnnexReferenceUtil.getStateRelativeReference("new_state"), "dest_state");
 
+		saveAndCloseDiagramEditor(baDiagram);
+	}
+
+	private static void testBehaviorVariable(final DiagramReference baDiagram,
+			final DiagramElementReference baDiagramSpecRef) {
 		// Create variable
 		final String newVariableName = "ba_variable";
 		createBehaviorVariable(baDiagram, baDiagramSpecRef, "Base_Types::String", "new_behavior_variable",
 				newVariableName);
 
+		// Test deletion
 		deleteElement(baDiagram,
 				baDiagramSpecRef.join(BehaviorAnnexReferenceUtil.getVariableRelativeReference(newVariableName)));
 
@@ -188,55 +198,59 @@ public class BehaviorAnnexTest {
 		setBehaviorVariableDataClassifier(baDiagram,
 				baDiagramSpecRef.join(BehaviorAnnexReferenceUtil.getVariableRelativeReference(newVariableName)),
 				DATA_PKG + "::" + DATA_CLASSIFIER);
-
-		final DiagramElementReference dest = new DiagramElementReference(behaviorSpecification)
-				.join(BehaviorAnnexReferenceUtil.getStateRelativeReference("dest_state"));
-		testBehaviorSpecification(
-				new DiagramElementReference(behaviorSpecification,
-						BehaviorAnnexReferenceUtil.getStateRelativeReference(srcStateName)),
-				dest, baDiagram, behaviorSpecification);
-
-
-
-		saveAndCloseDiagramEditor(baDiagram);
 	}
 
-	private static void testBehaviorSpecification(final DiagramElementReference src, final DiagramElementReference dest,
-			final DiagramReference diagram, final RelativeBusinessObjectReference behaviorSpecification) {
-		clickCheckboxInPropertiesView(diagram, "AADL", 1, dest);
+	private static void testBehaviorStates(final DiagramReference baDiagram,
+			final DiagramElementReference baDiagramSpecRef) {
+		// Create state to delete
+		createElementAndLayout(baDiagram, baDiagramSpecRef, "Behavior State",
+				BehaviorAnnexReferenceUtil.getStateRelativeReference("new_state"), "delete_state");
 
-		// Swap complete states from src to destination for classifiers
-		// that require complete states and do not allow dispatch conditions
-		clickCheckboxInPropertiesView(diagram, "AADL", 0, dest);
-		clickCheckboxInPropertiesView(diagram, "AADL", 0, src);
+		// Test deletion
+		final DiagramElementReference stateToDelete = baDiagramSpecRef
+				.join(BehaviorAnnexReferenceUtil.getStateRelativeReference("delete_state"));
+		deleteElement(baDiagram, stateToDelete);
 
+		// Create destination state
+		createElementAndLayout(baDiagram, baDiagramSpecRef, "Behavior State",
+				BehaviorAnnexReferenceUtil.getStateRelativeReference("new_state"), "dest_state");
+	}
+
+	private static void testBehaviorTransition(final DiagramElementReference src, final DiagramReference baDiagram,
+			final RelativeBusinessObjectReference behaviorSpecification) {
+		final DiagramElementReference dest = new DiagramElementReference(behaviorSpecification)
+				.join(BehaviorAnnexReferenceUtil.getStateRelativeReference("dest_state"));
+
+		clickCheckboxInPropertiesView(baDiagram, "AADL", 1, dest);
 
 		final RelativeBusinessObjectReference transitionRef = BehaviorAnnexReferenceUtil
 				.getTransitionRelativeReference(0);
-
 		// Create a transition between the states
-		createConnectionElement(diagram, src, dest, "Behavior Transition",
+		createConnectionElement(baDiagram, src, dest, "Behavior Transition",
 				element(behaviorSpecification, transitionRef));
 
-		renameElementFromContextMenu(diagram, element(behaviorSpecification), transitionRef, "new_transition",
+		// Rename transition
+		renameElementFromContextMenu(baDiagram, element(behaviorSpecification), transitionRef, "new_transition",
 				transitionRef);
 
-		renameElementDirectEdit(diagram, element(behaviorSpecification),
+		// Test renaming for states with same name of a mode with transition
+		renameElementDirectEdit(baDiagram, element(behaviorSpecification),
 				BehaviorAnnexReferenceUtil.getStateRelativeReference("src_state"), "new_mode");
-		renameElementDirectEdit(diagram, element(behaviorSpecification),
+		renameElementDirectEdit(baDiagram, element(behaviorSpecification),
 				BehaviorAnnexReferenceUtil.getStateRelativeReference("new_mode"), "src_state");
 
-		deleteElement(diagram, element(behaviorSpecification).join(transitionRef));
+		// Test delete transition
+		deleteElement(baDiagram, element(behaviorSpecification).join(transitionRef));
 
 		// Set completeness
-		clickCheckboxInPropertiesView(diagram, "AADL", 0, src);
+		clickCheckboxInPropertiesView(baDiagram, "AADL", 0, src);
 	}
 
 	// Open Behavior Annex diagram
 	private static DiagramReference openDiagramFromReference(final DiagramElementReference ref,
 			final String newStatePrefix,
 			final int index) {
-		final String diagramName = BA_TEST + "_" + newStatePrefix + "_behavior_specification";
+		final String diagramName = BA_TEST + "_" + newStatePrefix + "_" + BehaviorAnnexReferenceUtil.ANNEX_NAME;
 		// Look for existing diagram
 		final IFile diagramFile = (IFile) ResourcesPlugin.getWorkspace().getRoot()
 				.findMember(BA_TEST + "/diagrams/" + diagramName + ".aadl_diagram");
@@ -268,17 +282,9 @@ public class BehaviorAnnexTest {
 		clickButtonForShell("Create Diagram", "OK");
 
 		final DiagramReference baDiagram = defaultDiagram(BA_TEST,
-				BA_TEST + "_" + newStatePrefix + "_behavior_specification");
+				BA_TEST + "_" + newStatePrefix + "_" + BehaviorAnnexReferenceUtil.ANNEX_NAME);
 		waitForDiagramActive(baDiagram);
 
 		return baDiagram;
-	}
-
-	private static String getName(final String name) {
-		return new StringBuilder(name.replace(" ", "_")).append(NAME_SUFFIX).toString();
-	}
-
-	private static String getType(final String name) {
-		return new StringBuilder(name).append(TYPE).toString();
 	}
 }

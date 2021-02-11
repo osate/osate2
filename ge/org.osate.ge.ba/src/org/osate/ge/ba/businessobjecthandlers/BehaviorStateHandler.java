@@ -115,13 +115,13 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 		final String originalName = behaviorState.getName();
 		final String newName = ctx.getNewName();
 
-		// Handle DeclarativeBehaviorTransistions
+		// Handle DeclarativeBehaviorTransitions
 		// Set the ID for source and destination states because they do not update if an invalid state name change occurs
 		behaviorAnnex.getTransitions().stream().filter(DeclarativeBehaviorTransition.class::isInstance)
 				.forEach(transition -> {
 					final DeclarativeBehaviorTransition dt = (DeclarativeBehaviorTransition) transition;
 					final EList<Identifier> srcStates = dt.getSrcStates();
-					if (!srcStates.isEmpty()) {
+					if (!srcStates.isEmpty() && dt.getDestState() != null) {
 						// Set id for source and destination
 						setId(srcStates.get(0), originalName, newName);
 						setId(dt.getDestState(), originalName, newName);
