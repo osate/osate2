@@ -2,6 +2,8 @@
  */
 package org.osate.analysis.resources.budgets.internal.models.busload;
 
+import org.osate.analysis.model.analysis.AnalysisElement;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Element</b></em>'.
@@ -20,7 +22,7 @@ package org.osate.analysis.resources.budgets.internal.models.busload;
  * @model abstract="true"
  * @generated
  */
-public interface BusloadElement extends org.osate.analysis.model.analysis.AnalysisElement {
+public interface BusloadElement extends AnalysisElement {
 	/**
 	 * Returns the value of the '<em><b>Label</b></em>' attribute.
 	 * <!-- begin-user-doc -->

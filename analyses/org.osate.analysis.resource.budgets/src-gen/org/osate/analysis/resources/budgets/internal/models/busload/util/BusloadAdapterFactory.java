@@ -8,6 +8,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
+import org.osate.analysis.model.analysis.AnalysisElement;
 import org.osate.analysis.resources.budgets.internal.models.busload.*;
 
 /**
@@ -95,7 +96,7 @@ public class BusloadAdapterFactory extends AdapterFactoryImpl {
 				return createBusLoadModelAdapter();
 			}
 			@Override
-			public Adapter caseAnalysisElement(org.osate.analysis.model.analysis.AnalysisElement object) {
+			public Adapter caseAnalysisElement(AnalysisElement object) {
 				return createAnalysisElementAdapter();
 			}
 			@Override
