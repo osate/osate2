@@ -467,11 +467,6 @@ public class PropagationGraphBackwardTraversal {
 			boolean sameState = false;
 			Collection<TypeToken> newtypes = new LinkedList<TypeToken>();
 			if (ebt.getTarget() != null && EMV2Util.isSame(state, ebt.getTarget())) {
-				if (ebt.getSource() != null && EMV2Util.isSame(ebt.getSource(), ebt.getTarget())
-						&& ebt.getSource().getTypeSet() == null
-						&& ebt.getTarget().getTypeSet() == null) {
-					sameState = true;
-				}
 				if (ebt.getTargetToken() != null) {
 					Collection<TypeToken> filteredtypes = filterTokenThroughConstraint(ebt.getTargetToken(), type);
 					for (TypeToken filteredtype : filteredtypes) {
@@ -486,6 +481,11 @@ public class PropagationGraphBackwardTraversal {
 					}
 				} else {
 					conditionExpression = ebt.getCondition();
+					if (ebt.getSource() != null && EMV2Util.isSame(state, ebt.getSource())
+							&& isSame(type, ebt.getTypeTokenConstraint())) {
+						sameState = true;
+						newtypes.add(type);
+					}
 				}
 			} else if (!ebt.getDestinationBranches().isEmpty()) {
 				// deal with transition branches
