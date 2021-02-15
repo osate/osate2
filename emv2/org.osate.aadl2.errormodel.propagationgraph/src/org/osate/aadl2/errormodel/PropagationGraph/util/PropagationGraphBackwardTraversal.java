@@ -481,6 +481,11 @@ public class PropagationGraphBackwardTraversal {
 					}
 				} else {
 					conditionExpression = ebt.getCondition();
+					if (ebt.getSource() != null && EMV2Util.isSame(state, ebt.getSource())
+							&& isSame(type, ebt.getTypeTokenConstraint())) {
+						sameState = true;
+						newtypes.add(type);
+					}
 				}
 			} else if (!ebt.getDestinationBranches().isEmpty()) {
 				// deal with transition branches
