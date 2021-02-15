@@ -94,6 +94,8 @@ class FTATest {
 	var static SystemInstance instanceIssues21232425
 	var static SystemInstance instanceIssue2112
 	var static SystemInstance instanceIssue2177
+	var static SystemInstance instanceIssue2546Untyped
+	var static SystemInstance instanceIssue2546Typed
 
 	val static stateFail = "state Failed"
 	val static stateFailStop = "state FailStop"
@@ -138,6 +140,8 @@ class FTATest {
 	val Issue1384Errortypesfile = "emv2_errortype_definition.aadl"
 	val ErrorStateWithTypesfile = "ErrorStateWithTypes.aadl"
 	val Issue2177file = "Issue2177.aadl"
+	val Issue2546UntypedFile = "Issue2546UntypedTest.aadl"
+	val Issue2546TypedFile = "Issue2546TypedTest.aadl"
 
 	@Before
 	def void initWorkspace() {
@@ -179,7 +183,9 @@ class FTATest {
 			modelroot + Issue1384Errortypesfile,
 			modelroot + Issue1384file,
 			modelroot + ErrorStateWithTypesfile,
-			modelroot + Issue2177file
+			modelroot + Issue2177file,
+			modelroot + Issue2546UntypedFile,
+			modelroot + Issue2546TypedFile
 			
 		)
 		instance1 = instanceGenerator(modelroot + fta1File, "main.i")
@@ -217,6 +223,8 @@ class FTATest {
 		instanceIssue1384 = instanceGenerator(modelroot + Issue1384file, "sys.i")
 		instanceIssues21232425 = instanceGenerator(modelroot + ErrorStateWithTypesfile, "iPCA_Safety.i")
 		instanceIssue2177 = instanceGenerator(modelroot + Issue2177file, "SubSys1.EMV2")
+		instanceIssue2546Untyped = instanceGenerator(modelroot + Issue2546UntypedFile, "sys.i")
+		instanceIssue2546Typed = instanceGenerator(modelroot + Issue2546TypedFile, "sys.i")
 	}
 
 	def SystemInstance instanceGenerator(String filename, String rootclassifier) {
@@ -1099,4 +1107,24 @@ class FTATest {
 		assertEquals((ev2.relatedEMV2Object as NamedElement).name, "Internal_Service_Error")
 	}
 	
+	@Test
+	def void issue2546UntypedTest(){
+		val ft = CreateFTAModel.createFaultTree(instanceIssue2546Untyped, "outgoing propagation on dout{ItemValueError}")
+		assertEquals(ft.events.size, 2)	
+		assertEquals(ft.root.subEvents.size,1)
+		val ev1 = ft.root
+		assertEquals((ev1.relatedInstanceObject as NamedElement).name, "sys_i_Instance")
+	}
+	
+	@Test
+	def void issue2546TypedTest(){
+		val ft = CreateFTAModel.createFaultTree(instanceIssue2546Typed, "outgoing propagation on dout{NoValue}")
+		assertEquals(ft.events.size, 2)
+		assertEquals(ft.root.subEvents.size,1)
+		val ev1 = ft.root
+		assertEquals((ev1.relatedInstanceObject as NamedElement).name, "sys_i_Instance")
+		val ev2 = ev1.subEvents.get(0)
+		assertEquals((ev2.relatedEMV2Object as NamedElement).name, "esrc")
+	}
+
 }
