@@ -25,13 +25,17 @@ package org.osate.ge.ba.ui.palette;
 
 import java.util.Optional;
 
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
@@ -47,17 +51,39 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 
 	@Override
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
-		return ctx.getTarget().getBusinessObject(ComponentClassifier.class)
-				.map(c -> Operation.createSimple(ctx.getTarget(), Classifier.class, modifyBo -> {
+		return ctx.getTarget().getBusinessObject(EObject.class).map(eObject -> {
+			// Get behavior annex owner
+			final Optional<ComponentClassifier> owner = getBehaviorAnnexOwner(ctx.getTarget());
+			if (!owner.isPresent()) {
+				return null;
+			}
+
+			return Operation.createWithBuilder(builder -> {
+				builder.supply(() -> StepResult.forValue(owner.get())).modifyPreviousResult(classifier -> {
 					// Create behavior annex
-					final BehaviorAnnex ba = createBehaviorAnnex(modifyBo);
+					final BehaviorAnnex ba = createBehaviorAnnex(classifier);
 					// Show new specification
-					return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), ba.getOwner()).build();
-				})).orElse(Optional.empty());
+					return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), ba).build();
+				});
+			});
+		});
 	}
 
 	private static BehaviorAnnex createBehaviorAnnex(final Classifier c) {
-		return GraphicalAnnexUtil.createParsedAnnexSubclause(c, BehaviorAnnexReferenceUtil.ANNEX_NAME,
+		final String name = BehaviorAnnexReferenceUtil.ANNEX_NAME;
+		final BehaviorAnnex ba = GraphicalAnnexUtil.createParsedAnnexSubclause(c, name,
 				AadlBaPackage.eINSTANCE.getBehaviorAnnex(), BehaviorAnnex.class);
+		ba.setName(name);
+		return ba;
+	}
+
+	// Get classifier that will own behavior annex
+	private Optional<ComponentClassifier> getBehaviorAnnexOwner(final BusinessObjectContext boc) {
+		final Subcomponent sc = boc.getBusinessObject(Subcomponent.class).orElse(null);
+		if (sc != null) {
+			return Optional.ofNullable(sc.getAllClassifier());
+		}
+
+		return boc.getBusinessObject(ComponentClassifier.class);
 	}
 }
