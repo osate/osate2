@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,15 +24,13 @@
 package org.osate.ge.ba;
 
 import org.eclipse.core.expressions.PropertyTester;
-import org.eclipse.ui.IEditorPart;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 
 public class BehaviorAnnexPropertyTester extends PropertyTester {
 	@Override
 	public boolean test(final Object receiver, final String property, final Object[] args, final Object expectedValue) {
 		if ("isDiagramContext".equals(property)) {
-			final IEditorPart activeEditor = BehaviorAnnexSelectionUtil.getActiveEditor().orElse(null);
-			return BehaviorAnnexSelectionUtil.getDiagramContext(activeEditor).isPresent();
+			return BehaviorAnnexSelectionUtil.getDiagramContext().isPresent();
 		}
 
 		return false;
