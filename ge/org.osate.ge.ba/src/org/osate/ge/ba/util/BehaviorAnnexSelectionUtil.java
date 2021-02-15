@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -110,7 +110,7 @@ public class BehaviorAnnexSelectionUtil {
 	 * Returns a business object which is a valid diagram context or
 	 * null if such a business object could not be determined based on the current selection.
 	 */
-	public static Optional<DefaultAnnexSubclause> getDiagramContext(final IEditorPart activeEditor) {
+	public static Optional<DefaultAnnexSubclause> getDiagramContext() {
 		final ISelection selection = getCurrentSelection();
 		if (selection instanceof IStructuredSelection) {
 			final List<BusinessObjectContext> selectedBusinessObjectContexts = getSelectedBusinessObjectContexts(

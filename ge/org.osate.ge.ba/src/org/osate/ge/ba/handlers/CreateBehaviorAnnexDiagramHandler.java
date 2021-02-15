@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -26,8 +26,6 @@ package org.osate.ge.ba.handlers;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ge.DiagramCreationUtil;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
@@ -35,8 +33,7 @@ import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 public class CreateBehaviorAnnexDiagramHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		final DefaultAnnexSubclause diagramContext = BehaviorAnnexSelectionUtil.getDiagramContext(activeEditor)
+		final DefaultAnnexSubclause diagramContext = BehaviorAnnexSelectionUtil.getDiagramContext()
 				.orElseThrow(() -> new RuntimeException("diagram context cannot be null"));
 		DiagramCreationUtil.createDiagram(diagramContext);
 		return null;
