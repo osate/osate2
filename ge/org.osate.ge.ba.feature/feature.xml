@@ -22,33 +22,38 @@ Software. The parties who own the Third Party Software ("Third Party Licensors")
 aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
 censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<feature
+      id="org.osate.ge.ba.feature"
+      label="OSATE Graphical Editor Behavior Annex"
+      version="1.0.0.qualifier"
+      provider-name="The University of Alabama in Huntsville"
+      license-feature="org.osate.license"
+      license-feature-version="1.0.1.qualifier">
 
-	<parent>
-		<groupId>org.osate</groupId>
-		<artifactId>osate2.parent</artifactId>
-		<version>2.9.2-SNAPSHOT</version>
-	</parent>
+   <description>
+      OSATE Graphical Editor Behavior Annex Support
+   </description>
 
-	<groupId>org.osate</groupId>
-	<artifactId>ge.parent</artifactId>
-	<packaging>pom</packaging>
-	<version>2.9.2-SNAPSHOT</version>
+   <copyright>
+      Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
+   </copyright>
 
-	<modules>
-		<module>org.osate.ge</module>
-		<module>org.osate.ge.swt</module>
-		<module>org.osate.ge.diagram</module>
-		<module>org.osate.ge.doc</module>
-		<module>org.osate.ge.feature</module>
-		<module>org.osate.ge.errormodel</module>
-		<module>org.osate.ge.errormodel.feature</module>
-		<module>org.osate.ge.ba</module>
-		<module>org.osate.ge.ba.feature</module>
- 		<module>org.osate.ge.tests</module>
-	</modules>
+   <requires>
+      <import plugin="org.osate.ge"/>
+      <import plugin="org.osate.ba"/>
+      <import plugin="org.eclipse.ui.views.properties.tabbed"/>
+      <import plugin="org.osate.ge.swt"/>
+      <import plugin="org.eclipse.xtext.ui"/>
+      <import plugin="org.eclipse.core.expressions"/>
+      <import plugin="org.osate.xtext.aadl2.ui"/>
+      <import plugin="org.osate.ui"/>
+   </requires>
 
-</project>
+   <plugin
+         id="org.osate.ge.ba"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
