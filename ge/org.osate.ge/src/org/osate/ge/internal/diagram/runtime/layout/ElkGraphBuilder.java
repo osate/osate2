@@ -336,7 +336,7 @@ class ElkGraphBuilder {
 		final Dimension untransformedGraphicSize = layoutInfoProvider.getPortGraphicSize(dockedElement);
 		final Dimension transformedGraphicSize = transformDimension(untransformedGraphicSize, side);
 
-		final Dimension untransformedLabelsSize = layoutInfoProvider.getLabelsSize(dockedElement);
+		final Dimension untransformedLabelsSize = layoutInfoProvider.getDockedElementLabelsSize(dockedElement);
 		final Dimension transformedLabelsSize = transformDimension(untransformedLabelsSize, side);
 
 		// Create child ports and sort them by the size of the dimension parallel to the docked side

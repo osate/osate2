@@ -37,7 +37,7 @@ import javafx.scene.shape.StrokeType;
  * Node used for note graphics
  */
 public class NoteNode extends Region implements ChopBoxGeometryProvider, Stylable {
-	private final static double CORNER_OFFSET = 20.0;
+	private static final double CORNER_OFFSET = 20.0;
 
 	private final javafx.scene.shape.Polygon polygon = new javafx.scene.shape.Polygon();
 	private final javafx.scene.shape.Polyline polyline = new javafx.scene.shape.Polyline();

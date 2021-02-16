@@ -30,14 +30,13 @@ import com.google.common.collect.ImmutableList;
 
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcTo;
-import javafx.scene.shape.ClosePath;
+import javafx.scene.shape.CubicCurveTo;
+import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
-import javafx.scene.shape.VLineTo;
 
 /**
  * Node for feature group type graphics
@@ -88,19 +87,29 @@ public class FeatureGroupTypeNode extends Region implements ChopBoxGeometryProvi
 		final double innerEllipseRadiusX = width / 3.0;
 		final double innerEllipseRadiusY = height / 4.0;
 		final double innerEllipseTopY = (height / 2.0) - innerEllipseRadiusY;
+		final double innerEllipseBottomY = (height / 2.0) + innerEllipseRadiusY;
 
 		inner.getElements().setAll(
 				// Outer Half Ellipse
 				new MoveTo(halfEllipseOuterWidth, 0.0),
-				new ArcTo(halfEllipseOuterWidth, height / 2.0, 0.0, halfEllipseOuterWidth, height, false, false),
-				new VLineTo(height - halfEllipseYOffset),
-				new ArcTo(halfEllipseInnerWidth, halfEllipseInnerRadiusY, 0.0, halfEllipseOuterWidth,
-						halfEllipseYOffset, false, true),
-				new VLineTo(0.0),
+				new CubicCurveTo(halfEllipseOuterWidth - (halfEllipseOuterWidth * 4.0 / 3.0), 0.0,
+						halfEllipseOuterWidth - (halfEllipseOuterWidth * 4.0 / 3.0), height,
+						halfEllipseOuterWidth, height),
+				new LineTo(halfEllipseOuterWidth, height - halfEllipseYOffset),
+				new CubicCurveTo(halfEllipseOuterWidth - (halfEllipseInnerWidth * 4.0 / 3.0),
+						height - halfEllipseYOffset, halfEllipseOuterWidth - (halfEllipseInnerWidth * 4.0 / 3.0),
+						halfEllipseYOffset, halfEllipseOuterWidth, halfEllipseYOffset),
+				new LineTo(halfEllipseOuterWidth, 0.0),
 				// Inner Ellipse
-				new MoveTo(innerEllipseCenterX + 1, innerEllipseTopY), new ArcTo(innerEllipseRadiusX,
-						innerEllipseRadiusY, 0.0, innerEllipseCenterX, innerEllipseTopY, true, true),
-				new ClosePath());
+				new MoveTo(innerEllipseCenterX, innerEllipseTopY),
+				new CubicCurveTo(innerEllipseCenterX + (innerEllipseRadiusX * 4.0 / 3.0), innerEllipseTopY,
+						innerEllipseCenterX + (innerEllipseRadiusX * 4.0 / 3.0), innerEllipseBottomY,
+						innerEllipseCenterX,
+						innerEllipseBottomY),
+				new CubicCurveTo(innerEllipseCenterX - (innerEllipseRadiusX * 4.0 / 3.0), innerEllipseBottomY,
+						innerEllipseCenterX - (innerEllipseRadiusX * 4.0 / 3.0), innerEllipseTopY, innerEllipseCenterX,
+						innerEllipseTopY)
+				);
 	}
 
 	@Override

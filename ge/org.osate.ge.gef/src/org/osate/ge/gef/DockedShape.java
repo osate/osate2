@@ -38,6 +38,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 
 /**
  * {@link Node} implementation which is intended to be docked to a side of a container or placed inside of
@@ -55,7 +56,7 @@ import javafx.scene.layout.Region;
  * Labels and nested {@link DockedShape} instances are laid out based on the configured {@link DockSide}
  * The preferred position of nested children can be set using {@link PreferredPosition#set(Node, Point2D)}.
  */
-public class DockedShape extends Region implements ChopBoxGeometryProvider, Stylable {
+public class DockedShape extends Region implements ChopBoxGeometryProvider, Stylable, HasLabelBackgroundColor {
 	/**
 	 * Padding at the bottom of the area containing all labels
 	 */
@@ -71,10 +72,10 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 	private final Group primaryLabels = new Group();
 	private final Group secondaryLabels = new Group();
 	private final Group[] labelGroups = new Group[] { primaryLabels, secondaryLabels };
-	private final DockedNodes dockedChildren = new DockedNodes(getSide());
-	private final StaticAnchor interiorAnchor = new StaticAnchor(this,
+	private final DockedNodes dockedChildren = new DockedNodes(getSide(), this::computeMinimumNestedChildPosition);
+	private final StaticAnchor interiorAnchor = new StaticAnchor(graphicWrapper,
 			new org.eclipse.gef.geometry.planar.Point(0.0, 0.0));
-	private final StaticAnchor exteriorAnchor = new StaticAnchor(this,
+	private final StaticAnchor exteriorAnchor = new StaticAnchor(graphicWrapper,
 			new org.eclipse.gef.geometry.planar.Point(0.0, 0.0));
 
 	/**
@@ -156,6 +157,24 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 
 	public ObservableList<Node> getSecondaryLabels() {
 		return secondaryLabels.getChildren();
+	}
+
+	/**
+	 * Returns the maximum of the actual width of all labels
+	 * @return the maximum width of labels
+	 */
+	public double getMaxLabelWidth() {
+		return Math.max(
+				Math.max(primaryLabels.getLayoutBounds().getWidth(), secondaryLabels.getLayoutBounds().getWidth()), 0);
+	}
+
+	/**
+	 * Returns the sum of the heights of all labels
+	 * @return the sum of the heights of all labels
+	 */
+	public double getTotalLabelHeight() {
+		return Math.max(primaryLabels.getLayoutBounds().getHeight(), 0)
+				+ Math.max(secondaryLabels.getLayoutBounds().getHeight(), 0);
 	}
 
 	/**
@@ -277,7 +296,7 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 					maxUntransformedGraphicPrefWidth() + dockedChildren.getWidth()));
 		} else {
 			// Top/ Bottom
-			return Math.max(maxLabelPrefWidth() + Math.max(graphicWrapper.prefWidth(-1), dockedChildren.getWidth()),
+			return Math.max(Math.max(maxLabelPrefWidth() + graphicWrapper.prefWidth(-1), dockedChildren.getWidth()),
 					configuredWidth);
 		}
 	}
@@ -286,7 +305,7 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 	protected double computePrefHeight(final double width) {
 		if (side.get().vertical) {
 			// Left/Right
-			return Math.max(maxLabelPrefHeight() + Math.max(graphicWrapper.prefHeight(-1), dockedChildren.getHeight()),
+			return Math.max(Math.max(maxLabelPrefHeight() + graphicWrapper.prefHeight(-1), dockedChildren.getHeight()),
 					configuredHeight);
 		} else {
 			// Top/Bottom
@@ -303,7 +322,7 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 		} else {
 			// Top/ Bottom
 			return Math.max(
-					maxLabelPrefWidth() + Math.max(maxUntransformedGraphicMaxHeight(), dockedChildren.getWidth()),
+					Math.max(maxLabelPrefWidth() + maxUntransformedGraphicMaxHeight(), dockedChildren.getWidth()),
 					configuredWidth);
 		}
 	}
@@ -313,7 +332,7 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 		if (side.get().vertical) {
 			// Left/Right
 			return Math.max(
-					maxLabelPrefHeight() + Math.max(maxUntransformedGraphicMaxHeight(), dockedChildren.getHeight()),
+					Math.max(maxLabelPrefHeight() + maxUntransformedGraphicMaxHeight(), dockedChildren.getHeight()),
 					configuredHeight);
 		} else {
 			// Top/Bottom
@@ -397,7 +416,6 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 
 		// Position Labels
 		double y = 0;
-		double maxLabelWidth = 0;
 		for (final Group labelGroup : labelGroups) {
 			if (labelGroup.isManaged()) {
 				for (final Node label : labelGroup.getChildren()) {
@@ -418,16 +436,13 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 						}
 
 						y += childHeight;
-						maxLabelWidth = Math.max(childWidth, maxLabelWidth);
 					}
 				}
 			}
 		}
 
-		// Add padding if there are any labels
-		if (y > 0) {
-			y += VERTICAL_LABEL_PADDING;
-		}
+		// Label padding is added regardless of whether there were any labels in order to match the previous implementation
+		y += VERTICAL_LABEL_PADDING;
 
 		//
 		// Graphic
@@ -452,6 +467,7 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 				// Determine width and height and resize the inner graphic.
 				// Width and height are swapped when referring to the inner graphic because rotation.
 				// Variable names are from docked shape's orientation
+				final double maxLabelWidth = computeMaxLabelWidth();
 				final double childWidth = Math.min(Math.max(graphic.minHeight(-1), width - maxLabelWidth),
 						graphic.maxHeight(-1));
 				final double childHeight = graphic.prefWidth(-1);
@@ -471,24 +487,24 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 		if (side.vertical) {
 			if (side.alignEnd) {
 				// Right
-				dockedChildren.layout(width - maxUntransformedGraphicPrefWidth(), y);
+				dockedChildren.layout(width - maxUntransformedGraphicPrefWidth(), 0);
 			} else {
 				// Left
-				dockedChildren.layout(maxUntransformedGraphicPrefWidth(), y);
+				dockedChildren.layout(maxUntransformedGraphicPrefWidth(), 0);
 			}
 		} else {
 			if (side.alignEnd) {
 				// Bottom
-				dockedChildren.layout(maxLabelWidth, height - maxUntransformedGraphicPrefWidth());
+				dockedChildren.layout(0.0, height - maxUntransformedGraphicPrefWidth());
 			} else {
 				// Top
-				dockedChildren.layout(maxLabelWidth, maxUntransformedGraphicPrefWidth());
+				dockedChildren.layout(0.0, maxUntransformedGraphicPrefWidth());
 			}
 		}
 
 		// Position anchors
 		if (side.vertical) {
-			final Bounds graphicWrapperBounds = graphicWrapper.getBoundsInParent();
+			final Bounds graphicWrapperBounds = graphicWrapper.getBoundsInLocal();
 			final double anchorY = (graphicWrapperBounds.getMinY() + graphicWrapperBounds.getMaxY()) / 2.0;
 			if (side.alignEnd) {
 				// Right
@@ -529,8 +545,75 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 	}
 
 	@Override
+	public void setLabelBackgroundColor(Color value) {
+		LabelBackgroundColorUtil.setLabelBackgroundColor(getPrimaryLabels(), value);
+		LabelBackgroundColorUtil.setLabelBackgroundColor(getSecondaryLabels(), value);
+		LabelBackgroundColorUtil.setLabelBackgroundColor(getNestedChildren(), value);
+	}
+
+	@Override
 	public IGeometry getChopBoxGeometry() {
 		// Use the rectangle bounds of the node
 		return FX2Geometry.toRectangle(getLayoutBounds());
+	}
+
+	/**
+	 * Return the max of the preferred width of all labels
+	 * @return the max value of all label widths
+	 */
+	private double computeMaxLabelWidth() {
+		double maxLabelWidth = 0;
+		for (final Group labelGroup : labelGroups) {
+			if (labelGroup.isManaged()) {
+				for (final Node label : labelGroup.getChildren()) {
+					if (label.isManaged()) {
+						final double childWidth = label.prefWidth(-1);
+						maxLabelWidth = Math.max(childWidth, maxLabelWidth);
+					}
+				}
+			}
+		}
+
+		return maxLabelWidth;
+	}
+
+	/**
+	 * Returns the sum height of all labels along with additional padding. For vertically aligned nodes, this corresponds to the Y value of the
+	 * graphic node.
+	 * @return the sum of the preferred height of all labels and additional label padding.
+	 */
+	private double computeLabelHeightWithPadding() {
+		// Position Labels
+		double y = 0;
+		for (final Group labelGroup : labelGroups) {
+			if (labelGroup.isManaged()) {
+				for (final Node label : labelGroup.getChildren()) {
+					if (label.isManaged()) {
+						final double childHeight = label.prefHeight(-1);
+						y += childHeight;
+					}
+				}
+			}
+		}
+
+		// Add padding if there are any labels
+		if (y > 0) {
+			y += VERTICAL_LABEL_PADDING;
+		}
+
+		return y;
+	}
+
+	/**
+	 * Returns the minimum position (X or Y depending on orientation) to use when positioning nested children
+	 * @return the minimum position to use when positioning nested children
+	 */
+	private double computeMinimumNestedChildPosition() {
+		final DockSide side = this.getSide();
+		if (side.vertical) {
+			return computeLabelHeightWithPadding();
+		} else {
+			return computeMaxLabelWidth();
+		}
 	}
 }

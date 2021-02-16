@@ -21,21 +21,29 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.palette;
+package org.osate.gef.palette;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 import javax.imageio.ImageIO;
+
+import org.osate.ge.gef.palette.Palette;
+import org.osate.ge.gef.palette.PaletteModel;
+import org.osate.ge.gef.palette.SimplePaletteGroup;
+import org.osate.ge.gef.palette.SimplePaletteItem;
+
+import com.google.common.collect.ImmutableList;
 
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.scene.image.Image;
 
-// TODO: Move this once there is a stub or actual palette model for AgeEditor to use
 /**
  * Test view model for the {@link Palette} view. Provides a few groups and items with some of those having solid colored icons.
  *
@@ -44,46 +52,46 @@ import javafx.scene.image.Image;
  */
 public class TestPaletteModel implements PaletteModel<SimplePaletteGroup, SimplePaletteItem> {
 	private final ReadOnlyObjectWrapper<SimplePaletteItem> activeItem = new ReadOnlyObjectWrapper<>();
-	private final SimplePaletteGroup[] groups;
+	private final ImmutableList<SimplePaletteGroup> groups;
 	private final SimplePaletteGroup rootGroup = new SimplePaletteGroup("Root", null); // Created to simplify implementation
 	private final Image[] icons = { createTestIcon(0xFFFF0000), createTestIcon(0xFF00FF00),
 			createTestIcon(0xFF0000FF), };
 
 	public TestPaletteModel() {
-		groups = new SimplePaletteGroup[] { new SimplePaletteGroup("Group 1", icons[0]),
-				new SimplePaletteGroup("Group 2", null), new SimplePaletteGroup("Group 3", icons[2]), };
+		groups = ImmutableList.of(new SimplePaletteGroup("Group 1", icons[0]), new SimplePaletteGroup("Group 2", null),
+				new SimplePaletteGroup("Group 3", icons[2]));
 
 		createItem(rootGroup, icons[0]);
 		createItem(rootGroup, icons[1]);
-		createItem(groups[0], null);
-		createItem(groups[0], icons[0]);
-		createItem(groups[0], icons[1]);
-		createItem(groups[1], icons[2]);
-		createItem(groups[1], icons[2]);
-		createItem(groups[1], icons[1]);
+		createItem(groups.get(0), null);
+		createItem(groups.get(0), icons[0]);
+		createItem(groups.get(0), icons[1]);
+		createItem(groups.get(1), icons[2]);
+		createItem(groups.get(1), icons[2]);
+		createItem(groups.get(1), icons[1]);
 
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
-		createItem(groups[1], icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
+		createItem(groups.get(1), icons[1]);
 
-		createItem(groups[2], icons[0]);
+		createItem(groups.get(2), icons[0]);
 	}
 
 	private static void createItem(final SimplePaletteGroup group, final Image icon) {
@@ -91,8 +99,8 @@ public class TestPaletteModel implements PaletteModel<SimplePaletteGroup, Simple
 	}
 
 	@Override
-	public SimplePaletteGroup[] getGroups() {
-		return groups.clone();
+	public ImmutableList<SimplePaletteGroup> getGroups() {
+		return groups;
 	}
 
 	@Override
@@ -106,12 +114,12 @@ public class TestPaletteModel implements PaletteModel<SimplePaletteGroup, Simple
 	}
 
 	@Override
-	public SimplePaletteItem[] getItems(SimplePaletteGroup group) {
+	public List<SimplePaletteItem> getItems(SimplePaletteGroup group) {
 		if (group == null) {
 			group = rootGroup;
 		}
 
-		return group.items.toArray(new SimplePaletteItem[group.items.size()]);
+		return Collections.unmodifiableList(group.items);
 	}
 
 	@Override

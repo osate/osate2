@@ -25,6 +25,8 @@ package org.osate.ge.gef;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
+import java.util.function.DoubleSupplier;
 
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
@@ -50,7 +52,7 @@ class DockedNodes {
 		 * Nodes without preferred positions are greater than those with preferred positions.
 		 * Such nodes are sorted to be after nodes with preferred positions.
 		 */
-		final static Comparator<DockedNodeCacheEntry> PREF_POSITION_X_COMPARATOR = (n1, n2) -> {
+		static final Comparator<DockedNodeCacheEntry> PREF_POSITION_X_COMPARATOR = (n1, n2) -> {
 			final Point2D p1 = n1.prefPosition;
 			final Point2D p2 = n2.prefPosition;
 			if (p1 == null) {
@@ -67,7 +69,7 @@ class DockedNodes {
 		 * Nodes without preferred positions are greater than those with preferred positions.
 		 * Such nodes are sorted to be after nodes with preferred positions.
 		 */
-		final static Comparator<DockedNodeCacheEntry> PREF_POSITION_Y_COMPARATOR = (n1, n2) -> {
+		static final Comparator<DockedNodeCacheEntry> PREF_POSITION_Y_COMPARATOR = (n1, n2) -> {
 			final Point2D p1 = n1.prefPosition;
 			final Point2D p2 = n2.prefPosition;
 			if (p1 == null) {
@@ -143,15 +145,33 @@ class DockedNodes {
 	private double height = 0.0;
 
 	/**
+	 * Function which provides the minimum position(X or Y depending on orientation) to use when positioning nodes.
+	 */
+	private DoubleSupplier minimumPositionSupplier;
+
+	/**
 	 * Creates a new instance. After creation, the group provided by {@link #getGroup()} must be added to the
 	 * scene graph.
 	 * @param side determines how the nodes are laid out and the value to which to set the side property of all added nodes.
 	 */
 	public DockedNodes(final DockSide side) {
+		this(side, () -> 0);
+	}
+
+	/**
+	 * Creates a new instance. After creation, the group provided by {@link #getGroup()} must be added to the
+	 * scene graph.
+	 * @param side determines how the nodes are laid out and the value to which to set the side property of all added nodes.
+	 * @param minimumPositionSupplier function which provides the minimum position(X or Y depending on orientation) to use when positioning nodes.
+	 */
+	public DockedNodes(final DockSide side, final DoubleSupplier minimumPositionSupplier) {
 		this.group = new Group();
+		this.minimumPositionSupplier = Objects.requireNonNull(minimumPositionSupplier,
+				"minimumPositionSupplier must not be null");
 		group.setAutoSizeChildren(false);
 		setSide(side);
 	}
+
 
 	/**
 	 * Sets the side for which this instance contains nodes. Clears cache if value is changed.
@@ -255,7 +275,7 @@ class DockedNodes {
 
 		// Calculate the position for each child and the total width and height
 		if (side.vertical) {
-			double y = 0;
+			double y = minimumPositionSupplier.getAsDouble();
 			for (final DockedNodeCacheEntry child : cache) {
 				if (child.node.isManaged()) {
 					if (child.prefPosition != null) {
@@ -270,7 +290,7 @@ class DockedNodes {
 				}
 			}
 		} else {
-			double x = 0;
+			double x = minimumPositionSupplier.getAsDouble();
 			for (final DockedNodeCacheEntry child : cache) {
 				if (child.node.isManaged()) {
 					if (child.prefPosition != null) {

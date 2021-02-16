@@ -59,5 +59,5 @@ public interface LayoutInfoProvider {
 	 * @param dockedElement
 	 * @return
 	 */
-	Dimension getLabelsSize(DiagramElement dockedElement);
+	Dimension getDockedElementLabelsSize(DiagramElement dockedElement);
 }

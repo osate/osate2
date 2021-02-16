@@ -37,14 +37,14 @@ import javafx.scene.shape.StrokeType;
  * Node for folder graphics
  */
 public class FolderNode extends Region implements ChopBoxGeometryProvider, Stylable {
-	private final static double TAB_HEIGHT = 9;
-	private final static double TAB_OFFSET_ANGLE = 30.0;
-	private final static double MAX_TAB_WIDTH = 100;
+	private static final double TAB_HEIGHT = 9;
+	private static final double TAB_OFFSET_ANGLE = 30.0;
+	private static final double MAX_TAB_WIDTH = 100;
 
 	/**
 	 * Percentage of width. Limited to {@link FolderNode#MAX_TAB_WIDTH}
 	 */
-	private final static double TOP_OF_TAB_OFFSET = 0.3;
+	private static final double TOP_OF_TAB_OFFSET = 0.3;
 
 	private final javafx.scene.shape.Polygon poly = new javafx.scene.shape.Polygon();
 

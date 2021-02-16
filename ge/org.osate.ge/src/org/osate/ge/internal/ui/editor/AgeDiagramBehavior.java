@@ -138,7 +138,6 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
-import org.osate.ge.internal.services.ActionService.ActionStackChangeListener;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
@@ -146,9 +145,7 @@ import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.editor.actions.CopyAction;
 import org.osate.ge.internal.ui.editor.actions.PasteAction;
-import org.osate.ge.internal.ui.editor.actions.RedoAction;
 import org.osate.ge.internal.ui.editor.actions.SelectAllAction;
-import org.osate.ge.internal.ui.editor.actions.UndoAction;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.ui.TooltipContributor;
@@ -300,12 +297,13 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		}
 	};
 
-	private final ActionStackChangeListener actionStackChangeListener = () -> {
-		final IDiagramContainerUI diagramContainer = getDiagramContainer();
-		if (diagramContainer != null) {
-			diagramContainer.updateDirtyState();
-		}
-	};
+	// TODO: Old undo
+//	private final ActionStackChangeListener actionStackChangeListener = () -> {
+//		final IDiagramContainerUI diagramContainer = getDiagramContainer();
+//		if (diagramContainer != null) {
+//			diagramContainer.updateDirtyState();
+//		}
+//	};
 
 	// Diagram change listener which refreshes the entire diagram. This is needed because there are cases where graphiti does not
 	// correctly update the diagram after shapes are moved.
@@ -358,8 +356,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		final AgeDiagramEditor editor = (AgeDiagramEditor) parentPart;
 		registerAction(new CopyAction(editor));
 		registerAction(new PasteAction(editor));
-		registerAction(new UndoAction(editor));
-		registerAction(new RedoAction(editor));
 		registerAction(new SelectAllAction(editor));
 
 		// Disable Graphiti's default delete action.
@@ -596,7 +592,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		try {
 			super.disposeAfterGefDispose();
 
-			getActionService().removeChangeListener(actionStackChangeListener);
+			// TODO
+			// getActionService().removeChangeListener(actionStackChangeListener);
 		} finally {
 			if (graphitiAgeDiagram != null) {
 				graphitiAgeDiagram.close();
@@ -1154,7 +1151,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				}
 			};
 
-			actionService.addChangeListener(actionStackChangeListener);
+			// TODO
+//			actionService.addChangeListener(actionStackChangeListener);
 
 			actionExecutor = (label, mode, action) -> {
 				final boolean inTransaction = ((InternalTransactionalEditingDomain) getEditingDomain())

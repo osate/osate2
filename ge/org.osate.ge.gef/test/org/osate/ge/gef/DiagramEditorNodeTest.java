@@ -23,16 +23,17 @@
  */
 package org.osate.ge.gef;
 
-import org.osate.ge.gef.palette.TestPaletteModel;
+import org.osate.gef.palette.TestPaletteModel;
 
 import javafx.scene.layout.VBox;
 
-// TODO: Rename
+/**
+ * Standalone test application for {@link DiagramEditorNode}
+ */
 public class DiagramEditorNodeTest {
 	private DiagramEditorNodeTest() {
 	}
 
-	// TODO; Separate from other class because of initialization order issues
 	public static void main(final String[] args) {
 		NodeApplication.run(() -> {
 			return new DiagramEditorNode(new TestPaletteModel(), new VBox());

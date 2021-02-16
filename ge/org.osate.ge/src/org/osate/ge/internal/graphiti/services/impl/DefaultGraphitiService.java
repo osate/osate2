@@ -23,9 +23,11 @@
  */
 package org.osate.ge.internal.graphiti.services.impl;
 
+import java.util.Collection;
 import java.util.Objects;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
@@ -86,7 +88,7 @@ public class DefaultGraphitiService implements GraphitiService {
 
 	@Override
 	public AgeDiagramEditor getEditor() {
-		return (AgeDiagramEditor)((AgeDiagramBehavior)dtp.getDiagramBehavior()).getDiagramContainer();
+		return (AgeDiagramEditor) ((AgeDiagramBehavior) dtp.getDiagramBehavior()).getDiagramContainer();
 	}
 
 	@Override
@@ -113,8 +115,63 @@ public class DefaultGraphitiService implements GraphitiService {
 	}
 
 	@Override
-	public Dimension getLabelsSize(final DiagramElement dockedElement) {
+	public Dimension getDockedElementLabelsSize(final DiagramElement dockedElement) {
 		final GraphitiAgeDiagram diagram = getGraphitiAgeDiagram();
-		return diagram == null ? null : diagram.getLabelsSize(dockedElement);
+		return diagram == null ? null : diagram.getDockedElementLabelsSize(dockedElement);
+	}
+
+	@Override
+	public void refreshDiagramColoring() {
+		if (getDiagram() == null) {
+			return;
+		}
+
+		getEditingDomain().getCommandStack().execute(new AbstractCommand() {
+			@Override
+			protected boolean prepare() {
+				return true;
+			}
+
+			@Override
+			public void execute() {
+				// Refresh Coloring
+				final GraphitiAgeDiagram graphitiAgeDiagram = getGraphitiAgeDiagram();
+				graphitiAgeDiagram.refreshDiagramStyles();
+			}
+
+			@Override
+			public boolean canUndo() {
+				return false;
+			}
+
+			@Override
+			public void redo() {
+			}
+		});
+	}
+
+	@Override
+	public void refreshColoring(final Collection<DiagramElement> diagramElements) {
+		getEditingDomain().getCommandStack().execute(new AbstractCommand() {
+			@Override
+			protected boolean prepare() {
+				return true;
+			}
+
+			@Override
+			public void execute() {
+				// Refresh Coloring
+				getGraphitiAgeDiagram().refreshStyle(diagramElements);
+			}
+
+			@Override
+			public boolean canUndo() {
+				return false;
+			}
+
+			@Override
+			public void redo() {
+			}
+		});
 	}
 }

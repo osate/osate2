@@ -1339,9 +1339,6 @@ censes only apply to the Third Party Software and not any other portion of this 
          <diagramType
                id="org.osate.ge.aadlDiagramType">
          </diagramType>
-		 <imageProvider
-            id="org.osate.ge.image_provider">
-      	 </imageProvider>
       </diagramTypeProvider>
    </extension>
    
@@ -1349,7 +1346,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 	    point = "org.eclipse.ui.editors">
 		<editor
 	  	   id = "org.osate.ge.editor.AgeDiagramEditor"
-	  	   name="AADL Diagram Editor"
+	  	   name="AADL Diagram Editor (Graphiti)"
       	   class="org.osate.ge.internal.ui.editor.AgeDiagramEditor"
 		   extensions="aadl_diagram"
            contributorClass="org.osate.ge.internal.ui.editor.AgeDiagramEditorActionBarContributor"
@@ -1468,14 +1465,6 @@ censes only apply to the Third Party Software and not any other portion of this 
      </propertyTester>
   </extension>
   
- <extension
-      point="org.eclipse.graphiti.ui.imageProviders">
-   <imageProvider
-         class="org.osate.ge.internal.graphiti.AgeImageProvider"
-         id="org.osate.ge.image_provider">
-   </imageProvider>
-</extension>
-
  <extension
 	point="org.eclipse.ui.contexts">
 	<context
@@ -1876,9 +1865,14 @@ censes only apply to the Third Party Software and not any other portion of this 
             id="org.osate.ge.expressions.editorIsActive">
          <with
                variable="activeEditorId">
-            <equals
+            <or>
+               <equals
                   value="org.osate.ge.editor.AgeDiagramEditor">
-            </equals>
+               </equals>
+               <equals
+                  value="org.osate.gef.ui.editor.AgeEditor">
+               </equals>
+            </or>
          </with>
       </definition>
    </extension>

@@ -378,7 +378,8 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 					final TransactionalEditingDomain editingDomain = ageDiagramBehavior.getEditingDomain();
 					if (editingDomain != null) {
 						final Wrapper wrapper = new Wrapper(editingDomain);
-						actionService.addUndoWrapper(wrapper);
+						// TODO: No longer valid. Undo/redo was intentionally broken for Grpahiti during GEF development
+						// actionService.addUndoWrapper(wrapper);
 					}
 				}
 			}

@@ -30,19 +30,17 @@ import com.google.common.collect.ImmutableList;
 
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.HLineTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
-import javafx.scene.shape.VLineTo;
 
 /**
  * Node for device graphics
  */
 public class DeviceNode extends Region implements ChopBoxGeometryProvider, Stylable {
-	private static final double SHADED_AREA_PADDING = 14.0;
+	private static final double SHADED_AREA_PADDING = 4.0;
 
 	private final Rectangle fillRect = new Rectangle();
 	private final Path shadedArea = new Path();
@@ -69,16 +67,22 @@ public class DeviceNode extends Region implements ChopBoxGeometryProvider, Styla
 		fillRect.setWidth(width);
 		fillRect.setHeight(height);
 
-		shadedArea.getElements().setAll(new MoveTo(width, 0), new LineTo(width - SHADED_AREA_PADDING, SHADED_AREA_PADDING),
-				new VLineTo(height - SHADED_AREA_PADDING), new LineTo(width, height), new MoveTo(0, height),
-				new LineTo(SHADED_AREA_PADDING, height - SHADED_AREA_PADDING), new HLineTo(width - SHADED_AREA_PADDING), new LineTo(width, height));
+		shadedArea.getElements().setAll(new MoveTo(width, 0),
+				new LineTo(width - SHADED_AREA_PADDING, SHADED_AREA_PADDING),
+				new LineTo(width - SHADED_AREA_PADDING, height - SHADED_AREA_PADDING), new LineTo(width, height),
+				new MoveTo(0, height), new LineTo(SHADED_AREA_PADDING, height - SHADED_AREA_PADDING),
+				new LineTo(width - SHADED_AREA_PADDING, height - SHADED_AREA_PADDING), new LineTo(width, height));
 
-		lineSegments.getElements().setAll(new MoveTo(0, 0), new LineTo(SHADED_AREA_PADDING, SHADED_AREA_PADDING), new MoveTo(width, 0),
-				new LineTo(width - SHADED_AREA_PADDING, SHADED_AREA_PADDING), new MoveTo(0, height), new LineTo(SHADED_AREA_PADDING, height - SHADED_AREA_PADDING),
-				new MoveTo(width - SHADED_AREA_PADDING, height - SHADED_AREA_PADDING), new LineTo(width, height), new MoveTo(0, 0),
-				new HLineTo(width), new VLineTo(height), new HLineTo(0), new VLineTo(0), new MoveTo(SHADED_AREA_PADDING, SHADED_AREA_PADDING),
-				new HLineTo(width - SHADED_AREA_PADDING), new VLineTo(height - SHADED_AREA_PADDING), new HLineTo(SHADED_AREA_PADDING),
-				new VLineTo(SHADED_AREA_PADDING));
+		lineSegments.getElements().setAll(new MoveTo(0, 0), new LineTo(SHADED_AREA_PADDING, SHADED_AREA_PADDING),
+				new MoveTo(width, 0), new LineTo(width - SHADED_AREA_PADDING, SHADED_AREA_PADDING),
+				new MoveTo(0, height), new LineTo(SHADED_AREA_PADDING, height - SHADED_AREA_PADDING),
+				new MoveTo(width - SHADED_AREA_PADDING, height - SHADED_AREA_PADDING), new LineTo(width, height),
+				new MoveTo(0, 0), new LineTo(width, 0), new LineTo(width, height), new LineTo(0, height),
+				new LineTo(0, 0), new MoveTo(SHADED_AREA_PADDING, SHADED_AREA_PADDING),
+				new LineTo(width - SHADED_AREA_PADDING, SHADED_AREA_PADDING),
+				new LineTo(width - SHADED_AREA_PADDING, height - SHADED_AREA_PADDING),
+				new LineTo(SHADED_AREA_PADDING, height - SHADED_AREA_PADDING),
+				new LineTo(SHADED_AREA_PADDING, SHADED_AREA_PADDING));
 	}
 
 	@Override

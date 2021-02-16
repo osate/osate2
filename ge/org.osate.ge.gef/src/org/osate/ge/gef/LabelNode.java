@@ -25,6 +25,9 @@ package org.osate.ge.gef;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -33,7 +36,9 @@ import javafx.scene.text.Font;
  * Node for displaying and styling labels. Lightweight wrapper around {@link Label} which implements {@link Stylable}.
  * Labels do not have backgrounds.
  */
-public class LabelNode extends Region implements Stylable {
+public class LabelNode extends Region implements Stylable, HasLabelBackgroundColor {
+	private static final Insets PADDING_INSETS = new Insets(2.0, 6.0, 3.0, 6.0);
+
 	private final Label text = new Label();
 
 	/**
@@ -44,7 +49,7 @@ public class LabelNode extends Region implements Stylable {
 		this.getChildren().addAll(text);
 		setFontColor(Color.BLACK);
 		setText(txt);
-		text.setPadding(new Insets(2.0, 4.0, 3.0, 4.0));
+		text.setPadding(PADDING_INSETS);
 	}
 
 	/**
@@ -99,12 +104,25 @@ public class LabelNode extends Region implements Stylable {
 		setFontColor(style.getFontColor());
 	}
 
+	@Override
+	public void setLabelBackgroundColor(final Color value) {
+		// Set the background to match the specified color. The label background has an inset that matches the text padding so the background
+		// to matches the actual text.
+		this.setBackground(new Background(
+				new BackgroundFill(value, CornerRadii.EMPTY,
+						PADDING_INSETS)));
+	}
+
 	public void setFont(final Font font) {
 		text.setFont(font);
 	}
 
 	public void setFontColor(final Color value) {
 		text.setTextFill(value);
+	}
+
+	public String getText() {
+		return text.getText();
 	}
 
 	public void setText(final String value) {

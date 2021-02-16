@@ -65,17 +65,17 @@ public class StyleToFx {
 			throw new RuntimeException("Specified style must be complete");
 		}
 
-		final IPath imagePath = style.getImagePath();
+		final IPath imagePath = style.getShowAsImage() ? style.getImagePath() : null;
+
 		final double fontSizeInPoints = style.getFontSize() * 96.0 / 72.0; // Convert from pixels to points
 		return new FxStyle.Builder().backgroundColor(convert(style.getBackgroundColor()))
 				.outlineColor(convert(style.getOutlineColor())).fontColor(convert(style.getFontColor()))
 				.font(Font.font("Arial", FontWeight.NORMAL, fontSizeInPoints))
-				.strokeDashArray(getStrokeDashArray(style.getLineStyle()))
-				.lineWidth(style.getLineWidth()).horizontalLabelPosition(convert(style.getHorizontalLabelPosition()))
+				.strokeDashArray(getStrokeDashArray(style.getLineStyle())).lineWidth(style.getLineWidth())
+				.horizontalLabelPosition(convert(style.getHorizontalLabelPosition()))
 				.verticalLabelPosition(convert(style.getVerticalLabelPosition()))
 				.primaryLabelsVisible(style.getPrimaryLabelVisible())
-				.image(imagePath == null ? null : imageManager.getImageReference(imagePath.toFile().toPath()))
-				.build();
+				.image(imagePath == null ? null : imageManager.getImageReference(imagePath.toFile().toPath())).build();
 	}
 
 	private static ImmutableList<Double> getStrokeDashArray(final LineStyle lineStyle) {

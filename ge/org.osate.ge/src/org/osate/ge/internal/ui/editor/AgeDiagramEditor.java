@@ -54,23 +54,33 @@ package org.osate.ge.internal.ui.editor;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.graphiti.dt.IDiagramTypeProvider;
+import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.context.IUpdateContext;
+import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.ui.IWorkbenchPart3;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
-import org.osate.ge.GraphicalEditor;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
+import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
+import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.ActionExecutor;
-import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
@@ -79,10 +89,7 @@ import org.osate.ge.internal.ui.tools.Tool;
 import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 
-public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
-	public static final String DIAGRAM_EDITOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
-	public static final String EXTENSION_NO_DOT = "aadl_diagram";
-	public static final String EXTENSION = "." + EXTENSION_NO_DOT;
+public class AgeDiagramEditor extends DiagramEditor implements InternalDiagramEditor {
 	private AgeContentOutlinePage outlinePage = null;
 	private boolean disposed = false;
 
@@ -92,14 +99,10 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 			super.dispose();
 		} finally {
 			disposed = true;
-
-			// Remove invalidated actions from the action service.
-			final ActionService actionService = Objects.requireNonNull(
-					PlatformUI.getWorkbench().getService(ActionService.class), "Unable to retrieve action service");
-			actionService.removeInvalidActions();
 		}
 	}
 
+	@Override
 	public boolean isDisposed() {
 		return disposed;
 	}
@@ -110,6 +113,7 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	}
 
 	// Update the diagram. This call is synchronous and will switch to display thread as necessary.
+	@Override
 	public void updateNowIfModelHasChanged() {
 		((AgeDiagramBehavior)getDiagramBehavior()).updateNowIfModelHasChanged();
 	}
@@ -121,6 +125,7 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 		((AgeDiagramBehavior)getDiagramBehavior()).updateDiagramWhenVisible();
 	}
 
+	@Override
 	public void forceDiagramUpdateOnNextModelChange() {
 		((AgeDiagramBehavior)getDiagramBehavior()).forceDiagramUpdateOnNextModelChange();
 	}
@@ -134,6 +139,7 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 		.setDiagramElementsForSelection(ImmutableList.copyOf(diagramElements));
 	}
 
+	@Override
 	public void selectDiagramElements(final Collection<DiagramElement> diagramElements) {
 		final PictogramElement[] pictogramElements = diagramElements.stream()
 				.map(
@@ -150,6 +156,7 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 		selectPictogramElements(getDiagramTypeProvider().getFeatureProvider().getAllPictogramElementsForBusinessObject(bo));
 	}
 
+	@Override
 	public ActionExecutor getActionExecutor() {
 		return getDiagramBehavior().getActionExecutor();
 	}
@@ -200,18 +207,22 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 		return ((AgeDiagramBehavior)getDiagramBehavior()).getGraphitiAgeDiagram();
 	}
 
+	@Override
 	public AgeDiagram getDiagram() {
 		return ((AgeDiagramBehavior)getDiagramBehavior()).getAgeDiagram();
 	}
 
+	@Override
 	public void activateTool(final Tool tool) {
 		((AgeDiagramBehavior) getDiagramBehavior()).activateTool(tool);
 	}
 
+	@Override
 	public void deactivateActiveTool() {
 		((AgeDiagramBehavior)getDiagramBehavior()).deactivateActiveTool();
 	}
 
+	@Override
 	public void clearSelection() {
 		selectPictogramElements(new PictogramElement[0]);
 		if (outlinePage != null) {
@@ -224,6 +235,7 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 		((AgeDiagramBehavior) getDiagramBehavior()).setDiagramContextIsValid(value);
 	}
 
+	@Override
 	public boolean isEditable() {
 		return ((AgeDiagramBehavior) getDiagramBehavior()).isEditable();
 	}
@@ -232,6 +244,7 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	 * Will return null if it is unable to determine the diagram elements for all the selected pictogram elements.
 	 * @return
 	 */
+	@Override
 	public Set<DiagramElement> getSelectedDiagramElements() {
 		final PictogramElement[] selectedPes = getSelectedPictogramElements();
 		final Set<DiagramElement> selectedDiagramElements = new HashSet<>();
@@ -250,5 +263,91 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 		}
 
 		return selectedDiagramElements;
+	}
+
+	@Override
+	public IWorkbenchPart3 getWorkbenchPart() {
+		return this;
+	}
+
+	@Override
+	public IProject getProject() {
+		return getDiagramBehavior().getProject();
+	}
+
+	@Override
+	public IFile getDiagramFile() {
+		return getDiagramBehavior().getFile();
+	}
+
+	@Override
+	public void modifyDiagram(final String label, final DiagramModifier modifier) {
+		getEditingDomain().getCommandStack().execute(new AbstractCommand("Tool") {
+			@Override
+			public boolean prepare() {
+				return true;
+			}
+
+			@Override
+			public boolean canUndo() {
+				return false;
+			}
+
+			@Override
+			public void execute() {
+				getDiagram().modify(label, modifier);
+			}
+
+			@Override
+			public void redo() {
+			}
+		});
+	}
+
+	@Override
+	public DiagramUpdater getDiagramUpdater() {
+		return getAgeFeatureProvider().getDiagramUpdater();
+	}
+
+	@Override
+	public TreeUpdater getBoTreeUpdater() {
+		return getAgeFeatureProvider().getBoTreeUpdater();
+	}
+
+	@Override
+	public void closeEditor() {
+		close();
+	}
+
+	@Override
+	public void updateDiagram() {
+		if (!isDisposed()) {
+			final IDiagramTypeProvider dtp = getDiagramTypeProvider();
+			if (dtp != null) {
+				final IFeatureProvider fp = dtp.getFeatureProvider();
+				if (fp != null) {
+					final IUpdateContext updateCtx = new UpdateContext(
+							getGraphitiAgeDiagram().getGraphitiDiagram());
+					getDiagramBehavior().executeFeature(fp.getUpdateFeature(updateCtx), updateCtx);
+				}
+			}
+		}
+	}
+
+	private AgeFeatureProvider getAgeFeatureProvider() {
+		return (AgeFeatureProvider) getDiagramTypeProvider()
+				.getFeatureProvider();
+	}
+
+	@Override
+	public IAction getGlobalActionHandler(final String actionId) {
+		return getActionRegistry().getAction(actionId);
+	}
+
+	@Override
+	public void addSelectionChangedListener(final ISelectionChangedListener listener) {
+		if (getGraphicalViewer() != null) {
+			getGraphicalViewer().addSelectionChangedListener(listener);
+		}
 	}
 }

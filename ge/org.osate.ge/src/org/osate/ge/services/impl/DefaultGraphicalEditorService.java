@@ -69,7 +69,7 @@ import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.impl.SimpleServiceContextFunction;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.services.GraphicalEditorService;
 
 public class DefaultGraphicalEditorService implements GraphicalEditorService {
@@ -117,7 +117,7 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 
 		final DefaultEditDomain defaultEditDomain = (DefaultEditDomain) editDomain;
 		final IEditorPart editorPart = defaultEditDomain.getEditorPart();
-		if (!(editorPart instanceof AgeDiagramEditor)) {
+		if (!(editorPart instanceof InternalDiagramEditor)) {
 			return Optional.empty();
 		}
 

@@ -30,8 +30,8 @@ import com.google.common.collect.ImmutableList;
 
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcTo;
 import javafx.scene.shape.ClosePath;
+import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -44,7 +44,7 @@ import javafx.scene.shape.StrokeType;
 public class FeatureGroupNode extends Region implements ChopBoxGeometryProvider, Stylable {
 	private static final double WIDTH = 30;
 	private static final double CIRCLE_RADIUS = WIDTH / 3.0;
-	private static final double CIRCLE_DIAMETER = 2.0 * CIRCLE_RADIUS;
+	public static final double CIRCLE_DIAMETER = 2.0 * CIRCLE_RADIUS;
 
 	private Path path = new Path();
 
@@ -68,10 +68,11 @@ public class FeatureGroupNode extends Region implements ChopBoxGeometryProvider,
 
 		// Resize symbol to specified size
 		double cy = height / 2.0;
-		path.getElements().setAll(new MoveTo(0.0, cy), new ArcTo(CIRCLE_RADIUS, CIRCLE_RADIUS, 0,
-				CIRCLE_DIAMETER, cy, true,
-				false), new ArcTo(CIRCLE_RADIUS, CIRCLE_RADIUS, 0, 0.0, cy, true,
-						false),
+		path.getElements().setAll(new MoveTo(0.0, cy),
+				new CubicCurveTo(0.0, cy - (4.0 * CIRCLE_RADIUS / 3.0), CIRCLE_DIAMETER,
+						cy - (4.0 * CIRCLE_RADIUS / 3.0), CIRCLE_DIAMETER, cy),
+				new CubicCurveTo(CIRCLE_DIAMETER, cy + (4.0 * CIRCLE_RADIUS / 3.0), 0.0,
+						cy + (4.0 * CIRCLE_RADIUS / 3.0), 0.0, cy),
 				new MoveTo(CIRCLE_DIAMETER, 0.0), new LineTo(width, 0.0), new LineTo(width, height),
 				new LineTo(CIRCLE_DIAMETER, height), new ClosePath());
 	}

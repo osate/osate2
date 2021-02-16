@@ -21,27 +21,20 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.graphiti;
+package org.osate.ge.gef;
 
-import java.util.Map.Entry;
-import java.util.Objects;
+import javafx.scene.paint.Color;
 
-import org.eclipse.e4.core.contexts.EclipseContextFactory;
-import org.eclipse.graphiti.ui.platform.AbstractImageProvider;
-import org.eclipse.graphiti.ui.platform.IImageProvider;
-import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
-
-public class AgeImageProvider extends AbstractImageProvider implements IImageProvider {
-	@Override
-	protected void addAvailableImages() {
-		final Bundle bundle = FrameworkUtil.getBundle(getClass());
-		final ExtensionRegistryService extRegistry = Objects.requireNonNull(
-				EclipseContextFactory.getServiceContext(bundle.getBundleContext()).get(ExtensionRegistryService.class),
-				"Unable to retrieve extension registry");
-		for (final Entry<String, String> entry : extRegistry.getImageIdToPathMap().entrySet()) {
-			addImageFilePath(entry.getKey(), entry.getValue());
-		}
-	}
+/**
+ * Interface to allow setting the background color for contained labels. This is separate from the background color in {@link FxStyle}. While
+ * the values used for {@link FxStyle} are typically values related to the diagram element being represented, the label background color is typically
+ * derived from the style of ancestor nodes which may not be the direct parent.
+ */
+public interface HasLabelBackgroundColor {
+	/**
+	 * Sets the background color of labels belonging to this instance.
+	 * Implementations are responsible for calling this method on appropriate children.
+	 * @param value the value of the label background color.
+	 */
+	void setLabelBackgroundColor(final Color value);
 }

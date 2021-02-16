@@ -24,9 +24,10 @@ import javafx.scene.shape.StrokeType;
  * If the referenced image is updated, then the displayed image is updated. If the image is not valid, an error
  * symbol is displayed.
  */
-public class ImageNode extends Region implements ChopBoxGeometryProvider {
+public class ImageNode extends Region implements ChopBoxGeometryProvider, Stylable {
 	private ImageReference imageReference;
-	private final RectangleNode rectangle = new RectangleNode();
+	private final Rectangle background = new Rectangle();
+	private final Rectangle outline = new Rectangle();
 	private final ErrorImage errorImage = new ErrorImage();
 	private final ImageView imageView = new ImageView();
 
@@ -35,7 +36,8 @@ public class ImageNode extends Region implements ChopBoxGeometryProvider {
 			newValue) -> {
 		imageView.setImage(newValue);
 		imageView.setVisible(newValue != null);
-		rectangle.setVisible(newValue != null);
+		background.setVisible(newValue != null);
+		outline.setVisible(newValue != null);
 		errorImage.setVisible(newValue == null);
 	};
 
@@ -43,11 +45,18 @@ public class ImageNode extends Region implements ChopBoxGeometryProvider {
 	 * Create a new instance
 	 */
 	public ImageNode() {
+		// Add children
+		this.getChildren().addAll(background, imageView, outline, errorImage);
+
 		imageView.setPreserveRatio(true);
 		setImageReference(null);
+		outline.setFill(null);
+		outline.setStrokeType(StrokeType.INSIDE);
+		outline.setStrokeLineCap(StrokeLineCap.BUTT);
+		outline.setStrokeWidth(4.0);
 
-		// Add children
-		this.getChildren().addAll(rectangle, errorImage, imageView);
+		setBackgroundColor(Color.WHITE);
+		setOutlineColor(Color.BLACK);
 	}
 
 	@Override
@@ -63,7 +72,10 @@ public class ImageNode extends Region implements ChopBoxGeometryProvider {
 		imageView.relocate((width - imageBounds.getWidth()) / 2.0, (height - imageBounds.getHeight()) / 2.0);
 
 		errorImage.resize(width, height);
-		rectangle.resize(width, height);
+		background.setWidth(width);
+		background.setHeight(height);
+		outline.setWidth(width);
+		outline.setHeight(height);
 	}
 
 	public ImageReference getImageReference() {
@@ -90,16 +102,18 @@ public class ImageNode extends Region implements ChopBoxGeometryProvider {
 		}
 	}
 
+	@Override
+	public final void apply(final FxStyle style) {
+		setBackgroundColor(style.getBackgroundColor());
+		setOutlineColor(style.getOutlineColor());
+	}
+
 	public final void setBackgroundColor(final Color value) {
-		rectangle.setBackgroundColor(value);
+		background.setFill(value);
 	}
 
 	public final void setOutlineColor(final Color value) {
-		rectangle.setOutlineColor(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		rectangle.setLineWidth(value);
+		outline.setStroke(value);
 	}
 
 	@Override

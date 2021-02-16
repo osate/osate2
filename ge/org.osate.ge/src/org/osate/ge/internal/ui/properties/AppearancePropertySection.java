@@ -39,8 +39,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.resource.DeviceResourceManager;
@@ -92,8 +90,8 @@ import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
-import org.osate.ge.internal.graphiti.services.GraphitiService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.services.ProjectProvider;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.swt.SwtUtil;
@@ -258,7 +256,6 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	@Override
 	public void setInput(final IWorkbenchPart part, final ISelection selection) {
 		super.setInput(part, selection);
-
 		selectedDiagramElements.clear();
 
 		final IStructuredSelection ss = (IStructuredSelection) selection;
@@ -764,7 +761,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			chooseImgMenuItem.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					final AgeDiagramEditor editor = UiUtil.getActiveDiagramEditor();
+					final InternalDiagramEditor editor = UiUtil.getActiveDiagramEditor();
 					if (editor != null) {
 						final ElementTreeSelectionDialog dialog = createSelectionDialog(editor);
 						if (dialog.open() == Window.OK) {
@@ -792,20 +789,19 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			popupMenu.setVisible(true);
 		}
 
-		private ElementTreeSelectionDialog createSelectionDialog(final AgeDiagramEditor editor) {
+		private ElementTreeSelectionDialog createSelectionDialog(final InternalDiagramEditor editor) {
 			final ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(
 					Display.getCurrent().getActiveShell(), new WorkbenchLabelProvider(),
 					new BaseWorkbenchContentProvider());
 			try {
-				final GraphitiService graphitiService = Objects
-						.requireNonNull(Adapters.adapt(editor, GraphitiService.class),
-								"graphiti service must not be null");
+				final ProjectProvider projectProvider = Objects.requireNonNull(
+						Adapters.adapt(editor, ProjectProvider.class), "unable to retrieve project provider");
 				// Configure selection dialog
 				dialog.setTitle("Select an Image");
 				dialog.setMessage("Select an image.");
 				dialog.setAllowMultiple(false);
 				dialog.setHelpAvailable(false);
-				final IProject project = graphitiService.getProject();
+				final IProject project = projectProvider.getProject();
 				final IProject[] referencedProjects = project.getReferencedProjects();
 				// Filter Resources
 				dialog.addFilter(new ImageSelectionViewerFilter(Lists.asList(project, referencedProjects)));
@@ -821,11 +817,9 @@ public class AppearancePropertySection extends AbstractPropertySection {
 				// Allow selection of project resources
 				dialog.setInput(workspaceRoot);
 
-				if (editor.getEditorInput() instanceof DiagramEditorInput) {
-					final DiagramEditorInput dei = (DiagramEditorInput) editor.getEditorInput();
-					// Get file directory
-					final URI fileDirectory = dei.getUri().trimFragment().trimSegments(1);
-					dialog.setInitialSelection(workspaceRoot.findMember(fileDirectory.toPlatformString(true)));
+				final IFile diagramFile = editor.getDiagramFile();
+				if (diagramFile != null) {
+					dialog.setInitialSelection(diagramFile.getParent());
 				}
 			} catch (final CoreException e) {
 				throw new RuntimeException("unable to get referenced projects");

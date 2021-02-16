@@ -51,8 +51,8 @@ import org.osate.ge.aadl2.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.editor.ComboContributionItem;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -69,7 +69,7 @@ public class FlowContributionItem extends ComboContributionItem {
 					.filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation
 							|| fa.getBusinessObject() instanceof Subcomponent
 							|| fa.getBusinessObject() instanceof ComponentInstance));
-	private AgeDiagramEditor editor = null;
+	private InternalDiagramEditor editor = null;
 	private final ShowFlowContributionItem showFlowContributionItem;
 	private final EditFlowContributionItem editFlowContributionItem;
 	private final DeleteFlowContributionItem deleteFlowContributionItem;
@@ -91,14 +91,7 @@ public class FlowContributionItem extends ComboContributionItem {
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (editor != newEditor) {
 			saveFlowSelection();
-
-			// Update the editor
-			if (newEditor instanceof AgeDiagramEditor) {
-				this.editor = (AgeDiagramEditor) newEditor;
-			} else {
-				this.editor = null;
-			}
-
+			editor = newEditor instanceof InternalDiagramEditor ? (InternalDiagramEditor) newEditor : null;
 			refresh();
 		}
 	}
@@ -160,7 +153,8 @@ public class FlowContributionItem extends ComboContributionItem {
 					getNullValueString(), new HighlightableFlowInfo(null, FlowSegmentState.COMPLETE));
 			highlightableFlowElements.put(nullMapEntry.getKey(), nullMapEntry.getValue());
 			Map.Entry<String, HighlightableFlowInfo> selectedValue = nullMapEntry;
-			final String selectedFlowName = editor == null ? null : editor.getPartProperty(selectedFlowPropertyKey);
+			final String selectedFlowName = editor == null ? null
+					: editor.getPartProperty(selectedFlowPropertyKey);
 			// Clear the combo box
 			comboViewer.setInput(null);
 
@@ -170,7 +164,7 @@ public class FlowContributionItem extends ComboContributionItem {
 
 			final AgeDiagram diagram = editor.getDiagram();
 			if (diagram != null) {
-				final QueryService queryService = ContributionHelper.getQueryService(editor);
+				final QueryService queryService = ContributionUtil.getQueryService(editor);
 				if (queryService != null) {
 					// Determine which flows have elements contained in the diagram and whether the flow is partial.
 					queryService.getResults(flowContainerQuery, diagram).stream().flatMap(flowContainerQueryable -> {
@@ -292,7 +286,7 @@ public class FlowContributionItem extends ComboContributionItem {
 			container = highlightableFlowElement.container;
 		}
 
-		ContributionHelper.getColoringService(editor).setHighlightedFlow(flowSegmentElement, container);
+		ContributionUtil.getColoringService(editor).setHighlightedFlow(flowSegmentElement, container);
 	}
 
 	@Override

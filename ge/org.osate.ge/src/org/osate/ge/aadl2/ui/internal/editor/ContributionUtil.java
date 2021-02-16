@@ -21,13 +21,33 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.ui.editor;
+package org.osate.ge.aadl2.ui.internal.editor;
 
-import java.util.Optional;
+import org.osate.ge.internal.services.ColoringService;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
+import org.osate.ge.services.QueryService;
 
-import javafx.scene.image.Image;
+/**
+ * Contains simple methods that are shared between UI contributions
+ *
+ */
+class ContributionUtil {
+	private ContributionUtil() {
+	}
 
-// TODO: Rename
-public interface ImageProvider {
-	Optional<Image> getImage(String id);
+	public static QueryService getQueryService(final InternalDiagramEditor editor) {
+		if(editor == null) {
+			return null;
+		}
+
+		return (QueryService)editor.getAdapter(QueryService.class);
+	}
+
+	public static ColoringService getColoringService(final InternalDiagramEditor editor) {
+		if(editor == null) {
+			return null;
+		}
+
+		return (ColoringService)editor.getAdapter(ColoringService.class);
+	}
 }

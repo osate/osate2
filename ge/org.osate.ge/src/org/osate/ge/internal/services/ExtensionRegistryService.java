@@ -55,6 +55,7 @@ package org.osate.ge.internal.services;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
@@ -67,6 +68,19 @@ import org.osate.ge.ui.TooltipContributor;
 
 public interface ExtensionRegistryService
 extends BusinessObjectHandlerProvider, ContentFilterProvider, DiagramTypeProvider {
+	/**
+	 * Immutable POJO for information about a registered image
+	 */
+	class RegisteredImage {
+		public RegisteredImage(final String plugin, final String path) {
+			this.plugin = Objects.requireNonNull(plugin, "plugin must not be null");
+			this.path = Objects.requireNonNull(path, "path must not be null");
+		}
+
+		public final String plugin;
+		public final String path;
+	}
+
 	/**
 	 * Business object handlers are extension which provide
 	 */
@@ -86,12 +100,11 @@ extends BusinessObjectHandlerProvider, ContentFilterProvider, DiagramTypeProvide
 
 	Collection<BusinessObjectProvider> getBusinessObjectProviders();
 
-	// TODO: Rename?
 	/**
-	 * Returns a mapping between the image id and the path to the image.
+	 * Returns a mapping between the image id and information regarding the registered image
 	 * @return an unmodifiable map with the mapping.
 	 */
-	Map<String, String> getImageIdToPathMap();
+	Map<String, RegisteredImage> getImageMap();
 
 	/**
 	 * Returns a collection containing palette command providers

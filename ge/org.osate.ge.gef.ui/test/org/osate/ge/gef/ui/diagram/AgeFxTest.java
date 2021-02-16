@@ -29,13 +29,19 @@ import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.gef.fx.anchors.StaticAnchor;
+import org.osate.ge.gef.ConnectionNode;
 import org.osate.ge.gef.ContainerShape;
 import org.osate.ge.gef.EllipseNode;
+import org.osate.ge.gef.FlowIndicatorNode;
 import org.osate.ge.gef.FxStyle;
 import org.osate.ge.gef.FxStyleApplier;
 import org.osate.ge.gef.ImageManager;
 import org.osate.ge.gef.LabelNode;
+import org.osate.ge.graphics.ArrowBuilder;
+import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.EllipseBuilder;
+import org.osate.ge.graphics.FlowIndicatorBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.LineStyle;
@@ -52,13 +58,16 @@ import org.osate.ge.graphics.internal.FolderGraphicBuilder;
 import org.osate.ge.graphics.internal.MemoryGraphicBuilder;
 import org.osate.ge.graphics.internal.ModeGraphicBuilder;
 import org.osate.ge.graphics.internal.NoteGraphicBuilder;
+import org.osate.ge.graphics.internal.OrthogonalLineBuilder;
 import org.osate.ge.graphics.internal.ParallelogramBuilder;
 import org.osate.ge.graphics.internal.ProcessorGraphicBuilder;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
@@ -74,13 +83,18 @@ import javafx.stage.Stage;
  * graphical editor API.
  */
 public class AgeFxTest extends Application {
+	private final StyleToFx styleToFx = new StyleToFx(new ImageManager());
+	private Style baseStyle;
+	private boolean dashed = false;
+	private GridPane container;
+
 	public static void main(final String[] args) {
 		Application.launch(args);
 	}
 
 	@Override
 	public void start(final Stage primaryStage) throws Exception {
-		final GridPane container = new GridPane();
+		container = new GridPane();
 		container.setHgap(10.0);
 		container.setVgap(10.0);
 		container.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -115,35 +129,60 @@ public class AgeFxTest extends Application {
 				FeatureGraphicBuilder.create().subprogramGroupAccess().output().build(),
 				FeatureGraphicBuilder.create().dataAccess().input().build(),
 				FeatureGraphicBuilder.create().dataAccess().output().build(),
-				FeatureGraphicBuilder.create().featureGroup().build() };
+				FeatureGraphicBuilder.create().featureGroup().build(),
+				ConnectionBuilder.create().build(),
+				ConnectionBuilder.create().sourceTerminator(OrthogonalLineBuilder.create().build()).build(),
+				ConnectionBuilder.create().sourceTerminator(ArrowBuilder.create().filled().build())
+						.destinationTerminator(ArrowBuilder.create().filled().small().build()).build(),
+				ConnectionBuilder.create()
+						.destinationTerminator(ArrowBuilder.create().line().build()).build(),
+				FlowIndicatorBuilder.create().build(),
+				FlowIndicatorBuilder.create().sourceTerminator(ArrowBuilder.create().small().reverse().build())
+						.destinationTerminator(OrthogonalLineBuilder.create().build()).build() };
 
-		final StyleToFx styleToFx = new StyleToFx(new ImageManager());
 		final List<Node> nodes = Arrays.stream(graphics).map(GraphicToFx::createNode).collect(Collectors.toList());
 
 		// Create a container shape. This is useful for ensuring image in style is applied,.
 		final ContainerShape cs = new ContainerShape();
-		cs.getGraphics().add(new EllipseNode());
+		cs.setGraphic(new EllipseNode());
 		nodes.add(cs);
 
-		// Set the text for label nodes
+		final CheckBox dashedCheckBox = new CheckBox("Dashed");
+		nodes.add(dashedCheckBox);
+		dashedCheckBox.selectedProperty().addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+			dashed = newValue;
+			refreshStyle();
+		});
+
+		// Finish additional configuraton for labels and connections
 		for (final Node n : nodes) {
 			if (n instanceof LabelNode) {
 				((LabelNode) n).setText("This is a test");
+			} else if (n instanceof ConnectionNode) {
+				final ConnectionNode cn = (ConnectionNode) n;
+				final StaticAnchor start = new StaticAnchor(new org.eclipse.gef.geometry.planar.Point(0, 5));
+				final StaticAnchor end = new StaticAnchor(new org.eclipse.gef.geometry.planar.Point(100, 5));
+				cn.setStartAnchor(start);
+				cn.setEndAnchor(end);
+			} else if (n instanceof FlowIndicatorNode) {
+				final FlowIndicatorNode fi = (FlowIndicatorNode) n;
+				final StaticAnchor startAnchor = new StaticAnchor(new org.eclipse.gef.geometry.planar.Point(0, 5));
+				fi.setTranslateX(100.0);
+				fi.setTranslateY(5.0);
+				fi.setStartAnchor(startAnchor);
 			}
 		}
 
 		final List<String> args = getParameters().getRaw();
 		final IPath imagePath = args.size() > 0 ? new Path(args.get(0)) : null;
-		final Style style = StyleBuilder.create(Style.DEFAULT).fontSize(20.0)
+		baseStyle = StyleBuilder.create(Style.DEFAULT).fontSize(20.0)
 				.outlineColor(org.osate.ge.graphics.Color.BLUE).backgroundColor(org.osate.ge.graphics.Color.CYAN)
-				.lineStyle(LineStyle.DASHED).imagePath(imagePath).build();
-		final FxStyle fxStyle = styleToFx.createStyle(style);
+				.imagePath(imagePath).build();
 
 		// Add Nodes and Assign them to Rows and Columns
 		final int numberOfColumns = 4;
 		int row = 0, col = -1;
 		for (final Node node : nodes) {
-			FxStyleApplier.applyStyle(node, fxStyle);
 			// Increment the row and column first so that the final values will be the indices of the last node
 			col++;
 			if (col > (numberOfColumns - 1)) {
@@ -167,6 +206,9 @@ public class AgeFxTest extends Application {
 			container.getRowConstraints().add(rc);
 		}
 
+		// Style the nodes
+		refreshStyle();
+
 		primaryStage.setScene(new Scene(container));
 
 		// Setup the stage
@@ -175,5 +217,14 @@ public class AgeFxTest extends Application {
 		primaryStage.setHeight(1080);
 		primaryStage.setTitle("GEF Graphics");
 		primaryStage.show();
+	}
+
+	private void refreshStyle() {
+		final Style style = StyleBuilder.create(baseStyle).lineStyle(dashed ? LineStyle.DASHED : LineStyle.SOLID)
+				.build();
+		final FxStyle fxStyle = styleToFx.createStyle(style);
+		for (final Node node : container.getChildrenUnmodifiable()) {
+			FxStyleApplier.applyStyle(node, fxStyle);
+		}
 	}
 }

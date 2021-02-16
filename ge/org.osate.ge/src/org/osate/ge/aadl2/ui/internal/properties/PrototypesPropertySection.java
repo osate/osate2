@@ -43,15 +43,14 @@ import org.osate.aadl2.Classifier;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.ui.internal.viewmodels.PrototypesModel;
 import org.osate.ge.internal.services.ActionExecutor;
-import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.ui.LtkRenameAction;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.swt.prototypes.PrototypesEditor;
-import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.ge.ui.PropertySectionUtil;
+import org.osate.ge.ui.UiBusinessObjectSelection;
 
 /**
  * Property section for editing prototypes.
@@ -68,7 +67,7 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 	private BusinessObjectSelection selectedBos;
 	private final PrototypesModel model = new PrototypesModel(
 			(prototypeSupplier, name, originalName) -> {
-				final AgeDiagramEditor editor = UiUtil.getActiveDiagramEditor();
+				final InternalDiagramEditor editor = UiUtil.getActiveDiagramEditor();
 				if (editor == null) {
 					throw new RuntimeException("Editor not active");
 				}
@@ -78,14 +77,11 @@ public class PrototypesPropertySection extends AbstractPropertySection {
 								"Unable to get project provider");
 				final ModelChangeNotifier modelChangeNotifier = (ModelChangeNotifier) Objects.requireNonNull(
 						editor.getAdapter(ModelChangeNotifier.class), "Unable to get model change notifier");
-				final ActionService actionService = (ActionService) Objects
-						.requireNonNull(editor.getAdapter(ActionService.class), "Unable to get action service");
-
 				final LtkRenameAction action = new LtkRenameAction(projectProvider, modelChangeNotifier,
 						currentName -> prototypeSupplier.getBusinessObject(currentName), name, originalName);
-				actionService.execute("Rename Prototype " + originalName + " to " + name,
+				editor.getActionExecutor().execute("Rename Prototype " + originalName + " to " + name,
 						ActionExecutor.ExecutionMode.NORMAL, action);
-					},
+			},
 			new UiBusinessObjectSelection());
 
 	@Override

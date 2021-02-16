@@ -24,17 +24,24 @@
 package org.osate.ge.gef.ui.editor;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.osate.ge.Categories;
 import org.osate.ge.gef.palette.PaletteModel;
 import org.osate.ge.gef.palette.SimplePaletteGroup;
 import org.osate.ge.gef.palette.SimplePaletteItem;
 import org.osate.ge.palette.PaletteCommandProviderContext;
 import org.osate.ge.palette.PaletteContributor;
+
+import com.google.common.collect.ImmutableList;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyProperty;
@@ -42,38 +49,43 @@ import javafx.embed.swt.SWTFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 
-// TODO: Rename
-// TODO: Is SimplePaletteItem good? Will have other tools that don't fit in commands.. selection.
-// TODO: Categories and command should be driven by extensions
-// TODO; Can share some of implementation with test palette model
-// TODO: Test icon on build..
-// TODO: Consider moving to org.osate.ge.gef and just passing in the shared image.
-public class ActualPaletteModel implements PaletteModel<SimplePaletteGroup, SimplePaletteItem> {
+/**
+ * {@link PaletteModel} implementation for {@link AgeEditor}.
+ */
+class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, SimplePaletteItem> {
+	/**
+	 * Interface for providing image based on IDs specified by the {@link PaletteContributor}
+	 */
+	public static interface ImageProvider {
+		Optional<Image> getImage(String id);
+	}
+
 	private final ReadOnlyObjectWrapper<SimplePaletteItem> activeItem = new ReadOnlyObjectWrapper<>();
 	private final Image selectIcon = new Image("./icons/arrow16.gif");
 	private final Image marqueeIcon = new Image("./icons/marquee16.gif");
 	private final WritableImage folderIcon;
-
-	// TODO: Replace
 	private final SimplePaletteGroup rootGroup = new SimplePaletteGroup("Root", null); // Created to simplify implementation
-	private final SimplePaletteGroup[] groups;
+	private final SimplePaletteGroup miscPaletteGroup;
+	private final SimplePaletteItem selectItem = new SimplePaletteItem(rootGroup, "Select",
+			selectIcon);
+	private final SimplePaletteItem marqueeItem = new SimplePaletteItem(rootGroup, "Marquee", marqueeIcon);
+	private final ImmutableList<SimplePaletteGroup> groups;
 
-	public ActualPaletteModel(final Collection<PaletteContributor> paletteContributors, final Object diagramBo,
+	public AgeEditorPaletteModel(final Collection<PaletteContributor> paletteContributors, final Object diagramBo,
 			final ImageProvider imageProvider) {
-		// Root items
-		new SimplePaletteItem(rootGroup, "Select", selectIcon);
-		new SimplePaletteItem(rootGroup, "Marquee", marqueeIcon);
-
 		final ImageDescriptor folderIconDescriptor = PlatformUI.getWorkbench().getSharedImages()
 				.getImageDescriptor(ISharedImages.IMG_OBJ_FOLDER);
-		final org.eclipse.swt.graphics.Image swtImage = folderIconDescriptor.createImage();
-		folderIcon = SWTFXUtils.toFXImage(swtImage.getImageData(), null);
-		swtImage.dispose();
-
-		// TODO: Check for null?
+		final org.eclipse.swt.graphics.Image folderIconImage = folderIconDescriptor.createImage();
+		Objects.requireNonNull(folderIconImage, "Unable to create folder icon image");
+		folderIcon = SWTFXUtils.toFXImage(folderIconImage.getImageData(), null);
+		folderIconImage.dispose();
 
 		final Map<String, SimplePaletteGroup> unsortedGroups = new HashMap<>();
 
+		miscPaletteGroup = new SimplePaletteGroup("Miscellaneous", folderIcon);
+		unsortedGroups.put(Categories.MISC, miscPaletteGroup);
+
+		// Create groups from the categories provided by the palette contributors
 		for (final PaletteContributor contributor : paletteContributors) {
 			contributor.getCategories().forEachOrdered(category -> {
 				final SimplePaletteGroup group = new SimplePaletteGroup(category.getLabel(), folderIcon);
@@ -81,35 +93,26 @@ public class ActualPaletteModel implements PaletteModel<SimplePaletteGroup, Simp
 			});
 		}
 
-		// TODO: Once diagram BO is available
+		// Create palette items based on the commands from the palette contributors
 		final PaletteCommandProviderContext ctx = new PaletteCommandProviderContext(diagramBo);
 		for (final PaletteContributor contributor : paletteContributors) {
 			contributor.getTargetedCommands(ctx).forEachOrdered(cmd -> {
-				final SimplePaletteGroup group = unsortedGroups.get(cmd.getCategoryId());
-				if (group == null) {
-					// TODO
-					return;
-				}
-
+				final SimplePaletteGroup group = Objects.requireNonNull(unsortedGroups.get(cmd.getCategoryId()),
+						"unable to find group for category: " + cmd.getCategoryId());
 				new SimplePaletteItem(group, cmd.getLabel(),
 						cmd.getIconId().flatMap(imageProvider::getImage).orElse(null));
 			});
 
 			contributor.getCreateConnectionCommands(ctx).forEachOrdered(cmd -> {
-				final SimplePaletteGroup group = unsortedGroups.get(cmd.getCategoryId());
-				if (group == null) {
-					// TODO
-					return;
-				}
-
+				final SimplePaletteGroup group = Objects.requireNonNull(unsortedGroups.get(cmd.getCategoryId()),
+						"unable to find group for category: " + cmd.getCategoryId());
 				new SimplePaletteItem(group, cmd.getLabel(),
 						cmd.getIconId().flatMap(imageProvider::getImage).orElse(null));
 			});
 		}
 
 		groups = unsortedGroups.values().stream().filter(g -> !g.items.isEmpty())
-				.sorted((g1, g2) -> g1.label.compareToIgnoreCase(g2.label))
-				.toArray(SimplePaletteGroup[]::new);
+				.sorted((g1, g2) -> g1.label.compareToIgnoreCase(g2.label)).collect(ImmutableList.toImmutableList());
 
 		// Sort the items in each group
 		for (SimplePaletteGroup group : groups) {
@@ -118,7 +121,7 @@ public class ActualPaletteModel implements PaletteModel<SimplePaletteGroup, Simp
 	}
 
 	@Override
-	public SimplePaletteGroup[] getGroups() {
+	public ImmutableList<SimplePaletteGroup> getGroups() {
 		return groups;
 	}
 
@@ -129,32 +132,36 @@ public class ActualPaletteModel implements PaletteModel<SimplePaletteGroup, Simp
 
 	@Override
 	public Image getGroupIcon(final SimplePaletteGroup group) {
-		return folderIcon;
+		return group.icon;
 	}
 
 	@Override
-	public SimplePaletteItem[] getItems(SimplePaletteGroup group) {
+	public List<SimplePaletteItem> getItems(SimplePaletteGroup group) {
 		if (group == null) {
 			group = rootGroup;
 		}
 
-		return group.items.toArray(new SimplePaletteItem[group.items.size()]);
+		return Collections.unmodifiableList(group.items);
 	}
 
 	@Override
-	public String getItemLabel(SimplePaletteItem item) {
+	public String getItemLabel(final SimplePaletteItem item) {
 		return item.label;
 	}
 
 	@Override
-	public Image getItemIcon(SimplePaletteItem item) {
+	public Image getItemIcon(final SimplePaletteItem item) {
 		return item.icon;
 	}
 
 	@Override
 	public void activateItem(final SimplePaletteItem item) {
-		// TODO
-		// TODO: Active item property should reflect GEF state.
+		// TODO: Implement. Consider replacing SimplePaletteGroup/Item as needed if it simplifies the implementation
+		if (item == selectItem) {
+			System.err.println("SELECT");
+		} else if (item == marqueeItem) {
+			System.err.println("MARQUEE");
+		}
 	}
 
 	@Override

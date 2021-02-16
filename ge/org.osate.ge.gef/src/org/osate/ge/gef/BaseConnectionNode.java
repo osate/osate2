@@ -36,6 +36,7 @@ import org.eclipse.gef.geometry.planar.Point;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -48,14 +49,17 @@ import javafx.scene.shape.StrokeLineCap;
 /**
  * Base class for connection nodes. Contains the actual connection along with associated labels and decorations.
  *
- * Decorations nodes will be rotated by this node as needed. The nodes should be specified in a manner
- * that would be appropriate for a connection going from left to right.
+ * Decorations nodes will be rotated by this node as needed. Start and destination decorations should be specified in a manner
+ * that would be appropriate for a start decoration of a connection going from left to right. Destination decorations will be rotated 180.0.
+ *
+ * Midpoint decorations as centered along the midpoint of the connection. Midpoint decorations should be specified as appropriate for a connection
+ * from left to right.
+ *
+ * All decorations will be rotated based on the orientation of the connection.
  *
  * Positions specified by {@link PreferredPosition} will be used for labels. Such positions are relative to the midpoint of
  * the connection. By default the primary labels are positioned above the midpoint. Secondary labels are positioned below
  * the midpoint.
- *
- * Midpoint decorations as centered along the midpoint of the connection.
  *
  * Decorations and labels are resized to their preferred sizes.
  *
@@ -67,10 +71,35 @@ import javafx.scene.shape.StrokeLineCap;
 public abstract class BaseConnectionNode extends Region implements ChopBoxGeometryProvider, Stylable {
 	private static final int MIDPOINT_DECORATION_SPACING = 4;
 
+	/**
+	 * Class intended to fix an issue that occurs when a group is empty. Groups are used to logically group certain
+	 * types of nodes such as primary labels. However, when the group is empty, the group has a layout bounds
+	 * with a negative with and height. This results in scrollbars appearing in undesired cases.
+	 *
+	 * This class provides an inner group that can be modified by the user of the client. The visibility of the wrapper
+	 * group is updated based on whether the inner group is empty. This avoids the problem by hiding the groups while
+	 * allowing the visibility of the inner group to the modified by the user of the class.
+	 *
+	 * Based on limited testing, the problem with scrollbars only occurs when the connection has bendpoints.
+	 */
+	private static class GroupWithWrapper {
+		private final Group wrapper = new Group();
+		private final Group inner = new Group();
+
+		public GroupWithWrapper() {
+			wrapper.getChildren().add(inner);
+
+			wrapper.setVisible(false);
+			inner.getChildren().addListener((ListChangeListener<Node>) c -> {
+				wrapper.setVisible(!inner.getChildren().isEmpty());
+			});
+		}
+	}
+
 	private final Connection connection = new Connection();
-	private final Group primaryLabels = new Group();
-	private final Group secondaryLabels = new Group();
-	private final Group midpointDecorations = new Group();
+	private final GroupWithWrapper primaryLabels = new GroupWithWrapper();
+	private final GroupWithWrapper secondaryLabels = new GroupWithWrapper();
+	private final GroupWithWrapper midpointDecorations = new GroupWithWrapper();
 	private final StaticAnchor midpointAnchor = new StaticAnchor(connection,
 			new org.eclipse.gef.geometry.planar.Point(0.0, 0.0));
 
@@ -88,7 +117,9 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 	 * Creates a new instance
 	 */
 	public BaseConnectionNode() {
-		getChildren().setAll(connection, midpointDecorations, primaryLabels, secondaryLabels);
+		setPickOnBounds(false);
+		getChildren().setAll(connection, midpointDecorations.wrapper, primaryLabels.wrapper,
+				secondaryLabels.wrapper);
 		connection.setStartDecoration(startDecorationGroup);
 		connection.setEndDecoration(endDecorationGroup);
 
@@ -109,11 +140,11 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 	}
 
 	public ObservableList<Node> getPrimaryLabels() {
-		return primaryLabels.getChildren();
+		return primaryLabels.inner.getChildren();
 	}
 
 	public ObservableList<Node> getSecondaryLabels() {
-		return secondaryLabels.getChildren();
+		return secondaryLabels.inner.getChildren();
 	}
 
 	/**
@@ -121,7 +152,7 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 	 * @return the midpoint decorations
 	 */
 	public ObservableList<Node> getMidpointDecorations() {
-		return midpointDecorations.getChildren();
+		return midpointDecorations.inner.getChildren();
 	}
 
 	/**
@@ -142,7 +173,6 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 		endDecorationGroup.getChildren().setAll(node);
 		final Bounds decorationBounds = node.getLayoutBounds();
 		node.relocate(-decorationBounds.getMaxX() / 2.0, -decorationBounds.getMaxY() / 2.0);
-		node.setRotate(180.0);
 	}
 
 	/**
@@ -203,9 +233,9 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 
 		// Position the primary label. If a preferred position is set, use it. Otherwise, position the label
 		// above the connection center.
-		double labelY = midpoint.y - 2;
-		if (primaryLabels.isManaged()) {
-			for (final Node child : Lists.reverse(primaryLabels.getChildren())) {
+		double labelY = midpoint.y - 2.0;
+		if (primaryLabels.inner.isManaged()) {
+			for (final Node child : Lists.reverse(primaryLabels.inner.getChildren())) {
 				final double childWidth = child.prefWidth(-1);
 				final double childHeight = child.prefHeight(-1);
 				final Point2D childRelPosition = PreferredPosition.get(child);
@@ -222,7 +252,7 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 		// Position additional labels below the connection center. If a preferred position is set for any nodes,
 		// use it.
 		labelY = midpoint.y;
-		for (final Node child : secondaryLabels.getChildren()) {
+		for (final Node child : secondaryLabels.inner.getChildren()) {
 			final double childWidth = child.prefWidth(-1);
 			final double childHeight = child.prefHeight(-1);
 			final Point2D childRelPosition = PreferredPosition.get(child);
@@ -240,25 +270,23 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 		// Layout midpoint decorations
 		//
 		double totalMidpointDecorationWidth = -MIDPOINT_DECORATION_SPACING;
-		for (final Node child : midpointDecorations.getChildren()) {
+		for (final Node child : midpointDecorations.inner.getChildren()) {
 			totalMidpointDecorationWidth += child.getLayoutBounds().getWidth() + MIDPOINT_DECORATION_SPACING;
 		}
 
 		// Position the midpoint decorations
 		double centerDecorationX = midpoint.x - totalMidpointDecorationWidth / 2.0;
-		for (final Node child : midpointDecorations.getChildren()) {
+		for (final Node child : midpointDecorations.inner.getChildren()) {
 			final Bounds childBounds = child.getLayoutBounds();
 			child.relocate(centerDecorationX, midpoint.y - childBounds.getHeight() / 2.0);
 			centerDecorationX += childBounds.getWidth() + MIDPOINT_DECORATION_SPACING;
 		}
 
 		// Rotate the midpoint decoration to match the orientation of the segment where it is located
-		midpointDecorations.setRotate(midpointAngle);
+		midpointDecorations.inner.setRotate(midpointAngle);
 
 		// Set the position of the midpoint anchor.
 		midpointAnchor.setReferencePosition(midpoint);
-
-		midpointDecorations.setManaged(!midpointDecorations.getChildren().isEmpty());
 	}
 
 	@Override
@@ -295,8 +323,8 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 	 * @param value whether to show the primary label nodes.
 	 */
 	public void setPrimaryLabelsVisible(final boolean value) {
-		primaryLabels.setManaged(value);
-		primaryLabels.setVisible(value);
+		primaryLabels.inner.setManaged(value);
+		primaryLabels.inner.setVisible(value);
 	}
 
 	@Override

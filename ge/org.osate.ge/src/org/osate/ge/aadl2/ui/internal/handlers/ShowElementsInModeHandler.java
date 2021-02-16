@@ -56,14 +56,12 @@ import org.osate.ge.internal.diagram.runtime.botree.Completeness;
 import org.osate.ge.internal.diagram.runtime.botree.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
+import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
-import org.osate.ge.internal.graphiti.AgeFeatureProvider;
-import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
-import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectReferenceService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 
@@ -79,16 +77,14 @@ public class ShowElementsInModeHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final AgeDiagramEditor editor = getAgeDiagramEditor(event);
+		final InternalDiagramEditor editor = getDiagramEditor(event);
 		referenceService = Objects.requireNonNull(Adapters.adapt(editor, ProjectReferenceService.class),
 				"Unable to retrieve reference service");
 		final ExtensionRegistryService extService = Objects.requireNonNull(Adapters.adapt(editor, ExtensionRegistryService.class),
 				"Unable to retrieve extension service");
 		final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService);
-		final AgeFeatureProvider featureProvider = (AgeFeatureProvider) editor.getDiagramTypeProvider()
-				.getFeatureProvider();
-		final TreeUpdater boTreeExpander = featureProvider.getBoTreeUpdater();
-		final BusinessObjectNode boTree = getBoTree((AgeDiagramEditor) editor, boTreeExpander);
+		final TreeUpdater boTreeExpander = editor.getBoTreeUpdater();
+		final BusinessObjectNode boTree = getBoTree(editor, boTreeExpander);
 		final List<BusinessObjectContext> selectedModes = AgeHandlerUtil.getSelectedBusinessObjectContexts().stream()
 				.filter(de -> isModal(de.getBusinessObject())).collect(Collectors.toList());
 		for (final BusinessObjectContext selectedMode : selectedModes) {
@@ -96,19 +92,16 @@ public class ShowElementsInModeHandler extends AbstractHandler {
 		}
 
 		final AgeDiagram diagram = editor.getDiagram();
-		final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
-		final GraphitiService graphitiService = Objects.requireNonNull(Adapters.adapt(editor, GraphitiService.class),
-				"Unable to retrieve graphiti service");
-
-		final ActionService actionService = Objects.requireNonNull(Adapters.adapt(editor, ActionService.class),
-				"Unable to retrieve action service");
-		actionService.execute("Show Elements In Mode", ExecutionMode.NORMAL, () -> {
+		final DiagramUpdater diagramUpdater = editor.getDiagramUpdater();
+		final LayoutInfoProvider layoutInfoProvider = Objects.requireNonNull(
+				Adapters.adapt(editor, LayoutInfoProvider.class), "Unable to retrieve layout info provider");
+		editor.getActionExecutor().execute("Show Elements In Mode", ExecutionMode.NORMAL, () -> {
 			// Update the diagram
 			diagramUpdater.updateDiagram(diagram, boTree);
 
 			// Update layout
 			diagram.modify("Layout Incrementally",
-					m -> DiagramElementLayoutUtil.layoutIncrementally(diagram, m, graphitiService));
+					m -> DiagramElementLayoutUtil.layoutIncrementally(diagram, m, layoutInfoProvider));
 
 			return null;
 		});
@@ -197,13 +190,13 @@ public class ShowElementsInModeHandler extends AbstractHandler {
 		return node == null ? createNode(parent, ref, ancestor) : node;
 	}
 
-	private static AgeDiagramEditor getAgeDiagramEditor(final ExecutionEvent event) {
+	private static InternalDiagramEditor getDiagramEditor(final ExecutionEvent event) {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		if (!(activeEditor instanceof AgeDiagramEditor)) {
+		if (!(activeEditor instanceof InternalDiagramEditor)) {
 			throw new RuntimeException("Unexpected editor: " + activeEditor);
 		}
 
-		return (AgeDiagramEditor) activeEditor;
+		return (InternalDiagramEditor) activeEditor;
 	}
 
 	/**
@@ -251,7 +244,7 @@ public class ShowElementsInModeHandler extends AbstractHandler {
 		return new BusinessObjectNode(container, UUID.randomUUID(), ref, bo, Completeness.UNKNOWN, false);
 	}
 
-	private static BusinessObjectNode getBoTree(final AgeDiagramEditor editor, final TreeUpdater boTreeExpander) {
+	private static BusinessObjectNode getBoTree(final InternalDiagramEditor editor, final TreeUpdater boTreeExpander) {
 		final BusinessObjectNode boTree = DiagramToBusinessObjectTreeConverter
 				.createBusinessObjectNode(editor.getDiagram());
 		return boTreeExpander.expandTree(editor.getDiagram().getConfiguration(), boTree);

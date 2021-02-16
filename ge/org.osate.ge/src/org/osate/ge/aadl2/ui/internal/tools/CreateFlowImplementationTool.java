@@ -84,7 +84,7 @@ import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.ui.tools.ActivatedEvent;
 import org.osate.ge.internal.ui.tools.DeactivatedEvent;
@@ -100,7 +100,7 @@ public class CreateFlowImplementationTool implements Tool {
 	private ColoringService.Coloring coloring = null;
 	private CreateFlowImplementationDialog createFlowImplDlg;
 
-	public CreateFlowImplementationTool(final AgeDiagramEditor editor, final DiagramElement container,
+	public CreateFlowImplementationTool(final InternalDiagramEditor editor, final DiagramElement container,
 			final FlowImplementation flowImpl) {
 		final UiService uiService = Objects.requireNonNull(Adapters.adapt(editor, UiService.class),
 				"ui service must not be null");
@@ -135,7 +135,7 @@ public class CreateFlowImplementationTool implements Tool {
 						.findOrCreateBusinessObjectContext(referenceService, container, modeFeature)));
 	}
 
-	public CreateFlowImplementationTool(final AgeDiagramEditor editor) {
+	public CreateFlowImplementationTool(final InternalDiagramEditor editor) {
 		final Display display = Display.getCurrent();
 		final UiService uiService = Objects.requireNonNull(Adapters.adapt(editor, UiService.class),
 				"ui service must not be null");

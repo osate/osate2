@@ -29,7 +29,7 @@ package org.osate.ge.gef;
 public enum DockSide {
 	LEFT(true, false), RIGHT(true, true), TOP(false, false), BOTTOM(false, true);
 
-	final boolean vertical;
+	public final boolean vertical;
 	final boolean alignEnd;
 
 	DockSide(final boolean vertical, final boolean alignEnd) {

@@ -56,13 +56,13 @@ import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.util.ProxyUtil;
 
 public class EditFlowContributionItem extends ControlContribution {
 	private final static ImageDescriptor editIcon = Activator.getImageDescriptor("icons/flow_edit.png");
 	private final Set<BusinessObjectNode> segmentNodes = new HashSet<>();
-	private AgeDiagramEditor editor = null;
+	private InternalDiagramEditor editor = null;
 	private Button editFlowBtn;
 	private HighlightableFlowInfo selectedHighlightableFlow;
 
@@ -146,8 +146,8 @@ public class EditFlowContributionItem extends ControlContribution {
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (this.editor != newEditor) {
 			// Update the editor
-			if (newEditor instanceof AgeDiagramEditor) {
-				this.editor = (AgeDiagramEditor) newEditor;
+			if (newEditor instanceof InternalDiagramEditor) {
+				this.editor = (InternalDiagramEditor) newEditor;
 			} else {
 				this.editor = null;
 			}

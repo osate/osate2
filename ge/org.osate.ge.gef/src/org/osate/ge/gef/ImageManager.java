@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 
 import javafx.scene.image.Image;
 
@@ -23,10 +24,22 @@ public class ImageManager implements AutoCloseable {
 	private final Map<Path, WeakImageReference> pathToImageReference = new HashMap<>();
 	private final Thread referenceCleanupThread;
 
+	private final Function<Path, File> pathResolver;
+
 	/**
-	 * Creates a new instance
+	 * Creates a new instance. Path resolver assumes path are file system paths.
 	 */
 	public ImageManager() {
+		this(path -> path.toFile());
+	}
+
+	/**
+	 * Creates a new instance
+	 * @param pathResolver converts the path to the file. The path is not required to be a file system path.
+	 */
+	public ImageManager(final Function<Path, File> pathResolver) {
+		this.pathResolver = Objects.requireNonNull(pathResolver, "pathToFile must not be null");
+
 		// Start thread to remove image references from the cache when they are no longer being used.
 		final Runnable referenceCleanupRunnable = (Runnable) () -> {
 			while (Thread.currentThread().isInterrupted()) {
@@ -96,8 +109,8 @@ public class ImageManager implements AutoCloseable {
 			return;
 		}
 
-		final File file = weak.path.toFile();
-		final long lastModified = file.lastModified();
+		final File file = pathResolver.apply(weak.path);
+		final long lastModified = file == null ? -1 : file.lastModified();
 
 		// Check for changes
 		if (weak.lastModified != lastModified) {
@@ -105,7 +118,7 @@ public class ImageManager implements AutoCloseable {
 
 			// Update the image
 			Image image = null;
-			if (file.exists()) {
+			if (file != null && file.exists()) {
 				try (final FileInputStream stream = new FileInputStream(file)) {
 					image = new Image(stream);
 				} catch (IOException e) {

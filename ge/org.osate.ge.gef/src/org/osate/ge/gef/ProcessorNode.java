@@ -30,13 +30,11 @@ import com.google.common.collect.ImmutableList;
 
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.HLineTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.PathElement;
 import javafx.scene.shape.StrokeLineCap;
-import javafx.scene.shape.VLineTo;
 
 /**
  * Node for processor graphics
@@ -70,15 +68,16 @@ public class ProcessorNode extends Region implements ChopBoxGeometryProvider, St
 	public void resize(double width, double height) {
 		super.resize(width, height);
 
-		final PathElement[] outlinePathElements = new PathElement[] { new MoveTo(0, height), new VLineTo(DEPTH),
-				new LineTo(HORIZONTAL_OFFSET, 0), new HLineTo(width), new VLineTo(height - DEPTH),
-				new LineTo(width - HORIZONTAL_OFFSET, height), new HLineTo(0) };
+		final PathElement[] outlinePathElements = new PathElement[] { new MoveTo(0, height), new LineTo(0, DEPTH),
+				new LineTo(HORIZONTAL_OFFSET, 0), new LineTo(width, 0), new LineTo(width, height - DEPTH),
+				new LineTo(width - HORIZONTAL_OFFSET, height), new LineTo(0, height) };
 		outlineFill.getElements().setAll(outlinePathElements);
 		shadedArea.getElements().setAll(new MoveTo(width - HORIZONTAL_OFFSET, DEPTH), new LineTo(width, 0),
-				new VLineTo(height - DEPTH), new LineTo(width - HORIZONTAL_OFFSET, height));
+				new LineTo(width, height - DEPTH), new LineTo(width - HORIZONTAL_OFFSET, height));
 		outline.getElements().setAll(outlinePathElements);
-		lineSegments.getElements().setAll(new MoveTo(0, DEPTH), new HLineTo(width - HORIZONTAL_OFFSET),
-				new LineTo(width, 0), new MoveTo(width - HORIZONTAL_OFFSET, DEPTH), new VLineTo(height));
+		lineSegments.getElements().setAll(new MoveTo(0, DEPTH), new LineTo(width - HORIZONTAL_OFFSET, DEPTH),
+				new LineTo(width, 0), new MoveTo(width - HORIZONTAL_OFFSET, DEPTH),
+				new LineTo(width - HORIZONTAL_OFFSET, height));
 	}
 
 	@Override

@@ -5,10 +5,10 @@
          point="org.eclipse.ui.editors">
       <editor
             class="org.osate.ge.gef.ui.editor.AgeEditor"
-            default="false"
+            contributorClass="org.osate.ge.gef.ui.editor.AgeEditorActionBarContributor"
             extensions="aadl_diagram"
             id="org.osate.gef.ui.editor.AgeEditor"
-            name="AADL Diagram Editor (GEF)">
+            name="AADL Diagram Editor">
       </editor>
    </extension>
 

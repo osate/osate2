@@ -49,6 +49,11 @@ public class Poly implements AgeShape {
 		this.type = Objects.requireNonNull(type, "type must not be null");
 	}
 
+	@Override
+	public final boolean isResizeable() {
+		return fixedSize == null;
+	}
+
 	public final Point[] getPoints() {
 		return this.points;
 	}

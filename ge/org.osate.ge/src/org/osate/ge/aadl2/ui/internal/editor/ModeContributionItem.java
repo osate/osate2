@@ -47,8 +47,8 @@ import org.osate.ge.aadl2.internal.util.AadlModalElementUtil;
 import org.osate.ge.aadl2.internal.util.AadlModalElementUtil.ModeFeatureReference;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.editor.ComboContributionItem;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -61,7 +61,7 @@ public class ModeContributionItem extends ComboContributionItem {
 					.filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation
 							|| fa.getBusinessObject() instanceof Subcomponent
 							|| fa.getBusinessObject() instanceof ComponentInstance));
-	private AgeDiagramEditor editor;
+	private InternalDiagramEditor editor;
 
 	public ModeContributionItem(final String id) {
 		super(id);
@@ -75,14 +75,7 @@ public class ModeContributionItem extends ComboContributionItem {
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (editor != newEditor) {
 			saveModeSelection();
-
-			// Update the editor
-			if (newEditor instanceof AgeDiagramEditor) {
-				this.editor = (AgeDiagramEditor) newEditor;
-			} else {
-				this.editor = null;
-			}
-
+			editor = newEditor instanceof InternalDiagramEditor ? (InternalDiagramEditor) newEditor : null;
 			refresh();
 		}
 	}
@@ -131,7 +124,7 @@ public class ModeContributionItem extends ComboContributionItem {
 
 			final AgeDiagram diagram = editor.getDiagram();
 			if (diagram != null) {
-				final QueryService queryService = ContributionHelper.getQueryService(editor);
+				final QueryService queryService = ContributionUtil.getQueryService(editor);
 				if (queryService != null) {
 					queryService.getResults(modeContainerQuery, diagram).stream().flatMap(modeContainer -> {
 						// If container contains a modal element
@@ -232,7 +225,7 @@ public class ModeContributionItem extends ComboContributionItem {
 	@Override
 	protected void onSelection(final Object value) {
 		final ModeFeatureReference mf = (ModeFeatureReference) value;
-		ContributionHelper.getColoringService(editor).setHighlightedMode(mf.getNamedElement(), mf.getContainer());
+		ContributionUtil.getColoringService(editor).setHighlightedMode(mf.getNamedElement(), mf.getContainer());
 	}
 
 	@Override

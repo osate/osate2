@@ -25,7 +25,6 @@ package org.osate.gef.palette;
 
 import org.osate.ge.gef.NodeApplication;
 import org.osate.ge.gef.palette.Palette;
-import org.osate.ge.gef.palette.TestPaletteModel;
 
 public class PaletteTest {
 	private PaletteTest() {

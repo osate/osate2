@@ -37,7 +37,6 @@ import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
@@ -90,7 +89,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private static final String PREFERENCE_SHOW_HIDDEN_ELEMENTS = "outline.showHiddenElements";
 	private IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
 
-	private final AgeDiagramEditor editor;
+	private final InternalDiagramEditor editor;
 	private final ProjectProvider projectProvider;
 	private final ProjectReferenceService referenceService;
 	private final ExtensionRegistryService extRegistry;
@@ -103,9 +102,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	// This is important to allow selecting items in the editor which aren't contained in the outline.
 	private boolean synchronizingSelection = false;
 
-	public AgeContentOutlinePage(final AgeDiagramEditor editor, final ProjectProvider projectProvider,
-			final ExtensionRegistryService extRegistry,
-			final ProjectReferenceService referenceService) {
+	public AgeContentOutlinePage(final InternalDiagramEditor editor, final ProjectProvider projectProvider,
+			final ExtensionRegistryService extRegistry, final ProjectReferenceService referenceService) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 		preferences.addPreferenceChangeListener(preferenceChangeListener);
 
@@ -118,20 +116,17 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	@Override
 	public void init(IPageSite pageSite) {
 		super.init(pageSite);
-		final ActionRegistry actionRegistry = Objects.requireNonNull(editor.getActionRegistry(),
-				"Unable to retrieve action registry");
 		final IActionBars actionBars = pageSite.getActionBars();
-		registerGlobalActionHandler(actionBars, actionRegistry, ActionFactory.UNDO.getId());
-		registerGlobalActionHandler(actionBars, actionRegistry, ActionFactory.REDO.getId());
-		registerGlobalActionHandler(actionBars, actionRegistry, ActionFactory.COPY.getId());
-		registerGlobalActionHandler(actionBars, actionRegistry, ActionFactory.PASTE.getId());
-		registerGlobalActionHandler(actionBars, actionRegistry, ActionFactory.PRINT.getId());
-		registerGlobalActionHandler(actionBars, actionRegistry, ActionFactory.SAVE_AS.getId());
+		registerGlobalActionHandler(actionBars, ActionFactory.UNDO.getId());
+		registerGlobalActionHandler(actionBars, ActionFactory.REDO.getId());
+		registerGlobalActionHandler(actionBars, ActionFactory.COPY.getId());
+		registerGlobalActionHandler(actionBars, ActionFactory.PASTE.getId());
+		registerGlobalActionHandler(actionBars, ActionFactory.PRINT.getId());
+		registerGlobalActionHandler(actionBars, ActionFactory.SAVE_AS.getId());
 	}
 
-	private static void registerGlobalActionHandler(final IActionBars actionBars, final ActionRegistry actionRegistry,
-			final String actionId) {
-		actionBars.setGlobalActionHandler(actionId, actionRegistry.getAction(actionId));
+	private void registerGlobalActionHandler(final IActionBars actionBars, final String actionId) {
+		actionBars.setGlobalActionHandler(actionId, editor.getGlobalActionHandler(actionId));
 	}
 
 	@Override
@@ -144,7 +139,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		// Update the state of the button based on the new property value.
 		// This will not trigger a synchronization.
 		if (PREFERENCE_OUTLINE_LINK_WITH_EDITOR.equals(event.getKey())) {
-			if(event.getNewValue() != null) {
+			if (event.getNewValue() != null) {
 				linkWithEditorAction.setChecked(Boolean.parseBoolean(event.getNewValue().toString()));
 			}
 		} else if (Objects.equals(event.getKey(), PREFERENCE_SHOW_HIDDEN_ELEMENTS)) {
@@ -156,7 +151,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	public void createControl(final Composite parent) {
 		super.createControl(parent);
 
-		final TreeViewer viewer =  getTreeViewer();
+		final TreeViewer viewer = getTreeViewer();
 		ContextHelpUtil.setHelp(viewer.getControl(), ContextHelpUtil.OUTLINE_VIEW);
 
 		// A comparator is set to allow comparing tree elements of different types in a way where they will be equal if the relative reference is equal.
@@ -186,8 +181,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 			@Override
 			public Object[] getElements(final Object inputElement) {
-				if(inputElement instanceof AgeDiagramEditor) {
-					final AgeDiagramEditor editor = (AgeDiagramEditor)inputElement;
+				if (inputElement instanceof InternalDiagramEditor) {
+					final InternalDiagramEditor editor = (InternalDiagramEditor) inputElement;
 					return getChildren(editor.getDiagram());
 				}
 
@@ -206,9 +201,9 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 						final DiagramNode parentNode = (DiagramNode) parent;
 
 						// Add child diagram nodes
-						parentNode.getDiagramElements().stream().filter(
-								(de) -> !Strings.isNullOrEmpty(de.getUserInterfaceName())
-										|| de.getBusinessObject() instanceof EObject)
+						parentNode.getDiagramElements().stream()
+						.filter((de) -> !Strings.isNullOrEmpty(de.getUserInterfaceName())
+								|| de.getBusinessObject() instanceof EObject)
 						.forEach(children::add);
 
 						// Add children which are hidden based on user preference
@@ -237,14 +232,13 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 								parentForRetrieval = parent;
 							}
 
-							// Add children based on the objects returns by the business object provider for business objects which are not currently in the diagram.
+							// Add children based on the objects returns by the business object provider for business objects which are not currently in the
+							// diagram.
 							getChildContextsFromProvider(parent, parentForRetrieval, childRef -> {
 								return !children.stream()
 										.map(AgeContentOutlinePage.this::getRelativeReferenceForElement)
 										.anyMatch(childRef::equals);
-							}).filter(
-									this::includeHiddenBusinessObjectContext)
-							.forEachOrdered(children::add);
+							}).filter(this::includeHiddenBusinessObjectContext).forEachOrdered(children::add);
 						}
 					} else if (parent instanceof BusinessObjectContext) {
 						// The parent is another type of business object context which is not included in the diagram
@@ -252,9 +246,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 						// Add children which are hidden based on user preference
 						if (showHiddenElementsAction.isChecked()) {
 							getChildContextsFromProvider(parent, parent, childRef -> true)
-							.filter(
-									this::includeHiddenBusinessObjectContext)
-							.forEachOrdered(children::add);
+							.filter(this::includeHiddenBusinessObjectContext).forEachOrdered(children::add);
 						}
 					}
 
@@ -394,18 +386,17 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		tree.setMenu(menu);
 		getSite().registerContextMenu("org.osate.ge.editor.AgeDiagramEditor", menuMgr, viewer); // Allow contributions
 
-		if(editor.getGraphicalViewer() != null) {
-			editor.getGraphicalViewer().addSelectionChangedListener(event -> updateOutlineSelectionIfLinked());
+		editor.addSelectionChangedListener(event -> updateOutlineSelectionIfLinked());
 
-			editor.addPropertyListener((source, propId) -> {
-				if(!getTreeViewer().getTree().isDisposed() && getTreeViewer() != null) {
-					getTreeViewer().refresh();
-				}
-			});
+		editor.addPropertyListener((source, propId) -> {
+			if (!getTreeViewer().getTree().isDisposed() && getTreeViewer() != null) {
+				getTreeViewer().refresh();
+			}
+		});
 
-			viewer.addSelectionChangedListener(this);
-			viewer.setInput(editor);
-		}
+		viewer.addSelectionChangedListener(this);
+		viewer.setInput(editor);
+
 	}
 
 	/**
@@ -431,14 +422,13 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	}
 
 	private void updateOutlineSelectionIfLinked() {
-		if(!synchronizingSelection && linkWithEditorAction.isChecked()) {
+		if (!synchronizingSelection && linkWithEditorAction.isChecked()) {
 			try {
 				synchronizingSelection = true;
 				final TreeViewer treeViewer = getTreeViewer();
 				final Set<DiagramElement> outlineNodes = getCurrentlySelectedDiagramElements();
-				if(treeViewer != null &&
-						treeViewer.getContentProvider() != null &&
-						!outlineNodes.equals(editor.getSelectedDiagramElements())) {
+				if (treeViewer != null && treeViewer.getContentProvider() != null
+						&& !outlineNodes.equals(editor.getSelectedDiagramElements())) {
 					treeViewer.setSelection(buildDiagramNodeTreeSelectionFromEditor());
 				}
 			} finally {
@@ -460,7 +450,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 	private void updateEditorSelectionIfLinked() {
 		try {
-			if(!synchronizingSelection && linkWithEditorAction.isChecked() && !getSelection().isEmpty()) {
+			if (!synchronizingSelection && linkWithEditorAction.isChecked() && !getSelection().isEmpty()) {
 				// Select TreeItems on editor
 				synchronizingSelection = true;
 				selectEditorDiagramElements();
@@ -474,9 +464,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		// Compare using diagram nodes to allow selecting labels when link with editor is enabled
 		final Set<DiagramElement> outlineElements = getCurrentlySelectedDiagramElements();
 		final Set<DiagramElement> editorElements = editor.getSelectedDiagramElements();
-		if(getTreeViewer() != null &&
-				getTreeViewer().getContentProvider() != null &&
-				!outlineElements.equals(editorElements)) {
+		if (getTreeViewer() != null && getTreeViewer().getContentProvider() != null
+				&& !outlineElements.equals(editorElements)) {
 			editor.selectDiagramElements(outlineElements);
 		}
 	}
@@ -493,7 +482,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 			// Default Link With Editor enabled
 			setChecked(getEnabledFromPreferenceStore());
-			setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED));
+			setImageDescriptor(
+					PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED));
 		}
 
 		@Override
@@ -539,7 +529,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	 * @return
 	 */
 	private Set<DiagramElement> getCurrentlySelectedDiagramElements() {
-		final Object[] outlineSelection = ((IStructuredSelection)getSelection()).toArray();
+		final Object[] outlineSelection = ((IStructuredSelection) getSelection()).toArray();
 		final Set<DiagramElement> diagramElements = new HashSet<>();
 		for (final Object selectedBusinessObjectContext : outlineSelection) {
 			if (selectedBusinessObjectContext instanceof DiagramElement) {

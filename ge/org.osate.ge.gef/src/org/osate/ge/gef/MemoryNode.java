@@ -30,12 +30,12 @@ import com.google.common.collect.ImmutableList;
 
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcTo;
+import javafx.scene.shape.CubicCurveTo;
+import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
-import javafx.scene.shape.VLineTo;
 
 /**
  * Node for memory graphics.
@@ -70,13 +70,16 @@ public class MemoryNode extends Region implements ChopBoxGeometryProvider, Styla
 	public void resize(double width, double height) {
 		super.resize(width, height);
 
-		outline.getElements().setAll(new MoveTo(width, HALF_ELLIPSE_HEIGHT),
-				new ArcTo(width / 2.0, HALF_ELLIPSE_HEIGHT, 0.0, 0.0, HALF_ELLIPSE_HEIGHT, false, false),
-				new MoveTo(0, ELLIPSE_HEIGHT / 2.0), new VLineTo(height - ELLIPSE_HEIGHT),
-				new ArcTo(width / 2.0, HALF_ELLIPSE_HEIGHT, 0.0, width, height - ELLIPSE_HEIGHT, false, false),
-				new VLineTo(ELLIPSE_HEIGHT / 2.0));
-		innerCurve.getElements().setAll(new MoveTo(0, ELLIPSE_HEIGHT / 2.0),
-				new ArcTo(width / 2.0, HALF_ELLIPSE_HEIGHT, 0.0, width, HALF_ELLIPSE_HEIGHT, false, false));
+		outline.getElements()
+				.setAll(new MoveTo(width, HALF_ELLIPSE_HEIGHT),
+						new CubicCurveTo(width, -HALF_ELLIPSE_HEIGHT / 3.0, 0.0, -HALF_ELLIPSE_HEIGHT / 3.0, 0.0,
+								HALF_ELLIPSE_HEIGHT),
+						new MoveTo(0, HALF_ELLIPSE_HEIGHT), new LineTo(0, height - HALF_ELLIPSE_HEIGHT),
+						new CubicCurveTo(0.0, height + HALF_ELLIPSE_HEIGHT / 3.0, width,
+								height + HALF_ELLIPSE_HEIGHT / 3.0, width, height - HALF_ELLIPSE_HEIGHT),
+						new LineTo(width, ELLIPSE_HEIGHT / 2.0));
+		innerCurve.getElements().setAll(new MoveTo(0, ELLIPSE_HEIGHT / 2.0), new CubicCurveTo(0.0,
+				7.0 * HALF_ELLIPSE_HEIGHT / 3.0, width, 7.0 * HALF_ELLIPSE_HEIGHT / 3.0, width, HALF_ELLIPSE_HEIGHT));
 	}
 
 	@Override

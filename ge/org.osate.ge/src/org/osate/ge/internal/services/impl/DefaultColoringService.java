@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.graphiti.services.impl;
+package org.osate.ge.internal.services.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,7 +37,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.eclipse.emf.common.command.AbstractCommand;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.FlowImplementation;
@@ -59,14 +58,12 @@ import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.util.AadlClassifierUtil;
 import org.osate.ge.aadl2.internal.util.AadlFlowSpecificationUtil;
+import org.osate.ge.aadl2.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
 import org.osate.ge.aadl2.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.aadl2.internal.util.AadlModalElementUtil;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
-import org.osate.ge.aadl2.internal.util.AadlFlowSpecificationUtil.FlowSegmentReference;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
-import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ColoringService;
 
 import com.google.common.base.Predicates;
@@ -75,7 +72,7 @@ public class DefaultColoringService implements ColoringService {
 	private static final Color inSelectedModeColor = new Color(255, 0, 128);
 	private static final Color inSelectedFlowColor = Color.DARK_ORANGE.brighter();
 	private static final Color inSelectedModeAndFlowColor = Color.CYAN.darker();
-	private final GraphitiService graphitiService;
+	private final StyleRefresher styleRefresher;
 	private final LinkedList<ColoringCalculator> coloringCalculators = new LinkedList<ColoringCalculator>();
 	private BusinessObjectContext modeFeatureContainer;
 	private String highlightInModeName;
@@ -83,6 +80,23 @@ public class DefaultColoringService implements ColoringService {
 	private String highlightFlowImplSpecName;
 	private String highlightEndToEndFlowName;
 	private BusinessObjectContext flowsContainerBoc;
+
+	/**
+	 * Interface used by {@link DefaultColoringService} to trigger a refresh in the rendered diagram.
+	 * Methods should only be called by the UI thread.
+	 */
+	public static interface StyleRefresher {
+		/**
+		 * Refresh the coloring of all diagram elements
+		 */
+		void refreshDiagramColoring();
+
+		/**
+		 * Refresh coloring of specified elements.
+		 * @param diagramElements the elements to refresh
+		 */
+		void refreshColoring(final Collection<DiagramElement> diagramElements);
+	}
 
 	private static interface ColoringCalculator {
 		Map<DiagramElement, Color> buildColorMap();
@@ -94,7 +108,7 @@ public class DefaultColoringService implements ColoringService {
 		@Override
 		public void dispose() {
 			coloringCalculators.remove(this);
-			refreshColoring(foregroundColors.keySet());
+			styleRefresher.refreshColoring(foregroundColors.keySet());
 		}
 
 		@Override
@@ -107,7 +121,7 @@ public class DefaultColoringService implements ColoringService {
 				}
 
 				// Refresh Coloring
-				refreshColoring(Collections.singleton(de));
+				styleRefresher.refreshColoring(Collections.singleton(de));
 			}
 		}
 
@@ -122,30 +136,6 @@ public class DefaultColoringService implements ColoringService {
 		@Override
 		public Map<DiagramElement, Color> buildColorMap() {
 			return Collections.unmodifiableMap(foregroundColors);
-		}
-
-		private void refreshColoring(final Collection<DiagramElement> diagramElements) {
-			graphitiService.getEditingDomain().getCommandStack().execute(new AbstractCommand() {
-				@Override
-				protected boolean prepare() {
-					return true;
-				}
-
-				@Override
-				public void execute() {
-					// Refresh Coloring
-					graphitiService.getGraphitiAgeDiagram().refreshStyle(diagramElements);
-				}
-
-				@Override
-				public boolean canUndo() {
-					return false;
-				}
-
-				@Override
-				public void redo() {
-				}
-			});
 		}
 	};
 
@@ -497,8 +487,8 @@ public class DefaultColoringService implements ColoringService {
 		}
 	};
 
-	public DefaultColoringService(final GraphitiService graphitiService) {
-		this.graphitiService = Objects.requireNonNull(graphitiService, "graphitiService must not be null");
+	public DefaultColoringService(final StyleRefresher editor) {
+		this.styleRefresher = Objects.requireNonNull(editor, "editor must not be null");
 
 		// Add coloring calculator to handle mode and flow behavior. It is contained here to replicate behavior of the highlighting service.
 		// In the future this could be moved outside the coloring service
@@ -537,7 +527,7 @@ public class DefaultColoringService implements ColoringService {
 						: null;
 				highlightInModeTransitionName = highlightInMode instanceof ModeTransition
 						|| highlightInMode instanceof ModeTransitionInstance ? highlightInMode.getName() : null;
-						refreshDiagramColoring();
+						styleRefresher.refreshDiagramColoring();
 	}
 
 	@Override
@@ -548,7 +538,7 @@ public class DefaultColoringService implements ColoringService {
 						: null;
 				highlightEndToEndFlowName = highlightedFlow instanceof EndToEndFlow
 						|| highlightedFlow instanceof EndToEndFlowInstance ? highlightedFlow.getName() : null;
-						refreshDiagramColoring();
+						styleRefresher.refreshDiagramColoring();
 	}
 
 	@Override
@@ -573,34 +563,5 @@ public class DefaultColoringService implements ColoringService {
 
 	private Color getInSelectedModeAndFlowColor() {
 		return inSelectedModeAndFlowColor;
-	}
-
-	private void refreshDiagramColoring() {
-		if (graphitiService.getAgeDiagram() == null) {
-			return;
-		}
-
-		graphitiService.getEditingDomain().getCommandStack().execute(new AbstractCommand() {
-			@Override
-			protected boolean prepare() {
-				return true;
-			}
-
-			@Override
-			public void execute() {
-				// Refresh Coloring
-				final GraphitiAgeDiagram graphitiAgeDiagram = graphitiService.getGraphitiAgeDiagram();
-				graphitiAgeDiagram.refreshDiagramStyles();
-			}
-
-			@Override
-			public boolean canUndo() {
-				return false;
-			}
-
-			@Override
-			public void redo() {
-			}
-		});
 	}
 }

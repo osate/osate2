@@ -28,13 +28,13 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.ge.aadl2.ui.internal.tools.CreateEndToEndFlowSpecificationTool;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 
 public class CreateEndToEndFlowSpecificationHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final AgeDiagramEditor editor = (AgeDiagramEditor) HandlerUtil.getActiveEditor(event);
+		final InternalDiagramEditor editor = (InternalDiagramEditor) HandlerUtil.getActiveEditor(event);
 		AgeHandlerUtil.activateTool(event, new CreateEndToEndFlowSpecificationTool(editor));
 		return null;
 	}

@@ -62,8 +62,6 @@ import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DiagramNodePredicates;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
-import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
-import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.SimpleModifier;
@@ -128,10 +126,7 @@ public class PasteAction extends ActionStackAction {
 			}
 
 			// Update the diagram. This will set business objects and update the diagram to be consistent.
-			final AgeFeatureProvider featureProvider = (AgeFeatureProvider) editor.getDiagramTypeProvider()
-					.getFeatureProvider();
-			final DiagramUpdater diagramUpdater = featureProvider.getDiagramUpdater();
-			diagramUpdater.updateDiagram(diagram);
+			editor.getDiagramUpdater().updateDiagram(diagram);
 		});
 
 		// Update selection to match created diagram elements

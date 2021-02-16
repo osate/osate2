@@ -81,7 +81,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramNodePredicates;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.styling.StyleCalculator;
 import org.osate.ge.internal.diagram.runtime.styling.StyleProvider;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.util.DiagramElementUtil;
 
 import com.google.common.collect.ArrayListMultimap;
@@ -111,13 +111,13 @@ public class DiagramElementLayoutUtil {
 
 	public static void layout(final String label, final IEditorPart editor,
 			final Collection<? extends DiagramNode> diagramNodes, final LayoutOptions options) {
-		if (!(editor instanceof AgeDiagramEditor)) {
-			throw new RuntimeException("Editor must be an " + AgeDiagramEditor.class.getName());
+		if (!(editor instanceof InternalDiagramEditor)) {
+			throw new RuntimeException("Editor must be an " + InternalDiagramEditor.class.getName());
 		}
 
-		final AgeDiagramEditor ageDiagramEditor = ((AgeDiagramEditor) editor);
-		final LayoutInfoProvider layoutInfoProvider = Adapters.adapt(ageDiagramEditor, LayoutInfoProvider.class);
-		layout(label, ageDiagramEditor.getDiagram(), diagramNodes, layoutInfoProvider, options);
+		final InternalDiagramEditor diagramEditor = ((InternalDiagramEditor) editor);
+		final LayoutInfoProvider layoutInfoProvider = Adapters.adapt(diagramEditor, LayoutInfoProvider.class);
+		layout(label, diagramEditor.getDiagram(), diagramNodes, layoutInfoProvider, options);
 	}
 
 	public static void layout(final String label, final AgeDiagram diagram, final LayoutInfoProvider layoutInfoProvider,
@@ -409,7 +409,7 @@ public class DiagramElementLayoutUtil {
 	private static Point getPortAnchorOffset(final DiagramElement element, final DockArea nonGroupDockArea,
 			final Point referencePosition, final LayoutInfoProvider layoutInfoProvider) {
 		// Find offset based on orientation and nature of the diagram element
-		final Dimension labelsSize = layoutInfoProvider.getLabelsSize(element);
+		final Dimension labelsSize = layoutInfoProvider.getDockedElementLabelsSize(element);
 		final double anchorOffset;
 		if (DiagramElementPredicates.isResizeable(element) && element.hasSize()) {
 			// Feature groups

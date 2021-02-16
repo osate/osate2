@@ -112,10 +112,6 @@ public final class GraphicalConfiguration {
 		return isDecoration;
 	}
 
-	/**
-	 *
-	 * @noreference This method is not intended to be referenced by clients.
-	 */
 	public final String getAnnotation() {
 		return annotation;
 	}

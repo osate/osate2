@@ -60,7 +60,7 @@ import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.util.DiagramElementUtil;
 import org.osate.ge.services.ReferenceBuilderService;
@@ -78,7 +78,7 @@ public class DeleteHandler extends AbstractHandler {
 
 	private boolean calculateEnabled(final Object evaluationContext) {
 		final IEditorPart activeEditor = AgeHandlerUtil.getActiveEditorFromContext(evaluationContext);
-		if (!(activeEditor instanceof AgeDiagramEditor)) {
+		if (!(activeEditor instanceof InternalDiagramEditor)) {
 			return false;
 		}
 
@@ -139,11 +139,11 @@ public class DeleteHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		if (!(activeEditor instanceof AgeDiagramEditor)) {
+		if (!(activeEditor instanceof InternalDiagramEditor)) {
 			throw new RuntimeException("Unexpected editor: " + activeEditor);
 		}
 
-		final AgeDiagramEditor ageEditor = (AgeDiagramEditor) activeEditor;
+		final InternalDiagramEditor ageEditor = (InternalDiagramEditor) activeEditor;
 
 		final ReferenceBuilderService refBuilder = Objects.requireNonNull(
 				(ReferenceBuilderService) ageEditor.getAdapter(ReferenceBuilderService.class),
@@ -241,7 +241,7 @@ public class DeleteHandler extends AbstractHandler {
 
 		if (boIsContext) {
 			// Close the editor if the context was deleted
-			Display.getDefault().syncExec(() -> ageEditor.close());
+			Display.getDefault().syncExec(() -> ageEditor.closeEditor());
 		} else {
 			ageEditor.clearSelection();
 		}

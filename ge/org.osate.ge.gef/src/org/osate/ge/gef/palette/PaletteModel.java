@@ -1,5 +1,7 @@
 package org.osate.ge.gef.palette;
 
+import java.util.List;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.scene.image.Image;
 
@@ -13,10 +15,9 @@ import javafx.scene.image.Image;
 public interface PaletteModel<G, I> {
 	/**
 	 * Provides the groups for the palette.
-	 * @return an array of palette groups
+	 * @return an unmodifiable list of palette groups
 	 */
-	// TODO: Consider making this an immutable collection
-	G[] getGroups();
+	List<G> getGroups();
 
 	/**
 	 * Gets the label for a specified group.
@@ -35,10 +36,9 @@ public interface PaletteModel<G, I> {
 	/**
 	 * Returns the item in a specified group.
 	 * @param group is the group for which to return items. A value of null indicates that root items should be returned.
-	 * @return the items for the group or root items when group is null.
+	 * @return an unmodifiable list containing the items for the group or root items when group is null.
 	 */
-	// TODO: Consider making this an immutable collection
-	I[] getItems(G group);
+	List<I> getItems(G group);
 
 	/**
 	 * Gets the label for a specified item.

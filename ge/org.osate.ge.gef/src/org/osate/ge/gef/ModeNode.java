@@ -36,7 +36,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.CubicCurve;
-import javafx.scene.shape.HLineTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -46,13 +45,13 @@ import javafx.scene.shape.StrokeType;
 /**
  * Node for mode graphics
  */
-public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylable {
-	private final static double INITIAL_MODE_ELLIPSE_RADIUS = 5.0;
-	private final static double SPACING_BETWEEN_INITIAL_MODE_ELLIPSE_AND_MODE = 10.0;
-	private final static double INITIAL_MODE_AREA_HEIGHT = 2.0 * INITIAL_MODE_ELLIPSE_RADIUS
+public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylable, MinimumTopLabelPaddingProvider {
+	private static final double INITIAL_MODE_ELLIPSE_RADIUS = 5.0;
+	private static final double SPACING_BETWEEN_INITIAL_MODE_ELLIPSE_AND_MODE = 10.0;
+	private static final double INITIAL_MODE_AREA_HEIGHT = 2.0 * INITIAL_MODE_ELLIPSE_RADIUS
 			+ SPACING_BETWEEN_INITIAL_MODE_ELLIPSE_AND_MODE;
-	private final static double MIN_MODE_SYMBOL_SIZE = 10.0;
-	private final double ARROW_SIZE = 8.0;
+	private static final double MIN_MODE_SYMBOL_SIZE = 10.0;
+	private static final double ARROW_SIZE = 8.0;
 
 	private final Path modeSymbol = new Path();
 	private final Circle initialModeCircle = new Circle(INITIAL_MODE_ELLIPSE_RADIUS);
@@ -107,8 +106,8 @@ public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylabl
 		}
 
 		modeSymbol.getElements().setAll(new MoveTo(0, modeTop + modeHeight * 0.5), new LineTo(width * 0.25, modeTop),
-				new HLineTo(width * 0.75), new LineTo(width, modeTop + modeHeight * 0.5),
-				new LineTo(width * 0.75, modeTop + modeHeight), new HLineTo(width * 0.25),
+				new LineTo(width * 0.75, modeTop), new LineTo(width, modeTop + modeHeight * 0.5),
+				new LineTo(width * 0.75, modeTop + modeHeight), new LineTo(width * 0.25, modeTop + modeHeight),
 				new LineTo(0, modeTop + modeHeight * 0.5));
 
 		initialModeCircle
@@ -132,6 +131,15 @@ public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylabl
 				new LineTo(ARROW_SIZE / 2.0, 0), new ClosePath());
 		initialModeArrow.setLayoutX(initialModeCurve.getEndX());
 		initialModeArrow.setLayoutY(modeTop - ARROW_SIZE);
+	}
+
+	@Override
+	public double getMinimumTopLabelPadding() {
+		if (initialModeProperty.get()) {
+			return INITIAL_MODE_AREA_HEIGHT;
+		}
+
+		return 0.0;
 	}
 
 	private void updateInitialModeIndicatorVisibility() {

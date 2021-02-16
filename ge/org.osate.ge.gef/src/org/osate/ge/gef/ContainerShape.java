@@ -23,14 +23,14 @@
  */
 package org.osate.ge.gef;
 
+import java.util.List;
+
 import org.eclipse.gef.fx.anchors.ChopBoxStrategy;
 import org.eclipse.gef.fx.anchors.DynamicAnchor;
 import org.eclipse.gef.fx.anchors.DynamicAnchor.AnchorageReferenceGeometry;
 import org.eclipse.gef.fx.anchors.IAnchor;
 import org.eclipse.gef.geometry.convert.fx.FX2Geometry;
 import org.eclipse.gef.geometry.planar.IGeometry;
-
-import com.google.common.collect.Lists;
 
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.value.ChangeListener;
@@ -40,6 +40,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 
 /**
  * {@link ContainerShape} is a {@link Node} which contains children which are grouped into distinct groupings. The
@@ -82,14 +83,26 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	private static final double MIN_HORIZONTAL_LABEL_PADDING = 10;
 
 	/**
-	* Minimum value returned by {@link ContainerShape#computePrefWidth(double)}.
+	 * Minimum possible value returned by {@link #computeMinWidth(double)}.
+	 * Some graphics do not have a minimum width provided so this serves as a minimum in cases where there are no children with a minimum width.
+	 */
+	private static double MIN_COMPUTED_MIN_WIDTH = 30;
+
+	/**
+	 * Minimum possible value returned by {@link #computeMinHeight(double)}
+	 * Some graphics do not have a minimum height provided so this serves as a minimum in cases where there are no children with a minimum height.
+	 */
+	private static double MIN_COMPUTED_MIN_HEIGHT = 10;
+
+	/**
+	* Minimum possible value returned by {@link #computePrefWidth(double)}.
 	* Chosen based on visual experiments. Typically, computed values will not be used. The graphical editor
 	* will set a preferred size based on an incremental layout ELK.
 	*/
 	private static final double MIN_COMPUTED_PREF_WIDTH = 140;
 
 	/**
-	 * Minimum value returned by {@link ContainerShape#computePrefHeight(double)}.
+	 * Minimum value returned by {@link #computePrefHeight(double)}.
 	 * Chosen based on visual experiments. Typically, computed values will not be used. The graphical editor
 	 * will set a preferred size based on an incremental layout ELK.
 	 */
@@ -118,7 +131,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		}
 	}
 
-	private final Group graphics = new Group();
+	private final Group graphicWrapper = new Group();
 	private ImageNode image;
 	private final Group primaryLabels = new Group();
 	private final Group secondaryLabels = new Group();
@@ -149,13 +162,13 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	 */
 	public ContainerShape() {
 		// Prevent autosizing of children contained in the groups
-		graphics.setAutoSizeChildren(false);
+		graphicWrapper.setAutoSizeChildren(false);
 		primaryLabels.setAutoSizeChildren(false);
 		secondaryLabels.setAutoSizeChildren(false);
 		freeChildren.setAutoSizeChildren(false);
 
 		// Add groups
-		this.getChildren().addAll(graphics, primaryLabels, secondaryLabels, leftChildren.getGroup(),
+		this.getChildren().addAll(graphicWrapper, primaryLabels, secondaryLabels, leftChildren.getGroup(),
 				rightChildren.getGroup(), topChildren.getGroup(), bottomChildren.getGroup(), freeChildren);
 
 		// Initialize chopbox anchor
@@ -195,8 +208,17 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		return result;
 	}
 
-	public ObservableList<Node> getGraphics() {
-		return graphics.getChildren();
+	public void setGraphic(final Node value) {
+		graphicWrapper.getChildren().setAll(value);
+	}
+
+	/**
+	 * Returns the child of the graphics wrapper or null. Assumes that the wrapper contains at most 1 node.
+	 * @return the graphic node contained in the graphic wrapper
+	 */
+	private Node getGraphic() {
+		final List<Node> graphicNodes = graphicWrapper.getChildren();
+		return graphicNodes.isEmpty() ? null : graphicNodes.get(0);
 	}
 
 	public ObservableList<Node> getPrimaryLabels() {
@@ -251,13 +273,13 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		}
 
 		// Size and position graphics
-		for (final Node graphic : graphics.getChildren()) {
+		for (final Node graphic : graphicWrapper.getChildren()) {
 			if (graphic.isManaged()) {
 				graphic.resizeRelocate(0, 0, width, height);
 			}
 		}
 
-		final double verticalLabelPadding = computeVerticalLabelPadding();
+		final double topLabelPadding = computeTopLabelPadding();
 		final double horizontalLabelPadding = computeHorizontalLabelPadding();
 
 		//
@@ -266,13 +288,13 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		double labelY = 0;
 		switch (verticalLabelPosition) {
 		case BEGINNING:
-			labelY = verticalLabelPadding;
+			labelY = topLabelPadding;
 			break;
 		case CENTER:
-			labelY = Math.max(verticalLabelPadding, (height - prefLabelHeight(width)) / 2.0 + verticalLabelPadding);
+			labelY = topLabelPadding + Math.max(0, (height - Math.max(0, prefLabelHeight(width))) / 2.0);
 			break;
 		case END:
-			labelY = Math.max(verticalLabelPadding, height - prefLabelHeight(width) + verticalLabelPadding);
+			labelY = Math.max(topLabelPadding, height - prefLabelHeight(width) + topLabelPadding);
 			break;
 		}
 
@@ -373,21 +395,22 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	 * @param value a reference to an image to display instead of graphics. If null, the graphics will be displayed.
 	 */
 	public void setImage(final ImageReference value) {
-		if (this.image == null) {
-			if (value == null) {
+		if (value == null) {
+			if (this.image != null) {
 				getChildren().remove(image);
-			} else {
-				image = new ImageNode();
-				image.setImageReference(value);
-				getChildren().add(0, image);
+				this.image = null;
 			}
 		} else {
+			if (image == null) {
+				image = new ImageNode();
+				getChildren().add(0, image);
+			}
 			image.setImageReference(value);
 		}
 
 		final boolean showGraphics = image == null;
-		graphics.setManaged(showGraphics);
-		graphics.setVisible(showGraphics);
+		graphicWrapper.setManaged(showGraphics);
+		graphicWrapper.setVisible(showGraphics);
 	}
 
 	@Override
@@ -396,17 +419,29 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		setVerticalLabelPosition(style.getVerticalLabelPosition());
 		setPrimaryLabelsVisible(style.getPrimaryLabelsVisible());
 		setImage(style.getImage());
+
+		// Set the label background color to the background color with a fixed opacity
+		final Color bg = style.getBackgroundColor();
+		setLabelBackgroundColor(new Color(bg.getRed(), bg.getGreen(), bg.getBlue(), 0.8));
+	}
+
+	private void setLabelBackgroundColor(Color value) {
+		LabelBackgroundColorUtil.setLabelBackgroundColor(getPrimaryLabels(), value);
+		LabelBackgroundColorUtil.setLabelBackgroundColor(getSecondaryLabels(), value);
+		LabelBackgroundColorUtil.setLabelBackgroundColor(getLeftChildren(), value);
+		LabelBackgroundColorUtil.setLabelBackgroundColor(getRightChildren(), value);
+		LabelBackgroundColorUtil.setLabelBackgroundColor(getTopChildren(), value);
+		LabelBackgroundColorUtil.setLabelBackgroundColor(getBottomChildren(), value);
+		LabelBackgroundColorUtil.setLabelBackgroundColor(getFreeChildren(), value);
 	}
 
 	@Override
 	public IGeometry getChopBoxGeometry() {
-		// Loop through graphics in reverse order and use the first available outline.
-		for (final Node graphic : Lists.reverse(graphics.getChildren())) {
-			if (graphic instanceof ChopBoxGeometryProvider) {
-				final IGeometry outline = ((ChopBoxGeometryProvider) graphic).getChopBoxGeometry();
-				if (outline != null && outline.getBounds().getWidth() > 0) {
-					return outline;
-				}
+		final Node graphic = getGraphic();
+		if (graphic instanceof ChopBoxGeometryProvider) {
+			final IGeometry outline = ((ChopBoxGeometryProvider) graphic).getChopBoxGeometry();
+			if (outline != null && outline.getBounds().getWidth() > 0) {
+				return outline;
 			}
 		}
 
@@ -495,20 +530,32 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	}
 
 	/**
-	 * Computes the vertical padding for the label area.
+	 * Computes the minimum vertical padding for the label area.
 	 * @return the vertical padding for each side of the label area.
 	 */
-	private double computeVerticalLabelPadding() {
+	private double computeMinVerticalLabelPadding() {
 		return Math.max(MIN_VERTICAL_LABEL_PADDING, Math.max(topChildren.getHeight(), bottomChildren.getHeight()));
+	}
+
+	private double computeTopLabelPadding() {
+		final Node graphic = getGraphic();
+		final double graphicTopLabelPadding = graphic instanceof MinimumTopLabelPaddingProvider
+				? ((MinimumTopLabelPaddingProvider) graphic).getMinimumTopLabelPadding()
+				: 0.0;
+		return Math.max(computeMinVerticalLabelPadding(), graphicTopLabelPadding);
+	}
+
+	private double computeBottomLabelPadding() {
+		return computeMinVerticalLabelPadding();
 	}
 
 	@Override
 	protected double computeMinWidth(final double height) {
-		double result = Math.max(leftChildren.getWidth() + rightChildren.getWidth(),
-				Math.max(topChildren.getWidth(), bottomChildren.getWidth()));
+		double result = Math.max(MIN_COMPUTED_MIN_WIDTH, Math.max(leftChildren.getWidth() + rightChildren.getWidth(),
+				Math.max(topChildren.getWidth(), bottomChildren.getWidth())));
 
 		// Take into consideration minimum width of graphics
-		for (final Node graphic : graphics.getChildren()) {
+		for (final Node graphic : graphicWrapper.getChildren()) {
 			if (graphic.isManaged()) {
 				result = Math.max(result, graphic.minWidth(-1));
 			}
@@ -534,11 +581,11 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 
 	@Override
 	protected double computeMinHeight(final double width) {
-		double result = Math.max(topChildren.getHeight() + bottomChildren.getHeight(),
-				Math.max(leftChildren.getHeight(), rightChildren.getHeight()));
+		double result = Math.max(MIN_COMPUTED_MIN_HEIGHT, Math.max(topChildren.getHeight() + bottomChildren.getHeight(),
+				Math.max(leftChildren.getHeight(), rightChildren.getHeight())));
 
 		// Take into consideration min height of graphics
-		for (final Node graphic : graphics.getChildren()) {
+		for (final Node graphic : graphicWrapper.getChildren()) {
 			if (graphic.isManaged()) {
 				result = Math.max(result, graphic.minHeight(width));
 			}
@@ -572,7 +619,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		}
 
 		if (minLabelHeight > 0) {
-			minLabelHeight += 2.0 * computeVerticalLabelPadding();
+			minLabelHeight += computeTopLabelPadding() + computeBottomLabelPadding();
 		}
 
 		return minLabelHeight;
@@ -620,7 +667,6 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	 * @return the sum of the preferred height of all labels and padding.
 	 */
 	private double prefLabelHeight(double width) {
-		final double verticalLabelPadding = computeVerticalLabelPadding();
 		final double horizontalLabelPadding = computeHorizontalLabelPadding();
 		final double labelWidth = width > 0 ? -1 : Math.max(width - 2 * horizontalLabelPadding, 0);
 		double totalLabelHeight = 0;
@@ -635,7 +681,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		}
 
 		if (totalLabelHeight > 0) {
-			totalLabelHeight += 2.0 * verticalLabelPadding;
+			totalLabelHeight += computeTopLabelPadding() + computeBottomLabelPadding();
 		}
 
 		return totalLabelHeight;

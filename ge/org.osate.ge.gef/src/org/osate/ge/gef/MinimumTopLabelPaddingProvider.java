@@ -21,30 +21,16 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.aadl2.ui.internal.editor;
-
-import org.osate.ge.internal.services.ColoringService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
-import org.osate.ge.services.QueryService;
+package org.osate.ge.gef;
 
 /**
- * Contains simple methods that are shared between UI contributions
- *
+ * Interface which allows a graphic node implementation to specify a minimum top label padding for this graphic.
+ * Used by {@link ContainerShape to adjust label padding behavior based on the graphic}
  */
-class ContributionHelper {
-	public static QueryService getQueryService(final AgeDiagramEditor editor) {
-		if(editor == null) {
-			return null;
-		}
-
-		return (QueryService)editor.getAdapter(QueryService.class);
-	}
-
-	public static ColoringService getColoringService(final AgeDiagramEditor editor) {
-		if(editor == null) {
-			return null;
-		}
-
-		return (ColoringService)editor.getAdapter(ColoringService.class);
-	}
+interface MinimumTopLabelPaddingProvider {
+	/**
+	 * THe minimum top label padding for this graphic
+	 * @return the minimum top label padding for this graphic.
+	 */
+	double getMinimumTopLabelPadding();
 }

@@ -23,18 +23,34 @@
  */
 package org.osate.ge.gef.palette;
 
+import java.util.Objects;
+
 import javafx.scene.image.Image;
 
+/**
+ * A basic class suitable for use as palette item type when implementing {@link PaletteModel}
+ */
 public class SimplePaletteItem {
 	public final String label;
 	public final Image icon;
 
-	public SimplePaletteItem(SimplePaletteGroup group, String label, Image icon) {
+	/**
+	 * Creates a new instance
+	 * @param group the group to which to add the palette item. Must not be null.
+	 * @param label the label for the item. Must not be null.
+	 * @param icon the icon for item. May be null.
+	 */
+	public SimplePaletteItem(final SimplePaletteGroup group, final String label, final Image icon) {
+		Objects.requireNonNull(group, "group must not be null");
 		group.items.add(this);
-		this.label = label;
+		this.label = Objects.requireNonNull(label, "label must not be null");
 		this.icon = icon;
 	}
 
+	/**
+	 * Returns the label for the palette item
+	 * @return the item's label. Will not return null.
+	 */
 	public String getLabel() {
 		return label;
 	}

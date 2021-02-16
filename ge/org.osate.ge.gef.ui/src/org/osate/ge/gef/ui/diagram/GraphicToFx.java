@@ -29,13 +29,16 @@ import java.util.function.Function;
 import java.util.stream.DoubleStream;
 
 import org.osate.ge.gef.AbstractFeatureNode;
+import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.BusNode;
+import org.osate.ge.gef.ConnectionNode;
 import org.osate.ge.gef.DataOrBusAccessFeatureNode;
 import org.osate.ge.gef.DeviceNode;
 import org.osate.ge.gef.EllipseNode;
 import org.osate.ge.gef.FeatureDirection;
 import org.osate.ge.gef.FeatureGroupNode;
 import org.osate.ge.gef.FeatureGroupTypeNode;
+import org.osate.ge.gef.FlowIndicatorNode;
 import org.osate.ge.gef.FolderNode;
 import org.osate.ge.gef.LabelNode;
 import org.osate.ge.gef.MemoryNode;
@@ -49,7 +52,10 @@ import org.osate.ge.gef.ProcessorNode;
 import org.osate.ge.gef.RectangleNode;
 import org.osate.ge.gef.SubprogramAccessNode;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.internal.AgeConnection;
+import org.osate.ge.graphics.internal.AgeConnectionTerminator;
 import org.osate.ge.graphics.internal.BusGraphic;
+import org.osate.ge.graphics.internal.ConnectionTerminatorSize;
 import org.osate.ge.graphics.internal.DeviceGraphic;
 import org.osate.ge.graphics.internal.Direction;
 import org.osate.ge.graphics.internal.Ellipse;
@@ -76,6 +82,8 @@ import javafx.scene.Node;
  */
 public class GraphicToFx {
 	private static final Map<Class<? extends Graphic>, Function<? extends Graphic, Node>> factoryMap;
+	private static final double[] arrowPoints = { 1.0, 1.0, 0.0, 0.5, 1.0, 0.0 };
+	private static final double[] mirroredArrowPoints = { 0.0, 1.0, 1.0, 0.5, 0.0, 0.0 };
 
 	private static <G extends Graphic> void addFactory(
 			ImmutableMap.Builder<Class<? extends Graphic>, Function<? extends Graphic, Node>> mapBuilder, Class<G> c,
@@ -87,8 +95,8 @@ public class GraphicToFx {
 	static {
 		final ImmutableMap.Builder<Class<? extends Graphic>, Function<? extends Graphic, Node>> mapBuilder = new ImmutableMap.Builder<>();
 		addFactory(mapBuilder, Rectangle.class, rg -> new RectangleNode(rg.rounded));
-		addFactory(mapBuilder, Ellipse.class, eg -> new EllipseNode(
-				eg.getFixedSize().map(s -> new Dimension2D(s.width, s.height)).orElse(null)));
+		addFactory(mapBuilder, Ellipse.class,
+				eg -> new EllipseNode(eg.getFixedSize().map(s -> new Dimension2D(s.width, s.height)).orElse(null)));
 		addFactory(mapBuilder, FolderGraphic.class, fg -> new FolderNode());
 		addFactory(mapBuilder, DeviceGraphic.class, dg -> new DeviceNode());
 		addFactory(mapBuilder, Poly.class, poly -> {
@@ -98,9 +106,7 @@ public class GraphicToFx {
 					: new Dimension2D(poly.fixedSize.width, poly.fixedSize.height);
 			switch (poly.type) {
 			case POLYGON:
-				return new PolygonNode(
-						fixedSize,
-						points);
+				return new PolygonNode(fixedSize, points);
 
 			case POLYLINE:
 				return new PolylineNode(fixedSize, points);
@@ -143,6 +149,24 @@ public class GraphicToFx {
 				throw new RuntimeException("Unexpected feature type: " + fg.featureType);
 			}
 		});
+		addFactory(mapBuilder, AgeConnection.class, c -> {
+			final BaseConnectionNode n;
+			if (c.isFlowIndicator) {
+				n = new FlowIndicatorNode();
+			} else {
+				n = new ConnectionNode();
+			}
+
+			if (c.srcTerminator != null) {
+				n.setStartDecoration(createNode(c.srcTerminator));
+			}
+
+			if (c.dstTerminator != null) {
+				n.setEndDecoration(createNode(c.dstTerminator));
+			}
+
+			return n;
+		});
 
 		factoryMap = mapBuilder.build();
 
@@ -161,6 +185,51 @@ public class GraphicToFx {
 		}
 
 		return c.apply(graphic);
+	}
+
+	private static Node createNode(final AgeConnectionTerminator t) {
+		switch (t.type) {
+		case FILLED_ARROW:
+			return createPolygonArrow(t.size, t.reversed);
+		case LINE_ARROW:
+			return createLineArrow(t.size, t.reversed);
+		case ORTHOGONAL_LINE:
+			return new PolylineNode(new Dimension2D(0.0, 16.0), 0.0, 1.0, 0.0, 0.0);
+		default:
+			throw new RuntimeException("Unsupported connection terminator type: " + t.type);
+		}
+	}
+
+	private static Node createPolygonArrow(final ConnectionTerminatorSize size, final boolean reverse) {
+		final Dimension2D dim;
+		switch (size) {
+		case REGULAR:
+			dim = new Dimension2D(12.0, 12.0);
+			break;
+		case SMALL:
+			dim = new Dimension2D(8.0, 8.0);
+			break;
+		default:
+			throw new RuntimeException("Unsupported connection terminator size: " + size);
+		}
+
+		return new PolygonNode(dim, reverse ? mirroredArrowPoints : arrowPoints);
+	}
+
+	private static Node createLineArrow(final ConnectionTerminatorSize size, final boolean reverse) {
+		final Dimension2D dim;
+		switch (size) {
+		case REGULAR:
+			dim = new Dimension2D(16.0, 16.0);
+			break;
+		case SMALL:
+			dim = new Dimension2D(8.0, 10.0);
+			break;
+		default:
+			throw new RuntimeException("Unsupported connection terminator size: " + size);
+		}
+
+		return new PolylineNode(dim, reverse ? mirroredArrowPoints : arrowPoints);
 	}
 
 	private static FeatureDirection convert(final Direction value) {

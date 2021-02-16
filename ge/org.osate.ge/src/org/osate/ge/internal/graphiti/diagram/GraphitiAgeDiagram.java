@@ -1085,7 +1085,6 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable, La
 			Display.getDefault().syncExec(() -> {
 				updateListener.onUpdateFinished();
 			});
-
 		}
 
 		/**
@@ -1201,7 +1200,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable, La
 	}
 
 	@Override
-	public Dimension getLabelsSize(final DiagramElement dockedElement) {
+	public Dimension getDockedElementLabelsSize(final DiagramElement dockedElement) {
 		double width = 0;
 		double height = 0;
 
