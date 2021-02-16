@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -18,9 +18,6 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba;
-
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -40,85 +37,84 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface ForOrForAllStatement extends LoopStatement
-{
-  /**
-   * Returns the value of the '<em><b>Iterated Values</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Iterated Values</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Iterated Values</em>' containment reference.
-   * @see #setIteratedValues(ElementValues)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getForOrForAllStatement_IteratedValues()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  ElementValues getIteratedValues();
+public interface ForOrForAllStatement extends LoopStatement {
+	/**
+	 * Returns the value of the '<em><b>Iterated Values</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Iterated Values</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Iterated Values</em>' containment reference.
+	 * @see #setIteratedValues(ElementValues)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getForOrForAllStatement_IteratedValues()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	ElementValues getIteratedValues();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.ForOrForAllStatement#getIteratedValues <em>Iterated Values</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Iterated Values</em>' containment reference.
-   * @see #getIteratedValues()
-   * @generated
-   */
-  void setIteratedValues(ElementValues value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.ForOrForAllStatement#getIteratedValues <em>Iterated Values</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Iterated Values</em>' containment reference.
+	 * @see #getIteratedValues()
+	 * @generated
+	 */
+	void setIteratedValues(ElementValues value);
 
-  /**
-   * Returns the value of the '<em><b>For All</b></em>' attribute.
-   * The default value is <code>"false"</code>.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>For All</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>For All</em>' attribute.
-   * @see #setForAll(boolean)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getForOrForAllStatement_ForAll()
-   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
-   * @generated
-   */
-  boolean isForAll();
+	/**
+	 * Returns the value of the '<em><b>For All</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>For All</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>For All</em>' attribute.
+	 * @see #setForAll(boolean)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getForOrForAllStatement_ForAll()
+	 * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
+	 * @generated
+	 */
+	boolean isForAll();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.ForOrForAllStatement#isForAll <em>For All</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>For All</em>' attribute.
-   * @see #isForAll()
-   * @generated
-   */
-  void setForAll(boolean value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.ForOrForAllStatement#isForAll <em>For All</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>For All</em>' attribute.
+	 * @see #isForAll()
+	 * @generated
+	 */
+	void setForAll(boolean value);
 
-  /**
-   * Returns the value of the '<em><b>Iterative Variable</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Iterative Variable</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Iterative Variable</em>' containment reference.
-   * @see #setIterativeVariable(IterativeVariable)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getForOrForAllStatement_IterativeVariable()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  IterativeVariable getIterativeVariable();
+	/**
+	 * Returns the value of the '<em><b>Iterative Variable</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Iterative Variable</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Iterative Variable</em>' containment reference.
+	 * @see #setIterativeVariable(IterativeVariable)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getForOrForAllStatement_IterativeVariable()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	IterativeVariable getIterativeVariable();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.ForOrForAllStatement#getIterativeVariable <em>Iterative Variable</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Iterative Variable</em>' containment reference.
-   * @see #getIterativeVariable()
-   * @generated
-   */
-  void setIterativeVariable(IterativeVariable value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.ForOrForAllStatement#getIterativeVariable <em>Iterative Variable</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Iterative Variable</em>' containment reference.
+	 * @see #getIterativeVariable()
+	 * @generated
+	 */
+	void setIterativeVariable(IterativeVariable value);
 
 } // ForOrForAllStatement

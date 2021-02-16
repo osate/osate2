@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.aadl2.model.editor" version="2">
+    <resource path="src/org/osate/aadl2/presentation/Aadl2ModelEditor.java" type="org.osate.aadl2.presentation.Aadl2ModelEditor">
+        <filter comment="EMF generted code" id="1143996420">
+            <message_arguments>
+                <message_argument value="handleChangedResources()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generted code" id="1143996420">
+            <message_arguments>
+                <message_argument value="propertySheetPages"/>
+            </message_arguments>
+        </filter>
+        <filter comment="EMF generted code" id="1143996420">
+            <message_arguments>
+                <message_argument value="resourceChangeListener"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
