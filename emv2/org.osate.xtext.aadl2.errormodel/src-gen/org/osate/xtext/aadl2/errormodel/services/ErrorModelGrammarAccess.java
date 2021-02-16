@@ -7473,8 +7473,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//// Properties
 	//ContainedPropertyAssociation aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ('=>' | append?='+=>') constant?='constant'? (ownedValue+=OptionalModalPropertyValue
-	//	(',' ownedValue+=OptionalModalPropertyValue)*) (AppliesToKeywords appliesTo+=ContainmentPath (','
-	//	appliesTo+=ContainmentPath)*)? (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF] ')')?
+	//	(',' ownedValue+=OptionalModalPropertyValue)*) ('applies' 'to' appliesTo+=ContainmentPath (','
+	//	appliesTo+=ContainmentPath)*)? ('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF] ')')?
 	//	';';
 	public PropertiesGrammarAccess.ContainedPropertyAssociationElements getContainedPropertyAssociationAccess() {
 		return gaProperties.getContainedPropertyAssociationAccess();
@@ -7486,7 +7486,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	
 	//PropertyAssociation aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ('=>' | append?='+=>') constant?='constant'? (ownedValue+=OptionalModalPropertyValue
-	//	(',' ownedValue+=OptionalModalPropertyValue)*) (InBindingKeywords '(' inBinding+=[aadl2::Classifier|QCREF] ')')?
+	//	(',' ownedValue+=OptionalModalPropertyValue)*) ('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF] ')')?
 	//	';';
 	public PropertiesGrammarAccess.PropertyAssociationElements getPropertyAssociationAccess() {
 		return gaProperties.getPropertyAssociationAccess();
@@ -7523,7 +7523,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	////	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
 	//ModalPropertyValue aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression
-	//	InModesKeywords '('
+	//	'in' 'modes' '('
 	//	inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])*
 	//	')';
 	public PropertiesGrammarAccess.ModalPropertyValueElements getModalPropertyValueAccess() {
@@ -7535,7 +7535,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//OptionalModalPropertyValue aadl2::ModalPropertyValue:
-	//	ownedValue=PropertyExpression (InModesKeywords '('
+	//	ownedValue=PropertyExpression ('in' 'modes' '('
 	//	inMode+=[aadl2::Mode] (',' inMode+=[aadl2::Mode])*
 	//	')')?;
 	public PropertiesGrammarAccess.OptionalModalPropertyValueElements getOptionalModalPropertyValueAccess() {
@@ -7826,36 +7826,6 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getNumAltRule() {
 		return getNumAltAccess().getRule();
-	}
-	
-	//AppliesToKeywords:
-	//	'applies' 'to';
-	public PropertiesGrammarAccess.AppliesToKeywordsElements getAppliesToKeywordsAccess() {
-		return gaProperties.getAppliesToKeywordsAccess();
-	}
-	
-	public ParserRule getAppliesToKeywordsRule() {
-		return getAppliesToKeywordsAccess().getRule();
-	}
-	
-	//InBindingKeywords:
-	//	'in' 'binding';
-	public PropertiesGrammarAccess.InBindingKeywordsElements getInBindingKeywordsAccess() {
-		return gaProperties.getInBindingKeywordsAccess();
-	}
-	
-	public ParserRule getInBindingKeywordsRule() {
-		return getInBindingKeywordsAccess().getRule();
-	}
-	
-	//InModesKeywords:
-	//	'in' 'modes';
-	public PropertiesGrammarAccess.InModesKeywordsElements getInModesKeywordsAccess() {
-		return gaProperties.getInModesKeywordsAccess();
-	}
-	
-	public ParserRule getInModesKeywordsRule() {
-		return getInModesKeywordsAccess().getRule();
 	}
 	
 	//INTVALUE aadl2::Integer:
