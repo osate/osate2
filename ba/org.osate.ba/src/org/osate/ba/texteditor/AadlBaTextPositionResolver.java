@@ -22,88 +22,74 @@
 package org.osate.ba.texteditor;
 
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.Element ;
+import org.osate.aadl2.Element;
 import org.osate.annexsupport.AnnexTextPositionResolver;
 import org.osate.annexsupport.TextPositionInfo;
-import org.osate.ba.aadlba.BehaviorAnnex ;
-import org.osate.ba.aadlba.ElementHolder ;
-import org.osate.ba.utils.AadlBaLocationReference ;
+import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ba.aadlba.ElementHolder;
+import org.osate.ba.utils.AadlBaLocationReference;
 
-
-public class AadlBaTextPositionResolver implements AnnexTextPositionResolver{
+public class AadlBaTextPositionResolver implements AnnexTextPositionResolver {
 
 	private BehaviorAnnex ba;
-	
-	private Element getLinkedElement(int offset)
-	  {
 
-		  for(AadlBaLocationReference loc: ba.getLinks().keySet())
-		  {
-			  if(offset<= loc.getOffset()+loc.getLength() && offset>=loc.getOffset())
-				  return ba.getLinks().get(loc) ;
-		  }
+	private Element getLinkedElement(int offset) {
 
-		  return null;
-	  }
-	
-	private AadlBaLocationReference  getSourceOffsetElement(int offset) {
+		for (AadlBaLocationReference loc : ba.getLinks().keySet()) {
+			if (offset <= loc.getOffset() + loc.getLength() && offset >= loc.getOffset())
+				return ba.getLinks().get(loc);
+		}
 
-		if(ba.getLinks()!=null)
-		{
-			for(AadlBaLocationReference loc: ba.getLinks().keySet())
-			{
-				if(offset<= loc.getOffset()+loc.getLength() && offset>=loc.getOffset())
-					return loc ;
+		return null;
+	}
+
+	private AadlBaLocationReference getSourceOffsetElement(int offset) {
+
+		if (ba.getLinks() != null) {
+			for (AadlBaLocationReference loc : ba.getLinks().keySet()) {
+				if (offset <= loc.getOffset() + loc.getLength() && offset >= loc.getOffset())
+					return loc;
 			}
 		}
 		return null;
-	  }
-	
-	private TextPositionInfo resolveBehaviorAnnexElementAt(int offset)
-	{
+	}
+
+	private TextPositionInfo resolveBehaviorAnnexElementAt(int offset) {
 		Element e = this.getLinkedElement(offset);
-		
-		if(e==null)
+
+		if (e == null)
 			return new TextPositionInfo(null, 0, 0);
-		
+
 		AadlBaLocationReference loc = this.getSourceOffsetElement(offset);
 		TextPositionInfo positionInfo;
-		if(e instanceof ElementHolder)
-		{
+		if (e instanceof ElementHolder) {
 			ElementHolder beh = (ElementHolder) e;
 			positionInfo = new TextPositionInfo(beh.getElement(), loc.getOffset(), loc.getLength());
-		}
-		else
-		{
+		} else {
 			positionInfo = new TextPositionInfo(e, loc.getOffset(), loc.getLength());
 		}
 		return positionInfo;
 	}
 
-	private TextPositionInfo resolveBehaviorAnnexCrossReferencedElementAt(int offset)
-	{
+	private TextPositionInfo resolveBehaviorAnnexCrossReferencedElementAt(int offset) {
 		Element e = this.getLinkedElement(offset);
-		
-		if(e==null)
+
+		if (e == null)
 			return new TextPositionInfo(null, offset, 0);
 		AadlBaLocationReference loc = this.getSourceOffsetElement(offset);
 		TextPositionInfo positionInfo;
-		if(e instanceof ElementHolder)
-		{
+		if (e instanceof ElementHolder) {
 			ElementHolder beh = (ElementHolder) e;
 			positionInfo = new TextPositionInfo(beh.getElement(), loc.getOffset(), loc.getLength());
-		}
-		else
-		{
+		} else {
 			positionInfo = new TextPositionInfo(e, loc.getOffset(), loc.getLength());
 		}
 		return positionInfo;
 	}
-	
+
 	@Override
 	public TextPositionInfo resolveElementAt(EObject annexRoot, int offset) {
-		if(annexRoot instanceof BehaviorAnnex)
-		{
+		if (annexRoot instanceof BehaviorAnnex) {
 			ba = (BehaviorAnnex) annexRoot;
 			return this.resolveBehaviorAnnexElementAt(offset);
 		}
@@ -111,11 +97,9 @@ public class AadlBaTextPositionResolver implements AnnexTextPositionResolver{
 	}
 
 	@Override
-	public TextPositionInfo resolveCrossReferencedElementAt(EObject annexRoot,
-			int offset) {
-		
-		if(annexRoot instanceof BehaviorAnnex)
-		{
+	public TextPositionInfo resolveCrossReferencedElementAt(EObject annexRoot, int offset) {
+
+		if (annexRoot instanceof BehaviorAnnex) {
 			ba = (BehaviorAnnex) annexRoot;
 			return resolveBehaviorAnnexCrossReferencedElementAt(offset);
 		}

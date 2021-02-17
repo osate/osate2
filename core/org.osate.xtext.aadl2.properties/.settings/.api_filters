@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.xtext.aadl2.properties" version="2">
+    <resource path="src-gen/org/osate/xtext/aadl2/properties/scoping/AbstractPropertiesScopeProvider.java" type="org.osate.xtext.aadl2.properties.scoping.AbstractPropertiesScopeProvider">
+        <filter comment="Xtext generated code" id="305365105">
+            <message_arguments>
+                <message_argument value="org.osate.xtext.aadl2.properties.scoping.AbstractPropertiesScopeProvider"/>
+                <message_argument value="org.osate.xtext.aadl2.properties_3.0.1"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/xtext/aadl2/properties/serializer/AbstractPropertiesSemanticSequencer.java" type="org.osate.xtext.aadl2.properties.serializer.AbstractPropertiesSemanticSequencer">
         <filter comment="xtext" id="576720909">
             <message_arguments>

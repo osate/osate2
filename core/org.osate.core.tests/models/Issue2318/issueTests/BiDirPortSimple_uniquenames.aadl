@@ -1,0 +1,31 @@
+package BiDirPortSimple_uniquenames
+public
+	system toplevel
+		features
+			tl_p : in out event port;
+	end toplevel;
+	
+	system implementation toplevel.i
+		subcomponents
+			sub : process subsystem.i;
+		connections
+			conn:  port tl_p <-> sub.ss_p;
+	end toplevel.i;
+	
+	process subsystem 
+		features 
+			ss_p : in out event port;
+	end subsystem;
+	
+	process implementation subsystem.i
+		subcomponents
+			th : thread th;
+		connections
+			conn2 : port ss_p <->th.th_p;
+	end subsystem.i;
+	
+	thread th
+		features 
+			th_p : in out event port;
+	end th;
+end BiDirPortSimple_uniquenames;

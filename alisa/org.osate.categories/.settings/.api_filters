@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.categories" version="2">
+    <resource path="src-gen/org/osate/categories/scoping/AbstractCategoriesScopeProvider.java" type="org.osate.categories.scoping.AbstractCategoriesScopeProvider">
+        <filter comment="Xtext generated code" id="305365105">
+            <message_arguments>
+                <message_argument value="org.osate.categories.scoping.AbstractCategoriesScopeProvider"/>
+                <message_argument value="org.osate.categories_3.0.1"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/categories/serializer/CategoriesSemanticSequencer.java" type="org.osate.categories.serializer.CategoriesSemanticSequencer">
         <filter comment="xtext" id="576720909">
             <message_arguments>
