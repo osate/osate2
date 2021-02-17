@@ -19,75 +19,65 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.utils.internal ;
+package org.osate.utils.internal;
 
 /**
  * A collection of time unit conversion methods.
  * @since 2.0
  */
-public class UnitConversion
-{
+public class UnitConversion {
 
-  /**
-   * Returns the given value expressed in the given time unit in milliseconds.
-   * <BR><BR>
-   * time unit format supported:<BR><BR>
-   * _ hr for hour<BR>
-   * _ min for minute<BR>
-   * _ sec for second<BR>
-   * _ ms for millisecond<BR>
-   * _ us for microsecond<BR>
-   * _ ns for nanosecond<BR>
-   * _ ps for picosecond<BR>
-   *
-   * @param value the given value
-   * @param sourceUnit the given time unit
-   * @return the value in milliseconds
-   */
-  public static float convertInMs(float value,
-                                  String sourceUnit)
-  {
-    if(sourceUnit.equals("hr"))
-    {
-      float min = FloatUtil.multiply(value, 60) ;
-      return convertInMs(min, "min") ;
-    }
+	/**
+	 * Returns the given value expressed in the given time unit in milliseconds.
+	 * <BR><BR>
+	 * time unit format supported:<BR><BR>
+	 * _ hr for hour<BR>
+	 * _ min for minute<BR>
+	 * _ sec for second<BR>
+	 * _ ms for millisecond<BR>
+	 * _ us for microsecond<BR>
+	 * _ ns for nanosecond<BR>
+	 * _ ps for picosecond<BR>
+	 *
+	 * @param value the given value
+	 * @param sourceUnit the given time unit
+	 * @return the value in milliseconds
+	 */
+	public static float convertInMs(float value, String sourceUnit) {
+		if (sourceUnit.equals("hr")) {
+			float min = FloatUtil.multiply(value, 60);
+			return convertInMs(min, "min");
+		}
 
-    if(sourceUnit.equals("min"))
-    {
-      float sec = FloatUtil.multiply(value, 60) ;
-      return convertInMs(sec, "sec") ;
-    }
+		if (sourceUnit.equals("min")) {
+			float sec = FloatUtil.multiply(value, 60);
+			return convertInMs(sec, "sec");
+		}
 
-    if(sourceUnit.equals("sec"))
-    {
-      float ms = FloatUtil.multiply(value, 1000) ;
-      return ms ;
-    }
+		if (sourceUnit.equals("sec")) {
+			float ms = FloatUtil.multiply(value, 1000);
+			return ms;
+		}
 
-    if(sourceUnit.equals("ms"))
-    {
-      return value ;
-    }
+		if (sourceUnit.equals("ms")) {
+			return value;
+		}
 
-    if(sourceUnit.equals("us"))
-    {
-      float ms = FloatUtil.divide(value, 1000) ;
-      return ms ;
-    }
+		if (sourceUnit.equals("us")) {
+			float ms = FloatUtil.divide(value, 1000);
+			return ms;
+		}
 
-    if(sourceUnit.equals("ns"))
-    {
-      float us = FloatUtil.divide(value, 1000) ;
-      return convertInMs(us, "us") ;
-    }
+		if (sourceUnit.equals("ns")) {
+			float us = FloatUtil.divide(value, 1000);
+			return convertInMs(us, "us");
+		}
 
-    if(sourceUnit.equals("ps"))
-    {
-      float ns = FloatUtil.divide(value, 1000) ;
-      return convertInMs(ns, "ns") ;
-    }
+		if (sourceUnit.equals("ps")) {
+			float ns = FloatUtil.divide(value, 1000);
+			return convertInMs(ns, "ns");
+		}
 
-    return value ;
-  }
+		return value;
+	}
 }

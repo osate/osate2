@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -24,20 +24,18 @@ package org.osate.ba;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.annexsupport.AnnexUnparser;
-import org.osate.ba.aadlba.BehaviorElement ;
-import org.osate.ba.unparser.AadlBaUnparser ;
+import org.osate.ba.aadlba.BehaviorElement;
+import org.osate.ba.unparser.AadlBaUnparser;
 
-
-public class AadlBaUnParserAction implements AnnexUnparser
-{
+public class AadlBaUnParserAction implements AnnexUnparser {
 
 	public static final String ANNEX_NAME = "behavior_specification";
-	
+
 	/**
 	 * AadlBa unparser instance
 	 */
 	protected AadlBaUnparser unparser = null;
-	
+
 	/**
 	 * Top-level annex libray unparse method called by
 	 * the unparser registry.
@@ -52,14 +50,11 @@ public class AadlBaUnParserAction implements AnnexUnparser
 	 * the unparser registry.
 	 */
 	public String unparseAnnexSubclause(AnnexSubclause subclause, String indent) {
-	  if(subclause instanceof BehaviorElement)
-	  {
-	    unparser = new AadlBaUnparser(subclause, indent);
-	    return unparser.process((BehaviorElement) subclause);
-	  }
-	  else
-	  {
-	    return "NOT AN BEHAVIOR ELEMENT" ;
-	  }
+		if (subclause instanceof BehaviorElement) {
+			unparser = new AadlBaUnparser(subclause, indent);
+			return unparser.process((BehaviorElement) subclause);
+		} else {
+			return "NOT AN BEHAVIOR ELEMENT";
+		}
 	}
 }

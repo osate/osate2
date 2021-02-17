@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -48,6 +48,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
@@ -260,7 +261,7 @@ public class ErrorModelOutlineTreeProvider extends BackgroundOutlineTreeProvider
 				|| modelElement instanceof TypeMapping || modelElement instanceof ErrorPropagation
 				|| modelElement instanceof ErrorFlow || modelElement instanceof PropagationPath
 				|| modelElement instanceof ErrorBehaviorEvent || modelElement instanceof ErrorBehaviorState
-				|| modelElement instanceof ErrorBehaviorTransition
+				|| modelElement instanceof ErrorBehaviorTransition || modelElement instanceof ErrorType
 				|| modelElement instanceof OutgoingPropagationCondition || modelElement instanceof ErrorDetection
 				|| modelElement instanceof ErrorStateToModeMapping || modelElement instanceof CompositeState;
 	}

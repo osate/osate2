@@ -1,0 +1,12 @@
+package Issue2408
+public
+	feature group fgt
+		features
+			ip1: in data port;
+		annex EMV2 {**
+			error propagations
+				ip1: in propagation {ErrorLibrary::ServiceError};
+			end propagations;
+		**};
+	end fgt;
+end Issue2408;

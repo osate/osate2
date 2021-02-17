@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -19,15 +19,14 @@
  */
 package org.osate.ba.aadlba.provider;
 
+import java.util.Collection;
+import java.util.List;
 
-import java.util.Collection ;
-import java.util.List ;
-
-import org.eclipse.emf.common.notify.AdapterFactory ;
-import org.eclipse.emf.common.notify.Notification ;
-import org.eclipse.emf.common.util.ResourceLocator ;
-import org.eclipse.emf.edit.provider.IItemPropertyDescriptor ;
-import org.osate.aadl2.provider.ElementItemProvider ;
+import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.osate.aadl2.provider.ElementItemProvider;
 
 /**
  * This is the item provider adapter for a {@link org.osate.ba.aadlba.BehaviorElement} object.
@@ -35,89 +34,80 @@ import org.osate.aadl2.provider.ElementItemProvider ;
  * <!-- end-user-doc -->
  * @generated
  */
-public class BehaviorElementItemProvider
-  extends ElementItemProvider
-{
-  public static String IMG_PATH = "full/obj16/" ;
-  public static String OSATE_IMG_PATH = IMG_PATH + "from_osate/" ;
-  
-  /**
-   * This constructs an instance from a factory and a notifier.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public BehaviorElementItemProvider(AdapterFactory adapterFactory)
-  {
-    super(adapterFactory);
-  }
+public class BehaviorElementItemProvider extends ElementItemProvider {
+	public static String IMG_PATH = "full/obj16/";
+	public static String OSATE_IMG_PATH = IMG_PATH + "from_osate/";
 
-  /**
-   * This returns the property descriptors for the adapted class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object)
-  {
-    if (itemPropertyDescriptors == null)
-    {
-      super.getPropertyDescriptors(object);
+	/**
+	 * This constructs an instance from a factory and a notifier.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BehaviorElementItemProvider(AdapterFactory adapterFactory) {
+		super(adapterFactory);
+	}
 
-    }
-    return itemPropertyDescriptors;
-  }
+	/**
+	 * This returns the property descriptors for the adapted class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
+		if (itemPropertyDescriptors == null) {
+			super.getPropertyDescriptors(object);
 
-  /**
-   * This returns the label text for the adapted class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String getText(Object object)
-  {
-    return getString("_UI_BehaviorElement_type");
-  }
+		}
+		return itemPropertyDescriptors;
+	}
 
-  /**
-   * This handles model notifications by calling {@link #updateChildren} to update any cached
-   * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void notifyChanged(Notification notification)
-  {
-    updateChildren(notification);
-    super.notifyChanged(notification);
-  }
+	/**
+	 * This returns the label text for the adapted class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getText(Object object) {
+		return getString("_UI_BehaviorElement_type");
+	}
 
-  /**
-   * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
-   * that can be created under this object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object)
-  {
-    super.collectNewChildDescriptors(newChildDescriptors, object);
-  }
+	/**
+	 * This handles model notifications by calling {@link #updateChildren} to update any cached
+	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void notifyChanged(Notification notification) {
+		updateChildren(notification);
+		super.notifyChanged(notification);
+	}
 
-  /**
-   * Return the resource locator for this item provider's resources.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public ResourceLocator getResourceLocator()
-  {
-    return AadlbaEditPlugin.INSTANCE;
-  }
+	/**
+	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s describing the children
+	 * that can be created under this object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+		super.collectNewChildDescriptors(newChildDescriptors, object);
+	}
+
+	/**
+	 * Return the resource locator for this item provider's resources.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return AadlbaEditPlugin.INSTANCE;
+	}
 
 }

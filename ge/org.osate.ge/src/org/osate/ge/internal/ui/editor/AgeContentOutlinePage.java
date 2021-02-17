@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -207,7 +207,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 						// Add child diagram nodes
 						parentNode.getDiagramElements().stream().filter(
-								(de) -> de.getUserInterfaceName() != null || de.getBusinessObject() instanceof EObject)
+								(de) -> !Strings.isNullOrEmpty(de.getUserInterfaceName())
+										|| de.getBusinessObject() instanceof EObject)
 						.forEach(children::add);
 
 						// Add children which are hidden based on user preference

@@ -21,9 +21,7 @@
 
 package org.osate.ba.utils;
 
-public class AadlBaNames
-{
-  final public static String PLUGIN_ID = "org.osate.ba" ;
-  
-  
+public class AadlBaNames {
+	final public static String PLUGIN_ID = "org.osate.ba";
+
 }
