@@ -23,17 +23,9 @@
  */
 package org.osate.xtext.aadl2.properties.linking;
 
-import java.util.Map;
-
-import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.diagnostics.DiagnosticMessage;
 import org.eclipse.xtext.diagnostics.Severity;
@@ -63,35 +55,19 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
 		if (Aadl2Package.eINSTANCE.getProperty() == referenceType) {
-			// List<URI> contributedResource = PluginSupportUtil.getContributedAadl();
-
-
-			// check the property set name against pref
 			if (context.getLinkText().indexOf("::") > 0) {
 				boolean suppressError = false;
-				for (String propName : context.getLinkText().split("::")) {
+				for (String propSetName : context.getLinkText().split("::")) {
 					if (!suppressError) {
-						// check against preference
-						final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-						Boolean ignoreThisPropertySet = store.getBoolean(propName.toLowerCase()); // store returns false => use the property set
-						if (ignoreThisPropertySet) {
-							suppressError = true;
-						}
+						// check against preference -- not returning the preference! + add text to say ignore checked at pref page
+						suppressError = OsateCorePlugin.getDefault().getPreferenceStore()
+								.getBoolean(propSetName.toLowerCase()); // store returns false => use the property set
 					}
 				}
 
 				if (suppressError) {
 					return null;
-					// if contains ::
-					// check the text before :: this is = to property set name
-					// check name against pref
-					// if suppressed, return null or return warning or info message
-					// try null first
 				}
-
-				// can't suppress the prop sets that are included in osate aadl (predeclared, from aadl standard)
-				// predeclared under plugin contributions
-
 			}
 
 			String msg = "Couldn't resolve reference to property definition '" + context.getLinkText() + "'."
@@ -137,21 +113,5 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
 		return super.getUnresolvedProxyMessage(context);
-	}
-
-	private static boolean filterContainer(final Map<Object, Boolean> visible, final IResource irsrc,
-			final String fileName) throws CoreException {
-		boolean isViz = false;
-		if (irsrc instanceof IFile) {
-			isViz = irsrc.getName().equalsIgnoreCase(fileName);
-		} else if (irsrc instanceof IContainer) {
-			if (!(irsrc instanceof IProject) || ((IProject) irsrc).isOpen()) {
-				for (final IResource child : ((IContainer) irsrc).members()) {
-					isViz |= filterContainer(visible, child, fileName);
-				}
-			}
-		}
-		visible.put(irsrc, isViz);
-		return isViz;
 	}
 }

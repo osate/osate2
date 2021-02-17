@@ -23,6 +23,12 @@
  */
 package org.osate.ui.utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.osate.core.OsateCorePlugin;
 
@@ -32,11 +38,10 @@ import org.osate.core.OsateCorePlugin;
 public class PropertySetModel {
 	public static final String separator = "&~!";
 	public static final String PREFS_ALL_NAMES = "org.osate.ui.internal.propertysetnames";
-	public static final String PREFS_QUALIFIER = "org.osate.ui.internal.propertyset";
 
 	public static final boolean getPreference(String propertySetName) {
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-		return store.getBoolean(PREFS_QUALIFIER + " " + propertySetName);
+		return store.getBoolean(propertySetName.toLowerCase());
 	}
 
 	/*
@@ -46,7 +51,7 @@ public class PropertySetModel {
 	 */
 	public static final void setPreference(boolean value, String propertySetName) {
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-		store.setValue(PREFS_QUALIFIER + " " + propertySetName, value);
+		store.setValue(propertySetName.toLowerCase(), value);
 
 		// since the property set name is typed in by the user, record the name with known key
 		// for preference store, so we can retrieve the added preferences as needed
@@ -58,8 +63,18 @@ public class PropertySetModel {
 		}
 	}
 
-	public static final String[] getAllAddedPropertySetNames() {
-		String[] result = null;
+	public static final void setDefaultPreference() {
+		List<String> addedNames = getAllAddedPropertySetNames();
+		if (addedNames != null) {
+			final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+			for (String prefName : addedNames) {
+				store.setDefault(prefName.toLowerCase(), false); // false => use the property set
+			}
+		}
+	}
+
+	public static final List<String> getAllAddedPropertySetNames() {
+		String[] result = new String[] {};
 
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
 		String allNames = store.getString(PREFS_ALL_NAMES);
@@ -67,6 +82,9 @@ public class PropertySetModel {
 			result = allNames.split(separator);
 		}
 
-		return result;
+		List<String> unique_strings = new ArrayList<String>(new HashSet<String>(Arrays.asList(result)));
+		Collections.sort(unique_strings);
+
+		return unique_strings;
 	}
 }
