@@ -27,21 +27,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.preference.BooleanFieldEditor;
-import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.StringFieldEditor;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.osate.core.OsateCorePlugin;
 import org.osate.pluginsupport.PredeclaredProperties;
 import org.osate.ui.utils.PropertySetModel;
-import org.osate.ui.utils.StringSorter;
 
 /**
  * @since 6.0
  */
 public class PropertySetPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
-	private List<FieldEditor> fields = new ArrayList<>();
+	private List<BooleanFieldEditor> fields = new ArrayList<>();
+	private List<StringFieldEditor> inputFields = new ArrayList<>();
+	private Group group;
+	private Composite composite;
+//	private Composite content;
 
 	public PropertySetPreferencePage() {
 		super();
@@ -49,12 +57,7 @@ public class PropertySetPreferencePage extends FieldEditorPreferencePage impleme
 		setDescription("Property Sets Plugin preferences");
 
 		// set defaults for all property sets as use all contributed property sets
-		String[] addedNames = PropertySetModel.getAllAddedPropertySetNames();
-		if (addedNames != null) {
-			for (String prefName : addedNames) {
-				getPreferenceStore().setDefault(prefName, false); // false => use the property set
-			}
-		}
+		PropertySetModel.setDefaultPreference();
 	}
 
 	/**
@@ -62,23 +65,37 @@ public class PropertySetPreferencePage extends FieldEditorPreferencePage impleme
 	 */
 	@Override
 	public void createFieldEditors() {
-		// need input field and 'Add' button to add new items to ignore list
-		StringFieldEditor input = new StringFieldEditor("inputPropertySet", "Add Property Set Name: ",
-				getFieldEditorParent());
-		addField(input);
-		fields.add(input);
+		group = new Group(getFieldEditorParent(), SWT.NONE);
+
+		group.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		group.setText("Check the property sets that should be ignored");
+		group.setLayout(new GridLayout(1, false));
+
+		Label label = new Label(getFieldEditorParent(), SWT.NONE);
+		label.setText("Check the property sets that should be ignored: ");
+		label.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
+
+		composite = new Composite(group, SWT.NONE);
 
 		// get all property set names that were previously added by user
-		String[] addedNames = PropertySetModel.getAllAddedPropertySetNames();
+		List<String> addedNames = PropertySetModel.getAllAddedPropertySetNames();
 		if (addedNames != null) {
-			for (String prefName : StringSorter.sort(addedNames)) {
-				final BooleanFieldEditor propField = new BooleanFieldEditor(
-						PropertySetModel.PREFS_QUALIFIER + " " + prefName,
-						prefName, getFieldEditorParent());
+			for (String prefName : addedNames) {
+				final BooleanFieldEditor propField = new BooleanFieldEditor(prefName.toLowerCase(),
+						prefName, composite);
+
 				addField(propField);
 				fields.add(propField);
 			}
 		}
+
+		// need input field and 'Add' button to add new items to ignore list
+		StringFieldEditor input = new StringFieldEditor("inputPropertySet", "Add Property Set Name: ",
+				getFieldEditorParent());
+		addField(input);
+		inputFields.add(input);
+
+		group.pack();
 	}
 
 	@Override
@@ -87,33 +104,39 @@ public class PropertySetPreferencePage extends FieldEditorPreferencePage impleme
 
 	@Override
 	public boolean performOk() {
-		for (FieldEditor field : fields) {
-			if (field instanceof StringFieldEditor) {
-				// add new property set name to the preferences. Set to ignore by default
-				PropertySetModel.setPreference(true, ((StringFieldEditor) field).getStringValue());
+		Boolean hasChanged = false;
 
-				String newValue = ((StringFieldEditor) field).getStringValue();
-				final BooleanFieldEditor propField = new BooleanFieldEditor(
-						PropertySetModel.PREFS_QUALIFIER + " " + newValue, newValue, getFieldEditorParent());
+		for (StringFieldEditor field : inputFields) {
+			// add new property set name to the preferences. Set to ignore by default
+			PropertySetModel.setPreference(true, field.getStringValue());
+
+			String newValue = field.getStringValue();
+			if (!newValue.isEmpty()) {
+				final BooleanFieldEditor propField = new BooleanFieldEditor(newValue.toLowerCase(),
+						newValue, composite);// getFieldEditorParent());
 				addField(propField);
 				fields.add(propField);
 
-				((StringFieldEditor) field).setStringValue(""); // reset input field to empty string
-			} else {
-				super.performOk();
-				break;
+				field.setStringValue(""); // reset input field to empty string
+				hasChanged = true;
+
+				group.pack();
 			}
 		}
 
-		// super.getShell().reskin(SWT.ALL);
-		super.performDefaults();
-		// getFieldEditorParent().redraw();
-		// getFieldEditorParent().update();
-		// getFieldEditorParent().getParent().pack(true);
-		// getFieldEditorParent().getParent().redraw();
+		for (BooleanFieldEditor field : fields) {
+			String prefName = field.getLabelText();
+			if (field.getBooleanValue() != PropertySetModel.getPreference(prefName)) {
+				hasChanged = true;
+			}
 
-		PredeclaredProperties.closeAndReopenProjects();
+			PropertySetModel.setPreference(field.getBooleanValue(), prefName);
+		}
 
-		return true;
+		if (hasChanged) {
+			PredeclaredProperties.closeAndReopenProjects();
+		}
+
+		return super.performOk();
 	}
 }
