@@ -2146,7 +2146,7 @@ public class AadlBaTypeChecker {
 
 		if (comAct.isLock()) {
 			result = _fact.createLockAction();
-			if (comAct.getQualifiedName().getOsateRef() != null
+			if (comAct.getQualifiedName() != null && comAct.getQualifiedName().getOsateRef() != null
 					&& comAct.getQualifiedName().getOsateRef() instanceof DataAccess) {
 				dah = _fact.createDataAccessHolder();
 				dah.setElement((DataAccess) comAct.getQualifiedName().getOsateRef());
@@ -2154,7 +2154,7 @@ public class AadlBaTypeChecker {
 
 		} else {
 			result = _fact.createUnlockAction();
-			if (comAct.getQualifiedName().getOsateRef() != null
+			if (comAct.getQualifiedName() != null && comAct.getQualifiedName().getOsateRef() != null
 					&& comAct.getQualifiedName().getOsateRef() instanceof DataAccess) {
 				dah = _fact.createDataAccessHolder();
 				dah.setElement((DataAccess) comAct.getQualifiedName().getOsateRef());
