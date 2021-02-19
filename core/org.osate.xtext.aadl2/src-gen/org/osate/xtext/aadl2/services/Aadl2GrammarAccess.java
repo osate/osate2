@@ -22800,45 +22800,49 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	public class FlowEndElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.FlowEnd");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
-		private final Assignment cContextAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final CrossReference cContextContextCrossReference_0_0_0 = (CrossReference)cContextAssignment_0_0.eContents().get(0);
-		private final RuleCall cContextContextIDTerminalRuleCall_0_0_0_1 = (RuleCall)cContextContextCrossReference_0_0_0.eContents().get(1);
-		private final Keyword cFullStopKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Assignment cFeatureAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cFeatureFeatureCrossReference_1_0 = (CrossReference)cFeatureAssignment_1.eContents().get(0);
-		private final RuleCall cFeatureFeatureIDTerminalRuleCall_1_0_1 = (RuleCall)cFeatureFeatureCrossReference_1_0.eContents().get(1);
+		private final Assignment cFeatureAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cFeatureFeatureCrossReference_0_0 = (CrossReference)cFeatureAssignment_0.eContents().get(0);
+		private final RuleCall cFeatureFeatureIDTerminalRuleCall_0_0_1 = (RuleCall)cFeatureFeatureCrossReference_0_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cFlowEndContextAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Keyword cFullStopKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Assignment cFeatureAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final CrossReference cFeatureFeatureCrossReference_1_2_0 = (CrossReference)cFeatureAssignment_1_2.eContents().get(0);
+		private final RuleCall cFeatureFeatureIDTerminalRuleCall_1_2_0_1 = (RuleCall)cFeatureFeatureCrossReference_1_2_0.eContents().get(1);
 		
 		//FlowEnd aadl2::FlowEnd:
-		//	(context=[aadl2::Context] '.')? feature=[aadl2::Feature];
+		//	feature=[aadl2::Feature] ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//(context=[aadl2::Context] '.')? feature=[aadl2::Feature]
+		//feature=[aadl2::Feature] ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*
 		public Group getGroup() { return cGroup; }
 		
-		//(context=[aadl2::Context] '.')?
-		public Group getGroup_0() { return cGroup_0; }
-		
-		//context=[aadl2::Context]
-		public Assignment getContextAssignment_0_0() { return cContextAssignment_0_0; }
-		
-		//[aadl2::Context]
-		public CrossReference getContextContextCrossReference_0_0_0() { return cContextContextCrossReference_0_0_0; }
-		
-		//ID
-		public RuleCall getContextContextIDTerminalRuleCall_0_0_0_1() { return cContextContextIDTerminalRuleCall_0_0_0_1; }
-		
-		//'.'
-		public Keyword getFullStopKeyword_0_1() { return cFullStopKeyword_0_1; }
-		
 		//feature=[aadl2::Feature]
-		public Assignment getFeatureAssignment_1() { return cFeatureAssignment_1; }
+		public Assignment getFeatureAssignment_0() { return cFeatureAssignment_0; }
 		
 		//[aadl2::Feature]
-		public CrossReference getFeatureFeatureCrossReference_1_0() { return cFeatureFeatureCrossReference_1_0; }
+		public CrossReference getFeatureFeatureCrossReference_0_0() { return cFeatureFeatureCrossReference_0_0; }
 		
 		//ID
-		public RuleCall getFeatureFeatureIDTerminalRuleCall_1_0_1() { return cFeatureFeatureIDTerminalRuleCall_1_0_1; }
+		public RuleCall getFeatureFeatureIDTerminalRuleCall_0_0_1() { return cFeatureFeatureIDTerminalRuleCall_0_0_1; }
+		
+		//({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//{aadl2::FlowEnd.context=current}
+		public Action getFlowEndContextAction_1_0() { return cFlowEndContextAction_1_0; }
+		
+		//"."
+		public Keyword getFullStopKeyword_1_1() { return cFullStopKeyword_1_1; }
+		
+		//feature=[aadl2::Feature]
+		public Assignment getFeatureAssignment_1_2() { return cFeatureAssignment_1_2; }
+		
+		//[aadl2::Feature]
+		public CrossReference getFeatureFeatureCrossReference_1_2_0() { return cFeatureFeatureCrossReference_1_2_0; }
+		
+		//ID
+		public RuleCall getFeatureFeatureIDTerminalRuleCall_1_2_0_1() { return cFeatureFeatureIDTerminalRuleCall_1_2_0_1; }
 	}
 	public class FlowSpecRefinementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.FlowSpecRefinement");
@@ -29905,7 +29909,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//FlowEnd aadl2::FlowEnd:
-	//	(context=[aadl2::Context] '.')? feature=[aadl2::Feature];
+	//	feature=[aadl2::Feature] ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*;
 	public FlowEndElements getFlowEndAccess() {
 		return pFlowEnd;
 	}

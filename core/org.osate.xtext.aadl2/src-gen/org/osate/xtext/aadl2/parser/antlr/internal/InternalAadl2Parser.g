@@ -32784,36 +32784,43 @@ ruleFlowEnd returns [EObject current=null]
 	(
 		(
 			(
+				{
+					if ($current==null) {
+						$current = createModelElement(grammarAccess.getFlowEndRule());
+					}
+				}
+				otherlv_0=RULE_ID
+				{
+					newLeafNode(otherlv_0, grammarAccess.getFlowEndAccess().getFeatureFeatureCrossReference_0_0());
+				}
+			)
+		)
+		(
+			(
+				{
+					$current = forceCreateModelElementAndSet(
+						grammarAccess.getFlowEndAccess().getFlowEndContextAction_1_0(),
+						$current);
+				}
+			)
+			otherlv_2=FullStop
+			{
+				newLeafNode(otherlv_2, grammarAccess.getFlowEndAccess().getFullStopKeyword_1_1());
+			}
+			(
 				(
 					{
 						if ($current==null) {
 							$current = createModelElement(grammarAccess.getFlowEndRule());
 						}
 					}
-					otherlv_0=RULE_ID
+					otherlv_3=RULE_ID
 					{
-						newLeafNode(otherlv_0, grammarAccess.getFlowEndAccess().getContextContextCrossReference_0_0_0());
+						newLeafNode(otherlv_3, grammarAccess.getFlowEndAccess().getFeatureFeatureCrossReference_1_2_0());
 					}
 				)
 			)
-			otherlv_1=FullStop
-			{
-				newLeafNode(otherlv_1, grammarAccess.getFlowEndAccess().getFullStopKeyword_0_1());
-			}
-		)?
-		(
-			(
-				{
-					if ($current==null) {
-						$current = createModelElement(grammarAccess.getFlowEndRule());
-					}
-				}
-				otherlv_2=RULE_ID
-				{
-					newLeafNode(otherlv_2, grammarAccess.getFlowEndAccess().getFeatureFeatureCrossReference_1_0());
-				}
-			)
-		)
+		)*
 	)
 ;
 
