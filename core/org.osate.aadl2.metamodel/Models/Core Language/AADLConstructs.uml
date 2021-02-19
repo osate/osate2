@@ -2035,7 +2035,7 @@ The context owns the connection end instance.</body>
         <generalization xmi:id="_D5kAgK1MEeCEBvwFrdo_PA">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
         </generalization>
-        <ownedAttribute xmi:id="_T0XnzqvVEeC0h7jzzZfZ7Q" name="context" visibility="public" type="Connections-Context" association="_T0XnyqvVEeC0h7jzzZfZ7Q">
+        <ownedAttribute xmi:id="_T0XnzqvVEeC0h7jzzZfZ7Q" name="context" visibility="public" type="_AzAPoKvVEeC0h7jzzZfZ7Q" aggregation="composite" association="_T0XnyqvVEeC0h7jzzZfZ7Q">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_T0Xn0KvVEeC0h7jzzZfZ7Q"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_T0Xnz6vVEeC0h7jzzZfZ7Q" value="1"/>
         </ownedAttribute>
