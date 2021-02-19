@@ -34,7 +34,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.osate.core.OsateCorePlugin;
@@ -65,15 +64,16 @@ public class PropertySetPreferencePage extends FieldEditorPreferencePage impleme
 	 */
 	@Override
 	public void createFieldEditors() {
+		// Label label = new Label(getFieldEditorParent(), SWT.WRAP);
+		// label.setText("Check the property sets that should be ignored: ");
+		// label.setLayoutData(new GridData(SWT.BEGINNING, SWT.BEGINNING, true, true));
+
 		group = new Group(getFieldEditorParent(), SWT.NONE);
 
-		group.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		group.setLayoutData(new GridData(SWT.BEGINNING, SWT.BEGINNING, true, true));
 		group.setText("Check the property sets that should be ignored");
 		group.setLayout(new GridLayout(1, false));
 
-		Label label = new Label(getFieldEditorParent(), SWT.NONE);
-		label.setText("Check the property sets that should be ignored: ");
-		label.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
 
 		composite = new Composite(group, SWT.NONE);
 
