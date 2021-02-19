@@ -87,6 +87,7 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeatureGroupPrototypeActual();
 	}
@@ -125,10 +126,9 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 			InternalEObject oldFeatureType = (InternalEObject) featureType;
 			featureType = (FeatureType) eResolveProxy(oldFeatureType);
 			if (featureType != oldFeatureType) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__FEATURE_TYPE, oldFeatureType, featureType));
-				}
 			}
 		}
 		return featureType;
@@ -151,10 +151,9 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	public void setFeatureType(FeatureType newFeatureType) {
 		FeatureType oldFeatureType = featureType;
 		featureType = newFeatureType;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__FEATURE_TYPE, oldFeatureType, featureType));
-		}
 	}
 
 	/**
@@ -162,6 +161,7 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING:
@@ -175,14 +175,14 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING:
 			return getBindings();
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__FEATURE_TYPE:
-			if (resolve) {
+			if (resolve)
 				return getFeatureType();
-			}
 			return basicGetFeatureType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -194,6 +194,7 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING:
@@ -212,6 +213,7 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING:
@@ -229,6 +231,7 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING:

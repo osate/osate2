@@ -91,6 +91,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPackageRename();
 	}
@@ -105,10 +106,9 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 			InternalEObject oldRenamedPackage = (InternalEObject) renamedPackage;
 			renamedPackage = (AadlPackage) eResolveProxy(oldRenamedPackage);
 			if (renamedPackage != oldRenamedPackage) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE, oldRenamedPackage, renamedPackage));
-				}
 			}
 		}
 		return renamedPackage;
@@ -131,10 +131,9 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	public void setRenamedPackage(AadlPackage newRenamedPackage) {
 		AadlPackage oldRenamedPackage = renamedPackage;
 		renamedPackage = newRenamedPackage;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE,
 					oldRenamedPackage, renamedPackage));
-		}
 	}
 
 	/**
@@ -154,10 +153,9 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	public void setRenameAll(boolean newRenameAll) {
 		boolean oldRenameAll = renameAll;
 		renameAll = newRenameAll;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_RENAME__RENAME_ALL, oldRenameAll,
 					renameAll));
-		}
 	}
 
 	/**
@@ -165,12 +163,12 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE:
-			if (resolve) {
+			if (resolve)
 				return getRenamedPackage();
-			}
 			return basicGetRenamedPackage();
 		case Aadl2Package.PACKAGE_RENAME__RENAME_ALL:
 			return isRenameAll();
@@ -183,6 +181,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE:
@@ -200,6 +199,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE:
@@ -217,6 +217,7 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE:
@@ -232,10 +233,10 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (renameAll: ");

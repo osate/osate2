@@ -73,6 +73,7 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getModalPropertyValue();
 	}
@@ -97,11 +98,10 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE, oldOwnedValue, newOwnedValue);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -114,22 +114,18 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	public void setOwnedValue(PropertyExpression newOwnedValue) {
 		if (newOwnedValue != ownedValue) {
 			NotificationChain msgs = null;
-			if (ownedValue != null) {
+			if (ownedValue != null)
 				msgs = ((InternalEObject) ownedValue).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE, null, msgs);
-			}
-			if (newOwnedValue != null) {
+			if (newOwnedValue != null)
 				msgs = ((InternalEObject) newOwnedValue).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE, null, msgs);
-			}
 			msgs = basicSetOwnedValue(newOwnedValue, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE,
 					newOwnedValue, newOwnedValue));
-		}
 	}
 
 	/**
@@ -148,6 +144,7 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE:
@@ -161,6 +158,7 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE:
@@ -174,6 +172,7 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE:
@@ -188,6 +187,7 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE:
@@ -202,6 +202,7 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE:

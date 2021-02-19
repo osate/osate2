@@ -104,6 +104,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getIntegerLiteral();
 	}
@@ -125,9 +126,8 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	public void setBase(long newBase) {
 		long oldBase = base;
 		base = newBase;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.INTEGER_LITERAL__BASE, oldBase, base));
-		}
 	}
 
 	/**
@@ -147,10 +147,9 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	public void setValue(long newValue) {
 		long oldValue = value;
 		value = newValue;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.INTEGER_LITERAL__VALUE, oldValue,
 					value));
-		}
 	}
 
 	/**
@@ -158,6 +157,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.INTEGER_LITERAL__BASE:
@@ -173,6 +173,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.INTEGER_LITERAL__BASE:
@@ -190,6 +191,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.INTEGER_LITERAL__BASE:
@@ -207,6 +209,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.INTEGER_LITERAL__BASE:

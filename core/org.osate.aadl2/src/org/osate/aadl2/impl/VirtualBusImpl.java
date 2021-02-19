@@ -49,6 +49,7 @@ public abstract class VirtualBusImpl extends NamedElementImpl implements Virtual
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getVirtualBus();
 	}

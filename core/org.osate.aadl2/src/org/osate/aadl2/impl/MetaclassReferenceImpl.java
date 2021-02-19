@@ -99,6 +99,7 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getMetaclassReference();
 	}
@@ -120,10 +121,9 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 	public void setAnnexName(String newAnnexName) {
 		String oldAnnexName = annexName;
 		annexName = newAnnexName;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.METACLASS_REFERENCE__ANNEX_NAME,
 					oldAnnexName, annexName));
-		}
 	}
 
 	/**
@@ -144,6 +144,7 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.METACLASS_REFERENCE__ANNEX_NAME:
@@ -160,6 +161,7 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.METACLASS_REFERENCE__ANNEX_NAME:
@@ -178,6 +180,7 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.METACLASS_REFERENCE__ANNEX_NAME:
@@ -195,6 +198,7 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.METACLASS_REFERENCE__ANNEX_NAME:
@@ -210,10 +214,10 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (annexName: ");

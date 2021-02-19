@@ -125,6 +125,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPropertySet();
 	}
@@ -134,6 +135,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getOwnedMembers() {
 		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 				Aadl2Package.PROPERTY_SET__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
@@ -274,6 +276,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_TYPE:
@@ -293,6 +296,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_TYPE:
@@ -315,6 +319,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_TYPE:
@@ -346,6 +351,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_TYPE:
@@ -372,6 +378,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_SET__OWNED_MEMBER:
@@ -395,6 +402,7 @@ public class PropertySetImpl extends NamespaceImpl implements PropertySet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.PROPERTY_SET__OWNED_PROPERTY_TYPE)
 				|| eIsSet(Aadl2Package.PROPERTY_SET__OWNED_PROPERTY)

@@ -52,6 +52,7 @@ public abstract class PropertyExpressionImpl extends ElementImpl implements Prop
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPropertyExpression();
 	}

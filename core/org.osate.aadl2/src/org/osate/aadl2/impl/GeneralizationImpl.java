@@ -64,6 +64,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getGeneralization();
 	}
@@ -73,6 +74,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Element> getTargets() {
 		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.GENERALIZATION__TARGET,
 				TARGET_ESUBSETS);
@@ -93,6 +95,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Element> getSources() {
 		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.GENERALIZATION__SOURCE,
 				SOURCE_ESUBSETS);
@@ -165,17 +168,16 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.GENERALIZATION__GENERAL:
-			if (resolve) {
+			if (resolve)
 				return getGeneral();
-			}
 			return basicGetGeneral();
 		case Aadl2Package.GENERALIZATION__SPECIFIC:
-			if (resolve) {
+			if (resolve)
 				return getSpecific();
-			}
 			return basicGetSpecific();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -186,6 +188,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.GENERALIZATION__SPECIFIC:
@@ -200,6 +203,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.GENERALIZATION__SPECIFIC:
@@ -214,6 +218,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.GENERALIZATION__GENERAL:
@@ -242,6 +247,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetTargets() {
 		return super.isSetTargets() || isSetGeneral();
 	}
@@ -251,6 +257,7 @@ public abstract class GeneralizationImpl extends DirectedRelationshipImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetSources() {
 		return super.isSetSources() || eIsSet(Aadl2Package.GENERALIZATION__SPECIFIC);
 	}

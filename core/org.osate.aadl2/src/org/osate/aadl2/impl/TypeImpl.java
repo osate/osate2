@@ -49,6 +49,7 @@ public abstract class TypeImpl extends NamedElementImpl implements Type {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getType();
 	}

@@ -60,6 +60,7 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getReferenceValue();
 	}

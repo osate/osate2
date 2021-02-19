@@ -73,6 +73,7 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramGroupSubcomponent();
 	}
@@ -82,6 +83,7 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
 		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
@@ -94,6 +96,7 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubcomponentType basicGetSubcomponentType() {
 		if (eIsSet(Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE)) {
 			return basicGetSubprogramGroupSubcomponentType();
@@ -112,11 +115,10 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 			subprogramGroupSubcomponentType = (SubprogramGroupSubcomponentType) eResolveProxy(
 					oldSubprogramGroupSubcomponentType);
 			if (subprogramGroupSubcomponentType != oldSubprogramGroupSubcomponentType) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE,
 							oldSubprogramGroupSubcomponentType, subprogramGroupSubcomponentType));
-				}
 			}
 		}
 		return subprogramGroupSubcomponentType;
@@ -139,11 +141,10 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	public void setSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType newSubprogramGroupSubcomponentType) {
 		SubprogramGroupSubcomponentType oldSubprogramGroupSubcomponentType = subprogramGroupSubcomponentType;
 		subprogramGroupSubcomponentType = newSubprogramGroupSubcomponentType;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE,
 					oldSubprogramGroupSubcomponentType, subprogramGroupSubcomponentType));
-		}
 	}
 
 	/**
@@ -151,12 +152,12 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE:
-			if (resolve) {
+			if (resolve)
 				return getSubprogramGroupSubcomponentType();
-			}
 			return basicGetSubprogramGroupSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -167,6 +168,7 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE:
@@ -181,6 +183,7 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE:
@@ -195,6 +198,7 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBCOMPONENT_TYPE:
@@ -210,6 +214,7 @@ public class SubprogramGroupSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetSubcomponentType() {
 		return super.isSetSubcomponentType()
 				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT__SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE);

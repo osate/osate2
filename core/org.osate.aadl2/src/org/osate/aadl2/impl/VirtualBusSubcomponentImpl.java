@@ -73,6 +73,7 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getVirtualBusSubcomponent();
 	}
@@ -82,6 +83,7 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
 		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy()
@@ -94,6 +96,7 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SubcomponentType basicGetSubcomponentType() {
 		if (eIsSet(Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT__VIRTUAL_BUS_SUBCOMPONENT_TYPE)) {
 			return basicGetVirtualBusSubcomponentType();
@@ -111,11 +114,10 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 			InternalEObject oldVirtualBusSubcomponentType = (InternalEObject) virtualBusSubcomponentType;
 			virtualBusSubcomponentType = (VirtualBusSubcomponentType) eResolveProxy(oldVirtualBusSubcomponentType);
 			if (virtualBusSubcomponentType != oldVirtualBusSubcomponentType) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT__VIRTUAL_BUS_SUBCOMPONENT_TYPE,
 							oldVirtualBusSubcomponentType, virtualBusSubcomponentType));
-				}
 			}
 		}
 		return virtualBusSubcomponentType;
@@ -138,11 +140,10 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	public void setVirtualBusSubcomponentType(VirtualBusSubcomponentType newVirtualBusSubcomponentType) {
 		VirtualBusSubcomponentType oldVirtualBusSubcomponentType = virtualBusSubcomponentType;
 		virtualBusSubcomponentType = newVirtualBusSubcomponentType;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT__VIRTUAL_BUS_SUBCOMPONENT_TYPE, oldVirtualBusSubcomponentType,
 					virtualBusSubcomponentType));
-		}
 	}
 
 	/**
@@ -150,12 +151,12 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT__VIRTUAL_BUS_SUBCOMPONENT_TYPE:
-			if (resolve) {
+			if (resolve)
 				return getVirtualBusSubcomponentType();
-			}
 			return basicGetVirtualBusSubcomponentType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -166,6 +167,7 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT__VIRTUAL_BUS_SUBCOMPONENT_TYPE:
@@ -180,6 +182,7 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT__VIRTUAL_BUS_SUBCOMPONENT_TYPE:
@@ -194,6 +197,7 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT__SUBCOMPONENT_TYPE:
@@ -209,6 +213,7 @@ public class VirtualBusSubcomponentImpl extends SubcomponentImpl implements Virt
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetSubcomponentType() {
 		return super.isSetSubcomponentType()
 				|| eIsSet(Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT__VIRTUAL_BUS_SUBCOMPONENT_TYPE);

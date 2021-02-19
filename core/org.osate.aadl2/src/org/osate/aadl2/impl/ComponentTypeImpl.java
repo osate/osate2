@@ -155,6 +155,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComponentType();
 	}
@@ -185,6 +186,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ClassifierFeature> getClassifierFeatures() {
 		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
 				Aadl2Package.COMPONENT_TYPE__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
@@ -207,6 +209,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getOwnedMembers() {
 		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 				Aadl2Package.COMPONENT_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
@@ -230,6 +233,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Classifier> getGenerals() {
 		return new DerivedUnionEObjectEList<Classifier>(Classifier.class, this, Aadl2Package.COMPONENT_TYPE__GENERAL,
 				GENERAL_ESUBSETS);
@@ -250,6 +254,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Generalization> getGeneralizations() {
 		return new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
 				Aadl2Package.COMPONENT_TYPE__GENERALIZATION, GENERALIZATION_ESUBSETS);
@@ -282,10 +287,9 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	public void setNoFeatures(boolean newNoFeatures) {
 		boolean oldNoFeatures = noFeatures;
 		noFeatures = newNoFeatures;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_TYPE__NO_FEATURES,
 					oldNoFeatures, noFeatures));
-		}
 	}
 
 	/**
@@ -375,11 +379,10 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION, oldOwnedExtension, newOwnedExtension);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -392,22 +395,18 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	public void setOwnedExtension(TypeExtension newOwnedExtension) {
 		if (newOwnedExtension != ownedExtension) {
 			NotificationChain msgs = null;
-			if (ownedExtension != null) {
+			if (ownedExtension != null)
 				msgs = ((InternalEObject) ownedExtension).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION, null, msgs);
-			}
-			if (newOwnedExtension != null) {
+			if (newOwnedExtension != null)
 				msgs = ((InternalEObject) newOwnedExtension).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION, null, msgs);
-			}
 			msgs = basicSetOwnedExtension(newOwnedExtension, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION,
 					newOwnedExtension, newOwnedExtension));
-		}
 	}
 
 	/**
@@ -474,6 +473,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
@@ -493,14 +493,14 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE:
 			return getOwnedFeatures();
 		case Aadl2Package.COMPONENT_TYPE__EXTENDED:
-			if (resolve) {
+			if (resolve)
 				return getExtended();
-			}
 			return basicGetExtended();
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
 			return getOwnedFlowSpecifications();
@@ -522,6 +522,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE__EXTENDED:
@@ -554,6 +555,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE__EXTENDED:
@@ -583,6 +585,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE:
@@ -616,10 +619,10 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (noFeatures: ");
@@ -643,6 +646,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetClassifierFeatures() {
 		return super.isSetClassifierFeatures() || isSetOwnedFeatures()
 				|| eIsSet(Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION);
@@ -653,6 +657,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || isSetOwnedFeatures()
 				|| eIsSet(Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION);
@@ -663,6 +668,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetGenerals() {
 		return super.isSetGenerals() || eIsSet(Aadl2Package.COMPONENT_TYPE__EXTENDED);
 	}
@@ -672,6 +678,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetGeneralizations() {
 		return super.isSetGeneralizations() || eIsSet(Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION);
 	}

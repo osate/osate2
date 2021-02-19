@@ -78,6 +78,7 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getStringLiteral();
 	}
@@ -99,9 +100,8 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 	public void setValue(String newValue) {
 		String oldValue = value;
 		value = newValue;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.STRING_LITERAL__VALUE, oldValue, value));
-		}
 	}
 
 	/**
@@ -109,6 +109,7 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.STRING_LITERAL__VALUE:
@@ -122,6 +123,7 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.STRING_LITERAL__VALUE:
@@ -136,6 +138,7 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.STRING_LITERAL__VALUE:
@@ -150,6 +153,7 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.STRING_LITERAL__VALUE:

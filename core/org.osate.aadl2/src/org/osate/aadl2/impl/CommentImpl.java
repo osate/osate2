@@ -77,6 +77,7 @@ public class CommentImpl extends ElementImpl implements Comment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComment();
 	}
@@ -98,9 +99,8 @@ public class CommentImpl extends ElementImpl implements Comment {
 	public void setBody(String newBody) {
 		String oldBody = body;
 		body = newBody;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMMENT__BODY, oldBody, body));
-		}
 	}
 
 	/**
@@ -108,6 +108,7 @@ public class CommentImpl extends ElementImpl implements Comment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMMENT__BODY:
@@ -121,6 +122,7 @@ public class CommentImpl extends ElementImpl implements Comment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMMENT__BODY:
@@ -135,6 +137,7 @@ public class CommentImpl extends ElementImpl implements Comment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMMENT__BODY:
@@ -149,6 +152,7 @@ public class CommentImpl extends ElementImpl implements Comment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMMENT__BODY:
@@ -162,10 +166,10 @@ public class CommentImpl extends ElementImpl implements Comment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (body: ");

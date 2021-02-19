@@ -49,6 +49,7 @@ public abstract class TriggerPortImpl extends NamedElementImpl implements Trigge
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getTriggerPort();
 	}

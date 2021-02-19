@@ -70,6 +70,7 @@ public abstract class TypedElementImpl extends NamedElementImpl implements Typed
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getTypedElement();
 	}
@@ -84,10 +85,9 @@ public abstract class TypedElementImpl extends NamedElementImpl implements Typed
 			InternalEObject oldType = (InternalEObject) type;
 			type = (Type) eResolveProxy(oldType);
 			if (type != oldType) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.TYPED_ELEMENT__TYPE, oldType,
 							type));
-				}
 			}
 		}
 		return type;
@@ -110,9 +110,8 @@ public abstract class TypedElementImpl extends NamedElementImpl implements Typed
 	public void setType(Type newType) {
 		Type oldType = type;
 		type = newType;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.TYPED_ELEMENT__TYPE, oldType, type));
-		}
 	}
 
 	/**
@@ -120,12 +119,12 @@ public abstract class TypedElementImpl extends NamedElementImpl implements Typed
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.TYPED_ELEMENT__TYPE:
-			if (resolve) {
+			if (resolve)
 				return getType();
-			}
 			return basicGetType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -136,6 +135,7 @@ public abstract class TypedElementImpl extends NamedElementImpl implements Typed
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.TYPED_ELEMENT__TYPE:
@@ -150,6 +150,7 @@ public abstract class TypedElementImpl extends NamedElementImpl implements Typed
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.TYPED_ELEMENT__TYPE:
@@ -164,6 +165,7 @@ public abstract class TypedElementImpl extends NamedElementImpl implements Typed
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.TYPED_ELEMENT__TYPE:

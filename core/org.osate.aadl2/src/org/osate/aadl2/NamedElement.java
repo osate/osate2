@@ -155,6 +155,17 @@ public interface NamedElement extends Element {
 	String qualifiedName();
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLInfrastructure.</p>
+	 * <!-- end-model-doc -->
+	 * @model ordered="false" propertySetNameDataType="org.osate.aadl2.String" propertySetNameRequired="true" propertySetNameOrdered="false" propertyNameDataType="org.osate.aadl2.String" propertyNameRequired="true" propertyNameOrdered="false"
+	 * @generated
+	 */
+	EList<PropertyExpression> getPropertyValues(String propertySetName, String propertyName);
+
+	/**
 	 * Get the component name including array indices
 	 *
 	 * @return name as string

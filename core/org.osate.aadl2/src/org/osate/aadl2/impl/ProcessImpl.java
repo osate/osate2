@@ -48,6 +48,7 @@ public abstract class ProcessImpl extends NamedElementImpl implements org.osate.
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getProcess();
 	}

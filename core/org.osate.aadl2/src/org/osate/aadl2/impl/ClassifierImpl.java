@@ -183,6 +183,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getClassifier();
 	}
@@ -235,6 +236,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Element> getOwnedElements() {
 		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.CLASSIFIER__OWNED_ELEMENT,
 				OWNED_ELEMENT_ESUBSETS);
@@ -256,6 +258,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getOwnedMembers() {
 		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 				Aadl2Package.CLASSIFIER__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
@@ -434,10 +437,9 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public void setNoProperties(boolean newNoProperties) {
 		boolean oldNoProperties = noProperties;
 		noProperties = newNoProperties;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_PROPERTIES,
 					oldNoProperties, noProperties));
-		}
 	}
 
 	/**
@@ -457,10 +459,9 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public void setNoPrototypes(boolean newNoPrototypes) {
 		boolean oldNoPrototypes = noPrototypes;
 		noPrototypes = newNoPrototypes;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_PROTOTYPES,
 					oldNoPrototypes, noPrototypes));
-		}
 	}
 
 	/**
@@ -480,10 +481,9 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public void setNoAnnexes(boolean newNoAnnexes) {
 		boolean oldNoAnnexes = noAnnexes;
 		noAnnexes = newNoAnnexes;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER__NO_ANNEXES, oldNoAnnexes,
 					noAnnexes));
-		}
 	}
 
 	/**
@@ -491,6 +491,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE:
@@ -508,6 +509,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE:
@@ -540,6 +542,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE:
@@ -572,6 +575,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE:
@@ -601,6 +605,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER__CLASSIFIER_FEATURE:
@@ -638,10 +643,10 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (noPrototypes: ");
@@ -668,6 +673,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetMembers() {
 		return super.isSetMembers() || isSetClassifierFeatures() || eIsSet(Aadl2Package.CLASSIFIER__INHERITED_MEMBER);
 	}
@@ -686,6 +692,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedElements() {
 		return super.isSetOwnedElements() || isSetGeneralizations();
 	}
@@ -704,6 +711,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.CLASSIFIER__OWNED_ANNEX_SUBCLAUSE)
 				|| eIsSet(Aadl2Package.CLASSIFIER__OWNED_PROTOTYPE);

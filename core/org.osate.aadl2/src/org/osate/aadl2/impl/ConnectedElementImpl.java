@@ -94,6 +94,7 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getConnectedElement();
 	}
@@ -108,10 +109,9 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 			InternalEObject oldContext = (InternalEObject) context;
 			context = (Context) eResolveProxy(oldContext);
 			if (context != oldContext) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.CONNECTED_ELEMENT__CONTEXT,
 							oldContext, context));
-				}
 			}
 		}
 		return context;
@@ -134,10 +134,9 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	public void setContext(Context newContext) {
 		Context oldContext = context;
 		context = newContext;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTED_ELEMENT__CONTEXT, oldContext,
 					context));
-		}
 	}
 
 	/**
@@ -150,10 +149,9 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 			InternalEObject oldConnectionEnd = (InternalEObject) connectionEnd;
 			connectionEnd = (ConnectionEnd) eResolveProxy(oldConnectionEnd);
 			if (connectionEnd != oldConnectionEnd) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.CONNECTED_ELEMENT__CONNECTION_END, oldConnectionEnd, connectionEnd));
-				}
 			}
 		}
 		return connectionEnd;
@@ -176,10 +174,9 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	public void setConnectionEnd(ConnectionEnd newConnectionEnd) {
 		ConnectionEnd oldConnectionEnd = connectionEnd;
 		connectionEnd = newConnectionEnd;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTED_ELEMENT__CONNECTION_END,
 					oldConnectionEnd, connectionEnd));
-		}
 	}
 
 	/**
@@ -202,11 +199,10 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.CONNECTED_ELEMENT__NEXT, oldNext, newNext);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -219,22 +215,18 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	public void setNext(ConnectedElement newNext) {
 		if (newNext != next) {
 			NotificationChain msgs = null;
-			if (next != null) {
+			if (next != null)
 				msgs = ((InternalEObject) next).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTED_ELEMENT__NEXT, null, msgs);
-			}
-			if (newNext != null) {
+			if (newNext != null)
 				msgs = ((InternalEObject) newNext).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.CONNECTED_ELEMENT__NEXT, null, msgs);
-			}
 			msgs = basicSetNext(newNext, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONNECTED_ELEMENT__NEXT, newNext,
 					newNext));
-		}
 	}
 
 	/**
@@ -253,6 +245,7 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.CONNECTED_ELEMENT__NEXT:
@@ -266,17 +259,16 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.CONNECTED_ELEMENT__CONTEXT:
-			if (resolve) {
+			if (resolve)
 				return getContext();
-			}
 			return basicGetContext();
 		case Aadl2Package.CONNECTED_ELEMENT__CONNECTION_END:
-			if (resolve) {
+			if (resolve)
 				return getConnectionEnd();
-			}
 			return basicGetConnectionEnd();
 		case Aadl2Package.CONNECTED_ELEMENT__NEXT:
 			return getNext();
@@ -289,6 +281,7 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.CONNECTED_ELEMENT__CONTEXT:
@@ -309,6 +302,7 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CONNECTED_ELEMENT__CONTEXT:
@@ -329,6 +323,7 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CONNECTED_ELEMENT__CONTEXT:

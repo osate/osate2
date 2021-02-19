@@ -124,6 +124,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeaturePrototypeReference();
 	}
@@ -160,10 +161,9 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 			InternalEObject oldPrototype = (InternalEObject) prototype;
 			prototype = (FeaturePrototype) eResolveProxy(oldPrototype);
 			if (prototype != oldPrototype) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__PROTOTYPE, oldPrototype, prototype));
-				}
 			}
 		}
 		return prototype;
@@ -186,10 +186,9 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	public void setPrototype(FeaturePrototype newPrototype) {
 		FeaturePrototype oldPrototype = prototype;
 		prototype = newPrototype;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__PROTOTYPE,
 					oldPrototype, prototype));
-		}
 	}
 
 	/**
@@ -209,10 +208,9 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	public void setIn(boolean newIn) {
 		boolean oldIn = in;
 		in = newIn;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__IN, oldIn,
 					in));
-		}
 	}
 
 	/**
@@ -232,10 +230,9 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	public void setOut(boolean newOut) {
 		boolean oldOut = out;
 		out = newOut;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__OUT, oldOut,
 					out));
-		}
 	}
 
 	/**
@@ -243,14 +240,14 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__DIRECTION:
 			return getDirection();
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__PROTOTYPE:
-			if (resolve) {
+			if (resolve)
 				return getPrototype();
-			}
 			return basicGetPrototype();
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__IN:
 			return isIn();
@@ -265,6 +262,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__PROTOTYPE:
@@ -285,6 +283,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__PROTOTYPE:
@@ -305,6 +304,7 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__DIRECTION:
@@ -324,10 +324,10 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (in: ");

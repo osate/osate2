@@ -49,6 +49,7 @@ public abstract class SubprogramGroupImpl extends NamedElementImpl implements Su
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramGroup();
 	}

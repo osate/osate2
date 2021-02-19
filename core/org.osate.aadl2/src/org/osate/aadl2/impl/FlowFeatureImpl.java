@@ -49,6 +49,7 @@ public abstract class FlowFeatureImpl extends StructuralFeatureImpl implements F
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFlowFeature();
 	}

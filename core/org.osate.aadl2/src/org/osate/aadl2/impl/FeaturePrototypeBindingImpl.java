@@ -74,6 +74,7 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeaturePrototypeBinding();
 	}
@@ -98,11 +99,10 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL, oldActual, newActual);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -115,22 +115,18 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	public void setActual(FeaturePrototypeActual newActual) {
 		if (newActual != actual) {
 			NotificationChain msgs = null;
-			if (actual != null) {
+			if (actual != null)
 				msgs = ((InternalEObject) actual).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL, null, msgs);
-			}
-			if (newActual != null) {
+			if (newActual != null)
 				msgs = ((InternalEObject) newActual).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL, null, msgs);
-			}
 			msgs = basicSetActual(newActual, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL,
 					newActual, newActual));
-		}
 	}
 
 	/**
@@ -149,15 +145,15 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Prototype getFormal() {
 		if (formal != null && ((EObject) formal).eIsProxy()) {
 			InternalEObject oldFormal = (InternalEObject) formal;
 			formal = (Prototype) eResolveProxy(oldFormal);
 			if (formal != oldFormal) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.FEATURE_PROTOTYPE_BINDING__FORMAL, oldFormal, formal));
-				}
 			}
 		}
 		return formal;
@@ -168,6 +164,7 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Prototype basicGetFormal() {
 		return formal;
 	}
@@ -203,6 +200,7 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL:
@@ -216,6 +214,7 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL:
@@ -229,6 +228,7 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL:
@@ -243,6 +243,7 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL:
@@ -257,6 +258,7 @@ public class FeaturePrototypeBindingImpl extends PrototypeBindingImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL:

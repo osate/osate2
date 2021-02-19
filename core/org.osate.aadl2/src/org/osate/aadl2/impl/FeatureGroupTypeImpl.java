@@ -231,6 +231,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeatureGroupType();
 	}
@@ -240,6 +241,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<ClassifierFeature> getClassifierFeatures() {
 		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
 				Aadl2Package.FEATURE_GROUP_TYPE__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
@@ -250,6 +252,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<NamedElement> getOwnedMembers() {
 		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
 				Aadl2Package.FEATURE_GROUP_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
@@ -309,6 +312,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Classifier> getGenerals() {
 		return new DerivedUnionEObjectEList<Classifier>(Classifier.class, this,
 				Aadl2Package.FEATURE_GROUP_TYPE__GENERAL, GENERAL_ESUBSETS);
@@ -329,6 +333,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Generalization> getGeneralizations() {
 		return new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
 				Aadl2Package.FEATURE_GROUP_TYPE__GENERALIZATION, GENERALIZATION_ESUBSETS);
@@ -389,10 +394,9 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 			InternalEObject oldInverse = (InternalEObject) inverse;
 			inverse = (FeatureGroupType) eResolveProxy(oldInverse);
 			if (inverse != oldInverse) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FEATURE_GROUP_TYPE__INVERSE,
 							oldInverse, inverse));
-				}
 			}
 		}
 		return inverse;
@@ -415,10 +419,9 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	public void setInverse(FeatureGroupType newInverse) {
 		FeatureGroupType oldInverse = inverse;
 		inverse = newInverse;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_GROUP_TYPE__INVERSE, oldInverse,
 					inverse));
-		}
 	}
 
 	/**
@@ -441,11 +444,10 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION, oldOwnedExtension, newOwnedExtension);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -458,22 +460,18 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	public void setOwnedExtension(GroupExtension newOwnedExtension) {
 		if (newOwnedExtension != ownedExtension) {
 			NotificationChain msgs = null;
-			if (ownedExtension != null) {
+			if (ownedExtension != null)
 				msgs = ((InternalEObject) ownedExtension).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION, null, msgs);
-			}
-			if (newOwnedExtension != null) {
+			if (newOwnedExtension != null)
 				msgs = ((InternalEObject) newOwnedExtension).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION, null, msgs);
-			}
 			msgs = basicSetOwnedExtension(newOwnedExtension, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION,
 					newOwnedExtension, newOwnedExtension));
-		}
 	}
 
 	/**
@@ -734,6 +732,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION:
@@ -767,19 +766,18 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE:
 			return getOwnedFeatures();
 		case Aadl2Package.FEATURE_GROUP_TYPE__EXTENDED:
-			if (resolve) {
+			if (resolve)
 				return getExtended();
-			}
 			return basicGetExtended();
 		case Aadl2Package.FEATURE_GROUP_TYPE__INVERSE:
-			if (resolve) {
+			if (resolve)
 				return getInverse();
-			}
 			return basicGetInverse();
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION:
 			return getOwnedExtension();
@@ -813,6 +811,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_TYPE__EXTENDED:
@@ -873,6 +872,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_TYPE__EXTENDED:
@@ -923,6 +923,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE:
@@ -988,6 +989,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetClassifierFeatures() {
 		return super.isSetClassifierFeatures() || isSetOwnedFeatures();
 	}
@@ -997,6 +999,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedMembers() {
 		return super.isSetOwnedMembers() || isSetOwnedFeatures();
 	}
@@ -1006,6 +1009,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetGenerals() {
 		return super.isSetGenerals() || eIsSet(Aadl2Package.FEATURE_GROUP_TYPE__EXTENDED);
 	}
@@ -1015,6 +1019,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetGeneralizations() {
 		return super.isSetGeneralizations() || eIsSet(Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION);
 	}

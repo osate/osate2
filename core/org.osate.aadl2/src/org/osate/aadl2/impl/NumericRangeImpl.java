@@ -80,6 +80,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNumericRange();
 	}
@@ -104,11 +105,10 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.NUMERIC_RANGE__UPPER_BOUND, oldUpperBound, newUpperBound);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -121,22 +121,18 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	public void setUpperBound(PropertyExpression newUpperBound) {
 		if (newUpperBound != upperBound) {
 			NotificationChain msgs = null;
-			if (upperBound != null) {
+			if (upperBound != null)
 				msgs = ((InternalEObject) upperBound).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.NUMERIC_RANGE__UPPER_BOUND, null, msgs);
-			}
-			if (newUpperBound != null) {
+			if (newUpperBound != null)
 				msgs = ((InternalEObject) newUpperBound).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.NUMERIC_RANGE__UPPER_BOUND, null, msgs);
-			}
 			msgs = basicSetUpperBound(newUpperBound, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMERIC_RANGE__UPPER_BOUND,
 					newUpperBound, newUpperBound));
-		}
 	}
 
 	/**
@@ -170,11 +166,10 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.NUMERIC_RANGE__LOWER_BOUND, oldLowerBound, newLowerBound);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -187,22 +182,18 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	public void setLowerBound(PropertyExpression newLowerBound) {
 		if (newLowerBound != lowerBound) {
 			NotificationChain msgs = null;
-			if (lowerBound != null) {
+			if (lowerBound != null)
 				msgs = ((InternalEObject) lowerBound).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.NUMERIC_RANGE__LOWER_BOUND, null, msgs);
-			}
-			if (newLowerBound != null) {
+			if (newLowerBound != null)
 				msgs = ((InternalEObject) newLowerBound).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.NUMERIC_RANGE__LOWER_BOUND, null, msgs);
-			}
 			msgs = basicSetLowerBound(newLowerBound, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMERIC_RANGE__LOWER_BOUND,
 					newLowerBound, newLowerBound));
-		}
 	}
 
 	/**
@@ -221,6 +212,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.NUMERIC_RANGE__UPPER_BOUND:
@@ -236,6 +228,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NUMERIC_RANGE__UPPER_BOUND:
@@ -251,6 +244,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.NUMERIC_RANGE__UPPER_BOUND:
@@ -268,6 +262,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NUMERIC_RANGE__UPPER_BOUND:
@@ -285,6 +280,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NUMERIC_RANGE__UPPER_BOUND:

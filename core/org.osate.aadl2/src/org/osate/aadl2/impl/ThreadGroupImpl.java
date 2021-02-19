@@ -48,6 +48,7 @@ public abstract class ThreadGroupImpl extends NamedElementImpl implements org.os
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getThreadGroup();
 	}

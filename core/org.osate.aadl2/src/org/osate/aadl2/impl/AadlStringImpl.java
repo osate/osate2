@@ -49,6 +49,7 @@ public class AadlStringImpl extends NonListTypeImpl implements AadlString {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAadlString();
 	}

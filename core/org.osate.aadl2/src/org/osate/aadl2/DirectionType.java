@@ -255,6 +255,7 @@ public enum DirectionType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		return literal;
 	}

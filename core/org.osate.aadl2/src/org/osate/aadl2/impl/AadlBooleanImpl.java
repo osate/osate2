@@ -49,6 +49,7 @@ public class AadlBooleanImpl extends NonListTypeImpl implements AadlBoolean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAadlBoolean();
 	}

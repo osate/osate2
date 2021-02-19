@@ -72,6 +72,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPrototype();
 	}
@@ -86,10 +87,9 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 			InternalEObject oldRefined = (InternalEObject) refined;
 			refined = (Prototype) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PROTOTYPE__REFINED,
 							oldRefined, refined));
-				}
 			}
 		}
 		return refined;
@@ -112,10 +112,9 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	public void setRefined(Prototype newRefined) {
 		Prototype oldRefined = refined;
 		refined = newRefined;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROTOTYPE__REFINED, oldRefined,
 					refined));
-		}
 	}
 
 	/**
@@ -123,12 +122,12 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROTOTYPE__REFINED:
-			if (resolve) {
+			if (resolve)
 				return getRefined();
-			}
 			return basicGetRefined();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -139,6 +138,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PROTOTYPE__REFINED:
@@ -153,6 +153,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROTOTYPE__REFINED:
@@ -167,6 +168,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROTOTYPE__REFINED_ELEMENT:
@@ -182,6 +184,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
@@ -194,6 +197,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement basicGetRefinedElement() {
 		if (eIsSet(Aadl2Package.PROTOTYPE__REFINED)) {
 			return basicGetRefined();
@@ -206,6 +210,7 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRefinedElement() {
 		return super.isSetRefinedElement() || eIsSet(Aadl2Package.PROTOTYPE__REFINED);
 	}

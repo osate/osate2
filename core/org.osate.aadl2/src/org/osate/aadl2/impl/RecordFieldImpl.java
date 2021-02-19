@@ -49,6 +49,7 @@ public class RecordFieldImpl extends BasicPropertyImpl implements RecordField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getRecordField();
 	}

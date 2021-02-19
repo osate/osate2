@@ -70,6 +70,7 @@ public abstract class PrototypeBindingImpl extends ElementImpl implements Protot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getPrototypeBinding();
 	}
@@ -84,10 +85,9 @@ public abstract class PrototypeBindingImpl extends ElementImpl implements Protot
 			InternalEObject oldFormal = (InternalEObject) formal;
 			formal = (Prototype) eResolveProxy(oldFormal);
 			if (formal != oldFormal) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PROTOTYPE_BINDING__FORMAL,
 							oldFormal, formal));
-				}
 			}
 		}
 		return formal;
@@ -110,10 +110,9 @@ public abstract class PrototypeBindingImpl extends ElementImpl implements Protot
 	public void setFormal(Prototype newFormal) {
 		Prototype oldFormal = formal;
 		formal = newFormal;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROTOTYPE_BINDING__FORMAL, oldFormal,
 					formal));
-		}
 	}
 
 	/**
@@ -121,12 +120,12 @@ public abstract class PrototypeBindingImpl extends ElementImpl implements Protot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.PROTOTYPE_BINDING__FORMAL:
-			if (resolve) {
+			if (resolve)
 				return getFormal();
-			}
 			return basicGetFormal();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -137,6 +136,7 @@ public abstract class PrototypeBindingImpl extends ElementImpl implements Protot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.PROTOTYPE_BINDING__FORMAL:
@@ -151,6 +151,7 @@ public abstract class PrototypeBindingImpl extends ElementImpl implements Protot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROTOTYPE_BINDING__FORMAL:
@@ -165,6 +166,7 @@ public abstract class PrototypeBindingImpl extends ElementImpl implements Protot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PROTOTYPE_BINDING__FORMAL:

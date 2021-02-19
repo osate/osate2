@@ -106,6 +106,7 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getInternalFeature();
 	}
@@ -149,9 +150,8 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 	public void setIn(boolean newIn) {
 		boolean oldIn = in;
 		in = newIn;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.INTERNAL_FEATURE__IN, oldIn, in));
-		}
 	}
 
 	/**
@@ -171,9 +171,8 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 	public void setOut(boolean newOut) {
 		boolean oldOut = out;
 		out = newOut;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.INTERNAL_FEATURE__OUT, oldOut, out));
-		}
 	}
 
 	/**
@@ -181,6 +180,7 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.INTERNAL_FEATURE__DIRECTION:
@@ -198,6 +198,7 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -216,6 +217,7 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.INTERNAL_FEATURE__IN:
@@ -233,6 +235,7 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.INTERNAL_FEATURE__DIRECTION:
@@ -250,10 +253,10 @@ public abstract class InternalFeatureImpl extends StructuralFeatureImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (in: ");

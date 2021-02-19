@@ -115,6 +115,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getEndToEndFlow();
 	}
@@ -165,6 +166,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement getRefinedElement() {
 		RefinableElement refinedElement = basicGetRefinedElement();
 		return refinedElement != null && ((EObject) refinedElement).eIsProxy()
@@ -177,6 +179,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public RefinableElement basicGetRefinedElement() {
 		if (eIsSet(Aadl2Package.END_TO_END_FLOW__REFINED)) {
 			return basicGetRefined();
@@ -189,6 +192,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetRefinedElement() {
 		return super.isSetRefinedElement() || eIsSet(Aadl2Package.END_TO_END_FLOW__REFINED);
 	}
@@ -203,10 +207,9 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 			InternalEObject oldRefined = (InternalEObject) refined;
 			refined = (EndToEndFlow) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.END_TO_END_FLOW__REFINED,
 							oldRefined, refined));
-				}
 			}
 		}
 		return refined;
@@ -229,10 +232,9 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	public void setRefined(EndToEndFlow newRefined) {
 		EndToEndFlow oldRefined = refined;
 		refined = newRefined;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.END_TO_END_FLOW__REFINED, oldRefined,
 					refined));
-		}
 	}
 
 	/**
@@ -292,6 +294,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW__OWNED_END_TO_END_FLOW_SEGMENT:
@@ -305,6 +308,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW__IN_MODE:
@@ -312,9 +316,8 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 		case Aadl2Package.END_TO_END_FLOW__IN_MODE_OR_TRANSITION:
 			return getInModeOrTransitions();
 		case Aadl2Package.END_TO_END_FLOW__REFINED:
-			if (resolve) {
+			if (resolve)
 				return getRefined();
-			}
 			return basicGetRefined();
 		case Aadl2Package.END_TO_END_FLOW__OWNED_END_TO_END_FLOW_SEGMENT:
 			return getOwnedEndToEndFlowSegments();
@@ -328,6 +331,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW__IN_MODE:
@@ -354,6 +358,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW__IN_MODE:
@@ -377,6 +382,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW__IN_MODE:
@@ -398,6 +404,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (derivedFeatureID) {
@@ -429,6 +436,7 @@ public class EndToEndFlowImpl extends FlowFeatureImpl implements EndToEndFlow {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
 		if (baseClass == ModalElement.class) {
 			switch (baseFeatureID) {

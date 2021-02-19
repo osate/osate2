@@ -83,6 +83,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getRealLiteral();
 	}
@@ -104,9 +105,8 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	public void setValue(double newValue) {
 		double oldValue = value;
 		value = newValue;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.REAL_LITERAL__VALUE, oldValue, value));
-		}
 	}
 
 	/**
@@ -114,6 +114,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.REAL_LITERAL__VALUE:
@@ -127,6 +128,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.REAL_LITERAL__VALUE:
@@ -141,6 +143,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.REAL_LITERAL__VALUE:
@@ -155,6 +158,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.REAL_LITERAL__VALUE:

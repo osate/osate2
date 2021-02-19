@@ -70,6 +70,7 @@ public class FeatureGroupPrototypeImpl extends PrototypeImpl implements FeatureG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getFeatureGroupPrototype();
 	}
@@ -84,11 +85,10 @@ public class FeatureGroupPrototypeImpl extends PrototypeImpl implements FeatureG
 			InternalEObject oldConstrainingFeatureGroupType = (InternalEObject) constrainingFeatureGroupType;
 			constrainingFeatureGroupType = (FeatureGroupType) eResolveProxy(oldConstrainingFeatureGroupType);
 			if (constrainingFeatureGroupType != oldConstrainingFeatureGroupType) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.FEATURE_GROUP_PROTOTYPE__CONSTRAINING_FEATURE_GROUP_TYPE,
 							oldConstrainingFeatureGroupType, constrainingFeatureGroupType));
-				}
 			}
 		}
 		return constrainingFeatureGroupType;
@@ -111,11 +111,10 @@ public class FeatureGroupPrototypeImpl extends PrototypeImpl implements FeatureG
 	public void setConstrainingFeatureGroupType(FeatureGroupType newConstrainingFeatureGroupType) {
 		FeatureGroupType oldConstrainingFeatureGroupType = constrainingFeatureGroupType;
 		constrainingFeatureGroupType = newConstrainingFeatureGroupType;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.FEATURE_GROUP_PROTOTYPE__CONSTRAINING_FEATURE_GROUP_TYPE,
 					oldConstrainingFeatureGroupType, constrainingFeatureGroupType));
-		}
 	}
 
 	/**
@@ -123,12 +122,12 @@ public class FeatureGroupPrototypeImpl extends PrototypeImpl implements FeatureG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE__CONSTRAINING_FEATURE_GROUP_TYPE:
-			if (resolve) {
+			if (resolve)
 				return getConstrainingFeatureGroupType();
-			}
 			return basicGetConstrainingFeatureGroupType();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -139,6 +138,7 @@ public class FeatureGroupPrototypeImpl extends PrototypeImpl implements FeatureG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE__CONSTRAINING_FEATURE_GROUP_TYPE:
@@ -153,6 +153,7 @@ public class FeatureGroupPrototypeImpl extends PrototypeImpl implements FeatureG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE__CONSTRAINING_FEATURE_GROUP_TYPE:
@@ -167,6 +168,7 @@ public class FeatureGroupPrototypeImpl extends PrototypeImpl implements FeatureG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE__CONSTRAINING_FEATURE_GROUP_TYPE:

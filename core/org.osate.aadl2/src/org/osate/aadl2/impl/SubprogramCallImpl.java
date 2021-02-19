@@ -89,6 +89,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getSubprogramCall();
 	}
@@ -103,10 +104,9 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 			InternalEObject oldCalledSubprogram = (InternalEObject) calledSubprogram;
 			calledSubprogram = (CalledSubprogram) eResolveProxy(oldCalledSubprogram);
 			if (calledSubprogram != oldCalledSubprogram) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM, oldCalledSubprogram, calledSubprogram));
-				}
 			}
 		}
 		return calledSubprogram;
@@ -129,10 +129,9 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	public void setCalledSubprogram(CalledSubprogram newCalledSubprogram) {
 		CalledSubprogram oldCalledSubprogram = calledSubprogram;
 		calledSubprogram = newCalledSubprogram;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM,
 					oldCalledSubprogram, calledSubprogram));
-		}
 	}
 
 	/**
@@ -145,10 +144,9 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 			InternalEObject oldContext = (InternalEObject) context;
 			context = (CallContext) eResolveProxy(oldContext);
 			if (context != oldContext) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.SUBPROGRAM_CALL__CONTEXT,
 							oldContext, context));
-				}
 			}
 		}
 		return context;
@@ -171,10 +169,9 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	public void setContext(CallContext newContext) {
 		CallContext oldContext = context;
 		context = newContext;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBPROGRAM_CALL__CONTEXT, oldContext,
 					context));
-		}
 	}
 
 	/**
@@ -182,17 +179,16 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:
-			if (resolve) {
+			if (resolve)
 				return getCalledSubprogram();
-			}
 			return basicGetCalledSubprogram();
 		case Aadl2Package.SUBPROGRAM_CALL__CONTEXT:
-			if (resolve) {
+			if (resolve)
 				return getContext();
-			}
 			return basicGetContext();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -203,6 +199,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:
@@ -220,6 +217,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:
@@ -237,6 +235,7 @@ public class SubprogramCallImpl extends BehavioralFeatureImpl implements Subprog
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM:

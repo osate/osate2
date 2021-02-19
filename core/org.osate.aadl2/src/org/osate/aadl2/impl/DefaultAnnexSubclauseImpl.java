@@ -91,6 +91,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getDefaultAnnexSubclause();
 	}
@@ -112,10 +113,9 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	public void setSourceText(String newSourceText) {
 		String oldSourceText = sourceText;
 		sourceText = newSourceText;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__SOURCE_TEXT,
 					oldSourceText, sourceText));
-		}
 	}
 
 	/**
@@ -140,11 +140,10 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__PARSED_ANNEX_SUBCLAUSE, oldParsedAnnexSubclause,
 					newParsedAnnexSubclause);
-			if (msgs == null) {
+			if (msgs == null)
 				msgs = notification;
-			} else {
+			else
 				msgs.add(notification);
-			}
 		}
 		return msgs;
 	}
@@ -157,25 +156,21 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	public void setParsedAnnexSubclause(AnnexSubclause newParsedAnnexSubclause) {
 		if (newParsedAnnexSubclause != parsedAnnexSubclause) {
 			NotificationChain msgs = null;
-			if (parsedAnnexSubclause != null) {
+			if (parsedAnnexSubclause != null)
 				msgs = ((InternalEObject) parsedAnnexSubclause).eInverseRemove(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__PARSED_ANNEX_SUBCLAUSE, null,
 						msgs);
-			}
-			if (newParsedAnnexSubclause != null) {
+			if (newParsedAnnexSubclause != null)
 				msgs = ((InternalEObject) newParsedAnnexSubclause).eInverseAdd(this,
 						EOPPOSITE_FEATURE_BASE - Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__PARSED_ANNEX_SUBCLAUSE, null,
 						msgs);
-			}
 			msgs = basicSetParsedAnnexSubclause(newParsedAnnexSubclause, msgs);
-			if (msgs != null) {
+			if (msgs != null)
 				msgs.dispatch();
-			}
-		} else if (eNotificationRequired()) {
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__PARSED_ANNEX_SUBCLAUSE, newParsedAnnexSubclause,
 					newParsedAnnexSubclause));
-		}
 	}
 
 	/**
@@ -203,6 +198,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__PARSED_ANNEX_SUBCLAUSE:
@@ -216,6 +212,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__SOURCE_TEXT:
@@ -231,6 +228,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__SOURCE_TEXT:
@@ -248,6 +246,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__SOURCE_TEXT:
@@ -265,6 +264,7 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__SOURCE_TEXT:
@@ -280,10 +280,10 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (sourceText: ");

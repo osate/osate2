@@ -88,6 +88,7 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getComponentImplementationReference();
 	}
@@ -102,11 +103,10 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 			InternalEObject oldImplementation = (InternalEObject) implementation;
 			implementation = (ComponentImplementation) eResolveProxy(oldImplementation);
 			if (implementation != oldImplementation) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION, oldImplementation,
 							implementation));
-				}
 			}
 		}
 		return implementation;
@@ -129,11 +129,10 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 	public void setImplementation(ComponentImplementation newImplementation) {
 		ComponentImplementation oldImplementation = implementation;
 		implementation = newImplementation;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION, oldImplementation,
 					implementation));
-		}
 	}
 
 	/**
@@ -165,6 +164,7 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__OWNED_PROTOTYPE_BINDING:
@@ -178,12 +178,12 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION:
-			if (resolve) {
+			if (resolve)
 				return getImplementation();
-			}
 			return basicGetImplementation();
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__OWNED_PROTOTYPE_BINDING:
 			return getOwnedPrototypeBindings();
@@ -197,6 +197,7 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION:
@@ -215,6 +216,7 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION:
@@ -232,6 +234,7 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION:

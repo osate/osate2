@@ -49,6 +49,7 @@ public abstract class NonListTypeImpl extends PropertyTypeImpl implements NonLis
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNonListType();
 	}

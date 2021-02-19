@@ -126,6 +126,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAccessSpecification();
 	}
@@ -147,10 +148,9 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	public void setKind(AccessType newKind) {
 		AccessType oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS_SPECIFICATION__KIND, oldKind,
 					kind));
-		}
 	}
 
 	/**
@@ -170,10 +170,9 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	public void setCategory(AccessCategory newCategory) {
 		AccessCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS_SPECIFICATION__CATEGORY,
 					oldCategory, category));
-		}
 	}
 
 	/**
@@ -186,10 +185,9 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 			InternalEObject oldClassifier = (InternalEObject) classifier;
 			classifier = (ComponentClassifier) eResolveProxy(oldClassifier);
 			if (classifier != oldClassifier) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.ACCESS_SPECIFICATION__CLASSIFIER, oldClassifier, classifier));
-				}
 			}
 		}
 		return classifier;
@@ -212,10 +210,9 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	public void setClassifier(ComponentClassifier newClassifier) {
 		ComponentClassifier oldClassifier = classifier;
 		classifier = newClassifier;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS_SPECIFICATION__CLASSIFIER,
 					oldClassifier, classifier));
-		}
 	}
 
 	/**
@@ -228,11 +225,10 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 			InternalEObject oldComponentPrototype = (InternalEObject) componentPrototype;
 			componentPrototype = (ComponentPrototype) eResolveProxy(oldComponentPrototype);
 			if (componentPrototype != oldComponentPrototype) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.ACCESS_SPECIFICATION__COMPONENT_PROTOTYPE, oldComponentPrototype,
 							componentPrototype));
-				}
 			}
 		}
 		return componentPrototype;
@@ -255,10 +251,9 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	public void setComponentPrototype(ComponentPrototype newComponentPrototype) {
 		ComponentPrototype oldComponentPrototype = componentPrototype;
 		componentPrototype = newComponentPrototype;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.ACCESS_SPECIFICATION__COMPONENT_PROTOTYPE, oldComponentPrototype, componentPrototype));
-		}
 	}
 
 	/**
@@ -266,6 +261,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS_SPECIFICATION__KIND:
@@ -273,14 +269,12 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 		case Aadl2Package.ACCESS_SPECIFICATION__CATEGORY:
 			return getCategory();
 		case Aadl2Package.ACCESS_SPECIFICATION__CLASSIFIER:
-			if (resolve) {
+			if (resolve)
 				return getClassifier();
-			}
 			return basicGetClassifier();
 		case Aadl2Package.ACCESS_SPECIFICATION__COMPONENT_PROTOTYPE:
-			if (resolve) {
+			if (resolve)
 				return getComponentPrototype();
-			}
 			return basicGetComponentPrototype();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -291,6 +285,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS_SPECIFICATION__KIND:
@@ -314,6 +309,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS_SPECIFICATION__KIND:
@@ -337,6 +333,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.ACCESS_SPECIFICATION__KIND:
@@ -356,10 +353,10 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
-		if (eIsProxy()) {
+		if (eIsProxy())
 			return super.toString();
-		}
 
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (kind: ");

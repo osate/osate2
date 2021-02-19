@@ -82,6 +82,7 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getEndToEndFlowSegment();
 	}
@@ -96,10 +97,9 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 			InternalEObject oldFlowElement = (InternalEObject) flowElement;
 			flowElement = (EndToEndFlowElement) eResolveProxy(oldFlowElement);
 			if (flowElement != oldFlowElement) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT, oldFlowElement, flowElement));
-				}
 			}
 		}
 		return flowElement;
@@ -122,10 +122,9 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	public void setFlowElement(EndToEndFlowElement newFlowElement) {
 		EndToEndFlowElement oldFlowElement = flowElement;
 		flowElement = newFlowElement;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT,
 					oldFlowElement, flowElement));
-		}
 	}
 
 	/**
@@ -138,10 +137,9 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 			InternalEObject oldContext = (InternalEObject) context;
 			context = (Context) eResolveProxy(oldContext);
 			if (context != oldContext) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT, oldContext, context));
-				}
 			}
 		}
 		return context;
@@ -164,10 +162,9 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	public void setContext(Context newContext) {
 		Context oldContext = context;
 		context = newContext;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT,
 					oldContext, context));
-		}
 	}
 
 	/**
@@ -175,17 +172,16 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:
-			if (resolve) {
+			if (resolve)
 				return getFlowElement();
-			}
 			return basicGetFlowElement();
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT:
-			if (resolve) {
+			if (resolve)
 				return getContext();
-			}
 			return basicGetContext();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -196,6 +192,7 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:
@@ -213,6 +210,7 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:
@@ -230,6 +228,7 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT:

@@ -73,6 +73,7 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getEventDataPort();
 	}
@@ -82,6 +83,7 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
 		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy()
@@ -94,6 +96,7 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public FeatureClassifier basicGetFeatureClassifier() {
 		if (eIsSet(Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER)) {
 			return basicGetDataFeatureClassifier();
@@ -111,11 +114,10 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 			InternalEObject oldDataFeatureClassifier = (InternalEObject) dataFeatureClassifier;
 			dataFeatureClassifier = (DataSubcomponentType) eResolveProxy(oldDataFeatureClassifier);
 			if (dataFeatureClassifier != oldDataFeatureClassifier) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER, oldDataFeatureClassifier,
 							dataFeatureClassifier));
-				}
 			}
 		}
 		return dataFeatureClassifier;
@@ -138,10 +140,9 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	public void setDataFeatureClassifier(DataSubcomponentType newDataFeatureClassifier) {
 		DataSubcomponentType oldDataFeatureClassifier = dataFeatureClassifier;
 		dataFeatureClassifier = newDataFeatureClassifier;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER,
 					oldDataFeatureClassifier, dataFeatureClassifier));
-		}
 	}
 
 	/**
@@ -149,12 +150,12 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER:
-			if (resolve) {
+			if (resolve)
 				return getDataFeatureClassifier();
-			}
 			return basicGetDataFeatureClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -165,6 +166,7 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER:
@@ -179,6 +181,7 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER:
@@ -193,6 +196,7 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.EVENT_DATA_PORT__FEATURE_CLASSIFIER:
@@ -208,6 +212,7 @@ public class EventDataPortImpl extends PortImpl implements EventDataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetFeatureClassifier() {
 		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.EVENT_DATA_PORT__DATA_FEATURE_CLASSIFIER);
 	}

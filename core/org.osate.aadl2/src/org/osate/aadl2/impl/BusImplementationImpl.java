@@ -80,6 +80,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getBusImplementation();
 	}
@@ -89,6 +90,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Subcomponent> getOwnedSubcomponents() {
 		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
 				Aadl2Package.BUS_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
@@ -149,6 +151,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
@@ -188,6 +191,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
@@ -202,6 +206,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
@@ -217,6 +222,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
@@ -231,6 +237,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.BUS_IMPLEMENTATION__OWNED_SUBCOMPONENT:
@@ -248,6 +255,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isSetOwnedSubcomponents() {
 		return super.isSetOwnedSubcomponents()
 				|| eIsSet(Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);

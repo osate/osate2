@@ -75,6 +75,7 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getClassifierValue();
 	}
@@ -89,10 +90,9 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 			InternalEObject oldClassifier = (InternalEObject) classifier;
 			classifier = (Classifier) eResolveProxy(oldClassifier);
 			if (classifier != oldClassifier) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER,
 							oldClassifier, classifier));
-				}
 			}
 		}
 		return classifier;
@@ -115,10 +115,9 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	public void setClassifier(Classifier newClassifier) {
 		Classifier oldClassifier = classifier;
 		classifier = newClassifier;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER,
 					oldClassifier, classifier));
-		}
 	}
 
 	/**
@@ -126,12 +125,12 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER:
-			if (resolve) {
+			if (resolve)
 				return getClassifier();
-			}
 			return basicGetClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -142,6 +141,7 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER:
@@ -156,6 +156,7 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER:
@@ -170,6 +171,7 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_VALUE__CLASSIFIER:

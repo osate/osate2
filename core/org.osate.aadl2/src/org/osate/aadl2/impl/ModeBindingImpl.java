@@ -81,6 +81,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getModeBinding();
 	}
@@ -95,10 +96,9 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 			InternalEObject oldParentMode = (InternalEObject) parentMode;
 			parentMode = (Mode) eResolveProxy(oldParentMode);
 			if (parentMode != oldParentMode) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.MODE_BINDING__PARENT_MODE,
 							oldParentMode, parentMode));
-				}
 			}
 		}
 		return parentMode;
@@ -121,10 +121,9 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	public void setParentMode(Mode newParentMode) {
 		Mode oldParentMode = parentMode;
 		parentMode = newParentMode;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE_BINDING__PARENT_MODE, oldParentMode,
 					parentMode));
-		}
 	}
 
 	/**
@@ -137,10 +136,9 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 			InternalEObject oldDerivedMode = (InternalEObject) derivedMode;
 			derivedMode = (Mode) eResolveProxy(oldDerivedMode);
 			if (derivedMode != oldDerivedMode) {
-				if (eNotificationRequired()) {
+				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.MODE_BINDING__DERIVED_MODE,
 							oldDerivedMode, derivedMode));
-				}
 			}
 		}
 		return derivedMode;
@@ -163,10 +161,9 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	public void setDerivedMode(Mode newDerivedMode) {
 		Mode oldDerivedMode = derivedMode;
 		derivedMode = newDerivedMode;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE_BINDING__DERIVED_MODE,
 					oldDerivedMode, derivedMode));
-		}
 	}
 
 	/**
@@ -174,17 +171,16 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.MODE_BINDING__PARENT_MODE:
-			if (resolve) {
+			if (resolve)
 				return getParentMode();
-			}
 			return basicGetParentMode();
 		case Aadl2Package.MODE_BINDING__DERIVED_MODE:
-			if (resolve) {
+			if (resolve)
 				return getDerivedMode();
-			}
 			return basicGetDerivedMode();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -195,6 +191,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.MODE_BINDING__PARENT_MODE:
@@ -212,6 +209,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODE_BINDING__PARENT_MODE:
@@ -229,6 +227,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MODE_BINDING__PARENT_MODE:

@@ -52,6 +52,7 @@ public abstract class AnnexSubclauseImpl extends ModalElementImpl implements Ann
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAnnexSubclause();
 	}

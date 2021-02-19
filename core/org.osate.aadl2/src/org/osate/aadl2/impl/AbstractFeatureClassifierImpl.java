@@ -51,6 +51,7 @@ public class AbstractFeatureClassifierImpl extends FeatureClassifierImpl impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getAbstractFeatureClassifier();
 	}

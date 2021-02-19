@@ -55,6 +55,7 @@ public class EnumerationLiteralImpl extends NamedElementImpl implements Enumerat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getEnumerationLiteral();
 	}

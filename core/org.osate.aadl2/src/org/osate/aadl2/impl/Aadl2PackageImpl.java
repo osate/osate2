@@ -10461,8 +10461,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(flowEndEClass, FlowEnd.class, "FlowEnd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFlowEnd_Context(), getContext(), null, "context", null, 0, 1, FlowEnd.class, !IS_TRANSIENT,
-				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+		initEReference(getFlowEnd_Context(), getFlowEnd(), null, "context", null, 0, 1, FlowEnd.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				!IS_ORDERED);
 		initEReference(getFlowEnd_Feature(), getFeature(), null, "feature", null, 1, 1, FlowEnd.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,

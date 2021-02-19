@@ -50,6 +50,7 @@ public class VirtualProcessorPrototypeImpl extends ComponentPrototypeImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getVirtualProcessorPrototype();
 	}
