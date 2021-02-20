@@ -475,14 +475,6 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		(context.allModes + context.allModeTransitions).scopeFor
 	}
 
-	// Reference is from FlowEnd in Aadl2.xtext
-	/**
-	 * @since 6.0
-	 */
-	def scope_FlowEnd_context(ComponentClassifier context, EReference reference) {
-		context.allContexts.filterRefined.scopeFor
-	}
-
 	/*
 	 * Reference is from FlowEnd in Aadl2.xtext
 	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the FlowEnd.  When the FlowEnd
@@ -493,19 +485,27 @@ class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	/**
 	 * @since 6.0
 	 */
-	def scope_FlowEnd_feature(Flow context, EReference reference) {
-		context.getContainerOfType(Classifier).getAllFeatures().filterRefined.scopeFor
-	}
+//	def scope_FlowEnd_feature(Flow context, EReference reference) {
+//		context.getContainerOfType(Classifier).getAllFeatures().filterRefined.scopeFor
+//	}
 
 	/*
 	 * Reference is from FlowEnd in Aadl2.xtext
 	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the FlowEnd.  When the FlowEnd
 	 * is a qualified reference, e.g. "featuregroup1.port1", then the passed context is a FlowEnd and we can access and check the FlowEnd's Context object.
 	 */
-	def scope_FlowEnd_feature(FlowEnd context, EReference reference) {
-		context.context?.scopeForElementsOfContext(context.getContainerOfType(Classifier), [
-			getAllFeatures().filterRefined
-		])
+	def scope_FlowEnd_feature(FlowEnd end, EReference reference) {
+		val prev = end.context
+		if (prev === null)
+			end.getContainerOfType(Classifier).allFeatures.filterRefined.scopeFor
+		else {
+			val feature = prev.feature
+			val classifier = feature.allClassifier
+			if (classifier === null)
+				IScope.NULLSCOPE
+			else
+				classifier.allFeatures.filterRefined.scopeFor
+		}
 	}
 
 	// Reference is from FlowSpecRefinement in Aadl2.xtext
