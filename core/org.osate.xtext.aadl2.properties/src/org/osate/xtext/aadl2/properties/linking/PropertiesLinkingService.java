@@ -260,7 +260,12 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				}
 			} else if (context instanceof FlowEnd) {
 				FlowEnd flowEnd = (FlowEnd) context;
-				searchResult = findElementInContext(flowEnd, flowEnd.getContext(), name, Feature.class);
+				FlowEnd prev = flowEnd.getContext();
+				Context ctx = null;
+				if (prev != null) {
+					ctx = (Context) prev.getFeature();
+				}
+				searchResult = findElementInContext(flowEnd, ctx, name, Feature.class);
 			}
 
 		} else if (Aadl2Package.eINSTANCE.getSubcomponent().isSuperTypeOf(requiredType)) {
