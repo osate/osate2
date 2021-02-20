@@ -956,13 +956,6 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 		}
 	}
 	
-	override completeFlowEnd_Context(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [ 
-			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model)
-			proposedObj instanceof FeatureGroup
-		])
-	}
-
 	override completeFlowEnd_Feature(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [ 
 			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model)
