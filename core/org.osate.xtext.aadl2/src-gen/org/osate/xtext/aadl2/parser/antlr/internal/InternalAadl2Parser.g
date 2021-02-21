@@ -32798,14 +32798,33 @@ ruleFlowEnd returns [EObject current=null]
 		(
 			(
 				{
+					newCompositeNode(grammarAccess.getFlowEndAccess().getArrayRangeArrayIndexParserRuleCall_1_0());
+				}
+				lv_arrayRange_1_0=ruleArrayIndex
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getFlowEndRule());
+					}
+					set(
+						$current,
+						"arrayRange",
+						lv_arrayRange_1_0,
+						"org.osate.xtext.aadl2.Aadl2.ArrayIndex");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)?
+		(
+			(
+				{
 					$current = forceCreateModelElementAndSet(
-						grammarAccess.getFlowEndAccess().getFlowEndContextAction_1_0(),
+						grammarAccess.getFlowEndAccess().getFlowEndContextAction_2_0(),
 						$current);
 				}
 			)
-			otherlv_2=FullStop
+			otherlv_3=FullStop
 			{
-				newLeafNode(otherlv_2, grammarAccess.getFlowEndAccess().getFullStopKeyword_1_1());
+				newLeafNode(otherlv_3, grammarAccess.getFlowEndAccess().getFullStopKeyword_2_1());
 			}
 			(
 				(
@@ -32814,13 +32833,59 @@ ruleFlowEnd returns [EObject current=null]
 							$current = createModelElement(grammarAccess.getFlowEndRule());
 						}
 					}
-					otherlv_3=RULE_ID
+					otherlv_4=RULE_ID
 					{
-						newLeafNode(otherlv_3, grammarAccess.getFlowEndAccess().getFeatureFeatureCrossReference_1_2_0());
+						newLeafNode(otherlv_4, grammarAccess.getFlowEndAccess().getFeatureFeatureCrossReference_2_2_0());
 					}
 				)
 			)
 		)*
+	)
+;
+
+// Entry rule entryRuleArrayIndex
+entryRuleArrayIndex returns [EObject current=null]:
+	{ newCompositeNode(grammarAccess.getArrayIndexRule()); }
+	iv_ruleArrayIndex=ruleArrayIndex
+	{ $current=$iv_ruleArrayIndex.current; }
+	EOF;
+
+// Rule ArrayIndex
+ruleArrayIndex returns [EObject current=null]
+@init {
+	enterRule();
+}
+@after {
+	leaveRule();
+}:
+	(
+		otherlv_0=LeftSquareBracket
+		{
+			newLeafNode(otherlv_0, grammarAccess.getArrayIndexAccess().getLeftSquareBracketKeyword_0());
+		}
+		(
+			(
+				{
+					newCompositeNode(grammarAccess.getArrayIndexAccess().getLowerBoundINTVALUEParserRuleCall_1_0());
+				}
+				lv_lowerBound_1_0=ruleINTVALUE
+				{
+					if ($current==null) {
+						$current = createModelElementForParent(grammarAccess.getArrayIndexRule());
+					}
+					set(
+						$current,
+						"lowerBound",
+						lv_lowerBound_1_0,
+						"org.osate.xtext.aadl2.properties.Properties.INTVALUE");
+					afterParserOrEnumRuleCall();
+				}
+			)
+		)
+		otherlv_2=RightSquareBracket
+		{
+			newLeafNode(otherlv_2, grammarAccess.getArrayIndexAccess().getRightSquareBracketKeyword_2());
+		}
 	)
 ;
 

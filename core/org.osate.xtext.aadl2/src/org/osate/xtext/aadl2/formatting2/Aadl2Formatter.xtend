@@ -193,6 +193,7 @@ import org.osate.annexsupport.AnnexUtil
 import org.osate.annexsupport.ParseResultHolder
 import org.osate.xtext.aadl2.properties.formatting2.PropertiesFormatter
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
+import org.osate.aadl2.ArrayRange
 
 /**
  * @since 5.0
@@ -2215,7 +2216,16 @@ class Aadl2Formatter extends PropertiesFormatter {
 	}
 	
 	def dispatch void format(FlowEnd flowEnd, extension IFormattableDocument document) {
-		flowEnd.regionFor.keyword(flowEndAccess.fullStopKeyword_0_1).surround[noSpace]
+		flowEnd.arrayRange?.surround[noSpace]
+		flowEnd.arrayRange?.format(document)
+		flowEnd.regionFor.keyword(".").surround[noSpace]
+		flowEnd.context?.format(document)
+	}
+	
+	override dispatch void format(ArrayRange arrayRange, extension IFormattableDocument document) {
+		arrayRange.regionFor.keyword('[').append[noSpace]
+		arrayRange.regionFor.keyword("..").surround[oneSpace]
+		arrayRange.regionFor.keyword(']').prepend[noSpace]
 	}
 	
 	def dispatch void format(FlowImplementation flowImplementation, extension IFormattableDocument document) {

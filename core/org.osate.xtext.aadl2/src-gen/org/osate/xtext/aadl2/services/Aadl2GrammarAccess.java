@@ -22803,18 +22803,20 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cFeatureAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final CrossReference cFeatureFeatureCrossReference_0_0 = (CrossReference)cFeatureAssignment_0.eContents().get(0);
 		private final RuleCall cFeatureFeatureIDTerminalRuleCall_0_0_1 = (RuleCall)cFeatureFeatureCrossReference_0_0.eContents().get(1);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Action cFlowEndContextAction_1_0 = (Action)cGroup_1.eContents().get(0);
-		private final Keyword cFullStopKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		private final Assignment cFeatureAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final CrossReference cFeatureFeatureCrossReference_1_2_0 = (CrossReference)cFeatureAssignment_1_2.eContents().get(0);
-		private final RuleCall cFeatureFeatureIDTerminalRuleCall_1_2_0_1 = (RuleCall)cFeatureFeatureCrossReference_1_2_0.eContents().get(1);
+		private final Assignment cArrayRangeAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cArrayRangeArrayIndexParserRuleCall_1_0 = (RuleCall)cArrayRangeAssignment_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Action cFlowEndContextAction_2_0 = (Action)cGroup_2.eContents().get(0);
+		private final Keyword cFullStopKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
+		private final Assignment cFeatureAssignment_2_2 = (Assignment)cGroup_2.eContents().get(2);
+		private final CrossReference cFeatureFeatureCrossReference_2_2_0 = (CrossReference)cFeatureAssignment_2_2.eContents().get(0);
+		private final RuleCall cFeatureFeatureIDTerminalRuleCall_2_2_0_1 = (RuleCall)cFeatureFeatureCrossReference_2_2_0.eContents().get(1);
 		
 		//FlowEnd aadl2::FlowEnd:
-		//	feature=[aadl2::Feature] ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*;
+		//	feature=[aadl2::Feature] arrayRange=ArrayIndex? ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//feature=[aadl2::Feature] ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*
+		//feature=[aadl2::Feature] arrayRange=ArrayIndex? ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*
 		public Group getGroup() { return cGroup; }
 		
 		//feature=[aadl2::Feature]
@@ -22826,23 +22828,56 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getFeatureFeatureIDTerminalRuleCall_0_0_1() { return cFeatureFeatureIDTerminalRuleCall_0_0_1; }
 		
+		//arrayRange=ArrayIndex?
+		public Assignment getArrayRangeAssignment_1() { return cArrayRangeAssignment_1; }
+		
+		//ArrayIndex
+		public RuleCall getArrayRangeArrayIndexParserRuleCall_1_0() { return cArrayRangeArrayIndexParserRuleCall_1_0; }
+		
 		//({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*
-		public Group getGroup_1() { return cGroup_1; }
+		public Group getGroup_2() { return cGroup_2; }
 		
 		//{aadl2::FlowEnd.context=current}
-		public Action getFlowEndContextAction_1_0() { return cFlowEndContextAction_1_0; }
+		public Action getFlowEndContextAction_2_0() { return cFlowEndContextAction_2_0; }
 		
 		//"."
-		public Keyword getFullStopKeyword_1_1() { return cFullStopKeyword_1_1; }
+		public Keyword getFullStopKeyword_2_1() { return cFullStopKeyword_2_1; }
 		
 		//feature=[aadl2::Feature]
-		public Assignment getFeatureAssignment_1_2() { return cFeatureAssignment_1_2; }
+		public Assignment getFeatureAssignment_2_2() { return cFeatureAssignment_2_2; }
 		
 		//[aadl2::Feature]
-		public CrossReference getFeatureFeatureCrossReference_1_2_0() { return cFeatureFeatureCrossReference_1_2_0; }
+		public CrossReference getFeatureFeatureCrossReference_2_2_0() { return cFeatureFeatureCrossReference_2_2_0; }
 		
 		//ID
-		public RuleCall getFeatureFeatureIDTerminalRuleCall_1_2_0_1() { return cFeatureFeatureIDTerminalRuleCall_1_2_0_1; }
+		public RuleCall getFeatureFeatureIDTerminalRuleCall_2_2_0_1() { return cFeatureFeatureIDTerminalRuleCall_2_2_0_1; }
+	}
+	public class ArrayIndexElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.ArrayIndex");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cLowerBoundAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cLowerBoundINTVALUEParserRuleCall_1_0 = (RuleCall)cLowerBoundAssignment_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		
+		//ArrayIndex aadl2::ArrayRange:
+		//	'[' lowerBound=INTVALUE ']';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'[' lowerBound=INTVALUE ']'
+		public Group getGroup() { return cGroup; }
+		
+		//'['
+		public Keyword getLeftSquareBracketKeyword_0() { return cLeftSquareBracketKeyword_0; }
+		
+		//lowerBound=INTVALUE
+		public Assignment getLowerBoundAssignment_1() { return cLowerBoundAssignment_1; }
+		
+		//INTVALUE
+		public RuleCall getLowerBoundINTVALUEParserRuleCall_1_0() { return cLowerBoundINTVALUEParserRuleCall_1_0; }
+		
+		//']'
+		public Keyword getRightSquareBracketKeyword_2() { return cRightSquareBracketKeyword_2; }
 	}
 	public class FlowSpecRefinementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.FlowSpecRefinement");
@@ -27511,6 +27546,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private final FlowSinkSpecElements pFlowSinkSpec;
 	private final FlowPathSpecElements pFlowPathSpec;
 	private final FlowEndElements pFlowEnd;
+	private final ArrayIndexElements pArrayIndex;
 	private final FlowSpecRefinementElements pFlowSpecRefinement;
 	private final FlowImplementationElements pFlowImplementation;
 	private final FlowSourceImplElements pFlowSourceImpl;
@@ -27754,6 +27790,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		this.pFlowSinkSpec = new FlowSinkSpecElements();
 		this.pFlowPathSpec = new FlowPathSpecElements();
 		this.pFlowEnd = new FlowEndElements();
+		this.pArrayIndex = new ArrayIndexElements();
 		this.pFlowSpecRefinement = new FlowSpecRefinementElements();
 		this.pFlowImplementation = new FlowImplementationElements();
 		this.pFlowSourceImpl = new FlowSourceImplElements();
@@ -29909,13 +29946,23 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//FlowEnd aadl2::FlowEnd:
-	//	feature=[aadl2::Feature] ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*;
+	//	feature=[aadl2::Feature] arrayRange=ArrayIndex? ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*;
 	public FlowEndElements getFlowEndAccess() {
 		return pFlowEnd;
 	}
 	
 	public ParserRule getFlowEndRule() {
 		return getFlowEndAccess().getRule();
+	}
+	
+	//ArrayIndex aadl2::ArrayRange:
+	//	'[' lowerBound=INTVALUE ']';
+	public ArrayIndexElements getArrayIndexAccess() {
+		return pArrayIndex;
+	}
+	
+	public ParserRule getArrayIndexRule() {
+		return getArrayIndexAccess().getRule();
 	}
 	
 	//FlowSpecRefinement aadl2::FlowSpecification:

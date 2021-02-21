@@ -1291,7 +1291,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getFlowPathSpecAccess().getGroup_8(), "rule__FlowPathSpec__Group_8__0");
 				builder.put(grammarAccess.getFlowPathSpecAccess().getGroup_8_3(), "rule__FlowPathSpec__Group_8_3__0");
 				builder.put(grammarAccess.getFlowEndAccess().getGroup(), "rule__FlowEnd__Group__0");
-				builder.put(grammarAccess.getFlowEndAccess().getGroup_1(), "rule__FlowEnd__Group_1__0");
+				builder.put(grammarAccess.getFlowEndAccess().getGroup_2(), "rule__FlowEnd__Group_2__0");
+				builder.put(grammarAccess.getArrayIndexAccess().getGroup(), "rule__ArrayIndex__Group__0");
 				builder.put(grammarAccess.getFlowSpecRefinementAccess().getGroup(), "rule__FlowSpecRefinement__Group__0");
 				builder.put(grammarAccess.getFlowSpecRefinementAccess().getGroup_5(), "rule__FlowSpecRefinement__Group_5__0");
 				builder.put(grammarAccess.getFlowSpecRefinementAccess().getGroup_6(), "rule__FlowSpecRefinement__Group_6__0");
@@ -2538,12 +2539,12 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getDataPortAccess().getOwnedPropertyAssociationAssignment_6_1(), "rule__DataPort__OwnedPropertyAssociationAssignment_6_1");
 				builder.put(grammarAccess.getEventDataPortAccess().getNameAssignment_1_0_0(), "rule__EventDataPort__NameAssignment_1_0_0");
 				builder.put(grammarAccess.getEventDataPortAccess().getRefinedAssignment_1_1_0(), "rule__EventDataPort__RefinedAssignment_1_1_0");
-				builder.put(grammarAccess.getEventDataPortAccess().getInAssignment_2_0_0(), "rule__EventDataPort__InAssignment_2_0_0");
 			}
 		}
 		
 		private static final class Init1 {
 			private static void doInit(ImmutableMap.Builder<AbstractElement, String> builder, Aadl2GrammarAccess grammarAccess) {
+				builder.put(grammarAccess.getEventDataPortAccess().getInAssignment_2_0_0(), "rule__EventDataPort__InAssignment_2_0_0");
 				builder.put(grammarAccess.getEventDataPortAccess().getOutAssignment_2_0_1(), "rule__EventDataPort__OutAssignment_2_0_1");
 				builder.put(grammarAccess.getEventDataPortAccess().getOutAssignment_2_1(), "rule__EventDataPort__OutAssignment_2_1");
 				builder.put(grammarAccess.getEventDataPortAccess().getDataFeatureClassifierAssignment_4(), "rule__EventDataPort__DataFeatureClassifierAssignment_4");
@@ -2707,7 +2708,9 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getFlowPathSpecAccess().getInModeOrTransitionAssignment_8_2(), "rule__FlowPathSpec__InModeOrTransitionAssignment_8_2");
 				builder.put(grammarAccess.getFlowPathSpecAccess().getInModeOrTransitionAssignment_8_3_1(), "rule__FlowPathSpec__InModeOrTransitionAssignment_8_3_1");
 				builder.put(grammarAccess.getFlowEndAccess().getFeatureAssignment_0(), "rule__FlowEnd__FeatureAssignment_0");
-				builder.put(grammarAccess.getFlowEndAccess().getFeatureAssignment_1_2(), "rule__FlowEnd__FeatureAssignment_1_2");
+				builder.put(grammarAccess.getFlowEndAccess().getArrayRangeAssignment_1(), "rule__FlowEnd__ArrayRangeAssignment_1");
+				builder.put(grammarAccess.getFlowEndAccess().getFeatureAssignment_2_2(), "rule__FlowEnd__FeatureAssignment_2_2");
+				builder.put(grammarAccess.getArrayIndexAccess().getLowerBoundAssignment_1(), "rule__ArrayIndex__LowerBoundAssignment_1");
 				builder.put(grammarAccess.getFlowSpecRefinementAccess().getRefinedAssignment_0(), "rule__FlowSpecRefinement__RefinedAssignment_0");
 				builder.put(grammarAccess.getFlowSpecRefinementAccess().getKindAssignment_4(), "rule__FlowSpecRefinement__KindAssignment_4");
 				builder.put(grammarAccess.getFlowSpecRefinementAccess().getOwnedPropertyAssociationAssignment_5_1(), "rule__FlowSpecRefinement__OwnedPropertyAssociationAssignment_5_1");
