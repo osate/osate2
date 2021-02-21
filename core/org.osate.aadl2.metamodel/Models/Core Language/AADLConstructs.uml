@@ -1006,6 +1006,26 @@ Additionally, it defines how a subcomponent array can be instantiated as a list 
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Arrays-A_componentImplementationReference_ownedPrototypeBinding-owner-_upperValue" value="1"/>
         </ownedEnd>
       </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="Associations-ArrayRange" name="ArrayRange">
+        <ownedComment xmi:id="Associations-ArrayRange-_ownedComment.0">
+          <body>A range of array elements, including the elements at the lower and upper bound. To specify a single array element lower and upper bound must be equal.</body>
+        </ownedComment>
+        <generalization xmi:id="Associations-ArrayRange-_generalization.0">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#Element"/>
+        </generalization>
+        <ownedAttribute xmi:id="Associations-ArrayRange-lowerBound" name="lowerBound" visibility="public">
+          <ownedComment xmi:id="Associations-ArrayRange-lowerBound-_ownedComment.0">
+            <body>Specifies the lowest index included in the range.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Integer"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="Associations-ArrayRange-upperBound" name="upperBound" visibility="public">
+          <ownedComment xmi:id="Associations-ArrayRange-upperBound-_ownedComment.0">
+            <body>Specifies the hightest index included in the range.</body>
+          </ownedComment>
+          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Integer"/>
+        </ownedAttribute>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Features" name="Features">
       <ownedComment xmi:id="Features-_ownedComment.0">
@@ -2043,6 +2063,10 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TOON0KvVEeC0h7jzzZfZ7Q" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TOONz6vVEeC0h7jzzZfZ7Q" value="1"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_VTTvYHRqEeuHFsjPR5uClw" name="arrayRange" type="Associations-ArrayRange" aggregation="composite" association="_VTNBsHRqEeuHFsjPR5uClw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VTUWcHRqEeuHFsjPR5uClw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VTU9gHRqEeuHFsjPR5uClw" value="1"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_TOONyqvVEeC0h7jzzZfZ7Q" name="A_flowEnd_feature" memberEnd="_TOONy6vVEeC0h7jzzZfZ7Q _TOONzqvVEeC0h7jzzZfZ7Q">
         <ownedEnd xmi:id="_TOONy6vVEeC0h7jzzZfZ7Q" name="flowEnd" visibility="public" type="_AzAPoKvVEeC0h7jzzZfZ7Q" association="_TOONyqvVEeC0h7jzzZfZ7Q">
@@ -2134,6 +2158,12 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rtaqIBifEeeiMKeUpr3PBw"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rteUgBifEeeiMKeUpr3PBw" value="1"/>
         </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_VTNBsHRqEeuHFsjPR5uClw" name="A_flowEnd_arrayRange" memberEnd="_VTTvYHRqEeuHFsjPR5uClw _VTU9gXRqEeuHFsjPR5uClw">
+        <eAnnotations xmi:id="_VTR6MHRqEeuHFsjPR5uClw" source="org.eclipse.papyrus">
+          <details xmi:id="_VTShQHRqEeuHFsjPR5uClw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:id="_VTU9gXRqEeuHFsjPR5uClw" name="flowEnd" type="_AzAPoKvVEeC0h7jzzZfZ7Q" association="_VTNBsHRqEeuHFsjPR5uClw"/>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Modes" name="Modes">

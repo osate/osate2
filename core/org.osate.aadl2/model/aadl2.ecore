@@ -555,18 +555,18 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ArrayRange" eSuperTypes="#//Element">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLProperties::Associations.&lt;/p>"/>
+      <details key="documentation" value="&lt;p>From package AADLConstructs::Arrays.&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lowerBound" ordered="false"
         lowerBound="1" eType="#//Integer">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="&lt;p>From package AADLProperties::Associations.&lt;/p>"/>
+        <details key="documentation" value="&lt;p>From package AADLConstructs::Arrays.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="upperBound" ordered="false"
         lowerBound="1" eType="#//Integer">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="&lt;p>From package AADLProperties::Associations.&lt;/p>"/>
+        <details key="documentation" value="&lt;p>From package AADLConstructs::Arrays.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -1147,6 +1147,12 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" ordered="false"
         lowerBound="1" eType="#//Feature">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLConstructs::Flows.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arrayRange" ordered="false"
+        eType="#//ArrayRange" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLConstructs::Flows.&lt;/p>"/>
       </eAnnotations>

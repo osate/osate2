@@ -38,6 +38,7 @@ package org.osate.aadl2;
  * <ul>
  *   <li>{@link org.osate.aadl2.FlowEnd#getContext <em>Context</em>}</li>
  *   <li>{@link org.osate.aadl2.FlowEnd#getFeature <em>Feature</em>}</li>
+ *   <li>{@link org.osate.aadl2.FlowEnd#getArrayRange <em>Array Range</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getFlowEnd()
@@ -112,5 +113,44 @@ public interface FlowEnd extends Element {
 	 * @generated
 	 */
 	void setFeature(Feature value);
+
+	/**
+	 * Returns the value of the '<em><b>Array Range</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Flows.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Array Range</em>' containment reference.
+	 * @see #setArrayRange(ArrayRange)
+	 * @see org.osate.aadl2.Aadl2Package#getFlowEnd_ArrayRange()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	ArrayRange getArrayRange();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.FlowEnd#getArrayRange <em>Array Range</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Array Range</em>' containment reference.
+	 * @see #getArrayRange()
+	 * @generated
+	 */
+	void setArrayRange(ArrayRange value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.ArrayRange} and sets the '<em><b>Array Range</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.ArrayRange}.
+	 * @see #getArrayRange()
+	 * @generated
+	 */
+	ArrayRange createArrayRange();
+
+	boolean hasIndex();
+
+	int getIndex();
 
 } // FlowEnd

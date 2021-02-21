@@ -6542,13 +6542,22 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_END__FEATURE = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Array Range</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_END__ARRAY_RANGE = ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Flow End</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_END_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+	int FLOW_END_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -38050,6 +38059,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getFlowEnd_Feature();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.FlowEnd#getArrayRange <em>Array Range</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Array Range</em>'.
+	 * @see org.osate.aadl2.FlowEnd#getArrayRange()
+	 * @see #getFlowEnd()
+	 * @generated
+	 */
+	EReference getFlowEnd_ArrayRange();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.DataClassifier <em>Data Classifier</em>}'.

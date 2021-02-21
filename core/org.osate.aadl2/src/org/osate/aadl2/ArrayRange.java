@@ -29,7 +29,7 @@ package org.osate.aadl2;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * <p>From package AADLProperties::Associations.</p>
+ * <p>From package AADLConstructs::Arrays.</p>
  * <!-- end-model-doc -->
  *
  * <p>
@@ -54,7 +54,7 @@ public interface ArrayRange extends Element {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * <p>From package AADLProperties::Associations.</p>
+	 * <p>From package AADLConstructs::Arrays.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Lower Bound</em>' attribute.
 	 * @see #setLowerBound(long)
@@ -83,7 +83,7 @@ public interface ArrayRange extends Element {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * <p>From package AADLProperties::Associations.</p>
+	 * <p>From package AADLConstructs::Arrays.</p>
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Upper Bound</em>' attribute.
 	 * @see #setUpperBound(long)

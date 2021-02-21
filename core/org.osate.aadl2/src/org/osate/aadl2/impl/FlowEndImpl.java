@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowEnd;
 
@@ -43,6 +44,7 @@ import org.osate.aadl2.FlowEnd;
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.FlowEndImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowEndImpl#getFeature <em>Feature</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FlowEndImpl#getArrayRange <em>Array Range</em>}</li>
  * </ul>
  *
  * @generated
@@ -67,6 +69,16 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * @ordered
 	 */
 	protected Feature feature;
+
+	/**
+	 * The cached value of the '{@link #getArrayRange() <em>Array Range</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getArrayRange()
+	 * @generated
+	 * @ordered
+	 */
+	protected ArrayRange arrayRange;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -199,11 +211,79 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ArrayRange getArrayRange() {
+		return arrayRange;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetArrayRange(ArrayRange newArrayRange, NotificationChain msgs) {
+		ArrayRange oldArrayRange = arrayRange;
+		arrayRange = newArrayRange;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FLOW_END__ARRAY_RANGE, oldArrayRange, newArrayRange);
+			if (msgs == null) {
+				msgs = notification;
+			} else {
+				msgs.add(notification);
+			}
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setArrayRange(ArrayRange newArrayRange) {
+		if (newArrayRange != arrayRange) {
+			NotificationChain msgs = null;
+			if (arrayRange != null) {
+				msgs = ((InternalEObject) arrayRange).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.FLOW_END__ARRAY_RANGE, null, msgs);
+			}
+			if (newArrayRange != null) {
+				msgs = ((InternalEObject) newArrayRange).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - Aadl2Package.FLOW_END__ARRAY_RANGE, null, msgs);
+			}
+			msgs = basicSetArrayRange(newArrayRange, msgs);
+			if (msgs != null) {
+				msgs.dispatch();
+			}
+		} else if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_END__ARRAY_RANGE, newArrayRange,
+					newArrayRange));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ArrayRange createArrayRange() {
+		ArrayRange newArrayRange = (ArrayRange) create(Aadl2Package.eINSTANCE.getArrayRange());
+		setArrayRange(newArrayRange);
+		return newArrayRange;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_END__CONTEXT:
 			return basicSetContext(null, msgs);
+		case Aadl2Package.FLOW_END__ARRAY_RANGE:
+			return basicSetArrayRange(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -223,6 +303,8 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 				return getFeature();
 			}
 			return basicGetFeature();
+		case Aadl2Package.FLOW_END__ARRAY_RANGE:
+			return getArrayRange();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -240,6 +322,9 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 			return;
 		case Aadl2Package.FLOW_END__FEATURE:
 			setFeature((Feature) newValue);
+			return;
+		case Aadl2Package.FLOW_END__ARRAY_RANGE:
+			setArrayRange((ArrayRange) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -259,6 +344,9 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 		case Aadl2Package.FLOW_END__FEATURE:
 			setFeature((Feature) null);
 			return;
+		case Aadl2Package.FLOW_END__ARRAY_RANGE:
+			setArrayRange((ArrayRange) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -275,8 +363,18 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 			return context != null;
 		case Aadl2Package.FLOW_END__FEATURE:
 			return feature != null;
+		case Aadl2Package.FLOW_END__ARRAY_RANGE:
+			return arrayRange != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	public boolean hasIndex() {
+		return arrayRange != null;
+	}
+
+	public int getIndex() {
+		return hasIndex() ? (int) arrayRange.getLowerBound() : -1;
 	}
 
 } // FlowEndImpl

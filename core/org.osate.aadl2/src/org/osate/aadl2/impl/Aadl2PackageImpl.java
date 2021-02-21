@@ -3967,6 +3967,15 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFlowEnd_ArrayRange() {
+		return (EReference) flowEndEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getDataClassifier() {
 		return dataClassifierEClass;
 	}
@@ -8689,6 +8698,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		flowEndEClass = createEClass(FLOW_END);
 		createEReference(flowEndEClass, FLOW_END__CONTEXT);
 		createEReference(flowEndEClass, FLOW_END__FEATURE);
+		createEReference(flowEndEClass, FLOW_END__ARRAY_RANGE);
 
 		typeExtensionEClass = createEClass(TYPE_EXTENSION);
 		createEReference(typeExtensionEClass, TYPE_EXTENSION__EXTENDED);
@@ -10467,6 +10477,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getFlowEnd_Feature(), getFeature(), null, "feature", null, 1, 1, FlowEnd.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				!IS_ORDERED);
+		initEReference(getFlowEnd_ArrayRange(), getArrayRange(), null, "arrayRange", null, 0, 1, FlowEnd.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(typeExtensionEClass, TypeExtension.class, "TypeExtension", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
