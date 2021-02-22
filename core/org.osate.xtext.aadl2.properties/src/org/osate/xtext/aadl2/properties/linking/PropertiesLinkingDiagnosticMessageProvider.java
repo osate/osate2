@@ -26,6 +26,7 @@ package org.osate.xtext.aadl2.properties.linking;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.diagnostics.DiagnosticMessage;
 import org.eclipse.xtext.diagnostics.Severity;
@@ -57,11 +58,27 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 		if (Aadl2Package.eINSTANCE.getProperty() == referenceType) {
 			if (context.getLinkText().indexOf("::") > 0) {
 				boolean suppressError = false;
+
+				// get preferences ~ same as org.osate.ui.utils.PropertySetModel
+				String[] ignoredPerPreference = new String[] {};
+				String separator = "&~!";
+				String PREFS_IGNORED_PROPERTY_SET_NAMES = "org.osate.ui.internal.propertysetnames";
+
+				final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+				String allNames = store.getString(PREFS_IGNORED_PROPERTY_SET_NAMES);
+				if (allNames != null && !allNames.isEmpty()) {
+					ignoredPerPreference = allNames.split(separator);
+				}
+
 				for (String propSetName : context.getLinkText().split("::")) {
 					if (!suppressError) {
-						// check against preference -- not returning the preference! + add text to say ignore checked at pref page
-						suppressError = OsateCorePlugin.getDefault().getPreferenceStore()
-								.getBoolean(propSetName.toLowerCase()); // store returns false => use the property set
+						// check against preference
+						for (String pref : ignoredPerPreference) {
+							if (pref.equals(propSetName)) {
+								suppressError = true;
+								break;
+							}
+						}
 					}
 				}
 
