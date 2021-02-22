@@ -42,6 +42,7 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 	private TreeViewer tree;
 	private Button addButton, deleteButton;
 	private TreeNode selectedNode;
+	private TreeNode content;
 
 	public IgnoredPropertySetPreferencePage() {
 		super("Property Sets");
@@ -99,9 +100,8 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 			public void widgetSelected(final SelectionEvent e) {
 				String newPropSetName = Dialog.getInput("Add", "Type in a property set name to add it to ignored list",
 						"", null);
+				tree.add(content, new TreeNode(newPropSetName));
 				PropertySetModel.setIgnoredPropertySetPreference(newPropSetName);
-				tree.setInput(createTreeHierarchy());
-				tree.refresh();
 			}
 		});
 
@@ -113,11 +113,9 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				if (selectedNode != null) {
+					tree.remove(selectedNode);
 					// delete this property set name from ignored list
 					PropertySetModel.deletePropertySetFromIgnoredList(selectedNode.getLabel());
-					tree.setInput(createTreeHierarchy());
-					// tree.remove(e);
-					tree.refresh();
 				}
 			}
 		});
@@ -167,14 +165,14 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 
 	protected TreeNode createTreeHierarchy() {
 		TreeNode root = new TreeNode();
-		TreeNode cont = new TreeNode("Currently Ignored Property Sets", 0);
+		content = new TreeNode("Currently Ignored Property Sets", 0);
 
 		// get all property set names that were previously added by user
 		for (String propSet : PropertySetModel.getAllAddedPropertySetNames()) {
-			cont.addNode(new TreeNode(propSet));
+			content.addNode(new TreeNode(propSet));
 		}
 
-		root.addNode(cont);
+		root.addNode(content);
 
 		return root;
 	}
