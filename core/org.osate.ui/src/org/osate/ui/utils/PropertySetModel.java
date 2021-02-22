@@ -39,40 +39,6 @@ public class PropertySetModel {
 	public static final String separator = "&~!";
 	public static final String PREFS_IGNORED_PROPERTY_SET_NAMES = "org.osate.ui.internal.propertysetnames";
 
-	public static final boolean getPreference(String propertySetName) {
-		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-		return store.getBoolean(propertySetName.toLowerCase());
-	}
-
-	/*
-	 * Preferences are meant to store the property sets that need to be ignored
-	 * If preference set to true, ignore the property set
-	 * If preference set to false, property set should be used
-	 */
-	public static final void setPreference(boolean value, String propertySetName) {
-		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-		store.setValue(propertySetName.toLowerCase(), value);
-
-		// since the property set name is typed in by the user, record the name with known key
-		// for preference store, so we can retrieve the added preferences as needed
-		String currentValue = store.getString(PREFS_IGNORED_PROPERTY_SET_NAMES);
-		if (currentValue == null || currentValue.isEmpty()) {
-			store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, propertySetName);
-		} else {
-			store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, currentValue + separator + propertySetName);
-		}
-	}
-
-	public static final void setDefaultPreference() {
-		List<String> addedNames = getAllAddedPropertySetNames();
-		if (addedNames != null) {
-			final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-			for (String prefName : addedNames) {
-				store.setDefault(prefName.toLowerCase(), false); // false => use the property set
-			}
-		}
-	}
-
 	// keep below for new page
 	public static final void deletePropertySetFromIgnoredList(String propertySetNames) {
 		List<String> ignored = getAllAddedPropertySetNames();
