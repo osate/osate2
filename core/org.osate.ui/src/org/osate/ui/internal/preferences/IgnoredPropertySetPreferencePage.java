@@ -1,27 +1,37 @@
 package org.osate.ui.internal.preferences;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.preference.PreferencePage;
+import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerComparator;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.osate.internal.ui.preferences.ContributedResourcesPreferencePage.FileLabelProvider;
-import org.osate.internal.ui.preferences.ContributedResourcesPreferencePage.Sorter;
-import org.osate.internal.ui.preferences.ContributedResourcesPreferencePage.TreeContentProvider;
-import org.osate.internal.ui.preferences.ContributedResourcesPreferencePage.TreeNode;
+import org.eclipse.ui.PlatformUI;
+import org.osate.pluginsupport.PredeclaredProperties;
+import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.utils.PropertySetModel;
 
 /**
@@ -30,7 +40,7 @@ import org.osate.ui.utils.PropertySetModel;
  */
 public class IgnoredPropertySetPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	private TreeViewer tree;
-	private Button addButton, resetButton, deleteButton;
+	private Button addButton, deleteButton;
 	private TreeNode selectedNode;
 
 	public IgnoredPropertySetPreferencePage() {
@@ -45,9 +55,6 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 
 	@Override
 	protected Control createContents(Composite parent) {
-		// get all property set names that were previously added by user
-		List<String> addedNames = PropertySetModel.getAllAddedPropertySetNames();
-
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(3, true));
 
@@ -82,56 +89,224 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 				}
 			}
 		});
-		tree.addDoubleClickListener(event -> {
-			final TreeViewer viewer = (TreeViewer) event.getViewer();
-			final IStructuredSelection thisSelection = (IStructuredSelection) event.getSelection();
-			final TreeNode selectedNode = (TreeNode) thisSelection.getFirstElement();
-			if (selectedNode != null) {
-				if (selectedNode.getNode().isEmpty()) {
-					// doOverrideAction(selectedNode);
-				} else {
-					viewer.setExpandedState(selectedNode, !viewer.getExpandedState(selectedNode));
-				}
-			}
-		});
 
 		addButton = new Button(composite, SWT.PUSH);
 		addButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
-		addButton.setText("Add Property Set to be ignored");
+		addButton.setText("Add");
 		addButton.setToolTipText("Add Property Set name that will be ignored in the workspace.");
 		addButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
-				if (selectedNode != null) {
-					// add to preferences
-				}
+				String newPropSetName = Dialog.getInput("Add", "Type in a property set name to add it to ignored list",
+						"", null);
+				PropertySetModel.setIgnoredPropertySetPreference(newPropSetName);
+				tree.setInput(createTreeHierarchy());
+				tree.refresh();
 			}
 		});
 
 		deleteButton = new Button(composite, SWT.PUSH);
 		deleteButton.setLayoutData(new GridData(SWT.CENTER, SWT.FILL, false, false));
-		deleteButton.setText("Delete Property Set from ignored list");
+		deleteButton.setText("Delete");
 		deleteButton.setToolTipText("Delete Property Set from ignored list in the workspace.");
 		deleteButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				if (selectedNode != null) {
-					// delete this string from preferences
+					// delete this property set name from ignored list
+					PropertySetModel.deletePropertySetFromIgnoredList(selectedNode.getLabel());
+					tree.setInput(createTreeHierarchy());
+					// tree.remove(e);
+					tree.refresh();
 				}
 			}
 		});
 
-		resetButton = new Button(composite, SWT.PUSH);
-		resetButton.setLayoutData(new GridData(SWT.LEFT, SWT.FILL, false, false));
-		resetButton.setText("Reset");
-		resetButton.setToolTipText("Reset property set settings to use all property sets.");
-		resetButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(final SelectionEvent e) {
-				// delete the list of strings
-			}
-		});
-
 		return composite;
+	}
+
+	@Override
+	protected void performDefaults() {
+		PropertySetModel.resetIgnoredPropertySetPreference();
+		PredeclaredProperties.closeAndReopenProjects();
+	}
+
+	@Override
+	public boolean performOk() {
+		PredeclaredProperties.closeAndReopenProjects();
+		return super.performOk();
+	}
+
+	protected TreeViewer createTree(Composite parent) {
+		GridData compLayout = new GridData(GridData.FILL_BOTH);
+		compLayout.heightHint = 200;
+		compLayout.widthHint = 200;
+
+		Composite treeComposite = new Composite(parent, SWT.NONE);
+		treeComposite.setLayoutData(compLayout);
+
+		GridData dataLayout = new GridData(GridData.FILL_BOTH);
+		dataLayout.heightHint = compLayout.heightHint;
+		dataLayout.widthHint = compLayout.widthHint;
+
+		int style = SWT.SINGLE | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL;
+		Tree tree = new Tree(treeComposite, style);
+		tree.setLayoutData(dataLayout);
+		tree.setLinesVisible(true);
+		tree.setHeaderVisible(false);
+		tree.setFont(parent.getFont());
+
+		TreeColumn col = new TreeColumn(tree, SWT.LEFT);
+
+		TreeColumnLayout treeLayout = new TreeColumnLayout();
+		treeLayout.setColumnData(col, new ColumnWeightData(dataLayout.widthHint));
+		treeComposite.setLayout(treeLayout);
+
+		return new TreeViewer(tree);
+	}
+
+	protected TreeNode createTreeHierarchy() {
+		TreeNode root = new TreeNode();
+		TreeNode cont = new TreeNode("Currently Ignored Property Sets", 0);
+
+		// get all property set names that were previously added by user
+		for (String propSet : PropertySetModel.getAllAddedPropertySetNames()) {
+			cont.addNode(new TreeNode(propSet));
+		}
+
+		root.addNode(cont);
+
+		return root;
+	}
+
+	public class TreeContentProvider implements ITreeContentProvider {
+		Object treeContent;
+
+		@Override
+		public void dispose() {
+			// Nothing to do.
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+			treeContent = newInput;
+		}
+
+		@Override
+		public Object[] getElements(Object inputElement) {
+			return getChildren(inputElement);
+		}
+
+		@Override
+		public Object[] getChildren(Object parentElement) {
+			if (parentElement instanceof TreeNode) {
+				return ((TreeNode) parentElement).getNode().toArray();
+			} else {
+				return null;
+			}
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public Object getParent(Object element) {
+			if (element instanceof TreeNode) {
+				return ((TreeNode) element).getParent();
+			}
+
+			return null;
+		}
+
+		@Override
+		public boolean hasChildren(Object element) {
+			return getChildren(element).length > 0;
+		}
+	}
+
+	public class FileLabelProvider extends LabelProvider {
+		public FileLabelProvider(Image fileImg, Image categoryImg) {
+			super();
+		}
+
+		@Override
+		public Image getImage(Object element) {
+			Image image = null;
+			if (element instanceof TreeNode) {
+				switch (((TreeNode) element).imageType) {
+				case 0:
+					image = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FOLDER);
+					break;
+				default:
+					image = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FILE);
+					break;
+				}
+			}
+
+			return image;
+		}
+
+		@Override
+		public void dispose() {
+			super.dispose();
+		}
+
+		@Override
+		public String getText(Object element) {
+			if (element instanceof TreeNode) {
+				return ((TreeNode) element).getLabel();
+			}
+
+			return "";
+		}
+	}
+
+	public class TreeNode {
+		public TreeNode() {
+		}
+
+		public TreeNode(String label) {
+			this.label = label;
+		}
+
+		public TreeNode(String label, int imageType) {
+			this.imageType = imageType;
+			this.label = label;
+		}
+
+		private String label;
+		private int imageType = 1;
+
+		protected List<TreeNode> nodes = new ArrayList<>();
+		protected TreeNode parent;
+
+		public String getLabel() {
+			return this.label;
+		}
+
+		public List<TreeNode> getNode() {
+			return this.nodes;
+		}
+
+		protected void addNode(TreeNode node) {
+			this.nodes.add(node);
+			node.parent = this;
+		}
+
+		protected TreeNode getParent() {
+			return this.parent;
+		}
+	}
+
+	public class Sorter extends ViewerSorter {
+		@Override
+		public int category(Object element) {
+			if (element instanceof TreeNode) {
+				if (((TreeNode) element).imageType == 1) {
+					return 0;
+				}
+			}
+
+			return 1 + super.category(element);
+		}
 	}
 }

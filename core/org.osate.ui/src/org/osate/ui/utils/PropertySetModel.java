@@ -37,7 +37,7 @@ import org.osate.core.OsateCorePlugin;
  */
 public class PropertySetModel {
 	public static final String separator = "&~!";
-	public static final String PREFS_ALL_NAMES = "org.osate.ui.internal.propertysetnames";
+	public static final String PREFS_IGNORED_PROPERTY_SET_NAMES = "org.osate.ui.internal.propertysetnames";
 
 	public static final boolean getPreference(String propertySetName) {
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
@@ -55,11 +55,11 @@ public class PropertySetModel {
 
 		// since the property set name is typed in by the user, record the name with known key
 		// for preference store, so we can retrieve the added preferences as needed
-		String currentValue = store.getString(PREFS_ALL_NAMES);
+		String currentValue = store.getString(PREFS_IGNORED_PROPERTY_SET_NAMES);
 		if (currentValue == null || currentValue.isEmpty()) {
-			store.setValue(PREFS_ALL_NAMES, propertySetName);
+			store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, propertySetName);
 		} else {
-			store.setValue(PREFS_ALL_NAMES, currentValue + separator + propertySetName);
+			store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, currentValue + separator + propertySetName);
 		}
 	}
 
@@ -73,11 +73,20 @@ public class PropertySetModel {
 		}
 	}
 
+	// keep below for new page
+	public static final void deletePropertySetFromIgnoredList(String propertySetNames) {
+		List<String> ignored = getAllAddedPropertySetNames();
+		ignored.remove(propertySetNames);
+
+		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+		store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, String.join(separator, ignored));
+	}
+
 	public static final List<String> getAllAddedPropertySetNames() {
 		String[] result = new String[] {};
 
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-		String allNames = store.getString(PREFS_ALL_NAMES);
+		String allNames = store.getString(PREFS_IGNORED_PROPERTY_SET_NAMES);
 		if (allNames != null && !allNames.isEmpty()) {
 			result = allNames.split(separator);
 		}
@@ -86,5 +95,23 @@ public class PropertySetModel {
 		Collections.sort(unique_strings);
 
 		return unique_strings;
+	}
+
+	public static final void resetIgnoredPropertySetPreference() {
+		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+		store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, "");
+	}
+
+	public static final void setIgnoredPropertySetPreference(String propertySetNames) {
+		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+
+		// since the property set name is typed in by the user, record the name with known key
+		// for preference store, so we can retrieve the added preferences as needed
+		String currentValue = store.getString(PREFS_IGNORED_PROPERTY_SET_NAMES);
+		if (currentValue == null || currentValue.isEmpty()) {
+			store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, propertySetNames);
+		} else {
+			store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, currentValue + separator + propertySetNames);
+		}
 	}
 }
