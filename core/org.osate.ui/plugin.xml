@@ -55,7 +55,7 @@ censes only apply to the Third Party Software and not any other portion of this 
       		id="org.osate.ui.preferences.OsatePropertySetPage"
      		category="org.osate.internal.ui.preferences.OsatePreferencePage"
       		name="Property Set"
-      		class="org.osate.ui.internal.preferences.PropertySetPreferencePage">
+      		class="org.osate.ui.internal.preferences.IgnoredPropertySetPreferencePage">
       </page>
    </extension>
    
