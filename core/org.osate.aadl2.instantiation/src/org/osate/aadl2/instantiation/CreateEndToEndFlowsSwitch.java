@@ -57,7 +57,6 @@ import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.ThreadClassifier;
@@ -72,7 +71,6 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.ModeInstance;
-import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
@@ -981,10 +979,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				fs = (FlowSpecification) leaf;
 			}
 			fsi = ci.findFlowSpecInstance(fs);
-			if (fsi == null) {
-				doFlowSpecInstances(ci);
-				fsi = ci.findFlowSpecInstance(fs);
-			}
 			if (fsi != null) {
 				etei.getFlowElements().add(fsi);
 			} else if (fs != null) {
@@ -1011,73 +1005,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					// append a subcomponent instance
 					// FIXME: should abort
 					etei.getFlowElements().add(ci);
-				}
-			}
-		}
-	}
-
-	/**
-	 * add flowspec instances to the component instance
-	 *
-	 */
-	private void doFlowSpecInstances(ComponentInstance ci) {
-		EList<FlowSpecification> flowspecs = InstanceUtil.getComponentType(ci, 0, null).getAllFlowSpecifications();
-		for (Iterator<FlowSpecification> it = flowspecs.iterator(); it.hasNext();) {
-			FlowSpecification f = it.next();
-			FlowSpecificationInstance speci = InstanceFactory.eINSTANCE.createFlowSpecificationInstance();
-			speci.setFlowSpecification(f);
-			speci.setName(f.getName());
-			FlowEnd inend = f.getAllInEnd();
-			if (inend != null) {
-				Feature srcfp = inend.getFeature();
-				Context srcpg = inend.getContext();
-				if (srcpg == null) {
-					FeatureInstance fi = ci.findFeatureInstance(srcfp);
-					if (fi != null) {
-						speci.setSource(fi);
-					}
-				} else if (srcpg instanceof FeatureGroup) {
-					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) srcpg);
-					if (pgi != null) {
-						FeatureInstance fi = pgi.findFeatureInstance(srcfp);
-						if (fi != null) {
-							speci.setSource(fi);
-						}
-					}
-				}
-			}
-			FlowEnd outend = f.getAllOutEnd();
-			if (outend != null) {
-				Feature dstfp = outend.getFeature();
-				Context dstpg = outend.getContext();
-				if (dstpg == null) {
-					FeatureInstance fi = ci.findFeatureInstance(dstfp);
-					if (fi != null) {
-						speci.setDestination(fi);
-					}
-				} else if (dstpg instanceof FeatureGroup) {
-					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) dstpg);
-					if (pgi != null) {
-						FeatureInstance fi = pgi.findFeatureInstance(dstfp);
-						if (fi != null) {
-							speci.setDestination(fi);
-						}
-					}
-				}
-			}
-			ci.getFlowSpecifications().add(speci);
-			for (Mode mode : f.getAllInModes()) {
-				ModeInstance mi = ci.findModeInstance(mode);
-				if (mi != null) {
-					speci.getInModes().add(mi);
-				}
-			}
-
-			for (ModeTransition mt : f.getInModeTransitions()) {
-				ModeTransitionInstance ti = ci.findModeTransitionInstance(mt);
-
-				if (ti != null) {
-					speci.getInModeTransitions().add(ti);
 				}
 			}
 		}
