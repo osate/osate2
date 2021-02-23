@@ -9011,7 +9011,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	}
 
 	/**
-	 * @since 6.0
+	 * @since 6.1
 	 */
 	public boolean checkSubprogramGroupNoFlowSpecification(FlowSpecification flowSpec) {
 		if (flowSpec.getOwner() instanceof SubprogramGroup) {
