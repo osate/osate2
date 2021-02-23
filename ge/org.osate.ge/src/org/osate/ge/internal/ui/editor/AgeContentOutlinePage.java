@@ -73,7 +73,10 @@ import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramModificationAdapter;
+import org.osate.ge.internal.diagram.runtime.DiagramModificationListener;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectProvider;
@@ -96,6 +99,14 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private final BusinessObjectProviderHelper bopHelper;
 	private final Action linkWithEditorAction = new ToggleLinkWithEditorAction();
 	private final Action showHiddenElementsAction = new ToggleShowHiddenElementsAction();
+	private final DiagramModificationListener diagramModificationListener = new DiagramModificationAdapter() {
+		@Override
+		public void modificationsCompleted(ModificationsCompletedEvent e) {
+			if (!getTreeViewer().getTree().isDisposed() && getTreeViewer() != null) {
+				getTreeViewer().refresh();
+			}
+		}
+	};
 
 	// Flag for indicating the the outline and editor selection is being synchronized.
 	// Used to avoid adjusting either selection in response to a change to itself.
@@ -131,6 +142,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 	@Override
 	public void dispose() {
+		editor.getDiagram().removeModificationListener(diagramModificationListener);
 		preferences.removePreferenceChangeListener(preferenceChangeListener);
 		super.dispose();
 	}
@@ -156,17 +168,31 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 		// A comparator is set to allow comparing tree elements of different types in a way where they will be equal if the relative reference is equal.
 		// This is needed so that tree node will be preserved when elements are hidden and shown and the underlying object type changes.
+		// If link with editor is enabled, selection may not be retained.
 		viewer.setComparer(new IElementComparer() {
 			@Override
 			public int hashCode(final Object element) {
-				return Objects.hashCode(getRelativeReferenceForElement(element));
+				if (element == null) {
+					return 0;
+				}
+
+				return Objects.hashCode(getRelativeReferenceForElement(element)) + hashCode(getElementParent(element));
 			}
 
 			@Override
 			public boolean equals(final Object element1, final Object element2) {
 				final Object ref1 = getRelativeReferenceForElement(element1);
 				final Object ref2 = getRelativeReferenceForElement(element2);
-				return Objects.equals(ref1, ref2);
+				final boolean referencesAreEqual = Objects.equals(ref1, ref2);
+				if (!referencesAreEqual) {
+					return false;
+				}
+
+				if (element1 == null || element2 == null) {
+					return element1 == element2;
+				}
+
+				return equals(getElementParent(element1), getElementParent(element2));
 			}
 		});
 
@@ -311,11 +337,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 			@Override
 			public Object getParent(final Object element) {
-				if (element instanceof BusinessObjectContext) {
-					return ((BusinessObjectContext) element).getParent();
-				}
-
-				return null;
+				return getElementParent(element);
 			}
 
 			@Override
@@ -387,16 +409,19 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		getSite().registerContextMenu("org.osate.ge.editor.AgeDiagramEditor", menuMgr, viewer); // Allow contributions
 
 		editor.addSelectionChangedListener(event -> updateOutlineSelectionIfLinked());
-
-		editor.addPropertyListener((source, propId) -> {
-			if (!getTreeViewer().getTree().isDisposed() && getTreeViewer() != null) {
-				getTreeViewer().refresh();
-			}
-		});
+		editor.getDiagram().addModificationListener(diagramModificationListener);
 
 		viewer.addSelectionChangedListener(this);
 		viewer.setInput(editor);
 
+	}
+
+	private BusinessObjectContext getElementParent(final Object element) {
+		if (element instanceof BusinessObjectContext) {
+			return ((BusinessObjectContext) element).getParent();
+		}
+
+		return null;
 	}
 
 	/**
@@ -466,7 +491,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		final Set<DiagramElement> editorElements = editor.getSelectedDiagramElements();
 		if (getTreeViewer() != null && getTreeViewer().getContentProvider() != null
 				&& !outlineElements.equals(editorElements)) {
-			editor.selectDiagramElements(outlineElements);
+			editor.selectDiagramNodes(outlineElements);
 		}
 	}
 

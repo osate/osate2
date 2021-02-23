@@ -28,6 +28,7 @@ import java.util.Objects;
 import org.eclipse.core.runtime.IPath;
 import org.osate.ge.gef.FxStyle;
 import org.osate.ge.gef.ImageManager;
+import org.osate.ge.gef.ui.AgeGefRuntimeException;
 import org.osate.ge.graphics.LabelPosition;
 import org.osate.ge.graphics.LineStyle;
 import org.osate.ge.graphics.Style;
@@ -62,7 +63,7 @@ public class StyleToFx {
 	 */
 	public FxStyle createStyle(final Style style) {
 		if (!style.isComplete()) {
-			throw new RuntimeException("Specified style must be complete");
+			throw new AgeGefRuntimeException("Specified style must be complete");
 		}
 
 		final IPath imagePath = style.getShowAsImage() ? style.getImagePath() : null;

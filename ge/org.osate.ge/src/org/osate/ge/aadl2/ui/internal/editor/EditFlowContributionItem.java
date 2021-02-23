@@ -23,6 +23,7 @@
  */
 package org.osate.ge.aadl2.ui.internal.editor;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -91,34 +92,33 @@ public class EditFlowContributionItem extends ControlContribution {
 						.getRootRefinedElement(selectedHighlightableFlow.getFlowSegment());
 				final ComponentImplementation ci = FlowContributionItemUtil
 						.getComponentImplementation(container.getBusinessObject());
-				editor.getDiagram().getDiagramElements().stream().findAny().ifPresent(de -> {
-					// Set focus to editor for activating create flow tool
-					editor.setFocus();
-					editor.selectDiagramElementsForBusinessObject(de.getBusinessObject());
 
-					final UiService uiService = Adapters.adapt(editor, UiService.class);
-					// Create dialog and activate appropriate flow tool
-					if (flowSegment instanceof EndToEndFlow) {
-						final EndToEndFlow endToEndFlow = ProxyUtil
-								.resolveOrNull(
-										flowSegment,
-										EndToEndFlow.class,
-										ci.eResource().getResourceSet());
+				// Set focus to editor for activating create flow tool
+				editor.setFocus();
+				editor.selectDiagramNodes(Collections.singletonList(editor.getDiagram()));
 
-						// Activate tool
-						uiService.activateTool(
-								new CreateEndToEndFlowSpecificationTool(editor, container, endToEndFlow));
-					} else if (flowSegment instanceof FlowSpecification) {
-						final FlowSpecification fs = ProxyUtil.resolveOrNull(
-								flowSegment,
-								FlowSpecification.class, ci.eResource().getResourceSet());
-						getFlowImplementation(ci, fs).ifPresent(fi -> {
-							uiService.activateTool(new CreateFlowImplementationTool(editor, container, fi));
-						});
-					} else {
-						throw new RuntimeException("Unsupported flow type.");
-					}
-				});
+				final UiService uiService = Adapters.adapt(editor, UiService.class);
+				// Create dialog and activate appropriate flow tool
+				if (flowSegment instanceof EndToEndFlow) {
+					final EndToEndFlow endToEndFlow = ProxyUtil
+							.resolveOrNull(
+									flowSegment,
+									EndToEndFlow.class,
+									ci.eResource().getResourceSet());
+
+					// Activate tool
+					uiService.activateTool(
+							new CreateEndToEndFlowSpecificationTool(editor, container, endToEndFlow));
+				} else if (flowSegment instanceof FlowSpecification) {
+					final FlowSpecification fs = ProxyUtil.resolveOrNull(
+							flowSegment,
+							FlowSpecification.class, ci.eResource().getResourceSet());
+					getFlowImplementation(ci, fs).ifPresent(fi -> {
+						uiService.activateTool(new CreateFlowImplementationTool(editor, container, fi));
+					});
+				} else {
+					throw new RuntimeException("Unsupported flow type.");
+				}
 			}
 
 			private Optional<FlowImplementation> getFlowImplementation(final ComponentImplementation ci,

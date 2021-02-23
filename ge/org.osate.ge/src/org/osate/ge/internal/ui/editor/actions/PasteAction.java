@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.action.Action;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.xtext.resource.XtextResource;
 import org.osate.aadl2.AadlPackage;
@@ -66,7 +67,7 @@ import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlModificationService.SimpleModifier;
 import org.osate.ge.internal.services.ClipboardService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.util.DiagramElementUtil;
 import org.osate.ge.services.ReferenceBuilderService;
@@ -75,12 +76,12 @@ import org.osgi.framework.FrameworkUtil;
 
 import com.google.common.base.Predicates;
 
-public class PasteAction extends ActionStackAction {
+public class PasteAction extends Action {
+	private final InternalDiagramEditor editor;
 	private final ClipboardService.Clipboard clipboard;
 
-	public PasteAction(final AgeDiagramEditor part) {
-		super(part);
-
+	public PasteAction(final InternalDiagramEditor editor) {
+		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 		setId(ActionFactory.PASTE.getId());
 		setText("Paste");
 
@@ -100,9 +101,6 @@ public class PasteAction extends ActionStackAction {
 				context.getActive(AadlModificationService.class), "Unable to retrieve AADL modification service");
 		final ReferenceBuilderService refBuilder = Objects.requireNonNull(
 				context.getActive(ReferenceBuilderService.class), "Unable to retrieve reference builder service");
-
-		// This is safe because the constructor requires the part to be an AgeDiagramEditor.
-		final AgeDiagramEditor editor = (AgeDiagramEditor) getWorkbenchPart();
 
 		// Perform modification
 		final DiagramNode dstDiagramNode = getDestinationDiagramNode();
@@ -130,7 +128,7 @@ public class PasteAction extends ActionStackAction {
 		});
 
 		// Update selection to match created diagram elements
-		editor.setDiagramElementsForSelection(newDiagramElements.toArray(new DiagramElement[newDiagramElements.size()]));
+		editor.selectDiagramNodes(newDiagramElements);
 	}
 
 	/**
@@ -358,7 +356,7 @@ public class PasteAction extends ActionStackAction {
 	}
 
 	@Override
-	protected boolean calculateEnabled() {
+	public boolean isEnabled() {
 		// Return value if this is called before constructor is finished
 		if (clipboard == null) {
 			return false;

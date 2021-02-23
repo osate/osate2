@@ -27,16 +27,18 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.commands.operations.IOperationHistory;
+import org.eclipse.core.commands.operations.IOperationHistoryListener;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
-import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.ListenerList;
@@ -62,8 +64,8 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -73,13 +75,17 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.gef.DiagramEditorNode;
+import org.osate.ge.gef.ui.AgeGefRuntimeException;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
 import org.osate.ge.internal.diagram.runtime.botree.DefaultBusinessObjectNodeFactory;
 import org.osate.ge.internal.diagram.runtime.botree.DefaultTreeUpdater;
@@ -110,6 +116,12 @@ import org.osate.ge.internal.ui.editor.ActivateAgeEditorAction;
 import org.osate.ge.internal.ui.editor.AgeContentOutlinePage;
 import org.osate.ge.internal.ui.editor.DiagramContextChecker;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
+import org.osate.ge.internal.ui.editor.actions.CopyAction;
+import org.osate.ge.internal.ui.editor.actions.PasteAction;
+import org.osate.ge.internal.ui.editor.actions.SelectAllAction;
+import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
+import org.osate.ge.internal.ui.tools.ActivatedEvent;
+import org.osate.ge.internal.ui.tools.DeactivatedEvent;
 import org.osate.ge.internal.ui.tools.Tool;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.services.ReferenceResolutionService;
@@ -118,48 +130,168 @@ import org.osate.ge.services.impl.DefaultReferenceResolutionService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
+import com.google.common.collect.ImmutableList;
+
 import javafx.embed.swt.FXCanvas;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 
-// TODO: Implement selection notification.
-// TODO: Rename to AgeDiagramEditor to match name of existing editor?
-// TODO: Implement public GraphicalEditor interface
+/**
+ * JavaFX/GEF based diagram editor implementation
+ */
 public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITabbedPropertySheetPageContributor {
-	// TODO: Review names
+	private static final String CONTRIBUTOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
+	private static final String MENU_ID = CONTRIBUTOR_ID;
+	private static final double DIAGRAM_PADDING = 8.0; // Padding around the diagram
+
+	// Class which handles activation and deactivation of tools
+	public class ToolHandler {
+		private Tool activeTool = null;
+		private ImmutableList<BusinessObjectContext> selectedBocs = ImmutableList.of();
+
+		public void activate(final Tool tool) {
+			Objects.requireNonNull(tool, "tool must not be null");
+
+			// Deactivate the current tool
+			if (activeTool != null) {
+				deactivateActiveTool();
+			}
+
+			activeTool = tool;
+			paletteModel.deactivateNonSelectItem();
+
+			activeTool.activated(new ActivatedEvent(selectedBocs, diagram, aadlModService, getAdapter(UiService.class),
+					coloringService));
+		}
+
+		public void deactivateActiveTool() {
+			if (activeTool != null) {
+				activeTool.deactivated(new DeactivatedEvent());
+				activeTool = null;
+				paletteModel.deactivateNonSelectItem();
+			}
+		}
+
+		void setSelectedElements(final ImmutableList<BusinessObjectContext> newSelectedBocs) {
+			// Ignore the selection if nothing has changed
+			if (Objects.equals(this.selectedBocs, newSelectedBocs)) {
+				return;
+			}
+
+			this.selectedBocs = newSelectedBocs;
+
+			if (selectedBocs.isEmpty()) {
+				return;
+			}
+
+			// Notify the active tool
+			if (activeTool != null) {
+				activeTool.selectionChanged(new org.osate.ge.internal.ui.tools.SelectionChangedEvent(selectedBocs));
+			}
+		}
+	}
+
+	/**
+	 * Class for managing the editor's selection
+	 */
+	private class SelectionProvider implements ISelectionProvider {
+		private final ListenerList<ISelectionChangedListener> listeners = new ListenerList<>();
+		private IStructuredSelection currentSelection;
+
+		@Override
+		public void setSelection(final ISelection newSelection) {
+			// Set our selection to the diagram nodes contained in the specified selection.
+			if (newSelection instanceof IStructuredSelection) {
+				final IStructuredSelection ss = (IStructuredSelection) newSelection;
+				final List<?> selectedObjects = ss.toList();
+				final IStructuredSelection newStructuredSelection = new StructuredSelection(selectedObjects.stream()
+						.filter(DiagramNode.class::isInstance).map(DiagramNode.class::cast).toArray());
+
+				if (!Objects.equals(currentSelection, newStructuredSelection)) {
+					currentSelection = newStructuredSelection;
+
+					// Notify listeners
+					final SelectionChangedEvent e = new SelectionChangedEvent(this, currentSelection);
+					for (final ISelectionChangedListener listener : listeners) {
+						listener.selectionChanged(e);
+					}
+				}
+			}
+		}
+
+		@Override
+		public void addSelectionChangedListener(final ISelectionChangedListener listener) {
+			listeners.add(listener);
+		}
+
+		@Override
+		public void removeSelectionChangedListener(final ISelectionChangedListener listener) {
+			listeners.remove(listener);
+		}
+
+		@Override
+		public IStructuredSelection getSelection() {
+			return this.currentSelection;
+		}
+	};
+
+	// Global Services
 	private final ModelChangeNotifier modelChangeNotifier;
 	private final ReferenceService referenceService;
 	private final ExtensionRegistryService extRegistry;
-	private final QueryService queryService;
-	private final SystemInstanceLoadingService systemInstanceLoader; // TODO: How to rework this to avoid needing. AADL specific
-	private final AadlModificationService aadlModService; // TODO: Diagram Specific. AADL specific?
-	private final ProjectReferenceService projectReferenceService; // TODO: Diagram specific
 	private final ActionService actionService;
-	private final ColoringService coloringService;
-	private final TreeUpdater boTreeExpander;
-	private final DefaultDiagramElementGraphicalConfigurationProvider deInfoProvider;
-	private final DiagramUpdater diagramUpdater;
+	private final SystemInstanceLoadingService systemInstanceLoader;
+	private final AadlModificationService aadlModService;
+	private IEclipseContext eclipseContext;
+
+	private boolean disposed = false;
 	private AgeDiagram diagram;
-	private GefAgeDiagram gefDiagram; // TODO: Rename
+	private GefAgeDiagram gefDiagram;
 	private IFile diagramFile;
 	private IProject project;
-	private ProjectProvider projectProvider = () -> project; // TODO
-	private AgeDiagramProvider diagramProvider = () -> diagram; // TODO
-	private FXCanvas fxCanvas;
-	private InfiniteCanvas canvas; // TODO: Rename?
-	private int cleanDiagramChangeNumber = -1; // The diagram change number of the "clean" diagram.
-	private ActionExecutor actionExecutor;
 
-	// TODO: Move to the other
-	// TODO: Could encapsulate this and other fields?
-	private boolean updateInProgress = false; // TODO: Move
-	private boolean updateQueued = false; // Only access by ui thread // TODO: Move
+	// Diagram-specific Services
+	private final QueryService queryService;
+	private final ColoringService coloringService;
+	private final TreeUpdater boTreeUpdater;
+	private final DefaultDiagramElementGraphicalConfigurationProvider deInfoProvider;
+	private final DiagramUpdater diagramUpdater;
+	private ProjectProvider projectProvider = () -> project;
+	private AgeDiagramProvider diagramProvider = () -> diagram;
+	private final ProjectReferenceServiceProxy projectReferenceService;
+	private ActionExecutor actionExecutor;
+	private final SelectionProvider selectionProvider = new SelectionProvider();
+	private final Map<Class<?>, Object> adapterMap = new HashMap<>();
+
+	private MenuManager contextMenuManager;
+	private AgeContentOutlinePage outlinePage;
+	private TabbedPropertySheetPage propertySheetPage;
+	private FXCanvas fxCanvas;
+	private InfiniteCanvas canvas;
+	private int cleanDiagramChangeNumber = -1; // The diagram change number of the "clean" diagram.
+	private AgeEditorPaletteModel paletteModel;
+	private final ToolHandler toolHandler = new ToolHandler();
+	private final ISelectionListener toolPostSelectionListener = (part, selection) -> {
+		toolHandler.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
+	};
+	private final IOperationHistoryListener operationHistoryListener = event -> {
+		if (event.getOperation().hasContext(DefaultActionService.CONTEXT)) {
+			fireDirtyPropertyChangeEvent();
+		}
+	};
+
+	// Fields related to handling model and diagram updates
+	private boolean updateInProgress = false;
+	private boolean updateQueued = false; // Only accessed by UI thread
 	private boolean updateQueuedRequireVisible = false;
 	private boolean updateWhenVisible = false;
 	private volatile boolean dirtyModel = false;
-	private volatile boolean forceUpdateOnNextModelChange = false; // TODO: Should this really be volatile? Probably
-	private IEclipseContext serviceContext; // TODO: Rename?
-	private boolean disposed = false;
+	private volatile boolean forceUpdateOnNextModelChange = false;
+	private boolean diagramContextWasValid = true;
+	private boolean diagramContextIsValid = true;
+
 	private ChangeListener modelChangeListener = new ChangeListener() {
 		@Override
 		public void afterModelChangeNotification() {
@@ -178,48 +310,40 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	};
 
 	public AgeEditor() {
-		// TODO; Need to look at AgeDiagramTypeProvider... create diagram specific items.. TODO: Need to dispose objects as appropriate
-
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
-		this.serviceContext = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
+		this.eclipseContext = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
 
-		// TODO; CLeanup "this."
-		this.modelChangeNotifier = Objects.requireNonNull(serviceContext.get(ModelChangeNotifier.class),
+		// Retrieve global services
+		this.modelChangeNotifier = Objects.requireNonNull(eclipseContext.get(ModelChangeNotifier.class),
 				"unable to retrieve model change notifier");
-		this.referenceService = Objects.requireNonNull(serviceContext.get(ReferenceService.class),
+		this.referenceService = Objects.requireNonNull(eclipseContext.get(ReferenceService.class),
 				"unable to retrieve reference service");
-		this.extRegistry = Objects.requireNonNull(serviceContext.get(ExtensionRegistryService.class),
+		this.extRegistry = Objects.requireNonNull(eclipseContext.get(ExtensionRegistryService.class),
 				"Unable to retrieve extension registry");
 		this.queryService = new DefaultQueryService(referenceService);
-		this.aadlModService = Objects.requireNonNull(serviceContext.get(AadlModificationService.class),
+		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class),
 				"unable to retrieve AADL modification service");
-		this.projectReferenceService = new ProjectReferenceServiceProxy(referenceService, projectProvider);
-		this.actionService = Objects.requireNonNull(serviceContext.get(ActionService.class),
+		this.actionService = Objects.requireNonNull(eclipseContext.get(ActionService.class),
 				"unable to retrieve action service");
+		systemInstanceLoader = Objects.requireNonNull(eclipseContext.get(SystemInstanceLoadingService.class),
+				"unable to retrieve system instance loading service");
 
+		// Create diagram-specific services
+		this.projectReferenceService = new ProjectReferenceServiceProxy(referenceService, projectProvider);
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(
 				projectReferenceService);
-		boTreeExpander = new DefaultTreeUpdater(projectProvider, extRegistry, projectReferenceService, queryService,
+		boTreeUpdater = new DefaultTreeUpdater(projectProvider, extRegistry, projectReferenceService, queryService,
 				nodeFactory);
 		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(projectReferenceService, queryService,
 				diagramProvider, extRegistry);
-		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider, actionService, projectReferenceService,
+		diagramUpdater = new DiagramUpdater(boTreeUpdater, deInfoProvider, actionService, projectReferenceService,
 				projectReferenceService);
-		systemInstanceLoader = Objects.requireNonNull(serviceContext.get(SystemInstanceLoadingService.class),
-				"unable to retrieve system instance loading service");
-
-		adapterMap.put(UiService.class, new DefaultUiService(() -> this));
-		adapterMap.put(ProjectReferenceService.class, projectReferenceService);
-		adapterMap.put(ReferenceResolutionService.class,
-				new DefaultReferenceResolutionService(projectReferenceService));
-
-		// TODO; SHould GefAgeDiagram implement this service directly?
 		this.coloringService = new DefaultColoringService(
 				new org.osate.ge.internal.services.impl.DefaultColoringService.StyleRefresher() {
 					@Override
 					public void refreshDiagramColoring() {
 						if (Display.getCurrent() != Display.getDefault()) {
-							throw new RuntimeException("Invalid thread");
+							throw new AgeGefRuntimeException("Invalid thread");
 						}
 
 						gefDiagram.refreshDiagramStyles();
@@ -228,23 +352,54 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 					@Override
 					public void refreshColoring(final Collection<DiagramElement> diagramElements) {
 						if (Display.getCurrent() != Display.getDefault()) {
-							throw new RuntimeException("Invalid thread");
+							throw new AgeGefRuntimeException("Invalid thread");
 						}
 
 						gefDiagram.refreshStyle(diagramElements);
 					}
 				});
+
+		// Initialize the outline and property sheet page
+		outlinePage = new AgeContentOutlinePage(this, projectProvider, extRegistry, projectReferenceService);
+		propertySheetPage = new TabbedPropertySheetPage(this);
+
+		// Store editor specific adapters in the adapter map. Global services will be retrieved from the eclipse context.
+		adapterMap.put(ColoringService.class, coloringService);
+		adapterMap.put(QueryService.class, queryService);
+		adapterMap.put(AgeDiagramProvider.class, diagramProvider);
+		adapterMap.put(ProjectProvider.class, projectProvider);
+		adapterMap.put(UiService.class, new DefaultUiService(() -> this));
+		adapterMap.put(ProjectReferenceService.class, projectReferenceService);
+		adapterMap.put(ReferenceResolutionService.class,
+				new DefaultReferenceResolutionService(projectReferenceService));
+		adapterMap.put(IContentOutlinePage.class, outlinePage);
+		adapterMap.put(IPropertySheetPage.class, propertySheetPage);
 	}
 
 	@Override
 	public void dispose() {
 		try {
+			// Remove listeners
+			PlatformUI.getWorkbench().getOperationSupport().getOperationHistory()
+					.removeOperationHistoryListener(operationHistoryListener);
+			getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(toolPostSelectionListener);
 			this.modelChangeNotifier.removeChangeListener(modelChangeListener);
 
+			// Dispose of other objects
 			if (gefDiagram != null) {
 				gefDiagram.close();
 				gefDiagram = null;
 			}
+
+			if (contextMenuManager != null) {
+				contextMenuManager.removeAll();
+				contextMenuManager.dispose();
+			}
+
+			projectReferenceService.dispose();
+			outlinePage.dispose();
+			propertySheetPage.dispose();
+			adapterMap.clear();
 
 			super.dispose();
 		} finally {
@@ -260,78 +415,31 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		return disposed;
 	}
 
-	private class SelectionProvider implements ISelectionProvider {
-		private final ListenerList<ISelectionChangedListener> listeners = new ListenerList<>();
-		private IStructuredSelection selection; // TODO: Rename
-
-		@Override
-		public void setSelection(final ISelection selection) {
-			// TODO: Create a new selection that just contains diagram elements? Update UI, etc?
-			if (selection instanceof IStructuredSelection) {
-				updateSelection((IStructuredSelection) selection);
-			}
-		}
-
-		@Override
-		public void addSelectionChangedListener(final ISelectionChangedListener listener) {
-			listeners.add(listener);
-		}
-
-		@Override
-		public void removeSelectionChangedListener(final ISelectionChangedListener listener) {
-			listeners.remove(listener);
-		}
-
-		@Override
-		public IStructuredSelection getSelection() {
-			return this.selection;
-		}
-
-		// TODO: Document...should this be called when setSelection() is called? If it is called like the current version. Why have two method?
-		public void updateSelection(final IStructuredSelection value) {
-			if (!Objects.equals(selection, value)) {
-				selection = value;
-				final SelectionChangedEvent e = new SelectionChangedEvent(this, selection);
-				for (final ISelectionChangedListener listener : listeners) {
-					listener.selectionChanged(e);
-				}
-			}
-		}
-	};
-
-	// TODO: Move
-	private final SelectionProvider selectionProvider = new SelectionProvider();
-
 	@Override
 	public void init(final IEditorSite site, final IEditorInput input) throws PartInitException {
 		setInput(input);
 		setSite(site);
 
+
+		site.getWorkbenchWindow().getSelectionService().addPostSelectionListener(toolPostSelectionListener);
 		site.setSelectionProvider(selectionProvider);
 
-		// TODO test
-		// TODO; UndoRedoActionGroup is deprecated?
-		UndoRedoActionGroup historyActionGroup = new UndoRedoActionGroup(site, DefaultActionService.CONTEXT, true);
-		historyActionGroup.fillActionBars(site.getActionBars());
+		// Register actions for retargatable actions
+		new UndoRedoActionGroup(site, DefaultActionService.CONTEXT, true).fillActionBars(site.getActionBars());
+		registerAction(new CopyAction(this));
+		registerAction(new PasteAction(this));
+		registerAction(new SelectAllAction(this));
 
-		// TODO: Cleanup
-		final URI emfUri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
-
-		// TODO: Consider how project reference is handled in other editor.. file may be moved...
-		final org.osate.ge.diagram.Diagram mmDiagram = DiagramSerialization.readMetaModelDiagram(emfUri);
-		final Bundle bundle = FrameworkUtil.getBundle(getClass());
-		final ExtensionRegistryService extRegistry = Objects.requireNonNull(
-				EclipseContextFactory.getServiceContext(bundle.getBundleContext()).get(ExtensionRegistryService.class),
-				"Unable to retrieve extension registry");
-
-		final IProject project = getProject();
+		// Load the diagram
+		final org.osate.ge.diagram.Diagram mmDiagram = DiagramSerialization
+				.readMetaModelDiagram(URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
 		diagram = DiagramSerialization.createAgeDiagram(project, mmDiagram, extRegistry);
 
 		// Ensure the project is built. This prevents being unable to find the context due to the Xtext index not having completed.
 		try {
 			project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
 		} catch (CoreException e) {
-			throw new RuntimeException(e);
+			throw new AgeGefRuntimeException(e);
 		}
 
 		// Treat the current state of the diagram as clean.
@@ -341,7 +449,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		actionService.execute("Update on Load", ExecutionMode.HIDE, () -> {
 			diagram.modify("Update Diagram", m -> {
 				// Check the diagram's context
-				// TODO
 				final DiagramContextChecker contextChecker = new DiagramContextChecker(project, projectReferenceService,
 						systemInstanceLoader);
 				final boolean workbenchIsVisible = isWorkbenchVisible();
@@ -358,8 +465,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 					final String refContextLabel = projectReferenceService
 							.getLabel(diagram.getConfiguration().getContextBoReference());
 
-					// TODO
-					throw new RuntimeException("Unable to resolve context: " + refContextLabel);
+					throw new AgeGefRuntimeException("Unable to resolve context: " + refContextLabel);
 				}
 
 				diagramUpdater.updateDiagram(diagram);
@@ -367,20 +473,21 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			return null;
 		});
 
-		// TODO: Must dispose:
-		// Project Reference Serivce
-		// Context - If any
-
 		this.modelChangeNotifier.addChangeListener(modelChangeListener);
 
 		// Set the initial selection to the diagram
-		selectionProvider.updateSelection(new StructuredSelection(diagram));
+		selectionProvider.setSelection(new StructuredSelection(diagram));
+	}
+
+	private void registerAction(final IAction action) {
+		getEditorSite().getActionBars().setGlobalActionHandler(action.getId(), action);
+
 	}
 
 	@Override
 	protected void setInput(final IEditorInput input) {
 		if (!(input instanceof IFileEditorInput)) {
-			throw new RuntimeException("Input must implement " + IFileEditorInput.class.getName());
+			throw new AgeGefRuntimeException("Input must implement " + IFileEditorInput.class.getName());
 		}
 
 		super.setInput(input);
@@ -393,29 +500,18 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 	@Override
 	public void createPartControl(final Composite parent) {
-		fxCanvas = new FXCanvas(parent, SWT.NONE); // TODO: Look at what GEF factory does?
+		// Create the canvas
+		fxCanvas = new FXCanvas(parent, SWT.NONE);
 		fxCanvas.addPaintListener(paintListener);
 
-		// TODO: DOes any of this need to be disposed?
-		final String menuId = "org.osate.ge.editor.AgeDiagramEditor"; // TODO: Rename cleanup
-		final MenuManager menuManager = new MenuManager(menuId, menuId);
-		menuManager.setRemoveAllWhenShown(true); // TODO?
-		// manager.addMenuListener(getContextMenuListener()); // TODO
-		final Menu testMenu = menuManager.createContextMenu(fxCanvas); // TODO: Rename
-		fxCanvas.setMenu(testMenu);
+		// Create the context menu
+		contextMenuManager = new MenuManager(MENU_ID, MENU_ID);
+		contextMenuManager.setRemoveAllWhenShown(true);
+		final Menu contextMenu = contextMenuManager.createContextMenu(fxCanvas);
+		fxCanvas.setMenu(contextMenu);
+		getEditorSite().registerContextMenu(MENU_ID, contextMenuManager, selectionProvider, true);
 
-		getEditorSite().registerContextMenu(menuId, menuManager, selectionProvider, false); // TODO: Check last argument
-
-		// Initialize things
-		// TODO: Get extension service....
-		// TODO: Check if diagram i s null?
-
-		Object diagramBo = AgeDiagramUtil.getConfigurationContextBusinessObject(diagram, projectReferenceService);
-		if (diagramBo == null) {
-			// TODO; Check project
-			diagramBo = getProject(); // TODO
-		}
-
+		// Create the action executor. It will append an action to activate the editor when undoing and redoing actions.
 		actionExecutor = (label, mode, action) -> {
 			final boolean reverseActionWasSpecified = actionService.execute(label, mode, action);
 
@@ -430,11 +526,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			return reverseActionWasSpecified;
 		};
 
-		// TODO: Refresh dirty state
-
-		// TODO; SHould this be part of GefAgeDiagram?
-		diagram.setActionExecutor(actionExecutor);
-
+		// Initialize the palette model
 		final AgeEditorPaletteModel.ImageProvider imageProvider = id -> {
 			final RegisteredImage img = extRegistry.getImageMap().get(id);
 			if (img == null) {
@@ -449,25 +541,35 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			}
 		};
 
-		// TODO: Rename and review
+		Object diagramBo = AgeDiagramUtil.getConfigurationContextBusinessObject(diagram, projectReferenceService);
+		if (diagramBo == null) {
+			diagramBo = project;
+		}
+
+		this.paletteModel = new AgeEditorPaletteModel(extRegistry.getPaletteContributors(), diagramBo, imageProvider);
+
+		// Initialize the JavaFX nodes based on the diagram
 		canvas = new InfiniteCanvas();
-		fxCanvas.setScene(new Scene(new DiagramEditorNode(
-				new AgeEditorPaletteModel(extRegistry.getPaletteContributors(), diagramBo, imageProvider), canvas)));
-		gefDiagram = new GefAgeDiagram(diagram, coloringService, actionExecutor);
-		canvas.getContentGroup().getChildren().add(gefDiagram.getNode());
+		fxCanvas.setScene(new Scene(new DiagramEditorNode(paletteModel, canvas)));
+		gefDiagram = new GefAgeDiagram(diagram, coloringService);
+
+		// Add padding around the diagram
+		final StackPane paddedWrapper = new StackPane(gefDiagram.getSceneNode());
+		paddedWrapper.setPadding(new Insets(DIAGRAM_PADDING));
+
+		canvas.getContentGroup().getChildren().add(paddedWrapper);
+		gefDiagram.updateDiagramFromSceneGraph();
 		adapterMap.put(LayoutInfoProvider.class, gefDiagram);
 
-		// TODO: Ook at docs
-//		Register any global actions with the site's IActionBars.
-//		Register any context menus with the site.
-//		Register a selection provider with the site, to make it available to the workbench's ISelectionService (optional).
+		// Perform the initial incremental layout
+		diagram.modify("Incremental Layout", m -> DiagramElementLayoutUtil.layoutIncrementally(diagram, m, gefDiagram));
 
+		// Set action executor after initial load. This occurs after the incremental layout to prevent the loading and initial layout from being undoable
+		diagram.setActionExecutor(actionExecutor);
+
+		// Refresh the dirty state whenever an operation occurs
 		final IOperationHistory history = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
-		history.addOperationHistoryListener(event -> {
-			if (event.getOperation().hasContext(DefaultActionService.CONTEXT)) {
-				refreshDirtyState();
-			}
-		});
+		history.addOperationHistoryListener(operationHistoryListener);
 	}
 
 	@Override
@@ -475,7 +577,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		// TODO: Save
 		cleanDiagramChangeNumber = diagram.getCurrentChangeNumber();
 		firePropertyChange(PROP_DIRTY);
-		refreshDirtyState();
+		fireDirtyPropertyChangeEvent();
 	}
 
 	private boolean isEditorActive() {
@@ -492,24 +594,11 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		return page.getActiveEditor() == this;
 	}
 
-	// Updates the diagram in the current thread if it is the display thread or asynchronous if it isn't
-	private final Runnable updateDiagramRequireVisibleRunnable = () -> doUpdate(true);
-	private final Runnable updateDiagramNoRequireVisibleRunnable = () -> doUpdate(false);
-
+	// Updates the diagram in the current thread if it is the display thread or asynchronously if it isn't
 	private void updateDiagram(final boolean requireVisible) {
-		final Runnable updateDiagramRunnable = requireVisible ? updateDiagramRequireVisibleRunnable
-				: updateDiagramNoRequireVisibleRunnable;
-
-		if (Display.getDefault().getThread() == Thread.currentThread()) {
-			updateDiagramRunnable.run();
-		} else {
-			Display.getDefault().asyncExec(updateDiagramRunnable);
-		}
-	}
-
-	private void doUpdate(final boolean requireVisible) {
 		if (Display.getDefault().getThread() != Thread.currentThread()) {
-			throw new RuntimeException("doUpdate() must be called from the UI thread");
+			Display.getDefault().asyncExec(() -> updateDiagram(requireVisible));
+			return;
 		}
 
 		// A mutex is not needed because this runnable and other code that access variables used by this runnable are ran in the display thread
@@ -546,28 +635,18 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		}
 	}
 
-	// TODO: Rename. are both of these actually needed?
-	private boolean wasContextValid = true; // TODO: Rename
-	private boolean diagramContextIsValid = true;
-
 	@Override
 	public void updateDiagram() {
-		// Get the editor
 		// Check the context
 		Display.getCurrent().syncExec(() -> {
-//				final boolean promptToRelink = fxCanvas.isVisible() && (wasContextValid
-//								|| Boolean.TRUE.equals(context.getProperty(promptToRelinkMissingContextProperty)));
-			// TODO: Need to replace with something equivilent to the old proprty
-			final boolean promptToRelink = fxCanvas.isVisible() && wasContextValid;
+			final boolean promptToRelink = fxCanvas.isVisible() && diagramContextWasValid;
 			final DiagramContextChecker contextChecker = new DiagramContextChecker(project, projectReferenceService,
 					systemInstanceLoader);
 			final DiagramContextChecker.Result result = contextChecker.checkContextIncrementalBuild(diagram,
 					promptToRelink);
-			wasContextValid = result.isContextValid(); // Store for next execution
+			diagramContextWasValid = result.isContextValid(); // Store for next execution
 			setDiagramContextIsValid(result.isContextValid()); // Update editor with new state
 		});
-
-		System.err.println("UPDATE DIAGRAM");
 
 		// Updating the diagram should not be part of the undo stack. The layout portion is not included in the action because
 		// layout needs to be undoable.
@@ -575,8 +654,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			// Update the diagram
 			diagramUpdater.updateDiagram(diagram);
 
-			// TODO: Review command and behavior. Need to wait until layout is updated?
-			// Perform the layout as a separate operation because the sizes for the shapes are assigned by the Graphiti modification listener.
+			// Perform the layout as a separate operation because the sizes for the shapes will not be set until the JavaFX nodes are updated.
 			diagram.modify("Layout Incrementally",
 					m -> DiagramElementLayoutUtil.layoutIncrementally(diagram, m, gefDiagram));
 
@@ -589,9 +667,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		diagramContextIsValid = value;
 		if (diagramContextIsValid != prevContextWasValid) {
 			Display.getDefault().asyncExec(() -> {
-				// TODO: Is this needed?
-				// getPaletteBehavior().refreshPalette();
-
 				// Close the editor if the context isn't valid.
 				if (!diagramContextIsValid) {
 					closeEditor();
@@ -600,8 +675,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		}
 	}
 
-	// TODO: Rename
-	private final void refreshDirtyState() {
+	private final void fireDirtyPropertyChangeEvent() {
 		firePropertyChange(PROP_DIRTY);
 	}
 
@@ -627,86 +701,25 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 	@Override
 	public <T> T getAdapter(final Class<T> required) {
-		// TODO: Be consistent. Move more to map
-		if (required == IContentOutlinePage.class) {
-			// TODO: Dspose of outline?
-			if (outlinePage == null) {
-				outlinePage = new AgeContentOutlinePage(this, Adapters.adapt(this, ProjectProvider.class),
-						Adapters.adapt(this, ExtensionRegistryService.class),
-						Adapters.adapt(this, ProjectReferenceService.class));
-			}
-			return required.cast(outlinePage);
-		} else if (required == ColoringService.class) {
-			return required.cast(coloringService);
-		} else if (required == QueryService.class) {
-			return required.cast(queryService);
-		} else if (required == AgeDiagramProvider.class) {
-			return required.cast(diagramProvider);
-		} else if (required == AadlModificationService.class) {
-			return required.cast(aadlModService);
-		} else if (required == ProjectProvider.class) {
-			return required.cast(projectProvider);
-		} else if (required == IPropertySheetPage.class) {
-			// TODO: Does this need to lazily initialized? Could do somewhere else?
-			if (propertySheetPage == null) {
-				this.propertySheetPage = new AgeTabbedPropertySheetPage(this);
-			}
-			return required.cast(this.propertySheetPage);
-		} else {
-			Object adapter = adapterMap.get(required);
-			if (adapter == null) {
-				adapter = serviceContext.get(required);
-			}
+		Object adapter = adapterMap.get(required);
+		if (adapter == null) {
+			adapter = eclipseContext.get(required);
+		}
 
-			if (adapter != null) {
-				return required.cast(adapter);
-			}
+		if (adapter != null) {
+			return required.cast(adapter);
 		}
 
 		return super.getAdapter(required);
 	}
 
-	private final Map<Class<?>, Object> adapterMap = new HashMap<>();
-
-	private AgeContentOutlinePage outlinePage; // TODO: Move
-
-	// TODO: For property sheet
+	/**
+	 * Provide a contributor ID that matches the original graphical editor. If the editor ID is modified to match the original ID, this will
+	 * no longer be necessary.
+	 */
 	@Override
 	public String getContributorId() {
-		return "org.osate.ge.editor.AgeDiagramEditor"; // TODO: Should be constant
-	}
-
-	private AgeTabbedPropertySheetPage propertySheetPage; // TODO: Move
-
-	// TODO: Review... dispose as appropriate, etc
-	private static class AgeTabbedPropertySheetPage extends TabbedPropertySheetPage {
-		private boolean disposed = false;
-		private IWorkbenchPart part; // TODO: Review AgeDiagramBehavior.. used by selectPictogramElements
-
-		public AgeTabbedPropertySheetPage(
-				final ITabbedPropertySheetPageContributor tabbedPropertySheetPageContributor) {
-			super(tabbedPropertySheetPageContributor);
-		}
-
-		@Override
-		public void dispose() {
-			super.dispose();
-			disposed = true;
-			part = null;
-		}
-
-		@Override
-		public void selectionChanged(final IWorkbenchPart part, final ISelection selection) {
-			if (!disposed) {
-				super.selectionChanged(part, selection);
-				this.part = part;
-			}
-		}
-	}
-
-	@Override
-	public void selectDiagramElementsForBusinessObject(Object bo) {
-		// TODO Auto-generated method stub
+		return CONTRIBUTOR_ID;
 	}
 
 	@Override
@@ -755,7 +768,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 	@Override
 	public TreeUpdater getBoTreeUpdater() {
-		return boTreeExpander;
+		return boTreeUpdater;
 	}
 
 	@Override
@@ -770,13 +783,12 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 	@Override
 	public void activateTool(final Tool tool) {
-		// TODO Auto-generated method stub
-
+		toolHandler.activate(tool);
 	}
 
 	@Override
 	public void deactivateActiveTool() {
-		// TODO Auto-generated method stub
+		toolHandler.deactivateActiveTool();
 	}
 
 	@Override
@@ -791,7 +803,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 	@Override
 	public Set<DiagramElement> getSelectedDiagramElements() {
-		System.err.println("E");
 		final IStructuredSelection selection = selectionProvider.getSelection();
 		if (selection == null) {
 			return Collections.emptySet();
@@ -808,31 +819,38 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	}
 
 	@Override
-	public void selectDiagramElements(final Collection<DiagramElement> diagramElements) {
-		// TODO: Is this correct? Threading...
-		System.err.println("A");
-		selectionProvider.updateSelection(new StructuredSelection(diagramElements.toArray()));
+	public void selectDiagramNodes(final Collection<? extends DiagramNode> diagramNodes) {
+		selectionProvider.setSelection(new StructuredSelection(diagramNodes.toArray()));
+	}
+
+	@Override
+	public void selectDiagramElementsForBusinessObject(final Object bo) {
+		final CanonicalBusinessObjectReference searchRef = referenceService.getCanonicalReference(bo);
+		final List<DiagramElement> elementsForBo = diagram.getAllDiagramNodes().filter(DiagramElement.class::isInstance)
+				.map(DiagramElement.class::cast)
+				.filter(de -> Objects.equals(searchRef, referenceService.getCanonicalReference(de.getBusinessObject())))
+				.collect(Collectors.toList());
+		selectDiagramNodes(elementsForBo);
 	}
 
 	@Override
 	public void clearSelection() {
-		System.err.println("B");
-		// TODO: Implement: TODO: Is this ocrrect?
-		selectDiagramElements(Collections.emptyList());
+		selectDiagramNodes(Collections.emptyList());
+
+		if (outlinePage != null) {
+			// Clear outline selection
+			outlinePage.setSelection(null);
+		}
 	}
 
 	@Override
 	public void addSelectionChangedListener(final ISelectionChangedListener listener) {
-		// TODO
-		System.err.println("C");
 		selectionProvider.addSelectionChangedListener(listener);
 	}
 
 	@Override
 	public boolean isEditable() {
-		// TODO: Copy implementation from AgeDiagramEditor
-		// return diagramContextIsValid;
-		return true;
+		return diagramContextIsValid;
 	}
 
 	private static boolean isWorkbenchVisible() {
@@ -840,5 +858,4 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 				&& PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell() != null
 				&& PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().isVisible();
 	}
-
 }

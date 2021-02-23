@@ -76,6 +76,7 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
@@ -140,11 +141,11 @@ public class AgeDiagramEditor extends DiagramEditor implements InternalDiagramEd
 	}
 
 	@Override
-	public void selectDiagramElements(final Collection<DiagramElement> diagramElements) {
-		final PictogramElement[] pictogramElements = diagramElements.stream()
+	public void selectDiagramNodes(final Collection<? extends DiagramNode> diagramNodes) {
+		final PictogramElement[] pictogramElements = diagramNodes.stream()
 				.map(
-						de -> getGraphitiAgeDiagram()
-						.getPictogramElement(de))
+						dn -> getGraphitiAgeDiagram()
+						.getPictogramElement(dn))
 				.filter(Predicates.notNull()).toArray(PictogramElement[]::new);
 
 		getDiagramBehavior().getDiagramContainer().selectPictogramElements(pictogramElements);

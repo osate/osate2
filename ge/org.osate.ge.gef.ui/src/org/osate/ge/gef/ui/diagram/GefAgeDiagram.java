@@ -52,6 +52,7 @@ import org.osate.ge.gef.LabelNode;
 import org.osate.ge.gef.PreferredPosition;
 import org.osate.ge.gef.RootNode;
 import org.osate.ge.gef.StyleRoot;
+import org.osate.ge.gef.ui.AgeGefRuntimeException;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
@@ -64,7 +65,6 @@ import org.osate.ge.internal.diagram.runtime.BeforeModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationChangedEvent;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
-import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramModificationListener;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DockArea;
@@ -76,14 +76,10 @@ import org.osate.ge.internal.diagram.runtime.botree.Completeness;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.styling.StyleCalculator;
-import org.osate.ge.internal.services.ActionExecutor;
-import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ColoringService;
 
 import com.google.common.base.Strings;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
@@ -96,22 +92,36 @@ import javafx.scene.Parent;
  */
 public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	private static final String INCOMPLETE_INDICATOR = "*";
+	private static final Dimension FEATURE_GROUP_CIRCLE_SIZE = new Dimension(FeatureGroupNode.CIRCLE_DIAMETER,
+			FeatureGroupNode.CIRCLE_DIAMETER);
+	private static final Dimension DEFAULT_FEATURE_SIZE = new Dimension(FeatureConstants.WIDTH,
+			FeatureConstants.HEIGHT);
 
 	/**
-	 * Value for the diagram element map. Contains details regarding the JavaFX node that was created for a diagram element
+	 * Contains the details regarding how a diagram element is represented in the scene graph.
 	 */
-	// TODO: Rename
-	private static class ElementMapValue {
-		public ElementMapValue(final DiagramElement diagramElement) {
+	private static class GefDiagramElement {
+		public GefDiagramElement(final DiagramElement diagramElement) {
 			this.diagramElement = diagramElement;
 		}
 
 		final DiagramElement diagramElement;
-		Graphic sourceGraphic; // TODO: Rename
-		Node node; // TODO: REname to scene node?
-		Node parentDiagramElementSceneNode; // TODO: Rename and use
-		boolean docked;
-		boolean parentIsConnection;
+
+		/**
+		 * The node which represents the diagram element in the scene graph
+		 */
+		Node sceneNode;
+
+		/**
+		 * The graphic which was used to create the current scene node.
+		 */
+		Graphic sourceGraphic;
+
+		/**
+		 * The scene node which represents the diagram element's parent in the scene graph
+		 */
+		Node parentDiagramNodeSceneNode;
+
 		LabelNode primaryLabel;
 		LabelNode annotationLabel;
 	}
@@ -122,9 +132,9 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	private final AgeDiagram diagram;
 
 	/**
-	 * A mapping between the diagram elements and associated data
+	 * A mapping between the diagram elements and {@link GefDiagramElement} instances.
 	 */
-	private final Map<DiagramElement, ElementMapValue> diagramElementMap = new HashMap<>();
+	private final Map<DiagramElement, GefDiagramElement> gefDiagramElements = new HashMap<>();
 
 	/**
 	 * Root node which contains all the shape and connection nodes for the diagram.
@@ -160,8 +170,11 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 */
 	private final StyleCalculator finalStyleProvider;
 
-	// TODO
-	private boolean syncingWithSceneGraph = false;
+	/**
+	 * True if the diagram is currently being updated based on the position and size of scene graph nodes. Avoids changing
+	 * the scene graph nodes based on such changes to the diagram.
+	 */
+	private boolean updatingDiagramFromSceneGraph = false;
 
 	/**
 	 * Listener for modifications to the {@link AgeDiagram}. Updates scene graph when the diagram changes.
@@ -175,8 +188,6 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		@Override
 		public void diagramConfigurationChanged(final DiagramConfigurationChangedEvent e) {
 			needFullUpdate = true;
-			// TODO:
-			// finalStyleProvider.setDiagramConfiguration(ageDiagram.getConfiguration());
 		}
 
 		@Override
@@ -204,7 +215,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		public void elementUpdated(final ElementUpdatedEvent e) {
 			// If a full update is going to be performed, don't track the elements that have been updated
 			if (!needFullUpdate && e.element.getGraphicalConfiguration() != null && !inBeforeModificationsCompleted
-					&& !syncingWithSceneGraph) {
+					&& !updatingDiagramFromSceneGraph) {
 				// If the element has been removed, don't store it as an update.
 				if (!elementsToRemove.contains(e.element)) {
 					// If the element is already in the elements to update set, remove it so that it will be inserted at the end of the set
@@ -220,67 +231,58 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 		@Override
 		public void beforeModificationsCompleted(final BeforeModificationsCompletedEvent e) {
-			if (syncingWithSceneGraph) {
+			if (updatingDiagramFromSceneGraph) {
 				return;
 			}
 
-			// TODO
+			// Ensure that the modification is executed in the user interface thread.
 			Display.getDefault().syncExec(() -> {
 				try {
 					inBeforeModificationsCompleted = true;
 
 					// Remove elements
-					for (final DiagramElement element : elementsToRemove) {
+					for (final DiagramElement de : elementsToRemove) {
 						// Remove any contained connections first. Connections are stored at the diagram level so they need to be
 						// deleted individually.
-						removeContainedConnections(element);
+						removeContainedConnections(de);
 
-						final ElementMapValue v = diagramElementMap.get(element); // TODO: Rename
-						if (v != null && v.node != null) {
-							removeNode(v.node);
+						final GefDiagramElement ge = gefDiagramElements.get(de);
+						if (ge != null && ge.sceneNode != null) {
+							removeNode(ge.sceneNode);
 						}
 
 						// Remove the mapping
-						removeMappingForBranch(element);
+						removeMappingForBranch(de);
 					}
 
-					// TODO: Is the current full update requirements a bit aggresive? Document potential for updating.
-
 					if (needFullUpdate) {
-						fullUpdate();
-
-						// TODO: This is likely not up to date
-						// TODO: Should use the current modification? Nesting okay now?
-						updateDiagramLayoutFromSceneGraph();
+						updateSceneGraph();
+						updateDiagramFromSceneGraph();
 					} else {
 						// Refresh override styles to prepare to apply styles to updated elements
 						refreshOverrideStyles();
 
 						// Ensure that the scene graph nodes have been created and/or switched to the appropriate type
-						for (final DiagramElement element : elementsToUpdate) {
-							final ElementMapValue v = diagramElementMap.get(element);
-							if (v != null) {
-								createOrUpdate(v, v.parentDiagramElementSceneNode);
+						for (final DiagramElement de : elementsToUpdate) {
+							final GefDiagramElement ge = gefDiagramElements.get(de);
+							if (ge != null) {
+								ensureSceneNodeExists(ge, ge.parentDiagramNodeSceneNode);
 							}
 						}
 
 						// Update modified elements
-						for (final DiagramElement element : elementsToUpdate) {
-							final ElementMapValue info = diagramElementMap.get(element);
-							updateChildDiagramElement(info);
-							calculateAndApplyStyle(info);
+						for (final DiagramElement de : elementsToUpdate) {
+							final GefDiagramElement ge = gefDiagramElements.get(de);
+							updateSceneNode(ge);
+							calculateAndApplyStyle(ge);
 						}
 
-						// TODO: This is likely not correct. Need to test.
-						// TODO: Should use the current modification? Nesting okay now?
-						// TODO: Only update selected elements. Get working first
-						updateDiagramLayoutFromSceneGraph();
+						updateDiagramFromSceneGraph();
 					}
 				} finally {
 					inBeforeModificationsCompleted = false;
 				}
 			});
-
 		}
 
 		@Override
@@ -301,19 +303,19 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 			}
 
 			// Remove mapping for the element itself
-			diagramElementMap.remove(de);
+			gefDiagramElements.remove(de);
 		}
 
 		/**
 		 * Removes all connections contained in the specified element or its descendants.
 		 */
 		private void removeContainedConnections(final DiagramElement e) {
-			for (final DiagramElement child : e.getDiagramElements()) {
-				final ElementMapValue childElementValue = diagramElementMap.get(child); // TODO: Rename
-				removeContainedConnections(child);
+			for (final DiagramElement childDiagramElement : e.getDiagramElements()) {
+				final GefDiagramElement childGefDiagramElement = gefDiagramElements.get(childDiagramElement);
+				removeContainedConnections(childDiagramElement);
 
-				if (childElementValue != null && childElementValue.node instanceof ConnectionNode) {
-					removeNode(childElementValue.node);
+				if (childGefDiagramElement != null && childGefDiagramElement.sceneNode instanceof ConnectionNode) {
+					removeNode(childGefDiagramElement.sceneNode);
 				}
 			}
 		}
@@ -323,35 +325,17 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 * Creates a new instance
 	 * @param diagram the diagram for which JavaFX node will be created and updated.
 	 * @param coloringService service to use to support determining the final style of nodes.
-	 * @param actionExecutor the action executor to use to perform undoable operations.
 	 */
-	public GefAgeDiagram(final AgeDiagram diagram, final ColoringService coloringService,
-			final ActionExecutor actionExecutor) {
+	public GefAgeDiagram(final AgeDiagram diagram, final ColoringService coloringService) {
 		this.coloringService = Objects.requireNonNull(coloringService, "coloringService must not be null");
 		this.diagram = Objects.requireNonNull(diagram, "diagram must not be null");
 		this.finalStyleProvider = new StyleCalculator(diagram.getConfiguration(), de -> overrideStyles.get(de));
 
-		fullUpdate();
+		updateSceneGraph();
+		updateDiagramFromSceneGraph();
 
 		// Register our modification listener to update the scene graph based on changes
 		diagram.addModificationListener(modificationListener);
-
-		// Listen for the completion of the first layout by waiting for the needs layout property to be false.
-		// Once this occurs, update the diagram to match the scene graph layout and stop listening
-		this.diagramNode.needsLayoutProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				if (!newValue) {
-					actionExecutor.execute("Initial diagram layout sync", ExecutionMode.HIDE, () -> {
-						diagramNode.needsLayoutProperty().removeListener(this);
-						syncingWithSceneGraph = true;
-						diagram.modify("Initial diagram layout sync", m -> updateDiagramElementsWithFxLayout(m, true));
-						syncingWithSceneGraph = false;
-						return null;
-					});
-				}
-			}
-		});
 	}
 
 	@Override
@@ -360,41 +344,47 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		imageManager.close();
 	};
 
-	// TODO: Rename
-	private void fullUpdate() {
-		ensureNodesExist(diagram, diagramNode);
-		updateChildren(diagram);
+	/**
+	 * Performs a full update of the scene graph based on the diagram. Ensures nodes exist, that they are updated, and have appropriate styles.
+	 */
+	private void updateSceneGraph() {
+		ensureSceneNodesExistForChildren(diagram, diagramNode);
+		updateSceneNodesForChildren(diagram);
 		refreshDiagramStyles();
 	}
 
-	// TODO: Rename function. Rename arguments to distiguish between diagram nad java fx. Recursive
-	private void ensureNodesExist(final DiagramNode parentDiagramNode, final Node parentSceneNode) {
-		for (final DiagramElement childElement : parentDiagramNode.getDiagramElements()) {
-			final Node childSceneNode = createOrUpdate(parentSceneNode, childElement); // TODO: Rename
-			ensureNodesExist(childElement, childSceneNode);
+	/**
+	 * Ensures the scene node exists for the children of a diagram node.
+	 * Creates or recreates scene graph nodes and adds to the scene graph as necessary. Populates {@link #gefDiagramElements}.
+	 * @param parentDiagramNode the diagram node for which scene nodes will be created for its children.
+	 * @param parentDiagramNodeSceneNode the scene node for the parent diagram node
+	 * @return the created or updated JavaFX node
+	 */
+	private void ensureSceneNodesExistForChildren(final DiagramNode parentDiagramNode,
+			final Node parentDiagramNodeSceneNode) {
+		for (final DiagramElement childDiagramElement : parentDiagramNode.getDiagramElements()) {
+			final GefDiagramElement childGefDiagramElement = gefDiagramElements.computeIfAbsent(childDiagramElement,
+					e -> new GefDiagramElement(childDiagramElement));
+			final Node childSceneNode = ensureSceneNodeExists(childGefDiagramElement, parentDiagramNodeSceneNode);
+			ensureSceneNodesExistForChildren(childDiagramElement, childSceneNode);
 		}
 	}
 
-	// TODO: Need to update comments to make it clear how this is different from updateDiagramElement
 	/**
-	 * Create or updates the appropriate node and adds it to the scene graph as appropriate
-	 * @param parentDiagramElementSceneNode the JavaFX node for the parent diagram element.
-	 * @param childDiagramElement the diagram element which is being updated.
-	 * @return the created or updated JavaFX node
+	 * Ensures that a scene node exists for the specified GEF diagram element.
+	 * Creates or recreates scene nodes and adds to the scene graph as necessary. Updates the specified GEF diagram element.
+	 * @param gefDiagramElement the GEF diagram element for which to ensure that the scene node exists.
+	 * @param parentDiagramElementSceneNode the scene node for the parent of the GEF diagram element. This is specified instead of using
+	 * the value contained in the GEF diagram element because it may not be up to date.
+	 * @return the scene node for the diagram element. This specified GEF diagram element will be updated to hold this value.
 	 */
-	private Node createOrUpdate(final Node parentDiagramElementSceneNode, final DiagramElement childDiagramElement) {
-		final ElementMapValue elementInfo = diagramElementMap.computeIfAbsent(childDiagramElement,
-				e -> new ElementMapValue(childDiagramElement)); // TODO: Rename
-		return createOrUpdate(elementInfo, parentDiagramElementSceneNode);
-	}
-
-	// TODO: Rename to match other. Rename parmaeters. parent element scnee nodem ust not be null
-	private Node createOrUpdate(ElementMapValue elementInfo, final Node parentDiagramElementSceneNode) {
+	private Node ensureSceneNodeExists(GefDiagramElement gefDiagramElement,
+			final Node parentDiagramElementSceneNode) {
 		Objects.requireNonNull(parentDiagramElementSceneNode, "parentDiagramElementScenenNode must not be null");
-		final Graphic graphic = Objects.requireNonNull(elementInfo.diagramElement.getGraphic(),
+		final Graphic graphic = Objects.requireNonNull(gefDiagramElement.diagramElement.getGraphic(),
 				"graphic must not be null");
 
-		final DiagramElement childDiagramElement = elementInfo.diagramElement;
+		final DiagramElement childDiagramElement = gefDiagramElement.diagramElement;
 
 		//
 		// The following final variables determine the operations that needs to be performed by the remainder of the function.
@@ -402,19 +392,18 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		//
 		final boolean docked = childDiagramElement.getDockArea() != null;
 		final boolean parentIsConnection = parentDiagramElementSceneNode instanceof BaseConnectionNode;
-		final boolean create = !Objects.equals(graphic, elementInfo.sourceGraphic) || docked != elementInfo.docked
-				|| parentIsConnection != elementInfo.parentIsConnection;
-		final boolean addToScene = create || elementInfo.parentDiagramElementSceneNode != parentDiagramElementSceneNode;
-		final boolean removeFromScene = addToScene && elementInfo.node != null;
+		final boolean create = !Objects.equals(graphic, gefDiagramElement.sourceGraphic)
+				|| docked != gefDiagramElement.sceneNode instanceof DockedShape
+				|| parentIsConnection != gefDiagramElement.parentDiagramNodeSceneNode instanceof BaseConnectionNode;
+		final boolean addToScene = create || gefDiagramElement.parentDiagramNodeSceneNode != parentDiagramElementSceneNode;
+		final boolean removeFromScene = addToScene && gefDiagramElement.sceneNode != null;
 
 		// Update other fields
-		elementInfo.sourceGraphic = graphic;
-		elementInfo.docked = docked;
-		elementInfo.parentIsConnection = parentIsConnection;
+		gefDiagramElement.sourceGraphic = graphic;
 
 		// Remove the node for the scene graph
 		if (removeFromScene) {
-			removeNode(elementInfo.node);
+			removeNode(gefDiagramElement.sceneNode);
 		}
 
 		//
@@ -425,14 +414,14 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 			final Node graphicNode = GraphicToFx.createNode(graphic);
 			if (graphicNode instanceof BaseConnectionNode) {
 				final BaseConnectionNode newConnectionNode = (BaseConnectionNode) graphicNode;
-				elementInfo.node = graphicNode;
+				gefDiagramElement.sceneNode = graphicNode;
 
 				// Create the primary label node
 				final LabelNode primaryLabel = new LabelNode();
 				newConnectionNode.getPrimaryLabels().add(primaryLabel);
-				elementInfo.primaryLabel = primaryLabel;
+				gefDiagramElement.primaryLabel = primaryLabel;
 			} else if (graphicNode instanceof LabelNode) {
-				elementInfo.node = graphicNode;
+				gefDiagramElement.sceneNode = graphicNode;
 			} else if (parentIsConnection) {
 				// NOTE: This should only occur for fixed sized graphics
 				// Rotate midpoint decorations 180.0 degrees because our connection not expects midpoint decorations to be oriented as if
@@ -440,69 +429,69 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 				final Group rotationWrapper = new Group();
 				rotationWrapper.getChildren().add(graphicNode);
 				rotationWrapper.setRotate(180.0);
-				elementInfo.node = rotationWrapper;
+				gefDiagramElement.sceneNode = rotationWrapper;
 			} else {
 				if (docked) {
 					final DockedShape newDockedShape = new DockedShape();
 					newDockedShape.setGraphic(graphicNode);
-					elementInfo.node = newDockedShape;
+					gefDiagramElement.sceneNode = newDockedShape;
 
 					// Create the primary label node
 					final LabelNode primaryLabel = new LabelNode();
 					newDockedShape.getPrimaryLabels().add(primaryLabel);
-					elementInfo.primaryLabel = primaryLabel;
+					gefDiagramElement.primaryLabel = primaryLabel;
 
 					// Create annotation node
 					final LabelNode annotationLabel = new LabelNode();
 					newDockedShape.getSecondaryLabels().add(annotationLabel);
-					elementInfo.annotationLabel = annotationLabel;
+					gefDiagramElement.annotationLabel = annotationLabel;
 				} else {
 					final ContainerShape newContainerShape = new ContainerShape();
 					newContainerShape.setGraphic(graphicNode);
-					elementInfo.node = newContainerShape;
+					gefDiagramElement.sceneNode = newContainerShape;
 
 					// Create the primary label node
 					final LabelNode primaryLabel = new LabelNode();
 					newContainerShape.getPrimaryLabels().add(primaryLabel);
-					elementInfo.primaryLabel = primaryLabel;
+					gefDiagramElement.primaryLabel = primaryLabel;
 				}
 			}
 
-			StyleRoot.set(elementInfo.node, true);
+			StyleRoot.set(gefDiagramElement.sceneNode, true);
 		}
 
 		//
 		// Add the node to the appropriate parent
 		//
 		if (addToScene) {
-			if (elementInfo.node instanceof BaseConnectionNode) {
-				if (elementInfo.node instanceof FlowIndicatorNode) {
+			if (gefDiagramElement.sceneNode instanceof BaseConnectionNode) {
+				if (gefDiagramElement.sceneNode instanceof FlowIndicatorNode) {
 					if (parentDiagramElementSceneNode instanceof ContainerShape) {
-						((ContainerShape) parentDiagramElementSceneNode).getFreeChildren().add(elementInfo.node);
+						((ContainerShape) parentDiagramElementSceneNode).getFreeChildren().add(gefDiagramElement.sceneNode);
 					} else {
-						throw new RuntimeException(
+						throw new AgeGefRuntimeException(
 								"Unexpected parent node for flow indicator: " + parentDiagramElementSceneNode);
 					}
 				} else {
-					diagramNode.getChildren().add(elementInfo.node);
+					diagramNode.getChildren().add(gefDiagramElement.sceneNode);
 				}
-			} else if (elementInfo.node instanceof LabelNode) {
+			} else if (gefDiagramElement.sceneNode instanceof LabelNode) {
 				// Add label to parent
 				if (parentDiagramElementSceneNode instanceof ContainerShape) {
-					((ContainerShape) parentDiagramElementSceneNode).getSecondaryLabels().add(elementInfo.node);
+					((ContainerShape) parentDiagramElementSceneNode).getSecondaryLabels().add(gefDiagramElement.sceneNode);
 				} else if (parentDiagramElementSceneNode instanceof DockedShape) {
-					((DockedShape) parentDiagramElementSceneNode).getSecondaryLabels().add(elementInfo.node);
+					((DockedShape) parentDiagramElementSceneNode).getSecondaryLabels().add(gefDiagramElement.sceneNode);
 				} else if (parentDiagramElementSceneNode instanceof BaseConnectionNode) {
-					((BaseConnectionNode) parentDiagramElementSceneNode).getSecondaryLabels().add(elementInfo.node);
+					((BaseConnectionNode) parentDiagramElementSceneNode).getSecondaryLabels().add(gefDiagramElement.sceneNode);
 				} else {
-					throw new RuntimeException("Unexpected parent node for label: " + parentDiagramElementSceneNode);
+					throw new AgeGefRuntimeException("Unexpected parent node for label: " + parentDiagramElementSceneNode);
 				}
 			} else if (parentIsConnection) {
-				((BaseConnectionNode) parentDiagramElementSceneNode).getMidpointDecorations().add(elementInfo.node);
+				((BaseConnectionNode) parentDiagramElementSceneNode).getMidpointDecorations().add(gefDiagramElement.sceneNode);
 			} else {
 				final DockArea dockArea = childDiagramElement.getDockArea();
-				if (elementInfo.node instanceof DockedShape) {
-					final DockedShape dockedShape = (DockedShape) elementInfo.node;
+				if (gefDiagramElement.sceneNode instanceof DockedShape) {
+					final DockedShape dockedShape = (DockedShape) gefDiagramElement.sceneNode;
 
 					// Add the docked shape to the appropriate list
 					if (parentDiagramElementSceneNode instanceof ContainerShape) {
@@ -521,33 +510,33 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 							containerShapeParent.getBottomChildren().add(dockedShape);
 							break;
 						default:
-							throw new RuntimeException(
+							throw new AgeGefRuntimeException(
 									"Unexpected dock area for child of container shape: " + dockArea);
 						}
 					} else if (parentDiagramElementSceneNode instanceof DockedShape) {
 						final DockedShape dockedShapeParent = (DockedShape) parentDiagramElementSceneNode;
 						dockedShapeParent.getNestedChildren().add(dockedShape);
 					} else {
-						throw new RuntimeException(
+						throw new AgeGefRuntimeException(
 								"Unexpected parent for docked shape: " + parentDiagramElementSceneNode);
 					}
 				} else {
 					if (parentDiagramElementSceneNode instanceof ContainerShape) {
 						final ContainerShape containerShapeParent = (ContainerShape) parentDiagramElementSceneNode;
-						containerShapeParent.getFreeChildren().add(elementInfo.node);
+						containerShapeParent.getFreeChildren().add(gefDiagramElement.sceneNode);
 					} else if (parentDiagramElementSceneNode instanceof Group) {
-						((Group) parentDiagramElementSceneNode).getChildren().add(elementInfo.node);
+						((Group) parentDiagramElementSceneNode).getChildren().add(gefDiagramElement.sceneNode);
 					} else {
-						throw new RuntimeException(
+						throw new AgeGefRuntimeException(
 								"Unexpected parent node for container shape: " + parentDiagramElementSceneNode);
 					}
 				}
 			}
 
-			elementInfo.parentDiagramElementSceneNode = parentDiagramElementSceneNode;
+			gefDiagramElement.parentDiagramNodeSceneNode = parentDiagramElementSceneNode;
 		}
 
-		return elementInfo.node;
+		return gefDiagramElement.sceneNode;
 	}
 
 	private void removeNode(final Node node) {
@@ -556,76 +545,76 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		if (graphParent instanceof Group) {
 			((Group) graphParent).getChildren().remove(node);
 		} else {
-			throw new RuntimeException("Unexpected case. Parent is not a group. Child: " + node);
+			throw new AgeGefRuntimeException("Unexpected case. Parent is not a group. Child: " + node);
 		}
 	}
 
-	// TODO: COuld update all but that would be expensive...
-	private void updateChildren(final DiagramNode parentDiagramNode) {
+	/**
+	 * Updates the properties of the scene nodes for the children of the specified diagram node.
+	 * Only updates properties which do not effect the structure of the scene graph. Recursive
+	 * @param parentDiagramNode the diagram node for which scene nodes associated with its children will be updated.
+	 */
+	private void updateSceneNodesForChildren(final DiagramNode parentDiagramNode) {
 		for (final DiagramElement childDiagramElement : parentDiagramNode.getDiagramElements()) {
-			updateChildDiagramElement(diagramElementMap.get(childDiagramElement));
-			updateChildren(childDiagramElement);
+			updateSceneNode(gefDiagramElements.get(childDiagramElement));
+			updateSceneNodesForChildren(childDiagramElement);
 		}
 	}
 
-	// TODO: Not recursive. REname?
-	// TODO: Rename to childInfo?
-	private void updateChildDiagramElement(final ElementMapValue info) {
-		final DiagramElement childDiagramElement = info.diagramElement;
-
-		// TODO: Null check. Rename
-		final Node node = info.node;
+	/**
+	 * Updates the scene nodes related to the specified GEF diagram element based on the diagram element.
+	 * Only updates properties which do not effect the structure of the scene graph. Not-recursive
+	 * @param gefDiagramElement is the GEF diagram element for which scene nodes will be updated.
+	 */
+	private void updateSceneNode(final GefDiagramElement gefDiagramElement) {
+		final DiagramElement diagramElement = gefDiagramElement.diagramElement;
+		final Node sceneNode = gefDiagramElement.sceneNode;
 
 		// Update connections
-		if (node instanceof BaseConnectionNode) {
-			final BaseConnectionNode connectionNode = (BaseConnectionNode) node;
-			final Point transformPoint; // TODO: Rename
-			if (node instanceof FlowIndicatorNode) {
-				// TODO; Avoid duplication?
-				PreferredPosition.set(node, convertPoint(childDiagramElement.getPosition()));
+		if (sceneNode instanceof BaseConnectionNode) {
+			final BaseConnectionNode connectionNode = (BaseConnectionNode) sceneNode;
+			final Point bendpointOrigin;
+			if (sceneNode instanceof FlowIndicatorNode) {
+				PreferredPosition.set(sceneNode, convertPoint(diagramElement.getPosition()));
 
-				final Point parentPosition = DiagramElementLayoutUtil.getAbsolutePosition(childDiagramElement);
-				transformPoint = new Point(parentPosition.x + childDiagramElement.getX(),
-						parentPosition.y + childDiagramElement.getY());
+				final Point parentPosition = DiagramElementLayoutUtil.getAbsolutePosition(diagramElement);
+				bendpointOrigin = new Point(parentPosition.x + diagramElement.getX(),
+						parentPosition.y + diagramElement.getY());
 			} else {
-				transformPoint = Point.ZERO;
+				bendpointOrigin = Point.ZERO;
 			}
 
 			// Update the connection anchor
-			updateConnectionAnchors(childDiagramElement, (BaseConnectionNode) node);
+			updateConnectionAnchors(diagramElement, (BaseConnectionNode) sceneNode);
 
 			// Set bendpoints. Coordinates are specified in the diagram model relative to the diagram. The need to be specified relative to the
 			// connection's parent node. For regular connection this is the same because the node's parent is the diagram node.
 			// However, flow indicators are added as a child to another node based on the parent diagram element.
-			connectionNode.setBendpoints(childDiagramElement.getBendpoints().stream()
-					.map(p -> new org.eclipse.gef.geometry.planar.Point(p.x - transformPoint.x, p.y - transformPoint.y))
+			connectionNode.setBendpoints(diagramElement.getBendpoints().stream()
+					.map(p -> new org.eclipse.gef.geometry.planar.Point(p.x - bendpointOrigin.x,
+							p.y - bendpointOrigin.y))
 					.collect(Collectors.toList()));
 
-			// TODO: Need to replace connection labels instead of just creating.. Fixed number of primary labels? Could create early and set
-			// info
+			PreferredPosition.set(gefDiagramElement.primaryLabel,
+					convertPoint(diagramElement.getConnectionPrimaryLabelPosition()));
 
-			PreferredPosition.set(info.primaryLabel,
-					convertPoint(childDiagramElement.getConnectionPrimaryLabelPosition()));
-
-		} else if (node instanceof LabelNode) {
+		} else if (sceneNode instanceof LabelNode) {
 			// Such a label represents a secondary label
-			final LabelNode label = (LabelNode) node; // TODO: Rename?
-			label.setText(Strings.nullToEmpty(childDiagramElement.getLabelName()));
-			updateLabelNodeVisibilityAndManagement(label);
+			final LabelNode label = (LabelNode) sceneNode;
+			label.setText(Strings.nullToEmpty(diagramElement.getLabelName()));
+			setLabelVisibility(label);
 
 			// Update element position
-			if (info.parentIsConnection) {
-				PreferredPosition.set(label, convertPoint(childDiagramElement.getPosition()));
+			if (gefDiagramElement.parentDiagramNodeSceneNode instanceof BaseConnectionNode) {
+				PreferredPosition.set(label, convertPoint(diagramElement.getPosition()));
 			}
-		} else if (node instanceof ContainerShape) {
-			final ContainerShape containerShape = (ContainerShape) node;
+		} else if (sceneNode instanceof ContainerShape) {
+			final ContainerShape containerShape = (ContainerShape) sceneNode;
 
-			// TODO: Can just do this for all things?
-			PreferredPosition.set(node, convertPoint(childDiagramElement.getPosition()));
+			PreferredPosition.set(sceneNode, convertPoint(diagramElement.getPosition()));
 
-			// TODO: Needed for docked shapes too. Need common interface
 			// Set configured size
-			final Dimension size = childDiagramElement.getSize();
+			final Dimension size = diagramElement.getSize();
 			if (size == null) {
 				containerShape.setConfiguredWidth(ContainerShape.NOT_SPECIFIED);
 				containerShape.setConfiguredHeight(ContainerShape.NOT_SPECIFIED);
@@ -633,15 +622,13 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 				containerShape.setConfiguredWidth(size.width);
 				containerShape.setConfiguredHeight(size.height);
 			}
-		} else if (node instanceof DockedShape) {
-			final DockedShape n = (DockedShape) node; // TODO: Rename
+		} else if (sceneNode instanceof DockedShape) {
+			final DockedShape n = (DockedShape) sceneNode;
 
-			// TODO: Can just do this for all things?
-			PreferredPosition.set(node, convertPoint(childDiagramElement.getPosition()));
+			PreferredPosition.set(sceneNode, convertPoint(diagramElement.getPosition()));
 
-			// TODO: Needed for docked shapes too. Need common interface
 			// Set configured size
-			final Dimension size = childDiagramElement.getSize();
+			final Dimension size = diagramElement.getSize();
 			if (size == null) {
 				n.setConfiguredWidth(ContainerShape.NOT_SPECIFIED);
 				n.setConfiguredHeight(ContainerShape.NOT_SPECIFIED);
@@ -651,76 +638,68 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 			}
 		}
 
-		// TODO; Same issue as above
-		if (info.primaryLabel != null) {
-			// TODO: Compare to avoid excessive update.. Text doesn't appear to do it. Could do it in our label node?
-			info.primaryLabel.setText(getPrimaryLabelText(childDiagramElement));
-			updateLabelNodeVisibilityAndManagement(info.primaryLabel);
+		// Update the primary label
+		if (gefDiagramElement.primaryLabel != null) {
+			gefDiagramElement.primaryLabel.setText(getPrimaryLabelText(diagramElement));
+			setLabelVisibility(gefDiagramElement.primaryLabel);
 		}
 
-		if (info.annotationLabel != null) {
-			// TODO: Compare to avoid excessive update.. see above
-			final String annotation = childDiagramElement.getGraphicalConfiguration().getAnnotation();
-			info.annotationLabel.setText(Strings.nullToEmpty(annotation));
-			updateLabelNodeVisibilityAndManagement(info.annotationLabel);
+		// Update the secondary label
+		if (gefDiagramElement.annotationLabel != null) {
+			final String annotation = diagramElement.getGraphicalConfiguration().getAnnotation();
+			gefDiagramElement.annotationLabel.setText(Strings.nullToEmpty(annotation));
+			setLabelVisibility(gefDiagramElement.annotationLabel);
 		}
-	}
-
-	// TODO: Rename. Is there already a similar method somewhere?
-	private void updateLabelNodeVisibilityAndManagement(final LabelNode n) {
-		final boolean visible = !Strings.isNullOrEmpty(n.getText());
-		n.setVisible(visible);
-		n.setManaged(visible);
 	}
 
 	private void updateConnectionAnchors(final DiagramElement de, final BaseConnectionNode node) {
-		// TODO: Handle start / end not being valid? Is that allowed? Avoid creating node in that case? Or remove it here if anchor can't be found?
-
 		if (node instanceof FlowIndicatorNode) {
 			final FlowIndicatorNode fi = (FlowIndicatorNode) node;
-			fi.setStartAnchor(getAnchor(de.getStartElement(), true));
+			fi.setStartAnchor(getAnchor(de.getStartElement(), null));
 		} else if (node instanceof ConnectionNode) {
-			// TODO; Is this inefficient. THe whole use interior anchor thing only makes sense if one of them id a docked shape
 			final ConnectionNode cn = (ConnectionNode) node;
-			// TODO: Consider whether there is a way to determine whether to use the interior anchor that doesn't involve two function calls
 			cn.setStartAnchor(
-					getAnchor(de.getStartElement(), useInteriorAnchor(de.getStartElement(), de.getEndElement())));
-			cn.setEndAnchor(getAnchor(de.getEndElement(), useInteriorAnchor(de.getEndElement(), de.getStartElement())));
+					getAnchor(de.getStartElement(), de.getEndElement()));
+			cn.setEndAnchor(getAnchor(de.getEndElement(), de.getStartElement()));
 		} else {
-			throw new RuntimeException("Unexpected node: " + node);
+			throw new AgeGefRuntimeException("Unexpected node: " + node);
 		}
 	}
 
-	// TODO; Should label be created for null values.. This always returns non-null
-	// TODO: Rename
+	/**
+	 * Determines the text to use for the primary label.
+	 * @param de the diagram element to determine the primary label text for
+	 * @return the primary label text. Guaranteed to be non-null.
+	 */
 	private String getPrimaryLabelText(final DiagramElement de) {
 		final String completenessSuffix = de.getCompleteness() == Completeness.INCOMPLETE ? INCOMPLETE_INDICATOR : "";
 		final String labelName = de.getLabelName();
 		return labelName == null ? "" : (labelName + completenessSuffix);
 	}
 
-	// TODO: Rename. Document. Use in more places
-	private Point2D convertPoint(final Point p) {
-		return p == null ? null : new Point2D(p.x, p.y);
-	}
-
-	// TODO: Document
-	private IAnchor getAnchor(final DiagramElement de, final boolean useInteriorAnchor) {
-		final ElementMapValue info = diagramElementMap.get(de); // TODO: Rename
-		if (info == null || info.node == null) {
+	/**
+	 * Returns the anchor to use to reference the specified diagram element.
+	 * @param de the element to retrieve the anchor for
+	 * @param other is the element at the other end of the connection.
+	 * Used for docked shapes to determine which anchor to use. If null, the interior anchor will be used.
+	 * @return the anchor for the diagram element.
+	 */
+	private IAnchor getAnchor(final DiagramElement de, final DiagramElement other) {
+		final GefDiagramElement ge = gefDiagramElements.get(de);
+		if (ge == null || ge.sceneNode == null) {
 			return null;
 		}
 
-		if (info.node instanceof ContainerShape) {
-			return ((ContainerShape) info.node).getAnchor();
-		} else if (info.node instanceof DockedShape) {
-			final DockedShape ds = (DockedShape) info.node;
-			return useInteriorAnchor ? ds.getInteriorAnchor() : ds.getExteriorAnchor();
-		} else if (info.node instanceof BaseConnectionNode) {
-			return ((BaseConnectionNode) info.node).getMidpointAnchor();
+		if (ge.sceneNode instanceof ContainerShape) {
+			return ((ContainerShape) ge.sceneNode).getAnchor();
+		} else if (ge.sceneNode instanceof DockedShape) {
+			final DockedShape ds = (DockedShape) ge.sceneNode;
+			return (other == null || useInteriorAnchor(de, other)) ? ds.getInteriorAnchor() : ds.getExteriorAnchor();
+		} else if (ge.sceneNode instanceof BaseConnectionNode) {
+			return ((BaseConnectionNode) ge.sceneNode).getMidpointAnchor();
 		} else {
-			throw new RuntimeException(
-					"Unexpected case. Attempt to get anchor for node of type : " + info.node.getClass().getName());
+			throw new AgeGefRuntimeException(
+					"Unexpected case. Attempt to get anchor for node of type : " + ge.sceneNode.getClass().getName());
 		}
 	}
 
@@ -743,20 +722,20 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	public void refreshStyle(final Collection<DiagramElement> elements) {
 		refreshOverrideStyles();
 		for (final DiagramElement de : elements) {
-			calculateAndApplyStyle(diagramElementMap.get(de));
+			calculateAndApplyStyle(gefDiagramElements.get(de));
 		}
 	}
 
 	/**
 	 * Determines the final style and applies it to the diagram element
 	 * Assumes override style information has been updated using {@link #refreshOverrideStyles()}
-	 * @paraminfo the info for which to refresh the style
+	 * @param gefDiagramElement the GEF diagram element for which to refresh the style
 	 */
-	private void calculateAndApplyStyle(final ElementMapValue info) {
-		if (info != null && info.node != null) {
-			final Style style = finalStyleProvider.getStyle(info.diagramElement);
+	private void calculateAndApplyStyle(final GefDiagramElement gefDiagramElement) {
+		if (gefDiagramElement != null && gefDiagramElement.sceneNode != null) {
+			final Style style = finalStyleProvider.getStyle(gefDiagramElement.diagramElement);
 			final FxStyle fxStyle = styleToFx.createStyle(style);
-			FxStyleApplier.applyStyle(info.node, fxStyle);
+			FxStyleApplier.applyStyle(gefDiagramElement.sceneNode, fxStyle);
 		}
 	}
 
@@ -767,9 +746,9 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 * @param n the node to calculate apply the style for
 	 */
 	private void calculateAndApplyStylesForChildren(final DiagramNode n) {
-		for (final DiagramElement child : n.getDiagramElements()) {
-			calculateAndApplyStylesForChildren(child);
-			calculateAndApplyStyle(diagramElementMap.get(child));
+		for (final DiagramElement childDiagramElement : n.getDiagramElements()) {
+			calculateAndApplyStylesForChildren(childDiagramElement);
+			calculateAndApplyStyle(gefDiagramElements.get(childDiagramElement));
 		}
 	}
 
@@ -784,76 +763,46 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	}
 
 	/**
-	 * Triggers a layout of the scene graph nodes and then updates the diagram with the layout.
+	 * Triggers a layout of the scene graph nodes and then updates the diagram based on the layout of the scene graph nodes.
+	 * Only position and size are set because those fields are calculated by the scene graph node during layout.	 *
+	 * Should only be called after the root node has been added to a scene.
+	 * @param m the modification to use to modify the diagram elements
 	 */
-	// TODO: Need to confirm that if an element is added that its bounds are correct at the time this is called. Could have an issue similar to
-	// to the initial update. Will it work for scene graph nodes that are newly added or if the scene is not being displayed?
-	private void updateDiagramLayoutFromSceneGraph() {
-		syncingWithSceneGraph = true;
+	public void updateDiagramFromSceneGraph() {
+		updatingDiagramFromSceneGraph = true;
+		diagramNode.applyCss();
 		diagramNode.layout();
-		diagram.modify("Sync Layout", m -> updateDiagramElementsWithFxLayout(m, false));
-		syncingWithSceneGraph = false;
-	}
+		diagram.modify("Update Diagram from Scene Graph", m -> {
+			for (final Entry<DiagramElement, GefDiagramElement> e : this.gefDiagramElements.entrySet()) {
+				final DiagramElement de = e.getKey();
+				final Node sceneNode = e.getValue().sceneNode;
 
-	// TODO; Rename
-	// TODO: Rename arguments
-	// TODO; special handling of feature groups and ports, etc at least for initial. Or an appropriately named flag
-	// TODO; is this really the best way?
-	// On the initial update, values that are stored in the diagram element but which are determined by the JavaFX nodes are not updated.
-	// An example of this is the X value for shapes docked to the left or right side of a container.
-	// The goal is is to avoid changing diagram elements when diagrams created with Graphiti.
-	// Due to the changes in text rendering, the calculated sizes for labels are different.
-	private void updateDiagramElementsWithFxLayout(final DiagramModification m, final boolean initial) {
-		for (final Entry<DiagramElement, ElementMapValue> e : this.diagramElementMap.entrySet()) {
-			final DiagramElement de = e.getKey();
-			final Node n = e.getValue().node;
-
-			final DiagramNode parent = de.getParent();
-			if (DiagramElementPredicates.isMoveable(de) && (!(parent instanceof DiagramElement)
-					|| !DiagramElementPredicates.isConnection((DiagramElement) parent))) {
-
-				if (initial && n instanceof DockedShape && de.hasPosition()) {
-					final DockedShape ds = (DockedShape) n;
-
-					// TODO; Different check needed?
-					if (ds.getSide().vertical) {
-						m.setPosition(de, new Point(de.getX(), n.getLayoutY()));
-					} else {
-						m.setPosition(de, new Point(n.getLayoutX(), de.getY()));
+				final DiagramNode parent = de.getParent();
+				if (DiagramElementPredicates.isMoveable(de) && (!(parent instanceof DiagramElement)
+						|| !DiagramElementPredicates.isConnection((DiagramElement) parent))) {
+					final double newX = sceneNode.getLayoutX();
+					final double newY = sceneNode.getLayoutY();
+					if (de.hasPosition() || (newX != 0.0 || newY != 0)) {
+						m.setPosition(de, new Point(newX, newY));
 					}
-				} else {
-					m.setPosition(de, new Point(n.getLayoutX(), n.getLayoutY()));
+				}
+
+				// Set the size for all elements. Even for non-resizable elements, the layout engine uses the sizes in the diagram.
+				// This is important for secondary labels of connections.
+				final Bounds layoutBounds = sceneNode.getLayoutBounds();
+				if (de.hasSize() || (layoutBounds.getWidth() != 0.0 || layoutBounds.getHeight() != 0)) {
+					m.setSize(de, new Dimension(layoutBounds.getWidth(), layoutBounds.getHeight()));
 				}
 			}
-
-			// Set the size for all elements. Even for non-resizable elements, the layout engine uses the sizes in the diagram.
-			// This is important for secondary labels of connections.
-			final Bounds layoutBounds = n.getLayoutBounds();
-
-			if (initial && n instanceof DockedShape && de.hasSize()) {
-				final DockedShape ds = (DockedShape) n;
-				if (ds.getSide().vertical) {
-					m.setSize(de, new Dimension(de.getWidth(), layoutBounds.getHeight()));
-				} else {
-					m.setSize(de, new Dimension(layoutBounds.getWidth(), de.getHeight()));
-				}
-			} else {
-				m.setSize(de, new Dimension(layoutBounds.getWidth(), layoutBounds.getHeight()));
-			}
-
-			// TODO: Ignore preferred position and just try to set?
-
-			// TODO: Need to handle different node types and also transform points in some cases?
-
-			// TODO; Configured size.. That doesn't need to be configured either.. may need to be compared with? Or just set or certain elements?
-
-			// TODO; What needs to be synchronized
-
-		}
+		});
+		updatingDiagramFromSceneGraph = false;
 	}
 
-	// TODO: Rename?
-	public Group getNode() {
+	/**
+	 * Return the JavaFX node for the diagram.
+	 * @return the scene graph node.
+	 */
+	public Node getSceneNode() {
 		return diagramNode;
 	}
 
@@ -896,32 +845,23 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 	@Override
 	public Dimension getPrimaryLabelSize(final DiagramElement de) {
-		// TODO: Check managed state?
-		final ElementMapValue v = diagramElementMap.get(de);
-		if (v == null || v.primaryLabel == null) {
+		final GefDiagramElement ge = gefDiagramElements.get(de);
+		if (ge == null || ge.primaryLabel == null || !ge.primaryLabel.isManaged()) {
 			return Dimension.ZERO;
 		}
 
-		return new Dimension(v.primaryLabel.getWidth(), v.primaryLabel.getHeight());
+		return new Dimension(ge.primaryLabel.computePrefWidth(-1), ge.primaryLabel.computePrefHeight(-1));
 	}
 
 	@Override
 	public Dimension getAnnotationLabelSize(final DiagramElement de) {
-		// TODO: Check managed state?
-		final ElementMapValue v = diagramElementMap.get(de);
-		if (v == null || v.annotationLabel == null) {
+		final GefDiagramElement ge = gefDiagramElements.get(de);
+		if (ge == null || ge.annotationLabel == null || !ge.annotationLabel.isManaged()) {
 			return Dimension.ZERO;
 		}
 
-		return new Dimension(v.annotationLabel.getWidth(), v.annotationLabel.getHeight());
+		return new Dimension(ge.annotationLabel.computePrefWidth(-1), ge.annotationLabel.computePrefHeight(-1));
 	}
-
-	// TODO: Does this needto be part of GefAgeDiagram?
-	// TODO ;REname. Move
-	private static final Dimension FEATURE_GROUP_CIRCLE_SIZE = new Dimension(FeatureGroupNode.CIRCLE_DIAMETER,
-			FeatureGroupNode.CIRCLE_DIAMETER);
-	private static final Dimension DEFAULT_FEATURE_SIZE = new Dimension(FeatureConstants.WIDTH,
-			FeatureConstants.HEIGHT);
 
 	@Override
 	public Dimension getPortGraphicSize(final DiagramElement dockedElement) {
@@ -938,13 +878,32 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	}
 
 	@Override
-	public Dimension getDockedElementLabelsSize(final DiagramElement dockedElement) {
-		final ElementMapValue v = diagramElementMap.get(dockedElement);
-		if (v != null && v.node instanceof DockedShape) {
-			final DockedShape ds = (DockedShape) v.node;
-			return new Dimension(ds.getMaxLabelWidth(), ds.getTotalLabelHeight());
+	public Dimension getDockedElementLabelsSize(final DiagramElement dockedDiagramElement) {
+		final GefDiagramElement dockedGefDiagramElement = gefDiagramElements.get(dockedDiagramElement);
+		if (dockedGefDiagramElement != null && dockedGefDiagramElement.sceneNode instanceof DockedShape) {
+			final DockedShape ds = (DockedShape) dockedGefDiagramElement.sceneNode;
+			return new Dimension(ds.getMaxPrefLabelWidth(), ds.getTotalLabelHeight());
 		} else {
 			return Dimension.ZERO;
 		}
+	}
+
+	/**
+	 * Sets whether the label is managed and visible based on whether the label is empty.
+	 * @param label the label to update.
+	 */
+	private static void setLabelVisibility(final LabelNode label) {
+		final boolean visible = !Strings.isNullOrEmpty(label.getText());
+		label.setVisible(visible);
+		label.setManaged(visible);
+	}
+
+	/**
+	 * Converts a graphical editor point to a JavaFX point object.
+	 * @param p the graphical editor point
+	 * @return the JavaFX point.
+	 */
+	private static Point2D convertPoint(final Point p) {
+		return p == null ? null : new Point2D(p.x, p.y);
 	}
 }

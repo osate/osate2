@@ -25,7 +25,6 @@ package org.osate.ge;
 
 /**
  * Interface for interacting with an open diagram editor.
- * @noimplement
  */
 public interface GraphicalEditor {
 	void selectDiagramElementsForBusinessObject(Object bo);

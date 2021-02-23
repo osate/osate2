@@ -106,7 +106,7 @@ public class PortNode extends Parent implements Stylable {
 			break;
 
 		default:
-			throw new RuntimeException("Unsupported value: " + direction);
+			throw new IllegalArgumentException("Unsupported value: " + direction);
 		}
 
 		eventNode.setStrokeType(StrokeType.INSIDE);

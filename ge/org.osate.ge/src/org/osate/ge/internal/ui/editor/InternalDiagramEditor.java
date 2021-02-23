@@ -35,6 +35,7 @@ import org.osate.ge.GraphicalEditor;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.services.ActionExecutor;
@@ -123,16 +124,40 @@ public interface InternalDiagramEditor extends GraphicalEditor, IWorkbenchPart3 
 	 */
 	TreeUpdater getBoTreeUpdater();
 
-	// TODO: Cleanup
+	/**
+	 * Returns the action handler that should be executed to handle a global action.
+	 * @param actionId the global action ID
+	 * @return the editor specific action handler for the global action. Null if the editor does not define a handler for the action.
+	 */
 	IAction getGlobalActionHandler(String actionId);
 
+	/**
+	 * Returns the selected diagram elements.
+	 * @return a set containing the selected diagram elements.
+	 */
 	Set<DiagramElement> getSelectedDiagramElements();
 
-	void selectDiagramElements(Collection<DiagramElement> diagramElements);
+	/**
+	 * Sets the selection to the specified diagram nodes.
+	 * @param diagramNodes the nodes to select.
+	 */
+	void selectDiagramNodes(Collection<? extends DiagramNode> diagramNodes);
 
+	/**
+	 * Adds a listener that will be called when the selection changes.
+	 * @param listener the selection listener.
+	 */
 	void addSelectionChangedListener(ISelectionChangedListener listener);
 
+	/**
+	 * Returns whether the editor has been disposed.
+	 * @return whether the editor has been disposed.
+	 */
 	boolean isDisposed();
 
+	/**
+	 * Returns whether the diagram displayed by the editor is editable.
+	 * @return whether the contents of the editor can be edited.
+	 */
 	boolean isEditable();
 }

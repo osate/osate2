@@ -77,7 +77,7 @@ class ShowHideFiltersContributionItem extends CompoundContributionItem {
 		}
 
 		final IEditorPart activeEditor = window.getActivePage().getActiveEditor();
-		if (!(activeEditor instanceof AgeDiagramEditor)) {
+		if (!(activeEditor instanceof InternalDiagramEditor)) {
 			return EMPTY;
 		}
 

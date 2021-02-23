@@ -51,6 +51,7 @@ import org.osate.ge.gef.PortNode;
 import org.osate.ge.gef.ProcessorNode;
 import org.osate.ge.gef.RectangleNode;
 import org.osate.ge.gef.SubprogramAccessNode;
+import org.osate.ge.gef.ui.AgeGefRuntimeException;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeConnectionTerminator;
@@ -112,7 +113,7 @@ public class GraphicToFx {
 				return new PolylineNode(fixedSize, points);
 
 			default:
-				throw new RuntimeException("Unhandled type: " + poly.type);
+				throw new AgeGefRuntimeException("Unhandled type: " + poly.type);
 			}
 		});
 		addFactory(mapBuilder, Parallelogram.class, pg -> new ParallelogramNode(pg.horizontalOffset));
@@ -146,7 +147,7 @@ public class GraphicToFx {
 			case SUBPROGRAM_GROUP_ACCESS:
 				return new SubprogramAccessNode(fg.direction == Direction.IN, false);
 			default:
-				throw new RuntimeException("Unexpected feature type: " + fg.featureType);
+				throw new AgeGefRuntimeException("Unexpected feature type: " + fg.featureType);
 			}
 		});
 		addFactory(mapBuilder, AgeConnection.class, c -> {
@@ -181,7 +182,7 @@ public class GraphicToFx {
 		@SuppressWarnings("unchecked")
 		final Function<Graphic, Node> c = (Function<Graphic, Node>) factoryMap.get(graphic.getClass());
 		if (c == null) {
-			throw new RuntimeException("Unsupported object: " + graphic);
+			throw new AgeGefRuntimeException("Unsupported object: " + graphic);
 		}
 
 		return c.apply(graphic);
@@ -196,7 +197,7 @@ public class GraphicToFx {
 		case ORTHOGONAL_LINE:
 			return new PolylineNode(new Dimension2D(0.0, 16.0), 0.0, 1.0, 0.0, 0.0);
 		default:
-			throw new RuntimeException("Unsupported connection terminator type: " + t.type);
+			throw new AgeGefRuntimeException("Unsupported connection terminator type: " + t.type);
 		}
 	}
 
@@ -210,7 +211,7 @@ public class GraphicToFx {
 			dim = new Dimension2D(8.0, 8.0);
 			break;
 		default:
-			throw new RuntimeException("Unsupported connection terminator size: " + size);
+			throw new AgeGefRuntimeException("Unsupported connection terminator size: " + size);
 		}
 
 		return new PolygonNode(dim, reverse ? mirroredArrowPoints : arrowPoints);
@@ -226,7 +227,7 @@ public class GraphicToFx {
 			dim = new Dimension2D(8.0, 10.0);
 			break;
 		default:
-			throw new RuntimeException("Unsupported connection terminator size: " + size);
+			throw new AgeGefRuntimeException("Unsupported connection terminator size: " + size);
 		}
 
 		return new PolylineNode(dim, reverse ? mirroredArrowPoints : arrowPoints);
@@ -241,7 +242,7 @@ public class GraphicToFx {
 		case OUT:
 			return FeatureDirection.OUT;
 		default:
-			throw new RuntimeException("Unsupported value: " + value);
+			throw new AgeGefRuntimeException("Unsupported value: " + value);
 		}
 	}
 }

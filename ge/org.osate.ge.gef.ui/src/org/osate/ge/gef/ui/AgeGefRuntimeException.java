@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -21,34 +21,23 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.ui.editor.actions;
+package org.osate.ge.gef.ui;
 
-import java.util.Objects;
+/**
+ * Unchecked exception thrown by AADL graphical editor GEF front-end.
+ *
+ */
+public class AgeGefRuntimeException extends RuntimeException {
+	/**
+	 * Serializable version number for class
+	 */
+	private static final long serialVersionUID = -5227084944805024321L;
 
-import org.eclipse.gef.ui.actions.WorkbenchPartAction;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.PlatformUI;
-import org.osate.ge.internal.services.ActionService;
-
-public abstract class ActionStackAction extends WorkbenchPartAction {
-	protected final ActionService actionService;
-	// private final ActionStackChangeListener actionStackChangeListener = () -> refresh();
-
-	public ActionStackAction(final IWorkbenchPart part) {
-		super(part);
-		this.actionService = Objects.requireNonNull(PlatformUI.getWorkbench().getService(ActionService.class),
-				"Unable to retrieve action service");
-
-		refresh();
-
-		// Add a listener to undo service which refreshes the state
-		// TODO: Decide what to do if ActionStackAction is kept
-		// actionService.addChangeListener(actionStackChangeListener);
+	public AgeGefRuntimeException(final String message) {
+		super(message);
 	}
 
-	@Override
-	public void dispose() {
-		// TODO: Decide what to do if ActionStackAction is kept
-//		actionService.removeChangeListener(actionStackChangeListener);
+	public AgeGefRuntimeException(final Throwable t) {
+		super(t);
 	}
 }

@@ -79,12 +79,12 @@ public class LabelNode extends Region implements Stylable, HasLabelBackgroundCol
 	}
 
 	@Override
-	protected double computePrefWidth(double height) {
+	public double computePrefWidth(double height) {
 		return text.prefWidth(height);
 	}
 
 	@Override
-	protected double computePrefHeight(double width) {
+	public double computePrefHeight(double width) {
 		return text.prefHeight(width);
 	}
 

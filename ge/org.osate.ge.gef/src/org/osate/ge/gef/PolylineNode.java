@@ -54,7 +54,7 @@ public class PolylineNode extends Region implements ChopBoxGeometryProvider, Sty
 		this.getChildren().addAll(poly);
 
 		if ((this.points.length % 2) != 0) {
-			throw new RuntimeException("points must be contain an even number of values");
+			throw new IllegalArgumentException("points must be contain an even number of values");
 		}
 
 		// For fixed sized nodes, set the min=pref=max=fixed size

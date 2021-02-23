@@ -156,6 +156,8 @@ class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, SimplePa
 
 	@Override
 	public void activateItem(final SimplePaletteItem item) {
+		activeItem.setValue(item);
+
 		// TODO: Implement. Consider replacing SimplePaletteGroup/Item as needed if it simplifies the implementation
 		if (item == selectItem) {
 			System.err.println("SELECT");
@@ -167,5 +169,15 @@ class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, SimplePa
 	@Override
 	public ReadOnlyProperty<SimplePaletteItem> activeItemProperty() {
 		return activeItem.getReadOnlyProperty();
+	}
+
+	/**
+	 * Deactivate the selected item if it is not a selection item.
+	 */
+	public void deactivateNonSelectItem() {
+		final SimplePaletteItem item = activeItem.getValue();
+		if (item != selectItem && item != marqueeItem) {
+			activeItem.setValue(null);
+		}
 	}
 }

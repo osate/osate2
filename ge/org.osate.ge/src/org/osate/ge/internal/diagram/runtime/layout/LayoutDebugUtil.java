@@ -43,7 +43,7 @@ import org.eclipse.ui.PlatformUI;
  * If this is used regularly, this should likely be switched to use a preference.
  */
 class LayoutDebugUtil {
-	private static final boolean saveGraphEnabled = false;
+	private static final boolean saveGraphEnabled = true;// false;
 	private static final boolean showGraphEnabled = false;
 	private static final String magicProjectName = "__osate_ge_debug";
 

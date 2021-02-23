@@ -230,7 +230,9 @@ class ElkGraphBuilder {
 								Collectors.toCollection(ArrayList::new)));
 
 				// Determine padding
-				final ElkPadding parentPadding = new ElkPadding(portAndContentsPadding);
+				final ElkPadding parentPadding = new ElkPadding(
+						parent.getParent() == null || parent.getParent().getParent() == null ? 0.0
+								: portAndContentsPadding);
 				for (final Entry<PortSide, List<DiagramElement>> entry : groupedDockedElements.entrySet()) {
 					final PortSide side = entry.getKey();
 

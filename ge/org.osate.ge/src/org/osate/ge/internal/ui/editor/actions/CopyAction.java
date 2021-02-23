@@ -34,6 +34,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.action.Action;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.ActionFactory;
 import org.osate.ge.businessobjecthandling.CanCopyContext;
@@ -49,12 +50,11 @@ import org.osgi.framework.FrameworkUtil;
 
 import com.google.common.collect.ImmutableList;
 
-public class CopyAction extends ActionStackAction {
+public class CopyAction extends Action {
 	private final ClipboardService.Clipboard clipboard;
 	private final ReferenceBuilderService referenceBuilder;
 
 	public CopyAction(final IWorkbenchPart part) {
-		super(part);
 		setId(ActionFactory.COPY.getId());
 		setText("Copy");
 
@@ -95,7 +95,7 @@ public class CopyAction extends ActionStackAction {
 	}
 
 	@Override
-	protected boolean calculateEnabled() {
+	public boolean isEnabled() {
 		return !getElementsToCopy().isEmpty();
 	}
 

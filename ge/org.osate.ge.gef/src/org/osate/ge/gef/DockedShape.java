@@ -23,6 +23,8 @@
  */
 package org.osate.ge.gef;
 
+import java.util.List;
+
 import org.eclipse.gef.fx.anchors.IAnchor;
 import org.eclipse.gef.fx.anchors.StaticAnchor;
 import org.eclipse.gef.geometry.convert.fx.FX2Geometry;
@@ -160,12 +162,11 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 	}
 
 	/**
-	 * Returns the maximum of the actual width of all labels
-	 * @return the maximum width of labels
+	 * Returns the maximum of the preferred width of all labels
+	 * @return the maximum preferred width of labels
 	 */
-	public double getMaxLabelWidth() {
-		return Math.max(
-				Math.max(primaryLabels.getLayoutBounds().getWidth(), secondaryLabels.getLayoutBounds().getWidth()), 0);
+	public double getMaxPrefLabelWidth() {
+		return Math.max(maxPrefWidth(primaryLabels.getChildren()), maxPrefWidth(secondaryLabels.getChildren()));
 	}
 
 	/**
@@ -173,8 +174,7 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 	 * @return the sum of the heights of all labels
 	 */
 	public double getTotalLabelHeight() {
-		return Math.max(primaryLabels.getLayoutBounds().getHeight(), 0)
-				+ Math.max(secondaryLabels.getLayoutBounds().getHeight(), 0);
+		return maxLabelPrefHeight();
 	}
 
 	/**
@@ -292,11 +292,12 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 	protected double computePrefWidth(final double height) {
 		if (side.get().vertical) {
 			// Left/Right
-			return Math.max(maxLabelPrefWidth(), Math.max(graphicWrapper.prefWidth(-1),
+			return Math.max(maxLabelPrefWidth(), Math.max(maxPrefWidth(graphicWrapper.getChildren()),
 					maxUntransformedGraphicPrefWidth() + dockedChildren.getWidth()));
 		} else {
 			// Top/ Bottom
-			return Math.max(Math.max(maxLabelPrefWidth() + graphicWrapper.prefWidth(-1), dockedChildren.getWidth()),
+			return Math.max(Math.max(maxLabelPrefWidth() + maxPrefWidth(graphicWrapper.getChildren()),
+					dockedChildren.getWidth()),
 					configuredWidth);
 		}
 	}
@@ -305,11 +306,12 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 	protected double computePrefHeight(final double width) {
 		if (side.get().vertical) {
 			// Left/Right
-			return Math.max(Math.max(maxLabelPrefHeight() + graphicWrapper.prefHeight(-1), dockedChildren.getHeight()),
+			return Math.max(Math.max(maxLabelPrefHeight() + maxPrefHeight(graphicWrapper.getChildren()),
+					dockedChildren.getHeight()),
 					configuredHeight);
 		} else {
 			// Top/Bottom
-			return Math.max(maxLabelPrefHeight(), Math.max(graphicWrapper.prefHeight(-1),
+			return Math.max(maxLabelPrefHeight(), Math.max(maxPrefHeight(graphicWrapper.getChildren()),
 					maxUntransformedGraphicPrefWidth() + dockedChildren.getHeight()));
 		}
 	}
@@ -364,7 +366,7 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 	 * @return the max of the preferred label heights of all the labels
 	 */
 	private double maxLabelPrefHeight() {
-		double result = 0;
+		double result = VERTICAL_LABEL_PADDING;
 
 		for (final Group labelGroup : labelGroups) {
 			if (labelGroup.isManaged()) {
@@ -376,7 +378,7 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 			}
 		}
 
-		return result == 0 ? 0 : result + VERTICAL_LABEL_PADDING;
+		return result;
 	}
 
 	/**
@@ -584,7 +586,7 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 	 */
 	private double computeLabelHeightWithPadding() {
 		// Position Labels
-		double y = 0;
+		double y = VERTICAL_LABEL_PADDING;
 		for (final Group labelGroup : labelGroups) {
 			if (labelGroup.isManaged()) {
 				for (final Node label : labelGroup.getChildren()) {
@@ -594,11 +596,6 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 					}
 				}
 			}
-		}
-
-		// Add padding if there are any labels
-		if (y > 0) {
-			y += VERTICAL_LABEL_PADDING;
 		}
 
 		return y;
@@ -615,5 +612,35 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 		} else {
 			return computeMaxLabelWidth();
 		}
+	}
+
+	/**
+	 * Returns the max of the preferred widths of the specified nodes.
+	 * @param nodes the nodes for which to calculate the value
+	 * @return the max of the preferred widths of the specified nodes.
+	 */
+	private static double maxPrefWidth(final List<Node> nodes) {
+		double result = 0;
+		for (final Node n : nodes) {
+			if (n.isManaged()) {
+				result = Math.max(result, n.prefWidth(-1));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Returns the max of the preferred heights of the specified nodes.
+	 * @param nodes the nodes for which to calculate the value
+	 * @return the max of the preferred heights of the specified nodes.
+	 */
+	private static double maxPrefHeight(final List<Node> nodes) {
+		double result = 0;
+		for (final Node n : nodes) {
+			if (n.isManaged()) {
+				result = Math.max(result, n.prefHeight(-1));
+			}
+		}
+		return result;
 	}
 }

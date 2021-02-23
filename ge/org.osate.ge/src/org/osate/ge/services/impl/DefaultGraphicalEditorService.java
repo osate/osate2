@@ -56,20 +56,12 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.gef.DefaultEditDomain;
-import org.eclipse.gef.EditDomain;
-import org.eclipse.gef.EditPart;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.ui.IEditorPart;
 import org.osate.ge.GraphicalEditor;
-import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
-import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.DiagramService;
-import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.impl.SimpleServiceContextFunction;
-import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
+import org.osate.ge.internal.util.DiagramElementUtil;
 import org.osate.ge.services.GraphicalEditorService;
 
 public class DefaultGraphicalEditorService implements GraphicalEditorService {
@@ -93,58 +85,18 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 
 	@Override
 	public Optional<ObjectDetails> getObjectDetails(Object selectedObject) {
-		if (!(selectedObject instanceof EditPart)) {
+		if (!(selectedObject instanceof DiagramElement)) {
 			return Optional.empty();
 		}
 
-		final EditPart editPart = (EditPart) selectedObject;
-
-		if (!(editPart.getModel() instanceof PictogramElement)) {
+		final DiagramElement selectedDiagramElement = (DiagramElement) selectedObject;
+		final Object bo = selectedDiagramElement.getBusinessObject();
+		if (bo == null) {
 			return Optional.empty();
 		}
 
-		if (editPart.getViewer() == null) {
-			return Optional.empty();
-		}
+		final AgeDiagram diagram = DiagramElementUtil.getDiagram(selectedDiagramElement);
 
-		final PictogramElement pe = (PictogramElement) editPart.getModel();
-
-		// Get services
-		final EditDomain editDomain = editPart.getViewer().getEditDomain();
-		if (!(editDomain instanceof DefaultEditDomain)) {
-			return Optional.empty();
-		}
-
-		final DefaultEditDomain defaultEditDomain = (DefaultEditDomain) editDomain;
-		final IEditorPart editorPart = defaultEditDomain.getEditorPart();
-		if (!(editorPart instanceof InternalDiagramEditor)) {
-			return Optional.empty();
-		}
-
-		final ExtensionRegistryService extService = editorPart.getAdapter(ExtensionRegistryService.class);
-		final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider = editorPart
-				.getAdapter(GraphitiAgeDiagramProvider.class);
-		final ProjectReferenceService referenceService = editorPart
-				.getAdapter(ProjectReferenceService.class);
-
-		// Services may be null if the pictogram element doesn't belong to an OSATE GE Diagram.
-		if (extService == null || graphitiAgeDiagramProvider == null
-				|| graphitiAgeDiagramProvider.getGraphitiAgeDiagram() == null) {
-			return Optional.empty();
-		}
-
-		final DiagramNode dn = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getClosestDiagramNode(pe);
-		if (dn == null) {
-			return Optional.empty();
-		}
-
-		final Object bo = dn.getBusinessObject();
-		if(bo == null) {
-			return Optional.empty();
-		}
-
-		// Use the diagram configuration to determine the diagram business object.
-		final Object diagramBo = AgeDiagramUtil.getConfigurationContextBusinessObject(graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getAgeDiagram(), referenceService);
-		return Optional.of(new ObjectDetails(diagramBo, bo));
+		return Optional.of(new ObjectDetails(diagram == null ? null : diagram.getBusinessObject(), bo));
 	}
 }

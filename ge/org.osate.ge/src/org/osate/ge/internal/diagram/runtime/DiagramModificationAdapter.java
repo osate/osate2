@@ -21,35 +21,34 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.ui.handlers;
+package org.osate.ge.internal.diagram.runtime;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.eclipse.core.commands.AbstractHandler;
-import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.handlers.HandlerUtil;
-import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
-import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
-
-public class SelectAllConnectionsHandler extends AbstractHandler {
+/**
+ * Implementation of {@link DiagramModificationListener} which provides default implementation for all methods.
+ * Useful to prevent needing to implement all methods.
+ */
+public abstract class DiagramModificationAdapter implements DiagramModificationListener {
 	@Override
-	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		if (!(activeEditor instanceof InternalDiagramEditor)) {
-			throw new RuntimeException("Unexpected editor: " + activeEditor);
-		}
+	public void diagramConfigurationChanged(DiagramConfigurationChangedEvent e) {
+	}
 
-		final InternalDiagramEditor editor = (InternalDiagramEditor) activeEditor;
-		final List<DiagramElement> connectionDiagramElements = editor.getDiagram().getAllDiagramNodes()
-				.filter(dn -> dn instanceof DiagramElement)
-				.map(DiagramElement.class::cast).filter(DiagramElementPredicates::isConnection)
-				.collect(Collectors.toList());
-		editor.selectDiagramNodes(connectionDiagramElements);
+	@Override
+	public void elementAdded(ElementAddedEvent e) {
+	}
 
-		return null;
+	@Override
+	public void elementRemoved(ElementRemovedEvent e) {
+	}
+
+	@Override
+	public void elementUpdated(ElementUpdatedEvent e) {
+	}
+
+	@Override
+	public void beforeModificationsCompleted(BeforeModificationsCompletedEvent e) {
+	}
+
+	@Override
+	public void modificationsCompleted(ModificationsCompletedEvent e) {
 	}
 }
