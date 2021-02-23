@@ -873,11 +873,21 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @return feature instance with the specified feature, or null
 	 */
 	public FeatureInstance findFeatureInstance(final Feature feature) {
+		return findFeatureInstance(feature, 0);
+	}
+
+	/**
+	 * find the feature instance of this component instance
+	 * @param feature feature whose instance is to be found
+	 * @param index index in a feature array
+	 * @return feature instance with the specified feature, or null
+	 */
+	public FeatureInstance findFeatureInstance(final Feature feature, final int index) {
 		if (feature == null) {
 			return null;
 		} else {
 			for (final FeatureInstance fi : getFeatureInstances()) {
-				if (isSameOrRefined(feature, fi.getFeature())) {
+				if ((index == 0 || fi.getIndex() == index) && isSameOrRefined(feature, fi.getFeature())) {
 					return fi;
 				}
 			}
@@ -977,7 +987,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return false;
 	}
 
-	private static boolean isSameOrRefined(Feature f1, Feature f2) {
+	static boolean isSameOrRefined(Feature f1, Feature f2) {
 		if (f1 == f2) {
 			return true;
 		}

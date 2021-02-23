@@ -374,7 +374,15 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 	}
 
 	public int getIndex() {
-		return hasIndex() ? (int) arrayRange.getLowerBound() : -1;
+		return hasIndex() ? (int) arrayRange.getLowerBound() : 0;
+	}
+
+	public String getFullName() {
+		if (getContext() == null) {
+			return getFeature().getFullName();
+		} else {
+			return getContext().getFullName() + "." + getFeature().getFullName();
+		}
 	}
 
 } // FlowEndImpl

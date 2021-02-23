@@ -403,8 +403,9 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	 * @param feature feature whose instance is to be found
 	 * @return feature instance with the specified feature, or null
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	FeatureInstance findFeatureInstance(Feature feature);
+
+	FeatureInstance findFeatureInstance(Feature feature, int index);
 
 	/**
 	 * Project this component into the given mode.  The mode must be

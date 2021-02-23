@@ -247,8 +247,9 @@ public interface FeatureInstance extends ConnectionInstanceEnd, InstanceObject {
 	 * @param feature feature whose instance is to be found
 	 * @return feature instance with the specified feature, or null
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	FeatureInstance findFeatureInstance(Feature feature);
+
+	FeatureInstance findFeatureInstance(Feature feature, int index);
 
 	Collection<FeatureInstance> findFeatureInstances(final EList<ContainmentPathElement> referencePath);
 
@@ -264,4 +265,5 @@ public interface FeatureInstance extends ConnectionInstanceEnd, InstanceObject {
 	 * @since 2.0
 	 */
 	DirectionType getFlowDirection();
+
 } // FeatureInstance

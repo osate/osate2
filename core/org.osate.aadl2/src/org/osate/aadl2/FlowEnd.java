@@ -153,4 +153,6 @@ public interface FlowEnd extends Element {
 
 	int getIndex();
 
+	String getFullName();
+
 } // FlowEnd

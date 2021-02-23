@@ -869,40 +869,16 @@ public class InstantiateModel {
 			speci.setFlowSpecification(spec);
 			FlowEnd inend = spec.getAllInEnd();
 			if (inend != null) {
-				Feature srcfp = inend.getFeature();
-				Context srcpg = inend.getContext();
-				if (srcpg == null) {
-					FeatureInstance fi = ci.findFeatureInstance(srcfp);
-					if (fi != null) {
-						speci.setSource(fi);
-					}
-				} else if (srcpg instanceof FeatureGroup) {
-					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) srcpg);
-					if (pgi != null) {
-						FeatureInstance fi = pgi.findFeatureInstance(srcfp);
-						if (fi != null) {
-							speci.setSource(fi);
-						}
-					}
+				FeatureInstance fi = findFeatureInstance(ci, inend);
+				if (fi != null) {
+					speci.setSource(fi);
 				}
 			}
 			FlowEnd outend = spec.getAllOutEnd();
 			if (outend != null) {
-				Feature dstfp = outend.getFeature();
-				Context dstpg = outend.getContext();
-				if (dstpg == null) {
-					FeatureInstance fi = ci.findFeatureInstance(dstfp);
-					if (fi != null) {
-						speci.setDestination(fi);
-					}
-				} else if (dstpg instanceof FeatureGroup) {
-					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) dstpg);
-					if (pgi != null) {
-						FeatureInstance fi = pgi.findFeatureInstance(dstfp);
-						if (fi != null) {
-							speci.setDestination(fi);
-						}
-					}
+				FeatureInstance fi = findFeatureInstance(ci, outend);
+				if (fi != null) {
+					speci.setDestination(fi);
 				}
 			}
 			for (Mode mode : spec.getAllInModes()) {
@@ -925,6 +901,15 @@ public class InstantiateModel {
 					speci.getInModeTransitions().add(ti);
 				}
 			}
+		}
+	}
+
+	private FeatureInstance findFeatureInstance(ComponentInstance ci, FlowEnd end) {
+		if (end.getContext() == null) {
+			return ci.findFeatureInstance(end.getFeature(), end.getIndex());
+		} else {
+			FeatureInstance ctx = findFeatureInstance(ci, end.getContext());
+			return ctx.findFeatureInstance(end.getFeature(), end.getIndex());
 		}
 	}
 

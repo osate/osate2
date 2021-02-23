@@ -595,12 +595,23 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * @param feature feature whose instance is to be found
 	 * @return feature instance with the specified feature, or null
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	public FeatureInstance findFeatureInstance(Feature feature) {
-		EList<FeatureInstance> subcil = getFeatureInstances();
-		for (Iterator<FeatureInstance> it = subcil.iterator(); it.hasNext();) {
-			FeatureInstance fi = it.next();
-			if (fi.getFeature() == feature) {
+		return findFeatureInstance(feature, 0);
+	}
+
+	/**
+	 * find the feature instance of this feature instance
+	 * @param feature feature whose instance is to be found
+	 * @param index index in the feature array
+	 * @return feature instance with the specified feature, or null
+	 */
+	public FeatureInstance findFeatureInstance(Feature feature, int index) {
+		if (feature == null) {
+			return null;
+		}
+		for (FeatureInstance fi : getFeatureInstances()) {
+			if ((index == 0 || fi.getIndex() == index)
+					&& ComponentInstanceImpl.isSameOrRefined(feature, fi.getFeature())) {
 				return fi;
 			}
 		}
