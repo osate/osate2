@@ -24,6 +24,27 @@ When a contributed resource is overridden, the tree marks it as such, and the UR
 
 To restore an overridden resource to its original contributed URI, select it in the tree and press the "Restore" button. 
 
+# Managing Ignored Property Sets
+
+Within AADL, predeclared and user defined property, property types and property constant declarations are contained in property sets.
+
+OSATE provides predeclared property sets, however you can add your own property sets. In the event when you need to ignore errors associated with user defined property set, you can use Ignored Property Set Preference page and type in the name of the property set to ignore. 
+
+Predeclared properties should not be added to ignored list, as they are always included in OSATE installation and are necessary for proper execution of model analysis.
+
+By default, all property sets are enabled and evaluated.
+![Property Set Preference Pane](images/AdvancedOSATEFeatures/IgnoredPropertySetPreferencePane.jpeg)
+
+To add in a property set to ignored list
+- Click Add
+- Enter the name of property set
+- Click Ok
+
+![Property Set Preference Pane](images/AdvancedOSATEFeatures/AddPropertySet.jpeg)
+
+Once added, typed in property set will show up in ignored list
+![Property Set Preference Pane](images/AdvancedOSATEFeatures/IgnoredPropertySetAdded.jpeg)
+
 ## Managing Annex Resources
 	
 Embedded sub-languages published as AADL annexes extend an AADL model to enhance analysis. Several such annexes have been defined, for example, the error modeling sub-language is used to define error states and fault propagation for an AADL model, and the behavior annex allows modeling of detailed component behavior as a state machine. 
