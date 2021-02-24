@@ -527,6 +527,21 @@ public class FlowLatencyUtil {
 	}
 
 	//XXX: [Code Coverage] Dead code.
+	/**
+	 * @Deprecated This is dead code.  If you are using it for some reason, then you can replace it with
+	 * <pre>
+	 *		Optional<List<Long>> v = org.osate.contribution.sei.datamodel.DataModel.getDimension(ne);
+	 *	    double result = 1.0;
+	 *	    if (v.isPresent()) {
+	 *	    	for (long nv : v.get()) {
+	 *				result *= nv;
+	 *	    	}
+	 *		}
+	 * </pre>
+	 * @param ne
+	 * @return
+	 */
+	@Deprecated
 	public static double getDimension(final NamedElement ne) {
 		Property dimension = GetProperties.lookupPropertyDefinition(ne, DataModel._NAME, DataModel.Dimension);
 		List<? extends PropertyExpression> propertyValues;
@@ -539,6 +554,7 @@ public class FlowLatencyUtil {
 		for (PropertyExpression propertyExpression : propertyValues) {
 			res = res * ((NumberValue) propertyExpression).getScaledValue();
 		}
+
 		return res;
 	}
 
