@@ -124,6 +124,12 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 	}
 
 	@Override
+	public void performHelp() {
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(getShell(), "org.osate.ui.help_dialog_propSet");
+		PlatformUI.getWorkbench().getHelpSystem().displayHelp("org.osate.ui.help_dialog_propSet");
+	}
+
+	@Override
 	protected void performDefaults() {
 		PropertySetModel.resetIgnoredPropertySetPreference();
 		PredeclaredProperties.closeAndReopenProjects();
