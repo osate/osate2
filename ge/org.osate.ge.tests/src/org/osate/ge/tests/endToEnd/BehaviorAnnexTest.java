@@ -223,8 +223,9 @@ public class BehaviorAnnexTest {
 
 		clickCheckboxInPropertiesView(baDiagram, "AADL", 1, dest);
 
+
 		final RelativeBusinessObjectReference transitionRef = BehaviorAnnexReferenceUtil
-				.getTransitionRelativeReference(0);
+				.getTransitionRelativeReference("0");
 		// Create a transition between the states
 		createConnectionElement(baDiagram, src, dest, "Behavior Transition",
 				element(behaviorSpecification, transitionRef));

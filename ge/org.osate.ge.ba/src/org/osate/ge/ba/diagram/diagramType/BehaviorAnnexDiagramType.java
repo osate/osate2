@@ -34,7 +34,7 @@ import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
 
 public class BehaviorAnnexDiagramType implements DiagramType {
-	public final static String ID = "behavior_specification";
+	public final static String ID = "ba.behavior_specification";
 
 	@Override
 	public String getId() {

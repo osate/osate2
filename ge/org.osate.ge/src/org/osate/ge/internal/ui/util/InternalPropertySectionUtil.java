@@ -40,6 +40,7 @@ import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FormAttachment;
@@ -72,6 +73,14 @@ public class InternalPropertySectionUtil {
 
 	public static void setPropertiesHelp(final Control control) {
 		ContextHelpUtil.setHelp(control, ContextHelpUtil.PROPERTIES_VIEW);
+	}
+
+	public static Button createButton(final TabbedPropertySheetWidgetFactory widgetFactory, final Composite composite,
+			final Object data, final SelectionListener listener, final String txt, final int type) {
+		final Button btn = widgetFactory.createButton(composite, txt, type);
+		btn.setData(data);
+		btn.addSelectionListener(listener);
+		return btn;
 	}
 
 	public static Composite createRowLayoutComposite(final TabbedPropertySheetWidgetFactory widgetFactory,

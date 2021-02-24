@@ -28,7 +28,7 @@ import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.ContentFilter;
 
 public class BehaviorTransitionFilter implements ContentFilter {
-	public static final String ID = "behaviorTransitions";
+	public static final String ID = "ba.behaviorTransitions";
 
 	@Override
 	public String getId() {

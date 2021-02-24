@@ -16,4 +16,3 @@ Automatic-Module-Name: org.osate.ge.ba
 Bundle-Vendor: The University of Alabama in Huntsville
 Export-Package: org.osate.ge.ba,
  org.osate.ge.ba.ui.properties
-Import-Package: org.osate.ui.utils

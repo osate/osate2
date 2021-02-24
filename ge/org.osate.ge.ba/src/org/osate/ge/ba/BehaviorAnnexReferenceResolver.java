@@ -29,6 +29,7 @@ import java.util.Optional;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ge.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.referencehandling.CreateReferenceResolverFactoryContext;
 import org.osate.ge.referencehandling.ReferenceResolver;
 import org.osate.ge.referencehandling.ReferenceResolverFactory;
@@ -44,8 +45,6 @@ public class BehaviorAnnexReferenceResolver implements ReferenceResolver {
 		}
 	}
 
-	private final static String ANNEX_SUBCLAUSE_TYPE = "annex_subclause";
-
 	@Override
 	public Optional<Object> resolve(final ResolveContext ctx) {
 		final List<String> ref = ctx.getReference().getSegments();
@@ -55,7 +54,7 @@ public class BehaviorAnnexReferenceResolver implements ReferenceResolver {
 
 		// Check that the type is BA
 		final String type = ref.get(0);
-		if (!type.equals(ANNEX_SUBCLAUSE_TYPE)) {
+		if (!type.equals(DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId())) {
 			return Optional.empty();
 		}
 
@@ -76,7 +75,7 @@ public class BehaviorAnnexReferenceResolver implements ReferenceResolver {
 		final Long index = Longs.tryParse(ref.get(3));
 		if (index != null && index >= 0) {
 			final Classifier classifier = (Classifier) ref1;
-			return getBehaviorAnnexByQualifiedName(classifier, ref.get(2), index);
+			return getBehaviorAnnexByQualifiedName(classifier, BehaviorAnnexReferenceUtil.ANNEX_NAME, index);
 		}
 
 		return Optional.empty();

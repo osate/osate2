@@ -63,23 +63,9 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<propertySections contributorId="org.osate.ge.editor.AgeDiagramEditor">
 	 <propertySection
 	        afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-			class="org.osate.ge.ba.ui.properties.SetStateInitialPropertySection"
+			class="org.osate.ge.ba.ui.properties.StatePropertySection"
 			filter="org.osate.ge.ba.ui.properties.StatePropertySection$Filter"
-			id="org.osate.ge.ba.properties.setBehaviorStateInitialPropertySection"
-			tab="org.osate.ge.ui.properties.tabs.aadl">
-     </propertySection>
-     <propertySection
-            afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-			class="org.osate.ge.ba.ui.properties.SetStateFinalPropertySection"
-			filter="org.osate.ge.ba.ui.properties.StatePropertySection$Filter"
-			id="org.osate.ge.ba.properties.setBehaviorStateFinalPropertySection"
-			tab="org.osate.ge.ui.properties.tabs.aadl">
-     </propertySection>
-     <propertySection
-            afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-			class="org.osate.ge.ba.ui.properties.SetStateCompletePropertySection"
-			filter="org.osate.ge.ba.ui.properties.StatePropertySection$Filter"
-			id="org.osate.ge.ba.properties.setBehaviorStateCompletePropertySection"
+			id="org.osate.ge.ba.properties.setBehaviorStatePropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>
      <propertySection
