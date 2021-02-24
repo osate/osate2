@@ -83,7 +83,7 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		final BehaviorState behaviorState = ctx.getBusinessObject(BehaviorState.class).get();
-		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.STATE_TYPE, behaviorState.getName());
+		return BehaviorAnnexReferenceUtil.getStateRelativeReference(behaviorState.getName());
 	}
 
 	@Override

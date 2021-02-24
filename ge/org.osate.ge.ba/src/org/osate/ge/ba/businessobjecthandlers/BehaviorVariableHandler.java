@@ -99,8 +99,7 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).get();
-		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.VARIABLE_TYPE,
-				behaviorVariable.getName());
+		return BehaviorAnnexReferenceUtil.getVariableRelativeReference(behaviorVariable.getName());
 	}
 
 	@Override

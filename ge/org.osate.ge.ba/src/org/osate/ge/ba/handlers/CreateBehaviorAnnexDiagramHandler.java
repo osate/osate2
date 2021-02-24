@@ -26,14 +26,19 @@ package org.osate.ge.ba.handlers;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ge.DiagramCreationUtil;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
+import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 
 public class CreateBehaviorAnnexDiagramHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final DefaultAnnexSubclause diagramContext = BehaviorAnnexSelectionUtil.getDiagramContext()
+		final ISelection selection = AgeHandlerUtil.getCurrentSelection();
+		final DefaultAnnexSubclause diagramContext = BehaviorAnnexSelectionUtil
+				.getDiagramContext(selection, HandlerUtil.getActiveEditor(event))
 				.orElseThrow(() -> new RuntimeException("diagram context cannot be null"));
 		DiagramCreationUtil.createDiagram(diagramContext);
 		return null;

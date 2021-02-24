@@ -28,7 +28,7 @@ import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.ContentFilter;
 
 public class BehaviorVariableFilter implements ContentFilter {
-	public static final String ID = "behaviorVariables";
+	public static final String ID = "ba.behaviorVariables";
 
 	@Override
 	public String getId() {

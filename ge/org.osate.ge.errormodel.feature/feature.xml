@@ -25,7 +25,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 <feature
       id="org.osate.ge.errormodel.feature"
       label="OSATE Graphical Editor EMV2"
-      version="5.0.0.qualifier"
+      version="4.0.1.qualifier"
       provider-name="The University of Alabama in Huntsville"
       license-feature="org.osate.license"
       license-feature-version="1.0.1.qualifier">
@@ -39,14 +39,14 @@ censes only apply to the Third Party Software and not any other portion of this 
    </copyright>
 
    <requires>
-      <import plugin="org.eclipse.core.runtime" version="3.17.100" match="compatible"/>
-      <import plugin="org.osate.aadl2" version="4.0.0" match="compatible"/>
-      <import plugin="org.osate.xtext.aadl2.errormodel" version="6.0.0" match="compatible"/>
-      <import plugin="org.eclipse.core.resources" version="3.13.700" match="compatible"/>
-      <import plugin="org.osate.ge" version="2.0.0" match="compatible"/>
-      <import plugin="org.apache.commons.lang" version="2.6.0" match="compatible"/>
-      <import plugin="org.eclipse.ui.views.properties.tabbed" version="3.8.800" match="compatible"/>
-      <import plugin="org.osate.ge.swt" version="1.1.0" match="compatible"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.osate.aadl2"/>
+      <import plugin="org.osate.xtext.aadl2.errormodel"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.osate.ge"/>
+      <import plugin="org.apache.commons.lang"/>
+      <import plugin="org.eclipse.ui.views.properties.tabbed"/>
+      <import plugin="org.osate.ge.swt"/>
    </requires>
 
    <plugin

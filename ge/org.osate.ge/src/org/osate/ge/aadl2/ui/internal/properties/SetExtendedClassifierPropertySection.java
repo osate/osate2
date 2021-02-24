@@ -94,7 +94,7 @@ public class SetExtendedClassifierPropertySection extends AbstractPropertySectio
 		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
 		extendedClassifier.setLayoutData(fd);
 
-		chooseBtn = PropertySectionUtil.createButton(getWidgetFactory(), container, null,
+		chooseBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, null,
 				setExtendedClassifierListener, "Choose...", SWT.PUSH);
 
 		fd = new FormData();

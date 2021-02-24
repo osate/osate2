@@ -29,10 +29,10 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.swt.selectors.CollectionSingleSelectorModel;
 
-public class DataClassifierDescriptionModel
+public class EObjectDescriptionSingleSelectorModel
 		extends CollectionSingleSelectorModel<IEObjectDescription> {
 
-	public DataClassifierDescriptionModel(final Collection<IEObjectDescription> elements) {
+	public EObjectDescriptionSingleSelectorModel(final Collection<IEObjectDescription> elements) {
 		super(elements);
 	}
 

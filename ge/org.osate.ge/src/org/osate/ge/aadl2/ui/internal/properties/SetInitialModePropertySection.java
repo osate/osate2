@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -90,7 +90,7 @@ public class SetInitialModePropertySection extends AbstractPropertySection {
 		final Composite composite = getWidgetFactory().createFlatFormComposite(parent);
 		final Label sectionLabel = PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(),
 				"Initial:");
-		setInitialModeBtn = PropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
+		setInitialModeBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
 				initialModeListener, "", SWT.CHECK);
 
 		final FormData fd = new FormData();

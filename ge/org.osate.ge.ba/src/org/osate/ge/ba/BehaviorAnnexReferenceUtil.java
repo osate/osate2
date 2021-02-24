@@ -24,7 +24,7 @@
 package org.osate.ge.ba;
 
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.aadl2.AnnexHandler;
+import org.osate.ge.aadl2.internal.AnnexHandler;
 
 public class BehaviorAnnexReferenceUtil {
 	private BehaviorAnnexReferenceUtil() {
@@ -46,8 +46,9 @@ public class BehaviorAnnexReferenceUtil {
 		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.STATE_TYPE, name);
 	}
 
-	public static RelativeBusinessObjectReference getTransitionRelativeReference(final int index) {
-		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE, String.valueOf(index));
+	public static RelativeBusinessObjectReference getTransitionRelativeReference(
+			final String refSeg) {
+		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE, refSeg);
 	}
 
 	public static RelativeBusinessObjectReference getVariableRelativeReference(final String name) {

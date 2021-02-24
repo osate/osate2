@@ -84,7 +84,7 @@ public class SetDerivedModesPropertySection extends AbstractPropertySection {
 		final Label sectionLabel = PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(),
 				"Derived\nModes:");
 
-		derivedModesBtn = PropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
+		derivedModesBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
 				derivedListener, "",
 				SWT.CHECK);
 

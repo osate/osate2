@@ -137,9 +137,18 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
-		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.getOwner();
-		final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
-		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE, Integer.toString(index));
+		final String refSeg = getTransitionReference((BehaviorAnnex) behaviorTransition.getOwner(), behaviorTransition);
+		return BehaviorAnnexReferenceUtil.getTransitionRelativeReference(refSeg);
+	}
+
+	private static String getTransitionReference(final BehaviorAnnex behaviorAnnex, final BehaviorTransition behaviorTransition) {
+		final String name = behaviorTransition.getName();
+		if (name == null) {
+			final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
+			return Integer.toString(index);
+		}
+
+		return name;
 	}
 
 	@Override
