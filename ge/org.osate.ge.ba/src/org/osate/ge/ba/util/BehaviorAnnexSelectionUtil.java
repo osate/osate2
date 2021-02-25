@@ -26,7 +26,6 @@ package org.osate.ge.ba.util;
 import java.util.List;
 import java.util.Optional;
 
-import org.eclipse.core.runtime.Adapters;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -41,67 +40,39 @@ import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
+import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ui.utils.SelectionHelper;
-
-import com.google.common.collect.ImmutableList;
 
 public class BehaviorAnnexSelectionUtil {
 	private BehaviorAnnexSelectionUtil() {
 	}
 
-	private static ImmutableList<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection) {
-		if (!(selection instanceof IStructuredSelection)) {
-			return ImmutableList.of();
-		}
-
-		final IStructuredSelection ss = (IStructuredSelection) selection;
-		final ImmutableList.Builder<BusinessObjectContext> bocs = ImmutableList.builderWithExpectedSize(ss.size());
-		for (final Object sel : ss.toList()) {
-			final BusinessObjectContext boc = Adapters.adapt(sel, BusinessObjectContext.class);
-			if (boc == null) {
-				return ImmutableList.of();
-			}
-
-			bocs.add(boc);
-		}
-
-		return bocs.build();
-	}
-
 	/**
-	 * Get diagram context based on selection.
+	 * Get diagram context based on selection and editor.
 	 * @return an optional that contains a DefaultAnnexSubclause if
 	 * the selection is a valid diagram context or empty if invalid
 	 */
 	public static Optional<DefaultAnnexSubclause> getDiagramContext(final ISelection selection,
 			final IEditorPart editor) {
 		if (editor instanceof XtextEditor) {
-			return Optional.ofNullable(getXtextEditorSelection((XtextEditor) editor));
+			final EObject selectedObject = SelectionHelper
+					.getEObjectFromSelection(((XtextEditor) editor).getSelectionProvider().getSelection());
+			return findDiagramContextForSelectedObject(selectedObject);
 		}
 
-		return getSelectedBusinessObject(selection)
-				.map(BehaviorAnnexSelectionUtil::findDiagramContextForSelectedObject);
-	}
-
-	private static DefaultAnnexSubclause getXtextEditorSelection(final XtextEditor editor) {
-		final EObject selectedObject = SelectionHelper
-				.getEObjectFromSelection(editor.getSelectionProvider().getSelection());
-		return selectedObject instanceof DefaultAnnexSubclause ? (DefaultAnnexSubclause) selectedObject : null;
-	}
-
-	private static Optional<Object> getSelectedBusinessObject(final ISelection selection) {
 		if (selection instanceof IStructuredSelection) {
-			final List<BusinessObjectContext> selectedBusinessObjectContexts = getSelectedBusinessObjectContexts(
-					selection);
+			final List<BusinessObjectContext> selectedBusinessObjectContexts = SelectionUtil
+					.getSelectedBusinessObjectContexts(selection);
 			if (selectedBusinessObjectContexts.size() == 1) {
-				return Optional.ofNullable(selectedBusinessObjectContexts.get(0).getBusinessObject());
+				return BehaviorAnnexSelectionUtil
+						.findDiagramContextForSelectedObject(selectedBusinessObjectContexts.get(0).getBusinessObject());
 			}
 		}
 
 		return Optional.empty();
 	}
 
-	private static DefaultAnnexSubclause findDiagramContextForSelectedObject(final Object element) {
+	private static Optional<DefaultAnnexSubclause> findDiagramContextForSelectedObject(final Object element) {
 		if (element instanceof BehaviorAnnex || element instanceof BehaviorState
 				|| element instanceof BehaviorTransition
 				|| element instanceof BehaviorVariable) {
@@ -110,9 +81,9 @@ public class BehaviorAnnexSelectionUtil {
 
 		if (element instanceof DefaultAnnexSubclause
 				&& BehaviorAnnexReferenceUtil.ANNEX_NAME.equalsIgnoreCase(((NamedElement) element).getName())) {
-			return (DefaultAnnexSubclause) element;
+			return Optional.of((DefaultAnnexSubclause) element);
 		}
 
-		return null;
+		return Optional.empty();
 	}
 }
