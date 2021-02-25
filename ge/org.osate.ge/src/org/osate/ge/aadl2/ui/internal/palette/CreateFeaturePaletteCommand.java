@@ -43,8 +43,8 @@ import org.osate.ge.aadl2.ui.AadlOperationBuilder;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
+import org.osate.ge.palette.GetTargetedOperationContext;
 
 public class CreateFeaturePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	private final EClass featureType;
