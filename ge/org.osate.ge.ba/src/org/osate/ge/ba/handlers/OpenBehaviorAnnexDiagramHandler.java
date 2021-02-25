@@ -27,10 +27,11 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.ge.DiagramCreationUtil;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
+import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 
 public class OpenBehaviorAnnexDiagramHandler extends AbstractHandler {
@@ -40,7 +41,9 @@ public class OpenBehaviorAnnexDiagramHandler extends AbstractHandler {
 		final DefaultAnnexSubclause diagramContext = BehaviorAnnexSelectionUtil
 				.getDiagramContext(selection, HandlerUtil.getActiveEditor(event))
 				.orElseThrow(() -> new RuntimeException("diagramContext cannot be null"));
-		DiagramCreationUtil.openOrCreateDiagram(diagramContext);
+		final DiagramService diagramService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				.getService(DiagramService.class);
+		diagramService.openOrCreateDiagramForBusinessObject(diagramContext);
 		return null;
 	}
 }

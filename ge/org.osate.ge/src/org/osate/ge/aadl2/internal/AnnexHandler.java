@@ -55,7 +55,6 @@ import com.google.common.collect.Lists;
 
 /**
  * @noextend This class is not intended to be subclassed by clients.
- * @since 2.1
  */
 public class AnnexHandler extends AadlBusinessObjectHandler {
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()

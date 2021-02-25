@@ -69,15 +69,6 @@ public class BehaviorAnnexSelectionUtil {
 	}
 
 	/**
-	 * Get diagram context based on current selection.
-	 * @return an optional that contains a DefaultAnnexSubclause if
-	 * the current selection is a valid diagram context or empty if invalid
-	 */
-	// public static Optional<DefaultAnnexSubclause> getDiagramContext() {
-	// return getDiagramContext(getCurrentSelection());
-	// }
-
-	/**
 	 * Get diagram context based on selection.
 	 * @return an optional that contains a DefaultAnnexSubclause if
 	 * the selection is a valid diagram context or empty if invalid
@@ -111,7 +102,6 @@ public class BehaviorAnnexSelectionUtil {
 	}
 
 	private static DefaultAnnexSubclause findDiagramContextForSelectedObject(final Object element) {
-		System.err.println("find diagram");
 		if (element instanceof BehaviorAnnex || element instanceof BehaviorState
 				|| element instanceof BehaviorTransition
 				|| element instanceof BehaviorVariable) {
