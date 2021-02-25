@@ -35,7 +35,9 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.junit.Test;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.aadl2.internal.AadlReferenceUtil;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.tests.endToEnd.util.DiagramElementReference;
 import org.osate.ge.tests.endToEnd.util.DiagramReference;
 
@@ -108,7 +110,8 @@ public class BehaviorAnnexTest {
 
 		// Create mode to test when source states have the same name as modes
 		createElementAndLayout(diagram, pkgElement.join(getClassifierRelativeReference(typeName)), "Mode",
-				getModeRelativeReference(typeName + "_new_mode"), modeName);
+				AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.MODE.getId(), modeName),
+				modeName);
 
 		// Create impl
 		createImplementationWithExistingType(diagram, pkgElement, "Abstract Implementation", "impl1", BA_TEST,

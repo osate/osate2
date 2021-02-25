@@ -169,10 +169,6 @@ public class AadlReferenceUtil {
 		return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.SUBCOMPONENT.getId(), name);
 	}
 
-	public static RelativeBusinessObjectReference getModeRelativeReference(final String name) {
-		return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.MODE.getId(), name);
-	}
-
 	public static RelativeBusinessObjectReference getFlowSpecificationRelativeReference(final String name) {
 		return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.FLOW_SPECIFICATION.getId(),
 				name);
