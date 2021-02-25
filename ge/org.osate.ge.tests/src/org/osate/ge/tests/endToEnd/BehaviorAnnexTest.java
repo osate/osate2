@@ -110,7 +110,8 @@ public class BehaviorAnnexTest {
 
 		// Create mode to test when source states have the same name as modes
 		createElementAndLayout(diagram, pkgElement.join(getClassifierRelativeReference(typeName)), "Mode",
-				AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.MODE.getId(), modeName),
+				AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.MODE.getId(),
+						typeName + "_new_mode"),
 				modeName);
 
 		// Create impl
