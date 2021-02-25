@@ -77,24 +77,22 @@ public class StatePropertySection extends AbstractPropertySection {
 				"Complete:");
 
 		completeStatePropertyBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
-				new SetPropertyStateSelectionListener("Set Complete State", completeStatePropertyBtn), "", SWT.CHECK);
+				new SetPropertyStateSelectionListener("Set Complete State"), "", SWT.CHECK);
 		setButtonLayoutData(completeStatePropertyBtn, completeSectionLabel);
 
 		final Label finalSectionLabel = PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Final:");
 		setLabelLayoutData(finalSectionLabel, completeSectionLabel);
 
 		finalStatePropertyBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
-				new SetPropertyStateSelectionListener("Set Final State", finalStatePropertyBtn), "", SWT.CHECK);
+				new SetPropertyStateSelectionListener("Set Final State"), "", SWT.CHECK);
 		setButtonLayoutData(finalStatePropertyBtn, finalSectionLabel);
 
 		final Label initialSectionLabel = PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(),
 				"Initial:");
 		setLabelLayoutData(initialSectionLabel, finalSectionLabel);
 
-
 		initialStatePropertyBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
-				new SetPropertyStateSelectionListener("Set Initial State", initialStatePropertyBtn), "", SWT.CHECK);
-
+				new SetPropertyStateSelectionListener("Set Initial State"), "", SWT.CHECK);
 		setButtonLayoutData(initialStatePropertyBtn, initialSectionLabel);
 	}
 
@@ -137,18 +135,16 @@ public class StatePropertySection extends AbstractPropertySection {
 
 	private class SetPropertyStateSelectionListener extends SelectionAdapter {
 		private final String label;
-		private final Button statePropertyBtn;
 
-		public SetPropertyStateSelectionListener(final String label, final Button statePropertyBtn) {
+		public SetPropertyStateSelectionListener(final String label) {
 			this.label = label;
-			this.statePropertyBtn = statePropertyBtn;
 		}
 
 		@Override
 		public void widgetSelected(final SelectionEvent e) {
 			selectedBos.modify(label, boc -> boc.getBusinessObject(BehaviorState.class).isPresent(),
 					boc -> boc.getBusinessObject(BehaviorState.class).get(),
-					(behaviorState, boc) -> behaviorState.setFinal(statePropertyBtn.getSelection()));
+					(behaviorState, boc) -> behaviorState.setFinal(((Button) e.getSource()).getSelection()));
 		}
 	}
 

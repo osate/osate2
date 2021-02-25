@@ -224,14 +224,16 @@ public class BehaviorAnnexTest {
 		clickCheckboxInPropertiesView(baDiagram, "AADL", 1, dest);
 
 
-		final RelativeBusinessObjectReference transitionRef = BehaviorAnnexReferenceUtil
+		final RelativeBusinessObjectReference initTransitionRef = BehaviorAnnexReferenceUtil
 				.getTransitionRelativeReference("0");
 		// Create a transition between the states
 		createConnectionElement(baDiagram, src, dest, "Behavior Transition",
-				element(behaviorSpecification, transitionRef));
+				element(behaviorSpecification, initTransitionRef));
 
+		final RelativeBusinessObjectReference transitionRef = BehaviorAnnexReferenceUtil
+				.getTransitionRelativeReference("new_transition");
 		// Rename transition
-		renameElementFromContextMenu(baDiagram, element(behaviorSpecification), transitionRef, "new_transition",
+		renameElementFromContextMenu(baDiagram, element(behaviorSpecification), initTransitionRef, "new_transition",
 				transitionRef);
 
 		// Test renaming for states with same name of a mode with transition

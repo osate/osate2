@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.aadl2;
+package org.osate.ge.aadl2.internal.util;
 
 import java.util.List;
 
@@ -35,7 +35,6 @@ import org.osate.aadl2.RefinableElement;
 
 /**
  * @noextend This class is not intended to be subclassed by clients.
- * @since 2.1
  */
 public class AadlArrayUtil {
 	private AadlArrayUtil() {
