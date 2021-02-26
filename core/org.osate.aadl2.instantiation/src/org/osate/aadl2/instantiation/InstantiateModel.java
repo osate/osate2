@@ -54,6 +54,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RollbackException;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessSpecification;
@@ -119,6 +120,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2InstanceUtil;
 import org.osate.aadl2.util.Aadl2Util;
@@ -451,6 +453,15 @@ public class InstantiateModel {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
+		// handle connection patterns
+		// needs properties CommunicationProperties::Connection_Set and CommunicationProperties::Connection_Pattern
+		List<Property> properties = new ArrayList<Property>(2);
+		properties.add(Aadl2GlobalScopeUtil.get(root, Aadl2Package.eINSTANCE.getProperty(),
+				"Communication_Properties::Connection_Pattern"));
+		properties.add(Aadl2GlobalScopeUtil.get(root, Aadl2Package.eINSTANCE.getProperty(),
+				"Communication_Properties::Connection_Set"));
+		cacheProperties(root, properties);
+		processConnections(root);
 
 		final ValidateConnectionsSwitch vcs = new ValidateConnectionsSwitch(monitor, errManager, classifierCache);
 		vcs.processPreOrderAll(root);
@@ -472,9 +483,7 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
-		getUsedPropertyDefinitions(root);
-		// handle connection patterns
-		processConnections(root);
+		cacheProperties(root, getAllUsedPropertyDefinitions(root));
 
 //		OsateResourceManager.save(aadlResource);
 //		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
@@ -509,16 +518,12 @@ public class InstantiateModel {
 		return instanceURI;
 	}
 
-	protected void getUsedPropertyDefinitions(SystemInstance root) throws InterruptedException {
+	protected void cacheProperties(SystemInstance root, List<Property> properties) throws InterruptedException {
 		/*
 		 * We now cache the property associations. First we cache the contained
 		 * property associations. In a second pass we cache regular property
 		 * associations and evaluate all properties.
 		 */
-		// we could also use getAllPropertyDefinition(as), which returns all declared property definitions
-		// retrieving that set is faster, but it may contain property definitions that are not used;
-		// this in that case the caching of those properties would be slower
-		EList<Property> propertyDefinitionList = getAllUsedPropertyDefinitions(root);
 		CacheContainedPropertyAssociationsSwitch ccpas = new CacheContainedPropertyAssociationsSwitch(classifierCache,
 				scProps, monitor, errManager);
 		ccpas.processPostOrderAll(root);
@@ -527,7 +532,7 @@ public class InstantiateModel {
 		}
 
 		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch(monitor, errManager,
-				propertyDefinitionList, classifierCache, scProps, mode2som);
+				properties, classifierCache, scProps, mode2som);
 		cpas.processPreOrderAll(root);
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
