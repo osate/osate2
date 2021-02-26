@@ -39,19 +39,14 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowElement;
-import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
@@ -625,67 +620,45 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		return result;
 	}
 
+	/**
+	 * Check if connection ends at flow specification.
+	 *
+	 * There are three cases
+	 * - same feature instance
+	 * - connection end is a feature instance contained in the flow spec src feature instance
+	 * - sonnection end is a feature in an array and the flow spec src is the array without index
+	 *
+	 * @param etei
+	 * @param conni
+	 * @param fspec
+	 * @return
+	 */
 	boolean isValidContinuation(EndToEndFlowInstance etei, ConnectionInstance conni, FlowSpecification fspec) {
-		/*
-		 * Issue 2009: Check if the connection instance connects to the flow spec. Here we have a weird
-		 * situation. If the subcomponent the flow spec is qualified by is only described by a component type, then
-		 * connection end is going to match up with the beginning of the flow. That's fine. If the component
-		 * has a classifier implementation AND the flow spec has a flow implementation, then everything will also
-		 * fine: either the connection instance is correct and reaches the start of the flow implementation, or it
-		 * is incorrect and doesn't. But we can also have the case that the subcomponent is described by a
-		 * component implementation but the flow spec does not have a flow implementation. In this case we
-		 * still may have the case the connection instance continues into the subcomponent and terminates at a
-		 * subsubcomponent. But the flow spec that we have here will be at the edge of the original subcomponent.
-		 * so the end connection instance will not match up with the start of the flow spec.
-		 *
-		 * So what we really need to do is walk backwards along the connections that make up the connection instance
-		 * until we find one that connects to the flow because as wee the connection instance may "punch through" the
-		 * subcomponent.
-		 */
-		final FlowEnd inEnd = fspec.getAllInEnd();
-		final Context flowCxt = inEnd.getContext();
-		final Feature flowIn = inEnd.getFeature();
-		final List<Feature> flowInRefined = flowIn.getAllFeatureRefinements();
-		final EList<ConnectionReference> connRefs = conni.getConnectionReferences();
-		int idx = connRefs.size() - 1;
-		boolean result = false;
-		while (!result && idx >= 0) {
-			final Connection conn = connRefs.get(idx).getConnection();
-			result = isValidContinuationConnectionEnd(flowCxt, flowIn, flowInRefined, conn.getDestination());
-			if (!result && conn.isBidirectional()) {
-				result = isValidContinuationConnectionEnd(flowCxt, flowIn, flowInRefined, conn.getSource());
-			}
-			idx -= 1;
-		}
-		return result;
-	}
-
-	private boolean isValidContinuationConnectionEnd(final Context flowCxt, final Feature flowIn,
-			final List<Feature> flowInRefined, final ConnectedElement connElement) {
-		boolean result = false;
-		final ConnectionEnd connEnd = connElement.getConnectionEnd();
-		if (connEnd instanceof Feature) {
-			final List<Feature> connEndRefined = ((Feature) connEnd).getAllFeatureRefinements();
-			if (flowCxt instanceof FeatureGroup) { // src end of the flow is "fg.f"
-				result = connEndRefined.contains(flowCxt);
-				// if connDestination.getNext() is null then dest end of connection is "fg"
-				if (result && connElement.getNext() != null) {
-					final ConnectionEnd connEnd2 = connElement.getNext().getConnectionEnd();
-					if (connEnd2 instanceof Feature) {
-						// check "fg.f" to "fg.f"
-						final List<Feature> connEndRefined2 = ((Feature) connEnd2).getAllFeatureRefinements();
-						result = flowInRefined.contains(connEnd2) || connEndRefined2.contains(flowIn);
-					} else {
-						// Connection doesn't end in feature, so no match
-						result = false;
+		ConnectionInstanceEnd cie = conni.getDestination();
+		if (cie instanceof FeatureInstance) {
+			FeatureInstance conniFi = (FeatureInstance) cie;
+			ComponentInstance ci = conniFi.getContainingComponentInstance();
+			FlowSpecificationInstance fsi = ci.findFlowSpecInstance(fspec);
+			FeatureInstance fsSrcFi = fsi.getSource();
+			EObject e = conniFi;
+			while (e instanceof FeatureInstance) {
+				FeatureInstance fi = (FeatureInstance) e;
+				if (fsSrcFi.getIndex() > 0) {
+					// same array element?
+					if (fi == fsSrcFi) {
+						return true;
+					}
+				} else {
+					// some feature in array?
+					if (fi.getName().equalsIgnoreCase(fsSrcFi.getName())) {
+						return true;
 					}
 				}
-			} else {
-				// checks "f" to "f" or "fg" to "fg"
-				result = flowInRefined.contains(connEnd) || connEndRefined.contains(flowIn);
+				// containment?
+				e = fi.eContainer();
 			}
 		}
-		return result;
+		return false;
 	}
 
 	/**
