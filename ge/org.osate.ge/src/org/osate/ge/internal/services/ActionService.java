@@ -48,13 +48,5 @@ public interface ActionService extends ActionExecutor {
 
 	void invalidateInvalidActions();
 
-	/**
-	 * Recommended to use execute() instead. Exposed to allow better integration with Graphiti.
-	 * @param label
-	 * @param mode
-	 * @return an object for referencing the action group. May return null if the action group is not a top level action group.
-	 */
-	ActionGroup beginExecuteGroup(final String label, ExecutionMode mode);
-
 	boolean endExecuteGroup(final ActionGroup actionGroup);
 }

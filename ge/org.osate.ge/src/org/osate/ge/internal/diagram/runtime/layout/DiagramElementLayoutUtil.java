@@ -961,8 +961,7 @@ public class DiagramElementLayoutUtil {
 				// Set bendpoints
 				//
 
-				// Add the start and end points to the bendpoints list if the the start/end element is not a node. This is needed
-				// because the behavior of Graphiti chopbox anchors differ from ELK routing.
+				// Add the start and end points to the bendpoints list if the the start/end element is not a port.
 				// For ports the start and end points are unnecessary and will actually be located inside the port graphic.
 				final boolean srcIsPort = edge.getSources().size() == 1 ? edge.getSources().get(0) instanceof ElkPort
 						: false;

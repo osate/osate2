@@ -134,7 +134,12 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	/**
 	 * A mapping between the diagram elements and {@link GefDiagramElement} instances.
 	 */
-	private final Map<DiagramElement, GefDiagramElement> gefDiagramElements = new HashMap<>();
+	private final Map<DiagramElement, GefDiagramElement> diagramElementToGefDiagramElementMap = new HashMap<>();
+
+	/**
+	 * A mapping between scene nodes and {@link GefDiagramElement} instances.
+	 */
+	private final Map<Node, GefDiagramElement> sceneNodeToGefDiagramElementMap = new HashMap<>();
 
 	/**
 	 * Root node which contains all the shape and connection nodes for the diagram.
@@ -246,7 +251,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 						// deleted individually.
 						removeContainedConnections(de);
 
-						final GefDiagramElement ge = gefDiagramElements.get(de);
+						final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(de);
 						if (ge != null && ge.sceneNode != null) {
 							removeNode(ge.sceneNode);
 						}
@@ -264,7 +269,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 						// Ensure that the scene graph nodes have been created and/or switched to the appropriate type
 						for (final DiagramElement de : elementsToUpdate) {
-							final GefDiagramElement ge = gefDiagramElements.get(de);
+							final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(de);
 							if (ge != null) {
 								ensureSceneNodeExists(ge, ge.parentDiagramNodeSceneNode);
 							}
@@ -272,7 +277,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 						// Update modified elements
 						for (final DiagramElement de : elementsToUpdate) {
-							final GefDiagramElement ge = gefDiagramElements.get(de);
+							final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(de);
 							updateSceneNode(ge);
 							calculateAndApplyStyle(ge);
 						}
@@ -303,7 +308,10 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 			}
 
 			// Remove mapping for the element itself
-			gefDiagramElements.remove(de);
+			final GefDiagramElement removed = diagramElementToGefDiagramElementMap.remove(de);
+			if (removed != null && removed.sceneNode != null) {
+				sceneNodeToGefDiagramElementMap.remove(removed.sceneNode);
+			}
 		}
 
 		/**
@@ -311,7 +319,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		 */
 		private void removeContainedConnections(final DiagramElement e) {
 			for (final DiagramElement childDiagramElement : e.getDiagramElements()) {
-				final GefDiagramElement childGefDiagramElement = gefDiagramElements.get(childDiagramElement);
+				final GefDiagramElement childGefDiagramElement = diagramElementToGefDiagramElementMap.get(childDiagramElement);
 				removeContainedConnections(childDiagramElement);
 
 				if (childGefDiagramElement != null && childGefDiagramElement.sceneNode instanceof ConnectionNode) {
@@ -345,6 +353,16 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	};
 
 	/**
+	 * Finds the diagram element for a node. Only works for the node that serves as teh root of the branch for the diagram element.
+	 * @param node the node for which to find the diagram element
+	 * @return the diagram element which the node represents or null if one cannot be found.
+	 */
+	public DiagramElement getDiagramElement(final Node node) {
+		final GefDiagramElement ge = sceneNodeToGefDiagramElementMap.get(node);
+		return ge == null ? null : ge.diagramElement;
+	}
+
+	/**
 	 * Performs a full update of the scene graph based on the diagram. Ensures nodes exist, that they are updated, and have appropriate styles.
 	 */
 	private void updateSceneGraph() {
@@ -355,7 +373,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 	/**
 	 * Ensures the scene node exists for the children of a diagram node.
-	 * Creates or recreates scene graph nodes and adds to the scene graph as necessary. Populates {@link #gefDiagramElements}.
+	 * Creates or recreates scene graph nodes and adds to the scene graph as necessary. Populates {@link #diagramElementToGefDiagramElementMap}.
 	 * @param parentDiagramNode the diagram node for which scene nodes will be created for its children.
 	 * @param parentDiagramNodeSceneNode the scene node for the parent diagram node
 	 * @return the created or updated JavaFX node
@@ -363,7 +381,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	private void ensureSceneNodesExistForChildren(final DiagramNode parentDiagramNode,
 			final Node parentDiagramNodeSceneNode) {
 		for (final DiagramElement childDiagramElement : parentDiagramNode.getDiagramElements()) {
-			final GefDiagramElement childGefDiagramElement = gefDiagramElements.computeIfAbsent(childDiagramElement,
+			final GefDiagramElement childGefDiagramElement = diagramElementToGefDiagramElementMap.computeIfAbsent(childDiagramElement,
 					e -> new GefDiagramElement(childDiagramElement));
 			final Node childSceneNode = ensureSceneNodeExists(childGefDiagramElement, parentDiagramNodeSceneNode);
 			ensureSceneNodesExistForChildren(childDiagramElement, childSceneNode);
@@ -410,6 +428,11 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		// Create a new node for the diagram element
 		//
 		if (create) {
+			// Remove mapping to old scene node
+			if (gefDiagramElement.sceneNode != null) {
+				sceneNodeToGefDiagramElementMap.remove(gefDiagramElement.sceneNode);
+			}
+
 			// Create the new node. Create a graphic and then a wrapper as appropriate
 			final Node graphicNode = GraphicToFx.createNode(graphic);
 			if (graphicNode instanceof BaseConnectionNode) {
@@ -455,6 +478,11 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 					newContainerShape.getPrimaryLabels().add(primaryLabel);
 					gefDiagramElement.primaryLabel = primaryLabel;
 				}
+			}
+
+			// Add mapping to scene node
+			if (gefDiagramElement.sceneNode != null) {
+				sceneNodeToGefDiagramElementMap.put(gefDiagramElement.sceneNode, gefDiagramElement);
 			}
 
 			StyleRoot.set(gefDiagramElement.sceneNode, true);
@@ -556,7 +584,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 */
 	private void updateSceneNodesForChildren(final DiagramNode parentDiagramNode) {
 		for (final DiagramElement childDiagramElement : parentDiagramNode.getDiagramElements()) {
-			updateSceneNode(gefDiagramElements.get(childDiagramElement));
+			updateSceneNode(diagramElementToGefDiagramElementMap.get(childDiagramElement));
 			updateSceneNodesForChildren(childDiagramElement);
 		}
 	}
@@ -685,7 +713,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 * @return the anchor for the diagram element.
 	 */
 	private IAnchor getAnchor(final DiagramElement de, final DiagramElement other) {
-		final GefDiagramElement ge = gefDiagramElements.get(de);
+		final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(de);
 		if (ge == null || ge.sceneNode == null) {
 			return null;
 		}
@@ -722,7 +750,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	public void refreshStyle(final Collection<DiagramElement> elements) {
 		refreshOverrideStyles();
 		for (final DiagramElement de : elements) {
-			calculateAndApplyStyle(gefDiagramElements.get(de));
+			calculateAndApplyStyle(diagramElementToGefDiagramElementMap.get(de));
 		}
 	}
 
@@ -748,7 +776,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	private void calculateAndApplyStylesForChildren(final DiagramNode n) {
 		for (final DiagramElement childDiagramElement : n.getDiagramElements()) {
 			calculateAndApplyStylesForChildren(childDiagramElement);
-			calculateAndApplyStyle(gefDiagramElements.get(childDiagramElement));
+			calculateAndApplyStyle(diagramElementToGefDiagramElementMap.get(childDiagramElement));
 		}
 	}
 
@@ -773,7 +801,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		diagramNode.applyCss();
 		diagramNode.layout();
 		diagram.modify("Update Diagram from Scene Graph", m -> {
-			for (final Entry<DiagramElement, GefDiagramElement> e : this.gefDiagramElements.entrySet()) {
+			for (final Entry<DiagramElement, GefDiagramElement> e : this.diagramElementToGefDiagramElementMap.entrySet()) {
 				final DiagramElement de = e.getKey();
 				final Node sceneNode = e.getValue().sceneNode;
 
@@ -845,7 +873,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 	@Override
 	public Dimension getPrimaryLabelSize(final DiagramElement de) {
-		final GefDiagramElement ge = gefDiagramElements.get(de);
+		final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(de);
 		if (ge == null || ge.primaryLabel == null || !ge.primaryLabel.isManaged()) {
 			return Dimension.ZERO;
 		}
@@ -855,7 +883,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 	@Override
 	public Dimension getAnnotationLabelSize(final DiagramElement de) {
-		final GefDiagramElement ge = gefDiagramElements.get(de);
+		final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(de);
 		if (ge == null || ge.annotationLabel == null || !ge.annotationLabel.isManaged()) {
 			return Dimension.ZERO;
 		}
@@ -879,7 +907,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 	@Override
 	public Dimension getDockedElementLabelsSize(final DiagramElement dockedDiagramElement) {
-		final GefDiagramElement dockedGefDiagramElement = gefDiagramElements.get(dockedDiagramElement);
+		final GefDiagramElement dockedGefDiagramElement = diagramElementToGefDiagramElementMap.get(dockedDiagramElement);
 		if (dockedGefDiagramElement != null && dockedGefDiagramElement.sceneNode instanceof DockedShape) {
 			final DockedShape ds = (DockedShape) dockedGefDiagramElement.sceneNode;
 			return new Dimension(ds.getMaxPrefLabelWidth(), ds.getTotalLabelHeight());

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,6 +30,9 @@ import java.util.Objects;
  *
  */
 public class Point {
+	/**
+	 * @since 3.0
+	 */
 	public static final Point ZERO = new Point(0.0, 0.0);
 
 	public final double x;

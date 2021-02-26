@@ -31,8 +31,8 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.gef.ui.editor.AgeEditor;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.swt.BorderedCLabel;
 
 /**
@@ -101,7 +101,7 @@ public class OsateGeTestUtil {
 	 * The diagram file extension should not be included in the path segments.
 	 */
 	public static boolean isDiagramEditorOpen(final DiagramReference diagram) {
-		return isEditorOpen(AgeDiagramEditor.class, diagram.getUri());
+		return isEditorOpen(AgeEditor.class, diagram.getInputName());
 	}
 
 	/**

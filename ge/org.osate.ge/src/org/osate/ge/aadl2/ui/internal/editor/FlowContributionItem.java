@@ -88,6 +88,12 @@ public class FlowContributionItem extends ComboContributionItem {
 		return true;
 	}
 
+	// Force a fixed width for the combo contribution items. Otherwise the sizes are often incorrect due to the dynamic nature of the control.
+	@Override
+	protected int computeWidth(Control control) {
+		return 310;
+	}
+
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (editor != newEditor) {
 			saveFlowSelection();

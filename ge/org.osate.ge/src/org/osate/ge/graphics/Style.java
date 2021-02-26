@@ -70,7 +70,8 @@ public class Style {
 
 	/**
 	 * Returns whether all of the style's required fields are non-null.
-	 * @return
+	 * @return whether all the style's required fields are non-null.
+	 * @since 3.0
 	 */
 	public boolean isComplete() {
 		return background != null && outline != null && fontColor != null && fontSize != null && lineWidth != null

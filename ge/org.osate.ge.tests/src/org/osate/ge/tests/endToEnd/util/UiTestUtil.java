@@ -1,26 +1,26 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
- * All Rights Reserved.
- *
- * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
- * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
- * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
- * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
- * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
- * which is available at https://www.eclipse.org/legal/epl-2.0/
- * SPDX-License-Identifier: EPL-2.0
- *
- * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- *
- * This program includes and/or can make use of certain third party source code, object code, documentation and other
- * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
- * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
- * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
- * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
- * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
- * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
- */
+* Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
+* All Rights Reserved.
+*
+* NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+* KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+* OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+* MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+*
+* This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+* which is available at https://www.eclipse.org/legal/epl-2.0/
+* SPDX-License-Identifier: EPL-2.0
+*
+* Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+*
+* This program includes and/or can make use of certain third party source code, object code, documentation and other
+* files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+* configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+* conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+* Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+* aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+* censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+*/
 package org.osate.ge.tests.endToEnd.util;
 
 import static org.eclipse.swtbot.swt.finder.SWTBotAssert.*;
@@ -29,39 +29,23 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BooleanSupplier;
-import java.util.stream.Collectors;
 
-import org.eclipse.draw2d.FigureCanvas;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.gef.ConnectionEditPart;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.requests.DirectEditRequest;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.eclipse.finder.finders.WorkbenchContentsFinder;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEditor;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotView;
-import org.eclipse.swtbot.eclipse.gef.finder.SWTGefBot;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditPart;
-import org.eclipse.swtbot.eclipse.gef.finder.widgets.SWTBotGefEditor;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.utils.SWTBotPreferences;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
@@ -83,11 +67,10 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
-import org.hamcrest.core.IsAnything;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.gef.ui.editor.AgeEditor;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.swt.BorderedCLabel;
 
 import com.google.common.collect.ImmutableList;
@@ -102,7 +85,7 @@ import com.google.common.collect.Sets;
  * Typically, only primitive values should be returned.
  */
 public class UiTestUtil {
-	private static final SWTGefBot bot;
+	private static final SWTWorkbenchBot bot;
 	private static final HashSet<String> allowedViewTitles = Sets.newHashSet("AADL Navigator", "AADL Diagrams",
 			"Properties", "Outline");
 
@@ -111,7 +94,7 @@ public class UiTestUtil {
 	}
 
 	static {
-		bot = new SWTGefBot();
+		bot = new SWTWorkbenchBot();
 		SWTBotPreferences.TIMEOUT = 10000;
 	}
 
@@ -663,12 +646,14 @@ public class UiTestUtil {
 	 * @param itemText the text for the palette item
 	 */
 	public static void selectPaletteItem(final DiagramReference diagram, final String itemText) {
-		getDiagramEditorBot(diagram).activateTool(itemText);
+		// TODO
+		throw new RuntimeException("NOT IMPLEMENTED");
+		// getDiagramEditorBot(diagram).activateTool(itemText);
 	}
 
-	private static SWTBotGefEditor getDiagramEditorBot(final DiagramReference diagram) {
-		final IEditorReference editor = getEditorReference(AgeDiagramEditor.class, diagram.getUri());
-		return new SWTBotGefEditor(editor, bot);
+	private static SWTBotEditor getDiagramEditorBot(final DiagramReference diagram) {
+		final IEditorReference editor = getEditorReference(AgeEditor.class, diagram.getInputName());
+		return new SWTBotEditor(editor, bot);
 	}
 
 	/**
@@ -676,54 +661,32 @@ public class UiTestUtil {
 	 * Precondition: editor for the diagram must be active.
 	 */
 	public static void activateSelectionTool(final DiagramReference diagram) {
-		assertDiagramEditorActive(diagram);
-		getDiagramEditorBot(diagram).activateDefaultTool();
+		selectPaletteItem(diagram, "Select");
 	}
 
 	// Scrolls to and clicks a DiagramElement
 	public static void clickDiagramElement(final DiagramReference diagram, DiagramElementReference element) {
-		final AgeDiagramEditor editor = getDiagramEditor(diagram);
+		final AgeEditor editor = getDiagramEditor(diagram);
 
 		final DiagramElement de = getDiagramElement(diagram, element)
 				.orElseThrow(() -> new RuntimeException("Cannot find diagram element for '" + element + "'."));
 
-		// Get the edit part
-		final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
-		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
+//		// Get the edit part
+//		final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
+//		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
+//
+//		// Scroll to the edit part
+//		final IEditorReference editorRef = getEditorReference(AgeEditor.class, diagram.getUri());
+//
+//		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
+//		final List<SWTBotGefEditPart> botEditParts = findEditParts(editorBot, Collections.singletonList(editPart));
+//
+//		scrollToEditPart(editorRef, editPart);
+//
+//		editorBot.click(botEditParts.get(0));
 
-		// Scroll to the edit part
-		final IEditorReference editorRef = getEditorReference(AgeDiagramEditor.class, diagram.getUri());
-
-		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
-		final List<SWTBotGefEditPart> botEditParts = findEditParts(editorBot, Collections.singletonList(editPart));
-
-		scrollToEditPart(editorRef, editPart);
-
-		editorBot.click(botEditParts.get(0));
-	}
-
-	private static void scrollToEditPart(final IEditorReference editorRef, final EditPart editPart) {
-		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
-		assertNotNull("Editor is null", editor);
-
-		Display.getDefault().syncExec(() -> {
-			// Get the figure canvas for the editor
-			final Control viewerControl = editor.getGraphicalViewer().getControl();
-			assertTrue("Graphical viewer control is not a FigureCanvas instance",
-					viewerControl instanceof FigureCanvas);
-			final FigureCanvas viewerCanvas = (FigureCanvas) viewerControl;
-			// Get the figure
-			assertTrue("Edit part is not a GraphicalEditPart", editPart instanceof GraphicalEditPart);
-
-			final IFigure figure = ((GraphicalEditPart) editPart).getFigure();
-			assertNotNull("Figure is null", figure);
-
-			// Get absolute bounds
-			final Rectangle bounds = figure.getBounds().getCopy();
-
-			// Scroll to the edit part
-			viewerCanvas.scrollTo(bounds.x, bounds.y);
-		});
+		// TODO
+		throw new RuntimeException("NOT IMPLEMENTED");
 	}
 
 	private static SWTBotCanvas findViewCanvasByTitle(final String title) {
@@ -740,33 +703,6 @@ public class UiTestUtil {
 
 		assertTrue("Cannot find view canvas '" + title + "'", canvas.size() > 0);
 		return new SWTBotCanvas(canvas.get(0));
-	}
-
-	private static List<SWTBotGefEditPart> findEditParts(final SWTBotGefEditor editor,
-			final List<EditPart> editPartsToFind) {
-		final Set<SWTBotGefEditPart> foundEditParts = new HashSet<>();
-
-		// Connection edit parts are not returned by this method.
-		final List<SWTBotGefEditPart> shapeEditParts = editor.editParts(new IsAnything<>());
-
-		// Make a list of any connection edit parts for which we are looking.
-		final List<EditPart> connectionEditPartsToFind = editPartsToFind.stream()
-				.filter(ConnectionEditPart.class::isInstance).collect(Collectors.toList());
-
-		for (final SWTBotGefEditPart aPart : shapeEditParts) {
-			if (editPartsToFind.contains(aPart.part())) {
-				foundEditParts.add(aPart);
-			} else if(!connectionEditPartsToFind.isEmpty()) {
-				// Look in the source and target connections for the connection edit parts because they
-				// are not returned by the editor's editPart() method
-				aPart.sourceConnections().stream().filter(p -> connectionEditPartsToFind.contains(p.part()))
-						.forEachOrdered(foundEditParts::add);
-				aPart.targetConnections().stream().filter(p -> connectionEditPartsToFind.contains(p.part()))
-						.forEachOrdered(foundEditParts::add);
-			}
-		}
-
-		return new ArrayList<>(foundEditParts);
 	}
 
 	/**
@@ -845,9 +781,9 @@ public class UiTestUtil {
 	/**
 	 * Returns the AgeDiagramEditor instance for the specified diagram. Does not open or activate the editor for the specified diagram.
 	 */
-	public static AgeDiagramEditor getDiagramEditor(final DiagramReference diagram) {
-		final IEditorReference editorRef = getEditorReference(AgeDiagramEditor.class, diagram.getUri());
-		final AgeDiagramEditor editor = (AgeDiagramEditor) editorRef.getEditor(false);
+	public static AgeEditor getDiagramEditor(final DiagramReference diagram) {
+		final IEditorReference editorRef = getEditorReference(AgeEditor.class, diagram.getInputName());
+		final AgeEditor editor = (AgeEditor) editorRef.getEditor(false);
 		assertNotNull("Unable to get editor for '" + diagram + "'", editor);
 		return editor;
 	}
@@ -857,25 +793,28 @@ public class UiTestUtil {
 	 */
 	public static void selectDiagramElements(final DiagramReference diagram,
 			final DiagramElementReference... elements) {
-		final AgeDiagramEditor editor = getDiagramEditor(diagram);
+		final AgeEditor editor = getDiagramEditor(diagram);
 
-		final List<PictogramElement> pictogramElementsToSelect = new ArrayList<>();
-		for (int i = 0; i < elements.length; i++) {
-			final DiagramElementReference element = elements[i];
-			final DiagramElement de = getDiagramElement(diagram, element)
-					.orElseThrow(() -> new RuntimeException("Cannot find element for '" + element + "'."));
-			final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
-			pictogramElementsToSelect.add(pe);
-		}
+//		final List<PictogramElement> pictogramElementsToSelect = new ArrayList<>();
+//		for (int i = 0; i < elements.length; i++) {
+//			final DiagramElementReference element = elements[i];
+//			final DiagramElement de = getDiagramElement(diagram, element)
+//					.orElseThrow(() -> new RuntimeException("Cannot find element for '" + element + "'."));
+//			final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
+//			pictogramElementsToSelect.add(pe);
+//		}
+//
+//		final PictogramElement[] pictogramElementsToSelectArray = pictogramElementsToSelect.toArray(new PictogramElement[pictogramElementsToSelect.size()]);
+//		Display.getDefault().syncExec(() -> {
+//			editor.selectPictogramElements(pictogramElementsToSelectArray);
+//		});
+//
+//		waitUntil(() -> {
+//			return Arrays.equals(pictogramElementsToSelectArray, editor.getSelectedPictogramElements());
+//		}, "Elements '" + getDiagramElementReferences(elements) + "' are not selected");
 
-		final PictogramElement[] pictogramElementsToSelectArray = pictogramElementsToSelect.toArray(new PictogramElement[pictogramElementsToSelect.size()]);
-		Display.getDefault().syncExec(() -> {
-			editor.selectPictogramElements(pictogramElementsToSelectArray);
-		});
-
-		waitUntil(() -> {
-			return Arrays.equals(pictogramElementsToSelectArray, editor.getSelectedPictogramElements());
-		}, "Elements '" + getDiagramElementReferences(elements) + "' are not selected");
+		// TODO
+		throw new RuntimeException("NOT IMPLEMENTED");
 	}
 
 	private static String getDiagramElementReferences(final DiagramElementReference... elements) {
@@ -897,52 +836,36 @@ public class UiTestUtil {
 				() -> new RuntimeException("Cannot find relative reference for '" + newAfterCreateElement + "'."));
 
 		// Get the edit part
-		final AgeDiagramEditor editor = getDiagramEditor(diagram);
-		final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
-		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
-
-		// Scroll to the edit part
-		final IEditorReference editorRef = getEditorReference(AgeDiagramEditor.class, diagram.getUri());
-		scrollToEditPart(editorRef, editPart);
-
-		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
-
-		final GraphicalEditPart p = (GraphicalEditPart) editPart;
-		final Point centerOfLabel = getPoint(p.getFigure()).orElseThrow(
-				() -> new RuntimeException("Cannot find label for diagram element ' " + de.getLabelName() + "."));
-
-		editorBot.click(centerOfLabel.x, centerOfLabel.y);
-		Display.getDefault().syncExec(() -> {
-			final Control graphicalViewerControl = getDiagramEditor(diagram).getGraphicalViewer().getControl();
-			final Event event = new Event();
-			event.x = centerOfLabel.x;
-			event.y = centerOfLabel.y;
-			graphicalViewerControl.notifyListeners(SWT.MouseMove, event);
-
-			final DirectEditRequest req = new DirectEditRequest();
-			req.setLocation(centerOfLabel);
-			editPart.performRequest(req);
-		});
-
-		editorBot.directEditType(newName);
-	}
-
-	private static Optional<Point> getPoint(final IFigure figure) {
-		if (figure instanceof Label) {
-			final Label label = (Label) figure;
-			final Rectangle bounds = ((Label) figure).getBounds().getCopy();
-			label.translateToAbsolute(bounds);
-			return Optional.of(bounds.getCenter());
-		}
-
-		for (final Object child : figure.getChildren()) {
-			final Optional<Point> point = getPoint((IFigure) child);
-			if (point.isPresent()) {
-				return point;
-			}
-		}
-
-		return Optional.empty();
+		final AgeEditor editor = getDiagramEditor(diagram);
+//		final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
+//		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
+//
+//		// Scroll to the edit part
+//		final IEditorReference editorRef = getEditorReference(AgeDiagramEditor.class, diagram.getUri());
+//		scrollToEditPart(editorRef, editPart);
+//
+//		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
+//
+//		final GraphicalEditPart p = (GraphicalEditPart) editPart;
+//		final Point centerOfLabel = getPoint(p.getFigure()).orElseThrow(
+//				() -> new RuntimeException("Cannot find label for diagram element ' " + de.getLabelName() + "."));
+//
+//		editorBot.click(centerOfLabel.x, centerOfLabel.y);
+//		Display.getDefault().syncExec(() -> {
+//			final Control graphicalViewerControl = getDiagramEditor(diagram).getGraphicalViewer().getControl();
+//			final Event event = new Event();
+//			event.x = centerOfLabel.x;
+//			event.y = centerOfLabel.y;
+//			graphicalViewerControl.notifyListeners(SWT.MouseMove, event);
+//
+//			final DirectEditRequest req = new DirectEditRequest();
+//			req.setLocation(centerOfLabel);
+//			editPart.performRequest(req);
+//		});
+//
+//		editorBot.directEditType(newName);
+		// TODO
+		throw new RuntimeException("NOT IMPLEMENTED");
 	}
 
 	/**
@@ -951,7 +874,7 @@ public class UiTestUtil {
 	 */
 	public static Optional<DiagramElement> getDiagramElement(final DiagramReference diagram,
 			final DiagramElementReference element) {
-		final AgeDiagramEditor editor = getDiagramEditor(diagram);
+		final AgeEditor editor = getDiagramEditor(diagram);
 		final AgeDiagram ageDiagram = editor.getDiagram();
 		ImmutableList<RelativeBusinessObjectReference> refs = element.pathToElement;
 		DiagramElement de = ageDiagram.getByRelativeReference(refs.get(0));
@@ -971,6 +894,6 @@ public class UiTestUtil {
 	 * The diagram file extension should not be included in the path segments.
 	 */
 	public static boolean isDiagramEditorActive(final DiagramReference diagram) {
-		return isEditorActive(AgeDiagramEditor.class, diagram.getUri());
+		return isEditorActive(AgeEditor.class, diagram.getInputName());
 	}
 }

@@ -69,6 +69,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.operations.UndoRedoActionGroup;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
@@ -132,19 +133,29 @@ import org.osgi.framework.FrameworkUtil;
 
 import com.google.common.collect.ImmutableList;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.embed.swt.FXCanvas;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.transform.Affine;
 
 /**
  * JavaFX/GEF based diagram editor implementation
  */
 public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITabbedPropertySheetPageContributor {
+	public static final ImmutableList<Double> ZOOM_LEVELS = ImmutableList.of(.1, .2, .5, .75, 1.0, 1.5, 2.0, 2.5, 3.0,
+			4.0, 10.0);
+
 	private static final String CONTRIBUTOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
+	private static final String CONTEXT_ID = "org.osate.ge.context";
 	private static final String MENU_ID = CONTRIBUTOR_ID;
-	private static final double DIAGRAM_PADDING = 8.0; // Padding around the diagram
+	private static final double DIAGRAM_PADDING = 16.0; // Padding around the diagram
 
 	// Class which handles activation and deactivation of tools
 	public class ToolHandler {
@@ -279,6 +290,20 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private final IOperationHistoryListener operationHistoryListener = event -> {
 		if (event.getOperation().hasContext(DefaultActionService.CONTEXT)) {
 			fireDirtyPropertyChangeEvent();
+		}
+	};
+	private final DoubleProperty zoom = new SimpleDoubleProperty(1.0) {
+		@Override
+		protected void invalidated() {
+			// Update the transform
+			final Affine transform = canvas.getContentTransform();
+			final Bounds canvasBounds = canvas.getLayoutBounds();
+			final double totalScaling = Math.min(Math.max(ZOOM_LEVELS.get(0), get()),
+					ZOOM_LEVELS.get(ZOOM_LEVELS.size() - 1));
+			final double addtionalScaling = totalScaling / transform.getMxx();
+			transform.prependScale(addtionalScaling, addtionalScaling, canvasBounds.getWidth() / 2.0,
+					canvasBounds.getHeight() / 2.0);
+			canvas.setContentTransform(transform);
 		}
 	};
 
@@ -420,9 +445,14 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		setInput(input);
 		setSite(site);
 
-
 		site.getWorkbenchWindow().getSelectionService().addPostSelectionListener(toolPostSelectionListener);
 		site.setSelectionProvider(selectionProvider);
+
+		// Activate Context
+		final IContextService contextService = site.getService(IContextService.class);
+		if (contextService != null) {
+			contextService.activateContext(CONTEXT_ID);
+		}
 
 		// Register actions for retargatable actions
 		new UndoRedoActionGroup(site, DefaultActionService.CONTEXT, true).fillActionBars(site.getActionBars());
@@ -570,6 +600,79 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		// Refresh the dirty state whenever an operation occurs
 		final IOperationHistory history = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
 		history.addOperationHistoryListener(operationHistoryListener);
+
+		canvas.setOnScroll(e -> {
+			if (e.isControlDown()) {
+				// Adjust zoom
+				if (e.getDeltaY() < 0.0) {
+					zoomOut();
+				} else {
+					zoomIn();
+				}
+			} else {
+				final Affine transform = canvas.getContentTransform();
+				if (e.isShiftDown()) {
+					// Scroll in X direction
+					transform.prependTranslation(-e.getDeltaY(), 0.0);
+				} else { // Scroll
+					transform.prependTranslation(e.getDeltaX(), e.getDeltaY());
+				}
+
+				canvas.setContentTransform(transform);
+			}
+		});
+
+		canvas.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e -> {
+			if (e.getTarget() instanceof Node) {
+				// TODO
+				final DiagramElement de = gefDiagram.getDiagramElement((Node) e.getTarget());
+				if (de != null) {
+					// TODO; Maintain a stack?
+					System.err.println("ENTER: " + de.getBusinessObject());
+				}
+			}
+		});
+
+		canvas.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e -> {
+			if (e.getTarget() instanceof Node) {
+				// TODO
+				final DiagramElement de = gefDiagram.getDiagramElement((Node) e.getTarget());
+				if (de != null) {
+					// TODO; Maintain a stack?
+					System.err.println("EXIT: " + de.getBusinessObject());
+				}
+			}
+		});
+	}
+
+	public final DoubleProperty zoomProperty() {
+		return zoom;
+	}
+
+	public double getZoom() {
+		return zoom.get();
+	}
+
+	/**
+	 * Sets the zoom level
+	 * @param value the zoom level. In order for incremental zooming to work, the zoom level must be a valuecontained in {@link #ZOOM_LEVELS}
+	 */
+	public void setZoom(final double value) {
+		zoom.set(value);
+	}
+
+	public void zoomIn() {
+		final int newZoomLevelIndex = ZOOM_LEVELS.indexOf(getZoom()) + 1;
+		if (newZoomLevelIndex > 0 && newZoomLevelIndex < ZOOM_LEVELS.size()) {
+			setZoom(ZOOM_LEVELS.get(newZoomLevelIndex));
+		}
+	}
+
+	public void zoomOut() {
+		final int newZoomLevelIndex = ZOOM_LEVELS.indexOf(getZoom()) - 1;
+		if (newZoomLevelIndex >= 0) {
+			setZoom(ZOOM_LEVELS.get(newZoomLevelIndex));
+		}
 	}
 
 	@Override

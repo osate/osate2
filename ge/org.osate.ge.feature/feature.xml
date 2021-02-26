@@ -25,7 +25,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 <feature
       id="org.osate.ge.feature"
       label="OSATE Graphical Editor"
-      version="4.0.1.qualifier"
+      version="5.0.0.qualifier"
       provider-name="The University of Alabama in Huntsville"
       plugin="org.osate.ge"
       license-feature="org.osate.license"
@@ -42,29 +42,23 @@ censes only apply to the Third Party Software and not any other portion of this 
    <requires>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.graphiti"/>
-      <import plugin="org.eclipse.graphiti.ui"/>
       <import plugin="org.eclipse.emf.transaction"/>
       <import plugin="org.eclipse.xtext.ui"/>
       <import plugin="org.osate.aadl2" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.xtext.aadl2.properties" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.aadl2.modelsupport" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.xtext.aadl2.properties.ui" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.graphiti.pattern"/>
-      <import plugin="org.eclipse.gef"/>
       <import plugin="org.osate.xtext.aadl2.ui"/>
       <import plugin="org.eclipse.ui.views.properties.tabbed"/>
       <import plugin="org.eclipse.e4.core.di"/>
       <import plugin="org.eclipse.e4.core.services"/>
       <import plugin="org.osate.ui"/>
-      <import plugin="org.eclipse.zest.layouts"/>
       <import plugin="org.eclipse.e4.core.contexts"/>
       <import plugin="org.junit"/>
       <import plugin="org.eclipse.ui.navigator"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.draw2d"/>
       <import plugin="org.eclipse.ui.views"/>
    </requires>
 
