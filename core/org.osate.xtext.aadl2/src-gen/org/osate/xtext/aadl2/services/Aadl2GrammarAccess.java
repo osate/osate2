@@ -22811,12 +22811,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cFeatureAssignment_2_2 = (Assignment)cGroup_2.eContents().get(2);
 		private final CrossReference cFeatureFeatureCrossReference_2_2_0 = (CrossReference)cFeatureAssignment_2_2.eContents().get(0);
 		private final RuleCall cFeatureFeatureIDTerminalRuleCall_2_2_0_1 = (RuleCall)cFeatureFeatureCrossReference_2_2_0.eContents().get(1);
+		private final Assignment cArrayRangeAssignment_2_3 = (Assignment)cGroup_2.eContents().get(3);
+		private final RuleCall cArrayRangeArrayIndexParserRuleCall_2_3_0 = (RuleCall)cArrayRangeAssignment_2_3.eContents().get(0);
 		
 		//FlowEnd aadl2::FlowEnd:
-		//	feature=[aadl2::Feature] arrayRange=ArrayIndex? ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*;
+		//	feature=[aadl2::Feature] arrayRange=ArrayIndex? ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature]
+		//	arrayRange=ArrayIndex?)*;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//feature=[aadl2::Feature] arrayRange=ArrayIndex? ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*
+		//feature=[aadl2::Feature] arrayRange=ArrayIndex? ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature]
+		//arrayRange=ArrayIndex?)*
 		public Group getGroup() { return cGroup; }
 		
 		//feature=[aadl2::Feature]
@@ -22834,7 +22838,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayIndex
 		public RuleCall getArrayRangeArrayIndexParserRuleCall_1_0() { return cArrayRangeArrayIndexParserRuleCall_1_0; }
 		
-		//({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*
+		//({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature] arrayRange=ArrayIndex?)*
 		public Group getGroup_2() { return cGroup_2; }
 		
 		//{aadl2::FlowEnd.context=current}
@@ -22851,6 +22855,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ID
 		public RuleCall getFeatureFeatureIDTerminalRuleCall_2_2_0_1() { return cFeatureFeatureIDTerminalRuleCall_2_2_0_1; }
+		
+		//arrayRange=ArrayIndex?
+		public Assignment getArrayRangeAssignment_2_3() { return cArrayRangeAssignment_2_3; }
+		
+		//ArrayIndex
+		public RuleCall getArrayRangeArrayIndexParserRuleCall_2_3_0() { return cArrayRangeArrayIndexParserRuleCall_2_3_0; }
 	}
 	public class ArrayIndexElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.ArrayIndex");
@@ -29946,7 +29956,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//FlowEnd aadl2::FlowEnd:
-	//	feature=[aadl2::Feature] arrayRange=ArrayIndex? ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature])*;
+	//	feature=[aadl2::Feature] arrayRange=ArrayIndex? ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature]
+	//	arrayRange=ArrayIndex?)*;
 	public FlowEndElements getFlowEndAccess() {
 		return pFlowEnd;
 	}

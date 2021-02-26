@@ -1961,7 +1961,7 @@ FlowPathSpec returns aadl2::FlowSpecification:
 ;
 
 FlowEnd returns aadl2::FlowEnd:
-	feature=[aadl2::Feature|ID] (arrayRange=ArrayIndex)? ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature|ID])*
+	feature=[aadl2::Feature|ID] (arrayRange=ArrayIndex)? ({aadl2::FlowEnd.context=current} "." feature=[aadl2::Feature|ID] (arrayRange=ArrayIndex)?)*
 ;
 
 ArrayIndex returns aadl2::ArrayRange:

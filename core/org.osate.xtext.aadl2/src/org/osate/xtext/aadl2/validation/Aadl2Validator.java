@@ -450,31 +450,31 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	@Check(CheckType.FAST)
 	public void caseFlowSpecification(FlowSpecification flow) {
 		if (flow.getRefined() == null) {
-			checkFlowFeatureDirection(flow);
+//			checkFlowFeatureDirection(flow);
 		}
 	}
 
 	@Check(CheckType.FAST)
 	public void caseFlowEnd(FlowEnd flowEnd) {
-		checkFlowFeatureType(flowEnd);
+//		checkFlowFeatureType(flowEnd);
 	}
 
 	@Check(CheckType.FAST)
 	public void caseFlowImplementation(FlowImplementation flow) {
 		if (flow.getKind().equals(FlowKind.SOURCE) || flow.getKind().equals(FlowKind.PATH)) {
-			checkOutFeatureIdentifier(flow);
+//			checkOutFeatureIdentifier(flow);
 		}
 		if (flow.getKind().equals(FlowKind.SINK) || flow.getKind().equals(FlowKind.PATH)) {
-			checkInFeatureIdentifier(flow);
+//			checkInFeatureIdentifier(flow);
 		}
 		checkConsistentFlowKind(flow);
 		checkFlowConnectionOrder(flow);
-		checkFlowConnectionEnds(flow);
+//		checkFlowConnectionEnds(flow);
 		checkFlowSegmentModes(flow);
 		checkSubcomponentFlows(flow);
 		checkFlowPathElements(flow);
 		checkEmptyFlowImplementation(flow);
-		checkFlowImplementationDirection(flow);
+//		checkFlowImplementationDirection(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -482,7 +482,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		if (flow.getRefined() == null) {
 			typeCheckEndToEndFlowSegments(flow);
 			checkEndToEndFlowSegments(flow);
-			checkFlowConnectionEnds(flow);
+//			checkFlowConnectionEnds(flow);
 			checkNestedEndToEndFlows(flow);
 			checkSubcomponentFlows(flow);
 		}
@@ -6776,8 +6776,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			if (!fDirection.incoming()) {
 				if (report) {
 					error(flow.getInEnd(), '\''
-							+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
-							+ inFeature.getName() + "' must be an in or in out feature.");
+							+ flow.getInEnd().getFullName() + "' must be an in or in out feature.");
 				}
 				return false;
 			} else {
@@ -6797,8 +6796,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
 				if (report) {
 					error(flow.getInEnd(), '\''
-							+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
-							+ inFeature.getName() + "' must have an access right of Read_Only or Read_Write.");
+							+ flow.getInEnd().getFullName()
+							+ "' must have an access right of Read_Only or Read_Write.");
 				}
 				return false;
 			} else {
@@ -6825,8 +6824,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				}
 				if (report) {
 					error(flow.getInEnd(), '\''
-							+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
-							+ inFeature.getName()
+							+ flow.getInEnd().getFullName()
 							+ "' must contain at least one in or in out port or parameter, at least data access with an access right of Read_Only or Read_Write, or be empty.");
 					return false;
 				}
@@ -6848,8 +6846,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			if (!fDirection.incoming()) {
 				if (report) {
 					error(flow.getInEnd(), '\''
-							+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
-							+ inFeature.getName() + "' must be an in or in out feature.");
+							+ flow.getInEnd().getFullName() + "' must be an in or in out feature.");
 				}
 				return false;
 			} else {
@@ -6869,8 +6866,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
 				if (report) {
 					error(flow.getInEnd(), '\''
-							+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
-							+ inFeature.getName() + "' must have an access right of Read_Only or Read_Write.");
+							+ flow.getInEnd().getFullName()
+							+ "' must have an access right of Read_Only or Read_Write.");
 				}
 				return false;
 			} else {
@@ -6897,8 +6894,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				}
 				if (report) {
 					error(flow.getInEnd(), '\''
-							+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
-							+ inFeature.getName()
+							+ flow.getInEnd().getFullName()
 							+ "' must contain at least one in or in out port or parameter, at least data access with an access right of Read_Only or Read_Write, or be empty.");
 					return false;
 				}
@@ -6921,9 +6917,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			if (!fDirection.outgoing()) {
 				if (report) {
 					error(flow.getOutEnd(),
-							'\'' + (flow.getOutEnd().getContext() != null
-									? flow.getOutEnd().getContext().getName() + '.'
-									: "") + outFeature.getName() + "' must be an out or in out feature.");
+							'\'' + flow.getOutEnd().getFullName() + "' must be an out or in out feature.");
 				}
 				return false;
 			} else {
@@ -6941,9 +6935,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
 				if (report) {
 					error(flow.getOutEnd(), '\''
-							+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.'
-									: "")
-							+ outFeature.getName() + "' must have an access right of Write_Only or Read_Write.");
+							+ flow.getOutEnd().getFullName()
+							+ "' must have an access right of Write_Only or Read_Write.");
 				}
 				return false;
 			} else {
@@ -6973,9 +6966,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				}
 				if (report) {
 					error(flow.getOutEnd(), '\''
-							+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.'
-									: "")
-							+ outFeature.getName()
+							+ flow.getOutEnd().getFullName()
 							+ "' must contain at least one out or in out port or parameter, at least one data access with an access right of Write_Only or Read_Write, or be empty.");
 				}
 				return false;
@@ -6998,9 +6989,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			if (!fDirection.outgoing()) {
 				if (report) {
 					error(flow.getOutEnd(),
-							'\'' + (flow.getOutEnd().getContext() != null
-									? flow.getOutEnd().getContext().getName() + '.'
-									: "") + outFeature.getName() + "' must be an out or in out feature.");
+							'\'' + flow.getOutEnd().getFullName() + "' must be an out or in out feature.");
 				}
 				return false;
 			} else {
@@ -7018,9 +7007,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
 				if (report) {
 					error(flow.getOutEnd(), '\''
-							+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.'
-									: "")
-							+ outFeature.getName() + "' must have an access right of Write_Only or Read_Write.");
+							+ flow.getOutEnd().getFullName()
+							+ "' must have an access right of Write_Only or Read_Write.");
 				}
 				return false;
 			} else {
@@ -7050,9 +7038,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 				}
 				if (report) {
 					error(flow.getOutEnd(), '\''
-							+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.'
-									: "")
-							+ outFeature.getName()
+							+ flow.getOutEnd().getFullName()
 							+ "' must contain at least one out or in out port or parameter, at least one data access with an access right of Write_Only or Read_Write, or be empty.");
 				}
 				return false;

@@ -32839,6 +32839,25 @@ ruleFlowEnd returns [EObject current=null]
 					}
 				)
 			)
+			(
+				(
+					{
+						newCompositeNode(grammarAccess.getFlowEndAccess().getArrayRangeArrayIndexParserRuleCall_2_3_0());
+					}
+					lv_arrayRange_5_0=ruleArrayIndex
+					{
+						if ($current==null) {
+							$current = createModelElementForParent(grammarAccess.getFlowEndRule());
+						}
+						set(
+							$current,
+							"arrayRange",
+							lv_arrayRange_5_0,
+							"org.osate.xtext.aadl2.Aadl2.ArrayIndex");
+						afterParserOrEnumRuleCall();
+					}
+				)
+			)?
 		)*
 	)
 ;

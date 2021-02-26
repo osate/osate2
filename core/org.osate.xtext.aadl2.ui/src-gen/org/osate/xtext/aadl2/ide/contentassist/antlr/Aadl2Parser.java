@@ -2710,6 +2710,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 				builder.put(grammarAccess.getFlowEndAccess().getFeatureAssignment_0(), "rule__FlowEnd__FeatureAssignment_0");
 				builder.put(grammarAccess.getFlowEndAccess().getArrayRangeAssignment_1(), "rule__FlowEnd__ArrayRangeAssignment_1");
 				builder.put(grammarAccess.getFlowEndAccess().getFeatureAssignment_2_2(), "rule__FlowEnd__FeatureAssignment_2_2");
+				builder.put(grammarAccess.getFlowEndAccess().getArrayRangeAssignment_2_3(), "rule__FlowEnd__ArrayRangeAssignment_2_3");
 				builder.put(grammarAccess.getArrayIndexAccess().getLowerBoundAssignment_1(), "rule__ArrayIndex__LowerBoundAssignment_1");
 				builder.put(grammarAccess.getFlowSpecRefinementAccess().getRefinedAssignment_0(), "rule__FlowSpecRefinement__RefinedAssignment_0");
 				builder.put(grammarAccess.getFlowSpecRefinementAccess().getKindAssignment_4(), "rule__FlowSpecRefinement__KindAssignment_4");
