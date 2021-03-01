@@ -38,7 +38,6 @@ import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
 
 public class CreateNotePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
-
 	public CreateNotePaletteCommand() {
 		super("Note", Categories.ANNOTATION, ImageHelper.getImage("Note"));
 	}

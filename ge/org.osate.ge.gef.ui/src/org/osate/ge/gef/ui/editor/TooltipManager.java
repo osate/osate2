@@ -23,6 +23,8 @@
  */
 package org.osate.ge.gef.ui.editor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.eclipse.jface.layout.GridDataFactory;
@@ -38,7 +40,13 @@ import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.ui.TooltipContributor;
 import org.osate.ge.ui.TooltipContributorContext;
 
-// TODO: Rename
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+
+/**
+ * Handles showing and hiding tooltips
+ */
 public class TooltipManager {
 	private final ExtensionRegistryService extensionRegistry;
 	private Shell tooltipShell = null;
@@ -46,126 +54,118 @@ public class TooltipManager {
 	private double tooltipCursorX = Double.MIN_VALUE;
 	private double tooltipCursorY = Double.MIN_VALUE;
 	private final int cursorMoveThreshold = 40;
+	private final Timeline showTimeline;
+
+	// Implemented as list because enter and exit events may not be received in FILO order.
+	private final List<DiagramElement> elementStack = new ArrayList<DiagramElement>();
 
 	public TooltipManager(final ExtensionRegistryService extensionRegistry) {
 		this.extensionRegistry = Objects.requireNonNull(extensionRegistry, "extensionRegistry must not be null");
+
+		// Create timeline used to delay showing the tooltip
+		this.showTimeline = new Timeline();
+		this.showTimeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000)));
+		this.showTimeline.setOnFinished(event -> showTooltipElement());
 	}
 
 	public void mouseEnter(final DiagramElement diagramElement) {
-		// TODO: Update stack
+		// Remove it from the stack if it is already contained in it.
+		elementStack.remove(diagramElement);
+		elementStack.add(diagramElement);
 	}
 
-	// TODO
 	public void mouseExit(final DiagramElement diagramElement) {
-		// TODO: Update stack
-		disposeCurrentToolTip();
+		if (elementStack.isEmpty()) {
+			return;
+		}
+
+		elementStack.remove(diagramElement);
+		hideTooltip();
+
 	}
 
-	// TDO: Trigger automatically
-	public void mouseHover(final double x, final double y) {
-		final DiagramElement hoverElement = null; // TODO: Find the diagram element
+	public void mouseMove(final double x, final double y) {
+		if (elementStack.isEmpty()) {
+			return;
+		}
 
-		// Only show tooltips if a diagram element was found
-		if (hoverElement != null) {
-			if (hoverElement != tooltipElement || exceedsCursorMoveThreshold(x, y)) {
-				disposeCurrentToolTip();
-
-				if (hoverElement.getBusinessObject() != null) {
-					tooltipElement = hoverElement;
-
-					// Create new tooltip shell
-					final Display display = Display.getCurrent();
-					tooltipShell = new Shell(display.getActiveShell(), SWT.ON_TOP | SWT.TOOL | SWT.CENTER);
-					tooltipShell.setVisible(false);
-					tooltipShell.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
-					tooltipShell.setBackgroundMode(SWT.INHERIT_FORCE);
-
-					// Configure layout
-					final GridLayout tooltipLayout = GridLayoutFactory.fillDefaults().create();
-					tooltipLayout.marginLeft = 5;
-					tooltipLayout.marginRight = 5;
-					tooltipShell.setLayout(tooltipLayout);
-
-					// Call tooltip contributors
-					final TooltipContributorContext tooltipContext = new TooltipContributorContext(tooltipShell,
-							tooltipElement);
-					for (final TooltipContributor tooltipContributor : extensionRegistry.getTooltipContributors()) {
-						tooltipContributor.addTooltipContents(tooltipContext);
-					}
-
-					// Show tooltip shell if something was contributed
-					if (tooltipShell.getChildren().length > 0) {
-						// Attempt to restrict the width of widget which are wider than the preferred maximum.
-						for (final Control tooltipChild : tooltipShell.getChildren()) {
-							final int maxTooltipWidth = 600;
-							if (tooltipChild.computeSize(SWT.DEFAULT, SWT.DEFAULT).x > maxTooltipWidth) {
-								tooltipChild.setLayoutData(
-										GridDataFactory.fillDefaults().hint(maxTooltipWidth, SWT.DEFAULT).create());
-							}
-						}
-
-						final Point point = display.getCursorLocation();
-						tooltipShell.setLocation(point.x, point.y + 20);
-						tooltipCursorX = x;
-						tooltipCursorY = y;
-						tooltipShell.pack(true);
-						tooltipShell.setVisible(true);
-					}
+		final DiagramElement newTooltipElement = topDiagramElement();
+		if (tooltipElement != newTooltipElement) {
+			// Hide existing tooltip if open
+			if (tooltipElement != null) {
+				if (newTooltipElement != tooltipElement || exceedsCursorMoveThreshold(x, y)) {
+					hideTooltip();
 				}
 			}
+
+			// Start the showing timeline
+			tooltipElement = newTooltipElement;
+			tooltipCursorX = x;
+			tooltipCursorY = y;
+			showTimeline.play();
 		}
 	}
 
-	// TODO
-//	public void mouseMove(final MouseEvent e) {
-//		final PictogramElement movePe = getPictogramElementByControlCoordinates(e.x, e.y);
-//		final DiagramElement moveElement = movePe == null ? null : graphitiAgeDiagram.getClosestDiagramElement(movePe);
-//		if (tooltipShell != null && (movePe instanceof Diagram || moveElement != tooltipElement
-//				|| exceedsCursorMoveThreshold(e.x, e.y))) {
-//			disposeCurrentToolTip();
-//		}
-//	}
+	private void showTooltipElement() {
+		if (tooltipElement == null || tooltipElement.getBusinessObject() == null) {
+			return;
+		}
 
-	private void disposeCurrentToolTip() {
+		// Create new tooltip shell
+		final Display display = Display.getCurrent();
+		tooltipShell = new Shell(display.getActiveShell(), SWT.ON_TOP | SWT.TOOL | SWT.CENTER);
+		tooltipShell.setVisible(false);
+		tooltipShell.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+		tooltipShell.setBackgroundMode(SWT.INHERIT_FORCE);
+
+		// Configure layout
+		final GridLayout tooltipLayout = GridLayoutFactory.fillDefaults().create();
+		tooltipLayout.marginLeft = 5;
+		tooltipLayout.marginRight = 5;
+		tooltipShell.setLayout(tooltipLayout);
+
+		// Call tooltip contributors
+		final TooltipContributorContext tooltipContext = new TooltipContributorContext(tooltipShell, tooltipElement);
+		for (final TooltipContributor tooltipContributor : extensionRegistry.getTooltipContributors()) {
+			tooltipContributor.addTooltipContents(tooltipContext);
+		}
+
+		// Show tooltip shell if something was contributed
+		if (tooltipShell.getChildren().length > 0) {
+			// Attempt to restrict the width of widget which are wider than the preferred maximum.
+			for (final Control tooltipChild : tooltipShell.getChildren()) {
+				final int maxTooltipWidth = 600;
+				if (tooltipChild.computeSize(SWT.DEFAULT, SWT.DEFAULT).x > maxTooltipWidth) {
+					tooltipChild
+							.setLayoutData(GridDataFactory.fillDefaults().hint(maxTooltipWidth, SWT.DEFAULT).create());
+				}
+			}
+
+			final Point point = display.getCursorLocation();
+			tooltipShell.setLocation(point.x, point.y + 20);
+			tooltipShell.pack(true);
+			tooltipShell.setVisible(true);
+		}
+	}
+
+	public void hideTooltip() {
+		showTimeline.stop();
+
 		if (tooltipShell != null) {
 			tooltipShell.dispose();
 		}
 
 		tooltipShell = null;
 		tooltipElement = null;
-		tooltipCursorX = Integer.MIN_VALUE;
-		tooltipCursorY = Integer.MIN_VALUE;
+		tooltipCursorX = Double.MIN_VALUE;
+		tooltipCursorY = Double.MIN_VALUE;
 	}
 
 	private boolean exceedsCursorMoveThreshold(final double cursorX, final double cursorY) {
 		return (Math.abs(cursorX - tooltipCursorX) + Math.abs(cursorY - tooltipCursorY)) >= cursorMoveThreshold;
 	}
 
-	// TODO
-//	@Override
-//	public void partClosed(final IWorkbenchPart part) {
-//		if (part == editor) {
-//			disposeCurrentToolTip();
-//
-//			// Unregister listeners
-//			if (editor.getGraphicalViewer() != null && editor.getGraphicalViewer().getControl() != null) {
-//				editor.getGraphicalViewer().getControl().removeMouseMoveListener(this);
-//				editor.getGraphicalViewer().getControl().removeMouseTrackListener(this);
-//			}
-//
-//			if (editor.getSite() != null && editor.getSite().getWorkbenchWindow() != null
-//					&& editor.getSite().getWorkbenchWindow().getPartService() != null) {
-//				editor.getSite().getWorkbenchWindow().getPartService().removePartListener(this);
-//			}
-//		}
-//	}
-
-	// TODO
-//	@Override
-//	public void partDeactivated(final IWorkbenchPart part) {
-//		if (part == editor) {
-//			disposeCurrentToolTip();
-//		}
-//	}
-
+	private DiagramElement topDiagramElement() {
+		return elementStack.get(elementStack.size() - 1);
+	}
 }

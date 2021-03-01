@@ -64,8 +64,10 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -284,8 +286,41 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private int cleanDiagramChangeNumber = -1; // The diagram change number of the "clean" diagram.
 	private AgeEditorPaletteModel paletteModel;
 	private final ToolHandler toolHandler = new ToolHandler();
+	private TooltipManager tooltipManager;
 	private final ISelectionListener toolPostSelectionListener = (part, selection) -> {
 		toolHandler.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
+	};
+	private final IPartListener partListener = new IPartListener() {
+		@Override
+		public void partDeactivated(IWorkbenchPart part) {
+			if (part == AgeEditor.this) {
+				tooltipManager.hideTooltip();
+			}
+		}
+
+		@Override
+		public void partClosed(IWorkbenchPart part) {
+			if (part == AgeEditor.this) {
+				tooltipManager.hideTooltip();
+				final IWorkbenchSite site = getSite();
+				if (site != null && site.getWorkbenchWindow() != null
+						&& site.getWorkbenchWindow().getPartService() != null) {
+					site.getWorkbenchWindow().getPartService().removePartListener(this);
+				}
+			}
+		}
+
+		@Override
+		public void partOpened(IWorkbenchPart part) {
+		}
+
+		@Override
+		public void partActivated(IWorkbenchPart part) {
+		}
+
+		@Override
+		public void partBroughtToTop(IWorkbenchPart part) {
+		}
 	};
 	private final IOperationHistoryListener operationHistoryListener = event -> {
 		if (event.getOperation().hasContext(DefaultActionService.CONTEXT)) {
@@ -383,6 +418,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 						gefDiagram.refreshStyle(diagramElements);
 					}
 				});
+
+		// Initialize the tooltip manager
+		this.tooltipManager = new TooltipManager(extRegistry);
 
 		// Initialize the outline and property sheet page
 		outlinePage = new AgeContentOutlinePage(this, projectProvider, extRegistry, projectReferenceService);
@@ -507,6 +545,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		// Set the initial selection to the diagram
 		selectionProvider.setSelection(new StructuredSelection(diagram));
+
+		site.getWorkbenchWindow().getPartService().addPartListener(partListener);
 	}
 
 	private void registerAction(final IAction action) {
@@ -622,25 +662,30 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			}
 		});
 
+		//
+		// Listeners to handle tooltips
+		//
 		canvas.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e -> {
 			if (e.getTarget() instanceof Node) {
-				// TODO
 				final DiagramElement de = gefDiagram.getDiagramElement((Node) e.getTarget());
-				if (de != null) {
-					// TODO; Maintain a stack?
-					System.err.println("ENTER: " + de.getBusinessObject());
+				if (tooltipManager != null && de != null) {
+					tooltipManager.mouseEnter(de);
 				}
 			}
 		});
 
 		canvas.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e -> {
 			if (e.getTarget() instanceof Node) {
-				// TODO
 				final DiagramElement de = gefDiagram.getDiagramElement((Node) e.getTarget());
-				if (de != null) {
-					// TODO; Maintain a stack?
-					System.err.println("EXIT: " + de.getBusinessObject());
+				if (tooltipManager != null && de != null) {
+					tooltipManager.mouseExit(de);
 				}
+			}
+		});
+
+		canvas.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
+			if (tooltipManager != null) {
+				tooltipManager.mouseMove(e.getScreenX(), e.getScreenY());
 			}
 		});
 	}
