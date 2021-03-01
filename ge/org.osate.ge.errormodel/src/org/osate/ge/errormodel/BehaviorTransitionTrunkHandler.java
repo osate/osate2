@@ -60,7 +60,7 @@ public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, Cu
 			.filterByBusinessObjectRelativeReference(t -> ((BehaviorTransitionTrunk) t).getTransition()));
 
 	@Override
-	public boolean isApplicable(final IsApplicableContext ctx) {
+	public boolean isApplicable(final IsApplicableContext ctx) { // TODO: Ignore
 		return ctx.getBusinessObject(BehaviorTransitionTrunk.class).isPresent();
 	}
 
