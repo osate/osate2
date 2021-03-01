@@ -8,7 +8,7 @@ Bundle-Vendor: CMU/SEI
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.18.0,4.0.0)",
  org.osate.aadl2;bundle-version="[4.0.0,5.0.0)",
  org.osate.aadl2.modelsupport;bundle-version="[6.0.0,7.0.0)",
- org.osate.pluginsupport;bundle-version="[6.0.0,7.0.0)";visibility:=reexport
+ org.osate.pluginsupport;bundle-version="[6.0.0,7.0.0)"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Automatic-Module-Name: org.osate.aadl2.contrib
 Bundle-ActivationPolicy: lazy
