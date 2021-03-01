@@ -25,10 +25,17 @@ package org.osate.analysis.resource.budgets.busload;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Optional;
+import java.util.function.Function;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.communication.RateSpec;
+import org.osate.aadl2.contrib.communication.RateSpec.RateUnit_FieldType;
+import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -44,6 +51,10 @@ import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadModel;
 import org.osate.analysis.resource.budgets.internal.busload.model.BusOrVirtualBus;
 import org.osate.analysis.resource.budgets.internal.busload.model.Connection;
 import org.osate.analysis.resource.budgets.internal.busload.model.Visitor;
+import org.osate.contribution.sei.sei.DataRate;
+import org.osate.contribution.sei.sei.MessageRate;
+import org.osate.contribution.sei.sei.Sei;
+import org.osate.pluginsupport.properties.RealWithUnits;
 import org.osate.result.AnalysisResult;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
@@ -372,7 +383,7 @@ public final class NewBusLoadAnalysis {
 			final FeatureInstance fi = (FeatureInstance) cie;
 			final double datasize = dataOverheadKBytes
 					+ GetProperties.getSourceDataSize(fi, GetProperties.getKBUnitLiteral(fi));
-			final double srcRate = GetProperties.getOutgoingMessageRatePerSecond(fi);
+			final double srcRate = getOutgoingMessageRatePerSecond(fi);
 			actualDataRate = datasize * srcRate;
 		}
 		return actualDataRate;
@@ -386,5 +397,67 @@ public final class NewBusLoadAnalysis {
 
 	private static void warning(final Result result, final InstanceObject io, final String msg) {
 		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.WARNING));
+	}
+
+	// =====================
+
+	private static double getMessageRatePerSecond(final NamedElement ne) {
+		final Optional<RealWithUnits<DataRate>> v = Sei.getDataRate(ne);
+		if (v.isPresent()) {
+			return v.get().getValue(DataRate.PERSECOND);
+		} else {
+			final Optional<RealWithUnits<MessageRate>> v2 = Sei.getMessageRate(ne);
+			return processWithDefault(v2, 0.0, rwu -> rwu.getValue(MessageRate.PERSECOND));
+		}
+	}
+
+	/*
+	 * Look for Message_Rate or SEI::Data_Rate first. Then pick up Output_Rate,
+	 * whose default value is 1 per dispatch That rate is converted to persecond
+	 * using Period. If Period is zero then the resulting data rate is zero as
+	 * well.
+	 *
+	 * XXX: Communication_Properties:Output_Rate is the standardized property!
+	 */
+	private static double getOutgoingMessageRatePerSecond(final NamedElement ne) {
+		double res = getMessageRatePerSecond(ne);
+		if (res > 0) {
+			return res;
+		}
+		final Optional<RateSpec> rec = org.osate.aadl2.contrib.communication.CommunicationProperties.getOutputRate(ne);
+		if (rec.isPresent()) {
+			res = processWithDefault(rec.get().getValueRange(), 0.0, rr -> rr.getMaximum());
+			double period = 0.0;
+			final Optional<RateUnit_FieldType> unit = rec.get().getRateUnit();
+			if (!unit.isPresent() || unit.get() == RateUnit_FieldType.PERDISPATCH) {
+				period = processWithDefault(TimingProperties.getPeriod(ne), 0.0, iwu -> iwu.getValue(TimeUnits.SEC));
+				if (period == 0.0) {
+					return 0;
+				}
+				res = res / period;
+			}
+			if (res > 0) {
+				return res;
+			}
+		}
+		double period = processWithDefault(TimingProperties.getPeriod(ne.getContainingClassifier()), 0.0,
+				iwu -> iwu.getValue(TimeUnits.SEC));
+		if (period == 0.0) {
+			return 0;
+		}
+		res = 1 / period;
+		return res;
+	}
+
+
+	// =====================
+
+	private static <T, S> S processWithDefault(final Optional<T> o, final S defaultValue,
+			final Function<T, S> function) {
+		if (o.isPresent()) {
+			return function.apply(o.get());
+		} else {
+			return defaultValue;
+		}
 	}
 }
