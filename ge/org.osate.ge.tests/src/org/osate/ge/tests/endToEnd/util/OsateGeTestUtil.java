@@ -381,6 +381,15 @@ public class OsateGeTestUtil {
 	}
 
 	/**
+	 * Waits until a check box's check state matches the specified value
+	 */
+	public static void waitUntilCheckboxCheckedState(final int index, final boolean value) {
+		System.err.println(isCheckboxChecked(index) + " ischecked");
+		waitUntil(() -> Objects.equals(isCheckboxChecked(index), value),
+				"Check box index'" + index + "' check state is not " + value + ".");
+	}
+
+	/**
 	 * Waits until a radio buttons selected state matches the specified value
 	 */
 	public static void waitUntilRadioButtonSelectedState(final String text, final boolean value) {

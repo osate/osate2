@@ -76,7 +76,7 @@ public class BehaviorAnnexTest {
 
 		// Use Open -> Behavior Annex Diagram command to create new behavior annex diagram
 		final BiFunction<DiagramElementReference, String, DiagramReference> openBehaviorAnnexDiagramCommand = (ref,
-				diagramPrefix) -> openDiagramFromReference(ref, diagramPrefix, 0);
+				diagramPrefix) -> openDiagramFromReference(ref, diagramPrefix);
 
 		// Run tests for type
 		testBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(0),
@@ -87,7 +87,7 @@ public class BehaviorAnnexTest {
 
 		// Use Open -> New Diagram... command to create new Behavior Annex diagram
 		final BiFunction<DiagramElementReference, String, DiagramReference> openNewDiagramCommand = (ref,
-				newStatePrefix) -> openNewDiagramFromReference(ref, newStatePrefix, 1);
+				newStatePrefix) -> openNewDiagramFromReference(ref, newStatePrefix);
 
 		// Run tests for impl
 		testBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(1),
@@ -255,8 +255,7 @@ public class BehaviorAnnexTest {
 
 	// Open Behavior Annex diagram
 	private static DiagramReference openDiagramFromReference(final DiagramElementReference ref,
-			final String newStatePrefix,
-			final int index) {
+			final String newStatePrefix) {
 		final String diagramName = BA_TEST + "_" + newStatePrefix + "_" + BehaviorAnnexReferenceUtil.ANNEX_NAME;
 		// Look for existing diagram
 		final IFile diagramFile = (IFile) ResourcesPlugin.getWorkspace().getRoot()
@@ -281,8 +280,7 @@ public class BehaviorAnnexTest {
 
 	// Create Behavior Annex diagram
 	private static DiagramReference openNewDiagramFromReference(final DiagramElementReference ref,
-			final String newStatePrefix,
-			final int index) {
+			final String newStatePrefix) {
 		clickContextMenuOfOutlineViewItem(ref.toOutlineTreeItemPath(), new String[] { "Open", "New Diagram..." });
 
 		waitForWindowWithTitle("Create Diagram");
