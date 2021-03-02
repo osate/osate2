@@ -27,6 +27,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -50,7 +51,7 @@ import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
-public class StatePropertySection extends AbstractPropertySection {
+public class BehaviorStatePropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
@@ -77,14 +78,16 @@ public class StatePropertySection extends AbstractPropertySection {
 				"Complete:");
 
 		completeStatePropertyBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
-				new SetPropertyStateSelectionListener("Set Complete State"), "", SWT.CHECK);
+				new SetPropertyStateSelectionListener("Set Complete State", (state, value) -> state.setComplete(value)),
+				"", SWT.CHECK);
 		setButtonLayoutData(completeStatePropertyBtn, completeSectionLabel);
 
 		final Label finalSectionLabel = PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Final:");
 		setLabelLayoutData(finalSectionLabel, completeSectionLabel);
 
 		finalStatePropertyBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
-				new SetPropertyStateSelectionListener("Set Final State"), "", SWT.CHECK);
+				new SetPropertyStateSelectionListener("Set Final State", (state, value) -> state.setFinal(value)), "",
+				SWT.CHECK);
 		setButtonLayoutData(finalStatePropertyBtn, finalSectionLabel);
 
 		final Label initialSectionLabel = PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(),
@@ -92,7 +95,8 @@ public class StatePropertySection extends AbstractPropertySection {
 		setLabelLayoutData(initialSectionLabel, finalSectionLabel);
 
 		initialStatePropertyBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
-				new SetPropertyStateSelectionListener("Set Initial State"), "", SWT.CHECK);
+				new SetPropertyStateSelectionListener("Set Initial State", (state, value) -> state.setInitial(value)),
+				"", SWT.CHECK);
 		setButtonLayoutData(initialStatePropertyBtn, initialSectionLabel);
 	}
 
@@ -135,16 +139,19 @@ public class StatePropertySection extends AbstractPropertySection {
 
 	private class SetPropertyStateSelectionListener extends SelectionAdapter {
 		private final String label;
+		private BiConsumer<BehaviorState, Boolean> modifier;
 
-		public SetPropertyStateSelectionListener(final String label) {
+		public SetPropertyStateSelectionListener(final String label,
+				final BiConsumer<BehaviorState, Boolean> modifier) {
 			this.label = label;
+			this.modifier = modifier;
 		}
 
 		@Override
 		public void widgetSelected(final SelectionEvent e) {
 			selectedBos.modify(label, boc -> boc.getBusinessObject(BehaviorState.class).isPresent(),
 					boc -> boc.getBusinessObject(BehaviorState.class).get(),
-					(behaviorState, boc) -> behaviorState.setFinal(((Button) e.getSource()).getSelection()));
+					(behaviorState, boc) -> modifier.accept(behaviorState, ((Button) e.getSource()).getSelection()));
 		}
 	}
 
