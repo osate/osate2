@@ -66,9 +66,9 @@ import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
 /**
- * Property section for setting a {@link BehaviorVariable}'s data classifier.
+ * Property section for {@link BehaviorVariable}
  */
-public class SetVariableDataClassifierPropertySection extends AbstractPropertySection {
+public class BehaviorVariablePropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
@@ -79,7 +79,7 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 	public static final String WIDGET_ID_DATA_CLASSIFIER_LABEL = "org.osate.ge.ba.ui.properties.setVariableDataClassifierPropertySection.label";
 	private BusinessObjectSelection selectedBos;
 	private Label curDataClassifier;
-	private Button chooseBtn;
+	private Button chooseDataClassifierBtn;
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -104,14 +104,14 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 		curDataClassifier.setLayoutData(fd);
 		SwtUtil.setTestingId(curDataClassifier, WIDGET_ID_DATA_CLASSIFIER_LABEL);
 
-		chooseBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, null,
+		chooseDataClassifierBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, null,
 				setDataClassifierListener,
 				"Choose...", SWT.PUSH);
 
 		fd = new FormData();
 		fd.left = new FormAttachment(curDataClassifier, ITabbedPropertyConstants.HSPACE);
 		fd.top = new FormAttachment(curDataClassifier, 0, SWT.CENTER);
-		chooseBtn.setLayoutData(fd);
+		chooseDataClassifierBtn.setLayoutData(fd);
 	}
 
 	final SelectionListener setDataClassifierListener = new SelectionAdapter() {

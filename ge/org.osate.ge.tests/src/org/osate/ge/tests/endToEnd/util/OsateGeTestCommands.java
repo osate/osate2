@@ -42,7 +42,7 @@ import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem;
 import org.osate.ge.aadl2.ui.internal.properties.AbstractFeaturePrototypePropertySection;
 import org.osate.ge.aadl2.ui.internal.properties.SetSubcomponentClassifierPropertySection;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
-import org.osate.ge.ba.ui.properties.SetVariableDataClassifierPropertySection;
+import org.osate.ge.ba.ui.properties.BehaviorVariablePropertySection;
 import org.osate.ge.swt.classifiers.PrototypeBindingsField;
 
 /**
@@ -292,7 +292,7 @@ public class OsateGeTestCommands {
 		doubleClickListItem(0, dataClassifierQualifiedName);
 
 		// Wait until the current classifier label has been updated
-		waitUntilLabelWithIdTextMatches(SetVariableDataClassifierPropertySection.WIDGET_ID_DATA_CLASSIFIER_LABEL,
+		waitUntilLabelWithIdTextMatches(BehaviorVariablePropertySection.WIDGET_ID_DATA_CLASSIFIER_LABEL,
 				dataClassifierQualifiedName);
 	}
 
