@@ -252,7 +252,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				final EndToEndFlow endToEndFlow = createEndToEndFlow();
 				String error = null;
 				final boolean isValid = createFlowDialog.isEndToEndFlowValid(endToEndFlow);
-				if (!isValid) {
+				if (segmentSelections.size() > 1 && !isValid) {
 					error = createFlowDialog.getValidFlowErrorMessage();
 				}
 
@@ -344,7 +344,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 					createFlowDialog.updateSegments();
 					final boolean isValid = createFlowDialog.isEndToEndFlowValid(createEndToEndFlow());
-					if (!isValid) {
+					if (segmentSelections.size() > 1 && !isValid) {
 						error = Strings.emptyIfNull(error) + createFlowDialog.getValidFlowErrorMessage();
 					}
 
@@ -532,10 +532,14 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				}
 			} else {
 				final ComponentImplementation ci = optCi.get();
+				// TODO never show serialization errors? Show them after atleast 2 segments have been selected?
+				// The ending segment can be many things, makes it difficult to show messages at the right times
 				diagnostics = ToolUtil.getModificationDiagnostics(ci, modifyObject(endToEndFlow, ci));
 			}
 
-			FlowDialogUtil.setInput(errorTableViewer, diagnostics);
+			FlowDialogUtil.setInput(errorTableViewer,
+					diagnostics.stream().filter(diagnostic -> "Serialization Error".equals(diagnostic.getMessage()))
+					.collect(Collectors.toList()));
 
 			final Optional<Diagnostic> errorDiagnostic = diagnostics.stream()
 					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR).findAny();
@@ -1118,7 +1122,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 		}
 
 		private Optional<String> getFlowErrorMessage(final boolean isValid) {
-			if (!isValid) {
+			System.err.println(segmentSelections.size() + " size");
+			if (segmentSelections.size() > 1 && !isValid) {
 				return Optional.of(getValidFlowErrorMessage());
 			}
 

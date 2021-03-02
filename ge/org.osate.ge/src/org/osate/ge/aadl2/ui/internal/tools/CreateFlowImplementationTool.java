@@ -32,6 +32,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -353,12 +354,10 @@ public class CreateFlowImplementationTool implements Tool {
 					}
 				} else {
 					if (flowImpl.getInEnd() == null) {
-						msg = "Select a starting feature";
+						msg = "Select a starting feature or flow segment";
 					} else if (flowImpl.getOutEnd() == null) {
-						msg = "Select a ending feature";
+						msg = "Select a ending feature or flow segment";
 					}
-
-					msg += " or flow segment.";
 				}
 			}
 
@@ -371,7 +370,7 @@ public class CreateFlowImplementationTool implements Tool {
 
 			if (multipleElementsSelected) {
 				error = "Multiple elements selected.  Select a single element. ";
-			} else if (!segmentSelections.isEmpty() && !isValid) {
+			} else if (segmentSelections.size() > 1 && !isValid) {
 				error = "Invalid Flow Implementation.  ";
 			}
 
@@ -510,7 +509,7 @@ public class CreateFlowImplementationTool implements Tool {
 				return false;
 			}
 
-			final Set<Diagnostic> diagnostics;
+			Set<Diagnostic> diagnostics;
 			final Optional<ComponentImplementation> optCi = getFlowComponentImplementation(getOwnerBoc().orElse(null));
 
 			if (!optCi.isPresent()) {
@@ -529,12 +528,43 @@ public class CreateFlowImplementationTool implements Tool {
 				});
 			}
 
+			// Errors to show to user
+			final Set<Diagnostic> dialogDiagnostics = getDialogDiagnostics(diagnostics);
 			// Update error table
-			FlowDialogUtil.setInput(errorTableViewer, diagnostics);
+			FlowDialogUtil.setInput(errorTableViewer,
+					dialogDiagnostics);
 
 			final Optional<Diagnostic> errorDiagnostic = diagnostics.stream()
 					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR).findAny();
 			return !errorDiagnostic.isPresent();
+		}
+
+		private Set<Diagnostic> getDialogDiagnostics(final Set<Diagnostic> diagnostics) {
+			if (showSerializationErrors()) {
+				return diagnostics;
+			}
+
+			return diagnostics.stream().filter(diagnostic -> "Serialization Error".equals(diagnostic.getMessage()))
+					.collect(Collectors.toSet());
+		}
+
+		private boolean showSerializationErrors() {
+			final FlowSpecification fs = flowImpl.getSpecification();
+			if (fs == null) {
+				return false;
+			}
+
+			final FlowKind kind = fs.getKind();
+			if (kind == FlowKind.SOURCE) {
+				// Source
+				return fs.getAllOutEnd() == null;
+			} else if (kind == FlowKind.SINK) {
+				// Sink
+				return fs.getAllInEnd() == null;
+			}
+
+			// Path
+			return fs.getAllInEnd() == null && fs.getAllOutEnd() == null;
 		}
 
 		private Optional<ComponentImplementation> getFlowComponentImplementation(final BusinessObjectContext owner) {
@@ -579,10 +609,11 @@ public class CreateFlowImplementationTool implements Tool {
 				SegmentData segmentData = segmentIt.next();
 				BusinessObjectContext boc = segmentData.getBoc();
 				if (flowImplToEdit != null) {
-					createFlowSpecLabel((NamedElement) boc.getBusinessObject());
+					createFlowSpecLabel((FlowSpecification) boc.getBusinessObject());
 				} else {
-					createSegmentButton(AgeAadlUtil.getRootName((NamedElement) boc.getBusinessObject()), segmentData);
-					createFlowText();
+					final FlowSpecification fs = (FlowSpecification) boc.getBusinessObject();
+					createSegmentButton(AgeAadlUtil.getRootName(fs), segmentData);
+					createFlowText(fs);
 				}
 
 				while (segmentIt.hasNext()) {
@@ -626,23 +657,26 @@ public class CreateFlowImplementationTool implements Tool {
 			updateMessage();
 		}
 
-		private void createFlowSpecLabel(final NamedElement ne) {
+		private void createFlowSpecLabel(final FlowSpecification fs) {
 			final StyledText flowSpecLabel = new StyledText(flowComposite, SWT.NONE);
 			flowSpecLabel.setBackground(flowComposite.getBackground());
 			flowSpecLabel.setLayoutData(new RowData());
-			final String flowSpecName = AgeAadlUtil.getRootName(ne);
-			flowSpecLabel.setText(flowSpecName + " :  flow");
-			flowSpecLabel.setStyleRange(new StyleRange(flowSpecName.length() + 4, 4,
+			final String flowSpecName = AgeAadlUtil.getRootName(fs);
+			final String flowKind = fs.getKind().getName();
+			flowSpecLabel.setText(flowSpecName + " :  flow " + flowKind);
+			flowSpecLabel.setStyleRange(new StyleRange(flowSpecName.length() + 4, 5 + flowKind.length(),
 					Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED), null, SWT.BOLD));
 		}
 
-		private void createFlowText() {
+		private void createFlowText(final FlowSpecification fs) {
 			final StyledText label = new StyledText(flowComposite, SWT.NONE);
 			label.setBackground(flowComposite.getBackground());
 			label.setLayoutData(new RowData());
-			label.setText(" :  flow");
+			final String flowKind = fs.getKind().getName();
+			label.setText(" :  flow " + flowKind);
 			label.setStyleRange(
-					new StyleRange(4, 4, Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED), null, SWT.BOLD));
+					new StyleRange(4, 5 + flowKind.length(), Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED),
+							null, SWT.BOLD));
 		}
 
 		private void createSegmentButton(final String name, final SegmentData segmentData) {
@@ -929,7 +963,9 @@ public class CreateFlowImplementationTool implements Tool {
 
 			private Function<Object, Boolean> getType(final Object bo) {
 				final Function<Object, Boolean> isQualifiedType;
-				if (bo instanceof ModeFeature) {
+				if (flowImpl.getSpecification() == bo) {
+					isQualifiedType = (selectedBo) -> selectedBo instanceof FlowSpecification;
+				} else if (bo instanceof ModeFeature) {
 					isQualifiedType = (selectedBo) -> selectedBo instanceof ModeFeature;
 				} else if (bo instanceof Feature) {
 					isQualifiedType = (selectedBo) -> selectedBo instanceof Feature;
