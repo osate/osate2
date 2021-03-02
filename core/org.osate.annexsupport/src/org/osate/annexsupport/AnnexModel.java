@@ -56,7 +56,7 @@ public class AnnexModel {
 	public static final String PREFS_QUALIFIER = "org.osate.ui.internal.annex";
 	public static final String PREF_ANNEX_USE_WORKSPACE = "org.osate.ui.internal.annex_use_workspace";
 
-	private static enum UserSetting {
+	public static enum UserSetting {
 		USE_WORKSPACE_PREFERENCE, USE_PROJECT_PREFERENCE
 	};
 
@@ -66,7 +66,7 @@ public class AnnexModel {
 	 * The preference is stored in PREF_ANNEX_USE_WORKSPACE in project scope
 	 *
 	 * @param project that is being parsed
-	 * @return True if workspace preference should be used OR if @param project is NULL; False if project preference should be used
+	 * @return UserSetting.USE_WORKSPACE_PREFERENCE if workspace preference should be used OR if @param project is NULL; UserSetting.USE_PROJECT_PREFERENCE if project preference should be used
 	 */
 	public static final UserSetting getUserPreference(IProject project) {
 		if (project == null) {
