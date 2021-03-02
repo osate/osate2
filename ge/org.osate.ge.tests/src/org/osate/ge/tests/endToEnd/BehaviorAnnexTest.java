@@ -264,7 +264,7 @@ public class BehaviorAnnexTest {
 		if (diagramFile == null) {
 			// Create diagram if necessary
 			clickContextMenuOfOutlineViewItem(ref.toOutlineTreeItemPath(),
-					new String[] { "Open", "Behavior Annex Diagram" });
+					new String[] { "Open", "Behavior Specification Diagram" });
 
 			waitForWindowWithTitle("Create New Diagram?");
 			clickButtonForShell("Create New Diagram?", "Yes");

@@ -21,21 +21,14 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.diagram.diagramType;
+package org.osate.ge.ba.diagram.contentFilters;
 
-import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ge.DiagramType;
-import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
-import org.osate.ge.ba.diagram.contentFilters.BehaviorStateFilter;
-import org.osate.ge.ba.diagram.contentFilters.BehaviorTransitionFilter;
-import org.osate.ge.ba.diagram.contentFilters.BehaviorVariableFilter;
+import org.osate.ge.ContentFilter;
 
-import com.google.common.collect.ImmutableCollection;
-import com.google.common.collect.ImmutableSet;
-
-public class BehaviorAnnexDiagramType implements DiagramType {
-	public final static String ID = "ba.behavior_specification";
+public class BehaviorSpecificationFilter implements ContentFilter {
+	public static final String ID = "ba.behaviorSpecifications";
 
 	@Override
 	public String getId() {
@@ -44,27 +37,16 @@ public class BehaviorAnnexDiagramType implements DiagramType {
 
 	@Override
 	public String getName() {
-		return "Behavior Specification";
+		return "Behavior Specifications";
 	}
 
 	@Override
-	public boolean isApplicableToContext(final Object contextBo) {
-		return contextBo instanceof DefaultAnnexSubclause
-				&& BehaviorAnnexReferenceUtil.ANNEX_NAME
-						.equalsIgnoreCase(((DefaultAnnexSubclause) contextBo).getName());
+	public boolean isApplicable(final Object bo) {
+		return bo instanceof ComponentClassifier;
 	}
 
 	@Override
-	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
-		if (bo instanceof BehaviorAnnex) {
-			return ImmutableSet.of(BehaviorVariableFilter.ID, BehaviorTransitionFilter.ID, BehaviorStateFilter.ID);
-		}
-
-		return ImmutableSet.of();
-	}
-
-	@Override
-	public ImmutableCollection<String> getDefaultAadlPropertyNames() {
-		return ImmutableSet.of();
+	public boolean test(final Object bo) {
+		return bo instanceof BehaviorAnnex;
 	}
 }
