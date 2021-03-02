@@ -141,12 +141,12 @@ public class AnnexPreferencePage extends FieldEditorPreferencePage implements IW
 	public boolean performOk() {
 		boolean hasChanged = false;
 		for (BooleanFieldEditor field : fields) {
-			if (field.getBooleanValue() != org.osate.annexsupport.AnnexModel.getAnnex(field.getLabelText())) {
+			if (field.getBooleanValue() != org.osate.annexsupport.AnnexModel.getAnnexEnabled(field.getLabelText())) {
 				if (!hasChanged) {
 					hasChanged = true;
 				}
 			}
-			org.osate.annexsupport.AnnexModel.setAnnex(field.getBooleanValue(), field.getLabelText());
+			org.osate.annexsupport.AnnexModel.setAnnexEnabled(field.getBooleanValue(), field.getLabelText());
 		}
 
 		if (hasChanged) {

@@ -46,6 +46,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.dialogs.PropertyPage;
 import org.osate.annexsupport.AnnexModel;
+import org.osate.annexsupport.AnnexModel.UserSetting;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.pluginsupport.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
@@ -111,24 +112,24 @@ public class AnnexPropertyPage extends PropertyPage {
 		Label label = new Label(composite, SWT.NONE);
 		label.setText("Annex Plugin preferences. Use the following plugins: ");
 
-		boolean workspacePref = useWorkspacePreferences();
+		UserSetting setting = AnnexModel.getUserPreference(project);
 		// get all installed annexes/plugins
 		for (String annex : AnnexRegistry.getAllAnnexNames()) {
 			// create a preference checkbox for each installed annex/plugin
 			Button checkBox = new Button(composite, SWT.CHECK);
 			checkBox.setText(annex);
-			checkBox.setEnabled(!workspacePref);
+			checkBox.setEnabled(setting.equals(UserSetting.USE_PROJECT_PREFERENCE));
 			checkBox.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 2, 1));
 
-			if (workspacePref) {
-				checkBox.setSelection(AnnexModel.getAnnex(annex));
+			if (setting.equals(UserSetting.USE_WORKSPACE_PREFERENCE)) {
+				checkBox.setSelection(AnnexModel.getAnnexEnabled(annex));
 			} else {
-				checkBox.setSelection(AnnexModel.getAnnex(project, annex));
+				checkBox.setSelection(AnnexModel.getAnnexEnabled(project, annex));
 			}
 		}
 
 		// Configure button status
-		if (workspacePref) {
+		if (setting.equals(UserSetting.USE_WORKSPACE_PREFERENCE)) {
 			useWorkspaceSettingsButton.setSelection(true);
 			useProjectSettingsButton.setSelection(false);
 			configureButton.setEnabled(true);
@@ -172,10 +173,6 @@ public class AnnexPropertyPage extends PropertyPage {
 		return composite;
 	}
 
-	private boolean useWorkspacePreferences() {
-		return AnnexModel.getWorkspacePref(project);
-	}
-
 	@Override
 	public boolean performOk() {
 		if (isValid) {
@@ -186,7 +183,7 @@ public class AnnexPropertyPage extends PropertyPage {
 				for (Control control : composite.getChildren()) {
 					if (control instanceof Button) {
 						control.setEnabled(true);
-						AnnexModel.setAnnex(((Button) control).getSelection(), project,
+						AnnexModel.setAnnexEnabled(((Button) control).getSelection(), project,
 								((Button) control).getText());
 					}
 				}
