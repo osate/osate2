@@ -38,11 +38,19 @@ import org.eclipse.core.commands.operations.IOperationHistory;
 import org.eclipse.core.commands.operations.IOperationHistoryListener;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.CommonPlugin;
@@ -50,6 +58,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.gef.fx.nodes.InfiniteCanvas;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -74,6 +83,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.operations.UndoRedoActionGroup;
 import org.eclipse.ui.part.EditorPart;
+import org.eclipse.ui.part.FileEditorInput;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
@@ -82,6 +93,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.gef.DiagramEditorNode;
 import org.osate.ge.gef.ui.AgeGefRuntimeException;
+import org.osate.ge.gef.ui.AgeGefUiPlugin;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
@@ -342,6 +354,51 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		}
 	};
 
+	// Resource change listener which updates the editor's input when the resource for the existing input is renamed and closed the editor
+	// when the resource is deleted.
+	private IResourceChangeListener resourceChangeListener = event -> {
+		if (event.getType() != IResourceChangeEvent.POST_CHANGE) {
+			return;
+		}
+
+		// Determine whether the diagram input has changed and store the new values. This is done here to avoid storing resource deltas
+		// which may expire. Editor changes will be performed in the UI thread.
+		final IResourceDelta rootDelta = event.getDelta();
+		final IResourceDelta diagramDelta = rootDelta.findMember(getInput().getFile().getFullPath());
+		final boolean removed;
+		final IFile newDiagramFile;
+		if (diagramDelta != null && diagramDelta.getKind() == IResourceDelta.REMOVED) {
+			removed = (diagramDelta.getFlags() & IResourceDelta.MOVED_TO) == 0;
+
+			// Find the resource for the new file
+			final IPath newPath = diagramDelta.getMovedToPath();
+			final IResource newResource = ResourcesPlugin.getWorkspace().getRoot().findMember(newPath);
+			newDiagramFile = newResource instanceof IFile ? (IFile) newResource : null;
+		} else {
+			removed = false;
+			newDiagramFile = null;
+		}
+
+		Display.getDefault().asyncExec(() -> {
+			//
+			// Handle Image Updates
+			//
+			if (gefDiagram != null) {
+				gefDiagram.refreshImages();
+			}
+
+			//
+			// Handle the diagram input update
+			//
+			if (removed) {
+				// Close editor
+				closeEditor();
+			} else if (newDiagramFile != null) {
+				setInput(new FileEditorInput(newDiagramFile));
+			}
+		});
+	};
+
 	// Fields related to handling model and diagram updates
 	private boolean updateInProgress = false;
 	private boolean updateQueued = false; // Only accessed by UI thread
@@ -443,6 +500,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	public void dispose() {
 		try {
 			// Remove listeners
+			ResourcesPlugin.getWorkspace().removeResourceChangeListener(resourceChangeListener);
 			PlatformUI.getWorkbench().getOperationSupport().getOperationHistory()
 					.removeOperationHistoryListener(operationHistoryListener);
 			getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(toolPostSelectionListener);
@@ -482,6 +540,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	public void init(final IEditorSite site, final IEditorInput input) throws PartInitException {
 		setInput(input);
 		setSite(site);
+
+		// Register a resource change listener to handle moving and deleting the resource.
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener);
 
 		site.getWorkbenchWindow().getSelectionService().addPostSelectionListener(toolPostSelectionListener);
 		site.setSelectionProvider(selectionProvider);
@@ -566,6 +627,15 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		this.diagramFile = fileInput.getFile();
 		this.setPartName(this.diagramFile.getName());
 		this.project = this.diagramFile.getProject();
+	}
+
+	private IFileEditorInput getInput() {
+		final IEditorInput input = getEditorInput();
+		if (!(input instanceof IFileEditorInput)) {
+			throw new AgeGefRuntimeException("Unexpected editor input: " + input);
+		}
+
+		return (IFileEditorInput) input;
 	}
 
 	@Override
@@ -722,10 +792,47 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 	@Override
 	public void doSave(final IProgressMonitor monitor) {
-		// TODO: Save
-		cleanDiagramChangeNumber = diagram.getCurrentChangeNumber();
-		firePropertyChange(PROP_DIRTY);
-		fireDirtyPropertyChangeEvent();
+		try {
+			final IFileEditorInput input = getInput();
+			final IFile diagramFile = input.getFile();
+
+			// Handle the diagram being read-only
+			if (diagramFile.isReadOnly()) {
+				final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(new IFile[] { diagramFile },
+						getSite().getShell());
+
+				if (status.matches(IStatus.CANCEL) || !status.isOK() || diagramFile.isReadOnly()) {
+					Display.getDefault().syncExec(() -> monitor.setCanceled(true));
+
+					// Display error message in a subset of cases
+					if (!status.isOK()) {
+						StatusManager.getManager().handle(status, StatusManager.SHOW);
+					} else if (diagramFile.isReadOnly()) {
+						StatusManager.getManager().handle(
+								new Status(IStatus.ERROR, AgeGefUiPlugin.PLUGIN_ID, "Diagram is read-only"),
+								StatusManager.SHOW);
+					}
+
+					return;
+				}
+			}
+
+			// Save the file
+			DiagramSerialization.write(getProject(), diagram,
+					URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
+
+			// Clear Ghosts
+			diagramUpdater.clearGhosts();
+
+			// Store current change number
+			cleanDiagramChangeNumber = diagram.getCurrentChangeNumber();
+			fireDirtyPropertyChangeEvent();
+		} catch (final Exception e) {
+			Status errorStatus = new Status(IStatus.ERROR, AgeGefUiPlugin.PLUGIN_ID, 0, e.getMessage(), e);
+			Display.getDefault().asyncExec(() -> new ErrorDialog(Display.getDefault().getActiveShell(),
+					"Error Saving Diagram", "Unable to save diagram.", errorStatus, IStatus.ERROR).open());
+			throw e;
+		}
 	}
 
 	private boolean isEditorActive() {

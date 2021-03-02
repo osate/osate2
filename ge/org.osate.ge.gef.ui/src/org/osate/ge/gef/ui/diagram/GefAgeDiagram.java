@@ -363,6 +363,13 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	}
 
 	/**
+	 * Check for changes in refrenced images and updates the diagram as appropriate.
+	 */
+	public void refreshImages() {
+		imageManager.refreshImages();
+	}
+
+	/**
 	 * Performs a full update of the scene graph based on the diagram. Ensures nodes exist, that they are updated, and have appropriate styles.
 	 */
 	private void updateSceneGraph() {
