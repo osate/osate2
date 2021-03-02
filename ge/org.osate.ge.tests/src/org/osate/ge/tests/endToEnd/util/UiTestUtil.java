@@ -150,6 +150,10 @@ public class UiTestUtil {
 		});
 	}
 
+	public static void sleep(int sec) {
+		bot.sleep(sec * 1000);
+	}
+
 	/**
 	 * Clicks a menu in the top level menu.
 	 */
@@ -303,9 +307,17 @@ public class UiTestUtil {
 	}
 
 	/**
+	 * Returns whether the radio button with the specified index is selected.
+	 */
+	public static boolean isRadioButtonSelected(final int index) {
+		return bot.radio(index).isSelected();
+	}
+
+	/**
 	 * Clicks the check box at specified index.
 	 */
 	public static void clickCheckbox(final int index) {
+		System.err.println(bot.checkBox(index) + " INDEX");
 		bot.checkBox(index).click();
 	}
 
@@ -314,6 +326,13 @@ public class UiTestUtil {
 	 */
 	public static void clickCheckbox(final String text) {
 		bot.checkBox(text).click();
+	}
+
+	/**
+	 * Returns whether check box with the specified mnemonic text is checked
+	 */
+	public static boolean isCheckboxChecked(final int index) {
+		return bot.checkBox(index).isChecked();
 	}
 
 	/**

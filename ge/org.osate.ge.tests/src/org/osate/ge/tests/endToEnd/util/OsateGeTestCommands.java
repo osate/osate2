@@ -413,6 +413,7 @@ public class OsateGeTestCommands {
 		createShapeElement(diagram, behaviorSpecDiagramRef, "Behavior State", newStateRef);
 		clickCheckboxInPropertiesView(diagram, "AADL", 2, newStateDiagramRef);
 
+		waitUntilCheckboxCheckedState(2, true);
 		// Rename initial state
 		renameElementDirectEdit(diagram, behaviorSpecDiagramRef, newStateRef, newStateName);
 	}
