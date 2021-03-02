@@ -27,11 +27,14 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension
          point="org.osate.ge.diagramTypes">
       <diagramType
-            class="org.osate.ge.ba.diagram.diagramType.BehaviorAnnexDiagramType">
+            class="org.osate.ge.ba.diagram.diagramType.BehaviorSpecificatonDiagramType">
       </diagramType>
    </extension>
    <extension
          point="org.osate.ge.contentFilters">
+      <contentFilter
+            class="org.osate.ge.ba.diagram.contentFilters.BehaviorSpecificationFilter">
+      </contentFilter>
       <contentFilter
             class="org.osate.ge.ba.diagram.contentFilters.BehaviorStateFilter">
       </contentFilter>
@@ -63,16 +66,16 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<propertySections contributorId="org.osate.ge.editor.AgeDiagramEditor">
 	 <propertySection
 	        afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-			class="org.osate.ge.ba.ui.properties.StatePropertySection"
-			filter="org.osate.ge.ba.ui.properties.StatePropertySection$Filter"
-			id="org.osate.ge.ba.properties.setBehaviorStatePropertySection"
+			class="org.osate.ge.ba.ui.properties.BehaviorStatePropertySection"
+			filter="org.osate.ge.ba.ui.properties.BehaviorStatePropertySection$Filter"
+			id="org.osate.ge.ba.properties.behaviorStatePropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>
      <propertySection
             afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-			class="org.osate.ge.ba.ui.properties.SetVariableDataClassifierPropertySection"
-			filter="org.osate.ge.ba.ui.properties.SetVariableDataClassifierPropertySection$Filter"
-			id="org.osate.ge.ba.properties.setVariableDataClassifierPropertySection"
+			class="org.osate.ge.ba.ui.properties.BehaviorVariablePropertySection"
+			filter="org.osate.ge.ba.ui.properties.BehaviorVariablePropertySection$Filter"
+			id="org.osate.ge.ba.properties.behaviorVariablePropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>
      </propertySections>
@@ -132,7 +135,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        locationURI="popup:org.osate.ge.openMenu?after=org.osate.ge.additionalDiagramTypes">
        <command
          commandId="org.osate.ge.commands.opendiagram"
-         label="Behavior Annex Diagram"
+         label="Behavior Specification Diagram"
          style="push">
          <visibleWhen
            checkEnabled="true">
