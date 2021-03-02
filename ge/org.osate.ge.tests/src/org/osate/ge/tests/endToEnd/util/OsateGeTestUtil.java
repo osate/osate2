@@ -323,12 +323,32 @@ public class OsateGeTestUtil {
 		clickCheckboxInPropertiesView(tabLabel, index);
 	}
 
+	/**
+	 * Selects referenced element and clicks the check box
+	 * with the specified id in the properties view specified tab.
+	 */
+	public static void clickCheckboxByIdInPropertiesView(final DiagramReference diagram, final String tabLabel,
+			final String id, final boolean newCheckboxState, final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+		clickCheckboxByIdInPropertiesView(tabLabel, id);
+		waitUntilCheckboxCheckedStateById(id, newCheckboxState);
+	}
+
 	private static void clickCheckboxInPropertiesView(final String tabLabel, final int index) {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
 		clickPropertiesViewTab(tabLabel);
 		clickCheckbox(index);
+	}
+
+	private static void clickCheckboxByIdInPropertiesView(final String tabLabel, final String id) {
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab(tabLabel);
+		clickCheckboxById(id);
 	}
 
 	private static void clickRadioButtonInPropertiesView(final String tabLabel, final String btnLabel) {
@@ -383,10 +403,9 @@ public class OsateGeTestUtil {
 	/**
 	 * Waits until a check box's check state matches the specified value
 	 */
-	public static void waitUntilCheckboxCheckedState(final int index, final boolean value) {
-		System.err.println(isCheckboxChecked(index) + " ischecked");
-		waitUntil(() -> Objects.equals(isCheckboxChecked(index), value),
-				"Check box index'" + index + "' check state is not " + value + ".");
+	public static void waitUntilCheckboxCheckedStateById(final String id, final boolean value) {
+		waitUntil(() -> Objects.equals(isCheckboxCheckedById(id), value),
+				"Check box id '" + id + "' check state is not " + value + ".");
 	}
 
 	/**

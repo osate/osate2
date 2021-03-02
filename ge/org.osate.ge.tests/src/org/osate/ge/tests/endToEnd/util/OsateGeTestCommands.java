@@ -42,6 +42,7 @@ import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem;
 import org.osate.ge.aadl2.ui.internal.properties.AbstractFeaturePrototypePropertySection;
 import org.osate.ge.aadl2.ui.internal.properties.SetSubcomponentClassifierPropertySection;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
+import org.osate.ge.ba.ui.properties.BehaviorStatePropertySection;
 import org.osate.ge.ba.ui.properties.BehaviorVariablePropertySection;
 import org.osate.ge.swt.classifiers.PrototypeBindingsField;
 
@@ -411,9 +412,11 @@ public class OsateGeTestCommands {
 				.getStateRelativeReference("new_state");
 		final DiagramElementReference newStateDiagramRef = behaviorSpecDiagramRef.join(newStateRef);
 		createShapeElement(diagram, behaviorSpecDiagramRef, "Behavior State", newStateRef);
-		clickCheckboxInPropertiesView(diagram, "AADL", 2, newStateDiagramRef);
 
-		waitUntilCheckboxCheckedState(2, true);
+		// Set initial state
+		clickCheckboxByIdInPropertiesView(diagram, "AADL", BehaviorStatePropertySection.WIDGET_ID_INITIAL, true,
+				newStateDiagramRef);
+
 		// Rename initial state
 		renameElementDirectEdit(diagram, behaviorSpecDiagramRef, newStateRef, newStateName);
 	}
