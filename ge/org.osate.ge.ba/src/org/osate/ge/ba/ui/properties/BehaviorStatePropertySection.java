@@ -49,6 +49,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
 public class BehaviorStatePropertySection extends AbstractPropertySection {
@@ -63,6 +64,10 @@ public class BehaviorStatePropertySection extends AbstractPropertySection {
 	private Button completeStatePropertyBtn;
 	private Button finalStatePropertyBtn;
 	private Button initialStatePropertyBtn;
+
+	public static String WIDGET_ID_COMPLETE = "org.osate.ge.ba.behaviorstate.complete";
+	public static String WIDGET_ID_FINAL = "org.osate.ge.ba.behaviorstate.final";
+	public static String WIDGET_ID_INITIAL = "org.osate.ge.ba.behaviorstate.initial";
 
 	@Override
 	public void setInput(final IWorkbenchPart part, final ISelection selection) {
@@ -80,6 +85,7 @@ public class BehaviorStatePropertySection extends AbstractPropertySection {
 		completeStatePropertyBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
 				new SetPropertyStateSelectionListener("Set Complete State", (state, value) -> state.setComplete(value)),
 				"", SWT.CHECK);
+		SwtUtil.setTestingId(completeStatePropertyBtn, WIDGET_ID_COMPLETE);
 		setButtonLayoutData(completeStatePropertyBtn, completeSectionLabel);
 
 		final Label finalSectionLabel = PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(), "Final:");
@@ -88,6 +94,7 @@ public class BehaviorStatePropertySection extends AbstractPropertySection {
 		finalStatePropertyBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
 				new SetPropertyStateSelectionListener("Set Final State", (state, value) -> state.setFinal(value)), "",
 				SWT.CHECK);
+		SwtUtil.setTestingId(finalStatePropertyBtn, WIDGET_ID_FINAL);
 		setButtonLayoutData(finalStatePropertyBtn, finalSectionLabel);
 
 		final Label initialSectionLabel = PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(),
@@ -97,6 +104,7 @@ public class BehaviorStatePropertySection extends AbstractPropertySection {
 		initialStatePropertyBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
 				new SetPropertyStateSelectionListener("Set Initial State", (state, value) -> state.setInitial(value)),
 				"", SWT.CHECK);
+		SwtUtil.setTestingId(initialStatePropertyBtn, WIDGET_ID_INITIAL);
 		setButtonLayoutData(initialStatePropertyBtn, initialSectionLabel);
 	}
 

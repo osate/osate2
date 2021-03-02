@@ -150,10 +150,6 @@ public class UiTestUtil {
 		});
 	}
 
-	public static void sleep(int sec) {
-		bot.sleep(sec * 1000);
-	}
-
 	/**
 	 * Clicks a menu in the top level menu.
 	 */
@@ -307,32 +303,24 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Returns whether the radio button with the specified index is selected.
-	 */
-	public static boolean isRadioButtonSelected(final int index) {
-		return bot.radio(index).isSelected();
-	}
-
-	/**
 	 * Clicks the check box at specified index.
 	 */
 	public static void clickCheckbox(final int index) {
-		System.err.println(bot.checkBox(index) + " INDEX");
 		bot.checkBox(index).click();
 	}
 
 	/**
-	 * Clicks the radio button with the specified mnemonic text
+	 * Clicks the checkbox with the specified mnemonic text
 	 */
 	public static void clickCheckbox(final String text) {
 		bot.checkBox(text).click();
 	}
 
 	/**
-	 * Returns whether check box with the specified mnemonic text is checked
+	 * Clicks the checkbox with the specified id
 	 */
-	public static boolean isCheckboxChecked(final int index) {
-		return bot.checkBox(index).isChecked();
+	public static void clickCheckboxById(final String id) {
+		bot.checkBoxWithId(id).click();
 	}
 
 	/**
@@ -340,6 +328,13 @@ public class UiTestUtil {
 	 */
 	public static boolean isCheckboxChecked(final String text) {
 		return bot.checkBox(text).isChecked();
+	}
+
+	/**
+	 * Returns whether check box with the specified id is checked
+	 */
+	public static boolean isCheckboxCheckedById(final String id) {
+		return bot.checkBoxWithId(id).isChecked();
 	}
 
 	/**
@@ -364,6 +359,13 @@ public class UiTestUtil {
 	public static void clickButtonWithId(final String id) {
 		final SWTBotButton btn = bot.buttonWithId(id);
 		btn.click();
+	}
+
+	/**
+	 * Clicks the checkbox which has the specified testing ID.
+	 */
+	public static void clickCheckboxWithId(final String id) {
+		bot.checkBoxWithId(id).click();
 	}
 
 	public static void clickToolbarItem(final String title) {

@@ -31,12 +31,11 @@ import static org.osate.ge.tests.endToEnd.util.UiTestUtil.*;
 
 import java.util.function.BiFunction;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.junit.Test;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.AadlReferenceUtil;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
+import org.osate.ge.ba.ui.properties.BehaviorStatePropertySection;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.tests.endToEnd.util.DiagramElementReference;
 import org.osate.ge.tests.endToEnd.util.DiagramReference;
@@ -76,7 +75,7 @@ public class BehaviorAnnexTest {
 
 		// Use Open -> Behavior Annex Diagram command to create new behavior annex diagram
 		final BiFunction<DiagramElementReference, String, DiagramReference> openBehaviorAnnexDiagramCommand = (ref,
-				diagramPrefix) -> openDiagramFromReference(ref, diagramPrefix);
+				diagramPrefix) -> openBehaviorSpecificationDiagramFromReference(ref, diagramPrefix);
 
 		// Run tests for type
 		testBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(0),
@@ -86,12 +85,12 @@ public class BehaviorAnnexTest {
 		doubleClickInAadlNavigator(BA_TEST, BA_TEST + ".aadl");
 
 		// Use Open -> New Diagram... command to create new Behavior Annex diagram
-		final BiFunction<DiagramElementReference, String, DiagramReference> openNewDiagramCommand = (ref,
-				newStatePrefix) -> openNewDiagramFromReference(ref, newStatePrefix);
+		final BiFunction<DiagramElementReference, String, DiagramReference> createDiagramCommand = (ref,
+				newStatePrefix) -> createBehaviorSpecificationDiagramFromReference(ref, newStatePrefix);
 
 		// Run tests for impl
 		testBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(1),
-				typeName + ".impl2", diagram, pkgRef, modeName, openNewDiagramCommand);
+				typeName + ".impl2", diagram, pkgRef, modeName, createDiagramCommand);
 	}
 
 	/*
@@ -225,8 +224,9 @@ public class BehaviorAnnexTest {
 		final DiagramElementReference dest = new DiagramElementReference(behaviorSpecification)
 				.join(BehaviorAnnexReferenceUtil.getStateRelativeReference("dest_state"));
 
-		clickCheckboxInPropertiesView(baDiagram, "AADL", 1, dest);
-
+		// Set state final
+		clickCheckboxByIdInPropertiesView(baDiagram, "AADL", BehaviorStatePropertySection.WIDGET_ID_FINAL, true,
+				dest);
 
 		final RelativeBusinessObjectReference initTransitionRef = BehaviorAnnexReferenceUtil
 				.getTransitionRelativeReference("0");
@@ -250,28 +250,24 @@ public class BehaviorAnnexTest {
 		deleteElement(baDiagram, element(behaviorSpecification).join(transitionRef));
 
 		// Set completeness
-		clickCheckboxInPropertiesView(baDiagram, "AADL", 0, src);
+		clickCheckboxByIdInPropertiesView(baDiagram, "AADL", BehaviorStatePropertySection.WIDGET_ID_COMPLETE,
+				true, src);
 	}
 
 	// Open Behavior Annex diagram
-	private static DiagramReference openDiagramFromReference(final DiagramElementReference ref,
+	private static DiagramReference openBehaviorSpecificationDiagramFromReference(final DiagramElementReference ref,
 			final String newStatePrefix) {
+		// Open new diagram
+		clickContextMenuOfOutlineViewItem(ref.toOutlineTreeItemPath(),
+				new String[] { "Open", "Behavior Specification Diagram" });
+
+		waitForWindowWithTitle("Create New Diagram?");
+		clickButtonForShell("Create New Diagram?", "Yes");
+
+		waitForWindowWithTitle("Create Diagram");
+		clickButtonForShell("Create Diagram", "OK");
+
 		final String diagramName = BA_TEST + "_" + newStatePrefix + "_" + BehaviorAnnexReferenceUtil.ANNEX_NAME;
-		// Look for existing diagram
-		final IFile diagramFile = (IFile) ResourcesPlugin.getWorkspace().getRoot()
-				.findMember(BA_TEST + "/diagrams/" + diagramName + ".aadl_diagram");
-		if (diagramFile == null) {
-			// Create diagram if necessary
-			clickContextMenuOfOutlineViewItem(ref.toOutlineTreeItemPath(),
-					new String[] { "Open", "Behavior Specification Diagram" });
-
-			waitForWindowWithTitle("Create New Diagram?");
-			clickButtonForShell("Create New Diagram?", "Yes");
-
-			waitForWindowWithTitle("Create Diagram");
-			clickButtonForShell("Create Diagram", "OK");
-		}
-
 		final DiagramReference baDiagram = defaultDiagram(BA_TEST, diagramName);
 		waitForDiagramActive(baDiagram);
 
@@ -279,7 +275,7 @@ public class BehaviorAnnexTest {
 	}
 
 	// Create Behavior Annex diagram
-	private static DiagramReference openNewDiagramFromReference(final DiagramElementReference ref,
+	private static DiagramReference createBehaviorSpecificationDiagramFromReference(final DiagramElementReference ref,
 			final String newStatePrefix) {
 		clickContextMenuOfOutlineViewItem(ref.toOutlineTreeItemPath(), new String[] { "Open", "New Diagram..." });
 
