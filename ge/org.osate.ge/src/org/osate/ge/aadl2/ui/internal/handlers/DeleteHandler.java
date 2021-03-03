@@ -45,6 +45,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.EmfContainerProvider;
@@ -276,7 +277,7 @@ public class DeleteHandler extends AbstractHandler {
 
 		final Object boHandler = de.getBusinessObjectHandler();
 		if (bo instanceof EObject) {
-			final EObject boEObj = (EObject) bo;
+			EObject boEObj = (EObject) bo;
 
 			if (boHandler instanceof CustomDeleter) {
 				final CustomDeleter deleter = (CustomDeleter) boHandler;
@@ -284,11 +285,14 @@ public class DeleteHandler extends AbstractHandler {
 				return new BusinessObjectRemoval(ownerBo, (boToModify) -> {
 					deleter.delete(new CustomDeleteContext(boToModify, bo));
 				});
-			} else {
-				return new BusinessObjectRemoval(boEObj, (boToModify) -> {
-					EcoreUtil.remove(boToModify);
-				});
 			}
+
+			// When deleting AnnexSubclauses, the deletion must executed on the container DefaultAnnexSubclause
+			if (boEObj instanceof AnnexSubclause && boEObj.eContainer() instanceof DefaultAnnexSubclause) {
+				boEObj = boEObj.eContainer();
+			}
+
+			return new BusinessObjectRemoval(boEObj, (boToModify) -> EcoreUtil.remove(boToModify));
 		} else if (bo instanceof EmfContainerProvider) {
 			if(!(boHandler instanceof CustomDeleter)) {
 				throw new RuntimeException("Business object handler '" + boHandler + "' for "
