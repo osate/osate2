@@ -1122,7 +1122,6 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 		}
 
 		private Optional<String> getFlowErrorMessage(final boolean isValid) {
-			System.err.println(segmentSelections.size() + " size");
 			if (segmentSelections.size() > 1 && !isValid) {
 				return Optional.of(getValidFlowErrorMessage());
 			}

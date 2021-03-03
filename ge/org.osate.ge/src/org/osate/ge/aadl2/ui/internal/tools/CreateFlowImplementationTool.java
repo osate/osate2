@@ -226,10 +226,25 @@ public class CreateFlowImplementationTool implements Tool {
 		} else if (o instanceof SegmentData) {
 			final SegmentData segmentData = (SegmentData) o;
 			final BusinessObjectContext boc = segmentData.getBoc();
+
 			// Do not remove color from duplicate segments
 			if (color == null) {
-				for (final SegmentData sd : segmentSelections) {
-					if (sd.getBoc() == boc) {
+				final Iterator<SegmentData> it = segmentSelections.iterator();
+				if (it.hasNext()) {
+					// Check if boc matches first segment to see if boc
+					// should be orange to show the implementations flow specification
+					final boolean isImplsFlowSpec = it.next().getBoc() == boc;
+
+					// Keep color if it matches a segment
+					while (it.hasNext()) {
+						if (it.next().getBoc() == boc) {
+							return;
+						}
+					}
+
+					if (isImplsFlowSpec) {
+						// Set orange to show flow specification
+						setColor(boc, Color.ORANGE.darker());
 						return;
 					}
 				}
@@ -612,7 +627,8 @@ public class CreateFlowImplementationTool implements Tool {
 					createFlowSpecLabel((FlowSpecification) boc.getBusinessObject());
 				} else {
 					final FlowSpecification fs = (FlowSpecification) boc.getBusinessObject();
-					createSegmentButton(AgeAadlUtil.getRootName(fs), segmentData);
+					createSegmentButton(AgeAadlUtil.getRootName(fs), segmentData,
+							(selectedBo) -> selectedBo instanceof FlowSpecification);
 					createFlowText(fs);
 				}
 
@@ -629,7 +645,7 @@ public class CreateFlowImplementationTool implements Tool {
 
 					segmentNameBuilder.append(AgeAadlUtil.getRootName((NamedElement) boc.getBusinessObject()));
 
-					createSegmentButton(segmentNameBuilder.toString(), segmentData);
+					createSegmentButton(segmentNameBuilder.toString(), segmentData, getType(boc));
 					if (segmentIt.hasNext()) {
 						// If segment is not last, add an arrow
 						FlowDialogUtil.createArrowText(flowComposite);
@@ -657,6 +673,19 @@ public class CreateFlowImplementationTool implements Tool {
 			updateMessage();
 		}
 
+		private Function<Object, Boolean> getType(final Object bo) {
+			final Function<Object, Boolean> isQualifiedType;
+			if (bo instanceof ModeFeature) {
+				isQualifiedType = (selectedBo) -> selectedBo instanceof ModeFeature;
+			} else if (bo instanceof Feature) {
+				isQualifiedType = (selectedBo) -> selectedBo instanceof Feature;
+			} else {
+				isQualifiedType = (selectedBo) -> selectedBo instanceof FlowElement;
+			}
+
+			return isQualifiedType;
+		}
+
 		private void createFlowSpecLabel(final FlowSpecification fs) {
 			final StyledText flowSpecLabel = new StyledText(flowComposite, SWT.NONE);
 			flowSpecLabel.setBackground(flowComposite.getBackground());
@@ -679,13 +708,14 @@ public class CreateFlowImplementationTool implements Tool {
 							null, SWT.BOLD));
 		}
 
-		private void createSegmentButton(final String name, final SegmentData segmentData) {
+		private void createSegmentButton(final String name, final SegmentData segmentData,
+				final Function<Object, Boolean> isQualifiedType) {
 			final Button segmentBtn = new Button(flowComposite, SWT.FLAT);
 			segmentBtn.setText(name);
 			segmentBtn.setLayoutData(new RowData());
 			final Menu editMenu = new Menu(segmentBtn);
 
-			createSegmentReplaceButton(editMenu, segmentData);
+			createSegmentReplaceButton(editMenu, segmentData, isQualifiedType);
 			final MenuItem insertBeforeMenuItem = createInsertSegmentButton(editMenu, "Insert Before", segmentData,
 					false);
 			final MenuItem insertAfterMenuItem = createInsertSegmentButton(editMenu, "Insert After", segmentData, true);
@@ -708,8 +738,8 @@ public class CreateFlowImplementationTool implements Tool {
 					final Point location = segmentBtn.getLocation();
 					editMenu.setLocation(Display.getCurrent().map(createFlowImplDlg.flowComposite, null,
 							new Point(location.x, location.y + segmentBtn.getSize().y)));
-					// Can only replace flow spec or in/out end features
-					if (getFirstSelection().filter(selection -> selection == segmentData.getBoc()).isPresent()) {
+					// Only allow replacing for impl's flow spec and in/out end features
+					if (segmentSelections.indexOf(segmentData) == 0) {
 						insertBeforeMenuItem.setEnabled(false);
 						insertAfterMenuItem.setEnabled(false);
 						remove.setEnabled(false);
@@ -732,15 +762,15 @@ public class CreateFlowImplementationTool implements Tool {
 			});
 		}
 
-		private MenuItem createInsertSegmentButton(Menu newMenu, final String text, SegmentData segmentData,
-				boolean isInsertAfter) {
+		private MenuItem createInsertSegmentButton(final Menu newMenu, final String text, final SegmentData segmentData,
+				final boolean isInsertAfter) {
 			final MenuItem insertMenuItem = new MenuItem(newMenu, SWT.PUSH);
 			insertMenuItem.setText(text);
 			insertMenuItem.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
 					elementSelectionDlg = new SelectSegmentOrModeFeatureDialog(createFlowImplDlg.getShell(),
-							segmentData.getBoc(), "Select Element to Insert");
+							"Select Element to Insert", getType(segmentData.getBoc()));
 					createFlowImplDlg.setSegment(segmentData, isInsertAfter);
 				}
 			});
@@ -748,14 +778,15 @@ public class CreateFlowImplementationTool implements Tool {
 			return insertMenuItem;
 		}
 
-		private void createSegmentReplaceButton(final Menu menu, final SegmentData segmentData) {
+		private void createSegmentReplaceButton(final Menu menu, final SegmentData segmentData,
+				final Function<Object, Boolean> isQualifiedType) {
 			final MenuItem replace = new MenuItem(menu, SWT.NONE);
 			replace.setText("Replace");
 			replace.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
 					elementSelectionDlg = new SelectSegmentOrModeFeatureDialog(createFlowImplDlg.getShell(),
-							segmentData.getBoc(), "Select Replacement Element");
+							"Select Replacement Element", isQualifiedType);
 					createFlowImplDlg.setSegment(Optional.of(() -> {
 						segmentSelections.remove(segmentData);
 						setColor(segmentData, null);
@@ -777,8 +808,8 @@ public class CreateFlowImplementationTool implements Tool {
 			replaceMenuItem.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					elementSelectionDlg = new SelectSegmentOrModeFeatureDialog(createFlowImplDlg.getShell(), boc,
-							"Select Replacement Element");
+					elementSelectionDlg = new SelectSegmentOrModeFeatureDialog(createFlowImplDlg.getShell(),
+							"Select Replacement Element", getType(boc));
 					createFlowImplDlg.setSegment(Optional.of(() -> {
 						modeFeatureSelections.remove(boc);
 						if (boc instanceof DiagramElement) {
@@ -817,15 +848,15 @@ public class CreateFlowImplementationTool implements Tool {
 			});
 		}
 
-		private void createInsertModeFeatureMenuItem(Menu menu, String text, BusinessObjectContext boc,
-				boolean isInsertAfter) {
+		private void createInsertModeFeatureMenuItem(final Menu menu, final String text,
+				final BusinessObjectContext boc, final boolean isInsertAfter) {
 			final MenuItem insertMenuItem = new MenuItem(menu, SWT.PUSH);
 			insertMenuItem.setText(text);
 			insertMenuItem.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					elementSelectionDlg = new SelectSegmentOrModeFeatureDialog(createFlowImplDlg.getShell(), boc,
-							"Select Element to Insert");
+					elementSelectionDlg = new SelectSegmentOrModeFeatureDialog(createFlowImplDlg.getShell(),
+							"Select Element to Insert", (selectedBo) -> selectedBo instanceof ModeFeature);
 					createFlowImplDlg.setSegment(boc, isInsertAfter);
 				}
 			});
@@ -953,27 +984,12 @@ public class CreateFlowImplementationTool implements Tool {
 			private final Function<Object, Boolean> isQualifiedType;
 			private Label selectionLabel;
 
-			public SelectSegmentOrModeFeatureDialog(final Shell parentShell, final BusinessObjectContext boc,
-					final String title) {
+			public SelectSegmentOrModeFeatureDialog(final Shell parentShell, final String title,
+					final Function<Object, Boolean> isQualifiedType) {
 				super(parentShell);
-				this.isQualifiedType = getType(boc.getBusinessObject());
 				this.title = title;
+				this.isQualifiedType = isQualifiedType;
 				setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
-			}
-
-			private Function<Object, Boolean> getType(final Object bo) {
-				final Function<Object, Boolean> isQualifiedType;
-				if (flowImpl.getSpecification() == bo) {
-					isQualifiedType = (selectedBo) -> selectedBo instanceof FlowSpecification;
-				} else if (bo instanceof ModeFeature) {
-					isQualifiedType = (selectedBo) -> selectedBo instanceof ModeFeature;
-				} else if (bo instanceof Feature) {
-					isQualifiedType = (selectedBo) -> selectedBo instanceof Feature;
-				} else {
-					isQualifiedType = (selectedBo) -> selectedBo instanceof FlowElement;
-				}
-
-				return isQualifiedType;
 			}
 
 			@Override
