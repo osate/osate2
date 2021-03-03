@@ -158,13 +158,15 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Affine;
+import javafx.scene.transform.Scale;
+import javafx.scene.transform.Transform;
 
 /**
  * JavaFX/GEF based diagram editor implementation
  */
 public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITabbedPropertySheetPageContributor {
-	public static final ImmutableList<Double> ZOOM_LEVELS = ImmutableList.of(.1, .2, .5, .75, 1.0, 1.5, 2.0, 2.5, 3.0,
-			4.0, 10.0);
+	public static final ImmutableList<Double> ZOOM_LEVELS = ImmutableList.of(.1, .2, .5, .75, 1.0, 1.25, 1.5, 2.0, 2.5,
+			3.0, 4.0, 5.0, 7.5, 10.0);
 
 	private static final String CONTRIBUTOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
 	private static final String CONTEXT_ID = "org.osate.ge.context";
@@ -274,6 +276,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private boolean disposed = false;
 	private AgeDiagram diagram;
 	private GefAgeDiagram gefDiagram;
+	private OverlayNode overlay; // TODO
 	private IFile diagramFile;
 	private IProject project;
 
@@ -342,15 +345,12 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private final DoubleProperty zoom = new SimpleDoubleProperty(1.0) {
 		@Override
 		protected void invalidated() {
-			// Update the transform
-			final Affine transform = canvas.getContentTransform();
 			final Bounds canvasBounds = canvas.getLayoutBounds();
-			final double totalScaling = Math.min(Math.max(ZOOM_LEVELS.get(0), get()),
-					ZOOM_LEVELS.get(ZOOM_LEVELS.size() - 1));
-			final double addtionalScaling = totalScaling / transform.getMxx();
-			transform.prependScale(addtionalScaling, addtionalScaling, canvasBounds.getWidth() / 2.0,
-					canvasBounds.getHeight() / 2.0);
-			canvas.setContentTransform(transform);
+			final Scale scaling = Transform.scale(zoom.get(), zoom.get(),
+					canvasBounds.getWidth() / 2.0 - canvas.getHorizontalScrollOffset(),
+					canvasBounds.getHeight() / 2.0 - canvas.getVerticalScrollOffset());
+
+			canvas.setContentTransform(new Affine(scaling));
 		}
 	};
 
@@ -505,6 +505,10 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 					.removeOperationHistoryListener(operationHistoryListener);
 			getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(toolPostSelectionListener);
 			this.modelChangeNotifier.removeChangeListener(modelChangeListener);
+
+			if (overlay != null) {
+				selectionProvider.removeSelectionChangedListener(overlay);
+			}
 
 			// Dispose of other objects
 			if (gefDiagram != null) {
@@ -697,7 +701,11 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		final StackPane paddedWrapper = new StackPane(gefDiagram.getSceneNode());
 		paddedWrapper.setPadding(new Insets(DIAGRAM_PADDING));
 
-		canvas.getContentGroup().getChildren().add(paddedWrapper);
+		// Create overlay
+		overlay = new OverlayNode(de -> gefDiagram.getSceneNode(de));
+		selectionProvider.addSelectionChangedListener(overlay);
+
+		canvas.getContentGroup().getChildren().addAll(paddedWrapper, overlay);
 		gefDiagram.updateDiagramFromSceneGraph();
 		adapterMap.put(LayoutInfoProvider.class, gefDiagram);
 
@@ -720,15 +728,13 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 					zoomIn();
 				}
 			} else {
-				final Affine transform = canvas.getContentTransform();
 				if (e.isShiftDown()) {
 					// Scroll in X direction
-					transform.prependTranslation(-e.getDeltaY(), 0.0);
+					canvas.setHorizontalScrollOffset(canvas.getHorizontalScrollOffset() - e.getDeltaY());
 				} else { // Scroll
-					transform.prependTranslation(e.getDeltaX(), e.getDeltaY());
+					canvas.setHorizontalScrollOffset(canvas.getHorizontalScrollOffset() - e.getDeltaX());
+					canvas.setVerticalScrollOffset(canvas.getVerticalScrollOffset() + e.getDeltaY());
 				}
-
-				canvas.setContentTransform(transform);
 			}
 		});
 

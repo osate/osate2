@@ -353,13 +353,23 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	};
 
 	/**
-	 * Finds the diagram element for a node. Only works for the node that serves as teh root of the branch for the diagram element.
-	 * @param node the node for which to find the diagram element
+	 * Finds the diagram element for a scene node. Only works for the node that serves as the root of the branch for the diagram element.
+	 * @param sceneNode the node for which to find the diagram element
 	 * @return the diagram element which the node represents or null if one cannot be found.
 	 */
-	public DiagramElement getDiagramElement(final Node node) {
-		final GefDiagramElement ge = sceneNodeToGefDiagramElementMap.get(node);
+	public DiagramElement getDiagramElement(final Node sceneNode) {
+		final GefDiagramElement ge = sceneNodeToGefDiagramElementMap.get(sceneNode);
 		return ge == null ? null : ge.diagramElement;
+	}
+
+	/**
+	 * Finds the scene node for a diagram element.
+	 * @param diagramElement the diagram element for which to find the scene node
+	 * @return the scene node which represents the diagram element or null if one cannot be found.
+	 */
+	public Node getSceneNode(final DiagramElement diagramElement) {
+		final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(diagramElement);
+		return ge == null ? null : ge.sceneNode;
 	}
 
 	/**
