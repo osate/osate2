@@ -54,6 +54,7 @@
       <feature id="org.eclipse.equinox.executable"/>
       <feature id="org.eclipse.equinox.p2.discovery.feature"/>
       <feature id="org.eclipse.platform"/>
+      <feature id="org.eclipse.mylyn.context_feature"/>
       <feature id="org.eclipse.graphiti.export.feature"/>
       <feature id="org.eclipse.sirius.runtime.ide.ui"/>
       <feature id="org.eclipse.elk.feature"/>
