@@ -23,9 +23,10 @@
  */
 package org.osate.ge.aadl2.internal;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
-import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -52,6 +53,9 @@ import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 
 import com.google.common.collect.Lists;
 
+/**
+ * @noextend This class is not intended to be subclassed by clients.
+ */
 public class AnnexHandler extends AadlBusinessObjectHandler {
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()
 			.graphic(FolderGraphicBuilder.create().build()).style(StyleBuilder.create().labelsCenter().build()).build();
@@ -83,9 +87,10 @@ public class AnnexHandler extends AadlBusinessObjectHandler {
 			}
 
 			final Classifier annexSubclauseClassifier = annexSubclause.getContainingClassifier();
-			final int index = getAnnexSubclauseIndex(annexSubclause);
+			final int index = getAnnexSubclauseIndex(annexSubclause, false);
 			return new CanonicalBusinessObjectReference(DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId(),
-					annexSubclauseClassifier.getQualifiedName(), annexSubclause.getName(), Integer.toString(index));
+					ctx.getReferenceBuilder().getCanonicalReference(annexSubclauseClassifier).encode(),
+					annexSubclause.getName(), Integer.toString(index));
 		}
 
 		throw new RuntimeException("Unexpected business object " + bo);
@@ -98,21 +103,25 @@ public class AnnexHandler extends AadlBusinessObjectHandler {
 		if (bo instanceof AnnexLibrary) {
 			final AnnexLibrary annexLibrary = (AnnexLibrary) bo;
 			final int index = getAnnexLibraryIndex(annexLibrary);
-			return new RelativeBusinessObjectReference(DeclarativeReferenceType.ANNEX_LIBRARY.getId(),
-					annexLibrary.getName(), Integer.toString(index));
-
+			return getRelativeBusinessObjectReference(DeclarativeReferenceType.ANNEX_LIBRARY.getId(),
+					annexLibrary.getName(), index);
 		} else if (bo instanceof AnnexSubclause) {
 			final AnnexSubclause annexSubclause = (AnnexSubclause) bo;
 			if (annexSubclause.getContainingClassifier() == null) {
 				throw new RuntimeException("Unable to retrieve containing classifier.");
 			}
 
-			final int index = getAnnexSubclauseIndex(annexSubclause);
-			return new RelativeBusinessObjectReference(DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId(),
-					annexSubclause.getName(), Integer.toString(index));
+			final int index = getAnnexSubclauseIndex(annexSubclause, true);
+			return getRelativeBusinessObjectReference(DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId(),
+					annexSubclause.getName(), index);
 		}
 
 		throw new RuntimeException("Unexpected business object " + bo);
+	}
+
+	public static RelativeBusinessObjectReference getRelativeBusinessObjectReference(final String id, final String name,
+			final int index) {
+		return new RelativeBusinessObjectReference(id, name, Integer.toString(index));
 	}
 
 	@Override
@@ -189,7 +198,7 @@ public class AnnexHandler extends AadlBusinessObjectHandler {
 	 * Returns a 0 based index for referencing an annex subclause in a list that contains only annex subclauses with the same type and owner
 	 * @return
 	 */
-	private static int getAnnexSubclauseIndex(AnnexSubclause annexSubclause) {
+	public static int getAnnexSubclauseIndex(AnnexSubclause annexSubclause, final boolean useExtended) {
 		// Get the default annex library if a parsed annex subclause was specified. This is needed for the comparison later in the function.
 		if (!(annexSubclause instanceof DefaultAnnexSubclause)) {
 			if (annexSubclause.eContainer() instanceof DefaultAnnexSubclause) {
@@ -204,14 +213,19 @@ public class AnnexHandler extends AadlBusinessObjectHandler {
 			return -1;
 		}
 
-		// Get all related classifiers
 		final Classifier cl = annexSubclause.getContainingClassifier();
-		final EList<Classifier> classifiers = cl.getSelfPlusAllExtended();
-		if (cl instanceof ComponentImplementation) {
-			ComponentType ct = ((ComponentImplementation) cl).getType();
-			if (ct != null) {
-				classifiers.addAll(ct.getSelfPlusAllExtended());
+		final List<Classifier> classifiers;
+		if (useExtended) {
+			classifiers = cl.getSelfPlusAllExtended();
+			// Get all related classifiers
+			if (cl instanceof ComponentImplementation) {
+				final ComponentType ct = ((ComponentImplementation) cl).getType();
+				if (ct != null) {
+					classifiers.addAll(ct.getSelfPlusAllExtended());
+				}
 			}
+		} else {
+			classifiers = Arrays.asList(cl);
 		}
 
 		int index = 0;
