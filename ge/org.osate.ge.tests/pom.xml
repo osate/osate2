@@ -88,6 +88,11 @@ censes only apply to the Third Party Software and not any other portion of this 
 								<id>org.osate.xtext.aadl2.errormodel.feature</id>
 								<versionRange>0.0.0</versionRange>
 							</requirement>
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>org.osate.ba.feature</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
 						</extraRequirements>
 					</dependency-resolution>
 				</configuration>
