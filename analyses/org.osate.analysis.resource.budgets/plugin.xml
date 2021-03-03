@@ -265,13 +265,20 @@ censes only apply to the Third Party Software and not any other portion of this 
          </command>
       </menuContribution>
    </extension>
-   <extension
-         id="toc_busload"
-         name="Bus Load Analysis Help Table of Contents"
-         point="org.eclipse.help.toc">
-      <toc
-            file="help/toc_busload.xml"
-            primary="true">
-      </toc>
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated busload -->
+      <package
+            uri="http://osate.org/analysis/busload"
+            class="org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage"
+            genModel="model/busload.genmodel"/>
    </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated analysis -->
+      <package
+            uri="http://osate.org/analysis/analysis"
+            class="org.osate.analysis.resources.budgets.internal.models.analysis.AnalysisPackage"
+            genModel="model/analysis.genmodel"/>
+   </extension>
+
 </plugin>
