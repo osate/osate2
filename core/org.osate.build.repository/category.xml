@@ -35,6 +35,9 @@ censes only apply to the Third Party Software and not any other portion of this 
    <feature id="org.osate.ge.errormodel.feature">
       <category name="osate2"/>
    </feature>
+   <feature id="org.osate.ge.ba.feature">
+      <category name="osate2"/>
+   </feature>
    <feature id="org.osate.examples.feature">
       <category name="osate2"/>
    </feature>
@@ -42,6 +45,9 @@ censes only apply to the Third Party Software and not any other portion of this 
       <category name="osate2.source"/>
    </feature>
    <feature id="org.osate.ge.errormodel.feature.source">
+      <category name="osate2.source"/>
+   </feature>
+   <feature id="org.osate.ge.ba.feature.source">
       <category name="osate2.source"/>
    </feature>
    <feature id="org.osate.core.feature.source">

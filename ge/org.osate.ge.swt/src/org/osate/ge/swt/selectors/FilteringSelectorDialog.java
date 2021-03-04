@@ -108,7 +108,12 @@ public final class FilteringSelectorDialog {
 		private final FilteringSelectorModel<T> model;
 		private final BiFunction<Composite, FilteringSelectorModel<T>, Control> controlCreator;
 		private final Consumer<ChangeEvent> changeListener = e -> refresh();
-		private final Consumer<SelectionDoubleClickedEvent> selectionDoubleClickedListener = e -> okPressed();
+		private final Consumer<SelectionDoubleClickedEvent> selectionDoubleClickedListener = e -> {
+			final Button okBtn = getButton(IDialogConstants.OK_ID);
+			if (okBtn != null && okBtn.isEnabled()) {
+				okPressed();
+			}
+		};
 
 		public InnerDialog(final Shell parent, final String title,
 				final FilteringSelectorModel<T> model,

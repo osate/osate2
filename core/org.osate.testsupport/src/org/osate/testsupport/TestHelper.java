@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,6 +23,7 @@
  */
 package org.osate.testsupport;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -137,7 +138,6 @@ public class TestHelper<T extends EObject> {
 		return null;
 	}
 
-
 	/**
 	 * load file as Xtext resource into resource set
 	 * @param filePath String
@@ -146,8 +146,20 @@ public class TestHelper<T extends EObject> {
 	 */
 	public Resource loadFile(String filePath, ResourceSet rs) {
 		try {
+			String fullPath = System.getProperty("user.dir") + "/../" + filePath;
+
+			// test if capitalization in filePath matches capitalization in file system
+			// necessary to assure tests don't fail on Linux while working on MacOS and Windows
+			String path = new File(filePath).toPath().toString();
+			// https://bugs.openjdk.java.net/browse/JDK-8069337
+			// can't use java.nio.file.LinkOption.NOFOLLOW_LINKS as arg to toRealPath()
+			String real = new File(fullPath).toPath().toRealPath().toString();
+			if (!real.endsWith(path)) {
+				return null;
+			}
+
 			// This way of constructing the URL works in JUnit plug-in and standalone tests
-			URL url = new URL("file:" + System.getProperty("user.dir") + "/../" + filePath);
+			URL url = new URL("file:" + fullPath);
 			InputStream stream = url.openConnection().getInputStream();
 			Resource res = rs.createResource(URI.createURI(filePath));
 			if (res != null) {
