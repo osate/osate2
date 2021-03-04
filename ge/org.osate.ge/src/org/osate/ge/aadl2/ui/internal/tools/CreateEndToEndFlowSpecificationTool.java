@@ -532,8 +532,6 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				}
 			} else {
 				final ComponentImplementation ci = optCi.get();
-				// TODO never show serialization errors? Show them after atleast 2 segments have been selected?
-				// The ending segment can be many things, makes it difficult to show messages at the right times
 				diagnostics = ToolUtil.getModificationDiagnostics(ci, modifyObject(endToEndFlow, ci));
 			}
 

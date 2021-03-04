@@ -476,7 +476,7 @@ public class CreateFlowImplementationTool implements Tool {
 										container, outEnd), segmentSelections.size(),
 										Color.MAGENTA.darker());
 							}
-					}
+						}
 					} else {
 						final FlowSpecification fs = flowImpl.getSpecification();
 						if (fs != null) {
@@ -593,14 +593,14 @@ public class CreateFlowImplementationTool implements Tool {
 			final FlowKind kind = fs.getKind();
 			if (kind == FlowKind.SOURCE) {
 				// Source
-				return fs.getAllOutEnd() == null;
+				return flowImpl.getOutEnd() != null;
 			} else if (kind == FlowKind.SINK) {
 				// Sink
-				return fs.getAllInEnd() == null;
+				return flowImpl.getInEnd() != null;
 			}
 
 			// Path
-			return fs.getAllInEnd() == null && fs.getAllOutEnd() == null;
+			return flowImpl.getOutEnd() != null && flowImpl.getInEnd() != null;
 		}
 
 		private Optional<ComponentImplementation> getFlowComponentImplementation(final BusinessObjectContext owner) {
