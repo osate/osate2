@@ -98,6 +98,7 @@ import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 public class CreateFlowImplementationTool implements Tool {
 	private final ArrayList<SegmentData> segmentSelections = new ArrayList<>();
 	private final ArrayList<BusinessObjectContext> modeFeatureSelections = new ArrayList<>();
+	private final ReferenceService referenceService;
 	private ColoringService.Coloring coloring = null;
 	private CreateFlowImplementationDialog createFlowImplDlg;
 
@@ -105,7 +106,7 @@ public class CreateFlowImplementationTool implements Tool {
 			final FlowImplementation flowImpl) {
 		final UiService uiService = Objects.requireNonNull(Adapters.adapt(editor, UiService.class),
 				"ui service must not be null");
-		final ReferenceService referenceService = Objects.requireNonNull(Adapters.adapt(editor, ReferenceService.class),
+		this.referenceService = Objects.requireNonNull(Adapters.adapt(editor, ReferenceService.class),
 				"unable to retrieve reference service");
 		final Display display = Display.getCurrent();
 		createFlowImplDlg = new CreateFlowImplementationDialog(display.getActiveShell(), flowImpl, uiService);
@@ -140,6 +141,8 @@ public class CreateFlowImplementationTool implements Tool {
 		final Display display = Display.getCurrent();
 		final UiService uiService = Objects.requireNonNull(Adapters.adapt(editor, UiService.class),
 				"ui service must not be null");
+		this.referenceService = Objects.requireNonNull(Adapters.adapt(editor, ReferenceService.class),
+				"unable to retrieve reference service");
 		createFlowImplDlg = new CreateFlowImplementationDialog(display.getActiveShell(), null, uiService);
 	}
 
@@ -418,11 +421,11 @@ public class CreateFlowImplementationTool implements Tool {
 							if ((fs.getKind() == FlowKind.PATH || fs.getKind() == FlowKind.SINK)
 									&& flowImpl.getInEnd() == null) {
 								final FlowEnd inEnd = flowImpl.createInEnd();
-								inEnd.setContext(ToolUtil.findContext(segment.getParent()));
+								inEnd.setContext(ToolUtil.findContext(segment));
 								inEnd.setFeature((Feature) bo);
 							} else if (flowImpl.getOutEnd() == null) {
 								final FlowEnd outEnd = flowImpl.createOutEnd();
-								outEnd.setContext(ToolUtil.findContext(segment.getParent()));
+								outEnd.setContext(ToolUtil.findContext(segment));
 								outEnd.setFeature((Feature) bo);
 							}
 						} else if (!(bo instanceof DataAccess)) {
@@ -456,6 +459,24 @@ public class CreateFlowImplementationTool implements Tool {
 						addModeSelection(boc, Color.MAGENTA.brighter());
 					} else if (flowImpl.getSpecification() == null && bo instanceof FlowSpecification) {
 						addSegmentSelection(new SegmentData(boc), segmentSelections.size(), Color.ORANGE.darker());
+
+						final FlowSpecification fs = (FlowSpecification) bo;
+						if (boc.getParent() instanceof DiagramElement) {
+							final DiagramElement container = (DiagramElement) boc.getParent();
+							final FlowEnd inEnd = fs.getAllInEnd();
+							if (inEnd != null) {
+								addSegmentSelection(FlowToolUtil.createSegmentData(referenceService,
+										container, inEnd), segmentSelections.size(),
+										Color.MAGENTA.darker());
+							}
+
+							final FlowEnd outEnd = fs.getAllOutEnd();
+							if (outEnd != null) {
+								addSegmentSelection(FlowToolUtil.createSegmentData(referenceService,
+										container, outEnd), segmentSelections.size(),
+										Color.MAGENTA.darker());
+							}
+					}
 					} else {
 						final FlowSpecification fs = flowImpl.getSpecification();
 						if (fs != null) {
