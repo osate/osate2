@@ -26,11 +26,17 @@ package org.osate.analysis.resource.budgets.busload;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.contrib.aadlproject.DataRateUnits;
+import org.osate.aadl2.contrib.aadlproject.SizeUnits;
+import org.osate.aadl2.contrib.memory.MemoryProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -50,6 +56,9 @@ import org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtual
 import org.osate.analysis.resources.budgets.internal.models.busload.Connection;
 import org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus;
 import org.osate.analysis.resources.budgets.internal.models.busload.util.BusloadSwitch;
+import org.osate.contribution.sei.sei.Sei;
+import org.osate.pluginsupport.properties.GeneratedUnits;
+import org.osate.pluginsupport.properties.Scalable;
 import org.osate.result.AnalysisResult;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
@@ -228,8 +237,7 @@ public final class NewBusLoadAnalysis {
 			final EObject parent = bus.eContainer();
 			final double parentOverhead = parent instanceof BusLoadModel ? 0.0
 					: ((BusOrVirtualBus) parent).getDataOverhead();
-			final double localOverheadKBytesps = GetProperties.getDataSize(busInstance,
-					GetProperties.getKBUnitLiteral(busInstance));
+			final double localOverheadKBytesps = getScaled(MemoryProperties::getDataSize, busInstance, SizeUnits.KBYTE).orElse(0.0);
 			bus.setDataOverhead(parentOverhead + localOverheadKBytesps);
 
 			return Nothing.NONE;
@@ -270,7 +278,8 @@ public final class NewBusLoadAnalysis {
 			final double actual = getConnectionActualKBytesps(connectionInstance.getSource(), dataOverheadKBytes);
 			connection.setActual(actual);
 
-			final double budget = GetProperties.getBandWidthBudgetInKBytesps(connectionInstance, 0.0);
+			final double budget = getScaled(Sei::getBandwidthbudget, connectionInstance, DataRateUnits.KBYTESPS)
+					.orElse(0.0);
 			connection.setBudget(budget);
 
 			ResultUtil.addRealValue(connectionResult, budget);
@@ -351,8 +360,9 @@ public final class NewBusLoadAnalysis {
 			bus.setActual(actual);
 
 			final ComponentInstance busInstance = bus.getBusInstance();
-			final double capacity = GetProperties.getBandWidthCapacityInKBytesps(busInstance, 0.0);
-			final double budget = GetProperties.getBandWidthBudgetInKBytesps(busInstance, 0.0);
+			final double capacity = getScaled(Sei::getBandwidthcapacity, busInstance, DataRateUnits.KBYTESPS)
+					.orElse(0.0);
+			final double budget = getScaled(Sei::getBandwidthbudget, busInstance, DataRateUnits.KBYTESPS).orElse(0.0);
 			bus.setBudget(budget);
 
 			ResultUtil.addRealValue(busResult, capacity);
@@ -401,6 +411,12 @@ public final class NewBusLoadAnalysis {
 
 	// ==== Helper methods for the visitor ===
 
+	private static <U extends Enum<U> & GeneratedUnits<U>> Optional<Double> getScaled(
+			final Function<NamedElement, Optional<? extends Scalable<U>>> f, final NamedElement ne,
+			final U unit) {
+		return f.apply(ne).map(rwu -> rwu.getValue(unit));
+	}
+
 	/**
 	 * Calculate bandwidth demand from rate & data size
 	 * @param ci The connection instance to calculate for
@@ -413,11 +429,16 @@ public final class NewBusLoadAnalysis {
 		if (cie instanceof FeatureInstance) {
 			final FeatureInstance fi = (FeatureInstance) cie;
 			final double datasize = dataOverheadKBytes
-					+ GetProperties.getSourceDataSize(fi, GetProperties.getKBUnitLiteral(fi));
-			final double srcRate = GetProperties.getOutgoingMessageRatePerSecond(fi);
+					+ getScaled(MemoryProperties::getDataSize, fi, SizeUnits.KBYTE).orElseGet(
+							() -> getScaled(MemoryProperties::getSourceDataSize, fi, SizeUnits.KBYTE).orElse(0.0));
+			final double srcRate = getOutgoingMessageRatePerSecond(fi);
 			actualDataRate = datasize * srcRate;
 		}
 		return actualDataRate;
+	}
+
+	private static double getOutgoingMessageRatePerSecond(final FeatureInstance fi) {
+		return GetProperties.getOutgoingMessageRatePerSecond(fi);
 	}
 
 	// ==== Error reporting methods for the visitor ===
