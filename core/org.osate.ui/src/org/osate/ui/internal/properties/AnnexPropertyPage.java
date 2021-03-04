@@ -110,7 +110,7 @@ public class AnnexPropertyPage extends PropertyPage {
 		configureButton.setText("Configure Workspace Settings ...");
 
 		Label label = new Label(composite, SWT.NONE);
-		label.setText("Annex Plugin preferences. Use the following plugins: ");
+		label.setText("Selected annexes are enabled");
 
 		UserSetting setting = AnnexModel.getUserPreference(project);
 		// get all installed annexes/plugins
