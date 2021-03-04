@@ -42,7 +42,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        <page
       		id="org.osate.ui.preferences.OsateAnnexPage"
      		category="org.osate.internal.ui.preferences.OsatePreferencePage"
-      		name="Annex"
+      		name="Annexes"
       		class="org.osate.ui.internal.preferences.AnnexPreferencePage">
       </page>
       <page
@@ -88,7 +88,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.ui.internal.properties.AnnexPropertyPage"
             category="org.osate.ui.properties.OSATE"
             id="org.osate.ui.internal.properties.AnnexPropertyPage"
-            name="Annex">
+            name="Annexes">
          <enabledWhen>
             <adapt type="org.eclipse.core.resources.IProject">
                <test property="org.eclipse.core.resources.projectNature" 

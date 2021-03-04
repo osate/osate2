@@ -270,7 +270,7 @@ public abstract class AnnexRegistry {
 					for (int j = 0; j < configElems.length; j++) {
 						String annexName = configElems[j].getAttribute(ATT_ANNEXNAME);
 
-						if (!keys.contains(annexName)) {
+						if (!annexName.equals("*") && !keys.contains(annexName)) {
 							keys.add(annexName.toLowerCase());
 						}
 					}

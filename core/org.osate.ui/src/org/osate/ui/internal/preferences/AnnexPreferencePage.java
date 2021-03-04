@@ -67,7 +67,7 @@ public class AnnexPreferencePage extends FieldEditorPreferencePage implements IW
 	public AnnexPreferencePage() {
 		super(GRID);
 		setPreferenceStore(OsateCorePlugin.getDefault().getPreferenceStore());
-		setDescription("Annex Plugin preferences. Use the following plugins: ");
+		setDescription("Selected annexes are enabled");
 
 		// set defaults for all installed annexes/plugins
 		for (String annex : AnnexRegistry.getAllAnnexNames()) {
