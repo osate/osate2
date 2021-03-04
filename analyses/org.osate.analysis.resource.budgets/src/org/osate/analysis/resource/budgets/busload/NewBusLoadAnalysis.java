@@ -32,11 +32,16 @@ import java.util.function.Function;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.contrib.aadlproject.DataRateUnits;
 import org.osate.aadl2.contrib.aadlproject.SizeUnits;
+import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.communication.CommunicationProperties;
+import org.osate.aadl2.contrib.communication.RateSpec.RateUnit_FieldType;
 import org.osate.aadl2.contrib.memory.MemoryProperties;
+import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -56,6 +61,8 @@ import org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtual
 import org.osate.analysis.resources.budgets.internal.models.busload.Connection;
 import org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus;
 import org.osate.analysis.resources.budgets.internal.models.busload.util.BusloadSwitch;
+import org.osate.contribution.sei.sei.DataRate;
+import org.osate.contribution.sei.sei.MessageRate;
 import org.osate.contribution.sei.sei.Sei;
 import org.osate.pluginsupport.properties.GeneratedUnits;
 import org.osate.pluginsupport.properties.Scalable;
@@ -65,7 +72,6 @@ import org.osate.result.Result;
 import org.osate.result.ResultType;
 import org.osate.result.util.ResultUtil;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * Class for performing "bus load" analysis on a system.  Basically it makes sure all the connections and buses
@@ -438,7 +444,37 @@ public final class NewBusLoadAnalysis {
 	}
 
 	private static double getOutgoingMessageRatePerSecond(final FeatureInstance fi) {
-		return GetProperties.getOutgoingMessageRatePerSecond(fi);
+		return getScaled(Sei::getDataRate, fi, DataRate.PERSECOND).orElseGet(
+				() -> getScaled(Sei::getMessageRate, fi, MessageRate.PERSECOND).orElseGet(() -> {
+					// Try to get rate from the OUTPUT_RATE record
+					final Classifier containingClassifier = fi.getContainingClassifier();
+					return CommunicationProperties.getOutputRate(fi).map(rateSpec -> {
+						final double maxDataRate = rateSpec.getValueRange().map(rr -> rr.getMaximum()).orElse(0.0);
+						return rateSpec.getRateUnit().filter(x -> x == RateUnit_FieldType.PERDISPATCH).map(ignore -> {
+							final double period = getPeriodInSeconds(
+									((InstanceObject) fi).getContainingComponentInstance());
+							return period == 0.0 ? 0.0 : maxDataRate / period;
+						}).orElseGet(() -> {
+							if (maxDataRate > 0.0) {
+								return maxDataRate;
+							} else {
+								// unit is PERSECOND, but the max data rate is missing, so try the period from the containing classifier
+								double period = getPeriodInSeconds(containingClassifier);
+								return period == 0.0 ? 0.0 : 1.0 / period;
+							}
+						});
+					}).orElseGet(
+							// Cannot get rate from the FeatureInstance, try the period of the containing classifier
+							() -> {
+								double period = getPeriodInSeconds(containingClassifier);
+								return period == 0.0 ? 0.0 : 1.0 / period;
+							});
+				}));
+	}
+
+	private static double getPeriodInSeconds(final NamedElement containingClassifier) {
+		return getScaled(TimingProperties::getPeriod, containingClassifier,
+				TimeUnits.SEC).orElse(0.0);
 	}
 
 	// ==== Error reporting methods for the visitor ===
