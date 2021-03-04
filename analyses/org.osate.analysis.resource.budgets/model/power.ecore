@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="power" nsURI="http://osate.org/analysis/power" nsPrefix="power">
+  <eClassifiers xsi:type="ecore:EClass" name="PowerElement" abstract="true" eSuperTypes="../../org.osate.analysis.model/model/analysis.ecore#//AnalysisElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="capacity" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="supply" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="budget" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PowerTransmissionSystem" eSuperTypes="#//PowerElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//ComponentInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="supplier" eType="#//PowerSupplier"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="consumer" upperBound="-1"
+        eType="#//PowerConsumer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PowerConsumer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//FeatureInstance"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PowerSupplier">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//FeatureInstance"/>
+  </eClassifiers>
+</ecore:EPackage>
