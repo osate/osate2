@@ -508,9 +508,9 @@ public class AnalysisModel {
 			}
 			if (ci instanceof VirtualBus) {
 				// do connection bindings
-				List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(ci);
-				for (ComponentInstance bres : boundresources) {
-					populateBindingPropagationPaths(ci, bres, "connection");
+				List<InstanceObject> boundresources = InstanceModelUtil.getConnectionBindings(ci);
+				for (InstanceObject bres : boundresources) {
+					populateBindingPropagationPaths(ci, (ComponentInstance) bres, "connection");
 				}
 			}
 			List<ComponentInstance> systems = InstanceModelUtil.getFunctionBinding(ci);
@@ -519,12 +519,12 @@ public class AnalysisModel {
 			}
 		} else if (obj instanceof ConnectionInstance) {
 			// do connection bindings
-			List<ComponentInstance> boundresources = InstanceModelUtil.getConnectionBinding(obj);
+			List<? extends InstanceObject> boundresources = InstanceModelUtil.getConnectionBindings(obj);
 			if (boundresources.isEmpty()) {
 				boundresources = InstanceModelUtil.deriveBoundBuses((ConnectionInstance) obj);
 			}
-			for (ComponentInstance bres : boundresources) {
-				populateBindingPropagationPaths((ConnectionInstance) obj, bres, "connection");
+			for (InstanceObject bres : boundresources) {
+				populateBindingPropagationPaths((ConnectionInstance) obj, (ComponentInstance) bres, "connection");
 			}
 		}
 	}
