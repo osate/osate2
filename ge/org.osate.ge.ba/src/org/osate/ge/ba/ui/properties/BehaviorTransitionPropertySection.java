@@ -189,7 +189,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 		@Override
 		public void keyReleased(final KeyEvent e) {
-			System.err.println(e + " KEYEVENT");
 			// Link model
 			final EObject rootElement = xtextAdapter.getXtextParseResult().getRootASTElement();
 			fakeResource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
