@@ -48,6 +48,7 @@ import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.VirtualBusSubcomponent;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -730,8 +731,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isBoundToBus(InstanceObject boundObject, ComponentInstance bus) {
-		List<ComponentInstance> bindinglist = getConnectionBinding(boundObject);
-		for (ComponentInstance boundCompInstance : bindinglist) {
+		List<InstanceObject> bindinglist = getConnectionBindings(boundObject);
+		for (InstanceObject boundCompInstance : bindinglist) {
 			if (isVirtualProcessor(boundCompInstance)) {
 				// it is bound to or contained in
 				if (isBoundToBus(boundCompInstance, bus)) {
@@ -750,8 +751,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean hasBusBinding(InstanceObject boundObject) {
-		List<ComponentInstance> bindinglist = getConnectionBinding(boundObject);
-		return !bindinglist.isEmpty();
+		return !getConnectionBindings(boundObject).isEmpty();
 	}
 
 	/**
@@ -759,7 +759,10 @@ public class InstanceModelUtil {
 	 * Takes into account virtual buses contained in buses or virtual buses
 	 * @param io
 	 * @return
+	 *
+	 * @deprecated Use {@link #getConnectionBindings(InstanceObject)
 	 */
+	@Deprecated
 	public static List<ComponentInstance> getConnectionBinding(final InstanceObject io) {
 		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(io);
 		/**
@@ -780,6 +783,33 @@ public class InstanceModelUtil {
 	}
 
 	/**
+	 * return set of components the specified instance object (connection or virtual bus) is bound to.
+	 * Takes into account virtual buses contained in buses or virtual buses
+	 * @param io
+	 * @return
+	 * @since 3.1
+	 */
+	public static List<InstanceObject> getConnectionBindings(final InstanceObject io) {
+		final List<InstanceObject> bindinglist = DeploymentProperties.getActualConnectionBinding(io)
+				.orElse(Collections.emptyList());
+		/**
+		 * If we have a virtual bus, we consider that it is bound to
+		 * its containing bus. Semantically, we thus consider
+		 * that all contained virtual bus are bound to the enclosing
+		 * physical bus or VB. Then, we add it in the list.
+		 */
+		if (bindinglist.isEmpty() && io instanceof ComponentInstance
+				&& ((ComponentInstance) io).getCategory() == ComponentCategory.VIRTUAL_BUS) {
+			ComponentInstance parent = io.getContainingComponentInstance();
+			if (parent.getCategory() == ComponentCategory.BUS
+					|| parent.getCategory() == ComponentCategory.VIRTUAL_BUS) {
+				return Collections.singletonList(parent);
+			}
+		}
+		return bindinglist;
+	}
+
+	/**
 	 * HW instances that connection instance is directly or indirectly bound to
 	 * It could be bound to a virtual bus which in turn is bound to a bus
 	 * or a device, processor, memory
@@ -793,13 +823,13 @@ public class InstanceModelUtil {
 	}
 
 	protected static void addPhysicalConnectionBinding(InstanceObject VBorConni, Collection<ComponentInstance> result) {
-		List<ComponentInstance> bindinglist = getConnectionBinding(VBorConni);
-		for (ComponentInstance boundCompInstance : bindinglist) {
+		List<InstanceObject> bindinglist = getConnectionBindings(VBorConni);
+		for (InstanceObject boundCompInstance : bindinglist) {
 			if (isVirtualBus(boundCompInstance)) {
 				// it is bound to or contained in
 				addPhysicalConnectionBinding(boundCompInstance, result);
 			} else {
-				result.add(boundCompInstance);
+				result.add((ComponentInstance) boundCompInstance);
 			}
 		}
 	}
