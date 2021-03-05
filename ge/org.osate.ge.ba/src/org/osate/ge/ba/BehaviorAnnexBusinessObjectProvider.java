@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -26,6 +26,7 @@ package org.osate.ge.ba;
 import java.util.stream.Stream;
 
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
@@ -35,8 +36,15 @@ public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvid
 	@Override
 	public Stream<?> getChildBusinessObjects(final BusinessObjectProviderContext ctx) {
 		final Object bo = ctx.getBusinessObjectContext().getBusinessObject();
+		return getChildBusinessObjects(bo);
+	}
+
+	private Stream<?> getChildBusinessObjects(final Object bo) {
 		if (bo instanceof Classifier) {
 			return getBehaviorAnnexes((Classifier) bo);
+		} else if (bo instanceof Subcomponent) {
+			final Subcomponent sc = (Subcomponent) bo;
+			return getChildBusinessObjects(sc.getAllClassifier());
 		} else if (bo instanceof BehaviorAnnex) {
 			final BehaviorAnnex ba = (BehaviorAnnex) bo;
 			return Stream.concat(Stream.concat(ba.getTransitions().stream(), ba.getStates().stream()),

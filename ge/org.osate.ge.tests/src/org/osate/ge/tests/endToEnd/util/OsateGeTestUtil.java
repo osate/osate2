@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -335,15 +335,15 @@ public class OsateGeTestUtil {
 	}
 
 	/**
-	 * Selects referenced element and enters the text into
-	 * the nth StyledText in the properties view specified tab.
+	 * Selects referenced element and clicks the check box
+	 * with the specified id in the properties view specified tab.
 	 */
-	public static void typeInStyledTextInPropertiesView(final DiagramReference diagram, final String tabLabel,
-			final int index, final String text, final DiagramElementReference... elements) {
+	public static void clickCheckboxByIdInPropertiesView(final DiagramReference diagram, final String tabLabel,
+			final String id, final boolean newCheckboxState, final DiagramElementReference... elements) {
 		openDiagramEditor(diagram);
 		selectDiagramElements(diagram, elements);
-		typeInStyledText(index, text);
-		// clickButton("Save");
+		clickCheckboxByIdInPropertiesView(tabLabel, id);
+		waitUntilCheckboxCheckedStateById(id, newCheckboxState);
 	}
 
 	private static void clickCheckboxInPropertiesView(final String tabLabel, final int index) {
@@ -352,6 +352,14 @@ public class OsateGeTestUtil {
 
 		clickPropertiesViewTab(tabLabel);
 		clickCheckbox(index);
+	}
+
+	private static void clickCheckboxByIdInPropertiesView(final String tabLabel, final String id) {
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab(tabLabel);
+		clickCheckboxById(id);
 	}
 
 	private static void clickRadioButtonInPropertiesView(final String tabLabel, final String btnLabel) {
@@ -401,6 +409,14 @@ public class OsateGeTestUtil {
 	 */
 	public static void waitUntilCheckboxCheckedState(final String text, final boolean value) {
 		waitUntil(() -> isCheckboxChecked(text) == value, "Check box '" + text + "' check state is not " + value + ".");
+	}
+
+	/**
+	 * Waits until a check box's check state matches the specified value
+	 */
+	public static void waitUntilCheckboxCheckedStateById(final String id, final boolean value) {
+		waitUntil(() -> Objects.equals(isCheckboxCheckedById(id), value),
+				"Check box id '" + id + "' check state is not " + value + ".");
 	}
 
 	/**

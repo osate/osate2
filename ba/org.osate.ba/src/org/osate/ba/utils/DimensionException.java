@@ -21,42 +21,36 @@
 
 package org.osate.ba.utils;
 
-import org.osate.aadl2.Element ;
+import org.osate.aadl2.Element;
 
 /**
  * Represents an exception raised when out of array dimension accessing.
  */
-public class DimensionException extends Exception
-{
-   /**
-    *
-    */
-   private static final long serialVersionUID = -7962508017913234922L ;
+public class DimensionException extends Exception {
+	/**
+	*
+	*/
+	private static final long serialVersionUID = -7962508017913234922L;
 
-   public Element element ;
+	public Element element;
 
-   private final boolean isWarning ;
+	private final boolean isWarning;
 
-   public DimensionException(Element element, String message,
-                              boolean isWarning)
-   {
-      super(message) ;
-      this.element = element ;
-      this.isWarning = isWarning ;
-   }
+	public DimensionException(Element element, String message, boolean isWarning) {
+		super(message);
+		this.element = element;
+		this.isWarning = isWarning;
+	}
 
-   public boolean isWarning()
-   {
-     return isWarning ;
-   }
+	public boolean isWarning() {
+		return isWarning;
+	}
 
-   public void setElement(Element element)
-   {
-     this.element = element ;
-   }
+	public void setElement(Element element) {
+		this.element = element;
+	}
 
-   public Element getElement()
-   {
-     return element ;
-   }
+	public Element getElement() {
+		return element;
+	}
 }

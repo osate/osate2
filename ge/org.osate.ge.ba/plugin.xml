@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -27,11 +27,14 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension
          point="org.osate.ge.diagramTypes">
       <diagramType
-            class="org.osate.ge.ba.diagram.diagramType.BehaviorAnnexDiagramType">
+            class="org.osate.ge.ba.diagram.diagramType.BehaviorSpecificatonDiagramType">
       </diagramType>
    </extension>
    <extension
          point="org.osate.ge.contentFilters">
+      <contentFilter
+            class="org.osate.ge.ba.diagram.contentFilters.BehaviorSpecificationFilter">
+      </contentFilter>
       <contentFilter
             class="org.osate.ge.ba.diagram.contentFilters.BehaviorStateFilter">
       </contentFilter>
@@ -63,37 +66,23 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<propertySections contributorId="org.osate.ge.editor.AgeDiagramEditor">
 	 <propertySection
 	        afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-			class="org.osate.ge.ba.ui.properties.SetStateInitialPropertySection"
-			filter="org.osate.ge.ba.ui.properties.StatePropertySection$Filter"
-			id="org.osate.ge.ba.properties.setBehaviorStateInitialPropertySection"
+			class="org.osate.ge.ba.ui.properties.BehaviorStatePropertySection"
+			filter="org.osate.ge.ba.ui.properties.BehaviorStatePropertySection$Filter"
+			id="org.osate.ge.ba.properties.behaviorStatePropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>
      <propertySection
             afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-			class="org.osate.ge.ba.ui.properties.SetStateFinalPropertySection"
-			filter="org.osate.ge.ba.ui.properties.StatePropertySection$Filter"
-			id="org.osate.ge.ba.properties.setBehaviorStateFinalPropertySection"
+			class="org.osate.ge.ba.ui.properties.BehaviorVariablePropertySection"
+			filter="org.osate.ge.ba.ui.properties.BehaviorVariablePropertySection$Filter"
+			id="org.osate.ge.ba.properties.behaviorVariablePropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>
      <propertySection
             afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-			class="org.osate.ge.ba.ui.properties.SetStateCompletePropertySection"
-			filter="org.osate.ge.ba.ui.properties.StatePropertySection$Filter"
-			id="org.osate.ge.ba.properties.setBehaviorStateCompletePropertySection"
-			tab="org.osate.ge.ui.properties.tabs.aadl">
-     </propertySection>
-     <propertySection
-            afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-			class="org.osate.ge.ba.ui.properties.SetVariableDataClassifierPropertySection"
-			filter="org.osate.ge.ba.ui.properties.SetVariableDataClassifierPropertySection$Filter"
-			id="org.osate.ge.ba.properties.setVariableDataClassifierPropertySection"
-			tab="org.osate.ge.ui.properties.tabs.aadl">
-     </propertySection>
-     <propertySection
-            afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
-			class="org.osate.ge.ba.ui.properties.EditDispatchConditionsPropertySection"
-			filter="org.osate.ge.ba.ui.properties.EditDispatchConditionsPropertySection$Filter"
-			id="org.osate.ge.ba.properties.editDispatchConditionsPropertySection"
+			class="org.osate.ge.ba.ui.properties.BehaviorTransitionPropertySection"
+			filter="org.osate.ge.ba.ui.properties.BehaviorTransitionPropertySection$Filter"
+			id="org.osate.ge.ba.properties.behaviorTransitionPropertySection"
 			tab="org.osate.ge.ui.properties.tabs.aadl">
      </propertySection>
      </propertySections>
@@ -153,7 +142,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        locationURI="popup:org.osate.ge.openMenu?after=org.osate.ge.additionalDiagramTypes">
        <command
          commandId="org.osate.ge.commands.opendiagram"
-         label="Behavior Annex Diagram"
+         label="Behavior Specification Diagram"
          style="push">
          <visibleWhen
            checkEnabled="true">
@@ -166,16 +155,6 @@ censes only apply to the Third Party Software and not any other portion of this 
 	</extension>
 	<extension
          point="org.eclipse.core.expressions.definitions">
-         <definition
-          id="oneElementSelected">
-       <with
-             variable="selection">
-            <count
-                  value="1">
-            </count>
-             
-       </with>
-    	</definition>
       <definition
             id="diagramContext">
          <with

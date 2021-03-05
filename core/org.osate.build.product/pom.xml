@@ -7,11 +7,11 @@
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>core.parent</artifactId>
-		<version>2.9.1-SNAPSHOT</version>
+		<version>2.9.2-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.osate.build.product</groupId>
-	<artifactId>osate2</artifactId>
+	<artifactId>org.osate.branding.osate2</artifactId>
 	<packaging>eclipse-repository</packaging>
 	<name>OSATE2 RCP Product</name>
 
@@ -65,7 +65,7 @@
 					</formats>
 					<products>
 						<product>
-							<id>osate2</id>
+							<id>${product.id}</id>
 							<archiveFileName>${product.id}-${unqualifiedVersion}-${buildQualifier}</archiveFileName>
 							<rootFolders>
 								<rootFolder>${product.id}</rootFolder>

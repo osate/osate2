@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -26,15 +26,15 @@ package org.osate.ge.ba.util;
 import java.util.List;
 import java.util.Optional;
 
-import org.eclipse.core.runtime.Adapters;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
@@ -44,86 +44,39 @@ import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
-
-import com.google.common.collect.ImmutableList;
+import org.osate.ge.internal.ui.util.SelectionUtil;
+import org.osate.ui.utils.SelectionHelper;
 
 public class BehaviorAnnexSelectionUtil {
 	private BehaviorAnnexSelectionUtil() {
 	}
 
-	private static ISelection getCurrentSelection() {
-		final IWorkbenchWindow win = getActiveWorkbenchWindow();
-		if (win == null) {
-			return StructuredSelection.EMPTY;
-		}
-
-		return win.getSelectionService().getSelection();
-	}
-
-	private static IWorkbenchWindow getActiveWorkbenchWindow() {
-		final IWorkbench wb = PlatformUI.getWorkbench();
-		if (wb == null) {
-			return null;
-		}
-
-		return wb.getActiveWorkbenchWindow();
-	}
-
-	private static IWorkbenchPage getActivePage() {
-		final IWorkbenchWindow window = getActiveWorkbenchWindow();
-		if (window == null) {
-			return null;
-		}
-
-		return window.getActivePage();
-	}
-
-	public static Optional<IEditorPart> getActiveEditor() {
-		final IWorkbenchPage page = getActivePage();
-		if (page == null) {
-			return Optional.empty();
-		}
-
-		return Optional.ofNullable(page.getActiveEditor());
-	}
-
-	private static ImmutableList<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection) {
-		if (!(selection instanceof IStructuredSelection)) {
-			return ImmutableList.of();
-		}
-
-		final IStructuredSelection ss = (IStructuredSelection) selection;
-		final ImmutableList.Builder<BusinessObjectContext> bocs = ImmutableList.builderWithExpectedSize(ss.size());
-		for (final Object sel : ss.toList()) {
-			final BusinessObjectContext boc = Adapters.adapt(sel, BusinessObjectContext.class);
-			if (boc == null) {
-				return ImmutableList.of();
-			}
-
-			bocs.add(boc);
-		}
-
-		return bocs.build();
-	}
-
 	/**
-	 * Returns a business object which is a valid diagram context based on the current selection. Returns null if such a business object could not be determined based on the current selection.
+	 * Get diagram context based on selection and editor.
+	 * @return an optional that contains a DefaultAnnexSubclause if
+	 * the selection is a valid diagram context or empty if invalid
 	 */
-	public static Optional<DefaultAnnexSubclause> getDiagramContext(final IEditorPart activeEditor) {
-		final ISelection selection = getCurrentSelection();
+	public static Optional<DefaultAnnexSubclause> getDiagramContext(final ISelection selection,
+			final IEditorPart editor) {
+		if (editor instanceof XtextEditor) {
+			final EObject selectedObject = SelectionHelper
+					.getEObjectFromSelection(((XtextEditor) editor).getSelectionProvider().getSelection());
+			return findDiagramContextForSelectedObject(selectedObject);
+		}
+
 		if (selection instanceof IStructuredSelection) {
-			final List<BusinessObjectContext> selectedBusinessObjectContexts = getSelectedBusinessObjectContexts(
-					selection);
+			final List<BusinessObjectContext> selectedBusinessObjectContexts = SelectionUtil
+					.getSelectedBusinessObjectContexts(selection);
 			if (selectedBusinessObjectContexts.size() == 1) {
-				return Optional.ofNullable(
-						findDiagramContextForSelectedObject(selectedBusinessObjectContexts.get(0).getBusinessObject()));
+				return BehaviorAnnexSelectionUtil
+						.findDiagramContextForSelectedObject(selectedBusinessObjectContexts.get(0).getBusinessObject());
 			}
 		}
 
 		return Optional.empty();
 	}
 
-	private static DefaultAnnexSubclause findDiagramContextForSelectedObject(final Object element) {
+	private static Optional<DefaultAnnexSubclause> findDiagramContextForSelectedObject(final Object element) {
 		if (element instanceof BehaviorAnnex || element instanceof BehaviorState
 				|| element instanceof BehaviorTransition
 				|| element instanceof BehaviorVariable) {
@@ -132,9 +85,29 @@ public class BehaviorAnnexSelectionUtil {
 
 		if (element instanceof DefaultAnnexSubclause
 				&& BehaviorAnnexReferenceUtil.ANNEX_NAME.equalsIgnoreCase(((NamedElement) element).getName())) {
-			return (DefaultAnnexSubclause) element;
+			return Optional.of((DefaultAnnexSubclause) element);
 		}
 
-		return null;
+		return Optional.empty();
+	}
+
+	// Returns an optional of the active editor or empty if null
+	public static Optional<IEditorPart> getActiveEditor() {
+		final IWorkbench workbench = PlatformUI.getWorkbench();
+		if (workbench == null) {
+			return Optional.empty();
+		}
+
+		final IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+		if (window == null) {
+			return Optional.empty();
+		}
+
+		final IWorkbenchPage page = window.getActivePage();
+		if (page == null) {
+			return Optional.empty();
+		}
+
+		return Optional.ofNullable(page.getActiveEditor());
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,13 +24,48 @@
 package org.osate.ge.ba;
 
 import org.eclipse.core.expressions.PropertyTester;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.IEditorPart;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 
 public class BehaviorAnnexPropertyTester extends PropertyTester {
 	@Override
 	public boolean test(final Object receiver, final String property, final Object[] args, final Object expectedValue) {
-		return "isDiagramContext".equals(property) && BehaviorAnnexSelectionUtil.getActiveEditor()
-				.map(activeEditor -> BehaviorAnnexSelectionUtil.getDiagramContext(activeEditor).isPresent())
-				.isPresent();
+		if (!("isDiagramContext".equals(property) && receiver instanceof ISelection)) {
+			return false;
+		}
+
+		final ISelection selection = (ISelection) receiver;
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() != 1) {
+			return false;
+		}
+
+		final IEditorPart editor = BehaviorAnnexSelectionUtil.getActiveEditor().orElse(null);
+		if (editor == null) {
+			return false;
+		}
+
+		return BehaviorAnnexSelectionUtil.getDiagramContext(selection, editor).isPresent();
 	}
+
+	// TODO moved for now
+//	private IEditorPart getActiveEditor() {
+//		final IWorkbench workbench = PlatformUI.getWorkbench();
+//		if (workbench == null) {
+//			return null;
+//		}
+//
+//		final IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+//		if (window == null) {
+//			return null;
+//		}
+//
+//		final IWorkbenchPage page = window.getActivePage();
+//		if (page == null) {
+//			return null;
+//		}
+//
+//		return page.getActiveEditor();
+//	}
 }

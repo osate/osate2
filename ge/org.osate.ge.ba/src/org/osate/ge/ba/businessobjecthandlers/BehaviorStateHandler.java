@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -83,7 +83,7 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		final BehaviorState behaviorState = ctx.getBusinessObject(BehaviorState.class).get();
-		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.STATE_TYPE, behaviorState.getName());
+		return BehaviorAnnexReferenceUtil.getStateRelativeReference(behaviorState.getName());
 	}
 
 	@Override
@@ -115,13 +115,13 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 		final String originalName = behaviorState.getName();
 		final String newName = ctx.getNewName();
 
-		// Handle DeclarativeBehaviorTransistions
+		// Handle DeclarativeBehaviorTransitions
 		// Set the ID for source and destination states because they do not update if an invalid state name change occurs
 		behaviorAnnex.getTransitions().stream().filter(DeclarativeBehaviorTransition.class::isInstance)
 				.forEach(transition -> {
 					final DeclarativeBehaviorTransition dt = (DeclarativeBehaviorTransition) transition;
 					final EList<Identifier> srcStates = dt.getSrcStates();
-					if (!srcStates.isEmpty()) {
+					if (!srcStates.isEmpty() && dt.getDestState() != null) {
 						// Set id for source and destination
 						setId(srcStates.get(0), originalName, newName);
 						setId(dt.getDestState(), originalName, newName);

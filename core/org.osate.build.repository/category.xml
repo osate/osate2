@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -35,6 +35,9 @@ censes only apply to the Third Party Software and not any other portion of this 
    <feature id="org.osate.ge.errormodel.feature">
       <category name="osate2"/>
    </feature>
+   <feature id="org.osate.ge.ba.feature">
+      <category name="osate2"/>
+   </feature>
    <feature id="org.osate.examples.feature">
       <category name="osate2"/>
    </feature>
@@ -42,6 +45,9 @@ censes only apply to the Third Party Software and not any other portion of this 
       <category name="osate2.source"/>
    </feature>
    <feature id="org.osate.ge.errormodel.feature.source">
+      <category name="osate2.source"/>
+   </feature>
+   <feature id="org.osate.ge.ba.feature.source">
       <category name="osate2.source"/>
    </feature>
    <feature id="org.osate.core.feature.source">

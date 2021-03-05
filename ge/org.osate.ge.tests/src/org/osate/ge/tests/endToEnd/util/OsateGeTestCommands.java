@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -42,7 +42,8 @@ import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem;
 import org.osate.ge.aadl2.ui.internal.properties.AbstractFeaturePrototypePropertySection;
 import org.osate.ge.aadl2.ui.internal.properties.SetSubcomponentClassifierPropertySection;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
-import org.osate.ge.ba.ui.properties.SetVariableDataClassifierPropertySection;
+import org.osate.ge.ba.ui.properties.BehaviorStatePropertySection;
+import org.osate.ge.ba.ui.properties.BehaviorVariablePropertySection;
 import org.osate.ge.swt.classifiers.PrototypeBindingsField;
 
 /**
@@ -251,7 +252,6 @@ public class OsateGeTestCommands {
 		waitForWindowWithTitle("Create Component Implementation");
 		clickButton("OK");
 
-		System.err.println(classifier.split("\\.")[0] + " split");
 		waitForDiagramElementToExist(diagram,
 				pkg.join(getClassifierRelativeReference(classifier.split("\\.")[0] + "." + implName)));
 
@@ -299,7 +299,7 @@ public class OsateGeTestCommands {
 		doubleClickListItem(0, dataClassifierQualifiedName);
 
 		// Wait until the current classifier label has been updated
-		waitUntilLabelWithIdTextMatches(SetVariableDataClassifierPropertySection.WIDGET_ID_DATA_CLASSIFIER_LABEL,
+		waitUntilLabelWithIdTextMatches(BehaviorVariablePropertySection.WIDGET_ID_DATA_CLASSIFIER_LABEL,
 				dataClassifierQualifiedName);
 	}
 
@@ -392,16 +392,16 @@ public class OsateGeTestCommands {
 	}
 
 	/**
-	 * Creates a behavior annex and a state using the palette tool.
+	 * Creates a behavior annex and an initial state using the palette tool.
 	 * Preconditions: OSATE shell is active.  Specified classifier element exists.
-	 * Postconditions: A new behavior annex with a state has been created.  The state will be renamed to the specified name.
+	 * Postconditions: A new behavior annex with an initial state has been created.  The state will be renamed to the specified name.
 	 * @param diagram is the diagram in which to create the behavior annex and behavior state
 	 * @param pkgRef is the package reference in which the classifier belongs to
 	 * @param classifierName is the name of the parent classifier for the behavior specification
 	 * @param behaviorSpecification is the relative reference to the new behavior specification
 	 * @param newStateName is the name to which the behavior state should be renamed to
 	 */
-	public static void createBehaviorAnnexWithState(final DiagramReference diagram,
+	public static void createBehaviorAnnexWithInitialState(final DiagramReference diagram,
 			final RelativeBusinessObjectReference pkgRef, final String classifierName,
 			final RelativeBusinessObjectReference behaviorSpecification, final String newStateName) {
 		final RelativeBusinessObjectReference classifierRef = getClassifierRelativeReference(classifierName);
@@ -411,8 +411,6 @@ public class OsateGeTestCommands {
 
 		final DiagramElementReference behaviorSpecDiagramRef = element(pkgRef, classifierRef, behaviorSpecification);
 
-		clickCheckboxInPropertiesView(diagram, "AADL", 0, behaviorSpecDiagramRef);
-
 		// Show contents of specification
 		showContentsAndLayout(diagram, behaviorSpecDiagramRef);
 
@@ -420,7 +418,10 @@ public class OsateGeTestCommands {
 				.getStateRelativeReference("new_state");
 		final DiagramElementReference newStateDiagramRef = behaviorSpecDiagramRef.join(newStateRef);
 		createShapeElement(diagram, behaviorSpecDiagramRef, "Behavior State", newStateRef);
-		clickCheckboxInPropertiesView(diagram, "AADL", 2, newStateDiagramRef);
+
+		// Set initial state
+		clickCheckboxByIdInPropertiesView(diagram, "AADL", BehaviorStatePropertySection.WIDGET_ID_INITIAL, true,
+				newStateDiagramRef);
 
 		// Rename initial state
 		renameElementDirectEdit(diagram, behaviorSpecDiagramRef, newStateRef, newStateName);
@@ -784,8 +785,12 @@ public class OsateGeTestCommands {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Renames an element using the diagram context menu. NOTE: This function currently assumes that the relative reference
 	 * is composed of exactly two elements and the second element is the name.
+=======
+	 * Renames an element using the diagram context menu.
+>>>>>>> branch 'master' of git@github.com:osate/osate2.git
 	 * @param parent the parent of the new element
 	 * @param element is the element to rename
 	 * @param newName the name of the new element
