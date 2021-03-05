@@ -239,6 +239,8 @@ public class BehaviorAnnexTest {
 		// Rename transition
 		renameElementFromContextMenu(baDiagram, element(behaviorSpecification), initTransitionRef, "new_transition",
 				transitionRef);
+		typeInStyledTextInPropertiesView(baDiagram, "AADL", 0, "on dispatch",
+				element(behaviorSpecification, transitionRef));
 
 		// Test renaming for states with same name of a mode with transition
 		renameElementDirectEdit(baDiagram, element(behaviorSpecification),

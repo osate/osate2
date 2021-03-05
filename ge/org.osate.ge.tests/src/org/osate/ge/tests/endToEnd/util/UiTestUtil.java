@@ -311,7 +311,6 @@ public class UiTestUtil {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Types the specified text in the StyledText specified index.
 	 */
 	public static void typeInStyledText(final int index, final String text) {
@@ -327,10 +326,7 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Clicks the radio button with the specified mnemonic text
-=======
 	 * Clicks the checkbox with the specified mnemonic text
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 	 */
 	public static void clickCheckbox(final String text) {
 		bot.checkBox(text).click();
