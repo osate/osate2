@@ -313,18 +313,6 @@ Select the desired implementation from the palette and place it on the diagram o
 ## Creating Mode Transitions
 Select *Mode Transition* from the palette and select the starting mode then the ending mode.
 
-## Creating Behavior Annexes
-Select *Behavior Specification* from the palette and place it on a classifier.
-
-### Creating Behavior Transitions
-Select *Behavior Transition* from the palette and select the starting state and then the ending state.
-
-### Creating Behavior Variables
-1. Select *Behavior Variable* from the palette.
-2. Place it on a behavior annex.
-3. Select the desired data classifier from the *Set the Variable's Data Classifier* window.
-4. Select "OK".
-
 ## Creating Flow Implementations and End-To-End Flow Specifications
 Flow implementations and end-to-end flow specifications can be created graphically by selecting the *Create Flow Implementation* and *Create End-To-End Flow Specification* tools from the toolbar and following the prompts to select a series of elements from the diagram or outline view.  The tools cannot be activated if there are existing errors or warnings in the model.  The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple. The *Undo* button will remove the elements in the order they were selected.
 
@@ -464,12 +452,6 @@ Prototypes can be edited by selecting a classifier and using the *AADL* tab of t
 
 Classifier prototype bindings can be edited using the *AADL* tab of the *Properties* view (See @sec:properties_view). Subcomponent prototype bindings can be edited when selecting the component classifier.
 
-## Behavior Annexes
-### Editing States
-Behavior states can be set to initial, final, or complete when appropriate by using the *AADL* tab of the *Properties* view (See @sec:properties_view).
-
-### Editing Variables
-The data classifier and dimensions for behavior variables can be set by using the *AADL* tab of the *Properties* view (See @sec:properties_view).
 
 ## Flow Implementations and End-to-End Flows
 ### Editing
