@@ -314,7 +314,6 @@ public class UiTestUtil {
 	 * Types the specified text in the StyledText with the specified id.
 	 */
 	public static void typeInStyledText(final String id, final String text) {
-		// TODO type each letter?
 		final SWTBotStyledText styledText = bot.styledTextWithId(id);
 		styledText.setText(text);
 
