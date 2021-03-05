@@ -105,7 +105,7 @@ public class RefineElementPropertySection extends AbstractPropertySection {
 		final Label sectionLabel = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(),
 				"Refined:");
 
-		refineBtn = PropertySectionUtil.createButton(getWidgetFactory(), container, SWT.NONE,
+		refineBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, SWT.NONE,
 				refineSelectionListener,
 				"", SWT.CHECK);
 

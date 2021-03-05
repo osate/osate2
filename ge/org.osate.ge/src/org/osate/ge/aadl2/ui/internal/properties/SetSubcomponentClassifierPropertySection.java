@@ -116,7 +116,7 @@ public class SetSubcomponentClassifierPropertySection extends AbstractPropertySe
 		currentClassifier
 		.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 
-		createBtn = PropertySectionUtil.createButton(getWidgetFactory(), fieldComposite, null,
+		createBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), fieldComposite, null,
 				createClassifierListener, "Create...", SWT.PUSH);
 		createBtn.setLayoutData(GridDataFactory.swtDefaults().grab(false, false).align(SWT.FILL, SWT.CENTER).create());
 

@@ -58,6 +58,7 @@ import org.osate.ba.declarative.QualifiedNamedElement;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.ba.util.BehaviorAnnexUtil.VariableOperation;
+import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResult;
@@ -103,7 +104,8 @@ public class SetVariableDataClassifierPropertySection extends AbstractPropertySe
 		curDataClassifier.setLayoutData(fd);
 		SwtUtil.setTestingId(curDataClassifier, WIDGET_ID_DATA_CLASSIFIER_LABEL);
 
-		chooseBtn = PropertySectionUtil.createButton(getWidgetFactory(), container, null, setDataClassifierListener,
+		chooseBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, null,
+				setDataClassifierListener,
 				"Choose...", SWT.PUSH);
 
 		fd = new FormData();

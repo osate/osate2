@@ -212,7 +212,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
 		curFeatureClassifier.setLayoutData(fd);
 
-		chooseBtn = PropertySectionUtil.createButton(getWidgetFactory(), container, null, setClassifierListener,
+		chooseBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, null, setClassifierListener,
 				"Choose...", SWT.PUSH);
 
 		fd = new FormData();
@@ -220,7 +220,7 @@ public class SetFeatureClassifierPropertySection extends AbstractPropertySection
 		fd.top = new FormAttachment(curFeatureClassifier, 0, SWT.CENTER);
 		chooseBtn.setLayoutData(fd);
 
-		createBtn = PropertySectionUtil.createButton(getWidgetFactory(), container, null,
+		createBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, null,
 				createClassifierListener, "Create...", SWT.PUSH);
 
 		fd = new FormData();

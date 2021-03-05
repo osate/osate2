@@ -32,7 +32,7 @@ import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.aadl2.AadlArrayUtil;
+import org.osate.ge.aadl2.internal.util.AadlArrayUtil;
 import org.osate.ge.aadl2.internal.util.AadlInheritanceUtil;
 import org.osate.ge.aadl2.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;

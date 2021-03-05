@@ -131,7 +131,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 
 		portCol.getColumn().setResizable(true);
 		tableComposite.setLayout(createTableColumnLayout(portCol.getColumn()));
-		modifyBtn = PropertySectionUtil.createButton(getWidgetFactory(), composite, null,
+		modifyBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, null,
 				modifyDimensionSelectionListener, "Modify...", SWT.PUSH);
 		final int btnWidth = 60;
 		fd = new FormData();
@@ -141,7 +141,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 		modifyBtn.setLayoutData(fd);
 
 // Add
-		addBtn = PropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
+		addBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
 				addDimensionSelectionListener, "Add", SWT.PUSH);
 		fd = new FormData();
 		fd.left = new FormAttachment(tableComposite, ITabbedPropertyConstants.HSPACE);
@@ -150,7 +150,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 		addBtn.setLayoutData(fd);
 
 // Delete
-		deleteBtn = PropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
+		deleteBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
 				deleteDimensionSelectionListener, "Delete", SWT.PUSH);
 		fd = new FormData();
 		fd.left = new FormAttachment(tableComposite, ITabbedPropertyConstants.HSPACE);
@@ -162,7 +162,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 				executeChangeOrder);
 
 // Up
-		upBtn = PropertySectionUtil.createButton(getWidgetFactory(), composite, true, moveBtnSelectionListener,
+		upBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, true, moveBtnSelectionListener,
 				"Up", SWT.PUSH);
 		fd = new FormData();
 		fd.left = new FormAttachment(tableComposite, ITabbedPropertyConstants.HSPACE);
@@ -171,7 +171,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 		upBtn.setLayoutData(fd);
 
 // Down
-		downBtn = PropertySectionUtil.createButton(getWidgetFactory(), composite, false,
+		downBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, false,
 				moveBtnSelectionListener, "Down", SWT.PUSH);
 		fd = new FormData();
 		fd.left = new FormAttachment(tableComposite, ITabbedPropertyConstants.HSPACE);
