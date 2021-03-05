@@ -30,10 +30,8 @@ import org.eclipse.core.runtime.Adapters;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
@@ -97,25 +95,5 @@ public class PropertySectionUtil {
 		fd.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
 		label.setLayoutData(fd);
 		return label;
-	}
-
-	/**
-	 * Creates a button with the specified data, selection listener, text, and type
-	 * intended to be created on a {@link org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage}.
-	 * @param widgetFactory the widget factory used to create the label
-	 * @param container is the container for the label.
-	 * @param data is the data for the button
-	 * @param listener is the selection listener for the button
-	 * @param txt is the text for the button
-	 * @param type is the type of button
-	 * @return is the created button
-	 * @since 2.1
-	 */
-	public static Button createButton(final TabbedPropertySheetWidgetFactory widgetFactory, final Composite container,
-			final Object data, final SelectionListener listener, final String txt, final int type) {
-		final Button btn = widgetFactory.createButton(container, txt, type);
-		btn.setData(data);
-		btn.addSelectionListener(listener);
-		return btn;
 	}
 }

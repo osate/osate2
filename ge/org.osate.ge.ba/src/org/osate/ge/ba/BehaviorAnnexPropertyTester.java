@@ -48,24 +48,4 @@ public class BehaviorAnnexPropertyTester extends PropertyTester {
 
 		return BehaviorAnnexSelectionUtil.getDiagramContext(selection, editor).isPresent();
 	}
-
-	// TODO moved for now
-//	private IEditorPart getActiveEditor() {
-//		final IWorkbench workbench = PlatformUI.getWorkbench();
-//		if (workbench == null) {
-//			return null;
-//		}
-//
-//		final IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-//		if (window == null) {
-//			return null;
-//		}
-//
-//		final IWorkbenchPage page = window.getActivePage();
-//		if (page == null) {
-//			return null;
-//		}
-//
-//		return page.getActiveEditor();
-//	}
 }

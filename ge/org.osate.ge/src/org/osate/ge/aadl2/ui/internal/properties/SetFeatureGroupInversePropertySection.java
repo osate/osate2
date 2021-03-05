@@ -90,7 +90,7 @@ public class SetFeatureGroupInversePropertySection extends AbstractPropertySecti
 		final Label sectionLabel = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(),
 				"Inverse:");
 
-		inverseBtn = PropertySectionUtil.createButton(getWidgetFactory(), container, SWT.NONE,
+		inverseBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, SWT.NONE,
 				inverseSelectionListener,
 				"", SWT.CHECK);
 
