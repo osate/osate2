@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -32,7 +32,7 @@ import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.aadl2.AadlArrayUtil;
+import org.osate.ge.aadl2.internal.util.AadlArrayUtil;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
@@ -99,8 +99,7 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).get();
-		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.VARIABLE_TYPE,
-				behaviorVariable.getName());
+		return BehaviorAnnexReferenceUtil.getVariableRelativeReference(behaviorVariable.getName());
 	}
 
 	@Override

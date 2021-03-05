@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,13 +30,13 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>osate2.parent</artifactId>
-		<version>2.9.1-SNAPSHOT</version>
+		<version>2.9.2-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.osate</groupId>
 	<artifactId>ge.parent</artifactId>
 	<packaging>pom</packaging>
-	<version>2.9.1-SNAPSHOT</version>
+	<version>2.9.2-SNAPSHOT</version>
 
 	<modules>
 		<module>org.osate.ge</module>
@@ -46,6 +46,8 @@ censes only apply to the Third Party Software and not any other portion of this 
 		<module>org.osate.ge.feature</module>
 		<module>org.osate.ge.errormodel</module>
 		<module>org.osate.ge.errormodel.feature</module>
+		<module>org.osate.ge.ba</module>
+		<module>org.osate.ge.ba.feature</module>
  		<module>org.osate.ge.tests</module>
 	</modules>
 

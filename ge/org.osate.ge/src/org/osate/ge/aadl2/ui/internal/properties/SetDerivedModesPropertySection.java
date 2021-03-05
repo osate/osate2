@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -84,7 +84,7 @@ public class SetDerivedModesPropertySection extends AbstractPropertySection {
 		final Label sectionLabel = PropertySectionUtil.createSectionLabel(composite, getWidgetFactory(),
 				"Derived\nModes:");
 
-		derivedModesBtn = PropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
+		derivedModesBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), composite, SWT.NONE,
 				derivedListener, "",
 				SWT.CHECK);
 

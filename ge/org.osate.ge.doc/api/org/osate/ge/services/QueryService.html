@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":18,"i1":6,"i2":18,"i3":6,"i4":18,"i5":6};
+var methods = {"i0":18,"i1":6,"i2":18,"i3":18,"i4":18,"i5":6,"i6":18,"i7":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -120,35 +120,56 @@ var activeTableTab = "activeTableTab";
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>default java.lang.Object</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/QueryService.html#getFirstBusinessObject-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-">getFirstBusinessObject</a></span>(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="interface in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
-                      <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</code>&nbsp;</td>
+<td class="colFirst"><code>default java.util.Optional&lt;java.lang.Object&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/QueryService.html#getFirstBusinessObject-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-">getFirstBusinessObject</a></span>(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+                      <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</code>
+<div class="block">boc's BO will be query argument</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>java.lang.Object</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/QueryService.html#getFirstBusinessObject-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-java.lang.Object-">getFirstBusinessObject</a></span>(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="interface in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+<td class="colFirst"><code>java.util.Optional&lt;java.lang.Object&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/QueryService.html#getFirstBusinessObject-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-java.lang.Object-">getFirstBusinessObject</a></span>(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
                       <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc,
                       java.lang.Object&nbsp;arg)</code>&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>default <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/QueryService.html#getFirstResult-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-">getFirstResult</a></span>(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="interface in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
-              <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/QueryService.html#getFirstBusinessObjectContextOrNull-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-">getFirstBusinessObjectContextOrNull</a></span>(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+                                   <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</code>
+<div class="block">boc's BO will be query argument</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code><a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/QueryService.html#getFirstResult-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-java.lang.Object-">getFirstResult</a></span>(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="interface in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
-              <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc,
-              java.lang.Object&nbsp;arg)</code>&nbsp;</td>
+<td class="colFirst"><code>default <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/QueryService.html#getFirstBusinessObjectContextOrNull-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-java.lang.Object-">getFirstBusinessObjectContextOrNull</a></span>(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+                                   <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc,
+                                   java.lang.Object&nbsp;arg)</code>&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code>default java.util.List&lt;<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/QueryService.html#getResults-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-">getResults</a></span>(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="interface in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
-          <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</code>&nbsp;</td>
+<td class="colFirst"><code>default java.util.Optional&lt;<a href="../../../../org/osate/ge/query/QueryResult.html" title="class in org.osate.ge.query">QueryResult</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/QueryService.html#getFirstResult-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-">getFirstResult</a></span>(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+              <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</code>
+<div class="block">boc's BO will be query argument</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/QueryService.html#getResults-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-java.lang.Object-">getResults</a></span>(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="interface in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+<td class="colFirst"><code>java.util.Optional&lt;<a href="../../../../org/osate/ge/query/QueryResult.html" title="class in org.osate.ge.query">QueryResult</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/QueryService.html#getFirstResult-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-java.lang.Object-">getFirstResult</a></span>(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+              <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc,
+              java.lang.Object&nbsp;arg)</code>
+<div class="block">Gets the first result</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>default java.util.List&lt;<a href="../../../../org/osate/ge/query/QueryResult.html" title="class in org.osate.ge.query">QueryResult</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/QueryService.html#getResults-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-">getResults</a></span>(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+          <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</code>
+<div class="block">boc's BO will be query argument</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../org/osate/ge/query/QueryResult.html" title="class in org.osate.ge.query">QueryResult</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/QueryService.html#getResults-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-java.lang.Object-">getResults</a></span>(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
           <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc,
           java.lang.Object&nbsp;arg)</code>&nbsp;</td>
 </tr>
@@ -167,25 +188,34 @@ var activeTableTab = "activeTableTab";
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="getFirstResult-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-">
+<a name="getFirstBusinessObjectContextOrNull-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getFirstResult</h4>
-<pre>default&nbsp;<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;getFirstResult(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="interface in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
-                                             <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</pre>
+<h4>getFirstBusinessObjectContextOrNull</h4>
+<pre>default&nbsp;<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;getFirstBusinessObjectContextOrNull(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+                                                                  <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</pre>
+<div class="block">boc's BO will be query argument</div>
+<dl>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0</dd>
+</dl>
 </li>
 </ul>
-<a name="getFirstResult-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-java.lang.Object-">
+<a name="getFirstBusinessObjectContextOrNull-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-java.lang.Object-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getFirstResult</h4>
-<pre><a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;getFirstResult(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="interface in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
-                                     <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc,
-                                     java.lang.Object&nbsp;arg)</pre>
+<h4>getFirstBusinessObjectContextOrNull</h4>
+<pre>default&nbsp;<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;getFirstBusinessObjectContextOrNull(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+                                                                  <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc,
+                                                                  java.lang.Object&nbsp;arg)</pre>
+<dl>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0</dd>
+</dl>
 </li>
 </ul>
 <a name="getFirstBusinessObject-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-">
@@ -194,8 +224,13 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>getFirstBusinessObject</h4>
-<pre>default&nbsp;java.lang.Object&nbsp;getFirstBusinessObject(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="interface in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
-                                                <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</pre>
+<pre>default&nbsp;java.util.Optional&lt;java.lang.Object&gt;&nbsp;getFirstBusinessObject(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+                                                                    <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</pre>
+<div class="block">boc's BO will be query argument</div>
+<dl>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0</dd>
+</dl>
 </li>
 </ul>
 <a name="getFirstBusinessObject-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-java.lang.Object-">
@@ -204,9 +239,44 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>getFirstBusinessObject</h4>
-<pre>java.lang.Object&nbsp;getFirstBusinessObject(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="interface in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
-                                        <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc,
-                                        java.lang.Object&nbsp;arg)</pre>
+<pre>java.util.Optional&lt;java.lang.Object&gt;&nbsp;getFirstBusinessObject(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+                                                            <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc,
+                                                            java.lang.Object&nbsp;arg)</pre>
+<dl>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0</dd>
+</dl>
+</li>
+</ul>
+<a name="getFirstResult-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-java.lang.Object-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFirstResult</h4>
+<pre>java.util.Optional&lt;<a href="../../../../org/osate/ge/query/QueryResult.html" title="class in org.osate.ge.query">QueryResult</a>&gt;&nbsp;getFirstResult(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+                                               <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc,
+                                               java.lang.Object&nbsp;arg)</pre>
+<div class="block">Gets the first result</div>
+<dl>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0</dd>
+</dl>
+</li>
+</ul>
+<a name="getFirstResult-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFirstResult</h4>
+<pre>default&nbsp;java.util.Optional&lt;<a href="../../../../org/osate/ge/query/QueryResult.html" title="class in org.osate.ge.query">QueryResult</a>&gt;&nbsp;getFirstResult(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+                                                       <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</pre>
+<div class="block">boc's BO will be query argument</div>
+<dl>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0</dd>
+</dl>
 </li>
 </ul>
 <a name="getResults-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-">
@@ -215,8 +285,13 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>getResults</h4>
-<pre>default&nbsp;java.util.List&lt;<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&gt;&nbsp;getResults(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="interface in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
-                                                         <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</pre>
+<pre>default&nbsp;java.util.List&lt;<a href="../../../../org/osate/ge/query/QueryResult.html" title="class in org.osate.ge.query">QueryResult</a>&gt;&nbsp;getResults(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+                                               <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc)</pre>
+<div class="block">boc's BO will be query argument</div>
+<dl>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0</dd>
+</dl>
 </li>
 </ul>
 <a name="getResults-org.osate.ge.query.StandaloneQuery-org.osate.ge.BusinessObjectContext-java.lang.Object-">
@@ -225,9 +300,13 @@ var activeTableTab = "activeTableTab";
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getResults</h4>
-<pre>java.util.List&lt;<a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&gt;&nbsp;getResults(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="interface in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
-                                                 <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc,
-                                                 java.lang.Object&nbsp;arg)</pre>
+<pre>java.util.List&lt;<a href="../../../../org/osate/ge/query/QueryResult.html" title="class in org.osate.ge.query">QueryResult</a>&gt;&nbsp;getResults(<a href="../../../../org/osate/ge/query/StandaloneQuery.html" title="class in org.osate.ge.query">StandaloneQuery</a>&nbsp;query,
+                                       <a href="../../../../org/osate/ge/BusinessObjectContext.html" title="interface in org.osate.ge">BusinessObjectContext</a>&nbsp;boc,
+                                       java.lang.Object&nbsp;arg)</pre>
+<dl>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0</dd>
+</dl>
 </li>
 </ul>
 </li>

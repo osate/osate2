@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -74,10 +74,6 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 
 		final BehaviorState srcState = ctx.getSource().getBusinessObject(BehaviorState.class).get();
 		final BehaviorState dstState = ctx.getDestination().getBusinessObject(BehaviorState.class).get();
-		if (srcState == dstState) {
-			return Optional.empty();
-		}
-
 		return srcContainer.getBusinessObject(BehaviorAnnex.class)
 				.map(ba -> Operation.createSimple(srcContainer, BehaviorAnnex.class, boToModify -> {
 					final BehaviorTransition baTransition = (BehaviorTransition) EcoreUtil
@@ -94,7 +90,9 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 						final String name = behaviorState.getName();
 						if (srcName.equalsIgnoreCase(name)) { // Source
 							baTransition.setSourceState(behaviorState);
-						} else if (dstName.equalsIgnoreCase(name)) { // Destination
+						}
+
+						if (dstName.equalsIgnoreCase(name)) { // Destination
 							baTransition.setDestinationState(behaviorState);
 						}
 					}

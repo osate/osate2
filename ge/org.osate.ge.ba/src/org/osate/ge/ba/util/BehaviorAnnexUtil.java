@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -39,7 +39,7 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
-import org.osate.ge.ba.ui.dialogs.DataClassifierDescriptionModel;
+import org.osate.ge.ba.ui.dialogs.EObjectDescriptionSingleSelectorModel;
 import org.osate.ge.swt.selectors.FilteringSelectorDialog;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 
@@ -51,7 +51,7 @@ public class BehaviorAnnexUtil {
 	 * Prompts the user for to select a data classifier
 	 */
 	public static Optional<DataClassifier> getDataClassifier(final Resource resource) {
-		final DataClassifierDescriptionModel model = new DataClassifierDescriptionModel(
+		final EObjectDescriptionSingleSelectorModel model = new EObjectDescriptionSingleSelectorModel(
 				AadlModelAccessUtil.getAllEObjectsByType(resource, Aadl2Package.eINSTANCE.getDataClassifier()));
 		if (!FilteringSelectorDialog.open(Display.getCurrent().getActiveShell(), "Set the Variable's Data Classifier",
 				new LabelFilteringListSelectorModel<>(model))) {

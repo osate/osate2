@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -311,6 +311,7 @@ public class UiTestUtil {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Types the specified text in the StyledText specified index.
 	 */
 	public static void typeInStyledText(final int index, final String text) {
@@ -327,9 +328,19 @@ public class UiTestUtil {
 
 	/**
 	 * Clicks the radio button with the specified mnemonic text
+=======
+	 * Clicks the checkbox with the specified mnemonic text
+>>>>>>> branch 'master' of git@github.com:osate/osate2.git
 	 */
 	public static void clickCheckbox(final String text) {
 		bot.checkBox(text).click();
+	}
+
+	/**
+	 * Clicks the checkbox with the specified id
+	 */
+	public static void clickCheckboxById(final String id) {
+		bot.checkBoxWithId(id).click();
 	}
 
 	/**
@@ -337,6 +348,13 @@ public class UiTestUtil {
 	 */
 	public static boolean isCheckboxChecked(final String text) {
 		return bot.checkBox(text).isChecked();
+	}
+
+	/**
+	 * Returns whether check box with the specified id is checked
+	 */
+	public static boolean isCheckboxCheckedById(final String id) {
+		return bot.checkBoxWithId(id).isChecked();
 	}
 
 	/**
@@ -361,6 +379,13 @@ public class UiTestUtil {
 	public static void clickButtonWithId(final String id) {
 		final SWTBotButton btn = bot.buttonWithId(id);
 		btn.click();
+	}
+
+	/**
+	 * Clicks the checkbox which has the specified testing ID.
+	 */
+	public static void clickCheckboxWithId(final String id) {
+		bot.checkBoxWithId(id).click();
 	}
 
 	public static void clickToolbarItem(final String title) {

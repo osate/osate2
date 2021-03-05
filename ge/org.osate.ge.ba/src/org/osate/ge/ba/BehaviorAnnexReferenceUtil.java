@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -24,7 +24,7 @@
 package org.osate.ge.ba;
 
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.aadl2.AnnexHandler;
+import org.osate.ge.aadl2.internal.AnnexHandler;
 
 public class BehaviorAnnexReferenceUtil {
 	private BehaviorAnnexReferenceUtil() {
@@ -46,8 +46,9 @@ public class BehaviorAnnexReferenceUtil {
 		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.STATE_TYPE, name);
 	}
 
-	public static RelativeBusinessObjectReference getTransitionRelativeReference(final int index) {
-		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE, String.valueOf(index));
+	public static RelativeBusinessObjectReference getTransitionRelativeReference(
+			final String refSeg) {
+		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE, refSeg);
 	}
 
 	public static RelativeBusinessObjectReference getVariableRelativeReference(final String name) {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -26,19 +26,24 @@ package org.osate.ge.ba.handlers;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.ui.IEditorPart;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.ge.DiagramCreationUtil;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
+import org.osate.ge.internal.services.DiagramService;
+import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 
 public class OpenBehaviorAnnexDiagramHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		final DefaultAnnexSubclause diagramContext = BehaviorAnnexSelectionUtil.getDiagramContext(activeEditor)
+		final ISelection selection = AgeHandlerUtil.getCurrentSelection();
+		final DefaultAnnexSubclause diagramContext = BehaviorAnnexSelectionUtil
+				.getDiagramContext(selection, HandlerUtil.getActiveEditor(event))
 				.orElseThrow(() -> new RuntimeException("diagramContext cannot be null"));
-		DiagramCreationUtil.openOrCreateDiagram(diagramContext);
+		final DiagramService diagramService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				.getService(DiagramService.class);
+		diagramService.openOrCreateDiagramForBusinessObject(diagramContext);
 		return null;
 	}
 }

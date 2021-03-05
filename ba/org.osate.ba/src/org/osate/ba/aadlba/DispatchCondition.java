@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -20,7 +20,6 @@
 package org.osate.ba.aadlba;
 
 import org.eclipse.emf.common.util.EList;
-import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,71 +38,70 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface DispatchCondition extends BehaviorCondition
-{
-  /**
-   * Returns the value of the '<em><b>Dispatch Trigger Condition</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Dispatch Trigger Condition</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Dispatch Trigger Condition</em>' containment reference.
-   * @see #setDispatchTriggerCondition(DispatchTriggerCondition)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getDispatchCondition_DispatchTriggerCondition()
-   * @model containment="true"
-   * @generated
-   */
-  DispatchTriggerCondition getDispatchTriggerCondition();
+public interface DispatchCondition extends BehaviorCondition {
+	/**
+	 * Returns the value of the '<em><b>Dispatch Trigger Condition</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Dispatch Trigger Condition</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Dispatch Trigger Condition</em>' containment reference.
+	 * @see #setDispatchTriggerCondition(DispatchTriggerCondition)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getDispatchCondition_DispatchTriggerCondition()
+	 * @model containment="true"
+	 * @generated
+	 */
+	DispatchTriggerCondition getDispatchTriggerCondition();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.DispatchCondition#getDispatchTriggerCondition <em>Dispatch Trigger Condition</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Dispatch Trigger Condition</em>' containment reference.
-   * @see #getDispatchTriggerCondition()
-   * @generated
-   */
-  void setDispatchTriggerCondition(DispatchTriggerCondition value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.DispatchCondition#getDispatchTriggerCondition <em>Dispatch Trigger Condition</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Dispatch Trigger Condition</em>' containment reference.
+	 * @see #getDispatchTriggerCondition()
+	 * @generated
+	 */
+	void setDispatchTriggerCondition(DispatchTriggerCondition value);
 
-  /**
-   * Returns the value of the '<em><b>Frozen Ports</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.ba.aadlba.ActualPortHolder}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Frozen Ports</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Frozen Ports</em>' containment reference list.
-   * @see #isSetFrozenPorts()
-   * @see #unsetFrozenPorts()
-   * @see org.osate.ba.aadlba.AadlBaPackage#getDispatchCondition_FrozenPorts()
-   * @model containment="true" unsettable="true"
-   * @generated
-   */
-  EList<ActualPortHolder> getFrozenPorts();
+	/**
+	 * Returns the value of the '<em><b>Frozen Ports</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.ba.aadlba.ActualPortHolder}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Frozen Ports</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Frozen Ports</em>' containment reference list.
+	 * @see #isSetFrozenPorts()
+	 * @see #unsetFrozenPorts()
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getDispatchCondition_FrozenPorts()
+	 * @model containment="true" unsettable="true"
+	 * @generated
+	 */
+	EList<ActualPortHolder> getFrozenPorts();
 
-  /**
-   * Unsets the value of the '{@link org.osate.ba.aadlba.DispatchCondition#getFrozenPorts <em>Frozen Ports</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isSetFrozenPorts()
-   * @see #getFrozenPorts()
-   * @generated
-   */
-  void unsetFrozenPorts();
+	/**
+	 * Unsets the value of the '{@link org.osate.ba.aadlba.DispatchCondition#getFrozenPorts <em>Frozen Ports</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetFrozenPorts()
+	 * @see #getFrozenPorts()
+	 * @generated
+	 */
+	void unsetFrozenPorts();
 
-  /**
-   * Returns whether the value of the '{@link org.osate.ba.aadlba.DispatchCondition#getFrozenPorts <em>Frozen Ports</em>}' containment reference list is set.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return whether the value of the '<em>Frozen Ports</em>' containment reference list is set.
-   * @see #unsetFrozenPorts()
-   * @see #getFrozenPorts()
-   * @generated
-   */
-  boolean isSetFrozenPorts();
+	/**
+	 * Returns whether the value of the '{@link org.osate.ba.aadlba.DispatchCondition#getFrozenPorts <em>Frozen Ports</em>}' containment reference list is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Frozen Ports</em>' containment reference list is set.
+	 * @see #unsetFrozenPorts()
+	 * @see #getFrozenPorts()
+	 * @generated
+	 */
+	boolean isSetFrozenPorts();
 
 } // DispatchCondition

@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -20,7 +20,6 @@
 package org.osate.ba.aadlba;
 
 import org.osate.aadl2.StringLiteral;
-import org.osate.ba.utils.visitor.IBAVisitable ;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,6 +31,5 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface BehaviorStringLiteral extends StringLiteral, Literal
-{
+public interface BehaviorStringLiteral extends StringLiteral, Literal {
 } // BehaviorStringLiteral
