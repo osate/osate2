@@ -135,6 +135,19 @@ public class OsateGeTestUtil {
 	 * @param parentElement the parent of the new element
 	 * @param paletteItem the type of element to create
 	 * @param referenceAfterCreate the default name of the created element
+	 */
+	public static void createShapeElement(final DiagramReference diagram, final DiagramElementReference parentElement,
+			final String paletteItem, final RelativeBusinessObjectReference referenceAfterCreate) {
+		createShapeElement(diagram, parentElement, paletteItem, referenceAfterCreate, () -> {
+		});
+	}
+
+	/**
+	 * Create a shape element the on the specified diagram within the referenced element.
+	 * @param diagram diagram the element will be created on
+	 * @param parentElement the parent of the new element
+	 * @param paletteItem the type of element to create
+	 * @param referenceAfterCreate the default name of the created element
 	 * @param postExecPaletteItem runnable to call after the palette item is executed
 	 */
 	public static void createShapeElement(final DiagramReference diagram, final DiagramElementReference parentElement,
@@ -183,6 +196,22 @@ public class OsateGeTestUtil {
 	 * @param dest the destination of the connection
 	 * @param paletteItem the type of connection to be created
 	 * @param referenceAfterCreate the reference of the created connection
+	 */
+	public static void createConnectionElement(final DiagramReference diagram, final DiagramElementReference src,
+			final DiagramElementReference dest, final String paletteItem,
+			final DiagramElementReference referenceAfterCreate) {
+		createConnectionElement(diagram, src, dest, paletteItem, referenceAfterCreate, () -> {
+		});
+	}
+
+	/**
+	 * Creates a connection element on the specified diagram with referenced
+	 * source and destination.
+	 * @param diagram the diagram the connection will be created on
+	 * @param src the source of the connection
+	 * @param dest the destination of the connection
+	 * @param paletteItem the type of connection to be created
+	 * @param referenceAfterCreate the reference of the created connection
 	 * @param postExecPaletteItem runnable to call after the palette item is executed
 	 */
 	public static void createConnectionElement(final DiagramReference diagram, final DiagramElementReference src,
@@ -198,6 +227,14 @@ public class OsateGeTestUtil {
 
 		// Wait for element to be created
 		waitForDiagramElementToExist(diagram, referenceAfterCreate);
+	}
+
+	/**
+	 * Returns whether the specified element exists
+	 */
+	public static boolean elementExists(final DiagramReference diagram, final DiagramElementReference element) {
+		assertDiagramEditorActive(diagram);
+		return getDiagramElement(diagram, element).isPresent();
 	}
 
 	/**
@@ -286,12 +323,32 @@ public class OsateGeTestUtil {
 		clickCheckboxInPropertiesView(tabLabel, index);
 	}
 
+	/**
+	 * Selects referenced element and clicks the check box
+	 * with the specified id in the properties view specified tab.
+	 */
+	public static void clickCheckboxByIdInPropertiesView(final DiagramReference diagram, final String tabLabel,
+			final String id, final boolean newCheckboxState, final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+		clickCheckboxByIdInPropertiesView(tabLabel, id);
+		waitUntilCheckboxCheckedStateById(id, newCheckboxState);
+	}
+
 	private static void clickCheckboxInPropertiesView(final String tabLabel, final int index) {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
 		clickPropertiesViewTab(tabLabel);
 		clickCheckbox(index);
+	}
+
+	private static void clickCheckboxByIdInPropertiesView(final String tabLabel, final String id) {
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab(tabLabel);
+		clickCheckboxById(id);
 	}
 
 	private static void clickRadioButtonInPropertiesView(final String tabLabel, final String btnLabel) {
@@ -341,6 +398,14 @@ public class OsateGeTestUtil {
 	 */
 	public static void waitUntilCheckboxCheckedState(final String text, final boolean value) {
 		waitUntil(() -> isCheckboxChecked(text) == value, "Check box '" + text + "' check state is not " + value + ".");
+	}
+
+	/**
+	 * Waits until a check box's check state matches the specified value
+	 */
+	public static void waitUntilCheckboxCheckedStateById(final String id, final boolean value) {
+		waitUntil(() -> Objects.equals(isCheckboxCheckedById(id), value),
+				"Check box id '" + id + "' check state is not " + value + ".");
 	}
 
 	/**

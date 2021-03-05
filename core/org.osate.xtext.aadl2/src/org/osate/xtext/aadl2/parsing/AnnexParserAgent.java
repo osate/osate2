@@ -52,6 +52,7 @@ import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.QueuingParseErrorReporter.Message;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
+import org.osate.annexsupport.AnnexModel;
 import org.osate.annexsupport.AnnexParser;
 import org.osate.annexsupport.AnnexParserRegistry;
 import org.osate.annexsupport.AnnexRegistry;
@@ -187,6 +188,8 @@ public class AnnexParserAgent extends LazyLinker {
 			if (annexText.startsWith("{**")) {
 				annexText = annexText.substring(3, annexText.length() - 3);
 			}
+
+			annexName = AnnexModel.filterDisabledAnnexes(defaultAnnexSection, annexName);
 			AnnexParser ap = PARSER_REGISTRY.getAnnexParser(annexName);
 
 			try {

@@ -811,7 +811,6 @@
           name="*"/>
       <sourceLocator
           rootFolder="${git.clone.osate2.location}">
-        <excludedPath>ge/org.osate.ge.ba</excludedPath>
       </sourceLocator>
       <repositoryList
           name="2020-03">
