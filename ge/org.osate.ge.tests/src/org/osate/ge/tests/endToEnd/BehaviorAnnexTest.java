@@ -243,11 +243,11 @@ public class BehaviorAnnexTest {
 
 		// Create a transition condition
 		setTransitionCondition(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_CONDITION, "on dispatch",
-				element(behaviorSpecification, transitionRef));
+				behaviorSpecification, transitionRef);
 
 		// Erase the transition condition
 		setTransitionCondition(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_CONDITION, "",
-				element(behaviorSpecification, transitionRef));
+				behaviorSpecification, transitionRef);
 
 		// Test renaming for states with same name of a mode with transition
 		renameElementDirectEdit(baDiagram, element(behaviorSpecification),
@@ -263,14 +263,25 @@ public class BehaviorAnnexTest {
 				true, src);
 	}
 
-	private static void setTransitionCondition(final DiagramReference baDiagram, final String id, String conditionText,
-			DiagramElementReference diagramElementReference) {
+	private static void setTransitionCondition(final DiagramReference baDiagram, final String id,
+			final String conditionText, final RelativeBusinessObjectReference specRef,
+			final RelativeBusinessObjectReference transitionRef) {
+		final DiagramElementReference specDiagramRef = element(specRef);
+		final DiagramElementReference transitionDiagramRef = specDiagramRef.join(transitionRef);
 		// Set condition text
-		typeInStyledTextInPropertiesView(baDiagram, "AADL", id, conditionText, diagramElementReference);
+		typeInStyledTextInPropertiesView(baDiagram, "AADL", id, conditionText, transitionDiagramRef);
 
 		// Save
 		clickButtonInPropertiesView("AADL", "Save");
-		waitForStyledTextToMatch(BehaviorTransitionPropertySection.WIDGET_ID_CONDITION, conditionText);
+
+		// Clear selection
+		selectDiagramElements(baDiagram, specDiagramRef);
+
+		// Select transition
+		selectDiagramElements(baDiagram, transitionDiagramRef);
+
+		// Check styled text to see if condition update was successful
+		waitForStyledTextToMatch(id, conditionText);
 	}
 
 	// Open Behavior Annex diagram
