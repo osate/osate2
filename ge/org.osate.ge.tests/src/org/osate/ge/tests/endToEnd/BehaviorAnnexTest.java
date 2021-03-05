@@ -242,12 +242,11 @@ public class BehaviorAnnexTest {
 				transitionRef);
 
 		// Create a transition condition
-		typeInStyledTextInPropertiesView(baDiagram, "AADL", BehaviorTransitionPropertySection.WIDGET_ID_CONDITION,
-				"on dispatch",
+		setTransitionCondition(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_CONDITION, "on dispatch",
 				element(behaviorSpecification, transitionRef));
 
 		// Erase the transition condition
-		typeInStyledTextInPropertiesView(baDiagram, "AADL", BehaviorTransitionPropertySection.WIDGET_ID_CONDITION, "",
+		setTransitionCondition(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_CONDITION, "",
 				element(behaviorSpecification, transitionRef));
 
 		// Test renaming for states with same name of a mode with transition
@@ -262,6 +261,16 @@ public class BehaviorAnnexTest {
 		// Set completeness
 		clickCheckboxByIdInPropertiesView(baDiagram, "AADL", BehaviorStatePropertySection.WIDGET_ID_COMPLETE,
 				true, src);
+	}
+
+	private static void setTransitionCondition(final DiagramReference baDiagram, final String id, String conditionText,
+			DiagramElementReference diagramElementReference) {
+		// Set condition text
+		typeInStyledTextInPropertiesView(baDiagram, "AADL", id, conditionText, diagramElementReference);
+
+		// Save
+		clickButtonInPropertiesView("AADL", "Save");
+		waitForStyledTextToMatch(BehaviorTransitionPropertySection.WIDGET_ID_CONDITION, conditionText);
 	}
 
 	// Open Behavior Annex diagram

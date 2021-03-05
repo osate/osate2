@@ -321,15 +321,12 @@ public class UiTestUtil {
 			// Send notification
 			styledText.widget.notifyListeners(SWT.KeyUp, new Event());
 		});
-
-		clickButton("Save");
-
-		waitStyledTextToMatch(bot.styledTextWithId(id), text);
 	}
 
-	private static void waitStyledTextToMatch(final SWTBotStyledText styledText, final String text) {
+	public static void waitForStyledTextToMatch(final String id, final String text) {
+		final SWTBotStyledText styledText = bot.styledTextWithId(id);
 		waitUntil(() -> styledText.getText().equals(text),
-				"'StyledText text ' + styledText.getText()" + "'does not match expected '" + text);
+				"StyledText text '" + styledText.getText() + "' does not match expected '" + text + "'");
 	}
 
 	/**
