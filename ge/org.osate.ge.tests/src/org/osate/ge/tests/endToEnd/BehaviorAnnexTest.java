@@ -36,6 +36,7 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.AadlReferenceUtil;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.ui.properties.BehaviorStatePropertySection;
+import org.osate.ge.ba.ui.properties.BehaviorTransitionPropertySection;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.tests.endToEnd.util.DiagramElementReference;
 import org.osate.ge.tests.endToEnd.util.DiagramReference;
@@ -239,7 +240,14 @@ public class BehaviorAnnexTest {
 		// Rename transition
 		renameElementFromContextMenu(baDiagram, element(behaviorSpecification), initTransitionRef, "new_transition",
 				transitionRef);
-		typeInStyledTextInPropertiesView(baDiagram, "AADL", 0, "on dispatch",
+
+		// Create a transition condition
+		typeInStyledTextInPropertiesView(baDiagram, "AADL", BehaviorTransitionPropertySection.WIDGET_ID_CONDITION,
+				"on dispatch",
+				element(behaviorSpecification, transitionRef));
+
+		// Erase the transition condition
+		typeInStyledTextInPropertiesView(baDiagram, "AADL", BehaviorTransitionPropertySection.WIDGET_ID_CONDITION, "",
 				element(behaviorSpecification, transitionRef));
 
 		// Test renaming for states with same name of a mode with transition

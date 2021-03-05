@@ -61,6 +61,7 @@ import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osate.xtext.aadl2.ui.propertyview.OsateStyledTextXtextAdapter;
@@ -77,6 +78,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		}
 	}
 
+	public static String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.condition";
 	private Composite composite;
 	private BusinessObjectSelection selectedBos;
 	private BehaviorAnnexStyledTextXtextAdapter xtextAdapter;
@@ -132,6 +134,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		transitionText.setLayoutData(
 				GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(SWT.DEFAULT, SWT.DEFAULT)
 						.create());
+		SwtUtil.setTestingId(transitionText, WIDGET_ID_CONDITION);
 		return transitionText;
 	}
 
