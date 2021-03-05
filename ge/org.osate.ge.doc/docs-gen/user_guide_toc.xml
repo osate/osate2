@@ -17,12 +17,6 @@
 		</topic>
 		<topic label="Creating Mode Transitions" href="docs-gen/user_guide.html#creating-mode-transitions">
 		</topic>
-		<topic label="Creating Behavior Annexes" href="docs-gen/user_guide.html#creating-behavior-annexes">
-			<topic label="Creating Behavior Transitions" href="docs-gen/user_guide.html#creating-behavior-transitions">
-			</topic>
-			<topic label="Creating Behavior Variables" href="docs-gen/user_guide.html#creating-behavior-variables">
-			</topic>
-		</topic>
 		<topic label="Creating Flow Implementations and End-To-End Flow Specifications" href="docs-gen/user_guide.html#creating-flow-implementations-and-end-to-end-flow-specifications">
 			<topic label="Creating Flow Implementations" href="docs-gen/user_guide.html#creating-flow-implementations">
 			</topic>
@@ -56,12 +50,6 @@
 		<topic label="Bindings" href="docs-gen/user_guide.html#sec:bindings">
 		</topic>
 		<topic label="Prototypes" href="docs-gen/user_guide.html#prototypes">
-		</topic>
-		<topic label="Behavior Annexes" href="docs-gen/user_guide.html#behavior-annexes">
-			<topic label="Editing States" href="docs-gen/user_guide.html#editing-states">
-			</topic>
-			<topic label="Editing Variables" href="docs-gen/user_guide.html#editing-variables">
-			</topic>
 		</topic>
 		<topic label="Flow Implementations and End-to-End Flows" href="docs-gen/user_guide.html#flow-implementations-and-end-to-end-flows">
 			<topic label="Editing" href="docs-gen/user_guide.html#editing">

@@ -17,11 +17,7 @@
     catch(err) {
     }
 //-->
-<<<<<<< HEAD
-var methods = {"i0":18,"i1":18,"i2":18,"i3":18,"i4":6,"i5":6,"i6":18,"i7":6,"i8":18,"i9":18,"i10":6,"i11":6,"i12":18};
-=======
 var methods = {"i0":18,"i1":18,"i2":18,"i3":6,"i4":6,"i5":18,"i6":6,"i7":18,"i8":18,"i9":6,"i10":6,"i11":18};
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -102,10 +98,6 @@ var activeTableTab = "activeTableTab";
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
-<dl>
-<dt>All Known Implementing Classes:</dt>
-<dd>org.osate.ge.aadl2.internal.AadlBusinessObjectHandler, <a href="../../../../org/osate/ge/aadl2/AnnexHandler.html" title="class in org.osate.ge.aadl2">AnnexHandler</a></dd>
-</dl>
 <hr>
 <br>
 <pre>public interface <span class="typeNameLabel">BusinessObjectHandler</span></pre>
@@ -134,20 +126,6 @@ var activeTableTab = "activeTableTab";
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>default void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/businessobjecthandling/BusinessObjectHandler.html#afterPaste-org.osate.ge.businessobjecthandling.PasteContext-">afterPaste</a></span>(<a href="../../../../org/osate/ge/businessobjecthandling/PasteContext.html" title="class in org.osate.ge.businessobjecthandling">PasteContext</a>&nbsp;ctx)</code>
-<div class="block">Runs after a paste is executed to make any modifications to the newly
- pasted business object specified in the context if the business object is an instance
- of <code>org.eclipse.emf.ecore.EObject</code>.</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>default boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/businessobjecthandling/BusinessObjectHandler.html#canCopy--">canCopy</a></span>()</code>
-<div class="block">Returns true if the business object specified in the context can be copied.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
 <td class="colFirst"><code>default boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/businessobjecthandling/BusinessObjectHandler.html#canCopy-org.osate.ge.businessobjecthandling.CanCopyContext-">canCopy</a></span>(<a href="../../../../org/osate/ge/businessobjecthandling/CanCopyContext.html" title="class in org.osate.ge.businessobjecthandling">CanCopyContext</a>&nbsp;ctx)</code>
 <div class="block">Returns true if the business object specified in the context can be copied.</div>
@@ -159,101 +137,61 @@ var activeTableTab = "activeTableTab";
 <div class="block">Returns true if the business object specified in the context can be deleted.</div>
 </td>
 </tr>
-<<<<<<< HEAD
-<tr id="i3" class="rowColor">
-=======
 <tr id="i2" class="altColor">
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 <td class="colFirst"><code>default boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/businessobjecthandling/BusinessObjectHandler.html#canRename-org.osate.ge.businessobjecthandling.CanRenameContext-">canRename</a></span>(<a href="../../../../org/osate/ge/businessobjecthandling/CanRenameContext.html" title="class in org.osate.ge.businessobjecthandling">CanRenameContext</a>&nbsp;ctx)</code>
 <div class="block">Returns true if the business object specified in the context can be renamed.</div>
 </td>
 </tr>
-<<<<<<< HEAD
-<tr id="i4" class="altColor">
-=======
 <tr id="i3" class="rowColor">
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 <td class="colFirst"><code><a href="../../../../org/osate/ge/CanonicalBusinessObjectReference.html" title="class in org.osate.ge">CanonicalBusinessObjectReference</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/businessobjecthandling/BusinessObjectHandler.html#getCanonicalReference-org.osate.ge.businessobjecthandling.ReferenceContext-">getCanonicalReference</a></span>(<a href="../../../../org/osate/ge/businessobjecthandling/ReferenceContext.html" title="class in org.osate.ge.businessobjecthandling">ReferenceContext</a>&nbsp;ctx)</code>
 <div class="block">Returns a canonical reference for the business object contained in the context.</div>
 </td>
 </tr>
-<<<<<<< HEAD
-<tr id="i5" class="rowColor">
-=======
 <tr id="i4" class="altColor">
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 <td class="colFirst"><code>java.util.Optional&lt;<a href="../../../../org/osate/ge/GraphicalConfiguration.html" title="class in org.osate.ge">GraphicalConfiguration</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/businessobjecthandling/BusinessObjectHandler.html#getGraphicalConfiguration-org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext-">getGraphicalConfiguration</a></span>(<a href="../../../../org/osate/ge/businessobjecthandling/GetGraphicalConfigurationContext.html" title="class in org.osate.ge.businessobjecthandling">GetGraphicalConfigurationContext</a>&nbsp;ctx)</code>
 <div class="block">Returns the graphical configuration for the specified context.</div>
 </td>
 </tr>
-<<<<<<< HEAD
-<tr id="i6" class="altColor">
-=======
 <tr id="i5" class="rowColor">
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 <td class="colFirst"><code>default java.util.Optional&lt;java.lang.String&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/businessobjecthandling/BusinessObjectHandler.html#getIconId-org.osate.ge.businessobjecthandling.GetIconIdContext-">getIconId</a></span>(<a href="../../../../org/osate/ge/businessobjecthandling/GetIconIdContext.html" title="class in org.osate.ge.businessobjecthandling">GetIconIdContext</a>&nbsp;ctx)</code>
 <div class="block">Returns an icon to use for the business object specified in the context.</div>
 </td>
 </tr>
-<<<<<<< HEAD
-<tr id="i7" class="rowColor">
-=======
 <tr id="i6" class="altColor">
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/businessobjecthandling/BusinessObjectHandler.html#getName-org.osate.ge.businessobjecthandling.GetNameContext-">getName</a></span>(<a href="../../../../org/osate/ge/businessobjecthandling/GetNameContext.html" title="class in org.osate.ge.businessobjecthandling">GetNameContext</a>&nbsp;ctx)</code>
 <div class="block">Gets the name that should be displayed in labels for the business object in the user interface.</div>
 </td>
 </tr>
-<<<<<<< HEAD
-<tr id="i8" class="altColor">
-=======
 <tr id="i7" class="rowColor">
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 <td class="colFirst"><code>default java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/businessobjecthandling/BusinessObjectHandler.html#getNameForDiagram-org.osate.ge.businessobjecthandling.GetNameForDiagramContext-">getNameForDiagram</a></span>(<a href="../../../../org/osate/ge/businessobjecthandling/GetNameForDiagramContext.html" title="class in org.osate.ge.businessobjecthandling">GetNameForDiagramContext</a>&nbsp;ctx)</code>
 <div class="block">Returns the name that should be used for the primary label for diagram elements representing the business object in the diagram editor.</div>
 </td>
 </tr>
-<<<<<<< HEAD
-<tr id="i9" class="rowColor">
-=======
 <tr id="i8" class="altColor">
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 <td class="colFirst"><code>default java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/businessobjecthandling/BusinessObjectHandler.html#getNameForRenaming-org.osate.ge.businessobjecthandling.GetNameContext-">getNameForRenaming</a></span>(<a href="../../../../org/osate/ge/businessobjecthandling/GetNameContext.html" title="class in org.osate.ge.businessobjecthandling">GetNameContext</a>&nbsp;ctx)</code>
 <div class="block">Gets the name of the element that is edited by the user during the renaming process.</div>
 </td>
 </tr>
-<<<<<<< HEAD
-<tr id="i10" class="altColor">
-=======
 <tr id="i9" class="rowColor">
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 <td class="colFirst"><code><a href="../../../../org/osate/ge/RelativeBusinessObjectReference.html" title="class in org.osate.ge">RelativeBusinessObjectReference</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/businessobjecthandling/BusinessObjectHandler.html#getRelativeReference-org.osate.ge.businessobjecthandling.ReferenceContext-">getRelativeReference</a></span>(<a href="../../../../org/osate/ge/businessobjecthandling/ReferenceContext.html" title="class in org.osate.ge.businessobjecthandling">ReferenceContext</a>&nbsp;ctx)</code>
 <div class="block">Returns a relative reference for the business object contained in the context.</div>
 </td>
 </tr>
-<<<<<<< HEAD
-<tr id="i11" class="rowColor">
-=======
 <tr id="i10" class="altColor">
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/businessobjecthandling/BusinessObjectHandler.html#isApplicable-org.osate.ge.businessobjecthandling.IsApplicableContext-">isApplicable</a></span>(<a href="../../../../org/osate/ge/businessobjecthandling/IsApplicableContext.html" title="class in org.osate.ge.businessobjecthandling">IsApplicableContext</a>&nbsp;ctx)</code>
 <div class="block">Determines whether a business object handler is applicable based on the specified context.</div>
 </td>
 </tr>
-<<<<<<< HEAD
-<tr id="i12" class="altColor">
-=======
 <tr id="i11" class="rowColor">
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 <td class="colFirst"><code>default java.util.Optional&lt;java.lang.String&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/businessobjecthandling/BusinessObjectHandler.html#validateName-org.osate.ge.businessobjecthandling.RenameContext-">validateName</a></span>(<a href="../../../../org/osate/ge/businessobjecthandling/RenameContext.html" title="class in org.osate.ge.businessobjecthandling">RenameContext</a>&nbsp;ctx)</code>
 <div class="block">Determines whether a proposed name is a valid new name for a business object.</div>
@@ -478,40 +416,6 @@ var activeTableTab = "activeTableTab";
 </dl>
 </li>
 </ul>
-<<<<<<< HEAD
-<a name="canCopy--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>canCopy</h4>
-<pre>default&nbsp;boolean&nbsp;canCopy()</pre>
-<div class="block">Returns true if the business object specified in the context can be copied.
- Copyable business objects must match one of the following criteria:
- <ul>
- <li>It must be an instance of <code>org.eclipse.emf.ecore.EObject</code>.</li>
- <li>It must be an instance of <code>EmbeddedBusinessObject</code>}</li>
- </ul></div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>whether the business object can be deleted.</dd>
-</dl>
-</li>
-</ul>
-<a name="afterPaste-org.osate.ge.businessobjecthandling.PasteContext-">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>afterPaste</h4>
-<pre>default&nbsp;void&nbsp;afterPaste(<a href="../../../../org/osate/ge/businessobjecthandling/PasteContext.html" title="class in org.osate.ge.businessobjecthandling">PasteContext</a>&nbsp;ctx)</pre>
-<div class="block">Runs after a paste is executed to make any modifications to the newly
- pasted business object specified in the context if the business object is an instance
- of <code>org.eclipse.emf.ecore.EObject</code>.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>ctx</code> - the context for the paste</dd>
-=======
 <a name="canCopy-org.osate.ge.businessobjecthandling.CanCopyContext-">
 <!--   -->
 </a>
@@ -524,7 +428,6 @@ var activeTableTab = "activeTableTab";
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>whether the business object can be copied.</dd>
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 </dl>
 </li>
 </ul>
