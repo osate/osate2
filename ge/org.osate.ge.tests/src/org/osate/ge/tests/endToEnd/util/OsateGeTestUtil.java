@@ -313,17 +313,6 @@ public class OsateGeTestUtil {
 	}
 
 	/**
-	 * Selects referenced element and clicks
-	 * the button with text in the properties view specified tab.
-	 */
-	public static void clickButtonInPropertiesView(final DiagramReference diagram, final String tabLabel,
-			final String btnLabel, final DiagramElementReference... elements) {
-		openDiagramEditor(diagram);
-		selectDiagramElements(diagram, elements);
-		clickButtonInPropertiesView(tabLabel, btnLabel);
-	}
-
-	/**
 	 * Selects referenced element and clicks the nth
 	 * check box with in the properties view specified tab.
 	 */
@@ -344,6 +333,17 @@ public class OsateGeTestUtil {
 		selectDiagramElements(diagram, elements);
 		clickCheckboxByIdInPropertiesView(tabLabel, id);
 		waitUntilCheckboxCheckedStateById(id, newCheckboxState);
+	}
+
+	/**
+	 * Selects referenced element and enters the specified text into
+	 * the StyledText with the specified id in the properties view of the specified tab.
+	 */
+	public static void typeInStyledTextInPropertiesView(final DiagramReference diagram, final String tabLabel,
+			final int index, final String text, final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+		typeInStyledText(index, text);
 	}
 
 	private static void clickCheckboxInPropertiesView(final String tabLabel, final int index) {

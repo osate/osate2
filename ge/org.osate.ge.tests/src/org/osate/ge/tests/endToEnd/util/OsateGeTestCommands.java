@@ -785,12 +785,7 @@ public class OsateGeTestCommands {
 	}
 
 	/**
-<<<<<<< HEAD
-	 * Renames an element using the diagram context menu. NOTE: This function currently assumes that the relative reference
-	 * is composed of exactly two elements and the second element is the name.
-=======
 	 * Renames an element using the diagram context menu.
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 	 * @param parent the parent of the new element
 	 * @param element is the element to rename
 	 * @param newName the name of the new element
