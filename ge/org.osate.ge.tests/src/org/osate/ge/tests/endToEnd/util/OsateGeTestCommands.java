@@ -228,10 +228,6 @@ public class OsateGeTestCommands {
 	public static void createImplementationWithExistingType(final DiagramReference diagram,
 			final DiagramElementReference pkg, final String toolType, final String implName, final String classifierPkg,
 			final String classifier) {
-		System.err.println(implName + " implName");
-		System.err.println(classifierPkg + " classifierPkg");
-		System.err.println(classifier + " classifier");
-
 		openDiagramEditor(diagram);
 
 		selectPaletteItem(diagram, toolType);
@@ -243,8 +239,6 @@ public class OsateGeTestCommands {
 		clickRadioButton("Existing");
 		clickButton("...");
 		waitForWindowWithTitle("Select Base Classifier");
-
-		System.err.println(classifierPkg + "::" + classifier);
 
 		clickTableItem(0, classifierPkg + "::" + classifier);
 		clickButton("OK");

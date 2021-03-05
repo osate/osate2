@@ -311,18 +311,26 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Types the specified text in the StyledText specified index.
+	 * Types the specified text in the StyledText with the specified id.
 	 */
-	public static void typeInStyledText(final int index, final String text) {
-		final SWTBotStyledText styledText = bot.styledText(index);
-
+	public static void typeInStyledText(final String id, final String text) {
+		// TODO type each letter?
+		final SWTBotStyledText styledText = bot.styledTextWithId(id);
 		styledText.setText(text);
+
 		Display.getDefault().syncExec(() -> {
 			// Send notification
 			styledText.widget.notifyListeners(SWT.KeyUp, new Event());
 		});
 
 		clickButton("Save");
+
+		waitStyledTextToMatch(bot.styledTextWithId(id), text);
+	}
+
+	private static void waitStyledTextToMatch(final SWTBotStyledText styledText, final String text) {
+		waitUntil(() -> styledText.getText().equals(text),
+				"'StyledText text ' + styledText.getText()" + "'does not match expected '" + text);
 	}
 
 	/**
