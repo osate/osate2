@@ -32,18 +32,18 @@ Annexes are separate from the core AADL in the following sense: if all annex lib
 
 As different annexes are treated as independent of each other and the core language, it is possible to ignore an annex when processing a model. OSATE supports this by defining a default annex meta-model, parser, and unparser. The default annex meta-model simply stores the source text of an annex library or subclause as a string, and the default parser and unparser are trivial as they don’t process the annex content. This allows processing of AADL models with annex elements even if the plug-ins for a particular annex are not installed. OSATE enables this via the `OSATE > Annex` preference pane:
 
-![Annex Preference Page](images/AdvancedOSATEFeatures/AnnexPreferencePane.jpeg)
+![Annex Preference Page](images/AdvancedOSATEFeatures/AnnexPreferencePane.jpg)
 
 Default settings is to use workspace preferences with all annexes turned on. There's also an option to configure annex settings per each project:
 
 1. Click `Configure Project Specific Settings...`
 2. Select a project to set a preference for and click ok
 
-![Annex Setting per Project](images/AdvancedOSATEFeatures/AnnexPerProjectSetting.jpeg)
+![Annex Setting per Project](images/AdvancedOSATEFeatures/AnnexPerProjectSetting.jpg)
 
 3. Click `Use project settings`
 4. Select the annexes that should be turned on for selected project
 
-![Annex Preference Page for a Selected Project](images/AdvancedOSATEFeatures/AnnexProjectPreferencePane.jpeg)
+![Annex Preference Page for a Selected Project](images/AdvancedOSATEFeatures/AnnexProjectPreferencePane.jpg)
 
 A complete description of AADL Annexes is available in [An Implementation of the Behavior Annex in the AADL-toolset Osate2](https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=74852)
