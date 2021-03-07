@@ -9010,10 +9010,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		return false;
 	}
 
-	/**
-	 * @since 6.0
-	 */
-	public boolean checkSubprogramGroupNoFlowSpecification(FlowSpecification flowSpec) {
+	private boolean checkSubprogramGroupNoFlowSpecification(FlowSpecification flowSpec) {
 		if (flowSpec.getOwner() instanceof SubprogramGroup) {
 			error(flowSpec, "Flow specifications are not allowed within a Subprogram Group");
 			return false;
