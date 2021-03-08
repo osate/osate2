@@ -53,18 +53,19 @@ public class AadlElementContentProvider implements ITreeContentProvider {
 	@Override
 	public Object[] getChildren(Object parentElement) {
 		Stream<EObject> children;
+		final ResourceSetImpl resourceSet = new ResourceSetImpl();
 		if (parentElement instanceof IFile) {
 			String path = ((IFile) parentElement).getFullPath().toString();
 			URI uri = URI.createPlatformResourceURI(path, true);
-			Resource resource = new ResourceSetImpl().getResource(uri, true);
+			Resource resource = resourceSet.getResource(uri, true);
 			children = resource.getContents().stream();
 		} else if (parentElement instanceof ContributedAadlStorage) {
 			URI uri = ((ContributedAadlStorage) parentElement).getUri();
-			Resource resource = new ResourceSetImpl().getResource(uri, true);
+			Resource resource = resourceSet.getResource(uri, true);
 			children = resource.getContents().stream();
 		} else {
 			EObjectURIWrapper wrapper = (EObjectURIWrapper) parentElement;
-			EObject eObject = new ResourceSetImpl().getEObject(wrapper.getUri(), true);
+			EObject eObject = resourceSet.getEObject(wrapper.getUri(), true);
 			if (eObject instanceof AadlPackage || eObject instanceof PropertySet
 					|| eObject instanceof ComponentInstance) {
 				children = eObject.eContents().stream().filter(
@@ -79,7 +80,8 @@ public class AadlElementContentProvider implements ITreeContentProvider {
 				children = Stream.empty();
 			}
 		}
-		final EObjectURIWrapper.Factory factory = new EObjectURIWrapper.Factory(UiUtil.getModelElementLabelProvider());
+		final EObjectURIWrapper.Factory factory = new EObjectURIWrapper.Factory(resourceSet,
+				UiUtil.getModelElementLabelProvider());
 		// Issue 2430: limit the number of children to 150
 		return children.limit(150).map(element -> factory.createWrapperFor(element)).toArray();
 	}
