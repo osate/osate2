@@ -79,9 +79,13 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	}
 
 	public static String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.condition";
+	private static final Injector injector = Aadl2Activator.getInstance()
+			.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
 	private Composite composite;
+	private StyledText conditionStyledText;
+	private Button saveBtn;
 	private BusinessObjectSelection selectedBos;
-	private BehaviorAnnexStyledTextXtextAdapter xtextAdapter;
+	private OsateXtextAdatper xtextAdapter;
 
 	@Override
 	public void setInput(final IWorkbenchPart part, final ISelection selection) {
@@ -92,7 +96,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
-		xtextAdapter = new BehaviorAnnexStyledTextXtextAdapter();
 		// Create composite for widgets
 		createComposite(parent);
 	}
@@ -102,10 +105,12 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		composite.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
 	}
 
-	private Button createSaveButton(final boolean isSingleSelection,
-			TransactionalEditingDomain editingDomain, final StyledText styledText, TextValue conditionTextValue, IProject project, XtextResource xtextResource,
-			IXtextDocument xtextDocument) {
-		final Button saveBtn = new Button(composite, SWT.PUSH);
+	private void setSaveButton(final boolean isSingleSelection, final TransactionalEditingDomain editingDomain,
+			final TextValue conditionTextValue, final IProject project, final XtextResource xtextResource,
+			final IXtextDocument xtextDocument) {
+		disposeControl(saveBtn);
+
+		saveBtn = new Button(composite, SWT.PUSH);
 		saveBtn.setText("Save");
 		saveBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -116,26 +121,27 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 							editorPart.getAdapter(ModelChangeNotifier.class), "Unable to get model change notifier");
 
 					actionService.execute("Modifying BehaviorTranistion Condition", ExecutionMode.NORMAL,
-							new ConditionModification(styledText.getText(), editingDomain, xtextDocument, xtextResource,
+							new ConditionModification(conditionStyledText.getText(), editingDomain, xtextDocument,
+									xtextResource,
 									modelChangeNotifier, project, conditionTextValue));
 				});
 			}
 		});
 
 		saveBtn.setEnabled(isSingleSelection);
-		return saveBtn;
 	}
 
-	private StyledText getConditionText(final boolean isSingleSelection) {
+	private void setConditionText(final boolean isSingleSelection) {
+		disposeControl(conditionStyledText);
+
 		// Create styled text
-		final StyledText transitionText = new StyledText(composite, SWT.BORDER | SWT.SINGLE);
+		conditionStyledText = new StyledText(composite, SWT.BORDER | SWT.SINGLE);
 		// Disable on multiple selection
-		transitionText.setEnabled(isSingleSelection);
-		transitionText.setLayoutData(
+		conditionStyledText.setEnabled(isSingleSelection);
+		conditionStyledText.setLayoutData(
 				GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(SWT.DEFAULT, SWT.DEFAULT)
 						.create());
-		SwtUtil.setTestingId(transitionText, WIDGET_ID_CONDITION);
-		return transitionText;
+		SwtUtil.setTestingId(conditionStyledText, WIDGET_ID_CONDITION);
 	}
 
 	@Override
@@ -158,18 +164,16 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 					final TextValue conditionTextValue = getConditionTextValue(behaviorTransition, text);
 
 					// Styled text to enter the new condition text
-					final StyledText conditionStyledText = getConditionText(isSingleSelection);
+					setConditionText(isSingleSelection);
 					// Button to execute the condition modification
-					final Button saveBtn = createSaveButton(isSingleSelection, editingDomain, conditionStyledText,
+					setSaveButton(isSingleSelection, editingDomain,
 							conditionTextValue, project, xtextResource, xtextDocument);
-					conditionStyledText
-							.addKeyListener(new ConditionModificationKeyAdapter(behaviorTransition, saveBtn,
-									conditionStyledText));
-
 					// Dispose of current adapter and create new one
-					setXtextAdapter(project, conditionStyledText, saveBtn);
-					updateAdapterDocument(conditionTextValue);
+					setXtextAdapter(project);
+					conditionStyledText
+							.addKeyListener(new ConditionModificationKeyAdapter(behaviorTransition));
 
+					updateAdapterDocument(conditionTextValue);
 				});
 
 		// Layout composite
@@ -178,22 +182,19 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 	private class ConditionModificationKeyAdapter extends KeyAdapter {
 		private final BehaviorTransition behaviorTransition;
-		private final Button saveBtn;
-		private final XtextResource fakeResource;
-		private final StyledText conditionStyledText;
 
-		public ConditionModificationKeyAdapter(final BehaviorTransition behaviorTransition, final Button saveBtn,
-				final StyledText conditionStyledText) {
+		public ConditionModificationKeyAdapter(final BehaviorTransition behaviorTransition) {
 			this.behaviorTransition = behaviorTransition;
-			this.saveBtn = saveBtn;
-			this.fakeResource = xtextAdapter.getFakeResourceContext().getFakeResource();
-			this.conditionStyledText = conditionStyledText;
 		}
 
 		@Override
 		public void keyReleased(final KeyEvent e) {
+			// Update save button based on whether the text entered into the
+			// styled text is a serializable condition
+			final StyledText conditionText = (StyledText) e.getSource();
 			// Link model
 			final EObject rootElement = xtextAdapter.getXtextParseResult().getRootASTElement();
+			final XtextResource fakeResource = xtextAdapter.getFakeResourceContext().getFakeResource();
 			fakeResource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
 
 			// Original source text
@@ -212,7 +213,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			if (behaviorTransition != null) {
 				final BehaviorCondition condition = behaviorTransition.getCondition();
 				// Calculate enabled based on if condition should exist and if it exists
-				isEnabled = conditionStyledText.getText().isEmpty() ? condition == null : condition != null;
+				isEnabled = conditionText.getText().isEmpty() ? condition == null : condition != null;
 			}
 
 			// Enable if modification was allowed
@@ -294,6 +295,13 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		return xtextDocument.get();
 	}
 
+	private void disposeControl(final Control control) {
+		// Dispose widgets for next selection
+		if (control != null && !control.isDisposed()) {
+			control.dispose();
+		}
+	}
+
 	// Source text after condition
 	private static String getSuffix(final String text, final int updateOffset) {
 		final String suffix = text.substring(updateOffset, text.length());
@@ -310,30 +318,20 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		return Optional.ofNullable(resource instanceof XtextResource ? (XtextResource) resource : null);
 	}
 
-	private void setXtextAdapter(final IProject project, final StyledText transitionText, final Button saveBtn) {
-		xtextAdapter.dispose();
-		xtextAdapter = new BehaviorAnnexStyledTextXtextAdapter(project, transitionText, saveBtn);
-		xtextAdapter.adapt(transitionText);
-	}
-
-	private static class BehaviorAnnexStyledTextXtextAdapter extends OsateStyledTextXtextAdapter {
-		private static final Injector injector = Aadl2Activator.getInstance()
-				.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
-		private static final IXtextFakeContextResourcesProvider contextFakeResourceProvider = IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER;
-		private final StyledText conditionStyledText;
-		private final Button saveBtn;
-
-		public BehaviorAnnexStyledTextXtextAdapter() {
-			super(injector, contextFakeResourceProvider, null);
-			this.conditionStyledText = null;
-			this.saveBtn = null;
+	private void setXtextAdapter(final IProject project) {
+		if (xtextAdapter != null) {
+			xtextAdapter.dispose();
 		}
 
-		public BehaviorAnnexStyledTextXtextAdapter(final IProject project, final StyledText transitionText,
-				final Button saveBtn) {
+		xtextAdapter = new OsateXtextAdatper(project);
+		xtextAdapter.adapt(conditionStyledText);
+	}
+
+	private static class OsateXtextAdatper extends OsateStyledTextXtextAdapter {
+		private static final IXtextFakeContextResourcesProvider contextFakeResourceProvider = IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER;
+
+		public OsateXtextAdatper(final IProject project) {
 			super(injector, contextFakeResourceProvider, project);
-			this.conditionStyledText = transitionText;
-			this.saveBtn = saveBtn;
 		}
 
 		public SourceViewer getSourceviewer() {
@@ -343,25 +341,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		@Override
 		public XtextDocument getXtextDocument() {
 			return super.getXtextDocument();
-		}
-
-		@Override
-		public void dispose() {
-			super.dispose();
-			disposeWidgets();
-		}
-
-		private void disposeWidgets() {
-			// Dispose widgets for next selection
-			disposeControl(conditionStyledText);
-			disposeControl(saveBtn);
-		}
-
-		private void disposeControl(final Control control) {
-			// Dispose widgets for next selection
-			if (control != null && !control.isDisposed()) {
-				control.dispose();
-			}
 		}
 	}
 
@@ -491,8 +470,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 					// Only force reconciliation for AADL editors
 					if (Objects.equals(xtextEditor.getLanguageName(), languageName)) {
-						final SyncUtil syncUtil = Aadl2Activator.getInstance()
-								.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).getInstance(SyncUtil.class);
+						final SyncUtil syncUtil = injector.getInstance(SyncUtil.class);
 
 						// Only waiting once will result in the reconciler processing a change outside the lock.
 						// Doing it twice appears to wait for pending runs of the reconciler.
@@ -515,10 +493,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	 * @return
 	 */
 	private static String getLanguageName() {
-		final Injector injector = Objects.requireNonNull(
-				Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2),
-				"Unable to retrieve injector");
-
 		final LanguageNameRetriever obj = injector.getInstance(LanguageNameRetriever.class);
 		return obj.languageName;
 	}
