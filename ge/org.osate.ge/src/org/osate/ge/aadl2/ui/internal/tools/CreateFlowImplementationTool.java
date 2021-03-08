@@ -388,8 +388,6 @@ public class CreateFlowImplementationTool implements Tool {
 
 			if (multipleElementsSelected) {
 				error = "Multiple elements selected.  Select a single element. ";
-			} else if (segmentSelections.size() > 1 && !isValid) {
-				error = "Invalid Flow Implementation.  ";
 			}
 
 			if (error == null) {
@@ -511,8 +509,6 @@ public class CreateFlowImplementationTool implements Tool {
 						}
 					}
 				}
-			} else if (!isInit) {
-				setErrorMessage("Invalid element selected. " + getDirectionMessage());
 			}
 		}
 
@@ -565,42 +561,19 @@ public class CreateFlowImplementationTool implements Tool {
 			}
 
 			// Errors to show to user
-			final Set<Diagnostic> dialogDiagnostics = getDialogDiagnostics(diagnostics);
+			final Set<Diagnostic> dialogDiagnostics = diagnostics.stream()
+					.filter(diagnostic -> {
+						final String errorMsg = diagnostic.getMessage();
+						return errorMsg == null || !errorMsg.contains("Serialization Error");
+					})
+					.collect(Collectors.toSet());
+
 			// Update error table
 			FlowDialogUtil.setInput(errorTableViewer,
 					dialogDiagnostics);
 
-			final Optional<Diagnostic> errorDiagnostic = diagnostics.stream()
-					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR).findAny();
-			return !errorDiagnostic.isPresent();
-		}
-
-		private Set<Diagnostic> getDialogDiagnostics(final Set<Diagnostic> diagnostics) {
-			if (showSerializationErrors()) {
-				return diagnostics;
-			}
-
-			return diagnostics.stream().filter(diagnostic -> "Serialization Error".equals(diagnostic.getMessage()))
-					.collect(Collectors.toSet());
-		}
-
-		private boolean showSerializationErrors() {
-			final FlowSpecification fs = flowImpl.getSpecification();
-			if (fs == null) {
-				return false;
-			}
-
-			final FlowKind kind = fs.getKind();
-			if (kind == FlowKind.SOURCE) {
-				// Source
-				return flowImpl.getOutEnd() != null;
-			} else if (kind == FlowKind.SINK) {
-				// Sink
-				return flowImpl.getInEnd() != null;
-			}
-
-			// Path
-			return flowImpl.getOutEnd() != null && flowImpl.getInEnd() != null;
+			return !diagnostics.stream()
+					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR).findAny().isPresent();
 		}
 
 		private Optional<ComponentImplementation> getFlowComponentImplementation(final BusinessObjectContext owner) {
