@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -62,7 +62,7 @@ public class PolyBuilder {
 	 * Configures the poly builder to build a poly that has a fixed size and is not resizable.
 	 * @param value is the size of the  poly
 	 * @return this builder to allow method chaining.
-	 * @since 2.1
+	 * @since 3.0
 	 */
 	public PolyBuilder fixedSize(final Dimension value) {
 		fixedSize = value;

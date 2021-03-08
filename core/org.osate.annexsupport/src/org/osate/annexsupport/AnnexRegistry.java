@@ -23,7 +23,9 @@
  */
 package org.osate.annexsupport;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -34,7 +36,7 @@ import org.eclipse.core.runtime.Platform;
 import org.osate.aadl2.parsesupport.ParseUtil;
 
 /**
- * For headlesx (non-eclipse) applications, there are two options:
+ * For headless (non-eclipse) applications, there are two options:
  *
  * <ol>
  * <li>Force the environment to read the <code>plugin.xml</code> files and initialize the Eclipse extension registry.  This is done
@@ -76,21 +78,18 @@ public abstract class AnnexRegistry {
 	private static final String ATT_ANNEXNAME = "annexName";
 	private static final String ATT_ANNEXNSURI = "annexNSURI";
 
-	@SuppressWarnings("rawtypes")
-	private static final Map registries = new HashMap();
+	private static final Map<String, AnnexRegistry> registries = new HashMap<String, AnnexRegistry>();
 
 	/** The extensions in this registry */
-	@SuppressWarnings("rawtypes")
-	protected Map extensions;
+	protected Map<String, Object> extensions;
 
 	/**
 	 * Get the annex parser registry.
 	 *
 	 * @return the single instance of this class.
 	 */
-	@SuppressWarnings("unchecked")
 	public static AnnexRegistry getRegistry(String extensionId) {
-		AnnexRegistry registry = (AnnexRegistry) registries.get(extensionId);
+		AnnexRegistry registry = registries.get(extensionId);
 
 		if (registry == null) {
 			registry = createRegistry(extensionId);
@@ -121,9 +120,8 @@ public abstract class AnnexRegistry {
 		}
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void initialize(String extensionId) {
-		extensions = new HashMap();
+		extensions = new HashMap<String, Object>();
 
 		boolean hasExtensionPoints = false;
 		final IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
@@ -169,7 +167,6 @@ public abstract class AnnexRegistry {
 	/**
 	 * Used by programs running outside of eclipse (so called "stand alone") to register annex extensions.
 	 */
-	@SuppressWarnings("unchecked")
 	private final void registerExtension(final String annexName, final Object handler) {
 		extensions.put(annexName.toLowerCase(), handler);
 	}
@@ -240,4 +237,47 @@ public abstract class AnnexRegistry {
 	 * Factory method for annex proxies that are created from reading the extension registry.
 	 */
 	protected abstract AnnexProxy createProxy(IConfigurationElement configElem);
+
+	/**
+	 * @since 3.2
+	 */
+	public List<String> getExtensions() {
+		List<String> extensionLists = new ArrayList<String>();
+
+		if (extensions != null) {
+			for (String key : extensions.keySet()) {
+				extensionLists.add(key);
+			}
+		}
+		return extensionLists;
+	}
+
+	/**
+	 * @since 3.2
+	 */
+	public static List<String> getAllAnnexNames() {
+		List<String> keys = new ArrayList<String>();
+		final IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
+		if (extensionRegistry != null) {
+			IExtensionPoint extensionPoint = extensionRegistry.getExtensionPoint(AnnexPlugin.PLUGIN_ID,
+					ANNEX_PARSER_EXT_ID);
+			if (extensionPoint != null) {
+				IExtension[] exts = extensionPoint.getExtensions();
+
+				for (int i = 0; i < exts.length; i++) {
+					IConfigurationElement[] configElems = exts[i].getConfigurationElements();
+
+					for (int j = 0; j < configElems.length; j++) {
+						String annexName = configElems[j].getAttribute(ATT_ANNEXNAME);
+
+						if (!annexName.equals("*") && !keys.contains(annexName)) {
+							keys.add(annexName.toLowerCase());
+						}
+					}
+				}
+			}
+		}
+
+		return keys;
+	}
 }
