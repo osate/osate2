@@ -74,10 +74,6 @@ import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
-/**
- * @deprecated Use the generated property lookup classes in the packages {@code org.osate.aadl2.contrib.XXX} and {@code org.osate.contribution.sei.XXX}.
- */
-@Deprecated
 public class GetProperties {
 	@SuppressWarnings("unused")
 	private static final class DataModel {
