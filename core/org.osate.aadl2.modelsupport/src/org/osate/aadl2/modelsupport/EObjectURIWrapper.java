@@ -154,10 +154,23 @@ public class EObjectURIWrapper {
 		private static final String[] DECORATIONS = { "", ISharedImages.IMG_DEC_FIELD_WARNING,
 				ISharedImages.IMG_DEC_FIELD_ERROR };
 
-		private final ResourceSet resourceSet = new ResourceSetImpl();
+		private final ResourceSet resourceSet;
 		private final ILabelProvider labelProvider;
 
+		/**
+		 * @deprecated To be removed in 2.10.0.  Do not use, as it doesn't work correctly and the icon decorations will be wrong.
+		 * @param lp
+		 */
+		@Deprecated
 		public Factory(final ILabelProvider lp) {
+			this(new ResourceSetImpl(), lp);
+		}
+
+		/**
+		 * @since 6.0
+		 */
+		public Factory(final ResourceSet rs, final ILabelProvider lp) {
+			resourceSet = rs;
 			labelProvider = lp;
 		}
 
