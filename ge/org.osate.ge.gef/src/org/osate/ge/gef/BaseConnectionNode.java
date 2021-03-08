@@ -191,6 +191,14 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 		connection.setControlPoints(bendpoints);
 	}
 
+	/**
+	 * Returns the wrapped connection
+	 * @return the wrapped connection.
+	 */
+	public final Connection getInnerConnection() {
+		return connection;
+	}
+
 	@Override
 	public void layoutChildren() {
 		// Find the midpoint and the rotation angle at the midpoint to allow layout of midpoint decorations and

@@ -37,6 +37,7 @@ public class AgeEditorActionBarContributor extends EditorActionBarContributor {
 
 	@Override
 	public void dispose() {
+		zoomItem.setActiveEditor(null);
 		selectedModeItem.setActiveEditor(null);
 		selectedFlowItem.setActiveEditor(null);
 		showFlowImplElements.setActiveEditor(null);

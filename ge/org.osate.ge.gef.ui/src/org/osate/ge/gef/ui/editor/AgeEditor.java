@@ -99,9 +99,12 @@ import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramModificationAdapter;
+import org.osate.ge.internal.diagram.runtime.DiagramModificationListener;
 import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
+import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.botree.DefaultBusinessObjectNodeFactory;
 import org.osate.ge.internal.diagram.runtime.botree.DefaultTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
@@ -167,7 +170,6 @@ import javafx.scene.transform.Transform;
 public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITabbedPropertySheetPageContributor {
 	public static final ImmutableList<Double> ZOOM_LEVELS = ImmutableList.of(.1, .2, .5, .75, 1.0, 1.25, 1.5, 2.0, 2.5,
 			3.0, 4.0, 5.0, 7.5, 10.0);
-
 	private static final String CONTRIBUTOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
 	private static final String CONTEXT_ID = "org.osate.ge.context";
 	private static final String MENU_ID = CONTRIBUTOR_ID;
@@ -234,7 +236,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 				final IStructuredSelection ss = (IStructuredSelection) newSelection;
 				final List<?> selectedObjects = ss.toList();
 				final IStructuredSelection newStructuredSelection = new StructuredSelection(selectedObjects.stream()
-						.filter(DiagramNode.class::isInstance).map(DiagramNode.class::cast).toArray());
+						.filter(DiagramNode.class::isInstance).map(DiagramNode.class::cast).distinct()
+						.toArray());
 
 				if (!Objects.equals(currentSelection, newStructuredSelection)) {
 					currentSelection = newStructuredSelection;
@@ -276,7 +279,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private boolean disposed = false;
 	private AgeDiagram diagram;
 	private GefAgeDiagram gefDiagram;
-	private OverlayNode overlay; // TODO
+	private Overlays overlays;
 	private IFile diagramFile;
 	private IProject project;
 
@@ -426,6 +429,16 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		}
 	};
 
+	private final DiagramModificationListener diagramModificationListener = new DiagramModificationAdapter() {
+		@Override
+		public void modificationsCompleted(final ModificationsCompletedEvent e) {
+			// Refresh overlays in case the nodes representing the selected diagram elements have changed.
+			if (overlays != null) {
+				overlays.refresh(selectionProvider.getSelection());
+			}
+		}
+	};
+
 	public AgeEditor() {
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
 		this.eclipseContext = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
@@ -506,8 +519,12 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(toolPostSelectionListener);
 			this.modelChangeNotifier.removeChangeListener(modelChangeListener);
 
-			if (overlay != null) {
-				selectionProvider.removeSelectionChangedListener(overlay);
+			if (overlays != null) {
+				selectionProvider.removeSelectionChangedListener(overlays);
+			}
+
+			if (diagram != null) {
+				diagram.removeModificationListener(diagramModificationListener);
 			}
 
 			// Dispose of other objects
@@ -612,6 +629,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		selectionProvider.setSelection(new StructuredSelection(diagram));
 
 		site.getWorkbenchWindow().getPartService().addPartListener(partListener);
+		diagram.addModificationListener(diagramModificationListener);
 	}
 
 	private void registerAction(final IAction action) {
@@ -701,13 +719,14 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		final StackPane paddedWrapper = new StackPane(gefDiagram.getSceneNode());
 		paddedWrapper.setPadding(new Insets(DIAGRAM_PADDING));
 
-		// Create overlay
-		overlay = new OverlayNode(de -> gefDiagram.getSceneNode(de));
-		selectionProvider.addSelectionChangedListener(overlay);
-
-		canvas.getContentGroup().getChildren().addAll(paddedWrapper, overlay);
+		canvas.getContentGroup().getChildren().add(paddedWrapper);
 		gefDiagram.updateDiagramFromSceneGraph();
 		adapterMap.put(LayoutInfoProvider.class, gefDiagram);
+
+		// Create overlays
+		overlays = new Overlays(de -> gefDiagram.getSceneNode(de));
+		selectionProvider.addSelectionChangedListener(overlays);
+		canvas.getScrolledOverlayGroup().getChildren().add(overlays);
 
 		// Perform the initial incremental layout
 		diagram.modify("Incremental Layout", m -> DiagramElementLayoutUtil.layoutIncrementally(diagram, m, gefDiagram));
