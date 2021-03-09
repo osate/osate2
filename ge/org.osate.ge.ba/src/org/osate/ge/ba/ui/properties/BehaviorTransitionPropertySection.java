@@ -33,6 +33,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPart;
@@ -79,11 +80,15 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	}
 
 	public static String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.condition";
+	public static String WIDGET_ID_ACTION = "org.osate.ge.ba.behaviortransition.action";
 	private static final Injector injector = Aadl2Activator.getInstance()
 			.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
 	private Composite composite;
+	// private Composite compositeb;
 	private StyledText conditionStyledText;
+	private StyledText conditionStyledTextb;
 	private Button saveBtn;
+	private Button saveBtnb;
 	private BusinessObjectSelection selectedBos;
 	private OsateXtextAdatper xtextAdapter;
 
@@ -102,8 +107,13 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 	private void createComposite(final Composite parent) {
 		composite = getWidgetFactory().createPlainComposite(parent, SWT.NONE);
-		composite.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
+		composite.setLayout(GridLayoutFactory.swtDefaults().numColumns(3).create());
 	}
+
+//	private void createCompositeb(final Composite parent) {
+//		compositeb = getWidgetFactory().createPlainComposite(parent, SWT.NONE);
+//		compositeb.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
+//	}
 
 	private void setSaveButton(final boolean isSingleSelection, final TransactionalEditingDomain editingDomain,
 			final TextValue conditionTextValue, final IProject project, final XtextResource xtextResource,
@@ -113,6 +123,31 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		saveBtn = new Button(composite, SWT.PUSH);
 		saveBtn.setText("Save");
 		saveBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+//				BehaviorAnnexSelectionUtil.getActiveEditor().ifPresent(editorPart -> {
+//					final ActionService actionService = Adapters.adapt(editorPart, ActionService.class);
+//					final ModelChangeNotifier modelChangeNotifier = Objects.requireNonNull(
+//							editorPart.getAdapter(ModelChangeNotifier.class), "Unable to get model change notifier");
+//
+//					actionService.execute("Modifying BehaviorTranistion Condition", ExecutionMode.NORMAL,
+//							new ConditionModification(conditionStyledText.getText(), editingDomain, xtextDocument,
+//									xtextResource, modelChangeNotifier, project, conditionTextValue));
+//				});
+			}
+		});
+
+		saveBtn.setEnabled(isSingleSelection);
+	}
+
+	private void setSaveButtonB(final boolean isSingleSelection, final TransactionalEditingDomain editingDomain,
+			final TextValue conditionTextValue, final IProject project, final XtextResource xtextResource,
+			final IXtextDocument xtextDocument) {
+		disposeControl(saveBtnb);
+
+		saveBtnb = new Button(composite, SWT.PUSH);
+		saveBtnb.setText("Save");
+		saveBtnb.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				BehaviorAnnexSelectionUtil.getActiveEditor().ifPresent(editorPart -> {
@@ -127,7 +162,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			}
 		});
 
-		saveBtn.setEnabled(isSingleSelection);
+		saveBtnb.setEnabled(isSingleSelection);
 	}
 
 	private void setConditionText(final boolean isSingleSelection) {
@@ -140,6 +175,18 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		conditionStyledText.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
 				.hint(SWT.DEFAULT, SWT.DEFAULT).create());
 		SwtUtil.setTestingId(conditionStyledText, WIDGET_ID_CONDITION);
+	}
+
+	private void setConditionTextb(final boolean isSingleSelection) {
+		disposeControl(conditionStyledTextb);
+
+		// Create styled text
+		conditionStyledTextb = new StyledText(composite, SWT.BORDER | SWT.SINGLE);
+		// Disable on multiple selection
+		conditionStyledTextb.setEnabled(isSingleSelection);
+		conditionStyledTextb.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
+				.hint(SWT.DEFAULT, SWT.DEFAULT).create());
+		SwtUtil.setTestingId(conditionStyledTextb, WIDGET_ID_ACTION);
 	}
 
 	@Override
@@ -161,10 +208,21 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 					// Create condition text value
 					final TextValue conditionTextValue = getConditionTextValue(behaviorTransition, text);
 
+					final Label conditionLbl = new Label(composite,
+							SWT.NONE);
+					conditionLbl.setText("Condition:");
+					SwtUtil.setColorsToMatchParent(conditionLbl);
 					// Styled text to enter the new condition text
 					setConditionText(isSingleSelection);
 					// Button to execute the condition modification
 					setSaveButton(isSingleSelection, editingDomain, conditionTextValue, project, xtextResource,
+							xtextDocument);
+
+					final Label actionLbl = new Label(composite, SWT.NONE);
+					actionLbl.setText("Action:");
+					SwtUtil.setColorsToMatchParent(actionLbl);
+					setConditionTextb(isSingleSelection);
+					setSaveButtonB(isSingleSelection, editingDomain, conditionTextValue, project, xtextResource,
 							xtextDocument);
 					// Dispose of current adapter and create new one
 					setXtextAdapter(project);
