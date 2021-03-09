@@ -55,6 +55,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.ui.MarkerHelper;
 import org.eclipse.emf.common.ui.ViewerPane;
 import org.eclipse.emf.common.ui.editor.ProblemEditorPart;
+import org.eclipse.emf.common.ui.viewer.ColumnViewerInformationControlToolTipSupport;
 import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -80,6 +81,8 @@ import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
 import org.eclipse.emf.edit.ui.dnd.ViewerDragAdapter;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.emf.edit.ui.provider.DecoratingColumLabelProvider;
+import org.eclipse.emf.edit.ui.provider.DiagnosticDecorator;
 import org.eclipse.emf.edit.ui.provider.UnwrappingSelectionProvider;
 import org.eclipse.emf.edit.ui.util.EditUIMarkerHelper;
 import org.eclipse.emf.edit.ui.util.EditUIUtil;
@@ -139,6 +142,7 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 import org.eclipse.uml2.uml.edit.providers.UMLItemProviderAdapterFactory;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.instance.provider.InstanceItemProviderAdapterFactory;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.provider.Aadl2ItemProviderAdapterFactory;
 
 /**
@@ -516,6 +520,9 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 						}
 					}
 				}
+				IFile file = OsateResourceUtil.toIFile(resource.getURI());
+				DiagnosticDecorator.DiagnosticAdapter.update(resource,
+						markerHelper.getMarkerDiagnostics(resource, file));
 			}
 
 			if (AdapterFactoryEditingDomain.isStale(editorSelection)) {
@@ -911,12 +918,19 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 
 			selectionViewer.setUseHashlookup(true);
 			selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-			selectionViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+
+			// selectionViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+			selectionViewer.setLabelProvider(new DecoratingColumLabelProvider(
+					new AdapterFactoryLabelProvider(adapterFactory), new DiagnosticDecorator(editingDomain,
+							selectionViewer, Aadl2EditorPlugin.getPlugin().getDialogSettings())));
+
 			selectionViewer.setInput(getResource());
 			selectionViewer.setSelection(new StructuredSelection(getResource()), true);
 			viewerPane.setTitle(getResource());
 
 			new AdapterFactoryTreeEditor(selectionViewer.getTree(), adapterFactory);
+			new ColumnViewerInformationControlToolTipSupport(selectionViewer,
+					new DiagnosticDecorator.EditingDomainLocationListener(editingDomain, selectionViewer));
 
 			createContextMenuFor(selectionViewer);
 			int pageIndex = addPage(viewerPane.getControl());
