@@ -335,6 +335,17 @@ public class OsateGeTestUtil {
 		waitUntilCheckboxCheckedStateById(id, newCheckboxState);
 	}
 
+	/**
+	 * Selects referenced element and enters the specified text into
+	 * the StyledText with the specified id in the properties view of the specified tab.
+	 */
+	public static void typeInStyledTextInPropertiesView(final DiagramReference diagram, final String tabLabel,
+			final String id, final String text, final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+		typeInStyledText(id, text);
+	}
+
 	private static void clickCheckboxInPropertiesView(final String tabLabel, final int index) {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");

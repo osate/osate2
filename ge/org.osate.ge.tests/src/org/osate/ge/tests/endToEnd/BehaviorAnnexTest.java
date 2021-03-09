@@ -36,6 +36,7 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.AadlReferenceUtil;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.ui.properties.BehaviorStatePropertySection;
+import org.osate.ge.ba.ui.properties.BehaviorTransitionPropertySection;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.tests.endToEnd.util.DiagramElementReference;
 import org.osate.ge.tests.endToEnd.util.DiagramReference;
@@ -240,6 +241,14 @@ public class BehaviorAnnexTest {
 		renameElementFromContextMenu(baDiagram, element(behaviorSpecification), initTransitionRef, "new_transition",
 				transitionRef);
 
+		// Create a transition condition
+		setTransitionCondition(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_CONDITION, "on dispatch",
+				behaviorSpecification, transitionRef);
+
+		// Erase the transition condition
+		setTransitionCondition(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_CONDITION, "",
+				behaviorSpecification, transitionRef);
+
 		// Test renaming for states with same name of a mode with transition
 		renameElementDirectEdit(baDiagram, element(behaviorSpecification),
 				BehaviorAnnexReferenceUtil.getStateRelativeReference("src_state"), "new_mode");
@@ -252,6 +261,27 @@ public class BehaviorAnnexTest {
 		// Set completeness
 		clickCheckboxByIdInPropertiesView(baDiagram, "AADL", BehaviorStatePropertySection.WIDGET_ID_COMPLETE,
 				true, src);
+	}
+
+	private static void setTransitionCondition(final DiagramReference baDiagram, final String id,
+			final String conditionText, final RelativeBusinessObjectReference specRef,
+			final RelativeBusinessObjectReference transitionRef) {
+		final DiagramElementReference specDiagramRef = element(specRef);
+		final DiagramElementReference transitionDiagramRef = specDiagramRef.join(transitionRef);
+		// Set condition text
+		typeInStyledTextInPropertiesView(baDiagram, "AADL", id, conditionText, transitionDiagramRef);
+
+		// Save
+		clickButtonInPropertiesView("AADL", "Save");
+
+		// Clear selection
+		selectDiagramElements(baDiagram, specDiagramRef);
+
+		// Select transition
+		selectDiagramElements(baDiagram, transitionDiagramRef);
+
+		// Check styled text to see if condition update was successful
+		waitForStyledTextToMatch(id, conditionText);
 	}
 
 	// Open Behavior Annex diagram
