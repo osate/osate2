@@ -105,13 +105,14 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		composite.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
 	}
 
-	private void setSaveButton(final boolean isSingleSelection, final TransactionalEditingDomain editingDomain,
+	private void setSaveButton(final TransactionalEditingDomain editingDomain,
 			final TextValue conditionTextValue, final IProject project, final XtextResource xtextResource,
 			final IXtextDocument xtextDocument) {
 		disposeControl(saveBtn);
 
 		saveBtn = new Button(composite, SWT.PUSH);
 		saveBtn.setText("Save");
+		saveBtn.setEnabled(false);
 		saveBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
@@ -127,8 +128,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 				});
 			}
 		});
-
-		saveBtn.setEnabled(isSingleSelection);
 	}
 
 	private void setConditionText(final boolean isSingleSelection) {
@@ -166,8 +165,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 					// Styled text to enter the new condition text
 					setConditionText(isSingleSelection);
 					// Button to execute the condition modification
-					setSaveButton(isSingleSelection, editingDomain,
-							conditionTextValue, project, xtextResource, xtextDocument);
+					setSaveButton(editingDomain, conditionTextValue, project, xtextResource, xtextDocument);
 					// Dispose of current adapter and create new one
 					setXtextAdapter(project);
 					conditionStyledText
