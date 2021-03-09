@@ -80,8 +80,7 @@ public class AadlElementContentProvider implements ITreeContentProvider {
 				children = Stream.empty();
 			}
 		}
-		final EObjectURIWrapper.Factory factory = new EObjectURIWrapper.Factory(resourceSet,
-				UiUtil.getModelElementLabelProvider());
+		final EObjectURIWrapper.Factory factory = new EObjectURIWrapper.Factory(UiUtil.getModelElementLabelProvider());
 		// Issue 2430: limit the number of children to 150
 		return children.limit(150).map(element -> factory.createWrapperFor(element)).toArray();
 	}

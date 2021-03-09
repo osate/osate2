@@ -33,7 +33,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.DecorationOverlayIcon;
@@ -154,23 +153,9 @@ public class EObjectURIWrapper {
 		private static final String[] DECORATIONS = { "", ISharedImages.IMG_DEC_FIELD_WARNING,
 				ISharedImages.IMG_DEC_FIELD_ERROR };
 
-		private final ResourceSet resourceSet;
 		private final ILabelProvider labelProvider;
 
-		/**
-		 * @deprecated To be removed in 2.10.0.  Do not use, as it doesn't work correctly and the icon decorations will be wrong.
-		 * @param lp
-		 */
-		@Deprecated
 		public Factory(final ILabelProvider lp) {
-			this(new ResourceSetImpl(), lp);
-		}
-
-		/**
-		 * @since 6.0
-		 */
-		public Factory(final ResourceSet rs, final ILabelProvider lp) {
-			resourceSet = rs;
 			labelProvider = lp;
 		}
 
@@ -209,6 +194,7 @@ public class EObjectURIWrapper {
 				try {
 					final IFile file = OsateResourceUtil.toIFile(eObject.eResource().getURI());
 					if (file.isAccessible()) {
+						final ResourceSet resourceSet = eObject.eResource().getResourceSet();
 						final IMarker[] markers = file.findMarkers(null, true, IResource.DEPTH_INFINITE);
 						for (final IMarker marker : markers) {
 							final String markerURIString = getMarkerURIString(marker);
