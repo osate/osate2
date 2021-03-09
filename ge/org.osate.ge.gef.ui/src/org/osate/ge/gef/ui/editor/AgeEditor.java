@@ -23,6 +23,7 @@
  */
 package org.osate.ge.gef.ui.editor;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -95,6 +96,8 @@ import org.osate.ge.gef.DiagramEditorNode;
 import org.osate.ge.gef.ui.AgeGefRuntimeException;
 import org.osate.ge.gef.ui.AgeGefUiPlugin;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
+import org.osate.ge.gef.ui.editor.overlays.CreateBendpointHandle;
+import org.osate.ge.gef.ui.editor.overlays.Overlays;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
@@ -141,6 +144,7 @@ import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.ui.tools.ActivatedEvent;
 import org.osate.ge.internal.ui.tools.DeactivatedEvent;
 import org.osate.ge.internal.ui.tools.Tool;
+import org.osate.ge.palette.PaletteCommand;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.services.ReferenceResolutionService;
 import org.osate.ge.services.impl.DefaultQueryService;
@@ -153,15 +157,16 @@ import com.google.common.collect.ImmutableList;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.embed.swt.FXCanvas;
+import javafx.event.EventTarget;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Affine;
-import javafx.scene.transform.Scale;
 import javafx.scene.transform.Transform;
 
 /**
@@ -236,8 +241,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 				final IStructuredSelection ss = (IStructuredSelection) newSelection;
 				final List<?> selectedObjects = ss.toList();
 				final IStructuredSelection newStructuredSelection = new StructuredSelection(selectedObjects.stream()
-						.filter(DiagramNode.class::isInstance).map(DiagramNode.class::cast).distinct()
-						.toArray());
+						.filter(DiagramNode.class::isInstance).map(DiagramNode.class::cast).distinct().toArray());
 
 				if (!Objects.equals(currentSelection, newStructuredSelection)) {
 					currentSelection = newStructuredSelection;
@@ -349,11 +353,20 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		@Override
 		protected void invalidated() {
 			final Bounds canvasBounds = canvas.getLayoutBounds();
-			final Scale scaling = Transform.scale(zoom.get(), zoom.get(),
-					canvasBounds.getWidth() / 2.0 - canvas.getHorizontalScrollOffset(),
-					canvasBounds.getHeight() / 2.0 - canvas.getVerticalScrollOffset());
 
-			canvas.setContentTransform(new Affine(scaling));
+			// Get the center point in diagram coordinates
+			final double viewCenterX = (canvasBounds.getWidth() / 2 - canvas.getHorizontalScrollOffset())
+					/ canvas.getContentTransform().getMxx();
+			final double viewCenterY = (canvasBounds.getHeight() / 2 - canvas.getVerticalScrollOffset())
+					/ canvas.getContentTransform().getMyy();
+
+			// Adjust the scaling
+			final double scaling = zoom.get();
+			canvas.setContentTransform(new Affine(Transform.scale(scaling, scaling)));
+
+			// Set a new horizontal and vertical scroll offset based on thew new scaling
+			canvas.setHorizontalScrollOffset((canvasBounds.getWidth() / 2) - viewCenterX * scaling);
+			canvas.setVerticalScrollOffset((canvasBounds.getHeight() / 2) - viewCenterY * scaling);
 		}
 	};
 
@@ -783,6 +796,82 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 				tooltipManager.mouseMove(e.getScreenX(), e.getScreenY());
 			}
 		});
+
+		//
+		// Other Mouse Listeners
+		//
+		canvas.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
+			if (paletteModel.isMarqueeToolActive()) {
+				canvas.setCursor(Cursor.CROSSHAIR);
+			} else {
+				canvas.setCursor(Cursor.DEFAULT);
+			}
+		});
+
+		// Handle mouse button presses
+		canvas.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
+			System.err.println(e.getTarget());
+			if (e.getTarget() instanceof CreateBendpointHandle) {
+				final CreateBendpointHandle handle = (CreateBendpointHandle) e.getTarget();
+				System.err.println(
+						"TODO: CREATE BENDPOINT ON MOVE FOR: " + handle.getDiagramElement().getBusinessObject());
+				// TODO; Need to know what diagram element
+			}
+
+			final DiagramElement clickedDiagramElement = getClosestDiagramElement(e.getTarget());
+			if (paletteModel.isMarqueeToolActive()
+					|| (paletteModel.isSelectToolActive() && clickedDiagramElement == null)) {
+				System.err.println("START MARQUEE");
+			} else if (paletteModel.isSelectToolActive() && clickedDiagramElement != null) {
+				if (e.isShiftDown()) {
+					// If shift is held down. Ensure the element is at the end of the list
+					@SuppressWarnings("unchecked")
+					final List<Object> newSelectedElements = new ArrayList<>(selectionProvider.getSelection().toList());
+					newSelectedElements.remove(clickedDiagramElement);
+					newSelectedElements.add(clickedDiagramElement);
+					selectionProvider.setSelection(new StructuredSelection(newSelectedElements));
+				} else if (e.isControlDown()) {
+					// If Ctrl is held down, then remove the element if it is already in the selection. Otherwise, add it.
+					@SuppressWarnings("unchecked")
+					final List<Object> newSelectedElements = new ArrayList<>(selectionProvider.getSelection().toList());
+					if (newSelectedElements.contains(clickedDiagramElement)) {
+						newSelectedElements.remove(clickedDiagramElement);
+					} else {
+						newSelectedElements.add(clickedDiagramElement);
+					}
+					selectionProvider.setSelection(new StructuredSelection(newSelectedElements));
+				} else {
+					// Replace the selection with the object
+					selectionProvider.setSelection(new StructuredSelection(clickedDiagramElement));
+				}
+			} else {
+				final PaletteCommand cmd = paletteModel.getActivePaletteCommand();
+				if (cmd != null) {
+					System.err.println("TODO: " + cmd);
+				}
+			}
+		});
+	}
+
+	/**
+	 * If the event target is a {@link Node}, walks up the scene graph and returns the first {@link DiaramElement} associated with the node
+	 * or ancestors.
+	 * @param target the event target. Returns null if the event target is not a {@link Node}
+	 * @return the closest diagram element to the event target. Returns null if the event target is a null.
+	 */
+	private DiagramElement getClosestDiagramElement(final EventTarget target) {
+		if (!(target instanceof Node)) {
+			return null;
+		}
+
+		for (Node tmp = (Node) target; tmp != null; tmp = tmp.getParent()) {
+			final DiagramElement de = gefDiagram.getDiagramElement(tmp);
+			if (de != null) {
+				return de;
+			}
+		}
+
+		return null;
 	}
 
 	public final DoubleProperty zoomProperty() {

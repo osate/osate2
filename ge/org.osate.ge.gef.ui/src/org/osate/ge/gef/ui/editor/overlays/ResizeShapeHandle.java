@@ -21,50 +21,44 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.palette;
+package org.osate.ge.gef.ui.editor.overlays;
 
-import java.util.Objects;
+import org.eclipse.gef.geometry.euclidean.Vector;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
-import javafx.scene.image.Image;
+import javafx.scene.shape.Rectangle;
 
-/**
- * A basic class suitable for use as palette item type when implementing {@link PaletteModel}
- */
-public class SimplePaletteItem {
-	public final String label;
-	public final Image icon;
-	public final Object userData;
+class ResizeShapeHandle extends Rectangle implements Handle {
+	private final DiagramElement diagramElement;
+	private Vector direction;
 
+	// TODO: Diagram element
 	/**
 	 * Creates a new instance
-	 * @param group the group to which to add the palette item. Must not be null.
-	 * @param label the label for the item. Must not be null.
-	 * @param icon the icon for item. May be null.
-	 * @param userData is an object associated with this palette item. May be null
+	 * @param direction is a vector indicating the direction to allow resizing. For example (-1, 1) would allow moving the shape to the left and increasing the height.
+	 * @param primary whether the selected shape is the primary selection.
 	 */
-	public SimplePaletteItem(final SimplePaletteGroup group, final String label, final Image icon, Object userData) {
-		Objects.requireNonNull(group, "group must not be null");
-		group.items.add(this);
-		this.label = Objects.requireNonNull(label, "label must not be null");
-		this.icon = icon;
-		this.userData = userData;
+	ResizeShapeHandle(final DiagramElement diagramElement, final Vector direction, final boolean primary) {
+		super(4, 4);
+		this.diagramElement = diagramElement;
+		this.direction = direction;
+		setPrimary(primary);
+		setStroke(OverlayColors.HANDLE_COLOR);
+		setStrokeWidth(1.0);
 	}
 
-	/**
-	 * Creates a new instance
-	 * @param group the group to which to add the palette item. Must not be null.
-	 * @param label the label for the item. Must not be null.
-	 * @param icon the icon for item. May be null.
-	 */
-	public SimplePaletteItem(final SimplePaletteGroup group, final String label, final Image icon) {
-		this(group, label, icon, null);
+	@Override
+	public DiagramElement getDiagramElement() {
+		return diagramElement;
 	}
 
-	/**
-	 * Returns the label for the palette item
-	 * @return the item's label. Will not return null.
-	 */
-	public String getLabel() {
-		return label;
+	@Override
+	public void setPrimary(final boolean value) {
+		setFill(value ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
+				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
+	}
+
+	public Vector getDirection() {
+		return direction.getCopy();
 	}
 }

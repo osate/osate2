@@ -21,50 +21,14 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.palette;
+package org.osate.ge.gef.ui.editor.overlays;
 
-import java.util.Objects;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
-import javafx.scene.image.Image;
+// TODO: REname
+public interface Handle {
+	DiagramElement getDiagramElement();
 
-/**
- * A basic class suitable for use as palette item type when implementing {@link PaletteModel}
- */
-public class SimplePaletteItem {
-	public final String label;
-	public final Image icon;
-	public final Object userData;
-
-	/**
-	 * Creates a new instance
-	 * @param group the group to which to add the palette item. Must not be null.
-	 * @param label the label for the item. Must not be null.
-	 * @param icon the icon for item. May be null.
-	 * @param userData is an object associated with this palette item. May be null
-	 */
-	public SimplePaletteItem(final SimplePaletteGroup group, final String label, final Image icon, Object userData) {
-		Objects.requireNonNull(group, "group must not be null");
-		group.items.add(this);
-		this.label = Objects.requireNonNull(label, "label must not be null");
-		this.icon = icon;
-		this.userData = userData;
-	}
-
-	/**
-	 * Creates a new instance
-	 * @param group the group to which to add the palette item. Must not be null.
-	 * @param label the label for the item. Must not be null.
-	 * @param icon the icon for item. May be null.
-	 */
-	public SimplePaletteItem(final SimplePaletteGroup group, final String label, final Image icon) {
-		this(group, label, icon, null);
-	}
-
-	/**
-	 * Returns the label for the palette item
-	 * @return the item's label. Will not return null.
-	 */
-	public String getLabel() {
-		return label;
-	}
+	// TODO
+	void setPrimary(boolean value);
 }

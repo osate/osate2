@@ -38,6 +38,7 @@ import org.osate.ge.Categories;
 import org.osate.ge.gef.palette.PaletteModel;
 import org.osate.ge.gef.palette.SimplePaletteGroup;
 import org.osate.ge.gef.palette.SimplePaletteItem;
+import org.osate.ge.palette.PaletteCommand;
 import org.osate.ge.palette.PaletteCommandProviderContext;
 import org.osate.ge.palette.PaletteContributor;
 
@@ -66,8 +67,7 @@ class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, SimplePa
 	private final WritableImage folderIcon;
 	private final SimplePaletteGroup rootGroup = new SimplePaletteGroup("Root", null); // Created to simplify implementation
 	private final SimplePaletteGroup miscPaletteGroup;
-	private final SimplePaletteItem selectItem = new SimplePaletteItem(rootGroup, "Select",
-			selectIcon);
+	private final SimplePaletteItem selectItem = new SimplePaletteItem(rootGroup, "Select", selectIcon);
 	private final SimplePaletteItem marqueeItem = new SimplePaletteItem(rootGroup, "Marquee", marqueeIcon);
 	private final ImmutableList<SimplePaletteGroup> groups;
 
@@ -100,14 +100,14 @@ class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, SimplePa
 				final SimplePaletteGroup group = Objects.requireNonNull(unsortedGroups.get(cmd.getCategoryId()),
 						"unable to find group for category: " + cmd.getCategoryId());
 				new SimplePaletteItem(group, cmd.getLabel(),
-						cmd.getIconId().flatMap(imageProvider::getImage).orElse(null));
+						cmd.getIconId().flatMap(imageProvider::getImage).orElse(null), cmd);
 			});
 
 			contributor.getCreateConnectionCommands(ctx).forEachOrdered(cmd -> {
 				final SimplePaletteGroup group = Objects.requireNonNull(unsortedGroups.get(cmd.getCategoryId()),
 						"unable to find group for category: " + cmd.getCategoryId());
 				new SimplePaletteItem(group, cmd.getLabel(),
-						cmd.getIconId().flatMap(imageProvider::getImage).orElse(null));
+						cmd.getIconId().flatMap(imageProvider::getImage).orElse(null), cmd);
 			});
 		}
 
@@ -118,6 +118,9 @@ class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, SimplePa
 		for (SimplePaletteGroup group : groups) {
 			group.items.sort((i1, i2) -> i1.label.compareToIgnoreCase(i2.label));
 		}
+
+		// Activate the Select tool by default
+		activateItem(selectItem);
 	}
 
 	@Override
@@ -157,13 +160,31 @@ class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, SimplePa
 	@Override
 	public void activateItem(final SimplePaletteItem item) {
 		activeItem.setValue(item);
+	}
 
-		// TODO: Implement. Consider replacing SimplePaletteGroup/Item as needed if it simplifies the implementation
-		if (item == selectItem) {
-			System.err.println("SELECT");
-		} else if (item == marqueeItem) {
-			System.err.println("MARQUEE");
-		}
+	/**
+	 * Returns whether the Select tool is the active tool.
+	 * @return true if the Select tool is the active tool.
+	 */
+	public boolean isSelectToolActive() {
+		return getActiveItem() == selectItem;
+	}
+
+	/**
+	 * Returns whether the Marquee tool is the active tool.
+	 * @return true if the Marquee tool is the active tool.
+	 */
+	public boolean isMarqueeToolActive() {
+		return getActiveItem() == marqueeItem;
+	}
+
+	/**
+	 * Returns the {@link PaletteCommand} associated with the active item.
+	 * @return the palette command associated with the active item. Returns null if there is not a command associated with the active item.
+	 */
+	public PaletteCommand getActivePaletteCommand() {
+		final SimplePaletteItem item = getActiveItem();
+		return item != null && item.userData instanceof PaletteCommand ? (PaletteCommand) item.userData : null;
 	}
 
 	@Override
