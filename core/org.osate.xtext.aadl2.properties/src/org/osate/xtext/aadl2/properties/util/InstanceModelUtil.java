@@ -30,6 +30,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -39,7 +41,6 @@ import org.osate.aadl2.BusSubcomponent;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.MemorySubcomponent;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessSubcomponent;
@@ -48,7 +49,11 @@ import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.VirtualBusSubcomponent;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.contrib.aadlproject.SupportedDispatchProtocols;
+import org.osate.aadl2.contrib.communication.CommunicationProperties;
+import org.osate.aadl2.contrib.communication.Timing;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
+import org.osate.aadl2.contrib.thread.ThreadProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -63,16 +68,20 @@ import org.osate.aadl2.util.OsateDebug;
 
 public class InstanceModelUtil {
 
-	/**
-	 * true if the connection is a port connection
-	 * @param conn
-	 * @return
-	 */
-	public static boolean isPortConnection(final ConnectionInstance conn) {
-		if (conn == null) {
-			return false;
-		}
-		return conn.getKind() == ConnectionKind.PORT_CONNECTION;
+	/* XXX: Where to put this? */
+	private static final <V> boolean propertyEquals(final Function<NamedElement, Optional<V>> f, final NamedElement ne,
+			final V value) {
+		return f.apply(ne).map(x -> x == value).orElse(false);
+	}
+
+	/* XXX: WHere to put this? */
+	private static final List<ComponentInstance> getListAsComponentInstance(
+			final Function<NamedElement, Optional<List<InstanceObject>>> f, final NamedElement ne) {
+		return f.apply(ne).map(v -> {
+			final List<ComponentInstance> list = new ArrayList<>(v.size());
+			v.forEach(x -> list.add((ComponentInstance) x));
+			return list;
+		}).orElse(Collections.emptyList());
 	}
 
 	/**
@@ -81,12 +90,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isDelayedPortConnection(final ConnectionInstance conn) {
-		if (conn == null) {
-			return false;
-		}
-		if (isPortConnection(conn)) {
-			EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
-			return el == GetProperties.getDelayedUnitLiteral(conn);
+		if ((conn == null) ? false : conn.getKind() == ConnectionKind.PORT_CONNECTION) {
+			return propertyEquals(CommunicationProperties::getTiming, conn, Timing.DELAYED);
 		}
 		return false;
 	}
@@ -94,15 +99,10 @@ public class InstanceModelUtil {
 	/**
 	 * true if a sampled connection (Timing property set no no Timing value (default Sampled)
 	 * @param conn
-	 * @return
 	 */
 	public static boolean isSampledPortConnection(final ConnectionInstance conn) {
-		if (conn == null) {
-			return false;
-		}
-		if (isPortConnection(conn)) {
-			EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
-			return el == GetProperties.getSampledUnitLiteral(conn);
+		if ((conn == null) ? false : conn.getKind() == ConnectionKind.PORT_CONNECTION) {
+			return propertyEquals(CommunicationProperties::getTiming, conn, Timing.SAMPLED);
 		}
 		return false;
 	}
@@ -110,17 +110,21 @@ public class InstanceModelUtil {
 	/**
 	 * true if connection is immediate connection (Timing property on connection)
 	 * @param conn
-	 * @return
 	 */
 	public static boolean isImmediatePortConnection(final ConnectionInstance conn) {
-		if (conn == null) {
-			return false;
-		}
-		if (isPortConnection(conn)) {
-			EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
-			return el == GetProperties.getImmediateUnitLiteral(conn);
+		if ((conn == null) ? false : conn.getKind() == ConnectionKind.PORT_CONNECTION) {
+			return propertyEquals(CommunicationProperties::getTiming, conn, Timing.IMMEDIATE);
 		}
 		return false;
+	}
+
+	/**
+	 * true if the connection is a port connection
+	 * @param conn
+	 * @return
+	 */
+	public static boolean isPortConnection(final ConnectionInstance conn) {
+		return (conn == null) ? false : conn.getKind() == ConnectionKind.PORT_CONNECTION;
 	}
 
 	/**
@@ -284,11 +288,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isPeriodicComponent(final NamedElement subcomponent) {
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
-		if (dp == null) {
-			return false;
-		}
-		return dp.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL);
+		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent, SupportedDispatchProtocols.PERIODIC);
 	}
 
 	/**
@@ -297,11 +297,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isAperiodicComponent(final NamedElement subcomponent) {
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
-		if (dp == null) {
-			return false;
-		}
-		return dp.getName().equalsIgnoreCase(AadlProject.APERIODIC_LITERAL);
+		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent,
+				SupportedDispatchProtocols.APERIODIC);
 	}
 
 	/**
@@ -310,11 +307,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isSporadicComponent(final NamedElement subcomponent) {
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
-		if (dp == null) {
-			return false;
-		}
-		return dp.getName().equalsIgnoreCase(AadlProject.SPORADIC_LITERAL);
+		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent, SupportedDispatchProtocols.SPORADIC);
 	}
 
 	/**
@@ -323,11 +316,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isTimedComponent(final NamedElement subcomponent) {
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
-		if (dp == null) {
-			return false;
-		}
-		return dp.getName().equalsIgnoreCase(AadlProject.TIMED_LITERAL);
+		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent, SupportedDispatchProtocols.TIMED);
 	}
 
 	/**
@@ -336,11 +325,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isHybridComponent(final NamedElement subcomponent) {
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
-		if (dp == null) {
-			return false;
-		}
-		return dp.getName().equalsIgnoreCase(AadlProject.HYBRID_LITERAL);
+		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent, SupportedDispatchProtocols.HYBRID);
 	}
 
 	/**
@@ -349,11 +334,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isBackgroundComponent(final NamedElement subcomponent) {
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
-		if (dp == null) {
-			return false;
-		}
-		return dp.getName().equalsIgnoreCase(AadlProject.BACKGROUND_LITERAL);
+		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent,
+				SupportedDispatchProtocols.BACKGROUND);
 	}
 
 	/**
@@ -362,14 +344,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isPeriodicThread(final NamedElement thread) {
-		if (!isThread(thread)) {
-			return false;
-		}
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(thread);
-		if (dp == null) {
-			return false;
-		}
-		return dp.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL);
+		return isThread(thread) && isPeriodicComponent(thread);
 	}
 
 	/**
@@ -378,15 +353,9 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isPeriodicDevice(final NamedElement device) {
-		if (device instanceof ComponentInstance
-				&& ((ComponentInstance) device).getCategory().equals(ComponentCategory.DEVICE)) {
-			final EnumerationLiteral dp = GetProperties.getDispatchProtocol(device);
-			if (dp == null) {
-				return false;
-			}
-			return dp.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL);
-		}
-		return false;
+		return (device instanceof ComponentInstance
+				&& ((ComponentInstance) device).getCategory().equals(ComponentCategory.DEVICE))
+				&& isPeriodicComponent(device);
 	}
 
 	/**
@@ -422,33 +391,86 @@ public class InstanceModelUtil {
 	}
 
 	/**
-	 * return the list of system that the functional component is directly bound to
+	 * return the list of system that the functional component is directly bound to.
+	 *
+	 * <p>This method copies a list internally for the sole purpose of changing the type
+	 * from {@code List<InstanceObject>} to {@code List<ComponentInstance>}.  Please use
+	 * {@link #getFunctionBindings} and change the call site to handle {@code InstanceObject}
+	 * to avoid this.
+	 *
 	 * @param io
 	 * @return list of system component instances
+	 * @deprecated To be removed in 2.10.0.  Please use {@link #getFunctionBindings}.
 	 */
+	@Deprecated
 	public static List<ComponentInstance> getFunctionBinding(final ComponentInstance io) {
-		List<ComponentInstance> bindinglist = GetProperties.getActualFunctionBinding(io);
-		return bindinglist;
+		return getListAsComponentInstance(DeploymentProperties::getActualFunctionBinding, io);
+	}
+
+	/**
+	 * return the list of system that the functional component is directly bound to.
+	 * @param io
+	 * @return list of system component instances
+	 * @since 3.1
+	 */
+	public static List<InstanceObject> getFunctionBindings(final ComponentInstance io) {
+		return DeploymentProperties.getActualFunctionBinding(io).orElse(Collections.emptyList());
 	}
 
 	/**
 	 * return the processor or virtual processor that the component is directly bound to
+	 *
+	 * <p>This method recopies a list internally for the sole purpose of changing the type
+	 * from {@code List<InstanceObject>} to {@code List<ComponentInstance>}.  Please use
+	 * {@link #getFunctionBindings} and change the call site to handle {@code InstanceObject}
+	 * to avoid this.
+	 *
 	 * @param io
 	 * @return
+	 * @deprecated To be removed in 2.10.0.  Please use {@link #getMemoryBindings}.
 	 */
+	@Deprecated
 	public static List<ComponentInstance> getMemoryBinding(final ComponentInstance io) {
-		List<ComponentInstance> bindinglist = GetProperties.getActualMemoryBinding(io);
-		return bindinglist;
+		return getListAsComponentInstance(DeploymentProperties::getActualMemoryBinding, io);
 	}
 
 	/**
 	 * return the processor or virtual processor that the component is directly bound to
+	 *
 	 * @param io
 	 * @return
+	 * @since 3.1
 	 */
+	public static List<InstanceObject> getMemoryBindings(final ComponentInstance io) {
+		return DeploymentProperties.getActualMemoryBinding(io).orElse(Collections.emptyList());
+	}
+
+	/**
+	 * return the processor or virtual processor that the component is directly bound to
+	 *
+	 * <p>This method recopies a list internally for the sole purpose of changing the type
+	 * from {@code List<InstanceObject>} to {@code List<ComponentInstance>}.  Please use
+	 * {@link #getFunctionBindings} and change the call site to handle {@code InstanceObject}
+	 * to avoid this.
+	 *
+	 * @param io
+	 * @return
+	 * @deprecated To be removed in 2.10.0.  Please use {@link #getProcessorBindings}.
+	 */
+	@Deprecated
 	public static List<ComponentInstance> getProcessorBinding(final ComponentInstance io) {
-		List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(io);
-		return bindinglist;
+		return getListAsComponentInstance(DeploymentProperties::getActualProcessorBinding, io);
+	}
+
+	/**
+	 * return the processor or virtual processor that the component is directly bound to
+	 *
+	 * @param io
+	 * @return
+	 * @since 3.1
+	 */
+	public static List<InstanceObject> getProcessorBindings(final ComponentInstance io) {
+		return DeploymentProperties.getActualProcessorBinding(io).orElse(Collections.emptyList());
 	}
 
 	/**
@@ -603,7 +625,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static EList<ComponentInstance> getBoundSWComponents(final ComponentInstance associatedObject) {
-		EList boundComponents = null;
+		EList<Element> boundComponents = null;
 
 		if (boundSWCache.containsKey(associatedObject)) {
 			return boundSWCache.get(associatedObject);
@@ -628,12 +650,10 @@ public class InstanceModelUtil {
 			boundComponents = new ForAllElement() {
 				@Override
 				protected boolean suchThat(Element obj) {
-					List<ComponentInstance> boundMemoryList = GetProperties
-							.getActualMemoryBinding((ComponentInstance) obj);
-					if (boundMemoryList.isEmpty()) {
-						return false;
-					}
-					return boundMemoryList.get(0) == associatedObject;
+					return DeploymentProperties.getActualMemoryBinding((ComponentInstance) obj).map(
+							boundMemoryList -> boundMemoryList.isEmpty() ? false
+									: boundMemoryList.get(0) == associatedObject)
+							.orElse(false);
 				}
 				// process bottom up so we can check whether children had budgets
 			}.processPostOrderComponentInstance(root);
@@ -653,6 +673,7 @@ public class InstanceModelUtil {
 	 * @param procorVP
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static EList<ComponentInstance> getAllBoundSWComponents(final ComponentInstance procorVP) {
 		SystemInstance root = procorVP.getSystemInstance();
 		EList boundComponents = new ForAllElement() {
@@ -673,6 +694,7 @@ public class InstanceModelUtil {
 	 * @param procorVP
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static EList<ComponentInstance> getBoundThreads(final ComponentInstance procorVP) {
 		SystemInstance root = procorVP.getSystemInstance();
 		EList boundComponents = new ForAllElement() {
@@ -692,6 +714,7 @@ public class InstanceModelUtil {
 	 * @param procorVP
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static EList<ComponentInstance> getBoundProcesses(final ComponentInstance procorVP) {
 		SystemInstance root = procorVP.getSystemInstance();
 		EList boundComponents = new ForAllElement() {
@@ -757,14 +780,21 @@ public class InstanceModelUtil {
 	/**
 	 * return set of components the specified instance object (connection or virtual bus) is bound to.
 	 * Takes into account virtual buses contained in buses or virtual buses
+	 *
+	 * <p>This method copies a list internally for the sole purpose of changing the type
+	 * from {@code List<InstanceObject>} to {@code List<ComponentInstance>}.  Please use
+	 * {@link #getConnectionBindings} and change the call site to handle {@code InstanceObject}
+	 * to avoid this.
+	 *
 	 * @param io
 	 * @return
 	 *
-	 * @deprecated Use {@link #getConnectionBindings(InstanceObject)
+	 * @deprecated To be removed in 2.10.0.  Use {@link #getConnectionBindings(InstanceObject)
 	 */
 	@Deprecated
 	public static List<ComponentInstance> getConnectionBinding(final InstanceObject io) {
-		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(io);
+		final List<ComponentInstance> bindinglist = getListAsComponentInstance(
+				DeploymentProperties::getActualConnectionBinding, io);
 		/**
 		 * If we have a virtual bus, we consider that it is bound to
 		 * its containing bus. Semantically, we thus consider
@@ -776,7 +806,7 @@ public class InstanceModelUtil {
 			ComponentInstance parent = io.getContainingComponentInstance();
 			if (parent.getCategory() == ComponentCategory.BUS
 					|| parent.getCategory() == ComponentCategory.VIRTUAL_BUS) {
-				bindinglist.add(parent);
+				return Collections.singletonList(parent);
 			}
 		}
 		return bindinglist;
@@ -955,7 +985,7 @@ public class InstanceModelUtil {
 		ComponentInstance srcHW = getHardwareComponent(connectionInstance.getSource());
 		ComponentInstance dstHW = getHardwareComponent(connectionInstance.getDestination());
 		if (isBusAccessConnection(connectionInstance)) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		return connectedByBus(srcHW, dstHW);
 	}
@@ -986,7 +1016,6 @@ public class InstanceModelUtil {
 		if (srcHW == null || dstHW == null || srcHW == dstHW) {
 			return visitedBuses;
 		}
-		EList<FeatureInstance> busaccesslist = srcHW.getFeatureInstances();
 		for (FeatureInstance fi : srcHW.getFeatureInstances()) {
 			if (fi.getCategory() == FeatureCategory.BUS_ACCESS) {
 				for (ConnectionInstance aci : fi.getDstConnectionInstances()) {
