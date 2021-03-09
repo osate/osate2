@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -189,12 +190,13 @@ public class EObjectURIWrapper {
 
 		private Image getImage(final EObject eObject) {
 			int severity = -1;
-			final URI resourceURI = eObject.eResource().getURI();
+			final Resource resource = eObject.eResource();
+			final URI resourceURI = resource.getURI();
 			if (resourceURI.isPlatformResource()) {
 				try {
-					final IFile file = OsateResourceUtil.toIFile(eObject.eResource().getURI());
+					final IFile file = OsateResourceUtil.toIFile(resource.getURI());
 					if (file.isAccessible()) {
-						final ResourceSet resourceSet = eObject.eResource().getResourceSet();
+						final ResourceSet resourceSet = resource.getResourceSet();
 						final IMarker[] markers = file.findMarkers(null, true, IResource.DEPTH_INFINITE);
 						for (final IMarker marker : markers) {
 							final String markerURIString = getMarkerURIString(marker);
