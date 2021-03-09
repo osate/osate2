@@ -915,20 +915,19 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 			viewerPane.createControl(getContainer());
 
 			selectionViewer = (TreeViewer) viewerPane.getViewer();
-
 			selectionViewer.setUseHashlookup(true);
 			selectionViewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-
-			// selectionViewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
-			selectionViewer.setLabelProvider(new DecoratingColumLabelProvider(
-					new AdapterFactoryLabelProvider(adapterFactory), new DiagnosticDecorator(editingDomain,
-							selectionViewer, Aadl2EditorPlugin.getPlugin().getDialogSettings())));
-
+			selectionViewer.setLabelProvider(
+					// provide warning/error decorations
+					new DecoratingColumLabelProvider(new AdapterFactoryLabelProvider(adapterFactory),
+							new DiagnosticDecorator(editingDomain, selectionViewer,
+									Aadl2EditorPlugin.getPlugin().getDialogSettings())));
 			selectionViewer.setInput(getResource());
 			selectionViewer.setSelection(new StructuredSelection(getResource()), true);
 			viewerPane.setTitle(getResource());
 
 			new AdapterFactoryTreeEditor(selectionViewer.getTree(), adapterFactory);
+			// provide tooltips for warnings/errors
 			new ColumnViewerInformationControlToolTipSupport(selectionViewer,
 					new DiagnosticDecorator.EditingDomainLocationListener(editingDomain, selectionViewer));
 
