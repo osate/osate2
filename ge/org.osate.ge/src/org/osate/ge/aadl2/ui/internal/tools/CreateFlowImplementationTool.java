@@ -355,12 +355,12 @@ public class CreateFlowImplementationTool implements Tool {
 			if (fs == null) {
 				msg = "Select the flow specification to implement.";
 			} else if (isValid) {
-				msg = "Continue selecting flow segments or select the OK button to create the flow implementation.";
+				msg = "Select flow segments or select the OK button to create the flow implementation.";
 			} else {
 				final FlowKind kind = fs.getKind();
 				if (kind == FlowKind.SOURCE) {
 					if (flowImpl.getOutEnd() == null) {
-						msg = "Select a ending feature or flow segment.";
+						msg = "Select an ending feature or flow segment.";
 					} else {
 						msg = "Select a flow segment.";
 					}
@@ -374,12 +374,18 @@ public class CreateFlowImplementationTool implements Tool {
 					if (flowImpl.getInEnd() == null) {
 						msg = "Select a starting feature or flow segment";
 					} else if (flowImpl.getOutEnd() == null) {
-						msg = "Select a ending feature or flow segment";
+						msg = "Select an ending feature or flow segment";
 					}
 				}
 			}
 
-			return msg += "\nOptionally, select in modes or mode transitions.";
+			if (msg.isEmpty()) {
+				msg = "Select ";
+			} else {
+				msg += "\nOptionally, select ";
+			}
+
+			return msg += "modes or mode transitions.";
 		}
 
 		private void updateMessage() {
@@ -465,13 +471,6 @@ public class CreateFlowImplementationTool implements Tool {
 							if (inEnd != null) {
 								addSegmentSelection(FlowToolUtil.createSegmentData(referenceService,
 										container, inEnd), segmentSelections.size(),
-										Color.MAGENTA.darker());
-							}
-
-							final FlowEnd outEnd = fs.getAllOutEnd();
-							if (outEnd != null) {
-								addSegmentSelection(FlowToolUtil.createSegmentData(referenceService,
-										container, outEnd), segmentSelections.size(),
 										Color.MAGENTA.darker());
 							}
 						}
