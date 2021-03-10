@@ -452,6 +452,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		if (flow.getRefined() == null) {
 			checkFlowFeatureDirection(flow);
 		}
+		checkSubprogramGroupNoFlowSpecification(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -9007,6 +9008,14 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			}
 		}
 		return false;
+	}
+
+	private boolean checkSubprogramGroupNoFlowSpecification(FlowSpecification flowSpec) {
+		if (flowSpec.getOwner() instanceof SubprogramGroup) {
+			error(flowSpec, "Flow specifications are not allowed within a Subprogram Group");
+			return false;
+		}
+		return true;
 	}
 
 	static public void applyTest(EObject element, List<String> data) throws Exception {
