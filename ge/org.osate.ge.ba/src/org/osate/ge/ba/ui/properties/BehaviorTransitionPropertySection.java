@@ -117,13 +117,14 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		composite.setLayout(GridLayoutFactory.swtDefaults().numColumns(3).create());
 	}
 
-	private void setSaveButton(final boolean isSingleSelection, final TransactionalEditingDomain editingDomain,
+	private void setSaveButton(final TransactionalEditingDomain editingDomain,
 			final TextValue conditionTextValue, final IProject project, final XtextResource xtextResource,
 			final IXtextDocument xtextDocument) {
 		disposeControl(saveConditionBtn);
 
 		saveConditionBtn = new Button(composite, SWT.PUSH);
 		saveConditionBtn.setText("Save");
+		saveConditionBtn.setEnabled(false);
 		saveConditionBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
@@ -139,17 +140,17 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			}
 		});
 
-		saveConditionBtn.setEnabled(isSingleSelection);
 	}
 
 	// Action
-	private void setSaveButtonB(final boolean isSingleSelection, final TransactionalEditingDomain editingDomain,
+	private void setSaveButtonB(final TransactionalEditingDomain editingDomain,
 			final TextValue conditionTextValue, final IProject project, final XtextResource xtextResource,
 			final IXtextDocument xtextDocument) {
 		disposeControl(saveActionBtn);
 
 		saveActionBtn = new Button(composite, SWT.PUSH);
 		saveActionBtn.setText("Save");
+		saveActionBtn.setEnabled(false);
 		saveActionBtn.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
@@ -165,7 +166,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			}
 		});
 
-		saveActionBtn.setEnabled(isSingleSelection);
 	}
 
 	private void setConditionText(final boolean isSingleSelection) {
@@ -184,11 +184,11 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		disposeControl(actionStyledText);
 
 		// Create styled text
-		actionStyledText = new StyledText(composite, SWT.BORDER | SWT.MULTI);
+		actionStyledText = new StyledText(composite, SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI);
 		// Disable on multiple selection
 		actionStyledText.setEnabled(isSingleSelection);
-		actionStyledText.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER)
-				.minSize(200, SWT.DEFAULT).create());
+		actionStyledText.setLayoutData(GridDataFactory.swtDefaults().hint(SWT.DEFAULT, 100).grab(true, false)
+				.align(SWT.FILL, SWT.CENTER).create());
 		SwtUtil.setTestingId(actionStyledText, WIDGET_ID_ACTION);
 	}
 
@@ -222,12 +222,12 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 					// Styled text to enter the new condition text
 					setConditionText(isSingleSelection);
 					// Button to execute the condition modification
-					setSaveButton(isSingleSelection, editingDomain, conditionTextValue, project, xtextResource,
+					setSaveButton(editingDomain, conditionTextValue, project, xtextResource,
 							xtextDocument);
 
 					setActionLabel();
 					setConditionTextb(isSingleSelection);
-					setSaveButtonB(isSingleSelection, editingDomain, actionTextValue, project, xtextResource,
+					setSaveButtonB(editingDomain, actionTextValue, project, xtextResource,
 							xtextDocument);
 					// Dispose of current adapter and create new one
 					setXtextAdapter(project);
@@ -298,18 +298,30 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		} else {
 			System.err.println("action != null");
 			// Condition offset
-			updateOffset = action.getAadlBaLocationReference().getOffset();
+			updateOffset = action.getAadlBaLocationReference().getOffset() + 1;
 			// text.substring(updateOffset)
 
-			System.err.println(action.getAadlBaLocationReference().getOffset() + " getOffset");
-			System.err.println(text + " text");
+			// System.err.println(action.getAadlBaLocationReference().getOffset() + " getOffset");
+			// System.err.println(text + " text");
 			prefix = text.substring(0, updateOffset);
 			System.err.println(prefix + " prefix");
+
+			// String[] t = text.substring(updateOffset - 5).split("\\{", 2);
+			// System.err.println(t[0] + " to");
+			// System.err.println(t[1] + " t1");
 
 			// Note: Condition length only counts until the first space (assuming).
 			// For example, when dispatch condition is "on dispatch" length is 2.
 			// Find closing "]", to get condition text
-			actionText = text.substring(updateOffset + 1).split("}")[0];
+			// actionText = text.substring(updateOffset).split("}")[0].trim().replaceAll("[\\t ]", "");
+			final StringBuilder actionTextBuilder = new StringBuilder();
+			final String[] actionTextLines = text.substring(updateOffset).split("}")[0].trim().split("\\n");
+			for (final String actionTextLine : actionTextLines) {
+				actionTextBuilder.append(actionTextLine.trim()).append("\n");
+			}
+
+			actionText = actionTextBuilder.toString();
+
 			System.err.println(actionText + " actionText");
 		}
 
