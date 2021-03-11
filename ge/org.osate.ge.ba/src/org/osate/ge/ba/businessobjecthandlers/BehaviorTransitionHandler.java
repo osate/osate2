@@ -48,6 +48,7 @@ import org.osate.ge.businessobjecthandling.CustomDeleter;
 import org.osate.ge.businessobjecthandling.CustomRenamer;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
+import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
@@ -103,7 +104,7 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	public static final Style transitionConnectionStyle = StyleBuilder.create().backgroundColor(Color.BLACK)
 			.labelsAboveTop().labelsLeft().build();
 
-	private final String unnamedLabel = "<Unnamed>";
+	private final String unnamedLabel = "<Unnamed Behavior Transition>";
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -152,6 +153,11 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	}
 
 	@Override
+	public String getNameForRenaming(final GetNameContext ctx) {
+		return ctx.getBusinessObject(BehaviorTransition.class).map(BehaviorTransition::getName).orElse("");
+	}
+
+	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final QueryService queryService = ctx.getQueryService();
@@ -172,7 +178,13 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	@Override
 	public String getName(final GetNameContext ctx) {
 		return ctx.getBusinessObject(BehaviorTransition.class).map(BehaviorTransition::getName)
-				.orElse(unnamedLabel);
+				.orElse("");
+	}
+
+	@Override
+	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
+		return ctx.getBusinessObjectContext().getBusinessObject(BehaviorTransition.class)
+				.map(BehaviorTransition::getName).orElse(unnamedLabel);
 	}
 
 	@Override
@@ -180,7 +192,7 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 		// Check current name against new name so that when a user clicks on an "<Unnamed>" label to
 		// direct edit, the user does not receive an error about the name if they decide to keep the transition unnamed
 		final String name = ctx.getBusinessObject(BehaviorTransition.class).map(BehaviorTransition::getName)
-				.orElse(unnamedLabel);
+				.orElse("");
 		// Allow removing name of transition
 		final String newName = ctx.getNewName();
 		if (isEmptyOrMatchesName(newName, name)) {
@@ -207,7 +219,7 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
 		final String newName = ctx.getNewName();
 		// An unnamed transition's name must be set to null
-		behaviorTransition.setName(isEmptyOrMatchesName(newName, unnamedLabel) ? null : newName);
+		behaviorTransition.setName(newName.isEmpty() ? null : newName);
 	}
 
 	private boolean isEmptyOrMatchesName(final String newName, final String name) {

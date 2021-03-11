@@ -33,6 +33,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPart;
@@ -81,7 +82,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	public static String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.condition";
 	private static final Injector injector = Aadl2Activator.getInstance()
 			.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
-	private Composite composite;
+	private Composite container;
 	private StyledText conditionStyledText;
 	private Button saveBtn;
 	private BusinessObjectSelection selectedBos;
@@ -97,20 +98,29 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
 		super.createControls(parent, aTabbedPropertySheetPage);
 		// Create composite for widgets
-		createComposite(parent);
+		final Composite composite = getWidgetFactory().createPlainComposite(parent, SWT.NONE);
+		composite.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
+
+		final Label conditionLabel = new Label(composite, SWT.NONE);
+		conditionLabel.setText("Condition: ");
+		SwtUtil.setColorsToMatchParent(conditionLabel);
+
+		// Create container for styled text and save button
+		createComposite(composite);
 	}
 
 	private void createComposite(final Composite parent) {
-		composite = getWidgetFactory().createPlainComposite(parent, SWT.NONE);
-		composite.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
+		container = getWidgetFactory().createPlainComposite(parent, SWT.NONE);
+		container.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
+		container.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
+				.hint(SWT.DEFAULT, SWT.DEFAULT).create());
 	}
 
-	private void setSaveButton(final TransactionalEditingDomain editingDomain,
-			final TextValue conditionTextValue, final IProject project, final XtextResource xtextResource,
-			final IXtextDocument xtextDocument) {
+	private void setSaveButton(final TransactionalEditingDomain editingDomain, final TextValue conditionTextValue,
+			final IProject project, final XtextResource xtextResource, final IXtextDocument xtextDocument) {
 		disposeControl(saveBtn);
 
-		saveBtn = new Button(composite, SWT.PUSH);
+		saveBtn = new Button(container, SWT.PUSH);
 		saveBtn.setText("Save");
 		saveBtn.setEnabled(false);
 		saveBtn.addSelectionListener(new SelectionAdapter() {
@@ -120,11 +130,9 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 					final ActionService actionService = Adapters.adapt(editorPart, ActionService.class);
 					final ModelChangeNotifier modelChangeNotifier = Objects.requireNonNull(
 							editorPart.getAdapter(ModelChangeNotifier.class), "Unable to get model change notifier");
-
-					actionService.execute("Modifying BehaviorTranistion Condition", ExecutionMode.NORMAL,
+					actionService.execute("Modifying BehaviorTranistion Condition", ExecutionMode.TEST,
 							new ConditionModification(conditionStyledText.getText(), editingDomain, xtextDocument,
-									xtextResource,
-									modelChangeNotifier, project, conditionTextValue));
+									xtextResource, modelChangeNotifier, project, conditionTextValue));
 				});
 			}
 		});
@@ -134,12 +142,10 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		disposeControl(conditionStyledText);
 
 		// Create styled text
-		conditionStyledText = new StyledText(composite, SWT.BORDER | SWT.SINGLE);
+		conditionStyledText = new StyledText(container, SWT.BORDER | SWT.SINGLE);
 		// Disable on multiple selection
 		conditionStyledText.setEnabled(isSingleSelection);
-		conditionStyledText.setLayoutData(
-				GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(SWT.DEFAULT, SWT.DEFAULT)
-						.create());
+		conditionStyledText.setLayoutData(container.getLayoutData());
 		SwtUtil.setTestingId(conditionStyledText, WIDGET_ID_CONDITION);
 	}
 
@@ -164,18 +170,18 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 					// Styled text to enter the new condition text
 					setConditionText(isSingleSelection);
+
 					// Button to execute the condition modification
 					setSaveButton(editingDomain, conditionTextValue, project, xtextResource, xtextDocument);
 					// Dispose of current adapter and create new one
 					setXtextAdapter(project);
-					conditionStyledText
-							.addKeyListener(new ConditionModificationKeyAdapter(behaviorTransition));
+					conditionStyledText.addKeyListener(new ConditionModificationKeyAdapter(behaviorTransition));
 
 					updateAdapterDocument(conditionTextValue);
 				});
 
 		// Layout composite
-		composite.requestLayout();
+		container.requestLayout();
 	}
 
 	private class ConditionModificationKeyAdapter extends KeyAdapter {
@@ -239,8 +245,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 		// Text before transition condition
 		final String prefix;
-
-		final String conditionText;
 		if (condition == null) {
 			// Transition offset
 			final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
@@ -253,22 +257,23 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 			// Update offset
 			updateOffset = transitionOffset + updatePrefix.length();
-
-			// Empty condition text
-			conditionText = "";
 		} else {
 			// Condition offset
 			updateOffset = condition.getAadlBaLocationReference().getOffset();
 			prefix = text.substring(0, updateOffset);
-
-			// Note: Condition length only counts until the first space (assuming).
-			// For example, when dispatch condition is "on dispatch" length is 2.
-			// Find closing "]", to get condition text
-			conditionText = text.substring(updateOffset).split("]")[0];
 		}
 
+		// Note: condition.getAadlBaLocationReference().getLength() only counts until the first space (assuming).
+		// For example, when dispatch condition is "on dispatch" length is 2.
+		// Find closing "]", to get condition text
+		final String[] conditionAndSuffix = text.substring(updateOffset).split("]", 2);
+
+		// Condition text
+		final String conditionText = conditionAndSuffix[0].trim();
+
 		// Text after transition condition
-		final String suffix = getSuffix(text, updateOffset);
+		final String suffix = "]" + conditionAndSuffix[1];
+
 		// Create condition value
 		return new TextValue(prefix, conditionText, suffix, updateOffset);
 	}
@@ -298,12 +303,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		if (control != null && !control.isDisposed()) {
 			control.dispose();
 		}
-	}
-
-	// Source text after condition
-	private static String getSuffix(final String text, final int updateOffset) {
-		final String suffix = text.substring(updateOffset, text.length());
-		return new StringBuilder(suffix).substring(suffix.indexOf("]"));
 	}
 
 	private static boolean isBehaviorTransition(final BusinessObjectContext boc) {
@@ -355,9 +354,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		private final RecordingCommand cmd;
 
 		public ConditionModification(final String newText, final TransactionalEditingDomain editingDomain,
-				final IXtextDocument xtextDocument,
-				final XtextResource xtextResource, final ModelChangeNotifier modelChangeNotifier,
-				final IProject project, final TextValue textVal) {
+				final IXtextDocument xtextDocument, final XtextResource xtextResource,
+				final ModelChangeNotifier modelChangeNotifier, final IProject project, final TextValue textVal) {
 			this.editingDomain = editingDomain;
 			this.xtextDocument = xtextDocument;
 			this.xtextResource = xtextResource;
@@ -400,7 +398,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 		@Override
 		public AgeAction execute() {
-			final String originalText = getText(xtextDocument, xtextResource);
 			try (final Lock lock = modelChangeNotifier.lock()) {
 				if (xtextDocument != null) {
 					xtextDocument.modify(work);
@@ -416,6 +413,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 				buildProject();
 			}
 
+			final String originalText = getText(xtextDocument, xtextResource);
 			// Set action to restore original source text upon undo
 			return new ConditionModification(originalText, editingDomain, xtextDocument, xtextResource,
 					modelChangeNotifier, project, new TextValue(originalText));
@@ -509,8 +507,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			length = wholeText.length();
 		}
 
-		public TextValue(final String prefix, final String conditionText, final String suffix,
-				final int updateOffset) {
+		public TextValue(final String prefix, final String conditionText, final String suffix, final int updateOffset) {
 			final String prefixWithLineEnding = prefix + "\n";
 			wholeText = prefixWithLineEnding + conditionText + "\n" + suffix;
 
