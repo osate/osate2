@@ -376,15 +376,15 @@ public class InstanceModelUtil {
 			return true;
 		}
 
-		List<ComponentInstance> bindinglist = canHaveActualProcessorBinding(componentInstance)
-				? getProcessorBinding(componentInstance)
+		List<InstanceObject> bindinglist = canHaveActualProcessorBinding(componentInstance)
+				? getProcessorBindings(componentInstance)
 				: Collections.emptyList();
-		for (ComponentInstance boundCompInstance : bindinglist) {
+		for (final InstanceObject boundCompInstance : bindinglist) {
 			if (boundCompInstance == processor) {
 				return true;
 			} else if (isVirtualProcessor(boundCompInstance)) {
 				// it is bound to or contained in
-				if (isBoundToProcessor(boundCompInstance, processor)) {
+				if (isBoundToProcessor((ComponentInstance) boundCompInstance, processor)) {
 					return true;
 				}
 			}
@@ -522,18 +522,19 @@ public class InstanceModelUtil {
 	 * @return processor instance
 	 */
 	public static ComponentInstance getBoundPhysicalProcessor(ComponentInstance componentInstance) {
-		final List<ComponentInstance> cil = canHaveActualProcessorBinding(componentInstance)
-				? getProcessorBinding(componentInstance)
+		final List<InstanceObject> cil = canHaveActualProcessorBinding(componentInstance)
+				? getProcessorBindings(componentInstance)
 				: Collections.emptyList();
 		if (cil.isEmpty()) {
 			return null;
 		}
-		for (ComponentInstance ci : cil) {
+		for (final InstanceObject ci : cil) {
 			if (isProcessor(ci) || isSystem(ci) || isAbstract(ci)) {
-				return ci;
+				return (ComponentInstance) ci;
 			}
 		}
-		for (ComponentInstance boundCompInstance : cil) {
+		for (final InstanceObject io : cil) {
+			final ComponentInstance boundCompInstance = (ComponentInstance) io;
 			if (isVirtualProcessor(boundCompInstance)) {
 				// it is bound to or contained in
 				ComponentInstance res = getBoundPhysicalProcessor(boundCompInstance);
@@ -575,8 +576,9 @@ public class InstanceModelUtil {
 
 	protected static void addBoundProcessors(ComponentInstance componentInstance,
 			Collection<ComponentInstance> result) {
-		List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
-		for (ComponentInstance boundCompInstance : bindinglist) {
+		final List<InstanceObject> bindinglist = getProcessorBindings(componentInstance);
+		for (InstanceObject io : bindinglist) {
+			final ComponentInstance boundCompInstance = (ComponentInstance) io;
 			if (isVirtualProcessor(boundCompInstance)) {
 				// it is bound to or contained in
 				addBoundProcessors(boundCompInstance, result);
@@ -623,8 +625,9 @@ public class InstanceModelUtil {
 
 	protected static void addBoundVirtualProcessors(ComponentInstance componentInstance,
 			Collection<ComponentInstance> result, boolean doAll) {
-		Collection<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
-		for (ComponentInstance boundCompInstance : bindinglist) {
+		final Collection<InstanceObject> bindinglist = getProcessorBindings(componentInstance);
+		for (final InstanceObject io : bindinglist) {
+			final ComponentInstance boundCompInstance = (ComponentInstance) io;
 			if (isVirtualProcessor(boundCompInstance)) {
 				result.add(boundCompInstance);
 				if (doAll) {
