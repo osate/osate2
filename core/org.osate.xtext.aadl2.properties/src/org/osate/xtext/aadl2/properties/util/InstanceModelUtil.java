@@ -376,7 +376,9 @@ public class InstanceModelUtil {
 			return true;
 		}
 
-		List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
+		List<ComponentInstance> bindinglist = canHaveActualProcessorBinding(componentInstance)
+				? getProcessorBinding(componentInstance)
+				: Collections.emptyList();
 		for (ComponentInstance boundCompInstance : bindinglist) {
 			if (boundCompInstance == processor) {
 				return true;
@@ -496,6 +498,22 @@ public class InstanceModelUtil {
 		return getBoundPhysicalProcessor(swci);
 	}
 
+	private static boolean canHaveActualProcessorBinding(final ComponentInstance ci) {
+		switch (ci.getCategory()) {
+		case ABSTRACT:
+		case THREAD:
+		case THREAD_GROUP:
+		case PROCESS:
+		case SYSTEM:
+		case VIRTUAL_PROCESSOR:
+		case DEVICE:
+			return true;
+		default:
+			return false;
+
+		}
+	}
+
 	/**
 	 * processor instance is directly or indirectly bound to the processor
 	 * It could be bound to a virtual processor which in turn is bound to a processor
@@ -504,7 +522,9 @@ public class InstanceModelUtil {
 	 * @return processor instance
 	 */
 	public static ComponentInstance getBoundPhysicalProcessor(ComponentInstance componentInstance) {
-		List<ComponentInstance> cil = getProcessorBinding(componentInstance);
+		final List<ComponentInstance> cil = canHaveActualProcessorBinding(componentInstance)
+				? getProcessorBinding(componentInstance)
+				: Collections.emptyList();
 		if (cil.isEmpty()) {
 			return null;
 		}
@@ -547,7 +567,9 @@ public class InstanceModelUtil {
 	 */
 	public static Collection<ComponentInstance> getBoundPhysicalProcessors(ComponentInstance componentInstance) {
 		final Collection<ComponentInstance> actualProcs = new HashSet<ComponentInstance>();
-		addBoundProcessors(componentInstance, actualProcs);
+		if (canHaveActualProcessorBinding(componentInstance)) {
+			addBoundProcessors(componentInstance, actualProcs);
+		}
 		return actualProcs;
 	}
 
@@ -580,7 +602,9 @@ public class InstanceModelUtil {
 	 */
 	public static Collection<ComponentInstance> getBoundVirtualProcessors(ComponentInstance componentInstance) {
 		final Collection<ComponentInstance> actualProcs = new HashSet<ComponentInstance>();
-		addBoundVirtualProcessors(componentInstance, actualProcs, false);
+		if (canHaveActualProcessorBinding(componentInstance)) {
+			addBoundVirtualProcessors(componentInstance, actualProcs, false);
+		}
 		return actualProcs;
 	}
 
@@ -591,7 +615,9 @@ public class InstanceModelUtil {
 	 */
 	public static Collection<ComponentInstance> getAllBoundVirtualProcessors(ComponentInstance componentInstance) {
 		final Collection<ComponentInstance> actualProcs = new ArrayList<ComponentInstance>();
-		addBoundVirtualProcessors(componentInstance, actualProcs, true);
+		if (canHaveActualProcessorBinding(componentInstance)) {
+			addBoundVirtualProcessors(componentInstance, actualProcs, true);
+		}
 		return actualProcs;
 	}
 
