@@ -227,8 +227,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		double deadline = GetProperties.getDeadlineinMilliSec(componentInstance);
 		boolean isAssignedDeadline = GetProperties.isAssignedDeadline(componentInstance);
 
-		final boolean isPeriodic = period > 0 && ((InstanceModelUtil.isThread(componentInstance)
-				|| InstanceModelUtil.isDevice(componentInstance) || InstanceModelUtil.isAbstract(componentInstance))
+		final boolean isThreadOrDevice = InstanceModelUtil.isThread(componentInstance)
+				|| InstanceModelUtil.isDevice(componentInstance) || InstanceModelUtil.isAbstract(componentInstance);
+		final boolean isPeriodic = period > 0 && (isThreadOrDevice
 						? (!InstanceModelUtil.isSporadicComponent(componentInstance)
 								&& !InstanceModelUtil.isTimedComponent(componentInstance)
 								&& !InstanceModelUtil.isAperiodicComponent(componentInstance))
@@ -409,7 +410,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			if (GetProperties.hasAssignedPropertyValue(incomingConnectionFI, CommunicationProperties.QUEUE_SIZE)) {
 				qs = GetProperties.getQueueSize(incomingConnectionFI);
 			} else if (incomingConnectionFI.getCategory() == FeatureCategory.DATA_PORT
-					&& (InstanceModelUtil.isSporadicComponent(componentInstance)
+					&& isThreadOrDevice && (InstanceModelUtil.isSporadicComponent(componentInstance)
 							|| InstanceModelUtil.isTimedComponent(componentInstance)
 							|| InstanceModelUtil.isAperiodicComponent(componentInstance))) {
 				// treat data port as a port of queue size 1 when not a sampling thread
