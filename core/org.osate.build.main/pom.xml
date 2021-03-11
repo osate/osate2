@@ -11,10 +11,11 @@
 
 	<properties>
 		<tycho.version>1.7.0</tycho.version>
-		<tycho-extras.version>1.7.0</tycho-extras.version>
+		<tycho-extras.version>${tycho.version}</tycho-extras.version>
 		<xtext.version>2.20.0</xtext.version>
 		<xsemantics.version>1.19.0-SNAPSHOT</xsemantics.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<eclipse.version>2020-06</eclipse.version>
 		<osate.version>2.9.2-SNAPSHOT</osate.version>
 
 		<jacoco.version>0.8.5</jacoco.version>
@@ -22,12 +23,12 @@
 		<test.logging.2>-Dorg.apache.commons.logging.simplelog.defaultlog=error</test.logging.2>
 		<test.logging>${test.logging.1} ${test.logging.2}</test.logging>
 
-		<!--  for comparison with baseline -->
+		<!-- for comparison with baseline -->
 		<skipBaselineComparison>false</skipBaselineComparison>
 		<lastStableRepository>http://osate-build.sei.cmu.edu/download/osate/stable/latest/updates</lastStableRepository>
-		<!--  "fail" or "warn" -->
+		<!-- "fail" or "warn" -->
 		<baselineCompareOnIllegalVersion>warn</baselineCompareOnIllegalVersion>
-		
+
 		<!-- <sonar.projectKey>osate_osate2</sonar.projectKey> -->
 		<sonar.organization>osate</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -48,7 +49,7 @@
 		<sonar.java.source>1.8</sonar.java.source>
 
 		<!-- The following are for use in poms for test plugins -->
-		<eclipse.repo.url>http://download.eclipse.org/releases/2020-06</eclipse.repo.url>
+		<eclipse.repo.url>http://download.eclipse.org/releases/${eclipse.version}</eclipse.repo.url>
 		<xtext-testing.repo.url>https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2</xtext-testing.repo.url>
 
 		<spotbugs.configdir>${project.parent.parent.basedir}/core/org.osate.build.main/src/main/resources/spotbugs</spotbugs.configdir>
