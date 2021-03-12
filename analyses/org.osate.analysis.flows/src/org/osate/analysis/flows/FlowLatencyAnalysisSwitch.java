@@ -1260,7 +1260,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						|| featureCategory == FeatureCategory.EVENT_DATA_PORT) {
 					final Optional<Double> fromFeature = getScaled(getExecTime, fi, f2, TimeUnits.MS);
 					if (fromFeature.isPresent()) {
-						return fromFeature.get();
+						return GetProperties.scaleTime(fromFeature.get(), fi);
 					} // otherwise fall through and get from component
 				} // otherwise fall through and get from component
 			}
@@ -1269,7 +1269,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		if (componentCategory == ComponentCategory.THREAD || componentCategory == ComponentCategory.DEVICE
 				|| componentCategory == ComponentCategory.SUBPROGRAM
 				|| componentCategory == ComponentCategory.ABSTRACT) {
-			return getScaled(getExecTime, ci, f2, TimeUnits.MS).orElse(0.0);
+			return GetProperties.scaleTime(getScaled(getExecTime, ci, f2, TimeUnits.MS).orElse(0.0), ci);
 		} else {
 			return 0.0;
 		}
@@ -1464,43 +1464,4 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			}
 		}
 	}
-
-//	/*
-//	 * Ideally these methods would be GetProperties, but changing that class really causes havoc with the
-//	 * version numbers of the plug-ins.
-//	 */
-//
-//	private static boolean hasResponseTime(final NamedElement ne) {
-//		final Property responseTime = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
-//		return PropertyUtils.hasPropertyValue(ne, responseTime);
-//	}
-//
-//	/**
-//	 * get max response time scaled in terms of the processor the thread is
-//	 * bound to.
-//	 *
-//	 * @param ne
-//	 *            thread component instance
-//	 * @return scaled time or 0.0
-//	 */
-//	private static double getScaledMaxResponseTimeinMilliSec(final NamedElement ne) {
-//		Property computeExecutionTime = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
-//		UnitLiteral milliSecond = GetProperties.findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
-//		return PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, milliSecond, 0.0);
-//	}
-//
-//	/**
-//	 * get min response time scaled in terms of the processor the thread is
-//	 * bound to.
-//	 *
-//	 * @param ne
-//	 *            thread component instance
-//	 * @return scaled time or 0.0
-//	 */
-//	private static double getScaledMinResponseTimeinMilliSec(final NamedElement ne) {
-//		Property computeExecutionTime = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.RESPONSE_TIME);
-//		UnitLiteral milliSecond = GetProperties.findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
-//		return PropertyUtils.getScaledRangeMinimum(ne, computeExecutionTime, milliSecond, 0.0);
-//	}
-
 }
