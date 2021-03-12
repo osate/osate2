@@ -977,16 +977,15 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 			if (tt.getTypeTokens().size() > 1) {
 				error(ebt,
 						"Target state " + ebs.getName()
-								+ " should be associated with only a single error type instead of "
-								+ tt.getTypeTokens().size() + " error types");
+								+ " may only have a single error type");
 			}
 			TypeToken ebtargetTS = tt.getTypeTokens().get(0);
 			if (ebtargetTS == null) {
 				return;
 			}
-			if (ebtargetTS.getType().get(0) instanceof TypeSet) {
+			if (ebtargetTS.getType() != null && !(ebtargetTS.getType().get(0) instanceof ErrorType)) {
 				error(ebt, "Target state " + ebs.getName()
-						+ " should be associated with a single error type instead of a type set");
+						+ " may only have a single error type");
 			}
 			if (ebsTS == null && ebtargetTS != null) {
 				error(ebt,

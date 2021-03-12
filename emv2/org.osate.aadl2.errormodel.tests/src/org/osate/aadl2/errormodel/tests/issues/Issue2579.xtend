@@ -38,10 +38,10 @@ class Issue2579 extends XtextTest {
 				ownedAnnexSubclauses.get(0) as DefaultAnnexSubclause => [
 					it.parsedAnnexSubclause as ErrorModelSubclause => [
 						transitions.get(1) => [
-							it.assertError(testFileResult.issues, issueCollection, "Target state s should be associated with a single error type instead of a type set")
+							it.assertError(testFileResult.issues, issueCollection, "Target state s may only have a single error type")
 						]
 						transitions.get(2) => [
-							it.assertError(testFileResult.issues, issueCollection, "Target state s should be associated with only a single error type instead of 2 error types")
+							it.assertError(testFileResult.issues, issueCollection, "Target state s may only have a single error type")
 						]
 					]
 					
