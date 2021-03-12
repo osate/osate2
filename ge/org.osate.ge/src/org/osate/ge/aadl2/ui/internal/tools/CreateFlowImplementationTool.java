@@ -173,7 +173,8 @@ public class CreateFlowImplementationTool implements Tool {
 							setColor(segmentIt.next().getBoc(), Color.ORANGE.darker());
 
 							// Set color for flow segments
-							for (; segmentIt.hasNext(); setColor(segmentIt.next().getBoc(), Color.MAGENTA.darker())) {
+							while(segmentIt.hasNext()) {
+								setColor(segmentIt.next().getBoc(), Color.MAGENTA.darker());
 							}
 						}
 
