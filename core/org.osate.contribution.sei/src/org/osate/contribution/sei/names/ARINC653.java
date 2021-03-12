@@ -28,7 +28,7 @@ import org.osate.contribution.sei.arinc653.Arinc653;
 /**
  * String constants for the members of the "SEI" property set.
  * @author aarong
- * @deprecated Use {@link Arinc653}
+ * @deprecated Will be removed in 2.10.0.  Use {@link Arinc653}
  */
 @Deprecated
 public final class ARINC653 {

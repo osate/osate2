@@ -33,7 +33,7 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 /**
- * @deprecated Use {@code org.osate.contribution.sei.arinc653.Arinc653.getDal()} and {@code org.osate.contribution.sei.arinc653.SupportedDalType}.
+ * @deprecated Will be removed in 2.10.0..  Use {@code org.osate.contribution.sei.arinc653.Arinc653.getDal()} and {@code org.osate.contribution.sei.arinc653.SupportedDalType}.
  */
 @Deprecated
 public class CriticalityProperty {

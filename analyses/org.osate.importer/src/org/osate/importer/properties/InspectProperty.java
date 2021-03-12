@@ -26,6 +26,9 @@ package org.osate.importer.properties;
 
 import org.osate.aadl2.NamedElement;
 
+/**
+ * @deprecated Will be removed in 2.10.0.
+ */
 @Deprecated
 public class InspectProperty {
 	public static boolean shallInspect(final NamedElement ph) {

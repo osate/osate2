@@ -417,6 +417,7 @@ public final class NewBusLoadAnalysis {
 
 	// ==== Helper methods for the visitor ===
 
+	/* XXX: Where to put this? */
 	private static <U extends Enum<U> & GeneratedUnits<U>> Optional<Double> getScaled(
 			final Function<NamedElement, Optional<? extends Scalable<U>>> f, final NamedElement ne,
 			final U unit) {
