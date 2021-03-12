@@ -358,34 +358,24 @@ public class CreateFlowImplementationTool implements Tool {
 				msg = "Select flow segments or select the OK button to create the flow implementation.";
 			} else {
 				final FlowKind kind = fs.getKind();
-				if (kind == FlowKind.SOURCE) {
-					if (flowImpl.getOutEnd() == null) {
-						msg = "Select an ending feature or flow segment.";
-					} else {
-						msg = "Select a flow segment.";
-					}
-				} else if (kind == FlowKind.SINK) {
+				if (kind == FlowKind.SOURCE && flowImpl.getOutEnd() == null) {
+					msg = "Select an ending feature or flow segment.";
+				} else if (kind == FlowKind.SINK && flowImpl.getInEnd() == null) {
+					msg = "Select a starting feature or flow segment.";
+				} else if (kind == FlowKind.PATH) {
 					if (flowImpl.getInEnd() == null) {
 						msg = "Select a starting feature or flow segment.";
-					} else {
-						msg = "Select a flow segment.";
-					}
-				} else {
-					if (flowImpl.getInEnd() == null) {
-						msg = "Select a starting feature or flow segment";
 					} else if (flowImpl.getOutEnd() == null) {
-						msg = "Select an ending feature or flow segment";
+						msg = "Select an ending feature or flow segment.";
 					}
 				}
 			}
 
 			if (msg.isEmpty()) {
-				msg = "Select ";
-			} else {
-				msg += "\nOptionally, select ";
+				msg = "Select a flow segment.";
 			}
 
-			return msg += "modes or mode transitions.";
+			return msg += "\nOptionally, select modes or mode transitions.";
 		}
 
 		private void updateMessage() {
@@ -394,6 +384,12 @@ public class CreateFlowImplementationTool implements Tool {
 
 			if (multipleElementsSelected) {
 				error = "Multiple elements selected.  Select a single element. ";
+			} else if (!segmentSelections.isEmpty() && !isValid) {
+				// Show error if ending feature has been selected for flow paths and sources.
+				final FlowSpecification fs = flowImpl.getSpecification();
+				if (fs.getKind() != FlowKind.SINK && flowImpl.getOutEnd() != null) {
+					error = "Invalid Flow Implementation.  ";
+				}
 			}
 
 			if (error == null) {
