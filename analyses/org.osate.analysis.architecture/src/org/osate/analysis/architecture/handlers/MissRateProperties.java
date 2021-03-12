@@ -35,7 +35,7 @@ import org.osate.contribution.sei.names.SEI;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
- * @deprecated Dead code.  If you are using this for some reason, replace it with {@link SEI#getStreammissrate}.
+ * @deprecated Will be removed in 2.10.0.  Dead code.  If you are using this for some reason, replace it with {@link SEI#getStreammissrate}.
  */
 @Deprecated
 public class MissRateProperties {

@@ -26,7 +26,7 @@ package org.osate.contribution.sei.names;
 /**
  * String constants for the members of the "Data_Model" property set.
  * @author aarong
- * @deprecated Use {@link org.osate.contribution.sei.datamodel.DataModel}
+ * @deprecated Will be removed in 2.10.0.  Use {@link org.osate.contribution.sei.datamodel.DataModel}
  */
 @Deprecated
 public final class DataModel {
