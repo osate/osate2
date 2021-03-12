@@ -26,17 +26,36 @@ package org.osate.ge.gef.ui.editor.overlays;
 import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
-// TODO: Document
-public class BendpointHandle extends ConnectionPointHandle {
-	private final int bendpointIndex;
+import javafx.scene.shape.Circle;
 
-	public BendpointHandle(final DiagramElement diagramElement, final BaseConnectionNode sceneNode,
-			final boolean primary, int bendpointIndex) {
-		super(diagramElement, sceneNode, primary, 4.0);
-		this.bendpointIndex = bendpointIndex;
+// TODO: Consider name
+//
+public class ConnectionPointHandle extends Circle implements Handle {
+	private final DiagramElement diagramElement;
+	private final BaseConnectionNode sceneNode;
+
+	public ConnectionPointHandle(final DiagramElement diagramElement, final BaseConnectionNode sceneNode,
+			final boolean primary, double size) {
+		super(size, primary ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
+				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
+		this.diagramElement = diagramElement;
+		this.sceneNode = sceneNode;
+		setStroke(OverlayColors.HANDLE_COLOR); // TODO
+		setStrokeWidth(1.0);
 	}
 
-	public int getBendpointIndex() {
-		return bendpointIndex;
+	@Override
+	public final DiagramElement getDiagramElement() {
+		return diagramElement;
+	}
+
+	public final BaseConnectionNode getSceneNode() {
+		return sceneNode;
+	}
+
+	@Override
+	public final void setPrimary(final boolean value) {
+		setFill(value ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
+				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
 	}
 }

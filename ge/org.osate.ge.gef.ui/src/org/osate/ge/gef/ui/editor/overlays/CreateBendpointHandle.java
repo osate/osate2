@@ -23,30 +23,21 @@
  */
 package org.osate.ge.gef.ui.editor.overlays;
 
+import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
-import javafx.scene.shape.Circle;
-
 // TODO: Document
-public class CreateBendpointHandle extends Circle implements Handle {
-	private final DiagramElement diagramElement;
+public class CreateBendpointHandle extends ConnectionPointHandle {
+	private final int insertionIndex;
 
-	public CreateBendpointHandle(final DiagramElement diagramElement, final boolean primary) {
-		super(4.0, primary ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
-				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
-		this.diagramElement = diagramElement;
-		setStroke(OverlayColors.HANDLE_COLOR); // TODO
-		setStrokeWidth(1.0);
+	public CreateBendpointHandle(final DiagramElement diagramElement, final BaseConnectionNode sceneNode,
+			final boolean primary, final int insertionIndex) {
+		super(diagramElement, sceneNode, primary, 3.0);
+		this.insertionIndex = insertionIndex;
 	}
 
-	@Override
-	public DiagramElement getDiagramElement() {
-		return diagramElement;
-	}
-
-	@Override
-	public void setPrimary(final boolean value) {
-		setFill(value ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
-				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
+	// TODO
+	public int getInsertionIndex() {
+		return insertionIndex;
 	}
 }

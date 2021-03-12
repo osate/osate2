@@ -47,8 +47,10 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
 import com.google.common.collect.ImmutableMap;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.value.ChangeListener;
+import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -111,7 +113,8 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			for (int i = 0; i < selectedDiagramElements.size(); i++) {
 				final DiagramElement selectedDiagramElement = selectedDiagramElements.get(i);
 				final boolean primary = i == selectedDiagramElements.size() - 1;
-				final SelectedNodeOverlay existingOverlay = diagramElementToSelectedNodeOverlayMap.get(selectedDiagramElement);
+				final SelectedNodeOverlay existingOverlay = diagramElementToSelectedNodeOverlayMap
+						.get(selectedDiagramElement);
 				if (diagramElementToSelectedNodeOverlayMap.containsKey(selectedDiagramElement)) {
 					// Set whether it is primary
 					existingOverlay.setPrimary(primary);
@@ -323,11 +326,12 @@ public class Overlays extends Group implements ISelectionChangedListener {
 	 */
 	private static class SelectedConnectionOverlay extends Group implements SelectedNodeOverlay {
 		private final DiagramElement diagramElement;
-		private final Node selectedNode;
+		private BaseConnectionNode selectedNode;
 		private boolean primary;
-		private final Group selectionIndicatorContainer = new Group();
+		private final Group selectionIndicatorContainer = new Group(); // TODO: Rename?
 
-		// TODO: Document all parmaeters
+		// TODO: Document all parameters
+
 		/**
 		 * Creates a new instance.
 		 * @param selectedNode the node for which this instance is an overlay
@@ -356,16 +360,33 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			selectedNode.localToSceneTransformProperty().addListener(transformUpdater);
 
 			// Update the selection indicator whenever the curve changes
+			// TODO: Need wrapper instead of inner connection?
 			selectedNode.getInnerConnection().curveProperty().addListener((o, oldCurve, newCurve) -> {
 				updateSelectionIndicator(selectedNode);
 			});
 
+			// TODO: Need wrapper instead of inner connection?
+			points = selectedNode.getInnerConnection().getPointsUnmodifiable();
+			points.addListener(invalidationListener);
+
 			updateSelectionIndicator(selectedNode);
 		}
 
-		private void updateSelectionIndicator(final BaseConnectionNode selectedNode) {
-			selectionIndicatorContainer.getChildren().clear();
+		private final ObservableList<Point> points; // TODO: Must hold on to this or events stop.
 
+		// TODO; Event is called three times for each bendpoint move...
+
+		// TODO; WOuld it be possible to bind the points of the connection to the selected node?
+		private InvalidationListener invalidationListener = (InvalidationListener) c -> {
+			updateSelectionIndicator(selectedNode);
+		};
+
+		private void updateSelectionIndicator(final BaseConnectionNode selectedNode) {
+			// Only remove visible children. Invisible children are retained and will be removed by whatever set them to invisible.
+			// This is important to ensure events are received while dragging.
+			selectionIndicatorContainer.getChildren().removeIf(n -> n.isVisible());
+
+			// TODO; Consider removing. Lag in update isn't as noticeable if the indicator isn't used
 			// Create new selection indicator
 			final Connection c = selectedNode.getInnerConnection();
 			final Node curve = c.getCurve();
@@ -377,31 +398,42 @@ public class Overlays extends Group implements ISelectionChangedListener {
 				selectionIndicator.setStroke(OverlayColors.SELECTION_INDICATOR_COLOR);
 				selectionIndicator.setStrokeWidth(4.0);
 				selectionIndicator.setStrokeLineCap(StrokeLineCap.BUTT);
-				selectionIndicatorContainer.getChildren().add(selectionIndicator);
+				// selectionIndicatorContainer.getChildren().add(selectionIndicator);
 			}
 
 			// Create handles for control points
-			for (final org.eclipse.gef.geometry.planar.Point cp : c.getControlPoints()) {
-				// Create handle
-				final BendpointHandle handle = new BendpointHandle(diagramElement, primary);
-				handle.setCenterX(cp.x);
-				handle.setCenterY(cp.y);
-				selectionIndicatorContainer.getChildren().add(handle);
-			}
+			final List<Point> points3 = c.getPointsUnmodifiable();
+			final ArrayList<org.eclipse.gef.geometry.planar.Point> points2 = new ArrayList<>(
+					c.getControlPoints().size() + 2); // TODO
+			points2.add(points3.get(0));
+			points2.addAll(c.getControlPoints());
+			points2.add(points3.get(points3.size() - 1));
 
-			// Create handles in between points to allow creating bendpoints
-			final List<org.eclipse.gef.geometry.planar.Point> points = c.getPointsUnmodifiable();
-			for (int i = 1; i < points.size(); i++) {
-				final org.eclipse.gef.geometry.planar.Point prev = points.get(i - 1);
-				final org.eclipse.gef.geometry.planar.Point p = points.get(i);
+			for (int i = 1; i < points2.size(); i++) {
+				final org.eclipse.gef.geometry.planar.Point prev = points2.get(i - 1);
+				final org.eclipse.gef.geometry.planar.Point p = points2.get(i);
 				final org.eclipse.gef.geometry.planar.Point mid = new Point((prev.x + p.x) / 2.0, (prev.y + p.y) / 2.0);
 
+				// Bendpoint Handle
+				// TODO
+				if (i < points2.size() - 1) {
+					final BendpointHandle bendpointHandle = new BendpointHandle(diagramElement, selectedNode, primary,
+							i - 1);
+					bendpointHandle.setCenterX(p.x);
+					bendpointHandle.setCenterY(p.y);
+					selectionIndicatorContainer.getChildren().add(bendpointHandle);
+				}
+
 				// Create handle
-				final CreateBendpointHandle handle = new CreateBendpointHandle(diagramElement, primary);
-				handle.setCenterX(mid.x);
-				handle.setCenterY(mid.y);
-				selectionIndicatorContainer.getChildren().add(handle);
+				final CreateBendpointHandle createBendpointHandle = new CreateBendpointHandle(diagramElement,
+						selectedNode, primary, i - 1);
+				createBendpointHandle.setCenterX(mid.x);
+				createBendpointHandle.setCenterY(mid.y);
+				selectionIndicatorContainer.getChildren().add(createBendpointHandle);
 			}
+
+			// TODO; Need handle for endpoint for flows
+
 		}
 
 		@Override

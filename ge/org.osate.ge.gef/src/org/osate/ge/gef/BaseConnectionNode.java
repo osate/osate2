@@ -183,12 +183,26 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 		return midpointAnchor;
 	}
 
+	// TODO; Consider just using some of the inner functions directly instead of having these wrapper
+	// TODO; THe list is a copy.. are the points a copy?
+	/**
+	 * Gets a list of the bendpoints for the connection.
+	 */
+	public List<Point> getBendpoints() {
+		return connection.getControlPoints();
+	}
+
 	/**
 	 * Sets the bendpoints for the connection.
 	 * @param bendpoints the new bendpoints.
 	 */
 	public void setBendpoints(final List<Point> bendpoints) {
 		connection.setControlPoints(bendpoints);
+	}
+
+	// TODO: Rename.. bendpoints..
+	public void setControlPoint(final int index, final Point controlPoint) {
+		connection.setControlPoint(index, controlPoint);
 	}
 
 	/**

@@ -57,6 +57,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gef.fx.nodes.InfiniteCanvas;
+import org.eclipse.gef.geometry.planar.Point;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -92,10 +93,13 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributo
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
+import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.DiagramEditorNode;
 import org.osate.ge.gef.ui.AgeGefRuntimeException;
 import org.osate.ge.gef.ui.AgeGefUiPlugin;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
+import org.osate.ge.gef.ui.editor.overlays.BendpointHandle;
+import org.osate.ge.gef.ui.editor.overlays.ConnectionPointHandle;
 import org.osate.ge.gef.ui.editor.overlays.CreateBendpointHandle;
 import org.osate.ge.gef.ui.editor.overlays.Overlays;
 import org.osate.ge.internal.AgeDiagramProvider;
@@ -160,13 +164,16 @@ import javafx.embed.swt.FXCanvas;
 import javafx.event.EventTarget;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Affine;
+import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Transform;
 
 /**
@@ -803,6 +810,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		canvas.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
 			if (paletteModel.isMarqueeToolActive()) {
 				canvas.setCursor(Cursor.CROSSHAIR);
+			} else if (e.getTarget() instanceof ConnectionPointHandle) {
+				canvas.setCursor(Cursor.MOVE);
 			} else {
 				canvas.setCursor(Cursor.DEFAULT);
 			}
@@ -810,12 +819,33 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		// Handle mouse button presses
 		canvas.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
-			System.err.println(e.getTarget());
-			if (e.getTarget() instanceof CreateBendpointHandle) {
-				final CreateBendpointHandle handle = (CreateBendpointHandle) e.getTarget();
-				System.err.println(
-						"TODO: CREATE BENDPOINT ON MOVE FOR: " + handle.getDiagramElement().getBusinessObject());
-				// TODO; Need to know what diagram element
+			if (!paletteModel.isMarqueeToolActive() && e.getTarget() instanceof ConnectionPointHandle) {
+				final ConnectionPointHandle handle = (ConnectionPointHandle) e.getTarget();
+				if (handle instanceof CreateBendpointHandle) {
+					final CreateBendpointHandle bendpointHandle = (CreateBendpointHandle) handle;
+					moveBendpointIndex = bendpointHandle.getInsertionIndex();
+
+					handle.setVisible(false); // Hide so it won't be removed and events will be received
+
+					final List<org.eclipse.gef.geometry.planar.Point> bendpoints = handle.getSceneNode()
+							.getBendpoints();
+					final Point2D p = getPoint2D(e, handle.getSceneNode().getInnerConnection());
+					bendpoints.add(moveBendpointIndex, new Point(p.getX(), p.getY())); // TODO: APpropriate coordinate system
+					handle.getSceneNode().setBendpoints(bendpoints);
+				} else if (handle instanceof BendpointHandle) {
+					// TODO: Don't hide because bendpoint isn't changing? Will need to hide later
+					handle.setVisible(false); // Hide so it won't be removed and events will be received
+					// TODO: If done here then do it for all?
+
+					final BendpointHandle bendpointHandle = (BendpointHandle) handle;
+					moveBendpointIndex = bendpointHandle.getBendpointIndex();
+				} else {
+					// TODO: Throw exception. Will need to support moving flow indicator position
+				}
+
+				pointExists = true;
+				activeConnectionPointHandle = handle;
+				return;
 			}
 
 			final DiagramElement clickedDiagramElement = getClosestDiagramElement(e.getTarget());
@@ -851,7 +881,94 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 				}
 			}
 		});
+
+		// TODO: Consider only listening to these events during the gesture
+		canvas.addEventFilter(MouseEvent.MOUSE_DRAGGED, e -> {
+			if (activeConnectionPointHandle != null && moveBendpointIndex != null) {
+				// TODO: Need to detect that it is over another bendpoint
+				// TODO; Delete. Must check that both are tied to same connection and are adjacent.
+
+				final BaseConnectionNode c = activeConnectionPointHandle.getSceneNode();
+				final Point2D p = getPoint2D(e, c.getInnerConnection());
+				final Point newPoint = new Point(p.getX(), p.getY());
+
+				final List<Point> cps = c.getInnerConnection().getControlPoints();
+
+				// TODO: Need to track whether point exists or not
+				// TODO: Add point if it doesn't exist and it should
+				// TODO; Remove point if it does exist and shouldn't
+
+				// TODO: Need to rework function to check if point is close to line between previous and next point
+				final boolean remove = pointExists && (isPointClose(cps, moveBendpointIndex - 1, newPoint)
+						|| isPointClose(cps, moveBendpointIndex + 1, newPoint));
+				final boolean add = !pointExists && (!isPointClose(cps, moveBendpointIndex - 1, newPoint)
+						&& !isPointClose(cps, moveBendpointIndex, newPoint));
+
+				if (remove) {
+					c.getInnerConnection().removeControlPoint(moveBendpointIndex);
+					pointExists = false;
+				} else if (add) {
+					// TODO: Can avoid creating point at other location? If that's the case... may be able to handle creation
+					// and moving the same?
+					final List<org.eclipse.gef.geometry.planar.Point> bendpoints = activeConnectionPointHandle
+							.getSceneNode()
+							.getBendpoints(); // TODO: Same as cps. Avoid
+					bendpoints.add(moveBendpointIndex, newPoint);
+					activeConnectionPointHandle.getSceneNode().setBendpoints(bendpoints);
+					pointExists = true;
+				} else if (pointExists) {
+					c.setControlPoint(moveBendpointIndex, newPoint);
+				}
+			}
+		});
+
+		canvas.addEventFilter(MouseEvent.MOUSE_RELEASED, e -> {
+			if (activeConnectionPointHandle != null && moveBendpointIndex != null) {
+				if (!activeConnectionPointHandle.isVisible()) {
+					// TODO
+					((Group) activeConnectionPointHandle.getParent()).getChildren().remove(activeConnectionPointHandle);
+				}
+
+				// TODO: Handle cancellation
+				// TODO: Update diagram or scene depending on whether the action was cancelled.
+
+				activeConnectionPointHandle = null;
+				moveBendpointIndex = null;
+			}
+		});
+
+		// TODO: Implement canceling operation? Is that something that is supported currently?
 	}
+
+	// TODO:
+	private boolean isPointClose(final List<Point> cps, int index, Point ref) {
+		if (index < 0 || index >= cps.size()) {
+			return false;
+		}
+
+		final Point other = cps.get(index);
+		// TODO
+		return other.getDistance(ref) < 20; // TODO: CHANGE BOUNDS
+
+	}
+
+	// TODO: Rename and cleanup
+	private Point2D getPoint2D(MouseEvent e, Node relative) {
+		try {
+			final Point2D p = relative.getLocalToSceneTransform().createInverse().transform(e.getSceneX(),
+					e.getSceneY());
+			return p;
+		} catch (NonInvertibleTransformException ex) {
+			throw new AgeGefRuntimeException(ex);
+		}
+	}
+
+	// TODO: These shoudl be permenantly group
+	// TODO: this should be a move bendpoint active action or something? Could be used for moving and creating. Although, distinguishing
+	// creation allows aboring the whole thing.. Decide exactly what needs to be stored
+	private ConnectionPointHandle activeConnectionPointHandle;
+	private Integer moveBendpointIndex = null; // TODO: Can fetch from connection point? What about end point/position. Will need a way to idneify that
+	private boolean pointExists = false; // TODO; Rename
 
 	/**
 	 * If the event target is a {@link Node}, walks up the scene graph and returns the first {@link DiaramElement} associated with the node
