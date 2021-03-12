@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,21 +25,143 @@ censes only apply to the Third Party Software and not any other portion of this 
 <?eclipse version="3.4"?>
 <plugin>
    <extension
+         point="org.osate.ge.diagramTypes">
+      <diagramType
+            class="org.osate.ge.ba.diagram.diagramType.BehaviorSpecificatonDiagramType">
+      </diagramType>
+   </extension>
+   <extension
+         point="org.osate.ge.contentFilters">
+      <contentFilter
+            class="org.osate.ge.ba.diagram.contentFilters.BehaviorSpecificationFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.ba.diagram.contentFilters.BehaviorStateFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.ba.diagram.contentFilters.BehaviorTransitionFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.ba.diagram.contentFilters.BehaviorVariableFilter">
+      </contentFilter>
+   </extension>
+   
+   <extension
+        point="org.eclipse.core.expressions.propertyTesters">
+     <propertyTester
+           class="org.osate.ge.ba.BehaviorAnnexPropertyTester"
+           id="org.osate.ge.ba.baPropertyTester"
+           namespace="org.osate.ge.ba"
+           properties="isDiagramContext"
+           type="org.eclipse.jface.viewers.ISelection">
+     </propertyTester>
+     </extension>
+   <extension
          point="org.osate.ge.businessObjectProviders">
       <provider
-            class="org.osate.ge.ba.BaBusinessObjectProvider">
+            class="org.osate.ge.ba.BehaviorAnnexBusinessObjectProvider">
       </provider>
    </extension>
+   <extension point="org.eclipse.ui.views.properties.tabbed.propertySections">
+	<propertySections contributorId="org.osate.ge.editor.AgeDiagramEditor">
+	 <propertySection
+	        afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+			class="org.osate.ge.ba.ui.properties.BehaviorStatePropertySection"
+			filter="org.osate.ge.ba.ui.properties.BehaviorStatePropertySection$Filter"
+			id="org.osate.ge.ba.properties.behaviorStatePropertySection"
+			tab="org.osate.ge.ui.properties.tabs.aadl">
+     </propertySection>
+     <propertySection
+            afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
+			class="org.osate.ge.ba.ui.properties.BehaviorVariablePropertySection"
+			filter="org.osate.ge.ba.ui.properties.BehaviorVariablePropertySection$Filter"
+			id="org.osate.ge.ba.properties.behaviorVariablePropertySection"
+			tab="org.osate.ge.ui.properties.tabs.aadl">
+     </propertySection>
+     </propertySections>
+     </extension>
    <extension
          point="org.osate.ge.businessObjectHandlers">
       <handler
-            class="org.osate.ge.ba.businessobjecthandlers.BehaviorAnnexHandler">
+            class="org.osate.ge.ba.businessobjecthandlers.BehaviorSpecificationHandler">
       </handler>
       <handler
-            class="org.osate.ge.ba.businessobjecthandlers.BaStateHandler">
+            class="org.osate.ge.ba.businessobjecthandlers.BehaviorStateHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.ba.businessobjecthandlers.BehaviorTransitionHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.ba.businessobjecthandlers.BehaviorVariableHandler">
       </handler>
    </extension>
    <extension point="org.osate.ge.paletteContributors">
-      <contributor class="org.osate.ge.ba.ui.palette.BaPaletteContributor" />
+      <contributor class="org.osate.ge.ba.ui.palette.BehaviorAnnexPaletteContributor" />
    </extension>
+   <extension
+       point="org.eclipse.ui.handlers">
+    <handler
+          class="org.osate.ge.ba.handlers.CreateBehaviorAnnexDiagramHandler"
+          commandId="org.osate.ge.createNewDiagram">
+       <activeWhen>
+       		<reference
+       			definitionId="diagramContext">
+       		</reference>
+       </activeWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.ba.handlers.CreateBehaviorAnnexDiagramHandler"
+          commandId="org.osate.ge.commands.creatediagram">
+       <activeWhen>
+          <reference
+                definitionId="diagramContext">
+          </reference>
+       </activeWhen>
+    </handler>
+    <handler
+          class="org.osate.ge.ba.handlers.OpenBehaviorAnnexDiagramHandler"
+          commandId="org.osate.ge.commands.opendiagram">
+       <activeWhen>
+          <reference
+                definitionId="diagramContext">
+          </reference>
+       </activeWhen>
+    </handler>
+    </extension>
+    <extension
+         point="org.eclipse.ui.menus">
+         <menuContribution
+       allPopups="false"
+       locationURI="popup:org.osate.ge.openMenu?after=org.osate.ge.additionalDiagramTypes">
+       <command
+         commandId="org.osate.ge.commands.opendiagram"
+         label="Behavior Specification Diagram"
+         style="push">
+         <visibleWhen
+           checkEnabled="true">
+         </visibleWhen>
+       </command>
+       </menuContribution>
+   	</extension>
+   <extension point="org.osate.ge.referenceResolvers">
+	   <factory class="org.osate.ge.ba.BehaviorAnnexReferenceResolver$Factory"/>
+	</extension>
+	<extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="diagramContext">
+         <with
+            variable="selection">
+            <and>
+           		<count
+     	     		value="1">
+          		</count>
+             	<test
+             		property="org.osate.ge.ba.isDiagramContext"
+             		forcePluginActivation="true">
+             	</test>
+            </and>
+          </with>
+      </definition>
+      </extension>
 </plugin>
