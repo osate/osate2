@@ -1149,7 +1149,10 @@ public class GetProperties {
 		return PropertyUtils.hasPropertyValue(ne, computeExecutionTime);
 	}
 
-	private static double scaleTime(final double time, final NamedElement ne) {
+	/**
+	 * @since 3.1
+	 */
+	public static double scaleTime(final double time, final NamedElement ne) {
 		ComponentInstance ci = null;
 		if (ne instanceof FeatureInstance) {
 			ci = ((FeatureInstance) ne).getComponentInstance();
