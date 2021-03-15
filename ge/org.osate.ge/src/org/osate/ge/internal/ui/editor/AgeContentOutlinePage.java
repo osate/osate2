@@ -74,7 +74,10 @@ import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramModificationAdapter;
+import org.osate.ge.internal.diagram.runtime.DiagramModificationListener;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectProvider;
@@ -97,6 +100,16 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private final BusinessObjectProviderHelper bopHelper;
 	private final Action linkWithEditorAction = new ToggleLinkWithEditorAction();
 	private final Action showHiddenElementsAction = new ToggleShowHiddenElementsAction();
+
+	// ADD THIS, where ever it's referenced. Make sure to remove on dispose
+	private final DiagramModificationListener diagramModificationListener = new DiagramModificationAdapter() {
+		@Override
+		public void modificationsCompleted(final ModificationsCompletedEvent e) {
+			if (!getTreeViewer().getTree().isDisposed() && getTreeViewer() != null) {
+				getTreeViewer().refresh();
+			}
+		}
+	};
 
 	// Flag for indicating the the outline and editor selection is being synchronized.
 	// Used to avoid adjusting either selection in response to a change to itself.
@@ -136,6 +149,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 	@Override
 	public void dispose() {
+		editor.getDiagram().removeModificationListener(diagramModificationListener);
 		preferences.removePreferenceChangeListener(preferenceChangeListener);
 		super.dispose();
 	}
@@ -208,7 +222,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 						// Add child diagram nodes
 						parentNode.getDiagramElements().stream().filter(
 								(de) -> !Strings.isNullOrEmpty(de.getUserInterfaceName())
-										|| de.getBusinessObject() instanceof EObject)
+								|| de.getBusinessObject() instanceof EObject)
 						.forEach(children::add);
 
 						// Add children which are hidden based on user preference
@@ -396,16 +410,12 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 		if(editor.getGraphicalViewer() != null) {
 			editor.getGraphicalViewer().addSelectionChangedListener(event -> updateOutlineSelectionIfLinked());
-
-			editor.addPropertyListener((source, propId) -> {
-				if(!getTreeViewer().getTree().isDisposed() && getTreeViewer() != null) {
-					getTreeViewer().refresh();
-				}
-			});
+			editor.getDiagram().addModificationListener(diagramModificationListener);
 
 			viewer.addSelectionChangedListener(this);
 			viewer.setInput(editor);
 		}
+
 	}
 
 	/**

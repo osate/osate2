@@ -130,7 +130,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 					final ActionService actionService = Adapters.adapt(editorPart, ActionService.class);
 					final ModelChangeNotifier modelChangeNotifier = Objects.requireNonNull(
 							editorPart.getAdapter(ModelChangeNotifier.class), "Unable to get model change notifier");
-					actionService.execute("Modifying BehaviorTranistion Condition", ExecutionMode.TEST,
+					actionService.execute("Modifying BehaviorTranistion Condition",
+							ExecutionMode.NORMAL,
 							new ConditionModification(conditionStyledText.getText(), editingDomain, xtextDocument,
 									xtextResource, modelChangeNotifier, project, conditionTextValue));
 				});
@@ -398,6 +399,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 		@Override
 		public AgeAction execute() {
+			// Get original text before modifications
+			final String originalText = getText(xtextDocument, xtextResource);
 			try (final Lock lock = modelChangeNotifier.lock()) {
 				if (xtextDocument != null) {
 					xtextDocument.modify(work);
@@ -413,7 +416,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 				buildProject();
 			}
 
-			final String originalText = getText(xtextDocument, xtextResource);
 			// Set action to restore original source text upon undo
 			return new ConditionModification(originalText, editingDomain, xtextDocument, xtextResource,
 					modelChangeNotifier, project, new TextValue(originalText));
