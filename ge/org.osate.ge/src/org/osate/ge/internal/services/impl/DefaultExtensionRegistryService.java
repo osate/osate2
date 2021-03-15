@@ -162,7 +162,6 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		}
 
 		// Don't return a handler for an EObject proxy
-		// TODO problem for outline refresh
 		if (bo instanceof EObject) {
 			if (((EObject) bo).eIsProxy()) {
 				return null;
