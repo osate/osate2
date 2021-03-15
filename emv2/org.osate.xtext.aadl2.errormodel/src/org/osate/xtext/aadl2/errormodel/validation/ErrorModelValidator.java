@@ -1289,6 +1289,15 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 					}
 				}
 			}
+			// ensures only one error type is associated with the target error type
+			TypeSet ts = ef.getTargetToken();
+			if (ts.getTypeTokens().size() > 1) {
+				error(ef, "Outgoing propagation may only have a single error type");
+			}
+			TypeToken tt = ts.getTypeTokens().get(0);
+			if (tt != null && tt.getType() != null && !(tt.getType().get(0) instanceof ErrorType)) {
+				error(ef, "Outgoing propagation may only have a single error type instead of a type set");
+			}
 		} else {
 			// no outgoing path type token
 			if (ef.getTypeTokenConstraint() != null) {
