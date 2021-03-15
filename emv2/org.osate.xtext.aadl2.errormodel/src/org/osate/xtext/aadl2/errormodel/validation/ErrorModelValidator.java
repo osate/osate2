@@ -538,6 +538,12 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		}
 		epopposite = EMV2Util.findErrorContainment(ep.getContainingClassifier(), EMV2Util.getPrintName(ep),
 				ep.getDirection());
+		TypeSet ts = ep.getTypeSet();
+		if (ep.getDirection() == DirectionType.OUT && ts.getTypeTokens() != null
+				&& (ts.getTypeTokens().size() > 1 || !(ts.getTypeTokens().get(0) instanceof ErrorType))) {
+			error(ep, "Outgoing error propagation may only have a single error type");
+		}
+
 		if (epopposite == null) {
 			return;
 		}
