@@ -2,6 +2,6 @@
 	<context id="help_dialog_annex" title="Help Dialog">
 		<description>This dialog provides information about setting a preference for annex use in your workspace.
 		</description>
-		<topic href="../org.osate.help/help/html/AdvancedOSATEFeatures.html#managing-annex-resources" label="Set Annex Preference"/>
+		<topic href="../org.osate.help/help/html/AdvancedOSATEFeatures.html#managing-annexes" label="Set Annex Preference"/>
 	</context>
 </contexts>

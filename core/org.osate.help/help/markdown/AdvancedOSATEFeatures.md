@@ -24,7 +24,7 @@ When a contributed resource is overridden, the tree marks it as such, and the UR
 
 To restore an overridden resource to its original contributed URI, select it in the tree and press the "Restore" button. 
 
-## Managing Annex Resources
+## Managing Annexes
 	
 Embedded sub-languages published as AADL annexes extend an AADL model to enhance analysis. Several such annexes have been defined, for example, the error modeling sub-language is used to define error states and fault propagation for an AADL model, and the behavior annex allows modeling of detailed component behavior as a state machine. 
 
