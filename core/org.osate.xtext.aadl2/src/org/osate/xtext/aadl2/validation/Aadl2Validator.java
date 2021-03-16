@@ -6580,15 +6580,13 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			// now we have the classifier
 
 			if (sourceClassifier == null && destinationClassifier != null) {
-				warning("Expected " + (sourceIsSubcomponent ? "subcomponent" : "feature") + " \'" + source.getName()
-						+ "' to have classifier '" + destinationClassifier.getQualifiedName() + '\'', connection,
-						switched ? Aadl2Package.eINSTANCE.getConnection_Destination()
-								: Aadl2Package.eINSTANCE.getConnection_Source());
+				warning(switched ? connection.getDestination() : connection.getSource(),
+						"Expected " + (sourceIsSubcomponent ? "subcomponent" : "feature") + " \'" + source.getName()
+								+ "' to have classifier '" + destinationClassifier.getQualifiedName() + '\'');
 			} else if (sourceClassifier != null && destinationClassifier == null) {
-				warning("Expected " + (destIsSubcomponent ? "subcomponent" : "feature") + " \'" + destination.getName()
-						+ "' to have classifier '" + sourceClassifier.getQualifiedName() + '\'', connection,
-						switched ? Aadl2Package.eINSTANCE.getConnection_Source()
-								: Aadl2Package.eINSTANCE.getConnection_Destination());
+				warning(switched ? connection.getSource() : connection.getDestination(),
+						"Expected " + (destIsSubcomponent ? "subcomponent" : "feature") + " \'" + destination.getName()
+								+ "' to have classifier '" + sourceClassifier.getQualifiedName() + '\'');
 			} else if (sourceClassifier != null && destinationClassifier != null) {
 				String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
 				if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH)) {
