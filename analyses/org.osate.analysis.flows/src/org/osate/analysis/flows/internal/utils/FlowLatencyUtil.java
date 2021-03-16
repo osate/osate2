@@ -38,22 +38,24 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.VirtualBus;
+import org.osate.aadl2.contrib.communication.CommunicationProperties;
+import org.osate.aadl2.contrib.communication.Timing;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.analysis.flows.model.ConnectionType;
 import org.osate.contribution.sei.names.DataModel;
+import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
@@ -62,31 +64,6 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class FlowLatencyUtil {
-	//XXX: [Code Coverage] Dead code.
-	public static String getEndToEndFlowString(EndToEndFlowInstance etef) {
-		StringBuilder ret;
-		boolean firstPassed = false;
-
-		ret = new StringBuilder();
-		ret.append(etef.getName() + " : ");
-
-		for (FlowElementInstance fei : etef.getFlowElements()) {
-			if (firstPassed) {
-				ret.append("->");
-			}
-			ret.append(fei.getName());
-			firstPassed = true;
-		}
-
-		return ret.toString();
-	}
-
-	//XXX: [Code Coverage] Dead code.
-	public static boolean hasPreviousConnection(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		return etef.getFlowElements().indexOf(flowElementInstance) > 0;
-	}
-
 	public static FeatureInstance getIncomingConnectionFeatureInstance(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance previousElement = getPreviousConnection(etef, flowElementInstance);
@@ -102,81 +79,35 @@ public class FlowLatencyUtil {
 
 	public static boolean isPreviousConnectionImmediate(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
-		ConnectionInstance previousElement = getPreviousConnection(etef, flowElementInstance);
+		final ConnectionInstance previousElement = getPreviousConnection(etef, flowElementInstance);
 		//XXX: [Code Coverage] Only called if there is a previous connection.
-		if ((previousElement != null)) {
-			return (getConnectionType(previousElement) == ConnectionType.IMMEDIATE);
+		if (previousElement != null && previousElement.getKind() == ConnectionKind.PORT_CONNECTION) {
+			return PropertyUtils.propertyEquals(CommunicationProperties::getTiming, previousElement,
+					Timing.IMMEDIATE);
 		}
-
+		// No previous element, or it's not a port connection (so no TIMING property); either way, it's not immediate
 		return false;
 	}
 
 	public static boolean isNextConnectionImmediate(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
-		ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
-		if ((nextElement != null)) {
-			return (getConnectionType(nextElement) == ConnectionType.IMMEDIATE);
+		final ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
+		if (nextElement != null && nextElement.getKind() == ConnectionKind.PORT_CONNECTION) {
+			return PropertyUtils.propertyEquals(CommunicationProperties::getTiming, nextElement, Timing.IMMEDIATE);
 		}
-
+		// No next element, or it's not a port connection (so no TIMING property); either way, it's not immediate
 		return false;
 	}
 
 	public static boolean isPreviousConnectionDelayed(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
-		ConnectionInstance nextElement = getPreviousConnection(etef, flowElementInstance);
+		final ConnectionInstance previousElement = getPreviousConnection(etef, flowElementInstance);
 		//XXX: [Code Coverage] Only called if there is a previous connection.
-		if ((nextElement != null)) {
-			return (getConnectionType(nextElement) == ConnectionType.DELAYED);
+		if (previousElement != null && previousElement.getKind() == ConnectionKind.PORT_CONNECTION) {
+			return PropertyUtils.propertyEquals(CommunicationProperties::getTiming, previousElement, Timing.DELAYED);
 		}
-
+		// No previous element, or it's not a port connection (so no TIMING property); either way, it's not delayed
 		return false;
-	}
-
-	//XXX: [Code Coverage] Dead code.
-	public static boolean isNextConnectionDelayed(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
-		if ((nextElement != null)) {
-			return (getConnectionType(nextElement) == ConnectionType.DELAYED);
-		}
-
-		return false;
-	}
-
-	//XXX: [Code Coverage] Dead code.
-	public static boolean isPreviousConnectionSampled(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		ConnectionInstance nextElement = getPreviousConnection(etef, flowElementInstance);
-		if ((nextElement != null)) {
-			return (getConnectionType(nextElement) == ConnectionType.SAMPLED);
-		}
-
-		return false;
-	}
-
-	//XXX: [Code Coverage] Dead code.
-	public static boolean isNextConnectionSampled(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
-		if ((nextElement != null)) {
-			return (getConnectionType(nextElement) == ConnectionType.SAMPLED);
-		}
-
-		return false;
-	}
-
-	public static ConnectionType getConnectionType(final ConnectionInstance conn) {
-		EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
-
-		//XXX: [Code Coverage] el cannot be null.
-		if ((el != null) && (el.getName().equalsIgnoreCase("immediate"))) {
-			return ConnectionType.IMMEDIATE;
-		}
-		//XXX: [Code Coverage] el cannot be null.
-		if ((el != null) && (el.getName().equalsIgnoreCase("delayed"))) {
-			return ConnectionType.DELAYED;
-		}
-		return ConnectionType.SAMPLED;
 	}
 
 	/**
@@ -763,13 +694,17 @@ public class FlowLatencyUtil {
 			return relatedComponentType.getCategory().getName();
 		}
 		if (relatedElement instanceof ConnectionInstance) {
-			if (FlowLatencyUtil.getConnectionType((ConnectionInstance) relatedElement) == ConnectionType.DELAYED) {
+			final Timing connectionType = ((ConnectionInstance) relatedElement)
+					.getKind() == ConnectionKind.PORT_CONNECTION
+					? CommunicationProperties.getTiming((ConnectionInstance) relatedElement).orElse(Timing.SAMPLED)
+					: null;
+			if (connectionType == Timing.DELAYED) {
 				return "delayed connection";
 			}
-			if (FlowLatencyUtil.getConnectionType((ConnectionInstance) relatedElement) == ConnectionType.IMMEDIATE) {
+			if (connectionType == Timing.IMMEDIATE) {
 				return "immediate connection";
 			}
-			if (FlowLatencyUtil.getConnectionType((ConnectionInstance) relatedElement) == ConnectionType.SAMPLED) {
+			if (connectionType == Timing.SAMPLED) {
 				return "connection";
 			}
 			return "connection";
