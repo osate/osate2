@@ -40,7 +40,7 @@ import org.osate.ui.utils.PropertySetModel;
  */
 public class IgnoredPropertySetPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	private TreeViewer tree;
-	private Button addButton, deleteButton;
+	private Button addButton, deleteButton, checkBox;
 	private TreeNode selectedNode;
 	private TreeNode content;
 
@@ -58,6 +58,13 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 	protected Control createContents(Composite parent) {
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(3, true));
+
+		// create a preference checkbox to track if warnings for ignored property sets need to be shown
+		checkBox = new Button(composite, SWT.CHECK);
+		checkBox.setText("Show warnings");
+		checkBox.setEnabled(true);
+		checkBox.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 2, 1));
+		checkBox.setSelection(PropertySetModel.getShowWarning());
 
 		SashForm sashForm = new SashForm(composite, SWT.HORIZONTAL);
 		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1);
@@ -139,6 +146,7 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 
 	@Override
 	public boolean performOk() {
+		PropertySetModel.setShowWarning(checkBox.getSelection());
 		PredeclaredProperties.closeAndReopenProjects();
 		return super.performOk();
 	}

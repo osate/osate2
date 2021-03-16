@@ -55,16 +55,20 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 					+ " For classifier references use classifier( <ref> ).";
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
+
+		boolean suppressError = false;
+		boolean showWarningInstead = false;
+
 		if (Aadl2Package.eINSTANCE.getProperty() == referenceType) {
 			if (context.getLinkText().indexOf("::") > 0) {
-				boolean suppressError = false;
-
 				// get preferences ~ same as org.osate.ui.utils.PropertySetModel
 				String[] ignoredPerPreference = new String[] {};
 				String separator = "&~!";
 				String PREFS_IGNORED_PROPERTY_SET_NAMES = "org.osate.ui.internal.propertysetnames";
+				String PREFS_SHOW_WARNING = "org.osate.ui.internal.propertysetnames.showWarning";
 
 				final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+				showWarningInstead = store.getBoolean(PREFS_SHOW_WARNING);
 				String allNames = store.getString(PREFS_IGNORED_PROPERTY_SET_NAMES);
 				if (allNames != null && !allNames.isEmpty()) {
 					ignoredPerPreference = allNames.split(separator);
@@ -81,15 +85,20 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 						}
 					}
 				}
-
-				if (suppressError) {
-					return null;
-				}
 			}
 
 			String msg = "Couldn't resolve reference to property definition '" + context.getLinkText() + "'."
 					+ (context.getLinkText().indexOf("::") < 0 ? " Property set name may be missing." : "");
-			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
+
+			if (suppressError) {
+				if (showWarningInstead) {
+					return new DiagnosticMessage(msg, Severity.WARNING, Diagnostic.LINKING_DIAGNOSTIC);
+				} else {
+					return null;
+				}
+			} else {
+				return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
+			}
 		}
 		if (Aadl2Package.eINSTANCE.getPropertyType() == referenceType) {
 			String msg = "Couldn't resolve reference to property type '" + context.getLinkText() + "'."
