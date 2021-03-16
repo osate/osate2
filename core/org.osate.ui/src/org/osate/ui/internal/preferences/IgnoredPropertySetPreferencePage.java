@@ -101,6 +101,7 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 				String newPropSetName = Dialog.getInput("Add", "Type in a property set name to add it to ignored list",
 						"", null);
 				tree.add(content, new TreeNode(newPropSetName));
+				tree.refresh();
 				PropertySetModel.setIgnoredPropertySetPreference(newPropSetName);
 			}
 		});
@@ -114,6 +115,7 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 			public void widgetSelected(final SelectionEvent e) {
 				if (selectedNode != null) {
 					tree.remove(selectedNode);
+					tree.refresh();
 					// delete this property set name from ignored list
 					PropertySetModel.deletePropertySetFromIgnoredList(selectedNode.getLabel());
 				}
