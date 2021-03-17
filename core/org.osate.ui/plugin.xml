@@ -150,20 +150,15 @@ censes only apply to the Third Party Software and not any other portion of this 
          </selection>
       </wizard>
       <wizard
-            id="org.osate.ui.wizards.OsateExampleWizardID"
-            name="%_UI_OsateExampleWizard_label"
-            icon="icons/new_aadl_project.gif"
-            category="org.osate.Wizard.category.ID"
+            category="org.eclipse.ui.Examples/org.osate.Wizard.category.examples"
             class="org.osate.ui.wizards.OsateExampleWizard"
-            preferredPerspectives="org.osate.ui.perspective.AadlPerspective"
-            finalPerspective="org.osate.ui.perspective.AadlPerspective"
+            icon="icons/aadl.gif"
+            id="org.osate.wizard.examples"
+            name="AADL Examples"
             project="true">
          <description>
-            %_UI_OsateExampleWizard_description
+            Import an AADL example into the workspace
          </description>
-         <selection
-               class="org.eclipse.core.resources.IResource">
-         </selection>
       </wizard>
       <wizard
             id="org.osate.ui.NewAadlPackageWizard"
@@ -521,14 +516,6 @@ censes only apply to the Third Party Software and not any other portion of this 
 
      <extension
         point="org.eclipse.ui.newWizards">
-     <wizard
-           category="org.eclipse.ui.Examples/org.osate.Wizard.category.examples"
-           class="org.osate.ui.wizards.OsateExampleWizard"
-           icon="icons/aadl.gif"
-           id="org.osate.wizard.examples"
-           name="AADL Examples"
-           project="true">
-     </wizard>
      </extension>
 
     <extension point="org.eclipse.core.expressions.definitions">
