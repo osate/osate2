@@ -33,11 +33,12 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.osate.core.OsateCorePlugin;
 
 /**
- * @since 6.0
+ * @since 6.1
  */
 public class PropertySetModel {
 	public static final String separator = "&~!";
 	public static final String PREFS_IGNORED_PROPERTY_SET_NAMES = "org.osate.ui.internal.propertysetnames";
+	public static final String PREFS_SHOW_WARNING = "org.osate.ui.internal.propertysetnames.showWarning";
 
 	// keep below for new page
 	public static final void deletePropertySetFromIgnoredList(String propertySetNames) {
@@ -63,6 +64,11 @@ public class PropertySetModel {
 		return unique_strings;
 	}
 
+	public static final Boolean getShowWarning() {
+		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+		return store.getBoolean(PREFS_SHOW_WARNING);
+	}
+
 	public static final void resetIgnoredPropertySetPreference() {
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
 		store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, "");
@@ -79,5 +85,10 @@ public class PropertySetModel {
 		} else {
 			store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, currentValue + separator + propertySetNames);
 		}
+	}
+
+	public static final void setShowWarning(Boolean showWarning) {
+		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+		store.setValue(PREFS_SHOW_WARNING, showWarning);
 	}
 }
