@@ -43,9 +43,8 @@ import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.ReportSeverity;
 import org.osate.analysis.flows.reporting.model.ReportedCell;
 import org.osate.analysis.flows.reporting.model.Section;
-import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
-import org.osate.pluginsupport.properties.IntegerWithUnits;
 import org.osate.pluginsupport.properties.PropertyUtils;
+import org.osate.pluginsupport.properties.RealRange;
 import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;
@@ -83,20 +82,12 @@ public class LatencyReportEntry {
 		this.asynchronousSystem = asynchronousSystem;
 		this.majorFrameDelay = majorFrameDelay;
 
-//		expectedMaxLatency = GetProperties.getMaximumLatencyinMilliSec(this.relatedEndToEndFlow);
-//		expectedMinLatency = GetProperties.getMinimumLatencyinMilliSec(this.relatedEndToEndFlow);
+		final RealRange expectedLatency = PropertyUtils
+				.getScaledRange(CommunicationProperties::getLatency, relatedEndToEndFlow, TimeUnits.MS)
+				.orElse(new RealRange(0.0, 0.0, 0.0));
 
-		expectedMaxLatency = PropertyUtils
-				.<TimeUnits, IntegerWithUnits<TimeUnits>, IntegerRangeWithUnits<TimeUnits>> getScaled(
-						CommunicationProperties::getLatency, relatedEndToEndFlow,
-						IntegerRangeWithUnits::getMaximum, TimeUnits.MS)
-				.orElse(0.0);
-		expectedMinLatency = PropertyUtils
-				.<TimeUnits, IntegerWithUnits<TimeUnits>, IntegerRangeWithUnits<TimeUnits>> getScaled(
-						CommunicationProperties::getLatency, relatedEndToEndFlow, IntegerRangeWithUnits::getMinimum,
-						TimeUnits.MS)
-				.orElse(0.0);
-
+		expectedMaxLatency = expectedLatency.getMaximum();
+		expectedMinLatency = expectedLatency.getMinimum();
 	}
 
 	public void finalizeReportEntry() {
