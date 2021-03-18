@@ -43,6 +43,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.communication.TransmissionTime;
 import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -65,9 +66,10 @@ import org.osate.analysis.flows.model.LatencyContributorConnection;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.contribution.sei.sei.Sei;
-import org.osate.pluginsupport.properties.GeneratedUnits;
 import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
 import org.osate.pluginsupport.properties.IntegerWithUnits;
+import org.osate.pluginsupport.properties.PropertyUtils;
+import org.osate.pluginsupport.properties.RealRange;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
 import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
@@ -606,6 +608,23 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
+	private static RealRange getTimeToTransferData(final NamedElement bus, double datasizeinbyte) {
+		final Optional<TransmissionTime> tt_o = org.osate.aadl2.contrib.communication.CommunicationProperties
+				.getTransmissionTime(bus);
+		if (tt_o.isPresent()) {
+			final TransmissionTime tt = tt_o.get();
+			final RealRange fixedRange = tt.getFixed().map(fixed -> PropertyUtils.scaleRange(fixed, TimeUnits.MS))
+					.orElse(new RealRange(0.0, 0.0, 0.0));
+			final RealRange perByteRange = tt.getPerbyte().map(fixed -> PropertyUtils.scaleRange(fixed, TimeUnits.MS))
+					.orElse(new RealRange(0.0, 0.0, 0.0));
+			final double min = fixedRange.getMinimum() + (datasizeinbyte * perByteRange.getMinimum());
+			final double max = fixedRange.getMaximum() + (datasizeinbyte * perByteRange.getMaximum());
+			return new RealRange(min, max);
+		} else {
+			return new RealRange(0.0, 0.0);
+		}
+	}
+
 	/**
 	 * add latency sub-contribution due to transmission by bus (or virtual bus)
 	 * works for an instance object and for a classifier.
@@ -621,21 +640,21 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			LatencyContributor latencyContributor, final ConnectionInstance onBehalfOfConnection) {
 		// XXX: [Code Coverage] targetMedium cannot be null.
 		if (targetMedium != null) {
-
-			double maxBusLatency = GetProperties.getMaximumLatencyinMilliSec(targetMedium);
-			double minBusLatency = GetProperties.getMinimumLatencyinMilliSec(targetMedium);
-			double maxBusTransferTime = GetProperties.getMaximumTimeToTransferData(targetMedium, datasizeinbyte);
-			double minBusTransferTime = GetProperties.getMinimumTimeToTransferData(targetMedium, datasizeinbyte);
-			if (maxBusLatency == 0 && maxBusTransferTime == 0) {
+			final RealRange busLatency = PropertyUtils
+					.getScaledRange(org.osate.aadl2.contrib.communication.CommunicationProperties::getLatency,
+							targetMedium, TimeUnits.MS)
+					.orElse(new RealRange(0.0, 0.0, 0.0));
+			final RealRange busTransferTime = getTimeToTransferData(targetMedium, datasizeinbyte);
+			if (busLatency.getMaximum() == 0 && busTransferTime.getMaximum() == 0) {
 				// connection or protocol has nothing to contribute
 				return;
 			}
 			LatencyContributor subContributor = new LatencyContributorComponent(targetMedium,
 					report.isMajorFrameDelay());
-			subContributor.setExpectedMaximum(maxBusLatency);
-			subContributor.setExpectedMinimum(minBusLatency);
-			if (maxBusTransferTime > 0) {
-				subContributor.setMaximum(maxBusTransferTime);
+			subContributor.setExpectedMaximum(busLatency.getMaximum());
+			subContributor.setExpectedMinimum(busLatency.getMinimum());
+			if (busTransferTime.getMaximum() > 0) {
+				subContributor.setMaximum(busTransferTime.getMaximum());
 				subContributor.reportInfo("Using data transfer time");
 				if (datasizeinbyte == 0.0) {
 					subContributor.reportInfo("Data size = 0. Possibly data type on port missing");
@@ -646,10 +665,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				if (targetMedium instanceof ComponentInstance) {
 					computedMaxTransmissionLatencies.put(
 							new Pair<>((ComponentInstance) targetMedium, onBehalfOfConnection),
-							maxBusTransferTime);
+							busTransferTime.getMaximum());
 				}
-			} else if (maxBusLatency > 0) {
-				subContributor.setMaximum(maxBusLatency);
+			} else if (busLatency.getMaximum() > 0) {
+				subContributor.setMaximum(busLatency.getMaximum());
 				subContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
 				subContributor.reportInfo("Using specified bus latency");
 
@@ -657,19 +676,19 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				if (targetMedium instanceof ComponentInstance) {
 					computedMaxTransmissionLatencies.put(
 							new Pair<>((ComponentInstance) targetMedium, onBehalfOfConnection),
-							maxBusTransferTime);
+							busTransferTime.getMaximum());
 				}
 			} else {
 				// XXX: [Code Coverage] Only executable if maxBusTransferTime or maxBusLatency is negative.
 				subContributor.setWorstCaseMethod(LatencyContributorMethod.UNKNOWN);
 			}
 
-			if (minBusTransferTime > 0) {
-				subContributor.setMinimum(minBusTransferTime);
+			if (busTransferTime.getMinimum() > 0) {
+				subContributor.setMinimum(busTransferTime.getMinimum());
 				subContributor.setBestCaseMethod(LatencyContributorMethod.TRANSMISSION_TIME);
 
-			} else if (minBusLatency > 0) {
-				subContributor.setMinimum(minBusLatency);
+			} else if (busLatency.getMinimum() > 0) {
+				subContributor.setMinimum(busLatency.getMinimum());
 				subContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
 			} else {
 				// XXX: [Code Coverage] Only executable if minBusTransferTime or minBusLatency is negative.
@@ -1258,7 +1277,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				final FeatureCategory featureCategory = fi.getCategory();
 				if (featureCategory == FeatureCategory.EVENT_PORT
 						|| featureCategory == FeatureCategory.EVENT_DATA_PORT) {
-					final Optional<Double> fromFeature = getScaled(getExecTime, fi, f2, TimeUnits.MS);
+					final Optional<Double> fromFeature = org.osate.pluginsupport.properties.PropertyUtils
+							.getScaled(getExecTime, fi, f2, TimeUnits.MS);
 					if (fromFeature.isPresent()) {
 						return GetProperties.scaleTime(fromFeature.get(), fi);
 					} // otherwise fall through and get from component
@@ -1269,17 +1289,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		if (componentCategory == ComponentCategory.THREAD || componentCategory == ComponentCategory.DEVICE
 				|| componentCategory == ComponentCategory.SUBPROGRAM
 				|| componentCategory == ComponentCategory.ABSTRACT) {
-			return GetProperties.scaleTime(getScaled(getExecTime, ci, f2, TimeUnits.MS).orElse(0.0), ci);
+			return GetProperties.scaleTime(org.osate.pluginsupport.properties.PropertyUtils
+					.getScaled(getExecTime, ci, f2, TimeUnits.MS).orElse(0.0), ci);
 		} else {
 			return 0.0;
 		}
-	}
-
-	/* XXX: Where to put this? */
-	private static <U extends Enum<U> & GeneratedUnits<U>> Optional<Double> getScaled(
-			final Function<NamedElement, Optional<IntegerRangeWithUnits<U>>> f, final NamedElement ne,
-			final Function<IntegerRangeWithUnits<U>, IntegerWithUnits<U>> f2, final U unit) {
-		return f.apply(ne).map(rrwu -> f2.apply(rrwu).getValue(unit));
 	}
 
 	private double getMinResponseTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
