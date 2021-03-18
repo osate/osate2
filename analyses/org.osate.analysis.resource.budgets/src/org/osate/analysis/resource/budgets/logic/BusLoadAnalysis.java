@@ -32,6 +32,8 @@ import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.contrib.aadlproject.SizeUnits;
+import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -257,7 +259,7 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 		// TODO-LW add other cases
 		if (cie instanceof FeatureInstance) {
 			FeatureInstance fi = (FeatureInstance) cie;
-			double datasize = GetProperties.getSourceDataSize(fi, GetProperties.getKBUnitLiteral(fi));
+			double datasize = AadlContribUtils.getDataSize(fi, SizeUnits.KBYTE);
 			double srcRate = GetProperties.getOutgoingMessageRatePerSecond(fi);
 			res = datasize * srcRate;
 			EList<FeatureInstance> fil = fi.getFeatureInstances();

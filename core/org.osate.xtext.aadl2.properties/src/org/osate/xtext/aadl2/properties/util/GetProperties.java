@@ -1517,9 +1517,10 @@ public class GetProperties {
 		}
 	}
 
-	/*
-	 * deprecated. Now called getDataSizeInBytes
+	/**
+	 *@deprecated. Now called getDataSizeInBytes
 	 */
+	@Deprecated
 	public static double getSourceDataSizeInBytes(final NamedElement ne) {
 		return getDataSizeInBytes(ne);
 	}
