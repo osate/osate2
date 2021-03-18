@@ -42,9 +42,11 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.contrib.aadlproject.SizeUnits;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
 import org.osate.aadl2.contrib.communication.TransmissionTime;
 import org.osate.aadl2.contrib.timing.TimingProperties;
+import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
@@ -515,7 +517,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		processActualConnectionBindingsSampling(connectionInstance, latencyContributor);
 		Classifier relatedConnectionData = FlowLatencyUtil.getConnectionData(connectionInstance);
 		processActualConnectionBindingsTransmission(connectionInstance,
-				relatedConnectionData == null ? 0.0 : GetProperties.getDataSizeInBytes(relatedConnectionData),
+				relatedConnectionData == null ? 0.0
+						: AadlContribUtils.getDataSize(relatedConnectionData, SizeUnits.BYTES),
 				latencyContributor);
 		/**
 		 * handle the case when there is no binding to virtual bus or bus.
@@ -614,9 +617,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		if (tt_o.isPresent()) {
 			final TransmissionTime tt = tt_o.get();
 			final RealRange fixedRange = tt.getFixed().map(fixed -> PropertyUtils.scaleRange(fixed, TimeUnits.MS))
-					.orElse(new RealRange(0.0, 0.0, 0.0));
+					.orElse(RealRange.ZEROED);
 			final RealRange perByteRange = tt.getPerbyte().map(fixed -> PropertyUtils.scaleRange(fixed, TimeUnits.MS))
-					.orElse(new RealRange(0.0, 0.0, 0.0));
+					.orElse(RealRange.ZEROED);
 			final double min = fixedRange.getMinimum() + (datasizeinbyte * perByteRange.getMinimum());
 			final double max = fixedRange.getMaximum() + (datasizeinbyte * perByteRange.getMaximum());
 			return new RealRange(min, max);
@@ -643,7 +646,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			final RealRange busLatency = PropertyUtils
 					.getScaledRange(org.osate.aadl2.contrib.communication.CommunicationProperties::getLatency,
 							targetMedium, TimeUnits.MS)
-					.orElse(new RealRange(0.0, 0.0, 0.0));
+					.orElse(RealRange.ZEROED);
 			final RealRange busTransferTime = getTimeToTransferData(targetMedium, datasizeinbyte);
 			if (busLatency.getMaximum() == 0 && busTransferTime.getMaximum() == 0) {
 				// connection or protocol has nothing to contribute
@@ -747,7 +750,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		}
 
 		for (ComponentInstance componentInstance : bindings) {
-			double wrappedDataSize = transmissionDataSize + GetProperties.getDataSizeInBytes(componentInstance);
+			double wrappedDataSize = transmissionDataSize
+					+ AadlContribUtils.getDataSize(componentInstance, SizeUnits.BYTES);
 			processTransmissionTime(componentInstance, wrappedDataSize, latencyContributor, onBehalfOfConnection);
 			if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
 				processActualConnectionBindingsTransmission(componentInstance, wrappedDataSize, latencyContributor,
@@ -767,7 +771,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			LatencyContributor latencyContributor, final ConnectionInstance onBehalfOfConnection) {
 		double total = transmissionDataSize;
 		for (ComponentClassifier cc : protocols) {
-			double contribution = GetProperties.getDataSizeInBytes(cc);
+			double contribution = AadlContribUtils.getDataSize(cc, SizeUnits.BYTES);
 			double wrapped = transmissionDataSize + contribution;
 			processTransmissionTime(cc, wrapped, latencyContributor, onBehalfOfConnection);
 			total = total + contribution;

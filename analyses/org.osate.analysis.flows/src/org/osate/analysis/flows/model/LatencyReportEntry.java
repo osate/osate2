@@ -84,7 +84,7 @@ public class LatencyReportEntry {
 
 		final RealRange expectedLatency = PropertyUtils
 				.getScaledRange(CommunicationProperties::getLatency, relatedEndToEndFlow, TimeUnits.MS)
-				.orElse(new RealRange(0.0, 0.0, 0.0));
+				.orElse(RealRange.ZEROED);
 
 		expectedMaxLatency = expectedLatency.getMaximum();
 		expectedMinLatency = expectedLatency.getMinimum();
