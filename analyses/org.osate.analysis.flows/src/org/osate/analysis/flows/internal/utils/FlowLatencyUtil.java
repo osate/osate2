@@ -43,8 +43,10 @@ import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.VirtualBus;
+import org.osate.aadl2.contrib.aadlproject.TimeUnits;
 import org.osate.aadl2.contrib.communication.CommunicationProperties;
 import org.osate.aadl2.contrib.communication.Timing;
+import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -365,7 +367,9 @@ public class FlowLatencyUtil {
 	 */
 	public static double getPartitionDuration(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
 		if ((schedule == null) || (schedule.size() == 0)) {
-			double wcet = GetProperties.getExecutionTimeInMS(partition);
+//			double wcet = GetProperties.getExecutionTimeInMS(partition);
+			double wcet = PropertyUtils.getScaled(TimingProperties::getExecutionTime, partition, TimeUnits.MS)
+					.orElse(0.0);
 			return wcet;
 		}
 		for (ARINC653ScheduleWindow window : schedule) {
