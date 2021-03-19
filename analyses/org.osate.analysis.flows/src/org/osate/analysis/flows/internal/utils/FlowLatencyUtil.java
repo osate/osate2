@@ -181,7 +181,7 @@ public class FlowLatencyUtil {
 		ComponentInstance ci = getNextFlowElement(etef, flowElementInstance).getComponentInstance();
 		if ((ci != null)
 				&& ((ci.getCategory() == ComponentCategory.THREAD) || (ci.getCategory() == ComponentCategory.DEVICE))) {
-			return GetProperties.getPeriodinMS(ci);
+			return PropertyUtils.getScaled(TimingProperties::getPeriod, ci, TimeUnits.MS).orElse(0.0);
 		}
 		return 0;
 	}
@@ -198,7 +198,7 @@ public class FlowLatencyUtil {
 			final FlowElementInstance flowElementInstance) {
 		ComponentInstance ci = getNextFlowElement(etef, flowElementInstance).getComponentInstance();
 		if (ci != null) {
-			return GetProperties.getPeriodinMS(ci);
+			return PropertyUtils.getScaled(TimingProperties::getPeriod, ci, TimeUnits.MS).orElse(0.0);
 		}
 		return 0;
 	}
@@ -258,7 +258,7 @@ public class FlowLatencyUtil {
 		double res = GetProperties.getARINC653ModuleMajorFrame(module);
 		if (res == 0.0) {
 			// look for period on partition
-			res = GetProperties.getPeriodinMS(part);
+			res = PropertyUtils.getScaled(TimingProperties::getPeriod, part, TimeUnits.MS).orElse(0.0);
 		}
 		if (res == 0.0) {
 			// look for major frame value on virtual processor (partition)

@@ -38,13 +38,14 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.contrib.aadlproject.SizeUnits;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
 import org.osate.aadl2.contrib.communication.TransmissionTime;
+import org.osate.aadl2.contrib.deployment.DeploymentProperties;
+import org.osate.aadl2.contrib.thread.ThreadProperties;
 import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -214,8 +215,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	private void mapComponentInstance(final EndToEndFlowInstance etef, final FlowElementInstance flowElementInstance,
 			LatencyReportEntry entry) {
 		ComponentInstance componentInstance;
-		double expectedMin = GetProperties.getMinimumLatencyinMilliSec(flowElementInstance);
-		double expectedMax = GetProperties.getMaximumLatencyinMilliSec(flowElementInstance);
+		final RealRange expected = PropertyUtils.getScaledRange(
+				org.osate.aadl2.contrib.communication.CommunicationProperties::getLatency, flowElementInstance,
+				TimeUnits.MS).orElse(RealRange.ZEROED);
 
 		if (flowElementInstance instanceof FlowSpecificationInstance) {
 			componentInstance = flowElementInstance.getComponentInstance();
@@ -229,9 +231,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		/**
 		 * Get all the relevant properties.
 		 */
-		double period = GetProperties.getPeriodinMS(componentInstance);
-		double deadline = GetProperties.getDeadlineinMilliSec(componentInstance);
-		boolean isAssignedDeadline = GetProperties.isAssignedDeadline(componentInstance);
+		double period = PropertyUtils.getScaled(TimingProperties::getPeriod, componentInstance, TimeUnits.MS)
+				.orElse(0.0);
+		double deadline = PropertyUtils.getScaled(TimingProperties::getDeadline, componentInstance, TimeUnits.MS)
+				.orElse(0.0);
+		boolean isAssignedDeadline = TimingProperties.getDeadline(componentInstance).map(x -> true).orElse(false);
 
 		final boolean isThreadOrDevice = InstanceModelUtil.isThread(componentInstance)
 				|| InstanceModelUtil.isDevice(componentInstance) || InstanceModelUtil.isAbstract(componentInstance);
@@ -241,8 +245,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 								&& !InstanceModelUtil.isAperiodicComponent(componentInstance))
 						: true);
 
-//		double executionTimeLower = GetProperties.getScaledMinComputeExecutionTimeinMilliSec(componentInstance);
-//		double executionTimeHigher = GetProperties.getScaledMaxComputeExecutionTimeinMilliSec(componentInstance);
 		final double responseTimeLower = getMinResponseTimeInMilliSec(flowElementInstance, componentInstance,
 				isPeriodic);
 		final double responseTimeHigher = getMaxResponseTimeInMilliSec(flowElementInstance, componentInstance,
@@ -270,7 +272,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 							componentInstance, flowElementInstance, report.isMajorFrameDelay());
 					samplingLatencyContributor.setSamplingPeriod(period);
 					if ((InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance))
-							&& !GetProperties.hasAssignedPropertyValue(componentInstance, "Dispatch_Protocol")) {
+							&& ThreadProperties.getDispatchProtocol(componentInstance).map(x -> false).orElse(true)) {
 						samplingLatencyContributor.reportInfo("Assume Periodic dispatch because period is set");
 					}
 					if (FlowLatencyUtil.isPreviousConnectionDelayed(etef, flowElementInstance)) {
@@ -285,7 +287,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					} else {
 						// sampled. We may under sample
 						ComponentInstance prevComp = FlowLatencyUtil.getPreviousComponent(etef, flowElementInstance);
-						double prevPeriod = prevComp != null ? GetProperties.getPeriodinMS(prevComp) : 0;
+						double prevPeriod = prevComp != null ? PropertyUtils.getScaled(TimingProperties::getPeriod, prevComp, TimeUnits.MS).orElse(0.0)
+								: 0;
 						if (period > 0 && prevPeriod > 0 && period % prevPeriod == 0.0) {
 							samplingLatencyContributor.setSamplingPeriod(prevPeriod);
 						} else {
@@ -377,9 +380,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			worstmethod = LatencyContributorMethod.DEADLINE;
 		}
 
-		if ((worstCaseValue == 0.0) && (expectedMax != 0.0)) {
+		if ((worstCaseValue == 0.0) && (expected.getMaximum() != 0.0)) {
 			// use flow latency if neither deadline nor execution time
-			worstCaseValue = expectedMax;
+			worstCaseValue = expected.getMaximum();
 			worstmethod = LatencyContributorMethod.SPECIFIED;
 		} else if (worstCaseValue == 0.0 && deadline != 0.0) {
 			// if no flow spec value then use default deadline == period
@@ -402,8 +405,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 		// For best case it does not make sense to use deadline
 
-		if ((bestCaseValue == 0.0) && (expectedMin != 0.0)) {
-			bestCaseValue = expectedMin;
+		if ((bestCaseValue == 0.0) && (expected.getMinimum() != 0.0)) {
+			bestCaseValue = expected.getMinimum();
 			bestmethod = LatencyContributorMethod.SPECIFIED;
 		}
 
@@ -456,8 +459,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		processingLatencyContributor.setBestCaseMethod(bestmethod);
 		processingLatencyContributor.setMaximum(worstCaseValue);
 		processingLatencyContributor.setMinimum(bestCaseValue);
-		processingLatencyContributor.setExpectedMaximum(expectedMax);
-		processingLatencyContributor.setExpectedMinimum(expectedMin);
+		processingLatencyContributor.setExpectedMaximum(expected.getMaximum());
+		processingLatencyContributor.setExpectedMinimum(expected.getMinimum());
 		if (checkLastImmediate && deadline > 0.0) {
 
 			processingLatencyContributor.setImmediateDeadline(deadline);
@@ -470,8 +473,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			LatencyReportEntry entry) {
 		ConnectionInstance connectionInstance = (ConnectionInstance) flowElementInstance;
 
-		double expectedMin = GetProperties.getMinimumLatencyinMilliSec(flowElementInstance);
-		double expectedMax = GetProperties.getMaximumLatencyinMilliSec(flowElementInstance);
+		final RealRange expected = PropertyUtils
+				.getScaledRange(org.osate.aadl2.contrib.communication.CommunicationProperties::getLatency,
+						flowElementInstance, TimeUnits.MS)
+				.orElse(RealRange.ZEROED);
 
 		ComponentInstance componentInstanceSource = InstanceModelUtil.getRelatedComponentSource(connectionInstance);
 		ComponentInstance componentInstanceDestination = InstanceModelUtil
@@ -526,20 +531,20 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		 */
 		// XXX we can add a check whether the latencies coming from the bindings exceeds the connection latency
 
-		if (expectedMax > 0) {
+		if (expected.getMaximum() > 0) {
 			latencyContributor.setWorstCaseMethod(LatencyContributorMethod.SPECIFIED);
-			latencyContributor.setExpectedMaximum(expectedMax);
+			latencyContributor.setExpectedMaximum(expected.getMaximum());
 		}
-		if (expectedMin > 0) {
+		if (expected.getMinimum() > 0) {
 			latencyContributor.setBestCaseMethod(LatencyContributorMethod.SPECIFIED);
-			latencyContributor.setExpectedMinimum(expectedMin);
+			latencyContributor.setExpectedMinimum(expected.getMinimum());
 		}
 		if (latencyContributor.getSubContributors().isEmpty()) {
-			if (expectedMax > 0) {
-				latencyContributor.setMaximum(expectedMax);
+			if (expected.getMaximum() > 0) {
+				latencyContributor.setMaximum(expected.getMaximum());
 			}
-			if (expectedMin > 0) {
-				latencyContributor.setMinimum(expectedMin);
+			if (expected.getMinimum() > 0) {
+				latencyContributor.setMinimum(expected.getMinimum());
 			}
 		} else {
 			latencyContributor.reportInfo("Adding latency subtotal from protocols and hardware - shown with ()");
@@ -547,8 +552,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		// set synchronous if on same processor
 		if (srcHW != null && dstHW != null) {
 			// we have two hardware components. One or both could be a device
-			ComponentInstance srcTime = GetProperties.getReferenceTime(srcHW);
-			ComponentInstance dstTime = GetProperties.getReferenceTime(dstHW);
+			ComponentInstance srcTime = (ComponentInstance) TimingProperties.getReferenceTime(srcHW).orElse(null);
+			ComponentInstance dstTime = (ComponentInstance) TimingProperties.getReferenceTime(dstHW).orElse(null);
 			if (srcHW == dstHW) {
 				latencyContributor.setSynchronous();
 			} else if (srcTime != null && dstTime != null) {
@@ -719,12 +724,14 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		boolean willDoVirtualBuses = false;
 		boolean willDoBuses = false;
 		// look for actual binding if we have a connection instance or virtual bus instance
-		List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding(connOrVB);
+		final List<InstanceObject> bindings = DeploymentProperties.getActualConnectionBinding(connOrVB)
+				.orElse(Collections.emptyList());
+
 		if (bindings.isEmpty()) {
 			return;
 		}
-		for (ComponentInstance componentInstance : bindings) {
-			if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
+		for (InstanceObject componentInstance : bindings) {
+			if (((ComponentInstance) componentInstance).getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
 				willDoVirtualBuses = true;
 			} else {
 				willDoBuses = true;
@@ -736,7 +743,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			 * We also can have an actual connection binding to a virtual bus
 			 * If we have that we want to use that virtual bus overhead
 			 */
-			List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connOrVB);
+			List<Classifier> protocols = DeploymentProperties.getRequiredVirtualBusClass(connOrVB)
+					.orElse(Collections.emptyList());
 			// XXX: [Code Coverage] protocols cannot be null.
 			if ((protocols != null) && (protocols.size() > 0)) {
 				// XXX: [Code Coverage] willDoBuses is always true if willDoVirtualBuses is false.
@@ -749,11 +757,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 		}
 
-		for (ComponentInstance componentInstance : bindings) {
+		for (InstanceObject componentInstance : bindings) {
 			double wrappedDataSize = transmissionDataSize
 					+ AadlContribUtils.getDataSize(componentInstance, SizeUnits.BYTES);
 			processTransmissionTime(componentInstance, wrappedDataSize, latencyContributor, onBehalfOfConnection);
-			if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
+			if (((ComponentInstance) componentInstance).getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
 				processActualConnectionBindingsTransmission(componentInstance, wrappedDataSize, latencyContributor,
 						onBehalfOfConnection);
 			}
@@ -766,16 +774,17 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param protocols
 	 * @return
 	 */
-	private double computeTotalDataSize(List<ComponentClassifier> protocols,
+	private double computeTotalDataSize(List<Classifier> protocols,
 			double transmissionDataSize,
 			LatencyContributor latencyContributor, final ConnectionInstance onBehalfOfConnection) {
 		double total = transmissionDataSize;
-		for (ComponentClassifier cc : protocols) {
+		for (Classifier cc : protocols) {
 			double contribution = AadlContribUtils.getDataSize(cc, SizeUnits.BYTES);
 			double wrapped = transmissionDataSize + contribution;
 			processTransmissionTime(cc, wrapped, latencyContributor, onBehalfOfConnection);
 			total = total + contribution;
-			List<ComponentClassifier> reqprotocols = GetProperties.getRequiredVirtualBusClass(cc);
+			List<Classifier> reqprotocols = DeploymentProperties.getRequiredVirtualBusClass(cc)
+					.orElse(Collections.emptyList());
 			if (!reqprotocols.isEmpty()) {
 				total = total + computeTotalDataSize(reqprotocols, wrapped, latencyContributor, onBehalfOfConnection);
 			}
@@ -802,9 +811,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		boolean willDoBuses = false;
 		if (connOrVB instanceof InstanceObject) {
 			// look for actual binding if we have a connection instance or virtual bus instance
-			List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding((InstanceObject) connOrVB);
-			for (ComponentInstance componentInstance : bindings) {
-				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
+			List<Classifier> bindings = DeploymentProperties.getRequiredVirtualBusClass(connOrVB)
+					.orElse(Collections.emptyList());
+			for (Classifier componentInstance : bindings) {
+				if (((ComponentInstance) componentInstance).getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
 					willDoVirtualBuses = true;
 				} else {
 					willDoBuses = true;
@@ -816,22 +826,23 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			 * If we have that we want to use that virtual bus overhead
 			 */
 			if (!willDoVirtualBuses) {
-				List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connOrVB);
+				List<Classifier> protocols = DeploymentProperties.getRequiredVirtualBusClass(connOrVB)
+						.orElse(Collections.emptyList());
 				// XXX: [Code Coverage] protocols cannot be null.
 				if ((protocols != null) && (protocols.size() > 0)) {
 					if (willDoBuses) {
 						latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
 					}
-					for (ComponentClassifier cc : protocols) {
+					for (Classifier cc : protocols) {
 						processSamplingAndQueuingTimes(cc, null, latencyContributor);
 						processActualConnectionBindingsSampling(cc, latencyContributor, onBehalfOfConnection);
 					}
 				}
 			}
 
-			for (ComponentInstance componentInstance : bindings) {
+			for (Classifier componentInstance : bindings) {
 				processSamplingAndQueuingTimes(componentInstance, onBehalfOfConnection, latencyContributor);
-				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
+				if (((ComponentInstance) componentInstance).getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
 					processActualConnectionBindingsSampling(componentInstance, latencyContributor,
 							onBehalfOfConnection);
 				}
@@ -855,7 +866,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 		// XXX: [Code Coverage] boundBus cannot be null.
 		if (boundBusOrRequiredClassifier != null) {
-			double period = GetProperties.getPeriodinMS(boundBusOrRequiredClassifier);
+			double period = PropertyUtils
+					.getScaled(TimingProperties::getPeriod, boundBusOrRequiredClassifier, TimeUnits.MS).orElse(0.0);
 			if (period > 0) {
 				// add sampling latency due to the protocol or bus being periodic
 				LatencyContributor samplingLatencyContributor = new LatencyContributorComponent(
@@ -1325,8 +1337,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	private static final void sortBoundConnectionsHelper(final ComponentInstance compInstance,
 			final Map<ComponentInstance, Set<ConnectionInstance>> map) {
 		for (final ConnectionInstance ci : compInstance.getConnectionInstances()) {
-			final List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding(ci);
-			for (final ComponentInstance componentInstance : bindings) {
+			final List<InstanceObject> bindings = DeploymentProperties.getActualConnectionBinding(ci)
+					.orElse(Collections.emptyList());
+			for (final InstanceObject io : bindings) {
+				final ComponentInstance componentInstance = (ComponentInstance) io;
 				addToHashedSet(map, componentInstance, ci);
 				processComponentBindings(map, ci, componentInstance);
 			}
@@ -1341,20 +1355,15 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			final SystemInstance system) {
 		final Map<ComponentInstance, Set<ConnectionInstance>> map = new HashMap<>();
 		sortBoundConnectionsHelper(system, map);
-//		for (final ConnectionInstance ci : system.getConnectionInstances()) {
-//			final List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding(ci);
-//			for (final ComponentInstance componentInstance : bindings) {
-//				addToHashedSet(map, componentInstance, ci);
-//				processComponentBindings(map, ci, componentInstance);
-//			}
-//		}
 		return map;
 	}
 
 	private static final void processComponentBindings(final Map<ComponentInstance, Set<ConnectionInstance>> map,
 			final ConnectionInstance ci, final ComponentInstance componentInstance) {
-		final List<ComponentInstance> componentBindings = GetProperties.getActualConnectionBinding(componentInstance);
-		for (final ComponentInstance componentBinding : componentBindings) {
+		final List<InstanceObject> componentBindings = DeploymentProperties
+				.getActualConnectionBinding(componentInstance).orElse(Collections.emptyList());
+		for (final InstanceObject io : componentBindings) {
+			final ComponentInstance componentBinding = (ComponentInstance) io;
 			addToHashedSet(map, componentBinding, ci);
 			processComponentBindings(map, ci, componentBinding);
 		}
