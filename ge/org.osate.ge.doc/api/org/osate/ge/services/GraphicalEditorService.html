@@ -49,7 +49,7 @@ var activeTableTab = "activeTableTab";
 <div class="subNav">
 <ul class="navList">
 <li>Prev&nbsp;Class</li>
-<li><a href="../../../../org/osate/ge/services/GraphicalEditorService.EditPartDetails.html" title="class in org.osate.ge.services"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../org/osate/ge/services/GraphicalEditorService.ObjectDetails.html" title="class in org.osate.ge.services"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?org/osate/ge/services/GraphicalEditorService.html" target="_top">Frames</a></li>
@@ -128,8 +128,8 @@ var activeTableTab = "activeTableTab";
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static class&nbsp;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/GraphicalEditorService.EditPartDetails.html" title="class in org.osate.ge.services">GraphicalEditorService.EditPartDetails</a></span></code>
-<div class="block">Used to return details restrived from an edit part.</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/GraphicalEditorService.ObjectDetails.html" title="class in org.osate.ge.services">GraphicalEditorService.ObjectDetails</a></span></code>
+<div class="block">Used to return details of a selected object.</div>
 </td>
 </tr>
 </table>
@@ -148,9 +148,9 @@ var activeTableTab = "activeTableTab";
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>java.util.Optional&lt;<a href="../../../../org/osate/ge/services/GraphicalEditorService.EditPartDetails.html" title="class in org.osate.ge.services">GraphicalEditorService.EditPartDetails</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/GraphicalEditorService.html#getEditPartDetails-EditPart-">getEditPartDetails</a></span>(EditPart&nbsp;editPart)</code>
-<div class="block">Returns an optional with information about the specified edit parts.</div>
+<td class="colFirst"><code>java.util.Optional&lt;<a href="../../../../org/osate/ge/services/GraphicalEditorService.ObjectDetails.html" title="class in org.osate.ge.services">GraphicalEditorService.ObjectDetails</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/osate/ge/services/GraphicalEditorService.html#getObjectDetails-java.lang.Object-">getObjectDetails</a></span>(java.lang.Object&nbsp;object)</code>
+<div class="block">Returns an optional with information about a graphical editor selection.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
@@ -190,20 +190,21 @@ var activeTableTab = "activeTableTab";
 </dl>
 </li>
 </ul>
-<a name="getEditPartDetails-EditPart-">
+<a name="getObjectDetails-java.lang.Object-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>getEditPartDetails</h4>
-<pre>java.util.Optional&lt;<a href="../../../../org/osate/ge/services/GraphicalEditorService.EditPartDetails.html" title="class in org.osate.ge.services">GraphicalEditorService.EditPartDetails</a>&gt;&nbsp;getEditPartDetails(EditPart&nbsp;editPart)</pre>
-<div class="block">Returns an optional with information about the specified edit parts.
- For example, an implementation may support performing operations on GEF EditPart objects.</div>
+<h4>getObjectDetails</h4>
+<pre>java.util.Optional&lt;<a href="../../../../org/osate/ge/services/GraphicalEditorService.ObjectDetails.html" title="class in org.osate.ge.services">GraphicalEditorService.ObjectDetails</a>&gt;&nbsp;getObjectDetails(java.lang.Object&nbsp;object)</pre>
+<div class="block">Returns an optional with information about a graphical editor selection.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>editPart</code> - is the object for which to return information.</dd>
+<dd><code>object</code> - is the object for which to return information. For the Graphiti based graphical editor EditPart instances should be supported.
+ This object is usually retrieved from the global selection.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>information retrieved from the specified edit part.</dd>
+<dd>information retrieved from the specified object. If the details could not be determined or is not of the appropriate type,
+ and empty optional will be returned.</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>2.0</dd>
 </dl>
@@ -238,7 +239,7 @@ var activeTableTab = "activeTableTab";
 <div class="subNav">
 <ul class="navList">
 <li>Prev&nbsp;Class</li>
-<li><a href="../../../../org/osate/ge/services/GraphicalEditorService.EditPartDetails.html" title="class in org.osate.ge.services"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../org/osate/ge/services/GraphicalEditorService.ObjectDetails.html" title="class in org.osate.ge.services"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../index.html?org/osate/ge/services/GraphicalEditorService.html" target="_top">Frames</a></li>

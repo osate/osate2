@@ -37,6 +37,7 @@ import org.osate.ge.aadl2.internal.diagramtypes.StructureDiagramType;
 import org.osate.ge.internal.DiagramTypeProvider;
 
 import com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.UnmodifiableIterator;
 
 public class DefaultCreateDiagramModel implements CreateDiagramDialog.Model<DiagramType> {
 	private final DiagramTypeProvider diagramTypeProvider;
@@ -83,7 +84,10 @@ public class DefaultCreateDiagramModel implements CreateDiagramDialog.Model<Diag
 		} else if (contextBo instanceof Classifier || contextBo instanceof SystemInstance) {
 			return diagramTypeProvider.getDiagramTypeById(StructureDiagramType.ID).orElse(null);
 		} else {
-			return null;
+			// Find default diagram type by applicable diagram types
+			final UnmodifiableIterator<DiagramType> applicableDiagramTypes = diagramTypeProvider
+					.getApplicableDiagramTypes(contextBo).iterator();
+			return applicableDiagramTypes.hasNext() ? applicableDiagramTypes.next() : null;
 		}
 	}
 }
