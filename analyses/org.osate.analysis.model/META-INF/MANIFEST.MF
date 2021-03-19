@@ -10,9 +10,9 @@ Bundle-Activator: org.osate.analysis.model.internal.Activator
 Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.18.0,4.0.0)",
  org.eclipse.emf.ecore;bundle-version="[2.22.0,3.0.0)";visibility:=reexport
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: org.osate.analysis.model.analysis,
- org.osate.analysis.model.analysis.impl,
- org.osate.analysis.model.analysis.util,
- org.osate.analysis.model.traversal
+Export-Package: org.osate.model.analysis,
+ org.osate.model.analysis.impl,
+ org.osate.model.analysis.util,
+ org.osate.model.analysis.traversal
 Automatic-Module-Name: org.osate.analysis.model
 Bundle-ActivationPolicy: lazy

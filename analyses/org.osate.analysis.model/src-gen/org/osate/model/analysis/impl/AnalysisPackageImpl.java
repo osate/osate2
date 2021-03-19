@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.analysis.model.analysis.impl;
+package org.osate.model.analysis.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EGenericType;
@@ -9,9 +9,9 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.osate.analysis.model.analysis.AnalysisElement;
-import org.osate.analysis.model.analysis.AnalysisFactory;
-import org.osate.analysis.model.analysis.AnalysisPackage;
+import org.osate.model.analysis.AnalysisElement;
+import org.osate.model.analysis.AnalysisFactory;
+import org.osate.model.analysis.AnalysisPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,7 +38,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see org.osate.analysis.model.analysis.AnalysisPackage#eNS_URI
+	 * @see org.osate.model.analysis.AnalysisPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */

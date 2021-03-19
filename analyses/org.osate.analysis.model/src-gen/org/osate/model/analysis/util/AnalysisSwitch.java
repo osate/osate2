@@ -1,13 +1,13 @@
 /**
  */
-package org.osate.analysis.model.analysis.util;
+package org.osate.model.analysis.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
-import org.osate.analysis.model.analysis.*;
+import org.osate.model.analysis.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,7 +19,7 @@ import org.osate.analysis.model.analysis.*;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see org.osate.analysis.model.analysis.AnalysisPackage
+ * @see org.osate.model.analysis.AnalysisPackage
  * @generated
  */
 public class AnalysisSwitch<T> extends Switch<T> {

@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.analysis.model.analysis;
+package org.osate.model.analysis;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-model-doc -->
  *
  *
- * @see org.osate.analysis.model.analysis.AnalysisPackage#getAnalysisElement()
+ * @see org.osate.model.analysis.AnalysisPackage#getAnalysisElement()
  * @model abstract="true"
  * @generated
  */

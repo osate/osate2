@@ -1,14 +1,15 @@
 /**
  */
-package org.osate.analysis.model.analysis.impl;
+package org.osate.model.analysis.impl;
 
 import java.lang.reflect.InvocationTargetException;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.osate.analysis.model.analysis.AnalysisElement;
-import org.osate.analysis.model.analysis.AnalysisPackage;
+import org.osate.model.analysis.AnalysisElement;
+import org.osate.model.analysis.AnalysisPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -72,4 +73,5 @@ public abstract class AnalysisElementImpl extends MinimalEObjectImpl.Container i
 		}
 		return super.eInvoke(operationID, arguments);
 	}
+
 } //AnalysisElementImpl
