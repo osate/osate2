@@ -12,7 +12,6 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.osate.aadl2.Aadl2Package;
 
 import org.osate.aadl2.instance.InstancePackage;
-import org.osate.analysis.model.analysis.AnalysisPackage;
 import org.osate.analysis.resources.budgets.internal.models.busload.Broadcast;
 import org.osate.analysis.resources.budgets.internal.models.busload.Bus;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel;
@@ -127,7 +126,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		isInited = true;
 
 		// Initialize simple dependencies
-		AnalysisPackage.eINSTANCE.eClass();
+		org.osate.model.analysis.AnalysisPackage.eINSTANCE.eClass();
 		InstancePackage.eINSTANCE.eClass();
 		Aadl2Package.eINSTANCE.eClass();
 
@@ -415,7 +414,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		AnalysisPackage theAnalysisPackage = (AnalysisPackage)EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
+		org.osate.model.analysis.AnalysisPackage theAnalysisPackage = (org.osate.model.analysis.AnalysisPackage)EPackage.Registry.INSTANCE.getEPackage(org.osate.model.analysis.AnalysisPackage.eNS_URI);
 		InstancePackage theInstancePackage = (InstancePackage)EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI);
 
 		// Create type parameters

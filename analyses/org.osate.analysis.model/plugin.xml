@@ -10,7 +10,7 @@
       <!-- @generated analysis -->
       <package
             uri="http://osate.org/analysis/analysis"
-            class="org.osate.analysis.model.analysis.AnalysisPackage"
+            class="org.osate.model.analysis.AnalysisPackage"
             genModel="model/analysis.genmodel"/>
    </extension>
 

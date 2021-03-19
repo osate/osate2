@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.analysis.model.analysis;
+package org.osate.model.analysis;
 
 import org.eclipse.emf.ecore.EFactory;
 
@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.EFactory;
  * The <b>Factory</b> for the model.
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
- * @see org.osate.analysis.model.analysis.AnalysisPackage
+ * @see org.osate.model.analysis.AnalysisPackage
  * @generated
  */
 public interface AnalysisFactory extends EFactory {
@@ -19,7 +19,7 @@ public interface AnalysisFactory extends EFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	AnalysisFactory eINSTANCE = org.osate.analysis.model.analysis.impl.AnalysisFactoryImpl.init();
+	AnalysisFactory eINSTANCE = org.osate.model.analysis.impl.AnalysisFactoryImpl.init();
 
 	/**
 	 * Returns the package supported by this factory.

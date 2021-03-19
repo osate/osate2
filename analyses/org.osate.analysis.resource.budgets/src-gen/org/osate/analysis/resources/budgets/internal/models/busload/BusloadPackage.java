@@ -6,7 +6,6 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.osate.analysis.model.analysis.AnalysisPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -74,7 +73,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUSLOAD_ELEMENT__LABEL = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 0;
+	int BUSLOAD_ELEMENT__LABEL = org.osate.model.analysis.AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Actual</b></em>' attribute.
@@ -83,7 +82,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUSLOAD_ELEMENT__ACTUAL = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 1;
+	int BUSLOAD_ELEMENT__ACTUAL = org.osate.model.analysis.AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Budget</b></em>' attribute.
@@ -92,7 +91,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUSLOAD_ELEMENT__BUDGET = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 2;
+	int BUSLOAD_ELEMENT__BUDGET = org.osate.model.analysis.AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Element</em>' class.
@@ -101,7 +100,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUSLOAD_ELEMENT_FEATURE_COUNT = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 3;
+	int BUSLOAD_ELEMENT_FEATURE_COUNT = org.osate.model.analysis.AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The operation id for the '<em>Is Leaf</em>' operation.
@@ -110,7 +109,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUSLOAD_ELEMENT___IS_LEAF = AnalysisPackage.ANALYSIS_ELEMENT___IS_LEAF;
+	int BUSLOAD_ELEMENT___IS_LEAF = org.osate.model.analysis.AnalysisPackage.ANALYSIS_ELEMENT___IS_LEAF;
 
 	/**
 	 * The operation id for the '<em>Get Ordered Children</em>' operation.
@@ -119,7 +118,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUSLOAD_ELEMENT___GET_ORDERED_CHILDREN = AnalysisPackage.ANALYSIS_ELEMENT___GET_ORDERED_CHILDREN;
+	int BUSLOAD_ELEMENT___GET_ORDERED_CHILDREN = org.osate.model.analysis.AnalysisPackage.ANALYSIS_ELEMENT___GET_ORDERED_CHILDREN;
 
 	/**
 	 * The number of operations of the '<em>Element</em>' class.
@@ -128,7 +127,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUSLOAD_ELEMENT_OPERATION_COUNT = AnalysisPackage.ANALYSIS_ELEMENT_OPERATION_COUNT + 0;
+	int BUSLOAD_ELEMENT_OPERATION_COUNT = org.osate.model.analysis.AnalysisPackage.ANALYSIS_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.ConnectionImpl <em>Connection</em>}' class.
@@ -674,7 +673,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_LOAD_MODEL__ROOT_BUSES = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 0;
+	int BUS_LOAD_MODEL__ROOT_BUSES = org.osate.model.analysis.AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Bus Load Model</em>' class.
@@ -683,7 +682,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_LOAD_MODEL_FEATURE_COUNT = AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 1;
+	int BUS_LOAD_MODEL_FEATURE_COUNT = org.osate.model.analysis.AnalysisPackage.ANALYSIS_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The operation id for the '<em>Is Leaf</em>' operation.
@@ -692,7 +691,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_LOAD_MODEL___IS_LEAF = AnalysisPackage.ANALYSIS_ELEMENT___IS_LEAF;
+	int BUS_LOAD_MODEL___IS_LEAF = org.osate.model.analysis.AnalysisPackage.ANALYSIS_ELEMENT___IS_LEAF;
 
 	/**
 	 * The operation id for the '<em>Get Ordered Children</em>' operation.
@@ -701,7 +700,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_LOAD_MODEL___GET_ORDERED_CHILDREN = AnalysisPackage.ANALYSIS_ELEMENT___GET_ORDERED_CHILDREN;
+	int BUS_LOAD_MODEL___GET_ORDERED_CHILDREN = org.osate.model.analysis.AnalysisPackage.ANALYSIS_ELEMENT___GET_ORDERED_CHILDREN;
 
 	/**
 	 * The number of operations of the '<em>Bus Load Model</em>' class.
@@ -710,7 +709,7 @@ public interface BusloadPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BUS_LOAD_MODEL_OPERATION_COUNT = AnalysisPackage.ANALYSIS_ELEMENT_OPERATION_COUNT + 0;
+	int BUS_LOAD_MODEL_OPERATION_COUNT = org.osate.model.analysis.AnalysisPackage.ANALYSIS_ELEMENT_OPERATION_COUNT + 0;
 
 
 	/**

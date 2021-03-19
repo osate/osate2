@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.osate.analysis.model.analysis.impl.AnalysisElementImpl;
 import org.osate.analysis.resources.budgets.internal.models.busload.Bus;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage;
@@ -29,7 +28,7 @@ import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPacka
  *
  * @generated
  */
-public class BusLoadModelImpl extends AnalysisElementImpl implements BusLoadModel {
+public class BusLoadModelImpl extends org.osate.model.analysis.impl.AnalysisElementImpl implements BusLoadModel {
 	/**
 	 * The cached value of the '{@link #getRootBuses() <em>Root Buses</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

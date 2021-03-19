@@ -6,7 +6,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
-import org.osate.analysis.model.analysis.AnalysisElement;
 import org.osate.analysis.resources.budgets.internal.models.busload.*;
 
 /**
@@ -242,7 +241,7 @@ public class BusloadSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseAnalysisElement(AnalysisElement object) {
+	public T caseAnalysisElement(org.osate.model.analysis.AnalysisElement object) {
 		return null;
 	}
 

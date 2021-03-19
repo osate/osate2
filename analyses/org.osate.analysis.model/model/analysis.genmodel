@@ -6,7 +6,7 @@
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
     operationReflection="true" importOrganizing="true">
   <foreignModel>analysis.ecore</foreignModel>
-  <genPackages prefix="Analysis" basePackage="org.osate.analysis.model" disposableProviderFactory="true"
+  <genPackages prefix="Analysis" basePackage="org.osate.model" disposableProviderFactory="true"
       ecorePackage="analysis.ecore#/" documentation="Basic package model elements that make up an AADL analysis model.  ">
     <genClasses documentation="Root model class for analysis-specific model classes.  Contains methods related to traversing/visiting the model.&#xA;"
         image="false" ecoreClass="analysis.ecore#//AnalysisElement">

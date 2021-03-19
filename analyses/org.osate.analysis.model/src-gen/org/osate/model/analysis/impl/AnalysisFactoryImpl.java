@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.analysis.model.analysis.impl;
+package org.osate.model.analysis.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
-import org.osate.analysis.model.analysis.*;
+import org.osate.model.analysis.*;
 
 /**
  * <!-- begin-user-doc -->
