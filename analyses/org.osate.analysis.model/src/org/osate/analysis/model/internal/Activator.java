@@ -1,4 +1,4 @@
-package org.osate.analysis.model;
+package org.osate.analysis.model.internal;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
