@@ -1,0 +1,12 @@
+package subprogram_flows
+public
+	subprogram group sg 
+    features
+      f: feature;
+      f1: feature;
+	flows --the standard does not allow flows in subprogram groups
+      	src: flow source f;
+      	snk: flow source f1;
+      	f_path: flow path f1 -> f;
+  end sg;
+end subprogram_flows;
