@@ -1,13 +1,13 @@
 /**
  */
-package org.osate.model.analysis.util;
+package org.osate.analysis.model.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
-import org.osate.model.analysis.*;
+import org.osate.analysis.model.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,17 +19,17 @@ import org.osate.model.analysis.*;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see org.osate.model.analysis.AnalysisPackage
+ * @see org.osate.analysis.model.ModelPackage
  * @generated
  */
-public class AnalysisSwitch<T> extends Switch<T> {
+public class ModelSwitch<T> extends Switch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static AnalysisPackage modelPackage;
+	protected static ModelPackage modelPackage;
 
 	/**
 	 * Creates an instance of the switch.
@@ -37,9 +37,9 @@ public class AnalysisSwitch<T> extends Switch<T> {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AnalysisSwitch() {
+	public ModelSwitch() {
 		if (modelPackage == null) {
-			modelPackage = AnalysisPackage.eINSTANCE;
+			modelPackage = ModelPackage.eINSTANCE;
 		}
 	}
 
@@ -66,7 +66,7 @@ public class AnalysisSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case AnalysisPackage.ANALYSIS_ELEMENT: {
+			case ModelPackage.ANALYSIS_ELEMENT: {
 				AnalysisElement analysisElement = (AnalysisElement)theEObject;
 				T result = caseAnalysisElement(analysisElement);
 				if (result == null) result = defaultCase(theEObject);
@@ -77,13 +77,13 @@ public class AnalysisSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Analysis Element</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Element</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Analysis Element</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
@@ -107,4 +107,4 @@ public class AnalysisSwitch<T> extends Switch<T> {
 		return null;
 	}
 
-} //AnalysisSwitch
+} //ModelSwitch

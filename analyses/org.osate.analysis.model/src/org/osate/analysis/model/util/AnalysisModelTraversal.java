@@ -1,4 +1,4 @@
-package org.osate.model.analysis.traversal;
+package org.osate.analysis.model.util;
 
 import java.util.Iterator;
 
@@ -6,7 +6,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.Switch;
-import org.osate.model.analysis.AnalysisElement;
+import org.osate.analysis.model.AnalysisElement;
 
 /**
  * Class for execute a traversal of an analysis model.  A traversal of model subtree is

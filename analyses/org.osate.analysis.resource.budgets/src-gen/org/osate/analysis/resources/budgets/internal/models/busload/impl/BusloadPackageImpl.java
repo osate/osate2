@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.osate.aadl2.Aadl2Package;
 
 import org.osate.aadl2.instance.InstancePackage;
+import org.osate.analysis.model.ModelPackage;
 import org.osate.analysis.resources.budgets.internal.models.busload.Broadcast;
 import org.osate.analysis.resources.budgets.internal.models.busload.Bus;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel;
@@ -126,7 +127,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		isInited = true;
 
 		// Initialize simple dependencies
-		org.osate.model.analysis.AnalysisPackage.eINSTANCE.eClass();
+		ModelPackage.eINSTANCE.eClass();
 		InstancePackage.eINSTANCE.eClass();
 		Aadl2Package.eINSTANCE.eClass();
 
@@ -414,7 +415,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		org.osate.model.analysis.AnalysisPackage theAnalysisPackage = (org.osate.model.analysis.AnalysisPackage)EPackage.Registry.INSTANCE.getEPackage(org.osate.model.analysis.AnalysisPackage.eNS_URI);
+		ModelPackage theModelPackage = (ModelPackage)EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI);
 		InstancePackage theInstancePackage = (InstancePackage)EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI);
 
 		// Create type parameters
@@ -422,13 +423,13 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		busloadElementEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisElement());
+		busloadElementEClass.getESuperTypes().add(theModelPackage.getAnalysisElement());
 		connectionEClass.getESuperTypes().add(this.getBusloadElement());
 		broadcastEClass.getESuperTypes().add(this.getBusloadElement());
 		busOrVirtualBusEClass.getESuperTypes().add(this.getBusloadElement());
 		virtualBusEClass.getESuperTypes().add(this.getBusOrVirtualBus());
 		busEClass.getESuperTypes().add(this.getBusOrVirtualBus());
-		busLoadModelEClass.getESuperTypes().add(theAnalysisPackage.getAnalysisElement());
+		busLoadModelEClass.getESuperTypes().add(theModelPackage.getAnalysisElement());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(busloadElementEClass, BusloadElement.class, "BusloadElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

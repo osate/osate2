@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.model.analysis.util;
+package org.osate.analysis.model.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -9,24 +9,24 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.model.analysis.*;
+import org.osate.analysis.model.*;
 
 /**
  * <!-- begin-user-doc -->
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see org.osate.model.analysis.AnalysisPackage
+ * @see org.osate.analysis.model.ModelPackage
  * @generated
  */
-public class AnalysisAdapterFactory extends AdapterFactoryImpl {
+public class ModelAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * The cached model package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected static AnalysisPackage modelPackage;
+	protected static ModelPackage modelPackage;
 
 	/**
 	 * Creates an instance of the adapter factory.
@@ -34,9 +34,9 @@ public class AnalysisAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AnalysisAdapterFactory() {
+	public ModelAdapterFactory() {
 		if (modelPackage == null) {
-			modelPackage = AnalysisPackage.eINSTANCE;
+			modelPackage = ModelPackage.eINSTANCE;
 		}
 	}
 
@@ -65,8 +65,8 @@ public class AnalysisAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected AnalysisSwitch<Adapter> modelSwitch =
-		new AnalysisSwitch<Adapter>() {
+	protected ModelSwitch<Adapter> modelSwitch =
+		new ModelSwitch<Adapter>() {
 			@Override
 			public Adapter caseAnalysisElement(AnalysisElement object) {
 				return createAnalysisElementAdapter();
@@ -92,13 +92,13 @@ public class AnalysisAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.model.analysis.AnalysisElement <em>Element</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.analysis.model.AnalysisElement <em>Analysis Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.model.analysis.AnalysisElement
+	 * @see org.osate.analysis.model.AnalysisElement
 	 * @generated
 	 */
 	public Adapter createAnalysisElementAdapter() {
@@ -117,4 +117,4 @@ public class AnalysisAdapterFactory extends AdapterFactoryImpl {
 		return null;
 	}
 
-} //AnalysisAdapterFactory
+} //ModelAdapterFactory

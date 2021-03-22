@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.model.analysis;
+package org.osate.analysis.model;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
@@ -18,21 +18,18 @@ import org.eclipse.emf.ecore.EPackage;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * <!-- begin-model-doc -->
- * Basic package model elements that make up an AADL analysis model.  
- * <!-- end-model-doc -->
- * @see org.osate.model.analysis.AnalysisFactory
+ * @see org.osate.analysis.model.ModelFactory
  * @model kind="package"
  * @generated
  */
-public interface AnalysisPackage extends EPackage {
+public interface ModelPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNAME = "analysis";
+	String eNAME = "model";
 
 	/**
 	 * The package namespace URI.
@@ -40,7 +37,7 @@ public interface AnalysisPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://osate.org/analysis/analysis";
+	String eNS_URI = "http://osate.org/analysis/model";
 
 	/**
 	 * The package namespace name.
@@ -48,7 +45,7 @@ public interface AnalysisPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_PREFIX = "analysis";
+	String eNS_PREFIX = "model";
 
 	/**
 	 * The singleton instance of the package.
@@ -56,20 +53,20 @@ public interface AnalysisPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	AnalysisPackage eINSTANCE = org.osate.model.analysis.impl.AnalysisPackageImpl.init();
+	ModelPackage eINSTANCE = org.osate.analysis.model.impl.ModelPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.osate.model.analysis.impl.AnalysisElementImpl <em>Element</em>}' class.
+	 * The meta object id for the '{@link org.osate.analysis.model.impl.AnalysisElementImpl <em>Analysis Element</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.model.analysis.impl.AnalysisElementImpl
-	 * @see org.osate.model.analysis.impl.AnalysisPackageImpl#getAnalysisElement()
+	 * @see org.osate.analysis.model.impl.AnalysisElementImpl
+	 * @see org.osate.analysis.model.impl.ModelPackageImpl#getAnalysisElement()
 	 * @generated
 	 */
 	int ANALYSIS_ELEMENT = 0;
 
 	/**
-	 * The number of structural features of the '<em>Element</em>' class.
+	 * The number of structural features of the '<em>Analysis Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -96,7 +93,7 @@ public interface AnalysisPackage extends EPackage {
 	int ANALYSIS_ELEMENT___GET_ORDERED_CHILDREN = 1;
 
 	/**
-	 * The number of operations of the '<em>Element</em>' class.
+	 * The number of operations of the '<em>Analysis Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -106,31 +103,31 @@ public interface AnalysisPackage extends EPackage {
 
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.model.analysis.AnalysisElement <em>Element</em>}'.
+	 * Returns the meta object for class '{@link org.osate.analysis.model.AnalysisElement <em>Analysis Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Element</em>'.
-	 * @see org.osate.model.analysis.AnalysisElement
+	 * @return the meta object for class '<em>Analysis Element</em>'.
+	 * @see org.osate.analysis.model.AnalysisElement
 	 * @generated
 	 */
 	EClass getAnalysisElement();
 
 	/**
-	 * Returns the meta object for the '{@link org.osate.model.analysis.AnalysisElement#isLeaf() <em>Is Leaf</em>}' operation.
+	 * Returns the meta object for the '{@link org.osate.analysis.model.AnalysisElement#isLeaf() <em>Is Leaf</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Is Leaf</em>' operation.
-	 * @see org.osate.model.analysis.AnalysisElement#isLeaf()
+	 * @see org.osate.analysis.model.AnalysisElement#isLeaf()
 	 * @generated
 	 */
 	EOperation getAnalysisElement__IsLeaf();
 
 	/**
-	 * Returns the meta object for the '{@link org.osate.model.analysis.AnalysisElement#getOrderedChildren() <em>Get Ordered Children</em>}' operation.
+	 * Returns the meta object for the '{@link org.osate.analysis.model.AnalysisElement#getOrderedChildren() <em>Get Ordered Children</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the '<em>Get Ordered Children</em>' operation.
-	 * @see org.osate.model.analysis.AnalysisElement#getOrderedChildren()
+	 * @see org.osate.analysis.model.AnalysisElement#getOrderedChildren()
 	 * @generated
 	 */
 	EOperation getAnalysisElement__GetOrderedChildren();
@@ -142,7 +139,7 @@ public interface AnalysisPackage extends EPackage {
 	 * @return the factory that creates the instances of the model.
 	 * @generated
 	 */
-	AnalysisFactory getAnalysisFactory();
+	ModelFactory getModelFactory();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -159,11 +156,11 @@ public interface AnalysisPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link org.osate.model.analysis.impl.AnalysisElementImpl <em>Element</em>}' class.
+		 * The meta object literal for the '{@link org.osate.analysis.model.impl.AnalysisElementImpl <em>Analysis Element</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.model.analysis.impl.AnalysisElementImpl
-		 * @see org.osate.model.analysis.impl.AnalysisPackageImpl#getAnalysisElement()
+		 * @see org.osate.analysis.model.impl.AnalysisElementImpl
+		 * @see org.osate.analysis.model.impl.ModelPackageImpl#getAnalysisElement()
 		 * @generated
 		 */
 		EClass ANALYSIS_ELEMENT = eINSTANCE.getAnalysisElement();
@@ -186,4 +183,4 @@ public interface AnalysisPackage extends EPackage {
 
 	}
 
-} //AnalysisPackage
+} //ModelPackage
