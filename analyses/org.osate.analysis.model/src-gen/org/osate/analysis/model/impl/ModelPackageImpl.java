@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.model.analysis.impl;
+package org.osate.analysis.model.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EGenericType;
@@ -9,9 +9,9 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.osate.model.analysis.AnalysisElement;
-import org.osate.model.analysis.AnalysisFactory;
-import org.osate.model.analysis.AnalysisPackage;
+import org.osate.analysis.model.AnalysisElement;
+import org.osate.analysis.model.ModelFactory;
+import org.osate.analysis.model.ModelPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,7 +19,7 @@ import org.osate.model.analysis.AnalysisPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage {
+public class ModelPackageImpl extends EPackageImpl implements ModelPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -38,12 +38,12 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see org.osate.model.analysis.AnalysisPackage#eNS_URI
+	 * @see org.osate.analysis.model.ModelPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */
-	private AnalysisPackageImpl() {
-		super(eNS_URI, AnalysisFactory.eINSTANCE);
+	private ModelPackageImpl() {
+		super(eNS_URI, ModelFactory.eINSTANCE);
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
 	 *
-	 * <p>This method is used to initialize {@link AnalysisPackage#eINSTANCE} when that field is accessed.
+	 * <p>This method is used to initialize {@link ModelPackage#eINSTANCE} when that field is accessed.
 	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -65,27 +65,27 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 	 * @see #initializePackageContents()
 	 * @generated
 	 */
-	public static AnalysisPackage init() {
-		if (isInited) return (AnalysisPackage)EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
+	public static ModelPackage init() {
+		if (isInited) return (ModelPackage)EPackage.Registry.INSTANCE.getEPackage(ModelPackage.eNS_URI);
 
 		// Obtain or create and register package
-		Object registeredAnalysisPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
-		AnalysisPackageImpl theAnalysisPackage = registeredAnalysisPackage instanceof AnalysisPackageImpl ? (AnalysisPackageImpl)registeredAnalysisPackage : new AnalysisPackageImpl();
+		Object registeredModelPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		ModelPackageImpl theModelPackage = registeredModelPackage instanceof ModelPackageImpl ? (ModelPackageImpl)registeredModelPackage : new ModelPackageImpl();
 
 		isInited = true;
 
 		// Create package meta-data objects
-		theAnalysisPackage.createPackageContents();
+		theModelPackage.createPackageContents();
 
 		// Initialize created meta-data
-		theAnalysisPackage.initializePackageContents();
+		theModelPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
-		theAnalysisPackage.freeze();
+		theModelPackage.freeze();
 
 		// Update the registry and return the package
-		EPackage.Registry.INSTANCE.put(AnalysisPackage.eNS_URI, theAnalysisPackage);
-		return theAnalysisPackage;
+		EPackage.Registry.INSTANCE.put(ModelPackage.eNS_URI, theModelPackage);
+		return theModelPackage;
 	}
 
 	/**
@@ -124,8 +124,8 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 	 * @generated
 	 */
 	@Override
-	public AnalysisFactory getAnalysisFactory() {
-		return (AnalysisFactory)getEFactoryInstance();
+	public ModelFactory getModelFactory() {
+		return (ModelFactory)getEFactoryInstance();
 	}
 
 	/**
@@ -196,4 +196,4 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 		createResource(eNS_URI);
 	}
 
-} //AnalysisPackageImpl
+} //ModelPackageImpl

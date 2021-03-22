@@ -8,6 +8,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
+import org.osate.analysis.model.AnalysisElement;
 import org.osate.analysis.resources.budgets.internal.models.busload.*;
 
 /**
@@ -95,7 +96,7 @@ public class BusloadAdapterFactory extends AdapterFactoryImpl {
 				return createBusLoadModelAdapter();
 			}
 			@Override
-			public Adapter caseAnalysisElement(org.osate.model.analysis.AnalysisElement object) {
+			public Adapter caseAnalysisElement(AnalysisElement object) {
 				return createAnalysisElementAdapter();
 			}
 			@Override
@@ -133,13 +134,13 @@ public class BusloadAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.model.analysis.AnalysisElement <em>Element</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.analysis.model.AnalysisElement <em>Analysis Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.model.analysis.AnalysisElement
+	 * @see org.osate.analysis.model.AnalysisElement
 	 * @generated
 	 */
 	public Adapter createAnalysisElementAdapter() {

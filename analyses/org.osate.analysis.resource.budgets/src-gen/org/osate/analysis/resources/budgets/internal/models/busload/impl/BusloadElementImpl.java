@@ -6,6 +6,7 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.osate.analysis.model.impl.AnalysisElementImpl;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement;
 import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage;
 
@@ -24,7 +25,7 @@ import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPacka
  *
  * @generated
  */
-public abstract class BusloadElementImpl extends org.osate.model.analysis.impl.AnalysisElementImpl implements BusloadElement {
+public abstract class BusloadElementImpl extends AnalysisElementImpl implements BusloadElement {
 	/**
 	 * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
 	 * <!-- begin-user-doc -->

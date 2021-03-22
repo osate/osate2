@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.model.analysis.impl;
+package org.osate.analysis.model.impl;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -8,12 +8,12 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.osate.model.analysis.AnalysisElement;
-import org.osate.model.analysis.AnalysisPackage;
+import org.osate.analysis.model.AnalysisElement;
+import org.osate.analysis.model.ModelPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Element</b></em>'.
+ * An implementation of the model object '<em><b>Analysis Element</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
@@ -35,7 +35,7 @@ public abstract class AnalysisElementImpl extends MinimalEObjectImpl.Container i
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return AnalysisPackage.Literals.ANALYSIS_ELEMENT;
+		return ModelPackage.Literals.ANALYSIS_ELEMENT;
 	}
 
 	/**
@@ -66,9 +66,9 @@ public abstract class AnalysisElementImpl extends MinimalEObjectImpl.Container i
 	@Override
 	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
 		switch (operationID) {
-			case AnalysisPackage.ANALYSIS_ELEMENT___IS_LEAF:
+			case ModelPackage.ANALYSIS_ELEMENT___IS_LEAF:
 				return isLeaf();
-			case AnalysisPackage.ANALYSIS_ELEMENT___GET_ORDERED_CHILDREN:
+			case ModelPackage.ANALYSIS_ELEMENT___GET_ORDERED_CHILDREN:
 				return getOrderedChildren();
 		}
 		return super.eInvoke(operationID, arguments);

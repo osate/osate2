@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.model.analysis.impl;
+package org.osate.analysis.model.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
-import org.osate.model.analysis.*;
+import org.osate.analysis.model.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,24 +18,24 @@ import org.osate.model.analysis.*;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AnalysisFactoryImpl extends EFactoryImpl implements AnalysisFactory {
+public class ModelFactoryImpl extends EFactoryImpl implements ModelFactory {
 	/**
 	 * Creates the default factory implementation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static AnalysisFactory init() {
+	public static ModelFactory init() {
 		try {
-			AnalysisFactory theAnalysisFactory = (AnalysisFactory)EPackage.Registry.INSTANCE.getEFactory(AnalysisPackage.eNS_URI);
-			if (theAnalysisFactory != null) {
-				return theAnalysisFactory;
+			ModelFactory theModelFactory = (ModelFactory)EPackage.Registry.INSTANCE.getEFactory(ModelPackage.eNS_URI);
+			if (theModelFactory != null) {
+				return theModelFactory;
 			}
 		}
 		catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
-		return new AnalysisFactoryImpl();
+		return new ModelFactoryImpl();
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class AnalysisFactoryImpl extends EFactoryImpl implements AnalysisFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AnalysisFactoryImpl() {
+	public ModelFactoryImpl() {
 		super();
 	}
 
@@ -67,8 +67,8 @@ public class AnalysisFactoryImpl extends EFactoryImpl implements AnalysisFactory
 	 * @generated
 	 */
 	@Override
-	public AnalysisPackage getAnalysisPackage() {
-		return (AnalysisPackage)getEPackage();
+	public ModelPackage getModelPackage() {
+		return (ModelPackage)getEPackage();
 	}
 
 	/**
@@ -78,8 +78,8 @@ public class AnalysisFactoryImpl extends EFactoryImpl implements AnalysisFactory
 	 * @generated
 	 */
 	@Deprecated
-	public static AnalysisPackage getPackage() {
-		return AnalysisPackage.eINSTANCE;
+	public static ModelPackage getPackage() {
+		return ModelPackage.eINSTANCE;
 	}
 
-} //AnalysisFactoryImpl
+} //ModelFactoryImpl
