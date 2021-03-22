@@ -25,9 +25,7 @@ package org.osate.analysis.flows.internal.utils;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -40,7 +38,6 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.VirtualBus;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
 import org.osate.aadl2.contrib.communication.CommunicationProperties;
@@ -170,41 +167,6 @@ public class FlowLatencyUtil {
 	}
 
 	/**
-	 * Get the next thread/device period within an end to end flow after the flow element
-	 * given as attribute.
-	 * @param etef - the end to end flow
-	 * @param flowElementInstance - the element to search from
-	 * @return - the flow element period that is a thread and is after flowElementInstance
-	 */
-	//XXX: [Code Coverage] Dead code.
-	public static double getNextThreadOrDevicePeriod(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		ComponentInstance ci = getNextFlowElement(etef, flowElementInstance).getComponentInstance();
-		if ((ci != null)
-				&& ((ci.getCategory() == ComponentCategory.THREAD) || (ci.getCategory() == ComponentCategory.DEVICE))) {
-			return PropertyUtils.getScaled(TimingProperties::getPeriod, ci, TimeUnits.MS).orElse(0.0);
-		}
-		return 0;
-	}
-
-	/**
-	 * Get the next task within an end to end flow after the flow element
-	 * given as attribute.
-	 * @param etef - the end to end flow
-	 * @param flowElementInstance - the element to search from
-	 * @return - the flow element that is a task and is after flowElementInstance
-	 */
-	//XXX: [Code Coverage] Dead code.
-	public static double getNextSamplingComponentPeriod(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		ComponentInstance ci = getNextFlowElement(etef, flowElementInstance).getComponentInstance();
-		if (ci != null) {
-			return PropertyUtils.getScaled(TimingProperties::getPeriod, ci, TimeUnits.MS).orElse(0.0);
-		}
-		return 0;
-	}
-
-	/**
 	 * find the next connection within an end to end flow
 	 * @param etef - the end to end flow where to search
 	 * @param flowElementInstance - the element from where we start the search
@@ -266,25 +228,6 @@ public class FlowLatencyUtil {
 			}
 		}
 		return result;
-	}
-
-	/**
-	 * Get the major frame from the processor supporting ARINC653 partitions from its schedule
-	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
-	 * @return partition period supported by processor
-	 * @deprecated To be removed in 2.10.0.
-	 */
-	//XXX: [Code Coverage] Dead code.
-	@Deprecated
-	public static double getARINC653ProcessorMajorFrameFromSchedule(ComponentInstance processorInstance) {
-
-		final List<ScheduleWindow> schedule = Arinc653.getModuleSchedule(processorInstance)
-				.orElse(Collections.emptyList());
-		double res = 0.0;
-		for (final ScheduleWindow window : schedule) {
-			res += window.getDuration().map(d -> d.getValue(TimeUnits.MS)).orElse(0.0);
-		}
-		return res;
 	}
 
 	public static Classifier getConnectionData(ConnectionInstance connectionInstance) {
@@ -369,16 +312,15 @@ public class FlowLatencyUtil {
 	 * @param schedule ARINC653 schedule
 	 * @return window size (duration),  or 0 if no schedule.
 	 */
-	public static double getPartitionDuration(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
+	public static double getPartitionDuration(ComponentInstance partition, List<ScheduleWindow> schedule) {
 		if ((schedule == null) || (schedule.size() == 0)) {
-//			double wcet = GetProperties.getExecutionTimeInMS(partition);
 			double wcet = PropertyUtils.getScaled(TimingProperties::getExecutionTime, partition, TimeUnits.MS)
 					.orElse(0.0);
 			return wcet;
 		}
-		for (ARINC653ScheduleWindow window : schedule) {
-			if (window.getPartition() == partition) {
-				return window.getTime();
+		for (ScheduleWindow window : schedule) {
+			if (window.getPartition().orElse(null) == partition) {
+				return window.getDuration().map(v -> v.getValue(TimeUnits.MS)).orElse(0.0);
 			}
 		}
 		return 0;
@@ -463,46 +405,6 @@ public class FlowLatencyUtil {
 		} else {
 			return "Min: ";
 		}
-	}
-
-	//XXX: [Code Coverage] Dead code.
-	/**
-	 * @Deprecated Will be removed in 2.10.0.  This is dead code.  If you are using it for some reason, then you can replace it with
-	 * <pre>
-	 *		Optional<List<Long>> v = org.osate.contribution.sei.datamodel.DataModel.getDimension(ne);
-	 *	    double result = 1.0;
-	 *	    if (v.isPresent()) {
-	 *	    	for (long nv : v.get()) {
-	 *				result *= nv;
-	 *	    	}
-	 *		}
-	 * </pre>
-	 * @param ne
-	 * @return
-	 */
-	@Deprecated
-	public static double getDimension(final NamedElement ne) {
-		Optional<List<Long>> v = org.osate.contribution.sei.datamodel.DataModel.getDimension(ne);
-		double result = 1.0;
-		if (v.isPresent()) {
-			for (long nv : v.get()) {
-				result *= nv;
-			}
-		}
-
-//		 Property dimension = GetProperties.lookupPropertyDefinition(ne, DataModel._NAME, DataModel.Dimension);
-//		List<? extends PropertyExpression> propertyValues;
-//		try {
-//			propertyValues = ne.getPropertyValueList(dimension);
-//		} catch (Exception e) {
-//			return 1.0;
-//		}
-//		double res = 1.0;
-//		for (PropertyExpression propertyExpression : propertyValues) {
-//			res = res * ((NumberValue) propertyExpression).getScaledValue();
-//		}
-
-		return result;
 	}
 
 	// -------------

@@ -60,7 +60,6 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
-import org.osate.aadl2.impl.BooleanLiteralImpl;
 import org.osate.aadl2.impl.ClassifierValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -1978,7 +1977,6 @@ public class GetProperties {
 		List<? extends PropertyExpression> propertyValues;
 		RecordValue window;
 		IntegerLiteral windowTime;
-		BooleanLiteralImpl windowStartProcessing;
 		InstanceReferenceValue windowPartition;
 		ARINC653ScheduleWindow scheduleWindow;
 		boolean startProcessing;
@@ -2007,8 +2005,6 @@ public class GetProperties {
 
 					window = (RecordValue) propertyExpression;
 					windowTime = (IntegerLiteral) PropertyUtils.getRecordFieldValue(window, "duration");
-					windowStartProcessing = (BooleanLiteralImpl) PropertyUtils.getRecordFieldValue(window,
-							"periodic_processing_start");
 					windowPartition = (InstanceReferenceValue) PropertyUtils.getRecordFieldValue(window, "partition");
 					if (windowPartition != null) {
 						part = (ComponentInstance) windowPartition.getReferencedInstanceObject();
