@@ -89,7 +89,7 @@ public interface BusinessObjectHandler {
 	/**
 	 * Returns the name that should be used for the primary label for diagram elements representing the business object in the diagram editor.
 	 * A blank string will result in the no label being displayed in the diagram editor.
-	 * Defaults to the value returned by {@link #getNameForUserInterface}
+	 * Defaults to the value returned by {@link #getName}
 	 * @param ctx the context for the request.
 	 * @return is the name to be displayed for the business object in the diagram editor. Must not be null.
 	 */
@@ -100,7 +100,7 @@ public interface BusinessObjectHandler {
 	/**
 	 * Gets the name of the element that is edited by the user during the renaming process.
 	 * Used as the initial value when the user is editing the name of a business object.
-	 * Defaults to the value returned by {@link #getNameForUserInterface}
+	 * Defaults to the value returned by {@link #getName}
 	 * @param ctx the context for the request.
 	 * @return the name that should be the initial value when a user is editing the name of a business object. Must not be null.
 	 */
