@@ -25,7 +25,9 @@ package org.osate.analysis.flows.internal.utils;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -39,13 +41,11 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.VirtualBus;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
 import org.osate.aadl2.contrib.communication.CommunicationProperties;
 import org.osate.aadl2.contrib.communication.Timing;
+import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -56,7 +56,8 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.contribution.sei.names.DataModel;
+import org.osate.contribution.sei.arinc653.Arinc653;
+import org.osate.contribution.sei.arinc653.ScheduleWindow;
 import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
@@ -252,35 +253,36 @@ public class FlowLatencyUtil {
 	 * get the partition period, either from the virtual processor representing the partition, or from the major frame of the ARINC653 specification of a processor
 	 * @return partition period as latency contributor
 	 */
-	public static double getPartitionPeriod(ComponentInstance part) {
+	public static double getPartitionPeriod(final ComponentInstance part) {
 		// first look for major frame value on processor
-		ComponentInstance module = getModule(part);
-		double res = GetProperties.getARINC653ModuleMajorFrame(module);
-		if (res == 0.0) {
+		final ComponentInstance module = getModule(part);
+		double result = PropertyUtils.getScaled(Arinc653::getModuleMajorFrame, module, TimeUnits.MS).orElse(0.0);
+		if (result == 0.0) {
 			// look for period on partition
-			res = PropertyUtils.getScaled(TimingProperties::getPeriod, part, TimeUnits.MS).orElse(0.0);
+			result = PropertyUtils.getScaled(TimingProperties::getPeriod, part, TimeUnits.MS).orElse(0.0);
+			if (result == 0.0) {
+				// look for major frame value on virtual processor (partition)
+				result = PropertyUtils.getScaled(Arinc653::getModuleMajorFrame, part, TimeUnits.MS).orElse(0.0);
+			}
 		}
-		if (res == 0.0) {
-			// look for major frame value on virtual processor (partition)
-			res = GetProperties.getARINC653ModuleMajorFrame(part);
-		}
-		return res;
+		return result;
 	}
 
 	/**
 	 * Get the major frame from the processor supporting ARINC653 partitions from its schedule
 	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
 	 * @return partition period supported by processor
+	 * @deprecated To be removed in 2.10.0.
 	 */
 	//XXX: [Code Coverage] Dead code.
+	@Deprecated
 	public static double getARINC653ProcessorMajorFrameFromSchedule(ComponentInstance processorInstance) {
+
+		final List<ScheduleWindow> schedule = Arinc653.getModuleSchedule(processorInstance)
+				.orElse(Collections.emptyList());
 		double res = 0.0;
-		List<ARINC653ScheduleWindow> schedule = GetProperties.getModuleSchedule(processorInstance);
-		if ((schedule != null) && (schedule.size() > 0)) {
-			for (ARINC653ScheduleWindow window : schedule) {
-				res = res + window.getTime();
-			}
-			return res;
+		for (final ScheduleWindow window : schedule) {
+			res += window.getDuration().map(d -> d.getValue(TimeUnits.MS)).orElse(0.0);
 		}
 		return res;
 	}
@@ -311,7 +313,9 @@ public class FlowLatencyUtil {
 		/**
 		 * Try to get the module from the virtual processor partition.
 		 */
-		module = GetProperties.getBoundProcessor(partition);
+
+		module = (ComponentInstance) DeploymentProperties.getActualProcessorBinding(partition)
+				.map(list -> list.isEmpty() ? null : list.get(0)).orElse(null);
 		if (module == null) {
 			module = partition.getContainingComponentInstance();
 		}
@@ -478,19 +482,27 @@ public class FlowLatencyUtil {
 	 */
 	@Deprecated
 	public static double getDimension(final NamedElement ne) {
-		Property dimension = GetProperties.lookupPropertyDefinition(ne, DataModel._NAME, DataModel.Dimension);
-		List<? extends PropertyExpression> propertyValues;
-		try {
-			propertyValues = ne.getPropertyValueList(dimension);
-		} catch (Exception e) {
-			return 1.0;
-		}
-		double res = 1.0;
-		for (PropertyExpression propertyExpression : propertyValues) {
-			res = res * ((NumberValue) propertyExpression).getScaledValue();
+		Optional<List<Long>> v = org.osate.contribution.sei.datamodel.DataModel.getDimension(ne);
+		double result = 1.0;
+		if (v.isPresent()) {
+			for (long nv : v.get()) {
+				result *= nv;
+			}
 		}
 
-		return res;
+//		 Property dimension = GetProperties.lookupPropertyDefinition(ne, DataModel._NAME, DataModel.Dimension);
+//		List<? extends PropertyExpression> propertyValues;
+//		try {
+//			propertyValues = ne.getPropertyValueList(dimension);
+//		} catch (Exception e) {
+//			return 1.0;
+//		}
+//		double res = 1.0;
+//		for (PropertyExpression propertyExpression : propertyValues) {
+//			res = res * ((NumberValue) propertyExpression).getScaledValue();
+//		}
+
+		return result;
 	}
 
 	// -------------
