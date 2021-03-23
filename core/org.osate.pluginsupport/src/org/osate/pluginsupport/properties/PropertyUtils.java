@@ -26,7 +26,7 @@ public final class PropertyUtils {
 	 */
 	public static <U extends Enum<U> & GeneratedUnits<U>> Optional<Double> getScaled(
 			final Function<NamedElement, Optional<? extends Scalable<U>>> getProperty, final NamedElement ne, final U unit) {
-		return getProperty.apply(ne).map(rwu -> rwu.getValue(unit));
+		return scale(getProperty.apply(ne), unit);
 	}
 
 	/**
@@ -42,7 +42,12 @@ public final class PropertyUtils {
 	public static <U extends Enum<U> & GeneratedUnits<U>> Optional<RealRange> getScaledRange(
 			final Function<NamedElement, Optional<? extends RangeWithUnits<U, ? extends Scalable<U>>>> getProperty,
 			final NamedElement ne, final U unit) {
-		return getProperty.apply(ne).map(range -> scaleRange(range, unit));
+		return scaleRange(getProperty.apply(ne), unit);
+	}
+
+	public static <U extends Enum<U> & GeneratedUnits<U>> Optional<RealRange> scaleRange(
+			final Optional<? extends RangeWithUnits<U, ? extends Scalable<U>>> rangeWithUnits, final U unit) {
+		return rangeWithUnits.map(range -> scaleRange(range, unit));
 	}
 
 	/**
@@ -55,7 +60,7 @@ public final class PropertyUtils {
 	 * @return A {@link RealRange} containing the scaled range.  If the optional delta is present in the original,
 	 * it is scaled, otherwise the delta is equal to {@link OptionalDouble#empty()}.
 	 */
-	public static final <U extends Enum<U> & GeneratedUnits<U>> RealRange scaleRange(
+	public static <U extends Enum<U> & GeneratedUnits<U>> RealRange scaleRange(
 			final RangeWithUnits<U, ? extends Scalable<U>> rangeWithUnits, final U unit) {
 		final double min = rangeWithUnits.getMinimum().getValue(unit);
 		final double max = rangeWithUnits.getMaximum().getValue(unit);
@@ -75,9 +80,31 @@ public final class PropertyUtils {
 	 * @return {@code true} if the property association exists and the value {@link #equals(Object)} {@code value}.
 	 * If the property association doesn't exist then the value {@code false} is returned.
 	 */
-	public static final <V> boolean propertyEquals(final Function<NamedElement, Optional<V>> getProperty, final NamedElement ne,
+	public static <V> boolean propertyEquals(final Function<NamedElement, Optional<V>> getProperty,
+			final NamedElement ne,
 			final V value) {
-		return getProperty.apply(ne).map(x -> x.equals(value)).orElse(false);
+		return equals(getProperty.apply(ne), value, false);
+	}
+
+	/**
+	 * Returns whether the Optional value equals the given value.
+	 *
+	 * @param <V> The type of the property value.
+	 * @param optValue The optional to test
+	 * @param value The value to test against.
+	 * @param orElse The value return if the optional has no value.
+	 *
+	 * @return {@code true} if the optional value exists and the value {@link #equals(Object)} {@code value};
+	 * the value of {@code orElse} if the optional does not exist.
+	 */
+	public static <V> boolean equals(final Optional<V> optValue, final V value, final boolean orElse) {
+		return optValue.map(x -> x.equals(value)).orElse(orElse);
+	}
+
+	public static <U extends Enum<U> & GeneratedUnits<U>> Optional<Double> scale(
+			final Optional<? extends Scalable<U>> value,
+			final U unit) {
+		return value.map(rwu -> rwu.getValue(unit));
 	}
 
 	public static <U extends Enum<U> & GeneratedUnits<U>, T extends Scalable<U>, R extends RangeWithUnits<U, T>> Optional<Double> getScaled(
