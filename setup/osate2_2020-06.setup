@@ -622,7 +622,8 @@
         xsi:type="setup.p2:P2Task"
         label="Core Dependencies">
       <requirement
-          name="org.eclipse.papyrus.sdk.feature.feature.group"/>
+          name="org.eclipse.papyrus.sdk.feature.feature.group"
+          versionRange="4.8.0"/>
       <requirement
           name="org.eclipse.emf.compare.ide.ui.feature.group"/>
       <requirement
@@ -810,8 +811,7 @@
       <requirement
           name="*"/>
       <sourceLocator
-          rootFolder="${git.clone.osate2.location}">
-      </sourceLocator>
+          rootFolder="${git.clone.osate2.location}"/>
       <repositoryList
           name="2020-03">
         <repository
