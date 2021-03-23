@@ -1,5 +1,6 @@
 -- This property set conforms to the Data Modeling annex, v15 (20090609).
 
+-- @codegen-package org.osate.contribution.sei.datamodel
 property set Data_Model is
 
    Base_Type : list of classifier ( data ) applies to ( data, feature );
