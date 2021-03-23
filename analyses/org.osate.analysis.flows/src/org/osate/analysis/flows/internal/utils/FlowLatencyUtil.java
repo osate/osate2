@@ -25,6 +25,7 @@ package org.osate.analysis.flows.internal.utils;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
@@ -59,8 +60,6 @@ import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
-import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class FlowLatencyUtil {
@@ -275,29 +274,31 @@ public class FlowLatencyUtil {
 	 * @param partition This can be a virtual processor representing a partition or a component instance tagged with SEI properties
 	 * @return offset, no virtual processor as ARINC653 partition, or no processor.
 	 */
-	public static double getPartitionFrameOffset(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
-		double res = 0.0;
+	public static double getPartitionFrameOffset(final ComponentInstance partition,
+			final List<ScheduleWindow> schedule) {
 		//XXX: [Code Coverage] schedule is never null.
 		if ((schedule == null) || (schedule.size() == 0)) {
-			return res;
-		}
-		for (ARINC653ScheduleWindow window : schedule) {
-			if (window.getPartition() == partition) {
-				return res;
-			}
+			return 0.0;
+		} else {
+			double res = 0.0;
+			for (final ScheduleWindow window : schedule) {
+				if (PropertyUtils.equals(window.getPartition(), partition, false)) {
+					return res;
+				}
 
-			res = res + window.getTime();
+				res = res + PropertyUtils.scale(window.getDuration(), TimeUnits.MS).orElse(0.0);
+			}
+			// XXX: [Code Coverage] partition is always in schedule.
+			return 0.0;
 		}
-		//XXX: [Code Coverage] partition is always in schedule.
-		return 0.0;
 	}
 
-	public static boolean isInSchedule(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
+	public static boolean isInSchedule(ComponentInstance partition, List<ScheduleWindow> schedule) {
 		if (schedule == null) {
 			return true;
 		}
-		for (ARINC653ScheduleWindow window : schedule) {
-			if (window.getPartition() == partition) {
+		for (ScheduleWindow window : schedule) {
+			if (PropertyUtils.equals(window.getPartition(), partition, false)) {
 				return true;
 			}
 		}
@@ -320,25 +321,23 @@ public class FlowLatencyUtil {
 		}
 		for (ScheduleWindow window : schedule) {
 			if (window.getPartition().orElse(null) == partition) {
-				return window.getDuration().map(v -> v.getValue(TimeUnits.MS)).orElse(0.0);
+				return PropertyUtils.scale(window.getDuration(), TimeUnits.MS).orElse(0.0);
 			}
 		}
 		return 0;
 	}
 
-	public static List<ARINC653ScheduleWindow> getModuleSchedule(ComponentInstance partition) {
-		ComponentInstance module;
-		List<ARINC653ScheduleWindow> schedule = null;
-		//XXX: [Code Coverage] partition cannot be null.
+	public static List<ScheduleWindow> getModuleSchedule(final ComponentInstance partition) {
 		if (partition == null) {
-			return schedule;
+			return null;
+		} else {
+			final ComponentInstance module = getModule(partition);
+			if (module == null) {
+				return null;
+			} else {
+				return Arinc653.getModuleSchedule(module).orElse(Collections.emptyList());
+			}
 		}
-		module = getModule(partition);
-		if (module != null) {
-			schedule = GetProperties.getModuleSchedule(module);
-
-		}
-		return schedule;
 	}
 
 	/**

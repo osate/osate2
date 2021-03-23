@@ -69,6 +69,7 @@ import org.osate.analysis.flows.model.LatencyContributorComponent;
 import org.osate.analysis.flows.model.LatencyContributorConnection;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.model.LatencyReportEntry;
+import org.osate.contribution.sei.arinc653.ScheduleWindow;
 import org.osate.contribution.sei.sei.Sei;
 import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
 import org.osate.pluginsupport.properties.IntegerWithUnits;
@@ -76,7 +77,6 @@ import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.pluginsupport.properties.RealRange;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
-import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -318,7 +318,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				ComponentInstance firstPartition = FlowLatencyUtil.getPartition(componentInstance);
 				if (firstPartition != null) {
 					double partitionLatency = FlowLatencyUtil.getPartitionPeriod(firstPartition);
-					List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
+					List<ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(firstPartition);
 					double partitionDuration = FlowLatencyUtil.getPartitionDuration(firstPartition, schedule);
 					LatencyContributorComponent platencyContributor = new LatencyContributorComponent(firstPartition,
 							flowElementInstance,
@@ -493,7 +493,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		// if we exit a partition then we may have I/O Delay until the end of the partition window or the end of the major frame
 		if (srcPartition != null && srcPartition != dstPartition) {
 			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(srcPartition);
-			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(srcPartition);
+			List<ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(srcPartition);
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(srcPartition, schedule);
 			if (partitionDuration > 0) {
 				LatencyContributor ioLatencyContributor = new LatencyContributorComponent(srcPartition,
@@ -588,7 +588,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		if (dstPartition != null && srcPartition != dstPartition) {
 			// add partition latency if the destination is a partition and it is different from the source partition (or null)
 			double partitionLatency = FlowLatencyUtil.getPartitionPeriod(dstPartition);
-			List<ARINC653ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(dstPartition);
+			List<ScheduleWindow> schedule = FlowLatencyUtil.getModuleSchedule(dstPartition);
 			double partitionDuration = FlowLatencyUtil.getPartitionDuration(dstPartition, schedule);
 			LatencyContributorComponent platencyContributor = new LatencyContributorComponent(dstPartition,
 					flowElementInstance,
@@ -624,9 +624,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				.getTransmissionTime(bus);
 		if (tt_o.isPresent()) {
 			final TransmissionTime tt = tt_o.get();
-			final RealRange fixedRange = tt.getFixed().map(fixed -> PropertyUtils.scaleRange(fixed, TimeUnits.MS))
-					.orElse(RealRange.ZEROED);
-			final RealRange perByteRange = tt.getPerbyte().map(fixed -> PropertyUtils.scaleRange(fixed, TimeUnits.MS))
+			final RealRange fixedRange = PropertyUtils.scaleRange(tt.getFixed(), TimeUnits.MS).orElse(RealRange.ZEROED);
+			final RealRange perByteRange = PropertyUtils.scaleRange(tt.getPerbyte(), TimeUnits.MS)
 					.orElse(RealRange.ZEROED);
 			final double min = fixedRange.getMinimum() + (datasizeinbyte * perByteRange.getMinimum());
 			final double max = fixedRange.getMaximum() + (datasizeinbyte * perByteRange.getMaximum());
