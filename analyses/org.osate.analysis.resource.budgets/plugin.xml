@@ -266,9 +266,9 @@ censes only apply to the Third Party Software and not any other portion of this 
       </menuContribution>
    </extension>
    <extension
+         point="org.eclipse.help.toc"
          id="toc_busload"
-         name="Bus Load Analysis Help Table of Contents"
-         point="org.eclipse.help.toc">
+         name="Bus Load Analysis Help Table of Contents">
       <toc
             file="help/toc_busload.xml"
             primary="true">

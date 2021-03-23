@@ -8,7 +8,7 @@
         <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList">
           <eTypeArguments eClassifier="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
         </eGenericType>
-      </eOperations>
+      </eOperations> 
     </eClassifiers>
   </eSubpackages>
 </ecore:EPackage>
