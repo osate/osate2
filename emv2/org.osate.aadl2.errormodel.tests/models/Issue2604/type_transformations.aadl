@@ -5,6 +5,7 @@ public
 			use types ErrorLibrary;
 			{NoError} -[{LateDelivery}]-> {CommonErrors}; --should be marked as error because it's a typeset 
 			{NoError} -[{ServiceError}]-> {ServiceError, ItemTimingError}; -- should be marked with error 
+			{NoError} -[{ServiceError}]-> {ItemTimingError};
 		end transformations;
 	**};
 end type_transformations;
