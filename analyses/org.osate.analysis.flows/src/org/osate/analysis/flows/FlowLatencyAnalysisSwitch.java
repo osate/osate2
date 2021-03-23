@@ -61,6 +61,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.analysis.flows.internal.utils.AnalysisUtils;
 import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyCSVReport;
 import org.osate.analysis.flows.model.LatencyContributor;
@@ -76,7 +77,6 @@ import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.pluginsupport.properties.RealRange;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
@@ -1239,34 +1239,6 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return ar;
 	}
 
-//	private double getTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
-//			final boolean isPeriodic, final Function<NamedElement, Boolean> propertyTester,
-//			final Function<NamedElement, Double> getExecTime) {
-//		/*
-//		 * If the flow element is a component instance or if the thread is periodic, we use the thread's
-//		 * computation time. Otherwise we try to use the compute execution time from the flow's input feature.
-//		 */
-//		if (isPeriodic || fei == ci) { // the flow element is a component instance
-//			return getExecTime.apply(ci);
-//		} else { // the flow element is a FlowSpecificationInstance
-//			final FlowSpecificationInstance fsi = (FlowSpecificationInstance) fei;
-//			final FlowEnd allInEnd = fsi.getFlowSpecification().getAllInEnd();
-//			if (allInEnd != null) { // we have an input feature
-//				FeatureInstance fi = null;
-//				if (allInEnd.getContext() instanceof FeatureGroup) {
-//					FeatureInstance fgi = ci.findFeatureInstance((FeatureGroup) allInEnd.getContext());
-//					fi = fgi.findFeatureInstance(allInEnd.getFeature());
-//				} else {
-//					fi = ci.findFeatureInstance(allInEnd.getFeature());
-//				}
-//				if (propertyTester.apply(fi)) {
-//					return getExecTime.apply(fi);
-//				}
-//			}
-//			return getExecTime.apply(ci);
-//		}
-//	}
-
 	private RealRange getTimeInMilliSec2(final FlowElementInstance fei, final ComponentInstance ci,
 			final boolean isPeriodic,
 			final Function<NamedElement, Optional<IntegerRangeWithUnits<TimeUnits>>> getExecTime) {
@@ -1280,7 +1252,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			if (allInEnd != null) { // we have an input feature
 				FeatureInstance fi = null;
 				if (allInEnd.getContext() instanceof FeatureGroup) {
-					FeatureInstance fgi = ci.findFeatureInstance((FeatureGroup) allInEnd.getContext());
+					final FeatureInstance fgi = ci.findFeatureInstance((FeatureGroup) allInEnd.getContext());
 					fi = fgi.findFeatureInstance(allInEnd.getFeature());
 				} else {
 					fi = ci.findFeatureInstance(allInEnd.getFeature());
@@ -1290,9 +1262,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 						|| featureCategory == FeatureCategory.EVENT_DATA_PORT) {
 					final Optional<IntegerRangeWithUnits<TimeUnits>> fromFeature = getExecTime.apply(fi);
 					if (fromFeature.isPresent()) {
-						final RealRange inMS = PropertyUtils.scaleRange(fromFeature.get(), TimeUnits.MS);
-						return new RealRange(GetProperties.scaleTime(inMS.getMinimum(), fi),
-								GetProperties.scaleTime(inMS.getMinimum(), fi));
+						return AnalysisUtils.scaleTimeRange(PropertyUtils.scaleRange(fromFeature.get(), TimeUnits.MS), fi);
 					} // otherwise fall through and get from component
 				} // otherwise fall through and get from component
 			}
@@ -1301,9 +1271,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		if (componentCategory == ComponentCategory.THREAD || componentCategory == ComponentCategory.DEVICE
 				|| componentCategory == ComponentCategory.SUBPROGRAM
 				|| componentCategory == ComponentCategory.ABSTRACT) {
-			final RealRange inMS = PropertyUtils.scaleRange(getExecTime.apply(ci), TimeUnits.MS).orElse(RealRange.ZEROED);
-			return new RealRange(GetProperties.scaleTime(inMS.getMinimum(), ci),
-					GetProperties.scaleTime(inMS.getMinimum(), ci));
+			return AnalysisUtils.scaleTimeRange(PropertyUtils.scaleRange(getExecTime.apply(ci), TimeUnits.MS).orElse(RealRange.ZEROED), ci);
 		} else {
 			return RealRange.ZEROED;
 		}
