@@ -72,7 +72,6 @@ import org.osate.analysis.flows.model.LatencyReportEntry;
 import org.osate.contribution.sei.arinc653.ScheduleWindow;
 import org.osate.contribution.sei.sei.Sei;
 import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
-import org.osate.pluginsupport.properties.IntegerWithUnits;
 import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.pluginsupport.properties.RealRange;
 import org.osate.result.AnalysisResult;
@@ -245,14 +244,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 								&& !InstanceModelUtil.isAperiodicComponent(componentInstance))
 						: true);
 
-		final double responseTimeLower = getMinResponseTimeInMilliSec(flowElementInstance, componentInstance,
+		final RealRange responseTime = getResponseTimeInMilliSec(flowElementInstance, componentInstance,
 				isPeriodic);
-		final double responseTimeHigher = getMaxResponseTimeInMilliSec(flowElementInstance, componentInstance,
-				isPeriodic);
-
-		final double executionTimeLower = getMinExecutionTimeInMilliSec(flowElementInstance, componentInstance,
-				isPeriodic);
-		final double executionTimeHigher = getMaxExecutionTimeInMilliSec(flowElementInstance, componentInstance,
+		final RealRange executionTime = getExecutionTimeInMilliSec(flowElementInstance, componentInstance,
 				isPeriodic);
 
 		/**
@@ -359,16 +353,16 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				flowElementInstance,
 				report.isMajorFrameDelay());
 
-		if (responseTimeHigher != 0.0) {
-			worstCaseValue = responseTimeHigher;
+		if (responseTime.getMaximum() != 0.0) {
+			worstCaseValue = responseTime.getMaximum();
 			worstmethod = LatencyContributorMethod.RESPONSE_TIME;
-		} else if (executionTimeHigher != 0.0) {
+		} else if (executionTime.getMaximum() != 0.0) {
 			if (!report.isWorstCaseDeadline()) {
 				// Use execution time for worst-case if preferences specify not deadline or no deadline is specified
-				worstCaseValue = executionTimeHigher;
+				worstCaseValue = executionTime.getMaximum();
 				worstmethod = LatencyContributorMethod.PROCESSING_TIME;
 			} else if (!isAssignedDeadline) {
-				worstCaseValue = executionTimeHigher;
+				worstCaseValue = executionTime.getMaximum();
 				worstmethod = LatencyContributorMethod.PROCESSING_TIME;
 				processingLatencyContributor.reportInfo("Using execution time as deadline was not set");
 			}
@@ -395,11 +389,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		 * Selection of the best case value, generic cases.
 		 */
 		bestmethod = LatencyContributorMethod.UNKNOWN;
-		if (responseTimeLower != 0.0) {
-			bestCaseValue = responseTimeLower;
+		if (responseTime.getMinimum() != 0.0) {
+			bestCaseValue = responseTime.getMinimum();
 			bestmethod = LatencyContributorMethod.RESPONSE_TIME;
-		} else if (executionTimeLower != 0.0) {
-			bestCaseValue = executionTimeLower;
+		} else if (executionTime.getMinimum() != 0.0) {
+			bestCaseValue = executionTime.getMinimum();
 			bestmethod = LatencyContributorMethod.PROCESSING_TIME;
 		}
 
@@ -1273,10 +1267,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 //		}
 //	}
 
-	private double getTimeInMilliSec2(final FlowElementInstance fei, final ComponentInstance ci,
+	private RealRange getTimeInMilliSec2(final FlowElementInstance fei, final ComponentInstance ci,
 			final boolean isPeriodic,
-			final Function<NamedElement, Optional<IntegerRangeWithUnits<TimeUnits>>> getExecTime,
-			final Function<IntegerRangeWithUnits<TimeUnits>, IntegerWithUnits<TimeUnits>> f2) {
+			final Function<NamedElement, Optional<IntegerRangeWithUnits<TimeUnits>>> getExecTime) {
 		/*
 		 * If the flow element is a component instance or if the thread is periodic, we use the thread's
 		 * computation time. Otherwise we try to use the compute execution time from the flow's input feature.
@@ -1295,10 +1288,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				final FeatureCategory featureCategory = fi.getCategory();
 				if (featureCategory == FeatureCategory.EVENT_PORT
 						|| featureCategory == FeatureCategory.EVENT_DATA_PORT) {
-					final Optional<Double> fromFeature = org.osate.pluginsupport.properties.PropertyUtils
-							.getScaled(getExecTime, fi, f2, TimeUnits.MS);
+					final Optional<IntegerRangeWithUnits<TimeUnits>> fromFeature = getExecTime.apply(fi);
 					if (fromFeature.isPresent()) {
-						return GetProperties.scaleTime(fromFeature.get(), fi);
+						final RealRange inMS = PropertyUtils.scaleRange(fromFeature.get(), TimeUnits.MS);
+						return new RealRange(GetProperties.scaleTime(inMS.getMinimum(), fi),
+								GetProperties.scaleTime(inMS.getMinimum(), fi));
 					} // otherwise fall through and get from component
 				} // otherwise fall through and get from component
 			}
@@ -1307,33 +1301,22 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		if (componentCategory == ComponentCategory.THREAD || componentCategory == ComponentCategory.DEVICE
 				|| componentCategory == ComponentCategory.SUBPROGRAM
 				|| componentCategory == ComponentCategory.ABSTRACT) {
-			return GetProperties.scaleTime(org.osate.pluginsupport.properties.PropertyUtils
-					.getScaled(getExecTime, ci, f2, TimeUnits.MS).orElse(0.0), ci);
+			final RealRange inMS = PropertyUtils.scaleRange(getExecTime.apply(ci), TimeUnits.MS).orElse(RealRange.ZEROED);
+			return new RealRange(GetProperties.scaleTime(inMS.getMinimum(), ci),
+					GetProperties.scaleTime(inMS.getMinimum(), ci));
 		} else {
-			return 0.0;
+			return RealRange.ZEROED;
 		}
 	}
 
-	private double getMinResponseTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
+	private RealRange getResponseTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
 			final boolean isPeriodic) {
-		return getTimeInMilliSec2(fei, ci, isPeriodic, Sei::getResponseTime, IntegerRangeWithUnits::getMinimum);
+		return getTimeInMilliSec2(fei, ci, isPeriodic, Sei::getResponseTime);
 	}
 
-	private double getMaxResponseTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
+	private RealRange getExecutionTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
 			final boolean isPeriodic) {
-		return getTimeInMilliSec2(fei, ci, isPeriodic, Sei::getResponseTime, IntegerRangeWithUnits::getMaximum);
-	}
-
-	private double getMinExecutionTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
-			final boolean isPeriodic) {
-		return getTimeInMilliSec2(fei, ci, isPeriodic, TimingProperties::getComputeExecutionTime,
-				IntegerRangeWithUnits::getMinimum);
-	}
-
-	private double getMaxExecutionTimeInMilliSec(final FlowElementInstance fei, final ComponentInstance ci,
-			final boolean isPeriodic) {
-		return getTimeInMilliSec2(fei, ci, isPeriodic, TimingProperties::getComputeExecutionTime,
-				IntegerRangeWithUnits::getMaximum);
+		return getTimeInMilliSec2(fei, ci, isPeriodic, TimingProperties::getComputeExecutionTime);
 	}
 
 	private static final void sortBoundConnectionsHelper(final ComponentInstance compInstance,
