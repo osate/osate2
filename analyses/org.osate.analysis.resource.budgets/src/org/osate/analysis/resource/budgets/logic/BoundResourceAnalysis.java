@@ -34,6 +34,7 @@ import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.contrib.aadlproject.SizeUnits;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
@@ -176,7 +177,7 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 		for (Iterator<ComponentInstance> it = boundComponents.iterator(); it.hasNext();) {
 			ComponentInstance bci = it.next();
 
-			double actualmips = sumBudgets(bci, ResourceKind.MIPS, mipsliteral, som, "");
+			double actualmips = sumBudgets(bci, ResourceKind.MIPS, som, "");
 			if (actualmips > 0) {
 				totalMIPS += actualmips;
 			}
@@ -300,7 +301,7 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 			String notes = "";
 			double totalactual = sumMemoryActualPropertyValue(bci, isROM);
 			double budget = isROM ? GetProperties.getROMBudgetInKB(bci, 0.0) : GetProperties.getRAMBudgetInKB(bci, 0.0);
-			double actualsize = getMemoryUseActual(bci, resourceName, kbliteral);
+			double actualsize = getMemoryUseActual(bci, resourceName, SizeUnits.KBYTE);
 
 			if (actualsize > 0) {
 				// only compare if there were actuals
@@ -347,7 +348,7 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 				}
 			}
 		}
-		detailedLogTotal2(null, totalMemory, kbliteral);
+		detailedLogTotal2(null, totalMemory, SizeUnits.KBYTE);
 		if (Memorycapacity == 0) {
 			errManager.errorSummary(curMemory, somName,
 					"  " + resourceName + curMemory.getComponentInstancePath() + " has no memory capacity specified");

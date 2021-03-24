@@ -209,7 +209,7 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 			}
 		}
 
-		detailedLogTotal2(null, totalBandWidth, kbspsliteral);
+		detailedLogTotal2(null, totalBandWidth, SizeUnits.KBYTE);
 		if (totalBandWidth > busCapacityOrBudget) {
 			errManager.errorSummary(curBus, null,
 					curBus.getComponentInstancePath() + " bandwidth capacity " + busCapacityOrBudget + " "

@@ -17,6 +17,7 @@ import org.osate.pluginsupport.properties.PropertyUtils;
 /**
  * @since 1.1
  */
+// XXX: Where to put this???
 public final class AadlContribUtils {
 	private AadlContribUtils() {
 		// empty
