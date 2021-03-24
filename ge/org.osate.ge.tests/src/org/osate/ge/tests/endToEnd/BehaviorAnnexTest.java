@@ -82,8 +82,8 @@ public class BehaviorAnnexTest {
 		testBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(0),
 				typeName, diagram, pkgRef, modeName, openBehaviorAnnexDiagramCommand);
 
-		// Open text editor
-		doubleClickInAadlNavigator(BA_TEST, BA_TEST + ".aadl");
+		// Test with editor closed
+		saveAndCloseTextEditorByTitle(BA_TEST + ".aadl");
 
 		// Use Open -> New Diagram... command to create new Behavior Annex diagram
 		final BiFunction<DiagramElementReference, String, DiagramReference> createDiagramCommand = (ref,
