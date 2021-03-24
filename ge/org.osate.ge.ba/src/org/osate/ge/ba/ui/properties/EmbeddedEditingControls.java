@@ -1,49 +1,102 @@
 package org.osate.ge.ba.ui.properties;
 
+import java.util.Objects;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
-import org.osate.xtext.aadl2.ui.propertyview.OsateStyledTextXtextAdapter;
-import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResourcesProvider;
 
 class EmbeddedEditingControls {
-	private final Label label;
+	private final Composite container;
 	private StyledText styledText;
 	private Button saveBtn;
-	private OsateXtextAdatper xtextAdapter;
+	private OsateEmbeddedXtextAdapter xtextAdapter;
 
-	public EmbeddedEditingControls(final Composite parent, final boolean isSingleSelection) {
-		label = new Label(parent, SWT.NONE);
-		styledText = new StyledText(parent, SWT.NONE);
+	EmbeddedEditingControls(final Composite container) {
+		this.container = Objects.requireNonNull(container, "container cannot be null");
 	}
 
-	public Label getLabel() {
-		return label;
+	OsateEmbeddedXtextAdapter getXtextAdapter() {
+		return xtextAdapter;
 	}
 
-	public void dispose() {
+	void dispose() {
+		if (xtextAdapter != null) {
+			xtextAdapter.dispose();
+		}
 
+		disposeControl(styledText);
+		disposeControl(saveBtn);
 	}
 
-	private static class OsateXtextAdatper extends OsateStyledTextXtextAdapter {
-		private static final IXtextFakeContextResourcesProvider contextFakeResourceProvider = IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER;
+	private void disposeControl(final Control control) {
+		// Dispose widgets for next selection
+		if (control != null && !control.isDisposed()) {
+			control.dispose();
+		}
+	}
 
-		public OsateXtextAdatper(final IProject project) {
-			super(BehaviorTransitionPropertySection.injector, contextFakeResourceProvider, project);
+	/**
+	 * Creates a styled text using the container's layout with the specified style and key adapter
+	 */
+	void createStyledText(final int style, final boolean isEnabled, final KeyAdapter keyAdapter) {
+		createStyledText(style, isEnabled, container.getLayoutData(), keyAdapter);
+	}
+
+	void createStyledText(final int style, final boolean isEnabled, final Object layoutData,
+			final KeyAdapter keyAdapter) {
+		// Create styled text
+		styledText = new StyledText(container, style);
+		styledText.setEnabled(isEnabled);
+		styledText.setLayoutData(layoutData);
+		styledText.addKeyListener(keyAdapter);
+	}
+
+	StyledText getStyledText() {
+		return styledText;
+	}
+
+	void createSaveButton(final SelectionAdapter adapter) {
+		saveBtn = new Button(container, SWT.PUSH);
+		saveBtn.setText("Save");
+		saveBtn.setEnabled(false);
+		saveBtn.addSelectionListener(adapter);
+	}
+
+	Button getSaveButton() {
+		return saveBtn;
+	}
+
+	void updateAdapterDocument(final TextValue val) {
+		final XtextDocument xtextDoc = xtextAdapter.getXtextDocument();
+		final SourceViewer srcViewer = xtextAdapter.getSourceviewer();
+		xtextDoc.set(val.getWholeText());
+		srcViewer.setDocument(xtextDoc, srcViewer.getAnnotationModel(), val.getEditableTextOffset(),
+				val.getEditableText().length());
+	}
+
+	void setXtextAdapter(final IProject project) {
+		if (xtextAdapter != null) {
+			xtextAdapter.dispose();
 		}
 
-		public SourceViewer getSourceviewer() {
-			return super.getXtextSourceviewer();
-		}
+		xtextAdapter = new OsateEmbeddedXtextAdapter(project);
+		xtextAdapter.adapt(styledText);
+	}
 
-		@Override
-		public XtextDocument getXtextDocument() {
-			return super.getXtextDocument();
-		}
+	void requestLayout() {
+		container.requestLayout();
+	}
+
+	void setModificationState(final String modifiedSrc) {
+		saveBtn.setEnabled(modifiedSrc == null ? false : true);
+		xtextAdapter.setModifiedSource(modifiedSrc);
 	}
 }
