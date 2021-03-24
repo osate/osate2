@@ -220,7 +220,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 	}
 
 	/**
-	 * @since 6.1
+	 * @since 6.0
 	 */
 	@Check(CheckType.FAST)
 	public void caseTypeTransformationSet(TypeTransformationSet typeTransformation) {
@@ -1577,7 +1577,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 	}
 
 	/**
-	 * @since 6.1
+	 * @since 6.0
 	 */
 	public void checkTypeMappingSet(TypeMappingSet tms) {
 		int size = tms.getMapping().size();
