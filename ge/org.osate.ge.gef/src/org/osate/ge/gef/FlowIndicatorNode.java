@@ -27,18 +27,84 @@ import org.eclipse.gef.fx.anchors.IAnchor;
 import org.eclipse.gef.fx.anchors.StaticAnchor;
 import org.eclipse.gef.geometry.planar.Point;
 
+import javafx.beans.binding.DoubleBinding;
+import javafx.beans.binding.ObjectBinding;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
+import javafx.scene.transform.NonInvertibleTransformException;
+import javafx.scene.transform.Transform;
+
 /**
  * Extension of {@link BaseConnectionNode} which is intended to represent a flow indicator. Allows setting the start
- * anchor. The end anchor of the connection is placed at the local origin.
+ * anchor. The end anchor of the connection is placed at the local origin. Flow indicators are positioned relative to
+ * a positioning reference node. This is necessary to allow flow indicators to be positioned relative to the reference
+ * node without being a child of the reference node. If the flow indicator is a child of the reference node then it
+ * will affect its geometry bounds and may have a negative effect on chopbox anchors of the reference node.
  */
 public class FlowIndicatorNode extends BaseConnectionNode {
 	private StaticAnchor anchor = new StaticAnchor(this, new Point(0.0, 0.0));
+	private Node positioningReference;
+	private ObjectBinding<Point2D> translateBinding;
+	private DoubleBinding translateXBinding;
+	private DoubleBinding translateYBinding;
 
 	/**
 	 * Creates a new instance
 	 */
 	public FlowIndicatorNode() {
 		setEndAnchor(anchor);
+	}
+
+	public Node getPositioningReference() {
+		return positioningReference;
+	}
+
+	public void setPositioningReference(final Node value) {
+		this.positioningReference = value;
+
+		// This assumes the parent of the node does not change
+		translateBinding = new ObjectBinding<Point2D>() {
+			{
+				bind(value.localToSceneTransformProperty(), getParent().localToSceneTransformProperty());
+			}
+
+			@Override
+			protected Point2D computeValue() {
+				Transform referenceToScene;
+				try {
+					referenceToScene = positioningReference.localToSceneTransformProperty().get();
+					final Transform sceneToParent = getParent().localToSceneTransformProperty().get().createInverse();
+					final Transform referenceToLocal = sceneToParent.createConcatenation(referenceToScene);
+					return referenceToLocal.transform(0, 0);
+				} catch (NonInvertibleTransformException e) {
+					throw new AgeGefRuntimeException("Unable to get inverse of local to scene transform", e);
+				}
+			}
+		};
+
+		translateXBinding = new DoubleBinding() {
+			{
+				bind(translateBinding);
+			}
+
+			@Override
+			protected double computeValue() {
+				return translateBinding.get().getX();
+			}
+		};
+		this.translateXProperty().bind(translateXBinding);
+
+		translateYBinding = new DoubleBinding() {
+			{
+				bind(translateBinding);
+			}
+
+			@Override
+			protected double computeValue() {
+				return translateBinding.get().getY();
+			}
+		};
+		this.translateYProperty().bind(translateYBinding);
 	}
 
 	@Override

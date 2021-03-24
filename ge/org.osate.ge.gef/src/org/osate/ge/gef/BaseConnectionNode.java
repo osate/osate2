@@ -42,7 +42,6 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 
@@ -64,11 +63,8 @@ import javafx.scene.shape.StrokeLineCap;
  * Decorations and labels are resized to their preferred sizes.
  *
  * Connection bendpoints are specified in local coordinates.
- *
- * The node is not resizable. Region is used as the base class so that the layout bounds will have a minimum X,Y of 0.
- * JavaFX 8 does not provide a means to customize the layout bounds.
  */
-public abstract class BaseConnectionNode extends Region implements ChopBoxGeometryProvider, Stylable {
+public abstract class BaseConnectionNode extends Group implements ChopBoxGeometryProvider, Stylable {
 	private static final int MIDPOINT_DECORATION_SPACING = 4;
 
 	/**
@@ -118,8 +114,7 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 	 */
 	public BaseConnectionNode() {
 		setPickOnBounds(false);
-		getChildren().setAll(connection, midpointDecorations.wrapper, primaryLabels.wrapper,
-				secondaryLabels.wrapper);
+		getChildren().setAll(connection, midpointDecorations.wrapper, primaryLabels.wrapper, secondaryLabels.wrapper);
 		connection.setStartDecoration(startDecorationGroup);
 		connection.setEndDecoration(endDecorationGroup);
 
@@ -183,28 +178,6 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 		return midpointAnchor;
 	}
 
-	// TODO; Consider just using some of the inner functions directly instead of having these wrapper
-	// TODO; THe list is a copy.. are the points a copy?
-	/**
-	 * Gets a list of the bendpoints for the connection.
-	 */
-	public List<Point> getBendpoints() {
-		return connection.getControlPoints();
-	}
-
-	/**
-	 * Sets the bendpoints for the connection.
-	 * @param bendpoints the new bendpoints.
-	 */
-	public void setBendpoints(final List<Point> bendpoints) {
-		connection.setControlPoints(bendpoints);
-	}
-
-	// TODO: Rename.. bendpoints..
-	public void setControlPoint(final int index, final Point controlPoint) {
-		connection.setControlPoint(index, controlPoint);
-	}
-
 	/**
 	 * Returns the wrapped connection
 	 * @return the wrapped connection.
@@ -224,7 +197,6 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 			return;
 		}
 
-		Point midpoint = null;
 		double midpointAngle = 0.0;
 		// Calculate the total distance
 		double totalDistance = 0.0;
@@ -235,22 +207,25 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 			prevPoint = p;
 		}
 
-		// Determine where the midpoint is
-		double distanceRemaining = totalDistance / 2.0;
-		prevPoint = points.get(0);
-		for (Point p : otherPoints) {
-			final double d = p.getDistance(prevPoint);
-			if (distanceRemaining <= d) {
-				// Find the point on the segment
-				double s = distanceRemaining / d;
-				midpoint = new Point(prevPoint.x + s * (p.x - prevPoint.x), prevPoint.y + s * (p.y - prevPoint.y));
-				midpointAngle = Math.atan2(p.y - prevPoint.y, p.x - prevPoint.x) * 180.0 / Math.PI;
-				break;
-			} else {
-				distanceRemaining -= d;
-			}
+		Point midpoint = points.get(0);
+		if (totalDistance != 0.0) {
+			// Determine where the midpoint is
+			double distanceRemaining = totalDistance / 2.0;
+			prevPoint = points.get(0);
+			for (Point p : otherPoints) {
+				final double d = p.getDistance(prevPoint);
+				if (distanceRemaining <= d) {
+					// Find the point on the segment
+					double s = distanceRemaining / d;
+					midpoint = new Point(prevPoint.x + s * (p.x - prevPoint.x), prevPoint.y + s * (p.y - prevPoint.y));
+					midpointAngle = Math.atan2(p.y - prevPoint.y, p.x - prevPoint.x) * 180.0 / Math.PI;
+					break;
+				} else {
+					distanceRemaining -= d;
+				}
 
-			prevPoint = p;
+				prevPoint = p;
+			}
 		}
 
 		// Position the primary label. If a preferred position is set, use it. Otherwise, position the label
@@ -347,40 +322,5 @@ public abstract class BaseConnectionNode extends Region implements ChopBoxGeomet
 	public void setPrimaryLabelsVisible(final boolean value) {
 		primaryLabels.inner.setManaged(value);
 		primaryLabels.inner.setVisible(value);
-	}
-
-	@Override
-	public boolean isResizable() {
-		return false;
-	}
-
-	@Override
-	protected double computeMinWidth(final double height) {
-		return computePrefWidth(height);
-	}
-
-	@Override
-	protected double computeMinHeight(final double width) {
-		return computePrefHeight(width);
-	}
-
-	@Override
-	protected double computePrefWidth(final double height) {
-		return 0;
-	}
-
-	@Override
-	protected double computePrefHeight(final double width) {
-		return 0;
-	}
-
-	@Override
-	protected double computeMaxWidth(final double height) {
-		return computePrefWidth(height);
-	}
-
-	@Override
-	protected double computeMaxHeight(final double width) {
-		return computePrefHeight(width);
 	}
 }

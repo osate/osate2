@@ -29,6 +29,7 @@ import java.util.function.Function;
 import java.util.stream.DoubleStream;
 
 import org.osate.ge.gef.AbstractFeatureNode;
+import org.osate.ge.gef.AgeGefRuntimeException;
 import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.BusNode;
 import org.osate.ge.gef.ConnectionNode;
@@ -51,7 +52,6 @@ import org.osate.ge.gef.PortNode;
 import org.osate.ge.gef.ProcessorNode;
 import org.osate.ge.gef.RectangleNode;
 import org.osate.ge.gef.SubprogramAccessNode;
-import org.osate.ge.gef.ui.AgeGefRuntimeException;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.internal.AgeConnection;
 import org.osate.ge.graphics.internal.AgeConnectionTerminator;

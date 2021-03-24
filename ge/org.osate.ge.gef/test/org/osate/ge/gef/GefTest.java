@@ -177,7 +177,8 @@ public class GefTest {
 				fp1.getSecondaryLabels().setAll(new LabelNode("Latency := 30ms>"));
 				fp1.setStartAnchor(sys1In2.getInteriorAnchor());
 				fp1.setEndAnchor(sys1Out1.getInteriorAnchor());
-				fp1.setBendpoints(ImmutableList.of(new org.eclipse.gef.geometry.planar.Point(350, 380),
+				fp1.getInnerConnection()
+						.setControlPoints(ImmutableList.of(new org.eclipse.gef.geometry.planar.Point(350, 380),
 						new org.eclipse.gef.geometry.planar.Point(350, 330)));
 				root.getChildren().add(fp1);
 

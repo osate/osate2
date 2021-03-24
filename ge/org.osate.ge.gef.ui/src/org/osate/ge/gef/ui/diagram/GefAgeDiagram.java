@@ -38,6 +38,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.gef.fx.anchors.IAnchor;
 import org.eclipse.swt.widgets.Display;
+import org.osate.ge.gef.AgeGefRuntimeException;
 import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.ConnectionNode;
 import org.osate.ge.gef.ContainerShape;
@@ -52,7 +53,6 @@ import org.osate.ge.gef.LabelNode;
 import org.osate.ge.gef.PreferredPosition;
 import org.osate.ge.gef.RootNode;
 import org.osate.ge.gef.StyleRoot;
-import org.osate.ge.gef.ui.AgeGefRuntimeException;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
@@ -319,7 +319,8 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		 */
 		private void removeContainedConnections(final DiagramElement e) {
 			for (final DiagramElement childDiagramElement : e.getDiagramElements()) {
-				final GefDiagramElement childGefDiagramElement = diagramElementToGefDiagramElementMap.get(childDiagramElement);
+				final GefDiagramElement childGefDiagramElement = diagramElementToGefDiagramElementMap
+						.get(childDiagramElement);
 				removeContainedConnections(childDiagramElement);
 
 				if (childGefDiagramElement != null && childGefDiagramElement.sceneNode instanceof ConnectionNode) {
@@ -382,7 +383,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	/**
 	 * Performs a full update of the scene graph based on the diagram. Ensures nodes exist, that they are updated, and have appropriate styles.
 	 */
-	private void updateSceneGraph() {
+	public void updateSceneGraph() {
 		ensureSceneNodesExistForChildren(diagram, diagramNode);
 		updateSceneNodesForChildren(diagram);
 		refreshDiagramStyles();
@@ -398,8 +399,8 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	private void ensureSceneNodesExistForChildren(final DiagramNode parentDiagramNode,
 			final Node parentDiagramNodeSceneNode) {
 		for (final DiagramElement childDiagramElement : parentDiagramNode.getDiagramElements()) {
-			final GefDiagramElement childGefDiagramElement = diagramElementToGefDiagramElementMap.computeIfAbsent(childDiagramElement,
-					e -> new GefDiagramElement(childDiagramElement));
+			final GefDiagramElement childGefDiagramElement = diagramElementToGefDiagramElementMap
+					.computeIfAbsent(childDiagramElement, e -> new GefDiagramElement(childDiagramElement));
 			final Node childSceneNode = ensureSceneNodeExists(childGefDiagramElement, parentDiagramNodeSceneNode);
 			ensureSceneNodesExistForChildren(childDiagramElement, childSceneNode);
 		}
@@ -413,8 +414,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 * the value contained in the GEF diagram element because it may not be up to date.
 	 * @return the scene node for the diagram element. This specified GEF diagram element will be updated to hold this value.
 	 */
-	private Node ensureSceneNodeExists(GefDiagramElement gefDiagramElement,
-			final Node parentDiagramElementSceneNode) {
+	private Node ensureSceneNodeExists(GefDiagramElement gefDiagramElement, final Node parentDiagramElementSceneNode) {
 		Objects.requireNonNull(parentDiagramElementSceneNode, "parentDiagramElementScenenNode must not be null");
 		final Graphic graphic = Objects.requireNonNull(gefDiagramElement.diagramElement.getGraphic(),
 				"graphic must not be null");
@@ -430,7 +430,8 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		final boolean create = !Objects.equals(graphic, gefDiagramElement.sourceGraphic)
 				|| docked != gefDiagramElement.sceneNode instanceof DockedShape
 				|| parentIsConnection != gefDiagramElement.parentDiagramNodeSceneNode instanceof BaseConnectionNode;
-		final boolean addToScene = create || gefDiagramElement.parentDiagramNodeSceneNode != parentDiagramElementSceneNode;
+		final boolean addToScene = create
+				|| gefDiagramElement.parentDiagramNodeSceneNode != parentDiagramElementSceneNode;
 		final boolean removeFromScene = addToScene && gefDiagramElement.sceneNode != null;
 
 		// Update other fields
@@ -510,29 +511,36 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		//
 		if (addToScene) {
 			if (gefDiagramElement.sceneNode instanceof BaseConnectionNode) {
+				diagramNode.getChildren().add(gefDiagramElement.sceneNode);
+
+				// Flow indicators are positioned relative to the scene node of the parent diagram element
 				if (gefDiagramElement.sceneNode instanceof FlowIndicatorNode) {
 					if (parentDiagramElementSceneNode instanceof ContainerShape) {
-						((ContainerShape) parentDiagramElementSceneNode).getFreeChildren().add(gefDiagramElement.sceneNode);
+						((FlowIndicatorNode) gefDiagramElement.sceneNode)
+								.setPositioningReference(parentDiagramElementSceneNode);
 					} else {
 						throw new AgeGefRuntimeException(
-								"Unexpected parent node for flow indicator: " + parentDiagramElementSceneNode);
+								"Unexpected parent diagram element scene node for flow indicator: "
+										+ parentDiagramElementSceneNode);
 					}
-				} else {
-					diagramNode.getChildren().add(gefDiagramElement.sceneNode);
 				}
 			} else if (gefDiagramElement.sceneNode instanceof LabelNode) {
 				// Add label to parent
 				if (parentDiagramElementSceneNode instanceof ContainerShape) {
-					((ContainerShape) parentDiagramElementSceneNode).getSecondaryLabels().add(gefDiagramElement.sceneNode);
+					((ContainerShape) parentDiagramElementSceneNode).getSecondaryLabels()
+							.add(gefDiagramElement.sceneNode);
 				} else if (parentDiagramElementSceneNode instanceof DockedShape) {
 					((DockedShape) parentDiagramElementSceneNode).getSecondaryLabels().add(gefDiagramElement.sceneNode);
 				} else if (parentDiagramElementSceneNode instanceof BaseConnectionNode) {
-					((BaseConnectionNode) parentDiagramElementSceneNode).getSecondaryLabels().add(gefDiagramElement.sceneNode);
+					((BaseConnectionNode) parentDiagramElementSceneNode).getSecondaryLabels()
+							.add(gefDiagramElement.sceneNode);
 				} else {
-					throw new AgeGefRuntimeException("Unexpected parent node for label: " + parentDiagramElementSceneNode);
+					throw new AgeGefRuntimeException(
+							"Unexpected parent node for label: " + parentDiagramElementSceneNode);
 				}
 			} else if (parentIsConnection) {
-				((BaseConnectionNode) parentDiagramElementSceneNode).getMidpointDecorations().add(gefDiagramElement.sceneNode);
+				((BaseConnectionNode) parentDiagramElementSceneNode).getMidpointDecorations()
+						.add(gefDiagramElement.sceneNode);
 			} else {
 				final DockArea dockArea = childDiagramElement.getDockArea();
 				if (gefDiagramElement.sceneNode instanceof DockedShape) {
@@ -633,11 +641,10 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 			updateConnectionAnchors(diagramElement, (BaseConnectionNode) sceneNode);
 
 			// Set bendpoints. Coordinates are specified in the diagram model relative to the diagram. The need to be specified relative to the
-			// connection's parent node. For regular connection this is the same because the node's parent is the diagram node.
-			// However, flow indicators are added as a child to another node based on the parent diagram element.
-			connectionNode.setBendpoints(diagramElement.getBendpoints().stream()
-					.map(p -> new org.eclipse.gef.geometry.planar.Point(p.x - bendpointOrigin.x,
-							p.y - bendpointOrigin.y))
+			// connection position. For regular connection this is the same because the node's parent is the diagram node.
+			// However, flow indicators have a position and have parent nodes other than the diagram.
+			connectionNode.getInnerConnection().setControlPoints(diagramElement.getBendpoints().stream().map(
+					p -> new org.eclipse.gef.geometry.planar.Point(p.x - bendpointOrigin.x, p.y - bendpointOrigin.y))
 					.collect(Collectors.toList()));
 
 			PreferredPosition.set(gefDiagramElement.primaryLabel,
@@ -703,8 +710,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 			fi.setStartAnchor(getAnchor(de.getStartElement(), null));
 		} else if (node instanceof ConnectionNode) {
 			final ConnectionNode cn = (ConnectionNode) node;
-			cn.setStartAnchor(
-					getAnchor(de.getStartElement(), de.getEndElement()));
+			cn.setStartAnchor(getAnchor(de.getStartElement(), de.getEndElement()));
 			cn.setEndAnchor(getAnchor(de.getEndElement(), de.getStartElement()));
 		} else {
 			throw new AgeGefRuntimeException("Unexpected node: " + node);
@@ -818,7 +824,8 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		diagramNode.applyCss();
 		diagramNode.layout();
 		diagram.modify("Update Diagram from Scene Graph", m -> {
-			for (final Entry<DiagramElement, GefDiagramElement> e : this.diagramElementToGefDiagramElementMap.entrySet()) {
+			for (final Entry<DiagramElement, GefDiagramElement> e : this.diagramElementToGefDiagramElementMap
+					.entrySet()) {
 				final DiagramElement de = e.getKey();
 				final Node sceneNode = e.getValue().sceneNode;
 
@@ -924,7 +931,8 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 	@Override
 	public Dimension getDockedElementLabelsSize(final DiagramElement dockedDiagramElement) {
-		final GefDiagramElement dockedGefDiagramElement = diagramElementToGefDiagramElementMap.get(dockedDiagramElement);
+		final GefDiagramElement dockedGefDiagramElement = diagramElementToGefDiagramElementMap
+				.get(dockedDiagramElement);
 		if (dockedGefDiagramElement != null && dockedGefDiagramElement.sceneNode instanceof DockedShape) {
 			final DockedShape ds = (DockedShape) dockedGefDiagramElement.sceneNode;
 			return new Dimension(ds.getMaxPrefLabelWidth(), ds.getTotalLabelHeight());

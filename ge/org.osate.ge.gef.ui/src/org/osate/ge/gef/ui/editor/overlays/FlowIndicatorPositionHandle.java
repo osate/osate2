@@ -21,23 +21,20 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.ui;
+package org.osate.ge.gef.ui.editor.overlays;
 
-/**
- * Unchecked exception thrown by AADL graphical editor GEF front-end.
- *
- */
-public class AgeGefRuntimeException extends RuntimeException {
-	/**
-	 * Serializable version number for class
-	 */
-	private static final long serialVersionUID = -5227084944805024321L;
+import org.osate.ge.gef.FlowIndicatorNode;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
-	public AgeGefRuntimeException(final String message) {
-		super(message);
+// TODO: Document
+public class FlowIndicatorPositionHandle extends ConnectionPointHandle {
+	public FlowIndicatorPositionHandle(final DiagramElement diagramElement, final FlowIndicatorNode sceneNode,
+			final boolean primary) {
+		super(diagramElement, sceneNode, primary, 4.0); // TODO; Share constant with bendpoint handle?
 	}
 
-	public AgeGefRuntimeException(final Throwable t) {
-		super(t);
+	@Override
+	public final FlowIndicatorNode getSceneNode() {
+		return (FlowIndicatorNode) super.getSceneNode();
 	}
 }

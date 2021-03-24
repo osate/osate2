@@ -23,33 +23,25 @@
  */
 package org.osate.ge.gef;
 
-import javafx.geometry.Point2D;
-import javafx.scene.Group;
-import javafx.scene.Node;
-
 /**
- * Node intended to be used as the container for all top level {@link ContainerShape} instances. Sizes children to
- * preferred size and positions the nodes based on {@link PreferredPosition}
+ * Unchecked exception thrown by AADL graphical editor GEF front-end.
+ *
  */
-public class RootNode extends Group {
-	@Override
-	protected void layoutChildren() {
-		// Position and size children
-		for (final Node child : getChildren()) {
-			if (child.isManaged()) {
-				final Point2D position = getPreferredPositionOrDefault(child);
-				child.setLayoutX(position.getX());
-				child.setLayoutY(position.getY());
+public class AgeGefRuntimeException extends RuntimeException {
+	/**
+	 * Serializable version number for class
+	 */
+	private static final long serialVersionUID = -5227084944805024321L;
 
-				if (child.isResizable()) {
-					child.autosize();
-				}
-			}
-		}
+	public AgeGefRuntimeException(final String message) {
+		super(message);
 	}
 
-	private Point2D getPreferredPositionOrDefault(final Node child) {
-		final Point2D prefPosition = PreferredPosition.get(child);
-		return prefPosition == null ? Point2D.ZERO : prefPosition;
+	public AgeGefRuntimeException(final String message, final Throwable cause) {
+		super(message, cause);
+	}
+
+	public AgeGefRuntimeException(final Throwable t) {
+		super(t);
 	}
 }

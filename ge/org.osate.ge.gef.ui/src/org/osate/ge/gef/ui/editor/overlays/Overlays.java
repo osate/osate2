@@ -43,6 +43,7 @@ import org.eclipse.swt.widgets.Display;
 import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.ContainerShape;
 import org.osate.ge.gef.DockedShape;
+import org.osate.ge.gef.FlowIndicatorNode;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
 import com.google.common.collect.ImmutableMap;
@@ -193,7 +194,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 
 			this.getChildren().add(selectionIndicator);
 
-			// Set the transform of this node so that it matches the transform of hte selected node
+			// Set the transform of this node so that it matches the transform of the selected node
 			final ChangeListener<? super Transform> transformUpdater = ((o, oldTransform, newTransform) -> {
 				try {
 					selectionIndicator.getTransforms().setAll(getLocalToSceneTransform().createInverse()
@@ -402,6 +403,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			}
 
 			// Create handles for control points
+			// TODO; Rename/Cleanup
 			final List<Point> points3 = c.getPointsUnmodifiable();
 			final ArrayList<org.eclipse.gef.geometry.planar.Point> points2 = new ArrayList<>(
 					c.getControlPoints().size() + 2); // TODO
@@ -432,7 +434,17 @@ public class Overlays extends Group implements ISelectionChangedListener {
 				selectionIndicatorContainer.getChildren().add(createBendpointHandle);
 			}
 
-			// TODO; Need handle for endpoint for flows
+			// Create handle for flow indicator position
+			if (selectedNode instanceof FlowIndicatorNode) {
+				// TODO
+				final FlowIndicatorPositionHandle handle = new FlowIndicatorPositionHandle(diagramElement,
+						(FlowIndicatorNode) selectedNode,
+						primary);
+				final org.eclipse.gef.geometry.planar.Point p = points2.get(points2.size() - 1); // TODO: Is this always the last?
+				handle.setCenterX(p.x);
+				handle.setCenterY(p.y);
+				selectionIndicatorContainer.getChildren().add(handle);
+			}
 
 		}
 

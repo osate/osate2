@@ -26,9 +26,9 @@ package org.osate.ge.gef.ui.diagram;
 import java.util.Objects;
 
 import org.eclipse.core.runtime.IPath;
+import org.osate.ge.gef.AgeGefRuntimeException;
 import org.osate.ge.gef.FxStyle;
 import org.osate.ge.gef.ImageManager;
-import org.osate.ge.gef.ui.AgeGefRuntimeException;
 import org.osate.ge.graphics.LabelPosition;
 import org.osate.ge.graphics.LineStyle;
 import org.osate.ge.graphics.Style;

@@ -75,7 +75,7 @@ public interface DiagramModification {
 	void setGraphicalConfiguration(final DiagramElement e, final GraphicalConfiguration value);
 
 	/**
-	 * Sets the position. This method does not update connection bendpoints, dock areas, or flow indicators. It is usually recommended
+	 * Sets the position. This method does not update contained connection bendpoints, dock areas, or flow indicator positions. It is usually recommended
 	 * to use a higher level function.
 	 */
 	void setPosition(final DiagramElement e, final Point value);

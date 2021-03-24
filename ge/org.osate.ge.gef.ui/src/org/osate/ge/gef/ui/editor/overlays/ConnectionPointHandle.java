@@ -49,7 +49,7 @@ public class ConnectionPointHandle extends Circle implements Handle {
 		return diagramElement;
 	}
 
-	public final BaseConnectionNode getSceneNode() {
+	public BaseConnectionNode getSceneNode() {
 		return sceneNode;
 	}
 
