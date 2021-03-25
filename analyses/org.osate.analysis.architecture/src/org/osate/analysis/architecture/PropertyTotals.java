@@ -23,6 +23,8 @@
  */
 package org.osate.analysis.architecture;
 
+import java.util.EnumSet;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
@@ -30,6 +32,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
@@ -140,13 +143,19 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		return result;
 	}
 
+	private static final EnumSet<ComponentCategory> hasWeight = EnumSet.of(ComponentCategory.SYSTEM,
+			ComponentCategory.PROCESSOR, ComponentCategory.MEMORY, ComponentCategory.BUS, ComponentCategory.DEVICE,
+			ComponentCategory.ABSTRACT);
+
 	private static Result calcWeight(ComponentInstance ci, boolean needWeight) {
 		Result result = ResultFactory.eINSTANCE.createResult();
 		result.setModelElement(ci);
 
-		final double net = PropertyUtils.getScaled(Sei::getNetweight, ci, Weightunits.KG).orElse(0.0);
+		final boolean getWeight = hasWeight.contains(ci.getCategory());
+		final double net = getWeight ? PropertyUtils.getScaled(Sei::getNetweight, ci, Weightunits.KG).orElse(0.0) : 0.0;
 		double weight = 0.0;
-		final double gross = PropertyUtils.getScaled(Sei::getGrossweight, ci, Weightunits.KG).orElse(0.0);
+		final double gross = getWeight ? PropertyUtils.getScaled(Sei::getGrossweight, ci, Weightunits.KG).orElse(0.0)
+				: 0.0;
 		double sublimit = 0.0;
 		EList<ComponentInstance> cil = ci.getComponentInstances();
 		for (ComponentInstance subi : cil) {
@@ -157,7 +166,9 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 				result.getSubResults().add(subresult);
 				double subweight = ResultUtil.getReal(subresult, 0);
 				weight += subweight;
-				sublimit += PropertyUtils.getScaled(Sei::getWeightlimit, subi, Weightunits.KG).orElse(0.0);
+				sublimit += hasWeight.contains(subi.getCategory())
+						? PropertyUtils.getScaled(Sei::getWeightlimit, subi, Weightunits.KG).orElse(0.0)
+						: 0.0;
 			}
 		}
 		EList<ConnectionInstance> connl = ci.getConnectionInstances();
@@ -179,8 +190,9 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 							netconn > 0 ? netconn : grossconn);
 					result.getDiagnostics().add(ResultUtil.createInfoDiagnostic(ResultMsg, connectionInstance));
 				}
-				sublimit += PropertyUtils.getScaled(Sei::getWeightlimit, connectionInstance, Weightunits.KG)
-						.orElse(0.0);
+				sublimit += connectionInstance.getKind() == ConnectionKind.ACCESS_CONNECTION
+						? PropertyUtils.getScaled(Sei::getWeightlimit, connectionInstance, Weightunits.KG).orElse(0.0)
+						: 0.0;
 			}
 		}
 		if (weight == 0.0 && cil.isEmpty()) {
@@ -211,7 +223,8 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 				weight = gross;
 			}
 		}
-		final double limit = PropertyUtils.getScaled(Sei::getWeightlimit, ci, Weightunits.KG).orElse(0.0);
+		final double limit = getWeight ? PropertyUtils.getScaled(Sei::getWeightlimit, ci, Weightunits.KG).orElse(0.0)
+				: 0.0;
 		if (limit > 0.0) {
 			if (weight > limit) {
 				// problem
