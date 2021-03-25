@@ -29,15 +29,21 @@ import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.contrib.aadlproject.SizeUnits;
+import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.contribution.sei.sei.Instructionvolumeunits;
 import org.osate.contribution.sei.sei.ProcessorSpeedUnits;
+import org.osate.contribution.sei.sei.Sei;
+import org.osate.pluginsupport.properties.PropertyUtils;
+import org.osate.pluginsupport.properties.RealRange;
 import org.osate.ui.handlers.AbstractAaxlHandler;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 	private final String prefixSymbol = "  ";
@@ -118,7 +124,7 @@ abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 		String resourceName = ci.getCategory().getName();
 		String notes = "";
 		if (rk == ResourceKind.MIPS && ci.getCategory() == ComponentCategory.THREAD) {
-			subtotal = GetProperties.getThreadExecutioninMIPS(ci);
+			subtotal = getThreadExecutioninMIPS(ci);
 		}
 		components = components + subcount;
 		budgetedComponents = budgetedComponents + subbudgetcount;
@@ -157,13 +163,14 @@ abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 	private double getBudget(NamedElement ne, ResourceKind kind) {
 		switch (kind) {
 		case MIPS:
-			return GetProperties.getMIPSBudgetInMIPS(ne, 0.0);
+			return PropertyUtils.getScaled(Sei::getMipsbudget, ne, ProcessorSpeedUnits.MIPS).orElse(0.0);
 		case RAM:
-			return GetProperties.getRAMBudgetInKB(ne, 0.0);
+			return PropertyUtils.getScaled(Sei::getRambudget, ne, SizeUnits.KBYTE).orElse(0.0);
 		case ROM:
-			return GetProperties.getROMBudgetInKB(ne, 0.0);
+			return PropertyUtils.getScaled(Sei::getRombudget, ne, SizeUnits.KBYTE).orElse(0.0);
 		case Memory:
-			return GetProperties.getRAMBudgetInKB(ne, 0.0) + GetProperties.getROMBudgetInKB(ne, 0.0);
+			return PropertyUtils.getScaled(Sei::getRambudget, ne, SizeUnits.KBYTE).orElse(0.0)
+					+ PropertyUtils.getScaled(Sei::getRombudget, ne, SizeUnits.KBYTE).orElse(0.0);
 		}
 		return 0.0;
 	}
@@ -187,7 +194,7 @@ abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 		return false;
 	}
 
-	private static double getHeapSize(final NamedElement ne, final SizeUnits unit) {
+	protected static double getHeapSize(final NamedElement ne, final SizeUnits unit) {
 		return org.osate.pluginsupport.properties.PropertyUtils
 				.getScaled(org.osate.aadl2.contrib.memory.MemoryProperties::getHeapSize, ne, unit)
 				.orElseGet(() -> org.osate.pluginsupport.properties.PropertyUtils
@@ -195,7 +202,7 @@ abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 						.orElse(0.0));
 	}
 
-	private static double getStackSize(final NamedElement ne, final SizeUnits unit) {
+	protected static double getStackSize(final NamedElement ne, final SizeUnits unit) {
 		return org.osate.pluginsupport.properties.PropertyUtils
 				.getScaled(org.osate.aadl2.contrib.memory.MemoryProperties::getStackSize, ne, unit)
 				.orElseGet(() -> org.osate.pluginsupport.properties.PropertyUtils
@@ -203,11 +210,58 @@ abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 						.orElse(0.0));
 	}
 
-	private static double getCodeSize(final NamedElement ne, final SizeUnits unit) {
+	protected static double getCodeSize(final NamedElement ne, final SizeUnits unit) {
 		return org.osate.pluginsupport.properties.PropertyUtils
 				.getScaled(org.osate.aadl2.contrib.memory.MemoryProperties::getCodeSize, ne, unit)
 				.orElseGet(() -> org.osate.pluginsupport.properties.PropertyUtils
 						.getScaled(org.osate.aadl2.contrib.memory.MemoryProperties::getSourceCodeSize, ne, unit)
 						.orElse(0.0));
 	}
+
+	protected static double getThreadExecutioninMIPS(ComponentInstance threadinstance) {
+		if (!InstanceModelUtil.isThread(threadinstance)) {
+			return 0;
+		}
+		double mips = getThreadExecutionIPDinMIPS(threadinstance);
+		if (mips == 0) {
+			double period = PropertyUtils.getScaled(TimingProperties::getPeriod, threadinstance, TimeUnits.SEC)
+					.orElse(0.0);
+			double exectimeval = PropertyUtils
+					.getScaledRange(TimingProperties::getComputeExecutionTime, threadinstance, TimeUnits.SEC)
+					.orElse(RealRange.ZEROED).getMaximum();
+			if (exectimeval > 0 && period > 0) {
+				final ComponentInstance thread = threadinstance;
+				double mipspersec = TimingProperties.getReferenceProcessor(thread).map(pci -> getMIPSCapacityInMIPS(pci, 0.0)).orElse(0.0);
+				if (mipspersec == 0) {
+					mipspersec = getBoundPhysicalProcessorMIPS(threadinstance);
+				}
+				double time = exectimeval / period;
+				mips = time * mipspersec;
+			}
+		}
+		return mips;
+	}
+
+	protected static double getThreadExecutionIPDinMIPS(final ComponentInstance threadinstance) {
+		final double period = PropertyUtils.getScaled(TimingProperties::getPeriod, threadinstance, TimeUnits.SEC)
+				.orElse(0.0);
+		final double mipd = PropertyUtils
+				.getScaledRange(Sei::getInstructionsperdispatch, threadinstance, Instructionvolumeunits.MIPD)
+				.orElse(RealRange.ZEROED).getMaximum();
+		return (mipd > 0 && period > 0) ? mipd / period : 0.0;
+	}
+
+	protected static double getBoundPhysicalProcessorMIPS(final ComponentInstance thread) {
+		final Iterator<ComponentInstance> pcis = InstanceModelUtil.getBoundPhysicalProcessors(thread).iterator();
+		return pcis.hasNext() ? getMIPSCapacityInMIPS(pcis.next(), 0.0) : 0.0;
+	}
+
+	protected static double getMIPSCapacityInMIPS(final NamedElement ne, final double defaultValue) {
+		return PropertyUtils.getScaled(Sei::getMipscapacity, ne, ProcessorSpeedUnits.MIPS).orElseGet(
+				() -> PropertyUtils.getScaled(
+						TimingProperties::getProcessorCapacity, ne,
+						org.osate.aadl2.contrib.aadlproject.ProcessorSpeedUnits.MIPS).
+						orElse(defaultValue));
+	}
+
 }
