@@ -835,10 +835,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		boolean willDoBuses = false;
 		if (connOrVB instanceof InstanceObject) {
 			// look for actual binding if we have a connection instance or virtual bus instance
-			List<Classifier> bindings = DeploymentProperties.getRequiredVirtualBusClass(connOrVB)
+			List<InstanceObject> bindings = DeploymentProperties.getActualConnectionBinding(connOrVB)
 					.orElse(Collections.emptyList());
-			for (Classifier componentInstance : bindings) {
-				if (((ComponentClassifier) componentInstance).getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
+			for (InstanceObject componentInstance : bindings) {
+				if (((ComponentInstance) componentInstance).getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
 					willDoVirtualBuses = true;
 				} else {
 					willDoBuses = true;
@@ -864,7 +864,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				}
 			}
 
-			for (Classifier componentInstance : bindings) {
+			for (InstanceObject componentInstance : bindings) {
 				processSamplingAndQueuingTimes(componentInstance, onBehalfOfConnection, latencyContributor);
 				if (((ComponentInstance) componentInstance).getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
 					processActualConnectionBindingsSampling(componentInstance, latencyContributor,
@@ -1339,10 +1339,15 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return map;
 	}
 
+	private static final Set<ComponentCategory> hasConnBindings = EnumSet.of(ComponentCategory.THREAD,
+			ComponentCategory.THREAD_GROUP, ComponentCategory.PROCESS, ComponentCategory.SYSTEM,
+			ComponentCategory.VIRTUAL_BUS, ComponentCategory.ABSTRACT);
+
 	private static final void processComponentBindings(final Map<ComponentInstance, Set<ConnectionInstance>> map,
 			final ConnectionInstance ci, final ComponentInstance componentInstance) {
-		final List<InstanceObject> componentBindings = DeploymentProperties
-				.getActualConnectionBinding(componentInstance).orElse(Collections.emptyList());
+		final List<InstanceObject> componentBindings = hasConnBindings.contains(componentInstance.getCategory())
+				? DeploymentProperties.getActualConnectionBinding(componentInstance).orElse(Collections.emptyList())
+				: Collections.emptyList();
 		for (final InstanceObject io : componentBindings) {
 			final ComponentInstance componentBinding = (ComponentInstance) io;
 			addToHashedSet(map, componentBinding, ci);
