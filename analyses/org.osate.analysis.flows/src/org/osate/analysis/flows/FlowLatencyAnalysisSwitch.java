@@ -24,6 +24,7 @@
 package org.osate.analysis.flows;
 
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -39,6 +40,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.NamedElement;
@@ -211,12 +213,30 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		}
 	}
 
+	private final Set<ComponentCategory> latencyCats = EnumSet.of(ComponentCategory.BUS, ComponentCategory.VIRTUAL_BUS,
+			ComponentCategory.DEVICE, ComponentCategory.PROCESSOR, ComponentCategory.VIRTUAL_PROCESSOR,
+			ComponentCategory.SYSTEM, ComponentCategory.MEMORY, ComponentCategory.ABSTRACT);
+
+	private final Set<ComponentCategory> periodCats = EnumSet.of(ComponentCategory.THREAD,
+			ComponentCategory.THREAD_GROUP, ComponentCategory.PROCESS, ComponentCategory.SYSTEM,
+			ComponentCategory.DEVICE, ComponentCategory.VIRTUAL_PROCESSOR, ComponentCategory.VIRTUAL_BUS,
+			ComponentCategory.ABSTRACT);
+
+	private final Set<ComponentCategory> deadlineCats = EnumSet.of(ComponentCategory.THREAD,
+			ComponentCategory.THREAD_GROUP, ComponentCategory.PROCESS, ComponentCategory.SYSTEM,
+			ComponentCategory.DEVICE, ComponentCategory.VIRTUAL_PROCESSOR,
+			ComponentCategory.ABSTRACT);
+
 	private void mapComponentInstance(final EndToEndFlowInstance etef, final FlowElementInstance flowElementInstance,
 			LatencyReportEntry entry) {
 		ComponentInstance componentInstance;
-		final RealRange expected = PropertyUtils.getScaledRange(
+		final boolean hasLatency = flowElementInstance instanceof FlowSpecificationInstance
+				|| flowElementInstance instanceof ConnectionInstance
+				|| flowElementInstance instanceof EndToEndFlowInstance
+				|| latencyCats.contains(((ComponentInstance) flowElementInstance).getCategory());
+		final RealRange expected = hasLatency ? PropertyUtils.getScaledRange(
 				org.osate.aadl2.contrib.communication.CommunicationProperties::getLatency, flowElementInstance,
-				TimeUnits.MS).orElse(RealRange.ZEROED);
+				TimeUnits.MS).orElse(RealRange.ZEROED) : RealRange.ZEROED;
 
 		if (flowElementInstance instanceof FlowSpecificationInstance) {
 			componentInstance = flowElementInstance.getComponentInstance();
@@ -230,11 +250,13 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		/**
 		 * Get all the relevant properties.
 		 */
-		double period = PropertyUtils.getScaled(TimingProperties::getPeriod, componentInstance, TimeUnits.MS)
-				.orElse(0.0);
-		double deadline = PropertyUtils.getScaled(TimingProperties::getDeadline, componentInstance, TimeUnits.MS)
-				.orElse(0.0);
-		boolean isAssignedDeadline = TimingProperties.getDeadline(componentInstance).map(x -> true).orElse(false);
+		double period = periodCats.contains(componentInstance.getCategory()) ? PropertyUtils.getScaled(TimingProperties::getPeriod, componentInstance, TimeUnits.MS)
+				.orElse(0.0) : 0.0;
+		double deadline = deadlineCats.contains(componentInstance.getCategory()) ? PropertyUtils.getScaled(TimingProperties::getDeadline, componentInstance, TimeUnits.MS)
+				.orElse(0.0) : 0.0;
+		boolean isAssignedDeadline = deadlineCats.contains(componentInstance.getCategory())
+				? TimingProperties.getDeadline(componentInstance).map(x -> true).orElse(false)
+				: false;
 
 		final boolean isThreadOrDevice = InstanceModelUtil.isThread(componentInstance)
 				|| InstanceModelUtil.isDevice(componentInstance) || InstanceModelUtil.isAbstract(componentInstance);
@@ -413,8 +435,13 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance, flowElementInstance,
 					report.isMajorFrameDelay());
 
-			final OptionalLong queueSize = org.osate.aadl2.contrib.communication.CommunicationProperties
-					.getQueueSize(incomingConnectionFI);
+			final OptionalLong queueSize =
+					(incomingConnectionFI.getCategory() == FeatureCategory.EVENT_PORT
+							|| incomingConnectionFI.getCategory() == FeatureCategory.EVENT_PORT
+							|| incomingConnectionFI.getCategory() == FeatureCategory.SUBPROGRAM_ACCESS)
+									?
+					org.osate.aadl2.contrib.communication.CommunicationProperties
+					.getQueueSize(incomingConnectionFI) : OptionalLong.empty();
 			if (queueSize.isPresent()) {
 				qs = queueSize.getAsLong();
 			} else if (incomingConnectionFI.getCategory() == FeatureCategory.DATA_PORT
@@ -517,7 +544,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				report.isMajorFrameDelay());
 
 		processActualConnectionBindingsSampling(connectionInstance, latencyContributor);
-		Classifier relatedConnectionData = FlowLatencyUtil.getConnectionData(connectionInstance);
+		ComponentClassifier relatedConnectionData = (ComponentClassifier) FlowLatencyUtil
+				.getConnectionData(connectionInstance);
 		processActualConnectionBindingsTransmission(connectionInstance,
 				relatedConnectionData == null ? 0.0
 						: AadlContribUtils.getDataSize(relatedConnectionData, SizeUnits.BYTES),
@@ -755,7 +783,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 		for (InstanceObject componentInstance : bindings) {
 			double wrappedDataSize = transmissionDataSize
-					+ AadlContribUtils.getDataSize(componentInstance, SizeUnits.BYTES);
+					+ AadlContribUtils.getDataSize((ComponentInstance) componentInstance, SizeUnits.BYTES);
 			processTransmissionTime(componentInstance, wrappedDataSize, latencyContributor, onBehalfOfConnection);
 			if (((ComponentInstance) componentInstance).getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
 				processActualConnectionBindingsTransmission(componentInstance, wrappedDataSize, latencyContributor,
@@ -775,7 +803,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			LatencyContributor latencyContributor, final ConnectionInstance onBehalfOfConnection) {
 		double total = transmissionDataSize;
 		for (Classifier cc : protocols) {
-			double contribution = AadlContribUtils.getDataSize(cc, SizeUnits.BYTES);
+			double contribution = AadlContribUtils.getDataSize((ComponentClassifier) cc, SizeUnits.BYTES);
 			double wrapped = transmissionDataSize + contribution;
 			processTransmissionTime(cc, wrapped, latencyContributor, onBehalfOfConnection);
 			total = total + contribution;
@@ -810,7 +838,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			List<Classifier> bindings = DeploymentProperties.getRequiredVirtualBusClass(connOrVB)
 					.orElse(Collections.emptyList());
 			for (Classifier componentInstance : bindings) {
-				if (((ComponentInstance) componentInstance).getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
+				if (((ComponentClassifier) componentInstance).getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
 					willDoVirtualBuses = true;
 				} else {
 					willDoBuses = true;
