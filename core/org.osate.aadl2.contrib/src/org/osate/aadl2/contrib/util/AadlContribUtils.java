@@ -1,7 +1,12 @@
 package org.osate.aadl2.contrib.util;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DataImplementation;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Feature;
@@ -10,6 +15,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.contrib.aadlproject.SizeUnits;
 import org.osate.aadl2.contrib.memory.MemoryProperties;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.pluginsupport.properties.PropertyUtils;
@@ -23,7 +29,20 @@ public final class AadlContribUtils {
 		// empty
 	}
 
-	public static double getDataSize(final NamedElement ne, final SizeUnits unit) {
+	private static final Set<ComponentCategory> hasSize = EnumSet.of(ComponentCategory.DATA,
+			ComponentCategory.SUBPROGRAM, ComponentCategory.THREAD, ComponentCategory.THREAD_GROUP,
+			ComponentCategory.PROCESS, ComponentCategory.SYSTEM, ComponentCategory.PROCESSOR,
+			ComponentCategory.VIRTUAL_PROCESSOR, ComponentCategory.DEVICE, ComponentCategory.ABSTRACT);
+
+	public static double getDataSize(final ComponentClassifier ne, final SizeUnits unit) {
+		return hasSize.contains(ne.getCategory()) ? getDataSize(ne, unit, 0) : 0;
+	}
+
+	public static double getDataSize(final ComponentInstance ne, final SizeUnits unit) {
+		return hasSize.contains(ne.getCategory()) ? getDataSize(ne, unit, 0) : 0;
+	}
+
+	public static double getDataSize(final FeatureInstance ne, final SizeUnits unit) {
 		return getDataSize(ne, unit, 0);
 	}
 
