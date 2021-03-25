@@ -17,13 +17,13 @@ class EmbeddedEditingControls {
 	private final Composite container;
 	private StyledText styledText;
 	private Button saveBtn;
-	private OsateEmbeddedXtextAdapter xtextAdapter;
+	private EmbeddedXtextAdapter xtextAdapter;
 
 	EmbeddedEditingControls(final Composite container) {
 		this.container = Objects.requireNonNull(container, "container cannot be null");
 	}
 
-	OsateEmbeddedXtextAdapter getXtextAdapter() {
+	EmbeddedXtextAdapter getXtextAdapter() {
 		return xtextAdapter;
 	}
 
@@ -87,7 +87,7 @@ class EmbeddedEditingControls {
 			xtextAdapter.dispose();
 		}
 
-		xtextAdapter = new OsateEmbeddedXtextAdapter(project);
+		xtextAdapter = new EmbeddedXtextAdapter(project);
 		xtextAdapter.adapt(styledText);
 	}
 

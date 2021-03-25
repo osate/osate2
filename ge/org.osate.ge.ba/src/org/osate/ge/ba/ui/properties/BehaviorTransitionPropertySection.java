@@ -18,6 +18,7 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -45,11 +46,9 @@ import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
-import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.PeekingIterator;
-import com.google.inject.Injector;
 
 public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
@@ -60,8 +59,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	}
 
 	public static String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.condition";
-	final static Injector injector = Aadl2Activator.getInstance()
-			.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
 	private Composite container;
 	private EmbeddedEditingControls conditionEditingControls;
 	private BusinessObjectSelection selectedBos;
@@ -99,7 +96,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 	@Override
 	public void refresh() {
-		final boolean isSingleSelection = selectedBos.bocStream().limit(2).count() == 1;
 		selectedBos.bocStream().filter(
 				boc -> isBehaviorTransition(boc) && ProjectUtil.getProjectForBo(boc.getBusinessObject()).isPresent())
 				.findAny().ifPresent(selectedBoc -> {
@@ -114,6 +110,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 					final IXtextDocument xtextDocument = getXtextDocument(behaviorTransition).orElse(null);
 					// Source text
 					final String sourceText = getText(xtextDocument, xtextResource);
+					final boolean isSingleSelection = selectedBos.bocStream().limit(2).count() == 1;
 					createConditionControls(behaviorTransition, sourceText, isSingleSelection, editingDomain,
 							xtextDocument, xtextResource, project);
 				});
@@ -132,7 +129,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		conditionEditingControls.createStyledText(SWT.BORDER | SWT.SINGLE, isSingleSelection,
 				new ConditionModificationKeyAdapter(behaviorTransition, conditionEditingControls,
 						conditionTextValue.getEditableText()));
-		SwtUtil.setTestingId(conditionEditingControls.getStyledText(), WIDGET_ID_CONDITION);
+		final StyledText styledText = conditionEditingControls.getStyledText();
+		SwtUtil.setTestingId(styledText, WIDGET_ID_CONDITION);
 
 		// Button to execute the modification
 		conditionEditingControls.createSaveButton(new SelectionAdapter() {
@@ -144,7 +142,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 								editorPart.getAdapter(ModelChangeNotifier.class),
 								"Unable to get model change notifier");
 						actionService.execute("Modifying BehaviorTranistion Condition", ExecutionMode.NORMAL,
-								new EmbeddedModificationAction(editingDomain, xtextDocument, xtextResource,
+							new EmbeddedModificationAction(editingDomain, xtextDocument, xtextResource,
 										modelChangeNotifier, project,
 										conditionEditingControls.getStyledText().getText(), conditionTextValue));
 					});
@@ -200,74 +198,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		}
 
 		throw new RuntimeException("Cannot find character sequence " + charsToMatch.toString());
-	}
-
-	private class ConditionModificationKeyAdapter extends KeyAdapter {
-		private final BehaviorTransition behaviorTransition;
-		private final EmbeddedEditingControls embeddedControls;
-		private final String editableText;
-
-		public ConditionModificationKeyAdapter(final BehaviorTransition behaviorTransition,
-				final EmbeddedEditingControls controls, final String editableText) {
-			this.behaviorTransition = behaviorTransition;
-			this.embeddedControls = controls;
-			this.editableText = editableText;
-		}
-
-		@Override
-		public void keyReleased(final KeyEvent e) {
-			// Return if no changes were made
-			final Button saveBtn = embeddedControls.getSaveButton();
-			final String newText = embeddedControls.getStyledText().getText().trim();
-			if (newText.equals(editableText)) {
-				saveBtn.setEnabled(false);
-				return;
-			}
-
-			final OsateEmbeddedXtextAdapter xtextAdapter = embeddedControls.getXtextAdapter();
-
-			// Update save button based on whether the text entered into the
-			// styled text is a serializable condition
-			final EObject rootElement = xtextAdapter.getXtextParseResult().getRootASTElement();
-			final XtextResource fakeResource = xtextAdapter.getFakeResource();
-			// Link model
-			fakeResource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
-
-			// Original source text
-			final String originalSrc = xtextAdapter.getText();
-
-			try {
-				// Modified source text
-				final String modifiedSrc = xtextAdapter.serialize(rootElement);
-				// Load for error checking
-				loadResource(fakeResource, modifiedSrc);
-				boolean isValid = false;
-				// Check if BehaviorTransition still exists, meaning the modification did not break serialization
-				final BehaviorTransition behaviorTransition = (BehaviorTransition) fakeResource
-						.getEObject(EcoreUtil.getURI(this.behaviorTransition).fragment());
-				if (behaviorTransition != null) {
-					final BehaviorCondition condition = behaviorTransition.getCondition();
-					// Calculate enabled based on if condition should exist and if it exists
-					isValid = newText.isEmpty() ? condition == null : condition != null;
-				}
-
-				saveBtn.setEnabled(isValid);
-			} catch (final Exception ex) {
-				saveBtn.setEnabled(false);
-			} finally {
-				// Load original source
-				loadResource(fakeResource, originalSrc);
-			}
-		}
-
-		private void loadResource(final XtextResource resource, final String src) {
-			try {
-				resource.unload();
-				resource.load(new ByteArrayInputStream(src.getBytes()), null);
-			} catch (final IOException e) {
-				throw new RuntimeException("Serialized source cannot be loaded");
-			}
-		}
 	}
 
 	private EmbeddedTextValue getConditionTextValue(final BehaviorTransition behaviorTransition, final String text) {
@@ -342,5 +272,73 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	private static Optional<XtextResource> getXtextResource(final BehaviorTransition behaviorTransition) {
 		final Resource resource = behaviorTransition.eResource();
 		return Optional.ofNullable(resource instanceof XtextResource ? (XtextResource) resource : null);
+	}
+
+	private class ConditionModificationKeyAdapter extends KeyAdapter {
+		private final BehaviorTransition behaviorTransition;
+		private final EmbeddedEditingControls embeddedControls;
+		private final String editableText;
+
+		public ConditionModificationKeyAdapter(final BehaviorTransition behaviorTransition,
+				final EmbeddedEditingControls controls, final String editableText) {
+			this.behaviorTransition = behaviorTransition;
+			this.embeddedControls = controls;
+			this.editableText = editableText;
+		}
+
+		@Override
+		public void keyReleased(final KeyEvent e) {
+			// Return if no changes were made
+			final Button saveBtn = embeddedControls.getSaveButton();
+			final String newText = embeddedControls.getStyledText().getText().trim();
+			if (newText.equals(editableText)) {
+				saveBtn.setEnabled(false);
+				return;
+			}
+
+			final EmbeddedXtextAdapter xtextAdapter = embeddedControls.getXtextAdapter();
+
+			// Update save button based on whether the text entered into the
+			// styled text is a serializable condition
+			final EObject rootElement = xtextAdapter.getXtextParseResult().getRootASTElement();
+			final XtextResource fakeResource = xtextAdapter.getFakeResource();
+			// Link model
+			fakeResource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
+
+			// Original source text
+			final String originalSrc = xtextAdapter.getText();
+
+			try {
+				// Modified source text
+				final String modifiedSrc = xtextAdapter.serialize(rootElement);
+				// Load for error checking
+				loadResource(fakeResource, modifiedSrc);
+				boolean isValid = false;
+				// Check if BehaviorTransition still exists, meaning the modification did not break serialization
+				final BehaviorTransition behaviorTransition = (BehaviorTransition) fakeResource
+						.getEObject(EcoreUtil.getURI(this.behaviorTransition).fragment());
+				if (behaviorTransition != null) {
+					final BehaviorCondition condition = behaviorTransition.getCondition();
+					// Calculate enabled based on if condition should exist and if it exists
+					isValid = newText.isEmpty() ? condition == null : condition != null;
+				}
+
+				saveBtn.setEnabled(isValid);
+			} catch (final Exception ex) {
+				saveBtn.setEnabled(false);
+			} finally {
+				// Load original source
+				loadResource(fakeResource, originalSrc);
+			}
+		}
+
+		private void loadResource(final XtextResource resource, final String src) {
+			try {
+				resource.unload();
+				resource.load(new ByteArrayInputStream(src.getBytes()), null);
+			} catch (final IOException e) {
+				throw new RuntimeException("Serialized source cannot be loaded");
+			}
+		}
 	}
 }

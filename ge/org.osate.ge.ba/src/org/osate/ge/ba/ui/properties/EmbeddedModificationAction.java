@@ -26,6 +26,8 @@ import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
 
+import com.google.inject.Injector;
+
 /**
  * Modification process to be executed to update the action text
  */
@@ -50,7 +52,7 @@ class EmbeddedModificationAction implements AgeAction {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
 		this.project = Objects.requireNonNull(project, "project cannot be null");
 		this.work = Objects.requireNonNull(
-				createUpdateProcess(textValue, newText), "work cannot be null");
+				createUpdateProcess(newText), "work cannot be null");
 		this.cmd = Objects.requireNonNull(createRecordingCommand(editingDomain, xtextResource), "cmd cannot be null");
 		this.textValue = textValue;
 	}
@@ -63,9 +65,9 @@ class EmbeddedModificationAction implements AgeAction {
 
 	/**
 	 * Create the modification for updating source text
-	 * @param modifiedSource is the new source text to replace old source text
+	 * @param newText is the new source text to replace in old source text
 	 */
-	private Void<XtextResource> createUpdateProcess(final EmbeddedTextValue textValue, final String newText) {
+	private Void<XtextResource> createUpdateProcess(final String newText) {
 		return new IUnitOfWork.Void<XtextResource>() {
 			@Override
 			public void process(final XtextResource state) throws Exception {
@@ -113,7 +115,8 @@ class EmbeddedModificationAction implements AgeAction {
 
 		// Set action to restore original source text upon undo
 		return textValue == null ? null
-				: new EmbeddedModificationAction(editingDomain, xtextDocument, xtextResource, modelChangeNotifier,
+				: new EmbeddedModificationAction(editingDomain, xtextDocument, xtextResource,
+						modelChangeNotifier,
 						project,
 				textValue.getOriginalText(), null);
 	}
@@ -160,11 +163,12 @@ class EmbeddedModificationAction implements AgeAction {
 			final IEditorPart editor = editorRef.getEditor(false);
 			if (editor instanceof XtextEditor) {
 				final XtextEditor xtextEditor = (XtextEditor) editor;
-				final String languageName = getLanguageName();
+				final Injector injector = EmbeddedXtextAdapter.injector;
+				final String languageName = getLanguageName(injector);
 
 				// Only force reconciliation for AADL editors
 				if (Objects.equals(xtextEditor.getLanguageName(), languageName)) {
-					final SyncUtil syncUtil = BehaviorTransitionPropertySection.injector.getInstance(SyncUtil.class);
+					final SyncUtil syncUtil = injector.getInstance(SyncUtil.class);
 
 					// Only waiting once will result in the reconciler processing a change outside the lock.
 					// Doing it twice appears to wait for pending runs of the reconciler.
@@ -185,9 +189,8 @@ class EmbeddedModificationAction implements AgeAction {
 	 * Retrieves the language name by injecting it into a new object.
 	 * @return
 	 */
-	private static String getLanguageName() {
-		final LanguageNameRetriever obj = BehaviorTransitionPropertySection.injector
-				.getInstance(LanguageNameRetriever.class);
+	private String getLanguageName(final Injector injector) {
+		final LanguageNameRetriever obj = injector.getInstance(LanguageNameRetriever.class);
 		return obj.languageName;
 	}
 }

@@ -5,14 +5,19 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osate.xtext.aadl2.ui.propertyview.OsateStyledTextXtextAdapter;
 import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResourcesProvider;
 
-class OsateEmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
-	private static final IXtextFakeContextResourcesProvider contextFakeResourceProvider = IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER;
+import com.google.inject.Injector;
 
-	public OsateEmbeddedXtextAdapter(final IProject project) {
-		super(BehaviorTransitionPropertySection.injector, contextFakeResourceProvider, project);
+class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
+	private static final IXtextFakeContextResourcesProvider contextFakeResourceProvider = IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER;
+	final static Injector injector = Aadl2Activator.getInstance()
+			.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
+
+	public EmbeddedXtextAdapter(final IProject project) {
+		super(injector, contextFakeResourceProvider, project);
 	}
 
 	public SourceViewer getSourceviewer() {
