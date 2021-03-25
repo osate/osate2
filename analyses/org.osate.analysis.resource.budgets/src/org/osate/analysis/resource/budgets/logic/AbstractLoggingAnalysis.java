@@ -72,7 +72,7 @@ abstract class AbstractLoggingAnalysis {
 
 	protected void detailedLogTotal2(ComponentInstance ci, double budget, Enum<?> unit) {
 		if (doDetailedLog) {
-			String budgetmsg = String.format("%.3f " + unit.name() + ",", budget);// GetProperties.toStringScaled(budget, unit) + ",";
+			String budgetmsg = String.format("%.3f " + unit.name() + ",", budget);
 			String front = ci == null ? "Total" : ci.getCategory().getName() + " " + ci.getComponentInstancePath();
 			errManager.logInfo(front + ", ," + budgetmsg);
 		}
