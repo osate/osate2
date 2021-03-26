@@ -78,7 +78,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 		final Label conditionLabel = new Label(container, SWT.NONE);
 		conditionLabel.setText("Condition: ");
-		// createComposite(composite);
 		SwtUtil.setColorsToMatchParent(conditionLabel);
 
 		final Composite conditionComposite = createComposite(container);
