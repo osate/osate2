@@ -17,13 +17,13 @@ class EmbeddedEditingControls {
 	private final Composite container;
 	private StyledText styledText;
 	private Button saveBtn;
-	private OsateEmbeddedXtextAdapter xtextAdapter;
+	private EmbeddedXtextAdapter xtextAdapter;
 
 	EmbeddedEditingControls(final Composite container) {
 		this.container = Objects.requireNonNull(container, "container cannot be null");
 	}
 
-	OsateEmbeddedXtextAdapter getXtextAdapter() {
+	EmbeddedXtextAdapter getXtextAdapter() {
 		return xtextAdapter;
 	}
 
@@ -74,7 +74,7 @@ class EmbeddedEditingControls {
 		return saveBtn;
 	}
 
-	void updateAdapterDocument(final TextValue val) {
+	void updateAdapterDocument(final EmbeddedTextValue val) {
 		final XtextDocument xtextDoc = xtextAdapter.getXtextDocument();
 		final SourceViewer srcViewer = xtextAdapter.getSourceviewer();
 		xtextDoc.set(val.getWholeText());
@@ -87,16 +87,11 @@ class EmbeddedEditingControls {
 			xtextAdapter.dispose();
 		}
 
-		xtextAdapter = new OsateEmbeddedXtextAdapter(project);
+		xtextAdapter = new EmbeddedXtextAdapter(project);
 		xtextAdapter.adapt(styledText);
 	}
 
 	void requestLayout() {
 		container.requestLayout();
-	}
-
-	void setModificationState(final String modifiedSrc) {
-		saveBtn.setEnabled(modifiedSrc == null ? false : true);
-		xtextAdapter.setModifiedSource(modifiedSrc);
 	}
 }

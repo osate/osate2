@@ -82,8 +82,8 @@ public class BehaviorAnnexTest {
 		testBehaviorSpecification(BehaviorAnnexReferenceUtil.getSpecificationRelativeReference(0),
 				typeName, diagram, pkgRef, modeName, openBehaviorAnnexDiagramCommand);
 
-		// Open text editor
-		doubleClickInAadlNavigator(BA_TEST, BA_TEST + ".aadl");
+		// Test with editor closed
+		saveAndCloseTextEditorByTitle(BA_TEST + ".aadl");
 
 		// Use Open -> New Diagram... command to create new Behavior Annex diagram
 		final BiFunction<DiagramElementReference, String, DiagramReference> createDiagramCommand = (ref,
@@ -154,13 +154,20 @@ public class BehaviorAnnexTest {
 			final String classifierName,
 			final DiagramReference diagram, final RelativeBusinessObjectReference pkgRef, final String modeName,
 			final BiFunction<DiagramElementReference, String, DiagramReference> openDiagram) {
-		// Create behavior specification
-		createBehaviorAnnexWithInitialState(diagram, pkgRef, classifierName, behaviorSpecification, modeName);
-
 		final RelativeBusinessObjectReference classifierRef = getClassifierRelativeReference(classifierName);
+		final DiagramElementReference classifierDiagramRef = element(pkgRef, classifierRef);
+
+		// Create behavior specification
+		createBehaviorAnnexWithInitialState(diagram, pkgRef, classifierDiagramRef, behaviorSpecification, modeName);
+
+		// Hide all to test behavior specification filter
+		clickContextMenuOfDiagramElement(diagram, classifierDiagramRef, "Hide Contents", "All");
+
+		// Show behavior specifications for classifier
+		clickContextMenuOfDiagramElement(diagram, classifierDiagramRef, "Show Contents", "Behavior Specifications");
+
 		final DiagramElementReference specificationDiagramRef = new DiagramElementReference(pkgRef, classifierRef,
 				behaviorSpecification);
-
 		// Set in mode
 		clickCheckboxInPropertiesView(diagram, "AADL", 0, specificationDiagramRef);
 
