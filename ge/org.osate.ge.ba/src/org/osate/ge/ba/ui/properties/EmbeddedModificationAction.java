@@ -70,13 +70,11 @@ class EmbeddedModificationAction implements AgeAction {
 	private Void<XtextResource> createUpdateProcess(final String newText) {
 		return new IUnitOfWork.Void<XtextResource>() {
 			@Override
-			public void process(final XtextResource state) throws Exception {
+			public void process(final XtextResource resource) throws Exception {
 				if (textValue != null) { // Replace text at specified index and length with new text value
-					state.update(textValue.getPrefix().length(), textValue.getUpdateLength(), newText);
-				} else if (xtextDocument != null) { // Replace text back to original state for undo with text editor open
-					xtextDocument.set(newText);
-				} else { // Replace text back to original state for undo with text editor closed
-					state.update(0, state.getParseResult().getRootNode().getLength(), newText);
+					resource.update(textValue.getPrefix().length(), textValue.getUpdateLength(), newText);
+				} else { // Replace text back to original state for undo
+					resource.reparse(newText);
 				}
 			}
 		};
