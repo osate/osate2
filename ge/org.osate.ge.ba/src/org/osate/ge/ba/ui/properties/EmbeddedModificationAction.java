@@ -46,14 +46,14 @@ class EmbeddedModificationAction implements AgeAction {
 			final IXtextDocument xtextDocument, final XtextResource xtextResource,
 			final ModelChangeNotifier modelChangeNotifier, final IProject project, final String newText,
 			final EmbeddedTextValue textValue) {
-		this.xtextDocument = xtextDocument;
 		this.editingDomain = Objects.requireNonNull(editingDomain, "editingDomain cannot be null");
 		this.xtextResource = Objects.requireNonNull(xtextResource, "xtextResource cannot be null");
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
 		this.project = Objects.requireNonNull(project, "project cannot be null");
 		this.work = Objects.requireNonNull(
-				createUpdateProcess(newText), "work cannot be null");
+				createUpdateProcess(Objects.requireNonNull(newText, "newText cannot be null")), "work cannot be null");
 		this.cmd = Objects.requireNonNull(createRecordingCommand(editingDomain, xtextResource), "cmd cannot be null");
+		this.xtextDocument = xtextDocument;
 		this.textValue = textValue;
 	}
 
@@ -71,10 +71,11 @@ class EmbeddedModificationAction implements AgeAction {
 		return new IUnitOfWork.Void<XtextResource>() {
 			@Override
 			public void process(final XtextResource state) throws Exception {
-				if (textValue != null) {
+				if (textValue != null) { // Replace text at specified index and length with new text value
 					state.update(textValue.getPrefix().length(), textValue.getUpdateLength(), newText);
-				} else {
-					// Replace text back to original state for undo
+				} else if (xtextDocument != null) { // Replace text back to original state for undo with text editor open
+					xtextDocument.set(newText);
+				} else { // Replace text back to original state for undo with text editor closed
 					state.update(0, state.getParseResult().getRootNode().getLength(), newText);
 				}
 			}
