@@ -117,7 +117,7 @@ class EmbeddedModificationAction implements AgeAction {
 				: new EmbeddedModificationAction(editingDomain, xtextDocument, xtextResource,
 						modelChangeNotifier,
 						project,
-				textValue.getOriginalText(), null);
+						textValue.getOriginalText());
 	}
 
 	private void save() {
