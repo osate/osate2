@@ -1,5 +1,5 @@
 <contexts>
-	<context id="help_dialog_contrRes" title="Help Dialog">
+	<context id="help_dialog_contrRes" title="Contributed Resources">
 		<description>This dialog provides information about managing contributed resources.
 		</description>
 		<topic href="../org.osate.help/help/html/AdvancedOSATEFeatures.html#managing-contributed-resources" label="Manage Contributed Resources"/>

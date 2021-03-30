@@ -25,11 +25,9 @@ When a contributed resource is overridden, the tree marks it as such, and the UR
 
 To restore an overridden resource to its original contributed URI, select it in the tree and press the "Restore" button. 
 
-# Managing Property Sets
+# Managing Property Set Errors
 
-Within AADL, predeclared and user defined property, property types and property constant declarations are contained in property sets.
-
-OSATE provides predeclared property sets, however you can add your own property sets. In the event when you need to ignore errors associated with user defined property set, you can use Ignored Property Set Preference page and type in the name of the property set to ignore. 
+In the event when you need to ignore errors associated with user defined property set, you can use Ignored Property Set Preference page and type in the name of the property set to ignore. 
 
 Predeclared properties should not be added to ignored list, as they are always included in OSATE installation and are necessary for proper execution of model analysis.
 
@@ -47,10 +45,6 @@ Once added, typed in property set will show up in ignored list
 ![Property Set Preference Pane](images/AdvancedOSATEFeatures/IgnoredPropertySetAdded.jpg)
 
 ## Managing Annexes
-	
-Embedded sub-languages published as AADL annexes extend an AADL model to enhance analysis. Several such annexes have been defined, for example, the error modeling sub-language is used to define error states and fault propagation for an AADL model, and the behavior annex allows modeling of detailed component behavior as a state machine. 
-
-Annexes are separate from the core AADL in the following sense: if all annex libraries, subclauses, and annex-related property associations are removed from an AADL model, the resulting model is a valid core AADL model. Also, the different annexes are assumed to be independent of each other. 
 
 As different annexes are treated as independent of each other and the core language, it is possible to ignore an annex when processing a model. OSATE supports this by defining a default annex meta-model, parser, and unparser. The default annex meta-model simply stores the source text of an annex library or subclause as a string, and the default parser and unparser are trivial as they don’t process the annex content. This allows processing of AADL models with annex elements even if the plug-ins for a particular annex are not installed. OSATE enables this via the `OSATE > Annex` preference pane:
 
