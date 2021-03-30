@@ -57,7 +57,7 @@ class EmbeddedModificationAction implements AgeAction {
 		this.textValue = textValue;
 	}
 
-	public EmbeddedModificationAction(final TransactionalEditingDomain editingDomain,
+	private EmbeddedModificationAction(final TransactionalEditingDomain editingDomain,
 			final IXtextDocument xtextDocument, final XtextResource xtextResource,
 			final ModelChangeNotifier modelChangeNotifier, final IProject project, final String originalSource) {
 		this(editingDomain, xtextDocument, xtextResource, modelChangeNotifier, project, originalSource, null);
