@@ -55,7 +55,17 @@ public class FlowIndicatorNode extends BaseConnectionNode {
 		setEndAnchor(anchor);
 	}
 
-	public Node getPositioningReference() {
+	/**
+	 * Returns the positioning reference or throws an exception. It is expected that the positioning reference will be set
+	 * using {@link #setPositioningReference(Node)} shortly after creation. The translation of this node will be set such that the
+	 * position using layoutX and layoutY of the node will be relative to the specified node.
+	 * @return the node to which the position is relative.
+	 */
+	public Node getPositioningReferenceOrThrow() {
+		if(positioningReference == null) {
+			throw new AgeGefRuntimeException("Positioning reference not set");
+		}
+
 		return positioningReference;
 	}
 

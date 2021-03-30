@@ -25,10 +25,15 @@ package org.osate.ge.gef.ui.editor.overlays;
 
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
-// TODO: REname
+/**
+ * A handle is a user interface element that is shown in the diagram and is used to modify a diagram element.
+ */
 public interface Handle {
 	DiagramElement getDiagramElement();
 
-	// TODO
+	/**
+	 * Sets whether the handle is associated with the primary selection.
+	 * @param value whether the handle is associated with the primary selection.
+	 */
 	void setPrimary(boolean value);
 }

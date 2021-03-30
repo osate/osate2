@@ -21,22 +21,45 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.ui.editor.overlays;
 
-import org.osate.ge.gef.BaseConnectionNode;
-import org.osate.ge.internal.diagram.runtime.DiagramElement;
+package org.osate.ge.gef.ui.editor;
 
-// TODO: Document
-public class BendpointHandle extends ConnectionPointHandle {
-	private final int bendpointIndex;
+import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
+import org.osate.ge.palette.PaletteCommand;
 
-	public BendpointHandle(final DiagramElement diagramElement, final BaseConnectionNode sceneNode,
-			final boolean primary, int bendpointIndex) {
-		super(diagramElement, sceneNode, primary, 4.0);
-		this.bendpointIndex = bendpointIndex;
+import javafx.scene.Cursor;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+
+/**
+ * {@link InputEventHandler} for executing palette commands.
+ */
+public class PaletteCommandInputEventHandler implements InputEventHandler {
+	private final AgeEditorPaletteModel paletteModel;
+
+	public PaletteCommandInputEventHandler(final AgeEditorPaletteModel paletteModel) {
+		this.paletteModel = paletteModel;
 	}
 
-	public int getBendpointIndex() {
-		return bendpointIndex;
+	@Override
+	public Cursor getCursor(MouseEvent mouseMoveEvent) {
+		return null;
+	}
+
+	@Override
+	public HandledEvent handleEvent(GefAgeDiagram gefDiagram, InputEvent e) {
+		if (e.getEventType() != MouseEvent.MOUSE_PRESSED || ((MouseEvent) e).getButton() != MouseButton.PRIMARY) {
+			return null;
+		}
+
+		// Retrieve the active palette command
+		final PaletteCommand cmd = paletteModel.getActivePaletteCommand();
+		if (cmd == null) {
+			return null;
+		}
+
+		System.err.println("TODO: " + cmd);
+		return HandledEvent.handled();
 	}
 }

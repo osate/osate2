@@ -626,25 +626,25 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		// Update connections
 		if (sceneNode instanceof BaseConnectionNode) {
 			final BaseConnectionNode connectionNode = (BaseConnectionNode) sceneNode;
-			final Point bendpointOrigin;
+			final Point controlPointOrigin;
 			if (sceneNode instanceof FlowIndicatorNode) {
 				PreferredPosition.set(sceneNode, convertPoint(diagramElement.getPosition()));
 
 				final Point parentPosition = DiagramElementLayoutUtil.getAbsolutePosition(diagramElement);
-				bendpointOrigin = new Point(parentPosition.x + diagramElement.getX(),
+				controlPointOrigin = new Point(parentPosition.x + diagramElement.getX(),
 						parentPosition.y + diagramElement.getY());
 			} else {
-				bendpointOrigin = Point.ZERO;
+				controlPointOrigin = Point.ZERO;
 			}
 
 			// Update the connection anchor
 			updateConnectionAnchors(diagramElement, (BaseConnectionNode) sceneNode);
 
-			// Set bendpoints. Coordinates are specified in the diagram model relative to the diagram. The need to be specified relative to the
+			// Set control points. Coordinates are specified in the diagram model relative to the diagram. The need to be specified relative to the
 			// connection position. For regular connection this is the same because the node's parent is the diagram node.
 			// However, flow indicators have a position and have parent nodes other than the diagram.
 			connectionNode.getInnerConnection().setControlPoints(diagramElement.getBendpoints().stream().map(
-					p -> new org.eclipse.gef.geometry.planar.Point(p.x - bendpointOrigin.x, p.y - bendpointOrigin.y))
+					p -> new org.eclipse.gef.geometry.planar.Point(p.x - controlPointOrigin.x, p.y - controlPointOrigin.y))
 					.collect(Collectors.toList()));
 
 			PreferredPosition.set(gefDiagramElement.primaryLabel,
@@ -856,6 +856,14 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 */
 	public Node getSceneNode() {
 		return diagramNode;
+	}
+
+	/**
+	 * Provides access to the diagram represented by the scene graph.
+	 * @return the diagram which is represented by the scene graph.
+	 */
+	public AgeDiagram getDiagram() {
+		return diagram;
 	}
 
 	/**

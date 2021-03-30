@@ -56,11 +56,7 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.gef.fx.nodes.Connection;
 import org.eclipse.gef.fx.nodes.InfiniteCanvas;
-import org.eclipse.gef.geometry.convert.fx.FX2Geometry;
-import org.eclipse.gef.geometry.convert.fx.Geometry2FX;
-import org.eclipse.gef.geometry.planar.Point;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.ErrorDialog;
@@ -97,16 +93,10 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.gef.AgeGefRuntimeException;
-import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.DiagramEditorNode;
-import org.osate.ge.gef.FlowIndicatorNode;
-import org.osate.ge.gef.PreferredPosition;
 import org.osate.ge.gef.ui.AgeGefUiPlugin;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
-import org.osate.ge.gef.ui.editor.overlays.BendpointHandle;
-import org.osate.ge.gef.ui.editor.overlays.ConnectionPointHandle;
-import org.osate.ge.gef.ui.editor.overlays.CreateBendpointHandle;
-import org.osate.ge.gef.ui.editor.overlays.FlowIndicatorPositionHandle;
+import org.osate.ge.gef.ui.editor.Interaction.InteractionState;
 import org.osate.ge.gef.ui.editor.overlays.Overlays;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
@@ -154,7 +144,6 @@ import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.ui.tools.ActivatedEvent;
 import org.osate.ge.internal.ui.tools.DeactivatedEvent;
 import org.osate.ge.internal.ui.tools.Tool;
-import org.osate.ge.palette.PaletteCommand;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.services.ReferenceResolutionService;
 import org.osate.ge.services.impl.DefaultQueryService;
@@ -167,22 +156,20 @@ import com.google.common.collect.ImmutableList;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.embed.swt.FXCanvas;
-import javafx.event.EventTarget;
+import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Affine;
-import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Transform;
 
 /**
@@ -325,6 +312,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private AgeEditorPaletteModel paletteModel;
 	private final ToolHandler toolHandler = new ToolHandler();
 	private TooltipManager tooltipManager;
+	private final List<InputEventHandler> inputEventHandlers = new ArrayList<>();
+	private Interaction activeInteraction;
 	private final ISelectionListener toolPostSelectionListener = (part, selection) -> {
 		toolHandler.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
 	};
@@ -814,346 +803,63 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		});
 
 		//
-		// Other Mouse Listeners
+		// General input handlers
 		//
-		canvas.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
-			if (paletteModel.isMarqueeToolActive()) {
-				canvas.setCursor(Cursor.CROSSHAIR);
-			} else if (e.getTarget() instanceof ConnectionPointHandle) {
-				canvas.setCursor(Cursor.MOVE);
-			} else {
-				canvas.setCursor(Cursor.DEFAULT);
-			}
-		});
+		// Must be enabled to receive key press events
+		canvas.setFocusTraversable(true);
 
-		// TODO
-		fxCanvas.addListener(SWT.MenuDetect, event -> {
-			if (opInProgress) {
-				event.doit = false;
+		// Event handler. Delegates to input event handlers or the active interaction as appropriate
+		final EventHandler<? super InputEvent> handleInput = e -> {
+			if ((e.getEventType() == MouseEvent.MOUSE_PRESSED && ((MouseEvent) e).getButton() == MouseButton.SECONDARY)
+					|| (e.getEventType() == KeyEvent.KEY_PRESSED && ((KeyEvent) e).getCode() == KeyCode.ESCAPE)) {
+				if (activeInteraction != null) {
+					activeInteraction.abort();
+					activeInteraction = null;
+					canvas.setCursor(Cursor.DEFAULT);
+				}
 			}
-		});
+
+			if (activeInteraction == null) {
+				// Delegate processing of the event to the input event handlers
+				for (final InputEventHandler inputEventHandler : inputEventHandlers) {
+					final InputEventHandler.HandledEvent r = inputEventHandler.handleEvent(gefDiagram, e);
+					if (r != null) {
+						activeInteraction = r.newInteraction;
+						return;
+					}
+				}
+			} else {
+				if (activeInteraction.handleEvent(e) == InteractionState.COMPLETE) {
+					activeInteraction = null;
+				}
+			}
+		};
 
 		// Handle mouse button presses
-		canvas.addEventFilter(MouseEvent.MOUSE_PRESSED, e -> {
-			if (e.getButton() == MouseButton.PRIMARY) {
-				if (!paletteModel.isMarqueeToolActive() && e.getTarget() instanceof ConnectionPointHandle) {
-					final ConnectionPointHandle handle = (ConnectionPointHandle) e.getTarget();
-					if (handle instanceof CreateBendpointHandle) {
-						final CreateBendpointHandle bendpointHandle = (CreateBendpointHandle) handle;
-						moveBendpointIndex = bendpointHandle.getInsertionIndex();
-
-						handle.setVisible(false); // Hide so it won't be removed and events will be received
-
-						final List<org.eclipse.gef.geometry.planar.Point> bendpoints = handle.getSceneNode()
-								.getInnerConnection().getControlPoints();
-						final Point2D p = getPoint2D(e, handle.getSceneNode().getInnerConnection());
-						bendpoints.add(moveBendpointIndex, new Point(p.getX(), p.getY())); // TODO: APpropriate coordinate system
-						handle.getSceneNode().getInnerConnection().setControlPoints(bendpoints);
-					} else if (handle instanceof BendpointHandle) {
-						// TODO: Don't hide because bendpoint isn't changing? Will need to hide later
-						handle.setVisible(false); // Hide so it won't be removed and events will be received
-						// TODO: If done here then do it for all?
-
-						final BendpointHandle bendpointHandle = (BendpointHandle) handle;
-						moveBendpointIndex = bendpointHandle.getBendpointIndex();
-					} else if (handle instanceof FlowIndicatorPositionHandle) {
-						// TODO: No specialized code needed
-					} else {
-						// TODO: Throw exception. Will need to support moving flow indicator position
-					}
-
-					pointExists = true;
-					activeConnectionPointHandle = handle;
-					opInProgress = true;
-					return;
-				}
-
-				final DiagramElement clickedDiagramElement = getClosestDiagramElement(e.getTarget());
-				if (paletteModel.isMarqueeToolActive()
-						|| (paletteModel.isSelectToolActive() && clickedDiagramElement == null)) {
-					// TODO: Need to ensure that this isn't fired when using the scrollbar
-					System.err.println("START MARQUEE");
-				} else if (paletteModel.isSelectToolActive() && clickedDiagramElement != null) {
-					if (e.isShiftDown()) {
-						// If shift is held down. Ensure the element is at the end of the list
-						@SuppressWarnings("unchecked")
-						final List<Object> newSelectedElements = new ArrayList<>(
-								selectionProvider.getSelection().toList());
-						newSelectedElements.remove(clickedDiagramElement);
-						newSelectedElements.add(clickedDiagramElement);
-						selectionProvider.setSelection(new StructuredSelection(newSelectedElements));
-					} else if (e.isControlDown()) {
-						// If Ctrl is held down, then remove the element if it is already in the selection. Otherwise, add it.
-						@SuppressWarnings("unchecked")
-						final List<Object> newSelectedElements = new ArrayList<>(
-								selectionProvider.getSelection().toList());
-						if (newSelectedElements.contains(clickedDiagramElement)) {
-							newSelectedElements.remove(clickedDiagramElement);
-						} else {
-							newSelectedElements.add(clickedDiagramElement);
-						}
-						selectionProvider.setSelection(new StructuredSelection(newSelectedElements));
-					} else {
-						// Replace the selection with the object
-						selectionProvider.setSelection(new StructuredSelection(clickedDiagramElement));
-					}
-				} else {
-					final PaletteCommand cmd = paletteModel.getActivePaletteCommand();
-					if (cmd != null) {
-						System.err.println("TODO: " + cmd);
-					}
-				}
-			} else if (e.getButton() == MouseButton.SECONDARY) {
-				// TODO; Need to prevent context menu somehow
-				cancelCurrentOperation();
-			}
-		});
-
-		// TODO: Consider only listening to these events during the gesture
-		canvas.addEventFilter(MouseEvent.MOUSE_DRAGGED, e -> {
-			if (e.getButton() == MouseButton.PRIMARY) {
-				// TODO: Cleanup logical structure
-				if (activeConnectionPointHandle != null) {
-					if (activeConnectionPointHandle instanceof FlowIndicatorPositionHandle) {
-						final FlowIndicatorNode c = ((FlowIndicatorPositionHandle) activeConnectionPointHandle)
-								.getSceneNode();
-						// TODO: Needs to be relative to the containing ContainerShape
-						// TODO: Rename
-						Node tmp = c.getPositioningReference();
-
-						// TODO: Check if tmp is null.
-						// TODO: Is there a better way to get this?
-
-						// TODO: Need to get it relative to logical parent..
-						final Point2D newPoint = getPoint2D(e, tmp);// gefDiagram.getSceneNode());// TODO: Experiment. tmp); // TODO: Rename
-						final Point2D oldPosition = PreferredPosition.get(activeConnectionPointHandle.getSceneNode());
-						PreferredPosition.set(activeConnectionPointHandle.getSceneNode(), newPoint);
-
-						// Adjust positions of bendpoints so that only the ending position of the flow indicator is moved.
-						if (oldPosition != null) {
-							final double dx = newPoint.getX() - oldPosition.getX();
-							final double dy = newPoint.getY() - oldPosition.getY();
-							c.getInnerConnection().setControlPoints(c.getInnerConnection().getControlPoints().stream()
-									.map(p -> new Point(p.x - dx, p.y - dy))
-									.collect(Collectors.toList()));
-						}
-					} else if (moveBendpointIndex != null) {
-						// TODO: Need to detect that it is over another bendpoint
-						// TODO; Delete. Must check that both are tied to same connection and are adjacent.
-
-						final BaseConnectionNode c = activeConnectionPointHandle.getSceneNode();
-						final Connection ic = c.getInnerConnection();
-						final Point2D newPoint = getPoint2D(e, ic);
-
-						// TODO: Avoid switching back and forth between GEF and JavaFX types unnecessarily.
-						// final Point newPoint = new Point(p.getX(), p.getY());
-
-						// TODO: Cleanup. Rename. Adjust types.... Check
-						final List<Point> points3 = ic.getPointsUnmodifiable();
-						final ArrayList<org.eclipse.gef.geometry.planar.Point> points2 = new ArrayList<>(
-								ic.getControlPoints().size() + 2); // TODO
-						points2.add(points3.get(0));
-						points2.addAll(ic.getControlPoints());
-						points2.add(points3.get(points3.size() - 1));
-
-						// TODO: Need to track whether point exists or not
-						// TODO: Add point if it doesn't exist and it should
-						// TODO; Remove point if it does exist and shouldn't
-
-						// TODO: When checking.. need to consider start and stop position. Aren't we creating such a list somewhere else?
-
-						// TODO: Need to rework function to check if point is close to line between previous and next point
-
-						// TODO: Use a different threshold for adding than removing. Adjust number.. That would avoid jitter?
-
-						final boolean remove = pointExists && distanceToLineSegment(points2, moveBendpointIndex,
-								moveBendpointIndex + 2, newPoint) <= 2;
-						final boolean add = !pointExists && distanceToLineSegment(points2, moveBendpointIndex,
-								moveBendpointIndex + 1, newPoint) >= 15;
-
-						if (remove) {
-							c.getInnerConnection().removeControlPoint(moveBendpointIndex);
-
-							pointExists = false;
-						} else if (add) {
-							// TODO: Can avoid creating point at other location? If that's the case... may be able to handle creation
-							// and moving the same?
-							final List<org.eclipse.gef.geometry.planar.Point> bendpoints = ic.getControlPoints(); // TODO: Same as cps. Avoid
-							final Point newGefPoint = FX2Geometry.toPoint(newPoint);
-							bendpoints.add(moveBendpointIndex, newGefPoint);
-							ic.setControlPoints(bendpoints);
-
-							pointExists = true;
-						} else if (pointExists) {
-							final Point newGefPoint = FX2Geometry.toPoint(newPoint);
-							ic.setControlPoint(moveBendpointIndex, newGefPoint);
-						}
-					}
+		canvas.addEventFilter(MouseEvent.MOUSE_PRESSED, handleInput);
+		canvas.addEventFilter(MouseEvent.MOUSE_DRAGGED, handleInput);
+		canvas.addEventFilter(MouseEvent.MOUSE_RELEASED, handleInput);
+		canvas.addEventFilter(KeyEvent.KEY_PRESSED, handleInput);
+		canvas.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
+			Cursor cursor = Cursor.DEFAULT;
+			for (final InputEventHandler inputEventHandler : inputEventHandlers) {
+				final Cursor overrideCursor = inputEventHandler.getCursor(e);
+				if (overrideCursor != null) {
+					cursor = overrideCursor;
+					break;
 				}
 			}
+
+			canvas.setCursor(cursor);
+
+			handleInput.handle(e);
 		});
 
-		canvas.addEventFilter(MouseEvent.MOUSE_RELEASED, e -> {
-			if (e.getButton() == MouseButton.PRIMARY) {
-				if (activeConnectionPointHandle != null) {
-					final BaseConnectionNode sn = activeConnectionPointHandle.getSceneNode(); // TODO: Rename
-					// TODO: This assume diagram is at the root..
-					final Transform t = sn.getLocalToSceneTransform(); // TODO: rename
-					try {
-						final Transform t2 = gefDiagram.getSceneNode().getLocalToSceneTransform().createInverse();
-						final Transform t3 = t2.createConcatenation(t); // TODO: Consider
-
-						diagram.modify("Update Control Point", m -> {
-							final DiagramElement diagramElementToModify = gefDiagram.getDiagramElement(sn);
-							if (diagramElementToModify == null) {
-								// TODO
-							}
-
-							m.setBendpoints(diagramElementToModify,
-									sn.getInnerConnection().getControlPoints().stream().map(p -> {
-								// TODO: Rename
-								// TODO; Must consider position of node too
-								final Point2D transformedPoint = t3.transform(p.x, p.y);
-								return new org.osate.ge.graphics.Point(transformedPoint.getX(),
-										transformedPoint.getY());
-							}).collect(Collectors.toList()));
-
-							if (sn instanceof FlowIndicatorNode) {
-								// TODO: use helper function to convert to GE Point
-								final Point2D newPosition = PreferredPosition.get(sn);
-								m.setPosition(diagramElementToModify, newPosition == null ? null
-										: new org.osate.ge.graphics.Point(newPosition.getX(), newPosition.getY()));
-							}
-						});
-
-					} catch (NonInvertibleTransformException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-						// TODO
-					}
-
-					resetOperationState();
-				}
-
-				// TODO: Is this sufficient to reset that state?
-				opInProgress = false;
-			}
-		});
-
-		canvas.setFocusTraversable(true); // TODO: Understand
-		canvas.addEventFilter(KeyEvent.KEY_PRESSED, e -> {
-			if (e.getCode() == KeyCode.ESCAPE) {
-				cancelCurrentOperation();
-			}
-		});
-	}
-
-	// TODO: Rename
-	// TODO: Doesn't set "in progress" flag. That needs to be maintain to supressed menus
-	private void resetOperationState() {
-		if (activeConnectionPointHandle != null && !activeConnectionPointHandle.isVisible()) {
-			// TODO
-			((Group) activeConnectionPointHandle.getParent()).getChildren().remove(activeConnectionPointHandle);
-		}
-
-		activeConnectionPointHandle = null;
-		moveBendpointIndex = null;
-	}
-
-	// TODO: Rename
-	private void cancelCurrentOperation() {
-		if (activeConnectionPointHandle != null) {
-			resetOperationState();
-
-			canvas.setCursor(Cursor.DEFAULT);
-
-			System.err.println("RESET"); // TODO
-
-			// TODO; Update scene graph based on diagram element
-			// TODO: A bit heavy but should be reliable
-			gefDiagram.updateSceneGraph();
-		}
-	}
-
-	// TODO; Use GEF Vector?
-	// TODO: Document source: http://geomalgorithms.com/a02-_lines.html
-	private double distanceToLineSegment(Point2D p, Point2D segmentStart, Point2D segmentEnd) {
-		// TODO; Document
-		final Point2D v = segmentEnd.subtract(segmentStart);
-		final Point2D w = p.subtract(segmentStart);
-
-		final double c1 = w.dotProduct(v);
-
-		// Before segment start
-		if (c1 <= 0.0) {
-			return p.distance(segmentStart);
-		}
-
-		final double c2 = v.dotProduct(v); // TODO: Understand
-		// After segment end
-		if (c2 <= c1) {
-			return p.distance(segmentEnd);
-		}
-
-		final double b = c1 / c2;
-		final Point2D pb = segmentStart.add(b * v.getX(), b * v.getY());
-		return pb.distance(p);
-	}
-
-	// TODO: Rename, etc. Reorder
-	private double distanceToLineSegment(final List<Point> cps, int segmentStartIndex, int segmentEndIndex,
-			Point2D ref) {
-		if (segmentStartIndex < 0 || segmentStartIndex >= cps.size()) {
-			return Double.POSITIVE_INFINITY;
-		}
-
-		if (segmentEndIndex < 0 || segmentEndIndex >= cps.size()) {
-			return Double.POSITIVE_INFINITY;
-		}
-
-		final Point2D segmentStart = Geometry2FX.toFXPoint(cps.get(segmentStartIndex));
-		final Point2D segmentEnd = Geometry2FX.toFXPoint(cps.get(segmentEndIndex));
-		return distanceToLineSegment(ref, segmentStart, segmentEnd);
-	}
-
-	// TODO: Rename and cleanup. Gets it relative to specified node
-	private Point2D getPoint2D(MouseEvent e, Node relative) {
-		try {
-			final Point2D p = relative.getLocalToSceneTransform().createInverse().transform(e.getSceneX(),
-					e.getSceneY());
-			return p;
-		} catch (NonInvertibleTransformException ex) {
-			throw new AgeGefRuntimeException(ex);
-		}
-	}
-
-	// TODO: These shoudl be permenantly group
-	// TODO: this should be a move bendpoint active action or something? Could be used for moving and creating. Although, distinguishing
-	// creation allows aboring the whole thing.. Decide exactly what needs to be stored
-	private ConnectionPointHandle activeConnectionPointHandle;
-	private Integer moveBendpointIndex = null; // TODO: Can fetch from connection point? What about end point/position. Will need a way to idneify that
-	private boolean pointExists = false; // TODO; Rename
-	private boolean opInProgress = false; // TODO: Rename and move. Use this in more places?
-
-	/**
-	 * If the event target is a {@link Node}, walks up the scene graph and returns the first {@link DiaramElement} associated with the node
-	 * or ancestors.
-	 * @param target the event target. Returns null if the event target is not a {@link Node}
-	 * @return the closest diagram element to the event target. Returns null if the event target is a null.
-	 */
-	private DiagramElement getClosestDiagramElement(final EventTarget target) {
-		if (!(target instanceof Node)) {
-			return null;
-		}
-
-		for (Node tmp = (Node) target; tmp != null; tmp = tmp.getParent()) {
-			final DiagramElement de = gefDiagram.getDiagramElement(tmp);
-			if (de != null) {
-				return de;
-			}
-		}
-
-		return null;
+		// Create input event handlers
+		inputEventHandlers.add(new MarqueeInputEventHandler(paletteModel));
+		inputEventHandlers.add(new MoveConnectionPointTool());
+		inputEventHandlers.add(new SelectInputEventHandler(paletteModel, selectionProvider));
+		inputEventHandlers.add(new PaletteCommandInputEventHandler(paletteModel));
 	}
 
 	public final DoubleProperty zoomProperty() {
@@ -1166,7 +872,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 	/**
 	 * Sets the zoom level
-	 * @param value the zoom level. In order for incremental zooming to work, the zoom level must be a valuecontained in {@link #ZOOM_LEVELS}
+	 * @param value the zoom level. In order for incremental zooming to work, the zoom level must be a value contained in {@link #ZOOM_LEVELS}
 	 */
 	public void setZoom(final double value) {
 		zoom.set(value);

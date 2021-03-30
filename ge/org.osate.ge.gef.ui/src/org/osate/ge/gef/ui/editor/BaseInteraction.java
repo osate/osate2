@@ -21,49 +21,31 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.ui.editor.overlays;
+package org.osate.ge.gef.ui.editor;
 
-import org.osate.ge.gef.BaseConnectionNode;
-import org.osate.ge.internal.diagram.runtime.DiagramElement;
-
-import javafx.scene.shape.Circle;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.MouseEvent;
 
 /**
- * Handle for modifying points associated with a connection.
+ * Base class for interactions. Provides dedicated functions to be overridden for specific event types.
  */
-public class ConnectionPointHandle extends Circle implements Handle {
-	private final DiagramElement diagramElement;
-	private final BaseConnectionNode sceneNode;
-
-	/**
-	 * Creates a new instance
-	 * @param diagramElement the element which the handle is used to modify.
-	 * @param sceneNode the scene node being modified.
-	 * @param primary whether the handle is associated with the primary selection
-	 * @param radius is the radius of the handle
-	 */
-	public ConnectionPointHandle(final DiagramElement diagramElement, final BaseConnectionNode sceneNode,
-			final boolean primary, final double radius) {
-		super(radius, primary ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
-				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
-		this.diagramElement = diagramElement;
-		this.sceneNode = sceneNode;
-		setStroke(OverlayColors.HANDLE_COLOR);
-		setStrokeWidth(1.0);
-	}
-
+public abstract class BaseInteraction implements Interaction {
 	@Override
-	public final DiagramElement getDiagramElement() {
-		return diagramElement;
+	public final InteractionState handleEvent(InputEvent e) {
+		if (e.getEventType() == MouseEvent.MOUSE_DRAGGED) {
+			return onMouseDragged((MouseEvent) e);
+		} else if (e.getEventType() == MouseEvent.MOUSE_RELEASED) {
+			return onMouseReleased((MouseEvent) e);
+		}
+
+		return InteractionState.IN_PROGRESS;
 	}
 
-	public BaseConnectionNode getSceneNode() {
-		return sceneNode;
+	protected Interaction.InteractionState onMouseDragged(final MouseEvent e) {
+		return InteractionState.IN_PROGRESS;
 	}
 
-	@Override
-	public final void setPrimary(final boolean value) {
-		setFill(value ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
-				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
+	protected Interaction.InteractionState onMouseReleased(final MouseEvent e) {
+		return InteractionState.IN_PROGRESS;
 	}
 }

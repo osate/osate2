@@ -32,9 +32,7 @@ import java.util.Map.Entry;
 import java.util.function.Function;
 
 import org.eclipse.gef.fx.nodes.Connection;
-import org.eclipse.gef.fx.nodes.GeometryNode;
 import org.eclipse.gef.geometry.euclidean.Vector;
-import org.eclipse.gef.geometry.planar.IGeometry;
 import org.eclipse.gef.geometry.planar.Point;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -45,10 +43,12 @@ import org.osate.ge.gef.ContainerShape;
 import org.osate.ge.gef.DockedShape;
 import org.osate.ge.gef.FlowIndicatorNode;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 
 import com.google.common.collect.ImmutableMap;
 
 import javafx.beans.InvalidationListener;
+import javafx.beans.WeakInvalidationListener;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
@@ -56,7 +56,6 @@ import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Transform;
 
@@ -85,9 +84,12 @@ public class Overlays extends Group implements ISelectionChangedListener {
 		refresh(event.getStructuredSelection());
 	}
 
-	// This should be called by the editor whenever a change could affect the overlay.
-	// Specifically, it needs to be called whenever the diagram changes. Connection diagram elements may change to shapes and vice versa
-	// which would cause the nodes to change without changing the selected diagram elements.
+	/** Refreshes the overlays based on the current selection
+	 * This should be called by the editor whenever a change could affect the overlay.
+	 * Specifically, it needs to be called whenever the diagram changes. Connection diagram elements may change to shapes and vice versa
+	 * which would cause the nodes to change without changing the selected diagram elements.
+	 * @param selection the current selection.
+	 */
 	@SuppressWarnings("unchecked")
 	public void refresh(final IStructuredSelection selection) {
 		Display.getCurrent().asyncExec(() -> {
@@ -95,11 +97,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 					.builderWithExpectedSize(selection.size());
 
 			final ArrayList<DiagramElement> selectedDiagramElements = selectionToDiagramElements(selection);
-			// TODO; Filter out those without nodes?
 
-			// TODO: Handle nodes being different for same diagram element...
-
-			// TODO: Copy over
 			// Add existing selected node overlays for selected diagram elements to new map.
 			for (final Entry<DiagramElement, SelectedNodeOverlay> existingEntry : diagramElementToSelectedNodeOverlayMap
 					.entrySet()) {
@@ -135,7 +133,6 @@ public class Overlays extends Group implements ISelectionChangedListener {
 				}
 			}
 
-			// TODO: Rename
 			diagramElementToSelectedNodeOverlayMap = newDiagramElementToSelectedNodeOverlayMapBuilder.build();
 
 			// Update children to reflect the new nodes.
@@ -159,7 +156,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 	 * Interface shared by shape and connection overlays
 	 */
 	public static interface SelectedNodeOverlay {
-		Node getSelectedNode(); // TODO: Rename
+		Node getSelectedNode();
 
 		void setPrimary(boolean primary);
 	}
@@ -181,9 +178,9 @@ public class Overlays extends Group implements ISelectionChangedListener {
 		private Rectangle selectionIndicatorRect;
 		private List<DoubleBinding> handleBindings = new ArrayList<>(16);
 
-		// TODO: Document all parameters
 		/**
 		 * Creates a new instance.
+		 * @param de is the diagram element which is represented by the selected node.
 		 * @param selectedNode the node for which this instance is an overlay
 		 * @param primary whether the selected node is the primary selection
 		 */
@@ -264,45 +261,48 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			selectionIndicatorRect.yProperty().bind(selectionIndicatorYBinding);
 			selectionIndicator.getChildren().add(selectionIndicatorRect);
 
-			// Create resize handles
-			// TODO: Rename hv
-			for (final Vector hv : resizeShapeDirections) {
-				// Create the resize handle
-				final ResizeShapeHandle handle = new ResizeShapeHandle(de, hv, primary);
-				selectionIndicator.getChildren().add(handle);
+			if (DiagramElementPredicates.isResizeable(de)) {
+				// Create resize handles
+				for (final Vector resizeDirection : resizeShapeDirections) {
+					// Create the resize handle
+					final ResizeShapeHandle handle = new ResizeShapeHandle(de, resizeDirection, primary);
+					selectionIndicator.getChildren().add(handle);
 
-				// Create handle position bindings
-				final DoubleBinding xBinding = new DoubleBinding() {
-					{
-						bind(selectedNode.layoutBoundsProperty());
-					}
+					// Create handle position bindings
+					final DoubleBinding xBinding = new DoubleBinding() {
+						{
+							bind(selectedNode.layoutBoundsProperty());
+						}
 
-					@Override
-					protected double computeValue() {
-						final Bounds selectedBounds = selectedNode.layoutBoundsProperty().get();
-						final double halfWidth = selectedBounds.getWidth() / 2.0;
-						return selectedBounds.getMinX() + halfWidth + (halfWidth * hv.x) - (handle.getWidth() / 2.0);
-					}
-				};
-				final DoubleBinding yBinding = new DoubleBinding() {
-					{
-						bind(selectedNode.layoutBoundsProperty());
-					}
+						@Override
+						protected double computeValue() {
+							final Bounds selectedBounds = selectedNode.layoutBoundsProperty().get();
+							final double halfWidth = selectedBounds.getWidth() / 2.0;
+							return selectedBounds.getMinX() + halfWidth + (halfWidth * resizeDirection.x)
+									- (handle.getWidth() / 2.0);
+						}
+					};
+					final DoubleBinding yBinding = new DoubleBinding() {
+						{
+							bind(selectedNode.layoutBoundsProperty());
+						}
 
-					@Override
-					protected double computeValue() {
-						final Bounds selectedBounds = selectedNode.layoutBoundsProperty().get();
-						final double halfHeight = selectedBounds.getHeight() / 2.0;
-						return selectedBounds.getMinY() + halfHeight + (halfHeight * hv.y) - (handle.getHeight() / 2.0);
-					}
-				};
+						@Override
+						protected double computeValue() {
+							final Bounds selectedBounds = selectedNode.layoutBoundsProperty().get();
+							final double halfHeight = selectedBounds.getHeight() / 2.0;
+							return selectedBounds.getMinY() + halfHeight + (halfHeight * resizeDirection.y)
+									- (handle.getHeight() / 2.0);
+						}
+					};
 
-				handle.xProperty().bind(xBinding);
-				handle.yProperty().bind(yBinding);
+					handle.xProperty().bind(xBinding);
+					handle.yProperty().bind(yBinding);
 
-				// Store bindings to avoid garbage collection
-				handleBindings.add(xBinding);
-				handleBindings.add(yBinding);
+					// Store bindings to avoid garbage collection
+					handleBindings.add(xBinding);
+					handleBindings.add(yBinding);
+				}
 			}
 		}
 
@@ -313,7 +313,6 @@ public class Overlays extends Group implements ISelectionChangedListener {
 
 		@Override
 		public void setPrimary(boolean value) {
-			// TODO: Share with other
 			for (final Node child : selectionIndicator.getChildren()) {
 				if (child instanceof Handle) {
 					((Handle) child).setPrimary(value);
@@ -329,12 +328,20 @@ public class Overlays extends Group implements ISelectionChangedListener {
 		private final DiagramElement diagramElement;
 		private BaseConnectionNode selectedNode;
 		private boolean primary;
-		private final Group selectionIndicatorContainer = new Group(); // TODO: Rename?
+		private final Group handles = new Group();
 
-		// TODO: Document all parameters
+		/**
+		 * Connection points. Strong reference is stored to ensure events are freed.
+		 */
+		private final ObservableList<Point> connectionPoints;
+		private InvalidationListener invalidationListener = (InvalidationListener) c ->
+		{
+			updateSelectionIndicator(selectedNode);
+		};
 
 		/**
 		 * Creates a new instance.
+		 * @param de is the diagram element which is represented by the selected node.
 		 * @param selectedNode the node for which this instance is an overlay
 		 * @param primary whether the selected node is the primary selection
 		 */
@@ -344,13 +351,13 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			this.selectedNode = selectedNode;
 			this.primary = primary;
 			setAutoSizeChildren(false);
-			selectionIndicatorContainer.setAutoSizeChildren(false);
-			getChildren().add(selectionIndicatorContainer);
+			handles.setAutoSizeChildren(false);
+			getChildren().add(handles);
 
 			// Update transform on changes
 			final ChangeListener<? super Transform> transformUpdater = ((o, oldTransform, newTransform) -> {
 				try {
-					selectionIndicatorContainer.getTransforms().setAll(getLocalToSceneTransform().createInverse()
+					handles.getTransforms().setAll(getLocalToSceneTransform().createInverse()
 							.createConcatenation(selectedNode.getLocalToSceneTransform()));
 				} catch (final NonInvertibleTransformException e) {
 					throw new RuntimeException(e);
@@ -361,91 +368,56 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			selectedNode.localToSceneTransformProperty().addListener(transformUpdater);
 
 			// Update the selection indicator whenever the curve changes
-			// TODO: Need wrapper instead of inner connection?
 			selectedNode.getInnerConnection().curveProperty().addListener((o, oldCurve, newCurve) -> {
 				updateSelectionIndicator(selectedNode);
 			});
 
-			// TODO: Need wrapper instead of inner connection?
-			points = selectedNode.getInnerConnection().getPointsUnmodifiable();
-			points.addListener(invalidationListener);
+			connectionPoints = selectedNode.getInnerConnection().getPointsUnmodifiable();
+			connectionPoints.addListener(new WeakInvalidationListener(invalidationListener));
 
 			updateSelectionIndicator(selectedNode);
 		}
 
-		private final ObservableList<Point> points; // TODO: Must hold on to this or events stop.
-
-		// TODO; Event is called three times for each bendpoint move...
-
-		// TODO; WOuld it be possible to bind the points of the connection to the selected node?
-		private InvalidationListener invalidationListener = (InvalidationListener) c -> {
-			updateSelectionIndicator(selectedNode);
-		};
-
 		private void updateSelectionIndicator(final BaseConnectionNode selectedNode) {
 			// Only remove visible children. Invisible children are retained and will be removed by whatever set them to invisible.
 			// This is important to ensure events are received while dragging.
-			selectionIndicatorContainer.getChildren().removeIf(n -> n.isVisible());
+			handles.getChildren().removeIf(n -> n.isVisible());
 
-			// TODO; Consider removing. Lag in update isn't as noticeable if the indicator isn't used
 			// Create new selection indicator
 			final Connection c = selectedNode.getInnerConnection();
-			final Node curve = c.getCurve();
-			if (curve instanceof GeometryNode) {
-				final GeometryNode<?> gn = (GeometryNode<?>) curve;
-				final IGeometry g = gn.getGeometry();
-				final IGeometry copy = g.getCopy();
-				final GeometryNode<IGeometry> selectionIndicator = new GeometryNode<IGeometry>(copy);
-				selectionIndicator.setStroke(OverlayColors.SELECTION_INDICATOR_COLOR);
-				selectionIndicator.setStrokeWidth(4.0);
-				selectionIndicator.setStrokeLineCap(StrokeLineCap.BUTT);
-				// selectionIndicatorContainer.getChildren().add(selectionIndicator);
-			}
 
 			// Create handles for control points
-			// TODO; Rename/Cleanup
-			final List<Point> points3 = c.getPointsUnmodifiable();
-			final ArrayList<org.eclipse.gef.geometry.planar.Point> points2 = new ArrayList<>(
-					c.getControlPoints().size() + 2); // TODO
-			points2.add(points3.get(0));
-			points2.addAll(c.getControlPoints());
-			points2.add(points3.get(points3.size() - 1));
-
-			for (int i = 1; i < points2.size(); i++) {
-				final org.eclipse.gef.geometry.planar.Point prev = points2.get(i - 1);
-				final org.eclipse.gef.geometry.planar.Point p = points2.get(i);
+			final List<Point> controlPoints = c.getControlPoints();
+			for (int controlPointIndex = 0; controlPointIndex < controlPoints.size(); controlPointIndex++) {
+				final org.eclipse.gef.geometry.planar.Point prev = controlPointIndex == 0 ? controlPoints.get(0)
+						: controlPoints.get(controlPointIndex - 1);
+				final org.eclipse.gef.geometry.planar.Point p = controlPoints.get(controlPointIndex);
 				final org.eclipse.gef.geometry.planar.Point mid = new Point((prev.x + p.x) / 2.0, (prev.y + p.y) / 2.0);
 
-				// Bendpoint Handle
-				// TODO
-				if (i < points2.size() - 1) {
-					final BendpointHandle bendpointHandle = new BendpointHandle(diagramElement, selectedNode, primary,
-							i - 1);
-					bendpointHandle.setCenterX(p.x);
-					bendpointHandle.setCenterY(p.y);
-					selectionIndicatorContainer.getChildren().add(bendpointHandle);
-				}
+				// Create a handle for the control point
+				final ControlPointHandle controlPointHandle = new ControlPointHandle(diagramElement, selectedNode,
+						primary, controlPointIndex);
+				controlPointHandle.setCenterX(p.x);
+				controlPointHandle.setCenterY(p.y);
+				handles.getChildren().add(controlPointHandle);
 
-				// Create handle
-				final CreateBendpointHandle createBendpointHandle = new CreateBendpointHandle(diagramElement,
-						selectedNode, primary, i - 1);
-				createBendpointHandle.setCenterX(mid.x);
-				createBendpointHandle.setCenterY(mid.y);
-				selectionIndicatorContainer.getChildren().add(createBendpointHandle);
+				// Create handle for creating new control points
+				final CreateControlPointHandle createControlPointHandle = new CreateControlPointHandle(diagramElement,
+						selectedNode, primary, controlPointIndex);
+				createControlPointHandle.setCenterX(mid.x);
+				createControlPointHandle.setCenterY(mid.y);
+				handles.getChildren().add(createControlPointHandle);
 			}
 
 			// Create handle for flow indicator position
 			if (selectedNode instanceof FlowIndicatorNode) {
-				// TODO
 				final FlowIndicatorPositionHandle handle = new FlowIndicatorPositionHandle(diagramElement,
-						(FlowIndicatorNode) selectedNode,
-						primary);
-				final org.eclipse.gef.geometry.planar.Point p = points2.get(points2.size() - 1); // TODO: Is this always the last?
+						(FlowIndicatorNode) selectedNode, primary);
+				final org.eclipse.gef.geometry.planar.Point p = connectionPoints.get(connectionPoints.size() - 1);
 				handle.setCenterX(p.x);
 				handle.setCenterY(p.y);
-				selectionIndicatorContainer.getChildren().add(handle);
+				handles.getChildren().add(handle);
 			}
-
 		}
 
 		@Override
@@ -455,9 +427,12 @@ public class Overlays extends Group implements ISelectionChangedListener {
 
 		@Override
 		public void setPrimary(boolean value) {
-			for (final Node child : selectionIndicatorContainer.getChildren()) {
-				if (child instanceof Handle) {
-					((Handle) child).setPrimary(value);
+			if (this.primary != value) {
+				this.primary = value;
+				for (final Node child : handles.getChildren()) {
+					if (child instanceof Handle) {
+						((Handle) child).setPrimary(value);
+					}
 				}
 			}
 		}

@@ -21,49 +21,52 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.ui.editor.overlays;
 
-import org.osate.ge.gef.BaseConnectionNode;
+package org.osate.ge.gef.ui.editor;
+
+import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
+import org.osate.ge.gef.ui.editor.overlays.Handle;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
-import javafx.scene.shape.Circle;
+import javafx.scene.Cursor;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 
 /**
- * Handle for modifying points associated with a connection.
+ *  {@link InputEventHandler} for marquee selection.
  */
-public class ConnectionPointHandle extends Circle implements Handle {
-	private final DiagramElement diagramElement;
-	private final BaseConnectionNode sceneNode;
+public class MarqueeInputEventHandler implements InputEventHandler {
+	private final AgeEditorPaletteModel paletteModel;
 
-	/**
-	 * Creates a new instance
-	 * @param diagramElement the element which the handle is used to modify.
-	 * @param sceneNode the scene node being modified.
-	 * @param primary whether the handle is associated with the primary selection
-	 * @param radius is the radius of the handle
-	 */
-	public ConnectionPointHandle(final DiagramElement diagramElement, final BaseConnectionNode sceneNode,
-			final boolean primary, final double radius) {
-		super(radius, primary ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
-				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
-		this.diagramElement = diagramElement;
-		this.sceneNode = sceneNode;
-		setStroke(OverlayColors.HANDLE_COLOR);
-		setStrokeWidth(1.0);
+	public MarqueeInputEventHandler(final AgeEditorPaletteModel paletteModel) {
+		this.paletteModel = paletteModel;
 	}
 
 	@Override
-	public final DiagramElement getDiagramElement() {
-		return diagramElement;
-	}
-
-	public BaseConnectionNode getSceneNode() {
-		return sceneNode;
+	public Cursor getCursor(MouseEvent mouseMoveEvent) {
+		// TODO: Check to ensure it's not a scrollbar
+		return paletteModel.isMarqueeToolActive() ? Cursor.CROSSHAIR : null;
 	}
 
 	@Override
-	public final void setPrimary(final boolean value) {
-		setFill(value ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
-				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
+	public HandledEvent handleEvent(GefAgeDiagram gefDiagram, InputEvent e) {
+		if (e.getEventType() != MouseEvent.MOUSE_PRESSED || ((MouseEvent) e).getButton() != MouseButton.PRIMARY) {
+			return null;
+		}
+
+		final DiagramElement clickedDiagramElement = InputEventHandlerUtil.getClosestDiagramElement(gefDiagram,
+				e.getTarget());
+		if (paletteModel.isMarqueeToolActive()
+				|| (paletteModel.isSelectToolActive() && clickedDiagramElement == null
+						&& !(e.getTarget() instanceof Handle))) {
+			// TODO: Need to ensure that this isn't fired when using the scrollbar
+			System.err.println("START MARQUEE");
+
+			// TODO: Create interaction
+			return HandledEvent.handled();
+		}
+
+		return null;
 	}
 }

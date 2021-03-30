@@ -26,44 +26,30 @@ package org.osate.ge.gef.ui.editor.overlays;
 import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
-import javafx.scene.shape.Circle;
-
 /**
- * Handle for modifying points associated with a connection.
+ * Handle used to create a new control point
  */
-public class ConnectionPointHandle extends Circle implements Handle {
-	private final DiagramElement diagramElement;
-	private final BaseConnectionNode sceneNode;
+public class CreateControlPointHandle extends ConnectionPointHandle {
+	private final int insertionIndex;
 
 	/**
 	 * Creates a new instance
 	 * @param diagramElement the element which the handle is used to modify.
 	 * @param sceneNode the scene node being modified.
 	 * @param primary whether the handle is associated with the primary selection
-	 * @param radius is the radius of the handle
+	 * @param insertionIndex is the index at which to insert the control point.
 	 */
-	public ConnectionPointHandle(final DiagramElement diagramElement, final BaseConnectionNode sceneNode,
-			final boolean primary, final double radius) {
-		super(radius, primary ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
-				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
-		this.diagramElement = diagramElement;
-		this.sceneNode = sceneNode;
-		setStroke(OverlayColors.HANDLE_COLOR);
-		setStrokeWidth(1.0);
+	public CreateControlPointHandle(final DiagramElement diagramElement, final BaseConnectionNode sceneNode,
+			final boolean primary, final int insertionIndex) {
+		super(diagramElement, sceneNode, primary, 2.5);
+		this.insertionIndex = insertionIndex;
 	}
 
-	@Override
-	public final DiagramElement getDiagramElement() {
-		return diagramElement;
-	}
-
-	public BaseConnectionNode getSceneNode() {
-		return sceneNode;
-	}
-
-	@Override
-	public final void setPrimary(final boolean value) {
-		setFill(value ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
-				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
+	/**
+	 * The index at which to insert the control point
+	 * @return the index at which to insert the control point
+	 */
+	public int getInsertionIndex() {
+		return insertionIndex;
 	}
 }

@@ -28,13 +28,16 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Handle used to resize a shape
+ */
 class ResizeShapeHandle extends Rectangle implements Handle {
 	private final DiagramElement diagramElement;
 	private Vector direction;
 
-	// TODO: Diagram element
 	/**
 	 * Creates a new instance
+	 * @param diagramElement the diagram element which is resized using the handle.
 	 * @param direction is a vector indicating the direction to allow resizing. For example (-1, 1) would allow moving the shape to the left and increasing the height.
 	 * @param primary whether the selected shape is the primary selection.
 	 */

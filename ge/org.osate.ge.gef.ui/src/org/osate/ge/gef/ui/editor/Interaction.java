@@ -21,23 +21,32 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.ui.editor.overlays;
+package org.osate.ge.gef.ui.editor;
 
-import org.osate.ge.gef.BaseConnectionNode;
-import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import javafx.scene.input.InputEvent;
 
-// TODO: Document
-public class CreateBendpointHandle extends ConnectionPointHandle {
-	private final int insertionIndex;
-
-	public CreateBendpointHandle(final DiagramElement diagramElement, final BaseConnectionNode sceneNode,
-			final boolean primary, final int insertionIndex) {
-		super(diagramElement, sceneNode, primary, 3.0);
-		this.insertionIndex = insertionIndex;
+/**
+ * An interaction handles a series of events. {@link InputEventHandler} instances create interactions in response to events.
+ */
+public interface Interaction {
+	/**
+	 * The state of the interaction.
+	 */
+	enum InteractionState {
+		IN_PROGRESS,
+		COMPLETE
 	}
 
-	// TODO
-	public int getInsertionIndex() {
-		return insertionIndex;
-	}
+	/**
+	 * Handles an input event.
+	 * @param e the input event to handle.
+	 * @return the new state of the interaction. Should return {@link InteractionState#COMPLETE} when the final event for the interaction has been handled.
+	 */
+	InteractionState handleEvent(final InputEvent e);
+
+	/**
+	 * Aborts the interaction and updates the scene graph to the original state.
+	 */
+	void abort();
 }
+

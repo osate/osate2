@@ -26,44 +26,26 @@ package org.osate.ge.gef.ui.editor.overlays;
 import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
-import javafx.scene.shape.Circle;
-
 /**
- * Handle for modifying points associated with a connection.
+ * Handle for moving a control point
  */
-public class ConnectionPointHandle extends Circle implements Handle {
-	private final DiagramElement diagramElement;
-	private final BaseConnectionNode sceneNode;
+public class ControlPointHandle extends ConnectionPointHandle {
+	private final int controlPointIndex;
 
 	/**
 	 * Creates a new instance
 	 * @param diagramElement the element which the handle is used to modify.
 	 * @param sceneNode the scene node being modified.
 	 * @param primary whether the handle is associated with the primary selection
-	 * @param radius is the radius of the handle
+	 * @param controlPointIndex the index of the control point to modify
 	 */
-	public ConnectionPointHandle(final DiagramElement diagramElement, final BaseConnectionNode sceneNode,
-			final boolean primary, final double radius) {
-		super(radius, primary ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
-				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
-		this.diagramElement = diagramElement;
-		this.sceneNode = sceneNode;
-		setStroke(OverlayColors.HANDLE_COLOR);
-		setStrokeWidth(1.0);
+	public ControlPointHandle(final DiagramElement diagramElement, final BaseConnectionNode sceneNode,
+			final boolean primary, int controlPointIndex) {
+		super(diagramElement, sceneNode, primary, 4.0);
+		this.controlPointIndex = controlPointIndex;
 	}
 
-	@Override
-	public final DiagramElement getDiagramElement() {
-		return diagramElement;
-	}
-
-	public BaseConnectionNode getSceneNode() {
-		return sceneNode;
-	}
-
-	@Override
-	public final void setPrimary(final boolean value) {
-		setFill(value ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
-				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
+	public int getControlPointIndex() {
+		return controlPointIndex;
 	}
 }

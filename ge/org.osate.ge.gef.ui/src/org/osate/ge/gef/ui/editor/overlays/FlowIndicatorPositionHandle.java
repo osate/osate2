@@ -26,11 +26,19 @@ package org.osate.ge.gef.ui.editor.overlays;
 import org.osate.ge.gef.FlowIndicatorNode;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
-// TODO: Document
+/**
+ * Handle used to move the flow indicator's position.
+ */
 public class FlowIndicatorPositionHandle extends ConnectionPointHandle {
+	/**
+	 * Creates a new instance
+	 * @param diagramElement the element which the handle is used to modify.
+	 * @param sceneNode the scene node being modified.
+	 * @param primary whether the handle is associated with the primary selection
+	 */
 	public FlowIndicatorPositionHandle(final DiagramElement diagramElement, final FlowIndicatorNode sceneNode,
 			final boolean primary) {
-		super(diagramElement, sceneNode, primary, 4.0); // TODO; Share constant with bendpoint handle?
+		super(diagramElement, sceneNode, primary, 4.0);
 	}
 
 	@Override
