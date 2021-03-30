@@ -60,7 +60,10 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	}
 
 	public static String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.condition";
-	public static String WIDGET_ID_ACTION_BLOCK = "org.osate.ge.ba.behaviortransition.action";
+	public static String WIDGET_ID_CONDITION_SAVE = WIDGET_ID_CONDITION + ".save";
+	public static String WIDGET_ID_ACTION_BLOCK = "org.osate.ge.ba.behaviortransition.actionblock";
+	public static String WIDGET_ID_ACTION_BLOCK_SAVE = WIDGET_ID_ACTION_BLOCK + ".save";
+
 	private Composite container;
 	private EmbeddedEditingControls conditionEditingControls;
 	private EmbeddedEditingControls actionBlockEditingControls;
@@ -194,6 +197,9 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			}
 		});
 
+		final Button saveBtn = conditionEditingControls.getSaveButton();
+		SwtUtil.setTestingId(saveBtn, WIDGET_ID_CONDITION_SAVE);
+
 		// Dispose of current adapter and create new one
 		conditionEditingControls.setXtextAdapter(project);
 		conditionEditingControls.updateAdapterDocument(conditionTextValue);
@@ -242,6 +248,9 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			}
 		});
 
+		final Button saveBtn = actionBlockEditingControls.getSaveButton();
+		SwtUtil.setTestingId(saveBtn, WIDGET_ID_ACTION_BLOCK_SAVE);
+
 		// Dispose of current adapter and create new one
 		actionBlockEditingControls.setXtextAdapter(project);
 		actionBlockEditingControls.updateAdapterDocument(actionTextValue);
@@ -285,6 +294,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			// Split action at new line character for formatting in styled text
 			final String[] actionTextSplit = src.substring(updateOffset, terminationOffset).split("\\n");
 			actionText = getTrimmedActionText(actionTextSplit);
+
 			suffix = src.substring(terminationOffset);
 		}
 
@@ -293,12 +303,12 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	}
 
 	private String getTrimmedActionText(final String[] actionTextSplit) {
-		// Strip starting text from each text line
-		final String regex = "^\\s+";
+		// Trim each line in action block
 		final StringBuilder actionTextBuilder = new StringBuilder();
-		for (final String s : actionTextSplit) {
-			actionTextBuilder.append(s.replaceAll(regex, ""));
+		for (final String actionText : actionTextSplit) {
+			actionTextBuilder.append(actionText.trim());
 		}
+
 		return actionTextBuilder.toString();
 	}
 

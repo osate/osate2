@@ -46,7 +46,6 @@ class EmbeddedModificationAction implements AgeAction {
 			final IXtextDocument xtextDocument, final XtextResource xtextResource,
 			final ModelChangeNotifier modelChangeNotifier, final IProject project, final String newText,
 			final EmbeddedTextValue textValue) {
-		this.xtextDocument = xtextDocument;
 		this.editingDomain = Objects.requireNonNull(editingDomain, "editingDomain cannot be null");
 		this.xtextResource = Objects.requireNonNull(xtextResource, "xtextResource cannot be null");
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
@@ -54,10 +53,11 @@ class EmbeddedModificationAction implements AgeAction {
 		this.work = Objects.requireNonNull(
 				createUpdateProcess(newText), "work cannot be null");
 		this.cmd = Objects.requireNonNull(createRecordingCommand(editingDomain, xtextResource), "cmd cannot be null");
+		this.xtextDocument = xtextDocument;
 		this.textValue = textValue;
 	}
 
-	public EmbeddedModificationAction(final TransactionalEditingDomain editingDomain,
+	private EmbeddedModificationAction(final TransactionalEditingDomain editingDomain,
 			final IXtextDocument xtextDocument, final XtextResource xtextResource,
 			final ModelChangeNotifier modelChangeNotifier, final IProject project, final String originalSource) {
 		this(editingDomain, xtextDocument, xtextResource, modelChangeNotifier, project, originalSource, null);
@@ -73,9 +73,8 @@ class EmbeddedModificationAction implements AgeAction {
 			public void process(final XtextResource state) throws Exception {
 				if (textValue != null) {
 					state.update(textValue.getUpdateOffset(), textValue.getUpdateLength(), newText);
-				} else {
-					// Replace text back to original state for undo
-					state.update(0, state.getParseResult().getRootNode().getLength(), newText);
+				} else { // Replace text back to original state for undo
+					state.reparse(newText);
 				}
 			}
 		};
@@ -116,7 +115,7 @@ class EmbeddedModificationAction implements AgeAction {
 		// Set action to restore original source text upon undo
 		return textValue == null ? null
 				: new EmbeddedModificationAction(editingDomain, xtextDocument, xtextResource, modelChangeNotifier,
-						project, textValue.getOriginalText(), null);
+						project, textValue.getOriginalText());
 	}
 
 	private void save() {

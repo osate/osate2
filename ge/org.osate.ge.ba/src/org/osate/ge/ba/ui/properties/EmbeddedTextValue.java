@@ -5,8 +5,8 @@ package org.osate.ge.ba.ui.properties;
  */
 class EmbeddedTextValue {
 	private final String wholeText;
-	private String prefix;
-	private String suffix;
+	private final String prefix;
+	private final String suffix;
 	private final int offset;
 	private final String editableText;
 	private int updateLength;
@@ -34,7 +34,6 @@ class EmbeddedTextValue {
 	}
 
 	int getUpdateLength() {
-		System.err.println(updateLength + " updateLength");
 		return updateLength;
 	}
 
@@ -64,14 +63,6 @@ class EmbeddedTextValue {
 
 	String getSuffix() {
 		return suffix;
-	}
-
-	public void setPrefix(final String prefix) {
-		this.prefix = prefix;
-	}
-
-	public void setSuffix(final String suffix) {
-		this.suffix = suffix;
 	}
 
 	void setUpdateLength(final int updateLength) {

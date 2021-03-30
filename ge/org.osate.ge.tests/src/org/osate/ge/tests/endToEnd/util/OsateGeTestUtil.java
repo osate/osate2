@@ -382,6 +382,17 @@ public class OsateGeTestUtil {
 	}
 
 	/**
+	 * Clicks the button with id in the properties view specified tab.
+	 */
+	public static void clickButtonInPropertiesViewWithId(final String tabLabel, final String btnId) {
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab(tabLabel);
+		clickButtonWithId(btnId);
+	}
+
+	/**
 	 * Waits until a list item exists
 	 */
 	public static void waitUntilListWithIdItemExists(final String id,
