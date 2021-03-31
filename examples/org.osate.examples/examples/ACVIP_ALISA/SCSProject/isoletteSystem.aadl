@@ -1,0 +1,28 @@
+package isoletteSystem
+public
+	with thermostat,heat_source, temperature_sensor, operator_interface;
+	-- top-level system enclosing the isolette elements
+system isoletteSystem
+end isoletteSystem;
+
+-- first-tier subcomponents and their connections
+system implementation isoletteSystem.impl
+	
+subcomponents
+  thermostat : system thermostat::thermostat_ss.impl;
+  temperature_sensor : device temperature_sensor::temperature_sensor_dev.impl;
+  heat_source : device heat_source::heat_source_dev.impl;
+  operator_interface : system operator_interface::operator_interface_ss.impl;
+  
+connections
+  current_temperature : port temperature_sensor.current_temperature -> thermostat.current_temperature {latency => 2ms..4ms;};
+  heat_control : port thermostat.heat_control -> heat_source.heat_control {latency => 5ms..6ms;};
+  operator_settings : port operator_interface.operator_settings -> thermostat.operator_settings {latency => 1ms..2ms;};
+  operator_feedback: port thermostat.operator_feedback -> operator_interface.operator_feedback {latency => 2ms..4ms;};
+  
+
+flows
+	path1 : end to end flow temperature_sensor.current_temperature_flow -> current_temperature -> thermostat.current_temperature_flow -> heat_control -> heat_source.heat_control_flow  {latency => 5ms..9ms;};
+
+end isoletteSystem.impl; 
+end isoletteSystem;

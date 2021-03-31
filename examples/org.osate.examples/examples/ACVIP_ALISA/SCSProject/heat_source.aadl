@@ -1,0 +1,15 @@
+package heat_source
+public
+	with isoletteDataModel;
+	
+device heat_source_dev
+	features 
+		heat_control : in data port isoletteDataModel::heat_control;
+	flows
+		heat_control_flow : flow sink heat_control;
+end heat_source_dev;
+		
+device implementation heat_source_dev.impl
+end heat_source_dev.impl;
+
+end heat_source;

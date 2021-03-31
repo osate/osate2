@@ -1,0 +1,20 @@
+package thermostat
+public
+	with isoletteDataModel;
+system thermostat_ss
+	
+	
+features
+	current_temperature : in data port isoletteDataModel::current_temperature;
+	operator_settings : in data port isoletteDataModel::operator_settings;
+	heat_control: out data port isoletteDataModel::heat_control;
+	operator_feedback: out data port isoletteDataModel::operator_feedback;
+	
+flows current_temperature_flow: flow path current_temperature -> heat_control;
+end thermostat_ss;
+
+system implementation thermostat_ss.impl
+		
+end thermostat_ss.impl;
+
+end thermostat;

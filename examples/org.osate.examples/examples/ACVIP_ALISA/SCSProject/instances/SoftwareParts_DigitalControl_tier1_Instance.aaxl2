@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" name="DigitalControl_tier1_Instance" category="system">
+  <componentInstance name="IO_Process" category="process">
+    <subcomponent xsi:type="aadl2:ProcessSubcomponent" href="../SoftwareParts.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedProcessSubcomponent.0"/>
+    <index>0</index>
+  </componentInstance>
+  <componentInstance name="Command_Process" category="process">
+    <subcomponent xsi:type="aadl2:ProcessSubcomponent" href="../SoftwareParts.aadl#/0/@ownedPublicSection/@ownedClassifier.1/@ownedProcessSubcomponent.1"/>
+    <index>0</index>
+  </componentInstance>
+  <systemOperationMode name="No Modes"/>
+  <componentImplementation xsi:type="aadl2:SystemImplementation" href="../SoftwareParts.aadl#SoftwareParts.DigitalControl.tier1"/>
+</instance:SystemInstance>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ASCII"?>
+<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="latency" message="AS-MF-DL-EQ-EQL">
+  <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#/"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787000"/>
+  <results message="Latency results for path1" resultType="FAILURE">
+    <values xsi:type="result:StringValue" value=""/>
+    <values xsi:type="result:RealValue" value="7.0"/>
+    <values xsi:type="result:RealValue" value="10.0"/>
+    <values xsi:type="result:RealValue"/>
+    <values xsi:type="result:RealValue"/>
+    <values xsi:type="result:RealValue" value="8.0"/>
+    <values xsi:type="result:RealValue" value="9.0"/>
+    <diagnostics diagnosticType="WARNING" message="Minimum specified flow latency total 0.000ms less than expected minimum end to end latency 8.00ms (better response time)">
+      <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics diagnosticType="WARNING" message="Minimum actual latency total 7.00ms less than expected minimum end to end latency 8.00ms (faster actual minimum response time)">
+      <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics diagnosticType="ERROR" message="Maximum actual latency total 10.0ms exceeds expected maximum end to end latency 9.00ms">
+      <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics diagnosticType="WARNING" message="Jitter of actual latency total 7.00..10.0ms exceeds expected end to end latency jitter 8.00..9.00ms">
+      <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="source current_temperature_flow"/>
+      <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#//@componentInstance.0"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue" value="4.0"/>
+      <values xsi:type="result:RealValue" value="2.0"/>
+      <values xsi:type="result:RealValue" value="4.0"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value=""/>
+      <diagnostics diagnosticType="INFO" message="Using specified min protocol latency subtotal 0.0 although specified connection latency 2.0 is greater">
+        <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#//@connectionInstance.0"/>
+      </diagnostics>
+      <diagnostics diagnosticType="INFO" message="Using max specified protocol latency subtotal 0.0 although specified connection latency 4.0 is greater">
+        <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#//@connectionInstance.0"/>
+      </diagnostics>
+      <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#//@connectionInstance.0"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="path current_temperature_flow"/>
+      <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#//@componentInstance.2"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue" value="5.0"/>
+      <values xsi:type="result:RealValue" value="6.0"/>
+      <values xsi:type="result:RealValue" value="5.0"/>
+      <values xsi:type="result:RealValue" value="6.0"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value=""/>
+      <diagnostics diagnosticType="INFO" message="Using specified min protocol latency subtotal 0.0 although specified connection latency 5.0 is greater">
+        <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#//@connectionInstance.1"/>
+      </diagnostics>
+      <diagnostics diagnosticType="INFO" message="Using max specified protocol latency subtotal 0.0 although specified connection latency 6.0 is greater">
+        <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#//@connectionInstance.1"/>
+      </diagnostics>
+      <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#//@connectionInstance.1"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="sink heat_control_flow"/>
+      <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#//@componentInstance.1"/>
+    </subResults>
+    <modelElement href="../../isoletteSystem_isoletteSystem_impl_Instance.aaxl2#//@endToEndFlow.0"/>
+  </results>
+</result:AnalysisResult>

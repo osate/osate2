@@ -1,0 +1,31 @@
+package IntegratedSCS
+public
+		with SoftwareParts, PhysicalParts; 
+
+  	system SCS -- sensor control system template
+  	
+  	end SCS;
+
+	system implementation SCS.singletier0
+		subcomponents
+	
+			ControlSystem: system;
+			sensor1: device;
+			sensor2: device;
+			actuator:device;
+		
+
+	end SCS.singletier0;
+	
+	system ControlSystem
+		
+	end ControlSystem;
+	
+	system implementation ControlSystem.singletier0
+		subcomponents
+			Software: system SoftwareParts::DigitalControl;
+			Hardware: system PhysicalParts::main_board;
+	end ControlSystem.singletier0;
+	
+
+end IntegratedSCS;

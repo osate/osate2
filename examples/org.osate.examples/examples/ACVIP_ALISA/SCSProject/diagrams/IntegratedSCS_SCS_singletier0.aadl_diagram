@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="a234ca50-f496-4a16-abf4-dd8b8d3b472b" manual="true">
+    <element uuid="42b99961-e659-4be6-89ab-2d1adbb84be7" manual="true">
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>actuator</seg>
+      </bo>
+      <position x="12.0" y="148.0"/>
+      <size width="100.0" height="35.0"/>
+    </element>
+    <element uuid="f2685aa3-75c9-4908-91ba-4ec9e9425553" manual="true">
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>ControlSystem</seg>
+      </bo>
+      <position x="12.0" y="203.0"/>
+      <size width="146.0" height="35.0"/>
+    </element>
+    <element uuid="29875272-2e81-40e9-8621-d90962d64006" manual="true">
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>sensor1</seg>
+      </bo>
+      <position x="12.0" y="93.0"/>
+      <size width="97.0" height="35.0"/>
+    </element>
+    <element uuid="69af490e-3c02-4d7b-a9f8-bf590cb225e3" manual="true">
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>sensor2</seg>
+      </bo>
+      <position x="12.0" y="38.0"/>
+      <size width="97.0" height="35.0"/>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>SCS.singletier0</seg>
+    </bo>
+    <position x="12.0" y="12.0"/>
+    <size width="200.0" height="250.0"/>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>classifier</seg>
+      <seg>IntegratedSCS::SCS.singletier0</seg>
+    </context>
+  </config>
+</diagram:Diagram>
