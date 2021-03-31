@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="ASCII"?>
+<result:AnalysisResult xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:result="http://www.osate.org/result/Result" analysis="latency" message="AS-MF-DL-EQ-EQL">
+  <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#/"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787001"/>
+  <parameters value="ACED0005737200116A6176612E6C616E672E426F6F6C65616ECD207280D59CFAEE0200015A000576616C7565787000"/>
+  <results message="Latency results for ete1" resultType="FAILURE">
+    <values xsi:type="result:StringValue" value=""/>
+    <values xsi:type="result:RealValue" value="29.0"/>
+    <values xsi:type="result:RealValue" value="37.0"/>
+    <values xsi:type="result:RealValue" value="29.0"/>
+    <values xsi:type="result:RealValue" value="37.0"/>
+    <values xsi:type="result:RealValue" value="30.0"/>
+    <values xsi:type="result:RealValue" value="30.0"/>
+    <diagnostics diagnosticType="WARNING" message="Minimum specified flow latency total 29.0ms less than expected minimum end to end latency 30.0ms (better response time)">
+      <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics diagnosticType="WARNING" message="Minimum actual latency total 29.0ms less than expected minimum end to end latency 30.0ms (faster actual minimum response time)">
+      <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics diagnosticType="ERROR" message="Maximum specified flow latency total 37.0ms exceeds expected maximum end to end latency 30.0ms">
+      <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics diagnosticType="ERROR" message="Maximum actual latency total 37.0ms exceeds expected maximum end to end latency 30.0ms">
+      <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics diagnosticType="WARNING" message="Jitter of specified latency total 29.0..37.0ms exceeds expected end to end latency jitter 30.0..30.0ms">
+      <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <diagnostics diagnosticType="WARNING" message="Jitter of actual latency total 29.0..37.0ms exceeds expected end to end latency jitter 30.0..30.0ms">
+      <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@endToEndFlow.0"/>
+    </diagnostics>
+    <subResults>
+      <values xsi:type="result:RealValue" value="3.0"/>
+      <values xsi:type="result:RealValue" value="5.0"/>
+      <values xsi:type="result:RealValue" value="3.0"/>
+      <values xsi:type="result:RealValue" value="5.0"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="source sensorFlow"/>
+      <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@componentInstance.2"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value=""/>
+      <diagnostics diagnosticType="INFO" message="Adding latency subtotal from protocols and hardware - shown with ()">
+        <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@connectionInstance.0"/>
+      </diagnostics>
+      <subResults>
+        <values xsi:type="result:RealValue" value="7.0"/>
+        <values xsi:type="result:RealValue" value="7.0"/>
+        <values xsi:type="result:RealValue" value="7.0"/>
+        <values xsi:type="result:RealValue" value="7.0"/>
+        <values xsi:type="result:StringValue" value="specified"/>
+        <values xsi:type="result:StringValue" value="specified"/>
+        <values xsi:type="result:StringValue" value=""/>
+        <diagnostics diagnosticType="INFO" message="Using specified bus latency">
+          <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@componentInstance.1"/>
+        </diagnostics>
+        <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@componentInstance.1"/>
+      </subResults>
+      <subResults>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:StringValue" value="queued"/>
+        <values xsi:type="result:StringValue" value="queued"/>
+        <values xsi:type="result:StringValue" value=""/>
+        <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@componentInstance.1"/>
+      </subResults>
+      <subResults>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:StringValue" value="sampling protocol/bus"/>
+        <values xsi:type="result:StringValue" value="sampling protocol/bus"/>
+        <values xsi:type="result:StringValue" value=""/>
+        <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@componentInstance.1"/>
+      </subResults>
+      <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@connectionInstance.0"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue" value="3.0"/>
+      <values xsi:type="result:RealValue" value="5.0"/>
+      <values xsi:type="result:RealValue" value="3.0"/>
+      <values xsi:type="result:RealValue" value="5.0"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="path controllerFlow"/>
+      <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@componentInstance.4"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:RealValue"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value="no sampling/queuing latency"/>
+      <values xsi:type="result:StringValue" value=""/>
+      <diagnostics diagnosticType="INFO" message="Adding latency subtotal from protocols and hardware - shown with ()">
+        <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@connectionInstance.5"/>
+      </diagnostics>
+      <subResults>
+        <values xsi:type="result:RealValue" value="13.0"/>
+        <values xsi:type="result:RealValue" value="15.0"/>
+        <values xsi:type="result:RealValue" value="13.0"/>
+        <values xsi:type="result:RealValue" value="15.0"/>
+        <values xsi:type="result:StringValue" value="specified"/>
+        <values xsi:type="result:StringValue" value="specified"/>
+        <values xsi:type="result:StringValue" value=""/>
+        <diagnostics diagnosticType="INFO" message="Using specified bus latency">
+          <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@componentInstance.0"/>
+        </diagnostics>
+        <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@componentInstance.0"/>
+      </subResults>
+      <subResults>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:StringValue" value="queued"/>
+        <values xsi:type="result:StringValue" value="queued"/>
+        <values xsi:type="result:StringValue" value=""/>
+        <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@componentInstance.0"/>
+      </subResults>
+      <subResults>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:RealValue"/>
+        <values xsi:type="result:StringValue" value="sampling protocol/bus"/>
+        <values xsi:type="result:StringValue" value="sampling protocol/bus"/>
+        <values xsi:type="result:StringValue" value=""/>
+        <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@componentInstance.0"/>
+      </subResults>
+      <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@connectionInstance.5"/>
+    </subResults>
+    <subResults>
+      <values xsi:type="result:RealValue" value="3.0"/>
+      <values xsi:type="result:RealValue" value="5.0"/>
+      <values xsi:type="result:RealValue" value="3.0"/>
+      <values xsi:type="result:RealValue" value="5.0"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="specified"/>
+      <values xsi:type="result:StringValue" value="sink brakeFlow"/>
+      <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@componentInstance.3"/>
+    </subResults>
+    <modelElement href="../../SecondSCS_HighLevelSCS_i_Instance.aaxl2#//@endToEndFlow.0"/>
+  </results>
+</result:AnalysisResult>

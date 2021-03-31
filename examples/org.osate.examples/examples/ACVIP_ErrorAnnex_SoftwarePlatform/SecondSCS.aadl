@@ -1,0 +1,218 @@
+package SecondSCS
+public
+	with SEI;
+
+	--defines a memory component 
+	memory mem1
+		properties
+			--defines the contribution of the memory to the overall system weight
+			SEI::Grossweight => 0.1 kg;
+	end mem1;	
+
+	processor p1
+		features
+			--defines a bus instance that will allow the processor to access other components
+			canbusaccess: requires bus access canBus;
+		properties
+			Thread_Limit => 4;
+			Allowed_Dispatch_Protocol => (periodic, aperiodic);
+			Thread_Swap_Execution_Time => 100us .. 110us;
+			Scheduling_Protocol => (RMS);
+	end p1;
+
+	processor implementation p1.i
+		subcomponents
+			memory1: memory mem1;
+	end p1.i;
+
+	processor p2
+				features
+			--defines a bus instance that will allow the processor to access other components
+			canbusaccess: requires bus access canBus;
+		properties
+			Thread_Limit => 16;
+			Allowed_Dispatch_Protocol => (periodic, aperiodic);
+			Thread_Swap_Execution_Time => 140us .. 170us;
+			Scheduling_Protocol => (RMS);
+	end p2;
+
+	processor p3
+		features
+			--defines a bus instance that will allow the processor to access other components
+			canbusaccess: requires bus access canBus;
+		properties
+			Thread_Limit => 2;
+			Allowed_Dispatch_Protocol => (periodic, aperiodic);
+			Thread_Swap_Execution_Time => 80us .. 90us;
+			Scheduling_Protocol => (RMS);
+	end p3;
+
+	system HighLevelSCS
+
+	end HighLevelSCS;
+
+	system implementation HighLevelSCS.i
+		subcomponents
+			processor_sensor: processor p1;
+			processor_controller: processor p2;
+			processor_break: processor p3;
+
+			sensor1: device SimpleSensor.i;
+			controller1: system SimpleController.i;
+			brake1: device SimpleBrake.i;
+			canBus: bus CanBus.i {latency => 13ms .. 15ms;};
+			bus1553: bus Bus1553.i {latency => 7ms .. 7ms;};
+		connections
+			c1: port sensor1.dataOut -> controller1.dataIn;
+			c2: port controller1.dataOut -> brake1.dataIn;
+			bus1: bus access sensor1.busOut -> bus1553;
+			bus2: bus access controller1.busIn -> bus1553;
+			bus3: bus access controller1.busOut -> canBus;
+			bus4: bus access brake1.busIn -> canBus;
+			bus_processor: bus access processor_sensor.canbusaccess -> canBus;
+			bus_controller: bus access processor_controller.canbusaccess -> canBus;
+			bus_break: bus access processor_break.canbusaccess -> canBus;
+		flows
+			ete1: end to end flow sensor1.sensorFlow -> c1 -> controller1.controllerFlow -> c2 -> brake1.brakeFlow {
+				latency => 30ms .. 30ms;};
+		properties
+--			Deadline => 30ms;                                                                                                                                            
+			actual_connection_binding => (reference (bus1553)) applies to c1;
+			actual_connection_binding => (reference (canBus)) applies to c2;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior ErrorLibrary::FailRecoveryFailure;
+			composite error behavior
+				states
+					[1 ormore (sensor1.FailStop, brake1.FailStop, controller1.FailStop)]-> FailStop; -- could also combine things with ands/ors
+			end composite;
+		**};
+	end HighLevelSCS.i;
+
+	data SensorData
+	end SensorData;
+
+	data BrakeSignal
+	end BrakeSignal;
+
+	bus CanBus
+	end CanBus;
+
+	bus implementation CanBus.i
+	end CanBus.i;
+
+	bus Bus1553
+	end Bus1553;
+
+	bus implementation Bus1553.i
+	end Bus1553.i;
+
+	bus DeviceBus
+		
+	end DeviceBus;
+
+	device SimpleSensor
+
+		features
+			busIn: requires bus access DeviceBus;
+			dataOut: out data port SensorData;
+			busOut: requires bus access bus1553.i;
+		flows
+			sensorFlow: flow source dataOut;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior ErrorLibrary::FailRecoveryFailure;
+			error propagations
+				dataOut: out propagation{ServiceOmission, ValueError, ItemOmission};
+			end propagations;
+			component error behavior
+				events
+					OverHeated: error event;
+					Cracked: error event;
+				transitions
+					Operational -[OverHeated]-> Failed;
+					Operational -[Cracked]-> Failed;
+				propagations
+					p1: Failed -[]-> dataOut{ServiceOmission};
+					p2: Failed -[]-> dataOut{ValueError};
+					p3: Failed -[]-> dataOut{ItemOmission};
+					normal: Operational -[]-> dataOut{NoError};
+			end component;
+		**};
+	end SimpleSensor;
+
+	device implementation SimpleSensor.i
+		flows
+			sensorFlow: flow source dataOut;
+		properties
+--			 Device_Dispatch_Protocol => Periodic; 
+			latency => 3ms .. 5ms applies to sensorFlow;	
+	end SimpleSensor.i;
+
+	system SimpleController
+		features
+			busIn: requires bus access bus1553.i;
+			dataIn: in data port SensorData;
+			busOut: requires bus access canBus.i;
+			dataOut: out data port BrakeSignal;
+		flows
+			controllerFlow: flow path dataIn -> dataOut;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior ErrorLibrary::FailRecoveryFailure;
+			error propagations
+				dataIn: in propagation {ServiceOmission,ValueError,ItemOmission};
+				dataOut: out propagation {ServiceOmission,ValueError,ItemOmission};
+			end propagations;
+			component error behavior
+				events
+					OverHeated: error event;
+					Cracked: error event; 
+				transitions
+					Operational -[OverHeated]-> Failed;
+					Operational -[Cracked]-> Failed;
+				propagations
+					p1: Failed -[]-> dataOut {ServiceOmission};
+					p2: Failed -[]-> dataOut{ValueError};
+					p3: Failed -[]-> dataOut{ItemOmission};
+					normal: Operational -[]-> dataOut {NoError};
+			end component;
+		**};
+	end SimpleController;
+
+	system implementation SimpleController.i
+		properties
+			latency => 3ms .. 5ms  applies to controllerFlow;
+	end SimpleController.i;
+
+	device SimpleBrake
+		features
+			dataIn: in data port BrakeSignal;
+			busIn: requires bus access canBus.i;
+		flows
+			brakeFlow: flow sink dataIn;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior ErrorLibrary::FailRecoveryFailure;
+			error propagations 
+				dataIn: in propagation{ServiceOmission, ValueError, ItemOmission};
+			end propagations;
+			component error behavior
+				events
+					OverHeated: error event;
+					Cracked: error event;
+				transitions
+					Operational -[OverHeated]-> Failed;
+					Operational -[Cracked]-> Failed;
+			end component;
+		**};
+	end SimpleBrake;
+
+	device implementation SimpleBrake.i
+		flows
+			brakeFlow: flow sink dataIn;
+		properties
+			latency => 3ms .. 5ms applies to brakeFlow;
+	end SimpleBrake.i;
+	
+end SecondSCS;

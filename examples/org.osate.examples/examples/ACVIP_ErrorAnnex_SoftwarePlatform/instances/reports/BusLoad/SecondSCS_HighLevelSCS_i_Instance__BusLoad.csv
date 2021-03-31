@@ -1,0 +1,20 @@
+Bus load analysis of HighLevelSCS_i_Instance
+
+
+"Physical Bus","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"canBus","0.0","0.0","0.0","0.0"
+"bus1553","0.0","0.0","0.0","0.0"
+
+"Bus canBus has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+
+"WARNING: Bus canBus has no capacity"
+"WARNING: Bus canBus has no bandwidth budget"
+
+"Bus bus1553 has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+
+"WARNING: Bus bus1553 has no capacity"
+"WARNING: Bus bus1553 has no bandwidth budget"
+
+

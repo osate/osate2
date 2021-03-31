@@ -1,0 +1,28 @@
+Latency analysis with preference settings: asynchronous system/major partition frame/worst case as deadline/best case as empty queue/queuing latency enabled
+
+"Latency results for end-to-end flow 'ete1' of system 'HighLevelSCS.i' "
+
+Result,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments
+device sensor1 (source sensorFlow),3.0ms,3.0ms,specified,5.0ms,5.0ms,specified
+(bus bus1553),7.0ms,7.0ms,specified,7.0ms,7.0ms,specified,Using specified bus latency
+(bus bus1553),0.0ms,0.0ms,queued,0.0ms,0.0ms,queued
+(bus bus1553),0.0ms,0.0ms,sampling protocol/bus,0.0ms,0.0ms,sampling protocol/bus
+connection sensor1.dataOut -> controller1.dataIn,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency,Adding latency subtotal from protocols and hardware - shown with ()
+system controller1 (path controllerFlow),3.0ms,3.0ms,specified,5.0ms,5.0ms,specified
+(bus canBus),13.0ms,13.0ms,specified,15.0ms,15.0ms,specified,Using specified bus latency
+(bus canBus),0.0ms,0.0ms,queued,0.0ms,0.0ms,queued
+(bus canBus),0.0ms,0.0ms,sampling protocol/bus,0.0ms,0.0ms,sampling protocol/bus
+connection controller1.dataOut -> brake1.dataIn,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency,Adding latency subtotal from protocols and hardware - shown with ()
+device brake1 (sink brakeFlow),3.0ms,3.0ms,specified,5.0ms,5.0ms,specified
+Latency Total,29.0ms,29.0ms,,37.0ms,37.0ms
+Specified End To End Latency,,30.0ms,,,30.0ms
+End to end Latency Summary
+WARNING,Minimum specified flow latency total 29.0ms less than expected minimum end to end latency 30.0ms (better response time)
+WARNING,Minimum actual latency total 29.0ms less than expected minimum end to end latency 30.0ms (faster actual minimum response time)
+ERROR,Maximum specified flow latency total 37.0ms exceeds expected maximum end to end latency 30.0ms
+ERROR,Maximum actual latency total 37.0ms exceeds expected maximum end to end latency 30.0ms
+WARNING,Jitter of specified latency total 29.0..37.0ms exceeds expected end to end latency jitter 30.0..30.0ms
+WARNING,Jitter of actual latency total 29.0..37.0ms exceeds expected end to end latency jitter 30.0..30.0ms
+
+
+
