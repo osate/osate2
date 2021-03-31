@@ -241,7 +241,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 					selectionIndicator.getTransforms().setAll(getLocalToSceneTransform().createInverse()
 							.createConcatenation(selectedNode.getLocalToSceneTransform()));
 				} catch (final NonInvertibleTransformException e) {
-					throw new RuntimeException(e);
+					throw new AgeGefRuntimeException("Unable to create selection indicator transform", e);
 				}
 			});
 			localToSceneTransformProperty().addListener(transformUpdater);
@@ -403,7 +403,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 					handles.getTransforms().setAll(getLocalToSceneTransform().createInverse()
 							.createConcatenation(selectedNode.getLocalToSceneTransform()));
 				} catch (final NonInvertibleTransformException e) {
-					throw new RuntimeException(e);
+					throw new AgeGefRuntimeException("Unable to update transform for connection handles", e);
 				}
 			});
 

@@ -158,8 +158,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.embed.swt.FXCanvas;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
-import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -168,7 +168,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
 
@@ -734,11 +735,34 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		fxCanvas.setScene(scene);
 		gefDiagram = new GefAgeDiagram(diagram, coloringService);
 
-		// Add padding around the diagram
-		final StackPane paddedWrapper = new StackPane(gefDiagram.getSceneNode());
-		paddedWrapper.setPadding(new Insets(DIAGRAM_PADDING));
+		// Create a wrapper around the diagram's scene node. This wrapper adds padding around the diagram.
+		final Group wrapper = new Group() {
+			// The content bounds of the canvas will be set by the geometry bounds.
+			// Create padding by creating a rectangle filled with a transparent color.
+			final Rectangle invisibleBoundsRect = new Rectangle();
+			{
+				invisibleBoundsRect.setFill(Color.TRANSPARENT);
+				getChildren().setAll(invisibleBoundsRect, gefDiagram.getSceneNode());
+			}
 
-		canvas.getContentGroup().getChildren().add(paddedWrapper);
+			@Override
+			protected void layoutChildren() {
+				super.layoutChildren();
+
+				if (getChildren().size() >= 2) {
+					// Adjust size of rectangle. Right and bottom sides have more padding to allow for scroll bars.
+					final Bounds diagramBounds = getChildren().get(1).getBoundsInParent();
+					invisibleBoundsRect.setX(diagramBounds.getMinX() - DIAGRAM_PADDING);
+					invisibleBoundsRect.setY(diagramBounds.getMinY() - DIAGRAM_PADDING);
+					invisibleBoundsRect.setWidth(diagramBounds.getWidth() + DIAGRAM_PADDING * 3);
+					invisibleBoundsRect.setHeight(diagramBounds.getHeight() + DIAGRAM_PADDING * 3);
+				}
+			}
+		};
+
+		// Add the wrapper to the canvas
+		canvas.getContentGroup().getChildren().add(wrapper);
+
 		gefDiagram.updateDiagramFromSceneGraph();
 		adapterMap.put(LayoutInfoProvider.class, gefDiagram);
 
