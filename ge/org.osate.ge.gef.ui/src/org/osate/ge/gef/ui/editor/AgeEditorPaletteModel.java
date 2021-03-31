@@ -53,7 +53,7 @@ import javafx.scene.image.WritableImage;
 /**
  * {@link PaletteModel} implementation for {@link AgeEditor}.
  */
-class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, SimplePaletteItem> {
+public class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, SimplePaletteItem> {
 	/**
 	 * Interface for providing image based on IDs specified by the {@link PaletteContributor}
 	 */

@@ -885,6 +885,39 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		inputEventHandlers.add(new PaletteCommandInputEventHandler(paletteModel));
 	}
 
+	/**
+	 * Returns the {@link FXCanvas} which contains the JavaFX scene. Intended to be used only by tests.
+	 * @return the {@link FXCanvas}.
+	 */
+	public final FXCanvas getFxCanvas() {
+		return fxCanvas;
+	}
+
+	/**
+	 * Returns the palette model. Intended to be used only by tests.
+	 * @return the palette model
+	 */
+	public final AgeEditorPaletteModel getPaletteModel() {
+		return paletteModel;
+	}
+
+	/**
+	 * Gets the scene node for a diagram element. Intended to be used only by tests.
+	 * @param de the diagram element for which to get the scene node
+	 * @return the scene node
+	 */
+	public final Node getSceneNode(final DiagramElement de) {
+		return gefDiagram.getSceneNode(de);
+	}
+
+	/**
+	 * Ensures a scene node which is inside the infinite canvas is visible. Must be called from the UI thread.
+	 * @param sceneNode the scene node to reveal.
+	 */
+	public final void reveal(final Node sceneNode) {
+		canvas.reveal(sceneNode);
+	}
+
 	public final DoubleProperty zoomProperty() {
 		return zoom;
 	}

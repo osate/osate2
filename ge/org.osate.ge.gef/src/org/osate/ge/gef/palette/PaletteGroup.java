@@ -41,7 +41,7 @@ import javafx.scene.text.Font;
  * Represents a single group in the palette.
  *
  */
-class PaletteGroup<G, I> extends VBox {
+public class PaletteGroup<G, I> extends VBox {
 	private static final String SHARED_STYLE = "-fx-border-width: 1 0 0 0;" + "-fx-border-color: rgba(0,0,0,.2);"
 			+ "-fx-border-style: solid, hidden, hidden, hidden;";
 	private static final String IDLE_GROUP_STYLE = SHARED_STYLE
@@ -103,6 +103,10 @@ class PaletteGroup<G, I> extends VBox {
 		getChildren().add(scrollPane);
 
 		refresh();
+	}
+
+	public final boolean isExpanded() {
+		return groupButton.isSelected();
 	}
 
 	private void refresh() {

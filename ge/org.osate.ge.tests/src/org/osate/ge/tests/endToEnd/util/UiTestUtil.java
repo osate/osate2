@@ -33,6 +33,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BooleanSupplier;
 
@@ -68,13 +69,23 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.gef.DiagramEditorNode;
+import org.osate.ge.gef.palette.Palette;
+import org.osate.ge.gef.palette.PaletteGroup;
+import org.osate.ge.gef.palette.PaletteItem;
 import org.osate.ge.gef.ui.editor.AgeEditor;
+import org.osate.ge.gef.ui.editor.AgeEditorPaletteModel;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.swt.BorderedCLabel;
+import org.osate.ge.tests.fx.JavaFXBot;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
+
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 
 /**
  * Provides functions for controlling the user interface.
@@ -86,6 +97,7 @@ import com.google.common.collect.Sets;
  */
 public class UiTestUtil {
 	private static final SWTWorkbenchBot bot;
+	private static final JavaFXBot fxBot = new JavaFXBot();
 	private static final HashSet<String> allowedViewTitles = Sets.newHashSet("AADL Navigator", "AADL Diagrams",
 			"Properties", "Outline");
 
@@ -667,9 +679,52 @@ public class UiTestUtil {
 	 * @param itemText the text for the palette item
 	 */
 	public static void selectPaletteItem(final DiagramReference diagram, final String itemText) {
-		// TODO
-		throw new RuntimeException("NOT IMPLEMENTED");
-		// getDiagramEditorBot(diagram).activateTool(itemText);
+		final AgeEditor editor = getDiagramEditor(diagram);
+
+		// Find the palette item
+		final PaletteItem<?> paletteItem = UIThreadRunnable.syncExec(() -> {
+			final Scene scene = editor.getFxCanvas().getScene();
+			final Palette<?, ?> palette = (Palette<?, ?>) scene.lookup("#" + DiagramEditorNode.PALETTE_ID);
+			for (final Node tmp : palette.lookupAll("." + PaletteItem.STYLE_CLASS)) {
+				final PaletteItem<?> tmpItem = (PaletteItem<?>) tmp;
+				final Button paletteItemButton = tmpItem.getButton();
+				if (itemText.equals(paletteItemButton.getText())) {
+					return tmpItem;
+				}
+			}
+			return null;
+		});
+
+		// Assert that the item was found
+		assertNotNull("Unable to find palette item with label '" + itemText + "'", paletteItem);
+
+		//
+		// Expand the palette group
+		//
+		// Find the palette group
+		Node tmp;
+		for (tmp = paletteItem.getParent(); tmp != null; tmp = tmp.getParent()) {
+			if (tmp instanceof PaletteGroup) {
+				break;
+			}
+		}
+
+		final PaletteGroup<?, ?> paletteGroup = (PaletteGroup<?, ?>) tmp;
+
+		// If there is a palette group, expand it if necessary
+		if (paletteGroup != null && !paletteGroup.isExpanded()) {
+			fxBot.click(paletteGroup);
+			waitUntil(() -> paletteGroup.isExpanded(), "Palette group not expanded");
+		}
+
+		// Click the item to select it
+		fxBot.click(paletteItem);
+
+		// Wait for the item to be active
+		final AgeEditorPaletteModel paletteModel = editor.getPaletteModel();
+		waitUntil(() -> {
+			return itemText.equalsIgnoreCase(paletteModel.getItemLabel(paletteModel.getActiveItem()));
+		}, "Unable to activate palette item `" + itemText + "`");
 	}
 
 	private static SWTBotEditor getDiagramEditorBot(final DiagramReference diagram) {
@@ -692,22 +747,13 @@ public class UiTestUtil {
 		final DiagramElement de = getDiagramElement(diagram, element)
 				.orElseThrow(() -> new RuntimeException("Cannot find diagram element for '" + element + "'."));
 
-//		// Get the edit part
-//		final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
-//		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
-//
-//		// Scroll to the edit part
-//		final IEditorReference editorRef = getEditorReference(AgeEditor.class, diagram.getUri());
-//
-//		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
-//		final List<SWTBotGefEditPart> botEditParts = findEditParts(editorBot, Collections.singletonList(editPart));
-//
-//		scrollToEditPart(editorRef, editPart);
-//
-//		editorBot.click(botEditParts.get(0));
+		final Node sceneNode = editor.getSceneNode(de);
 
-		// TODO
-		throw new RuntimeException("NOT IMPLEMENTED");
+		Display.getDefault().syncExec(() -> editor.reveal(sceneNode));
+
+		assertNotNull("Unable to retrieve scene node", sceneNode);
+
+		fxBot.click(sceneNode);
 	}
 
 	private static SWTBotCanvas findViewCanvasByTitle(final String title) {
@@ -816,26 +862,20 @@ public class UiTestUtil {
 			final DiagramElementReference... elements) {
 		final AgeEditor editor = getDiagramEditor(diagram);
 
-//		final List<PictogramElement> pictogramElementsToSelect = new ArrayList<>();
-//		for (int i = 0; i < elements.length; i++) {
-//			final DiagramElementReference element = elements[i];
-//			final DiagramElement de = getDiagramElement(diagram, element)
-//					.orElseThrow(() -> new RuntimeException("Cannot find element for '" + element + "'."));
-//			final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
-//			pictogramElementsToSelect.add(pe);
-//		}
-//
-//		final PictogramElement[] pictogramElementsToSelectArray = pictogramElementsToSelect.toArray(new PictogramElement[pictogramElementsToSelect.size()]);
-//		Display.getDefault().syncExec(() -> {
-//			editor.selectPictogramElements(pictogramElementsToSelectArray);
-//		});
-//
-//		waitUntil(() -> {
-//			return Arrays.equals(pictogramElementsToSelectArray, editor.getSelectedPictogramElements());
-//		}, "Elements '" + getDiagramElementReferences(elements) + "' are not selected");
+		final Set<DiagramElement> diagramElementsToSelect = new HashSet<>();
+		for (int i = 0; i < elements.length; i++) {
+			final DiagramElementReference element = elements[i];
+			final DiagramElement de = getDiagramElement(diagram, element)
+					.orElseThrow(() -> new RuntimeException("Cannot find element for '" + element + "'."));
+			diagramElementsToSelect.add(de);
+		}
 
-		// TODO
-		throw new RuntimeException("NOT IMPLEMENTED");
+		Display.getDefault().syncExec(() -> {
+			editor.selectDiagramNodes(diagramElementsToSelect);
+		});
+
+		waitUntil(() -> diagramElementsToSelect.equals(editor.getSelectedDiagramElements()),
+				"Elements '" + getDiagramElementReferences(elements) + "' are not selected");
 	}
 
 	private static String getDiagramElementReferences(final DiagramElementReference... elements) {

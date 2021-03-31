@@ -35,7 +35,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-class PaletteItem<I> extends VBox {
+public class PaletteItem<I> extends VBox {
+	/**
+	 * Style class used to find palette item durign tests.
+	 */
+	public static final String STYLE_CLASS = "palette_item";
+
 	private static final String HOVER_ITEM_STYLE = "-fx-background-color: #fce4b3;";
 	private static final String SELECTED_ITEM_STYLE = "-fx-background-color: #cfe3fa;";
 	private static final String IDLE_ITEM_STYLE = "-fx-background-color: #ffffff;";
@@ -48,6 +53,7 @@ class PaletteItem<I> extends VBox {
 	public PaletteItem(final PaletteModel<?, I> model, I item) {
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.item = Objects.requireNonNull(item, "item must not be null");
+		getStyleClass().add(STYLE_CLASS);
 		hovered = false;
 		button = new Button(model.getItemLabel(item));
 		button.setMaxWidth(Double.MAX_VALUE);
@@ -71,6 +77,14 @@ class PaletteItem<I> extends VBox {
 		});
 		this.getChildren().add(button);
 		updateStyle();
+	}
+
+	/**
+	 * Returns the button contained inside the palette. Intended for testing only
+	 * @return the button
+	 */
+	public final Button getButton() {
+		return button;
 	}
 
 	private void activeItemChanged(ObservableValue<? extends I> observable, I oldValue, I value) {

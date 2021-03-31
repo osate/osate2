@@ -48,6 +48,8 @@ import javafx.scene.shape.StrokeType;
  * Node for the diagram editor. Contains a collapsible palette and a specified canvas.
  */
 public class DiagramEditorNode extends Region {
+	public static final String PALETTE_ID = "palette";
+
 	private static final String TITLE_STYLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));";
 	private static final String COLLAPSE_BUTTON_HOVER_STYLE = "-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;-fx-padding:0px 2px 0px 2px;-fx-background-insets:1px;";
 	private static final String COLLAPSE_BUTTON_STYLE = "-fx-background-color: transparent;-fx-padding:0px 2px 0px 2px;";
@@ -111,6 +113,7 @@ public class DiagramEditorNode extends Region {
 		// Palette
 		//
 		palette = new Palette<>(paletteModel);
+		palette.setId(PALETTE_ID);
 
 		paletteScrollPane = new ScrollPane();
 		paletteScrollPane.setContent(palette);
