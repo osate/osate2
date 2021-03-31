@@ -29,7 +29,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.function.Function;
 
 import org.eclipse.gef.fx.nodes.Connection;
 import org.eclipse.gef.geometry.euclidean.Vector;
@@ -38,10 +37,12 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.widgets.Display;
+import org.osate.ge.gef.AgeGefRuntimeException;
 import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.ContainerShape;
 import org.osate.ge.gef.DockedShape;
 import org.osate.ge.gef.FlowIndicatorNode;
+import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 
@@ -50,6 +51,9 @@ import com.google.common.collect.ImmutableMap;
 import javafx.beans.InvalidationListener;
 import javafx.beans.WeakInvalidationListener;
 import javafx.beans.binding.DoubleBinding;
+import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
@@ -67,16 +71,56 @@ import javafx.scene.transform.Transform;
  * duplicates. Other objects are ignored.
  */
 public class Overlays extends Group implements ISelectionChangedListener {
-	private final Function<DiagramElement, Node> sceneNodeProvider;
+	private final GefAgeDiagram gefDiagram;
 
 	/**
 	 * Mapping from diagram elements to the selected node overlays.
 	 */
 	private Map<DiagramElement, SelectedNodeOverlay> diagramElementToSelectedNodeOverlayMap = Collections.emptyMap();
 
-	public Overlays(Function<DiagramElement, Node> sceneNodeProvider) {
-		this.sceneNodeProvider = sceneNodeProvider;
+	/**
+	 * Property for the transform between diagram coordinates and the overlay
+	 */
+	private final ReadOnlyObjectWrapper<Transform> diagramToOverlayTransform = new ReadOnlyObjectWrapper<Transform>();
+
+	public Overlays(final GefAgeDiagram gefDiagram) {
+		this.gefDiagram = gefDiagram;
 		this.setAutoSizeChildren(false);
+
+		// Create transform property
+		final ReadOnlyObjectProperty<Transform> diagramToSceneTransform = gefDiagram.getSceneNode()
+				.localToSceneTransformProperty();
+		diagramToOverlayTransform.bind(new ObjectBinding<Transform>() {
+			{
+				bind(diagramToSceneTransform, localToSceneTransformProperty());
+			}
+
+			@Override
+			protected Transform computeValue() {
+				try {
+					return getLocalToSceneTransform().createInverse()
+							.createConcatenation(diagramToSceneTransform.get());
+				} catch (final NonInvertibleTransformException e) {
+					throw new AgeGefRuntimeException("Unable to create diagram to overlay transform", e);
+				}
+			}
+		});
+	}
+
+	/**
+	 * The transform between diagram to the overlay coordinate system.
+	 * @return the transform from diagram to the overlay coordinate system.
+	 */
+	public ReadOnlyObjectProperty<Transform> diagramToOverlayTransform() {
+		return diagramToOverlayTransform.getReadOnlyProperty();
+	}
+
+	/**
+	 * Returns the current value of {@link #diagramToOverlayTransform()}
+	 * @return the current value of {@link #diagramToOverlayTransform()}
+	 */
+	public Transform getDiagramToOverlayTransform() {
+		return diagramToOverlayTransform().get();
 	}
 
 	@Override
@@ -101,8 +145,8 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			// Add existing selected node overlays for selected diagram elements to new map.
 			for (final Entry<DiagramElement, SelectedNodeOverlay> existingEntry : diagramElementToSelectedNodeOverlayMap
 					.entrySet()) {
-				if (selectedDiagramElements.contains(existingEntry.getKey()) && sceneNodeProvider
-						.apply(existingEntry.getKey()) == existingEntry.getValue().getSelectedNode()) {
+				if (selectedDiagramElements.contains(existingEntry.getKey()) && gefDiagram
+						.getSceneNode(existingEntry.getKey()) == existingEntry.getValue().getSelectedNode()) {
 					newDiagramElementToSelectedNodeOverlayMapBuilder.put(existingEntry.getKey(),
 							existingEntry.getValue());
 				}
@@ -118,7 +162,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 					// Set whether it is primary
 					existingOverlay.setPrimary(primary);
 				} else {
-					final Node selectedNode = sceneNodeProvider.apply(selectedDiagramElement);
+					final Node selectedNode = gefDiagram.getSceneNode(selectedDiagramElement);
 					if (selectedNode != null) {
 						if (selectedNode instanceof ContainerShape || selectedNode instanceof DockedShape) {
 							newDiagramElementToSelectedNodeOverlayMapBuilder.put(selectedDiagramElement,
@@ -254,7 +298,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			selectionIndicatorRect = new Rectangle();
 			selectionIndicatorRect.setFill(null);
 			selectionIndicatorRect.setStroke(OverlayColors.SELECTION_INDICATOR_COLOR);
-			selectionIndicatorRect.setStrokeWidth(0.5);
+			selectionIndicatorRect.setStrokeWidth(1.0);
 			selectionIndicatorRect.widthProperty().bind(selectionIndicatorWidthBinding);
 			selectionIndicatorRect.heightProperty().bind(selectionIndicatorHeightBinding);
 			selectionIndicatorRect.xProperty().bind(selectionIndicatorXBinding);
@@ -334,8 +378,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 		 * Connection points. Strong reference is stored to ensure events are freed.
 		 */
 		private final ObservableList<Point> connectionPoints;
-		private InvalidationListener invalidationListener = (InvalidationListener) c ->
-		{
+		private InvalidationListener invalidationListener = (InvalidationListener) c -> {
 			updateSelectionIndicator(selectedNode);
 		};
 
@@ -387,19 +430,24 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			final Connection c = selectedNode.getInnerConnection();
 
 			// Create handles for control points
+			final List<Point> allPoints = c.getPointsUnmodifiable();
 			final List<Point> controlPoints = c.getControlPoints();
-			for (int controlPointIndex = 0; controlPointIndex < controlPoints.size(); controlPointIndex++) {
-				final org.eclipse.gef.geometry.planar.Point prev = controlPointIndex == 0 ? controlPoints.get(0)
+			for (int controlPointIndex = 0; controlPointIndex <= controlPoints.size(); controlPointIndex++) {
+				final org.eclipse.gef.geometry.planar.Point prev = controlPointIndex == 0 ? allPoints.get(0)
 						: controlPoints.get(controlPointIndex - 1);
-				final org.eclipse.gef.geometry.planar.Point p = controlPoints.get(controlPointIndex);
+				final org.eclipse.gef.geometry.planar.Point p = controlPointIndex == controlPoints.size()
+						? allPoints.get(allPoints.size() - 1)
+						: controlPoints.get(controlPointIndex);
 				final org.eclipse.gef.geometry.planar.Point mid = new Point((prev.x + p.x) / 2.0, (prev.y + p.y) / 2.0);
 
 				// Create a handle for the control point
-				final ControlPointHandle controlPointHandle = new ControlPointHandle(diagramElement, selectedNode,
-						primary, controlPointIndex);
-				controlPointHandle.setCenterX(p.x);
-				controlPointHandle.setCenterY(p.y);
-				handles.getChildren().add(controlPointHandle);
+				if (controlPointIndex < controlPoints.size()) {
+					final ControlPointHandle controlPointHandle = new ControlPointHandle(diagramElement, selectedNode,
+							primary, controlPointIndex);
+					controlPointHandle.setCenterX(p.x);
+					controlPointHandle.setCenterY(p.y);
+					handles.getChildren().add(controlPointHandle);
+				}
 
 				// Create handle for creating new control points
 				final CreateControlPointHandle createControlPointHandle = new CreateControlPointHandle(diagramElement,

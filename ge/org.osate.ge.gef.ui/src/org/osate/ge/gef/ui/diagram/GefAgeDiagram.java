@@ -42,6 +42,7 @@ import org.osate.ge.gef.AgeGefRuntimeException;
 import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.ConnectionNode;
 import org.osate.ge.gef.ContainerShape;
+import org.osate.ge.gef.DiagramRootNode;
 import org.osate.ge.gef.DockedShape;
 import org.osate.ge.gef.FeatureConstants;
 import org.osate.ge.gef.FeatureGroupNode;
@@ -51,7 +52,6 @@ import org.osate.ge.gef.FxStyleApplier;
 import org.osate.ge.gef.ImageManager;
 import org.osate.ge.gef.LabelNode;
 import org.osate.ge.gef.PreferredPosition;
-import org.osate.ge.gef.RootNode;
 import org.osate.ge.gef.StyleRoot;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
@@ -144,7 +144,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	/**
 	 * Root node which contains all the shape and connection nodes for the diagram.
 	 */
-	private final RootNode diagramNode = new RootNode();
+	private final DiagramRootNode diagramNode = new DiagramRootNode();
 
 	/**
 	 * Image manager for the images referenced by the diagram.
@@ -852,9 +852,9 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 	/**
 	 * Return the JavaFX node for the diagram.
-	 * @return the scene graph node.
+	 * @return the root scene graph node for the diagram.
 	 */
-	public Node getSceneNode() {
+	public DiagramRootNode getSceneNode() {
 		return diagramNode;
 	}
 

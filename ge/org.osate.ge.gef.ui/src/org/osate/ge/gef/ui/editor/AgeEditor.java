@@ -730,7 +730,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		// Initialize the JavaFX nodes based on the diagram
 		canvas = new InfiniteCanvas();
-		fxCanvas.setScene(new Scene(new DiagramEditorNode(paletteModel, canvas)));
+		final Scene scene = new Scene(new DiagramEditorNode(paletteModel, canvas));
+		fxCanvas.setScene(scene);
 		gefDiagram = new GefAgeDiagram(diagram, coloringService);
 
 		// Add padding around the diagram
@@ -742,7 +743,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		adapterMap.put(LayoutInfoProvider.class, gefDiagram);
 
 		// Create overlays
-		overlays = new Overlays(de -> gefDiagram.getSceneNode(de));
+		overlays = new Overlays(gefDiagram);
 		selectionProvider.addSelectionChangedListener(overlays);
 		canvas.getScrolledOverlayGroup().getChildren().add(overlays);
 
@@ -805,9 +806,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		//
 		// General input handlers
 		//
-		// Must be enabled to receive key press events
-		canvas.setFocusTraversable(true);
-
 		// Event handler. Delegates to input event handlers or the active interaction as appropriate
 		final EventHandler<? super InputEvent> handleInput = e -> {
 			if ((e.getEventType() == MouseEvent.MOUSE_PRESSED && ((MouseEvent) e).getButton() == MouseButton.SECONDARY)
@@ -839,7 +837,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		canvas.addEventFilter(MouseEvent.MOUSE_PRESSED, handleInput);
 		canvas.addEventFilter(MouseEvent.MOUSE_DRAGGED, handleInput);
 		canvas.addEventFilter(MouseEvent.MOUSE_RELEASED, handleInput);
-		canvas.addEventFilter(KeyEvent.KEY_PRESSED, handleInput);
+		scene.addEventFilter(KeyEvent.KEY_PRESSED, handleInput);
 		canvas.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
 			Cursor cursor = Cursor.DEFAULT;
 			for (final InputEventHandler inputEventHandler : inputEventHandlers) {
@@ -856,7 +854,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		});
 
 		// Create input event handlers
-		inputEventHandlers.add(new MarqueeInputEventHandler(paletteModel));
+		inputEventHandlers.add(
+				new MarqueeSelectInputEventHandler(overlays, paletteModel, selectionProvider));
 		inputEventHandlers.add(new MoveConnectionPointTool());
 		inputEventHandlers.add(new SelectInputEventHandler(paletteModel, selectionProvider));
 		inputEventHandlers.add(new PaletteCommandInputEventHandler(paletteModel));

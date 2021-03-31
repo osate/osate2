@@ -53,7 +53,7 @@ public class GefTest {
 	public static void main(final String[] args) {
 		try (final ImageManager images = new ImageManager()) {
 			NodeApplication.run(() -> {
-				final RootNode root = new RootNode();
+				final DiagramRootNode root = new DiagramRootNode();
 
 				//
 				// Create Top Level Node

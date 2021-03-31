@@ -23,15 +23,54 @@
  */
 package org.osate.ge.gef;
 
+import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.transform.NonInvertibleTransformException;
+import javafx.scene.transform.Transform;
 
 /**
- * Node intended to be used as the container for all top level {@link ContainerShape} instances. Sizes children to
- * preferred size and positions the nodes based on {@link PreferredPosition}
+ * Node intended to be used as the root of a diagram. Sizes children to preferred size and positions the nodes based on {@link PreferredPosition}
  */
-public class RootNode extends Group {
+public class DiagramRootNode extends Group {
+	private final ReadOnlyObjectWrapper<Transform> sceneToLocalTransform = new ReadOnlyObjectWrapper<Transform>();
+
+	public DiagramRootNode() {
+		sceneToLocalTransform.bind(new ObjectBinding<Transform>() {
+			{
+				bind(localToSceneTransformProperty());
+			}
+
+			@Override
+			protected Transform computeValue() {
+				try {
+					return getLocalToSceneTransform().createInverse();
+				} catch (NonInvertibleTransformException e) {
+					throw new AgeGefRuntimeException("Unable to create scene to localtransform");
+				}
+			}
+		});
+	}
+
+	/**
+	 * The transform between the scene and local coordinate system.
+	 * @return the property for the transform between the scene and local coordinate system.
+	 */
+	public ReadOnlyObjectProperty<Transform> sceneToLocalTransform() {
+		return sceneToLocalTransform.getReadOnlyProperty();
+	}
+
+	/**
+	 * Returns the current value of {@link #sceneToLocalTransform()}
+	 * @return the current value of {@link #sceneToLocalTransform()}
+	 */
+	public Transform getSceneToLocalTransform() {
+		return sceneToLocalTransform().get();
+	}
+
 	@Override
 	protected void layoutChildren() {
 		// Position and size children
