@@ -42,6 +42,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<modules>
 		<module>arp4761</module>
 		<module>ACVIP_ALISA</module>
+		<module>ACVIP</module>
 		<module>ACVIP_ErrorAnnex_SoftwarePlatform</module>
 		<module>continuous-safety-risk-evaluation</module>
 		<module>resource-budget</module>

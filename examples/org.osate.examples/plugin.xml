@@ -25,6 +25,13 @@ censes only apply to the Third Party Software and not any other portion of this 
 <?eclipse version="3.4"?>
 <plugin>
    <extension point="org.osate.ui.examples">
+      <example
+            exampleURI="/examples/ACVIP"
+            readmeURI="doc/html/README.html"
+            category="ACVIP Examples"
+            name="Example 1">
+         <project path=""/>
+      </example>
   	  <example
             exampleURI="/examples/ACVIP_ALISA"
             readmeURI="doc/html/README.html"
