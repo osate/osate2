@@ -48,7 +48,6 @@ import org.osate.aadl2.contrib.aadlproject.SizeUnits;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
 import org.osate.aadl2.contrib.communication.TransmissionTime;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
-import org.osate.aadl2.contrib.thread.ThreadProperties;
 import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -79,6 +78,7 @@ import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.pluginsupport.properties.RealRange;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
@@ -254,9 +254,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				.orElse(0.0) : 0.0;
 		double deadline = deadlineCats.contains(componentInstance.getCategory()) ? PropertyUtils.getScaled(TimingProperties::getDeadline, componentInstance, TimeUnits.MS)
 				.orElse(0.0) : 0.0;
-		boolean isAssignedDeadline = deadlineCats.contains(componentInstance.getCategory())
-				? TimingProperties.getDeadline(componentInstance).map(x -> true).orElse(false)
-				: false;
+//		boolean isAssignedDeadline = deadlineCats.contains(componentInstance.getCategory())
+//				? TimingProperties.getDeadline(componentInstance).map(x -> true).orElse(false)
+//				: false;
+		boolean isAssignedDeadline = GetProperties.isAssignedDeadline(componentInstance);
 
 		final boolean isThreadOrDevice = InstanceModelUtil.isThread(componentInstance)
 				|| InstanceModelUtil.isDevice(componentInstance) || InstanceModelUtil.isAbstract(componentInstance);
@@ -288,7 +289,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 							componentInstance, flowElementInstance, report.isMajorFrameDelay());
 					samplingLatencyContributor.setSamplingPeriod(period);
 					if ((InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance))
-							&& ThreadProperties.getDispatchProtocol(componentInstance).map(x -> false).orElse(true)) {
+//							&& ThreadProperties.getDispatchProtocol(componentInstance).map(x -> false).orElse(true)) {
+							&& !GetProperties.hasAssignedPropertyValue(componentInstance, "Dispatch_Protocol")) {
 						samplingLatencyContributor.reportInfo("Assume Periodic dispatch because period is set");
 					}
 					if (FlowLatencyUtil.isPreviousConnectionDelayed(etef, flowElementInstance)) {
