@@ -217,7 +217,13 @@ public class FlowLatencyUtil {
 	public static double getPartitionPeriod(final ComponentInstance part) {
 		// first look for major frame value on processor
 		final ComponentInstance module = getModule(part);
-		double result = PropertyUtils.getScaled(Arinc653::getModuleMajorFrame, module, TimeUnits.MS).orElse(0.0);
+		final ComponentCategory moduleCategory = module != null ? module.getCategory() : null;
+		double result = 0.0;
+		if (moduleCategory == ComponentCategory.PROCESSOR || moduleCategory == ComponentCategory.VIRTUAL_PROCESSOR
+				|| moduleCategory == ComponentCategory.ABSTRACT) {
+			result = PropertyUtils.getScaled(Arinc653::getModuleMajorFrame, module, TimeUnits.MS).orElse(0.0);
+		}
+
 		if (result == 0.0) {
 			// look for period on partition
 			result = PropertyUtils.getScaled(TimingProperties::getPeriod, part, TimeUnits.MS).orElse(0.0);
@@ -335,7 +341,14 @@ public class FlowLatencyUtil {
 			if (module == null) {
 				return null;
 			} else {
-				return Arinc653.getModuleSchedule(module).orElse(Collections.emptyList());
+				final ComponentCategory moduleCategory = module.getCategory();
+				if (moduleCategory == ComponentCategory.PROCESSOR
+						|| moduleCategory == ComponentCategory.VIRTUAL_PROCESSOR
+						|| moduleCategory == ComponentCategory.ABSTRACT) {
+					return Arinc653.getModuleSchedule(module).orElse(Collections.emptyList());
+				} else {
+					return Collections.emptyList();
+				}
 			}
 		}
 	}
