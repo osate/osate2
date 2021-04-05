@@ -30,7 +30,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.OptionalLong;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Function;
@@ -78,6 +77,7 @@ import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.pluginsupport.properties.RealRange;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
+import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -437,15 +437,17 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance, flowElementInstance,
 					report.isMajorFrameDelay());
 
-			final OptionalLong queueSize =
-					(incomingConnectionFI.getCategory() == FeatureCategory.EVENT_PORT
-							|| incomingConnectionFI.getCategory() == FeatureCategory.EVENT_PORT
-							|| incomingConnectionFI.getCategory() == FeatureCategory.SUBPROGRAM_ACCESS)
-									?
-					org.osate.aadl2.contrib.communication.CommunicationProperties
-					.getQueueSize(incomingConnectionFI) : OptionalLong.empty();
-			if (queueSize.isPresent()) {
-				qs = queueSize.getAsLong();
+//			final OptionalLong queueSize =
+//					(incomingConnectionFI.getCategory() == FeatureCategory.EVENT_PORT
+//							|| incomingConnectionFI.getCategory() == FeatureCategory.EVENT_PORT
+//							|| incomingConnectionFI.getCategory() == FeatureCategory.SUBPROGRAM_ACCESS)
+//									?
+//					org.osate.aadl2.contrib.communication.CommunicationProperties
+//					.getQueueSize(incomingConnectionFI) : OptionalLong.empty();
+//			if (queueSize.isPresent()) {
+//				qs = queueSize.getAsLong();
+			if (GetProperties.hasAssignedPropertyValue(incomingConnectionFI, CommunicationProperties.QUEUE_SIZE)) {
+				qs = GetProperties.getQueueSize(incomingConnectionFI);
 			} else if (incomingConnectionFI.getCategory() == FeatureCategory.DATA_PORT
 					&& isThreadOrDevice && (InstanceModelUtil.isSporadicComponent(componentInstance)
 							|| InstanceModelUtil.isTimedComponent(componentInstance)
