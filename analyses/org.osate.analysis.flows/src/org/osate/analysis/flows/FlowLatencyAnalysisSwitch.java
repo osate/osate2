@@ -877,6 +877,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 	}
 
+	private final static Set<ComponentCategory> hasPeriod = EnumSet.of(ComponentCategory.THREAD,
+			ComponentCategory.THREAD_GROUP, ComponentCategory.PROCESS, ComponentCategory.SYSTEM,
+			ComponentCategory.DEVICE, ComponentCategory.VIRTUAL_PROCESSOR, ComponentCategory.VIRTUAL_BUS,
+			ComponentCategory.BUS, ComponentCategory.ABSTRACT);
+
 	/*
 	 * boundBusOrRequiredClassifier is a ComponentInstance if it is a bus bound to connection instance, or a
 	 * ComponentClassifier if it is a virtual bus required by a connection connnection or vb.
@@ -892,8 +897,13 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 		// XXX: [Code Coverage] boundBus cannot be null.
 		if (boundBusOrRequiredClassifier != null) {
-			double period = PropertyUtils
-					.getScaled(TimingProperties::getPeriod, boundBusOrRequiredClassifier, TimeUnits.MS).orElse(0.0);
+			final ComponentCategory cc = boundBusOrRequiredClassifier instanceof ComponentInstance
+					? ((ComponentInstance) boundBusOrRequiredClassifier).getCategory()
+					: ((ComponentClassifier) boundBusOrRequiredClassifier).getCategory();
+			double period = hasPeriod.contains(
+					cc) ? PropertyUtils
+					.getScaled(TimingProperties::getPeriod, boundBusOrRequiredClassifier, TimeUnits.MS).orElse(0.0)
+					: 0.0;
 			if (period > 0) {
 				// add sampling latency due to the protocol or bus being periodic
 				LatencyContributor samplingLatencyContributor = new LatencyContributorComponent(
