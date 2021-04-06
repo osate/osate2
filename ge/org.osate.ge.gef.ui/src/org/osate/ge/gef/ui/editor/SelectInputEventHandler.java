@@ -24,14 +24,10 @@
 
 package org.osate.ge.gef.ui.editor;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionProvider;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
 import javafx.scene.Cursor;
@@ -43,13 +39,10 @@ import javafx.scene.input.MouseEvent;
  *  {@link InputEventHandler} which handles selection behavior.
  */
 public class SelectInputEventHandler implements InputEventHandler {
-	private final AgeEditorPaletteModel paletteModel;
-	private final ISelectionProvider selectionProvider;
+	private final AgeEditor editor;
 
-	public SelectInputEventHandler(final AgeEditorPaletteModel paletteModel,
-			final ISelectionProvider selectionProvider) {
-		this.paletteModel = paletteModel;
-		this.selectionProvider = selectionProvider;
+	public SelectInputEventHandler(final AgeEditor editor) {
+		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 	}
 
 	@Override
@@ -58,51 +51,40 @@ public class SelectInputEventHandler implements InputEventHandler {
 	}
 
 	@Override
-	public HandledEvent handleEvent(final GefAgeDiagram gefDiagram, final InputEvent e) {
+	public HandledEvent handleEvent(final InputEvent e) {
 		// Only handle primary mouse button presses
 		if (e.getEventType() != MouseEvent.MOUSE_PRESSED || ((MouseEvent) e).getButton() != MouseButton.PRIMARY) {
 			return null;
 		}
 
-		final DiagramElement clickedDiagramElement = InputEventHandlerUtil.getClosestDiagramElement(gefDiagram,
+		final DiagramElement clickedDiagramElement = InputEventHandlerUtil
+				.getClosestDiagramElement(editor.getGefDiagram(),
 				e.getTarget());
-		if (!paletteModel.isSelectToolActive() || clickedDiagramElement == null) {
-			return null;
-		}
-
-		final IStructuredSelection selection = getStructuredSelection();
-		if (selection == null) {
+		if (!editor.getPaletteModel().isSelectToolActive() || clickedDiagramElement == null) {
 			return null;
 		}
 
 		final MouseEvent mouseEvent = (MouseEvent) e;
 		if (mouseEvent.isShiftDown()) {
 				// If shift is held down. Ensure the element is at the end of the list
-				@SuppressWarnings("unchecked")
-				final List<Object> newSelectedElements = new ArrayList<>(selection.toList());
+				final List<DiagramElement> newSelectedElements = editor.getSelectedDiagramElementList();
 				newSelectedElements.remove(clickedDiagramElement);
 				newSelectedElements.add(clickedDiagramElement);
-				selectionProvider.setSelection(new StructuredSelection(newSelectedElements));
+				editor.selectDiagramNodes(newSelectedElements);
 			} else if (mouseEvent.isControlDown()) {
 				// If Ctrl is held down, then remove the element if it is already in the selection. Otherwise, add it.
-				@SuppressWarnings("unchecked")
-				final List<Object> newSelectedElements = new ArrayList<>(selection.toList());
+				final List<DiagramElement> newSelectedElements = editor.getSelectedDiagramElementList();
 				if (newSelectedElements.contains(clickedDiagramElement)) {
 					newSelectedElements.remove(clickedDiagramElement);
 				} else {
 					newSelectedElements.add(clickedDiagramElement);
 				}
-				selectionProvider.setSelection(new StructuredSelection(newSelectedElements));
+				editor.selectDiagramNodes(newSelectedElements);
 			} else {
 				// Replace the selection with the object
-				selectionProvider.setSelection(new StructuredSelection(clickedDiagramElement));
+				editor.selectDiagramNodes(Collections.singletonList(clickedDiagramElement));
 			}
 
 			return HandledEvent.handled();
-	}
-
-	private IStructuredSelection getStructuredSelection() {
-		final ISelection selection = selectionProvider.getSelection();
-		return selection instanceof IStructuredSelection ? (IStructuredSelection) selection : null;
 	}
 }

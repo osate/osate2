@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.operations;
+package org.osate.ge.internal.ui;
 
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -31,9 +31,11 @@ import org.osate.ge.graphics.Point;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.layout.IncrementalLayoutMode;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutPreferences;
-import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.FutureElementInfo;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
+import org.osate.ge.internal.operations.OperationExecutor;
+import org.osate.ge.internal.operations.OperationResults;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 
 /**
  * A results processor which is intended to be used with diagrams.
@@ -41,30 +43,33 @@ import org.osate.ge.internal.model.EmbeddedBusinessObject;
  *
  */
 public class DefaultOperationResultsProcessor implements OperationExecutor.ResultsProcessor {
-	private final DiagramUpdater diagramUpdater;
+	private final InternalDiagramEditor editor;
 	private final DiagramNode targetNode;
 	private final Point targetPosition;
 
 	/**
-	 *
+	 * Creates a new instance
+	 * @param diagram
 	 * @param diagramUpdater
 	 * @param refBuilder
 	 * @param targetNode is the node to which the targetPosition is relative.
 	 * @param targetPosition
 	 */
-	public DefaultOperationResultsProcessor(final DiagramUpdater diagramUpdater,
-			final DiagramNode targetNode, final Point targetPosition) {
-		this.diagramUpdater = Objects.requireNonNull(diagramUpdater, "diagramUpdater must not be null");
+	public DefaultOperationResultsProcessor(final InternalDiagramEditor editor, final DiagramNode targetNode,
+			final Point targetPosition) {
+		this.editor = Objects.requireNonNull(editor, "diagram must not be null");
 		this.targetNode = targetNode;
 		this.targetPosition = targetPosition;
 	}
 
-	public DefaultOperationResultsProcessor(final DiagramUpdater diagramUpdater) {
-		this(diagramUpdater, null, null);
+	public DefaultOperationResultsProcessor(final InternalDiagramEditor editor) {
+		this(editor, null, null);
 	}
 
 	@Override
 	public void processResults(final OperationResults results) {
+		boolean update = false;
+
 		// Notify the diagram updater to add the element on the next update
 		for (final Entry<BusinessObjectContext, OperationResults.BusinessObjectToShowDetails> containerToBoEntry : results
 				.getContainerToBoToShowDetailsMap().entries()) {
@@ -88,10 +93,18 @@ public class DefaultOperationResultsProcessor implements OperationExecutor.Resul
 				final EmbeddedBusinessObject embeddedBo = (newValue.bo instanceof EmbeddedBusinessObject)
 						? (EmbeddedBusinessObject) newValue.bo
 								: null;
-
-						diagramUpdater.addToNextUpdate(containerNode, newValue.ref,
+						editor.getDiagramUpdater().addToNextUpdate(containerNode, newValue.ref,
 								new FutureElementInfo(position, embeddedBo));
+
+						if (embeddedBo != null) {
+							update = true;
+						}
 			}
+		}
+
+		// If an embedded business object was added, then update the diagram to ensure it was updated.
+		if (update) {
+			editor.updateDiagram();
 		}
 	}
 }

@@ -24,58 +24,17 @@
 package org.osate.ge.gef.ui.editor;
 
 import javafx.scene.Cursor;
-import javafx.scene.input.InputEvent;
-import javafx.scene.input.MouseEvent;
 
 /**
- * Interface for objects which handle input events. Such handlers may optionally start an interaction. Once an interaction is started,
- * events are passed to the interaction rather than the input event handlers until the interaction is complete.
+ * Class containing cursors used by the graphical editor
  */
-public interface InputEventHandler {
-	/**
-	 * The result of handling an event
-	 */
-	static class HandledEvent {
-		private static final HandledEvent HANDLED = new HandledEvent(null);
+final class Cursors {
+	private Cursors() {}
 
-		/**
-		 * If an interaction is started, then this contains the new interaction.
-		 */
-		final Interaction newInteraction;
-
-		private HandledEvent(final Interaction newInteraction) {
-			this.newInteraction = newInteraction;
-		}
-
-		/**
-		 * Returns an instance used in cases where the event has been handled and an interaction was not started.
-		 * @return the instance.
-		 */
-		public static HandledEvent handled() {
-			return HANDLED;
-		}
-
-		/**
-		 * Returns an instance that indicates that the event has been handled and a new interaction has started.
-		 * @param interaction the new interaction
-		 * @return the instance
-		 */
-		public static HandledEvent newInteraction(final Interaction interaction) {
-			return new HandledEvent(interaction);
-		}
-	}
-
-	/**
-	* Returns the mouse cursor based that should override the default cursor.
-	* @param mouseMoveEvent is the mouse move event containing the location of the cursor.
-	* @return the cursor that should be used or null if the cursor shouldn't be overridden.
-	*/
-	Cursor getCursor(final MouseEvent mouseMoveEvent);
-
-	/**
-	 * Handles the event.
-	 * @param e the new input event
-	 * @return the result of handling the event. If the event was not handled by the handler, then null is returned.
-	 */
-	HandledEvent handleEvent(InputEvent e);
+	// TODO: Use image cursors after switching to a newer version of JavaFX. JavaFX 8 does not support ImageCursor when integrated with SWT
+	// The cursors below are used to allow functionality testing before switching to newer version of JavaFX which supports ImageCursor with SWT.
+	public static final Cursor NO = Cursor.WAIT;// new ImageCursor(new Image("./icons/cursors/no.png"));
+	public static final Cursor CREATE = Cursor.HAND;// new ImageCursor(new Image("./icons/cursors/create.png"));
+	public static final Cursor PLUG = Cursor.HAND;// new ImageCursor(new Image("./icons/cursors/plug.png"));
+	public static final Cursor PLUG_NO = Cursor.WAIT;// new ImageCursor(new Image("./icons/cursors/plug_no.png"));
 }

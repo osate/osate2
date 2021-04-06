@@ -23,7 +23,9 @@
  */
 package org.osate.ge.gef.ui.editor;
 
+import javafx.scene.Cursor;
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.MouseEvent;
 
 /**
  * An interaction handles a series of events. {@link InputEventHandler} instances create interactions in response to events.
@@ -38,11 +40,18 @@ public interface Interaction {
 	}
 
 	/**
+	* Returns the mouse cursor based that should override the default cursor.
+	* @param mouseMoveEvent is the mouse move event containing the location of the cursor.
+	* @return the cursor that should be used or null if the cursor shouldn't be overridden.
+	*/
+	Cursor getCursor(MouseEvent mouseMoveEvent);
+
+	/**
 	 * Handles an input event.
 	 * @param e the input event to handle.
 	 * @return the new state of the interaction. Should return {@link InteractionState#COMPLETE} when the final event for the interaction has been handled.
 	 */
-	InteractionState handleEvent(final InputEvent e);
+	InteractionState handleEvent(InputEvent e);
 
 	/**
 	 * Aborts the interaction and updates the scene graph to the original state.

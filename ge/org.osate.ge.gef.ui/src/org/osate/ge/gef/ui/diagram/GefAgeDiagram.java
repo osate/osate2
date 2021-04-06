@@ -36,7 +36,6 @@ import java.util.stream.Collectors;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.gef.fx.anchors.IAnchor;
 import org.eclipse.swt.widgets.Display;
 import org.osate.ge.gef.AgeGefRuntimeException;
 import org.osate.ge.gef.BaseConnectionNode;
@@ -262,7 +261,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 					if (needFullUpdate) {
 						updateSceneGraph();
-						updateDiagramFromSceneGraph();
+						forceLayout();
 					} else {
 						// Refresh override styles to prepare to apply styles to updated elements
 						refreshOverrideStyles();
@@ -282,7 +281,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 							calculateAndApplyStyle(ge);
 						}
 
-						updateDiagramFromSceneGraph();
+						forceLayout();
 					}
 				} finally {
 					inBeforeModificationsCompleted = false;
@@ -365,11 +364,15 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 	/**
 	 * Finds the scene node for a diagram element.
-	 * @param diagramElement the diagram element for which to find the scene node
-	 * @return the scene node which represents the diagram element or null if one cannot be found.
+	 * @param diagramNode the diagram node for which to find the scene node
+	 * @return the scene node which represents the diagram node or null if one cannot be found.
 	 */
-	public Node getSceneNode(final DiagramElement diagramElement) {
-		final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(diagramElement);
+	public Node getSceneNode(final DiagramNode diagramNode) {
+		if (diagramNode == diagram) {
+			return this.diagramNode;
+		}
+
+		final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(diagramNode);
 		return ge == null ? null : ge.sceneNode;
 	}
 
@@ -694,6 +697,8 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		if (gefDiagramElement.primaryLabel != null) {
 			gefDiagramElement.primaryLabel.setText(getPrimaryLabelText(diagramElement));
 			setLabelVisibility(gefDiagramElement.primaryLabel);
+			gefDiagramElement.primaryLabel
+					.setWrapText(diagramElement.getGraphicalConfiguration().isPrimaryLabelIsMultiline());
 		}
 
 		// Update the secondary label
@@ -707,11 +712,11 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	private void updateConnectionAnchors(final DiagramElement de, final BaseConnectionNode node) {
 		if (node instanceof FlowIndicatorNode) {
 			final FlowIndicatorNode fi = (FlowIndicatorNode) node;
-			fi.setStartAnchor(getAnchor(de.getStartElement(), null));
+			fi.setStartAnchor(GefAgeDiagramUtil.getAnchor(this, de.getStartElement(), null));
 		} else if (node instanceof ConnectionNode) {
 			final ConnectionNode cn = (ConnectionNode) node;
-			cn.setStartAnchor(getAnchor(de.getStartElement(), de.getEndElement()));
-			cn.setEndAnchor(getAnchor(de.getEndElement(), de.getStartElement()));
+			cn.setStartAnchor(GefAgeDiagramUtil.getAnchor(this, de.getStartElement(), de.getEndElement()));
+			cn.setEndAnchor(GefAgeDiagramUtil.getAnchor(this, de.getEndElement(), de.getStartElement()));
 		} else {
 			throw new AgeGefRuntimeException("Unexpected node: " + node);
 		}
@@ -726,32 +731,6 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		final String completenessSuffix = de.getCompleteness() == Completeness.INCOMPLETE ? INCOMPLETE_INDICATOR : "";
 		final String labelName = de.getLabelName();
 		return labelName == null ? "" : (labelName + completenessSuffix);
-	}
-
-	/**
-	 * Returns the anchor to use to reference the specified diagram element.
-	 * @param de the element to retrieve the anchor for
-	 * @param other is the element at the other end of the connection.
-	 * Used for docked shapes to determine which anchor to use. If null, the interior anchor will be used.
-	 * @return the anchor for the diagram element.
-	 */
-	private IAnchor getAnchor(final DiagramElement de, final DiagramElement other) {
-		final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(de);
-		if (ge == null || ge.sceneNode == null) {
-			return null;
-		}
-
-		if (ge.sceneNode instanceof ContainerShape) {
-			return ((ContainerShape) ge.sceneNode).getAnchor();
-		} else if (ge.sceneNode instanceof DockedShape) {
-			final DockedShape ds = (DockedShape) ge.sceneNode;
-			return (other == null || useInteriorAnchor(de, other)) ? ds.getInteriorAnchor() : ds.getExteriorAnchor();
-		} else if (ge.sceneNode instanceof BaseConnectionNode) {
-			return ((BaseConnectionNode) ge.sceneNode).getMidpointAnchor();
-		} else {
-			throw new AgeGefRuntimeException(
-					"Unexpected case. Attempt to get anchor for node of type : " + ge.sceneNode.getClass().getName());
-		}
 	}
 
 	/**
@@ -814,6 +793,14 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	}
 
 	/**
+	 * Triggers an immediate layout
+	 */
+	private void forceLayout() {
+		diagramNode.applyCss();
+		diagramNode.layout();
+	}
+
+	/**
 	 * Triggers a layout of the scene graph nodes and then updates the diagram based on the layout of the scene graph nodes.
 	 * Only position and size are set because those fields are calculated by the scene graph node during layout.	 *
 	 * Should only be called after the root node has been added to a scene.
@@ -821,8 +808,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 */
 	public void updateDiagramFromSceneGraph() {
 		updatingDiagramFromSceneGraph = true;
-		diagramNode.applyCss();
-		diagramNode.layout();
+		forceLayout();
 		diagram.modify("Update Diagram from Scene Graph", m -> {
 			for (final Entry<DiagramElement, GefDiagramElement> e : this.diagramElementToGefDiagramElementMap
 					.entrySet()) {
@@ -864,43 +850,6 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 */
 	public AgeDiagram getDiagram() {
 		return diagram;
-	}
-
-	/**
-	 * Returns whether the connection going from e1 to e2 should use the interior anchor for e1 if it exists.
-	 * @param e1
-	 * @param e2
-	 * @return
-	 */
-	private static boolean useInteriorAnchor(final DiagramElement e1, final DiagramElement e2) {
-		return isInsideUndockedContainer(e2, e1);
-	}
-
-	/**
-	 * Returns whether e1 is inside the first undocked container in the hierarchy of e2
-	 * @param e1
-	 * @param e2
-	 * @return
-	 */
-	private static boolean isInsideUndockedContainer(final DiagramElement e1, final DiagramElement e2) {
-		// Get the first diagram element in each hierarchy which doesn't have a dock area set.
-		DiagramNode nd2 = e2;
-		while (nd2 instanceof DiagramElement && ((DiagramElement) nd2).getDockArea() != null) {
-			nd2 = nd2.getParent();
-		}
-
-		if (!(nd2 instanceof DiagramElement)) {
-			return false;
-		}
-
-		// Check if e1 is inside the first undocked element in the e2 hierarchy
-		for (DiagramNode t1 = e1; t1 != null; t1 = t1.getParent()) {
-			if (t1 == nd2) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	@Override

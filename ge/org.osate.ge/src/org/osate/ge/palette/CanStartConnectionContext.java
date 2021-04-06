@@ -31,7 +31,6 @@ import org.osate.ge.services.QueryService;
 /**
  * Contains information needed to check whether a start of a connection is supported by a palette command.
  *
- * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0
  */
@@ -43,7 +42,6 @@ public final class CanStartConnectionContext {
 	 * Creates a new instance.
 	 * @param sourceBoc is the business object context for the start of the connection.
 	 * @param queryService is a query service instance to provide to the palette command.
-	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
 	public CanStartConnectionContext(final BusinessObjectContext sourceBoc, final QueryService queryService) {
 		this.sourceBoc = Objects.requireNonNull(sourceBoc, "sourceBoc must not be null");

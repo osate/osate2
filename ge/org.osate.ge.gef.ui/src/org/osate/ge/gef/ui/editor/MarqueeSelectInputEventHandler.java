@@ -26,12 +26,10 @@ package org.osate.ge.gef.ui.editor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import org.eclipse.jface.viewers.ISelectionProvider;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.osate.ge.gef.ContainerShape;
 import org.osate.ge.gef.DockedShape;
-import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.gef.ui.editor.overlays.Handle;
 import org.osate.ge.gef.ui.editor.overlays.Overlays;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -60,37 +58,36 @@ import javafx.scene.transform.Transform;
  *  Connections cannot be selected using the marquee tool.
  */
 public class MarqueeSelectInputEventHandler implements InputEventHandler {
-	private final Overlays overlays;
-	private final AgeEditorPaletteModel paletteModel;
-	private final ISelectionProvider selectionProvider;
+	private final AgeEditor editor;
 
-	public MarqueeSelectInputEventHandler(final Overlays overlays, final AgeEditorPaletteModel paletteModel,
-			final ISelectionProvider selectionProvider) {
-		this.overlays = overlays;
-		this.paletteModel = paletteModel;
-		this.selectionProvider = selectionProvider;
+	public MarqueeSelectInputEventHandler(final AgeEditor editor) {
+		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 	}
 
 	@Override
 	public Cursor getCursor(final MouseEvent mouseMoveEvent) {
-		return paletteModel.isMarqueeToolActive() && !isScrollBar(mouseMoveEvent.getTarget()) ? Cursor.CROSSHAIR : null;
+		return editor.getPaletteModel().isMarqueeToolActive() && !isScrollBar(mouseMoveEvent.getTarget())
+				? Cursor.CROSSHAIR
+				: null;
 	}
 
 	@Override
-	public HandledEvent handleEvent(final GefAgeDiagram gefDiagram, final InputEvent e) {
+	public HandledEvent handleEvent(final InputEvent e) {
 		if (e.getEventType() != MouseEvent.MOUSE_PRESSED || ((MouseEvent) e).getButton() != MouseButton.PRIMARY
 				|| isScrollBar(e.getTarget())) {
 			return null;
 		}
 
+		final AgeEditorPaletteModel paletteModel = editor.getPaletteModel();
 		final MouseEvent mouseEvent = (MouseEvent) e;
-		final DiagramElement clickedDiagramElement = InputEventHandlerUtil.getClosestDiagramElement(gefDiagram,
+		final DiagramElement clickedDiagramElement = InputEventHandlerUtil
+				.getClosestDiagramElement(editor.getGefDiagram(),
 				e.getTarget());
 		if (paletteModel.isMarqueeToolActive()
 				|| (paletteModel.isSelectToolActive() && clickedDiagramElement == null
 						&& !(e.getTarget() instanceof Handle))) {
 			return HandledEvent.newInteraction(
-					new MarqueeSelectInteraction(overlays, gefDiagram, selectionProvider, mouseEvent));
+					new MarqueeSelectInteraction(editor, mouseEvent));
 		}
 
 		return null;
@@ -109,8 +106,7 @@ public class MarqueeSelectInputEventHandler implements InputEventHandler {
 }
 
 class MarqueeSelectInteraction extends BaseInteraction {
-	private final GefAgeDiagram gefDiagram;
-	private final ISelectionProvider selectionProvider;
+	private final AgeEditor editor;
 
 	/**
 	 * Start of the selection in diagram coordinates.
@@ -123,14 +119,13 @@ class MarqueeSelectInteraction extends BaseInteraction {
 		selectionBoundsOverlay.getTransforms().setAll(newValue);
 	};
 
-	public MarqueeSelectInteraction(final Overlays overlays, final GefAgeDiagram gefDiagram,
-			final ISelectionProvider selectionProvider, final MouseEvent e) {
-		this.gefDiagram = gefDiagram;
-		this.selectionProvider = selectionProvider;
-		this.selectionStart = gefDiagram.getSceneNode().getSceneToLocalTransform().transform(e.getSceneX(),
+	public MarqueeSelectInteraction(final AgeEditor editor, final MouseEvent e) {
+		this.editor = editor;
+		this.selectionStart = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform().transform(e.getSceneX(),
 				e.getSceneY());
 
 		// Update transforms so that the local coordinate system matches diagram coordinates
+		final Overlays overlays = editor.getOverlays();
 		overlays.diagramToOverlayTransform().addListener(new WeakChangeListener<>(diagramToOverlayChangeListener));
 		selectionBoundsOverlay.getTransforms().setAll(overlays.diagramToOverlayTransform().get());
 
@@ -150,7 +145,8 @@ class MarqueeSelectInteraction extends BaseInteraction {
 	@Override
 	protected Interaction.InteractionState onMouseDragged(final MouseEvent e) {
 		// Transform the cursor position to diagram coordinates and update the bounds overlay
-		final Point2D p = gefDiagram.getSceneNode().getSceneToLocalTransform().transform(e.getSceneX(), e.getSceneY());
+		final Point2D p = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform().transform(e.getSceneX(),
+				e.getSceneY());
 		if (p.getX() < selectionStart.getX()) {
 			selectionBoundsOverlay.setX(p.getX());
 			selectionBoundsOverlay.setWidth(selectionStart.getX() - p.getX());
@@ -175,8 +171,8 @@ class MarqueeSelectInteraction extends BaseInteraction {
 		// Select container and docked shapes
 		final Bounds selectionBounds = selectionBoundsOverlay.getLocalToSceneTransform().transform(selectionBoundsOverlay.getBoundsInLocal());
 		final List<DiagramElement> newSelection = new ArrayList<>();
-		addChildrenToNewSelection(gefDiagram.getSceneNode(), selectionBounds, newSelection);
-		selectionProvider.setSelection(new StructuredSelection(newSelection));
+		addChildrenToNewSelection(editor.getGefDiagram().getSceneNode(), selectionBounds, newSelection);
+		editor.selectDiagramNodes(newSelection);
 		removeOverlay();
 
 		return InteractionState.COMPLETE;
@@ -198,7 +194,7 @@ class MarqueeSelectInteraction extends BaseInteraction {
 			if ((child instanceof ContainerShape || child instanceof DockedShape)
 					&& selectionBounds.contains(childBounds)) {
 				// Ignore objects which do not have an associated diagram element
-				final DiagramElement childDiagramElement = gefDiagram.getDiagramElement(child);
+				final DiagramElement childDiagramElement = editor.getGefDiagram().getDiagramElement(child);
 				if (childDiagramElement != null) {
 					newSelection.add(childDiagramElement);
 				}

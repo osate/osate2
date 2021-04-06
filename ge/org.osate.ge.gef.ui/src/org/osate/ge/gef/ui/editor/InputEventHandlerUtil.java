@@ -3,6 +3,7 @@ package org.osate.ge.gef.ui.editor;
 import org.osate.ge.gef.AgeGefRuntimeException;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
 
 import javafx.event.EventTarget;
 import javafx.geometry.Point2D;
@@ -15,18 +16,22 @@ import javafx.scene.transform.NonInvertibleTransformException;
  */
 public class InputEventHandlerUtil {
 	/**
-	 * If the event target is a {@link Node}, walks up the scene graph and returns the first {@link DiaramElement} associated with the node
+	 * If the event target is a {@link Node}, walks up the scene graph and returns the first {@link DiaramNode} associated with the node
 	 * or ancestors.
-	 * @param gefDiagram is the diagram from which to get the diagram element
+	 * @param gefDiagram is the diagram from which to get the diagram node
 	 * @param target the event target. Returns null if the event target is not a {@link Node}
-	 * @return the closest diagram element to the event target. Returns null if the event target is a null.
+	 * @return the closest diagram node to the event target. Returns null if the event target is a null.
 	 */
-	public static DiagramElement getClosestDiagramElement(final GefAgeDiagram gefDiagram, final EventTarget target) {
+	public static DiagramNode getClosestDiagramNode(final GefAgeDiagram gefDiagram, final EventTarget target) {
 		if (!(target instanceof Node)) {
 			return null;
 		}
 
 		for (Node tmp = (Node) target; tmp != null; tmp = tmp.getParent()) {
+			if (tmp == gefDiagram.getSceneNode()) {
+				return gefDiagram.getDiagram();
+			}
+
 			final DiagramElement de = gefDiagram.getDiagramElement(tmp);
 			if (de != null) {
 				return de;
@@ -34,6 +39,18 @@ public class InputEventHandlerUtil {
 		}
 
 		return null;
+	}
+
+	/**
+	 * If the event target is a {@link Node}, walks up the scene graph and returns the first {@link DiaramElement} associated with the node
+	 * or ancestors.
+	 * @param gefDiagram is the diagram from which to get the diagram element
+	 * @param target the event target. Returns null if the event target is not a {@link Node}
+	 * @return the closest diagram element to the event target. Returns null if the event target is a null.
+	 */
+	public static DiagramElement getClosestDiagramElement(final GefAgeDiagram gefDiagram, final EventTarget target) {
+		final DiagramNode diagramNode = getClosestDiagramNode(gefDiagram, target);
+		return diagramNode instanceof DiagramElement ? (DiagramElement) diagramNode : null;
 	}
 
 	/**

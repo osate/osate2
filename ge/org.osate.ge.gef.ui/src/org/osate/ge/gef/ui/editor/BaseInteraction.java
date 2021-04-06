@@ -23,6 +23,7 @@
  */
 package org.osate.ge.gef.ui.editor;
 
+import javafx.scene.Cursor;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
 
@@ -31,13 +32,31 @@ import javafx.scene.input.MouseEvent;
  */
 public abstract class BaseInteraction implements Interaction {
 	@Override
-	public final InteractionState handleEvent(InputEvent e) {
-		if (e.getEventType() == MouseEvent.MOUSE_DRAGGED) {
+	public final InteractionState handleEvent(final InputEvent e) {
+		if (e.getEventType() == MouseEvent.MOUSE_MOVED) {
+			return onMouseMoved((MouseEvent) e);
+		}
+		if (e.getEventType() == MouseEvent.MOUSE_PRESSED) {
+			return onMousePressed((MouseEvent) e);
+		} else if (e.getEventType() == MouseEvent.MOUSE_DRAGGED) {
 			return onMouseDragged((MouseEvent) e);
 		} else if (e.getEventType() == MouseEvent.MOUSE_RELEASED) {
 			return onMouseReleased((MouseEvent) e);
 		}
 
+		return InteractionState.IN_PROGRESS;
+	}
+
+	@Override
+	public Cursor getCursor(final MouseEvent mouseMoveEvent) {
+		return null;
+	}
+
+	protected Interaction.InteractionState onMouseMoved(final MouseEvent e) {
+		return InteractionState.IN_PROGRESS;
+	}
+
+	protected Interaction.InteractionState onMousePressed(final MouseEvent e) {
 		return InteractionState.IN_PROGRESS;
 	}
 

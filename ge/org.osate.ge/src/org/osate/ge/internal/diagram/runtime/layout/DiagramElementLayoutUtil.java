@@ -266,6 +266,7 @@ public class DiagramElementLayoutUtil {
 
 		final Collection<DiagramNode> nodesToLayout = DiagramElementLayoutUtil.filterUnnecessaryNodes(
 				unfilteredNodesToLayout, currentLayoutMode == IncrementalLayoutMode.LAYOUT_DIAGRAM);
+
 		if (nodesToLayout.size() == 0) {
 			// If the filtered node list is empty then the unfiltered list still contain feature self loop connections that need to be layed out.
 			unfilteredNodesToLayout.stream().filter(DiagramElementLayoutUtil::isFeatureSelfLoopConnection)

@@ -116,7 +116,7 @@ public class GefTest {
 				//
 				// Create Free Children
 				//
-				// bus
+				// mode
 				final ContainerShape mode1 = new ContainerShape();
 				final ModeNode mode1Graphic = new ModeNode();
 				mode1Graphic.setInitialMode(true);
@@ -126,27 +126,27 @@ public class GefTest {
 				PreferredPosition.set(mode1, new Point2D(400, 200));
 				top1.getFreeChildren().add(mode1);
 
-				// system
-				final ContainerShape sys1 = new ContainerShape();
-				sys1.setHorizontalLabelPosition(LabelPosition.CENTER);
-				sys1.setVerticalLabelPosition(LabelPosition.BEGINNING);
-				sys1.setGraphic(new RectangleNode(true));
-				sys1.getPrimaryLabels().setAll(new LabelNode("sys1"));
-				top1.getFreeChildren().add(sys1);
-				PreferredPosition.set(sys1, new Point2D(200, 300));
-				sys1.setConfiguredWidth(310);
-				sys1.setConfiguredHeight(100);
+				// subcomponent
+				final ContainerShape sc1 = new ContainerShape();
+				sc1.setHorizontalLabelPosition(LabelPosition.CENTER);
+				sc1.setVerticalLabelPosition(LabelPosition.BEGINNING);
+				sc1.setGraphic(new DeviceNode());
+				sc1.getPrimaryLabels().setAll(new LabelNode("sys1"));
+				top1.getFreeChildren().add(sc1);
+				PreferredPosition.set(sc1, new Point2D(200, 300));
+				sc1.setConfiguredWidth(310);
+				sc1.setConfiguredHeight(100);
 
 				final DockedShape sys1In1 = createDockedShape("in1",
 						new PortNode(true, true, FeatureDirection.IN));
-				sys1.getLeftChildren().add(sys1In1);
+				sc1.getLeftChildren().add(sys1In1);
 
 				final DockedShape sys1In2 = createDockedShape("in2", new PortNode(true, true, FeatureDirection.IN));
-				sys1.getLeftChildren().add(sys1In2);
+				sc1.getLeftChildren().add(sys1In2);
 
 				final DockedShape sys1Out1 = createDockedShape("out1",
 						new PortNode(false, true, FeatureDirection.OUT));
-				sys1.getRightChildren().add(sys1Out1);
+				sc1.getRightChildren().add(sys1Out1);
 
 				//
 				// Connections
@@ -158,7 +158,7 @@ public class GefTest {
 				fsnk1.setEndDecoration(new PolylineNode(new Dimension2D(0.0, 16.0), 0.0, 0.0, 0.0, 1.0));
 				PreferredPosition.set(fsnk1, new Point2D(80.0, 30.0));
 				fsnk1.setStartAnchor(sys1In1.getInteriorAnchor());
-				sys1.getFreeChildren().add(fsnk1);
+				sc1.getFreeChildren().add(fsnk1);
 
 				// Connection
 				final ConnectionNode c1 = new ConnectionNode();
@@ -231,12 +231,13 @@ public class GefTest {
 				//
 				final Font f1 = Font.font("Arial", FontWeight.NORMAL, 14.0);
 				final FxStyle s1 = new FxStyle.Builder().primaryLabelsVisible(true).font(f1).image(testImage).build();
-				final FxStyle s2 = new FxStyle.Builder().outlineColor(Color.BLUE).primaryLabelsVisible(true).build();
+				final FxStyle s2 = new FxStyle.Builder().outlineColor(Color.BLUE).primaryLabelsVisible(true)
+						.lineWidth(4).build();
 				StyleRoot.set(top1, true);
 				StyleRoot.set(mode1, true);
-				StyleRoot.set(sys1, true);
+				StyleRoot.set(sc1, true);
 				FxStyleApplier.applyStyle(mode1, s2);
-				FxStyleApplier.applyStyle(sys1, s2);
+				FxStyleApplier.applyStyle(sc1, s2);
 				FxStyleApplier.applyStyle(top1, s1);
 
 				return canvas;

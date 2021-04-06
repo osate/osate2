@@ -193,12 +193,12 @@ public class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, S
 	}
 
 	/**
-	 * Deactivate the selected item if it is not a selection item.
+	 * If the selected item is not the select or marquee tool, activate teh select tool.
 	 */
 	public void deactivateNonSelectItem() {
 		final SimplePaletteItem item = activeItem.getValue();
 		if (item != selectItem && item != marqueeItem) {
-			activeItem.setValue(null);
+			activeItem.setValue(selectItem);
 		}
 	}
 }

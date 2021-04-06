@@ -1,1 +1,1 @@
-Arrow, marquee, zoom in, and zoom out icons are copied from [GEF-legacy](https://github.com/eclipse/gef-legacy/tree/master/org.eclipse.gef/src/org/eclipse/gef/internal/icons).
+Arrow, marquee, zoom in, and zoom out icons are copied and/or converted from [GEF-legacy](https://github.com/eclipse/gef-legacy/tree/master/org.eclipse.gef/src/org/eclipse/gef/internal/icons) and [org.eclipse.ui](https://github.com/eclipse/eclipse.platform.ui/tree/master/bundles/org.eclipse.ui/icons/full/pointer).

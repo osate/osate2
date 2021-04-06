@@ -94,6 +94,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.gef.AgeGefRuntimeException;
 import org.osate.ge.gef.DiagramEditorNode;
+import org.osate.ge.gef.palette.SimplePaletteItem;
 import org.osate.ge.gef.ui.AgeGefUiPlugin;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.gef.ui.editor.Interaction.InteractionState;
@@ -729,6 +730,12 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		this.paletteModel = new AgeEditorPaletteModel(extRegistry.getPaletteContributors(), diagramBo, imageProvider);
 
+		// If the palette item changes while an interaction is active, deactivate the interaction.
+		this.paletteModel.activeItemProperty().addListener(
+				(javafx.beans.value.ChangeListener<SimplePaletteItem>) (observable, oldValue, newValue) -> {
+					abortInteraction();
+				});
+
 		// Initialize the JavaFX nodes based on the diagram
 		canvas = new InfiniteCanvas();
 		final Scene scene = new Scene(new DiagramEditorNode(paletteModel, canvas));
@@ -834,17 +841,13 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		final EventHandler<? super InputEvent> handleInput = e -> {
 			if ((e.getEventType() == MouseEvent.MOUSE_PRESSED && ((MouseEvent) e).getButton() == MouseButton.SECONDARY)
 					|| (e.getEventType() == KeyEvent.KEY_PRESSED && ((KeyEvent) e).getCode() == KeyCode.ESCAPE)) {
-				if (activeInteraction != null) {
-					activeInteraction.abort();
-					activeInteraction = null;
-					canvas.setCursor(Cursor.DEFAULT);
-				}
+				abortInteraction();
 			}
 
 			if (activeInteraction == null) {
 				// Delegate processing of the event to the input event handlers
 				for (final InputEventHandler inputEventHandler : inputEventHandlers) {
-					final InputEventHandler.HandledEvent r = inputEventHandler.handleEvent(gefDiagram, e);
+					final InputEventHandler.HandledEvent r = inputEventHandler.handleEvent(e);
 					if (r != null) {
 						activeInteraction = r.newInteraction;
 						return;
@@ -864,11 +867,15 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		scene.addEventFilter(KeyEvent.KEY_PRESSED, handleInput);
 		canvas.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
 			Cursor cursor = Cursor.DEFAULT;
-			for (final InputEventHandler inputEventHandler : inputEventHandlers) {
-				final Cursor overrideCursor = inputEventHandler.getCursor(e);
-				if (overrideCursor != null) {
-					cursor = overrideCursor;
-					break;
+			if (activeInteraction != null) {
+				cursor = activeInteraction.getCursor(e);
+			} else {
+				for (final InputEventHandler inputEventHandler : inputEventHandlers) {
+					final Cursor overrideCursor = inputEventHandler.getCursor(e);
+					if (overrideCursor != null) {
+						cursor = overrideCursor;
+						break;
+					}
 				}
 			}
 
@@ -878,11 +885,21 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		});
 
 		// Create input event handlers
-		inputEventHandlers.add(
-				new MarqueeSelectInputEventHandler(overlays, paletteModel, selectionProvider));
-		inputEventHandlers.add(new MoveConnectionPointTool());
-		inputEventHandlers.add(new SelectInputEventHandler(paletteModel, selectionProvider));
-		inputEventHandlers.add(new PaletteCommandInputEventHandler(paletteModel));
+		inputEventHandlers.add(new MarqueeSelectInputEventHandler(this));
+		inputEventHandlers.add(new MoveConnectionPointTool(this));
+		inputEventHandlers.add(new SelectInputEventHandler(this));
+		inputEventHandlers.add(new PaletteCommandInputEventHandler(this));
+	}
+
+	/**
+	 * Aborts the current interaction. If an interaction is not active then this function is a no-op.
+	 */
+	private void abortInteraction() {
+		if (activeInteraction != null) {
+			activeInteraction.abort();
+			activeInteraction = null;
+			canvas.setCursor(Cursor.DEFAULT);
+		}
 	}
 
 	/**
@@ -894,7 +911,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	}
 
 	/**
-	 * Returns the palette model. Intended to be used only by tests.
+	 * Returns the palette model.
 	 * @return the palette model
 	 */
 	public final AgeEditorPaletteModel getPaletteModel() {
@@ -902,12 +919,20 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	}
 
 	/**
-	 * Gets the scene node for a diagram element. Intended to be used only by tests.
-	 * @param de the diagram element for which to get the scene node
+	 * The overlays scene graph node
+	 * @return the overlays
+	 */
+	public final Overlays getOverlays() {
+		return overlays;
+	}
+
+	/**
+	 * Gets the scene node for a diagram node.
+	 * @param dn the diagram node for which to get the scene node
 	 * @return the scene node
 	 */
-	public final Node getSceneNode(final DiagramElement de) {
-		return gefDiagram.getSceneNode(de);
+	public final Node getSceneNode(final DiagramNode dn) {
+		return gefDiagram.getSceneNode(dn);
 	}
 
 	/**
@@ -1214,14 +1239,17 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		return site.getActionBars().getGlobalActionHandler(actionId);
 	}
 
-	@Override
-	public Set<DiagramElement> getSelectedDiagramElements() {
+	/**
+	 * Returns a new mutable list containing the diagram elements contained in the selection.
+	 * @return the selected diagram elements.
+	 */
+	public List<DiagramElement> getSelectedDiagramElementList() {
 		final IStructuredSelection selection = selectionProvider.getSelection();
 		if (selection == null) {
-			return Collections.emptySet();
+			return Collections.emptyList();
 		}
 
-		final HashSet<DiagramElement> selectedElements = new HashSet<>();
+		final List<DiagramElement> selectedElements = new ArrayList<>(selection.size());
 		for (final Object s : selection) {
 			if (s instanceof DiagramElement) {
 				selectedElements.add((DiagramElement) s);
@@ -1229,6 +1257,11 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		}
 
 		return selectedElements;
+	}
+
+	@Override
+	public Set<DiagramElement> getSelectedDiagramElements() {
+		return new HashSet<>(getSelectedDiagramElementList());
 	}
 
 	@Override
@@ -1254,6 +1287,22 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			// Clear outline selection
 			outlinePage.setSelection(null);
 		}
+	}
+
+	GefAgeDiagram getGefDiagram() {
+		return gefDiagram;
+	}
+
+	ReferenceService getReferenceService() {
+		return referenceService;
+	}
+
+	AadlModificationService getAadlModificationService() {
+		return aadlModService;
+	}
+
+	QueryService getQueryService() {
+		return queryService;
 	}
 
 	@Override

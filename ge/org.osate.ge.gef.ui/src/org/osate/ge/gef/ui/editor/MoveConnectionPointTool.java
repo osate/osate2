@@ -25,6 +25,7 @@ package org.osate.ge.gef.ui.editor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.eclipse.gef.fx.nodes.Connection;
@@ -57,19 +58,25 @@ import javafx.scene.transform.Transform;
  *  flow indicators.
  */
 public class MoveConnectionPointTool implements InputEventHandler {
+	private final AgeEditor editor;
+
+	public MoveConnectionPointTool(final AgeEditor editor) {
+		this.editor = Objects.requireNonNull(editor, "editor must not be null");
+	}
+
 	@Override
 	public Cursor getCursor(final MouseEvent mouseMoveEvent) {
 		return mouseMoveEvent.getTarget() instanceof ConnectionPointHandle ? Cursor.MOVE : null;
 	}
 
 	@Override
-	public HandledEvent handleEvent(final GefAgeDiagram gefDiagram, InputEvent e) {
+	public HandledEvent handleEvent(final InputEvent e) {
 		if (e.getEventType() != MouseEvent.MOUSE_PRESSED || ((MouseEvent) e).getButton() != MouseButton.PRIMARY
 				|| !(e.getTarget() instanceof ConnectionPointHandle)) {
 			return null;
 		}
 
-		return HandledEvent.newInteraction(new MoveConnectionPointInteraction(gefDiagram, (MouseEvent) e));
+		return HandledEvent.newInteraction(new MoveConnectionPointInteraction(editor.getGefDiagram(), (MouseEvent) e));
 	}
 }
 

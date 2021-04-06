@@ -33,7 +33,6 @@ import org.eclipse.gef.geometry.convert.fx.FX2Geometry;
 import org.eclipse.gef.geometry.planar.IGeometry;
 
 import javafx.beans.binding.ObjectBinding;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
@@ -174,19 +173,6 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		// Initialize chopbox anchor
 		anchor.getComputationParameter(AnchorageReferenceGeometry.class).bind(new ObjectBinding<IGeometry>() {
 			{
-				// Taken from DefaultAnchorProvider..
-				// XXX: Binding value needs to be recomputed when the
-				// anchorage changes or when the layout bounds of the
-				// respective anchorage changes.
-				anchor.anchorageProperty().addListener((ChangeListener<Node>) (observable, oldValue, newValue) -> {
-					if (oldValue != null) {
-						unbind(oldValue.boundsInLocalProperty());
-					}
-					if (newValue != null) {
-						bind(newValue.boundsInLocalProperty());
-					}
-					invalidate();
-				});
 				bind(anchor.getAnchorage().boundsInLocalProperty());
 			}
 
@@ -437,6 +423,11 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 
 	@Override
 	public IGeometry getChopBoxGeometry() {
+		// In some cases, the outline will have a 0 width unless the values of the bounds in local
+		// property is retrieved. It is unclear the reason for this but this fixes an issues with
+		// chop box anchors
+		boundsInLocalProperty().get();
+
 		final Node graphic = getGraphic();
 		if (graphic instanceof ChopBoxGeometryProvider) {
 			final IGeometry outline = ((ChopBoxGeometryProvider) graphic).getChopBoxGeometry();

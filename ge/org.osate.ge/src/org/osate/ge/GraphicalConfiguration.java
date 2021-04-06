@@ -116,10 +116,6 @@ public final class GraphicalConfiguration {
 		return annotation;
 	}
 
-	/**
-	 *
-	 * @noreference This method is not intended to be referenced by clients.
-	 */
 	public final boolean isPrimaryLabelIsMultiline() {
 		return primaryLabelIsMultiline;
 	}

@@ -45,7 +45,6 @@ public final class GetTargetedOperationContext {
 	 * @param targetBoc is the target for the command.
 	 * @param dockingPostion is the most appropriate DockingPosition based on the location at which the command was activated is being created.
 	 * @param queryService is a query service instance to provide to the palette command.
-	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
 	public GetTargetedOperationContext(final BusinessObjectContext targetBoc, final DockingPosition dockingPostion,
 			final QueryService queryService) {

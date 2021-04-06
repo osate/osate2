@@ -35,25 +35,32 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.StrokeType;
 
 /**
  * Node for device graphics
  */
 public class DeviceNode extends Region implements ChopBoxGeometryProvider, Stylable {
 	private static final double SHADED_AREA_PADDING = 4.0;
+	private static final double CORNER_SEGMENT_PADDING = 1.0;
 
 	private final Rectangle fillRect = new Rectangle();
 	private final Path shadedArea = new Path();
 	private final Path lineSegments = new Path();
+	private final Rectangle outlineRect = new Rectangle();
 
 	/**
 	 * Creates a new instance
 	 */
 	public DeviceNode() {
-		this.getChildren().addAll(fillRect, shadedArea, lineSegments);
+		this.getChildren().addAll(fillRect, shadedArea, outlineRect, lineSegments);
 
 		shadedArea.setStrokeWidth(0.0);
 		lineSegments.setStrokeLineCap(StrokeLineCap.BUTT);
+
+		outlineRect.setFill(null);
+		outlineRect.setStrokeType(StrokeType.INSIDE);
+		outlineRect.setStrokeLineCap(StrokeLineCap.BUTT);
 
 		setLineWidth(2.0);
 		setBackgroundColor(Color.WHITE);
@@ -66,6 +73,8 @@ public class DeviceNode extends Region implements ChopBoxGeometryProvider, Styla
 
 		fillRect.setWidth(width);
 		fillRect.setHeight(height);
+		outlineRect.setWidth(width);
+		outlineRect.setHeight(height);
 
 		shadedArea.getElements().setAll(new MoveTo(width, 0),
 				new LineTo(width - SHADED_AREA_PADDING, SHADED_AREA_PADDING),
@@ -73,12 +82,15 @@ public class DeviceNode extends Region implements ChopBoxGeometryProvider, Styla
 				new MoveTo(0, height), new LineTo(SHADED_AREA_PADDING, height - SHADED_AREA_PADDING),
 				new LineTo(width - SHADED_AREA_PADDING, height - SHADED_AREA_PADDING), new LineTo(width, height));
 
-		lineSegments.getElements().setAll(new MoveTo(0, 0), new LineTo(SHADED_AREA_PADDING, SHADED_AREA_PADDING),
-				new MoveTo(width, 0), new LineTo(width - SHADED_AREA_PADDING, SHADED_AREA_PADDING),
-				new MoveTo(0, height), new LineTo(SHADED_AREA_PADDING, height - SHADED_AREA_PADDING),
-				new MoveTo(width - SHADED_AREA_PADDING, height - SHADED_AREA_PADDING), new LineTo(width, height),
-				new MoveTo(0, 0), new LineTo(width, 0), new LineTo(width, height), new LineTo(0, height),
-				new LineTo(0, 0), new MoveTo(SHADED_AREA_PADDING, SHADED_AREA_PADDING),
+		lineSegments.getElements().setAll(new MoveTo(CORNER_SEGMENT_PADDING, CORNER_SEGMENT_PADDING),
+				new LineTo(SHADED_AREA_PADDING, SHADED_AREA_PADDING),
+				new MoveTo(width - CORNER_SEGMENT_PADDING, CORNER_SEGMENT_PADDING),
+				new LineTo(width - SHADED_AREA_PADDING, SHADED_AREA_PADDING),
+				new MoveTo(CORNER_SEGMENT_PADDING, height - CORNER_SEGMENT_PADDING),
+				new LineTo(SHADED_AREA_PADDING, height - SHADED_AREA_PADDING),
+				new MoveTo(width - SHADED_AREA_PADDING, height - SHADED_AREA_PADDING),
+				new LineTo(width - CORNER_SEGMENT_PADDING, height - CORNER_SEGMENT_PADDING),
+				new MoveTo(SHADED_AREA_PADDING, SHADED_AREA_PADDING),
 				new LineTo(width - SHADED_AREA_PADDING, SHADED_AREA_PADDING),
 				new LineTo(width - SHADED_AREA_PADDING, height - SHADED_AREA_PADDING),
 				new LineTo(SHADED_AREA_PADDING, height - SHADED_AREA_PADDING),
@@ -99,11 +111,16 @@ public class DeviceNode extends Region implements ChopBoxGeometryProvider, Styla
 	}
 
 	public final void setOutlineColor(final Color value) {
+		outlineRect.setStroke(value);
 		lineSegments.setStroke(value);
 	}
 
 	public final void setLineWidth(final double value) {
-		lineSegments.setStrokeWidth(value);
+		// Adjust the line width to ensure the lines do not overlap with the padding while avoiding overlapping with the primary label.
+		// If the default line width is adjusted to be 1.0, then this may not be necessary.
+		final double adjustedLineWidth = Math.min(Math.max(1.0, value / 2.0), 2.0);
+		outlineRect.setStrokeWidth(adjustedLineWidth);
+		lineSegments.setStrokeWidth(adjustedLineWidth);
 	}
 
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {
