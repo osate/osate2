@@ -346,7 +346,10 @@ public class FlowLatencyUtil {
 				if (moduleCategory == ComponentCategory.PROCESSOR
 						|| moduleCategory == ComponentCategory.VIRTUAL_PROCESSOR
 						|| moduleCategory == ComponentCategory.ABSTRACT) {
-					return Arinc653.getModuleSchedule(module).orElse(Collections.emptyList());
+					/* Only keep those windows that have a partition specified */
+					final List<ScheduleWindow> windows = Arinc653.getModuleSchedule(module).orElse(Collections.emptyList());
+					windows.removeIf(sw -> !sw.getPartition().isPresent());
+					return windows;
 				} else {
 					return Collections.emptyList();
 				}
