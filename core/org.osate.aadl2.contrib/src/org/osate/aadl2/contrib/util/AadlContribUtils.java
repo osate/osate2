@@ -32,7 +32,8 @@ public final class AadlContribUtils {
 	private static final Set<ComponentCategory> hasSize = EnumSet.of(ComponentCategory.DATA,
 			ComponentCategory.SUBPROGRAM, ComponentCategory.THREAD, ComponentCategory.THREAD_GROUP,
 			ComponentCategory.PROCESS, ComponentCategory.SYSTEM, ComponentCategory.PROCESSOR,
-			ComponentCategory.VIRTUAL_PROCESSOR, ComponentCategory.DEVICE, ComponentCategory.ABSTRACT);
+			ComponentCategory.VIRTUAL_PROCESSOR, ComponentCategory.BUS, ComponentCategory.VIRTUAL_BUS,
+			ComponentCategory.DEVICE, ComponentCategory.ABSTRACT);
 
 	public static double getDataSize(final ComponentClassifier ne, final SizeUnits unit) {
 		return hasSize.contains(ne.getCategory()) ? getDataSize(ne, unit, 0) : 0;
@@ -48,7 +49,15 @@ public final class AadlContribUtils {
 
 	private static double getDataSize(final NamedElement ne, final SizeUnits unit, final int nesting) {
 		final double elementSize = PropertyUtils.getScaled(MemoryProperties::getDataSize, ne, unit)
-				.orElseGet(() -> PropertyUtils.getScaled(MemoryProperties::getSourceDataSize, ne, unit).orElse(0.0));
+				.orElseGet(() -> {
+					final ComponentCategory cc = ne instanceof ComponentClassifier ? ((ComponentClassifier) ne).getCategory()
+							: (ne instanceof ComponentInstance ? ((ComponentInstance) ne).getCategory() : null);
+					if (cc != ComponentCategory.BUS && cc != ComponentCategory.VIRTUAL_BUS) {
+						return PropertyUtils.getScaled(MemoryProperties::getSourceDataSize, ne, unit).orElse(0.0);
+					} else {
+						return 0.0;
+					}
+				});
 		final long multiplier = ne instanceof DataSubcomponent ? AadlUtil.getMultiplicity(ne) : 1;
 		if (elementSize != 0.0) {
 			return elementSize * multiplier;
