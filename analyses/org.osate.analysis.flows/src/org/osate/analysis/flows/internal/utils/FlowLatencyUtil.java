@@ -54,6 +54,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.contribution.sei.arinc653.Arinc653;
 import org.osate.contribution.sei.arinc653.ScheduleWindow;
 import org.osate.pluginsupport.properties.PropertyUtils;
@@ -624,10 +625,18 @@ public class FlowLatencyUtil {
 			return relatedComponentType.getCategory().getName();
 		}
 		if (relatedElement instanceof ConnectionInstance) {
-			final Timing connectionType = ((ConnectionInstance) relatedElement)
-					.getKind() == ConnectionKind.PORT_CONNECTION
+			final ConnectionKind connectionKind = ((ConnectionInstance) relatedElement)
+					.getKind();
+			Timing connectionType;
+			try {
+				connectionType = connectionKind == ConnectionKind.PORT_CONNECTION
 					? CommunicationProperties.getTiming((ConnectionInstance) relatedElement).orElse(Timing.SAMPLED)
-					: null;
+							: Timing.SAMPLED;
+			} catch (final PropertyLookupException e) {
+				// Property association semantics for FEATURE connections are missing
+				connectionType = Timing.SAMPLED;
+			}
+
 			if (connectionType == Timing.DELAYED) {
 				return "delayed connection";
 			}
@@ -641,6 +650,21 @@ public class FlowLatencyUtil {
 		}
 		return "component";
 	}
+
+//	public static ConnectionType getConnectionType(final ConnectionInstance conn) {
+//		EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
+//
+//		//XXX: [Code Coverage] el cannot be null.
+//		if ((el != null) && (el.getName().equalsIgnoreCase("immediate"))) {
+//			return ConnectionType.IMMEDIATE;
+//		}
+//		//XXX: [Code Coverage] el cannot be null.
+//		if ((el != null) && (el.getName().equalsIgnoreCase("delayed"))) {
+//			return ConnectionType.DELAYED;
+//		}
+//		return ConnectionType.SAMPLED;
+//	}
+//
 
 	public static String getFullComponentContributorName(EObject relatedElement) {
 		if (relatedElement instanceof ConnectionInstance) {
