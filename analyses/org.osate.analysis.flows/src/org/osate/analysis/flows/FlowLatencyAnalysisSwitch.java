@@ -36,15 +36,20 @@ import java.util.function.Function;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.contrib.aadlproject.SizeUnits;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.communication.CommunicationProperties;
 import org.osate.aadl2.contrib.communication.TransmissionTime;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.contrib.timing.TimingProperties;
@@ -61,6 +66,8 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
+import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.analysis.flows.internal.utils.AnalysisUtils;
 import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyCSVReport;
@@ -77,8 +84,6 @@ import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.pluginsupport.properties.RealRange;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
-import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
@@ -254,10 +259,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				.orElse(0.0) : 0.0;
 		double deadline = deadlineCats.contains(componentInstance.getCategory()) ? PropertyUtils.getScaled(TimingProperties::getDeadline, componentInstance, TimeUnits.MS)
 				.orElse(0.0) : 0.0;
-//		boolean isAssignedDeadline = deadlineCats.contains(componentInstance.getCategory())
-//				? TimingProperties.getDeadline(componentInstance).map(x -> true).orElse(false)
-//				: false;
-		boolean isAssignedDeadline = GetProperties.isAssignedDeadline(componentInstance);
+		boolean isAssignedDeadline = isAssignedDeadline(componentInstance);
 
 		final boolean isThreadOrDevice = InstanceModelUtil.isThread(componentInstance)
 				|| InstanceModelUtil.isDevice(componentInstance) || InstanceModelUtil.isAbstract(componentInstance);
@@ -289,8 +291,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 							componentInstance, flowElementInstance, report.isMajorFrameDelay());
 					samplingLatencyContributor.setSamplingPeriod(period);
 					if ((InstanceModelUtil.isThread(componentInstance) || InstanceModelUtil.isDevice(componentInstance))
-//							&& ThreadProperties.getDispatchProtocol(componentInstance).map(x -> false).orElse(true)) {
-							&& !GetProperties.hasAssignedPropertyValue(componentInstance, "Dispatch_Protocol")) {
+							&& !hasAssignedPropertyValue(componentInstance, "Dispatch_Protocol")) {
 						samplingLatencyContributor.reportInfo("Assume Periodic dispatch because period is set");
 					}
 					if (FlowLatencyUtil.isPreviousConnectionDelayed(etef, flowElementInstance)) {
@@ -437,17 +438,9 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			LatencyContributorComponent ql = new LatencyContributorComponent(componentInstance, flowElementInstance,
 					report.isMajorFrameDelay());
 
-//			final OptionalLong queueSize =
-//					(incomingConnectionFI.getCategory() == FeatureCategory.EVENT_PORT
-//							|| incomingConnectionFI.getCategory() == FeatureCategory.EVENT_PORT
-//							|| incomingConnectionFI.getCategory() == FeatureCategory.SUBPROGRAM_ACCESS)
-//									?
-//					org.osate.aadl2.contrib.communication.CommunicationProperties
-//					.getQueueSize(incomingConnectionFI) : OptionalLong.empty();
-//			if (queueSize.isPresent()) {
-//				qs = queueSize.getAsLong();
-			if (GetProperties.hasAssignedPropertyValue(incomingConnectionFI, CommunicationProperties.QUEUE_SIZE)) {
-				qs = GetProperties.getQueueSize(incomingConnectionFI);
+			if (hasAssignedPropertyValue(incomingConnectionFI,
+					org.osate.xtext.aadl2.properties.util.CommunicationProperties.QUEUE_SIZE)) {
+				qs = CommunicationProperties.getQueueSize(incomingConnectionFI).orElse(0);
 			} else if (incomingConnectionFI.getCategory() == FeatureCategory.DATA_PORT
 					&& isThreadOrDevice && (InstanceModelUtil.isSporadicComponent(componentInstance)
 							|| InstanceModelUtil.isTimedComponent(componentInstance)
@@ -1491,4 +1484,40 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			}
 		}
 	}
+
+	// *****************************
+	// *** These horrible methods are left over from GetProperties, and check that a property has a value.
+	// *** They are hard to emulate with the property methods.
+	// *****************************
+
+	private static boolean isAssignedDeadline(final NamedElement ne) {
+		Property deadline = lookupPropertyDefinition(ne, org.osate.xtext.aadl2.properties.util.TimingProperties._NAME,
+				org.osate.xtext.aadl2.properties.util.TimingProperties.DEADLINE);
+		return isAssignedPropertyValue(ne, deadline);
+	}
+
+	private static Property lookupPropertyDefinition(EObject context, String ps, String name) {
+		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getProperty(),
+				((ps != null && !ps.isEmpty()) ? (ps + "::" + name) : name));
+	}
+
+	private static boolean isAssignedPropertyValue(NamedElement element, Property pn) {
+		try {
+			final PropertyAcc propertyAccumulator = element.getPropertyValue(pn);
+			PropertyAssociation firstAssociation = propertyAccumulator.first();
+			return firstAssociation != null;
+		} catch (org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException exception) {
+			return false;
+		}
+	}
+
+	private static Property lookupPropertyDefinition(EObject context, String qpname) {
+		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getProperty(), qpname);
+	}
+
+	private static boolean hasAssignedPropertyValue(NamedElement element, String pname) {
+		Property pn = lookupPropertyDefinition(element, pname);
+		return isAssignedPropertyValue(element, pn);
+	}
+
 }
