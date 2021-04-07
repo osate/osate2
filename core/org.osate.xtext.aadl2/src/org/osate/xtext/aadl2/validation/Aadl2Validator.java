@@ -69,9 +69,11 @@ import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.*;
+import org.osate.aadl2.contrib.aadlproject.SizeUnits;
 import org.osate.aadl2.contrib.memory.AccessRights;
 import org.osate.aadl2.contrib.modeling.ClassifierMatchingRule;
 import org.osate.aadl2.contrib.modeling.ClassifierSubstitutionRule;
+import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.modelsupport.scoping.IEClassGlobalScopeProvider;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -80,7 +82,6 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osate.xtext.aadl2.properties.util.MemoryProperties;
 import org.osate.xtext.aadl2.properties.util.ModelingProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
@@ -4129,17 +4130,26 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	}
 
 	private void checkDataSizeProperty(DataImplementation dataImplementation) {
-		Property dataSizeProperty = GetProperties.lookupPropertyDefinition(dataImplementation, MemoryProperties._NAME,
-				MemoryProperties.DATA_SIZE);
-		UnitLiteral Bytes = GetProperties.findUnitLiteral(dataSizeProperty, AadlProject.B_LITERAL);
-		double implementationSize = PropertyUtils.getScaledNumberValue(dataImplementation, dataSizeProperty, Bytes,
-				0.0);
+//		Property dataSizeProperty = GetProperties.lookupPropertyDefinition(dataImplementation, MemoryProperties._NAME,
+//				MemoryProperties.DATA_SIZE);
+//		UnitLiteral Bytes = GetProperties.findUnitLiteral(dataSizeProperty, AadlProject.B_LITERAL);
+//		double implementationSize = PropertyUtils.getScaledNumberValue(dataImplementation, dataSizeProperty, Bytes,
+//				0.0);
+		double implementationSize = org.osate.pluginsupport.properties.PropertyUtils
+				.getScaled(org.osate.aadl2.contrib.memory.MemoryProperties::getDataSize, dataImplementation,
+						SizeUnits.BYTES)
+				.orElse(0.0);
 		if (implementationSize == 0.0) {
-			dataSizeProperty = GetProperties.lookupPropertyDefinition(dataImplementation, MemoryProperties._NAME,
-					MemoryProperties.SOURCE_DATA_SIZE);
-			implementationSize = PropertyUtils.getScaledNumberValue(dataImplementation, dataSizeProperty, Bytes, 0.0);
+//			dataSizeProperty = GetProperties.lookupPropertyDefinition(dataImplementation, MemoryProperties._NAME,
+//					MemoryProperties.SOURCE_DATA_SIZE);
+//			implementationSize = PropertyUtils.getScaledNumberValue(dataImplementation, dataSizeProperty, Bytes, 0.0);
+			implementationSize = org.osate.pluginsupport.properties.PropertyUtils
+					.getScaled(org.osate.aadl2.contrib.memory.MemoryProperties::getSourceDataSize, dataImplementation,
+							SizeUnits.BYTES)
+					.orElse(0.0);
 		}
-		double sum = GetProperties.sumElementsDataSize(dataImplementation, Bytes);
+//		double sum = GetProperties.sumElementsDataSize(dataImplementation, Bytes);
+		double sum = AadlContribUtils.sumElementsDataSize(dataImplementation, SizeUnits.BYTES);
 		if (implementationSize == 0.0 || sum == 0.0) {
 			return;
 		}
@@ -6812,15 +6822,19 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		}
 		// Test for L4
 		else if (inFeature instanceof DataAccess) {
-			Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
-					MemoryProperties.ACCESS_RIGHT);
-			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(inFeature, accessRightProperty);
-			String accessrightname = accessRightValue.getName();
+//			Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
+//					MemoryProperties.ACCESS_RIGHT);
+//			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(inFeature, accessRightProperty);
+//			String accessrightname = accessRightValue.getName();
+			AccessRights accessRight = org.osate.aadl2.contrib.memory.MemoryProperties.getAccessRight(inFeature)
+					.orElse(AccessRights.READ_WRITE);
 			if (inverseOf) {
-				accessrightname = MemoryProperties.getInverseDirection(accessrightname);
+//				accessrightname = MemoryProperties.getInverseDirection(accessrightname);
+				accessRight = AadlContribUtils.getInverseDirection(accessRight);
 			}
-			if (!accessrightname.equalsIgnoreCase(MemoryProperties.READ_ONLY)
-					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
+//			if (!accessrightname.equalsIgnoreCase(MemoryProperties.READ_ONLY)
+//					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
+			if (accessRight != AccessRights.READ_ONLY && accessRight != AccessRights.READ_WRITE) {
 				if (report) {
 					error(flow.getInEnd(), '\''
 							+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
@@ -6884,15 +6898,19 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		}
 		// Test for L4
 		else if (inFeature instanceof DataAccess) {
-			Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
-					MemoryProperties.ACCESS_RIGHT);
-			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(inFeature, accessRightProperty);
-			String accessrightname = accessRightValue.getName();
+//			Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
+//					MemoryProperties.ACCESS_RIGHT);
+//			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(inFeature, accessRightProperty);
+//			String accessrightname = accessRightValue.getName();
+			AccessRights accessRight = org.osate.aadl2.contrib.memory.MemoryProperties.getAccessRight(inFeature)
+					.orElse(AccessRights.READ_WRITE);
 			if (inverseOf) {
-				accessrightname = MemoryProperties.getInverseDirection(accessrightname);
+//				accessrightname = MemoryProperties.getInverseDirection(accessrightname);
+				accessRight = AadlContribUtils.getInverseDirection(accessRight);
 			}
-			if (!accessrightname.equalsIgnoreCase(MemoryProperties.READ_ONLY)
-					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
+//			if (!accessrightname.equalsIgnoreCase(MemoryProperties.READ_ONLY)
+//					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
+			if (accessRight != AccessRights.READ_ONLY && accessRight != AccessRights.READ_WRITE) {
 				if (report) {
 					error(flow.getInEnd(), '\''
 							+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
