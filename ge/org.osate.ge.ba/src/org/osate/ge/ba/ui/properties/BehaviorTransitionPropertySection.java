@@ -1,36 +1,32 @@
 package org.osate.ge.ba.ui.properties;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Adapters;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.xbase.lib.Pair;
 import org.osate.ba.aadlba.BehaviorCondition;
@@ -58,7 +54,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		}
 	}
 
-	public static String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.condition";
+	public static String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.dispatchcondition";
+	public static String WIDGET_ID_EDIT_CONDITION = "org.osate.ge.ba.behaviortransition.dispatchcondition.edit";
 	private Composite container;
 	private EmbeddedEditingControls conditionEditingControls;
 	private BusinessObjectSelection selectedBos;
@@ -81,7 +78,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		SwtUtil.setColorsToMatchParent(conditionLabel);
 
 		final Composite conditionComposite = createComposite(container);
-		// Create container for styled text and save button
+		// Create container for styled text and edit button
 		conditionEditingControls = new EmbeddedEditingControls(conditionComposite);
 	}
 
@@ -125,32 +122,45 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		final EmbeddedTextValue conditionTextValue = getConditionTextValue(behaviorTransition, sourceText);
 
 		// Styled text to enter the new condition text
-		conditionEditingControls.createStyledText(SWT.BORDER | SWT.SINGLE, isSingleSelection,
-				new ConditionModificationKeyAdapter(behaviorTransition, conditionEditingControls,
-						conditionTextValue.getEditableText()));
+		conditionEditingControls.createStyledText(SWT.BORDER | SWT.SINGLE, isSingleSelection);
 		final StyledText styledText = conditionEditingControls.getStyledText();
 		SwtUtil.setTestingId(styledText, WIDGET_ID_CONDITION);
 
 		// Button to execute the modification
-		conditionEditingControls.createSaveButton(new SelectionAdapter() {
+		conditionEditingControls.createEditButton(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
+				final EmbeddedXtextAdapter xtextAdapter = new EmbeddedXtextAdapter(project, conditionTextValue);
+				final BiFunction<BehaviorTransition, String, Boolean> isValidModification = (bt, newText) -> {
+					final BehaviorCondition condition = bt.getCondition();
+					// Calculate enabled based on if condition should exist and if it exists
+					return newText.isEmpty() ? condition == null : condition != null;
+				};
+
+				final EditEmbeddedDialog dlg = new EditEmbeddedDialog(Display.getCurrent().getActiveShell(),
+						"Enter new dispatch condition.", "Condition: ", xtextAdapter,
+						behaviorTransition, isValidModification);
+				if (dlg.open() == Window.OK) {
+					// Edit condition
 					BehaviorAnnexSelectionUtil.getActiveEditor().ifPresent(editorPart -> {
 						final ActionService actionService = Adapters.adapt(editorPart, ActionService.class);
 						final ModelChangeNotifier modelChangeNotifier = Objects.requireNonNull(
 								editorPart.getAdapter(ModelChangeNotifier.class),
 								"Unable to get model change notifier");
-						actionService.execute("Modifying BehaviorTranistion Condition", ExecutionMode.NORMAL,
-							new EmbeddedModificationAction(editingDomain, xtextDocument, xtextResource,
+						actionService.execute("Modifying Behavior Transition Condition", ExecutionMode.NORMAL,
+								new EmbeddedModificationAction(editingDomain, xtextDocument, xtextResource,
 										modelChangeNotifier, project,
-										conditionEditingControls.getStyledText().getText(), conditionTextValue));
+										dlg.getText(), conditionTextValue));
 					});
+				}
 			}
-		});
+		}, isSingleSelection);
 
-		// Dispose of current adapter and create new one
-		conditionEditingControls.setXtextAdapter(project);
-		conditionEditingControls.updateAdapterDocument(conditionTextValue);
+		final Button editBtn = conditionEditingControls.getEditButton();
+		SwtUtil.setTestingId(editBtn, WIDGET_ID_EDIT_CONDITION);
+
+		// Create xtext adapter for property view
+		conditionEditingControls.createXtextAdapter(project, conditionTextValue);
 	}
 
 	/**
@@ -271,73 +281,5 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	private static Optional<XtextResource> getXtextResource(final BehaviorTransition behaviorTransition) {
 		final Resource resource = behaviorTransition.eResource();
 		return Optional.ofNullable(resource instanceof XtextResource ? (XtextResource) resource : null);
-	}
-
-	private class ConditionModificationKeyAdapter extends KeyAdapter {
-		private final BehaviorTransition behaviorTransition;
-		private final EmbeddedEditingControls embeddedControls;
-		private final String editableText;
-
-		public ConditionModificationKeyAdapter(final BehaviorTransition behaviorTransition,
-				final EmbeddedEditingControls controls, final String editableText) {
-			this.behaviorTransition = behaviorTransition;
-			this.embeddedControls = controls;
-			this.editableText = editableText;
-		}
-
-		@Override
-		public void keyReleased(final KeyEvent e) {
-			// Return if no changes were made
-			final Button saveBtn = embeddedControls.getSaveButton();
-			final String newText = embeddedControls.getStyledText().getText().trim();
-			if (newText.equals(editableText)) {
-				saveBtn.setEnabled(false);
-				return;
-			}
-
-			final EmbeddedXtextAdapter xtextAdapter = embeddedControls.getXtextAdapter();
-
-			// Update save button based on whether the text entered into the
-			// styled text is a serializable condition
-			final EObject rootElement = xtextAdapter.getXtextParseResult().getRootASTElement();
-			final XtextResource fakeResource = xtextAdapter.getFakeResource();
-			// Link model
-			fakeResource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
-
-			// Original source text
-			final String originalSrc = xtextAdapter.getText();
-
-			try {
-				// Modified source text
-				final String modifiedSrc = xtextAdapter.serialize(rootElement);
-				// Load for error checking
-				loadResource(fakeResource, modifiedSrc);
-				boolean isValid = false;
-				// Check if BehaviorTransition still exists, meaning the modification did not break serialization
-				final BehaviorTransition behaviorTransition = (BehaviorTransition) fakeResource
-						.getEObject(EcoreUtil.getURI(this.behaviorTransition).fragment());
-				if (behaviorTransition != null) {
-					final BehaviorCondition condition = behaviorTransition.getCondition();
-					// Calculate enabled based on if condition should exist and if it exists
-					isValid = newText.isEmpty() ? condition == null : condition != null;
-				}
-
-				saveBtn.setEnabled(isValid);
-			} catch (final Exception ex) {
-				saveBtn.setEnabled(false);
-			} finally {
-				// Load original source
-				loadResource(fakeResource, originalSrc);
-			}
-		}
-
-		private void loadResource(final XtextResource resource, final String src) {
-			try {
-				resource.unload();
-				resource.load(new ByteArrayInputStream(src.getBytes()), null);
-			} catch (final IOException e) {
-				throw new RuntimeException("Serialized source cannot be loaded");
-			}
-		}
 	}
 }

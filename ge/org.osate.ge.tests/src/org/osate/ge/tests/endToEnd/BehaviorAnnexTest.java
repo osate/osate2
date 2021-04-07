@@ -37,6 +37,7 @@ import org.osate.ge.aadl2.internal.AadlReferenceUtil;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.ui.properties.BehaviorStatePropertySection;
 import org.osate.ge.ba.ui.properties.BehaviorTransitionPropertySection;
+import org.osate.ge.ba.ui.properties.EditEmbeddedDialog;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.tests.endToEnd.util.DiagramElementReference;
 import org.osate.ge.tests.endToEnd.util.DiagramReference;
@@ -275,11 +276,18 @@ public class BehaviorAnnexTest {
 			final RelativeBusinessObjectReference transitionRef) {
 		final DiagramElementReference specDiagramRef = element(specRef);
 		final DiagramElementReference transitionDiagramRef = specDiagramRef.join(transitionRef);
-		// Set condition text
-		typeInStyledTextInPropertiesView(baDiagram, "AADL", id, conditionText, transitionDiagramRef);
+		selectDiagramElements(baDiagram, transitionDiagramRef);
 
-		// Save
-		clickButtonInPropertiesView("AADL", "Save");
+		// Launch edit dialog
+		clickButtonByIdInPropertiesView("AADL", BehaviorTransitionPropertySection.WIDGET_ID_EDIT_CONDITION);
+
+		waitForWindowWithTitle("Edit Behavior Transition");
+
+		// Set condition text
+		typeInStyledText(EditEmbeddedDialog.WIDGET_ID_TEXT, conditionText);
+
+		// Confirm new condition
+		clickButtonWithId(EditEmbeddedDialog.WIDGET_ID_CONFIRM);
 
 		// Clear selection
 		selectDiagramElements(baDiagram, specDiagramRef);

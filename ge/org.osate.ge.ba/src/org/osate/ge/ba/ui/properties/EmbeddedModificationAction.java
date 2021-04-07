@@ -41,7 +41,6 @@ class EmbeddedModificationAction implements AgeAction {
 	private final Void<XtextResource> work;
 	private final RecordingCommand cmd;
 	private final EmbeddedTextValue textValue;
-
 	private final String newText;
 
 	public EmbeddedModificationAction(final TransactionalEditingDomain editingDomain,

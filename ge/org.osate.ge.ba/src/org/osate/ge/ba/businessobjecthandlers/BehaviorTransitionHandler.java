@@ -48,7 +48,6 @@ import org.osate.ge.businessobjecthandling.CustomDeleter;
 import org.osate.ge.businessobjecthandling.CustomRenamer;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
-import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
@@ -104,7 +103,6 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	public static final Style transitionConnectionStyle = StyleBuilder.create().backgroundColor(Color.BLACK)
 			.labelsAboveTop().labelsLeft().build();
 
-	private final String unnamedLabel = "<Unnamed Behavior Transition>";
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -182,20 +180,10 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	}
 
 	@Override
-	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
-		return ctx.getBusinessObjectContext().getBusinessObject(BehaviorTransition.class)
-				.map(BehaviorTransition::getName).orElse(unnamedLabel);
-	}
-
-	@Override
 	public Optional<String> validateName(final RenameContext ctx) {
-		// Check current name against new name so that when a user clicks on an "<Unnamed>" label to
-		// direct edit, the user does not receive an error about the name if they decide to keep the transition unnamed
-		final String name = ctx.getBusinessObject(BehaviorTransition.class).map(BehaviorTransition::getName)
-				.orElse("");
 		// Allow removing name of transition
 		final String newName = ctx.getNewName();
-		if (isEmptyOrMatchesName(newName, name)) {
+		if (newName.isEmpty()) {
 			return Optional.empty();
 		}
 
@@ -220,9 +208,5 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 		final String newName = ctx.getNewName();
 		// An unnamed transition's name must be set to null
 		behaviorTransition.setName(newName.isEmpty() ? null : newName);
-	}
-
-	private boolean isEmptyOrMatchesName(final String newName, final String name) {
-		return newName.isEmpty() || newName.equals(name);
 	}
 }
