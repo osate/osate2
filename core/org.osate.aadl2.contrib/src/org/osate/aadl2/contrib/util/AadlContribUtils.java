@@ -14,6 +14,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.contrib.aadlproject.SizeUnits;
+import org.osate.aadl2.contrib.memory.AccessRights;
 import org.osate.aadl2.contrib.memory.MemoryProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -71,6 +72,10 @@ public final class AadlContribUtils {
 		}
 	}
 
+	public static double sumElementsDataSize(final NamedElement ne, final SizeUnits unit) {
+		return sumElementsDataSize(ne, unit, 0);
+	}
+
 	private static double sumElementsDataSize(final NamedElement ne, final SizeUnits unit, final int nesting) {
 		double res = 0.0;
 		Classifier cl = null;
@@ -98,5 +103,18 @@ public final class AadlContribUtils {
 			}
 		}
 		return res;
+	}
+
+	/*
+	 * Taken from the old MemoryProperties.getInverseDirection(). The originally version also doesn't work right for byMethod.
+	 */
+	public static AccessRights getInverseDirection(final AccessRights access) {
+		if (access == AccessRights.READ_WRITE) {
+			return access;
+		} else if (access == AccessRights.READ_ONLY) {
+			return AccessRights.WRITE_ONLY;
+		} else {
+			return AccessRights.READ_ONLY;
+		}
 	}
 }
