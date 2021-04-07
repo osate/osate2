@@ -4130,25 +4130,16 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	}
 
 	private void checkDataSizeProperty(DataImplementation dataImplementation) {
-//		Property dataSizeProperty = GetProperties.lookupPropertyDefinition(dataImplementation, MemoryProperties._NAME,
-//				MemoryProperties.DATA_SIZE);
-//		UnitLiteral Bytes = GetProperties.findUnitLiteral(dataSizeProperty, AadlProject.B_LITERAL);
-//		double implementationSize = PropertyUtils.getScaledNumberValue(dataImplementation, dataSizeProperty, Bytes,
-//				0.0);
 		double implementationSize = org.osate.pluginsupport.properties.PropertyUtils
 				.getScaled(org.osate.aadl2.contrib.memory.MemoryProperties::getDataSize, dataImplementation,
 						SizeUnits.BYTES)
 				.orElse(0.0);
 		if (implementationSize == 0.0) {
-//			dataSizeProperty = GetProperties.lookupPropertyDefinition(dataImplementation, MemoryProperties._NAME,
-//					MemoryProperties.SOURCE_DATA_SIZE);
-//			implementationSize = PropertyUtils.getScaledNumberValue(dataImplementation, dataSizeProperty, Bytes, 0.0);
 			implementationSize = org.osate.pluginsupport.properties.PropertyUtils
 					.getScaled(org.osate.aadl2.contrib.memory.MemoryProperties::getSourceDataSize, dataImplementation,
 							SizeUnits.BYTES)
 					.orElse(0.0);
 		}
-//		double sum = GetProperties.sumElementsDataSize(dataImplementation, Bytes);
 		double sum = AadlContribUtils.sumElementsDataSize(dataImplementation, SizeUnits.BYTES);
 		if (implementationSize == 0.0 || sum == 0.0) {
 			return;
@@ -5456,17 +5447,14 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						Aadl2Package.eINSTANCE.getConnection_Destination());
 			} else if (sourceClassifier != null && destinationClassifier != null) {
 				try {
-//					String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
 					final ClassifierMatchingRule classifierMatchingRuleValue = org.osate.aadl2.contrib.modeling.ModelingProperties
 							.getClassifierMatchingRule(connection).orElse(ClassifierMatchingRule.CLASSIFIER_MATCH);
-//					if (ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue)) {
 					if (classifierMatchingRuleValue == ClassifierMatchingRule.CLASSIFIER_MATCH) {
 						if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 								destinationClassifier)) {
 							error(connection, '\'' + source.getName() + "' and '" + destination.getName()
 									+ "' have incompatible classifiers.");
 						}
-//					} else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue)) {
 					} else if (classifierMatchingRuleValue == ClassifierMatchingRule.EQUIVALENCE) {
 						if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 								destinationClassifier)
@@ -5478,7 +5466,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 									+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
 									+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
 						}
-//					} else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue)) {
 					} else if (classifierMatchingRuleValue == ClassifierMatchingRule.SUBSET) {
 						if (!classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier,
 								destinationClassifier) && !isDataSubset(sourceClassifier, destinationClassifier)) {
@@ -5488,7 +5475,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 									+ "') based on name matching or the property constant '"
 									+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
 						}
-//					} else if (ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue)) {
 					} else if (classifierMatchingRuleValue == ClassifierMatchingRule.CONVERSION) {
 						if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 								destinationClassifier)
@@ -5688,22 +5674,18 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 
 	private void checkClassifierSubstitutionMatch(NamedElement target, Classifier originalClassifier,
 			Classifier refinedClassifier) {
-//		final String classifierMatchingRuleValue = GetProperties.getClassifierSubstitutionRuleProperty(target);
 		final ClassifierSubstitutionRule classifierMatchingRuleValue = org.osate.aadl2.contrib.modeling.ModelingProperties
 				.getClassifierSubstitutionRule(target).orElse(ClassifierSubstitutionRule.CLASSIFIER_MATCH);
-//		if (ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue)) {
 		if (classifierMatchingRuleValue == ClassifierSubstitutionRule.CLASSIFIER_MATCH) {
 			if (!AadlUtil.isokClassifierSubstitutionMatch(originalClassifier, refinedClassifier)) {
 				warning(target, "Classifier " + originalClassifier.getName() + " refined to "
 						+ refinedClassifier.getName() + " does not satisfy 'Classifier Match'");
 			}
-//		} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.TYPE_EXTENSION)) {
 		} else if (classifierMatchingRuleValue == ClassifierSubstitutionRule.TYPE_EXTENSION) {
 			if (!AadlUtil.isokClassifierSubstitutionTypeExtension(originalClassifier, refinedClassifier)) {
 				warning(target, "Classifier " + originalClassifier.getName() + " refined to "
 						+ refinedClassifier.getName() + " does not satisfy 'Type Extension'");
 			}
-//		} else if (ModelingProperties.SIGNATURE_MATCH.equalsIgnoreCase(classifierMatchingRuleValue)) {
 		} else if (classifierMatchingRuleValue == ClassifierSubstitutionRule.SIGNATURE_MATCH) {
 			info(target, "Signature Match checking in clasifier substitution of refinement check not implemented yet.");
 		}
@@ -6068,17 +6050,14 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						+ "' to have classifier '" + sourceClassifier.getQualifiedName() + '\'', connection,
 						Aadl2Package.eINSTANCE.getConnection_Destination());
 			} else if (sourceClassifier != null && destinationClassifier != null) {
-//				String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
 				final ClassifierMatchingRule classifierMatchingRuleValue = org.osate.aadl2.contrib.modeling.ModelingProperties
 						.getClassifierMatchingRule(connection).orElse(ClassifierMatchingRule.CLASSIFIER_MATCH);
-//				if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH)) {
 				if (classifierMatchingRuleValue == ClassifierMatchingRule.CLASSIFIER_MATCH) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)) {
 						error(connection, '\'' + source.getName() + "' and '" + destination.getName()
 								+ "' have incompatible classifiers.");
 					}
-//				} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.EQUIVALENCE)) {
 				} else if (classifierMatchingRuleValue == ClassifierMatchingRule.EQUIVALENCE) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)
@@ -6090,7 +6069,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
 								+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
 					}
-//				} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.SUBSET)) {
 				} else if (classifierMatchingRuleValue == ClassifierMatchingRule.SUBSET) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)
@@ -6102,7 +6080,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
 								+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
 					}
-//				} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.CONVERSION)) {
 				} else if (classifierMatchingRuleValue == ClassifierMatchingRule.CONVERSION) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)
@@ -6619,17 +6596,14 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 						+ "' to have classifier '" + sourceClassifier.getQualifiedName() + '\'', connection,
 						Aadl2Package.eINSTANCE.getConnection_Destination());
 			} else if (sourceClassifier != null && destinationClassifier != null) {
-//				String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
 				final ClassifierMatchingRule classifierMatchingRuleValue = org.osate.aadl2.contrib.modeling.ModelingProperties
 						.getClassifierMatchingRule(connection).orElse(ClassifierMatchingRule.CLASSIFIER_MATCH);
-//				if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH)) {
 				if (classifierMatchingRuleValue == ClassifierMatchingRule.CLASSIFIER_MATCH) {
 					if (!testAccessClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)) {
 						error(connection, '\'' + source.getName() + "' and '" + destination.getName()
 								+ "' have incompatible classifiers.");
 					}
-//				} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.EQUIVALENCE)) {
 				} else if (classifierMatchingRuleValue == ClassifierMatchingRule.EQUIVALENCE) {
 					if (!testAccessClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)
@@ -6641,7 +6615,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
 								+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
 					}
-//				} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.SUBSET)) {
 				} else if (classifierMatchingRuleValue == ClassifierMatchingRule.SUBSET) {
 					if (!testAccessClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)
@@ -6653,7 +6626,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
 								+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
 					}
-//				} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.CONVERSION)) {
 				} else if (classifierMatchingRuleValue == ClassifierMatchingRule.CONVERSION) {
 					if (!testAccessClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)
@@ -6822,18 +6794,11 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		}
 		// Test for L4
 		else if (inFeature instanceof DataAccess) {
-//			Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
-//					MemoryProperties.ACCESS_RIGHT);
-//			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(inFeature, accessRightProperty);
-//			String accessrightname = accessRightValue.getName();
 			AccessRights accessRight = org.osate.aadl2.contrib.memory.MemoryProperties.getAccessRight(inFeature)
 					.orElse(AccessRights.READ_WRITE);
 			if (inverseOf) {
-//				accessrightname = MemoryProperties.getInverseDirection(accessrightname);
 				accessRight = AadlContribUtils.getInverseDirection(accessRight);
 			}
-//			if (!accessrightname.equalsIgnoreCase(MemoryProperties.READ_ONLY)
-//					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
 			if (accessRight != AccessRights.READ_ONLY && accessRight != AccessRights.READ_WRITE) {
 				if (report) {
 					error(flow.getInEnd(), '\''
@@ -6898,18 +6863,11 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		}
 		// Test for L4
 		else if (inFeature instanceof DataAccess) {
-//			Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
-//					MemoryProperties.ACCESS_RIGHT);
-//			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(inFeature, accessRightProperty);
-//			String accessrightname = accessRightValue.getName();
 			AccessRights accessRight = org.osate.aadl2.contrib.memory.MemoryProperties.getAccessRight(inFeature)
 					.orElse(AccessRights.READ_WRITE);
 			if (inverseOf) {
-//				accessrightname = MemoryProperties.getInverseDirection(accessrightname);
 				accessRight = AadlContribUtils.getInverseDirection(accessRight);
 			}
-//			if (!accessrightname.equalsIgnoreCase(MemoryProperties.READ_ONLY)
-//					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
 			if (accessRight != AccessRights.READ_ONLY && accessRight != AccessRights.READ_WRITE) {
 				if (report) {
 					error(flow.getInEnd(), '\''
@@ -6976,15 +6934,9 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		}
 		// Test for L5
 		else if (outFeature instanceof DataAccess) {
-//			Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
-//					MemoryProperties.ACCESS_RIGHT);
-//			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(outFeature, accessRightProperty);
-//			String accessrightname = accessRightValue.getName();
 			final AccessRights accessRight = org.osate.aadl2.contrib.memory.MemoryProperties.getAccessRight(outFeature)
 					.orElse(AccessRights.READ_WRITE);
 
-//			if (!accessrightname.equalsIgnoreCase(MemoryProperties.WRITE_ONLY)
-//					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
 			if (accessRight != AccessRights.WRITE_ONLY && accessRight != AccessRights.READ_WRITE) {
 				if (report) {
 					error(flow.getOutEnd(), '\''
@@ -7056,15 +7008,9 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		}
 		// Test for L5
 		else if (outFeature instanceof DataAccess) {
-//			Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
-//					MemoryProperties.ACCESS_RIGHT);
-//			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(outFeature, accessRightProperty);
-//			String accessrightname = accessRightValue.getName();
 			final AccessRights accessRight = org.osate.aadl2.contrib.memory.MemoryProperties.getAccessRight(outFeature)
 					.orElse(AccessRights.READ_WRITE);
 
-//			if (!accessrightname.equalsIgnoreCase(MemoryProperties.WRITE_ONLY)
-//					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
 			if (accessRight != AccessRights.WRITE_ONLY && accessRight != AccessRights.READ_WRITE) {
 				if (report) {
 					error(flow.getOutEnd(), '\''
@@ -8132,10 +8078,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			// this is checked separately
 			return;
 		}
-//		String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
 		final ClassifierMatchingRule classifierMatchingRuleValue = org.osate.aadl2.contrib.modeling.ModelingProperties
 				.getClassifierMatchingRule(connection).orElse(ClassifierMatchingRule.CLASSIFIER_MATCH);
-//		if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue)) {
 		if (classifierMatchingRuleValue == ClassifierMatchingRule.SUBSET) {
 			// in case of subset if the connection is directional we do not have to match
 			return;
@@ -8343,12 +8287,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		Context dstContext = connection.getAllDestinationContext();
 		// connection across or through a component
 		boolean isSibling = (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent);
-//		String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
 		final ClassifierMatchingRule classifierMatchingRuleValue = org.osate.aadl2.contrib.modeling.ModelingProperties
 				.getClassifierMatchingRule(connection).orElse(ClassifierMatchingRule.CLASSIFIER_MATCH);
-//		if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue)
-//				|| ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue)
-//				|| ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue)) {
 		if (classifierMatchingRuleValue == ClassifierMatchingRule.EQUIVALENCE
 				|| classifierMatchingRuleValue == ClassifierMatchingRule.CONVERSION
 				|| classifierMatchingRuleValue == ClassifierMatchingRule.SUBSET) {
@@ -8530,31 +8470,26 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		if (sourceType == null || destinationType == null) {
 			return;
 		}
-//		String classifierMatchingRuleValue = GetProperties.getClassifierMatchingRuleProperty(connection);
 		final ClassifierMatchingRule classifierMatchingRuleValue = org.osate.aadl2.contrib.modeling.ModelingProperties
 				.getClassifierMatchingRule(connection).orElse(ClassifierMatchingRule.CLASSIFIER_MATCH);
 		Context srcContext = connection.getAllSourceContext();
 		Context dstContext = connection.getAllDestinationContext();
 		// connection across or through a component
 		if (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent) {
-//			if (ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue)) {
 			if (classifierMatchingRuleValue == ClassifierMatchingRule.CLASSIFIER_MATCH) {
 				if (!testIfFeatureGroupsAreInverses(connection.getRootConnection().getSource(),
 						connection.getRootConnection().getDestination())) {
 					error(connection, "The feature groups '" + source.getName() + "' and '" + destination.getName()
 							+ "' are not inverses of each other.");
 				}
-//			} else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue)) {
 			} else if (classifierMatchingRuleValue == ClassifierMatchingRule.EQUIVALENCE) {
 				warning(connection, "The classifier matching rule '" + ModelingProperties.EQUIVALENCE
 						+ "': trusting user that feature groups are equivalent.");
-//			} else if (ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue)) {
 			} else if (classifierMatchingRuleValue == ClassifierMatchingRule.CONVERSION) {
 				warning(connection, "The classifier matching rule '" + ModelingProperties.CONVERSION
 						+ "':  'conversion' not supported.");
 			}
 
-//			else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue)) {
 			else if (classifierMatchingRuleValue == ClassifierMatchingRule.SUBSET) {
 				if (!checkIfFeatureGroupTypesAreSiblingSubsets(connection.getRootConnection().getSource(), sourceType,
 						connection.getRootConnection().getDestination(), destinationType,
@@ -8567,14 +8502,11 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			}
 
 		} else { // up or down hierarchy
-//			if (ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue)
-//					|| ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue)
 			if (classifierMatchingRuleValue == ClassifierMatchingRule.CLASSIFIER_MATCH
 					|| classifierMatchingRuleValue == ClassifierMatchingRule.CONVERSION
 			// ||
 			// ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())
 			) {
-//				if (ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue)) {
 				if (classifierMatchingRuleValue == ClassifierMatchingRule.CONVERSION) {
 					warning(connection,
 							"The classifier matching rule '" + ModelingProperties.CONVERSION
@@ -8616,7 +8548,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								"The feature group types of the source and destination feature groups must be identical for connections that connect up or down the containment hierarchy.");
 					}
 				}
-//			} else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue)) {
 			} else if (classifierMatchingRuleValue == ClassifierMatchingRule.EQUIVALENCE) {
 				if (!classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection, sourceType,
 						destinationType)) {
@@ -8625,7 +8556,6 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 							+ "') are not identical and they are not listed as matching classifiers in the property constant '"
 							+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
 				}
-//			} else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue)) {
 			} else if (classifierMatchingRuleValue == ClassifierMatchingRule.SUBSET) {
 				FeatureGroupType innerFeatureGroupType;
 				ConnectedElement inner;
