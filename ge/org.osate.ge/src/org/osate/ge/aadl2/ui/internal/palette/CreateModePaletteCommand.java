@@ -36,6 +36,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramGroup;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
@@ -56,7 +57,8 @@ public class CreateModePaletteCommand extends BasePaletteCommand implements Targ
 	@Override
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		final Object targetBo = ctx.getTarget().getBusinessObject();
-		if (!(targetBo instanceof ComponentImplementation || targetBo instanceof ComponentClassifier
+		if (targetBo instanceof SubprogramGroup || !(targetBo instanceof ComponentImplementation
+				|| targetBo instanceof ComponentClassifier
 				|| targetBo instanceof Subcomponent)) {
 			return Optional.empty();
 		}
