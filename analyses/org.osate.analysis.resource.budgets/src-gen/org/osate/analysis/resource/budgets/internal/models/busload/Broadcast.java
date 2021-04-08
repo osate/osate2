@@ -22,7 +22,7 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.analysis.resources.budgets.internal.models.busload;
+package org.osate.analysis.resource.budgets.internal.models.busload;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -37,22 +37,22 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.Broadcast#getConnections <em>Connections</em>}</li>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.Broadcast#getSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.analysis.resource.budgets.internal.models.busload.Broadcast#getConnections <em>Connections</em>}</li>
+ *   <li>{@link org.osate.analysis.resource.budgets.internal.models.busload.Broadcast#getSource <em>Source</em>}</li>
  * </ul>
  *
- * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBroadcast()
+ * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage#getBroadcast()
  * @model
  * @generated
  */
 public interface Broadcast extends BusloadElement {
 	/**
 	 * Returns the value of the '<em><b>Connections</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.analysis.resources.budgets.internal.models.busload.Connection}.
+	 * The list contents are of type {@link org.osate.analysis.resource.budgets.internal.models.busload.Connection}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Connections</em>' containment reference list.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBroadcast_Connections()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage#getBroadcast_Connections()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -64,14 +64,14 @@ public interface Broadcast extends BusloadElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source</em>' reference.
 	 * @see #setSource(ConnectionInstanceEnd)
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBroadcast_Source()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage#getBroadcast_Source()
 	 * @model
 	 * @generated
 	 */
 	ConnectionInstanceEnd getSource();
 
 	/**
-	 * Sets the value of the '{@link org.osate.analysis.resources.budgets.internal.models.busload.Broadcast#getSource <em>Source</em>}' reference.
+	 * Sets the value of the '{@link org.osate.analysis.resource.budgets.internal.models.busload.Broadcast#getSource <em>Source</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Source</em>' reference.

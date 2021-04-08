@@ -22,11 +22,10 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.analysis.resources.budgets.internal.models.busload.impl;
+package org.osate.analysis.resource.budgets.internal.models.busload.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -34,58 +33,45 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.analysis.model.impl.AnalysisElementImpl;
 
-import org.osate.analysis.resources.budgets.internal.models.busload.Broadcast;
-import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage;
-import org.osate.analysis.resources.budgets.internal.models.busload.Connection;
+import org.osate.analysis.resource.budgets.internal.models.busload.Bus;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusLoadModel;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Broadcast</b></em>'.
+ * An implementation of the model object '<em><b>Bus Load Model</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BroadcastImpl#getConnections <em>Connections</em>}</li>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BroadcastImpl#getSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.BusLoadModelImpl#getRootBuses <em>Root Buses</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class BroadcastImpl extends BusloadElementImpl implements Broadcast {
+public class BusLoadModelImpl extends AnalysisElementImpl implements BusLoadModel {
 	/**
-	 * The cached value of the '{@link #getConnections() <em>Connections</em>}' containment reference list.
+	 * The cached value of the '{@link #getRootBuses() <em>Root Buses</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getConnections()
+	 * @see #getRootBuses()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Connection> connections;
-
-	/**
-	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSource()
-	 * @generated
-	 * @ordered
-	 */
-	protected ConnectionInstanceEnd source;
+	protected EList<Bus> rootBuses;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BroadcastImpl() {
+	protected BusLoadModelImpl() {
 		super();
 	}
 
@@ -96,7 +82,7 @@ public class BroadcastImpl extends BusloadElementImpl implements Broadcast {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return BusloadPackage.Literals.BROADCAST;
+		return BusloadPackage.Literals.BUS_LOAD_MODEL;
 	}
 
 	/**
@@ -105,51 +91,11 @@ public class BroadcastImpl extends BusloadElementImpl implements Broadcast {
 	 * @generated
 	 */
 	@Override
-	public EList<Connection> getConnections() {
-		if (connections == null) {
-			connections = new EObjectContainmentEList<Connection>(Connection.class, this, BusloadPackage.BROADCAST__CONNECTIONS);
+	public EList<Bus> getRootBuses() {
+		if (rootBuses == null) {
+			rootBuses = new EObjectContainmentEList<Bus>(Bus.class, this, BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES);
 		}
-		return connections;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ConnectionInstanceEnd getSource() {
-		if (source != null && source.eIsProxy()) {
-			InternalEObject oldSource = (InternalEObject)source;
-			source = (ConnectionInstanceEnd)eResolveProxy(oldSource);
-			if (source != oldSource) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BusloadPackage.BROADCAST__SOURCE, oldSource, source));
-			}
-		}
-		return source;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ConnectionInstanceEnd basicGetSource() {
-		return source;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void setSource(ConnectionInstanceEnd newSource) {
-		ConnectionInstanceEnd oldSource = source;
-		source = newSource;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, BusloadPackage.BROADCAST__SOURCE, oldSource, source));
+		return rootBuses;
 	}
 
 	/**
@@ -160,8 +106,8 @@ public class BroadcastImpl extends BusloadElementImpl implements Broadcast {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case BusloadPackage.BROADCAST__CONNECTIONS:
-				return ((InternalEList<?>)getConnections()).basicRemove(otherEnd, msgs);
+			case BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES:
+				return ((InternalEList<?>)getRootBuses()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -174,11 +120,8 @@ public class BroadcastImpl extends BusloadElementImpl implements Broadcast {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case BusloadPackage.BROADCAST__CONNECTIONS:
-				return getConnections();
-			case BusloadPackage.BROADCAST__SOURCE:
-				if (resolve) return getSource();
-				return basicGetSource();
+			case BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES:
+				return getRootBuses();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -192,12 +135,9 @@ public class BroadcastImpl extends BusloadElementImpl implements Broadcast {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case BusloadPackage.BROADCAST__CONNECTIONS:
-				getConnections().clear();
-				getConnections().addAll((Collection<? extends Connection>)newValue);
-				return;
-			case BusloadPackage.BROADCAST__SOURCE:
-				setSource((ConnectionInstanceEnd)newValue);
+			case BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES:
+				getRootBuses().clear();
+				getRootBuses().addAll((Collection<? extends Bus>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -211,11 +151,8 @@ public class BroadcastImpl extends BusloadElementImpl implements Broadcast {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case BusloadPackage.BROADCAST__CONNECTIONS:
-				getConnections().clear();
-				return;
-			case BusloadPackage.BROADCAST__SOURCE:
-				setSource((ConnectionInstanceEnd)null);
+			case BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES:
+				getRootBuses().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -229,12 +166,10 @@ public class BroadcastImpl extends BusloadElementImpl implements Broadcast {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case BusloadPackage.BROADCAST__CONNECTIONS:
-				return connections != null && !connections.isEmpty();
-			case BusloadPackage.BROADCAST__SOURCE:
-				return source != null;
+			case BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES:
+				return rootBuses != null && !rootBuses.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //BroadcastImpl
+} //BusLoadModelImpl

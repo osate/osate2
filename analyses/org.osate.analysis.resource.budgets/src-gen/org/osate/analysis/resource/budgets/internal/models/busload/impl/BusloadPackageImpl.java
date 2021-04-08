@@ -22,7 +22,7 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.analysis.resources.budgets.internal.models.busload.impl;
+package org.osate.analysis.resource.budgets.internal.models.busload.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -37,15 +37,15 @@ import org.osate.aadl2.instance.InstancePackage;
 
 import org.osate.analysis.model.ModelPackage;
 
-import org.osate.analysis.resources.budgets.internal.models.busload.Broadcast;
-import org.osate.analysis.resources.budgets.internal.models.busload.Bus;
-import org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel;
-import org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus;
-import org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement;
-import org.osate.analysis.resources.budgets.internal.models.busload.BusloadFactory;
-import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage;
-import org.osate.analysis.resources.budgets.internal.models.busload.Connection;
-import org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus;
+import org.osate.analysis.resource.budgets.internal.models.busload.Broadcast;
+import org.osate.analysis.resource.budgets.internal.models.busload.Bus;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusLoadModel;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusloadFactory;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage;
+import org.osate.analysis.resource.budgets.internal.models.busload.Connection;
+import org.osate.analysis.resource.budgets.internal.models.busload.VirtualBus;
 
 /**
  * <!-- begin-user-doc -->
@@ -114,7 +114,7 @@ public class BusloadPackageImpl extends EPackageImpl implements BusloadPackage {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#eNS_URI
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */

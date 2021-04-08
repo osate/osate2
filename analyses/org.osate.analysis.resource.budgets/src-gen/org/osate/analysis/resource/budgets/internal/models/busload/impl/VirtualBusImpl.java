@@ -22,47 +22,38 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.analysis.resources.budgets.internal.models.busload;
+package org.osate.analysis.resource.budgets.internal.models.busload.impl;
 
-import org.osate.aadl2.instance.ConnectionInstance;
+import org.eclipse.emf.ecore.EClass;
+
+import org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage;
+import org.osate.analysis.resource.budgets.internal.models.busload.VirtualBus;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Connection</b></em>'.
+ * An implementation of the model object '<em><b>Virtual Bus</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * The following features are supported:
- * </p>
- * <ul>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.Connection#getConnectionInstance <em>Connection Instance</em>}</li>
- * </ul>
- *
- * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getConnection()
- * @model
  * @generated
  */
-public interface Connection extends BusloadElement {
+public class VirtualBusImpl extends BusOrVirtualBusImpl implements VirtualBus {
 	/**
-	 * Returns the value of the '<em><b>Connection Instance</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Connection Instance</em>' reference.
-	 * @see #setConnectionInstance(ConnectionInstance)
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getConnection_ConnectionInstance()
-	 * @model
 	 * @generated
 	 */
-	ConnectionInstance getConnectionInstance();
+	protected VirtualBusImpl() {
+		super();
+	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.analysis.resources.budgets.internal.models.busload.Connection#getConnectionInstance <em>Connection Instance</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Connection Instance</em>' reference.
-	 * @see #getConnectionInstance()
 	 * @generated
 	 */
-	void setConnectionInstance(ConnectionInstance value);
+	@Override
+	protected EClass eStaticClass() {
+		return BusloadPackage.Literals.VIRTUAL_BUS;
+	}
 
-} // Connection
+} //VirtualBusImpl

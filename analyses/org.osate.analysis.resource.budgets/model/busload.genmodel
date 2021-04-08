@@ -8,7 +8,7 @@
     copyrightFields="false" usedGenPackages="../../org.osate.analysis.model/model/analysis.genmodel#//analysis ../../org.osate.aadl2/model/instance.genmodel#//instance ../../org.osate.aadl2/model/aadl2.genmodel#//aadl2"
     operationReflection="true" importOrganizing="true">
   <foreignModel>busload.ecore</foreignModel>
-  <genPackages prefix="Busload" basePackage="org.osate.analysis.resources.budgets.internal.models"
+  <genPackages prefix="Busload" basePackage="org.osate.analysis.resource.budgets.internal.models"
       disposableProviderFactory="true" ecorePackage="busload.ecore#/">
     <genClasses image="false" ecoreClass="busload.ecore#//BusloadElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute busload.ecore#//BusloadElement/label"/>

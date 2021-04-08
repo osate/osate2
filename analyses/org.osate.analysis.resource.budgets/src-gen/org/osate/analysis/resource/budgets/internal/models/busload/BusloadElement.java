@@ -22,7 +22,7 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.analysis.resources.budgets.internal.models.busload;
+package org.osate.analysis.resource.budgets.internal.models.busload;
 
 import org.osate.analysis.model.AnalysisElement;
 
@@ -35,12 +35,12 @@ import org.osate.analysis.model.AnalysisElement;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getLabel <em>Label</em>}</li>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getActual <em>Actual</em>}</li>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getBudget <em>Budget</em>}</li>
+ *   <li>{@link org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement#getLabel <em>Label</em>}</li>
+ *   <li>{@link org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement#getActual <em>Actual</em>}</li>
+ *   <li>{@link org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement#getBudget <em>Budget</em>}</li>
  * </ul>
  *
- * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusloadElement()
+ * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage#getBusloadElement()
  * @model abstract="true"
  * @generated
  */
@@ -51,14 +51,14 @@ public interface BusloadElement extends AnalysisElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Label</em>' attribute.
 	 * @see #setLabel(String)
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusloadElement_Label()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage#getBusloadElement_Label()
 	 * @model
 	 * @generated
 	 */
 	String getLabel();
 
 	/**
-	 * Sets the value of the '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getLabel <em>Label</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement#getLabel <em>Label</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Label</em>' attribute.
@@ -73,14 +73,14 @@ public interface BusloadElement extends AnalysisElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Actual</em>' attribute.
 	 * @see #setActual(double)
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusloadElement_Actual()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage#getBusloadElement_Actual()
 	 * @model
 	 * @generated
 	 */
 	double getActual();
 
 	/**
-	 * Sets the value of the '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getActual <em>Actual</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement#getActual <em>Actual</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Actual</em>' attribute.
@@ -95,14 +95,14 @@ public interface BusloadElement extends AnalysisElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Budget</em>' attribute.
 	 * @see #setBudget(double)
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusloadElement_Budget()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage#getBusloadElement_Budget()
 	 * @model
 	 * @generated
 	 */
 	double getBudget();
 
 	/**
-	 * Sets the value of the '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getBudget <em>Budget</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement#getBudget <em>Budget</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Budget</em>' attribute.

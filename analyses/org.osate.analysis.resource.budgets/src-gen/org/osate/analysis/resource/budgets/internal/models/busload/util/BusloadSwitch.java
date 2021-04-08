@@ -22,7 +22,7 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.analysis.resources.budgets.internal.models.busload.util;
+package org.osate.analysis.resource.budgets.internal.models.busload.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.util.Switch;
 
 import org.osate.analysis.model.AnalysisElement;
 
-import org.osate.analysis.resources.budgets.internal.models.busload.*;
+import org.osate.analysis.resource.budgets.internal.models.busload.*;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,7 +43,7 @@ import org.osate.analysis.resources.budgets.internal.models.busload.*;
  * until a non-null result is returned,
  * which is the result of the switch.
  * <!-- end-user-doc -->
- * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage
+ * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage
  * @generated
  */
 public class BusloadSwitch<T> extends Switch<T> {

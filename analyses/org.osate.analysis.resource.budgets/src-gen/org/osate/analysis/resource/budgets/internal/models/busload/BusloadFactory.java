@@ -22,39 +22,79 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.analysis.resources.budgets.internal.models.busload;
+package org.osate.analysis.resource.budgets.internal.models.busload;
 
-import org.eclipse.emf.common.util.EList;
-
-import org.osate.analysis.model.AnalysisElement;
+import org.eclipse.emf.ecore.EFactory;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Bus Load Model</b></em>'.
+ * The <b>Factory</b> for the model.
+ * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
- *
- * <p>
- * The following features are supported:
- * </p>
- * <ul>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel#getRootBuses <em>Root Buses</em>}</li>
- * </ul>
- *
- * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusLoadModel()
- * @model
+ * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage
  * @generated
  */
-public interface BusLoadModel extends AnalysisElement {
+public interface BusloadFactory extends EFactory {
 	/**
-	 * Returns the value of the '<em><b>Root Buses</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.analysis.resources.budgets.internal.models.busload.Bus}.
+	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Root Buses</em>' containment reference list.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getBusLoadModel_RootBuses()
-	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Bus> getRootBuses();
+	BusloadFactory eINSTANCE = org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadFactoryImpl.init();
 
-} // BusLoadModel
+	/**
+	 * Returns a new object of class '<em>Connection</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Connection</em>'.
+	 * @generated
+	 */
+	Connection createConnection();
+
+	/**
+	 * Returns a new object of class '<em>Broadcast</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Broadcast</em>'.
+	 * @generated
+	 */
+	Broadcast createBroadcast();
+
+	/**
+	 * Returns a new object of class '<em>Virtual Bus</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Virtual Bus</em>'.
+	 * @generated
+	 */
+	VirtualBus createVirtualBus();
+
+	/**
+	 * Returns a new object of class '<em>Bus</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Bus</em>'.
+	 * @generated
+	 */
+	Bus createBus();
+
+	/**
+	 * Returns a new object of class '<em>Bus Load Model</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Bus Load Model</em>'.
+	 * @generated
+	 */
+	BusLoadModel createBusLoadModel();
+
+	/**
+	 * Returns the package supported by this factory.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the package supported by this factory.
+	 * @generated
+	 */
+	BusloadPackage getBusloadPackage();
+
+} //BusloadFactory
