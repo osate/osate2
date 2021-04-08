@@ -37,6 +37,7 @@ import org.osate.ge.aadl2.internal.AadlReferenceUtil;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.ui.properties.BehaviorStatePropertySection;
 import org.osate.ge.ba.ui.properties.BehaviorTransitionPropertySection;
+import org.osate.ge.ba.ui.properties.EditEmbeddedDialog;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.tests.endToEnd.util.DiagramElementReference;
 import org.osate.ge.tests.endToEnd.util.DiagramReference;
@@ -249,16 +250,24 @@ public class BehaviorAnnexTest {
 				transitionRef);
 
 		// Create a transition condition
-		setTransitionDispatchCondition(baDiagram, "on dispatch", behaviorSpecification, transitionRef);
+		editTransitionWithPropertiesView(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_CONDITION,
+				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_CONDITION, "on dispatch",
+				behaviorSpecification, transitionRef);
 
 		// Erase the transition condition
-		setTransitionDispatchCondition(baDiagram, "", behaviorSpecification, transitionRef);
+		editTransitionWithPropertiesView(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_CONDITION,
+				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_CONDITION, "",
+				behaviorSpecification, transitionRef);
 
-		// Create a transition action block
-		setTransitionActionBlock(baDiagram, "computation (60 ms)", behaviorSpecification, transitionRef);
-
-		// Erase the transition action block
-		setTransitionActionBlock(baDiagram, "", behaviorSpecification, transitionRef);
+//		// Create a transition action block
+		editTransitionWithPropertiesView(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_ACTION_BLOCK,
+				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_ACTION_BLOCK,
+				"computation (60 ms)", behaviorSpecification, transitionRef);
+//
+//		// Erase the transition action block
+		editTransitionWithPropertiesView(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_ACTION_BLOCK,
+				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_ACTION_BLOCK, "",
+				behaviorSpecification, transitionRef);
 
 		// Test renaming for states with same name of a mode with transition
 		renameElementDirectEdit(baDiagram, element(behaviorSpecification),
@@ -274,16 +283,24 @@ public class BehaviorAnnexTest {
 				true, src);
 	}
 
-	private static void setTransitionActionBlock(final DiagramReference baDiagram, final String actionText,
-			final RelativeBusinessObjectReference specRef, final RelativeBusinessObjectReference transitionRef) {
+	private static void editTransitionWithPropertiesView(final DiagramReference baDiagram, final String id,
+			final String btnId,
+			final String conditionText, final RelativeBusinessObjectReference specRef,
+			final RelativeBusinessObjectReference transitionRef) {
 		final DiagramElementReference specDiagramRef = element(specRef);
 		final DiagramElementReference transitionDiagramRef = specDiagramRef.join(transitionRef);
-		// Set condition text
-		typeInStyledTextInPropertiesView(baDiagram, "AADL", BehaviorTransitionPropertySection.WIDGET_ID_ACTION_BLOCK,
-				actionText, transitionDiagramRef);
+		selectDiagramElements(baDiagram, transitionDiagramRef);
 
-		// Save
-		clickButtonInPropertiesViewWithId("AADL", BehaviorTransitionPropertySection.WIDGET_ID_ACTION_BLOCK_SAVE);
+		// Launch edit dialog
+		clickButtonByIdInPropertiesView("AADL", btnId);
+
+		waitForWindowWithTitle("Edit Behavior Transition");
+
+		// Set condition text
+		typeInStyledText(EditEmbeddedDialog.WIDGET_ID_TEXT, conditionText);
+
+		// Confirm new condition
+		clickButtonWithId(EditEmbeddedDialog.WIDGET_ID_CONFIRM);
 
 		// Clear selection
 		selectDiagramElements(baDiagram, specDiagramRef);
@@ -292,28 +309,7 @@ public class BehaviorAnnexTest {
 		selectDiagramElements(baDiagram, transitionDiagramRef);
 
 		// Check styled text to see if condition update was successful
-		waitForStyledTextToMatch(BehaviorTransitionPropertySection.WIDGET_ID_ACTION_BLOCK, actionText);
-	}
-
-	private static void setTransitionDispatchCondition(final DiagramReference baDiagram, final String conditionText,
-			final RelativeBusinessObjectReference specRef, final RelativeBusinessObjectReference transitionRef) {
-		final DiagramElementReference specDiagramRef = element(specRef);
-		final DiagramElementReference transitionDiagramRef = specDiagramRef.join(transitionRef);
-		// Set condition text
-		typeInStyledTextInPropertiesView(baDiagram, "AADL", BehaviorTransitionPropertySection.WIDGET_ID_CONDITION,
-				conditionText, transitionDiagramRef);
-
-		// Save
-		clickButtonInPropertiesViewWithId("AADL", BehaviorTransitionPropertySection.WIDGET_ID_CONDITION_SAVE);
-
-		// Clear selection
-		selectDiagramElements(baDiagram, specDiagramRef);
-
-		// Select transition
-		selectDiagramElements(baDiagram, transitionDiagramRef);
-
-		// Check styled text to see if condition update was successful
-		waitForStyledTextToMatch(BehaviorTransitionPropertySection.WIDGET_ID_CONDITION, conditionText);
+		waitForStyledTextToMatch(id, conditionText);
 	}
 
 	// Open Behavior Annex diagram

@@ -384,7 +384,7 @@ public class OsateGeTestUtil {
 	/**
 	 * Clicks the button with id in the properties view specified tab.
 	 */
-	public static void clickButtonInPropertiesViewWithId(final String tabLabel, final String btnId) {
+	public static void clickButtonByIdInPropertiesView(final String tabLabel, final String btnId) {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
