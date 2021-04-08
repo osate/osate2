@@ -22,38 +22,18 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.analysis.resources.budgets.internal.models.busload.impl;
+package org.osate.analysis.resource.budgets.internal.models.busload;
 
-import org.eclipse.emf.ecore.EClass;
-
-import org.osate.analysis.resources.budgets.internal.models.busload.Bus;
-import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Bus</b></em>'.
+ * A representation of the model object '<em><b>Bus</b></em>'.
  * <!-- end-user-doc -->
  *
+ *
+ * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage#getBus()
+ * @model
  * @generated
  */
-public class BusImpl extends BusOrVirtualBusImpl implements Bus {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected BusImpl() {
-		super();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return BusloadPackage.Literals.BUS;
-	}
-
-} //BusImpl
+public interface Bus extends BusOrVirtualBus {
+} // Bus

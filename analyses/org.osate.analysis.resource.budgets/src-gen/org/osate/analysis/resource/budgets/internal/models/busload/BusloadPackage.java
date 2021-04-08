@@ -22,7 +22,7 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.analysis.resources.budgets.internal.models.busload;
+package org.osate.analysis.resource.budgets.internal.models.busload;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -43,7 +43,7 @@ import org.osate.analysis.model.ModelPackage;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadFactory
+ * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadFactory
  * @model kind="package"
  * @generated
  */
@@ -78,14 +78,14 @@ public interface BusloadPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	BusloadPackage eINSTANCE = org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl.init();
+	BusloadPackage eINSTANCE = org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl <em>Element</em>}' class.
+	 * The meta object id for the '{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadElementImpl <em>Element</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getBusloadElement()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadElementImpl
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl#getBusloadElement()
 	 * @generated
 	 */
 	int BUSLOAD_ELEMENT = 0;
@@ -154,11 +154,11 @@ public interface BusloadPackage extends EPackage {
 	int BUSLOAD_ELEMENT_OPERATION_COUNT = ModelPackage.ANALYSIS_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.ConnectionImpl <em>Connection</em>}' class.
+	 * The meta object id for the '{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.ConnectionImpl <em>Connection</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.ConnectionImpl
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getConnection()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.ConnectionImpl
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl#getConnection()
 	 * @generated
 	 */
 	int CONNECTION = 1;
@@ -236,11 +236,11 @@ public interface BusloadPackage extends EPackage {
 	int CONNECTION_OPERATION_COUNT = BUSLOAD_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BroadcastImpl <em>Broadcast</em>}' class.
+	 * The meta object id for the '{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.BroadcastImpl <em>Broadcast</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BroadcastImpl
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getBroadcast()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BroadcastImpl
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl#getBroadcast()
 	 * @generated
 	 */
 	int BROADCAST = 2;
@@ -327,11 +327,11 @@ public interface BusloadPackage extends EPackage {
 	int BROADCAST_OPERATION_COUNT = BUSLOAD_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl <em>Bus Or Virtual Bus</em>}' class.
+	 * The meta object id for the '{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.BusOrVirtualBusImpl <em>Bus Or Virtual Bus</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getBusOrVirtualBus()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusOrVirtualBusImpl
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl#getBusOrVirtualBus()
 	 * @generated
 	 */
 	int BUS_OR_VIRTUAL_BUS = 3;
@@ -445,11 +445,11 @@ public interface BusloadPackage extends EPackage {
 	int BUS_OR_VIRTUAL_BUS_OPERATION_COUNT = BUSLOAD_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.VirtualBusImpl <em>Virtual Bus</em>}' class.
+	 * The meta object id for the '{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.VirtualBusImpl <em>Virtual Bus</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.VirtualBusImpl
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getVirtualBus()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.VirtualBusImpl
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl#getVirtualBus()
 	 * @generated
 	 */
 	int VIRTUAL_BUS = 4;
@@ -563,11 +563,11 @@ public interface BusloadPackage extends EPackage {
 	int VIRTUAL_BUS_OPERATION_COUNT = BUS_OR_VIRTUAL_BUS_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusImpl <em>Bus</em>}' class.
+	 * The meta object id for the '{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.BusImpl <em>Bus</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusImpl
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getBus()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusImpl
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl#getBus()
 	 * @generated
 	 */
 	int BUS = 5;
@@ -681,11 +681,11 @@ public interface BusloadPackage extends EPackage {
 	int BUS_OPERATION_COUNT = BUS_OR_VIRTUAL_BUS_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusLoadModelImpl <em>Bus Load Model</em>}' class.
+	 * The meta object id for the '{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.BusLoadModelImpl <em>Bus Load Model</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusLoadModelImpl
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getBusLoadModel()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusLoadModelImpl
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl#getBusLoadModel()
 	 * @generated
 	 */
 	int BUS_LOAD_MODEL = 6;
@@ -737,202 +737,202 @@ public interface BusloadPackage extends EPackage {
 
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement <em>Element</em>}'.
+	 * Returns the meta object for class '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement <em>Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Element</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement
 	 * @generated
 	 */
 	EClass getBusloadElement();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getLabel <em>Label</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement#getLabel <em>Label</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Label</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getLabel()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement#getLabel()
 	 * @see #getBusloadElement()
 	 * @generated
 	 */
 	EAttribute getBusloadElement_Label();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getActual <em>Actual</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement#getActual <em>Actual</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Actual</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getActual()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement#getActual()
 	 * @see #getBusloadElement()
 	 * @generated
 	 */
 	EAttribute getBusloadElement_Actual();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getBudget <em>Budget</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement#getBudget <em>Budget</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Budget</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement#getBudget()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement#getBudget()
 	 * @see #getBusloadElement()
 	 * @generated
 	 */
 	EAttribute getBusloadElement_Budget();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.analysis.resources.budgets.internal.models.busload.Connection <em>Connection</em>}'.
+	 * Returns the meta object for class '{@link org.osate.analysis.resource.budgets.internal.models.busload.Connection <em>Connection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Connection</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.Connection
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.Connection
 	 * @generated
 	 */
 	EClass getConnection();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.analysis.resources.budgets.internal.models.busload.Connection#getConnectionInstance <em>Connection Instance</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.analysis.resource.budgets.internal.models.busload.Connection#getConnectionInstance <em>Connection Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Connection Instance</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.Connection#getConnectionInstance()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.Connection#getConnectionInstance()
 	 * @see #getConnection()
 	 * @generated
 	 */
 	EReference getConnection_ConnectionInstance();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.analysis.resources.budgets.internal.models.busload.Broadcast <em>Broadcast</em>}'.
+	 * Returns the meta object for class '{@link org.osate.analysis.resource.budgets.internal.models.busload.Broadcast <em>Broadcast</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Broadcast</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.Broadcast
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.Broadcast
 	 * @generated
 	 */
 	EClass getBroadcast();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.analysis.resources.budgets.internal.models.busload.Broadcast#getConnections <em>Connections</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.analysis.resource.budgets.internal.models.busload.Broadcast#getConnections <em>Connections</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Connections</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.Broadcast#getConnections()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.Broadcast#getConnections()
 	 * @see #getBroadcast()
 	 * @generated
 	 */
 	EReference getBroadcast_Connections();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.analysis.resources.budgets.internal.models.busload.Broadcast#getSource <em>Source</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.analysis.resource.budgets.internal.models.busload.Broadcast#getSource <em>Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Source</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.Broadcast#getSource()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.Broadcast#getSource()
 	 * @see #getBroadcast()
 	 * @generated
 	 */
 	EReference getBroadcast_Source();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus <em>Bus Or Virtual Bus</em>}'.
+	 * Returns the meta object for class '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus <em>Bus Or Virtual Bus</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Bus Or Virtual Bus</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus
 	 * @generated
 	 */
 	EClass getBusOrVirtualBus();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getBoundVirtualBuses <em>Bound Virtual Buses</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus#getBoundVirtualBuses <em>Bound Virtual Buses</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Bound Virtual Buses</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getBoundVirtualBuses()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus#getBoundVirtualBuses()
 	 * @see #getBusOrVirtualBus()
 	 * @generated
 	 */
 	EReference getBusOrVirtualBus_BoundVirtualBuses();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getBoundConnections <em>Bound Connections</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus#getBoundConnections <em>Bound Connections</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Bound Connections</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getBoundConnections()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus#getBoundConnections()
 	 * @see #getBusOrVirtualBus()
 	 * @generated
 	 */
 	EReference getBusOrVirtualBus_BoundConnections();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getBoundBroadcasts <em>Bound Broadcasts</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus#getBoundBroadcasts <em>Bound Broadcasts</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Bound Broadcasts</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getBoundBroadcasts()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus#getBoundBroadcasts()
 	 * @see #getBusOrVirtualBus()
 	 * @generated
 	 */
 	EReference getBusOrVirtualBus_BoundBroadcasts();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getBusInstance <em>Bus Instance</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus#getBusInstance <em>Bus Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Bus Instance</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getBusInstance()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus#getBusInstance()
 	 * @see #getBusOrVirtualBus()
 	 * @generated
 	 */
 	EReference getBusOrVirtualBus_BusInstance();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getDataOverhead <em>Data Overhead</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus#getDataOverhead <em>Data Overhead</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Data Overhead</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus#getDataOverhead()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus#getDataOverhead()
 	 * @see #getBusOrVirtualBus()
 	 * @generated
 	 */
 	EAttribute getBusOrVirtualBus_DataOverhead();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus <em>Virtual Bus</em>}'.
+	 * Returns the meta object for class '{@link org.osate.analysis.resource.budgets.internal.models.busload.VirtualBus <em>Virtual Bus</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Virtual Bus</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.VirtualBus
 	 * @generated
 	 */
 	EClass getVirtualBus();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.analysis.resources.budgets.internal.models.busload.Bus <em>Bus</em>}'.
+	 * Returns the meta object for class '{@link org.osate.analysis.resource.budgets.internal.models.busload.Bus <em>Bus</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Bus</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.Bus
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.Bus
 	 * @generated
 	 */
 	EClass getBus();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel <em>Bus Load Model</em>}'.
+	 * Returns the meta object for class '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusLoadModel <em>Bus Load Model</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Bus Load Model</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusLoadModel
 	 * @generated
 	 */
 	EClass getBusLoadModel();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel#getRootBuses <em>Root Buses</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusLoadModel#getRootBuses <em>Root Buses</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Root Buses</em>'.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel#getRootBuses()
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusLoadModel#getRootBuses()
 	 * @see #getBusLoadModel()
 	 * @generated
 	 */
@@ -962,11 +962,11 @@ public interface BusloadPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl <em>Element</em>}' class.
+		 * The meta object literal for the '{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadElementImpl <em>Element</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getBusloadElement()
+		 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadElementImpl
+		 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl#getBusloadElement()
 		 * @generated
 		 */
 		EClass BUSLOAD_ELEMENT = eINSTANCE.getBusloadElement();
@@ -996,11 +996,11 @@ public interface BusloadPackage extends EPackage {
 		EAttribute BUSLOAD_ELEMENT__BUDGET = eINSTANCE.getBusloadElement_Budget();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.ConnectionImpl <em>Connection</em>}' class.
+		 * The meta object literal for the '{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.ConnectionImpl <em>Connection</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.ConnectionImpl
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getConnection()
+		 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.ConnectionImpl
+		 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl#getConnection()
 		 * @generated
 		 */
 		EClass CONNECTION = eINSTANCE.getConnection();
@@ -1014,11 +1014,11 @@ public interface BusloadPackage extends EPackage {
 		EReference CONNECTION__CONNECTION_INSTANCE = eINSTANCE.getConnection_ConnectionInstance();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BroadcastImpl <em>Broadcast</em>}' class.
+		 * The meta object literal for the '{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.BroadcastImpl <em>Broadcast</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BroadcastImpl
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getBroadcast()
+		 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BroadcastImpl
+		 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl#getBroadcast()
 		 * @generated
 		 */
 		EClass BROADCAST = eINSTANCE.getBroadcast();
@@ -1040,11 +1040,11 @@ public interface BusloadPackage extends EPackage {
 		EReference BROADCAST__SOURCE = eINSTANCE.getBroadcast_Source();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl <em>Bus Or Virtual Bus</em>}' class.
+		 * The meta object literal for the '{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.BusOrVirtualBusImpl <em>Bus Or Virtual Bus</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusOrVirtualBusImpl
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getBusOrVirtualBus()
+		 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusOrVirtualBusImpl
+		 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl#getBusOrVirtualBus()
 		 * @generated
 		 */
 		EClass BUS_OR_VIRTUAL_BUS = eINSTANCE.getBusOrVirtualBus();
@@ -1090,31 +1090,31 @@ public interface BusloadPackage extends EPackage {
 		EAttribute BUS_OR_VIRTUAL_BUS__DATA_OVERHEAD = eINSTANCE.getBusOrVirtualBus_DataOverhead();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.VirtualBusImpl <em>Virtual Bus</em>}' class.
+		 * The meta object literal for the '{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.VirtualBusImpl <em>Virtual Bus</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.VirtualBusImpl
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getVirtualBus()
+		 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.VirtualBusImpl
+		 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl#getVirtualBus()
 		 * @generated
 		 */
 		EClass VIRTUAL_BUS = eINSTANCE.getVirtualBus();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusImpl <em>Bus</em>}' class.
+		 * The meta object literal for the '{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.BusImpl <em>Bus</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusImpl
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getBus()
+		 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusImpl
+		 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl#getBus()
 		 * @generated
 		 */
 		EClass BUS = eINSTANCE.getBus();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusLoadModelImpl <em>Bus Load Model</em>}' class.
+		 * The meta object literal for the '{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.BusLoadModelImpl <em>Bus Load Model</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusLoadModelImpl
-		 * @see org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadPackageImpl#getBusLoadModel()
+		 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusLoadModelImpl
+		 * @see org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadPackageImpl#getBusLoadModel()
 		 * @generated
 		 */
 		EClass BUS_LOAD_MODEL = eINSTANCE.getBusLoadModel();

@@ -22,56 +22,50 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.analysis.resources.budgets.internal.models.busload.impl;
+package org.osate.analysis.resource.budgets.internal.models.busload.impl;
 
-import java.util.Collection;
-
-import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.analysis.model.impl.AnalysisElementImpl;
+import org.osate.aadl2.instance.ConnectionInstance;
 
-import org.osate.analysis.resources.budgets.internal.models.busload.Bus;
-import org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel;
-import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage;
+import org.osate.analysis.resource.budgets.internal.models.busload.Connection;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Bus Load Model</b></em>'.
+ * An implementation of the model object '<em><b>Connection</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusLoadModelImpl#getRootBuses <em>Root Buses</em>}</li>
+ *   <li>{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.ConnectionImpl#getConnectionInstance <em>Connection Instance</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class BusLoadModelImpl extends AnalysisElementImpl implements BusLoadModel {
+public class ConnectionImpl extends BusloadElementImpl implements Connection {
 	/**
-	 * The cached value of the '{@link #getRootBuses() <em>Root Buses</em>}' containment reference list.
+	 * The cached value of the '{@link #getConnectionInstance() <em>Connection Instance</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRootBuses()
+	 * @see #getConnectionInstance()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Bus> rootBuses;
+	protected ConnectionInstance connectionInstance;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BusLoadModelImpl() {
+	protected ConnectionImpl() {
 		super();
 	}
 
@@ -82,7 +76,7 @@ public class BusLoadModelImpl extends AnalysisElementImpl implements BusLoadMode
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return BusloadPackage.Literals.BUS_LOAD_MODEL;
+		return BusloadPackage.Literals.CONNECTION;
 	}
 
 	/**
@@ -91,11 +85,25 @@ public class BusLoadModelImpl extends AnalysisElementImpl implements BusLoadMode
 	 * @generated
 	 */
 	@Override
-	public EList<Bus> getRootBuses() {
-		if (rootBuses == null) {
-			rootBuses = new EObjectContainmentEList<Bus>(Bus.class, this, BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES);
+	public ConnectionInstance getConnectionInstance() {
+		if (connectionInstance != null && connectionInstance.eIsProxy()) {
+			InternalEObject oldConnectionInstance = (InternalEObject)connectionInstance;
+			connectionInstance = (ConnectionInstance)eResolveProxy(oldConnectionInstance);
+			if (connectionInstance != oldConnectionInstance) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BusloadPackage.CONNECTION__CONNECTION_INSTANCE, oldConnectionInstance, connectionInstance));
+			}
 		}
-		return rootBuses;
+		return connectionInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConnectionInstance basicGetConnectionInstance() {
+		return connectionInstance;
 	}
 
 	/**
@@ -104,12 +112,11 @@ public class BusLoadModelImpl extends AnalysisElementImpl implements BusLoadMode
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES:
-				return ((InternalEList<?>)getRootBuses()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
+	public void setConnectionInstance(ConnectionInstance newConnectionInstance) {
+		ConnectionInstance oldConnectionInstance = connectionInstance;
+		connectionInstance = newConnectionInstance;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BusloadPackage.CONNECTION__CONNECTION_INSTANCE, oldConnectionInstance, connectionInstance));
 	}
 
 	/**
@@ -120,8 +127,9 @@ public class BusLoadModelImpl extends AnalysisElementImpl implements BusLoadMode
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES:
-				return getRootBuses();
+			case BusloadPackage.CONNECTION__CONNECTION_INSTANCE:
+				if (resolve) return getConnectionInstance();
+				return basicGetConnectionInstance();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -131,13 +139,11 @@ public class BusLoadModelImpl extends AnalysisElementImpl implements BusLoadMode
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES:
-				getRootBuses().clear();
-				getRootBuses().addAll((Collection<? extends Bus>)newValue);
+			case BusloadPackage.CONNECTION__CONNECTION_INSTANCE:
+				setConnectionInstance((ConnectionInstance)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -151,8 +157,8 @@ public class BusLoadModelImpl extends AnalysisElementImpl implements BusLoadMode
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES:
-				getRootBuses().clear();
+			case BusloadPackage.CONNECTION__CONNECTION_INSTANCE:
+				setConnectionInstance((ConnectionInstance)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -166,10 +172,10 @@ public class BusLoadModelImpl extends AnalysisElementImpl implements BusLoadMode
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case BusloadPackage.BUS_LOAD_MODEL__ROOT_BUSES:
-				return rootBuses != null && !rootBuses.isEmpty();
+			case BusloadPackage.CONNECTION__CONNECTION_INSTANCE:
+				return connectionInstance != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //BusLoadModelImpl
+} //ConnectionImpl

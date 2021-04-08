@@ -22,7 +22,7 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.analysis.resources.budgets.internal.models.busload.impl;
+package org.osate.analysis.resource.budgets.internal.models.busload.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -32,8 +32,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.analysis.model.impl.AnalysisElementImpl;
 
-import org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement;
-import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,9 +43,9 @@ import org.osate.analysis.resources.budgets.internal.models.busload.BusloadPacka
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl#getLabel <em>Label</em>}</li>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl#getActual <em>Actual</em>}</li>
- *   <li>{@link org.osate.analysis.resources.budgets.internal.models.busload.impl.BusloadElementImpl#getBudget <em>Budget</em>}</li>
+ *   <li>{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadElementImpl#getLabel <em>Label</em>}</li>
+ *   <li>{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadElementImpl#getActual <em>Actual</em>}</li>
+ *   <li>{@link org.osate.analysis.resource.budgets.internal.models.busload.impl.BusloadElementImpl#getBudget <em>Budget</em>}</li>
  * </ul>
  *
  * @generated

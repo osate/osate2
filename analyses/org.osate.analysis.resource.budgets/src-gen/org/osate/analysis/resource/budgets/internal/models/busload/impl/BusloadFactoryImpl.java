@@ -22,7 +22,7 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.analysis.resources.budgets.internal.models.busload.impl;
+package org.osate.analysis.resource.budgets.internal.models.busload.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
-import org.osate.analysis.resources.budgets.internal.models.busload.*;
+import org.osate.analysis.resource.budgets.internal.models.busload.*;
 
 /**
  * <!-- begin-user-doc -->

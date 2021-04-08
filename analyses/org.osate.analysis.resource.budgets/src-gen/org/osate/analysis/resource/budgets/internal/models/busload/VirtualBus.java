@@ -22,7 +22,7 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.analysis.resources.budgets.internal.models.busload;
+package org.osate.analysis.resource.budgets.internal.models.busload;
 
 
 /**
@@ -31,7 +31,7 @@ package org.osate.analysis.resources.budgets.internal.models.busload;
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage#getVirtualBus()
+ * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage#getVirtualBus()
  * @model
  * @generated
  */

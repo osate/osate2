@@ -22,7 +22,7 @@
  * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  * 
  */
-package org.osate.analysis.resources.budgets.internal.models.busload.util;
+package org.osate.analysis.resource.budgets.internal.models.busload.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -33,14 +33,14 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.osate.analysis.model.AnalysisElement;
 
-import org.osate.analysis.resources.budgets.internal.models.busload.*;
+import org.osate.analysis.resource.budgets.internal.models.busload.*;
 
 /**
  * <!-- begin-user-doc -->
  * The <b>Adapter Factory</b> for the model.
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
- * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadPackage
+ * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadPackage
  * @generated
  */
 public class BusloadAdapterFactory extends AdapterFactoryImpl {
@@ -144,13 +144,13 @@ public class BusloadAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement <em>Element</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement <em>Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusloadElement
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusloadElement
 	 * @generated
 	 */
 	public Adapter createBusloadElementAdapter() {
@@ -158,13 +158,13 @@ public class BusloadAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resources.budgets.internal.models.busload.Connection <em>Connection</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resource.budgets.internal.models.busload.Connection <em>Connection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.Connection
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.Connection
 	 * @generated
 	 */
 	public Adapter createConnectionAdapter() {
@@ -172,13 +172,13 @@ public class BusloadAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resources.budgets.internal.models.busload.Broadcast <em>Broadcast</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resource.budgets.internal.models.busload.Broadcast <em>Broadcast</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.Broadcast
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.Broadcast
 	 * @generated
 	 */
 	public Adapter createBroadcastAdapter() {
@@ -186,13 +186,13 @@ public class BusloadAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus <em>Bus Or Virtual Bus</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus <em>Bus Or Virtual Bus</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusOrVirtualBus
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus
 	 * @generated
 	 */
 	public Adapter createBusOrVirtualBusAdapter() {
@@ -200,13 +200,13 @@ public class BusloadAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus <em>Virtual Bus</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resource.budgets.internal.models.busload.VirtualBus <em>Virtual Bus</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.VirtualBus
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.VirtualBus
 	 * @generated
 	 */
 	public Adapter createVirtualBusAdapter() {
@@ -214,13 +214,13 @@ public class BusloadAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resources.budgets.internal.models.busload.Bus <em>Bus</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resource.budgets.internal.models.busload.Bus <em>Bus</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.Bus
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.Bus
 	 * @generated
 	 */
 	public Adapter createBusAdapter() {
@@ -228,13 +228,13 @@ public class BusloadAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel <em>Bus Load Model</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.analysis.resource.budgets.internal.models.busload.BusLoadModel <em>Bus Load Model</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.analysis.resources.budgets.internal.models.busload.BusLoadModel
+	 * @see org.osate.analysis.resource.budgets.internal.models.busload.BusLoadModel
 	 * @generated
 	 */
 	public Adapter createBusLoadModelAdapter() {
