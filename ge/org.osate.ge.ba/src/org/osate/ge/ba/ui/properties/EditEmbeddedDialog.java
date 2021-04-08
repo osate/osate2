@@ -33,13 +33,15 @@ public class EditEmbeddedDialog extends MessageDialog {
 	private StyledText styledText;
 	private String replacementText;
 
-	EditEmbeddedDialog(final Shell parentShell, final String dialogMessage,
-			final String label, final EmbeddedXtextAdapter xtextAdapter, final BehaviorTransition behaviorTransition,
+	EditEmbeddedDialog(final Shell parentShell, final String dialogMessage, final String label,
+			final EmbeddedXtextAdapter xtextAdapter,
+			final BehaviorTransition behaviorTransition,
 			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
 		super(parentShell, "Edit Behavior Transition", null, dialogMessage, MessageDialog.CONFIRM, 0, "OK", "Cancel");
 		this.label = Objects.requireNonNull(label, "label cannot be null");
 		this.xtextAdapter = Objects.requireNonNull(xtextAdapter, "xtextAdapter cannot be null");
-		this.textValidator = Objects.requireNonNull(getTextValidator(behaviorTransition, isValidModification),
+		this.textValidator = Objects.requireNonNull(
+				getTextValidator(behaviorTransition, isValidModification),
 				"textValidator cannot be null");
 		setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 	}
@@ -157,4 +159,3 @@ public class EditEmbeddedDialog extends MessageDialog {
 		return replacementText;
 	}
 }
-

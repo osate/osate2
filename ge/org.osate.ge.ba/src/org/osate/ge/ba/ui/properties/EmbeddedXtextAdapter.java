@@ -18,12 +18,10 @@ class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 	final static Injector injector = Aadl2Activator.getInstance()
 			.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
 
-
 	EmbeddedXtextAdapter(final IProject project, final EmbeddedTextValue textValue) {
 		super(injector, contextFakeResourceProvider, project);
 		this.textValue = textValue;
 	}
-
 
 	SourceViewer getSourceviewer() {
 		return super.getXtextSourceviewer();

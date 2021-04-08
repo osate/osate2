@@ -57,7 +57,6 @@ class EmbeddedEditingControls {
 		styledText.setEnabled(isEnabled);
 		styledText.setEditable(false);
 		styledText.setLayoutData(layoutData);
-		styledText.setCaret(null);
 	}
 
 	StyledText getStyledText() {

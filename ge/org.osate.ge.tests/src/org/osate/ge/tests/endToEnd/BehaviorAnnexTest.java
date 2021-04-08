@@ -250,11 +250,13 @@ public class BehaviorAnnexTest {
 				transitionRef);
 
 		// Create a transition condition
-		setTransitionCondition(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_CONDITION, "on dispatch",
+		editTransitionWithPropertiesView(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_CONDITION,
+				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_CONDITION, "on dispatch",
 				behaviorSpecification, transitionRef);
 
 		// Erase the transition condition
-		setTransitionCondition(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_CONDITION, "",
+		editTransitionWithPropertiesView(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_CONDITION,
+				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_CONDITION, "",
 				behaviorSpecification, transitionRef);
 
 		// Test renaming for states with same name of a mode with transition
@@ -271,7 +273,8 @@ public class BehaviorAnnexTest {
 				true, src);
 	}
 
-	private static void setTransitionCondition(final DiagramReference baDiagram, final String id,
+	private static void editTransitionWithPropertiesView(final DiagramReference baDiagram, final String id,
+			final String btnId,
 			final String conditionText, final RelativeBusinessObjectReference specRef,
 			final RelativeBusinessObjectReference transitionRef) {
 		final DiagramElementReference specDiagramRef = element(specRef);
@@ -279,7 +282,7 @@ public class BehaviorAnnexTest {
 		selectDiagramElements(baDiagram, transitionDiagramRef);
 
 		// Launch edit dialog
-		clickButtonByIdInPropertiesView("AADL", BehaviorTransitionPropertySection.WIDGET_ID_EDIT_CONDITION);
+		clickButtonByIdInPropertiesView("AADL", btnId);
 
 		waitForWindowWithTitle("Edit Behavior Transition");
 

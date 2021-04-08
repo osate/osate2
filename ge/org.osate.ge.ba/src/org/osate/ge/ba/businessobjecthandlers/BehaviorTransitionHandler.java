@@ -103,7 +103,6 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	public static final Style transitionConnectionStyle = StyleBuilder.create().backgroundColor(Color.BLACK)
 			.labelsAboveTop().labelsLeft().build();
 
-
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(BehaviorTransition.class).isPresent();

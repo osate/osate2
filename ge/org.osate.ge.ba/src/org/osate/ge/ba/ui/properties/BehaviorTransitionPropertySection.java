@@ -121,12 +121,12 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		// Create condition text value
 		final EmbeddedTextValue conditionTextValue = getConditionTextValue(behaviorTransition, sourceText);
 
-		// Styled text to enter the new condition text
+		// Styled text to show current condition
 		conditionEditingControls.createStyledText(SWT.BORDER | SWT.SINGLE, isSingleSelection);
 		final StyledText styledText = conditionEditingControls.getStyledText();
 		SwtUtil.setTestingId(styledText, WIDGET_ID_CONDITION);
 
-		// Button to execute the modification
+		// Button to edit the condition
 		conditionEditingControls.createEditButton(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
