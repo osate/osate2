@@ -21,12 +21,10 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.resource.budgets.internal.busload.model;
+package org.osate.analysis.resource.budgets.busload;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,25 +40,33 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.analysis.resource.budgets.internal.models.busload.Broadcast;
+import org.osate.analysis.resource.budgets.internal.models.busload.Bus;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusLoadModel;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusloadFactory;
+import org.osate.analysis.resource.budgets.internal.models.busload.Connection;
+import org.osate.analysis.resource.budgets.internal.models.busload.VirtualBus;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
-/**
- * @since 3.0
- */
-public final class BusLoadModel extends ModelElement {
+final class BusLoadModelBuilder {
 	private final Map<ComponentInstance, Bus> buses = new HashMap<>();
 	private final Map<ComponentInstance, VirtualBus> virtualBuses = new HashMap<>();
 
-	private final List<Bus> rootBuses = new ArrayList<>();
+	private final SystemInstance systemInstance;
+	private final SystemOperationMode som;
 
-	/**
-	 * Use {@link #buildModel(SystemInstance, SystemOperationMode)} to get an instance of the
-	 * model.
-	 */
-	private BusLoadModel() {
-		super();
+	private BusLoadModelBuilder(final SystemInstance systemInstance, final SystemOperationMode som) {
+		this.systemInstance = systemInstance;
+		this.som = som;
 	}
+
+	public static BusLoadModel buildModel(final SystemInstance systemInstance, final SystemOperationMode som) {
+		return new BusLoadModelBuilder(systemInstance, som).build();
+	}
+
+	// ==== Wrap instance model elements with analysis model elements ====
 
 	private Bus getBus(final ComponentInstance ci) {
 		if (ci.getCategory() != ComponentCategory.BUS) {
@@ -68,7 +74,8 @@ public final class BusLoadModel extends ModelElement {
 		}
 		Bus bus = buses.get(ci);
 		if (bus == null) {
-			bus = new Bus(ci);
+			bus = BusloadFactory.eINSTANCE.createBus();
+			bus.setBusInstance(ci);
 			buses.put(ci, bus);
 		}
 		return bus;
@@ -80,102 +87,23 @@ public final class BusLoadModel extends ModelElement {
 		}
 		VirtualBus vb = virtualBuses.get(ci);
 		if (vb == null) {
-			vb = new VirtualBus(ci);
+			vb = BusloadFactory.eINSTANCE.createVirtualBus();
+			vb.setBusInstance(ci);
 			virtualBuses.put(ci, vb);
 		}
 		return vb;
 	}
 
-	void addBus(final Bus bus) {
-		rootBuses.add(bus);
-	}
-
-	public Iterable<Bus> getRootBuses() {
-		return rootBuses;
-	}
-
-	@Override
-	void visitSelfPrefix(final Visitor visitor) {
-		visitor.visitModelPrefix(this);
-	}
-
-	@Override
-	void visitChildren(final Visitor visitor) {
-		visit(rootBuses, visitor);
-	}
-
-	@Override
-	void visitSelfPostfix(final Visitor visitor) {
-		visitor.visitModelPostfix(this);
-	}
-
-	public void print(final PrintWriter pw) {
-		visit(new Visitor() {
-			private Deque<String> stack = new LinkedList<>();
-			private String prefix = "";
-
-			@Override
-			public void visitConnection(final Connection c) {
-				pw.println(prefix + "Connection " + c.getConnectionInstance().getName());
-				stack.push(prefix);
-				prefix = prefix + "  ";
-				pw.println(prefix + "Budget = " + c.getBudget() + " KB/s");
-				pw.println(prefix + "Actual usage = " + c.getActual() + " KB/s");
-				prefix = stack.pop();
-			}
-
-			@Override
-			public void visitBroadcastPrefix(final Broadcast b) {
-				pw.println(prefix + "Broadcast from " + b.getSource().getName());
-				stack.push(prefix);
-				prefix = prefix + "  ";
-				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
-				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
-			}
-
-			@Override
-			public void visitBroadcastPostfix(final Broadcast b) {
-				prefix = stack.pop();
-			}
-
-			@Override
-			public void visitBusPrefix(final Bus b) {
-				pw.println(prefix + "Bus " + b.getBusInstance().getName());
-				stack.push(prefix);
-				prefix = prefix + "  ";
-				pw.println(prefix + "Capacity = " + b.getCapacity() + " KB/s");
-				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
-				pw.println(prefix + "Required budget = " + b.getTotalBudget() + " KB/s");
-				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
-			}
-
-			@Override
-			public void visitBusPostfix(final Bus b) {
-				prefix = stack.pop();
-			}
-
-			@Override
-			public void visitVirtualBusPrefix(final VirtualBus b) {
-				pw.println(prefix + "Virtual Bus " + b.getBusInstance().getName());
-				stack.push(prefix);
-				prefix = prefix + "  ";
-				pw.println(prefix + "Capacity = " + b.getCapacity() + " KB/s");
-				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
-				pw.println(prefix + "Required budget = " + b.getTotalBudget() + " KB/s");
-				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
-			}
-
-			@Override
-			public void visitVirtualBusPostfix(final VirtualBus b) {
-				prefix = stack.pop();
-			}
-		});
+	private static Connection getConnection(final ConnectionInstance connInstance) {
+		final Connection c = BusloadFactory.eINSTANCE.createConnection();
+		c.setConnectionInstance(connInstance);
+		return c;
 	}
 
 	// ==== Methods to build the model ====
 
-	public static BusLoadModel buildModel(final SystemInstance root, final SystemOperationMode som) {
-		final BusLoadModel model = new BusLoadModel();
+	public BusLoadModel build() {
+		final BusLoadModel model = BusloadFactory.eINSTANCE.createBusLoadModel();
 		final ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(final Element obj) {
@@ -188,25 +116,24 @@ public final class BusLoadModel extends ModelElement {
 				}
 			}
 		};
-		mal.processPreOrderComponentInstance(root);
+		mal.processPreOrderComponentInstance(systemInstance);
 		return model;
 	}
 
-	private static void addBus(final BusLoadModel model, final ComponentInstance bus, final SystemOperationMode som) {
-		final Bus theBus = model.getBus(bus);
-		model.addBus(theBus);
+	private void addBus(final BusLoadModel model, final ComponentInstance bus, final SystemOperationMode som) {
+		final Bus theBus = getBus(bus);
+		model.getRootBuses().add(theBus);
 		addBusOrVirtualBus(model, theBus, bus, som);
 	}
 
-	private static void addVirtualBus(final BusLoadModel model, final ComponentInstance vb,
+	private void addVirtualBus(final BusLoadModel model, final ComponentInstance vb,
 			final SystemOperationMode som) {
-		final VirtualBus theVirtualBus = model.getVirtualBus(vb);
+		final VirtualBus theVirtualBus = getVirtualBus(vb);
 		// Node will attached to the model by the (virtual) bus that it is bound to
 		addBusOrVirtualBus(model, theVirtualBus, vb, som);
 	}
 
-	private static void addBusOrVirtualBus(final BusLoadModel model, final BusOrVirtualBus bus,
-			final ComponentInstance ci,
+	private void addBusOrVirtualBus(final BusLoadModel model, final BusOrVirtualBus bus, final ComponentInstance ci,
 			final SystemOperationMode som) {
 		final boolean isBroadcast = GetProperties.isBroadcastProtocol(ci);
 		List<ConnectionInstance> budgetedConnections = InstanceModelUtil.getBoundConnections(ci);
@@ -216,7 +143,7 @@ public final class BusLoadModel extends ModelElement {
 		budgetedConnections = filterInMode(budgetedConnections, som);
 
 		/*
-		 * If the bus is broadcast only send a message from each source feature once. So we only keep one connection
+		 * If the bus is broadcast only, send a message from each source feature once. So we only keep one connection
 		 * for each source feature.
 		 */
 		if (isBroadcast) {
@@ -226,8 +153,8 @@ public final class BusLoadModel extends ModelElement {
 		// Make sure the virtual buses exist in the current mode
 		budgetedVBs = filterInMode(budgetedVBs, som);
 
-		budgetedConnections.forEach(connection -> bus.addBoundConnection(connection));
-		budgetedVBs.forEach(vb -> bus.addBoundBus(model.getVirtualBus(vb)));
+		budgetedConnections.forEach(connInstance -> bus.getBoundConnections().add(getConnection(connInstance)));
+		budgetedVBs.forEach(vb -> bus.getBoundVirtualBuses().add(getVirtualBus(vb)));
 	}
 
 	private static <E extends InstanceObject> List<E> filterInMode(final List<E> instanceObjects,
@@ -282,9 +209,9 @@ public final class BusLoadModel extends ModelElement {
 		 * Create a Broadcast object for each group with size > 1, and then remove the
 		 * connections from the noBroadcast list. We do this, instead of building a new
 		 * list with the groups of size 1 so that the order of the list remains deterministic
-		 * and not influencing by hashing in the map.
+		 * and not influenced by hashing in the map.
 		 *
-		 * So we should have alphabetical order for the broadcast groups (from the TreeMap)
+		 * We should have alphabetical order for the broadcast groups (from the TreeMap)
 		 * and declarative order for the singletons.
 		 */
 		for (final Map.Entry<ConnectionInstanceEnd, List<ConnectionInstance>> group : broadcastGroups.entrySet()) {
@@ -292,9 +219,10 @@ public final class BusLoadModel extends ModelElement {
 			final List<ConnectionInstance> groupedConnections = group.getValue();
 			if (groupedConnections.size() > 1) {
 				nonBroadcast.removeAll(groupedConnections);
-				final Broadcast broadcast = new Broadcast(groupSource);
-				groupedConnections.forEach(c -> broadcast.addConnection(c));
-				bus.addBoundBroadcast(broadcast);
+				final Broadcast broadcast = BusloadFactory.eINSTANCE.createBroadcast();
+				broadcast.setSource(groupSource);
+				groupedConnections.forEach(connInstance -> broadcast.getConnections().add(getConnection(connInstance)));
+				bus.getBoundBroadcasts().add(broadcast);
 			}
 		}
 
