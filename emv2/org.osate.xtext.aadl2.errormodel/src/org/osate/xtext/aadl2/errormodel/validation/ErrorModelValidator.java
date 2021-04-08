@@ -63,6 +63,7 @@ import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
@@ -94,6 +95,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
@@ -217,6 +219,14 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		checkUniquePropagationPointorPath(propagationPoint);
 	}
 
+	/**
+	 * @since 6.1
+	 */
+	@Check(CheckType.FAST)
+	public void caseTypeTransformationSet(TypeTransformationSet typeTransformation) {
+		checkTypeTransformationSet(typeTransformation);
+	}
+
 	@Override
 	@Check(CheckType.FAST)
 	public void casePropertyAssociation(PropertyAssociation propertyAssociation) {
@@ -327,6 +337,7 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 
 	@Check(CheckType.FAST)
 	public void caseTypeMappingSet(TypeMappingSet tms) {
+		checkTypeMappingSet(tms);
 		// checkElementRuleConsistency(tms);
 	}
 
@@ -457,11 +468,18 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		if (es == null) {
 			return;
 		}
+		CompositeState compState = (CompositeState) conditionElement.eContainer();
 		TypeSet triggerTS = null;
 		String triggerName = "";
 		triggerTS = es.getTypeSet();
 		triggerName = "state " + es.getName();
 		TypeSet condTS = conditionElement.getConstraint();
+		EList<TypeToken> targetTKs = compState.getTypedToken().getTypeTokens();
+		// marks error if target state has a typeset or multiple errors associated with it
+		if ((targetTKs != null && targetTKs.size() > 1)
+				|| (targetTKs.get(0).getType() != null && !(targetTKs.get(0).getType().get(0) instanceof ErrorType))) {
+			error(compState, "Target error type may only have a single error type");
+		}
 		if (condTS == null) {
 			return;
 		}
@@ -927,6 +945,11 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 			return;
 		}
 		ErrorPropagation ep = opc.getOutgoing();
+		if (opc.getTypeToken() != null
+				&& (opc.getTypeToken().getTypeTokens().size() > 1
+						|| !(opc.getTypeToken().getTypeTokens().get(0).getType().get(0) instanceof ErrorType))) {
+			error(opc, "Outgoing error propagation may only have a single error type");
+		}
 		if (ep != null) {
 			if (!EMV2TypeSetUtil.isNoError(opc.getTypeToken())
 					&& !EMV2TypeSetUtil.contains(ep.getTypeSet(), opc.getTypeToken())) {
@@ -1298,6 +1321,15 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 					}
 				}
 			}
+			// ensures only one error type is associated with the target error type
+			TypeSet ts = ef.getTargetToken();
+			if (ts.getTypeTokens().size() > 1) {
+				error(ef, "Outgoing propagation may only have a single error type");
+			}
+			TypeToken tt = ts.getTypeTokens().get(0);
+			if (tt != null && tt.getType() != null && !(tt.getType().get(0) instanceof ErrorType)) {
+				error(ef, "Outgoing propagation may only have a single error type");
+			}
 		} else {
 			// no outgoing path type token
 			if (ef.getTypeTokenConstraint() != null) {
@@ -1542,6 +1574,36 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 			}
 
 		}
+	}
+
+	/**
+	 * @since 6.1
+	 */
+	public void checkTypeMappingSet(TypeMappingSet tms) {
+		int size = tms.getMapping().size();
+		for(int i =0; i<size; i++) {
+			TypeSet ts = tms.getMapping().get(i).getTarget();
+			TypeToken tt = ts.getTypeTokens().get(0);
+			if (tt != null && tt.getType() != null
+					&& (!(tt.getType().get(0) instanceof ErrorType) || ts.getTypeTokens().size() > 1)) {
+				error(tms.getMapping().get(i), "Target error type may only have a single error type");
+			}
+		}
+	}
+
+	/**
+	 * @since 6.0
+	 */
+	private void checkTypeTransformationSet(TypeTransformationSet typeTransformation) {
+		for (TypeTransformation trans : typeTransformation.getTransformation()) {
+			TypeSet ts = trans.getTarget();
+			TypeToken tt = ts.getTypeTokens().get(0);
+			if (tt != null && tt.getType() != null
+					&& (!(tt.getType().get(0) instanceof ErrorType) || ts.getTypeTokens().size() > 1)) {
+				error(trans, "Target error type may only have a single error type");
+			}
+		}
+
 	}
 
 }
