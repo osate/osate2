@@ -46,6 +46,9 @@ import org.osate.ge.ui.PropertySectionUtil;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.PeekingIterator;
 
+/**
+ * Property section for {@link BehaviorTransition}
+ */
 public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
 		@Override

@@ -56,6 +56,8 @@ class EmbeddedEditingControls {
 		styledText = new StyledText(container, style);
 		styledText.setEnabled(isEnabled);
 		styledText.setEditable(false);
+		// Set caret to null to make sure users know it is not editable
+		styledText.setCaret(null);
 		styledText.setLayoutData(layoutData);
 	}
 
