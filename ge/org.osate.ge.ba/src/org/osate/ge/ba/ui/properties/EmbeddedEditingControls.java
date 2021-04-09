@@ -20,10 +20,6 @@ class EmbeddedEditingControls {
 		this.container = Objects.requireNonNull(container, "container cannot be null");
 	}
 
-	EmbeddedXtextAdapter getXtextAdapter() {
-		return xtextAdapter;
-	}
-
 	void dispose() {
 		if (xtextAdapter != null) {
 			xtextAdapter.dispose();
