@@ -23,11 +23,13 @@
  */
 package org.osate.analysis.resource.budgets.busload;
 
-import java.util.Deque;
-import java.util.LinkedList;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -38,12 +40,16 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.analysis.resource.budgets.internal.busload.model.Broadcast;
-import org.osate.analysis.resource.budgets.internal.busload.model.Bus;
-import org.osate.analysis.resource.budgets.internal.busload.model.BusLoadModel;
-import org.osate.analysis.resource.budgets.internal.busload.model.BusOrVirtualBus;
-import org.osate.analysis.resource.budgets.internal.busload.model.Connection;
-import org.osate.analysis.resource.budgets.internal.busload.model.Visitor;
+import org.osate.analysis.model.AnalysisElement;
+import org.osate.analysis.model.util.AnalysisModelTraversal;
+import org.osate.analysis.model.util.AnalysisModelTraversal.Nothing;
+import org.osate.analysis.resource.budgets.internal.models.busload.Broadcast;
+import org.osate.analysis.resource.budgets.internal.models.busload.Bus;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusLoadModel;
+import org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualBus;
+import org.osate.analysis.resource.budgets.internal.models.busload.Connection;
+import org.osate.analysis.resource.budgets.internal.models.busload.VirtualBus;
+import org.osate.analysis.resource.budgets.internal.models.busload.util.BusloadSwitch;
 import org.osate.result.AnalysisResult;
 import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
@@ -119,7 +125,7 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  *     </ul>
  * </ul>
  *
- * @since 3.0
+ * @since 4.0
  */
 public final class NewBusLoadAnalysis {
 	public NewBusLoadAnalysis() {
@@ -159,10 +165,9 @@ public final class NewBusLoadAnalysis {
 						Aadl2Util.isPrintableSOMName(som) ? Aadl2Util.getPrintableSOMMembers(som) : "", som,
 						ResultType.SUCCESS);
 				analysisResult.getResults().add(somResult);
-				final BusLoadModel model = BusLoadModel.buildModel(root, som);
 
-				// Analyze the model
-				model.visit(new BusLoadAnalysisVisitor(somResult));
+				final BusLoadModel busLoadModel = BusLoadModelBuilder.buildModel(root, som);
+				analyzeBusLoadModel(busLoadModel, somResult, monitor);
 			}
 			monitor.done();
 
@@ -173,128 +178,121 @@ public final class NewBusLoadAnalysis {
 		}
 	}
 
-	// ==== Analysis Visitor ====
+	private void analyzeBusLoadModel(final BusLoadModel busLoadModel, final Result somResult,
+			final IProgressMonitor monitor) {
+		final Map<AnalysisElement, Result> results = new HashMap<>();
+		AnalysisModelTraversal.preOrder(busLoadModel, new BandwidthAndResultPreOrderSwitch(results, somResult),
+				monitor);
+		if (!monitor.isCanceled()) {
+			AnalysisModelTraversal.postOrder(busLoadModel, new CapacityAndBudgetPostOrderSwitch(results), monitor);
+		}
+	}
 
-	private class BusLoadAnalysisVisitor implements Visitor {
-		private Deque<Result> previousResult = new LinkedList<>();
-		private Result currentResult;
+	private static final class BandwidthAndResultPreOrderSwitch extends BusloadSwitch<Nothing> {
+		private final Result somResult;
+		private final Map<AnalysisElement, Result> results;
 
-		private Deque<Double> previousOverhead = new LinkedList<>();
-		private double dataOverheadKBytes = 0.0;
+		public BandwidthAndResultPreOrderSwitch(final Map<AnalysisElement, Result> results, final Result somResult) {
+			this.results = results;
+			this.somResult = somResult;
+		}
 
-		public BusLoadAnalysisVisitor(final Result rootResult) {
-			this.currentResult = rootResult;
+		private void attachResult(final AnalysisElement analysisElement, final String label, final InstanceObject instanceObject) {
+			final Result newResult = ResultUtil.createResult(label, instanceObject, ResultType.SUCCESS);
+			results.get(analysisElement.eContainer()).getSubResults().add(newResult);
+			results.put(analysisElement, newResult);
 		}
 
 		@Override
-		public void visitBusOrVirtualBusPrefix(final BusOrVirtualBus bus) {
-			final ComponentInstance busInstance = bus.getBusInstance();
+		public Nothing caseConnection(final Connection connection) {
+			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
+			attachResult(connection, connectionInstance.getName(), connectionInstance);
 
-			// Create a new result object for the bus
-			final Result busResult = ResultUtil.createResult(busInstance.getName(), busInstance,
-					ResultType.SUCCESS);
-			currentResult.getSubResults().add(busResult);
-			previousResult.push(currentResult);
-			currentResult = busResult;
+			return Nothing.NONE;
+		}
+
+		@Override
+		public Nothing caseBroadcast(final Broadcast broadcast) {
+			final ConnectionInstanceEnd cie = broadcast.getSource();
+			attachResult(broadcast, "Broadcast from " + cie.getInstanceObjectPath(), cie);
+
+			return Nothing.NONE;
+		}
+
+		@Override
+		public Nothing caseBusOrVirtualBus(final BusOrVirtualBus bus) {
+			final ComponentInstance busInstance = bus.getBusInstance();
+			attachResult(bus, busInstance.getName(), busInstance);
 
 			// Increment the data overhead
-			final double newOverheadKBytesps = GetProperties.getDataSize(busInstance,
+			final EObject parent = bus.eContainer();
+			final double parentOverhead = parent instanceof BusLoadModel ? 0.0
+					: ((BusOrVirtualBus) parent).getDataOverhead();
+			final double localOverheadKBytesps = GetProperties.getDataSize(busInstance,
 					GetProperties.getKBUnitLiteral(busInstance));
-			previousOverhead.push(dataOverheadKBytes);
-			dataOverheadKBytes += newOverheadKBytesps;
+			bus.setDataOverhead(parentOverhead + localOverheadKBytesps);
+
+			return Nothing.NONE;
 		}
 
 		@Override
-		public void visitBusOrVirtualBusPostfix(final BusOrVirtualBus bus) {
-			// unroll the result stack
-			final Result busResult = currentResult;
-			currentResult = previousResult.pop();
+		public Nothing caseBusLoadModel(final BusLoadModel busLoadModel) {
+			results.put(busLoadModel, somResult);
+			return Nothing.NONE;
+		}
+	}
 
-			// Unroll the overhead calculation, but save the old value for output
-			final long myDataOverheadInBytes = (long) (1000.0 * dataOverheadKBytes);
-			dataOverheadKBytes = previousOverhead.pop();
+	private static final class CapacityAndBudgetPostOrderSwitch extends BusloadSwitch<Nothing> {
+		private final Map<AnalysisElement, Result> results;
 
-			// Compute the actual usage and budget requirements
-			double actual = 0.0;
-			double totalBudget = 0.0;
+		public CapacityAndBudgetPostOrderSwitch(final Map<AnalysisElement, Result> results) {
+			this.results = results;
+		}
 
-			for (final BusOrVirtualBus b : bus.getBoundBuses()) {
-				actual += b.getActual();
-				totalBudget += b.getBudget();
-			}
-			for (final Connection c : bus.getBoundConnections()) {
-				actual += c.getActual();
-				totalBudget += c.getBudget();
-			}
-			for (final Broadcast b : bus.getBoundBroadcasts()) {
-				actual += b.getActual();
-				totalBudget += b.getBudget();
-			}
-			bus.setActual(actual);
-			bus.setTotalBudget(totalBudget);
-
-			final ComponentInstance busInstance = bus.getBusInstance();
-			final double capacity = GetProperties.getBandWidthCapacityInKBytesps(busInstance, 0.0);
-			final double budget = GetProperties.getBandWidthBudgetInKBytesps(busInstance, 0.0);
-			bus.setCapacity(capacity);
-			bus.setBudget(budget);
-
-			ResultUtil.addRealValue(busResult, capacity);
-			ResultUtil.addRealValue(busResult, budget);
-			ResultUtil.addRealValue(busResult, totalBudget);
-			ResultUtil.addRealValue(busResult, actual);
-			ResultUtil.addIntegerValue(busResult, bus.getBoundBuses().size());
-			ResultUtil.addIntegerValue(busResult, bus.getBoundConnections().size());
-			ResultUtil.addIntegerValue(busResult, bus.getBoundBroadcasts().size());
-			ResultUtil.addIntegerValue(busResult, myDataOverheadInBytes);
-
-			if (capacity == 0.0) {
-				warning(busResult, busInstance, (bus instanceof Bus ? "Bus " : "Virtual bus ") +
-						busInstance.getName() + " has no capacity");
+		private double getOverhead(final EObject analysisElement) {
+			if (analysisElement instanceof BusOrVirtualBus) {
+				return ((BusOrVirtualBus) analysisElement).getDataOverhead();
 			} else {
-				if (actual > capacity) {
-					error(busResult, busInstance,
-							(bus instanceof Bus ? "Bus " : "Virtual bus ") + busInstance.getName()
-							+ " -- Actual bandwidth > capacity: " + actual + " KB/s > "
-							+ capacity + " KB/s");
-				}
+				return getOverhead(analysisElement.eContainer());
 			}
+		}
 
-			if (budget == 0.0) {
-				warning(busResult, busInstance, (bus instanceof Bus ? "Bus " : "Virtual bus ") +
-						busInstance.getName() + " has no bandwidth budget");
+		private Result getResult(final AnalysisElement analysisElement) {
+			return results.get(analysisElement);
+		}
+
+		@Override
+		public Nothing caseConnection(final Connection connection) {
+			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
+			final double dataOverheadKBytes = getOverhead(connection);
+			final Result connectionResult = getResult(connection);
+
+			final double actual = getConnectionActualKBytesps(connectionInstance.getSource(), dataOverheadKBytes);
+			connection.setActual(actual);
+
+			final double budget = GetProperties.getBandWidthBudgetInKBytesps(connectionInstance, 0.0);
+			connection.setBudget(budget);
+
+			ResultUtil.addRealValue(connectionResult, budget);
+			ResultUtil.addRealValue(connectionResult, actual);
+
+			if (budget > 0.0) {
+				if (actual > budget) {
+					error(connectionResult, connectionInstance, "Connection " + connectionInstance.getName()
+							+ " -- Actual bandwidth > budget: " + actual + " KB/s > " + budget + " KB/s");
+				}
 			} else {
-				if (budget > capacity) {
-					error(busResult, busInstance,
-							(bus instanceof Bus ? "Bus " : "Virtual bus ") + busInstance.getName()
-									+ " -- budget > capacity: " + budget + " KB/s > " + capacity + " KB/s");
-				}
-				if (totalBudget > budget) {
-					error(busResult, busInstance,
-							(bus instanceof Bus ? "Bus " : "Virtual bus ") + busInstance.getName()
-							+ " -- Required budget > budget: " + totalBudget + " KB/s > " + budget
-							+ " KB/s");
-				}
+				warning(connectionResult, connectionInstance,
+						"Connection " + connectionInstance.getName() + " has no bandwidth budget");
 			}
+
+			return Nothing.NONE;
 		}
 
 		@Override
-		public void visitBroadcastPrefix(final Broadcast broadcast) {
-			final ConnectionInstanceEnd cie = broadcast.getSource();
-
-			// Create a new result object for the bus
-			final Result broadcastResult = ResultUtil.createResult("Broadcast from " + cie.getInstanceObjectPath(), cie,
-					ResultType.SUCCESS);
-			currentResult.getSubResults().add(broadcastResult);
-			previousResult.push(currentResult);
-			currentResult = broadcastResult;
-		}
-
-		@Override
-		public void visitBroadcastPostfix(final Broadcast broadcast) {
-			// unroll the result stack
-			final Result broadcastResult = currentResult;
-			currentResult = previousResult.pop();
+		public Nothing caseBroadcast(final Broadcast broadcast) {
+			final double dataOverheadKBytes = getOverhead(broadcast);
+			final Result broadcastResult = getResult(broadcast);
 
 			// Compute the actual usage and budget requirements
 			final double actual = getConnectionActualKBytesps(broadcast.getSource(), dataOverheadKBytes);
@@ -325,37 +323,81 @@ public final class NewBusLoadAnalysis {
 									+ " KB/s; using maximum");
 				}
 			}
+
+			return Nothing.NONE;
 		}
 
 		@Override
-		public void visitConnection(final Connection connection) {
-			final ConnectionInstance connectionInstance = connection.getConnectionInstance();
-			final Result connectionResult = ResultUtil.createResult(connectionInstance.getName(),
-					connectionInstance, ResultType.SUCCESS);
-			currentResult.getSubResults().add(connectionResult);
+		public Nothing caseBusOrVirtualBus(final BusOrVirtualBus bus) {
+			final long myDataOverheadInBytes = (long) (1000.0 * bus.getDataOverhead());
+			final Result busResult = getResult(bus);
 
-			final double actual = getConnectionActualKBytesps(connectionInstance.getSource(), dataOverheadKBytes);
-			connection.setActual(actual);
+			// Compute the actual usage and budget requirements
+			double actual = 0.0;
+			double totalBudget = 0.0;
 
-			final double budget = GetProperties.getBandWidthBudgetInKBytesps(connectionInstance, 0.0);
-			connection.setBudget(budget);
-
-			ResultUtil.addRealValue(connectionResult, budget);
-			ResultUtil.addRealValue(connectionResult, actual);
-
-			if (budget > 0.0) {
-				if (actual > budget) {
-					error(connectionResult, connectionInstance,
-							"Connection " + connectionInstance.getName() + " -- Actual bandwidth > budget: " + actual
-									+ " KB/s > "
-							+ budget + " KB/s");
-				}
-			} else {
-				warning(connectionResult, connectionInstance,
-						"Connection " + connectionInstance.getName() + " has no bandwidth budget");
+			for (final VirtualBus vb : bus.getBoundVirtualBuses()) {
+				actual += vb.getActual();
+				totalBudget += vb.getBudget();
 			}
+			for (final Connection c : bus.getBoundConnections()) {
+				actual += c.getActual();
+				totalBudget += c.getBudget();
+			}
+			for (final Broadcast b : bus.getBoundBroadcasts()) {
+				actual += b.getActual();
+				totalBudget += b.getBudget();
+			}
+			bus.setActual(actual);
+
+			final ComponentInstance busInstance = bus.getBusInstance();
+			final double capacity = GetProperties.getBandWidthCapacityInKBytesps(busInstance, 0.0);
+			final double budget = GetProperties.getBandWidthBudgetInKBytesps(busInstance, 0.0);
+			bus.setBudget(budget);
+
+			ResultUtil.addRealValue(busResult, capacity);
+			ResultUtil.addRealValue(busResult, budget);
+			ResultUtil.addRealValue(busResult, totalBudget);
+			ResultUtil.addRealValue(busResult, actual);
+			ResultUtil.addIntegerValue(busResult, bus.getBoundVirtualBuses().size());
+			ResultUtil.addIntegerValue(busResult, bus.getBoundConnections().size());
+			ResultUtil.addIntegerValue(busResult, bus.getBoundBroadcasts().size());
+			ResultUtil.addIntegerValue(busResult, myDataOverheadInBytes);
+
+			if (capacity == 0.0) {
+				warning(busResult, busInstance,
+						getLabel(bus) + busInstance.getName() + " has no capacity");
+			} else {
+				if (actual > capacity) {
+					error(busResult, busInstance, getLabel(bus) + busInstance.getName()
+							+ " -- Actual bandwidth > capacity: " + actual + " KB/s > " + capacity + " KB/s");
+				}
+			}
+
+			if (budget == 0.0) {
+				warning(busResult, busInstance, getLabel(bus) + busInstance.getName()
+						+ " has no bandwidth budget");
+			} else {
+				if (budget > capacity) {
+					error(busResult, busInstance, getLabel(bus) + busInstance.getName()
+							+ " -- budget > capacity: " + budget + " KB/s > " + capacity + " KB/s");
+				}
+				if (totalBudget > budget) {
+					error(busResult, busInstance, getLabel(bus) + busInstance.getName()
+							+ " -- Required budget > budget: " + totalBudget + " KB/s > " + budget + " KB/s");
+				}
+			}
+
+			return Nothing.NONE;
+		}
+
+		private static String getLabel(final BusOrVirtualBus bus) {
+			return bus instanceof Bus ? "Bus " : "Virtual bus ";
 		}
 	}
+
+	// ==== Adapter classes ===
+
 
 	// ==== Helper methods for the visitor ===
 
@@ -387,4 +429,68 @@ public final class NewBusLoadAnalysis {
 	private static void warning(final Result result, final InstanceObject io, final String msg) {
 		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.WARNING));
 	}
+
+	@SuppressWarnings("unused")
+	private static void print(final PrintWriter pw, final BusLoadModel busLoadModel) {
+		final Map<AnalysisElement, String> indents = new HashMap<>();
+		AnalysisModelTraversal.preOrder(busLoadModel, new BusloadSwitch<Nothing>() {
+			private String getIndent(final AnalysisElement analysisElement) {
+				return indents.get(analysisElement.eContainer());
+			}
+
+			@Override
+			public Nothing caseConnection(final Connection c) {
+				String prefix = getIndent(c);
+				pw.println(prefix + "Connection " + c.getConnectionInstance().getName());
+				prefix = prefix + "  ";
+				pw.println(prefix + "Budget = " + c.getBudget() + " KB/s");
+				pw.println(prefix + "Actual usage = " + c.getActual() + " KB/s");
+				indents.put(c, prefix);
+				return Nothing.NONE;
+			}
+
+			@Override
+			public Nothing caseBroadcast(final Broadcast b) {
+				String prefix = getIndent(b);
+				pw.println(prefix + "Broadcast from " + b.getSource().getName());
+				prefix = prefix + "  ";
+				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
+				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
+				indents.put(b, prefix);
+				return Nothing.NONE;
+			}
+
+			@Override
+			public Nothing caseBus(final Bus b) {
+				String prefix = getIndent(b);
+				pw.println(prefix + "Bus " + b.getBusInstance().getName());
+				prefix = prefix + "  ";
+				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
+				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
+				pw.println(prefix + "Data overhead = " + (int) (b.getDataOverhead() * 1000.0) + " bytes");
+				indents.put(b, prefix);
+				return Nothing.NONE;
+			}
+
+			@Override
+			public Nothing caseVirtualBus(final VirtualBus b) {
+				String prefix = getIndent(b);
+				pw.println(prefix + "Virtual Bus " + b.getBusInstance().getName());
+				prefix = prefix + "  ";
+				pw.println(prefix + "Budget = " + b.getBudget() + " KB/s");
+				pw.println(prefix + "Actual usage = " + b.getActual() + " KB/s");
+				pw.println(prefix + "Data overhead = " + (int) (b.getDataOverhead() * 1000.0) + " bytes");
+				indents.put(b, prefix);
+				return Nothing.NONE;
+			}
+
+			@Override
+			public Nothing caseBusLoadModel(final BusLoadModel m) {
+				indents.put(m, "");
+				return Nothing.NONE;
+			}
+		}, null);
+		pw.flush();
+	}
+
 }
