@@ -24,7 +24,9 @@ Require-Bundle: org.osate.ge;bundle-version="1.0.0",
  org.osate.ge.errormodel,
  org.osate.ge.gef.ui;bundle-version="1.0.0",
  org.eclipse.ui.views.properties.tabbed;bundle-version="3.8.900",
- org.osate.ge.gef;bundle-version="1.0.0"
+ org.osate.ge.gef;bundle-version="1.0.0",
+ org.eclipse.gef.fx,
+ org.eclipse.gef.geometry
 Import-Package: com.google.inject.matcher,
  org.apache.log4j;version="1.2.15",
  org.eclipse.core.resources,

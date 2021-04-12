@@ -26,11 +26,16 @@ package org.osate.ge.tests.fx;
 import java.awt.AWTException;
 import java.awt.event.InputEvent;
 
+import org.eclipse.gef.fx.nodes.Connection;
+import org.eclipse.gef.geometry.planar.Point;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
+import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.tests.endToEnd.util.UiTestUtil;
 
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 
 // TODO: Rename and document
 public class JavaFXBot {
@@ -47,16 +52,65 @@ public class JavaFXBot {
 	public void click(final Node node) {
 		// TODO; Improve visibility check. Stage must be visible, clipping ,etc
 		// TODO; Scroll if necessary
+		// TODO; Scrolling could affect position
 
 		UiTestUtil.waitUntil(() -> isVisible(node), "Node " + node + " is not visible");
 
+		// TODO: Need to scroll things
+		ensureVisible(node);
+
 		final Point2D p = UIThreadRunnable.syncExec(() -> {
-			return node.localToScreen(0, 0);
+			if (node instanceof BaseConnectionNode) {
+				final BaseConnectionNode cn = (BaseConnectionNode) node;
+				final Connection ic = cn.getInnerConnection();
+				final Point startPoint = ic.getStartPoint();
+				return ic.localToScreen(startPoint.x, startPoint.y);
+			} else {
+				return node.localToScreen(4, 4);
+			}
 		});
 
 		robot.mouseMove((int) p.getX(), (int) p.getY());
 		robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 		robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+	}
+
+	// TODO: Document. only one level of scrolling supported..
+	// TODO: Rename... ALready check if "visible"
+	private static void ensureVisible(final Node node) {
+		final ScrollPane sp = getFirstScrollPane(node);
+		if (sp == null) {
+			return;
+		}
+
+		final Node scrollPaneContent = sp.getContent();
+
+		Point2D p = new Point2D(0, 0);
+		for (Node t = node; t != null; t = t.getParent()) {
+			if (t == scrollPaneContent) {
+				// TODO: How to know if it is a X or Y scroll
+				final Bounds contentBounds = scrollPaneContent.getBoundsInLocal();
+				final double normalScrollX = p.getX() / contentBounds.getWidth(); // TODO; Rename
+				final double normalScrollY = p.getY() / contentBounds.getHeight(); // TODO: Rename
+				final double newScrollH = (sp.getHmax() - sp.getHmin()) * normalScrollX + sp.getHmin();
+				final double newScrollV = (sp.getVmax() - sp.getVmin()) * normalScrollY + sp.getVmin();
+				sp.setHvalue(newScrollH);
+				sp.setVvalue(newScrollV);
+				return;
+			} else {
+				p = t.localToParent(p);
+			}
+		}
+	}
+
+	// TODO; Rename
+	private static ScrollPane getFirstScrollPane(final Node node) {
+		for (Node t = node; t != null; t = t.getParent()) {
+			if (t instanceof ScrollPane) {
+				return (ScrollPane) t;
+			}
+		}
+		return null;
 	}
 
 	private static boolean isVisible(final Node node) {

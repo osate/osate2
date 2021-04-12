@@ -39,13 +39,14 @@ import javafx.scene.shape.StrokeType;
  * Node for ellipse graphics
  */
 public class EllipseNode extends Region implements ChopBoxGeometryProvider, Stylable {
+	private final boolean resizable;
 	private final javafx.scene.shape.Ellipse ellipse = new Ellipse();
 
 	/**
 	 * Creates a new instance
 	 */
 	public EllipseNode() {
-
+		this(null);
 	}
 
 	/**
@@ -54,10 +55,8 @@ public class EllipseNode extends Region implements ChopBoxGeometryProvider, Styl
 	 * If null, the ellipse will not have a fixed size.
 	 */
 	public EllipseNode(final Dimension2D fixedSize) {
+		this.resizable = fixedSize == null;
 		this.getChildren().addAll(ellipse);
-
-		ellipse.setStrokeType(StrokeType.INSIDE);
-		ellipse.setStrokeLineCap(StrokeLineCap.BUTT);
 
 		// For fixed sized nodes, set the min=pref=max=fixed size
 		if (fixedSize != null) {
@@ -68,7 +67,13 @@ public class EllipseNode extends Region implements ChopBoxGeometryProvider, Styl
 			setMaxWidth(fixedSize.getWidth());
 			setMaxHeight(fixedSize.getHeight());
 			resize(fixedSize.getWidth(), fixedSize.getHeight());
+		} else {
+			// An exception can be thrown by GEF if an ellipse doesn't have an initial size.
+			resize(4, 4);
 		}
+
+		ellipse.setStrokeType(StrokeType.INSIDE);
+		ellipse.setStrokeLineCap(StrokeLineCap.BUTT);
 
 		setLineWidth(2.0);
 		setBackgroundColor(Color.WHITE);
@@ -76,11 +81,16 @@ public class EllipseNode extends Region implements ChopBoxGeometryProvider, Styl
 	}
 
 	@Override
+	public boolean isResizable() {
+		return resizable;
+	}
+
+	@Override
 	public void resize(final double width, final double height) {
 		super.resize(width, height);
 		ellipse.setCenterX(width / 2.0);
-		ellipse.setRadiusX(width / 2.0);
 		ellipse.setCenterY(height / 2.0);
+		ellipse.setRadiusX(width / 2.0);
 		ellipse.setRadiusY(height / 2.0);
 	}
 

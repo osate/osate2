@@ -94,14 +94,14 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	private static double MIN_COMPUTED_MIN_HEIGHT = 10;
 
 	/**
-	* Minimum possible value returned by {@link #computePrefWidth(double)}.
+	* Minimum possible value returned by {@link #computePrefWidth(double)} unless graphic has a max width.
 	* Chosen based on visual experiments. Typically, computed values will not be used. The graphical editor
 	* will set a preferred size based on an incremental layout ELK.
 	*/
 	private static final double MIN_COMPUTED_PREF_WIDTH = 140;
 
 	/**
-	 * Minimum value returned by {@link #computePrefHeight(double)}.
+	 * Minimum value returned by {@link #computePrefHeight(double)} unless graphic has a max height.
 	 * Chosen based on visual experiments. Typically, computed values will not be used. The graphical editor
 	 * will set a preferred size based on an incremental layout ELK.
 	 */
@@ -473,12 +473,12 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 			}
 
 			// Include the minimum width needed to include free children
-			result = Math.max(result, computeMinWidthForFreeChildren());
+			result = Math.min(Math.max(result, computeMinWidthForFreeChildren()), maxWidth(height));
 
 			return result;
 		} else {
 			// Use the configured width as long as it is larger than the minimum width
-			return Math.max(configuredWidth, minWidth(height));
+			return Math.min(Math.max(configuredWidth, minWidth(height)), maxWidth(height));
 		}
 	}
 
@@ -504,11 +504,11 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 			double result = Math.max(MIN_COMPUTED_PREF_HEIGHT, prefLabelHeight(width));
 
 			// Include the minimum height needed to include free children
-			result = Math.max(result, computeMinHeightForFreeChildren());
+			result = Math.min(Math.max(result, computeMinHeightForFreeChildren()), maxHeight(width));
 
 			return result;
 		} else {
-			return Math.max(configuredHeight, minHeight(width));
+			return Math.min(Math.max(configuredHeight, minHeight(width)), maxHeight(width));
 		}
 	}
 
@@ -649,6 +649,32 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 				result = Math.max(result, end);
 			}
 		}
+		return result;
+	}
+
+	@Override
+	protected double computeMaxWidth(final double height) {
+		// Take into consideration max width of graphics
+		double result = super.computeMaxWidth(height);
+		for (final Node graphic : graphicWrapper.getChildren()) {
+			if (graphic.isManaged()) {
+				result = Math.min(result, graphic.maxWidth(-1));
+			}
+		}
+
+		return result;
+	}
+
+	@Override
+	protected double computeMaxHeight(final double width) {
+		// Take into consideration max width of graphics
+		double result = super.computeMaxHeight(width);
+		for (final Node graphic : graphicWrapper.getChildren()) {
+			if (graphic.isManaged()) {
+				result = Math.min(result, graphic.maxWidth(-1));
+			}
+		}
+
 		return result;
 	}
 

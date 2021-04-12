@@ -439,6 +439,11 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			forceUpdateOnNextModelChange = false; // Reset flag
 			dirtyModel = true;
 			updateDiagram(requireVisible);
+
+			// Update the property sheet page when the model changes
+			if (propertySheetPage != null && propertySheetPage.getCurrentTab() != null) {
+				propertySheetPage.refresh();
+			}
 		}
 	};
 
