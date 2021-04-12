@@ -20,10 +20,6 @@ class EmbeddedEditingControls {
 		this.container = Objects.requireNonNull(container, "container cannot be null");
 	}
 
-	EmbeddedXtextAdapter getXtextAdapter() {
-		return xtextAdapter;
-	}
-
 	void dispose() {
 		if (xtextAdapter != null) {
 			xtextAdapter.dispose();
@@ -56,6 +52,8 @@ class EmbeddedEditingControls {
 		styledText = new StyledText(container, style);
 		styledText.setEnabled(isEnabled);
 		styledText.setEditable(false);
+		// Set caret to null to make sure users know it is not editable
+		styledText.setCaret(null);
 		styledText.setLayoutData(layoutData);
 	}
 

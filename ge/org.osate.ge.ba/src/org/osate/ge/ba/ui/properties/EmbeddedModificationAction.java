@@ -43,7 +43,7 @@ class EmbeddedModificationAction implements AgeAction {
 	private final EmbeddedTextValue textValue;
 	private final String newText;
 
-	public EmbeddedModificationAction(final TransactionalEditingDomain editingDomain,
+	EmbeddedModificationAction(final TransactionalEditingDomain editingDomain,
 			final IXtextDocument xtextDocument, final XtextResource xtextResource,
 			final ModelChangeNotifier modelChangeNotifier, final IProject project, final String newText,
 			final EmbeddedTextValue textValue) {

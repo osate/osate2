@@ -259,12 +259,12 @@ public class BehaviorAnnexTest {
 				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_CONDITION, "",
 				behaviorSpecification, transitionRef);
 
-//		// Create a transition action block
+		// Create a transition action block
 		editTransitionWithPropertiesView(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_ACTION_BLOCK,
 				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_ACTION_BLOCK,
 				"computation (60 ms)", behaviorSpecification, transitionRef);
-//
-//		// Erase the transition action block
+
+		// Erase the transition action block
 		editTransitionWithPropertiesView(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_ACTION_BLOCK,
 				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_ACTION_BLOCK, "",
 				behaviorSpecification, transitionRef);

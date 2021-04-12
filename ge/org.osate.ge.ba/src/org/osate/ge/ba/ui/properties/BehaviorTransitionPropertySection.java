@@ -175,7 +175,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		final StyledText styledText = conditionEditingControls.getStyledText();
 		SwtUtil.setTestingId(styledText, WIDGET_ID_CONDITION);
 
-		// Button to execute the modification
+		// Button to edit the condition
 		conditionEditingControls.createEditButton(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
