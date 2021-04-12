@@ -146,6 +146,14 @@ public class BehaviorAnnexNamingUtil {
 	public static Optional<String> checkNameValidity(final RenameContext ctx) {
 		final NamedElement ne = ctx.getBusinessObject(NamedElement.class).get();
 		final String newName = ctx.getNewName();
+		return checkNameValidity(ne, newName);
+	}
+
+	/**
+	 * Check if behavior element new name is valid.
+	 * @return empty if the name is valid.  Otherwise return the error message
+	 */
+	public static Optional<String> checkNameValidity(final NamedElement ne, final String newName) {
 		if (newName.equalsIgnoreCase(ne.getName())) {
 			return Optional.empty();
 		}
