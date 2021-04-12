@@ -33,7 +33,7 @@ class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 	}
 
 	String getText() {
-		return getFakeResource().getParseResult().getRootNode().getText();
+		return BehaviorAnnexXtextUtil.getText(null, getFakeResource());
 	}
 
 	XtextResource getFakeResource() {

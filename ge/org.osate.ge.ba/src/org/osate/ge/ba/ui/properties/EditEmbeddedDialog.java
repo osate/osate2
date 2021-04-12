@@ -61,7 +61,7 @@ public class EditEmbeddedDialog extends MessageDialog {
 		styledText.addExtendedModifyListener(textValidator);
 		SwtUtil.setTestingId(styledText, WIDGET_ID_TEXT);
 		xtextAdapter.adapt(styledText);
-		new UndoRedoHelper(styledText);
+		new BehaviorAnnexXtextUtil.UndoRedoHelper(styledText);
 
 		return composite;
 	}

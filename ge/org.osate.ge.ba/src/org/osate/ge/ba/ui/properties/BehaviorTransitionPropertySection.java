@@ -3,7 +3,6 @@ package org.osate.ge.ba.ui.properties;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Adapters;
@@ -42,9 +41,6 @@ import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
-
-import com.google.common.collect.Iterators;
-import com.google.common.collect.PeekingIterator;
 
 /**
  * Property section for {@link BehaviorTransition}
@@ -108,7 +104,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 							.orElseThrow(() -> new RuntimeException("resource must be XtextResource"));
 					final IXtextDocument xtextDocument = getXtextDocument(behaviorTransition).orElse(null);
 					// Source text
-					final String sourceText = getText(xtextDocument, xtextResource);
+					final String sourceText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
 					final boolean isSingleSelection = selectedBos.bocStream().limit(2).count() == 1;
 					createConditionControls(behaviorTransition, sourceText, isSingleSelection, editingDomain,
 							xtextDocument, xtextResource, project);
@@ -166,52 +162,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		conditionEditingControls.createXtextAdapter(project, conditionTextValue);
 	}
 
-	/**
-	 * Find offset of character in string that is not commented out
-	 */
-	private int findUncommentedChar(final String str, final char delim) {
-		final PeekingIterator<Character> charPeekingIt = Iterators
-				.peekingIterator(str.chars().mapToObj(e -> (char) e).collect(Collectors.toList()).iterator());
-		for (int offset = 0; charPeekingIt.hasNext(); offset++) {
-			final Character c = charPeekingIt.next();
-			if (c == delim) {
-				return offset;
-			} else if (c == '-' && charPeekingIt.peek() == '-') {
-				for (offset = offset + 1; charPeekingIt.hasNext(); offset++) {
-					final Character tmp = charPeekingIt.next();
-					if (tmp == '\n') {
-						break;
-					}
-				}
-			}
-		}
-
-		throw new RuntimeException("Cannot find terminating character");
-	}
-
-	/**
-	 * Find offset of a pair characters in string that is not commented out
-	 */
-	private int findUncommentedCharPair(final String str, final Pair<Character, Character> charsToMatch) {
-		final PeekingIterator<Character> charPeekingIt = Iterators
-				.peekingIterator(str.chars().mapToObj(e -> (char) e).collect(Collectors.toList()).iterator());
-		for (int offset = 0; charPeekingIt.hasNext(); offset++) {
-			final Character c = charPeekingIt.next();
-			if (c == charsToMatch.getKey() && charPeekingIt.peek() == charsToMatch.getValue()) {
-				return offset + 2;
-			} else if (c == '-' && charPeekingIt.peek() == '-') {
-				for (offset = offset + 1; charPeekingIt.hasNext(); offset++) {
-					final Character tmp = charPeekingIt.next();
-					if (tmp == '\n') {
-						break;
-					}
-				}
-			}
-		}
-
-		throw new RuntimeException("Cannot find character sequence " + charsToMatch.toString());
-	}
-
 	private EmbeddedTextValue getConditionTextValue(final BehaviorTransition behaviorTransition, final String text) {
 		final BehaviorCondition condition = behaviorTransition.getCondition();
 
@@ -226,7 +176,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
 			final Pair<Character, Character> charsToMatch = new Pair<Character, Character>('-', '[');
 			// Find index for beginning of condition text "-["
-			final int conditionOffset = findUncommentedCharPair(text.substring(transitionOffset), charsToMatch)
+			final int conditionOffset = BehaviorAnnexXtextUtil.findUncommentedCharPair(text.substring(transitionOffset),
+					charsToMatch)
 					+ transitionOffset;
 
 			// Prefix is text before condition text
@@ -236,7 +187,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			final String afterPrefix = text.substring(conditionOffset);
 
 			// Find closing "]", to get condition text
-			final int endingConditionOffset = findUncommentedChar(afterPrefix, ']');
+			final int endingConditionOffset = BehaviorAnnexXtextUtil.findUncommentedChar(afterPrefix, ']');
 			conditionText = afterPrefix.substring(0, endingConditionOffset).trim();
 
 			// Suffix is text after condition text
@@ -251,7 +202,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			// Note: condition.getAadlBaLocationReference().getLength() only counts until the first space (assuming).
 			// For example, when dispatch condition is "on dispatch" length is 2.
 			// Find closing "]", to get condition text
-			final int conditionEnd = findUncommentedChar(text.substring(updateOffset), ']') + updateOffset;
+			final int conditionEnd = BehaviorAnnexXtextUtil.findUncommentedChar(text.substring(updateOffset), ']')
+					+ updateOffset;
 			// Condition text
 			conditionText = text.substring(updateOffset, conditionEnd).trim();
 
@@ -265,15 +217,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 	private static Optional<IXtextDocument> getXtextDocument(final BehaviorTransition behaviorTransition) {
 		return Optional.ofNullable(AgeXtextUtil.getDocumentByRootElement(behaviorTransition.getElementRoot()));
-	}
-
-	// All source text
-	private static String getText(final IXtextDocument xtextDocument, final XtextResource xtextResource) {
-		if (xtextDocument == null) {
-			return xtextResource.getParseResult().getRootNode().getText();
-		}
-
-		return xtextDocument.get();
 	}
 
 	private static boolean isBehaviorTransition(final BusinessObjectContext boc) {

@@ -9,12 +9,10 @@ class EmbeddedTextValue {
 	private final int offset;
 	private final String editableText;
 	private final int updateLength;
-	private final String originalText;
 
 	public EmbeddedTextValue(final String orignalText, final String prefix, final String editableText, final String suffix) {
 		this.prefix = prefix;
 		this.editableText = editableText;
-		this.originalText = orignalText;
 		final String prefixWithLineEnding = prefix + "\n";
 		wholeText = prefixWithLineEnding + editableText + "\n" + suffix;
 		// Offset to show text within embedded styled text
@@ -23,9 +21,6 @@ class EmbeddedTextValue {
 		updateLength = orignalText.length() - prefix.length() - suffix.length();
 	}
 
-	String getOriginalText() {
-		return originalText;
-	}
 
 	int getUpdateLength() {
 		return updateLength;

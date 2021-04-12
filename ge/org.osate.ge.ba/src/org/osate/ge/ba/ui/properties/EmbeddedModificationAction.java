@@ -115,11 +115,11 @@ class EmbeddedModificationAction implements AgeAction {
 			buildProject();
 		}
 
+		final String originalText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
 		// Set action to restore original source text upon undo
-		return textValue == null ? null
-				: new EmbeddedModificationAction(editingDomain, xtextDocument, xtextResource,
-						modelChangeNotifier,
-						project, textValue.getOriginalText());
+		return new EmbeddedModificationAction(editingDomain, xtextDocument, xtextResource, modelChangeNotifier, project,
+				originalText);
+
 	}
 
 	private String getModifiedSource() {
