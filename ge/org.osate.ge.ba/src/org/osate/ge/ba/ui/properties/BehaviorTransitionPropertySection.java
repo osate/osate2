@@ -137,7 +137,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 				};
 
 				final EditEmbeddedDialog dlg = new EditEmbeddedDialog(Display.getCurrent().getActiveShell(),
-						"Enter new dispatch condition.", "Condition: ", xtextAdapter,
+						"Edit Transition Condition", "Enter new dispatch condition.", xtextAdapter,
 						behaviorTransition, isValidModification);
 				if (dlg.open() == Window.OK) {
 					// Edit condition
@@ -187,11 +187,11 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			final String afterPrefix = text.substring(conditionOffset);
 
 			// Find closing "]", to get condition text
-			final int endingConditionOffset = BehaviorAnnexXtextUtil.findUncommentedChar(afterPrefix, ']');
-			conditionText = afterPrefix.substring(0, endingConditionOffset).trim();
+			final int conditionEnd = BehaviorAnnexXtextUtil.findUncommentedChar(afterPrefix, ']');
+			conditionText = afterPrefix.substring(0, conditionEnd).trim();
 
 			// Suffix is text after condition text
-			suffix = afterPrefix.substring(endingConditionOffset);
+			suffix = afterPrefix.substring(conditionEnd);
 		} else {
 			// Condition offset
 			final int updateOffset = condition.getAadlBaLocationReference().getOffset();

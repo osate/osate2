@@ -17,7 +17,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
@@ -27,18 +26,16 @@ import org.osate.ge.swt.SwtUtil;
 public class EditEmbeddedDialog extends MessageDialog {
 	public static String WIDGET_ID_TEXT = "org.osate.ge.ba.behaviortransition.editdialog.text";
 	public static String WIDGET_ID_CONFIRM = "org.osate.ge.ba.behaviortransition.editdialog.confirmation";
-	private final String label;
 	private final EmbeddedXtextAdapter xtextAdapter;
 	private final ExtendedModifyListener textValidator;
 	private StyledText styledText;
 	private String replacementText;
 
-	EditEmbeddedDialog(final Shell parentShell, final String dialogMessage, final String label,
+	EditEmbeddedDialog(final Shell parentShell, final String title, final String dialogMessage,
 			final EmbeddedXtextAdapter xtextAdapter,
 			final BehaviorTransition behaviorTransition,
 			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
-		super(parentShell, "Edit Behavior Transition", null, dialogMessage, MessageDialog.CONFIRM, 0, "OK", "Cancel");
-		this.label = Objects.requireNonNull(label, "label cannot be null");
+		super(parentShell, title, null, dialogMessage, MessageDialog.NONE, 0, "OK", "Cancel");
 		this.xtextAdapter = Objects.requireNonNull(xtextAdapter, "xtextAdapter cannot be null");
 		this.textValidator = Objects.requireNonNull(
 				getTextValidator(behaviorTransition, isValidModification),
@@ -53,8 +50,6 @@ public class EditEmbeddedDialog extends MessageDialog {
 		composite.setLayout(layout);
 		composite.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
 		composite.setFont(parent.getFont());
-
-		new Label(composite, SWT.NONE).setText(label);
 
 		styledText = new StyledText(composite, SWT.BORDER | SWT.SINGLE);
 		styledText.setLayoutData(GridDataFactory.fillDefaults().indent(10, 0).grab(true, false).create());
