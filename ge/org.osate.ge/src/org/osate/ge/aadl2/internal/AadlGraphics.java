@@ -92,7 +92,7 @@ public class AadlGraphics {
 	private static final Style topCenteredLabelStyle = StyleBuilder.create().labelsTop().labelsHorizontalCenter()
 			.build();
 	private final static Style dashedStyle = StyleBuilder.create(topCenteredLabelStyle).dashed().build();
-	private final static Style implStyle = StyleBuilder.create(topCenteredLabelStyle).lineWidth(4.0).build();
+	private final static Style implStyle = StyleBuilder.create(topCenteredLabelStyle).lineWidth(2.0).build();
 	private final static Style dashedImplStyle = StyleBuilder.create(dashedStyle, implStyle).build();
 
 	public static Graphic getGraphic(final Classifier classifier) {

@@ -30,7 +30,7 @@ import org.eclipse.core.runtime.IPath;
 public class Style {
 	public static final Style EMPTY = StyleBuilder.create().build();
 	public final static Style DEFAULT = StyleBuilder.create().backgroundColor(Color.WHITE).foregroundColor(Color.BLACK)
-			.fontSize(10.0).lineWidth(2.0).showAsImage(false)
+			.fontSize(10.0).lineWidth(1.0).showAsImage(false)
 			.lineStyle(LineStyle.SOLID).labelsHorizontalPosition(LabelPosition.GRAPHIC_BEGINNING)
 			.primaryLabelVisible(true)
 			.labelsVerticalPosition(LabelPosition.GRAPHIC_BEGINNING).build();

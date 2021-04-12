@@ -24,11 +24,10 @@
 
 package org.osate.ge.gef.ui.editor;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.ui.util.UiUtil;
 
 import javafx.scene.Cursor;
 import javafx.scene.input.InputEvent;
@@ -36,12 +35,12 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 /**
- *  {@link InputEventHandler} which handles selection behavior.
+ *  {@link InputEventHandler} which opens the properties view when a diagram element is double-clicked.
  */
-public class SelectInputEventHandler implements InputEventHandler {
+public class OpenPropertiesViewInputEventHandler implements InputEventHandler {
 	private final AgeEditor editor;
 
-	public SelectInputEventHandler(final AgeEditor editor) {
+	public OpenPropertiesViewInputEventHandler(final AgeEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 	}
 
@@ -53,38 +52,24 @@ public class SelectInputEventHandler implements InputEventHandler {
 	@Override
 	public HandledEvent handleEvent(final InputEvent e) {
 		// Only handle primary mouse button presses
-		if (e.getEventType() != MouseEvent.MOUSE_PRESSED || ((MouseEvent) e).getButton() != MouseButton.PRIMARY) {
+		if (e.getEventType() != MouseEvent.MOUSE_PRESSED) {
+			return null;
+		}
+
+		// Check if the primary button was double-clicked.
+		final MouseEvent mouseEvent = (MouseEvent) e;
+		if (mouseEvent.getButton() != MouseButton.PRIMARY || mouseEvent.getClickCount() != 2) {
 			return null;
 		}
 
 		final DiagramElement clickedDiagramElement = InputEventHandlerUtil
-				.getTargetDiagramElement(editor.getGefDiagram(),
-				e.getTarget());
+				.getTargetDiagramElement(editor.getGefDiagram(), e.getTarget());
 		if (!editor.getPaletteModel().isSelectToolActive() || clickedDiagramElement == null) {
 			return null;
 		}
 
-		final MouseEvent mouseEvent = (MouseEvent) e;
-		if (mouseEvent.isShiftDown()) {
-				// If shift is held down. Ensure the element is at the end of the list
-				final List<DiagramElement> newSelectedElements = editor.getSelectedDiagramElementList();
-				newSelectedElements.remove(clickedDiagramElement);
-				newSelectedElements.add(clickedDiagramElement);
-				editor.selectDiagramNodes(newSelectedElements);
-			} else if (mouseEvent.isControlDown()) {
-				// If Ctrl is held down, then remove the element if it is already in the selection. Otherwise, add it.
-				final List<DiagramElement> newSelectedElements = editor.getSelectedDiagramElementList();
-				if (newSelectedElements.contains(clickedDiagramElement)) {
-					newSelectedElements.remove(clickedDiagramElement);
-				} else {
-					newSelectedElements.add(clickedDiagramElement);
-				}
-				editor.selectDiagramNodes(newSelectedElements);
-			} else {
-				// Replace the selection with the object
-				editor.selectDiagramNodes(Collections.singletonList(clickedDiagramElement));
-			}
+		UiUtil.openPropertiesView();
 
-			return HandledEvent.handled();
+		return HandledEvent.handled();
 	}
 }

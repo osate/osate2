@@ -81,7 +81,7 @@ public class MarqueeSelectInputEventHandler implements InputEventHandler {
 		final AgeEditorPaletteModel paletteModel = editor.getPaletteModel();
 		final MouseEvent mouseEvent = (MouseEvent) e;
 		final DiagramElement clickedDiagramElement = InputEventHandlerUtil
-				.getClosestDiagramElement(editor.getGefDiagram(),
+				.getTargetDiagramElement(editor.getGefDiagram(),
 				e.getTarget());
 		if (paletteModel.isMarqueeToolActive()
 				|| (paletteModel.isSelectToolActive() && clickedDiagramElement == null

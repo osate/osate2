@@ -116,11 +116,8 @@ public class DeviceNode extends Region implements ChopBoxGeometryProvider, Styla
 	}
 
 	public final void setLineWidth(final double value) {
-		// Adjust the line width to ensure the lines do not overlap with the padding while avoiding overlapping with the primary label.
-		// If the default line width is adjusted to be 1.0, then this may not be necessary.
-		final double adjustedLineWidth = Math.min(Math.max(1.0, value / 2.0), 2.0);
-		outlineRect.setStrokeWidth(adjustedLineWidth);
-		lineSegments.setStrokeWidth(adjustedLineWidth);
+		outlineRect.setStrokeWidth(value);
+		lineSegments.setStrokeWidth(value);
 	}
 
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {

@@ -885,6 +885,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		});
 
 		// Create input event handlers
+		inputEventHandlers.add(new OpenPropertiesViewInputEventHandler(this));
 		inputEventHandlers.add(new MarqueeSelectInputEventHandler(this));
 		inputEventHandlers.add(new MoveConnectionPointTool(this));
 		inputEventHandlers.add(new SelectInputEventHandler(this));

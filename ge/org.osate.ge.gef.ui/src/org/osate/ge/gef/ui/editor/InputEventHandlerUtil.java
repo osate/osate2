@@ -16,13 +16,13 @@ import javafx.scene.transform.NonInvertibleTransformException;
  */
 public class InputEventHandlerUtil {
 	/**
-	 * If the event target is a {@link Node}, walks up the scene graph and returns the first {@link DiaramNode} associated with the node
+	 * If the event target is a {@link Node}, walks up the scene graph and returns the first {@link DiagramNode} associated with the node
 	 * or ancestors.
 	 * @param gefDiagram is the diagram from which to get the diagram node
 	 * @param target the event target. Returns null if the event target is not a {@link Node}
 	 * @return the closest diagram node to the event target. Returns null if the event target is a null.
 	 */
-	public static DiagramNode getClosestDiagramNode(final GefAgeDiagram gefDiagram, final EventTarget target) {
+	public static DiagramNode getTargetDiagramNode(final GefAgeDiagram gefDiagram, final EventTarget target) {
 		if (!(target instanceof Node)) {
 			return null;
 		}
@@ -42,14 +42,14 @@ public class InputEventHandlerUtil {
 	}
 
 	/**
-	 * If the event target is a {@link Node}, walks up the scene graph and returns the first {@link DiaramElement} associated with the node
+	 * If the event target is a {@link Node}, walks up the scene graph and returns the first {@link DiagramElement} associated with the node
 	 * or ancestors.
 	 * @param gefDiagram is the diagram from which to get the diagram element
 	 * @param target the event target. Returns null if the event target is not a {@link Node}
 	 * @return the closest diagram element to the event target. Returns null if the event target is a null.
 	 */
-	public static DiagramElement getClosestDiagramElement(final GefAgeDiagram gefDiagram, final EventTarget target) {
-		final DiagramNode diagramNode = getClosestDiagramNode(gefDiagram, target);
+	public static DiagramElement getTargetDiagramElement(final GefAgeDiagram gefDiagram, final EventTarget target) {
+		final DiagramNode diagramNode = getTargetDiagramNode(gefDiagram, target);
 		return diagramNode instanceof DiagramElement ? (DiagramElement) diagramNode : null;
 	}
 

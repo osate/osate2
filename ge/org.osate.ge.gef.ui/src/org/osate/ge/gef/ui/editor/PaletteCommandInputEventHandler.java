@@ -144,7 +144,7 @@ public class PaletteCommandInputEventHandler implements InputEventHandler {
 	}
 
 	private Optional<CanStartConnectionContext> createCanStartConnectionContext(final MouseEvent event) {
-		final DiagramElement sourceDiagramElement = InputEventHandlerUtil.getClosestDiagramElement(
+		final DiagramElement sourceDiagramElement = InputEventHandlerUtil.getTargetDiagramElement(
 				editor.getGefDiagram(),
 				event.getTarget());
 		return sourceDiagramElement == null ? Optional.empty()
@@ -153,7 +153,7 @@ public class PaletteCommandInputEventHandler implements InputEventHandler {
 
 	private Optional<GetTargetedOperationContext> createGetTargetedOperationContext(final MouseEvent event) {
 		// Find the closest diagram node
-		final DiagramNode targetDiagramNode = InputEventHandlerUtil.getClosestDiagramNode(editor.getGefDiagram(),
+		final DiagramNode targetDiagramNode = InputEventHandlerUtil.getTargetDiagramNode(editor.getGefDiagram(),
 				event.getTarget());
 		if (targetDiagramNode == null) {
 			return Optional.empty();
@@ -307,7 +307,7 @@ class CreateConnectionInteraction extends BaseInteraction {
 	private Optional<GetCreateConnectionOperationContext> createGetCreateConnectionOperationContext(
 			final MouseEvent event) {
 		final DiagramElement destinationDiagramElement = InputEventHandlerUtil
-				.getClosestDiagramElement(editor.getGefDiagram(),
+				.getTargetDiagramElement(editor.getGefDiagram(),
 				event.getTarget());
 		if (destinationDiagramElement == null) {
 			return Optional.empty();
