@@ -1,0 +1,37 @@
+package propagation_test
+public
+	system s
+		features
+			InProp: in data port;
+			NewAirSpeed: out data port;
+			OutProp: out data port;
+		annex emv2{**
+			use types ErrorLibrary;
+			use behavior propagation_test::Simple;
+			error propagations
+				InProp: in propagation {CommonErrors}; 
+ 				NewAirSpeed: out propagation {BadValue, ServiceOmission}; 
+ 				OutProp: out propagation {CommonErrors};
+			end propagations;
+			component error behavior
+				propagations
+					Failed-[]->OutProp{CommonErrors}; -- should be error
+					Failed-[]->NewAirSpeed{BadValue, ServiceOmission}; -- should be error
+					Failed-[InProp{CommonErrors}]->OutProp{ServiceError}; -- good?
+			end component;  
+		**};
+	end s;
+	
+	annex EMV2 {**
+		error behavior Simple
+			events
+				Failure : error event;
+			states
+				Operational : initial state;
+				Failed : state;
+			transitions
+				FailureTransition : Operational -[ Failure ]-> Failed;
+		end behavior;
+	**};
+
+end propagation_test;
