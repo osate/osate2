@@ -248,6 +248,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 				final IStructuredSelection newStructuredSelection = new StructuredSelection(selectedObjects.stream()
 						.filter(DiagramNode.class::isInstance).map(DiagramNode.class::cast).distinct().toArray());
 
+				// Update the current selection and notify listeners
 				if (!Objects.equals(currentSelection, newStructuredSelection)) {
 					currentSelection = newStructuredSelection;
 
@@ -440,9 +441,12 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			dirtyModel = true;
 			updateDiagram(requireVisible);
 
-			// Update the property sheet page when the model changes
+			// In some cases, the property sheet page doesn't refresh. Although the model has changed the selected elements
+			// have not. This forces the property sheet page to be updated.
 			if (propertySheetPage != null && propertySheetPage.getCurrentTab() != null) {
-				propertySheetPage.refresh();
+				final IStructuredSelection selection = selectionProvider.getSelection();
+				propertySheetPage.selectionChanged(AgeEditor.this, StructuredSelection.EMPTY);
+				propertySheetPage.selectionChanged(AgeEditor.this, selection);
 			}
 		}
 	};

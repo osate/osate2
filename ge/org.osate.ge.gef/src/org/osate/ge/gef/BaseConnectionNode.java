@@ -307,7 +307,7 @@ public abstract class BaseConnectionNode extends Group implements ChopBoxGeometr
 	public final void setLineWidth(final double value) {
 		final GeometryNode<?> gn = (GeometryNode<?>) connection.getCurve();
 		gn.setStrokeWidth(value);
-		gn.setClickableAreaWidth(Math.max(10.0, value));
+		gn.setClickableAreaWidth(Math.max(5.0, value));
 	}
 
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {

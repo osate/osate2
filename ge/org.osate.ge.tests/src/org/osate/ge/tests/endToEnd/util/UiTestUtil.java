@@ -871,6 +871,7 @@ public class UiTestUtil {
 		}
 
 		Display.getDefault().syncExec(() -> {
+			editor.getFxCanvas().forceFocus();
 			editor.selectDiagramNodes(diagramElementsToSelect);
 		});
 

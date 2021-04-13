@@ -124,6 +124,7 @@ public class OsateGeTestUtil {
 			final DiagramElementReference element,
 			final String... texts) {
 		openDiagramEditor(diagram);
+
 		selectDiagramElements(diagram, element);
 
 		clickContextMenuOfFocused(texts);

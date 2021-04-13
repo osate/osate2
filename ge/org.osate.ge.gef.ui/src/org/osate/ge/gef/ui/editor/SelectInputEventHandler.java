@@ -53,7 +53,12 @@ public class SelectInputEventHandler implements InputEventHandler {
 	@Override
 	public HandledEvent handleEvent(final InputEvent e) {
 		// Only handle primary mouse button presses
-		if (e.getEventType() != MouseEvent.MOUSE_PRESSED || ((MouseEvent) e).getButton() != MouseButton.PRIMARY) {
+		if (e.getEventType() != MouseEvent.MOUSE_PRESSED) {
+			return null;
+		}
+
+		final MouseEvent mouseEvent = (MouseEvent) e;
+		if (mouseEvent.getButton() != MouseButton.PRIMARY && mouseEvent.getButton() != MouseButton.SECONDARY) {
 			return null;
 		}
 
@@ -64,7 +69,6 @@ public class SelectInputEventHandler implements InputEventHandler {
 			return null;
 		}
 
-		final MouseEvent mouseEvent = (MouseEvent) e;
 		if (mouseEvent.isShiftDown()) {
 				// If shift is held down. Ensure the element is at the end of the list
 				final List<DiagramElement> newSelectedElements = editor.getSelectedDiagramElementList();

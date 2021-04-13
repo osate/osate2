@@ -37,7 +37,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 
-// TODO: Rename and document
+/**
+ * Robot class for working with JavaFX nodes. Currently uses the AWT Robot class. The JavaFX Robot class is not available
+ * in JavaFX 8.
+ */
 public class JavaFXBot {
 	private java.awt.Robot robot;
 
@@ -49,14 +52,14 @@ public class JavaFXBot {
 		}
 	}
 
+	/**
+	 * Clicks a scene graph node.
+	 * If the node is contained in a {@link ScrollPane}, this function will scroll the pane so that it is visible.
+	 * @param node the node to click.
+	 */
 	public void click(final Node node) {
-		// TODO; Improve visibility check. Stage must be visible, clipping ,etc
-		// TODO; Scroll if necessary
-		// TODO; Scrolling could affect position
-
 		UiTestUtil.waitUntil(() -> isVisible(node), "Node " + node + " is not visible");
 
-		// TODO: Need to scroll things
 		ensureVisible(node);
 
 		final Point2D p = UIThreadRunnable.syncExec(() -> {
@@ -75,8 +78,6 @@ public class JavaFXBot {
 		robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 	}
 
-	// TODO: Document. only one level of scrolling supported..
-	// TODO: Rename... ALready check if "visible"
 	private static void ensureVisible(final Node node) {
 		final ScrollPane sp = getFirstScrollPane(node);
 		if (sp == null) {
@@ -88,10 +89,9 @@ public class JavaFXBot {
 		Point2D p = new Point2D(0, 0);
 		for (Node t = node; t != null; t = t.getParent()) {
 			if (t == scrollPaneContent) {
-				// TODO: How to know if it is a X or Y scroll
 				final Bounds contentBounds = scrollPaneContent.getBoundsInLocal();
-				final double normalScrollX = p.getX() / contentBounds.getWidth(); // TODO; Rename
-				final double normalScrollY = p.getY() / contentBounds.getHeight(); // TODO: Rename
+				final double normalScrollX = p.getX() / contentBounds.getWidth();
+				final double normalScrollY = p.getY() / contentBounds.getHeight();
 				final double newScrollH = (sp.getHmax() - sp.getHmin()) * normalScrollX + sp.getHmin();
 				final double newScrollV = (sp.getVmax() - sp.getVmin()) * normalScrollY + sp.getVmin();
 				sp.setHvalue(newScrollH);
@@ -103,7 +103,6 @@ public class JavaFXBot {
 		}
 	}
 
-	// TODO; Rename
 	private static ScrollPane getFirstScrollPane(final Node node) {
 		for (Node t = node; t != null; t = t.getParent()) {
 			if (t instanceof ScrollPane) {
@@ -119,8 +118,6 @@ public class JavaFXBot {
 				return false;
 			}
 		}
-
-		// TODO: Check viewport and clipping for each parent?
 
 		return true;
 	}
