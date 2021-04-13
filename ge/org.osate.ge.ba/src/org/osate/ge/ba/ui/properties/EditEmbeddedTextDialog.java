@@ -3,14 +3,19 @@ package org.osate.ge.ba.ui.properties;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Stack;
 import java.util.function.BiFunction;
 
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ExtendedModifyEvent;
 import org.eclipse.swt.custom.ExtendedModifyListener;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.layout.GridLayout;
@@ -18,20 +23,27 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.handlers.IHandlerActivation;
+import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.swt.SwtUtil;
 
-public class EditEmbeddedDialog extends MessageDialog {
+public class EditEmbeddedTextDialog extends MessageDialog {
 	public static String WIDGET_ID_TEXT = "org.osate.ge.ba.behaviortransition.editdialog.text";
 	public static String WIDGET_ID_CONFIRM = "org.osate.ge.ba.behaviortransition.editdialog.confirmation";
 	private final EmbeddedXtextAdapter xtextAdapter;
 	private final ExtendedModifyListener textValidator;
+	private final IHandlerService service;
+	private IHandlerActivation undoHandler;
+	private IHandlerActivation redoHandler;
 	private StyledText styledText;
 	private String replacementText;
 
-	EditEmbeddedDialog(final Shell parentShell, final String title, final String dialogMessage,
+
+	public EditEmbeddedTextDialog(final Shell parentShell, final String title, final String dialogMessage,
 			final EmbeddedXtextAdapter xtextAdapter,
 			final BehaviorTransition behaviorTransition,
 			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
@@ -40,6 +52,7 @@ public class EditEmbeddedDialog extends MessageDialog {
 		this.textValidator = Objects.requireNonNull(
 				getTextValidator(behaviorTransition, isValidModification),
 				"textValidator cannot be null");
+		service = PlatformUI.getWorkbench().getService(IHandlerService.class);
 		setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 	}
 
@@ -56,7 +69,23 @@ public class EditEmbeddedDialog extends MessageDialog {
 		styledText.addExtendedModifyListener(textValidator);
 		SwtUtil.setTestingId(styledText, WIDGET_ID_TEXT);
 		xtextAdapter.adapt(styledText);
-		new BehaviorAnnexXtextUtil.UndoRedoHelper(styledText);
+
+		final UndoRedoHelper undoRedoHelper = new UndoRedoHelper();
+		undoHandler = service.activateHandler("org.eclipse.ui.edit.undo", new AbstractHandler() {
+			@Override
+			public Object execute(final ExecutionEvent event) throws ExecutionException {
+				undoRedoHelper.undo();
+				return null;
+			}
+		});
+
+		redoHandler = service.activateHandler("org.eclipse.ui.edit.redo", new AbstractHandler() {
+			@Override
+			public Object execute(final ExecutionEvent event) throws ExecutionException {
+				undoRedoHelper.redo();
+				return null;
+			}
+		});
 
 		return composite;
 	}
@@ -147,10 +176,110 @@ public class EditEmbeddedDialog extends MessageDialog {
 	@Override
 	public boolean close() {
 		xtextAdapter.dispose();
+		service.deactivateHandler(undoHandler);
+		service.deactivateHandler(redoHandler);
 		return super.close();
 	}
 
-	String getText() {
+	public String getText() {
 		return replacementText;
+	}
+
+
+
+	private class UndoRedoHelper implements ExtendedModifyListener {
+		private final UndoRedoStack undoRedoStack = new UndoRedoStack();
+		private boolean isUndo;
+		private boolean isRedo;
+
+		private UndoRedoHelper() {
+			styledText.addExtendedModifyListener(this);
+		}
+
+		/**
+		 * Creates a corresponding Undo or Redo step from the given event and pushes
+		 * it to the stack. The Redo stack is emptied if the event comes
+		 * from key input.
+		 */
+		@Override
+		public void modifyText(final ExtendedModifyEvent event) {
+			if (isUndo) {
+				undoRedoStack.pushRedo(event);
+			} else { // is redo or key input
+				undoRedoStack.pushUndo(event);
+				if (!isRedo) {
+					undoRedoStack.clearRedo();
+				}
+			}
+		}
+
+		private void undo() {
+			if (undoRedoStack.hasUndo()) {
+				isUndo = true;
+				revertEvent(undoRedoStack.popUndo());
+				isUndo = false;
+			}
+		}
+
+		private void redo() {
+			if (undoRedoStack.hasRedo()) {
+				isRedo = true;
+				revertEvent(undoRedoStack.popRedo());
+				isRedo = false;
+			}
+		}
+
+		/**
+		 * Reverts the given modify event
+		 */
+		private void revertEvent(final ExtendedModifyEvent event) {
+			styledText.replaceTextRange(event.start, event.length, event.replacedText);
+			styledText.setSelectionRange(event.start, event.replacedText.length());
+		}
+
+		private class UndoRedoStack {
+			private final static int MAX_STACK_SIZE = 50;
+			private final Stack<ExtendedModifyEvent> undo;
+			private final Stack<ExtendedModifyEvent> redo;
+
+			public UndoRedoStack() {
+				undo = new Stack<ExtendedModifyEvent>();
+				redo = new Stack<ExtendedModifyEvent>();
+			}
+
+			public void pushUndo(final ExtendedModifyEvent undoEvent) {
+				if (undo.size() > MAX_STACK_SIZE) {
+					undo.remove(0);
+				}
+				undo.add(undoEvent);
+			}
+
+			public void pushRedo(final ExtendedModifyEvent redoEvent) {
+				if (redo.size() > MAX_STACK_SIZE) {
+					redo.remove(0);
+				}
+				redo.add(redoEvent);
+			}
+
+			public ExtendedModifyEvent popUndo() {
+				return undo.pop();
+			}
+
+			public ExtendedModifyEvent popRedo() {
+				return redo.pop();
+			}
+
+			public void clearRedo() {
+				redo.clear();
+			}
+
+			public boolean hasUndo() {
+				return !undo.isEmpty();
+			}
+
+			public boolean hasRedo() {
+				return !redo.isEmpty();
+			}
+		}
 	}
 }

@@ -9,16 +9,13 @@ import org.eclipse.core.runtime.Adapters;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
@@ -35,6 +32,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ProjectUtil;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
+import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
@@ -56,7 +54,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	public static String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.dispatchcondition";
 	public static String WIDGET_ID_EDIT_CONDITION = "org.osate.ge.ba.behaviortransition.dispatchcondition.edit";
 	private Composite container;
-	private EmbeddedEditingControls conditionEditingControls;
+	private EmbeddedTextControls conditionEditingControls;
 	private BusinessObjectSelection selectedBos;
 
 	@Override
@@ -75,18 +73,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		final Label conditionLabel = new Label(container, SWT.NONE);
 		conditionLabel.setText("Condition: ");
 		SwtUtil.setColorsToMatchParent(conditionLabel);
-
-		final Composite conditionComposite = createComposite(container);
-		// Create container for styled text and edit button
-		conditionEditingControls = new EmbeddedEditingControls(conditionComposite);
-	}
-
-	private Composite createComposite(final Composite parent) {
-		final Composite container = getWidgetFactory().createPlainComposite(parent, SWT.NONE);
-		container.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
-		container.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
-				.hint(SWT.DEFAULT, SWT.DEFAULT).create());
-		return container;
 	}
 
 	@Override
@@ -94,39 +80,49 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		selectedBos.bocStream().filter(
 				boc -> isBehaviorTransition(boc) && ProjectUtil.getProjectForBo(boc.getBusinessObject()).isPresent())
 				.findAny().ifPresent(selectedBoc -> {
-					conditionEditingControls.dispose();
+					if (conditionEditingControls != null) {
+						conditionEditingControls.dispose();
+					}
 
-					final BehaviorTransition behaviorTransition = (BehaviorTransition) selectedBoc.getBusinessObject();
-					final TransactionalEditingDomain editingDomain = (TransactionalEditingDomain) AdapterFactoryEditingDomain
-							.getEditingDomainFor(behaviorTransition);
-					final IProject project = ProjectUtil.getProjectForBoOrThrow(behaviorTransition);
-					final XtextResource xtextResource = getXtextResource(behaviorTransition)
-							.orElseThrow(() -> new RuntimeException("resource must be XtextResource"));
-					final IXtextDocument xtextDocument = getXtextDocument(behaviorTransition).orElse(null);
-					// Source text
-					final String sourceText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
+					conditionEditingControls = new EmbeddedTextControls(container, SWT.NONE, SWT.BORDER | SWT.SINGLE,
+							SWT.PUSH, "Edit...");
+					conditionEditingControls.setStyledTextTestId(WIDGET_ID_CONDITION);
+					conditionEditingControls.setButtonTestId(WIDGET_ID_EDIT_CONDITION);
+
 					final boolean isSingleSelection = selectedBos.bocStream().limit(2).count() == 1;
-					createConditionControls(behaviorTransition, sourceText, isSingleSelection, editingDomain,
-							xtextDocument, xtextResource, project);
+					if (!isSingleSelection) {
+						conditionEditingControls.setEnabled(false);
+						conditionEditingControls.setStyledTextText("<Multiple>");
+					} else {
+						final BehaviorTransition behaviorTransition = (BehaviorTransition) selectedBoc
+								.getBusinessObject();
+						final TransactionalEditingDomain editingDomain = (TransactionalEditingDomain) AdapterFactoryEditingDomain
+								.getEditingDomainFor(behaviorTransition);
+						final IProject project = ProjectUtil.getProjectForBoOrThrow(behaviorTransition);
+						final XtextResource xtextResource = getXtextResource(behaviorTransition)
+								.orElseThrow(() -> new RuntimeException("resource must be XtextResource"));
+						final IXtextDocument xtextDocument = getXtextDocument(behaviorTransition).orElse(null);
+						final String sourceText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
+						// Value
+						final EmbeddedTextValue conditionTextValue = getConditionTextValue(behaviorTransition,
+								sourceText);
+						final SelectionAdapter editSelectionAdapter = getEditConditionSelectionAdapter(project,
+								conditionTextValue, behaviorTransition, editingDomain, xtextDocument, xtextResource);
+						conditionEditingControls.addSelectionListener(editSelectionAdapter);
+						// Create xtext adapter for property view
+						conditionEditingControls.createXtextAdapter(project, conditionTextValue);
+					}
 				});
 
 		// Layout controls for refresh
 		conditionEditingControls.requestLayout();
 	}
 
-	private void createConditionControls(final BehaviorTransition behaviorTransition, final String sourceText,
-			final boolean isSingleSelection, final TransactionalEditingDomain editingDomain,
-			final IXtextDocument xtextDocument, final XtextResource xtextResource, final IProject project) {
-		// Create condition text value
-		final EmbeddedTextValue conditionTextValue = getConditionTextValue(behaviorTransition, sourceText);
-
-		// Styled text to show current condition
-		conditionEditingControls.createStyledText(SWT.BORDER | SWT.SINGLE, isSingleSelection);
-		final StyledText styledText = conditionEditingControls.getStyledText();
-		SwtUtil.setTestingId(styledText, WIDGET_ID_CONDITION);
-
-		// Button to edit the condition
-		conditionEditingControls.createEditButton(new SelectionAdapter() {
+	private SelectionAdapter getEditConditionSelectionAdapter(final IProject project,
+			final EmbeddedTextValue conditionTextValue, final BehaviorTransition behaviorTransition,
+			final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
+			final XtextResource xtextResource) {
+		return new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				final EmbeddedXtextAdapter xtextAdapter = new EmbeddedXtextAdapter(project, conditionTextValue);
@@ -136,9 +132,9 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 					return newText.isEmpty() ? condition == null : condition != null;
 				};
 
-				final EditEmbeddedDialog dlg = new EditEmbeddedDialog(Display.getCurrent().getActiveShell(),
-						"Edit Transition Condition", "Enter new dispatch condition.", xtextAdapter,
-						behaviorTransition, isValidModification);
+				final EditEmbeddedTextDialog dlg = new EditEmbeddedTextDialog(Display.getCurrent().getActiveShell(),
+						"Edit Transition Condition", "Enter new dispatch condition.", xtextAdapter, behaviorTransition,
+						isValidModification);
 				if (dlg.open() == Window.OK) {
 					// Edit condition
 					BehaviorAnnexSelectionUtil.getActiveEditor().ifPresent(editorPart -> {
@@ -147,72 +143,54 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 								editorPart.getAdapter(ModelChangeNotifier.class),
 								"Unable to get model change notifier");
 						actionService.execute("Modifying Behavior Transition Condition", ExecutionMode.NORMAL,
-								new EmbeddedModificationAction(editingDomain, xtextDocument, xtextResource,
-										modelChangeNotifier, project,
-										dlg.getText(), conditionTextValue));
+								new EmbeddedTextModificationAction(editingDomain, xtextDocument, xtextResource,
+										modelChangeNotifier, project, dlg.getText(), conditionTextValue));
 					});
 				}
 			}
-		}, isSingleSelection);
-
-		final Button editBtn = conditionEditingControls.getEditButton();
-		SwtUtil.setTestingId(editBtn, WIDGET_ID_EDIT_CONDITION);
-
-		// Create xtext adapter for property view
-		conditionEditingControls.createXtextAdapter(project, conditionTextValue);
+		};
 	}
 
-	private EmbeddedTextValue getConditionTextValue(final BehaviorTransition behaviorTransition, final String text) {
-		final BehaviorCondition condition = behaviorTransition.getCondition();
+	private EmbeddedTextValue getConditionTextValue(final BehaviorTransition behaviorTransition, final String sourceText) {
+		final int conditionOffset = getConditionOffset(behaviorTransition, sourceText);
 
-		// Text before condition
-		final String prefix;
+		// Text before condition text
+		final String prefix = sourceText.substring(0, conditionOffset);
+
+		// Find condition text and suffix
+		final String afterPrefix = sourceText.substring(conditionOffset);
+
+		// Note: condition.getAadlBaLocationReference().getLength() only counts until the first space (assuming).
+		// For example, when dispatch condition is "on dispatch" length is 2.
+		// Find closing "]", to get condition text
+		final int conditionEnd = BehaviorAnnexXtextUtil.findUncommentedChar(afterPrefix, ']');
+
 		// Condition text
-		final String conditionText;
-		// Text after condition
-		final String suffix;
+		final String conditionText = afterPrefix.substring(0, conditionEnd).trim();
+
+		// Text after transition condition
+		final String suffix = afterPrefix.substring(conditionEnd);
+
+		// Create condition value
+		return new EmbeddedTextValue(sourceText, prefix, conditionText, suffix);
+	}
+
+	private int getConditionOffset(final BehaviorTransition behaviorTransition, final String sourceText) {
+		final BehaviorCondition condition = behaviorTransition.getCondition();
+		final int conditionOffset;
 		if (condition == null) {
 			// Transition offset
 			final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
 			final Pair<Character, Character> charsToMatch = new Pair<Character, Character>('-', '[');
 			// Find index for beginning of condition text "-["
-			final int conditionOffset = BehaviorAnnexXtextUtil.findUncommentedCharPair(text.substring(transitionOffset),
-					charsToMatch)
-					+ transitionOffset;
-
-			// Prefix is text before condition text
-			prefix = text.substring(0, conditionOffset);
-
-			// Find condition text and suffix
-			final String afterPrefix = text.substring(conditionOffset);
-
-			// Find closing "]", to get condition text
-			final int conditionEnd = BehaviorAnnexXtextUtil.findUncommentedChar(afterPrefix, ']');
-			conditionText = afterPrefix.substring(0, conditionEnd).trim();
-
-			// Suffix is text after condition text
-			suffix = afterPrefix.substring(conditionEnd);
+			conditionOffset = BehaviorAnnexXtextUtil.findUncommentedCharPair(sourceText.substring(transitionOffset),
+					charsToMatch) + transitionOffset;
 		} else {
 			// Condition offset
-			final int updateOffset = condition.getAadlBaLocationReference().getOffset();
-
-			// Prefix is text before condition text
-			prefix = text.substring(0, condition.getAadlBaLocationReference().getOffset());
-
-			// Note: condition.getAadlBaLocationReference().getLength() only counts until the first space (assuming).
-			// For example, when dispatch condition is "on dispatch" length is 2.
-			// Find closing "]", to get condition text
-			final int conditionEnd = BehaviorAnnexXtextUtil.findUncommentedChar(text.substring(updateOffset), ']')
-					+ updateOffset;
-			// Condition text
-			conditionText = text.substring(updateOffset, conditionEnd).trim();
-
-			// Text after transition condition
-			suffix = text.substring(conditionEnd);
+			conditionOffset = condition.getAadlBaLocationReference().getOffset();
 		}
 
-		// Create condition value
-		return new EmbeddedTextValue(text, prefix, conditionText, suffix);
+		return conditionOffset;
 	}
 
 	private static Optional<IXtextDocument> getXtextDocument(final BehaviorTransition behaviorTransition) {

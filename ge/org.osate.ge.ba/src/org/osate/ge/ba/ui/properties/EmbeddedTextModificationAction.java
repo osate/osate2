@@ -22,6 +22,7 @@ import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.refactoring.ui.SyncUtil;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork.Void;
+import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
@@ -32,7 +33,7 @@ import com.google.inject.Injector;
  * Modification process to be executed to update the action text
  */
 @SuppressWarnings("restriction")
-class EmbeddedModificationAction implements AgeAction {
+class EmbeddedTextModificationAction implements AgeAction {
 	private final TransactionalEditingDomain editingDomain;
 	private final IXtextDocument xtextDocument;
 	private final XtextResource xtextResource;
@@ -43,7 +44,7 @@ class EmbeddedModificationAction implements AgeAction {
 	private final EmbeddedTextValue textValue;
 	private final String newText;
 
-	public EmbeddedModificationAction(final TransactionalEditingDomain editingDomain,
+	public EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
 			final IXtextDocument xtextDocument, final XtextResource xtextResource,
 			final ModelChangeNotifier modelChangeNotifier, final IProject project, final String newText,
 			final EmbeddedTextValue textValue) {
@@ -59,7 +60,7 @@ class EmbeddedModificationAction implements AgeAction {
 		this.newText = newText;
 	}
 
-	private EmbeddedModificationAction(final TransactionalEditingDomain editingDomain,
+	private EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
 			final IXtextDocument xtextDocument, final XtextResource xtextResource,
 			final ModelChangeNotifier modelChangeNotifier, final IProject project, final String originalSource) {
 		this(editingDomain, xtextDocument, xtextResource, modelChangeNotifier, project, originalSource, null);
@@ -99,6 +100,7 @@ class EmbeddedModificationAction implements AgeAction {
 
 	@Override
 	public AgeAction execute() {
+		final String originalText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
 		try (final Lock lock = modelChangeNotifier.lock()) {
 			if (xtextDocument != null) {
 				// Update xtext document source
@@ -115,9 +117,8 @@ class EmbeddedModificationAction implements AgeAction {
 			buildProject();
 		}
 
-		final String originalText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
 		// Set action to restore original source text upon undo
-		return new EmbeddedModificationAction(editingDomain, xtextDocument, xtextResource, modelChangeNotifier, project,
+		return new EmbeddedTextModificationAction(editingDomain, xtextDocument, xtextResource, modelChangeNotifier, project,
 				originalText);
 
 	}

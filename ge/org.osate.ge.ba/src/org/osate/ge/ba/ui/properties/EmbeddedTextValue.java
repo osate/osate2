@@ -3,7 +3,7 @@ package org.osate.ge.ba.ui.properties;
 /**
  * Text information for editing embedded models
  */
-class EmbeddedTextValue {
+public class EmbeddedTextValue {
 	private final String wholeText;
 	private final String prefix;
 	private final int offset;
@@ -21,24 +21,23 @@ class EmbeddedTextValue {
 		updateLength = orignalText.length() - prefix.length() - suffix.length();
 	}
 
-
-	int getUpdateLength() {
+	public int getUpdateLength() {
 		return updateLength;
 	}
 
-	String getEditableText() {
+	public String getEditableText() {
 		return editableText;
 	}
 
-	int getEditableTextOffset() {
+	public int getEditableTextOffset() {
 		return offset;
 	}
 
-	String getWholeText() {
+	public String getWholeText() {
 		return wholeText;
 	}
 
-	String getPrefix() {
+	public String getPrefix() {
 		return prefix;
 	}
 }
