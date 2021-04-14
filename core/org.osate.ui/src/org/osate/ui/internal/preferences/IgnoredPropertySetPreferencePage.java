@@ -36,7 +36,7 @@ import org.osate.ui.utils.PropertySetModel;
 
 /**
  * This class represents the OSATE > Property Set workspace preferences.
- * @since 6.0
+ * @since 6.1
  */
 public class IgnoredPropertySetPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 	private TreeViewer tree;

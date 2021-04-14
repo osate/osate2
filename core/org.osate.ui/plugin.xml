@@ -1746,6 +1746,7 @@ censes only apply to the Third Party Software and not any other portion of this 
       <contexts file="help/importWizard.xml" />
       <contexts file="help/IgnoredPropertySet.xml" />
       <contexts file="help/AnnexPreference.xml" />
+      <contexts file="help/ContribRes.xml" />
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
