@@ -135,7 +135,7 @@ public class ListTypeItemProvider extends PropertyTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ListType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ListType.png"));
 	}
 
 	/**

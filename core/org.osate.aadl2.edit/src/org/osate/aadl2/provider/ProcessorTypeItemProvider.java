@@ -106,7 +106,7 @@ public class ProcessorTypeItemProvider extends ComponentTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ProcessorType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ProcessorType.png"));
 	}
 
 	/**

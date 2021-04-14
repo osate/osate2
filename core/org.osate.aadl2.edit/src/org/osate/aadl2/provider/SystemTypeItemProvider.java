@@ -107,7 +107,7 @@ public class SystemTypeItemProvider extends ComponentTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemType.png"));
 	}
 
 	/**

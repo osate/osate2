@@ -69,7 +69,7 @@ public class ThreadPrototypeItemProvider extends ComponentPrototypeItemProvider 
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ThreadPrototype"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ThreadPrototype.png"));
 	}
 
 	/**

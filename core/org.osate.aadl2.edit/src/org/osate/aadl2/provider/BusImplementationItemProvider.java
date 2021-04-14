@@ -101,7 +101,7 @@ public class BusImplementationItemProvider extends ComponentImplementationItemPr
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/BusImplementation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/BusImplementation.png"));
 	}
 
 	/**

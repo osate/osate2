@@ -106,7 +106,7 @@ public class ThreadTypeItemProvider extends ComponentTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ThreadType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ThreadType.png"));
 	}
 
 	/**

@@ -120,7 +120,7 @@ public class DefaultAnnexSubclauseItemProvider extends AnnexSubclauseItemProvide
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/DefaultAnnexSubclause"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DefaultAnnexSubclause.png"));
 	}
 
 	/**

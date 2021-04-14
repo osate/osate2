@@ -70,7 +70,7 @@ public class FeatureGroupConnectionItemProvider extends ConnectionItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroupConnection"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroupConnection.png"));
 	}
 
 	/**

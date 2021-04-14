@@ -88,7 +88,7 @@ public class DataAccessItemProvider extends AccessItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/DataAccess"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DataAccess.png"));
 	}
 
 	/**

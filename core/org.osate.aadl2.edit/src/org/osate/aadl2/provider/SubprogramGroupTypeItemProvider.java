@@ -102,7 +102,7 @@ public class SubprogramGroupTypeItemProvider extends ComponentTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramGroupType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramGroupType.png"));
 	}
 
 	/**

@@ -111,7 +111,7 @@ public class SystemImplementationItemProvider extends ComponentImplementationIte
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemImplementation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemImplementation.png"));
 	}
 
 	/**

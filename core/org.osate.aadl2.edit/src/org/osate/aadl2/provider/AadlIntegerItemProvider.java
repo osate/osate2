@@ -69,7 +69,7 @@ public class AadlIntegerItemProvider extends NumberTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/AadlInteger"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AadlInteger.png"));
 	}
 
 	/**

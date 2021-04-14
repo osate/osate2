@@ -88,7 +88,7 @@ public class SystemSubcomponentItemProvider extends SubcomponentItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemSubcomponent"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemSubcomponent.png"));
 	}
 
 	/**

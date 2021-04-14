@@ -89,7 +89,7 @@ public class ProcessorSubcomponentItemProvider extends SubcomponentItemProvider 
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ProcessorSubcomponent"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ProcessorSubcomponent.png"));
 	}
 
 	/**

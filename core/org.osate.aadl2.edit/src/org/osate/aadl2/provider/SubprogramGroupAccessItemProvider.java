@@ -89,7 +89,7 @@ public class SubprogramGroupAccessItemProvider extends AccessItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramGroupAccess"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramGroupAccess.png"));
 	}
 
 	/**

@@ -87,7 +87,7 @@ public class BusSubcomponentItemProvider extends SubcomponentItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/BusSubcomponent"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/BusSubcomponent.png"));
 	}
 
 	/**

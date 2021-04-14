@@ -103,7 +103,7 @@ public class ThreadImplementationItemProvider extends BehavioredImplementationIt
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ThreadImplementation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ThreadImplementation.png"));
 	}
 
 	/**

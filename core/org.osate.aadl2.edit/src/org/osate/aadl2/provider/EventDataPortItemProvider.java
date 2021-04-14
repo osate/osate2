@@ -87,7 +87,7 @@ public class EventDataPortItemProvider extends PortItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/EventDataPort"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/EventDataPort.png"));
 	}
 
 	/**

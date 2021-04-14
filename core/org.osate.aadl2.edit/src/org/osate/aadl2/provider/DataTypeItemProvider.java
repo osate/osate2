@@ -103,7 +103,7 @@ public class DataTypeItemProvider extends ComponentTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/DataType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DataType.png"));
 	}
 
 	/**

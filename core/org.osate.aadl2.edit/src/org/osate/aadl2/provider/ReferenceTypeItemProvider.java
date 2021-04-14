@@ -101,7 +101,7 @@ public class ReferenceTypeItemProvider extends NonListTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ReferenceType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ReferenceType.png"));
 	}
 
 	/**

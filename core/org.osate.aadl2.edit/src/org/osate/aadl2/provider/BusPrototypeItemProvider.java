@@ -69,7 +69,7 @@ public class BusPrototypeItemProvider extends ComponentPrototypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/BusPrototype"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/BusPrototype.png"));
 	}
 
 	/**

@@ -69,7 +69,7 @@ public class VirtualBusPrototypeItemProvider extends ComponentPrototypeItemProvi
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/VirtualBusPrototype"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/VirtualBusPrototype.png"));
 	}
 
 	/**

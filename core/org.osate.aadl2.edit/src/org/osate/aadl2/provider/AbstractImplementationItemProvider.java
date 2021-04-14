@@ -113,7 +113,7 @@ public class AbstractImplementationItemProvider extends BehavioredImplementation
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/AbstractImplementation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AbstractImplementation.png"));
 	}
 
 	/**

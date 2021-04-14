@@ -104,7 +104,7 @@ public class ProcessorImplementationItemProvider extends ComponentImplementation
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ProcessorImplementation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ProcessorImplementation.png"));
 	}
 
 	/**

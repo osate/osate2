@@ -69,7 +69,7 @@ public class MemoryPrototypeItemProvider extends ComponentPrototypeItemProvider 
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/MemoryPrototype"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/MemoryPrototype.png"));
 	}
 
 	/**

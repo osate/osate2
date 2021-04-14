@@ -174,12 +174,12 @@ public class FlowSpecificationItemProvider extends FlowFeatureItemProvider {
 				&& ((FlowSpecificationImpl) object).getAllOutEnd() == null) {
 			return null;
 		} else if (((FlowSpecificationImpl) object).getAllInEnd() == null) {
-			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSource"));
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSource.png"));
 		} else if (((FlowSpecificationImpl) object).getAllOutEnd() == null) {
-			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSink"));
+			return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSink.png"));
 		}
 
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowPath"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowPath.png"));
 	}
 
 	/**

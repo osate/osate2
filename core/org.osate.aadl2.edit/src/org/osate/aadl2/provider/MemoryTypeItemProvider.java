@@ -104,7 +104,7 @@ public class MemoryTypeItemProvider extends ComponentTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/MemoryType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/MemoryType.png"));
 	}
 
 	/**

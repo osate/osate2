@@ -101,7 +101,7 @@ public class VirtualBusImplementationItemProvider extends ComponentImplementatio
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/VirtualBusImplementation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/VirtualBusImplementation.png"));
 	}
 
 	/**

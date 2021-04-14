@@ -135,7 +135,7 @@ public class RangeTypeItemProvider extends NonListTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/RangeType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/RangeType.png"));
 	}
 
 	/**

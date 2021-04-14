@@ -104,7 +104,7 @@ public class SubprogramCallItemProvider extends BehavioralFeatureItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramCall"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramCall.png"));
 	}
 
 	/**

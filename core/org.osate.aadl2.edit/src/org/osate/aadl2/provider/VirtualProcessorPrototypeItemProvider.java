@@ -69,7 +69,7 @@ public class VirtualProcessorPrototypeItemProvider extends ComponentPrototypeIte
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/VirtualProcessorPrototype"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/VirtualProcessorPrototype.png"));
 	}
 
 	/**

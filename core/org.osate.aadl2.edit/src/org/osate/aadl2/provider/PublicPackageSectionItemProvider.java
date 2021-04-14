@@ -88,7 +88,7 @@ public class PublicPackageSectionItemProvider extends PackageSectionItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/PublicPackageSection"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/PublicPackageSection.png"));
 	}
 
 	/**

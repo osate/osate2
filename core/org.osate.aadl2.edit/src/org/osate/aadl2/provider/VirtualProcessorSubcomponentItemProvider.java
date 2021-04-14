@@ -89,7 +89,7 @@ public class VirtualProcessorSubcomponentItemProvider extends SubcomponentItemPr
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/VirtualProcessorSubcomponent"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/VirtualProcessorSubcomponent.png"));
 	}
 
 	/**

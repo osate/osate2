@@ -107,7 +107,7 @@ public class AbstractTypeItemProvider extends ComponentTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/AbstractType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AbstractType.png"));
 	}
 
 	/**

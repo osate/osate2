@@ -88,7 +88,7 @@ public class DataSubcomponentItemProvider extends SubcomponentItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/DataSubcomponent"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DataSubcomponent.png"));
 	}
 
 	/**

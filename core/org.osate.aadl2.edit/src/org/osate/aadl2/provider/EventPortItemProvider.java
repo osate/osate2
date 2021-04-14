@@ -69,7 +69,7 @@ public class EventPortItemProvider extends PortItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/EventPort"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/EventPort.png"));
 	}
 
 	/**
