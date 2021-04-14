@@ -104,7 +104,7 @@ public class VirtualProcessorImplementationItemProvider extends ComponentImpleme
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/VirtualProcessorImplementation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/VirtualProcessorImplementation.png"));
 	}
 
 	/**

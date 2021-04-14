@@ -69,7 +69,7 @@ public class ProcessorPrototypeItemProvider extends ComponentPrototypeItemProvid
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ProcessorPrototype"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ProcessorPrototype.png"));
 	}
 
 	/**

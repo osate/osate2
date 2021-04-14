@@ -46,7 +46,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                value="plugin_customization.ini"/>
          <property
                name="windowImages"
-               value="icons/16aadl.jpg,icons/32aadl.jpg">
+               value="icons/16aadl.png,icons/32aadl.png">
          </property>
       </product>
    </extension>
@@ -59,7 +59,7 @@ censes only apply to the Third Party Software and not any other portion of this 
               name="OSATE2">
            <property
                  name="windowImages"
-                 value="icons/16aadl.jpg,icons/32aadl.jpg">
+                 value="icons/16aadl.png,icons/32aadl.png">
            </property>
            <property
                  name="aboutText"
@@ -83,7 +83,7 @@ censes only apply to the Third Party Software and not any other portion of this 
            </property>
            <property
                  name="featureImage"
-                 value="icons/32aadl.jpg">
+                 value="icons/32aadl.png">
            </property>
            <property
                  name="appName"

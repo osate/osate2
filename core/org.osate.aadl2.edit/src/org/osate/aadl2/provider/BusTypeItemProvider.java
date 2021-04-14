@@ -104,7 +104,7 @@ public class BusTypeItemProvider extends ComponentTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/BusType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/BusType.png"));
 	}
 
 	/**

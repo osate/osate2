@@ -102,7 +102,7 @@ public class MemoryImplementationItemProvider extends ComponentImplementationIte
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/MemoryImplementation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/MemoryImplementation.png"));
 	}
 
 	/**

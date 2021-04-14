@@ -88,7 +88,7 @@ public class AbstractSubcomponentItemProvider extends SubcomponentItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/AbstractSubcomponent"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AbstractSubcomponent.png"));
 	}
 
 	/**

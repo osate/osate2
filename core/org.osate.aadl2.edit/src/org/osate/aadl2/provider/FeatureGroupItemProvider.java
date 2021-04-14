@@ -139,7 +139,7 @@ public class FeatureGroupItemProvider extends DirectedFeatureItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroup"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroup.png"));
 	}
 
 	/**

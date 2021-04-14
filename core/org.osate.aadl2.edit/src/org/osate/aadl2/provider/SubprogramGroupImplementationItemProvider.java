@@ -104,7 +104,7 @@ public class SubprogramGroupImplementationItemProvider extends ComponentImplemen
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramGroupImplementation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramGroupImplementation.png"));
 	}
 
 	/**

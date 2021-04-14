@@ -70,7 +70,7 @@ public class ParameterConnectionItemProvider extends ConnectionItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ParameterConnection"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ParameterConnection.png"));
 	}
 
 	/**

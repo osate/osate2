@@ -88,7 +88,7 @@ public class MemorySubcomponentItemProvider extends SubcomponentItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/MemorySubcomponent"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/MemorySubcomponent.png"));
 	}
 
 	/**

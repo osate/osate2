@@ -102,7 +102,7 @@ public class SubprogramImplementationItemProvider extends BehavioredImplementati
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramImplementation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramImplementation.png"));
 	}
 
 	/**

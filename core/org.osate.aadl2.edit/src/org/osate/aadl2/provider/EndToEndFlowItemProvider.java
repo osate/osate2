@@ -150,7 +150,7 @@ public class EndToEndFlowItemProvider extends FlowFeatureItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/EndToEndFlow"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/EndToEndFlow.png"));
 	}
 
 	/**

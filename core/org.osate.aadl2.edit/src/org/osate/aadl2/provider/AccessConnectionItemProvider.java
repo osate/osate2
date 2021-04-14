@@ -90,7 +90,7 @@ public class AccessConnectionItemProvider extends ConnectionItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/AccessConnection"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AccessConnection.png"));
 	}
 
 	/**

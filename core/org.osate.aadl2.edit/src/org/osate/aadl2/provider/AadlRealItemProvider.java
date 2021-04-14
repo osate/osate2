@@ -69,7 +69,7 @@ public class AadlRealItemProvider extends NumberTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/AadlReal"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AadlReal.png"));
 	}
 
 	/**
