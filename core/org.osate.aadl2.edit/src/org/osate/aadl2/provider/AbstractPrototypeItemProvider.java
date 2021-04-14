@@ -69,7 +69,7 @@ public class AbstractPrototypeItemProvider extends ComponentPrototypeItemProvide
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/AbstractPrototype"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AbstractPrototype.png"));
 	}
 
 	/**

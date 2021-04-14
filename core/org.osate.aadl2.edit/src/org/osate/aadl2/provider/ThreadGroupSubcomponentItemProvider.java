@@ -89,7 +89,7 @@ public class ThreadGroupSubcomponentItemProvider extends SubcomponentItemProvide
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ThreadGroupSubcomponent"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ThreadGroupSubcomponent.png"));
 	}
 
 	/**

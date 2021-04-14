@@ -88,7 +88,7 @@ public class DeviceSubcomponentItemProvider extends SubcomponentItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/DeviceSubcomponent"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DeviceSubcomponent.png"));
 	}
 
 	/**

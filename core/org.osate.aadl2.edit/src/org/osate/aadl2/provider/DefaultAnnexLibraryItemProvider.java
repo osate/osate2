@@ -120,7 +120,7 @@ public class DefaultAnnexLibraryItemProvider extends AnnexLibraryItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/DefaultAnnexLibrary"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/DefaultAnnexLibrary.png"));
 	}
 
 	/**

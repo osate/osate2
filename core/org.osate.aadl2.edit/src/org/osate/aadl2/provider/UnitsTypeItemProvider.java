@@ -69,7 +69,7 @@ public class UnitsTypeItemProvider extends EnumerationTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/UnitsType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/UnitsType.png"));
 	}
 
 	/**

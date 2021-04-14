@@ -101,7 +101,7 @@ public class EnumerationTypeItemProvider extends NamespaceItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/EnumerationType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/EnumerationType.png"));
 	}
 
 	/**

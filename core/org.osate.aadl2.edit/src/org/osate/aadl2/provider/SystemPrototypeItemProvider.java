@@ -69,7 +69,7 @@ public class SystemPrototypeItemProvider extends ComponentPrototypeItemProvider 
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemPrototype"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemPrototype.png"));
 	}
 
 	/**

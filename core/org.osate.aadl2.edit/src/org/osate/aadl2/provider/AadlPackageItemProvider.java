@@ -139,7 +139,7 @@ public class AadlPackageItemProvider extends ModelUnitItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/AadlPackage"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AadlPackage.png"));
 	}
 
 	/**

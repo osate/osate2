@@ -105,7 +105,7 @@ public class ModeItemProvider extends ModeFeatureItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Mode"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Mode.png"));
 	}
 
 	/**

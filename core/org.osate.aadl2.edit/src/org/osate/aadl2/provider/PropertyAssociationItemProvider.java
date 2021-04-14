@@ -170,7 +170,7 @@ public class PropertyAssociationItemProvider extends ElementItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/PropertyAssociation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/PropertyAssociation.png"));
 	}
 
 	/**

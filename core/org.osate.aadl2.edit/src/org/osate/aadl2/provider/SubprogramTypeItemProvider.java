@@ -106,7 +106,7 @@ public class SubprogramTypeItemProvider extends ComponentTypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramType"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramType.png"));
 	}
 
 	/**

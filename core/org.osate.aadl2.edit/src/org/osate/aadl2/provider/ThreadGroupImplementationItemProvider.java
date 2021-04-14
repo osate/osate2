@@ -106,7 +106,7 @@ public class ThreadGroupImplementationItemProvider extends ComponentImplementati
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ThreadGroupImplementation"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ThreadGroupImplementation.png"));
 	}
 
 	/**

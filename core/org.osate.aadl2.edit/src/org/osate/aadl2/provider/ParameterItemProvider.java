@@ -88,7 +88,7 @@ public class ParameterItemProvider extends DirectedFeatureItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Parameter"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Parameter.png"));
 	}
 
 	/**
