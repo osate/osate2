@@ -23,10 +23,14 @@
  */
 package org.osate.contribution.sei.names;
 
+import org.osate.contribution.sei.sei.Sei;
+
 /**
  * String constants for the members of the "SEI" property set.
  * @author aarong
+ * @deprecated  Will be removed in 2.10.0.  Use {@link Sei}
  */
+@Deprecated
 public final class SEI {
 	/** The name of the property set itself. */
 	public static final String _NAME = "SEI";
