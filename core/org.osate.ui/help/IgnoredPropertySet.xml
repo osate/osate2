@@ -1,7 +1,7 @@
 <contexts>
-	<context id="help_dialog_propSet" title="Help Dialog">
+	<context id="help_dialog_propSet" title="Ignored Property Set">
 		<description>This dialog provides information about setting a workspace preference to ignore selected property sets.
 		</description>
-		<topic href="../org.osate.help/html/advanced/AdvancedOSATEFeatures.html#managing-ignored-property-sets" label="Set Property Set Preference"/>
+		<topic href="../org.osate.help/help/html/AdvancedOSATEFeatures.html#managing-ignored-property-sets" label="Ignored Property Set Preference"/>
 	</context>
 </contexts>
