@@ -2369,7 +2369,14 @@ public class AadlBaTypeChecker {
 			} else if (currentDirRight != Aadl2Utils.DataAccessRight.unknown) {
 				v = AadlBaUtils.isOnlyOneValue(valueExp);
 
-				if (v instanceof Target) // Target case.
+				boolean isOnlyOneReference = false;
+				if (v instanceof Reference) {
+					Reference r = (Reference) v;
+					if (r.getIds().size() == 1) {
+						isOnlyOneReference = true;
+					}
+				}
+				if (v instanceof Target && isOnlyOneReference) // Target but not reference case.
 				{
 					TypeCheckRule stopOnThisRule = TypeCheckRule.DATA_ACCESS;
 					tar = targetCheck((Target) v, stopOnThisRule);
@@ -2438,15 +2445,36 @@ public class AadlBaTypeChecker {
 						t2 = vth.typeHolder;
 						expectedTypes.add(t1);
 						typesFound.add(t2);
-						dirRightsFound.add(DirectionType.IN);
 
-						StringBuilder msg = new StringBuilder();
-						msg.append('\'');
-						msg.append(unparseNameElement(valueExp));
-						msg.append("\': is an read only value and it is used as a writable value");
+						boolean inconsistentDir = false;
+						if (v instanceof Reference) {
+							Reference ref = (Reference) v;
+							ArrayableIdentifier refRootId = ref.getIds().get(0);
+							Enum<?> dirRightFound = null;
+							if (refRootId.getOsateRef() != null) {
+								dirRightFound = AadlBaUtils.getDirectionType(refRootId.getOsateRef());
+							}
+							if (dirRightFound == null && refRootId.getOsateRef() instanceof DataAccess) {
+								dirRightFound = Aadl2Utils.getDataAccessRight((DataAccess) refRootId.getOsateRef());
+							}
+							if (dirRightFound == DirectionType.IN
+									|| dirRightFound == Aadl2Utils.DataAccessRight.read_only) {
+								inconsistentDir = true;
+							}
+						} else {
+							inconsistentDir = true;
+							dirRightsFound.add(DirectionType.IN);
+						}
 
-						// Reports a warning.
-						reportWarning(valueExp, msg.toString());
+						if (inconsistentDir) {
+							StringBuilder msg = new StringBuilder();
+							msg.append('\'');
+							msg.append(unparseNameElement(valueExp));
+							msg.append("\': is a read only value and it is used as a writable value");
+
+							// Reports a warning.
+							reportWarning(valueExp, msg.toString());
+						}
 					} else {
 						// Error reporting has already been done.
 						hasCheckingPassed = false;

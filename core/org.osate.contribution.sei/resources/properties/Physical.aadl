@@ -1,6 +1,7 @@
 -- Copyright (c) 2015-2020 Carnegie Mellon University. All right reserved.
 -- Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
 
+-- @codegen-package org.osate.contribution.sei.physical
 property set Physical is
 
   Voltage: Physical::Voltage_Type applies to (all); 

@@ -1128,6 +1128,10 @@ censes only apply to the Third Party Software and not any other portion of this 
           </visibleWhen>
        </command>
        <separator
+       		 name="org.osate.ge.additionalDiagramTypes"
+       		 visible="false">
+       </separator>
+       <separator
              name="org.osate.ge.separator5"
              visible="true">
        </separator>
@@ -1806,7 +1810,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
-               afterSection="org.osate.ge.internal.ui.properties.InheritedElementNoticePropertySection"
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
                class="org.osate.ge.aadl2.ui.internal.properties.RefineElementPropertySection"
                filter="org.osate.ge.aadl2.ui.internal.properties.RefineElementPropertySection$Filter"
                id="org.osate.ge.ui.properties.refineElementPropertySection"
