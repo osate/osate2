@@ -31,7 +31,7 @@ features
   inPortC : in event data port Base_Types::Integer ;
   
 modes
-  m1 : mode ;
+  m1 : initial mode ;
   m2 : mode ;
   m1 -[self.inPortA, self.inPortA, self.inPortB, self.inPortC]-> m2 ;
    
@@ -42,7 +42,7 @@ states
   finalState : final state ;
    
 transitions
-  m1 -[on dispatch inPorta and inPortB or inPortc and inPortA]-> finalState ;
+  m1 -[on inPorta and inPortB or inPortc and inPortA]-> finalState ;
   
 **};
 end proc ;
