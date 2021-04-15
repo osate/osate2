@@ -31,6 +31,7 @@ public class EmbeddedTextControls extends Composite {
 		styledText.setCaret(null);
 
 		btn = new Button(this, btnStyle);
+		btn.setText(editBtnText);
 	}
 
 	public void setStyledTextLayoutData(final Object layoutData) {
