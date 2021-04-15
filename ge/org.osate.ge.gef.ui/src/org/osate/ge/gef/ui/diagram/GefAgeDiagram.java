@@ -852,14 +852,23 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		return diagram;
 	}
 
-	@Override
-	public Dimension getPrimaryLabelSize(final DiagramElement de) {
+	public LabelNode getPrimaryLabelSceneNode(final DiagramElement de) {
 		final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(de);
 		if (ge == null || ge.primaryLabel == null || !ge.primaryLabel.isManaged()) {
+			return null;
+		}
+
+		return ge.primaryLabel;
+	}
+
+	@Override
+	public Dimension getPrimaryLabelSize(final DiagramElement de) {
+		final LabelNode primaryLabel = getPrimaryLabelSceneNode(de);
+		if (primaryLabel == null) {
 			return Dimension.ZERO;
 		}
 
-		return new Dimension(ge.primaryLabel.computePrefWidth(-1), ge.primaryLabel.computePrefHeight(-1));
+		return new Dimension(primaryLabel.computePrefWidth(-1), primaryLabel.computePrefHeight(-1));
 	}
 
 	@Override

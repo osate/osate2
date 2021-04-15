@@ -42,6 +42,7 @@ import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.ContainerShape;
 import org.osate.ge.gef.DockedShape;
 import org.osate.ge.gef.FlowIndicatorNode;
+import org.osate.ge.gef.LabelNode;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
@@ -73,6 +74,8 @@ import javafx.scene.transform.Transform;
 public class Overlays extends Group implements ISelectionChangedListener {
 	private final GefAgeDiagram gefDiagram;
 
+	private final Group selectionOverlays = new Group(); // TODO: REname?
+
 	/**
 	 * Mapping from diagram elements to the selected node overlays.
 	 */
@@ -86,6 +89,9 @@ public class Overlays extends Group implements ISelectionChangedListener {
 	public Overlays(final GefAgeDiagram gefDiagram) {
 		this.gefDiagram = gefDiagram;
 		this.setAutoSizeChildren(false);
+
+		selectionOverlays.setAutoSizeChildren(false);
+		this.getChildren().add(selectionOverlays);
 
 		// Create transform property
 		final ReadOnlyObjectProperty<Transform> diagramToSceneTransform = gefDiagram.getSceneNode()
@@ -164,7 +170,8 @@ public class Overlays extends Group implements ISelectionChangedListener {
 				} else {
 					final Node selectedNode = gefDiagram.getSceneNode(selectedDiagramElement);
 					if (selectedNode != null) {
-						if (selectedNode instanceof ContainerShape || selectedNode instanceof DockedShape) {
+						if (selectedNode instanceof ContainerShape || selectedNode instanceof DockedShape
+								|| selectedNode instanceof LabelNode) {
 							newDiagramElementToSelectedNodeOverlayMapBuilder.put(selectedDiagramElement,
 									new SelectedShapeOverlay(selectedDiagramElement, selectedNode, primary));
 						} else if (selectedNode instanceof BaseConnectionNode) {
@@ -180,7 +187,8 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			diagramElementToSelectedNodeOverlayMap = newDiagramElementToSelectedNodeOverlayMapBuilder.build();
 
 			// Update children to reflect the new nodes.
-			getChildren().setAll((Collection<? extends Node>) diagramElementToSelectedNodeOverlayMap.values());
+			selectionOverlays.getChildren()
+					.setAll((Collection<? extends Node>) diagramElementToSelectedNodeOverlayMap.values());
 		});
 	}
 
