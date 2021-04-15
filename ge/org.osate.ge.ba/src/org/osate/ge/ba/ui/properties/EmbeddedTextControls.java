@@ -16,8 +16,8 @@ public class EmbeddedTextControls extends Composite {
 	private final Button btn;
 	private EmbeddedXtextAdapter xtextAdapter;
 
-	public EmbeddedTextControls(final Composite parent, final int style, final int styledTextStyle, final int btnStyle,
-			final String editBtnText) {
+	public EmbeddedTextControls(final Composite parent, final int style, final int styledTextStyle,
+			final int btnStyle) {
 		super(parent, style);
 		this.setBackground(parent.getBackground());
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
