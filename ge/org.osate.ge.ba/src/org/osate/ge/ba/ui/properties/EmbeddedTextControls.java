@@ -6,7 +6,6 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -22,19 +21,24 @@ public class EmbeddedTextControls extends Composite {
 		super(parent, style);
 		this.setBackground(parent.getBackground());
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
-		final GridData layoutData = GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
-				.hint(SWT.DEFAULT, SWT.DEFAULT).create();
-		this.setLayoutData(layoutData);
+		this.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
+				.hint(SWT.DEFAULT, SWT.DEFAULT).create());
 
 		// Create styled text
 		styledText = new StyledText(this, styledTextStyle);
 		styledText.setEditable(false);
 		// Set caret to null to make sure users know it is not editable
 		styledText.setCaret(null);
-		styledText.setLayoutData(layoutData);
 
 		btn = new Button(this, btnStyle);
-		btn.setText(editBtnText);
+	}
+
+	public void setStyledTextLayoutData(final Object layoutData) {
+		styledText.setLayoutData(layoutData);
+	}
+
+	public void setButtonText(final String text) {
+		btn.setText(text);
 	}
 
 	public void setStyledTextTestId(final String id) {

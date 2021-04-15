@@ -9,6 +9,7 @@ import org.eclipse.core.runtime.Adapters;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
@@ -86,6 +87,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 					conditionEditingControls = new EmbeddedTextControls(container, SWT.NONE, SWT.BORDER | SWT.SINGLE,
 							SWT.PUSH, "Edit...");
+					conditionEditingControls.setStyledTextLayoutData(GridDataFactory.swtDefaults()
+							.align(SWT.FILL, SWT.FILL).grab(true, true).hint(SWT.DEFAULT, SWT.DEFAULT).create());
 					conditionEditingControls.setStyledTextTestId(WIDGET_ID_CONDITION);
 					conditionEditingControls.setButtonTestId(WIDGET_ID_EDIT_CONDITION);
 
