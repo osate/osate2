@@ -61,10 +61,6 @@ public class EmbeddedTextControls extends Composite {
 		styledText.setLayoutData(layoutData);
 	}
 
-	public void setButtonText(final String text) {
-		btn.setText(text);
-	}
-
 	public void setStyledTextTestId(final String id) {
 		SwtUtil.setTestingId(styledText, id);
 	}
