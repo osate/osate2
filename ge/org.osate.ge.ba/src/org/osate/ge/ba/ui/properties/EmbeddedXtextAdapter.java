@@ -6,24 +6,25 @@ import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
+import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osate.xtext.aadl2.ui.propertyview.OsateStyledTextXtextAdapter;
 import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResourcesProvider;
 
 import com.google.inject.Injector;
 
-class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
+public class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
+	public final static Injector injector = Aadl2Activator.getInstance()
+			.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
 	private final EmbeddedTextValue textValue;
 	private static final IXtextFakeContextResourcesProvider contextFakeResourceProvider = IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER;
-	final static Injector injector = Aadl2Activator.getInstance()
-			.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
 
-	EmbeddedXtextAdapter(final IProject project, final EmbeddedTextValue textValue) {
+	public EmbeddedXtextAdapter(final IProject project, final EmbeddedTextValue textValue) {
 		super(injector, contextFakeResourceProvider, project);
 		this.textValue = textValue;
 	}
 
-	SourceViewer getSourceviewer() {
+	private SourceViewer getSourceviewer() {
 		return super.getXtextSourceviewer();
 	}
 
@@ -32,15 +33,15 @@ class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 		return super.getXtextDocument();
 	}
 
-	String getText() {
-		return getFakeResource().getParseResult().getRootNode().getText();
+	public String getText() {
+		return BehaviorAnnexXtextUtil.getText(null, getFakeResource());
 	}
 
-	XtextResource getFakeResource() {
+	public XtextResource getFakeResource() {
 		return getFakeResourceContext().getFakeResource();
 	}
 
-	String serialize(final EObject rootElement) {
+	public String serialize(final EObject rootElement) {
 		return getFakeResource().getSerializer().serialize(rootElement);
 	}
 
@@ -59,7 +60,7 @@ class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 		adapt(styledText, true);
 	}
 
-	String getEditableText() {
+	public String getEditableText() {
 		return textValue.getEditableText();
 	}
 }
