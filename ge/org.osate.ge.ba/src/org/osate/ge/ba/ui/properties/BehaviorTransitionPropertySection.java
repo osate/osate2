@@ -122,12 +122,15 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 						// Value
 						final EmbeddedTextValue conditionTextValue = getConditionTextValue(behaviorTransition,
 								sourceText);
-						final SelectionAdapter editSelectionAdapter = getEditConditionSelectionAdapter(project,
+						final SelectionAdapter editConditionSelectionAdapter = getEditConditionSelectionAdapter(project,
 								conditionTextValue, behaviorTransition, editingDomain, xtextDocument, xtextResource);
-						conditionEditingControls.addSelectionListener(editSelectionAdapter);
+						conditionEditingControls.addSelectionListener(editConditionSelectionAdapter);
 						// Create xtext adapter for property view
 						conditionEditingControls.createXtextAdapter(project, conditionTextValue);
 
+						final EmbeddedTextValue actionTextValue = getActionBlockTextValue(behaviorTransition,
+								sourceText);
+						// final SelectionAdapter editActionSelectionAdapter = getEditActionSelectionAdapter();
 					}
 				});
 
