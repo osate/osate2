@@ -229,7 +229,7 @@ public class BehaviorAnnexTest {
 				dest);
 
 		final RelativeBusinessObjectReference initTransitionRef = BehaviorAnnexReferenceUtil
-				.getTransitionRelativeReference("0");
+				.getTransitionRelativeReference("t0");
 		// Create a transition between the states
 		createConnectionElement(baDiagram, src, dest, "Behavior Transition",
 				element(behaviorSpecification, initTransitionRef));
