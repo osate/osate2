@@ -86,10 +86,9 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 					}
 
 					conditionEditingControls = new EmbeddedTextControls(container, SWT.NONE, SWT.BORDER | SWT.SINGLE,
-							SWT.PUSH);
+							SWT.PUSH, "Edit...");
 					conditionEditingControls.setStyledTextLayoutData(GridDataFactory.swtDefaults()
 							.align(SWT.FILL, SWT.FILL).grab(true, true).hint(SWT.DEFAULT, SWT.DEFAULT).create());
-					conditionEditingControls.setButtonText("Edit...");
 					conditionEditingControls.setStyledTextTestId(WIDGET_ID_CONDITION);
 					conditionEditingControls.setButtonTestId(WIDGET_ID_EDIT_CONDITION);
 
