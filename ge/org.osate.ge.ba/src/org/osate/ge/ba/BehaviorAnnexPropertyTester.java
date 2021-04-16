@@ -27,10 +27,6 @@ import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 
 public class BehaviorAnnexPropertyTester extends PropertyTester {
@@ -45,30 +41,11 @@ public class BehaviorAnnexPropertyTester extends PropertyTester {
 			return false;
 		}
 
-		final IEditorPart editor = getActiveEditor();
+		final IEditorPart editor = BehaviorAnnexSelectionUtil.getActiveEditor().orElse(null);
 		if (editor == null) {
 			return false;
 		}
 
 		return BehaviorAnnexSelectionUtil.getDiagramContext(selection, editor).isPresent();
-	}
-
-	private IEditorPart getActiveEditor() {
-		final IWorkbench workbench = PlatformUI.getWorkbench();
-		if (workbench == null) {
-			return null;
-		}
-
-		final IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-		if (window == null) {
-			return null;
-		}
-
-		final IWorkbenchPage page = window.getActivePage();
-		if (page == null) {
-			return null;
-		}
-
-		return page.getActiveEditor();
 	}
 }
