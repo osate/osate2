@@ -95,7 +95,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		container.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
 
 		final Label conditionLabel = new Label(container, SWT.NONE);
-		conditionLabel.setText("Condition: ");
+		conditionLabel.setText("Condition:");
 		SwtUtil.setColorsToMatchParent(conditionLabel);
 	}
 
