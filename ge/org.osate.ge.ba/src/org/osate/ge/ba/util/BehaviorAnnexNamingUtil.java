@@ -52,7 +52,8 @@ public class BehaviorAnnexNamingUtil {
 	static {
 		reservedWords = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
 		reservedWords.addAll(
-				Arrays.asList(new String[] { "initial", "final", "state", "states", "transitions", "variables" }));
+				Arrays.asList(new String[] { "complete", "initial", "final", "state", "states", "transitions",
+						"variables" }));
 	}
 
 	public static String buildUniqueIdentifier(final BehaviorAnnex ba, final String baseIdentifier) {
