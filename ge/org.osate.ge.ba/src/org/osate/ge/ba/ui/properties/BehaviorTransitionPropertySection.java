@@ -6,6 +6,7 @@ import java.util.function.BiFunction;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -79,15 +80,17 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		conditionLabel.setText("Condition: ");
 		SwtUtil.setColorsToMatchParent(conditionLabel);
 
-		conditionEditingControls = new EmbeddedTextControls(container, SWT.NONE, SWT.BORDER | SWT.SINGLE, SWT.PUSH,
-				"Edit...");
+		conditionEditingControls = new EmbeddedTextControls(container, SWT.NONE, SWT.BORDER | SWT.SINGLE,
+				GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(SWT.DEFAULT, SWT.DEFAULT)
+						.create());
 
-		final Label actionBlockLabel = new Label(container, SWT.NONE);
-		actionBlockLabel.setText("Action: ");
-		SwtUtil.setColorsToMatchParent(actionBlockLabel);
+		final Label actionLabel = new Label(container, SWT.NONE);
+		actionLabel.setText("Action: ");
+		SwtUtil.setColorsToMatchParent(actionLabel);
 
 		actionBlockEditingControls = new EmbeddedTextControls(container, SWT.NONE,
-				SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI, SWT.PUSH, "Edit...");
+				SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI, GridDataFactory.swtDefaults()
+						.align(SWT.FILL, SWT.FILL).grab(true, false).hint(SWT.DEFAULT, SWT.DEFAULT).create());
 	}
 
 	@Override
@@ -95,22 +98,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		selectedBos.bocStream().filter(
 				boc -> isBehaviorTransition(boc) && ProjectUtil.getProjectForBo(boc.getBusinessObject()).isPresent())
 				.findAny().ifPresent(selectedBoc -> {
-					disposeControls();
-
-					conditionEditingControls = new EmbeddedTextControls(container, SWT.NONE, SWT.BORDER | SWT.SINGLE,
-							SWT.PUSH, "Edit...");
-					conditionEditingControls.setStyledTextLayoutData(GridDataFactory.swtDefaults()
-							.align(SWT.FILL, SWT.FILL).grab(true, true).hint(SWT.DEFAULT, SWT.DEFAULT).create());
-					conditionEditingControls.setStyledTextTestId(WIDGET_ID_CONDITION);
-					conditionEditingControls.setButtonTestId(WIDGET_ID_EDIT_CONDITION);
-
-					actionBlockEditingControls = new EmbeddedTextControls(container, SWT.NONE,
-							SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI,
-							SWT.PUSH, "Edit...");
-					actionBlockEditingControls.setStyledTextLayoutData(GridDataFactory.swtDefaults()
-							.align(SWT.FILL, SWT.FILL).grab(true, false).hint(SWT.DEFAULT, SWT.DEFAULT).create());
-					actionBlockEditingControls.setStyledTextTestId(WIDGET_ID_ACTION_BLOCK);
-					actionBlockEditingControls.setButtonTestId(WIDGET_ID_EDIT_ACTION_BLOCK);
+					refreshControls();
 
 					final boolean isSingleSelection = selectedBos.bocStream().limit(2).count() == 1;
 					if (!isSingleSelection) {
@@ -125,20 +113,12 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 								.orElseThrow(() -> new RuntimeException("resource must be XtextResource"));
 						final IXtextDocument xtextDocument = getXtextDocument(behaviorTransition).orElse(null);
 						final String sourceText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
-						// Value
-						final EmbeddedTextValue conditionTextValue = getConditionTextValue(behaviorTransition,
-								sourceText);
-						final SelectionAdapter editConditionSelectionAdapter = getEditConditionSelectionAdapter(project,
-								conditionTextValue, behaviorTransition, editingDomain, xtextDocument, xtextResource);
-						conditionEditingControls.addSelectionListener(editConditionSelectionAdapter);
-						// Create xtext adapter for property view
-						conditionEditingControls.createXtextAdapter(project, conditionTextValue);
-
-						final EmbeddedTextValue actionTextValue = getActionBlockTextValue(behaviorTransition,
-								sourceText);
-						final SelectionAdapter editActionSelectionAdapter = getEditActionSelectionAdapter(project,
-								conditionTextValue, behaviorTransition, editingDomain, xtextDocument, xtextResource);
-						actionBlockEditingControls.createXtextAdapter(project, actionTextValue);
+						// TODO change this method name
+						createCondition(behaviorTransition, sourceText, project, editingDomain, xtextDocument,
+								xtextResource);
+						// TODO change this method name
+						createActionBlock(behaviorTransition, sourceText, project, editingDomain, xtextDocument,
+								xtextResource);
 					}
 				});
 
@@ -146,12 +126,93 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		layout();
 	}
 
+	private void createActionBlock(final BehaviorTransition behaviorTransition, final String sourceText,
+			final IProject project, final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
+			final XtextResource xtextResource) {
+		final EmbeddedTextValue actionTextValue = getActionBlockTextValue(behaviorTransition, sourceText);
+		final SelectionAdapter editActionBlockSelectionAdapter = getEditActionSelectionAdapter(project, actionTextValue,
+				behaviorTransition, editingDomain, xtextDocument, xtextResource);
+		actionBlockEditingControls.addSelectionListener(editActionBlockSelectionAdapter);
+		actionBlockEditingControls.createXtextAdapter(project, actionTextValue);
+	}
+
+	private void createCondition(final BehaviorTransition behaviorTransition, final String sourceText,
+			final IProject project, final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
+			final XtextResource xtextResource) {
+		final EmbeddedTextValue conditionTextValue = getConditionTextValue(behaviorTransition, sourceText);
+		final SelectionAdapter editConditionSelectionAdapter = getEditConditionSelectionAdapter(project,
+				conditionTextValue, behaviorTransition, editingDomain, xtextDocument, xtextResource);
+		conditionEditingControls.addSelectionListener(editConditionSelectionAdapter);
+		conditionEditingControls.createXtextAdapter(project, conditionTextValue);
+	}
+
+	private void refreshControls() {
+		disposeControls();
+
+		conditionEditingControls.refresh();
+		conditionEditingControls.setStyledTextTestId(WIDGET_ID_CONDITION);
+		conditionEditingControls.setButtonTestId(WIDGET_ID_EDIT_CONDITION);
+
+		actionBlockEditingControls.refresh();
+		actionBlockEditingControls.setStyledTextTestId(WIDGET_ID_ACTION_BLOCK);
+		actionBlockEditingControls.setButtonTestId(WIDGET_ID_EDIT_ACTION_BLOCK);
+	}
+
 	private SelectionAdapter getEditActionSelectionAdapter(final IProject project,
-			final EmbeddedTextValue conditionTextValue, final BehaviorTransition behaviorTransition,
+			final EmbeddedTextValue actionTextValue, final BehaviorTransition behaviorTransition,
 			final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
 			final XtextResource xtextResource) {
-		// TODO Auto-generated method stub
-		return null;
+		return new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				final EmbeddedXtextAdapter xtextAdapter = new EmbeddedXtextAdapter(project, actionTextValue);
+				final BiFunction<EObject, String, String> getModifiedSrc = (rootElement, newActionBlock) -> {
+					String modifiedSrc = xtextAdapter.serialize(rootElement);
+					if (newActionBlock.isEmpty()) {
+						// Remove brackets for empty action block
+						final String prefix = actionTextValue.getPrefix();
+						modifiedSrc = prefix.substring(0, prefix.length() - 1)
+								+ actionTextValue.getSuffix().substring(1);
+					}
+
+					return modifiedSrc;
+				};
+
+				final BiFunction<BehaviorTransition, String, Boolean> isValidModification = (bt, newText) -> {
+					final BehaviorActionBlock actionBlock = bt.getActionBlock();
+					// Calculate enabled based on if action should exist and if it exists
+					return newText.isEmpty() ? actionBlock == null : actionBlock != null;
+				};
+
+				final EditEmbeddedTextDialog dlg = new EditEmbeddedTextDialog(Display.getCurrent().getActiveShell(),
+						"Edit Transition Action Block", "Enter new action block.", xtextAdapter, behaviorTransition,
+						getModifiedSrc, isValidModification);
+				if (dlg.open() == Window.OK) {
+					// Edit condition
+					BehaviorAnnexSelectionUtil.getActiveEditor().ifPresent(editorPart -> {
+						final ActionService actionService = Adapters.adapt(editorPart, ActionService.class);
+						final ModelChangeNotifier modelChangeNotifier = Objects.requireNonNull(
+								editorPart.getAdapter(ModelChangeNotifier.class),
+								"Unable to get model change notifier");
+						final boolean actionExists = !actionTextValue.getEditableText().isEmpty();
+						String newText = dlg.getText().trim();
+						// If removing action, remove brackets.
+						if (actionExists && newText.isEmpty()) {
+							actionTextValue.setUpdateOffset(actionTextValue.getUpdateOffset() - 1);
+							actionTextValue.setUpdateLength(actionTextValue.getUpdateLength() + 2);
+						} else if (!actionExists && !newText.isEmpty()) {
+							actionTextValue.setUpdateOffset(actionTextValue.getUpdateOffset() - 1);
+							newText = "{" + newText + "}";
+						}
+
+						System.err.println(newText + " newText");
+						actionService.execute("Modifying Behavior Transition Action Block", ExecutionMode.NORMAL,
+								new EmbeddedTextModificationAction(editingDomain, xtextDocument, xtextResource,
+										modelChangeNotifier, project, newText, actionTextValue));
+					});
+				}
+			}
+		};
 	}
 
 	private void setControlsToMultipleSelected() {
@@ -164,13 +225,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	}
 
 	private void disposeControls() {
-		if (conditionEditingControls != null) {
-			conditionEditingControls.dispose1();
-		}
-
-		if (actionBlockEditingControls != null) {
-			actionBlockEditingControls.dispose1();
-		}
+		conditionEditingControls.disposeControls();
+		actionBlockEditingControls.disposeControls();
 	}
 
 	private void layout() {

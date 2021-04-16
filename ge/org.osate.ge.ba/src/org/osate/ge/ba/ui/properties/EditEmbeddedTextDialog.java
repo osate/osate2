@@ -46,14 +46,22 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	public EditEmbeddedTextDialog(final Shell parentShell, final String title, final String dialogMessage,
 			final EmbeddedXtextAdapter xtextAdapter,
 			final BehaviorTransition behaviorTransition,
+			final BiFunction<EObject, String, String> getModifiedSrc,
 			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
 		super(parentShell, title, null, dialogMessage, MessageDialog.NONE, 0, "OK", "Cancel");
 		this.xtextAdapter = Objects.requireNonNull(xtextAdapter, "xtextAdapter cannot be null");
 		this.textValidator = Objects.requireNonNull(
-				getTextValidator(behaviorTransition, isValidModification),
+				getTextValidator(behaviorTransition, getModifiedSrc, isValidModification),
 				"textValidator cannot be null");
 		service = PlatformUI.getWorkbench().getService(IHandlerService.class);
 		setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
+	}
+
+	public EditEmbeddedTextDialog(final Shell parentShell, final String title, final String dialogMessage,
+			final EmbeddedXtextAdapter xtextAdapter, final BehaviorTransition behaviorTransition,
+			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
+		this(parentShell, title, dialogMessage, xtextAdapter, behaviorTransition,
+				(rootElement, text) -> xtextAdapter.serialize(rootElement), isValidModification);
 	}
 
 	@Override
@@ -111,6 +119,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	// Text modification listener that sets the OK button as enabled
 	// or disabled based on if the new text is valid
 	private ExtendedModifyListener getTextValidator(final BehaviorTransition behaviorTransition,
+			final BiFunction<EObject, String, String> getModifiedSrc,
 			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
 		final String originalText = xtextAdapter.getEditableText();
 		return event -> {
@@ -134,7 +143,8 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 			try {
 				// Modified source text
-				final String modifiedSrc = xtextAdapter.serialize(rootElement);
+				final String modifiedSrc = getModifiedSrc.apply(rootElement, styledText.getText().trim());
+				System.err.println(modifiedSrc + " modifiedSource");
 				// Load for error checking
 				loadResource(fakeResource, modifiedSrc);
 				boolean isEnabled = false;

@@ -6,32 +6,40 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.SwtUtil;
 
 public class EmbeddedTextControls extends Composite {
-	private final StyledText styledText;
-	private final Button btn;
+	private StyledText styledText;
+	private Button btn;
 	private EmbeddedXtextAdapter xtextAdapter;
+	private final int styledTextStyle;
+	private final GridData styledTextLayoutData;
 
-	public EmbeddedTextControls(final Composite parent, final int style, final int styledTextStyle, final int btnStyle,
-			final String editBtnText) {
+	public EmbeddedTextControls(final Composite parent, final int style, final int styledTextStyle,
+			final GridData styledTextLayoutData) {
 		super(parent, style);
 		this.setBackground(parent.getBackground());
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
 		this.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
 				.hint(SWT.DEFAULT, SWT.DEFAULT).create());
+		this.styledTextStyle = styledTextStyle;
+		this.styledTextLayoutData = styledTextLayoutData;
+	}
 
+	public void refresh() {
 		// Create styled text
 		styledText = new StyledText(this, styledTextStyle);
 		styledText.setEditable(false);
 		// Set caret to null to make sure users know it is not editable
 		styledText.setCaret(null);
+		styledText.setLayoutData(styledTextLayoutData);
 
-		btn = new Button(this, btnStyle);
-		btn.setText(editBtnText);
+		btn = new Button(this, SWT.PUSH);
+		btn.setText("Edit...");
 	}
 
 	public void setStyledTextLayoutData(final Object layoutData) {
@@ -56,10 +64,10 @@ public class EmbeddedTextControls extends Composite {
 	@Override
 	public void dispose() {
 		super.dispose();
-
+		disposeXtextAdapter();
 	}
 
-	public void dispose1() {
+	public void disposeControls() {
 		disposeXtextAdapter();
 		disposeControl(styledText);
 		disposeControl(btn);

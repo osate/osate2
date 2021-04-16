@@ -75,7 +75,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 			@Override
 			public void process(final XtextResource resource) throws Exception {
 				if (textValue != null) { // Replace text at specified index and length with new text value
-					resource.update(textValue.getPrefix().length(), textValue.getUpdateLength(), newText);
+					resource.update(textValue.getUpdateOffset(), textValue.getUpdateLength(), newText);
 				} else { // Replace text back to original state for undo
 					resource.reparse(newText);
 				}
@@ -103,8 +103,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 		final String originalText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
 		try (final Lock lock = modelChangeNotifier.lock()) {
 			if (xtextDocument != null) {
-				// Update xtext document source
-				xtextDocument.set(textValue == null ? newText : getModifiedSource());
+				xtextDocument.modify(work);
 				reconcile();
 			} else if (xtextResource instanceof XtextResource) {
 				executeCommand();
@@ -121,13 +120,6 @@ class EmbeddedTextModificationAction implements AgeAction {
 		return new EmbeddedTextModificationAction(editingDomain, xtextDocument, xtextResource, modelChangeNotifier, project,
 				originalText);
 
-	}
-
-	private String getModifiedSource() {
-		final String originalSrc = xtextResource.getParseResult().getRootNode().getText();
-		final String updatedSrc = originalSrc.substring(0, textValue.getPrefix().length()) + newText
-				+ originalSrc.substring(textValue.getPrefix().length() + textValue.getUpdateLength());
-		return updatedSrc;
 	}
 
 	private void save() {
