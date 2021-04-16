@@ -79,9 +79,15 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		conditionLabel.setText("Condition: ");
 		SwtUtil.setColorsToMatchParent(conditionLabel);
 
+		conditionEditingControls = new EmbeddedTextControls(container, SWT.NONE, SWT.BORDER | SWT.SINGLE, SWT.PUSH,
+				"Edit...");
+
 		final Label actionBlockLabel = new Label(container, SWT.NONE);
 		actionBlockLabel.setText("Action: ");
 		SwtUtil.setColorsToMatchParent(actionBlockLabel);
+
+		actionBlockEditingControls = new EmbeddedTextControls(container, SWT.NONE,
+				SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI, SWT.PUSH, "Edit...");
 	}
 
 	@Override
@@ -130,12 +136,22 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 						final EmbeddedTextValue actionTextValue = getActionBlockTextValue(behaviorTransition,
 								sourceText);
-						// final SelectionAdapter editActionSelectionAdapter = getEditActionSelectionAdapter();
+						final SelectionAdapter editActionSelectionAdapter = getEditActionSelectionAdapter(project,
+								conditionTextValue, behaviorTransition, editingDomain, xtextDocument, xtextResource);
+						actionBlockEditingControls.createXtextAdapter(project, actionTextValue);
 					}
 				});
 
 		// Layout controls for refresh
 		layout();
+	}
+
+	private SelectionAdapter getEditActionSelectionAdapter(final IProject project,
+			final EmbeddedTextValue conditionTextValue, final BehaviorTransition behaviorTransition,
+			final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
+			final XtextResource xtextResource) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private void setControlsToMultipleSelected() {
@@ -149,11 +165,11 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 	private void disposeControls() {
 		if (conditionEditingControls != null) {
-			conditionEditingControls.dispose();
+			conditionEditingControls.dispose1();
 		}
 
 		if (actionBlockEditingControls != null) {
-			actionBlockEditingControls.dispose();
+			actionBlockEditingControls.dispose1();
 		}
 	}
 

@@ -31,14 +31,11 @@ public class EmbeddedTextControls extends Composite {
 		styledText.setCaret(null);
 
 		btn = new Button(this, btnStyle);
+		btn.setText(editBtnText);
 	}
 
 	public void setStyledTextLayoutData(final Object layoutData) {
 		styledText.setLayoutData(layoutData);
-	}
-
-	public void setButtonText(final String text) {
-		btn.setText(text);
 	}
 
 	public void setStyledTextTestId(final String id) {
@@ -59,6 +56,10 @@ public class EmbeddedTextControls extends Composite {
 	@Override
 	public void dispose() {
 		super.dispose();
+
+	}
+
+	public void dispose1() {
 		disposeXtextAdapter();
 		disposeControl(styledText);
 		disposeControl(btn);
