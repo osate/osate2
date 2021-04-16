@@ -168,7 +168,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 						final ModelChangeNotifier modelChangeNotifier = Objects.requireNonNull(
 								editorPart.getAdapter(ModelChangeNotifier.class),
 								"Unable to get model change notifier");
-						actionService.execute("Modifying Behavior Transition Condition", ExecutionMode.NORMAL,
+						actionService.execute("Modify Behavior Transition Condition", ExecutionMode.NORMAL,
 								new EmbeddedTextModificationAction(editingDomain, xtextDocument, xtextResource,
 										modelChangeNotifier, project, dlg.getText(), conditionTextValue));
 					});
