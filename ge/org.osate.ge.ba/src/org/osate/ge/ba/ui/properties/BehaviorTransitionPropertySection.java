@@ -177,7 +177,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		};
 	}
 
-	private EmbeddedTextValue getConditionTextValue(final BehaviorTransition behaviorTransition, final String sourceText) {
+	private EmbeddedTextValue getConditionTextValue(final BehaviorTransition behaviorTransition,
+			final String sourceText) {
 		final int conditionOffset = getConditionOffset(behaviorTransition, sourceText);
 
 		// Text before condition text

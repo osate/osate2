@@ -65,7 +65,6 @@ class EmbeddedTextModificationAction implements AgeAction {
 	private final Void<XtextResource> work;
 	private final RecordingCommand cmd;
 	private final EmbeddedTextValue textValue;
-	private final String newText;
 
 	public EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
 			final IXtextDocument xtextDocument, final XtextResource xtextResource,
@@ -80,7 +79,6 @@ class EmbeddedTextModificationAction implements AgeAction {
 		this.cmd = Objects.requireNonNull(createRecordingCommand(editingDomain, xtextResource), "cmd cannot be null");
 		this.xtextDocument = xtextDocument;
 		this.textValue = textValue;
-		this.newText = newText;
 	}
 
 	private EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
@@ -126,8 +124,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 		final String originalText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
 		try (final Lock lock = modelChangeNotifier.lock()) {
 			if (xtextDocument != null) {
-				// Update xtext document source
-				xtextDocument.set(textValue == null ? newText : getModifiedSource());
+				xtextDocument.modify(work);
 				reconcile();
 			} else if (xtextResource instanceof XtextResource) {
 				executeCommand();
@@ -144,13 +141,6 @@ class EmbeddedTextModificationAction implements AgeAction {
 		return new EmbeddedTextModificationAction(editingDomain, xtextDocument, xtextResource, modelChangeNotifier, project,
 				originalText);
 
-	}
-
-	private String getModifiedSource() {
-		final String originalSrc = xtextResource.getParseResult().getRootNode().getText();
-		final String updatedSrc = originalSrc.substring(0, textValue.getPrefix().length()) + newText
-				+ originalSrc.substring(textValue.getPrefix().length() + textValue.getUpdateLength());
-		return updatedSrc;
 	}
 
 	private void save() {
