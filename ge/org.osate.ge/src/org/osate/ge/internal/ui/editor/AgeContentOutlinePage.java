@@ -99,14 +99,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private final BusinessObjectProviderHelper bopHelper;
 	private final Action linkWithEditorAction = new ToggleLinkWithEditorAction();
 	private final Action showHiddenElementsAction = new ToggleShowHiddenElementsAction();
-	private final DiagramModificationListener diagramModificationListener = new DiagramModificationAdapter() {
-		@Override
-		public void modificationsCompleted(ModificationsCompletedEvent e) {
-			if (!getTreeViewer().getTree().isDisposed() && getTreeViewer() != null) {
-				getTreeViewer().refresh();
-			}
-		}
-	};
+	private final DiagramModificationListener diagramModificationListener=new DiagramModificationAdapter(){@Override public void modificationsCompleted(final ModificationsCompletedEvent e){if(!getTreeViewer().getTree().isDisposed()&&getTreeViewer()!=null){getTreeViewer().refresh();}}};
 
 	// Flag for indicating the the outline and editor selection is being synchronized.
 	// Used to avoid adjusting either selection in response to a change to itself.
@@ -413,7 +406,6 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 		viewer.addSelectionChangedListener(this);
 		viewer.setInput(editor);
-
 	}
 
 	private BusinessObjectContext getElementParent(final Object element) {

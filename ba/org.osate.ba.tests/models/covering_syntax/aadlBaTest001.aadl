@@ -22,7 +22,7 @@
 
 package NamesResolutionTest
 public
-   with AADL_Project, Data_Model, Base_Types, AadlBaTestPropertySet, AadlBaTest::Types, AadlBaTestSubprogram ;
+   with Data_Model, Base_Types, AadlBaTestPropertySet, AadlBaTest::Types, AadlBaTestSubprogram ;
 
 abstract MyAbstractComponent
 end MyAbstractComponent ;
@@ -83,18 +83,18 @@ features
   C : in event data port MyInteger;
   
 modes
-  m1: mode ;
+  m1: initial mode ;
   m2: mode ;
   m1 -[self.A, self.A, self.B, self.C]-> m2 ;
    
 annex behavior_specification {**
 
 states
-  m1 : complete state ;
+  m1 : initial complete state ;
   f1 : final state ;
    
 transitions
-  m1 -[on dispatch a and B or c and A]-> f1 ;
+  m1 -[on a or B or c or A]-> f1 ;
   
 **};
 end myprocess;
