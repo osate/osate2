@@ -37,7 +37,7 @@ import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResou
 import com.google.inject.Injector;
 
 public class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
-	public final static Injector injector = Aadl2Activator.getInstance()
+	private final static Injector injector = Aadl2Activator.getInstance()
 			.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
 	private final EmbeddedTextValue textValue;
 	private static final IXtextFakeContextResourcesProvider contextFakeResourceProvider = IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER;

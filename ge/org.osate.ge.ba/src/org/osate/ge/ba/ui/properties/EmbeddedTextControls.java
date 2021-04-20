@@ -7,6 +7,7 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Caret;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.SwtUtil;
@@ -31,9 +32,14 @@ public class EmbeddedTextControls extends Composite {
 		// Create styled text
 		styledText = new StyledText(this, styledTextStyle);
 		styledText.setEditable(false);
-		// Set caret to null to make sure users know it is not editable
-		styledText.setCaret(null);
+		// Set empty caret so that the caret will not show.
+		// Makes sure users know it is not editable.
+		// Note: If caret is set to null, exception may occur
+		// when used with the StyledTextXtextAdapter.
+		final Caret emptyCaret = new Caret(getShell(), SWT.NONE);
+		styledText.setCaret(emptyCaret);
 		styledText.setLayoutData(styledTextLayoutData);
+		styledText.addDisposeListener(e -> emptyCaret.dispose());
 
 		btn = new Button(this, SWT.PUSH);
 		btn.setText("Edit...");

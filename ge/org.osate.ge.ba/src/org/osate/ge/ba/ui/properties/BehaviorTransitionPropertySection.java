@@ -81,7 +81,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		conditionLabel.setText("Condition: ");
 		SwtUtil.setColorsToMatchParent(conditionLabel);
 
-		GridData gd = GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
+		final GridData gd = GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
 				.hint(SWT.DEFAULT, SWT.DEFAULT).create();
 		conditionEditingControls = new EmbeddedTextControls(container, SWT.NONE, SWT.BORDER | SWT.SINGLE,
 				gd);
@@ -202,7 +202,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 				};
 
 				final EditEmbeddedTextDialog dlg = new EditEmbeddedTextDialog(Display.getCurrent().getActiveShell(),
-						"Edit Transition Action Block", "Enter new action block.", xtextAdapter,
+						"Edit Transition Action", "Enter new action block.", xtextAdapter,
 						SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI,
 						GridDataFactory.fillDefaults().indent(10, 0).grab(true, true).hint(SWT.DEFAULT, 100).create(),
 						behaviorTransition,

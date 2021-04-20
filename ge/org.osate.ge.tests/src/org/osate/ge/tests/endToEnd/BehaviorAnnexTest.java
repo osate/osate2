@@ -251,22 +251,22 @@ public class BehaviorAnnexTest {
 
 		// Create a transition condition
 		editTransitionWithPropertiesView(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_CONDITION,
-				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_CONDITION, "on dispatch",
+				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_CONDITION, "Edit Transition Condition", "on dispatch",
 				behaviorSpecification, transitionRef);
 
 		// Erase the transition condition
 		editTransitionWithPropertiesView(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_CONDITION,
-				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_CONDITION, "",
+				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_CONDITION, "Edit Transition Condition", "",
 				behaviorSpecification, transitionRef);
 
 		// Create a transition action block
 		editTransitionWithPropertiesView(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_ACTION_BLOCK,
-				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_ACTION_BLOCK,
+				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_ACTION_BLOCK, "Edit Transition Action",
 				"computation (60 ms)", behaviorSpecification, transitionRef);
 
 		// Erase the transition action block
 		editTransitionWithPropertiesView(baDiagram, BehaviorTransitionPropertySection.WIDGET_ID_ACTION_BLOCK,
-				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_ACTION_BLOCK, "",
+				BehaviorTransitionPropertySection.WIDGET_ID_EDIT_ACTION_BLOCK, "Edit Transition Action", "",
 				behaviorSpecification, transitionRef);
 
 		// Test renaming for states with same name of a mode with transition
@@ -283,9 +283,9 @@ public class BehaviorAnnexTest {
 				true, src);
 	}
 
-	private static void editTransitionWithPropertiesView(final DiagramReference baDiagram, final String id,
-			final String btnId,
-			final String conditionText, final RelativeBusinessObjectReference specRef,
+	private static void editTransitionWithPropertiesView(final DiagramReference baDiagram, final String styledTextId,
+			final String btnId, final String dlgTitle, final String newText,
+			final RelativeBusinessObjectReference specRef,
 			final RelativeBusinessObjectReference transitionRef) {
 		final DiagramElementReference specDiagramRef = element(specRef);
 		final DiagramElementReference transitionDiagramRef = specDiagramRef.join(transitionRef);
@@ -294,10 +294,10 @@ public class BehaviorAnnexTest {
 		// Launch edit dialog
 		clickButtonByIdInPropertiesView("AADL", btnId);
 
-		waitForWindowWithTitle("Edit Transition Condition");
+		waitForWindowWithTitle(dlgTitle);
 
 		// Set condition text
-		typeInStyledText(EditEmbeddedTextDialog.WIDGET_ID_TEXT, conditionText);
+		typeInStyledText(EditEmbeddedTextDialog.WIDGET_ID_TEXT, newText);
 
 		// Confirm new condition
 		clickButtonWithId(EditEmbeddedTextDialog.WIDGET_ID_CONFIRM);
@@ -308,8 +308,8 @@ public class BehaviorAnnexTest {
 		// Select transition
 		selectDiagramElements(baDiagram, transitionDiagramRef);
 
-		// Check styled text to see if condition update was successful
-		waitForStyledTextToMatch(id, conditionText);
+		// Check styled text to see if update was successful
+		waitForStyledTextToMatch(styledTextId, newText);
 	}
 
 	// Open Behavior Annex diagram

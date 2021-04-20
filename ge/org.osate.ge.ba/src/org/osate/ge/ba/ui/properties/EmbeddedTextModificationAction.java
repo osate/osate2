@@ -26,9 +26,6 @@ package org.osate.ge.ba.ui.properties;
 import java.io.IOException;
 import java.util.Objects;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
@@ -42,7 +39,6 @@ import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.ui.refactoring.ui.SyncUtil;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork.Void;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
@@ -50,12 +46,9 @@ import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
 
-import com.google.inject.Injector;
-
 /**
  * Modification process to be executed to update the action text
  */
-@SuppressWarnings("restriction")
 class EmbeddedTextModificationAction implements AgeAction {
 	private final TransactionalEditingDomain editingDomain;
 	private final IXtextDocument xtextDocument;
@@ -126,9 +119,10 @@ class EmbeddedTextModificationAction implements AgeAction {
 		final String originalText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
 		try (final Lock lock = modelChangeNotifier.lock()) {
 			if (xtextDocument != null) {
+				prepareToEditDocument(xtextDocument);
 				xtextDocument.set(textValue == null ? newText : getModifiedSource());
 				xtextDocument.readOnly(res -> null);
-				reconcile();
+				// reconcile();
 			} else if (xtextResource instanceof XtextResource) {
 				executeCommand();
 				save();
@@ -191,40 +185,26 @@ class EmbeddedTextModificationAction implements AgeAction {
 		}
 	}
 
-	private void reconcile() {
+	/**
+	 * It is important to validate the Xtext editor input state to ensure the document can be edited before editing the document.
+	 * The editor may change its internal state to prepare for editing as part of validation.
+	 * Otherwise, the document may not be properly changed or notifications
+	 * may not be received.
+	 * @param doc the xtext document to prepare to edit.
+	 */
+	private static void prepareToEditDocument(final IXtextDocument doc) {
 		for (final IEditorReference editorRef : PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.getEditorReferences()) {
 			final IEditorPart editor = editorRef.getEditor(false);
 			if (editor instanceof XtextEditor) {
 				final XtextEditor xtextEditor = (XtextEditor) editor;
-				final Injector injector = EmbeddedXtextAdapter.injector;
-				final String languageName = getLanguageName(injector);
-
-				// Only force reconciliation for AADL editors
-				if (Objects.equals(xtextEditor.getLanguageName(), languageName)) {
-					final SyncUtil syncUtil = injector.getInstance(SyncUtil.class);
-
-					// Only waiting once will result in the reconciler processing a change outside the lock.
-					// Doing it twice appears to wait for pending runs of the reconciler.
-					syncUtil.waitForReconciler(xtextEditor);
-					syncUtil.waitForReconciler(xtextEditor);
+				if (xtextEditor.getDocument() == doc) {
+					if (!xtextEditor.validateEditorInputState()) {
+						throw new RuntimeException("Unable to edit Xtext document. Editor input validation failed.");
+					}
+					break;
 				}
 			}
 		}
-	}
-
-	private static class LanguageNameRetriever {
-		@Inject
-		@Named(org.eclipse.xtext.Constants.LANGUAGE_NAME)
-		public String languageName;
-	}
-
-	/**
-	 * Retrieves the language name by injecting it into a new object.
-	 * @return
-	 */
-	private String getLanguageName(final Injector injector) {
-		final LanguageNameRetriever obj = injector.getInstance(LanguageNameRetriever.class);
-		return obj.languageName;
 	}
 }
