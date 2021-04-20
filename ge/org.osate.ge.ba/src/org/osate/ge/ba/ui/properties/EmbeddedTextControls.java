@@ -1,7 +1,6 @@
 package org.osate.ge.ba.ui.properties;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
@@ -24,8 +23,6 @@ public class EmbeddedTextControls extends Composite {
 		super(parent, style);
 		this.setBackground(parent.getBackground());
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
-		this.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
-				.hint(SWT.DEFAULT, SWT.DEFAULT).create());
 		this.styledTextStyle = styledTextStyle;
 		this.styledTextLayoutData = styledTextLayoutData;
 	}
@@ -42,10 +39,6 @@ public class EmbeddedTextControls extends Composite {
 		btn.setText("Edit...");
 	}
 
-	public void setStyledTextLayoutData(final Object layoutData) {
-		styledText.setLayoutData(layoutData);
-	}
-
 	public void setStyledTextTestId(final String id) {
 		SwtUtil.setTestingId(styledText, id);
 	}
@@ -59,12 +52,6 @@ public class EmbeddedTextControls extends Composite {
 		xtextAdapter = new EmbeddedXtextAdapter(project, textValue);
 		// Adapt without content helper
 		xtextAdapter.adapt(styledText, false);
-	}
-
-	@Override
-	public void dispose() {
-		super.dispose();
-		disposeXtextAdapter();
 	}
 
 	public void disposeControls() {

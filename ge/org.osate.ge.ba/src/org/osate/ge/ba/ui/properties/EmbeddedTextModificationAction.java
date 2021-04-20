@@ -1,3 +1,26 @@
+/**
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
+ * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
+ * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ */
 package org.osate.ge.ba.ui.properties;
 
 import java.io.IOException;
@@ -41,8 +64,8 @@ class EmbeddedTextModificationAction implements AgeAction {
 	private final IProject project;
 	private final Void<XtextResource> work;
 	private final RecordingCommand cmd;
-	private final EmbeddedTextValue textValue;
 	private final String newText;
+	private final EmbeddedTextValue textValue;
 
 	public EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
 			final IXtextDocument xtextDocument, final XtextResource xtextResource,
@@ -56,8 +79,8 @@ class EmbeddedTextModificationAction implements AgeAction {
 				createUpdateProcess(Objects.requireNonNull(newText, "newText cannot be null")), "work cannot be null");
 		this.cmd = Objects.requireNonNull(createRecordingCommand(editingDomain, xtextResource), "cmd cannot be null");
 		this.xtextDocument = xtextDocument;
-		this.textValue = textValue;
 		this.newText = newText;
+		this.textValue = textValue;
 	}
 
 	private EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
@@ -103,7 +126,8 @@ class EmbeddedTextModificationAction implements AgeAction {
 		final String originalText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
 		try (final Lock lock = modelChangeNotifier.lock()) {
 			if (xtextDocument != null) {
-				xtextDocument.modify(work);
+				xtextDocument.set(textValue == null ? newText : getModifiedSource());
+				xtextDocument.readOnly(res -> null);
 				reconcile();
 			} else if (xtextResource instanceof XtextResource) {
 				executeCommand();
@@ -120,6 +144,15 @@ class EmbeddedTextModificationAction implements AgeAction {
 		return new EmbeddedTextModificationAction(editingDomain, xtextDocument, xtextResource, modelChangeNotifier, project,
 				originalText);
 
+	}
+
+	private String getModifiedSource() {
+		final String originalSrc = xtextResource.getParseResult().getRootNode().getText();
+		final int updateOffset = textValue.getUpdateOffset();
+		final StringBuilder updatedSrc = new StringBuilder(originalSrc.substring(0, updateOffset))
+				.append(newText)
+				.append(originalSrc.substring(updateOffset + textValue.getUpdateLength()));
+		return updatedSrc.toString();
 	}
 
 	private void save() {

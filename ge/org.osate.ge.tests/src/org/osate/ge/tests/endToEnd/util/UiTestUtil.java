@@ -81,6 +81,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
@@ -321,6 +322,31 @@ public class UiTestUtil {
 			// Send notification
 			styledText.widget.notifyListeners(SWT.KeyUp, new Event());
 		});
+
+		waitForStyledTextToMatch(id, text);
+	}
+
+	/**
+	 * Executes {@link IHandlerService} command with specified id and event.
+	 */
+	public static void executeHandlerServiceCommandWithId(final String cmdId,
+			final org.eclipse.swt.widgets.Event event) {
+		Display.getDefault().asyncExec(() -> {
+			final IHandlerService service = PlatformUI.getWorkbench().getService(IHandlerService.class);
+			try {
+				service.executeCommand(cmdId, event);
+			} catch (final Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	/**
+	 * Returns the text of the StyledText with the specified id.
+	 */
+	public static String getStyledTextWithIdText(final String id) {
+		final SWTBotStyledText styledText = bot.styledTextWithId(id);
+		return styledText.getText();
 	}
 
 	public static void waitForStyledTextToMatch(final String id, final String text) {
