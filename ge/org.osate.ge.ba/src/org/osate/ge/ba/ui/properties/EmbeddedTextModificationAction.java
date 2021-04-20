@@ -48,7 +48,7 @@ import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
 
 /**
- * Modification process to be executed to update the action text
+ * Modification process to be executed to update embedded text resources
  */
 class EmbeddedTextModificationAction implements AgeAction {
 	private final ModelChangeNotifier modelChangeNotifier;
