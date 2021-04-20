@@ -101,6 +101,12 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 	 */
 	private boolean controlPointExists;
 
+	/**
+	 * Flag which indicates whether the scene graph should be updated based on the diagram when the interaction is
+	 * completed.
+	 */
+	private boolean updateSceneGraphOnComplete = true;
+
 	public MoveConnectionPointInteraction(final GefAgeDiagram gefDiagram, final MouseEvent e) {
 		this.gefDiagram = gefDiagram;
 
@@ -123,9 +129,23 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 	}
 
 	@Override
+	public void close() {
+		// Reset state
+		activeHandle = null;
+		controlPointIndex = null;
+
+		if (updateSceneGraphOnComplete) {
+			// Update scene graph based on diagram element. This is needed to revert any scene changes that have been made
+			// during the interaction.
+			// Changes could be reverted more efficiently but this is simple and reliable.
+			gefDiagram.updateSceneGraph();
+		}
+	}
+
+	@Override
 	protected Interaction.InteractionState onMouseDragged(final MouseEvent e) {
 		if (e.getButton() != MouseButton.PRIMARY) {
-			return InteractionState.IN_PROGRESS;
+			return super.onMouseDragged(e);
 		}
 
 		if (activeHandle instanceof FlowIndicatorPositionHandle) {
@@ -182,12 +202,13 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 	@Override
 	protected Interaction.InteractionState onMouseReleased(final MouseEvent e) {
 		if (e.getButton() != MouseButton.PRIMARY) {
-			return InteractionState.IN_PROGRESS;
+			return super.onMouseReleased(e);
 		}
 
 		final BaseConnectionNode connectionNode = activeHandle.getSceneNode();
 		try {
-			final Transform sceneToDiagramTransform = gefDiagram.getSceneNode().getLocalToSceneTransform().createInverse();
+			final Transform sceneToDiagramTransform = gefDiagram.getSceneNode().getLocalToSceneTransform()
+					.createInverse();
 			final Transform connectionToDiagramTransform = sceneToDiagramTransform
 					.createConcatenation(connectionNode.getLocalToSceneTransform());
 
@@ -197,10 +218,9 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 					throw new AgeGefRuntimeException("Unable to find diagram element");
 				}
 
-				m.setBendpoints(diagramElementToModify, connectionNode.getInnerConnection().getControlPoints().stream().map(p ->
-				InputEventHandlerUtil.fxToAgePoint(
-						connectionToDiagramTransform.transform(p.x, p.y))
-				).collect(Collectors.toList()));
+				m.setBendpoints(diagramElementToModify, connectionNode.getInnerConnection().getControlPoints().stream()
+						.map(p -> InputEventHandlerUtil.fxToAgePoint(connectionToDiagramTransform.transform(p.x, p.y)))
+						.collect(Collectors.toList()));
 
 				if (connectionNode instanceof FlowIndicatorNode) {
 					m.setPosition(diagramElementToModify,
@@ -208,28 +228,13 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 				}
 			});
 
+			// The scene will be updated based on our modification. No need to update the scene in close().
+			updateSceneGraphOnComplete = false;
 		} catch (NonInvertibleTransformException ex) {
 			throw new AgeGefRuntimeException("Unable to create diagram scene to local transform", ex);
 		}
 
-		// Reset the state of the operation
-		resetState();
-
 		return InteractionState.COMPLETE;
-	}
-
-	@Override
-	public void abort() {
-		resetState();
-
-		// Update scene graph based on diagram element.
-		// Changes could be reverted more efficiently but this is simple and reliable.
-		gefDiagram.updateSceneGraph();
-	}
-
-	private void resetState() {
-		activeHandle = null;
-		controlPointIndex = null;
 	}
 
 	/**

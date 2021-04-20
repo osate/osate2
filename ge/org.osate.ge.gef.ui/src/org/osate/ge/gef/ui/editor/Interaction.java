@@ -30,7 +30,7 @@ import javafx.scene.input.MouseEvent;
 /**
  * An interaction handles a series of events. {@link InputEventHandler} instances create interactions in response to events.
  */
-public interface Interaction {
+public interface Interaction extends AutoCloseable {
 	/**
 	 * The state of the interaction.
 	 */
@@ -38,6 +38,13 @@ public interface Interaction {
 		IN_PROGRESS,
 		COMPLETE
 	}
+
+	/**
+	 * Completes the interaction. Makes any pending actions, cleans up the interaction and restores the scene graph to the
+	 * original state if needed.
+	 */
+	@Override
+	void close();
 
 	/**
 	* Returns the mouse cursor based that should override the default cursor.
@@ -52,10 +59,5 @@ public interface Interaction {
 	 * @return the new state of the interaction. Should return {@link InteractionState#COMPLETE} when the final event for the interaction has been handled.
 	 */
 	InteractionState handleEvent(InputEvent e);
-
-	/**
-	 * Aborts the interaction and updates the scene graph to the original state.
-	 */
-	void abort();
 }
 

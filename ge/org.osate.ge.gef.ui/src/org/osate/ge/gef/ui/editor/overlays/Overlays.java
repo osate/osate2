@@ -65,7 +65,7 @@ import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Transform;
 
 /**
- * A group that contains and handles the creation and removal of overlays.
+ * A group for diagram overlays. Also handles the creation and removal of overlays for the current selection.
  * Each overlay is attached to another node and provides node and contains a selection indicator, resize handles, etc.
  *
  * This class assumes that the provided selection contains {@link DiagramElement} instances and that it does not contain
@@ -74,7 +74,10 @@ import javafx.scene.transform.Transform;
 public class Overlays extends Group implements ISelectionChangedListener {
 	private final GefAgeDiagram gefDiagram;
 
-	private final Group selectionOverlays = new Group(); // TODO: REname?
+	/**
+	 * Overlays for the current selection.
+	 */
+	private final Group selectionOverlays = new Group();
 
 	/**
 	 * Mapping from diagram elements to the selected node overlays.

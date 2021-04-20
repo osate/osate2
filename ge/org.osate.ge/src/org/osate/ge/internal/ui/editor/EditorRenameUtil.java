@@ -37,7 +37,6 @@ import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.ProjectUtil;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
-import org.osate.ge.aadl2.internal.util.RenameUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
@@ -50,6 +49,7 @@ import org.osate.ge.internal.services.DiagramService.UpdatedReferenceValueProvid
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.ui.LtkRenameAction;
+import org.osate.ge.internal.ui.RenameUtil;
 import org.osate.ge.services.ReferenceBuilderService;
 
 /**

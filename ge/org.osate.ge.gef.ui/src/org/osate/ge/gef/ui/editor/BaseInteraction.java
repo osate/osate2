@@ -25,6 +25,9 @@ package org.osate.ge.gef.ui.editor;
 
 import javafx.scene.Cursor;
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -35,13 +38,14 @@ public abstract class BaseInteraction implements Interaction {
 	public final InteractionState handleEvent(final InputEvent e) {
 		if (e.getEventType() == MouseEvent.MOUSE_MOVED) {
 			return onMouseMoved((MouseEvent) e);
-		}
-		if (e.getEventType() == MouseEvent.MOUSE_PRESSED) {
+		} else if (e.getEventType() == MouseEvent.MOUSE_PRESSED) {
 			return onMousePressed((MouseEvent) e);
 		} else if (e.getEventType() == MouseEvent.MOUSE_DRAGGED) {
 			return onMouseDragged((MouseEvent) e);
 		} else if (e.getEventType() == MouseEvent.MOUSE_RELEASED) {
 			return onMouseReleased((MouseEvent) e);
+		} else if (e.getEventType() == KeyEvent.KEY_PRESSED) {
+			return onKeyPressed((KeyEvent) e);
 		}
 
 		return InteractionState.IN_PROGRESS;
@@ -56,7 +60,16 @@ public abstract class BaseInteraction implements Interaction {
 		return InteractionState.IN_PROGRESS;
 	}
 
+	/**
+	 * Handles mouse press events. By default, the interaction is completed if the secondary mouse button is pressed.
+	 * @param e the mouse event
+	 * @return the new state for the interaction.
+	 */
 	protected Interaction.InteractionState onMousePressed(final MouseEvent e) {
+		if (e.getButton() == MouseButton.SECONDARY) {
+			return InteractionState.COMPLETE;
+		}
+
 		return InteractionState.IN_PROGRESS;
 	}
 
@@ -65,6 +78,14 @@ public abstract class BaseInteraction implements Interaction {
 	}
 
 	protected Interaction.InteractionState onMouseReleased(final MouseEvent e) {
+		return InteractionState.IN_PROGRESS;
+	}
+
+	protected Interaction.InteractionState onKeyPressed(final KeyEvent e) {
+		if (e.getCode() == KeyCode.ESCAPE) {
+			return InteractionState.COMPLETE;
+		}
+
 		return InteractionState.IN_PROGRESS;
 	}
 }

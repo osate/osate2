@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.aadl2.internal.util;
+package org.osate.ge.internal.ui;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -31,8 +31,6 @@ import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.refactoring.IRenameRefactoringProvider;
 import org.eclipse.xtext.ui.refactoring.ui.IRenameElementContext;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CustomRenamer;
 import org.osate.ge.businessobjecthandling.RenameContext;
@@ -73,11 +71,11 @@ public class RenameUtil {
 		renamer.rename(new RenameContext(bo, name));
 	}
 
-	public static ProcessorBasedRefactoring getRenameRefactoring(final Object bo) {
-		if (!(bo instanceof NamedElement)) {
-			return null;
-		}
+	public static boolean supportsLtkRename(final Object bo) {
+		return RenameUtil.getRenameRefactoring(bo) != null;
+	}
 
+	public static ProcessorBasedRefactoring getRenameRefactoring(final Object bo) {
 		final EObject eObjBo = (EObject) bo;
 		if (!(eObjBo.eResource() instanceof XtextResource)) {
 			return null;
@@ -101,7 +99,6 @@ public class RenameUtil {
 		}
 
 		return renameRefactoringProvider
-				.getRenameRefactoring(new IRenameElementContext.Impl(boUri, Aadl2Package.eINSTANCE.getNamedElement()));
+				.getRenameRefactoring(new IRenameElementContext.Impl(boUri, eObjBo.eClass()));
 	}
-
 }

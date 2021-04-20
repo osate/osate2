@@ -81,16 +81,14 @@ public class MarqueeSelectInputEventHandler implements InputEventHandler {
 		final AgeEditorPaletteModel paletteModel = editor.getPaletteModel();
 		final MouseEvent mouseEvent = (MouseEvent) e;
 		final DiagramElement clickedDiagramElement = InputEventHandlerUtil
-				.getTargetDiagramElement(editor.getGefDiagram(),
-				e.getTarget());
-		if (paletteModel.isMarqueeToolActive()
-				|| (paletteModel.isSelectToolActive() && clickedDiagramElement == null
-						&& !(e.getTarget() instanceof Handle))) {
-			return HandledEvent.newInteraction(
-					new MarqueeSelectInteraction(editor, mouseEvent));
+				.getTargetDiagramElement(editor.getGefDiagram(), e.getTarget());
+		if (paletteModel.isMarqueeToolActive() || (paletteModel.isSelectToolActive() && clickedDiagramElement == null
+				&& !(e.getTarget() instanceof Handle))) {
+			final MarqueeSelectInteraction newInteraction = new MarqueeSelectInteraction(editor, mouseEvent);
+			return HandledEvent.newInteraction(newInteraction);
+		} else {
+			return null;
 		}
-
-		return null;
 	}
 
 	private static boolean isScrollBar(final EventTarget target) {
@@ -143,7 +141,16 @@ class MarqueeSelectInteraction extends BaseInteraction {
 	}
 
 	@Override
+	public void close() {
+		((Group) selectionBoundsOverlay.getParent()).getChildren().remove(selectionBoundsOverlay);
+	}
+
+	@Override
 	protected Interaction.InteractionState onMouseDragged(final MouseEvent e) {
+		if (e.getButton() != MouseButton.PRIMARY) {
+			return super.onMouseDragged(e);
+		}
+
 		// Transform the cursor position to diagram coordinates and update the bounds overlay
 		final Point2D p = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform().transform(e.getSceneX(),
 				e.getSceneY());
@@ -168,12 +175,16 @@ class MarqueeSelectInteraction extends BaseInteraction {
 
 	@Override
 	protected Interaction.InteractionState onMouseReleased(final MouseEvent e) {
+		if (e.getButton() != MouseButton.PRIMARY) {
+			return super.onMouseReleased(e);
+		}
+
 		// Select container and docked shapes
-		final Bounds selectionBounds = selectionBoundsOverlay.getLocalToSceneTransform().transform(selectionBoundsOverlay.getBoundsInLocal());
+		final Bounds selectionBounds = selectionBoundsOverlay.getLocalToSceneTransform()
+				.transform(selectionBoundsOverlay.getBoundsInLocal());
 		final List<DiagramElement> newSelection = new ArrayList<>();
 		addChildrenToNewSelection(editor.getGefDiagram().getSceneNode(), selectionBounds, newSelection);
 		editor.selectDiagramNodes(newSelection);
-		removeOverlay();
 
 		return InteractionState.COMPLETE;
 	}
@@ -202,14 +213,5 @@ class MarqueeSelectInteraction extends BaseInteraction {
 				addChildrenToNewSelection((Parent) child, selectionBounds, newSelection);
 			}
 		}
-	}
-
-	@Override
-	public void abort() {
-		removeOverlay();
-	}
-
-	private void removeOverlay() {
-		((Group) selectionBoundsOverlay.getParent()).getChildren().remove(selectionBoundsOverlay);
 	}
 }

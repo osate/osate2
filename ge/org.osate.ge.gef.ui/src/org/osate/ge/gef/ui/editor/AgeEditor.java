@@ -67,6 +67,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -165,9 +168,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.InputEvent;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -691,9 +692,28 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 	@Override
 	public void createPartControl(final Composite parent) {
-		// Create the canvas
+		//
+		// Create the FX canvas which is an SWT widget for embedding JavaFX content.
+		//
 		fxCanvas = new FXCanvas(parent, SWT.NONE);
 		fxCanvas.addPaintListener(paintListener);
+
+		// Suppress SWT key press handling when interaction is active
+		fxCanvas.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(final org.eclipse.swt.events.KeyEvent e) {
+				if (activeInteraction != null) {
+					e.doit = false;
+				}
+			}
+		});
+
+		fxCanvas.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				deactivateInteraction();
+			}
+		});
 
 		// Create the context menu
 		contextMenuManager = new MenuManager(MENU_ID, MENU_ID);
@@ -742,7 +762,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		// If the palette item changes while an interaction is active, deactivate the interaction.
 		this.paletteModel.activeItemProperty().addListener(
 				(javafx.beans.value.ChangeListener<SimplePaletteItem>) (observable, oldValue, newValue) -> {
-					abortInteraction();
+					deactivateInteraction();
 				});
 
 		// Initialize the JavaFX nodes based on the diagram
@@ -848,11 +868,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		//
 		// Event handler. Delegates to input event handlers or the active interaction as appropriate
 		final EventHandler<? super InputEvent> handleInput = e -> {
-			if ((e.getEventType() == MouseEvent.MOUSE_PRESSED && ((MouseEvent) e).getButton() == MouseButton.SECONDARY)
-					|| (e.getEventType() == KeyEvent.KEY_PRESSED && ((KeyEvent) e).getCode() == KeyCode.ESCAPE)) {
-				abortInteraction();
-			}
-
 			if (activeInteraction == null) {
 				// Delegate processing of the event to the input event handlers
 				for (final InputEventHandler inputEventHandler : inputEventHandlers) {
@@ -864,7 +879,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 				}
 			} else {
 				if (activeInteraction.handleEvent(e) == InteractionState.COMPLETE) {
-					activeInteraction = null;
+					deactivateInteraction();
 				}
 			}
 		};
@@ -897,17 +912,20 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		inputEventHandlers.add(new OpenPropertiesViewInputEventHandler(this));
 		inputEventHandlers.add(new MarqueeSelectInputEventHandler(this));
 		inputEventHandlers.add(new MoveConnectionPointTool(this));
-		inputEventHandlers.add(new SelectInputEventHandler(this));
+		inputEventHandlers.add(new SelectAndRenameInputEventHandler(this));
 		inputEventHandlers.add(new PaletteCommandInputEventHandler(this));
 	}
 
 	/**
-	 * Aborts the current interaction. If an interaction is not active then this function is a no-op.
+	 * Deactivate the current interaction. If an interaction is not active then this function is a no-op.
 	 */
-	private void abortInteraction() {
+	private void deactivateInteraction() {
 		if (activeInteraction != null) {
-			activeInteraction.abort();
+			// Set the active interaction field to null to avoid events potentially causing this block to be executed
+			// multiple times for the same interaction.
+			final Interaction tmp = activeInteraction;
 			activeInteraction = null;
+			tmp.close();
 			canvas.setCursor(Cursor.DEFAULT);
 		}
 	}
@@ -1313,6 +1331,10 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 	QueryService getQueryService() {
 		return queryService;
+	}
+
+	ModelChangeNotifier getModelChangeNotifier() {
+		return modelChangeNotifier;
 	}
 
 	@Override

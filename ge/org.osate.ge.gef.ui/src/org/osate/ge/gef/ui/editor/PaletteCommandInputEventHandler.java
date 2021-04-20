@@ -78,8 +78,8 @@ public class PaletteCommandInputEventHandler implements InputEventHandler {
 			return getTargetedCommandOperation(mouseMoveEvent).isPresent() ? Cursors.CREATE : Cursors.NO;
 		} else if (cmd instanceof CreateConnectionPaletteCommand) {
 			final CreateConnectionPaletteCommand createCmd = (CreateConnectionPaletteCommand) cmd;
-			final boolean canCreate = createCanStartConnectionContext(mouseMoveEvent)
-					.map(createCmd::canStartConnection).orElse(false);
+			final boolean canCreate = createCanStartConnectionContext(mouseMoveEvent).map(createCmd::canStartConnection)
+					.orElse(false);
 			return canCreate ? Cursors.PLUG : Cursors.PLUG_NO;
 		}
 		return null;
@@ -112,9 +112,8 @@ public class PaletteCommandInputEventHandler implements InputEventHandler {
 							// Perform modification
 							final OperationExecutor opExecutor = new OperationExecutor(
 									editor.getAadlModificationService(), editor.getReferenceService());
-							opExecutor.execute(operation,
-									new DefaultOperationResultsProcessor(editor, targetNode,
-											InputEventHandlerUtil.fxToAgePoint(p)));
+							opExecutor.execute(operation, new DefaultOperationResultsProcessor(editor, targetNode,
+									InputEventHandlerUtil.fxToAgePoint(p)));
 						});
 
 						return null;
@@ -144,9 +143,8 @@ public class PaletteCommandInputEventHandler implements InputEventHandler {
 	}
 
 	private Optional<CanStartConnectionContext> createCanStartConnectionContext(final MouseEvent event) {
-		final DiagramElement sourceDiagramElement = InputEventHandlerUtil.getTargetDiagramElement(
-				editor.getGefDiagram(),
-				event.getTarget());
+		final DiagramElement sourceDiagramElement = InputEventHandlerUtil
+				.getTargetDiagramElement(editor.getGefDiagram(), event.getTarget());
 		return sourceDiagramElement == null ? Optional.empty()
 				: Optional.of(new CanStartConnectionContext(sourceDiagramElement, editor.getQueryService()));
 	}
@@ -161,9 +159,10 @@ public class PaletteCommandInputEventHandler implements InputEventHandler {
 
 		final Node targetSceneNode = editor.getGefDiagram().getSceneNode(targetDiagramNode);
 		final Point2D targetPosition = getTargetPosition(targetSceneNode, event.getSceneX(), event.getSceneY());
-		final DockingPosition dockingPostion = AgeDiagramUtil.determineDockingPosition(targetDiagramNode, targetPosition.getX(), targetPosition.getY(), 0,
-				0);
-		return Optional.of(new GetTargetedOperationContext(targetDiagramNode, dockingPostion, editor.getQueryService()));
+		final DockingPosition dockingPostion = AgeDiagramUtil.determineDockingPosition(targetDiagramNode,
+				targetPosition.getX(), targetPosition.getY(), 0, 0);
+		return Optional
+				.of(new GetTargetedOperationContext(targetDiagramNode, dockingPostion, editor.getQueryService()));
 	}
 
 	/**
@@ -188,8 +187,7 @@ public class PaletteCommandInputEventHandler implements InputEventHandler {
 	 * @param sceneY the Y value in the scene coordinate system
 	 * @return the position relative to the target scene node
 	 */
-	private static Point2D getTargetPosition(final Node targetSceneNode, final double sceneX,
-			final double sceneY) {
+	private static Point2D getTargetPosition(final Node targetSceneNode, final double sceneX, final double sceneY) {
 		try {
 			return targetSceneNode.getLocalToSceneTransform().createInverse().transform(sceneX, sceneY);
 		} catch (final NonInvertibleTransformException e) {
@@ -212,8 +210,7 @@ class CreateConnectionInteraction extends BaseInteraction {
 	private final StaticAnchor mouseAnchor;
 
 	public CreateConnectionInteraction(final CreateConnectionPaletteCommand cmd,
-			final DiagramElement sourceDiagramElement, final AgeEditor editor,
-			final MouseEvent e) {
+			final DiagramElement sourceDiagramElement, final AgeEditor editor, final MouseEvent e) {
 		this.cmd = Objects.requireNonNull(cmd, "cmd must not be null");
 		this.sourceBoc = Objects.requireNonNull(sourceDiagramElement, "sourceDiagramElement must not be null");
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
@@ -245,19 +242,15 @@ class CreateConnectionInteraction extends BaseInteraction {
 	}
 
 	@Override
-	public Cursor getCursor(final MouseEvent mouseMoveEvent) {
-		return createGetCreateConnectionOperationContext(mouseMoveEvent)
-				.flatMap(cmd::getOperation)
-				.isPresent() ? Cursors.PLUG : Cursors.PLUG_NO;
+	public void close() {
+		((Group) connection.getParent()).getChildren().remove(connection);
 	}
 
 	@Override
-	public void abort() {
-		removeConnection();
-	}
-
-	private void removeConnection() {
-		((Group) connection.getParent()).getChildren().remove(connection);
+	public Cursor getCursor(final MouseEvent mouseMoveEvent) {
+		return createGetCreateConnectionOperationContext(mouseMoveEvent).flatMap(cmd::getOperation).isPresent()
+				? Cursors.PLUG
+				: Cursors.PLUG_NO;
 	}
 
 	@Override
@@ -280,6 +273,10 @@ class CreateConnectionInteraction extends BaseInteraction {
 
 	@Override
 	protected Interaction.InteractionState onMousePressed(final MouseEvent e) {
+		if (e.getButton() != MouseButton.PRIMARY) {
+			return super.onMousePressed(e);
+		}
+
 		// Get and execute the operation for creating the connection
 		createGetCreateConnectionOperationContext(e).ifPresent(c -> {
 			class CreateAction implements AgeAction {
@@ -300,15 +297,13 @@ class CreateConnectionInteraction extends BaseInteraction {
 			editor.getActionExecutor().execute("Create " + cmd.getLabel(), ExecutionMode.NORMAL, createAction);
 		});
 
-		removeConnection();
 		return InteractionState.COMPLETE;
 	}
 
 	private Optional<GetCreateConnectionOperationContext> createGetCreateConnectionOperationContext(
 			final MouseEvent event) {
 		final DiagramElement destinationDiagramElement = InputEventHandlerUtil
-				.getTargetDiagramElement(editor.getGefDiagram(),
-				event.getTarget());
+				.getTargetDiagramElement(editor.getGefDiagram(), event.getTarget());
 		if (destinationDiagramElement == null) {
 			return Optional.empty();
 		}

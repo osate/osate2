@@ -30,7 +30,6 @@ import java.util.Optional;
  *
  * @since 2.0
  * @noextend This class is not intended to be subclassed by clients.
- * @noinstantiate This class is not intended to be instantiated by clients.
  */
 public class GetNameContext {
 	private final Object bo;
@@ -38,7 +37,6 @@ public class GetNameContext {
 	/**
 	 * Creates a new instance.
 	 * @param bo is the business object for which to get the label.
-	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
 	public GetNameContext(final Object bo) {
 		this.bo = bo;
