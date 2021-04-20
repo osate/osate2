@@ -156,7 +156,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			final XtextResource xtextResource) {
 		final EmbeddedTextValue actionTextValue = getActionBlockTextValue(behaviorTransition, sourceText);
 		final SelectionAdapter editActionBlockSelectionAdapter = getEditActionSelectionAdapter(project, actionTextValue,
-				behaviorTransition, editingDomain, xtextDocument, xtextResource);
+				behaviorTransition, editingDomain, xtextDocument, xtextResource, sourceText);
 		createEditingControls(actionBlockEditingControls, editActionBlockSelectionAdapter, project, actionTextValue);
 	}
 
@@ -178,7 +178,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	private SelectionAdapter getEditActionSelectionAdapter(final IProject project,
 			final EmbeddedTextValue actionTextValue, final BehaviorTransition behaviorTransition,
 			final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
-			final XtextResource xtextResource) {
+			final XtextResource xtextResource, final String src) {
 		return new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
@@ -208,28 +208,44 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 						behaviorTransition,
 						getModifiedSrc, isValidModification);
 				if (dlg.open() == Window.OK) {
-					// Edit condition
+					// Edit action
 					BehaviorAnnexSelectionUtil.getActiveEditor().ifPresent(editorPart -> {
 						final ActionService actionService = Adapters.adapt(editorPart, ActionService.class);
 						final ModelChangeNotifier modelChangeNotifier = Objects.requireNonNull(
 								editorPart.getAdapter(ModelChangeNotifier.class),
 								"Unable to get model change notifier");
-						final boolean actionExists = !actionTextValue.getEditableText().isEmpty();
-						String newText = dlg.getText().trim();
-						// If removing action, remove brackets.
-						if (actionExists && newText.isEmpty()) {
-							actionTextValue.setUpdateOffset(actionTextValue.getUpdateOffset() - 1);
-							actionTextValue.setUpdateLength(actionTextValue.getUpdateLength() + 2);
-						} else if (!actionExists && !newText.isEmpty()) {
-							actionTextValue.setUpdateOffset(actionTextValue.getUpdateOffset() - 1);
-							newText = "{" + newText + "}";
-						}
 
-						actionService.execute("Modifying Behavior Transition Action Block", ExecutionMode.NORMAL,
-								new EmbeddedTextModificationAction(editingDomain, xtextDocument, xtextResource,
-										modelChangeNotifier, project, newText, actionTextValue));
+						if (xtextDocument != null) {
+							// Get source text for xtext document
+							final String srcText = dlg.getModifiedSource();
+							// Execute modification with xtext document
+							actionService.execute("Modifying Behavior Transition Action Block", ExecutionMode.NORMAL,
+									new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier, project,
+											srcText));
+						} else {
+							// Execute modification with xtext resource
+							final boolean actionExists = !actionTextValue.getEditableText().isEmpty();
+							final String newText = getNewText(dlg.getText().trim(), actionExists);
+							actionService.execute("Modifying Behavior Transition Action Block", ExecutionMode.NORMAL,
+									new EmbeddedTextModificationAction(editingDomain, xtextResource,
+											modelChangeNotifier, project, newText, actionTextValue));
+						}
 					});
 				}
+			}
+
+			private String getNewText(final String newText, final boolean actionExists) {
+				if (actionExists && newText.isEmpty()) {
+					// If removing action, remove brackets by updating offset and length
+					actionTextValue.setUpdateOffset(actionTextValue.getUpdateOffset() - 1);
+					actionTextValue.setUpdateLength(actionTextValue.getUpdateLength() + 2);
+				} else if (!actionExists && !newText.isEmpty()) {
+					// Add brackets for creating new action block
+					actionTextValue.setUpdateOffset(actionTextValue.getUpdateOffset() - 1);
+					return "{" + newText + "}";
+				}
+
+				return newText;
 			}
 		};
 	}
@@ -278,9 +294,19 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 						final ModelChangeNotifier modelChangeNotifier = Objects.requireNonNull(
 								editorPart.getAdapter(ModelChangeNotifier.class),
 								"Unable to get model change notifier");
-						actionService.execute("Modifying Behavior Transition Condition", ExecutionMode.NORMAL,
-								new EmbeddedTextModificationAction(editingDomain, xtextDocument, xtextResource,
-										modelChangeNotifier, project, dlg.getText(), conditionTextValue));
+						if (xtextDocument != null) {
+							// Get source text for xtext document
+							final String srcText = dlg.getModifiedSource();
+							// Execute modification with xtext document
+							actionService.execute("Modifying Behavior Transition Condition", ExecutionMode.NORMAL,
+									new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier, project,
+											srcText));
+						} else {
+							// Execute modification with xtext resource
+							actionService.execute("Modifying Behavior Transition Condition", ExecutionMode.NORMAL,
+									new EmbeddedTextModificationAction(editingDomain, xtextResource,
+											modelChangeNotifier, project, dlg.getText(), conditionTextValue));
+						}
 					});
 				}
 			}

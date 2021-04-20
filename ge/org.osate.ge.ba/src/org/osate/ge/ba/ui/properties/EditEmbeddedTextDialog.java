@@ -45,6 +45,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	private IHandlerActivation redoHandler;
 	private StyledText styledText;
 	private String replacementText;
+	private String modifiedSrc;
 
 	public EditEmbeddedTextDialog(final Shell parentShell, final String title, final String dialogMessage,
 			final EmbeddedXtextAdapter xtextAdapter,
@@ -151,7 +152,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 			try {
 				// Modified source text
-				final String modifiedSrc = getModifiedSrc.apply(rootElement, styledText.getText().trim());
+				modifiedSrc = getModifiedSrc.apply(rootElement, styledText.getText().trim());
 
 				// Load for error checking
 				loadResource(fakeResource, modifiedSrc);
@@ -203,7 +204,9 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		return replacementText;
 	}
 
-
+	public String getModifiedSource() {
+		return modifiedSrc;
+	}
 
 	private class UndoRedoHelper implements ExtendedModifyListener {
 		private final UndoRedoStack undoRedoStack = new UndoRedoStack();
