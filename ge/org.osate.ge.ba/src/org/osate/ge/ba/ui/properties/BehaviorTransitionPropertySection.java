@@ -101,7 +101,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		container.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
 
 		final Label conditionLabel = new Label(container, SWT.NONE);
-		conditionLabel.setText("Condition: ");
+		conditionLabel.setText("Condition:");
 		SwtUtil.setColorsToMatchParent(conditionLabel);
 
 		final GridData gd = GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
@@ -112,7 +112,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		conditionEditingControls.setLayoutData(gd);
 
 		final Label actionLabel = new Label(container, SWT.NONE);
-		actionLabel.setText("Action: ");
+		actionLabel.setText("Action:");
 		SwtUtil.setColorsToMatchParent(actionLabel);
 
 		actionBlockEditingControls = new EmbeddedTextEditor(container, SWT.NONE,
