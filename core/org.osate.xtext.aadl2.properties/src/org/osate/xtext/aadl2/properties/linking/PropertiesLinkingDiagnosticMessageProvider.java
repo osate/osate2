@@ -57,22 +57,13 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 		}
 
 		boolean suppressError = false;
-		boolean showWarningInstead = false;
 
 		if (Aadl2Package.eINSTANCE.getProperty() == referenceType) {
+			boolean showWarningInstead = false;
 			if (context.getLinkText().indexOf("::") > 0) {
 				// get preferences ~ same as org.osate.ui.utils.PropertySetModel
-				String[] ignoredPerPreference = new String[] {};
-				String separator = "&~!";
-				String PREFS_IGNORED_PROPERTY_SET_NAMES = "org.osate.ui.internal.propertysetnames";
-				String PREFS_SHOW_WARNING = "org.osate.ui.internal.propertysetnames.showWarning";
-
-				final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-				showWarningInstead = store.getBoolean(PREFS_SHOW_WARNING);
-				String allNames = store.getString(PREFS_IGNORED_PROPERTY_SET_NAMES);
-				if (allNames != null && !allNames.isEmpty()) {
-					ignoredPerPreference = allNames.split(separator);
-				}
+				String[] ignoredPerPreference = getIgnoredPropertySetPreference();
+				showWarningInstead = getIgnoredPropertySetAlertPreference();
 
 				for (String propSetName : context.getLinkText().split("::")) {
 					if (!suppressError) {
@@ -138,6 +129,54 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 			}
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
-		return super.getUnresolvedProxyMessage(context);
+
+		DiagnosticMessage msg = super.getUnresolvedProxyMessage(context);
+
+		if (referenceType.getName().equals("ModelUnit")) {
+			// check against preference
+			for (String pref : getIgnoredPropertySetPreference()) {
+				if (pref.equals(context.getLinkText())) {
+					suppressError = true;
+					break;
+				}
+			}
+
+			if (suppressError) {
+				if (getIgnoredPropertySetAlertPreference()) { // show warning instead
+					return new DiagnosticMessage(msg.getMessage(), Severity.WARNING, Diagnostic.LINKING_DIAGNOSTIC);
+				} else {
+					return null; // ignore
+				}
+			} else {
+				return msg;
+			}
+		}
+
+		return msg;
+	}
+
+	private String[] getIgnoredPropertySetPreference() {
+		// get preferences ~ same as org.osate.ui.utils.PropertySetModel
+		String[] ignoredPerPreference = new String[] {};
+		String separator = "&~!";
+		String PREFS_IGNORED_PROPERTY_SET_NAMES = "org.osate.ui.internal.propertysetnames";
+
+		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+		String allNames = store.getString(PREFS_IGNORED_PROPERTY_SET_NAMES);
+		if (allNames != null && !allNames.isEmpty()) {
+			ignoredPerPreference = allNames.split(separator);
+		}
+
+		return ignoredPerPreference;
+	}
+
+	private Boolean getIgnoredPropertySetAlertPreference() {
+		Boolean showWarningInstead = false;
+
+		String PREFS_SHOW_WARNING = "org.osate.ui.internal.propertysetnames.showWarning";
+		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+		showWarningInstead = store.getBoolean(PREFS_SHOW_WARNING);
+
+		return showWarningInstead;
 	}
 }
