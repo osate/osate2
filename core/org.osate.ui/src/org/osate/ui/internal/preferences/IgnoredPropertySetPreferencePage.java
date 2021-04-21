@@ -57,7 +57,7 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 	@Override
 	protected Control createContents(Composite parent) {
 		final Composite composite = new Composite(parent, SWT.NONE);
-		composite.setLayout(new GridLayout(3, true));
+		composite.setLayout(new GridLayout(2, true));
 
 		// create a preference checkbox to track if warnings for ignored property sets need to be shown
 		checkBox = new Button(composite, SWT.CHECK);
@@ -66,8 +66,12 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 		checkBox.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 2, 1));
 		checkBox.setSelection(PropertySetModel.getShowWarning());
 
+		org.eclipse.swt.widgets.Label lbl = new org.eclipse.swt.widgets.Label(composite, SWT.NONE);
+		lbl.setText("Currently Ignored Property Sets");
+		lbl.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 2, 2));
+
 		SashForm sashForm = new SashForm(composite, SWT.HORIZONTAL);
-		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true, 3, 1);
+		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1);
 		sashForm.setLayoutData(gd);
 		initializeDialogUnits(sashForm);
 
@@ -86,21 +90,16 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 		tree.addSelectionChangedListener(event -> {
 			IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 
-			if (selection.isEmpty()) {
-				deleteButton.setEnabled(false);
-			}
-
 			for (final Iterator<?> iter = selection.iterator(); iter.hasNext();) {
 				final Object object = iter.next();
 				if (object instanceof TreeNode) {
 					selectedNode = (TreeNode) object;
-					deleteButton.setEnabled(true);
 				}
 			}
 		});
 
 		addButton = new Button(composite, SWT.PUSH);
-		addButton.setLayoutData(new GridData(SWT.RIGHT, SWT.FILL, false, false));
+		addButton.setLayoutData(new GridData(SWT.CENTER, SWT.FILL, false, false));
 		addButton.setText("Add");
 		addButton.setToolTipText("Add Property Set name that will be ignored in the workspace.");
 		addButton.addSelectionListener(new SelectionAdapter() {
@@ -108,7 +107,7 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 			public void widgetSelected(final SelectionEvent e) {
 				String newPropSetName = Dialog.getInput("Add", "Type in a property set name to add it to ignored list",
 						"", null);
-				tree.add(content, new TreeNode(newPropSetName));
+				tree.add(tree.getInput(), new TreeNode(newPropSetName));
 				PropertySetModel.setIgnoredPropertySetPreference(newPropSetName);
 			}
 		});
@@ -180,14 +179,14 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 
 	protected TreeNode createTreeHierarchy() {
 		TreeNode root = new TreeNode();
-		content = new TreeNode("Currently Ignored Property Sets", 0);
+		// content = new TreeNode("Currently Ignored Property Sets", 0);
 
 		// get all property set names that were previously added by user
 		for (String propSet : PropertySetModel.getAllAddedPropertySetNames()) {
-			content.addNode(new TreeNode(propSet));
+			root.addNode(new TreeNode(propSet));
 		}
 
-		root.addNode(content);
+		// root.addNode(content);
 
 		return root;
 	}
