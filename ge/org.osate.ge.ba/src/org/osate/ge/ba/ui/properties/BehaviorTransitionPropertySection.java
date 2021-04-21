@@ -60,8 +60,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	public static String WIDGET_ID_ACTION_BLOCK = "org.osate.ge.ba.behaviortransition.actionblock";
 	public static String WIDGET_ID_EDIT_ACTION_BLOCK = WIDGET_ID_ACTION_BLOCK + ".edit";
 	private Composite container;
-	private EmbeddedTextControls conditionEditingControls;
-	private EmbeddedTextControls actionBlockEditingControls;
+	private EmbeddedTextEditor conditionEditingControls;
+	private EmbeddedTextEditor actionBlockEditingControls;
 	private BusinessObjectSelection selectedBos;
 
 	@Override
@@ -83,7 +83,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 		final GridData gd = GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
 				.hint(SWT.DEFAULT, SWT.DEFAULT).create();
-		conditionEditingControls = new EmbeddedTextControls(container, SWT.NONE, SWT.BORDER | SWT.SINGLE,
+		conditionEditingControls = new EmbeddedTextEditor(container, SWT.NONE, SWT.BORDER | SWT.SINGLE,
 				gd);
 		// Set layout data for the composite
 		conditionEditingControls.setLayoutData(gd);
@@ -92,7 +92,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		actionLabel.setText("Action: ");
 		SwtUtil.setColorsToMatchParent(actionLabel);
 
-		actionBlockEditingControls = new EmbeddedTextControls(container, SWT.NONE,
+		actionBlockEditingControls = new EmbeddedTextEditor(container, SWT.NONE,
 				SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI, gd);
 		// Set layout data for the composite. Set the vertical hint
 		// because action blocks are multi-line StyledText
@@ -136,7 +136,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		layout();
 	}
 
-	private void createEditingControls(final EmbeddedTextControls controls, final SelectionAdapter selectionAdpater,
+	private static void createEditingControls(final EmbeddedTextEditor controls,
+			final SelectionAdapter selectionAdpater,
 			final IProject project, final EmbeddedTextValue textValue) {
 		controls.addSelectionListener(selectionAdpater);
 		controls.createXtextAdapter(project, textValue);
@@ -168,14 +169,14 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		refreshControls(actionBlockEditingControls, WIDGET_ID_ACTION_BLOCK, WIDGET_ID_EDIT_ACTION_BLOCK);
 	}
 
-	private void refreshControls(final EmbeddedTextControls editingControls, final String styledTextId,
+	private static void refreshControls(final EmbeddedTextEditor editingControls, final String styledTextId,
 			final String btnId) {
 		editingControls.refresh();
 		editingControls.setStyledTextTestId(styledTextId);
 		editingControls.setButtonTestId(btnId);
 	}
 
-	private SelectionAdapter getEditActionSelectionAdapter(final IProject project,
+	private static SelectionAdapter getEditActionSelectionAdapter(final IProject project,
 			final EmbeddedTextValue actionTextValue, final BehaviorTransition behaviorTransition,
 			final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
 			final XtextResource xtextResource, final String src) {
@@ -217,7 +218,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 						if (xtextDocument != null) {
 							// Get source text for xtext document
-							final String srcText = dlg.getModifiedSource();
+							final String srcText = dlg.getText(true);
 							// Execute modification with xtext document
 							actionService.execute("Modifying Behavior Transition Action Block", ExecutionMode.NORMAL,
 									new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier, project,
@@ -225,7 +226,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 						} else {
 							// Execute modification with xtext resource
 							final boolean actionExists = !actionTextValue.getEditableText().isEmpty();
-							final String newText = getNewText(dlg.getText().trim(), actionExists);
+							final String newText = getNewText(dlg.getText(false), actionExists);
 							actionService.execute("Modifying Behavior Transition Action Block", ExecutionMode.NORMAL,
 									new EmbeddedTextModificationAction(editingDomain, xtextResource,
 											modelChangeNotifier, project, newText, actionTextValue));
@@ -269,7 +270,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		actionBlockEditingControls.requestLayout();
 	}
 
-	private SelectionAdapter getEditConditionSelectionAdapter(final IProject project,
+	private static SelectionAdapter getEditConditionSelectionAdapter(final IProject project,
 			final EmbeddedTextValue conditionTextValue, final BehaviorTransition behaviorTransition,
 			final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
 			final XtextResource xtextResource) {
@@ -295,17 +296,16 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 								editorPart.getAdapter(ModelChangeNotifier.class),
 								"Unable to get model change notifier");
 						if (xtextDocument != null) {
-							// Get source text for xtext document
-							final String srcText = dlg.getModifiedSource();
 							// Execute modification with xtext document
 							actionService.execute("Modifying Behavior Transition Condition", ExecutionMode.NORMAL,
 									new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier, project,
-											srcText));
+											dlg.getText(true)));
 						} else {
 							// Execute modification with xtext resource
 							actionService.execute("Modifying Behavior Transition Condition", ExecutionMode.NORMAL,
 									new EmbeddedTextModificationAction(editingDomain, xtextResource,
-											modelChangeNotifier, project, dlg.getText(), conditionTextValue));
+											modelChangeNotifier, project, dlg.getText(false),
+											conditionTextValue));
 						}
 					});
 				}
@@ -313,7 +313,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		};
 	}
 
-	private EmbeddedTextValue getConditionTextValue(final BehaviorTransition behaviorTransition, final String sourceText) {
+	private static EmbeddedTextValue getConditionTextValue(final BehaviorTransition behaviorTransition,
+			final String sourceText) {
 		final int conditionOffset = getConditionOffset(behaviorTransition, sourceText);
 
 		// Text before condition text
@@ -337,7 +338,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		return new EmbeddedTextValue(sourceText, prefix, conditionText, suffix);
 	}
 
-	private int getConditionOffset(final BehaviorTransition behaviorTransition, final String sourceText) {
+	private static int getConditionOffset(final BehaviorTransition behaviorTransition, final String sourceText) {
 		final BehaviorCondition condition = behaviorTransition.getCondition();
 		final int conditionOffset;
 		if (condition == null) {
@@ -369,7 +370,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		return Optional.ofNullable(resource instanceof XtextResource ? (XtextResource) resource : null);
 	}
 
-	private EmbeddedTextValue getActionBlockTextValue(final BehaviorTransition behaviorTransition,
+	private static EmbeddedTextValue getActionBlockTextValue(final BehaviorTransition behaviorTransition,
 			final String src) {
 		final BehaviorActionBlock actionBlock = behaviorTransition.getActionBlock();
 
@@ -417,7 +418,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		return new EmbeddedTextValue(src, prefix, actionText, suffix);
 	}
 
-	private String getTrimmedActionText(final String[] actionTextSplit) {
+	private static String getTrimmedActionText(final String[] actionTextSplit) {
 		// Trim each line in action block
 		final StringBuilder actionTextBuilder = new StringBuilder();
 		for (final String actionText : actionTextSplit) {
