@@ -312,6 +312,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 						final double childHeight = Math.min(childPrefHeight,
 								remainingLabelHeightBeyondMinimum + childMinHeight);
 						child.resizeRelocate(childX, labelY, childWidth, childHeight);
+
 						labelY += childHeight;
 						remainingLabelHeightBeyondMinimum -= (childHeight - childMinHeight);
 					}
@@ -517,7 +518,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	 * @return the horizontal padding for each side of the label area.
 	 */
 	private double computeHorizontalLabelPadding() {
-		return Math.max(MIN_HORIZONTAL_LABEL_PADDING, Math.max(leftChildren.getWidth(), rightChildren.getWidth()));
+		return MIN_HORIZONTAL_LABEL_PADDING;
 	}
 
 	/**
@@ -525,7 +526,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	 * @return the vertical padding for each side of the label area.
 	 */
 	private double computeMinVerticalLabelPadding() {
-		return Math.max(MIN_VERTICAL_LABEL_PADDING, Math.max(topChildren.getHeight(), bottomChildren.getHeight()));
+		return MIN_VERTICAL_LABEL_PADDING;
 	}
 
 	private double computeTopLabelPadding() {
