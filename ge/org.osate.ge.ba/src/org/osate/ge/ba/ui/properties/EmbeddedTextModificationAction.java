@@ -52,7 +52,6 @@ import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
  */
 class EmbeddedTextModificationAction implements AgeAction {
 	private final ModelChangeNotifier modelChangeNotifier;
-	private final IProject project;
 	private final Supplier<EmbeddedTextModificationAction> embeddedEditingActionSupplier;
 
 	/**
@@ -61,7 +60,6 @@ class EmbeddedTextModificationAction implements AgeAction {
 	public EmbeddedTextModificationAction(final IXtextDocument xtextDocument,
 			final ModelChangeNotifier modelChangeNotifier, final IProject project, final String newText) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
-		this.project = Objects.requireNonNull(project, "project must not be null");
 		embeddedEditingActionSupplier = () -> {
 			// Get original text for undo/redo
 			final String originalText = BehaviorAnnexXtextUtil.getText(xtextDocument, null);
@@ -73,7 +71,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 			// to be called to ensure the document matches the model and trigger model change events.
 			xtextDocument.readOnly(res -> null);
 
-			buildProject();
+			buildProject(project);
 
 			// Return the undo/redo action
 			return new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier, project, originalText);
@@ -87,7 +85,6 @@ class EmbeddedTextModificationAction implements AgeAction {
 			final XtextResource xtextResource, final ModelChangeNotifier modelChangeNotifier, final IProject project,
 			final String newText, final EmbeddedTextValue textValue) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
-		this.project = Objects.requireNonNull(project, "project must not be null");
 		embeddedEditingActionSupplier = () -> {
 			// Get original text for undo
 			final String originalText = BehaviorAnnexXtextUtil.getText(null, xtextResource);
@@ -98,7 +95,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 			executeCommand(editingDomain, cmd, xtextResource);
 			save(xtextResource);
 
-			buildProject();
+			buildProject(project);
 
 			// Return the undo/redo action
 			return new EmbeddedTextModificationAction(editingDomain, xtextResource, modelChangeNotifier, project,
@@ -157,7 +154,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 		}
 	}
 
-	private void buildProject() {
+	private void buildProject(final IProject project) {
 		// Build the project to prevent reference resolver from using old objects.
 		try {
 			project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
