@@ -47,11 +47,15 @@ import org.osate.ge.aadl2.internal.util.AadlModalElementUtil;
 import org.osate.ge.aadl2.internal.util.AadlModalElementUtil.ModeFeatureReference;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.services.ModelChangeNotifier;
+import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.ui.editor.ComboContributionItem;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
+
+import com.google.common.base.Objects;
 
 public class ModeContributionItem extends ComboContributionItem {
 	private static final String emptySelectionTxt = "<Modes>";
@@ -62,9 +66,17 @@ public class ModeContributionItem extends ComboContributionItem {
 							|| fa.getBusinessObject() instanceof Subcomponent
 							|| fa.getBusinessObject() instanceof ComponentInstance));
 	private InternalDiagramEditor editor;
+	private final ModelChangeNotifier modelChangeNotifier;
+	private final ChangeListener modelChangeListener = new ChangeListener() {
+		@Override
+		public void afterModelChangeNotification() {
+			refresh();
+		}
+	};
 
-	public ModeContributionItem(final String id) {
+	public ModeContributionItem(final String id, final ModelChangeNotifier modelChangeNotifier) {
 		super(id);
+		this.modelChangeNotifier = modelChangeNotifier;
 	}
 
 	@Override
@@ -80,6 +92,12 @@ public class ModeContributionItem extends ComboContributionItem {
 
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (editor != newEditor) {
+			if (newEditor == null) {
+				modelChangeNotifier.removeChangeListener(modelChangeListener);
+			} else if (editor == null) {
+				modelChangeNotifier.addChangeListener(modelChangeListener);
+			}
+
 			saveModeSelection();
 			editor = newEditor instanceof InternalDiagramEditor ? (InternalDiagramEditor) newEditor : null;
 			refresh();
@@ -110,7 +128,7 @@ public class ModeContributionItem extends ComboContributionItem {
 		return control;
 	}
 
-	private void refresh() {
+	void refresh() {
 		final ComboViewer comboViewer = getComboViewer();
 		final SortedSet<ModeFeatureReference> modeFeatureReferences = new TreeSet<>(
 				(o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
@@ -166,7 +184,11 @@ public class ModeContributionItem extends ComboContributionItem {
 				}
 			}
 
-			comboViewer.setSelection(new StructuredSelection(selectedValue));
+			final StructuredSelection newSelection = new StructuredSelection(selectedValue);
+			if (!Objects.equal(newSelection, comboViewer.getSelection())) {
+				comboViewer.setSelection(newSelection);
+				onSelection(newSelection.getFirstElement());
+			}
 		}
 	}
 
@@ -230,8 +252,10 @@ public class ModeContributionItem extends ComboContributionItem {
 
 	@Override
 	protected void onSelection(final Object value) {
-		final ModeFeatureReference mf = (ModeFeatureReference) value;
-		ContributionUtil.getColoringService(editor).setHighlightedMode(mf.getNamedElement(), mf.getContainer());
+		if (editor != null && !editor.isDisposed() && value != null) {
+			final ModeFeatureReference mf = (ModeFeatureReference) value;
+			ContributionUtil.getColoringService(editor).setHighlightedMode(mf.getNamedElement(), mf.getContainer());
+		}
 	}
 
 	@Override

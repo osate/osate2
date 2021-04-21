@@ -81,7 +81,7 @@ public class OsateGeTestCommands {
 		clickMenu(MENU_FILE_NEW_AADL_PROJECT);
 
 		// Configure new project
-		waitForWindowWithTitle("New");
+		waitForShellWithTitle("New");
 		setTextField(0, name, "");
 		clickButton("Finish");
 
@@ -101,12 +101,12 @@ public class OsateGeTestCommands {
 		clickMenu(MENU_FILE_NEW_AADL_PROJECT);
 
 		// Configure new project
-		waitForWindowWithTitle("New");
+		waitForShellWithTitle("New");
 		setTextField(0, name, "");
 		clickButton("Next >");
 
 		// Configure referenced projects
-		waitForWindowWithTitle("New");
+		waitForShellWithTitle("New");
 		checkItemsInSimpleTable(0, projectsToReference);
 		clickButton("Finish");
 
@@ -176,13 +176,13 @@ public class OsateGeTestCommands {
 		clickContextMenuOfFocused("New", "AADL Package");
 
 		// Complete the wizard
-		waitForWindowWithTitle("New AADL Package File");
+		waitForShellWithTitle("New AADL Package File");
 		setTextField(0, packageName, "");
 		clickRadioButton("Diagram Editor");
 		clickButton("Finish");
 
 		// Create the diagram
-		waitForWindowWithTitle("Create Diagram");
+		waitForShellWithTitle("Create Diagram");
 		setTextField(0, diagramName, packageName.replaceAll("::", "_"));
 		setComboBoxSelection(0, diagramType);
 		clickButton("OK");
@@ -204,7 +204,7 @@ public class OsateGeTestCommands {
 		selectPaletteItem(diagram, toolType);
 		clickDiagramElement(diagram, pkg);
 
-		waitForWindowWithTitle("Create Component Implementation");
+		waitForShellWithTitle("Create Component Implementation");
 		setTextField(0, implName, "");
 
 		clickRadioButton("New Component Type");
@@ -233,17 +233,17 @@ public class OsateGeTestCommands {
 		selectPaletteItem(diagram, toolType);
 		clickDiagramElement(diagram, pkg);
 
-		waitForWindowWithTitle("Create Component Implementation");
+		waitForShellWithTitle("Create Component Implementation");
 		setTextField(0, implName, "");
 
 		clickRadioButton("Existing");
 		clickButton("...");
-		waitForWindowWithTitle("Select Base Classifier");
+		waitForShellWithTitle("Select Base Classifier");
 
 		clickTableItem(0, classifierPkg + "::" + classifier);
 		clickButton("OK");
 
-		waitForWindowWithTitle("Create Component Implementation");
+		waitForShellWithTitle("Create Component Implementation");
 		clickButton("OK");
 
 		waitForDiagramElementToExist(diagram,
@@ -258,21 +258,20 @@ public class OsateGeTestCommands {
 	 * @param dataClassifier the data classifier to set for the behavior variable
 	 * @param newVariableName the new name for the behavior variable
 	 */
-	public static void createBehaviorVariable(final DiagramReference diagram,
-			final DiagramElementReference parentSpec, final String dataClassifierQualifiedName,
-			final String defaultVariableName, final String newName) {
+	public static void createBehaviorVariable(final DiagramReference diagram, final DiagramElementReference parentSpec,
+			final String dataClassifierQualifiedName, final String defaultVariableName, final String newName) {
 		openDiagramEditor(diagram);
 
 		selectPaletteItem(diagram, "Behavior Variable");
 		clickDiagramElement(diagram, parentSpec);
 
-		waitForWindowWithTitle("Set the Variable's Data Classifier");
+		waitForShellWithTitle("Set the Variable's Data Classifier");
 		doubleClickListItem(0, dataClassifierQualifiedName);
 		waitForDiagramElementToExist(diagram,
 				parentSpec.join(BehaviorAnnexReferenceUtil.getVariableRelativeReference(defaultVariableName)));
 
-		renameElementDirectEdit(diagram, parentSpec,
-				BehaviorAnnexReferenceUtil.getVariableRelativeReference(defaultVariableName), newName);
+		renameElementDirectEdit(diagram,
+				parentSpec.join(BehaviorAnnexReferenceUtil.getVariableRelativeReference(defaultVariableName)), newName);
 
 		layoutDiagram(diagram, parentSpec);
 	}
@@ -289,7 +288,7 @@ public class OsateGeTestCommands {
 
 		clickButtonInPropertiesView("AADL", "Choose...");
 
-		waitForWindowWithTitle("Set the Variable's Data Classifier");
+		waitForShellWithTitle("Set the Variable's Data Classifier");
 		doubleClickListItem(0, dataClassifierQualifiedName);
 
 		// Wait until the current classifier label has been updated
@@ -310,19 +309,19 @@ public class OsateGeTestCommands {
 
 		clickButtonInPropertiesView("AADL", "Create...");
 
-		waitForWindowWithTitle("Create Component Classifier");
+		waitForShellWithTitle("Create Component Classifier");
 
 		clickRadioButton("New Component Type");
 
 		clickButton("...");
 
-		waitForWindowWithTitle("Select a Package");
+		waitForShellWithTitle("Select a Package");
 
 		clickTableItem(0, packageName);
 
 		clickButton("OK");
 
-		waitForWindowWithTitle("Create Component Classifier");
+		waitForShellWithTitle("Create Component Classifier");
 
 		setTextField(0, newTypeName, "");
 
@@ -416,7 +415,7 @@ public class OsateGeTestCommands {
 				newStateDiagramRef);
 
 		// Rename initial state
-		renameElementDirectEdit(diagram, behaviorSpecDiagramRef, newStateRef, newStateName);
+		renameElementDirectEdit(diagram, behaviorSpecDiagramRef.join(newStateRef), newStateName);
 	}
 
 	/**
@@ -436,7 +435,7 @@ public class OsateGeTestCommands {
 
 		clickToolbarItem("Create End to End Flow Specification");
 
-		waitForWindowWithTitle("End To End Flow Specification Tool");
+		waitForShellWithTitle("End To End Flow Specification Tool");
 
 		clickElements(flowSegments);
 
@@ -476,7 +475,7 @@ public class OsateGeTestCommands {
 
 		clickToolbarItem("Create Flow Implementation");
 
-		waitForWindowWithTitle("Flow Implementation Tool");
+		waitForShellWithTitle("Flow Implementation Tool");
 
 		clickElements(flowSegments);
 
@@ -565,11 +564,9 @@ public class OsateGeTestCommands {
 		selectDiagramElements(diagram, elementsToBind);
 
 		clickToolbarItem("Bind...");
-
-		waitForWindowWithTitle("Bind");
-
 		setComboBoxSelection(0, bindType);
 		selectDiagramElements(diagram, targetElements);
+		setFocusToShell("Bind");
 
 		clickButton("OK");
 	}
@@ -594,7 +591,7 @@ public class OsateGeTestCommands {
 			final String classifier, final DiagramElementReference... elements) {
 		openAadlPropertiesTab(diagram, elements);
 		clickButton("Choose...");
-		waitForWindowWithTitle("Select a Classifier");
+		waitForShellWithTitle("Select a Classifier");
 
 		clickTableItem(0, classifier);
 		clickButton("OK");
@@ -628,7 +625,7 @@ public class OsateGeTestCommands {
 
 		clickPropertiesViewTab("AADL");
 		clickButtonWithId(SetSubcomponentClassifierPropertySection.WIDGET_ID_CHOOSE_CLASSIFIER_BUTTON);
-		waitForWindowWithTitle("Select Classifier and Prototype Bindings");
+		waitForShellWithTitle("Select Classifier and Prototype Bindings");
 
 		selectListItem(0, classifier);
 
@@ -637,8 +634,8 @@ public class OsateGeTestCommands {
 		clickButton("OK");
 
 		// Wait until the current classifier label has been updated
-		waitUntilBorderedCLabelWithIdTextMatches(SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL,
-				expectedNewLabelText);
+		waitUntilBorderedCLabelWithIdTextMatches(
+				SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL, expectedNewLabelText);
 	}
 
 	public static void checkSubcomponentClassifier(final DiagramReference diagram, final String labelText,
@@ -652,8 +649,8 @@ public class OsateGeTestCommands {
 		clickPropertiesViewTab("AADL");
 
 		// Wait until the current classifier label is the expected value
-		waitUntilBorderedCLabelWithIdTextMatches(SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL,
-				labelText);
+		waitUntilBorderedCLabelWithIdTextMatches(
+				SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL, labelText);
 	}
 
 	/**
@@ -685,7 +682,7 @@ public class OsateGeTestCommands {
 
 		clickPropertiesViewTab("AADL");
 		clickButtonWithId(PrototypeBindingsField.WIDGET_ID_EDIT_BUTTON);
-		waitForWindowWithTitle("Edit Prototype Bindings");
+		waitForShellWithTitle("Edit Prototype Bindings");
 
 		modifier.run();
 
@@ -731,7 +728,7 @@ public class OsateGeTestCommands {
 
 		clickPropertiesViewTab("AADL");
 		clickButtonWithId(AbstractFeaturePrototypePropertySection.WIDGET_ID_CHOOSE_BUTTON);
-		waitForWindowWithTitle("Select Feature Prototype");
+		waitForShellWithTitle("Select Feature Prototype");
 
 		selectListItem(0, prototype);
 		clickButton("OK");
@@ -756,7 +753,6 @@ public class OsateGeTestCommands {
 		clickContextMenuOfFocused("Layout", "Layout Diagram");
 	}
 
-
 	/**
 	 * Renames an element using the diagram context menu. NOTE: This function currently assumes that the relative reference
 	 * is composed of exactly two elements and the second element is the name.
@@ -767,7 +763,7 @@ public class OsateGeTestCommands {
 	public static void renameElementFromContextMenu(final DiagramReference diagram,
 			final DiagramElementReference parent, final RelativeBusinessObjectReference element, final String newName) {
 		clickContextMenuOfDiagramElement(diagram, parent.join(element), "Rename...");
-		waitForWindowWithTitle("Rename");
+		waitForShellWithTitle("Rename");
 		setTextFieldText(0, newName);
 		clickButton("OK");
 
@@ -786,7 +782,7 @@ public class OsateGeTestCommands {
 			final DiagramElementReference parent, final RelativeBusinessObjectReference element, final String newName,
 			final RelativeBusinessObjectReference afterCreateRef) {
 		clickContextMenuOfDiagramElement(diagram, parent.join(element), "Rename...");
-		waitForWindowWithTitle("Rename");
+		waitForShellWithTitle("Rename");
 		setTextFieldText(0, newName);
 		clickButton("OK");
 
@@ -797,30 +793,13 @@ public class OsateGeTestCommands {
 	/** Delete an element using the diagram context menu.
 	 * @param element is the element to delete
 	 */
-	public static void deleteElement(final DiagramReference diagram,
-			final DiagramElementReference element) {
+	public static void deleteElement(final DiagramReference diagram, final DiagramElementReference element) {
 		clickContextMenuOfDiagramElement(diagram, element, "Delete");
-		waitForWindowWithTitle("Confirm Delete");
+		waitForShellWithTitle("Confirm Delete");
 		clickButton("Yes");
 
 		// Assert that the element has been renamed
 		waitForDiagramElementRemoval(diagram, element);
-	}
-
-	/**
-	 * Rename an element using direct edit feature. NOTE: This function currently assumes that the relative reference
-	 * is composed of exactly two elements and the second element is the name.
-	 * @param parent the parent of the new element
-	 * @param element is the element to rename
-	 * @param newName the name of the new element
-	 */
-	public static void renameElementFromDiagramEditor(final DiagramReference diagram,
-			final DiagramElementReference parent, final RelativeBusinessObjectReference element, final String newName) {
-		renameElementDirectEdit(diagram, parent, element, newName);
-
-		// Wait for element to be created
-		waitForDiagramElementToExist(diagram,
-				parent.join(new RelativeBusinessObjectReference(element.getSegments().get(0), newName)));
 	}
 
 	/**
@@ -830,10 +809,9 @@ public class OsateGeTestCommands {
 	 * @param newName the name of the new element
 	 */
 	public static void renameElementFromOutlineView(final DiagramReference diagram,
-			final DiagramElementReference parent, final RelativeBusinessObjectReference element,
-			final String newName) {
+			final DiagramElementReference parent, final RelativeBusinessObjectReference element, final String newName) {
 		clickContextMenuOfOutlineViewItem(parent.join(element).toOutlineTreeItemPath(), new String[] { "Rename..." });
-		waitForWindowWithTitle("Rename");
+		waitForShellWithTitle("Rename");
 		setTextFieldText(0, newName);
 		clickButton("OK");
 
@@ -861,7 +839,7 @@ public class OsateGeTestCommands {
 		clickPropertiesViewTab("AADL");
 		final int dimensionCount = getNumberOfTableRows(0);
 		clickButton("Add");
-		waitForWindowWithTitle("Modify Dimension");
+		waitForShellWithTitle("Modify Dimension");
 
 		setComboBoxSelection(0, "Number");
 		setSpinnerValue(0, size);
@@ -890,7 +868,7 @@ public class OsateGeTestCommands {
 		clickPropertiesViewTab("AADL");
 		clickTableItem(0, dimensionIndex);
 		clickButton("Modify...");
-		waitForWindowWithTitle("Modify Dimension");
+		waitForShellWithTitle("Modify Dimension");
 
 		setComboBoxSelection(0, "Number");
 		setSpinnerValue(0, size);
@@ -920,7 +898,7 @@ public class OsateGeTestCommands {
 		final int dimensionCount = getNumberOfTableRows(0);
 		clickTableItem(0, dimensionIndex);
 		clickButton("Delete");
-		waitForWindowWithTitle("Confirm");
+		waitForShellWithTitle("Confirm");
 		clickButton("Yes");
 		assertNumberOfTableRows(0, dimensionCount - 1);
 	}

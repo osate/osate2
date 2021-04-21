@@ -1317,7 +1317,11 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		}
 	}
 
-	GefAgeDiagram getGefDiagram() {
+	/**
+	 * Intended for use by tests..
+	 * @return the {@link GefAgeDiagram} instance.
+	 */
+	public GefAgeDiagram getGefDiagram() {
 		return gefDiagram;
 	}
 

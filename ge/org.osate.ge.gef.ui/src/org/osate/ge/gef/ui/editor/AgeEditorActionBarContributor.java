@@ -1,5 +1,8 @@
 package org.osate.ge.gef.ui.editor;
 
+import java.util.Objects;
+
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IEditorPart;
@@ -13,7 +16,10 @@ import org.osate.ge.aadl2.ui.internal.editor.EditFlowContributionItem;
 import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem;
 import org.osate.ge.aadl2.ui.internal.editor.ModeContributionItem;
 import org.osate.ge.aadl2.ui.internal.editor.ShowFlowContributionItem;
+import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.ui.editor.DummyContributionItem;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 public class AgeEditorActionBarContributor extends EditorActionBarContributor {
 	private final ZoomSelectorContributionItem zoomItem;
@@ -25,13 +31,19 @@ public class AgeEditorActionBarContributor extends EditorActionBarContributor {
 	private final DummyContributionItem dummyItem;
 
 	public AgeEditorActionBarContributor() {
+		final Bundle bundle = FrameworkUtil.getBundle(getClass());
+		final ModelChangeNotifier modelChangeNotifier = Objects.requireNonNull(
+				EclipseContextFactory.getServiceContext(bundle.getBundleContext()).get(ModelChangeNotifier.class),
+				"unable to retrieve model change notifier");
+
 		zoomItem = new ZoomSelectorContributionItem();
-		selectedModeItem = new ModeContributionItem("org.osate.ge.gef.ui.editor.items.selected_mode");
+		selectedModeItem = new ModeContributionItem("org.osate.ge.gef.ui.editor.items.selected_mode",
+				modelChangeNotifier);
 		showFlowImplElements = new ShowFlowContributionItem("org.osate.ge.gef.ui.editor.items.show_flow_elements");
 		editFlowItem = new EditFlowContributionItem("org.osate.ge.gef.ui.editor.items.edit_flow");
 		deleteFlowItem = new DeleteFlowContributionItem("org.osate.ge.gef.ui.editor.items.delete_flow");
 		selectedFlowItem = new FlowContributionItem("org.osate.ge.gef.ui.editor.items.selected_flow",
-				showFlowImplElements, editFlowItem, deleteFlowItem);
+				showFlowImplElements, editFlowItem, deleteFlowItem, modelChangeNotifier);
 		dummyItem = new DummyContributionItem("org.osate.ge.gef.ui.editor.items.dummy"); // Needed to ensure separator appears
 	}
 

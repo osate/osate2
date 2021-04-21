@@ -27,6 +27,7 @@ import static org.eclipse.swtbot.swt.finder.SWTBotAssert.*;
 import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.*;
 import static org.junit.Assert.*;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -72,6 +73,7 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.gef.DiagramEditorNode;
+import org.osate.ge.gef.LabelNode;
 import org.osate.ge.gef.palette.Palette;
 import org.osate.ge.gef.palette.PaletteGroup;
 import org.osate.ge.gef.palette.PaletteItem;
@@ -88,6 +90,7 @@ import com.google.common.collect.Sets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 /**
  * Provides functions for controlling the user interface.
@@ -157,14 +160,14 @@ public class UiTestUtil {
 	/**
 	 * Waits for a window with the specified title to appear.
 	 */
-	public static void waitForWindowWithTitle(final String title) {
+	public static void waitForShellWithTitle(final String title) {
 		bot.waitUntil(Conditions.shellIsActive(title));
 	}
 
 	/**
 	 * Waits for a window with the specified title to appear but is not the specified window.
 	 */
-	public static void waitForOtherWindowWithTitle(final String title, final Shell shellToIgnore) {
+	public static void waitForOtherShellWithTitle(final String title, final Shell shellToIgnore) {
 		waitUntil(() -> {
 			final AtomicBoolean result = new AtomicBoolean(false);
 			Display.getDefault().syncExec(() -> {
@@ -183,6 +186,10 @@ public class UiTestUtil {
 	 */
 	public static Shell getActiveShell() {
 		return bot.getFinder().activeShell();
+	}
+
+	public static void setFocusToShell(final String title) {
+		bot.shell(title).setFocus();
 	}
 
 	/**
@@ -769,10 +776,9 @@ public class UiTestUtil {
 				.orElseThrow(() -> new RuntimeException("Cannot find diagram element for '" + element + "'."));
 
 		final Node sceneNode = editor.getSceneNode(de);
+		assertNotNull("Unable to retrieve scene node", sceneNode);
 
 		Display.getDefault().syncExec(() -> editor.reveal(sceneNode));
-
-		assertNotNull("Unable to retrieve scene node", sceneNode);
 
 		fxBot.click(sceneNode);
 	}
@@ -911,43 +917,43 @@ public class UiTestUtil {
 	/**
 	 * Renames the specified element executing direct edit on the diagram elements label.
 	 */
-	public static void renameElementDirectEdit(final DiagramReference diagram, final DiagramElementReference parent,
-			final RelativeBusinessObjectReference newAfterCreate, final String newName) {
-		final DiagramElementReference newAfterCreateElement = parent.join(newAfterCreate);
-		final DiagramElement de = getDiagramElement(diagram, newAfterCreateElement).orElseThrow(
-				() -> new RuntimeException("Cannot find relative reference for '" + newAfterCreateElement + "'."));
+	public static void renameElementDirectEdit(final DiagramReference diagram, final DiagramElementReference element,
+			final String newName, final String expectedNewLabel) {
+		selectDiagramElements(diagram, element);
 
-		// Get the edit part
+		// Get the editor
 		final AgeEditor editor = getDiagramEditor(diagram);
-//		final PictogramElement pe = editor.getGraphitiAgeDiagram().getPictogramElement(de);
-//		final EditPart editPart = editor.getDiagramBehavior().getEditPartForPictogramElement(pe);
-//
-//		// Scroll to the edit part
-//		final IEditorReference editorRef = getEditorReference(AgeDiagramEditor.class, diagram.getUri());
-//		scrollToEditPart(editorRef, editPart);
-//
-//		final SWTBotGefEditor editorBot = getDiagramEditorBot(diagram);
-//
-//		final GraphicalEditPart p = (GraphicalEditPart) editPart;
-//		final Point centerOfLabel = getPoint(p.getFigure()).orElseThrow(
-//				() -> new RuntimeException("Cannot find label for diagram element ' " + de.getLabelName() + "."));
-//
-//		editorBot.click(centerOfLabel.x, centerOfLabel.y);
-//		Display.getDefault().syncExec(() -> {
-//			final Control graphicalViewerControl = getDiagramEditor(diagram).getGraphicalViewer().getControl();
-//			final Event event = new Event();
-//			event.x = centerOfLabel.x;
-//			event.y = centerOfLabel.y;
-//			graphicalViewerControl.notifyListeners(SWT.MouseMove, event);
-//
-//			final DirectEditRequest req = new DirectEditRequest();
-//			req.setLocation(centerOfLabel);
-//			editPart.performRequest(req);
-//		});
-//
-//		editorBot.directEditType(newName);
-		// TODO
-		throw new RuntimeException("NOT IMPLEMENTED");
+
+		final DiagramElement de = getDiagramElement(diagram, element)
+				.orElseThrow(() -> new RuntimeException("Cannot find diagram element for '" + element + "'."));
+
+		// Find the scene node for the primary label
+		final LabelNode primaryLabel = editor.getGefDiagram().getPrimaryLabelSceneNode(de);
+		assertNotNull("Unable to find primary label", primaryLabel);
+
+		// Reveal and click the primary label
+		Display.getDefault().syncExec(() -> editor.reveal(primaryLabel));
+		fxBot.click(primaryLabel);
+
+		waitUntil(
+				() -> UIThreadRunnable
+						.syncExec(() -> editor.getFxCanvas().getScene().getFocusOwner() instanceof TextField),
+				"edit field does not have focus");
+
+		// Type to edit text
+		fxBot.type(newName);
+
+		// Press enter to finish
+		fxBot.pressAndReleaseKey(KeyEvent.VK_ENTER);
+
+		// Wait until the label changes to the expected value
+		waitUntil(() -> UIThreadRunnable.syncExec(() -> Objects.equals(primaryLabel.getText(), expectedNewLabel)),
+				"primary label does not have expected value after rename");
+	}
+
+	public static void renameElementDirectEdit(final DiagramReference diagram, final DiagramElementReference element,
+			final String newName) {
+		renameElementDirectEdit(diagram, element, newName, newName);
 	}
 
 	/**

@@ -124,7 +124,7 @@ public class PrototypeEndToEndTest {
 		setClassifierBindingsFromPropertiesView(diagram, () -> {
 			// Edit the binding for iface_pt
 			clickButton("Choose...", 0);
-			waitForWindowWithTitle("Select Classifier and Prototype Bindings");
+			waitForShellWithTitle("Select Classifier and Prototype Bindings");
 			selectListItem(0, "interfaces::subsystem_interface");
 			clickButton("OK");
 		},
@@ -149,7 +149,7 @@ public class PrototypeEndToEndTest {
 
 			// Edit the binding for iface_pt
 			clickButton("Choose...");
-			waitForOtherWindowWithTitle("Select Classifier and Prototype Bindings", dialog);
+			waitForOtherShellWithTitle("Select Classifier and Prototype Bindings", dialog);
 			selectListItem(0, "interfaces::subsystem_interface");
 
 			// Edit the binding for event_fpt
@@ -157,13 +157,13 @@ public class PrototypeEndToEndTest {
 			setComboBoxSelection(0, "data port");
 			setComboBoxSelection(1, "out");
 			clickButton("Choose...", 0);
-			waitForOtherWindowWithTitle("Select Classifier and Prototype Bindings", bindingDialog);
+			waitForOtherShellWithTitle("Select Classifier and Prototype Bindings", bindingDialog);
 			selectListItem(0, "Base_Types::Integer");
 			clickButton("OK");
 
 			// Edit the binding for message_cpt
 			clickButton("Choose...", 1);
-			waitForOtherWindowWithTitle("Select Classifier and Prototype Bindings", bindingDialog);
+			waitForOtherShellWithTitle("Select Classifier and Prototype Bindings", bindingDialog);
 			selectListItem(0, "Base_Types::String");
 			clickButton("OK");
 
@@ -344,7 +344,7 @@ public class PrototypeEndToEndTest {
 			setComboBoxSelection(0, type);
 			setComboBoxSelection(1, direction);
 			clickButton("Choose...", 1);
-			waitForWindowWithTitle("Select Classifier and Prototype Bindings");
+			waitForShellWithTitle("Select Classifier and Prototype Bindings");
 			selectListItem(0, classifier);
 			clickButton("OK");
 		}, cancel, expectedNewLabelText, topExt);

@@ -72,7 +72,7 @@ public class BehaviorAnnexTest {
 
 		// Setup classifiers for testing
 		final String typeName = "Abstract_type";
-		final String modeName = "src_state";
+		final String modeName = "srcstate";
 		setupClassifiers(diagram, pkgElement, pkgRef, typeName, modeName);
 
 		// Use Open -> Behavior Annex Diagram command to create new behavior annex diagram
@@ -195,7 +195,7 @@ public class BehaviorAnnexTest {
 	private static void testBehaviorVariable(final DiagramReference baDiagram,
 			final DiagramElementReference baDiagramSpecRef) {
 		// Create variable
-		final String newVariableName = "ba_variable";
+		final String newVariableName = "v1";
 		createBehaviorVariable(baDiagram, baDiagramSpecRef, "Base_Types::String", "new_behavior_variable",
 				newVariableName);
 
@@ -260,10 +260,12 @@ public class BehaviorAnnexTest {
 				behaviorSpecification, transitionRef);
 
 		// Test renaming for states with same name of a mode with transition
-		renameElementDirectEdit(baDiagram, element(behaviorSpecification),
-				BehaviorAnnexReferenceUtil.getStateRelativeReference("src_state"), "new_mode");
-		renameElementDirectEdit(baDiagram, element(behaviorSpecification),
-				BehaviorAnnexReferenceUtil.getStateRelativeReference("new_mode"), "src_state");
+		renameElementDirectEdit(baDiagram,
+				element(behaviorSpecification).join(BehaviorAnnexReferenceUtil.getStateRelativeReference("srcstate")),
+				"newmode");
+		renameElementDirectEdit(baDiagram,
+				element(behaviorSpecification).join(BehaviorAnnexReferenceUtil.getStateRelativeReference("newmode")),
+				"srcstate");
 
 		// Test delete transition
 		deleteElement(baDiagram, element(behaviorSpecification).join(transitionRef));
@@ -284,7 +286,7 @@ public class BehaviorAnnexTest {
 		// Launch edit dialog
 		clickButtonByIdInPropertiesView("AADL", btnId);
 
-		waitForWindowWithTitle("Edit Transition Condition");
+		waitForShellWithTitle("Edit Transition Condition");
 
 		// Set condition text
 		typeInStyledText(EditEmbeddedTextDialog.WIDGET_ID_TEXT, conditionText);
@@ -309,10 +311,10 @@ public class BehaviorAnnexTest {
 		clickContextMenuOfOutlineViewItem(ref.toOutlineTreeItemPath(),
 				new String[] { "Open", "Behavior Specification Diagram" });
 
-		waitForWindowWithTitle("Create New Diagram?");
+		waitForShellWithTitle("Create New Diagram?");
 		clickButtonForShell("Create New Diagram?", "Yes");
 
-		waitForWindowWithTitle("Create Diagram");
+		waitForShellWithTitle("Create Diagram");
 		clickButtonForShell("Create Diagram", "OK");
 
 		final String diagramName = BA_TEST + "_" + newStatePrefix + "_" + BehaviorAnnexReferenceUtil.ANNEX_NAME;
@@ -327,7 +329,7 @@ public class BehaviorAnnexTest {
 			final String newStatePrefix) {
 		clickContextMenuOfOutlineViewItem(ref.toOutlineTreeItemPath(), new String[] { "Open", "New Diagram..." });
 
-		waitForWindowWithTitle("Create Diagram");
+		waitForShellWithTitle("Create Diagram");
 		clickButtonForShell("Create Diagram", "OK");
 
 		final DiagramReference baDiagram = defaultDiagram(BA_TEST,

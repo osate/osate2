@@ -74,8 +74,8 @@ public class PrimaryEndToEndTest {
 		createElementAndLayout(sharedDiagram, sharedPkg, "Feature Group Type",
 				getClassifierRelativeReference("new_classifier"), "abcdefghijklmnopqrstuvwxyz");
 
-		renameElementFromDiagramEditor(sharedDiagram, sharedPkg,
-				getClassifierRelativeReference("abcdefghijklmnopqrstuvwxyz"), SERVO_INTERFACE);
+		renameElementDirectEdit(sharedDiagram,
+				sharedPkg.join(getClassifierRelativeReference("abcdefghijklmnopqrstuvwxyz")), SERVO_INTERFACE);
 
 		saveAndClose(sharedDiagram);
 	}

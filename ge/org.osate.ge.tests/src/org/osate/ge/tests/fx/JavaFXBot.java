@@ -25,9 +25,11 @@ package org.osate.ge.tests.fx;
 
 import java.awt.AWTException;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
 import org.eclipse.gef.fx.nodes.Connection;
 import org.eclipse.gef.geometry.planar.Point;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.tests.endToEnd.util.UiTestUtil;
@@ -58,9 +60,10 @@ public class JavaFXBot {
 	 * @param node the node to click.
 	 */
 	public void click(final Node node) {
-		UiTestUtil.waitUntil(() -> isVisible(node), "Node " + node + " is not visible");
+		UiTestUtil.waitUntil(() -> UIThreadRunnable.syncExec(() -> isVisible(node)),
+				"Node " + node + " is not visible");
 
-		ensureVisible(node);
+		Display.getDefault().syncExec(() -> ensureVisible(node));
 
 		final Point2D p = UIThreadRunnable.syncExec(() -> {
 			if (node instanceof BaseConnectionNode) {
@@ -78,6 +81,36 @@ public class JavaFXBot {
 		robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 	}
 
+	/**
+	 * Generate key press and release events for the specified text. Underscores and other alpha-numeric characters are
+	 * not supported and may cause an exception to be thrown. Such characters could be supported by generating a
+	 * combination of keys but the implementation would depend on a particular keyboard layout.
+	 * @param value the text to type.
+	 */
+	public void type(final String value) {
+		for (char ch : value.toCharArray()) {
+			final boolean isUpper = Character.isUpperCase(ch);
+			if (isUpper) {
+				robot.keyPress(KeyEvent.VK_SHIFT);
+			}
+
+			pressAndReleaseKey(KeyEvent.getExtendedKeyCodeForChar(ch));
+
+			if (isUpper) {
+				robot.keyRelease(KeyEvent.VK_SHIFT);
+			}
+		}
+	}
+
+	/**
+	 * Presses and then releases the key with the specified code.
+	 * @param code the key code
+	 */
+	public void pressAndReleaseKey(final int code) {
+		robot.keyPress(code);
+		robot.keyRelease(code);
+	}
+
 	private static void ensureVisible(final Node node) {
 		final ScrollPane sp = getFirstScrollPane(node);
 		if (sp == null) {
@@ -90,8 +123,11 @@ public class JavaFXBot {
 		for (Node t = node; t != null; t = t.getParent()) {
 			if (t == scrollPaneContent) {
 				final Bounds contentBounds = scrollPaneContent.getBoundsInLocal();
-				final double normalScrollX = p.getX() / contentBounds.getWidth();
-				final double normalScrollY = p.getY() / contentBounds.getHeight();
+				final Bounds spBounds = sp.getLayoutBounds();
+				final double normalScrollX = Math.max(0,
+						Math.min(1.0, p.getX() / (contentBounds.getWidth() - spBounds.getWidth())));
+				final double normalScrollY = Math.max(0,
+						Math.min(1.0, p.getY() / (contentBounds.getHeight() - spBounds.getHeight())));
 				final double newScrollH = (sp.getHmax() - sp.getHmin()) * normalScrollX + sp.getHmin();
 				final double newScrollV = (sp.getVmax() - sp.getVmin()) * normalScrollY + sp.getVmin();
 				sp.setHvalue(newScrollH);
