@@ -296,8 +296,19 @@ public class BehaviorAnnexTest {
 
 		waitForWindowWithTitle(dlgTitle);
 
+		final String originalText = getStyledTextWithIdText(EditEmbeddedTextDialog.WIDGET_ID_TEXT);
 		// Set condition text
 		typeInStyledText(EditEmbeddedTextDialog.WIDGET_ID_TEXT, newText);
+
+		// Perform undo on styled text
+		executeHandlerServiceCommandWithId("org.eclipse.ui.edit.undo", null);
+		// Check to see if undo was successful
+		waitForStyledTextToMatch(EditEmbeddedTextDialog.WIDGET_ID_TEXT, originalText);
+
+		// Perform redo on styled text
+		executeHandlerServiceCommandWithId("org.eclipse.ui.edit.redo", null);
+		// Check to see if undo was successful
+		waitForStyledTextToMatch(EditEmbeddedTextDialog.WIDGET_ID_TEXT, newText);
 
 		// Confirm new condition
 		clickButtonWithId(EditEmbeddedTextDialog.WIDGET_ID_CONFIRM);
