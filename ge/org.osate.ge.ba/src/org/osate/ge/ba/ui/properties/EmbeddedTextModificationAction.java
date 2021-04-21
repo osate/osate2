@@ -63,7 +63,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
 		this.project = Objects.requireNonNull(project, "project must not be null");
 		embeddedEditingActionSupplier = () -> {
-			// Get original text for undo
+			// Get original text for undo/redo
 			final String originalText = BehaviorAnnexXtextUtil.getText(xtextDocument, null);
 
 			// Modify the document
