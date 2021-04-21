@@ -84,7 +84,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		this.styledTextStyle = styledTextStyle;
 		this.styledTextLayoutData = Objects.requireNonNull(styledTextLayoutData, "styledTextLayoutData cannot be null");
 		this.textValidator = Objects.requireNonNull(
-				getTextValidator(behaviorTransition, getModifiedSrc, isValidModification),
+				createTextValidator(behaviorTransition, getModifiedSrc, isValidModification),
 				"textValidator cannot be null");
 		service = PlatformUI.getWorkbench().getService(IHandlerService.class);
 		setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
@@ -152,7 +152,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 	// Text modification listener that sets the OK button as enabled
 	// or disabled based on if the new text is valid
-	private ExtendedModifyListener getTextValidator(final BehaviorTransition behaviorTransition,
+	private ExtendedModifyListener createTextValidator(final BehaviorTransition behaviorTransition,
 			final BiFunction<EObject, String, String> getModifiedSrc,
 			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
 		final String originalText = xtextAdapter.getEditableText();

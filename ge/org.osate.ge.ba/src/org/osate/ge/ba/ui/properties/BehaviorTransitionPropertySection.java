@@ -41,7 +41,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
@@ -104,23 +103,25 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		conditionLabel.setText("Condition:");
 		SwtUtil.setColorsToMatchParent(conditionLabel);
 
-		final GridData gd = GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
-				.hint(SWT.DEFAULT, SWT.DEFAULT).create();
-		conditionEditingControls = new EmbeddedTextEditor(container, SWT.NONE, SWT.BORDER | SWT.SINGLE,
-				gd);
+		conditionEditingControls = new EmbeddedTextEditor(container, SWT.NONE, SWT.BORDER | SWT.SINGLE);
 		// Set layout data for the composite
-		conditionEditingControls.setLayoutData(gd);
+		conditionEditingControls.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
+				.hint(SWT.DEFAULT, SWT.DEFAULT).create());
+		conditionEditingControls.setStyledTextTestId(WIDGET_ID_CONDITION);
+		conditionEditingControls.setEditButtonTestId(WIDGET_ID_EDIT_CONDITION);
 
 		final Label actionLabel = new Label(container, SWT.NONE);
 		actionLabel.setText("Action:");
 		SwtUtil.setColorsToMatchParent(actionLabel);
 
 		actionBlockEditingControls = new EmbeddedTextEditor(container, SWT.NONE,
-				SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI, gd);
+				SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI);
 		// Set layout data for the composite. Set the vertical hint
 		// because action blocks are multi-line StyledText
 		actionBlockEditingControls.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL)
 				.grab(true, true).hint(SWT.DEFAULT, 100).create());
+		actionBlockEditingControls.setStyledTextTestId(WIDGET_ID_ACTION_BLOCK);
+		actionBlockEditingControls.setEditButtonTestId(WIDGET_ID_EDIT_ACTION_BLOCK);
 	}
 
 	@Override
@@ -130,7 +131,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 				.findAny();
 		if (optSelectedBoc.isPresent()) {
 			final BusinessObjectContext selectedBoc = optSelectedBoc.get();
-			refreshEditControls();
+			createEditControls();
 
 			final boolean isSingleSelection = selectedBos.bocStream().limit(2).count() == 1;
 			if (!isSingleSelection) {
@@ -184,19 +185,10 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		createEditingControls(actionBlockEditingControls, editActionBlockSelectionAdapter, project, actionTextValue);
 	}
 
-	private void refreshEditControls() {
-		// Dispose before refresh
-		disposeEditControls();
+	private void createEditControls() {
 		// Refresh
-		refreshControls(conditionEditingControls, WIDGET_ID_CONDITION, WIDGET_ID_EDIT_CONDITION);
-		refreshControls(actionBlockEditingControls, WIDGET_ID_ACTION_BLOCK, WIDGET_ID_EDIT_ACTION_BLOCK);
-	}
-
-	private static void refreshControls(final EmbeddedTextEditor editingControls, final String styledTextId,
-			final String btnId) {
-		editingControls.refresh();
-		editingControls.setStyledTextTestId(styledTextId);
-		editingControls.setButtonTestId(btnId);
+		conditionEditingControls.createControls();
+		actionBlockEditingControls.createControls();
 	}
 
 	private static SelectionAdapter getEditActionSelectionAdapter(final IProject project,

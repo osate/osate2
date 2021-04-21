@@ -24,11 +24,11 @@
 package org.osate.ge.ba.ui.properties;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Caret;
 import org.eclipse.swt.widgets.Composite;
@@ -40,18 +40,20 @@ public class EmbeddedTextEditor extends Composite {
 	private Button btn;
 	private EmbeddedXtextAdapter xtextAdapter;
 	private final int styledTextStyle;
-	private final GridData styledTextLayoutData;
+	private String styledTextTestId;
+	private String editBtnTestId;
 
-	public EmbeddedTextEditor(final Composite parent, final int style, final int styledTextStyle,
-			final GridData styledTextLayoutData) {
+	public EmbeddedTextEditor(final Composite parent, final int style, final int styledTextStyle) {
 		super(parent, style);
 		this.setBackground(parent.getBackground());
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
 		this.styledTextStyle = styledTextStyle;
-		this.styledTextLayoutData = styledTextLayoutData;
 	}
 
-	public void refresh() {
+	public void createControls() {
+		// Dispose existing controls
+		disposeControls();
+
 		// Create styled text
 		styledText = new StyledText(this, styledTextStyle);
 		styledText.setEditable(false);
@@ -61,19 +63,22 @@ public class EmbeddedTextEditor extends Composite {
 		// when used with the StyledTextXtextAdapter.
 		final Caret emptyCaret = new Caret(getShell(), SWT.NONE);
 		styledText.setCaret(emptyCaret);
-		styledText.setLayoutData(styledTextLayoutData);
+		styledText.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
+				.hint(SWT.DEFAULT, SWT.DEFAULT).create());
 		styledText.addDisposeListener(e -> emptyCaret.dispose());
+		SwtUtil.setTestingId(styledText, styledTextTestId);
 
 		btn = new Button(this, SWT.PUSH);
 		btn.setText("Edit...");
+		SwtUtil.setTestingId(btn, editBtnTestId);
 	}
 
-	public void setStyledTextTestId(final String id) {
-		SwtUtil.setTestingId(styledText, id);
+	public void setStyledTextTestId(final String styledTextTestId) {
+		this.styledTextTestId = styledTextTestId;
 	}
 
-	public void setButtonTestId(final String id) {
-		SwtUtil.setTestingId(btn, id);
+	public void setEditButtonTestId(final String editBtnTestId) {
+		this.editBtnTestId = editBtnTestId;
 	}
 
 	public void createXtextAdapter(final IProject project, final EmbeddedTextValue textValue) {

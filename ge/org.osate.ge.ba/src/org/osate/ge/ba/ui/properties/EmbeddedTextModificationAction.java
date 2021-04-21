@@ -73,6 +73,8 @@ class EmbeddedTextModificationAction implements AgeAction {
 			// to be called to ensure the document matches the model and trigger model change events.
 			xtextDocument.readOnly(res -> null);
 
+			buildProject();
+
 			// Return the undo/redo action
 			return new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier, project, originalText);
 		};
@@ -95,6 +97,8 @@ class EmbeddedTextModificationAction implements AgeAction {
 			final RecordingCommand cmd = createRecordingCommand(editingDomain, work, xtextResource);
 			executeCommand(editingDomain, cmd, xtextResource);
 			save(xtextResource);
+
+			buildProject();
 
 			// Return the undo/redo action
 			return new EmbeddedTextModificationAction(editingDomain, xtextResource, modelChangeNotifier, project,
@@ -140,8 +144,6 @@ class EmbeddedTextModificationAction implements AgeAction {
 		try (final Lock lock = modelChangeNotifier.lock()) {
 			undoRedoAction = embeddedEditingActionSupplier.get();
 		}
-
-		buildProject();
 
 		// Return action to restore original source text upon undo or redo
 		return undoRedoAction;
