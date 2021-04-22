@@ -53,12 +53,13 @@ import org.eclipse.ui.handlers.IHandlerActivation;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
-import org.eclipse.xtext.xbase.lib.Pair;
+import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.swt.SwtUtil;
 
 public class EditEmbeddedTextDialog extends MessageDialog {
 	private static String WIDGET_ID = "org.osate.ge.ba.behaviortransition.editdialog";
+	private static String MODIFIED_SOURCE_KEY = WIDGET_ID + ".modifiedsource";
 	public static String WIDGET_ID_TEXT = WIDGET_ID + ".text";
 	public static String WIDGET_ID_CONFIRM = WIDGET_ID + ".confirmation";
 	private final EmbeddedXtextAdapter xtextAdapter;
@@ -69,8 +70,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	private IHandlerActivation undoHandler;
 	private IHandlerActivation redoHandler;
 	private StyledText styledText;
-	private String modifiedSrc;
-	private Pair<String, String> modifiedSrcToEnteredValue;
+	private Result modifiedSrcResult;
 
 	public EditEmbeddedTextDialog(final Shell parentShell, final String title, final String dialogMessage,
 			final EmbeddedXtextAdapter xtextAdapter,
@@ -177,7 +177,9 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 			try {
 				// Modified source text
-				modifiedSrc = getModifiedSrc.apply(rootElement, styledText.getText().trim());
+				final String modifiedSrc = getModifiedSrc.apply(rootElement, styledText.getText().trim());
+				// Set modified source text data
+				styledText.setData(MODIFIED_SOURCE_KEY, modifiedSrc);
 
 				// Load for error checking
 				loadResource(fakeResource, modifiedSrc);
@@ -211,9 +213,11 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	@Override
 	protected void buttonPressed(final int buttonId) {
 		if (buttonId == IDialogConstants.OK_ID) {
-			// Set return text
-			modifiedSrcToEnteredValue = new Pair<String, String>(modifiedSrc, styledText.getText().trim());
+			// Set return result
+			modifiedSrcResult = new Result(styledText.getData(MODIFIED_SOURCE_KEY).toString(),
+					styledText.getText().trim());
 		}
+
 		super.buttonPressed(buttonId);
 	}
 
@@ -225,8 +229,34 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		return super.close();
 	}
 
-	public String getText(final boolean useModifiedSource) {
-		return useModifiedSource ? modifiedSrcToEnteredValue.getKey() : modifiedSrcToEnteredValue.getValue();
+	public Result getSourceText() {
+		return modifiedSrcResult;
+	}
+
+	public class Result {
+		private final String modifiedSource;
+		private final String partialModifiedSource;
+
+		public Result(final String allModifiedSource, final String partialModifiedSource) {
+			this.modifiedSource = allModifiedSource;
+			this.partialModifiedSource = partialModifiedSource;
+		}
+
+		/**
+		 * Returns entire modified source text for updating
+		 * an {@link IXtextDocument}
+		 */
+		public String getModifiedSource() {
+			return modifiedSource;
+		}
+
+		/**
+		 * Returns the partial value source text for updating a specified
+		 * location in a {@link XtextResource}
+		 */
+		public String getPartialModifiedSource() {
+			return partialModifiedSource;
+		}
 	}
 
 	private class UndoRedoHelper implements ExtendedModifyListener {

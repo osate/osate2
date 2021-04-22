@@ -233,7 +233,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 						if (xtextDocument != null) {
 							// Get source text for xtext document
-							final String srcText = dlg.getText(true);
+							final String srcText = dlg.getSourceText().getModifiedSource();
 							// Execute modification with xtext document
 							actionService.execute("Modifying Behavior Transition Action Block", ExecutionMode.NORMAL,
 									new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier, project,
@@ -241,7 +241,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 						} else {
 							// Execute modification with xtext resource
 							final boolean actionExists = !actionTextValue.getEditableText().isEmpty();
-							final String newText = getNewText(dlg.getText(false), actionExists);
+							final String newText = checkActionBlockSyntax(dlg.getSourceText().getPartialModifiedSource(), actionExists);
 							actionService.execute("Modifying Behavior Transition Action Block", ExecutionMode.NORMAL,
 									new EmbeddedTextModificationAction(editingDomain, xtextResource,
 											modelChangeNotifier, project, newText, actionTextValue));
@@ -250,7 +250,11 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 				}
 			}
 
-			private String getNewText(final String newText, final boolean actionExists) {
+			// Check to make sure the syntax is correct for removing an
+			// existing action block or creating a new action block.
+			// This method removes or adds brackets for action blocks based on
+			// the desired action block modification
+			private String checkActionBlockSyntax(final String newText, final boolean actionExists) {
 				if (actionExists && newText.isEmpty()) {
 					// If removing action, remove brackets by updating offset and length
 					actionTextValue.setUpdateOffset(actionTextValue.getUpdateOffset() - 1);
@@ -314,12 +318,12 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 							// Execute modification with xtext document
 							actionService.execute("Modifying Behavior Transition Condition", ExecutionMode.NORMAL,
 									new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier, project,
-											dlg.getText(true)));
+											dlg.getSourceText().getModifiedSource()));
 						} else {
 							// Execute modification with xtext resource
 							actionService.execute("Modifying Behavior Transition Condition", ExecutionMode.NORMAL,
 									new EmbeddedTextModificationAction(editingDomain, xtextResource,
-											modelChangeNotifier, project, dlg.getText(false),
+											modelChangeNotifier, project, dlg.getSourceText().getPartialModifiedSource(),
 											conditionTextValue));
 						}
 					});

@@ -104,18 +104,46 @@ class EmbeddedTextModificationAction implements AgeAction {
 	}
 
 	/**
-	 * Create the modification for updating source text
-	 * @param newText is the new source text to replace in old source text
+	 * Creates an update process for {@link XtextResource}.
+	 * If the specified {@link EmbeddedTextValue} is not null, a section of the
+	 * {@link XtextResource}'s source text will be updated with the specified sourceText value.
+	 * If the specified {@link EmbeddedTextValue} is null, the {@link XtextResource}'s entire
+	 * source text will be set to the specified sourceText value.
+	 * @param textValue holds the values used to make a partial update to the {@link XtextResource}'s source text
+	 * @param sourceText is the text to update the {@link XtextResource}'s source text with
 	 */
-	private Void<XtextResource> createUpdateProcess(final EmbeddedTextValue textValue, final String newText) {
+	private Void<XtextResource> createUpdateProcess(final EmbeddedTextValue textValue, final String sourceText) {
+		return textValue != null
+				? createPartialUpdateProcess(textValue.getUpdateOffset(), textValue.getUpdateLength(), sourceText)
+				: createUndoRedoProcess(sourceText);
+	}
+
+	/**
+	 * Creates a process to replace a specific section the existing source text of the {@link XtextResource} with the specified source text.
+	 * @param updateOffset is the offset of the text to be replaced
+	 * @param updateLength is the length of text to be replaced
+	 * @param partialSrcText is the source text to update the section with
+	 */
+	private Void<XtextResource> createPartialUpdateProcess(final int updateOffset, final int updateLength,
+			final String partialSrcText) {
 		return new IUnitOfWork.Void<XtextResource>() {
 			@Override
 			public void process(final XtextResource resource) throws Exception {
-				if (textValue != null) { // Replace text at specified index and length with new text value
-					resource.update(textValue.getUpdateOffset(), textValue.getUpdateLength(), newText);
-				} else { // Replace text back to original state for undo
-					resource.reparse(newText);
-				}
+				// Replace text at specified index and length with new text value
+				resource.update(updateOffset, updateLength, partialSrcText);
+			}
+		};
+	}
+
+	/**
+	 * Creates a process to replace the existing source text of the {@link XtextResource} with the specified source text.
+	 * Used for Undo/Redo functionality.
+	 */
+	private Void<XtextResource> createUndoRedoProcess(final String srcText) {
+		return new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(final XtextResource resource) throws Exception {
+				resource.reparse(srcText);
 			}
 		};
 	}
