@@ -69,7 +69,7 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 					if (!suppressError) {
 						// check against preference
 						for (String pref : ignoredPerPreference) {
-							if (pref.equals(propSetName)) {
+							if (pref.equalsIgnoreCase(propSetName)) {
 								suppressError = true;
 								break;
 							}
@@ -132,10 +132,10 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 
 		DiagnosticMessage msg = super.getUnresolvedProxyMessage(context);
 
-		if (referenceType.getName().equals("ModelUnit")) {
+		if (referenceType.getName().equals("ModelUnit")) { // check with clause against ignored property set preference
 			// check against preference
-			for (String pref : getIgnoredPropertySetPreference()) {
-				if (pref.equals(context.getLinkText())) {
+			for (String inIgnoredPrefList : getIgnoredPropertySetPreference()) {
+				if (inIgnoredPrefList.equalsIgnoreCase(context.getLinkText())) {
 					suppressError = true;
 					break;
 				}
