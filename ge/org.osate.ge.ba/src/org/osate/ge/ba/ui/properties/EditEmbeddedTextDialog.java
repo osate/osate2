@@ -53,7 +53,6 @@ import org.eclipse.ui.handlers.IHandlerActivation;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
-import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.swt.SwtUtil;
 
@@ -70,7 +69,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	private IHandlerActivation undoHandler;
 	private IHandlerActivation redoHandler;
 	private StyledText styledText;
-	private Result modifiedSrcResult;
+	private Result result;
 
 	public EditEmbeddedTextDialog(final Shell parentShell, final String title, final String dialogMessage,
 			final EmbeddedXtextAdapter xtextAdapter,
@@ -214,7 +213,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	protected void buttonPressed(final int buttonId) {
 		if (buttonId == IDialogConstants.OK_ID) {
 			// Set return result
-			modifiedSrcResult = new Result(styledText.getData(MODIFIED_SOURCE_KEY).toString(),
+			result = new Result(styledText.getData(MODIFIED_SOURCE_KEY).toString(),
 					styledText.getText().trim());
 		}
 
@@ -229,33 +228,31 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		return super.close();
 	}
 
-	public Result getSourceText() {
-		return modifiedSrcResult;
+	public Result getResult() {
+		return result;
 	}
 
 	public class Result {
-		private final String modifiedSource;
-		private final String partialModifiedSource;
+		private final String fullSource;
+		private final String partialSource;
 
-		public Result(final String allModifiedSource, final String partialModifiedSource) {
-			this.modifiedSource = allModifiedSource;
-			this.partialModifiedSource = partialModifiedSource;
+		public Result(final String fullSource, final String partialSource) {
+			this.fullSource = fullSource;
+			this.partialSource = partialSource;
 		}
 
 		/**
-		 * Returns entire modified source text for updating
-		 * an {@link IXtextDocument}
+		 * Returns the modified source for the full AADL resource/document.
 		 */
-		public String getModifiedSource() {
-			return modifiedSource;
+		public String getFullSource() {
+			return fullSource;
 		}
 
 		/**
-		 * Returns the partial value source text for updating a specified
-		 * location in a {@link XtextResource}
+		 * Returns the modified source for the region of the AADL resource edited by the dialog.
 		 */
-		public String getPartialModifiedSource() {
-			return partialModifiedSource;
+		public String getPartialSource() {
+			return partialSource;
 		}
 	}
 

@@ -233,7 +233,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 						if (xtextDocument != null) {
 							// Get source text for xtext document
-							final String srcText = dlg.getSourceText().getModifiedSource();
+							final String srcText = dlg.getResult().getFullSource();
 							// Execute modification with xtext document
 							actionService.execute("Modifying Behavior Transition Action Block", ExecutionMode.NORMAL,
 									new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier, project,
@@ -241,7 +241,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 						} else {
 							// Execute modification with xtext resource
 							final boolean actionExists = !actionTextValue.getEditableText().isEmpty();
-							final String newText = checkActionBlockSyntax(dlg.getSourceText().getPartialModifiedSource(), actionExists);
+							final String newText = checkActionBlockSyntax(dlg.getResult().getPartialSource(), actionExists);
 							actionService.execute("Modifying Behavior Transition Action Block", ExecutionMode.NORMAL,
 									new EmbeddedTextModificationAction(editingDomain, xtextResource,
 											modelChangeNotifier, project, newText, actionTextValue));
@@ -318,12 +318,12 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 							// Execute modification with xtext document
 							actionService.execute("Modifying Behavior Transition Condition", ExecutionMode.NORMAL,
 									new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier, project,
-											dlg.getSourceText().getModifiedSource()));
+											dlg.getResult().getFullSource()));
 						} else {
 							// Execute modification with xtext resource
 							actionService.execute("Modifying Behavior Transition Condition", ExecutionMode.NORMAL,
 									new EmbeddedTextModificationAction(editingDomain, xtextResource,
-											modelChangeNotifier, project, dlg.getSourceText().getPartialModifiedSource(),
+											modelChangeNotifier, project, dlg.getResult().getPartialSource(),
 											conditionTextValue));
 						}
 					});
