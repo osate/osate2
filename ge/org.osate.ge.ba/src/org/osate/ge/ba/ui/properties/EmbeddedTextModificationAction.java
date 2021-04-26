@@ -25,9 +25,7 @@ package org.osate.ge.ba.ui.properties;
 
 import java.io.IOException;
 import java.util.Objects;
-
-import javax.inject.Inject;
-import javax.inject.Named;
+import java.util.function.Supplier;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
@@ -42,7 +40,6 @@ import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.ui.refactoring.ui.SyncUtil;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork.Void;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
@@ -50,63 +47,110 @@ import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
 
-import com.google.inject.Injector;
-
 /**
- * Modification process to be executed to update the action text
+ * Modification process to be executed to update embedded text resources
  */
-@SuppressWarnings("restriction")
 class EmbeddedTextModificationAction implements AgeAction {
-	private final TransactionalEditingDomain editingDomain;
-	private final IXtextDocument xtextDocument;
-	private final XtextResource xtextResource;
 	private final ModelChangeNotifier modelChangeNotifier;
-	private final IProject project;
-	private final Void<XtextResource> work;
-	private final RecordingCommand cmd;
-	private final EmbeddedTextValue textValue;
+	private final Supplier<EmbeddedTextModificationAction> embeddedEditingActionSupplier;
 
-	public EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
-			final IXtextDocument xtextDocument, final XtextResource xtextResource,
-			final ModelChangeNotifier modelChangeNotifier, final IProject project, final String newText,
-			final EmbeddedTextValue textValue) {
-		this.editingDomain = Objects.requireNonNull(editingDomain, "editingDomain cannot be null");
-		this.xtextResource = Objects.requireNonNull(xtextResource, "xtextResource cannot be null");
+	/**
+	 * Embedded text modification action when the editor is open
+	 */
+	public EmbeddedTextModificationAction(final IXtextDocument xtextDocument,
+			final ModelChangeNotifier modelChangeNotifier, final IProject project, final String newText) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
-		this.project = Objects.requireNonNull(project, "project cannot be null");
-		this.work = Objects.requireNonNull(
-				createUpdateProcess(Objects.requireNonNull(newText, "newText cannot be null")), "work cannot be null");
-		this.cmd = Objects.requireNonNull(createRecordingCommand(editingDomain, xtextResource), "cmd cannot be null");
-		this.xtextDocument = xtextDocument;
-		this.textValue = textValue;
-	}
+		embeddedEditingActionSupplier = () -> {
+			// Get original text for undo/redo
+			final String originalText = BehaviorAnnexXtextUtil.getText(xtextDocument, null);
 
-	private EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
-			final IXtextDocument xtextDocument, final XtextResource xtextResource,
-			final ModelChangeNotifier modelChangeNotifier, final IProject project, final String originalSource) {
-		this(editingDomain, xtextDocument, xtextResource, modelChangeNotifier, project, originalSource, null);
+			// Modify the document
+			prepareToEditDocument(xtextDocument);
+			xtextDocument.set(newText);
+			// Call readonly on the document. This will should cause Xtext's reconciler
+			// to be called to ensure the document matches the model and trigger model change events.
+			xtextDocument.readOnly(res -> null);
+
+			buildProject(project);
+
+			// Return the undo/redo action
+			return new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier, project, originalText);
+		};
 	}
 
 	/**
-	 * Create the modification for updating source text
-	 * @param newText is the new source text to replace in old source text
+	 * Embedded text modification action when the editor is closed
 	 */
-	private Void<XtextResource> createUpdateProcess(final String newText) {
+	public EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
+			final XtextResource xtextResource, final ModelChangeNotifier modelChangeNotifier, final IProject project,
+			final String newText, final EmbeddedTextValue textValue) {
+		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
+		embeddedEditingActionSupplier = () -> {
+			// Get original text for undo
+			final String originalText = BehaviorAnnexXtextUtil.getText(null, xtextResource);
+
+			// Modify and save the xtext resource
+			final Void<XtextResource> work = createUpdateProcess(textValue, newText);
+			final RecordingCommand cmd = createRecordingCommand(editingDomain, work, xtextResource);
+			executeCommand(editingDomain, cmd, xtextResource);
+			save(xtextResource);
+
+			buildProject(project);
+
+			// Return the undo/redo action
+			return new EmbeddedTextModificationAction(editingDomain, xtextResource, modelChangeNotifier, project,
+					originalText, null);
+		};
+	}
+
+	/**
+	 * Creates an update process for {@link XtextResource}.
+	 * If the specified {@link EmbeddedTextValue} is not null, a section of the
+	 * {@link XtextResource}'s source text will be updated with the specified sourceText value.
+	 * If the specified {@link EmbeddedTextValue} is null, the {@link XtextResource}'s entire
+	 * source text will be set to the specified sourceText value.
+	 * @param textValue holds the values used to make a partial update to the {@link XtextResource}'s source text
+	 * @param sourceText is the text to update the {@link XtextResource}'s source text with
+	 */
+	private Void<XtextResource> createUpdateProcess(final EmbeddedTextValue textValue, final String sourceText) {
+		return textValue != null
+				? createPartialUpdateProcess(textValue.getUpdateOffset(), textValue.getUpdateLength(), sourceText)
+				: createUndoRedoProcess(sourceText);
+	}
+
+	/**
+	 * Creates a process to replace a specific section the existing source text of the {@link XtextResource} with the specified source text.
+	 * @param updateOffset is the offset of the text to be replaced
+	 * @param updateLength is the length of text to be replaced
+	 * @param partialSrcText is the source text to update the section with
+	 */
+	private Void<XtextResource> createPartialUpdateProcess(final int updateOffset, final int updateLength,
+			final String partialSrcText) {
 		return new IUnitOfWork.Void<XtextResource>() {
 			@Override
 			public void process(final XtextResource resource) throws Exception {
-				if (textValue != null) { // Replace text at specified index and length with new text value
-					resource.update(textValue.getPrefix().length(), textValue.getUpdateLength(), newText);
-				} else { // Replace text back to original state for undo
-					resource.reparse(newText);
-				}
+				// Replace text at specified index and length with new text value
+				resource.update(updateOffset, updateLength, partialSrcText);
+			}
+		};
+	}
+
+	/**
+	 * Creates a process to replace the existing source text of the {@link XtextResource} with the specified source text.
+	 * Used for Undo/Redo functionality.
+	 */
+	private Void<XtextResource> createUndoRedoProcess(final String srcText) {
+		return new IUnitOfWork.Void<XtextResource>() {
+			@Override
+			public void process(final XtextResource resource) throws Exception {
+				resource.reparse(srcText);
 			}
 		};
 	}
 
 	// Command to be executed
 	private RecordingCommand createRecordingCommand(final TransactionalEditingDomain editingDomain,
-			final XtextResource xtextResource) {
+			final Void<XtextResource> work, final XtextResource xtextResource) {
 		return new RecordingCommand(editingDomain) {
 			@Override
 			protected void doExecute() {
@@ -121,29 +165,16 @@ class EmbeddedTextModificationAction implements AgeAction {
 
 	@Override
 	public AgeAction execute() {
-		final String originalText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
+		EmbeddedTextModificationAction undoRedoAction;
 		try (final Lock lock = modelChangeNotifier.lock()) {
-			if (xtextDocument != null) {
-				xtextDocument.modify(work);
-				reconcile();
-			} else if (xtextResource instanceof XtextResource) {
-				executeCommand();
-				save();
-			} else {
-				throw new RuntimeException(
-						"Unsupported case. Cannot modify model without an Xtext Document or an Xtext resource");
-			}
-
-			buildProject();
+			undoRedoAction = embeddedEditingActionSupplier.get();
 		}
 
-		// Set action to restore original source text upon undo
-		return new EmbeddedTextModificationAction(editingDomain, xtextDocument, xtextResource, modelChangeNotifier, project,
-				originalText);
-
+		// Return action to restore original source text upon undo or redo
+		return undoRedoAction;
 	}
 
-	private void save() {
+	private void save(final XtextResource xtextResource) {
 		try {
 			xtextResource.save(SaveOptions.newBuilder().format().getOptions().toOptionsMap());
 		} catch (final IOException e) {
@@ -151,7 +182,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 		}
 	}
 
-	private void buildProject() {
+	private void buildProject(final IProject project) {
 		// Build the project to prevent reference resolver from using old objects.
 		try {
 			project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
@@ -161,7 +192,8 @@ class EmbeddedTextModificationAction implements AgeAction {
 		}
 	}
 
-	private void executeCommand() {
+	private void executeCommand(final TransactionalEditingDomain editingDomain, final RecordingCommand cmd,
+			final XtextResource xtextResource) {
 		editingDomain.getCommandStack().execute(cmd);
 
 		// Run the serializer. Otherwise if an invalid modification is made, the resource could be erased.
@@ -179,40 +211,26 @@ class EmbeddedTextModificationAction implements AgeAction {
 		}
 	}
 
-	private void reconcile() {
+	/**
+	 * It is important to validate the Xtext editor input state to ensure the document can be edited before editing the document.
+	 * The editor may change its internal state to prepare for editing as part of validation.
+	 * Otherwise, the document may not be properly changed or notifications
+	 * may not be received.
+	 * @param doc the xtext document to prepare to edit.
+	 */
+	private static void prepareToEditDocument(final IXtextDocument xtextDocument) {
 		for (final IEditorReference editorRef : PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
 				.getEditorReferences()) {
 			final IEditorPart editor = editorRef.getEditor(false);
 			if (editor instanceof XtextEditor) {
 				final XtextEditor xtextEditor = (XtextEditor) editor;
-				final Injector injector = EmbeddedXtextAdapter.injector;
-				final String languageName = getLanguageName(injector);
-
-				// Only force reconciliation for AADL editors
-				if (Objects.equals(xtextEditor.getLanguageName(), languageName)) {
-					final SyncUtil syncUtil = injector.getInstance(SyncUtil.class);
-
-					// Only waiting once will result in the reconciler processing a change outside the lock.
-					// Doing it twice appears to wait for pending runs of the reconciler.
-					syncUtil.waitForReconciler(xtextEditor);
-					syncUtil.waitForReconciler(xtextEditor);
+				if (xtextEditor.getDocument() == xtextDocument) {
+					if (!xtextEditor.validateEditorInputState()) {
+						throw new RuntimeException("Unable to edit Xtext document. Editor input validation failed.");
+					}
+					break;
 				}
 			}
 		}
-	}
-
-	private static class LanguageNameRetriever {
-		@Inject
-		@Named(org.eclipse.xtext.Constants.LANGUAGE_NAME)
-		public String languageName;
-	}
-
-	/**
-	 * Retrieves the language name by injecting it into a new object.
-	 * @return
-	 */
-	private String getLanguageName(final Injector injector) {
-		final LanguageNameRetriever obj = injector.getInstance(LanguageNameRetriever.class);
-		return obj.languageName;
 	}
 }

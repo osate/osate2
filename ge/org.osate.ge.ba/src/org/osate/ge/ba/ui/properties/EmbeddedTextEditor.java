@@ -30,43 +30,55 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Caret;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.SwtUtil;
 
-public class EmbeddedTextControls extends Composite {
-	private final StyledText styledText;
-	private final Button btn;
+public class EmbeddedTextEditor extends Composite {
+	private StyledText styledText;
+	private Button btn;
 	private EmbeddedXtextAdapter xtextAdapter;
+	private final int styledTextStyle;
+	private String styledTextTestId;
+	private String editBtnTestId;
 
-	public EmbeddedTextControls(final Composite parent, final int style, final int styledTextStyle, final int btnStyle,
-			final String editBtnText) {
+	public EmbeddedTextEditor(final Composite parent, final int style, final int styledTextStyle) {
 		super(parent, style);
 		this.setBackground(parent.getBackground());
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
-		this.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
-				.hint(SWT.DEFAULT, SWT.DEFAULT).create());
+		this.styledTextStyle = styledTextStyle;
+	}
+
+	public void createControls() {
+		// Dispose existing controls
+		disposeControls();
 
 		// Create styled text
 		styledText = new StyledText(this, styledTextStyle);
 		styledText.setEditable(false);
-		// Set caret to null to make sure users know it is not editable
-		styledText.setCaret(null);
+		// Set empty caret so that the caret will not show.
+		// Makes sure users know it is not editable.
+		// Note: If caret is set to null, exception may occur
+		// when used with the StyledTextXtextAdapter.
+		final Caret emptyCaret = new Caret(getShell(), SWT.NONE);
+		styledText.setCaret(emptyCaret);
+		styledText.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
+				.hint(SWT.DEFAULT, SWT.DEFAULT).create());
+		styledText.addDisposeListener(e -> emptyCaret.dispose());
+		SwtUtil.setTestingId(styledText, styledTextTestId);
 
-		btn = new Button(this, btnStyle);
-		btn.setText(editBtnText);
+		btn = new Button(this, SWT.PUSH);
+		btn.setText("Edit...");
+		SwtUtil.setTestingId(btn, editBtnTestId);
 	}
 
-	public void setStyledTextLayoutData(final Object layoutData) {
-		styledText.setLayoutData(layoutData);
+	public void setStyledTextTestId(final String styledTextTestId) {
+		this.styledTextTestId = styledTextTestId;
 	}
 
-	public void setStyledTextTestId(final String id) {
-		SwtUtil.setTestingId(styledText, id);
-	}
-
-	public void setButtonTestId(final String id) {
-		SwtUtil.setTestingId(btn, id);
+	public void setEditButtonTestId(final String editBtnTestId) {
+		this.editBtnTestId = editBtnTestId;
 	}
 
 	public void createXtextAdapter(final IProject project, final EmbeddedTextValue textValue) {
@@ -76,9 +88,7 @@ public class EmbeddedTextControls extends Composite {
 		xtextAdapter.adapt(styledText, false);
 	}
 
-	@Override
-	public void dispose() {
-		super.dispose();
+	public void disposeControls() {
 		disposeXtextAdapter();
 		disposeControl(styledText);
 		disposeControl(btn);
