@@ -21,6 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
+
 package org.osate.ge.ba.ui.properties;
 
 import java.io.ByteArrayInputStream;
@@ -41,6 +42,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ExtendedModifyEvent;
 import org.eclipse.swt.custom.ExtendedModifyListener;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -55,28 +57,44 @@ import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.swt.SwtUtil;
 
 public class EditEmbeddedTextDialog extends MessageDialog {
-	public static String WIDGET_ID_TEXT = "org.osate.ge.ba.behaviortransition.editdialog.text";
-	public static String WIDGET_ID_CONFIRM = "org.osate.ge.ba.behaviortransition.editdialog.confirmation";
+	private static String WIDGET_ID = "org.osate.ge.ba.behaviortransition.editdialog";
+	private static String MODIFIED_SOURCE_KEY = WIDGET_ID + ".modifiedsource";
+	public static String WIDGET_ID_TEXT = WIDGET_ID + ".text";
+	public static String WIDGET_ID_CONFIRM = WIDGET_ID + ".confirmation";
 	private final EmbeddedXtextAdapter xtextAdapter;
 	private final ExtendedModifyListener textValidator;
 	private final IHandlerService service;
+	private final int styledTextStyle;
+	private final GridData styledTextLayoutData;
 	private IHandlerActivation undoHandler;
 	private IHandlerActivation redoHandler;
 	private StyledText styledText;
-	private String replacementText;
-
+	private Result result;
 
 	public EditEmbeddedTextDialog(final Shell parentShell, final String title, final String dialogMessage,
 			final EmbeddedXtextAdapter xtextAdapter,
+			final int styledTextStyle,
+			final GridData styledTextLayoutData,
 			final BehaviorTransition behaviorTransition,
+			final BiFunction<EObject, String, String> getModifiedSrc,
 			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
 		super(parentShell, title, null, dialogMessage, MessageDialog.NONE, 0, "OK", "Cancel");
 		this.xtextAdapter = Objects.requireNonNull(xtextAdapter, "xtextAdapter cannot be null");
+		this.styledTextStyle = styledTextStyle;
+		this.styledTextLayoutData = Objects.requireNonNull(styledTextLayoutData, "styledTextLayoutData cannot be null");
 		this.textValidator = Objects.requireNonNull(
-				getTextValidator(behaviorTransition, isValidModification),
+				createTextValidator(behaviorTransition, getModifiedSrc, isValidModification),
 				"textValidator cannot be null");
 		service = PlatformUI.getWorkbench().getService(IHandlerService.class);
 		setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
+	}
+
+	public EditEmbeddedTextDialog(final Shell parentShell, final String title, final String dialogMessage,
+			final EmbeddedXtextAdapter xtextAdapter, final int styledTextStyle, final GridData styledTextLayoutData,
+			final BehaviorTransition behaviorTransition,
+			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
+		this(parentShell, title, dialogMessage, xtextAdapter, styledTextStyle, styledTextLayoutData, behaviorTransition,
+				(rootElement, text) -> xtextAdapter.serialize(rootElement), isValidModification);
 	}
 
 	@Override
@@ -87,8 +105,8 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		composite.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
 		composite.setFont(parent.getFont());
 
-		styledText = new StyledText(composite, SWT.BORDER | SWT.SINGLE);
-		styledText.setLayoutData(GridDataFactory.fillDefaults().indent(10, 0).grab(true, false).create());
+		styledText = new StyledText(composite, styledTextStyle);
+		styledText.setLayoutData(styledTextLayoutData);
 		styledText.addExtendedModifyListener(textValidator);
 		SwtUtil.setTestingId(styledText, WIDGET_ID_TEXT);
 		xtextAdapter.adapt(styledText);
@@ -133,7 +151,8 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 	// Text modification listener that sets the OK button as enabled
 	// or disabled based on if the new text is valid
-	private ExtendedModifyListener getTextValidator(final BehaviorTransition behaviorTransition,
+	private ExtendedModifyListener createTextValidator(final BehaviorTransition behaviorTransition,
+			final BiFunction<EObject, String, String> getModifiedSrc,
 			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
 		final String originalText = xtextAdapter.getEditableText();
 		return event -> {
@@ -157,7 +176,10 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 			try {
 				// Modified source text
-				final String modifiedSrc = xtextAdapter.serialize(rootElement);
+				final String modifiedSrc = getModifiedSrc.apply(rootElement, styledText.getText().trim());
+				// Set modified source text data
+				styledText.setData(MODIFIED_SOURCE_KEY, modifiedSrc);
+
 				// Load for error checking
 				loadResource(fakeResource, modifiedSrc);
 				boolean isEnabled = false;
@@ -190,9 +212,11 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	@Override
 	protected void buttonPressed(final int buttonId) {
 		if (buttonId == IDialogConstants.OK_ID) {
-			// Set return text
-			replacementText = styledText.getText();
+			// Set return result
+			result = new Result(styledText.getData(MODIFIED_SOURCE_KEY).toString(),
+					styledText.getText().trim());
 		}
+
 		super.buttonPressed(buttonId);
 	}
 
@@ -204,11 +228,33 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		return super.close();
 	}
 
-	public String getText() {
-		return replacementText;
+	public Result getResult() {
+		return result;
 	}
 
+	public class Result {
+		private final String fullSource;
+		private final String partialSource;
 
+		public Result(final String fullSource, final String partialSource) {
+			this.fullSource = fullSource;
+			this.partialSource = partialSource;
+		}
+
+		/**
+		 * Returns the modified source for the full AADL resource/document.
+		 */
+		public String getFullSource() {
+			return fullSource;
+		}
+
+		/**
+		 * Returns the modified source for the region of the AADL resource edited by the dialog.
+		 */
+		public String getPartialSource() {
+			return partialSource;
+		}
+	}
 
 	private class UndoRedoHelper implements ExtendedModifyListener {
 		private final UndoRedoStack undoRedoStack = new UndoRedoStack();

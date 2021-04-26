@@ -98,7 +98,7 @@ public class ErrorModelTest {
 		// Create error type alias
 		createElementAndLayout(diagram, pkgElement, "Error Type Alias",
 				ErrorModelReferenceUtil.getRelativeReferenceForErrorType("new_error_type_alias"), "ta1", () -> {
-					waitForShellWithTitle("Select Error Type to Alias");
+					waitForWindowWithTitle("Select Error Type to Alias");
 					selectListItem(0, "emv2_test::t1");
 					clickButton("OK");
 				});
@@ -113,7 +113,7 @@ public class ErrorModelTest {
 					"emv2_test::t1");
 
 			clickButtonWithId(ErrorTypeAliasPropertySection.WIDGET_ID_ALIASED_TYPE_CHOOSE_BUTTON);
-			waitForShellWithTitle("Select Aliased Type");
+			waitForWindowWithTitle("Select Aliased Type");
 			selectListItem(0, "emv2_test::t2");
 			clickButton("OK");
 
@@ -125,23 +125,23 @@ public class ErrorModelTest {
 		// Create error type set
 		createElementAndLayout(diagram, pkgElement, "Error Type Set",
 				ErrorModelReferenceUtil.getRelativeReferenceForTypeSet("new_error_type_set"), "ts1", () -> {
-					waitForShellWithTitle("Select Type Tokens");
+					waitForWindowWithTitle("Select Type Tokens");
 
 					// Add types
 					clickButton("Add Error Type(s)");
-					waitForShellWithTitle("Add Types");
+					waitForWindowWithTitle("Add Types");
 					selectListItems(0, "ErrorLibrary::AboveRange", "emv2_test::t1");
 					clickButton("OK");
 
 					// Add type product
 					clickButton("Add Type Product");
-					waitForShellWithTitle("Select Error Types for Product");
+					waitForWindowWithTitle("Select Error Types for Product");
 					selectListItems(0, "emv2_test::t2", "emv2_test::t3");
 					clickButton("OK");
 
 					// Add type product
 					clickButton("Add Type Product");
-					waitForShellWithTitle("Select Error Types for Product");
+					waitForWindowWithTitle("Select Error Types for Product");
 					selectListItems(0, "emv2_test::t2", "emv2_test::t3", "emv2_test::t4");
 					clickButton("OK");
 
@@ -152,7 +152,7 @@ public class ErrorModelTest {
 					// Add type product
 					selectListItems(0, "emv2_test::t2 * emv2_test::t3");
 					clickButton("Edit Type Product");
-					waitForShellWithTitle("Select Error Types for Product");
+					waitForWindowWithTitle("Select Error Types for Product");
 					selectListItems(0, "emv2_test::t2", "emv2_test::t4");
 					clickButton("OK");
 
@@ -169,11 +169,11 @@ public class ErrorModelTest {
 					"emv2_test::t1, ErrorLibrary::AboveRange, emv2_test::t2 * emv2_test::t4");
 
 			clickButtonWithId(TypeSetPropertySection.WIDGET_ID_TYPE_TOKENS_CHOOSE_BUTTON);
-			waitForShellWithTitle("Edit Type Set");
+			waitForWindowWithTitle("Edit Type Set");
 
 			// Add types
 			clickButton("Add Error Type(s)");
-			waitForShellWithTitle("Add Types");
+			waitForWindowWithTitle("Add Types");
 			selectListItems(0, "emv2_test::t1", "emv2_test::t3");
 			clickButton("OK");
 
@@ -187,11 +187,11 @@ public class ErrorModelTest {
 		// Create a second type set
 		createElementAndLayout(diagram, pkgElement, "Error Type Set",
 				ErrorModelReferenceUtil.getRelativeReferenceForTypeSet("new_error_type_set"), "ts2", () -> {
-					waitForShellWithTitle("Select Type Tokens");
+					waitForWindowWithTitle("Select Type Tokens");
 
 					// Add types
 					clickButton("Add Error Type(s)");
-					waitForShellWithTitle("Add Types");
+					waitForWindowWithTitle("Add Types");
 					selectListItems(0, "emv2_test::t1");
 					clickButton("OK");
 
@@ -201,7 +201,7 @@ public class ErrorModelTest {
 		// Create type set alias
 		createElementAndLayout(diagram, pkgElement, "Error Type Set Alias",
 				ErrorModelReferenceUtil.getRelativeReferenceForTypeSet("new_error_type_set_alias"), "tsa1", () -> {
-					waitForShellWithTitle("Select Type Set to Alias");
+					waitForWindowWithTitle("Select Type Set to Alias");
 					selectListItem(0, "emv2_test::ts1");
 					clickButton("OK");
 				});
@@ -216,7 +216,7 @@ public class ErrorModelTest {
 					"emv2_test::ts1");
 
 			clickButtonWithId(TypeSetAliasPropertySection.WIDGET_ID_ALIASED_TYPE_SET_CHOOSE_BUTTON);
-			waitForShellWithTitle("Select Aliased Type Set");
+			waitForWindowWithTitle("Select Aliased Type Set");
 			selectListItem(0, "emv2_test::ts2");
 			clickButton("OK");
 
@@ -244,7 +244,7 @@ public class ErrorModelTest {
 			waitUntilListWithIdItemsExists(ErrorModelLibraryPropertySection.WIDGET_ID_EXTENDED_LIBRARIES_LIST);
 
 			clickButtonWithId(ErrorModelLibraryPropertySection.WIDGET_ID_EXTENDED_LIBRARIES_ADD_BUTTON);
-			waitForShellWithTitle("Select Error Library to Extend");
+			waitForWindowWithTitle("Select Error Library to Extend");
 			selectListItems(0, EMV2_TEST);
 			clickButton("OK");
 
@@ -293,7 +293,7 @@ public class ErrorModelTest {
 
 		createConnectionAndLayout(otherDiagram, s1Element, s2Element, "Error Behavior Transition", esm1Element,
 				ErrorModelReferenceUtil.getRelativeReferenceForNamedTransition("new_transition"), "t1", () -> {
-					waitForShellWithTitle("Select Event");
+					waitForWindowWithTitle("Select Event");
 					selectListItems(0, "e2");
 					clickButton("OK");
 				});
@@ -508,9 +508,9 @@ public class ErrorModelTest {
 
 			// Select the error type set for the error flow
 			clickButtonWithId(ErrorFlowPropertySection.WIDGET_ID_ERROR_TYPE_SET_TOKENS_CHOOSE_BUTTON);
-			waitForShellWithTitle("Edit Type Set");
+			waitForWindowWithTitle("Edit Type Set");
 			clickButton("Add Error Type(s)");
-			waitForShellWithTitle("Add Types");
+			waitForWindowWithTitle("Add Types");
 			selectListItems(0, "ErrorLibrary::AboveRange");
 			clickButton("OK");
 			clickButton("OK");
@@ -526,7 +526,7 @@ public class ErrorModelTest {
 
 			// Select the error type set for the error flow
 			clickButtonWithId(ErrorFlowPropertySection.WIDGET_ID_ERROR_TYPE_SET_TOKENS_CHOOSE_BUTTON);
-			waitForShellWithTitle("Edit Type Set");
+			waitForWindowWithTitle("Edit Type Set");
 			selectListItems(0, "ErrorLibrary::AboveRange");
 			clickButton("Remove");
 			clickButton("OK");
@@ -542,9 +542,9 @@ public class ErrorModelTest {
 
 			// Select the error type set for the error flow
 			clickButtonWithId(ErrorPathPropertySection.WIDGET_ID_ERROR_TARGET_ERROR_TYPE_INSTANCE_CHOOSE_BUTTON);
-			waitForShellWithTitle("Edit Type Set");
+			waitForWindowWithTitle("Edit Type Set");
 			clickButton("Add Error Type(s)");
-			waitForShellWithTitle("Add Types");
+			waitForWindowWithTitle("Add Types");
 			selectListItems(0, "ErrorLibrary::AboveRange");
 			clickButton("OK");
 			clickButton("OK");
@@ -561,7 +561,7 @@ public class ErrorModelTest {
 
 			// Select the error type set for the error flow
 			clickButtonWithId(ErrorPathPropertySection.WIDGET_ID_ERROR_TARGET_ERROR_TYPE_INSTANCE_CHOOSE_BUTTON);
-			waitForShellWithTitle("Edit Type Set");
+			waitForWindowWithTitle("Edit Type Set");
 			selectListItems(0, "ErrorLibrary::AboveRange");
 			clickButton("Remove");
 			clickButton("OK");
@@ -577,7 +577,7 @@ public class ErrorModelTest {
 
 			// Select button to choose the error behavior
 			clickButtonWithId(ErrorModelSubclausePropertySection.WIDGET_ID_BEHAVIOR_CHOOSE_BUTTON);
-			waitForShellWithTitle("Select Error Behavior State Machine");
+			waitForWindowWithTitle("Select Error Behavior State Machine");
 			selectListItem(0, "ErrorLibrary::FailAndRecover");
 			clickButton("OK");
 
@@ -592,7 +592,7 @@ public class ErrorModelTest {
 
 			// Select button to choose the error behavior
 			clickButtonWithId(ErrorSourcePropertySection.WIDGET_ID_FAULT_SOURCE_CHOOSE_BUTTON);
-			waitForShellWithTitle("Edit Fault Source");
+			waitForWindowWithTitle("Edit Fault Source");
 			clickRadioButton("Description");
 			setTextFieldWithIdText(FaultSourceEditorDialog.WIDGET_ID_DESCRIPTION_TEXT, "Test Fault Source");
 			clickButton("OK");
@@ -608,20 +608,20 @@ public class ErrorModelTest {
 
 			// Select button to choose the error behavior
 			clickButtonWithId(ErrorSourcePropertySection.WIDGET_ID_FAULT_SOURCE_CHOOSE_BUTTON);
-			waitForShellWithTitle("Edit Fault Source");
+			waitForWindowWithTitle("Edit Fault Source");
 			clickRadioButton("Error Type Set");
 
 			// Select the Error Behavior State
 			clickButtonWithId(FaultSourceEditorDialog.WIDGET_ID_STATE_MODIFY_BUTTON);
-			waitForShellWithTitle("Select");
+			waitForWindowWithTitle("Select");
 			selectListItem(0, "Failed");
 			clickButton("OK");
 
 			// Select the Type Set
 			clickButtonWithId(FaultSourceEditorDialog.WIDGET_ID_TYPE_SET_MODIFY_BUTTON);
-			waitForShellWithTitle("Edit Type Set");
+			waitForWindowWithTitle("Edit Type Set");
 			clickButton("Add Error Type(s)");
-			waitForShellWithTitle("Add Types");
+			waitForWindowWithTitle("Add Types");
 			selectListItems(0, "ErrorLibrary::BadValue");
 			clickButton("OK");
 			clickButton("OK");
@@ -667,11 +667,11 @@ public class ErrorModelTest {
 	 * Helper function for tests that require selecting an error type from the "Select Type Tokens" dialog.
 	 */
 	private static void selectSingleErrorType() {
-		waitForShellWithTitle("Select Type Tokens");
+		waitForWindowWithTitle("Select Type Tokens");
 
 		// Add types
 		clickButton("Add Error Type(s)");
-		waitForShellWithTitle("Add Types");
+		waitForWindowWithTitle("Add Types");
 		selectListItems(0, "ErrorLibrary::AboveRange");
 		clickButton("OK");
 
@@ -688,11 +688,11 @@ public class ErrorModelTest {
 				"ErrorLibrary::AboveRange");
 
 		clickButtonWithId(ErrorPropagationPropertySection.WIDGET_ID_TYPE_TOKENS_CHOOSE_BUTTON);
-		waitForShellWithTitle("Edit Type Set");
+		waitForWindowWithTitle("Edit Type Set");
 
 		// Add types
 		clickButton("Add Error Type(s)");
-		waitForShellWithTitle("Add Types");
+		waitForWindowWithTitle("Add Types");
 		selectListItems(0, "ErrorLibrary::BelowRange");
 		clickButton("OK");
 

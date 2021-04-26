@@ -68,6 +68,7 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
@@ -160,31 +161,31 @@ public class UiTestUtil {
 	/**
 	 * Waits for a window with the specified title to appear.
 	 */
-	public static void waitForShellWithTitle(final String title) {
+	public static void waitForWindowWithTitle(final String title) {
 		bot.waitUntil(Conditions.shellIsActive(title));
 	}
 
 	/**
 	 * Waits for a window with the specified title to appear but is not the specified window.
 	 */
-	public static void waitForOtherShellWithTitle(final String title, final Shell shellToIgnore) {
+	public static void waitForOtherWindowWithTitle(final String title, final Shell windowToIgnore) {
 		waitUntil(() -> {
 			final AtomicBoolean result = new AtomicBoolean(false);
 			Display.getDefault().syncExec(() -> {
 				final Shell activeShell = bot.getFinder().activeShell();
-				result.set(activeShell != null && activeShell != shellToIgnore
+				result.set(activeShell != null && activeShell != windowToIgnore
 						&& Objects.equals(title, bot.activeShell().getText()));
 			});
 
 			return result.get();
-		}, "Unable to find shell with title '" + title + "' which is also not the specified shell");
+		}, "Unable to find window with title '" + title + "' which is also not the specified window");
 	}
 
 	/**
 	 * Returns the active shell
 	 * @return the active shell
 	 */
-	public static Shell getActiveShell() {
+	public static Shell getActiveWindow() {
 		return bot.getFinder().activeShell();
 	}
 
@@ -324,6 +325,31 @@ public class UiTestUtil {
 			// Send notification
 			styledText.widget.notifyListeners(SWT.KeyUp, new Event());
 		});
+
+		waitForStyledTextToMatch(id, text);
+	}
+
+	/**
+	 * Executes {@link IHandlerService} command with specified id and event.
+	 */
+	public static void executeHandlerServiceCommandWithId(final String cmdId,
+			final org.eclipse.swt.widgets.Event event) {
+		Display.getDefault().asyncExec(() -> {
+			final IHandlerService service = PlatformUI.getWorkbench().getService(IHandlerService.class);
+			try {
+				service.executeCommand(cmdId, event);
+			} catch (final Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	/**
+	 * Returns the text of the StyledText with the specified id.
+	 */
+	public static String getStyledTextWithIdText(final String id) {
+		final SWTBotStyledText styledText = bot.styledTextWithId(id);
+		return styledText.getText();
 	}
 
 	public static void waitForStyledTextToMatch(final String id, final String text) {
@@ -405,7 +431,7 @@ public class UiTestUtil {
 	/**
 	 * Asserts that the title of the active title contains the specified string
 	 */
-	public static void assertActiveShellTitleContains(final String value) {
+	public static void assertActiveWindowTitleContains(final String value) {
 		assertContains(value, bot.activeShell().getText());
 	}
 
@@ -844,15 +870,15 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Sets the nth text for the shell with specified title.
+	 * Sets the nth text for the window with specified title.
 	 */
-	public static void setTextForShell(final String title, final int index, final String text) {
+	public static void setTextForWindow(final String title, final int index, final String text) {
 		bot.shell(title).bot().text(index).setText(text);
 	}
 
 	/**
-	 * Sends an event to the listeners of specified text located on the shell with specified title.
-	 * @param title the title of the shell
+	 * Sends an event to the listeners of specified text located on the window with specified title.
+	 * @param title the title of the window
 	 * @param index the index of the text
 	 * @param eventType the type of event to notify listeners
 	 * @param event the event to send to listeners
@@ -865,9 +891,9 @@ public class UiTestUtil {
 	}
 
 	/**
-	 * Clicks the button with specified text on the shell with specified title.
+	 * Clicks the button with specified text on the window with specified title.
 	 */
-	public static void clickButtonForShell(final String title, final String text) {
+	public static void clickButtonForWindow(final String title, final String text) {
 		final SWTBotButton btn = bot.shell(title).bot().button(text);
 		btn.click();
 	}

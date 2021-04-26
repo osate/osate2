@@ -49,15 +49,15 @@ public class OsateGeTestUtil {
 	private OsateGeTestUtil() {
 	}
 
-	public static void assertOsateShellIsActive() {
-		assertActiveShellTitleContains("OSATE2");
+	public static void assertOsateWindowIsActive() {
+		assertActiveWindowTitleContains("OSATE2");
 	}
 
 	/**
-	 * Asserts that the OSATE shell is active and the navigator is visible
+	 * Asserts that the OSATE window is active and the navigator is visible
 	 */
 	public static void assertAadlNavigatorIsVisible() {
-		assertOsateShellIsActive();
+		assertOsateWindowIsActive();
 		assertViewIsVisible(AADL_NAVIGATOR);
 	}
 
@@ -113,7 +113,7 @@ public class OsateGeTestUtil {
 	}
 
 	/**
-	 * Checks all rows in the simple table which is the nth table in the active shell.
+	 * Checks all rows in the simple table which is the nth table in the active window.
 	 * Assumes the table is a simple table with checkboxes. Such a table does not have any columns.
 	 */
 	public static void checkItemsInSimpleTable(final int tableIndex, final String... itemTexts) {

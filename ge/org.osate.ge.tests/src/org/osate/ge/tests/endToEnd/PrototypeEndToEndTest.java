@@ -124,7 +124,7 @@ public class PrototypeEndToEndTest {
 		setClassifierBindingsFromPropertiesView(diagram, () -> {
 			// Edit the binding for iface_pt
 			clickButton("Choose...", 0);
-			waitForShellWithTitle("Select Classifier and Prototype Bindings");
+			waitForWindowWithTitle("Select Classifier and Prototype Bindings");
 			selectListItem(0, "interfaces::subsystem_interface");
 			clickButton("OK");
 		},
@@ -145,25 +145,25 @@ public class PrototypeEndToEndTest {
 		createElementAndLayout(diagram, element(pkg, getClassifierRelativeReference("test_system.impl")),
 				"System Subcomponent", getSubcomponentRelativeReference("test_system_impl_new_subcomponent"), "ss");
 		setSubcomponentClassifierFromPropertiesView(diagram, "prototype_test::subsystem", () -> {
-			final Shell dialog = getActiveShell();
+			final Shell dialog = getActiveWindow();
 
 			// Edit the binding for iface_pt
 			clickButton("Choose...");
-			waitForOtherShellWithTitle("Select Classifier and Prototype Bindings", dialog);
+			waitForOtherWindowWithTitle("Select Classifier and Prototype Bindings", dialog);
 			selectListItem(0, "interfaces::subsystem_interface");
 
 			// Edit the binding for event_fpt
-			final Shell bindingDialog = getActiveShell();
+			final Shell bindingDialog = getActiveWindow();
 			setComboBoxSelection(0, "data port");
 			setComboBoxSelection(1, "out");
 			clickButton("Choose...", 0);
-			waitForOtherShellWithTitle("Select Classifier and Prototype Bindings", bindingDialog);
+			waitForOtherWindowWithTitle("Select Classifier and Prototype Bindings", bindingDialog);
 			selectListItem(0, "Base_Types::Integer");
 			clickButton("OK");
 
 			// Edit the binding for message_cpt
 			clickButton("Choose...", 1);
-			waitForOtherShellWithTitle("Select Classifier and Prototype Bindings", bindingDialog);
+			waitForOtherWindowWithTitle("Select Classifier and Prototype Bindings", bindingDialog);
 			selectListItem(0, "Base_Types::String");
 			clickButton("OK");
 
@@ -344,7 +344,7 @@ public class PrototypeEndToEndTest {
 			setComboBoxSelection(0, type);
 			setComboBoxSelection(1, direction);
 			clickButton("Choose...", 1);
-			waitForShellWithTitle("Select Classifier and Prototype Bindings");
+			waitForWindowWithTitle("Select Classifier and Prototype Bindings");
 			selectListItem(0, classifier);
 			clickButton("OK");
 		}, cancel, expectedNewLabelText, topExt);

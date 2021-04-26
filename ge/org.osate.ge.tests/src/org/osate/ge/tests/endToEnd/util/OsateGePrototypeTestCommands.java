@@ -87,7 +87,7 @@ public class OsateGePrototypeTestCommands {
 
 		// Rename
 		clickButton("Rename");
-		waitForShellWithTitle("Rename");
+		waitForWindowWithTitle("Rename");
 		setTextFieldText(0, newName);
 		clickButton("OK");
 
@@ -165,7 +165,7 @@ public class OsateGePrototypeTestCommands {
 
 		// Click the choose button and select the classifier
 		clickButtonWithId(PrototypeEditor.WIDGET_ID_CHOOSE_CLASSIFIER_BUTTON);
-		waitForShellWithTitle("Select");
+		waitForWindowWithTitle("Select");
 		doubleClickListItem(0, constrainingClassifier);
 
 		// Wait for the updated value
