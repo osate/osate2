@@ -275,12 +275,26 @@ public class DockedShape extends Region
 
 	@Override
 	protected double computeMinWidth(final double height) {
-		return computePrefWidth(height);
+		if (side.get().vertical) {
+			// Left/Right
+			return computePrefWidth(height);
+		} else {
+			// Top/ Bottom
+			return Math.max(maxLabelPrefWidth() + maxPrefWidth(graphicWrapper.getChildren()),
+					dockedChildren.getWidth());
+		}
 	}
 
 	@Override
 	protected double computeMinHeight(final double width) {
-		return computePrefHeight(width);
+		if (side.get().vertical) {
+			// Left/Right
+			return Math.max(maxLabelPrefHeight() + maxPrefHeight(graphicWrapper.getChildren()),
+					dockedChildren.getHeight());
+		} else {
+			// Top/ Bottom
+			return computePrefHeight(width);
+		}
 	}
 
 	@Override
