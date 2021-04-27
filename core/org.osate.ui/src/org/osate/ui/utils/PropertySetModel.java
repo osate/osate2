@@ -33,7 +33,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.osate.core.OsateCorePlugin;
 
 /**
- * @since 6.0
+ * @since 6.1
  */
 public class PropertySetModel {
 	public static final String separator = "&~!";
@@ -46,7 +46,11 @@ public class PropertySetModel {
 		ignored.remove(propertySetNames);
 
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-		store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, String.join(separator, ignored));
+		if (ignored.size() == 0) {
+			store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, " ");
+		} else {
+			store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, String.join(separator, ignored));
+		}
 	}
 
 	public static final List<String> getAllAddedPropertySetNames() {
@@ -54,7 +58,7 @@ public class PropertySetModel {
 
 		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
 		String allNames = store.getString(PREFS_IGNORED_PROPERTY_SET_NAMES);
-		if (allNames != null && !allNames.isEmpty()) {
+		if (allNames != null && !allNames.trim().isEmpty()) {
 			result = allNames.split(separator);
 		}
 
@@ -80,7 +84,7 @@ public class PropertySetModel {
 		// since the property set name is typed in by the user, record the name with known key
 		// for preference store, so we can retrieve the added preferences as needed
 		String currentValue = store.getString(PREFS_IGNORED_PROPERTY_SET_NAMES);
-		if (currentValue == null || currentValue.isEmpty()) {
+		if (currentValue == null || currentValue.isEmpty() || currentValue.trim().isEmpty()) {
 			store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, propertySetNames);
 		} else {
 			store.setValue(PREFS_IGNORED_PROPERTY_SET_NAMES, currentValue + separator + propertySetNames);
