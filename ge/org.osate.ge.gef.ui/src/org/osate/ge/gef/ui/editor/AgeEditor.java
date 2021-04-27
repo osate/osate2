@@ -799,7 +799,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		// Add the wrapper to the canvas
 		canvas.getContentGroup().getChildren().add(wrapper);
 
-		gefDiagram.updateDiagramFromSceneGraph();
+		gefDiagram.updateDiagramFromSceneGraph(false);
 		adapterMap.put(LayoutInfoProvider.class, gefDiagram);
 
 		// Create overlays

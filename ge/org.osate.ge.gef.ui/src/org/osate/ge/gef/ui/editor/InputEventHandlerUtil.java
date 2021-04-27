@@ -1,6 +1,5 @@
 package org.osate.ge.gef.ui.editor;
 
-import org.osate.ge.gef.AgeGefRuntimeException;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
@@ -8,8 +7,6 @@ import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import javafx.event.EventTarget;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.transform.NonInvertibleTransformException;
 
 /**
  * Utility functions for implementing {@link InputEventHandler} and {@Interaction}
@@ -54,22 +51,6 @@ public class InputEventHandlerUtil {
 	}
 
 	/**
-	 * Gets the position of a mouse event in local coordinates of a node.
-	 * @param e the mouse event
-	 * @param local the node to which the return value will be local
-	 * @return the position of the mouse event in the local coordinates system of the specified node.
-	 */
-	public static Point2D getLocalEventPosition(final MouseEvent e, final Node local) {
-		try {
-			final Point2D p = local.getLocalToSceneTransform().createInverse().transform(e.getSceneX(),
-					e.getSceneY());
-			return p;
-		} catch (NonInvertibleTransformException ex) {
-			throw new AgeGefRuntimeException(ex);
-		}
-	}
-
-	/**
 	 * Converts a {@link Point2D} to a {@link org.osate.ge.graphics.Point}.
 	 * @param value the point to convert.
 	 * @return the converted point. Returns null if value is null/
@@ -79,9 +60,20 @@ public class InputEventHandlerUtil {
 	}
 
 	/**
+	 * Rounds a 2D coordinate to either the editor's grid or to the nearest integer.
+	 * @param editor the editor which defines the grid
+	 * @param value the value to snap in diagram coordinates
+	 * @param toGrid true to snap to the grid. If false, the value will be rounded to the nearest integer.
+	 * @return the rounded value
+	 */
+	public static Point2D snap(final AgeEditor editor, final Point2D value, final boolean toGrid) {
+		return new Point2D(snapX(editor, value.getX(), toGrid), snapY(editor, value.getY(), toGrid));
+	}
+
+	/**
 	 * Rounds an X value to either the editor's grid or to the nearest integer.
 	 * @param editor the editor which defines the grid
-	 * @param value the value to snap
+	 * @param value the value to snap in diagram coordinates
 	 * @param toGrid true to snap to the grid. If false, the value will be rounded to the nearest integer.
 	 * @return the rounded value
 	 */

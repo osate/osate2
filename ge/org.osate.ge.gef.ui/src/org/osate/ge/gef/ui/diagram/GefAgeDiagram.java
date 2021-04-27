@@ -27,6 +27,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
@@ -340,7 +341,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		this.finalStyleProvider = new StyleCalculator(diagram.getConfiguration(), de -> overrideStyles.get(de));
 
 		updateSceneGraph();
-		updateDiagramFromSceneGraph();
+		updateDiagramFromSceneGraph(false);
 
 		// Register our modification listener to update the scene graph based on changes
 		diagram.addModificationListener(modificationListener);
@@ -629,15 +630,9 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		// Update connections
 		if (sceneNode instanceof BaseConnectionNode) {
 			final BaseConnectionNode connectionNode = (BaseConnectionNode) sceneNode;
-			final Point controlPointOrigin;
+			final Point controlPointOrigin = getControlPointOrigin(diagramElement, sceneNode);
 			if (sceneNode instanceof FlowIndicatorNode) {
 				PreferredPosition.set(sceneNode, convertPoint(diagramElement.getPosition()));
-
-				final Point parentPosition = DiagramElementLayoutUtil.getAbsolutePosition(diagramElement);
-				controlPointOrigin = new Point(parentPosition.x + diagramElement.getX(),
-						parentPosition.y + diagramElement.getY());
-			} else {
-				controlPointOrigin = Point.ZERO;
 			}
 
 			// Update the connection anchor
@@ -646,9 +641,11 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 			// Set control points. Coordinates are specified in the diagram model relative to the diagram. The need to be specified relative to the
 			// connection position. For regular connection this is the same because the node's parent is the diagram node.
 			// However, flow indicators have a position and have parent nodes other than the diagram.
-			connectionNode.getInnerConnection().setControlPoints(diagramElement.getBendpoints().stream().map(
-					p -> new org.eclipse.gef.geometry.planar.Point(p.x - controlPointOrigin.x, p.y - controlPointOrigin.y))
-					.collect(Collectors.toList()));
+			connectionNode.getInnerConnection()
+					.setControlPoints(diagramElement.getBendpoints().stream()
+							.map(p -> new org.eclipse.gef.geometry.planar.Point(p.x - controlPointOrigin.x,
+									p.y - controlPointOrigin.y))
+							.collect(Collectors.toList()));
 
 			PreferredPosition.set(gefDiagramElement.primaryLabel,
 					convertPoint(diagramElement.getConnectionPrimaryLabelPosition()));
@@ -802,11 +799,21 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 	/**
 	 * Triggers a layout of the scene graph nodes and then updates the diagram based on the layout of the scene graph nodes.
-	 * Only position and size are set because those fields are calculated by the scene graph node during layout.	 *
+	 * Updates position, size, and bendpoints from the scene graph.
 	 * Should only be called after the root node has been added to a scene.
 	 * @param m the modification to use to modify the diagram elements
 	 */
 	public void updateDiagramFromSceneGraph() {
+		updateDiagramFromSceneGraph(true);
+	}
+
+	/**
+	 * Triggers a layout of the scene graph nodes and then updates the diagram based on the layout of the scene graph nodes.
+	 * Updates position and size. Optionally updates bendpoints.
+	 * Should only be called after the root node has been added to a scene.
+	 * @param updateBendpoints whether to update bendpoints in addition to the position and size of elements.
+	 */
+	public void updateDiagramFromSceneGraph(final boolean updateBendpoints) {
 		updatingDiagramFromSceneGraph = true;
 		forceLayout();
 		diagram.modify("Update Diagram from Scene Graph", m -> {
@@ -831,9 +838,39 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 				if (de.hasSize() || (layoutBounds.getWidth() != 0.0 || layoutBounds.getHeight() != 0)) {
 					m.setSize(de, new Dimension(layoutBounds.getWidth(), layoutBounds.getHeight()));
 				}
+
+				if (updateBendpoints) {
+					if (DiagramElementPredicates.isConnection(de) && sceneNode instanceof BaseConnectionNode) {
+						final BaseConnectionNode cn = (BaseConnectionNode) sceneNode;
+						final List<org.eclipse.gef.geometry.planar.Point> controlPoints = cn.getInnerConnection()
+								.getControlPoints();
+						if (!controlPoints.isEmpty() || !de.getBendpoints().isEmpty()) {
+							final Point controlPointOrigin = getControlPointOrigin(de, sceneNode);
+							m.setBendpoints(de,
+									cn.getInnerConnection().getControlPoints().stream()
+											.map(p -> new Point(p.x + controlPointOrigin.x, p.y + controlPointOrigin.y))
+											.collect(Collectors.toList()));
+						}
+					}
+				}
 			}
 		});
 		updatingDiagramFromSceneGraph = false;
+	}
+
+	/**
+	 * Determines the origin of the control points to allow converting to absolute coordinates.
+	 * @param de the diagram element for the connection to get the control point origin.
+	 * @param sceneNode the scene node for the specified diagram element
+	 * @return the control point origin
+	 */
+	private Point getControlPointOrigin(final DiagramElement de, final Node sceneNode) {
+		if (sceneNode instanceof FlowIndicatorNode) {
+			final Point parentPosition = DiagramElementLayoutUtil.getAbsolutePosition(de);
+			return new Point(parentPosition.x + de.getX(), parentPosition.y + de.getY());
+		} else {
+			return Point.ZERO;
+		}
 	}
 
 	/**

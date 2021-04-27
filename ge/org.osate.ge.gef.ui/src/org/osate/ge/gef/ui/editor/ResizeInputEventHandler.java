@@ -27,12 +27,16 @@ package org.osate.ge.gef.ui.editor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.eclipse.gef.geometry.euclidean.Vector;
+import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.ConfigureSize;
+import org.osate.ge.gef.ConnectionNode;
 import org.osate.ge.gef.PreferredPosition;
 import org.osate.ge.gef.ui.editor.overlays.ResizeShapeHandle;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -114,15 +118,17 @@ class ResizeInteraction extends BaseInteraction {
 		final ConfigureSize configureSize;
 		final Bounds originalLayoutBoundsInDiagram;
 		final Point2D originalLayoutPositionInLocal;
+		final List<DiagramElement> affectedConnections;
 
 		ElementInfo(final DiagramElement diagramElement, final Node sceneNode, final ConfigureSize configureSize,
-				final Bounds originalLayoutBoundsInDiagram,
-				final Point2D originalLayoutPosition) {
+				final Bounds originalLayoutBoundsInDiagram, final Point2D originalLayoutPosition,
+				final List<DiagramElement> affectedConnections) {
 			this.diagramElement = diagramElement;
 			this.sceneNode = sceneNode;
 			this.configureSize = configureSize;
 			this.originalLayoutBoundsInDiagram = originalLayoutBoundsInDiagram;
 			this.originalLayoutPositionInLocal = originalLayoutPosition;
+			this.affectedConnections = affectedConnections;
 		}
 	}
 
@@ -140,9 +146,15 @@ class ResizeInteraction extends BaseInteraction {
 			if (sceneNode instanceof ConfigureSize) {
 				final Bounds layoutInDiagram = sceneToDiagramTransform
 						.transform(sceneNode.getLocalToSceneTransform().transform(sceneNode.getLayoutBounds()));
-				elementsToResize.add(new ElementInfo(selectedDiagramElement, sceneNode, (ConfigureSize) sceneNode,
-						layoutInDiagram,
-						new Point2D(sceneNode.getLayoutX(), sceneNode.getLayoutY())));
+
+				// Get connections affected my moving the element
+				final List<DiagramElement> affectedConnections = DiagramElementLayoutUtil
+						.getConnectionsAffectedByMove(selectedDiagramElement, editor.getGefDiagram().getDiagram(), true)
+						.collect(Collectors.toList());
+
+				elementsToResize.add(
+						new ElementInfo(selectedDiagramElement, sceneNode, (ConfigureSize) sceneNode, layoutInDiagram,
+								new Point2D(sceneNode.getLayoutX(), sceneNode.getLayoutY()), affectedConnections));
 			}
 		}
 	}
@@ -161,8 +173,8 @@ class ResizeInteraction extends BaseInteraction {
 		}
 
 		final Transform sceneToDiagramTransform = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform();
-		final Point2D eventInDiagram2 = sceneToDiagramTransform.transform(e.getSceneX(), e.getSceneY());
-		final Point2D delta = eventInDiagram2.subtract(initialClickLocationInDiagram);
+		final Point2D eventInDiagram = sceneToDiagramTransform.transform(e.getSceneX(), e.getSceneY());
+		final Point2D eventDelta = eventInDiagram.subtract(initialClickLocationInDiagram);
 
 		// Resize all selection diagram elements
 		for (final ElementInfo info : elementsToResize) {
@@ -177,7 +189,7 @@ class ResizeInteraction extends BaseInteraction {
 			final double minHeight = info.sceneNode.minHeight(-1);
 			if (d.x < 0) {
 				double newPositionDiagramX = InputEventHandlerUtil.snapX(editor,
-						info.originalLayoutBoundsInDiagram.getMinX() + delta.getX(), snapToGrid);
+						info.originalLayoutBoundsInDiagram.getMinX() + eventDelta.getX(), snapToGrid);
 				newPositionDiagramX = Math.min(newPositionDiagramX,
 						info.originalLayoutBoundsInDiagram.getMaxX() - minWidth);
 
@@ -188,13 +200,13 @@ class ResizeInteraction extends BaseInteraction {
 				newWidth = info.originalLayoutBoundsInDiagram.getMaxX() - newPositionDiagramX;
 			} else if (d.x > 0) {
 				final double newMaxX = InputEventHandlerUtil.snapX(editor,
-						info.originalLayoutBoundsInDiagram.getMaxX() + delta.getX(), snapToGrid);
+						info.originalLayoutBoundsInDiagram.getMaxX() + eventDelta.getX(), snapToGrid);
 				newWidth = newMaxX - info.originalLayoutBoundsInDiagram.getMinX();
 			}
 
 			if (d.y < 0) {
 				double newPositionDiagramY = InputEventHandlerUtil.snapX(editor,
-						info.originalLayoutBoundsInDiagram.getMinY() + delta.getY(), snapToGrid);
+						info.originalLayoutBoundsInDiagram.getMinY() + eventDelta.getY(), snapToGrid);
 				newPositionDiagramY = Math.min(newPositionDiagramY,
 						info.originalLayoutBoundsInDiagram.getMaxY() - minHeight);
 				newPositionDiagramY = Math.max(newPositionDiagramY,
@@ -204,12 +216,35 @@ class ResizeInteraction extends BaseInteraction {
 				newHeight = info.originalLayoutBoundsInDiagram.getMaxY() - newPositionDiagramY;
 			} else if (d.y > 0) {
 				final double newMaxY = InputEventHandlerUtil.snapX(editor,
-						info.originalLayoutBoundsInDiagram.getMaxY() + delta.getY(), snapToGrid);
+						info.originalLayoutBoundsInDiagram.getMaxY() + eventDelta.getY(), snapToGrid);
 				newHeight = newMaxY - info.originalLayoutBoundsInDiagram.getMinY();
 			}
 
 			// Adjust the position and size
-			PreferredPosition.set(info.sceneNode, new Point2D(newPositionX, newPositionY));
+			final Point2D currentPreferredPosition = PreferredPosition.get(info.sceneNode);
+			if (currentPreferredPosition == null || currentPreferredPosition.getX() != newPositionX
+					|| currentPreferredPosition.getY() != newPositionY) {
+				PreferredPosition.set(info.sceneNode, new Point2D(newPositionX, newPositionY));
+
+				final double dx = currentPreferredPosition == null ? 0
+						: (newPositionX - currentPreferredPosition.getX());
+				final double dy = currentPreferredPosition == null ? 0
+						: (newPositionY - currentPreferredPosition.getY());
+				if (dx != 0.0 || dy != 0.0) {
+					for (final DiagramElement affectedConnectionDiagramElement : info.affectedConnections) {
+						final Node affectedConnectionSceneNode = editor.getGefDiagram()
+								.getSceneNode(affectedConnectionDiagramElement);
+						if (affectedConnectionSceneNode instanceof ConnectionNode) {
+							final BaseConnectionNode cn = (BaseConnectionNode) affectedConnectionSceneNode;
+							cn.getInnerConnection()
+									.setControlPoints(cn.getInnerConnection().getControlPoints().stream().map(cp -> {
+										return new org.eclipse.gef.geometry.planar.Point(cp.x + dx, cp.y + dy);
+									}).collect(Collectors.toList()));
+						}
+					}
+				}
+			}
+
 			info.configureSize.setConfiguredWidth(Math.max(newWidth, minWidth));
 			info.configureSize.setConfiguredHeight(Math.max(newHeight, minHeight));
 		}

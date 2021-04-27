@@ -76,7 +76,7 @@ public class MoveConnectionPointTool implements InputEventHandler {
 			return null;
 		}
 
-		return HandledEvent.newInteraction(new MoveConnectionPointInteraction(editor.getGefDiagram(), (MouseEvent) e));
+		return HandledEvent.newInteraction(new MoveConnectionPointInteraction(editor, (MouseEvent) e));
 	}
 }
 
@@ -84,7 +84,7 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 	private static final double REMOVE_POINT_DISTANCE = 2.0;
 	private static final double ADD_POINT_DISTANCE = 15.0;
 
-	private GefAgeDiagram gefDiagram;
+	private final AgeEditor editor;
 
 	/**
 	 * The handle with which the user is interacting.
@@ -107,8 +107,8 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 	 */
 	private boolean updateSceneGraphOnComplete = true;
 
-	public MoveConnectionPointInteraction(final GefAgeDiagram gefDiagram, final MouseEvent e) {
-		this.gefDiagram = gefDiagram;
+	public MoveConnectionPointInteraction(final AgeEditor editor, final MouseEvent e) {
+		this.editor = editor;
 
 		final ConnectionPointHandle handle = (ConnectionPointHandle) e.getTarget();
 		if (handle instanceof CreateControlPointHandle) {
@@ -138,7 +138,7 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 			// Update scene graph based on diagram element. This is needed to revert any scene changes that have been made
 			// during the interaction.
 			// Changes could be reverted more efficiently but this is simple and reliable.
-			gefDiagram.updateSceneGraph();
+			editor.getGefDiagram().updateSceneGraph();
 		}
 	}
 
@@ -148,12 +148,17 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 			return super.onMouseDragged(e);
 		}
 
+		final Transform sceneToDiagramTransform = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform();
+		final Point2D eventInDiagram = sceneToDiagramTransform.transform(e.getSceneX(), e.getSceneY());
+		final Point2D snappedDiagramPosition = InputEventHandlerUtil.snap(editor, eventInDiagram, false);
+
 		if (activeHandle instanceof FlowIndicatorPositionHandle) {
 			final FlowIndicatorNode c = ((FlowIndicatorPositionHandle) activeHandle).getSceneNode();
 			final Node positioningReference = c.getPositioningReferenceOrThrow();
 
 			// The the position relative to the reference
-			final Point2D newPoint = InputEventHandlerUtil.getLocalEventPosition(e, positioningReference);
+			final Point2D newPoint = getLocalPositionFromDiagram(editor.getGefDiagram(), snappedDiagramPosition,
+					positioningReference);
 			final Point2D oldPosition = PreferredPosition.get(activeHandle.getSceneNode());
 			PreferredPosition.set(activeHandle.getSceneNode(), newPoint);
 
@@ -167,7 +172,7 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 		} else if (controlPointIndex != null) {
 			final BaseConnectionNode c = activeHandle.getSceneNode();
 			final Connection ic = c.getInnerConnection();
-			final Point2D newPosition = InputEventHandlerUtil.getLocalEventPosition(e, ic);
+			final Point2D newPosition = getLocalPositionFromDiagram(editor.getGefDiagram(), snappedDiagramPosition, ic);
 
 			// Get a list of the control points and the start and end points of connection.
 			final List<Point> allPoints = ic.getPointsUnmodifiable();
@@ -207,13 +212,13 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 
 		final BaseConnectionNode connectionNode = activeHandle.getSceneNode();
 		try {
-			final Transform sceneToDiagramTransform = gefDiagram.getSceneNode().getLocalToSceneTransform()
+			final Transform sceneToDiagramTransform = editor.getGefDiagram().getSceneNode().getLocalToSceneTransform()
 					.createInverse();
 			final Transform connectionToDiagramTransform = sceneToDiagramTransform
 					.createConcatenation(connectionNode.getLocalToSceneTransform());
 
-			gefDiagram.getDiagram().modify("Update Control Point", m -> {
-				final DiagramElement diagramElementToModify = gefDiagram.getDiagramElement(connectionNode);
+			editor.getDiagram().modify("Update Control Point", m -> {
+				final DiagramElement diagramElementToModify = editor.getGefDiagram().getDiagramElement(connectionNode);
 				if (diagramElementToModify == null) {
 					throw new AgeGefRuntimeException("Unable to find diagram element");
 				}
@@ -288,5 +293,25 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 		final double b = c1 / c2;
 		final Point2D pb = segmentStart.add(b * v.getX(), b * v.getY());
 		return pb.distance(p);
+	}
+
+	/**
+	 * Gets the diagram position in the local coordinates of a node.
+	 * @param gefDiagram is the GEF diagram to use to determine transformation to diagram coordinates.
+	 * @param positionInDiagram a position in scene coordinates.
+	 * @param local the node to which the return value will be local.
+	 * @return the position of the mouse event in the local coordinates system of the specified node.
+	 */
+	private static Point2D getLocalPositionFromDiagram(final GefAgeDiagram gefDiagram, final Point2D positionInDiagram, final Node local) {
+		final Point2D positionScene = gefDiagram.getSceneNode().getLocalToSceneTransform()
+				.transform(positionInDiagram);
+
+		try {
+			final Point2D p = local.getLocalToSceneTransform().createInverse().transform(positionScene.getX(),
+					positionScene.getY());
+			return p;
+		} catch (NonInvertibleTransformException ex) {
+			throw new AgeGefRuntimeException(ex);
+		}
 	}
 }

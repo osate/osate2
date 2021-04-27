@@ -1114,6 +1114,12 @@ public class DiagramElementLayoutUtil {
 		return new Point(p1.x + d * ux, p1.y + d * uy);
 	}
 
+	/**
+	 * Gets the absolute position of a node. This absolute position only considers the positions of shapes.
+	 * Connections are ignored.
+	 * @param dn the node for which to get the absolute position.
+	 * @return the absolute position.
+	 */
 	public static Point getAbsolutePosition(final DiagramNode dn) {
 		int x = 0;
 		int y = 0;
@@ -1187,6 +1193,32 @@ public class DiagramElementLayoutUtil {
 				});
 	}
 
+	/**
+	 * Gets the connections which are affected by moving the specified elements
+	 * @param movedElement is the element which to get the affected connections
+	 * @param diagram is the diagram which contains the connections.
+	 * @param checkDescendants whether to check descendants of the specified elements when looking for connections
+	 * @return
+	 */
+	public static Stream<DiagramElement> getConnectionsAffectedByMove(final DiagramElement movedElement,
+			final AgeDiagram diagram,
+			final boolean checkDescendants) {
+		// Build a set containing the moved elements and all of their descendant which are represented as shapes
+		final Set<BusinessObjectContext> diagramElements = checkDescendants ? movedElement.getAllDescendants().collect(Collectors.toSet())
+				: Collections.singleton(movedElement);
+		final Stream<DiagramElement> connections = diagram.getAllDiagramNodes()
+				.filter(q -> q instanceof DiagramElement && DiagramElementPredicates.isConnection((DiagramElement) q))
+				.map(DiagramElement.class::cast);
+
+		// Iterate over all the connections in the diagram and update their bendpoints if their ends are in the set above.
+		return connections.filter(c -> {
+			final DiagramElement startElement = c.getStartElement();
+			final DiagramElement endElement = c.getEndElement();
+			final boolean isFlowIndicator = ((AgeConnection) c.getGraphic()).isFlowIndicator;
+			return diagramElements.contains(startElement) && (diagramElements.contains(endElement) || isFlowIndicator);
+		});
+	}
+
 	private static void shiftBendpoints(final DiagramElement connection, final org.osate.ge.graphics.Point delta,
 			final DiagramModification m) {
 		// Set new bendpoint locations
@@ -1227,8 +1259,8 @@ public class DiagramElementLayoutUtil {
 	}
 
 	public static void moveElement(final DiagramModification modification, final DiagramElement e, final Point value,
-			final boolean updateDockArea, final boolean updatedBendpoints) {
-		moveElement(modification, e, value, updateDockArea, updatedBendpoints, true);
+			final boolean updateDockArea, final boolean updateBendpoints) {
+		moveElement(modification, e, value, updateDockArea, updateBendpoints, true);
 	}
 
 	/**
