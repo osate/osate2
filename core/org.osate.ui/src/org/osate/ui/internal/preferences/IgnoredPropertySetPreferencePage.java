@@ -107,8 +107,29 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 			public void widgetSelected(final SelectionEvent e) {
 				String newPropSetName = Dialog.getInput("Add", "Type in a property set name to add it to ignored list",
 						"", null);
-				tree.add(tree.getInput(), new TreeNode(newPropSetName));
-				PropertySetModel.setIgnoredPropertySetPreference(newPropSetName);
+
+				if (tree.getInput() != null) {
+					if (!newPropSetName.isEmpty()) {
+						List<org.eclipse.emf.common.util.URI> predeclaredProp = PredeclaredProperties
+								.getContributedResources();
+						Boolean newPropertyIsPredeclared = false;
+
+						for (org.eclipse.emf.common.util.URI uri : predeclaredProp) {
+							if (uri.lastSegment().compareToIgnoreCase(newPropSetName) == 0
+									|| uri.lastSegment().compareToIgnoreCase(newPropSetName + ".aadl") == 0) {
+								newPropertyIsPredeclared = true;
+								break;
+							}
+						}
+
+						if (!newPropertyIsPredeclared) {
+							tree.add(tree.getInput(), new TreeNode(newPropSetName));
+							PropertySetModel.setIgnoredPropertySetPreference(newPropSetName);
+						} else {
+							Dialog.showWarning("Info", "Can not add predeclared property set to ignored list");
+						}
+					}
+				}
 			}
 		});
 
@@ -123,6 +144,10 @@ public class IgnoredPropertySetPreferencePage extends PreferencePage implements 
 					tree.remove(selectedNode);
 					// delete this property set name from ignored list
 					PropertySetModel.deletePropertySetFromIgnoredList(selectedNode.getLabel());
+
+					if (PropertySetModel.getAllAddedPropertySetNames().isEmpty()) {
+						tree.getTree().removeAll();
+					}
 				}
 			}
 		});

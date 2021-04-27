@@ -136,19 +136,10 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 			// check against preference
 			for (String inIgnoredPrefList : getIgnoredPropertySetPreference()) {
 				if (inIgnoredPrefList.equalsIgnoreCase(context.getLinkText())) {
-					suppressError = true;
-					break;
+					return new DiagnosticMessage(context.getLinkText()
+							+ " property set is missing. Install additional plug-ins that have this property set",
+							Severity.WARNING, Diagnostic.LINKING_DIAGNOSTIC);
 				}
-			}
-
-			if (suppressError) {
-				if (getIgnoredPropertySetAlertPreference()) { // show warning instead
-					return new DiagnosticMessage(msg.getMessage(), Severity.WARNING, Diagnostic.LINKING_DIAGNOSTIC);
-				} else {
-					return null; // ignore
-				}
-			} else {
-				return msg;
 			}
 		}
 
