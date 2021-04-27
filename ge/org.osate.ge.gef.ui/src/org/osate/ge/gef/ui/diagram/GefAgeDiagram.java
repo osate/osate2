@@ -284,6 +284,16 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 						forceLayout();
 					}
+
+					// Force connections to refresh. This works around cases where a diagram element is moved
+					// which causes an anchor to move and the connection itself isn't refreshed
+					// automatically.
+					for (final GefDiagramElement ge : diagramElementToGefDiagramElementMap.values()) {
+						if (ge.sceneNode instanceof BaseConnectionNode) {
+							final BaseConnectionNode cn = (BaseConnectionNode) ge.sceneNode;
+							cn.refresh();
+						}
+					}
 				} finally {
 					inBeforeModificationsCompleted = false;
 				}

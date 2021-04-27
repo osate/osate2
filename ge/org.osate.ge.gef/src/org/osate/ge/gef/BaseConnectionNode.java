@@ -92,7 +92,14 @@ public abstract class BaseConnectionNode extends Group implements ChopBoxGeometr
 		}
 	}
 
-	private final Connection connection = new Connection();
+	private static class ConnectionEx extends Connection {
+		@Override
+		public void refresh() {
+			super.refresh();
+		}
+	}
+
+	private final ConnectionEx connection = new ConnectionEx();
 	private final GroupWithWrapper primaryLabels = new GroupWithWrapper();
 	private final GroupWithWrapper secondaryLabels = new GroupWithWrapper();
 	private final GroupWithWrapper midpointDecorations = new GroupWithWrapper();
@@ -184,6 +191,14 @@ public abstract class BaseConnectionNode extends Group implements ChopBoxGeometr
 	 */
 	public final Connection getInnerConnection() {
 		return connection;
+	}
+
+	/**
+	 * Exposes {@link Connection#refresh} of the internal connection. Intended to work around cases where connections
+	 * aren't updated properly when anchors move.
+	 */
+	public void refresh() {
+		connection.refresh();
 	}
 
 	@Override
