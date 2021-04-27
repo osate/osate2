@@ -127,7 +127,7 @@ public class PaletteCommandInputEventHandler implements InputEventHandler {
 				editor.getPaletteModel().deactivateNonSelectItem();
 			});
 
-			return HandledEvent.handled();
+			return HandledEvent.consumed();
 		} else if (cmd instanceof CreateConnectionPaletteCommand) {
 			final CreateConnectionPaletteCommand createCmd = (CreateConnectionPaletteCommand) cmd;
 			final CanStartConnectionContext ctx = createCanStartConnectionContext(me).orElse(null);

@@ -27,20 +27,32 @@ package org.osate.ge.gef.ui.editor;
 import java.util.Objects;
 
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.ui.util.UiUtil;
 
+import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 /**
- *  {@link InputEventHandler} which opens the properties view when a diagram element is double-clicked.
+ *  {@link InputEventHandler} which handles moving diagram elements.
  */
-public class OpenPropertiesViewInputEventHandler implements InputEventHandler {
+public class MoveInputEventHandler implements InputEventHandler {
+	/**
+	 * Minimum mouse dragged distance before starting the move interaction. This avoids starting the move interaction
+	 * when the user is attempting to perform a rename or other interaction.
+	 */
+	private static double MIN_MOUSE_DRAGGED_DISTANCE = 10.0;
+
 	private final AgeEditor editor;
 
-	public OpenPropertiesViewInputEventHandler(final AgeEditor editor) {
+	/**
+	 * Location of the mouse pressed event in scene coordinates. Used to determine if the mouse was dragged enough to
+	 * start the move interaction.
+	 */
+	private Point2D pressLocationScene;
+
+	public MoveInputEventHandler(final AgeEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 	}
 
@@ -51,14 +63,12 @@ public class OpenPropertiesViewInputEventHandler implements InputEventHandler {
 
 	@Override
 	public HandledEvent handleEvent(final InputEvent e) {
-		// Only handle primary mouse button presses
-		if (e.getEventType() != MouseEvent.MOUSE_PRESSED) {
+		if (e.getEventType() != MouseEvent.MOUSE_PRESSED && e.getEventType() != MouseEvent.MOUSE_DRAGGED) {
 			return null;
 		}
 
-		// Check if the primary button was double-clicked.
 		final MouseEvent mouseEvent = (MouseEvent) e;
-		if (mouseEvent.getButton() != MouseButton.PRIMARY || mouseEvent.getClickCount() != 2) {
+		if (mouseEvent.getButton() != MouseButton.PRIMARY) {
 			return null;
 		}
 
@@ -68,8 +78,35 @@ public class OpenPropertiesViewInputEventHandler implements InputEventHandler {
 			return null;
 		}
 
-		UiUtil.openPropertiesView();
+		if (e.getEventType() == MouseEvent.MOUSE_PRESSED) {
+			// Store the starting position.
+			pressLocationScene = new Point2D(mouseEvent.getSceneX(), mouseEvent.getSceneY());
+		} else if (e.getEventType() == MouseEvent.MOUSE_DRAGGED) {
+			final double d = pressLocationScene.distance(mouseEvent.getSceneX(), mouseEvent.getSceneY());
+			if (d > MIN_MOUSE_DRAGGED_DISTANCE) {
+				final MoveInteraction newInteraction = new MoveInteraction();
+				return HandledEvent.newInteraction(newInteraction);
+			}
+		}
 
 		return HandledEvent.consumed();
+	}
+}
+
+class MoveInteraction extends BaseInteraction {
+	@Override
+	public void close() {
+
+	}
+
+	@Override
+	protected Interaction.InteractionState onMouseReleased(final MouseEvent e) {
+		if (e.getButton() != MouseButton.PRIMARY) {
+			return super.onMousePressed(e);
+		}
+
+		System.err.println("TODO: DO ACTUAL MOVE");
+
+		return InteractionState.COMPLETE;
 	}
 }

@@ -913,7 +913,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		inputEventHandlers.add(new ResizeInputEventHandler(this));
 		inputEventHandlers.add(new MarqueeSelectInputEventHandler(this));
 		inputEventHandlers.add(new MoveConnectionPointTool(this));
-		inputEventHandlers.add(new SelectAndRenameInputEventHandler(this));
+		inputEventHandlers.add(new SelectInputEventHandler(this));
+		inputEventHandlers.add(new MoveInputEventHandler(this));
+		inputEventHandlers.add(new RenameInputEventHandler(this));
 		inputEventHandlers.add(new PaletteCommandInputEventHandler(this));
 	}
 

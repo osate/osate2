@@ -25,7 +25,6 @@
 package org.osate.ge.gef.ui.editor;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -52,12 +51,12 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Transform;
 
 /**
- *  {@link InputEventHandler} which handles selection and renaming behavior.
+ *  {@link InputEventHandler} which handles renaming behavior.
  */
-public class SelectAndRenameInputEventHandler implements InputEventHandler {
+public class RenameInputEventHandler implements InputEventHandler {
 	private final AgeEditor editor;
 
-	public SelectAndRenameInputEventHandler(final AgeEditor editor) {
+	public RenameInputEventHandler(final AgeEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 	}
 
@@ -68,60 +67,33 @@ public class SelectAndRenameInputEventHandler implements InputEventHandler {
 
 	@Override
 	public HandledEvent handleEvent(final InputEvent e) {
-		// Only handle primary mouse button presses
-		if (e.getEventType() != MouseEvent.MOUSE_PRESSED) {
+		// Only handle primary mouse button releases
+		if (e.getEventType() != MouseEvent.MOUSE_RELEASED) {
 			return null;
 		}
 
 		final MouseEvent mouseEvent = (MouseEvent) e;
-		if (mouseEvent.getButton() != MouseButton.PRIMARY && mouseEvent.getButton() != MouseButton.SECONDARY) {
+		if (mouseEvent.getButton() != MouseButton.PRIMARY) {
 			return null;
 		}
 
 		final DiagramElement clickedDiagramElement = InputEventHandlerUtil
 				.getTargetDiagramElement(editor.getGefDiagram(), e.getTarget());
-
 		if (!editor.getPaletteModel().isSelectToolActive() || clickedDiagramElement == null) {
 			return null;
 		}
 
-		if (mouseEvent.isShiftDown()) {
-			// If shift is held down. Ensure the element is at the end of the list
-			final List<DiagramElement> newSelectedElements = editor.getSelectedDiagramElementList();
-			newSelectedElements.remove(clickedDiagramElement);
-			newSelectedElements.add(clickedDiagramElement);
-			editor.selectDiagramNodes(newSelectedElements);
-		} else if (mouseEvent.isControlDown()) {
-			// If Ctrl is held down, then remove the element if it is already in the selection. Otherwise, add it.
-			final List<DiagramElement> newSelectedElements = editor.getSelectedDiagramElementList();
-			if (newSelectedElements.contains(clickedDiagramElement)) {
-				newSelectedElements.remove(clickedDiagramElement);
-			} else {
-				newSelectedElements.add(clickedDiagramElement);
-			}
-			editor.selectDiagramNodes(newSelectedElements);
-		} else {
-			final boolean alreadySelected = editor.getSelectedDiagramElementList().contains(clickedDiagramElement);
-
-			// Don't overwrite the selection if it is already selected and this is a right click.
-			// This is necessary to avoid losing the selection when trying to accessing the context menu
-			if (!alreadySelected || mouseEvent.getButton() != MouseButton.SECONDARY) {
-				// Replace the selection with the object
-				editor.selectDiagramNodes(Collections.singletonList(clickedDiagramElement));
-			}
-
-			if (alreadySelected && mouseEvent.getButton() == MouseButton.PRIMARY) {
-				final LabelNode primaryLabel = editor.getGefDiagram().getPrimaryLabelSceneNode(clickedDiagramElement);
-				if (isAncestor(primaryLabel, (Node) e.getTarget())
-						&& EditorRenameUtil.canRename(clickedDiagramElement)) {
-					final RenameInteraction newInteraction = new RenameInteraction(clickedDiagramElement, primaryLabel,
-							editor);
-					return HandledEvent.newInteraction(newInteraction);
-				}
+		if (!mouseEvent.isShiftDown() && !mouseEvent.isControlDown() && mouseEvent.getButton() == MouseButton.PRIMARY
+				&& editor.getSelectedDiagramElementList().contains(clickedDiagramElement)) {
+			final LabelNode primaryLabel = editor.getGefDiagram().getPrimaryLabelSceneNode(clickedDiagramElement);
+			if (isAncestor(primaryLabel, (Node) e.getTarget()) && EditorRenameUtil.canRename(clickedDiagramElement)) {
+				final RenameInteraction newInteraction = new RenameInteraction(clickedDiagramElement, primaryLabel,
+						editor);
+				return HandledEvent.newInteraction(newInteraction);
 			}
 		}
 
-		return HandledEvent.handled();
+		return HandledEvent.consumed();
 	}
 
 	/**
@@ -250,6 +222,13 @@ class RenameInteraction extends BaseInteraction {
 					return InteractionState.IN_PROGRESS;
 				}
 			}
+		}
+
+		// Select the clicked element and deactivate direct editing
+		final DiagramElement clickedDiagramElement = InputEventHandlerUtil
+				.getTargetDiagramElement(editor.getGefDiagram(), e.getTarget());
+		if (clickedDiagramElement != null) {
+			editor.selectDiagramNodes(Collections.singletonList(clickedDiagramElement));
 		}
 
 		return InteractionState.COMPLETE;

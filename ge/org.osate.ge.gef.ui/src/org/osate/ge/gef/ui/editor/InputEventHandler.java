@@ -36,7 +36,7 @@ public interface InputEventHandler {
 	 * The result of handling an event
 	 */
 	static class HandledEvent {
-		private static final HandledEvent HANDLED = new HandledEvent(null);
+		private static final HandledEvent CONSUMED = new HandledEvent(null);
 
 		/**
 		 * If an interaction is started, then this contains the new interaction.
@@ -48,11 +48,12 @@ public interface InputEventHandler {
 		}
 
 		/**
-		 * Returns an instance used in cases where the event has been handled and an interaction was not started.
+		 * Returns an instance used in cases where the event has been handled, an interaction was not started, and
+		 * the event should not be passed to subsequent event handlers.
 		 * @return the instance.
 		 */
-		public static HandledEvent handled() {
-			return HANDLED;
+		public static HandledEvent consumed() {
+			return CONSUMED;
 		}
 
 		/**
@@ -75,7 +76,7 @@ public interface InputEventHandler {
 	/**
 	 * Handles the event.
 	 * @param e the new input event
-	 * @return the result of handling the event. If the event was not handled by the handler, then null is returned.
+	 * @return the result of handling the event. If the event was not consumed by the handler, then null is returned.
 	 */
 	HandledEvent handleEvent(InputEvent e);
 }
