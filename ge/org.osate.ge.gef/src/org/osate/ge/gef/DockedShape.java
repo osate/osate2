@@ -58,7 +58,8 @@ import javafx.scene.paint.Color;
  * Labels and nested {@link DockedShape} instances are laid out based on the configured {@link DockSide}
  * The preferred position of nested children can be set using {@link PreferredPosition#set(Node, Point2D)}.
  */
-public class DockedShape extends Region implements ChopBoxGeometryProvider, Stylable, HasLabelBackgroundColor {
+public class DockedShape extends Region
+		implements ChopBoxGeometryProvider, Stylable, HasLabelBackgroundColor, ConfigureSize {
 	/**
 	 * Padding at the bottom of the area containing all labels
 	 */
@@ -240,10 +241,7 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 		g.getChildren().remove(g);
 	}
 
-	/**
-	 * Update the configured width of the node
-	 * @param value is the new configured width.
-	 */
+	@Override
 	public void setConfiguredWidth(final double value) {
 		if (this.configuredWidth != value) {
 			this.configuredWidth = value;
@@ -251,10 +249,7 @@ public class DockedShape extends Region implements ChopBoxGeometryProvider, Styl
 		}
 	}
 
-	/**
-	 * Update the configured height of the node
-	 * @param value is the new configured height.
-	 */
+	@Override
 	public void setConfiguredHeight(final double value) {
 		if (this.configuredHeight != value) {
 			this.configuredHeight = value;

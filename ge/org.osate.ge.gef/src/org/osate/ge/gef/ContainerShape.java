@@ -65,7 +65,7 @@ import javafx.scene.paint.Color;
  * it is calculated based on the preferred position and sizes of children.
  *
  **/
-public class ContainerShape extends Region implements ChopBoxGeometryProvider, Stylable {
+public class ContainerShape extends Region implements ChopBoxGeometryProvider, Stylable, ConfigureSize {
 	/**
 	 * Indicates that a value has not been specified. Used to indicate the lack of a configured width or height.
 	 */
@@ -715,10 +715,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		g.getChildren().remove(g);
 	}
 
-	/**
-	 * Update the configured width of the node
-	 * @param value is the new configured width.
-	 */
+	@Override
 	public void setConfiguredWidth(final double value) {
 		if (this.configuredWidth != value) {
 			this.configuredWidth = value;
@@ -726,10 +723,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		}
 	}
 
-	/**
-	 * Update the configured height of the node
-	 * @param value is the new configured height.
-	 */
+	@Override
 	public void setConfiguredHeight(final double value) {
 		if (this.configuredHeight != value) {
 			this.configuredHeight = value;

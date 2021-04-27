@@ -77,4 +77,31 @@ public class InputEventHandlerUtil {
 	public static org.osate.ge.graphics.Point fxToAgePoint(final Point2D value) {
 		return value == null ? null : new org.osate.ge.graphics.Point(value.getX(), value.getY());
 	}
+
+	/**
+	 * Rounds an X value to either the editor's grid or to the nearest integer.
+	 * @param editor the editor which defines the grid
+	 * @param value the value to snap
+	 * @param toGrid true to snap to the grid. If false, the value will be rounded to the nearest integer.
+	 * @return the rounded value
+	 */
+	public static double snapX(final AgeEditor editor, final double value, final boolean toGrid) {
+		return snap(value, toGrid ? editor.getGridCellWidth() : 1.0);
+	}
+
+	/**
+	 * Rounds an Y value to either the editor's grid or to the nearest integer.
+	 * @param editor the editor which defines the grid
+	 * @param value the value to snap
+	 * @param toGrid true to snap to the grid. If false, the value will be rounded to the nearest integer.
+	 * @return the rounded value
+	 */
+	public static double snapY(final AgeEditor editor, final double value, final boolean toGrid) {
+		return snap(value, toGrid ? editor.getGridCellWidth() : 1.0);
+	}
+
+	private static double snap(final double value, final double multiplier) {
+		return Math.round(value / multiplier) * multiplier;
+	}
+
 }

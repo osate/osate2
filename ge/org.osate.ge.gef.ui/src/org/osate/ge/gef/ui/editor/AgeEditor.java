@@ -910,6 +910,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		// Create input event handlers
 		inputEventHandlers.add(new OpenPropertiesViewInputEventHandler(this));
+		inputEventHandlers.add(new ResizeInputEventHandler(this));
 		inputEventHandlers.add(new MarqueeSelectInputEventHandler(this));
 		inputEventHandlers.add(new MoveConnectionPointTool(this));
 		inputEventHandlers.add(new SelectAndRenameInputEventHandler(this));
@@ -999,6 +1000,14 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		if (newZoomLevelIndex >= 0) {
 			setZoom(ZOOM_LEVELS.get(newZoomLevelIndex));
 		}
+	}
+
+	public final double getGridCellWidth() {
+		return canvas.getGridCellWidth();
+	}
+
+	public final double getGridCellHeight() {
+		return canvas.getGridCellWidth();
 	}
 
 	@Override

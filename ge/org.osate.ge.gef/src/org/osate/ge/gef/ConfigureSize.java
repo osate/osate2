@@ -21,51 +21,22 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.ui.editor.overlays;
-
-import java.util.Objects;
-
-import org.eclipse.gef.geometry.euclidean.Vector;
-import org.osate.ge.internal.diagram.runtime.DiagramElement;
-
-import javafx.scene.shape.Rectangle;
+package org.osate.ge.gef;
 
 /**
- * Handle used to resize a shape
+ * Interface which allows setting the configured size of a node. The configured size is the size specified by the
+ * diagram element.
  */
-public class ResizeShapeHandle extends Rectangle implements Handle {
-	private final DiagramElement diagramElement;
-	private Vector direction;
+public interface ConfigureSize {
+	/**
+	 * Update the configured width of the node
+	 * @param value is the new configured width.
+	 */
+	void setConfiguredWidth(final double value);
 
 	/**
-	 * Creates a new instance
-	 * @param diagramElement the diagram element which is resized using the handle.
-	 * @param sceneNode the scene node being modified.
-	 * @param direction is a vector indicating the direction to allow resizing. For example (-1, 1) would allow moving the shape to the left and increasing the height.
-	 * @param primary whether the selected shape is the primary selection.
+	 * Update the configured height of the node
+	 * @param value is the new configured height.
 	 */
-	ResizeShapeHandle(final DiagramElement diagramElement, final Vector direction,
-			final boolean primary) {
-		super(4, 4);
-		this.diagramElement = Objects.requireNonNull(diagramElement, "diagramElement must not be null");
-		this.direction = Objects.requireNonNull(direction, "direction must not be null");
-		setPrimary(primary);
-		setStroke(OverlayColors.HANDLE_COLOR);
-		setStrokeWidth(1.0);
-	}
-
-	@Override
-	public DiagramElement getDiagramElement() {
-		return diagramElement;
-	}
-
-	@Override
-	public void setPrimary(final boolean value) {
-		setFill(value ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
-				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
-	}
-
-	public Vector getDirection() {
-		return direction.getCopy();
-	}
+	void setConfiguredHeight(final double value);
 }

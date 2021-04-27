@@ -103,10 +103,14 @@ public class SelectAndRenameInputEventHandler implements InputEventHandler {
 		} else {
 			final boolean alreadySelected = editor.getSelectedDiagramElementList().contains(clickedDiagramElement);
 
-			// Replace the selection with the object
-			editor.selectDiagramNodes(Collections.singletonList(clickedDiagramElement));
+			// Don't overwrite the selection if it is already selected and this is a right click.
+			// This is necessary to avoid losing the selection when trying to accessing the context menu
+			if (!alreadySelected || mouseEvent.getButton() != MouseButton.SECONDARY) {
+				// Replace the selection with the object
+				editor.selectDiagramNodes(Collections.singletonList(clickedDiagramElement));
+			}
 
-			if (alreadySelected) {
+			if (alreadySelected && mouseEvent.getButton() == MouseButton.PRIMARY) {
 				final LabelNode primaryLabel = editor.getGefDiagram().getPrimaryLabelSceneNode(clickedDiagramElement);
 				if (isAncestor(primaryLabel, (Node) e.getTarget())
 						&& EditorRenameUtil.canRename(clickedDiagramElement)) {
