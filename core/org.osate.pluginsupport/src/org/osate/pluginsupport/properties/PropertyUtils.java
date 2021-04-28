@@ -43,11 +43,6 @@ public final class PropertyUtils {
 		return scale(getProperty.apply(ne), unit);
 	}
 
-	public static <U extends Enum<U> & GeneratedUnits<U>, T extends Scalable<U>, R extends RangeWithUnits<U, T>> Optional<Double> getScaled(
-			final Function<NamedElement, Optional<R>> getProperty, final NamedElement ne, final Function<R, T> f2, final U unit) {
-		return getProperty.apply(ne).map(rrwu -> f2.apply(rrwu).getValue(unit));
-	}
-
 	/**
 	 * Given a {@link IntegerRangeWithUnits} or {@link RealRangeWithUnits}, use a unitless {@link RealRange} to return the range scaled to the given unit.
 	 *
