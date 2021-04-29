@@ -21,45 +21,66 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.aadl2.internal.util;
+package org.osate.ge.ba.ui.properties;
 
-import java.util.Optional;
+/**
+ * Text information for editing embedded models
+ */
+public class EmbeddedTextValue {
+	private final String wholeText;
+	private final String prefix;
+	private final String suffix;
+	private final int offset;
+	private final String editableText;
+	private int updateOffset;
+	private int updateLength;
 
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Subcomponent;
-import org.osate.ge.BusinessObjectContext;
-
-// Contains helper functions related to model elements which may originated from extended classifiers
-public class AadlInheritanceUtil {
-	public static boolean isInherited(final BusinessObjectContext boc) {
-		if (boc.getParent() != null && boc.getBusinessObject() instanceof Element) {
-			final Element e = ((Element) boc.getBusinessObject());
-			final Classifier c = e.getContainingClassifier();
-			final NamedElement ne = getClassifierOrSubcomponent(boc.getParent()).orElse(null);
-			if (c != null && ne != null && c != ne) {
-				return true;
-			}
-		}
-
-		return false;
+	public EmbeddedTextValue(final String originalText, final String prefix, final String editableText, final String suffix) {
+		this.prefix = prefix;
+		updateOffset = prefix.length();
+		this.suffix = suffix;
+		this.editableText = editableText;
+		final String prefixWithLineEnding = prefix + "\n";
+		wholeText = prefixWithLineEnding + editableText + "\n" + suffix;
+		// Offset to show text within embedded styled text
+		offset = prefixWithLineEnding.length();
+		// Length of text to replace
+		updateLength = Math.max(0, originalText.length() - prefix.length() - suffix.length());
 	}
 
-	/**
-	 * Walks up the business object context tree and returns the first business object which is a classifier or subcomponent
-	 * @param boc the first business object context to check
-	 * @return the classifier or subcomponent
-	 */
-	private static Optional<NamedElement> getClassifierOrSubcomponent(BusinessObjectContext boc) {
-		while (boc != null) {
-			final Object bo = boc.getBusinessObject();
-			if (bo instanceof Classifier || bo instanceof Subcomponent) {
-				return boc.getBusinessObject(NamedElement.class);
-			}
-			boc = boc.getParent();
-		}
+	public int getUpdateLength() {
+		return updateLength;
+	}
 
-		return Optional.empty();
+	public String getEditableText() {
+		return editableText;
+	}
+
+	public int getEditableTextOffset() {
+		return offset;
+	}
+
+	public String getWholeText() {
+		return wholeText;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public String getSuffix() {
+		return suffix;
+	}
+
+	public int getUpdateOffset() {
+		return updateOffset;
+	}
+
+	public void setUpdateOffset(final int updateOffset) {
+		this.updateOffset = updateOffset;
+	}
+
+	public void setUpdateLength(final int updateLength) {
+		this.updateLength = updateLength;
 	}
 }

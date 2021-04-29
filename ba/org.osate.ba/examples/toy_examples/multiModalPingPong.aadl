@@ -79,12 +79,6 @@ data mode_switch_cmd
   data_model::element_names => ("to_role","c_id");
 end mode_switch_cmd;
 
-data implementation mode_switch_cmd.impl
-  subcomponents
-    to_role: data role_switch;
-    c_id: data component_id;
-end mode_switch_cmd.impl;
-
 data ping_result
 -- success/failure
   properties
@@ -242,7 +236,7 @@ end controller_process.impl;
 
 thread controller_thread
   features
-    mode_switch_p: in event data port mode_switch_cmd.impl;
+    mode_switch_p: in event data port mode_switch_cmd;
     to_ping: out event port[123];
     to_pong: out event port[123];
     components: requires data access components_array.impl;
@@ -252,7 +246,7 @@ end controller_thread;
 
 thread implementation controller_thread.impl
   subcomponents
-    last_cmd: data mode_switch_cmd.impl;
+    last_cmd: data mode_switch_cmd;
     mode_switch: subprogram controller_subprogram.impl;
     result: data base_types::integer;
     
