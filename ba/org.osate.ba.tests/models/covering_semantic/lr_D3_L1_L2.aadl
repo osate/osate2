@@ -17,54 +17,51 @@
 -- along with this program.  If not, see 
 -- https://www.eclipse.org/legal/epl-2.0/
 
--- Behavior Annex semantic rule D.4.(6) tests.
+-- Behavior Annex legality rules D.3.(L1) and D.3.(L2) tests.
 
-package exemple_sr_D4_6
+package exemple_lr_D3_L1_L2
 public
-   with Base_Types ;
+	
+subprogram sub
+end sub;
 
-thread th
-end th;
 
-
-thread implementation th.good
+subprogram implementation sub.good
 
 annex behavior_specification {**
 
 states
- initState : initial state ;
- compState : complete state ;
- finalState : final state ;
- exeState1 : state ;
- exeState2 : state ;
- 
-transitions
- compState -[on dispatch stop]-> exeState1 ;
- exeState1 -[]-> exeState2 ;
- exeState2 -[]-> finalState ;
- 
+ uniqueState : initial final state ;
+  
 **};
 
-end th.good;
+end sub.good;
 
-thread implementation th.error 
+subprogram implementation sub.error1 
 annex behavior_specification {**
 
+  -- Errors: The behavior annex of a subprogram
+  --          _ can't have more than one initial state.
+  --          _ must define one final state.
+  --          _ can't have complete state. 
 states
- initState : initial state ;
+ initState1 : initial state ;
+ initState2 : initial state ;
  compState : complete state ;
- finalState : final state ;
- exeState1 : state ;
- exeState2 : state ;
  
-transitions
-
- -- Errors : _ initState is not complete, it cannot have outgoing transition with a stop dispatch trigger and 
- --            dispatch condition in general.
- --          _ the transition don't end to a final state.
- initState -[on dispatch stop]-> exeState1 ;
-
 **};
-end th.error;
+end sub.error1;
 
-end exemple_sr_D4_6 ;
+subprogram implementation sub.error2 
+annex behavior_specification {**
+
+  -- Errors: The behavior annex of a subprogram
+  --          _ can't have more than one final state.
+states
+ uniqueState : initial final state ;
+ finalState1 : final state ;
+  
+**};
+end sub.error2 ;
+
+end exemple_lr_D3_L1_L2 ;
