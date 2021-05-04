@@ -164,13 +164,13 @@ public class PropertyItemProvider extends BasicPropertyItemProvider {
 	}
 
 	/**
-	 * This returns Property.gif.
+	 * This returns Property.png.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Property"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Property.png"));
 	}
 
 	/**
