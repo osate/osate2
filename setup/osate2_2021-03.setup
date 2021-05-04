@@ -4,7 +4,6 @@
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:git="http://www.eclipse.org/oomph/setup/git/1.0"
-    xmlns:jdt="http://www.eclipse.org/oomph/setup/jdt/1.0"
     xmlns:launching="http://www.eclipse.org/oomph/setup/launching/1.0"
     xmlns:pde="http://www.eclipse.org/oomph/setup/pde/1.0"
     xmlns:predicates="http://www.eclipse.org/oomph/predicates/1.0"
@@ -12,7 +11,7 @@
     xmlns:setup.p2="http://www.eclipse.org/oomph/setup/p2/1.0"
     xmlns:setup.targlets="http://www.eclipse.org/oomph/setup/targlets/1.0"
     xmlns:setup.workingsets="http://www.eclipse.org/oomph/setup/workingsets/1.0"
-    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/git/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Git.ecore http://www.eclipse.org/oomph/setup/jdt/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/JDT.ecore http://www.eclipse.org/oomph/setup/launching/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Launching.ecore http://www.eclipse.org/oomph/setup/pde/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/PDE.ecore http://www.eclipse.org/oomph/predicates/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Predicates.ecore http://www.eclipse.org/oomph/setup/targlets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupTarglets.ecore http://www.eclipse.org/oomph/setup/workingsets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupWorkingSets.ecore"
+    xsi:schemaLocation="http://www.eclipse.org/oomph/setup/git/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Git.ecore http://www.eclipse.org/oomph/setup/launching/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Launching.ecore http://www.eclipse.org/oomph/setup/pde/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/PDE.ecore http://www.eclipse.org/oomph/predicates/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/Predicates.ecore http://www.eclipse.org/oomph/setup/targlets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupTarglets.ecore http://www.eclipse.org/oomph/setup/workingsets/1.0 http://git.eclipse.org/c/oomph/org.eclipse.oomph.git/plain/setups/models/SetupWorkingSets.ecore"
     name="osate2_2021-03"
     label="OSATE2 Development 2021-03">
   <setupTask
@@ -340,13 +339,6 @@
           key="/instance/org.eclipse.xtend.core.Xtend/XtendFormatterProfile.version"
           value="1"/>
     </setupTask>
-  </setupTask>
-  <setupTask
-      xsi:type="jdt:JRETask"
-      version="JavaSE-11"
-      location="${jre.location-11}"
-      vmInstallType="org.eclipse.jdt.launching.Standard11xVMType">
-    <description>Define the JRE needed to compile and run the Java projects of ${scope.project.label}</description>
   </setupTask>
   <setupTask
       xsi:type="setup:EclipseIniTask"
@@ -703,6 +695,8 @@
           url="http://download.eclipse.org/efxclipse/updates-released/3.7.0/site"/>
       <repository
           url="http://download.eclipse.org/elk/updates/releases/0.7.1/"/>
+      <repository
+          url="http://download.eclipse.org/tools/orbit/downloads/2021-03"/>
       <description>Additional features for the graphical editor</description>
     </setupTask>
   </setupTask>
@@ -798,8 +792,6 @@
       <requirement
           name="org.eclipse.ease.lang.unittest.feature.feature.group"/>
       <requirement
-          name="org.eclipse.ease.modules.modeling.feature.feature.group"/>
-      <requirement
           name="org.eclipse.ease.modules.feature.feature.group"/>
       <requirement
           name="org.eclipse.equinox.p2.discovery.feature.feature.group"/>
@@ -813,58 +805,6 @@
           name="*"/>
       <sourceLocator
           rootFolder="${git.clone.osate2.location}"/>
-      <repositoryList
-          name="2020-03">
-        <repository
-            url="http://download.eclipse.org/releases/2020-03"/>
-        <repository
-            url="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.20.0"/>
-        <repository
-            url="http://download.eclipse.org/sirius/updates/releases/6.3.0/2019-06"/>
-        <repository
-            url="http://download.eclipse.org/ease/release/0.7.0"/>
-        <repository
-            url="http://download.eclipse.org/elk/updates/releases/0.7.0/"/>
-        <repository
-            url="http://download.eclipse.org/xsemantics/milestones/1.19"/>
-        <repository
-            url="http://dl.bintray.com/itemis/generic/xtext-testing/updates"/>
-        <repository
-            url="http://download.itemis.de/updates/releases/2.1.1"/>
-        <repository
-            url="http://osate-build.sei.cmu.edu/p2/xtexttools"/>
-        <repository
-            url="http://eclipse.py4j.org"/>
-        <repository
-            url="http://download.eclipse.org/birt/update-site/2018-09-interim"/>
-        <repository
-            url="http://updates.yakindu.com/statecharts/releases/3.5.9"/>
-      </repositoryList>
-      <repositoryList
-          name="2020-06">
-        <repository
-            url="http://download.eclipse.org/releases/2020-06"/>
-        <repository
-            url="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.20.0"/>
-        <repository
-            url="http://download.eclipse.org/sirius/updates/releases/6.3.1/2019-06"/>
-        <repository
-            url="http://download.eclipse.org/ease/release/0.7.0"/>
-        <repository
-            url="http://download.eclipse.org/elk/updates/releases/0.7.0/"/>
-        <repository
-            url="http://download.eclipse.org/xsemantics/milestones/1.19"/>
-        <repository
-            url="http://download.itemis.de/updates/releases/2.1.1"/>
-        <repository
-            url="https://xtexttools.libutzki.de/"/>
-        <repository
-            url="http://eclipse.py4j.org"/>
-        <repository
-            url="http://download.eclipse.org/birt/update-site/2018-09-interim"/>
-        <repository
-            url="http://updates.yakindu.com/statecharts/releases/3.5.9"/>
-      </repositoryList>
       <repositoryList
           name="2021-03">
         <repository
