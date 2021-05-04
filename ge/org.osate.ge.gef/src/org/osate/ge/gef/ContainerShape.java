@@ -69,7 +69,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	/**
 	 * Indicates that a value has not been specified. Used to indicate the lack of a configured width or height.
 	 */
-	public static double NOT_SPECIFIED = -1;
+	public static final double NOT_SPECIFIED = -1;
 
 	/**
 	 * Minimum vertical padding on each side of the label area.

@@ -87,7 +87,7 @@ public class PaletteCommandInputEventHandler implements InputEventHandler {
 
 	@Override
 	public HandledEvent handleEvent(final InputEvent e) {
-		if (e.getEventType() != MouseEvent.MOUSE_PRESSED || ((MouseEvent) e).getButton() != MouseButton.PRIMARY) {
+		if (e.getEventType() != MouseEvent.MOUSE_PRESSED) {
 			return null;
 		}
 
@@ -98,48 +98,53 @@ public class PaletteCommandInputEventHandler implements InputEventHandler {
 		}
 
 		final MouseEvent me = (MouseEvent) e;
-		if (cmd instanceof TargetedPaletteCommand) {
-			final TargetedPaletteCommand tc = (TargetedPaletteCommand) cmd;
-			createGetTargetedOperationContext((MouseEvent) e).ifPresent(c -> {
-				final Node sceneNode = editor.getSceneNode((DiagramNode) c.getTarget());
-				final Point2D p = getTargetPosition(sceneNode, me.getSceneX(), me.getSceneY());
 
-				class CreateAction implements AgeAction {
-					@Override
-					public AgeAction execute() {
-						final DiagramNode targetNode = (DiagramNode) c.getTarget();
-						tc.getOperation(c).ifPresent(operation -> {
-							// Perform modification
-							final OperationExecutor opExecutor = new OperationExecutor(
-									editor.getAadlModificationService(), editor.getReferenceService());
-							opExecutor.execute(operation, new DefaultOperationResultsProcessor(editor, targetNode,
-									GefAgeDiagramUtil.toAgePoint(p)));
-						});
+		if (me.getButton() == MouseButton.PRIMARY) {
+			if (cmd instanceof TargetedPaletteCommand) {
+				final TargetedPaletteCommand tc = (TargetedPaletteCommand) cmd;
+				createGetTargetedOperationContext((MouseEvent) e).ifPresent(c -> {
+					final Node sceneNode = editor.getSceneNode((DiagramNode) c.getTarget());
+					final Point2D p = getTargetPosition(sceneNode, me.getSceneX(), me.getSceneY());
 
-						return null;
+					class CreateAction implements AgeAction {
+						@Override
+						public AgeAction execute() {
+							final DiagramNode targetNode = (DiagramNode) c.getTarget();
+							tc.getOperation(c).ifPresent(operation -> {
+								// Perform modification
+								final OperationExecutor opExecutor = new OperationExecutor(
+										editor.getAadlModificationService(), editor.getReferenceService());
+								opExecutor.execute(operation, new DefaultOperationResultsProcessor(editor, targetNode,
+										GefAgeDiagramUtil.toAgePoint(p)));
+							});
+
+							return null;
+						}
 					}
+
+					final CreateAction createAction = new CreateAction();
+					editor.getActionExecutor().execute("Create " + cmd.getLabel(), ExecutionMode.NORMAL, createAction);
+
+					// Deactivate the current palette item and select the "Select" item
+					editor.getPaletteModel().deactivateNonSelectItem();
+				});
+
+				return HandledEvent.consumed();
+			} else if (cmd instanceof CreateConnectionPaletteCommand) {
+				final CreateConnectionPaletteCommand createCmd = (CreateConnectionPaletteCommand) cmd;
+				final CanStartConnectionContext ctx = createCanStartConnectionContext(me).orElse(null);
+				if (ctx == null || !createCmd.canStartConnection(ctx)) {
+					return null;
 				}
 
-				final CreateAction createAction = new CreateAction();
-				editor.getActionExecutor().execute("Create " + cmd.getLabel(), ExecutionMode.NORMAL, createAction);
-
-				// Deactivate the current palette item and select the "Select" item
-				editor.getPaletteModel().deactivateNonSelectItem();
-			});
-
-			return HandledEvent.consumed();
-		} else if (cmd instanceof CreateConnectionPaletteCommand) {
-			final CreateConnectionPaletteCommand createCmd = (CreateConnectionPaletteCommand) cmd;
-			final CanStartConnectionContext ctx = createCanStartConnectionContext(me).orElse(null);
-			if (ctx == null || !createCmd.canStartConnection(ctx)) {
-				return null;
+				return HandledEvent.newInteraction(
+						new CreateConnectionInteraction(createCmd, (DiagramElement) ctx.getSource(), editor, me));
 			}
-
-			return HandledEvent.newInteraction(
-					new CreateConnectionInteraction(createCmd, (DiagramElement) ctx.getSource(), editor, me));
-		} else {
-			return null;
+		} else if (me.getButton() == MouseButton.SECONDARY) {
+			editor.getPaletteModel().deactivateNonSelectItem();
 		}
+
+		return null;
 	}
 
 	private Optional<CanStartConnectionContext> createCanStartConnectionContext(final MouseEvent event) {
@@ -255,8 +260,7 @@ class CreateConnectionInteraction extends BaseInteraction {
 	@Override
 	protected Interaction.InteractionState onMouseMoved(final MouseEvent e) {
 		updateMouseAnchorPosition(e);
-		this.cursor = createGetCreateConnectionOperationContext(e).flatMap(cmd::getOperation).isPresent()
-				? Cursors.PLUG
+		this.cursor = createGetCreateConnectionOperationContext(e).flatMap(cmd::getOperation).isPresent() ? Cursors.PLUG
 				: Cursors.PLUG_NO;
 
 		return InteractionState.IN_PROGRESS;

@@ -125,25 +125,30 @@ public class MoveInputEventHandler implements InputEventHandler {
 						}
 					}
 				}
-			} else if (e.getEventType() == MouseEvent.MOUSE_DRAGGED) {
+			} else if (e.getEventType() == MouseEvent.MOUSE_DRAGGED && mousePressLocationDiagram != null) {
 				final Point2D newPositionDiagram = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform()
 						.transform(mouseEvent.getSceneX(), mouseEvent.getSceneY());
 				final double d = mousePressLocationDiagram.distance(newPositionDiagram);
 				if (d > MIN_MOUSE_DRAGGED_DISTANCE) {
-					if (mousePressPrimaryConnectionLabel == null) {
-						final MouseMoveSelectedElementsInteraction newInteraction = new MouseMoveSelectedElementsInteraction(
-								editor, mousePressLocationDiagram);
-						return HandledEvent.newInteraction(newInteraction);
-					} else {
-						final BaseConnectionNode cn = InputEventHandlerUtil
-								.getClosestConnection(mousePressPrimaryConnectionLabel);
-						if (cn == null) {
-							return null;
-						}
+					try {
+						if (mousePressPrimaryConnectionLabel == null) {
+							final MouseMoveSelectedElementsInteraction newInteraction = new MouseMoveSelectedElementsInteraction(
+									editor, mousePressLocationDiagram);
+							return HandledEvent.newInteraction(newInteraction);
+						} else {
+							final BaseConnectionNode cn = InputEventHandlerUtil
+									.getClosestConnection(mousePressPrimaryConnectionLabel);
+							if (cn == null) {
+								return null;
+							}
 
-						final MovePrimaryConnectionLabelInteraction newInteraction = new MovePrimaryConnectionLabelInteraction(
-								editor, mousePressLocationDiagram, cn, mousePressPrimaryConnectionLabel);
-						return HandledEvent.newInteraction(newInteraction);
+							final MovePrimaryConnectionLabelInteraction newInteraction = new MovePrimaryConnectionLabelInteraction(
+									editor, mousePressLocationDiagram, cn, mousePressPrimaryConnectionLabel);
+
+							return HandledEvent.newInteraction(newInteraction);
+						}
+					} finally {
+						mousePressLocationDiagram = null;
 					}
 				}
 			}
