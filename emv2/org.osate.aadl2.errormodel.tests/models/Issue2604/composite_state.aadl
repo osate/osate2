@@ -44,8 +44,10 @@ public
 					[s1.OperationalNonCritical and s2.Operational]->Operational{CommonErrors}; -- should be error
 					[s1.OperationalNonCritical and s2.OperationalNonCritical]->Operational{ServiceError, EarlyService}; -- should be error
 					[s1.Operational or s2.Operational]->Operational{ServiceError, EarlyService}; -- should be error
-					[s1.Operational or s2.Operational]->Operational{CommonErrors};
+					[s1.Operational or s2.Operational]->Operational{CommonErrors}; -- should be error
 					[s1.OperationalNonCritical]->Operational{ServiceError}; -- fine 
+					[s1.OperationalNonCritical and s2.Operational]->Operational{ServiceError}; -- fine 
+					[s1.Operational or s2.Operational]->Operational{ServiceError}; -- fine
 			end composite;			
 		**};
 	end x.i;
