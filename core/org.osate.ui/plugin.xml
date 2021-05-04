@@ -111,7 +111,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             id="org.osate.ui.search.AadlSearchPage"
             extensions="aadl:1"
             label="AADL Search"
-            icon="icons/aadl.gif" /> 
+            icon="icons/aadl.png" /> 
    </extension>
 
    <extension point="org.eclipse.search.searchResultViewPages">
@@ -152,7 +152,7 @@ censes only apply to the Third Party Software and not any other portion of this 
       <wizard
             category="org.eclipse.ui.Examples/org.osate.Wizard.category.examples"
             class="org.osate.ui.wizards.OsateExampleWizard"
-            icon="icons/aadl.gif"
+            icon="icons/aadl.png"
             id="org.osate.wizard.examples"
             name="AADL Examples"
             project="true">
@@ -408,7 +408,7 @@ censes only apply to the Third Party Software and not any other portion of this 
         	id="org.osate.ui.perspective.AadlPerspective"
             name="AADL" 
             class="org.osate.ui.perspective.AadlPerspectiveFactory" 
-            icon="icons/aadl.gif"> 
+            icon="icons/aadl.png"> 
         </perspective> 
     </extension>
     
@@ -478,14 +478,14 @@ censes only apply to the Third Party Software and not any other portion of this 
       <view
             category="aadl.view_category"
             class="org.osate.ui.views.LoggerView"
-            icon="icons/aadl.gif"
+            icon="icons/aadl.png"
             id="org.osate.ui.logger_view"
             name="%osate_logger_view.label">
       </view>
       <view
             category="aadl.view_category"
             class="org.osate.ui.views.ClassifierInfoView"
-            icon="icons/aadl.gif"
+            icon="icons/aadl.png"
             id="org.osate.ui.classifier_info_view"
             name="%osate_classifier_info_view.label">
       </view>

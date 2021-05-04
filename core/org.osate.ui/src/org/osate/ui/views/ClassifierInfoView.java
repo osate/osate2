@@ -130,7 +130,7 @@ public final class ClassifierInfoView extends ViewPart {
 	private static final String IMPLEMENTED_BY = "implemented by ";
 	private static final String EXTENDED_BY = "extended by ";
 
-	private static final String AADL_ICON = "/icons/aadl.gif";
+	private static final String AADL_ICON = "/icons/aadl.png";
 	private static final String LINK_ICON = "icons/link_to_editor.png";
 	private static final String CLEAR_ICON = "icons/delete.png";
 	private static final String REFRESH_ICON = "icons/refresh.png";
