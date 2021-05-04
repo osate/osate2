@@ -113,7 +113,7 @@ public class PaletteCommandInputEventHandler implements InputEventHandler {
 							final OperationExecutor opExecutor = new OperationExecutor(
 									editor.getAadlModificationService(), editor.getReferenceService());
 							opExecutor.execute(operation, new DefaultOperationResultsProcessor(editor, targetNode,
-									InputEventHandlerUtil.fxToAgePoint(p)));
+									GefAgeDiagramUtil.toAgePoint(p)));
 						});
 
 						return null;
@@ -202,6 +202,7 @@ class CreateConnectionInteraction extends BaseInteraction {
 	private final CreateConnectionPaletteCommand cmd;
 	private final BusinessObjectContext sourceBoc;
 	private final AgeEditor editor;
+	private Cursor cursor = null;
 
 	/**
 	 * Visualization for connection being created
@@ -247,15 +248,17 @@ class CreateConnectionInteraction extends BaseInteraction {
 	}
 
 	@Override
-	public Cursor getCursor(final MouseEvent mouseMoveEvent) {
-		return createGetCreateConnectionOperationContext(mouseMoveEvent).flatMap(cmd::getOperation).isPresent()
-				? Cursors.PLUG
-				: Cursors.PLUG_NO;
+	public final Cursor getCursor() {
+		return cursor;
 	}
 
 	@Override
 	protected Interaction.InteractionState onMouseMoved(final MouseEvent e) {
 		updateMouseAnchorPosition(e);
+		this.cursor = createGetCreateConnectionOperationContext(e).flatMap(cmd::getOperation).isPresent()
+				? Cursors.PLUG
+				: Cursors.PLUG_NO;
+
 		return InteractionState.IN_PROGRESS;
 	}
 

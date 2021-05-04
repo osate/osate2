@@ -1,5 +1,6 @@
 package org.osate.ge.gef.ui.editor;
 
+import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
@@ -51,15 +52,6 @@ public class InputEventHandlerUtil {
 	}
 
 	/**
-	 * Converts a {@link Point2D} to a {@link org.osate.ge.graphics.Point}.
-	 * @param value the point to convert.
-	 * @return the converted point. Returns null if value is null/
-	 */
-	public static org.osate.ge.graphics.Point fxToAgePoint(final Point2D value) {
-		return value == null ? null : new org.osate.ge.graphics.Point(value.getX(), value.getY());
-	}
-
-	/**
 	 * Rounds a 2D coordinate to either the editor's grid or to the nearest integer.
 	 * @param editor the editor which defines the grid
 	 * @param value the value to snap in diagram coordinates
@@ -96,4 +88,18 @@ public class InputEventHandlerUtil {
 		return Math.round(value / multiplier) * multiplier;
 	}
 
+	/**
+	 * Returns the specified or the closest ancestor which is an instance of {@link BaseConnectionNode}.
+	 * @param node is the node for which to get the connection.
+	 * @return the connection node or null if there is no such node.
+	 */
+	public static BaseConnectionNode getClosestConnection(final Node node) {
+		for (Node tmp = node; tmp != null; tmp = tmp.getParent()) {
+			if (tmp instanceof BaseConnectionNode) {
+				return (BaseConnectionNode) tmp;
+			}
+		}
+
+		return null;
+	}
 }

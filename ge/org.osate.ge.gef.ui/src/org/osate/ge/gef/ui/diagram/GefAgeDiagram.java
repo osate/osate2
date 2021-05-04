@@ -43,6 +43,7 @@ import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.ConnectionNode;
 import org.osate.ge.gef.ContainerShape;
 import org.osate.ge.gef.DiagramRootNode;
+import org.osate.ge.gef.DockSide;
 import org.osate.ge.gef.DockedShape;
 import org.osate.ge.gef.FeatureConstants;
 import org.osate.ge.gef.FeatureGroupNode;
@@ -193,6 +194,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		@Override
 		public void diagramConfigurationChanged(final DiagramConfigurationChangedEvent e) {
 			needFullUpdate = true;
+			finalStyleProvider.setDiagramConfiguration(diagram.getConfiguration());
 		}
 
 		@Override
@@ -351,7 +353,6 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		this.finalStyleProvider = new StyleCalculator(diagram.getConfiguration(), de -> overrideStyles.get(de));
 
 		updateSceneGraph();
-		updateDiagramFromSceneGraph(false);
 
 		// Register our modification listener to update the scene graph based on changes
 		diagram.addModificationListener(modificationListener);
@@ -563,23 +564,8 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 					// Add the docked shape to the appropriate list
 					if (parentDiagramElementSceneNode instanceof ContainerShape) {
 						final ContainerShape containerShapeParent = (ContainerShape) parentDiagramElementSceneNode;
-						switch (dockArea) {
-						case LEFT:
-							containerShapeParent.getLeftChildren().add(dockedShape);
-							break;
-						case RIGHT:
-							containerShapeParent.getRightChildren().add(dockedShape);
-							break;
-						case TOP:
-							containerShapeParent.getTopChildren().add(dockedShape);
-							break;
-						case BOTTOM:
-							containerShapeParent.getBottomChildren().add(dockedShape);
-							break;
-						default:
-							throw new AgeGefRuntimeException(
-									"Unexpected dock area for child of container shape: " + dockArea);
-						}
+						containerShapeParent.addOrUpdateDockedChild(dockedShape,
+								GefAgeDiagramUtil.toDockSide(dockArea));
 					} else if (parentDiagramElementSceneNode instanceof DockedShape) {
 						final DockedShape dockedShapeParent = (DockedShape) parentDiagramElementSceneNode;
 						dockedShapeParent.getNestedChildren().add(dockedShape);
@@ -697,6 +683,14 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 			} else {
 				n.setConfiguredWidth(size.width);
 				n.setConfiguredHeight(size.height);
+			}
+
+			final DockArea dockArea = diagramElement.getDockArea();
+			if (dockArea != null && dockArea != DockArea.GROUP
+					&& gefDiagramElement.parentDiagramNodeSceneNode instanceof ContainerShape) {
+				final DockSide side = GefAgeDiagramUtil.toDockSide(dockArea);
+				final ContainerShape cs = (ContainerShape) gefDiagramElement.parentDiagramNodeSceneNode;
+				cs.addOrUpdateDockedChild(n, side);
 			}
 		}
 
@@ -830,15 +824,30 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 			for (final Entry<DiagramElement, GefDiagramElement> e : this.diagramElementToGefDiagramElementMap
 					.entrySet()) {
 				final DiagramElement de = e.getKey();
-				final Node sceneNode = e.getValue().sceneNode;
+				final GefDiagramElement ge = e.getValue();
+				final Node sceneNode = ge.sceneNode;
 
 				final DiagramNode parent = de.getParent();
-				if (DiagramElementPredicates.isMoveable(de) && (!(parent instanceof DiagramElement)
-						|| !DiagramElementPredicates.isConnection((DiagramElement) parent))) {
-					final double newX = sceneNode.getLayoutX();
-					final double newY = sceneNode.getLayoutY();
-					if (de.hasPosition() || (newX != 0.0 || newY != 0)) {
-						m.setPosition(de, new Point(newX, newY));
+				if (DiagramElementPredicates.isMoveable(de)) {
+					if (parent instanceof DiagramElement
+							&& DiagramElementPredicates.isConnection((DiagramElement) parent)) {
+						// Store the preferred position.
+						final Point2D p = PreferredPosition.get(sceneNode);
+						m.setPosition(de, GefAgeDiagramUtil.toAgePoint(p));
+					} else {
+						final double newX = sceneNode.getLayoutX();
+						final double newY = sceneNode.getLayoutY();
+						if (de.hasPosition() || (newX != 0.0 || newY != 0)) {
+							m.setPosition(de, new Point(newX, newY));
+						}
+					}
+
+					if (sceneNode instanceof DockedShape && ge.parentDiagramNodeSceneNode instanceof ContainerShape) {
+						final DockedShape ds = (DockedShape) sceneNode;
+						final DockSide side = ds.getSide();
+						if (side != null) {
+							m.setDockArea(de, GefAgeDiagramUtil.toDockArea(side));
+						}
 					}
 				}
 
@@ -849,9 +858,19 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 					m.setSize(de, new Dimension(layoutBounds.getWidth(), layoutBounds.getHeight()));
 				}
 
-				if (updateBendpoints) {
-					if (DiagramElementPredicates.isConnection(de) && sceneNode instanceof BaseConnectionNode) {
-						final BaseConnectionNode cn = (BaseConnectionNode) sceneNode;
+				if (DiagramElementPredicates.isConnection(de) && sceneNode instanceof BaseConnectionNode) {
+					final BaseConnectionNode cn = (BaseConnectionNode) sceneNode;
+
+					// Primary label position
+					if (!cn.getPrimaryLabels().isEmpty()) {
+						// Store the preferred position of the connection label
+						final Node primaryLabel = cn.getPrimaryLabels().get(0);
+						final Point2D p = PreferredPosition.get(primaryLabel);
+						m.setConnectionPrimaryLabelPosition(de, GefAgeDiagramUtil.toAgePoint(p));
+					}
+
+					// Bendpoints
+					if (updateBendpoints) {
 						final List<org.eclipse.gef.geometry.planar.Point> controlPoints = cn.getInnerConnection()
 								.getControlPoints();
 						if (!controlPoints.isEmpty() || !de.getBendpoints().isEmpty()) {

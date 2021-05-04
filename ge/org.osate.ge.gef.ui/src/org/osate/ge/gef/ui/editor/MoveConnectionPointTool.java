@@ -37,6 +37,7 @@ import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.FlowIndicatorNode;
 import org.osate.ge.gef.PreferredPosition;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
+import org.osate.ge.gef.ui.diagram.GefAgeDiagramUtil;
 import org.osate.ge.gef.ui.editor.overlays.ConnectionPointHandle;
 import org.osate.ge.gef.ui.editor.overlays.ControlPointHandle;
 import org.osate.ge.gef.ui.editor.overlays.CreateControlPointHandle;
@@ -224,12 +225,12 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 				}
 
 				m.setBendpoints(diagramElementToModify, connectionNode.getInnerConnection().getControlPoints().stream()
-						.map(p -> InputEventHandlerUtil.fxToAgePoint(connectionToDiagramTransform.transform(p.x, p.y)))
+						.map(p -> GefAgeDiagramUtil.toAgePoint(connectionToDiagramTransform.transform(p.x, p.y)))
 						.collect(Collectors.toList()));
 
 				if (connectionNode instanceof FlowIndicatorNode) {
 					m.setPosition(diagramElementToModify,
-							InputEventHandlerUtil.fxToAgePoint(PreferredPosition.get(connectionNode)));
+							GefAgeDiagramUtil.toAgePoint(PreferredPosition.get(connectionNode)));
 				}
 			});
 

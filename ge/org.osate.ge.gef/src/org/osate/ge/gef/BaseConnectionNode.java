@@ -30,6 +30,7 @@ import org.eclipse.gef.fx.anchors.StaticAnchor;
 import org.eclipse.gef.fx.nodes.Connection;
 import org.eclipse.gef.fx.nodes.GeometryNode;
 import org.eclipse.gef.fx.utils.NodeUtils;
+import org.eclipse.gef.geometry.convert.fx.Geometry2FX;
 import org.eclipse.gef.geometry.planar.IGeometry;
 import org.eclipse.gef.geometry.planar.Point;
 
@@ -183,6 +184,14 @@ public abstract class BaseConnectionNode extends Group implements ChopBoxGeometr
 	 */
 	public IAnchor getMidpointAnchor() {
 		return midpointAnchor;
+	}
+
+	/**
+	 * Returns the location of the connection midpoint anchor in local coordinates.
+	 * @return the position of the connection midpoint anchor.
+	 */
+	public Point2D getMidpointAnchorPosition() {
+		return Geometry2FX.toFXPoint(midpointAnchor.getReferencePosition());
 	}
 
 	/**

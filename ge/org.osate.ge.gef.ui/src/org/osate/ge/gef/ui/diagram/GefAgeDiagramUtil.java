@@ -27,10 +27,13 @@ import org.eclipse.gef.fx.anchors.IAnchor;
 import org.osate.ge.gef.AgeGefRuntimeException;
 import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.ContainerShape;
+import org.osate.ge.gef.DockSide;
 import org.osate.ge.gef.DockedShape;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.diagram.runtime.DockArea;
 
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 
 /**
@@ -103,5 +106,62 @@ public final class GefAgeDiagramUtil {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Converts a {@link DockArea} to an equivalent {@link DockSide}.
+	 * @param value the dock area for which to return the dock side.
+	 * @return the dock side. Returns null if value is null or if value is {@link DockArea#GROUP}
+	 */
+	public static DockSide toDockSide(final DockArea value) {
+		if (value == null) {
+			return null;
+		}
+
+		switch (value) {
+		case LEFT:
+			return DockSide.LEFT;
+		case RIGHT:
+			return DockSide.RIGHT;
+		case TOP:
+			return DockSide.TOP;
+		case BOTTOM:
+			return DockSide.BOTTOM;
+		default:
+			return null;
+		}
+	}
+
+	/**
+	 * Converts a {@link DockSide} to an equivalent {@link DockArea}.
+	 * @param value the dock side for which to return the dock area..
+	 * @return the dock area. Returns null if value is null.
+	 */
+	public static DockArea toDockArea(final DockSide value) {
+		if (value == null) {
+			return null;
+		}
+
+		switch (value) {
+		case LEFT:
+			return DockArea.LEFT;
+		case RIGHT:
+			return DockArea.RIGHT;
+		case TOP:
+			return DockArea.TOP;
+		case BOTTOM:
+			return DockArea.BOTTOM;
+		default:
+			throw new AgeGefRuntimeException("Unexpected value: " + value);
+		}
+	}
+
+	/**
+	 * Converts a {@link Point2D} to a {@link org.osate.ge.graphics.Point}.
+	 * @param value the point to convert.
+	 * @return the converted point. Returns null if value is null/
+	 */
+	public static org.osate.ge.graphics.Point toAgePoint(final Point2D value) {
+		return value == null ? null : new org.osate.ge.graphics.Point(value.getX(), value.getY());
 	}
 }

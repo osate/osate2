@@ -36,9 +36,8 @@ import org.osate.ge.gef.ConnectionNode;
 import org.osate.ge.gef.PreferredPosition;
 import org.osate.ge.gef.ui.editor.overlays.ResizeShapeHandle;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
+import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 
-import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -108,60 +107,21 @@ public class ResizeInputEventHandler implements InputEventHandler {
 
 class ResizeInteraction extends BaseInteraction {
 	private final AgeEditor editor;
-	private ResizeShapeHandle handle;
-	private Point2D initialClickLocationInDiagram;
-	private final List<ElementInfo> elementsToResize = new ArrayList<>();
-
-	public static class ElementInfo {
-		final DiagramElement diagramElement;
-		final Node sceneNode;
-		final ConfigureSize configureSize;
-		final Bounds originalLayoutBoundsInDiagram;
-		final Point2D originalLayoutPositionInLocal;
-		final List<DiagramElement> affectedConnections;
-
-		ElementInfo(final DiagramElement diagramElement, final Node sceneNode, final ConfigureSize configureSize,
-				final Bounds originalLayoutBoundsInDiagram, final Point2D originalLayoutPosition,
-				final List<DiagramElement> affectedConnections) {
-			this.diagramElement = diagramElement;
-			this.sceneNode = sceneNode;
-			this.configureSize = configureSize;
-			this.originalLayoutBoundsInDiagram = originalLayoutBoundsInDiagram;
-			this.originalLayoutPositionInLocal = originalLayoutPosition;
-			this.affectedConnections = affectedConnections;
-		}
-	}
+	private final ResizeShapeHandle handle;
+	private final Point2D initialClickLocationInDiagram;
+	private final List<DiagramElementSnapshot> elementsToResize;
 
 	public ResizeInteraction(final AgeEditor editor, final MouseEvent e) {
 		this.editor = editor;
 		this.handle = (ResizeShapeHandle) e.getTarget();
-
-		final Transform sceneToDiagramTransform = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform();
-		initialClickLocationInDiagram = sceneToDiagramTransform.transform(e.getSceneX(), e.getSceneY());
-
-		final List<DiagramElement> selectedDiagramElements = editor.getSelectedDiagramElementList();
-
-		for (final DiagramElement selectedDiagramElement : selectedDiagramElements) {
-			final Node sceneNode = editor.getSceneNode(selectedDiagramElement);
-			if (sceneNode instanceof ConfigureSize) {
-				final Bounds layoutInDiagram = sceneToDiagramTransform
-						.transform(sceneNode.getLocalToSceneTransform().transform(sceneNode.getLayoutBounds()));
-
-				// Get connections affected my moving the element
-				final List<DiagramElement> affectedConnections = DiagramElementLayoutUtil
-						.getConnectionsAffectedByMove(selectedDiagramElement, editor.getGefDiagram().getDiagram(), true)
-						.collect(Collectors.toList());
-
-				elementsToResize.add(
-						new ElementInfo(selectedDiagramElement, sceneNode, (ConfigureSize) sceneNode, layoutInDiagram,
-								new Point2D(sceneNode.getLayoutX(), sceneNode.getLayoutY()), affectedConnections));
-			}
-		}
+		this.initialClickLocationInDiagram = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform()
+				.transform(e.getSceneX(), e.getSceneY());
+		this.elementsToResize = createResizeElementSnapshotsFromSelection(editor);
 	}
 
 	@Override
 	public void close() {
-		// Update scene graph based on diagram element. This is needed to revert any scene changes that have been made
+		// Update scene graph based on diagram elements. This is needed to revert any scene changes that have been made
 		// during the interaction and to ensure that the scene node reflects the diagram elements after modification.
 		editor.getGefDiagram().updateSceneGraph();
 	}
@@ -175,63 +135,62 @@ class ResizeInteraction extends BaseInteraction {
 		final Transform sceneToDiagramTransform = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform();
 		final Point2D eventInDiagram = sceneToDiagramTransform.transform(e.getSceneX(), e.getSceneY());
 		final Point2D eventDelta = eventInDiagram.subtract(initialClickLocationInDiagram);
+		final boolean snapToGrid = !e.isAltDown();
 
 		// Resize all selection diagram elements
-		for (final ElementInfo info : elementsToResize) {
+		for (final DiagramElementSnapshot snapshot : elementsToResize) {
 			// Determine position adjustment and new size
-			double newPositionX = info.sceneNode.getLayoutX();
-			double newPositionY = info.sceneNode.getLayoutY();
-			double newWidth = info.originalLayoutBoundsInDiagram.getWidth();
-			double newHeight = info.originalLayoutBoundsInDiagram.getHeight();
-			final boolean snapToGrid = !e.isAltDown();
+			double newPositionX = snapshot.sceneNode.getLayoutX();
+			double newPositionY = snapshot.sceneNode.getLayoutY();
+			double newWidth = snapshot.boundsInDiagram.getWidth();
+			double newHeight = snapshot.boundsInDiagram.getHeight();
 			final Vector d = handle.getDirection();
-			final double minWidth = info.sceneNode.minWidth(-1);
-			final double minHeight = info.sceneNode.minHeight(-1);
+			final double minWidth = snapshot.sceneNode.minWidth(-1);
+			final double minHeight = snapshot.sceneNode.minHeight(-1);
 			if (d.x < 0) {
 				double newPositionDiagramX = InputEventHandlerUtil.snapX(editor,
-						info.originalLayoutBoundsInDiagram.getMinX() + eventDelta.getX(), snapToGrid);
+						snapshot.boundsInDiagram.getMinX() + eventDelta.getX(), snapToGrid);
 				newPositionDiagramX = Math.min(newPositionDiagramX,
-						info.originalLayoutBoundsInDiagram.getMaxX() - minWidth);
-
+						snapshot.boundsInDiagram.getMaxX() - minWidth);
 				newPositionDiagramX = Math.max(newPositionDiagramX,
-						info.originalLayoutBoundsInDiagram.getMinX() - info.originalLayoutPositionInLocal.getX());
-				newPositionX = info.originalLayoutPositionInLocal.getX()
-						+ (newPositionDiagramX - info.originalLayoutBoundsInDiagram.getMinX());
-				newWidth = info.originalLayoutBoundsInDiagram.getMaxX() - newPositionDiagramX;
+						snapshot.boundsInDiagram.getMinX() - snapshot.positionInLocal.getX());
+				newPositionX = snapshot.positionInLocal.getX()
+						+ (newPositionDiagramX - snapshot.boundsInDiagram.getMinX());
+				newWidth = snapshot.boundsInDiagram.getMaxX() - newPositionDiagramX;
 			} else if (d.x > 0) {
 				final double newMaxX = InputEventHandlerUtil.snapX(editor,
-						info.originalLayoutBoundsInDiagram.getMaxX() + eventDelta.getX(), snapToGrid);
-				newWidth = newMaxX - info.originalLayoutBoundsInDiagram.getMinX();
+						snapshot.boundsInDiagram.getMaxX() + eventDelta.getX(), snapToGrid);
+				newWidth = newMaxX - snapshot.boundsInDiagram.getMinX();
 			}
 
 			if (d.y < 0) {
 				double newPositionDiagramY = InputEventHandlerUtil.snapX(editor,
-						info.originalLayoutBoundsInDiagram.getMinY() + eventDelta.getY(), snapToGrid);
+						snapshot.boundsInDiagram.getMinY() + eventDelta.getY(), snapToGrid);
 				newPositionDiagramY = Math.min(newPositionDiagramY,
-						info.originalLayoutBoundsInDiagram.getMaxY() - minHeight);
+						snapshot.boundsInDiagram.getMaxY() - minHeight);
 				newPositionDiagramY = Math.max(newPositionDiagramY,
-						info.originalLayoutBoundsInDiagram.getMinY() - info.originalLayoutPositionInLocal.getY());
-				newPositionY = info.originalLayoutPositionInLocal.getY()
-						+ (newPositionDiagramY - info.originalLayoutBoundsInDiagram.getMinY());
-				newHeight = info.originalLayoutBoundsInDiagram.getMaxY() - newPositionDiagramY;
+						snapshot.boundsInDiagram.getMinY() - snapshot.positionInLocal.getY());
+				newPositionY = snapshot.positionInLocal.getY()
+						+ (newPositionDiagramY - snapshot.boundsInDiagram.getMinY());
+				newHeight = snapshot.boundsInDiagram.getMaxY() - newPositionDiagramY;
 			} else if (d.y > 0) {
 				final double newMaxY = InputEventHandlerUtil.snapX(editor,
-						info.originalLayoutBoundsInDiagram.getMaxY() + eventDelta.getY(), snapToGrid);
-				newHeight = newMaxY - info.originalLayoutBoundsInDiagram.getMinY();
+						snapshot.boundsInDiagram.getMaxY() + eventDelta.getY(), snapToGrid);
+				newHeight = newMaxY - snapshot.boundsInDiagram.getMinY();
 			}
 
 			// Adjust the position and size
-			final Point2D currentPreferredPosition = PreferredPosition.get(info.sceneNode);
+			final Point2D currentPreferredPosition = PreferredPosition.get(snapshot.sceneNode);
 			if (currentPreferredPosition == null || currentPreferredPosition.getX() != newPositionX
 					|| currentPreferredPosition.getY() != newPositionY) {
-				PreferredPosition.set(info.sceneNode, new Point2D(newPositionX, newPositionY));
+				PreferredPosition.set(snapshot.sceneNode, new Point2D(newPositionX, newPositionY));
 
 				final double dx = currentPreferredPosition == null ? 0
 						: (newPositionX - currentPreferredPosition.getX());
 				final double dy = currentPreferredPosition == null ? 0
 						: (newPositionY - currentPreferredPosition.getY());
 				if (dx != 0.0 || dy != 0.0) {
-					for (final DiagramElement affectedConnectionDiagramElement : info.affectedConnections) {
+					for (final DiagramElement affectedConnectionDiagramElement : snapshot.affectedConnections) {
 						final Node affectedConnectionSceneNode = editor.getGefDiagram()
 								.getSceneNode(affectedConnectionDiagramElement);
 						if (affectedConnectionSceneNode instanceof ConnectionNode) {
@@ -245,8 +204,9 @@ class ResizeInteraction extends BaseInteraction {
 				}
 			}
 
-			info.configureSize.setConfiguredWidth(Math.max(newWidth, minWidth));
-			info.configureSize.setConfiguredHeight(Math.max(newHeight, minHeight));
+			final ConfigureSize configureSize = (ConfigureSize) snapshot.sceneNode;
+			configureSize.setConfiguredWidth(Math.max(newWidth, minWidth));
+			configureSize.setConfiguredHeight(Math.max(newHeight, minHeight));
 		}
 
 		return InteractionState.IN_PROGRESS;
@@ -264,5 +224,22 @@ class ResizeInteraction extends BaseInteraction {
 		});
 
 		return InteractionState.COMPLETE;
+	}
+
+	/**
+	 * Creates a list of snapshots for diagram elements which will be resized by the interaction.
+	 * @param editor the editor containing the scene nodes for the elements.
+	 * @return the snapshots
+	 */
+	public static List<DiagramElementSnapshot> createResizeElementSnapshotsFromSelection(final AgeEditor editor) {
+		final List<DiagramElement> selectedDiagramElements = editor.getSelectedDiagramElementList();
+		final List<DiagramElementSnapshot> results = new ArrayList<>(selectedDiagramElements.size());
+		for (final DiagramElement selectedDiagramElement : selectedDiagramElements) {
+			if (DiagramElementPredicates.isResizeable(selectedDiagramElement)) {
+				DiagramElementSnapshot.create(editor, selectedDiagramElement).ifPresent(results::add);
+			}
+		}
+
+		return results;
 	}
 }

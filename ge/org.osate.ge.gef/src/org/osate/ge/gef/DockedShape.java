@@ -306,8 +306,7 @@ public class DockedShape extends Region
 		} else {
 			// Top/ Bottom
 			return Math.max(Math.max(maxLabelPrefWidth() + maxPrefWidth(graphicWrapper.getChildren()),
-					dockedChildren.getWidth()),
-					configuredWidth);
+					dockedChildren.getWidth()), configuredWidth);
 		}
 	}
 
@@ -316,8 +315,7 @@ public class DockedShape extends Region
 		if (side.get().vertical) {
 			// Left/Right
 			return Math.max(Math.max(maxLabelPrefHeight() + maxPrefHeight(graphicWrapper.getChildren()),
-					dockedChildren.getHeight()),
-					configuredHeight);
+					dockedChildren.getHeight()), configuredHeight);
 		} else {
 			// Top/Bottom
 			return Math.max(maxLabelPrefHeight(), Math.max(maxPrefHeight(graphicWrapper.getChildren()),
@@ -527,15 +525,17 @@ public class DockedShape extends Region
 				exteriorAnchor.setReferencePosition(new Point(graphicWrapperBounds.getMinX() + 1, anchorY));
 			}
 		} else {
-			final Bounds graphicWrapperBounds = graphicWrapper.getBoundsInParent();
+			final Bounds graphicWrapperBounds = graphicWrapper.getBoundsInLocal();
 			final double anchorX = (graphicWrapperBounds.getMinX() + graphicWrapperBounds.getMaxX()) / 2.0;
 			if (side.alignEnd) {
 				// Bottom
 				interiorAnchor.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMinY() + 1));
-				exteriorAnchor.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMaxY() - 1));
+				exteriorAnchor
+						.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMaxY() - 1));
 			} else {
 				// Top
-				interiorAnchor.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMaxY() - 1));
+				interiorAnchor
+						.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMaxY() - 1));
 				exteriorAnchor.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMinY() + 1));
 			}
 		}

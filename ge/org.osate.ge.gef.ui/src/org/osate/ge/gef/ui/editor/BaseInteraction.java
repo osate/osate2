@@ -52,7 +52,7 @@ public abstract class BaseInteraction implements Interaction {
 	}
 
 	@Override
-	public Cursor getCursor(final MouseEvent mouseMoveEvent) {
+	public Cursor getCursor() {
 		return null;
 	}
 

@@ -35,6 +35,10 @@ public class DiagramElementPredicates {
 	}
 
 	public static boolean isMoveable(final DiagramElement de) {
+		return isMoveableShape(de) || isFlowIndicator(de);
+	}
+
+	public static boolean isMoveableShape(final DiagramElement de) {
 		final Graphic graphic = de.getGraphic();
 		final boolean shapeSecondaryLabel = graphic instanceof Label && de.getParent() instanceof DiagramElement
 				&& ((DiagramElement) de.getParent()).getGraphic() instanceof AgeShape;

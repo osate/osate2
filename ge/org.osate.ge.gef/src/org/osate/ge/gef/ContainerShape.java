@@ -114,7 +114,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	private class SideSettingListListener implements ListChangeListener<DockedShape> {
 		private DockSide side;
 
-		public SideSettingListListener(DockSide side) {
+		public SideSettingListListener(final DockSide side) {
 			this.side = side;
 		}
 
@@ -713,6 +713,41 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		// Assume the child is contained in a group.
 		final Group g = (Group) child.getParent();
 		g.getChildren().remove(g);
+	}
+
+	/**
+	 * Ensures the specified node is docked to the specified side. Adds and/or removes the node if necessary.
+	 * @param child the node to add or update.
+	 * @param side the side on which the child should be docked.
+	 */
+	public void addOrUpdateDockedChild(final DockedShape child, final DockSide side) {
+		if (child.getParent() != null && child.getSide() != side) {
+			removeChild(child);
+		}
+
+		// Must check if parent is null to handle initial side
+		if (child.getParent() == null || child.getSide() != side) {
+			if (side == null) {
+				throw new AgeGefRuntimeException("Null dock side specified");
+			}
+
+			switch (side) {
+			case LEFT:
+				getLeftChildren().add(child);
+				break;
+			case RIGHT:
+				getRightChildren().add(child);
+				break;
+			case TOP:
+				getTopChildren().add(child);
+				break;
+			case BOTTOM:
+				getBottomChildren().add(child);
+				break;
+			default:
+				throw new AgeGefRuntimeException("Unexpected dock side for child of container shape: " + side);
+			}
+		}
 	}
 
 	@Override

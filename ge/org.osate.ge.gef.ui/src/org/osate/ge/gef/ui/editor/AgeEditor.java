@@ -622,9 +622,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			throw new AgeGefRuntimeException(e);
 		}
 
-		// Treat the current state of the diagram as clean.
-		cleanDiagramChangeNumber = diagram.getCurrentChangeNumber();
-
 		// Update the diagram to finish initializing the diagram's fields
 		actionService.execute("Update on Load", ExecutionMode.HIDE, () -> {
 			diagram.modify("Update Diagram", m -> {
@@ -800,6 +797,10 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		canvas.getContentGroup().getChildren().add(wrapper);
 
 		gefDiagram.updateDiagramFromSceneGraph(false);
+
+		// Treat the current state of the diagram as clean.
+		cleanDiagramChangeNumber = diagram.getCurrentChangeNumber();
+
 		adapterMap.put(LayoutInfoProvider.class, gefDiagram);
 
 		// Create overlays
@@ -840,25 +841,25 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		// Listeners to handle tooltips
 		//
 		canvas.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e -> {
-			if (e.getTarget() instanceof Node) {
+			if (e.getTarget() instanceof Node && activeInteraction == null && tooltipManager != null) {
 				final DiagramElement de = gefDiagram.getDiagramElement((Node) e.getTarget());
-				if (tooltipManager != null && de != null) {
+				if (de != null) {
 					tooltipManager.mouseEnter(de);
 				}
 			}
 		});
 
 		canvas.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e -> {
-			if (e.getTarget() instanceof Node) {
+			if (e.getTarget() instanceof Node && activeInteraction == null && tooltipManager != null) {
 				final DiagramElement de = gefDiagram.getDiagramElement((Node) e.getTarget());
-				if (tooltipManager != null && de != null) {
+				if (de != null) {
 					tooltipManager.mouseExit(de);
 				}
 			}
 		});
 
 		canvas.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
-			if (tooltipManager != null) {
+			if (activeInteraction == null && tooltipManager != null) {
 				tooltipManager.mouseMove(e.getScreenX(), e.getScreenY());
 			}
 		});
@@ -874,13 +875,19 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 					final InputEventHandler.HandledEvent r = inputEventHandler.handleEvent(e);
 					if (r != null) {
 						activeInteraction = r.newInteraction;
-						return;
+						canvas.setCursor(activeInteraction.getCursor());
+						if (tooltipManager != null) {
+							tooltipManager.hideTooltip();
+						}
+						break;
 					}
 				}
 			} else {
 				if (activeInteraction.handleEvent(e) == InteractionState.COMPLETE) {
 					deactivateInteraction();
 				}
+
+				canvas.setCursor(activeInteraction == null ? null : activeInteraction.getCursor());
 			}
 		};
 
@@ -890,10 +897,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		canvas.addEventFilter(MouseEvent.MOUSE_RELEASED, handleInput);
 		scene.addEventFilter(KeyEvent.KEY_PRESSED, handleInput);
 		canvas.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
-			Cursor cursor = Cursor.DEFAULT;
-			if (activeInteraction != null) {
-				cursor = activeInteraction.getCursor(e);
-			} else {
+			if (activeInteraction == null) {
+				Cursor cursor = Cursor.DEFAULT;
 				for (final InputEventHandler inputEventHandler : inputEventHandlers) {
 					final Cursor overrideCursor = inputEventHandler.getCursor(e);
 					if (overrideCursor != null) {
@@ -901,9 +906,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 						break;
 					}
 				}
+				canvas.setCursor(cursor);
 			}
-
-			canvas.setCursor(cursor);
 
 			handleInput.handle(e);
 		});

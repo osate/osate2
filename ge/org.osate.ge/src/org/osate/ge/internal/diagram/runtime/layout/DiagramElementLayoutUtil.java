@@ -449,7 +449,7 @@ public class DiagramElementLayoutUtil {
 
 		for (final DiagramElement child : node.getDiagramElements()) {
 			if (DiagramElementPredicates.isShape(child)) {
-				final boolean positionIsSet = child.hasPosition() || !DiagramElementPredicates.isMoveable(child);
+				final boolean positionIsSet = child.hasPosition() || !DiagramElementPredicates.isMoveableShape(child);
 				final boolean sizeIsSet = child.hasSize() || !DiagramElementPredicates.isResizeable(child);
 
 				// The position is set but the size isn't, then layout the child.
@@ -509,7 +509,7 @@ public class DiagramElementLayoutUtil {
 
 	private static boolean hasLayedOutShapes(final Collection<DiagramElement> diagramElements) {
 		return diagramElements.stream().anyMatch(de -> {
-			final boolean moveable = DiagramElementPredicates.isMoveable(de);
+			final boolean moveable = DiagramElementPredicates.isMoveableShape(de);
 			final boolean resizable = DiagramElementPredicates.isResizeable(de);
 			return ((de.hasPosition() && moveable) || !moveable) && ((de.hasSize() && resizable) || !resizable)
 					&& (moveable || resizable);
@@ -879,7 +879,7 @@ public class DiagramElementLayoutUtil {
 			}
 
 			// Set Position. Don't set the position of top level elements
-			if (!isTopLevelElement && DiagramElementPredicates.isMoveable(de)) {
+			if (!isTopLevelElement && DiagramElementPredicates.isMoveableShape(de)) {
 				// Determine position for the element
 				double x = elkShape.getX();
 				double y = elkShape.getY();
