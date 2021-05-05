@@ -667,7 +667,7 @@
       <requirement
           name="org.eclipse.emf.mwe2.launcher.feature.group"/>
       <repository
-          url="https://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
+          url="https://osate-build.sei.cmu.edu/p2/itemis/generic/xtext-testing/updates/0.2"/>
       <repository
           url="http://download.itemis.de/updates/releases/2.1.1"/>
       <repository
@@ -835,7 +835,7 @@
         <repository
             url="http://download.eclipse.org/xsemantics/milestones/1.19"/>
         <repository
-            url="http://dl.bintray.com/itemis/generic/xtext-testing/updates"/>
+            url="https://osate-build.sei.cmu.edu/p2/itemis/generic/xtext-testing/updates/0.2"/>
         <repository
             url="http://download.itemis.de/updates/releases/2.1.1"/>
         <repository
@@ -862,7 +862,7 @@
         <repository
             url="http://download.eclipse.org/xsemantics/milestones/1.19"/>
         <repository
-            url="http://dl.bintray.com/itemis/generic/xtext-testing/updates"/>
+            url="https://osate-build.sei.cmu.edu/p2/itemis/generic/xtext-testing/updates/0.2"/>
         <repository
             url="http://download.itemis.de/updates/releases/2.1.1"/>
         <repository
