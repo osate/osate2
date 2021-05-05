@@ -323,6 +323,16 @@ public class AnnexParserAgent extends LazyLinker {
 					return diagnosticLength;
 				}
 
+				@Override
+				public int getLineEnd() {
+					return 0;
+				}
+
+				@Override
+				public int getColumnEnd() {
+					return 0;
+				}
+
 			};
 
 			Severity severity;
