@@ -22,11 +22,6 @@
 			<layout>p2</layout>
 		</repository>
 		<repository>
-			<id>xtext-testing</id>
-			<url>${xtext-testing.repo.url}</url>
-			<layout>p2</layout>
-		</repository>
-		<repository>
 			<id>resolute</id>
 			<url>http://osate-build.sei.cmu.edu/download/osate/stable/2.3.7/updates</url>
 			<layout>p2</layout>
