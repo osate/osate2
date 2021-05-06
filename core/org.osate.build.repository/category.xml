@@ -75,7 +75,6 @@ censes only apply to the Third Party Software and not any other portion of this 
       <category name="alisa.source"/>
    </feature>
    <feature id="org.osate.dependencies.birt"/>
-   <bundle id="com.itemis.xtext.testing"/>
    <bundle id="org.osate.testsupport"/>
    <bundle id="org.osate.xtext.aadl2.errormodel.edit"/>
    <category-def name="osate2" label="OSATE2 for AADL2">
