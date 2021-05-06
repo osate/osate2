@@ -110,7 +110,8 @@ Run with
         
         <p2.mirror source="http://download.eclipse.org/tools/orbit/downloads/2021-03">
             <destination location="${target.dir}/tools/orbit/downloads/2021-03"/>
-            <iu id="org.apache.commons.io" version="2.2.0.v201405211200"/>
+	    <iu id="org.apache.commons.io" version="2.2.0.v201405211200"/>
+	    <iu id="org.objectweb.asm" version="5.0.1.v201404251740"/>
         </p2.mirror>
         
         <p2.mirror>
