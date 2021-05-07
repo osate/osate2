@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build Products') {
       tools {
-        jdk "OracleJDK8"
+        jdk "OpenJDK11"
       }
       steps {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository') {
