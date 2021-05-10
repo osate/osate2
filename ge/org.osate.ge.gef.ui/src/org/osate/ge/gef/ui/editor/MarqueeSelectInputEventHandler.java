@@ -124,8 +124,8 @@ class MarqueeSelectInteraction extends BaseInteraction {
 
 		// Update transforms so that the local coordinate system matches diagram coordinates
 		final Overlays overlays = editor.getOverlays();
-		overlays.diagramToOverlayTransform().addListener(new WeakChangeListener<>(diagramToOverlayChangeListener));
-		selectionBoundsOverlay.getTransforms().setAll(overlays.diagramToOverlayTransform().get());
+		overlays.diagramToLocalTransformProperty().addListener(new WeakChangeListener<>(diagramToOverlayChangeListener));
+		selectionBoundsOverlay.getTransforms().setAll(overlays.diagramToLocalTransformProperty().get());
 
 		// Create the overlay node which indicates the selection bounds
 		selectionBoundsOverlay.setX(selectionStart.getX());

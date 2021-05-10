@@ -85,9 +85,14 @@ public class Overlays extends Group implements ISelectionChangedListener {
 	private Map<DiagramElement, SelectedNodeOverlay> diagramElementToSelectedNodeOverlayMap = Collections.emptyMap();
 
 	/**
+	 * Property for the transform between scene coordinates and the overlay
+	 */
+	private final ReadOnlyObjectWrapper<Transform> sceneToLocalTransform = new ReadOnlyObjectWrapper<Transform>();
+
+	/**
 	 * Property for the transform between diagram coordinates and the overlay
 	 */
-	private final ReadOnlyObjectWrapper<Transform> diagramToOverlayTransform = new ReadOnlyObjectWrapper<Transform>();
+	private final ReadOnlyObjectWrapper<Transform> diagramToLocalTransform = new ReadOnlyObjectWrapper<Transform>();
 
 	public Overlays(final GefAgeDiagram gefDiagram) {
 		this.gefDiagram = gefDiagram;
@@ -96,40 +101,67 @@ public class Overlays extends Group implements ISelectionChangedListener {
 		selectionOverlays.setAutoSizeChildren(false);
 		this.getChildren().add(selectionOverlays);
 
-		// Create transform property
-		final ReadOnlyObjectProperty<Transform> diagramToSceneTransform = gefDiagram.getSceneNode()
-				.localToSceneTransformProperty();
-		diagramToOverlayTransform.bind(new ObjectBinding<Transform>() {
+		// Bind properties
+		sceneToLocalTransform.bind(new ObjectBinding<Transform>() {
 			{
-				bind(diagramToSceneTransform, localToSceneTransformProperty());
+				bind(localToSceneTransformProperty());
 			}
 
 			@Override
 			protected Transform computeValue() {
 				try {
-					return getLocalToSceneTransform().createInverse()
-							.createConcatenation(diagramToSceneTransform.get());
+					return getLocalToSceneTransform().createInverse();
 				} catch (final NonInvertibleTransformException e) {
-					throw new AgeGefRuntimeException("Unable to create diagram to overlay transform", e);
+					throw new AgeGefRuntimeException("Unable to create scene to overlay transform", e);
 				}
 			}
 		});
+
+		final ReadOnlyObjectProperty<Transform> diagramToSceneTransform = gefDiagram.getSceneNode()
+				.localToSceneTransformProperty();
+		diagramToLocalTransform.bind(new ObjectBinding<Transform>() {
+			{
+				bind(diagramToSceneTransform, sceneToLocalTransform);
+			}
+
+			@Override
+			protected Transform computeValue() {
+				return sceneToLocalTransform.get().createConcatenation(diagramToSceneTransform.get());
+
+			}
+		});
+	}
+
+	/**
+	 * The transform between scene to the overlay coordinate system.
+	 * @return the transform from scene to the overlay coordinate system.
+	 */
+	public final ReadOnlyObjectProperty<Transform> sceneToLocalTransformProperty() {
+		return sceneToLocalTransform.getReadOnlyProperty();
+	}
+
+	/**
+	 * Returns the current value of {@link #sceneToLocalTransformProperty()}
+	 * @return the current value of {@link #sceneToLocalTransformProperty()}
+	 */
+	public final Transform getSceneToLocalTransform() {
+		return sceneToLocalTransformProperty().get();
 	}
 
 	/**
 	 * The transform between diagram to the overlay coordinate system.
 	 * @return the transform from diagram to the overlay coordinate system.
 	 */
-	public ReadOnlyObjectProperty<Transform> diagramToOverlayTransform() {
-		return diagramToOverlayTransform.getReadOnlyProperty();
+	public final ReadOnlyObjectProperty<Transform> diagramToLocalTransformProperty() {
+		return diagramToLocalTransform.getReadOnlyProperty();
 	}
 
 	/**
-	 * Returns the current value of {@link #diagramToOverlayTransform()}
-	 * @return the current value of {@link #diagramToOverlayTransform()}
+	 * Returns the current value of {@link #diagramToLocalTransformProperty()}
+	 * @return the current value of {@link #diagramToLocalTransformProperty()}
 	 */
-	public Transform getDiagramToOverlayTransform() {
-		return diagramToOverlayTransform().get();
+	public final Transform getDiagramToLocalTransform() {
+		return diagramToLocalTransformProperty().get();
 	}
 
 	@Override
@@ -225,13 +257,8 @@ public class Overlays extends Group implements ISelectionChangedListener {
 				new Vector(0.0, 1.0), new Vector(1.0, 1.0) };
 
 		private Node selectedNode;
-		private DoubleBinding selectionIndicatorWidthBinding;
-		private DoubleBinding selectionIndicatorHeightBinding;
-		private DoubleBinding selectionIndicatorXBinding;
-		private DoubleBinding selectionIndicatorYBinding;
 		private final Group selectionIndicator = new Group();
 		private Rectangle selectionIndicatorRect;
-		private List<DoubleBinding> handleBindings = new ArrayList<>(16);
 
 		/**
 		 * Creates a new instance.
@@ -258,8 +285,14 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			localToSceneTransformProperty().addListener(transformUpdater);
 			selectedNode.localToSceneTransformProperty().addListener(transformUpdater);
 
-			// Create bindings for the selection bounds
-			selectionIndicatorWidthBinding = new DoubleBinding() {
+			//
+			// Selection Indicator
+			//
+			selectionIndicatorRect = new Rectangle();
+			selectionIndicatorRect.setFill(null);
+			selectionIndicatorRect.setStroke(OverlayColors.SELECTION_INDICATOR_COLOR);
+			selectionIndicatorRect.setStrokeWidth(1.0);
+			selectionIndicatorRect.widthProperty().bind(new DoubleBinding() {
 				{
 					bind(selectedNode.layoutBoundsProperty());
 				}
@@ -268,9 +301,8 @@ public class Overlays extends Group implements ISelectionChangedListener {
 				protected double computeValue() {
 					return selectedNode.layoutBoundsProperty().get().getWidth();
 				}
-			};
-
-			selectionIndicatorHeightBinding = new DoubleBinding() {
+			});
+			selectionIndicatorRect.heightProperty().bind(new DoubleBinding() {
 				{
 					bind(selectedNode.layoutBoundsProperty());
 				}
@@ -279,9 +311,8 @@ public class Overlays extends Group implements ISelectionChangedListener {
 				protected double computeValue() {
 					return selectedNode.layoutBoundsProperty().get().getHeight();
 				}
-			};
-
-			selectionIndicatorXBinding = new DoubleBinding() {
+			});
+			selectionIndicatorRect.xProperty().bind(new DoubleBinding() {
 				{
 					bind(selectedNode.layoutBoundsProperty());
 				}
@@ -290,9 +321,8 @@ public class Overlays extends Group implements ISelectionChangedListener {
 				protected double computeValue() {
 					return selectedNode.layoutBoundsProperty().get().getMinX();
 				}
-			};
-
-			selectionIndicatorYBinding = new DoubleBinding() {
+			});
+			selectionIndicatorRect.yProperty().bind(new DoubleBinding() {
 				{
 					bind(selectedNode.layoutBoundsProperty());
 				}
@@ -301,19 +331,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 				protected double computeValue() {
 					return selectedNode.layoutBoundsProperty().get().getMinY();
 				}
-			};
-
-			//
-			// Selection Indicator
-			//
-			selectionIndicatorRect = new Rectangle();
-			selectionIndicatorRect.setFill(null);
-			selectionIndicatorRect.setStroke(OverlayColors.SELECTION_INDICATOR_COLOR);
-			selectionIndicatorRect.setStrokeWidth(1.0);
-			selectionIndicatorRect.widthProperty().bind(selectionIndicatorWidthBinding);
-			selectionIndicatorRect.heightProperty().bind(selectionIndicatorHeightBinding);
-			selectionIndicatorRect.xProperty().bind(selectionIndicatorXBinding);
-			selectionIndicatorRect.yProperty().bind(selectionIndicatorYBinding);
+			});
 			selectionIndicator.getChildren().add(selectionIndicatorRect);
 
 			if (DiagramElementPredicates.isResizeable(de)) {
@@ -353,10 +371,6 @@ public class Overlays extends Group implements ISelectionChangedListener {
 
 					handle.xProperty().bind(xBinding);
 					handle.yProperty().bind(yBinding);
-
-					// Store bindings to avoid garbage collection
-					handleBindings.add(xBinding);
-					handleBindings.add(yBinding);
 				}
 			}
 		}

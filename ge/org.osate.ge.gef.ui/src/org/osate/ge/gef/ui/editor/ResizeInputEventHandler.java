@@ -34,6 +34,7 @@ import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.ConfigureSize;
 import org.osate.ge.gef.ConnectionNode;
 import org.osate.ge.gef.PreferredPosition;
+import org.osate.ge.gef.ui.editor.overlays.GuideOverlay;
 import org.osate.ge.gef.ui.editor.overlays.ResizeShapeHandle;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
@@ -110,6 +111,7 @@ class ResizeInteraction extends BaseInteraction {
 	private final ResizeShapeHandle handle;
 	private final Point2D initialClickLocationInDiagram;
 	private final List<DiagramElementSnapshot> elementsToResize;
+	private final GuideOverlay guide; // TODO: Rename
 
 	public ResizeInteraction(final AgeEditor editor, final MouseEvent e) {
 		this.editor = editor;
@@ -117,10 +119,14 @@ class ResizeInteraction extends BaseInteraction {
 		this.initialClickLocationInDiagram = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform()
 				.transform(e.getSceneX(), e.getSceneY());
 		this.elementsToResize = createResizeElementSnapshotsFromSelection(editor);
+		this.guide = new GuideOverlay(editor,
+				elementsToResize.stream().map(s -> s.diagramElement).collect(Collectors.toSet()));
 	}
 
 	@Override
 	public void close() {
+		this.guide.close();
+
 		// Update scene graph based on diagram elements. This is needed to revert any scene changes that have been made
 		// during the interaction and to ensure that the scene node reflects the diagram elements after modification.
 		editor.getGefDiagram().updateSceneGraph();
@@ -131,6 +137,8 @@ class ResizeInteraction extends BaseInteraction {
 		if (e.getButton() != MouseButton.PRIMARY) {
 			return super.onMouseDragged(e);
 		}
+
+		guide.reset();
 
 		final Transform sceneToDiagramTransform = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform();
 		final Point2D eventInDiagram = sceneToDiagramTransform.transform(e.getSceneX(), e.getSceneY());
@@ -207,6 +215,13 @@ class ResizeInteraction extends BaseInteraction {
 			final ConfigureSize configureSize = (ConfigureSize) snapshot.sceneNode;
 			configureSize.setConfiguredWidth(Math.max(newWidth, minWidth));
 			configureSize.setConfiguredHeight(Math.max(newHeight, minHeight));
+
+			// TODO: Do in another loop?
+			// Update guide overlay
+			if (guide.shouldUpdate()) {
+				guide.update(sceneToDiagramTransform.transform(
+						snapshot.sceneNode.getLocalToSceneTransform().transform(snapshot.sceneNode.getLayoutBounds())));
+			}
 		}
 
 		return InteractionState.IN_PROGRESS;

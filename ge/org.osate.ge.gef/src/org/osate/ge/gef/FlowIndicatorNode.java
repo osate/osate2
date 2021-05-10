@@ -44,9 +44,6 @@ import javafx.scene.transform.Transform;
 public class FlowIndicatorNode extends BaseConnectionNode {
 	private StaticAnchor anchor = new StaticAnchor(this, new Point(0.0, 0.0));
 	private Node positioningReference;
-	private ObjectBinding<Point2D> translateBinding;
-	private DoubleBinding translateXBinding;
-	private DoubleBinding translateYBinding;
 
 	/**
 	 * Creates a new instance
@@ -73,7 +70,7 @@ public class FlowIndicatorNode extends BaseConnectionNode {
 		this.positioningReference = value;
 
 		// This assumes the parent of the node does not change
-		translateBinding = new ObjectBinding<Point2D>() {
+		final ObjectBinding<Point2D> translateBinding = new ObjectBinding<Point2D>() {
 			{
 				bind(value.localToSceneTransformProperty(), getParent().localToSceneTransformProperty());
 			}
@@ -92,7 +89,7 @@ public class FlowIndicatorNode extends BaseConnectionNode {
 			}
 		};
 
-		translateXBinding = new DoubleBinding() {
+		this.translateXProperty().bind(new DoubleBinding() {
 			{
 				bind(translateBinding);
 			}
@@ -101,10 +98,9 @@ public class FlowIndicatorNode extends BaseConnectionNode {
 			protected double computeValue() {
 				return translateBinding.get().getX();
 			}
-		};
-		this.translateXProperty().bind(translateXBinding);
+		});
 
-		translateYBinding = new DoubleBinding() {
+		this.translateYProperty().bind(new DoubleBinding() {
 			{
 				bind(translateBinding);
 			}
@@ -113,8 +109,7 @@ public class FlowIndicatorNode extends BaseConnectionNode {
 			protected double computeValue() {
 				return translateBinding.get().getY();
 			}
-		};
-		this.translateYProperty().bind(translateYBinding);
+		});
 	}
 
 	@Override

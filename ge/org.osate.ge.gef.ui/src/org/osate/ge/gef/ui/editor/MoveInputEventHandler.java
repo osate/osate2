@@ -38,6 +38,7 @@ import org.osate.ge.gef.DockedShape;
 import org.osate.ge.gef.LabelNode;
 import org.osate.ge.gef.PreferredPosition;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagramUtil;
+import org.osate.ge.gef.ui.editor.overlays.GuideOverlay;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
@@ -365,6 +366,7 @@ class KeyboardMoveSelectedElementsInteraction extends BaseInteraction {
 class SelectedElementsMover implements AutoCloseable {
 	private final AgeEditor editor;
 	private final List<DiagramElementSnapshot> elementsToMove;
+	private final GuideOverlay guide; // TODO: Rename
 
 	/**
 	 * Creates a new instance. This instance will move diagram elements which are selected at the time the
@@ -374,10 +376,14 @@ class SelectedElementsMover implements AutoCloseable {
 	public SelectedElementsMover(final AgeEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 		this.elementsToMove = createMoveElementSnapshotsForSelection(editor);
+		this.guide = new GuideOverlay(editor,
+				elementsToMove.stream().map(s -> s.diagramElement).collect(Collectors.toSet()));
 	}
 
 	@Override
 	public void close() {
+		this.guide.close();
+
 		// Update scene graph based on diagram elements. This is needed to revert any scene changes that have been made
 		// during the interaction and to ensure that the scene node reflects the diagram elements after modification.
 		editor.getGefDiagram().updateSceneGraph();
@@ -390,6 +396,9 @@ class SelectedElementsMover implements AutoCloseable {
 	 */
 	public void updateSceneGraph(final Point2D totalPositionDelta, final boolean snapToGrid) {
 		final Transform sceneToDiagramTransform = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform();
+
+		// Reset guide
+		guide.reset();
 
 		// Move nodes
 		for (final DiagramElementSnapshot snapshot : elementsToMove) {
@@ -410,6 +419,8 @@ class SelectedElementsMover implements AutoCloseable {
 					PreferredPosition.set(snapshot.sceneNode,
 							new Point2D(newPositionX - connectionMidpointPositionInDiagram.getX(),
 									newPositionY - connectionMidpointPositionInDiagram.getY()));
+
+					// TODO: Support guide? WSould it pick up other such labels?
 				}
 			} else {
 				// Determine snapped position
@@ -428,6 +439,12 @@ class SelectedElementsMover implements AutoCloseable {
 							Math.min(newPositionX, parentBounds.getWidth() - snapshot.boundsInDiagram.getWidth()));
 					newPositionY = Math.max(0,
 							Math.min(newPositionY, parentBounds.getHeight() - snapshot.boundsInDiagram.getHeight()));
+				}
+
+				// Update guide overlay
+				if (guide.shouldUpdate()) {
+					guide.update(sceneToDiagramTransform.transform(snapshot.sceneNode.getLocalToSceneTransform()
+							.transform(snapshot.sceneNode.getLayoutBounds())));
 				}
 
 				// Adjust the position and size

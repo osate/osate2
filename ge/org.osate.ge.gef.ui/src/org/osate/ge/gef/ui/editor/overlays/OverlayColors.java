@@ -28,7 +28,7 @@ import javafx.scene.paint.Color;
 /**
  * Colors used by diagram overlays
  */
-final class OverlayColors {
+class OverlayColors {
 	private OverlayColors() {
 	}
 
@@ -36,4 +36,5 @@ final class OverlayColors {
 	public static final Color HANDLE_COLOR = new Color(1.0, 0.518, 0.0, 1.0);
 	public static final Color PRIMARY_SELECTION_HANDLE_FILL_COLOR = HANDLE_COLOR;
 	public static final Color SECONDARY_SELECTION_HANDLE_FILL_COLOR = new Color(1.0, 1.0, 1.0, 1.0);
+	public static final Color GUIDE_COLOR = HANDLE_COLOR;
 }

@@ -40,6 +40,11 @@ import javafx.scene.transform.Transform;
  */
 public class DiagramElementSnapshot {
 	/**
+	 * The diagram element
+	 */
+	final DiagramElement diagramElement;
+
+	/**
 	 * The diagram element's scene node
 	 */
 	final Node sceneNode;
@@ -62,9 +67,10 @@ public class DiagramElementSnapshot {
 	/**
 	 * Creates a new instance
 	 */
-	private DiagramElementSnapshot(final Node sceneNode,
+	private DiagramElementSnapshot(final DiagramElement diagramElement, final Node sceneNode,
 			final Bounds originalLayoutBoundsInDiagram,
 			final Point2D originalLayoutPosition, final List<DiagramElement> affectedConnections) {
+		this.diagramElement = diagramElement;
 		this.sceneNode = sceneNode;
 		this.boundsInDiagram = originalLayoutBoundsInDiagram;
 		this.positionInLocal = originalLayoutPosition;
@@ -89,7 +95,7 @@ public class DiagramElementSnapshot {
 		final List<DiagramElement> affectedConnections = DiagramElementLayoutUtil
 				.getConnectionsAffectedByMove(diagramElement, editor.getGefDiagram().getDiagram(), true)
 				.collect(Collectors.toList());
-		return Optional.of(new DiagramElementSnapshot(sceneNode, layoutInDiagram,
+		return Optional.of(new DiagramElementSnapshot(diagramElement, sceneNode, layoutInDiagram,
 				new Point2D(sceneNode.getLayoutX(), sceneNode.getLayoutY()), affectedConnections));
 	}
 }

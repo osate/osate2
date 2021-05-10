@@ -869,6 +869,11 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		//
 		// Event handler. Delegates to input event handlers or the active interaction as appropriate
 		final EventHandler<? super InputEvent> handleInput = e -> {
+			// TODO
+			if (e.getEventType() == MouseEvent.MOUSE_RELEASED) {
+				System.err.println(e);
+			}
+
 			if (activeInteraction == null) {
 				// Delegate processing of the event to the input event handlers
 				for (final InputEventHandler inputEventHandler : inputEventHandlers) {
