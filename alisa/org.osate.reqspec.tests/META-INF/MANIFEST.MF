@@ -15,7 +15,6 @@ Require-Bundle: org.osate.reqspec,
  org.osate.xtext.aadl2,
  org.osate.organization.tests,
  org.osate.categories,
- com.itemis.xtext.testing;bundle-version="0.2.0",
  org.osate.testsupport;bundle-version="1.0.0",
  org.osate.alisa.common;bundle-version="1.0.0",
  org.osate.organization
