@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="analysis" nsURI="http://osate.org/analysis/analysis" nsPrefix="analysis">
+  <eSubpackages name="model" nsURI="http://osate.org/analysis/model" nsPrefix="model">
+    <eClassifiers xsi:type="ecore:EClass" name="AnalysisElement" abstract="true">
+      <eOperations name="isLeaf" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+      <eOperations name="getOrderedChildren">
+        <eGenericType eClassifier="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList">
+          <eTypeArguments eClassifier="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+        </eGenericType>
+      </eOperations> 
+    </eClassifiers>
+  </eSubpackages>
+</ecore:EPackage>

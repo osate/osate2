@@ -391,19 +391,17 @@ public class OsateGeTestCommands {
 	 * Postconditions: A new behavior annex with an initial state has been created.  The state will be renamed to the specified name.
 	 * @param diagram is the diagram in which to create the behavior annex and behavior state
 	 * @param pkgRef is the package reference in which the classifier belongs to
-	 * @param classifierName is the name of the parent classifier for the behavior specification
+	 * @param classifierDiagramRef is the diagram reference of the parent classifier for the behavior specification
 	 * @param behaviorSpecification is the relative reference to the new behavior specification
 	 * @param newStateName is the name to which the behavior state should be renamed to
 	 */
 	public static void createBehaviorAnnexWithInitialState(final DiagramReference diagram,
-			final RelativeBusinessObjectReference pkgRef, final String classifierName,
+			final RelativeBusinessObjectReference pkgRef, final DiagramElementReference classifierDiagramRef,
 			final RelativeBusinessObjectReference behaviorSpecification, final String newStateName) {
-		final RelativeBusinessObjectReference classifierRef = getClassifierRelativeReference(classifierName);
-
 		// Create Behavior Annex specification
-		createShapeElement(diagram, element(pkgRef, classifierRef), "Behavior Specification", behaviorSpecification);
+		createShapeElement(diagram, classifierDiagramRef, "Behavior Specification", behaviorSpecification);
 
-		final DiagramElementReference behaviorSpecDiagramRef = element(pkgRef, classifierRef, behaviorSpecification);
+		final DiagramElementReference behaviorSpecDiagramRef = classifierDiagramRef.join(behaviorSpecification);
 
 		// Show contents of specification
 		showContentsAndLayout(diagram, behaviorSpecDiagramRef);

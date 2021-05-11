@@ -654,9 +654,6 @@
         xsi:type="setup.p2:P2Task"
         label="Xtext">
       <requirement
-          name="com.itemis.xtext.testing.feature.feature.group"
-          versionRange="[0.2.0,1.0.0)"/>
-      <requirement
           name="org.eclipse.xtext.sdk.feature.group"/>
       <requirement
           name="de.itemis.xtext.antlr.feature.feature.group"/>
@@ -666,8 +663,6 @@
           name="org.eclipse.xtend.sdk.feature.group"/>
       <requirement
           name="org.eclipse.emf.mwe2.launcher.feature.group"/>
-      <repository
-          url="https://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
       <repository
           url="http://download.itemis.de/updates/releases/2.1.1"/>
       <repository
@@ -754,8 +749,6 @@
       <requirement
           name="org.eclipse.xtext.testing"
           versionRange="[2.20.0,2.21.0)"/>
-      <requirement
-          name="com.itemis.xtext.testing.feature.feature.group"/>
       <requirement
           name="org.eclipse.elk.feature.feature.group"/>
       <requirement
@@ -862,8 +855,6 @@
         <repository
             url="http://download.eclipse.org/xsemantics/milestones/1.19"/>
         <repository
-            url="http://dl.bintray.com/itemis/generic/xtext-testing/updates"/>
-        <repository
             url="http://download.itemis.de/updates/releases/2.1.1"/>
         <repository
             url="https://xtexttools.libutzki.de/"/>
@@ -959,8 +950,8 @@
       xsi:type="pde:APIBaselineTask"
       id="api.baseline"
       name="OSATE-API"
-      version="2.9.1"
-      remoteURI="https://osate-build.sei.cmu.edu/download/osate/stable/2.9.1-vfinal/osate.repository-2.9.1.vfinal.zip">
+      version="2.9.2"
+      remoteURI="https://osate-build.sei.cmu.edu/download/osate/stable/2.9.2-vfinal/osate.repository-2.9.2.vfinal.zip">
     <description></description>
   </setupTask>
   <setupTask

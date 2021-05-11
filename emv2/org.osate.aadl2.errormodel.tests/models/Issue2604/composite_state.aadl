@@ -1,0 +1,54 @@
+package composite_state
+public
+	
+	annex emv2 {**
+		error behavior EB
+		use types ErrorLibrary;
+			events
+				PoorValue: error event;
+				NoValue: error event;
+			states
+				Operational: initial state;
+				OperationalNonCritical: state {CommonErrors};
+				FailedState: state {CommonErrors};
+			transitions
+				tran1: Operational -[NoValue]->FailedState{ItemOmission};
+		end behavior;
+		
+	**};
+	
+	system s
+		annex EMV2 {**
+			use types ErrorLibrary;
+			use behavior composite_state::EB;
+		**};
+	end s;
+	
+	system x
+		
+	end x;
+		
+	system implementation x.i
+		subcomponents
+			s1: system s;
+			s2: system s;
+			
+		annex emv2 {**
+			use types ErrorLibrary;
+			use behavior composite_state::EB;
+			
+			composite error behavior
+				states
+					[s1.OperationalNonCritical]->Operational{CommonErrors}; -- should be error 
+					[s2.OperationalNonCritical]->Operational{ServiceError, EarlyService}; --should be error
+					[s1.OperationalNonCritical and s2.Operational]->Operational{CommonErrors}; -- should be error
+					[s1.OperationalNonCritical and s2.OperationalNonCritical]->Operational{ServiceError, EarlyService}; -- should be error
+					[s1.Operational or s2.Operational]->Operational{ServiceError, EarlyService}; -- should be error
+					[s1.Operational or s2.Operational]->Operational{CommonErrors}; -- should be error
+					[s1.OperationalNonCritical]->Operational{ServiceError}; -- fine 
+					[s1.OperationalNonCritical and s2.Operational]->Operational{ServiceError}; -- fine 
+					[s1.Operational or s2.Operational]->Operational{ServiceError}; -- fine
+			end composite;			
+		**};
+	end x.i;
+end composite_state;

@@ -19,7 +19,7 @@ public
 				OutPort: out propagation {NoService, LowPrecisionData, IncorrectData};
 				flows
 					noserviceflow: error path InPort {NoService} -> OutPort {NoService};
-					valueflow: error path InPort {LowPrecisionData, IncorrectData} -> OutPort {LowPrecisionData, IncorrectData};
+					valueflow: error path InPort {LowPrecisionData, IncorrectData} -> OutPort;
 			end propagations;
 			
 			component error behavior
