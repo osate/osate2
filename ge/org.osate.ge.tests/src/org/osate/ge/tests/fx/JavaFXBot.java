@@ -23,9 +23,7 @@
  */
 package org.osate.ge.tests.fx;
 
-import java.awt.AWTException;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
+import static org.junit.Assert.*;
 
 import org.eclipse.gef.fx.nodes.Connection;
 import org.eclipse.gef.geometry.planar.Point;
@@ -34,25 +32,33 @@ import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.tests.endToEnd.util.UiTestUtil;
 
+import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseButton;
+import javafx.scene.robot.Robot;
 
 /**
- * Robot class for working with JavaFX nodes. Currently uses the AWT Robot class. The JavaFX Robot class is not available
- * in JavaFX 8.
+ * Robot class for working with JavaFX nodes.
  */
 public class JavaFXBot {
-	private java.awt.Robot robot;
+	private Robot robot;
 
 	public JavaFXBot() {
-		try {
-			robot = new java.awt.Robot();
-		} catch (AWTException ex) {
-			throw new RuntimeException(ex);
+
+	}
+
+	private void ensureRobotCreated() {
+		if (robot == null) {
+			Platform.runLater(() -> {
+				this.robot = new Robot();
+			});
 		}
 	}
+
 
 	/**
 	 * Clicks a scene graph node.
@@ -60,25 +66,27 @@ public class JavaFXBot {
 	 * @param node the node to click.
 	 */
 	public void click(final Node node) {
+		ensureRobotCreated();
 		UiTestUtil.waitUntil(() -> UIThreadRunnable.syncExec(() -> isVisible(node)),
 				"Node " + node + " is not visible");
 
-		Display.getDefault().syncExec(() -> ensureVisible(node));
+		Display.getDefault().syncExec(() -> {
+			ensureVisible(node);
 
-		final Point2D p = UIThreadRunnable.syncExec(() -> {
+			final Point2D p;
 			if (node instanceof BaseConnectionNode) {
 				final BaseConnectionNode cn = (BaseConnectionNode) node;
 				final Connection ic = cn.getInnerConnection();
 				final Point startPoint = ic.getStartPoint();
-				return ic.localToScreen(startPoint.x, startPoint.y);
+				p = ic.localToScreen(startPoint.x, startPoint.y);
 			} else {
-				return node.localToScreen(4, 4);
+				p = node.localToScreen(4, 4);
 			}
-		});
 
-		robot.mouseMove((int) p.getX(), (int) p.getY());
-		robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-		robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+			robot.mouseMove(p.getX(), p.getY());
+			robot.mousePress(MouseButton.PRIMARY);
+			robot.mouseRelease(MouseButton.PRIMARY);
+		});
 	}
 
 	/**
@@ -88,27 +96,47 @@ public class JavaFXBot {
 	 * @param value the text to type.
 	 */
 	public void type(final String value) {
+		ensureRobotCreated();
 		for (char ch : value.toCharArray()) {
-			final boolean isUpper = Character.isUpperCase(ch);
-			if (isUpper) {
-				robot.keyPress(KeyEvent.VK_SHIFT);
-			}
-
-			pressAndReleaseKey(KeyEvent.getExtendedKeyCodeForChar(ch));
-
-			if (isUpper) {
-				robot.keyRelease(KeyEvent.VK_SHIFT);
-			}
+			type(ch);
 		}
+	}
+
+	private void type(final char ch) {
+		final KeyCode code;
+		if (ch == '_') {
+			code = KeyCode.UNDERSCORE;
+		} else {
+			final String codeName = Character.toString(Character.toUpperCase(ch));
+			code = KeyCode.getKeyCode(codeName);
+		}
+
+		assertNotNull("code for character `" + ch + "` is null", code);
+		final boolean isUpper = Character.isUpperCase(ch);
+		Display.getDefault().syncExec(() -> {
+			if (isUpper) {
+				robot.keyPress(KeyCode.SHIFT);
+			}
+
+			robot.keyPress(code);
+			robot.keyRelease(code);
+
+			if (isUpper) {
+				robot.keyRelease(KeyCode.SHIFT);
+			}
+		});
 	}
 
 	/**
 	 * Presses and then releases the key with the specified code.
 	 * @param code the key code
 	 */
-	public void pressAndReleaseKey(final int code) {
-		robot.keyPress(code);
-		robot.keyRelease(code);
+	public void pressAndReleaseKey(final KeyCode code) {
+		ensureRobotCreated();
+		Display.getDefault().syncExec(() -> {
+			robot.keyPress(code);
+			robot.keyRelease(code);
+		});
 	}
 
 	private static void ensureVisible(final Node node) {

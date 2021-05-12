@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
-All Rights Reserved.
-
-NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
-KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
-OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
-MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
-
-This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
-which is available at https://www.eclipse.org/legal/epl-2.0/
-SPDX-License-Identifier: EPL-2.0
-
-Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
-
-This program includes and/or can make use of certain third party source code, object code, documentation and other
-files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
-configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
-conditions contained in any such Third Party Software or separate license file distributed with such Third Party
-Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
-aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
-censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
--->
+<!-- Copyright (c) 2004-2021 Carnegie Mellon University and others. (see 
+	Contributors file). All Rights Reserved. NO WARRANTY. ALL MATERIAL IS FURNISHED 
+	ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY 
+	KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED 
+	TO, WARRANTY OF FITNESS FOR PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS 
+	OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT MAKE 
+	ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, 
+	OR COPYRIGHT INFRINGEMENT. This program and the accompanying materials are 
+	made available under the terms of the Eclipse Public License 2.0 which is 
+	available at https://www.eclipse.org/legal/epl-2.0/ SPDX-License-Identifier: 
+	EPL-2.0 Created, in part, with funding and support from the United States 
+	Government. (see Acknowledgments file). This program includes and/or can 
+	make use of certain third party source code, object code, documentation and 
+	other files ("Third Party Software"). The Third Party Software that is used 
+	by this program is dependent upon your system configuration. By using this 
+	program, You agree to comply with any and all relevant Third Party Software 
+	terms and conditions contained in any such Third Party Software or separate 
+	license file distributed with such Third Party Software. The parties who 
+	own the Third Party Software ("Third Party Licensors") are intended third 
+	party benefici- aries to this license with respect to the terms applicable 
+	to their Third Party Software. Third Party Software li- censes only apply 
+	to the Third Party Software and not any other portion of this program or 
+	this program as a whole. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -50,6 +50,15 @@ censes only apply to the Third Party Software and not any other portion of this 
 			<layout>p2</layout>
 		</repository>
 	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<name>BestSolution.at e(fx)clipse releases</name>
+			<id>efxclipse-releases</id>
+			<url>http://maven.bestsolution.at/efxclipse-releases/</url>
+		</pluginRepository>
+	</pluginRepositories>
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -63,6 +72,21 @@ censes only apply to the Third Party Software and not any other portion of this 
 						directory -->
 					<dependency-resolution>
 						<extraRequirements>
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>org.eclipse.fx.runtime.min.feature</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>openjfx.standard.feature</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
+								<type>eclipse-feature</type>
+								<id>openjfx.swt.feature</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
 							<requirement>
 								<type>eclipse-plugin</type>
 								<id>org.eclipse.equinox.event</id>
@@ -105,6 +129,14 @@ censes only apply to the Third Party Software and not any other portion of this 
 					<product>org.osate.branding.osate2</product>
 					<useUIHarness>true</useUIHarness>
 					<useUIThread>false</useUIThread>
+					<argLine>${tycho.testArgLine} ${ui.test.vmargs} ${test.logging} -Dosgi.framework.extensions=org.eclipse.fx.osgi</argLine>
+					<frameworkExtensions>
+						<frameworkExtension>
+							<groupId>at.bestsolution.efxclipse.rt</groupId>
+							<artifactId>org.eclipse.fx.osgi</artifactId>
+							<version>3.7.0.202010120720</version>
+						</frameworkExtension>
+					</frameworkExtensions>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -23,7 +23,10 @@
  */
 package org.osate.ge.gef.ui.editor;
 
+import org.osate.ge.gef.ui.AgeGefUiPlugin;
+
 import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 
 /**
  * Class containing cursors used by the graphical editor
@@ -31,10 +34,8 @@ import javafx.scene.Cursor;
 final class Cursors {
 	private Cursors() {}
 
-	// TODO: Use image cursors after switching to a newer version of JavaFX. JavaFX 8 does not support ImageCursor when integrated with SWT
-	// The cursors below are used to allow functionality testing before switching to newer version of JavaFX which supports ImageCursor with SWT.
-	public static final Cursor NO = Cursor.WAIT;// new ImageCursor(new Image("./icons/cursors/no.png"));
-	public static final Cursor CREATE = Cursor.HAND;// new ImageCursor(new Image("./icons/cursors/create.png"));
-	public static final Cursor PLUG = Cursor.HAND;// new ImageCursor(new Image("./icons/cursors/plug.png"));
-	public static final Cursor PLUG_NO = Cursor.WAIT;// new ImageCursor(new Image("./icons/cursors/plug_no.png"));
+	public static final Cursor NO = new ImageCursor(AgeGefUiPlugin.loadBundleImage("/icons/cursors/no.png"));
+	public static final Cursor CREATE = new ImageCursor(AgeGefUiPlugin.loadBundleImage("/icons/cursors/create.png"));
+	public static final Cursor PLUG = new ImageCursor(AgeGefUiPlugin.loadBundleImage("/icons/cursors/plug.png"));
+	public static final Cursor PLUG_NO = new ImageCursor(AgeGefUiPlugin.loadBundleImage("/icons/cursors/plug_no.png"));
 }

@@ -920,11 +920,21 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 	public LabelNode getPrimaryLabelSceneNode(final DiagramElement de) {
 		final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(de);
-		if (ge == null || ge.primaryLabel == null || !ge.primaryLabel.isManaged()) {
+		if (ge == null) {
 			return null;
 		}
 
-		return ge.primaryLabel;
+		if (ge.primaryLabel == null) {
+			if (ge.sceneNode.isManaged() && ge.sceneNode instanceof LabelNode) {
+				return (LabelNode) ge.sceneNode;
+			}
+		} else {
+			if (ge.primaryLabel.isManaged()) {
+				return ge.primaryLabel;
+			}
+		}
+
+		return null;
 	}
 
 	@Override

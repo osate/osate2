@@ -23,8 +23,64 @@
  */
 package org.osate.ge.gef.ui;
 
-public final class AgeGefUiPlugin {
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
+import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osate.ge.gef.AgeGefRuntimeException;
+import org.osgi.framework.BundleContext;
+
+import javafx.scene.image.Image;
+
+public final class AgeGefUiPlugin extends AbstractUIPlugin {
 	public static final String PLUGIN_ID = "org.osate.ge.gef.ui";
 
-	private AgeGefUiPlugin() {}
+	// The shared instance
+	private static AgeGefUiPlugin plugin;
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+	 */
+	@Override
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		plugin = this;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+	 */
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		plugin = null;
+		super.stop(context);
+	}
+
+	/**
+	 * Returns the shared instance
+	 *
+	 * @return the shared instance
+	 */
+	public static AgeGefUiPlugin getDefault() {
+		return plugin;
+	}
+
+	/**
+	 * Loads a JavaFX using a path relative to this bundle
+	 * @param path the relative path
+	 * @return the JavaFX image.
+	 */
+	public static Image loadBundleImage(final String path) {
+		final URL url = getDefault().getBundle().getEntry(path);
+		try (final InputStream stream = url.openStream()) {
+			return new Image(stream);
+		} catch (final IOException e) {
+			throw new AgeGefRuntimeException("Unable to open image", e);
+		}
+	}
 }

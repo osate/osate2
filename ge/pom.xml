@@ -38,6 +38,53 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<packaging>pom</packaging>
 	<version>2.10.0-SNAPSHOT</version>
 
+	<repositories>
+		<repository>
+			<name>BestSolution.at e(fx)clipse releases</name>
+			<id>efxclipse-releases</id>
+			<url>http://maven.bestsolution.at/efxclipse-releases/</url>
+		</repository>
+	</repositories>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-compiler-plugin</artifactId>
+					<version>${tycho.version}</version>
+					<configuration>
+						<encoding>UTF-8</encoding>
+						<source>11</source>
+						<target>11</target>
+						<extraClasspathElements>
+							<extraClasspathElement>
+								<groupId>org.openjfx</groupId>
+								<artifactId>javafx-base</artifactId>
+								<version>16</version>
+							</extraClasspathElement>
+							<extraClasspathElement>
+								<groupId>org.openjfx</groupId>
+								<artifactId>javafx-graphics</artifactId>
+								<version>16</version>
+							</extraClasspathElement>
+							<extraClasspathElement>
+								<groupId>org.openjfx</groupId>
+								<artifactId>javafx-controls</artifactId>
+								<version>16</version>
+							</extraClasspathElement>
+							<extraClasspathElement>
+								<groupId>at.bestsolution.openjfx</groupId>
+								<artifactId>javafx-swt</artifactId>
+								<version>16</version>
+							</extraClasspathElement>
+						</extraClasspathElements>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	
 	<modules>
 		<module>org.osate.ge</module>
 		<module>org.osate.ge.gef</module>

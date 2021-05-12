@@ -34,7 +34,7 @@ import javafx.scene.Group;
 
 /**
  * Contains a group for a side containing docked shapes and performs layout of nodes is the group.
- * Manages a cache to improve layout performance. User of the class must call {@link DockedNodes#clearCache()}
+ * Manages a cache to improve layout performance. User of the class must call {@link DockedNodes#invalidateCache()}
  * and {@link DockedNodes#layout(double, double)}.
  */
 class DockedNodes {
@@ -180,15 +180,14 @@ class DockedNodes {
 	public void setSide(final DockSide value) {
 		if (this.side != value) {
 			this.side = value;
-			clearCache();
+			invalidateCache();
 		}
 	}
 
 	/**
-	 * Clears the cache should be called when a new layout needs to be generated.
+	 * Invalidates the cache should be called when a new layout needs to be generated.
 	 */
-	public void clearCache() {
-		cache.clear();
+	public void invalidateCache() {
 		width = 0;
 		height = 0;
 		valid = false;
@@ -201,6 +200,7 @@ class DockedNodes {
 	 */
 	public void layout(final double xOffset, final double yOffset) {
 		ensureValidLayoutCache();
+
 		for (final DockedNodeCacheEntry c : cache) {
 			c.node.resizeRelocate(c.x + xOffset, c.y + yOffset, c.width, c.height);
 		}
@@ -257,7 +257,8 @@ class DockedNodes {
 	 * information for these docked nodes and the total width and height.
 	 */
 	private void computeCachedValues() {
-		clearCache();
+		invalidateCache();
+		cache.clear();
 		if (group.getChildren().isEmpty()) {
 			return;
 		}

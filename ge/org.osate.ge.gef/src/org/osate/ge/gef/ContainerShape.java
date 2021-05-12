@@ -241,10 +241,10 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 
 	@Override
 	public void requestLayout() {
-		leftChildren.clearCache();
-		rightChildren.clearCache();
-		topChildren.clearCache();
-		bottomChildren.clearCache();
+		leftChildren.invalidateCache();
+		rightChildren.invalidateCache();
+		topChildren.invalidateCache();
+		bottomChildren.invalidateCache();
 
 		super.requestLayout();
 	}

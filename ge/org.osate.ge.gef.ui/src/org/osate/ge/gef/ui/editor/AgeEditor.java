@@ -247,7 +247,10 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 				final IStructuredSelection ss = (IStructuredSelection) newSelection;
 				final List<?> selectedObjects = ss.toList();
 				final IStructuredSelection newStructuredSelection = new StructuredSelection(selectedObjects.stream()
-						.filter(DiagramNode.class::isInstance).map(DiagramNode.class::cast).distinct().toArray());
+						.filter(DiagramNode.class::isInstance)
+						.map(DiagramNode.class::cast)
+						.distinct()
+						.toArray());
 
 				// Update the current selection and notify listeners
 				if (!Objects.equals(currentSelection, newStructuredSelection)) {
@@ -544,7 +547,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		try {
 			// Remove listeners
 			ResourcesPlugin.getWorkspace().removeResourceChangeListener(resourceChangeListener);
-			PlatformUI.getWorkbench().getOperationSupport().getOperationHistory()
+			PlatformUI.getWorkbench()
+					.getOperationSupport()
+					.getOperationHistory()
 					.removeOperationHistoryListener(operationHistoryListener);
 			getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(toolPostSelectionListener);
 			this.modelChangeNotifier.removeChangeListener(modelChangeListener);
@@ -731,6 +736,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 						new ActivateAgeEditorAction(AgeEditor.this));
 			}
 
+
+			fireDirtyPropertyChangeEvent();
+
 			return reverseActionWasSpecified;
 		};
 
@@ -757,10 +765,11 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		this.paletteModel = new AgeEditorPaletteModel(extRegistry.getPaletteContributors(), diagramBo, imageProvider);
 
 		// If the palette item changes while an interaction is active, deactivate the interaction.
-		this.paletteModel.activeItemProperty().addListener(
-				(javafx.beans.value.ChangeListener<SimplePaletteItem>) (observable, oldValue, newValue) -> {
-					deactivateInteraction();
-				});
+		this.paletteModel.activeItemProperty()
+				.addListener(
+						(javafx.beans.value.ChangeListener<SimplePaletteItem>) (observable, oldValue, newValue) -> {
+							deactivateInteraction();
+						});
 
 		// Initialize the JavaFX nodes based on the diagram
 		canvas = new InfiniteCanvas();
@@ -880,10 +889,14 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 					final InputEventHandler.HandledEvent r = inputEventHandler.handleEvent(e);
 					if (r != null) {
 						activeInteraction = r.newInteraction;
-						canvas.setCursor(activeInteraction.getCursor());
-						if (tooltipManager != null) {
-							tooltipManager.hideTooltip();
+						if (activeInteraction != null) {
+							canvas.setCursor(activeInteraction.getCursor());
+
+							if (tooltipManager != null) {
+								tooltipManager.hideTooltip();
+							}
 						}
+
 						break;
 					}
 				}
@@ -1029,8 +1042,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 			// Handle the diagram being read-only
 			if (diagramFile.isReadOnly()) {
-				final IStatus status = ResourcesPlugin.getWorkspace().validateEdit(new IFile[] { diagramFile },
-						getSite().getShell());
+				final IStatus status = ResourcesPlugin.getWorkspace()
+						.validateEdit(new IFile[] { diagramFile }, getSite().getShell());
 
 				if (status.matches(IStatus.CANCEL) || !status.isOK() || diagramFile.isReadOnly()) {
 					Display.getDefault().syncExec(() -> monitor.setCanceled(true));
@@ -1039,9 +1052,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 					if (!status.isOK()) {
 						StatusManager.getManager().handle(status, StatusManager.SHOW);
 					} else if (diagramFile.isReadOnly()) {
-						StatusManager.getManager().handle(
-								new Status(IStatus.ERROR, AgeGefUiPlugin.PLUGIN_ID, "Diagram is read-only"),
-								StatusManager.SHOW);
+						StatusManager.getManager()
+								.handle(new Status(IStatus.ERROR, AgeGefUiPlugin.PLUGIN_ID, "Diagram is read-only"),
+										StatusManager.SHOW);
 					}
 
 					return;
@@ -1060,8 +1073,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			fireDirtyPropertyChangeEvent();
 		} catch (final Exception e) {
 			Status errorStatus = new Status(IStatus.ERROR, AgeGefUiPlugin.PLUGIN_ID, 0, e.getMessage(), e);
-			Display.getDefault().asyncExec(() -> new ErrorDialog(Display.getDefault().getActiveShell(),
-					"Error Saving Diagram", "Unable to save diagram.", errorStatus, IStatus.ERROR).open());
+			Display.getDefault()
+					.asyncExec(() -> new ErrorDialog(Display.getDefault().getActiveShell(), "Error Saving Diagram",
+							"Unable to save diagram.", errorStatus, IStatus.ERROR).open());
 			throw e;
 		}
 	}
@@ -1320,7 +1334,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	@Override
 	public void selectDiagramElementsForBusinessObject(final Object bo) {
 		final CanonicalBusinessObjectReference searchRef = referenceService.getCanonicalReference(bo);
-		final List<DiagramElement> elementsForBo = diagram.getAllDiagramNodes().filter(DiagramElement.class::isInstance)
+		final List<DiagramElement> elementsForBo = diagram.getAllDiagramNodes()
+				.filter(DiagramElement.class::isInstance)
 				.map(DiagramElement.class::cast)
 				.filter(de -> Objects.equals(searchRef, referenceService.getCanonicalReference(de.getBusinessObject())))
 				.collect(Collectors.toList());

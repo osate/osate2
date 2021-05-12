@@ -51,10 +51,6 @@ Run with
             <iu id="org.eclipse.equinox.p2.rcp.feature.feature.group"/>
             <iu id="org.eclipse.equinox.p2.user.ui.feature.group"/>
             <iu id="org.eclipse.gmf.runtime.sdk.feature.group"/>
-            <iu id="org.eclipse.graphiti.feature.feature.group"/>
-            <iu id="org.eclipse.graphiti.export.feature.feature.group"/>
-            <iu id="org.eclipse.graphiti.feature.tools.feature.group"/>
-            <iu id="org.eclipse.graphiti.sdk.feature.feature.group"/>
             <iu id="org.eclipse.help.feature.group"/>
             <iu id="org.eclipse.m2e.logback.feature.feature.group"/>
             <iu id="org.eclipse.mylyn.context_feature.feature.group"/>

@@ -674,10 +674,6 @@
         xsi:type="setup.p2:P2Task"
         label="GE Dependencies">
       <requirement
-          name="org.eclipse.graphiti.sdk.plus.feature.feature.group"/>
-      <requirement
-          name="org.eclipse.zest.sdk.feature.group"/>
-      <requirement
           name="org.eclipse.fx.ide.pde.feature.feature.group"/>
       <requirement
           name="org.eclipse.gef.common.sdk.feature.group"/>
@@ -685,8 +681,6 @@
           name="org.eclipse.gef.geometry.sdk.feature.group"/>
       <requirement
           name="org.eclipse.gef.fx.sdk.feature.group"/>
-      <requirement
-          name="org.eclipse.gef.mvc.sdk.feature.group"/>
       <requirement
           name="org.eclipse.elk.sdk.feature.feature.group"/>
       <repository
@@ -748,6 +742,10 @@
       <requirement
           name="org.eclipse.elk.algorithms.feature.feature.group"/>
       <requirement
+          name="openjfx.standard.feature.feature.group"/>
+      <requirement
+          name="openjfx.swt.feature.feature.group"/>
+      <requirement
           name="org.eclipse.fx.runtime.min.feature.feature.group"/>
       <requirement
           name="org.eclipse.gef.common.feature.group"/>
@@ -757,10 +755,6 @@
           name="org.eclipse.gef.geometry.convert.fx.feature.group"/>
       <requirement
           name="org.eclipse.gef.fx.feature.group"/>
-      <requirement
-          name="org.eclipse.gef.mvc.fx.feature.group"/>
-      <requirement
-          name="org.eclipse.gef.mvc.fx.ui.feature.group"/>
       <requirement
           name="org.eclipse.sirius.runtime.ide.ui.feature.group"/>
       <requirement
@@ -829,6 +823,8 @@
             url="http://download.eclipse.org/birt/update-site/2018-09-interim"/>
         <repository
             url="http://updates.yakindu.com/statecharts/releases/3.5.9"/>
+        <repository 
+            url="https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-16/"/>
       </repositoryList>
     </targlet>
     <description></description>

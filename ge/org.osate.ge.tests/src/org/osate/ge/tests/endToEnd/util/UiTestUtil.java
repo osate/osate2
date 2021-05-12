@@ -27,7 +27,6 @@ import static org.eclipse.swtbot.swt.finder.SWTBotAssert.*;
 import static org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.*;
 import static org.junit.Assert.*;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -92,6 +91,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 
 /**
  * Provides functions for controlling the user interface.
@@ -970,7 +970,7 @@ public class UiTestUtil {
 		fxBot.type(newName);
 
 		// Press enter to finish
-		fxBot.pressAndReleaseKey(KeyEvent.VK_ENTER);
+		fxBot.pressAndReleaseKey(KeyCode.ENTER);
 
 		// Wait until the label changes to the expected value
 		waitUntil(() -> UIThreadRunnable.syncExec(() -> Objects.equals(primaryLabel.getText(), expectedNewLabel)),

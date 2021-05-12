@@ -38,6 +38,7 @@ import org.osate.ge.Categories;
 import org.osate.ge.gef.palette.PaletteModel;
 import org.osate.ge.gef.palette.SimplePaletteGroup;
 import org.osate.ge.gef.palette.SimplePaletteItem;
+import org.osate.ge.gef.ui.AgeGefUiPlugin;
 import org.osate.ge.palette.PaletteCommand;
 import org.osate.ge.palette.PaletteCommandProviderContext;
 import org.osate.ge.palette.PaletteContributor;
@@ -62,8 +63,8 @@ public class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, S
 	}
 
 	private final ReadOnlyObjectWrapper<SimplePaletteItem> activeItem = new ReadOnlyObjectWrapper<>();
-	private final Image selectIcon = new Image("./icons/arrow16.gif");
-	private final Image marqueeIcon = new Image("./icons/marquee16.gif");
+	private final Image selectIcon = AgeGefUiPlugin.loadBundleImage("/icons/arrow16.gif");
+	private final Image marqueeIcon = AgeGefUiPlugin.loadBundleImage("/icons/marquee16.gif");
 	private final WritableImage folderIcon;
 	private final SimplePaletteGroup rootGroup = new SimplePaletteGroup("Root", null); // Created to simplify implementation
 	private final SimplePaletteGroup miscPaletteGroup;
@@ -73,6 +74,7 @@ public class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, S
 
 	public AgeEditorPaletteModel(final Collection<PaletteContributor> paletteContributors, final Object diagramBo,
 			final ImageProvider imageProvider) {
+
 		final ImageDescriptor folderIconDescriptor = PlatformUI.getWorkbench().getSharedImages()
 				.getImageDescriptor(ISharedImages.IMG_OBJ_FOLDER);
 		final org.eclipse.swt.graphics.Image folderIconImage = folderIconDescriptor.createImage();

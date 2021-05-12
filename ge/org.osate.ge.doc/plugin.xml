@@ -27,7 +27,6 @@ censes only apply to the Third Party Software and not any other portion of this 
       <toc file="toc.xml" primary="true"/>
       <toc file="docs-gen/dev_guide_toc.xml"/>
       <toc file="docs-gen/user_guide_toc.xml"/>
-      <toc file="api_toc.xml"/>
    </extension>
    <extension point="org.eclipse.help.contexts">
    	  <contexts file="help_contexts.xml" plugin="org.osate.ge.doc">

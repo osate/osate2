@@ -133,7 +133,7 @@ public class DockedShape extends Region
 
 	@Override
 	public void requestLayout() {
-		dockedChildren.clearCache();
+		dockedChildren.invalidateCache();
 		super.requestLayout();
 	}
 
