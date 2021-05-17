@@ -23,11 +23,12 @@
  */
 package org.osate.ge.gef.ui.editor.overlays;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.osate.ge.gef.ui.editor.AgeEditor;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -47,13 +48,13 @@ import javafx.scene.shape.Line;
 public class GuideOverlay implements AutoCloseable {
 	private final AgeEditor editor;
 	private final Line horizontalLine = new Line();
-	private final ObjectProperty<Double> horizontalY = new SimpleObjectProperty<Double>();
+	private final ObjectProperty<Double> diagramHorizontalY = new SimpleObjectProperty<Double>();
 	private final Line verticalLine = new Line();
-	private final ObjectProperty<Double> verticalX = new SimpleObjectProperty<Double>();
-	private final TreeSet<Double> xValues = new TreeSet<>(); // TODO.. Set an initial size ot avoid resizing alot?
-	private final TreeSet<Double> xMidValues = new TreeSet<>(); // TODO.. Set an initial size ot avoid resizing alot?
-	private final TreeSet<Double> yValues = new TreeSet<>(); // TODO.. Set an initial size ot avoid resizing alot?
-	private final TreeSet<Double> yMidValues = new TreeSet<>(); // TODO.. Set an initial size ot avoid resizing alot?
+	private final ObjectProperty<Double> diagramVerticalX = new SimpleObjectProperty<Double>();
+	private final double[] xValues;
+	private final double[] xCenterValues;
+	private final double[] yValues;
+	private final double[] yCenterValues;
 
 	public GuideOverlay(final AgeEditor editor, final Set<DiagramElement> diagramElementsBeingModified) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
@@ -106,21 +107,20 @@ public class GuideOverlay implements AutoCloseable {
 		};
 		this.horizontalLine.endXProperty().bind(horizontalEndXBinding);
 
-		// TODO: Rename this or other to indicate local?
-		final DoubleBinding horizontalYBinding = new DoubleBinding() {
+		final DoubleBinding localHorizontalYBinding = new DoubleBinding() {
 			{
-				bind(overlays.diagramToLocalTransformProperty(), horizontalY);
+				bind(overlays.diagramToLocalTransformProperty(), diagramHorizontalY);
 			}
 
 			@Override
 			protected double computeValue() {
-				final Double value = horizontalY.get();
+				final Double value = diagramHorizontalY.get();
 				return overlays.getDiagramToLocalTransform().transform(0, value == null ? 0 : value).getY();
 			}
 		};
-		this.horizontalLine.startYProperty().bind(horizontalYBinding);
-		this.horizontalLine.endYProperty().bind(horizontalYBinding);
-		this.horizontalLine.visibleProperty().bind(horizontalY.isNotNull());
+		this.horizontalLine.startYProperty().bind(localHorizontalYBinding);
+		this.horizontalLine.endYProperty().bind(localHorizontalYBinding);
+		this.horizontalLine.visibleProperty().bind(diagramHorizontalY.isNotNull());
 
 		//
 		// Vertical Line
@@ -149,69 +149,84 @@ public class GuideOverlay implements AutoCloseable {
 		};
 		this.verticalLine.endYProperty().bind(verticalEndYBinding);
 
-		// TODO: Rename this or other to indicate local?
-		final DoubleBinding verticalXBinding = new DoubleBinding() {
+		final DoubleBinding localVerticalXBinding = new DoubleBinding() {
 			{
-				bind(overlays.diagramToLocalTransformProperty(), verticalX);
+				bind(overlays.diagramToLocalTransformProperty(), diagramVerticalX);
 			}
 
 			@Override
 			protected double computeValue() {
-				final Double value = verticalX.get();
+				final Double value = diagramVerticalX.get();
 				return overlays.getDiagramToLocalTransform().transform(value == null ? 0 : value, 0).getX();
 			}
 		};
-		this.verticalLine.startXProperty().bind(verticalXBinding);
-		this.verticalLine.endXProperty().bind(verticalXBinding);
-		this.verticalLine.visibleProperty().bind(verticalX.isNotNull());
+		this.verticalLine.startXProperty().bind(localVerticalXBinding);
+		this.verticalLine.endXProperty().bind(localVerticalXBinding);
+		this.verticalLine.visibleProperty().bind(diagramVerticalX.isNotNull());
 
-		//
-		Set<DiagramElement> diagramElementsToCheck = new HashSet<>(); // TODO: Rename? Just undocked shapes. Docked shapes are controlled by flag
+		// Create a set of diagram elements whose bounds will be included in the list of values for which guides will be shown
+		final Set<DiagramElement> undockedDiagramElementsToInclude = new HashSet<>();
 		boolean hasDockedElements = false;
 		for (final DiagramElement diagramElementBeingModified : diagramElementsBeingModified) {
 			if (DiagramElementPredicates.isShape(diagramElementBeingModified)) {
 				if (diagramElementBeingModified.getDockArea() == null) {
-					// TODO. Add siblings. TODO: Consider whether to check here
-					diagramElementsToCheck.addAll(diagramElementBeingModified.getParent().getDiagramElements());
+					// Add siblings.
+					undockedDiagramElementsToInclude
+							.addAll(diagramElementBeingModified.getParent().getDiagramElements());
 				} else {
 					hasDockedElements = true;
 				}
 			}
 		}
 
-		// TODO: Verify sorting, etc. WOuld a regular set work better?
-		add(editor.getDiagram(), 0.0, 0.0, diagramElementsBeingModified, diagramElementsToCheck, hasDockedElements,
-				xValues, xMidValues, yValues, yMidValues);
+		// Build a list of x and y values
+		final ArrayList<Double> xValues = new ArrayList<>(100);
+		final ArrayList<Double> xCenterValues = new ArrayList<>(100);
+		final ArrayList<Double> yValues = new ArrayList<>(100);
+		final ArrayList<Double> yCenterValues = new ArrayList<>(100);
+		addValues(editor.getDiagram(), 0.0, 0.0, diagramElementsBeingModified, undockedDiagramElementsToInclude,
+				hasDockedElements,
+				xValues, xCenterValues, yValues, yCenterValues);
+
+		// Convert to sorted arrays
+		this.xValues = xValues.stream().mapToDouble(Double::doubleValue).toArray();
+		Arrays.sort(this.xValues);
+
+		this.xCenterValues = xCenterValues.stream().mapToDouble(Double::doubleValue).toArray();
+		Arrays.sort(this.xCenterValues);
+
+		this.yValues = yValues.stream().mapToDouble(Double::doubleValue).toArray();
+		Arrays.sort(this.yValues);
+
+		this.yCenterValues = yCenterValues.stream().mapToDouble(Double::doubleValue).toArray();
+		Arrays.sort(this.yCenterValues);
 	}
 
-//
-	// TODO: Rename. Rename arguments?
-	private static void add(final DiagramNode parent, final double parentX, final double parentY,
-			final Set<DiagramElement> diagramElementsToIgnore, final Set<DiagramElement> diagramElementsToCheck,
-			final boolean checkDockedShapes, final Collection<Double> xValues, final Collection<Double> xMidValues,
-			final Collection<Double> yValues, final Collection<Double> yMidValues) {
-
-		// TODO: Consdier whether parent thing is still an issue with this new design
+	// Adds X and Y values for which the guides should appear to the collections
+	private static void addValues(final DiagramNode parent, final double parentX, final double parentY,
+			final Set<DiagramElement> diagramElementsToIgnore, final Set<DiagramElement> diagramElementsToInclude,
+			final boolean includeDockedShapes, final Collection<Double> xValues, final Collection<Double> centerXValues,
+			final Collection<Double> yValues, final Collection<Double> centerYValues) {
 		for (final DiagramElement child : parent.getDiagramElements()) {
 			if (!diagramElementsToIgnore.contains(child)) {
 				final double childLeft = parentX + child.getX();
 				final double childTop = parentY + child.getY();
 
-				if ((child.getDockArea() != null && checkDockedShapes) || diagramElementsToCheck.contains(child)) {
-					// TODO; add to list
+				// Add values
+				if ((child.getDockArea() != null && includeDockedShapes) || diagramElementsToInclude.contains(child)) {
 					xValues.add(childLeft);
-					xMidValues.add(childLeft + child.getWidth() / 2.0);
+					centerXValues.add(childLeft + child.getWidth() / 2.0);
 					xValues.add(childLeft + child.getWidth());
 					yValues.add(childTop);
-					yMidValues.add(childTop + child.getHeight() / 2.0);
+					centerYValues.add(childTop + child.getHeight() / 2.0);
 					yValues.add(childTop + child.getHeight());
 				}
 
-				add(child, childLeft, childTop, diagramElementsToIgnore, diagramElementsToCheck, checkDockedShapes,
-						xValues, xMidValues, yValues, yMidValues);
+				// Add values for children
+				addValues(child, childLeft, childTop, diagramElementsToIgnore, diagramElementsToInclude, includeDockedShapes,
+						xValues, centerXValues, yValues, centerYValues);
 			}
 		}
-
 	}
 
 	@Override
@@ -219,49 +234,79 @@ public class GuideOverlay implements AutoCloseable {
 		editor.getOverlays().getChildren().removeAll(horizontalLine, verticalLine);
 	}
 
-	// TODO; For resze.. may just want to use points or somehow constrain things since only part of it is changed... or not?
-	// TODO; Consider usign bounds in scene
-	// TODO: DOn't use list.. Have a reset function?
-
+	/**
+	 * Reset the values for which guides are being shown. This will hide the guides until these values are set.
+	 */
 	public void reset() {
-		horizontalY.set(null);
-		verticalX.set(null);
+		diagramHorizontalY.set(null);
+		diagramVerticalX.set(null);
 	}
 
-	// TODO: Rename
+	/**
+	 * Returns whether the update* methods should be called.
+	 * @return true if either the horizontal or vertical guide is not being shown due to a position not being set.
+	 */
 	public boolean shouldUpdate() {
-		return horizontalY.get() == null || verticalX.get() == null;
+		return diagramHorizontalY.get() == null || diagramVerticalX.get() == null;
 	}
 
-	// TODO: Need variant that only checks subset...
-	// TODO: Update documentation doesn't do anything if values are already updated
-	// TODO: Rename to bounds in diagram?
+	/**
+	 * Updates whether guides are shown for the specified bounds in diagram coordinates.
+	 * @param bounds is the bounds in diagram coordinates.
+	 */
 	public void update(final Bounds bounds) {
-		// TODO: This is too eager/simplistic... Exterme of new bounds should check against extremes of other elements
-		// TODO; Should check mid of boudns against mid of others..
-		// TOOD; HOWEVER: SHoudl not check mid against top for example
+		updateCenterX(bounds.getCenterX());
+		updateX(bounds.getMinX());
+		updateX(bounds.getMaxX());
+		updateCenterY(bounds.getCenterY());
+		updateY(bounds.getMinY());
+		updateY(bounds.getMaxY());
+	}
 
-		// TODO: Only do it when not already set
-
-		if (horizontalY.get() == null) {
-			final double midY = (bounds.getMinY() + bounds.getMaxY()) / 2.0;
-			if (yMidValues.contains(midY)) {
-				horizontalY.set(midY);
-			} else if (yValues.contains(bounds.getMinY())) {
-				horizontalY.set(bounds.getMinY());
-			} else if (yValues.contains(bounds.getMaxY())) {
-				horizontalY.set(bounds.getMaxY());
+	/**
+	 * Updates whether a vertical guide is shown for the specified X value. Does not check center X values.
+	 * @param value is the X value.
+	 */
+	public void updateX(final double value) {
+		if (diagramVerticalX.get() == null) {
+			if (Arrays.binarySearch(xValues, value) >= 0) {
+				diagramVerticalX.set(value);
 			}
 		}
+	}
 
-		if (verticalX.get() == null) {
-			final double midX = (bounds.getMinX() + bounds.getMaxX()) / 2.0;
-			if (xMidValues.contains(midX)) {
-				verticalX.set(midX);
-			} else if (xValues.contains(bounds.getMinX())) {
-				verticalX.set(bounds.getMinX());
-			} else if (xValues.contains(bounds.getMaxX())) {
-				verticalX.set(bounds.getMaxX());
+	/**
+	 * Updates whether a vertical guide is shown for the specified X value. Only checks center X values.
+	 * @param value is the X value.
+	 */
+	public void updateCenterX(final double value) {
+		if (diagramVerticalX.get() == null) {
+			if (Arrays.binarySearch(xCenterValues, value) >= 0) {
+				diagramVerticalX.set(value);
+			}
+		}
+	}
+
+	/**
+	 * Updates whether a horizontal guide is shown for the specified X value. Does not check center Y values.
+	 * @param value is the Y value.
+	 */
+	public void updateY(final double value) {
+		if (diagramHorizontalY.get() == null) {
+			if (Arrays.binarySearch(yValues, value) >= 0) {
+				diagramHorizontalY.set(value);
+			}
+		}
+	}
+
+	/**
+	 * Updates whether a horizontal guide is shown for the specified Y value. Only checks center Y values.
+	 * @param value is the Y value.
+	 */
+	public void updateCenterY(final double value) {
+		if (diagramHorizontalY.get() == null) {
+			if (Arrays.binarySearch(yCenterValues, value) >= 0) {
+				diagramHorizontalY.set(value);
 			}
 		}
 	}

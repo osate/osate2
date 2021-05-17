@@ -57,7 +57,7 @@ public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylabl
 	private final Circle initialModeCircle = new Circle(INITIAL_MODE_ELLIPSE_RADIUS);
 	private final CubicCurve initialModeCurve = new CubicCurve();
 	private final Path initialModeArrow = new Path();
-	private BooleanProperty initialModeProperty = new SimpleBooleanProperty();
+	private BooleanProperty initialMode = new SimpleBooleanProperty();
 
 	/**
 	 * Creates a new instance
@@ -75,7 +75,7 @@ public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylabl
 		initialModeCurve.setFill(null);
 
 		// Listen to property change
-		initialModeProperty.addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
+		initialMode.addListener((ChangeListener<Boolean>) (observable, oldValue, newValue) -> {
 			updateInitialModeIndicatorVisibility();
 
 			// Call a resize to relayout and configure the internal nodes
@@ -97,7 +97,7 @@ public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylabl
 
 		final double modeTop;
 		final double modeHeight;
-		if (initialModeProperty.get()) {
+		if (initialMode.get()) {
 			modeTop = INITIAL_MODE_AREA_HEIGHT;
 			modeHeight = Math.max(0, height - INITIAL_MODE_AREA_HEIGHT);
 		} else {
@@ -135,7 +135,7 @@ public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylabl
 
 	@Override
 	public double getMinimumTopLabelPadding() {
-		if (initialModeProperty.get()) {
+		if (initialMode.get()) {
 			return INITIAL_MODE_AREA_HEIGHT;
 		}
 
@@ -143,7 +143,7 @@ public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylabl
 	}
 
 	private void updateInitialModeIndicatorVisibility() {
-		final boolean initial = initialModeProperty.getValue();
+		final boolean initial = initialMode.getValue();
 		initialModeCircle.setVisible(initial);
 		initialModeCurve.setVisible(initial);
 		initialModeArrow.setVisible(initial);
@@ -185,7 +185,7 @@ public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylabl
 	}
 
 	public final void setInitialMode(final boolean value) {
-		initialModeProperty.setValue(value);
+		initialMode.setValue(value);
 	}
 
 	@Override

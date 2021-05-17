@@ -45,6 +45,8 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.osate.ge.graphics.Dimension;
+import org.osate.ge.services.DiagramExportService;
+import org.osate.ge.services.DiagramExportService.ImageFormat;
 
 class ExportDiagramDialog {
 	private static final Dimension MAX_IMAGE_DIMENSIONS = new Dimension(4000, 4000);
@@ -55,13 +57,9 @@ class ExportDiagramDialog {
 	private static final String[] HEIGHTS = new String[] { "200", "400", "600", "768", "1024", "1280" };
 	private static final double[] SCALE_FACTORS = new double[] { 0.5, 1.0, 2.0, 4.0 };
 
-	public static enum ImageFormat {
-		BMP, JPEG, PNG, SVG
-	}
-
 	public static class Result {
 		private final boolean all;
-		private final ImageFormat format;
+		private final DiagramExportService.ImageFormat format;
 		private final double scaleFactor;
 		private final Dimension dim;
 

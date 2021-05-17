@@ -264,7 +264,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 					if (needFullUpdate) {
 						updateSceneGraph();
-						forceLayout();
+						forceSceneGraphLayout();
 					} else {
 						// Refresh override styles to prepare to apply styles to updated elements
 						refreshOverrideStyles();
@@ -284,7 +284,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 							calculateAndApplyStyle(ge);
 						}
 
-						forceLayout();
+						forceSceneGraphLayout();
 					}
 
 					// Force connections to refresh. This works around cases where a diagram element is moved
@@ -796,7 +796,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	/**
 	 * Triggers an immediate layout
 	 */
-	private void forceLayout() {
+	private void forceSceneGraphLayout() {
 		diagramNode.applyCss();
 		diagramNode.layout();
 	}
@@ -819,7 +819,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 */
 	public void updateDiagramFromSceneGraph(final boolean updateBendpoints) {
 		updatingDiagramFromSceneGraph = true;
-		forceLayout();
+		forceSceneGraphLayout();
 		diagram.modify("Update Diagram from Scene Graph", m -> {
 			for (final Entry<DiagramElement, GefDiagramElement> e : this.diagramElementToGefDiagramElementMap
 					.entrySet()) {

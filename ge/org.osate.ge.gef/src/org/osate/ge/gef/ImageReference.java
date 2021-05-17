@@ -20,7 +20,7 @@ public class ImageReference {
 	 * Returns the referenced image. If the image is updated, the image will be changed.
 	 * @return the referenced image
 	 */
-	public Image getImage() {
+	public final Image getImage() {
 		return image.get();
 	}
 
@@ -28,7 +28,7 @@ public class ImageReference {
 	 * Sets the referenced image.
 	 * @param value the new referenced image.
 	 */
-	void setImage(final Image value) {
+	final void setImage(final Image value) {
 		image.set(value);
 	}
 

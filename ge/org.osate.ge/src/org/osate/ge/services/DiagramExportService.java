@@ -21,69 +21,65 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge;
+package org.osate.ge.services;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Objects;
 
 import javax.imageio.stream.ImageOutputStream;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.e4.core.contexts.EclipseContextFactory;
-import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.osate.ge.services.DiagramExportService;
-import org.osate.ge.services.DiagramExportService.ImageFormat;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
 
+// TODO: Rename
 /**
- *
- * @noextend
- * @deprecated use {@link DiagramExportService}
+ * @since 3.0
  */
-@Deprecated
-public class DiagramExporter {
-	// All methods are static
-	private DiagramExporter() {
+public interface DiagramExportService {
+	public static enum ImageFormat {
+		JPEG, PNG, SVG
 	}
 
-	/**
-	 * Converts an AADL diagram file to a PNG image.
-	 *
-	 * @param diagramFile the diagram file to be exported
-	 * @param outputFile  the file the image will be written to
-	 */
-	public static void exportDiagramAsPng(final IFile diagramFile, final File outputFile) throws IOException {
-		getExportService().export(diagramFile, outputFile, ImageFormat.PNG);
+	default void export(final IFile diagramFile, final File outputFile, final ImageFormat format) throws IOException {
+		try (FileOutputStream output = new FileOutputStream(outputFile)) {
+			export(diagramFile, output, format);
+		}
 	}
 
-	/**
-	 * Converts an AADL diagram file to a PNG image.
-	 *
-	 * @param diagramFile  the diagram file to be exported
-	 * @param outputStream the stream the image will be written to
-	 */
-	public static void exportDiagramAsPng(final IFile diagramFile, final ImageOutputStream outputStream)
+	default void export(final IFile diagramFile, final ImageOutputStream outputStream, final ImageFormat format)
 			throws IOException {
-		getExportService().export(diagramFile, outputStream, ImageFormat.PNG);
+		export(diagramFile, new OutputStream() {
+			@Override
+			public void close() throws IOException {
+				outputStream.close();
+				super.close();
+			}
+
+			@Override
+			public void flush() throws IOException {
+				outputStream.flush();
+				super.flush();
+			}
+
+			@Override
+			public void write(final int b) throws IOException {
+				outputStream.write(b);
+			}
+
+			@Override
+			public void write(byte[] b) throws IOException {
+				outputStream.write(b);
+			}
+
+			@Override
+			public void write(byte[] b, int off, int len) throws IOException {
+				outputStream.write(b, off, len);
+				super.write(b, off, len);
+			}
+
+		}, format);
 	}
 
-	/**
-	 * Converts an AADL diagram file to a PNG image.
-	 *
-	 * @param diagramFile  the diagram file to be exported
-	 * @param outputStream the stream the image will be written to
-	 */
-	public static void exportDiagramAsPng(final IFile diagramFile, final OutputStream outputStream) throws IOException {
-		getExportService().export(diagramFile, outputStream, ImageFormat.PNG);
-	}
-
-	private static DiagramExportService getExportService() {
-		final Bundle bundle = FrameworkUtil.getBundle(DiagramExporter.class);
-		final IEclipseContext context = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
-		return Objects.requireNonNull(context.get(DiagramExportService.class),
-				"Unable to get diagram export service");
-	}
+	void export(final IFile diagramFile, final OutputStream outputStream, final ImageFormat format) throws IOException;
 }

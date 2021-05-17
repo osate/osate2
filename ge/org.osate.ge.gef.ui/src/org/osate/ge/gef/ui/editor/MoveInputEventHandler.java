@@ -366,7 +366,7 @@ class KeyboardMoveSelectedElementsInteraction extends BaseInteraction {
 class SelectedElementsMover implements AutoCloseable {
 	private final AgeEditor editor;
 	private final List<DiagramElementSnapshot> elementsToMove;
-	private final GuideOverlay guide; // TODO: Rename
+	private final GuideOverlay guides;
 
 	/**
 	 * Creates a new instance. This instance will move diagram elements which are selected at the time the
@@ -376,13 +376,13 @@ class SelectedElementsMover implements AutoCloseable {
 	public SelectedElementsMover(final AgeEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 		this.elementsToMove = createMoveElementSnapshotsForSelection(editor);
-		this.guide = new GuideOverlay(editor,
+		this.guides = new GuideOverlay(editor,
 				elementsToMove.stream().map(s -> s.diagramElement).collect(Collectors.toSet()));
 	}
 
 	@Override
 	public void close() {
-		this.guide.close();
+		this.guides.close();
 
 		// Update scene graph based on diagram elements. This is needed to revert any scene changes that have been made
 		// during the interaction and to ensure that the scene node reflects the diagram elements after modification.
@@ -398,7 +398,7 @@ class SelectedElementsMover implements AutoCloseable {
 		final Transform sceneToDiagramTransform = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform();
 
 		// Reset guide
-		guide.reset();
+		guides.reset();
 
 		// Move nodes
 		for (final DiagramElementSnapshot snapshot : elementsToMove) {
@@ -419,8 +419,6 @@ class SelectedElementsMover implements AutoCloseable {
 					PreferredPosition.set(snapshot.sceneNode,
 							new Point2D(newPositionX - connectionMidpointPositionInDiagram.getX(),
 									newPositionY - connectionMidpointPositionInDiagram.getY()));
-
-					// TODO: Support guide? WSould it pick up other such labels?
 				}
 			} else {
 				// Determine snapped position
@@ -442,8 +440,8 @@ class SelectedElementsMover implements AutoCloseable {
 				}
 
 				// Update guide overlay
-				if (guide.shouldUpdate()) {
-					guide.update(sceneToDiagramTransform.transform(snapshot.sceneNode.getLocalToSceneTransform()
+				if (guides.shouldUpdate()) {
+					guides.update(sceneToDiagramTransform.transform(snapshot.sceneNode.getLocalToSceneTransform()
 							.transform(snapshot.sceneNode.getLayoutBounds())));
 				}
 

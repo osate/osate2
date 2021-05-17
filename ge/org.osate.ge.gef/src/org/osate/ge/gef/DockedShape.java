@@ -137,11 +137,11 @@ public class DockedShape extends Region
 		super.requestLayout();
 	}
 
-	public DockSide getSide() {
+	public final DockSide getSide() {
 		return side.get();
 	}
 
-	public void setSide(final DockSide value) {
+	public final void setSide(final DockSide value) {
 		side.set(value);
 	}
 

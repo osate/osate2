@@ -55,6 +55,8 @@ import javafx.scene.transform.Transform;
  */
 public class RenameInputEventHandler implements InputEventHandler {
 	private final AgeEditor editor;
+	private boolean wasSelected = false;
+	private DiagramElement mousePressDiagramElement = null;
 
 	public RenameInputEventHandler(final AgeEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
@@ -68,7 +70,7 @@ public class RenameInputEventHandler implements InputEventHandler {
 	@Override
 	public HandledEvent handleEvent(final InputEvent e) {
 		// Only handle primary mouse button releases
-		if (e.getEventType() != MouseEvent.MOUSE_RELEASED) {
+		if (e.getEventType() != MouseEvent.MOUSE_PRESSED && e.getEventType() != MouseEvent.MOUSE_RELEASED) {
 			return null;
 		}
 
@@ -83,7 +85,13 @@ public class RenameInputEventHandler implements InputEventHandler {
 			return null;
 		}
 
-		if (!mouseEvent.isShiftDown() && !mouseEvent.isControlDown() && mouseEvent.getButton() == MouseButton.PRIMARY
+		if (e.getEventType() == MouseEvent.MOUSE_PRESSED) {
+
+			wasSelected = editor.getSelectedDiagramElementList().contains(clickedDiagramElement);
+			mousePressDiagramElement = clickedDiagramElement;
+		} else if (e.getEventType() == MouseEvent.MOUSE_RELEASED && mouseEvent.getButton() == MouseButton.PRIMARY
+				&& !mouseEvent.isShiftDown() && !mouseEvent.isControlDown()
+				&& wasSelected && clickedDiagramElement == mousePressDiagramElement
 				&& editor.getSelectedDiagramElementList().contains(clickedDiagramElement)) {
 			final LabelNode primaryLabel = editor.getGefDiagram().getPrimaryLabelSceneNode(clickedDiagramElement);
 			if (isAncestor(primaryLabel, (Node) e.getTarget()) && EditorRenameUtil.canRename(clickedDiagramElement)) {
@@ -91,9 +99,11 @@ public class RenameInputEventHandler implements InputEventHandler {
 						editor);
 				return HandledEvent.newInteraction(newInteraction);
 			}
+
+			return HandledEvent.consumed();
 		}
 
-		return HandledEvent.consumed();
+		return null;
 	}
 
 	/**

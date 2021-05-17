@@ -39,6 +39,7 @@ import org.osate.ge.gef.ui.editor.overlays.ResizeShapeHandle;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -111,7 +112,7 @@ class ResizeInteraction extends BaseInteraction {
 	private final ResizeShapeHandle handle;
 	private final Point2D initialClickLocationInDiagram;
 	private final List<DiagramElementSnapshot> elementsToResize;
-	private final GuideOverlay guide; // TODO: Rename
+	private final GuideOverlay guides;
 
 	public ResizeInteraction(final AgeEditor editor, final MouseEvent e) {
 		this.editor = editor;
@@ -119,13 +120,13 @@ class ResizeInteraction extends BaseInteraction {
 		this.initialClickLocationInDiagram = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform()
 				.transform(e.getSceneX(), e.getSceneY());
 		this.elementsToResize = createResizeElementSnapshotsFromSelection(editor);
-		this.guide = new GuideOverlay(editor,
+		this.guides = new GuideOverlay(editor,
 				elementsToResize.stream().map(s -> s.diagramElement).collect(Collectors.toSet()));
 	}
 
 	@Override
 	public void close() {
-		this.guide.close();
+		this.guides.close();
 
 		// Update scene graph based on diagram elements. This is needed to revert any scene changes that have been made
 		// during the interaction and to ensure that the scene node reflects the diagram elements after modification.
@@ -138,7 +139,7 @@ class ResizeInteraction extends BaseInteraction {
 			return super.onMouseDragged(e);
 		}
 
-		guide.reset();
+		guides.reset();
 
 		final Transform sceneToDiagramTransform = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform();
 		final Point2D eventInDiagram = sceneToDiagramTransform.transform(e.getSceneX(), e.getSceneY());
@@ -152,10 +153,10 @@ class ResizeInteraction extends BaseInteraction {
 			double newPositionY = snapshot.sceneNode.getLayoutY();
 			double newWidth = snapshot.boundsInDiagram.getWidth();
 			double newHeight = snapshot.boundsInDiagram.getHeight();
-			final Vector d = handle.getDirection();
+			final Vector dir = handle.getDirection();
 			final double minWidth = snapshot.sceneNode.minWidth(-1);
 			final double minHeight = snapshot.sceneNode.minHeight(-1);
-			if (d.x < 0) {
+			if (dir.x < 0) {
 				double newPositionDiagramX = InputEventHandlerUtil.snapX(editor,
 						snapshot.boundsInDiagram.getMinX() + eventDelta.getX(), snapToGrid);
 				newPositionDiagramX = Math.min(newPositionDiagramX,
@@ -165,13 +166,13 @@ class ResizeInteraction extends BaseInteraction {
 				newPositionX = snapshot.positionInLocal.getX()
 						+ (newPositionDiagramX - snapshot.boundsInDiagram.getMinX());
 				newWidth = snapshot.boundsInDiagram.getMaxX() - newPositionDiagramX;
-			} else if (d.x > 0) {
+			} else if (dir.x > 0) {
 				final double newMaxX = InputEventHandlerUtil.snapX(editor,
 						snapshot.boundsInDiagram.getMaxX() + eventDelta.getX(), snapToGrid);
 				newWidth = newMaxX - snapshot.boundsInDiagram.getMinX();
 			}
 
-			if (d.y < 0) {
+			if (dir.y < 0) {
 				double newPositionDiagramY = InputEventHandlerUtil.snapX(editor,
 						snapshot.boundsInDiagram.getMinY() + eventDelta.getY(), snapToGrid);
 				newPositionDiagramY = Math.min(newPositionDiagramY,
@@ -181,7 +182,7 @@ class ResizeInteraction extends BaseInteraction {
 				newPositionY = snapshot.positionInLocal.getY()
 						+ (newPositionDiagramY - snapshot.boundsInDiagram.getMinY());
 				newHeight = snapshot.boundsInDiagram.getMaxY() - newPositionDiagramY;
-			} else if (d.y > 0) {
+			} else if (dir.y > 0) {
 				final double newMaxY = InputEventHandlerUtil.snapX(editor,
 						snapshot.boundsInDiagram.getMaxY() + eventDelta.getY(), snapToGrid);
 				newHeight = newMaxY - snapshot.boundsInDiagram.getMinY();
@@ -216,11 +217,27 @@ class ResizeInteraction extends BaseInteraction {
 			configureSize.setConfiguredWidth(Math.max(newWidth, minWidth));
 			configureSize.setConfiguredHeight(Math.max(newHeight, minHeight));
 
-			// TODO: Do in another loop?
 			// Update guide overlay
-			if (guide.shouldUpdate()) {
-				guide.update(sceneToDiagramTransform.transform(
-						snapshot.sceneNode.getLocalToSceneTransform().transform(snapshot.sceneNode.getLayoutBounds())));
+			if (guides.shouldUpdate()) {
+				final Bounds newBoundsInDiagram = sceneToDiagramTransform.transform(
+						snapshot.sceneNode.getLocalToSceneTransform().transform(snapshot.sceneNode.getLayoutBounds()));
+
+				// Show guides for the values in the bounds that are being changed as part of the resize
+				if (dir.x < 0) {
+					guides.updateX(newBoundsInDiagram.getMinX());
+					guides.updateCenterX(newBoundsInDiagram.getCenterX());
+				} else if (dir.x > 0) {
+					guides.updateX(newBoundsInDiagram.getMaxX());
+					guides.updateCenterX(newBoundsInDiagram.getCenterX());
+				}
+
+				if (dir.y < 0) {
+					guides.updateY(newBoundsInDiagram.getMinY());
+					guides.updateCenterY(newBoundsInDiagram.getCenterY());
+				} else if (dir.y > 0) {
+					guides.updateY(newBoundsInDiagram.getMaxY());
+					guides.updateCenterY(newBoundsInDiagram.getCenterY());
+				}
 			}
 		}
 

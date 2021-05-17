@@ -878,11 +878,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		//
 		// Event handler. Delegates to input event handlers or the active interaction as appropriate
 		final EventHandler<? super InputEvent> handleInput = e -> {
-			// TODO
-			if (e.getEventType() == MouseEvent.MOUSE_RELEASED) {
-				System.err.println(e);
-			}
-
 			if (activeInteraction == null) {
 				// Delegate processing of the event to the input event handlers
 				for (final InputEventHandler inputEventHandler : inputEventHandlers) {
@@ -935,9 +930,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		inputEventHandlers.add(new ResizeInputEventHandler(this));
 		inputEventHandlers.add(new MarqueeSelectInputEventHandler(this));
 		inputEventHandlers.add(new MoveConnectionPointTool(this));
+		inputEventHandlers.add(new RenameInputEventHandler(this));
 		inputEventHandlers.add(new SelectInputEventHandler(this));
 		inputEventHandlers.add(new MoveInputEventHandler(this));
-		inputEventHandlers.add(new RenameInputEventHandler(this));
 		inputEventHandlers.add(new PaletteCommandInputEventHandler(this));
 	}
 
@@ -1000,7 +995,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		return zoom;
 	}
 
-	public double getZoom() {
+	public final double getZoom() {
 		return zoom.get();
 	}
 
@@ -1008,7 +1003,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	 * Sets the zoom level
 	 * @param value the zoom level. In order for incremental zooming to work, the zoom level must be a value contained in {@link #ZOOM_LEVELS}
 	 */
-	public void setZoom(final double value) {
+	public final void setZoom(final double value) {
 		zoom.set(value);
 	}
 
