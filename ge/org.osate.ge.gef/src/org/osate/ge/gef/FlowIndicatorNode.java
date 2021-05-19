@@ -79,8 +79,13 @@ public class FlowIndicatorNode extends BaseConnectionNode {
 			protected Point2D computeValue() {
 				Transform referenceToScene;
 				try {
+					final Node parent = getParent();
+					if (parent == null) {
+						return Point2D.ZERO;
+					}
+
 					referenceToScene = positioningReference.localToSceneTransformProperty().get();
-					final Transform sceneToParent = getParent().localToSceneTransformProperty().get().createInverse();
+					final Transform sceneToParent = parent.localToSceneTransformProperty().get().createInverse();
 					final Transform referenceToLocal = sceneToParent.createConcatenation(referenceToScene);
 					return referenceToLocal.transform(0, 0);
 				} catch (NonInvertibleTransformException e) {

@@ -170,9 +170,12 @@ public class GuideOverlay implements AutoCloseable {
 		for (final DiagramElement diagramElementBeingModified : diagramElementsBeingModified) {
 			if (DiagramElementPredicates.isShape(diagramElementBeingModified)) {
 				if (diagramElementBeingModified.getDockArea() == null) {
-					// Add siblings.
-					undockedDiagramElementsToInclude
-							.addAll(diagramElementBeingModified.getParent().getDiagramElements());
+					// Add siblings to check for alignment
+					for (final DiagramElement sibling : diagramElementBeingModified.getParent().getDiagramElements()) {
+						if (DiagramElementPredicates.isMoveableShape(sibling) && sibling.getDockArea() == null) {
+							undockedDiagramElementsToInclude.add(sibling);
+						}
+					}
 				} else {
 					hasDockedElements = true;
 				}
@@ -185,8 +188,7 @@ public class GuideOverlay implements AutoCloseable {
 		final ArrayList<Double> yValues = new ArrayList<>(100);
 		final ArrayList<Double> yCenterValues = new ArrayList<>(100);
 		addValues(editor.getDiagram(), 0.0, 0.0, diagramElementsBeingModified, undockedDiagramElementsToInclude,
-				hasDockedElements,
-				xValues, xCenterValues, yValues, yCenterValues);
+				hasDockedElements, xValues, xCenterValues, yValues, yCenterValues);
 
 		// Convert to sorted arrays
 		this.xValues = xValues.stream().mapToDouble(Double::doubleValue).toArray();
@@ -223,8 +225,8 @@ public class GuideOverlay implements AutoCloseable {
 				}
 
 				// Add values for children
-				addValues(child, childLeft, childTop, diagramElementsToIgnore, diagramElementsToInclude, includeDockedShapes,
-						xValues, centerXValues, yValues, centerYValues);
+				addValues(child, childLeft, childTop, diagramElementsToIgnore, diagramElementsToInclude,
+						includeDockedShapes, xValues, centerXValues, yValues, centerYValues);
 			}
 		}
 	}

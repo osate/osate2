@@ -109,7 +109,9 @@ public class MoveInputEventHandler implements InputEventHandler {
 
 			if (e.getEventType() == MouseEvent.MOUSE_PRESSED) {
 				// Store the starting position.
-				mousePressLocationDiagram = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform()
+				mousePressLocationDiagram = editor.getGefDiagram()
+						.getSceneNode()
+						.getSceneToLocalTransform()
 						.transform(mouseEvent.getSceneX(), mouseEvent.getSceneY());
 
 				// Determine if the primary label is the node being moved
@@ -127,7 +129,9 @@ public class MoveInputEventHandler implements InputEventHandler {
 					}
 				}
 			} else if (e.getEventType() == MouseEvent.MOUSE_DRAGGED && mousePressLocationDiagram != null) {
-				final Point2D newPositionDiagram = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform()
+				final Point2D newPositionDiagram = editor.getGefDiagram()
+						.getSceneNode()
+						.getSceneToLocalTransform()
 						.transform(mouseEvent.getSceneX(), mouseEvent.getSceneY());
 				final double d = mousePressLocationDiagram.distance(newPositionDiagram);
 				if (d > MIN_MOUSE_DRAGGED_DISTANCE) {
@@ -283,6 +287,7 @@ class MouseMoveSelectedElementsInteraction extends BaseInteraction {
 		final boolean snapToGrid = !e.isAltDown();
 
 		mover.updateSceneGraph(totalDelta, snapToGrid);
+
 		return InteractionState.IN_PROGRESS;
 	}
 
@@ -292,7 +297,7 @@ class MouseMoveSelectedElementsInteraction extends BaseInteraction {
 			return super.onMousePressed(e);
 		}
 
-		mover.updateDiagram();
+		mover.apply();
 
 		return InteractionState.COMPLETE;
 	}
@@ -335,7 +340,7 @@ class KeyboardMoveSelectedElementsInteraction extends BaseInteraction {
 		final double stepSize = snapToGrid ? NORMAL_STEP_SIZE : SMALL_STEP_SIZE;
 
 		if (e.getCode() == KeyCode.ENTER) {
-			mover.updateDiagram();
+			mover.apply();
 			return InteractionState.COMPLETE;
 		} else if (e.getCode() == KeyCode.LEFT) {
 			shiftSelectedDiagramElements(-stepSize, 0.0, snapToGrid);
@@ -364,9 +369,19 @@ class KeyboardMoveSelectedElementsInteraction extends BaseInteraction {
  * Class which handles moving the diagram elements which are selected at the time of instantiation.
  */
 class SelectedElementsMover implements AutoCloseable {
+	/**
+	 * Maximum number of connections to show while moving. This avoids performance issues related to updating affected
+	 * connections.
+	 */
+	private static final int MAX_SHOWN_AFFECTED_CONNECTIONS = 5;
+
 	private final AgeEditor editor;
 	private final List<DiagramElementSnapshot> elementsToMove;
 	private final GuideOverlay guides;
+
+	// Flag which indicates whether affected connections will be shown while moving. If false then the connections are hidden
+	// and the control points are updated after movement is complete.
+	private final boolean showAffectedConnections;
 
 	/**
 	 * Creates a new instance. This instance will move diagram elements which are selected at the time the
@@ -378,11 +393,22 @@ class SelectedElementsMover implements AutoCloseable {
 		this.elementsToMove = createMoveElementSnapshotsForSelection(editor);
 		this.guides = new GuideOverlay(editor,
 				elementsToMove.stream().map(s -> s.diagramElement).collect(Collectors.toSet()));
+		this.showAffectedConnections = elementsToMove.stream()
+				.flatMap(s -> s.affectedConnections.stream())
+				.filter(DiagramElementPredicates::isRegularConnection)
+				.count() <= MAX_SHOWN_AFFECTED_CONNECTIONS;
+		if (!showAffectedConnections) {
+			setAffectedConnectionsVisible(false);
+		}
 	}
 
 	@Override
 	public void close() {
 		this.guides.close();
+
+		if (!showAffectedConnections) {
+			setAffectedConnectionsVisible(true);
+		}
 
 		// Update scene graph based on diagram elements. This is needed to revert any scene changes that have been made
 		// during the interaction and to ensure that the scene node reflects the diagram elements after modification.
@@ -392,7 +418,7 @@ class SelectedElementsMover implements AutoCloseable {
 	/**
 	 * Updates the positions of scene graph nodes.
 	 * @param totalPositionDelta the total movement since the beginning of the interaction.
-	 * @param snapToGrid whether the positions should be snapped to grid. Ignored for connecton labels.
+	 * @param snapToGrid whether the positions should be snapped to grid. Ignored for connection labels.
 	 */
 	public void updateSceneGraph(final Point2D totalPositionDelta, final boolean snapToGrid) {
 		final Transform sceneToDiagramTransform = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform();
@@ -430,7 +456,7 @@ class SelectedElementsMover implements AutoCloseable {
 						- snapshot.boundsInDiagram.getMinY());
 
 				// Constrain the position to the container
-				final Node container = getLogicalShapeContainer(snapshot.sceneNode);
+				final Node container = InputEventHandlerUtil.getLogicalShapeContainer(snapshot.sceneNode);
 				if (container instanceof ContainerShape) {
 					final Bounds parentBounds = container.getLayoutBounds();
 					newPositionX = Math.max(0,
@@ -451,23 +477,12 @@ class SelectedElementsMover implements AutoCloseable {
 						|| currentPreferredPosition.getY() != newPositionY) {
 					PreferredPosition.set(snapshot.sceneNode, new Point2D(newPositionX, newPositionY));
 
-					final double dx = currentPreferredPosition == null ? 0
-							: (newPositionX - currentPreferredPosition.getX());
-					final double dy = currentPreferredPosition == null ? 0
-							: (newPositionY - currentPreferredPosition.getY());
-					if (dx != 0.0 || dy != 0.0) {
-						for (final DiagramElement affectedConnectionDiagramElement : snapshot.affectedConnections) {
-							final Node affectedConnectionSceneNode = editor.getGefDiagram()
-									.getSceneNode(affectedConnectionDiagramElement);
-							// Shift regular (non flow-indicator) connections.
-							if (affectedConnectionSceneNode instanceof ConnectionNode) {
-								final BaseConnectionNode cn = (BaseConnectionNode) affectedConnectionSceneNode;
-								cn.getInnerConnection().setControlPoints(
-										cn.getInnerConnection().getControlPoints().stream().map(cp -> {
-											return new org.eclipse.gef.geometry.planar.Point(cp.x + dx, cp.y + dy);
-										}).collect(Collectors.toList()));
-							}
-						}
+					if (showAffectedConnections) {
+						final double dx = currentPreferredPosition == null ? 0
+								: (newPositionX - currentPreferredPosition.getX());
+						final double dy = currentPreferredPosition == null ? 0
+								: (newPositionY - currentPreferredPosition.getY());
+						shiftAffectedConnections(snapshot, dx, dy);
 					}
 
 					// Update side for docked shapes
@@ -476,11 +491,11 @@ class SelectedElementsMover implements AutoCloseable {
 						if (container instanceof ContainerShape) {
 							final ContainerShape cs = (ContainerShape) container;
 							final Bounds containerBounds = cs.getLayoutBounds();
-							final DockSide side = GefAgeDiagramUtil.toDockSide(AgeDiagramUtil
-									.determineDockingPosition(containerBounds.getWidth(), containerBounds.getHeight(),
-											newPositionX, newPositionY, snapshot.boundsInDiagram.getWidth(),
-											snapshot.boundsInDiagram.getHeight())
-									.getDefaultDockArea());
+							final DockSide side = GefAgeDiagramUtil
+									.toDockSide(AgeDiagramUtil.determineDockingPosition(containerBounds.getWidth(),
+											containerBounds.getHeight(), newPositionX, newPositionY,
+											snapshot.boundsInDiagram.getWidth(), snapshot.boundsInDiagram.getHeight())
+											.getDefaultDockArea());
 							cs.addOrUpdateDockedChild(ds, side);
 						}
 					}
@@ -489,11 +504,55 @@ class SelectedElementsMover implements AutoCloseable {
 		}
 	}
 
-	public void updateDiagram() {
+	/**
+	 * Finalizes movement and updates the diagram to match. Should only be called once.
+	 */
+	public void apply() {
+		// Move connection bendpoints
+		if (!this.showAffectedConnections) {
+			for (final DiagramElementSnapshot snapshot : elementsToMove) {
+				final Point2D currentPreferredPosition = PreferredPosition.get(snapshot.sceneNode);
+				if (currentPreferredPosition != null) {
+					final double dx = currentPreferredPosition.getX() - snapshot.positionInLocal.getX();
+					final double dy = currentPreferredPosition.getY() - snapshot.positionInLocal.getY();
+					shiftAffectedConnections(snapshot, dx, dy);
+				}
+			}
+		}
+
 		// Move diagram elements by updating the diagram to reflect the current scene graph
 		editor.getDiagram().modify("Move", m -> {
 			editor.getGefDiagram().updateDiagramFromSceneGraph();
 		});
+	}
+
+	private void shiftAffectedConnections(final DiagramElementSnapshot snapshot, final double dx, final double dy) {
+		if (dx != 0.0 || dy != 0.0) {
+			for (final DiagramElement affectedConnectionDiagramElement : snapshot.affectedConnections) {
+				final Node affectedConnectionSceneNode = editor.getGefDiagram()
+						.getSceneNode(affectedConnectionDiagramElement);
+				// Shift regular (non flow-indicator) connections.
+				if (affectedConnectionSceneNode instanceof ConnectionNode) {
+					final BaseConnectionNode cn = (BaseConnectionNode) affectedConnectionSceneNode;
+					cn.getInnerConnection()
+							.setControlPoints(cn.getInnerConnection().getControlPoints().stream().map(cp -> {
+								return new org.eclipse.gef.geometry.planar.Point(cp.x + dx, cp.y + dy);
+							}).collect(Collectors.toList()));
+				}
+			}
+		}
+	}
+
+	private void setAffectedConnectionsVisible(final boolean value) {
+		for (final DiagramElementSnapshot snapshot : elementsToMove) {
+			for (final DiagramElement affectedConnectionDiagramElement : snapshot.affectedConnections) {
+				final Node affectedConnectionSceneNode = editor.getGefDiagram()
+						.getSceneNode(affectedConnectionDiagramElement);
+				if (affectedConnectionSceneNode != null) {
+					affectedConnectionSceneNode.setVisible(value);
+				}
+			}
+		}
 	}
 
 	/**
@@ -526,21 +585,5 @@ class SelectedElementsMover implements AutoCloseable {
 				addSnapshots(editor, childDiagramElement, selectedDiagramElements, results);
 			}
 		}
-	}
-
-	/**
-	 * Returns the closest ancestor which is a {@link ContainerShape} or {@link DockedShape}.
-	 * Does not check the node itself.
-	 * @param node the node for which to get the logical container.
-	 * @return the logical container. Returns null if no ancestor meets the criteria.
-	 */
-	private static Node getLogicalShapeContainer(final Node node) {
-		for (Node tmp = node.getParent(); tmp != null; tmp = tmp.getParent()) {
-			if (tmp instanceof ContainerShape || tmp instanceof DockedShape) {
-				return tmp;
-			}
-		}
-
-		return null;
 	}
 }

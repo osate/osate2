@@ -468,7 +468,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		final Resource tmpResource = tmpResourceSet.createResource(resource.getURI());
 		tmpResource.getContents().addAll(EcoreUtil.copyAll(resource.getContents()));
 
-		// Clone the bo specified by the modfication
+		// Clone the bo specified by the modification
 		final EObject parsedAnnexRootClone = tmpResourceSet.getEObject(EcoreUtil.getURI(parsedAnnexElement), false);
 		final Deque<Integer> indexStack = getParsedAnnexRootIndices(bo);
 		EObject tmpClonedObject = parsedAnnexRootClone;

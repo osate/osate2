@@ -30,9 +30,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.eclipse.gef.geometry.euclidean.Vector;
-import org.osate.ge.gef.BaseConnectionNode;
 import org.osate.ge.gef.ConfigureSize;
-import org.osate.ge.gef.ConnectionNode;
+import org.osate.ge.gef.ContainerShape;
+import org.osate.ge.gef.DockSide;
+import org.osate.ge.gef.DockedShape;
+import org.osate.ge.gef.FlowIndicatorNode;
 import org.osate.ge.gef.PreferredPosition;
 import org.osate.ge.gef.ui.editor.overlays.GuideOverlay;
 import org.osate.ge.gef.ui.editor.overlays.ResizeShapeHandle;
@@ -66,34 +68,7 @@ public class ResizeInputEventHandler implements InputEventHandler {
 		}
 
 		final ResizeShapeHandle handle = (ResizeShapeHandle) mouseMoveEvent.getTarget();
-		final Vector d = handle.getDirection();
-
-		if (d.x < 0) {
-			if (d.y < 0) {
-				return Cursor.NW_RESIZE;
-			} else if (d.y == 0.0) {
-				return Cursor.W_RESIZE;
-			} else { // d.y > 0.0
-				return Cursor.SW_RESIZE;
-			}
-		} else if (d.x == 0) {
-			if (d.y < 0) {
-				return Cursor.N_RESIZE;
-			} else if (d.y == 0.0) {
-				// Invalid combination
-				return null;
-			} else { // d.y > 0.0
-				return Cursor.S_RESIZE;
-			}
-		} else { // d.x > 0
-			if (d.y < 0) {
-				return Cursor.NE_RESIZE;
-			} else if (d.y == 0.0) {
-				return Cursor.E_RESIZE;
-			} else { // d.y > 0.0
-				return Cursor.SE_RESIZE;
-			}
-		}
+		return ResizeInteraction.getCursor(handle);
 	}
 
 	@Override
@@ -117,20 +92,33 @@ class ResizeInteraction extends BaseInteraction {
 	public ResizeInteraction(final AgeEditor editor, final MouseEvent e) {
 		this.editor = editor;
 		this.handle = (ResizeShapeHandle) e.getTarget();
-		this.initialClickLocationInDiagram = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform()
+		this.initialClickLocationInDiagram = editor.getGefDiagram()
+				.getSceneNode()
+				.getSceneToLocalTransform()
 				.transform(e.getSceneX(), e.getSceneY());
 		this.elementsToResize = createResizeElementSnapshotsFromSelection(editor);
 		this.guides = new GuideOverlay(editor,
 				elementsToResize.stream().map(s -> s.diagramElement).collect(Collectors.toSet()));
+
+		// Hides connections because in some cases, some anchors/connections are not updated during resize and it will cause
+		// connections to render incorrectly.
+		setAffectedConnectionsVisible(false);
 	}
 
 	@Override
 	public void close() {
 		this.guides.close();
 
+		setAffectedConnectionsVisible(true);
+
 		// Update scene graph based on diagram elements. This is needed to revert any scene changes that have been made
 		// during the interaction and to ensure that the scene node reflects the diagram elements after modification.
 		editor.getGefDiagram().updateSceneGraph();
+	}
+
+	@Override
+	public Cursor getCursor() {
+		return getCursor(handle);
 	}
 
 	@Override
@@ -143,9 +131,8 @@ class ResizeInteraction extends BaseInteraction {
 
 		final Transform sceneToDiagramTransform = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform();
 		final Point2D eventInDiagram = sceneToDiagramTransform.transform(e.getSceneX(), e.getSceneY());
-		final Point2D eventDelta = eventInDiagram.subtract(initialClickLocationInDiagram);
+		final Point2D totalDelta = eventInDiagram.subtract(initialClickLocationInDiagram);
 		final boolean snapToGrid = !e.isAltDown();
-
 		// Resize all selection diagram elements
 		for (final DiagramElementSnapshot snapshot : elementsToResize) {
 			// Determine position adjustment and new size
@@ -154,37 +141,80 @@ class ResizeInteraction extends BaseInteraction {
 			double newWidth = snapshot.boundsInDiagram.getWidth();
 			double newHeight = snapshot.boundsInDiagram.getHeight();
 			final Vector dir = handle.getDirection();
-			final double minWidth = snapshot.sceneNode.minWidth(-1);
-			final double minHeight = snapshot.sceneNode.minHeight(-1);
+			final Node container = InputEventHandlerUtil.getLogicalShapeContainer(snapshot.sceneNode);
+
+			//
+			// Determine the minimum layout X and Y values for shapes which will be repositioned during the resize.
+			// This value is used to constrain the new position of the node when the resize results in both a movement
+			// and a size change.
+			//
+			double minChildLayoutX = Double.POSITIVE_INFINITY;
+			double minChildLayoutY = Double.POSITIVE_INFINITY;
+			for (final DiagramElement childDiagramElement : snapshot.diagramElement.getDiagramElements()) {
+				final Node childSceneNode = editor.getGefDiagram().getSceneNode(childDiagramElement);
+				if (childSceneNode instanceof ContainerShape) {
+					minChildLayoutX = Math.min(minChildLayoutX, childSceneNode.getLayoutX());
+					minChildLayoutY = Math.min(minChildLayoutY, childSceneNode.getLayoutY());
+				}
+
+				// Docked shapes are only repositioned in one axis.
+				if (childSceneNode instanceof DockedShape) {
+					final DockSide side = ((DockedShape) childSceneNode).getSide();
+					if (side.vertical) {
+						minChildLayoutY = Math.min(minChildLayoutY, childSceneNode.getLayoutY());
+					} else {
+						minChildLayoutX = Math.min(minChildLayoutX, childSceneNode.getLayoutX());
+					}
+				}
+			}
+
 			if (dir.x < 0) {
 				double newPositionDiagramX = InputEventHandlerUtil.snapX(editor,
-						snapshot.boundsInDiagram.getMinX() + eventDelta.getX(), snapToGrid);
+						snapshot.boundsInDiagram.getMinX() + totalDelta.getX(), snapToGrid);
+				// It is critical to not consider children that are being repositioned. Otherwise the minimum width
+				// will change as the node is resized. The layout of such children are considered to ensure that the resize
+				// does not clip children not included in the minimum width.
+				final double minWidthOfNotRepositionedChildren = snapshot.sceneNode instanceof ContainerShape
+						? ((ContainerShape) snapshot.sceneNode).computeMinWidth(-1, false)
+						: snapshot.sceneNode.minWidth(-1);
 				newPositionDiagramX = Math.min(newPositionDiagramX,
-						snapshot.boundsInDiagram.getMaxX() - minWidth);
-				newPositionDiagramX = Math.max(newPositionDiagramX,
-						snapshot.boundsInDiagram.getMinX() - snapshot.positionInLocal.getX());
+						snapshot.boundsInDiagram.getMaxX() - minWidthOfNotRepositionedChildren);
 				newPositionX = snapshot.positionInLocal.getX()
 						+ (newPositionDiagramX - snapshot.boundsInDiagram.getMinX());
-				newWidth = snapshot.boundsInDiagram.getMaxX() - newPositionDiagramX;
+				newPositionX = Math.min(newPositionX, snapshot.sceneNode.getLayoutX() + minChildLayoutX);
+				if (container instanceof ContainerShape) {
+					newPositionX = Math.max(newPositionX, 0);
+				}
+
+				newWidth = snapshot.boundsInDiagram.getWidth() + (snapshot.positionInLocal.getX() - newPositionX);
 			} else if (dir.x > 0) {
 				final double newMaxX = InputEventHandlerUtil.snapX(editor,
-						snapshot.boundsInDiagram.getMaxX() + eventDelta.getX(), snapToGrid);
+						snapshot.boundsInDiagram.getMaxX() + totalDelta.getX(), snapToGrid);
 				newWidth = newMaxX - snapshot.boundsInDiagram.getMinX();
 			}
 
 			if (dir.y < 0) {
 				double newPositionDiagramY = InputEventHandlerUtil.snapX(editor,
-						snapshot.boundsInDiagram.getMinY() + eventDelta.getY(), snapToGrid);
+						snapshot.boundsInDiagram.getMinY() + totalDelta.getY(), snapToGrid);
+
+				// It is critical to not consider children that are being repositioned. Otherwise the minimum height
+				// will change as the node is resized. The layout of such children are considered to ensure that the resize
+				// does not clip children not included in the minimum height.
+				final double minHeightWithoutFreeChildren = snapshot.sceneNode instanceof ContainerShape
+						? ((ContainerShape) snapshot.sceneNode).computeMinHeight(-1, false)
+						: snapshot.sceneNode.minHeight(-1);
 				newPositionDiagramY = Math.min(newPositionDiagramY,
-						snapshot.boundsInDiagram.getMaxY() - minHeight);
-				newPositionDiagramY = Math.max(newPositionDiagramY,
-						snapshot.boundsInDiagram.getMinY() - snapshot.positionInLocal.getY());
+						snapshot.boundsInDiagram.getMaxY() - minHeightWithoutFreeChildren);
 				newPositionY = snapshot.positionInLocal.getY()
 						+ (newPositionDiagramY - snapshot.boundsInDiagram.getMinY());
-				newHeight = snapshot.boundsInDiagram.getMaxY() - newPositionDiagramY;
+				newPositionY = Math.min(newPositionY, snapshot.sceneNode.getLayoutY() + minChildLayoutY);
+				if (container instanceof ContainerShape) {
+					newPositionY = Math.max(newPositionY, 0);
+				}
+				newHeight = snapshot.boundsInDiagram.getHeight() + (snapshot.positionInLocal.getY() - newPositionY);
 			} else if (dir.y > 0) {
 				final double newMaxY = InputEventHandlerUtil.snapX(editor,
-						snapshot.boundsInDiagram.getMaxY() + eventDelta.getY(), snapToGrid);
+						snapshot.boundsInDiagram.getMaxY() + totalDelta.getY(), snapToGrid);
 				newHeight = newMaxY - snapshot.boundsInDiagram.getMinY();
 			}
 
@@ -198,22 +228,36 @@ class ResizeInteraction extends BaseInteraction {
 						: (newPositionX - currentPreferredPosition.getX());
 				final double dy = currentPreferredPosition == null ? 0
 						: (newPositionY - currentPreferredPosition.getY());
-				if (dx != 0.0 || dy != 0.0) {
-					for (final DiagramElement affectedConnectionDiagramElement : snapshot.affectedConnections) {
-						final Node affectedConnectionSceneNode = editor.getGefDiagram()
-								.getSceneNode(affectedConnectionDiagramElement);
-						if (affectedConnectionSceneNode instanceof ConnectionNode) {
-							final BaseConnectionNode cn = (BaseConnectionNode) affectedConnectionSceneNode;
-							cn.getInnerConnection()
-									.setControlPoints(cn.getInnerConnection().getControlPoints().stream().map(cp -> {
-										return new org.eclipse.gef.geometry.planar.Point(cp.x + dx, cp.y + dy);
-									}).collect(Collectors.toList()));
+
+				// Reposition children so that their absolute positions do not change.
+				for (final DiagramElement childDiagramElement : snapshot.diagramElement.getDiagramElements()) {
+					final Node childSceneNode = editor.getGefDiagram().getSceneNode(childDiagramElement);
+					if (childSceneNode instanceof ContainerShape || childSceneNode instanceof DockedShape
+							|| childSceneNode instanceof FlowIndicatorNode) {
+						final Point2D childPosition = PreferredPosition.get(childSceneNode);
+						if (childPosition != null) {
+							final double newPreferredPositionX, newPreferredPositionY;
+
+							// Special handling of flow indicators since they will only shift in one axis.
+							// This assumes the flow indicator is attaches to a vertical side.
+							if (childSceneNode instanceof FlowIndicatorNode) {
+								newPreferredPositionX = childPosition.getX();
+								newPreferredPositionY = childPosition.getY() - dy;
+							} else {
+								newPreferredPositionX = childPosition.getX() - dx;
+								newPreferredPositionY = childPosition.getY() - dy;
+							}
+
+							PreferredPosition.set(childSceneNode,
+									new Point2D(newPreferredPositionX, newPreferredPositionY));
 						}
 					}
 				}
 			}
 
 			final ConfigureSize configureSize = (ConfigureSize) snapshot.sceneNode;
+			final double minWidth = snapshot.sceneNode.minWidth(-1);
+			final double minHeight = snapshot.sceneNode.minHeight(-1);
 			configureSize.setConfiguredWidth(Math.max(newWidth, minWidth));
 			configureSize.setConfiguredHeight(Math.max(newHeight, minHeight));
 
@@ -258,6 +302,19 @@ class ResizeInteraction extends BaseInteraction {
 		return InteractionState.COMPLETE;
 	}
 
+
+	private void setAffectedConnectionsVisible(final boolean value) {
+		for (final DiagramElementSnapshot snapshot : elementsToResize) {
+			for (final DiagramElement affectedConnectionDiagramElement : snapshot.affectedConnections) {
+				final Node affectedConnectionSceneNode = editor.getGefDiagram()
+						.getSceneNode(affectedConnectionDiagramElement);
+				if (affectedConnectionSceneNode != null) {
+					affectedConnectionSceneNode.setVisible(value);
+				}
+			}
+		}
+	}
+
 	/**
 	 * Creates a list of snapshots for diagram elements which will be resized by the interaction.
 	 * @param editor the editor containing the scene nodes for the elements.
@@ -273,5 +330,36 @@ class ResizeInteraction extends BaseInteraction {
 		}
 
 		return results;
+	}
+
+	static Cursor getCursor(final ResizeShapeHandle handle) {
+		final Vector d = handle.getDirection();
+
+		if (d.x < 0) {
+			if (d.y < 0) {
+				return Cursor.NW_RESIZE;
+			} else if (d.y == 0.0) {
+				return Cursor.W_RESIZE;
+			} else { // d.y > 0.0
+				return Cursor.SW_RESIZE;
+			}
+		} else if (d.x == 0) {
+			if (d.y < 0) {
+				return Cursor.N_RESIZE;
+			} else if (d.y == 0.0) {
+				// Invalid combination
+				return null;
+			} else { // d.y > 0.0
+				return Cursor.S_RESIZE;
+			}
+		} else { // d.x > 0
+			if (d.y < 0) {
+				return Cursor.NE_RESIZE;
+			} else if (d.y == 0.0) {
+				return Cursor.E_RESIZE;
+			} else { // d.y > 0.0
+				return Cursor.SE_RESIZE;
+			}
+		}
 	}
 }

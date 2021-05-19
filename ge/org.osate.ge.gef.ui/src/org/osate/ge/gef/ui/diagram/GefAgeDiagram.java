@@ -626,7 +626,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		// Update connections
 		if (sceneNode instanceof BaseConnectionNode) {
 			final BaseConnectionNode connectionNode = (BaseConnectionNode) sceneNode;
-			final Point controlPointOrigin = getControlPointOrigin(diagramElement, sceneNode);
+			final Point controlPointOrigin = getControlPointOriginFromDiagram(diagramElement, sceneNode);
 			if (sceneNode instanceof FlowIndicatorNode) {
 				PreferredPosition.set(sceneNode, convertPoint(diagramElement.getPosition()));
 			}
@@ -874,9 +874,11 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 						final List<org.eclipse.gef.geometry.planar.Point> controlPoints = cn.getInnerConnection()
 								.getControlPoints();
 						if (!controlPoints.isEmpty() || !de.getBendpoints().isEmpty()) {
-							final Point controlPointOrigin = getControlPointOrigin(de, sceneNode);
+							final Point controlPointOrigin = getControlPointOriginFromSceneGraph(sceneNode);
 							m.setBendpoints(de,
-									cn.getInnerConnection().getControlPoints().stream()
+									cn.getInnerConnection()
+											.getControlPoints()
+											.stream()
 											.map(p -> new Point(p.x + controlPointOrigin.x, p.y + controlPointOrigin.y))
 											.collect(Collectors.toList()));
 						}
@@ -888,15 +890,31 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	}
 
 	/**
-	 * Determines the origin of the control points to allow converting to absolute coordinates.
+	 * Determines the origin of the control points to allow converting to absolute coordinates. This function should not be used
+	 * when updating the diagram element because the containing diagram elements may not be updated.
 	 * @param de the diagram element for the connection to get the control point origin.
 	 * @param sceneNode the scene node for the specified diagram element
 	 * @return the control point origin
 	 */
-	private Point getControlPointOrigin(final DiagramElement de, final Node sceneNode) {
+	private Point getControlPointOriginFromDiagram(final DiagramElement de, final Node sceneNode) {
 		if (sceneNode instanceof FlowIndicatorNode) {
 			final Point parentPosition = DiagramElementLayoutUtil.getAbsolutePosition(de);
 			return new Point(parentPosition.x + de.getX(), parentPosition.y + de.getY());
+		} else {
+			return Point.ZERO;
+		}
+	}
+
+	/**
+	 * Determines the origin of the control points to allow converting control points to absolute coordinates.
+	 * @param sceneNode the scene node for the specified diagram element
+	 * @return the control point origin
+	 */
+	private Point getControlPointOriginFromSceneGraph(final Node sceneNode) {
+		if (sceneNode instanceof FlowIndicatorNode) {
+			return GefAgeDiagramUtil.toAgePoint(diagramNode.getSceneToLocalTransform()
+					.transform(sceneNode.getLocalToSceneTransform()
+							.transform(new Point2D(0, 0))));
 		} else {
 			return Point.ZERO;
 		}

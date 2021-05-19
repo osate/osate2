@@ -56,8 +56,10 @@ import javafx.beans.binding.ObjectBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.WeakChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
@@ -208,11 +210,11 @@ public class Overlays extends Group implements ISelectionChangedListener {
 						if (selectedNode instanceof ContainerShape || selectedNode instanceof DockedShape
 								|| selectedNode instanceof LabelNode) {
 							newDiagramElementToSelectedNodeOverlayMapBuilder.put(selectedDiagramElement,
-									new SelectedShapeOverlay(selectedDiagramElement, selectedNode, primary));
+									new SelectedShapeOverlay(this, selectedDiagramElement, selectedNode, primary));
 						} else if (selectedNode instanceof BaseConnectionNode) {
 							// Create overlay for connection nodes
 							newDiagramElementToSelectedNodeOverlayMapBuilder.put(selectedDiagramElement,
-									new SelectedConnectionOverlay(selectedDiagramElement,
+									new SelectedConnectionOverlay(this, selectedDiagramElement,
 											(BaseConnectionNode) selectedNode, primary));
 						}
 					}
@@ -262,28 +264,34 @@ public class Overlays extends Group implements ISelectionChangedListener {
 
 		/**
 		 * Creates a new instance.
+		 * @param overlays is the overlays object that will be used to determine the transform into local space. This instance
+		 * must be in the same coordinate system as the specified overlays.
 		 * @param de is the diagram element which is represented by the selected node.
 		 * @param selectedNode the node for which this instance is an overlay
 		 * @param primary whether the selected node is the primary selection
 		 */
-		public SelectedShapeOverlay(final DiagramElement de, final Node selectedNode, boolean primary) {
+		public SelectedShapeOverlay(final Overlays overlays, final DiagramElement de, final Node selectedNode,
+				boolean primary) {
 			setAutoSizeChildren(false);
 			this.selectedNode = selectedNode;
 			selectionIndicator.setAutoSizeChildren(false);
 
 			this.getChildren().add(selectionIndicator);
 
-			// Set the transform of this node so that it matches the transform of the selected node
-			final ChangeListener<? super Transform> transformUpdater = ((o, oldTransform, newTransform) -> {
-				try {
-					selectionIndicator.getTransforms().setAll(getLocalToSceneTransform().createInverse()
-							.createConcatenation(selectedNode.getLocalToSceneTransform()));
-				} catch (final NonInvertibleTransformException e) {
-					throw new AgeGefRuntimeException("Unable to create selection indicator transform", e);
+			// Binding which transforms the selected node's layout bounds into the local coordinate system.
+			final ObjectBinding<Bounds> selectedNodeLayoutBoundsInLocal = new ObjectBinding<Bounds>() {
+				{
+					bind(overlays.sceneToLocalTransformProperty(), selectedNode.localToSceneTransformProperty(),
+							selectedNode.layoutBoundsProperty());
 				}
-			});
-			localToSceneTransformProperty().addListener(transformUpdater);
-			selectedNode.localToSceneTransformProperty().addListener(transformUpdater);
+
+				@Override
+				protected Bounds computeValue() {
+					return overlays.getSceneToLocalTransform()
+							.transform(
+									selectedNode.getLocalToSceneTransform().transform(selectedNode.getLayoutBounds()));
+				}
+			};
 
 			//
 			// Selection Indicator
@@ -294,42 +302,42 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			selectionIndicatorRect.setStrokeWidth(1.0);
 			selectionIndicatorRect.widthProperty().bind(new DoubleBinding() {
 				{
-					bind(selectedNode.layoutBoundsProperty());
+					bind(selectedNodeLayoutBoundsInLocal);
 				}
 
 				@Override
 				protected double computeValue() {
-					return selectedNode.layoutBoundsProperty().get().getWidth();
+					return selectedNodeLayoutBoundsInLocal.get().getWidth();
 				}
 			});
 			selectionIndicatorRect.heightProperty().bind(new DoubleBinding() {
 				{
-					bind(selectedNode.layoutBoundsProperty());
+					bind(selectedNodeLayoutBoundsInLocal);
 				}
 
 				@Override
 				protected double computeValue() {
-					return selectedNode.layoutBoundsProperty().get().getHeight();
+					return selectedNodeLayoutBoundsInLocal.get().getHeight();
 				}
 			});
 			selectionIndicatorRect.xProperty().bind(new DoubleBinding() {
 				{
-					bind(selectedNode.layoutBoundsProperty());
+					bind(selectedNodeLayoutBoundsInLocal);
 				}
 
 				@Override
 				protected double computeValue() {
-					return selectedNode.layoutBoundsProperty().get().getMinX();
+					return selectedNodeLayoutBoundsInLocal.get().getMinX();
 				}
 			});
 			selectionIndicatorRect.yProperty().bind(new DoubleBinding() {
 				{
-					bind(selectedNode.layoutBoundsProperty());
+					bind(selectedNodeLayoutBoundsInLocal);
 				}
 
 				@Override
 				protected double computeValue() {
-					return selectedNode.layoutBoundsProperty().get().getMinY();
+					return selectedNodeLayoutBoundsInLocal.get().getMinY();
 				}
 			});
 			selectionIndicator.getChildren().add(selectionIndicatorRect);
@@ -344,12 +352,12 @@ public class Overlays extends Group implements ISelectionChangedListener {
 					// Create handle position bindings
 					final DoubleBinding xBinding = new DoubleBinding() {
 						{
-							bind(selectedNode.layoutBoundsProperty());
+							bind(selectedNodeLayoutBoundsInLocal);
 						}
 
 						@Override
 						protected double computeValue() {
-							final Bounds selectedBounds = selectedNode.layoutBoundsProperty().get();
+							final Bounds selectedBounds = selectedNodeLayoutBoundsInLocal.get();
 							final double halfWidth = selectedBounds.getWidth() / 2.0;
 							return selectedBounds.getMinX() + halfWidth + (halfWidth * resizeDirection.x)
 									- (handle.getWidth() / 2.0);
@@ -357,12 +365,12 @@ public class Overlays extends Group implements ISelectionChangedListener {
 					};
 					final DoubleBinding yBinding = new DoubleBinding() {
 						{
-							bind(selectedNode.layoutBoundsProperty());
+							bind(selectedNodeLayoutBoundsInLocal);
 						}
 
 						@Override
 						protected double computeValue() {
-							final Bounds selectedBounds = selectedNode.layoutBoundsProperty().get();
+							final Bounds selectedBounds = selectedNodeLayoutBoundsInLocal.get();
 							final double halfHeight = selectedBounds.getHeight() / 2.0;
 							return selectedBounds.getMinY() + halfHeight + (halfHeight * resizeDirection.y)
 									- (handle.getHeight() / 2.0);
@@ -394,6 +402,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 	 * Overlay used for selected connections.
 	 */
 	private static class SelectedConnectionOverlay extends Group implements SelectedNodeOverlay {
+		private final Overlays overlays;
 		private final DiagramElement diagramElement;
 		private BaseConnectionNode selectedNode;
 		private boolean primary;
@@ -404,17 +413,28 @@ public class Overlays extends Group implements ISelectionChangedListener {
 		 */
 		private final ObservableList<Point> connectionPoints;
 		private InvalidationListener invalidationListener = (InvalidationListener) c -> {
+			// This is required because control points may not be updated when this is called
+			selectedNode.refresh();
+			updateSelectionIndicator(selectedNode);
+		};
+
+		private ChangeListener<?> changeListener = (ChangeListener<?>) (o, oldValue, newValue) -> {
 			updateSelectionIndicator(selectedNode);
 		};
 
 		/**
 		 * Creates a new instance.
+		 * @param overlays is the overlays object that will be used to determine the transform into local space. This instance
+		 * must be in the same coordinate system as the specified overlays.
 		 * @param de is the diagram element which is represented by the selected node.
 		 * @param selectedNode the node for which this instance is an overlay
 		 * @param primary whether the selected node is the primary selection
 		 */
-		public SelectedConnectionOverlay(final DiagramElement diagramElement, final BaseConnectionNode selectedNode,
+		@SuppressWarnings("unchecked")
+		public SelectedConnectionOverlay(final Overlays overlays, final DiagramElement diagramElement,
+				final BaseConnectionNode selectedNode,
 				final boolean primary) {
+			this.overlays = overlays;
 			this.diagramElement = diagramElement;
 			this.selectedNode = selectedNode;
 			this.primary = primary;
@@ -422,23 +442,12 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			handles.setAutoSizeChildren(false);
 			getChildren().add(handles);
 
-			// Update transform on changes
-			final ChangeListener<? super Transform> transformUpdater = ((o, oldTransform, newTransform) -> {
-				try {
-					handles.getTransforms().setAll(getLocalToSceneTransform().createInverse()
-							.createConcatenation(selectedNode.getLocalToSceneTransform()));
-				} catch (final NonInvertibleTransformException e) {
-					throw new AgeGefRuntimeException("Unable to update transform for connection handles", e);
-				}
-			});
-
-			localToSceneTransformProperty().addListener(transformUpdater);
-			selectedNode.localToSceneTransformProperty().addListener(transformUpdater);
-
 			// Update the selection indicator whenever the curve changes
-			selectedNode.getInnerConnection().curveProperty().addListener((o, oldCurve, newCurve) -> {
-				updateSelectionIndicator(selectedNode);
-			});
+			selectedNode.getInnerConnection()
+					.curveProperty()
+					.addListener(new WeakChangeListener<Node>((ChangeListener<Node>) changeListener));
+			selectedNode.localToSceneTransformProperty()
+					.addListener(new WeakChangeListener<Transform>((ChangeListener<Transform>) changeListener));
 
 			connectionPoints = selectedNode.getInnerConnection().getPointsUnmodifiable();
 			connectionPoints.addListener(new WeakInvalidationListener(invalidationListener));
@@ -447,6 +456,9 @@ public class Overlays extends Group implements ISelectionChangedListener {
 		}
 
 		private void updateSelectionIndicator(final BaseConnectionNode selectedNode) {
+			final Transform selectedToOverlayTransform = overlays.getSceneToLocalTransform()
+					.createConcatenation(selectedNode.getLocalToSceneTransform());
+
 			// Only remove visible children. Invisible children are retained and will be removed by whatever set them to invisible.
 			// This is important to ensure events are received while dragging.
 			handles.getChildren().removeIf(n -> n.isVisible());
@@ -463,22 +475,24 @@ public class Overlays extends Group implements ISelectionChangedListener {
 				final org.eclipse.gef.geometry.planar.Point p = controlPointIndex == controlPoints.size()
 						? allPoints.get(allPoints.size() - 1)
 						: controlPoints.get(controlPointIndex);
-				final org.eclipse.gef.geometry.planar.Point mid = new Point((prev.x + p.x) / 2.0, (prev.y + p.y) / 2.0);
+				final Point2D midInLocal = selectedToOverlayTransform
+						.transform((prev.x + p.x) / 2.0, (prev.y + p.y) / 2.0);
 
 				// Create a handle for the control point
 				if (controlPointIndex < controlPoints.size()) {
 					final ControlPointHandle controlPointHandle = new ControlPointHandle(diagramElement, selectedNode,
 							primary, controlPointIndex);
-					controlPointHandle.setCenterX(p.x);
-					controlPointHandle.setCenterY(p.y);
+					final Point2D pInLocal = selectedToOverlayTransform.transform(p.x, p.y);
+					controlPointHandle.setCenterX(pInLocal.getX());
+					controlPointHandle.setCenterY(pInLocal.getY());
 					handles.getChildren().add(controlPointHandle);
 				}
 
 				// Create handle for creating new control points
 				final CreateControlPointHandle createControlPointHandle = new CreateControlPointHandle(diagramElement,
 						selectedNode, primary, controlPointIndex);
-				createControlPointHandle.setCenterX(mid.x);
-				createControlPointHandle.setCenterY(mid.y);
+				createControlPointHandle.setCenterX(midInLocal.getX());
+				createControlPointHandle.setCenterY(midInLocal.getY());
 				handles.getChildren().add(createControlPointHandle);
 			}
 
@@ -487,8 +501,9 @@ public class Overlays extends Group implements ISelectionChangedListener {
 				final FlowIndicatorPositionHandle handle = new FlowIndicatorPositionHandle(diagramElement,
 						(FlowIndicatorNode) selectedNode, primary);
 				final org.eclipse.gef.geometry.planar.Point p = connectionPoints.get(connectionPoints.size() - 1);
-				handle.setCenterX(p.x);
-				handle.setCenterY(p.y);
+				final Point2D pInLocal = selectedToOverlayTransform.transform(p.x, p.y);
+				handle.setCenterX(pInLocal.getX());
+				handle.setCenterY(pInLocal.getY());
 				handles.getChildren().add(handle);
 			}
 		}

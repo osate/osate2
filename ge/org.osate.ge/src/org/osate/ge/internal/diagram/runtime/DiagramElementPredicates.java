@@ -61,6 +61,10 @@ public class DiagramElementPredicates {
 		return de.getGraphic() instanceof AgeConnection && ((AgeConnection) de.getGraphic()).isFlowIndicator;
 	}
 
+	public static boolean isRegularConnection(final DiagramElement de) {
+		return de.getGraphic() instanceof AgeConnection && !((AgeConnection) de.getGraphic()).isFlowIndicator;
+	}
+
 	public static boolean supportsImage(final DiagramElement de) {
 		return !(de.getGraphic() instanceof Label) && de.getGraphic() instanceof AgeShape && isUndocked(de);
 	}

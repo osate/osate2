@@ -1,8 +1,11 @@
 package org.osate.ge.gef.ui.editor;
 
 import org.osate.ge.gef.BaseConnectionNode;
+import org.osate.ge.gef.ContainerShape;
+import org.osate.ge.gef.DockedShape;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 
 import javafx.event.EventTarget;
@@ -31,7 +34,11 @@ public class InputEventHandlerUtil {
 			}
 
 			final DiagramElement de = gefDiagram.getDiagramElement(tmp);
-			if (de != null) {
+			if (de != null
+					&& ((DiagramElementPredicates.isMoveableShape(de)
+							&& (!(de.getParent() instanceof DiagramElement)
+									|| !DiagramElementPredicates.isConnection((DiagramElement) de.getParent())))
+							|| DiagramElementPredicates.isConnection(de))) {
 				return de;
 			}
 		}
@@ -97,6 +104,22 @@ public class InputEventHandlerUtil {
 		for (Node tmp = node; tmp != null; tmp = tmp.getParent()) {
 			if (tmp instanceof BaseConnectionNode) {
 				return (BaseConnectionNode) tmp;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the closest ancestor which is a {@link ContainerShape} or {@link DockedShape}.
+	 * Does not check the node itself.
+	 * @param node the node for which to get the logical container.
+	 * @return the logical container. Returns null if no ancestor meets the criteria.
+	 */
+	public static Node getLogicalShapeContainer(final Node node) {
+		for (Node tmp = node.getParent(); tmp != null; tmp = tmp.getParent()) {
+			if (tmp instanceof ContainerShape || tmp instanceof DockedShape) {
+				return tmp;
 			}
 		}
 

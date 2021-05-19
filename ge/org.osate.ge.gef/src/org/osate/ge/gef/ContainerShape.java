@@ -167,8 +167,9 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		freeChildren.setAutoSizeChildren(false);
 
 		// Add groups
-		this.getChildren().addAll(graphicWrapper, primaryLabels, secondaryLabels, leftChildren.getGroup(),
-				rightChildren.getGroup(), topChildren.getGroup(), bottomChildren.getGroup(), freeChildren);
+		this.getChildren()
+				.addAll(graphicWrapper, primaryLabels, secondaryLabels, leftChildren.getGroup(),
+						rightChildren.getGroup(), topChildren.getGroup(), bottomChildren.getGroup(), freeChildren);
 
 		// Initialize chopbox anchor
 		anchor.getComputationParameter(AnchorageReferenceGeometry.class).bind(new ObjectBinding<IGeometry>() {
@@ -543,8 +544,23 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 
 	@Override
 	protected double computeMinWidth(final double height) {
-		double result = Math.max(MIN_COMPUTED_MIN_WIDTH, Math.max(leftChildren.getWidth() + rightChildren.getWidth(),
-				Math.max(topChildren.getWidth(), bottomChildren.getWidth())));
+		return computeMinWidth(height, true);
+	}
+
+	/**
+	 * Computes the minimum width.
+	 * @param height see {@link #computeMinWidth(double)}
+	 * @param includeChildrenRepositionedDuringResize if false, then the returned value does not consider top, bottom, and
+	 * free children. Intended to allow determining a minimum width during resizing since resizing will reposition such
+	 * children.
+	 * @return the minimum width
+	 */
+	public double computeMinWidth(final double height, final boolean includeChildrenRepositionedDuringResize) {
+		double result = Math.max(MIN_COMPUTED_MIN_WIDTH, leftChildren.getWidth() + rightChildren.getWidth());
+
+		if (includeChildrenRepositionedDuringResize) {
+			result = Math.max(result, Math.max(topChildren.getWidth(), bottomChildren.getWidth()));
+		}
 
 		// Take into consideration minimum width of graphics
 		for (final Node graphic : graphicWrapper.getChildren()) {
@@ -566,15 +582,32 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		}
 
 		// Include minimum width for free children
-		result = Math.max(result, computeMinWidthForFreeChildren());
+		if (includeChildrenRepositionedDuringResize) {
+			result = Math.max(result, computeMinWidthForFreeChildren());
+		}
 
 		return result;
 	}
 
 	@Override
 	protected double computeMinHeight(final double width) {
-		double result = Math.max(MIN_COMPUTED_MIN_HEIGHT, Math.max(topChildren.getHeight() + bottomChildren.getHeight(),
-				Math.max(leftChildren.getHeight(), rightChildren.getHeight())));
+		return computeMinHeight(-1, true);
+	}
+
+	/**
+	 * Computes the minimum height.
+	 * @param width see {@link #computeMinHeight(double)}
+	 * @param includeChildrenRepositionedDuringResize if false, then the returned value does not consider left, right, and
+	 * free children. Intended to allow determining a minimum width during resizing since resizing will reposition such
+	 * children.
+	 * @return the minimum height
+	 */
+	public double computeMinHeight(final double width, final boolean includeChildrenRepositionedDuringResize) {
+		double result = Math.max(MIN_COMPUTED_MIN_HEIGHT, topChildren.getHeight() + bottomChildren.getHeight());
+
+		if(includeChildrenRepositionedDuringResize) {
+			result = Math.max(result, Math.max(leftChildren.getHeight(), rightChildren.getHeight()));
+		}
 
 		// Take into consideration min height of graphics
 		for (final Node graphic : graphicWrapper.getChildren()) {
@@ -585,9 +618,10 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 
 		// Take into account the minimum space needed to have the minimum space for all labels.
 		result = Math.max(result, computeMinLabelHeight());
-
 		// Include minimum height for free children
-		result = Math.max(result, computeMinHeightForFreeChildren());
+		if (includeChildrenRepositionedDuringResize) {
+			result = Math.max(result, computeMinHeightForFreeChildren());
+		}
 
 		return result;
 	}
