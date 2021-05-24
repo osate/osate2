@@ -746,6 +746,8 @@
       <requirement
           name="openjfx.swt.feature.feature.group"/>
       <requirement
+          name="openjfx.swing.feature.feature.group"/>
+      <requirement
           name="org.eclipse.fx.runtime.min.feature.feature.group"/>
       <requirement
           name="org.eclipse.gef.common.feature.group"/>

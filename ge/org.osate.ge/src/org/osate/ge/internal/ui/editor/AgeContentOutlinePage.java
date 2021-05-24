@@ -445,7 +445,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 				final TreeViewer treeViewer = getTreeViewer();
 				final Set<DiagramElement> outlineNodes = getCurrentlySelectedDiagramElements();
 				if (treeViewer != null && treeViewer.getContentProvider() != null
-						&& !outlineNodes.equals(editor.getSelectedDiagramElements())) {
+						&& !outlineNodes.equals(editor.getSelectedDiagramElementSet())) {
 					treeViewer.setSelection(buildDiagramNodeTreeSelectionFromEditor());
 				}
 			} finally {
@@ -455,7 +455,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	}
 
 	private TreeSelection buildDiagramNodeTreeSelectionFromEditor() {
-		final Set<DiagramElement> selectedDiagramElements = editor.getSelectedDiagramElements();
+		final Set<DiagramElement> selectedDiagramElements = editor.getSelectedDiagramElementSet();
 		if (selectedDiagramElements == null) {
 			return TreeSelection.EMPTY;
 		}
@@ -480,7 +480,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private void selectEditorDiagramElements() {
 		// Compare using diagram nodes to allow selecting labels when link with editor is enabled
 		final Set<DiagramElement> outlineElements = getCurrentlySelectedDiagramElements();
-		final Set<DiagramElement> editorElements = editor.getSelectedDiagramElements();
+		final Set<DiagramElement> editorElements = editor.getSelectedDiagramElementSet();
 		if (getTreeViewer() != null && getTreeViewer().getContentProvider() != null
 				&& !outlineElements.equals(editorElements)) {
 			editor.selectDiagramNodes(outlineElements);

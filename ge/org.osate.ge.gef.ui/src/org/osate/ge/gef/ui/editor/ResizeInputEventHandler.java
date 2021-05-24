@@ -321,7 +321,7 @@ class ResizeInteraction extends BaseInteraction {
 	 * @return the snapshots
 	 */
 	public static List<DiagramElementSnapshot> createResizeElementSnapshotsFromSelection(final AgeEditor editor) {
-		final List<DiagramElement> selectedDiagramElements = editor.getSelectedDiagramElementList();
+		final List<DiagramElement> selectedDiagramElements = editor.getSelectedDiagramElements();
 		final List<DiagramElementSnapshot> results = new ArrayList<>(selectedDiagramElements.size());
 		for (final DiagramElement selectedDiagramElement : selectedDiagramElements) {
 			if (DiagramElementPredicates.isResizeable(selectedDiagramElement)) {

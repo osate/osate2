@@ -23,13 +23,35 @@
  */
 package org.osate.ge.internal.ui.handlers;
 
+import java.io.FileOutputStream;
+import java.util.Optional;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.statushandlers.StatusManager;
+import org.osate.ge.graphics.Dimension;
+import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.services.InternalDiagramExportService;
+import org.osate.ge.internal.ui.dialogs.ExportDiagramDialog;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
+import org.osate.ge.services.DiagramExportService;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
+/**
+ * Displays the export dialog and creates an image based on user selection
+ */
 public class SaveImageHandler extends AbstractHandler {
 	@Override
 	public void setEnabled(final Object evaluationContext) {
@@ -38,30 +60,9 @@ public class SaveImageHandler extends AbstractHandler {
 	}
 
 	private boolean calculateEnabled(final Object evaluationContext) {
-		// TODO
-//		final IEditorPart activeEditor = AgeHandlerUtil.getActiveEditorFromContext(evaluationContext);
-//		if (!(activeEditor instanceof AgeDiagramEditor)) {
-//			return false;
-//		}
-//
-//		final AgeDiagramEditor ageEditor = (AgeDiagramEditor) activeEditor;
-//		final GraphitiAgeDiagram graphitiAgeDiagram = ageEditor.getGraphitiAgeDiagram();
-//		if (graphitiAgeDiagram == null) {
-//			return false;
-//		}
-//
-//		final IFeatureProvider fp = ageEditor.getDiagramTypeProvider().getFeatureProvider();
-//		if (fp == null) {
-//			return false;
-//		}
-//
-//		final ISaveImageFeature feature = fp.getSaveImageFeature();
-//		if (feature == null) {
-//			return false;
-//		}
-//
-//		return feature.canSave(createSaveImageContext());
-		return true;
+		final IEditorPart activeEditor = AgeHandlerUtil.getActiveEditorFromContext(evaluationContext);
+		return Display.getCurrent().getActiveShell() != null && activeEditor instanceof InternalDiagramEditor
+				&& getDiagramExportService().isPresent();
 	}
 
 	@Override
@@ -72,22 +73,48 @@ public class SaveImageHandler extends AbstractHandler {
 		}
 
 		final InternalDiagramEditor editor = (InternalDiagramEditor) activeEditor;
+		final InternalDiagramExportService diagramExportService = getDiagramExportService().orElseThrow();
+		final DiagramNode selectionOnlyExportNode = editor.getSelectedDiagramElements()
+				.stream()
+				.findFirst()
+				.filter(DiagramElementPredicates::isShape)
+				.orElse(null);
 
-		// TODO
-//
-//		final IFeatureProvider fp = Objects.requireNonNull(editor.getDiagramTypeProvider().getFeatureProvider(),
-//				"Unable to retrieve feature provider");
-//
-//		final ISaveImageFeature feature = Objects.requireNonNull(fp.getSaveImageFeature(),
-//				"Unable to retrieve save image feature");
-//
-//		final ISaveImageContext ctx = createSaveImageContext();
-//		if (!feature.canSave(ctx)) {
-//			throw new RuntimeException("Save image feature's canSave() returned false");
-//		}
-//
-//		feature.execute(ctx);
+		// Get the dimensions of the diagram and the current selection
+		final Dimension diagramDimension = diagramExportService.getDimensions(editor, editor.getDiagram());
+		final Dimension selectionDimension = selectionOnlyExportNode == null ? null
+				: diagramExportService.getDimensions(editor, selectionOnlyExportNode);
+
+		final Shell parentShell = Display.getCurrent().getActiveShell();
+
+		// Display the export diagram dialog
+		ExportDiagramDialog.open(parentShell, diagramDimension, selectionDimension).ifPresent(r -> {
+			final FileDialog saveDialog = new FileDialog(parentShell, SWT.SAVE);
+			saveDialog.setOverwrite(true);
+			saveDialog.setFilterExtensions(new String[] { "*" + r.getFormat().getDotExtension() }); // TOOD; Based on format
+			final String filepath = saveDialog.open();
+			if (filepath != null) {
+				// Export the image
+				try (FileOutputStream s = new FileOutputStream(filepath, false)) {
+					final DiagramNode exportNode = r.getAll() ? editor.getDiagram() : selectionOnlyExportNode;
+					diagramExportService.export(editor, s, r.getFormat().getExporterFormat(), exportNode,
+							r.getScaling());
+				} catch (final Exception ex) {
+					final Status status = new Status(IStatus.ERROR,
+							FrameworkUtil.getBundle(getClass()).getSymbolicName(), "Error Exporting Diagram", ex);
+					StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
+				}
+			}
+		});
 
 		return null;
+	}
+
+	private Optional<InternalDiagramExportService> getDiagramExportService() {
+		final Bundle bundle = FrameworkUtil.getBundle(getClass());
+		return Optional.ofNullable(
+				EclipseContextFactory.getServiceContext(bundle.getBundleContext()).get(DiagramExportService.class))
+				.filter(InternalDiagramExportService.class::isInstance)
+				.map(InternalDiagramExportService.class::cast);
 	}
 }

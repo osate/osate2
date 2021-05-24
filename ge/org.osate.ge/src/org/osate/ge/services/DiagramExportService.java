@@ -28,27 +28,44 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 
 import org.eclipse.core.resources.IFile;
 
-// TODO: Rename
 /**
+ * Service for exporting a diagram as an image.
+ * Unless the specified format is "svg", the functions in this class delegate image writing to {@link javax.imageio.ImageIO}.
+ * Supported formats are dependent on the image writers supported by that class.
  * @since 3.0
  */
 public interface DiagramExportService {
-	public static enum ImageFormat {
-		JPEG, PNG, SVG
-	}
-
-	default void export(final IFile diagramFile, final File outputFile, final ImageFormat format) throws IOException {
+	/**
+	 * Exports a diagram as an image file.
+	 * @param diagramFile is the file containing the diagram to export.
+	 * @param outputFile the file to which to save the image.
+	 * @param format either "svg" or a name of a {@link ImageIO} writer format
+	 * @param scaling how much to scale the diagram when exporting.
+	 * @throws IOException
+	 */
+	default void export(final IFile diagramFile, final File outputFile, final String format, final double scaling)
+			throws IOException {
 		try (FileOutputStream output = new FileOutputStream(outputFile)) {
-			export(diagramFile, output, format);
+			export(diagramFile, output, format, 1.0);
 		}
 	}
 
-	default void export(final IFile diagramFile, final ImageOutputStream outputStream, final ImageFormat format)
-			throws IOException {
+	/**
+	 * Exports a diagram as an image file.
+	 * @param diagramFile is the file containing the diagram to export.
+	 * @param outputStream the stream to which to write the image.
+	 * @param format either "svg" or a name of a {@link ImageIO} writer format
+	 * @param scaling how much to scale the diagram when exporting.
+	 * @throws IOException
+	 */
+	default void export(final IFile diagramFile, final ImageOutputStream outputStream, final String format,
+			final double scaling)
+					throws IOException {
 		export(diagramFile, new OutputStream() {
 			@Override
 			public void close() throws IOException {
@@ -78,8 +95,17 @@ public interface DiagramExportService {
 				super.write(b, off, len);
 			}
 
-		}, format);
+		}, format, scaling);
 	}
 
-	void export(final IFile diagramFile, final OutputStream outputStream, final ImageFormat format) throws IOException;
+	/**
+	 * Exports a diagram as an image file.
+	 * @param diagramFile is the file containing the diagram to export.
+	 * @param outputStream the stream to which to write the image.
+	 * @param format either "svg" or a name of a {@link ImageIO} writer format
+	 * @param scaling how much to scale the diagram when exporting.
+	 * @throws IOException
+	 */
+	void export(final IFile diagramFile, final OutputStream outputStream, final String format,
+			final double scaling) throws IOException;
 }

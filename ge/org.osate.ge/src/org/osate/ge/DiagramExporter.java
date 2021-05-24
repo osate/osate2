@@ -34,7 +34,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.services.DiagramExportService;
-import org.osate.ge.services.DiagramExportService.ImageFormat;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -56,7 +55,7 @@ public class DiagramExporter {
 	 * @param outputFile  the file the image will be written to
 	 */
 	public static void exportDiagramAsPng(final IFile diagramFile, final File outputFile) throws IOException {
-		getExportService().export(diagramFile, outputFile, ImageFormat.PNG);
+		getExportService().export(diagramFile, outputFile, "png", 1.0);
 	}
 
 	/**
@@ -67,7 +66,7 @@ public class DiagramExporter {
 	 */
 	public static void exportDiagramAsPng(final IFile diagramFile, final ImageOutputStream outputStream)
 			throws IOException {
-		getExportService().export(diagramFile, outputStream, ImageFormat.PNG);
+		getExportService().export(diagramFile, outputStream, "png", 1.0);
 	}
 
 	/**
@@ -77,7 +76,7 @@ public class DiagramExporter {
 	 * @param outputStream the stream the image will be written to
 	 */
 	public static void exportDiagramAsPng(final IFile diagramFile, final OutputStream outputStream) throws IOException {
-		getExportService().export(diagramFile, outputStream, ImageFormat.PNG);
+		getExportService().export(diagramFile, outputStream, "png", 1.0);
 	}
 
 	private static DiagramExportService getExportService() {

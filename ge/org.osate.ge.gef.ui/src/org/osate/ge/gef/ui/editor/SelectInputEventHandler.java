@@ -71,15 +71,15 @@ public class SelectInputEventHandler implements InputEventHandler {
 		if (e.getEventType() == MouseEvent.MOUSE_PRESSED) {
 			if (mouseEvent.isShiftDown()) {
 				// If shift is held down. Ensure the element is at the end of the list
-				final List<DiagramElement> newSelectedElements = editor.getSelectedDiagramElementList();
+				final List<DiagramElement> newSelectedElements = editor.getSelectedDiagramElements();
 				newSelectedElements.remove(clickedDiagramElement);
 				newSelectedElements.add(clickedDiagramElement);
 				editor.selectDiagramNodes(newSelectedElements);
 			} else if (mouseEvent.isControlDown()) {
 				if (mouseEvent.getButton() == MouseButton.PRIMARY
-						|| !editor.getSelectedDiagramElementList().contains(clickedDiagramElement)) {
+						|| !editor.getSelectedDiagramElements().contains(clickedDiagramElement)) {
 					// If Ctrl is held down, then remove the element if it is already in the selection. Otherwise, add it.
-					final List<DiagramElement> newSelectedElements = editor.getSelectedDiagramElementList();
+					final List<DiagramElement> newSelectedElements = editor.getSelectedDiagramElements();
 					if (newSelectedElements.contains(clickedDiagramElement)) {
 						newSelectedElements.remove(clickedDiagramElement);
 					} else {
@@ -88,7 +88,7 @@ public class SelectInputEventHandler implements InputEventHandler {
 					editor.selectDiagramNodes(newSelectedElements);
 				}
 			} else {
-				final boolean alreadySelected = editor.getSelectedDiagramElementList().contains(clickedDiagramElement);
+				final boolean alreadySelected = editor.getSelectedDiagramElements().contains(clickedDiagramElement);
 				// Don't overwrite the selection if it is already selected
 				// If it is a primary click then the selection will be overwritten on release.
 				// Otherwise, the selection will be preserved so that the selection for the context menu will be correct

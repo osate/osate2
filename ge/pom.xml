@@ -78,6 +78,11 @@ censes only apply to the Third Party Software and not any other portion of this 
 								<artifactId>javafx-swt</artifactId>
 								<version>16</version>
 							</extraClasspathElement>
+							<extraClasspathElement>
+								<groupId>at.bestsolution.openjfx</groupId>
+								<artifactId>javafx-swing</artifactId>
+								<version>16</version>
+							</extraClasspathElement>
 						</extraClasspathElements>
 					</configuration>
 				</plugin>

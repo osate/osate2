@@ -87,12 +87,12 @@ public class RenameInputEventHandler implements InputEventHandler {
 
 		if (e.getEventType() == MouseEvent.MOUSE_PRESSED) {
 
-			wasSelected = editor.getSelectedDiagramElementList().contains(clickedDiagramElement);
+			wasSelected = editor.getSelectedDiagramElements().contains(clickedDiagramElement);
 			mousePressDiagramElement = clickedDiagramElement;
 		} else if (e.getEventType() == MouseEvent.MOUSE_RELEASED && mouseEvent.getButton() == MouseButton.PRIMARY
 				&& !mouseEvent.isShiftDown() && !mouseEvent.isControlDown()
 				&& wasSelected && clickedDiagramElement == mousePressDiagramElement
-				&& editor.getSelectedDiagramElementList().contains(clickedDiagramElement)) {
+				&& editor.getSelectedDiagramElements().contains(clickedDiagramElement)) {
 			final LabelNode primaryLabel = editor.getGefDiagram().getPrimaryLabelSceneNode(clickedDiagramElement);
 			if (isAncestor(primaryLabel, (Node) e.getTarget()) && EditorRenameUtil.canRename(clickedDiagramElement)) {
 				final RenameInteraction newInteraction = new RenameInteraction(clickedDiagramElement, primaryLabel,

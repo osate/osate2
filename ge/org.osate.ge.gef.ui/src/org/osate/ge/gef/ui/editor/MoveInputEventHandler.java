@@ -561,7 +561,7 @@ class SelectedElementsMover implements AutoCloseable {
 	 * @return the snapshots
 	 */
 	private static List<DiagramElementSnapshot> createMoveElementSnapshotsForSelection(final AgeEditor editor) {
-		final Set<DiagramElement> selectedDiagramElements = editor.getSelectedDiagramElements();
+		final Set<DiagramElement> selectedDiagramElements = editor.getSelectedDiagramElementSet();
 		final List<DiagramElementSnapshot> results = new ArrayList<>(selectedDiagramElements.size());
 		addSnapshots(editor, editor.getDiagram(), selectedDiagramElements, results);
 		return results;

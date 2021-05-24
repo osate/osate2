@@ -27,12 +27,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.commands.operations.IOperationHistory;
@@ -1300,7 +1298,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	 * Returns a new mutable list containing the diagram elements contained in the selection.
 	 * @return the selected diagram elements.
 	 */
-	public List<DiagramElement> getSelectedDiagramElementList() {
+	@Override
+	public List<DiagramElement> getSelectedDiagramElements() {
 		final IStructuredSelection selection = selectionProvider.getSelection();
 		if (selection == null) {
 			return Collections.emptyList();
@@ -1314,11 +1313,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		}
 
 		return selectedElements;
-	}
-
-	@Override
-	public Set<DiagramElement> getSelectedDiagramElements() {
-		return new HashSet<>(getSelectedDiagramElementList());
 	}
 
 	@Override

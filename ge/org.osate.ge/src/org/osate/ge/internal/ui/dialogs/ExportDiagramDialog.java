@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.gef.ui.editor.export;
+package org.osate.ge.internal.ui.dialogs;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -46,10 +46,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.services.DiagramExportService;
-import org.osate.ge.services.DiagramExportService.ImageFormat;
 
-class ExportDiagramDialog {
-	private static final Dimension MAX_IMAGE_DIMENSIONS = new Dimension(4000, 4000);
+/**
+ * Dialog shown when exporting the diagram as an image.
+ *
+ */
+public class ExportDiagramDialog {
+	private static final Dimension MAX_IMAGE_DIMENSIONS = new Dimension(8000, 8000);
 	private static final Dimension MIN_IMAGE_DIMENSIONS = new Dimension(50, 50);
 	private static final double MAX_SCALE_FACTOR = 5.0;
 	private static final double MIN_SCALE_FACTOR = 0.1;
@@ -57,17 +60,43 @@ class ExportDiagramDialog {
 	private static final String[] HEIGHTS = new String[] { "200", "400", "600", "768", "1024", "1280" };
 	private static final double[] SCALE_FACTORS = new double[] { 0.5, 1.0, 2.0, 4.0 };
 
+	public static enum ImageFormat {
+		JPEG("jpg", ".jpg"), PNG("png", ".png"), SVG("svg", ".svg");
+
+		private final String exporterFormat;
+		private final String extension;
+
+		ImageFormat(final String exporterFormat, final String extension) {
+			this.exporterFormat = exporterFormat;
+			this.extension = extension;
+		}
+
+		/**
+		 * Returns the format that should be passed to {@link DiagramExportService}.
+		 * @return the format that should be passed to the exporter
+		 */
+		public String getExporterFormat() {
+			return this.exporterFormat;
+		}
+
+		/**
+		 * Returns the file extension used for the image format. For example, for {@link #SVG}, ".svg" will be returned.
+		 * @return
+		 */
+		public String getDotExtension() {
+			return this.extension;
+		}
+	}
+
 	public static class Result {
 		private final boolean all;
-		private final DiagramExportService.ImageFormat format;
-		private final double scaleFactor;
-		private final Dimension dim;
+		private final ImageFormat format;
+		private final double scaling;
 
-		Result(final boolean all, final ImageFormat format, final double scaleFactor, final Dimension dim) {
+		Result(final boolean all, final ImageFormat format, final double scaling) {
 			this.all = all;
 			this.format = format;
-			this.scaleFactor = scaleFactor;
-			this.dim = dim;
+			this.scaling = scaling;
 		}
 
 		/**
@@ -82,12 +111,8 @@ class ExportDiagramDialog {
 			return format;
 		}
 
-		public double getScaleFactor() {
-			return scaleFactor;
-		}
-
-		public Dimension getDimension() {
-			return dim;
+		public double getScaling() {
+			return scaling;
 		}
 	}
 
@@ -147,7 +172,7 @@ class ExportDiagramDialog {
 		@Override
 		public void create() {
 			super.create();
-			updateControls((long) figure.width, (long) figure.height);
+			updateControls((int) Math.ceil(figure.width), (int) Math.ceil(figure.height));
 
 			// Create modify and verify listeners
 			final ModifyListener modifyListener = e -> {
@@ -163,21 +188,21 @@ class ExportDiagramDialog {
 					}
 
 					internalModification = true;
-					final long width, height;
+					final int width, height;
 					if (combo == widthCombo) {
 						// Get new width value, update scale factor and height
-						width = Long.valueOf(combo.getText());
+						width = Integer.valueOf(combo.getText());
 						scaleFactor = width / figure.width;
-						height = Math.round(scaleFactor * figure.height);
+						height = (int) Math.ceil(scaleFactor * figure.height);
 					} else if (combo == heightCombo) {
 						// Get new height value, update scale factor and width
-						height = Long.valueOf(combo.getText());
+						height = Integer.valueOf(combo.getText());
 						scaleFactor = height / figure.height;
-						width = Math.round(scaleFactor * figure.width);
+						width = (int) Math.ceil(scaleFactor * figure.width);
 					} else {
 						// Update width and height for new scale factor
-						width = Math.round(scaleFactor * figure.width);
-						height = Math.round(scaleFactor * figure.height);
+						width = (int) Math.ceil(scaleFactor * figure.width);
+						height = (int) Math.ceil(scaleFactor * figure.height);
 					}
 
 					updateControls(width, height);
@@ -244,7 +269,7 @@ class ExportDiagramDialog {
 				public void widgetSelected(final SelectionEvent e) {
 					// Set figure to root or selection and update dialog controls
 					figure = allFigureButton.getSelection() ? rootElement : selectedElement;
-					updateControls((long) figure.width, (long) figure.height);
+					updateControls((int) Math.ceil(figure.width), (int) Math.ceil(figure.height));
 				}
 			});
 			return btn;
@@ -304,8 +329,8 @@ class ExportDiagramDialog {
 		@Override
 		protected void okPressed() {
 			// Set value for return
-			result = new Result(allFigureButton.getSelection(), ImageFormat.valueOf(formatCombo.getText()), scaleFactor,
-					new Dimension(Integer.valueOf(widthCombo.getText()), Integer.valueOf(heightCombo.getText())));
+			result = new Result(allFigureButton.getSelection(), ImageFormat.valueOf(formatCombo.getText()),
+					scaleFactor);
 			super.okPressed();
 		}
 
@@ -314,16 +339,16 @@ class ExportDiagramDialog {
 		}
 
 		// Update controls based on scale factor
-		private void updateControls(final long width, final long height) {
+		private void updateControls(final int width, final int height) {
 			updateDimensionCombo(widthCombo, width);
 			updateDimensionCombo(heightCombo, height);
 			updateScaleFactorCombo();
 			updateOkBtn(width, height);
 		}
 
-		private static void updateDimensionCombo(final Combo dimCombo, final long dim) {
-			final String newText = Long.toString(dim);
-			if (!dimCombo.getText().equals(Long.toString(dim))) {
+		private static void updateDimensionCombo(final Combo dimCombo, final int dim) {
+			final String newText = Integer.toString(dim);
+			if (!dimCombo.getText().equals(newText)) {
 				// Don't update if identical, otherwise cursor will move to the
 				// first character
 				dimCombo.setText(newText);
@@ -334,11 +359,11 @@ class ExportDiagramDialog {
 			return scaleFactor >= MIN_SCALE_FACTOR && scaleFactor <= MAX_SCALE_FACTOR;
 		}
 
-		private static boolean isValidWidth(final long width) {
+		private static boolean isValidWidth(final int width) {
 			return width >= MIN_IMAGE_DIMENSIONS.width && width <= MAX_IMAGE_DIMENSIONS.width;
 		}
 
-		private static boolean isValidHeight(final long height) {
+		private static boolean isValidHeight(final int height) {
 			return height >= MIN_IMAGE_DIMENSIONS.height && height <= MAX_IMAGE_DIMENSIONS.height;
 		}
 
@@ -353,7 +378,7 @@ class ExportDiagramDialog {
 			}
 		}
 
-		private void updateOkBtn(final long width, final long height) {
+		private void updateOkBtn(final int width, final int height) {
 			final boolean isEnable = isValidWidth(width) && isValidHeight(height) && isValidScaleFactor();
 			setOkBtnEnabled(isEnable);
 		}
@@ -379,7 +404,8 @@ class ExportDiagramDialog {
 	 * Open a modal dialog.
 	 * @param parentShell the parent shell for the modal dialog.
 	 * @param root the size of the entire diagram when the scale factor is 1.0
-	 * @param selected the size of the selected element when the scale factor is 1.0
+	 * @param selected the size of the selected element when the scale factor is 1.0.
+	 * If null, then option to export the selected figure will be disabled.
 	 * @return the result of the dialog. An empty value is returned if the dialog is canceled.
 	 */
 	public static Optional<Result> open(final Shell parentShell, final Dimension root, final Dimension selected) {
@@ -393,9 +419,7 @@ class ExportDiagramDialog {
 		open(new Shell(), new Dimension(700, 800), new Dimension(300, 400)).ifPresent(result -> {
 			System.err.println("All: " + result.getAll());
 			System.err.println("Format: " + result.getFormat());
-			System.err.println("Scale Factor: " + result.getScaleFactor());
-			System.err.println("Width: " + result.getDimension().width);
-			System.err.println("Height: " + result.getDimension().height);
+			System.err.println("Scaling: " + result.getScaling());
 		});
 	}
 }

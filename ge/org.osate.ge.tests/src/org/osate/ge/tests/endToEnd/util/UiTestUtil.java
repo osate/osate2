@@ -927,7 +927,7 @@ public class UiTestUtil {
 			editor.selectDiagramNodes(diagramElementsToSelect);
 		});
 
-		waitUntil(() -> diagramElementsToSelect.equals(editor.getSelectedDiagramElements()),
+		waitUntil(() -> diagramElementsToSelect.equals(editor.getSelectedDiagramElementSet()),
 				"Elements '" + getDiagramElementReferences(elements) + "' are not selected");
 	}
 

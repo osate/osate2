@@ -24,6 +24,8 @@
 package org.osate.ge.internal.ui.editor;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
@@ -42,7 +44,7 @@ import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.ui.tools.Tool;
 
 /**
- * Internal interface for the diagram editor. Defines functionality needed internally which must be provided by the editor implemetation.
+ * Internal interface for the diagram editor. Defines functionality needed internally which must be provided by the editor implementation.
  */
 public interface InternalDiagramEditor extends GraphicalEditor, IWorkbenchPart3 {
 	/**
@@ -132,10 +134,18 @@ public interface InternalDiagramEditor extends GraphicalEditor, IWorkbenchPart3 
 	IAction getGlobalActionHandler(String actionId);
 
 	/**
-	 * Returns the selected diagram elements.
+	 * Returns a list containing the selected diagram elements.
+	 * @return a list containing the selected diagram elements.
+	 */
+	List<DiagramElement> getSelectedDiagramElements();
+
+	/**
+	 * Returns a set containing the selected diagram elements.
 	 * @return a set containing the selected diagram elements.
 	 */
-	Set<DiagramElement> getSelectedDiagramElements();
+	default Set<DiagramElement> getSelectedDiagramElementSet() {
+		return new HashSet<>(getSelectedDiagramElements());
+	}
 
 	/**
 	 * Sets the selection to the specified diagram nodes.
