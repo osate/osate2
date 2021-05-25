@@ -88,6 +88,11 @@
 								<versionRange>0.0.0</versionRange>
 							</requirement>
 							<requirement>
+								<type>eclipse-feature</type>
+								<id>openjfx.swing.feature</id>
+								<versionRange>0.0.0</versionRange>
+							</requirement>
+							<requirement>
 								<type>eclipse-plugin</type>
 								<id>org.eclipse.equinox.event</id>
 								<versionRange>0.0.0</versionRange>

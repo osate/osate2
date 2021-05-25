@@ -108,6 +108,7 @@ public class FlowContributionItem extends ComboContributionItem {
 
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (editor != newEditor) {
+			setControlEnabled(newEditor != null);
 			if (newEditor == null) {
 				modelChangeNotifier.removeChangeListener(modelChangeListener);
 			} else if (editor == null) {
@@ -141,6 +142,8 @@ public class FlowContributionItem extends ComboContributionItem {
 	@Override
 	protected Control createControl(final Composite parent) {
 		final Control control = super.createControl(parent);
+		setControlEnabled(editor != null);
+
 		final ComboViewer comboViewer = getComboViewer();
 		comboViewer.getCombo().addSelectionListener(new SelectionAdapter() {
 			@Override

@@ -103,6 +103,7 @@
     </location>
     <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
     	<unit id="openjfx.standard.feature.feature.group" version="0.0.0"/>
+    	<unit id="openjfx.swing.feature.feature.group" version="0.0.0"/>
     	<unit id="openjfx.swt.feature.feature.group" version="0.0.0"/>
     	<repository location="https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-16/"/>
     </location>

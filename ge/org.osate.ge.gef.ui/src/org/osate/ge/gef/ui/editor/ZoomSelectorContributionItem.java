@@ -59,6 +59,8 @@ public class ZoomSelectorContributionItem extends ComboContributionItem {
 	@Override
 	protected Control createControl(final Composite parent) {
 		final Control result = super.createControl(parent);
+		setControlEnabled(editor != null);
+
 		final ComboViewer comboViewer = getComboViewer();
 		if (comboViewer != null) {
 			comboViewer.setLabelProvider(new LabelProvider() {
@@ -70,7 +72,6 @@ public class ZoomSelectorContributionItem extends ComboContributionItem {
 			});
 
 			comboViewer.setInput(AgeEditor.ZOOM_LEVELS);
-
 			updateSelection();
 		}
 
@@ -80,6 +81,7 @@ public class ZoomSelectorContributionItem extends ComboContributionItem {
 
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (editor != newEditor) {
+			setControlEnabled(newEditor != null);
 			if (editor != null) {
 				editor.zoomProperty().removeListener(zoomListener);
 			}

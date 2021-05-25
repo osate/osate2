@@ -98,6 +98,15 @@ public class ComboContributionItem extends ControlContribution {
 		return combo;
 	}
 
+	protected void setControlEnabled(final boolean enabled) {
+		final ComboViewer comboViewer = getComboViewer();
+		if (comboViewer == null) {
+			return;
+		}
+
+		comboViewer.getCombo().setEnabled(enabled);
+	}
+
 	protected void onControlDisposed() {
 
 	}

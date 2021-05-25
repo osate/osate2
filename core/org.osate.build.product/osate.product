@@ -67,6 +67,7 @@
       <feature id="org.py4j.feature"/>
       <feature id="org.eclipse.fx.runtime.min.feature"/>
       <feature id="openjfx.standard.feature"/>
+      <feature id="openjfx.swing.feature"/>
       <feature id="openjfx.swt.feature"/>
    </features>
 

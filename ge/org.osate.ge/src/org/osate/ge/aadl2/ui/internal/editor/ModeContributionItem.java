@@ -92,6 +92,7 @@ public class ModeContributionItem extends ComboContributionItem {
 
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (editor != newEditor) {
+			setControlEnabled(newEditor != null);
 			if (newEditor == null) {
 				modelChangeNotifier.removeChangeListener(modelChangeListener);
 			} else if (editor == null) {
@@ -124,6 +125,7 @@ public class ModeContributionItem extends ComboContributionItem {
 	@Override
 	protected Control createControl(final Composite parent) {
 		final Control control = super.createControl(parent);
+		setControlEnabled(editor != null);
 		refresh(); // Populate the combo box
 		return control;
 	}
