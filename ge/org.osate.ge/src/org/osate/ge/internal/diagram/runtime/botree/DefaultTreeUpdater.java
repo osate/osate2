@@ -153,7 +153,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 			// Contextless diagrams are always considered complete
 			newRoot.setCompleteness(Completeness.COMPLETE);
 
-			// TODO: Is this the proper way to handle this? This is needed so the configure diagram dialog, etc will know which project should be used to
+			// This is needed so the configure diagram dialog, etc will know which project should be used to
 			// retrieve root objects.
 			// Set the root of the BO tree to the project
 			newRoot.setBusinessObject(projectProvider.getProject());
@@ -350,25 +350,25 @@ public class DefaultTreeUpdater implements TreeUpdater {
 		final ImmutableSet<ContentFilter> contentFilters = oldNode == null
 				|| !oldNode.defaultChildrenHaveBeenPopulated() ? getDefaultContentFilters(diagramType, bo)
 						: ImmutableSet.of();
-				final UUID id = oldNode == null || oldNode.getId() == null ? UUID.randomUUID() : oldNode.getId();
-				final BusinessObjectNode newNode = nodeFactory.create(parentNode, id, bo, Completeness.UNKNOWN);
+		final UUID id = oldNode == null || oldNode.getId() == null ? UUID.randomUUID() : oldNode.getId();
+		final BusinessObjectNode newNode = nodeFactory.create(parentNode, id, bo, Completeness.UNKNOWN);
 
-				// Determine the business objects for which nodes in the tree should be created.
-				final Map<RelativeBusinessObjectReference, BusinessObjectNode> childOldNodes = oldNode == null
-						? Collections.emptyMap()
-								: oldNode.getChildrenMap();
-						final Collection<Object> childBusinessObjectsFromProviders = bopHelper.getChildBusinessObjects(newNode);
+		// Determine the business objects for which nodes in the tree should be created.
+		final Map<RelativeBusinessObjectReference, BusinessObjectNode> childOldNodes = oldNode == null
+				? Collections.emptyMap()
+						: oldNode.getChildrenMap();
+		final Collection<Object> childBusinessObjectsFromProviders = bopHelper.getChildBusinessObjects(newNode);
 
-						final Map<RelativeBusinessObjectReference, Object> childBoMap = getChildBusinessObjects(
-								childBusinessObjectsFromProviders, childOldNodes.keySet(), contentFilters);
+		final Map<RelativeBusinessObjectReference, Object> childBoMap = getChildBusinessObjects(
+				childBusinessObjectsFromProviders, childOldNodes.keySet(), contentFilters);
 
-						// Update the business objects before considering embedded business objects
-						newNode.setCompleteness(childBusinessObjectsFromProviders.size() == childBoMap.size() ? Completeness.COMPLETE
-								: Completeness.INCOMPLETE);
+		// Update the business objects before considering embedded business objects
+		newNode.setCompleteness(childBusinessObjectsFromProviders.size() == childBoMap.size() ? Completeness.COMPLETE
+				: Completeness.INCOMPLETE);
 
-						addEmbeddedBusinessObjectsToBoMap(childOldNodes.values(), childBoMap);
+		addEmbeddedBusinessObjectsToBoMap(childOldNodes.values(), childBoMap);
 
-						createNodes(diagramType, bopHelper, childBoMap, childOldNodes, newNode);
+		createNodes(diagramType, bopHelper, childBoMap, childOldNodes, newNode);
 	}
 
 	private static void addEmbeddedBusinessObjectsToBoMap(final Collection<BusinessObjectNode> childOldNodes,

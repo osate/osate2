@@ -26,11 +26,11 @@ package org.osate.ge.gef.ui.services;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
@@ -94,7 +94,6 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -120,9 +119,16 @@ import javafx.scene.shape.VLineTo;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Transform;
 
-// TODO: Document
-// TODO: Only supports a subset of JavaFX nodes.. should be updated to match what is used. Shoudl document
+/**
+ * Diagram export service implementation for the GEF implementation of the graphical editor.
+ * Generates an image based on the JavaFX scene graph. Only a subset of JavaFX scene graph nodes are supported.
+ * To properly export diagrams, this class must be updated to support any JavaFX shapes used in the scene graph.
+ * See {@link #isExportNode(Node)}.
+ *
+ */
 public class GefDiagramExportService implements InternalDiagramExportService {
+	private static final java.awt.Color TRANSPARENT = new java.awt.Color(0, 0, 0, 0);
+
 	public static class ContextFunction extends SimpleServiceContextFunction<DiagramExportService> {
 		@Override
 		public DiagramExportService createService(final IEclipseContext context) {
@@ -148,9 +154,6 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 
 		Objects.requireNonNull(exportNode, "exportNode must not be null");
 
-		// TODO; Selection only flag
-		// TODO: Scaling flag
-		/// TODO; Pass in selection as root in some cases
 		final GefAgeDiagram diagram = ((AgeEditor) editor).getGefDiagram();
 		export(diagram, exportNode, diagram.getSceneNode().getSceneToLocalTransform(), scaling, outputStream, format);
 	}
@@ -163,7 +166,79 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 
 		Objects.requireNonNull(exportNode, "exportNode must not be null");
 		final GefAgeDiagram diagram = ((AgeEditor) editor).getGefDiagram();
-		return exportToImage(diagram, exportNode, diagram.getSceneNode().getSceneToLocalTransform(), scaling);
+		return exportToRasterImage(diagram, exportNode, diagram.getSceneNode().getSceneToLocalTransform(), scaling);
+	}
+
+	private static void export(final GefAgeDiagram diagram, final DiagramNode exportRootDiagramNode,
+			final Transform sceneToDiagramTransform, final double scaling, final OutputStream output,
+			final String format) throws IOException {
+		if ("svg".equalsIgnoreCase(format)) {
+			final Writer outWriter = new OutputStreamWriter(output, "UTF-8");
+			exportToSvg(diagram, exportRootDiagramNode, sceneToDiagramTransform, scaling).stream(outWriter, false);
+		} else {
+			final BufferedImage image = exportToRasterImage(diagram, exportRootDiagramNode, sceneToDiagramTransform,
+					scaling);
+			ImageIO.write(image, format, output);
+		}
+	}
+
+	private static SVGGraphics2D exportToSvg(final GefAgeDiagram diagram, final DiagramNode exportRootDiagramNode,
+			final Transform sceneToDiagramTransform, final double scaling) {
+		final List<Node> exportNodes = getExportNodes(diagram, exportRootDiagramNode);
+		final Bounds bounds = getBounds(exportNodes, sceneToDiagramTransform);
+		final Transform sceneToExportTransform = sceneToDiagramTransform
+				.createConcatenation(Transform.translate(-bounds.getMinX(), -bounds.getMinY()));
+
+		// Generate the SVG
+		DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
+		String svgNS = "http://www.w3.org/2000/svg";
+		Document doc = domImpl.createDocument(svgNS, "svg", null);
+		final SVGGraphics2D svgGenerator = new SVGGraphics2D(doc);
+		svgGenerator.setSVGCanvasSize(new java.awt.Dimension((int) Math.ceil(bounds.getWidth() * scaling),
+				(int) Math.ceil(bounds.getHeight() * scaling)));
+		draw(exportNodes, sceneToExportTransform, scaling, svgGenerator);
+
+		return svgGenerator;
+	}
+
+	private static BufferedImage exportToRasterImage(final GefAgeDiagram diagram,
+			final DiagramNode exportRootDiagramNode, final Transform sceneToDiagramTransform, final double scaling) {
+		final List<Node> exportNodes = getExportNodes(diagram, exportRootDiagramNode);
+		final Bounds bounds = getBounds(exportNodes, sceneToDiagramTransform);
+		final Transform sceneToExportTransform = sceneToDiagramTransform
+				.createConcatenation(Transform.translate(-bounds.getMinX(), -bounds.getMinY()));
+
+		final BufferedImage image = new BufferedImage((int) Math.ceil(bounds.getWidth() * scaling),
+				(int) Math.ceil(bounds.getHeight() * scaling), BufferedImage.TYPE_INT_RGB);
+		final Graphics2D graphics = image.createGraphics();
+		graphics.setColor(new Color(255, 255, 255, 255));
+		graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
+		draw(exportNodes, sceneToExportTransform, scaling, graphics);
+		return image;
+	}
+
+	/**
+	 * Returns the bounds of the specified nodes in diagram coordinates.
+	 * @param nodes the nodes for which to get the bounds.
+	 * @param sceneToDiagramTransform the transformation from scene to diagram coordinates.
+	 * @return the bounds in diagram coordinates.
+	 */
+	private static Bounds getBounds(final List<Node> nodes, final Transform sceneToDiagramTransform) {
+		double minX = Double.POSITIVE_INFINITY;
+		double minY = Double.POSITIVE_INFINITY;
+		double maxX = Double.NEGATIVE_INFINITY;
+		double maxY = Double.NEGATIVE_INFINITY;
+
+		for (final Node node : nodes) {
+			final Bounds nodeBoundsInDiagram = sceneToDiagramTransform
+					.transform(node.getLocalToSceneTransform().transform(node.getBoundsInLocal()));
+			minX = Math.min(minX, nodeBoundsInDiagram.getMinX());
+			minY = Math.min(minY, nodeBoundsInDiagram.getMinY());
+			maxX = Math.max(maxX, nodeBoundsInDiagram.getMaxX());
+			maxY = Math.max(maxY, nodeBoundsInDiagram.getMaxY());
+		}
+
+		return new BoundingBox(minX, minY, maxX - minX, maxY - minY);
 	}
 
 	@Override
@@ -231,9 +306,121 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 		return gefDiagram;
 	}
 
-	// TODO: Rename
-	// nodes is a flattened and ordered list of nodes.
-	private static void paint(final List<Node> nodes, final Transform sceneToExportTransform, final double scaling,
+	/**
+	 * Returns true if the node is an export node. An export node is a node which results in drawing while exporting.
+	 * @param node the node to check.
+	 * @return true if the node is an export node.
+	 */
+	private static boolean isExportNode(final Node node) {
+		return node instanceof Path || node instanceof CubicCurve || node instanceof Polyline || node instanceof Polygon
+				|| node instanceof javafx.scene.shape.Rectangle || node instanceof Circle || node instanceof Ellipse
+				|| node instanceof Text || node instanceof ImageView
+				|| (node instanceof Region && ((Region) node).getBackground() != null);
+	}
+
+	/**
+	 * Returns a list of nodes to export. The nodes will be in draw order.
+	 * @param diagram the diagram being export
+	 * @param exportRootDiagramNode the root node being exported.
+	 * @return the list of nodes to export.
+	 */
+	private static List<Node> getExportNodes(final GefAgeDiagram diagram, final DiagramNode exportRootDiagramNode) {
+		// final GefAgeDiagram diagram,
+		final Node exportRootSceneNode = diagram.getSceneNode(exportRootDiagramNode);
+		if (exportRootSceneNode == null) {
+			throw new AgeGefRuntimeException("Unable to find scene node for specified diagram node");
+		}
+
+		final List<Node> exportNodes = new ArrayList<>();
+		addNonConnectionExportNodes(exportRootSceneNode, exportNodes);
+		addConnectionExportNodes(diagram.getSceneNode(), exportRootSceneNode, exportNodes);
+
+		return exportNodes;
+	}
+
+	/**
+	 * Adds export nodes which are not descendants of a connection.
+	 * @param node is the node being traversed.
+	 * @param nodes the list to which to add the export nodes
+	 */
+	private static void addNonConnectionExportNodes(final Node node, List<Node> nodes) {
+		// Don't export connections
+		if (node.isVisible()) {
+			if (node instanceof Connection) {
+				return;
+			}
+
+			if (isExportNode(node)) {
+				nodes.add(node);
+			}
+
+			if (node instanceof Parent) {
+				for (final Node child : ((Parent) node).getChildrenUnmodifiable()) {
+					addNonConnectionExportNodes(child, nodes);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Adds export nodes which are descendants of a connection.
+	 * @param node is the node being traversed.
+	 * @param exportRoot is the root node being exported. Connections will not be added unless both ends of the
+	 * connection are within this node.
+	 * @param nodes the list to which to add the export nodes
+	 */
+	private static void addConnectionExportNodes(final Node node, final Node exportRoot, List<Node> nodes) {
+		// Don't export connections
+		if (node.isVisible()) {
+			// Add the connection
+			if (node instanceof Connection) {
+				final Connection cn = (Connection) node;
+
+				// Check if both end points are being exported
+				if (!isExported(cn.getStartAnchor(), exportRoot) || !isExported(cn.getEndAnchor(), exportRoot)) {
+					return;
+				}
+
+				for (final Node child : ((Parent) node).getChildrenUnmodifiable()) {
+					// Add non-connection descendants
+					addNonConnectionExportNodes(child, nodes);
+				}
+			} else if (node instanceof Parent) {
+				// Continue looking for children
+				for (final Node child : ((Parent) node).getChildrenUnmodifiable()) {
+					addConnectionExportNodes(child, exportRoot, nodes);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Returns true if the specified anchor will be exported.
+	 * @param anchor the anchor to check
+	 * @param exportRoot the root of the export
+	 * @return true if the anchor is n the export
+	 */
+	private static boolean isExported(final IAnchor anchor, final Node exportRoot) {
+		if (anchor == null) {
+			return false;
+		}
+
+		// Check if the anchor is not owned by any node or is owned by a connection. If it is owned by a connection,
+		// we assume it will be exported.
+		if (anchor.getAnchorage() == null || anchor.getAnchorage() instanceof BaseConnectionNode) {
+			return true;
+		}
+
+		for (Node tmp = anchor.getAnchorage(); tmp != null; tmp = tmp.getParent()) {
+			if (tmp == exportRoot) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	private static void draw(final List<Node> exportNodes, final Transform sceneToExportTransform, final double scaling,
 			final Graphics2D g2d) {
 		// Set rendering options
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -243,146 +430,112 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 		g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 		g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 
-		// TODO
+		// Scale all drawing
 		g2d.scale(scaling, scaling);
 
-		// TODO; Reference: https://www.codejava.net/java-se/graphics/drawing-lines-examples-with-graphics2d
-		for (final Node node : nodes) {
-			// final Graphics2D g2d = (Graphics2D) g2da.create();
-			// TODO: Draw inside lines
-
-			final Transform nodeToDiagramTransform = sceneToExportTransform
-					.createConcatenation(node.getLocalToSceneTransform());
-
-			final Bounds layoutBoundsInDiagram = nodeToDiagramTransform.transform(node.getLayoutBounds());
-			// TODO: Not all shapes can be used as clipping
-
-			// TODO: Rename
-			// final Shape oldClip = g2d.getClip();
-			// TODO; Problem with clipping is it is only guaranteed to work for rectangles
-			// TODO; Use Area for clipping?
-			// TODO; Just because it isn't guarantteed to work doesn't mean if doesn't work.. Try it...
-
-			// TODO; Debugging bounds
+		for (final Node node : exportNodes) {
+			// Create a new graphics object which uses the node's coordinate system
+			final Graphics2D tg = (Graphics2D) g2d.create();
 			{
-//				final Shape shape = new Rectangle.Double(layoutBoundsInDiagram.getMinX(),
-//						layoutBoundsInDiagram.getMinY(), layoutBoundsInDiagram.getWidth(),
-//						layoutBoundsInDiagram.getHeight());
-//				draw(shape, g2d);
+				final Transform nodeToDiagramTransform = sceneToExportTransform
+						.createConcatenation(node.getLocalToSceneTransform());
+				tg.transform(new AffineTransform(nodeToDiagramTransform.getMxx(), nodeToDiagramTransform.getMyx(),
+						nodeToDiagramTransform.getMxy(), nodeToDiagramTransform.getMyy(),
+						nodeToDiagramTransform.getTx(), nodeToDiagramTransform.getTy()));
 			}
-			// TODO Circle didn't get called
 
-			// TODO: Share code path for all basic shapes?
+			// Draw the node
 			if (node instanceof Path) {
 				final Path n = (Path) node;
-				draw(toAwt(n, nodeToDiagramTransform), g2d, toAwt(n.getFill()), toAwt(n.getStroke()),
-						(float) n.getStrokeWidth(), n.getStrokeDashArray());
+				draw(toAwt(n), tg, toAwt(n.getFill()), toAwt(n.getStroke()), (float) n.getStrokeWidth(),
+						n.getStrokeDashArray());
 			} else if (node instanceof javafx.scene.shape.Rectangle) {
 				final javafx.scene.shape.Rectangle n = (javafx.scene.shape.Rectangle) node;
-				draw(toAwt(n, nodeToDiagramTransform), g2d, toAwt(n.getFill()), toAwt(n.getStroke()),
-						(float) n.getStrokeWidth(), n.getStrokeDashArray());
+				draw(toAwt(n), tg, toAwt(n.getFill()), toAwt(n.getStroke()), (float) n.getStrokeWidth(),
+						n.getStrokeDashArray());
 			} else if (node instanceof javafx.scene.shape.Circle) {
 				final javafx.scene.shape.Circle n = (javafx.scene.shape.Circle) node;
-				draw(toAwt(n, nodeToDiagramTransform), g2d, toAwt(n.getFill()), toAwt(n.getStroke()),
-						(float) n.getStrokeWidth(), n.getStrokeDashArray());
+				draw(toAwt(n), tg, toAwt(n.getFill()), toAwt(n.getStroke()), (float) n.getStrokeWidth(),
+						n.getStrokeDashArray());
 			} else if (node instanceof javafx.scene.shape.Ellipse) {
 				final javafx.scene.shape.Ellipse n = (javafx.scene.shape.Ellipse) node;
-				draw(toAwt(n, nodeToDiagramTransform), g2d, toAwt(n.getFill()), toAwt(n.getStroke()),
-						(float) n.getStrokeWidth(), n.getStrokeDashArray());
-			} else if (node instanceof CubicCurve) {
-				// TODO; Note.. fill is hard coded to null here
-				final CubicCurve n = (CubicCurve) node;
-				draw(toAwt(n, nodeToDiagramTransform), g2d, null, toAwt(n.getStroke()), (float) n.getStrokeWidth(),
+				draw(toAwt(n), tg, toAwt(n.getFill()), toAwt(n.getStroke()), (float) n.getStrokeWidth(),
 						n.getStrokeDashArray());
+			} else if (node instanceof CubicCurve) {
+				// Draw unfilled curve
+				final CubicCurve n = (CubicCurve) node;
+				draw(toAwt(n), tg, null, toAwt(n.getStroke()), (float) n.getStrokeWidth(), n.getStrokeDashArray());
 			} else if (node instanceof Polygon) {
 				final javafx.scene.shape.Polygon n = (javafx.scene.shape.Polygon) node;
-				draw(toAwtPath(n.getPoints(), true, nodeToDiagramTransform), g2d, toAwt(n.getFill()),
-						toAwt(n.getStroke()), (float) n.getStrokeWidth(), n.getStrokeDashArray());
+				draw(toAwtPath(n.getPoints(), true), tg, toAwt(n.getFill()), toAwt(n.getStroke()),
+						(float) n.getStrokeWidth(), n.getStrokeDashArray());
 			} else if (node instanceof Polyline) {
 				final javafx.scene.shape.Polyline n = (javafx.scene.shape.Polyline) node;
-				// TODO; Note.. fill is hard coded to null here
-				draw(toAwtPath(n.getPoints(), false, nodeToDiagramTransform), g2d, null, toAwt(n.getStroke()),
-						(float) n.getStrokeWidth(), n.getStrokeDashArray());
+				// Draw unfilled polyline
+				draw(toAwtPath(n.getPoints(), false), tg, null, toAwt(n.getStroke()), (float) n.getStrokeWidth(),
+						n.getStrokeDashArray());
 			} else if (node instanceof Text) {
-				// TODO; No clipping for text?
 				final Text text = (Text) node;
 
-				// TODO; Single code path..
-
-				if (text.getWrappingWidth() > 0) {
-					// TODO: Check if this is going to work
-					final JTextArea ta = new JTextArea(text.getText());
-					ta.setLineWrap(true);
-					ta.setWrapStyleWord(true);
-					// TODO.. alignment, etc
-					// TODO: Needed?
-					// TODO: Remove background?
-					ta.setBackground(new java.awt.Color(0, 0, 0, 0)); // TODO: Should be constant
-					ta.setBounds((int) layoutBoundsInDiagram.getMinX(), (int) layoutBoundsInDiagram.getMinY(),
-							(int) layoutBoundsInDiagram.getWidth(), (int) text.getWrappingWidth()); // TODO: Correct?
-					ta.setForeground(toAwt(text.getFill()));
-					ta.setFont(toAwt(text.getFont()));
-					// TODO: Don't use hard coded width and height
-					Graphics g2 = g2d.create((int) layoutBoundsInDiagram.getMinX(),
-							(int) layoutBoundsInDiagram.getMinY(), 1000, 1000);
-					ta.paint(g2);
-				} else {
-					g2d.setFont(toAwt(text.getFont()));
-
-					// TODO: WRAPPING
-
-					g2d.setPaint(toAwt(text.getFill()));
-					g2d.drawString(text.getText(), (int) layoutBoundsInDiagram.getMinX(),
-							(int) (layoutBoundsInDiagram.getMinY() + text.getBaselineOffset()));
-				}
+				// Draw the text using a JTextArea so that line wrapping will be supported.
+				final Bounds layoutBounds = node.getLayoutBounds();
+				final JTextArea ta = new JTextArea(text.getText());
+				ta.setLineWrap(text.getWrappingWidth() > 0);
+				ta.setWrapStyleWord(true);
+				ta.setBackground(TRANSPARENT);
+				ta.setBounds(0, 0,
+						(int) (text.getWrappingWidth() > 0 ? text.getWrappingWidth() : layoutBounds.getWidth()),
+						(int) layoutBounds.getHeight());
+				ta.setForeground(toAwt(text.getFill()));
+				ta.setFont(toAwt(text.getFont()));
+				tg.translate((int) layoutBounds.getMinX(), (int) layoutBounds.getMinY());
+				ta.paint(tg);
 			} else if (node instanceof ImageView) {
+				final Bounds layoutBounds = node.getLayoutBounds();
 				final ImageView n = (ImageView) node;
-
-				// TODO: Other options set on ImageVIew?
-				// TODO: Draw in a way that scales to region
-				// TODO: Does image view do centering... need to handle that
 				final BufferedImage image = SwingFXUtils.fromFXImage(n.getImage(), null);
-				// TODO: Centering.. avoid stretching, etc.. Is that alreayd handled?
-				// TODO: need SwingFXUtils... no class... Part of target?
-				g2d.drawImage(image, (int) layoutBoundsInDiagram.getMinX(), (int) layoutBoundsInDiagram.getMinY(),
-						(int) layoutBoundsInDiagram.getMaxX(), (int) layoutBoundsInDiagram.getMaxY(), 0, 0,
-						image.getWidth(), image.getHeight(), null, null); // TODO: Can other values be null?
-				// n.getImage()
-				// TODO: Draw image
-				// g2d.drawi
+				tg.drawImage(image, (int) layoutBounds.getMinX(), (int) layoutBounds.getMinY(),
+						(int) layoutBounds.getMaxX(), (int) layoutBounds.getMaxY(), 0, 0, image.getWidth(),
+						image.getHeight(), null, null);
 			} else if (node instanceof Region) {
 				// For regions, only drawing background is supported
 				final Region n = (Region) node;
 				if (n.getBackground() != null) {
+					final Bounds layoutBounds = node.getLayoutBounds();
 					for (final BackgroundFill f : n.getBackground().getFills()) {
 						final Insets insets = f.getInsets();
-						final Shape shape = new Rectangle.Double(layoutBoundsInDiagram.getMinX() + insets.getLeft(),
-								layoutBoundsInDiagram.getMinY() + insets.getTop(),
-								layoutBoundsInDiagram.getWidth() - insets.getLeft() - insets.getRight(),
-								layoutBoundsInDiagram.getHeight() - insets.getTop() - insets.getBottom());
-						draw(shape, g2d, toAwt(f.getFill()), null, 1.0f, Collections.emptyList());
+						final Shape shape = new Rectangle.Double(layoutBounds.getMinX() + insets.getLeft(),
+								layoutBounds.getMinY() + insets.getTop(),
+								layoutBounds.getWidth() - insets.getLeft() - insets.getRight(),
+								layoutBounds.getHeight() - insets.getTop() - insets.getBottom());
+						draw(shape, tg, toAwt(f.getFill()), null, 1.0f, Collections.emptyList());
 					}
 				}
 			} else {
-				System.err.println("TODO: " + node); // TODO
-				final Shape shape = new Rectangle.Double(layoutBoundsInDiagram.getMinX(),
-						layoutBoundsInDiagram.getMinY(), layoutBoundsInDiagram.getWidth(),
-						layoutBoundsInDiagram.getHeight());
-				draw(shape, g2d, java.awt.Color.RED, java.awt.Color.BLUE, 1.0f, Collections.emptyList());
-				// TODO: Unsupported
+				throw new AgeGefRuntimeException("Unexpected export node: " + node);
 			}
 		}
 	}
 
-	// TODO: Need arguments for style, etc
+	/**
+	 * Draws a shape.
+	 * This method attempts to draw shapes consistent with the usage of JavaFX in the graphical editor. However, when
+	 * rendering non-SVG graphics, the stroke will be drawn along the shape's outline rather than inside of it. This is due
+	 * to quality issues when attempting to draw the stroke inside by clipping along the outline.
+	 * @param shape the shape to draw
+	 * @param g2d the {@link Graphics2D} instance to use to draw the shape
+	 * @param fill the paint for filling the shape. If null, the shape will not be filled.
+	 * @param stroke the paint for stroking the shape. If null, the shape will not be stroked.
+	 * @param strokeWidth the stroke width
+	 * @param strokeDashArray the dash array that determines dash sizes. An empty list indicates a solid stroke.
+	 */
 	private static void draw(final Shape shape, final Graphics2D g2d, final java.awt.Paint fill,
-			final java.awt.Paint stroke, final float strokeWidth, final List<Double> strokeDashArray) { // TODO; Dash array
+			final java.awt.Paint stroke, final float strokeWidth, final List<Double> strokeDashArray) {
 
-		// TODO: Clipping can cause problems with some paths.. is this a good solution?
-		final boolean clip = fill != null && !(shape instanceof Ellipse2D.Double);
-
-		// TODO: Clipping breaks connections! Decide how to handle... Clipping is needed to control line sizes
-		// TODO Clipping doesn't work well for ellipses
+		// Clipping is used to draw the stroke along the inside. This only works properly for SVG graphics.
+		// We assume non-filled shapes are likely connections or similar graphics and that they should not be clipped.
+		// Clipping such graphics may result in them not visible.
+		final boolean clip = g2d instanceof SVGGraphics2D && fill != null;
 		if (clip) {
 			g2d.setClip(shape);
 		}
@@ -393,8 +546,6 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 		}
 
 		if (stroke != null) {
-			// TODO: Review behavior and compare with JavaFX. Document reasoning(clipping will cut half off)
-
 			// Convert stroke dash array list to a float array
 			final float[] dashArray;
 			if (strokeDashArray.isEmpty()) {
@@ -418,14 +569,11 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 		}
 	}
 
-	private static Path2D.Double toAwt(final Path p, final Transform nodeToDiagramTransform) {
-		// TODO: Would it be better to use local coordinates and set the transform for rendering?
-
+	private static Path2D.Double toAwt(final Path p) {
 		final Path2D.Double result = new Path2D.Double(
 				p.getFillRule() == FillRule.EVEN_ODD ? Path2D.WIND_EVEN_ODD : Path2D.WIND_NON_ZERO,
 				p.getElements().size());
 
-		// TODO: Need to be in scene coordinates
 		double lastX = 0;
 		double lastY = 0;
 		for (final PathElement e : p.getElements()) {
@@ -434,73 +582,55 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 			} else if (e instanceof HLineTo) {
 				final HLineTo el = (HLineTo) e;
 				lastX = el.getX();
-				final Point2D tranformed = nodeToDiagramTransform.transform(lastX, lastY);
-				result.lineTo(tranformed.getX(), tranformed.getY());
+				result.lineTo(lastX, lastY);
 			} else if (e instanceof VLineTo) {
 				final VLineTo el = (VLineTo) e;
 				lastY = el.getY();
-				final Point2D tranformed = nodeToDiagramTransform.transform(lastX, lastY);
-				result.lineTo(tranformed.getX(), tranformed.getY());
+				result.lineTo(lastX, lastY);
 			} else if (e instanceof LineTo) {
 				final LineTo el = (LineTo) e;
 				lastX = el.getX();
 				lastY = el.getY();
-				final Point2D tranformed = nodeToDiagramTransform.transform(lastX, lastY);
-				result.lineTo(tranformed.getX(), tranformed.getY());
+				result.lineTo(lastX, lastY);
 			} else if (e instanceof MoveTo) {
 				final MoveTo el = (MoveTo) e;
 				lastX = el.getX();
 				lastY = el.getY();
-				final Point2D tranformed = nodeToDiagramTransform.transform(lastX, lastY);
-				result.moveTo(tranformed.getX(), tranformed.getY());
+				result.moveTo(lastX, lastY);
 			} else if (e instanceof CubicCurveTo) {
-				// TODO: Actually used...
 				final CubicCurveTo el = (CubicCurveTo) e;
 				lastX = el.getX();
 				lastY = el.getY();
-				final Point2D control1 = nodeToDiagramTransform.transform(el.getControlX1(), el.getControlY1());
-				final Point2D control2 = nodeToDiagramTransform.transform(el.getControlX2(), el.getControlY2());
-				final Point2D end = nodeToDiagramTransform.transform(lastX, lastY);
-				result.curveTo(control1.getX(), control1.getY(), control2.getX(), control2.getY(), end.getX(),
-						end.getY());
+				result.curveTo(el.getControlX1(), el.getControlY1(), el.getControlX2(), el.getControlY2(), lastX,
+						lastY);
 			} else if (e instanceof QuadCurveTo) {
 				final QuadCurveTo el = (QuadCurveTo) e;
 				lastX = el.getX();
 				lastY = el.getY();
-				final Point2D control = nodeToDiagramTransform.transform(el.getControlX(), el.getControlY());
-				final Point2D end = nodeToDiagramTransform.transform(lastX, lastY);
-				result.quadTo(control.getX(), control.getY(), end.getX(), end.getY());
+				result.quadTo(el.getControlX(), el.getControlY(), lastX, lastY);
 			} else if (e instanceof ArcTo) {
-				final ArcTo el = (ArcTo) e;
-				// TODO
-				System.err.println("NOT IMPLEMENTED: " + el);
+				// Path2D does not have an equivalent to ArcTo. However, it is not used the graphical editor.
+				// If ArcTo is used it will need to be implemented.
+				throw new AgeGefRuntimeException("Exporting ArcTo path segments is not supported.");
 			} else {
-				// TODO
-				System.err.println("NOT IMPLEMENTED: " + e);
+				throw new AgeGefRuntimeException("Unexpected path element: " + e);
 			}
 		}
 
 		return result;
 	}
 
-	private static CubicCurve2D.Double toAwt(final CubicCurve c, final Transform nodeToDiagramTransform) {
-		final Point2D p1 = nodeToDiagramTransform.transform(c.getStartX(), c.getStartY());
-		final Point2D ctrl1 = nodeToDiagramTransform.transform(c.getControlX1(), c.getControlY1());
-		final Point2D ctrl2 = nodeToDiagramTransform.transform(c.getControlX2(), c.getControlY2());
-		final Point2D p2 = nodeToDiagramTransform.transform(c.getEndX(), c.getEndY());
-		return new CubicCurve2D.Double(p1.getX(), p1.getY(), ctrl1.getX(), ctrl1.getY(), ctrl2.getX(), ctrl2.getY(),
-				p2.getX(), p2.getY());
+	private static CubicCurve2D.Double toAwt(final CubicCurve c) {
+		return new CubicCurve2D.Double(c.getStartX(), c.getStartY(), c.getControlX1(), c.getControlY1(),
+				c.getControlX2(), c.getControlY2(), c.getEndX(), c.getEndY());
 	}
 
-	private static Path2D.Double toAwtPath(final List<Double> points, final boolean polygon,
-			final Transform nodeToDiagramTransform) {
+	private static Path2D.Double toAwtPath(final List<Double> points, final boolean polygon) {
 		final Path2D.Double result = new Path2D.Double(Path2D.WIND_NON_ZERO, points.size());
 		if (points.size() >= 4) {
-			final Point2D startPoint = nodeToDiagramTransform.transform(points.get(0), points.get(1));
-			result.moveTo(startPoint.getX(), startPoint.getY());
+			result.moveTo(points.get(0), points.get(1));
 			for (int i = 2; i < (points.size() - 1); i += 2) {
-				final Point2D point = nodeToDiagramTransform.transform(points.get(i), points.get(i + 1));
-				result.lineTo(point.getX(), point.getY());
+				result.lineTo(points.get(i), points.get(i + 1));
 			}
 
 			if (polygon) {
@@ -510,20 +640,20 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 		return result;
 	}
 
-	private static Shape toAwt(final javafx.scene.shape.Rectangle r, final Transform nodeToDiagramTransform) {
-		final Bounds b = nodeToDiagramTransform.transform(r.getLayoutBounds());
+	private static Shape toAwt(final javafx.scene.shape.Rectangle r) {
+		final Bounds b = r.getLayoutBounds();
 		return new RoundRectangle2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight(), r.getArcWidth(),
 				r.getArcHeight());
 	}
 
-	private static Shape toAwt(final Circle c, final Transform nodeToDiagramTransform) {
-		final Bounds b = nodeToDiagramTransform.transform(c.getLayoutBounds());
-		return new Ellipse2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight()); // TODO: Are others needed?
+	private static Shape toAwt(final Circle c) {
+		final Bounds b = c.getLayoutBounds();
+		return new Ellipse2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
 	}
 
-	private static Shape toAwt(final javafx.scene.shape.Ellipse e, final Transform nodeToDiagramTransform) {
-		final Bounds b = nodeToDiagramTransform.transform(e.getLayoutBounds());
-		return new Ellipse2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight()); // TODO: Are others needed?
+	private static Shape toAwt(final javafx.scene.shape.Ellipse e) {
+		final Bounds b = e.getLayoutBounds();
+		return new Ellipse2D.Double(b.getMinX(), b.getMinY(), b.getWidth(), b.getHeight());
 	}
 
 	private static java.awt.Color toAwt(final javafx.scene.paint.Paint p) {
@@ -532,7 +662,6 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 		} else if (p instanceof javafx.scene.paint.Color) {
 			return toAwt((javafx.scene.paint.Color) p);
 		} else {
-			// TODO
 			throw new AgeGefRuntimeException("Unsupported paint: " + p);
 		}
 
@@ -551,7 +680,6 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 		}
 	}
 
-	// TODO: Need to cache? Avoid static? Check documentation for AWT font
 	private static java.awt.Font toAwt(final javafx.scene.text.Font font) {
 		int style = 0;
 		if (font.getStyle().contains("Bold")) {
@@ -562,180 +690,6 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 			style |= Font.ITALIC;
 		}
 
-		return new java.awt.Font(font.getName(), style, (int) font.getSize())
-				.deriveFont((float) font.getSize());
+		return new java.awt.Font(font.getName(), style, (int) font.getSize()).deriveFont((float) font.getSize());
 	}
-
-	// TODO; Rename?
-	private static boolean isExportNode(final Node node) {
-		// TODO: Check and add others as needed
-		// TODO; Is there something inside the image view?
-		return node instanceof Path || node instanceof CubicCurve || node instanceof Polyline || node instanceof Polygon
-				|| node instanceof javafx.scene.shape.Rectangle || node instanceof Circle || node instanceof Ellipse
-				|| node instanceof Text || node instanceof ImageView
-				|| (node instanceof Region && ((Region) node).getBackground() != null);
-	}
-
-	// TODO: Rename
-	private static List<Node> getExportNodes(final GefAgeDiagram diagram, final DiagramNode exportRootDiagramNode) {
-		// final GefAgeDiagram diagram,
-		final Node exportRootSceneNode = diagram.getSceneNode(exportRootDiagramNode);
-		// TODO: Check for null
-		final List<Node> exportNodes = new ArrayList<>();
-		addNonConnectionExportNodes(exportRootSceneNode, exportRootSceneNode, exportNodes);
-		addConnectionExportNodes(diagram.getSceneNode(), exportRootSceneNode, exportNodes);
-
-		return exportNodes;
-	}
-
-	private static void addNonConnectionExportNodes(final Node node, final Node exportRoot, List<Node> nodes) {
-		// Don't export connections
-		if (node.isVisible()) {
-			if (node instanceof Connection) {
-				return;
-			}
-
-			// TODO; Consider ordering and connections.. want to be consistent with rendering behavior
-			// TODO:
-			if (isExportNode(node)) {
-				nodes.add(node);
-			}
-
-			if (node instanceof Parent) {
-				for (final Node child : ((Parent) node).getChildrenUnmodifiable()) {
-					addNonConnectionExportNodes(child, exportRoot, nodes);
-				}
-			}
-		}
-	}
-
-	private static void addConnectionExportNodes(final Node node, final Node exportRoot, List<Node> nodes) {
-		// Don't export connections
-		if (node.isVisible()) {
-			// TODO: Check descendants
-			if (node instanceof Connection) {
-				final Connection cn = (Connection) node;
-
-				// TODO; Check if both end points are contained in the export root
-				if (!isExported(cn.getStartAnchor(), exportRoot) || !isExported(cn.getEndAnchor(), exportRoot)) {
-					return;
-				}
-
-				for (final Node child : ((Parent) node).getChildrenUnmodifiable()) {
-					addNonConnectionExportNodes(child, exportRoot, nodes);
-				}
-			} else if (node instanceof Parent) {
-				for (final Node child : ((Parent) node).getChildrenUnmodifiable()) {
-					addConnectionExportNodes(child, exportRoot, nodes);
-				}
-			}
-		}
-	}
-
-	private static boolean isExported(final IAnchor anchor, final Node exportRoot) {
-		if (anchor == null) {
-			return false;
-		}
-
-		if (anchor.getAnchorage() == null || anchor.getAnchorage() instanceof BaseConnectionNode) {
-			return true;
-		}
-
-		for (Node tmp = anchor.getAnchorage(); tmp != null; tmp = tmp.getParent()) {
-			if (tmp == exportRoot) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	private static Bounds getBounds(final List<Node> nodes, final Transform sceneToDiagramTransform) {
-		// TODO: Need to transform all these into diagram coordinates to avoid scaling affect when using live diagram....
-		// TODO: Will need to shift at some point.. someone else can do that...
-
-		double minX = Double.POSITIVE_INFINITY;
-		double minY = Double.POSITIVE_INFINITY;
-		double maxX = Double.NEGATIVE_INFINITY;
-		double maxY = Double.NEGATIVE_INFINITY;
-
-		for (final Node node : nodes) {
-			final Bounds nodeBoundsInDiagram = sceneToDiagramTransform
-					.transform(node.getLocalToSceneTransform().transform(node.getBoundsInLocal()));
-			minX = Math.min(minX, nodeBoundsInDiagram.getMinX());
-			minY = Math.min(minY, nodeBoundsInDiagram.getMinY());
-			maxX = Math.max(maxX, nodeBoundsInDiagram.getMaxX());
-			maxY = Math.max(maxY, nodeBoundsInDiagram.getMaxY());
-		}
-
-		return new BoundingBox(minX, minY, maxX - minX, maxY - minY);
-	}
-
-	private static void export(final GefAgeDiagram diagram, final DiagramNode exportRootDiagramNode,
-			final Transform sceneToDiagramTransform, final double scaling, final OutputStream output,
-			final String format) throws IOException {
-		// Scaling is applied on the rendering side because otherwise font sizes are incorrect
-
-
-		// TODO; Add a shift to the transform so that the left is 0,0... Sanity check
-
-		// TODO: Build a list of scene graph nodes to export in order?
-
-		// TODO; Need a way of getting dimension and also only exporting isnlge object..
-		// TODO: Determine dimensions.. Walk whatever will be exported and get the entire bounds.. need to consider connections... can't just take top level
-
-		// TODO: Scaling, etc
-
-		if ("svg".equalsIgnoreCase(format)) {
-			final List<Node> exportNodes = getExportNodes(diagram, exportRootDiagramNode);
-			final Bounds bounds = getBounds(exportNodes, sceneToDiagramTransform);
-			final Transform sceneToExportTransform = sceneToDiagramTransform
-					.createConcatenation(Transform.translate(-bounds.getMinX(), -bounds.getMinY()));
-			final Writer outWriter = new OutputStreamWriter(output, "UTF-8");
-			generateSvg(exportNodes, sceneToExportTransform, scaling).stream(outWriter, false); // TODO
-		} else {
-			final BufferedImage image = exportToImage(diagram, exportRootDiagramNode, sceneToDiagramTransform, scaling);
-			ImageIO.write(image, format, output);
-		}
-	}
-
-	// TODO: Rename
-	private static BufferedImage exportToImage(final GefAgeDiagram diagram, final DiagramNode exportRootDiagramNode,
-			final Transform sceneToDiagramTransform, final double scaling) {
-		final List<Node> exportNodes = getExportNodes(diagram, exportRootDiagramNode);
-		final Bounds bounds = getBounds(exportNodes, sceneToDiagramTransform);
-		final Transform sceneToExportTransform = sceneToDiagramTransform
-				.createConcatenation(Transform.translate(-bounds.getMinX(), -bounds.getMinY()));
-
-		final BufferedImage image = new BufferedImage((int) Math.ceil(bounds.getWidth() * scaling),
-				(int) Math.ceil(bounds.getHeight() * scaling),
-				BufferedImage.TYPE_INT_RGB);
-		final Graphics2D graphics = image.createGraphics();
-		graphics.setColor(new Color(255, 255, 255, 255));
-		graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
-		paint(exportNodes, sceneToExportTransform, scaling, graphics);
-		return image;
-	}
-
-
-	// TODO; Add argument/variant to only export selection or some sort of filter from current diagram.
-	private static SVGGraphics2D generateSvg(final List<Node> nodes, final Transform sceneToDiagramTransform,
-			final double scaling) {
-		// Get a DOMImplementation.
-		DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
-
-		// Create an instance of org.w3c.dom.Document.
-		String svgNS = "http://www.w3.org/2000/svg";
-		Document doc = domImpl.createDocument(svgNS, "svg", null);
-
-		// TODO; Context as imagehandler.. what is that?
-		// TODO; https://svn.apache.org/repos/asf/xmlgraphics/site/deploy/batik/old/svggen.html
-
-		// Create an instance of the SVG Generator.
-		SVGGraphics2D svgGenerator = new SVGGraphics2D(doc);
-		paint(nodes, sceneToDiagramTransform, scaling, svgGenerator);
-
-		return svgGenerator;
-	}
-
 }
