@@ -327,6 +327,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		public void partDeactivated(IWorkbenchPart part) {
 			if (part == AgeEditor.this) {
 				tooltipManager.hideTooltip();
+				toolHandler.deactivateActiveTool();
 			}
 		}
 
