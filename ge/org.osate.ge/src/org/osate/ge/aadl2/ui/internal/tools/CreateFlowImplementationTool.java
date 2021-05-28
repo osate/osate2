@@ -152,11 +152,13 @@ public class CreateFlowImplementationTool implements Tool {
 				final AadlModificationService aadlModService = ctx.getAadlModificatonService();
 				final ColoringService coloringService = ctx.getColoringService();
 
-				// Check for existing errors or warnings
+				// Check for existing errors and warnings
 				final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
-				if (!diagnostics.isEmpty()) {
+				// Do not allow tool activation if there are errors in the models
+				final Set<Diagnostic> errors = FlowDialogUtil.getErrors(diagnostics);
+				if (!errors.isEmpty()) {
 					Display.getDefault().asyncExec(
-							() -> new FlowDialogUtil.ErrorDialog("The Create Flow Implementation", diagnostics).open());
+							() -> new FlowDialogUtil.ErrorDialog("The Create Flow Implementation", errors).open());
 				} else {
 					coloring = coloringService.adjustColors();
 
