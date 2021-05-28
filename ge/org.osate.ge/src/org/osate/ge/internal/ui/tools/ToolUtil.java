@@ -148,7 +148,7 @@ public class ToolUtil {
 	private static Set<AadlPackage> getReferencedPackages(final BusinessObjectContext rootBoc) {
 		return rootBoc.getAllDescendants().map(queryable -> {
 			final Object bo = queryable.getBusinessObject();
-			if (bo instanceof Element) {
+			if (bo instanceof Element && !(bo instanceof AadlPackage)) {
 				final Element element = (Element) bo;
 				final NamedElement root = element.getElementRoot();
 				return root instanceof AadlPackage ? (AadlPackage) root : null;
