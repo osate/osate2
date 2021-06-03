@@ -31,6 +31,8 @@ import java.util.Optional;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
@@ -45,6 +47,7 @@ import org.eclipse.swt.printing.PrinterData;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.internal.services.InternalDiagramExportService;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
@@ -53,6 +56,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
 public class PrintDiagramHandler extends AbstractHandler {
+	// Image border padding
 	private final static int IMAGE_PADDING = 10;
 
 	@Override
@@ -66,45 +70,60 @@ public class PrintDiagramHandler extends AbstractHandler {
 		// Choose printer dialog
 		final PrintDialog dialog = new PrintDialog(Display.getDefault().getActiveShell(), SWT.NULL);
 		final PrinterData printerData = dialog.open();
-
-		final InternalDiagramExportService diagramExportService = getDiagramExportService().orElseThrow();
-		// Get original diagram dimensions
-		final Dimension dim = diagramExportService.getDimensions(editor, editor.getDiagram());
-		final Printer printer = new Printer(printerData);
-		try {
-			final Rectangle clientArea = printer.getClientArea();
-			final double scale = Math.min((clientArea.width - IMAGE_PADDING * 2) / dim.width,
-					(clientArea.height - IMAGE_PADDING * 2) / dim.height);
-			final BufferedImage bufferedImage = diagramExportService.export(editor, editor.getDiagram(), scale);
-			final ImageData imageData = convertToImageData(bufferedImage);
-			final Rectangle trim = printer.computeTrim(0, 0, 0, 0);
-			if (printer.startJob("OSATE: '" + editor.getTitle() + "'")) {
-				if (printer.startPage()) {
-					final GC gc = new GC(printer);
-					final Image printerImage = new Image(printer, imageData);
-					// Draw image
-					gc.drawImage(printerImage, 0, 0, imageData.width, imageData.height, -trim.x, -trim.y,
-							imageData.width, imageData.height);
-					// Cleanup
-					printerImage.dispose();
-					gc.dispose();
-					printer.endPage();
+		if (printerData != null) {
+			final InternalDiagramExportService diagramExportService = getDiagramExportService().orElseThrow();
+			// Get original diagram dimensions
+			final Dimension dim = diagramExportService.getDimensions(editor, editor.getDiagram());
+			try {
+				final Printer printer = new Printer(printerData);
+				try {
+					final Rectangle clientArea = printer.getClientArea();
+					final double scale = Math.min((clientArea.width - IMAGE_PADDING * 2) / dim.width,
+							(clientArea.height - IMAGE_PADDING * 2) / dim.height);
+					final BufferedImage bufferedImage = diagramExportService.export(editor, editor.getDiagram(), scale);
+					final ImageData imageData = convertToImageData(bufferedImage);
+					final Rectangle marginTrim = printer.computeTrim(0, 0, 0, 0);
+					if (printer.startJob("OSATE: '" + editor.getTitle() + "'")) {
+						if (printer.startPage()) {
+							final GC gc = new GC(printer);
+							try {
+								final Image printerImage = new Image(printer, imageData);
+								drawImage(gc, printerImage, imageData, marginTrim);
+							} finally {
+								// Cleanup
+								gc.dispose();
+								printer.endPage();
+							}
+						}
+					} else {
+						throw new RuntimeException("Print job could not be started.");
+					}
+				} finally {
+					// End the job and dispose the printer
+					printer.endJob();
+					printer.dispose();
 				}
-			} else {
-				throw new RuntimeException("Print job could not be started.");
+			} catch (final Exception ex) {
+				final Status status = new Status(IStatus.ERROR, FrameworkUtil.getBundle(getClass()).getSymbolicName(),
+						"Error Printing Diagram", ex);
+				StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
 			}
-		} catch (final Exception e) {
-			throw new RuntimeException("Cannot print diagram: '" + e.getMessage() + "'.");
-		} finally {
-			// End the job and dispose the printer
-			printer.endJob();
-			printer.dispose();
 		}
 
 		return null;
 	}
 
-	public ImageData convertToImageData(final BufferedImage bufferedImage) {
+	private void drawImage(final GC gc, final Image printerImage, final ImageData imageData, final Rectangle trim) {
+		try {
+			// Draw image
+			gc.drawImage(printerImage, 0, 0, imageData.width, imageData.height, -trim.x, -trim.y, imageData.width,
+					imageData.height);
+		} finally {
+			printerImage.dispose();
+		}
+	}
+
+	private static ImageData convertToImageData(final BufferedImage bufferedImage) {
 		if (bufferedImage.getColorModel() instanceof DirectColorModel) {
 			final ImageHelper imageHelper = new ImageHelper(bufferedImage);
 			imageHelper.createImagePadding();
@@ -115,7 +134,7 @@ public class PrintDiagramHandler extends AbstractHandler {
 		throw new RuntimeException("Unsupported color model: '" + bufferedImage.getColorModel() + "'.");
 	}
 
-	private class ImageHelper {
+	private static class ImageHelper {
 		private final PaletteData palette;
 		private final ImageData imageData;
 		private final BufferedImage bufferedImage;
