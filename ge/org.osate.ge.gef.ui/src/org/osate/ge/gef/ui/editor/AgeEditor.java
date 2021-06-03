@@ -193,9 +193,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			Objects.requireNonNull(tool, "tool must not be null");
 
 			// Deactivate the current tool
-			if (activeTool != null) {
-				deactivateActiveTool();
-			}
+			deactivateActiveTool();
 
 			activeTool = tool;
 			paletteModel.deactivateNonSelectItem();
