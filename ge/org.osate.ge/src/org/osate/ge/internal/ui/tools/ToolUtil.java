@@ -125,15 +125,14 @@ public class ToolUtil {
 		// Collect errors and warnings for referenced AADL packages
 		final List<DiagnosticBuilder> diagnosticBuilders = new ArrayList<>();
 		for (final AadlPackage pkg : packages) {
-			final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
-			final ResourceSet resourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
-			final DiagnosticBuilder diagnosticBuilder = new DiagnosticBuilder(pkg);
-			// Model error and warning diagnostics
-			populateDiagnostics(diagnosticBuilder,
-					pkg,
-					resourceSet);
+			ProjectUtil.getProjectForBo(pkg).ifPresent(project -> {
+				final ResourceSet resourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
+				final DiagnosticBuilder diagnosticBuilder = new DiagnosticBuilder(pkg);
+				// Model error and warning diagnostics
+				populateDiagnostics(diagnosticBuilder, pkg, resourceSet);
 
-			diagnosticBuilders.add(diagnosticBuilder);
+				diagnosticBuilders.add(diagnosticBuilder);
+			});
 		}
 
 		return diagnosticBuilders.stream().flatMap(DiagnosticBuilder::getDiagnostics)
@@ -148,7 +147,7 @@ public class ToolUtil {
 	private static Set<AadlPackage> getReferencedPackages(final BusinessObjectContext rootBoc) {
 		return rootBoc.getAllDescendants().map(queryable -> {
 			final Object bo = queryable.getBusinessObject();
-			if (bo instanceof Element && !(bo instanceof AadlPackage)) {
+			if (bo instanceof Element) {
 				final Element element = (Element) bo;
 				final NamedElement root = element.getElementRoot();
 				return root instanceof AadlPackage ? (AadlPackage) root : null;
