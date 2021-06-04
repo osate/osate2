@@ -48,14 +48,18 @@ public class BehaviorAnnexXtextUtil {
 	/**
 	 * Find offset of character in string that is not commented out
 	 */
-	public static int findUncommentedChar(final String str, final char delim) {
+	public static int findUncommentedTerminationChar(final String str, final char delim) {
+		final String openBrackets = "{[";
 		final PeekingIterator<Character> charPeekingIt = Iterators
 				.peekingIterator(str.chars().mapToObj(e -> (char) e).collect(Collectors.toList()).iterator());
 		for (int offset = 0; charPeekingIt.hasNext(); offset++) {
-			final Character c = charPeekingIt.next();
-			if (c == delim) {
+			Character c = charPeekingIt.next();
+			if (contains(openBrackets, c)) {
+				offset = findClosingBracket(charPeekingIt, openBrackets, offset);
+			} else if (c == delim) {
 				return offset;
 			} else if (c == '-' && charPeekingIt.peek() == '-') {
+				// Found comment, increase offset until end of line
 				for (offset = offset + 1; charPeekingIt.hasNext(); offset++) {
 					final Character tmp = charPeekingIt.next();
 					if (tmp == '\n') {
@@ -66,6 +70,30 @@ public class BehaviorAnnexXtextUtil {
 		}
 
 		throw new RuntimeException("Cannot find terminating character");
+	}
+
+	private static int findClosingBracket(final PeekingIterator<Character> charPeekingIt, final String openBrackets,
+			int offset) {
+		final String closeBrackets = "]}";
+		int bracketsOpenCount = 1;
+		for (; charPeekingIt.hasNext(); offset++) {
+			final Character c = charPeekingIt.next();
+			if (contains(openBrackets, c)) {
+				bracketsOpenCount++;
+			} else if (contains(closeBrackets, c)) {
+				if (bracketsOpenCount == 1) {
+					return offset + 1;
+				} else {
+					bracketsOpenCount--;
+				}
+			}
+		}
+
+		throw new RuntimeException("Could not find closing brackets.");
+	}
+
+	private static boolean contains(final String str, final char chr) {
+		return str.indexOf(chr) != -1;
 	}
 
 	/**
