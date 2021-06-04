@@ -56,7 +56,6 @@ import org.eclipse.ui.handlers.IHandlerActivation;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
-import org.osate.ba.aadlba.BehaviorActionBlock;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.swt.SwtUtil;
 
@@ -162,10 +161,6 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		final ValidationTask validationTask = new ValidationTask(behaviorTransition, getModifiedSrc,
 				isValidModification);
 		return event -> {
-			final BehaviorActionBlock block = behaviorTransition.getActionBlock();
-			if (block != null) {
-
-			}
 			// Disable button until validation occurs
 			final Button okBtn = getButton(IDialogConstants.OK_ID);
 			okBtn.setEnabled(false);
