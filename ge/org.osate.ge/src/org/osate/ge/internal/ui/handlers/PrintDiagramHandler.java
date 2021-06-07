@@ -24,8 +24,6 @@
 package org.osate.ge.internal.ui.handlers;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.DirectColorModel;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -39,7 +37,6 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.PaletteData;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.printing.PrintDialog;
 import org.eclipse.swt.printing.Printer;
@@ -56,9 +53,6 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
 public class PrintDiagramHandler extends AbstractHandler {
-	// Image border padding
-	private final static int IMAGE_PADDING = 10;
-
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
@@ -70,139 +64,73 @@ public class PrintDiagramHandler extends AbstractHandler {
 		// Choose printer dialog
 		final PrintDialog dialog = new PrintDialog(Display.getDefault().getActiveShell(), SWT.NULL);
 		final PrinterData printerData = dialog.open();
-		if (printerData != null) {
+		if (printerData == null) {
+			return null;
+		}
+
+		try {
 			final InternalDiagramExportService diagramExportService = getDiagramExportService().orElseThrow();
-			// Get original diagram dimensions
+
+			// Get unscaled diagram dimensions
 			final Dimension dim = diagramExportService.getDimensions(editor, editor.getDiagram());
+			final Printer printer = new Printer(printerData);
+
 			try {
-				final Printer printer = new Printer(printerData);
-				try {
-					final Rectangle clientArea = printer.getClientArea();
-					final double scale = Math.min((clientArea.width - IMAGE_PADDING * 2) / dim.width,
-							(clientArea.height - IMAGE_PADDING * 2) / dim.height);
-					final BufferedImage bufferedImage = diagramExportService.export(editor, editor.getDiagram(), scale);
-					final ImageData imageData = convertToImageData(bufferedImage);
-					final Rectangle marginTrim = printer.computeTrim(0, 0, 0, 0);
-					if (printer.startJob("OSATE: '" + editor.getTitle() + "'")) {
-						if (printer.startPage()) {
-							final GC gc = new GC(printer);
-							try {
-								final Image printerImage = new Image(printer, imageData);
-								drawImage(gc, printerImage, imageData, marginTrim);
-							} finally {
-								// Cleanup
-								gc.dispose();
-								printer.endPage();
-							}
-						}
-					} else {
-						throw new RuntimeException("Print job could not be started.");
-					}
-				} finally {
-					// End the job and dispose the printer
-					printer.endJob();
-					printer.dispose();
+				final Rectangle clientArea = printer.getClientArea();
+				final double scale = Math.min(clientArea.width / dim.width, clientArea.height / dim.height);
+				final BufferedImage bufferedImage = diagramExportService.export(editor, editor.getDiagram(), scale);
+				final ImageData imageData = convertToImageData(bufferedImage);
+				if (!printer.startJob("OSATE: '" + editor.getTitle() + "'")) {
+					throw new RuntimeException("Print job could not be started.");
 				}
-			} catch (final Exception ex) {
-				final Status status = new Status(IStatus.ERROR, FrameworkUtil.getBundle(getClass()).getSymbolicName(),
-						"Error Printing Diagram", ex);
-				StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
+
+				try {
+					if (printer.startPage()) {
+						final GC gc = new GC(printer);
+						gc.setAntialias(SWT.ON);
+						gc.setInterpolation(SWT.HIGH);
+						try {
+							final Image printerImage = new Image(printer, imageData);
+							try {
+								gc.drawImage(printerImage, clientArea.x, clientArea.y);
+							} finally {
+								printerImage.dispose();
+							}
+						} finally {
+							gc.dispose();
+							printer.endPage();
+						}
+					}
+
+					// End the job
+					printer.endJob();
+				} catch (final RuntimeException ex) {
+					printer.cancelJob();
+					throw ex;
+				}
+			} finally {
+				printer.dispose();
 			}
+		} catch (final Exception ex) {
+			final Status status = new Status(IStatus.ERROR, FrameworkUtil.getBundle(getClass()).getSymbolicName(),
+					"Error Printing Diagram", ex);
+			StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.SHOW);
 		}
 
 		return null;
 	}
 
-	private void drawImage(final GC gc, final Image printerImage, final ImageData imageData, final Rectangle trim) {
-		try {
-			// Draw image
-			gc.drawImage(printerImage, 0, 0, imageData.width, imageData.height, -trim.x, -trim.y, imageData.width,
-					imageData.height);
-		} finally {
-			printerImage.dispose();
-		}
-	}
-
 	private static ImageData convertToImageData(final BufferedImage bufferedImage) {
-		if (bufferedImage.getColorModel() instanceof DirectColorModel) {
-			final ImageHelper imageHelper = new ImageHelper(bufferedImage);
-			imageHelper.createImagePadding();
-			imageHelper.createImage();
-			return imageHelper.getImageData();
-		}
-
-		throw new RuntimeException("Unsupported color model: '" + bufferedImage.getColorModel() + "'.");
-	}
-
-	private static class ImageHelper {
-		private final PaletteData palette;
-		private final ImageData imageData;
-		private final BufferedImage bufferedImage;
-		private final int paddedWidth;
-		private final int paddedHeight;
-
-		public ImageHelper(final BufferedImage bufferedImage) {
-			this.bufferedImage = Objects.requireNonNull(bufferedImage, "bufferedImage must not be null");
-			final DirectColorModel colorModel = (DirectColorModel) bufferedImage.getColorModel();
-			this.palette = new PaletteData(colorModel.getRedMask(), colorModel.getGreenMask(),
-					colorModel.getBlueMask());
-			this.imageData = new ImageData(bufferedImage.getWidth() + IMAGE_PADDING * 2,
-					bufferedImage.getHeight() + IMAGE_PADDING * 2, colorModel.getPixelSize(), palette);
-			this.paddedWidth = bufferedImage.getWidth() + IMAGE_PADDING;
-			this.paddedHeight = bufferedImage.getHeight() + IMAGE_PADDING;
-		}
-
-		public ImageData getImageData() {
-			return imageData;
-		}
-
-		public void createImage() {
-			int bufferedImageY = 0;
-			for (int imageDataY = IMAGE_PADDING; imageDataY < paddedHeight; imageDataY++) {
-				int bufferedImageX = 0;
-				for (int imageDataX = IMAGE_PADDING; imageDataX < paddedWidth; imageDataX++) {
-					final int rgb = bufferedImage.getRGB(bufferedImageX++, bufferedImageY);
-					setPixel(imageDataX, imageDataY, new RGB((rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF));
-				}
-				bufferedImageY++;
+		final ImageData imageData = new ImageData(bufferedImage.getWidth(), bufferedImage.getHeight(), 24,
+				new PaletteData(0xFF0000, 0x00FF00, 0x0000FF));
+		for (int y = 0; y < bufferedImage.getHeight(); y++) {
+			for (int x = 0; x < bufferedImage.getWidth(); x++) {
+				final int rgb = bufferedImage.getRGB(x, y);
+				imageData.setPixel(x, y, rgb);
 			}
 		}
 
-		public void createImagePadding() {
-			final RGB white = new RGB(255, 255, 255);
-			// Top border
-			for (int y = 0; y < IMAGE_PADDING; y++) {
-				for (int x = IMAGE_PADDING; x < paddedWidth; x++) {
-					setPixel(x, y, white);
-				}
-			}
-
-			// Right border
-			for (int x = paddedWidth; x < paddedWidth + IMAGE_PADDING; x++) {
-				for (int y = 0; y < paddedHeight + IMAGE_PADDING; y++) {
-					setPixel(x, y, white);
-				}
-			}
-
-			// Bottom border
-			for (int y = paddedHeight; y < paddedHeight + IMAGE_PADDING; y++) {
-				for (int x = IMAGE_PADDING; x < paddedWidth + IMAGE_PADDING; x++) {
-					setPixel(x, y, white);
-				}
-			}
-
-			// Left border
-			for (int x = 0; x < IMAGE_PADDING; x++) {
-				for (int y = 0; y < paddedHeight + IMAGE_PADDING; y++) {
-					setPixel(x, y, white);
-				}
-			}
-		}
-
-		private void setPixel(final int x, final int y, final RGB rgb) {
-			final int pixel = palette.getPixel(rgb);
-			imageData.setPixel(x, y, pixel);
-		}
+		return imageData;
 	}
 
 	private Optional<InternalDiagramExportService> getDiagramExportService() {
