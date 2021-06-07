@@ -431,7 +431,10 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 			// Get formated action block text
 			final AadlBaUnparser baUnparser = new AadlBaUnparser();
+			// TODO check if first and last char is a open/closed bracket.
+			// Throw exception if first and last char is not a bracket. so we are aware things have changed.
 			final String formattedActionBlock = baUnparser.process(actionBlock);
+			// Remove char then split
 			// Split action at new line character and throw out action block brackets
 			final String[] actionBlockText = getInnerActionBlockText(formattedActionBlock.split("\n"));
 			// Get whitespace to trim from each line after removing opening bracket

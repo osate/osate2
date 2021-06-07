@@ -50,12 +50,13 @@ public class BehaviorAnnexXtextUtil {
 	 */
 	public static int findUncommentedTerminationChar(final String str, final char delim) {
 		final String openBrackets = "{[";
+		final String closeBrackets = "]}";
 		final PeekingIterator<Character> charPeekingIt = Iterators
 				.peekingIterator(str.chars().mapToObj(e -> (char) e).collect(Collectors.toList()).iterator());
 		for (int offset = 0; charPeekingIt.hasNext(); offset++) {
-			Character c = charPeekingIt.next();
+			final Character c = charPeekingIt.next();
 			if (contains(openBrackets, c)) {
-				offset = findClosingBracket(charPeekingIt, openBrackets, offset);
+				offset = findClosingBracket(charPeekingIt, openBrackets, closeBrackets, offset);
 			} else if (c == delim) {
 				return offset;
 			} else if (c == '-' && charPeekingIt.peek() == '-') {
@@ -73,8 +74,8 @@ public class BehaviorAnnexXtextUtil {
 	}
 
 	private static int findClosingBracket(final PeekingIterator<Character> charPeekingIt, final String openBrackets,
+			final String closeBrackets,
 			int offset) {
-		final String closeBrackets = "]}";
 		int bracketsOpenCount = 1;
 		for (; charPeekingIt.hasNext(); offset++) {
 			final Character c = charPeekingIt.next();

@@ -164,7 +164,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 			// Disable button until validation occurs
 			final Button okBtn = getButton(IDialogConstants.OK_ID);
 			okBtn.setEnabled(false);
-			validationTask.schedule(okBtn, styledText.getText().trim());
+			validationTask.schedule(okBtn);
 		};
 	}
 
@@ -173,6 +173,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		private final BiFunction<EObject, String, String> getModifiedSrc;
 		private final BiFunction<BehaviorTransition, String, Boolean> isValidModification;
 		private Timer validationTimer;
+		private String textToValidate;
 
 		public ValidationTask(final BehaviorTransition behaviorTransition,
 				final BiFunction<EObject, String, String> getModifiedSrc,
@@ -182,18 +183,27 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 			this.behaviorTransition = behaviorTransition;
 		}
 
-		public void schedule(final Button okBtn, final String newText) {
+		public void schedule(final Button okBtn) {
 			if (validationTimer != null) {
 				validationTimer.cancel();
+				validationTimer.purge();
 			}
+
 			validationTimer = new Timer();
 			validationTimer.schedule(new TimerTask() {
 				@Override
 				public void run() {
 					Display.getDefault().asyncExec(() -> {
+						final String newText = styledText.getText();
+						if (newText.equals(textToValidate)) {
+							return;
+						}
+
+						textToValidate = newText;
+
+						okBtn.setEnabled(false);
 						// Disable if text has not changed
 						if (newText.equals(xtextAdapter.getEditableText())) {
-							okBtn.setEnabled(false);
 							return;
 						}
 

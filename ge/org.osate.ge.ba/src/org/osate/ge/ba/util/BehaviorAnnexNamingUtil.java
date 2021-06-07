@@ -23,7 +23,6 @@
  */
 package org.osate.ge.ba.util;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
@@ -42,6 +41,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RefinableElement;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
+import org.osate.ba.parser.AadlBaParser;
 import org.osate.ge.businessobjecthandling.RenameContext;
 
 public class BehaviorAnnexNamingUtil {
@@ -51,11 +51,9 @@ public class BehaviorAnnexNamingUtil {
 	private final static Set<String> reservedWords; // Set which compares entries base on a case-insensitive comparison
 	static {
 		reservedWords = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-		reservedWords.addAll(
-				Arrays.asList(new String[] { "complete", "initial", "final", "state", "states", "transitions",
-						"variables", "timeout", "frozen", "on", "dispatch", "stop", "otherwise", "or", "and", "if",
-						"elsif", "end", "for", "forall", "in", "do", "until", "computation", "binding", "any", "count",
-						"fresh", "true", "false", "upper_bound", "lower_bound", "not" }));
+		for (final String reservedWord : AadlBaParser.tokenNames) {
+			// reservedWords.add(reservedWord.replace("'", ""));
+		}
 	}
 
 	public static String buildUniqueIdentifier(final BehaviorAnnex ba, final String baseIdentifier) {
