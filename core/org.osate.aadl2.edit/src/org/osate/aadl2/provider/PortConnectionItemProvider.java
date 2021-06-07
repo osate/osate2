@@ -70,7 +70,7 @@ public class PortConnectionItemProvider extends ConnectionItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/PortConnection"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/PortConnection.png"));
 	}
 
 	/**
