@@ -77,6 +77,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
@@ -97,6 +98,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		implements IWorkbenchPreferencePage {
 	private Map<URI, URI> originalOverriddenAadl;
 	private final Map<URI, URI> overriddenAadl = new HashMap<>();
+	private List<URI> disabledContribResources = new ArrayList<URI>();
 
 	private TreeViewer tree;
 	private Button overrideButton;
@@ -135,6 +137,8 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 
 		Sorter sort = new Sorter();
 		tree.setSorter(sort);
+
+		setCheckBoxesDisabledContributions();
 
 		tree.addSelectionChangedListener(event -> {
 			IStructuredSelection selection = (IStructuredSelection) event.getSelection();
@@ -212,6 +216,31 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		return composite;
 	}
 
+	private void setCheckBoxesDisabledContributions() {
+		disabledContribResources = PredeclaredProperties.getDisabledContributions();
+		for (TreeItem node : tree.getTree().getItems()) {
+			setCheckBox(node);
+		}
+	}
+
+	private void setCheckBox(TreeItem node) {
+		Object obj = node.getData();
+		if (obj instanceof TreeNode) {
+			String uriPath = ((TreeNode) obj).path;
+			if (uriPath != null && !uriPath.isEmpty()) {
+				URI uri = URI.createURI(uriPath);
+				if (((TreeNode) obj).overridden) {
+					uri = overriddenAadl.get(uri);
+				}
+				node.setChecked(disabledContribResources.contains(uri));
+			}
+		}
+
+		for (TreeItem child : node.getItems()) {
+			setCheckBox(child);
+		}
+	}
+
 	private void doOverrideAction(final TreeNode selectedNode) {
 		if (selectedNode.canOverride()) {
 			URI uri = URI.createURI(selectedNode.path);
@@ -249,14 +278,52 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		final boolean ok = super.performOk();
 
 		/* Check if the preferences changed. Don't want to rebuild the workspace if they didn't */
-		final boolean changed = !originalOverriddenAadl.equals(overriddenAadl);
+		boolean changed = false;
+
+		if (!originalOverriddenAadl.equals(overriddenAadl)) {
+			PredeclaredProperties.setOverriddenResources(overriddenAadl);
+			changed = true;
+		}
+
+		disabledContribResources = new ArrayList<URI>();
+		for (TreeItem pluginContribNode : tree.getTree().getItems()) {
+			buildDisabledContributionsList(pluginContribNode);
+		}
+
+		List<URI> oldDisabledContrib = PredeclaredProperties.getDisabledContributions();
+		if (disabledContribResources.size() != oldDisabledContrib.size()
+				|| !disabledContribResources.equals(oldDisabledContrib)) {
+			// save disabled contribution resources to workspace preferences
+			PredeclaredProperties.setDisabledContributions(disabledContribResources);
+			changed = true;
+		}
 
 		if (changed) {
-			PredeclaredProperties.setOverriddenResources(overriddenAadl);
 			PredeclaredProperties.closeAndReopenProjects();
 		}
 
 		return ok;
+	}
+
+	private void buildDisabledContributionsList(TreeItem node) {
+		if (node.getChecked()) {
+			Object obj = node.getData();
+			if (obj instanceof TreeNode) {
+				String uriPath = ((TreeNode) obj).path;
+				if (uriPath != null && !uriPath.isEmpty()) {
+					URI uri = URI.createURI(uriPath);
+					// check if overridden
+					if (((TreeNode) obj).overridden) {
+						uri = overriddenAadl.get(uri);
+					}
+					disabledContribResources.add(uri);
+				}
+			}
+		}
+
+		for (TreeItem child : node.getItems()) {
+			buildDisabledContributionsList(child);
+		}
 	}
 
 	@Override
@@ -340,7 +407,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		dataLayout.heightHint = compLayout.heightHint;
 		dataLayout.widthHint = compLayout.widthHint;
 
-		int style = SWT.SINGLE | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL;
+		int style = SWT.SINGLE | SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.CHECK;
 		Tree tree = new Tree(treeComposite, style);
 		tree.setLayoutData(dataLayout);
 		tree.setLinesVisible(true);

@@ -40,6 +40,13 @@ public final class PredeclaredProperties {
 	 * <code>N</code> is an integer starting at 0.  The value is the URI of the resource in the workspace.
 	 */
 	private static final String WORKSPACE_OVERRIDE_VALUE_PREFIX = "contributed.resource.override.value.";
+	/**
+	 * All property sets and packages contributed by plug-ins are added to each build by default.
+	 * Many models only need the predeclared properties and maybe the EMV2 library.
+	 * To increase performance the user should have the option to exclude unnecessary contributions.
+	 * */
+	private static final String WORKSPACE_DISABLED_CONTRIBUTIONS_VALUE_PREFIX = "contributed.resource.disabled.";
+	private static final String NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES = "contributed.resource.disabled.numOverrides";
 
 	private static final IPreferenceStore preferenceStore = PluginSupportPlugin.getDefault().getPreferenceStore();
 
@@ -129,6 +136,20 @@ public final class PredeclaredProperties {
 	}
 
 	/**
+	 * @since 6.1
+	 */
+	public static List<URI> getDisabledContributions() {
+		List<URI> result = new ArrayList<URI>();
+		final int size = preferenceStore.getInt(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES);
+		for (int i = 0; i < size; i++) {
+			final String valueName = WORKSPACE_DISABLED_CONTRIBUTIONS_VALUE_PREFIX + i;
+			result.add(URI.createURI(preferenceStore.getString(valueName)));
+		}
+
+		return result;
+	}
+
+	/**
 	 * Get the effective list of contributed resources, as determined by replacing contributed resources with
 	 * workspace overrides.
 	 * @return An immutable list.
@@ -154,9 +175,37 @@ public final class PredeclaredProperties {
 	/**
 	 * Given a URI from the workspace, return the contributed URI, if any, that it overrides.
 	 * Return <code>null</code> if the workspace URI doesn't override anything.
+	 * @since 6.1
 	 */
 	public static URI getOverridesURI(final URI workspaceURI) {
 		return overriddingResources.get(workspaceURI);
+	}
+
+	/**
+	 * @since 6.1
+	 */
+	public static void setDisabledContributions(List<URI> disabled) {
+		/*
+		 * First clean up the old settings. This isn't strictly necessary, but things can bet confusing if the
+		 * number of overrides shrinks but the old key and value preferences are still left hanging around.
+		 */
+		final int oldSize = preferenceStore.getInt(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES);
+		for (int i = 0; i < oldSize; i++) {
+			final String valueName = WORKSPACE_DISABLED_CONTRIBUTIONS_VALUE_PREFIX + i;
+			preferenceStore.setToDefault(valueName);
+		}
+		preferenceStore.setToDefault(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES);
+
+		/* Now set the new values */
+		int i = 0;
+		for (URI disabledURI : disabled) {
+			if (!disabledURI.isEmpty()) {
+				final String valueName = WORKSPACE_DISABLED_CONTRIBUTIONS_VALUE_PREFIX + i++;
+				preferenceStore.setValue(valueName, disabledURI.toString());
+			}
+		}
+
+		preferenceStore.setValue(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES, i);
 	}
 
 	/**
