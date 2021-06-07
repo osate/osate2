@@ -24,6 +24,7 @@
 package org.osate.ge.ba.ui.properties;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -429,18 +430,24 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 					'}')
 					+ updateOffset;
 
-			// Get formated action block text
+			// Get formatted action block text
 			final AadlBaUnparser baUnparser = new AadlBaUnparser();
-			// TODO check if first and last char is a open/closed bracket.
-			// Throw exception if first and last char is not a bracket. so we are aware things have changed.
+			// Throw exception if first and last char is not a bracket
+			// to know when formatter has changed
 			final String formattedActionBlock = baUnparser.process(actionBlock);
-			// Remove char then split
+			final int lastIndex = formattedActionBlock.length() - 1;
+			if (!Objects.equals('{', formattedActionBlock.charAt(0)) || !Objects.equals('}',
+					formattedActionBlock.charAt(lastIndex))) {
+				throw new RuntimeException("Unexpected action block format '" + formattedActionBlock + "'.");
+			}
+
 			// Split action at new line character and throw out action block brackets
-			final String[] actionBlockText = getInnerActionBlockText(formattedActionBlock.split("\n"));
+			final List<String> actionBlockText = getInnerActionBlockText(formattedActionBlock.split("\n"));
+
 			// Get whitespace to trim from each line after removing opening bracket
-			final int whitespace = actionBlockText[0].split("\\S", 2)[0].length();
-			actionText = String.join("", Arrays.asList(actionBlockText)
-					.stream()
+			final int whitespace = getWhiteSpace(actionBlockText.get(0));
+			actionText = String.join("",
+					actionBlockText.stream()
 					.map(ss -> ss.substring(whitespace))
 					.toArray(String[]::new)).trim();
 
@@ -451,7 +458,17 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		return new EmbeddedTextValue(src, prefix, actionText, suffix);
 	}
 
-	private static String[] getInnerActionBlockText(final String[] splitActionBlockText) {
-		return Arrays.asList(splitActionBlockText).subList(1, splitActionBlockText.length - 1).toArray(String[]::new);
+	private static int getWhiteSpace(final String s) {
+		for (int i = 0; i < s.length(); i++) {
+			if (!Character.isWhitespace(s.charAt(i))) {
+				return i;
+			}
+		}
+
+		return 0;
+	}
+
+	private static List<String> getInnerActionBlockText(final String[] splitActionBlockText) {
+		return Arrays.asList(splitActionBlockText).subList(1, splitActionBlockText.length - 1);
 	}
 }
