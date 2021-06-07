@@ -87,6 +87,7 @@ import org.eclipse.ui.operations.UndoRedoActionGroup;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.statushandlers.StatusManager;
+import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributor;
@@ -193,10 +194,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			Objects.requireNonNull(tool, "tool must not be null");
 
 			// Deactivate the current tool
-			if (activeTool != null) {
-				deactivateActiveTool();
-			}
-
+			deactivateActiveTool();
 			activeTool = tool;
 			paletteModel.deactivateNonSelectItem();
 
@@ -334,6 +332,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		public void partClosed(IWorkbenchPart part) {
 			if (part == AgeEditor.this) {
 				tooltipManager.hideTooltip();
+				deactivateActiveTool();
 				final IWorkbenchSite site = getSite();
 				if (site != null && site.getWorkbenchWindow() != null
 						&& site.getWorkbenchWindow().getPartService() != null) {
@@ -348,6 +347,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		@Override
 		public void partActivated(IWorkbenchPart part) {
+			if (part != AgeEditor.this && !(part instanceof ContentOutline)) {
+				toolHandler.deactivateActiveTool();
+			}
 		}
 
 		@Override

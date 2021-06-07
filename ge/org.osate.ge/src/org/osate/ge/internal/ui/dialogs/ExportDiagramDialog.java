@@ -53,7 +53,7 @@ import org.osate.ge.services.DiagramExportService;
  */
 public class ExportDiagramDialog {
 	private static final Dimension MAX_IMAGE_DIMENSIONS = new Dimension(8000, 8000);
-	private static final Dimension MIN_IMAGE_DIMENSIONS = new Dimension(50, 50);
+	private static final Dimension MIN_IMAGE_DIMENSIONS = new Dimension(16, 16);
 	private static final double MAX_SCALE_FACTOR = 5.0;
 	private static final double MIN_SCALE_FACTOR = 0.1;
 	private static final String[] WIDTHS = new String[] { "320", "640", "800", "1024", "1280", "1600", "1920" };

@@ -127,6 +127,8 @@ import javafx.scene.transform.Transform;
  *
  */
 public class GefDiagramExportService implements InternalDiagramExportService {
+	// Extra padding to account for rendering to rater image not supporting "inside" lines.
+	private static final int BOUNDS_PADDING = 2;
 	private static final java.awt.Color TRANSPARENT = new java.awt.Color(0, 0, 0, 0);
 
 	public static class ContextFunction extends SimpleServiceContextFunction<DiagramExportService> {
@@ -238,7 +240,8 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 			maxY = Math.max(maxY, nodeBoundsInDiagram.getMaxY());
 		}
 
-		return new BoundingBox(minX, minY, maxX - minX, maxY - minY);
+		return new BoundingBox(minX - BOUNDS_PADDING, minY - BOUNDS_PADDING, maxX - minX + 2 * BOUNDS_PADDING,
+				maxY - minY + 2 * BOUNDS_PADDING);
 	}
 
 	@Override
