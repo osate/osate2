@@ -166,6 +166,7 @@ public class GuideOverlay implements AutoCloseable {
 
 		// Create a set of diagram elements whose bounds will be included in the list of values for which guides will be shown
 		final Set<DiagramElement> undockedDiagramElementsToInclude = new HashSet<>();
+		final Set<DiagramElement> diagramElementsToIgnore = new HashSet<>(diagramElementsBeingModified);
 		boolean hasDockedElements = false;
 		for (final DiagramElement diagramElementBeingModified : diagramElementsBeingModified) {
 			if (DiagramElementPredicates.isShape(diagramElementBeingModified)) {
@@ -178,6 +179,13 @@ public class GuideOverlay implements AutoCloseable {
 					}
 				} else {
 					hasDockedElements = true;
+
+					// Add docked siblings to ignore set
+					diagramElementBeingModified.getParent()
+							.getDiagramElements()
+							.stream()
+							.filter(DiagramElementPredicates::isDocked)
+							.forEachOrdered(diagramElementsToIgnore::add);
 				}
 			}
 		}
@@ -187,7 +195,7 @@ public class GuideOverlay implements AutoCloseable {
 		final ArrayList<Double> xCenterValues = new ArrayList<>(100);
 		final ArrayList<Double> yValues = new ArrayList<>(100);
 		final ArrayList<Double> yCenterValues = new ArrayList<>(100);
-		addValues(editor.getDiagram(), 0.0, 0.0, diagramElementsBeingModified, undockedDiagramElementsToInclude,
+		addValues(editor.getDiagram(), 0.0, 0.0, diagramElementsToIgnore, undockedDiagramElementsToInclude,
 				hasDockedElements, xValues, xCenterValues, yValues, yCenterValues);
 
 		// Convert to sorted arrays

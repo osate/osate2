@@ -45,6 +45,10 @@ public class DiagramElementPredicates {
 		return graphic instanceof AgeShape && !shapeSecondaryLabel;
 	}
 
+	public static boolean isDocked(final DiagramElement de) {
+		return de.getDockArea() != null;
+	}
+
 	public static boolean isUndocked(final DiagramElement de) {
 		return de.getDockArea() == null;
 	}
