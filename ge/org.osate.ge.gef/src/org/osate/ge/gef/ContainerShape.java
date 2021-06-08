@@ -77,11 +77,6 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	private static final double MIN_VERTICAL_LABEL_PADDING = 3;
 
 	/**
-	 * Minimum horizontal padding on each side of label area.
-	 */
-	private static final double MIN_HORIZONTAL_LABEL_PADDING = 10;
-
-	/**
 	 * Minimum possible value returned by {@link #computeMinWidth(double)}.
 	 * Some graphics do not have a minimum width provided so this serves as a minimum in cases where there are no children with a minimum width.
 	 */
@@ -267,7 +262,6 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		}
 
 		final double topLabelPadding = computeTopLabelPadding();
-		final double horizontalLabelPadding = computeHorizontalLabelPadding();
 
 		//
 		// Size and position labels
@@ -294,16 +288,16 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 				for (final Node child : labelGroup.getChildren()) {
 					if (child.isManaged()) {
 						double childX = 0;
-						final double childWidth = Math.min(width - 2.0 * horizontalLabelPadding, child.prefWidth(-1));
+						final double childWidth = Math.min(width, child.prefWidth(-1));
 						switch (horizontalLabelPosition) {
 						case BEGINNING:
-							childX = horizontalLabelPadding;
+							childX = 0;
 							break;
 						case CENTER:
 							childX = (width - childWidth) / 2.0;
 							break;
 						case END:
-							childX = width - childWidth - horizontalLabelPadding;
+							childX = width - childWidth;
 							break;
 						}
 
@@ -463,12 +457,11 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 			double result = Math.max(MIN_COMPUTED_PREF_WIDTH, configuredWidth);
 
 			// Include the preferred with of the labels
-			final double horizontalLabelPadding = computeHorizontalLabelPadding();
 			for (final Group labelGroup : labelGroups) {
 				if (labelGroup.isManaged()) {
 					for (final Node label : labelGroup.getChildren()) {
 						if (label.isManaged()) {
-							result = Math.max(result, label.prefWidth(-1) + 2.0 * horizontalLabelPadding);
+							result = Math.max(result, label.prefWidth(-1) + 2.0);
 						}
 					}
 				}
@@ -512,14 +505,6 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		} else {
 			return Math.min(Math.max(configuredHeight, minHeight(width)), maxHeight(width));
 		}
-	}
-
-	/**
-	 * Computes the horizontal padding for the label area.
-	 * @return the horizontal padding for each side of the label area.
-	 */
-	private double computeHorizontalLabelPadding() {
-		return MIN_HORIZONTAL_LABEL_PADDING;
 	}
 
 	/**
@@ -570,12 +555,11 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		}
 
 		// Take into consideration the minimum width of labels
-		final double horizontalLabelPadding = computeHorizontalLabelPadding();
 		for (final Group labelGroup : labelGroups) {
 			if (labelGroup.isManaged()) {
 				for (final Node label : labelGroup.getChildren()) {
 					if (label.isManaged()) {
-						result = Math.max(result, label.minWidth(-1) + (2 * horizontalLabelPadding));
+						result = Math.max(result, label.minWidth(-1));
 					}
 				}
 			}
@@ -719,8 +703,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	 * @return the sum of the preferred height of all labels and padding.
 	 */
 	private double prefLabelHeight(double width) {
-		final double horizontalLabelPadding = computeHorizontalLabelPadding();
-		final double labelWidth = width > 0 ? -1 : Math.max(width - 2 * horizontalLabelPadding, 0);
+		final double labelWidth = width > 0 ? -1 : Math.max(width, 0);
 		double totalLabelHeight = 0;
 		for (final Group labelGroup : labelGroups) {
 			if (labelGroup.isManaged()) {

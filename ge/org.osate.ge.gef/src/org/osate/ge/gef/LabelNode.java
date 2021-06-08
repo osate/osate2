@@ -37,6 +37,11 @@ import javafx.scene.text.Font;
  * Labels do not have backgrounds.
  */
 public class LabelNode extends Region implements Stylable, HasLabelBackgroundColor {
+	/**
+	 * Max preferred width when wrapping is enabled.
+	 */
+	private static final double MAX_PREFERRED_WRAPPED_WIDTH = 300;
+
 	private static final Insets PADDING_INSETS = new Insets(2.0, 6.0, 3.0, 6.0);
 
 	private final Label text = new Label();
@@ -80,7 +85,8 @@ public class LabelNode extends Region implements Stylable, HasLabelBackgroundCol
 
 	@Override
 	public double computePrefWidth(double height) {
-		return text.prefWidth(height);
+		final double prefWidth = text.prefWidth(height);
+		return text.isWrapText() ? Math.min(MAX_PREFERRED_WRAPPED_WIDTH, prefWidth) : prefWidth;
 	}
 
 	@Override
@@ -106,11 +112,10 @@ public class LabelNode extends Region implements Stylable, HasLabelBackgroundCol
 
 	@Override
 	public void setLabelBackgroundColor(final Color value) {
-		// Set the background to match the specified color. The label background has an inset that matches the text padding so the background
-		// to matches the actual text.
+		// Set the background to match the specified color. The label background has an inset that matches the
+		// text padding so the background matches the actual text.
 		this.setBackground(new Background(
-				new BackgroundFill(value, CornerRadii.EMPTY,
-						PADDING_INSETS)));
+				new BackgroundFill(value, CornerRadii.EMPTY, PADDING_INSETS)));
 	}
 
 	public void setFont(final Font font) {

@@ -638,7 +638,8 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 			// connection position. For regular connection this is the same because the node's parent is the diagram node.
 			// However, flow indicators have a position and have parent nodes other than the diagram.
 			connectionNode.getInnerConnection()
-					.setControlPoints(diagramElement.getBendpoints().stream()
+					.setControlPoints(diagramElement.getBendpoints()
+							.stream()
 							.map(p -> new org.eclipse.gef.geometry.planar.Point(p.x - controlPointOrigin.x,
 									p.y - controlPointOrigin.y))
 							.collect(Collectors.toList()));
@@ -787,7 +788,9 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 * Updates the cache of override style using {@link ColoringService}.
 	 */
 	private void refreshOverrideStyles() {
-		overrideStyles = coloringService.buildForegroundColorMap().entrySet().stream()
+		overrideStyles = coloringService.buildForegroundColorMap()
+				.entrySet()
+				.stream()
 				.collect(Collectors.toMap(Entry::getKey, v -> {
 					return StyleBuilder.create().foregroundColor(v.getValue()).build();
 				}));
@@ -913,8 +916,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	private Point getControlPointOriginFromSceneGraph(final Node sceneNode) {
 		if (sceneNode instanceof FlowIndicatorNode) {
 			return GefAgeDiagramUtil.toAgePoint(diagramNode.getSceneToLocalTransform()
-					.transform(sceneNode.getLocalToSceneTransform()
-							.transform(new Point2D(0, 0))));
+					.transform(sceneNode.getLocalToSceneTransform().transform(new Point2D(0, 0))));
 		} else {
 			return Point.ZERO;
 		}
@@ -962,7 +964,8 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 			return Dimension.ZERO;
 		}
 
-		return new Dimension(primaryLabel.computePrefWidth(-1), primaryLabel.computePrefHeight(-1));
+		final double width = primaryLabel.computePrefWidth(-1);
+		return new Dimension(width, primaryLabel.computePrefHeight(width));
 	}
 
 	@Override

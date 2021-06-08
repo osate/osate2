@@ -224,7 +224,8 @@ public class DiagramElementLayoutUtil {
 				LayoutDebugUtil.showGraphInLayoutGraphView(layoutGraph);
 
 				// Layout feature self loop connections. These are omitted from the ELK based layout.
-				dn.getAllDiagramNodes().filter(DiagramElementLayoutUtil::isFeatureSelfLoopConnection)
+				dn.getAllDiagramNodes()
+				.filter(DiagramElementLayoutUtil::isFeatureSelfLoopConnection)
 				.map(DiagramElement.class::cast)
 				.forEachOrdered(de -> layoutFeatureSelfLoopConnection(de, m, layoutInfoProvider));
 			}
@@ -261,15 +262,19 @@ public class DiagramElementLayoutUtil {
 
 		// Lay our flow indicators. In the container is eventually layed out, this will be replaced but in cases where that is not the case,
 		// we provide a default layout. Flow indicators are connections and as such will be filtered in the next step.
-		layoutFlowIndicators(mod, unfilteredNodesToLayout.stream().filter(DiagramNodePredicates::isFlowIndicator)
-				.map(DiagramElement.class::cast), layoutInfoProvider);
+		layoutFlowIndicators(mod,
+				unfilteredNodesToLayout.stream()
+				.filter(DiagramNodePredicates::isFlowIndicator)
+				.map(DiagramElement.class::cast),
+				layoutInfoProvider);
 
 		final Collection<DiagramNode> nodesToLayout = DiagramElementLayoutUtil.filterUnnecessaryNodes(
 				unfilteredNodesToLayout, currentLayoutMode == IncrementalLayoutMode.LAYOUT_DIAGRAM);
 
 		if (nodesToLayout.size() == 0) {
 			// If the filtered node list is empty then the unfiltered list still contain feature self loop connections that need to be layed out.
-			unfilteredNodesToLayout.stream().filter(DiagramElementLayoutUtil::isFeatureSelfLoopConnection)
+			unfilteredNodesToLayout.stream()
+			.filter(DiagramElementLayoutUtil::isFeatureSelfLoopConnection)
 			.map(DiagramElement.class::cast)
 			.forEachOrdered(de -> layoutFeatureSelfLoopConnection(de, mod, layoutInfoProvider));
 			return;
@@ -297,7 +302,8 @@ public class DiagramElementLayoutUtil {
 
 							if (parent.hasSize()) {
 								final Stream<DiagramElement> otherElementsAlongSide = parent.getDiagramElements()
-										.stream().filter(c -> c.hasPosition() && c.hasSize()
+										.stream()
+										.filter(c -> c.hasPosition() && c.hasSize()
 												&& c.getDockArea() == defaultDockArea);
 
 								// Determine the position of the new element along it's preferred docking position.
@@ -306,11 +312,13 @@ public class DiagramElementLayoutUtil {
 										|| defaultDockingPosition == DockingPosition.BOTTOM) {
 									locationAlongSide = otherElementsAlongSide
 											.max(Comparator.comparingDouble(c -> c.getY()))
-											.map(c -> c.getX() + c.getWidth()).orElse(0.0);
+											.map(c -> c.getX() + c.getWidth())
+											.orElse(0.0);
 								} else {
 									locationAlongSide = otherElementsAlongSide
 											.max(Comparator.comparingDouble(c -> c.getY()))
-											.map(c -> c.getY() + c.getHeight()).orElse(0.0);
+											.map(c -> c.getY() + c.getHeight())
+											.orElse(0.0);
 								}
 
 								// Set position based on the docking position
@@ -540,8 +548,10 @@ public class DiagramElementLayoutUtil {
 		// Search diagram and build a multimap mapping start elements to the flow indicators which reference them.
 		final ArrayListMultimap<DiagramElement, DiagramElement> startElementToFlowIndicators = ArrayListMultimap
 				.create();
-		m.getDiagram().getAllDescendants().filter(
-				q -> q instanceof DiagramElement && DiagramElementPredicates.isFlowIndicator((DiagramElement) q))
+		m.getDiagram()
+		.getAllDescendants()
+		.filter(q -> q instanceof DiagramElement
+				&& DiagramElementPredicates.isFlowIndicator((DiagramElement) q))
 		.forEachOrdered(q -> {
 			final DiagramElement e = (DiagramElement) q;
 			final DiagramElement start = e.getStartElement();
@@ -727,12 +737,18 @@ public class DiagramElementLayoutUtil {
 				final double labelHeightSum = n.getLabels().stream().mapToDouble(l -> l.getHeight()).sum();
 
 				// Determine max width for ports on the left and right sides
-				final double maxLeftPortWidth = n.getPorts().stream()
+				final double maxLeftPortWidth = n.getPorts()
+						.stream()
 						.filter(p -> p.getProperty(CoreOptions.PORT_SIDE) == PortSide.WEST)
-						.mapToDouble(p -> p.getWidth()).max().orElse(0.0);
-				final double maxRightPortWidth = n.getPorts().stream()
+						.mapToDouble(p -> p.getWidth())
+						.max()
+						.orElse(0.0);
+				final double maxRightPortWidth = n.getPorts()
+						.stream()
 						.filter(p -> p.getProperty(CoreOptions.PORT_SIDE) == PortSide.EAST)
-						.mapToDouble(p -> p.getWidth()).max().orElse(0.0);
+						.mapToDouble(p -> p.getWidth())
+						.max()
+						.orElse(0.0);
 
 				final DiagramNode dn = (DiagramNode) layoutMapping.getGraphMap().get(n);
 
@@ -831,9 +847,11 @@ public class DiagramElementLayoutUtil {
 	 */
 	static Collection<DiagramNode> filterUnnecessaryNodes(final Collection<? extends DiagramNode> diagramNodes,
 			final boolean includeGroupChildren) {
-		return diagramNodes.stream().filter(dn -> dn instanceof AgeDiagram || (dn instanceof DiagramElement
-				&& DiagramElementPredicates.isShape((DiagramElement) dn) && !containsAnyAncestor(diagramNodes, dn)
-				&& (includeGroupChildren || ((DiagramElement) dn).getDockArea() != DockArea.GROUP)))
+		return diagramNodes.stream()
+				.filter(dn -> dn instanceof AgeDiagram
+						|| (dn instanceof DiagramElement && DiagramElementPredicates.isShape((DiagramElement) dn)
+								&& !containsAnyAncestor(diagramNodes, dn)
+								&& (includeGroupChildren || ((DiagramElement) dn).getDockArea() != DockArea.GROUP)))
 				.collect(Collectors.toList());
 	}
 
@@ -955,8 +973,10 @@ public class DiagramElementLayoutUtil {
 			// Don't update connections if it wasn't updated. This prevents updating bendpoints to invalid values if an edge is not layed out.
 			if (edgeSection.eIsSet(ElkGraphPackage.eINSTANCE.getElkEdgeSection_StartX())
 					&& edgeSection.eIsSet(ElkGraphPackage.eINSTANCE.getElkEdgeSection_EndX())) {
-				final List<Point> bendpointsInParentCoordinateSystem = edgeSection.getBendPoints().stream()
-						.map(bp -> new Point(bp.getX(), bp.getY())).collect(Collectors.toCollection(LinkedList::new));
+				final List<Point> bendpointsInParentCoordinateSystem = edgeSection.getBendPoints()
+						.stream()
+						.map(bp -> new Point(bp.getX(), bp.getY()))
+						.collect(Collectors.toCollection(LinkedList::new));
 
 				//
 				// Set bendpoints
@@ -1153,44 +1173,48 @@ public class DiagramElementLayoutUtil {
 		final Set<BusinessObjectContext> movedElementsSet = movedElements.collect(Collectors.toSet());
 
 		// Build a set containing the moved elements and all of their descendant which are represented as shapes
-		final Set<BusinessObjectContext> diagramElements = checkDescendants ? movedElementsSet.stream()
-				.flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants())).collect(Collectors.toSet())
-				: movedElementsSet;
-				final Stream<DiagramElement> connections = m.getDiagram().getAllDiagramNodes()
-						.filter(q -> q instanceof DiagramElement && DiagramElementPredicates.isConnection((DiagramElement) q))
-						.map(DiagramElement.class::cast);
+		final Set<BusinessObjectContext> diagramElements = checkDescendants
+				? movedElementsSet.stream()
+						.flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants()))
+						.collect(Collectors.toSet())
+						: movedElementsSet;
+		final Stream<DiagramElement> connections = m.getDiagram()
+				.getAllDiagramNodes()
+				.filter(q -> q instanceof DiagramElement && DiagramElementPredicates.isConnection((DiagramElement) q))
+				.map(DiagramElement.class::cast);
 
-				// Iterate over all the connections in the diagram and update their bendpoints if their ends are in the set above.
-				connections.forEachOrdered(connection -> {
-					final DiagramElement startElement = connection.getStartElement();
-					final DiagramElement endElement = connection.getEndElement();
-					final boolean isFlowIndicator = ((AgeConnection) connection.getGraphic()).isFlowIndicator;
-					if (diagramElements.contains(startElement) && (diagramElements.contains(endElement) || isFlowIndicator)) {
-						if (shiftBendpoints) {
-							shiftBendpoints(connection, delta, m);
-						}
+		// Iterate over all the connections in the diagram and update their bendpoints if their ends are in the set above.
+		connections.forEachOrdered(connection -> {
+			final DiagramElement startElement = connection.getStartElement();
+			final DiagramElement endElement = connection.getEndElement();
+			final boolean isFlowIndicator = ((AgeConnection) connection.getGraphic()).isFlowIndicator;
+			if (diagramElements.contains(startElement) && (diagramElements.contains(endElement) || isFlowIndicator)) {
+				if (shiftBendpoints) {
+					shiftBendpoints(connection, delta, m);
+				}
 
-						// Shift flow indicator positions
-						if (shiftFlowIndicatorPositions && isFlowIndicator && connection.hasPosition()) {
-							// Flow indicator positions are relative to the container of the flow indicator.
-							// If the flow indicator's ancestor has moved, then do not shift the flow indicator's position
-							boolean ancestorHasMoved = false;
-							for (DiagramNode tmp = connection.getParent(); tmp != null; tmp = tmp.getParent()) {
-								if (movedElementsSet.contains(tmp)) {
-									ancestorHasMoved = true;
-								}
-							}
-
-							if (!ancestorHasMoved) {
-								final DockArea startDockArea = getNonGroupDockArea(startElement);
-								m.setPosition(connection, new org.osate.ge.graphics.Point(connection.getX()
-										+ (startDockArea == null || !startDockArea.isLeftOrRight() ? delta.x : 0),
-										connection.getY()
-										+ (startDockArea == null || startDockArea.isLeftOrRight() ? delta.y : 0)));
-							}
+				// Shift flow indicator positions
+				if (shiftFlowIndicatorPositions && isFlowIndicator && connection.hasPosition()) {
+					// Flow indicator positions are relative to the container of the flow indicator.
+					// If the flow indicator's ancestor has moved, then do not shift the flow indicator's position
+					boolean ancestorHasMoved = false;
+					for (DiagramNode tmp = connection.getParent(); tmp != null; tmp = tmp.getParent()) {
+						if (movedElementsSet.contains(tmp)) {
+							ancestorHasMoved = true;
 						}
 					}
-				});
+
+					if (!ancestorHasMoved) {
+						final DockArea startDockArea = getNonGroupDockArea(startElement);
+						m.setPosition(connection, new org.osate.ge.graphics.Point(
+								connection.getX()
+								+ (startDockArea == null || !startDockArea.isLeftOrRight() ? delta.x : 0),
+								connection.getY()
+								+ (startDockArea == null || startDockArea.isLeftOrRight() ? delta.y : 0)));
+					}
+				}
+			}
+		});
 	}
 
 	/**
@@ -1201,11 +1225,11 @@ public class DiagramElementLayoutUtil {
 	 * @return
 	 */
 	public static Stream<DiagramElement> getConnectionsAffectedByMove(final DiagramElement movedElement,
-			final AgeDiagram diagram,
-			final boolean checkDescendants) {
+			final AgeDiagram diagram, final boolean checkDescendants) {
 		// Build a set containing the moved elements and all of their descendant which are represented as shapes
-		final Set<BusinessObjectContext> diagramElements = checkDescendants ? movedElement.getAllDescendants().collect(Collectors.toSet())
-				: Collections.singleton(movedElement);
+		final Set<BusinessObjectContext> diagramElements = checkDescendants
+				? movedElement.getAllDescendants().collect(Collectors.toSet())
+						: Collections.singleton(movedElement);
 		final Stream<DiagramElement> connections = diagram.getAllDiagramNodes()
 				.filter(q -> q instanceof DiagramElement && DiagramElementPredicates.isConnection((DiagramElement) q))
 				.map(DiagramElement.class::cast);
