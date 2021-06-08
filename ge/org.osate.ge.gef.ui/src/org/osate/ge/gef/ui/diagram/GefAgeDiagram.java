@@ -264,7 +264,6 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 					if (needFullUpdate) {
 						updateSceneGraph();
-						forceSceneGraphLayout();
 					} else {
 						// Refresh override styles to prepare to apply styles to updated elements
 						refreshOverrideStyles();
@@ -283,9 +282,10 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 							updateSceneNode(ge);
 							calculateAndApplyStyle(ge);
 						}
-
-						forceSceneGraphLayout();
 					}
+
+					// Forces the scene graph layout and applys those changes to the diagram
+					updateDiagramFromSceneGraph();
 
 					// Force connections to refresh. This works around cases where a diagram element is moved
 					// which causes an anchor to move and the connection itself isn't refreshed
@@ -296,6 +296,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 							cn.refresh();
 						}
 					}
+
 				} finally {
 					inBeforeModificationsCompleted = false;
 				}
