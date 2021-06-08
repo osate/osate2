@@ -60,10 +60,9 @@ public class BehaviorAnnexXtextUtil {
 	 * @return the offset of the character in the string
 	 */
 	public static int findUncommentedTerminationChar(final String str, final char ch) {
-		final ImmutableList<Character> openBrackets = Lists.charactersOf("{[");
-		final ImmutableList<Character> closeBrackets = Lists.charactersOf("]}");
-		final PeekingIterator<Character> charPeekingIt = Iterators
-				.peekingIterator(str.chars().mapToObj(e -> (char) e).collect(Collectors.toList()).iterator());
+		final ImmutableList<Character> openBrackets = ImmutableList.of('{', '[');
+		final ImmutableList<Character> closeBrackets = ImmutableList.of('}', ']');
+		final PeekingIterator<Character> charPeekingIt = Iterators.peekingIterator(Lists.charactersOf(str).iterator());
 		for (int offset = 0; charPeekingIt.hasNext(); offset++) {
 			final Character c = charPeekingIt.next();
 			if (openBrackets.contains(c)) {
