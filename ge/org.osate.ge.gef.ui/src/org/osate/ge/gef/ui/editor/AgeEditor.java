@@ -450,17 +450,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			// have not. This forces the property sheet page to be updated.
 			if (propertySheetPage != null && propertySheetPage.getCurrentTab() != null) {
 				final IStructuredSelection selection = selectionProvider.getSelection();
-				final List<?> elements = selection.toList();
-				// Check if selected elements are visible
-				if (!elements.stream()
-						.map(element -> element instanceof DiagramNode ? gefDiagram.getSceneNode((DiagramNode) element) : null)
-						.anyMatch(Predicates.isNull())) {
-					propertySheetPage.selectionChanged(AgeEditor.this, StructuredSelection.EMPTY);
-					propertySheetPage.selectionChanged(AgeEditor.this, selection);
-				} else {
-					// Clear selection if selected elements are not visible
-					clearSelection();
-				}
+				propertySheetPage.selectionChanged(AgeEditor.this, StructuredSelection.EMPTY);
+				propertySheetPage.selectionChanged(AgeEditor.this, selection);
 			}
 		}
 	};
@@ -475,10 +466,21 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private final DiagramModificationListener diagramModificationListener = new DiagramModificationAdapter() {
 		@Override
 		public void modificationsCompleted(final ModificationsCompletedEvent e) {
+			final List<?> diagramNodes = selectionProvider.getSelection().toList();
+			// Check if selected elements are visible
+			if (diagramNodes.stream()
+					.map(element -> element instanceof DiagramNode ? gefDiagram.getSceneNode((DiagramNode) element)
+							: null)
+					.anyMatch(Predicates.isNull())) {
+				// Clear selection if element is no longer visible
+				clearSelection();
+			}
+
 			// Refresh overlays in case the nodes representing the selected diagram elements have changed.
 			if (overlays != null) {
 				overlays.refresh(selectionProvider.getSelection());
 			}
+
 		}
 	};
 
