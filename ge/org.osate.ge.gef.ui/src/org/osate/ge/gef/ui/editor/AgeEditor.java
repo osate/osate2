@@ -154,6 +154,7 @@ import org.osate.ge.services.impl.DefaultReferenceResolutionService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
+import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 
 import javafx.beans.property.DoubleProperty;
@@ -449,8 +450,17 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			// have not. This forces the property sheet page to be updated.
 			if (propertySheetPage != null && propertySheetPage.getCurrentTab() != null) {
 				final IStructuredSelection selection = selectionProvider.getSelection();
-				propertySheetPage.selectionChanged(AgeEditor.this, StructuredSelection.EMPTY);
-				propertySheetPage.selectionChanged(AgeEditor.this, selection);
+				final List<?> elements = selection.toList();
+				// Check if selected elements are visible
+				if (!elements.stream()
+						.map(element -> element instanceof DiagramNode ? gefDiagram.getSceneNode((DiagramNode) element) : null)
+						.anyMatch(Predicates.isNull())) {
+					propertySheetPage.selectionChanged(AgeEditor.this, StructuredSelection.EMPTY);
+					propertySheetPage.selectionChanged(AgeEditor.this, selection);
+				} else {
+					// Clear selection if selected elements are not visible
+					clearSelection();
+				}
 			}
 		}
 	};
