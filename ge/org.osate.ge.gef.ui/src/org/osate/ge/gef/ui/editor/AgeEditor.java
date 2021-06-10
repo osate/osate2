@@ -1353,6 +1353,10 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			// Clear outline selection
 			outlinePage.setSelection(null);
 		}
+
+		if (propertySheetPage != null && propertySheetPage.getCurrentTab() != null) {
+			propertySheetPage.selectionChanged(AgeEditor.this, StructuredSelection.EMPTY);
+		}
 	}
 
 	/**
