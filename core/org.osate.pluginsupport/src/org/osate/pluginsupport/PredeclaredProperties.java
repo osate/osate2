@@ -94,7 +94,10 @@ public final class PredeclaredProperties {
 	}
 
 	private static synchronized void buildContributedResources() {
-		final List<URI> contributed = PluginSupportUtil.getContributedAadl();
+		final List<URI> disabled = getDisabledContributions();
+
+		List<URI> contributed = PluginSupportUtil.getContributedAadl();
+		contributed.removeIf(aadl -> (disabled.contains(aadl)));
 
 		final Map<URI, URI> replaced = new HashMap<>();
 		final Map<URI, URI> replaces = new HashMap<>();
@@ -102,8 +105,11 @@ public final class PredeclaredProperties {
 		for (int i = 0; i < num; i++) {
 			final URI key = URI.createURI(preferenceStore.getString(WORKSPACE_OVERRIDE_KEY_PREFIX + i));
 			final URI value = URI.createURI(preferenceStore.getString(WORKSPACE_OVERRIDE_VALUE_PREFIX + i));
-			replaced.put(key, value);
-			replaces.put(value, key);
+
+			if (!disabled.contains(key) && !disabled.contains(value)) { // do not include into processing if it is disabled
+				replaced.put(key, value);
+				replaces.put(value, key);
+			}
 		}
 
 		final List<URI> effective = new ArrayList<>(contributed.size());
@@ -138,7 +144,7 @@ public final class PredeclaredProperties {
 	/**
 	 * @since 6.1
 	 */
-	public static List<URI> getDisabledContributions() {
+	public synchronized static List<URI> getDisabledContributions() {
 		List<URI> result = new ArrayList<URI>();
 		final int size = preferenceStore.getInt(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES);
 		for (int i = 0; i < size; i++) {
@@ -184,7 +190,7 @@ public final class PredeclaredProperties {
 	/**
 	 * @since 6.1
 	 */
-	public static void setDisabledContributions(List<URI> disabled) {
+	public synchronized static void setDisabledContributions(List<URI> disabled) {
 		/*
 		 * First clean up the old settings. This isn't strictly necessary, but things can bet confusing if the
 		 * number of overrides shrinks but the old key and value preferences are still left hanging around.
@@ -236,7 +242,7 @@ public final class PredeclaredProperties {
 			final String keyName = WORKSPACE_OVERRIDE_KEY_PREFIX + i;
 			preferenceStore.setValue(keyName, entry.getKey().toString());
 
-			final String valueName = WORKSPACE_OVERRIDE_VALUE_PREFIX + i;
+			final String valueName = WORKSPACE_OVERRIDE_VALUE_PREFIX + i++;
 			preferenceStore.setValue(valueName, entry.getValue().toString());
 		}
 		isChanged = true;
