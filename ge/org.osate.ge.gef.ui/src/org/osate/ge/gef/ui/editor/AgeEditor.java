@@ -154,7 +154,6 @@ import org.osate.ge.services.impl.DefaultReferenceResolutionService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
-import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 
 import javafx.beans.property.DoubleProperty;
@@ -466,12 +465,12 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private final DiagramModificationListener diagramModificationListener = new DiagramModificationAdapter() {
 		@Override
 		public void modificationsCompleted(final ModificationsCompletedEvent e) {
-			final List<?> diagramNodes = selectionProvider.getSelection().toList();
+			@SuppressWarnings("unchecked")
+			final List<? extends DiagramNode> diagramNodes = selectionProvider.getSelection().toList();
 			// Check if selected elements are visible
 			if (diagramNodes.stream()
-					.map(element -> element instanceof DiagramNode ? gefDiagram.getSceneNode((DiagramNode) element)
-							: null)
-					.anyMatch(Predicates.isNull())) {
+					.map(gefDiagram::getSceneNode)
+					.anyMatch(Objects::isNull)) {
 				// Clear selection if element is no longer visible
 				clearSelection();
 			}
