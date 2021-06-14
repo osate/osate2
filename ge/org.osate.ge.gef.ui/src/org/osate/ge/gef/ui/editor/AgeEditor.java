@@ -465,10 +465,21 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private final DiagramModificationListener diagramModificationListener = new DiagramModificationAdapter() {
 		@Override
 		public void modificationsCompleted(final ModificationsCompletedEvent e) {
+			@SuppressWarnings("unchecked")
+			final List<? extends DiagramNode> diagramNodes = selectionProvider.getSelection().toList();
+			// Check if selected elements are visible
+			if (diagramNodes.stream()
+					.map(gefDiagram::getSceneNode)
+					.anyMatch(Objects::isNull)) {
+				// Clear selection if element is no longer visible
+				clearSelection();
+			}
+
 			// Refresh overlays in case the nodes representing the selected diagram elements have changed.
 			if (overlays != null) {
 				overlays.refresh(selectionProvider.getSelection());
 			}
+
 		}
 	};
 
@@ -1340,6 +1351,10 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		if (outlinePage != null) {
 			// Clear outline selection
 			outlinePage.setSelection(null);
+		}
+
+		if (propertySheetPage != null && propertySheetPage.getCurrentTab() != null) {
+			propertySheetPage.selectionChanged(AgeEditor.this, StructuredSelection.EMPTY);
 		}
 	}
 

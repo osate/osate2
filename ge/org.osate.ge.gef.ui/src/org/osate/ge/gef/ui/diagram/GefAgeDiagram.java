@@ -37,6 +37,7 @@ import java.util.stream.Collectors;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.gef.fx.anchors.IAnchor;
 import org.eclipse.swt.widgets.Display;
 import org.osate.ge.gef.AgeGefRuntimeException;
 import org.osate.ge.gef.BaseConnectionNode;
@@ -715,11 +716,18 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	private void updateConnectionAnchors(final DiagramElement de, final BaseConnectionNode node) {
 		if (node instanceof FlowIndicatorNode) {
 			final FlowIndicatorNode fi = (FlowIndicatorNode) node;
-			fi.setStartAnchor(GefAgeDiagramUtil.getAnchor(this, de.getStartElement(), null));
+			final IAnchor anchor = GefAgeDiagramUtil.getAnchor(this, de.getStartElement(), null);
+			if (anchor != null) {
+				fi.setStartAnchor(anchor);
+			}
 		} else if (node instanceof ConnectionNode) {
 			final ConnectionNode cn = (ConnectionNode) node;
-			cn.setStartAnchor(GefAgeDiagramUtil.getAnchor(this, de.getStartElement(), de.getEndElement()));
-			cn.setEndAnchor(GefAgeDiagramUtil.getAnchor(this, de.getEndElement(), de.getStartElement()));
+			final IAnchor startAnchor = GefAgeDiagramUtil.getAnchor(this, de.getStartElement(), de.getEndElement());
+			final IAnchor endAnchor = GefAgeDiagramUtil.getAnchor(this, de.getEndElement(), de.getStartElement());
+			if (startAnchor != null && endAnchor != null) {
+				cn.setStartAnchor(startAnchor);
+				cn.setEndAnchor(endAnchor);
+			}
 		} else {
 			throw new AgeGefRuntimeException("Unexpected node: " + node);
 		}
