@@ -106,10 +106,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                                     property="org.eclipse.core.resources.extension"
                                     value="goaldoc">
                               </test>
-                              <test
-                                    forcePluginActivation="true"
-                                    property="org.osate.reqtrace.isAadlPackage">
-                              </test>
+                              <reference definitionId="org.osate.ui.definition.isPackageFile"/>
                            </or>
                         </adapt>
                      </iterate>
@@ -160,15 +157,4 @@ censes only apply to the Third Party Software and not any other portion of this 
          </enabledWhen>
       </handler>
    </extension>
-   <extension
-         point="org.eclipse.core.expressions.propertyTesters">
-      <propertyTester
-            class="org.osate.reqtrace.AadlPropertyTester"
-            id="org.osate.reqtrace.aadlPropertyTester"
-            namespace="org.osate.reqtrace"
-            properties="isAadlPackage"
-            type="org.eclipse.core.resources.IFile">
-      </propertyTester>
-   </extension>
-
 </plugin>

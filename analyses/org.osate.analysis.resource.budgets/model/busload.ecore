@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="busload" nsURI="http://osate.org/analysis/busload" nsPrefix="busload">
-  <eClassifiers xsi:type="ecore:EClass" name="BusloadElement" abstract="true" eSuperTypes="../../org.osate.analysis.model/model/analysis.ecore#//AnalysisElement">
+  <eClassifiers xsi:type="ecore:EClass" name="BusloadElement" abstract="true" eSuperTypes="../../org.osate.analysis.model/model/analysis.ecore#//model/AnalysisElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="actual" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="budget" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
@@ -26,7 +26,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualBus" eSuperTypes="#//BusOrVirtualBus"/>
   <eClassifiers xsi:type="ecore:EClass" name="Bus" eSuperTypes="#//BusOrVirtualBus"/>
-  <eClassifiers xsi:type="ecore:EClass" name="BusLoadModel" eSuperTypes="../../org.osate.analysis.model/model/analysis.ecore#//AnalysisElement">
+  <eClassifiers xsi:type="ecore:EClass" name="BusLoadModel" eSuperTypes="../../org.osate.analysis.model/model/analysis.ecore#//model/AnalysisElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="rootBuses" upperBound="-1"
         eType="#//Bus" containment="true"/>
   </eClassifiers>

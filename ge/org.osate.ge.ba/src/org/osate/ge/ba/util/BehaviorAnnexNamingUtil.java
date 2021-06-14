@@ -51,8 +51,11 @@ public class BehaviorAnnexNamingUtil {
 	private final static Set<String> reservedWords; // Set which compares entries base on a case-insensitive comparison
 	static {
 		reservedWords = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-		reservedWords.addAll(
-				Arrays.asList(new String[] { "initial", "final", "state", "states", "transitions", "variables" }));
+		reservedWords.addAll(Arrays.asList("abs", "and", "any", "binding", "classifier", "complete", "computation",
+				"count", "dispatch", "do", "else", "elsif", "end", "false", "final", "for", "forall", "fresh", "frozen",
+				"if", "in", "initial", "lower_bound", "mod", "not", "on", "or", "otherwise", "reference", "variables",
+				"rem", "state", "states", "stop", "timeout", "transitions", "true", "until", "upper_bound", "while",
+				"xor"));
 	}
 
 	public static String buildUniqueIdentifier(final BehaviorAnnex ba, final String baseIdentifier) {
@@ -146,6 +149,15 @@ public class BehaviorAnnexNamingUtil {
 	public static Optional<String> checkNameValidity(final RenameContext ctx) {
 		final NamedElement ne = ctx.getBusinessObject(NamedElement.class).get();
 		final String newName = ctx.getNewName();
+		return checkNameValidity(ne, newName);
+	}
+
+	/**
+	 * Check if behavior element new name is valid.
+	 * @return empty if the name is valid.  Otherwise return the error message
+	 */
+	public static Optional<String> checkNameValidity(final NamedElement ne, final String newName) {
+
 		if (newName.equalsIgnoreCase(ne.getName())) {
 			return Optional.empty();
 		}

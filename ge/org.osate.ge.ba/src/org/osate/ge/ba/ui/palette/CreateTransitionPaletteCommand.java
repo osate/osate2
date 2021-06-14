@@ -31,6 +31,7 @@ import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
@@ -103,6 +104,19 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 					// Show
 					return StepResultBuilder.create().showNewBusinessObject(srcContainer, baTransition).build();
 				})).orElse(Optional.empty());
+	}
+
+	private String getTransitionName(final BehaviorTransition baTransition) {
+		int index = 0;
+		String name = buildTransitionName(index++);
+		for (; BehaviorAnnexNamingUtil.checkNameValidity(baTransition, name)
+				.isPresent(); name = buildTransitionName(index++)) {
+		}
+		return name;
+	}
+
+	private String buildTransitionName(final int index) {
+		return new StringBuilder("t").append(index).toString();
 	}
 
 	private static BusinessObjectContext getOwnerBoc(final BusinessObjectContext modeBoc,

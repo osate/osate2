@@ -1,6 +1,7 @@
 -- Copyright (c) 2004-2021 Carnegie Mellon University. All right reserved.
 -- Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
 
+-- @codegen-package org.osate.contribution.sei.sei
 property set SEI is
   -- property to support security level analysis
   SecurityLevel: inherit aadlinteger  applies to (thread, thread group, process, system, virtual processor);

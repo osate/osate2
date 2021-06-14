@@ -9,8 +9,8 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated analysis -->
       <package
-            uri="http://osate.org/analysis/analysis"
-            class="org.osate.analysis.model.analysis.AnalysisPackage"
+            uri="http://osate.org/analysis/model"
+            class="org.osate.analysis.model.ModelPackage"
             genModel="model/analysis.genmodel"/>
    </extension>
 

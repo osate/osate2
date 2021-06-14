@@ -53,18 +53,19 @@ public class AadlElementContentProvider implements ITreeContentProvider {
 	@Override
 	public Object[] getChildren(Object parentElement) {
 		Stream<EObject> children;
+		final ResourceSetImpl resourceSet = new ResourceSetImpl();
 		if (parentElement instanceof IFile) {
 			String path = ((IFile) parentElement).getFullPath().toString();
 			URI uri = URI.createPlatformResourceURI(path, true);
-			Resource resource = new ResourceSetImpl().getResource(uri, true);
+			Resource resource = resourceSet.getResource(uri, true);
 			children = resource.getContents().stream();
 		} else if (parentElement instanceof ContributedAadlStorage) {
 			URI uri = ((ContributedAadlStorage) parentElement).getUri();
-			Resource resource = new ResourceSetImpl().getResource(uri, true);
+			Resource resource = resourceSet.getResource(uri, true);
 			children = resource.getContents().stream();
 		} else {
 			EObjectURIWrapper wrapper = (EObjectURIWrapper) parentElement;
-			EObject eObject = new ResourceSetImpl().getEObject(wrapper.getUri(), true);
+			EObject eObject = resourceSet.getEObject(wrapper.getUri(), true);
 			if (eObject instanceof AadlPackage || eObject instanceof PropertySet
 					|| eObject instanceof ComponentInstance) {
 				children = eObject.eContents().stream().filter(

@@ -36,8 +36,10 @@ censes only apply to the Third Party Software and not any other portion of this 
 		<topic href="html/start2/OSATEUserGuide.html#properties" label="Viewing AADL Property Values" />
 		<topic href="html/start2/OSATEUserGuide.html#classifierView" label="Viewing Classifier Members" />
 	</topic>
-	<topic href="html/advanced/AdvancedOSATEFeatures.html" label="Advanced OSATE Features">
-		<topic href="html/advanced/AdvancedOSATEFeatures.html#contributedResources" label="Managing Contributed Resources" />
+	<topic href="help/html/AdvancedOSATEFeatures.html" label="Advanced OSATE Features">
+		<topic href="help/html/AdvancedOSATEFeatures.html#managing-contributed-resources" label="Managing Contributed Resources" />
+		<topic href="help/html/AdvancedOSATEFeatures.html#managing-ignored-property-sets" label="Managing Ignored Property Sets" />
+		<topic href="help/html/AdvancedOSATEFeatures.html#managing-annex-resources" label="Managing Annexes" />
 	</topic>
 	<topic label="Concepts">
 		<anchor id="_workingSets"/>

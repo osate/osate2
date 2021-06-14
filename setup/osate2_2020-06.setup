@@ -302,6 +302,14 @@
     </setupTask>
     <setupTask
         xsi:type="setup:CompoundTask"
+        name="org.eclipse.releng.tools">
+      <setupTask
+          xsi:type="setup:PreferenceTask"
+          key="/instance/org.eclipse.releng.tools/org.eclipse.releng.tools.copyrightTemplate"
+          value="Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). &#xA;All Rights Reserved.&#xA;&#xA;NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN &quot;AS-IS&quot; BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY&#xA;KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE&#xA;OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT&#xA;MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.&#xA;&#xA;This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0&#xA;which is available at https://www.eclipse.org/legal/epl-2.0/&#xA;SPDX-License-Identifier: EPL-2.0&#xA;&#xA;Created, in part, with funding and support from the United States Government. (see Acknowledgments file).&#xA;&#xA;This program includes and/or can make use of certain third party source code, object code, documentation and other&#xA;files (&quot;Third Party Software&quot;). The Third Party Software that is used by this program is dependent upon your system&#xA;configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and&#xA;conditions contained in any such Third Party Software or separate license file distributed with such Third Party&#xA;Software. The parties who own the Third Party Software (&quot;Third Party Licensors&quot;) are intended third party beneficiaries&#xA;to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses&#xA;only apply to the Third Party Software and not any other portion of this program or this program as a whole."/>
+    </setupTask>
+    <setupTask
+        xsi:type="setup:CompoundTask"
         name="org.eclipse.ui">
       <setupTask
           xsi:type="setup:PreferenceTask"
@@ -622,7 +630,8 @@
         xsi:type="setup.p2:P2Task"
         label="Core Dependencies">
       <requirement
-          name="org.eclipse.papyrus.sdk.feature.feature.group"/>
+          name="org.eclipse.papyrus.sdk.feature.feature.group"
+          versionRange="4.8.0"/>
       <requirement
           name="org.eclipse.emf.compare.ide.ui.feature.group"/>
       <requirement
@@ -645,9 +654,6 @@
         xsi:type="setup.p2:P2Task"
         label="Xtext">
       <requirement
-          name="com.itemis.xtext.testing.feature.feature.group"
-          versionRange="[0.2.0,1.0.0)"/>
-      <requirement
           name="org.eclipse.xtext.sdk.feature.group"/>
       <requirement
           name="de.itemis.xtext.antlr.feature.feature.group"/>
@@ -657,8 +663,6 @@
           name="org.eclipse.xtend.sdk.feature.group"/>
       <requirement
           name="org.eclipse.emf.mwe2.launcher.feature.group"/>
-      <repository
-          url="https://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
       <repository
           url="http://download.itemis.de/updates/releases/2.1.1"/>
       <repository
@@ -746,8 +750,6 @@
           name="org.eclipse.xtext.testing"
           versionRange="[2.20.0,2.21.0)"/>
       <requirement
-          name="com.itemis.xtext.testing.feature.feature.group"/>
-      <requirement
           name="org.eclipse.elk.feature.feature.group"/>
       <requirement
           name="org.eclipse.elk.algorithms.feature.feature.group"/>
@@ -810,8 +812,8 @@
       <requirement
           name="*"/>
       <sourceLocator
-          rootFolder="${git.clone.osate2.location}">
-      </sourceLocator>
+          rootFolder="${git.clone.osate2.location}"/>
+
       <repositoryList
           name="2020-03">
         <repository
@@ -853,8 +855,6 @@
             url="http://download.eclipse.org/elk/updates/releases/0.7.0/"/>
         <repository
             url="http://download.eclipse.org/xsemantics/milestones/1.19"/>
-        <repository
-            url="http://dl.bintray.com/itemis/generic/xtext-testing/updates"/>
         <repository
             url="http://download.itemis.de/updates/releases/2.1.1"/>
         <repository
@@ -951,8 +951,8 @@
       xsi:type="pde:APIBaselineTask"
       id="api.baseline"
       name="OSATE-API"
-      version="2.9.1"
-      remoteURI="https://osate-build.sei.cmu.edu/download/osate/stable/2.9.1-vfinal/osate.repository-2.9.1.vfinal.zip">
+      version="2.9.2"
+      remoteURI="https://osate-build.sei.cmu.edu/download/osate/stable/2.9.2-vfinal/osate.repository-2.9.2.vfinal.zip">
     <description></description>
   </setupTask>
   <setupTask
