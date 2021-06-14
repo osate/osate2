@@ -21,11 +21,28 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.graphics.internal;
+package org.osate.ge.gef;
 
-public enum ConnectionTerminatorType {
-	OPEN_ARROW,
-	FILLED_ARROW,
-	LINE_ARROW,
-	ORTHOGONAL_LINE
+import javafx.geometry.Dimension2D;
+
+/**
+ * Extension of {@link PolylineNode} which is intended to be used as a connection end decoration.
+ * The does not apply the style's stroke dash array.
+ */
+public class PolylineConnectionDecoration extends PolylineNode {
+	/**
+	 * Create a new instance
+	 * @param fixedSize may be null. If non-null, then the minimum, preferred, and max size will match this value.
+	 * @param points the points for the polygon. Series of x, y coordinates.
+	 * Must contain an even number of values be within the range of [0.0, 1.0] Will be scaled based on the size of the node.
+	 */
+	public PolylineConnectionDecoration(final Dimension2D fixedSize, final double... points) {
+		super(fixedSize, points);
+	}
+
+	@Override
+	public final void apply(final FxStyle style) {
+		setOutlineColor(style.getOutlineColor());
+		setLineWidth(style.getLineWidth());
+	}
 }

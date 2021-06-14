@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -59,11 +59,10 @@ public class ArrowBuilder {
 	/**
 	 * Configures the arrow builder to create an unfilled polygon arrow.
 	 * @return the arrow builder on which the method was invoked to allow method chaining
-	 * @deprecated open arrows are no longer supported.
 	 */
-	@Deprecated
 	public ArrowBuilder open() {
-		return filled();
+		terminatorType = ConnectionTerminatorType.OPEN_ARROW;
+		return this;
 	}
 
 	/**

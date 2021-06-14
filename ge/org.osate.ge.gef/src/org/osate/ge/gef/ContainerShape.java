@@ -93,14 +93,14 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	* Chosen based on visual experiments. Typically, computed values will not be used. The graphical editor
 	* will set a preferred size based on an incremental layout ELK.
 	*/
-	private static final double MIN_COMPUTED_PREF_WIDTH = 140;
+	private static final double MIN_COMPUTED_PREF_WIDTH = 130;
 
 	/**
 	 * Minimum value returned by {@link #computePrefHeight(double)} unless graphic has a max height.
 	 * Chosen based on visual experiments. Typically, computed values will not be used. The graphical editor
 	 * will set a preferred size based on an incremental layout ELK.
 	 */
-	private static final double MIN_COMPUTED_PREF_HEIGHT = 80;
+	private static final double MIN_COMPUTED_PREF_HEIGHT = 36;
 
 	/**
 	 * {@link ListChangeListener} which sets the {@link DockedShape#sideProperty()} of the elements of a list to

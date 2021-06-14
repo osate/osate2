@@ -92,7 +92,7 @@ public class PolygonNode extends Region implements ChopBoxGeometryProvider, Styl
 	}
 
 	@Override
-	public final void apply(final FxStyle style) {
+	public void apply(final FxStyle style) {
 		setBackgroundColor(style.getBackgroundColor());
 		setOutlineColor(style.getOutlineColor());
 		setLineWidth(style.getLineWidth());

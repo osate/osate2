@@ -321,6 +321,12 @@ public abstract class BaseConnectionNode extends Group implements ChopBoxGeometr
 		setLineWidth(style.getLineWidth());
 		setPrimaryLabelsVisible(style.getPrimaryLabelsVisible());
 		setStrokeDashArray(style.getStrokeDashArray());
+		setLabelBackgroundColor(style.getBackgroundColor());
+	}
+
+	private void setLabelBackgroundColor(Color value) {
+		LabelBackgroundColorUtil.setLabelBackgroundColor(getPrimaryLabels(), value);
+		LabelBackgroundColorUtil.setLabelBackgroundColor(getSecondaryLabels(), value);
 	}
 
 	public final void setOutlineColor(final Color value) {

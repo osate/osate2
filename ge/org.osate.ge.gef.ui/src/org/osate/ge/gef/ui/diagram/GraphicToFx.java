@@ -46,7 +46,9 @@ import org.osate.ge.gef.MemoryNode;
 import org.osate.ge.gef.ModeNode;
 import org.osate.ge.gef.NoteNode;
 import org.osate.ge.gef.ParallelogramNode;
+import org.osate.ge.gef.PolygonConnectionDecoration;
 import org.osate.ge.gef.PolygonNode;
+import org.osate.ge.gef.PolylineConnectionDecoration;
 import org.osate.ge.gef.PolylineNode;
 import org.osate.ge.gef.PortNode;
 import org.osate.ge.gef.ProcessorNode;
@@ -190,8 +192,10 @@ public class GraphicToFx {
 
 	private static Node createNode(final AgeConnectionTerminator t) {
 		switch (t.type) {
+		case OPEN_ARROW:
+			return createPolygonArrow(t.size, t.reversed, false);
 		case FILLED_ARROW:
-			return createPolygonArrow(t.size, t.reversed);
+			return createPolygonArrow(t.size, t.reversed, true);
 		case LINE_ARROW:
 			return createLineArrow(t.size, t.reversed);
 		case ORTHOGONAL_LINE:
@@ -201,7 +205,8 @@ public class GraphicToFx {
 		}
 	}
 
-	private static Node createPolygonArrow(final ConnectionTerminatorSize size, final boolean reverse) {
+	private static PolygonConnectionDecoration createPolygonArrow(final ConnectionTerminatorSize size,
+			final boolean reverse, final boolean filled) {
 		final Dimension2D dim;
 		switch (size) {
 		case REGULAR:
@@ -214,10 +219,11 @@ public class GraphicToFx {
 			throw new AgeGefRuntimeException("Unsupported connection terminator size: " + size);
 		}
 
-		return new PolygonNode(dim, reverse ? mirroredArrowPoints : arrowPoints);
+		return new PolygonConnectionDecoration(filled, dim, reverse ? mirroredArrowPoints : arrowPoints);
 	}
 
-	private static Node createLineArrow(final ConnectionTerminatorSize size, final boolean reverse) {
+	private static PolylineConnectionDecoration createLineArrow(final ConnectionTerminatorSize size,
+			final boolean reverse) {
 		final Dimension2D dim;
 		switch (size) {
 		case REGULAR:
@@ -230,7 +236,7 @@ public class GraphicToFx {
 			throw new AgeGefRuntimeException("Unsupported connection terminator size: " + size);
 		}
 
-		return new PolylineNode(dim, reverse ? mirroredArrowPoints : arrowPoints);
+		return new PolylineConnectionDecoration(dim, reverse ? mirroredArrowPoints : arrowPoints);
 	}
 
 	private static FeatureDirection convert(final Direction value) {

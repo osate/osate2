@@ -43,7 +43,6 @@ import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
-import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
@@ -104,8 +103,7 @@ public class ConnectionHandler extends AadlBusinessObjectHandler {
 		final boolean partial = (src != null && src.isPartial()) || (dst != null && dst.isPartial());
 
 		final StyleBuilder sb = StyleBuilder
-				.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
-				.backgroundColor(Color.BLACK);
+				.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY);
 		if (partial) {
 			sb.dotted();
 		}

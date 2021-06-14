@@ -217,6 +217,7 @@ public class DiagramElementLayoutUtil {
 					LayoutDebugUtil.saveElkGraphToDebugProject(layoutGraph, "pass2");
 					layoutEngine.layout(layoutGraph, new BasicProgressMonitor());
 				}
+				LayoutDebugUtil.saveElkGraphToDebugProject(layoutGraph, "final");
 
 				applyShapeLayout(mapping, m);
 				applyConnectionLayout(mapping, m);

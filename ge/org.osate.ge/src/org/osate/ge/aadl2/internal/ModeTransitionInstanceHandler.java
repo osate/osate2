@@ -36,7 +36,6 @@ import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
-import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.StandaloneQuery;
@@ -86,7 +85,7 @@ public class ModeTransitionInstanceHandler extends AadlBusinessObjectHandler {
 				.destination(getDestination(boc, queryService))
 				.style(StyleBuilder
 						.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY)
-						.backgroundColor(Color.BLACK).build())
+						.build())
 				.build());
 	}
 

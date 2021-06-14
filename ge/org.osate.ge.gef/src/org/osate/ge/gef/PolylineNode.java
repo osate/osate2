@@ -90,7 +90,7 @@ public class PolylineNode extends Region implements ChopBoxGeometryProvider, Sty
 	}
 
 	@Override
-	public final void apply(final FxStyle style) {
+	public void apply(final FxStyle style) {
 		setOutlineColor(style.getOutlineColor());
 		setLineWidth(style.getLineWidth());
 		setStrokeDashArray(style.getStrokeDashArray());
