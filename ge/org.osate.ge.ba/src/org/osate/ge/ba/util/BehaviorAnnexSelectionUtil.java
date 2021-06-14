@@ -30,6 +30,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
@@ -85,5 +89,25 @@ public class BehaviorAnnexSelectionUtil {
 		}
 
 		return Optional.empty();
+	}
+
+	// Returns an optional of the active editor or empty if null
+	public static Optional<IEditorPart> getActiveEditor() {
+		final IWorkbench workbench = PlatformUI.getWorkbench();
+		if (workbench == null) {
+			return Optional.empty();
+		}
+
+		final IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
+		if (window == null) {
+			return Optional.empty();
+		}
+
+		final IWorkbenchPage page = window.getActivePage();
+		if (page == null) {
+			return Optional.empty();
+		}
+
+		return Optional.ofNullable(page.getActiveEditor());
 	}
 }

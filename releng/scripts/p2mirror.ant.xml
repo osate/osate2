@@ -24,7 +24,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 <!--
 Run with
 
-~/local/eclipse/osate2_2020-06-master/eclipse/eclipse \
+~/local/eclipse/osate2_2021-03-dev/eclipse/eclipse \
     -application org.eclipse.ant.core.antRunner \
     -buildfile p2mirror.ant.xml \
     -Dtarget.dir=$HOME/projects/osate/p2mirror
@@ -36,9 +36,9 @@ Run with
 
     	<p2.mirror>
             <source>
-                <repository location="http://download.eclipse.org/releases/2020-06"/>
+                <repository location="http://download.eclipse.org/releases/2021-03"/>
             </source>
-            <destination location="${target.dir}/releases/2020-06"/>
+            <destination location="${target.dir}/releases/2021-03"/>
             <iu id="org.eclipse.e4.rcp.feature.group"/>
             <iu id="org.eclipse.egit.feature.group"/>
             <iu id="org.eclipse.emf.sdk.feature.group"/>
@@ -69,15 +69,6 @@ Run with
             <iu id="org.eclipse.xpand"/>
             <iu id="org.eclipse.xtend"/>
             <iu id="org.eclipse.xtend.typesystem.emf"/>
-        </p2.mirror>
-        
-    	<p2.mirror>
-            <source>
-                <repository location="http://download.eclipse.org/releases/2019-12"/>
-            </source>
-            <destination location="${target.dir}/releases/2020-06"/>
-            <iu id="org.eclipse.xtext.xbase.junit"/>
-            <slicingoptions includeNonGreedy="false" includeOptional="false" latestVersionOnly="true"/>
         </p2.mirror>
         
         <p2.mirror source="http://download.eclipse.org/birt/update-site/2018-09-interim">
@@ -117,16 +108,17 @@ Run with
             <iu id="uk.co.spudsoft.birt.emitters.excel"/>
         </p2.mirror>
         
-        <p2.mirror source="http://download.eclipse.org/tools/orbit/downloads/drops/R20191126223242/repository">
-            <destination location="${target.dir}/tools/orbit/downloads/drops/R20191126223242/repository"/>
-            <iu id="org.apache.commons.io" version="2.2.0.v201405211200"/>
+        <p2.mirror source="http://download.eclipse.org/tools/orbit/downloads/2021-03">
+            <destination location="${target.dir}/tools/orbit/downloads/2021-03"/>
+	    <iu id="org.apache.commons.io" version="2.2.0.v201405211200"/>
+	    <iu id="org.objectweb.asm" version="5.0.1.v201404251740"/>
         </p2.mirror>
         
         <p2.mirror>
             <source>
-                <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.20.0"/>
+                <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.25.0"/>
             </source>
-            <destination location="${target.dir}/modeling/tmf/xtext/updates/releases/2.20.0"/>
+            <destination location="${target.dir}/modeling/tmf/xtext/updates/releases/2.25.0"/>
             <iu id="org.eclipse.xtext.generator"/>
             <iu id="org.eclipse.xtext.redist.feature.group"/>
             <iu id="org.eclipse.xtext.junit4"/>
@@ -134,18 +126,18 @@ Run with
             <iu id="org.eclipse.xtext.xbase.junit"/>
         </p2.mirror>
         
-        <p2.mirror source="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.11.1">
-            <destination location="${target.dir}/modeling/emft/mwe/updates/releases/2.11.1"/>
+        <p2.mirror source="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.12.1">
+            <destination location="${target.dir}/modeling/emft/mwe/updates/releases/2.12.1"/>
             <iu id="org.eclipse.emf.mwe2.launcher.feature.group"/>
         </p2.mirror>
         
-        <p2.mirror source="http://download.eclipse.org/xsemantics/milestones/1.19">
-            <destination location="${target.dir}/xsemantics/milestones/1.19"/>
+        <p2.mirror source="http://download.eclipse.org/xsemantics/milestones/1.20">
+            <destination location="${target.dir}/xsemantics/milestones/1.20"/>
             <iu id="org.eclipse.xsemantics.runtime.feature.feature.group"/>
         </p2.mirror>
         
-        <p2.mirror source="http://download.eclipse.org/elk/updates/releases/0.7.0">
-            <destination location="${target.dir}/elk/updates/releases/0.7.0"/>
+        <p2.mirror source="http://download.eclipse.org/elk/updates/releases/0.7.1">
+            <destination location="${target.dir}/elk/updates/releases/0.7.1"/>
             <iu id="org.eclipse.elk.feature.feature.group"/>
             <iu id="org.eclipse.elk.algorithms.feature.feature.group"/>
         </p2.mirror>
@@ -163,10 +155,6 @@ Run with
         <p2.mirror source="https://eclipse.py4j.org">
             <destination location="${target.dir}/py4j"/>
             <iu id="org.py4j.feature.feature.group"/>
-        </p2.mirror>
-        
-        <p2.mirror source="https://dl.bintray.com/itemis/generic/xtext-testing/updates/0.2">
-            <destination location="${target.dir}/itemis/generic/xtext-testing/updates/0.2"/>
         </p2.mirror>
         
         <p2.mirror source="http://osate-build.sei.cmu.edu/p2/ocarina">

@@ -109,14 +109,6 @@ censes only apply to the Third Party Software and not any other portion of this 
     </mirror>
 
     <mirror>
-      <id>itemis-mirror</id>
-      <mirrorOf>https://dl.bintray.com/itemis</mirrorOf>
-      <url>file:/var/cache/p2mirror/itemis</url>
-      <layout>p2</layout>
-      <mirrorOfLayouts>p2</mirrorOfLayouts>
-    </mirror>
-
-    <mirror>
       <id>ocarina-mirror</id>
       <mirrorOf>http://osate-build.sei.cmu.edu/p2/ocarina</mirrorOf>
       <url>file:/var/cache/p2mirror/ocarina</url>
@@ -149,93 +141,5 @@ censes only apply to the Third Party Software and not any other portion of this 
     </mirror>
 
   </mirrors>
-  <!--mirrors>
-    <mirror>
-      <id>eclipse-2019-12</id>
-      <mirrorOf>http://download.eclipse.org/releases/2019-12</mirrorOf>
-      <url>http://ftp.osuosl.org/pub/eclipse/releases/2019-12/201912181000</url>
-      <layout>p2</layout>
-      <mirrorOfLayouts>p2</mirrorOfLayouts>
-    </mirror>
 
-    <mirror>
-      <id>eclipse-2019-09</id>
-      <mirrorOf>http://download.eclipse.org/releases/2019-09</mirrorOf>
-      <url>http://ftp.osuosl.org/pub/eclipse/releases/2019-09/201909181001</url>
-      <layout>p2</layout>
-      <mirrorOfLayouts>p2</mirrorOfLayouts>
-    </mirror>
-
-    <mirror>
-      <id>eclipse-2019-03</id>
-      <mirrorOf>http://download.eclipse.org/releases/2019-03</mirrorOf>
-      <url>http://ftp.osuosl.org/pub/eclipse/releases/2019-03/201903201000</url>
-      <layout>p2</layout>
-      <mirrorOfLayouts>p2</mirrorOfLayouts>
-    </mirror>
-
-    <mirror>
-      <id>eclipse-2018-12</id>
-      <mirrorOf>http://download.eclipse.org/releases/2018-12</mirrorOf>
-      <url>http://ftp.osuosl.org/pub/eclipse/releases/2018-12/201812191000</url>
-      <layout>p2</layout>
-      <mirrorOfLayouts>p2</mirrorOfLayouts>
-    </mirror>
-
-    <mirror>
-      <id>eclipse-mirror</id>
-      <mirrorOf>http://download.eclipse.org</mirrorOf>
-      <url>http://ftp.osuosl.org/pub/eclipse</url>
-      <layout>p2</layout>
-      <mirrorOfLayouts>p2</mirrorOfLayouts>
-    </mirror>
-
-    <mirror>
-      <id>py4j-mirror</id>
-      <mirrorOf>http://eclipse.py4j.org</mirrorOf>
-      <url>https://dl.bintray.com/py4j/py4j-eclipse/0.10.8.1</url>
-      <layout>p2</layout>
-      <mirrorOfLayouts>p2</mirrorOfLayouts>
-    </mirror>
-
-    <mirror>
-      <id>py4j-mirror-https</id>
-      <mirrorOf>https://eclipse.py4j.org</mirrorOf>
-      <url>https://dl.bintray.com/py4j/py4j-eclipse/0.10.8.1</url>
-      <layout>p2</layout>
-      <mirrorOfLayouts>p2</mirrorOfLayouts>
-    </mirror>
-
-    <mirror>
-      <id>aadl-info-mirror-http</id>
-      <mirrorOf>http://www.aadl.info/aadl/osate/</mirrorOf>
-      <url>http://jericho.sei.cmu.edu/download/osate/</url>
-      <layout>p2</layout>
-      <mirrorOfLayouts>p2</mirrorOfLayouts>
-    </mirror>
-
-    <mirror>
-      <id>aadl-info-mirror-https</id>
-      <mirrorOf>https://www.aadl.info/aadl/osate/</mirrorOf>
-      <url>http://jericho.sei.cmu.edu/download/osate/</url>
-      <layout>p2</layout>
-      <mirrorOfLayouts>p2</mirrorOfLayouts>
-    </mirror>
-
-    <mirror>
-      <id>osate-build-jericho-http</id>
-      <mirrorOf>http://osate-build.sei.cmu.edu/</mirrorOf>
-      <url>http://jericho.sei.cmu.edu/</url>
-      <layout>p2</layout>
-      <mirrorOfLayouts>p2</mirrorOfLayouts>
-    </mirror>
-
-    <mirror>
-      <id>osate-build-jericho-https</id>
-      <mirrorOf>https://osate-build.sei.cmu.edu/</mirrorOf>
-      <url>http://jericho.sei.cmu.edu/</url>
-      <layout>p2</layout>
-      <mirrorOfLayouts>p2</mirrorOfLayouts>
-    </mirror>
-  </mirrors-->
 </settings>

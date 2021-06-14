@@ -468,18 +468,32 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		if (es == null) {
 			return;
 		}
-		CompositeState compState = (CompositeState) conditionElement.eContainer();
+
+		CompositeState compState;
+		EObject eo = conditionElement;
+		while (eo.eContainer() != null) {
+			eo = eo.eContainer();
+			if (eo instanceof CompositeState) {
+				break;
+			}
+		}
+		if (eo instanceof CompositeState) {
+			compState = (CompositeState) eo;
+			EList<TypeToken> targetTKs = compState.getTypedToken().getTypeTokens();
+			// marks error if target state has a typeset or multiple errors associated with it
+			if ((targetTKs != null && targetTKs.size() > 1) || (targetTKs.get(0).getType() != null
+					&& !(targetTKs.get(0).getType().get(0) instanceof ErrorType))) {
+				error(compState, "Target error type may only have a single error type");
+			}
+		}
+
+
 		TypeSet triggerTS = null;
 		String triggerName = "";
 		triggerTS = es.getTypeSet();
 		triggerName = "state " + es.getName();
 		TypeSet condTS = conditionElement.getConstraint();
-		EList<TypeToken> targetTKs = compState.getTypedToken().getTypeTokens();
-		// marks error if target state has a typeset or multiple errors associated with it
-		if ((targetTKs != null && targetTKs.size() > 1)
-				|| (targetTKs.get(0).getType() != null && !(targetTKs.get(0).getType().get(0) instanceof ErrorType))) {
-			error(compState, "Target error type may only have a single error type");
-		}
+
 		if (condTS == null) {
 			return;
 		}
@@ -947,7 +961,8 @@ public class ErrorModelValidator extends AbstractErrorModelValidator {
 		ErrorPropagation ep = opc.getOutgoing();
 		if (opc.getTypeToken() != null
 				&& (opc.getTypeToken().getTypeTokens().size() > 1
-						|| !(opc.getTypeToken().getTypeTokens().get(0).getType().get(0) instanceof ErrorType))) {
+						|| opc.getTypeToken().getTypeTokens().get(0).getType().size() > 0 && !(opc.getTypeToken()
+								.getTypeTokens().get(0).getType().get(0) instanceof ErrorType))) {
 			error(opc, "Outgoing error propagation may only have a single error type");
 		}
 		if (ep != null) {

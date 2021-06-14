@@ -52,6 +52,9 @@ import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
+/**
+ * Property section for {@link BehaviorState}
+ */
 public class BehaviorStatePropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
 		@Override

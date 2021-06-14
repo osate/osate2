@@ -152,11 +152,13 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				final AadlModificationService aadlModService = ctx.getAadlModificatonService();
 				final ColoringService coloringService = ctx.getColoringService();
 
-				// Check for existing errors or warnings
+				// Check for existing errors and warnings
 				final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
-				if (!diagnostics.isEmpty()) {
+				// Do not allow tool activation if there are errors in the models
+				final Set<Diagnostic> errors = FlowDialogUtil.getErrors(diagnostics);
+				if (!errors.isEmpty()) {
 					Display.getDefault().asyncExec(
-							() -> new FlowDialogUtil.ErrorDialog("The Create End-To-End", diagnostics).open());
+							() -> new FlowDialogUtil.ErrorDialog("The Create End-To-End", errors).open());
 				} else {
 					coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
 					// Create and update based on current selection
@@ -961,11 +963,11 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 					final Color newSegmentColor = segmentSelections.indexOf(segmentDataToAdd) == 0
 							? Color.ORANGE.darker()
 									: Color.MAGENTA.darker();
-							setColor(segmentDataToAdd, newSegmentColor);
+					setColor(segmentDataToAdd, newSegmentColor);
 
-							final Color updateSegmentColor = segmentSelections.indexOf(segmentData) == 0 ? Color.ORANGE.darker()
-									: Color.MAGENTA.darker();
-							setColor(segmentDataToAdd, updateSegmentColor);
+					final Color updateSegmentColor = segmentSelections.indexOf(segmentData) == 0 ? Color.ORANGE.darker()
+							: Color.MAGENTA.darker();
+					setColor(segmentDataToAdd, updateSegmentColor);
 				}
 
 				updateSegments();
