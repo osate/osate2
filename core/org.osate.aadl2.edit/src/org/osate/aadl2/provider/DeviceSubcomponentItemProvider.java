@@ -85,7 +85,7 @@ public class DeviceSubcomponentItemProvider extends SubcomponentItemProvider {
 	 * This returns DeviceSubcomponent.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/DeviceSubcomponent.png"));

@@ -103,7 +103,7 @@ public class DeviceTypeItemProvider extends ComponentTypeItemProvider {
 	 * This returns DeviceType.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public Object getImage(Object object) {
 		return overlayImage(object, getResourceLocator().getImage("full/obj16/DeviceType.png"));
