@@ -259,6 +259,12 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		return ok;
 	}
 
+	@Override
+	public void performHelp() {
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(getShell(), "org.osate.ui.help_dialog_contribRes");
+		PlatformUI.getWorkbench().getHelpSystem().displayHelp("org.osate.ui.help_dialog_contribRes");
+	}
+
 	private static boolean filterContainer(final Map<Object, Boolean> visible, final IResource irsrc,
 			final String fileName) throws CoreException {
 		boolean isViz = false;

@@ -1028,8 +1028,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			if (root.getSystemOperationModes().isEmpty()
 					|| root.getSystemOperationModes().get(0).getCurrentModes().isEmpty()) {
 				// no SOM
-				invokeOnSOM(ci, som, asynchronousSystem, majorFrameDelay, worstCaseDeadline, bestCaseEmptyQueue,
-						disableQueuingLatency);
+				invokeOnSOM(ci, root.getSystemOperationModes().get(0), asynchronousSystem, majorFrameDelay,
+						worstCaseDeadline, bestCaseEmptyQueue, disableQueuingLatency);
 			} else {
 				// we need to run it for every SOM
 				for (SystemOperationMode eachsom : root.getSystemOperationModes()) {
