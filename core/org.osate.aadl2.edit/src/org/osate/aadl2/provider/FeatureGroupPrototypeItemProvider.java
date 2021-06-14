@@ -89,7 +89,7 @@ public class FeatureGroupPrototypeItemProvider extends PrototypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroupPrototype"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureGroupPrototype.png"));
 	}
 
 	/**

@@ -141,7 +141,7 @@ public class FeaturePrototypeItemProvider extends PrototypeItemProvider {
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeaturePrototype"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeaturePrototype.png"));
 	}
 
 	/**
