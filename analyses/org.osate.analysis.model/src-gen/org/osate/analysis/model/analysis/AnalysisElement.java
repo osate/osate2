@@ -3,7 +3,6 @@
 package org.osate.analysis.model.analysis;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -13,13 +12,14 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <!-- begin-model-doc -->
  * Root model class for analysis-specific model classes.  Contains methods related to traversing/visiting the model.
- * 
+ *
  * <!-- end-model-doc -->
  *
  *
  * @see org.osate.analysis.model.analysis.AnalysisPackage#getAnalysisElement()
  * @model abstract="true"
  * @generated
+ * @since 2.0
  */
 public interface AnalysisElement extends EObject {
 	/**
@@ -27,7 +27,7 @@ public interface AnalysisElement extends EObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Does the model element have children?  This is the same as testing whether the list of children returned by getOrderedChildren is empty.
-	 * 
+	 *
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
 	 * @generated

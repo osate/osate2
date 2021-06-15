@@ -2,7 +2,7 @@
 <feature
       id="org.osate.utils.feature"
       label="AADL-Utils"
-      version="2.0.0.qualifier"
+      version="2.0.1.qualifier"
       provider-name="TELECOM ParisTech"
       plugin="org.osate.utils">
 

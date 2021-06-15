@@ -1,13 +1,13 @@
 /**
  * AADL-BA-FrontEnd
- * 
+ *
  * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
- * 
+ *
  * TELECOM ParisTech/LTCI
- * 
+ *
  * Authors: see AUTHORS
- * 
- * This program is free software: you can redistribute it and/or modify 
+ *
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the Eclipse Public License as published by Eclipse,
  * either version 2.0 of the License, or (at your option) any later version.
  * This program is distributed in the hope that it will be useful,
@@ -15,7 +15,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * Eclipse Public License for more details.
  * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * along with this program.  If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
@@ -141,7 +141,7 @@ import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 /**
  * A AADL behavior annex name resolver.
- * 
+ *
  */
 public class AadlBaNameResolver {
 	private BehaviorAnnex _ba;
@@ -159,7 +159,7 @@ public class AadlBaNameResolver {
 	/**
 	* Constructs an AADL behavior annex name resolver for a given behavior annex
 	*  and reports any errors in a given error reporter manager.
-	* 
+	*
 	* @param ba the given behavior annex
 	* @param errManager the given error reporter manager
 	*/
@@ -184,18 +184,18 @@ public class AadlBaNameResolver {
 	}
 
 	/**
-	* Document: AADL Behavior Annex draft 
-	* Version : 0.94 
+	* Document: AADL Behavior Annex draft
+	* Version : 0.94
 	* Type : Naming rule
 	* Section : D.3 Behavior Specification
-	* Object : Check naming rule D.3.(N1) 
+	* Object : Check naming rule D.3.(N1)
 	* Keys : name uniqueness
 	*
 	* Conflicts and duplicate names are reported in the given error report
 	* manager. Link the complete states that represent a mode.
-	* 
+	*
 	* @return {@code true} if behavior annex's rule is satisfied. {@code false}
-	* otherwise. 
+	* otherwise.
 	*/
 	private boolean behaviorComponentsUniquenessCheck() {
 		boolean result = true;
@@ -323,16 +323,16 @@ public class AadlBaNameResolver {
 	}
 
 	/**
-	* Document: AADL Behavior Annex draft 
-	* Version : 0.94 
+	* Document: AADL Behavior Annex draft
+	* Version : 0.94
 	* Type : Naming rule
 	* Section : D.3 Behavior Specification
-	* Object : Check naming rule D.3.(N2) 
+	* Object : Check naming rule D.3.(N2)
 	* Keys : empty execution condition
-	* 
-	* Resolves the names in behavior annex's transitions. 
-	* 
-	* @return {@code true} if all names are resolved. {@code false} otherwise. 
+	*
+	* Resolves the names in behavior annex's transitions.
+	*
+	* @return {@code true} if all names are resolved. {@code false} otherwise.
 	*/
 	private boolean behaviorTransitionResolver() {
 		boolean result = true;
@@ -491,12 +491,12 @@ public class AadlBaNameResolver {
 		return result;
 	}
 
-	/** 
+	/**
 	* Document: AADL Behavior Annex draft
-	* Version : 0.94 
+	* Version : 0.94
 	* Type : Naming rule
 	* Section : D.6 Behavior Action Language
-	* Object : Check naming rule D.6.(N1) 
+	* Object : Check naming rule D.6.(N1)
 	* Keys : element variable identifier for control construct iterative variable
 	*/
 	private boolean iterativeVariableUniquenessCheck(IterativeVariable itv) {
@@ -943,7 +943,7 @@ public class AadlBaNameResolver {
 
 	/**
 	* Resolves the names in behavior annex.
-	* 
+	*
 	* @return {@code true} if all names are resolved. {@code false} otherwise.
 	*/
 	public boolean resolveNames() {
@@ -1389,7 +1389,7 @@ public class AadlBaNameResolver {
 	// 2 : classifier has been found but one or more property names are not found.
 	private short classifierPropertyReferenceResolver(DeclarativePropertyReference ref, boolean hasToReport) {
 		if (qualifiedNamedElementResolver(ref.getQualifiedName(), hasToReport)) {
-			Classifier klass = (Classifier) ref.getQualifiedName().getOsateRef();
+			NamedElement klass = (NamedElement) ref.getQualifiedName().getOsateRef();
 			Identifier propertyNameId = ref.getPropertyNames().get(0).getPropertyName();
 
 			PropertyAssociation pa = PropertyUtils.findPropertyAssociation(propertyNameId.getId(), klass);
@@ -1920,8 +1920,8 @@ public class AadlBaNameResolver {
 
 	/**
 	* Resolves the property expressions used in behavior annex.
-	* @param p 
-	* 
+	* @param p
+	*
 	* @return {@code true} if all names are resolved. {@code false} otherwise.
 	*/
 	private boolean propertyExpressionResolver(BehaviorVariable bv, Property p, PropertyExpression pe) {
@@ -2073,8 +2073,8 @@ public class AadlBaNameResolver {
 
 	/**
 	* Resolves units used in behavior annex.
-	 * @param p 
-	* 
+	 * @param p
+	*
 	* @return {@code true} if all names are resolved. {@code false} otherwise.
 	*/
 	private boolean unitResolver(NumberValue nv, BehaviorVariable bv, Property p) {
@@ -2101,7 +2101,7 @@ public class AadlBaNameResolver {
 
 	/**
 	* Resolves the behavior annex's variables.
-	* 
+	*
 	* @return {@code true} if all names are resolved. {@code false} otherwise.
 	*/
 	private boolean behaviorVariableResolver() {

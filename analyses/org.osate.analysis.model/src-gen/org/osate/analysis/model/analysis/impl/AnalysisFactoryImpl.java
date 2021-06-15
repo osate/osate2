@@ -5,18 +5,17 @@ package org.osate.analysis.model.analysis.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.osate.analysis.model.analysis.*;
+import org.osate.analysis.model.analysis.AnalysisFactory;
+import org.osate.analysis.model.analysis.AnalysisPackage;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model <b>Factory</b>.
  * <!-- end-user-doc -->
  * @generated
+ * @since 2.0
  */
 public class AnalysisFactoryImpl extends EFactoryImpl implements AnalysisFactory {
 	/**

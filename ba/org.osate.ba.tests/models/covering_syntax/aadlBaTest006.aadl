@@ -1,0 +1,146 @@
+-- AADL-BA-FrontEnd
+ 
+-- Copyright © 2013 TELECOM ParisTech and CNRS
+ 
+-- TELECOM ParisTech/LTCI
+
+-- Authors: see AUTHORS
+ 
+-- This program is free software: you can redistribute it and/or modify 
+-- it under the terms of the Eclipse Public License as published by Eclipse,
+-- either version 2.0 of the License, or (at your option) any later version.
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- Eclipse Public License for more details.
+-- You should have received a copy of the Eclipse Public License
+-- along with this program.  If not, see 
+-- https://www.eclipse.org/legal/epl-2.0/
+
+-- Use only to test AADLBA FrontEnd parser and its alternative error rules.
+-- This test hasn't any semantic meaning.
+
+package ParseTest
+public
+   with Base_Types ;
+
+thread t
+
+annex behavior_specification {**
+
+    variables
+      
+      bool1, bool1b 
+        bool1t, 
+          bool1q bool1s : Base_Types::Boolean ;
+      bool2 : Base_Types::Boolean ; 
+      bool3 : 
+        Base_Types::Boolean 
+      bool4 : Base_Types::Boolean ;
+      bool5 : Base_Types::Boolean 
+      
+    states
+    
+      a, b 
+        c, 
+          d e : state ;
+      f : state ; 
+      g : 
+        state 
+      h : state ;
+      i : state
+    
+      all : initial complete final state ;
+      
+    transitions
+    
+      all -[on dispatch p1 frozen p2, p3
+                                  p4,
+                                  p5 p6]-> all ;
+      
+      all -[]-> all ;
+      all -[]-> 
+                     all 
+      all -[]-> all ;
+      t: a,
+           b
+             c,
+               d
+                 e, f -[]-> all ;
+      
+      all -[]-> all { bool1 := true ; } ;
+      all -[]-> all
+      {
+        bool1 := true
+        
+        for(i : Base_Types::Integer in 0 .. 9))
+        {
+          {
+            {
+              bool1 := false 
+              bool2 := true ;
+            }
+          }
+        }
+        
+        if((bool1)
+        {
+          bool1 := true
+        }
+        elif(bool2)
+        {
+          bool2 := true
+        }
+        elsif((bool3)
+        {
+          bool3 := true
+        }}
+        else
+        {
+          bool4 := true
+        }
+        endif ;
+        
+        while ((bool1)
+        {
+          forall(i : Base_Types::Integer in 0 .. 9))
+          {
+            bool1 := false 
+          } ;
+          
+          do
+          {
+            bool1 := false
+          }
+          until ((bool2)
+        }
+        
+        subprog ! ((
+                    bool1) ;
+        subprog ! (bool1
+                     bool2, bool3) ;
+                     
+        port ? (bool1)) ;
+        
+        pack::subprog ! (
+                          bool1)) ;
+        pack::subprog ! (bool1
+                     bool2, bool3) ;
+        
+        computation (
+                     (
+                       0s .. 9s) ;
+                       
+        computation (100 ms) in binding ((p p, p) ;
+        
+        bool := 1 == 0 ;
+        
+        bool2 := (true)) ;
+        
+        bool3 = false ; 
+      } ;
+**};
+
+end t ;
+   
+end ParseTest ;

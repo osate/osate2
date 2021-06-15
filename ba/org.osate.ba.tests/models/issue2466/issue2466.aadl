@@ -1,0 +1,64 @@
+package issue2466
+public
+	
+	with data_model;
+	
+	data field_type
+	end field_type;
+	
+	data my_data
+	properties
+		Data_Model::Data_Representation => Struct;
+			Data_Model::Element_Names => ("f");
+			Data_Model::Base_Type => (classifier (field_type));
+	end my_data;
+	
+	subprogram s1
+		features
+			f1: requires data access field_type;
+			f2: in parameter field_type;
+			f3: out parameter field_type;
+			f4: in out parameter field_type;
+	end s1;
+	
+	subprogram s11
+		features
+			f1: requires data access field_type;
+	end s11;
+	
+	subprogram s12
+		features
+			f2: in out parameter field_type;
+	end s12;
+	
+	subprogram s2 
+		features
+			d: requires data access my_data;
+		annex behavior_specification {**
+states
+  s : initial final state;
+transitions
+  t : s -[]-> s {
+    s1 ! (d.f, d.f, d.f, d.f);
+    s11 ! (d.f);
+    s12 ! (d.f)
+  };
+        **};
+	end s2;
+
+    subprogram s3
+		features
+		d: in parameter my_data;
+		annex behavior_specification {**
+			states
+				s: initial final state;
+			transitions
+				t: s-[]-> s {
+					s1!(d.f, d.f, d.f, d.f); 
+					s11!(d.f);
+					s12!(d.f)
+				};
+		**};
+	end s3;
+	
+end issue2466;

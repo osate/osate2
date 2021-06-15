@@ -3,6 +3,7 @@
 package org.osate.analysis.model.analysis.impl;
 
 import java.lang.reflect.InvocationTargetException;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -16,6 +17,7 @@ import org.osate.analysis.model.analysis.AnalysisPackage;
  * <!-- end-user-doc -->
  *
  * @generated
+ * @since 2.0
  */
 public abstract class AnalysisElementImpl extends MinimalEObjectImpl.Container implements AnalysisElement {
 	/**

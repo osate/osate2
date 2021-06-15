@@ -33,6 +33,7 @@ import org.osate.analysis.model.analysis.AnalysisElement;
  * @author aarong
  *
  * @param <S> The class of the {@code Switch} object.
+ * @since 2.0
  */
 public abstract class AnalysisModelTraversal<S extends Switch<?>> {
 	/**

@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EFactory;
  * <!-- end-user-doc -->
  * @see org.osate.analysis.model.analysis.AnalysisPackage
  * @generated
+ * @since 2.0
  */
 public interface AnalysisFactory extends EFactory {
 	/**

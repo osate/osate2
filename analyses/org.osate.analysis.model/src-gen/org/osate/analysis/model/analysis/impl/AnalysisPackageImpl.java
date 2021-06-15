@@ -6,9 +6,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EGenericType;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.osate.analysis.model.analysis.AnalysisElement;
 import org.osate.analysis.model.analysis.AnalysisFactory;
 import org.osate.analysis.model.analysis.AnalysisPackage;
@@ -18,6 +16,7 @@ import org.osate.analysis.model.analysis.AnalysisPackage;
  * An implementation of the model <b>Package</b>.
  * <!-- end-user-doc -->
  * @generated
+ * @since 2.0
  */
 public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage {
 	/**
@@ -66,7 +65,9 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 	 * @generated
 	 */
 	public static AnalysisPackage init() {
-		if (isInited) return (AnalysisPackage)EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
+		if (isInited) {
+			return (AnalysisPackage)EPackage.Registry.INSTANCE.getEPackage(AnalysisPackage.eNS_URI);
+		}
 
 		// Obtain or create and register package
 		Object registeredAnalysisPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
@@ -143,7 +144,9 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 	 * @generated
 	 */
 	public void createPackageContents() {
-		if (isCreated) return;
+		if (isCreated) {
+			return;
+		}
 		isCreated = true;
 
 		// Create classes and their features
@@ -167,7 +170,9 @@ public class AnalysisPackageImpl extends EPackageImpl implements AnalysisPackage
 	 * @generated
 	 */
 	public void initializePackageContents() {
-		if (isInitialized) return;
+		if (isInitialized) {
+			return;
+		}
 		isInitialized = true;
 
 		// Initialize package

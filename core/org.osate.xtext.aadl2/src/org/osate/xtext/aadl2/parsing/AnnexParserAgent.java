@@ -320,6 +320,18 @@ public class AnnexParserAgent extends LazyLinker {
 					return diagnosticLength;
 				}
 
+				@Override
+				public int getLineEnd() {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				@Override
+				public int getColumnEnd() {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
 			};
 
 			Severity severity;

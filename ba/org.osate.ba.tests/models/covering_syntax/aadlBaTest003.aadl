@@ -1,0 +1,588 @@
+-- AADL-BA-FrontEnd
+ 
+-- Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
+ 
+-- TELECOM ParisTech/LTCI
+
+-- Authors: see AUTHORS
+ 
+-- This program is free software: you can redistribute it and/or modify 
+-- it under the terms of the Eclipse Public License as published by Eclipse,
+-- either version 2.0 of the License, or (at your option) any later version.
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- Eclipse Public License for more details.
+-- You should have received a copy of the Eclipse Public License
+-- along with this program.  If not, see 
+-- https://www.eclipse.org/legal/epl-2.0/
+
+-- Behavior Annex data structures and prototypes checker.
+-- Use to test data structures and prototypes (data and feature) checking.
+
+package DataStructPrototypeTest
+public
+   with Data_Model, Base_Types, AadlBaTestPropertySet, AadlBaTest::Types, AadlBaTestSubprogram ;
+
+data MyInteger
+
+ properties
+   Data_Model::Data_Representation => Integer;
+ 
+end MyInteger;
+
+data MyFloat
+
+ properties
+   Data_Model::Data_Representation => Float;
+ 
+end MyFloat;
+
+data MyFixed
+
+ properties
+   Data_Model::Data_Representation => Fixed;
+   Data_Model::Data_Digits => 10 ;
+   Data_Model::Data_Scale => 5 ;
+ 
+end MyFixed;
+
+
+data MyEnum
+
+ properties
+   Data_Model::Data_Representation => Enum;
+   Data_Model::Enumerators => ("unknown", "monday", "thuesday", "wednesday", "thrusday",
+                              "friday", "saturday", "sunday");
+   Data_Model::Representation => ("0","1","2","3","4","5","6","7");
+
+end MyEnum ;
+
+data MyStruct_A
+
+ properties
+   Data_Model::Data_Representation => Struct ;
+   Data_Model::Base_Type => (classifier (Base_Types::Integer),
+                          classifier (Base_Types::Float));
+                          
+   Data_Model::Element_Names => ("int", "float");
+
+end MyStruct_A ;
+
+data MyStruct_B
+
+ properties
+   Data_Model::Data_Representation => Struct ;
+   Data_Model::Base_Type => (classifier (MyInteger),
+                          classifier (MyStruct_A));
+   Data_Model::Element_Names => ("myInt", "myStruct_A");
+ 
+end MyStruct_B ;
+
+data MyStruct_C
+
+ properties
+   Data_Model::Data_Representation => Struct ;
+   Data_Model::Base_Type => (classifier (Base_Types::Integer),
+                          classifier (MyArray_Integer));
+   Data_Model::Element_Names => ("int", "myArrayInteger");
+ 
+end MyStruct_C ;
+
+data MyUnion
+
+ properties
+   Data_Model::Data_Representation => Union ;
+   Data_Model::Base_Type => (classifier (Base_Types::Integer),
+                          classifier (Base_Types::Float));
+                          
+   Data_Model::Element_Names => ("int", "float");
+
+end MyUnion ;
+
+data MyIntegerArray_A
+
+ properties
+   Data_Model::Data_Representation => Array ;
+   Data_Model::Base_Type => (classifier (MyInteger)) ;
+   Data_Model::Dimension => (5,10,15) ;
+   
+end MyIntegerArray_A ;
+
+data MyIntegerArray_B
+
+ properties
+   Data_Model::Data_Representation => Array ;
+   Data_Model::Base_Type => (classifier (MyIntegerArray_A)) ;
+   Data_Model::Dimension => (5,10,15) ;
+   
+end MyIntegerArray_B ;
+
+data MyArray
+
+ properties
+   Data_Model::Data_Representation => Array ;
+   Data_Model::Dimension => (5) ;
+
+end MyArray ;
+
+data MyArray_Float extends MyArray
+
+ properties
+   Data_Model::Base_Type => (classifier (Base_Types::Float));
+
+end MyArray_Float ;
+
+data MyArray_Integer extends MyArray
+
+ properties
+   Data_Model::Base_Type => (classifier (Base_Types::Integer));
+
+end MyArray_Integer ;
+
+data implementation MyArray.impl
+
+ subcomponents
+   length : data Base_Types::Integer ; 
+
+end MyArray.impl ;
+
+data implementation MyArray_Integer.impl extends MyArray.impl
+ 
+ properties
+   Data_Model::Base_Type => (classifier (Base_Types::Integer_8));
+
+end MyArray_Integer.impl ;
+
+data implementation MyArray_Float.impl extends MyArray.impl
+ 
+  properties
+   Data_Model::Base_Type => (classifier (Base_Types::Float_32));
+
+end MyArray_Float.impl ;
+
+thread abstractThread
+
+ prototypes
+ 
+   definedDataProto : data MyStruct_B ;
+   dataProto : data ;
+   undefinedDataProto : data ;
+   definedInFeatProto : in feature MyStruct_B ;
+   definedOutFeatProto : out feature MyStruct_B ; 
+   inPortFeatProto : in feature ;
+   outPortFeatProto : out feature ;
+   requiresAccessProto : feature ;
+   providesAccessProto : feature ;
+   undefinedFeatProto : feature ;
+   
+ features
+   
+   dataAccessProtoA : requires data access dataProto ;
+   dataAccessProtoB : requires data access definedDataProto ;
+   dataAccess : requires data access MyStruct_B ;
+   undefinedDataAccess : requires data access undefinedDataProto ;
+   inPortInteger : in event data port Base_Types::Integer ;
+   inPortMyIntegerArray_A : in event data port MyIntegerArray_A ;
+   outPortInteger : out event data port Base_Types::Integer ;
+   outPortMyIntegerArray_A : out event data port MyIntegerArray_A ;
+   
+end abstractThread ;
+
+thread implementation abstractThread.impl
+
+ subcomponents
+   subMyStruct_B : data MyStruct_B ;
+   subDataProtoA : data dataProto ;
+   subDataProtoB : data definedDataProto ;
+   undefinedSubData : data undefinedDataProto ;
+   subArrayMyArray_Integer : data MyArray_Integer[10] ;
+   subMyEnum_A : data MyEnum ;
+   subMyEnum_B : data MyEnum { Data_Model::Initial_Value => ("monday"); }; 
+
+end abstractThread.impl ;
+
+thread concreteThread extends abstractThread
+
+end concreteThread ;
+
+thread implementation concreteThread.impl extends abstractThread.impl
+ (dataProto => data MyStruct_B ,
+  inPortFeatProto => in event data port MyStruct_B ,
+  outPortFeatProto => out event data port MyStruct_B ,
+  requiresAccessProto => requires data access MyStruct_B ,
+  providesAccessProto => provides data access MyStruct_B)
+  
+ properties
+  Dispatch_Protocol => Periodic;
+  Period => 1 sec;
+  
+ annex behavior_specification {**
+
+--  *** STATES ***
+
+variables
+
+ int : Base_types::Integer ; 
+ localMyInteger : MyInteger ;
+ localMyStruct_A : MyStruct_A ;
+ localArrayMyStruct_A [10] : MyStruct_A;
+ localMyStruct_B : MyStruct_B ;
+ localMyArray_Integer_A, localMyArray_Integer_B : MyArray_Integer ;
+ localMyArray_IntegerImpl : MyArray_Integer.impl ;
+ localMyStruct_C : MyStruct_C ;
+ localMyIntegerArray_A : MyIntegerArray_A ;
+ localMyIntegerArray_B : MyIntegerArray_B ;
+ localMyIntegerArray_C[10][10] : MyIntegerArray_B ;
+ localOtherMyIntegerArray_B[10][10][10] : MyIntegerArray_A ;
+ localMyEnum : MyEnum ;
+ localDay : AadlBaTest::Types::Days.v1 ;
+ squareTab[130][#AadlBaTestPropertySet::aConstant] : MyInteger ; 
+ 
+states
+ 
+ uniqueState : initial complete final state ;
+ a : state ;
+
+-- *** TRANSITIONS ***
+
+transitions
+
+ -- Valid tests
+ 
+   -- Assignment action tests --
+
+       -- Struct or Union from
+       
+      -- behavior variable
+      -- subcomponent
+      -- data access
+      -- recursive struct
+
+  a -[]-> a { 
+              localMyStruct_B.myInt := any ;
+              localMyStruct_B.myStruct_A.int := any ;
+              subMyStruct_B.myInt := any ;
+              subMyStruct_B.myStruct_A.int := any ;
+              dataAccess.myInt := any ;
+              dataAccess.myStruct_A.int := any
+            } ;
+
+      -- Data prototype (early or late binding)
+        
+      -- subcomponent
+      -- data access
+      -- recursive struct
+
+  a -[]-> a {
+              dataAccessProtoA.myInt := any ;
+              dataAccessProtoA.myStruct_A.int := any ;
+              dataAccessProtoB.myInt := any ;
+              dataAccessProtoB.myStruct_A.int := any ;
+               
+              subDataProtoA.myInt := any ;
+              subDataProtoA.myStruct_A.int := any ;
+              subDataProtoB.myInt := any ;
+              subDataProtoB.myStruct_A.int := any
+             } ;
+
+      -- Feature prototype (early or late binding)
+     
+        -- data access feature
+
+ a -[]-> a {
+              requiresAccessProto.myInt := any ;
+              requiresAccessProto.myStruct_A.int := any ;
+              requiresAccessProto.myInt := providesAccessProto.myInt
+           } ;
+ 
+      -- port feature
+
+ a -[]-> a { outPortFeatProto := any } ;
+ a -[]-> a { localMyStruct_B := inPortFeatProto } ;
+ 
+       -- data component reference arrayness
+
+ a -[]-> a { for (i : Base_Types::Integer in localMyArray_Integer_A)
+             { computation (1 sec) }
+           } ;
+           
+ a -[]-> a { for (i : Base_Types::Integer in localMyStruct_C.myArrayInteger)
+             { computation (1 sec) }
+           } ;
+
+ a -[]-> a { for (i : Base_Types::Integer_8 in localMyArray_IntegerImpl)
+             { computation (1 sec) }
+           } ;
+           
+ a -[]-> a { for (i  : MyInteger in localMyIntegerArray_A[0][0])
+             { computation (1 sec) }
+           } ;
+
+ a -[]-> a {for(i: MyInteger in squareTab) {computation (1 sec)}};
+
+ a -[]-> a { for (i : MyInteger in localMyIntegerArray_A)
+             { computation (1 sec) }
+           } ;
+ 
+ a -[]-> a { for (i : MyInteger in localMyIntegerArray_A[0])
+             { computation (1 sec) }
+           } ;
+
+ a -[]-> a { for(i : Base_Types::Integer in inPortInteger)
+             {computation (1 sec)}
+           } ;    
+
+      -- array
+
+ a -[]-> a { localMyArray_Integer_A[0] := 1 } ;
+ a -[]-> a { localMyArray_Integer_A := localMyArray_Integer_B } ;
+ a -[]-> a { subArrayMyArray_Integer[0] := localMyArray_Integer_A } ;
+ a -[]-> a { localMyIntegerArray_A[0] := localMyIntegerArray_A[0] } ;
+ a -[]-> a { localMyIntegerArray_A[0][0][0] := localMyInteger } ; 
+ a -[]-> a { localMyIntegerArray_B[0][0][0] := localMyIntegerArray_A } ;
+ a -[]-> a { localOtherMyIntegerArray_B[0][0][0] := localMyIntegerArray_A } ;
+ a -[]-> a { localMyIntegerArray_A := localOtherMyIntegerArray_B[0][0][0] } ;
+
+   -- Array and integer value variable tests
+   
+ a -[]-> a { localMyArray_Integer_A[localMyStruct_A.int] := 1 } ;
+ a -[]-> a { localMyArray_Integer_A[localMyStruct_B.myInt] := 1 } ;
+ a -[]-> a { localMyArray_Integer_A[subMyStruct_B.myInt] := 1 } ;
+ 
+
+   -- Port dequeuing action tests --
+
+-- a -[]-> a { inPortFeatProto ? (localMyStruct_B) } ; Not supported any more.
+ a -[]-> a { inPortInteger ? (localMyStruct_B.myStruct_A.int) } ;
+ a -[]-> a { inPortMyIntegerArray_A ? (localMyIntegerArray_B[0][0][0]) } ;
+ 
+   -- Port sending action tests --
+
+-- a -[]-> a { outPortFeatProto ! (localMyStruct_B) } ; Not supported any more.
+ a -[]-> a { outPortInteger ! (localMyStruct_B.myStruct_A.int) } ;
+ a -[]-> a { outPortMyIntegerArray_A ! (localMyIntegerArray_B[0][0][0]) } ;
+
+   -- Subprogram calling action tests --
+   
+ a -[]-> a { AnOtherSubprogConcrete ! (localMyStruct_A.int, localMyStruct_B,
+                                       localMyIntegerArray_B[0][0][0])} ;
+                                       
+   -- enumeration tests --
+   
+ a -[]-> a {subMyEnum_A := subMyEnum_B} ;                                 
+ a -[]-> a {subMyEnum_A := MyEnum#Enumerators.monday} ;
+ 
+ 
+   -- Iterative variable tests --
+   
+ a -[]-> a { for(i : MyStruct_A in localArrayMyStruct_A) {localMyStruct_A.float := i.float} } ;
+                              
+ 
+ -- Error tests
+
+   -- Assignment action tests --
+   
+      -- Data and Feature prototypes (early or late binding)
+      
+         -- undefined
+         
+-- Disable in order to perform type checking.  
+--  a -[]-> a { 
+--              undefinedDataAccess.myInt := any ;
+--              undefinedSubData.myInt := any ;
+--              undefinedFeatProto.myInt := any ;
+
+--              definedOutFeatProto.myInt := any ;
+--              definedOutFeatProto.myStruct_A.int := any
+--            } ;
+
+-- Enumeration literal  
+ a -[]-> a {
+             localMyEnum := AadlBaTest::Types::Days.v1#Enumerators.monday ;
+             localDay := MyEnum#Enumerators.monday ;
+             localMyEnum := localDay
+           } ;
+
+       -- port feature prototype
+
+ a -[]-> a { outPortFeatProto.myInt := any } ;       
+ a -[]-> a { inPortFeatProto.myInt := any } ;
+ a -[]-> a { localMyStruct_B := outPortFeatProto } ; 
+
+       -- data component reference arrayness
+
+ a -[]-> a { for (i : Base_Types::Integer in localMyStruct_C.int)
+             { computation (1 sec) }
+           } ;   
+
+ a -[]-> a { for (i : Base_Types::Integer in localMyArray_Integer_A[0])
+             { computation (1 sec) }
+           } ;    
+
+       -- array
+
+ a -[]-> a { localMyIntegerArray_B[0][0][0][0] := localMyIntegerArray_A[0] } ;
+ a -[]-> a { localMyIntegerArray_B[0][0][0][0][0][0] := localMyInteger } ;
+ a -[]-> a { localMyIntegerArray_C[0][0][0][0][0][0][0][0] := localMyInteger } ;  
+ a -[]-> a { localMyIntegerArray_C[0][0][0][0][0] := localMyIntegerArray_A } ;
+ a -[]-> a { subArrayMyArray_Integer[0][0] := int } ;
+ a -[]-> a { for (i : Base_Types::Integer in localOtherMyIntegerArray_B[1][1][3])
+             { computation (1 sec) }
+           } ;
+ a -[]-> a { for (i : MyIntegerArray_A in localOtherMyIntegerArray_B)
+             { computation (1 sec) }
+           } ;
+ a -[]-> a { for (i : Base_Types::Integer in localMyArray_IntegerImpl)
+             { computation (1 sec) } 
+           } ;
+ a -[]-> a { for(i : MyInteger in inPortInteger)
+             {computation (1 sec)}
+           } ;
+ a -[]-> a { localMyArray_Integer_A := 1 } ;
+
+-- With Ada like type checker, these data types are not compatible.
+ a -[]-> a { localOtherMyIntegerArray_B := localMyIntegerArray_B } ;
+
+ a -[]-> a { localMyIntegerArray_A[0][0][0][0] := localMyInteger } ;
+
+
+   -- Port dequeuing action tests --
+
+ a -[]-> a { inPortInteger ? (localMyStruct_B.myStruct_A.float) } ;
+ a -[]-> a { inPortMyIntegerArray_A ? (localMyIntegerArray_B[0][0]) } ;
+
+   -- Port sending action tests --
+
+ a -[]-> a { outPortInteger ! (localMyStruct_B.myStruct_A.float) } ;
+ a -[]-> a { outPortMyIntegerArray_A ! (localMyIntegerArray_B[0][0]) } ;
+
+   -- Subprogram calling action tests --
+   
+ a -[]-> a { AnOtherSubprogConcrete ! (localMyStruct_A.float, localMyStruct_B, localMyIntegerArray_B[0][0])} ;
+ 
+**};  
+
+end concreteThread.impl ;
+
+subprogram AnOtherSubprogAbstract
+
+ prototypes
+   
+   dataProto : data ;
+   definedDataProto : data MyIntegerArray_A ;
+
+ features
+ 
+   inParam1 : in parameter Base_Types::Integer ;
+   inParam2 : in parameter dataProto ;
+   outParam3 : out parameter definedDataProto ;
+
+end AnOtherSubprogAbstract ;
+
+subprogram AnOtherSubprogConcrete extends AnOtherSubprogAbstract
+ (dataProto => data MyStruct_B)
+
+end AnOtherSubprogConcrete ;
+
+subprogram MySubProgAbstract
+
+ prototypes
+   
+   dataProto : data ;
+   definedDataProto : data MyStruct_B ;
+   undefinedDataProto : data ;
+
+ features
+ 
+   outParam1 : out parameter MyStruct_B ;
+   outParam2 : out parameter dataProto ;
+   outParam3 : out parameter definedDataProto ;
+   outParam4 : out parameter undefinedDataProto ;
+   
+   inParam1 : in parameter MyStruct_B ;
+   inParam2 : in parameter dataProto ;
+   inParam3 : in parameter definedDataProto ;
+   inParam4 : in parameter Base_Types::Integer ; 
+
+end MySubProgAbstract ;
+
+
+subprogram MySubProgConcrete extends MySubProgAbstract
+ (dataProto => data MyStruct_B)
+
+ annex behavior_specification {**
+
+--  *** STATES ***
+
+variables
+ localMyStruct_B : MyStruct_B ;
+ tab[10] : Base_Types::Integer ;
+
+states
+ 
+ uniqueState : initial final state ;
+ a : state ;
+
+-- *** TRANSITIONS ***
+
+transitions
+
+ -- Valid tests
+ 
+   -- Assignement action tests --
+    
+       -- Struct or Union from
+       
+      -- parameter
+      -- recursive struct
+      
+ a -[]-> a {
+             outParam1.myInt := any ;
+             outParam1.myStruct_A.int := any
+           } ;
+
+      -- Data prototype (early or late binding)
+        
+        -- parameter
+
+ a -[]-> a {
+             outParam2.myInt := any ;
+             outParam2.myStruct_A.int := any ;
+          
+             outParam3.myInt := any ;
+             outParam3.myStruct_A.int := any ;
+             
+             localMyStruct_B := inParam1
+           } ;
+
+   -- array and integer value tests --
+
+     -- integer value variable 
+     
+ a -[]-> a { tab[inParam1.myInt] := 1 } ;
+ a -[]-> a { tab[inParam1.myStruct_A.int] := 1 } ;
+ a -[]-> a { tab[inParam4] := 1 } ;
+
+ -- Error tests
+
+   -- Assignment action tests --         
+
+      -- Data and Feature prototypes (early or late binding)
+      
+         -- undefined
+
+-- Disable in order to perform type checking        
+-- a -[]-> a { outParam4.myInt := any } ;
+ 
+     -- In/Out parameter --
+
+ a -[]-> a { inParam1.myInt := any } ;    
+ a -[]-> a { localMyStruct_B := outParam1 } ;   
+ 
+**} ;
+
+
+end MySubProgConcrete ;
+
+end DataStructPrototypeTest;

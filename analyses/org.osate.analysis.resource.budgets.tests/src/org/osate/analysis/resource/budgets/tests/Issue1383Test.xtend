@@ -24,7 +24,6 @@
 package org.osate.analysis.resource.budgets.tests
 
 import com.google.inject.Inject
-import com.itemis.xtext.testing.XtextTest
 import org.eclipse.xtext.testing.InjectWith
 import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
@@ -44,6 +43,7 @@ import org.osate.result.util.ResultUtil
 import org.osate.analysis.resource.budgets.power.PowerRequirementAnalysis
 import org.osate.result.Diagnostic
 import org.osate.result.DiagnosticType
+import com.itemis.xtext.testing.XtextTest
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2InjectorProvider))
