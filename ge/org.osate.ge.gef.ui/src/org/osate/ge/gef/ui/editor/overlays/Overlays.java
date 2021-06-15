@@ -402,7 +402,6 @@ public class Overlays extends Group implements ISelectionChangedListener {
 	 * Overlay used for selected connections.
 	 */
 	private static class SelectedConnectionOverlay extends Group implements SelectedNodeOverlay {
-		private final Overlays overlays;
 		private final DiagramElement diagramElement;
 		private BaseConnectionNode selectedNode;
 		private boolean primary;
@@ -422,6 +421,8 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			updateSelectionIndicator(selectedNode);
 		};
 
+		private final ReadOnlyObjectWrapper<Transform> selectedToOverlayTransform = new ReadOnlyObjectWrapper<Transform>();
+
 		/**
 		 * Creates a new instance.
 		 * @param overlays is the overlays object that will be used to determine the transform into local space. This instance
@@ -434,7 +435,6 @@ public class Overlays extends Group implements ISelectionChangedListener {
 		public SelectedConnectionOverlay(final Overlays overlays, final DiagramElement diagramElement,
 				final BaseConnectionNode selectedNode,
 				final boolean primary) {
-			this.overlays = overlays;
 			this.diagramElement = diagramElement;
 			this.selectedNode = selectedNode;
 			this.primary = primary;
@@ -442,11 +442,23 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			handles.setAutoSizeChildren(false);
 			getChildren().add(handles);
 
+			selectedToOverlayTransform.bind(new ObjectBinding<Transform>() {
+				{
+					bind(overlays.sceneToLocalTransformProperty(), selectedNode.localToSceneTransformProperty());
+				}
+
+				@Override
+				protected Transform computeValue() {
+					return overlays.getSceneToLocalTransform()
+							.createConcatenation(selectedNode.getLocalToSceneTransform());
+				}
+			});
+
 			// Update the selection indicator whenever the curve changes
 			selectedNode.getInnerConnection()
 					.curveProperty()
 					.addListener(new WeakChangeListener<Node>((ChangeListener<Node>) changeListener));
-			selectedNode.localToSceneTransformProperty()
+			selectedToOverlayTransform
 					.addListener(new WeakChangeListener<Transform>((ChangeListener<Transform>) changeListener));
 
 			connectionPoints = selectedNode.getInnerConnection().getPointsUnmodifiable();
@@ -456,8 +468,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 		}
 
 		private void updateSelectionIndicator(final BaseConnectionNode selectedNode) {
-			final Transform selectedToOverlayTransform = overlays.getSceneToLocalTransform()
-					.createConcatenation(selectedNode.getLocalToSceneTransform());
+			final Transform selectedToOverlay = selectedToOverlayTransform.get();
 
 			// Only remove visible children. Invisible children are retained and will be removed by whatever set them to invisible.
 			// This is important to ensure events are received while dragging.
@@ -475,14 +486,14 @@ public class Overlays extends Group implements ISelectionChangedListener {
 				final org.eclipse.gef.geometry.planar.Point p = controlPointIndex == controlPoints.size()
 						? allPoints.get(allPoints.size() - 1)
 						: controlPoints.get(controlPointIndex);
-				final Point2D midInLocal = selectedToOverlayTransform
+				final Point2D midInLocal = selectedToOverlay
 						.transform((prev.x + p.x) / 2.0, (prev.y + p.y) / 2.0);
 
 				// Create a handle for the control point
 				if (controlPointIndex < controlPoints.size()) {
 					final ControlPointHandle controlPointHandle = new ControlPointHandle(diagramElement, selectedNode,
 							primary, controlPointIndex);
-					final Point2D pInLocal = selectedToOverlayTransform.transform(p.x, p.y);
+					final Point2D pInLocal = selectedToOverlay.transform(p.x, p.y);
 					controlPointHandle.setCenterX(pInLocal.getX());
 					controlPointHandle.setCenterY(pInLocal.getY());
 					handles.getChildren().add(controlPointHandle);
@@ -501,7 +512,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 				final FlowIndicatorPositionHandle handle = new FlowIndicatorPositionHandle(diagramElement,
 						(FlowIndicatorNode) selectedNode, primary);
 				final org.eclipse.gef.geometry.planar.Point p = connectionPoints.get(connectionPoints.size() - 1);
-				final Point2D pInLocal = selectedToOverlayTransform.transform(p.x, p.y);
+				final Point2D pInLocal = selectedToOverlay.transform(p.x, p.y);
 				handle.setCenterX(pInLocal.getX());
 				handle.setCenterY(pInLocal.getY());
 				handles.getChildren().add(handle);
