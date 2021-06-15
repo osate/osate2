@@ -270,10 +270,13 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 						refreshOverrideStyles();
 
 						// Ensure that the scene graph nodes have been created and/or switched to the appropriate type
+						boolean refreshConnections = false;
 						for (final DiagramElement de : elementsToUpdate) {
 							final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(de);
 							if (ge != null) {
+								final Node originalSceneNode = ge.sceneNode;
 								ensureSceneNodeExists(ge, ge.parentDiagramNodeSceneNode);
+								refreshConnections = refreshConnections || (originalSceneNode != ge.sceneNode);
 							}
 						}
 
@@ -283,9 +286,19 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 							updateSceneNode(ge);
 							calculateAndApplyStyle(ge);
 						}
+
+						// Force connections to refresh when updating an element results in the scene node being
+						// recreated. This will update the referenced anchors of all connections.
+						if (refreshConnections) {
+							for (final GefDiagramElement ge : diagramElementToGefDiagramElementMap.values()) {
+								if (ge.sceneNode instanceof BaseConnectionNode) {
+									updateSceneNode(ge);
+								}
+							}
+						}
 					}
 
-					// Forces the scene graph layout and applys those changes to the diagram
+					// Forces the scene graph layout and applies those changes to the diagram
 					updateDiagramFromSceneGraph();
 
 					// Force connections to refresh. This works around cases where a diagram element is moved
