@@ -767,6 +767,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 						if (dialog.open() == Window.OK) {
 							final IFile iFile = (IFile) dialog.getResult()[0];
 							runStyleCommand(iFile.getFullPath(), imageStyleCommand);
+							// Set toggle button state
+							setToggleButtonState(true);
 						}
 					}
 				}
@@ -780,6 +782,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 					@Override
 					public void widgetSelected(final SelectionEvent e) {
 						runStyleCommand(null, imageStyleCommand);
+						// Clear toggle state
+						setToggleButtonState(false);
 					}
 				});
 			}
@@ -787,6 +791,11 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			popupMenu.setLocation(getShellPosition(setImageButton.getSize(), setImageButton, 5));
 			// Show menu
 			popupMenu.setVisible(true);
+		}
+
+		private void setToggleButtonState(final boolean state) {
+			toggleShowImage.setEnabled(state);
+			toggleShowImage.setSelection(state);
 		}
 
 		private ElementTreeSelectionDialog createSelectionDialog(final InternalDiagramEditor editor) {
