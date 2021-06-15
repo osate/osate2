@@ -18,11 +18,12 @@ import org.eclipse.emf.ecore.EPackage;
  * </ul>
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
- * Basic package model elements that make up an AADL analysis model.  
+ * Basic package model elements that make up an AADL analysis model.
  * <!-- end-model-doc -->
  * @see org.osate.analysis.model.analysis.AnalysisFactory
  * @model kind="package"
  * @generated
+ * @since 2.0
  */
 public interface AnalysisPackage extends EPackage {
 	/**

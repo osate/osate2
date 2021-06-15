@@ -4,10 +4,9 @@ package org.osate.analysis.model.analysis.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
-
-import org.osate.analysis.model.analysis.*;
+import org.osate.analysis.model.analysis.AnalysisElement;
+import org.osate.analysis.model.analysis.AnalysisPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,6 +20,7 @@ import org.osate.analysis.model.analysis.*;
  * <!-- end-user-doc -->
  * @see org.osate.analysis.model.analysis.AnalysisPackage
  * @generated
+ * @since 2.0
  */
 public class AnalysisSwitch<T> extends Switch<T> {
 	/**
@@ -69,7 +69,9 @@ public class AnalysisSwitch<T> extends Switch<T> {
 			case AnalysisPackage.ANALYSIS_ELEMENT: {
 				AnalysisElement analysisElement = (AnalysisElement)theEObject;
 				T result = caseAnalysisElement(analysisElement);
-				if (result == null) result = defaultCase(theEObject);
+				if (result == null) {
+					result = defaultCase(theEObject);
+				}
 				return result;
 			}
 			default: return defaultCase(theEObject);

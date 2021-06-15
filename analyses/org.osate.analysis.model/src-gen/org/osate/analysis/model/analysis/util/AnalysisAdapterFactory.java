@@ -4,12 +4,10 @@ package org.osate.analysis.model.analysis.util;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
-import org.osate.analysis.model.analysis.*;
+import org.osate.analysis.model.analysis.AnalysisElement;
+import org.osate.analysis.model.analysis.AnalysisPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,6 +16,7 @@ import org.osate.analysis.model.analysis.*;
  * <!-- end-user-doc -->
  * @see org.osate.analysis.model.analysis.AnalysisPackage
  * @generated
+ * @since 2.0
  */
 public class AnalysisAdapterFactory extends AdapterFactoryImpl {
 	/**
