@@ -280,7 +280,8 @@ class CreateConnectionInteraction extends BaseInteraction {
 
 	@Override
 	protected Interaction.InteractionState onMousePressed(final MouseEvent e) {
-		if (e.getButton() != MouseButton.PRIMARY) {
+		if (e.getButton() != MouseButton.PRIMARY
+				|| InputEventHandlerUtil.isScrollBar(e.getTarget())) {
 			return super.onMousePressed(e);
 		}
 

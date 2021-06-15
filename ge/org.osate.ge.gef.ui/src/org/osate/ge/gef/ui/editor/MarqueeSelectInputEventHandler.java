@@ -36,14 +36,12 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.WeakChangeListener;
-import javafx.event.EventTarget;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -66,7 +64,8 @@ public class MarqueeSelectInputEventHandler implements InputEventHandler {
 
 	@Override
 	public Cursor getCursor(final MouseEvent mouseMoveEvent) {
-		return editor.getPaletteModel().isMarqueeToolActive() && !isScrollBar(mouseMoveEvent.getTarget())
+		return editor.getPaletteModel().isMarqueeToolActive()
+				&& !InputEventHandlerUtil.isScrollBar(mouseMoveEvent.getTarget())
 				? Cursor.CROSSHAIR
 				: null;
 	}
@@ -74,7 +73,7 @@ public class MarqueeSelectInputEventHandler implements InputEventHandler {
 	@Override
 	public HandledEvent handleEvent(final InputEvent e) {
 		if (e.getEventType() != MouseEvent.MOUSE_PRESSED || ((MouseEvent) e).getButton() != MouseButton.PRIMARY
-				|| isScrollBar(e.getTarget())) {
+				|| InputEventHandlerUtil.isScrollBar(e.getTarget())) {
 			return null;
 		}
 
@@ -89,17 +88,6 @@ public class MarqueeSelectInputEventHandler implements InputEventHandler {
 		} else {
 			return null;
 		}
-	}
-
-	private static boolean isScrollBar(final EventTarget target) {
-		if (target instanceof Node) {
-			for (Node tmp = (Node) target; tmp != null; tmp = tmp.getParent()) {
-				if (tmp instanceof ScrollBar) {
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 }
 

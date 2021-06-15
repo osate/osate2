@@ -11,6 +11,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import javafx.event.EventTarget;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollBar;
 
 /**
  * Utility functions for implementing {@link InputEventHandler} and {@Interaction}
@@ -124,5 +125,22 @@ public class InputEventHandlerUtil {
 		}
 
 		return null;
+	}
+
+	/**
+	 * If the {@link EventTarget} is an instance of {@link Node}, walk up the node's parents
+	 * to determine if the target is an instance of {@link ScrollBar}.
+	 * @param target is the target
+	 * @return whether the {@link EventTarget} is an instance of {@link ScrollBar}.
+	 */
+	public static boolean isScrollBar(final EventTarget target) {
+		if (target instanceof Node) {
+			for (Node tmp = (Node) target; tmp != null; tmp = tmp.getParent()) {
+				if (tmp instanceof ScrollBar) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

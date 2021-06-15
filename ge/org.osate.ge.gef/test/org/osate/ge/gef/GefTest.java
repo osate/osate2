@@ -193,10 +193,8 @@ public class GefTest {
 				root.getChildren().add(c3);
 
 				mode1.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-					System.err.println("MODE1 clicked");
 					PreferredPosition.set(mode1, new Point2D(300, 200));
 					event.consume();
-
 				});
 
 				final InfiniteCanvas canvas = new InfiniteCanvas();
