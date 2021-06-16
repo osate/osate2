@@ -445,12 +445,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			dirtyModel = true;
 			updateDiagram(requireVisible);
 
-			// In some cases, the property sheet page doesn't refresh. Although the model has changed the selected elements
-			// have not. This forces the property sheet page to be updated.
+			// Ensure the property sheet page is refreshed after the diagram update.
 			if (propertySheetPage != null && propertySheetPage.getCurrentTab() != null) {
-				final IStructuredSelection selection = selectionProvider.getSelection();
-				propertySheetPage.selectionChanged(AgeEditor.this, StructuredSelection.EMPTY);
-				propertySheetPage.selectionChanged(AgeEditor.this, selection);
+				propertySheetPage.refresh();
 			}
 		}
 	};
@@ -480,6 +477,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 				overlays.refresh(selectionProvider.getSelection());
 			}
 
+			if (propertySheetPage != null && propertySheetPage.getCurrentTab() != null) {
+				propertySheetPage.refresh();
+			}
 		}
 	};
 

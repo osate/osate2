@@ -24,7 +24,6 @@
 package org.osate.ge.internal.ui.properties;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -258,7 +257,18 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		super.setInput(part, selection);
 		selectedDiagramElements.clear();
 
-		final IStructuredSelection ss = (IStructuredSelection) selection;
+		if (selection instanceof IStructuredSelection) {
+			for (final Object o : (IStructuredSelection) selection) {
+				final DiagramElement diagramElement = Adapters.adapt(o, DiagramElement.class);
+				if(diagramElement != null) {
+					selectedDiagramElements.add(diagramElement);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void refresh() {
 		final RGB disableColor = lightGray.rgb;
 		boolean enableFontOptions = false;
 		boolean enableLineWidth = false;
@@ -268,12 +278,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		boolean enableImage = false;
 		boolean enableShowAsImage = false;
 		boolean isShowAsImageEnabled = false;
-		final Iterator<?> itr = ss.iterator();
-		while (itr.hasNext()) {
-			final Object o = itr.next();
-			final DiagramElement diagramElement = Adapters.adapt(o, DiagramElement.class);
-			selectedDiagramElements.add(diagramElement);
-
+		for (final DiagramElement diagramElement : selectedDiagramElements) {
 			// Font options
 			if (supportsFontOptions(diagramElement)) {
 				enableFontOptions = true;
@@ -339,7 +344,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		final Button outlineButton = outlinePaintListener.getButton();
 		outlineButton.setEnabled(enableOutlineOption);
 
-		final Style defaultStyle = StyleBuilder.create(diagramElement.getGraphicalConfiguration().getStyle(), Style.DEFAULT)
+		final Style defaultStyle = StyleBuilder
+				.create(diagramElement.getGraphicalConfiguration().getStyle(), Style.DEFAULT)
 				.build();
 		backgroundPaintListener.setDefaultColor(toRGB(defaultStyle.getBackgroundColor()));
 		fontColorPaintListener.setDefaultColor(toRGB(defaultStyle.getFontColor()));
@@ -646,8 +652,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	public Point getShellPosition(final Point widgetSize, final Button button,
 			final int minSpacingFromDisplayRightAndBottom) {
 		// Position the shell
-		final Point unclampedShellPosition = Display.getCurrent().map(button.getParent(), null, button.getLocation().x,
-				button.getLocation().y + button.getSize().y);
+		final Point unclampedShellPosition = Display.getCurrent()
+				.map(button.getParent(), null, button.getLocation().x, button.getLocation().y + button.getSize().y);
 		final Rectangle clientArea = Display.getCurrent().getClientArea();
 		final Point shellPosition = new Point(
 				Math.min(unclampedShellPosition.x,
