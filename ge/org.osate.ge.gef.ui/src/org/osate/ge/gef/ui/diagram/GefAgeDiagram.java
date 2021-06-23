@@ -350,7 +350,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 						.get(childDiagramElement);
 				removeContainedConnections(childDiagramElement);
 
-				if (childGefDiagramElement != null && childGefDiagramElement.sceneNode instanceof ConnectionNode) {
+				if (childGefDiagramElement != null && childGefDiagramElement.sceneNode instanceof BaseConnectionNode) {
 					removeNode(childGefDiagramElement.sceneNode);
 				}
 			}
@@ -404,7 +404,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	}
 
 	/**
-	 * Check for changes in refrenced images and updates the diagram as appropriate.
+	 * Check for changes in referenced images and updates the diagram as appropriate.
 	 */
 	public void refreshImages() {
 		imageManager.refreshImages();
