@@ -82,6 +82,7 @@ class ElkGraphBuilder {
 	private final LayoutOptions options;
 	private final boolean omitNestedPorts;
 	private final FixedPortPositionProvider fixedPortPositionProvider;
+	private final boolean layoutConnectionLabels;
 
 	/**
 	 * Provides information used to position ports when fixed port positions are being used. If null is returned, the graph builder will assign a default position.
@@ -116,6 +117,11 @@ class ElkGraphBuilder {
 		this.omitNestedPorts = omitNestedPorts;
 		this.fixedPortPositionProvider = Objects.requireNonNull(fixedPortPositionProvider,
 				"fixedPortPositionProvider must not be null");
+		// This is a workaround to prevent exceptions from being thrown when using fixed position ports. It disables connection layout in cases where an
+		// exception is thrown. This likely disables connection label layout in more cases than desirable. Once the issue is fixed, this field should be
+		// removed.
+		// See. https://github.com/eclipse/elk/issues/763
+		this.layoutConnectionLabels = omitNestedPorts && !options.layoutPortsOnDefaultSides;
 	}
 
 	/**
@@ -517,6 +523,10 @@ class ElkGraphBuilder {
 				final ElkLabel elkLabel = createElkLabel(parentLayoutElement, parentElement.getLabelName(),
 						layoutInfoProvider.getPrimaryLabelSize(parentElement));
 				if (isConnection) {
+					if (!layoutConnectionLabels) {
+						elkLabel.setProperty(CoreOptions.NO_LAYOUT, true);
+					}
+
 					mapping.getGraphMap().put(elkLabel, new PrimaryConnectionLabelReference(parentElement));
 				}
 			}
@@ -536,6 +546,10 @@ class ElkGraphBuilder {
 			final ElkLabel elkLabel = createElkLabel(parentLayoutElement, labelElement.getLabelName(),
 					layoutInfoProvider.getPrimaryLabelSize(labelElement));
 			if (isConnection) {
+				if (!layoutConnectionLabels) {
+					elkLabel.setProperty(CoreOptions.NO_LAYOUT, true);
+				}
+
 				mapping.getGraphMap().put(elkLabel, new SecondaryConnectionLabelReference(labelElement));
 			}
 		});
@@ -725,7 +739,10 @@ class ElkGraphBuilder {
 					// Create a dummy label. Ensures the edge is at least a minimal size and improves visibility when it is routed
 					// along with other edges
 					if (connection.isFlowIndicator && newEdge.getLabels().isEmpty()) {
-						createElkLabel(newEdge, "<Spacing>", new Dimension(10, 10));
+						final ElkLabel spacingLabel = createElkLabel(newEdge, "<Spacing>", new Dimension(10, 10));
+						if (!layoutConnectionLabels) {
+							spacingLabel.setProperty(CoreOptions.NO_LAYOUT, true);
+						}
 					}
 				}
 			}

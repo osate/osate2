@@ -1070,9 +1070,14 @@ public class DiagramElementLayoutUtil {
 		for (final ElkLabel edgeLabel : edge.getLabels()) {
 			final Object labelValue = mapping.getGraphMap().get(edgeLabel);
 			if (labelValue instanceof ConnectionLabelReference) {
-				final double lx = edgeLabel.getX() - edgeMidpoint.x;
-				final double ly = edgeLabel.getY() - edgeMidpoint.y;
-				((ConnectionLabelReference) labelValue).setPosition(m, new Point(lx, ly));
+				final ConnectionLabelReference labelRef = (ConnectionLabelReference) labelValue;
+				if (Boolean.TRUE.equals(edgeLabel.getProperty(CoreOptions.NO_LAYOUT))) {
+					labelRef.setPosition(m, null);
+				} else {
+					final double lx = edgeLabel.getX() - edgeMidpoint.x;
+					final double ly = edgeLabel.getY() - edgeMidpoint.y;
+					labelRef.setPosition(m, new Point(lx, ly));
+				}
 			}
 		}
 	}
