@@ -804,7 +804,7 @@ public class UiTestUtil {
 		final Node sceneNode = editor.getSceneNode(de);
 		assertNotNull("Unable to retrieve scene node", sceneNode);
 
-		Display.getDefault().syncExec(() -> editor.reveal(sceneNode));
+		Display.getDefault().syncExec(() -> editor.scrollToTopLeft(sceneNode));
 
 		fxBot.click(sceneNode);
 	}
@@ -957,8 +957,8 @@ public class UiTestUtil {
 		final LabelNode primaryLabel = editor.getGefDiagram().getPrimaryLabelSceneNode(de);
 		assertNotNull("Unable to find primary label", primaryLabel);
 
-		// Reveal and click the primary label
-		Display.getDefault().syncExec(() -> editor.reveal(primaryLabel));
+		// Scroll to top left and click the primary label
+		Display.getDefault().syncExec(() -> editor.scrollToTopLeft(primaryLabel));
 		fxBot.click(primaryLabel);
 
 		waitUntil(

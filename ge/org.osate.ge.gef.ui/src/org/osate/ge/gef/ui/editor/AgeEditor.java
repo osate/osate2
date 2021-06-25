@@ -447,7 +447,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 			// Ensure the property sheet page is refreshed after the diagram update.
 			if (propertySheetPage != null && propertySheetPage.getCurrentTab() != null) {
-				propertySheetPage.refresh();
+				final IStructuredSelection selection = selectionProvider.getSelection();
+				propertySheetPage.selectionChanged(AgeEditor.this, StructuredSelection.EMPTY);
+				propertySheetPage.selectionChanged(AgeEditor.this, selection);
 			}
 		}
 	};
@@ -995,11 +997,13 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	}
 
 	/**
-	 * Ensures a scene node which is inside the infinite canvas is visible. Must be called from the UI thread.
-	 * @param sceneNode the scene node to reveal.
+	 * Ensures the top left corner of the node is visible for tests.  Must be called from the UI thread.
+	 * @param sceneNode the scene node to scroll to.
 	 */
-	public final void reveal(final Node sceneNode) {
-		canvas.reveal(sceneNode);
+	public final void scrollToTopLeft(final Node sceneNode) {
+		final Bounds bounds = canvas.sceneToLocal(sceneNode.localToScene(sceneNode.getBoundsInLocal()));
+		canvas.setVerticalScrollOffset(canvas.getVerticalScrollOffset() - bounds.getMinY());
+		canvas.setHorizontalScrollOffset(canvas.getHorizontalScrollOffset() - bounds.getMinX());
 	}
 
 	public final DoubleProperty zoomProperty() {
@@ -1396,5 +1400,22 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		return PlatformUI.getWorkbench() != null && PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null
 				&& PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell() != null
 				&& PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().isVisible();
+	}
+
+	/**
+	 * Ensures a diagram node is visible in the diagram view. Must be called from the UI thread.
+	 * @param dn the diagram node to reveal.
+	 */
+	@Override
+	public void reveal(final DiagramNode dn) {
+		reveal(this.getSceneNode(dn));
+	}
+
+	/**
+	 * Ensures a scene node which is inside the infinite canvas is visible. Must be called from the UI thread.
+	 * @param sceneNode the scene node to reveal.
+	 */
+	public final void reveal(final Node sceneNode) {
+		canvas.reveal(sceneNode);
 	}
 }
