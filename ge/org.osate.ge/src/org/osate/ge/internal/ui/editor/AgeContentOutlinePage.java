@@ -401,7 +401,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		tree.setMenu(menu);
 		getSite().registerContextMenu("org.osate.ge.editor.AgeDiagramEditor", menuMgr, viewer); // Allow contributions
 
-		editor.addSelectionChangedListener(event -> updateOutlineSelectionIfLinked(false));
+		editor.addSelectionChangedListener(event -> updateOutlineSelectionIfLinked());
 		editor.getDiagram().addModificationListener(diagramModificationListener);
 
 		viewer.addSelectionChangedListener(this);
@@ -438,11 +438,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		menuManager.add(showHiddenElementsAction);
 	}
 
-	/**
-	 * Update outline selection and reveal node on the diagram if necessary
-	 * @param revealNode whether to reveal the node on the diagram
-	 */
-	private void updateOutlineSelectionIfLinked(final boolean revealNode) {
+	private void updateOutlineSelectionIfLinked() {
 		if (!synchronizingSelection && linkWithEditorAction.isChecked()) {
 			try {
 				synchronizingSelection = true;
@@ -451,9 +447,6 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 				if (treeViewer != null && treeViewer.getContentProvider() != null
 						&& !outlineNodes.equals(editor.getSelectedDiagramElementSet())) {
 					treeViewer.setSelection(buildDiagramNodeTreeSelectionFromEditor());
-					if (revealNode) {
-						editor.reveal(outlineNodes.iterator().next());
-					}
 				}
 			} finally {
 				synchronizingSelection = false;
@@ -491,7 +484,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		if (getTreeViewer() != null && getTreeViewer().getContentProvider() != null
 				&& !outlineElements.equals(editorElements)) {
 			editor.selectDiagramNodes(outlineElements);
-			editor.reveal(outlineElements.iterator().next());
+			outlineElements.stream().findFirst().ifPresent(editor::reveal);
 		}
 	}
 
@@ -514,7 +507,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		@Override
 		public void run() {
 			preferences.putBoolean(PREFERENCE_OUTLINE_LINK_WITH_EDITOR, isChecked());
-			updateOutlineSelectionIfLinked(true);
+			updateOutlineSelectionIfLinked();
 		}
 
 		private boolean getEnabledFromPreferenceStore() {
