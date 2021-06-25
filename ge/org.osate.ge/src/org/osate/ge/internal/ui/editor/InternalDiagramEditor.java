@@ -170,4 +170,10 @@ public interface InternalDiagramEditor extends GraphicalEditor, IWorkbenchPart3 
 	 * @return whether the contents of the editor can be edited.
 	 */
 	boolean isEditable();
+
+	/**
+	 * Ensures a diagram node is visible in the diagram view.
+	 * @param dn the diagram node to reveal.
+	 */
+	void reveal(DiagramNode diagramNode);
 }

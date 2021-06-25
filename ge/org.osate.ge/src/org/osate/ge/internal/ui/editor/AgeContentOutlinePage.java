@@ -430,7 +430,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		}
 	}
 
-// Link With Editor action added to Outline menu
+	// Link With Editor action added to Outline menu
 	@Override
 	public void makeContributions(final IMenuManager menuManager, final IToolBarManager toolBarManager,
 			final IStatusLineManager statusLineManager) {
@@ -484,6 +484,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		if (getTreeViewer() != null && getTreeViewer().getContentProvider() != null
 				&& !outlineElements.equals(editorElements)) {
 			editor.selectDiagramNodes(outlineElements);
+			outlineElements.stream().findFirst().ifPresent(editor::reveal);
 		}
 	}
 
