@@ -1408,7 +1408,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	 */
 	@Override
 	public void reveal(final DiagramNode dn) {
-		reveal(this.getSceneNode(dn));
+		reveal(getSceneNode(dn));
 	}
 
 	/**
