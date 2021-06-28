@@ -957,8 +957,8 @@ public class UiTestUtil {
 		final LabelNode primaryLabel = editor.getGefDiagram().getPrimaryLabelSceneNode(de);
 		assertNotNull("Unable to find primary label", primaryLabel);
 
-		// Scroll to top left and click the primary label
-		Display.getDefault().syncExec(() -> editor.scrollToTopLeft(primaryLabel));
+		// Reveal and click the primary label
+		Display.getDefault().syncExec(() -> editor.reveal(primaryLabel));
 		fxBot.click(primaryLabel);
 
 		waitUntil(
