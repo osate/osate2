@@ -446,11 +446,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			updateDiagram(requireVisible);
 
 			// Ensure the property sheet page is refreshed after the diagram update.
-			if (propertySheetPage != null && propertySheetPage.getCurrentTab() != null) {
-				final IStructuredSelection selection = selectionProvider.getSelection();
-				propertySheetPage.selectionChanged(AgeEditor.this, StructuredSelection.EMPTY);
-				propertySheetPage.selectionChanged(AgeEditor.this, selection);
-			}
+			refreshPropertySheetPage();
 		}
 	};
 
@@ -479,9 +475,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 				overlays.refresh(selectionProvider.getSelection());
 			}
 
-			if (propertySheetPage != null && propertySheetPage.getCurrentTab() != null) {
-				propertySheetPage.refresh();
-			}
+			refreshPropertySheetPage();
 		}
 	};
 
@@ -1417,5 +1411,18 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	 */
 	public final void reveal(final Node sceneNode) {
 		canvas.reveal(sceneNode);
+	}
+
+	/**
+	 * For the property section to refresh. Calling {@link TabbedPropertySheetPage#refresh()} does not update visibility of property sections.
+	 */
+	private void refreshPropertySheetPage() {
+		if (propertySheetPage != null && propertySheetPage.getCurrentTab() != null) {
+			final IStructuredSelection selection = selectionProvider.getSelection();
+			// Set the selection to empty because the property sheet page is not update if the selections are "equal". Although the same diagram
+			// elements may be selected, the diagram elements or referenced business objects may have changed.
+			propertySheetPage.selectionChanged(AgeEditor.this, StructuredSelection.EMPTY);
+			propertySheetPage.selectionChanged(AgeEditor.this, selection);
+		}
 	}
 }
