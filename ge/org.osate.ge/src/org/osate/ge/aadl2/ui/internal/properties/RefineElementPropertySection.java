@@ -187,6 +187,7 @@ public class RefineElementPropertySection extends AbstractPropertySection {
 		refineBtn.setGrayed(isRefined == null);
 		// Set initial selection
 		refineBtn.setSelection(isRefined == Boolean.TRUE);
+		refineBtn.setEnabled(refinableElements.size() == 1);
 	}
 
 	private static Boolean isRefined(final Set<RefinableElement> refinableElements) {
