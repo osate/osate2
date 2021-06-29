@@ -35,7 +35,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.action.Action;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.actions.ActionFactory;
 import org.osate.ge.businessobjecthandling.CanCopyContext;
 import org.osate.ge.graphics.Point;
@@ -54,7 +53,7 @@ public class CopyAction extends Action {
 	private final ClipboardService.Clipboard clipboard;
 	private final ReferenceBuilderService referenceBuilder;
 
-	public CopyAction(final IWorkbenchPart part) {
+	public CopyAction() {
 		setId(ActionFactory.COPY.getId());
 		setText("Copy");
 

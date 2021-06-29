@@ -107,7 +107,7 @@ public class OsateGeTestCommands {
 
 		// Configure referenced projects
 		waitForWindowWithTitle("New");
-		checkItemsInSimpleTable(0, projectsToReference);
+		checkItemsInSimpleTable(projectsToReference);
 		clickButton("Finish");
 
 		// Verify results
@@ -150,14 +150,6 @@ public class OsateGeTestCommands {
 	public static void createNewPackageWithPackageDiagram(final String projectName, final String packageName,
 			final String diagramName) {
 		createNewPackageWithDiagram(projectName, packageName, diagramName, "Package Diagram");
-	}
-
-	/**
-	 * Version of {@link #createNewPackageWithDiagram(String, String, String, String)} which uses the package as the diagram name.
-	 */
-	public static void createNewPackageWithDiagram(final String projectName, final String packageName,
-			final String diagramType) {
-		createNewPackageWithDiagram(projectName, packageName, packageName, "Package Diagram");
 	}
 
 	/**
@@ -389,13 +381,12 @@ public class OsateGeTestCommands {
 	 * Preconditions: OSATE Window is active.  Specified classifier element exists.
 	 * Postconditions: A new behavior annex with an initial state has been created.  The state will be renamed to the specified name.
 	 * @param diagram is the diagram in which to create the behavior annex and behavior state
-	 * @param pkgRef is the package reference in which the classifier belongs to
 	 * @param classifierDiagramRef is the diagram reference of the parent classifier for the behavior specification
 	 * @param behaviorSpecification is the relative reference to the new behavior specification
 	 * @param newStateName is the name to which the behavior state should be renamed to
 	 */
 	public static void createBehaviorAnnexWithInitialState(final DiagramReference diagram,
-			final RelativeBusinessObjectReference pkgRef, final DiagramElementReference classifierDiagramRef,
+			final DiagramElementReference classifierDiagramRef,
 			final RelativeBusinessObjectReference behaviorSpecification, final String newStateName) {
 		// Create Behavior Annex specification
 		createShapeElement(diagram, classifierDiagramRef, "Behavior Specification", behaviorSpecification);

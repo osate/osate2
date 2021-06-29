@@ -159,7 +159,7 @@ public class BehaviorAnnexTest {
 		final DiagramElementReference classifierDiagramRef = element(pkgRef, classifierRef);
 
 		// Create behavior specification
-		createBehaviorAnnexWithInitialState(diagram, pkgRef, classifierDiagramRef, behaviorSpecification, modeName);
+		createBehaviorAnnexWithInitialState(diagram, classifierDiagramRef, behaviorSpecification, modeName);
 
 		// Hide all to test behavior specification filter
 		clickContextMenuOfDiagramElement(diagram, classifierDiagramRef, "Hide Contents", "All");

@@ -529,18 +529,17 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 
 	@Override
 	protected double computeMinWidth(final double height) {
-		return computeMinWidth(height, true);
+		return computeMinWidth(true);
 	}
 
 	/**
 	 * Computes the minimum width.
-	 * @param height see {@link #computeMinWidth(double)}
 	 * @param includeChildrenRepositionedDuringResize if false, then the returned value does not consider top, bottom, and
 	 * free children. Intended to allow determining a minimum width during resizing since resizing will reposition such
 	 * children.
 	 * @return the minimum width
 	 */
-	public double computeMinWidth(final double height, final boolean includeChildrenRepositionedDuringResize) {
+	public double computeMinWidth(final boolean includeChildrenRepositionedDuringResize) {
 		double result = Math.max(MIN_COMPUTED_MIN_WIDTH, leftChildren.getWidth() + rightChildren.getWidth());
 
 		if (includeChildrenRepositionedDuringResize) {
@@ -575,18 +574,17 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 
 	@Override
 	protected double computeMinHeight(final double width) {
-		return computeMinHeight(-1, true);
+		return computeMinHeight(true);
 	}
 
 	/**
 	 * Computes the minimum height.
-	 * @param width see {@link #computeMinHeight(double)}
 	 * @param includeChildrenRepositionedDuringResize if false, then the returned value does not consider left, right, and
 	 * free children. Intended to allow determining a minimum width during resizing since resizing will reposition such
 	 * children.
 	 * @return the minimum height
 	 */
-	public double computeMinHeight(final double width, final boolean includeChildrenRepositionedDuringResize) {
+	public double computeMinHeight(final boolean includeChildrenRepositionedDuringResize) {
 		double result = Math.max(MIN_COMPUTED_MIN_HEIGHT, topChildren.getHeight() + bottomChildren.getHeight());
 
 		if(includeChildrenRepositionedDuringResize) {
@@ -596,7 +594,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		// Take into consideration min height of graphics
 		for (final Node graphic : graphicWrapper.getChildren()) {
 			if (graphic.isManaged()) {
-				result = Math.max(result, graphic.minHeight(width));
+				result = Math.max(result, graphic.minHeight(-1));
 			}
 		}
 

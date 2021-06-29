@@ -270,9 +270,9 @@ public class CreateFlowImplementationTool implements Tool {
 					&& createFlowImplDlg.elementSelectionDlg == null) {
 				// Handle selection for creating flow segments and mode features
 				if (selectedBocs.size() > 1) {
-					createFlowImplDlg.setMultipleElementsSelected(true, isInit);
+					createFlowImplDlg.setMultipleElementsSelected(true);
 				} else if (selectedBocs.size() == 1) {
-					createFlowImplDlg.setMultipleElementsSelected(false, isInit);
+					createFlowImplDlg.setMultipleElementsSelected(false);
 					createFlowImplDlg.addSelectedElement(selectedBocs.get(0), isInit);
 				}
 			} else if (createFlowImplDlg.elementSelectionDlg != null
@@ -343,7 +343,7 @@ public class CreateFlowImplementationTool implements Tool {
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
 
-		private void setMultipleElementsSelected(final boolean multipleElementsSelected, final boolean isInit) {
+		private void setMultipleElementsSelected(final boolean multipleElementsSelected) {
 			this.multipleElementsSelected = multipleElementsSelected;
 			updateMessage();
 		}

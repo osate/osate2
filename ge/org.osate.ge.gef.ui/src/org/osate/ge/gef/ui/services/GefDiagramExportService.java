@@ -282,7 +282,7 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 		final DefaultTreeUpdater boTreeUpdater = new DefaultTreeUpdater(projectProvider, extensionRegistry,
 				projectReferenceService, queryService, nodeFactory);
 		final DefaultDiagramElementGraphicalConfigurationProvider deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(
-				projectReferenceService, queryService, () -> diagram, extensionRegistry);
+				queryService, () -> diagram, extensionRegistry);
 		final DiagramUpdater diagramUpdater = new DiagramUpdater(boTreeUpdater, deInfoProvider, actionService,
 				projectReferenceService, projectReferenceService);
 		diagramUpdater.updateDiagram(diagram);

@@ -504,7 +504,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 				projectReferenceService);
 		boTreeUpdater = new DefaultTreeUpdater(projectProvider, extRegistry, projectReferenceService, queryService,
 				nodeFactory);
-		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(projectReferenceService, queryService,
+		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(queryService,
 				diagramProvider, extRegistry);
 		diagramUpdater = new DiagramUpdater(boTreeUpdater, deInfoProvider, actionService, projectReferenceService,
 				projectReferenceService);
@@ -618,7 +618,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		// Register actions for retargatable actions
 		new UndoRedoActionGroup(site, DefaultActionService.CONTEXT, true).fillActionBars(site.getActionBars());
-		registerAction(new CopyAction(this));
+		registerAction(new CopyAction());
 		registerAction(new PasteAction(this));
 		registerAction(new SelectAllAction(this));
 

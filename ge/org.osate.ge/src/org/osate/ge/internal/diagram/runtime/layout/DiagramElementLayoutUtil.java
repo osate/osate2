@@ -168,7 +168,7 @@ public class DiagramElementLayoutUtil {
 						!options.layoutPortsOnDefaultSides, ElkGraphBuilder.FixedPortPositionProvider.NO_OP);
 				layoutGraph = mapping.getLayoutGraph();
 				layoutGraph.setProperty(CoreOptions.ALGORITHM, layoutAlgorithm);
-				applyProperties(dn, mapping, layoutInfoProvider, options);
+				applyProperties(dn, mapping);
 				LayoutDebugUtil.saveElkGraphToDebugProject(layoutGraph, "pass1");
 				layoutEngine.layout(layoutGraph, new BasicProgressMonitor());
 
@@ -213,7 +213,7 @@ public class DiagramElementLayoutUtil {
 					});
 					layoutGraph = mapping.getLayoutGraph();
 					layoutGraph.setProperty(CoreOptions.ALGORITHM, layoutAlgorithm);
-					applyProperties(dn, mapping, layoutInfoProvider, options);
+					applyProperties(dn, mapping);
 					LayoutDebugUtil.saveElkGraphToDebugProject(layoutGraph, "pass2");
 					layoutEngine.layout(layoutGraph, new BasicProgressMonitor());
 				}
@@ -725,10 +725,8 @@ public class DiagramElementLayoutUtil {
 	/**
 	 * Sets the ELK properties of elements in the specified layout mapping based on the layout options.
 	 * @param layoutMapping
-	 * @param options
 	 */
-	private static void applyProperties(final DiagramNode rootDiagramNode, final LayoutMapping layoutMapping,
-			final LayoutInfoProvider layoutInfoProvider, final LayoutOptions options) {
+	private static void applyProperties(final DiagramNode rootDiagramNode, final LayoutMapping layoutMapping) {
 		// Set the minimum node size based on the ports and their assigned sides.
 		final IGraphElementVisitor minNodeSizeVisitor = element -> {
 			if (element instanceof ElkNode) {

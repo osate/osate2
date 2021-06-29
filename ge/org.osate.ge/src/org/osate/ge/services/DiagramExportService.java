@@ -51,7 +51,7 @@ public interface DiagramExportService {
 	default void export(final IFile diagramFile, final File outputFile, final String format, final double scaling)
 			throws IOException {
 		try (FileOutputStream output = new FileOutputStream(outputFile)) {
-			export(diagramFile, output, format, 1.0);
+			export(diagramFile, output, format, scaling);
 		}
 	}
 

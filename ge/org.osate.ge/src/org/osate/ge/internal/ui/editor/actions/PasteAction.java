@@ -175,8 +175,7 @@ public class PasteAction extends Action {
 					containingFeatureValueCollection.add(copiedEObject);
 
 					ensureBusinessObjectHasUniqueName(copiedEObject,
-							copiedDiagramElement.getDiagramElement().getBusinessObjectHandler(),
-							copiedDiagramElement.getDiagramElement().getLabelName());
+							copiedDiagramElement.getDiagramElement().getBusinessObjectHandler());
 
 					ensurePackagesAreImported(copiedEObject);
 
@@ -216,11 +215,9 @@ public class PasteAction extends Action {
 	 * Otherwise, do not change the element's name. Contains special handling for component implementations.
 	 * @param bo
 	 * @param boHandler
-	 * @param diagramElementName the name provided by the diagram element. Treated as the current name unless the business object handler provided an editing name using GetNameForEditing
 	 */
 	private static void ensureBusinessObjectHasUniqueName(final EObject bo,
-			final BusinessObjectHandler boHandler,
-			final String diagramElementName) {
+			final BusinessObjectHandler boHandler) {
 		if (supportsRenaming(bo, boHandler) && boHandler.canRename(new CanRenameContext(bo))) {
 			// Determine the current name of the business object.
 			final String originalName = boHandler.getNameForRenaming(new GetNameContext(bo));

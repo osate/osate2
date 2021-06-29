@@ -164,7 +164,7 @@ public class ExportDiagramDialog {
 
 		private Combo createCombo(final Group parent, final String[] items) {
 			final Combo combo = new Combo(parent, SWT.DROP_DOWN);
-			combo.setItems(WIDTHS);
+			combo.setItems(items);
 			combo.setLayoutData(GridDataFactory.fillDefaults().grab(true, false).create());
 			return combo;
 		}

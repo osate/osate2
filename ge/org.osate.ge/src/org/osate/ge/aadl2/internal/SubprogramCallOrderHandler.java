@@ -90,17 +90,16 @@ public class SubprogramCallOrderHandler extends AadlBusinessObjectHandler {
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
-		final SubprogramCallOrder bo = boc.getBusinessObject(SubprogramCallOrder.class).get();
 		final QueryService queryService = ctx.getQueryService();
 		return Optional.of(GraphicalConfigurationBuilder.create().
-				graphic(getGraphicalRepresentation(bo)).
+				graphic(getGraphicalRepresentation()).
 				style(style).
 				source(getSource(boc, queryService)).
 				destination(getDestination(boc, queryService)).
 				build());
 	}
 
-	private Graphic getGraphicalRepresentation(final SubprogramCallOrder bo) {
+	private Graphic getGraphicalRepresentation() {
 		return graphic;
 	}
 

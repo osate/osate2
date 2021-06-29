@@ -116,7 +116,7 @@ public class OsateGeTestUtil {
 	 * Checks all rows in the simple table which is the nth table in the active window.
 	 * Assumes the table is a simple table with checkboxes. Such a table does not have any columns.
 	 */
-	public static void checkItemsInSimpleTable(final int tableIndex, final String... itemTexts) {
+	public static void checkItemsInSimpleTable(final String... itemTexts) {
 		Arrays.stream(itemTexts).forEach(itemText -> checkItemInSimpleTable(0, itemText));
 	}
 

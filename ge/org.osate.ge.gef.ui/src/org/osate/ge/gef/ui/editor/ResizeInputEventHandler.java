@@ -175,7 +175,7 @@ class ResizeInteraction extends BaseInteraction {
 				// will change as the node is resized. The layout of such children are considered to ensure that the resize
 				// does not clip children not included in the minimum width.
 				final double minWidthOfNotRepositionedChildren = snapshot.sceneNode instanceof ContainerShape
-						? ((ContainerShape) snapshot.sceneNode).computeMinWidth(-1, false)
+						? ((ContainerShape) snapshot.sceneNode).computeMinWidth(false)
 						: snapshot.sceneNode.minWidth(-1);
 				newPositionDiagramX = Math.min(newPositionDiagramX,
 						snapshot.boundsInDiagram.getMaxX() - minWidthOfNotRepositionedChildren);
@@ -201,7 +201,7 @@ class ResizeInteraction extends BaseInteraction {
 				// will change as the node is resized. The layout of such children are considered to ensure that the resize
 				// does not clip children not included in the minimum height.
 				final double minHeightWithoutFreeChildren = snapshot.sceneNode instanceof ContainerShape
-						? ((ContainerShape) snapshot.sceneNode).computeMinHeight(-1, false)
+						? ((ContainerShape) snapshot.sceneNode).computeMinHeight(false)
 						: snapshot.sceneNode.minHeight(-1);
 				newPositionDiagramY = Math.min(newPositionDiagramY,
 						snapshot.boundsInDiagram.getMaxY() - minHeightWithoutFreeChildren);
