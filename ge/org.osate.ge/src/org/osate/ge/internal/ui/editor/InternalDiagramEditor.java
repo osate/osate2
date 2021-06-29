@@ -38,7 +38,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
+import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.ui.tools.Tool;
@@ -121,10 +121,10 @@ public interface InternalDiagramEditor extends GraphicalEditor, IWorkbenchPart3 
 	DiagramUpdater getDiagramUpdater();
 
 	/**
-	 * Returns the {@link TreeUpdater} used to update the business object tree.
+	 * Returns the {@link BusinessObjectTreeUpdater} used to update the business object tree.
 	 * @return the business object tree updater.
 	 */
-	TreeUpdater getBoTreeUpdater();
+	BusinessObjectTreeUpdater getBoTreeUpdater();
 
 	/**
 	 * Returns the action handler that should be executed to handle a global action.
