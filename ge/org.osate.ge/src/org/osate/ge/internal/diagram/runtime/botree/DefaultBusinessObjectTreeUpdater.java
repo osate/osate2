@@ -84,14 +84,14 @@ import com.google.common.collect.Multimap;
  * Diagrams which have a context business object specified will only contain the specified business object as a root. Diagrams which do not have a context
  * may include any business objects which are returned by the business object providers when using the current IProject as the root business object context.
  */
-public class DefaultTreeUpdater implements TreeUpdater {
+public class DefaultBusinessObjectTreeUpdater implements BusinessObjectTreeUpdater {
 	private final ProjectProvider projectProvider;
 	private final ExtensionRegistryService extService;
 	private final ProjectReferenceService refService;
 	private final QueryService queryService;
 	private final DefaultBusinessObjectNodeFactory nodeFactory;
 
-	public DefaultTreeUpdater(final ProjectProvider projectProvider, final ExtensionRegistryService extService,
+	public DefaultBusinessObjectTreeUpdater(final ProjectProvider projectProvider, final ExtensionRegistryService extService,
 			final ProjectReferenceService refService, final QueryService queryService,
 			final DefaultBusinessObjectNodeFactory nodeFactory) {
 		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
@@ -108,7 +108,7 @@ public class DefaultTreeUpdater implements TreeUpdater {
 	 * @return
 	 */
 	@Override
-	public BusinessObjectNode expandTree(final DiagramConfiguration configuration, final BusinessObjectNode tree) {
+	public BusinessObjectNode updateTree(final DiagramConfiguration configuration, final BusinessObjectNode tree) {
 		// Refresh Child Nodes
 		final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService);
 		final BusinessObjectNode newRoot = nodeFactory.create(null, UUID.randomUUID(), null, Completeness.UNKNOWN);

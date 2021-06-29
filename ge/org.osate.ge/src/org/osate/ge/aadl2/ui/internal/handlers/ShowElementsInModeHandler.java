@@ -54,7 +54,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.botree.Completeness;
 import org.osate.ge.internal.diagram.runtime.botree.DiagramToBusinessObjectTreeConverter;
-import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
+import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
@@ -83,8 +83,8 @@ public class ShowElementsInModeHandler extends AbstractHandler {
 		final ExtensionRegistryService extService = Objects.requireNonNull(Adapters.adapt(editor, ExtensionRegistryService.class),
 				"Unable to retrieve extension service");
 		final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService);
-		final TreeUpdater boTreeExpander = editor.getBoTreeUpdater();
-		final BusinessObjectNode boTree = getBoTree(editor, boTreeExpander);
+		final BusinessObjectTreeUpdater boTreeUpdater = editor.getBoTreeUpdater();
+		final BusinessObjectNode boTree = getBoTree(editor, boTreeUpdater);
 		final List<BusinessObjectContext> selectedModes = AgeHandlerUtil.getSelectedBusinessObjectContexts().stream()
 				.filter(de -> isModal(de.getBusinessObject())).collect(Collectors.toList());
 		for (final BusinessObjectContext selectedMode : selectedModes) {
@@ -244,10 +244,10 @@ public class ShowElementsInModeHandler extends AbstractHandler {
 		return new BusinessObjectNode(container, UUID.randomUUID(), ref, bo, Completeness.UNKNOWN, false);
 	}
 
-	private static BusinessObjectNode getBoTree(final InternalDiagramEditor editor, final TreeUpdater boTreeExpander) {
+	private static BusinessObjectNode getBoTree(final InternalDiagramEditor editor, final BusinessObjectTreeUpdater boTreeUpdater) {
 		final BusinessObjectNode boTree = DiagramToBusinessObjectTreeConverter
 				.createBusinessObjectNode(editor.getDiagram());
-		return boTreeExpander.expandTree(editor.getDiagram().getConfiguration(), boTree);
+		return boTreeUpdater.updateTree(editor.getDiagram().getConfiguration(), boTree);
 	}
 
 	private RelativeBusinessObjectReference getRelativeBusinessObjectReference(final Object bo) {

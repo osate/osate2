@@ -64,7 +64,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.botree.Completeness;
 import org.osate.ge.internal.diagram.runtime.botree.DiagramToBusinessObjectTreeConverter;
-import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
+import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
@@ -90,8 +90,8 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 		referenceService = Objects.requireNonNull(Adapters.adapt(editor, ProjectReferenceService.class),
 				"Unable to retrieve reference service");
 
-		final TreeUpdater boTreeExpander = editor.getBoTreeUpdater();
-		final BusinessObjectNode boTree = getBoTree(editor, boTreeExpander);
+		final BusinessObjectTreeUpdater treeUpdater = editor.getBoTreeUpdater();
+		final BusinessObjectNode boTree = getBoTree(editor, treeUpdater);
 
 		for (final BusinessObjectContext selectedElement : selectedElements) {
 			final BusinessObjectNode selectedNode = getSelectedNode(boTree, selectedElement);
@@ -505,10 +505,10 @@ public class ShowConnectedElementsHandler extends AbstractHandler {
 		return (InternalDiagramEditor) activeEditor;
 	}
 
-	private static BusinessObjectNode getBoTree(final InternalDiagramEditor editor, final TreeUpdater boTreeExpander) {
+	private static BusinessObjectNode getBoTree(final InternalDiagramEditor editor, final BusinessObjectTreeUpdater boTreeUpdater) {
 		final BusinessObjectNode boTree = DiagramToBusinessObjectTreeConverter
 				.createBusinessObjectNode(editor.getDiagram());
-		return boTreeExpander.expandTree(editor.getDiagram().getConfiguration(), boTree);
+		return boTreeUpdater.updateTree(editor.getDiagram().getConfiguration(), boTree);
 	}
 
 	private RelativeBusinessObjectReference getRelativeBusinessObjectReference(final Object bo) {

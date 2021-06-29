@@ -78,7 +78,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.botree.Completeness;
 import org.osate.ge.internal.diagram.runtime.botree.DiagramToBusinessObjectTreeConverter;
-import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
+import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
@@ -122,8 +122,8 @@ public class ShowFlowContributionItem extends ControlContribution {
 					referenceService = Objects.requireNonNull(Adapters.adapt(editor, ProjectReferenceService.class),
 							"Unable to retrieve reference service");
 					final DiagramUpdater diagramUpdater = editor.getDiagramUpdater();
-					final TreeUpdater boTreeExpander = editor.getBoTreeUpdater();
-					final BusinessObjectNode boTree = getBoTree(boTreeExpander);
+					final BusinessObjectTreeUpdater boTreeUpdater = editor.getBoTreeUpdater();
+					final BusinessObjectNode boTree = getBoTree(boTreeUpdater);
 					final BusinessObjectNode containerNode = boTree.getAllDescendants().filter(
 							q -> q.getBusinessObject() == selectedFlow.getContainer().getBusinessObject())
 							.findAny().map(BusinessObjectNode.class::cast)
@@ -255,10 +255,10 @@ public class ShowFlowContributionItem extends ControlContribution {
 				return container;
 			}
 
-			private BusinessObjectNode getBoTree(final TreeUpdater boTreeExpander) {
+			private BusinessObjectNode getBoTree(final BusinessObjectTreeUpdater treeUpdater) {
 				BusinessObjectNode boTree = DiagramToBusinessObjectTreeConverter
 						.createBusinessObjectNode(editor.getDiagram());
-				return boTreeExpander.expandTree(editor.getDiagram().getConfiguration(), boTree);
+				return treeUpdater.updateTree(editor.getDiagram().getConfiguration(), boTree);
 			}
 
 			private FlowSegmentReference createFlowSegmentReference(final Object bo,

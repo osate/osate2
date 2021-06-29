@@ -38,7 +38,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.runtime.botree.DiagramToBusinessObjectTreeConverter;
-import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
+import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
@@ -74,7 +74,7 @@ public class ConfigureDiagramHandler extends AbstractHandler {
 		}
 
 		// Get services
-		final TreeUpdater boTreeExpander = diagramEditor.getBoTreeUpdater();
+		final BusinessObjectTreeUpdater boTreeUpdater = diagramEditor.getBoTreeUpdater();
 		final DiagramUpdater diagramUpdater = diagramEditor.getDiagramUpdater();
 		final ProjectProvider projectProvider = Objects.requireNonNull(
 				Adapters.adapt(diagramEditor, ProjectProvider.class), "Unable to retrieve project provider");
@@ -89,7 +89,7 @@ public class ConfigureDiagramHandler extends AbstractHandler {
 		BusinessObjectNode boTree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram);
 
 		// Update the tree so that it's business objects are refreshed
-		boTree = boTreeExpander.expandTree(diagram.getConfiguration(), boTree);
+		boTree = boTreeUpdater.updateTree(diagram.getConfiguration(), boTree);
 
 		final DefaultDiagramConfigurationDialogModel model = new DefaultDiagramConfigurationDialogModel(
 				referenceService, extService, projectProvider, diagram.getConfiguration().getDiagramType());

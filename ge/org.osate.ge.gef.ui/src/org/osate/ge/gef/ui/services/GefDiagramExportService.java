@@ -70,7 +70,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
 import org.osate.ge.internal.diagram.runtime.botree.DefaultBusinessObjectNodeFactory;
-import org.osate.ge.internal.diagram.runtime.botree.DefaultTreeUpdater;
+import org.osate.ge.internal.diagram.runtime.botree.DefaultBusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.updating.DefaultDiagramElementGraphicalConfigurationProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
@@ -279,7 +279,7 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 				projectProvider);
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(
 				projectReferenceService);
-		final DefaultTreeUpdater boTreeUpdater = new DefaultTreeUpdater(projectProvider, extensionRegistry,
+		final DefaultBusinessObjectTreeUpdater boTreeUpdater = new DefaultBusinessObjectTreeUpdater(projectProvider, extensionRegistry,
 				projectReferenceService, queryService, nodeFactory);
 		final DefaultDiagramElementGraphicalConfigurationProvider deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(
 				projectReferenceService, queryService, () -> diagram, extensionRegistry);

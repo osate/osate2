@@ -112,8 +112,8 @@ import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
 import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.runtime.botree.DefaultBusinessObjectNodeFactory;
-import org.osate.ge.internal.diagram.runtime.botree.DefaultTreeUpdater;
-import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
+import org.osate.ge.internal.diagram.runtime.botree.DefaultBusinessObjectTreeUpdater;
+import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DefaultDiagramElementGraphicalConfigurationProvider;
@@ -296,7 +296,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	// Diagram-specific Services
 	private final QueryService queryService;
 	private final ColoringService coloringService;
-	private final TreeUpdater boTreeUpdater;
+	private final BusinessObjectTreeUpdater boTreeUpdater;
 	private final DefaultDiagramElementGraphicalConfigurationProvider deInfoProvider;
 	private final DiagramUpdater diagramUpdater;
 	private ProjectProvider projectProvider = () -> project;
@@ -502,7 +502,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		this.projectReferenceService = new ProjectReferenceServiceProxy(referenceService, projectProvider);
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(
 				projectReferenceService);
-		boTreeUpdater = new DefaultTreeUpdater(projectProvider, extRegistry, projectReferenceService, queryService,
+		boTreeUpdater = new DefaultBusinessObjectTreeUpdater(projectProvider, extRegistry, projectReferenceService, queryService,
 				nodeFactory);
 		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(projectReferenceService, queryService,
 				diagramProvider, extRegistry);
@@ -1271,7 +1271,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	}
 
 	@Override
-	public TreeUpdater getBoTreeUpdater() {
+	public BusinessObjectTreeUpdater getBoTreeUpdater() {
 		return boTreeUpdater;
 	}
 
