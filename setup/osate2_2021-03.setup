@@ -812,7 +812,7 @@
         <repository
             url="http://download.eclipse.org/ease/release/0.7.0"/>
         <repository
-            url="http://download.eclipse.org/elk/updates/releases/0.7.1/"/>
+            url="http://download.eclipse.org/elk/updates/releases/0.7.1"/>
         <repository
             url="http://download.eclipse.org/xsemantics/milestones/1.20"/>
         <repository
@@ -825,8 +825,8 @@
             url="http://download.eclipse.org/birt/update-site/2018-09-interim"/>
         <repository
             url="http://updates.yakindu.com/statecharts/releases/3.5.9"/>
-        <repository 
-            url="https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-16/"/>
+        <repository
+            url="https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-16"/>
       </repositoryList>
     </targlet>
     <description></description>
