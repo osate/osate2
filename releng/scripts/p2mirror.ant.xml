@@ -65,6 +65,11 @@ Run with
             <iu id="org.eclipse.xpand"/>
             <iu id="org.eclipse.xtend"/>
             <iu id="org.eclipse.xtend.typesystem.emf"/>
+            <iu id="org.eclipse.fx.runtime.min.feature.feature.group"/>
+            <iu id="org.eclipse.gef.common.feature.group"/>
+            <iu id="org.eclipse.gef.geometry.feature.group"/>
+            <iu id="org.eclipse.gef.geometry.convert.fx.feature.group"/>
+            <iu id="org.eclipse.gef.fx.feature.group"/>
         </p2.mirror>
         
         <p2.mirror source="http://download.eclipse.org/birt/update-site/2018-09-interim">
@@ -170,7 +175,14 @@ Run with
         <p2.mirror source="http://download.eclipse.org/technology/swtbot/releases/latest">
             <destination location="${target.dir}/technology/swtbot/releases/latest"/>
         </p2.mirror>
-        
+
+        <p2.mirror source="https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-16">
+            <destination location="${target.dir}/openjfx-16"/>
+            <iu id="openjfx.standard.feature.feature.group"/>
+            <iu id="openjfx.swing.feature.feature.group"/>
+            <iu id="openjfx.swt.feature.feature.group"/>
+        </p2.mirror>
+
     </target>
     
 </project>
