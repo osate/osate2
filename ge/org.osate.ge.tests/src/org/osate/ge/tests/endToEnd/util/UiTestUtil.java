@@ -112,7 +112,7 @@ public class UiTestUtil {
 
 	static {
 		bot = new SWTWorkbenchBot();
-		SWTBotPreferences.TIMEOUT = 10000;
+		SWTBotPreferences.TIMEOUT = 20000;
 	}
 
 	/**
