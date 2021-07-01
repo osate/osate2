@@ -91,7 +91,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 
 /**
  * Provides functions for controlling the user interface.
@@ -970,7 +969,7 @@ public class UiTestUtil {
 		fxBot.type(newName);
 
 		// Press enter to finish
-		fxBot.pressAndReleaseKey(KeyCode.ENTER);
+		fxBot.pressEnterKey(primaryLabel.getScene());
 
 		// Wait until the label changes to the expected value
 		waitUntil(() -> UIThreadRunnable.syncExec(() -> Objects.equals(primaryLabel.getText(), expectedNewLabel)),

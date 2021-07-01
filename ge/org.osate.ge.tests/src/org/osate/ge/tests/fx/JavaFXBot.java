@@ -36,8 +36,10 @@ import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.robot.Robot;
 
@@ -128,14 +130,13 @@ public class JavaFXBot {
 	}
 
 	/**
-	 * Presses and then releases the key with the specified code.
-	 * @param code the key code
+	 * Presses the enter key. This does not use the robot because the robot does not produce an appropriate key pressed event for the enter key when
+	 * running under linux.
+	 * @param scene is the scene into which to inject the event.
 	 */
-	public void pressAndReleaseKey(final KeyCode code) {
-		ensureRobotCreated();
+	public void pressEnterKey(final Scene scene) {
 		Display.getDefault().syncExec(() -> {
-			robot.keyPress(code);
-			robot.keyRelease(code);
+			javafx.event.Event.fireEvent(scene, new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.ENTER, false, false, false,false));
 		});
 	}
 
