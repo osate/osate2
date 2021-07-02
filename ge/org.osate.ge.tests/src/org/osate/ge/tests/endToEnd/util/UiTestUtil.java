@@ -972,12 +972,13 @@ public class UiTestUtil {
 						.syncExec(() -> editor.getFxCanvas().getScene().getFocusOwner() instanceof TextField),
 				"edit field does not have focus");
 
+		final Node eventTarget = UIThreadRunnable.syncExec(() -> editor.getFxCanvas().getScene().getFocusOwner());
+
 		// Type to edit text
-		fxBot.type(newName);
+		fxBot.type(eventTarget, newName);
 
 		// Press enter to finish
-		bot.sleep(1000);
-		fxBot.pressEnterKey(primaryLabel.getScene());
+		fxBot.pressAndReleaseEnterKey(eventTarget);
 
 		// Wait until the label changes to the expected value
 		waitUntil(() -> UIThreadRunnable.syncExec(() -> Objects.equals(primaryLabel.getText(), expectedNewLabel)),

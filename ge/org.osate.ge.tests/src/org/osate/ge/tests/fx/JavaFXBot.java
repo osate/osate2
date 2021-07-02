@@ -23,8 +23,6 @@
  */
 package org.osate.ge.tests.fx;
 
-import static org.junit.Assert.*;
-
 import org.eclipse.gef.fx.nodes.Connection;
 import org.eclipse.gef.geometry.planar.Point;
 import org.eclipse.swt.widgets.Display;
@@ -36,7 +34,6 @@ import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -60,7 +57,6 @@ public class JavaFXBot {
 			});
 		}
 	}
-
 
 	/**
 	 * Clicks a scene graph node.
@@ -92,51 +88,28 @@ public class JavaFXBot {
 	}
 
 	/**
-	 * Generate key press and release events for the specified text. Underscores and other alpha-numeric characters are
-	 * not supported and may cause an exception to be thrown. Such characters could be supported by generating a
-	 * combination of keys but the implementation would depend on a particular keyboard layout.
+	 * Generate key typed events for the specified text. Does not use the FXRobot for compatibility reasons. See {@link #pressAndReleaseEnterKey(Node)}
+	 * @param target is the target for the event.
 	 * @param value the text to type.
 	 */
-	public void type(final String value) {
-		ensureRobotCreated();
+	public void type(final Node target, final String value) {
 		for (char ch : value.toCharArray()) {
-			type(ch);
+			Display.getDefault().syncExec(() -> {
+				javafx.event.Event.fireEvent(target, new KeyEvent(KeyEvent.KEY_TYPED, Character.toString(ch), "",
+						KeyCode.UNDEFINED, false, false, false, false));
+			});
 		}
-	}
-
-	private void type(final char ch) {
-		final KeyCode code;
-		if (ch == '_') {
-			code = KeyCode.UNDERSCORE;
-		} else {
-			final String codeName = Character.toString(Character.toUpperCase(ch));
-			code = KeyCode.getKeyCode(codeName);
-		}
-
-		assertNotNull("code for character `" + ch + "` is null", code);
-		final boolean isUpper = Character.isUpperCase(ch);
-		Display.getDefault().syncExec(() -> {
-			if (isUpper) {
-				robot.keyPress(KeyCode.SHIFT);
-			}
-
-			robot.keyPress(code);
-			robot.keyRelease(code);
-
-			if (isUpper) {
-				robot.keyRelease(KeyCode.SHIFT);
-			}
-		});
 	}
 
 	/**
 	 * Presses the enter key. This does not use the robot because the robot does not produce an appropriate key pressed event for the enter key when
 	 * running under linux.
-	 * @param scene is the scene into which to inject the event.
+	 * @param target is the target for the event.
 	 */
-	public void pressEnterKey(final Scene scene) {
+	public void pressAndReleaseEnterKey(final Node target) {
 		Display.getDefault().syncExec(() -> {
-			javafx.event.Event.fireEvent(scene, new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.ENTER, false, false, false,false));
+			javafx.event.Event.fireEvent(target,
+					new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.ENTER, false, false, false, false));
 		});
 	}
 
