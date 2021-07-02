@@ -38,6 +38,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.robot.Robot;
 
 /**
@@ -84,6 +85,21 @@ public class JavaFXBot {
 			robot.mouseMove(p.getX(), p.getY());
 			robot.mousePress(MouseButton.PRIMARY);
 			robot.mouseRelease(MouseButton.PRIMARY);
+		});
+	}
+
+	/**
+	 * Generates a mouse pressed and mouse released event for a node. Does not use robot.
+	 * @param node the node to click.
+	 */
+	public void firePressAndReleasePrimaryMouseButtonEvents(final Node node) {
+		Display.getDefault().syncExec(() -> {
+			javafx.event.Event.fireEvent(node,
+					new MouseEvent(MouseEvent.MOUSE_PRESSED, 0.0, 0.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false,
+							false, false, false, false, false, false, false, false, null));
+			javafx.event.Event.fireEvent(node,
+					new MouseEvent(MouseEvent.MOUSE_RELEASED, 0.0, 0.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false,
+							false, false, false, false, false, false, false, false, null));
 		});
 	}
 
