@@ -588,7 +588,8 @@ public class UiTestUtil {
 	 */
 	private static Optional<SWTBotTreeItem> getItemInTree(final SWTBotTree tree, final String... itemTexts) {
 		Optional<SWTBotTreeItem> item = Arrays.stream(tree.getAllItems())
-				.filter(tmpItem -> tmpItem.getText().equals(itemTexts[0])).findAny();
+				.filter(tmpItem -> tmpItem.getText().equals(itemTexts[0]))
+				.findAny();
 		if (item.isPresent()) {
 			for (int i = 1; i < itemTexts.length && item.isPresent(); i++) {
 				final SWTBotTreeItem treeItem = item.get();
@@ -597,7 +598,8 @@ public class UiTestUtil {
 				}
 
 				final String searchText = itemTexts[i];
-				item = Arrays.stream(treeItem.getItems()).filter(tmpItem -> tmpItem.getText().equals(searchText))
+				item = Arrays.stream(treeItem.getItems())
+						.filter(tmpItem -> tmpItem.getText().equals(searchText))
 						.findAny();
 			}
 		}
@@ -959,20 +961,36 @@ public class UiTestUtil {
 		final DiagramElement de = getDiagramElement(diagram, element)
 				.orElseThrow(() -> new RuntimeException("Cannot find diagram element for '" + element + "'."));
 
-		// Find the scene node for the primary label
+		// Find the primary label
 		final LabelNode primaryLabel = editor.getGefDiagram().getPrimaryLabelSceneNode(de);
-		assertNotNull("Unable to find primary label", primaryLabel);
 
-		// Scroll to and click the primary label
-		Display.getDefault().syncExec(() -> editor.scrollToTopLeft(primaryLabel));
-		fxBot.click(primaryLabel);
+		Node eventTarget = null;
+		for (int i = 0; i < 4; i++) {
+			// Find the scene node for the primary label
+			assertNotNull("Unable to find primary label", primaryLabel);
 
-		waitUntil(
-				() -> UIThreadRunnable
-						.syncExec(() -> editor.getFxCanvas().getScene().getFocusOwner() instanceof TextField),
-				"edit field does not have focus");
+			// Scroll to and click the primary label
+			Display.getDefault().syncExec(() -> editor.scrollToTopLeft(primaryLabel));
+			fxBot.click(primaryLabel);
 
-		final Node eventTarget = UIThreadRunnable.syncExec(() -> editor.getFxCanvas().getScene().getFocusOwner());
+			eventTarget = UIThreadRunnable.syncExec(() -> editor.getFxCanvas().getScene().getFocusOwner());
+			if (eventTarget instanceof TextField) {
+				break;
+			}
+
+			bot.sleep(5000);
+			eventTarget = UIThreadRunnable.syncExec(() -> editor.getFxCanvas().getScene().getFocusOwner());
+			if (eventTarget instanceof TextField) {
+				break;
+			}
+		}
+
+		assertTrue("edit field does not have focus. Event target: " + eventTarget, eventTarget instanceof TextField);
+
+		final TextField nameField = (TextField) eventTarget;
+		Display.getDefault().syncExec(() -> {
+			nameField.setText("");
+		});
 
 		// Type to edit text
 		fxBot.type(eventTarget, newName);
