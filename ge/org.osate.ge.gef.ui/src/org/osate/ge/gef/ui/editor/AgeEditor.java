@@ -111,9 +111,9 @@ import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
 import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
+import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.botree.DefaultBusinessObjectNodeFactory;
 import org.osate.ge.internal.diagram.runtime.botree.DefaultBusinessObjectTreeUpdater;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DefaultDiagramElementGraphicalConfigurationProvider;
@@ -164,11 +164,13 @@ import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
@@ -276,6 +278,32 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			return this.currentSelection;
 		}
 	};
+
+	// This wrapper adds padding around the diagram.
+	private static class DiagramNodeWrapper extends Group {
+		private final Rectangle invisibleBoundsRect = new Rectangle();
+
+		public DiagramNodeWrapper(final Node diagramSceneNode) {
+			// The content bounds of the canvas will be set by the geometry bounds.
+			// Create padding by creating a rectangle filled with a transparent color.
+			invisibleBoundsRect.setFill(Color.TRANSPARENT);
+			getChildren().setAll(invisibleBoundsRect, diagramSceneNode);
+		}
+
+		@Override
+		protected void layoutChildren() {
+			super.layoutChildren();
+
+			if (getChildren().size() >= 2) {
+				// Adjust size of rectangle. Right and bottom sides have more padding to allow for scroll bars.
+				final Bounds diagramBounds = getChildren().get(1).getBoundsInParent();
+				invisibleBoundsRect.setX(diagramBounds.getMinX() - DIAGRAM_PADDING);
+				invisibleBoundsRect.setY(diagramBounds.getMinY() - DIAGRAM_PADDING);
+				invisibleBoundsRect.setWidth(diagramBounds.getWidth() + DIAGRAM_PADDING * 3);
+				invisibleBoundsRect.setHeight(diagramBounds.getHeight() + DIAGRAM_PADDING * 3);
+			}
+		}
+	}
 
 	// Global Services
 	private final ModelChangeNotifier modelChangeNotifier;
@@ -463,9 +491,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			@SuppressWarnings("unchecked")
 			final List<? extends DiagramNode> diagramNodes = selectionProvider.getSelection().toList();
 			// Check if selected elements are visible
-			if (diagramNodes.stream()
-					.map(gefDiagram::getSceneNode)
-					.anyMatch(Objects::isNull)) {
+			if (diagramNodes.stream().map(gefDiagram::getSceneNode).anyMatch(Objects::isNull)) {
 				// Clear selection if element is no longer visible
 				clearSelection();
 			}
@@ -502,10 +528,10 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		this.projectReferenceService = new ProjectReferenceServiceProxy(referenceService, projectProvider);
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(
 				projectReferenceService);
-		boTreeUpdater = new DefaultBusinessObjectTreeUpdater(projectProvider, extRegistry, projectReferenceService, queryService,
-				nodeFactory);
-		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(queryService,
-				diagramProvider, extRegistry);
+		boTreeUpdater = new DefaultBusinessObjectTreeUpdater(projectProvider, extRegistry, projectReferenceService,
+				queryService, nodeFactory);
+		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(queryService, diagramProvider,
+				extRegistry);
 		diagramUpdater = new DiagramUpdater(boTreeUpdater, deInfoProvider, actionService, projectReferenceService,
 				projectReferenceService);
 		this.coloringService = new DefaultColoringService(
@@ -558,6 +584,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 					.getOperationSupport()
 					.getOperationHistory()
 					.removeOperationHistoryListener(operationHistoryListener);
+			getSite().setSelectionProvider(null);
 			getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(toolPostSelectionListener);
 			this.modelChangeNotifier.removeChangeListener(modelChangeListener);
 
@@ -582,8 +609,19 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 			projectReferenceService.dispose();
 			outlinePage.dispose();
-			propertySheetPage.dispose();
+
+			if (propertySheetPage != null) {
+				propertySheetPage.dispose();
+				propertySheetPage = null;
+			}
+
 			adapterMap.clear();
+
+			if (fxCanvas != null) {
+				fxCanvas = null;
+			}
+
+			diagram.resetActionExecutor();
 
 			super.dispose();
 		} finally {
@@ -705,6 +743,12 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		// Create the FX canvas which is an SWT widget for embedding JavaFX content.
 		//
 		fxCanvas = new FXCanvas(parent, SWT.NONE);
+		fxCanvas.addDisposeListener(e -> {
+			// Remove descendants to avoid the number of nodes which are retained when something holds on to a reference to the scene graph.
+			removeDescendants(fxCanvas.getScene().getRoot());
+			fxCanvas.getScene().setRoot(new Group());
+			fxCanvas.setScene(null);
+		});
 		fxCanvas.addPaintListener(paintListener);
 
 		// Suppress SWT key press handling when interaction is active
@@ -742,7 +786,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 				actionService.execute("Activate Editor", ExecutionMode.APPEND_ELSE_HIDE,
 						new ActivateAgeEditorAction(AgeEditor.this));
 			}
-
 
 			fireDirtyPropertyChangeEvent();
 
@@ -784,30 +827,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		fxCanvas.setScene(scene);
 		gefDiagram = new GefAgeDiagram(diagram, coloringService);
 
-		// Create a wrapper around the diagram's scene node. This wrapper adds padding around the diagram.
-		final Group wrapper = new Group() {
-			// The content bounds of the canvas will be set by the geometry bounds.
-			// Create padding by creating a rectangle filled with a transparent color.
-			final Rectangle invisibleBoundsRect = new Rectangle();
-			{
-				invisibleBoundsRect.setFill(Color.TRANSPARENT);
-				getChildren().setAll(invisibleBoundsRect, gefDiagram.getSceneNode());
-			}
-
-			@Override
-			protected void layoutChildren() {
-				super.layoutChildren();
-
-				if (getChildren().size() >= 2) {
-					// Adjust size of rectangle. Right and bottom sides have more padding to allow for scroll bars.
-					final Bounds diagramBounds = getChildren().get(1).getBoundsInParent();
-					invisibleBoundsRect.setX(diagramBounds.getMinX() - DIAGRAM_PADDING);
-					invisibleBoundsRect.setY(diagramBounds.getMinY() - DIAGRAM_PADDING);
-					invisibleBoundsRect.setWidth(diagramBounds.getWidth() + DIAGRAM_PADDING * 3);
-					invisibleBoundsRect.setHeight(diagramBounds.getHeight() + DIAGRAM_PADDING * 3);
-				}
-			}
-		};
+		// Create a wrapper around the diagram's scene node.
+		final Group wrapper = new DiagramNodeWrapper(gefDiagram.getSceneNode());
 
 		// Add the wrapper to the canvas
 		canvas.getContentGroup().getChildren().add(wrapper);
@@ -1423,6 +1444,22 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			// elements may be selected, the diagram elements or referenced business objects may have changed.
 			propertySheetPage.selectionChanged(AgeEditor.this, StructuredSelection.EMPTY);
 			propertySheetPage.selectionChanged(AgeEditor.this, selection);
+		}
+	}
+
+	/**
+	 * Removes children from groups and panes recursively
+	 */
+	private static void removeDescendants(final Parent parent) {
+		for (final Node child : parent.getChildrenUnmodifiable()) {
+			if (child instanceof Parent) {
+				removeDescendants((Parent) child);
+			}
+		}
+		if (parent instanceof Group) {
+			((Group) parent).getChildren().clear();
+		} else if (parent instanceof Pane) {
+			((Pane) parent).getChildren().clear();
 		}
 	}
 }

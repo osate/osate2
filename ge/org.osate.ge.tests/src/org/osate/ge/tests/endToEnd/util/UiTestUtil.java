@@ -112,7 +112,7 @@ public class UiTestUtil {
 
 	static {
 		bot = new SWTWorkbenchBot();
-		SWTBotPreferences.TIMEOUT = 20000;
+		SWTBotPreferences.TIMEOUT = 10000;
 	}
 
 	/**
@@ -129,6 +129,13 @@ public class UiTestUtil {
 					view.close();
 				}
 			}
+
+			// Save and close all editors
+			for (final SWTBotEditor editor : bot.editors()) {
+				editor.saveAndClose();
+			}
+
+			System.gc();
 		});
 	}
 
@@ -969,6 +976,7 @@ public class UiTestUtil {
 		fxBot.type(newName);
 
 		// Press enter to finish
+		bot.sleep(1000);
 		fxBot.pressEnterKey(primaryLabel.getScene());
 
 		// Wait until the label changes to the expected value

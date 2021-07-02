@@ -92,14 +92,21 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private static final String PREFERENCE_SHOW_HIDDEN_ELEMENTS = "outline.showHiddenElements";
 	private IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
 
-	private final InternalDiagramEditor editor;
-	private final ProjectProvider projectProvider;
-	private final ProjectReferenceService referenceService;
+	private InternalDiagramEditor editor; // TODO: Make final again?
+	private ProjectProvider projectProvider; // TODO: Make final again?
+	private ProjectReferenceService referenceService; // TODO: Make final again?
 	private final ExtensionRegistryService extRegistry;
 	private final BusinessObjectProviderHelper bopHelper;
 	private final Action linkWithEditorAction = new ToggleLinkWithEditorAction();
 	private final Action showHiddenElementsAction = new ToggleShowHiddenElementsAction();
-	private final DiagramModificationListener diagramModificationListener=new DiagramModificationAdapter(){@Override public void modificationsCompleted(final ModificationsCompletedEvent e){if(!getTreeViewer().getTree().isDisposed()&&getTreeViewer()!=null){getTreeViewer().refresh();}}};
+	private final DiagramModificationListener diagramModificationListener = new DiagramModificationAdapter() {
+		@Override
+		public void modificationsCompleted(final ModificationsCompletedEvent e) {
+			if (!getTreeViewer().getTree().isDisposed() && getTreeViewer() != null) {
+				getTreeViewer().refresh();
+			}
+		}
+	};
 
 	// Flag for indicating the the outline and editor selection is being synchronized.
 	// Used to avoid adjusting either selection in response to a change to itself.
@@ -135,8 +142,15 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 	@Override
 	public void dispose() {
-		editor.getDiagram().removeModificationListener(diagramModificationListener);
-		preferences.removePreferenceChangeListener(preferenceChangeListener);
+		if (editor != null) {
+			editor.getDiagram().removeModificationListener(diagramModificationListener);
+			preferences.removePreferenceChangeListener(preferenceChangeListener);
+			editor = null;
+		}
+
+		projectProvider = null; // TODO
+		referenceService = null;
+
 		super.dispose();
 	}
 
@@ -220,7 +234,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 						final DiagramNode parentNode = (DiagramNode) parent;
 
 						// Add child diagram nodes
-						parentNode.getDiagramElements().stream()
+						parentNode.getDiagramElements()
+						.stream()
 						.filter((de) -> !Strings.isNullOrEmpty(de.getUserInterfaceName())
 								|| de.getBusinessObject() instanceof EObject)
 						.forEach(children::add);
@@ -265,7 +280,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 						// Add children which are hidden based on user preference
 						if (showHiddenElementsAction.isChecked()) {
 							getChildContextsFromProvider(parent, parent, childRef -> true)
-							.filter(this::includeHiddenBusinessObjectContext).forEachOrdered(children::add);
+							.filter(this::includeHiddenBusinessObjectContext)
+							.forEachOrdered(children::add);
 						}
 					}
 
@@ -460,7 +476,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			return TreeSelection.EMPTY;
 		}
 
-		final TreePath[] treePaths = selectedDiagramElements.stream().map((dn) -> new TreePath(new Object[] { dn }))
+		final TreePath[] treePaths = selectedDiagramElements.stream()
+				.map((dn) -> new TreePath(new Object[] { dn }))
 				.toArray(TreePath[]::new);
 		return new TreeSelection(treePaths);
 	}

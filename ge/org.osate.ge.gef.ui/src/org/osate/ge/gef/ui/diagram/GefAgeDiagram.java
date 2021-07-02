@@ -165,7 +165,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	/**
 	 * Service for determining whether the style for a diagram element should be overriden.
 	 */
-	private final ColoringService coloringService;
+	private ColoringService coloringService;
 
 	/**
 	 * Map containing override styles. Values in this style will supersede styles contained in the diagram element.
@@ -375,6 +375,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 
 	@Override
 	public void close() {
+		coloringService = null;
 		diagram.removeModificationListener(modificationListener);
 		imageManager.close();
 	};
@@ -810,12 +811,14 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 * Updates the cache of override style using {@link ColoringService}.
 	 */
 	private void refreshOverrideStyles() {
-		overrideStyles = coloringService.buildForegroundColorMap()
-				.entrySet()
-				.stream()
-				.collect(Collectors.toMap(Entry::getKey, v -> {
-					return StyleBuilder.create().foregroundColor(v.getValue()).build();
-				}));
+		if (coloringService != null) {
+			overrideStyles = coloringService.buildForegroundColorMap()
+					.entrySet()
+					.stream()
+					.collect(Collectors.toMap(Entry::getKey, v -> {
+						return StyleBuilder.create().foregroundColor(v.getValue()).build();
+					}));
+		}
 	}
 
 	/**

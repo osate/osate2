@@ -125,6 +125,11 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		actionExecutorSet = true;
 	}
 
+	public void resetActionExecutor() {
+		this.actionExecutor = new SimpleActionExecutor();
+		actionExecutorSet = false;
+	}
+
 	/**
 	 * Calls a modifier to modify the diagram. The current action executor will be used to execute the modification.
 	 * @param label
