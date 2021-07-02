@@ -164,13 +164,11 @@ import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Affine;
@@ -744,8 +742,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		//
 		fxCanvas = new FXCanvas(parent, SWT.NONE);
 		fxCanvas.addDisposeListener(e -> {
-			// Remove descendants to avoid the number of nodes which are retained when something holds on to a reference to the scene graph.
-			removeDescendants(fxCanvas.getScene().getRoot());
 			fxCanvas.getScene().setRoot(new Group());
 			fxCanvas.setScene(null);
 		});
@@ -1444,22 +1440,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			// elements may be selected, the diagram elements or referenced business objects may have changed.
 			propertySheetPage.selectionChanged(AgeEditor.this, StructuredSelection.EMPTY);
 			propertySheetPage.selectionChanged(AgeEditor.this, selection);
-		}
-	}
-
-	/**
-	 * Removes children from groups and panes recursively
-	 */
-	private static void removeDescendants(final Parent parent) {
-		for (final Node child : parent.getChildrenUnmodifiable()) {
-			if (child instanceof Parent) {
-				removeDescendants((Parent) child);
-			}
-		}
-		if (parent instanceof Group) {
-			((Group) parent).getChildren().clear();
-		} else if (parent instanceof Pane) {
-			((Pane) parent).getChildren().clear();
 		}
 	}
 }
