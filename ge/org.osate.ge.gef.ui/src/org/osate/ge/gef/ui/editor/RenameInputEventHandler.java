@@ -86,7 +86,6 @@ public class RenameInputEventHandler implements InputEventHandler {
 		}
 
 		if (e.getEventType() == MouseEvent.MOUSE_PRESSED) {
-
 			wasSelected = editor.getSelectedDiagramElements().contains(clickedDiagramElement);
 			mousePressDiagramElement = clickedDiagramElement;
 		} else if (e.getEventType() == MouseEvent.MOUSE_RELEASED && mouseEvent.getButton() == MouseButton.PRIMARY
