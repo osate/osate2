@@ -31,7 +31,6 @@ import org.osate.ge.services.QueryService;
 /**
  * Contains information provided to the palette command to create an operation to create a connection.
  *
- * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0
  */
@@ -45,7 +44,6 @@ public final class GetCreateConnectionOperationContext {
 	 * @param sourceBoc the start of the connection.
 	 * @param destinationBoc the end of the connection.
 	 * @param queryService is a query service instance to provide to the palette command.
-	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
 	public GetCreateConnectionOperationContext(final BusinessObjectContext sourceBoc,
 			final BusinessObjectContext destinationBoc, final QueryService queryService) {

@@ -239,7 +239,12 @@ class ElkGraphBuilder {
 						Collectors.toCollection(ArrayList::new)));
 
 		// Determine padding
-		final ElkPadding parentPadding = new ElkPadding(portAndContentsPadding);
+		// Need to pad both left and right sides equally if ELK is determining the side of ports. Otherwise, the space for the
+		// port may overlap with shapes. This is likely caused by adjusting the border offset of ports
+		// to lay out ports within the bounds of the containing shape
+		final boolean padOppositeSides = !portConstraints.isSideFixed();
+		final ElkPadding parentPadding = new ElkPadding(
+				parent.getParent() == null || parent.getParent().getParent() == null ? 0.0 : portAndContentsPadding);
 		for (final Entry<PortSide, List<DiagramElement>> entry : groupedDockedElements.entrySet()) {
 			final PortSide side = entry.getKey();
 
@@ -252,19 +257,26 @@ class ElkGraphBuilder {
 			final double sidePadding = maxSize + portAndContentsPadding;
 			switch (side) {
 			case NORTH:
-				parentPadding.top = sidePadding;
+				parentPadding.top = Math.max(parentPadding.top, sidePadding);
 				break;
 
 			case SOUTH:
-				parentPadding.bottom = sidePadding;
+				parentPadding.bottom = Math.max(parentPadding.bottom, sidePadding);
 				break;
 
 			case EAST:
-				parentPadding.right = sidePadding;
+				parentPadding.right = Math.max(parentPadding.right, sidePadding);
+				if (padOppositeSides) {
+					parentPadding.left = Math.max(parentPadding.left, sidePadding);
+				}
 				break;
 
 			case WEST:
-				parentPadding.left = sidePadding;
+				parentPadding.left = Math.max(parentPadding.left, sidePadding);
+				if (padOppositeSides) {
+					parentPadding.right = Math.max(parentPadding.right, sidePadding);
+				}
+
 				break;
 
 			default:
@@ -345,7 +357,7 @@ class ElkGraphBuilder {
 		final Dimension untransformedGraphicSize = layoutInfoProvider.getPortGraphicSize(dockedElement);
 		final Dimension transformedGraphicSize = transformDimension(untransformedGraphicSize, side);
 
-		final Dimension untransformedLabelsSize = layoutInfoProvider.getLabelsSize(dockedElement);
+		final Dimension untransformedLabelsSize = layoutInfoProvider.getDockedElementLabelsSize(dockedElement);
 		final Dimension transformedLabelsSize = transformDimension(untransformedLabelsSize, side);
 
 		// Create child ports and sort them by the size of the dimension parallel to the docked side
@@ -532,7 +544,7 @@ class ElkGraphBuilder {
 		.filter(c -> c.getGraphic() instanceof Label)
 		.forEachOrdered(labelElement -> {
 			final ElkLabel elkLabel = createElkLabel(parentLayoutElement, labelElement.getLabelName(),
-					labelElement.getSize());
+					layoutInfoProvider.getPrimaryLabelSize(labelElement));
 			if (isConnection) {
 				if (!layoutConnectionLabels) {
 					elkLabel.setProperty(CoreOptions.NO_LAYOUT, true);

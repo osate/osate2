@@ -43,7 +43,7 @@ extends AbstractStepBuilder<ResultUserType> {
 	}
 
 	@Override
-	protected Step<?> buildStep(final Step<?> nextStep) {
+	protected Step buildStep(final Step nextStep) {
 		return new ModelModificationStep<>(nextStep, tag, boProvider, modifier);
 	}
 }

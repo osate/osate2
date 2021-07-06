@@ -184,7 +184,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			final XtextResource xtextResource) {
 		final EmbeddedTextValue actionTextValue = getActionBlockTextValue(behaviorTransition, sourceText);
 		final SelectionAdapter editActionBlockSelectionAdapter = getEditActionSelectionAdapter(project, actionTextValue,
-				behaviorTransition, editingDomain, xtextDocument, xtextResource, sourceText);
+				behaviorTransition, editingDomain, xtextDocument, xtextResource);
 		createEditingControls(actionBlockEditingControls, editActionBlockSelectionAdapter, project, actionTextValue);
 	}
 
@@ -197,7 +197,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	private static SelectionAdapter getEditActionSelectionAdapter(final IProject project,
 			final EmbeddedTextValue actionTextValue, final BehaviorTransition behaviorTransition,
 			final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
-			final XtextResource xtextResource, final String src) {
+			final XtextResource xtextResource) {
 		return new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {

@@ -41,7 +41,7 @@ import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResultBuilder;
@@ -135,7 +135,7 @@ public class UiBusinessObjectSelection implements BusinessObjectSelection {
 	 * @return
 	 */
 	private static ActionExecutor getActionExecutor() {
-		final AgeDiagramEditor editor = UiUtil.getActiveDiagramEditor();
+		final InternalDiagramEditor editor = UiUtil.getActiveDiagramEditor();
 		ActionExecutor executor = null;
 		if (editor != null) {
 			executor = editor.getActionExecutor();
