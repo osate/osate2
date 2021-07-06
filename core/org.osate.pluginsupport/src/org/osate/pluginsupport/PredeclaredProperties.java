@@ -97,7 +97,6 @@ public final class PredeclaredProperties {
 		final List<URI> disabled = getDisabledContributions();
 
 		List<URI> contributed = PluginSupportUtil.getContributedAadl();
-		contributed.removeIf(aadl -> (disabled.contains(aadl)));
 
 		final Map<URI, URI> replaced = new HashMap<>();
 		final Map<URI, URI> replaces = new HashMap<>();
@@ -105,23 +104,23 @@ public final class PredeclaredProperties {
 		for (int i = 0; i < num; i++) {
 			final URI key = URI.createURI(preferenceStore.getString(WORKSPACE_OVERRIDE_KEY_PREFIX + i));
 			final URI value = URI.createURI(preferenceStore.getString(WORKSPACE_OVERRIDE_VALUE_PREFIX + i));
-
-			if (!disabled.contains(key) && !disabled.contains(value)) { // do not include into processing if it is disabled
-				replaced.put(key, value);
-				replaces.put(value, key);
-			}
+			replaced.put(key, value);
+			replaces.put(value, key);
 		}
 
 		final List<URI> effective = new ArrayList<>(contributed.size());
 		for (final URI key : contributed) {
 			final URI value = replaced.get(key);
-			effective.add(value == null ? key : value);
+
+			if (!disabled.contains(key) && !disabled.contains(value)) { // do not include into processing if it is disabled
+				effective.add(value == null ? key : value);
+			}
 		}
 
 		contributedResources = Collections.unmodifiableList(contributed);
 		overriddenResources = Collections.unmodifiableMap(replaced);
 		overriddingResources = Collections.unmodifiableMap(replaces);
-		effectiveContributedResources = Collections.unmodifiableList(effective);
+		effectiveContributedResources = Collections.unmodifiableList(effective); // filter out disabled here
 		isChanged = false;
 	}
 

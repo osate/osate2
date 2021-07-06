@@ -122,6 +122,11 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		final Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout(2, true));
 
+		Label disabledContribLabel = new Label(composite, SWT.NONE);
+		disabledContribLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		disabledContribLabel.setText(
+				"All property sets and packages contributed by plug-ins are added to each build by default. To exclude unnecessary contributions, set a checkbox below to checked");
+
 		SashForm sashForm = new SashForm(composite, SWT.HORIZONTAL);
 		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1);
 		sashForm.setLayoutData(gd);
@@ -196,6 +201,10 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 					if (uri != null) {
 						overriddenAadl.remove(uri);
 						restoreButton.setEnabled(false);
+						if (disabledContribResources != null)
+						 {
+							disabledContribResources.remove(uri); // remove override from disabled list as well
+						}
 						selectedNode.overridden = false;
 						tree.refresh();
 						uriLabel.setText(uriToReadable(uri));
@@ -219,11 +228,11 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 	private void setCheckBoxesDisabledContributions() {
 		disabledContribResources = PredeclaredProperties.getDisabledContributions();
 		for (TreeItem node : tree.getTree().getItems()) {
-			setCheckBox(node);
+			setCheckBox(node, false);
 		}
 	}
 
-	private void setCheckBox(TreeItem node) {
+	private void setCheckBox(TreeItem node, Boolean defaultSetting) {
 		Object obj = node.getData();
 		if (obj instanceof TreeNode) {
 			String uriPath = ((TreeNode) obj).path;
@@ -232,12 +241,18 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 				if (((TreeNode) obj).overridden) {
 					uri = overriddenAadl.get(uri);
 				}
-				node.setChecked(disabledContribResources.contains(uri));
+
+				Boolean disabled = defaultSetting || disabledContribResources.contains(uri)
+						|| (overriddenAadl.containsKey(uri)
+								&& disabledContribResources.contains(overriddenAadl.get(uri)));
+				node.setChecked(disabled);
+				((TreeNode) obj).disabled = disabled;
+				node.setText((disabled ? "[Disabled] " : "") + node.getText());
 			}
 		}
 
 		for (TreeItem child : node.getItems()) {
-			setCheckBox(child);
+			setCheckBox(child, node.getChecked());
 		}
 	}
 
@@ -312,11 +327,11 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 				String uriPath = ((TreeNode) obj).path;
 				if (uriPath != null && !uriPath.isEmpty()) {
 					URI uri = URI.createURI(uriPath);
+					disabledContribResources.add(uri); // both URIs should be ignored
 					// check if overridden
-					if (((TreeNode) obj).overridden) {
-						uri = overriddenAadl.get(uri);
+					if (overriddenAadl.containsKey(uri)) {
+						disabledContribResources.add(overriddenAadl.get(uri));
 					}
-					disabledContribResources.add(uri);
 				}
 			}
 		}
@@ -546,12 +561,14 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 			this.path = path;
 			this.label = label;
 			this.overridden = overridden;
+			this.disabled = false;
 			this.imageType = 2;
 		}
 
 		public TreeNode(String label, int imageType) {
 			this.label = label;
 			this.overridden = false;
+			this.disabled = false;
 			this.imageType = imageType;
 			this.path = "";
 		}
@@ -559,6 +576,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		private String label;
 		public String path;
 		public Boolean overridden;
+		public Boolean disabled;
 		public int imageType;
 
 		protected List<TreeNode> nodes = new ArrayList<>();
@@ -569,7 +587,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		}
 
 		public String getLabel() {
-			return (this.overridden ? "[Overridden] " : "") + this.label;
+			return (this.overridden ? "[Overridden] " : "") + (this.disabled ? "[Disabled] " : "") + this.label;
 		}
 
 		public List<TreeNode> getNode() {
