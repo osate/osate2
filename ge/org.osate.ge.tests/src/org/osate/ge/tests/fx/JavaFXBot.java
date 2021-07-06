@@ -90,6 +90,8 @@ public class JavaFXBot {
 
 	/**
 	 * Generates a mouse pressed and mouse released event for a node. Does not use robot.
+	 * Using this method requires knowledge of the appropriate target for an event. Used as a workaround for cases where the target node is known and
+	 * {@link #click(Node)} does not work reliably across platforms.
 	 * @param node the node to click.
 	 */
 	public void firePressAndReleasePrimaryMouseButtonEvents(final Node node) {
