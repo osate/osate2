@@ -95,7 +95,7 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.ui.tools.ActivatedEvent;
 import org.osate.ge.internal.ui.tools.DeactivatedEvent;
@@ -108,14 +108,14 @@ import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 public class CreateEndToEndFlowSpecificationTool implements Tool {
 	private ColoringService.Coloring coloring = null;
 	private CreateFlowsToolsDialog createFlowDialog;
-	private final AgeDiagramEditor editor;
+	private final InternalDiagramEditor editor;
 
 	// Flow segment selections
 	private final List<SegmentData> segmentSelections = new ArrayList<>();
 	// In mode feature selections
 	private final ArrayList<BusinessObjectContext> modeFeatureSelections = new ArrayList<>();
 
-	public CreateEndToEndFlowSpecificationTool(final AgeDiagramEditor editor, final DiagramElement container,
+	public CreateEndToEndFlowSpecificationTool(final InternalDiagramEditor editor, final DiagramElement container,
 			final EndToEndFlow endToEndFlow) {
 		this.editor = editor;
 		final ReferenceService referenceService = Objects.requireNonNull(Adapters.adapt(editor, ReferenceService.class),
@@ -136,7 +136,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 		.forEachOrdered(modeFeatureSelections::add);
 	}
 
-	public CreateEndToEndFlowSpecificationTool(final AgeDiagramEditor editor) {
+	public CreateEndToEndFlowSpecificationTool(final InternalDiagramEditor editor) {
 		this.editor = editor;
 
 		final Display display = Display.getCurrent();
@@ -164,7 +164,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 					// Create and update based on current selection
 					createFlowDialog.create();
 					if (segmentSelections.isEmpty() && modeFeatureSelections.isEmpty()) {
-						update(Collections.singletonList(selectedBoc), true);
+						update(Collections.singletonList(selectedBoc));
 					} else {
 						final Iterator<SegmentData> segmentIt = segmentSelections.iterator();
 						while (segmentIt.hasNext()) {
@@ -235,7 +235,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 	@Override
 	public void selectionChanged(SelectionChangedEvent ctx) {
-		update(ctx.getSelectedBocs(), false);
+		update(ctx.getSelectedBocs());
 	}
 
 	/**
@@ -291,9 +291,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 	/**
 	 * Update the diagram and tool dialog
 	 * @param selectedBocs - the selected bocs
-	 * @param isInit - whether the selected bocs are the initial selection when the tool was activated
 	 */
-	private void update(final List<BusinessObjectContext> selectedBocs, final boolean isInit) {
+	private void update(final List<BusinessObjectContext> selectedBocs) {
 		if (createFlowDialog != null) {
 			if (createFlowDialog.getShell() != null && !createFlowDialog.getShell().isDisposed()
 					&& createFlowDialog.elementSelectionDlg == null) {
@@ -584,7 +583,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 					public void widgetSelected(final SelectionEvent e) {
 						elementSelectionDlg = new SelectEndToEndFlowDialog(createFlowDialog.getShell(),
 								EndToEndFlow.class, "Select End to End Flow");
-						createFlowDialog.addSegment(() -> emptySegmentsButton.dispose());
+						createFlowDialog.addSegment();
 					}
 				});
 			} else {
@@ -879,7 +878,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			buttonComposite.setLayout(rowLayout);
 		}
 
-		private void addSegment(final Runnable runnable) {
+		private void addSegment() {
 			try {
 				createFlowDialog.getShell().setVisible(false);
 				if (elementSelectionDlg.open() == Window.OK && elementSelectionDlg != null) {

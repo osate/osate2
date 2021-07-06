@@ -51,13 +51,13 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.HighlightableFlowInfo;
 import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItemUtil.FlowImplementationSelectionDialog;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.util.ProxyUtil;
 
 public class DeleteFlowContributionItem extends ControlContribution {
 	private final static Image deleteImage = PlatformUI.getWorkbench().getSharedImages()
 			.getImage(ISharedImages.IMG_TOOL_DELETE);
-	private AgeDiagramEditor editor = null;
+	private InternalDiagramEditor editor = null;
 	private Button deleteFlowBtn;
 	private HighlightableFlowInfo selectedFlow;
 
@@ -133,8 +133,8 @@ public class DeleteFlowContributionItem extends ControlContribution {
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (this.editor != newEditor) {
 			// Update the editor
-			if (newEditor instanceof AgeDiagramEditor) {
-				this.editor = (AgeDiagramEditor) newEditor;
+			if (newEditor instanceof InternalDiagramEditor) {
+				this.editor = (InternalDiagramEditor) newEditor;
 			} else {
 				this.editor = null;
 			}

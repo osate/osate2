@@ -29,8 +29,6 @@ import java.util.function.BiFunction;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.runtime.Adapters;
-import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.context.impl.UpdateContext;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.ge.RelativeBusinessObjectReference;
@@ -38,11 +36,9 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.FutureElementInfo;
-import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
-import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.services.ReferenceBuilderService;
 
@@ -55,26 +51,21 @@ class ShowContentsUtil {
 	public static void addContentsToSelectedElements(final ExecutionEvent event,
 			final BiFunction<DiagramElement, Object, Boolean> filter) {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		if (!(activeEditor instanceof AgeDiagramEditor)) {
+		if (!(activeEditor instanceof InternalDiagramEditor)) {
 			throw new RuntimeException("Unexpected editor: " + activeEditor);
 		}
 
-		final AgeDiagramEditor diagramEditor = (AgeDiagramEditor) activeEditor;
+		final InternalDiagramEditor diagramEditor = (InternalDiagramEditor) activeEditor;
 
 		final ExtensionRegistryService extService = Objects.requireNonNull(
 				Adapters.adapt(diagramEditor, ExtensionRegistryService.class), "Unable to retrieve extension service");
-		final AgeFeatureProvider featureProvider = Objects.requireNonNull(
-				(AgeFeatureProvider) diagramEditor.getDiagramTypeProvider().getFeatureProvider(),
-				"Unable to retrieve feature provider");
-		final ActionService actionService = Objects.requireNonNull(Adapters.adapt(diagramEditor, ActionService.class),
-				"Unable to retrieve action service");
 		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
 		final AgeDiagram diagram = diagramEditor.getDiagram();
 		if (diagram == null) {
 			throw new RuntimeException("Unable to retrieve diagram");
 		}
 
-		final DiagramUpdater diagramUpdater = Objects.requireNonNull(featureProvider.getDiagramUpdater(),
+		final DiagramUpdater diagramUpdater = Objects.requireNonNull(diagramEditor.getDiagramUpdater(),
 				"Unable to retrieve diagram updater");
 
 		final ReferenceBuilderService referenceBuilder = Objects.requireNonNull(
@@ -83,13 +74,8 @@ class ShowContentsUtil {
 
 		if (addChildrenDuringNextUpdate(selectedDiagramElements, diagramUpdater, extService, referenceBuilder,
 				filter)) {
-			actionService.execute("Show Contents", ExecutionMode.NORMAL, () -> {
-				// Update the diagram
-				final IUpdateContext updateCtx = new UpdateContext(
-						diagramEditor.getGraphitiAgeDiagram().getGraphitiDiagram());
-				diagramEditor.getDiagramBehavior().executeFeature(featureProvider.getUpdateFeature(updateCtx),
-						updateCtx);
-
+			diagramEditor.getActionExecutor().execute("Show Contents", ExecutionMode.NORMAL, () -> {
+				diagramEditor.updateDiagram();
 				return null;
 			});
 		}

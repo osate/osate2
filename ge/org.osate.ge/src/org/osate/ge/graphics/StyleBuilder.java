@@ -45,7 +45,8 @@ public class StyleBuilder {
 	}
 
 	/**
-	 * Returns a style builder initialized by the specified styles. Styles specified earlier override later styles. Null values are ignored.
+	 * Returns a style builder initialized by the specified styles. Styles specified earlier override later styles. Null styles or null
+	 * values within a style are ignored.
 	 * @param styles
 	 * @return
 	 */
@@ -54,6 +55,10 @@ public class StyleBuilder {
 
 		for (int i = styles.length - 1; i >= 0; i--) {
 			final Style s = styles[i];
+			if (s == null) {
+				continue;
+			}
+
 			if(s.getBackgroundColor() != null) {
 				sb.backgroundColor(s.getBackgroundColor());
 			}

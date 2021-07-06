@@ -194,7 +194,7 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 	}
 
 // Move call element
-	private final ExecuteOrderChange<Integer, Integer, DragAndDropElement> executeChangeOrder = (newIndex, curIndex,
+	private final ExecuteOrderChange executeChangeOrder = (newIndex, curIndex,
 			dNDElement) -> {
 				if (newIndex != curIndex) {
 					selectedIndex = newIndex;

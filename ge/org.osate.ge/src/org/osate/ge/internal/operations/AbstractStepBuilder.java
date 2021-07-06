@@ -62,8 +62,8 @@ abstract class AbstractStepBuilder<PrevResultUserType> implements OperationBuild
 		return nextStepBuilder;
 	}
 
-	public final Step<?> build() {
-		final Step<?> nextStep;
+	public final Step build() {
+		final Step nextStep;
 		if (nextStepBuilders.isEmpty()) {
 			nextStep = null;
 		} else if (nextStepBuilders.size() == 1) {
@@ -76,5 +76,5 @@ abstract class AbstractStepBuilder<PrevResultUserType> implements OperationBuild
 		return buildStep(nextStep);
 	}
 
-	protected abstract Step<?> buildStep(final Step<?> nextStep);
+	protected abstract Step buildStep(final Step nextStep);
 }

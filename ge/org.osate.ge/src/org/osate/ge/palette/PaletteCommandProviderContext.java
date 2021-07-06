@@ -29,7 +29,6 @@ import java.util.Objects;
  * Contains information provided to {@link PaletteContributor} to determine which commands should be contributed
  * to the palette.
  *
- * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0
  */
@@ -39,7 +38,6 @@ public final class PaletteCommandProviderContext {
 	/**
 	 * Constructs a new context for calling a palette command provider.
 	 * @param diagramBo is the business object for the diagram. Must not be null.
-	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
 	public PaletteCommandProviderContext(final Object diagramBo) {
 		this.diagramBo = Objects.requireNonNull(diagramBo, "diagramBo must not be null");

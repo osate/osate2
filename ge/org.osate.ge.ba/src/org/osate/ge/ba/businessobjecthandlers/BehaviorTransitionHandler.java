@@ -52,11 +52,9 @@ import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
 import org.osate.ge.graphics.ArrowBuilder;
-import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -98,10 +96,10 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 				.orElse(null);
 	}
 
-	public static final Graphic transitionConnectionGraphic = ConnectionBuilder.create()
-			.destinationTerminator(ArrowBuilder.create().small().filled().build()).build();
-	public static final Style transitionConnectionStyle = StyleBuilder.create().backgroundColor(Color.BLACK)
-			.labelsAboveTop().labelsLeft().build();
+	private static final Graphic transitionConnectionGraphic = ConnectionBuilder.create()
+			.destinationTerminator(ArrowBuilder.create().small().filled().build())
+			.build();
+	private static final Style transitionConnectionStyle = Style.EMPTY;
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {

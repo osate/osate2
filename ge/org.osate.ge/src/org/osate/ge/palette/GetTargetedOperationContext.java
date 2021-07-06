@@ -31,7 +31,6 @@ import org.osate.ge.services.QueryService;
 
 /**
  * Contains information provided to targeted palette commands.
- * @noinstantiate This class is not intended to be instantiated by clients.
  * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0
  */
@@ -45,7 +44,6 @@ public final class GetTargetedOperationContext {
 	 * @param targetBoc is the target for the command.
 	 * @param dockingPostion is the most appropriate DockingPosition based on the location at which the command was activated is being created.
 	 * @param queryService is a query service instance to provide to the palette command.
-	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
 	public GetTargetedOperationContext(final BusinessObjectContext targetBoc, final DockingPosition dockingPostion,
 			final QueryService queryService) {
