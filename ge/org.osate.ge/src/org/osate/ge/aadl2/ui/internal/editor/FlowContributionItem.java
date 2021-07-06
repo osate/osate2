@@ -51,13 +51,16 @@ import org.osate.ge.aadl2.internal.util.AadlInstanceObjectUtil;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.services.ModelChangeNotifier;
+import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.ui.editor.ComboContributionItem;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.swt.SwtUtil;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Predicates;
 
 public class FlowContributionItem extends ComboContributionItem {
@@ -69,18 +72,27 @@ public class FlowContributionItem extends ComboContributionItem {
 					.filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation
 							|| fa.getBusinessObject() instanceof Subcomponent
 							|| fa.getBusinessObject() instanceof ComponentInstance));
-	private AgeDiagramEditor editor = null;
+	private InternalDiagramEditor editor = null;
 	private final ShowFlowContributionItem showFlowContributionItem;
 	private final EditFlowContributionItem editFlowContributionItem;
 	private final DeleteFlowContributionItem deleteFlowContributionItem;
+	private final ModelChangeNotifier modelChangeNotifier;
+	private final ChangeListener modelChangeListener = new ChangeListener() {
+		@Override
+		public void afterModelChangeNotification() {
+			refresh();
+		}
+	};
 
 	public FlowContributionItem(final String id, final ShowFlowContributionItem showFlowImplElements,
 			final EditFlowContributionItem editFlowContributionItem,
-			final DeleteFlowContributionItem deleteFlowContributionItem) {
+			final DeleteFlowContributionItem deleteFlowContributionItem,
+			final ModelChangeNotifier modelChangeNotifier) {
 		super(id);
 		this.showFlowContributionItem = showFlowImplElements;
 		this.editFlowContributionItem = editFlowContributionItem;
 		this.deleteFlowContributionItem = deleteFlowContributionItem;
+		this.modelChangeNotifier = modelChangeNotifier;
 	}
 
 	@Override
@@ -88,17 +100,23 @@ public class FlowContributionItem extends ComboContributionItem {
 		return true;
 	}
 
+	// Force a fixed width for the combo contribution items. Otherwise the sizes are often incorrect due to the dynamic nature of the control.
+	@Override
+	protected int computeWidth(Control control) {
+		return 310;
+	}
+
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (editor != newEditor) {
-			saveFlowSelection();
-
-			// Update the editor
-			if (newEditor instanceof AgeDiagramEditor) {
-				this.editor = (AgeDiagramEditor) newEditor;
-			} else {
-				this.editor = null;
+			setControlEnabled(newEditor != null);
+			if (newEditor == null) {
+				modelChangeNotifier.removeChangeListener(modelChangeListener);
+			} else if (editor == null) {
+				modelChangeNotifier.addChangeListener(modelChangeListener);
 			}
 
+			saveFlowSelection();
+			editor = newEditor instanceof InternalDiagramEditor ? (InternalDiagramEditor) newEditor : null;
 			refresh();
 		}
 	}
@@ -124,6 +142,8 @@ public class FlowContributionItem extends ComboContributionItem {
 	@Override
 	protected Control createControl(final Composite parent) {
 		final Control control = super.createControl(parent);
+		setControlEnabled(editor != null);
+
 		final ComboViewer comboViewer = getComboViewer();
 		comboViewer.getCombo().addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -151,7 +171,7 @@ public class FlowContributionItem extends ComboContributionItem {
 		return control;
 	}
 
-	private void refresh() {
+	void refresh() {
 		final ComboViewer comboViewer = getComboViewer();
 		final Map<String, HighlightableFlowInfo> highlightableFlowElements = new TreeMap<>(
 				(o1, o2) -> o1.toLowerCase().compareTo(o2.toLowerCase()));
@@ -170,7 +190,7 @@ public class FlowContributionItem extends ComboContributionItem {
 
 			final AgeDiagram diagram = editor.getDiagram();
 			if (diagram != null) {
-				final QueryService queryService = ContributionHelper.getQueryService(editor);
+				final QueryService queryService = ContributionUtil.getQueryService(editor);
 				if (queryService != null) {
 					// Determine which flows have elements contained in the diagram and whether the flow is partial.
 					queryService.getResults(flowContainerQuery, diagram).stream().flatMap(flowContainerQueryable -> {
@@ -209,19 +229,23 @@ public class FlowContributionItem extends ComboContributionItem {
 			showFlowContributionItem.updateShowFlowItem(selectedValue.getValue());
 			editFlowContributionItem.updateEditFlowItem(selectedValue.getValue());
 			deleteFlowContributionItem.updateDeleteFlowItem(selectedValue.getValue());
-			comboViewer.setSelection(new StructuredSelection(selectedValue));
+			final StructuredSelection newSelection = new StructuredSelection(selectedValue);
+			if (!Objects.equal(newSelection, comboViewer.getSelection())) {
+				comboViewer.setSelection(newSelection);
+				onSelection(newSelection.getFirstElement());
+			}
 		}
 	}
 
-	private static Stream<FlowSegmentReference> createFlowSegmentReferences(final BusinessObjectContext flowContainerBoc,
-			final ComponentInstance ci) {
+	private static Stream<FlowSegmentReference> createFlowSegmentReferences(
+			final BusinessObjectContext flowContainerBoc, final ComponentInstance ci) {
 		return ci.getEndToEndFlows().stream().filter(f -> f != null).distinct().map(flow -> {
 			return AadlFlowSpecificationUtil.createFlowSegmentReference(flow, flowContainerBoc);
 		});
 	}
 
-	private static Stream<FlowSegmentReference> createFlowSegmentReferences(final BusinessObjectContext flowContainerBoc,
-			final ComponentImplementation ci) {
+	private static Stream<FlowSegmentReference> createFlowSegmentReferences(
+			final BusinessObjectContext flowContainerBoc, final ComponentImplementation ci) {
 		return Stream
 				.concat(ci.getAllEndToEndFlows().stream(),
 						ci.getAllFlowImplementations().stream().map(fi -> fi.getSpecification()))
@@ -281,18 +305,20 @@ public class FlowContributionItem extends ComboContributionItem {
 
 	@Override
 	protected void onSelection(final Object value) {
-		@SuppressWarnings("unchecked")
-		final Map.Entry<String, HighlightableFlowInfo> highlightableFlowsMapEntry = (Entry<String, HighlightableFlowInfo>) value;
-		final FlowSegmentReference highlightableFlowElement = highlightableFlowsMapEntry
-				.getValue().highlightableFlowElement;
-		NamedElement flowSegmentElement = null;
-		BusinessObjectContext container = null;
-		if (highlightableFlowElement != null) {
-			flowSegmentElement = highlightableFlowElement.flowSegmentElement;
-			container = highlightableFlowElement.container;
-		}
+		if (editor != null && !editor.isDisposed() && value != null) {
+			@SuppressWarnings("unchecked")
+			final Map.Entry<String, HighlightableFlowInfo> highlightableFlowsMapEntry = (Entry<String, HighlightableFlowInfo>) value;
+			final FlowSegmentReference highlightableFlowElement = highlightableFlowsMapEntry
+					.getValue().highlightableFlowElement;
+			NamedElement flowSegmentElement = null;
+			BusinessObjectContext container = null;
+			if (highlightableFlowElement != null) {
+				flowSegmentElement = highlightableFlowElement.flowSegmentElement;
+				container = highlightableFlowElement.container;
+			}
 
-		ContributionHelper.getColoringService(editor).setHighlightedFlow(flowSegmentElement, container);
+			ContributionUtil.getColoringService(editor).setHighlightedFlow(flowSegmentElement, container);
+		}
 	}
 
 	@Override

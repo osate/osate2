@@ -38,7 +38,6 @@ public class CanRenameContext {
 	/**
 	 * Creates a new instance.
 	 * @param bo is the business object which is being renamed.
-	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
 	public CanRenameContext(final Object bo) {
 		this.bo = Objects.requireNonNull(bo, "bo must not be null");

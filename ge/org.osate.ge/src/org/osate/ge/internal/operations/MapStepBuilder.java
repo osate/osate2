@@ -36,7 +36,7 @@ class MapStepBuilder<PrevResultUserType, ResultUserType> extends AbstractStepBui
 	}
 
 	@Override
-	protected Step<?> buildStep(final Step<?> nextStep) {
+	protected Step buildStep(final Step nextStep) {
 		return new MapStep<PrevResultUserType, ResultUserType>(nextStep, mapper);
 	}
 }

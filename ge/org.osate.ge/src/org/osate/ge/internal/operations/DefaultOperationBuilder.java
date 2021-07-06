@@ -30,7 +30,7 @@ package org.osate.ge.internal.operations;
  */
 public class DefaultOperationBuilder extends AbstractStepBuilder<Void> {
 	@Override
-	protected Step<?> buildStep(final Step<?> nextStep) {
+	protected Step buildStep(final Step nextStep) {
 		return nextStep;
 	}
 }

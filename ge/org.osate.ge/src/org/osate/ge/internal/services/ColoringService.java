@@ -62,7 +62,13 @@ public interface ColoringService {
 	Map<DiagramElement, Color> buildForegroundColorMap();
 
 	// TODO: Rework. Should be split out from the service.
+	/**
+	 * Must be called from the UI thread
+	 */
 	void setHighlightedMode(NamedElement ne, BusinessObjectContext boc);
 
+	/**
+	 * Must be called from the UI thread
+	 */
 	void setHighlightedFlow(NamedElement ne, BusinessObjectContext boc);
 }

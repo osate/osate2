@@ -37,6 +37,7 @@ import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
+import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.Point;
@@ -45,7 +46,8 @@ import org.osate.ge.graphics.PolyBuilder;
 public class TagHandler extends AadlBusinessObjectHandler {
 	private final Graphic defaultGraphic = LabelBuilder.create().build();
 	private static final Graphic directionIndicator = PolyBuilder.create().polyline()
-			.points(new Point(8.0, 6.0), new Point(0.0, 0.0), new Point(8.0, -6.0)).build();
+			.points(new Point(1.0, 1.0), new Point(0.0, 0.5), new Point(1.0, 0.0)).fixedSize(new Dimension(8.0, 12.0))
+			.build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {

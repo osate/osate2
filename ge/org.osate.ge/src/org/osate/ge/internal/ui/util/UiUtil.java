@@ -27,9 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IWorkbench;
@@ -42,14 +40,14 @@ import org.osate.ge.StringUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.GetIconIdContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
+import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.businessobjecthandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.graphiti.AgeDiagramTypeProvider;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.util.DiagramElementUtil;
 
 import com.google.common.base.Strings;
@@ -64,14 +62,14 @@ public class UiUtil {
 		return wb.getActiveWorkbenchWindow();
 	}
 
-	public static AgeDiagramEditor getActiveDiagramEditor() {
+	public static InternalDiagramEditor getActiveDiagramEditor() {
 		final IWorkbenchWindow activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		if (activeWindow != null) {
 			final IWorkbenchPage activePage = activeWindow.getActivePage();
 			if (activePage != null) {
 				final IEditorPart editor = activePage.getActiveEditor();
-				if (editor instanceof AgeDiagramEditor) {
-					return (AgeDiagramEditor) editor;
+				if (editor instanceof InternalDiagramEditor) {
+					return (InternalDiagramEditor) editor;
 				}
 			}
 		}
@@ -180,13 +178,6 @@ public class UiUtil {
 			return Optional.empty();
 		}
 
-		return boh.getIconId(new GetIconIdContext(bo)).map(imageId -> {
-			return GraphitiUi.getImageService().getImageForId(AgeDiagramTypeProvider.id, imageId);
-		}).filter(img -> {
-			final ImageData imageData = img.getImageData();
-
-			// If the icon is below a certain size, assume it is the default icon that is used when the image can't be loaded and ignore it.
-			return imageData != null && imageData.width >= 10;
-		});
+		return boh.getIconId(new GetIconIdContext(bo)).map(Activator.getDefault().getImageRegistry()::get);
 	}
 }

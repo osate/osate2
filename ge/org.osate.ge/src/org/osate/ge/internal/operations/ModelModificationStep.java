@@ -30,12 +30,12 @@ import org.osate.ge.operations.ModelModifier;
 import org.osate.ge.operations.OperationBuilder.BusinessObjectToModifyProvider;
 
 public class ModelModificationStep<TagType, BusinessObjectType extends EObject, PrevResultUserType, ResultUserType>
-extends AbstractStep<ResultUserType> {
+		extends AbstractStep {
 	private final TagType tag;
 	private final BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider;
 	private final ModelModifier<TagType, BusinessObjectType, PrevResultUserType, ResultUserType> modifier;
 
-	public ModelModificationStep(final Step<?> nextStep, final TagType tag,
+	public ModelModificationStep(final Step nextStep, final TagType tag,
 			final BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider,
 			final ModelModifier<TagType, BusinessObjectType, PrevResultUserType, ResultUserType> modifier) {
 		super(nextStep);

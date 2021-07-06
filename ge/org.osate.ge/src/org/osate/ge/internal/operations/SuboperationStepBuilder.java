@@ -36,7 +36,7 @@ class SuboperationStepBuilder<PrevResultUserType> extends AbstractStepBuilder<Vo
 	}
 
 	@Override
-	protected Step<Void> buildStep(final Step<?> nextStep) {
+	protected Step buildStep(final Step nextStep) {
 		return new SuboperationStep<PrevResultUserType>(nextStep, opProvider);
 	}
 }
