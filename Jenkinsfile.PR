@@ -1,10 +1,10 @@
 pipeline {
    agent any
    stages {
-      tools {
-         jdk "OracleJDK11"
-      }
       stage('Build Pull Request') {
+         tools {
+            jdk "OpenJDK11"
+         }
          steps {
             withMaven(maven: 'M3', mavenLocalRepo: '.repository', publisherStrategy: 'EXPLICIT') {
                sh 'mvn -s core/osate.releng/seisettings.xml org.codehaus.mojo:versions-maven-plugin:use-reactor -DgenerateBackupPoms=false -Dtycho.mode=maven'
