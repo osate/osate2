@@ -76,9 +76,10 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (!firstSignificantIndex.isPresent() || firstSignificantIndex.getAsInt() == uri.segmentCount() - 1) {
 					final URI replacedBy = PredeclaredProperties.getOverriddenResources().getOrDefault(uri, uri);
-					if (!disabled.contains(replacedBy)) {
-						return new ContributedAadlStorage((VirtualPluginResources) element, replacedBy);
-					}
+					// if (!disabled.contains(replacedBy)) {
+					return new ContributedAadlStorage((VirtualPluginResources) element, replacedBy,
+							disabled.contains(replacedBy));
+					// }
 				} else {
 					if (!disabled.contains(uri)) {
 						return new ContributedDirectory((VirtualPluginResources) element,
