@@ -559,7 +559,7 @@ public class UiTestUtil {
 	public static void selectItemInTreeView(final String viewTitle, final String... itemTexts) {
 		final Optional<SWTBotTreeItem> item = getItemInTree(getFirstTreeInView(viewTitle), itemTexts);
 		assertTrue("Item with texts '" + String.join(",", itemTexts) + "' not found in tree", item.isPresent());
-		item.get().select();
+		item.orElseThrow().select();
 	}
 
 	/**
@@ -569,7 +569,7 @@ public class UiTestUtil {
 	public static void doubleClickItemInTreeView(final String viewTitle, final String... itemTexts) {
 		final Optional<SWTBotTreeItem> item = getItemInTree(getFirstTreeInView(viewTitle), itemTexts);
 		assertTrue("Item with texts '" + String.join(",", itemTexts) + "' not found in tree", item.isPresent());
-		item.get().doubleClick();
+		item.orElseThrow().doubleClick();
 	}
 
 	/**

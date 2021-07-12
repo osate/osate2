@@ -25,6 +25,7 @@ package org.osate.ge.aadl2.ui.internal.properties;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Adapters;
@@ -174,7 +175,7 @@ public class SetSubprogramCallSequenceOrderPropertySection extends AbstractPrope
 
 	private ExecuteOrderChange executeChangeOrder = (newIndex, curIndex,
 			dNDElement) -> {
-				if (newIndex != curIndex) {
+		if (!Objects.equals(newIndex, curIndex)) {
 					selectedIndex = newIndex;
 					selectedBos.modify(SubprogramCallSequence.class, cs -> {
 						final SubprogramCall sc = cs.getOwnedSubprogramCalls().get(dNDElement.getIndex() - 1);
