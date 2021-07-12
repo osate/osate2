@@ -188,8 +188,8 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 			final Transform sceneToDiagramTransform, final double scaling) {
 		final List<Node> exportNodes = getExportNodes(diagram, exportRootDiagramNode);
 		final Bounds bounds = getBounds(exportNodes, sceneToDiagramTransform);
-		final Transform sceneToExportTransform = sceneToDiagramTransform
-				.createConcatenation(Transform.translate(-bounds.getMinX(), -bounds.getMinY()));
+		final Transform sceneToExportTransform = Transform.translate(-bounds.getMinX(), -bounds.getMinY())
+				.createConcatenation(sceneToDiagramTransform);
 
 		// Generate the SVG
 		DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
@@ -207,8 +207,8 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 			final DiagramNode exportRootDiagramNode, final Transform sceneToDiagramTransform, final double scaling) {
 		final List<Node> exportNodes = getExportNodes(diagram, exportRootDiagramNode);
 		final Bounds bounds = getBounds(exportNodes, sceneToDiagramTransform);
-		final Transform sceneToExportTransform = sceneToDiagramTransform
-				.createConcatenation(Transform.translate(-bounds.getMinX(), -bounds.getMinY()));
+		final Transform sceneToExportTransform = Transform.translate(-bounds.getMinX(), -bounds.getMinY())
+				.createConcatenation(sceneToDiagramTransform);
 
 		final BufferedImage image = new BufferedImage((int) Math.ceil(bounds.getWidth() * scaling),
 				(int) Math.ceil(bounds.getHeight() * scaling), BufferedImage.TYPE_INT_RGB);
