@@ -24,5 +24,5 @@
 package org.osate.ge.gef.ui.preferences;
 
 public class Preferences {
-	public static final String SHOW_GRID = "ffcanvas.show_gfridffdgasd";
+	public static final String SHOW_GRID = "canvas.show_grid";
 }
