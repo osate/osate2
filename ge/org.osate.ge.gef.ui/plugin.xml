@@ -12,6 +12,12 @@
       </editor>
    </extension>
    <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.osate.ge.gef.ui.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+   <extension
          point="org.eclipse.ui.commands">
       <command
             categoryId="org.osate.ge.commands.categories.diagramEditor"
@@ -22,6 +28,15 @@
             categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.gef.ui.commands.zoomOut"
             name="Zoom Out">
+      </command>
+      <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
+            id="org.osate.ge.gef.ui.commands.showGrid"
+            name="Show Grid">
+         <state
+               class="org.eclipse.ui.handlers.RegistryToggleState"
+               id="org.eclipse.ui.commands.toggleState">
+         </state>
       </command>
    </extension>
    <extension
@@ -38,6 +53,15 @@
       <handler
             class="org.osate.ge.gef.ui.editor.ZoomOutHandler"
             commandId="org.osate.ge.gef.ui.commands.zoomOut">
+       <activeWhen>
+          <reference
+                definitionId="org.osate.ge.expressions.editorIsActive">
+          </reference>
+       </activeWhen>
+      </handler>
+      <handler
+            class="org.osate.ge.gef.ui.editor.ShowGridHandler"
+            commandId="org.osate.ge.gef.ui.commands.showGrid">
        <activeWhen>
           <reference
                 definitionId="org.osate.ge.expressions.editorIsActive">
@@ -87,6 +111,10 @@
                   commandId="org.osate.ge.gef.ui.commands.zoomOut"
                   style="push">
             </command>
+            <command
+            	  commandId="org.osate.ge.gef.ui.commands.showGrid"
+                  style="toggle">
+            </command>
             <visibleWhen>
                   <reference
                       definitionId="org.osate.ge.expressions.editorIsActive">
@@ -95,5 +123,4 @@
          </menu>
       </menuContribution>
    </extension>
-
 </plugin>

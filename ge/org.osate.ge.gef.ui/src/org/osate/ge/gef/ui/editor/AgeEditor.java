@@ -50,6 +50,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.CommonPlugin;
@@ -101,6 +104,7 @@ import org.osate.ge.gef.ui.AgeGefUiPlugin;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.gef.ui.editor.Interaction.InteractionState;
 import org.osate.ge.gef.ui.editor.overlays.Overlays;
+import org.osate.ge.gef.ui.preferences.Preferences;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
@@ -184,6 +188,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private static final String CONTEXT_ID = "org.osate.ge.context";
 	private static final String MENU_ID = CONTRIBUTOR_ID;
 	private static final double DIAGRAM_PADDING = 16.0; // Padding around the diagram
+	private final IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(AgeGefUiPlugin.PLUGIN_ID);
 
 	// Class which handles activation and deactivation of tools
 	public class ToolHandler {
@@ -571,7 +576,18 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 				new DefaultReferenceResolutionService(projectReferenceService));
 		adapterMap.put(IContentOutlinePage.class, outlinePage);
 		adapterMap.put(IPropertySheetPage.class, propertySheetPage);
+
+		// Add preference listener
+		preferences.addPreferenceChangeListener(preferenceChangeListener);
 	}
+
+	private final IPreferenceChangeListener preferenceChangeListener = event -> {
+		if (Objects.equals(event.getKey(), Preferences.SHOW_GRID)) {
+			final boolean newValue = preferences.getBoolean(Preferences.SHOW_GRID, true);
+			preferences.putBoolean(Preferences.SHOW_GRID, newValue);
+			canvas.setShowGrid(newValue);
+		}
+	};
 
 	@Override
 	public void dispose() {
@@ -582,6 +598,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 					.getOperationSupport()
 					.getOperationHistory()
 					.removeOperationHistoryListener(operationHistoryListener);
+			preferences.removePreferenceChangeListener(preferenceChangeListener);
 			getSite().setSelectionProvider(null);
 			getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(toolPostSelectionListener);
 			this.modelChangeNotifier.removeChangeListener(modelChangeListener);
@@ -819,6 +836,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		// Initialize the JavaFX nodes based on the diagram
 		canvas = new InfiniteCanvas();
+		// Set show grid based on preferences
+		canvas.setShowGrid(preferences.getBoolean(Preferences.SHOW_GRID, true));
 		final Scene scene = new Scene(new DiagramEditorNode(paletteModel, canvas));
 		fxCanvas.setScene(scene);
 		gefDiagram = new GefAgeDiagram(diagram, coloringService);
