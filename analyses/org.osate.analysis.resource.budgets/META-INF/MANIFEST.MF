@@ -1,28 +1,31 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Resource Analysis Plug-in
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.analysis.resource.budgets;singleton:=true
-Bundle-Version: 4.0.3.qualifier
+Bundle-Version: 4.1.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.osate.analysis.resource.budgets.ResourceBudgetPlugin
-Bundle-Vendor: CMU/SEI
+Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui;bundle-version="[3.115.0,4.0.0)",
  org.eclipse.core.runtime;bundle-version="[3.17.0,4.0.0)",
- org.eclipse.emf.ecore;bundle-version="[2.20.0,3.0.0)",
+ org.eclipse.emf.ecore;bundle-version="[2.20.0,3.0.0)";visibility:=reexport,
  org.eclipse.core.resources;bundle-version="[3.13.0,4.0.0)",
- org.osate.aadl2;bundle-version="[4.0.0,5.0.0)",
+ org.osate.aadl2;bundle-version="[4.0.0,5.0.0)";visibility:=reexport,
  org.osate.ui;bundle-version="[6.1.0,7.0.0)",
  org.osate.aadl2.modelsupport;bundle-version="[6.0.0,7.0.0)",
  org.osate.xtext.aadl2.properties;bundle-version="[3.0.0,4.0.0)",
  org.osate.analysis.architecture;bundle-version="[2.0.0,3.0.0)",
  org.osate.analysis.flows;bundle-version="[5.0.0,6.0.0)",
  org.osate.results;bundle-version="[2.0.0,3.0.0)",
- org.osate.analysis.model;bundle-version="[1.0.0,2.0.0)"
+ org.osate.analysis.model;bundle-version="[1.0.0,2.0.0)";visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.analysis.resource.budgets,
  org.osate.analysis.resource.budgets.busload,
  org.osate.analysis.resource.budgets.handlers,
- org.osate.analysis.resource.budgets.logic
+ org.osate.analysis.resource.budgets.logic,
+ org.osate.analysis.resource.budgets.internal.models.power,
+ org.osate.analysis.resource.budgets.internal.models.power.impl,
+ org.osate.analysis.resource.budgets.internal.models.power.util
 Automatic-Module-Name: org.osate.analysis.resource.budgets
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
