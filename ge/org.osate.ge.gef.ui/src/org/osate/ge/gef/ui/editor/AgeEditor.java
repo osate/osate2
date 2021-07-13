@@ -889,7 +889,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		// Listeners to handle tooltips
 		//
 		canvas.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e -> {
-			if (e.getTarget() instanceof Node && activeInteraction == null && tooltipManager != null) {
+			if (e.getTarget() instanceof Node && activeInteraction == null && tooltipManager != null
+					&& gefDiagram != null) {
 				final DiagramElement de = gefDiagram.getDiagramElement((Node) e.getTarget());
 				if (de != null) {
 					tooltipManager.mouseEnter(de);
@@ -898,7 +899,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		});
 
 		canvas.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e -> {
-			if (e.getTarget() instanceof Node && activeInteraction == null && tooltipManager != null) {
+			if (e.getTarget() instanceof Node && activeInteraction == null && tooltipManager != null
+					&& gefDiagram != null) {
 				final DiagramElement de = gefDiagram.getDiagramElement((Node) e.getTarget());
 				if (de != null) {
 					tooltipManager.mouseExit(de);
