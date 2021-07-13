@@ -28,30 +28,15 @@ censes only apply to the Third Party Software and not any other portion of this 
   <parent>
 		<groupId>org.osate</groupId>
 		<artifactId>ge.parent</artifactId>
-		<version>2.9.2-SNAPSHOT</version>
+		<version>2.10.0-SNAPSHOT</version>
   </parent>
   <groupId>org.osate</groupId>
   <artifactId>org.osate.ge.errormodel.feature</artifactId>
-  <version>4.0.1-SNAPSHOT</version>
+  <version>5.0.0-SNAPSHOT</version>
   <packaging>eclipse-feature</packaging>
 
 	<build>
 		<plugins>
-			<!-- source feature generation -->
-			<plugin>
-				<groupId>org.eclipse.tycho.extras</groupId>
-				<artifactId>tycho-source-feature-plugin</artifactId>
-				<version>${tycho-extras.version}</version>
-				<executions>
-					<execution>
-						<id>source-feature</id>
-						<phase>package</phase>
-						<goals>
-							<goal>source-feature</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-p2-plugin</artifactId>
@@ -68,4 +53,5 @@ censes only apply to the Third Party Software and not any other portion of this 
 			</plugin>
 		</plugins>
 	</build>
+
 </project>

@@ -46,14 +46,12 @@ import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
-import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
-import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.dialogs.RestoreMissingDiagramElementsDialog;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.BusinessObjectContextUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
@@ -69,17 +67,15 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
-		if (!(activeEditor instanceof AgeDiagramEditor)) {
+		if (!(activeEditor instanceof InternalDiagramEditor)) {
 			throw new RuntimeException("Unexpected editor: " + activeEditor);
 		}
 
 		// Get editor and various services
-		final AgeDiagramEditor diagramEditor = (AgeDiagramEditor) activeEditor;
-		final AgeFeatureProvider featureProvider = (AgeFeatureProvider) diagramEditor.getDiagramTypeProvider()
-				.getFeatureProvider();
+		final InternalDiagramEditor diagramEditor = (InternalDiagramEditor) activeEditor;
 		final ProjectProvider projectProvider = (ProjectProvider) Objects
 				.requireNonNull(diagramEditor.getAdapter(ProjectProvider.class), "Unable to retrieve project provider");
-		final DiagramUpdater diagramUpdater = Objects.requireNonNull(featureProvider.getDiagramUpdater(),
+		final DiagramUpdater diagramUpdater = Objects.requireNonNull(diagramEditor.getDiagramUpdater(),
 				"Unable to retrieve diagram updater");
 		final ExtensionRegistryService extService = (ExtensionRegistryService) Objects.requireNonNull(
 				diagramEditor.getAdapter(ExtensionRegistryService.class), "Unable to retrieve extension service");
@@ -92,8 +88,6 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 				"Unable to retrieve reference service");
 		final LayoutInfoProvider layoutInfoProvider = Objects.requireNonNull(
 				Adapters.adapt(diagramEditor, LayoutInfoProvider.class), "Unable to retrieve layout info provider");
-		final ActionService actionService = Objects.requireNonNull(Adapters.adapt(diagramEditor, ActionService.class),
-				"Unable to retrieve action service");
 
 		// Stores child business object contexts which are applicable for a given parent node
 		final Multimap<DiagramNode, BusinessObjectContext> diagramNodeToAvailableBusinessObjectContextsMap = ArrayListMultimap
@@ -124,8 +118,8 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 						}, Map::putAll);
 
 				// Remove any entries based on existing node relative references.
-						parent.getDiagramElements()
-								.forEach(de -> relRefToBusinessObjectMap.remove(de.getRelativeReference()));
+				parent.getDiagramElements()
+				.forEach(de -> relRefToBusinessObjectMap.remove(de.getRelativeReference()));
 
 				// Don't show ghosts if there aren't any unused business objects
 				if (!relRefToBusinessObjectMap.isEmpty()) {
@@ -188,7 +182,7 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 				});
 
 		if (result != null) {
-			actionService.execute("Restore Missing Diagram Elements", ExecutionMode.NORMAL, () -> {
+			diagramEditor.getActionExecutor().execute("Restore Missing Diagram Elements", ExecutionMode.NORMAL, () -> {
 				// Update the ghosts and the diagram
 				diagram.modify("Restore Missing Diagram Elements", m -> {
 					result.getObjectToNewBoMap().forEach((ghost, newBoc) -> {

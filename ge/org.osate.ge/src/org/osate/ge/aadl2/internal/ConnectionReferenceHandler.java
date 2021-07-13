@@ -36,7 +36,6 @@ import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
-import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
@@ -47,8 +46,8 @@ import org.osate.ge.services.QueryService;
 
 public class ConnectionReferenceHandler extends AadlBusinessObjectHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().build();
-	private static final Style style = StyleBuilder.create().backgroundColor(Color.BLACK).build();
-	private static final Style partialStyle = StyleBuilder.create().backgroundColor(Color.BLACK).dotted().build();
+	private static final Style style = StyleBuilder.create().build();
+	private static final Style partialStyle = StyleBuilder.create().dotted().build();
 	private static StandaloneQuery srcQuery = StandaloneQuery
 			.create((rootQuery) -> rootQuery.parent()
 					.descendantsByBusinessObjectsRelativeReference(

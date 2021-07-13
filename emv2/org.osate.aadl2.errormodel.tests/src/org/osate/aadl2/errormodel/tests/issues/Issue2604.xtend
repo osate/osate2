@@ -42,6 +42,18 @@ class Issue2604 extends XtextTest{
 							states.get(1) => [
 								it.assertError(testFileResult.issues, issueCollection, "Target error type may only have a single error type")
 							]
+							states.get(2) => [
+								it.assertError(testFileResult.issues, issueCollection, "Target error type may only have a single error type")
+							]
+							states.get(3) => [
+								it.assertError(testFileResult.issues, issueCollection, "Target error type may only have a single error type")
+							]
+							states.get(4) => [
+								it.assertError(testFileResult.issues, issueCollection, "Target error type may only have a single error type")
+							]
+							states.get(5) => [
+								it.assertError(testFileResult.issues, issueCollection, "Target error type may only have a single error type")
+							]
 						]
 					]
 				]

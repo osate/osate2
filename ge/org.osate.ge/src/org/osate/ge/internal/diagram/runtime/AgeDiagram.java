@@ -125,6 +125,11 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		actionExecutorSet = true;
 	}
 
+	public void resetActionExecutor() {
+		this.actionExecutor = new SimpleActionExecutor();
+		actionExecutorSet = false;
+	}
+
 	/**
 	 * Calls a modifier to modify the diagram. The current action executor will be used to execute the modification.
 	 * @param label
@@ -144,11 +149,6 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				currentModification = null;
 			}
 		}
-	}
-
-	private static void runModification(final DiagramModifier modifier, final AgeDiagramModification m) {
-		modifier.modify(m);
-		m.completeModification();
 	}
 
 	@Override
@@ -466,19 +466,23 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			changes.add(new AddElementChange(e));
 		}
 
-		private void completeModification() {
-
+		private void sendBeforeCompletedNotifications() {
 			// Send any pending events
 			notifyListeners();
 
-			// Send the modifications complete event
+			// Send the before modifications complete event
 			if (modificationListeners.size() > 0) {
 				final BeforeModificationsCompletedEvent beforeCompletedEvent = new BeforeModificationsCompletedEvent(
 						AgeDiagram.this, this);
 				for (final DiagramModificationListener ml : modificationListeners) {
 					ml.beforeModificationsCompleted(beforeCompletedEvent);
 				}
+			}
+		}
 
+		private void sendCompleteNotifications() {
+			// Send the modifications complete event
+			if (modificationListeners.size() > 0) {
 				final ModificationsCompletedEvent completedEvent = new ModificationsCompletedEvent(AgeDiagram.this);
 				for (final DiagramModificationListener ml : modificationListeners) {
 					ml.modificationsCompleted(completedEvent);
@@ -748,10 +752,10 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 		@Override
 		public AgeAction execute() {
-			AgeDiagram.runModification(modifier, mod);
+			modifier.modify(mod);
+			mod.sendBeforeCompletedNotifications();
 			if (mod.changes.size() > 0) {
 				if (affectsChangeNumber(mod.changes)) {
-
 					for (final DiagramChange c : mod.changes) {
 						if (c.affectsChangeNumber()) {
 							break;
@@ -763,8 +767,11 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 					newVersionNumber = ageDiagram.changeNumber;
 				}
 
+				mod.sendCompleteNotifications();
+
 				return undoAction;
 			} else {
+				mod.sendCompleteNotifications();
 				return null;
 			}
 		}

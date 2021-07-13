@@ -29,7 +29,6 @@ import java.util.Optional;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DataClassifier;
@@ -134,7 +133,7 @@ public class BehaviorAnnexUtil {
 	 * Show dialog to select a data classifier for behavior variables
 	 */
 	static class VariableDialog {
-		public static Optional<VariableOperation> show(final Shell shell, final PublicPackageSection section,
+		public static Optional<VariableOperation> show(final PublicPackageSection section,
 				final BehaviorAnnex behaviorAnnex) {
 			final Resource resource = behaviorAnnex.eResource();
 			return BehaviorAnnexUtil.getDataClassifier(resource).map(dataClassifier -> getPackage(dataClassifier)
@@ -148,7 +147,7 @@ public class BehaviorAnnexUtil {
 	 */
 	public static Optional<VariableOperation> getVariableBuildOperation(final PublicPackageSection section,
 			final BehaviorAnnex behaviorAnnex) {
-		return VariableDialog.show(Display.getCurrent().getActiveShell(), section, behaviorAnnex);
+		return VariableDialog.show(section, behaviorAnnex);
 	}
 
 	/**

@@ -136,7 +136,7 @@ org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider
 
 			final IProject project = file.getProject();
 			if (project != null) {
-				final Optional<DiagramReference> optDiagramRef = diagramService
+				final Optional<? extends DiagramReference> optDiagramRef = diagramService
 						.findDiagrams(Collections.singleton(project)).stream()
 						.filter(dr -> dr.isValid() && file.equals(dr.getFile())).findAny();
 				if (optDiagramRef.isPresent()) {

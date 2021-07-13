@@ -137,6 +137,8 @@ public class ChangeSubcomponentTypePropertySection extends AbstractPropertySecti
 				comboViewer.setSelection(new StructuredSelection(scTypeElement));
 			});
 		}
+
+		comboViewer.getCombo().setEnabled(selectedSubcomponenents.size() == 1);
 	}
 
 	private static boolean isCompatibleSubcomponentType(final Subcomponent sc, final EClass subcomponentType) {

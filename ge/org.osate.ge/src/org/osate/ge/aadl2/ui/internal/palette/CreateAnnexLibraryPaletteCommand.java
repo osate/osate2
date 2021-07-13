@@ -52,7 +52,7 @@ public class CreateAnnexLibraryPaletteCommand extends BasePaletteCommand impleme
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return ctx.getTarget().getBusinessObject(AadlPackage.class).map(readonlyPkg -> Operation.createPromptAndModifyWithExtra(() -> {
 			final AnnexNameDialog annexNameDialog = new AnnexNameDialog(Display.getCurrent().getActiveShell(),
-					readonlyPkg, "Create Annex Library", "Enter a name for the new Annex Library.");
+					"Create Annex Library", "Enter a name for the new Annex Library.");
 			if (annexNameDialog.open() == Window.CANCEL || annexNameDialog.getValue() == null) {
 				return Optional.empty();
 			}
