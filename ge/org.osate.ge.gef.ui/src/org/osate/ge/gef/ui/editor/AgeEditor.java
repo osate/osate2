@@ -61,6 +61,7 @@ import org.eclipse.gef.fx.nodes.InfiniteCanvas;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -189,6 +190,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private static final String MENU_ID = CONTRIBUTOR_ID;
 	private static final double DIAGRAM_PADDING = 16.0; // Padding around the diagram
 	private final IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(AgeGefUiPlugin.PLUGIN_ID);
+	private final IPreferenceStore preferenceStore = AgeGefUiPlugin.getDefault().getPreferenceStore();
 
 	// Class which handles activation and deactivation of tools
 	public class ToolHandler {
@@ -583,7 +585,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 	private final IPreferenceChangeListener preferenceChangeListener = event -> {
 		if (Objects.equals(event.getKey(), Preferences.SHOW_GRID)) {
-			canvas.setShowGrid((boolean) event.getNewValue());
+			canvas.setShowGrid(preferenceStore.getBoolean(Preferences.SHOW_GRID));
 		}
 	};
 
@@ -835,7 +837,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		// Initialize the JavaFX nodes based on the diagram
 		canvas = new InfiniteCanvas();
 		// Set show grid based on preferences
-		canvas.setShowGrid(preferences.getBoolean(Preferences.SHOW_GRID, true));
+		canvas.setShowGrid(preferenceStore.getBoolean(Preferences.SHOW_GRID));
 		final Scene scene = new Scene(new DiagramEditorNode(paletteModel, canvas));
 		fxCanvas.setScene(scene);
 		gefDiagram = new GefAgeDiagram(diagram, coloringService);

@@ -32,7 +32,7 @@
       <command
             categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.gef.ui.commands.showGrid"
-            name="Show Grid">
+            name="Grid">
          <state
                class="org.eclipse.ui.handlers.RegistryToggleState"
                id="org.eclipse.ui.commands.toggleState">
