@@ -583,7 +583,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 	private final IPreferenceChangeListener preferenceChangeListener = event -> {
 		if (Objects.equals(event.getKey(), Preferences.SHOW_GRID)) {
-			canvas.setShowGrid(Boolean.parseBoolean(event.getNewValue().toString()));
+			canvas.setShowGrid((boolean) event.getNewValue());
 		}
 	};
 
