@@ -1074,7 +1074,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	public void doSave(final IProgressMonitor monitor) {
 		try {
 			if (diagramFile == null) {
-				throw new AgeGefRuntimeException("diagram file is nulll");
+				throw new AgeGefRuntimeException("diagram file is null");
 			}
 
 			// Handle the diagram being read-only
