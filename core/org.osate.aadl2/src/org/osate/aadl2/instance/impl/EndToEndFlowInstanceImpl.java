@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -312,6 +312,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 		}
 		return modesList;
 	}
+
 	public List<EndToEndFlow> getInstantiatedObjects() {
 		return Collections.singletonList(getEndToEndFlow());
 	}

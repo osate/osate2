@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -17,16 +17,23 @@
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
  * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
- * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party benefici-
- * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
- * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ * 
  */
 package org.osate.aadl2.presentation;
 
 import org.eclipse.emf.common.EMFPlugin;
+
 import org.eclipse.emf.common.ui.EclipseUIPlugin;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
+
+import org.eclipse.uml2.uml.edit.UMLEditPlugin;
+
 import org.osate.aadl2.provider.Aadl2EditPlugin;
 
 /**
@@ -59,7 +66,7 @@ public final class Aadl2EditorPlugin extends EMFPlugin {
 	 * @generated
 	 */
 	public Aadl2EditorPlugin() {
-		super(new ResourceLocator[] { Aadl2EditPlugin.INSTANCE, EcoreEditPlugin.INSTANCE, });
+		super(new ResourceLocator[] { Aadl2EditPlugin.INSTANCE, EcoreEditPlugin.INSTANCE, UMLEditPlugin.INSTANCE, });
 	}
 
 	/**

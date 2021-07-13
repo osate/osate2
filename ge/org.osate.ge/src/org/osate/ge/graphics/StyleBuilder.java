@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -45,7 +45,8 @@ public class StyleBuilder {
 	}
 
 	/**
-	 * Returns a style builder initialized by the specified styles. Styles specified earlier override later styles. Null values are ignored.
+	 * Returns a style builder initialized by the specified styles. Styles specified earlier override later styles. Null styles or null
+	 * values within a style are ignored.
 	 * @param styles
 	 * @return
 	 */
@@ -54,6 +55,10 @@ public class StyleBuilder {
 
 		for (int i = styles.length - 1; i >= 0; i--) {
 			final Style s = styles[i];
+			if (s == null) {
+				continue;
+			}
+
 			if(s.getBackgroundColor() != null) {
 				sb.backgroundColor(s.getBackgroundColor());
 			}

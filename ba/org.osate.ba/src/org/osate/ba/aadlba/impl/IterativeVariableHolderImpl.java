@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -19,12 +19,11 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.IterativeVariable ;
-import org.osate.ba.aadlba.IterativeVariableHolder ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.IterativeVariable;
+import org.osate.ba.aadlba.IterativeVariableHolder;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,53 +32,48 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public class IterativeVariableHolderImpl extends DataHolderImpl implements IterativeVariableHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected IterativeVariableHolderImpl()
-  {
-    super();
-  }
+public class IterativeVariableHolderImpl extends DataHolderImpl implements IterativeVariableHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected IterativeVariableHolderImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.ITERATIVE_VARIABLE_HOLDER;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.ITERATIVE_VARIABLE_HOLDER;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setIterativeVariable(final IterativeVariable itV )
-  {
-    element = itV ;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setIterativeVariable(final IterativeVariable itV) {
+		element = itV;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public IterativeVariable getIterativeVariable()
-  {
-    return (IterativeVariable) element;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public IterativeVariable getIterativeVariable() {
+		return (IterativeVariable) element;
+	}
 
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
 
-} //IterativeVariableHolderImpl
+} // IterativeVariableHolderImpl

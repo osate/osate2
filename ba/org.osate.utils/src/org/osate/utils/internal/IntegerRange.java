@@ -19,54 +19,49 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.utils.internal ;
+package org.osate.utils.internal;
 
 /**
  * Represents a range of integer.
  * @since 2.0
  *
  */
-public class IntegerRange
-{
-  private final int min, max ;
+public class IntegerRange {
+	private final int min, max;
 
-  /**
-   * Builds an instance of IntegerRange with the given parameters.
-   *
-   * @param min the integer range's lower bound
-   * @param max the integer range's upper bound
-   */
-  public IntegerRange(int min, int max)
-  {
-    this.min = min ;
-    this.max = max ;
-  }
+	/**
+	 * Builds an instance of IntegerRange with the given parameters.
+	 *
+	 * @param min the integer range's lower bound
+	 * @param max the integer range's upper bound
+	 */
+	public IntegerRange(int min, int max) {
+		this.min = min;
+		this.max = max;
+	}
 
-  /**
-   * Returns the integer range's upper bound.
-   * @return the integer range's upper bound
-   */
-  public int getMin()
-  {
-    return min ;
-  }
+	/**
+	 * Returns the integer range's upper bound.
+	 * @return the integer range's upper bound
+	 */
+	public int getMin() {
+		return min;
+	}
 
-  /**
-   * Returns the integer range's lower bound.
-   * @return the integer range's lower bound
-   */
-  public int getMax()
-  {
-    return max ;
-  }
+	/**
+	 * Returns the integer range's lower bound.
+	 * @return the integer range's lower bound
+	 */
+	public int getMax() {
+		return max;
+	}
 
-  /**
-   * Returns the length of the integer range.
-   *
-   * @return the length of the integer range
-   */
-  public int length()
-  {
-    return max - min ;
-  }
+	/**
+	 * Returns the length of the integer range.
+	 *
+	 * @return the length of the integer range
+	 */
+	public int length() {
+		return max - min;
+	}
 }

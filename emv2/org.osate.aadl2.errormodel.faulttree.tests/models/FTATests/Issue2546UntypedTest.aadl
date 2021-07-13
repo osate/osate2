@@ -1,0 +1,45 @@
+package untyped_state
+public
+    annex EMV2 {**
+        error behavior AllGood
+            events
+                Failure: error event;
+            states
+                Operational: initial state;
+                Failed: state;
+            transitions
+                BadVal: Operational -[Failure]-> Operational;
+        end behavior;
+    **};
+	system sys
+		features
+            dinA: in data port;
+            dinB: in data port;
+			dout: out data port;
+
+        annex EMV2 {**
+            use types ErrorLibrary;
+            use behavior untyped_state::AllGood;
+            
+            error propagations
+				dinA: in propagation  {ItemValueError};
+				dinB: in propagation  {ItemValueError};
+				dout: out propagation {ItemValueError};
+
+                flows
+--                    pA: error path dinA -> dout;
+--                    pB: error path dinB -> dout;
+                    esrc: error source dout {ItemValueError};
+			end propagations;
+
+            component error behavior
+                propagations
+                    Operational -[ dinA{ItemValueError} ]-> dout{ItemValueError};
+            end component;
+		**};
+	end sys;
+	
+	system implementation sys.i
+	end sys.i;
+
+end untyped_state;

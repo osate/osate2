@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -42,8 +42,20 @@ censes only apply to the Third Party Software and not any other portion of this 
           id="org.osate.ge.commands.categories.layout"
           name="Layout">
     </category>
-	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.internal.ui.handlers.OpenDiagramHandler"></command>
-	   <command id="org.osate.ge.commands.creatediagram" name="Create Diagram..." defaultHandler="org.osate.ge.internal.ui.handlers.CreateDiagramHandler"></command>
+    <category
+    	  id="org.osate.ge.commands.categories.diagramEditor"
+    	  name="OSATE Diagram Editor">
+    </category>
+	   <command
+          categoryId="org.osate.ge.commands.categories.diagramEditor"
+          defaultHandler="org.osate.ge.internal.ui.handlers.OpenDiagramHandler"
+          id="org.osate.ge.commands.opendiagram"
+          name="Open Diagram"></command>
+	   <command
+          categoryId="org.osate.ge.commands.categories.diagramEditor"
+          defaultHandler="org.osate.ge.internal.ui.handlers.CreateDiagramHandler"
+          id="org.osate.ge.commands.creatediagram"
+          name="Create Diagram..."></command>
       <command
             categoryId="org.osate.ge.commands.categories.layout"
             id="org.osate.ge.commands.arrangeInGrid"
@@ -125,6 +137,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             name="Align Bottom">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.commands.properties"
             name="Properties...">
       </command>
@@ -144,10 +157,12 @@ censes only apply to the Third Party Software and not any other portion of this 
             name="Remove Bendpoints">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.restoreMissingDiagramElements"
             name="Restore Missing Diagram Elements...">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.showContentFilter"
             name="Show Content Filter">
          <commandParameter
@@ -157,6 +172,7 @@ censes only apply to the Third Party Software and not any other portion of this 
          </commandParameter>
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.hideContentFilter"
             name="Hide Content Filter">
          <commandParameter
@@ -166,96 +182,127 @@ censes only apply to the Third Party Software and not any other portion of this 
          </commandParameter>
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.showAllContents"
             name="Show All">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.showDefaultContents"
             name="Show Default">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.showElement"
             name="Show">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.hideElement"
             name="Hide">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.hideAllContents"
             name="Hide All Contents">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.configureDiagram"
             name="Configure Diagram...">
       </command>
       <command
-      		id="org.osate.ge.showElementsInMode"
-      		name="Show Elements In Mode">
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
+            id="org.osate.ge.showElementsInMode"
+            name="Show Elements In Mode">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.showConnectedElements"
             name="Show Connected Elements">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.goToAadlSource"
             name="Go to AADL Source">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.openAssociatedDiagram"
             name="Open Associated Diagram">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.createNewDiagram"
             name="Create New Diagram">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.goToTypeDiagram"
             name="Go to Type Diagram">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.goToPackageDiagram"
             name="Go to Package Diagram">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.instantiate"
             name="Instantiate">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.selectContainer"
             name="Select Container">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.delete"
             name="Delete">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.rename"
             name="Rename...">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.saveImage"
             name="Export Diagram...">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.setDescendantsToAutomatic"
             name="Set Descendants to Automatic">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.goToImplementationDiagram"
             name="Go to Implementation Diagram">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.selectAllConnections"
             name="Select All Connections">
       </command>
       <command
+            categoryId="org.osate.ge.commands.categories.diagramEditor"
             id="org.osate.ge.copyDiagramElements"
             name="Copy Diagram Elements">
       </command>
    </extension>
  <extension
        point="org.eclipse.ui.handlers">
+     <handler
+          class="org.osate.ge.internal.ui.handlers.PrintDiagramHandler"
+          commandId="org.eclipse.ui.file.print">
+       <enabledWhen>
+          <reference
+                definitionId="org.osate.ge.expressions.editorIsActive">
+          </reference>
+       </enabledWhen>
+    </handler>
     <handler
           class="org.osate.ge.internal.ui.handlers.ArrangeInGridHandler"
           commandId="org.osate.ge.commands.arrangeInGrid">
@@ -1090,6 +1137,10 @@ censes only apply to the Third Party Software and not any other portion of this 
           </visibleWhen>
        </command>
        <separator
+       		 name="org.osate.ge.additionalDiagramTypes"
+       		 visible="false">
+       </separator>
+       <separator
              name="org.osate.ge.separator5"
              visible="true">
        </separator>
@@ -1322,54 +1373,8 @@ censes only apply to the Third Party Software and not any other portion of this 
 			</command>
 		</menuContribution>		
    </extension>
-	   
-   <extension point="org.eclipse.graphiti.ui.diagramTypes">      
-      <diagramType
-            name="AADL Diagram Type"
-            type="AADL Diagram"
-            id="org.osate.ge.aadlDiagramType">
-      </diagramType>
-   </extension>
-   
-   <extension point="org.eclipse.graphiti.ui.diagramTypeProviders">     
-      <diagramTypeProvider
-            name="AADL Component Implementation Diagram Type Provider"
-            class="org.osate.ge.internal.graphiti.AgeDiagramTypeProvider"
-            id="org.osate.ge.aadlDiagramTypeProvider">
-         <diagramType
-               id="org.osate.ge.aadlDiagramType">
-         </diagramType>
-		 <imageProvider
-            id="org.osate.ge.image_provider">
-      	 </imageProvider>
-      </diagramTypeProvider>
-   </extension>
-   
-   <extension
-	    point = "org.eclipse.ui.editors">
-		<editor
-	  	   id = "org.osate.ge.editor.AgeDiagramEditor"
-	  	   name="AADL Diagram Editor"
-      	   class="org.osate.ge.internal.ui.editor.AgeDiagramEditor"
-		   extensions="aadl_diagram"
-           contributorClass="org.osate.ge.internal.ui.editor.AgeDiagramEditorActionBarContributor"
-           matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorMatchingStrategy">
-		</editor>
-	</extension>
 
 	<extension point="org.eclipse.core.runtime.adapters">
-		<factory adaptableType="org.eclipse.gef.EditPart" class="org.osate.ge.internal.ui.editor.GraphitiEditPartAdapterFactory">
-			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
-		   <adapter
-		         type="org.osate.ge.internal.diagram.runtime.DiagramNode">
-		   </adapter>
-		   <adapter
-		         type="org.osate.ge.internal.diagram.runtime.DiagramElement">
-		   </adapter>
-     <adapter
-           type="org.osate.ge.BusinessObjectContext">
-     </adapter>
-		</factory>
   <factory
         adaptableType="org.eclipse.jface.viewers.ISelection"
         class="org.osate.ge.internal.selection.AgeBusinessObjectSelectionAdapterFactory">
@@ -1440,17 +1445,6 @@ censes only apply to the Third Party Software and not any other portion of this 
   </extension>
   
   <extension
-        point="org.eclipse.ui.navigator.linkHelper">
-     <linkHelper
-           class="org.osate.ge.internal.ui.navigator.LinkHelper"
-           id="org.osate.ge.linkHelper">
-        <editorInputEnablement>
-           <instanceof
-                 value="org.eclipse.graphiti.ui.editor.IDiagramEditorInput">
-           </instanceof></editorInputEnablement>
-     </linkHelper>
-  </extension>
-  <extension
         point="org.eclipse.core.expressions.propertyTesters">
      <propertyTester
            class="org.osate.ge.internal.expressions.DiagramElementPropertyTester"
@@ -1468,14 +1462,6 @@ censes only apply to the Third Party Software and not any other portion of this 
      </propertyTester>
   </extension>
   
- <extension
-      point="org.eclipse.graphiti.ui.imageProviders">
-   <imageProvider
-         class="org.osate.ge.internal.graphiti.AgeImageProvider"
-         id="org.osate.ge.image_provider">
-   </imageProvider>
-</extension>
-
  <extension
 	point="org.eclipse.ui.contexts">
 	<context
@@ -1768,7 +1754,7 @@ censes only apply to the Third Party Software and not any other portion of this 
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>
          <propertySection
-               afterSection="org.osate.ge.internal.ui.properties.InheritedElementNoticePropertySection"
+               afterSection="org.osate.ge.ui.properties.inheritedElementOwnerNoticeSection"
                class="org.osate.ge.aadl2.ui.internal.properties.RefineElementPropertySection"
                filter="org.osate.ge.aadl2.ui.internal.properties.RefineElementPropertySection$Filter"
                id="org.osate.ge.ui.properties.refineElementPropertySection"
@@ -1876,9 +1862,14 @@ censes only apply to the Third Party Software and not any other portion of this 
             id="org.osate.ge.expressions.editorIsActive">
          <with
                variable="activeEditorId">
-            <equals
+            <or>
+               <equals
                   value="org.osate.ge.editor.AgeDiagramEditor">
-            </equals>
+               </equals>
+               <equals
+                  value="org.osate.gef.ui.editor.AgeEditor">
+               </equals>
+            </or>
          </with>
       </definition>
    </extension>

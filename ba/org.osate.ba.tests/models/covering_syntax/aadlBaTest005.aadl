@@ -1,0 +1,492 @@
+-- AADL-BA-FrontEnd
+ 
+-- Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
+ 
+-- TELECOM ParisTech/LTCI
+
+-- Authors: see AUTHORS
+ 
+-- This program is free software: you can redistribute it and/or modify 
+-- it under the terms of the Eclipse Public License as published by Eclipse,
+-- either version 2.0 of the License, or (at your option) any later version.
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- Eclipse Public License for more details.
+-- You should have received a copy of the Eclipse Public License
+-- along with this program.  If not, see 
+-- https://www.eclipse.org/legal/epl-2.0/
+
+-- Behavior Annex group resolution.
+
+--------- TODO: SUBPROGRAM PARAMETERS DCR !!!!!!!!! ------------
+--------- TODO: UCCR SUBPROGRAM CALL !!!!!!!!! ------------
+--------- TODO: PROTOTYPE avec MyPrototGroupConcrete !!!!!!!!! ------------
+
+package GroupTest
+public
+
+with Data_Model, Base_Types, AadlBaTestPropertySet, AadlBaTest::Types, AadlBaTestSubprogram ;
+
+subprogram procedure
+end procedure ;
+--------------------------------------------------------------------------------
+
+subprogram multiplication
+  prototypes
+    proto : subprogram ;
+
+  features
+    x : in parameter Base_Types::Integer ;
+    y : in parameter MyInteger;
+    z : out parameter MyInteger;
+end multiplication;
+--------------------------------------------------------------------------------
+
+subprogram implementation multiplication.impl
+end multiplication.impl;
+--------------------------------------------------------------------------------
+
+subprogram implementation multiplication.impl2 extends multiplication.impl
+  (proto => subprogram multiplication)
+end multiplication.impl2;
+--------------------------------------------------------------------------------
+
+data MyInteger
+  features
+    multiplicationAccess : provides subprogram access multiplication ;  
+
+  properties
+    Data_Model::Data_Representation => Integer;
+    Data_Model::Integer_Range => 0 .. Max_Target_Integer ;
+end MyInteger;
+--------------------------------------------------------------------------------
+
+data implementation MyInteger.impl
+  subcomponents
+    length : data Base_Types::Integer ;
+end MyInteger.impl ;
+--------------------------------------------------------------------------------
+
+data implementation MyInteger.impl2 extends  MyInteger.impl
+  subcomponents
+    max : data Base_Types::Integer ;
+end MyInteger.impl2 ;
+--------------------------------------------------------------------------------
+
+data Struct
+end Struct ;
+--------------------------------------------------------------------------------
+
+data implementation Struct.impl
+  subcomponents
+    int : data Base_Types::Integer ;
+    intArray : data Base_Types::Integer [10][10] ;
+end Struct.impl ;
+--------------------------------------------------------------------------------
+
+feature group MyPortGroup
+  features
+    outPort : out event data port Base_Types::Integer ;
+--  outPortArray : out event data port Base_Types::Integer [10];
+  
+    inPort : in event data port Base_Types::Integer ;
+--  inPortArray : in event data port Base_Types::Integer [10];
+
+    recursiveGrp : feature group MyPortGroup ;
+end MyPortGroup ;
+--------------------------------------------------------------------------------
+
+feature group MyDataAccessGroup
+
+features
+  dataAccess : requires data access Struct.impl ;
+--  dataAccessArray : requires data access Struct.impl [10];
+  recursiveGrp : feature group MyDataAccessGroup ;
+end MyDataAccessGroup ;
+--------------------------------------------------------------------------------
+
+subprogram group MySubprogramGroup
+  features
+    subprog : requires subprogram access multiplication ;
+    recursiveGrpAccess : requires subprogram group access MySubprogramGroup ;
+    prototypeGrp : feature group  MyPrototGroupConcrete ;
+end MySubprogramGroup ;
+--------------------------------------------------------------------------------
+
+subprogram group implementation MySubprogramGroup.impl
+  subcomponents
+--  int : data Base_Types::Integer ; -- NOT SUPPORTED YET BY OSATE
+--  intArray : data Base_Types::Integer [10][10] ; -- NOT SUPPORTED YET BY OSATE
+--  myStruct : data Struct.impl [10] ; -- NOT SUPPORTED YET BY OSATE
+    spg1 : subprogram procedure [10] ;
+    spg2 : subprogram multiplication;
+    recursiveGrp : subprogram group MySubprogramGroup.impl ;
+end MySubprogramGroup.impl ;
+--------------------------------------------------------------------------------
+
+feature group MyPrototypeGroup
+  prototypes
+    outPort : out feature  ;
+    inPort : in feature ;
+    dataAccess : feature ;
+    subprog : subprogram ;
+  
+    definedOutPort : out feature Base_Types::Integer ;
+    definedInPort : in feature Base_Types::Integer ;
+    definedDataAccess : data Struct.impl [];
+    definedSubprog : subprogram multiplication [] ;
+  
+    recursiveGrp : feature group  ;
+    subprogGrp : subprogram group [] ;
+    threadGrp : thread group [] ;
+end MyPrototypeGroup ;
+--------------------------------------------------------------------------------
+feature group MyPrototGroupConcrete extends MyPrototypeGroup
+  (
+    outPort => out event data port Base_Types::Integer,
+    inPort => in event data port Base_Types::Integer,
+    dataAccess => requires data access Struct.impl,
+    subprog => subprogram multiplication,  
+    
+    recursiveGrp => feature group MyPrototGroupConcrete,
+    subprogGrp => subprogram group MySubprogramGroup.impl,
+    threadGrp => thread group MyThreadGroup.impl
+  )
+end MyPrototGroupConcrete ;
+--------------------------------------------------------------------------------
+
+thread group MyThreadGroup
+  features
+    subprog : requires subprogram access multiplication ;
+    subprogGrpAccess : requires subprogram group access MySubprogramGroup.impl ;
+  
+    outPort : out event data port Base_Types::Integer ;
+    inPort : in event data port Base_Types::Integer ;
+
+    dataAccess : requires data access Struct.impl ;
+  
+    portGrp : feature group MyPortGroup ;
+    dataAccessGrp : feature group MyDataAccessGroup ;
+    prototypeGrp : feature group  MyPrototypeGroup ;
+end MyThreadGroup ;
+--------------------------------------------------------------------------------
+
+thread group implementation MyThreadGroup.impl
+  subcomponents
+    int : data Base_Types::Integer ; 
+    intArray : data Base_Types::Integer [10][10] ;
+    myStruct : data Struct.impl [10] ;
+    spg1 : subprogram procedure [10] ;
+    spg2 : subprogram multiplication;
+    subprogGrp : subprogram group MySubprogramGroup.impl ;
+    recursiveGrp : thread group MyThreadGroup.impl ;
+end MyThreadGroup.impl ;
+--------------------------------------------------------------------------------
+
+thread thread1
+  prototypes
+    subprogProt : subprogram multiplication ;
+    threadGrpProt : thread group ;
+
+  features
+    mul : requires subprogram access multiplication;
+    mulProvided : provides subprogram access multiplication ;
+    inPortA : in event data port Base_Types::Integer ;
+    inPortB : in event data port Base_Types::Integer;
+    inPortC : in event data port Base_Types::Integer;
+    inPortD : in event data port Base_Types::Integer;
+    outPortA : out event data port MyInteger;
+    outPortB : out event data port Base_Types::Boolean ;
+    inPortArrayA : in event port[10] ;
+    outPortArrayA : out event port[10] ;
+  
+    fakePort : out data port AadlBaTest::Types::Opaque ;
+  
+    dataAccess : requires data access Struct.impl ;
+    dataAccessArray : requires data access Struct.impl [10] ;
+    
+    subprogGrpAccess : requires subprogram group access MySubprogramGroup.impl ;
+  
+    portGrp : feature group MyPortGroup ;
+    dataAccessGrp : feature group MyDataAccessGroup ;
+    
+    protoGrp : feature group MyPrototGroupConcrete ;
+end thread1;
+--------------------------------------------------------------------------------
+thread thread2 extends thread1
+(
+  threadGrpProt => thread group MyThreadGroup.impl
+)
+end thread2 ;
+
+thread implementation thread2.impl
+
+  subcomponents
+    spg1 : subprogram procedure ;
+    spg2 : subprogram multiplication;
+    subData1: data MyInteger.impl ;
+    float : data Base_Types::Float ;
+    
+    subprogGrp : subprogram group MySubprogramGroup.impl ;
+
+  properties
+    Dispatch_Protocol => Timed ;
+    Period => 1 sec;
+  
+annex behavior_specification 
+{**
+
+ -- *** VARIABLES *** 
+
+  variables 
+    x : Base_Types::Integer;
+    y : MyInteger ;
+    bool1 : Base_Types::Boolean ;
+    -- AADL BA STANDARD DOES NOT ALLOW ANY GROUP DECLARATION.
+ 
+ --  *** STATES ***
+ 
+  states
+    a : state ;
+    dummy : initial complete final state ;
+ -- *** TRANSITIONS ***
+
+  transitions
+
+  -- target tests --
+    
+    -- port tests --
+    
+    a -[]-> a {outPortA := 0} ;
+    a -[]-> a {portGrp.outPort := 0} ;
+    -- a -[]-> a {portGrp.outPortArray[0] := 0} ;
+    a -[]-> a {portGrp.recursiveGrp.outPort := 0} ;
+    -- a -[]-> a {portGrp.recursiveGrp.outPortArray[0] := 0} ;
+    -- a -[]-> a {subprogGrp.portGrp.outPortArray[0] := 0} ;
+    -- a -[]-> a {subprogGrp.recursiveGrpAccess.portGrp.outPortArray[0] := 0} ;
+    -- a -[]-> a {subprogGrp.recursiveGrpAccess.portGrp.recursiveGrp.outPortArray[0] := 0} ;
+
+
+    -- data and data access tests --
+
+    a -[]-> a {dataAccess.int := 0} ;
+    a -[]-> a {dataAccessArray[0].int := 0} ;
+    a -[]-> a {dataAccess.intArray[0][0] := 0} ;
+    a -[]-> a {dataAccessArray[0].intArray[0][0] := 0} ;
+
+    a -[]-> a {dataAccessGrp.dataAccess.int := 0} ;
+    -- a -[]-> a {dataAccessGrp.dataAccessArray[0].int := 0} ;
+    a -[]-> a {dataAccessGrp.dataAccess.intArray[0][0] := 0} ;
+    -- a -[]-> a {dataAccessGrp.dataAccessArray[0].intArray[0][0] := 0} ;
+    
+    -- a -[]-> a {subprogGrp.int := 0} ; NOT SUPPORTED YET BY OSATE
+    -- a -[]-> a {subprogGrp.intArray[0][0] := 0} ; NOT SUPPORTED YET BY OSATE
+    -- a -[]-> a {subprogGrp.myStruct[0].int := 0} ; NOT SUPPORTED YET BY OSATE
+    -- a -[]-> a {subprogGrp.myStruct[0].intArray[0][0] := 0} ; NOT SUPPORTED YET BY OSATE
+        
+    -- a -[]-> a {subprogGrp.recursive.dataAccessGrp.dataAccessArray[0].intArray[0][0] := 0} ;
+    -- a -[]-> a {subprogGrp.recursiveGrpAccess.dataAccessGrp.dataAccessArray[0].intArray[0][0] := 0} ;
+    -- a -[]-> a {subprogGrp.recursive.myStruct[0].intArray[0][0] := 0} ; NOT SUPPORTED YET BY OSATE
+    -- a -[]-> a {subprogGrp.recursiveGrpAccess.myStruct[0].intArray[0][0] := 0} ; NOT SUPPORTED YET BY OSATE    
+    
+    -- Errors tests --
+
+    -- a -[]-> a {fgrp[0].feature.field := 0} ;
+
+  -- value variable tests --
+
+    -- port tests --
+  
+    a -[]-> a {x := inPortA 'count} ;
+    a -[]-> a {bool1 := inPortA 'fresh} ;
+    a -[]-> a {x := inPortA ?} ;
+    a -[]-> a {x := portGrp.inPort ?} ;
+    a -[]-> a {x := portGrp.inPort 'count} ;
+    a -[]-> a {bool1 := portGrp.inPort 'fresh} ;
+    a -[]-> a {x := portGrp.inPort} ;
+    -- a -[]-> a {x := portGrp.inPortArray[0]} ;
+    a -[]-> a {x := portGrp.recursiveGrp.inPort} ;
+    -- a -[]-> a {x := portGrp.recursiveGrp.inPortArray[0]} ;
+
+    -- data and data access tests -- 
+
+    a -[]-> a {x := dataAccess.int} ;
+    a -[]-> a {x := dataAccessArray[0].int} ;
+    a -[]-> a {x := dataAccess.intArray[0][0]} ;
+    a -[]-> a {x := dataAccessArray[0].intArray[0][0]} ;
+
+    a -[]-> a {x := dataAccessGrp.dataAccess.int} ;
+    -- a -[]-> a {x := dataAccessGrp.dataAccessArray[0].int} ;
+    a -[]-> a {x := dataAccessGrp.dataAccess.intArray[0][0]} ;
+    -- a -[]-> a {x := dataAccessGrp.dataAccessArray[0].intArray[0][0]} ;
+    
+    -- a -[]-> a {x := subprogGrp.dataAccessGrp.dataAccessArray[0].intArray[0][0]} ;
+    -- a -[]-> a {x := subprogGrp.int := 0} ; NOT SUPPORTED YET BY OSATE
+    -- a -[]-> a {x := subprogGrp.intArray[0][0]} ; NOT SUPPORTED YET BY OSATE
+    -- a -[]-> a {x := subprogGrp.myStruct[0].int} ; NOT SUPPORTED YET BY OSATE
+    -- a -[]-> a {x := subprogGrp.myStruct[0].intArray[0][0]} ; NOT SUPPORTED YET BY OSATE
+        
+    -- a -[]-> a {x := subprogGrp.recursive.dataAccessGrp.dataAccessArray[0].intArray[0][0]} ;
+    -- a -[]-> a {x := subprogGrp.recursiveGrpAccess.dataAccessGrp.dataAccessArray[0].intArray[0][0]} ;
+    -- a -[]-> a {x := subprogGrp.recursive.myStruct[0].intArray[0][0]} ; NOT SUPPORTED YET BY OSATE
+    -- a -[]-> a {x := subprogGrp.recursiveGrpAccess.myStruct[0].intArray[0][0]} ; NOT SUPPORTED YET BY OSATE
+ 
+  -- communication action tests --
+  
+    -- subprogram call tests --
+    
+    a -[]-> a {subprogGrp.spg1[0] !} ;
+    a -[]-> a {subprogGrp.spg2 ! (x,0,y)} ;
+    a -[]-> a {subprogGrp.subprog ! (x,0,y)} ;
+    
+    
+    a -[]-> a {subprogGrpAccess.spg1[0] !} ;
+    a -[]-> a {subprogGrpAccess.spg2 ! (x,0,y)} ;
+    a -[]-> a {subprogGrpAccess.subprog ! (x,0,y)} ;
+    a -[]-> a {subprogGrpAccess.recursiveGrp.recursiveGrpAccess.subprog ! (x,0,y)} ;
+    
+    a -[]-> a {subprogGrp.prototypeGrp.definedSubprog[0] ! (x,0,y)} ;
+    a -[]-> a {subprogGrp.recursiveGrp.recursiveGrpAccess.prototypeGrp.definedSubprog[0] ! (x,0,y)} ;
+    a -[]-> a {subprogGrp.prototypeGrp.subprog ! (x,0,y)} ;
+    a -[]-> a {subprogGrp.recursiveGrp.recursiveGrpAccess.subprog ! (x,0,y)} ;
+    
+    a -[]-> a {threadGrpProt.subprog ! (x,0,y)} ; -- for the other thread group tests see process1.impl's ba.
+    
+    -- port actions --
+    
+    a -[]-> a {portGrp.outPort ! (x)};
+    a -[]-> a {portGrp.inPort >>};
+    a -[]-> a {portGrp.inPort ? (x)};
+    
+    -- data access actions --
+    
+    a -[]-> a {dataAccessGrp.dataAccess !<} ;
+    a -[]-> a {dataAccessGrp.dataAccess !>} ;
+    a -[]-> a {dataAccessGrp.recursiveGrp.dataAccess !<} ;
+    a -[]-> a {dataAccessGrp.recursiveGrp.dataAccess !>} ;
+**};  
+
+end thread2.impl;
+--------------------------------------------------------------------------------
+
+process process1
+end process1;
+--------------------------------------------------------------------------------
+
+process implementation process1.impl
+  subcomponents
+    threadGrp : thread group MyThreadGroup.impl ;
+
+annex behavior_specification 
+{**
+
+ -- *** VARIABLES *** 
+
+  variables 
+    x : Base_Types::Integer;
+    y : MyInteger ;
+    bool1 : Base_Types::Boolean ;
+    
+ --  *** STATES ***
+ 
+  states
+    a : state ;
+
+ -- *** TRANSITIONS ***
+
+  transitions
+  
+  -- target tests --
+    
+    -- port tests --
+    
+    a -[]-> a {threadGrp.outPort := 0} ;
+    a -[]-> a {threadGrp.portGrp.outPort := 0} ;
+    -- a -[]-> a {threadGrp.outPortArray[0] := 0} ;
+    -- a -[]-> a {threadGrp.portGrp.outPortArray[0] := 0} ;
+    a -[]-> a {threadGrp.recursiveGrp.portGrp.outPort := 0} ;
+   
+    -- data and data access tests --
+
+    a -[]-> a {threadGrp.dataAccessGrp.dataAccess.intArray[0][0] := 0} ;
+    -- a -[]-> a {threadGrp.dataAccessGrp.dataAccessArray[0].intArray[0][0] := 0} ;
+    -- a -[]-> a {threadGrp.int := 0} ; 
+    -- a -[]-> a {threadGrp.intArray[0][0] := 0} ; 
+    -- a -[]-> a {threadGrp.myStruct[0].int := 0} ; 
+    -- a -[]-> a {threadGrp.myStruct[0].intArray[0][0] := 0} ;
+    a -[]-> a {threadGrp.recursiveGrp.dataAccessGrp.dataAccess.intArray[0][0] := 0} ;
+    a -[]-> a {threadGrp.recursiveGrp.myStruct[0].intArray[0][0] := 0} ;
+    -- a -[]-> a {threadGrp.subprogGrpAccess.myStruct[0].intArray[0][0] := 0} ;
+   
+  -- Errors tests --
+
+
+  -- value variable tests --
+
+    -- port tests --
+    
+    a -[]-> a {x := threadGrp.inPort 'count} ;
+    a -[]-> a {bool1 := threadGrp.inPort 'fresh} ;
+    a -[]-> a {x := threadGrp.inPort ?} ;
+
+    a -[]-> a {x := threadGrp.portGrp.inPort ?} ;
+    a -[]-> a {x := threadGrp.portGrp.inPort 'count} ;
+    a -[]-> a {bool1 := threadGrp.portGrp.inPort 'fresh} ;
+    a -[]-> a {x := threadGrp.portGrp.inPort} ;
+    -- a -[]-> a {x := threadGrp.portGrp.inPortArray[0]} ;
+    a -[]-> a {x := threadGrp.portGrp.recursiveGrp.inPort} ;
+    -- a -[]-> a {x := threadGrp.portGrp.recursiveGrp.inPortArray[0]} ;
+    a -[]-> a {x := threadGrp.recursiveGrp.portGrp.recursiveGrp.inPort} ;
+    -- a -[]-> a {x := threadGrp.recursiveGrp.portGrp.recursiveGrp.inPortArray[0]} ;
+ 
+    -- data access tests -- 
+
+    a -[]-> a {x := threadGrp.dataAccessGrp.dataAccess.intArray[0][0]} ;
+    -- a -[]-> a {x := threadGrp.dataAccessGrp.dataAccessArray[0].intArray[0][0]} ;
+    -- a -[]-> a {x := threadGrp.int} ;
+    -- a -[]-> a {x := threadGrp.intArray[0][0]} ;
+    a -[]-> a {x := threadGrp.myStruct[0].int} ;
+    a -[]-> a {x := threadGrp.myStruct[0].intArray[0][0]} ;
+    -- a -[]-> a {x := threadGrp.recursiveGrp.dataAccessGrp.dataAccessArray[0].intArray[0][0]} ;
+    a -[]-> a {x := threadGrp.recursiveGrp.myStruct[0].intArray[0][0]} ;
+    -- a -[]-> a {x := threadGrp.subprogGrpAccess.dataAccessGrp.dataAccessArray[0].intArray[0][0]} ;
+    -- a -[]-> a {x := threadGrp.subprogGrpAccess.myStruct[0].intArray[0][0]} ; NOT SUPPORTED YET BY OSATE
+ 
+  -- communication action tests --
+
+    -- subprogram call tests --
+    
+    a -[]-> a {threadGrp.subprogGrp.spg1[0] !} ;
+    a -[]-> a {threadGrp.subprogGrp.spg2 ! (x,0,y)} ;
+    a -[]-> a {threadGrp.subprogGrp.subprog ! (x,0,y)} ;
+    a -[]-> a {threadGrp.subprogGrp.recursiveGrp.recursiveGrpAccess.subprog ! (x,0,y)} ;
+    
+    a -[]-> a {threadGrp.subprogGrpAccess.spg1[0] !} ;
+    a -[]-> a {threadGrp.subprogGrpAccess.spg2 ! (x,0,y)} ;
+    a -[]-> a {threadGrp.subprogGrpAccess.subprog ! (x,0,y)} ;
+    a -[]-> a {threadGrp.subprogGrpAccess.recursiveGrp.recursiveGrpAccess.subprog ! (x,0,y)} ;
+    
+    a -[]-> a {threadGrp.subprogGrp.prototypeGrp.definedSubprog[0] ! (x,0,y)} ;
+    a -[]-> a {threadGrp.subprogGrp.recursiveGrp.recursiveGrpAccess.prototypeGrp.definedSubprog[0] ! (x,0,y)} ;
+    a -[]-> a {threadGrp.subprogGrp.prototypeGrp.subprog ! (x,0,y)} ;
+    
+    -- port actions --
+    
+    a -[]-> a {threadGrp.portGrp.outPort ! (x)};
+    a -[]-> a {threadGrp.portGrp.inPort >>};
+    a -[]-> a {threadGrp.portGrp.inPort ? (x)};
+    
+    -- data access actions --
+    
+    a -[]-> a {threadGrp.dataAccessGrp.dataAccess !<} ;
+    a -[]-> a {threadGrp.dataAccessGrp.dataAccess !>} ;
+    a -[]-> a {threadGrp.dataAccessGrp.recursiveGrp.dataAccess !<} ;
+    a -[]-> a {threadGrp.dataAccessGrp.recursiveGrp.dataAccess !>} ;
+
+**};
+
+end process1.impl;
+--------------------------------------------------------------------------------
+
+end GroupTest;

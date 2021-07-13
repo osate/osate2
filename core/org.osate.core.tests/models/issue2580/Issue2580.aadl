@@ -1,0 +1,38 @@
+package Issue2580
+public
+
+	bus USB
+	end USB;
+
+	bus PiBus
+	end PiBus;
+
+	bus i2cBus
+	end i2cBus;
+
+	system RPi
+		features
+			USB: provides bus access;
+	end RPi;
+
+	system implementation RPi.impl
+		subcomponents
+			Pi_cpu: processor ArmCortexA53;
+			i2c: bus i2cBus;
+			MyUSB: bus USB;
+		connections
+			c10: bus access i2c <-> Pi_cpu.i2c;
+			c11: bus access Pi_cpu.i2c <-> i2c;
+			c20: bus access Pi_cpu.USB <-> MyUSB;
+			c21: bus access MyUSB <-> Pi_cpu.USB;
+			c30: bus access MyUSB <-> USB;
+			c31: bus access USB <-> MyUSB;
+	end RPi.impl;
+
+	processor ArmCortexA53
+		features
+			i2c: requires bus access i2cBus;
+			USB: requires bus access;
+	end ArmCortexA53;
+
+end Issue2580;

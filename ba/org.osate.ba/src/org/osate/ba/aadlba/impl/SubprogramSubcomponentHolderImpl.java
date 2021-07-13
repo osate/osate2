@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -19,11 +19,11 @@
  */
 package org.osate.ba.aadlba.impl;
 
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.aadl2.SubprogramSubcomponent ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.SubprogramSubcomponentHolder ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.SubprogramSubcomponent;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.SubprogramSubcomponentHolder;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,53 +32,48 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public class SubprogramSubcomponentHolderImpl extends SubcomponentHolderImpl implements SubprogramSubcomponentHolder
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected SubprogramSubcomponentHolderImpl()
-  {
-    super();
-  }
+public class SubprogramSubcomponentHolderImpl extends SubcomponentHolderImpl implements SubprogramSubcomponentHolder {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SubprogramSubcomponentHolderImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.SUBPROGRAM_SUBCOMPONENT_HOLDER;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.SUBPROGRAM_SUBCOMPONENT_HOLDER;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void setSubprogramSubcomponent(final SubprogramSubcomponent subprogramSubcomponent)
-  {
-    element = subprogramSubcomponent ;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setSubprogramSubcomponent(final SubprogramSubcomponent subprogramSubcomponent) {
+		element = subprogramSubcomponent;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public SubprogramSubcomponent getSubprogramSubcomponent()
-  {
-    return (SubprogramSubcomponent) element;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public SubprogramSubcomponent getSubprogramSubcomponent() {
+		return (SubprogramSubcomponent) element;
+	}
 
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
 
-} //SubprogramSubcomponentHolderImpl
+} // SubprogramSubcomponentHolderImpl

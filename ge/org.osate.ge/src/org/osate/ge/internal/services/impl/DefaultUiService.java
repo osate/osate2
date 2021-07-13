@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,11 +25,19 @@ package org.osate.ge.internal.services.impl;
 
 import java.util.Objects;
 
-import org.osate.ge.internal.services.EditorProvider;
 import org.osate.ge.internal.services.UiService;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.tools.Tool;
 
 public class DefaultUiService implements UiService {
+	public static interface EditorProvider {
+		/**
+		 * Get the editor for the current diagram.
+		 * @return
+		 */
+		InternalDiagramEditor getEditor();
+	}
+
 	private final EditorProvider editorProvider;
 
 	public DefaultUiService(final EditorProvider editorProvider) {

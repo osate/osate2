@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -17,14 +17,12 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative.impl ;
+package org.osate.ba.declarative.impl;
 
-import org.eclipse.emf.ecore.EClass ;
-
-import org.osate.aadl2.impl.RangeValueImpl ;
-
-import org.osate.ba.declarative.DeclarativePackage ;
-import org.osate.ba.declarative.DeclarativeRangeValue ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.impl.RangeValueImpl;
+import org.osate.ba.declarative.DeclarativePackage;
+import org.osate.ba.declarative.DeclarativeRangeValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,28 +31,24 @@ import org.osate.ba.declarative.DeclarativeRangeValue ;
  *
  * @generated
  */
-public class DeclarativeRangeValueImpl extends RangeValueImpl implements
-                                       DeclarativeRangeValue
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected DeclarativeRangeValueImpl()
-  {
-    super() ;
-  }
+public class DeclarativeRangeValueImpl extends RangeValueImpl implements DeclarativeRangeValue {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DeclarativeRangeValueImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return DeclarativePackage.Literals.DECLARATIVE_RANGE_VALUE ;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return DeclarativePackage.Literals.DECLARATIVE_RANGE_VALUE;
+	}
 
-} //DeclarativeRangeValueImpl
+} // DeclarativeRangeValueImpl

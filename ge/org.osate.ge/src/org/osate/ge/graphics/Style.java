@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -29,8 +29,8 @@ import org.eclipse.core.runtime.IPath;
 
 public class Style {
 	public static final Style EMPTY = StyleBuilder.create().build();
-	public static final Style DEFAULT = StyleBuilder.create().backgroundColor(Color.WHITE).foregroundColor(Color.BLACK)
-			.fontSize(10.0).lineWidth(2.0)
+	public final static Style DEFAULT = StyleBuilder.create().backgroundColor(Color.WHITE).foregroundColor(Color.BLACK)
+			.fontSize(10.0).lineWidth(1.0).showAsImage(false)
 			.lineStyle(LineStyle.SOLID).labelsHorizontalPosition(LabelPosition.GRAPHIC_BEGINNING)
 			.primaryLabelVisible(true)
 			.labelsVerticalPosition(LabelPosition.GRAPHIC_BEGINNING).build();
@@ -66,6 +66,18 @@ public class Style {
 		if (Objects.equals(showAsImage, Boolean.TRUE) && image == null) {
 			throw new RuntimeException("showAsImage must be false if image is not set.");
 		}
+	}
+
+	/**
+	 * Returns whether all of the style's required fields are non-null.
+	 * @return whether all the style's required fields are non-null.
+	 * @since 3.0
+	 */
+	public boolean isComplete() {
+		return background != null && outline != null && fontColor != null && fontSize != null && lineWidth != null
+				&& showAsImage != null && lineStyle != null
+				&& horizontalLabelPosition != null
+				&& verticalLabelPosition != null && primaryLabelVisible != null;
 	}
 
 	public final Color getBackgroundColor() {

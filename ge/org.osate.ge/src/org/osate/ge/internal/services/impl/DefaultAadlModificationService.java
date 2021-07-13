@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -468,7 +468,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		final Resource tmpResource = tmpResourceSet.createResource(resource.getURI());
 		tmpResource.getContents().addAll(EcoreUtil.copyAll(resource.getContents()));
 
-		// Clone the bo specified by the modfication
+		// Clone the bo specified by the modification
 		final EObject parsedAnnexRootClone = tmpResourceSet.getEObject(EcoreUtil.getURI(parsedAnnexElement), false);
 		final Deque<Integer> indexStack = getParsedAnnexRootIndices(bo);
 		EObject tmpClonedObject = parsedAnnexRootClone;

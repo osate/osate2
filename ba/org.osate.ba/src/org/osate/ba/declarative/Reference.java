@@ -19,18 +19,18 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
-import org.eclipse.emf.common.util.EList ;
-import org.osate.aadl2.ContainmentPathElement ;
-import org.osate.ba.aadlba.ActualPortHolder ;
-import org.osate.ba.aadlba.DispatchTrigger ;
-import org.osate.ba.aadlba.DispatchTriggerCondition ;
-import org.osate.ba.aadlba.ElementValues ;
-import org.osate.ba.aadlba.IntegerValueVariable ;
-import org.osate.ba.aadlba.ModeSwitchTrigger ;
-import org.osate.ba.aadlba.Target ;
-import org.osate.ba.aadlba.ValueVariable ;
+import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.ContainmentPathElement;
+import org.osate.ba.aadlba.ActualPortHolder;
+import org.osate.ba.aadlba.DispatchTrigger;
+import org.osate.ba.aadlba.DispatchTriggerCondition;
+import org.osate.ba.aadlba.ElementValues;
+import org.osate.ba.aadlba.IntegerValueVariable;
+import org.osate.ba.aadlba.ModeSwitchTrigger;
+import org.osate.ba.aadlba.Target;
+import org.osate.ba.aadlba.ValueVariable;
 
 /**
  * <!-- begin-user-doc -->
@@ -48,25 +48,22 @@ import org.osate.ba.aadlba.ValueVariable ;
  * @model
  * @generated
  */
-public interface Reference extends ActualPortHolder, DeclarativeBehaviorElement,
-                           IntegerValueVariable, ValueVariable, ElementValues,
-                           Target, DispatchTriggerCondition, DispatchTrigger,
-                           ModeSwitchTrigger, ContainmentPathElement
-{
-  /**
-   * Returns the value of the '<em><b>Ids</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.ba.declarative.ArrayableIdentifier}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Ids</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Ids</em>' containment reference list.
-   * @see org.osate.ba.declarative.DeclarativePackage#getReference_Ids()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  EList<ArrayableIdentifier> getIds() ;
+public interface Reference extends ActualPortHolder, DeclarativeBehaviorElement, IntegerValueVariable, ValueVariable,
+		ElementValues, Target, DispatchTriggerCondition, DispatchTrigger, ModeSwitchTrigger, ContainmentPathElement {
+	/**
+	 * Returns the value of the '<em><b>Ids</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.ba.declarative.ArrayableIdentifier}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Ids</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Ids</em>' containment reference list.
+	 * @see org.osate.ba.declarative.DeclarativePackage#getReference_Ids()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	EList<ArrayableIdentifier> getIds();
 
 } // Reference

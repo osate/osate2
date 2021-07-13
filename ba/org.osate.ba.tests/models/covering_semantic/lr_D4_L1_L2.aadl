@@ -1,0 +1,137 @@
+-- AADL-BA-FrontEnd
+ 
+-- Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
+ 
+-- TELECOM ParisTech/LTCI
+
+-- Authors: see AUTHORS
+ 
+-- This program is free software: you can redistribute it and/or modify 
+-- it under the terms of the Eclipse Public License as published by Eclipse,
+-- either version 2.0 of the License, or (at your option) any later version.
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- Eclipse Public License for more details.
+-- You should have received a copy of the Eclipse Public License
+-- along with this program.  If not, see 
+-- https://www.eclipse.org/legal/epl-2.0/
+
+-- Behavior Annex legality rules D.4.(L1) and D.4.(L2) tests.
+
+package exemple_lr_D4_L1_L2
+public
+   with Base_Types ;
+
+thread th
+end th;
+
+
+thread implementation th.good1
+
+properties
+  Dispatch_Protocol => Timed;
+  Period => 10 ms;
+
+annex behavior_specification {**
+
+states
+ intialState : initial state ;
+ finalState  : final state ;
+ compState   : complete state ; 
+
+transitions 
+ compState -[on dispatch timeout]-> compState ;
+ compState -[on dispatch timeout 100 ms]-> compState ; 
+**};
+
+end th.good1 ;
+
+thread implementation th.good2
+
+annex behavior_specification {**
+
+states
+ intialState : initial state ;
+ finalState  : final state ;
+ compState   : complete state ; 
+
+transitions 
+ compState -[on dispatch timeout 100 ms]-> compState ; 
+**};
+
+end th.good2 ;
+
+thread implementation th.error1 
+
+annex behavior_specification {**
+
+states
+ initialState : initial state ;
+ compState : complete state ;
+ finalState  : final state ;
+
+transitions 
+
+  -- Errors: 
+  --          _ The dispatch relative timeout and catch statement must only be declared for timed thread.
+  --          _ The dispatch relative timeout and catch statement must be declared in an outgoing transition of a complete state.
+  --          _ Only transition out of complete states may have dispatch condition. 
+
+ initialState -[on dispatch timeout]-> finalState ;
+ 
+  -- Errors: 
+  --          _ The dispatch relative timeout and catch statement must be declared in an outgoing transition of a complete state.
+  --          _ Only transition out of complete states may have dispatch condition. 
+ 
+ initialState -[on dispatch timeout 100 ms]-> finalState ;
+ 
+**};
+end th.error1;
+
+thread implementation th.error2 
+
+properties
+  Dispatch_Protocol => Timed;
+  Period => 10 ms;
+
+annex behavior_specification {**
+
+states
+ initialState : initial state ;
+ compState1 : complete state ;
+ compState2 : complete state ;
+ compState3 : complete state ; 
+ finalState  : final state ;
+
+  -- Error: The dispatch relative timeout and catch statement must be declared in only one transition.
+
+transitions 
+ compState1, compState2 -[on dispatch timeout]-> finalState ;
+ compState3 -[on dispatch timeout]-> finalState ;
+ 
+**};
+end th.error2 ;
+
+thread implementation th.error3
+
+annex behavior_specification {**
+
+states
+ initialState : initial state ;
+ compState1 : complete state ;
+ compState2 : complete state ;
+ compState3 : complete state ; 
+ finalState  : final state ;
+
+  -- Error: The completion relative timeout condition and catch statement must be declared in only one transition.
+
+transitions 
+ compState1, compState2 -[on dispatch timeout 100 ms]-> finalState ;
+ compState3 -[on dispatch timeout 100 ms]-> finalState ;
+ 
+**};
+
+end th.error3 ;
+
+end exemple_lr_D4_L1_L2 ;

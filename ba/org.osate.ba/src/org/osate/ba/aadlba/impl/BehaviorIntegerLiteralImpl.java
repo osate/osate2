@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -19,13 +19,12 @@
  */
 package org.osate.ba.aadlba.impl;
 
-
-import org.eclipse.emf.ecore.EClass ;
-import org.osate.aadl2.impl.IntegerLiteralImpl ;
-import org.osate.ba.aadlba.AadlBaPackage ;
-import org.osate.ba.aadlba.BehaviorIntegerLiteral ;
-import org.osate.ba.utils.AadlBaLocationReference ;
-import org.osate.ba.utils.visitor.IBAVisitor ;
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.impl.IntegerLiteralImpl;
+import org.osate.ba.aadlba.AadlBaPackage;
+import org.osate.ba.aadlba.BehaviorIntegerLiteral;
+import org.osate.ba.utils.AadlBaLocationReference;
+import org.osate.ba.utils.visitor.IBAVisitor;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,36 +33,32 @@ import org.osate.ba.utils.visitor.IBAVisitor ;
  *
  * @generated
  */
-public class BehaviorIntegerLiteralImpl extends IntegerLiteralImpl implements BehaviorIntegerLiteral
-{
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected BehaviorIntegerLiteralImpl()
-  {
-    super();
-  }
+public class BehaviorIntegerLiteralImpl extends IntegerLiteralImpl implements BehaviorIntegerLiteral {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BehaviorIntegerLiteralImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  protected EClass eStaticClass()
-  {
-    return AadlBaPackage.Literals.BEHAVIOR_INTEGER_LITERAL;
-  }
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return AadlBaPackage.Literals.BEHAVIOR_INTEGER_LITERAL;
+	}
 
-  @Override
-  public AadlBaLocationReference getAadlBaLocationReference()
-  {
-    return (AadlBaLocationReference) this.getLocationReference() ;
-  }
+	@Override
+	public AadlBaLocationReference getAadlBaLocationReference() {
+		return (AadlBaLocationReference) this.getLocationReference();
+	}
 
-  public void accept(IBAVisitor visitor) {
-    visitor.visit(this);
-  }
-} //BehaviorIntegerLiteralImpl
+	public void accept(IBAVisitor visitor) {
+		visitor.visit(this);
+	}
+} // BehaviorIntegerLiteralImpl
