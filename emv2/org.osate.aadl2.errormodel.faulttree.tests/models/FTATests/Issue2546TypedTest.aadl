@@ -1,0 +1,55 @@
+package pkg1
+public
+	annex EMV2 {**
+		error types
+			NoValue: type;
+			BadValue: type;
+			LateValue: type;
+			MyTypes: type set {NoValue, BadValue, LateValue};
+		end types;
+		
+		error behavior TypedStateMachine
+			use types pkg1;
+			events
+				FailEvent: error event;
+			states
+				Operational: initial state;
+				FailedState: state {BadValue};
+			transitions
+				FailTransition1: Operational -[FailEvent]-> FailedState {BadValue};
+				FailTransition2: FailedState {BadValue} -[FailEvent]-> FailedState;
+		end behavior;
+	**};
+
+	system sys
+		features
+			dinA: in data port;
+			dinB: in data port;
+			dout: out data port;
+
+		annex EMV2 {**
+			use types pkg1;
+			use behavior pkg1::TypedStateMachine;
+			
+			error propagations
+				dinA: in propagation {NoValue};
+				dinB: in propagation {BadValue};
+				dout: out propagation {MyTypes};
+			
+				flows
+			--                    pA: error path dinA -> dout;
+			--                    pB: error path dinB -> dout;
+					esrc: error source dout {MyTypes};
+			end propagations;
+			
+			component error behavior
+				propagations
+					Operational -[dinA {NoValue}]-> dout {LateValue};
+			end component;
+		**};
+	end sys;
+
+	system implementation sys.i
+	end sys.i;
+
+end pkg1;

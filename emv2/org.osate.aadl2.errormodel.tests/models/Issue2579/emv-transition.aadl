@@ -1,0 +1,27 @@
+package emv::transition
+public
+	annex emv2 {**
+		error behavior EB
+			events
+				ev: error event;
+			states
+				s: state {ErrorLibrary::CommonErrors};
+		end behavior;
+	**};
+	
+	system S
+		annex emv2 {**
+			use types ErrorLibrary;
+			use behavior emv::transition::EB;
+			component error behavior
+			transitions
+				-- this is valid
+				s -[ev]-> s{ItemOmission};
+
+				-- these two should be marked as errors
+				s -[ev]-> s{CommonErrors};
+				s -[ev]-> s{ItemOmission, ServiceOmission}; 
+			end component;
+		**};
+	end S;
+end emv::transition;

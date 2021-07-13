@@ -1,0 +1,71 @@
+-- AADL-BA-FrontEnd
+ 
+-- Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
+ 
+-- TELECOM ParisTech/LTCI
+
+-- Authors: see AUTHORS
+ 
+-- This program is free software: you can redistribute it and/or modify 
+-- it under the terms of the Eclipse Public License as published by Eclipse,
+-- either version 2.0 of the License, or (at your option) any later version.
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-- Eclipse Public License for more details.
+-- You should have received a copy of the Eclipse Public License
+-- along with this program.  If not, see 
+-- https://www.eclipse.org/legal/epl-2.0/
+
+-- Behavior Annex legality rule D.6.(L8) tests.
+
+package exemple_lr_D6_L8
+public
+   with Base_Types ;
+
+thread th
+end th;
+
+
+thread implementation th.good
+annex behavior_specification {**
+
+variables
+ a : Base_Types::Integer ;
+  
+states
+ s1 : initial state ;
+ s2 : complete state ;
+ s3 : final state ;
+
+transitions
+ s1 -[]-> s2 ;
+ s1 -[]-> s2 {computation (1 sec)} ;
+ s1 -[]-> s2 {computation (1 sec .. a sec)} ;
+ s1 -[]-> s2 {computation (1 sec .. 1 sec)} ;
+ s1 -[]-> s2 {computation (1 sec .. 2 sec)} ;
+ s1 -[]-> s2 {computation (1 sec .. 1 min)} ;
+ s1 -[]-> s2 {computation (60 sec .. 1 min)};
+
+**};
+
+end th.good;
+
+thread implementation th.error
+annex behavior_specification {**
+
+states
+ s1 : initial state ;
+ s2 : complete state ;
+ s3 : final state ;
+
+-- Error 61 seconds are greater than 1 minute.
+
+transitions
+ s1 -[]-> s2 {computation (61 sec .. 1 min)};
+
+**};
+
+end th.error;
+
+end exemple_lr_D6_L8 ;

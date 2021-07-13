@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -61,7 +61,6 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -112,7 +111,6 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
@@ -128,7 +126,6 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EStructuralFeature getChildFeature(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -142,7 +139,6 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public Object getImage(Object object) {
 		if (((FlowImplementationImpl) object).getInEnd() == null
 				&& ((FlowImplementationImpl) object).getOutEnd() == null) {
@@ -178,7 +174,6 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	@Override
 	public String getText(Object object) {
 		String label = ((FlowImplementation) object).getSpecification().getName();
 
@@ -205,7 +200,6 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
@@ -229,7 +223,6 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -249,7 +242,6 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
 		Object childFeature = feature;
 		Object childObject = child;

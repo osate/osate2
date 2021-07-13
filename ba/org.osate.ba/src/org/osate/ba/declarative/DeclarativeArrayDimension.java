@@ -19,10 +19,10 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
-import org.osate.aadl2.ArrayDimension ;
-import org.osate.ba.aadlba.IntegerValueConstant ;
+import org.osate.aadl2.ArrayDimension;
+import org.osate.ba.aadlba.IntegerValueConstant;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,33 +40,31 @@ import org.osate.ba.aadlba.IntegerValueConstant ;
  * @model
  * @generated
  */
-public interface DeclarativeArrayDimension extends ArrayDimension,
-                                           DeclarativeBehaviorElement
-{
-  /**
-   * Returns the value of the '<em><b>Dimension</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Dimension</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Dimension</em>' containment reference.
-   * @see #setDimension(IntegerValueConstant)
-   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeArrayDimension_Dimension()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  IntegerValueConstant getDimension() ;
+public interface DeclarativeArrayDimension extends ArrayDimension, DeclarativeBehaviorElement {
+	/**
+	 * Returns the value of the '<em><b>Dimension</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Dimension</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Dimension</em>' containment reference.
+	 * @see #setDimension(IntegerValueConstant)
+	 * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeArrayDimension_Dimension()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	IntegerValueConstant getDimension();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.declarative.DeclarativeArrayDimension#getDimension <em>Dimension</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Dimension</em>' containment reference.
-   * @see #getDimension()
-   * @generated
-   */
-  void setDimension(IntegerValueConstant value) ;
+	/**
+	 * Sets the value of the '{@link org.osate.ba.declarative.DeclarativeArrayDimension#getDimension <em>Dimension</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Dimension</em>' containment reference.
+	 * @see #getDimension()
+	 * @generated
+	 */
+	void setDimension(IntegerValueConstant value);
 
 } // DeclarativeArrayDimension

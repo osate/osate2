@@ -1,0 +1,8 @@
+package pkg1
+public
+	annex EMV2 {**
+		error types
+			e1: type;
+		end types;
+	**};
+end pkg1;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -79,7 +79,6 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getNamedValue();
 	}
@@ -131,7 +130,6 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
@@ -148,7 +146,6 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
@@ -163,7 +160,6 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
@@ -178,7 +174,6 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.NAMED_VALUE__NAMED_VALUE:
@@ -186,7 +181,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 		}
 		return super.eIsSet(featureID);
 	}
-	@Override
+
 	public boolean sameAs(PropertyExpression pe) {
 		if (this == pe) {
 			return true;
@@ -203,7 +198,6 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 	 *
 	 * @see org.osate.aadl2.impl.PropertyExpressionImpl#evaluate(org.osate.aadl2.properties.EvaluationContext)
 	 */
-	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
 		AbstractNamedValue nv = getNamedValue();
 		if (depth > 50) {

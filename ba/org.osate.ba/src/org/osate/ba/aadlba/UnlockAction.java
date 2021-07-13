@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -19,9 +19,6 @@
  */
 package org.osate.ba.aadlba;
 
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Unlock Action</b></em>'.
@@ -32,6 +29,5 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model annotation="documentation documentation='A null data name means that all shared data are unlocked at the end of the critical section'"
  * @generated
  */
-public interface UnlockAction extends SharedDataAction
-{
+public interface UnlockAction extends SharedDataAction {
 } // UnlockAction

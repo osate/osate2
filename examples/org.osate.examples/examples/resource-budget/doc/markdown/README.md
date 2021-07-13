@@ -5,8 +5,8 @@ This example illustrates weight analysis, electrical power analysis, and compute
 
 Start by instantiating both:
 
-- System Impl MySystem.Tier0 &nbsp; -- includes weight and power
-- System Impl MySystem.Tier2 &nbsp; -- adds processor and bus
+- System Impl MySystem.Tier0 -- includes weight and power
+- System Impl MySystem.Tier2 -- adds processor and bus
 
 Do this by right clicking on the appropriate system implementation in the Outline view and selecting "instantiate". If it doesn't already exist an "instances" folder will be created in the project with the two instances ending in .aaxl2.
 
@@ -66,5 +66,3 @@ The result of running "Analyze Resource Budget (Not Bound)" on the tier2 system 
 The result of running "Analyze Resource Allocation (Bound)" on the tier2 system is a .csv report that includes an error:
 
 ![png](images/tier2_bound_resource_report.png)
-
-7/2/2020

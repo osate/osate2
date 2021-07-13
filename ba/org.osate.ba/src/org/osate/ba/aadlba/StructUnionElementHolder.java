@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -19,9 +19,6 @@
  */
 package org.osate.ba.aadlba;
 
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Struct Union Element Holder</b></em>'.
@@ -38,28 +35,27 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface StructUnionElementHolder extends DataHolder, IndexableElement, Target, ElementValues
-{
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.StructUnionElementHolder#getStructUnionElement <em>Struct Union Element</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Struct Union Element</em>' containment reference.
-   * @see #getStructUnionElement()
-   * @generated
-   */
-  void setStructUnionElement(StructUnionElement value);
+public interface StructUnionElementHolder extends DataHolder, IndexableElement, Target, ElementValues {
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.StructUnionElementHolder#getStructUnionElement <em>Struct Union Element</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Struct Union Element</em>' containment reference.
+	 * @see #getStructUnionElement()
+	 * @generated
+	 */
+	void setStructUnionElement(StructUnionElement value);
 
-  /**
-   * Returns the value of the '<em><b>Struct Union Element</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Struct Union Element</em>' containment reference.
-   * @see #setStructUnionElement(StructUnionElement)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getStructUnionElementHolder_StructUnionElement()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  StructUnionElement getStructUnionElement();
+	/**
+	 * Returns the value of the '<em><b>Struct Union Element</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Struct Union Element</em>' containment reference.
+	 * @see #setStructUnionElement(StructUnionElement)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getStructUnionElementHolder_StructUnionElement()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	StructUnionElement getStructUnionElement();
 
 } // StructUnionElementHolder

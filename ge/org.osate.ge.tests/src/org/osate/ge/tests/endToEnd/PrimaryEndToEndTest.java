@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -74,8 +74,8 @@ public class PrimaryEndToEndTest {
 		createElementAndLayout(sharedDiagram, sharedPkg, "Feature Group Type",
 				getClassifierRelativeReference("new_classifier"), "abcdefghijklmnopqrstuvwxyz");
 
-		renameElementFromDiagramEditor(sharedDiagram, sharedPkg,
-				getClassifierRelativeReference("abcdefghijklmnopqrstuvwxyz"), SERVO_INTERFACE);
+		renameElementDirectEdit(sharedDiagram,
+				sharedPkg.join(getClassifierRelativeReference("abcdefghijklmnopqrstuvwxyz")), SERVO_INTERFACE);
 
 		saveAndClose(sharedDiagram);
 	}

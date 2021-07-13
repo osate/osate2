@@ -19,9 +19,9 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
-import org.osate.ba.aadlba.BehaviorState ;
+import org.osate.ba.aadlba.BehaviorState;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,32 +39,31 @@ import org.osate.ba.aadlba.BehaviorState ;
  * @model
  * @generated
  */
-public interface Identifier extends BehaviorState, DeclarativeBehaviorElement
-{
-  /**
-   * Returns the value of the '<em><b>Id</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Id</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Id</em>' attribute.
-   * @see #setId(String)
-   * @see org.osate.ba.declarative.DeclarativePackage#getIdentifier_Id()
-   * @model dataType="org.osate.ba.aadlba.String" required="true"
-   * @generated
-   */
-  String getId() ;
+public interface Identifier extends BehaviorState, DeclarativeBehaviorElement {
+	/**
+	 * Returns the value of the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Id</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Id</em>' attribute.
+	 * @see #setId(String)
+	 * @see org.osate.ba.declarative.DeclarativePackage#getIdentifier_Id()
+	 * @model dataType="org.osate.ba.aadlba.String" required="true"
+	 * @generated
+	 */
+	String getId();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.declarative.Identifier#getId <em>Id</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Id</em>' attribute.
-   * @see #getId()
-   * @generated
-   */
-  void setId(String value) ;
+	/**
+	 * Sets the value of the '{@link org.osate.ba.declarative.Identifier#getId <em>Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Id</em>' attribute.
+	 * @see #getId()
+	 * @generated
+	 */
+	void setId(String value);
 
 } // Identifier

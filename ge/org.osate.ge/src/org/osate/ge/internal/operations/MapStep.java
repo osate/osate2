@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -28,10 +28,10 @@ import java.util.function.Function;
 
 import org.osate.ge.operations.StepResult;
 
-public class MapStep<PrevResultUserType, ResultUserType> extends AbstractStep<ResultUserType> {
+public class MapStep<PrevResultUserType, ResultUserType> extends AbstractStep {
 	private final Function<PrevResultUserType, StepResult<ResultUserType>> mapper;
 
-	public MapStep(final Step<?> nextStep,
+	public MapStep(final Step nextStep,
 			final Function<PrevResultUserType, StepResult<ResultUserType>> mapper) {
 		super(nextStep);
 		this.mapper = Objects.requireNonNull(mapper, "mapper must not be null");

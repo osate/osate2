@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -75,7 +75,7 @@ public interface DiagramModification {
 	void setGraphicalConfiguration(final DiagramElement e, final GraphicalConfiguration value);
 
 	/**
-	 * Sets the position. This method does not update connection bendpoints, dock areas, or flow indicators. It is usually recommended
+	 * Sets the position. This method does not update contained connection bendpoints, dock areas, or flow indicator positions. It is usually recommended
 	 * to use a higher level function.
 	 */
 	void setPosition(final DiagramElement e, final Point value);

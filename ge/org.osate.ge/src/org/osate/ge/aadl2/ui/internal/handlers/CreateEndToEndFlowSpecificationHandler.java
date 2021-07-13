@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -28,13 +28,13 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.ge.aadl2.ui.internal.tools.CreateEndToEndFlowSpecificationTool;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 
 public class CreateEndToEndFlowSpecificationHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final AgeDiagramEditor editor = (AgeDiagramEditor) HandlerUtil.getActiveEditor(event);
+		final InternalDiagramEditor editor = (InternalDiagramEditor) HandlerUtil.getActiveEditor(event);
 		AgeHandlerUtil.activateTool(event, new CreateEndToEndFlowSpecificationTool(editor));
 		return null;
 	}

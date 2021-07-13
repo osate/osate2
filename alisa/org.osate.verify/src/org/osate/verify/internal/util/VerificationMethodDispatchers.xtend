@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,7 +25,6 @@
 package org.osate.verify.internal.util
 
 import java.util.List
-import org.osate.aadl2.BooleanLiteral
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.verify.verify.PluginMethod
@@ -63,8 +62,6 @@ import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface
 				if(target === null) true else target.PowerAnalysis
 			case "ResourceBudgets":
 				if(target === null) true else target.ResourceBudget
-			case "BinPack":
-				if(target === null) true else target.Binpack
 			default:
 				null
 		}

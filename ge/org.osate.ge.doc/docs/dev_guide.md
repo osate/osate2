@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -46,10 +46,6 @@ The OSATE Graphical Editor provides the following extension points to allow Ecli
 - org.osate.ge.referenceLabelProviders
 - org.osate.ge.referenceResolvers
 - org.osate.ge.tooltips
-   
-# API Documentation
-The [API Documentation](../api/index.html) provides details regarding available APIs.
-
 
 	
 

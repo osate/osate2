@@ -1,0 +1,11 @@
+package type_mappings
+public
+	annex emv2 {**
+		type mappings ErrorTest
+			use types ErrorLibrary;
+			{ItemOmission} -> {CommonErrors}; -- should be marked as error
+			{ItemCommission} -> {ItemOmission, ItemCommission}; -- should be marked as error
+			{ItemCommission} -> {ItemOmission}; 
+		end mappings;
+	**};
+end type_mappings;

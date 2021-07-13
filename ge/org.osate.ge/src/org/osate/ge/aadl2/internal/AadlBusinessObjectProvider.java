@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -182,13 +182,14 @@ public class AadlBusinessObjectProvider implements BusinessObjectProvider {
 	private static Stream<Object> getChildren(final AadlPackage pkg, final ExtensionRegistryService extRegistryService) {
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<Object> children = new HashSet<>();
-		populateChildren(pkg, pkg.getPublicSection(), children, extRegistryService);
-		populateChildren(pkg, pkg.getPrivateSection(), children, extRegistryService);
+		populateChildren(pkg.getPublicSection(), children, extRegistryService);
+		populateChildren(pkg.getPrivateSection(), children, extRegistryService);
 
 		return children.stream();
 	}
 
-	private static void populateChildren(final AadlPackage pkg, final PackageSection ps, final Set<Object> children, final ExtensionRegistryService extRegistryService) {
+	private static void populateChildren(final PackageSection ps, final Set<Object> children,
+			final ExtensionRegistryService extRegistryService) {
 		if(ps == null) {
 			return;
 		}

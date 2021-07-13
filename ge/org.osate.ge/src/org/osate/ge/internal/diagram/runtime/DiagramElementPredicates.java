@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -35,10 +35,18 @@ public class DiagramElementPredicates {
 	}
 
 	public static boolean isMoveable(final DiagramElement de) {
+		return isMoveableShape(de) || isFlowIndicator(de);
+	}
+
+	public static boolean isMoveableShape(final DiagramElement de) {
 		final Graphic graphic = de.getGraphic();
 		final boolean shapeSecondaryLabel = graphic instanceof Label && de.getParent() instanceof DiagramElement
 				&& ((DiagramElement) de.getParent()).getGraphic() instanceof AgeShape;
 		return graphic instanceof AgeShape && !shapeSecondaryLabel;
+	}
+
+	public static boolean isDocked(final DiagramElement de) {
+		return de.getDockArea() != null;
 	}
 
 	public static boolean isUndocked(final DiagramElement de) {
@@ -55,6 +63,10 @@ public class DiagramElementPredicates {
 
 	public static boolean isFlowIndicator(final DiagramElement de) {
 		return de.getGraphic() instanceof AgeConnection && ((AgeConnection) de.getGraphic()).isFlowIndicator;
+	}
+
+	public static boolean isRegularConnection(final DiagramElement de) {
+		return de.getGraphic() instanceof AgeConnection && !((AgeConnection) de.getGraphic()).isFlowIndicator;
 	}
 
 	public static boolean supportsImage(final DiagramElement de) {

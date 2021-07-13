@@ -1,0 +1,27 @@
+package pkg
+public
+	device Sensor
+		features
+			SensorReading: out data port;
+			TestReading: out data port;
+			PowerSource: requires bus access;
+		
+			annex EMV2 {**
+					use types ErrorLibrary;
+					error propagations
+					SensorReading: out propagation {ItemOmission, ServiceOmission};
+					PowerSource: in propagation {ItemOmission};
+					TestReading: out propagation {CommonErrors};
+					flows
+						ErrorSource: error source SensorReading {ItemOmission} when {SequenceError};
+						-- SensorReading should be marked with an error
+						ErrorPath: error path PowerSource->SensorReading {ItemOmission, ServiceOmission};
+						-- TestReading should be marked with an error
+						ErrorP: error path PowerSource->TestReading {CommonErrors}; 
+						
+						ErrorP1: error path PowerSource->TestReading {ServiceError};  
+					end propagations;
+					
+			**};
+	end Sensor;
+end pkg;
