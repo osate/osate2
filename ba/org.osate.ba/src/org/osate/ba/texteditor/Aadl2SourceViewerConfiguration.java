@@ -40,11 +40,9 @@ import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
 
-public class Aadl2SourceViewerConfiguration extends SourceViewerConfiguration
-{
+public class Aadl2SourceViewerConfiguration extends SourceViewerConfiguration {
 	@Override
-	public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer)
-	{
+	public IPresentationReconciler getPresentationReconciler(ISourceViewer sourceViewer) {
 		PresentationReconciler pr = new PresentationReconciler();
 		DefaultDamagerRepairer ddr = new DefaultDamagerRepairer(new AadlBaCodeScanner());
 		pr.setRepairer(ddr, IDocument.DEFAULT_CONTENT_TYPE);

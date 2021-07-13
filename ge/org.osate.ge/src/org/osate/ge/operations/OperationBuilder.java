@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -56,7 +56,7 @@ public interface OperationBuilder<PrevResultUserType> {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	default <TagType, ResultUserType> OperationBuilder<ResultUserType> modifyPreviousResult(
+	default <ResultUserType> OperationBuilder<ResultUserType> modifyPreviousResult(
 			final Function<PrevResultUserType, StepResult<ResultUserType>> modifier) {
 
 		return modifyModel(null, (tag, prevResult) -> {

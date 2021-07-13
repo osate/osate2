@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -47,11 +47,15 @@ import org.osate.ge.aadl2.internal.util.AadlModalElementUtil;
 import org.osate.ge.aadl2.internal.util.AadlModalElementUtil.ModeFeatureReference;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.services.ModelChangeNotifier;
+import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.ui.editor.ComboContributionItem;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
+
+import com.google.common.base.Objects;
 
 public class ModeContributionItem extends ComboContributionItem {
 	private static final String emptySelectionTxt = "<Modes>";
@@ -61,10 +65,18 @@ public class ModeContributionItem extends ComboContributionItem {
 					.filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation
 							|| fa.getBusinessObject() instanceof Subcomponent
 							|| fa.getBusinessObject() instanceof ComponentInstance));
-	private AgeDiagramEditor editor;
+	private InternalDiagramEditor editor;
+	private final ModelChangeNotifier modelChangeNotifier;
+	private final ChangeListener modelChangeListener = new ChangeListener() {
+		@Override
+		public void afterModelChangeNotification() {
+			refresh();
+		}
+	};
 
-	public ModeContributionItem(final String id) {
+	public ModeContributionItem(final String id, final ModelChangeNotifier modelChangeNotifier) {
 		super(id);
+		this.modelChangeNotifier = modelChangeNotifier;
 	}
 
 	@Override
@@ -72,17 +84,23 @@ public class ModeContributionItem extends ComboContributionItem {
 		return true;
 	}
 
+	// Force a fixed width for the combo contribution items. Otherwise the sizes are often incorrect due to the dynamic nature of the control.
+	@Override
+	protected int computeWidth(Control control) {
+		return 310;
+	}
+
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (editor != newEditor) {
-			saveModeSelection();
-
-			// Update the editor
-			if (newEditor instanceof AgeDiagramEditor) {
-				this.editor = (AgeDiagramEditor) newEditor;
-			} else {
-				this.editor = null;
+			setControlEnabled(newEditor != null);
+			if (newEditor == null) {
+				modelChangeNotifier.removeChangeListener(modelChangeListener);
+			} else if (editor == null) {
+				modelChangeNotifier.addChangeListener(modelChangeListener);
 			}
 
+			saveModeSelection();
+			editor = newEditor instanceof InternalDiagramEditor ? (InternalDiagramEditor) newEditor : null;
 			refresh();
 		}
 	}
@@ -107,11 +125,12 @@ public class ModeContributionItem extends ComboContributionItem {
 	@Override
 	protected Control createControl(final Composite parent) {
 		final Control control = super.createControl(parent);
+		setControlEnabled(editor != null);
 		refresh(); // Populate the combo box
 		return control;
 	}
 
-	private void refresh() {
+	void refresh() {
 		final ComboViewer comboViewer = getComboViewer();
 		final SortedSet<ModeFeatureReference> modeFeatureReferences = new TreeSet<>(
 				(o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
@@ -131,7 +150,7 @@ public class ModeContributionItem extends ComboContributionItem {
 
 			final AgeDiagram diagram = editor.getDiagram();
 			if (diagram != null) {
-				final QueryService queryService = ContributionHelper.getQueryService(editor);
+				final QueryService queryService = ContributionUtil.getQueryService(editor);
 				if (queryService != null) {
 					queryService.getResults(modeContainerQuery, diagram).stream().flatMap(modeContainer -> {
 						// If container contains a modal element
@@ -167,7 +186,11 @@ public class ModeContributionItem extends ComboContributionItem {
 				}
 			}
 
-			comboViewer.setSelection(new StructuredSelection(selectedValue));
+			final StructuredSelection newSelection = new StructuredSelection(selectedValue);
+			if (!Objects.equal(newSelection, comboViewer.getSelection())) {
+				comboViewer.setSelection(newSelection);
+				onSelection(newSelection.getFirstElement());
+			}
 		}
 	}
 
@@ -231,8 +254,10 @@ public class ModeContributionItem extends ComboContributionItem {
 
 	@Override
 	protected void onSelection(final Object value) {
-		final ModeFeatureReference mf = (ModeFeatureReference) value;
-		ContributionHelper.getColoringService(editor).setHighlightedMode(mf.getNamedElement(), mf.getContainer());
+		if (editor != null && !editor.isDisposed() && value != null) {
+			final ModeFeatureReference mf = (ModeFeatureReference) value;
+			ContributionUtil.getColoringService(editor).setHighlightedMode(mf.getNamedElement(), mf.getContainer());
+		}
 	}
 
 	@Override

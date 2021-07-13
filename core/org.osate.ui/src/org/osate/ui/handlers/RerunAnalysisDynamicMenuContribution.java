@@ -18,7 +18,7 @@ import org.osate.ui.rerun.RerunManager;
 import org.osate.ui.rerun.Runner;
 
 /**
- * @since 6.0
+ * @since 6.2
  */
 public final class RerunAnalysisDynamicMenuContribution extends ContributionItem {
 	private final RerunManager rerunManager = OsateUiPlugin.getRerunManager();

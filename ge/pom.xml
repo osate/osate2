@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -30,22 +30,78 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<parent>
 		<groupId>org.osate</groupId>
 		<artifactId>osate2.parent</artifactId>
-		<version>2.9.1-SNAPSHOT</version>
+		<version>2.10.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.osate</groupId>
 	<artifactId>ge.parent</artifactId>
 	<packaging>pom</packaging>
-	<version>2.9.1-SNAPSHOT</version>
+	<version>2.10.0-SNAPSHOT</version>
 
+	<repositories>
+		<repository>
+			<name>BestSolution.at e(fx)clipse releases</name>
+			<id>efxclipse-releases</id>
+			<url>http://maven.bestsolution.at/efxclipse-releases/</url>
+		</repository>
+	</repositories>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-compiler-plugin</artifactId>
+					<version>${tycho.version}</version>
+					<configuration>
+						<encoding>UTF-8</encoding>
+						<source>11</source>
+						<target>11</target>
+						<extraClasspathElements>
+							<extraClasspathElement>
+								<groupId>org.openjfx</groupId>
+								<artifactId>javafx-base</artifactId>
+								<version>16</version>
+							</extraClasspathElement>
+							<extraClasspathElement>
+								<groupId>org.openjfx</groupId>
+								<artifactId>javafx-graphics</artifactId>
+								<version>16</version>
+							</extraClasspathElement>
+							<extraClasspathElement>
+								<groupId>org.openjfx</groupId>
+								<artifactId>javafx-controls</artifactId>
+								<version>16</version>
+							</extraClasspathElement>
+							<extraClasspathElement>
+								<groupId>org.openjfx</groupId>
+								<artifactId>javafx-swing</artifactId>
+								<version>16</version>
+							</extraClasspathElement>
+							<extraClasspathElement>
+								<groupId>at.bestsolution.openjfx</groupId>
+								<artifactId>javafx-swt</artifactId>
+								<version>16</version>
+							</extraClasspathElement>
+						</extraClasspathElements>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	
 	<modules>
 		<module>org.osate.ge</module>
+		<module>org.osate.ge.gef</module>
+		<module>org.osate.ge.gef.ui</module>
 		<module>org.osate.ge.swt</module>
 		<module>org.osate.ge.diagram</module>
 		<module>org.osate.ge.doc</module>
 		<module>org.osate.ge.feature</module>
 		<module>org.osate.ge.errormodel</module>
 		<module>org.osate.ge.errormodel.feature</module>
+		<module>org.osate.ge.ba</module>
+		<module>org.osate.ge.ba.feature</module>
  		<module>org.osate.ge.tests</module>
 	</modules>
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -35,7 +35,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
  *
  */
 public interface ColoringService {
-	// TODO: Should have a way to batch these changes before making API.
+	// Suggestion: Should have a way to batch these changes before making API.
 	interface Coloring {
 		void dispose();
 
@@ -62,7 +62,13 @@ public interface ColoringService {
 	Map<DiagramElement, Color> buildForegroundColorMap();
 
 	// TODO: Rework. Should be split out from the service.
+	/**
+	 * Must be called from the UI thread
+	 */
 	void setHighlightedMode(NamedElement ne, BusinessObjectContext boc);
 
+	/**
+	 * Must be called from the UI thread
+	 */
 	void setHighlightedFlow(NamedElement ne, BusinessObjectContext boc);
 }

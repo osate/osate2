@@ -21,65 +21,48 @@
 
 package org.osate.ba.parser;
 
-import java.util.Arrays ;
+import java.util.Arrays;
 
-import org.antlr.v4.runtime.BaseErrorListener ;
-import org.antlr.v4.runtime.InputMismatchException ;
-import org.antlr.v4.runtime.NoViableAltException ;
-import org.antlr.v4.runtime.RecognitionException ;
-import org.antlr.v4.runtime.Recognizer ;
-import org.antlr.v4.runtime.Token ;
-import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter ;
-import org.osate.utils.internal.Aadl2Utils ;
+import org.antlr.v4.runtime.BaseErrorListener;
+import org.antlr.v4.runtime.InputMismatchException;
+import org.antlr.v4.runtime.NoViableAltException;
+import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.Recognizer;
+import org.antlr.v4.runtime.Token;
+import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
+import org.osate.utils.internal.Aadl2Utils;
 
+public class AadlAntlrErrorReporter extends BaseErrorListener {
+	protected final ParseErrorReporter _errReporter;
 
-public class AadlAntlrErrorReporter extends BaseErrorListener
-{
-  protected final ParseErrorReporter _errReporter ;
-  
-  protected final String _filename ; 
-  
-  public AadlAntlrErrorReporter(ParseErrorReporter errReporter,
-                                   String filename)
-  {
-    _errReporter = errReporter ;
-    _filename = filename ;
-  }
-  
-  @Override
-  public void syntaxError(Recognizer<?, ?> recognizer,
-                          Object offendingSymbol,
-                          int line,
-                          int charPositionInLine,
-                          String msg,
-                          RecognitionException e)
-  {
-    if(e instanceof NoViableAltException || e instanceof InputMismatchException)
-    {
-      if(isKeywordError(offendingSymbol, e))
-      {
-        msg = "symbol not allowed at input \'" +
-              ((Token)offendingSymbol).getText() +  
-              "\', reserved symbol" ;
-      }
-    }
-    
-    _errReporter.error(_filename, line, msg) ;
-  }
-  
-  protected boolean isKeywordError(Object offendingSymbol,
-                                   RecognitionException ex)
-  {
-    Token symb = (Token) offendingSymbol ;
-    
-    if(symb.getType() <= AadlBaLexer.KEYWORD_MAX_ID) // Select only keyword.
-    {
-      String symbol = '\'' + symb.getText() + '\'' ;
-      return Aadl2Utils.contains(symbol, Arrays.asList(AadlBaLexer.tokenNames)) ;
-    }
-    else
-    {
-      return false ;
-    }
-  }
+	protected final String _filename;
+
+	public AadlAntlrErrorReporter(ParseErrorReporter errReporter, String filename) {
+		_errReporter = errReporter;
+		_filename = filename;
+	}
+
+	@Override
+	public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine,
+			String msg, RecognitionException e) {
+		if (e instanceof NoViableAltException || e instanceof InputMismatchException) {
+			if (isKeywordError(offendingSymbol, e)) {
+				msg = "symbol not allowed at input \'" + ((Token) offendingSymbol).getText() + "\', reserved symbol";
+			}
+		}
+
+		_errReporter.error(_filename, line, msg);
+	}
+
+	protected boolean isKeywordError(Object offendingSymbol, RecognitionException ex) {
+		Token symb = (Token) offendingSymbol;
+
+		if (symb.getType() <= AadlBaLexer.KEYWORD_MAX_ID) // Select only keyword.
+		{
+			String symbol = '\'' + symb.getText() + '\'';
+			return Aadl2Utils.contains(symbol, Arrays.asList(AadlBaLexer.tokenNames));
+		} else {
+			return false;
+		}
+	}
 }

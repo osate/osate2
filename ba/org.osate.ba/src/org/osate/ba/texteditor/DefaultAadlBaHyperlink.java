@@ -21,16 +21,13 @@
 
 package org.osate.ba.texteditor;
 
-import org.osate.aadl2.Element ;
-import org.osate.ba.utils.AadlBaLocationReference ;
+import org.osate.aadl2.Element;
+import org.osate.ba.utils.AadlBaLocationReference;
 
-
-public class DefaultAadlBaHyperlink implements AadlBaHyperlink
-{
-  @Override
-  public void addToHyperlinking(AadlBaLocationReference location, Element element)
-  {
-    // Does nothing.
-  }
+public class DefaultAadlBaHyperlink implements AadlBaHyperlink {
+	@Override
+	public void addToHyperlinking(AadlBaLocationReference location, Element element) {
+		// Does nothing.
+	}
 
 }

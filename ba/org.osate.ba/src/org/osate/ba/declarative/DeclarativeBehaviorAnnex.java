@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -17,11 +17,10 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
-import org.eclipse.emf.common.util.EList ;
-
-import org.eclipse.emf.ecore.EObject ;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,18 +38,17 @@ import org.eclipse.emf.ecore.EObject ;
  * @model
  * @generated
  */
-public interface DeclarativeBehaviorAnnex extends EObject
-{
-  /**
-   * Returns the value of the '<em><b>Declarative Behavior Elements</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.ba.declarative.DeclarativeBehaviorElement}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Declarative Behavior Elements</em>' containment reference list.
-   * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeBehaviorAnnex_DeclarativeBehaviorElements()
-   * @model containment="true"
-   * @generated
-   */
-  EList<DeclarativeBehaviorElement> getDeclarativeBehaviorElements() ;
+public interface DeclarativeBehaviorAnnex extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Declarative Behavior Elements</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.ba.declarative.DeclarativeBehaviorElement}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Declarative Behavior Elements</em>' containment reference list.
+	 * @see org.osate.ba.declarative.DeclarativePackage#getDeclarativeBehaviorAnnex_DeclarativeBehaviorElements()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<DeclarativeBehaviorElement> getDeclarativeBehaviorElements();
 
 } // DeclarativeBehaviorAnnex

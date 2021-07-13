@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -18,9 +18,6 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 package org.osate.ba.aadlba;
-
-import org.osate.ba.utils.visitor.IBAVisitable ;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -39,85 +36,84 @@ import org.osate.ba.utils.visitor.IBAVisitable ;
  * @model
  * @generated
  */
-public interface PropertyNameHolder extends BehaviorElement
-{
-  /**
-   * Returns the value of the '<em><b>Property</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Property</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Property</em>' containment reference.
-   * @see #setProperty(PropertyElementHolder)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyNameHolder_Property()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  PropertyElementHolder getProperty();
+public interface PropertyNameHolder extends BehaviorElement {
+	/**
+	 * Returns the value of the '<em><b>Property</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Property</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Property</em>' containment reference.
+	 * @see #setProperty(PropertyElementHolder)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyNameHolder_Property()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	PropertyElementHolder getProperty();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.PropertyNameHolder#getProperty <em>Property</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Property</em>' containment reference.
-   * @see #getProperty()
-   * @generated
-   */
-  void setProperty(PropertyElementHolder value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.PropertyNameHolder#getProperty <em>Property</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Property</em>' containment reference.
+	 * @see #getProperty()
+	 * @generated
+	 */
+	void setProperty(PropertyElementHolder value);
 
-  /**
-   * Returns the value of the '<em><b>Field</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Field</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Field</em>' containment reference.
-   * @see #isSetField()
-   * @see #unsetField()
-   * @see #setField(PropertyNameField)
-   * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyNameHolder_Field()
-   * @model containment="true" unsettable="true"
-   * @generated
-   */
-  PropertyNameField getField();
+	/**
+	 * Returns the value of the '<em><b>Field</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Field</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Field</em>' containment reference.
+	 * @see #isSetField()
+	 * @see #unsetField()
+	 * @see #setField(PropertyNameField)
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getPropertyNameHolder_Field()
+	 * @model containment="true" unsettable="true"
+	 * @generated
+	 */
+	PropertyNameField getField();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.aadlba.PropertyNameHolder#getField <em>Field</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Field</em>' containment reference.
-   * @see #isSetField()
-   * @see #unsetField()
-   * @see #getField()
-   * @generated
-   */
-  void setField(PropertyNameField value);
+	/**
+	 * Sets the value of the '{@link org.osate.ba.aadlba.PropertyNameHolder#getField <em>Field</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Field</em>' containment reference.
+	 * @see #isSetField()
+	 * @see #unsetField()
+	 * @see #getField()
+	 * @generated
+	 */
+	void setField(PropertyNameField value);
 
-  /**
-   * Unsets the value of the '{@link org.osate.ba.aadlba.PropertyNameHolder#getField <em>Field</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isSetField()
-   * @see #getField()
-   * @see #setField(PropertyNameField)
-   * @generated
-   */
-  void unsetField();
+	/**
+	 * Unsets the value of the '{@link org.osate.ba.aadlba.PropertyNameHolder#getField <em>Field</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetField()
+	 * @see #getField()
+	 * @see #setField(PropertyNameField)
+	 * @generated
+	 */
+	void unsetField();
 
-  /**
-   * Returns whether the value of the '{@link org.osate.ba.aadlba.PropertyNameHolder#getField <em>Field</em>}' containment reference is set.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return whether the value of the '<em>Field</em>' containment reference is set.
-   * @see #unsetField()
-   * @see #getField()
-   * @see #setField(PropertyNameField)
-   * @generated
-   */
-  boolean isSetField();
+	/**
+	 * Returns whether the value of the '{@link org.osate.ba.aadlba.PropertyNameHolder#getField <em>Field</em>}' containment reference is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Field</em>' containment reference is set.
+	 * @see #unsetField()
+	 * @see #getField()
+	 * @see #setField(PropertyNameField)
+	 * @generated
+	 */
+	boolean isSetField();
 
 } // PropertyNameHolder

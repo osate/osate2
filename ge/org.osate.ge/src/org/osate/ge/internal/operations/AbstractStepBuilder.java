@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -62,8 +62,8 @@ abstract class AbstractStepBuilder<PrevResultUserType> implements OperationBuild
 		return nextStepBuilder;
 	}
 
-	public final Step<?> build() {
-		final Step<?> nextStep;
+	public final Step build() {
+		final Step nextStep;
 		if (nextStepBuilders.isEmpty()) {
 			nextStep = null;
 		} else if (nextStepBuilders.size() == 1) {
@@ -76,5 +76,5 @@ abstract class AbstractStepBuilder<PrevResultUserType> implements OperationBuild
 		return buildStep(nextStep);
 	}
 
-	protected abstract Step<?> buildStep(final Step<?> nextStep);
+	protected abstract Step buildStep(final Step nextStep);
 }

@@ -21,11 +21,10 @@
 
 package org.osate.ba.utils;
 
-import org.osate.aadl2.Classifier ;
-import org.osate.aadl2.StringLiteral ;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.StringLiteral;
 
-public class DataModelEnumLiteral
-{
-  Classifier classifier ;
-  StringLiteral stringLiteral ;
+public class DataModelEnumLiteral {
+	Classifier classifier;
+	StringLiteral stringLiteral;
 }

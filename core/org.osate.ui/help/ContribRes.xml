@@ -1,0 +1,7 @@
+<contexts>
+	<context id="help_dialog_contribRes" title="Contributed Resources">
+		<description>This dialog provides information about setting a workspace preference to ignore selected property sets.
+		</description>
+		<topic href="../org.osate.help/help/html/AdvancedOSATEFeatures.html#managing-contributed-resources" label="Contributed Resources Preference"/>
+	</context>
+</contexts>

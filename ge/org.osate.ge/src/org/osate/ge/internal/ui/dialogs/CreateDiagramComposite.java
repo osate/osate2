@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -44,7 +44,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.util.DiagramUtil;
 import org.osate.ge.swt.SwtUtil;
 
 import com.google.common.collect.ImmutableCollection;
@@ -193,7 +193,7 @@ public class CreateDiagramComposite<DiagramType> extends Composite {
 		}
 
 		final IFolder diagramFolder = project.getFolder("diagrams/");
-		return diagramFolder.getFile(name + AgeDiagramEditor.EXTENSION);
+		return diagramFolder.getFile(name + DiagramUtil.EXTENSION);
 	}
 
 	/**

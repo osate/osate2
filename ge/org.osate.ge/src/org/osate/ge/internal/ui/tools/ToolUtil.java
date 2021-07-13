@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -125,15 +125,14 @@ public class ToolUtil {
 		// Collect errors and warnings for referenced AADL packages
 		final List<DiagnosticBuilder> diagnosticBuilders = new ArrayList<>();
 		for (final AadlPackage pkg : packages) {
-			final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
-			final ResourceSet resourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
-			final DiagnosticBuilder diagnosticBuilder = new DiagnosticBuilder(pkg);
-			// Model error and warning diagnostics
-			populateDiagnostics(diagnosticBuilder,
-					pkg,
-					resourceSet);
+			ProjectUtil.getProjectForBo(pkg).ifPresent(project -> {
+				final ResourceSet resourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
+				final DiagnosticBuilder diagnosticBuilder = new DiagnosticBuilder(pkg);
+				// Model error and warning diagnostics
+				populateDiagnostics(diagnosticBuilder, pkg, resourceSet);
 
-			diagnosticBuilders.add(diagnosticBuilder);
+				diagnosticBuilders.add(diagnosticBuilder);
+			});
 		}
 
 		return diagnosticBuilders.stream().flatMap(DiagnosticBuilder::getDiagnostics)

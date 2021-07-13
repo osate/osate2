@@ -2,12 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Model Statistics UI
 Bundle-SymbolicName: org.osate.modelstats.ui;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.1.qualifier
 Bundle-Activator: org.osate.modelstats.ui.Activator
 Require-Bundle: org.eclipse.ui;bundle-version="[3.117.0,4.0.0)",
  org.eclipse.core.runtime;bundle-version="[3.18.0,4.0.0)",
  org.eclipse.core.resources;bundle-version="[3.13.0,4.0.0)",
- org.osate.ui;bundle-version="[6.0.0,7.0.0)",
+ org.osate.ui;bundle-version="[6.1.0,7.0.0)",
  org.osate.aadl2;bundle-version="[4.0.0,5.0.0)",
  org.eclipse.swt;bundle-version="[3.114.0,4.0.0)",
  org.osate.modelstats;bundle-version="[1.0.0,2.0.0)"

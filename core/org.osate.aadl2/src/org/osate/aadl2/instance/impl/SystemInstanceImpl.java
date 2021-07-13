@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -110,7 +110,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.SYSTEM_INSTANCE;
 	}
@@ -181,7 +180,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 					componentImplementation));
 		}
 	}
-	@Override
+
 	public ComponentImplementation getComponentClassifier() {
 		return getComponentImplementation();
 	}
@@ -190,7 +189,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
@@ -203,7 +201,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
@@ -221,7 +218,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	@SuppressWarnings("unchecked")
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -240,7 +236,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
@@ -257,7 +252,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
@@ -416,7 +410,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		}
 		return Collections.unmodifiableList(output);
 	}
-	@Override
+
 	public final List<ComponentImplementation> getInstantiatedObjects() {
 		return Collections.singletonList(getComponentImplementation());
 	}
@@ -437,7 +431,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		}
 		return initialMode;
 	}
-	@Override
+
 	public boolean isActive(SystemOperationMode som) {
 		return true;
 	}

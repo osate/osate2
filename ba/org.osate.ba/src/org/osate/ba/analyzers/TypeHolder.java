@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  *
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  *
  * TELECOM ParisTech/LTCI
  *
@@ -21,114 +21,99 @@
 
 package org.osate.ba.analyzers;
 
-import org.osate.aadl2.DataClassifier ;
-import org.osate.ba.aadlba.DataRepresentation ;
+import org.osate.aadl2.DataClassifier;
+import org.osate.ba.aadlba.DataRepresentation;
 
 /**
  * AADL type holder definition.
  *
  */
-public class TypeHolder
-{
-   /**
-    * Holds a DataRepresentation that models Data_Model::Data_Representation.
-    */
-   private DataRepresentation dataRep = DataRepresentation.UNKNOWN ;
+public class TypeHolder {
+	/**
+	* Holds a DataRepresentation that models Data_Model::Data_Representation.
+	*/
+	private DataRepresentation dataRep = DataRepresentation.UNKNOWN;
 
-   /**
-    * Holds a DataClassifier.
-    */
-   private DataClassifier klass ;
+	/**
+	* Holds a DataClassifier.
+	*/
+	private DataClassifier klass;
 
+	/**
+	* Holds the number of dimension of the type. Default dimension is zero.
+	*/
+	private int dimension = 0;
 
-   /**
-    * Holds the number of dimension of the type. Default dimension is zero.
-    */
-   private int dimension = 0;
+	/**
+	* Holds the size of each dimension of the type.
+	*/
+	private long[] dimension_sizes = new long[0];
 
-   /**
-    * Holds the size of each dimension of the type.
-    */
-   private long[] dimension_sizes = new long[0] ;
+	private static final String ARRAY_DIMENSION_TOKEN = "[]";
 
-   private static final String ARRAY_DIMENSION_TOKEN = "[]" ;
+	/**
+	* Builds a TypeHolder object with default attributes ({@code null}).
+	*/
+	public TypeHolder() {
+	}
 
-   /**
-    * Builds a TypeHolder object with default attributes ({@code null}).
-    */
-   public TypeHolder() {}
+	/**
+	* Builds a TypeHolder object with the given parameters.
+	*
+	* @param dataRep the data representation or DataRepresentation.Unknown
+	* @param klass the Classifier or {@code null}
+	*/
+	public TypeHolder(DataRepresentation dataRep, DataClassifier klass) {
+		this.setDataRep(dataRep);
+		this.setKlass(klass);
+	}
 
-   /**
-    * Builds a TypeHolder object with the given parameters.
-    *
-    * @param dataRep the data representation or DataRepresentation.Unknown
-    * @param klass the Classifier or {@code null}
-    */
-   public TypeHolder(DataRepresentation dataRep, DataClassifier klass)
-   {
-      this.setDataRep(dataRep) ;
-      this.setKlass(klass) ;
-   }
+	@Override
+	public String toString() {
+		StringBuilder result = new StringBuilder();
 
-   @Override
-   public String toString()
-   {
-      StringBuilder result = new StringBuilder();
+		if (getKlass() != null) {
+			result.append(getKlass().getQualifiedName());
+		} else {
+			result.append(getDataRep().getLiteral());
+		}
 
-      if(getKlass() != null)
-      {
-        result.append(getKlass().getQualifiedName()) ;
-      }
-      else
-      {
-        result.append(getDataRep().getLiteral()) ;
-      }
+		for (int i = 0; i < getDimension(); i++) {
+			result.append(ARRAY_DIMENSION_TOKEN);
+		}
 
-      for(int i = 0 ; i < getDimension() ; i++)
-      {
-         result.append(ARRAY_DIMENSION_TOKEN) ;
-      }
+		return result.toString();
+	}
 
-      return result.toString() ;
-   }
+	public DataRepresentation getDataRep() {
+		return dataRep;
+	}
 
-  public DataRepresentation getDataRep()
-  {
-    return dataRep;
-  }
+	public void setDataRep(DataRepresentation dataRep) {
+		this.dataRep = dataRep;
+	}
 
-  public void setDataRep(DataRepresentation dataRep)
-  {
-    this.dataRep = dataRep;
-  }
+	public DataClassifier getKlass() {
+		return klass;
+	}
 
-  public DataClassifier getKlass()
-  {
-    return klass;
-  }
+	public void setKlass(DataClassifier klass) {
+		this.klass = klass;
+	}
 
-  public void setKlass(DataClassifier klass)
-  {
-    this.klass = klass;
-  }
+	public int getDimension() {
+		return dimension;
+	}
 
-  public int getDimension()
-  {
-    return dimension;
-  }
+	public void setDimension(int dimension) {
+		this.dimension = dimension;
+	}
 
-  public void setDimension(int dimension)
-  {
-    this.dimension = dimension;
-  }
+	public long[] getDimensionSizes() {
+		return dimension_sizes;
+	}
 
-  public long[] getDimensionSizes()
-  {
-    return dimension_sizes;
-  }
-
-  public void setDimensionSizes(long[] dimension_sizes)
-  {
-    this.dimension_sizes = dimension_sizes;
-  }
+	public void setDimensionSizes(long[] dimension_sizes) {
+		this.dimension_sizes = dimension_sizes;
+	}
 }

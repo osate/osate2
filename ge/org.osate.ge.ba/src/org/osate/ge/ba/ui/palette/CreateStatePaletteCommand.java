@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -26,58 +26,38 @@ package org.osate.ge.ba.ui.palette;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.osate.aadl2.Classifier;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ge.ba.util.BaNamingUtil;
-import org.osate.ge.ba.util.BaUtil;
+import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.operations.Operation;
-import org.osate.ge.operations.StepResult;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
+import org.osate.ge.palette.TargetedPaletteCommand;
 
+/**
+ * Palette command for creating {@link BehaviorState}.
+ */
 public class CreateStatePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	public CreateStatePaletteCommand() {
-		super("State", BaPaletteCategories.BEHAVIOR_ANNEX, null);
+		super("Behavior State", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
 	}
 
 	@Override
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
-		return ctx.getTarget().getBusinessObject(Classifier.class).map(c -> {
-			return Operation.createWithBuilder(b -> {
-				b.supply(() -> {
-					final BehaviorAnnex ba = BaUtil.getBehaviorAnnex(c);
-					return StepResult.forValue(ba == null ? c : ba);
-				}).modifyPreviousResult(modifyBo -> {
-					final BehaviorAnnex ba;
-					if (modifyBo instanceof Classifier) {
-						ba = BaUtil.getOrCreateBehaviorAnnex((Classifier) modifyBo);
-					} else if (modifyBo instanceof BehaviorAnnex) {
-						ba = (BehaviorAnnex) modifyBo;
-					} else {
-						throw new RuntimeException("Modify business object is not of expected type. BO: " + modifyBo);
-					}
-
+		return ctx.getTarget().getBusinessObject(BehaviorAnnex.class)
+				.map(ba -> Operation.createSimple(ctx.getTarget(), BehaviorAnnex.class, baToModify -> {
 					// Create the state
 					final BehaviorState newState = (BehaviorState) EcoreUtil
 							.create(AadlBaPackage.eINSTANCE.getBehaviorState());
-					final String newName = BaNamingUtil.buildUniqueIdentifier(ba, "new_state");
+					final String newName = BehaviorAnnexNamingUtil.buildUniqueIdentifier(baToModify, "new_state");
 					newState.setName(newName);
 
-					// Set as initial state if the behavior annex does not have an initial state.
-					if (ba.getInitialState() == null) {
-						newState.setInitial(true);
-					}
-
 					// Add the new state to the behavior annex
-					ba.getStates().add(newState);
-
-					return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), newState).build();
-				});
-			});
-		});
+					baToModify.getStates().add(newState);
+					return StepResultBuilder.create()
+							.showNewBusinessObject(ctx.getTarget(), newState).build();
+				})).orElse(Optional.empty());
 	}
 }

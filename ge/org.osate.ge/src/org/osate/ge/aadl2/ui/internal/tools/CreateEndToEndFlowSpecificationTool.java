@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -68,7 +68,6 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.xtext.util.Strings;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
@@ -96,7 +95,7 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.ui.tools.ActivatedEvent;
 import org.osate.ge.internal.ui.tools.DeactivatedEvent;
@@ -109,14 +108,14 @@ import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 public class CreateEndToEndFlowSpecificationTool implements Tool {
 	private ColoringService.Coloring coloring = null;
 	private CreateFlowsToolsDialog createFlowDialog;
-	private final AgeDiagramEditor editor;
+	private final InternalDiagramEditor editor;
 
 	// Flow segment selections
 	private final List<SegmentData> segmentSelections = new ArrayList<>();
 	// In mode feature selections
 	private final ArrayList<BusinessObjectContext> modeFeatureSelections = new ArrayList<>();
 
-	public CreateEndToEndFlowSpecificationTool(final AgeDiagramEditor editor, final DiagramElement container,
+	public CreateEndToEndFlowSpecificationTool(final InternalDiagramEditor editor, final DiagramElement container,
 			final EndToEndFlow endToEndFlow) {
 		this.editor = editor;
 		final ReferenceService referenceService = Objects.requireNonNull(Adapters.adapt(editor, ReferenceService.class),
@@ -137,7 +136,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 		.forEachOrdered(modeFeatureSelections::add);
 	}
 
-	public CreateEndToEndFlowSpecificationTool(final AgeDiagramEditor editor) {
+	public CreateEndToEndFlowSpecificationTool(final InternalDiagramEditor editor) {
 		this.editor = editor;
 
 		final Display display = Display.getCurrent();
@@ -153,17 +152,19 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				final AadlModificationService aadlModService = ctx.getAadlModificatonService();
 				final ColoringService coloringService = ctx.getColoringService();
 
-				// Check for existing errors or warnings
+				// Check for existing errors and warnings
 				final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
-				if (!diagnostics.isEmpty()) {
+				// Do not allow tool activation if there are errors in the models
+				final Set<Diagnostic> errors = FlowDialogUtil.getErrors(diagnostics);
+				if (!errors.isEmpty()) {
 					Display.getDefault().asyncExec(
-							() -> new FlowDialogUtil.ErrorDialog("The Create End-To-End", diagnostics).open());
+							() -> new FlowDialogUtil.ErrorDialog("The Create End-To-End", errors).open());
 				} else {
 					coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
 					// Create and update based on current selection
 					createFlowDialog.create();
 					if (segmentSelections.isEmpty() && modeFeatureSelections.isEmpty()) {
-						update(Collections.singletonList(selectedBoc), true);
+						update(Collections.singletonList(selectedBoc));
 					} else {
 						final Iterator<SegmentData> segmentIt = segmentSelections.iterator();
 						while (segmentIt.hasNext()) {
@@ -234,7 +235,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 	@Override
 	public void selectionChanged(SelectionChangedEvent ctx) {
-		update(ctx.getSelectedBocs(), false);
+		update(ctx.getSelectedBocs());
 	}
 
 	/**
@@ -250,21 +251,12 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				}
 
 				final EndToEndFlow endToEndFlow = createEndToEndFlow();
-				String error = null;
 				final boolean isValid = createFlowDialog.isEndToEndFlowValid(endToEndFlow);
-				if (!isValid) {
-					error = createFlowDialog.getValidFlowErrorMessage();
-				}
 
 				createFlowDialog.updateSegments();
 				createFlowDialog.updateWidgets(isValid);
-
-				if (error == null) {
-					createFlowDialog.setErrorMessage(null);
-					createFlowDialog.setMessage(getDialogMessage());
-				} else {
-					createFlowDialog.setErrorMessage(error + getDialogMessage());
-				}
+				createFlowDialog.setErrorMessage(null);
+				createFlowDialog.setMessage(getDialogMessage());
 			}
 		}
 	}
@@ -299,9 +291,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 	/**
 	 * Update the diagram and tool dialog
 	 * @param selectedBocs - the selected bocs
-	 * @param isInit - whether the selected bocs are the initial selection when the tool was activated
 	 */
-	private void update(final List<BusinessObjectContext> selectedBocs, final boolean isInit) {
+	private void update(final List<BusinessObjectContext> selectedBocs) {
 		if (createFlowDialog != null) {
 			if (createFlowDialog.getShell() != null && !createFlowDialog.getShell().isDisposed()
 					&& createFlowDialog.elementSelectionDlg == null) {
@@ -312,7 +303,6 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				} else if (selectedBocs.size() == 1) {
 					// Get the selected boc
 					final BusinessObjectContext selectedBoc = (BusinessObjectContext) selectedBocs.get(0);
-					String error = null;
 					if (!modeFeatureSelections.contains(selectedBoc)
 							&& createFlowDialog.addSelectedElement(selectedBoc)) {
 						// Insert flow segments before first mode feature
@@ -338,24 +328,13 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 						}
 
 						setColor(selectedBoc, color);
-					} else if (!isInit) {
-						error = "Invalid element selected.  ";
 					}
 
 					createFlowDialog.updateSegments();
 					final boolean isValid = createFlowDialog.isEndToEndFlowValid(createEndToEndFlow());
-					if (!isValid) {
-						error = Strings.emptyIfNull(error) + createFlowDialog.getValidFlowErrorMessage();
-					}
-
 					createFlowDialog.updateWidgets(isValid);
-
-					if (error == null) {
-						createFlowDialog.setErrorMessage(null);
-						createFlowDialog.setMessage(getDialogMessage());
-					} else {
-						createFlowDialog.setErrorMessage(error + getDialogMessage());
-					}
+					createFlowDialog.setErrorMessage(null);
+					createFlowDialog.setMessage(getDialogMessage());
 				} else {
 					createFlowDialog.updateSegments();
 				}
@@ -416,7 +395,6 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 	private class CreateFlowsToolsDialog extends TitleAreaDialog {
 		private final UiService uiService;
 		private final Aadl2Package pkg = Aadl2Package.eINSTANCE;
-		private final String invalidErrorMessage = "Invalid End-To-End Flow.  ";
 		private DiagramElement eteFlowToEditContainer;
 		private final EndToEndFlow eteFlowToEdit;
 		private String endToEndFlowName = "";
@@ -535,11 +513,17 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				diagnostics = ToolUtil.getModificationDiagnostics(ci, modifyObject(endToEndFlow, ci));
 			}
 
-			FlowDialogUtil.setInput(errorTableViewer, diagnostics);
+			// Errors to show to user
+			final Set<Diagnostic> dialogDiagnostics = diagnostics.stream().filter(diagnostic -> {
+				final String errorMsg = diagnostic.getMessage();
+				return errorMsg == null || !errorMsg.contains("Serialization Error");
+			}).collect(Collectors.toSet());
 
-			final Optional<Diagnostic> errorDiagnostic = diagnostics.stream()
-					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR).findAny();
-			return !errorDiagnostic.isPresent();
+			FlowDialogUtil.setInput(errorTableViewer,
+					dialogDiagnostics);
+
+			return !diagnostics.stream()
+					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR).findAny().isPresent();
 		}
 
 		private Function<ResourceSet, EObject> modifyObject(final EndToEndFlow endToEndFlow,
@@ -599,7 +583,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 					public void widgetSelected(final SelectionEvent e) {
 						elementSelectionDlg = new SelectEndToEndFlowDialog(createFlowDialog.getShell(),
 								EndToEndFlow.class, "Select End to End Flow");
-						createFlowDialog.addSegment(() -> emptySegmentsButton.dispose());
+						createFlowDialog.addSegment();
 					}
 				});
 			} else {
@@ -763,14 +747,9 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 					createFlowDialog.updateSegments();
 
-					final String error = createFlowDialog.getFlowErrorMessage(isValid).orElse(null);
 
-					if (error == null) {
-						createFlowDialog.setErrorMessage(null);
-						createFlowDialog.setMessage(getDialogMessage());
-					} else {
-						createFlowDialog.setErrorMessage(error + getDialogMessage());
-					}
+					createFlowDialog.setErrorMessage(null);
+					createFlowDialog.setMessage(getDialogMessage());
 
 					createFlowDialog.updateWidgets(isValid);
 				}
@@ -899,7 +878,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			buttonComposite.setLayout(rowLayout);
 		}
 
-		private void addSegment(final Runnable runnable) {
+		private void addSegment() {
 			try {
 				createFlowDialog.getShell().setVisible(false);
 				if (elementSelectionDlg.open() == Window.OK && elementSelectionDlg != null) {
@@ -928,14 +907,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 					final EndToEndFlow endToEndFlow = createEndToEndFlow();
 					final boolean isValid = isEndToEndFlowValid(endToEndFlow);
-					final String error = getFlowErrorMessage(isValid).orElse(null);
-					if (error == null) {
-						setErrorMessage(null);
-						setMessage(getDialogMessage());
-					} else {
-						setErrorMessage(error + getDialogMessage());
-					}
-
+					setErrorMessage(null);
+					setMessage(getDialogMessage());
 					updateWidgets(isValid);
 				}
 			} finally {
@@ -989,25 +962,19 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 					final Color newSegmentColor = segmentSelections.indexOf(segmentDataToAdd) == 0
 							? Color.ORANGE.darker()
 									: Color.MAGENTA.darker();
-							setColor(segmentDataToAdd, newSegmentColor);
+					setColor(segmentDataToAdd, newSegmentColor);
 
-							final Color updateSegmentColor = segmentSelections.indexOf(segmentData) == 0 ? Color.ORANGE.darker()
-									: Color.MAGENTA.darker();
-							setColor(segmentDataToAdd, updateSegmentColor);
+					final Color updateSegmentColor = segmentSelections.indexOf(segmentData) == 0 ? Color.ORANGE.darker()
+							: Color.MAGENTA.darker();
+					setColor(segmentDataToAdd, updateSegmentColor);
 				}
 
 				updateSegments();
 
 				final EndToEndFlow endToEndFlow = createEndToEndFlow();
 				final boolean isValid = isEndToEndFlowValid(endToEndFlow);
-				final String error = getFlowErrorMessage(isValid).orElse(null);
-				if (error == null) {
-					setErrorMessage(null);
-					setMessage(getDialogMessage());
-				} else {
-					setErrorMessage(error + getDialogMessage());
-				}
-
+				setErrorMessage(null);
+				setMessage(getDialogMessage());
 				updateWidgets(isValid);
 			}
 
@@ -1036,14 +1003,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 				final EndToEndFlow endToEndFlow = createEndToEndFlow();
 				final boolean isValid = isEndToEndFlowValid(endToEndFlow);
-				final String error = getFlowErrorMessage(isValid).orElse(null);
-				if (error == null) {
-					setErrorMessage(null);
-					setMessage(getDialogMessage());
-				} else {
-					setErrorMessage(error + getDialogMessage());
-				}
-
+				setErrorMessage(null);
+				setMessage(getDialogMessage());
 				updateWidgets(isValid);
 			}
 
@@ -1092,14 +1053,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 					endToEndFlowName = newETEFlowName.getText();
 					final EndToEndFlow endToEndFlow = createEndToEndFlow();
 					final boolean isValid = isEndToEndFlowValid(endToEndFlow);
-					final String error = getFlowErrorMessage(isValid).orElse(null);
-					if (error == null) {
-						setErrorMessage(null);
-						setMessage(getDialogMessage());
-					} else {
-						setErrorMessage(error + getDialogMessage());
-					}
-
+					setErrorMessage(null);
+					setMessage(getDialogMessage());
 					updateWidgets(isValid);
 				}
 			});
@@ -1115,18 +1070,6 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			});
 
 			return buttonBar;
-		}
-
-		private Optional<String> getFlowErrorMessage(final boolean isValid) {
-			if (!isValid) {
-				return Optional.of(getValidFlowErrorMessage());
-			}
-
-			return Optional.ofNullable(null);
-		}
-
-		private String getValidFlowErrorMessage() {
-			return invalidErrorMessage;
 		}
 
 		private abstract class ElementSelectionDialog extends TitleAreaDialog {

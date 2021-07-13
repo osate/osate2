@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -37,18 +37,17 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ModeSwitchTriggerLogicalExpression extends ModeSwitchTriggerCondition
-{
-  /**
-   * Returns the value of the '<em><b>Mode Switch Conjunctions</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.ba.aadlba.ModeSwitchConjunction}.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Mode Switch Conjunctions</em>' containment reference list.
-   * @see org.osate.ba.aadlba.AadlBaPackage#getModeSwitchTriggerLogicalExpression_ModeSwitchConjunctions()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  EList<ModeSwitchConjunction> getModeSwitchConjunctions();
+public interface ModeSwitchTriggerLogicalExpression extends ModeSwitchTriggerCondition {
+	/**
+	 * Returns the value of the '<em><b>Mode Switch Conjunctions</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.ba.aadlba.ModeSwitchConjunction}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Mode Switch Conjunctions</em>' containment reference list.
+	 * @see org.osate.ba.aadlba.AadlBaPackage#getModeSwitchTriggerLogicalExpression_ModeSwitchConjunctions()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	EList<ModeSwitchConjunction> getModeSwitchConjunctions();
 
 } // ModeSwitchTriggerLogicalExpression

@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build Products') {
       tools {
-        jdk "OracleJDK8"
+        jdk "OpenJDK11"
       }
       steps {
         withMaven(maven: 'M3', mavenLocalRepo: '.repository') {
@@ -13,7 +13,7 @@ pipeline {
           ''')
           wrap([$class: 'Xvnc', takeScreenshot: false, useXauthority: true]) {
             sh(script: '''
-                mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Pfull \
+                mvn -T 1 -s core/osate.releng/seisettings.xml clean verify -Pfull \
                     -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
                     -Dcodecoverage=true -Dspotbugs=true
             ''')

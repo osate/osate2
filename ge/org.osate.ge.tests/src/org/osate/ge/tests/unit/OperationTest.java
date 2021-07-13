@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -116,7 +116,7 @@ public class OperationTest {
 					return StepResultBuilder.create().showNewBusinessObject(stubBoc, prevResult + 2).build();
 				});
 
-		final Step<?> firstStep = rootOpBuilder.build();
+		final Step firstStep = rootOpBuilder.build();
 		final OperationExecutor executor = new OperationExecutor(modificationService, referenceBuilder);
 		executor.execute(firstStep, (results) -> {
 			// Verify that result was created.
@@ -143,7 +143,7 @@ public class OperationTest {
 					return StepResultBuilder.create().showNewBusinessObject(stubBoc, prevResult + 3).build();
 				});
 
-		final Step<?> firstStep = rootOpBuilder.build();
+		final Step firstStep = rootOpBuilder.build();
 		final OperationExecutor executor = new OperationExecutor(modificationService, referenceBuilder);
 		executor.execute(firstStep, (results) -> {
 			// Verify that results were created from both paths
@@ -164,7 +164,7 @@ public class OperationTest {
 					return StepResultBuilder.create(prevResult + 1).build();
 				}).map(pr -> StepResultBuilder.create().showNewBusinessObject(stubBoc, Integer.valueOf(100)).build());
 
-		final Step<?> firstStep = rootOpBuilder.build();
+		final Step firstStep = rootOpBuilder.build();
 		final OperationExecutor executor = new OperationExecutor(modificationService, referenceBuilder);
 		executor.execute(firstStep, (results) -> {
 			// Verify that result was created from the map after the modification
@@ -182,7 +182,7 @@ public class OperationTest {
 
 		b.map(pr -> StepResultBuilder.create().showNewBusinessObject(stubBoc, Integer.valueOf(100)).build());
 
-		final Step<?> firstStep = rootOpBuilder.build();
+		final Step firstStep = rootOpBuilder.build();
 		final OperationExecutor executor = new OperationExecutor(modificationService, referenceBuilder);
 		executor.execute(firstStep, (results) -> {
 			// Verify that result was created from the map after the modification
@@ -207,7 +207,7 @@ public class OperationTest {
 					return StepResultBuilder.create().showNewBusinessObject(stubBoc, prevResult + 2).build();
 				});
 
-		final Step<?> firstStep = rootOpBuilder.build();
+		final Step firstStep = rootOpBuilder.build();
 		final OperationExecutor executor = new OperationExecutor(modificationService, referenceBuilder);
 		executor.execute(firstStep, (results) -> {
 			assertEquals(false, executed.get());
@@ -233,7 +233,7 @@ public class OperationTest {
 					return StepResultBuilder.create().showNewBusinessObject(stubBoc, prevResult + 3).build();
 				});
 
-		final Step<?> firstStep = rootOpBuilder.build();
+		final Step firstStep = rootOpBuilder.build();
 		final OperationExecutor executor = new OperationExecutor(modificationService, referenceBuilder);
 		executor.execute(firstStep, (results) -> {
 			assertEquals(false, executed.get());
