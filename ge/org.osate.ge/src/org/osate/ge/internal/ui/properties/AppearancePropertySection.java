@@ -24,7 +24,6 @@
 package org.osate.ge.internal.ui.properties;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -39,8 +38,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.resource.DeviceResourceManager;
@@ -92,8 +89,8 @@ import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
-import org.osate.ge.internal.graphiti.services.GraphitiService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.services.ProjectProvider;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.swt.SwtUtil;
@@ -258,10 +255,20 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	@Override
 	public void setInput(final IWorkbenchPart part, final ISelection selection) {
 		super.setInput(part, selection);
-
 		selectedDiagramElements.clear();
 
-		final IStructuredSelection ss = (IStructuredSelection) selection;
+		if (selection instanceof IStructuredSelection) {
+			for (final Object o : (IStructuredSelection) selection) {
+				final DiagramElement diagramElement = Adapters.adapt(o, DiagramElement.class);
+				if(diagramElement != null) {
+					selectedDiagramElements.add(diagramElement);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void refresh() {
 		final RGB disableColor = lightGray.rgb;
 		boolean enableFontOptions = false;
 		boolean enableLineWidth = false;
@@ -271,12 +278,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		boolean enableImage = false;
 		boolean enableShowAsImage = false;
 		boolean isShowAsImageEnabled = false;
-		final Iterator<?> itr = ss.iterator();
-		while (itr.hasNext()) {
-			final Object o = itr.next();
-			final DiagramElement diagramElement = Adapters.adapt(o, DiagramElement.class);
-			selectedDiagramElements.add(diagramElement);
-
+		for (final DiagramElement diagramElement : selectedDiagramElements) {
 			// Font options
 			if (supportsFontOptions(diagramElement)) {
 				enableFontOptions = true;
@@ -342,7 +344,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		final Button outlineButton = outlinePaintListener.getButton();
 		outlineButton.setEnabled(enableOutlineOption);
 
-		final Style defaultStyle = StyleBuilder.create(diagramElement.getGraphicalConfiguration().getStyle(), Style.DEFAULT)
+		final Style defaultStyle = StyleBuilder
+				.create(diagramElement.getGraphicalConfiguration().getStyle(), Style.DEFAULT)
 				.build();
 		backgroundPaintListener.setDefaultColor(toRGB(defaultStyle.getBackgroundColor()));
 		fontColorPaintListener.setDefaultColor(toRGB(defaultStyle.getFontColor()));
@@ -649,8 +652,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	public Point getShellPosition(final Point widgetSize, final Button button,
 			final int minSpacingFromDisplayRightAndBottom) {
 		// Position the shell
-		final Point unclampedShellPosition = Display.getCurrent().map(button.getParent(), null, button.getLocation().x,
-				button.getLocation().y + button.getSize().y);
+		final Point unclampedShellPosition = Display.getCurrent()
+				.map(button.getParent(), null, button.getLocation().x, button.getLocation().y + button.getSize().y);
 		final Rectangle clientArea = Display.getCurrent().getClientArea();
 		final Point shellPosition = new Point(
 				Math.min(unclampedShellPosition.x,
@@ -764,7 +767,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			chooseImgMenuItem.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					final AgeDiagramEditor editor = UiUtil.getActiveDiagramEditor();
+					final InternalDiagramEditor editor = UiUtil.getActiveDiagramEditor();
 					if (editor != null) {
 						final ElementTreeSelectionDialog dialog = createSelectionDialog(editor);
 						if (dialog.open() == Window.OK) {
@@ -792,20 +795,19 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			popupMenu.setVisible(true);
 		}
 
-		private ElementTreeSelectionDialog createSelectionDialog(final AgeDiagramEditor editor) {
+		private ElementTreeSelectionDialog createSelectionDialog(final InternalDiagramEditor editor) {
 			final ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(
 					Display.getCurrent().getActiveShell(), new WorkbenchLabelProvider(),
 					new BaseWorkbenchContentProvider());
 			try {
-				final GraphitiService graphitiService = Objects
-						.requireNonNull(Adapters.adapt(editor, GraphitiService.class),
-								"graphiti service must not be null");
+				final ProjectProvider projectProvider = Objects.requireNonNull(
+						Adapters.adapt(editor, ProjectProvider.class), "unable to retrieve project provider");
 				// Configure selection dialog
 				dialog.setTitle("Select an Image");
 				dialog.setMessage("Select an image.");
 				dialog.setAllowMultiple(false);
 				dialog.setHelpAvailable(false);
-				final IProject project = graphitiService.getProject();
+				final IProject project = projectProvider.getProject();
 				final IProject[] referencedProjects = project.getReferencedProjects();
 				// Filter Resources
 				dialog.addFilter(new ImageSelectionViewerFilter(Lists.asList(project, referencedProjects)));
@@ -821,11 +823,9 @@ public class AppearancePropertySection extends AbstractPropertySection {
 				// Allow selection of project resources
 				dialog.setInput(workspaceRoot);
 
-				if (editor.getEditorInput() instanceof DiagramEditorInput) {
-					final DiagramEditorInput dei = (DiagramEditorInput) editor.getEditorInput();
-					// Get file directory
-					final URI fileDirectory = dei.getUri().trimFragment().trimSegments(1);
-					dialog.setInitialSelection(workspaceRoot.findMember(fileDirectory.toPlatformString(true)));
+				final IFile diagramFile = editor.getDiagramFile();
+				if (diagramFile != null) {
+					dialog.setInitialSelection(diagramFile.getParent());
 				}
 			} catch (final CoreException e) {
 				throw new RuntimeException("unable to get referenced projects");

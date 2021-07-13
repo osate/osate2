@@ -51,11 +51,11 @@ public class BehaviorAnnexNamingUtil {
 	private final static Set<String> reservedWords; // Set which compares entries base on a case-insensitive comparison
 	static {
 		reservedWords = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-		reservedWords.addAll(
-				Arrays.asList(new String[] { "complete", "initial", "final", "state", "states", "transitions",
-						"variables", "timeout", "frozen", "on", "dispatch", "stop", "otherwise", "or", "and", "if",
-						"elsif", "end", "for", "forall", "in", "do", "until", "computation", "binding", "any", "count",
-						"fresh", "true", "false", "upper_bound", "lower_bound", "not" }));
+		reservedWords.addAll(Arrays.asList("abs", "and", "any", "binding", "classifier", "complete", "computation",
+				"count", "dispatch", "do", "else", "elsif", "end", "false", "final", "for", "forall", "fresh", "frozen",
+				"if", "in", "initial", "lower_bound", "mod", "not", "on", "or", "otherwise", "reference", "variables",
+				"rem", "state", "states", "stop", "timeout", "transitions", "true", "until", "upper_bound", "while",
+				"xor"));
 	}
 
 	public static String buildUniqueIdentifier(final BehaviorAnnex ba, final String baseIdentifier) {

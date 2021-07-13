@@ -73,8 +73,8 @@ public interface GraphicalEditorService {
 
 	/**
 	 * Returns an optional with information about a graphical editor selection.
-	 * @param object is the object for which to return information. For the Graphiti based graphical editor EditPart instances should be supported.
-	 * This object is usually retrieved from the global selection.
+	 * @param object is the object for which to return information. This object is usually retrieved from the global selection and is
+	 * not guaranteed to be a particular type.
 	 * @return information retrieved from the specified object. If the details could not be determined or is not of the appropriate type,
 	 * and empty optional will be returned.
 	 * @since 2.0

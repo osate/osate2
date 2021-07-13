@@ -25,11 +25,19 @@ package org.osate.ge.internal.services.impl;
 
 import java.util.Objects;
 
-import org.osate.ge.internal.services.EditorProvider;
 import org.osate.ge.internal.services.UiService;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.tools.Tool;
 
 public class DefaultUiService implements UiService {
+	public static interface EditorProvider {
+		/**
+		 * Get the editor for the current diagram.
+		 * @return
+		 */
+		InternalDiagramEditor getEditor();
+	}
+
 	private final EditorProvider editorProvider;
 
 	public DefaultUiService(final EditorProvider editorProvider) {

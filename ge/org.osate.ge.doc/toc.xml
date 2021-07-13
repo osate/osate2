@@ -29,7 +29,4 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<topic label="Developer Guide" href="docs-gen/dev_guide.html">
 		<link toc="docs-gen/dev_guide_toc.xml" />
 	</topic>
-	<topic label="API Reference" href="api/index.html">
-		<link toc="api_toc.xml" />
-	</topic>
 </toc>

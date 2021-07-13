@@ -294,6 +294,15 @@ censes only apply to the Third Party Software and not any other portion of this 
    </extension>
  <extension
        point="org.eclipse.ui.handlers">
+     <handler
+          class="org.osate.ge.internal.ui.handlers.PrintDiagramHandler"
+          commandId="org.eclipse.ui.file.print">
+       <enabledWhen>
+          <reference
+                definitionId="org.osate.ge.expressions.editorIsActive">
+          </reference>
+       </enabledWhen>
+    </handler>
     <handler
           class="org.osate.ge.internal.ui.handlers.ArrangeInGridHandler"
           commandId="org.osate.ge.commands.arrangeInGrid">
@@ -1364,54 +1373,8 @@ censes only apply to the Third Party Software and not any other portion of this 
 			</command>
 		</menuContribution>		
    </extension>
-	   
-   <extension point="org.eclipse.graphiti.ui.diagramTypes">      
-      <diagramType
-            name="AADL Diagram Type"
-            type="AADL Diagram"
-            id="org.osate.ge.aadlDiagramType">
-      </diagramType>
-   </extension>
-   
-   <extension point="org.eclipse.graphiti.ui.diagramTypeProviders">     
-      <diagramTypeProvider
-            name="AADL Component Implementation Diagram Type Provider"
-            class="org.osate.ge.internal.graphiti.AgeDiagramTypeProvider"
-            id="org.osate.ge.aadlDiagramTypeProvider">
-         <diagramType
-               id="org.osate.ge.aadlDiagramType">
-         </diagramType>
-		 <imageProvider
-            id="org.osate.ge.image_provider">
-      	 </imageProvider>
-      </diagramTypeProvider>
-   </extension>
-   
-   <extension
-	    point = "org.eclipse.ui.editors">
-		<editor
-	  	   id = "org.osate.ge.editor.AgeDiagramEditor"
-	  	   name="AADL Diagram Editor"
-      	   class="org.osate.ge.internal.ui.editor.AgeDiagramEditor"
-		   extensions="aadl_diagram"
-           contributorClass="org.osate.ge.internal.ui.editor.AgeDiagramEditorActionBarContributor"
-           matchingStrategy="org.eclipse.graphiti.ui.editor.DiagramEditorMatchingStrategy">
-		</editor>
-	</extension>
 
 	<extension point="org.eclipse.core.runtime.adapters">
-		<factory adaptableType="org.eclipse.gef.EditPart" class="org.osate.ge.internal.ui.editor.GraphitiEditPartAdapterFactory">
-			<adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
-		   <adapter
-		         type="org.osate.ge.internal.diagram.runtime.DiagramNode">
-		   </adapter>
-		   <adapter
-		         type="org.osate.ge.internal.diagram.runtime.DiagramElement">
-		   </adapter>
-     <adapter
-           type="org.osate.ge.BusinessObjectContext">
-     </adapter>
-		</factory>
   <factory
         adaptableType="org.eclipse.jface.viewers.ISelection"
         class="org.osate.ge.internal.selection.AgeBusinessObjectSelectionAdapterFactory">
@@ -1482,17 +1445,6 @@ censes only apply to the Third Party Software and not any other portion of this 
   </extension>
   
   <extension
-        point="org.eclipse.ui.navigator.linkHelper">
-     <linkHelper
-           class="org.osate.ge.internal.ui.navigator.LinkHelper"
-           id="org.osate.ge.linkHelper">
-        <editorInputEnablement>
-           <instanceof
-                 value="org.eclipse.graphiti.ui.editor.IDiagramEditorInput">
-           </instanceof></editorInputEnablement>
-     </linkHelper>
-  </extension>
-  <extension
         point="org.eclipse.core.expressions.propertyTesters">
      <propertyTester
            class="org.osate.ge.internal.expressions.DiagramElementPropertyTester"
@@ -1510,14 +1462,6 @@ censes only apply to the Third Party Software and not any other portion of this 
      </propertyTester>
   </extension>
   
- <extension
-      point="org.eclipse.graphiti.ui.imageProviders">
-   <imageProvider
-         class="org.osate.ge.internal.graphiti.AgeImageProvider"
-         id="org.osate.ge.image_provider">
-   </imageProvider>
-</extension>
-
  <extension
 	point="org.eclipse.ui.contexts">
 	<context
@@ -1918,9 +1862,14 @@ censes only apply to the Third Party Software and not any other portion of this 
             id="org.osate.ge.expressions.editorIsActive">
          <with
                variable="activeEditorId">
-            <equals
+            <or>
+               <equals
                   value="org.osate.ge.editor.AgeDiagramEditor">
-            </equals>
+               </equals>
+               <equals
+                  value="org.osate.gef.ui.editor.AgeEditor">
+               </equals>
+            </or>
          </with>
       </definition>
    </extension>

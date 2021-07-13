@@ -32,15 +32,15 @@ import com.google.common.collect.ImmutableList;
  * A split step does not have a result.
  *
  */
-public class SplitStep extends AbstractStep<Void> {
-	private final ImmutableList<Step<?>> steps;
+public class SplitStep extends AbstractStep {
+	private final ImmutableList<Step> steps;
 
-	public SplitStep(final ImmutableList<Step<?>> steps) {
+	public SplitStep(final ImmutableList<Step> steps) {
 		super(null);
 		this.steps = Objects.requireNonNull(steps, "steps must not be null");
 	}
 
-	public ImmutableList<Step<?>> getSteps() {
+	public ImmutableList<Step> getSteps() {
 		return steps;
 	}
 }

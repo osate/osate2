@@ -37,18 +37,19 @@ import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.botree.Completeness;
-import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramElementInformationProvider;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.services.ReferenceResolutionService;
 
 public class TestBusinessObjectModel
-		implements DiagramElementInformationProvider, TreeUpdater, ReferenceResolutionService, ReferenceBuilderService {
+		implements DiagramElementInformationProvider, BusinessObjectTreeUpdater, ReferenceResolutionService,
+		ReferenceBuilderService {
 	private TestBusinessObject model;
 
 	@Override
-	public BusinessObjectNode expandTree(DiagramConfiguration configuration, BusinessObjectNode tree) {
+	public BusinessObjectNode updateTree(DiagramConfiguration configuration, BusinessObjectNode tree) {
 		final BusinessObjectNode newTree = new BusinessObjectNode(null, UUID.randomUUID(), null, null,
 				Completeness.UNKNOWN, true);
 		createNodes(newTree, getModel().children);

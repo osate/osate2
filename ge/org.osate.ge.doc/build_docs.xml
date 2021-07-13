@@ -39,12 +39,9 @@ censes only apply to the Third Party Software and not any other portion of this 
   <!-- - target: clean -->
   <target name="clean" description="Cleans up generated files.">
   <delete dir="${docs_output.dir}" />
-  	<!-- Currently disabled.  Enable when building api docs.
-  	<delete dir="api" />
-  	-->
   </target>
 
-  <target name="build-help" depends="clean, build_docs_eclipse, build_api_docs">
+  <target name="build-help" depends="clean, build_docs_eclipse">
   </target>
 		
 	<target name="build_docs_eclipse" description="Build Eclipse Help Documentation">
@@ -102,22 +99,4 @@ censes only apply to the Third Party Software and not any other portion of this 
 			<arg value="../docs-gen/dev_guide_toc.xml"/>
 		</exec>
 	</target>
-	
-    <target name="build_api_docs">
-        <javadoc access="public" additionalparam="-notimestamp -Xdoclint:none -tag 'noimplement:a:No Implement:' -tag 'noextend:a:No Extend:' -tag 'noreference:a:No Reference:' -tag 'noinstantiate:a:No Instantiate:' -tag 'nooverride:a:No Override:'" author="true"
-        	destdir="api" 
-        	doctitle="OSATE Graphical Editor API Reference" 
-        	nodeprecated="false" 
-        	nodeprecatedlist="false" 
-        	noindex="false" 
-        	nonavbar="false" 
-        	notree="false" 
-        	packagenames="org.osate.ge,org.osate.ge.aadl2,org.osate.ge.aadl2.ui,org.osate.ge.businessobjecthandling,org.osate.ge.graphics,org.osate.ge.operations,org.osate.ge.palette,org.osate.ge.query,org.osate.ge.referencehandling,org.osate.ge.services,org.osate.ge.ui" 
-        	source="1.8"         	 
-        	sourcepath="..\org.osate.ge\src;..\org.osate.ge.diagram\src" 
-        	splitindex="true" 
-        	use="true" 
-        	version="true"                
-        />
-    </target>
 </project> 

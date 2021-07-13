@@ -56,7 +56,7 @@ public interface OperationBuilder<PrevResultUserType> {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	default <TagType, ResultUserType> OperationBuilder<ResultUserType> modifyPreviousResult(
+	default <ResultUserType> OperationBuilder<ResultUserType> modifyPreviousResult(
 			final Function<PrevResultUserType, StepResult<ResultUserType>> modifier) {
 
 		return modifyModel(null, (tag, prevResult) -> {
