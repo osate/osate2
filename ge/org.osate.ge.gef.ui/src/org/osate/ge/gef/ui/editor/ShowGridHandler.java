@@ -27,29 +27,31 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.State;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.handlers.RegistryToggleState;
 import org.osate.ge.gef.ui.AgeGefUiPlugin;
 import org.osate.ge.gef.ui.preferences.Preferences;
 
 public class ShowGridHandler extends AbstractHandler {
+	private static final String SHOW_GRID_CMD_ID = "org.osate.ge.gef.ui.commands.showGrid";
+	private final IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(AgeGefUiPlugin.PLUGIN_ID);
+
 	public ShowGridHandler() {
 		// Set toggle state based on preferences
 		final ICommandService service = PlatformUI.getWorkbench().getService(ICommandService.class);
-		final String cmdId = "org.osate.ge.gef.ui.commands.showGrid";
-		final State toggleState = service.getCommand(cmdId).getState("org.eclipse.ui.commands.toggleState");
-		final boolean value = AgeGefUiPlugin.getDefault().getPreferenceStore().getBoolean(Preferences.SHOW_GRID);
+		final State toggleState = service.getCommand(SHOW_GRID_CMD_ID).getState(RegistryToggleState.STATE_ID);
+		final boolean value = preferences.getBoolean(Preferences.SHOW_GRID, true);
 		toggleState.setValue(value);
 	}
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final boolean currentValue = HandlerUtil.toggleCommandState(event.getCommand());
-		AgeGefUiPlugin.getDefault()
-				.getPreferenceStore()
-				.setValue(Preferences.SHOW_GRID,
-						!currentValue);
+		preferences.putBoolean(Preferences.SHOW_GRID, !currentValue);
 		return null;
 	}
 }
