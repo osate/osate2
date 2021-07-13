@@ -2140,7 +2140,7 @@ censes only apply to the Third Party Software and not any other portion of this 
         <image id="org.osate.ge.aadl2.images.AccessConnection" path="/icons/full/obj16/AccessConnection.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.FeatureConnection" path="/icons/full/obj16/FeatureConnection.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.FeatureGroupConnection" path="/icons/full/obj16/FeatureGroupConnection.gif" plugin="org.osate.aadl2.edit" />
-        <image id="org.osate.ge.aadl2.images.ParameterConnection" path="/icons/full/obj16/AccessConnection.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.ParameterConnection" path="/icons/full/obj16/ParameterConnection.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.PortConnection" path="/icons/full/obj16/PortConnection.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.AbstractSubcomponent" path="/icons/full/obj16/AbstractSubcomponent.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.BusSubcomponent" path="/icons/full/obj16/BusSubcomponent.gif" plugin="org.osate.aadl2.edit" />
@@ -2161,13 +2161,13 @@ censes only apply to the Third Party Software and not any other portion of this 
         <image id="org.osate.ge.aadl2.images.Parameter" path="/icons/full/obj16/Parameter.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.EventSource" path="/icons/full/obj16/EventPort.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.EventDataSource" path="/icons/full/obj16/EventDataPort.gif" plugin="org.osate.aadl2.edit" />
-        <image id="org.osate.ge.aadl2.images.PortProxy" path="/icons/full/obj16/AbstractFeature.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.PortProxy" path="/icons/full/obj16/PortProxy.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.SubprogramProxy" path="/icons/full/obj16/SubprogramAccess.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.FlowPath" path="/icons/full/obj16/FlowPath.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.FlowSink" path="/icons/full/obj16/FlowSink.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.FlowSource" path="/icons/full/obj16/FlowSource.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.Generalization" path="/icons/full/obj16/ModeTransition.gif" plugin="org.osate.aadl2.edit" />
-        <image id="org.osate.ge.aadl2.images.SubprogramCall" path="/icons/full/obj16/SubprogramSubcomponent.gif" plugin="org.osate.aadl2.edit" />
+        <image id="org.osate.ge.aadl2.images.SubprogramCall" path="/icons/full/obj16/SubprogramCall.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.SubprogramCallSequence" path="/icons/full/obj16/SubprogramCallSequence.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.DefaultAnnexLibrary" path="/icons/full/obj16/DefaultAnnexLibrary.gif" plugin="org.osate.aadl2.edit" />
         <image id="org.osate.ge.aadl2.images.DefaultAnnexSubclause" path="/icons/full/obj16/DefaultAnnexSubclause.gif" plugin="org.osate.aadl2.edit" />
