@@ -95,7 +95,7 @@ public class JavaFXBot {
 	 * @param node the node to click.
 	 */
 	public void firePressAndReleasePrimaryMouseButtonEvents(final Node node) {
-		Display.getDefault().syncExec(() -> {
+		Display.getDefault().asyncExec(() -> {
 			javafx.event.Event.fireEvent(node,
 					new MouseEvent(MouseEvent.MOUSE_PRESSED, 0.0, 0.0, 0.0, 0.0, MouseButton.PRIMARY, 1, false, false,
 							false, false, false, false, false, false, false, false, null));
