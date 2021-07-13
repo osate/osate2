@@ -50,6 +50,7 @@ public class ShowGridHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		final boolean currentValue = HandlerUtil.toggleCommandState(event.getCommand());
+		// Update show grid value
 		preferenceStore.setValue(Preferences.SHOW_GRID, !currentValue);
 		return null;
 	}
