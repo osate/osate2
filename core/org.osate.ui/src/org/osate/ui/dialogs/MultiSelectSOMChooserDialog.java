@@ -85,7 +85,7 @@ import org.osate.ui.OsateUiPlugin;
  * @author jseibel
  * @author aarong
  *
- * @since 6.0
+ * @since 6.2
  *
  */
 public class MultiSelectSOMChooserDialog extends Dialog {
