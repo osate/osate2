@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -32,15 +32,15 @@ import com.google.common.collect.ImmutableList;
  * A split step does not have a result.
  *
  */
-public class SplitStep extends AbstractStep<Void> {
-	private final ImmutableList<Step<?>> steps;
+public class SplitStep extends AbstractStep {
+	private final ImmutableList<Step> steps;
 
-	public SplitStep(final ImmutableList<Step<?>> steps) {
+	public SplitStep(final ImmutableList<Step> steps) {
 		super(null);
 		this.steps = Objects.requireNonNull(steps, "steps must not be null");
 	}
 
-	public ImmutableList<Step<?>> getSteps() {
+	public ImmutableList<Step> getSteps() {
 		return steps;
 	}
 }

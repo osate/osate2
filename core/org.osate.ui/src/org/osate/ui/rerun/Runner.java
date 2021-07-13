@@ -8,7 +8,7 @@ import org.eclipse.swt.widgets.Control;
 import org.osate.aadl2.instance.SystemInstance;
 
 /**
- * @since 6.0
+ * @since 6.2
  */
 public interface Runner {
 	/**

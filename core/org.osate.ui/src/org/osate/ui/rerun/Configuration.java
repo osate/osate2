@@ -4,7 +4,7 @@ import org.eclipse.emf.common.util.URI;
 import org.osate.aadl2.instance.SystemInstance;
 
 /**
- * @since 6.0
+ * @since 6.2
  */
 public interface Configuration {
 	/**

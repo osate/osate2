@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -187,6 +187,7 @@ public class RefineElementPropertySection extends AbstractPropertySection {
 		refineBtn.setGrayed(isRefined == null);
 		// Set initial selection
 		refineBtn.setSelection(isRefined == Boolean.TRUE);
+		refineBtn.setEnabled(refinableElements.size() == 1);
 	}
 
 	private static Boolean isRefined(final Set<RefinableElement> refinableElements) {

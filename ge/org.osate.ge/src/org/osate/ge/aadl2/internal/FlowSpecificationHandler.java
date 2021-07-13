@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -42,7 +42,6 @@ import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
-import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
@@ -112,7 +111,7 @@ public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 				.create(AadlInheritanceUtil.isInherited(boc) ? Styles.INHERITED_ELEMENT : Style.EMPTY);
 
 		if (fs.getKind() == FlowKind.PATH) {
-			sb.lineWidth(4.0).backgroundColor(Color.BLACK);
+			sb.lineWidth(4.0);
 		}
 
 		if (partial) {

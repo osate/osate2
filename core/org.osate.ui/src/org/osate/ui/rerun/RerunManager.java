@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Interface for classes that maintain a list of past runs.  The runs should be in most-recently
  * run order.  It is neither required nor prohibited that the entire history be kept.
- * @since 6.0
+ * @since 6.2
  */
 public interface RerunManager {
 	/**

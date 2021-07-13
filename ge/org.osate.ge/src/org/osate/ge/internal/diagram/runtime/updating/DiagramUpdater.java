@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -51,9 +51,9 @@ import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.botree.Completeness;
 import org.osate.ge.internal.diagram.runtime.botree.DiagramToBusinessObjectTreeConverter;
-import org.osate.ge.internal.diagram.runtime.botree.TreeUpdater;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.AgeAction;
@@ -65,7 +65,7 @@ import org.osate.ge.services.ReferenceResolutionService;
  * The DiagramUpdater updates the diagram using information provided by objects passed into the constructor.
  */
 public class DiagramUpdater {
-	private final TreeUpdater boTreeExpander;
+	private final BusinessObjectTreeUpdater boTreeUpdater;
 	private final DiagramElementInformationProvider infoProvider;
 	private final ActionExecutor actionExecutor;
 	private final ReferenceResolutionService referenceResolver;
@@ -76,10 +76,10 @@ public class DiagramUpdater {
 	// Holds information regarding diagram elements which have not been created. The DiagramNode is the parent of the new element.
 	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, FutureElementInfo>> futureElementInfoMap = new HashMap<>();
 
-	public DiagramUpdater(final TreeUpdater boTreeExpander,
+	public DiagramUpdater(final BusinessObjectTreeUpdater boTreeUpdater,
 			final DiagramElementInformationProvider infoProvider, final ActionExecutor actionExecutor,
 			final ReferenceResolutionService referenceResolver, final ReferenceBuilderService referenceBuilder) {
-		this.boTreeExpander = Objects.requireNonNull(boTreeExpander, "boTreeExpander must not be null");
+		this.boTreeUpdater = Objects.requireNonNull(boTreeUpdater, "boTreeUpdater must not be null");
 		this.infoProvider = Objects.requireNonNull(infoProvider, "infoProvider must not be null"); // Adjust message after rename
 		this.actionExecutor = Objects.requireNonNull(actionExecutor, "actionExecutor must not be null");
 		this.referenceResolver = Objects.requireNonNull(referenceResolver, "referenceResolver must not be null");
@@ -117,7 +117,7 @@ public class DiagramUpdater {
 	 */
 	public void updateDiagram(final AgeDiagram diagram, final BusinessObjectNode inputTree) {
 		// Create a tree by updating the input tree.
-		final BusinessObjectNode tree = boTreeExpander.expandTree(diagram.getConfiguration(), inputTree);
+		final BusinessObjectNode tree = boTreeUpdater.updateTree(diagram.getConfiguration(), inputTree);
 		final List<DiagramElement> connectionElements = new LinkedList<>();
 
 		diagram.modify("Update Diagram", m -> {

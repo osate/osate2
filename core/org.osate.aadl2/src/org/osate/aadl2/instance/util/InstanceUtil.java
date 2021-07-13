@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -93,7 +93,7 @@ public class InstanceUtil {
 		 * @since 4.0
 		 */
 		public Classifier getClassifier() {
-			return this.classifier;
+			return classifier;
 		}
 
 		/**
@@ -103,7 +103,7 @@ public class InstanceUtil {
 		 * @since 4.0
 		 */
 		public EList<PrototypeBinding> getBindings() {
-			return this.bindings;
+			return bindings;
 		}
 	}
 
@@ -512,6 +512,5 @@ public class InstanceUtil {
 		}
 		return null;
 	}
-
 
 }

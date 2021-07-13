@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -106,12 +106,12 @@ public class InternalPropertySectionUtil {
 		private final int operations = DND.DROP_MOVE;
 		private final Transfer[] types = new Transfer[] { LocalSelectionTransfer.getTransfer() };
 		private final Table table;
-		private final ExecuteOrderChange<Integer, Integer, DragAndDropElement> execute;
+		private final ExecuteOrderChange execute;
 		private DragAndDropElement dragElement; // Element moving indices
 		private DragAndDropElement dropElement; // Element dropped upon
 
 		public DragAndDropSupport(final Table table,
-				final ExecuteOrderChange<Integer, Integer, DragAndDropElement> execute) {
+				final ExecuteOrderChange execute) {
 			this.table = table;
 			this.execute = execute;
 		}
@@ -237,10 +237,10 @@ public class InternalPropertySectionUtil {
 
 	public static class UpDownButtonSelectionAdapter extends SelectionAdapter {
 		private final TableViewer tableViewer;
-		private final ExecuteOrderChange<Integer, Integer, DragAndDropElement> executeChangeOrder;
+		private final ExecuteOrderChange executeChangeOrder;
 
 		public UpDownButtonSelectionAdapter(final TableViewer tableViewer,
-				final ExecuteOrderChange<Integer, Integer, DragAndDropElement> executeChangeOrder) {
+				final ExecuteOrderChange executeChangeOrder) {
 			this.tableViewer = tableViewer;
 			this.executeChangeOrder = executeChangeOrder;
 		}
@@ -266,7 +266,7 @@ public class InternalPropertySectionUtil {
 		}
 	}
 
-	public interface ExecuteOrderChange<T, V, U> {
+	public interface ExecuteOrderChange {
 		public void apply(final Integer newIndex, final Integer curIndex, final DragAndDropElement element);
 	}
 }

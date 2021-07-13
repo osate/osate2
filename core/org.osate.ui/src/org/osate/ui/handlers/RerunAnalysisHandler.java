@@ -13,7 +13,7 @@ import org.osate.ui.rerun.Runner;
 /**
  * Command handler that reruns that most immediately performed runner.
  *
- * @since 6.0
+ * @since 6.2
  */
 public final class RerunAnalysisHandler extends AbstractHandler {
 	private final RerunManager rerunManager = OsateUiPlugin.getRerunManager();

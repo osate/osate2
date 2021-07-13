@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -38,7 +38,6 @@ import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.graphics.ArrowBuilder;
-import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
@@ -52,8 +51,8 @@ public class PropertyValueGroupHandler extends AadlBusinessObjectHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().
 			destinationTerminator(ArrowBuilder.create().filled().small().build()).
 			build();
-	private static final Style referenceStyle = StyleBuilder.create().backgroundColor(Color.BLACK).dashed().build();
-	private static final Style abstractStyle = StyleBuilder.create().backgroundColor(Color.BLACK).dotted().build();
+	private static final Style referenceStyle = StyleBuilder.create().dashed().build();
+	private static final Style abstractStyle = StyleBuilder.create().dotted().build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {

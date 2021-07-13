@@ -1,0 +1,22 @@
+package Issue2288
+public
+
+	thread group threadB
+		features
+			output: out event data port;
+		modes
+			normal: initial mode;
+			fast: mode;
+	end threadB;
+
+	thread group implementation threadB.impl
+		annex behavior_specification {**
+      states
+        s0: initial state;
+        s1: final state;
+      transitions
+        s0 -[ ]-> s1 {output:=1};
+    **} in modes (normal);
+	end threadB.impl;
+
+end Issue2288;

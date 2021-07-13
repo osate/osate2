@@ -19,10 +19,10 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
-import org.osate.ba.aadlba.IntegerValueVariable ;
-import org.osate.ba.aadlba.ValueVariable ;
+import org.osate.ba.aadlba.IntegerValueVariable;
+import org.osate.ba.aadlba.ValueVariable;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,114 +43,112 @@ import org.osate.ba.aadlba.ValueVariable ;
  * @model
  * @generated
  */
-public interface NamedValue extends IntegerValueVariable, ValueVariable,
-                            DeclarativeBehaviorElement
-{
-  /**
-   * Returns the value of the '<em><b>Reference</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Reference</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Reference</em>' containment reference.
-   * @see #setReference(Reference)
-   * @see org.osate.ba.declarative.DeclarativePackage#getNamedValue_Reference()
-   * @model containment="true" required="true"
-   * @generated
-   */
-  Reference getReference() ;
+public interface NamedValue extends IntegerValueVariable, ValueVariable, DeclarativeBehaviorElement {
+	/**
+	 * Returns the value of the '<em><b>Reference</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Reference</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Reference</em>' containment reference.
+	 * @see #setReference(Reference)
+	 * @see org.osate.ba.declarative.DeclarativePackage#getNamedValue_Reference()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	Reference getReference();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.declarative.NamedValue#getReference <em>Reference</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Reference</em>' containment reference.
-   * @see #getReference()
-   * @generated
-   */
-  void setReference(Reference value) ;
+	/**
+	 * Sets the value of the '{@link org.osate.ba.declarative.NamedValue#getReference <em>Reference</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Reference</em>' containment reference.
+	 * @see #getReference()
+	 * @generated
+	 */
+	void setReference(Reference value);
 
-  /**
-   * Returns the value of the '<em><b>Dequeue</b></em>' attribute.
-   * The default value is <code>"false"</code>.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Dequeue</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Dequeue</em>' attribute.
-   * @see #setDequeue(boolean)
-   * @see org.osate.ba.declarative.DeclarativePackage#getNamedValue_Dequeue()
-   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
-   * @generated
-   */
-  boolean isDequeue() ;
+	/**
+	 * Returns the value of the '<em><b>Dequeue</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Dequeue</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Dequeue</em>' attribute.
+	 * @see #setDequeue(boolean)
+	 * @see org.osate.ba.declarative.DeclarativePackage#getNamedValue_Dequeue()
+	 * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
+	 * @generated
+	 */
+	boolean isDequeue();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.declarative.NamedValue#isDequeue <em>Dequeue</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Dequeue</em>' attribute.
-   * @see #isDequeue()
-   * @generated
-   */
-  void setDequeue(boolean value) ;
+	/**
+	 * Sets the value of the '{@link org.osate.ba.declarative.NamedValue#isDequeue <em>Dequeue</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Dequeue</em>' attribute.
+	 * @see #isDequeue()
+	 * @generated
+	 */
+	void setDequeue(boolean value);
 
-  /**
-   * Returns the value of the '<em><b>Fresh</b></em>' attribute.
-   * The default value is <code>"false"</code>.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Fresh</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Fresh</em>' attribute.
-   * @see #setFresh(boolean)
-   * @see org.osate.ba.declarative.DeclarativePackage#getNamedValue_Fresh()
-   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
-   * @generated
-   */
-  boolean isFresh() ;
+	/**
+	 * Returns the value of the '<em><b>Fresh</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Fresh</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Fresh</em>' attribute.
+	 * @see #setFresh(boolean)
+	 * @see org.osate.ba.declarative.DeclarativePackage#getNamedValue_Fresh()
+	 * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
+	 * @generated
+	 */
+	boolean isFresh();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.declarative.NamedValue#isFresh <em>Fresh</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Fresh</em>' attribute.
-   * @see #isFresh()
-   * @generated
-   */
-  void setFresh(boolean value) ;
+	/**
+	 * Sets the value of the '{@link org.osate.ba.declarative.NamedValue#isFresh <em>Fresh</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Fresh</em>' attribute.
+	 * @see #isFresh()
+	 * @generated
+	 */
+	void setFresh(boolean value);
 
-  /**
-   * Returns the value of the '<em><b>Count</b></em>' attribute.
-   * The default value is <code>"false"</code>.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Count</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Count</em>' attribute.
-   * @see #setCount(boolean)
-   * @see org.osate.ba.declarative.DeclarativePackage#getNamedValue_Count()
-   * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
-   * @generated
-   */
-  boolean isCount() ;
+	/**
+	 * Returns the value of the '<em><b>Count</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Count</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Count</em>' attribute.
+	 * @see #setCount(boolean)
+	 * @see org.osate.ba.declarative.DeclarativePackage#getNamedValue_Count()
+	 * @model default="false" dataType="org.osate.ba.aadlba.Boolean"
+	 * @generated
+	 */
+	boolean isCount();
 
-  /**
-   * Sets the value of the '{@link org.osate.ba.declarative.NamedValue#isCount <em>Count</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Count</em>' attribute.
-   * @see #isCount()
-   * @generated
-   */
-  void setCount(boolean value) ;
+	/**
+	 * Sets the value of the '{@link org.osate.ba.declarative.NamedValue#isCount <em>Count</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Count</em>' attribute.
+	 * @see #isCount()
+	 * @generated
+	 */
+	void setCount(boolean value);
 
 } // NamedValue

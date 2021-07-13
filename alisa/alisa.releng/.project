@@ -34,9 +34,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>pom.xml</name>
+			<name>parent/pom.xml</name>
 			<type>1</type>
-			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/pom.xml</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/pom.xml</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

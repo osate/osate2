@@ -23,107 +23,87 @@ package org.osate.ba.utils;
 
 import org.osate.aadl2.parsesupport.LocationReference;
 
-public class AadlBaLocationReference extends LocationReference
-{
-  
-  private int _annexOffset = 0;
-  private int _column = -1 ;
-  
-  private String _id = "" ;
-  
-  public AadlBaLocationReference()
-  {
-    // fields are not set.
-  }
+public class AadlBaLocationReference extends LocationReference {
 
-  public AadlBaLocationReference(int annex, String fileName, int lineNumber)
-  {
-    super(fileName, lineNumber) ;
-    _annexOffset = annex;
-  }
-  
-  public AadlBaLocationReference(int annex, String fileName, int lineNumber, int offset,
-                                  int length, int column, String id)
-  {
-    super(fileName, lineNumber) ;
-    super.setOffset(offset) ;
-    super.setLength(length) ;
-    _annexOffset=annex;
-    _column = column ;
-    _id = id ;
-  }
-  
-  // LocationReference's fields are not set.
-  public AadlBaLocationReference(int annex, int offset,int length, int column, String id)
-  {
-    super() ;
-    super.setOffset(offset) ;
-    super.setLength(length) ;
-    _annexOffset = annex;
-    _column = column ;
-    _id = id ;
-  }
+	private int _annexOffset = 0;
+	private int _column = -1;
 
-  public int getColumn()
-  {
-    return _column ;
-  }
-  
-  public String getId()
-  {
-    return _id ;
-  }
-  
-  public int getAbsoluteOffset()
-  {
-	  return (_annexOffset + super.getOffset()) ;
-  }
-  
-  public int getRelativeOffset()
-  {
-    return super.getOffset() ;
-  }
-  
-  @Override
-  public int getOffset() 
-  {
-	  return this.getAbsoluteOffset() ;
-  };
-  
-  public int getAnnexOffset()
-  {
-    return _annexOffset ;
-  }
-  
-  @Override
-  public AadlBaLocationReference clone()
-  {
-    
-    
-    AadlBaLocationReference clone = new 
-                                  AadlBaLocationReference(this._annexOffset,
-                                		  				  this.getFilename(),
-                                                          this.getLine(),
-                                                          this.getOffset(),
-                                                          this.getLength(),
-                                                          this.getColumn(),
-                                                          this.getId()) ;
-                                                               
-    return clone ;
-  }
-  
-  @Override
-  public String toString()
-  {
-    StringBuilder sb = new StringBuilder();
-    
-    sb.append("line: ") ;
-    sb.append(this.getLine()) ;
-    sb.append(", column:") ;
-    sb.append(this.getColumn()) ;
-    sb.append(", offset:") ;
-    sb.append(this.getOffset()) ;
-    
-    return sb.toString() ;
-  }
+	private String _id = "";
+
+	public AadlBaLocationReference() {
+		// fields are not set.
+	}
+
+	public AadlBaLocationReference(int annex, String fileName, int lineNumber) {
+		super(fileName, lineNumber);
+		_annexOffset = annex;
+	}
+
+	public AadlBaLocationReference(int annex, String fileName, int lineNumber, int offset, int length, int column,
+			String id) {
+		super(fileName, lineNumber);
+		super.setOffset(offset);
+		super.setLength(length);
+		_annexOffset = annex;
+		_column = column;
+		_id = id;
+	}
+
+	// LocationReference's fields are not set.
+	public AadlBaLocationReference(int annex, int offset, int length, int column, String id) {
+		super();
+		super.setOffset(offset);
+		super.setLength(length);
+		_annexOffset = annex;
+		_column = column;
+		_id = id;
+	}
+
+	public int getColumn() {
+		return _column;
+	}
+
+	public String getId() {
+		return _id;
+	}
+
+	public int getAbsoluteOffset() {
+		return (_annexOffset + super.getOffset());
+	}
+
+	public int getRelativeOffset() {
+		return super.getOffset();
+	}
+
+	@Override
+	public int getOffset() {
+		return this.getAbsoluteOffset();
+	};
+
+	public int getAnnexOffset() {
+		return _annexOffset;
+	}
+
+	@Override
+	public AadlBaLocationReference clone() {
+
+		AadlBaLocationReference clone = new AadlBaLocationReference(this._annexOffset, this.getFilename(),
+				this.getLine(), this.getOffset(), this.getLength(), this.getColumn(), this.getId());
+
+		return clone;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("line: ");
+		sb.append(this.getLine());
+		sb.append(", column:");
+		sb.append(this.getColumn());
+		sb.append(", offset:");
+		sb.append(this.getOffset());
+
+		return sb.toString();
+	}
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -248,6 +248,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 		result.append(')');
 		return result.toString();
 	}
+
 	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) throws InvalidModelException {
 		if (ownedPropertyExpressions.size() < 1) {
 			throw new InvalidModelException(ctx.getInstanceObject(), "Property expression has no operands");
@@ -354,6 +355,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 
 		return result;
 	}
+
 	public boolean sameAs(PropertyExpression other) {
 		// TODO Auto-generated method stub
 		return false;

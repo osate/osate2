@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -322,7 +322,7 @@ operators.
 
 A verification method registry allows users to register implementations
 of different verification methods in an implementation language neutral
-format. Currently OSATE Analysis plug-ins, Java, Resolute, Agree, JUnit,
+format. Currently OSATE Analysis plug-ins, Java, Resolute, JUnit,
 and manual methods are supported.
 
 A verification method registry is defined in a separate
@@ -453,7 +453,7 @@ The verification method declaration consists of:
 * *For*: a restriction on the type of component the verification methods can be applied to. For example, a verificaiton methods may have been developed to only apply to threads, or for specific component classifiers.
 
 
-* *MethodKind*: identification of the method implementation and implementation specific reference to the method. The following method kinds are supported*: OSATE analysis plug-ins, Resolute, Junit4, Java, Agree, Manual. See 
+* *MethodKind*: identification of the method implementation and implementation specific reference to the method. The following method kinds are supported*: OSATE analysis plug-ins, Resolute, Junit4, Java, Manual. See 
 [Verification Method Kinds](VerifyDoc.html#supported-verification-method-kinds) for details.
 
 

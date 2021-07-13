@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -19,7 +19,6 @@
  */
 package org.osate.ba.aadlba;
 
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Mode Switch Trigger Condition</b></em>'.
@@ -30,6 +29,5 @@ package org.osate.ba.aadlba;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface ModeSwitchTriggerCondition extends BehaviorCondition
-{
+public interface ModeSwitchTriggerCondition extends BehaviorCondition {
 } // ModeSwitchTriggerCondition

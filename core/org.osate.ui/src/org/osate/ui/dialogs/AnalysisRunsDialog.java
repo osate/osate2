@@ -41,7 +41,7 @@ import org.osate.ui.rerun.RerunManager;
 import org.osate.ui.rerun.Runner;
 
 /**
- * @since 6.0
+ * @since 6.2
  */
 public final class AnalysisRunsDialog extends Dialog {
 	private static final int BORDER = 5;

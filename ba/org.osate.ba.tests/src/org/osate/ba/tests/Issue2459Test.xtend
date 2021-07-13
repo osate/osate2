@@ -7,13 +7,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.DefaultAnnexSubclause
+import org.osate.ba.aadlba.BehaviorElement
+import org.osate.ba.unparser.AadlBaUnparser
 import org.osate.testsupport.Aadl2InjectorProvider
 import org.osate.testsupport.TestHelper
 
 import static extension org.junit.Assert.assertEquals
-import static extension org.junit.Assert.assertTrue
-import org.osate.ba.unparser.AadlBaUnparser
-import org.osate.ba.aadlba.BehaviorElement
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)

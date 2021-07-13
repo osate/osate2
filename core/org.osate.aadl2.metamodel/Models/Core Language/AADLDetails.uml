@@ -2,7 +2,7 @@
 <xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
   <uml:Model xmi:id="_0" name="AADLDetails">
     <ownedComment xmi:id="_fwe04DJSEeqPArDozzJZgw">
-      <body>Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file). 
+      <body>Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
 All Rights Reserved.
 
 NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN &quot;AS-IS&quot; BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY

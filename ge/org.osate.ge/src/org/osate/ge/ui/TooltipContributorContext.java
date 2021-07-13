@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -31,7 +31,6 @@ import org.osate.ge.BusinessObjectContext;
 /**
  * Provides context information to {@link TooltipContributor} methods.
  * @noextend This class is not intended to be subclassed by clients.
- * @noinstantiate This class is not intended to be instantiated by clients.
  * @since 2.0
  */
 public class TooltipContributorContext {
@@ -42,7 +41,6 @@ public class TooltipContributorContext {
 	 * Create a new instance.
 	 * @param tooltip the SWT composite which will be displayed as the tooltip
 	 * @param boc is the business object context for which to contribute tooltip information
-	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
 	public TooltipContributorContext(final Composite tooltip, final BusinessObjectContext boc) {
 		this.tooltip = Objects.requireNonNull(tooltip, "tooltip must not be null");

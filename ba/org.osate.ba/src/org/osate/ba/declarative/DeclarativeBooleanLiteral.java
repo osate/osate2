@@ -1,7 +1,7 @@
 /**
  * AADL-BA-FrontEnd
  * 
- * Copyright (c) 2011-2020 TELECOM ParisTech and CNRS
+ * Copyright (c) 2011-2021 TELECOM ParisTech and CNRS
  * 
  * TELECOM ParisTech/LTCI
  * 
@@ -17,10 +17,9 @@
  * along with this program. If not, see
  * https://www.eclipse.org/legal/epl-2.0/
  */
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
-import org.eclipse.emf.ecore.EObject ;
-import org.osate.ba.aadlba.BehaviorBooleanLiteral ;
+import org.osate.ba.aadlba.BehaviorBooleanLiteral;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,7 +31,5 @@ import org.osate.ba.aadlba.BehaviorBooleanLiteral ;
  * @model
  * @generated
  */
-public interface DeclarativeBooleanLiteral extends BehaviorBooleanLiteral,
-                                           DeclarativePropertyExpression
-{
+public interface DeclarativeBooleanLiteral extends BehaviorBooleanLiteral, DeclarativePropertyExpression {
 } // DeclarativeBooleanLiteral

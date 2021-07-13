@@ -19,10 +19,10 @@
  * https://www.eclipse.org/legal/epl-2.0/
  */
 
-package org.osate.ba.declarative ;
+package org.osate.ba.declarative;
 
-import org.eclipse.emf.common.util.EList ;
-import org.osate.ba.aadlba.IntegerValue ;
+import org.eclipse.emf.common.util.EList;
+import org.osate.ba.aadlba.IntegerValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,45 +40,44 @@ import org.osate.ba.aadlba.IntegerValue ;
  * @model
  * @generated
  */
-public interface ArrayableIdentifier extends Identifier
-{
-  /**
-   * Returns the value of the '<em><b>Array Indexes</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.ba.aadlba.IntegerValue}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Array Indexes</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Array Indexes</em>' containment reference list.
-   * @see #isSetArrayIndexes()
-   * @see #unsetArrayIndexes()
-   * @see org.osate.ba.declarative.DeclarativePackage#getArrayableIdentifier_ArrayIndexes()
-   * @model containment="true" unsettable="true"
-   * @generated
-   */
-  EList<IntegerValue> getArrayIndexes() ;
+public interface ArrayableIdentifier extends Identifier {
+	/**
+	 * Returns the value of the '<em><b>Array Indexes</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.ba.aadlba.IntegerValue}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Array Indexes</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Array Indexes</em>' containment reference list.
+	 * @see #isSetArrayIndexes()
+	 * @see #unsetArrayIndexes()
+	 * @see org.osate.ba.declarative.DeclarativePackage#getArrayableIdentifier_ArrayIndexes()
+	 * @model containment="true" unsettable="true"
+	 * @generated
+	 */
+	EList<IntegerValue> getArrayIndexes();
 
-  /**
-   * Unsets the value of the '{@link org.osate.ba.declarative.ArrayableIdentifier#getArrayIndexes <em>Array Indexes</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isSetArrayIndexes()
-   * @see #getArrayIndexes()
-   * @generated
-   */
-  void unsetArrayIndexes() ;
+	/**
+	 * Unsets the value of the '{@link org.osate.ba.declarative.ArrayableIdentifier#getArrayIndexes <em>Array Indexes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetArrayIndexes()
+	 * @see #getArrayIndexes()
+	 * @generated
+	 */
+	void unsetArrayIndexes();
 
-  /**
-   * Returns whether the value of the '{@link org.osate.ba.declarative.ArrayableIdentifier#getArrayIndexes <em>Array Indexes</em>}' containment reference list is set.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return whether the value of the '<em>Array Indexes</em>' containment reference list is set.
-   * @see #unsetArrayIndexes()
-   * @see #getArrayIndexes()
-   * @generated
-   */
-  boolean isSetArrayIndexes() ;
+	/**
+	 * Returns whether the value of the '{@link org.osate.ba.declarative.ArrayableIdentifier#getArrayIndexes <em>Array Indexes</em>}' containment reference list is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Array Indexes</em>' containment reference list is set.
+	 * @see #unsetArrayIndexes()
+	 * @see #getArrayIndexes()
+	 * @generated
+	 */
+	boolean isSetArrayIndexes();
 
 } // ArrayableIdentifier

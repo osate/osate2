@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -31,8 +31,8 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.gef.ui.editor.AgeEditor;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.swt.BorderedCLabel;
 
 /**
@@ -49,15 +49,15 @@ public class OsateGeTestUtil {
 	private OsateGeTestUtil() {
 	}
 
-	public static void assertOsateShellIsActive() {
-		assertActiveShellTitleContains("OSATE2");
+	public static void assertOsateWindowIsActive() {
+		assertActiveWindowTitleContains("OSATE2");
 	}
 
 	/**
-	 * Asserts that the OSATE shell is active and the navigator is visible
+	 * Asserts that the OSATE window is active and the navigator is visible
 	 */
 	public static void assertAadlNavigatorIsVisible() {
-		assertOsateShellIsActive();
+		assertOsateWindowIsActive();
 		assertViewIsVisible(AADL_NAVIGATOR);
 	}
 
@@ -101,7 +101,7 @@ public class OsateGeTestUtil {
 	 * The diagram file extension should not be included in the path segments.
 	 */
 	public static boolean isDiagramEditorOpen(final DiagramReference diagram) {
-		return isEditorOpen(AgeDiagramEditor.class, diagram.getUri());
+		return isEditorOpen(AgeEditor.class, diagram.getInputName());
 	}
 
 	/**
@@ -113,10 +113,10 @@ public class OsateGeTestUtil {
 	}
 
 	/**
-	 * Checks all rows in the simple table which is the nth table in the active shell.
+	 * Checks all rows in the simple table which is the nth table in the active window.
 	 * Assumes the table is a simple table with checkboxes. Such a table does not have any columns.
 	 */
-	public static void checkItemsInSimpleTable(final int tableIndex, final String... itemTexts) {
+	public static void checkItemsInSimpleTable(final String... itemTexts) {
 		Arrays.stream(itemTexts).forEach(itemText -> checkItemInSimpleTable(0, itemText));
 	}
 
@@ -124,9 +124,23 @@ public class OsateGeTestUtil {
 			final DiagramElementReference element,
 			final String... texts) {
 		openDiagramEditor(diagram);
+
 		selectDiagramElements(diagram, element);
 
 		clickContextMenuOfFocused(texts);
+	}
+
+	/**
+	 * Create a shape element the on the specified diagram within the referenced element.
+	 * @param diagram diagram the element will be created on
+	 * @param parentElement the parent of the new element
+	 * @param paletteItem the type of element to create
+	 * @param referenceAfterCreate the default name of the created element
+	 */
+	public static void createShapeElement(final DiagramReference diagram, final DiagramElementReference parentElement,
+			final String paletteItem, final RelativeBusinessObjectReference referenceAfterCreate) {
+		createShapeElement(diagram, parentElement, paletteItem, referenceAfterCreate, () -> {
+		});
 	}
 
 	/**
@@ -183,6 +197,22 @@ public class OsateGeTestUtil {
 	 * @param dest the destination of the connection
 	 * @param paletteItem the type of connection to be created
 	 * @param referenceAfterCreate the reference of the created connection
+	 */
+	public static void createConnectionElement(final DiagramReference diagram, final DiagramElementReference src,
+			final DiagramElementReference dest, final String paletteItem,
+			final DiagramElementReference referenceAfterCreate) {
+		createConnectionElement(diagram, src, dest, paletteItem, referenceAfterCreate, () -> {
+		});
+	}
+
+	/**
+	 * Creates a connection element on the specified diagram with referenced
+	 * source and destination.
+	 * @param diagram the diagram the connection will be created on
+	 * @param src the source of the connection
+	 * @param dest the destination of the connection
+	 * @param paletteItem the type of connection to be created
+	 * @param referenceAfterCreate the reference of the created connection
 	 * @param postExecPaletteItem runnable to call after the palette item is executed
 	 */
 	public static void createConnectionElement(final DiagramReference diagram, final DiagramElementReference src,
@@ -198,6 +228,14 @@ public class OsateGeTestUtil {
 
 		// Wait for element to be created
 		waitForDiagramElementToExist(diagram, referenceAfterCreate);
+	}
+
+	/**
+	 * Returns whether the specified element exists
+	 */
+	public static boolean elementExists(final DiagramReference diagram, final DiagramElementReference element) {
+		assertDiagramEditorActive(diagram);
+		return getDiagramElement(diagram, element).isPresent();
 	}
 
 	/**
@@ -286,12 +324,32 @@ public class OsateGeTestUtil {
 		clickCheckboxInPropertiesView(tabLabel, index);
 	}
 
+	/**
+	 * Selects referenced element and clicks the check box
+	 * with the specified id in the properties view specified tab.
+	 */
+	public static void clickCheckboxByIdInPropertiesView(final DiagramReference diagram, final String tabLabel,
+			final String id, final boolean newCheckboxState, final DiagramElementReference... elements) {
+		openDiagramEditor(diagram);
+		selectDiagramElements(diagram, elements);
+		clickCheckboxByIdInPropertiesView(tabLabel, id);
+		waitUntilCheckboxCheckedStateById(id, newCheckboxState);
+	}
+
 	private static void clickCheckboxInPropertiesView(final String tabLabel, final int index) {
 		assertViewIsVisible("Properties");
 		setViewFocus("Properties");
 
 		clickPropertiesViewTab(tabLabel);
 		clickCheckbox(index);
+	}
+
+	private static void clickCheckboxByIdInPropertiesView(final String tabLabel, final String id) {
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab(tabLabel);
+		clickCheckboxById(id);
 	}
 
 	private static void clickRadioButtonInPropertiesView(final String tabLabel, final String btnLabel) {
@@ -311,6 +369,17 @@ public class OsateGeTestUtil {
 
 		clickPropertiesViewTab(tabLabel);
 		clickButton(btnLabel);
+	}
+
+	/**
+	 * Clicks the button with id in the properties view specified tab.
+	 */
+	public static void clickButtonByIdInPropertiesView(final String tabLabel, final String id) {
+		assertViewIsVisible("Properties");
+		setViewFocus("Properties");
+
+		clickPropertiesViewTab(tabLabel);
+		clickButtonWithId(id);
 	}
 
 	/**
@@ -341,6 +410,14 @@ public class OsateGeTestUtil {
 	 */
 	public static void waitUntilCheckboxCheckedState(final String text, final boolean value) {
 		waitUntil(() -> isCheckboxChecked(text) == value, "Check box '" + text + "' check state is not " + value + ".");
+	}
+
+	/**
+	 * Waits until a check box's check state matches the specified value
+	 */
+	public static void waitUntilCheckboxCheckedStateById(final String id, final boolean value) {
+		waitUntil(() -> Objects.equals(isCheckboxCheckedById(id), value),
+				"Check box id '" + id + "' check state is not " + value + ".");
 	}
 
 	/**

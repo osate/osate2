@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -28,10 +28,10 @@ import java.util.function.Function;
 
 import org.osate.ge.operations.Operation;
 
-public class SuboperationStep<PrevResultUserType> extends AbstractStep<Void> {
+public class SuboperationStep<PrevResultUserType> extends AbstractStep {
 	private final Function<PrevResultUserType, Operation> opProvider;
 
-	public SuboperationStep(final Step<?> nextStep,
+	public SuboperationStep(final Step nextStep,
 			Function<PrevResultUserType, Operation> opProvider) {
 		super(nextStep);
 		this.opProvider = Objects.requireNonNull(opProvider, "opProvider must not be null");

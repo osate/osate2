@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.reqspec" version="2">
+    <resource path="META-INF/MANIFEST.MF" type="org.osate.alisa.common.scoping.AbstractCommonScopeProvider">
+        <filter comment="Xtext generated code" id="305426566">
+            <message_arguments>
+                <message_argument value="org.osate.alisa.common.scoping.AbstractCommonScopeProvider"/>
+                <message_argument value="org.osate.reqspec_3.0.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src-gen/org/osate/reqspec/scoping/AbstractReqSpecScopeProvider.java" type="org.osate.reqspec.scoping.AbstractReqSpecScopeProvider">
+        <filter comment="Xtext generated code" id="305365105">
+            <message_arguments>
+                <message_argument value="org.osate.reqspec.scoping.AbstractReqSpecScopeProvider"/>
+                <message_argument value="org.osate.reqspec_3.0.1"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src-gen/org/osate/reqspec/serializer/ReqSpecSyntacticSequencer.java" type="org.osate.reqspec.serializer.ReqSpecSyntacticSequencer">
         <filter comment="xtext" id="576720909">
             <message_arguments>

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2020 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -37,7 +37,8 @@ public class AadlInheritanceUtil {
 		if (boc.getParent() != null && boc.getBusinessObject() instanceof Element) {
 			final Element e = ((Element) boc.getBusinessObject());
 			final Classifier c = e.getContainingClassifier();
-			if (c != null && c != getClassifierOrSubcomponent(boc.getParent()).orElse(null)) {
+			final NamedElement ne = getClassifierOrSubcomponent(boc.getParent()).orElse(null);
+			if (c != null && ne != null && c != ne) {
 				return true;
 			}
 		}
