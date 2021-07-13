@@ -23,8 +23,6 @@
  */
 package org.osate.ge.ba.ui.properties;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -56,7 +54,6 @@ import org.osate.ba.aadlba.BehaviorActionBlock;
 import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition;
-import org.osate.ba.unparser.AadlBaUnparser;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ProjectUtil;
@@ -348,7 +345,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		// Note: condition.getAadlBaLocationReference().getLength() only counts until the first space (assuming).
 		// For example, when dispatch condition is "on dispatch" length is 2.
 		// Find closing "]", to get condition text
-		final int conditionEnd = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(afterPrefix, ']');
+		final int conditionEnd = BehaviorAnnexXtextUtil.findUncommentedChar(afterPrefix, ']');
 
 		// Condition text
 		final String conditionText = afterPrefix.substring(0, conditionEnd).trim();
@@ -407,7 +404,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
 			final String transitionText = src.substring(transitionOffset);
 			// Find transition terminating semicolon offset
-			final int terminationOffset = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(transitionText, ';')
+			final int terminationOffset = BehaviorAnnexXtextUtil.findUncommentedChar(transitionText, ';')
 					+ transitionOffset;
 
 			// Transition action prefix and add open bracket for action
@@ -426,30 +423,12 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			// Find closing "]", to get condition text
 			final String afterTransitionText = src.substring(updateOffset);
 			// Find action ending offset
-			final int terminationOffset = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(afterTransitionText,
-					'}')
+			final int terminationOffset = BehaviorAnnexXtextUtil.findUncommentedChar(afterTransitionText, '}')
 					+ updateOffset;
 
-			// Get formatted action block text
-			final AadlBaUnparser baUnparser = new AadlBaUnparser();
-			// Throw exception if first and last char is not a bracket
-			// to know when formatter has changed
-			final String formattedActionBlock = baUnparser.process(actionBlock);
-			final int lastIndex = formattedActionBlock.length() - 1;
-			if (!Objects.equals('{', formattedActionBlock.charAt(0)) || !Objects.equals('}',
-					formattedActionBlock.charAt(lastIndex))) {
-				throw new RuntimeException("Unexpected action block format '" + formattedActionBlock + "'.");
-			}
-
-			// Split action at new line character and throw out action block brackets
-			final List<String> actionBlockText = getInnerActionBlockText(formattedActionBlock.split("\n"));
-
-			// Get whitespace to trim from each line after removing opening bracket
-			final int whitespace = getWhiteSpace(actionBlockText.get(0));
-			actionText = String.join("",
-					actionBlockText.stream()
-					.map(ss -> ss.substring(whitespace))
-					.toArray(String[]::new)).trim();
+			// Split action at new line character for formatting in styled text
+			final String[] actionTextSplit = src.substring(updateOffset, terminationOffset).split("\\n");
+			actionText = getTrimmedActionText(actionTextSplit);
 
 			suffix = src.substring(terminationOffset);
 		}
@@ -458,17 +437,13 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		return new EmbeddedTextValue(src, prefix, actionText, suffix);
 	}
 
-	private static int getWhiteSpace(final String s) {
-		for (int i = 0; i < s.length(); i++) {
-			if (!Character.isWhitespace(s.charAt(i))) {
-				return i;
-			}
+	private static String getTrimmedActionText(final String[] actionTextSplit) {
+		// Trim each line in action block
+		final StringBuilder actionTextBuilder = new StringBuilder();
+		for (final String actionText : actionTextSplit) {
+			actionTextBuilder.append(actionText.trim() + "\n");
 		}
 
-		return 0;
-	}
-
-	private static List<String> getInnerActionBlockText(final String[] splitActionBlockText) {
-		return Arrays.asList(splitActionBlockText).subList(1, splitActionBlockText.length - 1);
+		return actionTextBuilder.toString().trim();
 	}
 }

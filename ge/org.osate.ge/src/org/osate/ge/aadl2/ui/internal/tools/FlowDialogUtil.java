@@ -25,8 +25,6 @@ package org.osate.ge.aadl2.ui.internal.tools;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -172,12 +170,6 @@ public class FlowDialogUtil {
 				cell.setImage(diagnostic.getSeverity() == Diagnostic.ERROR ? errorImage : warningImage);
 			}
 		});
-	}
-
-	public static Set<Diagnostic> getErrors(final Set<Diagnostic> diagnostics) {
-		return diagnostics.stream()
-				.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR)
-				.collect(Collectors.toSet());
 	}
 
 	static class ErrorDialog extends org.eclipse.jface.dialogs.ErrorDialog {

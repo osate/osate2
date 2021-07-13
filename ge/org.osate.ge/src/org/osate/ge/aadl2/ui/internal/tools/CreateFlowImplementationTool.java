@@ -62,7 +62,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowEnd;
@@ -152,13 +154,11 @@ public class CreateFlowImplementationTool implements Tool {
 				final AadlModificationService aadlModService = ctx.getAadlModificatonService();
 				final ColoringService coloringService = ctx.getColoringService();
 
-				// Check for existing errors and warnings
+				// Check for existing errors or warnings
 				final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
-				// Do not allow tool activation if there are errors in the models
-				final Set<Diagnostic> errors = FlowDialogUtil.getErrors(diagnostics);
-				if (!errors.isEmpty()) {
+				if (!diagnostics.isEmpty()) {
 					Display.getDefault().asyncExec(
-							() -> new FlowDialogUtil.ErrorDialog("The Create Flow Implementation", errors).open());
+							() -> new FlowDialogUtil.ErrorDialog("The Create Flow Implementation", diagnostics).open());
 				} else {
 					coloring = coloringService.adjustColors();
 
@@ -186,11 +186,10 @@ public class CreateFlowImplementationTool implements Tool {
 					}
 
 					if (createFlowImplDlg.open() == Window.OK && createFlowImplDlg != null) {
-						final BusinessObjectContext ownerBoc = createFlowImplDlg.getOwnerBoc().orElse(null);
 						// Create a new flow impl based on selections
-						final FlowImplementation flowImpl = createFlowImplDlg.createFlow(ownerBoc);
+						final FlowImplementation flowImpl = createFlowImplDlg.createFlow();
 
-						createFlowImplDlg.getFlowComponentImplementation(ownerBoc)
+						createFlowImplDlg.getFlowComponentImplementation(createFlowImplDlg.getOwnerBoc().orElse(null))
 						.ifPresent(ownerCi -> {
 							// Modifications to perform
 							final List<AadlModificationService.Modification<? extends NamedElement, ? extends NamedElement>> modifications = new ArrayList<>();
@@ -405,16 +404,17 @@ public class CreateFlowImplementationTool implements Tool {
 		/**
 		 * Create a Flow Implementation based on user selections
 		 */
-		private FlowImplementation createFlow(final BusinessObjectContext ownerBoc) {
+		private FlowImplementation createFlow() {
 			// Create a flow implementation based on the state of the dialog
 			final FlowImplementation flowImpl = (FlowImplementation) pkg.getEFactoryInstance()
 					.create(pkg.getFlowImplementation());
-			getFlowComponentImplementationBoc(ownerBoc).ifPresent(flowImplOwnerBoc -> {
+			getFlowComponentImplementationBoc(getOwnerBoc().orElse(null)).ifPresent(flowImplOwnerBoc -> {
 				final Iterator<SegmentData> it = segmentSelections.iterator();
 				if (it.hasNext()) {
 					final FlowSpecification fs = (FlowSpecification) it.next().getBoc().getBusinessObject();
 					flowImpl.setSpecification(fs);
 					flowImpl.setKind(fs.getKind());
+
 					while (it.hasNext()) {
 						final BusinessObjectContext segment = it.next().getBoc();
 						final Object bo = segment.getBusinessObject();
@@ -422,16 +422,18 @@ public class CreateFlowImplementationTool implements Tool {
 							if ((fs.getKind() == FlowKind.PATH || fs.getKind() == FlowKind.SINK)
 									&& flowImpl.getInEnd() == null) {
 								final FlowEnd inEnd = flowImpl.createInEnd();
-								inEnd.setContext(ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc));
+								inEnd.setContext(ToolUtil.findContext(segment));
 								inEnd.setFeature((Feature) bo);
 							} else if (flowImpl.getOutEnd() == null) {
 								final FlowEnd outEnd = flowImpl.createOutEnd();
-								outEnd.setContext(ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc));
+								outEnd.setContext(ToolUtil.findContext(segment));
 								outEnd.setFeature((Feature) bo);
 							}
-						} else {
+						} else if (!(bo instanceof DataAccess)) {
 							final FlowSegment newFlowSegment = flowImpl.createOwnedFlowSegment();
-							newFlowSegment.setContext(ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc));
+							if (!(bo instanceof Connection)) {
+								newFlowSegment.setContext(ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc));
+							}
 							newFlowSegment.setFlowElement((FlowElement) bo);
 						}
 					}
@@ -602,8 +604,7 @@ public class CreateFlowImplementationTool implements Tool {
 				child.dispose();
 			}
 
-			final BusinessObjectContext ownerBoc = createFlowImplDlg.getOwnerBoc().orElse(null);
-			flowImpl = createFlow(ownerBoc);
+			flowImpl = createFlow();
 
 			isValid = isFlowImplValid(flowImpl);
 			getButton(IDialogConstants.OK_ID).setEnabled(isValid);
@@ -626,13 +627,14 @@ public class CreateFlowImplementationTool implements Tool {
 					boc = segmentData.getBoc();
 
 					final StringBuilder segmentNameBuilder = new StringBuilder();
-					final Context context = ToolUtil.findContextExcludeOwner(boc, ownerBoc);
+					final Context context = ToolUtil.findContext(boc);
 					if (context != null) {
 						segmentNameBuilder.append(AgeAadlUtil.getRootName(context));
 						segmentNameBuilder.append(".");
 					}
 
 					segmentNameBuilder.append(AgeAadlUtil.getRootName((NamedElement) boc.getBusinessObject()));
+
 					createSegmentButton(segmentNameBuilder.toString(), segmentData, getType(boc));
 					if (segmentIt.hasNext()) {
 						// If segment is not last, add an arrow

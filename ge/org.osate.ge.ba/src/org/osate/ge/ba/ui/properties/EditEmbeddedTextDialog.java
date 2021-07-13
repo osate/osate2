@@ -28,8 +28,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Stack;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.function.BiFunction;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -49,7 +47,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.IHandlerActivation;
@@ -152,98 +149,55 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		SwtUtil.setTestingId(okBtn, WIDGET_ID_CONFIRM);
 	}
 
-
 	// Text modification listener that sets the OK button as enabled
 	// or disabled based on if the new text is valid
 	private ExtendedModifyListener createTextValidator(final BehaviorTransition behaviorTransition,
 			final BiFunction<EObject, String, String> getModifiedSrc,
 			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
-		final ValidationTask validationTask = new ValidationTask(behaviorTransition, getModifiedSrc,
-				isValidModification);
+		final String originalText = xtextAdapter.getEditableText();
 		return event -> {
-			// Disable button until validation occurs
 			final Button okBtn = getButton(IDialogConstants.OK_ID);
-			okBtn.setEnabled(false);
-			validationTask.schedule(okBtn);
-		};
-	}
-
-	private class ValidationTask {
-		private final BehaviorTransition behaviorTransition;
-		private final BiFunction<EObject, String, String> getModifiedSrc;
-		private final BiFunction<BehaviorTransition, String, Boolean> isValidModification;
-		private Timer validationTimer;
-		private String textToValidate;
-
-		public ValidationTask(final BehaviorTransition behaviorTransition,
-				final BiFunction<EObject, String, String> getModifiedSrc,
-				final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
-			this.getModifiedSrc = getModifiedSrc;
-			this.isValidModification = isValidModification;
-			this.behaviorTransition = behaviorTransition;
-		}
-
-		public void schedule(final Button okBtn) {
-			if (validationTimer != null) {
-				validationTimer.cancel();
-				validationTimer.purge();
+			final String newText = styledText.getText().trim();
+			// Disable if text has not changed
+			if (newText.equals(originalText)) {
+				okBtn.setEnabled(false);
+				return;
 			}
 
-			validationTimer = new Timer();
-			validationTimer.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					Display.getDefault().asyncExec(() -> {
-						final String newText = styledText.getText();
-						if (newText.equals(textToValidate)) {
-							return;
-						}
+			// Update save button based on whether the text entered into the
+			// styled text is a serializable condition
+			final EObject rootElement = xtextAdapter.getXtextParseResult().getRootASTElement();
+			final XtextResource fakeResource = xtextAdapter.getFakeResource();
+			// Link model
+			fakeResource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
 
-						textToValidate = newText;
+			// Original source text
+			final String originalSrc = xtextAdapter.getText();
 
-						okBtn.setEnabled(false);
-						// Disable if text has not changed
-						if (newText.equals(xtextAdapter.getEditableText())) {
-							return;
-						}
+			try {
+				// Modified source text
+				final String modifiedSrc = getModifiedSrc.apply(rootElement, styledText.getText().trim());
+				// Set modified source text data
+				styledText.setData(MODIFIED_SOURCE_KEY, modifiedSrc);
 
-						// Update save button based on whether the text entered into the
-						// styled text is a serializable condition
-						final EObject rootElement = xtextAdapter.getXtextParseResult().getRootASTElement();
-						final XtextResource fakeResource = xtextAdapter.getFakeResource();
-						// Link model
-						fakeResource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
-
-						// Original source text
-						final String originalSrc = xtextAdapter.getText();
-
-						try {
-							// Modified source text
-							final String modifiedSrc = getModifiedSrc.apply(rootElement, newText);
-							// Set modified source text data
-							styledText.setData(MODIFIED_SOURCE_KEY, modifiedSrc);
-
-							// Load for error checking
-							loadResource(fakeResource, modifiedSrc);
-							boolean isEnabled = false;
-							// Check if BehaviorTransition still exists, meaning the modification did not break serialization
-							final BehaviorTransition tmpBehaviorTransition = (BehaviorTransition) fakeResource
-									.getEObject(EcoreUtil.getURI(behaviorTransition).fragment());
-							if (tmpBehaviorTransition != null) {
-								isEnabled = isValidModification.apply(tmpBehaviorTransition, newText);
-							}
-
-							okBtn.setEnabled(isEnabled);
-						} catch (final Exception ex) {
-							okBtn.setEnabled(false);
-						} finally {
-							// Load original source
-							loadResource(fakeResource, originalSrc);
-						}
-					});
+				// Load for error checking
+				loadResource(fakeResource, modifiedSrc);
+				boolean isEnabled = false;
+				// Check if BehaviorTransition still exists, meaning the modification did not break serialization
+				final BehaviorTransition tmpBehaviorTransition = (BehaviorTransition) fakeResource
+						.getEObject(EcoreUtil.getURI(behaviorTransition).fragment());
+				if (tmpBehaviorTransition != null) {
+					isEnabled = isValidModification.apply(tmpBehaviorTransition, newText);
 				}
-			}, 1000);
-		}
+
+				okBtn.setEnabled(isEnabled);
+			} catch (final Exception ex) {
+				okBtn.setEnabled(false);
+			} finally {
+				// Load original source
+				loadResource(fakeResource, originalSrc);
+			}
+		};
 	}
 
 	private void loadResource(final XtextResource resource, final String src) {

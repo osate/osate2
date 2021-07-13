@@ -125,14 +125,15 @@ public class ToolUtil {
 		// Collect errors and warnings for referenced AADL packages
 		final List<DiagnosticBuilder> diagnosticBuilders = new ArrayList<>();
 		for (final AadlPackage pkg : packages) {
-			ProjectUtil.getProjectForBo(pkg).ifPresent(project -> {
-				final ResourceSet resourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
-				final DiagnosticBuilder diagnosticBuilder = new DiagnosticBuilder(pkg);
-				// Model error and warning diagnostics
-				populateDiagnostics(diagnosticBuilder, pkg, resourceSet);
+			final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
+			final ResourceSet resourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
+			final DiagnosticBuilder diagnosticBuilder = new DiagnosticBuilder(pkg);
+			// Model error and warning diagnostics
+			populateDiagnostics(diagnosticBuilder,
+					pkg,
+					resourceSet);
 
-				diagnosticBuilders.add(diagnosticBuilder);
-			});
+			diagnosticBuilders.add(diagnosticBuilder);
 		}
 
 		return diagnosticBuilders.stream().flatMap(DiagnosticBuilder::getDiagnostics)
