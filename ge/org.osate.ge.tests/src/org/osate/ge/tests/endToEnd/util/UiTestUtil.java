@@ -814,7 +814,7 @@ public class UiTestUtil {
 
 		Display.getDefault().syncExec(() -> editor.scrollToTopLeft(sceneNode));
 
-		fxBot.firePressAndReleasePrimaryMouseButtonEvents(sceneNode);
+		fxBot.click(sceneNode);
 	}
 
 	private static SWTBotCanvas findViewCanvasByTitle(final String title) {
