@@ -35,7 +35,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
  *
  */
 public interface ColoringService {
-	// TODO: Should have a way to batch these changes before making API.
+	// Suggestion: Should have a way to batch these changes before making API.
 	interface Coloring {
 		void dispose();
 
