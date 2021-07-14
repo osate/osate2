@@ -59,7 +59,7 @@ public class SubprogramCallOrderHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final SubprogramCallOrder sco = ctx.getBusinessObject(SubprogramCallOrder.class).get();
+		final SubprogramCallOrder sco = ctx.getBusinessObject(SubprogramCallOrder.class).orElseThrow();
 		return new CanonicalBusinessObjectReference(DeclarativeReferenceType.SUBPROGRAM_CALL_ORDER.getId(),
 				sco.previousSubprogramCall.getQualifiedName(),
 				sco.subprogramCall.getQualifiedName());
@@ -67,7 +67,7 @@ public class SubprogramCallOrderHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		final SubprogramCallOrder sco = ctx.getBusinessObject(SubprogramCallOrder.class).get();
+		final SubprogramCallOrder sco = ctx.getBusinessObject(SubprogramCallOrder.class).orElseThrow();
 		return new RelativeBusinessObjectReference(DeclarativeReferenceType.SUBPROGRAM_CALL_ORDER.getId(),
 				AadlReferenceUtil.getNameForSerialization(sco.previousSubprogramCall),
 				AadlReferenceUtil.getNameForSerialization(sco.subprogramCall));

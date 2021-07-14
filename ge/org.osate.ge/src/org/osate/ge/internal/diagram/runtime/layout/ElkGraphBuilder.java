@@ -117,11 +117,10 @@ class ElkGraphBuilder {
 		this.omitNestedPorts = omitNestedPorts;
 		this.fixedPortPositionProvider = Objects.requireNonNull(fixedPortPositionProvider,
 				"fixedPortPositionProvider must not be null");
-		// This is a workaround to prevent exceptions from being thrown when using fixed position ports. It disables connection layout in cases where an
-		// exception is thrown. This likely disables connection label layout in more cases than desirable. Once the issue is fixed, this field should be
-		// removed.
-		// See. https://github.com/eclipse/elk/issues/763
-		this.layoutConnectionLabels = omitNestedPorts && !options.layoutPortsOnDefaultSides;
+		// The previous workaround only disabled layout of connection labels in specific cases. Unfortunately, the error
+		// still occurs in some cases. This completely disables layout of connection labels until the issue is resolved.
+		// See https://github.com/eclipse/elk/issues/763
+		this.layoutConnectionLabels = false;
 	}
 
 	/**

@@ -6,7 +6,7 @@
          <meta.schema plugin="org.osate.ge" id="org.osate.ge.contentFilters" name="Content Filters"/>
       </appinfo>
       <documentation>
-         Allows defining content filters for the OSATE Graphical Editor.
+         Allows defining content filters for the OSATE Graphical Editor. Content filters are predicates which define a set of business objects. Configurable and fundamental content filters are registered using this extension point.
       </documentation>
    </annotation>
 
@@ -51,7 +51,7 @@
    <element name="contentFilter">
       <annotation>
          <documentation>
-            Configurable content filter.
+            Defines a configurable content filter. A configurable content filter is a set of business objects which can be shown or hidden. The graphical editor will automatically create menu items for each configurable content filter.
          </documentation>
       </annotation>
       <complexType>
@@ -71,7 +71,7 @@
    <element name="fundamentalContentFilter">
       <annotation>
          <documentation>
-            A fundamental content filter is a content filter which is always enabled.
+            A fundamental content filter is a content filter which defines a set of business object which are always shown.
          </documentation>
       </annotation>
       <complexType>
@@ -88,41 +88,20 @@
       </complexType>
    </element>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="since"/>
-      </appinfo>
-      <documentation>
-         [Enter the first release in which this extension point appears.]
-      </documentation>
-   </annotation>
 
    <annotation>
       <appinfo>
          <meta.section type="examples"/>
       </appinfo>
       <documentation>
-         [Enter extension point usage example here.]
+         &lt;extension point=&quot;org.osate.ge.contentFilters&quot;&gt;
+    &lt;contentFilter class=&quot;org.osate.ge.aadl2.internal.contentfilters.ComponentCategoryFilterFactory&quot;&gt;&lt;/contentFilter&gt;
+    &lt;fundamentalContentFilter class=&quot;org.osate.ge.aadl2.internal.contentfilters.FundamentalTagFilter&quot;&gt;&lt;/fundamentalContentFilter&gt;
+&lt;/extension&gt;
       </documentation>
    </annotation>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="apiinfo"/>
-      </appinfo>
-      <documentation>
-         [Enter API information here.]
-      </documentation>
-   </annotation>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="implementation"/>
-      </appinfo>
-      <documentation>
-         [Enter information about supplied implementation of this extension point.]
-      </documentation>
-   </annotation>
 
 
 </schema>

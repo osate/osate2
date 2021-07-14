@@ -61,7 +61,7 @@ public class NoteReferenceHandler implements BusinessObjectHandler {
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		return new RelativeBusinessObjectReference(InternalReferenceUtil.TYPE_NOTE_REFERENCE,
-				ctx.getBusinessObject(NoteReference.class).get().getReferencedDiagramElementId().toString());
+				ctx.getBusinessObject(NoteReference.class).orElseThrow().getReferencedDiagramElementId().toString());
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class NoteReferenceHandler implements BusinessObjectHandler {
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
-		final NoteReference noteReference = boc.getBusinessObject(NoteReference.class).get();
+		final NoteReference noteReference = boc.getBusinessObject(NoteReference.class).orElseThrow();
 
 		// Require the note reference's parent to be a note. This prevents being able to paste a note reference into other objects.
 		if (boc.getParent() == null || !(boc.getParent().getBusinessObject() instanceof Note)) {
