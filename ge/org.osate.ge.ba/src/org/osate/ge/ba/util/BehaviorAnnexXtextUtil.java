@@ -24,6 +24,7 @@
 package org.osate.ge.ba.util;
 
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.eclipse.xtext.resource.XtextResource;
@@ -119,7 +120,8 @@ public class BehaviorAnnexXtextUtil {
 				.peekingIterator(str.chars().mapToObj(e -> (char) e).collect(Collectors.toList()).iterator());
 		for (int offset = 0; charPeekingIt.hasNext(); offset++) {
 			final Character c = charPeekingIt.next();
-			if (c == charsToMatch.getKey() && charPeekingIt.peek() == charsToMatch.getValue()) {
+			if (Objects.equals(c, charsToMatch.getKey())
+					&& Objects.equals(charPeekingIt.peek(), charsToMatch.getValue())) {
 				return offset + 2;
 			} else if (c == '-' && charPeekingIt.peek() == '-') {
 				for (offset = offset + 1; charPeekingIt.hasNext(); offset++) {

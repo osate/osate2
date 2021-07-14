@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -25,6 +25,7 @@ package org.osate.ge.internal.util;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -36,13 +37,14 @@ import com.google.common.collect.ImmutableSet;
 public class ContentFilterUtil {
 	public static Stream<ContentFilter> getDescendants(final ContentFilter filter,
 			final Collection<ContentFilter> applicableFilters) {
-		return applicableFilters.stream().filter(t -> t.getParentId() == filter.getId())
+		return applicableFilters.stream()
+				.filter(t -> Objects.equals(t.getParentId(), filter.getId()))
 				.flatMap(t -> Stream.concat(Stream.of(t), getDescendants(t, applicableFilters)));
 	}
 
 	public static Stream<ContentFilter> getChildren(final ContentFilter filter,
 			final Collection<ContentFilter> applicableFilters) {
-		return applicableFilters.stream().filter(t -> t.getParentId() == filter.getId());
+		return applicableFilters.stream().filter(t -> Objects.equals(t.getParentId(), filter.getId()));
 	}
 
 	/**
@@ -56,7 +58,9 @@ public class ContentFilterUtil {
 			return Stream.empty();
 		}
 
-		return applicableFilters.stream().filter(t -> t.getId() == filter.getParentId()).limit(1)
+		return applicableFilters.stream()
+				.filter(t -> Objects.equals(t.getId(), filter.getParentId()))
+				.limit(1)
 				.flatMap(t -> Stream.concat(Stream.of(t), getAncestors(t, applicableFilters)));
 	}
 
@@ -66,7 +70,7 @@ public class ContentFilterUtil {
 			return Optional.empty();
 		}
 
-		return applicableFilters.stream().filter(t -> t.getId() == filter.getParentId()).findFirst();
+		return applicableFilters.stream().filter(t -> Objects.equals(t.getId(), filter.getParentId())).findFirst();
 	}
 
 	public static boolean anyDescendantsEnabled(final ContentFilter filterToCheck,
@@ -97,7 +101,7 @@ public class ContentFilterUtil {
 			final ContentFilter parentFilter = getParent(updatedFilter, applicableContentFilters).orElse(null);
 			if (parentFilter != null) {
 				if (applicableContentFilters.stream()
-						.filter(tmp -> tmp.getParentId() == updatedFilter.getParentId() && tmp != updatedFilter)
+						.filter(tmp -> Objects.equals(tmp.getParentId(), updatedFilter.getParentId()) && tmp != updatedFilter)
 						.allMatch(siblingFilter -> enabledContentFilters.contains(siblingFilter))) {
 					return updateContentFilterSet(enabledContentFilters, applicableContentFilters, parentFilter, true);
 				}
@@ -128,7 +132,7 @@ public class ContentFilterUtil {
 					contentFilters.remove(firstEnabledAncestor);
 
 					// Need to walk up from the updated filter and at each level enable all filters except for the sibling ancestor
-					ContentFilter parent = ContentFilterUtil.getParent(updatedFilter, applicableFilters).get();
+					ContentFilter parent = ContentFilterUtil.getParent(updatedFilter, applicableFilters).orElseThrow();
 					for (ContentFilter tmpFilter = updatedFilter; tmpFilter != firstEnabledAncestor; tmpFilter = parent) {
 						parent = ContentFilterUtil.getParent(tmpFilter, applicableFilters).orElse(null);
 						if (parent != null) {

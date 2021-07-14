@@ -647,7 +647,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	private <TagType, BusinessObjectType extends EObject> ModifySafelyResults modifySafely(final XtextResource resource, final TagType tag, final BusinessObjectType element,
 			final Modifier<TagType, BusinessObjectType> modifier, final boolean testSerialization) {
 		if(resource.getContents().size() < 1) {
-			return null;
+			return new ModifySafelyResults(false);
 		}
 
 		final ResourceSet resourceSet = Objects.requireNonNull(resource.getResourceSet(),

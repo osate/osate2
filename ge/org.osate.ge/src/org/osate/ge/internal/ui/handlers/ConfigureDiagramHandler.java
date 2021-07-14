@@ -37,8 +37,8 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
-import org.osate.ge.internal.diagram.runtime.botree.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
+import org.osate.ge.internal.diagram.runtime.botree.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
@@ -55,7 +55,7 @@ public class ConfigureDiagramHandler extends AbstractHandler {
 
 	@Override
 	public void setEnabled(final Object evaluationContext) {
-		setBaseEnabled(!AgeHandlerUtil.getSelectedDiagramNodes().isEmpty());
+		setBaseEnabled(AgeHandlerUtil.getActiveEditorFromContext(evaluationContext) instanceof InternalDiagramEditor);
 	}
 
 	@Override
