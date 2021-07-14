@@ -76,18 +76,12 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (!firstSignificantIndex.isPresent() || firstSignificantIndex.getAsInt() == uri.segmentCount() - 1) {
 					final URI replacedBy = PredeclaredProperties.getOverriddenResources().getOrDefault(uri, uri);
-					// if (!disabled.contains(replacedBy)) {
 					return new ContributedAadlStorage((VirtualPluginResources) element, replacedBy,
 							disabled.contains(replacedBy));
-					// }
 				} else {
-					if (!disabled.contains(uri)) {
-						return new ContributedDirectory((VirtualPluginResources) element,
-								Collections.singletonList(uri.segment(firstSignificantIndex.getAsInt())));
-					}
+					return new ContributedDirectory((VirtualPluginResources) element,
+							Collections.singletonList(uri.segment(firstSignificantIndex.getAsInt())));
 				}
-
-				return super.getChildren(element);
 			}).distinct().toArray();
 		} else if (element instanceof ContributedDirectory) {
 			List<String> directoryPath = ((ContributedDirectory) element).getPath();
@@ -108,18 +102,13 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 				List<URI> disabled = PredeclaredProperties.getDisabledContributions();
 				if (nextSignificantIndex == uri.segmentCount() - 1) {
 					final URI replacedBy = PredeclaredProperties.getOverriddenResources().getOrDefault(uri, uri);
-					if (!disabled.contains(replacedBy)) {
-						return new ContributedAadlStorage((ContributedDirectory) element, replacedBy);
-					}
+					return new ContributedAadlStorage((ContributedDirectory) element, replacedBy,
+							disabled.contains(replacedBy));
 				} else {
-					if (!disabled.contains(uri)) {
-						ArrayList<String> newPath = new ArrayList<>(directoryPath);
-						newPath.add(uri.segment(nextSignificantIndex));
-						return new ContributedDirectory((ContributedDirectory) element, newPath);
-					}
+					ArrayList<String> newPath = new ArrayList<>(directoryPath);
+					newPath.add(uri.segment(nextSignificantIndex));
+					return new ContributedDirectory((ContributedDirectory) element, newPath);
 				}
-
-				return super.getChildren(element);
 			}).distinct().toArray();
 		}
 		return super.getChildren(element);

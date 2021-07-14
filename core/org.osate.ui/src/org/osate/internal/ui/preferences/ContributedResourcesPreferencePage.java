@@ -123,7 +123,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		composite.setLayout(new GridLayout(2, true));
 
 		Label disabledContribLabel = new Label(composite, SWT.NONE);
-		disabledContribLabel.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		disabledContribLabel.setLayoutData(new GridData(2, SWT.FILL, true, true));
 		disabledContribLabel.setText(
 				"All property sets and packages contributed by plug-ins are added to each build by default. To exclude unnecessary contributions, set a checkbox below to checked");
 
