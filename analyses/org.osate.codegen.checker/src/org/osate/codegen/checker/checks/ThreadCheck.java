@@ -33,9 +33,12 @@ import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.codegen.checker.report.ErrorReport;
+import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -65,14 +68,16 @@ public class ThreadCheck extends AbstractCheck {
 		 * Each thread needs to specify period
 		 */
 		final List<ComponentInstance> threadMissingPeriod = allThreads.stream()
-				.filter(comp -> (GetProperties.getPeriodinMS(comp) == 0.0))
+				.filter(comp -> (PropertyUtils.getScaled(TimingProperties::getPeriod, comp, TimeUnits.MS)
+						.orElse(0.0) == 0.0))
 				.collect(Collectors.toList());
 		for (ComponentInstance thr : threadMissingPeriod) {
 			addError(new ErrorReport(thr, "Thread must define the property Timing_Properties::Period"));
 		}
 
 		final List<ComponentInstance> threadMissingDeadline = allThreads.stream()
-				.filter(comp -> (GetProperties.getDeadlineinMilliSec(comp) == 0.0))
+				.filter(comp -> (PropertyUtils.getScaled(TimingProperties::getDeadline, comp, TimeUnits.MS)
+						.orElse(0.0) == 0.0))
 				.collect(Collectors.toList());
 		for (ComponentInstance thr : threadMissingDeadline) {
 			addError(new ErrorReport(thr, "Thread must define the property Timing_Properties::Deadline"));

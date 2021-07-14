@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -28,6 +28,8 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.contrib.aadlproject.SizeUnits;
+import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -80,8 +82,8 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 	}
 
 	public void checkPortConsistency(FeatureInstance srcFI, FeatureInstance dstFI, ConnectionInstance conni) {
-		double srcDataSize = GetProperties.getSourceDataSizeInBytes(srcFI);
-		double dstDataSize = GetProperties.getSourceDataSizeInBytes(dstFI);
+		double srcDataSize = AadlContribUtils.getDataSize(srcFI, SizeUnits.BYTES);
+		double dstDataSize = AadlContribUtils.getDataSize(dstFI, SizeUnits.BYTES);
 
 		RecordValue srcRate = GetProperties.getOutPutRate(srcFI);
 		RecordValue dstRate = GetProperties.getInPutRate(dstFI);
@@ -117,10 +119,12 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 						+ " Bytes differ");
 			}
 		} else {
-			if (srcDataSize == 0 && dstDataSize > 0)
+			if (srcDataSize == 0 && dstDataSize > 0) {
 				error(conni, "Source data size is missing or zero");
-			if (dstDataSize == 0 && srcDataSize > 0)
+			}
+			if (dstDataSize == 0 && srcDataSize > 0) {
 				error(conni, "Destination data size is missing or zero");
+			}
 		}
 
 		if (srcRU != null && dstRU != null && srcRU != dstRU) {
@@ -149,10 +153,12 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 						"Source data rate " + srcRateValue + " and destination data rate " + dstRateValue + " differ");
 			}
 		} else {
-			if (srcRateValue == 0 && dstRateValue > 0)
+			if (srcRateValue == 0 && dstRateValue > 0) {
 				error(conni, "Source data rate is missing or zero");
-			if (dstRateValue == 0 && srcRateValue > 0)
+			}
+			if (dstRateValue == 0 && srcRateValue > 0) {
 				error(conni, "Destination data rate is missing or zero");
+			}
 		}
 
 		if (srcC != null && dstC != null) {
@@ -161,10 +167,12 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 						+ " differ");
 			}
 		} else {
-			if (srcC == null && dstC != null)
+			if (srcC == null && dstC != null) {
 				error(conni, "Source base type is missing");
-			if (dstC == null && srcC != null)
+			}
+			if (dstC == null && srcC != null) {
 				error(conni, "Destination base type is missing");
+			}
 		}
 
 		if (srcS.length() > 0 && dstS.length() > 0) {
@@ -173,10 +181,12 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 						"Source measurement unit " + srcS + " and destination measurement unit " + dstS + " differ");
 			}
 		} else {
-			if (srcS.length() == 0 && dstS.length() > 0)
+			if (srcS.length() == 0 && dstS.length() > 0) {
 				error(conni, "Source measurement unit is missing");
-			if (dstS.length() == 0 && srcS.length() > 0)
+			}
+			if (dstS.length() == 0 && srcS.length() > 0) {
 				error(conni, "Destination measurement unit is missing");
+			}
 		}
 	}
 
@@ -185,8 +195,9 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 	protected void error(NamedElement el, String s) {
 		super.error(el, s);
 		if (previousNE == null || previousNE != el) {
-			if (previousNE != null)
+			if (previousNE != null) {
 				handler.logInfo("");
+			}
 			handler.logInfo(el.getName() + "," + s);
 		} else {
 			handler.logInfo("," + s);

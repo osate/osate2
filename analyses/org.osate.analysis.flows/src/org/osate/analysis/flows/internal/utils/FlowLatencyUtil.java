@@ -25,6 +25,7 @@ package org.osate.analysis.flows.internal.utils;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
@@ -38,55 +39,31 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.VirtualBus;
+import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.communication.CommunicationProperties;
+import org.osate.aadl2.contrib.communication.Timing;
+import org.osate.aadl2.contrib.deployment.DeploymentProperties;
+import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.analysis.flows.model.ConnectionType;
-import org.osate.contribution.sei.names.DataModel;
+import org.osate.aadl2.properties.PropertyLookupException;
+import org.osate.contribution.sei.arinc653.Arinc653;
+import org.osate.contribution.sei.arinc653.ScheduleWindow;
+import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
-import org.osate.xtext.aadl2.properties.util.ARINC653ScheduleWindow;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class FlowLatencyUtil {
-	//XXX: [Code Coverage] Dead code.
-	public static String getEndToEndFlowString(EndToEndFlowInstance etef) {
-		StringBuilder ret;
-		boolean firstPassed = false;
-
-		ret = new StringBuilder();
-		ret.append(etef.getName() + " : ");
-
-		for (FlowElementInstance fei : etef.getFlowElements()) {
-			if (firstPassed) {
-				ret.append("->");
-			}
-			ret.append(fei.getName());
-			firstPassed = true;
-		}
-
-		return ret.toString();
-	}
-
-	//XXX: [Code Coverage] Dead code.
-	public static boolean hasPreviousConnection(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		return etef.getFlowElements().indexOf(flowElementInstance) > 0;
-	}
-
 	public static FeatureInstance getIncomingConnectionFeatureInstance(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
 		ConnectionInstance previousElement = getPreviousConnection(etef, flowElementInstance);
@@ -102,81 +79,35 @@ public class FlowLatencyUtil {
 
 	public static boolean isPreviousConnectionImmediate(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
-		ConnectionInstance previousElement = getPreviousConnection(etef, flowElementInstance);
+		final ConnectionInstance previousElement = getPreviousConnection(etef, flowElementInstance);
 		//XXX: [Code Coverage] Only called if there is a previous connection.
-		if ((previousElement != null)) {
-			return (getConnectionType(previousElement) == ConnectionType.IMMEDIATE);
+		if (previousElement != null && previousElement.getKind() == ConnectionKind.PORT_CONNECTION) {
+			return PropertyUtils.propertyEquals(CommunicationProperties::getTiming, previousElement,
+					Timing.IMMEDIATE);
 		}
-
+		// No previous element, or it's not a port connection (so no TIMING property); either way, it's not immediate
 		return false;
 	}
 
 	public static boolean isNextConnectionImmediate(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
-		ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
-		if ((nextElement != null)) {
-			return (getConnectionType(nextElement) == ConnectionType.IMMEDIATE);
+		final ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
+		if (nextElement != null && nextElement.getKind() == ConnectionKind.PORT_CONNECTION) {
+			return PropertyUtils.propertyEquals(CommunicationProperties::getTiming, nextElement, Timing.IMMEDIATE);
 		}
-
+		// No next element, or it's not a port connection (so no TIMING property); either way, it's not immediate
 		return false;
 	}
 
 	public static boolean isPreviousConnectionDelayed(final EndToEndFlowInstance etef,
 			final FlowElementInstance flowElementInstance) {
-		ConnectionInstance nextElement = getPreviousConnection(etef, flowElementInstance);
+		final ConnectionInstance previousElement = getPreviousConnection(etef, flowElementInstance);
 		//XXX: [Code Coverage] Only called if there is a previous connection.
-		if ((nextElement != null)) {
-			return (getConnectionType(nextElement) == ConnectionType.DELAYED);
+		if (previousElement != null && previousElement.getKind() == ConnectionKind.PORT_CONNECTION) {
+			return PropertyUtils.propertyEquals(CommunicationProperties::getTiming, previousElement, Timing.DELAYED);
 		}
-
+		// No previous element, or it's not a port connection (so no TIMING property); either way, it's not delayed
 		return false;
-	}
-
-	//XXX: [Code Coverage] Dead code.
-	public static boolean isNextConnectionDelayed(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
-		if ((nextElement != null)) {
-			return (getConnectionType(nextElement) == ConnectionType.DELAYED);
-		}
-
-		return false;
-	}
-
-	//XXX: [Code Coverage] Dead code.
-	public static boolean isPreviousConnectionSampled(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		ConnectionInstance nextElement = getPreviousConnection(etef, flowElementInstance);
-		if ((nextElement != null)) {
-			return (getConnectionType(nextElement) == ConnectionType.SAMPLED);
-		}
-
-		return false;
-	}
-
-	//XXX: [Code Coverage] Dead code.
-	public static boolean isNextConnectionSampled(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		ConnectionInstance nextElement = getNextConnection(etef, flowElementInstance);
-		if ((nextElement != null)) {
-			return (getConnectionType(nextElement) == ConnectionType.SAMPLED);
-		}
-
-		return false;
-	}
-
-	public static ConnectionType getConnectionType(final ConnectionInstance conn) {
-		EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
-
-		//XXX: [Code Coverage] el cannot be null.
-		if ((el != null) && (el.getName().equalsIgnoreCase("immediate"))) {
-			return ConnectionType.IMMEDIATE;
-		}
-		//XXX: [Code Coverage] el cannot be null.
-		if ((el != null) && (el.getName().equalsIgnoreCase("delayed"))) {
-			return ConnectionType.DELAYED;
-		}
-		return ConnectionType.SAMPLED;
 	}
 
 	/**
@@ -236,41 +167,6 @@ public class FlowLatencyUtil {
 	}
 
 	/**
-	 * Get the next thread/device period within an end to end flow after the flow element
-	 * given as attribute.
-	 * @param etef - the end to end flow
-	 * @param flowElementInstance - the element to search from
-	 * @return - the flow element period that is a thread and is after flowElementInstance
-	 */
-	//XXX: [Code Coverage] Dead code.
-	public static double getNextThreadOrDevicePeriod(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		ComponentInstance ci = getNextFlowElement(etef, flowElementInstance).getComponentInstance();
-		if ((ci != null)
-				&& ((ci.getCategory() == ComponentCategory.THREAD) || (ci.getCategory() == ComponentCategory.DEVICE))) {
-			return GetProperties.getPeriodinMS(ci);
-		}
-		return 0;
-	}
-
-	/**
-	 * Get the next task within an end to end flow after the flow element
-	 * given as attribute.
-	 * @param etef - the end to end flow
-	 * @param flowElementInstance - the element to search from
-	 * @return - the flow element that is a task and is after flowElementInstance
-	 */
-	//XXX: [Code Coverage] Dead code.
-	public static double getNextSamplingComponentPeriod(final EndToEndFlowInstance etef,
-			final FlowElementInstance flowElementInstance) {
-		ComponentInstance ci = getNextFlowElement(etef, flowElementInstance).getComponentInstance();
-		if (ci != null) {
-			return GetProperties.getPeriodinMS(ci);
-		}
-		return 0;
-	}
-
-	/**
 	 * find the next connection within an end to end flow
 	 * @param etef - the end to end flow where to search
 	 * @param flowElementInstance - the element from where we start the search
@@ -319,37 +215,25 @@ public class FlowLatencyUtil {
 	 * get the partition period, either from the virtual processor representing the partition, or from the major frame of the ARINC653 specification of a processor
 	 * @return partition period as latency contributor
 	 */
-	public static double getPartitionPeriod(ComponentInstance part) {
+	public static double getPartitionPeriod(final ComponentInstance part) {
 		// first look for major frame value on processor
-		ComponentInstance module = getModule(part);
-		double res = GetProperties.getARINC653ModuleMajorFrame(module);
-		if (res == 0.0) {
-			// look for period on partition
-			res = GetProperties.getPeriodinMS(part);
+		final ComponentInstance module = getModule(part);
+		final ComponentCategory moduleCategory = module != null ? module.getCategory() : null;
+		double result = 0.0;
+		if (moduleCategory == ComponentCategory.PROCESSOR || moduleCategory == ComponentCategory.VIRTUAL_PROCESSOR
+				|| moduleCategory == ComponentCategory.ABSTRACT) {
+			result = PropertyUtils.getScaled(Arinc653::getModuleMajorFrame, module, TimeUnits.MS).orElse(0.0);
 		}
-		if (res == 0.0) {
-			// look for major frame value on virtual processor (partition)
-			res = GetProperties.getARINC653ModuleMajorFrame(part);
-		}
-		return res;
-	}
 
-	/**
-	 * Get the major frame from the processor supporting ARINC653 partitions from its schedule
-	 * @param componentInstance system, process, thread or other entity bound to a processor and running inside a partition.
-	 * @return partition period supported by processor
-	 */
-	//XXX: [Code Coverage] Dead code.
-	public static double getARINC653ProcessorMajorFrameFromSchedule(ComponentInstance processorInstance) {
-		double res = 0.0;
-		List<ARINC653ScheduleWindow> schedule = GetProperties.getModuleSchedule(processorInstance);
-		if ((schedule != null) && (schedule.size() > 0)) {
-			for (ARINC653ScheduleWindow window : schedule) {
-				res = res + window.getTime();
+		if (result == 0.0) {
+			// look for period on partition
+			result = PropertyUtils.getScaled(TimingProperties::getPeriod, part, TimeUnits.MS).orElse(0.0);
+			if (result == 0.0) {
+				// look for major frame value on virtual processor (partition)
+				result = PropertyUtils.getScaled(Arinc653::getModuleMajorFrame, part, TimeUnits.MS).orElse(0.0);
 			}
-			return res;
 		}
-		return res;
+		return result;
 	}
 
 	public static Classifier getConnectionData(ConnectionInstance connectionInstance) {
@@ -378,7 +262,9 @@ public class FlowLatencyUtil {
 		/**
 		 * Try to get the module from the virtual processor partition.
 		 */
-		module = GetProperties.getBoundProcessor(partition);
+
+		module = (ComponentInstance) DeploymentProperties.getActualProcessorBinding(partition)
+				.map(list -> list.isEmpty() ? null : list.get(0)).orElse(null);
 		if (module == null) {
 			module = partition.getContainingComponentInstance();
 		}
@@ -395,29 +281,31 @@ public class FlowLatencyUtil {
 	 * @param partition This can be a virtual processor representing a partition or a component instance tagged with SEI properties
 	 * @return offset, no virtual processor as ARINC653 partition, or no processor.
 	 */
-	public static double getPartitionFrameOffset(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
-		double res = 0.0;
+	public static double getPartitionFrameOffset(final ComponentInstance partition,
+			final List<ScheduleWindow> schedule) {
 		//XXX: [Code Coverage] schedule is never null.
 		if ((schedule == null) || (schedule.size() == 0)) {
-			return res;
-		}
-		for (ARINC653ScheduleWindow window : schedule) {
-			if (window.getPartition() == partition) {
-				return res;
-			}
+			return 0.0;
+		} else {
+			double res = 0.0;
+			for (final ScheduleWindow window : schedule) {
+				if (PropertyUtils.equals(window.getPartition(), partition, false)) {
+					return res;
+				}
 
-			res = res + window.getTime();
+				res = res + PropertyUtils.scale(window.getDuration(), TimeUnits.MS).orElse(0.0);
+			}
+			// XXX: [Code Coverage] partition is always in schedule.
+			return 0.0;
 		}
-		//XXX: [Code Coverage] partition is always in schedule.
-		return 0.0;
 	}
 
-	public static boolean isInSchedule(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
+	public static boolean isInSchedule(ComponentInstance partition, List<ScheduleWindow> schedule) {
 		if (schedule == null) {
 			return true;
 		}
-		for (ARINC653ScheduleWindow window : schedule) {
-			if (window.getPartition() == partition) {
+		for (ScheduleWindow window : schedule) {
+			if (PropertyUtils.equals(window.getPartition(), partition, false)) {
 				return true;
 			}
 		}
@@ -432,32 +320,41 @@ public class FlowLatencyUtil {
 	 * @param schedule ARINC653 schedule
 	 * @return window size (duration),  or 0 if no schedule.
 	 */
-	public static double getPartitionDuration(ComponentInstance partition, List<ARINC653ScheduleWindow> schedule) {
+	public static double getPartitionDuration(ComponentInstance partition, List<ScheduleWindow> schedule) {
 		if ((schedule == null) || (schedule.size() == 0)) {
-			double wcet = GetProperties.getExecutionTimeInMS(partition);
+			double wcet = PropertyUtils.getScaled(TimingProperties::getExecutionTime, partition, TimeUnits.MS)
+					.orElse(0.0);
 			return wcet;
 		}
-		for (ARINC653ScheduleWindow window : schedule) {
-			if (window.getPartition() == partition) {
-				return window.getTime();
+		for (ScheduleWindow window : schedule) {
+			if (window.getPartition().orElse(null) == partition) {
+				return PropertyUtils.scale(window.getDuration(), TimeUnits.MS).orElse(0.0);
 			}
 		}
 		return 0;
 	}
 
-	public static List<ARINC653ScheduleWindow> getModuleSchedule(ComponentInstance partition) {
-		ComponentInstance module;
-		List<ARINC653ScheduleWindow> schedule = null;
-		//XXX: [Code Coverage] partition cannot be null.
+	public static List<ScheduleWindow> getModuleSchedule(final ComponentInstance partition) {
 		if (partition == null) {
-			return schedule;
+			return null;
+		} else {
+			final ComponentInstance module = getModule(partition);
+			if (module == null) {
+				return null;
+			} else {
+				final ComponentCategory moduleCategory = module.getCategory();
+				if (moduleCategory == ComponentCategory.PROCESSOR
+						|| moduleCategory == ComponentCategory.VIRTUAL_PROCESSOR
+						|| moduleCategory == ComponentCategory.ABSTRACT) {
+					/* Only keep those windows that have a partition specified */
+					final List<ScheduleWindow> windows = Arinc653.getModuleSchedule(module).orElse(Collections.emptyList());
+					windows.removeIf(sw -> !sw.getPartition().isPresent());
+					return windows;
+				} else {
+					return Collections.emptyList();
+				}
+			}
 		}
-		module = getModule(partition);
-		if (module != null) {
-			schedule = GetProperties.getModuleSchedule(module);
-
-		}
-		return schedule;
 	}
 
 	/**
@@ -524,22 +421,6 @@ public class FlowLatencyUtil {
 		} else {
 			return "Min: ";
 		}
-	}
-
-	//XXX: [Code Coverage] Dead code.
-	public static double getDimension(final NamedElement ne) {
-		Property dimension = GetProperties.lookupPropertyDefinition(ne, DataModel._NAME, DataModel.Dimension);
-		List<? extends PropertyExpression> propertyValues;
-		try {
-			propertyValues = ne.getPropertyValueList(dimension);
-		} catch (Exception e) {
-			return 1.0;
-		}
-		double res = 1.0;
-		for (PropertyExpression propertyExpression : propertyValues) {
-			res = res * ((NumberValue) propertyExpression).getScaledValue();
-		}
-		return res;
 	}
 
 	// -------------
@@ -747,19 +628,46 @@ public class FlowLatencyUtil {
 			return relatedComponentType.getCategory().getName();
 		}
 		if (relatedElement instanceof ConnectionInstance) {
-			if (FlowLatencyUtil.getConnectionType((ConnectionInstance) relatedElement) == ConnectionType.DELAYED) {
+			final ConnectionKind connectionKind = ((ConnectionInstance) relatedElement)
+					.getKind();
+			Timing connectionType;
+			try {
+				connectionType = connectionKind == ConnectionKind.PORT_CONNECTION
+					? CommunicationProperties.getTiming((ConnectionInstance) relatedElement).orElse(Timing.SAMPLED)
+							: Timing.SAMPLED;
+			} catch (final PropertyLookupException e) {
+				// Property association semantics for FEATURE connections are missing
+				connectionType = Timing.SAMPLED;
+			}
+
+			if (connectionType == Timing.DELAYED) {
 				return "delayed connection";
 			}
-			if (FlowLatencyUtil.getConnectionType((ConnectionInstance) relatedElement) == ConnectionType.IMMEDIATE) {
+			if (connectionType == Timing.IMMEDIATE) {
 				return "immediate connection";
 			}
-			if (FlowLatencyUtil.getConnectionType((ConnectionInstance) relatedElement) == ConnectionType.SAMPLED) {
+			if (connectionType == Timing.SAMPLED) {
 				return "connection";
 			}
 			return "connection";
 		}
 		return "component";
 	}
+
+//	public static ConnectionType getConnectionType(final ConnectionInstance conn) {
+//		EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
+//
+//		//XXX: [Code Coverage] el cannot be null.
+//		if ((el != null) && (el.getName().equalsIgnoreCase("immediate"))) {
+//			return ConnectionType.IMMEDIATE;
+//		}
+//		//XXX: [Code Coverage] el cannot be null.
+//		if ((el != null) && (el.getName().equalsIgnoreCase("delayed"))) {
+//			return ConnectionType.DELAYED;
+//		}
+//		return ConnectionType.SAMPLED;
+//	}
+//
 
 	public static String getFullComponentContributorName(EObject relatedElement) {
 		if (relatedElement instanceof ConnectionInstance) {

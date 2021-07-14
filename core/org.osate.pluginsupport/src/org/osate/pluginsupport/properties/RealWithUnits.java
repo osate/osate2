@@ -8,10 +8,10 @@ import org.osate.aadl2.RealLiteral;
 /**
  * @since 5.0
  */
-public class RealWithUnits<U extends Enum<U> & GeneratedUnits<U>> implements Comparable<RealWithUnits<U>> {
+public class RealWithUnits<U extends Enum<U> & GeneratedUnits<U>> implements Scalable<U>, Comparable<RealWithUnits<U>> {
 	private final double value;
 	private final U unit;
-	
+
 	public RealWithUnits(double value, U unit) {
 		this.value = value;
 		this.unit = unit;
@@ -31,10 +31,11 @@ public class RealWithUnits<U extends Enum<U> & GeneratedUnits<U>> implements Com
 		return unit;
 	}
 
+	@Override
 	public double getValue(U targetUnit) {
 		return value * unit.getFactorToBase() / targetUnit.getFactorToBase();
 	}
-	
+
 	public RealLiteral toPropertyExpression(ResourceSet resourceSet) {
 		RealLiteral numberValue = Aadl2Factory.eINSTANCE.createRealLiteral();
 		numberValue.setValue(value);
