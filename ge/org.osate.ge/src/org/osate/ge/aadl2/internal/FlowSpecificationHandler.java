@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.eclipse.xtext.util.Strings;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
@@ -39,6 +40,7 @@ import org.osate.ge.aadl2.internal.util.AadlInheritanceUtil;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
+import org.osate.ge.businessobjecthandling.GetIconIdContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
@@ -61,6 +63,17 @@ public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(FlowSpecification.class).isPresent();
+	}
+
+	@Override
+	public Optional<String> getIconId(final GetIconIdContext ctx) {
+		return ctx.getBusinessObject(FlowSpecification.class)
+				.map(FlowSpecificationHandler::getIconId)
+				.map(AadlImages::getImage);
+	}
+
+	private static String getIconId(final FlowSpecification fs) {
+		return "Flow" + Strings.toFirstUpper(fs.getKind().getName());
 	}
 
 	@Override
