@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" name="heat_control_impl_Instance" category="data">
+  <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+    <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Base_Type"/>
+    <ownedValue>
+      <ownedValue xsi:type="aadl2:ListValue">
+        <ownedListElement xsi:type="aadl2:ClassifierValue">
+          <classifier xsi:type="aadl2:DataType" href="../isoletteDataModel.aadl#isoletteDataModel.on_off"/>
+        </ownedListElement>
+      </ownedValue>
+    </ownedValue>
+    <propertyAssociation href="../isoletteDataModel.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.0"/>
+  </ownedPropertyAssociation>
+  <systemOperationMode name="No Modes"/>
+  <componentImplementation xsi:type="aadl2:DataImplementation" href="../isoletteDataModel.aadl#isoletteDataModel.heat_control.impl"/>
+</instance:SystemInstance>

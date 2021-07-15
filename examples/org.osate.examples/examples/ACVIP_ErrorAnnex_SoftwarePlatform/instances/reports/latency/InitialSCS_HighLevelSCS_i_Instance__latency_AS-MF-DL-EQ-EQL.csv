@@ -1,0 +1,17 @@
+Latency analysis with preference settings: asynchronous system/major partition frame/worst case as deadline/best case as empty queue/queuing latency enabled
+
+"Latency results for end-to-end flow 'ete1' of system 'HighLevelSCS.i' "
+
+Result,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments
+device sensor1 (source sensorFlow),3.0ms,3.0ms,specified,5.0ms,5.0ms,specified
+connection sensor1.dataOut -> controller1.dataIn,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+system controller1 (path controllerFlow),3.0ms,3.0ms,specified,5.0ms,5.0ms,specified
+connection controller1.dataOut -> brake1.dataIn,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+device brake1 (sink brakeFlow),3.0ms,3.0ms,specified,5.0ms,5.0ms,specified
+Latency Total,9.0ms,9.0ms,,15.0ms,15.0ms
+Specified End To End Latency,,0.0ms,,,0.0ms
+End to end Latency Summary
+WARNING,Expected end to end latency is not specified
+
+
+

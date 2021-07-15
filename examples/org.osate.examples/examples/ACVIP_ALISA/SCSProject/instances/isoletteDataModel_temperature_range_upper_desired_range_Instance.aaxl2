@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ASCII"?>
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" name="temperature_range_upper_desired_range_Instance" category="data">
+  <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+    <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Real_Range"/>
+    <ownedValue>
+      <ownedValue xsi:type="aadl2:RangeValue">
+        <minimum xsi:type="aadl2:RealLiteral" value="98.0"/>
+        <maximum xsi:type="aadl2:RealLiteral" value="100.0"/>
+      </ownedValue>
+    </ownedValue>
+    <propertyAssociation href="../isoletteDataModel.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedPropertyAssociation.0"/>
+  </ownedPropertyAssociation>
+  <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+    <property href="platform:/plugin/org.osate.contribution.sei/resources/properties/Data_Model.aadl#Data_Model.Measurement_Unit"/>
+    <ownedValue>
+      <ownedValue xsi:type="aadl2:StringLiteral" value="Fahrenheit"/>
+    </ownedValue>
+    <propertyAssociation href="../isoletteDataModel.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedPropertyAssociation.1"/>
+  </ownedPropertyAssociation>
+  <systemOperationMode name="No Modes"/>
+  <componentImplementation xsi:type="aadl2:DataImplementation" href="../isoletteDataModel.aadl#isoletteDataModel.temperature_range.upper_desired_range"/>
+</instance:SystemInstance>

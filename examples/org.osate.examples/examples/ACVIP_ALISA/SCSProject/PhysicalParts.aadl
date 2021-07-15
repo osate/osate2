@@ -1,0 +1,26 @@
+package PhysicalParts
+public
+
+	processor powerpc		
+	end powerpc;
+
+	bus CANbus
+	end CANbus;
+
+	memory main_memory
+	end main_memory;
+	
+	system main_board		
+	end main_board;
+	
+	system implementation main_board.single
+		subcomponents
+			cpu: processor powerpc;
+			ram: memory main_memory;
+			canbus: bus CANbus;
+	end main_board.single;
+
+	abstract Power
+	end Power;
+
+end PhysicalParts;

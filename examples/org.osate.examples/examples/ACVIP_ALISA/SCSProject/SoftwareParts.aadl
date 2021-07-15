@@ -1,0 +1,81 @@
+package SoftwareParts
+public
+		with DataModel;
+		
+	system DigitalControl
+		
+	end DigitalControl;
+
+	system implementation DigitalControl.tier1
+		subcomponents
+			IO_Process: process;
+			Command_Process: process;
+
+	end DigitalControl.tier1;
+
+	process IO_Process
+
+	end IO_Process;
+	
+	process implementation IO_Process.impl
+		subcomponents
+			sense: thread sensor_sense_thread; 
+			mode_change: thread;
+			actuate: thread actuator_output_thread;
+	end IO_Process.impl;
+	
+	process Command_Process
+	end Command_Process;
+
+	process implementation Command_Process.impl
+		subcomponents
+			filter: thread filterApp;
+			pilot: thread;
+			control: thread controlApp;
+	end Command_Process.impl;
+
+
+	thread sensor_sense_thread
+		features
+			signalout: out data port DataModel::SensorData;-- data to filter
+			signalin: in data port DataModel::SensorData;  -- raw data in
+		properties
+			Stack_Size => 10 Kbyte;
+			Period => 20 ms;
+			Compute_Execution_Time => 10 ms .. 12 ms;
+	end sensor_sense_thread;
+
+	thread actuator_output_thread
+		features
+			controlin: in data port DataModel::actuatecmd;-- data from filter
+			actuate: out data port DataModel::actuatecmd; -- to actuator
+		properties
+			Stack_Size => 10 Kbyte;
+			Period => 20 ms;
+			Compute_Execution_Time => 8 ms .. 10 ms;
+	end actuator_output_thread;
+	
+	
+	thread filterApp
+		features
+			sensorraw: in data port DataModel::SensorData; -- from sensor
+			sensorfiltered: out data port DataModel::SensorData;-- to control
+		properties
+			Stack_Size => 25 Kbyte;
+			Data_size => 250 KByte; -- for logging
+			Period => 20 ms;
+			Compute_Execution_Time => 5 ms .. 7 ms;
+	end filterApp;
+
+	thread controlApp
+		features
+			sensorfiltered: in data port DataModel::SensorData;-- filtered
+			actuatesensor: out data port DataModel::actuatecmd;-- new command
+		properties
+			Stack_Size => 25 Kbyte;
+			Data_size => 50 KByte; -- for control state
+			Period => 20 ms;
+			Compute_Execution_Time => 2 ms .. 6 ms; 
+	end controlApp;
+	
+end SoftwareParts;

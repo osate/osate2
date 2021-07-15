@@ -1,0 +1,20 @@
+Latency analysis with preference settings: asynchronous system/major partition frame/worst case as deadline/best case as empty queue/queuing latency enabled
+
+"Latency results for end-to-end flow 'path1' of system 'isoletteSystem.impl' "
+
+Result,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments
+device temperature_sensor (source current_temperature_flow),0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+connection temperature_sensor.current_temperature -> thermostat.current_temperature,2.0ms,2.0ms,specified,4.0ms,4.0ms,specified,Using specified min protocol latency subtotal 0.0 although specified connection latency 2.0 is greater,Using max specified protocol latency subtotal 0.0 although specified connection latency 4.0 is greater
+system thermostat (path current_temperature_flow),0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+connection thermostat.heat_control -> heat_source.heat_control,5.0ms,5.0ms,specified,6.0ms,6.0ms,specified,Using specified min protocol latency subtotal 0.0 although specified connection latency 5.0 is greater,Using max specified protocol latency subtotal 0.0 although specified connection latency 6.0 is greater
+device heat_source (sink heat_control_flow),0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+Latency Total,0.0ms,7.0ms,,0.0ms,10.0ms
+Specified End To End Latency,,8.0ms,,,9.0ms
+End to end Latency Summary
+WARNING,Minimum specified flow latency total 0.000ms less than expected minimum end to end latency 8.00ms (better response time)
+WARNING,Minimum actual latency total 7.00ms less than expected minimum end to end latency 8.00ms (faster actual minimum response time)
+ERROR,Maximum actual latency total 10.0ms exceeds expected maximum end to end latency 9.00ms
+WARNING,Jitter of actual latency total 7.00..10.0ms exceeds expected end to end latency jitter 8.00..9.00ms
+
+
+

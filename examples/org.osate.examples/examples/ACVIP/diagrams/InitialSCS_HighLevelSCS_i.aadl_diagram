@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="6f65b5ba-d5a2-4ebb-9597-e9a63e17c9b0" manual="true">
+    <element uuid="5c000eef-ae92-4041-b66f-505d7351b4c0" manual="true">
+      <element uuid="417ab34c-60b7-4aea-a56e-09a3a1648ff4" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c1</seg>
+      </bo>
+      <bendpoints>
+        <point x="179.0" y="140.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="30660d47-6eea-4797-a1ff-18e44dae4050" manual="true">
+      <element uuid="82258e3a-b673-4d37-bdd6-80d69b216c24" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>c2</seg>
+      </bo>
+    </element>
+    <element uuid="afd1c19c-377e-436c-b872-3d9c22201f48" manual="true">
+      <bo>
+        <seg>realization</seg>
+      </bo>
+    </element>
+    <element uuid="b9c2ed25-8950-4363-ae30-e2a30ef34a7d" manual="true">
+      <element uuid="9d6af762-d4b6-41ca-8efb-5d63ba94df11" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>dataIn</seg>
+        </bo>
+        <position y="59.0"/>
+      </element>
+      <element uuid="492409fe-1616-45a5-a945-e3480a6b148c" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>brakeFlow</seg>
+        </bo>
+        <position x="130.0" y="91.0"/>
+      </element>
+      <element uuid="e1515889-1a02-480c-a289-ecd43764db90" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>sc_type</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>brake1</seg>
+      </bo>
+      <position x="718.0" y="54.0"/>
+      <size width="244.0" height="117.0"/>
+    </element>
+    <element uuid="bd3da1b2-562c-4430-ac2d-6bb428f49310" manual="true">
+      <element uuid="14163cc6-6eb1-4dc3-a1fa-20cd9df5e66d" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>dataIn</seg>
+        </bo>
+        <position y="59.0"/>
+      </element>
+      <element uuid="dcaf1ed8-2f1b-4da8-bd2b-f3d12b213f7f" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>dataOut</seg>
+        </bo>
+        <position x="233.0" y="59.0"/>
+      </element>
+      <element uuid="671318aa-dc25-4ec7-a3bc-6a5514ecc21e" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>controllerFlow</seg>
+        </bo>
+      </element>
+      <element uuid="6d5daf85-d317-4acc-9abc-630354c942e1" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>sc_type</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>controller1</seg>
+      </bo>
+      <position x="328.0" y="60.0"/>
+      <size width="293.0" height="111.0"/>
+    </element>
+    <element uuid="1b6adedb-4609-4e64-b23a-dbc8265a8b91" manual="true">
+      <element uuid="00475e7e-e2ca-43b5-87c5-17aaadc3a248" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>dataOut</seg>
+        </bo>
+        <position y="59.0"/>
+      </element>
+      <element uuid="f00919aa-a88a-40f9-93b5-9d14d6d4d2de" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>sensorFlow</seg>
+        </bo>
+        <position x="92.0" y="91.0"/>
+      </element>
+      <element uuid="12cea4b4-2287-4fd3-ac5d-72f4ad7b2d3e" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>sc_type</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>sensor1</seg>
+      </bo>
+      <position x="12.0" y="57.0"/>
+      <size width="273.0" height="117.0"/>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>HighLevelSCS.i</seg>
+    </bo>
+    <position x="12.0" y="12.0"/>
+    <size width="979.0" height="199.0"/>
+  </element>
+  <config type="custom" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>classifier</seg>
+      <seg>InitialSCS::HighLevelSCS.i</seg>
+    </context>
+  </config>
+</diagram:Diagram>
