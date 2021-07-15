@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Resource Analysis Plug-in
 Bundle-SymbolicName: org.osate.analysis.resource.budgets;singleton:=true
-Bundle-Version: 4.0.3.qualifier
+Bundle-Version: 4.1.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.osate.analysis.resource.budgets.ResourceBudgetPlugin
 Bundle-Vendor: CMU/SEI
@@ -23,6 +23,9 @@ Bundle-ActivationPolicy: lazy
 Export-Package: org.osate.analysis.resource.budgets,
  org.osate.analysis.resource.budgets.busload,
  org.osate.analysis.resource.budgets.handlers,
- org.osate.analysis.resource.budgets.logic
+ org.osate.analysis.resource.budgets.logic,
+ org.osate.analysis.resource.budgets.internal.models.power,
+ org.osate.analysis.resource.budgets.internal.models.power.impl,
+ org.osate.analysis.resource.budgets.internal.models.power.util
 Automatic-Module-Name: org.osate.analysis.resource.budgets
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
