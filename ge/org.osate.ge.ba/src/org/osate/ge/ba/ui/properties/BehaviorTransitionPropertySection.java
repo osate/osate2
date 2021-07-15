@@ -51,7 +51,6 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.xbase.lib.Pair;
 import org.osate.ba.aadlba.BehaviorActionBlock;
 import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
@@ -61,6 +60,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ProjectUtil;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
+import org.osate.ge.ba.util.BehaviorAnnexUtil.DispatchConditionHelper;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
@@ -173,7 +173,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	private void createConditionEditingControls(final BehaviorTransition behaviorTransition, final String sourceText,
 			final IProject project, final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
 			final XtextResource xtextResource) {
-		final EmbeddedTextValue conditionTextValue = getConditionTextValue(behaviorTransition, sourceText);
+		final EmbeddedTextValue conditionTextValue = new DispatchConditionHelper(behaviorTransition, sourceText)
+				.createTextValue();
 		final SelectionAdapter editConditionSelectionAdapter = getEditConditionSelectionAdapter(project,
 				conditionTextValue, behaviorTransition, editingDomain, xtextDocument, xtextResource);
 		createEditingControls(conditionEditingControls, editConditionSelectionAdapter, project, conditionTextValue);
@@ -333,49 +334,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 				}
 			}
 		};
-	}
-
-	private static EmbeddedTextValue getConditionTextValue(final BehaviorTransition behaviorTransition,
-			final String sourceText) {
-		final int conditionOffset = getConditionOffset(behaviorTransition, sourceText);
-
-		// Text before condition text
-		final String prefix = sourceText.substring(0, conditionOffset);
-
-		// Find condition text and suffix
-		final String afterPrefix = sourceText.substring(conditionOffset);
-
-		// Note: condition.getAadlBaLocationReference().getLength() only counts until the first space (assuming).
-		// For example, when dispatch condition is "on dispatch" length is 2.
-		// Find closing "]", to get condition text
-		final int conditionEnd = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(afterPrefix, ']');
-
-		// Condition text
-		final String conditionText = afterPrefix.substring(0, conditionEnd).trim();
-
-		// Text after transition condition
-		final String suffix = afterPrefix.substring(conditionEnd);
-
-		// Create condition value
-		return new EmbeddedTextValue(sourceText, prefix, conditionText, suffix);
-	}
-
-	private static int getConditionOffset(final BehaviorTransition behaviorTransition, final String sourceText) {
-		final BehaviorCondition condition = behaviorTransition.getCondition();
-		final int conditionOffset;
-		if (condition == null) {
-			// Transition offset
-			final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
-			final Pair<Character, Character> charsToMatch = new Pair<Character, Character>('-', '[');
-			// Find index for beginning of condition text "-["
-			conditionOffset = BehaviorAnnexXtextUtil.findUncommentedCharPair(sourceText.substring(transitionOffset),
-					charsToMatch) + transitionOffset;
-		} else {
-			// Condition offset
-			conditionOffset = condition.getAadlBaLocationReference().getOffset();
-		}
-
-		return conditionOffset;
 	}
 
 	private static Optional<IXtextDocument> getXtextDocument(final BehaviorTransition behaviorTransition) {

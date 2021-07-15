@@ -29,6 +29,7 @@ import java.util.Optional;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.xtext.xbase.lib.Pair;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DataClassifier;
@@ -37,8 +38,12 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ba.aadlba.BehaviorCondition;
+import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ba.aadlba.DispatchCondition;
 import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.ba.ui.dialogs.EObjectDescriptionSingleSelectorModel;
+import org.osate.ge.ba.ui.properties.EmbeddedTextValue;
 import org.osate.ge.swt.selectors.FilteringSelectorDialog;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 
@@ -161,5 +166,66 @@ public class BehaviorAnnexUtil {
 		final NamedElement root = ne.getElementRoot();
 		final AadlPackage pkg = root instanceof AadlPackage ? (AadlPackage) root : null;
 		return Optional.ofNullable(pkg);
+	}
+
+	/**
+	 * Helper to create an {@link EmbeddedTextValue} and get text for the {@link DispatchCondition} of a specified {@link BehaviorTransition}
+	 */
+	public static class DispatchConditionHelper {
+		final String sourceText;
+		final int conditionOffset;
+		final String afterPrefix;
+		final int conditionEnd;
+		final String conditionText;
+
+		public DispatchConditionHelper(final BehaviorTransition behaviorTransition, final String sourceText) {
+			this.sourceText = sourceText;
+			conditionOffset = getConditionOffset(behaviorTransition, sourceText);
+			// Condition start
+			afterPrefix = sourceText.substring(conditionOffset);
+
+			// Note: condition.getAadlBaLocationReference().getLength() only counts until the first space (assuming).
+			// For example, when dispatch condition is "on dispatch" length is 2.
+			// Find closing "]", to get condition text
+			conditionEnd = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(afterPrefix, ']');
+			// Condition text
+			conditionText = afterPrefix.substring(0, conditionEnd).trim();
+		}
+
+		private static int getConditionOffset(final BehaviorTransition behaviorTransition, final String sourceText) {
+			final BehaviorCondition condition = behaviorTransition.getCondition();
+			final int conditionOffset;
+			if (condition == null) {
+				// Transition offset
+				final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
+				final Pair<Character, Character> charsToMatch = new Pair<Character, Character>('-', '[');
+				// Find index for beginning of condition text "-["
+				conditionOffset = BehaviorAnnexXtextUtil.findUncommentedCharPair(sourceText.substring(transitionOffset),
+						charsToMatch) + transitionOffset;
+			} else {
+				// Condition offset
+				conditionOffset = condition.getAadlBaLocationReference().getOffset();
+			}
+
+			return conditionOffset;
+		}
+
+		/**
+		 * Returns an {@link EmbeddedTextValue} for the {@link DispatchCondition}
+		 */
+		public EmbeddedTextValue createTextValue() {
+			// Text before condition text
+			final String prefix = sourceText.substring(0, conditionOffset);
+			// Text after condition
+			final String suffix = afterPrefix.substring(conditionEnd);
+			return new EmbeddedTextValue(afterPrefix, prefix, conditionText, suffix);
+		}
+
+		/**
+		 * Returns the text of the {@link DispatchCondition}
+		 */
+		public String getText() {
+			return conditionText;
+		}
 	}
 }

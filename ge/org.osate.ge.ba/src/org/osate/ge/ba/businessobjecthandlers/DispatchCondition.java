@@ -21,54 +21,28 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.diagram.diagramType;
+package org.osate.ge.ba.businessobjecthandlers;
 
-import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorTransition;
-import org.osate.ge.DiagramType;
-import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
-import org.osate.ge.ba.diagram.contentFilters.BehaviorStateFilter;
-import org.osate.ge.ba.diagram.contentFilters.BehaviorTransitionFilter;
-import org.osate.ge.ba.diagram.contentFilters.BehaviorVariableFilter;
-import org.osate.ge.ba.diagram.contentFilters.DispatchConditionFilter;
 
-import com.google.common.collect.ImmutableCollection;
-import com.google.common.collect.ImmutableSet;
+public class DispatchCondition {
+	private static final String NAME = "Dispatch Condition";
+	private static final String KEY_BEHAVIOR_TRANSITION_DISPATCH_CONDITION = "bt_dc"; // TODO add filter
+	public final BehaviorTransition owner;
 
-public class BehaviorSpecificatonDiagramType implements DiagramType {
-	public final static String ID = "ba.behavior_specification";
-
-	@Override
-	public String getId() {
-		return ID;
+	public DispatchCondition(final BehaviorTransition owner) {
+		this.owner = owner;
 	}
 
-	@Override
-	public String getName() {
-		return "Behavior Specification";
+	public BehaviorTransition getOwner() {
+		return owner;
 	}
 
-	@Override
-	public boolean isApplicableToContext(final Object contextBo) {
-		return contextBo instanceof DefaultAnnexSubclause
-				&& BehaviorAnnexReferenceUtil.ANNEX_NAME
-						.equalsIgnoreCase(((DefaultAnnexSubclause) contextBo).getName());
+	public String getKey() {
+		return KEY_BEHAVIOR_TRANSITION_DISPATCH_CONDITION;
 	}
 
-	@Override
-	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
-		if (bo instanceof BehaviorAnnex) {
-			return ImmutableSet.of(BehaviorVariableFilter.ID, BehaviorTransitionFilter.ID, BehaviorStateFilter.ID);
-		} else if (bo instanceof BehaviorTransition) {
-			return ImmutableSet.of(DispatchConditionFilter.ID);
-		}
-
-		return ImmutableSet.of();
-	}
-
-	@Override
-	public ImmutableCollection<String> getDefaultAadlPropertyNames() {
-		return ImmutableSet.of();
+	public final String getName() {
+		return NAME;
 	}
 }
