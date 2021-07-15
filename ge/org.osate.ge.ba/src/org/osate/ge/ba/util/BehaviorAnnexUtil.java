@@ -218,7 +218,7 @@ public class BehaviorAnnexUtil {
 			final String prefix = sourceText.substring(0, conditionOffset);
 			// Text after condition
 			final String suffix = afterPrefix.substring(conditionEnd);
-			return new EmbeddedTextValue(afterPrefix, prefix, conditionText, suffix);
+			return new EmbeddedTextValue(sourceText, prefix, conditionText, suffix);
 		}
 
 		/**
