@@ -25,7 +25,6 @@ package org.osate.ge.internal.ui.editor;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -168,7 +167,7 @@ public class DiagramContextChecker {
 
 			if (isPackageRef) {
 				options = packageDescriptions;
-			} else if (isClassifierRef) {
+			} else { // isClassifierRef
 				options = AadlModelAccessUtil.getAllEObjectsByType(project,
 						Aadl2Package.eINSTANCE.getClassifier());
 
@@ -185,8 +184,6 @@ public class DiagramContextChecker {
 						}
 					}
 				}
-			} else {
-				options = Collections.emptyList();
 			}
 		} else if (isSystemInstance) {
 			options = findInstanceModelFiles(project, new ArrayList<IPath>());

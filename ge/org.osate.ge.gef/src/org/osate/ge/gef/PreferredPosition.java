@@ -58,7 +58,7 @@ public class PreferredPosition {
 		final Point2D oldValue = get(node);
 		if (!Objects.equals(value, oldValue)) {
 			if (value == null) {
-				node.getProperties().remove(KEY, value);
+				node.getProperties().remove(KEY);
 			} else {
 				node.getProperties().put(KEY, value);
 			}

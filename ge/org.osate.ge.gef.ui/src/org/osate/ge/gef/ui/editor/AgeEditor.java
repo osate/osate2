@@ -282,7 +282,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		public IStructuredSelection getSelection() {
 			return this.currentSelection;
 		}
-	};
+	}
 
 	// This wrapper adds padding around the diagram.
 	private static class DiagramNodeWrapper extends Group {
@@ -350,9 +350,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private TooltipManager tooltipManager;
 	private final List<InputEventHandler> inputEventHandlers = new ArrayList<>();
 	private Interaction activeInteraction;
-	private final ISelectionListener toolPostSelectionListener = (part, selection) -> {
-		toolHandler.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
-	};
+	private final ISelectionListener toolPostSelectionListener = (part, selection) -> toolHandler
+			.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());;
+
 	private final IPartListener partListener = new IPartListener() {
 		@Override
 		public void partDeactivated(IWorkbenchPart part) {
@@ -376,6 +376,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		@Override
 		public void partOpened(IWorkbenchPart part) {
+			// Ignore
 		}
 
 		@Override
@@ -387,6 +388,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		@Override
 		public void partBroughtToTop(IWorkbenchPart part) {
+			// Ignore
 		}
 	};
 	private final IOperationHistoryListener operationHistoryListener = event -> {
@@ -461,9 +463,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	};
 
 	// Fields related to handling model and diagram updates
-	private boolean updateInProgress = false;
-	private boolean updateQueued = false; // Only accessed by UI thread
-	private boolean updateQueuedRequireVisible = false;
 	private boolean updateWhenVisible = false;
 	private volatile boolean dirtyModel = false;
 	private volatile boolean forceUpdateOnNextModelChange = false;
@@ -609,6 +608,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 			if (diagram != null) {
 				diagram.removeModificationListener(diagramModificationListener);
+				diagram.resetActionExecutor();
 			}
 
 			// Dispose of other objects
@@ -635,8 +635,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			if (fxCanvas != null) {
 				fxCanvas = null;
 			}
-
-			diagram.resetActionExecutor();
 
 			super.dispose();
 		} finally {
@@ -829,10 +827,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		// If the palette item changes while an interaction is active, deactivate the interaction.
 		this.paletteModel.activeItemProperty()
-				.addListener(
-						(javafx.beans.value.ChangeListener<SimplePaletteItem>) (observable, oldValue, newValue) -> {
-							deactivateInteraction();
-						});
+				.addListener((javafx.beans.value.ChangeListener<SimplePaletteItem>) (observable, oldValue,
+						newValue) -> deactivateInteraction());
 
 		// Initialize the JavaFX nodes based on the diagram
 		canvas = new InfiniteCanvas();
@@ -893,7 +889,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		// Listeners to handle tooltips
 		//
 		canvas.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e -> {
-			if (e.getTarget() instanceof Node && activeInteraction == null && tooltipManager != null) {
+			if (e.getTarget() instanceof Node && activeInteraction == null && tooltipManager != null
+					&& gefDiagram != null) {
 				final DiagramElement de = gefDiagram.getDiagramElement((Node) e.getTarget());
 				if (de != null) {
 					tooltipManager.mouseEnter(de);
@@ -902,7 +899,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		});
 
 		canvas.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e -> {
-			if (e.getTarget() instanceof Node && activeInteraction == null && tooltipManager != null) {
+			if (e.getTarget() instanceof Node && activeInteraction == null && tooltipManager != null
+					&& gefDiagram != null) {
 				final DiagramElement de = gefDiagram.getDiagramElement((Node) e.getTarget());
 				if (de != null) {
 					tooltipManager.mouseExit(de);
@@ -1077,8 +1075,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	@Override
 	public void doSave(final IProgressMonitor monitor) {
 		try {
-			final IFileEditorInput input = getInput();
-			final IFile diagramFile = input.getFile();
+			if (diagramFile == null) {
+				throw new AgeGefRuntimeException("diagram file is null");
+			}
 
 			// Handle the diagram being read-only
 			if (diagramFile.isReadOnly()) {
@@ -1141,37 +1140,16 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			return;
 		}
 
-		// A mutex is not needed because this runnable and other code that access variables used by this runnable are ran in the display thread
-		// Don't update if update is already in progress
-		if (!updateInProgress) {
-			updateQueued = false;
-			updateInProgress = true;
-
-			try {
-				// Don't update unless the diagram is visible
-				final boolean isVisible = fxCanvas != null && fxCanvas.isVisible();
-				if (!requireVisible || isVisible) {
-					// Update the entire diagram
-					updateWhenVisible = false;
-					dirtyModel = false;
-					updateDiagram();
-				} else {
-					// Queue the update for when the control becomes visible
-					updateWhenVisible = true;
-				}
-
-			} finally {
-				updateInProgress = false;
-			}
-
-			// Check if an update has been queued
-			if (updateQueued) {
-				updateDiagram(updateQueuedRequireVisible);
-			}
+		// Don't update unless the diagram is visible
+		final boolean isVisible = fxCanvas != null && fxCanvas.isVisible();
+		if (!requireVisible || isVisible) {
+			// Update the entire diagram
+			updateWhenVisible = false;
+			dirtyModel = false;
+			updateDiagram();
 		} else {
-			// Queue the update
-			updateQueued = true;
-			updateQueuedRequireVisible = updateQueuedRequireVisible && requireVisible;
+			// Queue the update for when the control becomes visible
+			updateWhenVisible = true;
 		}
 	}
 
