@@ -27,7 +27,6 @@ import org.osate.ba.aadlba.BehaviorTransition;
 
 public class DispatchCondition {
 	private static final String NAME = "Dispatch Condition";
-	private static final String KEY_BEHAVIOR_TRANSITION_DISPATCH_CONDITION = "bt_dc"; // TODO add filter
 	public final BehaviorTransition owner;
 
 	public DispatchCondition(final BehaviorTransition owner) {
@@ -36,10 +35,6 @@ public class DispatchCondition {
 
 	public BehaviorTransition getOwner() {
 		return owner;
-	}
-
-	public String getKey() {
-		return KEY_BEHAVIOR_TRANSITION_DISPATCH_CONDITION;
 	}
 
 	public final String getName() {

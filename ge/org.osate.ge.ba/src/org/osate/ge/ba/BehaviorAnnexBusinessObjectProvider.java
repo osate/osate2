@@ -23,17 +23,16 @@
  */
 package org.osate.ge.ba;
 
-import java.util.Objects;
 import java.util.stream.Stream;
 
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
-import org.osate.ge.ba.businessobjecthandlers.DispatchCondition;
 
 public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvider {
 	@Override
@@ -53,8 +52,8 @@ public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvid
 			return Stream.concat(Stream.concat(ba.getTransitions().stream(), ba.getStates().stream()),
 					ba.getVariables().stream());
 		} else if (bo instanceof BehaviorTransition) {
-			final BehaviorTransition bt = (BehaviorTransition) bo;
-			return getDispatchCondition(bt);
+			final BehaviorCondition condition = ((BehaviorTransition) bo).getCondition();
+			return condition == null ? Stream.empty() : Stream.of(condition);
 		}
 
 		return Stream.empty();
@@ -63,9 +62,5 @@ public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvid
 	private static Stream<BehaviorAnnex> getBehaviorAnnexes(final Classifier c) {
 		return GraphicalAnnexUtil.getAllParsedAnnexSubclauses(c, BehaviorAnnexReferenceUtil.ANNEX_NAME,
 				BehaviorAnnex.class);
-	}
-
-	private static Stream<?> getDispatchCondition(final BehaviorTransition bt) {
-		return Stream.of(bt).filter(Objects::nonNull).map(DispatchCondition::new);
 	}
 }

@@ -44,6 +44,9 @@ censes only apply to the Third Party Software and not any other portion of this 
       <contentFilter
             class="org.osate.ge.ba.diagram.contentFilters.BehaviorVariableFilter">
       </contentFilter>
+      <contentFilter
+            class="org.osate.ge.ba.diagram.contentFilters.DispatchConditionFilter">
+      </contentFilter>
    </extension>
    
    <extension
@@ -100,6 +103,9 @@ censes only apply to the Third Party Software and not any other portion of this 
       </handler>
       <handler
             class="org.osate.ge.ba.businessobjecthandlers.BehaviorVariableHandler">
+      </handler>
+      <handler
+            class="org.osate.ge.ba.businessobjecthandlers.DispatchConditionHandler">
       </handler>
    </extension>
    <extension point="org.osate.ge.paletteContributors">

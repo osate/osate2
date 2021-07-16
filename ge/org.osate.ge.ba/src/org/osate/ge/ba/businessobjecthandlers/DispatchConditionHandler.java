@@ -45,6 +45,7 @@ import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
+import org.osate.ge.services.ReferenceBuilderService;
 
 public class DispatchConditionHandler implements BusinessObjectHandler {
 	public final static String DISPATCH_CONDITION = BehaviorAnnexReferenceUtil.TRANSITION_TYPE + ".dispatch_condition";
@@ -57,13 +58,16 @@ public class DispatchConditionHandler implements BusinessObjectHandler {
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		return null;
+		final BehaviorTransition bt = ctx.getBusinessObject(DispatchCondition.class)
+				.map(DispatchCondition::getOwner)
+				.orElse(null);
+		final ReferenceBuilderService refBuilder = ctx.getReferenceBuilder();
+		return new CanonicalBusinessObjectReference(DISPATCH_CONDITION, refBuilder.getCanonicalReference(bt).encode());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(DISPATCH_CONDITION,
-				ctx.getBusinessObject(DispatchCondition.class).get().getKey());
+		return new RelativeBusinessObjectReference(DISPATCH_CONDITION);
 	}
 
 	@Override
