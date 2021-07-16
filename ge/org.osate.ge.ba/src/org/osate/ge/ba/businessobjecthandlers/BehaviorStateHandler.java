@@ -75,14 +75,15 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final BehaviorState behaviorState = ctx.getBusinessObject(BehaviorState.class).get();
+		final BehaviorState behaviorState = ctx.getBusinessObject(BehaviorState.class).orElseThrow();
 		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.STATE_TYPE,
-				behaviorState.getName());
+				behaviorState.getName(),
+				ctx.getReferenceBuilder().getCanonicalReference(behaviorState.getOwner()).encode());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		final BehaviorState behaviorState = ctx.getBusinessObject(BehaviorState.class).get();
+		final BehaviorState behaviorState = ctx.getBusinessObject(BehaviorState.class).orElseThrow();
 		return BehaviorAnnexReferenceUtil.getStateRelativeReference(behaviorState.getName());
 	}
 
@@ -98,10 +99,10 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 
 	@Override
 	public void delete(final CustomDeleteContext ctx) {
-		final BehaviorAnnex behaviorAnnex = ctx.getContainerBusinessObject(BehaviorAnnex.class).get();
+		final BehaviorAnnex behaviorAnnex = ctx.getContainerBusinessObject(BehaviorAnnex.class).orElseThrow();
 		// Find state by URI.
 		final BehaviorState behaviorState = (BehaviorState) behaviorAnnex.eResource().getResourceSet()
-				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorState.class).get()), true);
+				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorState.class).orElseThrow()), true);
 		EcoreUtil.remove(behaviorState);
 		if (behaviorAnnex.getStates().isEmpty()) {
 			behaviorAnnex.unsetStates();
@@ -110,7 +111,7 @@ public class BehaviorStateHandler implements BusinessObjectHandler, CustomDelete
 
 	@Override
 	public void rename(final RenameContext ctx) {
-		final BehaviorState behaviorState = ctx.getBusinessObject(BehaviorState.class).get();
+		final BehaviorState behaviorState = ctx.getBusinessObject(BehaviorState.class).orElseThrow();
 		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorState.getOwner();
 		final String originalName = behaviorState.getName();
 		final String newName = ctx.getNewName();

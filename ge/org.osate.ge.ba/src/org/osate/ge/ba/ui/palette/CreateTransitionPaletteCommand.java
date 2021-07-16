@@ -73,8 +73,8 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 			return Optional.empty();
 		}
 
-		final BehaviorState srcState = ctx.getSource().getBusinessObject(BehaviorState.class).get();
-		final BehaviorState dstState = ctx.getDestination().getBusinessObject(BehaviorState.class).get();
+		final BehaviorState srcState = ctx.getSource().getBusinessObject(BehaviorState.class).orElseThrow();
+		final BehaviorState dstState = ctx.getDestination().getBusinessObject(BehaviorState.class).orElseThrow();
 		return srcContainer.getBusinessObject(BehaviorAnnex.class)
 				.map(ba -> Operation.createSimple(srcContainer, BehaviorAnnex.class, boToModify -> {
 					final BehaviorTransition baTransition = (BehaviorTransition) EcoreUtil

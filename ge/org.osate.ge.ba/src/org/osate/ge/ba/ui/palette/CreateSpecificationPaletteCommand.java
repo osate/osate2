@@ -59,7 +59,7 @@ public class CreateSpecificationPaletteCommand extends BasePaletteCommand implem
 			}
 
 			return Operation.createWithBuilder(builder -> {
-				builder.supply(() -> StepResult.forValue(owner.get())).modifyPreviousResult(classifier -> {
+				builder.supply(() -> StepResult.forValue(owner.orElseThrow())).modifyPreviousResult(classifier -> {
 					// Create behavior annex
 					final BehaviorAnnex ba = createBehaviorAnnex(classifier);
 					// Show new specification

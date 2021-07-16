@@ -25,7 +25,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 <feature
       id="org.osate.ge.ba.feature"
       label="OSATE Graphical Editor Behavior Annex"
-      version="1.0.1.qualifier"
+      version="2.0.0.qualifier"
       provider-name="The University of Alabama in Huntsville"
       license-feature="org.osate.license"
       license-feature-version="1.0.1.qualifier">

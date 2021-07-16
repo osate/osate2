@@ -68,7 +68,7 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public void rename(final RenameContext ctx) {
-		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).get();
+		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).orElseThrow();
 		behaviorVariable.setName(ctx.getNewName());
 	}
 
@@ -79,10 +79,10 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public void delete(final CustomDeleteContext ctx) {
-		final BehaviorAnnex behaviorAnnex = ctx.getContainerBusinessObject(BehaviorAnnex.class).get();
+		final BehaviorAnnex behaviorAnnex = ctx.getContainerBusinessObject(BehaviorAnnex.class).orElseThrow();
 		// Find variable by URI.
 		final BehaviorVariable behaviorVariable = (BehaviorVariable) behaviorAnnex.eResource().getResourceSet()
-				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorVariable.class).get()), true);
+				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorVariable.class).orElseThrow()), true);
 		EcoreUtil.remove(behaviorVariable);
 		if (behaviorAnnex.getVariables().isEmpty()) {
 			behaviorAnnex.unsetVariables();
@@ -91,14 +91,15 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).get();
+		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).orElseThrow();
 		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.VARIABLE_TYPE,
-				behaviorVariable.getName());
+				behaviorVariable.getName(),
+				ctx.getReferenceBuilder().getCanonicalReference(behaviorVariable.getOwner()).encode());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).get();
+		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).orElseThrow();
 		return BehaviorAnnexReferenceUtil.getVariableRelativeReference(behaviorVariable.getName());
 	}
 

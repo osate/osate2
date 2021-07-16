@@ -56,19 +56,21 @@ public class ErrorModelPaletteContributor implements PaletteContributor {
 			commands.add(new CreateTypeSetAliasPaletteCommand());
 		}
 
-		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.IN, true));
-		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.IN, false));
-		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.OUT, true));
-		commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.OUT, false));
-		commands.add(CreateErrorSourceOrSinkPaletteCommand.createErrorSinkPaletteCommand());
-		commands.add(CreateErrorSourceOrSinkPaletteCommand.createErrorSourcePaletteCommand());
+		if (PaletteCommandUtil.diagramMayContainPackageOrComponentClassifiers(ctx)) {
+			commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.IN, true));
+			commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.IN, false));
+			commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.OUT, true));
+			commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.OUT, false));
+			commands.add(CreateErrorSourceOrSinkPaletteCommand.createErrorSinkPaletteCommand());
+			commands.add(CreateErrorSourceOrSinkPaletteCommand.createErrorSourcePaletteCommand());
 
-		commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getErrorEvent()));
-		commands.add(new CreatePropagationPointPaleteCommand());
-		commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getRepairEvent()));
-		commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getRecoverEvent()));
-		commands.add(new CreateStatePaletteCommand());
-		commands.add(new CreateStateMachinePaletteCommand());
+			commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getErrorEvent()));
+			commands.add(new CreatePropagationPointPaleteCommand());
+			commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getRepairEvent()));
+			commands.add(new CreateEventPaletteCommand(ErrorModelPackage.eINSTANCE.getRecoverEvent()));
+			commands.add(new CreateStatePaletteCommand());
+			commands.add(new CreateStateMachinePaletteCommand());
+		}
 
 		return commands.stream();
 	}
@@ -82,9 +84,11 @@ public class ErrorModelPaletteContributor implements PaletteContributor {
 			commands.add(new CreateTypeExtensionPaletteCommand());
 		}
 
-		commands.add(new CreateErrorPathPaletteCommand());
-		commands.add(new CreatePropagatonPathPaletteCommand());
-		commands.add(new CreateTransitionPaletteCommand());
+		if (PaletteCommandUtil.diagramMayContainPackageOrComponentClassifiers(ctx)) {
+			commands.add(new CreateErrorPathPaletteCommand());
+			commands.add(new CreatePropagatonPathPaletteCommand());
+			commands.add(new CreateTransitionPaletteCommand());
+		}
 
 		return commands.stream();
 	}

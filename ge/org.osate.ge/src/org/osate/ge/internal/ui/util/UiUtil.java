@@ -142,7 +142,7 @@ public class UiUtil {
 		if (Strings.isNullOrEmpty(baseName)) {
 			final String typeName = StringUtil.camelCaseToUser(
 					bo instanceof EObject ? ((EObject) bo).eClass().getName() : bo.getClass().getName());
-			return "<Unnamed " + typeName + ">";
+			return typeName;
 		}
 
 		return prefix + baseName;

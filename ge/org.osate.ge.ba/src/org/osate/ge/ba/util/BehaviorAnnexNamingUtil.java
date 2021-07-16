@@ -147,7 +147,7 @@ public class BehaviorAnnexNamingUtil {
 	 * @return empty if the name is valid.  Otherwise return the error message
 	 */
 	public static Optional<String> checkNameValidity(final RenameContext ctx) {
-		final NamedElement ne = ctx.getBusinessObject(NamedElement.class).get();
+		final NamedElement ne = ctx.getBusinessObject(NamedElement.class).orElseThrow();
 		final String newName = ctx.getNewName();
 		return checkNameValidity(ne, newName);
 	}

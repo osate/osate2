@@ -131,7 +131,7 @@ public class BehaviorVariablePropertySection extends AbstractPropertySection {
 				builder.supply(() -> {
 					final Optional<VariableOperation> variableOperation = getVariableBuildOperation(section, behaviorAnnex);
 					return !variableOperation.isPresent() ? StepResult.abort()
-							: StepResult.forValue(variableOperation.get());
+							: StepResult.forValue(variableOperation.orElseThrow());
 				}).executeOperation(variableOp -> Operation.createWithBuilder(innerBuilder -> {
 					final OperationBuilder<VariableOperation> opBuilder = innerBuilder.modifyModel(
 							variableOp.getPublicSection(), (tag, prevResult) -> tag,
