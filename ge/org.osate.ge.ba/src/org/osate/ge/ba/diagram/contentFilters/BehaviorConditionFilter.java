@@ -21,23 +21,32 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.businessobjecthandlers;
+package org.osate.ge.ba.diagram.contentFilters;
 
+import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ge.ContentFilter;
 
-public class DispatchCondition {
-	private static final String NAME = "Dispatch Condition";
-	public final BehaviorTransition owner;
+public class BehaviorConditionFilter implements ContentFilter {
+	public static final String ID = "ba.behaviorCondition";
 
-	public DispatchCondition(final BehaviorTransition owner) {
-		this.owner = owner;
+	@Override
+	public String getId() {
+		return ID;
 	}
 
-	public BehaviorTransition getOwner() {
-		return owner;
+	@Override
+	public String getName() {
+		return "Behavior Condition";
 	}
 
-	public final String getName() {
-		return NAME;
+	@Override
+	public boolean isApplicable(final Object bo) {
+		return bo instanceof BehaviorTransition;
+	}
+
+	@Override
+	public boolean test(final Object bo) {
+		return bo instanceof BehaviorCondition;
 	}
 }

@@ -59,8 +59,8 @@ import org.osate.ba.unparser.AadlBaUnparser;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ProjectUtil;
+import org.osate.ge.ba.businessobjecthandlers.BehaviorConditionUtil;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
-import org.osate.ge.ba.util.BehaviorAnnexUtil.DispatchConditionHelper;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
@@ -133,7 +133,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 				boc -> isBehaviorTransition(boc) && ProjectUtil.getProjectForBo(boc.getBusinessObject()).isPresent())
 				.findAny();
 		if (optSelectedBoc.isPresent()) {
-			final BusinessObjectContext selectedBoc = optSelectedBoc.get();
+			final BusinessObjectContext selectedBoc = optSelectedBoc.orElseThrow();
 			createEditControls();
 
 			final boolean isSingleSelection = selectedBos.bocStream().limit(2).count() == 1;
@@ -148,7 +148,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 						.orElseThrow(() -> new RuntimeException("resource must be XtextResource"));
 				final IXtextDocument xtextDocument = getXtextDocument(behaviorTransition).orElse(null);
 				final String sourceText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
-				// Controls for editing dispatch conditions
+				// Controls for editing behavior conditions
 				createConditionEditingControls(behaviorTransition, sourceText, project, editingDomain, xtextDocument,
 						xtextResource);
 				// Controls for editing action blocks
@@ -173,8 +173,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	private void createConditionEditingControls(final BehaviorTransition behaviorTransition, final String sourceText,
 			final IProject project, final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
 			final XtextResource xtextResource) {
-		final EmbeddedTextValue conditionTextValue = new DispatchConditionHelper(behaviorTransition, sourceText)
-				.createTextValue();
+		final EmbeddedTextValue conditionTextValue = BehaviorConditionUtil.createTextValue(behaviorTransition,
+				sourceText);
 		final SelectionAdapter editConditionSelectionAdapter = getEditConditionSelectionAdapter(project,
 				conditionTextValue, behaviorTransition, editingDomain, xtextDocument, xtextResource);
 		createEditingControls(conditionEditingControls, editConditionSelectionAdapter, project, conditionTextValue);

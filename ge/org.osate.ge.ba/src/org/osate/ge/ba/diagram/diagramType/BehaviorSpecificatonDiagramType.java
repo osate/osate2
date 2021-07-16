@@ -31,7 +31,7 @@ import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.diagram.contentFilters.BehaviorStateFilter;
 import org.osate.ge.ba.diagram.contentFilters.BehaviorTransitionFilter;
 import org.osate.ge.ba.diagram.contentFilters.BehaviorVariableFilter;
-import org.osate.ge.ba.diagram.contentFilters.DispatchConditionFilter;
+import org.osate.ge.ba.diagram.contentFilters.BehaviorConditionFilter;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
@@ -61,7 +61,7 @@ public class BehaviorSpecificatonDiagramType implements DiagramType {
 		if (bo instanceof BehaviorAnnex) {
 			return ImmutableSet.of(BehaviorVariableFilter.ID, BehaviorTransitionFilter.ID, BehaviorStateFilter.ID);
 		} else if (bo instanceof BehaviorTransition) {
-			return ImmutableSet.of(DispatchConditionFilter.ID);
+			return ImmutableSet.of(BehaviorConditionFilter.ID);
 		}
 
 		return ImmutableSet.of();

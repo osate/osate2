@@ -36,6 +36,10 @@ public class BehaviorAnnexReferenceUtil {
 	public static final String STATE_TYPE = BA_REFERENCE_PREFIX + "behavior_state";
 	public static final String TRANSITION_TYPE = BA_REFERENCE_PREFIX + "behavior_transition";
 	public static final String VARIABLE_TYPE = BA_REFERENCE_PREFIX + "behavior_variable";
+	/**
+	 * @since 2.0
+	 */
+	public final static String BEHAVIOR_CONDITION = BA_REFERENCE_PREFIX + "behavior_condition";
 
 	public static RelativeBusinessObjectReference getSpecificationRelativeReference(final int index) {
 		return AnnexHandler.getRelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.ANNEX_SUBCLAUSE,

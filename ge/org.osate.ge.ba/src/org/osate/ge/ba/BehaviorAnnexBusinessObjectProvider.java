@@ -52,8 +52,9 @@ public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvid
 			return Stream.concat(Stream.concat(ba.getTransitions().stream(), ba.getStates().stream()),
 					ba.getVariables().stream());
 		} else if (bo instanceof BehaviorTransition) {
-			final BehaviorCondition condition = ((BehaviorTransition) bo).getCondition();
-			return condition == null ? Stream.empty() : Stream.of(condition);
+			final BehaviorTransition bt = (BehaviorTransition) bo;
+			final BehaviorCondition bc = bt.getCondition();
+			return bc == null ? Stream.empty() : Stream.of(bc);
 		}
 
 		return Stream.empty();

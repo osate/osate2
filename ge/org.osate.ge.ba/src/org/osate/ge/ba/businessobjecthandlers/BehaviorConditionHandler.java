@@ -28,15 +28,16 @@ import java.util.Optional;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
-import org.osate.ge.ba.util.BehaviorAnnexUtil.DispatchConditionHelper;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
@@ -45,29 +46,26 @@ import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
-import org.osate.ge.services.ReferenceBuilderService;
 
-public class DispatchConditionHandler implements BusinessObjectHandler {
-	public final static String DISPATCH_CONDITION = BehaviorAnnexReferenceUtil.TRANSITION_TYPE + ".dispatch_condition";
+public class BehaviorConditionHandler implements BusinessObjectHandler {
 	private final Graphic labelGraphic = LabelBuilder.create().build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(DispatchCondition.class).isPresent();
+		return ctx.getBusinessObject(BehaviorCondition.class).isPresent();
 	}
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final BehaviorTransition bt = ctx.getBusinessObject(DispatchCondition.class)
-				.map(DispatchCondition::getOwner)
-				.orElse(null);
-		final ReferenceBuilderService refBuilder = ctx.getReferenceBuilder();
-		return new CanonicalBusinessObjectReference(DISPATCH_CONDITION, refBuilder.getCanonicalReference(bt).encode());
+		final BehaviorCondition bc = ctx.getBusinessObject(BehaviorCondition.class)
+				.orElseThrow();
+		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.BEHAVIOR_CONDITION,
+				ctx.getReferenceBuilder().getCanonicalReference(bc.getOwner()).encode());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return new RelativeBusinessObjectReference(DISPATCH_CONDITION);
+		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.BEHAVIOR_CONDITION);
 	}
 
 	@Override
@@ -77,24 +75,27 @@ public class DispatchConditionHandler implements BusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(DispatchCondition.class)
-				.map(DispatchCondition::getName)
-				.orElse("");
+		return "";
 	}
 
 	@Override
 	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
 		return ctx.getBusinessObjectContext()
-				.getBusinessObject(DispatchCondition.class)
-				.map(DispatchCondition::getOwner)
-				.map(owner -> {
-					final XtextResource xtextResource = getXtextResource(owner)
+				.getBusinessObject(BehaviorCondition.class)
+				.map(bc -> {
+					final BehaviorTransition bt = (BehaviorTransition) bc.getOwner();
+					final XtextResource xtextResource = getXtextResource(bt)
 							.orElseThrow(() -> new RuntimeException("resource must be XtextResource"));
-					final IXtextDocument xtextDocument = getXtextDocument(owner).orElse(null);
+					final IXtextDocument xtextDocument = getXtextDocument(bt).orElse(null);
 					final String sourceText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
-					return new DispatchConditionHelper(owner, sourceText).getText();
+					return BehaviorConditionUtil.getConditionText(bt, sourceText);
 				})
-				.orElse("");
+				.orElseThrow();
+	}
+
+	@Override
+	public boolean canDelete(final CanDeleteContext ctx) {
+		return true;
 	}
 
 	private static Optional<XtextResource> getXtextResource(final BehaviorTransition behaviorTransition) {
