@@ -112,13 +112,17 @@ public class RelativeBusinessObjectReference implements Comparable<RelativeBusin
 	}
 
 	/**
-	 * Returns an unmodifiable list containing the segments.
-	 * @return
+	 * Returns an immutable list containing the segments.
+	 * @return an immutable list of segments.
 	 */
 	public List<String> getSegments() {
 		return segments;
 	}
 
+	/**
+	 * Converts the instance to an instance of the serialized diagram model type.
+	 * @return the converted object.
+	 */
 	public org.osate.ge.diagram.RelativeBusinessObjectReference toMetamodel() {
 		final org.osate.ge.diagram.RelativeBusinessObjectReference newValue = new org.osate.ge.diagram.RelativeBusinessObjectReference();
 		for(final String seg : segments) {

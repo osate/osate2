@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
+ * Utility functions related to {@link String}
  * @since 2.0
  */
 public class StringUtil {
@@ -47,11 +48,11 @@ public class StringUtil {
 	}
 
 	/**
-	 * Accepts a string, searches it for all uppercase characters and then ensures the first character is capitalized. When a
+	 * Accepts a string, searches it for all upper-case characters and then ensures the first character is capitalized. When a
 	 * capital character found the method inserts a space at the end of the string for every capital letter and shifts all characters
 	 * at and below the current index to index + 1. Then a space is inserted at the current index and the method continues.
 	 * @param str the string to be made processed
-	 * @return A more human readable version of str
+	 * @return A more human readable version of the specified string.
 	 */
 	public static String camelCaseToUser(final String str){
 
@@ -88,6 +89,11 @@ public class StringUtil {
 		return h_str;
 	}
 
+	/**
+	 * Returns the specified string with the first letter capitalized.
+	 * @param value the string to capitalize
+	 * @return the capitalized string. If the specified string is null or empty, the specified string is returned.
+	 */
 	public static String capitalize(final String value) {
 		if (value == null || value.length() == 0) {
 			return value;
@@ -97,11 +103,24 @@ public class StringUtil {
 	}
 
 	/**
-	 * Converts a string which is in upper underscore format to a phrase which is all in lowercase. Example NEW_CLASSIFIER => new classifier
-	 * @param value
-	 * @return
+	 * Deprecated. Use @link #snakeCaseToLowercaseUser(String)}.
+	 * @param value is the string to convert.
+	 * @return the converted string.
+	 * @deprecated use {@link #snakeCaseToLowercaseUser(String)}
 	 */
+	@Deprecated
 	public static String upperUnderscoreToLowercaseUser(final String value) {
+		return snakeCaseToLowercaseUser(value);
+	}
+
+	/**
+	 * Converts a string which is in snake case format to a phrase which is all in lower-case and which has underscores replaced with
+	 * spaces. Example NEW_CLASSIFIER => new classifier
+	 * @param value a snake case string
+	 * @return the resulting string
+	 * @since 3.0
+	 */
+	public static String snakeCaseToLowercaseUser(final String value) {
 		return Arrays.stream(value.split("_")).map(String::toLowerCase).collect(Collectors.joining(" "));
 	}
 }

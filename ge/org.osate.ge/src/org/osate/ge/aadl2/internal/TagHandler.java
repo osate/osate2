@@ -89,7 +89,6 @@ public class TagHandler extends AadlBusinessObjectHandler {
 
 		return Optional.of(GraphicalConfigurationBuilder.create().
 				graphic(graphic).
-				decoration().
 				build());
 	}
 

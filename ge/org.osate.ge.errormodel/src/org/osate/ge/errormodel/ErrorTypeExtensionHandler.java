@@ -105,7 +105,7 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 		final BusinessObjectContext destination = getDestination(boc, queryService);
 
 		if (destination == null) {
-			return Optional.of(GraphicalConfigurationBuilder.create().graphic(labelGraphic).decoration().build());
+			return Optional.of(GraphicalConfigurationBuilder.create().graphic(labelGraphic).build());
 		} else {
 			return Optional.of(GraphicalConfigurationBuilder.create().graphic(connectionGraphic).style(style)
 					.source(boc.getParent())

@@ -38,12 +38,12 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
 /**
- *
+ * Class for exporting diagrams as PNG images. This class is deprecated and should not be used.
  * @noextend
  * @deprecated use {@link DiagramExportService}
  */
 @Deprecated
-public class DiagramExporter {
+public final class DiagramExporter {
 	// All methods are static
 	private DiagramExporter() {
 	}

@@ -26,7 +26,7 @@ package org.osate.ge;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 
 /**
- * Describes a docking position.
+ * Describes a docking position. Uses to specify the default docking position for a diagram element.
  */
 public enum DockingPosition {
 	ANY(DockArea.LEFT),
@@ -36,9 +36,12 @@ public enum DockingPosition {
 	TOP(DockArea.TOP),
 	BOTTOM(DockArea.BOTTOM);
 
+	/**
+	 * The dock area to use for the docking position. {@link DockArea} is not an API type.
+	 */
 	private final DockArea defaultDockArea;
 
-	DockingPosition(DockArea defaultDockArea) {
+	DockingPosition(final DockArea defaultDockArea) {
 		this.defaultDockArea = defaultDockArea;
 	}
 
