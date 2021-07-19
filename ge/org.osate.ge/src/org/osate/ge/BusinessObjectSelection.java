@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.ge.operations.OperationBuilder;
 
 /**
- * Interface for accessing a set of selected business objects.
+ * Interface for accessing a collection of selected business objects.
  */
 public interface BusinessObjectSelection {
 	/**

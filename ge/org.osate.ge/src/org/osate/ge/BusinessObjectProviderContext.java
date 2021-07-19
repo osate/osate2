@@ -51,6 +51,7 @@ public final class BusinessObjectProviderContext {
 
 	/**
 	 * Provides access to the business object context for which the business object provider is being called.
+	 * Contributed objects are considered logical children of the business object referenced by the business object context.
 	 * @return the business object context
 	 */
 	public BusinessObjectContext getBusinessObjectContext() {
