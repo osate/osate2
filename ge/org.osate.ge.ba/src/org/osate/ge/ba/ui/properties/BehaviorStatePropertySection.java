@@ -161,7 +161,7 @@ public class BehaviorStatePropertySection extends AbstractPropertySection {
 		@Override
 		public void widgetSelected(final SelectionEvent e) {
 			selectedBos.modify(label, boc -> boc.getBusinessObject(BehaviorState.class).isPresent(),
-					boc -> boc.getBusinessObject(BehaviorState.class).get(),
+					boc -> boc.getBusinessObject(BehaviorState.class).orElseThrow(),
 					(behaviorState, boc) -> modifier.accept(behaviorState, ((Button) e.getSource()).getSelection()));
 		}
 	}
