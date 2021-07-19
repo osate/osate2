@@ -52,6 +52,7 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.diagramtypes.CustomDiagramType;
 import org.osate.ge.diagram.DiagramElement;
 import org.osate.ge.diagram.DiagramNode;
+import org.osate.ge.internal.GraphicalEditorException;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
@@ -352,7 +353,7 @@ public class SavedDiagramIndex {
 				}
 			} catch (CoreException e) {
 				Log.error("Error finding diagrams", e);
-				throw new RuntimeException(e);
+				throw new GraphicalEditorException(e);
 			}
 
 			return diagramFiles;
@@ -455,7 +456,7 @@ public class SavedDiagramIndex {
 		@Override
 		public Collection<? extends BusinessObjectContext> getChildren() {
 			// This should not be called since business object providers are not given access to the business object context's children
-			throw new RuntimeException("Not supported");
+			throw new GraphicalEditorException("Not supported");
 		}
 
 		@Override

@@ -93,7 +93,7 @@ public final class GraphicalAnnexUtil {
 
 		// Create the parsed library as needed
 		final T result = getParsedAnnexLibrary(defaultLib, parsedType).orElse(null);
-		if(result != null) {
+		if (result != null) {
 			return result;
 		}
 
@@ -179,13 +179,10 @@ public final class GraphicalAnnexUtil {
 			final EClass parsedEType, final Class<T> parsedType) {
 		// Get or create the DefaultAnnexSubclause
 		final DefaultAnnexSubclause defaultSubclause = getAllDefaultAnnexSubclauses(classifier, annexName).findFirst()
-				.orElseGet(() -> {
-					// Must create new annex
-					return createAnnexSubclause(classifier, annexName);
-				});
+				.orElseGet(() -> createAnnexSubclause(classifier, annexName));
 
 		// Create the parsed subclause as needed
-		final T result =  getParsedAnnexSubclause(defaultSubclause, parsedType).orElse(null);
+		final T result = getParsedAnnexSubclause(defaultSubclause, parsedType).orElse(null);
 		if (result != null) {
 			return result;
 		}
@@ -222,8 +219,7 @@ public final class GraphicalAnnexUtil {
 	 * @since 2.1
 	 */
 	public static <T> T createParsedAnnexSubclause(final Classifier classifier, final String annexName,
-			final EClass parsedEType,
-			final Class<T> parsedType) {
+			final EClass parsedEType, final Class<T> parsedType) {
 		// Must create new annex
 		final DefaultAnnexSubclause defaultSubclause = createAnnexSubclause(classifier, annexName);
 		return parsedType.cast(defaultSubclause.createParsedAnnexSubclause(parsedEType));
@@ -249,8 +245,10 @@ public final class GraphicalAnnexUtil {
 	 * @param annexName is the name of the annex subclauses to look for
 	 * @return a stream containing the matching subclauses
 	 */
-	private static Stream<DefaultAnnexSubclause> getAllDefaultAnnexSubclauses(final Classifier classifier, final String annexName) {
-		return classifier.getOwnedAnnexSubclauses().stream()
+	private static Stream<DefaultAnnexSubclause> getAllDefaultAnnexSubclauses(final Classifier classifier,
+			final String annexName) {
+		return classifier.getOwnedAnnexSubclauses()
+				.stream()
 				.filter(subclause -> annexName.equalsIgnoreCase(subclause.getName())
 						&& subclause instanceof DefaultAnnexSubclause)
 				.map(DefaultAnnexSubclause.class::cast);
@@ -306,7 +304,8 @@ public final class GraphicalAnnexUtil {
 		final String trimmedSrc = src.trim();
 		if (trimmedSrc.startsWith(ANNEX_SOURCE_START) && trimmedSrc.endsWith(ANNEX_SOURCE_END)) {
 			final String innerSrc = trimmedSrc
-					.substring(ANNEX_SOURCE_START.length(), trimmedSrc.length() - ANNEX_SOURCE_END.length()).trim();
+					.substring(ANNEX_SOURCE_START.length(), trimmedSrc.length() - ANNEX_SOURCE_END.length())
+					.trim();
 			return innerSrc.isEmpty();
 		}
 

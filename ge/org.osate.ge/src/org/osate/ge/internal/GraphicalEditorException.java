@@ -21,36 +21,45 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.diagram.runtime.layout;
+package org.osate.ge.internal;
 
-import java.util.Objects;
-
-import org.osate.ge.graphics.Point;
-import org.osate.ge.graphics.internal.AgeConnection;
-import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.DiagramModification;
+import org.osate.ge.aadl2.AadlGraphicalEditorException;
 
 /**
- * Interface for objects that are used to map from the ElkLabel to the diagram.
- * This is needed because the primary label position for connections is stored in the connection's diagram element.
- * Since the connection diagram element is mapped to the ElkEdge, a new object is needed for the mapping of the primary ElkLabel.
- * This interface allows simplifying the handling of the differences between primary and secondary connection labels.
+ * Runtime Exception thrown when an error occurs for which a specialized exception does not exist.
+ * @since 3.0
+ * @see AadlGraphicalEditorException
  */
-class PrimaryConnectionLabelReference implements ConnectionLabelReference {
-	private DiagramElement connectionDiagramElement;
+public class GraphicalEditorException extends RuntimeException {
+	/**
+	 * Serializable version number for class
+	 */
+	private static final long serialVersionUID = 3483334265203033480L;
 
-	public PrimaryConnectionLabelReference(final DiagramElement connectionDiagramElement) {
-		this.connectionDiagramElement = Objects.requireNonNull(connectionDiagramElement,
-				"connectionDiagramElement must not be null");
-
-		if (!(connectionDiagramElement.getGraphic() instanceof AgeConnection)) {
-			throw new IllegalArgumentException("Diagram element must be a connection");
-		}
+	/**
+	 * Creates a new instance
+	 * @param message is the message to include in the exception
+	 */
+	public GraphicalEditorException(final String message) {
+		super(message);
 	}
 
-	@Override
-	public void setPosition(DiagramModification modification, Point position) {
-		modification.setConnectionPrimaryLabelPosition(connectionDiagramElement, position);
+	/**
+	 * Creates a new instance
+	 * @param cause the cause of the exception. The exception which this exception wraps.
+	 * @see RuntimeException#RuntimeException(Throwable)
+	 */
+	public GraphicalEditorException(final Throwable cause) {
+		super(cause);
 	}
 
+	/**
+	 * Creates a new instance
+	 * @param message is the message to include in the exception
+	 * @param cause the cause of the exception. The exception which this exception wraps.
+	 * @see RuntimeException#RuntimeException(String, Throwable)
+	 */
+	public GraphicalEditorException(final String message, final Throwable cause) {
+		super(message, cause);
+	}
 }

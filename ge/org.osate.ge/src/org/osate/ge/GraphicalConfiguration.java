@@ -73,7 +73,8 @@ public final class GraphicalConfiguration {
 	}
 
 	/**
-	 * Returns the default docking position of the diagram element.
+	 * Returns the default docking position of the diagram element. Used to determine if diagram element is a docked element.
+	 * The layout algorithm is not required to dock the diagram to the requested side.
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final DockingPosition getDefaultDockingPosition() {

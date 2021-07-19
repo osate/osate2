@@ -39,7 +39,7 @@ public interface BusinessObjectContext {
 	BusinessObjectContext getParent();
 
 	/**
-	 * The children which are available for this context.
+	 * The children which are available for this context. The returned collection is not guaranteed to be modifiable.
 	 * @return the context's children.
 	 * @since 2.0
 	 */

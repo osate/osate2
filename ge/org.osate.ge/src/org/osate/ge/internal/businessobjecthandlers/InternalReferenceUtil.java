@@ -53,7 +53,7 @@ public class InternalReferenceUtil {
 		final List<String> segs = ref.getSegments();
 		if (segs.get(0).equals(TYPE_NOTE)) {
 			if (segs.size() != 2) {
-				throw new RuntimeException("Invalid reference for note. Number of segments: " + segs.size());
+				throw new IllegalArgumentException("Invalid reference for note. Number of segments: " + segs.size());
 			}
 
 			final UUID id = UUID.fromString(segs.get(1));
@@ -62,7 +62,8 @@ public class InternalReferenceUtil {
 			return new Note(id, text);
 		} else if (segs.get(0).equals(TYPE_NOTE_REFERENCE)) {
 			if (segs.size() != 2) {
-				throw new RuntimeException("Invalid reference for note reference. Number of segments: " + segs.size());
+				throw new IllegalArgumentException(
+						"Invalid reference for note reference. Number of segments: " + segs.size());
 			}
 
 			final UUID referencedDiagramElementId = UUID.fromString(segs.get(1));

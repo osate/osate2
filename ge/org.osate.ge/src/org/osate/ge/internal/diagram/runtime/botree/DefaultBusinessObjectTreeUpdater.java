@@ -61,6 +61,7 @@ import org.osate.ge.aadl2.internal.aadlproperties.ReferenceValueWithContext;
 import org.osate.ge.aadl2.internal.model.AgePropertyValue;
 import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
 import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
+import org.osate.ge.internal.GraphicalEditorException;
 import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.model.BusinessObjectProxy;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
@@ -162,14 +163,14 @@ public class DefaultBusinessObjectTreeUpdater implements BusinessObjectTreeUpdat
 			Object contextBo = refService.resolve(configuration.getContextBoReference());
 			if (contextBo == null) {
 				final String contextLabel = refService.getLabel(configuration.getContextBoReference());
-				throw new RuntimeException("Unable to find context business object: "
+				throw new GraphicalEditorException("Unable to find context business object: "
 						+ contextLabel);
 			}
 
 			// Require the use of the business object specified in the diagram along with any other business objects which are already in the diagram.
 			final RelativeBusinessObjectReference relativeReference = refService.getRelativeReference(contextBo);
 			if (relativeReference == null) {
-				throw new RuntimeException(
+				throw new GraphicalEditorException(
 						"Unable to build relative reference for context business object: " + contextBo);
 			}
 

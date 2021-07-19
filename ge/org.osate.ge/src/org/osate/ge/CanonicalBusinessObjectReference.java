@@ -51,13 +51,13 @@ public final class CanonicalBusinessObjectReference {
 	 */
 	public CanonicalBusinessObjectReference(final String... segments) {
 		if (segments == null || segments.length < 1) {
-			throw new RuntimeException("segments must contain at least one segment");
+			throw new IllegalArgumentException("segments must contain at least one segment");
 		}
 
 		// Check that all segments are non-null
 		for (final String seg : segments) {
 			if (seg == null) {
-				throw new RuntimeException("segment is null");
+				throw new IllegalArgumentException("segment is null");
 			}
 		}
 
@@ -89,10 +89,7 @@ public final class CanonicalBusinessObjectReference {
 		}
 
 		final CanonicalBusinessObjectReference other = (CanonicalBusinessObjectReference)obj;
-		if (!lcSegments.equals(other.lcSegments)) {
-			return false;
-		}
-		return true;
+		return lcSegments.equals(other.lcSegments);
 	}
 
 	@Override

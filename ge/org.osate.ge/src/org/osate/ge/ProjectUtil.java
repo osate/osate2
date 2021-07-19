@@ -57,21 +57,19 @@ public final class ProjectUtil {
 	 * @return relevantProjects
 	 */
 	public static Set<IProject> getAffectedProjects(final IProject project, final Set<IProject> relevantProjects) {
-		if (project.isAccessible()) {
-			if (relevantProjects.add(project)) {
-				// Get referencing projects if the project was not already part of the relevant projects set
-				for (final IProject referencingProject : project.getReferencingProjects()) {
-					getAffectedProjects(referencingProject, relevantProjects);
-				}
+		if (project.isAccessible() && relevantProjects.add(project)) {
+			// Get referencing projects if the project was not already part of the relevant projects set
+			for (final IProject referencingProject : project.getReferencingProjects()) {
+				getAffectedProjects(referencingProject, relevantProjects);
+			}
 
-				// Get referenced projects if the project was not already part of the relevant projects set
-				try {
-					for (final IProject referencedProject : project.getReferencedProjects()) {
-						getAffectedProjects(referencedProject, relevantProjects);
-					}
-				} catch (final CoreException e) {
-					// Ignore
+			// Get referenced projects if the project was not already part of the relevant projects set
+			try {
+				for (final IProject referencedProject : project.getReferencedProjects()) {
+					getAffectedProjects(referencedProject, relevantProjects);
 				}
+			} catch (final CoreException e) {
+				// Ignore
 			}
 		}
 
@@ -117,8 +115,7 @@ public final class ProjectUtil {
 	 * @return the project. Throws an exception if unable to retrieve the project.
 	 */
 	public static IProject getProjectOrThrow(final URI uri) {
-		return getProject(uri)
-				.orElseThrow(() -> new RuntimeException("Unable to receive project. URI: " + uri));
+		return getProject(uri).orElseThrow(() -> new RuntimeException("Unable to receive project. URI: " + uri));
 	}
 
 	/**
