@@ -44,7 +44,9 @@ import org.osgi.framework.FrameworkUtil;
  */
 @Deprecated
 public final class DiagramExporter {
-	// All methods are static
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private DiagramExporter() {
 	}
 

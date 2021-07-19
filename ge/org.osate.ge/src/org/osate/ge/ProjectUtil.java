@@ -41,6 +41,9 @@ import org.eclipse.emf.ecore.resource.Resource;
  * @since 2.0
  */
 public final class ProjectUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private ProjectUtil() {
 	}
 

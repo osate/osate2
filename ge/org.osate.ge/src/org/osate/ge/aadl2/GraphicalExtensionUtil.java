@@ -29,18 +29,31 @@ import org.osate.ge.aadl2.internal.util.AadlInheritanceUtil;
 import org.osate.ge.graphics.Style;
 
 /**
- *
+ * Utility class containing miscellaneous members useful for implementing graphical editor extensions.
  * @noextend
  * @since 2.0
  */
-public class GraphicalExtensionUtil {
-	// All methods are static
+public final class GraphicalExtensionUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private GraphicalExtensionUtil() {
 	}
 
+	/**
+	 * The default style for inherited diagram elements.
+	 * An element is considered inherited if it was not defined by its graphical parent.
+	 * For example a feature inside of a subcomponent is considered inherited. An element from an extended classifier which has not been refined
+	 * is another example of an inherited element.
+	 */
+	public static final Style STYLE_INHERITED_ELEMENT = Styles.INHERITED_ELEMENT;
+
+	/**
+	 *
+	 * @param boc
+	 * @return
+	 */
 	public static boolean isInherited(final BusinessObjectContext boc) {
 		return AadlInheritanceUtil.isInherited(boc);
 	}
-
-	public static final Style STYLE_INHERITED_ELEMENT = Styles.INHERITED_ELEMENT;
 }

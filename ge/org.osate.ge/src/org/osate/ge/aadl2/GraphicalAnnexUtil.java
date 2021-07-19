@@ -41,7 +41,7 @@ import org.osate.aadl2.DefaultAnnexSubclause;
  * @noextend
  * @since 2.0
  */
-public class GraphicalAnnexUtil {
+public final class GraphicalAnnexUtil {
 	/**
 	 * Source value to use when creating a new annex library or subclause
 	 */
@@ -57,7 +57,9 @@ public class GraphicalAnnexUtil {
 	 */
 	private static final String ANNEX_SOURCE_END = "**}";
 
-	// All methods are static
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private GraphicalAnnexUtil() {
 	}
 
@@ -195,6 +197,13 @@ public class GraphicalAnnexUtil {
 		}
 	}
 
+	/**
+	 * Creates a new {@link DefaultAnnexSubclause} instance which contains default source text. The default source text only contains an empty annex
+	 * source block.
+	 * @param classifier the classifier to which to add the subclause
+	 * @param annexName the name of the annex
+	 * @return the new annex subclause
+	 */
 	private static DefaultAnnexSubclause createAnnexSubclause(final Classifier classifier, final String annexName) {
 		final DefaultAnnexSubclause subclause = classifier.createOwnedAnnexSubclause();
 		subclause.setName(annexName);

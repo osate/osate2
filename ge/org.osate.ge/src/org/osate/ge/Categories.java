@@ -31,6 +31,9 @@ import org.osate.ge.palette.internal.AgePaletteContributor;
  * @see PaletteCommand#getCategoryId()
  */
 public final class Categories {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private Categories() {
 	}
 

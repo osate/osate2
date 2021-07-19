@@ -27,12 +27,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.internal.services.impl.ReferenceEncoder;
 
 import com.google.common.collect.ImmutableList;
 
 /**
- * Immutable data type for canonical references to a business object.
+ * Immutable data type for canonical references to a business object. Canonical business object references are created for a
+ * business object using the registered {@link BusinessObjectHandler}.
  * A canonical reference uniquely identifies a business object in the context of the current project.
  * If the canonical references of two business objects are equal, then the business objects are treated as being the same object.
  * @since 2.0

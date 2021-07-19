@@ -30,11 +30,12 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
 /**
- * Stores data needed to represent a business object graphically. Provides by the business object handler.
+ * Stores data needed to represent a business object graphically. Provided by a diagram element's {@link org.osate.ge.businessobjecthandling.BusinessObjectHandler}.
  * GraphicalConfiguration objects must be created using the {@link GraphicalConfigurationBuilder} class.
  * @noextend This class is not intended to be subclassed by clients.
  * @noinstantiate This class is not intended to be instantiated by clients.
  * @see GraphicalConfigurationBuilder
+ * @see org.osate.ge.businessobjecthandling.BusinessObjectHandler
  */
 public final class GraphicalConfiguration {
 	private final Graphic graphic;

@@ -30,8 +30,7 @@ import com.google.common.collect.ImmutableSet;
  * A diagram type defines specialized behavior for a diagram.
  * Specifically, the diagram types define the content filters which determine which business objects are shown by default and
  * which AADL properties are shown by default.
- * Diagram types are registered using the org.osate.ge.diagramTypes extension point.
- *
+ * Diagram types are registered using the <i>org.osate.ge.diagramTypes</i> extension point.
  */
 public interface DiagramType {
 	/**

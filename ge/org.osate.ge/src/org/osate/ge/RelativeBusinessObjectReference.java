@@ -27,10 +27,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+
 import com.google.common.collect.ImmutableList;
 
 /**
- * Immutable data type for relative references to a business object.
+ * Immutable data type for relative references to a business object. Relative business object references are created for a
+ * business object using the registered {@link BusinessObjectHandler}.
  * A relative reference along with a containing diagram element must uniquely identify the business object.
  * @since 2.0
  */

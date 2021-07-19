@@ -30,6 +30,7 @@ import java.util.stream.Stream;
  * be available in the graphical editor. Business object providers are registered using the
  * org.osate.ge.businessObjectProviders extension point. All objects contributed by a business object provider must also have
  * a {@link org.osate.ge.businessobjecthandling.BusinessObjectHandler} registered.
+ * Business object providers are registered using the <i>org.osate.ge.businessObjectProviders</i> extension point.
  * @since 2.0
  */
 public interface BusinessObjectProvider {

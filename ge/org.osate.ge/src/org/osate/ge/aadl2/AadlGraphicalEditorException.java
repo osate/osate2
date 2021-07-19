@@ -36,6 +36,10 @@ public class AadlGraphicalEditorException extends RuntimeException {
 	 */
 	private static final long serialVersionUID = 4833667000981390562L;
 
+	/**
+	 * Creates a new instance
+	 * @param message is the message to include in the exception
+	 */
 	public AadlGraphicalEditorException(final String message) {
 		super(message);
 	}

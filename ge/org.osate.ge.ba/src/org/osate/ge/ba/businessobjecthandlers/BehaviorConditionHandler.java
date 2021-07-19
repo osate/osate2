@@ -70,7 +70,7 @@ public class BehaviorConditionHandler implements BusinessObjectHandler {
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(labelGraphic).decoration().build());
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(labelGraphic).build());
 	}
 
 	@Override
