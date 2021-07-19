@@ -21,41 +21,32 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba;
+package org.osate.ge.ba.diagram.contentFilters;
 
-import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.aadl2.internal.AnnexHandler;
+import org.osate.ba.aadlba.BehaviorCondition;
+import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ge.ContentFilter;
 
-public class BehaviorAnnexReferenceUtil {
-	private BehaviorAnnexReferenceUtil() {
+public class BehaviorConditionFilter implements ContentFilter {
+	public static final String ID = "ba.behaviorCondition";
+
+	@Override
+	public String getId() {
+		return ID;
 	}
 
-	public static final String ANNEX_SUBCLAUSE = "annex_subclause";
-	public static final String ANNEX_NAME = "behavior_specification";
-	private static final String BA_REFERENCE_PREFIX = "ba.";
-	public static final String STATE_TYPE = BA_REFERENCE_PREFIX + "behavior_state";
-	public static final String TRANSITION_TYPE = BA_REFERENCE_PREFIX + "behavior_transition";
-	public static final String VARIABLE_TYPE = BA_REFERENCE_PREFIX + "behavior_variable";
-	/**
-	 * @since 2.0
-	 */
-	public final static String BEHAVIOR_CONDITION = BA_REFERENCE_PREFIX + "behavior_condition";
-
-	public static RelativeBusinessObjectReference getSpecificationRelativeReference(final int index) {
-		return AnnexHandler.getRelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.ANNEX_SUBCLAUSE,
-				BehaviorAnnexReferenceUtil.ANNEX_NAME, index);
+	@Override
+	public String getName() {
+		return "Behavior Condition";
 	}
 
-	public static RelativeBusinessObjectReference getStateRelativeReference(final String name) {
-		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.STATE_TYPE, name);
+	@Override
+	public boolean isApplicable(final Object bo) {
+		return bo instanceof BehaviorTransition;
 	}
 
-	public static RelativeBusinessObjectReference getTransitionRelativeReference(
-			final String refSeg) {
-		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE, refSeg);
-	}
-
-	public static RelativeBusinessObjectReference getVariableRelativeReference(final String name) {
-		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.VARIABLE_TYPE, name);
+	@Override
+	public boolean test(final Object bo) {
+		return bo instanceof BehaviorCondition;
 	}
 }
