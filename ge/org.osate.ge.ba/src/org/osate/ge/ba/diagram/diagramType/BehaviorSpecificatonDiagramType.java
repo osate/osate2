@@ -60,8 +60,6 @@ public class BehaviorSpecificatonDiagramType implements DiagramType {
 	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
 		if (bo instanceof BehaviorAnnex) {
 			return ImmutableSet.of(BehaviorVariableFilter.ID, BehaviorTransitionFilter.ID, BehaviorStateFilter.ID);
-		} else if (bo instanceof BehaviorTransition) {
-			return ImmutableSet.of(BehaviorConditionFilter.ID);
 		}
 
 		return ImmutableSet.of();
