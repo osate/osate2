@@ -246,8 +246,6 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 						|| (overriddenAadl.containsKey(uri)
 								&& disabledContribResources.contains(overriddenAadl.get(uri)));
 				node.setChecked(disabled);
-				((TreeNode) obj).disabled = disabled;
-				node.setText((disabled ? "[Disabled] " : "") + node.getText());
 			}
 		}
 
@@ -561,14 +559,12 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 			this.path = path;
 			this.label = label;
 			this.overridden = overridden;
-			this.disabled = false;
 			this.imageType = 2;
 		}
 
 		public TreeNode(String label, int imageType) {
 			this.label = label;
 			this.overridden = false;
-			this.disabled = false;
 			this.imageType = imageType;
 			this.path = "";
 		}
@@ -576,7 +572,6 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		private String label;
 		public String path;
 		public Boolean overridden;
-		public Boolean disabled;
 		public int imageType;
 
 		protected List<TreeNode> nodes = new ArrayList<>();
@@ -587,7 +582,7 @@ public final class ContributedResourcesPreferencePage extends PreferencePage
 		}
 
 		public String getLabel() {
-			return (this.overridden ? "[Overridden] " : "") + (this.disabled ? "[Disabled] " : "") + this.label;
+			return (this.overridden ? "[Overridden] " : "") + this.label;
 		}
 
 		public List<TreeNode> getNode() {
