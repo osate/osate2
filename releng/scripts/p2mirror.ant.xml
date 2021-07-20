@@ -31,7 +31,7 @@ Run with
 
 -->
 <project name="Create Mirror" default="create-mirror" basedir=".">
-    
+
     <target name="create-mirror">
 
     	<p2.mirror>
@@ -71,7 +71,7 @@ Run with
             <iu id="org.eclipse.gef.geometry.convert.fx.feature.group"/>
             <iu id="org.eclipse.gef.fx.feature.group"/>
         </p2.mirror>
-        
+
         <p2.mirror source="http://download.eclipse.org/birt/update-site/2018-09-interim">
             <destination location="${target.dir}/birt/update-site/2018-09-interim"/>
             <iu id="org.eclipse.birt.chart.engine.extension"/>
@@ -108,13 +108,13 @@ Run with
             <iu id="org.eclipse.birt.report.model"/>
             <iu id="uk.co.spudsoft.birt.emitters.excel"/>
         </p2.mirror>
-        
+
         <p2.mirror source="http://download.eclipse.org/tools/orbit/downloads/2021-03">
             <destination location="${target.dir}/tools/orbit/downloads/2021-03"/>
 	    <iu id="org.apache.commons.io" version="2.2.0.v201405211200"/>
 	    <iu id="org.objectweb.asm" version="5.0.1.v201404251740"/>
         </p2.mirror>
-        
+
         <p2.mirror>
             <source>
                 <repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.25.0"/>
@@ -126,23 +126,23 @@ Run with
             <iu id="org.eclipse.xtext.testing"/>
             <iu id="org.eclipse.xtext.xbase.junit"/>
         </p2.mirror>
-        
+
         <p2.mirror source="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.12.1">
             <destination location="${target.dir}/modeling/emft/mwe/updates/releases/2.12.1"/>
             <iu id="org.eclipse.emf.mwe2.launcher.feature.group"/>
         </p2.mirror>
-        
+
         <p2.mirror source="http://download.eclipse.org/xsemantics/milestones/1.20">
             <destination location="${target.dir}/xsemantics/milestones/1.20"/>
             <iu id="org.eclipse.xsemantics.runtime.feature.feature.group"/>
         </p2.mirror>
-        
+
         <p2.mirror source="http://download.eclipse.org/elk/updates/releases/0.7.1">
             <destination location="${target.dir}/elk/updates/releases/0.7.1"/>
             <iu id="org.eclipse.elk.feature.feature.group"/>
             <iu id="org.eclipse.elk.algorithms.feature.feature.group"/>
         </p2.mirror>
-    	    	
+
         <p2.mirror source="http://download.eclipse.org/ease/release/0.7.0">
             <destination location="${target.dir}/ease/release/0.7.0"/>
             <iu id="org.eclipse.ease.feature.feature.group"/>
@@ -152,26 +152,26 @@ Run with
             <iu id="org.eclipse.ease.modules.feature.feature.group"/>
             <iu id="org.eclipse.ease.ui.feature.feature.group"/>
         </p2.mirror>
-        
+
         <p2.mirror source="https://eclipse.py4j.org">
             <destination location="${target.dir}/py4j"/>
             <iu id="org.py4j.feature.feature.group"/>
         </p2.mirror>
-        
+
         <p2.mirror source="http://osate-build.sei.cmu.edu/p2/ocarina">
             <destination location="${target.dir}/ocarina"/>
         </p2.mirror>
-        
+
         <p2.mirror source="http://osate-build.sei.cmu.edu/download/osate/stable/2.3.7/updates">
             <destination location="${target.dir}/resolute"/>
             <iu id="com.rockwellcollins.atc.resolute.feature.feature.group"/>
         </p2.mirror>
-        
+
         <p2.mirror source="http://updates.yakindu.com/statecharts/releases/3.5.9">
             <destination location="${target.dir}/yakindu"/>
             <iu id="org.yakindu.base.xtext.utils.jface"/>
         </p2.mirror>
-        
+
         <p2.mirror source="http://download.eclipse.org/technology/swtbot/releases/latest">
             <destination location="${target.dir}/technology/swtbot/releases/latest"/>
         </p2.mirror>
@@ -183,6 +183,14 @@ Run with
             <iu id="openjfx.swt.feature.feature.group"/>
         </p2.mirror>
 
+    	<p2.mirror>
+            <source>
+                <repository location="http://download.eclipse.org/justj/jres/11/updates/release"/>
+            </source>
+            <destination location="${target.dir}/justj/jres/11/updates/release"/>
+            <iu id="org.eclipse.justj.openjdk.hotspot.jre.full.feature.group"/>
+        </p2.mirror>
+
     </target>
-    
+
 </project>
