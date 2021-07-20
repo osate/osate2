@@ -69,6 +69,7 @@
       <feature id="openjfx.standard.feature"/>
       <feature id="openjfx.swing.feature"/>
       <feature id="openjfx.swt.feature"/>
+      <feature id="org.eclipse.justj.openjdk.hotspot.jre.full"/>
    </features>
 
    <configurations>
@@ -86,5 +87,12 @@
       <repository location="http://download.eclipse.org/eclipse/updates/4.19" enabled="true" />
       <repository location="http://download.eclipse.org/releases/2021-03" enabled="true" />
    </repositories>
+
+   <preferencesInfo>
+      <targetfile overwrite="false"/>
+   </preferencesInfo>
+
+   <cssInfo>
+   </cssInfo>
 
 </product>
