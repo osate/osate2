@@ -59,6 +59,7 @@ import org.osate.ba.unparser.AadlBaUnparser;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ProjectUtil;
+import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.ba.businessobjecthandlers.BehaviorConditionUtil;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
@@ -145,7 +146,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 						.getEditingDomainFor(behaviorTransition);
 				final IProject project = ProjectUtil.getProjectForBoOrThrow(behaviorTransition);
 				final XtextResource xtextResource = getXtextResource(behaviorTransition)
-						.orElseThrow(() -> new RuntimeException("resource must be XtextResource"));
+						.orElseThrow(() -> new AadlGraphicalEditorException("resource must be XtextResource"));
 				final IXtextDocument xtextDocument = getXtextDocument(behaviorTransition).orElse(null);
 				final String sourceText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
 				// Controls for editing behavior conditions
@@ -396,7 +397,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			final int lastIndex = formattedActionBlock.length() - 1;
 			if (!Objects.equals('{', formattedActionBlock.charAt(0)) || !Objects.equals('}',
 					formattedActionBlock.charAt(lastIndex))) {
-				throw new RuntimeException("Unexpected action block format '" + formattedActionBlock + "'.");
+				throw new AadlGraphicalEditorException(
+						"Unexpected action block format '" + formattedActionBlock + "'.");
 			}
 
 			// Split action at new line character and throw out action block brackets

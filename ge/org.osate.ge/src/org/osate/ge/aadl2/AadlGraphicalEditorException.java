@@ -43,4 +43,25 @@ public class AadlGraphicalEditorException extends RuntimeException {
 	public AadlGraphicalEditorException(final String message) {
 		super(message);
 	}
+
+	/**
+	 * Creates a new instance
+	 * @param cause the cause of the exception. The exception which this exception wraps.
+	 * @see RuntimeException#RuntimeException(Throwable)
+	 * @since 3.0
+	 */
+	public AadlGraphicalEditorException(final Throwable cause) {
+		super(cause);
+	}
+
+	/**
+	 * Creates a new instance
+	 * @param message is the message to include in the exception
+	 * @param cause the cause of the exception. The exception which this exception wraps.
+	 * @see RuntimeException#RuntimeException(String, Throwable)
+	 * @since 3.0
+	 */
+	public AadlGraphicalEditorException(final String message, final Throwable cause) {
+		super(message, cause);
+	}
 }

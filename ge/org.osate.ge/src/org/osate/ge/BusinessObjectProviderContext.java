@@ -60,7 +60,7 @@ public final class BusinessObjectProviderContext {
 
 	/**
 	 * Provides access to the global extension registry
-	 * @return
+	 * @return the extension registry
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public ExtensionRegistryService getExtensionRegistry() {

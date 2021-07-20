@@ -53,6 +53,7 @@ public interface BusinessObjectContext {
 
 	/**
 	 * Gets a stream containing this business object context and all descendant business object context
+	 * @return a stream containing this instance and all of its descendants.
 	 * @since 2.0
 	 */
 	public default Stream<BusinessObjectContext> getAllDescendants() {

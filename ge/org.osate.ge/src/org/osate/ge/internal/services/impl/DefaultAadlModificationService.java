@@ -202,7 +202,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			try {
 				project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
 			} catch (CoreException e) {
-				// Ignore any errors that occur while building the project
+				// Log and ignore any errors that occur while building the project
 				StatusManager.getManager().handle(e, Activator.PLUGIN_ID);
 			}
 		}
@@ -628,7 +628,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	/**
 	 * Class used to return the results of the modifySafely method
 	 *
-	 * @param <R>
 	 */
 	private static class ModifySafelyResults {
 		private ModifySafelyResults(final boolean modificationSuccessful) {

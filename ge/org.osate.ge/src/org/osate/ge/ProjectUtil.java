@@ -102,7 +102,7 @@ public final class ProjectUtil {
 
 	/**
 	 * Retrieves the project based on an EMF URI.
-	 * @param uri is the URI for the EMF element for which to return the project.
+	 * @param elementUri is the URI for the EMF element for which to return the project.
 	 * @return the project. Returns null if the project cannot be returned.
 	 */
 	public static IProject getProjectOrNull(final URI elementUri) {

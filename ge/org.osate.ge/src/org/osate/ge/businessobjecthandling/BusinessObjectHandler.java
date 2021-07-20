@@ -31,8 +31,9 @@ import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.RelativeBusinessObjectReference;
 
 /**
- * Handles the graphical behavior for a business object. The business object must be contributed using a
- * {@link BusinessObjectProvider}
+ * Determines the graphical behavior for a business object. Instances of this class are responsible for determining how a business object
+ * is represented. The business object must be contributed using a {@link BusinessObjectProvider}.* Business object handlers are registered
+ * using the <i>org.osate.ge.businessObjectHandlers</i> extension point.
  * @since 2.0
  */
 public interface BusinessObjectHandler {
@@ -51,6 +52,8 @@ public interface BusinessObjectHandler {
 	 * @return a canonical reference for the business object contained in the context. Should not return null. Null is currently supported for
 	 * legacy reasons but new business object handlers should not return null. The lack of a canonical reference will restrict functionality
 	 * and may result in an error in a future release.
+	 * @see org.osate.ge.referencehandling.ReferenceResolverFactory
+	 * @see org.osate.ge.referencehandling.ReferenceResolver
 	 */
 	CanonicalBusinessObjectReference getCanonicalReference(ReferenceContext ctx);
 
@@ -58,7 +61,7 @@ public interface BusinessObjectHandler {
 	 * Returns a relative reference for the business object contained in the context.
 	 * @param ctx the context containing the business object.
 	 * @return a relative reference for the business object contained in the context. Must not return null.
-	 *  {@link #isApplicable(IsApplicableContext) should only return true if a relative reference can be generated for the business object.
+	 *  {@link #isApplicable(IsApplicableContext)} should only return true if a relative reference can be generated for the business object.
 	 */
 	RelativeBusinessObjectReference getRelativeReference(ReferenceContext ctx);
 
@@ -109,7 +112,9 @@ public interface BusinessObjectHandler {
 	}
 
 	/**
-	 * Returns an icon to use for the business object specified in the context.
+	 * Returns an icon to use for the business object specified in the context. If the returned optional is empty then
+	 * the business object will not have an icon in the outline view. The icon ID returned must be an image registered
+	 * using the <i>org.osate.ge.images</i> extension point.
 	 * @param ctx the context for the request.
 	 * @return an optional describing the icon used for the command.
 	 */
@@ -130,7 +135,7 @@ public interface BusinessObjectHandler {
 
 	/**
 	 * Determines whether a proposed name is a valid new name for a business object.
-	 * If {@link #canRename(CanRenameContext) is implemented, this method should be implemented as well.
+	 * If {@link #canRename(CanRenameContext)} is implemented, this method should be implemented as well.
 	 * @param ctx the context for the request.
 	 * @return empty if validation succeeds. Otherwise, a validation error to be presented to the user. Must not return null.
 	 */
@@ -156,6 +161,7 @@ public interface BusinessObjectHandler {
 	/**
 	 * Returns true if the business object specified in the context can be copied.
 	 * Copyable business objects must be an instance of {@link org.eclipse.emf.ecore.EObject}.
+	 * @param ctx the context for the request.
 	 * @return whether the business object can be copied.
 	 */
 	default boolean canCopy(final CanCopyContext ctx) {

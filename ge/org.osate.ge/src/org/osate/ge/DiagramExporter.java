@@ -55,6 +55,7 @@ public final class DiagramExporter {
 	 *
 	 * @param diagramFile the diagram file to be exported
 	 * @param outputFile  the file the image will be written to
+	 * @throws IOException if an I/O error occurs.
 	 */
 	public static void exportDiagramAsPng(final IFile diagramFile, final File outputFile) throws IOException {
 		getExportService().export(diagramFile, outputFile, "png", 1.0);
@@ -65,6 +66,7 @@ public final class DiagramExporter {
 	 *
 	 * @param diagramFile  the diagram file to be exported
 	 * @param outputStream the stream the image will be written to
+	 * @throws IOException if an I/O error occurs.
 	 */
 	public static void exportDiagramAsPng(final IFile diagramFile, final ImageOutputStream outputStream)
 			throws IOException {
@@ -75,7 +77,8 @@ public final class DiagramExporter {
 	 * Converts an AADL diagram file to a PNG image.
 	 *
 	 * @param diagramFile  the diagram file to be exported
-	 * @param outputStream the stream the image will be written to
+	 * @param outputStream the stream to which to write the image.
+	 * @throws IOException if an I/O error occurs.
 	 */
 	public static void exportDiagramAsPng(final IFile diagramFile, final OutputStream outputStream) throws IOException {
 		getExportService().export(diagramFile, outputStream, "png", 1.0);

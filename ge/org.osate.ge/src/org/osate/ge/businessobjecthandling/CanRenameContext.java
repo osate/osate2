@@ -47,7 +47,7 @@ public class CanRenameContext {
 	 * Retrieves the business object for which is being renamed if it is an instance
 	 * of the specified class.
 	 * @param <T> is the requested type.
-	 * @param c is the class to which to cast the business object.
+	 * @param boType is the class to which to cast the business object.
 	 * @return an optional containing the context's business object. An empty optional if the context's business object is not
 	 * an instance the specified class.
 	 */

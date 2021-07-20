@@ -43,7 +43,7 @@ public final class StringUtil {
 	 * @param startIdx the index of the first string that will be part of the result
 	 * @param endIdx the string with the end index will not be included
 	 * @param del the delimiter to use to join the strings
-	 * @return
+	 * @return is the joined string
 	 */
 	public static String join(final String[] segs, final int startIdx, final int endIdx, final String del) {
 		final StringBuilder res = new StringBuilder(segs[startIdx]);
@@ -56,7 +56,7 @@ public final class StringUtil {
 
 	/**
 	 * Converts a string from lower or upper camel case to a user-friendly format.
-	 * This method converts the string to a title case. Example "sytemInstance" => "System Instance"
+	 * This method converts the string to a title case. Example "sytemInstance" =&gt; "System Instance"
 	 * @param str the camel case string to be converted
 	 * @return the title case string
 	 */
@@ -106,7 +106,7 @@ public final class StringUtil {
 
 	/**
 	 * Converts a string which is in snake case format to a phrase which is all in lower-case and which has underscores replaced with
-	 * spaces. Example NEW_CLASSIFIER => new classifier
+	 * spaces. Example "NEW_CLASSIFIER" =&gt; "new classifier"
 	 * @param value a snake case string
 	 * @return the resulting string
 	 * @since 3.0

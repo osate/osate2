@@ -30,7 +30,8 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
 /**
- * Stores data needed to represent a business object graphically. Provided by a diagram element's {@link org.osate.ge.businessobjecthandling.BusinessObjectHandler}.
+ * Immutable data type which stores data needed to represent a business object graphically.
+ * Provided by a diagram element's {@link org.osate.ge.businessobjecthandling.BusinessObjectHandler}.
  * GraphicalConfiguration objects must be created using the {@link GraphicalConfigurationBuilder} class.
  * @noextend This class is not intended to be subclassed by clients.
  * @noinstantiate This class is not intended to be instantiated by clients.
@@ -48,6 +49,13 @@ public final class GraphicalConfiguration {
 
 	/**
 	 * Creates a new instance.
+	 * @param graphic the diagram element's graphic.
+	 * @param defaultDockingPosition the default docking position for the diagram element.
+	 * @param connectionSource the diagram element which is the start of the connection.
+	 * @param connectionDestination the diagram element which is the end of the connection.
+	 * @param style the diagram element's style
+	 * @param annotation an additional text annotation for use with shapes.
+	 * @param primaryLabelIsMultiline whether the primary label for the diagram element is allowed to span multiple lines
 	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
 	GraphicalConfiguration(
@@ -66,6 +74,7 @@ public final class GraphicalConfiguration {
 
 	/**
 	 * Returns the graphic used for the diagram element.
+	 * @return the graphic
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final Graphic getGraphic() {
@@ -75,6 +84,7 @@ public final class GraphicalConfiguration {
 	/**
 	 * Returns the default docking position of the diagram element. Used to determine if diagram element is a docked element.
 	 * The layout algorithm is not required to dock the diagram to the requested side.
+	 * @return the default docking position
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final DockingPosition getDefaultDockingPosition() {
@@ -84,6 +94,7 @@ public final class GraphicalConfiguration {
 	/**
 	 * For connections, returning the diagram element which is the start of the connection. For flow indicators, this indicates the
 	 * diagram element to which the indicator is attached.
+	 * @return the diagram element which at which the connecton starts
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final DiagramElement getConnectionSource() {
@@ -92,6 +103,7 @@ public final class GraphicalConfiguration {
 
 	/**
 	 * For connections, returning the diagram element which is the end of the connection.
+	 * @return the diagram element which at which the connection ends
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final DiagramElement getConnectionDestination() {
@@ -100,6 +112,7 @@ public final class GraphicalConfiguration {
 
 	/**
 	 * The diagram element's style.
+	 * @return the style
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final Style getStyle() {
@@ -107,8 +120,8 @@ public final class GraphicalConfiguration {
 	}
 
 	/**
-	 * Returns a string which will be used as an additional label for the diagram element. Only supported for non-connections.
-	 * @return the annotation string
+	 * Returns a string which will be used as an additional label for the diagram element. Only supported for shapes.
+	 * @return the annotation text. Null if the shape does not have an annotation.
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final String getAnnotation() {
