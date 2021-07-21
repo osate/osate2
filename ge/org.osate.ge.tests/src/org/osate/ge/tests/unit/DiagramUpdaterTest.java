@@ -191,8 +191,8 @@ public class DiagramUpdaterTest {
 		final DiagramElement dockableDiagramElement = diagram.getByRelativeReference(testBoParent.getRelativeReference()).
 				getByRelativeReference(testBo.getRelativeReference());
 		assertThat(dockableDiagramElement.getDockArea(),
-				is(equalTo(testBo.getDefaultDockingPosition().getDefaultDockArea())));
-		final DockArea newDockArea = DockingPosition.RIGHT.getDefaultDockArea();
+				is(equalTo(DockArea.fromDockingPosition(testBo.getDefaultDockingPosition()))));
+		final DockArea newDockArea = DockArea.fromDockingPosition(DockingPosition.RIGHT);
 
 		diagram.modify("Set Dock Area", m -> m.setDockArea(dockableDiagramElement, newDockArea));
 
@@ -328,11 +328,11 @@ public class DiagramUpdaterTest {
 
 	public static DockArea getExpectedDockArea(final TestBusinessObject bo, final DockArea parentDockArea) {
 		// Return the dock area based on the default docking position if the parent isn't docked. Otherwise, ensure that the dock area is set to GROUP.
-		final DockArea boDockArea = bo.getDefaultDockingPosition().getDefaultDockArea();
+		final DockArea boDockArea = DockArea.fromDockingPosition(bo.getDefaultDockingPosition());
 		if(boDockArea == null) {
 			return null;
 		} else if(parentDockArea == null) {
-			return bo.getDefaultDockingPosition().getDefaultDockArea();
+			return DockArea.fromDockingPosition(bo.getDefaultDockingPosition());
 		} else {
 			return DockArea.GROUP;
 		}

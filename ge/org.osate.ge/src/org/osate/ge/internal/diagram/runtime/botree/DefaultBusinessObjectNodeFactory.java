@@ -45,7 +45,7 @@ public class DefaultBusinessObjectNodeFactory {
 		// Validate
 		if(parent == null) {
 			if (relativeReference != null) {
-				throw new RuntimeException("Root nodes must have a null relative reference");
+				throw new IllegalArgumentException("Root nodes must have a null relative reference");
 			}
 		} else {
 			Objects.requireNonNull(bo, "bo must not be null");

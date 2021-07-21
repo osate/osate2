@@ -64,7 +64,7 @@ public class Style {
 		this.primaryLabelVisible = primaryLabelVisible;
 
 		if (Objects.equals(showAsImage, Boolean.TRUE) && image == null) {
-			throw new RuntimeException("showAsImage must be false if image is not set.");
+			throw new IllegalArgumentException("showAsImage must be false if image is not set.");
 		}
 	}
 

@@ -71,6 +71,7 @@ import org.osate.ge.graphics.internal.AgeShape;
 import org.osate.ge.graphics.internal.Label;
 import org.osate.ge.graphics.internal.ModeGraphic;
 import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.GraphicalEditorException;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -112,7 +113,7 @@ public class DiagramElementLayoutUtil {
 	public static void layout(final String label, final IEditorPart editor,
 			final Collection<? extends DiagramNode> diagramNodes, final LayoutOptions options) {
 		if (!(editor instanceof InternalDiagramEditor)) {
-			throw new RuntimeException("Editor must be an " + InternalDiagramEditor.class.getName());
+			throw new GraphicalEditorException("Editor must be an " + InternalDiagramEditor.class.getName());
 		}
 
 		final InternalDiagramEditor diagramEditor = ((InternalDiagramEditor) editor);
@@ -222,8 +223,6 @@ public class DiagramElementLayoutUtil {
 				applyShapeLayout(mapping, m);
 				applyConnectionLayout(mapping, m);
 
-				LayoutDebugUtil.showGraphInLayoutGraphView(layoutGraph);
-
 				// Layout feature self loop connections. These are omitted from the ELK based layout.
 				dn.getAllDiagramNodes()
 				.filter(DiagramElementLayoutUtil::isFeatureSelfLoopConnection)
@@ -299,7 +298,7 @@ public class DiagramElementLayoutUtil {
 							final DiagramElement parent = (DiagramElement) de.getParent();
 							final DockingPosition defaultDockingPosition = de.getGraphicalConfiguration()
 									.getDefaultDockingPosition();
-							final DockArea defaultDockArea = defaultDockingPosition.getDefaultDockArea();
+							final DockArea defaultDockArea = DockArea.fromDockingPosition(defaultDockingPosition);
 
 							if (parent.hasSize()) {
 								final Stream<DiagramElement> otherElementsAlongSide = parent.getDiagramElements()
@@ -648,7 +647,7 @@ public class DiagramElementLayoutUtil {
 			case GROUP:
 			default:
 				// Our dock area should never have the group value and all other values should be handled
-				throw new RuntimeException("Unexpected case: " + dockArea);
+				throw new GraphicalEditorException("Unexpected case: " + dockArea);
 			}
 
 			// Calculate absolute position for the start anchor. Used for bendpoints
@@ -911,7 +910,7 @@ public class DiagramElementLayoutUtil {
 						} else if (PortSide.SIDES_EAST_WEST.contains(side)) {
 							y = elkShape.getY() - parentPort.getY();
 						} else {
-							throw new RuntimeException("Unexpected side: " + side);
+							throw new GraphicalEditorException("Unexpected side: " + side);
 						}
 					}
 				}
@@ -1082,7 +1081,7 @@ public class DiagramElementLayoutUtil {
 
 	private static Point findMidpoint(final List<Point> points) {
 		if (points.size() < 2) {
-			throw new RuntimeException("At least two points must be specified");
+			throw new IllegalArgumentException("At least two points must be specified");
 		}
 
 		final double totalLength = length(points);
@@ -1101,7 +1100,7 @@ public class DiagramElementLayoutUtil {
 			}
 		}
 
-		throw new RuntimeException("Unexpected case: midpoint not found");
+		throw new GraphicalEditorException("Unexpected case: midpoint not found");
 	}
 
 	private static double length(final List<Point> points) {
@@ -1337,9 +1336,8 @@ public class DiagramElementLayoutUtil {
 	}
 
 	private static DockArea calculateDockArea(final DiagramElement e) {
-		return AgeDiagramUtil
-				.determineDockingPosition(e.getContainer(), e.getX(), e.getY(), e.getWidth(), e.getHeight())
-				.getDefaultDockArea();
+		return DockArea.fromDockingPosition(AgeDiagramUtil.determineDockingPosition(e.getContainer(), e.getX(), e.getY(),
+				e.getWidth(), e.getHeight()));
 	}
 
 }

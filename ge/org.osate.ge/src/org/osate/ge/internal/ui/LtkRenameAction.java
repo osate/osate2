@@ -32,7 +32,9 @@ import javax.inject.Named;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.window.Window;
@@ -46,14 +48,17 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.refactoring.impl.AbstractRenameProcessor;
 import org.eclipse.xtext.ui.refactoring.ui.SyncUtil;
+import org.osate.ge.internal.GraphicalEditorException;
 import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.Lock;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
+import org.osgi.framework.FrameworkUtil;
 
 import com.google.inject.Injector;
 
@@ -96,9 +101,9 @@ public class LtkRenameAction implements AgeAction {
 
 	@Override
 	public AgeAction execute() {
-		final EObject bo = (EObject) boSupplier.getBusinessObject(originalName);
+		final EObject bo = boSupplier.getBusinessObject(originalName);
 		if (bo == null) {
-			throw new RuntimeException("Unable to retrieve business object to rename.");
+			throw new GraphicalEditorException("Unable to retrieve business object to rename.");
 		}
 
 		return renameWithLtk(bo, newName)
@@ -174,15 +179,21 @@ public class LtkRenameAction implements AgeAction {
 							projectProvider.getProject().build(IncrementalProjectBuilder.INCREMENTAL_BUILD,
 									new NullProgressMonitor());
 						} catch (CoreException e) {
-							// Ignore any errors that occur while building the project
-							e.printStackTrace();
+							// Log and ignore any errors that occur while building the project
+							StatusManager.getManager()
+							.handle(new Status(IStatus.ERROR,
+									FrameworkUtil.getBundle(getClass()).getSymbolicName(),
+									"Error building projects during rename", e), StatusManager.LOG);
 						}
 
 					}
 				}.run(null);
 
-			} catch (final Exception e) {
-				throw new RuntimeException(e);
+			} catch (final InterruptedException e) {
+				Thread.currentThread().interrupt();
+				throw new GraphicalEditorException(e);
+			} catch (final RuntimeException | InvocationTargetException | CoreException e) {
+				throw new GraphicalEditorException(e);
 			}
 		}
 		return true;

@@ -21,42 +21,45 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.businessobjecthandling;
+package org.osate.ge.internal;
 
-import java.util.Objects;
-import java.util.Optional;
+import org.osate.ge.aadl2.AadlGraphicalEditorException;
 
 /**
- * Contains contextual information for determining if a business object can be deleted.
- *
- * @since 2.0
- * @noextend This class is not intended to be subclassed by clients.
+ * Runtime Exception thrown when an error occurs for which a specialized exception does not exist.
+ * @since 3.0
+ * @see AadlGraphicalEditorException
  */
-public class CanDeleteContext {
-	private final Object bo;
+public class GraphicalEditorException extends RuntimeException {
+	/**
+	 * Serializable version number for class
+	 */
+	private static final long serialVersionUID = 3483334265203033480L;
 
 	/**
-	 * Creates a new instance.
-	 * @param bo is the business object which is being deleted.
-	 * @noreference This constructor is not intended to be referenced by clients.
+	 * Creates a new instance
+	 * @param message is the message to include in the exception
 	 */
-	public CanDeleteContext(final Object bo) {
-		this.bo = Objects.requireNonNull(bo, "bo must not be null");
+	public GraphicalEditorException(final String message) {
+		super(message);
 	}
 
 	/**
-	 * Retrieves the business object which is being deleted if it is an instance
-	 * of the specified class.
-	 * @param <T> is the requested type.
-	 * @param boType is the class to which to cast the business object.
-	 * @return an optional containing the context's business object. An empty optional if the context's business object is not
-	 * an instance the specified class.
+	 * Creates a new instance
+	 * @param cause the cause of the exception. The exception which this exception wraps.
+	 * @see RuntimeException#RuntimeException(Throwable)
 	 */
-	public <T> Optional<T> getBusinessObject(final Class<T> boType) {
-		if (!boType.isInstance(bo)) {
-			return Optional.empty();
-		}
+	public GraphicalEditorException(final Throwable cause) {
+		super(cause);
+	}
 
-		return Optional.of(boType.cast(bo));
+	/**
+	 * Creates a new instance
+	 * @param message is the message to include in the exception
+	 * @param cause the cause of the exception. The exception which this exception wraps.
+	 * @see RuntimeException#RuntimeException(String, Throwable)
+	 */
+	public GraphicalEditorException(final String message, final Throwable cause) {
+		super(message, cause);
 	}
 }

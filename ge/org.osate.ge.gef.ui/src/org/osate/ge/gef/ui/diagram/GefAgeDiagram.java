@@ -163,7 +163,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	private final StyleToFx styleToFx = new StyleToFx(imageManager);
 
 	/**
-	 * Service for determining whether the style for a diagram element should be overriden.
+	 * Service for determining whether the style for a diagram element should be overridden.
 	 */
 	private ColoringService coloringService;
 

@@ -28,7 +28,6 @@ import org.osate.ge.query.FilterArguments;
 
 /**
  * Simple implementation of ConditionArguments and FilterArguments
- * @param  is the type of the query argument
  */
 public class ExpressionArguments implements ConditionArguments, FilterArguments {
 	private QueryExecutionState state;
