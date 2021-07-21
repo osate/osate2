@@ -14,7 +14,7 @@
    </configIni>
 
    <launcherArgs>
-      <vmArgs>-Dosgi.requiredJavaVersion=1.8 -Dosgi.framework.extensions=org.eclipse.fx.osgi -Xms40m -Xmx768m --add-modules=ALL-SYSTEM
+      <vmArgs>-Dosgi.requiredJavaVersion=1.11 -Dosgi.framework.extensions=org.eclipse.fx.osgi -Xms40m -Xmx768m --add-modules=ALL-SYSTEM
       </vmArgs>
    </launcherArgs>
 
@@ -69,6 +69,7 @@
       <feature id="openjfx.standard.feature"/>
       <feature id="openjfx.swing.feature"/>
       <feature id="openjfx.swt.feature"/>
+      <feature id="org.eclipse.justj.openjdk.hotspot.jre.full"/>
    </features>
 
    <configurations>
@@ -83,8 +84,15 @@
 
    <repositories>
       <repository location="http://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
-      <repository location="http://download.eclipse.org/eclipse/updates/4.16" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/2020-06" enabled="true" />
+      <repository location="http://download.eclipse.org/eclipse/updates/4.19" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/2021-03" enabled="true" />
    </repositories>
+
+   <preferencesInfo>
+      <targetfile overwrite="false"/>
+   </preferencesInfo>
+
+   <cssInfo>
+   </cssInfo>
 
 </product>

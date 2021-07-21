@@ -123,16 +123,16 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
+		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).orElseThrow();
 		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.getOwner();
 		final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
 		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE,
-				Integer.toString(index));
+				Integer.toString(index), ctx.getReferenceBuilder().getCanonicalReference(behaviorAnnex).encode());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
+		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).orElseThrow();
 		final String refSeg = getTransitionReference((BehaviorAnnex) behaviorTransition.getOwner(), behaviorTransition);
 		return BehaviorAnnexReferenceUtil.getTransitionRelativeReference(refSeg);
 	}
@@ -189,10 +189,10 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 
 	@Override
 	public void delete(final CustomDeleteContext ctx) {
-		final BehaviorAnnex behaviorAnnex = ctx.getContainerBusinessObject(BehaviorAnnex.class).get();
+		final BehaviorAnnex behaviorAnnex = ctx.getContainerBusinessObject(BehaviorAnnex.class).orElseThrow();
 		// Find transition by URI.
 		final BehaviorTransition behaviorTransition = (BehaviorTransition) behaviorAnnex.eResource().getResourceSet()
-				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorTransition.class).get()), true);
+				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorTransition.class).orElseThrow()), true);
 		EcoreUtil.remove(behaviorTransition);
 		if (behaviorAnnex.getTransitions().isEmpty()) {
 			behaviorAnnex.unsetTransitions();
@@ -201,7 +201,7 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 
 	@Override
 	public void rename(final RenameContext ctx) {
-		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
+		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).orElseThrow();
 		final String newName = ctx.getNewName();
 		// An unnamed transition's name must be set to null
 		behaviorTransition.setName(newName.isEmpty() ? null : newName);

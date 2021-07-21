@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OSATE Graphical Editor Behavior Annex
 Bundle-SymbolicName: org.osate.ge.ba;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.osate.ge;bundle-version="[3.0.0,4.0.0)",
  org.osate.ba;bundle-version="[5.1.0,6.0.0)",
