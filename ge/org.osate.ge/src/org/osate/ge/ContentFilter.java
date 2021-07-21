@@ -24,7 +24,7 @@
 package org.osate.ge;
 
 /**
- * A configurable content filters defines a set of business object which can be optionally shown on a diagram. Must be stateless.
+ * A configurable content filter defines a set of business objects which can be optionally shown on a diagram. Must be stateless.
  * Logically, a content filter defines a set of business objects which consists of the business objects which pass the filter.
  * This interface does not have Configurable in the name because it predates the concept of fundamental content filters.
  * Configurable content filters are registered using the <i>org.osate.ge.contentFilters</i> extension point.
