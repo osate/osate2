@@ -24,10 +24,13 @@
 package org.osate.ge.aadl2;
 
 /**
- * Contains IDs for content filters so that they can be referenced by annex plugins.
+ * Contains IDs for content filters related to AADL2. The primary use case for these constants is defining diagram types.
  * @since 2.0
  */
-public class AadlContentFilterIds {
+public final class AadlContentFilterIds {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private AadlContentFilterIds() {
 	}
 

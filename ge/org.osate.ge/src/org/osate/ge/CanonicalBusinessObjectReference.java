@@ -27,17 +27,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.internal.services.impl.ReferenceEncoder;
 
 import com.google.common.collect.ImmutableList;
 
 /**
- * Immutable data type for canonical references to a business object.
- * A canonical reference uniquely identifies a business object.
+ * Immutable data type for canonical references to a business object. Canonical business object references are created for a
+ * business object using the registered {@link BusinessObjectHandler}.
+ * A canonical reference uniquely identifies a business object in the context of the current project.
+ * If the canonical references of two business objects are equal, then the business objects are treated as being the same object.
  * @since 2.0
  *
  */
-public class CanonicalBusinessObjectReference {
+public final class CanonicalBusinessObjectReference {
 	private ImmutableList<String> segments;
 	private ImmutableList<String> lcSegments; // Lowercase segments. Used for comparison.
 
@@ -48,13 +51,13 @@ public class CanonicalBusinessObjectReference {
 	 */
 	public CanonicalBusinessObjectReference(final String... segments) {
 		if (segments == null || segments.length < 1) {
-			throw new RuntimeException("segments must contain at least one segment");
+			throw new IllegalArgumentException("segments must contain at least one segment");
 		}
 
 		// Check that all segments are non-null
 		for (final String seg : segments) {
 			if (seg == null) {
-				throw new RuntimeException("segment is null");
+				throw new IllegalArgumentException("segment is null");
 			}
 		}
 
@@ -86,10 +89,7 @@ public class CanonicalBusinessObjectReference {
 		}
 
 		final CanonicalBusinessObjectReference other = (CanonicalBusinessObjectReference)obj;
-		if (!lcSegments.equals(other.lcSegments)) {
-			return false;
-		}
-		return true;
+		return lcSegments.equals(other.lcSegments);
 	}
 
 	@Override
@@ -98,17 +98,27 @@ public class CanonicalBusinessObjectReference {
 	}
 
 	/**
-	 * Returns an unmodifiable list containing the segments.
-	 * @return
+	 * Returns an immutable list containing the segments.
+	 * @return an immutable list of segments.
 	 */
 	public List<String> getSegments() {
 		return segments;
 	}
 
+	/**
+	 * Returns a string representation of the reference that can be converted back to an equal instance using
+	 * {@link CanonicalBusinessObjectReference#decode(String)}. One use of this method is to convert a canonical reference into a string that can be used
+	 * as a segment of another canonical reference.
+	 * @return the encoded reference
+	 */
 	public String encode() {
 		return ReferenceEncoder.encode(segments);
 	}
 
+	/**
+	 * Converts the instance to an instance of the serialized diagram model type.
+	 * @return the converted object.
+	 */
 	public org.osate.ge.diagram.CanonicalBusinessObjectReference toMetamodel() {
 		final org.osate.ge.diagram.CanonicalBusinessObjectReference newValue = new org.osate.ge.diagram.CanonicalBusinessObjectReference();
 		for(final String seg : segments) {
@@ -117,6 +127,11 @@ public class CanonicalBusinessObjectReference {
 		return newValue;
 	}
 
+	/**
+	 * Converts an encoded string as returned by {@link CanonicalBusinessObjectReference#encode()} into an instance of {@link CanonicalBusinessObjectReference}
+	 * @param reference the encoded reference
+	 * @return the decoded reference object
+	 */
 	public static CanonicalBusinessObjectReference decode(final String reference) {
 		return new CanonicalBusinessObjectReference(ReferenceEncoder.decode(reference));
 	}

@@ -140,7 +140,6 @@ public class TimingPropertyValueHandler extends AadlBusinessObjectHandler {
 
 		return Optional.of(GraphicalConfigurationBuilder.create().
 				graphic(graphic).
-				decoration().
 				build());
 	}
 

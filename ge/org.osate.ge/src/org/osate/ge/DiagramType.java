@@ -26,22 +26,28 @@ package org.osate.ge;
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
 
+/**
+ * A diagram type defines specialized behavior for a diagram.
+ * Specifically, the diagram types define the content filters which determine which business objects are shown by default and
+ * which AADL properties are shown by default.
+ * Diagram types are registered using the <i>org.osate.ge.diagramTypes</i> extension point.
+ */
 public interface DiagramType {
 	/**
 	 * Returns a unique identifier for the diagram type.
-	 * @return
+	 * @return the unique identifier for the diagram type.
 	 */
 	String getId();
 
 	/**
 	 * Returns the UI friendly name for the diagram type.
-	 * @return
+	 * @return the user-friendly name for the digaram type.
 	 */
 	String getName();
 
 	/**
 	 * Returns the plural UI friendly name for the diagram type.
-	 * @return
+	 * @return the plural version of the user-friendly name.
 	 */
 	default String getPluralName() {
 		return getName() + "s";
@@ -49,28 +55,28 @@ public interface DiagramType {
 
 	/**
 	 * Returns whether the diagram type supports the use of a specified business object as a context.
-	 * @param contextBo
-	 * @return
+	 * @param contextBo the context business object
+	 * @return whether this diagram type is valid for the specified context business object
 	 */
 	boolean isApplicableToContext(final Object contextBo);
 
 	/**
-	 * Returns the IDs of the default content filters for a business object. Must never return null.
-	 * @param bo
-	 * @return
+	 * Returns the IDs of the content filters to use to determine whether child business objects should be shown by default.. Must never return null.
+	 * @param bo is the business object for which to return the content filters.
+	 * @return the content filters to use to determine which business objects should be shown.
 	 */
 	ImmutableSet<String> getDefaultContentFilters(Object bo);
 
 	/**
 	 * Returns the set of all AADL properties that are added to the diagram configuration by default. The user may choose to remove such properties.
 	 * Changing this set will not result in changes to existing diagrams.
-	 * @return
+	 * @return is a set containing the qualified names of the properties to be show by default for diagrams of this type.
 	 */
 	ImmutableCollection<String> getDefaultAadlPropertyNames();
 
 	/**
 	 * Returns the default value for the connection primary labels visible configuration option.
-	 * @return
+	 * @return whether to show connection primary labels by default.
 	 */
 	default boolean getDefaultConnectionPrimaryLabelsVisible() {
 		return false;

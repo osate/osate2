@@ -36,12 +36,15 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork.Void;
+import org.osate.aadl2.modelsupport.Activator;
+import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.ge.internal.services.AgeAction;
 import org.osate.ge.internal.services.ModelChangeNotifier;
@@ -157,7 +160,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 				try {
 					work.exec(xtextResource);
 				} catch (final Exception e) {
-					throw new RuntimeException(e.getMessage());
+					throw new AadlGraphicalEditorException(e);
 				}
 			}
 		};
@@ -178,7 +181,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 		try {
 			xtextResource.save(SaveOptions.newBuilder().format().getOptions().toOptionsMap());
 		} catch (final IOException e) {
-			throw new RuntimeException(e);
+			throw new AadlGraphicalEditorException("Unable to save resource", e);
 		}
 	}
 
@@ -188,7 +191,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 			project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
 		} catch (final CoreException e) {
 			// Ignore any errors that occur while building the project
-			e.printStackTrace();
+			StatusManager.getManager().handle(e, Activator.PLUGIN_ID);
 		}
 	}
 
@@ -204,7 +207,8 @@ class EmbeddedTextModificationAction implements AgeAction {
 		final boolean modificationSuccessful = serializedSrc != null && !serializedSrc.trim().isEmpty();
 		if (!modificationSuccessful) {
 			if (!editingDomain.getCommandStack().canUndo() || editingDomain.getCommandStack().getUndoCommand() != cmd) {
-				throw new RuntimeException("Property modification failed and unable to undo. Unexpected state.");
+				throw new AadlGraphicalEditorException(
+						"Property modification failed and unable to undo. Unexpected state.");
 			}
 
 			editingDomain.getCommandStack().undo();
@@ -226,7 +230,8 @@ class EmbeddedTextModificationAction implements AgeAction {
 				final XtextEditor xtextEditor = (XtextEditor) editor;
 				if (xtextEditor.getDocument() == xtextDocument) {
 					if (!xtextEditor.validateEditorInputState()) {
-						throw new RuntimeException("Unable to edit Xtext document. Editor input validation failed.");
+						throw new AadlGraphicalEditorException(
+								"Unable to edit Xtext document. Editor input validation failed.");
 					}
 					break;
 				}

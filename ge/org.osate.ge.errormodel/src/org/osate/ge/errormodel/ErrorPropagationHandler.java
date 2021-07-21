@@ -138,7 +138,7 @@ public class ErrorPropagationHandler implements BusinessObjectHandler {
 				: Style.EMPTY).fontSize(8.0);
 
 		return Optional
-				.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build()).decoration().build());
+				.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build()).build());
 	}
 
 	@Override

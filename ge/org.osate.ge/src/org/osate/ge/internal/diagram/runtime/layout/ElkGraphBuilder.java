@@ -463,7 +463,7 @@ class ElkGraphBuilder {
 		final DockingPosition defaultDockingPosition = de.getGraphicalConfiguration().getDefaultDockingPosition();
 		return PortSideUtil.getPortSideForNonGroupDockArea(
 				(defaultDockingPosition == DockingPosition.ANY && de.getDockArea() != null) ? de.getDockArea()
-						: defaultDockingPosition.getDefaultDockArea());
+						: DockArea.fromDockingPosition(defaultDockingPosition));
 
 	}
 
@@ -642,7 +642,7 @@ class ElkGraphBuilder {
 			port.setX(newPosition);
 			return newPosition;
 		} else {
-			throw new RuntimeException("Unexpected side: " + side);
+			throw new IllegalArgumentException("Unexpected side: " + side);
 		}
 	}
 
@@ -785,7 +785,7 @@ class ElkGraphBuilder {
 		} else if (PortSide.SIDES_NORTH_SOUTH.contains(side)) {
 			return de.getHeight();
 		} else {
-			throw new RuntimeException("Unexpected side: " + side);
+			throw new IllegalArgumentException("Unexpected side: " + side);
 		}
 	}
 
@@ -795,7 +795,7 @@ class ElkGraphBuilder {
 		} else if (PortSide.SIDES_NORTH_SOUTH.contains(side)) {
 			return port.getHeight();
 		} else {
-			throw new RuntimeException("Unexpected side: " + side);
+			throw new IllegalArgumentException("Unexpected side: " + side);
 		}
 	}
 
@@ -805,7 +805,7 @@ class ElkGraphBuilder {
 		} else if (PortSide.SIDES_NORTH_SOUTH.contains(side)) {
 			return dim.height;
 		} else {
-			throw new RuntimeException("Unexpected side: " + side);
+			throw new IllegalArgumentException("Unexpected side: " + side);
 		}
 	}
 
@@ -815,7 +815,7 @@ class ElkGraphBuilder {
 		} else if (PortSide.SIDES_NORTH_SOUTH.contains(side)) {
 			return port.getWidth();
 		} else {
-			throw new RuntimeException("Unexpected side: " + side);
+			throw new IllegalArgumentException("Unexpected side: " + side);
 		}
 	}
 
@@ -831,7 +831,7 @@ class ElkGraphBuilder {
 		} else if (PortSide.SIDES_NORTH_SOUTH.contains(side)) {
 			port.setX(position);
 		} else {
-			throw new RuntimeException("Unexpected side: " + side);
+			throw new IllegalArgumentException("Unexpected side: " + side);
 		}
 	}
 
@@ -847,7 +847,7 @@ class ElkGraphBuilder {
 		} else if (PortSide.SIDES_NORTH_SOUTH.contains(side)) {
 			return new Dimension(dim.height, dim.width);
 		} else {
-			throw new RuntimeException("Unexpected side: " + side);
+			throw new IllegalArgumentException("Unexpected side: " + side);
 		}
 	}
 }

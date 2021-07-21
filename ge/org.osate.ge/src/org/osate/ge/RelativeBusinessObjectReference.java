@@ -27,10 +27,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
+
 import com.google.common.collect.ImmutableList;
 
 /**
- * Immutable data type for relative references to a business object.
+ * Immutable data type for relative references to a business object. Relative business object references are created for a
+ * business object using the registered {@link BusinessObjectHandler}.
  * A relative reference along with a containing diagram element must uniquely identify the business object.
  * @since 2.0
  */
@@ -45,13 +48,13 @@ public class RelativeBusinessObjectReference implements Comparable<RelativeBusin
 	 */
 	public RelativeBusinessObjectReference(final String... segments) {
 		if (segments == null || segments.length < 1) {
-			throw new RuntimeException("segments must contain at least one segment");
+			throw new IllegalArgumentException("segments must contain at least one segment");
 		}
 
 		// Check that all segments are non-null
 		for (final String seg : segments) {
 			if (seg == null) {
-				throw new RuntimeException("segment is null");
+				throw new IllegalArgumentException("segment is null");
 			}
 		}
 
@@ -83,10 +86,7 @@ public class RelativeBusinessObjectReference implements Comparable<RelativeBusin
 		}
 
 		final RelativeBusinessObjectReference other = (RelativeBusinessObjectReference) obj;
-		if (!lcSegments.equals(other.lcSegments)) {
-			return false;
-		}
-		return true;
+		return lcSegments.equals(other.lcSegments);
 	}
 
 	@Override
@@ -112,13 +112,17 @@ public class RelativeBusinessObjectReference implements Comparable<RelativeBusin
 	}
 
 	/**
-	 * Returns an unmodifiable list containing the segments.
-	 * @return
+	 * Returns an immutable list containing the segments.
+	 * @return an immutable list of segments.
 	 */
 	public List<String> getSegments() {
 		return segments;
 	}
 
+	/**
+	 * Converts the instance to an instance of the serialized diagram model type.
+	 * @return the converted object.
+	 */
 	public org.osate.ge.diagram.RelativeBusinessObjectReference toMetamodel() {
 		final org.osate.ge.diagram.RelativeBusinessObjectReference newValue = new org.osate.ge.diagram.RelativeBusinessObjectReference();
 		for(final String seg : segments) {

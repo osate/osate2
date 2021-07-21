@@ -129,7 +129,7 @@ public class GeneralizatonHandler extends AadlBusinessObjectHandler {
 		final BusinessObjectContext destination = getDestination(boc, queryService);
 
 		if (destination == null) {
-			return Optional.of(GraphicalConfigurationBuilder.create().graphic(labelGraphic).decoration().build());
+			return Optional.of(GraphicalConfigurationBuilder.create().graphic(labelGraphic).build());
 		} else {
 			return Optional.of(GraphicalConfigurationBuilder.create().graphic(getConnectionGraphicalRepresentation(bo))
 					.style(getStyle(bo)).source(boc.getParent()). // Source is the owner of the BO

@@ -130,7 +130,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		}
 
 		if (children.containsKey(node.relativeReference)) {
-			throw new RuntimeException("Node already has a child with reference: " + node.relativeReference);
+			throw new IllegalArgumentException("Node already has a child with reference: " + node.relativeReference);
 		}
 
 		children.put(node.relativeReference, node);
