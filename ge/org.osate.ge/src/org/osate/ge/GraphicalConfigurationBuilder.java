@@ -123,8 +123,8 @@ public class GraphicalConfigurationBuilder {
 	}
 
 	/**
-	 * Creates a new graphical configuration instance with the configured values.
-	 * @return a new graphical configuration
+	 * Creates a new graphical configuration with the configured values.
+	 * @return a new graphical configuration with the configured values.
 	 */
 	public GraphicalConfiguration build() {
 		return new GraphicalConfiguration(graphic, defaultDockingPosition, connectionSource,

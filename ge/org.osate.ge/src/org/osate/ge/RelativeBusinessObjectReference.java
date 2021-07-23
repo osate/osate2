@@ -31,7 +31,7 @@ import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
  * A relative reference along with a containing diagram element must uniquely identify the business object.
  * @since 2.0
  */
-public class RelativeBusinessObjectReference extends BusinessObjectReference {
+public final class RelativeBusinessObjectReference extends BusinessObjectReference {
 	/**
 	 * Creates an instance from an array of segments. Segments are case insensitive. Throws an exception is optional or if the segments
 	 * array is null or empty.

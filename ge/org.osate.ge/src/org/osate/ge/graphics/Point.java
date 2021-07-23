@@ -23,13 +23,11 @@
  */
 package org.osate.ge.graphics;
 
-import java.util.Objects;
-
 /**
- * Immutable point type
+ * Immutable 2D point type
  *
  */
-public class Point {
+public final class Point {
 	/**
 	 * @since 3.0
 	 */
@@ -38,15 +36,14 @@ public class Point {
 	public final double x;
 	public final double y;
 
+	/**
+	 * Creates a new instance with the specified X and Y value
+	 * @param x the X value
+	 * @param y the Y value
+	 */
 	public Point(final double x, final double y) {
 		this.x = x;
 		this.y = y;
-	}
-
-	public Point(final Point p) {
-		Objects.requireNonNull(p, "p must not be null");
-		this.x = p.x;
-		this.y = p.y;
 	}
 
 	@Override
@@ -87,6 +84,10 @@ public class Point {
 		return "(" + x + "," + y + ")";
 	}
 
+	/**
+	 * Converts the instance to an instance of the serialized diagram model type.
+	 * @return the converted object.
+	 */
 	public org.osate.ge.diagram.Point toMetamodel() {
 		final org.osate.ge.diagram.Point newPoint = new org.osate.ge.diagram.Point();
 		newPoint.setX(x);
