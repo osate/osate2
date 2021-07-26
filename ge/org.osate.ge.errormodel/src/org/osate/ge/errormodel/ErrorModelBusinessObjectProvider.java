@@ -38,8 +38,8 @@ import org.osate.ge.BusinessObjectProviderContext;
 import org.osate.ge.errormodel.combined.CombinedErrorModelSubclause;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
-import org.osate.ge.errormodel.model.KeywordPropagationPoint;
-import org.osate.ge.errormodel.model.KeywordPropagationPointType;
+import org.osate.ge.errormodel.model.BindingReference;
+import org.osate.ge.errormodel.model.BindingReferenceType;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -85,12 +85,12 @@ public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider 
 				if (cacheEntry.subclauseExists()) {
 					return Stream
 							.of(cacheEntry.getPoints(), cacheEntry.getPaths(), cacheEntry.getFlows(),
-									Arrays.stream(KeywordPropagationPointType.values())
-											.map(t -> new KeywordPropagationPoint(classifier, t)))
+									Arrays.stream(BindingReferenceType.values())
+											.map(t -> new BindingReference(classifier, t)))
 							.flatMap(Function.identity());
 				}
 			}
-		} else if (bo instanceof Feature || bo instanceof PropagationPoint || bo instanceof KeywordPropagationPoint) {
+		} else if (bo instanceof Feature || bo instanceof PropagationPoint || bo instanceof BindingReference) {
 			// Propagation(and containment) objects
 			final CombinedErrorModelSubclause cacheEntry = getClassifierCacheEntry(ctx.getBusinessObjectContext());
 			return cacheEntry.getPropagations().getPropagationsForBusinessObjectContext(ctx.getBusinessObjectContext());

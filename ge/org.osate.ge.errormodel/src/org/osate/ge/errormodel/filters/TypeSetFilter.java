@@ -31,7 +31,7 @@ public class TypeSetFilter implements ContentFilter {
 
 	@Override
 	public String getParentId() {
-		return ErrorModelFilter.ID;
+		return ErrorModelPackageFilter.ID;
 	}
 
 	@Override

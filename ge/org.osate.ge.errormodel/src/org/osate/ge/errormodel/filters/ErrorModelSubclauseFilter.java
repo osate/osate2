@@ -21,27 +21,18 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.errormodel.diagramtypes;
+package org.osate.ge.errormodel.filters;
 
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.DiagramType;
-import org.osate.ge.aadl2.AadlContentFilterIds;
-import org.osate.ge.errormodel.filters.ErrorFlowFilter;
-import org.osate.ge.errormodel.filters.ErrorPropagationFilter;
-import org.osate.ge.errormodel.filters.BindingReferencesFilter;
-import org.osate.ge.errormodel.filters.PropagationPointFilter;
+import org.osate.ge.ContentFilter;
+import org.osate.ge.errormodel.model.BindingReference;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
-import com.google.common.collect.ImmutableCollection;
-import com.google.common.collect.ImmutableSet;
-
-public class ErrorFlowDiagramType implements DiagramType {
-	private final static String ID = "em.errorFlow";
-	private final ImmutableSet<String> defaultClassifierAndSubcomponentFilters = ImmutableSet.of(
-			AadlContentFilterIds.FEATURES, AadlContentFilterIds.INTERNAL_FEATURES, AadlContentFilterIds.PROCESSOR_FEATURES,
-			BindingReferencesFilter.ID, PropagationPointFilter.ID, ErrorFlowFilter.ID);
-	private final ImmutableSet<String> defaultFeatureFilters = ImmutableSet.of(ErrorPropagationFilter.ID);
+public class ErrorModelSubclauseFilter implements ContentFilter {
+	public static final String ID = "emv2.errorModelSubclauseElements";
 
 	@Override
 	public String getId() {
@@ -50,27 +41,18 @@ public class ErrorFlowDiagramType implements DiagramType {
 
 	@Override
 	public String getName() {
-		return "Error Flow Diagram";
+		return "Error Model Elements";
 	}
 
 	@Override
-	public boolean isApplicableToContext(Object contextBo) {
-		return contextBo instanceof Classifier;
+	public boolean isApplicable(final Object bo) {
+		return (bo instanceof Classifier || bo instanceof Subcomponent)
+				&& ErrorModelFilterUtil.hasApplicableErrorModelSubclause(bo);
 	}
 
 	@Override
-	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
-		if (bo instanceof Classifier || bo instanceof Subcomponent) {
-			return defaultClassifierAndSubcomponentFilters;
-		} else if (bo instanceof Feature) {
-			return defaultFeatureFilters;
-		}
-
-		return ImmutableSet.of();
-	}
-
-	@Override
-	public ImmutableCollection<String> getDefaultAadlPropertyNames() {
-		return ImmutableSet.of();
+	public boolean test(final Object bo) {
+		return bo instanceof ErrorFlow || bo instanceof BindingReference || bo instanceof PropagationPoint
+				|| bo instanceof PropagationPath;
 	}
 }

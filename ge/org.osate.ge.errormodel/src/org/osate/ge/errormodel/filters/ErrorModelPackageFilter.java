@@ -21,46 +21,33 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.errormodel.model;
+package org.osate.ge.errormodel.filters;
 
-import com.google.common.base.Objects;
+import org.osate.ge.ContentFilter;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
-/**
- * Enumeration for keywords that refer to predefined propagation points.
- *
- */
-public enum KeywordPropagationPointType {
-	/**
-	 * All is not a propagation point exactly but is used for flow declarations
-	 */
-	ALL("all"), ACCESS("access"), PROCESSOR("processor"), MEMORY("memory"), CONNECTION("connection"), BINDING(
-			"binding"), BINDINGS("bindings");
+public class ErrorModelPackageFilter implements ContentFilter {
+	public static final String ID = "emv2.errorModelPackageElements";
 
-	private final String kind;
-
-	/**
-	 * Create a new instance
-	 * @param kind must match the kind string used for propagations for this type.
-	 */
-	KeywordPropagationPointType(final String kind) {
-		this.kind = kind;
+	@Override
+	public String getId() {
+		return ID;
 	}
 
-	public String getKind() {
-		return kind;
+	@Override
+	public String getName() {
+		return "Error Model Elements";
 	}
 
-	/**
-	 * Gets an instance based on the name which matches the "kind" used in the EMV2 model
-	 * @param kind the name to look for
-	 * @return the matching instance
-	 */
-	public static KeywordPropagationPointType getByKind(final String kind) {
-		for (final KeywordPropagationPointType k : KeywordPropagationPointType.values()) {
-			if (Objects.equal(kind, k.kind)) {
-				return k;
-			}
-		}
-		return null;
+	@Override
+	public boolean isApplicable(final Object bo) {
+		return ErrorModelFilterUtil.isPackageWithErrorModelLibrary(bo);
+	}
+
+	@Override
+	public boolean test(final Object bo) {
+		return bo instanceof ErrorBehaviorStateMachine || bo instanceof TypeSet || bo instanceof ErrorType;
 	}
 }

@@ -34,36 +34,37 @@ import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanCopyContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
+import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
-import org.osate.ge.errormodel.model.KeywordPropagationPoint;
+import org.osate.ge.errormodel.model.BindingReference;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 
-public class KeywordPropagationPointHandler implements BusinessObjectHandler {
+public class BindingReferenceHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = EllipseBuilder.create().fixedSize(new Dimension(16, 16)).build();
 	private static final Style style = StyleBuilder.create().labelsAboveTop().labelsLeft().build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(KeywordPropagationPoint.class)
+		return ctx.getBusinessObject(BindingReference.class)
 				.isPresent();
 	}
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final KeywordPropagationPoint bo = ctx.getBusinessObject(KeywordPropagationPoint.class).get();
-		return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_KEYWORD_PROPAGATION_POINT,
+		final BindingReference bo = ctx.getBusinessObject(BindingReference.class).get();
+		return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BINDING_REFERENCE,
 				ctx.getReferenceBuilder().getCanonicalReference(bo.getClassifier()).encode(), bo.getType().getKind());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return ErrorModelReferenceUtil.getRelativeReferenceForKeywordPropagationPoint(
-				ctx.getBusinessObject(KeywordPropagationPoint.class).get().getType().getKind());
+		return ErrorModelReferenceUtil.getRelativeReferenceForBindingReference(
+				ctx.getBusinessObject(BindingReference.class).get().getType().getKind());
 	}
 
 	@Override
@@ -75,7 +76,13 @@ public class KeywordPropagationPointHandler implements BusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return "<" + ctx.getBusinessObject(KeywordPropagationPoint.class).get().getType().getKind()
+		return "Binding Reference <" + ctx.getBusinessObject(BindingReference.class).get().getType().getKind()
+				+ ">";
+	}
+
+	@Override
+	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
+		return "<" + ctx.getBusinessObjectContext().getBusinessObject(BindingReference.class).get().getType().getKind()
 				+ ">";
 	}
 

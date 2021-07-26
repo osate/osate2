@@ -25,7 +25,7 @@ package org.osate.ge.errormodel.filters;
 
 import org.osate.aadl2.Feature;
 import org.osate.ge.ContentFilter;
-import org.osate.ge.errormodel.model.KeywordPropagationPoint;
+import org.osate.ge.errormodel.model.BindingReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
@@ -44,7 +44,7 @@ public class ErrorPropagationFilter implements ContentFilter {
 
 	@Override
 	public boolean isApplicable(final Object bo) {
-		return bo instanceof Feature || bo instanceof PropagationPoint || bo instanceof KeywordPropagationPoint;
+		return bo instanceof Feature || bo instanceof PropagationPoint || bo instanceof BindingReference;
 	}
 
 	@Override

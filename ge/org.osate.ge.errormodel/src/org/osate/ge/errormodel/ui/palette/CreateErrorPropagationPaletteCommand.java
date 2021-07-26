@@ -42,8 +42,8 @@ import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.errormodel.combined.CombinedErrorModelSubclause;
 import org.osate.ge.errormodel.combined.PropagationNode;
-import org.osate.ge.errormodel.model.KeywordPropagationPoint;
-import org.osate.ge.errormodel.model.KeywordPropagationPointType;
+import org.osate.ge.errormodel.model.BindingReference;
+import org.osate.ge.errormodel.model.BindingReferenceType;
 import org.osate.ge.errormodel.ui.ErrorModelUiUtil;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.ge.operations.Operation;
@@ -82,11 +82,11 @@ public class CreateErrorPropagationPaletteCommand extends BasePaletteCommand imp
 
 				newPropagation.setFeatureorPPRef(buildFeatureReference(subclause.eResource().getResourceSet(), path));
 			});
-		} else if (bo instanceof KeywordPropagationPoint) {
-			final KeywordPropagationPoint kw = (KeywordPropagationPoint) bo;
-			if (kw.getType() != KeywordPropagationPointType.ALL) {
+		} else if (bo instanceof BindingReference) {
+			final BindingReference br = (BindingReference) bo;
+			if (br.getType() != BindingReferenceType.ALL) {
 				return createPropgationCreationOperation(ctx.getTarget(), (newPropagation, subclause) -> {
-					newPropagation.setKind(kw.getType().getKind());
+					newPropagation.setKind(br.getType().getKind());
 				});
 			}
 		} else if (bo instanceof PropagationPoint) {

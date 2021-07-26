@@ -23,23 +23,18 @@
  */
 package org.osate.ge.errormodel.filters;
 
-import java.util.function.Predicate;
-
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.ContentFilter;
-import org.osate.ge.errormodel.model.KeywordPropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.ge.errormodel.model.BindingReference;
 
-public class ErrorModelFilter implements ContentFilter {
-	public static final String ID = "emv2.errorModel";
-	private Predicate<Object> types = (testBo) -> false;
+public class BindingReferencesFilter implements ContentFilter {
+	public static final String ID = "emv2.bindingReferences";
 
+	@Override
+	public String getParentId() {
+		return ErrorModelSubclauseFilter.ID;
+	}
 
 	@Override
 	public String getId() {
@@ -48,27 +43,17 @@ public class ErrorModelFilter implements ContentFilter {
 
 	@Override
 	public String getName() {
-		return "EMV2";
+		return "Binding References";
 	}
 
 	@Override
 	public boolean isApplicable(final Object bo) {
-		if(ErrorModelFilterUtil.isPackageWithErrorModelLibrary(bo)) {
-			types = (testBo) -> testBo instanceof ErrorBehaviorStateMachine || testBo instanceof TypeSet || testBo instanceof ErrorType;
-			return true;
-		} else if (((bo instanceof Classifier || bo instanceof Subcomponent)
-				&& ErrorModelFilterUtil.hasApplicableErrorModelSubclause(bo))) {
-			types = (testBo) -> testBo instanceof ErrorFlow || testBo instanceof KeywordPropagationPoint
-					|| testBo instanceof PropagationPoint || testBo instanceof PropagationPath;
-			return true;
-		}
-
-		types = (testBo) -> false;
-		return false;
+		return (bo instanceof Classifier || bo instanceof Subcomponent)
+				&& ErrorModelFilterUtil.hasApplicableErrorModelSubclause(bo);
 	}
 
 	@Override
 	public boolean test(final Object bo) {
-		return types.test(bo);
+		return bo instanceof BindingReference;
 	}
 }

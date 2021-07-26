@@ -23,36 +23,44 @@
  */
 package org.osate.ge.errormodel.model;
 
-import java.util.Objects;
-
-import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.Classifier;
-import org.osate.ge.EmfContainerProvider;
+import com.google.common.base.Objects;
 
 /**
- * A model object that represents a {@link KeywordPropagationPointType} in the context of a containing classifier.
+ * Enumeration for binding references that refer to predefined propagation points.
  *
  */
-public class KeywordPropagationPoint implements EmfContainerProvider {
-	private final Classifier classifier;
+public enum BindingReferenceType {
+	/**
+	 * All is not a propagation point exactly but is used for flow declarations
+	 */
+	ALL("all"), ACCESS("access"), PROCESSOR("processor"), MEMORY("memory"), CONNECTION("connection"), BINDING(
+			"binding"), BINDINGS("bindings");
 
-	private final KeywordPropagationPointType type;
+	private final String kind;
 
-	public KeywordPropagationPoint(final Classifier classifier, final KeywordPropagationPointType type) {
-		this.type = Objects.requireNonNull(type, "type must not be null");
-		this.classifier = Objects.requireNonNull(classifier, "clasifier must not be null");
+	/**
+	 * Create a new instance
+	 * @param kind must match the kind string used for propagations for this type.
+	 */
+	BindingReferenceType(final String kind) {
+		this.kind = kind;
 	}
 
-	@Override
-	public EObject getEmfContainer() {
-		return getClassifier();
+	public String getKind() {
+		return kind;
 	}
 
-	public final Classifier getClassifier() {
-		return classifier;
-	}
-
-	public final KeywordPropagationPointType getType() {
-		return type;
+	/**
+	 * Gets an instance based on the name which matches the "kind" used in the EMV2 model
+	 * @param kind the name to look for
+	 * @return the matching instance
+	 */
+	public static BindingReferenceType getByKind(final String kind) {
+		for (final BindingReferenceType k : BindingReferenceType.values()) {
+			if (Objects.equal(kind, k.kind)) {
+				return k;
+			}
+		}
+		return null;
 	}
 }

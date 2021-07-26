@@ -34,7 +34,7 @@ import org.junit.Test;
 import org.osate.aadl2.DirectionType;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.errormodel.ErrorModelReferenceUtil;
-import org.osate.ge.errormodel.model.KeywordPropagationPointType;
+import org.osate.ge.errormodel.model.BindingReferenceType;
 import org.osate.ge.errormodel.ui.properties.ErrorFlowPropertySection;
 import org.osate.ge.errormodel.ui.properties.ErrorModelLibraryPropertySection;
 import org.osate.ge.errormodel.ui.properties.ErrorModelSubclausePropertySection;
@@ -425,7 +425,8 @@ public class ErrorModelTest {
 		setExtendedOrFeatureClassifierFromPropertiesView(diagram, ERROR_FLOW_TEST + "::test_fgt", fg1Element);
 
 		// Show elements
-		clickContextMenuOfDiagramElement(diagram, sysImplElement, "Show Contents", "Error Propagation Point Keywords");
+		clickContextMenuOfDiagramElement(diagram, sysImplElement, "Show Contents", "Error Model Elements",
+				"Binding References");
 		showContentsAndLayout(diagram, fg1Element);
 
 		// Create propagation for port
@@ -453,10 +454,10 @@ public class ErrorModelTest {
 		final DiagramElementReference pp1PropagationRef = pp1Ref
 				.join(ErrorModelReferenceUtil.getRelativeReferenceForPropagation(true, DirectionType.OUT));
 
-		// Create propagation for keyword propagation
+		// Create propagation for binding reference
 		createShapeElement(diagram,
-				sysImplElement.join(ErrorModelReferenceUtil.getRelativeReferenceForKeywordPropagationPoint(
-						KeywordPropagationPointType.BINDINGS.getKind())),
+				sysImplElement.join(ErrorModelReferenceUtil.getRelativeReferenceForBindingReference(
+						BindingReferenceType.BINDINGS.getKind())),
 				"In Error Containment",
 				ErrorModelReferenceUtil.getRelativeReferenceForPropagation(true, DirectionType.IN),
 				ErrorModelTest::selectSingleErrorType);

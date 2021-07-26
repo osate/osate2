@@ -48,7 +48,7 @@ public class ErrorModelReferenceUtil {
 	public final static String TYPE_ERROR_TYPE_EXT = EMV2_REFERENCE_PREFIX + "error_type_extension";
 	public final static String TYPE_TYPE_SET = EMV2_REFERENCE_PREFIX + "error_type_set";
 	public final static String TYPE_PROPAGATION_POINT = EMV2_REFERENCE_PREFIX + "propagation_point";
-	public final static String TYPE_KEYWORD_PROPAGATION_POINT = EMV2_REFERENCE_PREFIX + "keyword_propagation_point";
+	public final static String TYPE_BINDING_REFERENCE = EMV2_REFERENCE_PREFIX + "binding_reference";
 	public final static String TYPE_PROPAGATION = EMV2_REFERENCE_PREFIX + "propagation";
 	public final static String TYPE_PROPAGATION_PATH = EMV2_REFERENCE_PREFIX + "propagation_path";
 	public final static String TYPE_ERROR_FLOW = EMV2_REFERENCE_PREFIX + "error_flow";
@@ -117,8 +117,8 @@ public class ErrorModelReferenceUtil {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_PROPAGATION_POINT, name);
 	}
 
-	public static RelativeBusinessObjectReference getRelativeReferenceForKeywordPropagationPoint(final String name) {
-		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_KEYWORD_PROPAGATION_POINT, name);
+	public static RelativeBusinessObjectReference getRelativeReferenceForBindingReference(final String name) {
+		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BINDING_REFERENCE, name);
 	}
 
 	public static RelativeBusinessObjectReference getRelativeReferenceForPropagation(final boolean isContainment,
