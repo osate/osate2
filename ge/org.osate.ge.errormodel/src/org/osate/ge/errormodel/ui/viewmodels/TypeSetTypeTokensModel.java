@@ -27,6 +27,7 @@ package org.osate.ge.errormodel.ui.viewmodels;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.errormodel.ui.swt.TypeTokenListEditorModel;
@@ -57,6 +58,11 @@ public class TypeSetTypeTokensModel extends BaseTypeSetTypeTokensModel
 	@Override
 	protected void modifyTypeSets(final Consumer<TypeSet> modifier) {
 		bos.modify(TypeSet.class, modifier);
+	}
+
+	@Override
+	public <T> Stream<T> getSelectedElements(final Class<T> clazz) {
+		return bos.boStream(clazz);
 	}
 }
 

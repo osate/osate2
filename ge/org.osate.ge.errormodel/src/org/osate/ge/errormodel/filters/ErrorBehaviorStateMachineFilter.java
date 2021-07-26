@@ -30,6 +30,11 @@ public class ErrorBehaviorStateMachineFilter implements ContentFilter {
 	public static final String ID = "emv2.stateMachines";
 
 	@Override
+	public String getParentId() {
+		return ErrorModelFilter.ID;
+	}
+
+	@Override
 	public String getId() {
 		return ID;
 	}

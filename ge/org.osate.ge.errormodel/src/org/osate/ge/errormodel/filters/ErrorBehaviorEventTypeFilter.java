@@ -46,11 +46,6 @@ public class ErrorBehaviorEventTypeFilter implements ContentFilter {
 	}
 
 	@Override
-	public String getParentId() {
-		return ErrorBehaviorEventFilter.ID;
-	}
-
-	@Override
 	public String getName() {
 		return StringUtils.capitalize(StringUtils
 				.join(StringUtils.splitByCharacterTypeCamelCase(eventInterface.getSimpleName()), " ")) + "s";

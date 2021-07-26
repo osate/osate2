@@ -27,6 +27,7 @@ package org.osate.ge.errormodel.ui.viewmodels;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IProject;
 import org.osate.ge.BusinessObjectSelection;
@@ -82,5 +83,10 @@ public class ErrorFlowTypeTokensModel extends BaseTypeSetTypeTokensModel impleme
 				f.setTypeTokenConstraint(null);
 			}
 		});
+	}
+
+	@Override
+	public <T> Stream<T> getSelectedElements(final Class<T> clazz) {
+		return bos.boStream(clazz);
 	}
 }

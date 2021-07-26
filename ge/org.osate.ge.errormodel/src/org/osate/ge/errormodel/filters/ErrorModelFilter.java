@@ -23,18 +23,23 @@
  */
 package org.osate.ge.errormodel.filters;
 
+import java.util.function.Predicate;
+
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.ContentFilter;
+import org.osate.ge.errormodel.model.KeywordPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
-public class ErrorFlowFilter implements ContentFilter {
-	public static final String ID = "emv2.errorFlows";
+public class ErrorModelFilter implements ContentFilter {
+	public static final String ID = "emv2.errorModel";
+	private Predicate<Object> types = (testBo) -> false;
 
-	@Override
-	public String getParentId() {
-		return ErrorModelFilter.ID;
-	}
 
 	@Override
 	public String getId() {
@@ -43,17 +48,27 @@ public class ErrorFlowFilter implements ContentFilter {
 
 	@Override
 	public String getName() {
-		return "Error Flows";
+		return "EMV2";
 	}
 
 	@Override
 	public boolean isApplicable(final Object bo) {
-		return (bo instanceof Classifier || bo instanceof Subcomponent)
-				&& ErrorModelFilterUtil.hasApplicableErrorModelSubclause(bo);
+		if(ErrorModelFilterUtil.isPackageWithErrorModelLibrary(bo)) {
+			types = (testBo) -> testBo instanceof ErrorBehaviorStateMachine || testBo instanceof TypeSet || testBo instanceof ErrorType;
+			return true;
+		} else if (((bo instanceof Classifier || bo instanceof Subcomponent)
+				&& ErrorModelFilterUtil.hasApplicableErrorModelSubclause(bo))) {
+			types = (testBo) -> testBo instanceof ErrorFlow || testBo instanceof KeywordPropagationPoint
+					|| testBo instanceof PropagationPoint || testBo instanceof PropagationPath;
+			return true;
+		}
+
+		types = (testBo) -> false;
+		return false;
 	}
 
 	@Override
 	public boolean test(final Object bo) {
-		return bo instanceof ErrorFlow;
+		return types.test(bo);
 	}
 }

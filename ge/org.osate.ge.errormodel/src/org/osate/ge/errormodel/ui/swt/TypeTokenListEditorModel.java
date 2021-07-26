@@ -70,4 +70,8 @@ public interface TypeTokenListEditorModel extends ObservableModel {
 	String getTypeTokenLabel(TypeToken value);
 
 	String getTypeTokensLabel();
+
+	default <T> Stream<T> getSelectedElements(final Class<T> clazz) {
+		return Stream.empty();
+	}
 }

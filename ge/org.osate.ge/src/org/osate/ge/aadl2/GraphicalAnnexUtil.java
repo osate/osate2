@@ -241,6 +241,11 @@ public class GraphicalAnnexUtil {
 	 * @return a stream containing the matching subclauses
 	 */
 	private static Stream<DefaultAnnexSubclause> getAllDefaultAnnexSubclauses(final Classifier classifier, final String annexName) {
+		// TODO null sometimes?
+		if (classifier == null) {
+			return Stream.empty();
+		}
+
 		return classifier.getOwnedAnnexSubclauses().stream()
 				.filter(subclause -> annexName.equalsIgnoreCase(subclause.getName())
 						&& subclause instanceof DefaultAnnexSubclause)

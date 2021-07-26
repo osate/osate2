@@ -24,7 +24,7 @@
 package org.osate.ge.errormodel.ui.viewmodels;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -41,12 +41,7 @@ import org.osate.ge.swt.selectors.SingleSelectorModel;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
-/**
- * View model which sets the aliased type for {@link ErrorType} objects included in a {@link BusinessObjectSelection}.
- * Only a single {@link ErrorType} is supported.
- *
- */
-public class ErrorTypeAliasedTypeModel extends BaseObservableModel implements SingleSelectorModel<ErrorType> {
+public class ErrorTypeExtendTypeModel extends BaseObservableModel implements SingleSelectorModel<ErrorType> {
 	private static class Option {
 		public Option(final IEObjectDescription desc) {
 			this.type = (ErrorType) desc.getEObjectOrProxy();
@@ -58,14 +53,14 @@ public class ErrorTypeAliasedTypeModel extends BaseObservableModel implements Si
 	}
 
 	private BusinessObjectSelection bos;
-	private Map<URI, Option> uriToOptionMap;
+	private Map<Object, Option> uriToOptionMap;
 	private String error;
 
 	/**
 	 * Creates a new instance
 	 * @param bos the initial business object selection
 	 */
-	public ErrorTypeAliasedTypeModel(final BusinessObjectSelection bos) {
+	public ErrorTypeExtendTypeModel(final BusinessObjectSelection bos) {
 		setBusinessObjectSelection(bos);
 	}
 
@@ -75,7 +70,7 @@ public class ErrorTypeAliasedTypeModel extends BaseObservableModel implements Si
 	public void setBusinessObjectSelection(final BusinessObjectSelection value) {
 		this.bos = Objects.requireNonNull(value, "value must not be null");
 
-		uriToOptionMap = Collections.emptyMap();
+		uriToOptionMap = new HashMap<>();
 		error = null;
 
 		final List<ErrorType> selectedErrorTypes = value.boStream(ErrorType.class).collect(Collectors.toList());
@@ -88,10 +83,13 @@ public class ErrorTypeAliasedTypeModel extends BaseObservableModel implements Si
 			if (selectedErrorType.eResource() == null) {
 				error = "<No Resource Available>";
 			} else {
-				final Collection<IEObjectDescription> descriptions = AadlModelAccessUtil
-						.getAllEObjectsByType(selectedErrorType.eResource(), ErrorModelPackage.eINSTANCE.getErrorType());
-				uriToOptionMap = descriptions.stream().collect(Collectors.toMap(IEObjectDescription::getEObjectURI,
-						Option::new));
+				final Collection<IEObjectDescription> descriptions = AadlModelAccessUtil.getAllEObjectsByType(
+						selectedErrorType.eResource(), ErrorModelPackage.eINSTANCE.getErrorType());
+				final URI selectedErrorTypeURI = EcoreUtil.getURI(selectedErrorType);
+				uriToOptionMap.put(new Object(), null);
+				uriToOptionMap.putAll(descriptions.stream()
+						.filter(desc -> !Objects.equals(selectedErrorTypeURI, desc.getEObjectURI()))
+						.collect(Collectors.toMap(IEObjectDescription::getEObjectURI, Option::new)));
 			}
 		}
 
@@ -100,26 +98,28 @@ public class ErrorTypeAliasedTypeModel extends BaseObservableModel implements Si
 
 	@Override
 	public Stream<ErrorType> getElements() {
-		return uriToOptionMap.values().stream().map(v -> v.type);
+		return uriToOptionMap.values().stream().map(v -> v == null ? null : v.type);
 	}
 
 	@Override
 	public ErrorType getSelectedElement() {
-		// Get the first aliased type
-		final ErrorType aliasedType = bos.boStream(ErrorType.class)
-				.map(ErrorType::getAliasedType)
+		// Get the first super type
+		final ErrorType superType = bos.boStream(ErrorType.class)
+				.map(ErrorType::getSuperType)
+				.filter(Objects::nonNull)
 				.findFirst()
 				.orElse(null);
-		if (aliasedType == null) {
+
+		if (superType == null) {
 			return null;
 		}
 
 		// Return the element from the options list.
-		final URI aliasedTypeUri = EcoreUtil.getURI(aliasedType);
-		final Option option = uriToOptionMap.get(aliasedTypeUri);
+		final URI superTypeUri = EcoreUtil.getURI(superType);
+		final Option option = uriToOptionMap.get(superTypeUri);
 		if (option == null) {
 			// Return the actual error type if an option wasn't available.
-			return aliasedType;
+			return superType;
 		}
 
 		return option.type;
@@ -127,9 +127,7 @@ public class ErrorTypeAliasedTypeModel extends BaseObservableModel implements Si
 
 	@Override
 	public void setSelectedElement(final ErrorType value) {
-		bos.modify(ErrorType.class, t -> {
-			t.setAliasedType(value);
-		});
+		bos.modify(ErrorType.class, t -> t.setSuperType(value));
 	}
 
 	@Override
@@ -139,7 +137,7 @@ public class ErrorTypeAliasedTypeModel extends BaseObservableModel implements Si
 		}
 
 		if (element == null) {
-			return "<null>";
+			return "<None>";
 		}
 
 		final Option option = uriToOptionMap.get(EcoreUtil.getURI(element));
@@ -149,4 +147,5 @@ public class ErrorTypeAliasedTypeModel extends BaseObservableModel implements Si
 
 		return option.qualifiedName;
 	}
+
 }

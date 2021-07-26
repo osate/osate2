@@ -27,6 +27,7 @@ package org.osate.ge.errormodel.ui.viewmodels;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.errormodel.ui.swt.TypeTokenListEditorModel;
@@ -59,5 +60,10 @@ public class ErrorPropagatonTypeSetModel extends BaseTypeSetTypeTokensModel impl
 		bos.modify(ErrorPropagation.class, p -> {
 			modifier.accept(p.getTypeSet());
 		});
+	}
+
+	@Override
+	public <T> Stream<T> getSelectedElements(final Class<T> clazz) {
+		return bos.boStream(clazz);
 	}
 }

@@ -32,6 +32,11 @@ public class KeywordPropagationPointFilter implements ContentFilter {
 	public static final String ID = "emv2.keywordPropagationPoints";
 
 	@Override
+	public String getParentId() {
+		return ErrorModelFilter.ID;
+	}
+
+	@Override
 	public String getId() {
 		return ID;
 	}
