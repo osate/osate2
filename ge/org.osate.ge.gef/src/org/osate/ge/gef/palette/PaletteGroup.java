@@ -65,14 +65,7 @@ public class PaletteGroup<G, I> extends VBox {
 		groupButton.setGraphic(new ImageView(model.getGroupIcon(groupModel)));
 		groupButton.setMaxWidth(Double.MAX_VALUE);
 
-		groupButton.setOnAction(e -> {
-			if (groupButton.isSelected() == true) {
-				refresh();
-			} else {
-				refresh();
-				groupButton.setStyle(IDLE_GROUP_STYLE);
-			}
-		});
+		groupButton.setOnAction(e -> refresh());
 
 		groupButton.setOnMouseEntered(e -> {
 			hover = true;

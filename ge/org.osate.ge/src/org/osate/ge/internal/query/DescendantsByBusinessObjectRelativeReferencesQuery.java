@@ -25,15 +25,15 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 import java.util.Objects;
+import java.util.function.Function;
 
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.ReferenceService;
-import org.osate.ge.query.Supplier;
 
-public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQuery {
+public class DescendantsByBusinessObjectRelativeReferencesQuery<T> extends DefaultQuery<T> {
 	private final static RelativeBusinessObjectReference[] nullBoRefs = new RelativeBusinessObjectReference[0];
-	private final Supplier<Object, Object[]> bosSupplier;
+	private final Function<T, Object[]> bosSupplier;
 	private final int minSegments;
 
 	private static class Match {
@@ -41,34 +41,34 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 		int depth = -1;
 	}
 
-	public DescendantsByBusinessObjectRelativeReferencesQuery(final DefaultQuery prev,
-			final Supplier<?, Object[]> bosSupplier) {
+	public DescendantsByBusinessObjectRelativeReferencesQuery(final DefaultQuery<T> prev,
+			final Function<T, Object[]> bosSupplier) {
 		this(prev, bosSupplier, -1);
 	}
 
-	@SuppressWarnings("unchecked")
-	public DescendantsByBusinessObjectRelativeReferencesQuery(final DefaultQuery prev,
-			final Supplier<?, Object[]> bosSupplier,
-					final int minSegments) {
+	public DescendantsByBusinessObjectRelativeReferencesQuery(final DefaultQuery<T> prev,
+			final Function<T, Object[]> bosSupplier, final int minSegments) {
 		super(prev);
-		this.bosSupplier = (Supplier<Object, Object[]>) Objects.requireNonNull(bosSupplier, "bosSupplier must not be null");
+		this.bosSupplier = Objects.requireNonNull(bosSupplier, "bosSupplier must not be null");
 		this.minSegments = minSegments;
 	}
 
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx, final QueryExecutionState state, final QueryResults result) {
+	void run(final Deque<DefaultQuery<T>> remainingQueries, final BusinessObjectContext ctx,
+			final QueryExecutionState<T> state, final QueryResults result) {
 		// Look in the cache for the reference and build a new reference string if it is not found
-		RelativeBusinessObjectReference[] boRefs = (RelativeBusinessObjectReference[])state.cache.get(this);
-		if(boRefs == null) {
-			final Object[] bos = bosSupplier.get(state.arg);
-			boRefs = bos == null ? nullBoRefs : getReferences(bos, state.refBuilder);
-			if(boRefs == null) {
-				boRefs = nullBoRefs;
-			}
-			state.cache.put(this, boRefs);
-		}
+		RelativeBusinessObjectReference[] boRefs = (RelativeBusinessObjectReference[]) state.cache.computeIfAbsent(this,
+				t -> {
+					final Object[] bos = bosSupplier.apply(state.arg);
+					RelativeBusinessObjectReference[] newValue = bos == null ? nullBoRefs
+							: getReferences(bos, state.refBuilder);
+					if (newValue == null) {
+						newValue = nullBoRefs;
+					}
+					return newValue;
+				});
 
-		if(boRefs == nullBoRefs) {
+		if (boRefs == nullBoRefs) {
 			return;
 		}
 
@@ -76,10 +76,8 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 		findMatchingDescendants(remainingQueries, ctx, state, result, boRefs, bestMatch, 0);
 
 		// Return a partial match if a result has not been processed and a partial match was found
-		if(!result.isDone() &&
-				allowPartialMatch() &&
-				bestMatch.depth >= minSegments &&
-				bestMatch.depth < boRefs.length) {
+		if (!result.isDone() && allowPartialMatch() && bestMatch.depth >= minSegments
+				&& bestMatch.depth < boRefs.length) {
 			state.partial = true;
 			processResultValue(remainingQueries, bestMatch.value, state, result);
 		}
@@ -89,23 +87,19 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 		return minSegments > 0;
 	}
 
-	void findMatchingDescendants(final Deque<DefaultQuery> remainingQueries,
-			final BusinessObjectContext container,
-			final QueryExecutionState state,
-			final QueryResults result,
-			final RelativeBusinessObjectReference[] boRefs,
-			final Match bestMatch,
-			final int currentDepth) {
-		if(currentDepth > bestMatch.depth) {
+	void findMatchingDescendants(final Deque<DefaultQuery<T>> remainingQueries, final BusinessObjectContext container,
+			final QueryExecutionState<T> state, final QueryResults result,
+			final RelativeBusinessObjectReference[] boRefs, final Match bestMatch, final int currentDepth) {
+		if (currentDepth > bestMatch.depth) {
 			bestMatch.value = container;
 			bestMatch.depth = currentDepth;
 		}
 
-		if(currentDepth >= boRefs.length) {
+		if (currentDepth >= boRefs.length) {
 			processResultValue(remainingQueries, container, state, result);
 		} else {
 			final RelativeBusinessObjectReference boRef = boRefs[currentDepth];
-			for(final BusinessObjectContext child : container.getChildren()) {
+			for (final BusinessObjectContext child : container.getChildren()) {
 				// Check the business object reference
 				final RelativeBusinessObjectReference childRef = InternalQueryUtil.getRelativeReference(child,
 						state.refBuilder);
@@ -127,20 +121,21 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 	 * @param refBuilder
 	 * @return an array of references. null if any of the business objects or their references are null.
 	 */
-	private static RelativeBusinessObjectReference[] getReferences(final Object[] bos, final ReferenceService refBuilder) {
-		if(bos == null) {
+	private static RelativeBusinessObjectReference[] getReferences(final Object[] bos,
+			final ReferenceService refBuilder) {
+		if (bos == null) {
 			return null;
 		}
 
 		final RelativeBusinessObjectReference[] references = new RelativeBusinessObjectReference[bos.length];
-		for(int i = 0; i < bos.length; i++) {
+		for (int i = 0; i < bos.length; i++) {
 			final Object bo = bos[i];
-			if(bo == null) {
+			if (bo == null) {
 				return null;
 			}
 
 			final RelativeBusinessObjectReference ref = refBuilder.getRelativeReference(bo);
-			if(ref == null) {
+			if (ref == null) {
 				return null;
 			}
 

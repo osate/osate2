@@ -23,6 +23,16 @@
  */
 package org.osate.ge.gef.ui.preferences;
 
-public class Preferences {
-	public static final String SHOW_GRID = "canvas.show_grid";
+/**
+ * Constants for preference names
+ *
+ */
+public final class Preferences {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private Preferences() {
+	}
+
+	public static final String SHOW_GRID = "canvas.showGrid";
 }

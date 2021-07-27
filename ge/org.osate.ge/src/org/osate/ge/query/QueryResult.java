@@ -28,7 +28,7 @@ import java.util.Objects;
 import org.osate.ge.BusinessObjectContext;
 
 /**
- * A value produced from executing a query.
+ * A value produced from executing a query. Queries are executed using {@link org.osate.ge.services.QueryService}
  * @since 2.0
  */
 public class QueryResult {
@@ -50,14 +50,28 @@ public class QueryResult {
 		this.partial = partial;
 	}
 
+	/**
+	 * Returns the business object context which matched the query.
+	 * @return the business object context matching the query
+	 */
 	public final BusinessObjectContext getBusinessObjectContext() {
 		return boc;
 	}
 
+	/**
+	 * Returns the business object context's business object
+	 * @return the business object context's business object
+	 * @see #getBusinessObjectContext()
+	 */
 	public final Object getBusinessObject() {
 		return boc.getBusinessObject();
 	}
 
+	/**
+	 * Indicates that the query results represents a partial match.
+	 * @return whether this result was created from a partial match.
+	 * @see Query#descendantsByBusinessObjectsRelativeReference(java.util.function.Function, int)
+	 */
 	public final boolean isPartial() {
 		return partial;
 	}

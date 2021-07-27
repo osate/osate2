@@ -52,15 +52,15 @@ import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.ui.editor.ComboContributionItem;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExectableQuery;
 import org.osate.ge.services.QueryService;
 
 import com.google.common.base.Objects;
 
 public class ModeContributionItem extends ComboContributionItem {
-	private static final String emptySelectionTxt = "<Modes>";
-	private static final String selectedModePropertyKey = "org.osate.ge.ui.editor.selectedMode";
-	private static final StandaloneQuery modeContainerQuery = StandaloneQuery
+	private static final String EMPTY_SELECTION_TXT = "<Modes>";
+	private static final String SELECTED_MODE_PROPERTY_KEY = "org.osate.ge.ui.editor.selectedMode";
+	private static final ExectableQuery<Object> MODE_CONTAINER_QUERY = ExectableQuery
 			.create((rootQuery) -> rootQuery.descendants()
 					.filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation
 							|| fa.getBusinessObject() instanceof Subcomponent
@@ -118,7 +118,7 @@ public class ModeContributionItem extends ComboContributionItem {
 			final Object firstSelection = comboViewer.getStructuredSelection().getFirstElement();
 			final ModeFeatureReference mf = (ModeFeatureReference) firstSelection;
 			final String selectionStr = firstSelection != null ? (String) mf.getName() : null;
-			editor.setPartProperty(selectedModePropertyKey, selectionStr);
+			editor.setPartProperty(SELECTED_MODE_PROPERTY_KEY, selectionStr);
 		}
 	}
 
@@ -139,7 +139,7 @@ public class ModeContributionItem extends ComboContributionItem {
 					null, null);
 			modeFeatureReferences.add(nullValue);
 			Object selectedValue = nullValue;
-			final String selectedModeName = editor == null ? null : editor.getPartProperty(selectedModePropertyKey);
+			final String selectedModeName = editor == null ? null : editor.getPartProperty(SELECTED_MODE_PROPERTY_KEY);
 
 			// Clear the combo box
 			comboViewer.setInput(null);
@@ -152,7 +152,7 @@ public class ModeContributionItem extends ComboContributionItem {
 			if (diagram != null) {
 				final QueryService queryService = ContributionUtil.getQueryService(editor);
 				if (queryService != null) {
-					queryService.getResults(modeContainerQuery, diagram).stream().flatMap(modeContainer -> {
+					queryService.getResults(MODE_CONTAINER_QUERY, diagram, null).stream().flatMap(modeContainer -> {
 						// If container contains a modal element
 						if (AadlModalElementUtil.getModalElement(modeContainer.getBusinessObjectContext()) != null) {
 							// Get qualified modes to add to the drop-down
@@ -262,6 +262,6 @@ public class ModeContributionItem extends ComboContributionItem {
 
 	@Override
 	protected String getNullValueString() {
-		return emptySelectionTxt;
+		return EMPTY_SELECTION_TXT;
 	}
 }

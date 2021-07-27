@@ -48,7 +48,7 @@ import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExectableQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -62,16 +62,22 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
  * The branches will be represented as a connection from the branch point to the target.
  */
 public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
-	private static final Graphic branchPointGraphic = EllipseBuilder.create().fixedSize(new Dimension(8, 8)).build();
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
-			.filterByBusinessObjectRelativeReference(ebt -> ((ErrorBehaviorTransition) ebt).getSource()));
-	private static StandaloneQuery dstQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(ebt -> {
-				final ErrorBehaviorTransition t = (ErrorBehaviorTransition) ebt;
-				return t.isSteadyState() ? t.getSource() : t.getTarget();
-			}));
-	private static Style branchPointStyle = StyleBuilder.create().backgroundColor(Color.BLACK).labelsAboveTop()
-			.labelsLeft().primaryLabelVisible(false).build();
+	private static final Graphic BRANCH_POINT_GRAPHIC = EllipseBuilder.create().fixedSize(new Dimension(8, 8)).build();
+	private static final Style BRANCH_POINT_STYLE = StyleBuilder.create()
+			.backgroundColor(Color.BLACK)
+			.labelsAboveTop()
+			.labelsLeft()
+			.primaryLabelVisible(false)
+			.build();
+	private static final ExectableQuery<ErrorBehaviorTransition> SRC_QUERY = ExectableQuery
+			.create(ErrorBehaviorTransition.class, rootQuery -> rootQuery.parent()
+					.children()
+					.filterByBusinessObjectRelativeReference(ErrorBehaviorTransition::getSource));
+	private static final ExectableQuery<ErrorBehaviorTransition> DST_QUERY = ExectableQuery.create(
+			ErrorBehaviorTransition.class,
+			rootQuery -> rootQuery.parent()
+					.children()
+					.filterByBusinessObjectRelativeReference(t -> t.isSteadyState() ? t.getSource() : t.getTarget()));
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -81,7 +87,7 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final ErrorBehaviorTransition typedBo = ctx.getBusinessObject(ErrorBehaviorTransition.class).get();
+		final ErrorBehaviorTransition typedBo = ctx.getBusinessObject(ErrorBehaviorTransition.class).orElseThrow();
 		if (typedBo.getName() == null) {
 			return buildAnonymousBehaviorTransitionCanonicalReference(
 					typedBo,
@@ -94,7 +100,7 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		final ErrorBehaviorTransition t = ctx.getBusinessObject(ErrorBehaviorTransition.class).get();
+		final ErrorBehaviorTransition t = ctx.getBusinessObject(ErrorBehaviorTransition.class).orElseThrow();
 		final String name = t.getName();
 		if (name == null) {
 			return buildAnonymousBehaviorTransitionRelativeReference(t);
@@ -125,17 +131,19 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 							.destination(getDestination(boc, queryService)).build());
 		} else {
 			return Optional.of(
-					GraphicalConfigurationBuilder.create().graphic(branchPointGraphic).style(branchPointStyle).build());
+					GraphicalConfigurationBuilder.create().graphic(BRANCH_POINT_GRAPHIC).style(BRANCH_POINT_STYLE).build());
 		}
 
 	}
 
 	private BusinessObjectContext getSource(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(srcQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(SRC_QUERY, boc,
+				boc.getBusinessObject(ErrorBehaviorTransition.class).orElseThrow());
 	}
 
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(DST_QUERY, boc,
+				boc.getBusinessObject(ErrorBehaviorTransition.class).orElseThrow());
 	}
 
 	@Override

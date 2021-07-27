@@ -36,7 +36,7 @@ import javafx.scene.transform.Transform;
  * Node intended to be used as the root of a diagram. Sizes children to preferred size and positions the nodes based on {@link PreferredPosition}
  */
 public class DiagramRootNode extends Group {
-	private final ReadOnlyObjectWrapper<Transform> sceneToLocalTransform = new ReadOnlyObjectWrapper<Transform>();
+	private final ReadOnlyObjectWrapper<Transform> sceneToLocalTransform = new ReadOnlyObjectWrapper<>();
 
 	public DiagramRootNode() {
 		sceneToLocalTransform.bind(new ObjectBinding<Transform>() {

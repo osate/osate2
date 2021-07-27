@@ -21,17 +21,54 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.aadl2.ui.internal.palette;
+package org.osate.ge.aadl2;
 
-public final class AadlPaletteCategories {
-	private AadlPaletteCategories() {
+import org.osate.ge.aadl2.ui.internal.palette.AadlPaletteContributor;
+
+/**
+ * Contains constants whose values are the IDs of the categories used by the AADL palette commands.
+ * These categories are registered by {@link AadlPaletteContributor}
+ * @since 3.0
+ */
+public final class AadlCategories {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private AadlCategories() {
 	}
 
+	/**
+	 * Category for classifier creation palette commands
+	 */
 	public static final String CLASSIFIERS = "org.osate.ge.aadl2.palette.categories.classifiers";
+
+	/**
+	 * Category for AADL connection creation palette commands
+	 */
 	public static final String CONNECTIONS = "org.osate.ge.aadl2.palette.categories.connections";
+
+	/**
+	 * Category for feature creation palette commands
+	 */
 	public static final String FEATURES = "org.osate.ge.aadl2.palette.categories.features";
+
+	/**
+	 * Category for flow specification creation palette commands
+	 */
 	public static final String FLOWS = "org.osate.ge.aadl2.palette.categories.flows";
+
+	/**
+	 * Category for palette commands related to AADL modes.
+	 */
 	public static final String MODES = "org.osate.ge.aadl2.palette.categories.modes";
+
+	/**
+	 * Category for subcomponent creation palette commands
+	 */
 	public static final String SUBCOMPONENTS = "org.osate.ge.aadl2.palette.categories.subcomponents";
-	public static final String SUBPROGRAM_CALLS = "org.osate.ge.aadl2.palette.categories.subprogram_calls";
+
+	/**
+	 * Category for palette commands related to subprogram calls
+	 */
+	public static final String SUBPROGRAM_CALLS = "org.osate.ge.aadl2.palette.categories.subprogramCalls";
 }

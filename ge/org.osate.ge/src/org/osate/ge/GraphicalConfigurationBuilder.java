@@ -82,7 +82,7 @@ public class GraphicalConfigurationBuilder {
 	 * Configures the builder to build an instance with the specified connection source.
 	 * @param value the source to include in the graphical configuration.
 	 * @return this builder to allow method chaining.
-	 * @see GraphicalConfiguration#getSource()
+	 * @see GraphicalConfiguration#getConnectionSource()
 	 */
 	public GraphicalConfigurationBuilder source(final BusinessObjectContext value) {
 		this.connectionSource = (DiagramElement) value;

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -30,7 +30,8 @@ import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.QueryResult;
+import org.osate.ge.query.ExectableQuery;
 import org.osate.ge.services.QueryService;
 
 /**
@@ -38,8 +39,11 @@ import org.osate.ge.services.QueryService;
  *
  */
 public class ReferenceValueWithContext {
-	private static StandaloneQuery cneQuery = StandaloneQuery.create((rootQuery) -> rootQuery.descendantsByBusinessObjectsRelativeReference((ContainedNamedElement cne) -> getBusinessObjectsPath(cne)).first());
-	private static StandaloneQuery partialCneQuery = StandaloneQuery.create((rootQuery) -> rootQuery.descendantsByBusinessObjectsRelativeReference((ContainedNamedElement cne) -> getBusinessObjectsPath(cne), 1).first());
+	private static final ExectableQuery<ContainedNamedElement> CNE_QUERY = ExectableQuery.create(
+			ContainedNamedElement.class,
+			rootQuery -> rootQuery
+			.descendantsByBusinessObjectsRelativeReference(ReferenceValueWithContext::getBusinessObjectsPath, 1)
+			.first());
 
 	public final ReferenceValue referenceValue;
 
@@ -61,7 +65,7 @@ public class ReferenceValueWithContext {
 		// Get the queryable
 		boolean referenceOwnerInTree = true;
 		BusinessObjectContext tmp = q;
-		for(int i = 0; i < propertyAssociationOwnerAncestorLevel; i++) {
+		for (int i = 0; i < propertyAssociationOwnerAncestorLevel; i++) {
 			tmp = tmp.getParent();
 			if (tmp == null) {
 				referenceOwnerInTree = false;
@@ -70,20 +74,15 @@ public class ReferenceValueWithContext {
 		}
 
 		// Decide whether to show it as connection or not.
-		// OPTIMIZE: Don't use queries. Should be able to do this in one loop instead of requiring 2 queries.
 		final boolean hasPartialDestination;
 		final boolean hasFinalDestination;
 		final BusinessObjectContext dst;
-		if(referenceOwnerInTree) {
-			dst = queryService.getFirstBusinessObjectContextOrNull(partialCneQuery, tmp, referenceValue);
-			hasPartialDestination = dst != null;
-
-			if(hasPartialDestination) {
-				final BusinessObjectContext referencedQueryable = queryService.getFirstBusinessObjectContextOrNull(cneQuery, tmp, referenceValue);
-				hasFinalDestination = dst == referencedQueryable && !containsArrayElementReference(referenceValue);
-			} else {
-				hasFinalDestination = false;
-			}
+		if (referenceOwnerInTree) {
+			final QueryResult dstResult = queryService.getFirstResult(CNE_QUERY, tmp, referenceValue).orElse(null);
+			dst = dstResult == null ? null : dstResult.getBusinessObjectContext();
+			hasPartialDestination = dstResult != null;
+			hasFinalDestination = dstResult != null && !dstResult.isPartial()
+					&& !containsArrayElementReference(referenceValue);
 		} else {
 			dst = null;
 			hasPartialDestination = false;
@@ -101,12 +100,13 @@ public class ReferenceValueWithContext {
 	 * @return
 	 */
 	private static Object[] getBusinessObjectsPath(final ContainedNamedElement cne) {
-		if(cne == null) {
+		if (cne == null) {
 			return null;
 		}
 
 		final List<Object> path = new ArrayList<>();
-		for(ContainmentPathElement pathElement = cne.getPath(); pathElement != null; pathElement = pathElement.getPath()) {
+		for (ContainmentPathElement pathElement = cne.getPath(); pathElement != null; pathElement = pathElement
+				.getPath()) {
 			path.add(pathElement.getNamedElement());
 		}
 
@@ -114,12 +114,13 @@ public class ReferenceValueWithContext {
 	}
 
 	private static boolean containsArrayElementReference(final ContainedNamedElement cne) {
-		if(cne == null) {
+		if (cne == null) {
 			return false;
 		}
 
-		for(ContainmentPathElement pathElement = cne.getPath(); pathElement != null; pathElement = pathElement.getPath()) {
-			if(pathElement.getArrayRanges() != null && pathElement.getArrayRanges().size() > 0) {
+		for (ContainmentPathElement pathElement = cne.getPath(); pathElement != null; pathElement = pathElement
+				.getPath()) {
+			if (pathElement.getArrayRanges() != null && pathElement.getArrayRanges().size() > 0) {
 				return true;
 			}
 		}

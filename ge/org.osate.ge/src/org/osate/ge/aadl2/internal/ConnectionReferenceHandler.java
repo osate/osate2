@@ -41,24 +41,25 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.QueryResult;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExectableQuery;
 import org.osate.ge.services.QueryService;
 
 public class ConnectionReferenceHandler extends AadlBusinessObjectHandler {
-	private static final Graphic graphic = ConnectionBuilder.create().build();
-	private static final Style style = StyleBuilder.create().build();
-	private static final Style partialStyle = StyleBuilder.create().dotted().build();
-	private static StandaloneQuery srcQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent()
-					.descendantsByBusinessObjectsRelativeReference(
-							(ConnectionReference cr) -> AgeAadlUtil
-							.getPathToBusinessObject(cr.getComponentInstance(), cr.getSource()),
-							1)
-					.first());
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
-			.descendantsByBusinessObjectsRelativeReference((
-					ConnectionReference cr) -> AgeAadlUtil
-					.getPathToBusinessObject(cr.getComponentInstance(), cr.getDestination()), 1)
+	private static final Graphic GRAPHIC = ConnectionBuilder.create().build();
+	private static final Style STYLE = StyleBuilder.create().build();
+	private static final Style PARTIAL_STYLE = StyleBuilder.create().dotted().build();
+	private static final ExectableQuery<ConnectionReference> SRC_QUERY = ExectableQuery.create(
+			ConnectionReference.class,
+			rootQuery -> rootQuery.parent()
+			.descendantsByBusinessObjectsRelativeReference(
+					cr -> AgeAadlUtil.getPathToBusinessObject(cr.getComponentInstance(), cr.getSource()), 1)
+			.first());
+	private static final ExectableQuery<ConnectionReference> DST_QUERY = ExectableQuery.create(
+			ConnectionReference.class,
+			rootQuery -> rootQuery.parent()
+			.descendantsByBusinessObjectsRelativeReference(
+					cr -> AgeAadlUtil.getPathToBusinessObject(cr.getComponentInstance(), cr.getDestination()),
+					1)
 			.first());
 
 	@Override
@@ -68,27 +69,28 @@ public class ConnectionReferenceHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final ConnectionReference bo = ctx.getBusinessObject(ConnectionReference.class).get();
+		final ConnectionReference bo = ctx.getBusinessObject(ConnectionReference.class).orElseThrow();
 		return new CanonicalBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
-				AadlReferenceUtil.CONNECTION_REFERENCE_KEY,
-				AadlReferenceUtil.getSystemInstanceKey(bo),
+				AadlReferenceUtil.CONNECTION_REFERENCE_KEY, AadlReferenceUtil.getSystemInstanceKey(bo),
 				AadlReferenceUtil.buildConnectionReferenceId(bo));
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		return new RelativeBusinessObjectReference(AadlReferenceUtil.INSTANCE_ID,
-				AadlReferenceUtil.CONNECTION_REFERENCE_KEY,
-				AadlReferenceUtil.buildConnectionReferenceId(ctx.getBusinessObject(ConnectionReference.class).get()));
+				AadlReferenceUtil.CONNECTION_REFERENCE_KEY, AadlReferenceUtil
+				.buildConnectionReferenceId(ctx.getBusinessObject(ConnectionReference.class).orElseThrow()));
 	}
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final QueryService queryService = ctx.getQueryService();
-		final QueryResult srcResult = queryService.getFirstResult(srcQuery, boc).orElse(null);
-		final QueryResult dstResult = queryService.getFirstResult(dstQuery, boc).orElse(null);
-		final boolean partial = (srcResult != null && srcResult.isPartial()) || (dstResult != null && dstResult.isPartial());
+		final ConnectionReference bo = boc.getBusinessObject(ConnectionReference.class).orElseThrow();
+		final QueryResult srcResult = queryService.getFirstResult(SRC_QUERY, boc, bo).orElse(null);
+		final QueryResult dstResult = queryService.getFirstResult(DST_QUERY, boc, bo).orElse(null);
+		final boolean partial = (srcResult != null && srcResult.isPartial())
+				|| (dstResult != null && dstResult.isPartial());
 		final BusinessObjectContext src = srcResult == null ? null : srcResult.getBusinessObjectContext();
 		final BusinessObjectContext dst = dstResult == null ? null : dstResult.getBusinessObjectContext();
 
@@ -113,19 +115,17 @@ public class ConnectionReferenceHandler extends AadlBusinessObjectHandler {
 			}
 		}
 
-		return Optional.of(GraphicalConfigurationBuilder.create().
-				graphic(graphic).
-				style(partial ? partialStyle : style)
-				.source(src).destination(dst).
-				build());
+		return Optional.of(GraphicalConfigurationBuilder.create()
+				.graphic(GRAPHIC)
+				.style(partial ? PARTIAL_STYLE : STYLE)
+				.source(src)
+				.destination(dst)
+				.build());
 	}
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(ConnectionReference.class)
-				.map(cr -> cr.getFullName())
-				.orElse("");
+		return ctx.getBusinessObject(ConnectionReference.class).map(cr -> cr.getFullName()).orElse("");
 	}
-
 
 }

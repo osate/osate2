@@ -99,9 +99,7 @@ public class DiagramEditorNode extends Region {
 		collapseButton.setOnMouseEntered(e -> collapseButton.setStyle(COLLAPSE_BUTTON_HOVER_STYLE));
 		collapseButton.setOnMouseExited(e -> collapseButton.setStyle(COLLAPSE_BUTTON_STYLE));
 		collapseButton.setPadding(new Insets(9, 0, 5, 0));
-		collapseButton.setOnAction(e -> {
-			updateCollapse();
-		});
+		collapseButton.setOnAction(e -> updateCollapse());
 
 		paletteTitleContainer.getChildren().addAll(paletteTitle, collapseButton);
 		AnchorPane.setTopAnchor(paletteTitle, 5.0);

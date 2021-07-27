@@ -87,9 +87,8 @@ public abstract class BaseConnectionNode extends Group implements ChopBoxGeometr
 			wrapper.getChildren().add(inner);
 
 			wrapper.setVisible(false);
-			inner.getChildren().addListener((ListChangeListener<Node>) c -> {
-				wrapper.setVisible(!inner.getChildren().isEmpty());
-			});
+			inner.getChildren()
+					.addListener((ListChangeListener<Node>) c -> wrapper.setVisible(!inner.getChildren().isEmpty()));
 		}
 	}
 
@@ -120,7 +119,7 @@ public abstract class BaseConnectionNode extends Group implements ChopBoxGeometr
 	/**
 	 * Creates a new instance
 	 */
-	public BaseConnectionNode() {
+	protected BaseConnectionNode() {
 		setPickOnBounds(false);
 		getChildren().setAll(connection, midpointDecorations.wrapper, primaryLabels.wrapper, secondaryLabels.wrapper);
 		connection.setStartDecoration(startDecorationGroup);

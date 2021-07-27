@@ -56,7 +56,7 @@ import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.ui.editor.ComboContributionItem;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExectableQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.swt.SwtUtil;
 
@@ -64,10 +64,10 @@ import com.google.common.base.Objects;
 import com.google.common.base.Predicates;
 
 public class FlowContributionItem extends ComboContributionItem {
-	public final static String highlightFlow = "org.osate.ge.properties.HighlightFlow";
-	private static final String emptySelectionTxt = "<Flows>";
-	private static final String selectedFlowPropertyKey = "org.osate.ge.ui.editor.selectedFlow";
-	private static final StandaloneQuery flowContainerQuery = StandaloneQuery
+	public static final String WIDGET_ID_HIGHLIGHT_FLOW = "org.osate.ge.properties.HighlightFlow";
+	private static final String EMPTY_SELECTION_TXT = "<Flows>";
+	private static final String SELECTED_FLOW_PROPERTY_KEY = "org.osate.ge.ui.editor.selectedFlow";
+	private static final ExectableQuery<Object> FLOW_CONTAINER_QUERY = ExectableQuery
 			.create((rootQuery) -> rootQuery.descendants()
 					.filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation
 							|| fa.getBusinessObject() instanceof Subcomponent
@@ -135,7 +135,7 @@ public class FlowContributionItem extends ComboContributionItem {
 			@SuppressWarnings("unchecked")
 			final Map.Entry<String, HighlightableFlowInfo> entry = (Map.Entry<String, HighlightableFlowInfo>) firstSelection;
 			final String selectionStr = firstSelection != null ? (String) entry.getKey() : null;
-			editor.setPartProperty(selectedFlowPropertyKey, selectionStr);
+			editor.setPartProperty(SELECTED_FLOW_PROPERTY_KEY, selectionStr);
 		}
 	}
 
@@ -166,7 +166,7 @@ public class FlowContributionItem extends ComboContributionItem {
 			}
 		});
 
-		SwtUtil.setTestingId(comboViewer.getCombo(), highlightFlow);
+		SwtUtil.setTestingId(comboViewer.getCombo(), WIDGET_ID_HIGHLIGHT_FLOW);
 		refresh(); // Populate the combo box
 		return control;
 	}
@@ -180,7 +180,7 @@ public class FlowContributionItem extends ComboContributionItem {
 					getNullValueString(), new HighlightableFlowInfo(null, FlowSegmentState.COMPLETE));
 			highlightableFlowElements.put(nullMapEntry.getKey(), nullMapEntry.getValue());
 			Map.Entry<String, HighlightableFlowInfo> selectedValue = nullMapEntry;
-			final String selectedFlowName = editor == null ? null : editor.getPartProperty(selectedFlowPropertyKey);
+			final String selectedFlowName = editor == null ? null : editor.getPartProperty(SELECTED_FLOW_PROPERTY_KEY);
 			// Clear the combo box
 			comboViewer.setInput(null);
 
@@ -193,7 +193,9 @@ public class FlowContributionItem extends ComboContributionItem {
 				final QueryService queryService = ContributionUtil.getQueryService(editor);
 				if (queryService != null) {
 					// Determine which flows have elements contained in the diagram and whether the flow is partial.
-					queryService.getResults(flowContainerQuery, diagram).stream().flatMap(flowContainerQueryable -> {
+					queryService.getResults(FLOW_CONTAINER_QUERY, diagram, null)
+					.stream()
+					.flatMap(flowContainerQueryable -> {
 						if (flowContainerQueryable.getBusinessObject() instanceof ComponentInstance) {
 							return AadlInstanceObjectUtil
 									.getComponentInstance(flowContainerQueryable.getBusinessObjectContext())
@@ -323,7 +325,7 @@ public class FlowContributionItem extends ComboContributionItem {
 
 	@Override
 	protected String getNullValueString() {
-		return emptySelectionTxt;
+		return EMPTY_SELECTION_TXT;
 	}
 
 	public static class HighlightableFlowInfo {
