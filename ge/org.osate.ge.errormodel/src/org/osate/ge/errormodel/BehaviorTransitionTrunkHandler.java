@@ -43,7 +43,7 @@ import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 
@@ -53,12 +53,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
  */
 public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, CustomDeleter
 {
-	private static final ExectableQuery<BehaviorTransitionTrunk> SRC_QUERY = ExectableQuery
+	private static final ExecutableQuery<BehaviorTransitionTrunk> SRC_QUERY = ExecutableQuery
 			.create(BehaviorTransitionTrunk.class,
 					rootQuery -> rootQuery.ancestor(2)
 							.children()
 			.filterByBusinessObjectRelativeReference(t -> t.getTransition().getSource()));
-	private static final ExectableQuery<BehaviorTransitionTrunk> DST_QUERY = ExectableQuery
+	private static final ExecutableQuery<BehaviorTransitionTrunk> DST_QUERY = ExecutableQuery
 			.create(BehaviorTransitionTrunk.class, rootQuery -> rootQuery.ancestor(2)
 					.children()
 			.filterByBusinessObjectRelativeReference(t -> t.getTransition()));

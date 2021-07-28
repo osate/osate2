@@ -27,11 +27,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.query.QueryResult;
 
 /**
- * Editor service for executing {@link ExectableQuery}
+ * Editor service for executing {@link ExecutableQuery}
  *
  */
 public interface QueryService {
@@ -44,7 +44,7 @@ public interface QueryService {
 	 * @return an optional containing the business object of the first returned result. An empty optional is returned if a result is not found.
 	 * @since 3.0
 	 */
-	default <T> Optional<Object> getFirstBusinessObject(final ExectableQuery<T> query, final BusinessObjectContext boc,
+	default <T> Optional<Object> getFirstBusinessObject(final ExecutableQuery<T> query, final BusinessObjectContext boc,
 			final T arg) {
 		return getFirstResult(query, boc, arg).map(result -> result.getBusinessObjectContext().getBusinessObject());
 	}
@@ -58,7 +58,7 @@ public interface QueryService {
 	 * @return the business object context from the first result. Returns null if a business object context is not available.
 	 * @since 3.0
 	 */
-	default <T> BusinessObjectContext getFirstBusinessObjectContextOrNull(final ExectableQuery<T> query,
+	default <T> BusinessObjectContext getFirstBusinessObjectContextOrNull(final ExecutableQuery<T> query,
 			final BusinessObjectContext boc, final T arg) {
 		final QueryResult value = getFirstResult(query, boc, arg).orElse(null);
 		return value == null ? null : value.getBusinessObjectContext();
@@ -73,7 +73,7 @@ public interface QueryService {
 	 * @return an optional containing the first result. Returns an empty optional if a result is not returned.
 	 * @since 3.0
 	 */
-	<T> Optional<QueryResult> getFirstResult(ExectableQuery<T> query, BusinessObjectContext boc, final T arg);
+	<T> Optional<QueryResult> getFirstResult(ExecutableQuery<T> query, BusinessObjectContext boc, final T arg);
 
 	/**
 	 * Executes a query and returns all the results.
@@ -84,5 +84,5 @@ public interface QueryService {
 	 * @return the results of executing the query.
 	 * @since 3.0
 	 */
-	<T> List<QueryResult> getResults(ExectableQuery<T> query, BusinessObjectContext boc, final T arg);
+	<T> List<QueryResult> getResults(ExecutableQuery<T> query, BusinessObjectContext boc, final T arg);
 }

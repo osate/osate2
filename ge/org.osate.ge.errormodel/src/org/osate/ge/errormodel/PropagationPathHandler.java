@@ -47,7 +47,7 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.QueryResult;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 
@@ -55,7 +55,7 @@ public class PropagationPathHandler implements BusinessObjectHandler {
 	private static final Graphic GRAPHIC = ConnectionBuilder.create().build();
 
 	// Assumes root is the containing classifier
-	private static final ExectableQuery<QualifiedPropagationPoint> PROPAGATION_POINT_QUERY = ExectableQuery
+	private static final ExecutableQuery<QualifiedPropagationPoint> PROPAGATION_POINT_QUERY = ExecutableQuery
 			.create(QualifiedPropagationPoint.class,
 					(rootQuery) -> rootQuery
 							.descendantsByBusinessObjectsRelativeReference(

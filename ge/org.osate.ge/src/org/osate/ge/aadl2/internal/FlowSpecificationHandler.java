@@ -48,16 +48,16 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.query.QueryResult;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
-	private static final ExectableQuery<FlowSpecification> SRC_QUERY = ExectableQuery.create(FlowSpecification.class,
+	private static final ExecutableQuery<FlowSpecification> SRC_QUERY = ExecutableQuery.create(FlowSpecification.class,
 			rootQuery -> rootQuery.parent()
 			.descendantsByBusinessObjectsRelativeReference(fs -> getBusinessObjectsPathToFlowEnd(
 					fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd()), 1)
 			.first());
-	private static final ExectableQuery<FlowSpecification> DST_QUERY = ExectableQuery.create(FlowSpecification.class,
+	private static final ExecutableQuery<FlowSpecification> DST_QUERY = ExecutableQuery.create(FlowSpecification.class,
 			rootQuery -> rootQuery.parent()
 			.descendantsByBusinessObjectsRelativeReference(
 					fs -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd()), 1)

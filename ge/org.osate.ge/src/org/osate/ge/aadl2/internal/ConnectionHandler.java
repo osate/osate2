@@ -49,17 +49,17 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.query.QueryResult;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class ConnectionHandler extends AadlBusinessObjectHandler {
 	private static final Graphic GRAPHIC = ConnectionBuilder.create().build();
-	private static final ExectableQuery<Connection> SRC_QUERY = ExectableQuery.create(Connection.class,
+	private static final ExecutableQuery<Connection> SRC_QUERY = ExecutableQuery.create(Connection.class,
 			rootQuery -> rootQuery.parent()
 			.descendantsByBusinessObjectsRelativeReference(c -> getBusinessObjectsPathToConnectedElement(
 					c.getAllSourceContext(), c.getRootConnection().getSource()), 1)
 			.first());
-	private static final ExectableQuery<Connection> DST_QUERY = ExectableQuery.create(Connection.class,
+	private static final ExecutableQuery<Connection> DST_QUERY = ExecutableQuery.create(Connection.class,
 			rootQuery -> rootQuery.parent()
 			.descendantsByBusinessObjectsRelativeReference(c -> getBusinessObjectsPathToConnectedElement(
 					c.getAllDestinationContext(), c.getRootConnection().getDestination()), 1)

@@ -31,7 +31,7 @@ import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.query.QueryResult;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 /**
@@ -39,7 +39,7 @@ import org.osate.ge.services.QueryService;
  *
  */
 public class ReferenceValueWithContext {
-	private static final ExectableQuery<ContainedNamedElement> CNE_QUERY = ExectableQuery.create(
+	private static final ExecutableQuery<ContainedNamedElement> CNE_QUERY = ExecutableQuery.create(
 			ContainedNamedElement.class,
 			rootQuery -> rootQuery
 			.descendantsByBusinessObjectsRelativeReference(ReferenceValueWithContext::getBusinessObjectsPath, 1)

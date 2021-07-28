@@ -38,16 +38,16 @@ import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class ModeTransitionInstanceHandler extends AadlBusinessObjectHandler {
-	private static ExectableQuery<ModeTransitionInstance> SRC_QUERY = ExectableQuery.create(
+	private static ExecutableQuery<ModeTransitionInstance> SRC_QUERY = ExecutableQuery.create(
 			ModeTransitionInstance.class,
 			rootQuery -> rootQuery.parent()
 			.children()
 			.filterByBusinessObjectRelativeReference(ModeTransitionInstance::getSource));
-	private static ExectableQuery<ModeTransitionInstance> DST_QUERY = ExectableQuery.create(
+	private static ExecutableQuery<ModeTransitionInstance> DST_QUERY = ExecutableQuery.create(
 			ModeTransitionInstance.class,
 			rootQuery -> rootQuery.parent()
 			.children()

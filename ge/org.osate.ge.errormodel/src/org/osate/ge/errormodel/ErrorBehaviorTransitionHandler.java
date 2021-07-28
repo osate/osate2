@@ -48,7 +48,7 @@ import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -69,11 +69,11 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 			.labelsLeft()
 			.primaryLabelVisible(false)
 			.build();
-	private static final ExectableQuery<ErrorBehaviorTransition> SRC_QUERY = ExectableQuery
+	private static final ExecutableQuery<ErrorBehaviorTransition> SRC_QUERY = ExecutableQuery
 			.create(ErrorBehaviorTransition.class, rootQuery -> rootQuery.parent()
 					.children()
 					.filterByBusinessObjectRelativeReference(ErrorBehaviorTransition::getSource));
-	private static final ExectableQuery<ErrorBehaviorTransition> DST_QUERY = ExectableQuery.create(
+	private static final ExecutableQuery<ErrorBehaviorTransition> DST_QUERY = ExecutableQuery.create(
 			ErrorBehaviorTransition.class,
 			rootQuery -> rootQuery.parent()
 					.children()

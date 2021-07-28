@@ -30,16 +30,16 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class PropertyValueUtil {
-	private static final ExectableQuery<Object> CLASSIFIER_QUERY = ExectableQuery.create(Object.class,
+	private static final ExecutableQuery<Object> CLASSIFIER_QUERY = ExecutableQuery.create(Object.class,
 			rootQuery -> rootQuery.children()
 			.children()
 			.filterByBusinessObjectCanonicalReference(Function.identity())
 			.first());
-	private static final ExectableQuery<InstanceObject> INSTANCE_OBJECT_QUERY = ExectableQuery
+	private static final ExecutableQuery<InstanceObject> INSTANCE_OBJECT_QUERY = ExecutableQuery
 			.create(InstanceObject.class,
 					rootQuery -> rootQuery
 							.descendantsByBusinessObjectsRelativeReference(PropertyValueUtil::getInstanceObjectPath, 1)

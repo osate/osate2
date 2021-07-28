@@ -56,7 +56,7 @@ import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.ui.editor.ComboContributionItem;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.swt.SwtUtil;
 
@@ -67,7 +67,7 @@ public class FlowContributionItem extends ComboContributionItem {
 	public static final String WIDGET_ID_HIGHLIGHT_FLOW = "org.osate.ge.properties.HighlightFlow";
 	private static final String EMPTY_SELECTION_TXT = "<Flows>";
 	private static final String SELECTED_FLOW_PROPERTY_KEY = "org.osate.ge.ui.editor.selectedFlow";
-	private static final ExectableQuery<Object> FLOW_CONTAINER_QUERY = ExectableQuery
+	private static final ExecutableQuery<Object> FLOW_CONTAINER_QUERY = ExecutableQuery
 			.create((rootQuery) -> rootQuery.descendants()
 					.filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation
 							|| fa.getBusinessObject() instanceof Subcomponent

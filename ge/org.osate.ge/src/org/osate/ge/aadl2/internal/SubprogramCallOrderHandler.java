@@ -43,7 +43,7 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class SubprogramCallOrderHandler extends AadlBusinessObjectHandler {
@@ -51,12 +51,12 @@ public class SubprogramCallOrderHandler extends AadlBusinessObjectHandler {
 			.destinationTerminator(ArrowBuilder.create().line().build())
 			.build();
 	private static final Style STYLE = StyleBuilder.create().build();
-	private static final ExectableQuery<SubprogramCallOrder> SRC_QUERY = ExectableQuery.create(
+	private static final ExecutableQuery<SubprogramCallOrder> SRC_QUERY = ExecutableQuery.create(
 			SubprogramCallOrder.class,
 			rootQuery -> rootQuery.parent()
 			.children()
 			.filterByBusinessObjectRelativeReference(sco -> sco.previousSubprogramCall));
-	private static final ExectableQuery<SubprogramCallOrder> DST_QUERY = ExectableQuery.create(
+	private static final ExecutableQuery<SubprogramCallOrder> DST_QUERY = ExecutableQuery.create(
 			SubprogramCallOrder.class,
 			rootQuery -> rootQuery.parent()
 			.children()

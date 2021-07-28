@@ -52,7 +52,7 @@ import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.ui.editor.ComboContributionItem;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 import com.google.common.base.Objects;
@@ -60,7 +60,7 @@ import com.google.common.base.Objects;
 public class ModeContributionItem extends ComboContributionItem {
 	private static final String EMPTY_SELECTION_TXT = "<Modes>";
 	private static final String SELECTED_MODE_PROPERTY_KEY = "org.osate.ge.ui.editor.selectedMode";
-	private static final ExectableQuery<Object> MODE_CONTAINER_QUERY = ExectableQuery
+	private static final ExecutableQuery<Object> MODE_CONTAINER_QUERY = ExecutableQuery
 			.create((rootQuery) -> rootQuery.descendants()
 					.filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation
 							|| fa.getBusinessObject() instanceof Subcomponent

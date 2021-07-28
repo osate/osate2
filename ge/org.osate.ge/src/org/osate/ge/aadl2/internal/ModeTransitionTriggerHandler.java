@@ -41,7 +41,7 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 import com.google.common.base.Strings;
@@ -51,7 +51,7 @@ public class ModeTransitionTriggerHandler extends AadlBusinessObjectHandler {
 	private static final Style STYLE = StyleBuilder.create().dashed().primaryLabelVisible(false).build();
 
 	// If context is null look for the port under the trigger's ancestor. if context is not null use ancestor(1).children().filterByBo(context);
-	private static final ExectableQuery<ModeTransitionTrigger> DST_QUERY = ExectableQuery.create(
+	private static final ExecutableQuery<ModeTransitionTrigger> DST_QUERY = ExecutableQuery.create(
 			ModeTransitionTrigger.class,
 			rootQuery -> rootQuery.ancestor(2)
 			.ifElse(ca -> ca.getQueryArgument().getContext() == null, UnaryOperator.identity(),

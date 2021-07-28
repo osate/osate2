@@ -41,20 +41,20 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.QueryResult;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class ConnectionReferenceHandler extends AadlBusinessObjectHandler {
 	private static final Graphic GRAPHIC = ConnectionBuilder.create().build();
 	private static final Style STYLE = StyleBuilder.create().build();
 	private static final Style PARTIAL_STYLE = StyleBuilder.create().dotted().build();
-	private static final ExectableQuery<ConnectionReference> SRC_QUERY = ExectableQuery.create(
+	private static final ExecutableQuery<ConnectionReference> SRC_QUERY = ExecutableQuery.create(
 			ConnectionReference.class,
 			rootQuery -> rootQuery.parent()
 			.descendantsByBusinessObjectsRelativeReference(
 					cr -> AgeAadlUtil.getPathToBusinessObject(cr.getComponentInstance(), cr.getSource()), 1)
 			.first());
-	private static final ExectableQuery<ConnectionReference> DST_QUERY = ExectableQuery.create(
+	private static final ExecutableQuery<ConnectionReference> DST_QUERY = ExecutableQuery.create(
 			ConnectionReference.class,
 			rootQuery -> rootQuery.parent()
 			.descendantsByBusinessObjectsRelativeReference(

@@ -38,7 +38,7 @@ import org.osate.ge.services.QueryService;
  * @noextend This class is not intended to be subclassed by clients.
  * @since 3.0
  */
-public final class ExectableQuery<T> {
+public final class ExecutableQuery<T> {
 	private final DefaultQuery<T> rootQuery = new RootQuery<>(() -> this.root);
 	private BusinessObjectContext root;
 	private final DefaultQuery<T> query;
@@ -48,7 +48,7 @@ public final class ExectableQuery<T> {
 	 * @param queryCreator the function called to create the query.
 	 * @see #create(Class, UnaryOperator)
 	 */
-	private ExectableQuery(final UnaryOperator<Query<T>> queryCreator) {
+	private ExecutableQuery(final UnaryOperator<Query<T>> queryCreator) {
 		this.query = (DefaultQuery<T>) queryCreator.apply(rootQuery);
 	}
 
@@ -95,9 +95,9 @@ public final class ExectableQuery<T> {
 	 * @return the new query
 	 * @since 3.0
 	 */
-	public static <T> ExectableQuery<T> create(final Class<T> queryParameterClass,
+	public static <T> ExecutableQuery<T> create(final Class<T> queryParameterClass,
 			final UnaryOperator<Query<T>> queryCreator) {
-		return new ExectableQuery<T>(queryCreator);
+		return new ExecutableQuery<T>(queryCreator);
 	}
 
 	/**
@@ -106,7 +106,7 @@ public final class ExectableQuery<T> {
 	 * @return the new query
 	 * @since 3.0
 	 */
-	public static ExectableQuery<Object> create(final UnaryOperator<Query<Object>> queryCreator) {
-		return new ExectableQuery<>(queryCreator);
+	public static ExecutableQuery<Object> create(final UnaryOperator<Query<Object>> queryCreator) {
+		return new ExecutableQuery<>(queryCreator);
 	}
 }

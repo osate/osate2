@@ -56,13 +56,13 @@ import org.osate.ge.operations.StepResult;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 import com.google.common.collect.ImmutableList;
 
 public class CreateClassifierPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
-	private static final ExectableQuery<Object> PACKAGE_QUERY = ExectableQuery
+	private static final ExecutableQuery<Object> PACKAGE_QUERY = ExecutableQuery
 			.create((root) -> root.ancestors().filter(fa -> fa.getBusinessObject() instanceof AadlPackage));
 
 	private final EClass classifierEClass;

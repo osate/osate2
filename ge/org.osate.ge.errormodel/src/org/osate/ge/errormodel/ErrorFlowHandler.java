@@ -52,7 +52,7 @@ import org.osate.ge.graphics.FlowIndicatorBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
@@ -70,7 +70,7 @@ public class ErrorFlowHandler implements BusinessObjectHandler {
 			.destinationTerminator(ArrowBuilder.create().line().build()).build();
 
 	// Assumes root is the containing classifier
-	private static final ExectableQuery<ErrorPropagation> PROPAGATION_QUERY = ExectableQuery
+	private static final ExecutableQuery<ErrorPropagation> PROPAGATION_QUERY = ExecutableQuery
 			.create(ErrorPropagation.class,
 					rootQuery -> rootQuery
 							.descendantsByBusinessObjectsRelativeReference(

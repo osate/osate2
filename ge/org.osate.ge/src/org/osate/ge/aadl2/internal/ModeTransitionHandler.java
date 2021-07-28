@@ -41,15 +41,15 @@ import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class ModeTransitionHandler extends AadlBusinessObjectHandler {
-	private static final ExectableQuery<ModeTransition> SRC_QUERY = ExectableQuery.create(ModeTransition.class,
+	private static final ExecutableQuery<ModeTransition> SRC_QUERY = ExecutableQuery.create(ModeTransition.class,
 			rootQuery -> rootQuery.parent()
 			.children()
 			.filterByBusinessObjectRelativeReference(ModeTransition::getSource));
-	private static final ExectableQuery<ModeTransition> DST_QUERY = ExectableQuery.create(ModeTransition.class,
+	private static final ExecutableQuery<ModeTransition> DST_QUERY = ExecutableQuery.create(ModeTransition.class,
 			rootQuery -> rootQuery.parent()
 			.children()
 			.filterByBusinessObjectRelativeReference(ModeTransition::getDestination));

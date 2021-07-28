@@ -55,14 +55,14 @@ import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 /**
  * Business Object Handler for {@link BehaviorTransition}.
  */
 public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
-	private static final ExectableQuery<BehaviorTransition> SRC_QUERY = ExectableQuery.create(BehaviorTransition.class,
+	private static final ExecutableQuery<BehaviorTransition> SRC_QUERY = ExecutableQuery.create(BehaviorTransition.class,
 			rootQuery -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(bt -> {
 				if (bt instanceof DeclarativeBehaviorTransition) {
 					final DeclarativeBehaviorTransition dt = (DeclarativeBehaviorTransition) bt;
@@ -76,7 +76,7 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 				return bt.getSourceState();
 			}));
 
-	private static final ExectableQuery<BehaviorTransition> DST_QUERY = ExectableQuery.create(BehaviorTransition.class,
+	private static final ExecutableQuery<BehaviorTransition> DST_QUERY = ExecutableQuery.create(BehaviorTransition.class,
 			rootQuery -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(bt -> {
 				if (bt instanceof DeclarativeBehaviorTransition) {
 					final DeclarativeBehaviorTransition dt = (DeclarativeBehaviorTransition) bt;

@@ -49,11 +49,11 @@ import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.CanStartConnectionContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.GetCreateConnectionOperationContext;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class CreateModeTransitionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
-	private static final ExectableQuery<Object> CONTAINER_QUERY = ExectableQuery
+	private static final ExecutableQuery<Object> CONTAINER_QUERY = ExecutableQuery
 			.create(root -> root.ancestors()
 					.filter(fa -> fa.getBusinessObject() instanceof ComponentClassifier
 					|| fa.getBusinessObject() instanceof Subcomponent).first());

@@ -42,7 +42,7 @@ import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -52,11 +52,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
  * @see ErrorBehaviorTransitionHandler for details about how transitions are represented.
  */
 public class TransitionBranchHandler implements BusinessObjectHandler, CustomDeleter {
-	private static final ExectableQuery<TransitionBranch> SRC_QUERY = ExectableQuery.create(TransitionBranch.class,
+	private static final ExecutableQuery<TransitionBranch> SRC_QUERY = ExecutableQuery.create(TransitionBranch.class,
 			rootQuery -> rootQuery.ancestor(2)
 					.children()
 					.filterByBusinessObjectRelativeReference(TransitionBranch::eContainer));
-	private static final ExectableQuery<TransitionBranch> DST_QUERY = ExectableQuery.create(TransitionBranch.class,
+	private static final ExecutableQuery<TransitionBranch> DST_QUERY = ExecutableQuery.create(TransitionBranch.class,
 			rootQuery -> rootQuery.ancestor(2)
 					.children()
 					.filterByBusinessObjectRelativeReference(branch -> branch.isSteadyState()

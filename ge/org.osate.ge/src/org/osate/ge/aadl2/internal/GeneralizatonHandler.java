@@ -50,7 +50,7 @@ import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class GeneralizatonHandler extends AadlBusinessObjectHandler {
@@ -63,7 +63,7 @@ public class GeneralizatonHandler extends AadlBusinessObjectHandler {
 			.build();
 	private static final Style IMPLEMENTS_STYLE = StyleBuilder.create().backgroundColor(Color.WHITE).dashed().build();
 	private static final Graphic LABEL_GRAPHIC = LabelBuilder.create().build();
-	private static final ExectableQuery<Generalization> NESTED_CLASSIFIER_QUERY = ExectableQuery
+	private static final ExecutableQuery<Generalization> NESTED_CLASSIFIER_QUERY = ExecutableQuery
 			.create(Generalization.class, rootQuery -> rootQuery
 					.descendantsByBusinessObjectsRelativeReference(g -> getBusinessObjectPath(g.getGeneral())));
 

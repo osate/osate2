@@ -49,7 +49,7 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.query.ExectableQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
@@ -62,7 +62,7 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 			.build();
 
 	// Only works if the package is displayed in the diagram.
-	private static final ExectableQuery<ErrorTypeExtension> dstQuery = ExectableQuery.create(
+	private static final ExecutableQuery<ErrorTypeExtension> dstQuery = ExecutableQuery.create(
 			ErrorTypeExtension.class,
 			(rootQuery) -> rootQuery.ancestor(3)
 					.descendantsByBusinessObjectsRelativeReference(ete -> getBusinessObjectPath(ete.getSupertype())));
