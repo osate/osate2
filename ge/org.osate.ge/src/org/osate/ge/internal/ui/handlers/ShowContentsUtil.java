@@ -79,8 +79,40 @@ class ShowContentsUtil {
 				return null;
 			});
 		}
-
 	}
+
+	public static void addAllContentsToSelectedElements(final ExecutionEvent event) {
+		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
+		if (!(activeEditor instanceof InternalDiagramEditor)) {
+			throw new RuntimeException("Unexpected editor: " + activeEditor);
+		}
+
+		final InternalDiagramEditor diagramEditor = (InternalDiagramEditor) activeEditor;
+
+		final ExtensionRegistryService extService = Objects.requireNonNull(
+				Adapters.adapt(diagramEditor, ExtensionRegistryService.class), "Unable to retrieve extension service");
+		final List<DiagramElement> selectedDiagramElements = AgeHandlerUtil.getSelectedDiagramElements();
+		final AgeDiagram diagram = diagramEditor.getDiagram();
+		if (diagram == null) {
+			throw new RuntimeException("Unable to retrieve diagram");
+		}
+
+		final DiagramUpdater diagramUpdater = Objects.requireNonNull(diagramEditor.getDiagramUpdater(),
+				"Unable to retrieve diagram updater");
+
+		final ReferenceBuilderService referenceBuilder = Objects.requireNonNull(
+				Adapters.adapt(diagramEditor, ReferenceBuilderService.class),
+				"Unable to retrieve reference builder service");
+
+		if (addChildrenDuringNextUpdate(selectedDiagramElements, diagramUpdater, extService, referenceBuilder,
+				(parentElement, childBo) -> extService.getApplicableBusinessObjectHandler(childBo).showAll(childBo))) {
+			diagramEditor.getActionExecutor().execute("Show Contents", ExecutionMode.NORMAL, () -> {
+				diagramEditor.updateDiagram();
+				return null;
+			});
+		}
+	}
+
 
 	/**
 	 * Adds children of the specified diagram elements to the list of elements which will be added during the next diagram update.

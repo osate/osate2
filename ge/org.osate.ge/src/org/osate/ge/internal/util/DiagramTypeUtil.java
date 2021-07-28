@@ -44,6 +44,7 @@ public class DiagramTypeUtil {
 		return diagramType.getDefaultContentFilters(bo)
 				.stream()
 				.map(id -> contentFilterProvider.getContentFilterById(id).orElse(null))
-				.filter(cf -> cf != null && cf.isApplicable(bo)).collect(ImmutableSet.toImmutableSet());
+				.filter(cf -> cf != null && cf.isApplicable(bo))
+				.collect(ImmutableSet.toImmutableSet());
 	}
 }

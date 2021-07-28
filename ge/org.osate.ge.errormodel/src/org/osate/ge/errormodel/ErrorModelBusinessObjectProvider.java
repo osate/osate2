@@ -24,6 +24,7 @@
 package org.osate.ge.errormodel;
 
 import java.util.Arrays;
+import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -38,8 +39,8 @@ import org.osate.ge.BusinessObjectProviderContext;
 import org.osate.ge.errormodel.combined.CombinedErrorModelSubclause;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
-import org.osate.ge.errormodel.model.BindingReference;
-import org.osate.ge.errormodel.model.BindingReferenceType;
+import org.osate.ge.errormodel.model.KeywordPropagationPoint;
+import org.osate.ge.errormodel.model.KeywordPropagationPointType;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -83,14 +84,17 @@ public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider 
 				final CombinedErrorModelSubclause cacheEntry = CombinedErrorModelSubclause.create(classifier);
 				classifierCache.put(classifier, cacheEntry);
 				if (cacheEntry.subclauseExists()) {
+					final Set<KeywordPropagationPointType> usedKeywordTypes = cacheEntry.getUsedKeywordPropagations();
 					return Stream
 							.of(cacheEntry.getPoints(), cacheEntry.getPaths(), cacheEntry.getFlows(),
-									Arrays.stream(BindingReferenceType.values())
-											.map(t -> new BindingReference(classifier, t)))
+									Arrays.stream(KeywordPropagationPointType.values())
+											/* .filter(t -> usedKeywordTypes.contains(t)) */
+											.map(t -> new KeywordPropagationPoint(classifier, t,
+													usedKeywordTypes.contains(t))))
 							.flatMap(Function.identity());
 				}
 			}
-		} else if (bo instanceof Feature || bo instanceof PropagationPoint || bo instanceof BindingReference) {
+		} else if (bo instanceof Feature || bo instanceof PropagationPoint || bo instanceof KeywordPropagationPoint) {
 			// Propagation(and containment) objects
 			final CombinedErrorModelSubclause cacheEntry = getClassifierCacheEntry(ctx.getBusinessObjectContext());
 			return cacheEntry.getPropagations().getPropagationsForBusinessObjectContext(ctx.getBusinessObjectContext());

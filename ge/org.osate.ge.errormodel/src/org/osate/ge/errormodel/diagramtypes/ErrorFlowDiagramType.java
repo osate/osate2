@@ -30,7 +30,7 @@ import org.osate.ge.DiagramType;
 import org.osate.ge.aadl2.AadlContentFilterIds;
 import org.osate.ge.errormodel.filters.ErrorFlowFilter;
 import org.osate.ge.errormodel.filters.ErrorPropagationFilter;
-import org.osate.ge.errormodel.filters.BindingReferencesFilter;
+import org.osate.ge.errormodel.filters.KeywordPropagationPointFilter;
 import org.osate.ge.errormodel.filters.PropagationPointFilter;
 
 import com.google.common.collect.ImmutableCollection;
@@ -39,8 +39,9 @@ import com.google.common.collect.ImmutableSet;
 public class ErrorFlowDiagramType implements DiagramType {
 	private final static String ID = "em.errorFlow";
 	private final ImmutableSet<String> defaultClassifierAndSubcomponentFilters = ImmutableSet.of(
+			AadlContentFilterIds.CLASSIFIERS,
 			AadlContentFilterIds.FEATURES, AadlContentFilterIds.INTERNAL_FEATURES, AadlContentFilterIds.PROCESSOR_FEATURES,
-			BindingReferencesFilter.ID, PropagationPointFilter.ID, ErrorFlowFilter.ID);
+			KeywordPropagationPointFilter.ID, PropagationPointFilter.ID, ErrorFlowFilter.ID);
 	private final ImmutableSet<String> defaultFeatureFilters = ImmutableSet.of(ErrorPropagationFilter.ID);
 
 	@Override

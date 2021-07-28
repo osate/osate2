@@ -32,8 +32,8 @@ import org.osate.aadl2.Feature;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.errormodel.combined.CombinedErrorModelSubclause;
-import org.osate.ge.errormodel.model.BindingReference;
-import org.osate.ge.errormodel.model.BindingReferenceType;
+import org.osate.ge.errormodel.model.KeywordPropagationPoint;
+import org.osate.ge.errormodel.model.KeywordPropagationPointType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
@@ -96,14 +96,14 @@ public class ErrorFlowPaletteCommandUtil {
 	}
 
 	/**
-	 * Checks whether the business object context is an "all" binding reference.
+	 * Checks whether the business object context is an "all" keyword propagation point.
 	 * @param boc the business object to check.
-	 * @return whether the business object context's business object is an "all" binding reference.
+	 * @return whether the business object context's business object is an "all" Keyword propagation point.
 	 */
 	public static boolean isAll(final BusinessObjectContext boc) {
 		final Object targetBo = boc.getBusinessObject();
-		return targetBo instanceof BindingReference
-				&& ((BindingReference) targetBo).getType() == BindingReferenceType.ALL;
+		return targetBo instanceof KeywordPropagationPoint
+				&& ((KeywordPropagationPoint) targetBo).getType() == KeywordPropagationPointType.ALL;
 
 	}
 
@@ -115,6 +115,6 @@ public class ErrorFlowPaletteCommandUtil {
 	 */
 	public static boolean isPotentialEnd(final BusinessObjectContext end) {
 		final Object bo = end.getBusinessObject();
-		return bo instanceof Feature || bo instanceof BindingReference || bo instanceof PropagationPoint;
+		return bo instanceof Feature || bo instanceof KeywordPropagationPoint || bo instanceof PropagationPoint;
 	}
 }

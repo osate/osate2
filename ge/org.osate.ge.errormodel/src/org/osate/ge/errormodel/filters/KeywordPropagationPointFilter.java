@@ -21,38 +21,43 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.errormodel.model;
+package org.osate.ge.errormodel.filters;
 
-import java.util.Objects;
-
-import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Classifier;
-import org.osate.ge.EmfContainerProvider;
+import org.osate.aadl2.Subcomponent;
+import org.osate.ge.ContentFilter;
+import org.osate.ge.errormodel.model.KeywordPropagationPoint;
 
-/**
- * A model object that represents a {@link BindingReferenceType} in the context of a containing classifier.
- *
- */
-public class BindingReference implements EmfContainerProvider {
-	private final Classifier classifier;
+public class KeywordPropagationPointFilter implements ContentFilter {
+	public static final String ID = "emv2.keywordPropagationPoints";
 
-	private final BindingReferenceType type;
-
-	public BindingReference(final Classifier classifier, final BindingReferenceType type) {
-		this.type = Objects.requireNonNull(type, "type must not be null");
-		this.classifier = Objects.requireNonNull(classifier, "clasifier must not be null");
+	@Override
+	public String getParentId() {
+		return ErrorModelSubclauseFilter.ID;
 	}
 
 	@Override
-	public EObject getEmfContainer() {
-		return getClassifier();
+	public String getId() {
+		return ID;
 	}
 
-	public final Classifier getClassifier() {
-		return classifier;
+	@Override
+	public String getName() {
+		return "Used Error Propagation Point Keywords";
 	}
 
-	public final BindingReferenceType getType() {
-		return type;
+	@Override
+	public boolean isApplicable(final Object bo) {
+		return (bo instanceof Classifier || bo instanceof Subcomponent)
+				&& ErrorModelFilterUtil.hasApplicableErrorModelSubclause(bo);
+	}
+
+	@Override
+	public boolean test(final Object bo) {
+		if (bo instanceof KeywordPropagationPoint) {
+			return ((KeywordPropagationPoint) bo).isUsed();
+		}
+
+		return false;
 	}
 }

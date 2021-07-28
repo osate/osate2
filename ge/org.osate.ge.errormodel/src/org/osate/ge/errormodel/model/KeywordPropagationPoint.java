@@ -21,39 +21,46 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.errormodel.filters;
+package org.osate.ge.errormodel.model;
 
+import java.util.Objects;
+
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Subcomponent;
-import org.osate.ge.ContentFilter;
-import org.osate.ge.errormodel.model.BindingReference;
+import org.osate.ge.EmfContainerProvider;
 
-public class BindingReferencesFilter implements ContentFilter {
-	public static final String ID = "emv2.bindingReferences";
+/**
+ * A model object that represents a {@link KeywordPropagationPointType} in the context of a containing classifier.
+ *
+ */
+public class KeywordPropagationPoint implements EmfContainerProvider {
+	private final Classifier classifier;
 
-	@Override
-	public String getParentId() {
-		return ErrorModelSubclauseFilter.ID;
+	private final KeywordPropagationPointType type;
+
+	private final boolean isUsed;
+
+	public KeywordPropagationPoint(final Classifier classifier, final KeywordPropagationPointType type,
+			final boolean isUsed) {
+		this.type = Objects.requireNonNull(type, "type must not be null");
+		this.classifier = Objects.requireNonNull(classifier, "clasifier must not be null");
+		this.isUsed = isUsed;
 	}
 
 	@Override
-	public String getId() {
-		return ID;
+	public EObject getEmfContainer() {
+		return getClassifier();
 	}
 
-	@Override
-	public String getName() {
-		return "Binding References";
+	public final Classifier getClassifier() {
+		return classifier;
 	}
 
-	@Override
-	public boolean isApplicable(final Object bo) {
-		return (bo instanceof Classifier || bo instanceof Subcomponent)
-				&& ErrorModelFilterUtil.hasApplicableErrorModelSubclause(bo);
+	public final KeywordPropagationPointType getType() {
+		return type;
 	}
 
-	@Override
-	public boolean test(final Object bo) {
-		return bo instanceof BindingReference;
+	public final boolean isUsed() {
+		return isUsed;
 	}
 }

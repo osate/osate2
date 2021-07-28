@@ -60,7 +60,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.ge.errormodel.TypeSetHandler">
       </handler>
 	  <handler
-            class="org.osate.ge.errormodel.BindingReferenceHandler">
+            class="org.osate.ge.errormodel.KeywordPropagationPointHandler">
       </handler>
       <handler
             class="org.osate.ge.errormodel.PropagationPointHandler">
@@ -120,7 +120,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.ge.errormodel.filters.PropagationPointFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.errormodel.filters.BindingReferencesFilter">
+            class="org.osate.ge.errormodel.filters.KeywordPropagationPointFilter">
       </contentFilter>
       <contentFilter
             class="org.osate.ge.errormodel.filters.ErrorPropagationFilter">

@@ -26,7 +26,9 @@ package org.osate.ge.errormodel.combined;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.EList;
@@ -34,8 +36,10 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.NamedElement;
+import org.osate.ge.errormodel.model.KeywordPropagationPointType;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
@@ -53,7 +57,7 @@ public class CombinedErrorModelSubclause {
 	 */
 	public static final CombinedErrorModelSubclause EMPTY = new CombinedErrorModelSubclause(false,
 			Collections.emptyMap(),
-			Collections.emptyMap(), Collections.emptyMap(),
+			Collections.emptyMap(), Collections.emptyMap(), Collections.emptySet(),
 			new PropagationNode());
 
 	private final boolean subclauseFound;
@@ -61,15 +65,18 @@ public class CombinedErrorModelSubclause {
 	private final Map<String, PropagationPath> paths;
 	private final Map<String, ErrorFlow> flows;
 	private final ReadonlyPropagationNode propagations;
+	private final Set<KeywordPropagationPointType> usedKeywordPointTypes;
 
 	public CombinedErrorModelSubclause(final boolean subclauseFound, final Map<String, PropagationPoint> points,
 			final Map<String, PropagationPath> paths,
-			final Map<String, ErrorFlow> flows, final ReadonlyPropagationNode propagations) {
+			final Map<String, ErrorFlow> flows, final Set<KeywordPropagationPointType> usedKeywordPointTypes,
+			final ReadonlyPropagationNode propagations) {
 		this.subclauseFound = subclauseFound;
 		this.points = Collections.unmodifiableMap(points);
 		this.paths = Collections.unmodifiableMap(paths);
 		this.flows = Collections.unmodifiableMap(flows);
 		this.propagations = propagations;
+		this.usedKeywordPointTypes = Collections.unmodifiableSet(usedKeywordPointTypes);
 	}
 
 	/**
@@ -92,6 +99,10 @@ public class CombinedErrorModelSubclause {
 		return flows.values().stream();
 	}
 
+	public final Set<KeywordPropagationPointType> getUsedKeywordPropagations() {
+		return usedKeywordPointTypes;
+	}
+
 	public final ReadonlyPropagationNode getPropagations() {
 		return propagations;
 	}
@@ -101,6 +112,7 @@ public class CombinedErrorModelSubclause {
 		final Map<String, PropagationPath> paths = new HashMap<>();
 		final Map<String, ErrorFlow> flows = new HashMap<>();
 		final PropagationNode propagations = new PropagationNode();
+		final Set<KeywordPropagationPointType> usedKeywordPointTypes = new HashSet<>();
 
 		final EList<Classifier> classifiers = classifier.getSelfPlusAllExtended();
 		if (classifier instanceof ComponentImplementation) {
@@ -122,11 +134,34 @@ public class CombinedErrorModelSubclause {
 				for (final ErrorPropagation propagation : subclause.getPropagations()) {
 					propagations.put(propagation);
 				}
+
+				// Loop for usedkeywordpoints
+				for (final ErrorFlow errorFlow : subclause.getFlows()) {
+					// TODO do errorsource and sink
+					if (errorFlow instanceof ErrorPath) {
+						final ErrorPath ep = (ErrorPath) errorFlow;
+						final ErrorPropagation incoming = ep.getIncoming();
+						final ErrorPropagation outgoing = ep.getOutgoing();
+
+						if (ep.isAllIncoming() || ep.isAllOutgoing()) {
+							usedKeywordPointTypes.add(KeywordPropagationPointType.ALL);
+						}
+
+						if (incoming != null) {
+							usedKeywordPointTypes.add(KeywordPropagationPointType.getByKind(incoming.getKind()));
+						}
+
+						if (outgoing != null) {
+							usedKeywordPointTypes.add(KeywordPropagationPointType.getByKind(outgoing.getKind()));
+						}
+					}
+				}
 			});
 		}
 
 
-		return new CombinedErrorModelSubclause(subclauseFound[0], points, paths, flows, propagations);
+		return new CombinedErrorModelSubclause(subclauseFound[0], points, paths, flows, usedKeywordPointTypes,
+				propagations);
 	}
 
 	/**

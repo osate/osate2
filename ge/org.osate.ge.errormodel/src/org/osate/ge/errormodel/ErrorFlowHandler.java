@@ -43,8 +43,8 @@ import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
-import org.osate.ge.errormodel.model.BindingReference;
-import org.osate.ge.errormodel.model.BindingReferenceType;
+import org.osate.ge.errormodel.model.KeywordPropagationPoint;
+import org.osate.ge.errormodel.model.KeywordPropagationPointType;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
@@ -167,7 +167,7 @@ public class ErrorFlowHandler implements BusinessObjectHandler {
 	private static Optional<ErrorFlowEnd> getErrorFlowEnd(final QueryService queryService,
 			final BusinessObjectContext classifierBoc, final boolean all, final NamedElement propagation) {
 		if (all) {
-			return getBindingRefFlowEnd(classifierBoc, BindingReferenceType.ALL);
+			return getKeywordFlowEnd(classifierBoc, KeywordPropagationPointType.ALL);
 		} else if (propagation instanceof ErrorPropagation) {
 			return getPropagationFlowEnd(queryService, classifierBoc, (ErrorPropagation) propagation);
 		} else {
@@ -175,21 +175,21 @@ public class ErrorFlowHandler implements BusinessObjectHandler {
 		}
 	}
 
-	private static Optional<ErrorFlowEnd> getBindingRefFlowEnd(final BusinessObjectContext container,
-			final BindingReferenceType bindingRef) {
-		if (bindingRef == null) {
+	private static Optional<ErrorFlowEnd> getKeywordFlowEnd(final BusinessObjectContext container,
+			final KeywordPropagationPointType keyword) {
+		if (keyword == null) {
 			return Optional.empty();
 		}
 
 		return container.getChildren().stream().filter(
-				c -> c.getBusinessObject(BindingReference.class).filter(p -> p.getType() == bindingRef).isPresent())
+				c -> c.getBusinessObject(KeywordPropagationPoint.class).filter(p -> p.getType() == keyword).isPresent())
 				.findFirst().map(boc -> new ErrorFlowEnd(boc, false));
 	}
 
 	private static Optional<ErrorFlowEnd> getPropagationFlowEnd(final QueryService queryService,
 			final BusinessObjectContext container, final ErrorPropagation p) {
 		if (p.getKind() != null) {
-			return getBindingRefFlowEnd(container, BindingReferenceType.getByKind(p.getKind()));
+			return getKeywordFlowEnd(container, KeywordPropagationPointType.getByKind(p.getKind()));
 		}
 
 		return queryService.getFirstResult(propagationQuery, container, p)

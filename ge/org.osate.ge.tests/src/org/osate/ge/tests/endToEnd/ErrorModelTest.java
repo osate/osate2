@@ -34,7 +34,7 @@ import org.junit.Test;
 import org.osate.aadl2.DirectionType;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.errormodel.ErrorModelReferenceUtil;
-import org.osate.ge.errormodel.model.BindingReferenceType;
+import org.osate.ge.errormodel.model.KeywordPropagationPointType;
 import org.osate.ge.errormodel.ui.properties.ErrorFlowPropertySection;
 import org.osate.ge.errormodel.ui.properties.ErrorModelLibraryPropertySection;
 import org.osate.ge.errormodel.ui.properties.ErrorModelSubclausePropertySection;
@@ -456,8 +456,8 @@ public class ErrorModelTest {
 
 		// Create propagation for binding reference
 		createShapeElement(diagram,
-				sysImplElement.join(ErrorModelReferenceUtil.getRelativeReferenceForBindingReference(
-						BindingReferenceType.BINDINGS.getKind())),
+				sysImplElement.join(ErrorModelReferenceUtil
+						.getRelativeReferenceForPropagationPoint(KeywordPropagationPointType.BINDINGS.getKind())),
 				"In Error Containment",
 				ErrorModelReferenceUtil.getRelativeReferenceForPropagation(true, DirectionType.IN),
 				ErrorModelTest::selectSingleErrorType);

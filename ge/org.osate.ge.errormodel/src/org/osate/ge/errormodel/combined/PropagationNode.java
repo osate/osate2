@@ -31,7 +31,7 @@ import java.util.stream.Stream;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.errormodel.model.BindingReference;
+import org.osate.ge.errormodel.model.KeywordPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
@@ -106,9 +106,9 @@ public class PropagationNode implements ReadonlyPropagationNode {
 		if (bo instanceof Feature) {
 			return getDescendantForFeaturePath(boc).map(ReadonlyPropagationNode::getPropagations)
 					.orElse(Stream.empty());
-		} else if (bo instanceof BindingReference) {
-			final BindingReference br = (BindingReference) bo;
-			return getChild(br.getType().getKind()).map(ReadonlyPropagationNode::getPropagations)
+		} else if (bo instanceof KeywordPropagationPoint) {
+			final KeywordPropagationPoint kw = (KeywordPropagationPoint) bo;
+			return getChild(kw.getType().getKind()).map(ReadonlyPropagationNode::getPropagations)
 					.orElse(Stream.empty());
 		} else if (bo instanceof PropagationPoint) {
 			final PropagationPoint pp = (PropagationPoint) bo;

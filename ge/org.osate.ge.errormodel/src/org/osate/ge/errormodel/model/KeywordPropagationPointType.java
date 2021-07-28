@@ -26,10 +26,10 @@ package org.osate.ge.errormodel.model;
 import com.google.common.base.Objects;
 
 /**
- * Enumeration for binding references that refer to predefined propagation points.
+ * Enumeration for keywords that refer to predefined propagation points.
  *
  */
-public enum BindingReferenceType {
+public enum KeywordPropagationPointType {
 	/**
 	 * All is not a propagation point exactly but is used for flow declarations
 	 */
@@ -42,7 +42,7 @@ public enum BindingReferenceType {
 	 * Create a new instance
 	 * @param kind must match the kind string used for propagations for this type.
 	 */
-	BindingReferenceType(final String kind) {
+	KeywordPropagationPointType(final String kind) {
 		this.kind = kind;
 	}
 
@@ -55,8 +55,8 @@ public enum BindingReferenceType {
 	 * @param kind the name to look for
 	 * @return the matching instance
 	 */
-	public static BindingReferenceType getByKind(final String kind) {
-		for (final BindingReferenceType k : BindingReferenceType.values()) {
+	public static KeywordPropagationPointType getByKind(final String kind) {
+		for (final KeywordPropagationPointType k : KeywordPropagationPointType.values()) {
 			if (Objects.equal(kind, k.kind)) {
 				return k;
 			}
