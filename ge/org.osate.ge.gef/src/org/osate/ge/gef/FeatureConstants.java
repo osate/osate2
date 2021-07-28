@@ -27,19 +27,25 @@ package org.osate.ge.gef;
  * Constants shared by nodes intended to represent fixed-size AADL features. These constants specify the size
  * of all such features.
  */
-public class FeatureConstants {
+public final class FeatureConstants {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private FeatureConstants() {
+	}
+
 	/**
 	 * Width of the feature.
 	 */
-	public static double WIDTH = 20.0;
+	public static final double WIDTH = 20.0;
 
 	/**
 	 * Height of the feature.
 	 */
-	public static double HEIGHT = 16.0;
+	public static final double HEIGHT = 16.0;
 
 	/**
 	 * The smallest dimension.
 	 */
-	public static double MIN_DIMENSION = Math.min(WIDTH, HEIGHT);
+	public static final double MIN_DIMENSION = Math.min(WIDTH, HEIGHT);
 }

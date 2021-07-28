@@ -80,13 +80,13 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	 * Minimum possible value returned by {@link #computeMinWidth(double)}.
 	 * Some graphics do not have a minimum width provided so this serves as a minimum in cases where there are no children with a minimum width.
 	 */
-	private static double MIN_COMPUTED_MIN_WIDTH = 30;
+	private static final double MIN_COMPUTED_MIN_WIDTH = 30;
 
 	/**
 	 * Minimum possible value returned by {@link #computeMinHeight(double)}
 	 * Some graphics do not have a minimum height provided so this serves as a minimum in cases where there are no children with a minimum height.
 	 */
-	private static double MIN_COMPUTED_MIN_HEIGHT = 10;
+	private static final double MIN_COMPUTED_MIN_HEIGHT = 10;
 
 	/**
 	* Minimum possible value returned by {@link #computePrefWidth(double)} unless graphic has a max width.
@@ -301,7 +301,6 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 							break;
 						}
 
-						// final double remainingHeight = Math.max(0, height - labelY);
 						final double childMinHeight = child.minHeight(childWidth);
 						final double childPrefHeight = child.prefHeight(childWidth);
 						final double childHeight = Math.min(childPrefHeight,

@@ -37,7 +37,8 @@ import com.google.common.base.Strings;
  *
  * @since 2.0
  */
-public class NamedElementCollectionSingleSelectorModel<T extends NamedElement> extends CollectionSingleSelectorModel<T> {
+public final class NamedElementCollectionSingleSelectorModel<T extends NamedElement>
+		extends CollectionSingleSelectorModel<T> {
 	/**
 	 * Creates a new instance
 	 * @param elements the collection of named elements. The collection will be copied by the model. Changes to the collection will not be reflected by the model.

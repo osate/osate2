@@ -24,6 +24,7 @@
 package org.osate.ge.aadl2.internal;
 
 import java.util.Optional;
+import java.util.function.UnaryOperator;
 
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.ge.BusinessObjectContext;
@@ -40,21 +41,25 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 import com.google.common.base.Strings;
 
 public class ModeTransitionTriggerHandler extends AadlBusinessObjectHandler {
-	private static final Graphic graphic = ConnectionBuilder.create().build();
-	private static final Style style = StyleBuilder.create().dashed()
-			.primaryLabelVisible(false).build();
+	private static final Graphic GRAPHIC = ConnectionBuilder.create().build();
+	private static final Style STYLE = StyleBuilder.create().dashed().primaryLabelVisible(false).build();
 
 	// If context is null look for the port under the trigger's ancestor. if context is not null use ancestor(1).children().filterByBo(context);
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.ancestor(2).ifElse((ca) -> ((ModeTransitionTrigger)ca.getQueryArgument()).getContext() == null,
-			(innerRoot) -> innerRoot,
-			(innerRoot) -> innerRoot.children().filterByBusinessObjectRelativeReference((ModeTransitionTrigger mtt) -> mtt.getContext()).first()).
-			children().filterByBusinessObjectRelativeReference((ModeTransitionTrigger mtt) -> mtt.getTriggerPort()));
+	private static final ExecutableQuery<ModeTransitionTrigger> DST_QUERY = ExecutableQuery.create(
+			ModeTransitionTrigger.class,
+			rootQuery -> rootQuery.ancestor(2)
+			.ifElse(ca -> ca.getQueryArgument().getContext() == null, UnaryOperator.identity(),
+			innerRoot -> innerRoot.children()
+			.filterByBusinessObjectRelativeReference(ModeTransitionTrigger::getContext)
+			.first())
+			.children()
+			.filterByBusinessObjectRelativeReference(ModeTransitionTrigger::getTriggerPort));
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -65,9 +70,7 @@ public class ModeTransitionTriggerHandler extends AadlBusinessObjectHandler {
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
 		final ModeTransitionTrigger mtt = ctx.getBusinessObject(ModeTransitionTrigger.class).get();
 		return new CanonicalBusinessObjectReference(DeclarativeReferenceType.MODE_TRANSITION_TRIGGER.getId(),
-				ctx.getReferenceBuilder().getCanonicalReference(mtt
-						.eContainer())
-				.encode(),
+				ctx.getReferenceBuilder().getCanonicalReference(mtt.eContainer()).encode(),
 				AadlReferenceUtil.getNameForSerialization(mtt.getContext()),
 				AadlReferenceUtil.getNameForSerialization(mtt.getTriggerPort()));
 	}
@@ -84,18 +87,17 @@ public class ModeTransitionTriggerHandler extends AadlBusinessObjectHandler {
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final QueryService queryService = ctx.getQueryService();
-		return Optional.of(GraphicalConfigurationBuilder.create().
-				graphic(graphic).
-				style(style).
-				source(getSource(boc)).
-				destination(getDestination(boc, queryService)).
-				build());
+		return Optional.of(GraphicalConfigurationBuilder.create()
+				.graphic(GRAPHIC)
+				.style(STYLE)
+				.source(getSource(boc))
+				.destination(getDestination(boc, queryService))
+				.build());
 	}
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(ModeTransitionTrigger.class)
-				.map(this::getName).orElse("");
+		return ctx.getBusinessObject(ModeTransitionTrigger.class).map(this::getName).orElse("");
 	}
 
 	public String getName(final ModeTransitionTrigger mtt) {
@@ -115,8 +117,8 @@ public class ModeTransitionTriggerHandler extends AadlBusinessObjectHandler {
 	}
 
 // Destination - trigger feature
-	private BusinessObjectContext getDestination(final BusinessObjectContext boc,
-			final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
+	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
+		return queryService.getFirstBusinessObjectContextOrNull(DST_QUERY, boc,
+				boc.getBusinessObject(ModeTransitionTrigger.class).orElseThrow());
 	}
 }

@@ -55,15 +55,15 @@ import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 /**
  * Business Object Handler for {@link BehaviorTransition}.
  */
 public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
-	private static final StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
-			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> {
+	private static final ExecutableQuery<BehaviorTransition> SRC_QUERY = ExecutableQuery.create(BehaviorTransition.class,
+			rootQuery -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(bt -> {
 				if (bt instanceof DeclarativeBehaviorTransition) {
 					final DeclarativeBehaviorTransition dt = (DeclarativeBehaviorTransition) bt;
 					if (!dt.getSrcStates().isEmpty()) {
@@ -76,8 +76,8 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 				return bt.getSourceState();
 			}));
 
-	private static final StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
-			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> {
+	private static final ExecutableQuery<BehaviorTransition> DST_QUERY = ExecutableQuery.create(BehaviorTransition.class,
+			rootQuery -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(bt -> {
 				if (bt instanceof DeclarativeBehaviorTransition) {
 					final DeclarativeBehaviorTransition dt = (DeclarativeBehaviorTransition) bt;
 					final Identifier dest = dt.getDestState();
@@ -163,11 +163,13 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	}
 
 	private BusinessObjectContext getSource(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(srcQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(SRC_QUERY, boc,
+				boc.getBusinessObject(BehaviorTransition.class).orElseThrow());
 	}
 
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(DST_QUERY, boc,
+				boc.getBusinessObject(BehaviorTransition.class).orElseThrow());
 	}
 
 	@Override

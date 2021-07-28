@@ -34,7 +34,7 @@ import javax.imageio.stream.ImageOutputStream;
 import org.eclipse.core.resources.IFile;
 
 /**
- * Service for exporting a diagram as an image.
+ * Service for exporting a diagram as an image. Editor implementations provide this service as a global service.
  * Unless the specified format is "svg", the functions in this class delegate image writing to {@link javax.imageio.ImageIO}.
  * Supported formats are dependent on the image writers supported by that class.
  * @since 3.0

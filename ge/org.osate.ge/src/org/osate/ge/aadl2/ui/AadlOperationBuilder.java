@@ -230,13 +230,11 @@ public final class AadlOperationBuilder<T> {
 			return true;
 		}
 
+		// Check if there is at least one potential classifier for editing
 		if ((showErrorForSubcomponentWithoutClassifier && targetBo instanceof Subcomponent)
 				|| (showErrorForFeatureGroupWithoutClassifier && targetBo instanceof FeatureGroup)
 				|| targetBo instanceof Classifier) {
-			// Check number of potential classifiers to edit.
-			return AadlUiUtil
-					.getPotentialClassifiersForEditing(targetBo, elementType, filter)
-					.size() > 0;
+			return !AadlUiUtil.getPotentialClassifiersForEditing(targetBo, elementType, filter).isEmpty();
 		}
 
 		return false;

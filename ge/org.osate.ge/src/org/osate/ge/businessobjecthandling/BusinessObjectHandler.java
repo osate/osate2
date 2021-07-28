@@ -32,7 +32,7 @@ import org.osate.ge.RelativeBusinessObjectReference;
 
 /**
  * Determines the graphical behavior for a business object. Instances of this class are responsible for determining how a business object
- * is represented. The business object must be contributed using a {@link BusinessObjectProvider}.* Business object handlers are registered
+ * is represented. The business object must be contributed using a {@link BusinessObjectProvider}. Business object handlers are registered
  * using the <i>org.osate.ge.businessObjectHandlers</i> extension point.
  * @since 2.0
  */

@@ -55,43 +55,42 @@ public class CreateVariablePaletteCommand extends BasePaletteCommand implements 
 
 	@Override
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
-		return ctx.getTarget().getBusinessObject(BehaviorAnnex.class)
-				.map(behaviorAnnex -> {
-					final PublicPackageSection section = getPackage(behaviorAnnex).map(AadlPackage::getPublicSection)
-							.orElse(null);
-					if (section == null) {
-						return null;
-					}
+		return ctx.getTarget().getBusinessObject(BehaviorAnnex.class).map(behaviorAnnex -> {
+			final PublicPackageSection section = getPackage(behaviorAnnex).map(AadlPackage::getPublicSection)
+					.orElse(null);
+			if (section == null) {
+				return null;
+			}
 
-					return Operation.createWithBuilder(builder -> {
-						builder.supply(() -> {
-							final Optional<VariableOperation> variableOperation = getVariableBuildOperation(section,
-									behaviorAnnex);
-							return !variableOperation.isPresent() ? StepResult.abort()
-									: StepResult.forValue(variableOperation.orElseThrow());
-						}).executeOperation(variableOp -> Operation.createWithBuilder(innerBuilder -> {
-							final OperationBuilder<VariableOperation> opBuilder = innerBuilder.modifyModel(
-									variableOp.getPublicSection(), (tag, prevResult) -> tag,
-									(tag, sectionToModify, prevResult) -> {
-										BehaviorAnnexUtil.addImportIfNeeded(sectionToModify,
-												variableOp.getDataClassifierPackage());
-										return StepResult.forValue(variableOp);
-									});
-							opBuilder.modifyModel(variableOp.getBehaviorAnnex(), (tag, prevResult) -> tag,
-									(tag, behaviorAnnexToModify, prevResult) -> {
-								final BehaviorVariable newVariable = (BehaviorVariable) EcoreUtil
-										.create(AadlBaPackage.eINSTANCE.getBehaviorVariable());
-										final String newName = BehaviorAnnexNamingUtil
-												.buildUniqueIdentifier(behaviorAnnexToModify, "new_behavior_variable");
-								newVariable.setName(newName);
-										newVariable.setDataClassifier(prevResult.getDataClassifier());
-
-								behaviorAnnexToModify.getVariables().add(newVariable);
-								return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), newVariable)
-										.build();
-							});
-						}));
-					});
+			return Operation.createWithBuilder(builder -> {
+				final OperationBuilder<VariableOperation> prompt = builder.supply(() -> {
+					final Optional<VariableOperation> variableOperation = getVariableBuildOperation(section,
+							behaviorAnnex);
+					return !variableOperation.isPresent() ? StepResult.abort()
+							: StepResult.forValue(variableOperation.orElseThrow());
 				});
+
+				final OperationBuilder<VariableOperation> addImportIfNeeded = prompt.modifyModel(null,
+						(tag, prevResult) -> prevResult.getPublicSection(), (tag, sectionToModify, variableOp) -> {
+							BehaviorAnnexUtil.addImportIfNeeded(sectionToModify, variableOp.getDataClassifierPackage());
+							return StepResult.forValue(variableOp);
+						});
+
+				addImportIfNeeded.modifyModel(null, (tag, variableOp) -> variableOp.getBehaviorAnnex(),
+						(tag, behaviorAnnexToModify, prevResult) -> {
+							final BehaviorVariable newVariable = (BehaviorVariable) EcoreUtil
+									.create(AadlBaPackage.eINSTANCE.getBehaviorVariable());
+							final String newName = BehaviorAnnexNamingUtil.buildUniqueIdentifier(behaviorAnnexToModify,
+									"new_behavior_variable");
+							newVariable.setName(newName);
+							newVariable.setDataClassifier(prevResult.getDataClassifier());
+
+							behaviorAnnexToModify.getVariables().add(newVariable);
+							return StepResultBuilder.create()
+									.showNewBusinessObject(ctx.getTarget(), newVariable)
+									.build();
+						});
+			});
+		});
 	}
 }

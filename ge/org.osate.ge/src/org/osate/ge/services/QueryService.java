@@ -27,64 +27,62 @@ import java.util.List;
 import java.util.Optional;
 
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.query.QueryResult;
-import org.osate.ge.query.StandaloneQuery;
 
+/**
+ * Editor service for executing {@link ExecutableQuery}
+ *
+ */
 public interface QueryService {
 	/**
-	 * boc's BO will be query argument
-	 * @since 2.0
+	 * Executes a query and returns the business object from the first result.
+	 * @param <T> the type of argument parameter
+	 * @param query the query to execute
+	 * @param boc the business object context which provides the result of the root query
+	 * @param arg the query argument
+	 * @return an optional containing the business object of the first returned result. An empty optional is returned if a result is not found.
+	 * @since 3.0
 	 */
-	default BusinessObjectContext getFirstBusinessObjectContextOrNull(final StandaloneQuery query, final BusinessObjectContext boc) {
-		return getFirstBusinessObjectContextOrNull(query, boc, boc.getBusinessObject());
+	default <T> Optional<Object> getFirstBusinessObject(final ExecutableQuery<T> query, final BusinessObjectContext boc,
+			final T arg) {
+		return getFirstResult(query, boc, arg).map(result -> result.getBusinessObjectContext().getBusinessObject());
 	}
 
 	/**
-	 * @since 2.0
+	 * Executes a query and returns the business object context from the first result.
+	 * @param <T> the type of argument parameter
+	 * @param query the query to execute
+	 * @param boc the business object context which provides the result of the root query
+	 * @param arg the query argument
+	 * @return the business object context from the first result. Returns null if a business object context is not available.
+	 * @since 3.0
 	 */
-	default BusinessObjectContext getFirstBusinessObjectContextOrNull(StandaloneQuery query, BusinessObjectContext boc,
-			final Object arg) {
+	default <T> BusinessObjectContext getFirstBusinessObjectContextOrNull(final ExecutableQuery<T> query,
+			final BusinessObjectContext boc, final T arg) {
 		final QueryResult value = getFirstResult(query, boc, arg).orElse(null);
 		return value == null ? null : value.getBusinessObjectContext();
 	}
 
 	/**
-	 * boc's BO will be query argument
-	 * @since 2.0
+	 * Executes a query and returns the first result.
+	 * @param <T> the type of argument parameter
+	 * @param query the query to execute
+	 * @param boc the business object context which provides the result of the root query
+	 * @param arg the query argument
+	 * @return an optional containing the first result. Returns an empty optional if a result is not returned.
+	 * @since 3.0
 	 */
-	default Optional<Object> getFirstBusinessObject(final StandaloneQuery query, final BusinessObjectContext boc) {
-		return getFirstBusinessObject(query, boc, boc.getBusinessObject());
-	}
+	<T> Optional<QueryResult> getFirstResult(ExecutableQuery<T> query, BusinessObjectContext boc, final T arg);
 
 	/**
-	 * @since 2.0
+	 * Executes a query and returns all the results.
+	 * @param <T> the type of argument parameter
+	 * @param query the query to execute
+	 * @param boc the business object context which provides the result of the root query
+	 * @param arg the query argument
+	 * @return the results of executing the query.
+	 * @since 3.0
 	 */
-	Optional<Object> getFirstBusinessObject(StandaloneQuery query, BusinessObjectContext boc, final Object arg);
-
-	/**
-	 * Gets the first result
-	 * @since 2.0
-	 */
-	Optional<QueryResult> getFirstResult(StandaloneQuery query, BusinessObjectContext boc, final Object arg);
-
-	/**
-	 * boc's BO will be query argument
-	 * @since 2.0
-	 */
-	default Optional<QueryResult> getFirstResult(final StandaloneQuery query, final BusinessObjectContext boc) {
-		return getFirstResult(query, boc, boc.getBusinessObject());
-	}
-
-	/**
-	 * boc's BO will be query argument
-	 * @since 2.0
-	 */
-	default List<QueryResult> getResults(final StandaloneQuery query, final BusinessObjectContext boc) {
-		return getResults(query, boc, boc.getBusinessObject());
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	List<QueryResult> getResults(StandaloneQuery query, BusinessObjectContext boc, final Object arg);
+	<T> List<QueryResult> getResults(ExecutableQuery<T> query, BusinessObjectContext boc, final T arg);
 }

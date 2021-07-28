@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -82,8 +83,6 @@ import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.impl.DefaultColoringService;
 import org.osate.ge.internal.services.impl.ProjectReferenceServiceProxy;
-import org.osate.ge.internal.services.impl.SimpleServiceContextFunction;
-import org.osate.ge.services.DiagramExportService;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.services.impl.DefaultQueryService;
 import org.osgi.framework.FrameworkUtil;
@@ -131,13 +130,6 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 	private static final int BOUNDS_PADDING = 2;
 	private static final java.awt.Color TRANSPARENT = new java.awt.Color(0, 0, 0, 0);
 
-	public static class ContextFunction extends SimpleServiceContextFunction<DiagramExportService> {
-		@Override
-		public DiagramExportService createService(final IEclipseContext context) {
-			return new GefDiagramExportService();
-		}
-	}
-
 	@Override
 	public void export(final IFile diagramFile, final OutputStream outputStream, final String format, double scaling)
 			throws IOException {
@@ -150,24 +142,15 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 	@Override
 	public void export(final GraphicalEditor editor, final OutputStream outputStream, final String format,
 			final DiagramNode exportNode, final double scaling) throws IOException {
-		if (!(editor instanceof AgeEditor)) {
-			throw new AgeGefRuntimeException("Unexpected editor type. Editor must be of type " + AgeEditor.class);
-		}
-
 		Objects.requireNonNull(exportNode, "exportNode must not be null");
-
-		final GefAgeDiagram diagram = ((AgeEditor) editor).getGefDiagram();
+		final GefAgeDiagram diagram = checkEditor(editor).getGefDiagram();
 		export(diagram, exportNode, diagram.getSceneNode().getSceneToLocalTransform(), scaling, outputStream, format);
 	}
 
 	@Override
 	public BufferedImage export(final GraphicalEditor editor, final DiagramNode exportNode, final double scaling) {
-		if (!(editor instanceof AgeEditor)) {
-			throw new AgeGefRuntimeException("Unexpected editor type. Editor must be of type " + AgeEditor.class);
-		}
-
 		Objects.requireNonNull(exportNode, "exportNode must not be null");
-		final GefAgeDiagram diagram = ((AgeEditor) editor).getGefDiagram();
+		final GefAgeDiagram diagram = checkEditor(editor).getGefDiagram();
 		return exportToRasterImage(diagram, exportNode, diagram.getSceneNode().getSceneToLocalTransform(), scaling);
 	}
 
@@ -175,7 +158,7 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 			final Transform sceneToDiagramTransform, final double scaling, final OutputStream output,
 			final String format) throws IOException {
 		if ("svg".equalsIgnoreCase(format)) {
-			final Writer outWriter = new OutputStreamWriter(output, "UTF-8");
+			final Writer outWriter = new OutputStreamWriter(output, StandardCharsets.UTF_8);
 			exportToSvg(diagram, exportRootDiagramNode, sceneToDiagramTransform, scaling).stream(outWriter, false);
 		} else {
 			final BufferedImage image = exportToRasterImage(diagram, exportRootDiagramNode, sceneToDiagramTransform,
@@ -246,12 +229,8 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 
 	@Override
 	public Dimension getDimensions(final GraphicalEditor editor, final DiagramNode exportNode) {
-		if (!(editor instanceof AgeEditor)) {
-			throw new AgeGefRuntimeException("Unexpected editor type. Editor must be of type " + AgeEditor.class);
-		}
 		Objects.requireNonNull(exportNode, "exportNode must not be null");
-
-		final GefAgeDiagram diagram = ((AgeEditor) editor).getGefDiagram();
+		final GefAgeDiagram diagram = checkEditor(editor).getGefDiagram();
 		final Bounds bounds = getBounds(getExportNodes(diagram, exportNode),
 				diagram.getSceneNode().getSceneToLocalTransform());
 		return new Dimension(bounds.getWidth(), bounds.getHeight());
@@ -274,7 +253,7 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 
 		// Update the diagram
 		final QueryService queryService = new DefaultQueryService(referenceService);
-		final ProjectProvider projectProvider = () -> diagramFile.getProject();
+		final ProjectProvider projectProvider = diagramFile::getProject;
 		final ProjectReferenceService projectReferenceService = new ProjectReferenceServiceProxy(referenceService,
 				projectProvider);
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(
@@ -292,10 +271,12 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 				new org.osate.ge.internal.services.impl.DefaultColoringService.StyleRefresher() {
 					@Override
 					public void refreshDiagramColoring() {
+						// No-op. Handling coloring service refresh requests is not required.
 					}
 
 					@Override
 					public void refreshColoring(final Collection<DiagramElement> diagramElements) {
+						// No-op. Handling coloring service refresh requests is not required.
 					}
 				}));
 
@@ -439,13 +420,11 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 		for (final Node node : exportNodes) {
 			// Create a new graphics object which uses the node's coordinate system
 			final Graphics2D tg = (Graphics2D) g2d.create();
-			{
-				final Transform nodeToDiagramTransform = sceneToExportTransform
-						.createConcatenation(node.getLocalToSceneTransform());
-				tg.transform(new AffineTransform(nodeToDiagramTransform.getMxx(), nodeToDiagramTransform.getMyx(),
-						nodeToDiagramTransform.getMxy(), nodeToDiagramTransform.getMyy(),
-						nodeToDiagramTransform.getTx(), nodeToDiagramTransform.getTy()));
-			}
+			final Transform nodeToDiagramTransform = sceneToExportTransform
+					.createConcatenation(node.getLocalToSceneTransform());
+			tg.transform(new AffineTransform(nodeToDiagramTransform.getMxx(), nodeToDiagramTransform.getMyx(),
+					nodeToDiagramTransform.getMxy(), nodeToDiagramTransform.getMyy(), nodeToDiagramTransform.getTx(),
+					nodeToDiagramTransform.getTy()));
 
 			// Draw the node
 			if (node instanceof Path) {
@@ -478,44 +457,50 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 				draw(toAwtPath(n.getPoints(), false), tg, null, toAwt(n.getStroke()), (float) n.getStrokeWidth(),
 						n.getStrokeDashArray());
 			} else if (node instanceof Text) {
-				final Text text = (Text) node;
-
-				// Draw the text using a JTextArea so that line wrapping will be supported.
-				final Bounds layoutBounds = node.getLayoutBounds();
-				final JTextArea ta = new JTextArea(text.getText());
-				ta.setLineWrap(text.getWrappingWidth() > 0);
-				ta.setWrapStyleWord(true);
-				ta.setBackground(TRANSPARENT);
-				ta.setBounds(0, 0,
-						(int) (text.getWrappingWidth() > 0 ? text.getWrappingWidth() : layoutBounds.getWidth()),
-						(int) layoutBounds.getHeight());
-				ta.setForeground(toAwt(text.getFill()));
-				ta.setFont(toAwt(text.getFont()));
-				tg.translate((int) layoutBounds.getMinX(), (int) layoutBounds.getMinY());
-				ta.paint(tg);
+				draw((Text) node, tg);
 			} else if (node instanceof ImageView) {
-				final Bounds layoutBounds = node.getLayoutBounds();
-				final ImageView n = (ImageView) node;
-				final BufferedImage image = SwingFXUtils.fromFXImage(n.getImage(), null);
-				tg.drawImage(image, (int) layoutBounds.getMinX(), (int) layoutBounds.getMinY(),
-						(int) layoutBounds.getMaxX(), (int) layoutBounds.getMaxY(), 0, 0, image.getWidth(),
-						image.getHeight(), null, null);
+				draw((ImageView) node, tg);
 			} else if (node instanceof Region) {
-				// For regions, only drawing background is supported
-				final Region n = (Region) node;
-				if (n.getBackground() != null) {
-					final Bounds layoutBounds = node.getLayoutBounds();
-					for (final BackgroundFill f : n.getBackground().getFills()) {
-						final Insets insets = f.getInsets();
-						final Shape shape = new Rectangle.Double(layoutBounds.getMinX() + insets.getLeft(),
-								layoutBounds.getMinY() + insets.getTop(),
-								layoutBounds.getWidth() - insets.getLeft() - insets.getRight(),
-								layoutBounds.getHeight() - insets.getTop() - insets.getBottom());
-						draw(shape, tg, toAwt(f.getFill()), null, 1.0f, Collections.emptyList());
-					}
-				}
+				draw((Region) node, tg);
 			} else {
 				throw new AgeGefRuntimeException("Unexpected export node: " + node);
+			}
+		}
+	}
+
+	private static void draw(final Text text, final Graphics2D g2d) {
+		// Draw the text using a JTextArea so that line wrapping will be supported.
+		final Bounds layoutBounds = text.getLayoutBounds();
+		final JTextArea ta = new JTextArea(text.getText());
+		ta.setLineWrap(text.getWrappingWidth() > 0);
+		ta.setWrapStyleWord(true);
+		ta.setBackground(TRANSPARENT);
+		ta.setBounds(0, 0, (int) (text.getWrappingWidth() > 0 ? text.getWrappingWidth() : layoutBounds.getWidth()),
+				(int) layoutBounds.getHeight());
+		ta.setForeground(toAwt(text.getFill()));
+		ta.setFont(toAwt(text.getFont()));
+		g2d.translate((int) layoutBounds.getMinX(), (int) layoutBounds.getMinY());
+		ta.paint(g2d);
+	}
+
+	private static void draw(final ImageView imageView, final Graphics2D g2d) {
+		final Bounds layoutBounds = imageView.getLayoutBounds();
+		final BufferedImage image = SwingFXUtils.fromFXImage(imageView.getImage(), null);
+		g2d.drawImage(image, (int) layoutBounds.getMinX(), (int) layoutBounds.getMinY(), (int) layoutBounds.getMaxX(),
+				(int) layoutBounds.getMaxY(), 0, 0, image.getWidth(), image.getHeight(), null, null);
+	}
+
+	private static void draw(final Region region, final Graphics2D g2d) {
+		// For regions, only drawing background is supported
+		if (region.getBackground() != null) {
+			final Bounds layoutBounds = region.getLayoutBounds();
+			for (final BackgroundFill f : region.getBackground().getFills()) {
+				final Insets insets = f.getInsets();
+				final Shape shape = new Rectangle.Double(layoutBounds.getMinX() + insets.getLeft(),
+						layoutBounds.getMinY() + insets.getTop(),
+						layoutBounds.getWidth() - insets.getLeft() - insets.getRight(),
+						layoutBounds.getHeight() - insets.getTop() - insets.getBottom());
+				draw(shape, g2d, toAwt(f.getFill()), null, 1.0f, Collections.emptyList());
 			}
 		}
 	}
@@ -694,5 +679,18 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 		}
 
 		return new java.awt.Font(font.getName(), style, (int) font.getSize()).deriveFont((float) font.getSize());
+	}
+
+	/**
+	 * Checks the editor. Throws an exception if the editor isn't of type {@link AgeEditor}. If it is of that type, casts and then returns it.
+	 * @param editor the editor to check
+	 * @return the editor
+	 */
+	private AgeEditor checkEditor(final GraphicalEditor editor) {
+		if (!(editor instanceof AgeEditor)) {
+			throw new AgeGefRuntimeException("Unexpected editor type. Editor must be of type " + AgeEditor.class);
+		}
+
+		return (AgeEditor) editor;
 	}
 }

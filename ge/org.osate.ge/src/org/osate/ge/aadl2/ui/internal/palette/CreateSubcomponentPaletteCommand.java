@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.StringUtil;
+import org.osate.ge.aadl2.AadlCategories;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.util.AadlSubcomponentUtil;
@@ -44,7 +45,7 @@ public class CreateSubcomponentPaletteCommand extends BasePaletteCommand impleme
 
 	public CreateSubcomponentPaletteCommand(final EClass subcomponentType) {
 		super(StringUtil.camelCaseToUser(subcomponentType.getName()),
-				AadlPaletteCategories.SUBCOMPONENTS,
+				AadlCategories.SUBCOMPONENTS,
 				AadlImages.getImage(subcomponentType));
 		this.subcomponentType = subcomponentType;
 	}

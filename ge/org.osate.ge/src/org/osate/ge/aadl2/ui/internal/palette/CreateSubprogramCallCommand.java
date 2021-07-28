@@ -34,6 +34,7 @@ import org.osate.aadl2.CalledSubprogram;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.aadl2.AadlCategories;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.model.SubprogramCallOrder;
@@ -50,7 +51,7 @@ import org.osate.ge.palette.TargetedPaletteCommand;
 public class CreateSubprogramCallCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 
 	public CreateSubprogramCallCommand() {
-		super("Subprogram Call", AadlPaletteCategories.SUBPROGRAM_CALLS,
+		super("Subprogram Call", AadlCategories.SUBPROGRAM_CALLS,
 				AadlImages.getImage(Aadl2Package.eINSTANCE.getSubprogramCall()));
 	}
 

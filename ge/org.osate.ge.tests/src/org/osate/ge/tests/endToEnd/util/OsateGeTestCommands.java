@@ -437,10 +437,10 @@ public class OsateGeTestCommands {
 		clickButtonForWindow("End To End Flow Specification Tool", "OK");
 
 		// Highlight flow to ensure it was created successfully
-		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, eteQualifiedName);
+		setComboBoxWithIdSelection(FlowContributionItem.WIDGET_ID_HIGHLIGHT_FLOW, eteQualifiedName);
 
 		// Set selection to default
-		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, "<Flows>");
+		setComboBoxWithIdSelection(FlowContributionItem.WIDGET_ID_HIGHLIGHT_FLOW, "<Flows>");
 	}
 
 	private static void clickElements(final DiagramElementReference[] elements) {
@@ -473,10 +473,10 @@ public class OsateGeTestCommands {
 		clickButtonForWindow("Flow Implementation Tool", "OK");
 
 		// Highlight flow to ensure it was created successfully
-		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, flowImpQualifiedlName);
+		setComboBoxWithIdSelection(FlowContributionItem.WIDGET_ID_HIGHLIGHT_FLOW, flowImpQualifiedlName);
 
 		// Set selection to default
-		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, "<Flows>");
+		setComboBoxWithIdSelection(FlowContributionItem.WIDGET_ID_HIGHLIGHT_FLOW, "<Flows>");
 	}
 
 	/**

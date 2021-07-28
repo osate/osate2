@@ -47,17 +47,20 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.query.QueryResult;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 
 public class PropagationPathHandler implements BusinessObjectHandler {
-	private static final Graphic graphic = ConnectionBuilder.create().build();
+	private static final Graphic GRAPHIC = ConnectionBuilder.create().build();
 
 	// Assumes root is the containing classifier
-	private static StandaloneQuery propagationPointQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.descendantsByBusinessObjectsRelativeReference(
-					(QualifiedPropagationPoint p) -> getBusinessObjectPath(p), 1).first());
+	private static final ExecutableQuery<QualifiedPropagationPoint> PROPAGATION_POINT_QUERY = ExecutableQuery
+			.create(QualifiedPropagationPoint.class,
+					(rootQuery) -> rootQuery
+							.descendantsByBusinessObjectsRelativeReference(
+									PropagationPathHandler::getBusinessObjectPath, 1)
+							.first());
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -97,8 +100,8 @@ public class PropagationPathHandler implements BusinessObjectHandler {
 		}
 
 		// Determine source and destination of the connection
-		final QueryResult src = ctx.getQueryService().getFirstResult(propagationPointQuery, classifierBoc, bo.getSource()).orElse(null);
-		final QueryResult dst = ctx.getQueryService().getFirstResult(propagationPointQuery, classifierBoc, bo.getTarget()).orElse(null);
+		final QueryResult src = ctx.getQueryService().getFirstResult(PROPAGATION_POINT_QUERY, classifierBoc, bo.getSource()).orElse(null);
+		final QueryResult dst = ctx.getQueryService().getFirstResult(PROPAGATION_POINT_QUERY, classifierBoc, bo.getTarget()).orElse(null);
 
 		// Determine style
 		final StyleBuilder sb = StyleBuilder.create(GraphicalExtensionUtil.isInherited(ctx.getBusinessObjectContext())
@@ -110,7 +113,7 @@ public class PropagationPathHandler implements BusinessObjectHandler {
 			sb.dotted();
 		}
 
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build())
+		return Optional.of(GraphicalConfigurationBuilder.create().graphic(GRAPHIC).style(sb.build())
 				.defaultDockingPosition(DockingPosition.ANY).source(src == null ? null : src.getBusinessObjectContext())
 				.destination(dst == null ? null : dst.getBusinessObjectContext()).build());
 	}
