@@ -52,7 +52,9 @@ public class ErrorModelSubclauseFilter implements ContentFilter {
 
 	@Override
 	public boolean test(final Object bo) {
-		return bo instanceof ErrorFlow || bo instanceof KeywordPropagationPoint || bo instanceof PropagationPoint
+		return bo instanceof ErrorFlow
+				|| (bo instanceof KeywordPropagationPoint && ((KeywordPropagationPoint) bo).isUsed())
+				|| bo instanceof PropagationPoint
 				|| bo instanceof PropagationPath;
 	}
 }

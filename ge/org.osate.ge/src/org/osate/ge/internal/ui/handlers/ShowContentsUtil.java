@@ -31,6 +31,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.ge.ContentFilter;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -41,6 +42,8 @@ import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.services.ReferenceBuilderService;
+
+import com.google.common.collect.ImmutableSet;
 
 class ShowContentsUtil {
 	/**
@@ -81,7 +84,13 @@ class ShowContentsUtil {
 		}
 	}
 
-	public static void addAllContentsToSelectedElements(final ExecutionEvent event) {
+	/**
+	 * Adds contents to the selected diagram elements. Adds all children which pass the specified filter.
+	 * @param event is the ExecutionEvent of the handler which provides the active editor.
+	 * @param filter is passed the parent diagram element and the business object of the potential child. If the filter returns true, then an element will be added for the business object.
+	 */
+	public static void addAllContentsToSelectedElements(final ExecutionEvent event,
+			final BiFunction<ImmutableSet<ContentFilter>, Object, Boolean> filter) {
 		final IEditorPart activeEditor = HandlerUtil.getActiveEditor(event);
 		if (!(activeEditor instanceof InternalDiagramEditor)) {
 			throw new RuntimeException("Unexpected editor: " + activeEditor);
@@ -104,8 +113,8 @@ class ShowContentsUtil {
 				Adapters.adapt(diagramEditor, ReferenceBuilderService.class),
 				"Unable to retrieve reference builder service");
 
-		if (addChildrenDuringNextUpdate(selectedDiagramElements, diagramUpdater, extService, referenceBuilder,
-				(parentElement, childBo) -> extService.getApplicableBusinessObjectHandler(childBo).showAll(childBo))) {
+		if (addAllChildrenDuringNextUpdate(selectedDiagramElements, diagramUpdater, extService, referenceBuilder,
+				filter)) {
 			diagramEditor.getActionExecutor().execute("Show Contents", ExecutionMode.NORMAL, () -> {
 				diagramEditor.updateDiagram();
 				return null;
@@ -113,6 +122,34 @@ class ShowContentsUtil {
 		}
 	}
 
+	/**
+	 * Adds children of the specified diagram elements to the list of elements which will be added during the next diagram update.
+	 * @return whether children were added to the diagram.
+	 */
+	private static boolean addAllChildrenDuringNextUpdate(final List<DiagramElement> diagramElements,
+			final DiagramUpdater diagramUpdater, final ExtensionRegistryService extService,
+			final ReferenceBuilderService referenceBuilder,
+			final BiFunction<ImmutableSet<ContentFilter>, Object, Boolean> filter) {
+		boolean childrenAdded = false;
+		final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService);
+		for (final DiagramElement selectedElement : diagramElements) {
+			final ImmutableSet<ContentFilter> contentFilters = extService
+					.getApplicableContentFilters(selectedElement.getBusinessObject());
+			for (final Object childBo : bopHelper.getChildBusinessObjects(selectedElement)) {
+				final RelativeBusinessObjectReference relativeReference = referenceBuilder
+						.getRelativeReference(childBo);
+
+				if (relativeReference != null && selectedElement.getByRelativeReference(relativeReference) == null) {
+					if (filter.apply(contentFilters, childBo)) {
+						diagramUpdater.addToNextUpdate(selectedElement, relativeReference, new FutureElementInfo());
+						childrenAdded = true;
+					}
+				}
+			}
+		}
+
+		return childrenAdded;
+	}
 
 	/**
 	 * Adds children of the specified diagram elements to the list of elements which will be added during the next diagram update.

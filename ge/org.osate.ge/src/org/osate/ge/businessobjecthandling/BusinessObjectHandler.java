@@ -161,11 +161,4 @@ public interface BusinessObjectHandler {
 	default boolean canCopy(final CanCopyContext ctx) {
 		return true;
 	}
-
-	/**
-	 * @since 3.0
-	 */
-	default boolean showAll(final Object bo) {
-		return true;
-	}
 }

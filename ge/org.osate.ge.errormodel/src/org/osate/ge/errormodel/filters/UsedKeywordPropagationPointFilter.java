@@ -28,8 +28,8 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.errormodel.model.KeywordPropagationPoint;
 
-public class KeywordPropagationPointFilter implements ContentFilter {
-	public static final String ID = "emv2.keywordPropagationPoints";
+public class UsedKeywordPropagationPointFilter implements ContentFilter {
+	public static final String ID = "emv2.usedKeywordPropagationPoints";
 
 	@Override
 	public String getParentId() {
@@ -54,6 +54,7 @@ public class KeywordPropagationPointFilter implements ContentFilter {
 
 	@Override
 	public boolean test(final Object bo) {
+		System.err.println(bo + " boAAAA");
 		if (bo instanceof KeywordPropagationPoint) {
 			return ((KeywordPropagationPoint) bo).isUsed();
 		}

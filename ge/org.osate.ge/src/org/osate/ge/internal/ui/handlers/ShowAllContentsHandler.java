@@ -23,15 +23,32 @@
  */
 package org.osate.ge.internal.ui.handlers;
 
+import java.util.Objects;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
+import org.osate.ge.internal.services.ExtensionRegistryService;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 public class ShowAllContentsHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		ShowContentsUtil.addAllContentsToSelectedElements(event);
+		ShowContentsUtil.addAllContentsToSelectedElements(event,
+				(contentFilters,
+						childBo) -> contentFilters.stream().map(cf -> cf.test(childBo)).anyMatch(Boolean::valueOf));
 		return null;
+	}
+
+	private ContentFilterProvider getContentFilterProvider() {
+		final Bundle bundle = FrameworkUtil.getBundle(getClass());
+		final ExtensionRegistryService extService = Objects.requireNonNull(
+				EclipseContextFactory.getServiceContext(bundle.getBundleContext()).get(ExtensionRegistryService.class),
+				"Unable to retrieve extension registry");
+		return extService;
 	}
 
 	@Override

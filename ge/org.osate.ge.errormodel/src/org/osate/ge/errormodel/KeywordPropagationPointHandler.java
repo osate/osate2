@@ -81,7 +81,7 @@ public class KeywordPropagationPointHandler implements BusinessObjectHandler {
 	}
 
 	@Override
-	public String getNameForDiagram(GetNameForDiagramContext ctx) {
+	public String getNameForDiagram(final GetNameForDiagramContext ctx) {
 		return "<" + ctx.getBusinessObjectContext()
 				.getBusinessObject(KeywordPropagationPoint.class)
 				.get()
@@ -92,15 +92,6 @@ public class KeywordPropagationPointHandler implements BusinessObjectHandler {
 
 	@Override
 	public boolean canCopy(final CanCopyContext ctx) {
-		return false;
-	}
-
-	// TODO change to context?
-	@Override
-	public boolean showAll(final Object bo) {
-		if (bo instanceof KeywordPropagationPoint) {
-			return ((KeywordPropagationPoint) bo).isUsed();
-		}
 		return false;
 	}
 }
