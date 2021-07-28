@@ -30,7 +30,7 @@ package org.osate.ge.aadl2;
  * @since 2.0
  *
  */
-public class AadlGraphicalEditorException extends RuntimeException {
+public final class AadlGraphicalEditorException extends RuntimeException {
 	/**
 	 * Serializable version number for class
 	 */

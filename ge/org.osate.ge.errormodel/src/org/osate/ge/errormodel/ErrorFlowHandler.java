@@ -52,7 +52,7 @@ import org.osate.ge.graphics.FlowIndicatorBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
@@ -62,17 +62,20 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 
 public class ErrorFlowHandler implements BusinessObjectHandler {
-	private static final Graphic sourceGraphic = FlowIndicatorBuilder.create()
+	private static final Graphic SOURCE_GRAPHIC = FlowIndicatorBuilder.create()
 			.sourceTerminator(ArrowBuilder.create().line().build()).build();
-	private static final Graphic sinkGraphic = FlowIndicatorBuilder.create()
+	private static final Graphic SINK_GRAPHIC = FlowIndicatorBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().line().build()).build();
-	private static final Graphic pathGraphic = ConnectionBuilder.create()
+	private static final Graphic PATH_GRAPHIC = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().line().build()).build();
 
 	// Assumes root is the containing classifier
-	private static StandaloneQuery propagationQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.descendantsByBusinessObjectsRelativeReference(
-					(ErrorPropagation p) -> getBusinessObjectPathToPropagationFeatureOrPP(p), 1).first());
+	private static final ExecutableQuery<ErrorPropagation> PROPAGATION_QUERY = ExecutableQuery
+			.create(ErrorPropagation.class,
+					rootQuery -> rootQuery
+							.descendantsByBusinessObjectsRelativeReference(
+									p -> getBusinessObjectPathToPropagationFeatureOrPP(p), 1)
+							.first());
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -105,18 +108,18 @@ public class ErrorFlowHandler implements BusinessObjectHandler {
 		final ErrorFlowEnd dst;
 		final Graphic graphic;
 		if (bo instanceof ErrorSource) {
-			graphic = sourceGraphic;
+			graphic = SOURCE_GRAPHIC;
 			final ErrorSource es = (ErrorSource) bo;
 			src = getErrorFlowEnd(ctx.getQueryService(), classifierBoc, es.isAll(), es.getSourceModelElement())
 					.orElse(null);
 			dst = null;
 		} else if (bo instanceof ErrorSink) {
-			graphic = sinkGraphic;
+			graphic = SINK_GRAPHIC;
 			final ErrorSink es = (ErrorSink) bo;
 			src = getErrorFlowEnd(ctx.getQueryService(), classifierBoc, es.isAllIncoming(), es.getIncoming()).orElse(null);
 			dst = null;
 		} else if (bo instanceof ErrorPath) {
-			graphic = pathGraphic;
+			graphic = PATH_GRAPHIC;
 			final ErrorPath ep = (ErrorPath) bo;
 			src = getErrorFlowEnd(ctx.getQueryService(), classifierBoc, ep.isAllIncoming(), ep.getIncoming()).orElse(null);
 			dst = getErrorFlowEnd(ctx.getQueryService(), classifierBoc, ep.isAllOutgoing(), ep.getOutgoing()).orElse(null);
@@ -192,7 +195,7 @@ public class ErrorFlowHandler implements BusinessObjectHandler {
 			return getKeywordFlowEnd(container, KeywordPropagationPointType.getByKind(p.getKind()));
 		}
 
-		return queryService.getFirstResult(propagationQuery, container, p)
+		return queryService.getFirstResult(PROPAGATION_QUERY, container, p)
 				.map(value -> new ErrorFlowEnd(value.getBusinessObjectContext(), value.isPartial()));
 	}
 

@@ -50,22 +50,22 @@ import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class GeneralizatonHandler extends AadlBusinessObjectHandler {
-	private static final Graphic extendsGraphic = ConnectionBuilder.create()
+	private static final Graphic EXTENDS_GRAPHIC = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().open().build())
 			.build();
-	private static final Style extendsStyle = StyleBuilder.create().backgroundColor(Color.WHITE).build();
-	private static final Graphic implementsGraphic = ConnectionBuilder.create()
+	private static final Style EXTENDS_STYLE = StyleBuilder.create().backgroundColor(Color.WHITE).build();
+	private static final Graphic IMPLEMENTS_GRAPHIC = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().open().build())
 			.build();
-	private static final Style implementsStyle = StyleBuilder.create().backgroundColor(Color.WHITE).dashed().build();
-	private static final Graphic labelGraphic = LabelBuilder.create().build();
-	private static StandaloneQuery nestedClassifierQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.descendantsByBusinessObjectsRelativeReference(
-					(Generalization g) -> getBusinessObjectPath(g.getGeneral())));
+	private static final Style IMPLEMENTS_STYLE = StyleBuilder.create().backgroundColor(Color.WHITE).dashed().build();
+	private static final Graphic LABEL_GRAPHIC = LabelBuilder.create().build();
+	private static final ExecutableQuery<Generalization> NESTED_CLASSIFIER_QUERY = ExecutableQuery
+			.create(Generalization.class, rootQuery -> rootQuery
+					.descendantsByBusinessObjectsRelativeReference(g -> getBusinessObjectPath(g.getGeneral())));
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -80,8 +80,7 @@ public class GeneralizatonHandler extends AadlBusinessObjectHandler {
 		final Object bo = ctx.getBusinessObject();
 
 		if (bo instanceof Realization) {
-			return new CanonicalBusinessObjectReference(
-					DeclarativeReferenceType.REALIZATION.getId(),
+			return new CanonicalBusinessObjectReference(DeclarativeReferenceType.REALIZATION.getId(),
 					((Realization) bo).getSpecific().getQualifiedName());
 		} else if (bo instanceof TypeExtension) {
 			return new CanonicalBusinessObjectReference(DeclarativeReferenceType.TYPE_EXTENSION.getId(),
@@ -129,20 +128,24 @@ public class GeneralizatonHandler extends AadlBusinessObjectHandler {
 		final BusinessObjectContext destination = getDestination(boc, queryService);
 
 		if (destination == null) {
-			return Optional.of(GraphicalConfigurationBuilder.create().graphic(labelGraphic).build());
+			return Optional.of(GraphicalConfigurationBuilder.create().graphic(LABEL_GRAPHIC).build());
 		} else {
-			return Optional.of(GraphicalConfigurationBuilder.create().graphic(getConnectionGraphicalRepresentation(bo))
-					.style(getStyle(bo)).source(boc.getParent()). // Source is the owner of the BO
-					destination(getDestination(boc, queryService)).build());
+			return Optional.of(GraphicalConfigurationBuilder.create()
+					.graphic(getConnectionGraphicalRepresentation(bo))
+					.style(getStyle(bo))
+					.source(boc.getParent())
+					. // Source is the owner of the BO
+					destination(getDestination(boc, queryService))
+					.build());
 		}
 	}
 
 	private Graphic getConnectionGraphicalRepresentation(final Object bo) {
-		return bo instanceof Realization ? implementsGraphic : extendsGraphic;
+		return bo instanceof Realization ? IMPLEMENTS_GRAPHIC : EXTENDS_GRAPHIC;
 	}
 
 	private Style getStyle(final Object bo) {
-		return bo instanceof Realization ? implementsStyle : extendsStyle;
+		return bo instanceof Realization ? IMPLEMENTS_STYLE : EXTENDS_STYLE;
 	}
 
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
@@ -158,7 +161,8 @@ public class GeneralizatonHandler extends AadlBusinessObjectHandler {
 			return null;
 		}
 
-		return queryService.getFirstBusinessObjectContextOrNull(nestedClassifierQuery, packageParentBoc, boc.getBusinessObject());
+		return queryService.getFirstBusinessObjectContextOrNull(NESTED_CLASSIFIER_QUERY, packageParentBoc,
+				boc.getBusinessObject(Generalization.class).orElseThrow());
 	}
 
 	private static Object[] getBusinessObjectPath(final Classifier c) {

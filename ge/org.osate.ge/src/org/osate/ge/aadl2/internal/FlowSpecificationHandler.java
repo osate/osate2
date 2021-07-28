@@ -48,17 +48,20 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.query.QueryResult;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
-			.descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(
+	private static final ExecutableQuery<FlowSpecification> SRC_QUERY = ExecutableQuery.create(FlowSpecification.class,
+			rootQuery -> rootQuery.parent()
+			.descendantsByBusinessObjectsRelativeReference(fs -> getBusinessObjectsPathToFlowEnd(
 					fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd()), 1)
 			.first());
-	private static StandaloneQuery dstQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
-					(FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd()), 1).first());
+	private static final ExecutableQuery<FlowSpecification> DST_QUERY = ExecutableQuery.create(FlowSpecification.class,
+			rootQuery -> rootQuery.parent()
+			.descendantsByBusinessObjectsRelativeReference(
+					fs -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd()), 1)
+			.first());
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -90,8 +93,7 @@ public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(FlowSpecification.class)
-				.map(fs -> fs.getName()).orElse("");
+		return ctx.getBusinessObject(FlowSpecification.class).map(fs -> fs.getName()).orElse("");
 	}
 
 	@Override
@@ -107,15 +109,15 @@ public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
-		final FlowSpecification fs = boc.getBusinessObject(FlowSpecification.class).get();
+		final FlowSpecification fs = boc.getBusinessObject(FlowSpecification.class).orElseThrow();
 		final QueryService queryService = ctx.getQueryService();
-		final QueryResult srcResult = queryService.getFirstResult(srcQuery, boc).orElse(null);
+		final QueryResult srcResult = queryService.getFirstResult(SRC_QUERY, boc, fs).orElse(null);
 		final BusinessObjectContext src = srcResult == null ? null : srcResult.getBusinessObjectContext();
 		boolean partial = (srcResult != null && srcResult.isPartial());
 
 		BusinessObjectContext dst = null;
 		if (fs.getKind() == FlowKind.PATH) {
-			final QueryResult dstResult = queryService.getFirstResult(dstQuery, boc).orElse(null);
+			final QueryResult dstResult = queryService.getFirstResult(DST_QUERY, boc, fs).orElse(null);
 			dst = dstResult == null ? null : dstResult.getBusinessObjectContext();
 			partial |= (dstResult != null && dstResult.isPartial());
 		}
@@ -131,8 +133,12 @@ public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 			sb.dotted();
 		}
 
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(AadlGraphics.getFlowSpecificationGraphic(fs))
-				.style(sb.build()).source(src).destination(dst).build());
+		return Optional.of(GraphicalConfigurationBuilder.create()
+				.graphic(AadlGraphics.getFlowSpecificationGraphic(fs))
+				.style(sb.build())
+				.source(src)
+				.destination(dst)
+				.build());
 	}
 
 	/**

@@ -49,25 +49,21 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.query.QueryResult;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class ConnectionHandler extends AadlBusinessObjectHandler {
-	private static final Graphic graphic = ConnectionBuilder.create().build();
-	private static StandaloneQuery srcQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent()
-					.descendantsByBusinessObjectsRelativeReference(
-							(Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllSourceContext(),
-									c.getRootConnection().getSource()),
-							1)
-					.first());
-	private static StandaloneQuery dstQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent()
-					.descendantsByBusinessObjectsRelativeReference(
-							(Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllDestinationContext(),
-									c.getRootConnection().getDestination()),
-							1)
-					.first());
+	private static final Graphic GRAPHIC = ConnectionBuilder.create().build();
+	private static final ExecutableQuery<Connection> SRC_QUERY = ExecutableQuery.create(Connection.class,
+			rootQuery -> rootQuery.parent()
+			.descendantsByBusinessObjectsRelativeReference(c -> getBusinessObjectsPathToConnectedElement(
+					c.getAllSourceContext(), c.getRootConnection().getSource()), 1)
+			.first());
+	private static final ExecutableQuery<Connection> DST_QUERY = ExecutableQuery.create(Connection.class,
+			rootQuery -> rootQuery.parent()
+			.descendantsByBusinessObjectsRelativeReference(c -> getBusinessObjectsPathToConnectedElement(
+					c.getAllDestinationContext(), c.getRootConnection().getDestination()), 1)
+			.first());
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -76,16 +72,14 @@ public class ConnectionHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		return new CanonicalBusinessObjectReference(
-				DeclarativeReferenceType.CONNECTION.getId(),
-				ctx.getBusinessObject(Connection.class).get().getQualifiedName());
+		return new CanonicalBusinessObjectReference(DeclarativeReferenceType.CONNECTION.getId(),
+				ctx.getBusinessObject(Connection.class).orElseThrow().getQualifiedName());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return AadlReferenceUtil
-				.buildSimpleRelativeReference(DeclarativeReferenceType.CONNECTION.getId(),
-						ctx.getBusinessObject(Connection.class).get());
+		return AadlReferenceUtil.buildSimpleRelativeReference(DeclarativeReferenceType.CONNECTION.getId(),
+				ctx.getBusinessObject(Connection.class).orElseThrow());
 	}
 
 	@Override
@@ -98,8 +92,9 @@ public class ConnectionHandler extends AadlBusinessObjectHandler {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final QueryService queryService = ctx.getQueryService();
 
-		final QueryResult src = queryService.getFirstResult(srcQuery, boc).orElse(null);
-		final QueryResult dst = queryService.getFirstResult(dstQuery, boc).orElse(null);
+		final Connection c = boc.getBusinessObject(Connection.class).orElseThrow();
+		final QueryResult src = queryService.getFirstResult(SRC_QUERY, boc, c).orElse(null);
+		final QueryResult dst = queryService.getFirstResult(DST_QUERY, boc, c).orElse(null);
 		final boolean partial = (src != null && src.isPartial()) || (dst != null && dst.isPartial());
 
 		final StyleBuilder sb = StyleBuilder
@@ -108,9 +103,12 @@ public class ConnectionHandler extends AadlBusinessObjectHandler {
 			sb.dotted();
 		}
 
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).style(sb.build())
+		return Optional.of(GraphicalConfigurationBuilder.create()
+				.graphic(GRAPHIC)
+				.style(sb.build())
 				.source(src == null ? null : src.getBusinessObjectContext())
-				.destination(dst == null ? null : dst.getBusinessObjectContext()).build());
+				.destination(dst == null ? null : dst.getBusinessObjectContext())
+				.build());
 	}
 
 	/**

@@ -23,8 +23,12 @@
  */
 package org.osate.ge.graphics;
 
-// Components are in range 0-255
-public class Color {
+//
+/**
+ * Immutable data type for RGB color.
+ * The values of individual components are in range [0-255].
+ */
+public final class Color {
 	private static final double COLOR_SCALING = 0.7; // Used for scaling colors with darker() and brighter()
 	private static final double MIN_BRIGHTER_COLOR = 3.0;
 
@@ -38,48 +42,62 @@ public class Color {
 	public static final Color PURPLE = new Color(128, 0, 128);
 	public static final Color DARK_ORANGE = new Color(255, 140, 0);
 
-	private final int red;
-	private final int green;
-	private final int blue;
+	private final int r;
+	private final int g;
+	private final int b;
 
+	/**
+	 * Creates a new instance
+	 * @param red the value of the red component
+	 * @param green the value of the green component
+	 * @param blue the value of the blue component
+	 */
 	public Color(final int red, final int green, final int blue) {
-		this.red = red;
-		this.green = green;
-		this.blue = blue;
+		this.r = red;
+		this.g = green;
+		this.b = blue;
 	}
 
 	public final int getRed() {
-		return red;
+		return r;
 	}
 
 	public final int getGreen() {
-		return green;
+		return g;
 	}
 
 	public final int getBlue() {
-		return blue;
+		return b;
 	}
 
+	/**
+	 * Returns a darker version of this color.
+	 * @return a darker version of this color
+	 */
 	public final Color darker() {
-		return new Color((int) (red * COLOR_SCALING), (int) (green * COLOR_SCALING), (int) (blue * COLOR_SCALING));
+		return new Color((int) (r * COLOR_SCALING), (int) (g * COLOR_SCALING), (int) (b * COLOR_SCALING));
 	}
 
+	/**
+	 * Returns a brighter version of this color.
+	 * @return a brighter version of this color
+	 */
 	public final Color brighter() {
-		return new Color((int) Math.max(Math.min(red / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR),
-				(int) Math.max(Math.min(green / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR),
-				(int) Math.max(Math.min(blue / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR));
+		return new Color((int) Math.max(Math.min(r / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR),
+				(int) Math.max(Math.min(g / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR),
+				(int) Math.max(Math.min(b / COLOR_SCALING, 255.0), MIN_BRIGHTER_COLOR));
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + blue;
-		result = prime * result + green;
+		result = prime * result + b;
+		result = prime * result + g;
 		long temp;
 		temp = Double.doubleToLongBits(MIN_BRIGHTER_COLOR);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + red;
+		result = prime * result + r;
 		return result;
 	}
 
@@ -95,19 +113,18 @@ public class Color {
 			return false;
 		}
 		Color other = (Color) obj;
-		if (blue != other.blue) {
+		if (b != other.b) {
 			return false;
 		}
-		if (green != other.green) {
+		if (g != other.g) {
 			return false;
 		}
 		if (Double.doubleToLongBits(MIN_BRIGHTER_COLOR) != Double.doubleToLongBits(Color.MIN_BRIGHTER_COLOR)) {
 			return false;
 		}
-		if (red != other.red) {
+		if (r != other.r) {
 			return false;
 		}
 		return true;
 	}
-
 }

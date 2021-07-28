@@ -38,21 +38,29 @@ import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class ModeTransitionInstanceHandler extends AadlBusinessObjectHandler {
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
-			.filterByBusinessObjectRelativeReference((ModeTransitionInstance mt) -> mt.getSource()));
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
-			.filterByBusinessObjectRelativeReference((ModeTransitionInstance mt) -> mt.getDestination()));
+	private static ExecutableQuery<ModeTransitionInstance> SRC_QUERY = ExecutableQuery.create(
+			ModeTransitionInstance.class,
+			rootQuery -> rootQuery.parent()
+			.children()
+			.filterByBusinessObjectRelativeReference(ModeTransitionInstance::getSource));
+	private static ExecutableQuery<ModeTransitionInstance> DST_QUERY = ExecutableQuery.create(
+			ModeTransitionInstance.class,
+			rootQuery -> rootQuery.parent()
+			.children()
+			.filterByBusinessObjectRelativeReference(ModeTransitionInstance::getDestination));
 
 	private BusinessObjectContext getSource(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(srcQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(SRC_QUERY, boc,
+				boc.getBusinessObject(ModeTransitionInstance.class).orElseThrow());
 	}
 
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(DST_QUERY, boc,
+				boc.getBusinessObject(ModeTransitionInstance.class).orElseThrow());
 	}
 
 	@Override
@@ -79,8 +87,8 @@ public class ModeTransitionInstanceHandler extends AadlBusinessObjectHandler {
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final QueryService queryService = ctx.getQueryService();
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(AadlGraphics
-				.getModeTransitionGraphic())
+		return Optional.of(GraphicalConfigurationBuilder.create()
+				.graphic(AadlGraphics.getModeTransitionGraphic())
 				.source(getSource(boc, queryService))
 				.destination(getDestination(boc, queryService))
 				.style(StyleBuilder
@@ -91,7 +99,6 @@ public class ModeTransitionInstanceHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(ModeTransitionInstance.class).map(mti -> mti.getName())
-				.orElse("");
+		return ctx.getBusinessObject(ModeTransitionInstance.class).map(mti -> mti.getName()).orElse("");
 	}
 }

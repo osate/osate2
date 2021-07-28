@@ -27,7 +27,7 @@ import org.osate.ge.palette.PaletteCommand;
 import org.osate.ge.palette.internal.AgePaletteContributor;
 
 /**
- * Contains constants whose values are the id's of built-in categories.
+ * Contains constants whose values are the IDs of built-in categories.
  * @see PaletteCommand#getCategoryId()
  */
 public final class Categories {

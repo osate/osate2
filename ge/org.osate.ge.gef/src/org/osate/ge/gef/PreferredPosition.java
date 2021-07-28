@@ -35,6 +35,12 @@ import javafx.scene.Node;
  */
 public class PreferredPosition {
 	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private PreferredPosition() {
+	}
+
+	/**
 	 * Key for the property for the preferred position of the node.
 	 */
 	private static final Object KEY = new Object();

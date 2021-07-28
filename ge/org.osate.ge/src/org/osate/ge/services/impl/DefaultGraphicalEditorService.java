@@ -52,13 +52,17 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.services.impl;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalEditor;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.impl.SimpleServiceContextFunction;
 import org.osate.ge.internal.util.DiagramElementUtil;
@@ -95,8 +99,22 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 			return Optional.empty();
 		}
 
+		// Diagrams do not have a reference to the context business object. It is non-trivial to resolve the context business object using the diagram
+		// configuration. Instead, return the business object associated with the only root child which is is associated with a non-embedded business object.
+		// If there are multiple such root children then the diagram is a contextless diagram and null will be returned.
 		final AgeDiagram diagram = DiagramElementUtil.getDiagram(selectedDiagramElement);
+		Object diagramBo = null;
+		if (diagram != null) {
+			final List<BusinessObjectContext> rootChildren = diagram.getChildren()
+					.stream()
+					.filter(boc -> boc.getBusinessObject() != null
+					&& !(boc.getBusinessObject() instanceof EmbeddedBusinessObject))
+					.collect(Collectors.toUnmodifiableList());
+			if (rootChildren.size() == 1) {
+				diagramBo = rootChildren.get(0).getBusinessObject();
+			}
+		}
 
-		return Optional.of(new ObjectDetails(diagram == null ? null : diagram.getBusinessObject(), bo));
+		return Optional.of(new ObjectDetails(diagramBo, bo));
 	}
 }
