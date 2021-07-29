@@ -155,12 +155,7 @@ public class ContentFilterUtil {
 	 * @param contentFilters the content filters to test with
 	 */
 	public static boolean passesAnyContentFilter(final Object bo, final ImmutableSet<ContentFilter> contentFilters) {
-		for (final ContentFilter filter : contentFilters) {
-			if (filter.test(bo)) {
-				return true;
-			}
-		}
-		return false;
+		return contentFilters.stream().map(filter -> filter.test(bo)).anyMatch(Boolean::valueOf);
 	}
 
 }

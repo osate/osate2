@@ -54,11 +54,6 @@ public class UsedKeywordPropagationPointFilter implements ContentFilter {
 
 	@Override
 	public boolean test(final Object bo) {
-		System.err.println(bo + " boAAAA");
-		if (bo instanceof KeywordPropagationPoint) {
-			return ((KeywordPropagationPoint) bo).isUsed();
-		}
-
-		return false;
+		return bo instanceof KeywordPropagationPoint && ((KeywordPropagationPoint) bo).isUsed();
 	}
 }

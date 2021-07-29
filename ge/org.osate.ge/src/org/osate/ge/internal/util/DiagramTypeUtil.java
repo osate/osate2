@@ -41,7 +41,6 @@ public class DiagramTypeUtil {
 	public static ImmutableSet<ContentFilter> getApplicableDefaultContentFilters(
 			final DiagramType diagramType,
 			final Object bo, final ContentFilterProvider contentFilterProvider) {
-		System.err.println(bo + " bo");
 		return diagramType.getDefaultContentFilters(bo)
 				.stream()
 				.map(id -> contentFilterProvider.getContentFilterById(id).orElse(null))

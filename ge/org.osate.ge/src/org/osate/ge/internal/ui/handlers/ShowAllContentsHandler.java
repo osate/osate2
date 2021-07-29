@@ -24,22 +24,29 @@
 package org.osate.ge.internal.ui.handlers;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.osate.ge.ContentFilter;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
+import com.google.common.collect.ImmutableSet;
+
 public class ShowAllContentsHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		ShowContentsUtil.addAllContentsToSelectedElements(event,
-				(contentFilters,
-						childBo) -> contentFilters.stream().map(cf -> cf.test(childBo)).anyMatch(Boolean::valueOf));
+		final Function<DiagramElement, ImmutableSet<ContentFilter>> getContentFilters = (diagramElement) -> getContentFilterProvider()
+				.getApplicableContentFilters(diagramElement.getBusinessObject());
+
+		ShowContentsUtil.addContentsToSelectedElements(event, getContentFilters);
+
 		return null;
 	}
 
