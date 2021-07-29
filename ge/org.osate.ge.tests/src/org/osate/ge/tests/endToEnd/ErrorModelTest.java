@@ -424,9 +424,13 @@ public class ErrorModelTest {
 		final DiagramElementReference fg1Element = sysImplElement.join(getFeatureRelativeReference("fg1"));
 		setExtendedOrFeatureClassifierFromPropertiesView(diagram, ERROR_FLOW_TEST + "::test_fgt", fg1Element);
 
-		// Show elements
-		clickContextMenuOfDiagramElement(diagram, sysImplElement, "Show Contents", "Error Model Elements",
-				"Binding References");
+		// Show elements and propagation point keyword binding
+		final String bindingsKind = KeywordPropagationPointType.BINDINGS.getKind();
+		final RelativeBusinessObjectReference bindingsRef = ErrorModelReferenceUtil
+				.getRelativeReferenceForKeywordPropagationPoint(bindingsKind);
+		configureDiagramToShowElement(diagram, sysImplElement, bindingsRef,
+				"Aadl Package " + ERROR_FLOW_TEST,
+				"System Implementation test_system.impl", "Propagation Point <" + bindingsKind + ">");
 		showContentsAndLayout(diagram, fg1Element);
 
 		// Create propagation for port
@@ -456,8 +460,7 @@ public class ErrorModelTest {
 
 		// Create propagation for binding reference
 		createShapeElement(diagram,
-				sysImplElement.join(ErrorModelReferenceUtil
-						.getRelativeReferenceForPropagationPoint(KeywordPropagationPointType.BINDINGS.getKind())),
+				sysImplElement.join(bindingsRef),
 				"In Error Containment",
 				ErrorModelReferenceUtil.getRelativeReferenceForPropagation(true, DirectionType.IN),
 				ErrorModelTest::selectSingleErrorType);

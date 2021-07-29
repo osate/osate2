@@ -115,6 +115,29 @@ public class OsateGeTestCommands {
 		assertReferencedProjects(name, projectsToReference);
 	}
 
+	/**
+	 * Opens the Configure Diagram dialog and checks the tree item at the specified item text path.
+	 * @param diagram is diagram
+	 * @param element is the element to open the context menu for
+	 * @param elementToShow is the element that will exist after the item is checked
+	 * @param itemTexts is the path to the tree item to check
+	 */
+	public static void configureDiagramToShowElement(final DiagramReference diagram,
+			final DiagramElementReference element, final RelativeBusinessObjectReference elementToShow,
+			final String... itemTexts) {
+		clickContextMenuOfDiagramElement(diagram, element, "Configure Diagram...");
+		waitForWindowWithTitle("Configure Diagram");
+		// Add a space to end for text labels in the tree
+		for (int i = 0; i < itemTexts.length; i++) {
+			itemTexts[i] = itemTexts[i] + " ";
+		}
+
+		checkTreeItemInWindowWithTitle("Configure Diagram", itemTexts);
+		clickButton("OK");
+
+		waitForDiagramElementToExist(diagram, element.join(elementToShow));
+	}
+
 	private static void assertReferencedProjects(final String projectName, final String[] expectedReferencedProjects) {
 		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 		assertNotNull(project);
