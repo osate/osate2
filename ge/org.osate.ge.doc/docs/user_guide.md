@@ -535,7 +535,7 @@ Menu options available in a diagram element's context menu can be used to show a
 |------------------------------|------------------------------------------------------------------------------------------------|
 | *Configure Diagram...*       | Opens the *Configure Diagram* dialog to allow customizing the contents of the current diagram. |
 | *Show* (Outline Only)        | Adds the selected elements to the diagram.                                                     |
-| *Show Contents -> All*       | Adds all available children to the selected elements.                                          |
+| *Show Contents -> All*       | Adds all qualified children to the selected elements.                                          |
 | *Show Contents -> Default*   | Adds default set of children to the selected elements based on the diagram type.               |
 | *Show Contents -> `<Subset>`*  | Adds a subset of children to the selected elements.                                          |
 | *Hide*                       | Removes the selected element from the diagram.                                                 |
