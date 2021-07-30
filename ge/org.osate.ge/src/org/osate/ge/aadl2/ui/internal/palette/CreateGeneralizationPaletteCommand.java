@@ -37,6 +37,7 @@ import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.TypeExtension;
+import org.osate.ge.aadl2.AadlCategories;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
 import org.osate.ge.operations.Operation;
@@ -50,7 +51,7 @@ import org.osate.ge.palette.GetCreateConnectionOperationContext;
 public class CreateGeneralizationPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
 
 	public CreateGeneralizationPaletteCommand() {
-		super("Extension", AadlPaletteCategories.CLASSIFIERS,
+		super("Extension", AadlCategories.CLASSIFIERS,
 				AadlImages.getImage(Aadl2Package.eINSTANCE.getGeneralization()));
 
 	}

@@ -78,7 +78,7 @@ import com.google.common.base.Strings;
  * {@link org.osate.ge.BusinessObjectSelection}.
  *
  * Classifiers provided by this model are either a {@link org.osate.aadl2.Classifier} or
- * @{link org.eclipse.xtext.resource.IEObjectDescription}. However, that is an implementation detail and users should not rely
+ * {@link org.eclipse.xtext.resource.IEObjectDescription}. However, that is an implementation detail and users should not rely
  * on that.
  *
  */

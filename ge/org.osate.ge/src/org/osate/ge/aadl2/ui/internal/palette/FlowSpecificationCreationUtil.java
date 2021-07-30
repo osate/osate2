@@ -55,14 +55,14 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.util.AadlFeatureUtil;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 class FlowSpecificationCreationUtil {
-	private static final StandaloneQuery componentClassifierOrSubcomponentQuery = StandaloneQuery.create(
+	private static final ExecutableQuery<Object> COMPONENT_CLASSIFIER_OR_SUBCOMPONENT_QUERY = ExecutableQuery.create(
 			(root) -> root.ancestors().first(2).filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier
 					|| fa.getBusinessObject() instanceof Subcomponent).first());
-	private static final StandaloneQuery contextQuery = StandaloneQuery
+	private static final ExecutableQuery<Object> CONTEXT_QUERY = ExecutableQuery
 			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof FeatureGroup).first());
 
 	/**
@@ -123,7 +123,8 @@ class FlowSpecificationCreationUtil {
 	}
 
 	static Context getContext(final BusinessObjectContext featureBoc, final QueryService queryService) {
-		return (Context) queryService.getFirstBusinessObject(contextQuery, featureBoc).orElse(null);
+		return (Context) queryService.getFirstBusinessObject(CONTEXT_QUERY, featureBoc, featureBoc.getBusinessObject())
+				.orElse(null);
 	}
 
 	private static boolean hasFeatureWithName(final ComponentType ct, final String nameToCheck) {
@@ -138,7 +139,8 @@ class FlowSpecificationCreationUtil {
 	 */
 	protected static BusinessObjectContext getFlowSpecificationOwnerBoc(BusinessObjectContext featureBoc,
 			final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(componentClassifierOrSubcomponentQuery, featureBoc);
+		return queryService.getFirstBusinessObjectContextOrNull(COMPONENT_CLASSIFIER_OR_SUBCOMPONENT_QUERY, featureBoc,
+				featureBoc.getBusinessObject());
 	}
 
 	protected static boolean canOwnFlowSpecification(final Object bo) {

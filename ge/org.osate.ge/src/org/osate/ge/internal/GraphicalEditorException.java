@@ -21,56 +21,45 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.query;
+package org.osate.ge.internal;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-
-import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.query.DefaultQuery;
-import org.osate.ge.internal.query.QueryRunner;
-import org.osate.ge.internal.query.RootQuery;
+import org.osate.ge.aadl2.AadlGraphicalEditorException;
 
 /**
- * @noextend This class is not intended to be subclassed by clients.
- *
+ * Runtime Exception thrown when an error occurs for which a specialized exception does not exist.
+ * @since 3.0
+ * @see AadlGraphicalEditorException
  */
-public class StandaloneQuery {
-	private final DefaultQuery rootQuery = new RootQuery(() -> this.rootNode);
-	private BusinessObjectContext rootNode;
-	private final DefaultQuery query;
+public class GraphicalEditorException extends RuntimeException {
+	/**
+	 * Serializable version number for class
+	 */
+	private static final long serialVersionUID = 3483334265203033480L;
 
-	private StandaloneQuery(Function<Query, Query> queryCreator) {
-		this.query = (DefaultQuery)queryCreator.apply(rootQuery);
+	/**
+	 * Creates a new instance
+	 * @param message is the message to include in the exception
+	 */
+	public GraphicalEditorException(final String message) {
+		super(message);
 	}
 
 	/**
-	 * @noreference This method is not intended to be referenced by clients.
+	 * Creates a new instance
+	 * @param cause the cause of the exception. The exception which this exception wraps.
+	 * @see RuntimeException#RuntimeException(Throwable)
 	 */
-	public Optional<QueryResult> getFirstResult(final QueryRunner qr, final BusinessObjectContext rootNode,
-			final Object arg) {
-		try {
-			this.rootNode = rootNode;
-			return qr.getFirstResult(query, arg);
-		} finally {
-			this.rootNode = null;
-		}
+	public GraphicalEditorException(final Throwable cause) {
+		super(cause);
 	}
 
 	/**
-	 * @noreference This method is not intended to be referenced by clients.
+	 * Creates a new instance
+	 * @param message is the message to include in the exception
+	 * @param cause the cause of the exception. The exception which this exception wraps.
+	 * @see RuntimeException#RuntimeException(String, Throwable)
 	 */
-	public List<QueryResult> getResults(final QueryRunner qr, final BusinessObjectContext rootNode, final Object arg) {
-		try {
-			this.rootNode = rootNode;
-			return qr.getResults(query, arg);
-		} finally {
-			this.rootNode = null;
-		}
-	}
-
-	public static StandaloneQuery create(Function<Query, Query> queryCreator) {
-		return new StandaloneQuery(queryCreator);
+	public GraphicalEditorException(final String message, final Throwable cause) {
+		super(message, cause);
 	}
 }

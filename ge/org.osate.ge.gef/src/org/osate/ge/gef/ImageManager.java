@@ -20,17 +20,16 @@ import javafx.scene.image.Image;
  * All methods except {@link #close()} must be called on the Java FX application thread.
  */
 public class ImageManager implements AutoCloseable {
-	private final ReferenceQueue<ImageReference> referenceQueue = new ReferenceQueue<ImageReference>();
+	private final ReferenceQueue<ImageReference> referenceQueue = new ReferenceQueue<>();
 	private final Map<Path, WeakImageReference> pathToImageReference = new HashMap<>();
 	private final Thread referenceCleanupThread;
-
 	private final Function<Path, File> pathResolver;
 
 	/**
 	 * Creates a new instance. Path resolver assumes path are file system paths.
 	 */
 	public ImageManager() {
-		this(path -> path.toFile());
+		this(Path::toFile);
 	}
 
 	/**
@@ -42,7 +41,7 @@ public class ImageManager implements AutoCloseable {
 
 		// Start thread to remove image references from the cache when they are no longer being used.
 		final Runnable referenceCleanupRunnable = (Runnable) () -> {
-			while (Thread.currentThread().isInterrupted()) {
+			while (!Thread.currentThread().isInterrupted()) {
 				try {
 					final WeakImageReference weakRef = (WeakImageReference) referenceQueue.remove();
 					cleanup(weakRef);
@@ -121,9 +120,15 @@ public class ImageManager implements AutoCloseable {
 			if (file != null && file.exists()) {
 				try (final FileInputStream stream = new FileInputStream(file)) {
 					image = new Image(stream);
-				} catch (IOException e) {
-					// Print error and then ignore. Will be treated as a missing image.
-					e.printStackTrace();
+
+					// Set the image to null to indicate that the image is not loaded if there was an error loading the image.
+					if (image.isError()) {
+						image = null;
+					}
+				} catch (final IOException e) {
+					// File not found should not be thrown because we check that the file exists.
+					// An exception should only be thrown when there is an error closing the file input stream.
+					throw new AgeGefRuntimeException("Error refreshing image", e);
 				}
 			}
 

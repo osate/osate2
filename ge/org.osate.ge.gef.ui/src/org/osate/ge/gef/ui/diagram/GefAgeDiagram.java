@@ -151,7 +151,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	/**
 	 * Image manager for the images referenced by the diagram.
 	 */
-	private final ImageManager imageManager = new ImageManager((path) -> {
+	private final ImageManager imageManager = new ImageManager(path -> {
 		final IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		final IResource imageResource = workspaceRoot.findMember(path.toString());
 		return imageResource == null ? null : imageResource.getRawLocation().makeAbsolute().toFile();
@@ -163,7 +163,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	private final StyleToFx styleToFx = new StyleToFx(imageManager);
 
 	/**
-	 * Service for determining whether the style for a diagram element should be overriden.
+	 * Service for determining whether the style for a diagram element should be overridden.
 	 */
 	private ColoringService coloringService;
 
@@ -222,18 +222,15 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		@Override
 		public void elementUpdated(final ElementUpdatedEvent e) {
 			// If a full update is going to be performed, don't track the elements that have been updated
+			// Additionally, if the element has been removed, don't store it as an update.
 			if (!needFullUpdate && e.element.getGraphicalConfiguration() != null && !inBeforeModificationsCompleted
-					&& !updatingDiagramFromSceneGraph) {
-				// If the element has been removed, don't store it as an update.
-				if (!elementsToRemove.contains(e.element)) {
+					&& !updatingDiagramFromSceneGraph && !elementsToRemove.contains(e.element)) {
 					// If the element is already in the elements to update set, remove it so that it will be inserted at the end of the set
 					if (elementsToUpdate.contains(e.element)) {
 						elementsToUpdate.remove(e.element);
 					}
 
 					elementsToUpdate.add(e.element);
-				}
-
 			}
 		}
 
@@ -378,7 +375,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		coloringService = null;
 		diagram.removeModificationListener(modificationListener);
 		imageManager.close();
-	};
+	}
 
 	/**
 	 * Finds the diagram element for a scene node. Only works for the node that serves as the root of the branch for the diagram element.
@@ -815,9 +812,8 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 			overrideStyles = coloringService.buildForegroundColorMap()
 					.entrySet()
 					.stream()
-					.collect(Collectors.toMap(Entry::getKey, v -> {
-						return StyleBuilder.create().foregroundColor(v.getValue()).build();
-					}));
+					.collect(Collectors.toMap(Entry::getKey,
+							v -> StyleBuilder.create().foregroundColor(v.getValue()).build()));
 		}
 	}
 

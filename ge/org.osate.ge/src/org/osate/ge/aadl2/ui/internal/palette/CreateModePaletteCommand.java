@@ -37,6 +37,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramGroup;
+import org.osate.ge.aadl2.AadlCategories;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.ui.internal.AadlUiUtil;
@@ -49,7 +50,7 @@ import org.osate.ge.palette.TargetedPaletteCommand;
 public class CreateModePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 
 	public CreateModePaletteCommand() {
-		super("Mode", AadlPaletteCategories.MODES,
+		super("Mode", AadlCategories.MODES,
 				AadlImages.getImage(Aadl2Package.eINSTANCE.getMode()));
 
 	}

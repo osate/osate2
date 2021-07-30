@@ -121,7 +121,6 @@ public class PropertyValueGroupHandler extends AadlBusinessObjectHandler {
 	private GraphicalConfiguration createTextGraphicalConfiguration() {
 		return GraphicalConfigurationBuilder.create().
 				graphic(labelGraphic).
-				decoration().
 				build();
 	}
 

@@ -43,6 +43,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.diagram.runtime.DockArea;
 
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -491,11 +492,11 @@ class SelectedElementsMover implements AutoCloseable {
 						if (container instanceof ContainerShape) {
 							final ContainerShape cs = (ContainerShape) container;
 							final Bounds containerBounds = cs.getLayoutBounds();
-							final DockSide side = GefAgeDiagramUtil
-									.toDockSide(AgeDiagramUtil.determineDockingPosition(containerBounds.getWidth(),
+							final DockSide side = GefAgeDiagramUtil.toDockSide(DockArea
+									.fromDockingPosition(AgeDiagramUtil.determineDockingPosition(containerBounds.getWidth(),
 											containerBounds.getHeight(), newPositionX, newPositionY,
-											snapshot.boundsInDiagram.getWidth(), snapshot.boundsInDiagram.getHeight())
-											.getDefaultDockArea());
+											snapshot.boundsInDiagram.getWidth(),
+											snapshot.boundsInDiagram.getHeight())));
 							cs.addOrUpdateDockedChild(ds, side);
 						}
 					}

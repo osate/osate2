@@ -73,7 +73,7 @@ public class TagHandler extends AadlBusinessObjectHandler {
 		final Graphic graphic;
 		switch(tv.key) {
 		case Tag.KEY_UNIDIRECTIONAL:
-			// Don't show the directional indicator if there is a timing property value which is delayed or immediate
+			// Don't show the directional indicator if there is a timing property value which is immediate
 			for (final BusinessObjectContext sibling : boc.getParent().getChildren()) {
 				if(TimingPropertyValueHandler.isImmediateTimingProperty(sibling.getBusinessObject())) {
 					return Optional.empty();
@@ -89,7 +89,6 @@ public class TagHandler extends AadlBusinessObjectHandler {
 
 		return Optional.of(GraphicalConfigurationBuilder.create().
 				graphic(graphic).
-				decoration().
 				build());
 	}
 

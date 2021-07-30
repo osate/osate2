@@ -48,7 +48,7 @@ import com.google.common.collect.Lists;
 
 /**
  * Class represents the result of combining all error model subclauses for a given classifier. Handles classifier extension and
- * redefiniton of model elements.
+ * redefinition of model elements.
  *
  */
 public class CombinedErrorModelSubclause {

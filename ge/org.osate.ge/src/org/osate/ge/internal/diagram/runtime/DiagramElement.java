@@ -255,10 +255,6 @@ implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext
 		return graphicalConfig == null ? null : graphicalConfig.getGraphic();
 	}
 
-	public final boolean isDecoration() {
-		return graphicalConfig != null && graphicalConfig.isDecoration();
-	}
-
 	public final DockArea getDockArea() {
 		return dockArea;
 	}
