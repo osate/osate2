@@ -597,7 +597,6 @@ public class UiTestUtil {
 	 * @returns an empty optional if the item is not found. Otherwise, it returns an optional containing the item.
 	 */
 	private static Optional<SWTBotTreeItem> getItemInTree(final SWTBotTree tree, final String... itemTexts) {
-		System.err.println(itemTexts + " itemTexts");
 		Optional<SWTBotTreeItem> item = Arrays.stream(tree.getAllItems())
 				.filter(tmpItem -> tmpItem.getText().equals(itemTexts[0]))
 				.findAny();

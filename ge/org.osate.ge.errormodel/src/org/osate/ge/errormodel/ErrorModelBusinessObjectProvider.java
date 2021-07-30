@@ -88,7 +88,6 @@ public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider 
 					return Stream
 							.of(cacheEntry.getPoints(), cacheEntry.getPaths(), cacheEntry.getFlows(),
 									Arrays.stream(KeywordPropagationPointType.values())
-											/* .filter(t -> usedKeywordTypes.contains(t)) */
 											.map(t -> new KeywordPropagationPoint(classifier, t,
 													usedKeywordTypes.contains(t))))
 							.flatMap(Function.identity());

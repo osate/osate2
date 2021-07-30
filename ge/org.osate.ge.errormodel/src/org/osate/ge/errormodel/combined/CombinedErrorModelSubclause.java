@@ -41,6 +41,8 @@ import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
@@ -135,30 +137,44 @@ public class CombinedErrorModelSubclause {
 					propagations.put(propagation);
 				}
 
-				// Loop for usedkeywordpoints
+				// Find used propagation point keywords
 				for (final ErrorFlow errorFlow : subclause.getFlows()) {
-					// TODO do errorsource and sink
 					if (errorFlow instanceof ErrorPath) {
-						final ErrorPath ep = (ErrorPath) errorFlow;
-						final ErrorPropagation incoming = ep.getIncoming();
-						final ErrorPropagation outgoing = ep.getOutgoing();
-
-						if (ep.isAllIncoming() || ep.isAllOutgoing()) {
+						final ErrorPath errorPath = (ErrorPath) errorFlow;
+						if (errorPath.isAllIncoming() || errorPath.isAllOutgoing()) {
 							usedKeywordPointTypes.add(KeywordPropagationPointType.ALL);
-						}
+						} else {
+							if (errorPath.getIncoming() != null) {
+								usedKeywordPointTypes
+										.add(KeywordPropagationPointType.getByKind(errorPath.getIncoming().getKind()));
+							}
 
-						if (incoming != null) {
-							usedKeywordPointTypes.add(KeywordPropagationPointType.getByKind(incoming.getKind()));
+							if (errorPath.getOutgoing() != null) {
+								usedKeywordPointTypes
+										.add(KeywordPropagationPointType.getByKind(errorPath.getOutgoing().getKind()));
+							}
 						}
-
-						if (outgoing != null) {
-							usedKeywordPointTypes.add(KeywordPropagationPointType.getByKind(outgoing.getKind()));
+					} else if (errorFlow instanceof ErrorSink) {
+						final ErrorSink errorSink = (ErrorSink) errorFlow;
+						if (errorSink.isAllIncoming()) {
+							usedKeywordPointTypes.add(KeywordPropagationPointType.ALL);
+						} else if (errorSink.getIncoming() != null) {
+							usedKeywordPointTypes
+									.add(KeywordPropagationPointType.getByKind(errorSink.getIncoming().getKind()));
+						}
+					} else if (errorFlow instanceof ErrorSource) {
+						final ErrorSource errorSrc = (ErrorSource) errorFlow;
+						if (errorSrc.isAll()) {
+							usedKeywordPointTypes.add(KeywordPropagationPointType.ALL);
+						} else if (errorSrc.getSourceModelElement() != null
+								&& errorSrc.getSourceModelElement() instanceof ErrorPropagation) {
+							usedKeywordPointTypes.add(KeywordPropagationPointType
+									.getByKind(((ErrorPropagation) errorSrc.getSourceModelElement()).getKind()));
 						}
 					}
 				}
 			});
 		}
-
 
 		return new CombinedErrorModelSubclause(subclauseFound[0], points, paths, flows, usedKeywordPointTypes,
 				propagations);
