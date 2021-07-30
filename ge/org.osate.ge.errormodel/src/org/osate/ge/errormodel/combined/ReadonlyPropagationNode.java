@@ -40,7 +40,7 @@ public interface ReadonlyPropagationNode {
 
 	/**
 	 * Returns a stream of error propagations associated with the target business object context.
-	 * @param boc the business object context of a feature, propagation point or binding reference
+	 * @param boc the business object context of a feature, propagation point or keyword propagation point
 	 * @return a stream containing propagations
 	 */
 	Stream<ErrorPropagation> getPropagationsForBusinessObjectContext(final BusinessObjectContext boc);

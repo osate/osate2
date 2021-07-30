@@ -106,9 +106,7 @@ public class ErrorTypeAliasedTypeModel extends BaseObservableModel implements Si
 	@Override
 	public ErrorType getSelectedElement() {
 		// Get the first aliased type
-		final ErrorType aliasedType = bos.boStream(ErrorType.class)
-				.map(ErrorType::getAliasedType)
-				.findFirst()
+		final ErrorType aliasedType = bos.boStream(ErrorType.class).map(t -> t.getAliasedType()).findFirst()
 				.orElse(null);
 		if (aliasedType == null) {
 			return null;

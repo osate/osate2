@@ -61,7 +61,7 @@ public class ErrorModelFilterUtil {
 			classifier = ((Subcomponent) bo).getAllClassifier();
 		} else if (bo instanceof Element) {
 			classifier = ((Element) bo).getContainingClassifier();
-		} else if (bo instanceof KeywordPropagationPoint) {
+		} else if(bo instanceof KeywordPropagationPoint) {
 			classifier = ((KeywordPropagationPoint) bo).getClassifier();
 		} else {
 			classifier = null;

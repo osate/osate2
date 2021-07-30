@@ -133,6 +133,7 @@ public class OsateGeTestCommands {
 
 		clickContextMenuOfDiagramElement(diagram, element, "Configure Diagram...");
 		waitForWindowWithTitle("Configure Diagram");
+
 		// Add a space to end for text labels in the tree
 		for (int i = 0; i < itemTexts.length; i++) {
 			itemTexts[i] = itemTexts[i] + " ";
