@@ -27,8 +27,10 @@ import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.osate.ge.gef.ui.AgeGefUiPlugin;
 
+/**
+ * Preference initializer which initializes default values for preferences.
+ */
 public class PreferenceInitializer extends AbstractPreferenceInitializer {
-
 	@Override
 	public void initializeDefaultPreferences() {
 		final IPreferenceStore store = AgeGefUiPlugin.getDefault().getPreferenceStore();

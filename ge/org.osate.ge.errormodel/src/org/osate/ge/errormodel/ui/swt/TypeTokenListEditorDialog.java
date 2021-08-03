@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -47,7 +46,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.osate.ge.swt.BaseObservableModel;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.selectors.FilteringSelectorDialog;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
@@ -90,7 +88,7 @@ public class TypeTokenListEditorDialog {
 	}
 
 	private static class InnerDialog extends TitleAreaDialog {
-		private final Consumer<ChangeEvent> changeListener = e -> refresh();
+		private final Runnable changeListener = this::refresh;
 		private final String title;
 		private final TypeTokenListEditorModel editorModel;
 		private final TypeTokenListEditorDialogModel model;
@@ -251,7 +249,7 @@ public class TypeTokenListEditorDialog {
 	// Make a list of the type tokens
 	private static class TypeTokenListEditorDialogModel extends BaseObservableModel
 			implements SingleSelectorModel<TypeToken> {
-		private final Consumer<ChangeEvent> changeListener = e -> triggerChangeEvent();
+		private final Runnable changeListener = this::triggerChangeEvent;
 		private final TypeTokenListEditorModel model;
 		private final List<TypeToken> typeTokens;
 		private TypeToken selectedToken;
@@ -321,7 +319,7 @@ public class TypeTokenListEditorDialog {
 
 	private static class ErrorTypesSelectorModel extends BaseObservableModel implements SelectorModel<ErrorTypes> {
 		private final TypeTokenListEditorModel model;
-		private final Consumer<ChangeEvent> changeListener = e -> triggerChangeEvent();
+		private final Runnable changeListener = this::triggerChangeEvent;
 		private List<ErrorTypes> selection;
 		private Predicate<ErrorTypes> filter;
 

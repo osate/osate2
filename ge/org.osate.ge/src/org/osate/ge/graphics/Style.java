@@ -298,9 +298,6 @@ public class Style {
 		} else if (!primaryLabelVisible.equals(other.primaryLabelVisible)) {
 			return false;
 		}
-		if (verticalLabelPosition != other.verticalLabelPosition) {
-			return false;
-		}
-		return true;
+		return verticalLabelPosition == other.verticalLabelPosition;
 	}
 }

@@ -52,12 +52,10 @@ public class SubprogramCallOrderHandler extends AadlBusinessObjectHandler {
 			.build();
 	private static final Style STYLE = StyleBuilder.create().build();
 	private static final ExecutableQuery<SubprogramCallOrder> SRC_QUERY = ExecutableQuery.create(
-			SubprogramCallOrder.class,
 			rootQuery -> rootQuery.parent()
 			.children()
 			.filterByBusinessObjectRelativeReference(sco -> sco.previousSubprogramCall));
 	private static final ExecutableQuery<SubprogramCallOrder> DST_QUERY = ExecutableQuery.create(
-			SubprogramCallOrder.class,
 			rootQuery -> rootQuery.parent()
 			.children()
 			.filterByBusinessObjectRelativeReference(sco -> sco.subprogramCall));

@@ -183,6 +183,9 @@ import javafx.scene.transform.Transform;
  * JavaFX/GEF based diagram editor implementation
  */
 public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITabbedPropertySheetPageContributor {
+	/**
+	 * List of supported zoom levels. Contains the selectable zoom levels shared between the editor and {@link ZoomSelectorContributionItem}.
+	 */
 	public static final ImmutableList<Double> ZOOM_LEVELS = ImmutableList.of(.1, .2, .5, .75, 1.0, 1.25, 1.5, 2.0, 2.5,
 			3.0, 4.0, 5.0, 7.5, 10.0);
 	private static final String CONTRIBUTOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
@@ -192,11 +195,18 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private final IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(AgeGefUiPlugin.PLUGIN_ID);
 	private final IPreferenceStore preferenceStore = AgeGefUiPlugin.getDefault().getPreferenceStore();
 
-	// Class which handles activation and deactivation of tools
+	/**
+	 * Handles activation and deactivation of {@link Tool} objects. Only one tools can be activated at a time.
+	 *
+	 */
 	public class ToolHandler {
 		private Tool activeTool = null;
 		private ImmutableList<BusinessObjectContext> selectedBocs = ImmutableList.of();
 
+		/**
+		 * Activates the tool. If a tool is already active, it deactivates it before activating the specified tool. Also deactivates the active palette item.
+		 * @param tool the tool to activate.
+		 */
 		public void activate(final Tool tool) {
 			Objects.requireNonNull(tool, "tool must not be null");
 
@@ -209,6 +219,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 					coloringService));
 		}
 
+		/**
+		 * Deactivates the active tool. Also deactivates the active palette item.
+		 */
 		public void deactivateActiveTool() {
 			if (activeTool != null) {
 				activeTool.deactivated(new DeactivatedEvent());
@@ -217,7 +230,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			}
 		}
 
-		void setSelectedElements(final ImmutableList<BusinessObjectContext> newSelectedBocs) {
+		private void setSelectedElements(final ImmutableList<BusinessObjectContext> newSelectedBocs) {
 			// Ignore the selection if nothing has changed
 			if (Objects.equals(this.selectedBocs, newSelectedBocs)) {
 				return;
@@ -351,7 +364,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private final List<InputEventHandler> inputEventHandlers = new ArrayList<>();
 	private Interaction activeInteraction;
 	private final ISelectionListener toolPostSelectionListener = (part, selection) -> toolHandler
-			.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());;
+			.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
 
 	private final IPartListener partListener = new IPartListener() {
 		@Override
@@ -509,6 +522,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		}
 	};
 
+	/**
+	 * Create a new instance
+	 */
 	public AgeEditor() {
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
 		this.eclipseContext = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
@@ -908,12 +924,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			}
 		});
 
-		canvas.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
-			if (activeInteraction == null && tooltipManager != null) {
-				tooltipManager.mouseMove(e.getScreenX(), e.getScreenY());
-			}
-		});
-
 		//
 		// General input handlers
 		//
@@ -1034,10 +1044,18 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		canvas.setHorizontalScrollOffset(canvas.getHorizontalScrollOffset() - bounds.getMinX());
 	}
 
+	/**
+	 * The current user-specified zoom level. The zoom level is the amount of scaling to apply.
+	 * @return the zoom level.
+	 */
 	public final DoubleProperty zoomProperty() {
 		return zoom;
 	}
 
+	/**
+	 * Gets the value of {@link #zoomProperty()}
+	 * @return the zoom level
+	 */
 	public final double getZoom() {
 		return zoom.get();
 	}
@@ -1050,6 +1068,10 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		zoom.set(value);
 	}
 
+	/**
+	 * Finds the current zoom level in the {@link #ZOOM_LEVELS} list and sets the zoom level to the next value. If the current zoom level is not
+	 * in the list or if it is the last value, then the zoom level is not changed
+	 */
 	public void zoomIn() {
 		final int newZoomLevelIndex = ZOOM_LEVELS.indexOf(getZoom()) + 1;
 		if (newZoomLevelIndex > 0 && newZoomLevelIndex < ZOOM_LEVELS.size()) {
@@ -1057,6 +1079,10 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		}
 	}
 
+	/**
+	 * Finds the current zoom level in the {@link #ZOOM_LEVELS} list and sets the zoom level to the previous value. If the current zoom level is not
+	 * in the list or if it is the first value, then the zoom level is not changed
+	 */
 	public void zoomOut() {
 		final int newZoomLevelIndex = ZOOM_LEVELS.indexOf(getZoom()) - 1;
 		if (newZoomLevelIndex >= 0) {
@@ -1064,10 +1090,20 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		}
 	}
 
+	/**
+	 * The width of the individual grid cells.
+	 * This value is available regardless of whether the grid is show.
+	 * @return the width of the grid cells
+	 */
 	public final double getGridCellWidth() {
 		return canvas.getGridCellWidth();
 	}
 
+	/**
+	 * The height of the individual grid cells.
+	 * This value is available regardless of whether the grid is show.
+	 * @return the height of the grid cells
+	 */
 	public final double getGridCellHeight() {
 		return canvas.getGridCellWidth();
 	}
@@ -1378,18 +1414,34 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		return gefDiagram;
 	}
 
+	/**
+	 * Returns the reference service
+	 * @return the reference service
+	 */
 	ReferenceService getReferenceService() {
 		return referenceService;
 	}
 
+	/**
+	 * Returns the AADL modification service
+	 * @return the AADL modification service
+	 */
 	AadlModificationService getAadlModificationService() {
 		return aadlModService;
 	}
 
+	/**
+	 * Returns the query service
+	 * @return the query service
+	 */
 	QueryService getQueryService() {
 		return queryService;
 	}
 
+	/**
+	 * Returns the model change notification service
+	 * @return the model change notification service
+	 */
 	ModelChangeNotifier getModelChangeNotifier() {
 		return modelChangeNotifier;
 	}

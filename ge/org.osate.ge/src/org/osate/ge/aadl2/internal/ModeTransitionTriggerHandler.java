@@ -52,7 +52,6 @@ public class ModeTransitionTriggerHandler extends AadlBusinessObjectHandler {
 
 	// If context is null look for the port under the trigger's ancestor. if context is not null use ancestor(1).children().filterByBo(context);
 	private static final ExecutableQuery<ModeTransitionTrigger> DST_QUERY = ExecutableQuery.create(
-			ModeTransitionTrigger.class,
 			rootQuery -> rootQuery.ancestor(2)
 			.ifElse(ca -> ca.getQueryArgument().getContext() == null, UnaryOperator.identity(),
 			innerRoot -> innerRoot.children()

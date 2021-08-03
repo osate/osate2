@@ -93,7 +93,7 @@ public class UiBusinessObjectSelection implements BusinessObjectSelection {
 	public <T extends EObject> void modify(final String label, final Predicate<BusinessObjectContext> bocFilter,
 			final Function<BusinessObjectContext, T> bocToBoToModifyMapper,
 			final BiConsumer<T, BusinessObjectContext> modifier) {
-		if (!bocs.stream().anyMatch(bocFilter)) {
+		if (bocs.stream().noneMatch(bocFilter)) {
 			return;
 		}
 

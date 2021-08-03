@@ -21,7 +21,12 @@ import org.osate.ge.internal.ui.editor.DummyContributionItem;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
-public class AgeEditorActionBarContributor extends EditorActionBarContributor {
+/**
+ * Action bar contributor for {@link AgeEditor}. Provides items for the action bar when the graphical editor is active.
+ * This class is referenced as part of the editor extension definition.
+ *
+ */
+public final class AgeEditorActionBarContributor extends EditorActionBarContributor {
 	private final ZoomSelectorContributionItem zoomItem;
 	private final ModeContributionItem selectedModeItem;
 	private final FlowContributionItem selectedFlowItem;
@@ -30,6 +35,9 @@ public class AgeEditorActionBarContributor extends EditorActionBarContributor {
 	private final DeleteFlowContributionItem deleteFlowItem;
 	private final DummyContributionItem dummyItem;
 
+	/**
+	 * Creates a new instance
+	 */
 	public AgeEditorActionBarContributor() {
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
 		final ModelChangeNotifier modelChangeNotifier = Objects.requireNonNull(

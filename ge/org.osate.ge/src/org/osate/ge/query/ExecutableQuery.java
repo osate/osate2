@@ -88,25 +88,13 @@ public final class ExecutableQuery<T> {
 	}
 
 	/**
-	 * Creates a query which uses the specified class as the query parameter type.
+	 * Creates an executable query by calling a function to build a query
 	 * @param <T> the query parameter type
-	 * @param queryParameterClass the class object for the the query parameter type
 	 * @param queryCreator the function to call to create the query. Passed the root query.
 	 * @return the new query
 	 * @since 3.0
 	 */
-	public static <T> ExecutableQuery<T> create(final Class<T> queryParameterClass,
-			final UnaryOperator<Query<T>> queryCreator) {
-		return new ExecutableQuery<T>(queryCreator);
-	}
-
-	/**
-	 * Creates a query which uses {@link Object} as the query parameter type.
-	 * @param queryCreator the function to call to create the query. Passed the root query.
-	 * @return the new query
-	 * @since 3.0
-	 */
-	public static ExecutableQuery<Object> create(final UnaryOperator<Query<Object>> queryCreator) {
+	public static <T> ExecutableQuery<T> create(final UnaryOperator<Query<T>> queryCreator) {
 		return new ExecutableQuery<>(queryCreator);
 	}
 }

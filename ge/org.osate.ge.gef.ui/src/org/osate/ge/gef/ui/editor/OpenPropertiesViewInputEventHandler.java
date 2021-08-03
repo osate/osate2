@@ -40,6 +40,10 @@ import javafx.scene.input.MouseEvent;
 public class OpenPropertiesViewInputEventHandler implements InputEventHandler {
 	private final AgeEditor editor;
 
+	/**
+	 * Creates a new instance
+	 * @param editor the editor from which events originate.
+	 */
 	public OpenPropertiesViewInputEventHandler(final AgeEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 	}

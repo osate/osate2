@@ -43,19 +43,27 @@ import javafx.geometry.Bounds;
 import javafx.scene.shape.Line;
 
 /**
- * Manages displaying a horizontal and/or a vertical guide line to aide in aligning shapes.
+ * Displays a horizontal and/or a vertical guide line to aide in aligning shapes.
+ * Typically, an instance of this class is used during interactive movement and resize operations.
  */
-public class GuideOverlay implements AutoCloseable {
+public final class GuideOverlay implements AutoCloseable {
 	private final AgeEditor editor;
 	private final Line horizontalLine = new Line();
-	private final ObjectProperty<Double> diagramHorizontalY = new SimpleObjectProperty<Double>();
+	private final ObjectProperty<Double> diagramHorizontalY = new SimpleObjectProperty<>();
 	private final Line verticalLine = new Line();
-	private final ObjectProperty<Double> diagramVerticalX = new SimpleObjectProperty<Double>();
+	private final ObjectProperty<Double> diagramVerticalX = new SimpleObjectProperty<>();
 	private final double[] xValues;
 	private final double[] xCenterValues;
 	private final double[] yValues;
 	private final double[] yCenterValues;
 
+	/**
+	 * Creates a new instance. The {@link #close()} method must be called when the overlay is no longer needed.
+	 * @param editor the editor which is displaying the diagram.
+	 * @param diagramElementsBeingModified the diagram elements which are being modified. These elements will be ignored when determining whether guide lines
+	 * should be shown.
+	 * @see #close()
+	 */
 	public GuideOverlay(final AgeEditor editor, final Set<DiagramElement> diagramElementsBeingModified) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 
@@ -191,24 +199,24 @@ public class GuideOverlay implements AutoCloseable {
 		}
 
 		// Build a list of x and y values
-		final ArrayList<Double> xValues = new ArrayList<>(100);
-		final ArrayList<Double> xCenterValues = new ArrayList<>(100);
-		final ArrayList<Double> yValues = new ArrayList<>(100);
-		final ArrayList<Double> yCenterValues = new ArrayList<>(100);
+		final ArrayList<Double> tmpXValues = new ArrayList<>(100);
+		final ArrayList<Double> tmpXCenterValues = new ArrayList<>(100);
+		final ArrayList<Double> tmpYValues = new ArrayList<>(100);
+		final ArrayList<Double> tmpYCenterValues = new ArrayList<>(100);
 		addValues(editor.getDiagram(), 0.0, 0.0, diagramElementsToIgnore, undockedDiagramElementsToInclude,
-				hasDockedElements, xValues, xCenterValues, yValues, yCenterValues);
+				hasDockedElements, tmpXValues, tmpXCenterValues, tmpYValues, tmpYCenterValues);
 
 		// Convert to sorted arrays
-		this.xValues = xValues.stream().mapToDouble(Double::doubleValue).toArray();
+		this.xValues = tmpXValues.stream().mapToDouble(Double::doubleValue).toArray();
 		Arrays.sort(this.xValues);
 
-		this.xCenterValues = xCenterValues.stream().mapToDouble(Double::doubleValue).toArray();
+		this.xCenterValues = tmpXCenterValues.stream().mapToDouble(Double::doubleValue).toArray();
 		Arrays.sort(this.xCenterValues);
 
-		this.yValues = yValues.stream().mapToDouble(Double::doubleValue).toArray();
+		this.yValues = tmpYValues.stream().mapToDouble(Double::doubleValue).toArray();
 		Arrays.sort(this.yValues);
 
-		this.yCenterValues = yCenterValues.stream().mapToDouble(Double::doubleValue).toArray();
+		this.yCenterValues = tmpYCenterValues.stream().mapToDouble(Double::doubleValue).toArray();
 		Arrays.sort(this.yCenterValues);
 	}
 
@@ -278,10 +286,8 @@ public class GuideOverlay implements AutoCloseable {
 	 * @param value is the X value.
 	 */
 	public void updateX(final double value) {
-		if (diagramVerticalX.get() == null) {
-			if (Arrays.binarySearch(xValues, value) >= 0) {
-				diagramVerticalX.set(value);
-			}
+		if (diagramVerticalX.get() == null && Arrays.binarySearch(xValues, value) >= 0) {
+			diagramVerticalX.set(value);
 		}
 	}
 
@@ -290,10 +296,8 @@ public class GuideOverlay implements AutoCloseable {
 	 * @param value is the X value.
 	 */
 	public void updateCenterX(final double value) {
-		if (diagramVerticalX.get() == null) {
-			if (Arrays.binarySearch(xCenterValues, value) >= 0) {
-				diagramVerticalX.set(value);
-			}
+		if (diagramVerticalX.get() == null && Arrays.binarySearch(xCenterValues, value) >= 0) {
+			diagramVerticalX.set(value);
 		}
 	}
 
@@ -302,10 +306,8 @@ public class GuideOverlay implements AutoCloseable {
 	 * @param value is the Y value.
 	 */
 	public void updateY(final double value) {
-		if (diagramHorizontalY.get() == null) {
-			if (Arrays.binarySearch(yValues, value) >= 0) {
-				diagramHorizontalY.set(value);
-			}
+		if (diagramHorizontalY.get() == null && Arrays.binarySearch(yValues, value) >= 0) {
+			diagramHorizontalY.set(value);
 		}
 	}
 
@@ -314,10 +316,8 @@ public class GuideOverlay implements AutoCloseable {
 	 * @param value is the Y value.
 	 */
 	public void updateCenterY(final double value) {
-		if (diagramHorizontalY.get() == null) {
-			if (Arrays.binarySearch(yCenterValues, value) >= 0) {
-				diagramHorizontalY.set(value);
-			}
+		if (diagramHorizontalY.get() == null && Arrays.binarySearch(yCenterValues, value) >= 0) {
+			diagramHorizontalY.set(value);
 		}
 	}
 }

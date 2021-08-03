@@ -24,7 +24,6 @@
 package org.osate.ge.swt.selectors;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -33,13 +32,14 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 
 /**
  * View for editing a list of objects.
  *
  * Sorts items provided by model.
+ *
+ * @param <T> See {@link SingleSelectorModel}
  * @since 1.1
  */
 public final class ListEditor<T> extends Composite {
@@ -47,15 +47,20 @@ public final class ListEditor<T> extends Composite {
 	private final ListSelector<T> listViewer;
 	private final Button addButton;
 	private final Button removeButton;
-	private final Consumer<ChangeEvent> changeListener = e -> refresh();
+	private final Runnable changeListener = this::refresh;
 
+	/**
+	 * Creates a new instance
+	 * @param parent the widget which is the parent of the editor. Must not be null.
+	 * @param model the model for the editor
+	 */
 	public ListEditor(final Composite parent, final ListEditorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		SwtUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
 
-		this.listViewer = new ListSelector<>(this, new SingleSelectorModelToSelectorModelAdapter<T>(model));
+		this.listViewer = new ListSelector<>(this, new SingleSelectorModelToSelectorModelAdapter<>(model));
 		this.listViewer.setLayoutData(
 				GridDataFactory.swtDefaults().span(2, 1).grab(true, true).align(SWT.FILL, SWT.FILL).create());
 
@@ -130,10 +135,12 @@ public final class ListEditor<T> extends Composite {
 		this.removeButton.setEnabled(enabled && model.getSelectedElement() != null);
 	}
 
-
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new ListEditor<>(shell, new TestListEditorModel());
-		});
+		SwtUtil.run(shell -> new ListEditor<>(shell, new TestListEditorModel()));
 	}
 }

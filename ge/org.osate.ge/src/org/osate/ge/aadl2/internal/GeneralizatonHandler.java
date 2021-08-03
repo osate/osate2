@@ -64,7 +64,7 @@ public class GeneralizatonHandler extends AadlBusinessObjectHandler {
 	private static final Style IMPLEMENTS_STYLE = StyleBuilder.create().backgroundColor(Color.WHITE).dashed().build();
 	private static final Graphic LABEL_GRAPHIC = LabelBuilder.create().build();
 	private static final ExecutableQuery<Generalization> NESTED_CLASSIFIER_QUERY = ExecutableQuery
-			.create(Generalization.class, rootQuery -> rootQuery
+			.create(rootQuery -> rootQuery
 					.descendantsByBusinessObjectsRelativeReference(g -> getBusinessObjectPath(g.getGeneral())));
 
 	@Override

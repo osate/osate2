@@ -31,5 +31,10 @@ import org.osate.ge.swt.EventSource;
  *
  */
 public interface SelectionDoubleClickedEventGenerator {
-	EventSource<SelectionDoubleClickedEvent> selectionDoubleClicked();
+	/**
+	 * Event source for selection double clicked events. A selection double clicked event is dispatched when a selected item
+	 * has been double clicked.
+	 * @return an {@link EventSource} for selection double clicked events.
+	 */
+	EventSource selectionDoubleClicked();
 }

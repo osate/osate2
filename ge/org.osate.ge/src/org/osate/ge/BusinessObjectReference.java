@@ -42,7 +42,7 @@ public abstract class BusinessObjectReference implements Comparable<BusinessObje
 	 * array is null or empty.
 	 * @param segments is an array of segments that makes up the reference.
 	 */
-	public BusinessObjectReference(final String... segments) {
+	protected BusinessObjectReference(final String... segments) {
 		if (segments == null || segments.length < 1) {
 			throw new IllegalArgumentException("segments must contain at least one segment");
 		}

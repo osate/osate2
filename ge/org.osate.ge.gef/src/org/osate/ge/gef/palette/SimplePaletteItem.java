@@ -28,11 +28,22 @@ import java.util.Objects;
 import javafx.scene.image.Image;
 
 /**
- * A basic class suitable for use as palette item type when implementing {@link PaletteModel}
+ * A class suitable for use as palette item type when implementing {@link PaletteModel}
  */
 public class SimplePaletteItem {
+	/**
+	 * A label to be displayed for the palette item.
+	 */
 	public final String label;
+
+	/**
+	 * The palette items's icon
+	 */
 	public final Image icon;
+
+	/**
+	 * Extra data associated with the palette item.
+	 */
 	public final Object userData;
 
 	/**
