@@ -45,7 +45,6 @@ public final class ContentFilterUtil {
 	 * @return true if the specified business object passes any of the specified content filters
 	 */
 	public static boolean passesAnyContentFilter(final Object bo, final ImmutableSet<ContentFilter> contentFilters) {
-		return contentFilters.stream().map(filter -> filter.test(bo)).anyMatch(Boolean::valueOf);
+		return contentFilters.stream().anyMatch(filter -> filter.test(bo));
 	}
-
 }

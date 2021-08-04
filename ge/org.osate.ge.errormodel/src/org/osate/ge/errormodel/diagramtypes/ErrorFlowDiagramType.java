@@ -32,6 +32,8 @@ import org.osate.ge.errormodel.filters.ErrorFlowFilter;
 import org.osate.ge.errormodel.filters.ErrorPropagationFilter;
 import org.osate.ge.errormodel.filters.PropagationPointFilter;
 import org.osate.ge.errormodel.filters.UsedKeywordPropagationPointFilter;
+import org.osate.ge.errormodel.model.KeywordPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
@@ -39,9 +41,10 @@ import com.google.common.collect.ImmutableSet;
 public class ErrorFlowDiagramType implements DiagramType {
 	private static final String ID = "em.errorFlow";
 	private static final ImmutableSet<String> DEFAULT_CLASSIFIER_AND_SUBCOMPONENT_FILTERS = ImmutableSet.of(
-			AadlContentFilterIds.CLASSIFIERS, AadlContentFilterIds.FEATURES, UsedKeywordPropagationPointFilter.ID,
+			AadlContentFilterIds.FEATURES, UsedKeywordPropagationPointFilter.ID,
 			PropagationPointFilter.ID, ErrorFlowFilter.ID);
-	private static final ImmutableSet<String> DEFAULT_FEATURE_FILTERS = ImmutableSet.of(ErrorPropagationFilter.ID);
+	private static final ImmutableSet<String> DEFAULT_PROPAGATION_POINT_FILTERS = ImmutableSet
+			.of(ErrorPropagationFilter.ID);
 
 	@Override
 	public String getId() {
@@ -62,8 +65,8 @@ public class ErrorFlowDiagramType implements DiagramType {
 	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
 		if (bo instanceof Classifier || bo instanceof Subcomponent) {
 			return DEFAULT_CLASSIFIER_AND_SUBCOMPONENT_FILTERS;
-		} else if (bo instanceof Feature) {
-			return DEFAULT_FEATURE_FILTERS;
+		} else if (bo instanceof Feature || bo instanceof PropagationPoint || bo instanceof KeywordPropagationPoint) {
+			return DEFAULT_PROPAGATION_POINT_FILTERS;
 		}
 
 		return ImmutableSet.of();

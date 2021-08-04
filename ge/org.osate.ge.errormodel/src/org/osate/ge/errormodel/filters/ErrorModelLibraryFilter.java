@@ -31,7 +31,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
-public class ErrorModelSubclauseFilter implements ContentFilter {
+public class ErrorModelLibraryFilter implements ContentFilter {
 	public static final String ID = "emv2.errorModelSubclauseElements";
 
 	@Override

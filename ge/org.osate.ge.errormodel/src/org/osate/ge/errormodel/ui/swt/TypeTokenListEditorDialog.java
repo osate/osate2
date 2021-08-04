@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -151,11 +150,9 @@ public class TypeTokenListEditorDialog {
 			this.addTypesButton.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					final Set<URI> selectedTypeSetURIs = editorModel.getSelectedElements(TypeSet.class)
-							.map(EcoreUtil::getURI)
-							.collect(Collectors.toSet());
 					final ErrorTypesSelectorModel selectorModel = new ErrorTypesSelectorModel(editorModel,
-							(t) -> !selectedTypeSetURIs.contains(EcoreUtil.getURI(t)), Collections.emptyList());
+							(t) -> true,
+							Collections.emptyList());
 					if (FilteringSelectorDialog.open(getShell(), "Add Types",
 							new LabelFilteringListSelectorModel<>(selectorModel))) {
 						for (final ErrorTypes errorType : selectorModel.selection) {

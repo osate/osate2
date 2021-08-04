@@ -143,16 +143,16 @@ public class CombinedErrorModelSubclause {
 						final ErrorPath errorPath = (ErrorPath) errorFlow;
 						if (errorPath.isAllIncoming() || errorPath.isAllOutgoing()) {
 							usedKeywordPointTypes.add(KeywordPropagationPointType.ALL);
-						} else {
-							if (errorPath.getIncoming() != null) {
-								usedKeywordPointTypes
-										.add(KeywordPropagationPointType.getByKind(errorPath.getIncoming().getKind()));
-							}
+						}
 
-							if (errorPath.getOutgoing() != null) {
-								usedKeywordPointTypes
-										.add(KeywordPropagationPointType.getByKind(errorPath.getOutgoing().getKind()));
-							}
+						if (errorPath.getIncoming() != null) {
+							usedKeywordPointTypes
+									.add(KeywordPropagationPointType.getByKind(errorPath.getIncoming().getKind()));
+						}
+
+						if (errorPath.getOutgoing() != null) {
+							usedKeywordPointTypes
+									.add(KeywordPropagationPointType.getByKind(errorPath.getOutgoing().getKind()));
 						}
 					} else if (errorFlow instanceof ErrorSink) {
 						final ErrorSink errorSink = (ErrorSink) errorFlow;

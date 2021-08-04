@@ -50,8 +50,7 @@ class ShowContentsUtil {
 	/**
 	 * Adds contents to the selected diagram elements. Adds all children which pass the specified filter.
 	 * @param event is the ExecutionEvent of the handler which provides the active editor.
-	 * @param filters is passed the parent diagram element.  It returns the applicable content filters for the diagram element to
-	 * apply to it's children.
+	 * @param filters determines the filters to apply to the selected elements.
 	 */
 	public static void addContentsToSelectedElements(final ExecutionEvent event,
 			final Function<DiagramElement, ImmutableSet<ContentFilter>> filters) {
@@ -104,11 +103,10 @@ class ShowContentsUtil {
 					final RelativeBusinessObjectReference relativeReference = referenceBuilder
 							.getRelativeReference(childBo);
 					if (relativeReference != null
-							&& selectedElement.getByRelativeReference(relativeReference) == null) {
-						if (ContentFilterUtil.passesAnyContentFilter(childBo, contentFilters)) {
-							diagramUpdater.addToNextUpdate(selectedElement, relativeReference, new FutureElementInfo());
-							childrenAdded = true;
-						}
+							&& selectedElement.getByRelativeReference(relativeReference) == null
+							&& ContentFilterUtil.passesAnyContentFilter(childBo, contentFilters)) {
+						diagramUpdater.addToNextUpdate(selectedElement, relativeReference, new FutureElementInfo());
+						childrenAdded = true;
 					}
 				}
 			}

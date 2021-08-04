@@ -90,7 +90,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.ge.errormodel.filters.ErrorModelPackageFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.errormodel.filters.ErrorModelSubclauseFilter">
+            class="org.osate.ge.errormodel.filters.ErrorModelLibraryFilter">
       </contentFilter>
       <contentFilter
             class="org.osate.ge.errormodel.filters.ErrorTypeFilter">

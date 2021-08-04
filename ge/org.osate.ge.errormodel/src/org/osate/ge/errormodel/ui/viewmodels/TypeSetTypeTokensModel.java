@@ -25,12 +25,16 @@
 package org.osate.ge.errormodel.ui.viewmodels;
 
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.errormodel.ui.swt.TypeTokenListEditorModel;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
@@ -61,8 +65,12 @@ public class TypeSetTypeTokensModel extends BaseTypeSetTypeTokensModel
 	}
 
 	@Override
-	public <T> Stream<T> getSelectedElements(final Class<T> clazz) {
-		return bos.boStream(clazz);
+	public Stream<ErrorTypes> getErrorTypes() {
+		// Filter out self from available error types
+		final Set<URI> selectedTypeSetURIs = bos.boStream(TypeSet.class)
+				.map(EcoreUtil::getURI)
+				.collect(Collectors.toSet());
+		return super.getErrorTypes().filter(errorType -> !selectedTypeSetURIs.contains(EcoreUtil.getURI(errorType)));
 	}
 }
 

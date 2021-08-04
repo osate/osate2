@@ -23,16 +23,21 @@
  */
 package org.osate.ge.errormodel.ui.viewmodels;
 
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.util.Strings;
 import org.osate.aadl2.AadlPackage;
 import org.osate.ge.BusinessObjectSelection;
@@ -122,7 +127,7 @@ public class ExtendedLibrariesModel extends BaseObservableModel implements ListE
 			}
 
 			// Prompt user to select an error model library
-			final ErrorModelObjectDescriptionCollectionSingleSelectorModel model = new ErrorModelObjectDescriptionCollectionSingleSelectorModel(
+			final ErrorModelLibraryDescriptionSingleSelectionModel model = new ErrorModelLibraryDescriptionSingleSelectionModel(
 					AadlModelAccessUtil.getAllEObjectsByType(resource,
 							ErrorModelPackage.eINSTANCE.getErrorModelLibrary()));
 			if (FilteringSelectorDialog.open(Display.getCurrent().getActiveShell(), "Select Error Library to Extend",
@@ -135,6 +140,33 @@ public class ExtendedLibrariesModel extends BaseObservableModel implements ListE
 				});
 			}
 		});
+	}
+
+	private class ErrorModelLibraryDescriptionSingleSelectionModel extends ErrorModelObjectDescriptionCollectionSingleSelectorModel {
+		public ErrorModelLibraryDescriptionSingleSelectionModel(Collection<IEObjectDescription> objectDescriptions) {
+			super(objectDescriptions);
+		}
+
+		@Override
+		public Stream<IEObjectDescription> getElements() {
+			// Do not allow selection of ErrorModelLibraries of selected package resources
+			final Set<Resource> selectedPkgResources = bos.boStream(AadlPackage.class)
+					.map(pkg -> pkg.eResource())
+					.collect(Collectors.toSet());
+
+			return super.getElements().filter(desc -> {
+				for (final Resource resource : selectedPkgResources) {
+					final TreeIterator<EObject> it = resource.getAllContents();
+					while (it.hasNext()) {
+						if (desc.getEObjectURI().equals(EcoreUtil.getURI(it.next()))) {
+							return false;
+						}
+					}
+				}
+
+				return true;
+			});
+		}
 	}
 
 	@Override

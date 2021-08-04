@@ -33,7 +33,7 @@ public class ErrorFlowFilter implements ContentFilter {
 
 	@Override
 	public String getParentId() {
-		return ErrorModelSubclauseFilter.ID;
+		return ErrorModelLibraryFilter.ID;
 	}
 
 	@Override

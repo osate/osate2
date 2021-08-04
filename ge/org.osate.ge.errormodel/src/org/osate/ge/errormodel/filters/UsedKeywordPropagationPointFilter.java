@@ -33,7 +33,7 @@ public class UsedKeywordPropagationPointFilter implements ContentFilter {
 
 	@Override
 	public String getParentId() {
-		return ErrorModelSubclauseFilter.ID;
+		return ErrorModelLibraryFilter.ID;
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class UsedKeywordPropagationPointFilter implements ContentFilter {
 
 	@Override
 	public String getName() {
-		return "Used Error Propagation Keywords";
+		return "Used Error Propagation Point Keywords";
 	}
 
 	@Override
