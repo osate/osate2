@@ -31,7 +31,6 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -49,6 +48,8 @@ import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 import org.osate.ge.swt.selectors.ListEditorModel;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+
+import com.google.common.collect.Streams;
 
 /**
  * View model which sets the extended error libraries for a {@link ErrorModelLibrary} objects associated with {@link AadlPackage} instances
@@ -136,7 +137,13 @@ public class ExtendedLibrariesModel extends BaseObservableModel implements ListE
 				modifyErrorModelLibrary(lib -> {
 					final ErrorModelLibrary libToExtend = (ErrorModelLibrary) model.getSelectedElement()
 							.getEObjectOrProxy();
-					lib.getExtends().add(libToExtend);
+					// Do not add library if it extends already
+					if (lib.getExtends()
+							.stream()
+							.map(EcoreUtil::getURI)
+							.noneMatch(uri -> uri.equals(EcoreUtil.getURI(libToExtend)))) {
+						lib.getExtends().add(libToExtend);
+					}
 				});
 			}
 		});
@@ -150,22 +157,13 @@ public class ExtendedLibrariesModel extends BaseObservableModel implements ListE
 		@Override
 		public Stream<IEObjectDescription> getElements() {
 			// Do not allow selection of ErrorModelLibraries of selected package resources
-			final Set<Resource> selectedPkgResources = bos.boStream(AadlPackage.class)
-					.map(pkg -> pkg.eResource())
+			final Set<URI> selectedPkgContentURIs = bos.boStream(AadlPackage.class)
+					.map(AadlPackage::eResource)
+					.flatMap(resource -> Streams.stream(resource.getAllContents()))
+					.map(EcoreUtil::getURI)
 					.collect(Collectors.toSet());
 
-			return super.getElements().filter(desc -> {
-				for (final Resource resource : selectedPkgResources) {
-					final TreeIterator<EObject> it = resource.getAllContents();
-					while (it.hasNext()) {
-						if (desc.getEObjectURI().equals(EcoreUtil.getURI(it.next()))) {
-							return false;
-						}
-					}
-				}
-
-				return true;
-			});
+			return super.getElements().filter(desc -> !selectedPkgContentURIs.contains(desc.getEObjectURI()));
 		}
 	}
 
