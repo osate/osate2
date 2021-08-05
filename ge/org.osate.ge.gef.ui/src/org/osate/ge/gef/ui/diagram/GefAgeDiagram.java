@@ -422,7 +422,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 * Creates or recreates scene graph nodes and adds to the scene graph as necessary. Populates {@link #diagramElementToGefDiagramElementMap}.
 	 * @param parentDiagramNode the diagram node for which scene nodes will be created for its children.
 	 * @param parentDiagramNodeSceneNode the scene node for the parent diagram node
-	 * @returns the created or updated JavaFX node
+	 * @return the created or updated JavaFX node
 	 */
 	private void ensureSceneNodesExistForChildren(final DiagramNode parentDiagramNode,
 			final Node parentDiagramNodeSceneNode) {
@@ -959,7 +959,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	}
 
 	/**
-	 * Returns the scene graph node for a diagram element's primary label. If the diagram element does not have a primary label but the root scene graph node
+	 * Returns the scene graph node for a diagram element's primary label. If the diagram element does not have a primary label, but the root scene graph node
 	 * for the diagram element is a label, then that node will be returned.
 	 * @param de the diagram element for which to provide the primary label
 	 * @return the scene graph node for the diagram element's primary label. Returns null if the label could not be retrieved.
