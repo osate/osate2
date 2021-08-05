@@ -23,14 +23,12 @@
  */
 package org.osate.ge.swt;
 
-import java.util.function.Consumer;
-
 /**
  * Interface for registering a function to be called when an event is triggered.
  * @since 1.1
  *
  */
-public interface EventSource<T> {
+public interface EventSource {
 	/**
 	 * Registers a listener that will be called when the event is triggered.
 	 * Beware: only a weak reference to the listener is stored. It is the caller's responsibility to keep a reference to the listener
@@ -39,6 +37,7 @@ public interface EventSource<T> {
 	 * Should only be called on the UI thread.
 	 *
 	 * @param listener is the listener to register.
+	 * @since 2.0
 	 */
-	void addListener(Consumer<T> listener);
+	void addListener(Runnable listener);
 }

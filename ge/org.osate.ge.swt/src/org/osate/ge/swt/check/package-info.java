@@ -23,6 +23,6 @@
  */
 
 /**
- * Implementation of a Checkbox based editor.
+ * Contains the Checkbox editor.
  */
 package org.osate.ge.swt.check;

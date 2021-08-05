@@ -94,7 +94,7 @@ public final class GraphicalConfiguration {
 	/**
 	 * For connections, returning the diagram element which is the start of the connection. For flow indicators, this indicates the
 	 * diagram element to which the indicator is attached.
-	 * @return the diagram element which at which the connecton starts
+	 * @return the diagram element which at which the connection starts
 	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final DiagramElement getConnectionSource() {
@@ -122,7 +122,6 @@ public final class GraphicalConfiguration {
 	/**
 	 * Returns a string which will be used as an additional label for the diagram element. Only supported for shapes.
 	 * @return the annotation text. Null if the shape does not have an annotation.
-	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final String getAnnotation() {
 		return annotation;
@@ -131,7 +130,6 @@ public final class GraphicalConfiguration {
 	/**
 	 * Returns whether to allow the primary label to span multiple lines.
 	 * @return true if the primary label should be allowed to span multiple lines.
-	 * @noreference This method is not intended to be referenced by clients.
 	 */
 	public final boolean isPrimaryLabelIsMultiline() {
 		return primaryLabelIsMultiline;

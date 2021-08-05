@@ -40,6 +40,8 @@ import javafx.scene.text.Font;
 /**
  * Represents a single group in the palette.
  *
+ * @param <G> the type of the group model object
+ * @param <I> the type of the palette item model object
  */
 public class PaletteGroup<G, I> extends VBox {
 	private static final String SHARED_STYLE = "-fx-border-width: 1 0 0 0;" + "-fx-border-color: rgba(0,0,0,.2);"
@@ -55,6 +57,11 @@ public class PaletteGroup<G, I> extends VBox {
 	private final VBox items;
 	private boolean hover = false;
 
+	/**
+	 * Creates a new instance
+	 * @param model the palette model which defines the contents of the palette
+	 * @param groupModel the group object represented by this node
+	 */
 	public PaletteGroup(final PaletteModel<G, I> model, final G groupModel) {
 		// Group Button
 		groupButton = new ToggleButton(model.getGroupLabel(groupModel));
@@ -98,6 +105,10 @@ public class PaletteGroup<G, I> extends VBox {
 		refresh();
 	}
 
+	/**
+	 * Returns whether the palette group is expanded.
+	 * @return true if the palette group is expanded. Returns false if the palette group is collapsed.
+	 */
 	public final boolean isExpanded() {
 		return groupButton.isSelected();
 	}

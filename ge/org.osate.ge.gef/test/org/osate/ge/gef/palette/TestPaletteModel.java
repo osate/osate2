@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.gef.palette;
+package org.osate.ge.gef.palette;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -31,11 +31,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-
-import org.osate.ge.gef.palette.Palette;
-import org.osate.ge.gef.palette.PaletteModel;
-import org.osate.ge.gef.palette.SimplePaletteGroup;
-import org.osate.ge.gef.palette.SimplePaletteItem;
 
 import com.google.common.collect.ImmutableList;
 
@@ -57,6 +52,9 @@ public class TestPaletteModel implements PaletteModel<SimplePaletteGroup, Simple
 	private final Image[] icons = { createTestIcon(0xFFFF0000), createTestIcon(0xFF00FF00),
 			createTestIcon(0xFF0000FF), };
 
+	/**
+	 * Creates a new instance
+	 */
 	public TestPaletteModel() {
 		groups = ImmutableList.of(new SimplePaletteGroup("Group 1", icons[0]), new SimplePaletteGroup("Group 2", null),
 				new SimplePaletteGroup("Group 3", icons[2]));

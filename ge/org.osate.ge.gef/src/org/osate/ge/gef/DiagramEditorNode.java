@@ -48,6 +48,9 @@ import javafx.scene.shape.StrokeType;
  * Node for the diagram editor. Contains a collapsible palette and a specified canvas.
  */
 public class DiagramEditorNode extends Region {
+	/**
+	 * The ID of the palette node. Used by tests to find the palette node.
+	 */
 	public static final String PALETTE_ID = "palette";
 
 	private static final String TITLE_STYLE = "-fx-background-color: linear-gradient(rgb(255,255,255), rgb(237,237,237));";
@@ -99,7 +102,7 @@ public class DiagramEditorNode extends Region {
 		collapseButton.setOnMouseEntered(e -> collapseButton.setStyle(COLLAPSE_BUTTON_HOVER_STYLE));
 		collapseButton.setOnMouseExited(e -> collapseButton.setStyle(COLLAPSE_BUTTON_STYLE));
 		collapseButton.setPadding(new Insets(9, 0, 5, 0));
-		collapseButton.setOnAction(e -> updateCollapse());
+		collapseButton.setOnAction(e -> refresh());
 
 		paletteTitleContainer.getChildren().addAll(paletteTitle, collapseButton);
 		AnchorPane.setTopAnchor(paletteTitle, 5.0);
@@ -143,7 +146,7 @@ public class DiagramEditorNode extends Region {
 
 		getChildren().add(contents);
 
-		updateCollapse();
+		refresh();
 	}
 
 	@Override
@@ -157,8 +160,10 @@ public class DiagramEditorNode extends Region {
 		contents.resize(getWidth(), getHeight());
 	}
 
-	public void updateCollapse() {
-		// Adjust visibility and layout of nodes based on whether the palette is collapsed
+	/**
+	 * Adjusts the visibility and layout of children based on whether the palette is collapsed
+	 */
+	private void refresh() {
 		if (collapseButton.isSelected()) {
 			paletteScrollPane.setManaged(false);
 			paletteScrollPane.setVisible(false);

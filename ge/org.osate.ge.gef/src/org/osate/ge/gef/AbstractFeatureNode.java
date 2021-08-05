@@ -23,10 +23,7 @@
  */
 package org.osate.ge.gef;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.scene.Parent;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
@@ -76,35 +73,17 @@ public class AbstractFeatureNode extends Parent implements Stylable {
 			circle.setLayoutX(FeatureConstants.WIDTH - circleDiameter);
 		}
 
-		// Set initial style
-		setLineWidth(2.0);
-		setBackgroundColor(Color.BLACK);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
-	}
-
-	public final void setBackgroundColor(final Color value) {
-		circle.setFill(value);
-	}
-
-	public final void setOutlineColor(final Color value) {
-		directionIndicator.setStroke(value);
-		circle.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		directionIndicator.setStrokeWidth(value);
-		circle.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		circle.getStrokeDashArray().setAll(value);
+		circle.setFill(style.getBackgroundColor());
+		directionIndicator.setStroke(style.getOutlineColor());
+		circle.setStroke(style.getOutlineColor());
+		directionIndicator.setStrokeWidth(style.getLineWidth());
+		circle.setStrokeWidth(style.getLineWidth());
+		circle.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 }

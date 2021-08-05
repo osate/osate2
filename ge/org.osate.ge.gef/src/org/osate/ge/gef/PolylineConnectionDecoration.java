@@ -41,8 +41,8 @@ public class PolylineConnectionDecoration extends PolylineNode {
 	}
 
 	@Override
-	public final void apply(final FxStyle style) {
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
+	public void apply(final FxStyle style) {
+		poly.setStroke(style.getOutlineColor());
+		poly.setStrokeWidth(style.getLineWidth());
 	}
 }

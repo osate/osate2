@@ -122,9 +122,6 @@ public final class Color {
 		if (Double.doubleToLongBits(MIN_BRIGHTER_COLOR) != Double.doubleToLongBits(Color.MIN_BRIGHTER_COLOR)) {
 			return false;
 		}
-		if (r != other.r) {
-			return false;
-		}
-		return true;
+		return r == other.r;
 	}
 }

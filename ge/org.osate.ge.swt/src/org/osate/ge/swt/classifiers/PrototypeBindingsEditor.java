@@ -24,7 +24,6 @@
 package org.osate.ge.swt.classifiers;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -32,28 +31,33 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.BorderedCLabel;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 
 /**
  * View for editing prototype bindings
  *
- * @param <B> is the type of the prototype bindings
+ * @param <N> is the type of the nodes provided by the model.
  * @param <D> is the type of the direction options.
  * @param <T> is the type of the type options.
  * @param <C> is the type of the classifiers.
  * @since 1.1
  */
-public class PrototypeBindingsEditor<B, D, T, C> extends Composite {
-	private final PrototypeBindingsModel<B, D, T, C> model;
-	private final B parentBinding;
-	private final Consumer<ChangeEvent> changeListener = e -> refresh();
+public class PrototypeBindingsEditor<N, D, T, C> extends Composite {
+	private final PrototypeBindingsModel<N, D, T, C> model;
+	private final N parentNode;
+	private final Runnable changeListener = this::refresh;
 
-	public PrototypeBindingsEditor(final Composite parent, final PrototypeBindingsModel<B, D, T, C> model,
-			B parentBinding) {
+	/**
+	 * Create a new instance
+	 * @param parent the widget which is the parent of the editor. Must not be null.
+	 * @param model the model which provides the contents for the editor
+	 * @param parentNode the node whose children are being edited by this editor.
+	 */
+	public PrototypeBindingsEditor(final Composite parent, final PrototypeBindingsModel<N, D, T, C> model,
+			N parentNode) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
-		this.parentBinding = parentBinding;
+		this.parentNode = parentNode;
 		SwtUtil.setColorsToMatchParent(this);
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
 		model.changed().addListener(changeListener);
@@ -64,7 +68,7 @@ public class PrototypeBindingsEditor<B, D, T, C> extends Composite {
 		if (!this.isDisposed()) {
 			final Control[] children = this.getChildren();
 			int nextChildIndex = 0;
-			for (B b : (Iterable<B>) model.getChildren(parentBinding)::iterator) {
+			for (N b : (Iterable<N>) model.getChildren(parentNode)::iterator) {
 				// Label
 				final BorderedCLabel label = children.length > nextChildIndex
 						? (BorderedCLabel) children[nextChildIndex]
@@ -77,8 +81,8 @@ public class PrototypeBindingsEditor<B, D, T, C> extends Composite {
 
 				// Component for editing the "value" for the binding.
 				@SuppressWarnings("unchecked")
-				final PrototypeBindingActualEditor<B, D, T, C> bindingActualEditor = children.length > nextChildIndex
-						? (PrototypeBindingActualEditor<B, D, T, C>) children[nextChildIndex]
+				final PrototypeBindingActualEditor<N, D, T, C> bindingActualEditor = children.length > nextChildIndex
+						? (PrototypeBindingActualEditor<N, D, T, C>) children[nextChildIndex]
 						: new PrototypeBindingActualEditor<>(this, model, b);
 				bindingActualEditor.setNode(b);
 				bindingActualEditor.setLayoutData(
@@ -95,9 +99,12 @@ public class PrototypeBindingsEditor<B, D, T, C> extends Composite {
 		}
 	}
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new PrototypeBindingsEditor<>(shell, new TestPrototypeBindingsModel(), null);
-		});
+		SwtUtil.run(shell -> new PrototypeBindingsEditor<>(shell, new TestPrototypeBindingsModel(), null));
 	}
 }

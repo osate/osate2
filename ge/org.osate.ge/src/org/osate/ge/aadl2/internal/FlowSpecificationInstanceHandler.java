@@ -40,22 +40,21 @@ import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.query.QueryResult;
 import org.osate.ge.query.ExecutableQuery;
+import org.osate.ge.query.QueryResult;
 import org.osate.ge.services.QueryService;
 
 public class FlowSpecificationInstanceHandler extends AadlBusinessObjectHandler {
-	private static final ExecutableQuery<FlowSpecificationInstance> SRC_QUERY = ExecutableQuery.create(
-			FlowSpecificationInstance.class,
-			rootQuery -> rootQuery.parent()
-			.descendantsByBusinessObjectsRelativeReference(
-					FlowSpecificationInstanceHandler::getPathToFlowSpecificationInstanceSource, 1)
-			.first());
+	private static final ExecutableQuery<FlowSpecificationInstance> SRC_QUERY = ExecutableQuery
+			.create(rootQuery -> rootQuery.parent()
+					.descendantsByBusinessObjectsRelativeReference(
+							FlowSpecificationInstanceHandler::getPathToFlowSpecificationInstanceSource, 1)
+					.first());
 	private static final ExecutableQuery<FlowSpecificationInstance> DST_QUERY = ExecutableQuery
-			.create(FlowSpecificationInstance.class, rootQuery -> rootQuery.parent()
-			.descendantsByBusinessObjectsRelativeReference(
-					FlowSpecificationInstanceHandler::getPathToFlowSpecificationInstanceDestination, 1)
-			.first());
+			.create(rootQuery -> rootQuery.parent()
+					.descendantsByBusinessObjectsRelativeReference(
+							FlowSpecificationInstanceHandler::getPathToFlowSpecificationInstanceDestination, 1)
+					.first());
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {

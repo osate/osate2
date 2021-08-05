@@ -21,15 +21,22 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.gef.palette;
+package org.osate.ge.gef.palette;
 
 import org.osate.ge.gef.NodeApplication;
-import org.osate.ge.gef.palette.Palette;
 
+/**
+ * Interactive test application for {@link Palette}
+ *
+ */
 public class PaletteTest {
 	private PaletteTest() {
 	}
 
+	/**
+	 * Entry point for the test application
+	 * @param args command line arguments
+	 */
 	public static void main(final String[] args) {
 		NodeApplication.run(() -> new Palette<>(new TestPaletteModel()));
 	}

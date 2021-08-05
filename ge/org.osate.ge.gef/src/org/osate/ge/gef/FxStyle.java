@@ -34,6 +34,9 @@ import javafx.scene.text.Font;
  * Describes the style of a node using JavaFX specific types.
  */
 public class FxStyle {
+	/**
+	 * Builder for {@link FxStyle}
+	 */
 	public static class Builder {
 		private Color backgroundColor = Color.WHITE;
 		private Color outlineColor = Color.BLACK;
@@ -146,11 +149,20 @@ public class FxStyle {
 			return this;
 		}
 
+		/**
+		 * Creates a new {@link FxStyle} based on the current state of this builder
+		 * @return the new {@link FxStyle} instance
+		 */
 		public FxStyle build() {
 			return new FxStyle(backgroundColor, outlineColor, fontColor, font, strokeDashArray,
 					lineWidth, horzontalLabelPosition, verticalLabelPosition, primaryLabelsVisible, image);
 		}
 	}
+
+	/**
+	 * A default style used by nodes defined in this package
+	 */
+	static final FxStyle DEFAULT = new Builder().build();
 
 	private final Color backgroundColor;
 	private final Color outlineColor;

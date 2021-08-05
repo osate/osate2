@@ -27,7 +27,16 @@ package org.osate.ge.gef;
  * Enumeration for specifying the direction for directional features.
  */
 public enum FeatureDirection {
+	/**
+	 * Input port
+	 */
 	IN,
+	/**
+	 * Output port
+	 */
 	OUT,
+	/**
+	 * Bidirectional port
+	 */
 	IN_OUT
 }

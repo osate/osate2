@@ -36,7 +36,8 @@ public final class ConnectionBuilder {
 	private AgeConnectionTerminator dstTerminator = null;
 
 	/**
-	 * Private constructor to prevent instantiation.
+	 * Private constructor to prevent direct instantiation.
+	 * @see #create()
 	 */
 	private ConnectionBuilder() {}
 

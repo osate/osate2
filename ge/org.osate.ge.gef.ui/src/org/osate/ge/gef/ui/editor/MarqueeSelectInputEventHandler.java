@@ -58,6 +58,10 @@ import javafx.scene.transform.Transform;
 public class MarqueeSelectInputEventHandler implements InputEventHandler {
 	private final AgeEditor editor;
 
+	/**
+	 * Creates a new instance
+	 * @param editor the editor from which events originate.
+	 */
 	public MarqueeSelectInputEventHandler(final AgeEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 	}
@@ -91,6 +95,10 @@ public class MarqueeSelectInputEventHandler implements InputEventHandler {
 	}
 }
 
+/**
+ * Interaction for marquee selection
+ *
+ */
 class MarqueeSelectInteraction extends BaseInteraction {
 	private final AgeEditor editor;
 
@@ -101,10 +109,14 @@ class MarqueeSelectInteraction extends BaseInteraction {
 
 	private final Rectangle selectionBoundsOverlay = new Rectangle();
 
-	private final ChangeListener<Transform> diagramToOverlayChangeListener = (o, oldValue, newValue) -> {
-		selectionBoundsOverlay.getTransforms().setAll(newValue);
-	};
+	private final ChangeListener<Transform> diagramToOverlayChangeListener = (o, oldValue,
+			newValue) -> selectionBoundsOverlay.getTransforms().setAll(newValue);
 
+	/**
+	 * Creates a new instance
+	 * @param editor the editor for the interaction
+	 * @param e the mouse pressed event that triggered the interaction
+	 */
 	public MarqueeSelectInteraction(final AgeEditor editor, final MouseEvent e) {
 		this.editor = editor;
 		this.selectionStart = editor.getGefDiagram().getSceneNode().getSceneToLocalTransform().transform(e.getSceneX(),

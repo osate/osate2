@@ -26,10 +26,7 @@ package org.osate.ge.gef;
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -59,9 +56,8 @@ public class ProcessorNode extends Region implements ChopBoxGeometryProvider, St
 		outline.setStrokeLineCap(StrokeLineCap.BUTT);
 		lineSegments.setStrokeLineCap(StrokeLineCap.BUTT);
 
-		setLineWidth(2.0);
-		setBackgroundColor(Color.WHITE);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
 	@Override
@@ -82,30 +78,14 @@ public class ProcessorNode extends Region implements ChopBoxGeometryProvider, St
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
-	}
-
-	public final void setBackgroundColor(final Color value) {
-		outlineFill.setFill(value);
-		shadedArea.setFill(value.darker());
-	}
-
-	public final void setOutlineColor(final Color value) {
-		outline.setStroke(value);
-		lineSegments.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		outline.setStrokeWidth(value);
-		lineSegments.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		outline.getStrokeDashArray().setAll(value);
-		lineSegments.getStrokeDashArray().setAll(value);
+		outlineFill.setFill(style.getBackgroundColor());
+		shadedArea.setFill(style.getBackgroundColor().darker());
+		outline.setStroke(style.getOutlineColor());
+		lineSegments.setStroke(style.getOutlineColor());
+		outline.setStrokeWidth(style.getLineWidth());
+		lineSegments.setStrokeWidth(style.getLineWidth());
+		outline.getStrokeDashArray().setAll(style.getStrokeDashArray());
+		lineSegments.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 
 	@Override

@@ -28,11 +28,31 @@ import java.util.List;
 
 import javafx.scene.image.Image;
 
+/**
+ * A class suitable for use as the the palette group model type when implementing {@link PaletteModel}
+ *
+ */
 public class SimplePaletteGroup {
+	/**
+	 * A label to be displayed for the palette group.
+	 */
 	public final String label;
+
+	/**
+	 * The palette group's icon
+	 */
 	public final Image icon;
+
+	/**
+	 * Items contained in the group. Mutable.
+	 */
 	public final List<SimplePaletteItem> items = new ArrayList<>();
 
+	/**
+	 * Creates a new instance with the specified label and icon
+	 * @param label the group's label
+	 * @param icon the group's icon
+	 */
 	public SimplePaletteGroup(final String label, Image icon) {
 		this.label = label;
 		this.icon = icon;

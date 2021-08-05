@@ -29,28 +29,31 @@ import java.util.Map.Entry;
 
 /**
  * Model decorator used by the dialog which tracks changes and allows reverting.
+ * 
  *
- * @param <N>
- * @param <D>
- * @param <T>
- * @param <C>
+ * @param <N> See {@link PrototypeBindingsModel}
+ * @param <D> See {@link PrototypeBindingsModel}
+ * @param <T> See {@link PrototypeBindingsModel}
+ * @param <C> See {@link PrototypeBindingsModel}
  */
-class PrototypeBindingsEditorDialogModel<N, D, T, C>
+class RevertablePrototypeBindingsModel<N, D, T, C>
 		extends PrototypeBindingsModelDecorator<N, D, T, C> {
 	private final Map<N, D> originalDirections = new HashMap<>();
 	private final Map<N, T> originalTypes = new HashMap<>();
 	private final Map<N, C> originalClassifiers = new HashMap<>();
 
-	public PrototypeBindingsEditorDialogModel(final PrototypeBindingsModel<N, D, T, C> inner) {
+	/**
+	 * Creates a new instance
+	 * @param inner the wrapped model
+	 */
+	public RevertablePrototypeBindingsModel(final PrototypeBindingsModel<N, D, T, C> inner) {
 		super(inner);
 	}
 
 	@Override
 	public void setDirection(final N node, final D value) {
 		// Store original value to allow reverting
-		if (!originalDirections.containsKey(node)) {
-			originalDirections.put(node, super.getDirection(node));
-		}
+		originalDirections.computeIfAbsent(node, (n) -> getDirection(n));
 
 		super.setDirection(node, value);
 	}
@@ -58,9 +61,7 @@ class PrototypeBindingsEditorDialogModel<N, D, T, C>
 	@Override
 	public void setType(final N node, final T value) {
 		// Store original value to allow reverting
-		if (!originalTypes.containsKey(node)) {
-			originalTypes.put(node, super.getType(node));
-		}
+		originalTypes.computeIfAbsent(node, (n) -> getType(n));
 
 		super.setType(node, value);
 	}
@@ -68,13 +69,14 @@ class PrototypeBindingsEditorDialogModel<N, D, T, C>
 	@Override
 	public void setClassifier(final N node, final C value) {
 		// Store original value to allow reverting
-		if (!originalClassifiers.containsKey(node)) {
-			originalClassifiers.put(node, super.getClassifier(node));
-		}
+		originalClassifiers.computeIfAbsent(node, (n) -> getClassifier(n));
 
 		super.setClassifier(node, value);
 	}
 
+	/**
+	 * Sets values to what they were before changes were made using this model.
+	 */
 	public void revert() {
 		// Revert classifier changes
 		for (final Entry<N, C> e : originalClassifiers.entrySet()) {
