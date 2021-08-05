@@ -26,10 +26,7 @@ package org.osate.ge.gef;
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -63,9 +60,8 @@ public class FeatureGroupTypeNode extends Region implements ChopBoxGeometryProvi
 		inner.setStrokeType(StrokeType.INSIDE);
 		inner.setStrokeLineCap(StrokeLineCap.BUTT);
 
-		setLineWidth(2.0);
-		setBackgroundColor(Color.WHITE);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
 	@Override
@@ -114,29 +110,13 @@ public class FeatureGroupTypeNode extends Region implements ChopBoxGeometryProvi
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
-	}
-
-	public final void setBackgroundColor(final Color value) {
-		area.setFill(value);
-	}
-
-	public final void setOutlineColor(final Color value) {
-		area.setStroke(value);
-		inner.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		area.setStrokeWidth(value);
-		inner.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		area.getStrokeDashArray().setAll(value);
-		inner.getStrokeDashArray().setAll(value);
+		area.setFill(style.getBackgroundColor());
+		area.setStroke(style.getOutlineColor());
+		inner.setStroke(style.getOutlineColor());
+		area.setStrokeWidth(style.getLineWidth());
+		inner.setStrokeWidth(style.getLineWidth());
+		area.getStrokeDashArray().setAll(style.getStrokeDashArray());
+		inner.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 
 	@Override

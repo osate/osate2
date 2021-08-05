@@ -26,10 +26,7 @@ package org.osate.ge.gef;
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
 
@@ -48,15 +45,17 @@ public class FolderNode extends Region implements ChopBoxGeometryProvider, Styla
 
 	private final javafx.scene.shape.Polygon poly = new javafx.scene.shape.Polygon();
 
+	/**
+	 * Creates a new instance
+	 */
 	public FolderNode() {
 		this.getChildren().addAll(poly);
 
 		poly.setStrokeType(StrokeType.INSIDE);
 		poly.setStrokeLineCap(StrokeLineCap.BUTT);
 
-		setLineWidth(2.0);
-		setBackgroundColor(Color.WHITE);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
 	@Override
@@ -74,26 +73,10 @@ public class FolderNode extends Region implements ChopBoxGeometryProvider, Styla
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
-	}
-
-	public final void setBackgroundColor(final Color value) {
-		poly.setFill(value);
-	}
-
-	public final void setOutlineColor(final Color value) {
-		poly.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		poly.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		poly.getStrokeDashArray().setAll(value);
+		poly.setFill(style.getBackgroundColor());
+		poly.setStroke(style.getOutlineColor());
+		poly.setStrokeWidth(style.getLineWidth());
+		poly.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 
 	@Override

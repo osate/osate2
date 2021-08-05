@@ -70,11 +70,10 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 			.primaryLabelVisible(false)
 			.build();
 	private static final ExecutableQuery<ErrorBehaviorTransition> SRC_QUERY = ExecutableQuery
-			.create(ErrorBehaviorTransition.class, rootQuery -> rootQuery.parent()
+			.create(rootQuery -> rootQuery.parent()
 					.children()
 					.filterByBusinessObjectRelativeReference(ErrorBehaviorTransition::getSource));
 	private static final ExecutableQuery<ErrorBehaviorTransition> DST_QUERY = ExecutableQuery.create(
-			ErrorBehaviorTransition.class,
 			rootQuery -> rootQuery.parent()
 					.children()
 					.filterByBusinessObjectRelativeReference(t -> t.isSteadyState() ? t.getSource() : t.getTarget()));

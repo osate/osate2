@@ -73,10 +73,7 @@ public final class Dimension {
 		if (Double.doubleToLongBits(height) != Double.doubleToLongBits(other.height)) {
 			return false;
 		}
-		if (Double.doubleToLongBits(width) != Double.doubleToLongBits(other.width)) {
-			return false;
-		}
-		return true;
+		return Double.doubleToLongBits(width) == Double.doubleToLongBits(other.width);
 	}
 
 	@Override

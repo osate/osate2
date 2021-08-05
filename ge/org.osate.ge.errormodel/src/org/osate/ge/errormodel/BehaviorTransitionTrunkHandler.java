@@ -54,12 +54,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, CustomDeleter
 {
 	private static final ExecutableQuery<BehaviorTransitionTrunk> SRC_QUERY = ExecutableQuery
-			.create(BehaviorTransitionTrunk.class,
-					rootQuery -> rootQuery.ancestor(2)
+			.create(rootQuery -> rootQuery.ancestor(2)
 							.children()
 			.filterByBusinessObjectRelativeReference(t -> t.getTransition().getSource()));
 	private static final ExecutableQuery<BehaviorTransitionTrunk> DST_QUERY = ExecutableQuery
-			.create(BehaviorTransitionTrunk.class, rootQuery -> rootQuery.ancestor(2)
+			.create(rootQuery -> rootQuery.ancestor(2)
 					.children()
 			.filterByBusinessObjectRelativeReference(t -> t.getTransition()));
 

@@ -23,10 +23,7 @@
  */
 package org.osate.ge.gef;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.scene.Parent;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
 
@@ -114,35 +111,18 @@ public class PortNode extends Parent implements Stylable {
 		dataNode.setStrokeType(StrokeType.INSIDE);
 		dataNode.setStrokeLineCap(StrokeLineCap.BUTT);
 
-		setLineWidth(2.0);
-		setBackgroundColor(Color.BLACK);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
-	}
-
-	public final void setBackgroundColor(final Color value) {
-		dataNode.setFill(value);
-	}
-
-	public final void setOutlineColor(final Color value) {
-		eventNode.setStroke(value);
-		dataNode.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		eventNode.setStrokeWidth(value);
-		dataNode.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		eventNode.getStrokeDashArray().setAll(value);
-		dataNode.getStrokeDashArray().setAll(value);
+		dataNode.setFill(style.getBackgroundColor());
+		eventNode.setStroke(style.getOutlineColor());
+		dataNode.setStroke(style.getOutlineColor());
+		eventNode.setStrokeWidth(style.getLineWidth());
+		dataNode.setStrokeWidth(style.getLineWidth());
+		eventNode.getStrokeDashArray().setAll(style.getStrokeDashArray());
+		dataNode.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 }

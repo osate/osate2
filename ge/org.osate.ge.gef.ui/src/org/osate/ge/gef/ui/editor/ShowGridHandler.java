@@ -35,10 +35,16 @@ import org.eclipse.ui.handlers.RegistryToggleState;
 import org.osate.ge.gef.ui.AgeGefUiPlugin;
 import org.osate.ge.gef.ui.preferences.Preferences;
 
+/**
+ * Handler for the command which toggles whether the editor grid is shown. Stores the value as a preference which is shared between all editor instances.
+ */
 public class ShowGridHandler extends AbstractHandler {
 	private static final String SHOW_GRID_CMD_ID = "org.osate.ge.gef.ui.commands.showGrid";
 	private final IPreferenceStore preferenceStore = AgeGefUiPlugin.getDefault().getPreferenceStore();
 
+	/**
+	 * Creates a new instance
+	 */
 	public ShowGridHandler() {
 		// Set toggle state based on preferences
 		final ICommandService service = PlatformUI.getWorkbench().getService(ICommandService.class);

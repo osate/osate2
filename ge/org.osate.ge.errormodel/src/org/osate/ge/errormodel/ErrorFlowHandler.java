@@ -71,8 +71,7 @@ public class ErrorFlowHandler implements BusinessObjectHandler {
 
 	// Assumes root is the containing classifier
 	private static final ExecutableQuery<ErrorPropagation> PROPAGATION_QUERY = ExecutableQuery
-			.create(ErrorPropagation.class,
-					rootQuery -> rootQuery
+			.create(rootQuery -> rootQuery
 							.descendantsByBusinessObjectsRelativeReference(
 									p -> getBusinessObjectPathToPropagationFeatureOrPP(p), 1)
 							.first());

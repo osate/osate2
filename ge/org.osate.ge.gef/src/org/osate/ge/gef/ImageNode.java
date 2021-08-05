@@ -55,8 +55,8 @@ public class ImageNode extends Region implements ChopBoxGeometryProvider, Stylab
 		outline.setStrokeLineCap(StrokeLineCap.BUTT);
 		outline.setStrokeWidth(4.0);
 
-		setBackgroundColor(Color.WHITE);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
 	@Override
@@ -78,12 +78,9 @@ public class ImageNode extends Region implements ChopBoxGeometryProvider, Stylab
 		outline.setHeight(height);
 	}
 
-	public ImageReference getImageReference() {
-		return this.imageReference;
-	}
-
 	/**
 	 * Updates the image displayed
+	 * @param value the reference to the image which will be displayed by this node.
 	 */
 	public void setImageReference(final ImageReference value) {
 		if (!Objects.equals(imageReference, value)) {
@@ -104,16 +101,8 @@ public class ImageNode extends Region implements ChopBoxGeometryProvider, Stylab
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-	}
-
-	public final void setBackgroundColor(final Color value) {
-		background.setFill(value);
-	}
-
-	public final void setOutlineColor(final Color value) {
-		outline.setStroke(value);
+		background.setFill(style.getBackgroundColor());
+		outline.setStroke(style.getOutlineColor());
 	}
 
 	@Override
@@ -122,12 +111,19 @@ public class ImageNode extends Region implements ChopBoxGeometryProvider, Stylab
 	}
 }
 
+/**
+ * Node shown when an image is not available for display.
+ *
+ */
 class ErrorImage extends Region {
 	private static final double STROKE_WIDTH = 4.0;
 
 	private final Rectangle rectangle = new Rectangle();
 	private final Path path = new Path();
 
+	/**
+	 * Creates a new instance
+	 */
 	public ErrorImage() {
 		this.getChildren().addAll(rectangle, path);
 

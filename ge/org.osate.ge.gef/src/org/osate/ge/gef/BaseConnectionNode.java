@@ -34,7 +34,6 @@ import org.eclipse.gef.geometry.convert.fx.Geometry2FX;
 import org.eclipse.gef.geometry.planar.IGeometry;
 import org.eclipse.gef.geometry.planar.Point;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import javafx.collections.ListChangeListener;
@@ -126,25 +125,43 @@ public abstract class BaseConnectionNode extends Group implements ChopBoxGeometr
 		connection.setEndDecoration(endDecorationGroup);
 
 		// Finish configuring curve appearance
-		final GeometryNode<?> gn = (GeometryNode<?>) connection.getCurve();
+		final GeometryNode<?> gn = getGeometryNode();
 		gn.setStrokeLineCap(StrokeLineCap.BUTT);
 
-		setOutlineColor(Color.BLACK);
-		setLineWidth(2.0);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
+	/**
+	 * Sets the anchor which determines the location of the start of the connection.
+	 * @param anchor the new start anchor.
+	 * @see Connection#setStartAnchor(IAnchor)
+	 */
 	protected void setStartAnchor(final IAnchor anchor) {
 		connection.setStartAnchor(anchor);
 	}
 
+	/**
+	 * Sets the anchor which determines the location of the end of the connection.
+	 * @param anchor the new end anchor.
+	 * @see Connection#setStartAnchor(IAnchor)
+	 */
 	protected void setEndAnchor(final IAnchor anchor) {
 		connection.setEndAnchor(anchor);
 	}
 
+	/**
+	 * A modifiable list containing the connection's primary labels.
+	 * @return the list of primary labels. Will never return null.
+	 */
 	public ObservableList<Node> getPrimaryLabels() {
 		return primaryLabels.inner.getChildren();
 	}
 
+	/**
+	 * A modifiable list containing the connection's secondary labels.
+	 * @return the list of secondary labels. Will never return null.
+	 */
 	public ObservableList<Node> getSecondaryLabels() {
 		return secondaryLabels.inner.getChildren();
 	}
@@ -316,10 +333,12 @@ public abstract class BaseConnectionNode extends Group implements ChopBoxGeometr
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
+		final GeometryNode<?> gn = getGeometryNode();
+		gn.setStroke(style.getOutlineColor());
+		gn.setStrokeWidth(style.getLineWidth());
+		gn.setClickableAreaWidth(Math.max(5.0, style.getLineWidth()));
 		setPrimaryLabelsVisible(style.getPrimaryLabelsVisible());
-		setStrokeDashArray(style.getStrokeDashArray());
+		gn.getStrokeDashArray().setAll(style.getStrokeDashArray());
 		setLabelBackgroundColor(style.getBackgroundColor());
 	}
 
@@ -328,27 +347,15 @@ public abstract class BaseConnectionNode extends Group implements ChopBoxGeometr
 		LabelBackgroundColorUtil.setLabelBackgroundColor(getSecondaryLabels(), value);
 	}
 
-	public final void setOutlineColor(final Color value) {
-		final GeometryNode<?> gn = (GeometryNode<?>) connection.getCurve();
-		gn.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		final GeometryNode<?> gn = (GeometryNode<?>) connection.getCurve();
-		gn.setStrokeWidth(value);
-		gn.setClickableAreaWidth(Math.max(5.0, value));
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		final GeometryNode<?> gn = (GeometryNode<?>) connection.getCurve();
-		gn.getStrokeDashArray().setAll(value);
+	private GeometryNode<?> getGeometryNode() {
+		return (GeometryNode<?>) connection.getCurve();
 	}
 
 	/**
 	 * Sets the managed and visible flags of the primary labels to the specified value.
 	 * @param value whether to show the primary label nodes.
 	 */
-	public void setPrimaryLabelsVisible(final boolean value) {
+	private void setPrimaryLabelsVisible(final boolean value) {
 		primaryLabels.inner.setManaged(value);
 		primaryLabels.inner.setVisible(value);
 	}

@@ -190,6 +190,10 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		return result;
 	}
 
+	/**
+	 * Sets the graphic for the container shape. The graphic is resized to match the size of this node.
+	 * @param value the new graphic node
+	 */
 	public void setGraphic(final Node value) {
 		graphicWrapper.getChildren().setAll(value);
 	}
@@ -203,34 +207,71 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 		return graphicNodes.isEmpty() ? null : graphicNodes.get(0);
 	}
 
+	/**
+	 * Returns a modifiable list containing the shape's primary labels
+	 * @return a modifiable list containing the shape's primary labels. Will never return null.
+	 */
 	public ObservableList<Node> getPrimaryLabels() {
 		return primaryLabels.getChildren();
 	}
 
+	/**
+	 * Returns a modifiable list containing the shape's secondary labels
+	 * @return a modifiable list containing the shape's secondary labels. Will never return null.
+	 */
 	public ObservableList<Node> getSecondaryLabels() {
 		return secondaryLabels.getChildren();
 	}
 
+	/**
+	 * Returns a modifiable list containing the nodes docked to the left side of the shape.
+	 * When a node is added, the {@link DockedShape#sideProperty()} will be set.
+	 * @return a modifiable list containing the nodes docked to the left side of the shape. Will never return null.
+	 */
 	public ObservableList<DockedShape> getLeftChildren() {
 		return leftChildren.getNodes();
 	}
 
+	/**
+	 * Returns a modifiable list containing the nodes docked to the right side of the shape.
+	 * When a node is added, the {@link DockedShape#sideProperty()} will be set.
+	 * @return a modifiable list containing the nodes docked to the right side of the shape. Will never return null.
+	 */
 	public ObservableList<DockedShape> getRightChildren() {
 		return rightChildren.getNodes();
 	}
 
+	/**
+	 * Returns a modifiable list containing the nodes docked to the top side of the shape.
+	 * When a node is added, the {@link DockedShape#sideProperty()} will be set.
+	 * @return a modifiable list containing the nodes docked to the top side of the shape. Will never return null.
+	 */
 	public ObservableList<DockedShape> getTopChildren() {
 		return topChildren.getNodes();
 	}
 
+	/**
+	 * Returns a modifiable list containing the nodes docked to the bottom side of the shape.
+	 * When a node is added, the {@link DockedShape#sideProperty()} will be set.
+	 * @return a modifiable list containing the nodes docked to the bottom side of the shape. Will never return null.
+	 */
 	public ObservableList<DockedShape> getBottomChildren() {
 		return bottomChildren.getNodes();
 	}
 
+	/**
+	 * Returns a modifiable list containing undocked nodes. The position of undocked nodes are set using {@link PreferredPosition}
+	 * @return a modifiable list containing undocked nodes.
+	 * @see PreferredPosition
+	 */
 	public ObservableList<Node> getFreeChildren() {
 		return freeChildren.getChildren();
 	}
 
+	/**
+	 * Returns the chopbox anchor for the container shape. This anchor should be used for connections using the shape as a start or end point.
+	 * @return the chopbox anchor
+	 */
 	public final IAnchor getAnchor() {
 		return anchor;
 	}
@@ -344,7 +385,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	 * Sets how labels are positioned horizontally.
 	 * @param value the new horizontal label position
 	 */
-	public void setHorizontalLabelPosition(final LabelPosition value) {
+	private void setHorizontalLabelPosition(final LabelPosition value) {
 		if (this.horizontalLabelPosition != value) {
 			this.horizontalLabelPosition = value;
 			setNeedsLayout(true);
@@ -355,7 +396,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	 * Sets how labels are positioned vertically.
 	 * @param value the new vertical label position
 	 */
-	public void setVerticalLabelPosition(final LabelPosition value) {
+	private void setVerticalLabelPosition(final LabelPosition value) {
 		if (this.verticalLabelPosition != value) {
 			this.verticalLabelPosition = value;
 			setNeedsLayout(true);
@@ -366,7 +407,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	 * Sets the managed and visible flags of the primary labels to the specified value.
 	 * @param value whether to show the primary label nodes.
 	 */
-	public void setPrimaryLabelsVisible(final boolean value) {
+	private void setPrimaryLabelsVisible(final boolean value) {
 		primaryLabels.setManaged(value);
 		primaryLabels.setVisible(value);
 	}
@@ -375,7 +416,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	 * Sets the image to display in place of the graphics
 	 * @param value a reference to an image to display instead of graphics. If null, the graphics will be displayed.
 	 */
-	public void setImage(final ImageReference value) {
+	private void setImage(final ImageReference value) {
 		if (value == null) {
 			if (this.image != null) {
 				getChildren().remove(image);
@@ -488,7 +529,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	 *
 	 * When calculating the preferred height during layout, this function is called
 	 * with the configured which that has been specified by {@link #setConfiguredHeight(double)}
-	 * @param height the height of the node.  See {@link #computePrefHeight(double)}
+	 * @param width the width of the node.  See {@link #computePrefHeight(double)}
 	 * @param configuredHeight is the configured height to use for computation.
 	 * @return the preferred height.
 	 */

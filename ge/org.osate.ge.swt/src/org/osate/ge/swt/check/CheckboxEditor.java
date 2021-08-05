@@ -24,7 +24,6 @@
 package org.osate.ge.swt.check;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -33,7 +32,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 
 /**
@@ -44,8 +42,13 @@ import org.osate.ge.swt.SwtUtil;
 public class CheckboxEditor extends Composite {
 	private final CheckboxEditorModel model;
 	private final Button check;
-	private final Consumer<ChangeEvent> changeListener = e -> refresh();
+	private final Runnable changeListener = this::refresh;
 
+	/**
+	 * Creates a new instance
+	 * @param parent the widget which is the parent of the editor. Must not be null.
+	 * @param model the model for the editor
+	 */
 	public CheckboxEditor(final Composite parent, final CheckboxEditorModel model) {
 		super(parent, SWT.NONE);
 		this.model = Objects.requireNonNull(model, "model must not be null");
@@ -87,10 +90,12 @@ public class CheckboxEditor extends Composite {
 		check.setEnabled(enabled);
 	}
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new CheckboxEditor(shell, new TestCheckboxEditorModel());
-		});
+		SwtUtil.run(shell -> new CheckboxEditor(shell, new TestCheckboxEditorModel()));
 	}
-
 }

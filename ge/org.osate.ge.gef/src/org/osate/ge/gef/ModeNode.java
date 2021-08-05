@@ -26,13 +26,10 @@ package org.osate.ge.gef;
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.CubicCurve;
@@ -84,10 +81,9 @@ public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylabl
 
 		updateInitialModeIndicatorVisibility();
 
-		// Set initial style
-		setLineWidth(2.0);
-		setBackgroundColor(Color.WHITE);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
+
 		setInitialMode(false);
 	}
 
@@ -151,39 +147,28 @@ public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylabl
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
+		modeSymbol.setFill(style.getBackgroundColor());
+		initialModeCircle.setFill(style.getBackgroundColor());
+		modeSymbol.setStroke(style.getOutlineColor());
+		initialModeCircle.setStroke(style.getOutlineColor());
+		initialModeCurve.setStroke(style.getOutlineColor());
+		initialModeArrow.setStroke(style.getOutlineColor());
+		initialModeArrow.setFill(style.getOutlineColor());
+		modeSymbol.setStrokeWidth(style.getLineWidth());
+		initialModeCircle.setStrokeWidth(style.getLineWidth());
+		initialModeCurve.setStrokeWidth(style.getLineWidth());
+		initialModeArrow.setStrokeWidth(style.getLineWidth());
+		modeSymbol.getStrokeDashArray().setAll(style.getStrokeDashArray());
+		initialModeCircle.getStrokeDashArray().setAll(style.getStrokeDashArray());
+		initialModeCurve.getStrokeDashArray().setAll(style.getStrokeDashArray());
+		initialModeArrow.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 
-	public final void setBackgroundColor(final Color value) {
-		modeSymbol.setFill(value);
-		initialModeCircle.setFill(value);
-	}
-
-	public final void setOutlineColor(final Color value) {
-		modeSymbol.setStroke(value);
-		initialModeCircle.setStroke(value);
-		initialModeCurve.setStroke(value);
-		initialModeArrow.setStroke(value);
-		initialModeArrow.setFill(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		modeSymbol.setStrokeWidth(value);
-		initialModeCircle.setStrokeWidth(value);
-		initialModeCurve.setStrokeWidth(value);
-		initialModeArrow.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		modeSymbol.getStrokeDashArray().setAll(value);
-		initialModeCircle.getStrokeDashArray().setAll(value);
-		initialModeCurve.getStrokeDashArray().setAll(value);
-		initialModeArrow.getStrokeDashArray().setAll(value);
-	}
-
+	/**
+	 * Sets whether to show the initial mode indicator. Default to false. Changing this value does not adjust the size
+	 * of the node. The size of the nodes contents will be adjusted to accommodate the new setting.
+	 * @param value whether to show the initial mode indicator.
+	 */
 	public final void setInitialMode(final boolean value) {
 		initialMode.setValue(value);
 	}

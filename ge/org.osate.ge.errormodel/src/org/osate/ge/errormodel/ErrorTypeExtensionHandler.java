@@ -63,7 +63,6 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 
 	// Only works if the package is displayed in the diagram.
 	private static final ExecutableQuery<ErrorTypeExtension> dstQuery = ExecutableQuery.create(
-			ErrorTypeExtension.class,
 			(rootQuery) -> rootQuery.ancestor(3)
 					.descendantsByBusinessObjectsRelativeReference(ete -> getBusinessObjectPath(ete.getSupertype())));
 

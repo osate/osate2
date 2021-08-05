@@ -52,12 +52,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
  * @see ErrorBehaviorTransitionHandler for details about how transitions are represented.
  */
 public class TransitionBranchHandler implements BusinessObjectHandler, CustomDeleter {
-	private static final ExecutableQuery<TransitionBranch> SRC_QUERY = ExecutableQuery.create(TransitionBranch.class,
-			rootQuery -> rootQuery.ancestor(2)
+	private static final ExecutableQuery<TransitionBranch> SRC_QUERY = ExecutableQuery
+			.create(rootQuery -> rootQuery.ancestor(2)
 					.children()
 					.filterByBusinessObjectRelativeReference(TransitionBranch::eContainer));
-	private static final ExecutableQuery<TransitionBranch> DST_QUERY = ExecutableQuery.create(TransitionBranch.class,
-			rootQuery -> rootQuery.ancestor(2)
+	private static final ExecutableQuery<TransitionBranch> DST_QUERY = ExecutableQuery.create(rootQuery -> rootQuery
+			.ancestor(2)
 					.children()
 					.filterByBusinessObjectRelativeReference(branch -> branch.isSteadyState()
 							? ((ErrorBehaviorTransition) branch.eContainer()).getSource()
