@@ -89,7 +89,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 
 /**
- * Provides and updates a JavaFX node representing an {@link AgeDiagram}.
+ * Creates and updates a JavaFX node representing an {@link AgeDiagram}.
  * Handles updating the JavaFX nodes to reflect the changes in the AgeDiagram.
  */
 public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
@@ -829,7 +829,6 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 * Triggers a layout of the scene graph nodes and then updates the diagram based on the layout of the scene graph nodes.
 	 * Updates position, size, and bendpoints from the scene graph.
 	 * Should only be called after the root node has been added to a scene.
-	 * @param m the modification to use to modify the diagram elements
 	 */
 	public void updateDiagramFromSceneGraph() {
 		updateDiagramFromSceneGraph(true);
@@ -959,6 +958,12 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		return diagram;
 	}
 
+	/**
+	 * Returns the scene graph node for a diagram element's primary label. If the diagram element does not have a primary label, but the root scene graph node
+	 * for the diagram element is a label, then that node will be returned.
+	 * @param de the diagram element for which to provide the primary label
+	 * @return the scene graph node for the diagram element's primary label. Returns null if the label could not be retrieved.
+	 */
 	public LabelNode getPrimaryLabelSceneNode(final DiagramElement de) {
 		final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(de);
 		if (ge == null) {

@@ -6,6 +6,10 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+/**
+ * Handler for the zoom in command.
+ * Increases the zoom level by calling {@link AgeEditor#zoomIn()} when the command is activated.
+ */
 public class ZoomInHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
@@ -16,5 +20,4 @@ public class ZoomInHandler extends AbstractHandler {
 
 		return null;
 	}
-
 }

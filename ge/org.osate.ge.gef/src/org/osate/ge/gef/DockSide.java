@@ -24,12 +24,35 @@
 package org.osate.ge.gef;
 
 /**
- * Determines how children are laid out
+ * Describes the side of a rectangular shape to which a {@link DockedShape} is docked.
  */
 public enum DockSide {
-	LEFT(true, false), RIGHT(true, true), TOP(false, false), BOTTOM(false, true);
+	/**
+	 * The left side of the container.
+	 */
+	LEFT(true, false),
+	/**
+	* The right side of the container
+	*/
+	RIGHT(true, true),
+	/**
+	* The top of the container
+	*/
+	TOP(false, false),
+	/**
+	* The bottom of the container
+	*/
+	BOTTOM(false, true);
 
+	/**
+	 * True if the side is a vertical axis. For example: the left and right sides are vertical.
+	 */
 	public final boolean vertical;
+
+	/**
+	 * Whether the node should aligned to the end of the orthogonal axis. For nodes on a vertical axis, this indicates the graphic should be flush
+	 * with the right of the container. For nodes on a horizontal axis, this indicates the graphic should be flushed with the bottom of the container.
+	 */
 	final boolean alignEnd;
 
 	DockSide(final boolean vertical, final boolean alignEnd) {

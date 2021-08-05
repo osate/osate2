@@ -33,11 +33,15 @@ import javafx.scene.transform.NonInvertibleTransformException;
 import javafx.scene.transform.Transform;
 
 /**
- * Node intended to be used as the root of a diagram. Sizes children to preferred size and positions the nodes based on {@link PreferredPosition}
+ * Node intended to be used as the root of the branch of the scene graph containing a diagram.
+ * Sizes children to their preferred size and positions the nodes based on {@link PreferredPosition}
  */
 public class DiagramRootNode extends Group {
 	private final ReadOnlyObjectWrapper<Transform> sceneToLocalTransform = new ReadOnlyObjectWrapper<>();
 
+	/**
+	 * Creates a new instance
+	 */
 	public DiagramRootNode() {
 		sceneToLocalTransform.bind(new ObjectBinding<Transform>() {
 			{

@@ -34,15 +34,14 @@ import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class PropertyValueUtil {
-	private static final ExecutableQuery<Object> CLASSIFIER_QUERY = ExecutableQuery.create(Object.class,
-			rootQuery -> rootQuery.children()
+	private static final ExecutableQuery<Object> CLASSIFIER_QUERY = ExecutableQuery
+			.create(rootQuery -> rootQuery.children()
 			.children()
 			.filterByBusinessObjectCanonicalReference(Function.identity())
 			.first());
 	private static final ExecutableQuery<InstanceObject> INSTANCE_OBJECT_QUERY = ExecutableQuery
-			.create(InstanceObject.class,
-					rootQuery -> rootQuery
-							.descendantsByBusinessObjectsRelativeReference(PropertyValueUtil::getInstanceObjectPath, 1)
+			.create(rootQuery -> rootQuery
+					.descendantsByBusinessObjectsRelativeReference(PropertyValueUtil::getInstanceObjectPath, 1)
 					.first());
 
 	public static BusinessObjectContext getReferencedClassifier(final BusinessObjectContext q, final ClassifierValue cv,

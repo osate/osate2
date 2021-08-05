@@ -45,12 +45,12 @@ import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class ModeTransitionHandler extends AadlBusinessObjectHandler {
-	private static final ExecutableQuery<ModeTransition> SRC_QUERY = ExecutableQuery.create(ModeTransition.class,
-			rootQuery -> rootQuery.parent()
+	private static final ExecutableQuery<ModeTransition> SRC_QUERY = ExecutableQuery
+			.create(rootQuery -> rootQuery.parent()
 			.children()
 			.filterByBusinessObjectRelativeReference(ModeTransition::getSource));
-	private static final ExecutableQuery<ModeTransition> DST_QUERY = ExecutableQuery.create(ModeTransition.class,
-			rootQuery -> rootQuery.parent()
+	private static final ExecutableQuery<ModeTransition> DST_QUERY = ExecutableQuery
+			.create(rootQuery -> rootQuery.parent()
 			.children()
 			.filterByBusinessObjectRelativeReference(ModeTransition::getDestination));
 

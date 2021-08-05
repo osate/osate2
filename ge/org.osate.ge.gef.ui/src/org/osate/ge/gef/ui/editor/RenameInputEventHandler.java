@@ -51,13 +51,18 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Transform;
 
 /**
- *  {@link InputEventHandler} which handles renaming behavior.
+ *  {@link InputEventHandler} which handles renaming when a primary label is clicked.
+ *  When a label for a selected element is clicked, renaming will be activated when the mouse button is released.
  */
 public class RenameInputEventHandler implements InputEventHandler {
 	private final AgeEditor editor;
 	private boolean wasSelected = false;
 	private DiagramElement mousePressDiagramElement = null;
 
+	/**
+	 * Creates a new instance
+	 * @param editor the editor from which events originate.
+	 */
 	public RenameInputEventHandler(final AgeEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 	}
@@ -125,6 +130,10 @@ public class RenameInputEventHandler implements InputEventHandler {
 	}
 }
 
+/**
+ * Interaction which renames a diagram element using a text field shown over the diagram.
+ *
+ */
 class RenameInteraction extends BaseInteraction {
 	private static final String ERROR_STYLE = "-fx-control-inner-background: #FBE9EB; -fx-text-fill: #C90017;";
 

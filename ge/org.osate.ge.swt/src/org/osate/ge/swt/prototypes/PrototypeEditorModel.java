@@ -30,7 +30,7 @@ import org.osate.ge.swt.ObservableModel;
 /**
  * View Model used by {@link PrototypeEditor}
  *
- * @param <C> the type used for the constraining classifier of the prototype.
+ * @param <C> the type used for the prototype's constraining classifier
  */
 interface PrototypeEditorModel<C> extends ObservableModel {
 	/**

@@ -66,6 +66,8 @@ public class ImageManager implements AutoCloseable {
 	 * Gets an image reference for the specified file path. If an image reference for the path already exists, the existing
 	 * instance is returned. When an image reference is no longer referenced, the image will be freed and will be reloaded
 	 * if referenced again.
+	 * @param path the path of the image for which to return the reference.
+	 * @return the image reference
 	 */
 	public synchronized ImageReference getImageReference(final Path path) {
 		// Get the existing weak reference
@@ -91,7 +93,9 @@ public class ImageManager implements AutoCloseable {
 
 	}
 
-	// Reload all images that have changed
+	/**
+	 * Reload all images that have changed
+	 */
 	public synchronized void refreshImages() {
 		for (final WeakImageReference weak : pathToImageReference.values()) {
 			refreshImage(weak);
@@ -153,10 +157,27 @@ public class ImageManager implements AutoCloseable {
  *
  */
 class WeakImageReference extends WeakReference<ImageReference> {
+	/**
+	 * The path to the image file
+	 */
 	final Path path;
+
+	/**
+	 * The timestamp of the last modification as returned by {@link File#lastModified()}
+	 */
 	long lastModified;
+
+	/**
+	 * Whether the reference has been removed from the path to image reference map
+	 */
 	boolean cleanedUp = false;
 
+	/**
+	 * Creates a new instance
+	 * @param imageReference the image reference
+	 * @param path the path to the image
+	 * @param q the reference queue used to cleanup the references
+	 */
 	public WeakImageReference(ImageReference imageReference, final Path path, ReferenceQueue<ImageReference> q) {
 		super(imageReference, q);
 		this.path = Objects.requireNonNull(path, "path must not be null");

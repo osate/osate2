@@ -25,7 +25,6 @@ package org.osate.ge.gef.ui.preferences;
 
 /**
  * Constants for preference names
- *
  */
 public final class Preferences {
 	/**
@@ -34,5 +33,8 @@ public final class Preferences {
 	private Preferences() {
 	}
 
+	/**
+	 * The name of the boolean preference which determines whether the grid is shown in the editor.
+	 */
 	public static final String SHOW_GRID = "canvas.showGrid";
 }

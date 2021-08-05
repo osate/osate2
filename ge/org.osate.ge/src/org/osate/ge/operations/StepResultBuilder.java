@@ -63,7 +63,7 @@ public class StepResultBuilder<R> {
 	 * Creates a new instance configured to create a result with a null use value
 	 * @return a new builder
 	 */
-	public static StepResultBuilder<?> create() {
+	public static StepResultBuilder<Void> create() {
 		return new StepResultBuilder<>(null);
 	}
 

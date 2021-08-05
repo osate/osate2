@@ -45,20 +45,21 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 /**
- * Handles showing and hiding tooltips
+ * Handles showing and hiding tooltips. Populates the tooltips using registered {@link TooltipContributor} instances.
  */
 public class TooltipManager {
 	private final ExtensionRegistryService extensionRegistry;
 	private Shell tooltipShell = null;
 	private DiagramElement tooltipElement = null;
-	private double tooltipCursorX = Double.MIN_VALUE;
-	private double tooltipCursorY = Double.MIN_VALUE;
-	private final int cursorMoveThreshold = 40;
 	private final Timeline showTimeline;
 
 	// Implemented as list because enter and exit events may not be received in FILO order.
-	private final List<DiagramElement> elementStack = new ArrayList<DiagramElement>();
+	private final List<DiagramElement> elementStack = new ArrayList<>();
 
+	/**
+	 * Creates a new instance
+	 * @param extensionRegistry the registry to use to retrieve the {@link TooltipContributor} instances.
+	 */
 	public TooltipManager(final ExtensionRegistryService extensionRegistry) {
 		this.extensionRegistry = Objects.requireNonNull(extensionRegistry, "extensionRegistry must not be null");
 
@@ -68,24 +69,37 @@ public class TooltipManager {
 		this.showTimeline.setOnFinished(event -> showTooltipElement());
 	}
 
+	/**
+	 * Called when the mouse cursor enters a JavaFX node which is the root of the diagram element's scene graph branch.
+	 * @param diagramElement the diagram element which is associated with the entered node.
+	 */
 	public void mouseEnter(final DiagramElement diagramElement) {
 		// Remove it from the stack if it is already contained in it.
 		elementStack.remove(diagramElement);
 		elementStack.add(diagramElement);
+		update();
 	}
 
+	/**
+	 * Called when the mouse cursor exits a JavaFX node which is the root of the diagram element's scene graph branch.
+	 * @param diagramElement the diagram element which is associated with the exited node.
+	 */
 	public void mouseExit(final DiagramElement diagramElement) {
 		if (elementStack.isEmpty()) {
 			return;
 		}
 
 		elementStack.remove(diagramElement);
-		hideTooltip();
-
+		update();
 	}
 
-	public void mouseMove(final double x, final double y) {
+	/**
+	 * Updates the displayed tooltip based on the state of the diagram element stack.
+	 * If a new diagram element is at the top of the stack, it hides the current tooltip and then starts the animation that when completed will show a tooltip.
+	 */
+	private void update() {
 		if (elementStack.isEmpty()) {
+			hideTooltip();
 			return;
 		}
 
@@ -93,15 +107,11 @@ public class TooltipManager {
 		if (tooltipElement != newTooltipElement) {
 			// Hide existing tooltip if open
 			if (tooltipElement != null) {
-				if (newTooltipElement != tooltipElement || exceedsCursorMoveThreshold(x, y)) {
-					hideTooltip();
-				}
+				hideTooltip();
 			}
 
 			// Start the showing timeline
 			tooltipElement = newTooltipElement;
-			tooltipCursorX = x;
-			tooltipCursorY = y;
 			showTimeline.play();
 		}
 	}
@@ -148,6 +158,9 @@ public class TooltipManager {
 		}
 	}
 
+	/**
+	 * Hides the current tooltip. Cancels any activate show animation.
+	 */
 	public void hideTooltip() {
 		showTimeline.stop();
 
@@ -157,12 +170,6 @@ public class TooltipManager {
 
 		tooltipShell = null;
 		tooltipElement = null;
-		tooltipCursorX = Double.MIN_VALUE;
-		tooltipCursorY = Double.MIN_VALUE;
-	}
-
-	private boolean exceedsCursorMoveThreshold(final double cursorX, final double cursorY) {
-		return (Math.abs(cursorX - tooltipCursorX) + Math.abs(cursorY - tooltipCursorY)) >= cursorMoveThreshold;
 	}
 
 	private DiagramElement topDiagramElement() {

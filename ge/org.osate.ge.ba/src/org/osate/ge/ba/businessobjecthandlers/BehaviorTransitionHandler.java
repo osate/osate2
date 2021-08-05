@@ -62,7 +62,7 @@ import org.osate.ge.services.QueryService;
  * Business Object Handler for {@link BehaviorTransition}.
  */
 public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
-	private static final ExecutableQuery<BehaviorTransition> SRC_QUERY = ExecutableQuery.create(BehaviorTransition.class,
+	private static final ExecutableQuery<BehaviorTransition> SRC_QUERY = ExecutableQuery.<BehaviorTransition> create(
 			rootQuery -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(bt -> {
 				if (bt instanceof DeclarativeBehaviorTransition) {
 					final DeclarativeBehaviorTransition dt = (DeclarativeBehaviorTransition) bt;
@@ -76,8 +76,8 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 				return bt.getSourceState();
 			}));
 
-	private static final ExecutableQuery<BehaviorTransition> DST_QUERY = ExecutableQuery.create(BehaviorTransition.class,
-			rootQuery -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(bt -> {
+	private static final ExecutableQuery<BehaviorTransition> DST_QUERY = ExecutableQuery
+			.create(rootQuery -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(bt -> {
 				if (bt instanceof DeclarativeBehaviorTransition) {
 					final DeclarativeBehaviorTransition dt = (DeclarativeBehaviorTransition) bt;
 					final Identifier dest = dt.getDestState();
@@ -91,8 +91,10 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 			}));
 
 	private static Element getState(final BehaviorAnnex ba, final String id) {
-		return ba.getChildren().stream()
-				.filter(c -> c instanceof NamedElement && id.equals(((NamedElement) c).getName())).findAny()
+		return ba.getChildren()
+				.stream()
+				.filter(c -> c instanceof NamedElement && id.equals(((NamedElement) c).getName()))
+				.findAny()
 				.orElse(null);
 	}
 
@@ -126,8 +128,8 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).orElseThrow();
 		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.getOwner();
 		final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
-		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE,
-				Integer.toString(index), ctx.getReferenceBuilder().getCanonicalReference(behaviorAnnex).encode());
+		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE, Integer.toString(index),
+				ctx.getReferenceBuilder().getCanonicalReference(behaviorAnnex).encode());
 	}
 
 	@Override
@@ -137,7 +139,8 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 		return BehaviorAnnexReferenceUtil.getTransitionRelativeReference(refSeg);
 	}
 
-	private static String getTransitionReference(final BehaviorAnnex behaviorAnnex, final BehaviorTransition behaviorTransition) {
+	private static String getTransitionReference(final BehaviorAnnex behaviorAnnex,
+			final BehaviorTransition behaviorTransition) {
 		final String name = behaviorTransition.getName();
 		if (name == null) {
 			final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
@@ -156,10 +159,12 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final QueryService queryService = ctx.getQueryService();
-		return Optional
-				.of(GraphicalConfigurationBuilder.create().graphic(transitionConnectionGraphic)
-						.style(transitionConnectionStyle).source(getSource(boc, queryService))
-						.destination(getDestination(boc, queryService)).build());
+		return Optional.of(GraphicalConfigurationBuilder.create()
+				.graphic(transitionConnectionGraphic)
+				.style(transitionConnectionStyle)
+				.source(getSource(boc, queryService))
+				.destination(getDestination(boc, queryService))
+				.build());
 	}
 
 	private BusinessObjectContext getSource(final BusinessObjectContext boc, final QueryService queryService) {
@@ -174,8 +179,7 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(BehaviorTransition.class).map(BehaviorTransition::getName)
-				.orElse("");
+		return ctx.getBusinessObject(BehaviorTransition.class).map(BehaviorTransition::getName).orElse("");
 	}
 
 	@Override
@@ -193,7 +197,8 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	public void delete(final CustomDeleteContext ctx) {
 		final BehaviorAnnex behaviorAnnex = ctx.getContainerBusinessObject(BehaviorAnnex.class).orElseThrow();
 		// Find transition by URI.
-		final BehaviorTransition behaviorTransition = (BehaviorTransition) behaviorAnnex.eResource().getResourceSet()
+		final BehaviorTransition behaviorTransition = (BehaviorTransition) behaviorAnnex.eResource()
+				.getResourceSet()
 				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorTransition.class).orElseThrow()), true);
 		EcoreUtil.remove(behaviorTransition);
 		if (behaviorAnnex.getTransitions().isEmpty()) {

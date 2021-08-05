@@ -37,7 +37,7 @@ public class PolygonConnectionDecoration extends PolygonNode {
 
 	/**
 	 * Create a new instance
-	 * @param filled indicates whether the polygon should be filled.
+	 * @param filled indicates how the polygon is filled. If true, the polygon is filled with the outline color. Otherwise, it is filled with white.
 	 * @param fixedSize may be null. If non-null, then the minimum, preferred, and max size will match this value.
 	 * @param points the points for the polygon. Series of x, y coordinates.
 	 * Must contain an even number of values be within the range of [0.0, 1.0] Will be scaled based on the size of the node.
@@ -48,9 +48,9 @@ public class PolygonConnectionDecoration extends PolygonNode {
 	}
 
 	@Override
-	public final void apply(final FxStyle style) {
-		setBackgroundColor(filled ? style.getOutlineColor() : Color.WHITE);
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
+	public void apply(final FxStyle style) {
+		poly.setFill(filled ? style.getOutlineColor() : Color.WHITE); // Outline color is used as the fill color for this node
+		poly.setStroke(style.getOutlineColor());
+		poly.setStrokeWidth(style.getLineWidth());
 	}
 }

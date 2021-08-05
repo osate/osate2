@@ -45,6 +45,10 @@ public class ControlPointHandle extends ConnectionPointHandle {
 		this.controlPointIndex = controlPointIndex;
 	}
 
+	/**
+	 * Returns the index of the control point represented by this handle.
+	 * @return the index of the control point represented by this handle.
+	 */
 	public int getControlPointIndex() {
 		return controlPointIndex;
 	}

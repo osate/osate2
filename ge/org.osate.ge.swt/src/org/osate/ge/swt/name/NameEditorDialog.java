@@ -37,6 +37,10 @@ import org.osate.ge.swt.SwtUtil;
  *
  */
 public final class NameEditorDialog {
+	/**
+	* Private constructor to prevent direct instantiation.
+	* @see #open(Shell, NameEditorDialogModel)
+	*/
 	private NameEditorDialog() {
 	}
 
@@ -60,6 +64,11 @@ public final class NameEditorDialog {
 		}
 	}
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
 		SwtUtil.runDialog(() -> {
 			NameEditorDialog.open(null, new NameEditorRenameDialogModel(new TestNameEditorModel()));

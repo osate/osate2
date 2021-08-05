@@ -40,7 +40,6 @@ public class ResizeShapeHandle extends Rectangle implements Handle {
 	/**
 	 * Creates a new instance
 	 * @param diagramElement the diagram element which is resized using the handle.
-	 * @param sceneNode the scene node being modified.
 	 * @param direction is a vector indicating the direction to allow resizing. For example (-1, 1) would allow moving the shape to the left and increasing the height.
 	 * @param primary whether the selected shape is the primary selection.
 	 */
@@ -65,6 +64,11 @@ public class ResizeShapeHandle extends Rectangle implements Handle {
 				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
 	}
 
+	/**
+	 * Returns a new 2D vector which indicates the position of the handle.
+	 * For example: (-1, -1) is the top left and (1,1) indicates that it is the bottom-right handle.
+	 * @return a new 2D vector which indicates the position of the handle.
+	 */
 	public Vector getDirection() {
 		return direction.getCopy();
 	}

@@ -43,13 +43,17 @@ import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
 /**
- * Standalone test application which utilizes various nodes. Not exhaustive. It focuses primarily on
+ * Interactive test application which utilizes various nodes. Not exhaustive. It focuses primarily on
  * {@link ContainerShape} and {@link DockedShape}
  */
 public class GefTest {
 	private GefTest() {
 	}
 
+	/**
+	 * Entry point for the test application
+	 * @param args command line arguments
+	 */
 	public static void main(final String[] args) {
 		try (final ImageManager images = new ImageManager()) {
 			NodeApplication.run(() -> {
@@ -128,8 +132,9 @@ public class GefTest {
 
 				// subcomponent
 				final ContainerShape sc1 = new ContainerShape();
-				sc1.setHorizontalLabelPosition(LabelPosition.CENTER);
-				sc1.setVerticalLabelPosition(LabelPosition.BEGINNING);
+				sc1.apply(new FxStyle.Builder().horizontalLabelPosition(LabelPosition.CENTER)
+						.verticalLabelPosition(LabelPosition.BEGINNING)
+						.build());
 				sc1.setGraphic(new DeviceNode());
 				sc1.getPrimaryLabels().setAll(new LabelNode("sys1"));
 				top1.getFreeChildren().add(sc1);
