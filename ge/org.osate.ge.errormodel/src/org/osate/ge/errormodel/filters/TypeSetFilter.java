@@ -30,6 +30,11 @@ public class TypeSetFilter implements ContentFilter {
 	public static final String ID = "emv2.typeSets";
 
 	@Override
+	public String getParentId() {
+		return ErrorModelPackageFilter.ID;
+	}
+
+	@Override
 	public String getId() {
 		return ID;
 	}

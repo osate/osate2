@@ -38,9 +38,13 @@ public class KeywordPropagationPoint implements EmfContainerProvider {
 
 	private final KeywordPropagationPointType type;
 
-	public KeywordPropagationPoint(final Classifier classifier, final KeywordPropagationPointType type) {
+	private final boolean isUsed;
+
+	public KeywordPropagationPoint(final Classifier classifier, final KeywordPropagationPointType type,
+			final boolean isUsed) {
 		this.type = Objects.requireNonNull(type, "type must not be null");
 		this.classifier = Objects.requireNonNull(classifier, "clasifier must not be null");
+		this.isUsed = isUsed;
 	}
 
 	@Override
@@ -54,5 +58,9 @@ public class KeywordPropagationPoint implements EmfContainerProvider {
 
 	public final KeywordPropagationPointType getType() {
 		return type;
+	}
+
+	public final boolean isUsed() {
+		return isUsed;
 	}
 }

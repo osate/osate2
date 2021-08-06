@@ -49,7 +49,7 @@ public abstract class CollectionSingleSelectorModel<T> extends BaseObservableMod
 	}
 
 	@Override
-	public final Stream<T> getElements() {
+	public Stream<T> getElements() {
 		return elements.stream();
 	}
 

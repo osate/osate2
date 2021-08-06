@@ -32,6 +32,11 @@ public class ErrorFlowFilter implements ContentFilter {
 	public static final String ID = "emv2.errorFlows";
 
 	@Override
+	public String getParentId() {
+		return ErrorModelLibraryFilter.ID;
+	}
+
+	@Override
 	public String getId() {
 		return ID;
 	}
