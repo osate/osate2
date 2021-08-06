@@ -53,7 +53,7 @@ public class ErrorTypeExtendTypeModel extends BaseObservableModel implements Sin
 	}
 
 	private BusinessObjectSelection bos;
-	private Map<Object, Option> uriToOptionMap;
+	private Map<URI, Option> uriToOptionMap;
 	private String error;
 
 	/**
@@ -86,7 +86,6 @@ public class ErrorTypeExtendTypeModel extends BaseObservableModel implements Sin
 				final Collection<IEObjectDescription> descriptions = AadlModelAccessUtil.getAllEObjectsByType(
 						selectedErrorType.eResource(), ErrorModelPackage.eINSTANCE.getErrorType());
 				final URI selectedErrorTypeURI = EcoreUtil.getURI(selectedErrorType);
-				uriToOptionMap.put(new Object(), null);
 				uriToOptionMap.putAll(descriptions.stream()
 						.filter(desc -> !Objects.equals(selectedErrorTypeURI, desc.getEObjectURI()))
 						.collect(Collectors.toMap(IEObjectDescription::getEObjectURI, Option::new)));
@@ -98,7 +97,7 @@ public class ErrorTypeExtendTypeModel extends BaseObservableModel implements Sin
 
 	@Override
 	public Stream<ErrorType> getElements() {
-		return uriToOptionMap.values().stream().map(v -> v == null ? null : v.type);
+		return Stream.concat(Stream.of((ErrorType) null), uriToOptionMap.values().stream().map(v -> v.type));
 	}
 
 	@Override

@@ -50,9 +50,8 @@ public class ErrorTypeExtendPropertySection extends AbstractPropertySection {
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				return bo instanceof ErrorType && ((ErrorType) bo).getAliasedType() == null;
-			});
+			return PropertySectionUtil.isBoCompatible(toTest,
+					bo -> bo instanceof ErrorType && ((ErrorType) bo).getAliasedType() == null);
 		}
 	}
 

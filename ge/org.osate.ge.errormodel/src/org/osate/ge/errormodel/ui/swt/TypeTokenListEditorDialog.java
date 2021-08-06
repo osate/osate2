@@ -149,7 +149,7 @@ public class TypeTokenListEditorDialog {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
 					final ErrorTypesSelectorModel selectorModel = new ErrorTypesSelectorModel(editorModel,
-							(t) -> true,
+							t -> true,
 							Collections.emptyList());
 					if (FilteringSelectorDialog.open(getShell(), "Add Types",
 							new LabelFilteringListSelectorModel<>(selectorModel))) {
