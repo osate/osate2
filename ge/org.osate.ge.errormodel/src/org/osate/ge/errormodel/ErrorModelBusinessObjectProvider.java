@@ -24,6 +24,7 @@
 package org.osate.ge.errormodel;
 
 import java.util.Arrays;
+import java.util.Set;
 import java.util.WeakHashMap;
 import java.util.function.Function;
 import java.util.stream.Stream;
@@ -83,10 +84,12 @@ public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider 
 				final CombinedErrorModelSubclause cacheEntry = CombinedErrorModelSubclause.create(classifier);
 				classifierCache.put(classifier, cacheEntry);
 				if (cacheEntry.subclauseExists()) {
+					final Set<KeywordPropagationPointType> usedKeywordTypes = cacheEntry.getUsedKeywordPropagations();
 					return Stream
 							.of(cacheEntry.getPoints(), cacheEntry.getPaths(), cacheEntry.getFlows(),
 									Arrays.stream(KeywordPropagationPointType.values())
-											.map(t -> new KeywordPropagationPoint(classifier, t)))
+											.map(t -> new KeywordPropagationPoint(classifier, t,
+													usedKeywordTypes.contains(t))))
 							.flatMap(Function.identity());
 				}
 			}

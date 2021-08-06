@@ -148,7 +148,8 @@ public class TypeTokenListEditorDialog {
 			this.addTypesButton.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					final ErrorTypesSelectorModel selectorModel = new ErrorTypesSelectorModel(editorModel, (t) -> true,
+					final ErrorTypesSelectorModel selectorModel = new ErrorTypesSelectorModel(editorModel,
+							t -> true,
 							Collections.emptyList());
 					if (FilteringSelectorDialog.open(getShell(), "Add Types",
 							new LabelFilteringListSelectorModel<>(selectorModel))) {
@@ -156,7 +157,6 @@ public class TypeTokenListEditorDialog {
 							// Create token with single type.
 							final TypeToken newToken = ErrorModelFactory.eINSTANCE.createTypeToken();
 							newToken.getType().add(errorType);
-
 							model.addTypeToken(newToken);
 						}
 					}

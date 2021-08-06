@@ -21,30 +21,33 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.util;
+package org.osate.ge.errormodel.filters;
 
 import org.osate.ge.ContentFilter;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
-import com.google.common.collect.ImmutableSet;
+public class ErrorModelPackageFilter implements ContentFilter {
+	public static final String ID = "emv2.errorModelPackageElements";
 
-/**
- * Utility class containing functions for working with {@link ContentFilter} instances.
- *
- */
-public final class ContentFilterUtil {
-	/**
-	 * Private constructor to prevent instantiation.
-	 */
-	private ContentFilterUtil() {
+	@Override
+	public String getId() {
+		return ID;
 	}
 
-	/**
-	 * Returns true if the specified business object passes any of the specified content filters
-	 * @param bo the business object to test
-	 * @param contentFilters the content filters with which to test
-	 * @return true if the specified business object passes any of the specified content filters
-	 */
-	public static boolean passesAnyContentFilter(final Object bo, final ImmutableSet<ContentFilter> contentFilters) {
-		return contentFilters.stream().anyMatch(filter -> filter.test(bo));
+	@Override
+	public String getName() {
+		return "Error Model Elements";
+	}
+
+	@Override
+	public boolean isApplicable(final Object bo) {
+		return ErrorModelFilterUtil.isPackageWithErrorModelLibrary(bo);
+	}
+
+	@Override
+	public boolean test(final Object bo) {
+		return bo instanceof ErrorBehaviorStateMachine || bo instanceof TypeSet || bo instanceof ErrorType;
 	}
 }
