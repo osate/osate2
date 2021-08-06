@@ -115,6 +115,36 @@ public class OsateGeTestCommands {
 		assertReferencedProjects(name, projectsToReference);
 	}
 
+	/**
+	 * Opens the "Configure Diagram" dialog and checks the tree item at the specified item text path.
+	 * Preconditions: The element to show does not exist on the diagram
+	 * Postconditions: The element exists on the diagram
+	 * @param diagram is the diagram
+	 * @param element is the element to open the context menu for
+	 * @param elementToShow is the element that will exist on the diagram after the item is checked
+	 * @param itemTexts is the path to the tree item to check
+	 */
+	public static void configureDiagramToShowElement(final DiagramReference diagram,
+			final DiagramElementReference element, final RelativeBusinessObjectReference elementToShow,
+			final String... itemTexts) {
+		final DiagramElementReference newElement = element.join(elementToShow);
+		assertFalse("Diagram element '" + elementToShow + "' already exists in the diagram.",
+				getDiagramElement(diagram, newElement).isPresent());
+
+		clickContextMenuOfDiagramElement(diagram, element, "Configure Diagram...");
+		waitForWindowWithTitle("Configure Diagram");
+
+		// Add a space to end for text labels in the tree
+		for (int i = 0; i < itemTexts.length; i++) {
+			itemTexts[i] = itemTexts[i] + " ";
+		}
+
+		checkTreeItemInWindowWithTitle("Configure Diagram", itemTexts);
+		clickButton("OK");
+
+		waitForDiagramElementToExist(diagram, newElement);
+	}
+
 	private static void assertReferencedProjects(final String projectName, final String[] expectedReferencedProjects) {
 		final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 		assertNotNull(project);

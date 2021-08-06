@@ -21,30 +21,40 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.util;
+package org.osate.ge.errormodel.filters;
 
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.ContentFilter;
+import org.osate.ge.errormodel.model.KeywordPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
-import com.google.common.collect.ImmutableSet;
+public class ErrorModelLibraryFilter implements ContentFilter {
+	public static final String ID = "emv2.errorModelSubclauseElements";
 
-/**
- * Utility class containing functions for working with {@link ContentFilter} instances.
- *
- */
-public final class ContentFilterUtil {
-	/**
-	 * Private constructor to prevent instantiation.
-	 */
-	private ContentFilterUtil() {
+	@Override
+	public String getId() {
+		return ID;
 	}
 
-	/**
-	 * Returns true if the specified business object passes any of the specified content filters
-	 * @param bo the business object to test
-	 * @param contentFilters the content filters with which to test
-	 * @return true if the specified business object passes any of the specified content filters
-	 */
-	public static boolean passesAnyContentFilter(final Object bo, final ImmutableSet<ContentFilter> contentFilters) {
-		return contentFilters.stream().anyMatch(filter -> filter.test(bo));
+	@Override
+	public String getName() {
+		return "Error Model Elements";
+	}
+
+	@Override
+	public boolean isApplicable(final Object bo) {
+		return (bo instanceof Classifier || bo instanceof Subcomponent)
+				&& ErrorModelFilterUtil.hasApplicableErrorModelSubclause(bo);
+	}
+
+	@Override
+	public boolean test(final Object bo) {
+		return bo instanceof ErrorFlow
+				|| (bo instanceof KeywordPropagationPoint && ((KeywordPropagationPoint) bo).isUsed())
+				|| bo instanceof PropagationPoint
+				|| bo instanceof PropagationPath;
 	}
 }
