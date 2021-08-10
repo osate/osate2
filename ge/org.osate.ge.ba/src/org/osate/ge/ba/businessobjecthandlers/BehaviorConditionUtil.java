@@ -10,11 +10,17 @@ import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
  * Utility class to create an {@link EmbeddedTextValue} and get text for the {@link BehaviorCondition} of a specified {@link BehaviorTransition}
  */
 public class BehaviorConditionUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private BehaviorConditionUtil() {
 	}
 
 	/**
-	 * Returns an {@link EmbeddedTextValue} for the {@link BehaviorCondition}
+	 * Returns an {@link EmbeddedTextValue} to be used to edit the specified behavior transition's condition
+	 * @param behaviorTransition the transition for which to create the {@link EmbeddedTextValue}
+	 * @param sourceText the source the of the AADL resource
+	 * @return the new {@link EmbeddedTextValue}
 	 */
 	public static EmbeddedTextValue createTextValue(final BehaviorTransition behaviorTransition,
 			final String sourceText) {
@@ -33,7 +39,10 @@ public class BehaviorConditionUtil {
 	}
 
 	/**
-	 * Returns the text of the {@link BehaviorCondition}
+	 * Returns the text representation of the specified transition's condition
+	 * @param behaviorTransition the transition for which to get the condition text
+	 * @param sourceText the source the of the AADL resource
+	 * @return the text for the transition's condition
 	 */
 	public static String getConditionText(final BehaviorTransition behaviorTransition, final String sourceText) {
 		final int conditionOffset = getConditionOffset(behaviorTransition, sourceText);
@@ -61,7 +70,7 @@ public class BehaviorConditionUtil {
 		if (condition == null) {
 			// Transition offset
 			final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
-			final Pair<Character, Character> charsToMatch = new Pair<Character, Character>('-', '[');
+			final Pair<Character, Character> charsToMatch = new Pair<>('-', '[');
 			// Find index for beginning of condition text "-["
 			conditionOffset = BehaviorAnnexXtextUtil.findUncommentedCharPair(sourceText.substring(transitionOffset),
 					charsToMatch) + transitionOffset;

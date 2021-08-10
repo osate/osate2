@@ -52,7 +52,7 @@ import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.StyleBuilder;
 
 /**
- * Business Object Handler for {@link BehaviorState}.
+ * Business Object Handler for {@link BehaviorState} objects.
  */
 public class BehaviorStateHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()

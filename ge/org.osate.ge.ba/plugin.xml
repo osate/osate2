@@ -27,25 +27,25 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension
          point="org.osate.ge.diagramTypes">
       <diagramType
-            class="org.osate.ge.ba.diagram.diagramType.BehaviorSpecificatonDiagramType">
+            class="org.osate.ge.ba.BehaviorSpecificatonDiagramType">
       </diagramType>
    </extension>
    <extension
          point="org.osate.ge.contentFilters">
       <contentFilter
-            class="org.osate.ge.ba.diagram.contentFilters.BehaviorSpecificationFilter">
+            class="org.osate.ge.ba.filters.BehaviorSpecificationFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.ba.diagram.contentFilters.BehaviorStateFilter">
+            class="org.osate.ge.ba.filters.BehaviorStateFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.ba.diagram.contentFilters.BehaviorTransitionFilter">
+            class="org.osate.ge.ba.filters.BehaviorTransitionFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.ba.diagram.contentFilters.BehaviorVariableFilter">
+            class="org.osate.ge.ba.filters.BehaviorVariableFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.ba.diagram.contentFilters.BehaviorConditionFilter">
+            class="org.osate.ge.ba.filters.BehaviorConditionFilter">
       </contentFilter>
    </extension>
    
@@ -114,7 +114,7 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension
        point="org.eclipse.ui.handlers">
     <handler
-          class="org.osate.ge.ba.handlers.CreateBehaviorAnnexDiagramHandler"
+          class="org.osate.ge.ba.ui.handlers.CreateBehaviorAnnexDiagramHandler"
           commandId="org.osate.ge.createNewDiagram">
        <activeWhen>
        		<reference
@@ -123,7 +123,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        </activeWhen>
     </handler>
     <handler
-          class="org.osate.ge.ba.handlers.CreateBehaviorAnnexDiagramHandler"
+          class="org.osate.ge.ba.ui.handlers.CreateBehaviorAnnexDiagramHandler"
           commandId="org.osate.ge.commands.creatediagram">
        <activeWhen>
           <reference
@@ -132,7 +132,7 @@ censes only apply to the Third Party Software and not any other portion of this 
        </activeWhen>
     </handler>
     <handler
-          class="org.osate.ge.ba.handlers.OpenBehaviorAnnexDiagramHandler"
+          class="org.osate.ge.ba.ui.handlers.OpenBehaviorAnnexDiagramHandler"
           commandId="org.osate.ge.commands.opendiagram">
        <activeWhen>
           <reference

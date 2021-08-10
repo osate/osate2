@@ -40,6 +40,12 @@ public class KeywordPropagationPoint implements EmfContainerProvider {
 
 	private final boolean isUsed;
 
+	/**
+	 * Creates a new instance
+	 * @param classifier the classifier which owns the propagation point
+	 * @param type the type of keyword propagation point
+	 * @param isUsed whether the propgation point is referenced by other model elements
+	 */
 	public KeywordPropagationPoint(final Classifier classifier, final KeywordPropagationPointType type,
 			final boolean isUsed) {
 		this.type = Objects.requireNonNull(type, "type must not be null");
@@ -52,14 +58,26 @@ public class KeywordPropagationPoint implements EmfContainerProvider {
 		return getClassifier();
 	}
 
+	/**
+	 * Returns the classifier which owns the propagation point
+	 * @return the classifier which owns the propagation point
+	 */
 	public final Classifier getClassifier() {
 		return classifier;
 	}
 
+	/**
+	 * Returns the keyword which identifies the propagation point
+	 * @return the keyword which identifies the propagation point
+	 */
 	public final KeywordPropagationPointType getType() {
 		return type;
 	}
 
+	/**
+	 * Returns whether the keyword propagation point is referenced by another error model annex element
+	 * @return whether the keyword propagation point is referenced by another error model annex element
+	 */
 	public final boolean isUsed() {
 		return isUsed;
 	}

@@ -35,7 +35,13 @@ import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
 
+/**
+ * Palette command for creating regular type sets.
+ */
 public class CreateTypeSetPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
+	/**
+	 * Creates a new instance
+	 */
 	public CreateTypeSetPaletteCommand() {
 		super("Error Type Set", ErrorModelPaletteCategories.ERROR_TYPES, null);
 	}

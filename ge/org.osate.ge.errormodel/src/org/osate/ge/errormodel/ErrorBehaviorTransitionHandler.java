@@ -55,11 +55,14 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 
 /**
+ * Business object handler for {@link ErrorBehaviorTransition} objects.
+ *
+ * <p>
  * Branchless error behavior transitions are represented as a single connection from the source to the target.
  * If the transition has a branch, the transition business object is represented as a shape which serves as a branch point. In that case
  * the business object provider will contribute a trunk object and branch objects as children of the transition.
  * The trunk will be represented as a connection between the source and the branch point.
- * The branches will be represented as a connection from the branch point to the target.
+ * The branches will be represented as a connection from the branch point to the target.</p>
  */
 public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 	private static final Graphic BRANCH_POINT_GRAPHIC = EllipseBuilder.create().fixedSize(new Dimension(8, 8)).build();

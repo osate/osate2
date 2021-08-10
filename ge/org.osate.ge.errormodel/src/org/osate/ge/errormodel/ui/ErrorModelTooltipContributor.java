@@ -44,6 +44,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
+/**
+ * Contributes tooltips for error model elements
+ *
+ */
 public class ErrorModelTooltipContributor implements TooltipContributor {
 	@Override
 	public void addTooltipContents(final TooltipContributorContext ctx) {

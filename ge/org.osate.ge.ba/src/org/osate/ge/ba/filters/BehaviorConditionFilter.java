@@ -21,18 +21,20 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.errormodel.filters;
+package org.osate.ge.ba.filters;
 
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Subcomponent;
+import org.osate.ba.aadlba.BehaviorCondition;
+import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.ContentFilter;
-import org.osate.ge.errormodel.model.KeywordPropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
-public class ErrorModelLibraryFilter implements ContentFilter {
-	public static final String ID = "emv2.errorModelSubclauseElements";
+/**
+ * Content filter which matches {@link BehaviorCondition} objects.
+ */
+public class BehaviorConditionFilter implements ContentFilter {
+	/**
+	 * Unique identifier for the content filter
+	 */
+	public static final String ID = "ba.behaviorCondition";
 
 	@Override
 	public String getId() {
@@ -41,20 +43,16 @@ public class ErrorModelLibraryFilter implements ContentFilter {
 
 	@Override
 	public String getName() {
-		return "Error Model Elements";
+		return "Behavior Condition";
 	}
 
 	@Override
 	public boolean isApplicable(final Object bo) {
-		return (bo instanceof Classifier || bo instanceof Subcomponent)
-				&& ErrorModelFilterUtil.hasApplicableErrorModelSubclause(bo);
+		return bo instanceof BehaviorTransition;
 	}
 
 	@Override
 	public boolean test(final Object bo) {
-		return bo instanceof ErrorFlow
-				|| (bo instanceof KeywordPropagationPoint && ((KeywordPropagationPoint) bo).isUsed())
-				|| bo instanceof PropagationPoint
-				|| bo instanceof PropagationPath;
+		return bo instanceof BehaviorCondition;
 	}
 }

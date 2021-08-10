@@ -43,15 +43,26 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 
+/**
+ * Palette command for creating {@link ErrorSource} and {@link ErrorSink} elements.
+ */
 public class CreateErrorSourceOrSinkPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	private final EClass eclass;
 	private final DirectionType requiredPropagationDirection;
 
+	/**
+	 * Creates a new instance which creates an {@link ErrorSource}
+	 * @return the new command
+	 */
 	public static TargetedPaletteCommand createErrorSourcePaletteCommand() {
 		return new CreateErrorSourceOrSinkPaletteCommand("Error Source", ErrorModelPackage.eINSTANCE.getErrorSource(),
 				DirectionType.OUT);
 	}
 
+	/**
+	 * Creates a new instance which creates an {@link ErrorSink}
+	 * @return the new command
+	 */
 	public static TargetedPaletteCommand createErrorSinkPaletteCommand() {
 		return new CreateErrorSourceOrSinkPaletteCommand("Error Sink", ErrorModelPackage.eINSTANCE.getErrorSink(),
 				DirectionType.IN);

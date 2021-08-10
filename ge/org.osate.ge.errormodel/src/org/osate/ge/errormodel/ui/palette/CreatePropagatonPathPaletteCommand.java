@@ -51,7 +51,13 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 
+/**
+ * Palette command for creating {@link PropagationPath} elements.
+ */
 public class CreatePropagatonPathPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
+	/**
+	 * Creates a new instance
+	 */
 	public CreatePropagatonPathPaletteCommand() {
 		super("Propagation Path", ErrorModelPaletteCategories.ERROR_PROPAGATION, null);
 	}

@@ -29,7 +29,13 @@ import org.osate.ge.errormodel.model.KeywordPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
+/**
+ * Content filter which matches {@link ErrorPropagation } objects.
+ */
 public class ErrorPropagationFilter implements ContentFilter {
+	/**
+	 * Unique identifier for the content filter
+	 */
 	public static final String ID = "emv2.propagations";
 
 	@Override

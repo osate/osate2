@@ -29,6 +29,12 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 
+/**
+ * Property tester for the behavior annex plugin.
+ *
+ * Implements the "isDiagramContext" property which returns true if the object being tested is a selection suitable for use as the
+ * context of a behavior specification diagram is available.
+ */
 public class BehaviorAnnexPropertyTester extends PropertyTester {
 	@Override
 	public boolean test(final Object receiver, final String property, final Object[] args, final Object expectedValue) {
@@ -42,10 +48,6 @@ public class BehaviorAnnexPropertyTester extends PropertyTester {
 		}
 
 		final IEditorPart editor = BehaviorAnnexSelectionUtil.getActiveEditor().orElse(null);
-		if (editor == null) {
-			return false;
-		}
-
-		return BehaviorAnnexSelectionUtil.getDiagramContext(selection, editor).isPresent();
+		return BehaviorAnnexSelectionUtil.getDefaultBehaviorAnnexSubclause(selection, editor).isPresent();
 	}
 }

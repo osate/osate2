@@ -93,6 +93,15 @@ public final class StepResult<R> {
 	}
 
 	/**
+	 * Creates a new step result which indicates the step was completed but provides a null user value
+	 * @return a new step result with a null user.
+	 * @since 3.0
+	 */
+	public static StepResult<Object> complete() {
+		return StepResultBuilder.create(null).build();
+	}
+
+	/**
 	 * Returns a step result which aborts the operation
 	 * @param <R> the type of the user value of the resulting result. Since the user value will be null, this can be any type.
 	 * @return a step result which aborts the operation

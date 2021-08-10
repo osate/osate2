@@ -48,8 +48,11 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 	private static final ExecutableQuery<Object> CONTAINER_QUERY = ExecutableQuery
 			.create(root -> root.ancestors().filter(fa -> fa.getBusinessObject() instanceof BehaviorAnnex).first());
 
+	/**
+	 * Creates a new instance
+	 */
 	public CreateTransitionPaletteCommand() {
-		super("Behavior Transition", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
+		super("Behavior Transition", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX_CATEGORY_ID, null);
 	}
 
 	@Override

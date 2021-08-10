@@ -42,7 +42,6 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.eclipse.xtext.util.concurrent.IUnitOfWork.Void;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
@@ -58,7 +57,11 @@ class EmbeddedTextModificationAction implements AgeAction {
 	private final Supplier<EmbeddedTextModificationAction> embeddedEditingActionSupplier;
 
 	/**
-	 * Embedded text modification action when the editor is open
+	 * Creates a new instance used for when the editor is open
+	 * @param xtextDocument the document being modified
+	 * @param modelChangeNotifier the notifier to use to lock the model
+	 * @param project the project containing the document being modified
+	 * @param newText the next text for the document.
 	 */
 	public EmbeddedTextModificationAction(final IXtextDocument xtextDocument,
 			final ModelChangeNotifier modelChangeNotifier, final IProject project, final String newText) {
@@ -82,7 +85,13 @@ class EmbeddedTextModificationAction implements AgeAction {
 	}
 
 	/**
-	 * Embedded text modification action when the editor is closed
+	 * Creates a new instance for when the editor is closed.
+	 * @param editingDomain the editing domain to use to modify the resource.
+	 * @param xtextResource the resource to modify
+	 * @param modelChangeNotifier the notifier to use to lock the model
+	 * @param project the project containing the resource being modified
+	 * @param newText the new text for the resource
+	 * @param textValue the portion of the resource being modified. If null, the entire resource is modified.
 	 */
 	public EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
 			final XtextResource xtextResource, final ModelChangeNotifier modelChangeNotifier, final IProject project,
@@ -93,7 +102,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 			final String originalText = BehaviorAnnexXtextUtil.getText(null, xtextResource);
 
 			// Modify and save the xtext resource
-			final Void<XtextResource> work = createUpdateProcess(textValue, newText);
+			final IUnitOfWork.Void<XtextResource> work = createUpdateProcess(textValue, newText);
 			final RecordingCommand cmd = createRecordingCommand(editingDomain, work, xtextResource);
 			executeCommand(editingDomain, cmd, xtextResource);
 			save(xtextResource);
@@ -115,7 +124,8 @@ class EmbeddedTextModificationAction implements AgeAction {
 	 * @param textValue holds the values used to make a partial update to the {@link XtextResource}'s source text
 	 * @param sourceText is the text to update the {@link XtextResource}'s source text with
 	 */
-	private Void<XtextResource> createUpdateProcess(final EmbeddedTextValue textValue, final String sourceText) {
+	private IUnitOfWork.Void<XtextResource> createUpdateProcess(final EmbeddedTextValue textValue,
+			final String sourceText) {
 		return textValue != null
 				? createPartialUpdateProcess(textValue.getUpdateOffset(), textValue.getUpdateLength(), sourceText)
 				: createUndoRedoProcess(sourceText);
@@ -127,7 +137,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 	 * @param updateLength is the length of text to be replaced
 	 * @param partialSrcText is the source text to update the section with
 	 */
-	private Void<XtextResource> createPartialUpdateProcess(final int updateOffset, final int updateLength,
+	private IUnitOfWork.Void<XtextResource> createPartialUpdateProcess(final int updateOffset, final int updateLength,
 			final String partialSrcText) {
 		return new IUnitOfWork.Void<XtextResource>() {
 			@Override
@@ -142,7 +152,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 	 * Creates a process to replace the existing source text of the {@link XtextResource} with the specified source text.
 	 * Used for Undo/Redo functionality.
 	 */
-	private Void<XtextResource> createUndoRedoProcess(final String srcText) {
+	private IUnitOfWork.Void<XtextResource> createUndoRedoProcess(final String srcText) {
 		return new IUnitOfWork.Void<XtextResource>() {
 			@Override
 			public void process(final XtextResource resource) throws Exception {
@@ -153,7 +163,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 
 	// Command to be executed
 	private RecordingCommand createRecordingCommand(final TransactionalEditingDomain editingDomain,
-			final Void<XtextResource> work, final XtextResource xtextResource) {
+			final IUnitOfWork.Void<XtextResource> work, final XtextResource xtextResource) {
 		return new RecordingCommand(editingDomain) {
 			@Override
 			protected void doExecute() {

@@ -21,29 +21,30 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.handlers;
+package org.osate.ge.ba.util;
 
-import org.eclipse.core.commands.AbstractHandler;
-import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.handlers.HandlerUtil;
-import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
-import org.osate.ge.internal.services.DiagramService;
-import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
+import java.util.Collection;
 
-public class OpenBehaviorAnnexDiagramHandler extends AbstractHandler {
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.ge.swt.selectors.CollectionSingleSelectorModel;
+
+/**
+ * View model for selecting a single {@link IEObjectDescription} from a collection.
+ *
+ */
+class EObjectDescriptionSingleSelectorModel
+		extends CollectionSingleSelectorModel<IEObjectDescription> {
+
+	/**
+	 * Creates a new instance
+	 * @param elements the selectable elements
+	 */
+	public EObjectDescriptionSingleSelectorModel(final Collection<IEObjectDescription> elements) {
+		super(elements);
+	}
+
 	@Override
-	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final ISelection selection = AgeHandlerUtil.getCurrentSelection();
-		final DefaultAnnexSubclause diagramContext = BehaviorAnnexSelectionUtil
-				.getDiagramContext(selection, HandlerUtil.getActiveEditor(event))
-				.orElseThrow(() -> new RuntimeException("diagramContext cannot be null"));
-		final DiagramService diagramService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.getService(DiagramService.class);
-		diagramService.openOrCreateDiagramForBusinessObject(diagramContext);
-		return null;
+	public String getLabel(final IEObjectDescription element) {
+		return element.getQualifiedName().toString("::");
 	}
 }

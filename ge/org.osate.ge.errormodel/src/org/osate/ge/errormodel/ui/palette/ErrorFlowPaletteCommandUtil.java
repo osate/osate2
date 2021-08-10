@@ -32,6 +32,7 @@ import org.osate.aadl2.Feature;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.errormodel.combined.CombinedErrorModelSubclause;
+import org.osate.ge.errormodel.combined.PropagationTreeUtil;
 import org.osate.ge.errormodel.model.KeywordPropagationPoint;
 import org.osate.ge.errormodel.model.KeywordPropagationPointType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
@@ -43,6 +44,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
  *
  */
 public class ErrorFlowPaletteCommandUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private ErrorFlowPaletteCommandUtil() {}
 
 	/**
@@ -76,18 +80,28 @@ public class ErrorFlowPaletteCommandUtil {
 	/**
 	 * Finds an error propagation in the combined subclause which is associated with a specified business object context
 	 * and has the specified direction. Does not return error containments.
-	 * @param combined the combined subclause to check.
+	 * @param combined the combined subclause to search
 	 * @param boc the business object context which the propagation must be associated with.
 	 * @param requiredDirection the required direction of the propagation.
 	 * @return an optional containing the matching error propagation.
 	 */
 	public static final Optional<ErrorPropagation> findErrorPropagation(final CombinedErrorModelSubclause combined,
 			final BusinessObjectContext boc, final DirectionType requiredDirection) {
-		return combined.getPropagations().getPropagationsForBusinessObjectContext(boc).filter(p -> {
+		return PropagationTreeUtil.getPropagationsForBusinessObjectContext(combined.getPropagations(), boc)
+				.filter(p -> {
 			return !p.isNot() && p.getDirection() == requiredDirection;
 		}).findAny();
 	}
 
+	/**
+	 * Finds an error propagation in the combined subclause which is associated with a specified business object context
+	 * and has the specified direction. Does not return error containments.
+	 * @param combined the combined subclause to search
+	 * @param boc the business object context which the propagation must be associated with.
+	 * @param requiredDirection the required direction of the propagation.
+	 * @return the requested error propagation. Throws an exception if the propagation could not be found
+	 * @see #findErrorPropagation(CombinedErrorModelSubclause, BusinessObjectContext, DirectionType)
+	 */
 	public static final ErrorPropagation findErrorPropagationOrThrow(final CombinedErrorModelSubclause combined,
 			final BusinessObjectContext boc, final DirectionType requiredDirection) {
 		return findErrorPropagation(combined, boc, requiredDirection)

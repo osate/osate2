@@ -35,7 +35,13 @@ import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
+/**
+ * Palette command for creating {@link PropagationPoint} elements.
+ */
 public class CreatePropagationPointPaleteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
+	/**
+	 * Creates a new instance
+	 */
 	public CreatePropagationPointPaleteCommand() {
 		super("Propagation Point", ErrorModelPaletteCategories.ERROR_PROPAGATION, null);
 	}
