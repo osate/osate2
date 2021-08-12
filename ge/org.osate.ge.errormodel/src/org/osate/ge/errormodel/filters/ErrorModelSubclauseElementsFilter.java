@@ -21,23 +21,46 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.ui.dialogs;
+package org.osate.ge.errormodel.filters;
 
-import java.util.Collection;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Subcomponent;
+import org.osate.ge.ContentFilter;
+import org.osate.ge.errormodel.model.KeywordPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
+import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
-import org.eclipse.xtext.resource.IEObjectDescription;
-import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
-import org.osate.ge.swt.selectors.CollectionSingleSelectorModel;
+/**
+ * Content filter which matches all error model subclause elements included in child filters.
+ */
+public class ErrorModelSubclauseElementsFilter implements ContentFilter {
+	/**
+	 * Unique identifier for the content filter
+	 */
+	public static final String ID = "emv2.errorModelSubclauseElements";
 
-public class EObjectDescriptionSingleSelectorModel
-		extends CollectionSingleSelectorModel<IEObjectDescription> {
-
-	public EObjectDescriptionSingleSelectorModel(final Collection<IEObjectDescription> elements) {
-		super(elements);
+	@Override
+	public String getId() {
+		return ID;
 	}
 
 	@Override
-	public String getLabel(final IEObjectDescription element) {
-		return BehaviorAnnexNamingUtil.getQualifiedName(element);
+	public String getName() {
+		return "Error Model Elements";
+	}
+
+	@Override
+	public boolean isApplicable(final Object bo) {
+		return (bo instanceof Classifier || bo instanceof Subcomponent)
+				&& ErrorModelFilterUtil.hasApplicableErrorModelSubclause(bo);
+	}
+
+	@Override
+	public boolean test(final Object bo) {
+		return bo instanceof ErrorFlow
+				|| (bo instanceof KeywordPropagationPoint && ((KeywordPropagationPoint) bo).isUsed())
+				|| bo instanceof PropagationPoint
+				|| bo instanceof PropagationPath;
 	}
 }

@@ -112,7 +112,8 @@ public final class ListSelector<T> extends Composite implements SelectionDoubleC
 			// Avoid attempting to select an element that is not in the selector. Will result in a stack overflow while trying to synchronize the selection with
 			// the model.
 			final Collection<Object> all = wrappedModel.getElements().collect(Collectors.toList());
-			final Set<Object> selected = wrappedModel.getSelectedElements().collect(Collectors.toCollection(() -> new HashSet<Object>()));
+			final Set<Object> selected = wrappedModel.getSelectedElements()
+					.collect(Collectors.toCollection(HashSet::new));
 			selected.retainAll(all);
 
 			this.listViewer.setSelection(selected.isEmpty() ? null : new StructuredSelection(selected.toArray()));

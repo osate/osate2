@@ -51,6 +51,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 
 import com.google.common.base.Strings;
 
+/**
+ * Business object handler for {@link ErrorPropagation} objects.
+ */
 public class ErrorPropagationHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = LabelBuilder.create().build();
 
@@ -91,7 +94,7 @@ public class ErrorPropagationHandler implements BusinessObjectHandler {
 		}
 
 		segments[segmentIndex++] = Boolean.toString(bo.isNot());
-		segments[segmentIndex++] = bo.getDirection() == null ? "<null>" : bo.getDirection().getLiteral();
+		segments[segmentIndex] = bo.getDirection() == null ? "<null>" : bo.getDirection().getLiteral();
 
 		// Create reference
 		return new CanonicalBusinessObjectReference(segments);

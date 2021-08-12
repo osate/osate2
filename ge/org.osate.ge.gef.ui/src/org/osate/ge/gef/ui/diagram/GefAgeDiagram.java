@@ -78,6 +78,7 @@ import org.osate.ge.internal.diagram.runtime.botree.Completeness;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.styling.StyleCalculator;
+import org.osate.ge.internal.diagram.runtime.styling.StyleProvider;
 import org.osate.ge.internal.services.ColoringService;
 
 import com.google.common.base.Strings;
@@ -168,16 +169,6 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	private ColoringService coloringService;
 
 	/**
-	 * Map containing override styles. Values in this style will supersede styles contained in the diagram element.
-	 */
-	private Map<DiagramElement, Style> overrideStyles = Collections.emptyMap();
-
-	/**
-	 * {@link StyleCalculator} which uses the {@link #overrideForegroundColorMap} to override the styles of elements.
-	 */
-	private final StyleCalculator finalStyleProvider;
-
-	/**
 	 * True if the diagram is currently being updated based on the position and size of scene graph nodes. Avoids changing
 	 * the scene graph nodes based on such changes to the diagram.
 	 */
@@ -195,7 +186,6 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		@Override
 		public void diagramConfigurationChanged(final DiagramConfigurationChangedEvent e) {
 			needFullUpdate = true;
-			finalStyleProvider.setDiagramConfiguration(diagram.getConfiguration());
 		}
 
 		@Override
@@ -263,8 +253,8 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 					if (needFullUpdate) {
 						updateSceneGraph();
 					} else {
-						// Refresh override styles to prepare to apply styles to updated elements
-						refreshOverrideStyles();
+						// Refresh a new style provider to prepare to apply styles to updated elements
+						final StyleProvider styleProvider = createStyleProvider();
 
 						// Ensure that the scene graph nodes have been created and/or switched to the appropriate type
 						boolean refreshConnections = false;
@@ -281,7 +271,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 						for (final DiagramElement de : elementsToUpdate) {
 							final GefDiagramElement ge = diagramElementToGefDiagramElementMap.get(de);
 							updateSceneNode(ge);
-							calculateAndApplyStyle(ge);
+							calculateAndApplyStyle(ge, styleProvider);
 						}
 
 						// Force connections to refresh when updating an element results in the scene node being
@@ -362,7 +352,6 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	public GefAgeDiagram(final AgeDiagram diagram, final ColoringService coloringService) {
 		this.coloringService = Objects.requireNonNull(coloringService, "coloringService must not be null");
 		this.diagram = Objects.requireNonNull(diagram, "diagram must not be null");
-		this.finalStyleProvider = new StyleCalculator(diagram.getConfiguration(), de -> overrideStyles.get(de));
 
 		updateSceneGraph();
 
@@ -759,10 +748,9 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 * Refreshes the style of all elements in the diagram
 	 */
 	public void refreshDiagramStyles() {
-		refreshOverrideStyles();
-
 		// Refresh Coloring
-		calculateAndApplyStylesForChildren(diagram);
+		final StyleProvider styleProvider = createStyleProvider();
+		calculateAndApplyStylesForChildren(diagram, styleProvider);
 	}
 
 	/**
@@ -772,9 +760,9 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 * @param elements the element for which to refresh the style.
 	 */
 	public void refreshStyle(final Collection<DiagramElement> elements) {
-		refreshOverrideStyles();
+		final StyleProvider styleProvider = createStyleProvider();
 		for (final DiagramElement de : elements) {
-			calculateAndApplyStyle(diagramElementToGefDiagramElementMap.get(de));
+			calculateAndApplyStyle(diagramElementToGefDiagramElementMap.get(de), styleProvider);
 		}
 	}
 
@@ -782,10 +770,12 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 * Determines the final style and applies it to the diagram element
 	 * Assumes override style information has been updated using {@link #refreshOverrideStyles()}
 	 * @param gefDiagramElement the GEF diagram element for which to refresh the style
+	 * @param styleProvider the style provider which will be used to determine the final style for the diagram element
 	 */
-	private void calculateAndApplyStyle(final GefDiagramElement gefDiagramElement) {
+	private void calculateAndApplyStyle(final GefDiagramElement gefDiagramElement,
+			final StyleProvider styleProvider) {
 		if (gefDiagramElement != null && gefDiagramElement.sceneNode != null) {
-			final Style style = finalStyleProvider.getStyle(gefDiagramElement.diagramElement);
+			final Style style = styleProvider.getStyle(gefDiagramElement.diagramElement);
 			final FxStyle fxStyle = styleToFx.createStyle(style);
 			FxStyleApplier.applyStyle(gefDiagramElement.sceneNode, fxStyle);
 		}
@@ -796,26 +786,34 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 * Assumes override style information has been updated using {@link #refreshOverrideStyles()}
 	 * using {@link #calculateAndApplyStyle(DiagramElement)}.
 	 * @param n the node to calculate apply the style for
+	 * @param styleProvider the style provider which will be used to determine the final style for the diagram elements
 	 */
-	private void calculateAndApplyStylesForChildren(final DiagramNode n) {
+	private void calculateAndApplyStylesForChildren(final DiagramNode n, final StyleProvider styleProvider) {
 		for (final DiagramElement childDiagramElement : n.getDiagramElements()) {
-			calculateAndApplyStylesForChildren(childDiagramElement);
-			calculateAndApplyStyle(diagramElementToGefDiagramElementMap.get(childDiagramElement));
+			calculateAndApplyStylesForChildren(childDiagramElement, styleProvider);
+			calculateAndApplyStyle(diagramElementToGefDiagramElementMap.get(childDiagramElement), styleProvider);
 		}
 	}
 
 	/**
-	 * Updates the cache of override style using {@link ColoringService}.
+	 * Returns a new style provider which will return the appropriate style for the diagram element. The style provider will use colors from the
+	 * coloring service as appropriate to determine styles.
+	 * @return the new style provider
 	 */
-	private void refreshOverrideStyles() {
-		if (coloringService != null) {
+	private StyleProvider createStyleProvider() {
+		final Map<DiagramElement, Style> overrideStyles;
+		if (coloringService == null) {
+			overrideStyles = Collections.emptyMap();
+		} else {
 			overrideStyles = coloringService.buildForegroundColorMap()
 					.entrySet()
 					.stream()
 					.collect(Collectors.toMap(Entry::getKey,
 							v -> StyleBuilder.create().foregroundColor(v.getValue()).build()));
 		}
-	}
+
+		return new StyleCalculator(diagram.getConfiguration(), de -> overrideStyles.get(de));
+	};
 
 	/**
 	 * Triggers an immediate layout

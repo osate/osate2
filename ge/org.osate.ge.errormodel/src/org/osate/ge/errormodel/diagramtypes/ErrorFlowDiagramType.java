@@ -38,6 +38,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
 
+/**
+ * Diagram type which shows a classifier's error flows and related elements.
+ */
 public class ErrorFlowDiagramType implements DiagramType {
 	private static final String ID = "em.errorFlow";
 	private static final ImmutableSet<String> DEFAULT_CLASSIFIER_AND_SUBCOMPONENT_FILTERS = ImmutableSet.of(

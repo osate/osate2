@@ -47,20 +47,27 @@ import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ui.utils.SelectionHelper;
 
-public class BehaviorAnnexSelectionUtil {
+/**
+ * Utility class for handling selection within the OSATE graphical editor's behavior annex plugin.
+ *
+ */
+public final class BehaviorAnnexSelectionUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private BehaviorAnnexSelectionUtil() {
 	}
 
 	/**
-	 * Get diagram context based on selection and editor.
-	 * @return an optional that contains a DefaultAnnexSubclause if
-	 * the selection is a valid diagram context or empty if invalid
+	 * Get a {@link DefaultAnnexSubclause} based on the current selection.
+	 * @param selection the selection for which to get the diagram context.
+	 * @param editor the current editor
+	 * @return an optional that contains a DefaultAnnexSubclause for a behavior annex subclause if one is available for the selection. Otherwise, an empty optional is returned.
 	 */
-	public static Optional<DefaultAnnexSubclause> getDiagramContext(final ISelection selection,
+	public static Optional<DefaultAnnexSubclause> getDefaultBehaviorAnnexSubclause(final ISelection selection,
 			final IEditorPart editor) {
 		if (editor instanceof XtextEditor) {
-			final EObject selectedObject = SelectionHelper
-					.getEObjectFromSelection(((XtextEditor) editor).getSelectionProvider().getSelection());
+			final EObject selectedObject = SelectionHelper.getEObjectFromSelection(selection);
 			return findDiagramContextForSelectedObject(selectedObject);
 		}
 
@@ -78,8 +85,7 @@ public class BehaviorAnnexSelectionUtil {
 
 	private static Optional<DefaultAnnexSubclause> findDiagramContextForSelectedObject(final Object element) {
 		if (element instanceof BehaviorAnnex || element instanceof BehaviorState
-				|| element instanceof BehaviorTransition
-				|| element instanceof BehaviorVariable) {
+				|| element instanceof BehaviorTransition || element instanceof BehaviorVariable) {
 			return findDiagramContextForSelectedObject(((Element) element).getOwner());
 		}
 
@@ -91,7 +97,10 @@ public class BehaviorAnnexSelectionUtil {
 		return Optional.empty();
 	}
 
-	// Returns an optional of the active editor or empty if null
+	/**
+	 * Returns an optional containing the active editor or an empty optional if an active editor is not available.
+	 * @return an optional containing the active editor or an empty optional if an active editor is not available.
+	 */
 	public static Optional<IEditorPart> getActiveEditor() {
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		if (workbench == null) {

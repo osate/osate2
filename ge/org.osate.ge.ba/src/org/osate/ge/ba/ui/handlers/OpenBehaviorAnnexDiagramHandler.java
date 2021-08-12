@@ -21,50 +21,34 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.diagram.diagramType;
+package org.osate.ge.ba.ui.handlers;
 
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ge.DiagramType;
-import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
-import org.osate.ge.ba.diagram.contentFilters.BehaviorStateFilter;
-import org.osate.ge.ba.diagram.contentFilters.BehaviorTransitionFilter;
-import org.osate.ge.ba.diagram.contentFilters.BehaviorVariableFilter;
+import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
+import org.osate.ge.internal.services.DiagramService;
 
-import com.google.common.collect.ImmutableCollection;
-import com.google.common.collect.ImmutableSet;
-
-public class BehaviorSpecificatonDiagramType implements DiagramType {
-	public final static String ID = "ba.behavior_specification";
-
+/**
+ * Handler for the open diagram command which is enabled when a behavior specification diagram context can be obtained from a selection.
+ * This is needed because the open diagram command defined by org.osate.ge is not enabled for behavior specifications and
+ * there is not a supported extension mechanism to convert a selection to a diagram context.
+ *
+ */
+public class OpenBehaviorAnnexDiagramHandler extends AbstractHandler {
 	@Override
-	public String getId() {
-		return ID;
-	}
-
-	@Override
-	public String getName() {
-		return "Behavior Specification";
-	}
-
-	@Override
-	public boolean isApplicableToContext(final Object contextBo) {
-		return contextBo instanceof DefaultAnnexSubclause
-				&& BehaviorAnnexReferenceUtil.ANNEX_NAME
-						.equalsIgnoreCase(((DefaultAnnexSubclause) contextBo).getName());
-	}
-
-	@Override
-	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
-		if (bo instanceof BehaviorAnnex) {
-			return ImmutableSet.of(BehaviorVariableFilter.ID, BehaviorTransitionFilter.ID, BehaviorStateFilter.ID);
-		}
-
-		return ImmutableSet.of();
-	}
-
-	@Override
-	public ImmutableCollection<String> getDefaultAadlPropertyNames() {
-		return ImmutableSet.of();
+	public Object execute(final ExecutionEvent event) throws ExecutionException {
+		final ISelection selection = HandlerUtil.getCurrentSelection(event);
+		final DefaultAnnexSubclause diagramContext = BehaviorAnnexSelectionUtil
+				.getDefaultBehaviorAnnexSubclause(selection, HandlerUtil.getActiveEditor(event))
+				.orElseThrow(() -> new RuntimeException("diagramContext cannot be null"));
+		final DiagramService diagramService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				.getService(DiagramService.class);
+		diagramService.openOrCreateDiagramForBusinessObject(diagramContext);
+		return null;
 	}
 }

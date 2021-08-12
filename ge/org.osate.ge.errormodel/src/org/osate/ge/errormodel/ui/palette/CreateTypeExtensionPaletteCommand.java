@@ -35,7 +35,13 @@ import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
+/**
+ * Palette command for creating error type extensions.
+ */
 public class CreateTypeExtensionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
+	/**
+	 * Creates a new instance
+	 */
 	public CreateTypeExtensionPaletteCommand() {
 		super("Error Type Extension", ErrorModelPaletteCategories.ERROR_TYPES, null);
 	}

@@ -27,15 +27,24 @@ import java.util.Objects;
 
 import org.apache.commons.lang.StringUtils;
 import org.osate.ge.ContentFilter;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 
 import com.google.common.base.CaseFormat;
 
+/**
+ * Content filter which matches a specified subtype of {@link ErrorBehaviorEvent}
+ *
+ */
 public class ErrorBehaviorEventTypeFilter implements ContentFilter {
 	private final Class<?> eventInterface;
 	private final String id;
 
-	public ErrorBehaviorEventTypeFilter(final Class<?> eventInterface) {
+	/**
+	 * Creates an instance for instances of the specified type
+	 * @param eventInterface the class for the matched behavior event type
+	 */
+	public ErrorBehaviorEventTypeFilter(final Class<? extends ErrorBehaviorEvent> eventInterface) {
 		this.eventInterface = Objects.requireNonNull(eventInterface, "eventInterface must not be null");
 		this.id = getId(eventInterface);
 	}
@@ -66,7 +75,12 @@ public class ErrorBehaviorEventTypeFilter implements ContentFilter {
 		return eventInterface.isInstance(bo);
 	}
 
-	public static String getId(final Class<?> eventInterface) {
+	/**
+	 * Returns the content filter ID of the filter for the specified error behavior event type
+	 * @param eventInterface the class for the error behavior event type
+	 * @return the content filter ID
+	 */
+	public static String getId(final Class<? extends ErrorBehaviorEvent> eventInterface) {
 		return "emv2." + CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, eventInterface.getSimpleName()) + "s";
 	}
 }

@@ -36,14 +36,21 @@ import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResou
 
 import com.google.inject.Injector;
 
+/**
+ * Adapter used to display an AADL resource in a {@link StyledText}
+ */
 public class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 	private final static Injector injector = Aadl2Activator.getInstance()
 			.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
 	private final EmbeddedTextValue textValue;
-	private static final IXtextFakeContextResourcesProvider contextFakeResourceProvider = IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER;
 
+	/**
+	 * Creates new instance
+	 * @param project the project containing the resource being edited
+	 * @param textValue the source text being updated
+	 */
 	public EmbeddedXtextAdapter(final IProject project, final EmbeddedTextValue textValue) {
-		super(injector, contextFakeResourceProvider, project);
+		super(injector, IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER, project);
 		this.textValue = textValue;
 	}
 
@@ -56,24 +63,12 @@ public class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 		return super.getXtextDocument();
 	}
 
-	public String getText() {
-		return BehaviorAnnexXtextUtil.getText(null, getFakeResource());
-	}
-
-	public XtextResource getFakeResource() {
-		return getFakeResourceContext().getFakeResource();
-	}
-
-	public String serialize(final EObject rootElement) {
-		return getFakeResource().getSerializer().serialize(rootElement);
-	}
-
 	@Override
 	public void adapt(final StyledText styledText, final boolean decorate) {
 		super.adapt(styledText, decorate);
 		final XtextDocument xtextDoc = getXtextDocument();
 		final SourceViewer srcViewer = getSourceviewer();
-		xtextDoc.set(textValue.getWholeText());
+		xtextDoc.set(textValue.getEditableResourceText());
 		srcViewer.setDocument(xtextDoc, srcViewer.getAnnotationModel(), textValue.getEditableTextOffset(),
 				textValue.getEditableText().length());
 	}
@@ -83,6 +78,35 @@ public class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 		adapt(styledText, true);
 	}
 
+	/**
+	 * Gets the text from the fake resource
+	 * @return the text from the fake resource
+	 */
+	public String getText() {
+		return BehaviorAnnexXtextUtil.getText(null, getFakeResource());
+	}
+
+	/**
+	 * Returns the fake resource used by the embedded editor
+	 * @return the fake resource used by the embedded editor
+	 */
+	public XtextResource getFakeResource() {
+		return getFakeResourceContext().getFakeResource();
+	}
+
+	/**
+	 * Serialize the specified element using the current resource's serializer
+	 * @param rootElement the element to serialize
+	 * @return the serialized element
+	 */
+	public String serialize(final EObject rootElement) {
+		return getFakeResource().getSerializer().serialize(rootElement);
+	}
+
+	/**
+	 * Returns the text which should be edited
+	 * @return the text which should be edited
+	 */
 	public String getEditableText() {
 		return textValue.getEditableText();
 	}

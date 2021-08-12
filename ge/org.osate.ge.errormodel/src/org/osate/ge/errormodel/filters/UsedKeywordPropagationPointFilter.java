@@ -28,12 +28,18 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.errormodel.model.KeywordPropagationPoint;
 
+/**
+ * Content filter which matches {@link UsedKeywordPropagationPointFilter} objects.
+ */
 public class UsedKeywordPropagationPointFilter implements ContentFilter {
+	/**
+	 * Unique identifier for the content filter
+	 */
 	public static final String ID = "emv2.usedKeywordPropagationPoints";
 
 	@Override
 	public String getParentId() {
-		return ErrorModelLibraryFilter.ID;
+		return ErrorModelSubclauseElementsFilter.ID;
 	}
 
 	@Override

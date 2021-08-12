@@ -37,6 +37,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
 import org.osate.ge.errormodel.combined.CombinedErrorModelSubclause;
+import org.osate.ge.errormodel.combined.PropagationTreeUtil;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.errormodel.model.KeywordPropagationPoint;
@@ -47,6 +48,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
+/**
+ * Business object provider which provides error model elements to the OSATE graphical editor
+ */
 public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider {
 	private WeakHashMap<Classifier, CombinedErrorModelSubclause> classifierCache = new WeakHashMap<>();
 
@@ -57,7 +61,7 @@ public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider 
 			return ErrorModelGeUtil.getErrorModelLibrary((AadlPackage) bo)
 					.map(lib -> Stream.concat(Stream.concat(lib.getTypes().stream(), lib.getTypesets().stream()),
 							lib.getBehaviors().stream()))
-					.orElseGet(() -> Stream.empty());
+					.orElseGet(Stream::empty);
 		} else if (bo instanceof ErrorBehaviorStateMachine) {
 			final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine) bo;
 			return Stream.concat(Stream.concat(stateMachine.getEvents().stream(), stateMachine.getStates().stream()),
@@ -96,7 +100,8 @@ public class ErrorModelBusinessObjectProvider implements BusinessObjectProvider 
 		} else if (bo instanceof Feature || bo instanceof PropagationPoint || bo instanceof KeywordPropagationPoint) {
 			// Propagation(and containment) objects
 			final CombinedErrorModelSubclause cacheEntry = getClassifierCacheEntry(ctx.getBusinessObjectContext());
-			return cacheEntry.getPropagations().getPropagationsForBusinessObjectContext(ctx.getBusinessObjectContext());
+			return PropagationTreeUtil.getPropagationsForBusinessObjectContext(cacheEntry.getPropagations(),
+					ctx.getBusinessObjectContext());
 		}
 
 		return Stream.empty();

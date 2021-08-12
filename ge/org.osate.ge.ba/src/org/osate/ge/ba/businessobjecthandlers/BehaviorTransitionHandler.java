@@ -59,7 +59,7 @@ import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 /**
- * Business Object Handler for {@link BehaviorTransition}.
+ * Business Object Handler for {@link BehaviorTransition} objects.
  */
 public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
 	private static final ExecutableQuery<BehaviorTransition> SRC_QUERY = ExecutableQuery.<BehaviorTransition> create(

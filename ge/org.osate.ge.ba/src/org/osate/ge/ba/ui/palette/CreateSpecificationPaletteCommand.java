@@ -42,11 +42,14 @@ import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
 
 /**
- * Palette command for creating {@link BehaviorAnnex}.
+ * Palette command for creating {@link BehaviorAnnex} elements.
  */
 public class CreateSpecificationPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
+	/**
+	 * Creates a new instance
+	 */
 	public CreateSpecificationPaletteCommand() {
-		super("Behavior Specification", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
+		super("Behavior Specification", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX_CATEGORY_ID, null);
 	}
 
 	@Override

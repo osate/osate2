@@ -36,6 +36,9 @@ import org.osate.ge.palette.PaletteContributor;
 import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
+/**
+ * Contributes palette commands and categories for creating error model elements
+ */
 public class ErrorModelPaletteContributor implements PaletteContributor {
 	@Override
 	public Stream<PaletteCategory> getCategories() {
@@ -68,7 +71,7 @@ public class ErrorModelPaletteContributor implements PaletteContributor {
 			commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.OUT, false));
 			commands.add(CreateErrorSourceOrSinkPaletteCommand.createErrorSinkPaletteCommand());
 			commands.add(CreateErrorSourceOrSinkPaletteCommand.createErrorSourcePaletteCommand());
-			commands.add(new CreatePropagationPointPaleteCommand());
+			commands.add(new CreatePropagationPointPaletteCommand());
 		}
 
 		return commands.stream();

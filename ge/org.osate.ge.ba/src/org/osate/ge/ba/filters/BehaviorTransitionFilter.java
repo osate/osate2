@@ -21,14 +21,20 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.diagram.contentFilters;
+package org.osate.ge.ba.filters;
 
 import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorState;
+import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.ContentFilter;
 
-public class BehaviorStateFilter implements ContentFilter {
-	public static final String ID = "ba.behaviorStates";
+/**
+ * Content filter which matches {@link BehaviorTransition} objects.
+ */
+public class BehaviorTransitionFilter implements ContentFilter {
+	/**
+	 * The ID of the content filter
+	 */
+	public static final String ID = "ba.behaviorTransitions";
 
 	@Override
 	public String getId() {
@@ -37,7 +43,7 @@ public class BehaviorStateFilter implements ContentFilter {
 
 	@Override
 	public String getName() {
-		return "Behavior States";
+		return "Behavior Transitions";
 	}
 
 	@Override
@@ -47,6 +53,6 @@ public class BehaviorStateFilter implements ContentFilter {
 
 	@Override
 	public boolean test(final Object bo) {
-		return bo instanceof BehaviorState;
+		return bo instanceof BehaviorTransition;
 	}
 }

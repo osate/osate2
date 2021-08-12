@@ -59,11 +59,26 @@ import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.swt.SwtUtil;
 
+/**
+ * Dialog use to edit the AADL text of a model element.
+ *
+ */
 public class EditEmbeddedTextDialog extends MessageDialog {
-	private static String WIDGET_ID = "org.osate.ge.ba.behaviortransition.editdialog";
-	private static String MODIFIED_SOURCE_KEY = WIDGET_ID + ".modifiedsource";
-	public static String WIDGET_ID_TEXT = WIDGET_ID + ".text";
-	public static String WIDGET_ID_CONFIRM = WIDGET_ID + ".confirmation";
+	private static final String WIDGET_ID = "org.osate.ge.ba.behaviortransition.editdialog";
+	private static final String MODIFIED_SOURCE_KEY = WIDGET_ID + ".modifiedsource";
+
+	/**
+	 * Testing ID for the {@link StyledText} containing the source being modified
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_TEXT = WIDGET_ID + ".text";
+
+	/**
+	 * Testing ID for the OK button.
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_CONFIRM = WIDGET_ID + ".confirmation";
+
 	private final EmbeddedXtextAdapter xtextAdapter;
 	private final ExtendedModifyListener textValidator;
 	private final IHandlerService service;
@@ -74,6 +89,18 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	private StyledText styledText;
 	private Result result;
 
+	/**
+	 * Creates a new instance
+	 * @param parentShell the parent shell for the dialog.
+	 * @param title the dialog's title
+	 * @param dialogMessage the message displayed in the dialog
+	 * @param xtextAdapter  the adapter which determines what is being displayed and modified in the dialog
+	 * @param styledTextStyle the style for the {@link StyledText} widget containing the source.
+	 * @param styledTextLayoutData the layout data for the {@link StyledText} widget containing the source.
+	 * @param behaviorTransition the behavior transition being modified
+	 * @param getModifiedSrc function called to determine the updated source
+	 * @param isValidModification function called to determine whether the modification was valid.
+	 */
 	public EditEmbeddedTextDialog(final Shell parentShell, final String title, final String dialogMessage,
 			final EmbeddedXtextAdapter xtextAdapter,
 			final int styledTextStyle,
@@ -92,6 +119,17 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 	}
 
+	/**
+	 * Creates a new instance
+	 * @param parentShell the parent shell for the dialog.
+	 * @param title the dialog's title
+	 * @param dialogMessage the message displayed in the dialog
+	 * @param xtextAdapter the adapter which determines what is being displayed and modified in the dialog
+	 * @param styledTextStyle the style for the {@link StyledText} widget containing the source.
+	 * @param styledTextLayoutData the layout data for the {@link StyledText} widget containing the source.
+	 * @param behaviorTransition the behavior transition being modified
+	 * @param isValidModification function called to determine whether the modification was valid.
+	 */
 	public EditEmbeddedTextDialog(final Shell parentShell, final String title, final String dialogMessage,
 			final EmbeddedXtextAdapter xtextAdapter, final int styledTextStyle, final GridData styledTextLayoutData,
 			final BehaviorTransition behaviorTransition,
@@ -274,21 +312,34 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		return super.close();
 	}
 
+	/**
+	 * Returns the result of the dialog. Results null the OK button was not pressed.
+	 * @return the result of the dialog.
+	 */
 	public Result getResult() {
 		return result;
 	}
 
+	/**
+	 * Data type containing the result from the dialog
+	 */
 	public class Result {
 		private final String fullSource;
 		private final String partialSource;
 
-		public Result(final String fullSource, final String partialSource) {
+		/**
+		 * Creates a new instance
+		 * @param fullSource the full source
+		 * @param partialSource the partial source
+		 */
+		Result(final String fullSource, final String partialSource) {
 			this.fullSource = fullSource;
 			this.partialSource = partialSource;
 		}
 
 		/**
 		 * Returns the modified source for the full AADL resource/document.
+		 * @return the modified source for the full AADL resource/document.
 		 */
 		public String getFullSource() {
 			return fullSource;
@@ -296,6 +347,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 		/**
 		 * Returns the modified source for the region of the AADL resource edited by the dialog.
+		 * @return the modified source for the region of the AADL resource edited by the dialog.
 		 */
 		public String getPartialSource() {
 			return partialSource;

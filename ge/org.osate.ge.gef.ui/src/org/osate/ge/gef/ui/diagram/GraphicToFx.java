@@ -83,7 +83,13 @@ import javafx.scene.Node;
  * Class responsible for creating JavaFX nodes based on graphical editor {@link Graphic} instances used by the
  * graphical editor's public API.
  */
-public class GraphicToFx {
+public final class GraphicToFx {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private GraphicToFx() {
+	}
+
 	private static final Map<Class<? extends Graphic>, Function<? extends Graphic, Node>> factoryMap;
 	private static final double[] arrowPoints = { 1.0, 1.0, 0.0, 0.5, 1.0, 0.0 };
 	private static final double[] mirroredArrowPoints = { 0.0, 1.0, 1.0, 0.5, 0.0, 0.0 };
