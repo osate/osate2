@@ -38,11 +38,11 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 /**
  * Palette command for creating {@link PropagationPoint} elements.
  */
-public class CreatePropagationPointPaleteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
+public class CreatePropagationPointPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	/**
 	 * Creates a new instance
 	 */
-	public CreatePropagationPointPaleteCommand() {
+	public CreatePropagationPointPaletteCommand() {
 		super("Propagation Point", ErrorModelPaletteCategories.ERROR_PROPAGATION, null);
 	}
 

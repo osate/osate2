@@ -71,7 +71,7 @@ public class ErrorModelPaletteContributor implements PaletteContributor {
 			commands.add(new CreateErrorPropagationPaletteCommand(DirectionType.OUT, false));
 			commands.add(CreateErrorSourceOrSinkPaletteCommand.createErrorSinkPaletteCommand());
 			commands.add(CreateErrorSourceOrSinkPaletteCommand.createErrorSourcePaletteCommand());
-			commands.add(new CreatePropagationPointPaleteCommand());
+			commands.add(new CreatePropagationPointPaletteCommand());
 		}
 
 		return commands.stream();
