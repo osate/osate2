@@ -36,7 +36,7 @@ import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
 
 /**
- * Palette command for creating regular type sets.
+ * Palette command for creating {@link TypeSet} objects which are not type set aliases.
  */
 public class CreateTypeSetPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	/**

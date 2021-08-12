@@ -45,7 +45,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 /**
- * Palette command for creating error type aliases.
+ * Palette command for creating {@link ErrorType} objects which are type aliases.
  */
 public class CreateTypeAliasPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	/**

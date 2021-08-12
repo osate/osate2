@@ -36,7 +36,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 /**
- * Palette command for creating error types.
+ * Palette command for creating {@link ErrorType} objects which are not type aliases.
  */
 public class CreateErrorTypePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	/**

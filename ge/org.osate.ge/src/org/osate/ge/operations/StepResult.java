@@ -94,7 +94,7 @@ public final class StepResult<R> {
 
 	/**
 	 * Creates a new step result which indicates the step was completed but provides a null user value
-	 * @return a new step result with a null user.
+	 * @return a new step result with a null user value.
 	 * @since 3.0
 	 */
 	public static StepResult<Object> complete() {
