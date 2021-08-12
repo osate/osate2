@@ -24,15 +24,16 @@
 package org.osate.ge.ba.ui.properties;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Caret;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.SwtUtil;
 
 public class EmbeddedTextEditor extends Composite {
@@ -43,17 +44,49 @@ public class EmbeddedTextEditor extends Composite {
 	private String styledTextTestId;
 	private String editBtnTestId;
 
-	public EmbeddedTextEditor(final Composite parent, final int style, final int styledTextStyle) {
-		super(parent, style);
+	/**
+	 * @since 2.0
+	 */
+	public EmbeddedTextEditor(final Composite parent, final int styledTextStyle,
+			final Runnable modify) {
+		super(parent, SWT.NONE);
 		this.setBackground(parent.getBackground());
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
 		this.styledTextStyle = styledTextStyle;
+
+		createControls(modify);
 	}
 
-	public void createControls() {
-		// Dispose existing controls
-		disposeControls();
+	/**
+	 * @since 2.0
+	 */
+	public EmbeddedXtextAdapter getAdapter() {
+		return xtextAdapter;
+	}
 
+	/**
+	 * @since 2.0
+	 */
+	public EmbeddedTextValue getValue() {
+		return xtextAdapter.getTextValue();
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public static EmbeddedTextEditor createSingleline(final Composite parent, final Runnable modify) {
+		return new EmbeddedTextEditor(parent, SWT.BORDER | SWT.SINGLE, modify);
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public static EmbeddedTextEditor createMultiLine(final Composite parent,
+			final Runnable modify) {
+		return new EmbeddedTextEditor(parent, SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI, modify);
+	}
+
+	private void createControls(final Runnable modify) {
 		// Create styled text
 		styledText = new StyledText(this, styledTextStyle);
 		styledText.setEditable(false);
@@ -71,6 +104,22 @@ public class EmbeddedTextEditor extends Composite {
 		btn = new Button(this, SWT.PUSH);
 		btn.setText("Edit...");
 		SwtUtil.setTestingId(btn, editBtnTestId);
+		btn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(final SelectionEvent e) {
+				modify.run();
+			}
+		});
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public void setEditorTextValue(final IProject project, final EmbeddedTextValue textValue) {
+		disposeXtextAdapter();
+		xtextAdapter = new EmbeddedXtextAdapter(project, textValue);
+		// Adapt without content helper
+		xtextAdapter.adapt(styledText, false);
 	}
 
 	public void setStyledTextTestId(final String styledTextTestId) {
@@ -81,35 +130,11 @@ public class EmbeddedTextEditor extends Composite {
 		this.editBtnTestId = editBtnTestId;
 	}
 
-	public void createXtextAdapter(final IProject project, final EmbeddedTextValue textValue) {
-		disposeXtextAdapter();
-		xtextAdapter = new EmbeddedXtextAdapter(project, textValue);
-		// Adapt without content helper
-		xtextAdapter.adapt(styledText, false);
-	}
-
-	public void disposeControls() {
-		disposeXtextAdapter();
-		disposeControl(styledText);
-		disposeControl(btn);
-	}
-
 	private void disposeXtextAdapter() {
 		if (xtextAdapter != null) {
 			xtextAdapter.dispose();
 			xtextAdapter = null;
 		}
-	}
-
-	private void disposeControl(final Control control) {
-		if (control != null && !control.isDisposed()) {
-			// Dispose widgets for next selection
-			control.dispose();
-		}
-	}
-
-	public void addSelectionListener(final SelectionAdapter selectionAdapter) {
-		btn.addSelectionListener(selectionAdapter);
 	}
 
 	@Override
@@ -121,5 +146,12 @@ public class EmbeddedTextEditor extends Composite {
 
 	public void setStyledTextText(final String text) {
 		styledText.setText(text);
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public String getModifiedSource(final EObject rootElement) {
+		return xtextAdapter.serialize(rootElement);
 	}
 }

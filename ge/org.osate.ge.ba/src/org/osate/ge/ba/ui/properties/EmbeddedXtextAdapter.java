@@ -40,11 +40,13 @@ public class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 	private final static Injector injector = Aadl2Activator.getInstance()
 			.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
 	private final EmbeddedTextValue textValue;
+	private final IProject project;
 	private static final IXtextFakeContextResourcesProvider contextFakeResourceProvider = IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER;
 
 	public EmbeddedXtextAdapter(final IProject project, final EmbeddedTextValue textValue) {
 		super(injector, contextFakeResourceProvider, project);
 		this.textValue = textValue;
+		this.project = project;
 	}
 
 	private SourceViewer getSourceviewer() {
@@ -78,6 +80,13 @@ public class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 				textValue.getEditableText().length());
 	}
 
+	/**
+	 * @since 2.0
+	 */
+	public EmbeddedTextValue getTextValue() {
+		return textValue;
+	}
+
 	@Override
 	public void adapt(final StyledText styledText) {
 		adapt(styledText, true);
@@ -85,5 +94,12 @@ public class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 
 	public String getEditableText() {
 		return textValue.getEditableText();
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public IProject getProject() {
+		return project;
 	}
 }

@@ -44,6 +44,7 @@ import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork.Void;
 import org.osate.aadl2.modelsupport.Activator;
+import org.osate.ge.ProjectUtil;
 import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.ge.internal.services.AgeAction;
@@ -61,7 +62,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 	 * Embedded text modification action when the editor is open
 	 */
 	public EmbeddedTextModificationAction(final IXtextDocument xtextDocument,
-			final ModelChangeNotifier modelChangeNotifier, final IProject project, final String newText) {
+			final ModelChangeNotifier modelChangeNotifier, final String newText) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
 		embeddedEditingActionSupplier = () -> {
 			// Get original text for undo/redo
@@ -74,10 +75,10 @@ class EmbeddedTextModificationAction implements AgeAction {
 			// to be called to ensure the document matches the model and trigger model change events.
 			xtextDocument.readOnly(res -> null);
 
-			buildProject(project);
+			ProjectUtil.getProject(xtextDocument.getResourceURI());
 
 			// Return the undo/redo action
-			return new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier, project, originalText);
+			return new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier, originalText);
 		};
 	}
 
@@ -85,7 +86,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 	 * Embedded text modification action when the editor is closed
 	 */
 	public EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
-			final XtextResource xtextResource, final ModelChangeNotifier modelChangeNotifier, final IProject project,
+			final XtextResource xtextResource, final ModelChangeNotifier modelChangeNotifier,
 			final String newText, final EmbeddedTextValue textValue) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
 		embeddedEditingActionSupplier = () -> {
@@ -97,11 +98,10 @@ class EmbeddedTextModificationAction implements AgeAction {
 			final RecordingCommand cmd = createRecordingCommand(editingDomain, work, xtextResource);
 			executeCommand(editingDomain, cmd, xtextResource);
 			save(xtextResource);
-
-			buildProject(project);
+			buildProject(ProjectUtil.getProjectOrThrow(xtextResource));
 
 			// Return the undo/redo action
-			return new EmbeddedTextModificationAction(editingDomain, xtextResource, modelChangeNotifier, project,
+			return new EmbeddedTextModificationAction(editingDomain, xtextResource, modelChangeNotifier,
 					originalText, null);
 		};
 	}

@@ -29,7 +29,7 @@ public class BehaviorConditionUtil {
 		// Text after condition
 		final String suffix = afterPrefix.substring(conditionEnd);
 		final String conditionText = afterPrefix.substring(0, conditionEnd).trim();
-		return new EmbeddedTextValue(sourceText, prefix, conditionText, suffix);
+		return new EmbeddedTextValue(sourceText.length(), prefix, conditionText, suffix);
 	}
 
 	/**

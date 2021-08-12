@@ -56,7 +56,6 @@ import org.eclipse.ui.handlers.IHandlerActivation;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
-import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.swt.SwtUtil;
 
 public class EditEmbeddedTextDialog extends MessageDialog {
@@ -74,29 +73,35 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	private StyledText styledText;
 	private Result result;
 
+	/**
+	 * @since 2.0
+	 */
 	public EditEmbeddedTextDialog(final Shell parentShell, final String title, final String dialogMessage,
 			final EmbeddedXtextAdapter xtextAdapter,
 			final int styledTextStyle,
 			final GridData styledTextLayoutData,
-			final BehaviorTransition behaviorTransition,
+			final EObject selectedBo,
 			final BiFunction<EObject, String, String> getModifiedSrc,
-			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
+			final BiFunction<EObject, String, Boolean> isValidModification) {
 		super(parentShell, title, null, dialogMessage, MessageDialog.NONE, 0, "OK", "Cancel");
 		this.xtextAdapter = Objects.requireNonNull(xtextAdapter, "xtextAdapter cannot be null");
 		this.styledTextStyle = styledTextStyle;
 		this.styledTextLayoutData = Objects.requireNonNull(styledTextLayoutData, "styledTextLayoutData cannot be null");
 		this.textValidator = Objects.requireNonNull(
-				createTextValidator(behaviorTransition, getModifiedSrc, isValidModification),
+				createTextValidator(selectedBo, getModifiedSrc, isValidModification),
 				"textValidator cannot be null");
 		service = PlatformUI.getWorkbench().getService(IHandlerService.class);
 		setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public EditEmbeddedTextDialog(final Shell parentShell, final String title, final String dialogMessage,
 			final EmbeddedXtextAdapter xtextAdapter, final int styledTextStyle, final GridData styledTextLayoutData,
-			final BehaviorTransition behaviorTransition,
-			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
-		this(parentShell, title, dialogMessage, xtextAdapter, styledTextStyle, styledTextLayoutData, behaviorTransition,
+			final EObject selectedBo,
+			final BiFunction<EObject, String, Boolean> isValidModification) {
+		this(parentShell, title, dialogMessage, xtextAdapter, styledTextStyle, styledTextLayoutData, selectedBo,
 				(rootElement, text) -> xtextAdapter.serialize(rootElement), isValidModification);
 	}
 
@@ -155,10 +160,10 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 	// Text modification listener that sets the OK button as enabled
 	// or disabled based on if the new text is valid
-	private ExtendedModifyListener createTextValidator(final BehaviorTransition behaviorTransition,
+	private ExtendedModifyListener createTextValidator(final EObject selectedBo,
 			final BiFunction<EObject, String, String> getModifiedSrc,
-			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
-		final ValidationTask validationTask = new ValidationTask(behaviorTransition, getModifiedSrc,
+			final BiFunction<EObject, String, Boolean> isValidModification) {
+		final ValidationTask validationTask = new ValidationTask(selectedBo, getModifiedSrc,
 				isValidModification);
 		return event -> {
 			// Disable button until validation occurs
@@ -169,18 +174,18 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	}
 
 	private class ValidationTask {
-		private final BehaviorTransition behaviorTransition;
+		private final EObject selectedBo;
 		private final BiFunction<EObject, String, String> getModifiedSrc;
-		private final BiFunction<BehaviorTransition, String, Boolean> isValidModification;
+		private final BiFunction<EObject, String, Boolean> isValidModification;
 		private Timer validationTimer;
 		private String textToValidate;
 
-		public ValidationTask(final BehaviorTransition behaviorTransition,
+		public ValidationTask(final EObject selectedBo,
 				final BiFunction<EObject, String, String> getModifiedSrc,
-				final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
+				final BiFunction<EObject, String, Boolean> isValidModification) {
 			this.getModifiedSrc = getModifiedSrc;
 			this.isValidModification = isValidModification;
-			this.behaviorTransition = behaviorTransition;
+			this.selectedBo = selectedBo;
 		}
 
 		public void schedule(final Button okBtn) {
@@ -226,11 +231,10 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 							// Load for error checking
 							loadResource(fakeResource, modifiedSrc);
 							boolean isEnabled = false;
-							// Check if BehaviorTransition still exists, meaning the modification did not break serialization
-							final BehaviorTransition tmpBehaviorTransition = (BehaviorTransition) fakeResource
-									.getEObject(EcoreUtil.getURI(behaviorTransition).fragment());
-							if (tmpBehaviorTransition != null) {
-								isEnabled = isValidModification.apply(tmpBehaviorTransition, newText);
+							// Check if business object still exists, meaning the modification did not break serialization
+							final EObject tmpBo = fakeResource.getEObject(EcoreUtil.getURI(selectedBo).fragment());
+							if (tmpBo != null) {
+								isEnabled = isValidModification.apply(tmpBo, newText);
 							}
 
 							okBtn.setEnabled(isEnabled);

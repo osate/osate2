@@ -35,7 +35,11 @@ public class EmbeddedTextValue {
 	private int updateOffset;
 	private int updateLength;
 
-	public EmbeddedTextValue(final String originalText, final String prefix, final String editableText, final String suffix) {
+	/**
+	 * @since 2.0
+	 */
+	public EmbeddedTextValue(final int originalTextLength, final String prefix, final String editableText,
+			final String suffix) {
 		this.prefix = prefix;
 		updateOffset = prefix.length();
 		this.suffix = suffix;
@@ -45,7 +49,7 @@ public class EmbeddedTextValue {
 		// Offset to show text within embedded styled text
 		offset = prefixWithLineEnding.length();
 		// Length of text to replace
-		updateLength = Math.max(0, originalText.length() - prefix.length() - suffix.length());
+		updateLength = Math.max(0, originalTextLength - prefix.length() - suffix.length());
 	}
 
 	public int getUpdateLength() {
