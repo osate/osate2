@@ -61,6 +61,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 
+/**
+ * Business object handler for {@link ErrorFlowHandler} objects.
+ */
 public class ErrorFlowHandler implements BusinessObjectHandler {
 	private static final Graphic SOURCE_GRAPHIC = FlowIndicatorBuilder.create()
 			.sourceTerminator(ArrowBuilder.create().line().build()).build();

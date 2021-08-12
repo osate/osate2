@@ -36,11 +36,23 @@ import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.PeekingIterator;
 
+/**
+ * Utility class for working with Xtext documents and resources within the OSATE graphical editor's behavior annex plugin.
+ *
+ */
 public class BehaviorAnnexXtextUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private BehaviorAnnexXtextUtil() {
 	}
 
-	// All source text
+	/**
+	 * Returns the source contained in the Xtext document. If the Xtext document is null, then the source contained in the resource is returned.
+	 * @param xtextDocument
+	 * @param xtextResource
+	 * @return the complete source from the document or resource
+	 */
 	public static String getText(final IXtextDocument xtextDocument, final XtextResource xtextResource) {
 		if (xtextDocument == null) {
 			return xtextResource.getParseResult().getRootNode().getText();

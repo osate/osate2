@@ -24,14 +24,21 @@
 package org.osate.ge.errormodel.filters;
 
 import org.osate.ge.ContentFilter;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 
+/**
+ * Content filter which matches {@link ErrorBehaviorState} objects.
+ */
 public class ErrorBehaviorStateMachineFilter implements ContentFilter {
+	/**
+	 * Unique identifier for the content filter
+	 */
 	public static final String ID = "emv2.stateMachines";
 
 	@Override
 	public String getParentId() {
-		return ErrorModelPackageFilter.ID;
+		return ErrorModelLibraryElementsFilter.ID;
 	}
 
 	@Override

@@ -29,7 +29,7 @@ import java.util.Map.Entry;
 
 /**
  * Model decorator used by the dialog which tracks changes and allows reverting.
- * 
+ *
  *
  * @param <N> See {@link PrototypeBindingsModel}
  * @param <D> See {@link PrototypeBindingsModel}
@@ -53,7 +53,7 @@ class RevertablePrototypeBindingsModel<N, D, T, C>
 	@Override
 	public void setDirection(final N node, final D value) {
 		// Store original value to allow reverting
-		originalDirections.computeIfAbsent(node, (n) -> getDirection(n));
+		originalDirections.computeIfAbsent(node, this::getDirection);
 
 		super.setDirection(node, value);
 	}
@@ -61,7 +61,7 @@ class RevertablePrototypeBindingsModel<N, D, T, C>
 	@Override
 	public void setType(final N node, final T value) {
 		// Store original value to allow reverting
-		originalTypes.computeIfAbsent(node, (n) -> getType(n));
+		originalTypes.computeIfAbsent(node, this::getType);
 
 		super.setType(node, value);
 	}
@@ -69,7 +69,7 @@ class RevertablePrototypeBindingsModel<N, D, T, C>
 	@Override
 	public void setClassifier(final N node, final C value) {
 		// Store original value to allow reverting
-		originalClassifiers.computeIfAbsent(node, (n) -> getClassifier(n));
+		originalClassifiers.computeIfAbsent(node, this::getClassifier);
 
 		super.setClassifier(node, value);
 	}

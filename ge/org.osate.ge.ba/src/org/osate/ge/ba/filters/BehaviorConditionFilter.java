@@ -21,36 +21,38 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.errormodel.ui.palette;
+package org.osate.ge.ba.filters;
 
-import java.util.Optional;
+import org.osate.ba.aadlba.BehaviorCondition;
+import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ge.ContentFilter;
 
-import org.osate.ge.errormodel.util.ErrorModelGeUtil;
-import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
-import org.osate.ge.operations.Operation;
-import org.osate.ge.operations.StepResultBuilder;
-import org.osate.ge.palette.BasePaletteCommand;
-import org.osate.ge.palette.GetTargetedOperationContext;
-import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
+/**
+ * Content filter which matches {@link BehaviorCondition} objects.
+ */
+public class BehaviorConditionFilter implements ContentFilter {
+	/**
+	 * Unique identifier for the content filter
+	 */
+	public static final String ID = "ba.behaviorCondition";
 
-public class CreatePropagationPointPaleteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
-	public CreatePropagationPointPaleteCommand() {
-		super("Propagation Point", ErrorModelPaletteCategories.ERROR_PROPAGATION, null);
+	@Override
+	public String getId() {
+		return ID;
 	}
 
 	@Override
-	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
-		return ErrorModelGeUtil.createErrorModelSubclauseModifyOperation(ctx.getTarget(), (subclause) -> {
-			final PropagationPoint newPoint = ErrorModelFactory.eINSTANCE.createPropagationPoint();
-			final String newName = ErrorModelNamingUtil.buildUniqueIdentifier(subclause.getContainingClassifier(),
-					"new_propagation_point");
-			newPoint.setName(newName);
-			subclause.getPoints().add(newPoint);
+	public String getName() {
+		return "Behavior Condition";
+	}
 
-			return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), newPoint).build();
-		});
+	@Override
+	public boolean isApplicable(final Object bo) {
+		return bo instanceof BehaviorTransition;
+	}
 
+	@Override
+	public boolean test(final Object bo) {
+		return bo instanceof BehaviorCondition;
 	}
 }

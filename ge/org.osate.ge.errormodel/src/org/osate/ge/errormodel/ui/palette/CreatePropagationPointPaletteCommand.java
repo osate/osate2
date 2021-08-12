@@ -21,40 +21,42 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.errormodel.filters;
+package org.osate.ge.errormodel.ui.palette;
 
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Subcomponent;
-import org.osate.ge.ContentFilter;
-import org.osate.ge.errormodel.model.KeywordPropagationPoint;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
-import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
+import java.util.Optional;
+
+import org.osate.ge.errormodel.util.ErrorModelGeUtil;
+import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
+import org.osate.ge.operations.Operation;
+import org.osate.ge.operations.StepResultBuilder;
+import org.osate.ge.palette.BasePaletteCommand;
+import org.osate.ge.palette.GetTargetedOperationContext;
+import org.osate.ge.palette.TargetedPaletteCommand;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
-public class ErrorModelLibraryFilter implements ContentFilter {
-	public static final String ID = "emv2.errorModelSubclauseElements";
-
-	@Override
-	public String getId() {
-		return ID;
+/**
+ * Palette command for creating {@link PropagationPoint} elements.
+ */
+public class CreatePropagationPointPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
+	/**
+	 * Creates a new instance
+	 */
+	public CreatePropagationPointPaletteCommand() {
+		super("Propagation Point", ErrorModelPaletteCategories.ERROR_PROPAGATION, null);
 	}
 
 	@Override
-	public String getName() {
-		return "Error Model Elements";
-	}
+	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
+		return ErrorModelGeUtil.createErrorModelSubclauseModifyOperation(ctx.getTarget(), (subclause) -> {
+			final PropagationPoint newPoint = ErrorModelFactory.eINSTANCE.createPropagationPoint();
+			final String newName = ErrorModelNamingUtil.buildUniqueIdentifier(subclause.getContainingClassifier(),
+					"new_propagation_point");
+			newPoint.setName(newName);
+			subclause.getPoints().add(newPoint);
 
-	@Override
-	public boolean isApplicable(final Object bo) {
-		return (bo instanceof Classifier || bo instanceof Subcomponent)
-				&& ErrorModelFilterUtil.hasApplicableErrorModelSubclause(bo);
-	}
+			return StepResultBuilder.create().showNewBusinessObject(ctx.getTarget(), newPoint).build();
+		});
 
-	@Override
-	public boolean test(final Object bo) {
-		return bo instanceof ErrorFlow
-				|| (bo instanceof KeywordPropagationPoint && ((KeywordPropagationPoint) bo).isUsed())
-				|| bo instanceof PropagationPoint
-				|| bo instanceof PropagationPath;
 	}
 }

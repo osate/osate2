@@ -42,6 +42,7 @@ import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.errormodel.combined.CombinedErrorModelSubclause;
 import org.osate.ge.errormodel.combined.PropagationNode;
+import org.osate.ge.errormodel.combined.PropagationTreeUtil;
 import org.osate.ge.errormodel.model.KeywordPropagationPoint;
 import org.osate.ge.errormodel.model.KeywordPropagationPointType;
 import org.osate.ge.errormodel.ui.ErrorModelUiUtil;
@@ -59,10 +60,18 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
 import com.google.common.base.Objects;
 
+/**
+ * Palette command for creating {@link ErrorPropagation} elements.
+ */
 public class CreateErrorPropagationPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	private final DirectionType direction;
 	private final boolean containment;
 
+	/**
+	 * Creates a new instance
+	 * @param direction the direction of the error propagation to be created by this command
+	 * @param containment if true, this command will create an error containment. If false, the command will create an error propagation.
+	 */
 	public CreateErrorPropagationPaletteCommand(final DirectionType direction, final boolean containment) {
 		super(StringUtil.capitalize(direction.getName()) + (containment ? " Error Containment" : " Error Propagation"),
 				ErrorModelPaletteCategories.ERROR_PROPAGATION, null);
@@ -119,7 +128,7 @@ public class CreateErrorPropagationPaletteCommand extends BasePaletteCommand imp
 			final PropagationNode propagations = new PropagationNode();
 			ErrorModelGeUtil.getFirstErrorModelSubclause(classifier)
 					.ifPresent(subclause -> subclause.getPropagations().forEach(propagations::put));
-			return propagations.getPropagationsForBusinessObjectContext(target)
+			return PropagationTreeUtil.getPropagationsForBusinessObjectContext(propagations, target)
 					.anyMatch(p -> p.isNot() == containment && p.getDirection() == direction);
 		}).orElse(false);
 	}

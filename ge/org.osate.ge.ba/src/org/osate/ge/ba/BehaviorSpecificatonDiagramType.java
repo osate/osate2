@@ -21,15 +21,28 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.errormodel.filters;
+package org.osate.ge.ba;
 
-import org.osate.ge.ContentFilter;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ge.DiagramType;
+import org.osate.ge.ba.filters.BehaviorStateFilter;
+import org.osate.ge.ba.filters.BehaviorTransitionFilter;
+import org.osate.ge.ba.filters.BehaviorVariableFilter;
 
-public class ErrorModelPackageFilter implements ContentFilter {
-	public static final String ID = "emv2.errorModelPackageElements";
+import com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.ImmutableSet;
+
+/**
+ * Diagram type for behavior specifications. Automatically includes variables, transitions, and state.
+ * @since 2.0
+ *
+ */
+public class BehaviorSpecificatonDiagramType implements DiagramType {
+	/**
+	 * Unique identifier for the behavior specification diagram type
+	 */
+	public final static String ID = "ba.behavior_specification";
 
 	@Override
 	public String getId() {
@@ -38,16 +51,27 @@ public class ErrorModelPackageFilter implements ContentFilter {
 
 	@Override
 	public String getName() {
-		return "Error Model Elements";
+		return "Behavior Specification";
 	}
 
 	@Override
-	public boolean isApplicable(final Object bo) {
-		return ErrorModelFilterUtil.isPackageWithErrorModelLibrary(bo);
+	public boolean isApplicableToContext(final Object contextBo) {
+		return contextBo instanceof DefaultAnnexSubclause
+				&& BehaviorAnnexReferenceUtil.ANNEX_NAME
+						.equalsIgnoreCase(((DefaultAnnexSubclause) contextBo).getName());
 	}
 
 	@Override
-	public boolean test(final Object bo) {
-		return bo instanceof ErrorBehaviorStateMachine || bo instanceof TypeSet || bo instanceof ErrorType;
+	public ImmutableSet<String> getDefaultContentFilters(final Object bo) {
+		if (bo instanceof BehaviorAnnex) {
+			return ImmutableSet.of(BehaviorVariableFilter.ID, BehaviorTransitionFilter.ID, BehaviorStateFilter.ID);
+		}
+
+		return ImmutableSet.of();
+	}
+
+	@Override
+	public ImmutableCollection<String> getDefaultAadlPropertyNames() {
+		return ImmutableSet.of();
 	}
 }

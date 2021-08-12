@@ -21,34 +21,39 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.handlers;
+package org.osate.ge.errormodel.filters;
 
-import org.eclipse.core.commands.AbstractHandler;
-import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.handlers.HandlerUtil;
-import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
-import org.osate.ge.internal.services.DiagramService;
-import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
-import org.osate.ge.internal.ui.util.EditorUtil;
+import org.osate.ge.ContentFilter;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
-public class CreateBehaviorAnnexDiagramHandler extends AbstractHandler {
+/**
+ * Content filter which matches all supported error model library elements
+ */
+public class ErrorModelLibraryElementsFilter implements ContentFilter {
+	/**
+	 * Unique identifier for the content filter
+	 */
+	public static final String ID = "emv2.errorModelLibraryElements";
+
 	@Override
-	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final ISelection selection = AgeHandlerUtil.getCurrentSelection();
-		final DefaultAnnexSubclause diagramContext = BehaviorAnnexSelectionUtil
-				.getDiagramContext(selection, HandlerUtil.getActiveEditor(event))
-				.orElseThrow(() -> new RuntimeException("diagram context cannot be null"));
-		final DiagramService diagramService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.getService(DiagramService.class);
-		final IFile file = diagramService.createDiagram(diagramContext);
-		if (file != null) {
-			EditorUtil.openEditor(file, false);
-		}
-		return null;
+	public String getId() {
+		return ID;
+	}
+
+	@Override
+	public String getName() {
+		return "Error Model Elements";
+	}
+
+	@Override
+	public boolean isApplicable(final Object bo) {
+		return ErrorModelFilterUtil.isPackageWithErrorModelLibrary(bo);
+	}
+
+	@Override
+	public boolean test(final Object bo) {
+		return bo instanceof ErrorBehaviorStateMachine || bo instanceof TypeSet || bo instanceof ErrorType;
 	}
 }

@@ -35,12 +35,19 @@ import org.osate.ge.palette.PaletteCommandProviderContext;
 import org.osate.ge.palette.PaletteContributor;
 import org.osate.ge.palette.TargetedPaletteCommand;
 
+/**
+ * Palette contributor which contributes commands for creating behavior annex elements.
+ *
+ */
 public class BehaviorAnnexPaletteContributor implements PaletteContributor {
-	public static final String BEHAVIOR_ANNEX = "org.osate.ge.ba.categories.ba";
+	/**
+	 * ID for the category containing behavior annex palette commands.
+	 */
+	public static final String BEHAVIOR_ANNEX_CATEGORY_ID = "org.osate.ge.ba.categories.ba";
 
 	@Override
 	public Stream<PaletteCategory> getCategories() {
-		return Stream.of(new PaletteCategory(BEHAVIOR_ANNEX, "Behavior Annex"));
+		return Stream.of(new PaletteCategory(BEHAVIOR_ANNEX_CATEGORY_ID, "Behavior Annex"));
 	}
 
 	@Override
