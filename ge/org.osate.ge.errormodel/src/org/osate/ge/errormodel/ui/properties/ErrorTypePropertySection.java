@@ -35,18 +35,35 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.BusinessObjectSelection;
-import org.osate.ge.errormodel.ui.viewmodels.ErrorTypeExtendTypeModel;
+import org.osate.ge.errormodel.ui.viewmodels.ErrorTypeSuperTypeModel;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.selectors.FilteringListSelectorField;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
-public class ErrorTypeExtendPropertySection extends AbstractPropertySection {
-	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorTypeExtend.";
+/**
+ * Property section for {@link ErrorType} elements which are not aliases.
+ */
+public class ErrorTypePropertySection extends AbstractPropertySection {
+	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorType.";
+
+	/**
+	 * Testing ID of the label displaying the extended error type
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_EXTEND_TYPE_LABEL = WIDGET_ID_PREFIX + "extendType.label";
+
+	/**
+	 * Testing ID of the button for setting the extended error type
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_EXTEND_TYPE_CHOOSE_BUTTON = WIDGET_ID_PREFIX + "extendType.choose";
 
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
@@ -56,8 +73,7 @@ public class ErrorTypeExtendPropertySection extends AbstractPropertySection {
 	}
 
 	private BusinessObjectSelection selectedBos;
-	private final ErrorTypeExtendTypeModel model = new ErrorTypeExtendTypeModel(new UiBusinessObjectSelection());
-	private FilteringListSelectorField<?> extendTypeField;
+	private final ErrorTypeSuperTypeModel model = new ErrorTypeSuperTypeModel(new UiBusinessObjectSelection());
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -67,7 +83,8 @@ public class ErrorTypeExtendPropertySection extends AbstractPropertySection {
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
 		final Label label = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Extends:");
 
-		extendTypeField = new FilteringListSelectorField<>(container, "Select Extending Type",
+		final FilteringListSelectorField<?> extendTypeField = new FilteringListSelectorField<>(container,
+				"Select Extending Type",
 				new LabelFilteringListSelectorModel<>(model));
 		extendTypeField.setValueLabelTestingId(WIDGET_ID_EXTEND_TYPE_LABEL);
 		extendTypeField.setModifyButtonTestingId(WIDGET_ID_EXTEND_TYPE_CHOOSE_BUTTON);

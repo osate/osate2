@@ -48,7 +48,7 @@ public class CreatePropagationPointPaletteCommand extends BasePaletteCommand imp
 
 	@Override
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
-		return ErrorModelGeUtil.createErrorModelSubclauseModifyOperation(ctx.getTarget(), (subclause) -> {
+		return ErrorModelGeUtil.createErrorModelSubclauseModifyOperation(ctx.getTarget(), subclause -> {
 			final PropagationPoint newPoint = ErrorModelFactory.eINSTANCE.createPropagationPoint();
 			final String newName = ErrorModelNamingUtil.buildUniqueIdentifier(subclause.getContainingClassifier(),
 					"new_propagation_point");

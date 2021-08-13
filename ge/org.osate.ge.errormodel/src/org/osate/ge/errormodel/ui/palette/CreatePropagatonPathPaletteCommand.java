@@ -82,7 +82,7 @@ public class CreatePropagatonPathPaletteCommand extends BasePaletteCommand imple
 			return Optional.empty();
 		}
 
-		return ErrorModelGeUtil.createErrorModelSubclauseModifyOperation(classifierSourceBoc, (subclause) -> {
+		return ErrorModelGeUtil.createErrorModelSubclauseModifyOperation(classifierSourceBoc, subclause -> {
 			final PropagationPath newPath = ErrorModelFactory.eINSTANCE.createPropagationPath();
 			final String newName = ErrorModelNamingUtil.buildUniqueIdentifier(subclause.getContainingClassifier(),
 					"new_propagation_path");

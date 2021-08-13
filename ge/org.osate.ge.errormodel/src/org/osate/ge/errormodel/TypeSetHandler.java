@@ -87,7 +87,7 @@ public class TypeSetHandler implements BusinessObjectHandler {
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic)
 				.annotation("<Type Set>")
-				.style(ErrorModelGeUtil.topCenteredLabelStyle).build());
+				.style(ErrorModelGeUtil.TOP_CENTERED_LABEL_STYLE).build());
 	}
 
 	@Override

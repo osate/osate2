@@ -997,7 +997,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	}
 
 	private static enum FontSize {
-		Default(null), Small(8.0), Medium(10.0), Large(16.0), ExtraLarge(20.0);
+		DEFAULT(null), SMALL(8.0), MEDIUM(10.0), LARGE(16.0), EXTRA_LARGE(20.0);
 
 		private FontSize(final Double value) {
 			this.value = value;
@@ -1005,7 +1005,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 
 		@Override
 		public String toString() {
-			return StringUtil.camelCaseToUser(super.toString());
+			return StringUtil.snakeCaseToTitleCase(super.toString());
 		}
 
 		public Double getValue() {
@@ -1020,10 +1020,15 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	}
 
 	private static enum LabelVisibility {
-		Default(null), Show(true), Hide(false);
+		DEFAULT(null), SHOW(true), HIDE(false);
 
 		private LabelVisibility(final Boolean value) {
 			this.value = value;
+		}
+
+		@Override
+		public String toString() {
+			return StringUtil.snakeCaseToTitleCase(super.toString());
 		}
 
 		public Boolean getValue() {

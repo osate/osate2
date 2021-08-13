@@ -84,7 +84,7 @@ public class ErrorBehaviorStateMachineHandler implements BusinessObjectHandler {
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic)
-				.annotation("<Error Behavior State Machine>").style(ErrorModelGeUtil.topCenteredLabelStyle).build());
+				.annotation("<Error Behavior State Machine>").style(ErrorModelGeUtil.TOP_CENTERED_LABEL_STYLE).build());
 	}
 
 	@Override

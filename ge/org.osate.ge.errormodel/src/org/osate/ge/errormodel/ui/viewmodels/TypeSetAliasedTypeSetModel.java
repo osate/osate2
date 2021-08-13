@@ -70,7 +70,8 @@ public class TypeSetAliasedTypeSetModel extends BaseObservableModel implements S
 	}
 
 	/**
-	 * Refreshes the internal state of the model based on the specified business object selection
+	 * Refreshes the state of the model based on the specified business object selection
+	 * @param value the business object selection
 	 */
 	public void setBusinessObjectSelection(final BusinessObjectSelection value) {
 		this.bos = Objects.requireNonNull(value, "value must not be null");
@@ -125,9 +126,7 @@ public class TypeSetAliasedTypeSetModel extends BaseObservableModel implements S
 
 	@Override
 	public void setSelectedElement(final TypeSet value) {
-		bos.modify(TypeSet.class, t -> {
-			t.setAliasedType(value);
-		});
+		bos.modify(TypeSet.class, t -> t.setAliasedType(value));
 	}
 
 	@Override
