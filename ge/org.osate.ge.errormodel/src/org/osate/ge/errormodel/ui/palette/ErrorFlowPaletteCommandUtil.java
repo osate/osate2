@@ -47,7 +47,8 @@ public class ErrorFlowPaletteCommandUtil {
 	/**
 	 * Private constructor to prevent instantiation.
 	 */
-	private ErrorFlowPaletteCommandUtil() {}
+	private ErrorFlowPaletteCommandUtil() {
+	}
 
 	/**
 	 * Checks the specified end business object context to determine if it is a valid endpoint for an error flow.
@@ -61,8 +62,7 @@ public class ErrorFlowPaletteCommandUtil {
 	 * @return true if the end was valid. False if the end was not valid and an error was displayed.
 	 */
 	public static final boolean validateAndShowError(CombinedErrorModelSubclause combined,
-			final BusinessObjectContext endBoc,
-			final DirectionType requiredPropagationDirection) {
+			final BusinessObjectContext endBoc, final DirectionType requiredPropagationDirection) {
 		if (isAll(endBoc) || findErrorPropagation(combined, endBoc, requiredPropagationDirection).isPresent()) {
 			return true;
 		}
@@ -70,9 +70,8 @@ public class ErrorFlowPaletteCommandUtil {
 		final String propagationDirectionLabel = (requiredPropagationDirection == DirectionType.IN ? "incoming"
 				: "outgoing");
 		MessageDialog.openError(Display.getDefault().getActiveShell(), "Unable to Create Error Flow",
-				"Unable to create error flow. An " + propagationDirectionLabel
-						+ " propagation is required for the " + propagationDirectionLabel
-						+ " propagation point to create an error flow");
+				"Unable to create error flow. An " + propagationDirectionLabel + " propagation is required for the "
+						+ propagationDirectionLabel + " propagation point to create an error flow");
 		return false;
 
 	}
@@ -88,9 +87,8 @@ public class ErrorFlowPaletteCommandUtil {
 	public static final Optional<ErrorPropagation> findErrorPropagation(final CombinedErrorModelSubclause combined,
 			final BusinessObjectContext boc, final DirectionType requiredDirection) {
 		return PropagationTreeUtil.getPropagationsForBusinessObjectContext(combined.getPropagations(), boc)
-				.filter(p -> {
-			return !p.isNot() && p.getDirection() == requiredDirection;
-		}).findAny();
+				.filter(p -> !p.isNot() && p.getDirection() == requiredDirection)
+				.findAny();
 	}
 
 	/**
@@ -104,9 +102,8 @@ public class ErrorFlowPaletteCommandUtil {
 	 */
 	public static final ErrorPropagation findErrorPropagationOrThrow(final CombinedErrorModelSubclause combined,
 			final BusinessObjectContext boc, final DirectionType requiredDirection) {
-		return findErrorPropagation(combined, boc, requiredDirection)
-				.orElseThrow(
-						() -> new AadlGraphicalEditorException("Unexpected case. Unable to find error propagation."));
+		return findErrorPropagation(combined, boc, requiredDirection).orElseThrow(
+				() -> new AadlGraphicalEditorException("Unexpected case. Unable to find error propagation."));
 	}
 
 	/**

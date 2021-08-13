@@ -93,8 +93,7 @@ public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, Cu
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		return Optional.of(GraphicalConfigurationBuilder.create().graphic(
-				ErrorModelGeUtil.transitionConnectionGraphic)
-				.style(ErrorModelGeUtil.transitionConnectionStyle)
+				ErrorModelGeUtil.TRANSITION_CONNECTION_GRAPHIC)
 				.source(getSource(ctx.getBusinessObjectContext(), ctx.getQueryService()))
 				.destination(getDestination(ctx.getBusinessObjectContext(), ctx.getQueryService())).build());
 	}

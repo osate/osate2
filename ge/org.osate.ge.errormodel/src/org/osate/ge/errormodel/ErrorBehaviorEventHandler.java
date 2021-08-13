@@ -92,7 +92,7 @@ public class ErrorBehaviorEventHandler implements BusinessObjectHandler {
 		final ErrorBehaviorEvent event = ctx.getBusinessObjectContext().getBusinessObject(ErrorBehaviorEvent.class)
 				.get();
 		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic).annotation(getAnnotation(event))
-				.style(ErrorModelGeUtil.centeredStyle).build());
+				.style(ErrorModelGeUtil.CENTERED_STYLE).build());
 	}
 
 	private static String getAnnotation(final ErrorBehaviorEvent event) {

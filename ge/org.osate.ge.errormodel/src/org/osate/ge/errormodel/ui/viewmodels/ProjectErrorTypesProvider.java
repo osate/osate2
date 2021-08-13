@@ -37,7 +37,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 /**
- * Provides the error types contained in a project. Provides names provided by the element's
+ * Provides the error types visible from a project. Provides names provided by the element's
  * {@link IEObjectDescription}. This allows retrieving the name of matching objects without resolving the instance.
  *
  */
@@ -45,21 +45,25 @@ public class ProjectErrorTypesProvider implements NamedObjectsProvider<ErrorType
 	private final ImmutableList<ErrorTypes> errorTypes;
 	private final ImmutableMap<URI, String> typeToNameMap;
 
+	/**
+	 * Creates a new instance
+	 * @param project the project for which to provide the visible error types
+	 */
 	public ProjectErrorTypesProvider(final IProject project) {
 		// Build a list of available error types and a mapping from URI to type name
 		final ImmutableList.Builder<ErrorTypes> errorTypesBuilder = ImmutableList.builder();
-		final ImmutableMap.Builder<URI, String> typeToNameMap = new ImmutableMap.Builder<>();
+		final ImmutableMap.Builder<URI, String> typeToNameMapBuilder = new ImmutableMap.Builder<>();
 		for (final IEObjectDescription d : AadlModelAccessUtil.getAllEObjectsByType(project,
 				ErrorModelPackage.eINSTANCE.getErrorTypes())) {
 			final String qualifiedName = ErrorModelViewModelUtil.getQualifiedName(d);
 			final ErrorTypes type = (ErrorTypes) d.getEObjectOrProxy();
 
 			errorTypesBuilder.add(type);
-			typeToNameMap.put(EcoreUtil.getURI(type), qualifiedName);
+			typeToNameMapBuilder.put(EcoreUtil.getURI(type), qualifiedName);
 		}
 
 		this.errorTypes = errorTypesBuilder.build();
-		this.typeToNameMap = typeToNameMap.build();
+		this.typeToNameMap = typeToNameMapBuilder.build();
 	}
 
 	@Override

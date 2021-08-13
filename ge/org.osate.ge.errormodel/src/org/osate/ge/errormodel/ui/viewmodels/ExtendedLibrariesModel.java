@@ -70,7 +70,8 @@ public class ExtendedLibrariesModel extends BaseObservableModel implements ListE
 	}
 
 	/**
-	 * Refreshes the internal state of the model based on the specified business object selection
+	 * Refreshes the state of the model based on the specified business object selection
+	 * @param value the business object selection
 	 */
 	public void setBusinessObjectSelection(final BusinessObjectSelection value) {
 		this.bos = Objects.requireNonNull(value, "value must not be null");
@@ -149,7 +150,8 @@ public class ExtendedLibrariesModel extends BaseObservableModel implements ListE
 		});
 	}
 
-	private class ErrorModelLibraryDescriptionSingleSelectionModel extends ErrorModelObjectDescriptionCollectionSingleSelectorModel {
+	private class ErrorModelLibraryDescriptionSingleSelectionModel
+			extends ErrorModelObjectDescriptionCollectionSingleSelectorModel {
 		public ErrorModelLibraryDescriptionSingleSelectionModel(Collection<IEObjectDescription> objectDescriptions) {
 			super(objectDescriptions);
 		}
@@ -185,9 +187,7 @@ public class ExtendedLibrariesModel extends BaseObservableModel implements ListE
 				boc -> ErrorModelGeUtil.getErrorModelLibrary((boc.getBusinessObject(AadlPackage.class).get()))
 						.isPresent(),
 				boc -> ErrorModelGeUtil.getErrorModelLibrary((boc.getBusinessObject(AadlPackage.class).get())).get(),
-				(lib, boc) -> {
-					modifier.accept(lib);
-				});
+				(lib, boc) -> modifier.accept(lib));
 
 	}
 

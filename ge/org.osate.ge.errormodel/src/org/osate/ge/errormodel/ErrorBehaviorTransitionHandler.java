@@ -128,8 +128,8 @@ public class ErrorBehaviorTransitionHandler implements BusinessObjectHandler {
 		final QueryService queryService = ctx.getQueryService();
 		if (transition.getDestinationBranches().isEmpty()) {
 			return Optional
-					.of(GraphicalConfigurationBuilder.create().graphic(ErrorModelGeUtil.transitionConnectionGraphic)
-							.style(ErrorModelGeUtil.transitionConnectionStyle).source(getSource(boc, queryService))
+					.of(GraphicalConfigurationBuilder.create().graphic(ErrorModelGeUtil.TRANSITION_CONNECTION_GRAPHIC)
+							.source(getSource(boc, queryService))
 							.destination(getDestination(boc, queryService)).build());
 		} else {
 			return Optional.of(

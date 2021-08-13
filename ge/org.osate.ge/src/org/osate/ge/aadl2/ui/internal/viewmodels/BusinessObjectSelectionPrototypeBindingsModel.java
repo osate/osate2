@@ -71,7 +71,6 @@ import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.BusinessObjectSelection;
-import org.osate.ge.StringUtil;
 import org.osate.ge.aadl2.AadlImportsUtil;
 import org.osate.ge.aadl2.internal.util.AadlPrototypeUtil;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
@@ -944,7 +943,7 @@ class PortSpecificationBindingType extends PrototypeBindingType {
 
 	@Override
 	public String getLabel() {
-		return StringUtil.camelCaseToUser(this.category.toString()).toLowerCase() + " port";
+		return this.category.toString() + " port";
 	}
 
 	public final PortCategory getCategory() {
