@@ -145,7 +145,6 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		SwtUtil.setTestingId(okBtn, WIDGET_ID_CONFIRM);
 	}
 
-
 	// Text modification listener that sets the OK button as enabled
 	// or disabled based on if the new text is valid
 	private ExtendedModifyListener createTextValidator(final EditInterface modify) {

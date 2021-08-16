@@ -152,33 +152,17 @@ public class EmbeddedTextEditor extends Composite {
 						final XtextResource xtextResource = getXtextResource(ne).orElseThrow();
 						final TransactionalEditingDomain editingDomain = TransactionalEditingDomain.Factory.INSTANCE
 								.getEditingDomain(xtextResource.getResourceSet());
-						String newText = dlg.getResult().getPartialSource();
-						if (!editInterface.bracketsRequired()) {
-							newText = formatNewText(newText, getValue().getEditableText());
-						}
+						editInterface.modifyEmbeddedTextValue(getValue(),
+								dlg.getResult().getPartialSource());
+
 						// Execute modification with xtext resource
 						actionService.execute("Modifying " + ne.getClass().getName(), ExecutionMode.NORMAL,
 								new EmbeddedTextModificationAction(editingDomain, xtextResource, modelChangeNotifier,
-										newText,
 										xtextAdapter.getTextValue()));
 					}
 				});
 			}
 		}));
-	}
-
-	private String formatNewText(String newText, String editableText) {
-		final boolean actionExists = !editableText.isEmpty();
-		if (actionExists && newText.isEmpty()) {
-			changeUpdateOffset(-1);
-			changeUpdateLength(2);
-		} else if (!actionExists && !newText.isEmpty()) {
-			// Add brackets for creating new action block
-			changeUpdateOffset(-1);
-			return "{" + newText + "}";
-		}
-
-		return newText;
 	}
 
 	private static Optional<IXtextDocument> getXtextDocument(final NamedElement behaviorTransition) {
@@ -201,7 +185,7 @@ public class EmbeddedTextEditor extends Composite {
 		final IXtextDocument xtextDocument = getXtextDocument(selectedElement).orElse(null);
 		final String sourceText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
 		xtextAdapter = new EmbeddedXtextAdapter(project, createTextValue.apply(sourceText));
-		xtextAdapter.adapt(styledText, false);
+		xtextAdapter.adapt(styledText);
 	}
 
 	public void setStyledTextTestId(final String styledTextTestId) {

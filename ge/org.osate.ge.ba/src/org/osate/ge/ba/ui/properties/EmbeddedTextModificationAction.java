@@ -87,14 +87,14 @@ class EmbeddedTextModificationAction implements AgeAction {
 	 */
 	public EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
 			final XtextResource xtextResource, final ModelChangeNotifier modelChangeNotifier,
-			final String newText, final EmbeddedTextValue textValue) {
+			final EmbeddedTextValue textValue) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
 		embeddedEditingActionSupplier = () -> {
 			// Get original text for undo
 			final String originalText = BehaviorAnnexXtextUtil.getText(null, xtextResource);
 
 			// Modify and save the xtext resource
-			final Void<XtextResource> work = createUpdateProcess(textValue, newText);
+			final Void<XtextResource> work = createUpdateProcess(textValue);
 			final RecordingCommand cmd = createRecordingCommand(editingDomain, work, xtextResource);
 			executeCommand(editingDomain, cmd, xtextResource);
 			save(xtextResource);
@@ -102,7 +102,25 @@ class EmbeddedTextModificationAction implements AgeAction {
 
 			// Return the undo/redo action
 			return new EmbeddedTextModificationAction(editingDomain, xtextResource, modelChangeNotifier,
-					originalText, null);
+					originalText);
+		};
+	}
+
+	private EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
+			final XtextResource xtextResource,
+			ModelChangeNotifier modelChangeNotifier, final String originalText) {
+		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
+		embeddedEditingActionSupplier = () -> {
+			// Modify and save the xtext resource
+			final Void<XtextResource> work = createUpdateProcess(null, originalText);
+			final RecordingCommand cmd = createRecordingCommand(editingDomain, work, xtextResource);
+			executeCommand(editingDomain, cmd, xtextResource);
+			save(xtextResource);
+			buildProject(ProjectUtil.getProjectOrThrow(xtextResource));
+
+			// Return the undo/redo action
+			return new EmbeddedTextModificationAction(editingDomain, xtextResource, modelChangeNotifier,
+					originalText);
 		};
 	}
 
@@ -119,6 +137,10 @@ class EmbeddedTextModificationAction implements AgeAction {
 		return textValue != null
 				? createPartialUpdateProcess(textValue.getUpdateOffset(), textValue.getUpdateLength(), sourceText)
 				: createUndoRedoProcess(sourceText);
+	}
+
+	private Void<XtextResource> createUpdateProcess(final EmbeddedTextValue textValue) {
+		return createUpdateProcess(textValue, textValue.getEditableText());
 	}
 
 	/**

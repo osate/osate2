@@ -18,5 +18,7 @@ public interface EditInterface {
 		return modifiedSrc;
 	}
 
-	boolean bracketsRequired();
+	default void modifyEmbeddedTextValue(final EmbeddedTextValue value, final String newText) {
+		value.setEditableText(newText);
+	}
 }

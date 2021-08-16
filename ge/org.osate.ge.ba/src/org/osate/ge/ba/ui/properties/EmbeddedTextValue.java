@@ -31,7 +31,7 @@ public class EmbeddedTextValue {
 	private final String prefix;
 	private final String suffix;
 	private final int offset;
-	private final String editableText;
+	private String editableText;
 	private int updateOffset;
 	private int updateLength;
 
@@ -87,4 +87,12 @@ public class EmbeddedTextValue {
 	public void setUpdateLength(final int updateLength) {
 		this.updateLength = updateLength;
 	}
+
+	/**
+	 * @since 2.0
+	 */
+	public void setEditableText(String string) {
+		this.editableText = string;
+	}
+
 }

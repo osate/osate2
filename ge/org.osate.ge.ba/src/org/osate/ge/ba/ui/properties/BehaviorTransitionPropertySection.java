@@ -117,11 +117,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 				return false;
 			}
-
-			@Override
-			public boolean bracketsRequired() {
-				return true;
-			}
 		});
 
 		conditionEditingControls.setStyledTextTestId(WIDGET_ID_CONDITION);
@@ -165,14 +160,24 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 					final String prefix = actionBlockEditingControls.getValue().getPrefix();
 					modifiedSrc = prefix.substring(0, prefix.length() - 1)
 							+ actionBlockEditingControls.getValue().getSuffix().substring(1);
-				}
 
+				}
 				return modifiedSrc;
 			}
 
 			@Override
-			public boolean bracketsRequired() {
-				return false;
+			public void modifyEmbeddedTextValue(final EmbeddedTextValue value, String newText) {
+				final String editableText = value.getEditableText();
+				final boolean actionExists = !editableText.isEmpty();
+				if (actionExists && newText.isEmpty()) {
+					value.setUpdateOffset(value.getUpdateOffset() - 1);
+					value.setUpdateLength(value.getUpdateLength() + 2);
+					value.setEditableText(newText);
+				} else if (!actionExists && !newText.isEmpty()) {
+					value.setUpdateOffset(value.getUpdateOffset() - 1);
+					// Add brackets for creating new action block
+					value.setEditableText("{" + newText + "}");
+				}
 			}
 		});
 
@@ -186,6 +191,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 				.filter(boc -> isBehaviorTransition(boc)
 						&& ProjectUtil.getProjectForBo(boc.getBusinessObject()).isPresent())
 				.findAny();
+
 		if (optSelectedBoc.isPresent()) {
 			final BusinessObjectContext selectedBoc = optSelectedBoc.orElseThrow();
 			final boolean isSingleSelection = selectedBos.bocStream().limit(2).count() == 1;
@@ -199,10 +205,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 						sourceText -> getActionBlockTextValue(behaviorTransition, sourceText));
 			}
 		}
-
-		// Layout controls for refresh
-		conditionEditingControls.requestLayout();
-		actionBlockEditingControls.requestLayout();
 	}
 
 	private void setControlsToMultipleSelected() {
