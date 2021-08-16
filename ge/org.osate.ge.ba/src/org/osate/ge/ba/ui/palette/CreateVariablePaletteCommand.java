@@ -34,8 +34,8 @@ import org.osate.aadl2.PublicPackageSection;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorVariable;
+import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
-import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.ba.util.BehaviorAnnexUtil.VariableOperation;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.OperationBuilder;
@@ -64,15 +64,16 @@ public class CreateVariablePaletteCommand extends BasePaletteCommand implements 
 
 			return Operation.createWithBuilder(builder -> {
 				final OperationBuilder<VariableOperation> prompt = builder.supply(() -> {
-					final Optional<VariableOperation> variableOperation = getVariableBuildOperation(section,
-							behaviorAnnex);
+					final Optional<VariableOperation> variableOperation = getVariableBuildOperation(behaviorAnnex);
 					return !variableOperation.isPresent() ? StepResult.abort()
 							: StepResult.forValue(variableOperation.orElseThrow());
 				});
 
-				final OperationBuilder<VariableOperation> addImportIfNeeded = prompt.modifyModel(null,
-						(tag, prevResult) -> prevResult.getPublicSection(), (tag, sectionToModify, variableOp) -> {
-							BehaviorAnnexUtil.addImportIfNeeded(sectionToModify, variableOp.getDataClassifierPackage());
+				// prompt.modifyModel(null, null, null)
+
+				final OperationBuilder<VariableOperation> addImportIfNeeded = prompt.modifyModel(section,
+						(tag, prevResult) -> tag, (tag, sectionToModify, variableOp) -> {
+							AadlImportsUtil.addImportIfNeeded(sectionToModify, variableOp.getDataClassifierPackage());
 							return StepResult.forValue(variableOp);
 						});
 

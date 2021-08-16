@@ -56,7 +56,7 @@ import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ba.declarative.Identifier;
 import org.osate.ba.declarative.QualifiedNamedElement;
 import org.osate.ge.BusinessObjectSelection;
-import org.osate.ge.ba.util.BehaviorAnnexUtil;
+import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
 import org.osate.ge.ba.util.BehaviorAnnexUtil.VariableOperation;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.operations.Operation;
@@ -129,15 +129,15 @@ public class BehaviorVariablePropertySection extends AbstractPropertySection {
 			// Set data classifier
 			final Operation op = Operation.createWithBuilder(builder -> {
 				builder.supply(() -> {
-					final Optional<VariableOperation> variableOperation = getVariableBuildOperation(section, behaviorAnnex);
+					final Optional<VariableOperation> variableOperation = getVariableBuildOperation(behaviorAnnex);
 					return !variableOperation.isPresent() ? StepResult.abort()
 							: StepResult.forValue(variableOperation.orElseThrow());
 				}).executeOperation(variableOp -> Operation.createWithBuilder(innerBuilder -> {
 					final OperationBuilder<VariableOperation> opBuilder = innerBuilder.modifyModel(
-							variableOp.getPublicSection(), (tag, prevResult) -> tag,
+							section, (tag, prevResult) -> tag,
 							(tag, sectionToModify, prevResult) -> {
 								// Import package if needed
-								BehaviorAnnexUtil.addImportIfNeeded(sectionToModify,
+								AadlImportsUtil.addImportIfNeeded(sectionToModify,
 										variableOp.getDataClassifierPackage());
 								return StepResult.forValue(variableOp);
 							});

@@ -32,10 +32,7 @@ import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DataClassifier;
-import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.PublicPackageSection;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.ba.ui.dialogs.EObjectDescriptionSingleSelectorModel;
@@ -62,50 +59,15 @@ public class BehaviorAnnexUtil {
 	}
 
 	/**
-	 * Adds an import for package to section if it is not already imported.
-	 * @param section the section to add the package to
-	 * @param pkg the package to import
-	 */
-	public static void addImportIfNeeded(final PackageSection section, final AadlPackage pkg) {
-		final String pkgQualifiedName = pkg.getQualifiedName();
-		if (pkgQualifiedName == null) {
-			return;
-		}
-
-		// Don't do anything if the package is the owner of the section
-		if (section.getOwner() instanceof AadlPackage
-				&& pkgQualifiedName.equalsIgnoreCase(((AadlPackage) section.getOwner()).getQualifiedName())) {
-			return;
-		}
-
-		// Check if package is already imported
-		boolean isImported = false;
-		for (final ModelUnit mu : section.getImportedUnits()) {
-			final String qn = mu.getQualifiedName();
-			if (pkgQualifiedName.equalsIgnoreCase(qn)) {
-				isImported = true;
-				break;
-			}
-		}
-
-		// Import the package if needed
-		if (!isImported) {
-			section.getImportedUnits().add(pkg);
-		}
-	}
-
-	/**
 	 * Operation for creating behavior variables
 	 */
 	public static class VariableOperation {
-		private final PublicPackageSection section;
 		private final BehaviorAnnex behaviorAnnex;
 		private final DataClassifier dataClassifier;
 		private final AadlPackage dataClassifierPkg;
 
-		public VariableOperation(final PublicPackageSection section, final BehaviorAnnex behaviorAnnex,
+		public VariableOperation(final BehaviorAnnex behaviorAnnex,
 				final DataClassifier dataClassifier, final AadlPackage dataClassifierPkg) {
-			this.section = Objects.requireNonNull(section, "section cannot be null");
 			this.behaviorAnnex = Objects.requireNonNull(behaviorAnnex, "behavior annex cannot be null");
 			this.dataClassifier = Objects.requireNonNull(dataClassifier, "data classifier cannot be null");
 			this.dataClassifierPkg = Objects.requireNonNull(dataClassifierPkg,
@@ -114,10 +76,6 @@ public class BehaviorAnnexUtil {
 
 		public BehaviorAnnex getBehaviorAnnex() {
 			return behaviorAnnex;
-		}
-
-		public PublicPackageSection getPublicSection() {
-			return section;
 		}
 
 		public DataClassifier getDataClassifier() {
@@ -133,11 +91,11 @@ public class BehaviorAnnexUtil {
 	 * Show dialog to select a data classifier for behavior variables
 	 */
 	static class VariableDialog {
-		public static Optional<VariableOperation> show(final PublicPackageSection section,
-				final BehaviorAnnex behaviorAnnex) {
+		public static Optional<VariableOperation> show(final BehaviorAnnex behaviorAnnex) {
 			final Resource resource = behaviorAnnex.eResource();
 			return BehaviorAnnexUtil.getDataClassifier(resource).map(dataClassifier -> getPackage(dataClassifier)
-					.map(pkg -> new VariableOperation(section, behaviorAnnex, dataClassifier, pkg)).orElse(null));
+					.map(pkg -> new VariableOperation(behaviorAnnex, dataClassifier, pkg))
+					.orElse(null));
 		}
 	}
 
@@ -145,9 +103,8 @@ public class BehaviorAnnexUtil {
 	 * Prompt user for data classifier and get information needed for creating new behavior variable
 	 * @return the operation that contains the information for creating behavior variables
 	 */
-	public static Optional<VariableOperation> getVariableBuildOperation(final PublicPackageSection section,
-			final BehaviorAnnex behaviorAnnex) {
-		return VariableDialog.show(section, behaviorAnnex);
+	public static Optional<VariableOperation> getVariableBuildOperation(final BehaviorAnnex behaviorAnnex) {
+		return VariableDialog.show(behaviorAnnex);
 	}
 
 	/**
