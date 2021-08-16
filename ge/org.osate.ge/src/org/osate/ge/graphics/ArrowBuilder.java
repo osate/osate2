@@ -32,11 +32,15 @@ import org.osate.ge.graphics.internal.ConnectionTerminatorType;
  * @noextend
  * @see ConnectionTerminator
  */
-public class ArrowBuilder {
+public final class ArrowBuilder {
 	private ConnectionTerminatorType terminatorType = ConnectionTerminatorType.FILLED_ARROW;
 	private ConnectionTerminatorSize terminatorSize = ConnectionTerminatorSize.REGULAR;
 	private boolean reversed = false;
 
+	/**
+	 * Private constructor to prevent direct instantiation.
+	 * @see #create()
+	 */
 	private ArrowBuilder() {}
 
 	/**

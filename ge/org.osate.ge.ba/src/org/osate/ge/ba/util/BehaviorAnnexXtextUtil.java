@@ -24,6 +24,7 @@
 package org.osate.ge.ba.util;
 
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.eclipse.xtext.resource.XtextResource;
@@ -35,11 +36,23 @@ import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.PeekingIterator;
 
+/**
+ * Utility class for working with Xtext documents and resources within the OSATE graphical editor's behavior annex plugin.
+ *
+ */
 public class BehaviorAnnexXtextUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private BehaviorAnnexXtextUtil() {
 	}
 
-	// All source text
+	/**
+	 * Returns the source contained in the Xtext document. If the Xtext document is null, then the source contained in the resource is returned.
+	 * @param xtextDocument
+	 * @param xtextResource
+	 * @return the complete source from the document or resource
+	 */
 	public static String getText(final IXtextDocument xtextDocument, final XtextResource xtextResource) {
 		if (xtextDocument == null) {
 			return xtextResource.getParseResult().getRootNode().getText();
@@ -119,7 +132,8 @@ public class BehaviorAnnexXtextUtil {
 				.peekingIterator(str.chars().mapToObj(e -> (char) e).collect(Collectors.toList()).iterator());
 		for (int offset = 0; charPeekingIt.hasNext(); offset++) {
 			final Character c = charPeekingIt.next();
-			if (c == charsToMatch.getKey() && charPeekingIt.peek() == charsToMatch.getValue()) {
+			if (Objects.equals(c, charsToMatch.getKey())
+					&& Objects.equals(charPeekingIt.peek(), charsToMatch.getValue())) {
 				return offset + 2;
 			} else if (c == '-' && charPeekingIt.peek() == '-') {
 				for (offset = offset + 1; charPeekingIt.hasNext(); offset++) {

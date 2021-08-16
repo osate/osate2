@@ -21,35 +21,6 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-// Based on OSATE Graphical Editor. Modifications are:
-/*
-Copyright (c) 2016, Rockwell Collins.
-Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this data,
-including any software or models in source or binary form, as well as any drawings, specifications,
-and documentation (collectively "the Data"), to deal in the Data without restriction, including
-without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
-and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or
-substantial portions of the Data.
-
-THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
-LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE
-FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
- */
-/*******************************************************************************
- * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
- *******************************************************************************/
 package org.osate.ge.services;
 
 import java.util.Objects;
@@ -58,7 +29,7 @@ import java.util.Optional;
 import org.osate.ge.GraphicalEditor;
 
 /**
- * Service for interacting with the graphical editor.
+ * Global service for interacting with the graphical editor.
  * @noextend
  * @noimplement
  * @see org.osate.ge.GraphicalEditor
@@ -82,7 +53,7 @@ public interface GraphicalEditorService {
 	Optional<ObjectDetails> getObjectDetails(Object object);
 
 	/**
-	 * Used to return details of a selected object.
+	 * Used to return details of a specified object.
 	 * @since 2.0
 	 */
 	class ObjectDetails {
@@ -91,6 +62,8 @@ public interface GraphicalEditorService {
 
 		/**
 		 * Creates a new instance
+		 * @param diagramBo the business object of the diagram's context.
+		 * @param bo the business object associated with the specified object.
 		 * @noreference This method is not intended to be referenced by clients.
 		 */
 		public ObjectDetails(final Object diagramBo, final Object bo) {
@@ -98,10 +71,18 @@ public interface GraphicalEditorService {
 			this.bo = Objects.requireNonNull(bo, "bo must not be null");
 		}
 
+		/**
+		 * Returns the diagram context of the diagram in which the object is located.
+		 * @return the diagram context business object. Null if the diagram is a contextless diagram.
+		 */
 		public Optional<Object> getDiagramBusinessObject() {
 			return Optional.ofNullable(diagramBo);
 		}
 
+		/**
+		 * Returns the business object associated with the object
+		 * @return the business object associated with the object
+		 */
 		public Object getBusinessObject() {
 			return bo;
 		}

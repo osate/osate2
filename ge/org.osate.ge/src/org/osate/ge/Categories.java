@@ -23,15 +23,27 @@
  */
 package org.osate.ge;
 
+import org.osate.ge.palette.PaletteCommand;
+import org.osate.ge.palette.internal.AgePaletteContributor;
+
 /**
- * Contains constants whose values are the id's of built-in categories.
- * @noimplement
- * @see PaletteEntryBuilder#category(String)
+ * Contains constants whose values are the IDs of built-in categories.
+ * @see PaletteCommand#getCategoryId()
  */
-public class Categories {
+public final class Categories {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private Categories() {
 	}
 
+	/**
+	 * Category for palette commands related to annotating the diagram. Used for notes. This category is registered by {@link AgePaletteContributor}
+	 */
 	public static final String ANNOTATION = "org.osate.ge.categories.annotation";
+
+	/**
+	 * Category for palette items which are not appropriate for any other category.
+	 */
 	public static final String MISC = "org.osate.ge.categories.misc";
 }

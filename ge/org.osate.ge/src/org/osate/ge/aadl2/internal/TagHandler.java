@@ -63,17 +63,17 @@ public class TagHandler extends AadlBusinessObjectHandler {
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		return new RelativeBusinessObjectReference(
 				AadlReferenceUtil.TAG_KEY,
-				ctx.getBusinessObject(Tag.class).get().key);
+				ctx.getBusinessObject(Tag.class).orElseThrow().key);
 	}
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
-		final Tag tv = boc.getBusinessObject(Tag.class).get();
+		final Tag tv = boc.getBusinessObject(Tag.class).orElseThrow();
 		final Graphic graphic;
 		switch(tv.key) {
 		case Tag.KEY_UNIDIRECTIONAL:
-			// Don't show the directional indicator if there is a timing property value which is delayed or immediate
+			// Don't show the directional indicator if there is a timing property value which is immediate
 			for (final BusinessObjectContext sibling : boc.getParent().getChildren()) {
 				if(TimingPropertyValueHandler.isImmediateTimingProperty(sibling.getBusinessObject())) {
 					return Optional.empty();
@@ -89,7 +89,6 @@ public class TagHandler extends AadlBusinessObjectHandler {
 
 		return Optional.of(GraphicalConfigurationBuilder.create().
 				graphic(graphic).
-				decoration().
 				build());
 	}
 

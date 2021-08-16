@@ -27,10 +27,10 @@ import java.util.Deque;
 
 import org.osate.ge.BusinessObjectContext;
 
-class AncestorQuery extends DefaultQuery {
+class AncestorQuery<T> extends DefaultQuery<T> {
 	private final int depth;
 
-	public AncestorQuery(final DefaultQuery prev, final int depth) {
+	public AncestorQuery(final DefaultQuery<T> prev, final int depth) {
 		super(prev);
 		this.depth = depth;
 
@@ -40,8 +40,8 @@ class AncestorQuery extends DefaultQuery {
 	}
 
 	@Override
-	void run(final Deque<DefaultQuery> remainingQueries, final BusinessObjectContext ctx,
-			final QueryExecutionState state, final QueryResults result) {
+	void run(final Deque<DefaultQuery<T>> remainingQueries, final BusinessObjectContext ctx,
+			final QueryExecutionState<T> state, final QueryResults result) {
 		final BusinessObjectContext e = ctx == null ? null : ctx.getAncestor(depth);
 
 		// Process the value. If any

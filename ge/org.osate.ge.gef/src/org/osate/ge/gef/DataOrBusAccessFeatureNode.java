@@ -23,10 +23,7 @@
  */
 package org.osate.ge.gef;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.scene.Parent;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
 
@@ -56,32 +53,15 @@ public class DataOrBusAccessFeatureNode extends Parent implements Stylable {
 					slopeWidth, FeatureConstants.HEIGHT, FeatureConstants.WIDTH, FeatureConstants.HEIGHT);
 		}
 
-		setLineWidth(2.0);
-		setBackgroundColor(Color.BLACK);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
-	}
-
-	public final void setBackgroundColor(final Color value) {
-		poly.setFill(value);
-	}
-
-	public final void setOutlineColor(final Color value) {
-		poly.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		poly.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		poly.getStrokeDashArray().setAll(value);
+		poly.setFill(style.getBackgroundColor());
+		poly.setStroke(style.getOutlineColor());
+		poly.setStrokeWidth(style.getLineWidth());
+		poly.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 }

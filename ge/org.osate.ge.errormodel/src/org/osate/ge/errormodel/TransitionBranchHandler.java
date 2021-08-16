@@ -42,7 +42,7 @@ import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
@@ -52,36 +52,36 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
  * @see ErrorBehaviorTransitionHandler for details about how transitions are represented.
  */
 public class TransitionBranchHandler implements BusinessObjectHandler, CustomDeleter {
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.ancestor(2).children()
-			.filterByBusinessObjectRelativeReference(b -> ((TransitionBranch) b).eContainer()));
-	private static StandaloneQuery dstQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.ancestor(2).children().filterByBusinessObjectRelativeReference(b -> {
-				final TransitionBranch branch = (TransitionBranch) b;
-				return branch.isSteadyState() ? ((ErrorBehaviorTransition) branch.eContainer()).getSource()
-						: branch.getTarget();
-			}));
+	private static final ExecutableQuery<TransitionBranch> SRC_QUERY = ExecutableQuery
+			.create(rootQuery -> rootQuery.ancestor(2)
+					.children()
+					.filterByBusinessObjectRelativeReference(TransitionBranch::eContainer));
+	private static final ExecutableQuery<TransitionBranch> DST_QUERY = ExecutableQuery.create(rootQuery -> rootQuery
+			.ancestor(2)
+					.children()
+					.filterByBusinessObjectRelativeReference(branch -> branch.isSteadyState()
+							? ((ErrorBehaviorTransition) branch.eContainer()).getSource()
+							: branch.getTarget()));
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(TransitionBranch.class).map(bo -> bo.getElementRoot() instanceof AadlPackage)
+		return ctx.getBusinessObject(TransitionBranch.class)
+				.map(bo -> bo.getElementRoot() instanceof AadlPackage)
 				.isPresent();
 	}
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
 		final TransitionBranch b = ctx.getBusinessObject(TransitionBranch.class).get();
-				return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION_BRANCH,
-						ctx.getReferenceBuilder().getCanonicalReference(b.eContainer())
-								.encode(),
-						ErrorModelReferenceUtil
-								.getTargetNameForSerialization(
-								b),
-						Integer.toString(getTransitionBranchIndex(b)));
+		return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION_BRANCH,
+				ctx.getReferenceBuilder().getCanonicalReference(b.eContainer()).encode(),
+				ErrorModelReferenceUtil.getTargetNameForSerialization(b),
+				Integer.toString(getTransitionBranchIndex(b)));
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		final TransitionBranch b= ctx.getBusinessObject(TransitionBranch.class).get();
+		final TransitionBranch b = ctx.getBusinessObject(TransitionBranch.class).get();
 		return ErrorModelReferenceUtil.getRelativeReferenceForTransitionBranch(
 				ErrorModelReferenceUtil.getTargetNameForSerialization(b), getTransitionBranchIndex(b));
 	}
@@ -100,18 +100,22 @@ public class TransitionBranchHandler implements BusinessObjectHandler, CustomDel
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final QueryService queryService = ctx.getQueryService();
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(ErrorModelGeUtil.transitionConnectionGraphic)
-				.style(ErrorModelGeUtil.transitionConnectionStyle).source(getSource(boc,
-						queryService))
-				.destination(getDestination(boc, queryService)).build());
+		return Optional.of(GraphicalConfigurationBuilder.create()
+				.graphic(ErrorModelGeUtil.transitionConnectionGraphic)
+				.style(ErrorModelGeUtil.transitionConnectionStyle)
+				.source(getSource(boc, queryService))
+				.destination(getDestination(boc, queryService))
+				.build());
 	}
 
 	private BusinessObjectContext getSource(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(srcQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(SRC_QUERY, boc,
+				boc.getBusinessObject(TransitionBranch.class).orElseThrow());
 	}
 
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(DST_QUERY, boc,
+				boc.getBusinessObject(TransitionBranch.class).orElseThrow());
 	}
 
 	@Override
@@ -119,7 +123,8 @@ public class TransitionBranchHandler implements BusinessObjectHandler, CustomDel
 		final ErrorBehaviorTransition transition = ctx.getContainerBusinessObject(ErrorBehaviorTransition.class).get();
 
 		// Find branch by URI.
-		final TransitionBranch branch = (TransitionBranch) transition.eResource().getResourceSet()
+		final TransitionBranch branch = (TransitionBranch) transition.eResource()
+				.getResourceSet()
 				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(TransitionBranch.class).get()), true);
 		if (branch != null) {
 			EcoreUtil.remove(branch);
@@ -169,8 +174,7 @@ public class TransitionBranchHandler implements BusinessObjectHandler, CustomDel
 		}
 
 		final ErrorBehaviorTransition t = (ErrorBehaviorTransition) b.eContainer();
-		return ErrorModelReferenceUtil.getIndex(
-				b,
+		return ErrorModelReferenceUtil.getIndex(b,
 				t.getDestinationBranches().stream().filter(tmpBranch -> tmpBranch.getTarget() == b.getTarget()));
 	}
 }

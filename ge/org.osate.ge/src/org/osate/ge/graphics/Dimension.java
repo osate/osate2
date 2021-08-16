@@ -23,13 +23,11 @@
  */
 package org.osate.ge.graphics;
 
-import java.util.Objects;
-
 /**
  * Immutable dimension type.
  *
  */
-public class Dimension {
+public final class Dimension {
 	/**
 	 * @since 3.0
 	 */
@@ -38,15 +36,14 @@ public class Dimension {
 	public final double width;
 	public final double height;
 
+	/**
+	 * Creates a new instance with the specified width and height.
+	 * @param width the width value
+	 * @param height the height value
+	 */
 	public Dimension(final double width, final double height) {
 		this.width = width;
 		this.height = height;
-	}
-
-	public Dimension(final Dimension d) {
-		Objects.requireNonNull(d, "d must not be null");
-		this.width = d.width;
-		this.height = d.height;
 	}
 
 	@Override
@@ -76,10 +73,7 @@ public class Dimension {
 		if (Double.doubleToLongBits(height) != Double.doubleToLongBits(other.height)) {
 			return false;
 		}
-		if (Double.doubleToLongBits(width) != Double.doubleToLongBits(other.width)) {
-			return false;
-		}
-		return true;
+		return Double.doubleToLongBits(width) == Double.doubleToLongBits(other.width);
 	}
 
 	@Override
@@ -87,6 +81,10 @@ public class Dimension {
 		return "(" + width + "," + height + ")";
 	}
 
+	/**
+	 * Converts the instance to an instance of the serialized diagram model type.
+	 * @return the converted object.
+	 */
 	public org.osate.ge.diagram.Dimension toMetamodel() {
 		final org.osate.ge.diagram.Dimension newDimension = new org.osate.ge.diagram.Dimension();
 		newDimension.setWidth(width);

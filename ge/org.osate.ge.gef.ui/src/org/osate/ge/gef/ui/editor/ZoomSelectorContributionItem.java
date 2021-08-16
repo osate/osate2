@@ -34,15 +34,16 @@ import org.osate.ge.internal.ui.editor.ComboContributionItem;
 import javafx.beans.value.ChangeListener;
 
 /**
- * Contribution item for selecting the zoom level
+ * Contribution item for selecting the zoom level. Allows the user to select from one of the zoom levels contained in {@link AgeEditor#ZOOM_LEVELS}.
  */
 public class ZoomSelectorContributionItem extends ComboContributionItem {
-	private final ChangeListener<Number> zoomListener = (observable, oldValue, newValue) -> {
-		updateSelection();
-	};
+	private final ChangeListener<Number> zoomListener = (observable, oldValue, newValue) -> updateSelection();
 
 	private AgeEditor editor;
 
+	/**
+	 * Creates a new instance
+	 */
 	public ZoomSelectorContributionItem() {
 		super(null);
 	}
@@ -79,6 +80,11 @@ public class ZoomSelectorContributionItem extends ComboContributionItem {
 
 	}
 
+	/**
+	 * Sets the editor for which the zoom level is being displayed and controlled.
+	 * Adds and remove listeners to the editor's zoom property when the active editor changes.
+	 * @param newEditor the newly active editor
+	 */
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (editor != newEditor) {
 			setControlEnabled(newEditor != null);

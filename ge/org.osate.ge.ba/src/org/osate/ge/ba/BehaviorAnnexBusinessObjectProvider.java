@@ -28,10 +28,15 @@ import java.util.stream.Stream;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ba.aadlba.BehaviorCondition;
+import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
 
+/**
+ * Business object provider which provides behavior annex model elements to the OSATE graphical editor
+ */
 public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvider {
 	@Override
 	public Stream<?> getChildBusinessObjects(final BusinessObjectProviderContext ctx) {
@@ -49,6 +54,10 @@ public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvid
 			final BehaviorAnnex ba = (BehaviorAnnex) bo;
 			return Stream.concat(Stream.concat(ba.getTransitions().stream(), ba.getStates().stream()),
 					ba.getVariables().stream());
+		} else if (bo instanceof BehaviorTransition) {
+			final BehaviorTransition bt = (BehaviorTransition) bo;
+			final BehaviorCondition bc = bt.getCondition();
+			return bc == null ? Stream.empty() : Stream.of(bc);
 		}
 
 		return Stream.empty();

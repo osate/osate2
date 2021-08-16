@@ -6,7 +6,7 @@
          <meta.schema plugin="org.osate.ge" id="org.osate.ge.diagramTypes" name="Diagram Types"/>
       </appinfo>
       <documentation>
-         Allows defining diagram types for the OSATE Graphical Editor.
+         Allows defining diagram types for the OSATE Graphical Editor. A digram type customizes the behavior of a diagram.
       </documentation>
    </annotation>
 
@@ -62,41 +62,19 @@
       </complexType>
    </element>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="since"/>
-      </appinfo>
-      <documentation>
-         [Enter the first release in which this extension point appears.]
-      </documentation>
-   </annotation>
 
    <annotation>
       <appinfo>
          <meta.section type="examples"/>
       </appinfo>
       <documentation>
-         [Enter extension point usage example here.]
+         &lt;extension point=&quot;org.osate.ge.diagramTypes&quot;&gt;
+    &lt;diagramType class=&quot;org.osate.ge.aadl2.internal.diagramtypes.PackageDiagramType&quot;&gt;&lt;/diagramType&gt;
+&lt;/extension&gt;
       </documentation>
    </annotation>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="apiinfo"/>
-      </appinfo>
-      <documentation>
-         [Enter API information here.]
-      </documentation>
-   </annotation>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="implementation"/>
-      </appinfo>
-      <documentation>
-         [Enter information about supplied implementation of this extension point.]
-      </documentation>
-   </annotation>
 
 
 </schema>

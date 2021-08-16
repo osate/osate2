@@ -52,13 +52,19 @@ import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 
 /**
- * {@link PaletteModel} implementation for {@link AgeEditor}.
+ * {@link PaletteModel} implementation for {@link AgeEditor} which provides palette items and groups based on {@link PaletteContributor} instances.
  */
 public class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, SimplePaletteItem> {
 	/**
-	 * Interface for providing image based on IDs specified by the {@link PaletteContributor}
+	 * Interface for providing image based on IDs specified by the {@link PaletteContributor}. This is used to avoid complicating
+	 * the palette model with the details of finding and loading images.
 	 */
 	public static interface ImageProvider {
+		/**
+		 * Returns the JavafX image for the specified ID.
+		 * @param id the ID as specified by the {@link PaletteContributor}
+		 * @return the JavaFX image for the specified ID
+		 */
 		Optional<Image> getImage(String id);
 	}
 
@@ -72,9 +78,15 @@ public class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, S
 	private final SimplePaletteItem marqueeItem = new SimplePaletteItem(rootGroup, "Marquee", marqueeIcon);
 	private final ImmutableList<SimplePaletteGroup> groups;
 
+	/**
+	 * Creates a new instance
+	 * @param paletteContributors the palette contributors used to populate the palette.
+	 * @param diagramBo the business object for the diagram. Must not be null.
+	 * @param imageProvider provides images referenced by the palette contributors.
+	 */
 	public AgeEditorPaletteModel(final Collection<PaletteContributor> paletteContributors, final Object diagramBo,
 			final ImageProvider imageProvider) {
-
+		Objects.requireNonNull(diagramBo, "DiagramBo must not be null");
 		final ImageDescriptor folderIconDescriptor = PlatformUI.getWorkbench().getSharedImages()
 				.getImageDescriptor(ISharedImages.IMG_OBJ_FOLDER);
 		final org.eclipse.swt.graphics.Image folderIconImage = folderIconDescriptor.createImage();
@@ -195,7 +207,7 @@ public class AgeEditorPaletteModel implements PaletteModel<SimplePaletteGroup, S
 	}
 
 	/**
-	 * If the selected item is not the select or marquee tool, activate teh select tool.
+	 * If the selected item is not the select or marquee tool, activate the select tool.
 	 */
 	public void deactivateNonSelectItem() {
 		final SimplePaletteItem item = activeItem.getValue();

@@ -33,15 +33,31 @@ public class AgeGefRuntimeException extends RuntimeException {
 	 */
 	private static final long serialVersionUID = -5227084944805024321L;
 
+	/**
+	 * Creates a new instance with the specified detail message.
+	 * @param message the detailed message.
+	 * @see RuntimeException#RuntimeException(Throwable)
+	 */
 	public AgeGefRuntimeException(final String message) {
 		super(message);
 	}
 
+	/**
+	 * Creates a new instance with the specified detail message and cause.
+	 * @param message the details message.
+	 * @param cause the cause.
+	 * @see RuntimeException#RuntimeException(String, Throwable)
+	 */
 	public AgeGefRuntimeException(final String message, final Throwable cause) {
 		super(message, cause);
 	}
 
-	public AgeGefRuntimeException(final Throwable t) {
-		super(t);
+	/**
+	 * Creates a new instance with the specified cause.
+	 * @param cause the cause
+	 * @see RuntimeException#RuntimeException(Throwable)
+	 */
+	public AgeGefRuntimeException(final Throwable cause) {
+		super(cause);
 	}
 }

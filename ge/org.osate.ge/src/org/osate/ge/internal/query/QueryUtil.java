@@ -29,12 +29,12 @@ public class QueryUtil {
 	 * @param q
 	 * @return
 	 */
-	public static DefaultQuery ensureFirst(final DefaultQuery q) {
+	public static <T> DefaultQuery<T> ensureFirst(final DefaultQuery<T> q) {
 		if(q == null) {
 			return null;
 		}
 
-		if(q instanceof FirstQuery && ((FirstQuery)q).getMaximumNumberOfResults() == 1) {
+		if (q instanceof FirstQuery && ((FirstQuery<T>) q).getMaximumNumberOfResults() == 1) {
 			return q;
 		}
 

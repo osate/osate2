@@ -32,13 +32,20 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ge.errormodel.model.KeywordPropagationPoint;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 
-public class ErrorModelFilterUtil {
+/**
+ * Utility class used to implement content filters
+ *
+ */
+class ErrorModelFilterUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private ErrorModelFilterUtil() {
 	}
 
 	/**
 	 * Returns true if the business object is a package with an EMV library
-	 * @param bo the bo to check
+	 * @param bo the business object to check
 	 * @return whether an EMV2 library was found
 	 */
 	public static boolean isPackageWithErrorModelLibrary(final Object bo) {
@@ -61,7 +68,7 @@ public class ErrorModelFilterUtil {
 			classifier = ((Subcomponent) bo).getAllClassifier();
 		} else if (bo instanceof Element) {
 			classifier = ((Element) bo).getContainingClassifier();
-		} else if(bo instanceof KeywordPropagationPoint) {
+		} else if (bo instanceof KeywordPropagationPoint) {
 			classifier = ((KeywordPropagationPoint) bo).getClassifier();
 		} else {
 			classifier = null;
@@ -71,18 +78,22 @@ public class ErrorModelFilterUtil {
 			return false;
 		}
 
-		if (classifier.getSelfPlusAllExtended().stream().flatMap(ErrorModelGeUtil::getAllErrorModelSubclauses).findAny()
+		if (classifier.getSelfPlusAllExtended()
+				.stream()
+				.flatMap(ErrorModelGeUtil::getAllErrorModelSubclauses)
+				.findAny()
 				.isPresent()) {
 			return true;
 		}
 
 		if (classifier instanceof ComponentImplementation) {
 			final ComponentType ct = ((ComponentImplementation) classifier).getType();
-			if (ct != null) {
-				if (ct.getSelfPlusAllExtended().stream().flatMap(ErrorModelGeUtil::getAllErrorModelSubclauses).findAny()
-						.isPresent()) {
-					return true;
-				}
+			if (ct != null && ct.getSelfPlusAllExtended()
+					.stream()
+					.flatMap(ErrorModelGeUtil::getAllErrorModelSubclauses)
+					.findAny()
+					.isPresent()) {
+				return true;
 			}
 		}
 

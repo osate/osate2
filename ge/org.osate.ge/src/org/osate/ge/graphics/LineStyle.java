@@ -24,6 +24,7 @@
 package org.osate.ge.graphics;
 
 /**
+ * Enumeration for the supported line styled.
  * @since 1.1
  */
 public enum LineStyle {

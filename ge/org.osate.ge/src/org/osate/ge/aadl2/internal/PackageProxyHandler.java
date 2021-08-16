@@ -53,12 +53,12 @@ public class PackageProxyHandler implements BusinessObjectHandler {
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		return ctx.getBusinessObject(BusinessObjectProxy.class).get().getCanonicalReference();
+		return ctx.getBusinessObject(BusinessObjectProxy.class).orElseThrow().getCanonicalReference();
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		return ctx.getBusinessObject(BusinessObjectProxy.class).get().getRelativeReference();
+		return ctx.getBusinessObject(BusinessObjectProxy.class).orElseThrow().getRelativeReference();
 	}
 
 	@Override
