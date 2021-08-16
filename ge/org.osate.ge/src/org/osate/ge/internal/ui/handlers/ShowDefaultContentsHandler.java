@@ -25,21 +25,24 @@ package org.osate.ge.internal.ui.handlers;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
+import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.internal.util.ContentFilterUtil;
 import org.osate.ge.internal.util.DiagramTypeUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
+
+import com.google.common.collect.ImmutableSet;
 
 public class ShowDefaultContentsHandler extends AbstractHandler {
 	@Override
@@ -53,11 +56,12 @@ public class ShowDefaultContentsHandler extends AbstractHandler {
 		final DiagramType diagramType = diagram.getConfiguration().getDiagramType();
 		final ContentFilterProvider contentFilterProvider = getContentFilterProvider();
 
+		final Function<DiagramElement, ImmutableSet<ContentFilter>> getContentFilters = (diagramElement) -> DiagramTypeUtil
+				.getApplicableDefaultContentFilters(diagramType, diagramElement.getBusinessObject(),
+						contentFilterProvider);
+
 		// Show elements matching the filter
-		ShowContentsUtil.addContentsToSelectedElements(event, (parentElement,
-				childBo) -> ContentFilterUtil.passesAnyContentFilter(childBo,
-						DiagramTypeUtil.getApplicableDefaultContentFilters(diagramType,
-								parentElement.getBusinessObject(), contentFilterProvider)));
+		ShowContentsUtil.addContentsToSelectedElements(event, getContentFilters);
 
 		return null;
 	}

@@ -66,6 +66,12 @@ public class FlowIndicatorNode extends BaseConnectionNode {
 		return positioningReference;
 	}
 
+	/**
+	 * Sets the node to which this node's position is relative.
+	 * The node position as specified by layoutX and layoutY is relative to the positioning reference node.
+	 * @param value the new positioning reference
+	 * @see #getPositioningReferenceOrThrow()
+	 */
 	public void setPositioningReference(final Node value) {
 		this.positioningReference = value;
 

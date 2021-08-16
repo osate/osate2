@@ -72,7 +72,7 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.StringUtil;
-import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
+import org.osate.ge.aadl2.AadlImportsUtil;
 import org.osate.ge.aadl2.internal.util.AadlPrototypeUtil;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.aadl2.ui.AadlModelAccessUtil;

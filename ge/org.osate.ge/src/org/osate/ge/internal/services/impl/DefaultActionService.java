@@ -308,9 +308,6 @@ public class DefaultActionService implements ActionService {
 
 				case HIDE:
 					break;
-
-				default:
-					throw new RuntimeException("Unexpected case: " + mode);
 				}
 			}
 

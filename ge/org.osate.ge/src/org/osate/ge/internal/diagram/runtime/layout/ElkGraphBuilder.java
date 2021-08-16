@@ -117,11 +117,10 @@ class ElkGraphBuilder {
 		this.omitNestedPorts = omitNestedPorts;
 		this.fixedPortPositionProvider = Objects.requireNonNull(fixedPortPositionProvider,
 				"fixedPortPositionProvider must not be null");
-		// This is a workaround to prevent exceptions from being thrown when using fixed position ports. It disables connection layout in cases where an
-		// exception is thrown. This likely disables connection label layout in more cases than desirable. Once the issue is fixed, this field should be
-		// removed.
-		// See. https://github.com/eclipse/elk/issues/763
-		this.layoutConnectionLabels = omitNestedPorts && !options.layoutPortsOnDefaultSides;
+		// The previous workaround only disabled layout of connection labels in specific cases. Unfortunately, the error
+		// still occurs in some cases. This completely disables layout of connection labels until the issue is resolved.
+		// See https://github.com/eclipse/elk/issues/763
+		this.layoutConnectionLabels = false;
 	}
 
 	/**
@@ -464,7 +463,7 @@ class ElkGraphBuilder {
 		final DockingPosition defaultDockingPosition = de.getGraphicalConfiguration().getDefaultDockingPosition();
 		return PortSideUtil.getPortSideForNonGroupDockArea(
 				(defaultDockingPosition == DockingPosition.ANY && de.getDockArea() != null) ? de.getDockArea()
-						: defaultDockingPosition.getDefaultDockArea());
+						: DockArea.fromDockingPosition(defaultDockingPosition));
 
 	}
 
@@ -643,7 +642,7 @@ class ElkGraphBuilder {
 			port.setX(newPosition);
 			return newPosition;
 		} else {
-			throw new RuntimeException("Unexpected side: " + side);
+			throw new IllegalArgumentException("Unexpected side: " + side);
 		}
 	}
 
@@ -786,7 +785,7 @@ class ElkGraphBuilder {
 		} else if (PortSide.SIDES_NORTH_SOUTH.contains(side)) {
 			return de.getHeight();
 		} else {
-			throw new RuntimeException("Unexpected side: " + side);
+			throw new IllegalArgumentException("Unexpected side: " + side);
 		}
 	}
 
@@ -796,7 +795,7 @@ class ElkGraphBuilder {
 		} else if (PortSide.SIDES_NORTH_SOUTH.contains(side)) {
 			return port.getHeight();
 		} else {
-			throw new RuntimeException("Unexpected side: " + side);
+			throw new IllegalArgumentException("Unexpected side: " + side);
 		}
 	}
 
@@ -806,7 +805,7 @@ class ElkGraphBuilder {
 		} else if (PortSide.SIDES_NORTH_SOUTH.contains(side)) {
 			return dim.height;
 		} else {
-			throw new RuntimeException("Unexpected side: " + side);
+			throw new IllegalArgumentException("Unexpected side: " + side);
 		}
 	}
 
@@ -816,7 +815,7 @@ class ElkGraphBuilder {
 		} else if (PortSide.SIDES_NORTH_SOUTH.contains(side)) {
 			return port.getWidth();
 		} else {
-			throw new RuntimeException("Unexpected side: " + side);
+			throw new IllegalArgumentException("Unexpected side: " + side);
 		}
 	}
 
@@ -832,7 +831,7 @@ class ElkGraphBuilder {
 		} else if (PortSide.SIDES_NORTH_SOUTH.contains(side)) {
 			port.setX(position);
 		} else {
-			throw new RuntimeException("Unexpected side: " + side);
+			throw new IllegalArgumentException("Unexpected side: " + side);
 		}
 	}
 
@@ -848,7 +847,7 @@ class ElkGraphBuilder {
 		} else if (PortSide.SIDES_NORTH_SOUTH.contains(side)) {
 			return new Dimension(dim.height, dim.width);
 		} else {
-			throw new RuntimeException("Unexpected side: " + side);
+			throw new IllegalArgumentException("Unexpected side: " + side);
 		}
 	}
 }

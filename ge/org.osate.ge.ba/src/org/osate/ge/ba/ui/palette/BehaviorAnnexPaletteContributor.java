@@ -28,31 +28,41 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ge.aadl2.ui.PaletteCommandUtil;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.PaletteCategory;
 import org.osate.ge.palette.PaletteCommandProviderContext;
 import org.osate.ge.palette.PaletteContributor;
 import org.osate.ge.palette.TargetedPaletteCommand;
 
+/**
+ * Palette contributor which contributes commands for creating behavior annex elements.
+ *
+ */
 public class BehaviorAnnexPaletteContributor implements PaletteContributor {
-	public static final String BEHAVIOR_ANNEX = "org.osate.ge.ba.categories.ba";
+	/**
+	 * ID for the category containing behavior annex palette commands.
+	 */
+	public static final String BEHAVIOR_ANNEX_CATEGORY_ID = "org.osate.ge.ba.categories.ba";
 
 	@Override
 	public Stream<PaletteCategory> getCategories() {
-		return Stream.of(new PaletteCategory(BEHAVIOR_ANNEX, "Behavior Annex"));
+		return Stream.of(new PaletteCategory(BEHAVIOR_ANNEX_CATEGORY_ID, "Behavior Annex"));
 	}
 
 	@Override
 	public Stream<TargetedPaletteCommand> getTargetedCommands(final PaletteCommandProviderContext ctx) {
 		final List<TargetedPaletteCommand> commands = new ArrayList<>();
 		// Do not show BehaviorAnnex specification palette option when diagram bo is BehaviorAnnex
-		if (!(ctx.getDiagramBusinessObject() instanceof BehaviorAnnex)) {
+		if (PaletteCommandUtil.diagramMayContainPackageOrComponentClassifiers(ctx)) {
 			commands.add(new CreateSpecificationPaletteCommand());
+		} else if (!diagramIsBehaviorAnnex(ctx)) {
+			// Return empty if diagram context is not valid
+			return Stream.empty();
 		}
 
 		commands.add(new CreateStatePaletteCommand());
 		commands.add(new CreateVariablePaletteCommand());
-
 		return commands.stream();
 	}
 
@@ -60,7 +70,13 @@ public class BehaviorAnnexPaletteContributor implements PaletteContributor {
 	public Stream<CreateConnectionPaletteCommand> getCreateConnectionCommands(
 			final PaletteCommandProviderContext ctx) {
 		final List<CreateConnectionPaletteCommand> commands = new ArrayList<>();
-		commands.add(new CreateTransitionPaletteCommand());
+		if (diagramIsBehaviorAnnex(ctx) || PaletteCommandUtil.diagramMayContainPackageOrComponentClassifiers(ctx)) {
+			commands.add(new CreateTransitionPaletteCommand());
+		}
 		return commands.stream();
+	}
+
+	private static boolean diagramIsBehaviorAnnex(final PaletteCommandProviderContext ctx) {
+		return ctx.getDiagramBusinessObject() instanceof BehaviorAnnex;
 	}
 }

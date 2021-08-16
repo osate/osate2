@@ -34,7 +34,7 @@ import javax.imageio.stream.ImageOutputStream;
 import org.eclipse.core.resources.IFile;
 
 /**
- * Service for exporting a diagram as an image.
+ * Service for exporting a diagram as an image. Editor implementations provide this service as a global service.
  * Unless the specified format is "svg", the functions in this class delegate image writing to {@link javax.imageio.ImageIO}.
  * Supported formats are dependent on the image writers supported by that class.
  * @since 3.0
@@ -46,7 +46,7 @@ public interface DiagramExportService {
 	 * @param outputFile the file to which to save the image.
 	 * @param format either "svg" or a name of a {@link ImageIO} writer format
 	 * @param scaling how much to scale the diagram when exporting.
-	 * @throws IOException
+	 * @throws IOException if an I/O error occurs.
 	 */
 	default void export(final IFile diagramFile, final File outputFile, final String format, final double scaling)
 			throws IOException {
@@ -61,7 +61,7 @@ public interface DiagramExportService {
 	 * @param outputStream the stream to which to write the image.
 	 * @param format either "svg" or a name of a {@link ImageIO} writer format
 	 * @param scaling how much to scale the diagram when exporting.
-	 * @throws IOException
+	 * @throws IOException if an I/O error occurs.
 	 */
 	default void export(final IFile diagramFile, final ImageOutputStream outputStream, final String format,
 			final double scaling)
@@ -104,7 +104,7 @@ public interface DiagramExportService {
 	 * @param outputStream the stream to which to write the image.
 	 * @param format either "svg" or a name of a {@link ImageIO} writer format
 	 * @param scaling how much to scale the diagram when exporting.
-	 * @throws IOException
+	 * @throws IOException if an I/O error occurs.
 	 */
 	void export(final IFile diagramFile, final OutputStream outputStream, final String format,
 			final double scaling) throws IOException;

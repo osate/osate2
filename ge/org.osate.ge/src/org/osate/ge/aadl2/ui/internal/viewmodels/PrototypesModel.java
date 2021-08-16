@@ -61,8 +61,8 @@ import org.osate.aadl2.VirtualBusPrototype;
 import org.osate.aadl2.VirtualProcessorPrototype;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.aadl2.AadlImportsUtil;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
-import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
 import org.osate.ge.aadl2.internal.util.AadlPrototypeUtil;
 import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.aadl2.ui.internal.viewmodels.PrototypesModel.EditablePrototype;
@@ -78,7 +78,7 @@ import com.google.common.base.Strings;
  * {@link org.osate.ge.BusinessObjectSelection}.
  *
  * Classifiers provided by this model are either a {@link org.osate.aadl2.Classifier} or
- * @{link org.eclipse.xtext.resource.IEObjectDescription}. However, that is an implementation detail and users should not rely
+ * {@link org.eclipse.xtext.resource.IEObjectDescription}. However, that is an implementation detail and users should not rely
  * on that.
  *
  */

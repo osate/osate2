@@ -46,6 +46,9 @@ import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
+/**
+ * Business object handler for {@link ErrorType} objects.
+ */
 public class ErrorTypeHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = RectangleBuilder.create().build();
 

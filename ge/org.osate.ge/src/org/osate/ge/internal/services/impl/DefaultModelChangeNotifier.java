@@ -38,12 +38,17 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.statushandlers.StatusManager;
+import org.osate.ge.internal.GraphicalEditorException;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.ui.xtext.XtextDocumentChangeListener;
+import org.osgi.framework.FrameworkUtil;
 
 public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 	private final ProjectDeltaVisitor projectVisitor = new ProjectDeltaVisitor();
@@ -90,7 +95,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 
 			return resource.getType() == IResource.ROOT && !hasModelChanged;
 		}
-	};
+	}
 
 	private class AadlResourceUriCollectorVisitor implements IResourceDeltaVisitor {
 		@Override
@@ -106,7 +111,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 
 			return true;
 		}
-	};
+	}
 
 	private final IResourceChangeListener resourceChangeListener = event -> {
 		final IResourceDelta delta = event.getDelta();
@@ -114,7 +119,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 			try {
 				delta.accept(resourceUriCollectorVisitor);
 
-				hasModelChanged = hasModelChanged || pendingChangedResourceUris.size() > 0;
+				hasModelChanged = hasModelChanged || !pendingChangedResourceUris.isEmpty();
 				if (hasModelChanged) {
 					if (currentLock == null) {
 						hasChangesWhileUnlocked = true;
@@ -123,13 +128,13 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 					delta.accept(projectVisitor);
 				}
 			} catch (final CoreException e) {
-				// Ignore. No reasonable way to handle.
-				e.printStackTrace();
+				// Log and ignore
+				StatusManager.getManager()
+						.handle(new Status(IStatus.ERROR, FrameworkUtil.getBundle(getClass()).getSymbolicName(),
+								"Error listening for resource changes", e), StatusManager.LOG);
 			}
 
-			Display.getDefault().syncExec(() -> {
-				handleNotifications();
-			});
+			Display.getDefault().syncExec(this::handleNotifications);
 		}
 	};
 
@@ -157,34 +162,32 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 	// Checks notifications. If there is a lock then it does nothing. Change notifications will wait until the lock is closed. If there isn't a lock, it
 	// notifies listeners of changes that are pending.
 	private synchronized void handleNotifications() {
-		if (currentLock == null) {
-			if (pendingChangedResourceUris.size() > 0 || hasModelChanged) {
-				// Make copy of the flags so that recursive calls to handle notifications will not trigger an update for the same resources
-				final List<URI> changedResourceUrisBeingProcessed = new ArrayList<>(pendingChangedResourceUris);
-				final boolean hadModelChanged = hasModelChanged;
-				final boolean wasModelLocked = !hasChangesWhileUnlocked;
+		if (currentLock == null && (!pendingChangedResourceUris.isEmpty() || hasModelChanged)) {
+			// Make copy of the flags so that recursive calls to handle notifications will not trigger an update for the same resources
+			final List<URI> changedResourceUrisBeingProcessed = new ArrayList<>(pendingChangedResourceUris);
+			final boolean hadModelChanged = hasModelChanged;
+			final boolean wasModelLocked = !hasChangesWhileUnlocked;
 
-				// Reset flags
-				pendingChangedResourceUris.clear();
-				hasModelChanged = false;
-				hasChangesWhileUnlocked = false;
+			// Reset flags
+			pendingChangedResourceUris.clear();
+			hasModelChanged = false;
+			hasChangesWhileUnlocked = false;
 
-				// Send notifications. Notifications are sent using the display thread so that all diagrams updates will take place in the main thread and avoid
-				// updating the diagram while change notifications are being handled.
-				Display.getDefault().asyncExec(() -> {
-					// Send resource change notifications
-					for (final URI resourceUri : changedResourceUrisBeingProcessed) {
-						for (final ChangeListener listener : changeListeners) {
-							listener.resourceChanged(resourceUri);
-						}
+			// Send notifications. Notifications are sent using the display thread so that all diagrams updates will take place in the main thread and avoid
+			// updating the diagram while change notifications are being handled.
+			Display.getDefault().asyncExec(() -> {
+				// Send resource change notifications
+				for (final URI resourceUri : changedResourceUrisBeingProcessed) {
+					for (final ChangeListener listener : changeListeners) {
+						listener.resourceChanged(resourceUri);
 					}
+				}
 
-					// Send a single notification that the model has changed regardless of the number of changes
-					if (hadModelChanged) {
-						onModelChanged(wasModelLocked);
-					}
-				});
-			}
+				// Send a single notification that the model has changed regardless of the number of changes
+				if (hadModelChanged) {
+					onModelChanged(wasModelLocked);
+				}
+			});
 		}
 	}
 
@@ -231,7 +234,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 	@Override
 	public synchronized Lock lock() {
 		if(currentLock != null) {
-			throw new RuntimeException("Already locked");
+			throw new GraphicalEditorException("Already locked");
 		}
 
 		// Create a new lock
@@ -240,7 +243,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 			public void close() {
 				synchronized (DefaultModelChangeNotifier.this) {
 					if (currentLock != this) {
-						throw new RuntimeException("Not the current lock");
+						throw new GraphicalEditorException("Not the current lock");
 					}
 
 					currentLock = null;

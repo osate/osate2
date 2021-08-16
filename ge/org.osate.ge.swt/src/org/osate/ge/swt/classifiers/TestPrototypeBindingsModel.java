@@ -40,10 +40,18 @@ import org.osate.ge.swt.BaseObservableModel;
  */
 public class TestPrototypeBindingsModel extends BaseObservableModel
 		implements PrototypeBindingsModel<String, String, String, String> {
+	/**
+	 * Label used as the label for null direction, type, and classifiers
+	 */
+	private static final String NULL_LABEL = "<None>";
+
 	private Map<String, String> directionMap = new HashMap<>();
 	private Map<String, String> typeMap = new HashMap<>();
 	private Map<String, String> classifierMap = new HashMap<>();
 
+	/**
+	 * Creates a new instance
+	 */
 	public TestPrototypeBindingsModel() {
 		setClassifier(null, "c1");
 	}
@@ -106,7 +114,7 @@ public class TestPrototypeBindingsModel extends BaseObservableModel
 
 	@Override
 	public String getDirectionLabel(final String direction) {
-		return direction == null ? "<None>" : direction;
+		return direction == null ? NULL_LABEL : direction;
 	}
 
 	@Override
@@ -127,7 +135,7 @@ public class TestPrototypeBindingsModel extends BaseObservableModel
 
 	@Override
 	public String getTypeLabel(final String type) {
-		return type == null ? "<None>" : type;
+		return type == null ? NULL_LABEL : type;
 	}
 
 	@Override
@@ -148,7 +156,7 @@ public class TestPrototypeBindingsModel extends BaseObservableModel
 
 	@Override
 	public String getClassifierLabel(final String classifier) {
-		return classifier == null ? "<None>" : classifier;
+		return classifier == null ? NULL_LABEL : classifier;
 	}
 
 	@Override

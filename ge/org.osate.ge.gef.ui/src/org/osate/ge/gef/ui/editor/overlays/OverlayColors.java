@@ -32,9 +32,29 @@ class OverlayColors {
 	private OverlayColors() {
 	}
 
+	/**
+	 * Color used for the selection indicator rectangles
+	 */
 	public static final Color SELECTION_INDICATOR_COLOR = new Color(0.98, 0.811, 0.6, 1.0);
+
+	/**
+	 * Color used for handles which do not have a special color
+	 */
 	public static final Color HANDLE_COLOR = new Color(1.0, 0.518, 0.0, 1.0);
+
+	/**
+	 * The fill color used for the handles of the primary selection.
+	 */
 	public static final Color PRIMARY_SELECTION_HANDLE_FILL_COLOR = HANDLE_COLOR;
+
+	/**
+	 * The fill color used for the handles of secondary selections.
+	 */
 	public static final Color SECONDARY_SELECTION_HANDLE_FILL_COLOR = new Color(1.0, 1.0, 1.0, 1.0);
+
+	/**
+	 * The color of guide lines.
+	 * @see GuideOverlay
+	 */
 	public static final Color GUIDE_COLOR = HANDLE_COLOR;
 }

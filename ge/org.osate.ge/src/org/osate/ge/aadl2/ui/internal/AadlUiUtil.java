@@ -148,7 +148,7 @@ public class AadlUiUtil {
 				.collect(Collectors.toList());
 	}
 
-	public static <ClassifierType extends Classifier> List<ClassifierType> getPotentialClassifiersForEditing(
+	public static <ClassifierType> List<ClassifierType> getPotentialClassifiersForEditing(
 			final Object bo, final Class<ClassifierType> classifierClass, final Predicate<ClassifierType> filter) {
 		return getPotentialClassifiersForEditing(bo, classifierClass, filter, false);
 	}

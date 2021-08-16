@@ -29,6 +29,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.IScopeContext;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.osate.aadl2.AnnexLibrary;
@@ -189,6 +190,9 @@ public class AnnexModel {
 	public static <A extends NamedElement, D extends A> String filterDisabledAnnexes(
 			D defaultAnnexSection,
 			String annexName) {
+		if (!Platform.isRunning()) {
+			return annexName;
+		}
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IProject project = null;
 

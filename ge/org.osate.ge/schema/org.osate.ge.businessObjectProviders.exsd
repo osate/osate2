@@ -6,7 +6,7 @@
          <meta.schema plugin="org.osate.ge" id="org.osate.ge.businessObjectProviders" name="Business Object Providers"/>
       </appinfo>
       <documentation>
-         [Enter description of this extension point.]
+         Allows registering a business object provider. Business object providers are the mechanism by which business objects are exposed to the graphical editor. Business objects displayed in a diagram must be provided by business object providers.
       </documentation>
    </annotation>
 
@@ -62,41 +62,19 @@
       </complexType>
    </element>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="since"/>
-      </appinfo>
-      <documentation>
-         [Enter the first release in which this extension point appears.]
-      </documentation>
-   </annotation>
 
    <annotation>
       <appinfo>
          <meta.section type="examples"/>
       </appinfo>
       <documentation>
-         [Enter extension point usage example here.]
+         &lt;extension point=&quot;org.osate.ge.businessObjectProviders&quot;&gt;
+    &lt;provider class=&quot;org.osate.ge.aadl2.internal.AadlBusinessObjectProvider&quot;&gt;&lt;/provider&gt;
+&lt;/extension&gt;
       </documentation>
    </annotation>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="apiinfo"/>
-      </appinfo>
-      <documentation>
-         [Enter API information here.]
-      </documentation>
-   </annotation>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="implementation"/>
-      </appinfo>
-      <documentation>
-         [Enter information about supplied implementation of this extension point.]
-      </documentation>
-   </annotation>
 
 
 </schema>

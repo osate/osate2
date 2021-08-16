@@ -56,6 +56,7 @@ import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
+import org.osate.ge.internal.GraphicalEditorException;
 import org.osate.ge.internal.businessobjecthandlers.InternalReferenceUtil;
 import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
 import org.osate.ge.internal.diagram.runtime.types.UnrecognizedDiagramType;
@@ -83,13 +84,13 @@ public class DiagramSerialization {
 			resource.load(Collections.singletonMap(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, true));
 			if (resource.getContents().size() == 0
 					|| !(resource.getContents().get(0) instanceof org.osate.ge.diagram.Diagram)) {
-				throw new RuntimeException("Unable to load diagram.");
+				throw new GraphicalEditorException("Unable to load diagram.");
 			}
 
 			final org.osate.ge.diagram.Diagram mmDiagram = (org.osate.ge.diagram.Diagram) resource.getContents().get(0);
 			return mmDiagram;
 		} catch (final IOException e) {
-			throw new RuntimeException(e);
+			throw new GraphicalEditorException(e);
 		}
 	}
 
@@ -243,7 +244,7 @@ public class DiagramSerialization {
 			boolean usingLegacyContentFilters) {
 		final String[] refSegs = toReferenceSegments(mmChild.getBo());
 		if (refSegs == null) {
-			throw new RuntimeException("Invalid element. Business Object not specified");
+			throw new GraphicalEditorException("Invalid element. Invalid business object reference.");
 		}
 
 		final RelativeBusinessObjectReference relReference = new RelativeBusinessObjectReference(refSegs);
@@ -273,34 +274,34 @@ public class DiagramSerialization {
 		final IPath image = mmChild.getImage() != null
 				? project.getFile(Path.fromPortableString(mmChild.getImage())).getFullPath()
 						: null;
-				final Color fontColor = mmChild.getFontColor() != null ? parseColor(mmChild.getFontColor()) : null;
-				final Color outline = mmChild.getOutline() != null ? parseColor(mmChild.getOutline()) : null;
-				final Double lineWidth = mmChild.getLineWidth();
-				final Double fontSize = mmChild.getFontSize();
-				final Boolean primaryLabelVisible = mmChild.getPrimaryLabelVisible();
+		final Color fontColor = mmChild.getFontColor() != null ? parseColor(mmChild.getFontColor()) : null;
+		final Color outline = mmChild.getOutline() != null ? parseColor(mmChild.getOutline()) : null;
+		final Double lineWidth = mmChild.getLineWidth();
+		final Double fontSize = mmChild.getFontSize();
+		final Boolean primaryLabelVisible = mmChild.getPrimaryLabelVisible();
 
-				newElement.setStyle(StyleBuilder.create().backgroundColor(background).showAsImage(showAsImage).imagePath(image)
-						.fontColor(fontColor).outlineColor(outline).fontSize(fontSize).lineWidth(lineWidth)
-						.primaryLabelVisible(primaryLabelVisible).build());
+		newElement.setStyle(StyleBuilder.create().backgroundColor(background).showAsImage(showAsImage).imagePath(image)
+				.fontColor(fontColor).outlineColor(outline).fontSize(fontSize).lineWidth(lineWidth)
+				.primaryLabelVisible(primaryLabelVisible).build());
 
-				// Bendpoints
-				final org.osate.ge.diagram.BendpointList mmBendpoints = mmChild.getBendpoints();
-				if (mmBendpoints == null) {
-					newElement.setBendpoints(Collections.emptyList());
-				} else {
-					newElement.setBendpoints(mmBendpoints.getPoint().stream().map(DiagramSerialization::convertPoint)
-							.collect(Collectors.toList()));
-				}
+		// Bendpoints
+		final org.osate.ge.diagram.BendpointList mmBendpoints = mmChild.getBendpoints();
+		if (mmBendpoints == null) {
+			newElement.setBendpoints(Collections.emptyList());
+		} else {
+			newElement.setBendpoints(mmBendpoints.getPoint().stream().map(DiagramSerialization::convertPoint)
+					.collect(Collectors.toList()));
+		}
 
-				// Primary Label Position (Only Supported for Connections)
-				newElement.setConnectionPrimaryLabelPosition(convertPoint(mmChild.getPrimaryLabelPosition()));
+		// Primary Label Position (Only Supported for Connections)
+		newElement.setConnectionPrimaryLabelPosition(convertPoint(mmChild.getPrimaryLabelPosition()));
 
-				// Add the element
-				m.addElement(newElement);
+		// Add the element
+		m.addElement(newElement);
 
-				// Create children
-				readElements(project, m, contentFilterProvider, newElement, mmChild, legacyIdToUuidMap,
-						usingLegacyContentFilters);
+		// Create children
+		readElements(project, m, contentFilterProvider, newElement, mmChild, legacyIdToUuidMap,
+				usingLegacyContentFilters);
 	}
 
 	private static Point convertPoint(final org.osate.ge.diagram.Point mmPoint) {
@@ -349,7 +350,7 @@ public class DiagramSerialization {
 		try {
 			resource.save(Collections.emptyMap());
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			throw new GraphicalEditorException(e);
 		}
 	}
 

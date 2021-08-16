@@ -79,7 +79,7 @@ public class DefaultOperationResultsProcessor implements OperationExecutor.Resul
 
 				// Don't set the position if multiple items are being added.
 				// Don't set the position if the incremental layout mode is set to diagram.
-				// This will ensure the shape is layed out even if it is a docked shape.
+				// This will ensure the shape is laid out even if it is a docked shape.
 				final Point position;
 				if (results.getContainerToBoToShowDetailsMap().size() == 1
 						&& LayoutPreferences.getCurrentLayoutMode() != IncrementalLayoutMode.LAYOUT_DIAGRAM
@@ -93,12 +93,12 @@ public class DefaultOperationResultsProcessor implements OperationExecutor.Resul
 				final EmbeddedBusinessObject embeddedBo = (newValue.bo instanceof EmbeddedBusinessObject)
 						? (EmbeddedBusinessObject) newValue.bo
 								: null;
-						editor.getDiagramUpdater().addToNextUpdate(containerNode, newValue.ref,
-								new FutureElementInfo(position, embeddedBo));
+				editor.getDiagramUpdater().addToNextUpdate(containerNode, newValue.ref,
+						new FutureElementInfo(position, embeddedBo));
 
-						if (embeddedBo != null) {
-							update = true;
-						}
+				if (embeddedBo != null) {
+					update = true;
+				}
 			}
 		}
 

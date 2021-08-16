@@ -42,6 +42,10 @@ public class SelectInputEventHandler implements InputEventHandler {
 	private final AgeEditor editor;
 	private boolean selectOnRelease = false; // Flag used to delay selection until the mouse button is released
 
+	/**
+	 * Creates a new instance
+	 * @param editor the editor from which events originate.
+	 */
 	public SelectInputEventHandler(final AgeEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 	}

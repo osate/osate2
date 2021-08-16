@@ -34,7 +34,13 @@ public interface Interaction extends AutoCloseable {
 	 * The state of the interaction.
 	 */
 	enum InteractionState {
+		/**
+		 * An interaction is still in progress and should receive input events.
+		 */
 		IN_PROGRESS,
+		/**
+		 * The interaction has been completed
+		 */
 		COMPLETE
 	}
 

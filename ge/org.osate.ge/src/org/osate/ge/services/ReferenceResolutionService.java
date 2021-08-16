@@ -26,13 +26,16 @@ package org.osate.ge.services;
 import org.osate.ge.CanonicalBusinessObjectReference;
 
 /**
- * Service for retrieving a business object using a reference created using ReferenceBuilderService.
+ * Editor service for retrieving a business object using a reference created using {@link ReferenceBuilderService}.
  * @noextend
  * @noimplement
  * @see ReferenceBuilderService
  */
 public interface ReferenceResolutionService {
 	/**
+	 * Returns the business object references by the canonical reference.
+	 * @param reference the reference to resolve
+	 * @return the referenced business object. Returns null if the reference could not be resolved.
 	 * @since 2.0
 	 */
 	Object resolve(final CanonicalBusinessObjectReference reference);

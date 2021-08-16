@@ -49,34 +49,37 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
+/**
+ * Business object handler for {@link ErrorTypeExtension} objects.
+ */
 public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomDeleter {
-	private static final Graphic labelGraphic = LabelBuilder.create().build();
-	private static final Style style = StyleBuilder.create().backgroundColor(Color.WHITE).build();
-	private static final Graphic connectionGraphic = ConnectionBuilder.create()
-			.destinationTerminator(ArrowBuilder.create().filled().build()).build();
+	private static final Graphic LABEL_GRAPHIC = LabelBuilder.create().build();
+	private static final Style STYLE = StyleBuilder.create().backgroundColor(Color.WHITE).build();
+	private static final Graphic CONNECTION_GRAPHIC = ConnectionBuilder.create()
+			.destinationTerminator(ArrowBuilder.create().filled().build())
+			.build();
 
 	// Only works if the package is displayed in the diagram.
-	private static StandaloneQuery dstQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.ancestor(3)
-					.descendantsByBusinessObjectsRelativeReference(
-					ete -> getBusinessObjectPath(((ErrorTypeExtension) ete).getSupertype())));
+	private static final ExecutableQuery<ErrorTypeExtension> dstQuery = ExecutableQuery.create(
+			rootQuery -> rootQuery.ancestor(3)
+					.descendantsByBusinessObjectsRelativeReference(ete -> getBusinessObjectPath(ete.getSupertype())));
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
-		return ctx.getBusinessObject(ErrorTypeExtension.class).filter(
-				ete -> ete.getSubtype().getElementRoot() instanceof AadlPackage
+		return ctx.getBusinessObject(ErrorTypeExtension.class)
+				.filter(ete -> ete.getSubtype().getElementRoot() instanceof AadlPackage
 						&& ete.getSupertype().getElementRoot() instanceof AadlPackage)
 				.isPresent();
 	}
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final ErrorTypeExtension ete = ctx.getBusinessObject(ErrorTypeExtension.class).get();
+		final ErrorTypeExtension ete = ctx.getBusinessObject(ErrorTypeExtension.class).orElseThrow();
 		return new CanonicalBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_TYPE_EXT,
 				ctx.getReferenceBuilder().getCanonicalReference(ete.getSupertype()).encode(),
 				ctx.getReferenceBuilder().getCanonicalReference(ete.getSubtype()).encode());
@@ -105,11 +108,14 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 		final BusinessObjectContext destination = getDestination(boc, queryService);
 
 		if (destination == null) {
-			return Optional.of(GraphicalConfigurationBuilder.create().graphic(labelGraphic).decoration().build());
+			return Optional.of(GraphicalConfigurationBuilder.create().graphic(LABEL_GRAPHIC).build());
 		} else {
-			return Optional.of(GraphicalConfigurationBuilder.create().graphic(connectionGraphic).style(style)
+			return Optional.of(GraphicalConfigurationBuilder.create()
+					.graphic(CONNECTION_GRAPHIC)
+					.style(STYLE)
 					.source(boc.getParent())
-					.destination(destination).build());
+					.destination(destination)
+					.build());
 		}
 	}
 
@@ -138,22 +144,20 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 		}).orElse("");
 	}
 
-	private BusinessObjectContext getDestination(final BusinessObjectContext boc,
-			final QueryService queryService) {
+	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
 		final BusinessObjectContext packageParent = boc.getAncestor(3);
 		if (packageParent == null) {
 			// Not supported. Package was not contained in the diagram.
 			return null;
 		} else {
-			return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
+			return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc,
+					boc.getBusinessObject(ErrorTypeExtension.class).orElseThrow());
 		}
 	}
 
 	@Override
 	public void delete(final CustomDeleteContext ctx) {
-		ctx.getContainerBusinessObject(ErrorType.class).ifPresent(subtype -> {
-			subtype.setSuperType(null);
-		});
+		ctx.getContainerBusinessObject(ErrorType.class).ifPresent(subtype -> subtype.setSuperType(null));
 	}
 
 	private static Object[] getBusinessObjectPath(final ErrorType et) {

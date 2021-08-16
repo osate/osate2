@@ -47,7 +47,7 @@ public final class CreateReferenceResolverFactoryContext {
 	}
 
 	/**
-	 * Returns the project ot use for the resolver.
+	 * Returns the project to use for the resolver.
 	 * @return the project which defines the scope of the resolver.
 	 */
 	public IProject getProject() {

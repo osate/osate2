@@ -78,7 +78,7 @@ public class OperationExecutor {
 		}
 
 		if (!(op instanceof Step)) {
-			throw new RuntimeException("Operation is not of type Step");
+			throw new IllegalArgumentException("Operation is not of type Step");
 		}
 
 		final ExecutionState executionState = new ExecutionState();
@@ -213,7 +213,7 @@ public class OperationExecutor {
 				executionState.pendingStepConsumers.add(stepResultSupplier);
 			}
 		} else {
-			throw new RuntimeException("Unexpected step: " + step);
+			throw new IllegalArgumentException("Unexpected step: " + step);
 		}
 
 		if (step.getNextStep() != null) {

@@ -43,21 +43,24 @@ import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 
 /**
- * Business object handler for {@link BehaviorTransitionTrunk}
+ * Business object handler for {@link BehaviorTransitionTrunk} objects.
  * @see ErrorBehaviorTransitionHandler for details about how transitions are represented.
  */
 public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, CustomDeleter
 {
-	private static StandaloneQuery srcQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.ancestor(2).children()
-			.filterByBusinessObjectRelativeReference(t -> ((BehaviorTransitionTrunk) t).getTransition().getSource()));
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.ancestor(2).children()
-			.filterByBusinessObjectRelativeReference(t -> ((BehaviorTransitionTrunk) t).getTransition()));
+	private static final ExecutableQuery<BehaviorTransitionTrunk> SRC_QUERY = ExecutableQuery
+			.create(rootQuery -> rootQuery.ancestor(2)
+							.children()
+			.filterByBusinessObjectRelativeReference(t -> t.getTransition().getSource()));
+	private static final ExecutableQuery<BehaviorTransitionTrunk> DST_QUERY = ExecutableQuery
+			.create(rootQuery -> rootQuery.ancestor(2)
+					.children()
+			.filterByBusinessObjectRelativeReference(t -> t.getTransition()));
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -66,7 +69,7 @@ public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, Cu
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final BehaviorTransitionTrunk trunk = ctx.getBusinessObject(BehaviorTransitionTrunk.class).get();
+		final BehaviorTransitionTrunk trunk = ctx.getBusinessObject(BehaviorTransitionTrunk.class).orElseThrow();
 		return new CanonicalBusinessObjectReference(
 				ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION_TRUNK,
 				ctx.getReferenceBuilder().getCanonicalReference(trunk.getTransition()).encode());
@@ -98,12 +101,14 @@ public class BehaviorTransitionTrunkHandler implements BusinessObjectHandler, Cu
 
 	private BusinessObjectContext getSource(final BusinessObjectContext boc,
 			final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(srcQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(SRC_QUERY, boc,
+				boc.getBusinessObject(BehaviorTransitionTrunk.class).orElseThrow());
 	}
 
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc,
 			final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(DST_QUERY, boc,
+				boc.getBusinessObject(BehaviorTransitionTrunk.class).orElseThrow());
 	}
 
 	@Override

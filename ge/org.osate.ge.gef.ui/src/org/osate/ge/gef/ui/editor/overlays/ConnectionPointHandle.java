@@ -29,9 +29,9 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import javafx.scene.shape.Circle;
 
 /**
- * Handle for modifying points associated with a connection.
+ * Abstract class for handles used for modifying points associated with a connection.
  */
-public class ConnectionPointHandle extends Circle implements Handle {
+public abstract class ConnectionPointHandle extends Circle implements Handle {
 	private final DiagramElement diagramElement;
 	private final BaseConnectionNode sceneNode;
 
@@ -42,7 +42,7 @@ public class ConnectionPointHandle extends Circle implements Handle {
 	 * @param primary whether the handle is associated with the primary selection
 	 * @param radius is the radius of the handle
 	 */
-	public ConnectionPointHandle(final DiagramElement diagramElement, final BaseConnectionNode sceneNode,
+	protected ConnectionPointHandle(final DiagramElement diagramElement, final BaseConnectionNode sceneNode,
 			final boolean primary, final double radius) {
 		super(radius, primary ? OverlayColors.PRIMARY_SELECTION_HANDLE_FILL_COLOR
 				: OverlayColors.SECONDARY_SELECTION_HANDLE_FILL_COLOR);
@@ -57,6 +57,10 @@ public class ConnectionPointHandle extends Circle implements Handle {
 		return diagramElement;
 	}
 
+	/**
+	 * Returns the connection node to which the point belongs.
+	 * @return the connection to which the point belongs.
+	 */
 	public BaseConnectionNode getSceneNode() {
 		return sceneNode;
 	}
