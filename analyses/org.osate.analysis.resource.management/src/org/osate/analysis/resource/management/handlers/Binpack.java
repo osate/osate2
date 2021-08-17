@@ -53,6 +53,10 @@ import org.osate.aadl2.ProcessorClassifier;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.SystemClassifier;
+import org.osate.aadl2.contrib.aadlproject.SizeUnits;
+import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.timing.TimingProperties;
+import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionKind;
@@ -206,7 +210,8 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 				protected boolean suchThat(Element obj) {
 					final ComponentCategory cat = ((ComponentInstance) obj).getCategory();
 					if (cat == ComponentCategory.THREAD || cat == ComponentCategory.DEVICE) {
-						return GetProperties.getPeriodinMS((ComponentInstance) obj) == 0.0;
+						return org.osate.pluginsupport.properties.PropertyUtils
+						.getScaled(TimingProperties::getPeriod, (ComponentInstance) obj, TimeUnits.MS).orElse(0.0) == 0.0;
 					} else {
 						return false;
 					}
@@ -249,7 +254,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 							Classifier cl = srcAP.getClassifier();
 							if (cl instanceof DataClassifier) {
 								DataClassifier srcDC = (DataClassifier) cl;
-								if (GetProperties.getSourceDataSizeInBytes(srcDC) == 0) {
+								if (AadlContribUtils.getDataSize(srcDC, SizeUnits.BYTES) == 0) {
 									logWarning("Data size of connection source port " + src.getComponentInstancePath()
 											+ " not specified");
 								}
@@ -556,7 +561,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 						double dataSize = 0.0;
 						double threadPeriod = 0.0;
 						try {
-							dataSize = GetProperties.getSourceDataSizeInBytes(srcDC);
+							dataSize = AadlContribUtils.getDataSize(srcDC, SizeUnits.BYTES);
 						} catch (Exception e) {
 							errManager.warning(connInst, "No Data Size for connection");
 						}
