@@ -50,11 +50,13 @@ import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.graphics.StyleBuilder;
 
 /**
- * Business Object Handler for {@link BehaviorVariable}.
+ * Business Object Handler for {@link BehaviorVariable} objects.
  */
 public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()
-			.graphic(RectangleBuilder.create().build()).style(StyleBuilder.create().labelsCenter().build()).build();
+			.graphic(RectangleBuilder.create().build())
+			.style(StyleBuilder.create().labelsCenter().build())
+			.build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -68,7 +70,7 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public void rename(final RenameContext ctx) {
-		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).get();
+		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).orElseThrow();
 		behaviorVariable.setName(ctx.getNewName());
 	}
 
@@ -79,10 +81,11 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public void delete(final CustomDeleteContext ctx) {
-		final BehaviorAnnex behaviorAnnex = ctx.getContainerBusinessObject(BehaviorAnnex.class).get();
+		final BehaviorAnnex behaviorAnnex = ctx.getContainerBusinessObject(BehaviorAnnex.class).orElseThrow();
 		// Find variable by URI.
-		final BehaviorVariable behaviorVariable = (BehaviorVariable) behaviorAnnex.eResource().getResourceSet()
-				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorVariable.class).get()), true);
+		final BehaviorVariable behaviorVariable = (BehaviorVariable) behaviorAnnex.eResource()
+				.getResourceSet()
+				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorVariable.class).orElseThrow()), true);
 		EcoreUtil.remove(behaviorVariable);
 		if (behaviorAnnex.getVariables().isEmpty()) {
 			behaviorAnnex.unsetVariables();
@@ -91,14 +94,15 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).get();
+		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).orElseThrow();
 		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.VARIABLE_TYPE,
-				behaviorVariable.getName());
+				behaviorVariable.getName(),
+				ctx.getReferenceBuilder().getCanonicalReference(behaviorVariable.getOwner()).encode());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).get();
+		final BehaviorVariable behaviorVariable = ctx.getBusinessObject(BehaviorVariable.class).orElseThrow();
 		return BehaviorAnnexReferenceUtil.getVariableRelativeReference(behaviorVariable.getName());
 	}
 
@@ -109,16 +113,16 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(BehaviorVariable.class).map(behaviorVariable -> {
-			final String name = (behaviorVariable.getName() == null ? "" : behaviorVariable.getName())
-					+ AadlArrayUtil.getDimensionUserString(behaviorVariable);
-			return name;
-		}).orElse("");
+		return ctx.getBusinessObject(BehaviorVariable.class)
+				.map(behaviorVariable -> (behaviorVariable.getName() == null ? "" : behaviorVariable.getName())
+						+ AadlArrayUtil.getDimensionUserString(behaviorVariable))
+				.orElse("");
 	}
 
 	@Override
 	public String getNameForRenaming(final GetNameContext ctx) {
-		return ctx.getBusinessObject(BehaviorVariable.class).map(behaviorVariable -> behaviorVariable.getName())
+		return ctx.getBusinessObject(BehaviorVariable.class)
+				.map(behaviorVariable -> behaviorVariable.getName())
 				.orElse("");
 	}
 

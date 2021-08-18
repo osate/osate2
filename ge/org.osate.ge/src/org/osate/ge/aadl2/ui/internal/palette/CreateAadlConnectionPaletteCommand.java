@@ -51,6 +51,7 @@ import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.StringUtil;
+import org.osate.ge.aadl2.AadlCategories;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.util.AadlConnectionUtil;
@@ -68,7 +69,7 @@ public class CreateAadlConnectionPaletteCommand extends BasePaletteCommand imple
 
 	public CreateAadlConnectionPaletteCommand(final EClass connectionType) {
 		super(StringUtil.camelCaseToUser(connectionType.getName()),
-				AadlPaletteCategories.CONNECTIONS,
+				AadlCategories.CONNECTIONS,
 				AadlImages.getImage(connectionType));
 		this.connectionType = connectionType;
 	}

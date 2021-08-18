@@ -62,7 +62,7 @@ public class FlowToolUtil {
 	static Optional<BusinessObjectContext> getAncestorDiagramElement(
 			BusinessObjectContext ancestorBoc,
 			final Queue<Element> ancestors) {
-		Optional<DiagramElement> boc = null;
+		Optional<DiagramElement> boc;
 		for (; !ancestors.isEmpty(); ancestorBoc = boc.get()) {
 			final Element ancestorElement = ancestors.poll();
 			boc = ancestorBoc.getChildren().stream()

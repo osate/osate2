@@ -57,7 +57,7 @@ public class NoteHandler implements BusinessObjectHandler {
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
 		return new RelativeBusinessObjectReference(InternalReferenceUtil.TYPE_NOTE,
-				ctx.getBusinessObject(Note.class).get().getId().toString());
+				ctx.getBusinessObject(Note.class).orElseThrow().getId().toString());
 	}
 
 	@Override

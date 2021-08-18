@@ -34,6 +34,9 @@ import javafx.scene.input.MouseEvent;
  * Base class for interactions. Provides dedicated functions to be overridden for specific event types.
  */
 public abstract class BaseInteraction implements Interaction {
+	/**
+	 * Calls the protected on events depending on the type of input event.
+	 */
 	@Override
 	public final InteractionState handleEvent(final InputEvent e) {
 		if (e.getEventType() == MouseEvent.MOUSE_MOVED) {
@@ -56,12 +59,19 @@ public abstract class BaseInteraction implements Interaction {
 		return null;
 	}
 
+	/**
+	 * Handles a mouse moved event. Intended to be overridden as appropriate by subclasses.
+	 * This implementation returns {@link org.osate.ge.gef.ui.editor.Interaction.InteractionState#IN_PROGRESS}
+	 * @param e the mouse moved event
+	 * @return the new state for the interaction.
+	 * @see Interaction#handleEvent(InputEvent)
+	 */
 	protected Interaction.InteractionState onMouseMoved(final MouseEvent e) {
 		return InteractionState.IN_PROGRESS;
 	}
 
 	/**
-	 * Handles mouse press events. By default, the interaction is completed if the secondary mouse button is pressed.
+	 * Handles a mouse press event. Unless overridden, the interaction is completed if the secondary mouse button is pressed.
 	 * @param e the mouse event
 	 * @return the new state for the interaction.
 	 */
@@ -73,14 +83,36 @@ public abstract class BaseInteraction implements Interaction {
 		return InteractionState.IN_PROGRESS;
 	}
 
+	/**
+	 * Handles a mouse dragged event. Intended to be overridden as appropriate by subclasses.
+	 * This implementation returns {@link org.osate.ge.gef.ui.editor.Interaction.InteractionState#IN_PROGRESS}
+	 * @param e the mouse dragged event
+	 * @return the new state for the interaction.
+	 * @see Interaction#handleEvent(InputEvent)
+	 */
 	protected Interaction.InteractionState onMouseDragged(final MouseEvent e) {
 		return InteractionState.IN_PROGRESS;
 	}
 
+	/**
+	 * Handles a mouse released event. Intended to be overridden as appropriate by subclasses.
+	 * This implementation returns {@link org.osate.ge.gef.ui.editor.Interaction.InteractionState#IN_PROGRESS}
+	 * @param e the mouse released event
+	 * @return the new state for the interaction.
+	 * @see Interaction#handleEvent(InputEvent)
+	 */
 	protected Interaction.InteractionState onMouseReleased(final MouseEvent e) {
 		return InteractionState.IN_PROGRESS;
 	}
 
+	/**
+	 * Handles a key pressed event. Intended to be overridden as appropriate by subclasses.
+	 * The interaction is completed if the escape key is pressed. Otherwise, this implementation returns
+	 * {@link org.osate.ge.gef.ui.editor.Interaction.InteractionState#IN_PROGRESS}
+	 * @param e the key pressed event
+	 * @return the new state for the interaction.
+	 * @see Interaction#handleEvent(InputEvent)
+	 */
 	protected Interaction.InteractionState onKeyPressed(final KeyEvent e) {
 		if (e.getCode() == KeyCode.ESCAPE) {
 			return InteractionState.COMPLETE;

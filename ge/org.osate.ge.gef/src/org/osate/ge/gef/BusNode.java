@@ -26,10 +26,7 @@ package org.osate.ge.gef;
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.ClosePath;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -52,9 +49,8 @@ public class BusNode extends Region implements ChopBoxGeometryProvider, Stylable
 		path.setStrokeType(StrokeType.INSIDE);
 		path.setStrokeLineCap(StrokeLineCap.BUTT);
 
-		setLineWidth(2.0);
-		setBackgroundColor(Color.WHITE);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
 	@Override
@@ -91,26 +87,10 @@ public class BusNode extends Region implements ChopBoxGeometryProvider, Stylable
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
-	}
-
-	public final void setBackgroundColor(final Color value) {
-		path.setFill(value);
-	}
-
-	public final void setOutlineColor(final Color value) {
-		path.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		path.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		path.getStrokeDashArray().setAll(value);
+		path.setFill(style.getBackgroundColor());
+		path.setStroke(style.getOutlineColor());
+		path.setStrokeWidth(style.getLineWidth());
+		path.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 
 	@Override

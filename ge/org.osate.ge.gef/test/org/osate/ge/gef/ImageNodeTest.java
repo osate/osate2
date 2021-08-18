@@ -29,13 +29,16 @@ import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
 import javafx.util.Duration;
 
+/**
+ * Interactive test application which renders an {@link ImageNode} with the specified image. Periodically refreshes images.
+ */
 public class ImageNodeTest {
 	private ImageNodeTest() {
 	}
 
 	/**
-	 * main() used for testing. First argument must contain the filepath to the image.
-	 * Periodically refreshes images.
+	 * Entry point for the test application.
+	 * @param args command line arguments. First member should contain the filepath to the test image.
 	 */
 	public static void main(final String[] args) {
 		NodeApplication.run(() -> {

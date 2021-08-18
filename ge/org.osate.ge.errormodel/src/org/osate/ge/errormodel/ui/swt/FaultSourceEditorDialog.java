@@ -26,7 +26,6 @@ package org.osate.ge.errormodel.ui.swt;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -40,7 +39,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.osate.ge.StringUtil;
 import org.osate.ge.errormodel.ui.viewmodels.BasicTypeTokenListEditorModel;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.selectors.CollectionSingleSelectorModel;
 import org.osate.ge.swt.selectors.FilteringListSelectorField;
@@ -89,7 +87,7 @@ public class FaultSourceEditorDialog {
 	}
 
 	private static class InnerDialog extends TitleAreaDialog {
-		private final Consumer<ChangeEvent> changeListener = e -> refresh();
+		private final Runnable changeListener = this::refresh;
 		private final String title;
 		private final SingleSelectorModel<FaultSourceType> typeSelectorModel;
 		private final FaultSourceEditorModel model;

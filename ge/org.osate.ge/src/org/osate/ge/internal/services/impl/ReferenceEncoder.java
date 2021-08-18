@@ -25,12 +25,19 @@ package org.osate.ge.internal.services.impl;
 
 import java.util.List;
 
-// Helper class for encoding and decoding references. Handles escaping characters. Encoded strings are guaranteed not to include spaces
+/**
+ * Helper class for encoding and decoding lists of strings to/from a string. This is useful when attempting to serialize a reference.
+ */
 public class ReferenceEncoder {
-	private static final char OUTER_ESCAPE_CHAR = '$'; // Used to start an escape sequence or to indicate a space when used afte ran inner escape character
+	private static final char OUTER_ESCAPE_CHAR = '$'; // Used to start an escape sequence or to indicate a space when used after an inner escape character
 	private static final char INNER_ESCAPE_CHAR = '%';
 	private static final String ESCAPED_INNER_ESCAPE_CHAR = Character.toString(INNER_ESCAPE_CHAR) + INNER_ESCAPE_CHAR;
 
+	/**
+	 * Encoded a list of string to a single string
+	 * @param segs the segments which make up the reference
+	 * @return the encoded string
+	 */
 	public static String encode(final List<String> segs) {
 		final StringBuilder sb = new StringBuilder();
 		ReferenceEncoder.encodeSegment(sb, segs.get(0));
@@ -46,6 +53,11 @@ public class ReferenceEncoder {
 		return sb.toString();
 	}
 
+	/**
+	 * Decodes an encoded string into an array of string.
+	 * @param referenceStr the encoded string as returned by {@link ReferenceEncoder#encode(List)}
+	 * @return the decoded array of string.
+	 */
 	public static String[] decode(final String referenceStr) {
 		final String[] ref = referenceStr.split(" ");
 		if(ref.length < 1) {
@@ -63,7 +75,7 @@ public class ReferenceEncoder {
 		return ref;
 	}
 
-	public static void encodeSegment(final StringBuilder sb, final String seg) {
+	private static void encodeSegment(final StringBuilder sb, final String seg) {
 		for(int i = 0; i < seg.length(); i++) {
 			final char ch = seg.charAt(i);
 			if(ch == OUTER_ESCAPE_CHAR) {
@@ -82,7 +94,7 @@ public class ReferenceEncoder {
 		}
 	}
 
-	public static void decodeSegment(final StringBuilder sb, final String seg) {
+	private static void decodeSegment(final StringBuilder sb, final String seg) {
 		final int len = seg.length();
 		for(int i = 0; i < len; i++) {
 			char ch = seg.charAt(i);
@@ -113,13 +125,13 @@ public class ReferenceEncoder {
 	// Simple main function that encodes and decodes strings for testing purposes.
 	public static void main(final String[] args) {
 		final StringBuilder sb = new StringBuilder();
-		testEncodeDecode(sb, "Test");
-		testEncodeDecode(sb, "C$");
-		testEncodeDecode(sb, "C$ DE");
-		testEncodeDecode(sb, "C$_DE");
+		testEncodeDecodeSegment(sb, "Test");
+		testEncodeDecodeSegment(sb, "C$");
+		testEncodeDecodeSegment(sb, "C$ DE");
+		testEncodeDecodeSegment(sb, "C$_DE");
 	}
 
-	private static void testEncodeDecode(final StringBuilder sb, final String str) {
+	private static void testEncodeDecodeSegment(final StringBuilder sb, final String str) {
 		sb.setLength(0);
 		encodeSegment(sb, str);
 		final String encoded = sb.toString();

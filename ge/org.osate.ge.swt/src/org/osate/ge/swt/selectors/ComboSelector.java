@@ -24,7 +24,6 @@
 package org.osate.ge.swt.selectors;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -34,20 +33,26 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 
 /**
  * Wrapper around JFace's {@link org.eclipse.jface.viewers.ComboViewer} which uses a {@link SingleSelectorModel}
  *
  * Sorts items provided by model.
+ *
+ * @param <T> See {@link SingleSelectorModel}
  * @since 1.1
  */
 public final class ComboSelector<T> extends Composite {
 	private final NullRemovingSingleSelectorModel wrappedModel;
 	private final org.eclipse.jface.viewers.ComboViewer comboViewer;
-	private final Consumer<ChangeEvent> changeListener = e -> refresh();
+	private final Runnable changeListener = this::refresh;
 
+	/**
+	 * Creates a new instance
+	 * @param parent the widget which is the parent of the editor. Must not be null.
+	 * @param model the model for the selector
+	 */
 	public ComboSelector(final Composite parent, final SingleSelectorModel<T> model) {
 		super(parent, SWT.NONE);
 		this.wrappedModel = new NullRemovingSingleSelectorModel(Objects.requireNonNull(model, "model must not be null"));
@@ -116,9 +121,12 @@ public final class ComboSelector<T> extends Composite {
 		comboViewer.getControl().setEnabled(enabled);
 	}
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new ComboSelector<>(shell, new TestListEditorModel());
-		});
+		SwtUtil.run(shell -> new ComboSelector<>(shell, new TestListEditorModel()));
 	}
 }

@@ -26,7 +26,9 @@ package org.osate.ge.errormodel.combined;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.EList;
@@ -34,9 +36,13 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.NamedElement;
+import org.osate.ge.errormodel.model.KeywordPropagationPointType;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
@@ -44,16 +50,15 @@ import com.google.common.collect.Lists;
 
 /**
  * Class represents the result of combining all error model subclauses for a given classifier. Handles classifier extension and
- * redefiniton of model elements.
+ * redefinition of model elements.
  *
  */
-public class CombinedErrorModelSubclause {
+public final class CombinedErrorModelSubclause {
 	/**
 	 * Instance that doesn't contain any values. Useful to avoid needing to handle null values.
 	 */
 	public static final CombinedErrorModelSubclause EMPTY = new CombinedErrorModelSubclause(false,
-			Collections.emptyMap(),
-			Collections.emptyMap(), Collections.emptyMap(),
+			Collections.emptyMap(), Collections.emptyMap(), Collections.emptyMap(), Collections.emptySet(),
 			new PropagationNode());
 
 	private final boolean subclauseFound;
@@ -61,15 +66,17 @@ public class CombinedErrorModelSubclause {
 	private final Map<String, PropagationPath> paths;
 	private final Map<String, ErrorFlow> flows;
 	private final ReadonlyPropagationNode propagations;
+	private final Set<KeywordPropagationPointType> usedKeywordPointTypes;
 
-	public CombinedErrorModelSubclause(final boolean subclauseFound, final Map<String, PropagationPoint> points,
-			final Map<String, PropagationPath> paths,
-			final Map<String, ErrorFlow> flows, final ReadonlyPropagationNode propagations) {
+	private CombinedErrorModelSubclause(final boolean subclauseFound, final Map<String, PropagationPoint> points,
+			final Map<String, PropagationPath> paths, final Map<String, ErrorFlow> flows,
+			final Set<KeywordPropagationPointType> usedKeywordPointTypes, final ReadonlyPropagationNode propagations) {
 		this.subclauseFound = subclauseFound;
 		this.points = Collections.unmodifiableMap(points);
 		this.paths = Collections.unmodifiableMap(paths);
 		this.flows = Collections.unmodifiableMap(flows);
 		this.propagations = propagations;
+		this.usedKeywordPointTypes = Collections.unmodifiableSet(usedKeywordPointTypes);
 	}
 
 	/**
@@ -80,27 +87,58 @@ public class CombinedErrorModelSubclause {
 		return subclauseFound;
 	}
 
+	/**
+	 * Returns all the propagation points
+	 * @return the propagation points
+	 */
 	public final Stream<PropagationPoint> getPoints() {
 		return points.values().stream();
 	}
 
+	/**
+	 * Returns all the propagation paths
+	 * @return the propagation paths
+	 */
 	public final Stream<PropagationPath> getPaths() {
 		return paths.values().stream();
 	}
 
+	/**
+	 * Returns all the error flows
+	 * @return the error flows
+	 */
 	public final Stream<ErrorFlow> getFlows() {
 		return flows.values().stream();
 	}
 
+	/**
+	 * Returns the {@link KeywordPropagationPointType} values which are referenced by other error model elements
+	 * @return the {@link KeywordPropagationPointType} values which are referenced by other error model elements
+	 */
+	public final Set<KeywordPropagationPointType> getUsedKeywordPropagations() {
+		return usedKeywordPointTypes;
+	}
+
+	/**
+	 * Returns the root of propagation tree. Each propagation is represented as a node of this tree. A tree is used to represent propagations
+	 * attached to members of feature groups.
+	 * @return the root of the propagation tree.
+	 */
 	public final ReadonlyPropagationNode getPropagations() {
 		return propagations;
 	}
 
+	/**
+	 * Creates an instance for the specified classifier. Processes error model subclauses owned or inherited by the classifier.
+	 * @param classifier the classifier for which to create the instance.
+	 * @return the new instance
+	 */
 	public static CombinedErrorModelSubclause create(final Classifier classifier) {
 		final Map<String, PropagationPoint> points = new HashMap<>();
 		final Map<String, PropagationPath> paths = new HashMap<>();
 		final Map<String, ErrorFlow> flows = new HashMap<>();
 		final PropagationNode propagations = new PropagationNode();
+		final Set<KeywordPropagationPointType> usedKeywordPointTypes = new HashSet<>();
 
 		final EList<Classifier> classifiers = classifier.getSelfPlusAllExtended();
 		if (classifier instanceof ComponentImplementation) {
@@ -110,7 +148,7 @@ public class CombinedErrorModelSubclause {
 			}
 		}
 
-		final boolean subclauseFound[] = { false };
+		final boolean[] subclauseFound = { false };
 		for (final Classifier tmpClassifier : Lists.reverse(classifiers)) {
 			ErrorModelGeUtil.getAllErrorModelSubclauses(tmpClassifier).forEachOrdered(subclause -> {
 				subclauseFound[0] = true;
@@ -122,11 +160,55 @@ public class CombinedErrorModelSubclause {
 				for (final ErrorPropagation propagation : subclause.getPropagations()) {
 					propagations.put(propagation);
 				}
+
+				//
+				// Find used propagation point keywords
+				//
+				for (final ErrorPropagation propagation : subclause.getPropagations()) {
+					if (propagation.getKind() != null) {
+						usedKeywordPointTypes.add(KeywordPropagationPointType.getByKind(propagation.getKind()));
+					}
+				}
+
+				for (final ErrorFlow errorFlow : subclause.getFlows()) {
+					if (errorFlow instanceof ErrorPath) {
+						final ErrorPath errorPath = (ErrorPath) errorFlow;
+						if (errorPath.isAllIncoming() || errorPath.isAllOutgoing()) {
+							usedKeywordPointTypes.add(KeywordPropagationPointType.ALL);
+						}
+
+						if (errorPath.getIncoming() != null) {
+							usedKeywordPointTypes
+									.add(KeywordPropagationPointType.getByKind(errorPath.getIncoming().getKind()));
+						}
+
+						if (errorPath.getOutgoing() != null) {
+							usedKeywordPointTypes
+									.add(KeywordPropagationPointType.getByKind(errorPath.getOutgoing().getKind()));
+						}
+					} else if (errorFlow instanceof ErrorSink) {
+						final ErrorSink errorSink = (ErrorSink) errorFlow;
+						if (errorSink.isAllIncoming()) {
+							usedKeywordPointTypes.add(KeywordPropagationPointType.ALL);
+						} else if (errorSink.getIncoming() != null) {
+							usedKeywordPointTypes
+									.add(KeywordPropagationPointType.getByKind(errorSink.getIncoming().getKind()));
+						}
+					} else if (errorFlow instanceof ErrorSource) {
+						final ErrorSource errorSrc = (ErrorSource) errorFlow;
+						if (errorSrc.isAll()) {
+							usedKeywordPointTypes.add(KeywordPropagationPointType.ALL);
+						} else if (errorSrc.getSourceModelElement() instanceof ErrorPropagation) {
+							usedKeywordPointTypes.add(KeywordPropagationPointType
+									.getByKind(((ErrorPropagation) errorSrc.getSourceModelElement()).getKind()));
+						}
+					}
+				}
 			});
 		}
 
-
-		return new CombinedErrorModelSubclause(subclauseFound[0], points, paths, flows, propagations);
+		return new CombinedErrorModelSubclause(subclauseFound[0], points, paths, flows, usedKeywordPointTypes,
+				propagations);
 	}
 
 	/**

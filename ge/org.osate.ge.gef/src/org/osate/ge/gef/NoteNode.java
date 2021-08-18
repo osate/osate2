@@ -26,10 +26,7 @@ package org.osate.ge.gef;
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
 
@@ -53,9 +50,8 @@ public class NoteNode extends Region implements ChopBoxGeometryProvider, Stylabl
 		polyline.setStrokeType(StrokeType.INSIDE);
 		polyline.setStrokeLineCap(StrokeLineCap.BUTT);
 
-		setLineWidth(2.0);
-		setBackgroundColor(Color.WHITE);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
 	@Override
@@ -69,29 +65,13 @@ public class NoteNode extends Region implements ChopBoxGeometryProvider, Stylabl
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
-	}
-
-	public final void setBackgroundColor(final Color value) {
-		polygon.setFill(value);
-	}
-
-	public final void setOutlineColor(final Color value) {
-		polygon.setStroke(value);
-		polyline.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		polygon.setStrokeWidth(value);
-		polyline.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		polygon.getStrokeDashArray().setAll(value);
-		polyline.getStrokeDashArray().setAll(value);
+		polygon.setFill(style.getBackgroundColor());
+		polygon.setStroke(style.getOutlineColor());
+		polyline.setStroke(style.getOutlineColor());
+		polygon.setStrokeWidth(style.getLineWidth());
+		polyline.setStrokeWidth(style.getLineWidth());
+		polygon.getStrokeDashArray().setAll(style.getStrokeDashArray());
+		polyline.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 
 	@Override

@@ -54,7 +54,7 @@ import org.osate.ge.graphics.StyleBuilder;
  * business object provider. Since the object isn't contributed at this time, the other methods are not necessary.
  */
 public class BehaviorSpecificationHandler implements BusinessObjectHandler {
-	final AnnexHandler annexHandler = new AnnexHandler();
+	private final AnnexHandler annexHandler = new AnnexHandler();
 	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()
 			.graphic(RectangleBuilder.create().build())
 			.style(StyleBuilder.create().labelsHorizontalCenter().labelsTop().build()).build();

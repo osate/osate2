@@ -37,7 +37,7 @@ public class PortSideUtil {
 	public static PortSide getPortSideForNonGroupDockArea(final DockArea dockArea) {
 		final PortSide portSide = dockAreaToPortSideMap.get(dockArea);
 		if (portSide == null) {
-			throw new RuntimeException("Unexpected dock area: " + dockArea);
+			throw new IllegalArgumentException("Unexpected dock area: " + dockArea);
 		}
 
 		return portSide;

@@ -88,6 +88,10 @@ public class AgeFxTest extends Application {
 	private boolean dashed = false;
 	private GridPane container;
 
+	/**
+	 * Entry point for the test application.
+	 * @param args command line arguments
+	 */
 	public static void main(final String[] args) {
 		Application.launch(args);
 	}

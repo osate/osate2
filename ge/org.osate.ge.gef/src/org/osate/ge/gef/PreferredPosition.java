@@ -35,6 +35,12 @@ import javafx.scene.Node;
  */
 public class PreferredPosition {
 	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private PreferredPosition() {
+	}
+
+	/**
 	 * Key for the property for the preferred position of the node.
 	 */
 	private static final Object KEY = new Object();
@@ -58,7 +64,7 @@ public class PreferredPosition {
 		final Point2D oldValue = get(node);
 		if (!Objects.equals(value, oldValue)) {
 			if (value == null) {
-				node.getProperties().remove(KEY, value);
+				node.getProperties().remove(KEY);
 			} else {
 				node.getProperties().put(KEY, value);
 			}

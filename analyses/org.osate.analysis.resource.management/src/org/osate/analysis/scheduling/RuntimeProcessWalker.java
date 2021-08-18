@@ -32,9 +32,12 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.analysis.resource.management.handlers.Schedule;
+import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -115,7 +118,7 @@ public class RuntimeProcessWalker {
 			return;
 		}
 
-		double deadlineval = GetProperties.getDeadlineinMilliSec(elt);
+		double deadlineval = PropertyUtils.getScaled(TimingProperties::getDeadline, elt, TimeUnits.MS).orElse(0.0);
 		RuntimeProcess curComponent = new RuntimeProcess();
 		curComponent.setProcessorName(currentProcessor.getInstanceObjectPath());
 		// convert time into MicroSeconds so it does not get rounded down

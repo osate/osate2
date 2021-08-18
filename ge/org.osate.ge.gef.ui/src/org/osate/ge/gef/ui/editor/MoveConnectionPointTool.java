@@ -61,6 +61,10 @@ import javafx.scene.transform.Transform;
 public class MoveConnectionPointTool implements InputEventHandler {
 	private final AgeEditor editor;
 
+	/**
+	 * Creates a new instance
+	 * @param editor the editor from which events originate.
+	 */
 	public MoveConnectionPointTool(final AgeEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 	}
@@ -81,6 +85,10 @@ public class MoveConnectionPointTool implements InputEventHandler {
 	}
 }
 
+/**
+ * Interaction for moving connection points
+ *
+ */
 class MoveConnectionPointInteraction extends BaseInteraction {
 	private static final double REMOVE_POINT_DISTANCE = 2.0;
 	private static final double ADD_POINT_DISTANCE = 15.0;
@@ -108,6 +116,11 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 	 */
 	private boolean updateSceneGraphOnComplete = true;
 
+	/**
+	 * Creates a new instance
+	 * @param editor the editor containing the diagram being edited
+	 * @param e the mouse pressed event which started the interaction
+	 */
 	public MoveConnectionPointInteraction(final AgeEditor editor, final MouseEvent e) {
 		this.editor = editor;
 
@@ -308,10 +321,11 @@ class MoveConnectionPointInteraction extends BaseInteraction {
 				.transform(positionInDiagram);
 
 		try {
-			final Point2D p = local.getLocalToSceneTransform().createInverse().transform(positionScene.getX(),
+			return local.getLocalToSceneTransform()
+					.createInverse()
+					.transform(positionScene.getX(),
 					positionScene.getY());
-			return p;
-		} catch (NonInvertibleTransformException ex) {
+		} catch (final NonInvertibleTransformException ex) {
 			throw new AgeGefRuntimeException(ex);
 		}
 	}

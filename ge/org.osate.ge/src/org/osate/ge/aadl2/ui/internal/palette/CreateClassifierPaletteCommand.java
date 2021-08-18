@@ -39,6 +39,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ProjectUtil;
 import org.osate.ge.StringUtil;
+import org.osate.ge.aadl2.AadlCategories;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.util.AadlClassifierUtil;
@@ -55,14 +56,14 @@ import org.osate.ge.operations.StepResult;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 import com.google.common.collect.ImmutableList;
 
 public class CreateClassifierPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
-	private static final StandaloneQuery packageQuery = StandaloneQuery
-			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof AadlPackage));
+	private static final ExecutableQuery<Object> PACKAGE_QUERY = ExecutableQuery
+			.create((root) -> root.ancestors().filter(fa -> fa.getBusinessObject() instanceof AadlPackage));
 
 	private final EClass classifierEClass;
 	private final ComponentCategory componentCategory; // Will be null for feature group types
@@ -75,9 +76,7 @@ public class CreateClassifierPaletteCommand extends BasePaletteCommand implement
 
 	private CreateClassifierPaletteCommand(final EClass eClass, final ComponentCategory componentCategory,
 			final boolean componentImplementation) {
-		super(StringUtil.camelCaseToUser(eClass.getName()),
-				AadlPaletteCategories.CLASSIFIERS,
-				AadlImages.getImage(eClass));
+		super(StringUtil.camelCaseToUser(eClass.getName()), AadlCategories.CLASSIFIERS, AadlImages.getImage(eClass));
 		this.classifierEClass = eClass;
 		this.componentCategory = componentCategory;
 		this.componentImplementation = componentImplementation;
@@ -154,9 +153,8 @@ public class CreateClassifierPaletteCommand extends BasePaletteCommand implement
 				primaryType = ClassifierOperationPartType.NEW_FEATURE_GROUP_TYPE;
 				primaryComponentCategory = null;
 			} else {
-				primaryType = componentImplementation
-						? ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION
-								: ClassifierOperationPartType.NEW_COMPONENT_TYPE;
+				primaryType = componentImplementation ? ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION
+						: ClassifierOperationPartType.NEW_COMPONENT_TYPE;
 				primaryComponentCategory = componentCategory;
 			}
 
@@ -210,7 +208,8 @@ public class CreateClassifierPaletteCommand extends BasePaletteCommand implement
 					new ClassifierOperationDialog.ArgumentBuilder(model,
 							EnumSet.of(ClassifierOperationPartType.NEW_COMPONENT_IMPLEMENTATION)).defaultPackage(pkg)
 					.showPrimaryPackageSelector(false)
-					.componentCategories(ImmutableList.of(componentCategory)).create());
+					.componentCategories(ImmutableList.of(componentCategory))
+					.create());
 		}
 	}
 
@@ -222,7 +221,8 @@ public class CreateClassifierPaletteCommand extends BasePaletteCommand implement
 		} else if (targetBo instanceof Classifier) {
 			// Get the AadlPackage based on the query. This ensures that the package is the one represented by the diagram rather than the one in which the
 			// target business object is contained.
-			return queryService.getFirstBusinessObjectContextOrNull(packageQuery, targetBoc);
+			return queryService.getFirstBusinessObjectContextOrNull(PACKAGE_QUERY, targetBoc,
+					targetBoc.getBusinessObject());
 		}
 
 		return null;
@@ -235,8 +235,7 @@ public class CreateClassifierPaletteCommand extends BasePaletteCommand implement
 		boolean containerIsValidBaseClassifier = false;
 		if (componentImplementation) {
 			for (final EClass superType : classifierEClass.getESuperTypes()) {
-				if (!Aadl2Package.eINSTANCE.getComponentImplementation()
-						.isSuperTypeOf(superType)) {
+				if (!Aadl2Package.eINSTANCE.getComponentImplementation().isSuperTypeOf(superType)) {
 					if (superType.isSuperTypeOf(containerType)) {
 						containerIsValidBaseClassifier = true;
 						break;
@@ -244,8 +243,7 @@ public class CreateClassifierPaletteCommand extends BasePaletteCommand implement
 				}
 			}
 		} else {
-			containerIsValidBaseClassifier = classifierEClass.isSuperTypeOf(
-					containerType)
+			containerIsValidBaseClassifier = classifierEClass.isSuperTypeOf(containerType)
 					|| Aadl2Package.eINSTANCE.getAbstractType().isSuperTypeOf(containerType);
 		}
 

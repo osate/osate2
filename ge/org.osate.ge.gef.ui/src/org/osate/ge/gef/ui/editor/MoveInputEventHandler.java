@@ -43,6 +43,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.diagram.runtime.DockArea;
 
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -63,7 +64,7 @@ public class MoveInputEventHandler implements InputEventHandler {
 	 * Minimum mouse dragged distance in diagram coordinates before starting the move interaction.
 	 * This avoids starting the move interaction when the user is attempting to perform a rename or other interaction.
 	 */
-	private static double MIN_MOUSE_DRAGGED_DISTANCE = 10.0;
+	private static final double MIN_MOUSE_DRAGGED_DISTANCE = 10.0;
 
 	private final AgeEditor editor;
 
@@ -78,6 +79,10 @@ public class MoveInputEventHandler implements InputEventHandler {
 	 */
 	private Node mousePressPrimaryConnectionLabel;
 
+	/**
+	 * Creates a new instance
+	 * @param editor the editor from which events originate.
+	 */
 	public MoveInputEventHandler(final AgeEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 	}
@@ -188,6 +193,13 @@ class MovePrimaryConnectionLabelInteraction extends BaseInteraction {
 	private final Point2D connectionMidpointPositionInDiagram;
 	private final Bounds originalLabelLayoutInDiagram;
 
+	/**
+	 * Creates a new instance
+	 * @param editor the editor containing the diagram being modified.
+	 * @param initialClickLocationInDiagram the location in diagram coordinates of the initial click
+	 * @param connection the connection whose label is being moved
+	 * @param label the scene graph node of the primary label being moved
+	 */
 	public MovePrimaryConnectionLabelInteraction(final AgeEditor editor, final Point2D initialClickLocationInDiagram,
 			final BaseConnectionNode connection, final Node label) {
 		this.editor = editor;
@@ -241,9 +253,7 @@ class MovePrimaryConnectionLabelInteraction extends BaseInteraction {
 		}
 
 		// Move diagram elements by updating the diagram to reflect the current scene graph
-		editor.getDiagram().modify("Move", m -> {
-			editor.getGefDiagram().updateDiagramFromSceneGraph();
-		});
+		editor.getDiagram().modify("Move", m -> editor.getGefDiagram().updateDiagramFromSceneGraph());
 
 		return InteractionState.COMPLETE;
 	}
@@ -259,6 +269,11 @@ class MouseMoveSelectedElementsInteraction extends BaseInteraction {
 	private final SelectedElementsMover mover;
 	private final Point2D initialClickLocationInDiagram;
 
+	/**
+	 * Creates a new instance
+	 * @param editor the editor containing the diagram being modified.
+	 * @param initialClickLocationInDiagram the location in diagram coordinates of the click which started the interaction.
+	 */
 	public MouseMoveSelectedElementsInteraction(final AgeEditor editor, final Point2D initialClickLocationInDiagram) {
 		this.editor = editor;
 		this.mover = new SelectedElementsMover(editor);
@@ -309,12 +324,16 @@ class MouseMoveSelectedElementsInteraction extends BaseInteraction {
  * The diagram is updated when the user pressed "Enter"
  */
 class KeyboardMoveSelectedElementsInteraction extends BaseInteraction {
-	private static double NORMAL_STEP_SIZE = 10;
-	private static double SMALL_STEP_SIZE = 1;
+	private static final double NORMAL_STEP_SIZE = 10;
+	private static final double SMALL_STEP_SIZE = 1;
 
 	private final SelectedElementsMover mover;
 	private Point2D totalDelta = Point2D.ZERO;
 
+	/**
+	 * Creates a new instance
+	 * @param editor the editor containing the diagram being modified.
+	 */
 	public KeyboardMoveSelectedElementsInteraction(final AgeEditor editor) {
 		this.mover = new SelectedElementsMover(editor);
 	}
@@ -492,10 +511,10 @@ class SelectedElementsMover implements AutoCloseable {
 							final ContainerShape cs = (ContainerShape) container;
 							final Bounds containerBounds = cs.getLayoutBounds();
 							final DockSide side = GefAgeDiagramUtil
-									.toDockSide(AgeDiagramUtil.determineDockingPosition(containerBounds.getWidth(),
-											containerBounds.getHeight(), newPositionX, newPositionY,
-											snapshot.boundsInDiagram.getWidth(), snapshot.boundsInDiagram.getHeight())
-											.getDefaultDockArea());
+									.toDockSide(DockArea.fromDockingPosition(AgeDiagramUtil.determineDockingPosition(
+											containerBounds.getWidth(), containerBounds.getHeight(), newPositionX,
+											newPositionY, snapshot.boundsInDiagram.getWidth(),
+											snapshot.boundsInDiagram.getHeight())));
 							cs.addOrUpdateDockedChild(ds, side);
 						}
 					}
@@ -521,9 +540,7 @@ class SelectedElementsMover implements AutoCloseable {
 		}
 
 		// Move diagram elements by updating the diagram to reflect the current scene graph
-		editor.getDiagram().modify("Move", m -> {
-			editor.getGefDiagram().updateDiagramFromSceneGraph();
-		});
+		editor.getDiagram().modify("Move", m -> editor.getGefDiagram().updateDiagramFromSceneGraph());
 	}
 
 	private void shiftAffectedConnections(final DiagramElementSnapshot snapshot, final double dx, final double dy) {
@@ -535,9 +552,11 @@ class SelectedElementsMover implements AutoCloseable {
 				if (affectedConnectionSceneNode instanceof ConnectionNode) {
 					final BaseConnectionNode cn = (BaseConnectionNode) affectedConnectionSceneNode;
 					cn.getInnerConnection()
-							.setControlPoints(cn.getInnerConnection().getControlPoints().stream().map(cp -> {
-								return new org.eclipse.gef.geometry.planar.Point(cp.x + dx, cp.y + dy);
-							}).collect(Collectors.toList()));
+							.setControlPoints(cn.getInnerConnection()
+									.getControlPoints()
+									.stream()
+									.map(cp -> new org.eclipse.gef.geometry.planar.Point(cp.x + dx, cp.y + dy))
+									.collect(Collectors.toList()));
 				}
 			}
 		}

@@ -30,7 +30,7 @@ import org.osate.ge.swt.ObservableModel;
 /**
  * Model for editing a tree of nodes which each may have a direction, a type, and a classifier. Intended for selecting and editing prototype binding and classifier references.
  *
- * It is critical that values set using this model not automatically change or clear other values. Furthermore it is critical that children returned are consistent.
+ * Values set using this model must not automatically change or clear other values. Furthermore it is critical that children returned are consistent.
  * For example if the classifier is changed and then reverted, the values returned by the model should be the same. This functionality is required to allow users of the model
  * to revert changes by tracking values before setting them.
  *

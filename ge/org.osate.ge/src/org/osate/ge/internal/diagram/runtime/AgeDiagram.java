@@ -40,6 +40,7 @@ import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
+import org.osate.ge.internal.GraphicalEditorException;
 import org.osate.ge.internal.diagram.runtime.botree.Completeness;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.ActionExecutor;
@@ -118,7 +119,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	 */
 	public void setActionExecutor(final ActionExecutor actionExecutor) {
 		if (actionExecutorSet) {
-			throw new RuntimeException("The action executor for the diagram must not be set multiple times");
+			throw new GraphicalEditorException("The action executor for the diagram must not be set multiple times");
 		}
 
 		this.actionExecutor = Objects.requireNonNull(actionExecutor, "actionExecutor must not be null");
@@ -291,7 +292,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			if (bo instanceof EmbeddedBusinessObject) {
 				// Conversion from non-embedded to an embedded object is not supported.
 				if (!(e.getBusinessObject() instanceof EmbeddedBusinessObject)) {
-					throw new RuntimeException(
+					throw new GraphicalEditorException(
 							"Invalid case. Conversion from non-embeedded to embedded business object");
 				}
 

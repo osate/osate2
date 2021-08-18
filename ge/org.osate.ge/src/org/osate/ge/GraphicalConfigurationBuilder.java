@@ -23,12 +23,13 @@
  */
 package org.osate.ge;
 
+import org.osate.ge.diagram.DiagramConfiguration;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
 /**
- * Builder for creating graphical configurations.
+ * Builder for creating graphical configurations. Used to create instances of {@link DiagramConfiguration}
  * @noextend
  * @see GraphicalConfiguration
  */
@@ -38,60 +39,96 @@ public class GraphicalConfigurationBuilder {
 	protected DockingPosition defaultDockingPosition = DockingPosition.NOT_DOCKABLE;
 	protected DiagramElement connectionSource;
 	protected DiagramElement connectionDestination;
-	protected boolean isDecoration = false;
 	protected String annotation;
 	protected boolean primaryLabelIsMultiline;
 
+	/**
+	 * Creates a new instance
+	 */
 	protected GraphicalConfigurationBuilder() {
 	}
 
+	/**
+	 * Creates a new instance of the builder.
+	 * @return a new instance of the builder.
+	 */
 	public static GraphicalConfigurationBuilder create() {
 		return new GraphicalConfigurationBuilder();
 	}
 
+	/**
+	 * Configures the builder to build an instance with the specified graphic.
+	 * @param value the graphic to include in the graphical configuration.
+	 * @return this builder to allow method chaining.
+	 * @see GraphicalConfiguration#getGraphic()
+	 */
 	public GraphicalConfigurationBuilder graphic(final Graphic value) {
 		this.graphic = value;
 		return this;
 	}
 
+	/**
+	 * Configures the builder to build an instance with the specified default docking position.
+	 * @param value the default docking position to include in the graphical configuration.
+	 * @return this builder to allow method chaining.
+	 * @see GraphicalConfiguration#getDefaultDockingPosition()
+	 */
 	public GraphicalConfigurationBuilder defaultDockingPosition(final DockingPosition value) {
 		this.defaultDockingPosition = value;
 		return this;
 	}
 
+	/**
+	 * Configures the builder to build an instance with the specified connection source.
+	 * @param value the source to include in the graphical configuration.
+	 * @return this builder to allow method chaining.
+	 * @see GraphicalConfiguration#getConnectionSource()
+	 */
 	public GraphicalConfigurationBuilder source(final BusinessObjectContext value) {
 		this.connectionSource = (DiagramElement) value;
 		return this;
 	}
 
+	/**
+	 * Configures the builder to build an instance with the specified connection destination.
+	 * @param value the destination to include in the graphical configuration.
+	 * @return this builder to allow method chaining.
+	 * @see GraphicalConfiguration#getConnectionDestination()
+	 */
 	public GraphicalConfigurationBuilder destination(final BusinessObjectContext value) {
 		this.connectionDestination = (DiagramElement) value;
 		return this;
 	}
 
+	/**
+	 * Configures the builder to build an instance with the specified style.
+	 * @param value the style to include in the graphical configuration.
+	 * @return this builder to allow method chaining.
+	 * @see GraphicalConfiguration#getStyle()
+	 */
 	public GraphicalConfigurationBuilder style(final Style value) {
 		this.style = value;
 		return this;
 	}
 
-	public GraphicalConfigurationBuilder decoration() {
-		this.isDecoration = true;
-		return this;
-	}
-
 	/**
 	 * Annotations are only supported for use with shape graphics at this time.
-	 * @param value
-	 * @return
+	 * @param value is the value for the annotation.
+	 * @return this builder to allow method chaining.
+	 * @see GraphicalConfiguration#getAnnotation()
 	 */
-	public GraphicalConfigurationBuilder annotation(String value) {
+	public GraphicalConfigurationBuilder annotation(final String value) {
 		this.annotation = value;
 		return this;
 	}
 
+	/**
+	 * Creates a new graphical configuration with the configured values.
+	 * @return a new graphical configuration with the configured values.
+	 */
 	public GraphicalConfiguration build() {
 		return new GraphicalConfiguration(graphic, defaultDockingPosition, connectionSource,
 				connectionDestination,
-				style, isDecoration, annotation, primaryLabelIsMultiline);
+				style, annotation, primaryLabelIsMultiline);
 	}
 }

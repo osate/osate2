@@ -30,7 +30,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 /**
  * Node for displaying and styling labels. Lightweight wrapper around {@link Label} which implements {@link Stylable}.
@@ -52,7 +51,7 @@ public class LabelNode extends Region implements Stylable, HasLabelBackgroundCol
 	 */
 	public LabelNode(final String txt) {
 		this.getChildren().addAll(text);
-		setFontColor(Color.BLACK);
+		apply(FxStyle.DEFAULT);
 		setText(txt);
 		text.setPadding(PADDING_INSETS);
 	}
@@ -106,8 +105,8 @@ public class LabelNode extends Region implements Stylable, HasLabelBackgroundCol
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setFont(style.getFont());
-		setFontColor(style.getFontColor());
+		text.setFont(style.getFont());
+		text.setTextFill(style.getFontColor());
 	}
 
 	@Override
@@ -118,23 +117,28 @@ public class LabelNode extends Region implements Stylable, HasLabelBackgroundCol
 				new BackgroundFill(value, CornerRadii.EMPTY, PADDING_INSETS)));
 	}
 
-	public void setFont(final Font font) {
-		text.setFont(font);
-	}
-
-	public void setFontColor(final Color value) {
-		text.setTextFill(value);
-	}
-
+	/**
+	 * Gets the text contained in the label
+	 * @return the label's text
+	 */
 	public String getText() {
 		return text.getText();
 	}
 
+	/**
+	 * Sets the text contained in the label
+	 * @param value the new text for the label
+	 */
 	public void setText(final String value) {
 		text.setText(value);
 		requestLayout();
 	}
 
+	/**
+	 * Sets whether to allow text to be wrapped. If it is not wrapped, text which exceeds the available size will be truncated and an
+	 * ellipsis will be rendered. Default to false.
+	 * @param value whether to allow text to wrap.
+	 */
 	public void setWrapText(final boolean value) {
 		text.setWrapText(value);
 	}

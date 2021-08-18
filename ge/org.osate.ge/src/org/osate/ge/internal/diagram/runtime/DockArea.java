@@ -27,6 +27,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.osate.ge.DockingPosition;
+
 /**
  * Internal description of the area of the container to which the shape is docked.
  *
@@ -59,6 +61,34 @@ public enum DockArea {
 
 	public boolean isLeftOrRight() {
 		return this == LEFT || this == RIGHT;
+	}
+
+	/**
+	 * Returns the default docking area for a specified {@link DockingPosition}
+	 * @param value is the docking position for which to get the default docking area.
+	 * @return the default docking area.
+	 */
+	public static DockArea fromDockingPosition(final DockingPosition value) {
+		if(value == null) {
+			return null;
+		}
+
+		switch(value) {
+		case ANY:
+			return LEFT;
+		case NOT_DOCKABLE:
+			return null;
+		case LEFT:
+			return LEFT;
+		case RIGHT:
+			return RIGHT;
+		case TOP:
+			return TOP;
+		case BOTTOM:
+			return BOTTOM;
+		default:
+			throw new IllegalArgumentException("Unexpected value: '" + value + "'");
+		}
 	}
 }
 

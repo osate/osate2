@@ -26,11 +26,14 @@ package org.osate.ge.swt.classifiers;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.EventSource;
 
 /**
  * Abstract decorator for {@link PrototypeBindingsModel}
+ * @param <N> See {@link PrototypeBindingsModel}
+ * @param <D> See {@link PrototypeBindingsModel}
+ * @param <T> See {@link PrototypeBindingsModel}
+ * @param <C> See {@link PrototypeBindingsModel}
  * @since 1.1
  */
 public abstract class PrototypeBindingsModelDecorator<N, D, T, C> implements PrototypeBindingsModel<N, D, T, C> {
@@ -40,12 +43,12 @@ public abstract class PrototypeBindingsModelDecorator<N, D, T, C> implements Pro
 	 * Creates a new instance
 	 * @param inner the model to decorate.
 	 */
-	public PrototypeBindingsModelDecorator(final PrototypeBindingsModel<N, D, T, C> inner) {
+	protected PrototypeBindingsModelDecorator(final PrototypeBindingsModel<N, D, T, C> inner) {
 		this.inner = Objects.requireNonNull(inner, "inner must not be null");
 	}
 
 	@Override
-	public EventSource<ChangeEvent> changed() {
+	public EventSource changed() {
 		return inner.changed();
 	}
 

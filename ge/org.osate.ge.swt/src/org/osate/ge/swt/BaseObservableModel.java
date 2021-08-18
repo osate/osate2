@@ -29,14 +29,17 @@ package org.osate.ge.swt;
  *
  */
 public class BaseObservableModel implements ObservableModel {
-	private final DefaultEventSource<ChangeEvent> changeEventSrc = new DefaultEventSource<>();
+	private final DefaultEventSource changeEventSrc = new DefaultEventSource();
 
 	@Override
-	public final EventSource<ChangeEvent> changed() {
+	public final EventSource changed() {
 		return changeEventSrc;
 	}
 
+	/**
+	 * Dispatches a change event to all listeners.
+	 */
 	protected final void triggerChangeEvent() {
-		changeEventSrc.triggerEvent(new ChangeEvent());
+		changeEventSrc.triggerEvent();
 	}
 }
