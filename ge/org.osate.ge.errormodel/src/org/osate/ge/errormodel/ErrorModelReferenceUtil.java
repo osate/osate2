@@ -30,37 +30,118 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 
-public class ErrorModelReferenceUtil {
+/**
+ * Class containing constants and utility functions related to references to error model business objects
+ */
+public final class ErrorModelReferenceUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private ErrorModelReferenceUtil() {
 	}
 
-	public final static String EMV2_REFERENCE_PREFIX = "emv2.";
-	public final static String TYPE_BEHAVIOR_STATE_MACHINE = EMV2_REFERENCE_PREFIX + "behavior";
-	public final static String TYPE_BEHAVIOR_EVENT = EMV2_REFERENCE_PREFIX + "behavior_event";
-	public final static String TYPE_BEHAVIOR_STATE = EMV2_REFERENCE_PREFIX + "behavior_state";
-	public final static String TYPE_BEHAVIOR_TRANSITION = EMV2_REFERENCE_PREFIX + "behavior_transition";
-	public final static String TYPE_ANONYMOUS_BEHAVIOR_TRANSITION = EMV2_REFERENCE_PREFIX
-			+ "anonymous_behavior_transition";
-	public final static String TYPE_BEHAVIOR_TRANSITION_BRANCH = EMV2_REFERENCE_PREFIX + "behavior_transition_branch";
-	public final static String TYPE_BEHAVIOR_TRANSITION_TRUNK = EMV2_REFERENCE_PREFIX + "behavior_transition_trunk";
-	public final static String TYPE_ERROR_TYPE_LIBRARY = EMV2_REFERENCE_PREFIX + "error_type_library";
-	public final static String TYPE_ERROR_TYPE = EMV2_REFERENCE_PREFIX + "error_type";
-	public final static String TYPE_ERROR_TYPE_EXT = EMV2_REFERENCE_PREFIX + "error_type_extension";
-	public final static String TYPE_TYPE_SET = EMV2_REFERENCE_PREFIX + "error_type_set";
-	public final static String TYPE_PROPAGATION_POINT = EMV2_REFERENCE_PREFIX + "propagation_point";
-	public final static String TYPE_KEYWORD_PROPAGATION_POINT = EMV2_REFERENCE_PREFIX + "keyword_propagation_point";
-	public final static String TYPE_PROPAGATION = EMV2_REFERENCE_PREFIX + "propagation";
-	public final static String TYPE_PROPAGATION_PATH = EMV2_REFERENCE_PREFIX + "propagation_path";
-	public final static String TYPE_ERROR_FLOW = EMV2_REFERENCE_PREFIX + "error_flow";
-	public final static String IS_STEADY = "<steady>"; // Used to identify the transition or branch as steady state.
+	private static final String EMV2_REFERENCE_PREFIX = "emv2.";
 
+	/**
+	 * First segment for {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine} references
+	 */
+	public static final String TYPE_BEHAVIOR_STATE_MACHINE = EMV2_REFERENCE_PREFIX + "behavior";
+
+	/**
+	 * First segment for {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent} references
+	 */
+	public static final String TYPE_BEHAVIOR_EVENT = EMV2_REFERENCE_PREFIX + "behavior_event";
+
+	/**
+	 * First segment for {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState} references
+	 */
+	public static final String TYPE_BEHAVIOR_STATE = EMV2_REFERENCE_PREFIX + "behavior_state";
+
+	/**
+	 * First segment for named {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition} references
+	 */
+	public static final String TYPE_BEHAVIOR_TRANSITION = EMV2_REFERENCE_PREFIX + "behavior_transition";
+
+	/**
+	 * First segment for nameless {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition} references
+	 */
+	public static final String TYPE_ANONYMOUS_BEHAVIOR_TRANSITION = EMV2_REFERENCE_PREFIX
+			+ "anonymous_behavior_transition";
+
+	/**
+	 * First segment for {@link org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch} references
+	 */
+	public static final String TYPE_BEHAVIOR_TRANSITION_BRANCH = EMV2_REFERENCE_PREFIX + "behavior_transition_branch";
+
+	/**
+	 * First segment for {@link org.osate.ge.errormodel.model.BehaviorTransitionTrunk} references
+	 */
+	public static final String TYPE_BEHAVIOR_TRANSITION_TRUNK = EMV2_REFERENCE_PREFIX + "behavior_transition_trunk";
+
+	/**
+	 * First segment for {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorType} references
+	 */
+	public static final String TYPE_ERROR_TYPE = EMV2_REFERENCE_PREFIX + "error_type";
+
+	/**
+	 * First segment for {@link org.osate.ge.errormodel.model.ErrorTypeExtension} references
+	 */
+	public static final String TYPE_ERROR_TYPE_EXT = EMV2_REFERENCE_PREFIX + "error_type_extension";
+
+	/**
+	 * First segment for {@link org.osate.xtext.aadl2.errormodel.errorModel.TypeSet} references
+	 */
+	public static final String TYPE_TYPE_SET = EMV2_REFERENCE_PREFIX + "error_type_set";
+
+	/**
+	 * First segment for {@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath} references
+	 */
+	public static final String TYPE_PROPAGATION_POINT = EMV2_REFERENCE_PREFIX + "propagation_point";
+
+	/**
+	 * First segment for {@link org.osate.ge.errormodel.model.KeywordPropagationPoint} references
+	 */
+	public static final String TYPE_KEYWORD_PROPAGATION_POINT = EMV2_REFERENCE_PREFIX + "keyword_propagation_point";
+
+	/**
+	 * First segment for {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation} references
+	 */
+	public static final String TYPE_PROPAGATION = EMV2_REFERENCE_PREFIX + "propagation";
+
+	/**
+	 * First segment for {@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath} references
+	 */
+	public static final String TYPE_PROPAGATION_PATH = EMV2_REFERENCE_PREFIX + "propagation_path";
+
+	/**
+	 * First segment for {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow} references
+	 */
+	public static final String TYPE_ERROR_FLOW = EMV2_REFERENCE_PREFIX + "error_flow";
+
+	/**
+	 * Name used when serializing a steady state transition or transition branches
+	 */
+	public static final String IS_STEADY = "<steady>";
+
+	/**
+	 * Returns the element name that should be used for serialization. Will never return null.
+	 * @param ne the element for which to get the serialization name.
+	 * @return the string to use to serialize the name.
+	 */
 	public static String getNameForSerialization(final NamedElement ne) {
 		return (ne == null || ne.getName() == null) ? "<null>" : ne.getName();
 	}
 
-	public static <T> int getIndex(final T bo, final Stream<T> matchingSiblings) {
+	/**
+	 * Returns the index of the specified object in the stream. Returns -1 if the object is not in the stream.
+	 * @param <T> the type of objects contained in the stream.
+	 * @param bo the object for which to get the index.
+	 * @param searchStream the stream to search
+	 * @return the index of the specified object in the stream.
+	 */
+	public static <T> int getIndex(final T bo, final Stream<T> searchStream) {
 		int index = 0;
-		for (final Object tmp : (Iterable<T>) matchingSiblings::iterator) {
+		for (final Object tmp : (Iterable<T>) searchStream::iterator) {
 			if (tmp == bo) {
 				return index;
 			}
@@ -70,6 +151,11 @@ public class ErrorModelReferenceUtil {
 		return -1;
 	}
 
+	/**
+	 * Returns the string that should be used to serialize a transition branch's target. Will never return null.
+	 * @param b the branch for which to get the target name
+	 * @return the string that should be used to serialize the target
+	 */
 	public static String getTargetNameForSerialization(final TransitionBranch b) {
 		if (b.isSteadyState()) {
 			return IS_STEADY;
@@ -78,59 +164,124 @@ public class ErrorModelReferenceUtil {
 		}
 	}
 
+	/**
+	 * Builds a relative reference for an {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorType}
+	 * @param name the error type's name
+	 * @return the relative reference
+	 */
 	public static RelativeBusinessObjectReference getRelativeReferenceForErrorType(final String name) {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_TYPE, name);
 	}
 
+	/**
+	 * Builds a relative reference for an {@link org.osate.xtext.aadl2.errormodel.errorModel.TypeSet}
+	 * @param name the error type set's name
+	 * @return the relative reference
+	 */
 	public static RelativeBusinessObjectReference getRelativeReferenceForTypeSet(final String name) {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_TYPE_SET, name);
 	}
 
+	/**
+	 * Builds a relative reference for an {@link org.osate.ge.errormodel.model.ErrorTypeExtension}
+	 * @return the relative reference
+	 */
 	public static RelativeBusinessObjectReference getRelativeReferenceForErrorTypeExtension() {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_TYPE_EXT);
 	}
 
+	/**
+	 * Builds a relative reference for an {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine}
+	 * @param name the state machine's name
+	 * @return the relative reference
+	 */
 	public static RelativeBusinessObjectReference getRelativeReferenceForStateMachine(final String name) {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_STATE_MACHINE, name);
 	}
 
+	/**
+	 * Builds a relative reference for an {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState}
+	 * @param name the error behavior state's name
+	 * @return the relative reference
+	 */
 	public static RelativeBusinessObjectReference getRelativeReferenceForState(final String name) {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_STATE, name);
 	}
 
+	/**
+	 * Builds a relative reference for an {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent}
+	 * @param name the error behavior events's name
+	 * @return the relative reference
+	 */
 	public static RelativeBusinessObjectReference getRelativeReferenceForEvent(final String name) {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_EVENT, name);
 	}
 
+	/**
+	 * Builds a relative reference for a named {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition}
+	 * @param name the transition's name
+	 * @return the relative reference
+	 */
 	public static RelativeBusinessObjectReference getRelativeReferenceForNamedTransition(final String name) {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION, name);
 	}
 
+	/**
+	 * Builds a relative reference for a {@link TransitionBranch}
+	 * @param serializableTargetName the serializable name of the branch's target. See {@link #getTargetNameForSerialization}
+	 * @param index the index of the branch
+	 * @return the relative reference
+	 */
 	public static RelativeBusinessObjectReference getRelativeReferenceForTransitionBranch(
 			final String serializableTargetName, final int index) {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_BEHAVIOR_TRANSITION_BRANCH,
-				serializableTargetName,
-				Integer.toString(index));
+				serializableTargetName, Integer.toString(index));
 	}
 
+	/**
+	 * Builds a relative reference for an {@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint}
+	 * @param name the propagation point's name
+	 * @return the relative reference
+	 */
 	public static RelativeBusinessObjectReference getRelativeReferenceForPropagationPoint(final String name) {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_PROPAGATION_POINT, name);
 	}
 
+	/**
+	 * Builds a relative reference for an {@link org.osate.ge.errormodel.model.KeywordPropagationPoint}
+	 * @param name the keyword propagation point's name
+	 * @return the relative reference
+	 */
 	public static RelativeBusinessObjectReference getRelativeReferenceForKeywordPropagationPoint(final String name) {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_KEYWORD_PROPAGATION_POINT, name);
 	}
 
+	/**
+	 * Builds a relative reference for an {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation}
+	 * @param isContainment whether the propagation is a containment
+	 * @param direction the direction of the propagation
+	 * @return the relative reference
+	 */
 	public static RelativeBusinessObjectReference getRelativeReferenceForPropagation(final boolean isContainment,
 			final DirectionType direction) {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_PROPAGATION,
 				Boolean.toString(isContainment), direction == null ? "<null>" : direction.getLiteral());
 	}
 
+	/**
+	 * Builds a relative reference for an {@link org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath}
+	 * @param name the propagation path's name
+	 * @return the relative reference
+	 */
 	public static RelativeBusinessObjectReference getRelativeReferenceForPropagationPath(final String name) {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_PROPAGATION_PATH, name);
 	}
 
+	/**
+	 * Builds a relative reference for an {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorFlow}
+	 * @param name the error flow's name
+	 * @return the relative reference
+	 */
 	public static RelativeBusinessObjectReference getRelativeReferenceForErrorFlow(final String name) {
 		return new RelativeBusinessObjectReference(ErrorModelReferenceUtil.TYPE_ERROR_FLOW, name);
 	}

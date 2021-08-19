@@ -50,6 +50,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences.IPreferenceChangeListener;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.CommonPlugin;
@@ -58,6 +61,7 @@ import org.eclipse.gef.fx.nodes.InfiniteCanvas;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -101,6 +105,7 @@ import org.osate.ge.gef.ui.AgeGefUiPlugin;
 import org.osate.ge.gef.ui.diagram.GefAgeDiagram;
 import org.osate.ge.gef.ui.editor.Interaction.InteractionState;
 import org.osate.ge.gef.ui.editor.overlays.Overlays;
+import org.osate.ge.gef.ui.preferences.Preferences;
 import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
@@ -178,18 +183,30 @@ import javafx.scene.transform.Transform;
  * JavaFX/GEF based diagram editor implementation
  */
 public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITabbedPropertySheetPageContributor {
+	/**
+	 * List of supported zoom levels. Contains the selectable zoom levels shared between the editor and {@link ZoomSelectorContributionItem}.
+	 */
 	public static final ImmutableList<Double> ZOOM_LEVELS = ImmutableList.of(.1, .2, .5, .75, 1.0, 1.25, 1.5, 2.0, 2.5,
 			3.0, 4.0, 5.0, 7.5, 10.0);
 	private static final String CONTRIBUTOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
 	private static final String CONTEXT_ID = "org.osate.ge.context";
 	private static final String MENU_ID = CONTRIBUTOR_ID;
 	private static final double DIAGRAM_PADDING = 16.0; // Padding around the diagram
+	private final IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(AgeGefUiPlugin.PLUGIN_ID);
+	private final IPreferenceStore preferenceStore = AgeGefUiPlugin.getDefault().getPreferenceStore();
 
-	// Class which handles activation and deactivation of tools
+	/**
+	 * Handles activation and deactivation of {@link Tool} objects. Only one tools can be activated at a time.
+	 *
+	 */
 	public class ToolHandler {
 		private Tool activeTool = null;
 		private ImmutableList<BusinessObjectContext> selectedBocs = ImmutableList.of();
 
+		/**
+		 * Activates the tool. If a tool is already active, it deactivates it before activating the specified tool. Also deactivates the active palette item.
+		 * @param tool the tool to activate.
+		 */
 		public void activate(final Tool tool) {
 			Objects.requireNonNull(tool, "tool must not be null");
 
@@ -202,6 +219,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 					coloringService));
 		}
 
+		/**
+		 * Deactivates the active tool. Also deactivates the active palette item.
+		 */
 		public void deactivateActiveTool() {
 			if (activeTool != null) {
 				activeTool.deactivated(new DeactivatedEvent());
@@ -210,7 +230,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			}
 		}
 
-		void setSelectedElements(final ImmutableList<BusinessObjectContext> newSelectedBocs) {
+		private void setSelectedElements(final ImmutableList<BusinessObjectContext> newSelectedBocs) {
 			// Ignore the selection if nothing has changed
 			if (Objects.equals(this.selectedBocs, newSelectedBocs)) {
 				return;
@@ -275,7 +295,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		public IStructuredSelection getSelection() {
 			return this.currentSelection;
 		}
-	};
+	}
 
 	// This wrapper adds padding around the diagram.
 	private static class DiagramNodeWrapper extends Group {
@@ -343,9 +363,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	private TooltipManager tooltipManager;
 	private final List<InputEventHandler> inputEventHandlers = new ArrayList<>();
 	private Interaction activeInteraction;
-	private final ISelectionListener toolPostSelectionListener = (part, selection) -> {
-		toolHandler.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
-	};
+	private final ISelectionListener toolPostSelectionListener = (part, selection) -> toolHandler
+			.setSelectedElements(AgeHandlerUtil.getSelectedBusinessObjectContexts());
+
 	private final IPartListener partListener = new IPartListener() {
 		@Override
 		public void partDeactivated(IWorkbenchPart part) {
@@ -369,6 +389,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		@Override
 		public void partOpened(IWorkbenchPart part) {
+			// Ignore
 		}
 
 		@Override
@@ -380,6 +401,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		@Override
 		public void partBroughtToTop(IWorkbenchPart part) {
+			// Ignore
 		}
 	};
 	private final IOperationHistoryListener operationHistoryListener = event -> {
@@ -454,9 +476,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	};
 
 	// Fields related to handling model and diagram updates
-	private boolean updateInProgress = false;
-	private boolean updateQueued = false; // Only accessed by UI thread
-	private boolean updateQueuedRequireVisible = false;
 	private boolean updateWhenVisible = false;
 	private volatile boolean dirtyModel = false;
 	private volatile boolean forceUpdateOnNextModelChange = false;
@@ -503,6 +522,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		}
 	};
 
+	/**
+	 * Create a new instance
+	 */
 	public AgeEditor() {
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
 		this.eclipseContext = EclipseContextFactory.getServiceContext(bundle.getBundleContext());
@@ -571,7 +593,16 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 				new DefaultReferenceResolutionService(projectReferenceService));
 		adapterMap.put(IContentOutlinePage.class, outlinePage);
 		adapterMap.put(IPropertySheetPage.class, propertySheetPage);
+
+		// Add preference listener
+		preferences.addPreferenceChangeListener(preferenceChangeListener);
 	}
+
+	private final IPreferenceChangeListener preferenceChangeListener = event -> {
+		if (Objects.equals(event.getKey(), Preferences.SHOW_GRID)) {
+			canvas.setShowGrid(preferenceStore.getBoolean(Preferences.SHOW_GRID));
+		}
+	};
 
 	@Override
 	public void dispose() {
@@ -582,6 +613,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 					.getOperationSupport()
 					.getOperationHistory()
 					.removeOperationHistoryListener(operationHistoryListener);
+			preferences.removePreferenceChangeListener(preferenceChangeListener);
 			getSite().setSelectionProvider(null);
 			getSite().getWorkbenchWindow().getSelectionService().removePostSelectionListener(toolPostSelectionListener);
 			this.modelChangeNotifier.removeChangeListener(modelChangeListener);
@@ -592,6 +624,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 			if (diagram != null) {
 				diagram.removeModificationListener(diagramModificationListener);
+				diagram.resetActionExecutor();
 			}
 
 			// Dispose of other objects
@@ -618,8 +651,6 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			if (fxCanvas != null) {
 				fxCanvas = null;
 			}
-
-			diagram.resetActionExecutor();
 
 			super.dispose();
 		} finally {
@@ -812,13 +843,13 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		// If the palette item changes while an interaction is active, deactivate the interaction.
 		this.paletteModel.activeItemProperty()
-				.addListener(
-						(javafx.beans.value.ChangeListener<SimplePaletteItem>) (observable, oldValue, newValue) -> {
-							deactivateInteraction();
-						});
+				.addListener((javafx.beans.value.ChangeListener<SimplePaletteItem>) (observable, oldValue,
+						newValue) -> deactivateInteraction());
 
 		// Initialize the JavaFX nodes based on the diagram
 		canvas = new InfiniteCanvas();
+		// Set show grid based on preferences
+		canvas.setShowGrid(preferenceStore.getBoolean(Preferences.SHOW_GRID));
 		final Scene scene = new Scene(new DiagramEditorNode(paletteModel, canvas));
 		fxCanvas.setScene(scene);
 		gefDiagram = new GefAgeDiagram(diagram, coloringService);
@@ -874,7 +905,8 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		// Listeners to handle tooltips
 		//
 		canvas.addEventHandler(MouseEvent.MOUSE_ENTERED_TARGET, e -> {
-			if (e.getTarget() instanceof Node && activeInteraction == null && tooltipManager != null) {
+			if (e.getTarget() instanceof Node && activeInteraction == null && tooltipManager != null
+					&& gefDiagram != null) {
 				final DiagramElement de = gefDiagram.getDiagramElement((Node) e.getTarget());
 				if (de != null) {
 					tooltipManager.mouseEnter(de);
@@ -883,17 +915,12 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		});
 
 		canvas.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e -> {
-			if (e.getTarget() instanceof Node && activeInteraction == null && tooltipManager != null) {
+			if (e.getTarget() instanceof Node && activeInteraction == null && tooltipManager != null
+					&& gefDiagram != null) {
 				final DiagramElement de = gefDiagram.getDiagramElement((Node) e.getTarget());
 				if (de != null) {
 					tooltipManager.mouseExit(de);
 				}
-			}
-		});
-
-		canvas.addEventFilter(MouseEvent.MOUSE_MOVED, e -> {
-			if (activeInteraction == null && tooltipManager != null) {
-				tooltipManager.mouseMove(e.getScreenX(), e.getScreenY());
 			}
 		});
 
@@ -1017,10 +1044,18 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		canvas.setHorizontalScrollOffset(canvas.getHorizontalScrollOffset() - bounds.getMinX());
 	}
 
+	/**
+	 * The current user-specified zoom level. The zoom level is the amount of scaling to apply.
+	 * @return the zoom level.
+	 */
 	public final DoubleProperty zoomProperty() {
 		return zoom;
 	}
 
+	/**
+	 * Gets the value of {@link #zoomProperty()}
+	 * @return the zoom level
+	 */
 	public final double getZoom() {
 		return zoom.get();
 	}
@@ -1033,6 +1068,10 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		zoom.set(value);
 	}
 
+	/**
+	 * Finds the current zoom level in the {@link #ZOOM_LEVELS} list and sets the zoom level to the next value. If the current zoom level is not
+	 * in the list or if it is the last value, then the zoom level is not changed
+	 */
 	public void zoomIn() {
 		final int newZoomLevelIndex = ZOOM_LEVELS.indexOf(getZoom()) + 1;
 		if (newZoomLevelIndex > 0 && newZoomLevelIndex < ZOOM_LEVELS.size()) {
@@ -1040,6 +1079,10 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		}
 	}
 
+	/**
+	 * Finds the current zoom level in the {@link #ZOOM_LEVELS} list and sets the zoom level to the previous value. If the current zoom level is not
+	 * in the list or if it is the first value, then the zoom level is not changed
+	 */
 	public void zoomOut() {
 		final int newZoomLevelIndex = ZOOM_LEVELS.indexOf(getZoom()) - 1;
 		if (newZoomLevelIndex >= 0) {
@@ -1047,10 +1090,20 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		}
 	}
 
+	/**
+	 * The width of the individual grid cells.
+	 * This value is available regardless of whether the grid is show.
+	 * @return the width of the grid cells
+	 */
 	public final double getGridCellWidth() {
 		return canvas.getGridCellWidth();
 	}
 
+	/**
+	 * The height of the individual grid cells.
+	 * This value is available regardless of whether the grid is show.
+	 * @return the height of the grid cells
+	 */
 	public final double getGridCellHeight() {
 		return canvas.getGridCellWidth();
 	}
@@ -1058,8 +1111,9 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 	@Override
 	public void doSave(final IProgressMonitor monitor) {
 		try {
-			final IFileEditorInput input = getInput();
-			final IFile diagramFile = input.getFile();
+			if (diagramFile == null) {
+				throw new AgeGefRuntimeException("diagram file is null");
+			}
 
 			// Handle the diagram being read-only
 			if (diagramFile.isReadOnly()) {
@@ -1122,37 +1176,16 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 			return;
 		}
 
-		// A mutex is not needed because this runnable and other code that access variables used by this runnable are ran in the display thread
-		// Don't update if update is already in progress
-		if (!updateInProgress) {
-			updateQueued = false;
-			updateInProgress = true;
-
-			try {
-				// Don't update unless the diagram is visible
-				final boolean isVisible = fxCanvas != null && fxCanvas.isVisible();
-				if (!requireVisible || isVisible) {
-					// Update the entire diagram
-					updateWhenVisible = false;
-					dirtyModel = false;
-					updateDiagram();
-				} else {
-					// Queue the update for when the control becomes visible
-					updateWhenVisible = true;
-				}
-
-			} finally {
-				updateInProgress = false;
-			}
-
-			// Check if an update has been queued
-			if (updateQueued) {
-				updateDiagram(updateQueuedRequireVisible);
-			}
+		// Don't update unless the diagram is visible
+		final boolean isVisible = fxCanvas != null && fxCanvas.isVisible();
+		if (!requireVisible || isVisible) {
+			// Update the entire diagram
+			updateWhenVisible = false;
+			dirtyModel = false;
+			updateDiagram();
 		} else {
-			// Queue the update
-			updateQueued = true;
-			updateQueuedRequireVisible = updateQueuedRequireVisible && requireVisible;
+			// Queue the update for when the control becomes visible
+			updateWhenVisible = true;
 		}
 	}
 
@@ -1381,18 +1414,34 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		return gefDiagram;
 	}
 
+	/**
+	 * Returns the reference service
+	 * @return the reference service
+	 */
 	ReferenceService getReferenceService() {
 		return referenceService;
 	}
 
+	/**
+	 * Returns the AADL modification service
+	 * @return the AADL modification service
+	 */
 	AadlModificationService getAadlModificationService() {
 		return aadlModService;
 	}
 
+	/**
+	 * Returns the query service
+	 * @return the query service
+	 */
 	QueryService getQueryService() {
 		return queryService;
 	}
 
+	/**
+	 * Returns the model change notification service
+	 * @return the model change notification service
+	 */
 	ModelChangeNotifier getModelChangeNotifier() {
 		return modelChangeNotifier;
 	}

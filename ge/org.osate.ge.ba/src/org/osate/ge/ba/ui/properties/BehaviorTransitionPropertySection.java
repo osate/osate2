@@ -51,7 +51,6 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.xbase.lib.Pair;
 import org.osate.ba.aadlba.BehaviorActionBlock;
 import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
@@ -60,6 +59,8 @@ import org.osate.ba.unparser.AadlBaUnparser;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ProjectUtil;
+import org.osate.ge.aadl2.AadlGraphicalEditorException;
+import org.osate.ge.ba.businessobjecthandlers.BehaviorConditionUtil;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
@@ -73,6 +74,9 @@ import org.osate.ge.ui.PropertySectionUtil;
  * Property section for {@link BehaviorTransition}
  */
 public class BehaviorTransitionPropertySection extends AbstractPropertySection {
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
@@ -80,10 +84,30 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		}
 	}
 
-	public static String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.dispatchcondition";
-	public static String WIDGET_ID_EDIT_CONDITION = WIDGET_ID_CONDITION + ".edit";
-	public static String WIDGET_ID_ACTION_BLOCK = "org.osate.ge.ba.behaviortransition.actionblock";
-	public static String WIDGET_ID_EDIT_ACTION_BLOCK = WIDGET_ID_ACTION_BLOCK + ".edit";
+	/**
+	 * Testing ID for the styled text widget containing the transition's condition
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.dispatchcondition";
+
+	/**
+	 * Testing ID for the edit button for the transition's condition
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_EDIT_CONDITION = WIDGET_ID_CONDITION + ".edit";
+
+	/**
+	 * Testing ID for the styled text widget containing the transition's action block
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_ACTION_BLOCK = "org.osate.ge.ba.behaviortransition.actionblock";
+
+	/**
+	 * Testing ID for the edit button for the transition's action block
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_EDIT_ACTION_BLOCK = WIDGET_ID_ACTION_BLOCK + ".edit";
+
 	private Composite container;
 	private EmbeddedTextEditor conditionEditingControls;
 	private EmbeddedTextEditor actionBlockEditingControls;
@@ -106,25 +130,25 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		conditionLabel.setText("Condition:");
 		SwtUtil.setColorsToMatchParent(conditionLabel);
 
-		conditionEditingControls = new EmbeddedTextEditor(container, SWT.NONE, SWT.BORDER | SWT.SINGLE);
+		conditionEditingControls = new EmbeddedTextEditor(container, SWT.BORDER | SWT.SINGLE);
 		// Set layout data for the composite
 		conditionEditingControls.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
 				.hint(SWT.DEFAULT, SWT.DEFAULT).create());
-		conditionEditingControls.setStyledTextTestId(WIDGET_ID_CONDITION);
-		conditionEditingControls.setEditButtonTestId(WIDGET_ID_EDIT_CONDITION);
+		conditionEditingControls.setStyledTextTestingId(WIDGET_ID_CONDITION);
+		conditionEditingControls.setEditButtonTestingId(WIDGET_ID_EDIT_CONDITION);
 
 		final Label actionLabel = new Label(container, SWT.NONE);
 		actionLabel.setText("Action:");
 		SwtUtil.setColorsToMatchParent(actionLabel);
 
-		actionBlockEditingControls = new EmbeddedTextEditor(container, SWT.NONE,
+		actionBlockEditingControls = new EmbeddedTextEditor(container,
 				SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI);
 		// Set layout data for the composite. Set the vertical hint
 		// because action blocks are multi-line StyledText
 		actionBlockEditingControls.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL)
 				.grab(true, true).hint(SWT.DEFAULT, 100).create());
-		actionBlockEditingControls.setStyledTextTestId(WIDGET_ID_ACTION_BLOCK);
-		actionBlockEditingControls.setEditButtonTestId(WIDGET_ID_EDIT_ACTION_BLOCK);
+		actionBlockEditingControls.setStyledTextTestingId(WIDGET_ID_ACTION_BLOCK);
+		actionBlockEditingControls.setEditButtonTestingId(WIDGET_ID_EDIT_ACTION_BLOCK);
 	}
 
 	@Override
@@ -133,7 +157,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 				boc -> isBehaviorTransition(boc) && ProjectUtil.getProjectForBo(boc.getBusinessObject()).isPresent())
 				.findAny();
 		if (optSelectedBoc.isPresent()) {
-			final BusinessObjectContext selectedBoc = optSelectedBoc.get();
+			final BusinessObjectContext selectedBoc = optSelectedBoc.orElseThrow();
 			createEditControls();
 
 			final boolean isSingleSelection = selectedBos.bocStream().limit(2).count() == 1;
@@ -145,10 +169,10 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 						.getEditingDomainFor(behaviorTransition);
 				final IProject project = ProjectUtil.getProjectForBoOrThrow(behaviorTransition);
 				final XtextResource xtextResource = getXtextResource(behaviorTransition)
-						.orElseThrow(() -> new RuntimeException("resource must be XtextResource"));
+						.orElseThrow(() -> new AadlGraphicalEditorException("resource must be XtextResource"));
 				final IXtextDocument xtextDocument = getXtextDocument(behaviorTransition).orElse(null);
 				final String sourceText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
-				// Controls for editing dispatch conditions
+				// Controls for editing behavior conditions
 				createConditionEditingControls(behaviorTransition, sourceText, project, editingDomain, xtextDocument,
 						xtextResource);
 				// Controls for editing action blocks
@@ -166,15 +190,16 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	private static void createEditingControls(final EmbeddedTextEditor controls,
 			final SelectionAdapter selectionAdpater,
 			final IProject project, final EmbeddedTextValue textValue) {
-		controls.addSelectionListener(selectionAdpater);
+		controls.addEditButtonSelectionListener(selectionAdpater);
 		controls.createXtextAdapter(project, textValue);
 	}
 
 	private void createConditionEditingControls(final BehaviorTransition behaviorTransition, final String sourceText,
 			final IProject project, final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
 			final XtextResource xtextResource) {
-		final EmbeddedTextValue conditionTextValue = getConditionTextValue(behaviorTransition, sourceText);
-		final SelectionAdapter editConditionSelectionAdapter = getEditConditionSelectionAdapter(project,
+		final EmbeddedTextValue conditionTextValue = BehaviorConditionUtil.createTextValue(behaviorTransition,
+				sourceText);
+		final SelectionAdapter editConditionSelectionAdapter = createEditConditionSelectionAdapter(project,
 				conditionTextValue, behaviorTransition, editingDomain, xtextDocument, xtextResource);
 		createEditingControls(conditionEditingControls, editConditionSelectionAdapter, project, conditionTextValue);
 	}
@@ -183,7 +208,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			final IProject project, final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
 			final XtextResource xtextResource) {
 		final EmbeddedTextValue actionTextValue = getActionBlockTextValue(behaviorTransition, sourceText);
-		final SelectionAdapter editActionBlockSelectionAdapter = getEditActionSelectionAdapter(project, actionTextValue,
+		final SelectionAdapter editActionBlockSelectionAdapter = createEditActionSelectionAdapter(project, actionTextValue,
 				behaviorTransition, editingDomain, xtextDocument, xtextResource);
 		createEditingControls(actionBlockEditingControls, editActionBlockSelectionAdapter, project, actionTextValue);
 	}
@@ -194,7 +219,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		actionBlockEditingControls.createControls();
 	}
 
-	private static SelectionAdapter getEditActionSelectionAdapter(final IProject project,
+	private static SelectionAdapter createEditActionSelectionAdapter(final IProject project,
 			final EmbeddedTextValue actionTextValue, final BehaviorTransition behaviorTransition,
 			final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
 			final XtextResource xtextResource) {
@@ -276,10 +301,10 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	private void setControlsToMultipleSelected() {
 		final String msg = "<Multiple>";
 		conditionEditingControls.setEnabled(false);
-		conditionEditingControls.setStyledTextText(msg);
+		conditionEditingControls.setStyledText(msg);
 
 		actionBlockEditingControls.setEnabled(false);
-		actionBlockEditingControls.setStyledTextText(msg);
+		actionBlockEditingControls.setStyledText(msg);
 	}
 
 	private void disposeEditControls() {
@@ -292,7 +317,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		actionBlockEditingControls.requestLayout();
 	}
 
-	private static SelectionAdapter getEditConditionSelectionAdapter(final IProject project,
+	private static SelectionAdapter createEditConditionSelectionAdapter(final IProject project,
 			final EmbeddedTextValue conditionTextValue, final BehaviorTransition behaviorTransition,
 			final TransactionalEditingDomain editingDomain, final IXtextDocument xtextDocument,
 			final XtextResource xtextResource) {
@@ -335,49 +360,6 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		};
 	}
 
-	private static EmbeddedTextValue getConditionTextValue(final BehaviorTransition behaviorTransition,
-			final String sourceText) {
-		final int conditionOffset = getConditionOffset(behaviorTransition, sourceText);
-
-		// Text before condition text
-		final String prefix = sourceText.substring(0, conditionOffset);
-
-		// Find condition text and suffix
-		final String afterPrefix = sourceText.substring(conditionOffset);
-
-		// Note: condition.getAadlBaLocationReference().getLength() only counts until the first space (assuming).
-		// For example, when dispatch condition is "on dispatch" length is 2.
-		// Find closing "]", to get condition text
-		final int conditionEnd = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(afterPrefix, ']');
-
-		// Condition text
-		final String conditionText = afterPrefix.substring(0, conditionEnd).trim();
-
-		// Text after transition condition
-		final String suffix = afterPrefix.substring(conditionEnd);
-
-		// Create condition value
-		return new EmbeddedTextValue(sourceText, prefix, conditionText, suffix);
-	}
-
-	private static int getConditionOffset(final BehaviorTransition behaviorTransition, final String sourceText) {
-		final BehaviorCondition condition = behaviorTransition.getCondition();
-		final int conditionOffset;
-		if (condition == null) {
-			// Transition offset
-			final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
-			final Pair<Character, Character> charsToMatch = new Pair<Character, Character>('-', '[');
-			// Find index for beginning of condition text "-["
-			conditionOffset = BehaviorAnnexXtextUtil.findUncommentedCharPair(sourceText.substring(transitionOffset),
-					charsToMatch) + transitionOffset;
-		} else {
-			// Condition offset
-			conditionOffset = condition.getAadlBaLocationReference().getOffset();
-		}
-
-		return conditionOffset;
-	}
-
 	private static Optional<IXtextDocument> getXtextDocument(final BehaviorTransition behaviorTransition) {
 		return Optional.ofNullable(AgeXtextUtil.getDocumentByRootElement(behaviorTransition.getElementRoot()));
 	}
@@ -412,7 +394,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 			// Transition action prefix and add open bracket for action
 			prefix = src.substring(0, terminationOffset) + "{";
-			// Empty condition text
+			// Empty action text
 			actionText = "";
 			// Add bracket to close action text
 			suffix = "}" + src.substring(terminationOffset);
@@ -438,7 +420,8 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			final int lastIndex = formattedActionBlock.length() - 1;
 			if (!Objects.equals('{', formattedActionBlock.charAt(0)) || !Objects.equals('}',
 					formattedActionBlock.charAt(lastIndex))) {
-				throw new RuntimeException("Unexpected action block format '" + formattedActionBlock + "'.");
+				throw new AadlGraphicalEditorException(
+						"Unexpected action block format '" + formattedActionBlock + "'.");
 			}
 
 			// Split action at new line character and throw out action block brackets

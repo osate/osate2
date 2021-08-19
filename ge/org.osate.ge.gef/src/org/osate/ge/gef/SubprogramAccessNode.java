@@ -23,10 +23,7 @@
  */
 package org.osate.ge.gef;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.scene.Parent;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
@@ -77,37 +74,20 @@ public class SubprogramAccessNode extends Parent implements Stylable {
 		directionIndicator.setStrokeType(StrokeType.INSIDE);
 		directionIndicator.setStrokeLineCap(StrokeLineCap.BUTT);
 
-		setLineWidth(2.0);
-		setBackgroundColor(Color.WHITE);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
-	}
-
-	public final void setBackgroundColor(final Color value) {
-		ellipse.setFill(value);
-	}
-
-	public final void setOutlineColor(final Color value) {
+		ellipse.setFill(style.getBackgroundColor());
 		if (hasBorder) {
-			ellipse.setStroke(value);
+			ellipse.setStroke(style.getOutlineColor());
 		}
-		directionIndicator.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		ellipse.setStrokeWidth(value);
-		directionIndicator.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		ellipse.getStrokeDashArray().setAll(value);
-		directionIndicator.getStrokeDashArray().setAll(value);
+		directionIndicator.setStroke(style.getOutlineColor());
+		ellipse.setStrokeWidth(style.getLineWidth());
+		directionIndicator.setStrokeWidth(style.getLineWidth());
+		ellipse.getStrokeDashArray().setAll(style.getStrokeDashArray());
+		directionIndicator.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 }

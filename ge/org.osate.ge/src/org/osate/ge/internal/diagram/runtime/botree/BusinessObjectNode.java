@@ -41,7 +41,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	private final RelativeBusinessObjectReference relativeReference; // May be null only for root nodes.
 	private Object bo; // May be null for root nodes
 	private Map<RelativeBusinessObjectReference, BusinessObjectNode> children;
-	private Completeness completeness = Completeness.UNKNOWN; // DefaultTreeUpdater populates this field.
+	private Completeness completeness = Completeness.UNKNOWN;
 
 	/**
 	 * Returns whether the node has not had its default children populated. This is usually true for new nodes to allow the tree updater to add children based on the content filters
@@ -130,7 +130,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		}
 
 		if (children.containsKey(node.relativeReference)) {
-			throw new RuntimeException("Node already has a child with reference: " + node.relativeReference);
+			throw new IllegalArgumentException("Node already has a child with reference: " + node.relativeReference);
 		}
 
 		children.put(node.relativeReference, node);

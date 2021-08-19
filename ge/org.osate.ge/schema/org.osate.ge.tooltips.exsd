@@ -3,10 +3,10 @@
 <schema targetNamespace="org.osate.ge" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.osate.ge" id="org.osate.ge.ui.tooltips.tooltipContributors" name="Tooltip Contributors"/>
+         <meta.schema plugin="org.osate.ge" id="org.osate.ge.tooltips" name="Tooltip Contributors"/>
       </appinfo>
       <documentation>
-         This extension point is used to customize tooltips which are displayed by the graphical editor. It allows registering tooltip contributors which add SWT controls to tooltips when requested.
+         This extension point is used to register a tooltip contributor with the OSATE graphical editor. A tooltip contributor adds SWT controls to tooltips.
       </documentation>
    </annotation>
 
@@ -75,9 +75,8 @@
          <meta.section type="examples"/>
       </appinfo>
       <documentation>
-         &lt;extension point=&quot;org.osate.ge.ui.tooltips.tooltipContributors&quot;&gt;
-    &lt;tooltipContributor class=&quot;org.osate.ge.ui.tooltips.FeatureTooltipContributor&quot; priority=&quot;1&quot;&gt;
-    &lt;/tooltipContributor&gt;
+         &lt;extension point=&quot;org.osate.ge.tooltips&quot;&gt;
+    &lt;tooltipContributor class=&quot;org.osate.ge.aadl2.ui.internal.tooltips.AadlSourceTooltipContributor&quot; priority=&quot;1&quot;&gt;&lt;/tooltipContributor&gt;
 &lt;/extension&gt;
       </documentation>
    </annotation>

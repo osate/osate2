@@ -33,10 +33,13 @@ import org.osate.ge.internal.model.Note;
 import org.osate.ge.internal.model.NoteReference;
 
 /**
- * Utility classes for working with business object which are built-in to the graphical editor and not specifically AADL related.
+ * Utility classes for working with references for business objects which are built-in to the graphical editor and not AADL related.
  *
  */
-public class InternalReferenceUtil {
+public final class InternalReferenceUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private InternalReferenceUtil() {
 	}
 
@@ -45,15 +48,15 @@ public class InternalReferenceUtil {
 
 	/**
 	 * Creates an embedded object based on its reference and extra data.
-	 * @param ref
-	 * @param boData
-	 * @return
+	 * @param ref if the relative business object reference for the embedded business object.
+	 * @param boData is the data for the business object which is embedded in the diagram.
+	 * @return the embedded business object or null if the reference was unsupported.
 	 */
 	public static Object createEmbeddedObject(final RelativeBusinessObjectReference ref, final String boData) {
 		final List<String> segs = ref.getSegments();
 		if (segs.get(0).equals(TYPE_NOTE)) {
 			if (segs.size() != 2) {
-				throw new RuntimeException("Invalid reference for note. Number of segments: " + segs.size());
+				throw new IllegalArgumentException("Invalid reference for note. Number of segments: " + segs.size());
 			}
 
 			final UUID id = UUID.fromString(segs.get(1));
@@ -62,7 +65,8 @@ public class InternalReferenceUtil {
 			return new Note(id, text);
 		} else if (segs.get(0).equals(TYPE_NOTE_REFERENCE)) {
 			if (segs.size() != 2) {
-				throw new RuntimeException("Invalid reference for note reference. Number of segments: " + segs.size());
+				throw new IllegalArgumentException(
+						"Invalid reference for note reference. Number of segments: " + segs.size());
 			}
 
 			final UUID referencedDiagramElementId = UUID.fromString(segs.get(1));

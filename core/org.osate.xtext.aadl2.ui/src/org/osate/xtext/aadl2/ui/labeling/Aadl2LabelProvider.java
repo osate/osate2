@@ -52,7 +52,6 @@ import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
-import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSpecification;
@@ -387,10 +386,6 @@ public class Aadl2LabelProvider extends AnnexAwareEObjectLabelProvider {
 
 	String text(FeatureGroup ele) {
 		return "Feature Group " + ele.getName();
-	}
-
-	String text(Feature ele) {
-		return "Feature " + ele.getName();
 	}
 
 	String text(FlowImplementation flowimpl) {

@@ -151,7 +151,7 @@ public abstract class BaseTypeSetTypeTokensModel extends BaseObservableModel imp
 	}
 
 	@Override
-	public final Stream<ErrorTypes> getErrorTypes() {
+	public Stream<ErrorTypes> getErrorTypes() {
 		return inner == null ? Stream.empty() : inner.getErrorTypes();
 	}
 

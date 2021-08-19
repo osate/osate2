@@ -33,7 +33,13 @@ import javafx.scene.Node;
  * and descendants until another style root is reached. The style root flag should be set by the creators of the
  * nodes as needed.
  */
-public class StyleRoot {
+public final class StyleRoot {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private StyleRoot() {
+	}
+
 	/**
 	 * Key for whether a node is a style root.
 	 */

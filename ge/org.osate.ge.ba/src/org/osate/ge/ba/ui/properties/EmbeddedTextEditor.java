@@ -28,28 +28,40 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
-import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Caret;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.SwtUtil;
 
-public class EmbeddedTextEditor extends Composite {
+/**
+ * Widget that displays styled text and a modify button.
+ *
+ */
+class EmbeddedTextEditor extends Composite {
 	private StyledText styledText;
-	private Button btn;
+	private Button editBtn;
 	private EmbeddedXtextAdapter xtextAdapter;
 	private final int styledTextStyle;
 	private String styledTextTestId;
 	private String editBtnTestId;
 
-	public EmbeddedTextEditor(final Composite parent, final int style, final int styledTextStyle) {
-		super(parent, style);
+	/**
+	 * Creates a new instance
+	 * @param parent the parent for the widget
+	 * @param styledTextStyle the text of the {@link StyledText} containing the source
+	 */
+	public EmbeddedTextEditor(final Composite parent, final int styledTextStyle) {
+		super(parent, SWT.NONE);
 		this.setBackground(parent.getBackground());
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
 		this.styledTextStyle = styledTextStyle;
 	}
 
+	/**
+	 * Creates the controls. If they already exist, they are recreated.
+	 */
 	public void createControls() {
 		// Dispose existing controls
 		disposeControls();
@@ -68,19 +80,34 @@ public class EmbeddedTextEditor extends Composite {
 		styledText.addDisposeListener(e -> emptyCaret.dispose());
 		SwtUtil.setTestingId(styledText, styledTextTestId);
 
-		btn = new Button(this, SWT.PUSH);
-		btn.setText("Edit...");
-		SwtUtil.setTestingId(btn, editBtnTestId);
+		editBtn = new Button(this, SWT.PUSH);
+		editBtn.setText("Edit...");
+		SwtUtil.setTestingId(editBtn, editBtnTestId);
 	}
 
-	public void setStyledTextTestId(final String styledTextTestId) {
-		this.styledTextTestId = styledTextTestId;
+	/**
+	 * Sets the testing ID For the styled text containing the source.
+	 * @param value the testing ID
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public void setStyledTextTestingId(final String value) {
+		this.styledTextTestId = value;
 	}
 
-	public void setEditButtonTestId(final String editBtnTestId) {
-		this.editBtnTestId = editBtnTestId;
+	/**
+	 * Sets the testing ID for the edit button
+	 * @param value the testing ID
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public void setEditButtonTestingId(final String value) {
+		this.editBtnTestId = value;
 	}
 
+	/**
+	 * Updates the text being shown by the editor.
+	 * @param project the project containing the resource being modified
+	 * @param textValue the text being modified
+	 */
 	public void createXtextAdapter(final IProject project, final EmbeddedTextValue textValue) {
 		disposeXtextAdapter();
 		xtextAdapter = new EmbeddedXtextAdapter(project, textValue);
@@ -88,10 +115,13 @@ public class EmbeddedTextEditor extends Composite {
 		xtextAdapter.adapt(styledText, false);
 	}
 
+	/**
+	 * Dispose of the child controls.
+	 */
 	public void disposeControls() {
 		disposeXtextAdapter();
 		disposeControl(styledText);
-		disposeControl(btn);
+		disposeControl(editBtn);
 	}
 
 	private void disposeXtextAdapter() {
@@ -108,18 +138,27 @@ public class EmbeddedTextEditor extends Composite {
 		}
 	}
 
-	public void addSelectionListener(final SelectionAdapter selectionAdapter) {
-		btn.addSelectionListener(selectionAdapter);
+	/**
+	 * Adds a selection listener to the edit button
+	 * @param selectionListener the selection listener to add
+	 */
+	public void addEditButtonSelectionListener(final SelectionListener selectionListener) {
+		editBtn.addSelectionListener(selectionListener);
 	}
 
 	@Override
 	public void setEnabled(boolean isEnabled) {
 		super.setEnabled(isEnabled);
 		styledText.setEnabled(isEnabled);
-		btn.setEnabled(isEnabled);
+		editBtn.setEnabled(isEnabled);
 	}
 
-	public void setStyledTextText(final String text) {
+	/**
+	 * Sets the text displayed in the {@link StyledText} widget
+	 * @param text the styled text
+	 * @see StyledText#setText(String)
+	 */
+	public void setStyledText(final String text) {
 		styledText.setText(text);
 	}
 }

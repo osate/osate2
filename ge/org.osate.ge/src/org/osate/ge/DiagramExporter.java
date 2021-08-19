@@ -38,13 +38,15 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
 /**
- *
+ * Class for exporting diagrams as PNG images. This class is deprecated and should not be used.
  * @noextend
  * @deprecated use {@link DiagramExportService}
  */
 @Deprecated
-public class DiagramExporter {
-	// All methods are static
+public final class DiagramExporter {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private DiagramExporter() {
 	}
 
@@ -53,6 +55,7 @@ public class DiagramExporter {
 	 *
 	 * @param diagramFile the diagram file to be exported
 	 * @param outputFile  the file the image will be written to
+	 * @throws IOException if an I/O error occurs.
 	 */
 	public static void exportDiagramAsPng(final IFile diagramFile, final File outputFile) throws IOException {
 		getExportService().export(diagramFile, outputFile, "png", 1.0);
@@ -63,6 +66,7 @@ public class DiagramExporter {
 	 *
 	 * @param diagramFile  the diagram file to be exported
 	 * @param outputStream the stream the image will be written to
+	 * @throws IOException if an I/O error occurs.
 	 */
 	public static void exportDiagramAsPng(final IFile diagramFile, final ImageOutputStream outputStream)
 			throws IOException {
@@ -73,7 +77,8 @@ public class DiagramExporter {
 	 * Converts an AADL diagram file to a PNG image.
 	 *
 	 * @param diagramFile  the diagram file to be exported
-	 * @param outputStream the stream the image will be written to
+	 * @param outputStream the stream to which to write the image.
+	 * @throws IOException if an I/O error occurs.
 	 */
 	public static void exportDiagramAsPng(final IFile diagramFile, final OutputStream outputStream) throws IOException {
 		getExportService().export(diagramFile, outputStream, "png", 1.0);

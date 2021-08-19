@@ -26,10 +26,7 @@ package org.osate.ge.gef;
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -62,9 +59,8 @@ public class DeviceNode extends Region implements ChopBoxGeometryProvider, Styla
 		outlineRect.setStrokeType(StrokeType.INSIDE);
 		outlineRect.setStrokeLineCap(StrokeLineCap.BUTT);
 
-		setLineWidth(2.0);
-		setBackgroundColor(Color.WHITE);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
 	@Override
@@ -99,29 +95,13 @@ public class DeviceNode extends Region implements ChopBoxGeometryProvider, Styla
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
-	}
-
-	public final void setBackgroundColor(final Color value) {
-		shadedArea.setFill(value.darker());
-		fillRect.setFill(value);
-	}
-
-	public final void setOutlineColor(final Color value) {
-		outlineRect.setStroke(value);
-		lineSegments.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		outlineRect.setStrokeWidth(value);
-		lineSegments.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		lineSegments.getStrokeDashArray().setAll(value);
+		shadedArea.setFill(style.getBackgroundColor().darker());
+		fillRect.setFill(style.getBackgroundColor());
+		outlineRect.setStroke(style.getOutlineColor());
+		lineSegments.setStroke(style.getOutlineColor());
+		outlineRect.setStrokeWidth(style.getLineWidth());
+		lineSegments.setStrokeWidth(style.getLineWidth());
+		lineSegments.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 
 	@Override

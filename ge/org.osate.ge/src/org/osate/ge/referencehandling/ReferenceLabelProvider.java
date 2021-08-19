@@ -32,7 +32,8 @@ import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
  *
  * It is strongly recommended that all references provided {@link BusinessObjectHandler} implementations have an registered implementation
  * to provide labels for relative references to avoid exposing raw references to the user interface. For canonical references,
- * labels for references which are used as a diagram context must be provided.
+ * labels for references which are used as a diagram context must be provided. Reference label providers are registered using the
+ * <i>org.osate.ge.referenceLabelProviders</i> extension point.
  *
  * @since 2.0
  */

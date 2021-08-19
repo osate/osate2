@@ -28,11 +28,8 @@ import java.util.Objects;
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.geometry.Dimension2D;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.StrokeLineCap;
 
@@ -40,7 +37,10 @@ import javafx.scene.shape.StrokeLineCap;
  * Node for polyline graphics
  */
 public class PolylineNode extends Region implements ChopBoxGeometryProvider, Stylable {
-	private final javafx.scene.shape.Polyline poly = new Polyline();
+	/**
+	 * The actual polyline node
+	 */
+	final javafx.scene.shape.Polyline poly = new Polyline();
 	private double[] points;
 
 	/**
@@ -70,8 +70,8 @@ public class PolylineNode extends Region implements ChopBoxGeometryProvider, Sty
 
 		poly.setStrokeLineCap(StrokeLineCap.BUTT);
 
-		setLineWidth(2.0);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
 	@Override
@@ -91,21 +91,9 @@ public class PolylineNode extends Region implements ChopBoxGeometryProvider, Sty
 
 	@Override
 	public void apply(final FxStyle style) {
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
-	}
-
-	public final void setOutlineColor(final Color value) {
-		poly.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		poly.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		poly.getStrokeDashArray().setAll(value);
+		poly.setStroke(style.getOutlineColor());
+		poly.setStrokeWidth(style.getLineWidth());
+		poly.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 
 	@Override

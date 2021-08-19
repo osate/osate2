@@ -31,8 +31,8 @@ import org.eclipse.gef.geometry.convert.fx.FX2Geometry;
 import org.eclipse.gef.geometry.planar.IGeometry;
 import org.eclipse.gef.geometry.planar.Point;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
@@ -68,9 +68,9 @@ public class DockedShape extends Region
 	/**
 	 * Indicates that a value has not been specified. Used to indicate the lack of a configured width or height.
 	 */
-	public static double NOT_SPECIFIED = -1;
+	public static final double NOT_SPECIFIED = -1;
 
-	private ObjectProperty<DockSide> side = new SimpleObjectProperty<DockSide>(DockSide.LEFT);
+	private final ReadOnlyObjectWrapper<DockSide> side = new ReadOnlyObjectWrapper<>(DockSide.LEFT);
 	private final Group graphicWrapper = new Group();
 	private final Group primaryLabels = new Group();
 	private final Group secondaryLabels = new Group();
@@ -137,27 +137,53 @@ public class DockedShape extends Region
 		super.requestLayout();
 	}
 
+	/**
+	 * Gets the value of {@link #sideProperty()}
+	 * @return the side to which the property is docked.
+	 */
 	public final DockSide getSide() {
 		return side.get();
 	}
 
-	public final void setSide(final DockSide value) {
+	/**
+	 * Sets the value of {@link #sideProperty()}. The side is set automatically when the docked shape is added to
+	 * the appropriate collection of docked shapes returned by {@link ContainerShape} or {@link DockedShape}
+	 * @param value the new side
+	 */
+	final void setSide(final DockSide value) {
 		side.set(value);
 	}
 
-	public ObjectProperty<DockSide> sideProperty() {
-		return side;
+	/**
+	 * The side to which the node is docked. If the node is contained in another {@link DockedShape}, it will inherit the value from it.
+	 * In other words, the value is determined by the side of the containing {@link ContainerShape} to which it is docked.
+	 * @return the side to which the node is docked
+	 */
+	public ReadOnlyProperty<DockSide> sideProperty() {
+		return side.getReadOnlyProperty();
 	}
 
+	/**
+	 * Sets the graphic for the docked shape.
+	 * @param value the new graphic node
+	 */
 	public void setGraphic(final Node value) {
 		graphicWrapper.getChildren().setAll(value);
 		setGraphicRotation();
 	}
 
+	/**
+	 * Returns a modifiable list containing the shape's primary labels
+	 * @return a modifiable list containing the shape's primary labels. Will never return null.
+	 */
 	public ObservableList<Node> getPrimaryLabels() {
 		return primaryLabels.getChildren();
 	}
 
+	/**
+	 * Returns a modifiable list containing the shape's secondary labels
+	 * @return a modifiable list containing the shape's secondary labels. Will never return null.
+	 */
 	public ObservableList<Node> getSecondaryLabels() {
 		return secondaryLabels.getChildren();
 	}
@@ -182,13 +208,13 @@ public class DockedShape extends Region
 	 * Updates the rotation of the contents of the graphics wrapper based on the value of the side property.
 	 */
 	private void setGraphicRotation() {
-		final DockSide side = sideProperty().get();
-		if (side == null) {
+		final DockSide tmpSide = sideProperty().getValue();
+		if (tmpSide == null) {
 			return;
 		}
 
 		final double rotation;
-		switch (side) {
+		switch (tmpSide) {
 		case LEFT:
 			rotation = 0;
 			break;
@@ -419,7 +445,7 @@ public class DockedShape extends Region
 
 	@Override
 	protected void layoutChildren() {
-		final DockSide side = this.getSide();
+		final DockSide tmpSide = this.getSide();
 		final double width = getWidth();
 		final double height = getHeight();
 
@@ -432,8 +458,8 @@ public class DockedShape extends Region
 						final double childWidth = label.prefWidth(-1);
 						final double childHeight = label.prefHeight(-1);
 
-						if (side.alignEnd) {
-							if (side.vertical) {
+						if (tmpSide.alignEnd) {
+							if (tmpSide.vertical) {
 								// Right
 								label.resizeRelocate(width - childWidth, y, childWidth, childHeight);
 							} else {
@@ -459,15 +485,14 @@ public class DockedShape extends Region
 		// Position the wrapper but resize the inner graphics
 		// Offset for children. Dimension is dependent on the side
 		for (final Node graphic : graphicWrapper.getChildren()) {
-			if (side.vertical) {
+			if (tmpSide.vertical) {
 				final double childWidth = graphic.prefWidth(-1);
 				final double childHeight = Math.min(Math.max(graphic.minHeight(-1), height - y), graphic.maxHeight(-1));
 				graphic.resize(childWidth, childHeight);
 
-				if (side.alignEnd) {
+				if (tmpSide.alignEnd) {
 					// Right
 					graphicWrapper.relocate(width - childWidth, y);
-
 				} else {
 					// Left
 					graphicWrapper.relocate(0, y);
@@ -482,7 +507,7 @@ public class DockedShape extends Region
 				final double childHeight = graphic.prefWidth(-1);
 				graphic.resize(childHeight, childWidth);
 
-				if (side.alignEnd) {
+				if (tmpSide.alignEnd) {
 					// Bottom
 					graphicWrapper.relocate(maxLabelWidth, height - childHeight);
 				} else {
@@ -493,8 +518,8 @@ public class DockedShape extends Region
 		}
 
 		// Layout children
-		if (side.vertical) {
-			if (side.alignEnd) {
+		if (tmpSide.vertical) {
+			if (tmpSide.alignEnd) {
 				// Right
 				dockedChildren.layout(width - maxUntransformedGraphicPrefWidth(), 0);
 			} else {
@@ -502,7 +527,7 @@ public class DockedShape extends Region
 				dockedChildren.layout(maxUntransformedGraphicPrefWidth(), 0);
 			}
 		} else {
-			if (side.alignEnd) {
+			if (tmpSide.alignEnd) {
 				// Bottom
 				dockedChildren.layout(0.0, height - maxUntransformedGraphicPrefWidth());
 			} else {
@@ -512,10 +537,10 @@ public class DockedShape extends Region
 		}
 
 		// Position anchors
-		if (side.vertical) {
+		if (tmpSide.vertical) {
 			final Bounds graphicWrapperBounds = graphicWrapper.getBoundsInLocal();
 			final double anchorY = (graphicWrapperBounds.getMinY() + graphicWrapperBounds.getMaxY()) / 2.0;
-			if (side.alignEnd) {
+			if (tmpSide.alignEnd) {
 				// Right
 				interiorAnchor.setReferencePosition(new Point(graphicWrapperBounds.getMinX() + 1, anchorY));
 				exteriorAnchor.setReferencePosition(new Point(graphicWrapperBounds.getMaxX() - 1, anchorY));
@@ -527,7 +552,7 @@ public class DockedShape extends Region
 		} else {
 			final Bounds graphicWrapperBounds = graphicWrapper.getBoundsInLocal();
 			final double anchorX = (graphicWrapperBounds.getMinX() + graphicWrapperBounds.getMaxX()) / 2.0;
-			if (side.alignEnd) {
+			if (tmpSide.alignEnd) {
 				// Bottom
 				interiorAnchor.setReferencePosition(new Point(anchorX, graphicWrapperBounds.getMinY() + 1));
 				exteriorAnchor
@@ -545,7 +570,7 @@ public class DockedShape extends Region
 	 * Sets the managed and visible flags of the primary labels to the specified value.
 	 * @param value whether to show the primary label nodes.
 	 */
-	public void setPrimaryLabelsVisible(final boolean value) {
+	private void setPrimaryLabelsVisible(final boolean value) {
 		primaryLabels.setManaged(value);
 		primaryLabels.setVisible(value);
 	}
@@ -615,8 +640,7 @@ public class DockedShape extends Region
 	 * @return the minimum position to use when positioning nested children
 	 */
 	private double computeMinimumNestedChildPosition() {
-		final DockSide side = this.getSide();
-		if (side.vertical) {
+		if (getSide().vertical) {
 			return computeLabelHeightWithPadding();
 		} else {
 			return computeMaxLabelWidth();

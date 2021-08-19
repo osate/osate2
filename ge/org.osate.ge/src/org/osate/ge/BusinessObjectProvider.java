@@ -26,8 +26,11 @@ package org.osate.ge;
 import java.util.stream.Stream;
 
 /**
- * Contributes business objects to the graphical editor. Only objects provided by a {@link BusinessObjectProvider}.
- * will be available in the graphical editor.
+ * Contributes business objects to the graphical editor. Only objects provided by a {@link BusinessObjectProvider} will
+ * be available in the graphical editor. Business object providers are registered using the
+ * <i>org.osate.ge.businessObjectProviders</i> extension point. All objects contributed by a business object provider must also have
+ * a {@link org.osate.ge.businessobjecthandling.BusinessObjectHandler} registered.
+ * Business object providers are registered using the <i>org.osate.ge.businessObjectProviders</i> extension point.
  * @since 2.0
  */
 public interface BusinessObjectProvider {

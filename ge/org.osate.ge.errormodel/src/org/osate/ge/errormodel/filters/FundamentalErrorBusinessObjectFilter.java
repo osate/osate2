@@ -27,6 +27,9 @@ import org.osate.ge.FundamentalContentFilter;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 
+/**
+ * Fundamental content filter which matches error model annex related business objects which must be included in diagrams.
+ */
 public class FundamentalErrorBusinessObjectFilter implements FundamentalContentFilter {
 	@Override
 	public boolean test(final Object bo) {

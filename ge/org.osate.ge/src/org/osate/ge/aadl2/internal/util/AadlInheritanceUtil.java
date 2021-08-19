@@ -30,9 +30,23 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.aadl2.GraphicalExtensionUtil;
 
-// Contains helper functions related to model elements which may originated from extended classifiers
-public class AadlInheritanceUtil {
+/**
+ * Class containing utility functions related to model elements which may be owned by a business object other than the business object of the
+ * graphical parent.
+ *
+ */
+public final class AadlInheritanceUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private AadlInheritanceUtil() {
+	}
+
+	/**
+	 * @see {@link GraphicalExtensionUtil#isInherited(BusinessObjectContext)}
+	 */
 	public static boolean isInherited(final BusinessObjectContext boc) {
 		if (boc.getParent() != null && boc.getBusinessObject() instanceof Element) {
 			final Element e = ((Element) boc.getBusinessObject());

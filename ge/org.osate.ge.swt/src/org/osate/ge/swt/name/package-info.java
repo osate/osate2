@@ -23,6 +23,6 @@
  */
 
 /**
- * Components for editing names.
+ * Contains components for editing names.
  */
 package org.osate.ge.swt.name;

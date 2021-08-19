@@ -33,7 +33,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.operations.DefaultOperationBuilder;
 
 /**
- * Represents an operation. An operation is a sequence of steps. An operation may branch into additional sequences of steps.
+ * Represents an operation. An operation is a branching sequence of steps.
  * Steps may modify the model, prompt the user, or perform other operations. The result of the previous step is provided to the followings step.
  * Operations provide a means to perform relatively complex model operations while abstracting how the details regarding how the model
  * is accessed.
@@ -50,13 +50,13 @@ import org.osate.ge.internal.operations.DefaultOperationBuilder;
 public interface Operation {
 	/**
 	 * Creates an operation by calling a consumer which will provide an OperationBuilder to use to create the operation.
-	 * @param operationBuilder
-	 * @return
+	 * @param callback consumer which will use the specified operation builder to create operation steps.
+	 * @return the created operation
 	 * @since 2.0
 	 */
-	public static Operation createWithBuilder(final Consumer<OperationBuilder<?>> operationBuilder) {
+	public static Operation createWithBuilder(final Consumer<OperationBuilder<?>> callback) {
 		final DefaultOperationBuilder rootOpBuilder = new DefaultOperationBuilder();
-		operationBuilder.accept(rootOpBuilder);
+		callback.accept(rootOpBuilder);
 		return rootOpBuilder.build();
 	}
 
@@ -64,62 +64,50 @@ public interface Operation {
 	 * Create an operation that modifies the business object of the specified business object context. Automatically adds the
 	 * newly created object to the diagram. The newly created object must be a valid child of the specified business object
 	 * context.
-	 * @param <BusinessObjectType> is the type of business object being modified
+	 * @param <B> the type of business object to modify
 	 * @param containerToModify is the business object context which is being modified
 	 * @param containerBoType is the type of business object expected for the context.
 	 * @param modifier is a function that performs the modification operation to the passed in business object.
 	 * @return an optional containing an operation. If the type of the context's business object does not match the specified type an empty optional will be returned.
 	 * @since 2.0
 	 */
-	public static <BusinessObjectType> Optional<Operation> createSimple(final BusinessObjectContext containerToModify,
-			final Class<BusinessObjectType> containerBoType, Function<BusinessObjectType, StepResult<?>> modifier) {
+	public static <B> Optional<Operation> createSimple(final BusinessObjectContext containerToModify,
+			final Class<B> containerBoType, Function<B, StepResult<?>> modifier) {
 		return containerToModify.getBusinessObject(containerBoType)
-				.map(containerBo -> Operation.createWithBuilder(b -> {
-					b.supply(() -> StepResult.forValue(containerBo)).modifyPreviousResult(bo2 -> {
-						return modifier.apply(bo2);
-					});
-				}));
+				.map(containerBo -> Operation.createWithBuilder(
+						b -> b.supply(() -> StepResult.forValue(containerBo)).modifyPreviousResult(modifier::apply)));
 	}
 
 	/**
 	 * Creates an operation that is intended to be used to implement the common pattern of prompting to select the business object to modify.
-	 * @param <BusinessObjectType> is the business object being modified
+	 * @param <B> the business object to modify
 	 * @param prompter is a function which returns the business object to be modified. Must not return null.
 	 * @param modifier is a function used to modify the model. The argument for this function may not match that which is returned by the prompter. Only the business object passed into this function should be modified.
 	 * @return the created operation.
 	 * @since 2.0
 	 */
-	public static <BusinessObjectType> Operation createPromptAndModify(
-			final Supplier<Optional<BusinessObjectType>> prompter,
-			Function<BusinessObjectType, StepResult<?>> modifier) {
-		return createWithBuilder(b -> {
-			b.supply(() -> {
-				return prompter.get().map(v -> StepResult.forValue(v)).orElseGet(() -> StepResult.abort());
-			}).modifyPreviousResult(v -> {
-				return modifier.apply(v);
-			});
-		});
+	public static <B> Operation createPromptAndModify(final Supplier<Optional<B>> prompter,
+			Function<B, StepResult<?>> modifier) {
+		return createWithBuilder(
+				b -> b.supply(() -> prompter.get().map(StepResult::forValue).orElseGet(StepResult::abort))
+				.modifyPreviousResult(modifier::apply));
 	}
 
 	/**
 	 * Creates an operation that is intended to be used to implement the common pattern of prompting the user to determine the business object to modify and additional arguments.
-	 * @param <BusinessObjectType>
-	 * @param <Extra> is the type of the data beyond the business object to modify which will be collected.
+	 * @param <B> the business object to modify
+	 * @param <E> is the type of the extra data needed for the operation which will be collected.
 	 * @param prompter is a function that prompts the user and then provides a business object to modify along with additional data. Must not return null.
 	 * @param modifier is a function used to modify the model. The argument for this function may not match that which is returned by the prompter. Only the business object passed into this function should be modified.
 	 * @return the created operation.
 	 * @since 2.0
 	 */
-	public static <BusinessObjectType extends EObject, Extra> Operation createPromptAndModifyWithExtra(
-			final Supplier<Optional<BusinessObjectAndExtra<BusinessObjectType, Extra>>> prompter,
-			Function<BusinessObjectAndExtra<BusinessObjectType, Extra>, StepResult<?>> modifier) {
-		return createWithBuilder(b -> {
-			b.supply(() -> {
-				return prompter.get().map(v -> StepResult.forValue(v)).orElseGet(() -> StepResult.abort());
-			}).modifyModel(null, (t, args) -> args.getBusinessObject(), (tag, boToModify, args) -> {
-				return modifier.apply(new BusinessObjectAndExtra<>(boToModify, args.getExtra()));
-			});
-		});
+	public static <B extends EObject, E> Operation createPromptAndModifyWithExtra(
+			final Supplier<Optional<BusinessObjectAndExtra<B, E>>> prompter,
+			Function<BusinessObjectAndExtra<B, E>, StepResult<?>> modifier) {
+		return createWithBuilder(
+				b -> b.supply(() -> prompter.get().map(StepResult::forValue).orElseGet(StepResult::abort))
+				.modifyModel(null, (t, args) -> args.getBusinessObject(), (tag, boToModify, args) -> modifier
+						.apply(new BusinessObjectAndExtra<>(boToModify, args.getExtra()))));
 	}
-
 }

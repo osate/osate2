@@ -86,6 +86,7 @@ import org.osate.aadl2.modelsupport.Activator;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.ge.ProjectUtil;
+import org.osate.ge.internal.GraphicalEditorException;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionService;
@@ -187,7 +188,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 						postProcessor.modificationCompleted(allSuccessful);
 					}
 
-					return modificationResults.size() > 0 ? new UndoAction(modificationResults) : null;
+					return modificationResults.isEmpty() ? null : new UndoAction(modificationResults);
 				}
 			}
 
@@ -201,8 +202,8 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			try {
 				project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
 			} catch (CoreException e) {
-				// Ignore any errors that occur while building the project
-				e.printStackTrace();
+				// Log and ignore any errors that occur while building the project
+				StatusManager.getManager().handle(e, Activator.PLUGIN_ID);
 			}
 		}
 	}
@@ -233,15 +234,15 @@ public class DefaultAadlModificationService implements AadlModificationService {
 						final String newOriginalTextContents;
 						if (doc == null) {
 							final IProject projectResource = ProjectUtil.getProjectOrNull(modResult.resourceUri);
-							if (projectResource instanceof IProject) {
-								projectsToBuild.add((IProject) projectResource);
+							if (projectResource != null) {
+								projectsToBuild.add(projectResource);
 							}
 
 							// Get the model file
 							String platformString = modResult.resourceUri.toPlatformString(true);
 							final IResource modelResource = ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
 							if (!(modelResource instanceof IFile)) {
-								throw new RuntimeException("Unable to get file: " + platformString);
+								throw new GraphicalEditorException("Unable to get file: " + platformString);
 							}
 
 							final IFile modelFile = (IFile) modelResource;
@@ -260,7 +261,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 												modResult.originalTextContents.getBytes(charset)),
 										true, true, new NullProgressMonitor());
 							} catch (IOException | CoreException e) {
-								throw new RuntimeException(e);
+								throw new GraphicalEditorException(e);
 							}
 
 						} else {
@@ -301,7 +302,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		}
 
 		if (!(bo.eResource() instanceof XtextResource)) {
-			throw new RuntimeException("Unexpected case. Resource is not an XtextResource");
+			throw new GraphicalEditorException("Unexpected case. Resource is not an XtextResource");
 		}
 
 		// Try to get the Xtext document
@@ -326,7 +327,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			try {
 				originalTextContents = getText(res);
 			} catch (RuntimeException ex) {
-				throw new RuntimeException(
+				throw new GraphicalEditorException(
 						"Unable to modify model. Unable to get AADL source text. Check model for errors.",
 						ex);
 			}
@@ -341,7 +342,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 							IWorkspace.VALIDATE_PROMPT);
 					if (!status.isOK() || aadlFile.isReadOnly()) {
 						final String extMessage = status.isOK() ? "" : status.getMessage();
-						throw new RuntimeException("One or more AADL files are not read-only. " + extMessage);
+						throw new GraphicalEditorException("One or more AADL files are not read-only. " + extMessage);
 					}
 				}
 			}
@@ -353,7 +354,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				try {
 					res.save(SaveOptions.newBuilder().format().getOptions().toOptionsMap());
 				} catch (final IOException e) {
-					throw new RuntimeException(e);
+					throw new GraphicalEditorException(e);
 				}
 			}
 
@@ -431,7 +432,8 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				final XtextEditor xtextEditor = (XtextEditor) editor;
 				if (xtextEditor.getDocument() == doc) {
 					if (!xtextEditor.validateEditorInputState()) {
-						throw new RuntimeException("Unable to edit Xtext document. Editor input validation failed.");
+						throw new GraphicalEditorException(
+								"Unable to edit Xtext document. Editor input validation failed.");
 					}
 					break;
 				}
@@ -445,18 +447,18 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		try {
 			res.save(stream, SaveOptions.newBuilder().format().getOptions().toOptionsMap());
 		} catch (final IOException e) {
-			throw new RuntimeException(e);
+			throw new GraphicalEditorException(e);
 		}
 
 		try {
 			final String txt = stream.toString(res.getEncoding());
 			if (txt == null || txt.length() == 0) {
-				throw new RuntimeException("Unable to get source text for resource: " + res.getURI());
+				throw new GraphicalEditorException("Unable to get source text for resource: " + res.getURI());
 			}
 
 			return txt;
 		} catch (final UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
+			throw new GraphicalEditorException(e);
 		}
 	}
 
@@ -500,7 +502,8 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				EcoreUtil.delete(defaultAnnexSubclause.getParsedAnnexSubclause());
 				defaultAnnexSubclause.setSourceText(sourceTxt2);
 			} else {
-				throw new RuntimeException("Unhandled case, parsedAnnexRoot is of type: " + parsedAnnexRootClone.getClass());
+				throw new GraphicalEditorException(
+						"Unhandled case, parsedAnnexRoot is of type: " + parsedAnnexRootClone.getClass());
 			}
 		}, false);
 	}
@@ -546,7 +549,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		} else if(defaultAnnexObject instanceof DefaultAnnexSubclause) {
 			return ((DefaultAnnexSubclause) defaultAnnexObject).getParsedAnnexSubclause();
 		} else {
-			throw new RuntimeException("Unexpected type: " + defaultAnnexObject.getClass().getName());
+			throw new GraphicalEditorException("Unexpected type: " + defaultAnnexObject.getClass().getName());
 		}
 	}
 
@@ -577,7 +580,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	private Deque<Integer> getParsedAnnexRootIndices(final EObject obj) {
 		assert !(obj instanceof DefaultAnnexLibrary || obj instanceof DefaultAnnexSubclause);
 
-		final Deque<Integer> indices = new ArrayDeque<Integer>();
+		final Deque<Integer> indices = new ArrayDeque<>();
 
 		// Find the root of the parsed annex
 		EObject tmp = obj;
@@ -585,7 +588,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 
 			final int newIndex = ECollections.indexOf(tmp.eContainer().eContents(), tmp, 0);
 			if(newIndex == -1) {
-				throw new RuntimeException("Unable to get index inside of container contents");
+				throw new GraphicalEditorException("Unable to get index inside of container contents");
 			}
 
 			indices.push(newIndex);;
@@ -625,7 +628,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	/**
 	 * Class used to return the results of the modifySafely method
 	 *
-	 * @param <R>
 	 */
 	private static class ModifySafelyResults {
 		private ModifySafelyResults(final boolean modificationSuccessful) {
@@ -647,7 +649,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	private <TagType, BusinessObjectType extends EObject> ModifySafelyResults modifySafely(final XtextResource resource, final TagType tag, final BusinessObjectType element,
 			final Modifier<TagType, BusinessObjectType> modifier, final boolean testSerialization) {
 		if(resource.getContents().size() < 1) {
-			return null;
+			return new ModifySafelyResults(false);
 		}
 
 		final ResourceSet resourceSet = Objects.requireNonNull(resource.getResourceSet(),
@@ -658,17 +660,15 @@ public class DefaultAadlModificationService implements AadlModificationService {
 		boolean modificationSuccessful = false;
 
 		final Command undoCommand;
-		final RecordingCommand cmd;
 		if (domain == null) {
 			undoCommand = null;
-			cmd = null;
 
 			// Perform the modification without a transaction
 			modifier.modify(tag, element);
 		} else {
 			// Make modification in a transaction
 			undoCommand = domain.getCommandStack().getUndoCommand();
-			cmd = new RecordingCommand(domain) {
+			final RecordingCommand cmd = new RecordingCommand(domain) {
 				@Override
 				protected void doExecute() {
 					modifier.modify(tag, element);

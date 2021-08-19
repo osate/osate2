@@ -26,10 +26,7 @@ package org.osate.ge.gef;
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
@@ -59,12 +56,15 @@ public class RectangleNode extends Region implements ChopBoxGeometryProvider, St
 		rect.setStrokeType(StrokeType.INSIDE);
 		rect.setStrokeLineCap(StrokeLineCap.BUTT);
 
-		setLineWidth(2.0);
-		setBackgroundColor(Color.WHITE);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 		setRounded(rounded);
 	}
 
+	/**
+	 * Sets whether the rectangle has rounded corners.
+	 * @param value whether the rectangle has rounded corners.
+	 */
 	public void setRounded(final boolean value) {
 		final double arcSize = value ? ROUNDED_ARC_SIZE : 0;
 		rect.setArcWidth(arcSize);
@@ -80,26 +80,10 @@ public class RectangleNode extends Region implements ChopBoxGeometryProvider, St
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
-	}
-
-	public final void setBackgroundColor(final Color value) {
-		rect.setFill(value);
-	}
-
-	public final void setOutlineColor(final Color value) {
-		rect.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		rect.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		rect.getStrokeDashArray().setAll(value);
+		rect.setFill(style.getBackgroundColor());
+		rect.setStroke(style.getOutlineColor());
+		rect.setStrokeWidth(style.getLineWidth());
+		rect.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 
 	@Override

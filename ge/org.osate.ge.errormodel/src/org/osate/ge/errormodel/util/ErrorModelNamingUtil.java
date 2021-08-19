@@ -116,7 +116,7 @@ public class ErrorModelNamingUtil {
 			return "The specified name conflicts with an existing element.";
 		}
 
-		if (!newName.matches("[a-zA-Z]([_]?[a-zA-Z0-9])*")) {
+		if (!newName.matches("[a-zA-Z]([_]?[a-zA-Z0-9])*+")) {
 			return "The specified name is not a valid identifier";
 		}
 
