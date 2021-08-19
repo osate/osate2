@@ -29,22 +29,22 @@ import java.util.Objects;
  * Text information for editing embedded models
  */
 public abstract class EmbeddedTextValue implements EmbeddedTextValueModificationModel {
-	private final int originalTextLength;
+	private final int originalSrcLength;
 	private String prefix;
 	private String editableText;
 	private String suffix;
 
 	/**
 	 * Text information for editing embedded models.
-	 * @param originalTextLength is the length of the original source text
+	 * @param originalSrcLength is the length of the original source text
 	 * @param prefix is the text before the modifiable text
 	 * @param editableText is the text that is modifiable
 	 * @param suffix is the text after the modifiable text
 	 * @since 2.0
 	 */
-	public EmbeddedTextValue(final int originalTextLength, final String prefix, final String editableText,
+	public EmbeddedTextValue(final int originalSrcLength, final String prefix, final String editableText,
 			final String suffix) {
-		this.originalTextLength = originalTextLength;
+		this.originalSrcLength = originalSrcLength;
 		this.prefix = Objects.requireNonNull(prefix, "prefix must not be null");
 		this.editableText = Objects.requireNonNull(editableText, "editableText must not be null");
 		this.suffix = Objects.requireNonNull(suffix, "suffix must not be null");
@@ -55,7 +55,7 @@ public abstract class EmbeddedTextValue implements EmbeddedTextValueModification
 	 * @return the length of the text that will be replaced when updated
 	 */
 	public int getUpdateLength() {
-		return Math.max(0, originalTextLength - prefix.length() - suffix.length());
+		return Math.max(0, originalSrcLength - prefix.length() - suffix.length());
 	}
 
 	/**

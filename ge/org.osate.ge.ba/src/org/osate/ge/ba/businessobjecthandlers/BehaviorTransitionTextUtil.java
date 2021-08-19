@@ -3,16 +3,15 @@ package org.osate.ge.ba.businessobjecthandlers;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.xbase.lib.Pair;
-import org.osate.aadl2.NamedElement;
 import org.osate.ba.aadlba.BehaviorActionBlock;
 import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.unparser.AadlBaUnparser;
 import org.osate.ge.aadl2.AadlGraphicalEditorException;
+import org.osate.ge.ba.ui.properties.BehaviorActionBlockEmbeddedTextValue;
+import org.osate.ge.ba.ui.properties.BehaviorConditionEmbeddedTextValue;
 import org.osate.ge.ba.ui.properties.EmbeddedTextValue;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 
@@ -39,38 +38,8 @@ public class BehaviorTransitionTextUtil {
 		// Text after condition
 		final String suffix = afterPrefix.substring(conditionEnd);
 		final String conditionText = afterPrefix.substring(0, conditionEnd).trim();
-		return new EmbeddedTextValue(sourceText.length(), prefix, conditionText, suffix) {
-			@Override
-			public String getEditDialogTitle() {
-				return "Edit Transition Condition";
-			}
-
-			@Override
-			public String getEditDialogMessage() {
-				return "Enter new dispatch condition.";
-			}
-
-			@Override
-			public String getModificationLabel() {
-				return "Modify Behavior Transition Condition";
-			}
-
-			@Override
-			public NamedElement getElementToModify() {
-				return behaviorTransition;
-			}
-
-			@Override
-			public boolean isValidModification(final EObject bo, final String newText) {
-				if (bo instanceof BehaviorTransition) {
-					final BehaviorCondition condition = ((BehaviorTransition) bo).getCondition();
-					// Calculate enabled based on if condition should exist and if it exists
-					return newText.isEmpty() ? condition == null : condition != null;
-				}
-
-				return false;
-			}
-		};
+		return new BehaviorConditionEmbeddedTextValue(behaviorTransition, sourceText.length(), prefix, conditionText,
+				suffix);
 	}
 
 	/**
@@ -179,71 +148,7 @@ public class BehaviorTransitionTextUtil {
 		}
 
 		// Create condition value
-		return new EmbeddedTextValue(src.length(), prefix, actionText, suffix) {
-			@Override
-			public String getEditDialogTitle() {
-				return "Edit Transition Action";
-			}
-
-			@Override
-			public String getEditDialogMessage() {
-				return "Enter new action block.";
-			}
-
-			@Override
-			public String getModificationLabel() {
-				return "Modify Behavior Transition Action";
-			}
-
-			@Override
-			public boolean isValidModification(final EObject bo, final String newText) {
-				if (bo instanceof BehaviorTransition) {
-					final BehaviorActionBlock actionBlock = ((BehaviorTransition) bo).getActionBlock();
-					// Calculate enabled based on if action should exist and if it exists
-					return newText.isEmpty() ? actionBlock == null : actionBlock != null;
-				}
-
-				return false;
-			}
-
-			@Override
-			public NamedElement getElementToModify() {
-				return behaviorTransition;
-			}
-
-			@Override
-			public Optional<String> getModifiedAADLSourceForNewText(
-					final String newActionBlock) {
-				if (newActionBlock.isEmpty()) {
-					// Remove brackets for empty action block
-					final String prefix = getPrefix();
-					return Optional.of(new StringBuilder(prefix.substring(0, prefix.length() - 1))
-							.append(getSuffix().substring(1))
-							.toString());
-				}
-
-				return Optional.empty();
-			}
-
-			@Override
-			public void setEditableText(String newActionBlock) {
-				final boolean actionExists = !getEditableText().isEmpty();
-				if (!actionExists && !newActionBlock.isEmpty()) {
-					// Modify prefix to account for bracket being added
-					setPrefix(getPrefix().substring(0, getPrefix().length() - 1));
-					// Add brackets for creating new action block
-					newActionBlock = "{" + newActionBlock + "}";
-				} else {
-					if (actionExists && newActionBlock.isEmpty()) {
-						// Modify prefix and suffix to delete existing brackets for removing action block
-						setPrefix(getPrefix().substring(0, getPrefix().length() - 1));
-						setSuffix(getSuffix().substring(1));
-					}
-				}
-
-				super.setEditableText(newActionBlock);
-			};
-		};
+		return new BehaviorActionBlockEmbeddedTextValue(behaviorTransition, src.length(), prefix, actionText, suffix);
 	}
 
 	private static int getWhiteSpace(final String s) {
