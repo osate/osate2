@@ -88,7 +88,7 @@ public class BehaviorConditionHandler implements BusinessObjectHandler {
 							.orElseThrow(() -> new RuntimeException("Resource must be XtextResource"));
 					final IXtextDocument xtextDocument = getXtextDocument(bt).orElse(null);
 					final String sourceText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
-					return BehaviorConditionUtil.getConditionText(bt, sourceText);
+					return BehaviorTransitionTextUtil.getConditionText(bt, sourceText);
 				})
 				.orElseThrow();
 	}

@@ -23,76 +23,90 @@
  */
 package org.osate.ge.ba.ui.properties;
 
+import java.util.Objects;
+
 /**
  * Text information for editing embedded models
  */
-public class EmbeddedTextValue {
-	private final String wholeText;
-	private final String prefix;
-	private final String suffix;
-	private final int offset;
+public abstract class EmbeddedTextValue implements EmbeddedTextValueModificationModel {
+	private final int originalTextLength;
+	private String prefix;
 	private String editableText;
-	private int updateOffset;
-	private int updateLength;
+	private String suffix;
 
 	/**
+	 * Text information for editing embedded models.
+	 * @param originalTextLength is the length of the original source text
+	 * @param prefix is the text before the modifiable text
+	 * @param editableText is the text that is modifiable
+	 * @param suffix is the text after the modifiable text
 	 * @since 2.0
 	 */
 	public EmbeddedTextValue(final int originalTextLength, final String prefix, final String editableText,
 			final String suffix) {
-		this.prefix = prefix;
-		updateOffset = prefix.length();
-		this.suffix = suffix;
-		this.editableText = editableText;
-		final String prefixWithLineEnding = prefix + "\n";
-		wholeText = prefixWithLineEnding + editableText + "\n" + suffix;
-		// Offset to show text within embedded styled text
-		offset = prefixWithLineEnding.length();
-		// Length of text to replace
-		updateLength = Math.max(0, originalTextLength - prefix.length() - suffix.length());
+		this.originalTextLength = originalTextLength;
+		this.prefix = Objects.requireNonNull(prefix, "prefix must not be null");
+		this.editableText = Objects.requireNonNull(editableText, "editableText must not be null");
+		this.suffix = Objects.requireNonNull(suffix, "suffix must not be null");
 	}
 
+	/**
+	 * The length of the text that will be replaced when updated
+	 * @return the length of the text that will be replaced when updated
+	 */
 	public int getUpdateLength() {
-		return updateLength;
+		return Math.max(0, originalTextLength - prefix.length() - suffix.length());
 	}
 
+	/**
+	 * The text that is edited to modify embedded text
+	 * @return is the text that is edited to modify embedded text
+	 * @since 2.0
+	 */
 	public String getEditableText() {
 		return editableText;
 	}
 
-	public int getEditableTextOffset() {
-		return offset;
-	}
-
-	public String getWholeText() {
-		return wholeText;
-	}
-
+	/**
+	 * The prefix of the editable text
+	 * @return the text before the editable text
+	 */
 	public String getPrefix() {
 		return prefix;
 	}
 
+	/**
+	 * The suffix of the editable text
+	 * @return the text after the editable text
+	 */
 	public String getSuffix() {
 		return suffix;
 	}
 
-	public int getUpdateOffset() {
-		return updateOffset;
-	}
-
-	public void setUpdateOffset(final int updateOffset) {
-		this.updateOffset = updateOffset;
-	}
-
-	public void setUpdateLength(final int updateLength) {
-		this.updateLength = updateLength;
+	/**
+	 * Sets the prefix to the editable text
+	 * @param prefix is the new prefix to the editable text
+	 * @since 2.0
+	 */
+	public void setPrefix(final String prefix) {
+		this.prefix = Objects.requireNonNull(prefix, "prefix must not be null");
 	}
 
 	/**
+	 * Sets the suffix to the editable text
+	 * @param suffix is the new suffix to the editable text
 	 * @since 2.0
 	 */
-	public void setEditableText(String string) {
-		this.editableText = string;
+	public void setSuffix(final String suffix) {
+		this.suffix = Objects.requireNonNull(suffix, "suffix must not be null");
 	}
 
+	/**
+	 * Sets the editable text used to edit embedded text
+	 * @param editableText the new editable text
+	 * @since 2.0
+	 */
+	public void setEditableText(final String editableText) {
+		this.editableText = editableText;
+	}
 }

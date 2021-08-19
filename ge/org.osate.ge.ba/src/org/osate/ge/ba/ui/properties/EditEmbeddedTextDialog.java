@@ -24,8 +24,6 @@
 
 package org.osate.ge.ba.ui.properties;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.Objects;
 import java.util.Stack;
 import java.util.Timer;
@@ -34,8 +32,7 @@ import java.util.TimerTask;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -53,14 +50,21 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.IHandlerActivation;
 import org.eclipse.ui.handlers.IHandlerService;
-import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
 import org.osate.ge.swt.SwtUtil;
 
+/**
+ *
+ */
 public class EditEmbeddedTextDialog extends MessageDialog {
 	private static String WIDGET_ID = "org.osate.ge.ba.behaviortransition.editdialog";
 	private static String MODIFIED_SOURCE_KEY = WIDGET_ID + ".modifiedsource";
+	/**
+	 *
+	 */
 	public static String WIDGET_ID_TEXT = WIDGET_ID + ".text";
+	/**
+	 *
+	 */
 	public static String WIDGET_ID_CONFIRM = WIDGET_ID + ".confirmation";
 	private final EmbeddedXtextAdapter xtextAdapter;
 	private final ExtendedModifyListener textValidator;
@@ -73,21 +77,30 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	private Result result;
 
 	/**
+	 *
+	 * @param parentShell
+	 * @param project
+	 * @param textValue
+	 * @param styledTextStyle
+	 * @param styledTextLayoutData
+	 * @param modify
 	 * @since 2.0
 	 */
-	public EditEmbeddedTextDialog(final Shell parentShell, final EmbeddedXtextAdapter xtextAdapter,
+	public EditEmbeddedTextDialog(final Shell parentShell, final IProject project, final EmbeddedTextValue textValue,
 			final int styledTextStyle,
-			final GridData styledTextLayoutData,
-			final EditInterface modify) {
-		super(parentShell, modify.dialogTitle(), null, modify.dialogMessage(), MessageDialog.NONE, 0, "OK", "Cancel");
+			final GridData styledTextLayoutData) {
+		super(parentShell, textValue.getEditDialogTitle(), null, textValue.getEditDialogMessage(), MessageDialog.NONE,
+				0,
+				"OK",
+				"Cancel");
 		// Create new xtext adapter for the edit dialog
 		this.xtextAdapter = Objects.requireNonNull(
-				new EmbeddedXtextAdapter(xtextAdapter.getProject(), xtextAdapter.getTextValue()),
+				new EmbeddedXtextAdapter(project, textValue),
 				"xtextAdapter cannot be null");
 		this.styledTextStyle = styledTextStyle;
 		this.styledTextLayoutData = Objects.requireNonNull(styledTextLayoutData, "styledTextLayoutData cannot be null");
 		this.textValidator = Objects.requireNonNull(
-				createTextValidator(modify),
+				createTextValidator(),
 				"textValidator cannot be null");
 		service = PlatformUI.getWorkbench().getService(IHandlerService.class);
 		setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
@@ -147,8 +160,8 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 	// Text modification listener that sets the OK button as enabled
 	// or disabled based on if the new text is valid
-	private ExtendedModifyListener createTextValidator(final EditInterface modify) {
-		final ValidationTask validationTask = new ValidationTask(modify);
+	private ExtendedModifyListener createTextValidator() {
+		final ValidationTask validationTask = new ValidationTask();
 		return event -> {
 			// Disable button until validation occurs
 			final Button okBtn = getButton(IDialogConstants.OK_ID);
@@ -158,13 +171,8 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	}
 
 	private class ValidationTask {
-		private final EditInterface modify;
 		private Timer validationTimer;
 		private String textToValidate;
-
-		public ValidationTask(final EditInterface modify) {
-			this.modify = modify;
-		}
 
 		public void schedule(final Button okBtn) {
 			if (validationTimer != null) {
@@ -184,60 +192,20 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 						textToValidate = newText;
 
-						okBtn.setEnabled(false);
-						// Disable if text has not changed
+						// Disable ok button if text has not changed
 						if (newText.equals(xtextAdapter.getEditableText())) {
+							okBtn.setEnabled(false);
 							return;
 						}
 
-						// Update save button based on whether the text entered into the
-						// styled text is a serializable condition
-						final EObject rootElement = xtextAdapter.getXtextParseResult().getRootASTElement();
-						final XtextResource fakeResource = xtextAdapter.getFakeResource();
-						// Link model
-						fakeResource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
-
-						// Original source text
-						final String originalSrc = xtextAdapter.getText();
-
-						try {
-							// Modified source text
-							final String modifiedSrc = modify.getModifiedSource(xtextAdapter.serialize(rootElement),
-									newText);
-							// Set modified source text data
-							styledText.setData(MODIFIED_SOURCE_KEY, modifiedSrc);
-
-							// Load for error checking
-							loadResource(fakeResource, modifiedSrc);
-							boolean isEnabled = false;
-							// Check if business object still exists, meaning the modification did not break serialization
-							final EObject tmpBo = fakeResource
-									.getEObject(EcoreUtil.getURI(modify.getElementToModify()).fragment());
-
-							if (tmpBo != null) {
-								isEnabled = modify.isValidModification(tmpBo,
-										newText);
-							}
-
-							okBtn.setEnabled(isEnabled);
-						} catch (final Exception ex) {
-							okBtn.setEnabled(false);
-						} finally {
-							// Load original source
-							loadResource(fakeResource, originalSrc);
-						}
+						// Source text to load
+						final String modifiedSrc = xtextAdapter.getValidModifiedSource(newText).orElse(null);
+						// Set modified source text data
+						styledText.setData(MODIFIED_SOURCE_KEY, modifiedSrc);
+						okBtn.setEnabled(modifiedSrc != null);
 					});
 				}
 			}, 1000);
-		}
-	}
-
-	private void loadResource(final XtextResource resource, final String src) {
-		try {
-			resource.unload();
-			resource.load(new ByteArrayInputStream(src.getBytes()), null);
-		} catch (final IOException e) {
-			throw new RuntimeException("Serialized source cannot be loaded");
 		}
 	}
 

@@ -23,13 +23,9 @@
  */
 package org.osate.ge.ba.ui.properties;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.core.runtime.Adapters;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.IFilter;
 import org.eclipse.jface.viewers.ISelection;
@@ -39,18 +35,12 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-import org.osate.aadl2.NamedElement;
-import org.osate.ba.aadlba.BehaviorActionBlock;
-import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition;
-import org.osate.ba.unparser.AadlBaUnparser;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ProjectUtil;
-import org.osate.ge.aadl2.AadlGraphicalEditorException;
-import org.osate.ge.ba.businessobjecthandlers.BehaviorConditionUtil;
-import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
+import org.osate.ge.ba.businessobjecthandlers.BehaviorTransitionTextUtil;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
@@ -91,34 +81,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		conditionLabel.setText("Condition:");
 		SwtUtil.setColorsToMatchParent(conditionLabel);
 
-		conditionEditingControls = EmbeddedTextEditor.createSingleline(container, new EditInterface() {
-			@Override
-			public String dialogTitle() {
-				return "Edit Transition Condition";
-			}
-
-			@Override
-			public String dialogMessage() {
-				return "Enter new dispatch condition.";
-			}
-
-			@Override
-			public NamedElement getElementToModify() {
-				return selectedBos.boStream(BehaviorTransition.class).findAny().orElseThrow();
-			}
-
-			@Override
-			public boolean isValidModification(final EObject bo, final String newText) {
-				if (bo instanceof BehaviorTransition) {
-					final BehaviorCondition condition = ((BehaviorTransition) bo).getCondition();
-					// Calculate enabled based on if condition should exist and if it exists
-					return newText.isEmpty() ? condition == null : condition != null;
-				}
-
-				return false;
-			}
-		});
-
+		conditionEditingControls = EmbeddedTextEditor.createSingleline(container);
 		conditionEditingControls.setStyledTextTestId(WIDGET_ID_CONDITION);
 		conditionEditingControls.setEditButtonTestId(WIDGET_ID_EDIT_CONDITION);
 
@@ -126,61 +89,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		actionLabel.setText("Action:");
 		SwtUtil.setColorsToMatchParent(actionLabel);
 
-		actionBlockEditingControls = EmbeddedTextEditor.createMultiLine(container, new EditInterface() {
-			@Override
-			public String dialogTitle() {
-				return "Edit Transition Action";
-			}
-
-			@Override
-			public String dialogMessage() {
-				return "Enter new action block.";
-			}
-
-			@Override
-			public boolean isValidModification(EObject bo, String newText) {
-				if (bo instanceof BehaviorTransition) {
-					final BehaviorActionBlock actionBlock = ((BehaviorTransition) bo).getActionBlock();
-					// Calculate enabled based on if action should exist and if it exists
-					return newText.isEmpty() ? actionBlock == null : actionBlock != null;
-				}
-
-				return false;
-			}
-
-			@Override
-			public NamedElement getElementToModify() {
-				return selectedBos.boStream(BehaviorTransition.class).findAny().orElseThrow();
-			}
-
-			@Override
-			public String getModifiedSource(String modifiedSrc, String newActionBlock) {
-				if (newActionBlock.isEmpty()) {
-					// Remove brackets for empty action block
-					final String prefix = actionBlockEditingControls.getValue().getPrefix();
-					modifiedSrc = prefix.substring(0, prefix.length() - 1)
-							+ actionBlockEditingControls.getValue().getSuffix().substring(1);
-
-				}
-				return modifiedSrc;
-			}
-
-			@Override
-			public void modifyEmbeddedTextValue(final EmbeddedTextValue value, String newText) {
-				final String editableText = value.getEditableText();
-				final boolean actionExists = !editableText.isEmpty();
-				if (actionExists && newText.isEmpty()) {
-					value.setUpdateOffset(value.getUpdateOffset() - 1);
-					value.setUpdateLength(value.getUpdateLength() + 2);
-					value.setEditableText(newText);
-				} else if (!actionExists && !newText.isEmpty()) {
-					value.setUpdateOffset(value.getUpdateOffset() - 1);
-					// Add brackets for creating new action block
-					value.setEditableText("{" + newText + "}");
-				}
-			}
-		});
-
+		actionBlockEditingControls = EmbeddedTextEditor.createMultiLine(container);
 		actionBlockEditingControls.setStyledTextTestId(WIDGET_ID_ACTION_BLOCK);
 		actionBlockEditingControls.setEditButtonTestId(WIDGET_ID_EDIT_ACTION_BLOCK);
 	}
@@ -200,9 +109,9 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			} else {
 				final BehaviorTransition behaviorTransition = (BehaviorTransition) selectedBoc.getBusinessObject();
 				conditionEditingControls.setEditorTextValue(behaviorTransition,
-						sourceText -> BehaviorConditionUtil.createTextValue(behaviorTransition, sourceText));
+						sourceText -> BehaviorTransitionTextUtil.createConditionTextValue(behaviorTransition, sourceText));
 				actionBlockEditingControls.setEditorTextValue(behaviorTransition,
-						sourceText -> getActionBlockTextValue(behaviorTransition, sourceText));
+						sourceText -> BehaviorTransitionTextUtil.getActionBlockTextValue(behaviorTransition, sourceText));
 			}
 		}
 	}
@@ -219,84 +128,5 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	private static boolean isBehaviorTransition(final BusinessObjectContext boc) {
 		final Object bo = boc.getBusinessObject();
 		return bo instanceof BehaviorTransition || bo instanceof DeclarativeBehaviorTransition;
-	}
-
-	private static EmbeddedTextValue getActionBlockTextValue(final BehaviorTransition behaviorTransition,
-			final String src) {
-		final BehaviorActionBlock actionBlock = behaviorTransition.getActionBlock();
-
-		// Text before action block
-		final String prefix;
-		// Action block text
-		final String actionText;
-		// Text after action block
-		final String suffix;
-		if (actionBlock == null) {
-			// Transition offset
-			final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
-			final String transitionText = src.substring(transitionOffset);
-			// Find transition terminating semicolon offset
-			final int terminationOffset = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(transitionText, ';')
-					+ transitionOffset;
-
-			// Transition action prefix and add open bracket for action
-			prefix = src.substring(0, terminationOffset) + "{";
-			// Empty condition text
-			actionText = "";
-			// Add bracket to close action text
-			suffix = "}" + src.substring(terminationOffset);
-		} else {
-			// Condition offset
-			final int updateOffset = actionBlock.getAadlBaLocationReference().getOffset() + 1;
-			prefix = src.substring(0, updateOffset);
-
-			// Note: Condition length only counts until the first space (assuming).
-			// For example, when dispatch condition is "on dispatch" length is 2.
-			// Find closing "]", to get condition text
-			final String afterTransitionText = src.substring(updateOffset);
-			// Find action ending offset
-			final int terminationOffset = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(afterTransitionText,
-					'}') + updateOffset;
-
-			// Get formatted action block text
-			final AadlBaUnparser baUnparser = new AadlBaUnparser();
-			// Throw exception if first and last char is not a bracket
-			// to know when formatter has changed
-			final String formattedActionBlock = baUnparser.process(actionBlock);
-			final int lastIndex = formattedActionBlock.length() - 1;
-			if (!Objects.equals('{', formattedActionBlock.charAt(0))
-					|| !Objects.equals('}', formattedActionBlock.charAt(lastIndex))) {
-				throw new AadlGraphicalEditorException(
-						"Unexpected action block format '" + formattedActionBlock + "'.");
-			}
-
-			// Split action at new line character and throw out action block brackets
-			final List<String> actionBlockText = getInnerActionBlockText(formattedActionBlock.split("\n"));
-
-			// Get whitespace to trim from each line after removing opening bracket
-			final int whitespace = getWhiteSpace(actionBlockText.get(0));
-			actionText = String
-					.join("", actionBlockText.stream().map(ss -> ss.substring(whitespace)).toArray(String[]::new))
-					.trim();
-
-			suffix = src.substring(terminationOffset);
-		}
-
-		// Create condition value
-		return new EmbeddedTextValue(src.length(), prefix, actionText, suffix);
-	}
-
-	private static int getWhiteSpace(final String s) {
-		for (int i = 0; i < s.length(); i++) {
-			if (!Character.isWhitespace(s.charAt(i))) {
-				return i;
-			}
-		}
-
-		return 0;
-	}
-
-	private static List<String> getInnerActionBlockText(final String[] splitActionBlockText) {
-		return Arrays.asList(splitActionBlockText).subList(1, splitActionBlockText.length - 1);
 	}
 }

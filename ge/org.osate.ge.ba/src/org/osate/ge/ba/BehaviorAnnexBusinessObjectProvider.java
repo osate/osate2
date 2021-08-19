@@ -34,6 +34,10 @@ import org.osate.ge.BusinessObjectProvider;
 import org.osate.ge.BusinessObjectProviderContext;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
 
+/**
+ * @author Ryan
+ *
+ */
 public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvider {
 	@Override
 	public Stream<?> getChildBusinessObjects(final BusinessObjectProviderContext ctx) {

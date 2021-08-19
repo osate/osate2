@@ -135,7 +135,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 	 */
 	private Void<XtextResource> createUpdateProcess(final EmbeddedTextValue textValue, final String sourceText) {
 		return textValue != null
-				? createPartialUpdateProcess(textValue.getUpdateOffset(), textValue.getUpdateLength(), sourceText)
+				? createPartialUpdateProcess(textValue.getPrefix().length(), textValue.getUpdateLength(), sourceText)
 				: createUndoRedoProcess(sourceText);
 	}
 

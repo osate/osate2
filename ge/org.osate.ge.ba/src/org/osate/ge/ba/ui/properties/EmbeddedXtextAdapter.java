@@ -23,11 +23,17 @@
  */
 package org.osate.ge.ba.ui.properties;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.Optional;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
@@ -75,21 +81,26 @@ public class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 		super.adapt(styledText, decorate);
 		final XtextDocument xtextDoc = getXtextDocument();
 		final SourceViewer srcViewer = getSourceviewer();
-		xtextDoc.set(textValue.getWholeText());
-		srcViewer.setDocument(xtextDoc, srcViewer.getAnnotationModel(), textValue.getEditableTextOffset(),
+		final String prefixWithNewLineEnding = textValue.getPrefix() + "\n";
+		final String suffixWithNewLineBeginning = "\n" + textValue.getSuffix();
+		final String wholeText = new StringBuilder(prefixWithNewLineEnding).append(textValue.getEditableText())
+				.append(suffixWithNewLineBeginning)
+				.toString();
+		xtextDoc.set(wholeText);
+		srcViewer.setDocument(xtextDoc, srcViewer.getAnnotationModel(), prefixWithNewLineEnding.length(),
 				textValue.getEditableText().length());
 	}
 
 	/**
 	 * @since 2.0
 	 */
-	public EmbeddedTextValue getTextValue() {
+	public EmbeddedTextValue getEmbeddedTextValue() {
 		return textValue;
 	}
 
 	@Override
 	public void adapt(final StyledText styledText) {
-		adapt(styledText, true);
+		adapt(styledText, false);
 	}
 
 	public String getEditableText() {
@@ -101,5 +112,95 @@ public class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 	 */
 	public IProject getProject() {
 		return project;
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public String getOriginalSource() {
+		// Update save button based on whether the text entered into the
+		// styled text is a serializable condition
+		final EObject rootElement = getXtextParseResult().getRootASTElement();
+		final XtextResource fakeResource = getFakeResource();
+		// Link model
+		fakeResource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
+
+		// Original source text
+		return getText();
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public void loadSource(final String src) {
+		try {
+			getFakeResource().unload();
+			getFakeResource().load(new ByteArrayInputStream(src.getBytes()), null);
+		} catch (final IOException e) {
+			throw new RuntimeException("Serialized source cannot be loaded");
+		}
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public Optional<String> getValidModifiedSource(final String editableText) {
+		final String originalSrc = getOriginalSource();
+		String modifiedSrc = null;
+		try {
+			// AADL source text to load
+			modifiedSrc = textValue.getModifiedAADLSourceForNewEditableText(editableText)
+					.orElse(serialize(getXtextParseResult().getRootASTElement()));
+			loadSource(modifiedSrc);
+
+			final EObject tmpBo = getFakeResource()
+					.getEObject(EcoreUtil.getURI(textValue.getElementToModify()).fragment());
+			if (tmpBo == null || !textValue.isValidModification(tmpBo, editableText)) {
+				modifiedSrc = null;
+			}
+		} catch (final Exception ex) {
+			modifiedSrc = null;
+		} finally {
+			// Load original source
+			loadSource(originalSrc);
+		}
+
+		return Optional.ofNullable(modifiedSrc);
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public boolean isValid(String newText) {
+		// System.err.println(textValue.getElementToModify() + " elementtomodify");
+		// System.err.println(newText + " newText");
+
+		boolean isEnabled = false;
+		final EObject tmpBo = getFakeResource().getEObject(EcoreUtil.getURI(textValue.getElementToModify()).fragment());
+		if (tmpBo != null) {
+			isEnabled = textValue.isValidModification(tmpBo, newText);
+		}
+
+		isEnabled = tmpBo != null && textValue.isValidModification(tmpBo, newText);
+
+		System.err.println(getOriginalSource() + " orginalSoucr");
+		//
+		loadSource(getOriginalSource());
+		return isEnabled;
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public String textChanged(final String newText) {
+		// Update save button based on whether the text entered into the
+		// styled text is a serializable condition
+		final EObject rootElement = getXtextParseResult().getRootASTElement();
+		final XtextResource fakeResource = getFakeResource();
+		// Link model
+		fakeResource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
+
+		// Original source text
+		return getText();
 	}
 }

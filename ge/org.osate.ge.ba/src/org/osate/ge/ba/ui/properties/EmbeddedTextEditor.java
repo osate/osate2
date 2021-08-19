@@ -55,65 +55,55 @@ import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.swt.SwtUtil;
 
+/**
+ *
+ */
 public class EmbeddedTextEditor extends Composite {
 	private StyledText styledText;
 	private Button editBtn;
 	private EmbeddedXtextAdapter xtextAdapter;
 	private final int styledTextStyle;
-	private String styledTextTestId;
-	private String editBtnTestId;
+	// private String styledTextTestId;
+	// private String editBtnTestId;
 
-	/**
-	 * @param layoutData
-	 * @param editInterface
-	 * @since 2.0
-	 */
-	public EmbeddedTextEditor(final Composite parent, final int styledTextStyle,
-			final GridData layoutData, final EditInterface editInterface) {
+	private EmbeddedTextEditor(final Composite parent, final int styledTextStyle,
+			final GridData layoutData) {
 		super(parent, SWT.NONE);
 		this.setBackground(parent.getBackground());
 		this.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
 		this.styledTextStyle = styledTextStyle;
-		createControls(layoutData, editInterface);
-
+		createControls(layoutData);
 		setLayoutData(layoutData);
 	}
 
 	/**
 	 * @since 2.0
 	 */
-	public EmbeddedTextValue getValue() {
-		return xtextAdapter.getTextValue();
-	}
-
-	/**
-	 * @param editInterface
-	 * @since 2.0
-	 */
-	public static EmbeddedTextEditor createSingleline(final Composite parent, final EditInterface editInterface) {
+	public static EmbeddedTextEditor createSingleline(
+			final Composite parent) {
 		return new EmbeddedTextEditor(parent, SWT.BORDER | SWT.SINGLE,
 				GridDataFactory.swtDefaults()
 						.align(SWT.FILL, SWT.FILL)
 						.grab(true, true)
 						.hint(SWT.DEFAULT, SWT.DEFAULT)
-						.create(),
-				editInterface);
+						.create());
 	}
 
 	/**
 	 * @since 2.0
 	 */
-	public static EmbeddedTextEditor createMultiLine(final Composite parent, final EditInterface editInterface) {
+	public static EmbeddedTextEditor createMultiLine(
+			final Composite parent) {
 		return new EmbeddedTextEditor(parent, SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI,
 				GridDataFactory.swtDefaults()
 						.align(SWT.FILL, SWT.FILL)
 						.grab(true, true)
 						.hint(SWT.DEFAULT, 100)
-						.create(),
-				editInterface);
+						.create());
 	}
 
-	private void createControls(final GridData styledTextLayoutData, final EditInterface editInterface) {
+	private void createControls(
+			final GridData styledTextLayoutData) {
 		// Create styled text
 		styledText = new StyledText(this, styledTextStyle);
 		styledText.setEditable(false);
@@ -125,40 +115,37 @@ public class EmbeddedTextEditor extends Composite {
 		styledText.setCaret(emptyCaret);
 		styledText.setLayoutData(styledTextLayoutData);
 		styledText.addDisposeListener(e -> emptyCaret.dispose());
-		SwtUtil.setTestingId(styledText, styledTextTestId);
 
 		editBtn = new Button(this, SWT.PUSH);
 		editBtn.setText("Edit...");
-		SwtUtil.setTestingId(editBtn, editBtnTestId);
 		editBtn.addSelectionListener(SelectionListener.widgetSelectedAdapter(e -> {
-			final NamedElement ne = editInterface.getElementToModify();
+			final NamedElement ne = xtextAdapter.getEmbeddedTextValue().getElementToModify();
 			final EditEmbeddedTextDialog dlg = new EditEmbeddedTextDialog(Display.getCurrent().getActiveShell(),
-					xtextAdapter, styledTextStyle, styledTextLayoutData, editInterface);
+					xtextAdapter.getProject(), xtextAdapter.getEmbeddedTextValue(), styledTextStyle,
+					styledTextLayoutData);
 			if (dlg.open() == Window.OK) {
 				// Edit condition
 				BehaviorAnnexSelectionUtil.getActiveEditor().ifPresent(editorPart -> {
 					final ActionService actionService = Adapters.adapt(editorPart, ActionService.class);
 					final ModelChangeNotifier modelChangeNotifier = Objects.requireNonNull(
 							editorPart.getAdapter(ModelChangeNotifier.class), "Unable to get model change notifier");
-
 					final IXtextDocument xtextDocument = getXtextDocument(ne).orElse(null);
-
 					if (xtextDocument != null) {
 						// Execute modification with xtext document
-						actionService.execute("Modifying " + ne.getClass().getName(), ExecutionMode.NORMAL,
+						actionService.execute(xtextAdapter.getEmbeddedTextValue().getModificationLabel(),
+								ExecutionMode.NORMAL,
 								new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier,
 										dlg.getResult().getFullSource()));
 					} else {
 						final XtextResource xtextResource = getXtextResource(ne).orElseThrow();
 						final TransactionalEditingDomain editingDomain = TransactionalEditingDomain.Factory.INSTANCE
 								.getEditingDomain(xtextResource.getResourceSet());
-						editInterface.modifyEmbeddedTextValue(getValue(),
-								dlg.getResult().getPartialSource());
-
+						final EmbeddedTextValue embeddedTextValue = xtextAdapter.getEmbeddedTextValue();
+						embeddedTextValue.setEditableText(dlg.getResult().getPartialSource());
 						// Execute modification with xtext resource
-						actionService.execute("Modifying " + ne.getClass().getName(), ExecutionMode.NORMAL,
+						actionService.execute(embeddedTextValue.getModificationLabel(), ExecutionMode.NORMAL,
 								new EmbeddedTextModificationAction(editingDomain, xtextResource, modelChangeNotifier,
-										xtextAdapter.getTextValue()));
+										embeddedTextValue));
 					}
 				});
 			}
@@ -189,11 +176,11 @@ public class EmbeddedTextEditor extends Composite {
 	}
 
 	public void setStyledTextTestId(final String styledTextTestId) {
-		this.styledTextTestId = styledTextTestId;
+		SwtUtil.setTestingId(styledText, styledTextTestId);
 	}
 
 	public void setEditButtonTestId(final String editBtnTestId) {
-		this.editBtnTestId = editBtnTestId;
+		SwtUtil.setTestingId(editBtn, editBtnTestId);
 	}
 
 	private void disposeXtextAdapter() {
@@ -212,19 +199,5 @@ public class EmbeddedTextEditor extends Composite {
 
 	public void setStyledTextText(final String text) {
 		styledText.setText(text);
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public void changeUpdateOffset(int delta) {
-		getValue().setUpdateOffset(getValue().getUpdateOffset() + delta);
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public void changeUpdateLength(int delta) {
-		getValue().setUpdateLength(getValue().getUpdateLength() + delta);
 	}
 }
