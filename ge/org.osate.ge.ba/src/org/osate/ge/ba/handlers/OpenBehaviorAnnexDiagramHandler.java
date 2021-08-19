@@ -32,12 +32,11 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 import org.osate.ge.internal.services.DiagramService;
-import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 
 public class OpenBehaviorAnnexDiagramHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final ISelection selection = AgeHandlerUtil.getCurrentSelection();
+		final ISelection selection = HandlerUtil.getCurrentSelection(event);
 		final DefaultAnnexSubclause diagramContext = BehaviorAnnexSelectionUtil
 				.getDiagramContext(selection, HandlerUtil.getActiveEditor(event))
 				.orElseThrow(() -> new RuntimeException("diagramContext cannot be null"));

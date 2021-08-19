@@ -35,6 +35,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
+import org.osate.ba.aadlba.BehaviorActionBlock;
+import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition;
 import org.osate.ge.BusinessObjectContext;
@@ -48,6 +50,9 @@ import org.osate.ge.ui.PropertySectionUtil;
  * Property section for {@link BehaviorTransition}
  */
 public class BehaviorTransitionPropertySection extends AbstractPropertySection {
+	/**
+	 * Determine whether the Property Section should be shown based on if the object is a {@link BehaviorTransition}
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
@@ -55,9 +60,21 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		}
 	}
 
+	/**
+	 * Widget ID for {@link BehaviorCondition} StyledText
+	 */
 	public static String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.dispatchcondition";
+	/**
+	 * Widget ID for {@link BehaviorCondition} edit Button
+	 */
 	public static String WIDGET_ID_EDIT_CONDITION = WIDGET_ID_CONDITION + ".edit";
+	/**
+	 * Widget ID for {@link BehaviorActionBlock} StyledText
+	 */
 	public static String WIDGET_ID_ACTION_BLOCK = "org.osate.ge.ba.behaviortransition.actionblock";
+	/**
+	 * Widget ID for {@link BehaviorActionBlock} edit Button
+	 */
 	public static String WIDGET_ID_EDIT_ACTION_BLOCK = WIDGET_ID_ACTION_BLOCK + ".edit";
 	private Composite container;
 	private EmbeddedTextEditor conditionEditingControls;
@@ -89,7 +106,7 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		actionLabel.setText("Action:");
 		SwtUtil.setColorsToMatchParent(actionLabel);
 
-		actionBlockEditingControls = EmbeddedTextEditor.createMultiLine(container);
+		actionBlockEditingControls = EmbeddedTextEditor.createMultiline(container);
 		actionBlockEditingControls.setStyledTextTestId(WIDGET_ID_ACTION_BLOCK);
 		actionBlockEditingControls.setEditButtonTestId(WIDGET_ID_EDIT_ACTION_BLOCK);
 	}

@@ -27,6 +27,9 @@ import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.ContentFilter;
 
+/**
+ * ContentFilter for {@link BehaviorTransition}
+ */
 public class BehaviorTransitionFilter implements ContentFilter {
 	public static final String ID = "ba.behaviorTransitions";
 

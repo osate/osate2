@@ -34,8 +34,11 @@ import org.osate.ge.ba.diagram.contentFilters.BehaviorVariableFilter;
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
 
+/**
+ * DiagramType for diagrams with {@link BehaviorAnnex} specifications as its context
+ */
 public class BehaviorSpecificatonDiagramType implements DiagramType {
-	public final static String ID = "ba.behavior_specification";
+	private final static String ID = "ba.behavior_specification";
 
 	@Override
 	public String getId() {

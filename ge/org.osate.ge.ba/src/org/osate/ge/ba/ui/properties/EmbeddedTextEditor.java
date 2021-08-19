@@ -56,15 +56,13 @@ import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.swt.SwtUtil;
 
 /**
- *
+ * Composite for editing AADL source that is embedded in a StyledText
  */
 public class EmbeddedTextEditor extends Composite {
 	private StyledText styledText;
 	private Button editBtn;
-	private EmbeddedXtextAdapter xtextAdapter;
+	private EmbeddedStyledTextXtextAdapter xtextAdapter;
 	private final int styledTextStyle;
-	// private String styledTextTestId;
-	// private String editBtnTestId;
 
 	private EmbeddedTextEditor(final Composite parent, final int styledTextStyle,
 			final GridData layoutData) {
@@ -77,6 +75,9 @@ public class EmbeddedTextEditor extends Composite {
 	}
 
 	/**
+	 * Creates a single line EmbeddedTextEditor
+	 * @param parent the parent composite
+	 * @return the new EmbeddedTextEditor
 	 * @since 2.0
 	 */
 	public static EmbeddedTextEditor createSingleline(
@@ -90,9 +91,12 @@ public class EmbeddedTextEditor extends Composite {
 	}
 
 	/**
+	 * Creates a multi line EmbeddedTextEditor
+	 * @param parent the parent composite
+	 * @return the new EmbeddedTextEditor
 	 * @since 2.0
 	 */
-	public static EmbeddedTextEditor createMultiLine(
+	public static EmbeddedTextEditor createMultiline(
 			final Composite parent) {
 		return new EmbeddedTextEditor(parent, SWT.BORDER | SWT.V_SCROLL | SWT.WRAP | SWT.MULTI,
 				GridDataFactory.swtDefaults()
@@ -162,6 +166,9 @@ public class EmbeddedTextEditor extends Composite {
 	}
 
 	/**
+	 * Sets the {@link EmbeddedTextValue} for the EmbeddedTextEditor
+	 * @param selectedElement the selected {@link NamedElement} to get AADL source text from
+	 * @param createTextValue creates an {@link EmbeddedTextValue} from AADL source text
 	 * @since 2.0
 	 */
 	public void setEditorTextValue(final NamedElement selectedElement, final Function<String, EmbeddedTextValue> createTextValue) {
@@ -171,14 +178,20 @@ public class EmbeddedTextEditor extends Composite {
 				.orElseThrow(() -> new AadlGraphicalEditorException("resource must be XtextResource"));
 		final IXtextDocument xtextDocument = getXtextDocument(selectedElement).orElse(null);
 		final String sourceText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
-		xtextAdapter = new EmbeddedXtextAdapter(project, createTextValue.apply(sourceText));
+		xtextAdapter = new EmbeddedStyledTextXtextAdapter(project, createTextValue.apply(sourceText));
 		xtextAdapter.adapt(styledText);
 	}
 
+	/**
+	 * Sets the test id for the styled text
+	 */
 	public void setStyledTextTestId(final String styledTextTestId) {
 		SwtUtil.setTestingId(styledText, styledTextTestId);
 	}
 
+	/**
+	 * Sets test id for the edit button
+	 */
 	public void setEditButtonTestId(final String editBtnTestId) {
 		SwtUtil.setTestingId(editBtn, editBtnTestId);
 	}
@@ -197,6 +210,10 @@ public class EmbeddedTextEditor extends Composite {
 		editBtn.setEnabled(isEnabled);
 	}
 
+	/**
+	 * Sets the text for the styled text
+	 * @param text the text for the styled text
+	 */
 	public void setStyledTextText(final String text) {
 		styledText.setText(text);
 	}

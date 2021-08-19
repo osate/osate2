@@ -47,6 +47,9 @@ import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.internal.ui.util.SelectionUtil;
 import org.osate.ui.utils.SelectionHelper;
 
+/**
+ * Utility class for selection support
+ */
 public class BehaviorAnnexSelectionUtil {
 	private BehaviorAnnexSelectionUtil() {
 	}

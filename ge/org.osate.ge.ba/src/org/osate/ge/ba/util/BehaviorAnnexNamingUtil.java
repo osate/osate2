@@ -44,6 +44,9 @@ import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.businessobjecthandling.RenameContext;
 
+/**
+ * Utility class for naming BehaviorAnnex elements
+ */
 public class BehaviorAnnexNamingUtil {
 	private BehaviorAnnexNamingUtil() {
 	}
@@ -58,6 +61,12 @@ public class BehaviorAnnexNamingUtil {
 				"xor"));
 	}
 
+	/**
+	 * Builds an identifier using the specified base that doesn't conflict with identifiers in the specified {@link BehaviorAnnex}
+	 * @param ba is the BehaviorAnnex to find a unique identifier within
+	 * @param baseIdentifier is the potential identifier
+	 * @return the identifier that is unique to the BehaviorAnnex
+	 */
 	public static String buildUniqueIdentifier(final BehaviorAnnex ba, final String baseIdentifier) {
 		final Set<String> existingIdentifiers = buildNameSet(ba);
 		return buildUniqueIdentifier(existingIdentifiers, baseIdentifier);
@@ -96,6 +105,9 @@ public class BehaviorAnnexNamingUtil {
 		}
 	}
 
+	/**
+	 * Returns the qualified name of the specified {@link IEObjectDescription}
+	 */
 	public static String getQualifiedName(final IEObjectDescription desc) {
 		return desc.getQualifiedName().toString("::");
 	}

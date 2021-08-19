@@ -27,6 +27,9 @@ import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.ContentFilter;
 
+/**
+ * ContentFilter for {@link BehaviorVariable}
+ */
 public class BehaviorVariableFilter implements ContentFilter {
 	public static final String ID = "ba.behaviorVariables";
 

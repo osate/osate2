@@ -26,9 +26,13 @@ package org.osate.ge.ba.ui.dialogs;
 import java.util.Collection;
 
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.swt.selectors.CollectionSingleSelectorModel;
 
+/**
+ * Single Selector Model to show qualified names for {@link BehaviorAnnex} elements as the labels
+ */
 public class EObjectDescriptionSingleSelectorModel
 		extends CollectionSingleSelectorModel<IEObjectDescription> {
 

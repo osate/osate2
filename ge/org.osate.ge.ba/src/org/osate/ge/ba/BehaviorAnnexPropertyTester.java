@@ -29,6 +29,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 
+/**
+ * Property tester for use with objects implementing {@link ISelection}
+ */
 public class BehaviorAnnexPropertyTester extends PropertyTester {
 	@Override
 	public boolean test(final Object receiver, final String property, final Object[] args, final Object expectedValue) {

@@ -53,20 +53,20 @@ import org.eclipse.ui.handlers.IHandlerService;
 import org.osate.ge.swt.SwtUtil;
 
 /**
- *
+ * Dialog for editing embedded text
  */
 public class EditEmbeddedTextDialog extends MessageDialog {
 	private static String WIDGET_ID = "org.osate.ge.ba.behaviortransition.editdialog";
 	private static String MODIFIED_SOURCE_KEY = WIDGET_ID + ".modifiedsource";
 	/**
-	 *
+	 * Widget ID for StyledText
 	 */
 	public static String WIDGET_ID_TEXT = WIDGET_ID + ".text";
 	/**
-	 *
+	 * Wiget ID for OK Button
 	 */
 	public static String WIDGET_ID_CONFIRM = WIDGET_ID + ".confirmation";
-	private final EmbeddedXtextAdapter xtextAdapter;
+	private final EmbeddedStyledTextXtextAdapter xtextAdapter;
 	private final ExtendedModifyListener textValidator;
 	private final IHandlerService service;
 	private final int styledTextStyle;
@@ -95,7 +95,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 				"Cancel");
 		// Create new xtext adapter for the edit dialog
 		this.xtextAdapter = Objects.requireNonNull(
-				new EmbeddedXtextAdapter(project, textValue),
+				new EmbeddedStyledTextXtextAdapter(project, textValue),
 				"xtextAdapter cannot be null");
 		this.styledTextStyle = styledTextStyle;
 		this.styledTextLayoutData = Objects.requireNonNull(styledTextLayoutData, "styledTextLayoutData cannot be null");
@@ -193,7 +193,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 						textToValidate = newText;
 
 						// Disable ok button if text has not changed
-						if (newText.equals(xtextAdapter.getEditableText())) {
+						if (newText.equals(xtextAdapter.getEmbeddedTextValue().getEditableText())) {
 							okBtn.setEnabled(false);
 							return;
 						}

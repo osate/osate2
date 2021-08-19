@@ -35,8 +35,7 @@ import org.osate.ge.BusinessObjectProviderContext;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
 
 /**
- * @author Ryan
- *
+ * Provides the BehaviorAnnex business objects to the graphical editor.
  */
 public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvider {
 	@Override

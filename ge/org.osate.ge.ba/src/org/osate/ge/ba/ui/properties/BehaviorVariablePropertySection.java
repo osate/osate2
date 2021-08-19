@@ -24,7 +24,7 @@
 package org.osate.ge.ba.ui.properties;
 
 import static org.osate.ge.ba.util.BehaviorAnnexUtil.getPackage;
-import static org.osate.ge.ba.util.BehaviorAnnexUtil.getVariableBuildOperation;
+import static org.osate.ge.ba.util.BehaviorAnnexUtil.getVariableDataClassifier;
 
 import java.util.Iterator;
 import java.util.List;
@@ -57,7 +57,7 @@ import org.osate.ba.declarative.Identifier;
 import org.osate.ba.declarative.QualifiedNamedElement;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
-import org.osate.ge.ba.util.BehaviorAnnexUtil.VariableOperation;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.OperationBuilder;
@@ -129,21 +129,21 @@ public class BehaviorVariablePropertySection extends AbstractPropertySection {
 			// Set data classifier
 			final Operation op = Operation.createWithBuilder(builder -> {
 				builder.supply(() -> {
-					final Optional<VariableOperation> variableOperation = getVariableBuildOperation(behaviorAnnex);
-					return !variableOperation.isPresent() ? StepResult.abort()
-							: StepResult.forValue(variableOperation.orElseThrow());
-				}).executeOperation(variableOp -> Operation.createWithBuilder(innerBuilder -> {
-					final OperationBuilder<VariableOperation> opBuilder = innerBuilder.modifyModel(
+					final Optional<DataClassifier> dataClassifier = getVariableDataClassifier(behaviorAnnex);
+					return !dataClassifier.isPresent() ? StepResult.abort()
+							: StepResult.forValue(dataClassifier.orElseThrow());
+				}).executeOperation(dataClassifier -> Operation.createWithBuilder(innerBuilder -> {
+					final OperationBuilder<DataClassifier> opBuilder = innerBuilder.modifyModel(
 							section, (tag, prevResult) -> tag,
 							(tag, sectionToModify, prevResult) -> {
 								// Import package if needed
 								AadlImportsUtil.addImportIfNeeded(sectionToModify,
-										variableOp.getDataClassifierPackage());
-								return StepResult.forValue(variableOp);
+										BehaviorAnnexUtil.getPackage(dataClassifier).orElseThrow());
+								return StepResult.forValue(dataClassifier);
 							});
 
 					selectedBos.modifyWithOperation(opBuilder, BehaviorVariable.class,
-							(bv, varOp) -> bv.setDataClassifier(varOp.getDataClassifier()));
+							(bv, varOp) -> bv.setDataClassifier(varOp));
 				}));
 			});
 

@@ -36,11 +36,16 @@ import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.PeekingIterator;
 
+/**
+ * Utility class for AADL source support
+ */
 public class BehaviorAnnexXtextUtil {
 	private BehaviorAnnexXtextUtil() {
 	}
 
-	// All source text
+	/**
+	 * Returns the AADL source text from available resource
+	 */
 	public static String getText(final IXtextDocument xtextDocument, final XtextResource xtextResource) {
 		if (xtextDocument == null) {
 			return xtextResource.getParseResult().getRootNode().getText();

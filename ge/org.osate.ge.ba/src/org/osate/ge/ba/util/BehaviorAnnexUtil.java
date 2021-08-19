@@ -23,7 +23,6 @@
  */
 package org.osate.ge.ba.util;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.resource.Resource;
@@ -39,6 +38,9 @@ import org.osate.ge.ba.ui.dialogs.EObjectDescriptionSingleSelectorModel;
 import org.osate.ge.swt.selectors.FilteringSelectorDialog;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 
+/**
+ * Utility class for {@link BehaviorAnnex} support
+ */
 public class BehaviorAnnexUtil {
 	private BehaviorAnnexUtil() {
 	}
@@ -59,52 +61,21 @@ public class BehaviorAnnexUtil {
 	}
 
 	/**
-	 * Operation for creating behavior variables
-	 */
-	public static class VariableOperation {
-		private final BehaviorAnnex behaviorAnnex;
-		private final DataClassifier dataClassifier;
-		private final AadlPackage dataClassifierPkg;
-
-		public VariableOperation(final BehaviorAnnex behaviorAnnex,
-				final DataClassifier dataClassifier, final AadlPackage dataClassifierPkg) {
-			this.behaviorAnnex = Objects.requireNonNull(behaviorAnnex, "behavior annex cannot be null");
-			this.dataClassifier = Objects.requireNonNull(dataClassifier, "data classifier cannot be null");
-			this.dataClassifierPkg = Objects.requireNonNull(dataClassifierPkg,
-					"data classifier package cannot be null");
-		}
-
-		public BehaviorAnnex getBehaviorAnnex() {
-			return behaviorAnnex;
-		}
-
-		public DataClassifier getDataClassifier() {
-			return dataClassifier;
-		}
-
-		public AadlPackage getDataClassifierPackage() {
-			return dataClassifierPkg;
-		}
-	}
-
-	/**
 	 * Show dialog to select a data classifier for behavior variables
 	 */
-	static class VariableDialog {
-		public static Optional<VariableOperation> show(final BehaviorAnnex behaviorAnnex) {
+	static class DataClassifierDialog {
+		public static Optional<DataClassifier> show(final BehaviorAnnex behaviorAnnex) {
 			final Resource resource = behaviorAnnex.eResource();
-			return BehaviorAnnexUtil.getDataClassifier(resource).map(dataClassifier -> getPackage(dataClassifier)
-					.map(pkg -> new VariableOperation(behaviorAnnex, dataClassifier, pkg))
-					.orElse(null));
+			return BehaviorAnnexUtil.getDataClassifier(resource).filter(dc -> getPackage(dc).isPresent());
 		}
 	}
 
 	/**
-	 * Prompt user for data classifier and get information needed for creating new behavior variable
-	 * @return the operation that contains the information for creating behavior variables
+	 * Prompt user for data classifier
+	 * @return the selected data classifier
 	 */
-	public static Optional<VariableOperation> getVariableBuildOperation(final BehaviorAnnex behaviorAnnex) {
-		return VariableDialog.show(behaviorAnnex);
+	public static Optional<DataClassifier> getVariableDataClassifier(final BehaviorAnnex behaviorAnnex) {
+		return DataClassifierDialog.show(behaviorAnnex);
 	}
 
 	/**

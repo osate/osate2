@@ -27,8 +27,11 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.ContentFilter;
 
+/**
+ * ContentFilter for {@link BehaviorAnnex} specifications
+ */
 public class BehaviorSpecificationFilter implements ContentFilter {
-	public static final String ID = "ba.behaviorSpecifications";
+	private static final String ID = "ba.behaviorSpecifications";
 
 	@Override
 	public String getId() {

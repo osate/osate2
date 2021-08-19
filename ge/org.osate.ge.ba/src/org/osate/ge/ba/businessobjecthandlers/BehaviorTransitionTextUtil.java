@@ -17,7 +17,7 @@ import org.osate.ge.ba.ui.properties.EmbeddedTextValue;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 
 /**
- * Utility class to create an {@link EmbeddedTextValue} and get text for the {@link BehaviorCondition} of a specified {@link BehaviorTransition}
+ * Utility class to create an {@link EmbeddedTextValue} and get text for the {@link BehaviorCondition} and {@link BehaviorActionBlock} of a specified {@link BehaviorTransition}
  */
 public class BehaviorTransitionTextUtil {
 	private BehaviorTransitionTextUtil() {
@@ -212,7 +212,7 @@ public class BehaviorTransitionTextUtil {
 			}
 
 			@Override
-			public Optional<String> getModifiedAADLSourceForNewEditableText(
+			public Optional<String> getModifiedAADLSourceForNewText(
 					final String newActionBlock) {
 				if (newActionBlock.isEmpty()) {
 					// Remove brackets for empty action block

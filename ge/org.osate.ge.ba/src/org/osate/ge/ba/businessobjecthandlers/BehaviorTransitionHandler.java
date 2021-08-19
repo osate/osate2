@@ -98,10 +98,9 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 				.orElse(null);
 	}
 
-	private static final Graphic transitionConnectionGraphic = ConnectionBuilder.create()
+	private static final Graphic TRANSITION_CONNECTION_GRAPHIC = ConnectionBuilder.create()
 			.destinationTerminator(ArrowBuilder.create().small().filled().build())
 			.build();
-	private static final Style transitionConnectionStyle = Style.EMPTY;
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -160,8 +159,8 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final QueryService queryService = ctx.getQueryService();
 		return Optional.of(GraphicalConfigurationBuilder.create()
-				.graphic(transitionConnectionGraphic)
-				.style(transitionConnectionStyle)
+				.graphic(TRANSITION_CONNECTION_GRAPHIC)
+				.style(Style.EMPTY)
 				.source(getSource(boc, queryService))
 				.destination(getDestination(boc, queryService))
 				.build());

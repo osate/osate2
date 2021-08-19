@@ -27,8 +27,11 @@ import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.ContentFilter;
 
+/**
+ * ContentFilter for {@link BehaviorCondition}
+ */
 public class BehaviorConditionFilter implements ContentFilter {
-	public static final String ID = "ba.behaviorCondition";
+	private static final String ID = "ba.behaviorCondition";
 
 	@Override
 	public String getId() {

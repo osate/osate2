@@ -24,19 +24,20 @@
 package org.osate.ge.ba.ui.palette;
 
 import static org.osate.ge.ba.util.BehaviorAnnexUtil.getPackage;
-import static org.osate.ge.ba.util.BehaviorAnnexUtil.getVariableBuildOperation;
+import static org.osate.ge.ba.util.BehaviorAnnexUtil.getVariableDataClassifier;
 
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.ba.aadlba.AadlBaPackage;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
 import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
-import org.osate.ge.ba.util.BehaviorAnnexUtil.VariableOperation;
+import org.osate.ge.ba.util.BehaviorAnnexUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResult;
@@ -63,28 +64,27 @@ public class CreateVariablePaletteCommand extends BasePaletteCommand implements 
 			}
 
 			return Operation.createWithBuilder(builder -> {
-				final OperationBuilder<VariableOperation> prompt = builder.supply(() -> {
-					final Optional<VariableOperation> variableOperation = getVariableBuildOperation(behaviorAnnex);
+				final OperationBuilder<DataClassifier> prompt = builder.supply(() -> {
+					final Optional<DataClassifier> variableOperation = getVariableDataClassifier(behaviorAnnex);
 					return !variableOperation.isPresent() ? StepResult.abort()
 							: StepResult.forValue(variableOperation.orElseThrow());
 				});
 
-				// prompt.modifyModel(null, null, null)
-
-				final OperationBuilder<VariableOperation> addImportIfNeeded = prompt.modifyModel(section,
-						(tag, prevResult) -> tag, (tag, sectionToModify, variableOp) -> {
-							AadlImportsUtil.addImportIfNeeded(sectionToModify, variableOp.getDataClassifierPackage());
-							return StepResult.forValue(variableOp);
+				final OperationBuilder<DataClassifier> addImportIfNeeded = prompt.modifyModel(section,
+						(tag, prevResult) -> tag, (tag, sectionToModify, variableDataClassifier) -> {
+							AadlImportsUtil.addImportIfNeeded(sectionToModify,
+									BehaviorAnnexUtil.getPackage(variableDataClassifier).orElseThrow());
+							return StepResult.forValue(variableDataClassifier);
 						});
 
-				addImportIfNeeded.modifyModel(null, (tag, variableOp) -> variableOp.getBehaviorAnnex(),
-						(tag, behaviorAnnexToModify, prevResult) -> {
+				addImportIfNeeded.modifyModel(null, (tag, variableDataClassifier) -> behaviorAnnex,
+						(tag, behaviorAnnexToModify, dataClassifier) -> {
 							final BehaviorVariable newVariable = (BehaviorVariable) EcoreUtil
 									.create(AadlBaPackage.eINSTANCE.getBehaviorVariable());
 							final String newName = BehaviorAnnexNamingUtil.buildUniqueIdentifier(behaviorAnnexToModify,
 									"new_behavior_variable");
 							newVariable.setName(newName);
-							newVariable.setDataClassifier(prevResult.getDataClassifier());
+							newVariable.setDataClassifier(dataClassifier);
 
 							behaviorAnnexToModify.getVariables().add(newVariable);
 							return StepResultBuilder.create()

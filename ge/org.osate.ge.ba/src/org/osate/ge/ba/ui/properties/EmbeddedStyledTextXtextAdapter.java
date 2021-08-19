@@ -42,45 +42,28 @@ import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResou
 
 import com.google.inject.Injector;
 
-public class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
+/**
+ * Embeds AADL source specified by {@link EmbeddedTextValue} with Xtext highlighting in a StyledText
+ * @since 2.0
+ */
+public class EmbeddedStyledTextXtextAdapter extends OsateStyledTextXtextAdapter {
 	private final static Injector injector = Aadl2Activator.getInstance()
 			.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
 	private final EmbeddedTextValue textValue;
 	private final IProject project;
 	private static final IXtextFakeContextResourcesProvider contextFakeResourceProvider = IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER;
 
-	public EmbeddedXtextAdapter(final IProject project, final EmbeddedTextValue textValue) {
+	public EmbeddedStyledTextXtextAdapter(final IProject project, final EmbeddedTextValue textValue) {
 		super(injector, contextFakeResourceProvider, project);
 		this.textValue = textValue;
 		this.project = project;
-	}
-
-	private SourceViewer getSourceviewer() {
-		return super.getXtextSourceviewer();
-	}
-
-	@Override
-	public XtextDocument getXtextDocument() {
-		return super.getXtextDocument();
-	}
-
-	public String getText() {
-		return BehaviorAnnexXtextUtil.getText(null, getFakeResource());
-	}
-
-	public XtextResource getFakeResource() {
-		return getFakeResourceContext().getFakeResource();
-	}
-
-	public String serialize(final EObject rootElement) {
-		return getFakeResource().getSerializer().serialize(rootElement);
 	}
 
 	@Override
 	public void adapt(final StyledText styledText, final boolean decorate) {
 		super.adapt(styledText, decorate);
 		final XtextDocument xtextDoc = getXtextDocument();
-		final SourceViewer srcViewer = getSourceviewer();
+		final SourceViewer srcViewer = getXtextSourceviewer();
 		final String prefixWithNewLineEnding = textValue.getPrefix() + "\n";
 		final String suffixWithNewLineBeginning = "\n" + textValue.getSuffix();
 		final String wholeText = new StringBuilder(prefixWithNewLineEnding).append(textValue.getEditableText())
@@ -98,15 +81,6 @@ public class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 		return textValue;
 	}
 
-	@Override
-	public void adapt(final StyledText styledText) {
-		adapt(styledText, false);
-	}
-
-	public String getEditableText() {
-		return textValue.getEditableText();
-	}
-
 	/**
 	 * @since 2.0
 	 */
@@ -114,48 +88,27 @@ public class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 		return project;
 	}
 
-	/**
-	 * @since 2.0
-	 */
-	public String getOriginalSource() {
-		// Update save button based on whether the text entered into the
-		// styled text is a serializable condition
-		final EObject rootElement = getXtextParseResult().getRootASTElement();
-		final XtextResource fakeResource = getFakeResource();
-		// Link model
-		fakeResource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
-
-		// Original source text
-		return getText();
+	@Override
+	public void adapt(final StyledText styledText) {
+		adapt(styledText, false);
 	}
 
 	/**
+	 *
 	 * @since 2.0
 	 */
-	public void loadSource(final String src) {
-		try {
-			getFakeResource().unload();
-			getFakeResource().load(new ByteArrayInputStream(src.getBytes()), null);
-		} catch (final IOException e) {
-			throw new RuntimeException("Serialized source cannot be loaded");
-		}
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public Optional<String> getValidModifiedSource(final String editableText) {
+	public Optional<String> getValidModifiedSource(final String newText) {
 		final String originalSrc = getOriginalSource();
 		String modifiedSrc = null;
 		try {
 			// AADL source text to load
-			modifiedSrc = textValue.getModifiedAADLSourceForNewEditableText(editableText)
+			modifiedSrc = textValue.getModifiedAADLSourceForNewText(newText)
 					.orElse(serialize(getXtextParseResult().getRootASTElement()));
 			loadSource(modifiedSrc);
 
 			final EObject tmpBo = getFakeResource()
 					.getEObject(EcoreUtil.getURI(textValue.getElementToModify()).fragment());
-			if (tmpBo == null || !textValue.isValidModification(tmpBo, editableText)) {
+			if (tmpBo == null || !textValue.isValidModification(tmpBo, newText)) {
 				modifiedSrc = null;
 			}
 		} catch (final Exception ex) {
@@ -168,39 +121,32 @@ public class EmbeddedXtextAdapter extends OsateStyledTextXtextAdapter {
 		return Optional.ofNullable(modifiedSrc);
 	}
 
-	/**
-	 * @since 2.0
-	 */
-	public boolean isValid(String newText) {
-		// System.err.println(textValue.getElementToModify() + " elementtomodify");
-		// System.err.println(newText + " newText");
-
-		boolean isEnabled = false;
-		final EObject tmpBo = getFakeResource().getEObject(EcoreUtil.getURI(textValue.getElementToModify()).fragment());
-		if (tmpBo != null) {
-			isEnabled = textValue.isValidModification(tmpBo, newText);
-		}
-
-		isEnabled = tmpBo != null && textValue.isValidModification(tmpBo, newText);
-
-		System.err.println(getOriginalSource() + " orginalSoucr");
-		//
-		loadSource(getOriginalSource());
-		return isEnabled;
-	}
-
-	/**
-	 * @since 2.0
-	 */
-	public String textChanged(final String newText) {
+	private String getOriginalSource() {
 		// Update save button based on whether the text entered into the
 		// styled text is a serializable condition
 		final EObject rootElement = getXtextParseResult().getRootASTElement();
-		final XtextResource fakeResource = getFakeResource();
+		final XtextResource resource = getFakeResource();
 		// Link model
-		fakeResource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
+		resource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
 
 		// Original source text
-		return getText();
+		return BehaviorAnnexXtextUtil.getText(null, resource);
+	}
+
+	private void loadSource(final String src) {
+		try {
+			getFakeResource().unload();
+			getFakeResource().load(new ByteArrayInputStream(src.getBytes()), null);
+		} catch (final IOException e) {
+			throw new RuntimeException("Serialized source cannot be loaded");
+		}
+	}
+
+	private XtextResource getFakeResource() {
+		return getFakeResourceContext().getFakeResource();
+	}
+
+	private String serialize(final EObject rootElement) {
+		return getFakeResource().getSerializer().serialize(rootElement);
 	}
 }
