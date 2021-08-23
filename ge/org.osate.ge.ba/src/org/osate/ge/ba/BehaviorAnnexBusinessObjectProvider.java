@@ -44,6 +44,9 @@ public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvid
 		return getChildBusinessObjects(bo);
 	}
 
+	/**
+	 * Returns {@link BehaviorAnnex} children of the business object
+	 */
 	private Stream<?> getChildBusinessObjects(final Object bo) {
 		if (bo instanceof Classifier) {
 			return getBehaviorAnnexes((Classifier) bo);

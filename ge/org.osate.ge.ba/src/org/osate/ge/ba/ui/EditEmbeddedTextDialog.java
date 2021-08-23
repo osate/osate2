@@ -231,14 +231,23 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		return super.close();
 	}
 
+	/**
+	 * Returns the result of the modified {@link EditEmbeddedTextDialog} that contains the full and partial modified AADL source
+	 */
 	public Result getResult() {
 		return result;
 	}
 
+	/**
+	 * Result that contains the full and partial modified AADL source
+	 */
 	public class Result {
 		private final String fullSource;
 		private final String partialSource;
 
+		/**
+		 * Instantiates the dialog result
+		 */
 		public Result(final String fullSource, final String partialSource) {
 			this.fullSource = fullSource;
 			this.partialSource = partialSource;

@@ -38,6 +38,9 @@ public class BehaviorAnnexReferenceUtil {
 	private BehaviorAnnexReferenceUtil() {
 	}
 
+	/**
+	 * First segment for annex subclause references
+	 */
 	private static final String ANNEX_SUBCLAUSE = DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId();
 
 	/**
