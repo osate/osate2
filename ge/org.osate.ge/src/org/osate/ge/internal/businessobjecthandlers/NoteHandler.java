@@ -41,6 +41,9 @@ import org.osate.ge.graphics.internal.InternalGraphicalConfigurationBuilder;
 import org.osate.ge.graphics.internal.NoteGraphicBuilder;
 import org.osate.ge.internal.model.Note;
 
+/**
+ * Business object handler for {@link Note} objects.
+ */
 public class NoteHandler implements BusinessObjectHandler {
 	private final Graphic graphic = NoteGraphicBuilder.create().build();
 

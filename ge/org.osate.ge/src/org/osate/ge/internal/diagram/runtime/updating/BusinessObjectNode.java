@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.diagram.runtime.botree;
+package org.osate.ge.internal.diagram.runtime.updating;
 
 import java.util.ArrayDeque;
 import java.util.Collection;
@@ -34,21 +34,30 @@ import java.util.UUID;
 
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
+/**
+ * Node in the business object tree. See {@link org.osate.ge.internal.diagram.runtime.updating}
+ *
+ */
 public class BusinessObjectNode implements BusinessObjectContext {
 	private BusinessObjectNode parent;
 	private final UUID id;
-	private final RelativeBusinessObjectReference relativeReference; // May be null only for root nodes.
-	private Object bo; // May be null for root nodes
+	private final RelativeBusinessObjectReference relativeReference;
+	private Object bo;
 	private Map<RelativeBusinessObjectReference, BusinessObjectNode> children;
 	private Completeness completeness = Completeness.UNKNOWN;
-
-	/**
-	 * Returns whether the node has not had its default children populated. This is usually true for new nodes to allow the tree updater to add children based on the content filters
-	 * provided by the diagram type.
-	 */
 	private boolean defaultChildrenHaveBeenPopulated;
 
+	/**
+	 * Creates a new instance
+	 * @param parent the parent of the node. The new node will be added as a child of this node.
+	 * @param id unique identifier for the node. If the node is created based on a {@link DiagramElement}, this usually matches its ID.
+	 * @param relativeReference the relative reference for the node's business object. May only be null for root nodes.
+	 * @param bo the business object. May only be null for root nodes.
+	 * @param completeness the completeness state of the node.
+	 * @param defaultChildrenHaveBeenPopulated whether the child diagram elements which have been added to the diagram by default have already been added to this node.
+	 */
 	public BusinessObjectNode(final BusinessObjectNode parent,
 			final UUID id,
 			final RelativeBusinessObjectReference relativeReference,
@@ -67,6 +76,10 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		}
 	}
 
+	/**
+	 * Returns the relative reference for the node's business object.
+	 * @return the relative reference for the node's business object.
+	 */
 	public final RelativeBusinessObjectReference getRelativeReference() {
 		return relativeReference;
 	}
@@ -81,25 +94,44 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		return bo;
 	}
 
+	/**
+	 * Sets the node's business object
+	 * @param value the new business object
+	 */
 	public final void setBusinessObject(final Object value) {
 		this.bo = value;
 	}
 
+	/**
+	 * Returns the node's unique identifier
+	 * @return the node's unique identifier
+	 * @see org.osate.ge.internal.diagram.runtime.DiagramElement#getId()
+	 */
 	public final UUID getId() {
 		return id;
 	}
 
+	/**
+	 * Returns the node's completeness state
+	 * @return the node's completeness state
+	 * @see org.osate.ge.internal.diagram.runtime.DiagramElement#getCompleteness()
+	 */
 	public final Completeness getCompleteness() {
 		return completeness;
 	}
 
+	/**
+	 * Set the node's completeness state
+	 * @param value the new completeness state
+	 * @see #getCompleteness()
+	 */
 	public final void setCompleteness(final Completeness value) {
 		this.completeness = Objects.requireNonNull(value, "value must not be null");
 	}
 
 	/**
-	 * Returns an unmodifiable map. Never null.
-	 * @return
+	 * Returns an unmodifiable collection containing the node's children.
+	 * @return an unmodifiable collection containing the node's children. Will never return null.
 	 */
 	@Override
 	public final Collection<BusinessObjectNode> getChildren() {
@@ -107,13 +139,18 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	}
 
 	/**
-	 * Returns an unmodifiable map. Never null.
-	 * @return
+	 * Returns an unmodifiable mapping between the business object of child nodes to the child nodes.
+	 * @return an unmodifiable mapping between the business object of child nodes to the child nodes. Will never return null.
 	 */
 	public final Map<RelativeBusinessObjectReference, BusinessObjectNode> getChildrenMap() {
 		return children == null ? Collections.emptyMap() : Collections.unmodifiableMap(children);
 	}
 
+	/**
+	 * Returns the child business object node with the specified relative reference
+	 * @param ref the relative reference of the child to return
+	 * @return the child business object node with the specified reference. Returns null if such a node was not found.
+	 */
 	public final BusinessObjectNode getChild(final RelativeBusinessObjectReference ref) {
 		if(children == null) {
 			return null;
@@ -136,6 +173,9 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		children.put(node.relativeReference, node);
 	}
 
+	/**
+	 * Removes the node from the tree. Removes the node from the parent and then sets parent to null.
+	 */
 	public void remove() {
 		Objects.requireNonNull(relativeReference, "relativeReference must not be null");
 
@@ -145,13 +185,19 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		}
 	}
 
-	public final boolean defaultChildrenHaveBeenPopulated() {
+	/**
+	 * Returns whether the node has not had its default children populated. This is usually true for new nodes to allow the tree updater to add
+	 * children based on the content filters provided by the diagram type.
+	 * @return whether the node has not had its default children populated
+	 */
+	public final boolean getDefaultChildrenHaveBeenPopulated() {
 		return defaultChildrenHaveBeenPopulated;
 	}
 
 	/**
 	 * Copies the node. The new node will be the root of a new tree
-	 * @return
+	 * @return the new node
+	 * @see #copy(BusinessObjectNode)
 	 */
 	public BusinessObjectNode copy() {
 		return copy(null);
@@ -161,7 +207,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	 * Copies the node. The new node will be a child of the specified parent. The id of the node will be preserved.
 	 * Id's are intended to be globally unique.
 	 * @param newParent
-	 * @return
+	 * @return the new node
 	 */
 	private BusinessObjectNode copy(final BusinessObjectNode newParent) {
 		final BusinessObjectNode newNode = new BusinessObjectNode(newParent, id, relativeReference, bo, completeness,
@@ -174,10 +220,11 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	}
 
 	/**
-	 * Looks for a node in tree which has the same relative reference path as searchNode.
-	 * @param tree
-	 * @param searchNode
-	 * @return
+	 * Looks for a node in the tree which has the same relative reference path as the specified search node.
+	 * The path is a sequence of relative references which specify the path from the root to the node.
+	 * @param tree the root node of the tree in which to search
+	 * @param searchNode the node for which use to build the sequence of relative references to navigate
+	 * @return the node in the tree. Returns null if the node could not be found.
 	 */
 	public static BusinessObjectNode findNodeByRelativeReferences(final BusinessObjectNode tree, final BusinessObjectNode searchNode) {
 		// Build path to node we want to find

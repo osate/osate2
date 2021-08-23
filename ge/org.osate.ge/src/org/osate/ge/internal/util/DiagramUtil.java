@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -25,9 +25,27 @@ package org.osate.ge.internal.util;
 
 import org.eclipse.core.resources.IFile;
 
+/**
+ * Contains utility functions related to diagrams
+ *
+ */
 public class DiagramUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private DiagramUtil() {
+	}
+
+	/**
+	 * Extension used by diagram files
+	 */
 	public static final String EXTENSION = ".aadl_diagram";
 
+	/**
+	 * Returns true if the specified file has an extension which matches the diagram file extension
+	 * @param file the file to check
+	 * @return true if the specified file has an extension which matches the diagram file extension
+	 */
 	public static boolean isDiagram(final IFile file) {
 		return file.getName().toLowerCase().endsWith(EXTENSION);
 	}

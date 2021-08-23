@@ -62,7 +62,10 @@ import org.osate.ge.internal.util.Log;
 
 import com.google.common.collect.ImmutableMap;
 
-// Indexes saved diagram files
+/**
+ * Indexes saved diagram files
+ *
+ */
 public class SavedDiagramIndex {
 	public static interface DiagramIndexEntry {
 		IFile getDiagramFile();

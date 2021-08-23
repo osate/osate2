@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -39,6 +39,10 @@ import org.osate.ge.internal.ui.util.UiUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
+/**
+ * Handler for the command for hiding all the contents of a diagram element
+ *
+ */
 public class HideAllContentsHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
@@ -66,7 +70,7 @@ public class HideAllContentsHandler extends AbstractHandler {
 		diagram.modify("Hide All Contents", m -> {
 			// Remove children of selected elements
 			for (final DiagramElement e : selectedDiagramElements) {
-				for (final DiagramElement child : e.getDiagramElements()) {
+				for (final DiagramElement child : e.getChildren()) {
 					m.removeElement(child);
 				}
 			}

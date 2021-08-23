@@ -73,8 +73,8 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.diagramtypes.CustomDiagramType;
 import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
-import org.osate.ge.internal.diagram.runtime.botree.Completeness;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.updating.Completeness;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
 
 import com.google.common.collect.ImmutableSet;
@@ -734,7 +734,7 @@ public class DiagramConfigurationDialog {
 		};
 
 		final DiagramConfiguration diagramConfig = new DiagramConfigurationBuilder(new CustomDiagramType(), false)
-				.setContextBoReference(new CanonicalBusinessObjectReference("test")).addAadlProperty("test::prop1")
+				.contextBoReference(new CanonicalBusinessObjectReference("test")).addAadlProperty("test::prop1")
 				.addAadlProperty("test_ps2::b").connectionPrimaryLabelsVisible(true).build();
 
 		// Create a test business object tree

@@ -31,14 +31,16 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 
 /**
- * Interface for objects that are used to map from the ElkLabel to the diagram.
- * This is needed because the primary label position for connections is stored in the connection's diagram element.
- * Since the connection diagram element is mapped to the ElkEdge, a new object is needed for the mapping of the primary ElkLabel.
- * This interface allows simplifying the handling of the differences between primary and secondary connection labels.
+ * {@link ConnectionLabelReference} implementation which modifies the primary label of a connection diagram element.
  */
 class PrimaryConnectionLabelReference implements ConnectionLabelReference {
 	private DiagramElement connectionDiagramElement;
 
+	/**
+	 * Creates a new instance
+	 * @param connectionDiagramElement the connection diagram element whose primary label position will be modidfied.
+	 * @throws IllegalArgumentException if the specified diagram element's graphic is not a connection
+	 */
 	public PrimaryConnectionLabelReference(final DiagramElement connectionDiagramElement) {
 		this.connectionDiagramElement = Objects.requireNonNull(connectionDiagramElement,
 				"connectionDiagramElement must not be null");

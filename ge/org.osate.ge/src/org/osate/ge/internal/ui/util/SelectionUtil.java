@@ -62,24 +62,48 @@ import org.osate.ge.internal.ui.navigator.DiagramGroup;
 
 import com.google.common.collect.ImmutableList;
 
-public class SelectionUtil {
+/**
+ * Utility class containing functions related to selections.
+
+ */
+public final class SelectionUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private SelectionUtil() {
+	}
+
 	private static EObjectAtOffsetHelper eObjectAtOffsetHelper = new EObjectAtOffsetHelper();
 
-	// Returns the current selection as diagram elements.
-	// If one or more of the selected objects cannot be adapted to DiagramElement then an empty list is returned.
+	/**
+	 * Adapts each object in a selection into a {@link DiagramElement} and returns the result.
+	 * @param selection the selection containing the objects to adapt
+	 * @param ignoreInvalidType if true, objects which cannot be adapted will be ignored. Otherwise an empty list is returned if any object cannot be adapted
+	 * @return the selected diagram elements.
+	 */
 	public static List<DiagramElement> getSelectedDiagramElements(final ISelection selection,
 			final boolean ignoreInvalidType) {
 		return getAdaptedSelection(selection, DiagramElement.class, ignoreInvalidType);
 	}
 
+	/**
+	 * Adapts each object in a selection into a {@link DiagramNode} and returns the result.
+	 * @param selection the selection containing the objects to adapt
+	 * @param ignoreInvalidType if true, objects which cannot be adapted will be ignored. Otherwise an empty list is returned if any object cannot be adapted
+	 * @return the selected diagram nodes.
+	 */
 	public static List<DiagramNode> getSelectedDiagramNodes(final ISelection selection,
 			final boolean ignoreInvalidType) {
 		return getAdaptedSelection(selection, DiagramNode.class, ignoreInvalidType);
 	}
 
 	/**
-	 *
+	 * Adapts each object into the specified type and returns the result.
+	 * @param <T> the type to which to adapt the objects
+	 * @param selection the selection containing the objects to adapt
+	 * @param adapter the type to which to adapt the objects.
 	 * @param ignoreInvalidType if true then the selection will skip over instances that cannot be adapted. If false, an empty list will be returned in such cases.
+	 * @return the adapted objects
 	 */
 	private static <T> List<T> getAdaptedSelection(final ISelection selection, final Class<T> adapter,
 			final boolean ignoreInvalidType) {
@@ -103,6 +127,11 @@ public class SelectionUtil {
 		return results;
 	}
 
+	/**
+	 * Returns an immutable list which is the result of adapting each object in the selection to {@link BusinessObjectContext}
+	 * @param selection the selection containing the objects to adapt
+	 * @return the adapted objects. An empty list is returned if any object could not be adapted.
+	 */
 	public static ImmutableList<BusinessObjectContext> getSelectedBusinessObjectContexts(final ISelection selection) {
 		if (!(selection instanceof IStructuredSelection)) {
 			return ImmutableList.of();
@@ -123,10 +152,11 @@ public class SelectionUtil {
 	}
 
 	/**
-	 * Returns a business object which is a valid diagram context based on the currnent selection. Returns null if such a business object could not be determined based on the current selection.
-	 * @param selection
-	 * @param activeEditor
-	 * @return
+	 * Returns a business object which is a valid diagram context based on the current selection. 
+	 * @param selection the selection from which to determine the diagram context
+	 * @param activeEditor the active editor.
+	 * @return a business object which is a valid diagram context based on the current selection. 
+	 * Returns null if such a business object could not be determined based on the current selection.
 	 */
 	public static Object getDiagramContext(final ISelection selection, final IEditorPart activeEditor) {
 		Object contextBo = null;
@@ -188,7 +218,8 @@ public class SelectionUtil {
 		} else if (selectedObject instanceof DiagramGroup) {
 			final DiagramGroup dg = (DiagramGroup) selectedObject;
 			if (dg.isContextReferenceValid()) {
-				final ReferenceService referenceService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
+				final ReferenceService referenceService = PlatformUI.getWorkbench()
+						.getActiveWorkbenchWindow()
 						.getService(ReferenceService.class);
 				if (referenceService == null) {
 					return null;

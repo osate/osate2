@@ -35,6 +35,7 @@ import org.osate.ge.services.QueryService;
 
 /**
  * Represents a query which can be executed by @link QueryService} to retrieve results
+ * @param <T> the query parameter type
  * @noextend This class is not intended to be subclassed by clients.
  * @since 3.0
  */

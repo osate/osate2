@@ -302,7 +302,7 @@ public class DefaultDiagramService implements DiagramService {
 						"Unable to build canonical reference for business object: " + contextBo);
 		diagram.modify("Configure Diagram",
 				m -> m.setDiagramConfiguration(
-						new DiagramConfigurationBuilder(diagramType, true).setContextBoReference(contextBoCanonicalRef)
+						new DiagramConfigurationBuilder(diagramType, true).contextBoReference(contextBoCanonicalRef)
 						.connectionPrimaryLabelsVisible(false)
 						.build()));
 
@@ -523,7 +523,7 @@ public class DefaultDiagramService implements DiagramService {
 				RelativeBusinessObjectReference newRelativeReference) {
 			diagram.modify("Configure Diagram",
 					m -> m.setDiagramConfiguration(new DiagramConfigurationBuilder(diagram.getConfiguration())
-							.setContextBoReference(newCanonicalReference)
+							.contextBoReference(newCanonicalReference)
 							.build()));
 		}
 	}
@@ -644,7 +644,7 @@ public class DefaultDiagramService implements DiagramService {
 	private void getRuntimeReferencesFromChildren(final InternalDiagramEditor editor, final DiagramNode node,
 			final Collection<CanonicalBusinessObjectReference> originalCanonicalReferences,
 			final InternalReferencesToUpdate references) {
-		for (final DiagramElement child : node.getDiagramElements()) {
+		for (final DiagramElement child : node.getChildren()) {
 			final Object currentBo = child.getBusinessObject();
 			final CanonicalBusinessObjectReference currentCanonicalRef = currentBo == null ? null
 					: referenceService.getCanonicalReference(currentBo);

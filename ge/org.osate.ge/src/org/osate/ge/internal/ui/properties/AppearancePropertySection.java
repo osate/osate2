@@ -97,7 +97,14 @@ import org.osate.ge.swt.SwtUtil;
 
 import com.google.common.collect.Lists;
 
+/**
+ * The appearance property section. Allows customizing the style of the selected objects what can be adapted to {@link DiagramElement}
+ *
+ */
 public class AppearancePropertySection extends AbstractPropertySection {
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class SelectionFilter implements IFilter {
 		@Override
 		public boolean select(final Object o) {
@@ -118,6 +125,9 @@ public class AppearancePropertySection extends AbstractPropertySection {
 
 	@Override
 	public void dispose() {
+		ageDiagram = null;
+		selectedDiagramElements.clear();
+
 		if (resourceMgr != null) {
 			resourceMgr.dispose();
 		}
@@ -137,7 +147,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.top = new FormAttachment(primaryLabelVisibleLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(primaryLabelVisibleLabel, 10);
 		primaryLabelVisibleViewer.getCombo().setLayoutData(fd);
-		SwtUtil.setTestingId(primaryLabelVisibleViewer.getControl(), primaryLabelVisibilityCombo);
+		SwtUtil.setTestingId(primaryLabelVisibleViewer.getControl(), WIDGET_ID_PRIMARY_LABEL_VISIBILITY_COMBO);
 
 		fontSizeLabel = createLabel(parent, "Font Size:");
 		fd = new FormData();
@@ -150,7 +160,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.top = new FormAttachment(fontSizeLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(primaryLabelVisibleViewer.getControl(), 0, SWT.LEFT);
 		fontSizeComboViewer.getCombo().setLayoutData(fd);
-		SwtUtil.setTestingId(fontSizeComboViewer.getControl(), fontSizeCombo);
+		SwtUtil.setTestingId(fontSizeComboViewer.getControl(), WIDGET_ID_FONT_SIZE_COMBO);
 
 		lineWidthLabel = createLabel(parent, "Line Width:");
 		fd = new FormData();
@@ -163,11 +173,12 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		fd.top = new FormAttachment(lineWidthLabel, 0, SWT.TOP);
 		fd.left = new FormAttachment(primaryLabelVisibleViewer.getControl(), 0, SWT.LEFT);
 		lineWidthComboViewer.getCombo().setLayoutData(fd);
-		SwtUtil.setTestingId(lineWidthComboViewer.getControl(), lineWidthCombo);
+		SwtUtil.setTestingId(lineWidthComboViewer.getControl(), WIDGET_ID_LINE_WIDTH_COMBO);
 	}
 
 	private void createButtonSection(final Composite parent) {
-		final Button outlineButton = createButton(parent, outlineIcon, "Outline Color", outlineColorId);
+		final Button outlineButton = createButton(parent, OUTLINE_ICON, "Outline Color",
+				WIDGET_ID_OUTLINE_COLOR_BUTTON);
 		FormData fd = new FormData();
 		fd.top = new FormAttachment(imageLabel, 10);
 		fd.left = new FormAttachment(0, 30);
@@ -180,7 +191,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 					}
 				}));
 
-		final Button fontColorButton = createButton(parent, fontColorIcon, "Font Color", fontColorId);
+		final Button fontColorButton = createButton(parent, FONT_COLOR_ICON, "Font Color", WIDGET_ID_FONT_COLOR_BUTTON);
 		fd = new FormData();
 		fd.top = new FormAttachment(outlineButton, 0, SWT.TOP);
 		fd.left = new FormAttachment(outlineButton, 0);
@@ -193,7 +204,8 @@ public class AppearancePropertySection extends AbstractPropertySection {
 					}
 				}));
 
-		final Button backgroundButton = createButton(parent, backgroundIcon, "Background Color", backgroundColorId);
+		final Button backgroundButton = createButton(parent, BACKGROUND_ICON, "Background Color",
+				WIDGET_ID_BACKGROUND_COLOR_BUTTON);
 		fd = new FormData();
 		fd.top = new FormAttachment(fontColorButton, 0, SWT.TOP);
 		fd.left = new FormAttachment(fontColorButton, 0);
@@ -212,7 +224,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		imageLabel = createLabel(parent, "Show as Image:");
 		toggleShowImage = new Button(parent, SWT.CHECK);
 		toggleShowImage.setToolTipText("Show Image");
-		setImageButton = createButton(parent, imageIcon, "Set Image", setImageId);
+		setImageButton = createButton(parent, IMAGE_ICON, "Set Image", WIDGET_ID_SET_IMAGE_BUTTON);
 
 		// Set layout
 		FormData fd = new FormData();
@@ -256,11 +268,12 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	public void setInput(final IWorkbenchPart part, final ISelection selection) {
 		super.setInput(part, selection);
 		selectedDiagramElements.clear();
+		ageDiagram = null;
 
 		if (selection instanceof IStructuredSelection) {
 			for (final Object o : (IStructuredSelection) selection) {
 				final DiagramElement diagramElement = Adapters.adapt(o, DiagramElement.class);
-				if(diagramElement != null) {
+				if (diagramElement != null) {
 					selectedDiagramElements.add(diagramElement);
 				}
 			}
@@ -470,7 +483,6 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		private Button createColorButton(final Composite parent, final ImageDescriptor imgDescriptor) {
 			final Button btn = new Button(parent, SWT.PUSH);
 			btn.setImage(imgDescriptor.createImage());
-			SwtUtil.setTestingId(btn, presetColorId);
 			btn.addDisposeListener(e -> {
 				btn.getImage().dispose();
 			});
@@ -492,7 +504,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 			final boolean hasCustomColor = customPC != null;
 			final PresetColor customPresetColor = hasCustomColor ? customPC : white;
 			final Button customColorBtn = createButton(shell, customPresetColor.imageDescriptor, "Custom...",
-					customColorId);
+					WIDGET_ID_CUSTOM_COLOR_BUTTON);
 			customColorBtn.setEnabled(hasCustomColor);
 			customColorBtn.addSelectionListener(
 					new ColorSelectionAdapter(shell, paintListener, customPresetColor.rgb, styleCmd));
@@ -649,7 +661,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		return new org.osate.ge.graphics.Color(color.red, color.green, color.blue);
 	}
 
-	public Point getShellPosition(final Point widgetSize, final Button button,
+	private Point getShellPosition(final Point widgetSize, final Button button,
 			final int minSpacingFromDisplayRightAndBottom) {
 		// Position the shell
 		final Point unclampedShellPosition = Display.getCurrent()
@@ -845,7 +857,7 @@ public class AppearancePropertySection extends AbstractPropertySection {
 	};
 
 	// Set image visibility
-	final StyleCommand showAsImageStyleCmd = new StyleCommand("Show as Image", (diagramElement, sb, value) -> {
+	private final StyleCommand showAsImageStyleCmd = new StyleCommand("Show as Image", (diagramElement, sb, value) -> {
 		if (DiagramElementPredicates.supportsImage(diagramElement) && value != null
 				&& diagramElement.getStyle().getImagePath() != null) {
 			sb.showAsImage((Boolean) value);
@@ -876,23 +888,63 @@ public class AppearancePropertySection extends AbstractPropertySection {
 		}
 	}
 
-	public final static String primaryLabelVisibilityCombo = "org.osate.ge.properties.PrimaryLabelVisibility";
-	public final static String fontSizeCombo = "org.osate.ge.properties.FontSize";
-	public final static String lineWidthCombo = "org.osate.ge.properties.LineWidth";
-	public final static String backgroundColorId = "org.osate.ge.properties.BackgroundColor";
-	public final static String fontColorId = "org.osate.ge.properties.FontColor";
-	public final static String outlineColorId = "org.osate.ge.properties.OutlineColor";
-	public final static String customColorId = "org.osate.ge.properties.CustomColor";
-	public final static String presetColorId = "org.osate.ge.properties.PresetColorButton";
-	public final static String setImageId = "org.osate.ge.properties.SetImage";
-	private final static ImageDescriptor outlineIcon = Activator.getImageDescriptor("icons/Outline.gif");
-	private final static ImageDescriptor backgroundIcon = Activator.getImageDescriptor("icons/Background.gif");
-	private final static ImageDescriptor fontColorIcon = Activator.getImageDescriptor("icons/FontColor.gif");
-	private final static ImageDescriptor imageIcon = Activator.getImageDescriptor("icons/BackgroundImage.gif");
+	/**
+	 * Testing ID for the label visibility combo
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_PRIMARY_LABEL_VISIBILITY_COMBO = "org.osate.ge.properties.PrimaryLabelVisibility";
+
+	/**
+	 * Testing ID for the font size combo
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_FONT_SIZE_COMBO = "org.osate.ge.properties.FontSize";
+
+	/**
+	 * Testing ID for the line width combo
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_LINE_WIDTH_COMBO = "org.osate.ge.properties.LineWidth";
+
+	/**
+	 * Testing ID for the background color button
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_BACKGROUND_COLOR_BUTTON = "org.osate.ge.properties.BackgroundColor";
+
+	/**
+	 * Testing ID for the font color button
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_FONT_COLOR_BUTTON = "org.osate.ge.properties.FontColor";
+
+	/**
+	 * Testing ID for the outline color button
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_OUTLINE_COLOR_BUTTON = "org.osate.ge.properties.OutlineColor";
+
+	/**
+	 * Testing ID for the custom color button
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_CUSTOM_COLOR_BUTTON = "org.osate.ge.properties.CustomColor";
+
+	/**
+	 * Testing ID for the set image button
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_SET_IMAGE_BUTTON = "org.osate.ge.properties.SetImage";
+
+	private static final ImageDescriptor OUTLINE_ICON = Activator.getImageDescriptor("icons/Outline.gif");
+	private static final ImageDescriptor BACKGROUND_ICON = Activator.getImageDescriptor("icons/Background.gif");
+	private static final ImageDescriptor FONT_COLOR_ICON = Activator.getImageDescriptor("icons/FontColor.gif");
+	private static final ImageDescriptor IMAGE_ICON = Activator.getImageDescriptor("icons/BackgroundImage.gif");
+
 	private final String[] supportedImageTypes = { "bmp", "png", "jpg", "jpeg", "gif" };
 	private AgeDiagram ageDiagram;
 	private ResourceManager resourceMgr;
-	private List<DiagramElement> selectedDiagramElements = new ArrayList<>();
+	private final List<DiagramElement> selectedDiagramElements = new ArrayList<>();
 	private Button setImageButton;
 	private Button toggleShowImage;
 	private org.eclipse.swt.widgets.Label fontSizeLabel;

@@ -36,14 +36,14 @@ public interface DiagramElementInformationProvider extends BusinessObjectHandler
 	/**
 	 * Returns the name for the business object's name label
 	 * @param element
-	 * @return
+	 * @return the name for the business object's name label
 	 */
 	String getLabelName(DiagramElement element);
 
 	/**
 	 * Returns the name to be displayed in the user interface for the business object
 	 * @param element
-	 * @return
+	 * @return the name to be displayed in the user interface for the business object
 	 */
 	String getUserInterfaceName(DiagramElement element);
 

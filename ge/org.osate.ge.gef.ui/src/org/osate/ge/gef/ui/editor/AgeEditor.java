@@ -61,6 +61,7 @@ import org.eclipse.gef.fx.nodes.InfiniteCanvas;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -116,11 +117,11 @@ import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
 import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
-import org.osate.ge.internal.diagram.runtime.botree.DefaultBusinessObjectNodeFactory;
-import org.osate.ge.internal.diagram.runtime.botree.DefaultBusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectNodeFactory;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectTreeUpdater;
+import org.osate.ge.internal.diagram.runtime.updating.DefaultBusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DefaultDiagramElementGraphicalConfigurationProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -546,7 +547,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 
 		// Create diagram-specific services
 		this.projectReferenceService = new ProjectReferenceServiceProxy(referenceService, projectProvider);
-		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(
+		final BusinessObjectNodeFactory nodeFactory = new BusinessObjectNodeFactory(
 				projectReferenceService);
 		boTreeUpdater = new DefaultBusinessObjectTreeUpdater(projectProvider, extRegistry, projectReferenceService,
 				queryService, nodeFactory);
@@ -693,6 +694,13 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		final org.osate.ge.diagram.Diagram mmDiagram = DiagramSerialization
 				.readMetaModelDiagram(URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true));
 		diagram = DiagramSerialization.createAgeDiagram(project, mmDiagram, extRegistry);
+
+		// Display warning if the diagram is stored with a newer version of the diagram file format.
+		if (mmDiagram.getFormatVersion() > DiagramSerialization.FORMAT_VERSION) {
+			MessageDialog.openWarning(Display.getCurrent().getActiveShell(),
+					"Diagram Created with Newer Version of OSATE", "The diagram '" + diagramFile.getName()
+							+ "' was created with a newer version of the OSATE. The diagram may not be correctly displayed. Saving the diagram with this version of OSATE may result in the loss of diagram information.");
+		}
 
 		// Ensure the project is built. This prevents being unable to find the context due to the Xtext index not having completed.
 		try {
