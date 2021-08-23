@@ -31,27 +31,29 @@ import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DataClassifier;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Element;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
-import org.osate.ge.ba.ui.dialogs.EObjectDescriptionSingleSelectorModel;
 import org.osate.ge.swt.selectors.FilteringSelectorDialog;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 
 /**
- * Utility class for {@link BehaviorAnnex} support
+ * Utility class containing miscellaneous helper functions used by the OSATE graphical editor's behavior annex plugin.
+ *
  */
-public class BehaviorAnnexUtil {
+public final class BehaviorAnnexUtil {
 	/**
-	 * Private constructor to prevent instantiation
+	 * Private constructor to prevent instantiation.
 	 */
 	private BehaviorAnnexUtil() {
 	}
 
 	/**
 	 * Prompts the user for to select a data classifier
+	 * @param resource the resource from which the classifier will be referenced. Used to determine which classifiers may be referenced.
+	 * @return an optional containing the selected classifier. Returns an empty optional if a classifier was not selected.
 	 */
-	public static Optional<DataClassifier> getDataClassifier(final Resource resource) {
+	public static Optional<DataClassifier> promptForDataClassifier(final Resource resource) {
 		final EObjectDescriptionSingleSelectorModel model = new EObjectDescriptionSingleSelectorModel(
 				AadlModelAccessUtil.getAllEObjectsByType(resource, Aadl2Package.eINSTANCE.getDataClassifier()));
 		if (!FilteringSelectorDialog.open(Display.getCurrent().getActiveShell(), "Set the Variable's Data Classifier",
@@ -69,7 +71,7 @@ public class BehaviorAnnexUtil {
 	static class DataClassifierDialog {
 		public static Optional<DataClassifier> show(final BehaviorAnnex behaviorAnnex) {
 			final Resource resource = behaviorAnnex.eResource();
-			return BehaviorAnnexUtil.getDataClassifier(resource).filter(dc -> getPackage(dc).isPresent());
+			return BehaviorAnnexUtil.promptForDataClassifier(resource).filter(dc -> getPackage(dc).isPresent());
 		}
 	}
 
@@ -82,14 +84,16 @@ public class BehaviorAnnexUtil {
 	}
 
 	/**
-	 * Return the package of the specified named element
+	 * Return the package containing the specified element
+	 * @param e the element for which to get the package
+	 * @return the package containing the element. An empty optional is returned if the package cannot be determined.
 	 */
-	public static Optional<AadlPackage> getPackage(final NamedElement ne) {
-		if (ne == null) {
+	public static Optional<AadlPackage> getPackage(final Element e) {
+		if (e == null) {
 			return Optional.empty();
 		}
 
-		final NamedElement root = ne.getElementRoot();
+		final Element root = e.getElementRoot();
 		final AadlPackage pkg = root instanceof AadlPackage ? (AadlPackage) root : null;
 		return Optional.ofNullable(pkg);
 	}

@@ -30,7 +30,10 @@ import org.eclipse.ui.IEditorPart;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 
 /**
- * Property tester for use with objects implementing {@link ISelection}
+ * Property tester for the behavior annex plugin.
+ *
+ * Implements the "isDiagramContext" property which returns true if the object being tested is a selection from which a
+ * behavior annex subclause can be retrieved using {@link BehaviorAnnexSelectionUtil#getDefaultBehaviorAnnexSubclause(ISelection, IEditorPart)}
  */
 public class BehaviorAnnexPropertyTester extends PropertyTester {
 	@Override
@@ -45,10 +48,6 @@ public class BehaviorAnnexPropertyTester extends PropertyTester {
 		}
 
 		final IEditorPart editor = BehaviorAnnexSelectionUtil.getActiveEditor().orElse(null);
-		if (editor == null) {
-			return false;
-		}
-
-		return BehaviorAnnexSelectionUtil.getDiagramContext(selection, editor).isPresent();
+		return BehaviorAnnexSelectionUtil.getDefaultBehaviorAnnexSubclause(selection, editor).isPresent();
 	}
 }

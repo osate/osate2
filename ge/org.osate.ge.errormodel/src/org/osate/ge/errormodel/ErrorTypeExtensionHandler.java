@@ -54,6 +54,9 @@ import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
+/**
+ * Business object handler for {@link ErrorTypeExtension} objects.
+ */
 public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomDeleter {
 	private static final Graphic LABEL_GRAPHIC = LabelBuilder.create().build();
 	private static final Style STYLE = StyleBuilder.create().backgroundColor(Color.WHITE).build();
@@ -63,7 +66,7 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 
 	// Only works if the package is displayed in the diagram.
 	private static final ExecutableQuery<ErrorTypeExtension> dstQuery = ExecutableQuery.create(
-			(rootQuery) -> rootQuery.ancestor(3)
+			rootQuery -> rootQuery.ancestor(3)
 					.descendantsByBusinessObjectsRelativeReference(ete -> getBusinessObjectPath(ete.getSupertype())));
 
 	@Override
@@ -154,9 +157,7 @@ public class ErrorTypeExtensionHandler implements BusinessObjectHandler, CustomD
 
 	@Override
 	public void delete(final CustomDeleteContext ctx) {
-		ctx.getContainerBusinessObject(ErrorType.class).ifPresent(subtype -> {
-			subtype.setSuperType(null);
-		});
+		ctx.getContainerBusinessObject(ErrorType.class).ifPresent(subtype -> subtype.setSuperType(null));
 	}
 
 	private static Object[] getBusinessObjectPath(final ErrorType et) {

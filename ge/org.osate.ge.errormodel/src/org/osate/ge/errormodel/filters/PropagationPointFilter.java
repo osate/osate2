@@ -28,12 +28,18 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ge.ContentFilter;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
+/**
+ * Content filter which matches {@link PropagationPoint} objects.
+ */
 public class PropagationPointFilter implements ContentFilter {
+	/**
+	 * Unique identifier for the content filter
+	 */
 	public static final String ID = "emv2.propagationPoints";
 
 	@Override
 	public String getParentId() {
-		return ErrorModelLibraryFilter.ID;
+		return ErrorModelSubclauseElementsFilter.ID;
 	}
 
 	@Override

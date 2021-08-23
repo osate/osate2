@@ -49,7 +49,7 @@ import org.osate.ge.graphics.LabelBuilder;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 
 /**
- * Business Object Handler for {@link BehaviorCondition}
+ * Business Object Handler for {@link BehaviorCondition} objects.
  */
 public class BehaviorConditionHandler implements BusinessObjectHandler {
 	private final Graphic labelGraphic = LabelBuilder.create().build();

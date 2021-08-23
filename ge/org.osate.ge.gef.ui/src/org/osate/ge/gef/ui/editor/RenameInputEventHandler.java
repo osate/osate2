@@ -148,9 +148,7 @@ class RenameInteraction extends BaseInteraction {
 	 * editor's context menu when interaction is active. Otherwise, multiple context menus will be shown when
 	 * right-clicking on {@link #editField}
 	 */
-	private final MenuDetectListener supressSwtMenu = e -> {
-		e.doit = false;
-	};
+	private static final MenuDetectListener supressSwtMenu = e -> e.doit = false;
 
 	/**
 	 * Text node used to measure the text size off-screen so that {@link #editField} can be sized appropriately.
@@ -179,9 +177,7 @@ class RenameInteraction extends BaseInteraction {
 		editor.getFxCanvas().addMenuDetectListener(supressSwtMenu);
 
 		// Listen for changes to the label's transform
-		this.labelTransformChangeListener = (o, oldValue, newValue) -> {
-			layoutEditField(primaryLabel, editField);
-		};
+		this.labelTransformChangeListener = (o, oldValue, newValue) -> layoutEditField(primaryLabel, editField);
 		primaryLabel.localToSceneTransformProperty()
 				.addListener(new WeakChangeListener<>(labelTransformChangeListener));
 

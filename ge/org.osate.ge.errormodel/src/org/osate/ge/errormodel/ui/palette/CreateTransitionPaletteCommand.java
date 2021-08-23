@@ -54,7 +54,13 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 
+/**
+ * Palette command for creating {@link ErrorBehaviorTransition} elements.
+ */
 public class CreateTransitionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
+	/**
+	 * Creates a new instance
+	 */
 	public CreateTransitionPaletteCommand() {
 		super("Error Behavior Transition", ErrorModelPaletteCategories.ERROR_BEHAVIOR, null);
 	}

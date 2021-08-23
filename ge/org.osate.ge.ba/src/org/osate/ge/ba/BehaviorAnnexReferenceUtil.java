@@ -23,58 +23,55 @@
  */
 package org.osate.ge.ba;
 
-import org.osate.ba.aadlba.BehaviorAnnex;
-import org.osate.ba.aadlba.BehaviorCondition;
-import org.osate.ba.aadlba.BehaviorState;
-import org.osate.ba.aadlba.BehaviorTransition;
-import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.AnnexHandler;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 
 /**
- * Utility class for creating BehaviorAnnex element references
+ * Class containing constants and utility functions related to references to behavior annex business objects
+ *
  */
 public class BehaviorAnnexReferenceUtil {
 	/**
-	 * Private constructor to prevent instantiation
+	 * Private constructor to prevent instantiation.
 	 */
 	private BehaviorAnnexReferenceUtil() {
 	}
 
-	private static final String ANNEX_SUBCLAUSE = "annex_subclause";
+	private static final String ANNEX_SUBCLAUSE = DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId();
 
 	/**
-	 * The name of {@link BehaviorAnnex}
+	 * Name of the behavior specification annex subclauses
 	 */
 	public static final String ANNEX_NAME = "behavior_specification";
 
 	private static final String BA_REFERENCE_PREFIX = "ba.";
 
 	/**
-	 * Reference value for {@link BehaviorState}
+	 * First segment for state references
 	 */
 	public static final String STATE_TYPE = BA_REFERENCE_PREFIX + "behavior_state";
 
 	/**
-	 * Reference value for {@link BehaviorTransition}
+	 * First segment of behavior transitions references
 	 */
 	public static final String TRANSITION_TYPE = BA_REFERENCE_PREFIX + "behavior_transition";
 
 	/**
-	 * Reference value for {@link BehaviorVariable}
+	 * First segment of variable references
 	 */
 	public static final String VARIABLE_TYPE = BA_REFERENCE_PREFIX + "behavior_variable";
 
 	/**
-	 * Reference value for {@link BehaviorCondition}
+	 * First segment of behavior condition references
 	 * @since 2.0
 	 */
-	public final static String BEHAVIOR_CONDITION = BA_REFERENCE_PREFIX + "behavior_condition";
+	public static final String BEHAVIOR_CONDITION = BA_REFERENCE_PREFIX + "behavior_condition";
 
 	/**
-	 * Creates the {@link RelativeBusinessObjectReference} for the {@link BehaviorAnnex} specification at the specified index
-	 * @param index the index of the {@link BehaviorAnnex} within the owner
-	 * @return the {@link RelativeBusinessObjectReference} for the {@link BehaviorAnnex} specification
+	 * Returns the relative reference for a behavior specification
+	 * @param index see {@link AnnexHandler#getAnnexSubclauseIndex(org.osate.aadl2.AnnexSubclause, boolean)}
+	 * @return the relative reference
 	 */
 	public static RelativeBusinessObjectReference getSpecificationRelativeReference(final int index) {
 		return AnnexHandler.getRelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.ANNEX_SUBCLAUSE,
@@ -82,28 +79,29 @@ public class BehaviorAnnexReferenceUtil {
 	}
 
 	/**
-	 * Creates the {@link RelativeBusinessObjectReference} for the {@link BehaviorState} with the specified name
-	 * @param name the name of the {@link BehaviorState}
-	 * @return the {@link RelativeBusinessObjectReference} for the {@link BehaviorState}
+	 * Returns the relative reference for a state with the specified name
+	 * @param name the name of the state
+	 * @return the relative reference for the state
 	 */
 	public static RelativeBusinessObjectReference getStateRelativeReference(final String name) {
 		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.STATE_TYPE, name);
 	}
 
 	/**
-	 * Creates the {@link RelativeBusinessObjectReference} for the {@link BehaviorTransition} with the specified name
-	 * @param name the name of the {@link BehaviorTransition}
-	 * @return the {@link RelativeBusinessObjectReference} for the {@link BehaviorTransition}
+	 * Returns the relative reference for a transition with the specified identifier
+	 * @param id the identifier for the transition. If the transition has a name, this is the name of the transition. If it is not named, then this
+	 * is expected to be the index of the transition within the behavior specification
+	 * @return the relative reference for the transition
 	 */
 	public static RelativeBusinessObjectReference getTransitionRelativeReference(
-			final String name) {
-		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE, name);
+			final String id) {
+		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE, id);
 	}
 
 	/**
-	 * Creates the {@link RelativeBusinessObjectReference} for the {@link BehaviorVariable} with the specified name
-	 * @param name the name of the {@link BehaviorVariable}
-	 * @return the {@link RelativeBusinessObjectReference} for the {@link BehaviorVariable}
+	 * Returns a relative reference for the variable with the specified name
+	 * @param name the name of the variable
+	 * @return the relative reference for the variable
 	 */
 	public static RelativeBusinessObjectReference getVariableRelativeReference(final String name) {
 		return new RelativeBusinessObjectReference(BehaviorAnnexReferenceUtil.VARIABLE_TYPE, name);

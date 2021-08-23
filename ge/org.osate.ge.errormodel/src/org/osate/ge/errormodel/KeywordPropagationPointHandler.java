@@ -44,6 +44,9 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 
+/**
+ * Business object handler for {@link KeywordPropagationPoint} objects.
+ */
 public class KeywordPropagationPointHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = EllipseBuilder.create().fixedSize(new Dimension(16, 16)).build();
 	private static final Style style = StyleBuilder.create().labelsAboveTop().labelsLeft().build();

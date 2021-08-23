@@ -50,7 +50,7 @@ import org.osate.ge.ui.PropertySectionUtil;
  */
 public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	/**
-	 * Determine whether the Property Section should be shown based on if the object is a {@link BehaviorTransition}
+	 * Filter which determines if the property section is compatible with an object.
 	 */
 	public static class Filter implements IFilter {
 		@Override
@@ -60,26 +60,32 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	}
 
 	/**
-	 * Testing ID of the styled text for viewing dispatch conditions
+	 * Testing ID for the styled text widget containing the transition's condition
 	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
 	 */
-	public static String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.dispatchcondition";
+	public static final String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.dispatchcondition";
+
 	/**
-	 * Testing ID of the button to edit dispatch conditions
-	 */
-	public static String WIDGET_ID_EDIT_CONDITION = WIDGET_ID_CONDITION + ".edit";
-	/**
-	 * Testing ID of the styled text for viewing behavior action blocks
+	 * Testing ID for the edit button for the transition's condition
 	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
 	 */
-	public static String WIDGET_ID_ACTION_BLOCK = "org.osate.ge.ba.behaviortransition.actionblock";
+	public static final String WIDGET_ID_EDIT_CONDITION = WIDGET_ID_CONDITION + ".edit";
+
 	/**
-	 * Testing ID of the button to edit behavior action blocks
+	 * Testing ID for the styled text widget containing the transition's action block
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
 	 */
-	public static String WIDGET_ID_EDIT_ACTION_BLOCK = WIDGET_ID_ACTION_BLOCK + ".edit";
+	public static final String WIDGET_ID_ACTION_BLOCK = "org.osate.ge.ba.behaviortransition.actionblock";
+
+	/**
+	 * Testing ID for the edit button for the transition's action block
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_EDIT_ACTION_BLOCK = WIDGET_ID_ACTION_BLOCK + ".edit";
+
 	private Composite container;
-	private EmbeddedTextEditor conditionEditingControls;
-	private EmbeddedTextEditor actionBlockEditingControls;
+	private EmbeddedTextEditor conditionTextEditor;
+	private EmbeddedTextEditor actionBlockTextEditor;
 	private BusinessObjectSelection selectedBos;
 
 	@Override
@@ -99,17 +105,17 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 		conditionLabel.setText("Condition:");
 		SwtUtil.setColorsToMatchParent(conditionLabel);
 
-		conditionEditingControls = EmbeddedTextEditor.createSingleline(container);
-		conditionEditingControls.setStyledTextTestId(WIDGET_ID_CONDITION);
-		conditionEditingControls.setEditButtonTestId(WIDGET_ID_EDIT_CONDITION);
+		conditionTextEditor = EmbeddedTextEditor.createSingleline(container);
+		conditionTextEditor.setStyledTextTestId(WIDGET_ID_CONDITION);
+		conditionTextEditor.setEditButtonTestId(WIDGET_ID_EDIT_CONDITION);
 
 		final Label actionLabel = new Label(container, SWT.NONE);
 		actionLabel.setText("Action:");
 		SwtUtil.setColorsToMatchParent(actionLabel);
 
-		actionBlockEditingControls = EmbeddedTextEditor.createMultiline(container);
-		actionBlockEditingControls.setStyledTextTestId(WIDGET_ID_ACTION_BLOCK);
-		actionBlockEditingControls.setEditButtonTestId(WIDGET_ID_EDIT_ACTION_BLOCK);
+		actionBlockTextEditor = EmbeddedTextEditor.createMultiline(container);
+		actionBlockTextEditor.setStyledTextTestId(WIDGET_ID_ACTION_BLOCK);
+		actionBlockTextEditor.setEditButtonTestId(WIDGET_ID_EDIT_ACTION_BLOCK);
 	}
 
 	@Override
@@ -126,9 +132,9 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 				setControlsToMultipleSelected();
 			} else {
 				final BehaviorTransition behaviorTransition = (BehaviorTransition) selectedBoc.getBusinessObject();
-				conditionEditingControls.setEditorTextValue(behaviorTransition,
+				conditionTextEditor.setEditorTextValue(behaviorTransition,
 						sourceText -> BehaviorTransitionTextUtil.createConditionTextValue(behaviorTransition, sourceText));
-				actionBlockEditingControls.setEditorTextValue(behaviorTransition,
+				actionBlockTextEditor.setEditorTextValue(behaviorTransition,
 						sourceText -> BehaviorTransitionTextUtil.getActionBlockTextValue(behaviorTransition, sourceText));
 			}
 		}
@@ -136,11 +142,11 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 
 	private void setControlsToMultipleSelected() {
 		final String msg = "<Multiple>";
-		conditionEditingControls.setEnabled(false);
-		conditionEditingControls.setStyledTextText(msg);
+		conditionTextEditor.setEnabled(false);
+		conditionTextEditor.setStyledTextText(msg);
 
-		actionBlockEditingControls.setEnabled(false);
-		actionBlockEditingControls.setStyledTextText(msg);
+		actionBlockTextEditor.setEnabled(false);
+		actionBlockTextEditor.setStyledTextText(msg);
 	}
 
 	private static boolean isBehaviorTransition(final BusinessObjectContext boc) {

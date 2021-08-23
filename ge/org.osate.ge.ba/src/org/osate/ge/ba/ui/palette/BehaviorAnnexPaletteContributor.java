@@ -36,17 +36,18 @@ import org.osate.ge.palette.PaletteContributor;
 import org.osate.ge.palette.TargetedPaletteCommand;
 
 /**
- * PaletteContributor for creating {@link BehaviorAnnex} elements
+ * Palette contributor which contributes commands for creating behavior annex elements.
+ *
  */
 public class BehaviorAnnexPaletteContributor implements PaletteContributor {
 	/**
-	 * The palette category ID for Behavior Annex elements
+	 * ID for the category containing behavior annex palette commands.
 	 */
-	public static final String BEHAVIOR_ANNEX = "org.osate.ge.ba.categories.ba";
+	public static final String BEHAVIOR_ANNEX_CATEGORY_ID = "org.osate.ge.ba.categories.ba";
 
 	@Override
 	public Stream<PaletteCategory> getCategories() {
-		return Stream.of(new PaletteCategory(BEHAVIOR_ANNEX, "Behavior Annex"));
+		return Stream.of(new PaletteCategory(BEHAVIOR_ANNEX_CATEGORY_ID, "Behavior Annex"));
 	}
 
 	@Override

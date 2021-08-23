@@ -21,15 +21,20 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.errormodel.filters;
+package org.osate.ge.ba.filters;
 
+import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ge.ContentFilter;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
-import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
-public class ErrorModelPackageFilter implements ContentFilter {
-	public static final String ID = "emv2.errorModelPackageElements";
+/**
+ * Content filter which matches {@link BehaviorVariable} objects.
+ */
+public class BehaviorVariableFilter implements ContentFilter {
+	/**
+	 * Unique identifier for the content filter
+	 */
+	public static final String ID = "ba.behaviorVariables";
 
 	@Override
 	public String getId() {
@@ -38,16 +43,17 @@ public class ErrorModelPackageFilter implements ContentFilter {
 
 	@Override
 	public String getName() {
-		return "Error Model Elements";
+		return "Behavior Variables";
+
 	}
 
 	@Override
 	public boolean isApplicable(final Object bo) {
-		return ErrorModelFilterUtil.isPackageWithErrorModelLibrary(bo);
+		return bo instanceof BehaviorAnnex;
 	}
 
 	@Override
 	public boolean test(final Object bo) {
-		return bo instanceof ErrorBehaviorStateMachine || bo instanceof TypeSet || bo instanceof ErrorType;
+		return bo instanceof BehaviorVariable;
 	}
 }

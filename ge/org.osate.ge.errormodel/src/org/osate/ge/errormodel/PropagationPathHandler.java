@@ -51,12 +51,15 @@ import org.osate.ge.query.QueryResult;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 
+/**
+ * Business object handler for {@link PropagationPath} objects.
+ */
 public class PropagationPathHandler implements BusinessObjectHandler {
 	private static final Graphic GRAPHIC = ConnectionBuilder.create().build();
 
 	// Assumes root is the containing classifier
 	private static final ExecutableQuery<QualifiedPropagationPoint> PROPAGATION_POINT_QUERY = ExecutableQuery
-			.create((rootQuery) -> rootQuery
+			.create(rootQuery -> rootQuery
 							.descendantsByBusinessObjectsRelativeReference(
 									PropagationPathHandler::getBusinessObjectPath, 1)
 							.first());

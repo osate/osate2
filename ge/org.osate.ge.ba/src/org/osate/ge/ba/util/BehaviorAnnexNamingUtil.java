@@ -31,7 +31,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
-import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -45,9 +44,13 @@ import org.osate.ba.aadlba.BehaviorState;
 import org.osate.ge.businessobjecthandling.RenameContext;
 
 /**
- * Utility class for naming BehaviorAnnex elements
+ * Utility class for naming behavior annex elements
+ *
  */
-public class BehaviorAnnexNamingUtil {
+public final class BehaviorAnnexNamingUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private BehaviorAnnexNamingUtil() {
 	}
 
@@ -64,7 +67,7 @@ public class BehaviorAnnexNamingUtil {
 	/**
 	 * Creates a new unique identifier
 	 * @param ba the behavior annex for which the identifier must be unique
-	 * @param baseIdentifier the identifier to start with when building the identifier. If this identifier is unique, it will be returned.
+	 * @param baseIdentifier the identifier to start with when building the identifier. If this identifier is unused, it will be returned.
 	 * @return a new unique identifier
 	 */
 	public static String buildUniqueIdentifier(final BehaviorAnnex ba, final String baseIdentifier) {
@@ -103,13 +106,6 @@ public class BehaviorAnnexNamingUtil {
 				names.add(el.getName().toLowerCase());
 			}
 		}
-	}
-
-	/**
-	 * Returns the qualified name of the specified {@link IEObjectDescription}
-	 */
-	public static String getQualifiedName(final IEObjectDescription desc) {
-		return desc.getQualifiedName().toString("::");
 	}
 
 	/**
@@ -156,7 +152,8 @@ public class BehaviorAnnexNamingUtil {
 
 	/**
 	 * Check if behavior element new name is valid.
-	 * @return empty if the name is valid.  Otherwise return the error message
+	 * @param ctx the context containing the informaton regarding the proposed rename
+	 * @return empty if the name is valid. Otherwise returns the error message
 	 */
 	public static Optional<String> checkNameValidity(final RenameContext ctx) {
 		final NamedElement ne = ctx.getBusinessObject(NamedElement.class).orElseThrow();
@@ -166,6 +163,8 @@ public class BehaviorAnnexNamingUtil {
 
 	/**
 	 * Check if behavior element new name is valid.
+	 * @param ne the named element to check
+	 * @param newName the proposed name
 	 * @return empty if the name is valid.  Otherwise return the error message
 	 */
 	public static Optional<String> checkNameValidity(final NamedElement ne, final String newName) {

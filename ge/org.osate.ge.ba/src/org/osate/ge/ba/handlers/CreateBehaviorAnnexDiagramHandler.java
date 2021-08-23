@@ -27,7 +27,6 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.DefaultAnnexSubclause;
@@ -38,9 +37,9 @@ import org.osate.ge.internal.ui.util.EditorUtil;
 public class CreateBehaviorAnnexDiagramHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
-		final ISelection selection = HandlerUtil.getCurrentSelection(event);
 		final DefaultAnnexSubclause diagramContext = BehaviorAnnexSelectionUtil
-				.getDiagramContext(selection, HandlerUtil.getActiveEditor(event))
+				.getDefaultBehaviorAnnexSubclause(HandlerUtil.getCurrentSelection(event),
+						HandlerUtil.getActiveEditor(event))
 				.orElseThrow(() -> new RuntimeException("diagram context cannot be null"));
 		final DiagramService diagramService = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
 				.getService(DiagramService.class);
