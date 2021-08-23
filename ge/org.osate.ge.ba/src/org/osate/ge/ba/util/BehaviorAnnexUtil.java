@@ -32,7 +32,6 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.Element;
-import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.swt.selectors.FilteringSelectorDialog;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
@@ -63,24 +62,6 @@ public final class BehaviorAnnexUtil {
 
 		return Optional
 				.of((DataClassifier) EcoreUtil.resolve(model.getSelectedElement().getEObjectOrProxy(), resource));
-	}
-
-	/**
-	 * Show dialog to select a data classifier for behavior variables
-	 */
-	static class DataClassifierDialog {
-		public static Optional<DataClassifier> show(final BehaviorAnnex behaviorAnnex) {
-			final Resource resource = behaviorAnnex.eResource();
-			return BehaviorAnnexUtil.promptForDataClassifier(resource).filter(dc -> getPackage(dc).isPresent());
-		}
-	}
-
-	/**
-	 * Prompt user for data classifier
-	 * @return the selected data classifier
-	 */
-	public static Optional<DataClassifier> getVariableDataClassifier(final BehaviorAnnex behaviorAnnex) {
-		return DataClassifierDialog.show(behaviorAnnex);
 	}
 
 	/**

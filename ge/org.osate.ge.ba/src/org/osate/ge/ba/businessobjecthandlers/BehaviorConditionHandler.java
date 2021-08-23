@@ -36,7 +36,7 @@ import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
-import org.osate.ge.ba.util.BehaviorTransitionTextUtil;
+import org.osate.ge.ba.util.BehaviorTransitionEmbeddedTextUtil;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
@@ -92,7 +92,7 @@ public class BehaviorConditionHandler implements BusinessObjectHandler {
 							.orElseThrow(() -> new RuntimeException("Resource must be XtextResource"));
 					final IXtextDocument xtextDocument = getXtextDocument(bt).orElse(null);
 					final String sourceText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
-					return BehaviorTransitionTextUtil.getConditionText(bt, sourceText);
+					return BehaviorTransitionEmbeddedTextUtil.getConditionText(bt, sourceText);
 				})
 				.orElseThrow();
 	}

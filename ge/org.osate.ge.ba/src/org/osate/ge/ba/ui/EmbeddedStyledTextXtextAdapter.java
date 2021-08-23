@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.ui.swt;
+package org.osate.ge.ba.ui;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -35,6 +35,7 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
+import org.osate.ge.ba.ui.properties.EditableEmbeddedTextValue;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osate.xtext.aadl2.ui.propertyview.OsateStyledTextXtextAdapter;

@@ -40,8 +40,8 @@ import org.osate.ba.declarative.DeclarativeBehaviorTransition;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ProjectUtil;
-import org.osate.ge.ba.ui.swt.EmbeddedTextEditor;
-import org.osate.ge.ba.util.BehaviorTransitionTextUtil;
+import org.osate.ge.ba.ui.EmbeddedTextEditor;
+import org.osate.ge.ba.util.BehaviorTransitionEmbeddedTextUtil;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
@@ -133,9 +133,9 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 			} else {
 				final BehaviorTransition behaviorTransition = (BehaviorTransition) selectedBoc.getBusinessObject();
 				conditionTextEditor.setEditorTextValue(behaviorTransition,
-						sourceText -> BehaviorTransitionTextUtil.createConditionTextValue(behaviorTransition, sourceText));
+						sourceText -> BehaviorTransitionEmbeddedTextUtil.createConditionTextValue(behaviorTransition, sourceText));
 				actionBlockTextEditor.setEditorTextValue(behaviorTransition,
-						sourceText -> BehaviorTransitionTextUtil.getActionBlockTextValue(behaviorTransition, sourceText));
+						sourceText -> BehaviorTransitionEmbeddedTextUtil.getActionBlockTextValue(behaviorTransition, sourceText));
 			}
 		}
 	}

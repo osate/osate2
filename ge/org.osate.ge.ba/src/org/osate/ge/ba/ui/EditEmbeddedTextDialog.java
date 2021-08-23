@@ -22,21 +22,17 @@
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 
-package org.osate.ge.ba.ui.properties;
+package org.osate.ge.ba.ui;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.Objects;
 import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.function.BiFunction;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -54,32 +50,25 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.IHandlerActivation;
 import org.eclipse.ui.handlers.IHandlerService;
-import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
-import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ge.ba.ui.properties.EditableEmbeddedTextValue;
 import org.osate.ge.swt.SwtUtil;
 
 /**
- * Dialog use to edit the AADL text of a model element.
- *
+ * Dialog for editing embedded text
+ * @since 2.0
  */
 public class EditEmbeddedTextDialog extends MessageDialog {
-	private static final String WIDGET_ID = "org.osate.ge.ba.behaviortransition.editdialog";
-	private static final String MODIFIED_SOURCE_KEY = WIDGET_ID + ".modifiedsource";
-
+	private static String WIDGET_ID = "org.osate.ge.ba.behaviortransition.editdialog";
+	private static String MODIFIED_SOURCE_KEY = WIDGET_ID + ".modifiedsource";
 	/**
-	 * Testing ID for the {@link StyledText} containing the source being modified
-	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 * Widget ID for StyledText
 	 */
-	public static final String WIDGET_ID_TEXT = WIDGET_ID + ".text";
-
+	public static String WIDGET_ID_TEXT = WIDGET_ID + ".text";
 	/**
-	 * Testing ID for the OK button.
-	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 * Wiget ID for OK Button
 	 */
-	public static final String WIDGET_ID_CONFIRM = WIDGET_ID + ".confirmation";
-
-	private final EmbeddedXtextAdapter xtextAdapter;
+	public static String WIDGET_ID_CONFIRM = WIDGET_ID + ".confirmation";
+	private final EmbeddedStyledTextXtextAdapter xtextAdapter;
 	private final ExtendedModifyListener textValidator;
 	private final IHandlerService service;
 	private final int styledTextStyle;
@@ -90,52 +79,34 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	private Result result;
 
 	/**
-	 * Creates a new instance
-	 * @param parentShell the parent shell for the dialog.
-	 * @param title the dialog's title
-	 * @param dialogMessage the message displayed in the dialog
-	 * @param xtextAdapter  the adapter which determines what is being displayed and modified in the dialog
-	 * @param styledTextStyle the style for the {@link StyledText} widget containing the source.
-	 * @param styledTextLayoutData the layout data for the {@link StyledText} widget containing the source.
-	 * @param behaviorTransition the behavior transition being modified
-	 * @param getModifiedSrc function called to determine the updated source
-	 * @param isValidModification function called to determine whether the modification was valid.
+	 *
+	 * @param parentShell
+	 * @param project
+	 * @param editableTextValue
+	 * @param styledTextStyle
+	 * @param styledTextLayoutData
+	 * @param modify
+	 * @since 2.0
 	 */
-	public EditEmbeddedTextDialog(final Shell parentShell, final String title, final String dialogMessage,
-			final EmbeddedXtextAdapter xtextAdapter,
+	public EditEmbeddedTextDialog(final Shell parentShell, final IProject project,
+			final EditableEmbeddedTextValue editableTextValue,
 			final int styledTextStyle,
-			final GridData styledTextLayoutData,
-			final BehaviorTransition behaviorTransition,
-			final BiFunction<EObject, String, String> getModifiedSrc,
-			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
-		super(parentShell, title, null, dialogMessage, MessageDialog.NONE, 0, "OK", "Cancel");
-		this.xtextAdapter = Objects.requireNonNull(xtextAdapter, "xtextAdapter cannot be null");
+			final GridData styledTextLayoutData) {
+		super(parentShell, editableTextValue.getEditDialogTitle(), null, editableTextValue.getEditDialogMessage(), MessageDialog.NONE,
+				0,
+				"OK",
+				"Cancel");
+		// Create new xtext adapter for the edit dialog
+		this.xtextAdapter = Objects.requireNonNull(
+				new EmbeddedStyledTextXtextAdapter(project, editableTextValue),
+				"xtextAdapter cannot be null");
 		this.styledTextStyle = styledTextStyle;
 		this.styledTextLayoutData = Objects.requireNonNull(styledTextLayoutData, "styledTextLayoutData cannot be null");
 		this.textValidator = Objects.requireNonNull(
-				createTextValidator(behaviorTransition, getModifiedSrc, isValidModification),
+				createTextValidator(),
 				"textValidator cannot be null");
 		service = PlatformUI.getWorkbench().getService(IHandlerService.class);
 		setShellStyle(SWT.CLOSE | SWT.PRIMARY_MODAL | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
-	}
-
-	/**
-	 * Creates a new instance
-	 * @param parentShell the parent shell for the dialog.
-	 * @param title the dialog's title
-	 * @param dialogMessage the message displayed in the dialog
-	 * @param xtextAdapter the adapter which determines what is being displayed and modified in the dialog
-	 * @param styledTextStyle the style for the {@link StyledText} widget containing the source.
-	 * @param styledTextLayoutData the layout data for the {@link StyledText} widget containing the source.
-	 * @param behaviorTransition the behavior transition being modified
-	 * @param isValidModification function called to determine whether the modification was valid.
-	 */
-	public EditEmbeddedTextDialog(final Shell parentShell, final String title, final String dialogMessage,
-			final EmbeddedXtextAdapter xtextAdapter, final int styledTextStyle, final GridData styledTextLayoutData,
-			final BehaviorTransition behaviorTransition,
-			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
-		this(parentShell, title, dialogMessage, xtextAdapter, styledTextStyle, styledTextLayoutData, behaviorTransition,
-				(rootElement, text) -> xtextAdapter.serialize(rootElement), isValidModification);
 	}
 
 	@Override
@@ -190,14 +161,10 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		SwtUtil.setTestingId(okBtn, WIDGET_ID_CONFIRM);
 	}
 
-
 	// Text modification listener that sets the OK button as enabled
 	// or disabled based on if the new text is valid
-	private ExtendedModifyListener createTextValidator(final BehaviorTransition behaviorTransition,
-			final BiFunction<EObject, String, String> getModifiedSrc,
-			final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
-		final ValidationTask validationTask = new ValidationTask(behaviorTransition, getModifiedSrc,
-				isValidModification);
+	private ExtendedModifyListener createTextValidator() {
+		final ValidationTask validationTask = new ValidationTask();
 		return event -> {
 			// Disable button until validation occurs
 			final Button okBtn = getButton(IDialogConstants.OK_ID);
@@ -207,19 +174,8 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	}
 
 	private class ValidationTask {
-		private final BehaviorTransition behaviorTransition;
-		private final BiFunction<EObject, String, String> getModifiedSrc;
-		private final BiFunction<BehaviorTransition, String, Boolean> isValidModification;
 		private Timer validationTimer;
 		private String textToValidate;
-
-		public ValidationTask(final BehaviorTransition behaviorTransition,
-				final BiFunction<EObject, String, String> getModifiedSrc,
-				final BiFunction<BehaviorTransition, String, Boolean> isValidModification) {
-			this.getModifiedSrc = getModifiedSrc;
-			this.isValidModification = isValidModification;
-			this.behaviorTransition = behaviorTransition;
-		}
 
 		public void schedule(final Button okBtn) {
 			if (validationTimer != null) {
@@ -239,57 +195,20 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 						textToValidate = newText;
 
-						okBtn.setEnabled(false);
-						// Disable if text has not changed
-						if (newText.equals(xtextAdapter.getEditableText())) {
+						// Disable ok button if text has not changed
+						if (newText.equals(xtextAdapter.getEmbeddedTextValue().getEditableText())) {
+							okBtn.setEnabled(false);
 							return;
 						}
 
-						// Update save button based on whether the text entered into the
-						// styled text is a serializable condition
-						final EObject rootElement = xtextAdapter.getXtextParseResult().getRootASTElement();
-						final XtextResource fakeResource = xtextAdapter.getFakeResource();
-						// Link model
-						fakeResource.getLinker().linkModel(rootElement, new ListBasedDiagnosticConsumer());
-
-						// Original source text
-						final String originalSrc = xtextAdapter.getText();
-
-						try {
-							// Modified source text
-							final String modifiedSrc = getModifiedSrc.apply(rootElement, newText);
-							// Set modified source text data
-							styledText.setData(MODIFIED_SOURCE_KEY, modifiedSrc);
-
-							// Load for error checking
-							loadResource(fakeResource, modifiedSrc);
-							boolean isEnabled = false;
-							// Check if BehaviorTransition still exists, meaning the modification did not break serialization
-							final BehaviorTransition tmpBehaviorTransition = (BehaviorTransition) fakeResource
-									.getEObject(EcoreUtil.getURI(behaviorTransition).fragment());
-							if (tmpBehaviorTransition != null) {
-								isEnabled = isValidModification.apply(tmpBehaviorTransition, newText);
-							}
-
-							okBtn.setEnabled(isEnabled);
-						} catch (final Exception ex) {
-							okBtn.setEnabled(false);
-						} finally {
-							// Load original source
-							loadResource(fakeResource, originalSrc);
-						}
+						// Source text to load
+						final String modifiedSrc = xtextAdapter.getValidModifiedSource(newText).orElse(null);
+						// Set modified source text data
+						styledText.setData(MODIFIED_SOURCE_KEY, modifiedSrc);
+						okBtn.setEnabled(modifiedSrc != null);
 					});
 				}
 			}, 1000);
-		}
-	}
-
-	private void loadResource(final XtextResource resource, final String src) {
-		try {
-			resource.unload();
-			resource.load(new ByteArrayInputStream(src.getBytes()), null);
-		} catch (final IOException e) {
-			throw new RuntimeException("Serialized source cannot be loaded");
 		}
 	}
 
@@ -312,34 +231,21 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		return super.close();
 	}
 
-	/**
-	 * Returns the result of the dialog. Results null the OK button was not pressed.
-	 * @return the result of the dialog.
-	 */
 	public Result getResult() {
 		return result;
 	}
 
-	/**
-	 * Data type containing the result from the dialog
-	 */
 	public class Result {
 		private final String fullSource;
 		private final String partialSource;
 
-		/**
-		 * Creates a new instance
-		 * @param fullSource the full source
-		 * @param partialSource the partial source
-		 */
-		Result(final String fullSource, final String partialSource) {
+		public Result(final String fullSource, final String partialSource) {
 			this.fullSource = fullSource;
 			this.partialSource = partialSource;
 		}
 
 		/**
 		 * Returns the modified source for the full AADL resource/document.
-		 * @return the modified source for the full AADL resource/document.
 		 */
 		public String getFullSource() {
 			return fullSource;
@@ -347,7 +253,6 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 		/**
 		 * Returns the modified source for the region of the AADL resource edited by the dialog.
-		 * @return the modified source for the region of the AADL resource edited by the dialog.
 		 */
 		public String getPartialSource() {
 			return partialSource;

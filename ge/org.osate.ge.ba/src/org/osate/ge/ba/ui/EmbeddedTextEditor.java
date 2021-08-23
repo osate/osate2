@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.ui.swt;
+package org.osate.ge.ba.ui;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -47,6 +47,7 @@ import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.ProjectUtil;
 import org.osate.ge.aadl2.AadlGraphicalEditorException;
+import org.osate.ge.ba.ui.properties.EditableEmbeddedTextValue;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
 import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;

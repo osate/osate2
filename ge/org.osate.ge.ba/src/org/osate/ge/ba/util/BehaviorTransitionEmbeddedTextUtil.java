@@ -33,18 +33,18 @@ import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.unparser.AadlBaUnparser;
 import org.osate.ge.aadl2.AadlGraphicalEditorException;
-import org.osate.ge.ba.ui.swt.BehaviorActionBlockEmbeddedTextValue;
-import org.osate.ge.ba.ui.swt.BehaviorConditionEmbeddedTextValue;
-import org.osate.ge.ba.ui.swt.EditableEmbeddedTextValue;
+import org.osate.ge.ba.ui.properties.BehaviorActionBlockEmbeddedTextValue;
+import org.osate.ge.ba.ui.properties.BehaviorConditionEmbeddedTextValue;
+import org.osate.ge.ba.ui.properties.EditableEmbeddedTextValue;
 
 /**
  * Utility class to create an {@link EditableEmbeddedTextValue} and get text for the {@link BehaviorCondition} and {@link BehaviorActionBlock} of a specified {@link BehaviorTransition}
  */
-public class BehaviorTransitionTextUtil {
+public class BehaviorTransitionEmbeddedTextUtil {
 	/**
 	 * Private constructor to prevent instantiation
 	 */
-	private BehaviorTransitionTextUtil() {
+	private BehaviorTransitionEmbeddedTextUtil() {
 	}
 
 	/**

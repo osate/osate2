@@ -41,11 +41,7 @@ import org.osate.ge.palette.TargetedPaletteCommand;
  */
 public class CreateStatePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	/**
-<<<<<<< HEAD
-	 * Creates an instance of the Behavior State palette command
-=======
 	 * Creates a new instance
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 	 */
 	public CreateStatePaletteCommand() {
 		super("Behavior State", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX_CATEGORY_ID, null);

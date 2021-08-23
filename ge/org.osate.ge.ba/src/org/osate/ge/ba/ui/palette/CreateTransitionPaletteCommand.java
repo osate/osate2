@@ -49,11 +49,7 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 			.create(root -> root.ancestors().filter(fa -> fa.getBusinessObject() instanceof BehaviorAnnex).first());
 
 	/**
-<<<<<<< HEAD
-	 * Creates an instance of the Behavior Transition palette command
-=======
 	 * Creates a new instance
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 	 */
 	public CreateTransitionPaletteCommand() {
 		super("Behavior Transition", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX_CATEGORY_ID, null);
