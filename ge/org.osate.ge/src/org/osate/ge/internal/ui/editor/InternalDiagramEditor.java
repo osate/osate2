@@ -38,7 +38,7 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.ui.tools.Tool;

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -26,11 +26,22 @@ package org.osate.ge.graphics.internal;
 import org.osate.ge.graphics.Graphic;
 
 /**
- * Graphic which will be used to represent connections. Not public API.
+ * Graphic which is used for connections and flow instances.
  */
 public class AgeConnection implements Graphic {
+	/**
+	 * The terminator at the start of the connection
+	 */
 	public final AgeConnectionTerminator srcTerminator;
+
+	/**
+	 * The terminator at the end of the connection
+	 */
 	public final AgeConnectionTerminator dstTerminator;
+
+	/**
+	 * Whether the connection is a flow indicator. If it is not a flow indicator, it is a "normal" connection between two elements.
+	 */
 	public final boolean isFlowIndicator;
 
 	private AgeConnection(final AgeConnectionTerminator srcTerminator, final AgeConnectionTerminator dstTerminator,
@@ -41,17 +52,22 @@ public class AgeConnection implements Graphic {
 	}
 
 	/**
-	 * Create a connection which is not a flow indicator.
-	 * @param lineStyle
-	 * @param srcTerminator
-	 * @param dstTerminator
-	 * @return
+	 * Create an instance which is not a flow indicator.
+	 * @param srcTerminator the terminator at the start of the connection. Can be null.
+	 * @param dstTerminator the terminator at the end of the connection. Can be null.
+	 * @return the new connection
 	 */
 	public static AgeConnection createNormal(final AgeConnectionTerminator srcTerminator,
 			final AgeConnectionTerminator dstTerminator) {
 		return new AgeConnection(srcTerminator, dstTerminator, false);
 	}
 
+	/**
+	 * Creates an instance which is a flow indicator
+	 * @param srcTerminator the terminator at the start of the connection. Can be null.
+	 * @param dstTerminator the terminator at the end of the connection. Can be null.
+	 * @return the new connection
+	 */
 	public static AgeConnection createFlowIndicator(final AgeConnectionTerminator srcTerminator,
 			final AgeConnectionTerminator dstTerminator) {
 		return new AgeConnection(srcTerminator, dstTerminator, true);

@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.diagram.runtime.botree;
+package org.osate.ge.internal.diagram.runtime.updating;
 
 import java.util.ArrayDeque;
 import java.util.Collection;
@@ -50,6 +50,7 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.ContentFilter;
 import org.osate.ge.DiagramType;
+import org.osate.ge.FundamentalContentFilter;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.aadlproperties.AadlPropertyResolutionResults;
 import org.osate.ge.aadl2.internal.aadlproperties.AadlPropertyResolver;
@@ -78,23 +79,33 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 
 /**
- * A TreeUpdater which create a tree which contains which contains contains nodes based all
- * provided by registered business object providers. Nodes are removed or created based on the input tree,
- * the business objects provided by the providers, diagram type, and whether a node has previously had its default children populated.
+ * A {@link BusinessObjectTreeUpdater} which creates a tree which contains nodes based for business objects provided by registered business object
+ * providers. Uses {@link FundamentalContentFilter} instances and {@link ContentFilter} instances specified by the {@link DiagramType} to determine
+ * whether a node should be created for a business object. Diagram type content filters are only used for nodes which have not had their default
+ * children populated.
  *
- * Diagrams which have a context business object specified will only contain the specified business object as a root. Diagrams which do not have a context
- * may include any business objects which are returned by the business object providers when using the current IProject as the root business object context.
+ * Diagrams which have a context business object specified will only contain the specified business object or embedded business objects as children of the
+ * root. Diagrams which do not have a context may include any business objects which are returned by the business object providers when using the current
+ * IProject as the root business object context.
  */
 public class DefaultBusinessObjectTreeUpdater implements BusinessObjectTreeUpdater {
 	private final ProjectProvider projectProvider;
 	private final ExtensionRegistryService extService;
 	private final ProjectReferenceService refService;
 	private final QueryService queryService;
-	private final DefaultBusinessObjectNodeFactory nodeFactory;
+	private final BusinessObjectNodeFactory nodeFactory;
 
+	/**
+	 * Creates a new instance
+	 * @param projectProvider a project provider which returns the project in which diagram is located.
+	 * @param extService the extension registry
+	 * @param refService the reference service
+	 * @param queryService the query service
+	 * @param nodeFactory the node factory used to create new {@link BusinessObjectNode} instances
+	 */
 	public DefaultBusinessObjectTreeUpdater(final ProjectProvider projectProvider, final ExtensionRegistryService extService,
 			final ProjectReferenceService refService, final QueryService queryService,
-			final DefaultBusinessObjectNodeFactory nodeFactory) {
+			final BusinessObjectNodeFactory nodeFactory) {
 		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.refService = Objects.requireNonNull(refService, "refService must not be null");
@@ -102,12 +113,6 @@ public class DefaultBusinessObjectTreeUpdater implements BusinessObjectTreeUpdat
 		this.nodeFactory = Objects.requireNonNull(nodeFactory, "nodeFactory must not be null");
 	}
 
-	/**
-	 * Creates a new tree with nodes based on business objects provided by providers and auto content filters.
-	 * @param configuration
-	 * @param tree
-	 * @return
-	 */
 	@Override
 	public BusinessObjectNode updateTree(final DiagramConfiguration configuration, final BusinessObjectNode tree) {
 		// Refresh Child Nodes
@@ -217,14 +222,14 @@ public class DefaultBusinessObjectTreeUpdater implements BusinessObjectTreeUpdat
 		return properties;
 	}
 
-	public void processProperties(final AadlPropertyResolver pr, final BusinessObjectNode node,
+	private void processProperties(final AadlPropertyResolver pr, final BusinessObjectNode node,
 			final BusinessObjectNode oldNode, final Collection<Property> properties) {
 		final Deque<Integer> indicesStack = new ArrayDeque<Integer>();
 		final Multimap<BusinessObjectNode, AgePropertyValue> dstToValues = HashMultimap.create();
 		processProperties(pr, node, oldNode, properties, indicesStack, dstToValues);
 	}
 
-	public void processProperties(final AadlPropertyResolver pr, final BusinessObjectNode node,
+	private void processProperties(final AadlPropertyResolver pr, final BusinessObjectNode node,
 			final BusinessObjectNode oldNode, final Collection<Property> properties, final Deque<Integer> indicesStack,
 			final Multimap<BusinessObjectNode, AgePropertyValue> dstToValues) {
 		for (final Property property : properties) {
@@ -349,7 +354,7 @@ public class DefaultBusinessObjectTreeUpdater implements BusinessObjectTreeUpdat
 
 		// Create the node
 		final ImmutableSet<ContentFilter> contentFilters = oldNode == null
-				|| !oldNode.defaultChildrenHaveBeenPopulated() ? getDefaultContentFilters(diagramType, bo)
+				|| !oldNode.getDefaultChildrenHaveBeenPopulated() ? getDefaultContentFilters(diagramType, bo)
 						: ImmutableSet.of();
 		final UUID id = oldNode == null || oldNode.getId() == null ? UUID.randomUUID() : oldNode.getId();
 		final BusinessObjectNode newNode = nodeFactory.create(parentNode, id, bo, Completeness.UNKNOWN);

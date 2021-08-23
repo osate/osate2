@@ -21,20 +21,35 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.util;
+package org.osate.ge.internal.diagram.runtime.filtering;
 
-import org.eclipse.emf.ecore.EClass;
+import org.osate.ge.aadl2.internal.model.PropertyValueGroup;
+import org.osate.ge.internal.model.EmbeddedBusinessObject;
 
-public class ImageHelper {
-	protected static final String PREFIX = "org.osate.ge.";
+/**
+ * Utility class for filtering
+ *
+ */
+public final class FilteringUtil {
 	/**
-	 * Returns the full image id of an image registered by the org.osate.ge plugin.
+	 * Private constructor to prevent instantiation.
 	 */
-	public static String getImage(final String imageId) {
-		return PREFIX + imageId;
+	private FilteringUtil() {
 	}
 
-	public static String getImage(final EClass eClass) {
-		return getImage(eClass.getName());
+	/**
+	 * Returns whether a business objects should be configurable using Hide and Show actions.
+	 * {@link PropertyValueGroup} are special and automatically created based on the diagram configuration.
+	 * {@link EmbeddedBusinessObject} are part of the diagram and cease to exist if hidden.
+	 * @param contentFilterProvider the content filter provider
+	 * @param bo the business object to check
+	 * @return  whether a business objects should be configurable using Hide and Show actions.
+	 */
+	public static boolean isConfigurable(final ContentFilterProvider contentFilterProvider, final Object bo) {
+		if (bo instanceof PropertyValueGroup || bo instanceof EmbeddedBusinessObject) {
+			return false;
+		}
+
+		return !contentFilterProvider.isFundamental(bo);
 	}
 }

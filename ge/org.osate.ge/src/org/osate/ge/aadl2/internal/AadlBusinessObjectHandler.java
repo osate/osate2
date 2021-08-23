@@ -31,6 +31,9 @@ import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.businessobjecthandling.GetIconIdContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
 
+/**
+ * Base class for business object handlers for AADL model elements
+ */
 public abstract class AadlBusinessObjectHandler implements BusinessObjectHandler {
 	/**
 	 * Returns the image ID based on EClass of the EObject. Returns an empty optional if the business object was not an EObject.

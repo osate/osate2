@@ -36,9 +36,9 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
-import org.osate.ge.internal.diagram.runtime.botree.Completeness;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectTreeUpdater;
+import org.osate.ge.internal.diagram.runtime.updating.Completeness;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramElementInformationProvider;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.services.ReferenceResolutionService;
@@ -103,12 +103,14 @@ public class TestBusinessObjectModel
 
 	private DiagramElement getConnectionStart(final DiagramElement e) {
 		final TestBusinessObject bo = (TestBusinessObject)e.getBusinessObject();
-		return bo.getConnectionStartReference() == null ? null : e.getContainer().getByRelativeReference(bo.getConnectionStartReference());
+		return bo.getConnectionStartReference() == null ? null
+				: e.getParent().getChildByRelativeReference(bo.getConnectionStartReference());
 	}
 
 	private DiagramElement getConnectionEnd(final DiagramElement e) {
 		final TestBusinessObject bo = (TestBusinessObject)e.getBusinessObject();
-		return bo.getConnectionEndReference() == null ? null : e.getContainer().getByRelativeReference(bo.getConnectionEndReference());
+		return bo.getConnectionEndReference() == null ? null
+				: e.getParent().getChildByRelativeReference(bo.getConnectionEndReference());
 	}
 
 	@Override

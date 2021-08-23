@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,7 +23,6 @@
  */
 package org.osate.ge.internal.ui.xtext;
 
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.emf.common.util.URI;
@@ -37,6 +36,11 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.osate.aadl2.NamedElement;
 
+/**
+ * Utility class for working with Xtext models. Unlike most utility classes, this class has internal state.  It provides a global
+ * means for listening for model changes and tracking the open Xtext documents.
+ *
+ */
 public class AgeXtextUtil {
 	private static final OpenAadlResources openAadlResources = new OpenAadlResources();
 	private static final AtomicBoolean initialized = new AtomicBoolean(false);
@@ -111,7 +115,9 @@ public class AgeXtextUtil {
 
 	/**
 	 * Returns the Xtext document with a root element which has a qualified name and resource that matches the specified element
+	 * @param element the root element for which to return the document.
 	 * @return the last document updated for the qualified name and resource or null if one does not exist
+	 * @see #getDocumentByRootElement(NamedElement)
 	 */
 	public static IXtextDocument getDocumentByRootElement(final NamedElement element) {
 		ensureInitialized();
@@ -124,22 +130,34 @@ public class AgeXtextUtil {
 		return getDocumentByRootElement(element.getQualifiedName(), elementResource.getURI());
 	}
 
+	/**
+	 * Returns the Xtext document for the specified root element.
+	 * @param elementQualifiedName the qualified name of the root element
+	 * @param resourceUri the resource URI of the resource containing the element
+	 * @return the last document updated for the qualified name and resource or null if one does not exist
+	 */
 	public static IXtextDocument getDocumentByRootElement(final String elementQualifiedName, final URI resourceUri) {
 		ensureInitialized();
 		return openAadlResources.getDocument(elementQualifiedName, resourceUri);
 	}
 
-	public static void addModelListener(final XtextDocumentChangeListener listener) {
+	/**
+	 * Adds a listener which will be called when an Xtext document changes
+	 * @param listener the listener to add
+	 * @see #removeDocumentListener(XtextDocumentChangeListener)
+	 */
+	public static void addDocumentListener(final XtextDocumentChangeListener listener) {
 		ensureInitialized();
-		openAadlResources.addModelListener(listener);
+		openAadlResources.addDocumentListener(listener);
 	}
 
-	public static void removeModelListener(final XtextDocumentChangeListener listener) {
+	/**
+	 * Removes a listener previously registered by {@link #addDocumentListener(XtextDocumentChangeListener)}
+	 * @param listener the listener to remove
+	 * @see #addDocumentListener(XtextDocumentChangeListener)
+	 */
+	public static void removeDocumentListener(final XtextDocumentChangeListener listener) {
 		ensureInitialized();
-		openAadlResources.removeModelListener(listener);
-	}
-
-	public static Set<IXtextDocument> getOpenXtextDocuments() {
-		return openAadlResources.getOpenXtextDocuments();
+		openAadlResources.removeDocumentListener(listener);
 	}
 }

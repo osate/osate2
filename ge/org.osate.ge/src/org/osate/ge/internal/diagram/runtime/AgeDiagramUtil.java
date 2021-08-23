@@ -27,7 +27,26 @@ import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.internal.services.ProjectReferenceService;
 
-public class AgeDiagramUtil {
+/**
+ * Contains utility functions related to diagrams
+ *
+ */
+public final class AgeDiagramUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private AgeDiagramUtil() {
+	}
+
+	/**
+	 * Returns the appropriate {@link DockingPosition} for a child with the specified container, position, and size
+	 * @param container the container to which the child will be docked
+	 * @param x the X component of the child's position relative to the container
+	 * @param y the Y component of the child's position relative to the container
+	 * @param width the width of the child
+	 * @param height the height of child
+	 * @return the calculated docking position
+	 */
 	public static DockingPosition determineDockingPosition(final DiagramNode container, final double x, final double y,
 			final double width, final double height) {
 		if(!(container instanceof DiagramElement)) {
@@ -38,6 +57,16 @@ public class AgeDiagramUtil {
 		return determineDockingPosition(containerElement.getWidth(), containerElement.getHeight(), x, y, width, height);
 	}
 
+	/**
+	 * Returns the appropriate {@link DockingPosition} for a child based on the specified container size and child position, and size
+	 * @param containerWidth the width of the container to which the child will be docked
+	 * @param containerHeight the height of the container to which the child will be docked
+	 * @param x the X component of the child's position relative to the container
+	 * @param y the Y component of the child's position relative to the container
+	 * @param width the width of the child
+	 * @param height the height of child
+	 * @return the calculated docking position
+	 */
 	public static DockingPosition determineDockingPosition(final double containerWidth, final double containerHeight,
 			final double x, final double y,
 			final double width, final double height) {
@@ -61,10 +90,14 @@ public class AgeDiagramUtil {
 		}
 	}
 
-	// Diagrams are no longer directly associated with a business object. However, diagram configurations have an optional business object which
-	// provides a context for the diagram.
-	// This function returns the context business object referenced by the diagram's configuration. Will return null if the object cannot be found
-	// or if the configuration does not reference a business object.
+	/**
+	 * Resolves and returns the diagram's context
+	 * Diagram configurations have an optional business object which provides a context for the diagram.
+	 * This function returns the context business object referenced by the diagram's configuration.
+	 * @param diagram the diagram for which to retrieve the context
+	 * @param referenceService the service to use to resolve the context reference
+	 * @return the diagram's context. Will return null if the object cannot be found or if the configuration does not reference a business object.
+	 */
 	public static Object getConfigurationContextBusinessObject(final AgeDiagram diagram, final ProjectReferenceService referenceService) {
 		final CanonicalBusinessObjectReference contextBoReference = diagram.getConfiguration().getContextBoReference();
 		final Object diagramBo;

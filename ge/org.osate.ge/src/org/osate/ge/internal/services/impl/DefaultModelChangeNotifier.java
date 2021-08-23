@@ -197,12 +197,12 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 		workspace.addResourceChangeListener(resourceChangeListener, IResourceChangeEvent.POST_BUILD);
 
 		// Listen for xtext model changes
-		AgeXtextUtil.addModelListener(xtextModelListener);
+		AgeXtextUtil.addDocumentListener(xtextModelListener);
 	}
 
 	public void dispose() {
 		// Stop listening for xtext model changes
-		AgeXtextUtil.removeModelListener(xtextModelListener);
+		AgeXtextUtil.removeDocumentListener(xtextModelListener);
 
 		// Remove the resource change listener
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();

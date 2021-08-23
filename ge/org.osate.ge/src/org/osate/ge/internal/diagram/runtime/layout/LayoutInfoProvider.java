@@ -23,6 +23,7 @@
  */
 package org.osate.ge.internal.diagram.runtime.layout;
 
+import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
@@ -34,15 +35,15 @@ public interface LayoutInfoProvider {
 	/**
 	 * Returns the size of the element's primary label. If the diagram element is a label graphic,
 	 * returns the size of the entire graphic.
-	 * @param de
+	 * @param de the diagram element for which to get the primary label size
 	 * @return a valid size. Must never return null.
 	 */
 	Dimension getPrimaryLabelSize(DiagramElement de);
 
 	/**
-	 *
-	 * @param de
-	 * @return a valid size. Must never return null.
+	 * Returns the size of the label used for the annotation specified in the {@link GraphicalConfiguration}
+	 * @param de the diagram element for which to get the annotation label size
+	 * @return the size of the label used for the annotation specified in the {@link GraphicalConfiguration}. Must never return null.
 	 */
 	Dimension getAnnotationLabelSize(DiagramElement de);
 
@@ -51,14 +52,14 @@ public interface LayoutInfoProvider {
 	 * For example, for data ports this is the size of the graphic if the port was docked to the left or right side of its parent. For feature groups it is the size of the circle.
 	 * Must not return null.
 	 * @param dockedElement must be a docked graphical element.
-	 * @return
+	 * @return the unrotated size of the port for a docked diagram element
 	 */
 	Dimension getPortGraphicSize(DiagramElement dockedElement);
 
 	/**
-	 * Returns the size of all labels and padding. This includes any annotations as well.
-	 * @param dockedElement
-	 * @return
+	 * Returns the size of all labels for the specified docked diagram element. Includes padding and annotations
+	 * @param dockedElement the docked diagram element for which to return the labels size
+	 * @return the size of all labels for the specified docked diagram element.
 	 */
 	Dimension getDockedElementLabelsSize(DiagramElement dockedElement);
 }

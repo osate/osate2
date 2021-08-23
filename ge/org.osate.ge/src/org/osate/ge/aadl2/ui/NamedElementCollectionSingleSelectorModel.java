@@ -32,13 +32,13 @@ import org.osate.ge.swt.selectors.SingleSelectorModel;
 import com.google.common.base.Strings;
 
 /**
- * Implementation of {@link SingleSelectorModel} which allows selecting a {@link NamedElement} from a collection. *
+ * Implementation of {@link SingleSelectorModel} which allows selecting a {@link NamedElement} from a collection.
  * The qualified name of the element will be used as the label.
- *
+ * @param <T> is the type of named element contained in the collection from which elements are being selected.
  * @since 2.0
  */
 public final class NamedElementCollectionSingleSelectorModel<T extends NamedElement>
-		extends CollectionSingleSelectorModel<T> {
+extends CollectionSingleSelectorModel<T> {
 	/**
 	 * Creates a new instance
 	 * @param elements the collection of named elements. The collection will be copied by the model. Changes to the collection will not be reflected by the model.

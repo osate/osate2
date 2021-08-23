@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -49,7 +49,14 @@ import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.internal.util.DiagramElementUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
+/**
+ * Property section which allows setting the text of {@link Note} objects
+ *
+ */
 public class NotePropertySection extends AbstractPropertySection {
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {

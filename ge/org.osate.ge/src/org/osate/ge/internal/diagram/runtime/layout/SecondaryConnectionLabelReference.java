@@ -30,9 +30,18 @@ import org.osate.ge.graphics.internal.Label;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 
+/**
+ * {@link ConnectionLabelReference} implementation which modifies the position of a label diagram element.
+ *
+ */
 public class SecondaryConnectionLabelReference implements ConnectionLabelReference {
 	private DiagramElement labelDiagramElement;
 
+	/**
+	 * Creates a new instance
+	 * @param labelDiagramElement the label diagram element whose position will be modified.
+	 * @throws IllegalArgumentException if the specified diagram element's graphic is not a label
+	 */
 	public SecondaryConnectionLabelReference(final DiagramElement labelDiagramElement) {
 		this.labelDiagramElement = Objects.requireNonNull(labelDiagramElement, "labelDiagramElement must not be null");
 

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -27,9 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -53,7 +51,7 @@ class OpenAadlResources {
 	// ater OpenAadlResource values are considered newer.
 	private final ListMultimap<String, OpenAadlResource> qualifiedNameToOpenResourcesMap = ArrayListMultimap.create();
 	private final Map<IXtextDocument, IXtextModelListener> documentToInternalModelListenerMap = new HashMap<>();
-	private final List<XtextDocumentChangeListener> externalModelListeners = new CopyOnWriteArrayList<>();
+	private final List<XtextDocumentChangeListener> documentListeners = new CopyOnWriteArrayList<>();
 
 	private static class OpenAadlResource {
 		public final IXtextDocument document; // Linked list of documents for the resource. More recently updated documents will be sorted before other
@@ -67,10 +65,12 @@ class OpenAadlResources {
 		}
 	}
 
-	public Set<IXtextDocument> getOpenXtextDocuments() {
-		return documentToOpenResourceMap.keySet().stream().collect(Collectors.toSet());
-	}
-
+	/**
+	 * Returns the Xtext document for the specified root element.
+	 * @param qualifiedName the qualified name of the root element
+	 * @param resourceUri the resource URI of the resource containing the element
+	 * @return the last document updated for the qualified name and resource or null if one does not exist
+	 */
 	public IXtextDocument getDocument(String qualifiedName, final URI resourceUri) {
 		if (qualifiedName == null || resourceUri == null) {
 			return null;
@@ -83,6 +83,11 @@ class OpenAadlResources {
 		return openResource.map(r -> r.document).orElse(null);
 	}
 
+	/**
+	 * Called to notify the instance that an Xtext document has been opened or it input has changed
+	 * @param document the Xtext document from the editor which was opened.
+	 * @param resourceUri the URI of the resource being edited by the editor which owns the document
+	 */
 	public void onXtextDocumentOpened(final IXtextDocument document, final URI resourceUri) {
 		removeEntriesForDocument(document);
 
@@ -105,8 +110,8 @@ class OpenAadlResources {
 	}
 
 	/**
-	 *
-	 * @param document
+	 * Removes listeners and mappings related to the specified Xtext document
+	 * @param document the document for which to remove listeners and mappings
 	 * @return the previously open resource if any.
 	 */
 	private OpenAadlResource removeEntriesForDocument(final IXtextDocument document) {
@@ -128,11 +133,15 @@ class OpenAadlResources {
 		return prevOpenResource;
 	}
 
+	/**
+	 * Called to notify the instance that an Xtext document has been closed
+	 * @param document the document that has been closed
+	 */
 	public void onXtextDocumentClosed(final IXtextDocument document) {
 		final OpenAadlResource prevOpenResource = removeEntriesForDocument(document);
 		if (prevOpenResource != null) {
 			// Notify listeners of one last change since the resource is no longer open
-			for (final XtextDocumentChangeListener l : externalModelListeners) {
+			for (final XtextDocumentChangeListener l : documentListeners) {
 				l.documentChanged(prevOpenResource.uri);
 			}
 		}
@@ -170,19 +179,29 @@ class OpenAadlResources {
 				}
 
 				// Notify others
-				for (final XtextDocumentChangeListener l : externalModelListeners) {
+				for (final XtextDocumentChangeListener l : documentListeners) {
 					l.documentChanged(resource.getURI());
 				}
 			}
 		};
 	}
 
-	public void addModelListener(final XtextDocumentChangeListener listener) {
-		externalModelListeners.add(listener);
+	/**
+	 * Adds a listener which is notified when an Xtext document changes
+	 * @param listener the listener to add
+	 * @see #removeDocumentListener(XtextDocumentChangeListener)
+	 */
+	public void addDocumentListener(final XtextDocumentChangeListener listener) {
+		documentListeners.add(listener);
 	}
 
-	public void removeModelListener(final XtextDocumentChangeListener listener) {
-		externalModelListeners.remove(listener);
+	/**
+	 * Removes a listener previously registered by {@link #addDocumentListener(XtextDocumentChangeListener)}
+	 * @param listener the listener to remove
+	 * @see #addDocumentListener(XtextDocumentChangeListener)
+	 */
+	public void removeDocumentListener(final XtextDocumentChangeListener listener) {
+		documentListeners.remove(listener);
 	}
 
 	private void removeQualifiedNameMapping(final OpenAadlResource openResource) {

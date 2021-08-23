@@ -82,7 +82,7 @@ public class DefaultOperationResultsProcessor implements OperationExecutor.Resul
 				// This will ensure the shape is laid out even if it is a docked shape.
 				final Point position;
 				if (results.getContainerToBoToShowDetailsMap().size() == 1
-						&& LayoutPreferences.getCurrentLayoutMode() != IncrementalLayoutMode.LAYOUT_DIAGRAM
+						&& LayoutPreferences.getCurrentIncrementalLayoutMode() != IncrementalLayoutMode.LAYOUT_DIAGRAM
 						&& containerNode == targetNode) {
 					position = targetPosition;
 				} else {

@@ -66,7 +66,7 @@ public class ErrorFlowPropertySection extends AbstractPropertySection {
 	public static final String WIDGET_ID_ERROR_TYPE_SET_TOKENS_LABEL = WIDGET_ID_PREFIX + "typeSetTokens.label";
 
 	/**
-	 * Testing ID of the button choose button for the flow's type set tokens
+	 * Testing ID of the choose button for the flow's type set tokens
 	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
 	 */
 	public static final String WIDGET_ID_ERROR_TYPE_SET_TOKENS_CHOOSE_BUTTON = WIDGET_ID_PREFIX
