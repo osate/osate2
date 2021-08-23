@@ -35,13 +35,16 @@ import org.osate.ge.aadl2.internal.AnnexHandler;
  * Utility class for creating BehaviorAnnex element references
  */
 public class BehaviorAnnexReferenceUtil {
+	/**
+	 * Private constructor to prevent instantiation
+	 */
 	private BehaviorAnnexReferenceUtil() {
 	}
 
 	private static final String ANNEX_SUBCLAUSE = "annex_subclause";
 
 	/**
-	 * The name of {@link BehaviorAnnex}s
+	 * The name of {@link BehaviorAnnex}
 	 */
 	public static final String ANNEX_NAME = "behavior_specification";
 

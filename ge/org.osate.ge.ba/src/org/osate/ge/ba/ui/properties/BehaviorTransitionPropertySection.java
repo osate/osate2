@@ -35,14 +35,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
-import org.osate.ba.aadlba.BehaviorActionBlock;
-import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.declarative.DeclarativeBehaviorTransition;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.ProjectUtil;
-import org.osate.ge.ba.businessobjecthandlers.BehaviorTransitionTextUtil;
+import org.osate.ge.ba.ui.swt.EmbeddedTextEditor;
+import org.osate.ge.ba.util.BehaviorTransitionTextUtil;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 
@@ -61,19 +60,21 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 	}
 
 	/**
-	 * Widget ID for {@link BehaviorCondition} StyledText
+	 * Testing ID of the styled text for viewing dispatch conditions
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
 	 */
 	public static String WIDGET_ID_CONDITION = "org.osate.ge.ba.behaviortransition.dispatchcondition";
 	/**
-	 * Widget ID for {@link BehaviorCondition} edit Button
+	 * Testing ID of the button to edit dispatch conditions
 	 */
 	public static String WIDGET_ID_EDIT_CONDITION = WIDGET_ID_CONDITION + ".edit";
 	/**
-	 * Widget ID for {@link BehaviorActionBlock} StyledText
+	 * Testing ID of the styled text for viewing behavior action blocks
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
 	 */
 	public static String WIDGET_ID_ACTION_BLOCK = "org.osate.ge.ba.behaviortransition.actionblock";
 	/**
-	 * Widget ID for {@link BehaviorActionBlock} edit Button
+	 * Testing ID of the button to edit behavior action blocks
 	 */
 	public static String WIDGET_ID_EDIT_ACTION_BLOCK = WIDGET_ID_ACTION_BLOCK + ".edit";
 	private Composite container;

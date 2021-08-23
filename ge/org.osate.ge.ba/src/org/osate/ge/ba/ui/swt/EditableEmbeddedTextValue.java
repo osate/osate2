@@ -21,14 +21,15 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.ui.properties;
+package org.osate.ge.ba.ui.swt;
 
 import java.util.Objects;
 
 /**
  * Text information for editing embedded models
+ * @since 2.0
  */
-public abstract class EmbeddedTextValue implements EmbeddedTextValueModificationModel {
+public abstract class EditableEmbeddedTextValue implements EmbeddedTextValueEditModel {
 	private final int originalSrcLength;
 	private String prefix;
 	private String editableText;
@@ -37,12 +38,12 @@ public abstract class EmbeddedTextValue implements EmbeddedTextValueModification
 	/**
 	 * Text information for editing embedded models.
 	 * @param originalSrcLength is the length of the original source text
-	 * @param prefix is the text before the modifiable text
-	 * @param editableText is the text that is modifiable
-	 * @param suffix is the text after the modifiable text
+	 * @param prefix is the text before the editable text
+	 * @param editableText is the text that is editable
+	 * @param suffix is the text after the editable text
 	 * @since 2.0
 	 */
-	public EmbeddedTextValue(final int originalSrcLength, final String prefix, final String editableText,
+	public EditableEmbeddedTextValue(final int originalSrcLength, final String prefix, final String editableText,
 			final String suffix) {
 		this.originalSrcLength = originalSrcLength;
 		this.prefix = Objects.requireNonNull(prefix, "prefix must not be null");
@@ -51,16 +52,14 @@ public abstract class EmbeddedTextValue implements EmbeddedTextValueModification
 	}
 
 	/**
-	 * The length of the text that will be replaced when updated
-	 * @return the length of the text that will be replaced when updated
+	 * Returns the length of the text that will be replaced when updated
 	 */
 	public int getUpdateLength() {
 		return Math.max(0, originalSrcLength - prefix.length() - suffix.length());
 	}
 
 	/**
-	 * The text that is edited to modify embedded text
-	 * @return is the text that is edited to modify embedded text
+	 * Returns the embedded text that is editable
 	 * @since 2.0
 	 */
 	public String getEditableText() {
@@ -68,16 +67,14 @@ public abstract class EmbeddedTextValue implements EmbeddedTextValueModification
 	}
 
 	/**
-	 * The prefix of the editable text
-	 * @return the text before the editable text
+	 * Returns the prefix of the editable text
 	 */
 	public String getPrefix() {
 		return prefix;
 	}
 
 	/**
-	 * The suffix of the editable text
-	 * @return the text after the editable text
+	 * Returns the suffix of the editable text
 	 */
 	public String getSuffix() {
 		return suffix;

@@ -62,10 +62,10 @@ public class BehaviorAnnexNamingUtil {
 	}
 
 	/**
-	 * Builds an identifier using the specified base that doesn't conflict with identifiers in the specified {@link BehaviorAnnex}
-	 * @param ba is the BehaviorAnnex to find a unique identifier within
-	 * @param baseIdentifier is the potential identifier
-	 * @return the identifier that is unique to the BehaviorAnnex
+	 * Creates a new unique identifier
+	 * @param ba the behavior annex for which the identifier must be unique
+	 * @param baseIdentifier the identifier to start with when building the identifier. If this identifier is unique, it will be returned.
+	 * @return a new unique identifier
 	 */
 	public static String buildUniqueIdentifier(final BehaviorAnnex ba, final String baseIdentifier) {
 		final Set<String> existingIdentifiers = buildNameSet(ba);

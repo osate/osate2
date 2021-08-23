@@ -42,6 +42,9 @@ import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
  * Utility class for {@link BehaviorAnnex} support
  */
 public class BehaviorAnnexUtil {
+	/**
+	 * Private constructor to prevent instantiation
+	 */
 	private BehaviorAnnexUtil() {
 	}
 

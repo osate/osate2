@@ -31,6 +31,9 @@ import org.osate.ge.ContentFilter;
  * ContentFilter for {@link BehaviorVariable}
  */
 public class BehaviorVariableFilter implements ContentFilter {
+	/**
+	 * The ID for the filter
+	 */
 	public static final String ID = "ba.behaviorVariables";
 
 	@Override

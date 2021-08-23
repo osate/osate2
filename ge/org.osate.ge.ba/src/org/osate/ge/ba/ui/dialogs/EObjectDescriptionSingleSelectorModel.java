@@ -31,11 +31,15 @@ import org.osate.ge.ba.util.BehaviorAnnexNamingUtil;
 import org.osate.ge.swt.selectors.CollectionSingleSelectorModel;
 
 /**
- * Single Selector Model to show qualified names for {@link BehaviorAnnex} elements as the labels
+ * Single Selector Model to show qualified name labels for a collection of {@link BehaviorAnnex} elements
  */
 public class EObjectDescriptionSingleSelectorModel
 		extends CollectionSingleSelectorModel<IEObjectDescription> {
 
+	/**
+	 * Creates a new instance
+	 * @param elements the collection of elements
+	 */
 	public EObjectDescriptionSingleSelectorModel(final Collection<IEObjectDescription> elements) {
 		super(elements);
 	}

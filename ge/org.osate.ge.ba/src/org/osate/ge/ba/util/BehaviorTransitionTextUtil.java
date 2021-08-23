@@ -1,4 +1,4 @@
-package org.osate.ge.ba.businessobjecthandlers;
+package org.osate.ge.ba.util;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,22 +10,24 @@ import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ba.unparser.AadlBaUnparser;
 import org.osate.ge.aadl2.AadlGraphicalEditorException;
-import org.osate.ge.ba.ui.properties.BehaviorActionBlockEmbeddedTextValue;
-import org.osate.ge.ba.ui.properties.BehaviorConditionEmbeddedTextValue;
-import org.osate.ge.ba.ui.properties.EmbeddedTextValue;
-import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
+import org.osate.ge.ba.ui.swt.BehaviorActionBlockEmbeddedTextValue;
+import org.osate.ge.ba.ui.swt.BehaviorConditionEmbeddedTextValue;
+import org.osate.ge.ba.ui.swt.EditableEmbeddedTextValue;
 
 /**
- * Utility class to create an {@link EmbeddedTextValue} and get text for the {@link BehaviorCondition} and {@link BehaviorActionBlock} of a specified {@link BehaviorTransition}
+ * Utility class to create an {@link EditableEmbeddedTextValue} and get text for the {@link BehaviorCondition} and {@link BehaviorActionBlock} of a specified {@link BehaviorTransition}
  */
 public class BehaviorTransitionTextUtil {
+	/**
+	 * Private constructor to prevent instantiation
+	 */
 	private BehaviorTransitionTextUtil() {
 	}
 
 	/**
-	 * Returns an {@link EmbeddedTextValue} for the {@link BehaviorCondition}
+	 * Returns an {@link EditableEmbeddedTextValue} for the {@link BehaviorCondition}
 	 */
-	public static EmbeddedTextValue createConditionTextValue(final BehaviorTransition behaviorTransition,
+	public static EditableEmbeddedTextValue createConditionTextValue(final BehaviorTransition behaviorTransition,
 			final String sourceText) {
 		final int conditionOffset = getConditionOffset(behaviorTransition, sourceText);
 		// Condition start
@@ -84,9 +86,9 @@ public class BehaviorTransitionTextUtil {
 	}
 
 	/**
-	 * Returns an {@link EmbeddedTextValue} for the {@link BehaviorActionBlock}
+	 * Returns an {@link EditableEmbeddedTextValue} for the {@link BehaviorActionBlock}
 	 */
-	public static EmbeddedTextValue getActionBlockTextValue(final BehaviorTransition behaviorTransition,
+	public static EditableEmbeddedTextValue getActionBlockTextValue(final BehaviorTransition behaviorTransition,
 			final String src) {
 		final BehaviorActionBlock actionBlock = behaviorTransition.getActionBlock();
 

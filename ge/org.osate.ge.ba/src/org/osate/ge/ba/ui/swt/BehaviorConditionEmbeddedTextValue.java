@@ -1,4 +1,4 @@
-package org.osate.ge.ba.ui.properties;
+package org.osate.ge.ba.ui.swt;
 
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.NamedElement;
@@ -6,14 +6,18 @@ import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
 
 /**
- * EmbeddedTextValue and editing support for {@link BehaviorCondition}.
+ * EditableEmbeddedTextValue editing an {@link BehaviorCondition} in an {@link EmbeddedTextEditor}
  * @since 2.0
  */
-public class BehaviorConditionEmbeddedTextValue extends EmbeddedTextValue {
+public class BehaviorConditionEmbeddedTextValue extends EditableEmbeddedTextValue
+		implements EmbeddedTextValueEditModel {
+	/**
+	 * The behavior transition that owns the behavior condition being edited
+	 */
 	private final BehaviorTransition behaviorTransition;
 
 	/**
-	 * Creates an {@link EmbeddedTextValue} for {@link BehaviorCondition} and editing support within an {@link EmbeddedTextEditor}
+	 * Creates an {@link EditableEmbeddedTextValue} for {@link BehaviorCondition} and editing support within an {@link EmbeddedTextEditor}
 	 * @param behaviorTransition the owner of the {@link BehaviorCondition} being edited
 	 * @param originalSrcLength is the length of the original AADL source text
 	 * @param prefix is the text before the modifiable text

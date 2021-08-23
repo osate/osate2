@@ -40,6 +40,9 @@ import com.google.common.collect.PeekingIterator;
  * Utility class for AADL source support
  */
 public class BehaviorAnnexXtextUtil {
+	/**
+	 * Private constructor to prevent instantiation
+	 */
 	private BehaviorAnnexXtextUtil() {
 	}
 

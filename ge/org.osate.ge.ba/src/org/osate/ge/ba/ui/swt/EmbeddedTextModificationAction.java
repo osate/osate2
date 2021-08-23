@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.ui.properties;
+package org.osate.ge.ba.ui.swt;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -87,7 +87,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 	 */
 	public EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
 			final XtextResource xtextResource, final ModelChangeNotifier modelChangeNotifier,
-			final EmbeddedTextValue textValue) {
+			final EditableEmbeddedTextValue textValue) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
 		embeddedEditingActionSupplier = () -> {
 			// Get original text for undo
@@ -126,20 +126,21 @@ class EmbeddedTextModificationAction implements AgeAction {
 
 	/**
 	 * Creates an update process for {@link XtextResource}.
-	 * If the specified {@link EmbeddedTextValue} is not null, a section of the
+	 * If the specified {@link EditableEmbeddedTextValue} is not null, a section of the
 	 * {@link XtextResource}'s source text will be updated with the specified sourceText value.
-	 * If the specified {@link EmbeddedTextValue} is null, the {@link XtextResource}'s entire
+	 * If the specified {@link EditableEmbeddedTextValue} is null, the {@link XtextResource}'s entire
 	 * source text will be set to the specified sourceText value.
 	 * @param textValue holds the values used to make a partial update to the {@link XtextResource}'s source text
 	 * @param sourceText is the text to update the {@link XtextResource}'s source text with
 	 */
-	private Void<XtextResource> createUpdateProcess(final EmbeddedTextValue textValue, final String sourceText) {
+	private Void<XtextResource> createUpdateProcess(final EditableEmbeddedTextValue textValue,
+			final String sourceText) {
 		return textValue != null
 				? createPartialUpdateProcess(textValue.getPrefix().length(), textValue.getUpdateLength(), sourceText)
 				: createUndoRedoProcess(sourceText);
 	}
 
-	private Void<XtextResource> createUpdateProcess(final EmbeddedTextValue textValue) {
+	private Void<XtextResource> createUpdateProcess(final EditableEmbeddedTextValue textValue) {
 		return createUpdateProcess(textValue, textValue.getEditableText());
 	}
 

@@ -63,6 +63,9 @@ public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvid
 		return Stream.empty();
 	}
 
+	/**
+	 * Returns all behavior annexes owned by the classifier
+	 */
 	private static Stream<BehaviorAnnex> getBehaviorAnnexes(final Classifier c) {
 		return GraphicalAnnexUtil.getAllParsedAnnexSubclauses(c, BehaviorAnnexReferenceUtil.ANNEX_NAME,
 				BehaviorAnnex.class);

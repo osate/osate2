@@ -1,4 +1,4 @@
-package org.osate.ge.ba.ui.properties;
+package org.osate.ge.ba.ui.swt;
 
 import java.util.Optional;
 
@@ -8,13 +8,17 @@ import org.osate.ba.aadlba.BehaviorActionBlock;
 import org.osate.ba.aadlba.BehaviorTransition;
 
 /**
+ * EditableEmbeddedTextValue for editing an {@link BehaviorActionBlock} in an {@link EmbeddedTextEditor}
  * @since 2.0
  */
-public class BehaviorActionBlockEmbeddedTextValue extends EmbeddedTextValue {
+public class BehaviorActionBlockEmbeddedTextValue extends EditableEmbeddedTextValue {
+	/**
+	 * The behavior transition that owns the behavior action block that is being edited
+	 */
 	private final BehaviorTransition behaviorTransition;
 
 	/**
-	 * Creates an {@link EmbeddedTextValue} for {@link BehaviorActionBlock} and editing support within an {@link EmbeddedTextEditor}
+	 * Creates an {@link EditableEmbeddedTextValue} for {@link BehaviorActionBlock} and editing support within an {@link EmbeddedTextEditor}
 	 * @param behaviorTransition the owner of the {@link BehaviorActionBlock} being edited
 	 * @param originalSrcLength is the length of the original AADL source text
 	 * @param prefix is the text before the modifiable text

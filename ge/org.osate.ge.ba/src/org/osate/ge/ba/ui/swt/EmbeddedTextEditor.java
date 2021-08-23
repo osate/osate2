@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.ui.properties;
+package org.osate.ge.ba.ui.swt;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -57,6 +57,7 @@ import org.osate.ge.swt.SwtUtil;
 
 /**
  * Composite for editing AADL source that is embedded in a StyledText
+ * @since 2.0
  */
 public class EmbeddedTextEditor extends Composite {
 	private StyledText styledText;
@@ -123,9 +124,10 @@ public class EmbeddedTextEditor extends Composite {
 		editBtn = new Button(this, SWT.PUSH);
 		editBtn.setText("Edit...");
 		editBtn.addSelectionListener(SelectionListener.widgetSelectedAdapter(e -> {
-			final NamedElement ne = xtextAdapter.getEmbeddedTextValue().getElementToModify();
+			final EditableEmbeddedTextValue editableTextValue = xtextAdapter.getEmbeddedTextValue();
+			final NamedElement ne = editableTextValue.getElementToModify();
 			final EditEmbeddedTextDialog dlg = new EditEmbeddedTextDialog(Display.getCurrent().getActiveShell(),
-					xtextAdapter.getProject(), xtextAdapter.getEmbeddedTextValue(), styledTextStyle,
+					xtextAdapter.getProject(), editableTextValue, styledTextStyle,
 					styledTextLayoutData);
 			if (dlg.open() == Window.OK) {
 				// Edit condition
@@ -136,7 +138,7 @@ public class EmbeddedTextEditor extends Composite {
 					final IXtextDocument xtextDocument = getXtextDocument(ne).orElse(null);
 					if (xtextDocument != null) {
 						// Execute modification with xtext document
-						actionService.execute(xtextAdapter.getEmbeddedTextValue().getModificationLabel(),
+						actionService.execute(editableTextValue.getModificationLabel(),
 								ExecutionMode.NORMAL,
 								new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier,
 										dlg.getResult().getFullSource()));
@@ -144,12 +146,11 @@ public class EmbeddedTextEditor extends Composite {
 						final XtextResource xtextResource = getXtextResource(ne).orElseThrow();
 						final TransactionalEditingDomain editingDomain = TransactionalEditingDomain.Factory.INSTANCE
 								.getEditingDomain(xtextResource.getResourceSet());
-						final EmbeddedTextValue embeddedTextValue = xtextAdapter.getEmbeddedTextValue();
-						embeddedTextValue.setEditableText(dlg.getResult().getPartialSource());
+						editableTextValue.setEditableText(dlg.getResult().getPartialSource());
 						// Execute modification with xtext resource
-						actionService.execute(embeddedTextValue.getModificationLabel(), ExecutionMode.NORMAL,
+						actionService.execute(editableTextValue.getModificationLabel(), ExecutionMode.NORMAL,
 								new EmbeddedTextModificationAction(editingDomain, xtextResource, modelChangeNotifier,
-										embeddedTextValue));
+										editableTextValue));
 					}
 				});
 			}
@@ -166,12 +167,13 @@ public class EmbeddedTextEditor extends Composite {
 	}
 
 	/**
-	 * Sets the {@link EmbeddedTextValue} for the EmbeddedTextEditor
+	 * Sets the {@link EditableEmbeddedTextValue} for the EmbeddedTextEditor
 	 * @param selectedElement the selected {@link NamedElement} to get AADL source text from
-	 * @param createTextValue creates an {@link EmbeddedTextValue} from AADL source text
+	 * @param createTextValue creates an {@link EditableEmbeddedTextValue} from AADL source text
 	 * @since 2.0
 	 */
-	public void setEditorTextValue(final NamedElement selectedElement, final Function<String, EmbeddedTextValue> createTextValue) {
+	public void setEditorTextValue(final NamedElement selectedElement,
+			final Function<String, EditableEmbeddedTextValue> createTextValue) {
 		disposeXtextAdapter();
 		final IProject project = ProjectUtil.getProjectForBoOrThrow(selectedElement);
 		final XtextResource xtextResource = getXtextResource(selectedElement)

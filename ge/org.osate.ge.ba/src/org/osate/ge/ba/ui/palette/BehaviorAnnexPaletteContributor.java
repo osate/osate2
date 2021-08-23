@@ -39,6 +39,9 @@ import org.osate.ge.palette.TargetedPaletteCommand;
  * PaletteContributor for creating {@link BehaviorAnnex} elements
  */
 public class BehaviorAnnexPaletteContributor implements PaletteContributor {
+	/**
+	 * The palette category ID for Behavior Annex elements
+	 */
 	public static final String BEHAVIOR_ANNEX = "org.osate.ge.ba.categories.ba";
 
 	@Override

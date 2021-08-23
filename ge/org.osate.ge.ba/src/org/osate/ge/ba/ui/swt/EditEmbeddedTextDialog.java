@@ -22,7 +22,7 @@
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
 
-package org.osate.ge.ba.ui.properties;
+package org.osate.ge.ba.ui.swt;
 
 import java.util.Objects;
 import java.util.Stack;
@@ -54,6 +54,7 @@ import org.osate.ge.swt.SwtUtil;
 
 /**
  * Dialog for editing embedded text
+ * @since 2.0
  */
 public class EditEmbeddedTextDialog extends MessageDialog {
 	private static String WIDGET_ID = "org.osate.ge.ba.behaviortransition.editdialog";
@@ -80,22 +81,23 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	 *
 	 * @param parentShell
 	 * @param project
-	 * @param textValue
+	 * @param editableTextValue
 	 * @param styledTextStyle
 	 * @param styledTextLayoutData
 	 * @param modify
 	 * @since 2.0
 	 */
-	public EditEmbeddedTextDialog(final Shell parentShell, final IProject project, final EmbeddedTextValue textValue,
+	public EditEmbeddedTextDialog(final Shell parentShell, final IProject project,
+			final EditableEmbeddedTextValue editableTextValue,
 			final int styledTextStyle,
 			final GridData styledTextLayoutData) {
-		super(parentShell, textValue.getEditDialogTitle(), null, textValue.getEditDialogMessage(), MessageDialog.NONE,
+		super(parentShell, editableTextValue.getEditDialogTitle(), null, editableTextValue.getEditDialogMessage(), MessageDialog.NONE,
 				0,
 				"OK",
 				"Cancel");
 		// Create new xtext adapter for the edit dialog
 		this.xtextAdapter = Objects.requireNonNull(
-				new EmbeddedStyledTextXtextAdapter(project, textValue),
+				new EmbeddedStyledTextXtextAdapter(project, editableTextValue),
 				"xtextAdapter cannot be null");
 		this.styledTextStyle = styledTextStyle;
 		this.styledTextLayoutData = Objects.requireNonNull(styledTextLayoutData, "styledTextLayoutData cannot be null");

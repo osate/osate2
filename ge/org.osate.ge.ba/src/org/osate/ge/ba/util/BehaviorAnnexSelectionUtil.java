@@ -51,6 +51,9 @@ import org.osate.ui.utils.SelectionHelper;
  * Utility class for selection support
  */
 public class BehaviorAnnexSelectionUtil {
+	/**
+	 * Private constructor to prevent instantiation
+	 */
 	private BehaviorAnnexSelectionUtil() {
 	}
 

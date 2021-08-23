@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.ba.ui.properties;
+package org.osate.ge.ba.ui.swt;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -43,17 +43,17 @@ import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResou
 import com.google.inject.Injector;
 
 /**
- * Embeds AADL source specified by {@link EmbeddedTextValue} with Xtext highlighting in a StyledText
+ * Embeds AADL source specified by {@link EditableEmbeddedTextValue} with Xtext highlighting in a StyledText
  * @since 2.0
  */
-public class EmbeddedStyledTextXtextAdapter extends OsateStyledTextXtextAdapter {
+class EmbeddedStyledTextXtextAdapter extends OsateStyledTextXtextAdapter {
 	private final static Injector injector = Aadl2Activator.getInstance()
 			.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
-	private final EmbeddedTextValue textValue;
+	private final EditableEmbeddedTextValue textValue;
 	private final IProject project;
 	private static final IXtextFakeContextResourcesProvider contextFakeResourceProvider = IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER;
 
-	public EmbeddedStyledTextXtextAdapter(final IProject project, final EmbeddedTextValue textValue) {
+	public EmbeddedStyledTextXtextAdapter(final IProject project, final EditableEmbeddedTextValue textValue) {
 		super(injector, contextFakeResourceProvider, project);
 		this.textValue = textValue;
 		this.project = project;
@@ -75,13 +75,15 @@ public class EmbeddedStyledTextXtextAdapter extends OsateStyledTextXtextAdapter 
 	}
 
 	/**
+	 * Returns the editable embedded text value
 	 * @since 2.0
 	 */
-	public EmbeddedTextValue getEmbeddedTextValue() {
+	public EditableEmbeddedTextValue getEmbeddedTextValue() {
 		return textValue;
 	}
 
 	/**
+	 * Returns the project that contains the AADL source being edited
 	 * @since 2.0
 	 */
 	public IProject getProject() {
@@ -94,7 +96,18 @@ public class EmbeddedStyledTextXtextAdapter extends OsateStyledTextXtextAdapter 
 	}
 
 	/**
+	 * Determines if the new text is a valid replacement for the editable text of an {@link EditableEmbeddedTextValue} for the AADL model
+	 * @param bo the business object being modified
+	 * @param newText the text to replace editable text in an {@link EditableEmbeddedTextValue}
+	 * @return whether the new text is valid replacement
 	 *
+	 * Returns an optional of the AADL source if the new text is a valid replacement for the embedded text of the {@link EditableEmbeddedTextValue}.  Empty if the modification is invalid.
+	 */
+
+	/**
+	 * Loads the modified AADL source from the {@link EditableEmbeddedTextValue} to determine if the modification is valid
+	 * @param newText the text to replace editable text in an {@link EditableEmbeddedTextValue}
+	 * @return an optional of the AADL source if the new text is a valid replacement for the embedded text of the {@link EditableEmbeddedTextValue}.  Empty if the modification is invalid.
 	 * @since 2.0
 	 */
 	public Optional<String> getValidModifiedSource(final String newText) {
