@@ -29,7 +29,6 @@ import java.util.Optional;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
@@ -41,21 +40,13 @@ import org.osate.ge.referencehandling.ResolveContext;
 import com.google.common.primitives.Longs;
 
 /**
-<<<<<<< HEAD
- * ReferenceResolver to resolve the context for {@link BehaviorAnnex} diagrams
-=======
  * Reference resolver for canonical references produces by {@link BusinessObjectHandler} implementations defined by this plugin.
  *
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
  */
 public class BehaviorAnnexReferenceResolver implements ReferenceResolver {
 	/**
-<<<<<<< HEAD
-	 * The registered factory to create the BehaviorAnnexReferenceResolver
-=======
 	 * Factory for {@link BehaviorAnnexReferenceResolver}
 	 *
->>>>>>> branch 'master' of git@github.com:osate/osate2.git
 	 */
 	public static class Factory implements ReferenceResolverFactory {
 		@Override
