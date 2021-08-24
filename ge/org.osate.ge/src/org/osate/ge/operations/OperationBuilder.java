@@ -68,7 +68,7 @@ public interface OperationBuilder<P> {
 	 * and passed to the modifier.
 	 * @param <T> the type of the tag
 	 * @param <B> the type of business object to modify
-	 * @param <R> the type of the user date of the new step's result
+	 * @param <R> the type of the user value of the new step's result
 	 * @param tag an object that will be passed to the model provider. May be null.
 	 * @param boProvider the object which determines what business object is modified. Must not be null.
 	 * @param modifier the object which performs the model modification. Must not be null.
