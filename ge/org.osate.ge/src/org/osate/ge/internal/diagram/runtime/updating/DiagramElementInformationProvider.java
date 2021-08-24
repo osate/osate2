@@ -35,14 +35,14 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 public interface DiagramElementInformationProvider extends BusinessObjectHandlerProvider {
 	/**
 	 * Returns the name for the business object's name label
-	 * @param element
+	 * @param element the diagram element for which to get name used for the diagram label
 	 * @return the name for the business object's name label
 	 */
 	String getLabelName(DiagramElement element);
 
 	/**
 	 * Returns the name to be displayed in the user interface for the business object
-	 * @param element
+	 * @param element the diagram element for which to get the name used in the user interface.
 	 * @return the name to be displayed in the user interface for the business object
 	 */
 	String getUserInterfaceName(DiagramElement element);
@@ -50,7 +50,7 @@ public interface DiagramElementInformationProvider extends BusinessObjectHandler
 	/**
 	 * Provides the graphic configuration should be used for a business object.
 	 * The specified diagram element may not be fully initialized.
-	 * @param element
+	 * @param element the diagram element for which to get the graphical configuration
 	 * @return must not be null.
 	 */
 	GraphicalConfiguration getGraphicalConfiguration(DiagramElement element);
