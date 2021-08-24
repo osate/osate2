@@ -54,10 +54,10 @@ public final class BehaviorAnnexNamingUtil {
 	private BehaviorAnnexNamingUtil() {
 	}
 
-	private final static Set<String> RESERVE_WORDS; // Set which compares entries base on a case-insensitive comparison
+	private final static Set<String> RESERVED_WORDS; // Set which compares entries base on a case-insensitive comparison
 	static {
-		RESERVE_WORDS = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-		RESERVE_WORDS.addAll(Arrays.asList("abs", "and", "any", "binding", "classifier", "complete", "computation",
+		RESERVED_WORDS = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+		RESERVED_WORDS.addAll(Arrays.asList("abs", "and", "any", "binding", "classifier", "complete", "computation",
 				"count", "dispatch", "do", "else", "elsif", "end", "false", "final", "for", "forall", "fresh", "frozen",
 				"if", "in", "initial", "lower_bound", "mod", "not", "on", "or", "otherwise", "reference", "variables",
 				"rem", "state", "states", "stop", "timeout", "transitions", "true", "until", "upper_bound", "while",
@@ -114,7 +114,7 @@ public final class BehaviorAnnexNamingUtil {
 	 * @return
 	 */
 	private static boolean isValidIdentifier(final String value) {
-		if (RESERVE_WORDS.contains(value)) {
+		if (RESERVED_WORDS.contains(value)) {
 			return false;
 		}
 
