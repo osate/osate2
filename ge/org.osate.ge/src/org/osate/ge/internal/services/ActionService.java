@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -31,10 +31,6 @@ package org.osate.ge.internal.services;
  *
  */
 public interface ActionService extends ActionExecutor {
-	public interface ActionGroup {
-
-	}
-
 	/**
 	 *
 	 * @return true if an action is currently being executed.
@@ -46,7 +42,10 @@ public interface ActionService extends ActionExecutor {
 	 */
 	void clearActionStack();
 
+	/**
+	 * Removes references to actions which are no longer valid. This should be called to prevent memory leaks associated with holding unto
+	 * actions which cannot be undone.
+	 * @see AgeAction#isValid()
+	 */
 	void invalidateInvalidActions();
-
-	boolean endExecuteGroup(final ActionGroup actionGroup);
 }

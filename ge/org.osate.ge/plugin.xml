@@ -1377,7 +1377,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<extension point="org.eclipse.core.runtime.adapters">
   <factory
         adaptableType="org.eclipse.jface.viewers.ISelection"
-        class="org.osate.ge.internal.selection.AgeBusinessObjectSelectionAdapterFactory">
+        class="org.osate.ge.internal.AgeBusinessObjectSelectionAdapterFactory">
         <adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
      <adapter
            type="org.osate.ge.BusinessObjectSelection">
@@ -1385,7 +1385,7 @@ censes only apply to the Third Party Software and not any other portion of this 
   </factory>
     <factory
         adaptableType="org.osate.ge.BusinessObjectSelection"
-        class="org.osate.ge.internal.selection.BusinessObjectSelectionExpressionAdapterFactory">
+        class="org.osate.ge.internal.BusinessObjectSelectionExpressionAdapterFactory">
      <adapter
            type="org.eclipse.core.expressions.ICountable">
      </adapter>

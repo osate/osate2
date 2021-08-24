@@ -627,9 +627,9 @@ public class DefaultDiagramService implements DiagramService {
 			.forEach(e -> references.addReference(e.getDiagramFile(), e.getContext(),
 					new SavedDiagramContextReference()));
 
-			savedDiagramIndex.getElementUrisByReferences(relevantProjects.stream(), originalCanonicalReferences)
+			savedDiagramIndex.getDiagramElementUrisByReferences(relevantProjects.stream(), originalCanonicalReferences)
 			.forEach(e -> references.addReference(e.diagramFile, e.reference,
-					new SavedDiagramElementReference(e.elementUri)));
+					new SavedDiagramElementReference(e.diagramElementUri)));
 		});
 		return references;
 	}

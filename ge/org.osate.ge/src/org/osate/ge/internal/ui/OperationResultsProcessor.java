@@ -38,41 +38,43 @@ import org.osate.ge.internal.operations.OperationResults;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 
 /**
- * A results processor which is intended to be used with diagrams.
+ * Utility class which processes {@link OperationResults} returned by {@link OperationExecutor}
  * Processes results so that business objects will be added to the diagram during the next update based on hints from the results.
  *
  */
-public class DefaultOperationResultsProcessor implements OperationExecutor.ResultsProcessor {
-	private final InternalDiagramEditor editor;
-	private final DiagramNode targetNode;
-	private final Point targetPosition;
+public final class OperationResultsProcessor {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private OperationResultsProcessor() {
+	}
 
 	/**
-	 * Creates a new instance
-	 * @param diagram
-	 * @param diagramUpdater
-	 * @param refBuilder
-	 * @param targetNode is the node to which the targetPosition is relative.
-	 * @param targetPosition
+	 * Process results
+	 * @param editor the editor which is displaying the diagram for which the operation was executed
+	 * @param results the results to process
 	 */
-	public DefaultOperationResultsProcessor(final InternalDiagramEditor editor, final DiagramNode targetNode,
-			final Point targetPosition) {
-		this.editor = Objects.requireNonNull(editor, "diagram must not be null");
-		this.targetNode = targetNode;
-		this.targetPosition = targetPosition;
+	public static void processResults(final InternalDiagramEditor editor, final OperationResults results) {
+		processResults(editor, null, null, results);
 	}
 
-	public DefaultOperationResultsProcessor(final InternalDiagramEditor editor) {
-		this(editor, null, null);
-	}
-
-	@Override
-	public void processResults(final OperationResults results) {
+	/**
+	 *
+	 * @param editor the editor which is displaying the diagram for which the operation was executed
+	 * @param targetNode is the node to which the targetPosition is relative.
+	 * @param targetPosition the position at which the operation was executed. Relative to the target node. This is used to position
+	 * a newly created diagram element.
+	 * @param results the results to process
+	 */
+	public static void processResults(final InternalDiagramEditor editor, final DiagramNode targetNode,
+			final Point targetPosition, final OperationResults results) {
+		Objects.requireNonNull(editor, "diagram must not be null");
 		boolean update = false;
 
 		// Notify the diagram updater to add the element on the next update
 		for (final Entry<BusinessObjectContext, OperationResults.BusinessObjectToShowDetails> containerToBoEntry : results
-				.getContainerToBoToShowDetailsMap().entries()) {
+				.getContainerToBoToShowDetailsMap()
+				.entries()) {
 			if (containerToBoEntry.getKey() instanceof DiagramNode) {
 				final DiagramNode containerNode = (DiagramNode) containerToBoEntry.getKey();
 				final OperationResults.BusinessObjectToShowDetails newValue = containerToBoEntry.getValue();
@@ -93,8 +95,8 @@ public class DefaultOperationResultsProcessor implements OperationExecutor.Resul
 				final EmbeddedBusinessObject embeddedBo = (newValue.bo instanceof EmbeddedBusinessObject)
 						? (EmbeddedBusinessObject) newValue.bo
 								: null;
-				editor.getDiagramUpdater().addToNextUpdate(containerNode, newValue.ref,
-						new FutureElementInfo(position, embeddedBo));
+				editor.getDiagramUpdater()
+				.addToNextUpdate(containerNode, newValue.ref, new FutureElementInfo(position, embeddedBo));
 
 				if (embeddedBo != null) {
 					update = true;
