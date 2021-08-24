@@ -27,7 +27,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Optional;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.text.source.SourceViewer;
@@ -44,20 +43,22 @@ import org.yakindu.base.xtext.utils.jface.viewers.context.IXtextFakeContextResou
 import com.google.inject.Injector;
 
 /**
- * Embeds AADL source specified by {@link EditableEmbeddedTextValue} with Xtext highlighting in a StyledText
+ * Embeds AADL source specified by {@link EditableEmbeddedTextValue} with Xtext highlighting in a {@link StyledText}
  * @since 2.0
  */
 class EmbeddedStyledTextXtextAdapter extends OsateStyledTextXtextAdapter {
 	private final static Injector injector = Aadl2Activator.getInstance()
 			.getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
-	private final EditableEmbeddedTextValue textValue;
-	private final IProject project;
+	private final EditableEmbeddedTextValue embeddedTextValue;
 	private static final IXtextFakeContextResourcesProvider contextFakeResourceProvider = IXtextFakeContextResourcesProvider.NULL_CONTEXT_PROVIDER;
 
-	public EmbeddedStyledTextXtextAdapter(final IProject project, final EditableEmbeddedTextValue textValue) {
-		super(injector, contextFakeResourceProvider, project);
-		this.textValue = textValue;
-		this.project = project;
+	/**
+	 * Instantiates the Embedded Styled Text Xtext Adapter for embedding AADL source in a {@link StyledText}
+	 * @param embeddedTextValue the text information for the embedded AADL source
+	 */
+	public EmbeddedStyledTextXtextAdapter(final EditableEmbeddedTextValue embeddedTextValue) {
+		super(injector, contextFakeResourceProvider, embeddedTextValue.getProject());
+		this.embeddedTextValue = embeddedTextValue;
 	}
 
 	@Override
@@ -65,30 +66,24 @@ class EmbeddedStyledTextXtextAdapter extends OsateStyledTextXtextAdapter {
 		super.adapt(styledText, decorate);
 		final XtextDocument xtextDoc = getXtextDocument();
 		final SourceViewer srcViewer = getXtextSourceviewer();
-		final String prefixWithNewLineEnding = textValue.getPrefix() + "\n";
-		final String suffixWithNewLineBeginning = "\n" + textValue.getSuffix();
-		final String wholeText = new StringBuilder(prefixWithNewLineEnding).append(textValue.getEditableText())
+		final String prefixWithNewLineEnding = embeddedTextValue.getPrefix() + "\n";
+		final String suffixWithNewLineBeginning = "\n" + embeddedTextValue.getSuffix();
+		final String editableText = embeddedTextValue.getEditableText();
+		final String wholeText = new StringBuilder(prefixWithNewLineEnding).append(editableText)
 				.append(suffixWithNewLineBeginning)
 				.toString();
 		xtextDoc.set(wholeText);
 		srcViewer.setDocument(xtextDoc, srcViewer.getAnnotationModel(), prefixWithNewLineEnding.length(),
-				textValue.getEditableText().length());
+				editableText.length());
 	}
 
 	/**
 	 * Returns the editable embedded text value
+	 * @return the editable embedded text value
 	 * @since 2.0
 	 */
 	public EditableEmbeddedTextValue getEmbeddedTextValue() {
-		return textValue;
-	}
-
-	/**
-	 * Returns the project that contains the AADL source being edited
-	 * @since 2.0
-	 */
-	public IProject getProject() {
-		return project;
+		return embeddedTextValue;
 	}
 
 	@Override
@@ -97,18 +92,9 @@ class EmbeddedStyledTextXtextAdapter extends OsateStyledTextXtextAdapter {
 	}
 
 	/**
-	 * Determines if the new text is a valid replacement for the editable text of an {@link EditableEmbeddedTextValue} for the AADL model
-	 * @param bo the business object being modified
-	 * @param newText the text to replace editable text in an {@link EditableEmbeddedTextValue}
-	 * @return whether the new text is valid replacement
-	 *
-	 * Returns an optional of the AADL source if the new text is a valid replacement for the embedded text of the {@link EditableEmbeddedTextValue}.  Empty if the modification is invalid.
-	 */
-
-	/**
-	 * Loads the modified AADL source from the {@link EditableEmbeddedTextValue} to determine if the modification is valid
-	 * @param newText the text to replace editable text in an {@link EditableEmbeddedTextValue}
-	 * @return an optional of the AADL source if the new text is a valid replacement for the embedded text of the {@link EditableEmbeddedTextValue}.  Empty if the modification is invalid.
+	 * Returns an optional of the modified full AADL source if edited region is a valid modification.  Empty if modification is invalid.
+	 * @param newText the text to replace editable text region
+	 * @return an optional of the modified full AADL source if edited region is a valid modification.  Empty if modification is invalid.
 	 * @since 2.0
 	 */
 	public Optional<String> getValidModifiedSource(final String newText) {
@@ -116,13 +102,13 @@ class EmbeddedStyledTextXtextAdapter extends OsateStyledTextXtextAdapter {
 		String modifiedSrc = null;
 		try {
 			// AADL source text to load
-			modifiedSrc = textValue.getModifiedAADLSourceForNewText(newText)
+			modifiedSrc = embeddedTextValue.getModifiedAADLSourceForNewText(newText)
 					.orElse(serialize(getXtextParseResult().getRootASTElement()));
 			loadSource(modifiedSrc);
 
 			final EObject tmpBo = getFakeResource()
-					.getEObject(EcoreUtil.getURI(textValue.getElementToModify()).fragment());
-			if (tmpBo == null || !textValue.isValidModification(tmpBo, newText)) {
+					.getEObject(EcoreUtil.getURI(embeddedTextValue.getElementToModify()).fragment());
+			if (tmpBo == null || !embeddedTextValue.isValidModification(tmpBo, newText)) {
 				modifiedSrc = null;
 			}
 		} catch (final Exception ex) {

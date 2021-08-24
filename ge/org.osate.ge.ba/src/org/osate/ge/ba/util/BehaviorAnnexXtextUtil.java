@@ -49,8 +49,8 @@ public class BehaviorAnnexXtextUtil {
 
 	/**
 	 * Returns the source contained in the Xtext document. If the Xtext document is null, then the source contained in the resource is returned.
-	 * @param xtextDocument
-	 * @param xtextResource
+	 * @param xtextDocument the {@link IXtextDocument} that contains the AADL source if not null
+	 * @param xtextResource the {@link XtextResource} that contains the AADL source if the xtextDocument is null
 	 * @return the complete source from the document or resource
 	 */
 	public static String getText(final IXtextDocument xtextDocument, final XtextResource xtextResource) {

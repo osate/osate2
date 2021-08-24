@@ -32,7 +32,6 @@ import java.util.TimerTask;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -79,16 +78,14 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	private Result result;
 
 	/**
-	 *
-	 * @param parentShell
-	 * @param project
-	 * @param editableTextValue
-	 * @param styledTextStyle
-	 * @param styledTextLayoutData
-	 * @param modify
+	 * Dialog for editing AADL models using {@link EditableEmbeddedTextValue}
+	 * @param parentShell the parent shell for the dialog
+	 * @param editableTextValue is the text information for editing embedded AADL source
+	 * @param styledTextStyle is the style for the {@link StyledText}
+	 * @param styledTextLayoutData is the layout data for the {@link StyledText}
 	 * @since 2.0
 	 */
-	public EditEmbeddedTextDialog(final Shell parentShell, final IProject project,
+	public EditEmbeddedTextDialog(final Shell parentShell,
 			final EditableEmbeddedTextValue editableTextValue,
 			final int styledTextStyle,
 			final GridData styledTextLayoutData) {
@@ -98,7 +95,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 				"Cancel");
 		// Create new xtext adapter for the edit dialog
 		this.xtextAdapter = Objects.requireNonNull(
-				new EmbeddedStyledTextXtextAdapter(project, editableTextValue),
+				new EmbeddedStyledTextXtextAdapter(editableTextValue),
 				"xtextAdapter cannot be null");
 		this.styledTextStyle = styledTextStyle;
 		this.styledTextLayoutData = Objects.requireNonNull(styledTextLayoutData, "styledTextLayoutData cannot be null");
@@ -232,7 +229,8 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	}
 
 	/**
-	 * Returns the result of the modified {@link EditEmbeddedTextDialog} that contains the full and partial modified AADL source
+	 * Returns the result of the {@link EditEmbeddedTextDialog} that contains the full and partial modified AADL source
+	 * @return the result of the {@link EditEmbeddedTextDialog}
 	 */
 	public Result getResult() {
 		return result;
@@ -247,6 +245,8 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 		/**
 		 * Instantiates the dialog result
+		 * @param fullSource the modified source for the full AADL resource/document
+		 * @param partialSource the region of the AADL source edited by the dialog
 		 */
 		public Result(final String fullSource, final String partialSource) {
 			this.fullSource = fullSource;
@@ -255,6 +255,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 		/**
 		 * Returns the modified source for the full AADL resource/document.
+		 * @return the modified source for the full AADL resource/document.
 		 */
 		public String getFullSource() {
 			return fullSource;
@@ -262,6 +263,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 
 		/**
 		 * Returns the modified source for the region of the AADL resource edited by the dialog.
+		 * @return the modified source for the region of the AADL resource edited by the dialog.
 		 */
 		public String getPartialSource() {
 			return partialSource;

@@ -60,10 +60,13 @@ class EmbeddedTextModificationAction implements AgeAction {
 	private final Supplier<EmbeddedTextModificationAction> embeddedEditingActionSupplier;
 
 	/**
-	 * Embedded text modification action when the editor is open
+	 * Instantiates an Embedded Text Modification action when the editor is open
+	 * @param xtextDocument is the open Xtext Document to be modified
+	 * @param modelChangeNotifier notifies of model changes
+	 * @param source is the full modified AADL source to replace in the xtextDocument
 	 */
 	public EmbeddedTextModificationAction(final IXtextDocument xtextDocument,
-			final ModelChangeNotifier modelChangeNotifier, final String newText) {
+			final ModelChangeNotifier modelChangeNotifier, final String source) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
 		embeddedEditingActionSupplier = () -> {
 			// Get original text for undo/redo
@@ -71,7 +74,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 
 			// Modify the document
 			prepareToEditDocument(xtextDocument);
-			xtextDocument.set(newText);
+			xtextDocument.set(source);
 			// Call readonly on the document. This will should cause Xtext's reconciler
 			// to be called to ensure the document matches the model and trigger model change events.
 			xtextDocument.readOnly(res -> null);
@@ -84,18 +87,23 @@ class EmbeddedTextModificationAction implements AgeAction {
 	}
 
 	/**
-	 * Embedded text modification action when the editor is closed
+	 * Instantiates an Embedded Text Modification Action when the editor is closed
+	 * @param xtextResource is the Xtext Resource to be modified
+	 * @param modelChangeNotifier notifies of model changes
+	 * @param embeddedTextValue is the text information used for editing embedded AADL source
 	 */
-	public EmbeddedTextModificationAction(final TransactionalEditingDomain editingDomain,
-			final XtextResource xtextResource, final ModelChangeNotifier modelChangeNotifier,
-			final EditableEmbeddedTextValue textValue) {
+	public EmbeddedTextModificationAction(final XtextResource xtextResource,
+			final ModelChangeNotifier modelChangeNotifier,
+			final EditableEmbeddedTextValue embeddedTextValue) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
+		final TransactionalEditingDomain editingDomain = TransactionalEditingDomain.Factory.INSTANCE
+				.getEditingDomain(xtextResource.getResourceSet());
 		embeddedEditingActionSupplier = () -> {
 			// Get original text for undo
 			final String originalText = BehaviorAnnexXtextUtil.getText(null, xtextResource);
 
 			// Modify and save the xtext resource
-			final Void<XtextResource> work = createUpdateProcess(textValue);
+			final Void<XtextResource> work = createUpdateProcess(embeddedTextValue);
 			final RecordingCommand cmd = createRecordingCommand(editingDomain, work, xtextResource);
 			executeCommand(editingDomain, cmd, xtextResource);
 			save(xtextResource);
@@ -134,18 +142,18 @@ class EmbeddedTextModificationAction implements AgeAction {
 	 * {@link XtextResource}'s source text will be updated with the specified sourceText value.
 	 * If the specified {@link EditableEmbeddedTextValue} is null, the {@link XtextResource}'s entire
 	 * source text will be set to the specified sourceText value.
-	 * @param textValue holds the values used to make a partial update to the {@link XtextResource}'s source text
+	 * @param embeddedTextValue holds the values used to make a partial update to the {@link XtextResource}'s source text
 	 * @param sourceText is the text to update the {@link XtextResource}'s source text with
 	 */
-	private Void<XtextResource> createUpdateProcess(final EditableEmbeddedTextValue textValue,
+	private Void<XtextResource> createUpdateProcess(final EditableEmbeddedTextValue embeddedTextValue,
 			final String sourceText) {
-		return textValue != null
-				? createPartialUpdateProcess(textValue.getPrefix().length(), textValue.getUpdateLength(), sourceText)
+		return embeddedTextValue != null
+				? createPartialUpdateProcess(embeddedTextValue.getPrefix().length(), embeddedTextValue.getUpdateLength(), sourceText)
 				: createUndoRedoProcess(sourceText);
 	}
 
-	private Void<XtextResource> createUpdateProcess(final EditableEmbeddedTextValue textValue) {
-		return createUpdateProcess(textValue, textValue.getEditableText());
+	private Void<XtextResource> createUpdateProcess(final EditableEmbeddedTextValue embeddedTextValue) {
+		return createUpdateProcess(embeddedTextValue, embeddedTextValue.getEditableText());
 	}
 
 	/**

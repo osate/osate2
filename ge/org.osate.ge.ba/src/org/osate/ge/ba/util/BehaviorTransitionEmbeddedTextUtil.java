@@ -48,7 +48,10 @@ public class BehaviorTransitionEmbeddedTextUtil {
 	}
 
 	/**
-	 * Returns an {@link EditableEmbeddedTextValue} for the {@link BehaviorCondition}
+	 * Returns an {@link EditableEmbeddedTextValue} that allows editing of the embedded AADL source for the {@link BehaviorCondition}
+	 * @param behaviorTransition the {@link BehaviorTransition} that owns the Behavior Condition
+	 * @param sourceText the full AADL source of the Behavior Transition's resource
+	 * @return an {@link EditableEmbeddedTextValue} for the {@link BehaviorCondition}
 	 */
 	public static EditableEmbeddedTextValue createConditionTextValue(final BehaviorTransition behaviorTransition,
 			final String sourceText) {
@@ -68,7 +71,10 @@ public class BehaviorTransitionEmbeddedTextUtil {
 	}
 
 	/**
-	 * Returns the text of the {@link BehaviorCondition}
+	 * Returns AADL source region that contains the {@link BehaviorCondition} text
+	 * @param behaviorTransition the {@link BehaviorTransition} that owns the Behavior Condition
+	 * @param sourceText the full AADL source of the Behavior Transition's resource
+	 * @return the AADL source region that contains the Behavior Condition text
 	 */
 	public static String getConditionText(final BehaviorTransition behaviorTransition, final String sourceText) {
 		final int conditionOffset = getConditionOffset(behaviorTransition, sourceText);
@@ -109,10 +115,13 @@ public class BehaviorTransitionEmbeddedTextUtil {
 	}
 
 	/**
-	 * Returns an {@link EditableEmbeddedTextValue} for the {@link BehaviorActionBlock}
+	 * Returns an {@link EditableEmbeddedTextValue} that allows editing of the embedded AADL source for the {@link BehaviorActionBlock}
+	 * @param behaviorTransition the Behavior Transition that owns the Behavior Action Block
+	 * @param sourceText the full AADL source of the Behavior Action Block's resource
+	 * @return an {@link EditableEmbeddedTextValue} for the {@link BehaviorActionBlock}
 	 */
 	public static EditableEmbeddedTextValue getActionBlockTextValue(final BehaviorTransition behaviorTransition,
-			final String src) {
+			final String sourceText) {
 		final BehaviorActionBlock actionBlock = behaviorTransition.getActionBlock();
 
 		// Text before action block
@@ -124,26 +133,26 @@ public class BehaviorTransitionEmbeddedTextUtil {
 		if (actionBlock == null) {
 			// Transition offset
 			final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
-			final String transitionText = src.substring(transitionOffset);
+			final String transitionText = sourceText.substring(transitionOffset);
 			// Find transition terminating semicolon offset
 			final int terminationOffset = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(transitionText, ';')
 					+ transitionOffset;
 
 			// Transition action prefix and add open bracket for action
-			prefix = src.substring(0, terminationOffset) + "{";
+			prefix = sourceText.substring(0, terminationOffset) + "{";
 			// Empty condition text
 			actionText = "";
 			// Add bracket to close action text
-			suffix = "}" + src.substring(terminationOffset);
+			suffix = "}" + sourceText.substring(terminationOffset);
 		} else {
 			// Condition offset
 			final int updateOffset = actionBlock.getAadlBaLocationReference().getOffset() + 1;
-			prefix = src.substring(0, updateOffset);
+			prefix = sourceText.substring(0, updateOffset);
 
 			// Note: Condition length only counts until the first space (assuming).
 			// For example, when dispatch condition is "on dispatch" length is 2.
 			// Find closing "]", to get condition text
-			final String afterTransitionText = src.substring(updateOffset);
+			final String afterTransitionText = sourceText.substring(updateOffset);
 			// Find action ending offset
 			final int terminationOffset = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(afterTransitionText,
 					'}') + updateOffset;
@@ -169,11 +178,12 @@ public class BehaviorTransitionEmbeddedTextUtil {
 					.join("", actionBlockText.stream().map(ss -> ss.substring(whitespace)).toArray(String[]::new))
 					.trim();
 
-			suffix = src.substring(terminationOffset);
+			suffix = sourceText.substring(terminationOffset);
 		}
 
 		// Create condition value
-		return new BehaviorActionBlockEmbeddedTextValue(behaviorTransition, src.length(), prefix, actionText, suffix);
+		return new BehaviorActionBlockEmbeddedTextValue(behaviorTransition, sourceText.length(), prefix, actionText,
+				suffix);
 	}
 
 	private static int getWhiteSpace(final String s) {

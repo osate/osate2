@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.NamedElement;
 import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ge.ProjectUtil;
 import org.osate.ge.ba.ui.EmbeddedTextEditor;
 
 /**
@@ -40,7 +41,7 @@ public class BehaviorConditionEmbeddedTextValue extends EditableEmbeddedTextValu
 	private final BehaviorTransition behaviorTransition;
 
 	/**
-	 * Creates an {@link EditableEmbeddedTextValue} for {@link BehaviorCondition} and editing support within an {@link EmbeddedTextEditor}
+	 * Instantiates an {@link EditableEmbeddedTextValue} for {@link BehaviorCondition} and editing support within an {@link EmbeddedTextEditor}
 	 * @param behaviorTransition the owner of the {@link BehaviorCondition} being edited
 	 * @param originalSrcLength is the length of the original AADL source text
 	 * @param prefix is the text before the modifiable text
@@ -49,7 +50,7 @@ public class BehaviorConditionEmbeddedTextValue extends EditableEmbeddedTextValu
 	 */
 	public BehaviorConditionEmbeddedTextValue(final BehaviorTransition behaviorTransition, final int originalSrcLength,
 			final String prefix, final String editableText, final String suffix) {
-		super(originalSrcLength, prefix, editableText, suffix);
+		super(ProjectUtil.getProjectForBoOrThrow(behaviorTransition), originalSrcLength, prefix, editableText, suffix);
 		this.behaviorTransition = behaviorTransition;
 	}
 

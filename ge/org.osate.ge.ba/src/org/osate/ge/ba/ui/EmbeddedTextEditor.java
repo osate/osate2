@@ -27,10 +27,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.window.Window;
@@ -45,7 +43,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.ProjectUtil;
 import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.ba.ui.properties.EditableEmbeddedTextValue;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
@@ -77,7 +74,7 @@ public class EmbeddedTextEditor extends Composite {
 	}
 
 	/**
-	 * Creates a single line EmbeddedTextEditor
+	 * Instantiates a single line EmbeddedTextEditor
 	 * @param parent the parent composite
 	 * @return the new EmbeddedTextEditor
 	 * @since 2.0
@@ -93,7 +90,7 @@ public class EmbeddedTextEditor extends Composite {
 	}
 
 	/**
-	 * Creates a multi line EmbeddedTextEditor
+	 * Instantiates a multiline EmbeddedTextEditor
 	 * @param parent the parent composite
 	 * @return the new EmbeddedTextEditor
 	 * @since 2.0
@@ -125,10 +122,10 @@ public class EmbeddedTextEditor extends Composite {
 		editBtn = new Button(this, SWT.PUSH);
 		editBtn.setText("Edit...");
 		editBtn.addSelectionListener(SelectionListener.widgetSelectedAdapter(e -> {
-			final EditableEmbeddedTextValue editableTextValue = xtextAdapter.getEmbeddedTextValue();
-			final NamedElement ne = editableTextValue.getElementToModify();
+			final EditableEmbeddedTextValue embeddedTextValue = xtextAdapter.getEmbeddedTextValue();
+			final NamedElement ne = embeddedTextValue.getElementToModify();
 			final EditEmbeddedTextDialog dlg = new EditEmbeddedTextDialog(Display.getCurrent().getActiveShell(),
-					xtextAdapter.getProject(), editableTextValue, styledTextStyle,
+					embeddedTextValue, styledTextStyle,
 					styledTextLayoutData);
 			if (dlg.open() == Window.OK) {
 				// Edit condition
@@ -139,19 +136,17 @@ public class EmbeddedTextEditor extends Composite {
 					final IXtextDocument xtextDocument = getXtextDocument(ne).orElse(null);
 					if (xtextDocument != null) {
 						// Execute modification with xtext document
-						actionService.execute(editableTextValue.getModificationLabel(),
+						actionService.execute(embeddedTextValue.getModificationLabel(),
 								ExecutionMode.NORMAL,
 								new EmbeddedTextModificationAction(xtextDocument, modelChangeNotifier,
 										dlg.getResult().getFullSource()));
 					} else {
 						final XtextResource xtextResource = getXtextResource(ne).orElseThrow();
-						final TransactionalEditingDomain editingDomain = TransactionalEditingDomain.Factory.INSTANCE
-								.getEditingDomain(xtextResource.getResourceSet());
-						editableTextValue.setEditableText(dlg.getResult().getPartialSource());
+						embeddedTextValue.setEditableText(dlg.getResult().getPartialSource());
 						// Execute modification with xtext resource
-						actionService.execute(editableTextValue.getModificationLabel(), ExecutionMode.NORMAL,
-								new EmbeddedTextModificationAction(editingDomain, xtextResource, modelChangeNotifier,
-										editableTextValue));
+						actionService.execute(embeddedTextValue.getModificationLabel(), ExecutionMode.NORMAL,
+								new EmbeddedTextModificationAction(xtextResource, modelChangeNotifier,
+										embeddedTextValue));
 					}
 				});
 			}
@@ -176,24 +171,26 @@ public class EmbeddedTextEditor extends Composite {
 	public void setEditorTextValue(final NamedElement selectedElement,
 			final Function<String, EditableEmbeddedTextValue> createTextValue) {
 		disposeXtextAdapter();
-		final IProject project = ProjectUtil.getProjectForBoOrThrow(selectedElement);
+		// final IProject project = ProjectUtil.getProjectForBoOrThrow(selectedElement);
 		final XtextResource xtextResource = getXtextResource(selectedElement)
 				.orElseThrow(() -> new AadlGraphicalEditorException("resource must be XtextResource"));
 		final IXtextDocument xtextDocument = getXtextDocument(selectedElement).orElse(null);
 		final String sourceText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
-		xtextAdapter = new EmbeddedStyledTextXtextAdapter(project, createTextValue.apply(sourceText));
+		xtextAdapter = new EmbeddedStyledTextXtextAdapter(createTextValue.apply(sourceText));
 		xtextAdapter.adapt(styledText);
 	}
 
 	/**
-	 * Sets the test id for the styled text
+	 * Sets the test ID for the styled text
+	 * @param styledTextTestId the test ID
 	 */
 	public void setStyledTextTestId(final String styledTextTestId) {
 		SwtUtil.setTestingId(styledText, styledTextTestId);
 	}
 
 	/**
-	 * Sets test id for the edit button
+	 * Sets test ID for the edit button
+	 * @param editBtnTestId the test ID
 	 */
 	public void setEditButtonTestId(final String editBtnTestId) {
 		SwtUtil.setTestingId(editBtn, editBtnTestId);

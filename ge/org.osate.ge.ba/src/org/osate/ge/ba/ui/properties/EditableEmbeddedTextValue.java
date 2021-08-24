@@ -25,26 +25,32 @@ package org.osate.ge.ba.ui.properties;
 
 import java.util.Objects;
 
+import org.eclipse.core.resources.IProject;
+
 /**
- * Text information for editing embedded models
+ * Text information for editing embedded AADL source
  * @since 2.0
  */
 public abstract class EditableEmbeddedTextValue implements EmbeddedTextValueEditModel {
+	private final IProject project;
 	private final int originalSrcLength;
 	private String prefix;
 	private String editableText;
 	private String suffix;
 
 	/**
-	 * Text information for editing embedded models.
+	 * Text information for editing embedded AADL models.
+	 * @param project the project that contains AADL resource being edited
 	 * @param originalSrcLength is the length of the original source text
 	 * @param prefix is the text before the editable text
 	 * @param editableText is the text that is editable
 	 * @param suffix is the text after the editable text
 	 * @since 2.0
 	 */
-	public EditableEmbeddedTextValue(final int originalSrcLength, final String prefix, final String editableText,
+	public EditableEmbeddedTextValue(final IProject project, final int originalSrcLength, final String prefix,
+			final String editableText,
 			final String suffix) {
+		this.project = project;
 		this.originalSrcLength = originalSrcLength;
 		this.prefix = Objects.requireNonNull(prefix, "prefix must not be null");
 		this.editableText = Objects.requireNonNull(editableText, "editableText must not be null");
@@ -52,7 +58,16 @@ public abstract class EditableEmbeddedTextValue implements EmbeddedTextValueEdit
 	}
 
 	/**
+	 * Retrieve the {@link IProject} that contains AADL resource being edited
+	 * @return the project that contains the AADL resource being edited
+	 */
+	public IProject getProject() {
+		return project;
+	}
+
+	/**
 	 * Returns the length of the text that will be replaced when updated
+	 * @return the length of the text that will be replaced when updated
 	 */
 	public int getUpdateLength() {
 		return Math.max(0, originalSrcLength - prefix.length() - suffix.length());
@@ -60,6 +75,7 @@ public abstract class EditableEmbeddedTextValue implements EmbeddedTextValueEdit
 
 	/**
 	 * Returns the embedded text that is editable
+	 * @return the embedded text that is editable
 	 * @since 2.0
 	 */
 	public String getEditableText() {
@@ -68,6 +84,7 @@ public abstract class EditableEmbeddedTextValue implements EmbeddedTextValueEdit
 
 	/**
 	 * Returns the prefix of the editable text
+	 * @return the prefix of the editable text
 	 */
 	public String getPrefix() {
 		return prefix;
@@ -75,6 +92,7 @@ public abstract class EditableEmbeddedTextValue implements EmbeddedTextValueEdit
 
 	/**
 	 * Returns the suffix of the editable text
+	 * @return the suffix of the editable text
 	 */
 	public String getSuffix() {
 		return suffix;
@@ -104,6 +122,6 @@ public abstract class EditableEmbeddedTextValue implements EmbeddedTextValueEdit
 	 * @since 2.0
 	 */
 	public void setEditableText(final String editableText) {
-		this.editableText = editableText;
+		this.editableText = Objects.requireNonNull(editableText, "editableText must not be null");
 	}
 }
