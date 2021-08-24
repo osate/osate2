@@ -132,10 +132,10 @@ public class BehaviorTransitionPropertySection extends AbstractPropertySection {
 				setControlsToMultipleSelected();
 			} else {
 				final BehaviorTransition behaviorTransition = (BehaviorTransition) selectedBoc.getBusinessObject();
-				conditionTextEditor.setEditorTextValue(behaviorTransition,
-						sourceText -> BehaviorTransitionEmbeddedTextUtil.createConditionTextValue(behaviorTransition, sourceText));
-				actionBlockTextEditor.setEditorTextValue(behaviorTransition,
-						sourceText -> BehaviorTransitionEmbeddedTextUtil.getActionBlockTextValue(behaviorTransition, sourceText));
+				conditionTextEditor.setEditorTextValue(
+						BehaviorTransitionEmbeddedTextUtil.createConditionTextValue(behaviorTransition));
+				actionBlockTextEditor.setEditorTextValue(
+						BehaviorActionBlockEmbeddedTextValue.create(behaviorTransition));
 			}
 		}
 	}

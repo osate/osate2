@@ -27,9 +27,13 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.xbase.lib.Pair;
+import org.osate.aadl2.Element;
+import org.osate.ge.aadl2.AadlGraphicalEditorException;
+import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterators;
@@ -45,6 +49,22 @@ public class BehaviorAnnexXtextUtil {
 	 * Private constructor to prevent instantiation.
 	 */
 	private BehaviorAnnexXtextUtil() {
+	}
+
+	/**
+	 * Returns the source of the resource which contains the specified element. If an Xtext document is open for the resource, then the contents
+	 * of the document will be returned.
+	 * @param element the element for which to return the resource source text
+	 * @return the source text of the resource which contains the specified element.
+	 */
+	public static String getText(final Element element) {
+		final Resource resource = element.eResource();
+		if (!(resource instanceof XtextResource)) {
+			throw new AadlGraphicalEditorException("resource must be XtextResource");
+		}
+
+		final IXtextDocument xtextDocument = AgeXtextUtil.getDocumentByRootElement(element.getElementRoot());
+		return getText(xtextDocument, (XtextResource) resource);
 	}
 
 	/**
@@ -98,8 +118,7 @@ public class BehaviorAnnexXtextUtil {
 	}
 
 	private static int findClosingBracket(final Iterator<Character> charPeekingIt,
-			final ImmutableList<Character> openBrackets, final ImmutableList<Character> closeBrackets,
-			int offset) {
+			final ImmutableList<Character> openBrackets, final ImmutableList<Character> closeBrackets, int offset) {
 		int bracketsOpenCount = 1;
 		for (; charPeekingIt.hasNext(); offset++) {
 			final Character c = charPeekingIt.next();

@@ -25,7 +25,6 @@ package org.osate.ge.ba.ui;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
 
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -43,10 +42,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.ba.ui.properties.EditableEmbeddedTextValue;
 import org.osate.ge.ba.util.BehaviorAnnexSelectionUtil;
-import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
@@ -153,30 +150,23 @@ public class EmbeddedTextEditor extends Composite {
 		}));
 	}
 
-	private static Optional<IXtextDocument> getXtextDocument(final NamedElement behaviorTransition) {
-		return Optional.ofNullable(AgeXtextUtil.getDocumentByRootElement(behaviorTransition.getElementRoot()));
+	private static Optional<IXtextDocument> getXtextDocument(final NamedElement element) {
+		return Optional.ofNullable(AgeXtextUtil.getDocumentByRootElement(element.getElementRoot()));
 	}
 
-	private static Optional<XtextResource> getXtextResource(final NamedElement behaviorTransition) {
-		final Resource resource = behaviorTransition.eResource();
+	private static Optional<XtextResource> getXtextResource(final NamedElement element) {
+		final Resource resource = element.eResource();
 		return Optional.ofNullable(resource instanceof XtextResource ? (XtextResource) resource : null);
 	}
 
 	/**
 	 * Sets the {@link EditableEmbeddedTextValue} for the EmbeddedTextEditor
-	 * @param selectedElement the selected {@link NamedElement} to get AADL source text from
-	 * @param createTextValue creates an {@link EditableEmbeddedTextValue} from AADL source text
+	 * @param value the text value being edited
 	 * @since 2.0
 	 */
-	public void setEditorTextValue(final NamedElement selectedElement,
-			final Function<String, EditableEmbeddedTextValue> createTextValue) {
+	public void setEditorTextValue(final EditableEmbeddedTextValue value) {
 		disposeXtextAdapter();
-		// final IProject project = ProjectUtil.getProjectForBoOrThrow(selectedElement);
-		final XtextResource xtextResource = getXtextResource(selectedElement)
-				.orElseThrow(() -> new AadlGraphicalEditorException("resource must be XtextResource"));
-		final IXtextDocument xtextDocument = getXtextDocument(selectedElement).orElse(null);
-		final String sourceText = BehaviorAnnexXtextUtil.getText(xtextDocument, xtextResource);
-		xtextAdapter = new EmbeddedStyledTextXtextAdapter(createTextValue.apply(sourceText));
+		xtextAdapter = new EmbeddedStyledTextXtextAdapter(value);
 		xtextAdapter.adapt(styledText);
 	}
 

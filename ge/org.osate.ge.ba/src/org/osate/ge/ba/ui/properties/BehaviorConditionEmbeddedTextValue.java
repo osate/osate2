@@ -43,14 +43,14 @@ public class BehaviorConditionEmbeddedTextValue extends EditableEmbeddedTextValu
 	/**
 	 * Instantiates an {@link EditableEmbeddedTextValue} for {@link BehaviorCondition} and editing support within an {@link EmbeddedTextEditor}
 	 * @param behaviorTransition the owner of the {@link BehaviorCondition} being edited
-	 * @param originalSrcLength is the length of the original AADL source text
+	 * @param updateLength is the length of the text to be replaced when updating the resource
 	 * @param prefix is the text before the modifiable text
 	 * @param editableText is the text that is modifiable
 	 * @param suffix is the text after the modifiable text
 	 */
-	public BehaviorConditionEmbeddedTextValue(final BehaviorTransition behaviorTransition, final int originalSrcLength,
+	public BehaviorConditionEmbeddedTextValue(final BehaviorTransition behaviorTransition, final int updateLength,
 			final String prefix, final String editableText, final String suffix) {
-		super(ProjectUtil.getProjectForBoOrThrow(behaviorTransition), originalSrcLength, prefix, editableText, suffix);
+		super(ProjectUtil.getProjectForBoOrThrow(behaviorTransition), updateLength, prefix, editableText, suffix);
 		this.behaviorTransition = behaviorTransition;
 	}
 

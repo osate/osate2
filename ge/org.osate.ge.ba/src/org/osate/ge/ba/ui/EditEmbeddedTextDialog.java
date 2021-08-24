@@ -53,7 +53,7 @@ import org.osate.ge.ba.ui.properties.EditableEmbeddedTextValue;
 import org.osate.ge.swt.SwtUtil;
 
 /**
- * Dialog for editing embedded text
+ * Dialog for editing AADL models using {@link EditableEmbeddedTextValue}
  * @since 2.0
  */
 public class EditEmbeddedTextDialog extends MessageDialog {
@@ -64,7 +64,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	 */
 	public static String WIDGET_ID_TEXT = WIDGET_ID + ".text";
 	/**
-	 * Wiget ID for OK Button
+	 * Widget ID for OK Button
 	 */
 	public static String WIDGET_ID_CONFIRM = WIDGET_ID + ".confirmation";
 	private final EmbeddedStyledTextXtextAdapter xtextAdapter;
@@ -78,7 +78,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	private Result result;
 
 	/**
-	 * Dialog for editing AADL models using {@link EditableEmbeddedTextValue}
+	 * Creates a new instance
 	 * @param parentShell the parent shell for the dialog
 	 * @param editableTextValue is the text information for editing embedded AADL source
 	 * @param styledTextStyle is the style for the {@link StyledText}

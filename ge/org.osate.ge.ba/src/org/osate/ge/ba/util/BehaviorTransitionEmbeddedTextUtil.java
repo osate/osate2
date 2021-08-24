@@ -23,24 +23,16 @@
  */
 package org.osate.ge.ba.util;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-
 import org.eclipse.xtext.xbase.lib.Pair;
-import org.osate.ba.aadlba.BehaviorActionBlock;
 import org.osate.ba.aadlba.BehaviorCondition;
 import org.osate.ba.aadlba.BehaviorTransition;
-import org.osate.ba.unparser.AadlBaUnparser;
-import org.osate.ge.aadl2.AadlGraphicalEditorException;
-import org.osate.ge.ba.ui.properties.BehaviorActionBlockEmbeddedTextValue;
 import org.osate.ge.ba.ui.properties.BehaviorConditionEmbeddedTextValue;
 import org.osate.ge.ba.ui.properties.EditableEmbeddedTextValue;
 
 /**
- * Utility class to create an {@link EditableEmbeddedTextValue} and get text for the {@link BehaviorCondition} and {@link BehaviorActionBlock} of a specified {@link BehaviorTransition}
+ * Utility containing methods related to the source text of {@link BehaviorTransition} elements.
  */
-public class BehaviorTransitionEmbeddedTextUtil {
+public final class BehaviorTransitionEmbeddedTextUtil {
 	/**
 	 * Private constructor to prevent instantiation
 	 */
@@ -48,13 +40,12 @@ public class BehaviorTransitionEmbeddedTextUtil {
 	}
 
 	/**
-	 * Returns an {@link EditableEmbeddedTextValue} that allows editing of the embedded AADL source for the {@link BehaviorCondition}
+	 * Creates an {@link EditableEmbeddedTextValue} that allows editing of the embedded AADL source for the {@link BehaviorCondition}
 	 * @param behaviorTransition the {@link BehaviorTransition} that owns the Behavior Condition
-	 * @param sourceText the full AADL source of the Behavior Transition's resource
 	 * @return an {@link EditableEmbeddedTextValue} for the {@link BehaviorCondition}
 	 */
-	public static EditableEmbeddedTextValue createConditionTextValue(final BehaviorTransition behaviorTransition,
-			final String sourceText) {
+	public static EditableEmbeddedTextValue createConditionTextValue(final BehaviorTransition behaviorTransition) {
+		final String sourceText = BehaviorAnnexXtextUtil.getText(behaviorTransition);
 		final int conditionOffset = getConditionOffset(behaviorTransition, sourceText);
 		// Condition start
 		final String afterPrefix = getAfterPrefix(sourceText, conditionOffset);
@@ -112,91 +103,5 @@ public class BehaviorTransitionEmbeddedTextUtil {
 		}
 
 		return conditionOffset;
-	}
-
-	/**
-	 * Returns an {@link EditableEmbeddedTextValue} that allows editing of the embedded AADL source for the {@link BehaviorActionBlock}
-	 * @param behaviorTransition the Behavior Transition that owns the Behavior Action Block
-	 * @param sourceText the full AADL source of the Behavior Action Block's resource
-	 * @return an {@link EditableEmbeddedTextValue} for the {@link BehaviorActionBlock}
-	 */
-	public static EditableEmbeddedTextValue getActionBlockTextValue(final BehaviorTransition behaviorTransition,
-			final String sourceText) {
-		final BehaviorActionBlock actionBlock = behaviorTransition.getActionBlock();
-
-		// Text before action block
-		final String prefix;
-		// Action block text
-		final String actionText;
-		// Text after action block
-		final String suffix;
-		if (actionBlock == null) {
-			// Transition offset
-			final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
-			final String transitionText = sourceText.substring(transitionOffset);
-			// Find transition terminating semicolon offset
-			final int terminationOffset = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(transitionText, ';')
-					+ transitionOffset;
-
-			// Transition action prefix and add open bracket for action
-			prefix = sourceText.substring(0, terminationOffset) + "{";
-			// Empty condition text
-			actionText = "";
-			// Add bracket to close action text
-			suffix = "}" + sourceText.substring(terminationOffset);
-		} else {
-			// Condition offset
-			final int updateOffset = actionBlock.getAadlBaLocationReference().getOffset() + 1;
-			prefix = sourceText.substring(0, updateOffset);
-
-			// Note: Condition length only counts until the first space (assuming).
-			// For example, when dispatch condition is "on dispatch" length is 2.
-			// Find closing "]", to get condition text
-			final String afterTransitionText = sourceText.substring(updateOffset);
-			// Find action ending offset
-			final int terminationOffset = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(afterTransitionText,
-					'}') + updateOffset;
-
-			// Get formatted action block text
-			final AadlBaUnparser baUnparser = new AadlBaUnparser();
-			// Throw exception if first and last char is not a bracket
-			// to know when formatter has changed
-			final String formattedActionBlock = baUnparser.process(actionBlock);
-			final int lastIndex = formattedActionBlock.length() - 1;
-			if (!Objects.equals('{', formattedActionBlock.charAt(0))
-					|| !Objects.equals('}', formattedActionBlock.charAt(lastIndex))) {
-				throw new AadlGraphicalEditorException(
-						"Unexpected action block format '" + formattedActionBlock + "'.");
-			}
-
-			// Split action at new line character and throw out action block brackets
-			final List<String> actionBlockText = getInnerActionBlockText(formattedActionBlock.split("\n"));
-
-			// Get whitespace to trim from each line after removing opening bracket
-			final int whitespace = getWhiteSpace(actionBlockText.get(0));
-			actionText = String
-					.join("", actionBlockText.stream().map(ss -> ss.substring(whitespace)).toArray(String[]::new))
-					.trim();
-
-			suffix = sourceText.substring(terminationOffset);
-		}
-
-		// Create condition value
-		return new BehaviorActionBlockEmbeddedTextValue(behaviorTransition, sourceText.length(), prefix, actionText,
-				suffix);
-	}
-
-	private static int getWhiteSpace(final String s) {
-		for (int i = 0; i < s.length(); i++) {
-			if (!Character.isWhitespace(s.charAt(i))) {
-				return i;
-			}
-		}
-
-		return 0;
-	}
-
-	private static List<String> getInnerActionBlockText(final String[] splitActionBlockText) {
-		return Arrays.asList(splitActionBlockText).subList(1, splitActionBlockText.length - 1);
 	}
 }

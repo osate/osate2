@@ -23,14 +23,20 @@
  */
 package org.osate.ge.ba.ui.properties;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.NamedElement;
 import org.osate.ba.aadlba.BehaviorActionBlock;
 import org.osate.ba.aadlba.BehaviorTransition;
+import org.osate.ba.unparser.AadlBaUnparser;
 import org.osate.ge.ProjectUtil;
+import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.ba.ui.EmbeddedTextEditor;
+import org.osate.ge.ba.util.BehaviorAnnexXtextUtil;
 
 /**
  * EditableEmbeddedTextValue for editing an {@link BehaviorActionBlock} in an {@link EmbeddedTextEditor}
@@ -45,14 +51,14 @@ public class BehaviorActionBlockEmbeddedTextValue extends EditableEmbeddedTextVa
 	/**
 	 * Instantiates an {@link EditableEmbeddedTextValue} for {@link BehaviorActionBlock} and editing support within an {@link EmbeddedTextEditor}
 	 * @param behaviorTransition the owner of the {@link BehaviorActionBlock} being edited
-	 * @param originalSrcLength is the length of the original AADL source text
+	 * @param updateLength is the length of the text to be replaced when updating the resource
 	 * @param prefix is the text before the modifiable text
 	 * @param editableText is the text that is modifiable
 	 * @param suffix is the text after the modifiable text
 	 */
-	public BehaviorActionBlockEmbeddedTextValue(final BehaviorTransition behaviorTransition,
-			final int originalSrcLength, final String prefix, final String editableText, final String suffix) {
-		super(ProjectUtil.getProjectForBoOrThrow(behaviorTransition), originalSrcLength, prefix, editableText, suffix);
+	private BehaviorActionBlockEmbeddedTextValue(final BehaviorTransition behaviorTransition,
+			final int updateLength, final String prefix, final String editableText, final String suffix) {
+		super(ProjectUtil.getProjectForBoOrThrow(behaviorTransition), updateLength, prefix, editableText, suffix);
 		this.behaviorTransition = behaviorTransition;
 	}
 
@@ -106,7 +112,7 @@ public class BehaviorActionBlockEmbeddedTextValue extends EditableEmbeddedTextVa
 		if (!actionExists && !newActionBlock.isEmpty()) {
 			// Modify prefix to account for bracket being added
 			setPrefix(getPrefix().substring(0, getPrefix().length() - 1));
-			// Add brackets for creating new action block
+			// Add braces for creating new action block
 			newActionBlock = "{" + newActionBlock + "}";
 		} else {
 			if (actionExists && newActionBlock.isEmpty()) {
@@ -118,4 +124,91 @@ public class BehaviorActionBlockEmbeddedTextValue extends EditableEmbeddedTextVa
 
 		super.setEditableText(newActionBlock);
 	};
+
+	/**
+	 * Creates an {@link EditableEmbeddedTextValue} that allows editing of the embedded AADL source for the {@link BehaviorActionBlock}
+	 * @param behaviorTransition the Behavior Transition that owns the Behavior Action Block
+	 * @return an {@link EditableEmbeddedTextValue} for the {@link BehaviorActionBlock}
+	 */
+	public static EditableEmbeddedTextValue create(final BehaviorTransition behaviorTransition) {
+		final String sourceText = BehaviorAnnexXtextUtil.getText(behaviorTransition);
+		final BehaviorActionBlock actionBlock = behaviorTransition.getActionBlock();
+
+		// Text before action block
+		final String prefix;
+		// Action block text
+		final String actionText;
+		// Text after action block
+		final String suffix;
+		if (actionBlock == null) {
+			// Transition offset
+			final int transitionOffset = behaviorTransition.getAadlBaLocationReference().getOffset();
+			final String transitionText = sourceText.substring(transitionOffset);
+			// Find transition terminating semicolon offset
+			final int terminationOffset = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(transitionText, ';')
+					+ transitionOffset;
+
+			// Transition action prefix and add open bracket for action
+			prefix = sourceText.substring(0, terminationOffset) + "{";
+			// Empty action text
+			actionText = "";
+			// Add bracket to close action text
+			suffix = "}" + sourceText.substring(terminationOffset);
+		} else {
+			// Action offset
+			final int updateOffset = actionBlock.getAadlBaLocationReference().getOffset() + 1;
+			prefix = sourceText.substring(0, updateOffset);
+
+			// Note: Condition length only counts until the first space (assuming).
+			// For example, when dispatch condition is "on dispatch" length is 2.
+			// Find closing "]", to get condition text
+			final String afterTransitionText = sourceText.substring(updateOffset);
+			// Find action ending offset
+			final int terminationOffset = BehaviorAnnexXtextUtil.findUncommentedTerminationChar(afterTransitionText,
+					'}') + updateOffset;
+
+			// Get formatted action block text
+			final AadlBaUnparser baUnparser = new AadlBaUnparser();
+			// Throw exception if first and last char is not a bracket
+			// to know when formatter has changed
+			final String formattedActionBlock = baUnparser.process(actionBlock);
+			final int lastIndex = formattedActionBlock.length() - 1;
+			if (!Objects.equals('{', formattedActionBlock.charAt(0))
+					|| !Objects.equals('}', formattedActionBlock.charAt(lastIndex))) {
+				throw new AadlGraphicalEditorException(
+						"Unexpected action block format '" + formattedActionBlock + "'.");
+			}
+
+			// Split action at new line character and throw out action block brackets
+			final List<String> actionBlockText = getInnerActionBlockText(formattedActionBlock.split("\n"));
+
+			// Get whitespace to trim from each line after removing opening bracket
+			final int whitespace = getWhiteSpace(actionBlockText.get(0));
+			actionText = String
+					.join("", actionBlockText.stream().map(ss -> ss.substring(whitespace)).toArray(String[]::new))
+					.trim();
+
+			suffix = sourceText.substring(terminationOffset);
+		}
+
+		final int updateLength = Math.max(0, sourceText.length() - prefix.length() - suffix.length());
+
+		// Create the value
+		return new BehaviorActionBlockEmbeddedTextValue(behaviorTransition, updateLength, prefix, actionText,
+				suffix);
+	}
+
+	private static int getWhiteSpace(final String s) {
+		for (int i = 0; i < s.length(); i++) {
+			if (!Character.isWhitespace(s.charAt(i))) {
+				return i;
+			}
+		}
+
+		return 0;
+	}
+
+	private static List<String> getInnerActionBlockText(final String[] splitActionBlockText) {
+		return Arrays.asList(splitActionBlockText).subList(1, splitActionBlockText.length - 1);
+	}
 }
