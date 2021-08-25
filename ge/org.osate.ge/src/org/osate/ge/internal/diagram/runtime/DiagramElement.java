@@ -453,59 +453,59 @@ public class DiagramElement extends DiagramNode implements RelativeReferenceProv
 		sb.append('{');
 		sb.append(System.lineSeparator());
 
-		final String innerIndention = indentation + '\t';
-		sb.append(innerIndention);
+		final String innerIndentation = indentation + '\t';
+		sb.append(innerIndentation);
 		sb.append("relative reference: ");
 		sb.append(boRelReference);
 		sb.append(System.lineSeparator());
 
-		sb.append(innerIndention);
+		sb.append(innerIndentation);
 		sb.append("id: ");
 		sb.append(id);
 		sb.append(System.lineSeparator());
 
-		sb.append(innerIndention);
+		sb.append(innerIndentation);
 		sb.append("graphicalConfig: ");
 		sb.append(graphicalConfig);
 		sb.append(System.lineSeparator());
 
 		if (position != null) {
-			sb.append(innerIndention);
+			sb.append(innerIndentation);
 			sb.append("position: ");
 			sb.append(position);
 			sb.append(System.lineSeparator());
 		}
 
 		if (size != null) {
-			sb.append(innerIndention);
+			sb.append(innerIndentation);
 			sb.append("size: ");
 			sb.append(size);
 			sb.append(System.lineSeparator());
 		}
 
 		if (dockArea != null) {
-			sb.append(innerIndention);
+			sb.append(innerIndentation);
 			sb.append("dock area: ");
 			sb.append(dockArea);
 			sb.append(System.lineSeparator());
 		}
 
 		if (bendpoints != null) {
-			sb.append(innerIndention);
+			sb.append(innerIndentation);
 			sb.append("bendpoints: ");
 			sb.append(Arrays.toString(bendpoints.toArray(new Point[bendpoints.size()])));
 			sb.append(System.lineSeparator());
 		}
 
 		if (style != null) {
-			sb.append(innerIndention);
+			sb.append(innerIndentation);
 			sb.append("style: ");
 			sb.append(style);
 			sb.append(System.lineSeparator());
 		}
 
 		if (children.size() > 0) {
-			children.toString(sb, innerIndention);
+			children.toString(sb, innerIndentation);
 		}
 
 		sb.append(indentation);

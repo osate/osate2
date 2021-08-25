@@ -42,7 +42,7 @@ public class DefaultQueryService implements QueryService {
 
 	/**
 	 * Creates a new instance
-	 * @param refBuilder the reference buidler used when executing queries
+	 * @param refBuilder the reference builder used when executing queries
 	 */
 	public DefaultQueryService(final ReferenceService refBuilder) {
 		this.queryRunner = new QueryRunner(refBuilder);

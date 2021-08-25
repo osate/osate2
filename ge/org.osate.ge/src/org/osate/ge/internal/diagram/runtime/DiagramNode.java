@@ -42,7 +42,7 @@ public abstract class DiagramNode implements BusinessObjectContext {
 
 	/**
 	 * Returns the child which has the specified relative reference
-	 * @param ref the relative of the requested child
+	 * @param ref the relative reference of the requested child
 	 * @return the child diagram element which has the specified relative reference
 	 */
 	public abstract DiagramElement getChildByRelativeReference(final RelativeBusinessObjectReference ref);

@@ -29,7 +29,7 @@ package org.osate.ge.graphics;
  */
 public enum LineStyle {
 	/**
-	 * An interrupted line
+	 * An uninterrupted line
 	 */
 	SOLID,
 
