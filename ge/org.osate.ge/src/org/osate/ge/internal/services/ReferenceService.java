@@ -27,8 +27,13 @@ import org.eclipse.core.resources.IProject;
 import org.osate.ge.services.ReferenceBuilderService;
 
 /**
- * Service for building and resolving references to business objects
+ * Global service for working with references
  */
 public interface ReferenceService extends ReferenceBuilderService, ReferenceLabelService {
+	/**
+	 * Returns a project specific reference service which allows resolving references contained in the specified project
+	 * @param project the project which determines how references are resolved
+	 * @return the project specific reference service.
+	 */
 	ProjectReferenceService getProjectReferenceService(IProject project);
 }

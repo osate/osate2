@@ -140,7 +140,6 @@ import org.osate.ge.internal.services.SystemInstanceLoadingService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.services.impl.DefaultActionService;
 import org.osate.ge.internal.services.impl.DefaultColoringService;
-import org.osate.ge.internal.services.impl.DefaultUiService;
 import org.osate.ge.internal.services.impl.ProjectReferenceServiceProxy;
 import org.osate.ge.internal.ui.editor.ActivateAgeEditorAction;
 import org.osate.ge.internal.ui.editor.AgeContentOutlinePage;
@@ -588,7 +587,7 @@ public class AgeEditor extends EditorPart implements InternalDiagramEditor, ITab
 		adapterMap.put(QueryService.class, queryService);
 		adapterMap.put(AgeDiagramProvider.class, diagramProvider);
 		adapterMap.put(ProjectProvider.class, projectProvider);
-		adapterMap.put(UiService.class, new DefaultUiService(() -> this));
+		adapterMap.put(UiService.class, this);
 		adapterMap.put(ProjectReferenceService.class, projectReferenceService);
 		adapterMap.put(ReferenceResolutionService.class,
 				new DefaultReferenceResolutionService(projectReferenceService));

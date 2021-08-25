@@ -32,12 +32,24 @@ import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
 
+/**
+ * {@link ProjectReferenceService} implementation which delegates to the {@link ProjectReferenceService} returned by a
+ * {@link ReferenceService#getProjectReferenceService(IProject)}. The proxy allows the underlying service to change
+ * at runtime if the diagram for which the instance is created is moved to a different project. It also
+ * allows disposing the instance to avoid holding strong references to the underlying reference service.
+ */
 public class ProjectReferenceServiceProxy implements ProjectReferenceService {
 	private final ReferenceService referenceService;
 	private final ProjectProvider projectProvider;
 	private ProjectReferenceService currentProjectReferenceService;
 	private IProject currentProject;
 
+	/**
+	 * Creates a new instance
+	 * @param referenceService the reference service used to retrieve the underlying project reference service. Also used to build references and labels.
+	 * @param projectProvider the provider which returns the project for which this service resolves references.
+	 * If the diagram is moved then the project may change as well.
+	 */
 	public ProjectReferenceServiceProxy(final ReferenceService referenceService, final ProjectProvider projectProvider) {
 		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
 		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
@@ -48,8 +60,11 @@ public class ProjectReferenceServiceProxy implements ProjectReferenceService {
 		return referenceService.getCanonicalReference(bo);
 	}
 
+	/**
+	 * Resets the reference to the underlying {@link ProjectReferenceService} to allow it to be garbage collected even
+	 * if a reference is kept to the proxy.
+	 */
 	public void dispose() {
-		// Remove reference so that the reference service will be disposed even if a reference is kept to the proxy.
 		this.currentProjectReferenceService = null;
 	}
 
