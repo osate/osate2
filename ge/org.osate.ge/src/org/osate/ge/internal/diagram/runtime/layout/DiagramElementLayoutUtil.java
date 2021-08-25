@@ -155,7 +155,7 @@ public class DiagramElementLayoutUtil {
 	 * @param diagram the diagram to layout. Tee specified nodes must be part of the specified diagram.
 	 * @param diagramNodes the nodes to layout. If null, the entire diagram will be laid out
 	 * @param layoutInfoProvider the layout info provider which provides additional information required for performing the layout
-	 * @param options  the layout options
+	 * @param options the layout options
 	 */
 	public static void layout(final String actionLabel, final AgeDiagram diagram,
 			final Collection<? extends DiagramNode> diagramNodes, final LayoutInfoProvider layoutInfoProvider,
