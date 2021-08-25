@@ -54,7 +54,7 @@ import com.google.common.base.Objects;
  */
 public class TransitionBranchPropertySection extends AbstractPropertySection {
 	/**
-	 * Testing ID of the text field containing the prability of the transition branch
+	 * Testing ID of the text field containing the probability of the transition branch
 	 */
 	public static final String WIDGET_ID_PROBABILITY = "org.osate.ge.errormodel.ui.properties.transitionBranch.probability";
 

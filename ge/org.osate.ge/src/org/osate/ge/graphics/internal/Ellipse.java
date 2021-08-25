@@ -34,7 +34,7 @@ public class Ellipse implements AgeShape {
 	private final Dimension fixedSize;
 
 	/**
-	 * Creates a new instance with a an optional fixed size. If a fixed size is specified, the graphic will not be resizable.
+	 * Creates a new instance with an optional fixed size. If a fixed size is specified, the graphic will not be resizable.
 	 * @param fixedSize the size of the graphic. May be null to indicate that the graphic does not have a fixed size.
 	 */
 	public Ellipse(final Dimension fixedSize) {
