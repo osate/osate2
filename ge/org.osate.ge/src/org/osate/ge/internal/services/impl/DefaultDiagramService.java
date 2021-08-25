@@ -87,10 +87,17 @@ import org.osgi.framework.FrameworkUtil;
 
 import com.google.common.collect.ImmutableSet;
 
+/**
+ * {@link DiagramService} implementation
+ *
+ */
 public class DefaultDiagramService implements DiagramService {
 	private final ReferenceService referenceService;
 	private final ExtensionRegistryService extRegistry;
 
+	/**
+	 * Context function which instantiates this service
+	 */
 	public static class ContextFunction extends SimpleServiceContextFunction<DiagramService> {
 		@Override
 		public DiagramService createService(final IEclipseContext context) {
@@ -155,7 +162,7 @@ public class DefaultDiagramService implements DiagramService {
 	private SavedDiagramIndex savedDiagramIndex;
 	private SavedDiagramIndexInvalidator indexUpdater;
 
-	public DefaultDiagramService(final ReferenceService referenceBuilder, final ExtensionRegistryService extRegistry) {
+	private DefaultDiagramService(final ReferenceService referenceBuilder, final ExtensionRegistryService extRegistry) {
 		this.referenceService = Objects.requireNonNull(referenceBuilder, "referenceBuilder must not be null");
 		this.extRegistry = Objects.requireNonNull(extRegistry, "extRegistry must not be null");
 
@@ -168,7 +175,7 @@ public class DefaultDiagramService implements DiagramService {
 		workspace.addResourceChangeListener(indexUpdater);
 	}
 
-	public void dispose() {
+	private void dispose() {
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		workspace.removeResourceChangeListener(indexUpdater);
 	}
@@ -316,10 +323,6 @@ public class DefaultDiagramService implements DiagramService {
 		}
 	}
 
-	/**
-	 * Returns all diagrams in the specified projects.
-	 * @return
-	 */
 	@Override
 	public List<DiagramReference> findDiagrams(final Set<IProject> projects) {
 		final Map<IFile, InternalDiagramEditor> fileToEditorMap = getOpenEditorsMap(projects);
@@ -353,7 +356,7 @@ public class DefaultDiagramService implements DiagramService {
 		return fileToEditorMap;
 	}
 
-	class InternalReferencesToUpdate implements ReferenceCollection {
+	private class InternalReferencesToUpdate implements ReferenceCollection {
 		// Mapping from internal diagram references to a mapping from original diagram reference to lists of references to update
 		// Key should be an IFile or a InternalDiagramEditor
 		private final Map<Object, Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>>> sourceToCanonicalReferenceToReferencesMap = new HashMap<>();
@@ -403,7 +406,8 @@ public class DefaultDiagramService implements DiagramService {
 										diagramResource.save(Collections.emptyMap());
 									} catch (final IOException e) {
 										// Log and ignore
-										StatusManager.getManager().handle(new Status(IStatus.ERROR,
+										StatusManager.getManager()
+										.handle(new Status(IStatus.ERROR,
 												FrameworkUtil.getBundle(getClass()).getSymbolicName(),
 												"Error saving diagram resource", e), StatusManager.LOG);
 									}
@@ -484,34 +488,23 @@ public class DefaultDiagramService implements DiagramService {
 					.computeIfAbsent(originalCanonicalReference, (k) -> new ArrayList<>());
 			updateableReferences.add(reference);
 		}
-
-		public Collection<Entry<CanonicalBusinessObjectReference, Collection<UpdateableReference>>> getReferences(
-				final InternalDiagramReference ref) {
-			final Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>> canonicalReferenceToUpdateableReferenceMap = sourceToCanonicalReferenceToReferencesMap
-					.get(ref);
-			if (canonicalReferenceToUpdateableReferenceMap == null) {
-				return Collections.emptyList();
-			}
-
-			return canonicalReferenceToUpdateableReferenceMap.entrySet();
-		}
 	}
 
-// Variables used during the update process
+	// Variables used during the update process
 	private Resource referenceUpdateResource;
 	private DiagramModification referenceUpdateModification;
 
-	interface UpdateableReference {
+	private interface UpdateableReference {
 		void update(CanonicalBusinessObjectReference newCanonicalReference,
 				RelativeBusinessObjectReference newRelativeReference);
 	}
 
-//
-// Updateable Reference Implementations
-//
+	//
+	// Updateable Reference Implementations
+	//
 
-// Reference to the context field in an open diagram's configuration
-	class OpenDiagramContextReference implements UpdateableReference {
+	// Reference to the context field in an open diagram's configuration
+	private class OpenDiagramContextReference implements UpdateableReference {
 		private final AgeDiagram diagram;
 
 		public OpenDiagramContextReference(final AgeDiagram diagram) {
@@ -528,8 +521,8 @@ public class DefaultDiagramService implements DiagramService {
 		}
 	}
 
-// Reference to the reference of an open diagram element
-	class OpenDiagramElementReference implements UpdateableReference {
+	// Reference to the reference of an open diagram element
+	private class OpenDiagramElementReference implements UpdateableReference {
 		private final DiagramElement diagramElement;
 
 		public OpenDiagramElementReference(final DiagramElement diagramElement) {
@@ -546,8 +539,8 @@ public class DefaultDiagramService implements DiagramService {
 		}
 	}
 
-// Reference to the context field in an saved diagram configuration
-	class SavedDiagramContextReference implements UpdateableReference {
+	// Reference to the context field in an saved diagram configuration
+	private class SavedDiagramContextReference implements UpdateableReference {
 		@Override
 		public void update(final CanonicalBusinessObjectReference newCanonicalReference,
 				final RelativeBusinessObjectReference newRelativeReference) {
@@ -563,8 +556,8 @@ public class DefaultDiagramService implements DiagramService {
 		}
 	}
 
-// Reference to the context field in an saved diagram element
-	class SavedDiagramElementReference implements UpdateableReference {
+	// Reference to the context field in an saved diagram element
+	private class SavedDiagramElementReference implements UpdateableReference {
 		private final URI diagramElementUri;
 
 		public SavedDiagramElementReference(final URI diagramElementUri) {
@@ -636,10 +629,6 @@ public class DefaultDiagramService implements DiagramService {
 
 	/**
 	 * Gets references from open editors.
-	 * @param editor
-	 * @param node
-	 * @param originalCanonicalReferences
-	 * @param references
 	 */
 	private void getRuntimeReferencesFromChildren(final InternalDiagramEditor editor, final DiagramNode node,
 			final Collection<CanonicalBusinessObjectReference> originalCanonicalReferences,

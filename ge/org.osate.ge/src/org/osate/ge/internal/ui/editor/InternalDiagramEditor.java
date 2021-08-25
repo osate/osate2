@@ -41,12 +41,12 @@ import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.services.ActionExecutor;
-import org.osate.ge.internal.ui.tools.Tool;
+import org.osate.ge.internal.services.UiService;
 
 /**
  * Internal interface for the diagram editor. Defines functionality needed internally which must be provided by the editor implementation.
  */
-public interface InternalDiagramEditor extends GraphicalEditor, IWorkbenchPart3 {
+public interface InternalDiagramEditor extends GraphicalEditor, UiService, IWorkbenchPart3 {
 	/**
 	 * Returns the project in which the diagram is located.
 	 * @return the project containing the diagram.
@@ -76,25 +76,9 @@ public interface InternalDiagramEditor extends GraphicalEditor, IWorkbenchPart3 
 	AgeDiagram getDiagram();
 
 	/**
-	 * Clears the current selection in the editor and the outline
-	 */
-	void clearSelection();
-
-	/**
 	 * Closes the editor
 	 */
 	void closeEditor();
-
-	/**
-	 * Activates the specified tool
-	 * @param tool the tool to activate
-	 */
-	void activateTool(final Tool tool);
-
-	/**
-	 * Deactivate the active tool.
-	 */
-	void deactivateActiveTool();
 
 	/**
 	 * Updates the diagram and performs incremental layout

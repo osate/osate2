@@ -46,7 +46,7 @@ public interface InternalDiagramExportService extends DiagramExportService {
 	 * @param format either "svg" or a name of a {@link ImageIO} writer format
 	 * @param exportNode the diagram node to export. Must not be null.
 	 * @param scaling how much to scale the diagram when exporting.
-	 * @throws IOException
+	 * @throws IOException if an error occurs while saving the image file.
 	 */
 	void export(final GraphicalEditor editor, final OutputStream outputStream, final String format,
 			final DiagramNode exportNode, final double scaling) throws IOException;
@@ -56,12 +56,12 @@ public interface InternalDiagramExportService extends DiagramExportService {
 	 * @param editor editor contains the diagram being exported.
 	 * @param exportNode exportNode the diagram node to export. Must not be null.
 	 * @param scaling how much to scale the diagram when exporting.
-	 * @return
+	 * @return the created image
 	 */
 	BufferedImage export(final GraphicalEditor editor, final DiagramNode exportNode, final double scaling);
 
 	/**
-	 * Gets the dimensions of the image produced by exporting the specified node. The returned may contain fractional values.
+	 * Gets the dimensions of the image produced by exporting the specified node. The returned values may contain fractional values.
 	 * @param editor is the editor which contains the specified node.
 	 * @param exportNode the node which is to be exported. Must not be null.
 	 * @return the dimensions.

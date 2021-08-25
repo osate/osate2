@@ -69,7 +69,6 @@ Export-Package: org.osate.ge,
  org.osate.ge.internal.diagram.runtime.updating;x-friends:="org.osate.ge.tests,org.osate.ge.gef.ui",
  org.osate.ge.internal.operations;x-friends:="org.osate.ge.tests,org.osate.ge.gef.ui",
  org.osate.ge.internal.query;x-friends:="org.osate.ge.tests",
- org.osate.ge.internal.selection;x-internal:=true,
  org.osate.ge.internal.services;
   x-friends:="org.osate.ui,
    org.osate.ge.tests,
