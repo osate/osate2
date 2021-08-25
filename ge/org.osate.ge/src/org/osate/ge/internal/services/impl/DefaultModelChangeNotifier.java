@@ -50,6 +50,10 @@ import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.ui.xtext.XtextDocumentChangeListener;
 import org.osgi.framework.FrameworkUtil;
 
+/**
+ * {@link ModelChangeNotifier} implementation
+ *
+ */
 public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 	private final ProjectDeltaVisitor projectVisitor = new ProjectDeltaVisitor();
 	private final AadlResourceUriCollectorVisitor resourceUriCollectorVisitor = new AadlResourceUriCollectorVisitor();
@@ -59,6 +63,9 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 	private boolean hasModelChanged = false;
 	private boolean hasChangesWhileUnlocked = false;
 
+	/**
+	 * Context function which instantiates this service
+	 */
 	public static class ContextFunction extends SimpleServiceContextFunction<ModelChangeNotifier> {
 		@Override
 		public  ModelChangeNotifier createService(final IEclipseContext context) {
@@ -130,8 +137,8 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 			} catch (final CoreException e) {
 				// Log and ignore
 				StatusManager.getManager()
-						.handle(new Status(IStatus.ERROR, FrameworkUtil.getBundle(getClass()).getSymbolicName(),
-								"Error listening for resource changes", e), StatusManager.LOG);
+				.handle(new Status(IStatus.ERROR, FrameworkUtil.getBundle(getClass()).getSymbolicName(),
+						"Error listening for resource changes", e), StatusManager.LOG);
 			}
 
 			Display.getDefault().syncExec(this::handleNotifications);
@@ -191,7 +198,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 		}
 	}
 
-	public DefaultModelChangeNotifier() {
+	private DefaultModelChangeNotifier() {
 		// Register a resource change listener
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		workspace.addResourceChangeListener(resourceChangeListener, IResourceChangeEvent.POST_BUILD);
@@ -200,7 +207,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 		AgeXtextUtil.addDocumentListener(xtextModelListener);
 	}
 
-	public void dispose() {
+	private void dispose() {
 		// Stop listening for xtext model changes
 		AgeXtextUtil.removeDocumentListener(xtextModelListener);
 
