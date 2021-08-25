@@ -23,16 +23,19 @@
  */
 package org.osate.ge.internal.services;
 
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
+
 /**
- * ActionExecutor that manages an action stack. The action stack allows undoing and redoing actions.
- * It also provides notifications of changes to the action stack.
+ * Global {@link ActionExecutor} which manages an action stack. The action stack allows undoing and redoing actions.
+ * It also provides notifications of changes to the action stack. To execute actions, the {@link ActionExecutor} returned by
+ * {@link InternalDiagramEditor#getActionExecutor()} should be used in most cases.
  *
  * ActionService implementations must handle the execution of actions while another action is running.
  *
  */
 public interface ActionService extends ActionExecutor {
 	/**
-	 *
+	 * Returns true if an action is currently being executed.
 	 * @return true if an action is currently being executed.
 	 */
 	boolean isActionExecuting();

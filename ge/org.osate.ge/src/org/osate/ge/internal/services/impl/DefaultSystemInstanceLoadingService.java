@@ -44,7 +44,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -58,21 +57,21 @@ import org.osate.ge.internal.services.SystemInstanceLoadingService;
 import org.osate.ge.internal.util.Log;
 import org.osgi.framework.FrameworkUtil;
 
+/**
+ * {@link SystemInstanceLoadingService} implementation
+ *
+ */
 public class DefaultSystemInstanceLoadingService implements SystemInstanceLoadingService {
-	public static class ContextFunction extends SimpleServiceContextFunction<SystemInstanceLoadingService> {
-		@Override
-		protected SystemInstanceLoadingService createService(final IEclipseContext context) {
-			return new DefaultSystemInstanceLoadingService();
-		}
-	}
-
 	private final Object lock = new Object();
 
-	private final Map<IProject, Map<String, IPath>> projectToKeyToPathMap = new HashMap<>();
+	private final Map<String, IPath> keyToPathMap = new HashMap<>();
 	private final Map<IPath, String> pathToKeyMap = new HashMap<>();
 	private final Set<IFile> pendingInstanceModels = new HashSet<>(); // For populating the maps once a request is made. This is needed to prevent from
 	// triggering a modification during a resource change notifications
 
+	/**
+	 * Creates a new instance
+	 */
 	public DefaultSystemInstanceLoadingService() {
 		// Listen for resource changes. Keep mapping up to date.
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(new IResourceChangeListener() {
@@ -117,7 +116,7 @@ public class DefaultSystemInstanceLoadingService implements SystemInstanceLoadin
 	}
 
 	@Override
-	public SystemInstance loadSystemInstance(final IProject project, final String key) {
+	public SystemInstance loadSystemInstance(final String key) {
 		synchronized(lock) {
 			// Process pending files
 			for(final IFile pendingInstanceFile : pendingInstanceModels) {
@@ -125,14 +124,7 @@ public class DefaultSystemInstanceLoadingService implements SystemInstanceLoadin
 			}
 			pendingInstanceModels.clear();
 
-			final Map<String, IPath> keyToPathMap = projectToKeyToPathMap.get(project);
-			final IPath path;
-			if(keyToPathMap == null) {
-				path = null;
-			} else {
-				path = keyToPathMap.get(key);
-			}
-
+			final IPath path = keyToPathMap.get(key);
 			return path == null ? null : loadSystemInstance(path);
 		}
 	}
@@ -197,10 +189,6 @@ public class DefaultSystemInstanceLoadingService implements SystemInstanceLoadin
 			final String key = getKey(instanceFile);
 			if (key != null) {
 				pathToKeyMap.put(fullPath, key);
-
-				// Ge they key to path map for the project
-				final Map<String, IPath> keyToPathMap = projectToKeyToPathMap.computeIfAbsent(project,
-						(k) -> new HashMap<>());
 				keyToPathMap.put(key, fullPath);
 			}
 		}
@@ -211,15 +199,7 @@ public class DefaultSystemInstanceLoadingService implements SystemInstanceLoadin
 		final String key = pathToKeyMap.get(instancePath);
 		if(key != null) {
 			pathToKeyMap.remove(instancePath);
-
-			// Remove it from the key to path map
-			final IProject project = instanceFile.getProject();
-			if(project != null) {
-				final Map<String, IPath> keyToPathMap = projectToKeyToPathMap.get(project);
-				if(keyToPathMap != null) {
-					keyToPathMap.remove(key);
-				}
-			}
+			keyToPathMap.remove(key);
 		}
 
 		// Remove it from the pending instance files collection in case it is awaiting processing
@@ -245,7 +225,7 @@ public class DefaultSystemInstanceLoadingService implements SystemInstanceLoadin
 			// the exception could be thrown if there is a system instance anywhere in the workspace that cannot be loaded.
 			StatusManager.getManager()
 			.handle(new Status(IStatus.ERROR, FrameworkUtil.getBundle(getClass()).getSymbolicName(),
-							"Error loading system instance resource", ex), StatusManager.LOG);
+					"Error loading system instance resource", ex), StatusManager.LOG);
 		}
 
 		return null;

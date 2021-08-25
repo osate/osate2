@@ -48,11 +48,11 @@ import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import com.google.common.collect.Lists;
 
 /**
- * Implementation of the ActionService.
+ * {@link ActionService} implementation
  *
- * If an action is executed while another action is running, then the action is grouped with the current action. When actions are
+ * <p>If an action is executed while another action is running, then the action is grouped with the current action. When actions are
  * undone or redone, the behavior of the actions will not be interleaved. For this reason, it is recommended to not perform multiple actions
- * which provide a reverse action at the same time.
+ * which provide a reverse action at the same time.</p>
  *
  */
 public class DefaultActionService implements ActionService {

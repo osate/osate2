@@ -29,7 +29,8 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.internal.services.ClipboardService;
 
 /**
- * {@link ClipboardService} implementation
+ * {@link ClipboardService} implementation. This implementation stores the contents internally and does not interact with the system
+ * clipboard.
  *
  */
 public class DefaultClipboardService implements ClipboardService {
