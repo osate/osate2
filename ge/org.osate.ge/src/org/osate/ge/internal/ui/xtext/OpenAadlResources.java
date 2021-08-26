@@ -47,8 +47,8 @@ import com.google.common.collect.Streams;
 class OpenAadlResources {
 	private final Map<IXtextDocument, OpenAadlResource> documentToOpenResourceMap = new HashMap<>();
 
-	// qualified names may not be unique not unique. Qualified names will be stored in lowercase format
-	// ater OpenAadlResource values are considered newer.
+	// Qualified names may not be unique. Qualified names will be stored in lowercase format
+	// OpenAadlResource values are considered newer.
 	private final ListMultimap<String, OpenAadlResource> qualifiedNameToOpenResourcesMap = ArrayListMultimap.create();
 	private final Map<IXtextDocument, IXtextModelListener> documentToInternalModelListenerMap = new HashMap<>();
 	private final List<XtextDocumentChangeListener> documentListeners = new CopyOnWriteArrayList<>();
