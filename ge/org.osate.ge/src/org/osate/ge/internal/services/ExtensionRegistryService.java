@@ -66,49 +66,69 @@ import org.osate.ge.palette.PaletteCategory;
 import org.osate.ge.palette.PaletteContributor;
 import org.osate.ge.ui.TooltipContributor;
 
+/**
+ * Global service which provides access to registered extensions
+ */
 public interface ExtensionRegistryService
 extends BusinessObjectHandlerProvider, ContentFilterProvider, DiagramTypeProvider {
 	/**
-	 * Immutable POJO for information about a registered image
+	 * Immutable POJO containing information about a registered image
 	 */
 	class RegisteredImage {
+		/**
+		 * Creates a new instance
+		 * @param plugin the value for {@link #plugin}
+		 * @param path the value for {@link #path}
+		 */
 		public RegisteredImage(final String plugin, final String path) {
 			this.plugin = Objects.requireNonNull(plugin, "plugin must not be null");
 			this.path = Objects.requireNonNull(path, "path must not be null");
 		}
 
+		/**
+		 * The ID of the plugin containing the image
+		 */
 		public final String plugin;
+
+		/**
+		 * The path of the image within the plugin
+		 */
 		public final String path;
 	}
 
 	/**
-	 * Business object handlers are extension which provide
+	 * Returns an immutable list of registered business object handlers
+	 * @return an immutable list of registered business object handlers.
 	 */
 	List<BusinessObjectHandler> getBusinessObjectHandlers();
 
 	/**
-	 * @return an ordered collection of tooltip contributors.
-	 * The following annotations are used with tooltip contributors:
-	 * Activate - Required
+	 * Returns an immutable list of tooltip contributors.
+	 * @return an immutable list of tooltip contributors.
 	 */
 	List<TooltipContributor> getTooltipContributors();
 
 	/**
-	 * Returns a list of registered categories for the palette.
+	 * Returns an immutable list of registered categories for the palette.
+	 * @return an immutable list of registered categories for the palette.
 	 */
 	List<PaletteCategory> getCategories();
 
+	/**
+	 * Returns an immutable collection of business object providers
+	 * @return an immutable collection of business object providers
+	 */
 	Collection<BusinessObjectProvider> getBusinessObjectProviders();
 
 	/**
 	 * Returns a mapping between the image id and information regarding the registered image
-	 * @return an unmodifiable map with the mapping.
+	 * @return an immutable mapping between image IDs and registered image objects
 	 */
 	Map<String, RegisteredImage> getImageMap();
 
 	/**
-	 * Returns a collection containing palette command providers
-	 * @return an unmodifiable collection of palette command providers.
+	 * Returns an immutable collection containing registered palette contributors
+	 * @return an immutable collection containing registered palette contributors
 	 */
 	Collection<PaletteContributor> getPaletteContributors();
 }

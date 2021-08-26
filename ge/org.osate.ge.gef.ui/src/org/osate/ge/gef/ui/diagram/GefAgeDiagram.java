@@ -74,11 +74,11 @@ import org.osate.ge.internal.diagram.runtime.ElementAddedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
 import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
-import org.osate.ge.internal.diagram.runtime.botree.Completeness;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 import org.osate.ge.internal.diagram.runtime.styling.StyleCalculator;
 import org.osate.ge.internal.diagram.runtime.styling.StyleProvider;
+import org.osate.ge.internal.diagram.runtime.updating.Completeness;
 import org.osate.ge.internal.services.ColoringService;
 
 import com.google.common.base.Strings;
@@ -317,7 +317,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		 */
 		private void removeMappingForBranch(final DiagramElement de) {
 			// Remove mapping for children
-			for (final DiagramElement child : de.getDiagramElements()) {
+			for (final DiagramElement child : de.getChildren()) {
 				removeMappingForBranch(child);
 			}
 
@@ -332,7 +332,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 		 * Removes all connections contained in the specified element or its descendants.
 		 */
 		private void removeContainedConnections(final DiagramElement e) {
-			for (final DiagramElement childDiagramElement : e.getDiagramElements()) {
+			for (final DiagramElement childDiagramElement : e.getChildren()) {
 				final GefDiagramElement childGefDiagramElement = diagramElementToGefDiagramElementMap
 						.get(childDiagramElement);
 				removeContainedConnections(childDiagramElement);
@@ -415,7 +415,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 */
 	private void ensureSceneNodesExistForChildren(final DiagramNode parentDiagramNode,
 			final Node parentDiagramNodeSceneNode) {
-		for (final DiagramElement childDiagramElement : parentDiagramNode.getDiagramElements()) {
+		for (final DiagramElement childDiagramElement : parentDiagramNode.getChildren()) {
 			final GefDiagramElement childGefDiagramElement = diagramElementToGefDiagramElementMap
 					.computeIfAbsent(childDiagramElement, e -> new GefDiagramElement(childDiagramElement));
 			final Node childSceneNode = ensureSceneNodeExists(childGefDiagramElement, parentDiagramNodeSceneNode);
@@ -610,7 +610,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 * @param parentDiagramNode the diagram node for which scene nodes associated with its children will be updated.
 	 */
 	private void updateSceneNodesForChildren(final DiagramNode parentDiagramNode) {
-		for (final DiagramElement childDiagramElement : parentDiagramNode.getDiagramElements()) {
+		for (final DiagramElement childDiagramElement : parentDiagramNode.getChildren()) {
 			updateSceneNode(diagramElementToGefDiagramElementMap.get(childDiagramElement));
 			updateSceneNodesForChildren(childDiagramElement);
 		}
@@ -789,7 +789,7 @@ public class GefAgeDiagram implements AutoCloseable, LayoutInfoProvider {
 	 * @param styleProvider the style provider which will be used to determine the final style for the diagram elements
 	 */
 	private void calculateAndApplyStylesForChildren(final DiagramNode n, final StyleProvider styleProvider) {
-		for (final DiagramElement childDiagramElement : n.getDiagramElements()) {
+		for (final DiagramElement childDiagramElement : n.getChildren()) {
 			calculateAndApplyStylesForChildren(childDiagramElement, styleProvider);
 			calculateAndApplyStyle(diagramElementToGefDiagramElementMap.get(childDiagramElement), styleProvider);
 		}

@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.diagram.runtime.botree;
+package org.osate.ge.internal.diagram.runtime.updating;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -29,13 +29,30 @@ import java.util.UUID;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.ProjectReferenceService;
 
-public class DefaultBusinessObjectNodeFactory {
+/**
+ * Factory class which creates {@link BusinessObjectNode} instances.
+ */
+public class BusinessObjectNodeFactory {
 	private final ProjectReferenceService referenceService;
 
-	public DefaultBusinessObjectNodeFactory(final ProjectReferenceService referenceService) {
+	/**
+	 * Creates a new instance which uses the specified reference service when creating {@link BusinessObjectNode} instances
+	 * @param referenceService the reference service
+	 */
+	public BusinessObjectNodeFactory(final ProjectReferenceService referenceService) {
 		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
 	}
 
+	/**
+	 * Creates a new node. {@link BusinessObjectNode#getDefaultChildrenHaveBeenPopulated()} will return true for the new node.
+	 * @param parent the parent of the new new node
+	 * @param id the ID of the new node
+	 * @param bo the business object of the new node.
+	 * @param completeness the completeness state of the new node
+	 * @return the new node
+	 * @throws NullPointerException if the business object is null for a non-root node or the relative reference could not be retrieved for the business object.
+	 * @throws IllegalArgumentException if a non-null business object was specified for a root node.
+	 */
 	public BusinessObjectNode create(final BusinessObjectNode parent,
 			final UUID id,
 			final Object bo,

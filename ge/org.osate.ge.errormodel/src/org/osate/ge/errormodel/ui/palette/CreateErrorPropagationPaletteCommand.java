@@ -94,9 +94,8 @@ public class CreateErrorPropagationPaletteCommand extends BasePaletteCommand imp
 		} else if (bo instanceof KeywordPropagationPoint) {
 			final KeywordPropagationPoint kw = (KeywordPropagationPoint) bo;
 			if (kw.getType() != KeywordPropagationPointType.ALL) {
-				return createPropgationCreationOperation(ctx.getTarget(), (newPropagation, subclause) -> {
-					newPropagation.setKind(kw.getType().getKind());
-				});
+				return createPropgationCreationOperation(ctx.getTarget(),
+						(newPropagation, subclause) -> newPropagation.setKind(kw.getType().getKind()));
 			}
 		} else if (bo instanceof PropagationPoint) {
 			return createPropgationCreationOperation(ctx.getTarget(), (newPropagation, subclause) -> {

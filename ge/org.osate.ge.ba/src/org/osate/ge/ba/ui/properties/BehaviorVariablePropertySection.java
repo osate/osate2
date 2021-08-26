@@ -113,7 +113,6 @@ public class BehaviorVariablePropertySection extends AbstractPropertySection {
 
 					OperationBuilder<?> opBuilder = innerBuilder;
 					for(final PublicPackageSection section : sections) {
-						System.err.println(section);
 						opBuilder = innerBuilder.modifyModel(section,
 								(tag, prevResult) -> tag, (tag, sectionToModify, prevResult) -> {
 									// Import package if needed

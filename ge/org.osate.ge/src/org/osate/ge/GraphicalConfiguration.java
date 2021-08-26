@@ -111,7 +111,7 @@ public final class GraphicalConfiguration {
 	}
 
 	/**
-	 * The diagram element's style.
+	 * The default style for the diagram element. The fields of the diagram element's style overrides this style.
 	 * @return the style
 	 * @noreference This method is not intended to be referenced by clients.
 	 */

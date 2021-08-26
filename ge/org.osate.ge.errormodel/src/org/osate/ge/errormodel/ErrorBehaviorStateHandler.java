@@ -87,7 +87,7 @@ public class ErrorBehaviorStateHandler implements BusinessObjectHandler {
 		final ErrorBehaviorState state = ctx.getBusinessObjectContext().getBusinessObject(ErrorBehaviorState.class)
 				.get();
 		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic)
-				.annotation(state.isIntial() ? "<Initial>" : null).style(ErrorModelGeUtil.centeredStyle).build());
+				.annotation(state.isIntial() ? "<Initial>" : null).style(ErrorModelGeUtil.CENTERED_STYLE).build());
 	}
 
 	@Override

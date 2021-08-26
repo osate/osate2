@@ -55,12 +55,17 @@ public class FaultSourceModel extends BaseObservableModel implements FaultSource
 	private List<ErrorBehaviorState> states;
 	private NamedObjectsProvider<ErrorTypes> knownErrorTypes;
 
+	/**
+	 * Creates a new instance
+	 * @param bos the initial business object selection
+	 */
 	public FaultSourceModel(final BusinessObjectSelection bos) {
 		setBusinessObjectSelection(bos);
 	}
 
 	/**
-	 * Refreshes the internal state of the model based on the specified business object selection
+	 * Refreshes the state of the model based on the specified business object selection
+	 * @param value the business object selection
 	 */
 	public void setBusinessObjectSelection(final BusinessObjectSelection value) {
 		this.bos = Objects.requireNonNull(value, "value must not be null");
@@ -103,7 +108,7 @@ public class FaultSourceModel extends BaseObservableModel implements FaultSource
 		return ErrorModelGeUtil.getAllInheritedErrorModelSubclauses(errorSource.getContainingClassifier())
 				.map(ErrorModelSubclause::getUseBehavior)
 				.filter(Objects::nonNull).findFirst().map(sm -> (List<ErrorBehaviorState>) sm.getStates())
-				.orElseGet(() -> Collections.emptyList());
+				.orElseGet(Collections::emptyList);
 	}
 
 	@Override

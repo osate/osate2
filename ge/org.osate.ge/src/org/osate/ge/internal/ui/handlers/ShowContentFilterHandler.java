@@ -37,8 +37,14 @@ import org.osgi.framework.FrameworkUtil;
 
 import com.google.common.collect.ImmutableSet;
 
+/**
+ * Handler which shows elements which match a content filter
+ */
 public class ShowContentFilterHandler extends AbstractHandler {
-	public static final String PARAM_CONTENTS_FILTER_ID = "contentsFilterId";
+	/**
+	 * ID of the parameter for specifying the content filter to use to determine elements to show
+	 */
+	public static final String PARAM_CONTENTS_FILTER_ID = "contentFilterId";
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {

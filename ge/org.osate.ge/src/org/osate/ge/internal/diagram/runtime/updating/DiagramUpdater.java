@@ -50,10 +50,6 @@ import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DockArea;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
-import org.osate.ge.internal.diagram.runtime.botree.Completeness;
-import org.osate.ge.internal.diagram.runtime.botree.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.AgeAction;
@@ -76,6 +72,14 @@ public class DiagramUpdater {
 	// Holds information regarding diagram elements which have not been created. The DiagramNode is the parent of the new element.
 	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, FutureElementInfo>> futureElementInfoMap = new HashMap<>();
 
+	/**
+	 * Creates an instance which will be used to update a diagram.
+	 * @param boTreeUpdater the tree updater
+	 * @param infoProvider the diagram element info provider
+	 * @param actionExecutor the action executor to use to execute action
+	 * @param referenceResolver the reference resolver
+	 * @param referenceBuilder the reference builder
+	 */
 	public DiagramUpdater(final BusinessObjectTreeUpdater boTreeUpdater,
 			final DiagramElementInformationProvider infoProvider, final ActionExecutor actionExecutor,
 			final ReferenceResolutionService referenceResolver, final ReferenceBuilderService referenceBuilder) {
@@ -87,10 +91,15 @@ public class DiagramUpdater {
 	}
 
 	/**
-	 * Add a position to be used for the initial position for the next element that is created with the specified canonical reference.
-	 * All future positions are cleared after each update.
-	 * @param ref
-	 * @param newElementPosition
+	 * Instructs the updater to create an element for the reference business object if the business object exists during the next
+	 * update. Also allows settings additional information such as the initial position of the diagram element.
+	 *
+	 * This is the mechanism by which a position can be specified for a diagram element which doesn't exist yet.
+	 * This is used to set the initial position of an element being created by the palette. When the diagram is updated the diagram element
+	 * is created and then the position is set to the specified value. The specified values are cleared after each update.
+	 * @param parentDiagramNode the diagram node which will be the parent of the new element
+	 * @param ref the relative reference used to identify the element
+	 * @param newElementInfo the information to use when initializing the diagram element. Must not be null.
 	 */
 	public void addToNextUpdate(final DiagramNode parentDiagramNode,
 			final RelativeBusinessObjectReference ref,
@@ -103,7 +112,10 @@ public class DiagramUpdater {
 		m.put(ref, newElementInfo);
 	}
 
-	// Updates the diagram.
+	/**
+	 * Updates the specified diagram.
+	 * @param diagram the diagram to update. See {@link DiagramUpdater#updateDiagram(AgeDiagram, BusinessObjectNode)}
+	 */
 	public void updateDiagram(final AgeDiagram diagram) {
 		// Create an updated business object tree based on the current state of the diagram and pending elements
 		final BusinessObjectNode tree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram, futureElementInfoMap, containerToRelativeReferenceToGhostMap);
@@ -111,8 +123,9 @@ public class DiagramUpdater {
 	}
 
 	/**
-	 *
-	 * @param diagram
+	 * Updates a diagram
+	 * @param diagram the diagram to update. Because the diagram updater is typically initialized with fields which are specific to a project,
+	 * a diagram updater should only be used with diagrams for which it was created.
 	 * @param inputTree is the input business object tree. The input tree is not modified.
 	 */
 	public void updateDiagram(final AgeDiagram diagram, final BusinessObjectNode inputTree) {
@@ -152,7 +165,7 @@ public class DiagramUpdater {
 				// If the new reference isn't equal to the old reference, then something isn't correct. Don't use the new reference.
 				if (Objects.equals(diagramContextRef, newDiagramContextRef)) {
 					m.setDiagramConfiguration(new DiagramConfigurationBuilder(diagram.getConfiguration())
-							.setContextBoReference(newDiagramContextRef).build());
+							.contextBoReference(newDiagramContextRef).build());
 				}
 			}
 		}
@@ -168,7 +181,7 @@ public class DiagramUpdater {
 	private void updateStructure(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectNode> bos) {
 		for(final BusinessObjectNode n : bos) {
 			// Get existing element if it exists.
-			DiagramElement element = container.getByRelativeReference(n.getRelativeReference());
+			DiagramElement element = container.getChildByRelativeReference(n.getRelativeReference());
 
 			// Create the element if it does not exist
 			if(element == null) {
@@ -204,7 +217,7 @@ public class DiagramUpdater {
 					ghostAndRemove(m, element);
 					continue;
 				} else {
-					element.setBusinessObjectHandler(boh);
+					m.setBusinessObjectHandler(element, boh);
 				}
 			}
 
@@ -215,10 +228,10 @@ public class DiagramUpdater {
 		// Remove elements whose business objects are not in the business object tree
 		// At this point, it is assumed that there is a diagram element for each business object. Elements that are incomplete may be pruned later.
 		// If the collections are the same size, there is nothing to remove
-		if(bos.size() != container.getDiagramElements().size()) {
+		if (bos.size() != container.getChildren().size()) {
 			// Build Set of Relative References of All the Objects in the Business Object Tree
 			final Set<RelativeBusinessObjectReference> boTreeRelativeReferenceSet = bos.stream().map((n) -> n.getRelativeReference()).collect(Collectors.toCollection(HashSet::new));
-			Iterator<DiagramElement> childrenIt = container.getDiagramElements().iterator();
+			Iterator<DiagramElement> childrenIt = container.getChildren().iterator();
 			while(childrenIt.hasNext()) {
 				final DiagramElement child = childrenIt.next();
 				if(!boTreeRelativeReferenceSet.contains(child.getRelativeReference())) {
@@ -253,7 +266,7 @@ public class DiagramUpdater {
 	private void updateElements(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectNode> bos, final Collection<DiagramElement> connectionElements) {
 		for(final BusinessObjectNode n : bos) {
 			// Get existing element. The updateStructure() pass should have ensured that it exists if a valid element could be created.
-			final DiagramElement element = container.getByRelativeReference(n.getRelativeReference());
+			final DiagramElement element = container.getChildByRelativeReference(n.getRelativeReference());
 			if(element == null) {
 				continue;
 			}
@@ -362,6 +375,11 @@ public class DiagramUpdater {
 	}
 
 	// Ghosting
+	/**
+	 * Clear ghosts. Ghosts are elements which have been removed from the diagram but which are retained until ghosts are cleared. They are
+	 * retained to allow the diagram element to be restored if the element was removed due to a transient issue. An example of that would
+	 * be a broken reference. One way ghosts can be restored is by using {@link org.osate.ge.internal.ui.handlers.RestoreMissingDiagramElementsHandler}.
+	 */
 	public void clearGhosts() {
 		containerToRelativeReferenceToGhostMap.clear();
 	}
@@ -383,21 +401,39 @@ public class DiagramUpdater {
 	public class GhostedElement {
 		private final DiagramElement element;
 
+		/**
+		 * Creates an instance
+		 * @param element the diagram element which was ghosted
+		 */
 		public GhostedElement(final DiagramElement element) {
 			this.element = Objects.requireNonNull(element, "element mustnot be null");
 		}
 
+		/**
+		 * Return the relative reference of the ghosted diagram element
+		 * @return the relative reference of the ghosted diagram element
+		 */
 		public RelativeBusinessObjectReference getRelativeReference() {
 			return element.getRelativeReference();
 		}
 
+		/**
+		 * Return the parent of the ghosted diagram element
+		 * @return the parent of the ghosted diagram element
+		 */
 		public DiagramNode getParent() {
 			return element.getParent();
 		}
 
+		/**
+		 * Update the business object and relative reference of the ghosted element. The ghosted element map will be updated with the new mapping.
+		 * @param m the modification to use to update the ghost
+		 * @param bo the new business object
+		 * @param newRelativeReference the relative reference for the business object
+		 */
 		public void updateBusinessObject(final DiagramModification m, final Object bo,
 				final RelativeBusinessObjectReference newRelativeReference) {
-			removeGhost(element.getContainer(), getRelativeReference());
+			removeGhost(element.getParent(), getRelativeReference());
 			m.updateBusinessObject(element, bo, newRelativeReference);
 			addGhost(element);
 		}
@@ -405,15 +441,15 @@ public class DiagramUpdater {
 
 	/**
 	 * Returns a collection containing the ghosted children for the specified node.
-	 * @param node
-	 * @return
+	 * @param node the node for which to retrieve the ghosted children
+	 * @return a collection containing the ghosted children for the specified node.
 	 */
 	public Collection<GhostedElement> getGhosts(final DiagramNode node) {
 		return containerToRelativeReferenceToGhostMap.getOrDefault(node, Collections.emptyMap()).values().stream()
 				.map(e -> new GhostedElement(e)).collect(Collectors.toList());
 	}
 
-	class AddGhostAction implements AgeAction {
+	private class AddGhostAction implements AgeAction {
 		private final DiagramElement ghost;
 
 		public AddGhostAction(final DiagramElement ghost) {
@@ -427,7 +463,7 @@ public class DiagramUpdater {
 
 		@Override
 		public AgeAction execute() {
-			final DiagramNode container = ghost.getContainer();
+			final DiagramNode container = ghost.getParent();
 
 			// Get the mapping from relative reference to the ghost for the container
 			Map<RelativeBusinessObjectReference, DiagramElement> relativeReferenceToGhostMap = containerToRelativeReferenceToGhostMap
@@ -444,7 +480,7 @@ public class DiagramUpdater {
 		}
 	}
 
-	class RemoveGhostAction implements AgeAction {
+	private class RemoveGhostAction implements AgeAction {
 		private final DiagramNode container;
 		private final RelativeBusinessObjectReference relativeReference;
 

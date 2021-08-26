@@ -196,7 +196,7 @@ public class PasteAction extends Action {
 
 			// Remove existing element
 			final DiagramElement existingDiagramElement = dstDiagramNode
-					.getByRelativeReference(newDiagramElement.getRelativeReference());
+					.getChildByRelativeReference(newDiagramElement.getRelativeReference());
 			if (existingDiagramElement != null) {
 				m.removeElement(existingDiagramElement);
 			}

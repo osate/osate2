@@ -40,16 +40,19 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
-import org.osate.ge.internal.diagram.runtime.botree.Completeness;
-import org.osate.ge.internal.diagram.runtime.botree.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.updating.Completeness;
+import org.osate.ge.internal.diagram.runtime.updating.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.services.ReferenceBuilderService;
 
+/**
+ * Handler for the show element command
+ */
 public class ShowElementHandler extends AbstractHandler {
 	@Override
 	public void setEnabled(final Object evaluationContext) {

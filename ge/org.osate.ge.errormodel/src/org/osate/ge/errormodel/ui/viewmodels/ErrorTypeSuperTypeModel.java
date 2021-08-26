@@ -41,7 +41,11 @@ import org.osate.ge.swt.selectors.SingleSelectorModel;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
-public class ErrorTypeExtendTypeModel extends BaseObservableModel implements SingleSelectorModel<ErrorType> {
+/**
+ * {@link SingleSelectorModel} implementation which edits the super type of {@link ErrorType} instances provided by
+ * {@link BusinessObjectSelection}
+ */
+public class ErrorTypeSuperTypeModel extends BaseObservableModel implements SingleSelectorModel<ErrorType> {
 	private static class Option {
 		public Option(final IEObjectDescription desc) {
 			this.type = (ErrorType) desc.getEObjectOrProxy();
@@ -60,12 +64,13 @@ public class ErrorTypeExtendTypeModel extends BaseObservableModel implements Sin
 	 * Creates a new instance
 	 * @param bos the initial business object selection
 	 */
-	public ErrorTypeExtendTypeModel(final BusinessObjectSelection bos) {
+	public ErrorTypeSuperTypeModel(final BusinessObjectSelection bos) {
 		setBusinessObjectSelection(bos);
 	}
 
 	/**
-	 * Refreshes the internal state of the model based on the specified business object selection
+	 * Refreshes the state of the model based on the specified business object selection
+	 * @param value the business object selection
 	 */
 	public void setBusinessObjectSelection(final BusinessObjectSelection value) {
 		this.bos = Objects.requireNonNull(value, "value must not be null");

@@ -140,8 +140,8 @@ censes only apply to the Third Party Software and not any other portion of this 
       <propertySections
             contributorId="org.osate.ge.editor.AgeDiagramEditor">
          <propertySection
-               class="org.osate.ge.errormodel.ui.properties.ErrorTypeExtendPropertySection"
-               filter="org.osate.ge.errormodel.ui.properties.ErrorTypeExtendPropertySection$Filter"
+               class="org.osate.ge.errormodel.ui.properties.ErrorTypePropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorTypePropertySection$Filter"
                id="org.osate.ge.errormodel.propertySections.errorTypeExtends"
                tab="org.osate.ge.ui.properties.tabs.aadl">
          </propertySection>

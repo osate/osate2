@@ -23,9 +23,27 @@
  */
 package org.osate.ge.graphics.internal;
 
+/**
+ * Possible types for {@link AgeConnectionTerminator} instances. Determines the shape of the connection terminator.
+ */
 public enum ConnectionTerminatorType {
+	/**
+	 * An arrow formed by a polygon with a white interior.
+	 */
 	OPEN_ARROW,
+
+	/**
+	 * An arrow formed by a polygon with an interior that matches its outline color.
+	 */
 	FILLED_ARROW,
+
+	/**
+	 * An arrow formed by lines which do not form a polygon.
+	 */
 	LINE_ARROW,
+
+	/**
+	 * A line orthogonal to the connection
+	 */
 	ORTHOGONAL_LINE
 }

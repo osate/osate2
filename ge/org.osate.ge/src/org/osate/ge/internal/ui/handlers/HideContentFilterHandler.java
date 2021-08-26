@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -43,8 +43,15 @@ import org.osate.ge.internal.ui.util.UiUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
+/**
+ * Handler which hides the children of the selected diagram elements which match the specified content filter
+ *
+ */
 public class HideContentFilterHandler extends AbstractHandler {
-	public static final String PARAM_CONTENTS_FILTER_ID = "contentsFilterId";
+	/**
+	 * The ID of the parameter used to specify the ID content filter to hide.
+	 */
+	public static final String PARAM_CONTENTS_FILTER_ID = "contentFilterId";
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
@@ -73,14 +80,14 @@ public class HideContentFilterHandler extends AbstractHandler {
 		final List<DiagramElement> elementsToRemove = selectedDiagramElements.stream()
 				.filter(s -> filter.isApplicable(s.getBusinessObject()))
 				.flatMap(
-						s -> s.getDiagramElements().stream().filter(child -> filter.test(child.getBusinessObject())))
+						s -> s.getChildren().stream().filter(child -> filter.test(child.getBusinessObject())))
 				.collect(Collectors.toList());
 
 		if(!elementsToRemove.isEmpty()) {
 			diagram.modify("Hide", m -> {
 				for (final DiagramElement selectedDiagramElement : selectedDiagramElements) {
 					if (filter.isApplicable(selectedDiagramElement.getBusinessObject())) {
-						for (final DiagramElement child : selectedDiagramElement.getDiagramElements()) {
+						for (final DiagramElement child : selectedDiagramElement.getChildren()) {
 							if (filter.test(child.getBusinessObject())) {
 								m.removeElement(child);
 							}

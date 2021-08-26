@@ -40,6 +40,7 @@ import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.diagram.Point;
 import org.osate.ge.internal.operations.DefaultOperationBuilder;
 import org.osate.ge.internal.operations.OperationExecutor;
+import org.osate.ge.internal.operations.OperationResults;
 import org.osate.ge.internal.operations.Step;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.operations.OperationBuilder;
@@ -112,19 +113,23 @@ public class OperationTest {
 		b.map(pr -> StepResultBuilder.create(pr + 2).build())
 				.modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
 					return StepResultBuilder.create(prevResult + 1).build();
-				}).modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
+				})
+				.modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
 					return StepResultBuilder.create().showNewBusinessObject(stubBoc, prevResult + 2).build();
 				});
 
 		final Step firstStep = rootOpBuilder.build();
 		final OperationExecutor executor = new OperationExecutor(modificationService, referenceBuilder);
-		executor.execute(firstStep, (results) -> {
-			// Verify that result was created.
-			final ImmutableSet<Integer> expectedBosToShow = ImmutableSet.of(6);
-			final Set<?> bosToShow = results.getContainerToBoToShowDetailsMap().values().stream().map(v -> v.bo)
-					.collect(Collectors.toSet());
-			assertEquals(expectedBosToShow, bosToShow);
-		});
+		final OperationResults results = executor.execute(firstStep);
+
+		// Verify that result was created.
+		final ImmutableSet<Integer> expectedBosToShow = ImmutableSet.of(6);
+		final Set<?> bosToShow = results.getContainerToBoToShowDetailsMap()
+				.values()
+				.stream()
+				.map(v -> v.bo)
+				.collect(Collectors.toSet());
+		assertEquals(expectedBosToShow, bosToShow);
 	}
 
 	@Test
@@ -135,23 +140,27 @@ public class OperationTest {
 		b.map(pr -> StepResultBuilder.create(pr + 2).build())
 				.modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
 					return StepResultBuilder.create(prevResult + 1).build();
-				}).modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
+				})
+				.modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
 					return StepResultBuilder.create().showNewBusinessObject(stubBoc, prevResult + 2).build();
 				});
-		b.map(pr -> StepResultBuilder.create(pr + 6).build()).modifyModel(null, (tag, prevResult) -> testBo,
-				(tag, boToModify, prevResult) -> {
+		b.map(pr -> StepResultBuilder.create(pr + 6).build())
+				.modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
 					return StepResultBuilder.create().showNewBusinessObject(stubBoc, prevResult + 3).build();
 				});
 
 		final Step firstStep = rootOpBuilder.build();
 		final OperationExecutor executor = new OperationExecutor(modificationService, referenceBuilder);
-		executor.execute(firstStep, (results) -> {
-			// Verify that results were created from both paths
-			final ImmutableSet<Integer> expectedBosToShow = ImmutableSet.of(6, 10);
-			final Set<?> bosToShow = results.getContainerToBoToShowDetailsMap().values().stream().map(v -> v.bo)
-					.collect(Collectors.toSet());
-			assertEquals(expectedBosToShow, bosToShow);
-		});
+		final OperationResults results = executor.execute(firstStep);
+
+		// Verify that results were created from both paths
+		final ImmutableSet<Integer> expectedBosToShow = ImmutableSet.of(6, 10);
+		final Set<?> bosToShow = results.getContainerToBoToShowDetailsMap()
+				.values()
+				.stream()
+				.map(v -> v.bo)
+				.collect(Collectors.toSet());
+		assertEquals(expectedBosToShow, bosToShow);
 	}
 
 	@Test
@@ -162,17 +171,20 @@ public class OperationTest {
 		b.map(pr -> StepResultBuilder.create(pr + 2).build())
 				.modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
 					return StepResultBuilder.create(prevResult + 1).build();
-				}).map(pr -> StepResultBuilder.create().showNewBusinessObject(stubBoc, Integer.valueOf(100)).build());
+				})
+				.map(pr -> StepResultBuilder.create().showNewBusinessObject(stubBoc, Integer.valueOf(100)).build());
 
 		final Step firstStep = rootOpBuilder.build();
 		final OperationExecutor executor = new OperationExecutor(modificationService, referenceBuilder);
-		executor.execute(firstStep, (results) -> {
-			// Verify that result was created from the map after the modification
-			final ImmutableSet<Integer> expectedBosToShow = ImmutableSet.of(100);
-			final Set<?> bosToShow = results.getContainerToBoToShowDetailsMap().values().stream().map(v -> v.bo)
-					.collect(Collectors.toSet());
-			assertEquals(expectedBosToShow, bosToShow);
-		});
+		final OperationResults results = executor.execute(firstStep);
+		// Verify that result was created from the map after the modification
+		final ImmutableSet<Integer> expectedBosToShow = ImmutableSet.of(100);
+		final Set<?> bosToShow = results.getContainerToBoToShowDetailsMap()
+				.values()
+				.stream()
+				.map(v -> v.bo)
+				.collect(Collectors.toSet());
+		assertEquals(expectedBosToShow, bosToShow);
 	}
 
 	@Test
@@ -184,13 +196,15 @@ public class OperationTest {
 
 		final Step firstStep = rootOpBuilder.build();
 		final OperationExecutor executor = new OperationExecutor(modificationService, referenceBuilder);
-		executor.execute(firstStep, (results) -> {
-			// Verify that result was created from the map after the modification
-			final ImmutableSet<Integer> expectedBosToShow = ImmutableSet.of(100);
-			final Set<?> bosToShow = results.getContainerToBoToShowDetailsMap().values().stream().map(v -> v.bo)
-					.collect(Collectors.toSet());
-			assertEquals(expectedBosToShow, bosToShow);
-		});
+		final OperationResults results = executor.execute(firstStep);
+		// Verify that result was created from the map after the modification
+		final ImmutableSet<Integer> expectedBosToShow = ImmutableSet.of(100);
+		final Set<?> bosToShow = results.getContainerToBoToShowDetailsMap()
+				.values()
+				.stream()
+				.map(v -> v.bo)
+				.collect(Collectors.toSet());
+		assertEquals(expectedBosToShow, bosToShow);
 	}
 
 	@Test
@@ -202,16 +216,16 @@ public class OperationTest {
 		b.map(pr -> StepResultBuilder.create(pr + 2).build())
 				.modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
 					return StepResultBuilder.create(prevResult + 1).abort().build();
-				}).modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
+				})
+				.modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
 					executed.set(true);
 					return StepResultBuilder.create().showNewBusinessObject(stubBoc, prevResult + 2).build();
 				});
 
 		final Step firstStep = rootOpBuilder.build();
 		final OperationExecutor executor = new OperationExecutor(modificationService, referenceBuilder);
-		executor.execute(firstStep, (results) -> {
-			assertEquals(false, executed.get());
-		});
+		executor.execute(firstStep);
+		assertEquals(false, executed.get());
 	}
 
 	@Test
@@ -223,20 +237,20 @@ public class OperationTest {
 		b.map(pr -> StepResultBuilder.create(pr + 2).build())
 				.modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
 					return StepResultBuilder.create(prevResult + 1).abort().build();
-				}).modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
+				})
+				.modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
 					executed.set(true);
 					return StepResultBuilder.create().showNewBusinessObject(stubBoc, prevResult + 2).build();
 				});
-		b.map(pr -> StepResultBuilder.create(pr + 6).build()).modifyModel(null, (tag, prevResult) -> testBo,
-				(tag, boToModify, prevResult) -> {
+		b.map(pr -> StepResultBuilder.create(pr + 6).build())
+				.modifyModel(null, (tag, prevResult) -> testBo, (tag, boToModify, prevResult) -> {
 					executed.set(true);
 					return StepResultBuilder.create().showNewBusinessObject(stubBoc, prevResult + 3).build();
 				});
 
 		final Step firstStep = rootOpBuilder.build();
 		final OperationExecutor executor = new OperationExecutor(modificationService, referenceBuilder);
-		executor.execute(firstStep, (results) -> {
-			assertEquals(false, executed.get());
-		});
+		executor.execute(firstStep);
+		assertEquals(false, executed.get());
 	}
 }

@@ -21,41 +21,23 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.services.impl;
+package org.osate.ge.internal.diagram.runtime.updating;
 
-import java.util.Objects;
-
-import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
-import org.osate.ge.internal.ui.tools.Tool;
-
-public class DefaultUiService implements UiService {
-	public static interface EditorProvider {
-		/**
-		 * Get the editor for the current diagram.
-		 * @return
-		 */
-		InternalDiagramEditor getEditor();
-	}
-
-	private final EditorProvider editorProvider;
-
-	public DefaultUiService(final EditorProvider editorProvider) {
-		this.editorProvider = Objects.requireNonNull(editorProvider, "editorProvider must not be null");
-	}
-
-	@Override
-	public void activateTool(final Tool tool) {
-		editorProvider.getEditor().activateTool(tool);
-	}
-
-	@Override
-	public void deactivateActiveTool() {
-		editorProvider.getEditor().deactivateActiveTool();
-	}
-
-	@Override
-	public void clearSelection() {
-		editorProvider.getEditor().clearSelection();
-	}
+/**
+ * Indicates the completeness status of a diagram element. The completeness of a diagram indicates whether all of its children are being displayed.
+ *
+ */
+public enum Completeness {
+	/**
+	 * The completeness of the diagram element has not been determined
+	 */
+	UNKNOWN,
+	/**
+	 * There are child diagram elements which are not being shown
+	 */
+	INCOMPLETE,
+	/**
+	 * All child diagram elements are being shown.
+	 */
+	COMPLETE
 }

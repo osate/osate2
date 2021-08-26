@@ -23,10 +23,18 @@
  */
 package org.osate.ge.internal.operations;
 
-public class AbstractStep implements Step {
+/**
+ * Abstract base class for {@link Step} implementations
+ *
+ */
+abstract class AbstractStep implements Step {
 	private final Step nextStep;
 
-	public AbstractStep(final Step nextStep) {
+	/**
+	 * Creates a new instance
+	 * @param nextStep the next step in the step sequence
+	 */
+	protected AbstractStep(final Step nextStep) {
 		this.nextStep = nextStep;
 	}
 
@@ -34,5 +42,4 @@ public class AbstractStep implements Step {
 	public Step getNextStep() {
 		return nextStep;
 	}
-
 }
