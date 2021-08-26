@@ -56,7 +56,7 @@ import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 
 /**
  * This is a default implementation of the model used for the SelectSubprogramDialog.
- * It supplies contexts and subprogram from @link AadlModelAccessUtil} and the specified {@link BehavioredImplementation}.
+ * It supplies contexts and subprogram from {@link AadlModelAccessUtil} and the specified {@link BehavioredImplementation}.
  *
  */
 public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialog.Model {
