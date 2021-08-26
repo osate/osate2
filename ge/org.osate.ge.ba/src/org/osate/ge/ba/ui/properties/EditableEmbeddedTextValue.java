@@ -162,11 +162,10 @@ public abstract class EditableEmbeddedTextValue {
 	public abstract NamedElement getElementToModify();
 
 	/**
-	 * Modify the AADL source using the {@link EditableEmbeddedTextValue} prefix and suffix
-	 * that is needed to test whether the edited text is valid
-	 * @param newText the modified text
-	 * @return an optional of the modified AADL source to validate the
-	 * new text.  Empty if no modification is required.
+	 * Overrides the new source for the AADL resource based on the new text.
+	 * @param newText the text entered by the user.
+	 * @return the new source for the AADL resource. If an empty value is returned, the source of the AADL resource used
+	 * by the embedded editor will be used.
 	 */
 	public Optional<String> getModifiedAADLSourceForNewText(final String newText) {
 		return Optional.empty();

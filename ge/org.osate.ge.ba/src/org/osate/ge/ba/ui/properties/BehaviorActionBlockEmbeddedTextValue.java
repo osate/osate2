@@ -97,7 +97,7 @@ public class BehaviorActionBlockEmbeddedTextValue extends EditableEmbeddedTextVa
 
 	@Override
 	public Optional<String> getModifiedAADLSourceForNewText(final String newActionBlock) {
-		if (newActionBlock.isEmpty()) {
+		if (newActionBlock.isBlank()) {
 			// Remove brackets for empty action block
 			final String prefix = getPrefix();
 			return Optional
