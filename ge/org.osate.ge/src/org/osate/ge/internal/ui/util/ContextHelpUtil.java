@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * Utility help related to context sensitive help
+ * Utility class related to context sensitive help
  *
  */
 public final class ContextHelpUtil {
