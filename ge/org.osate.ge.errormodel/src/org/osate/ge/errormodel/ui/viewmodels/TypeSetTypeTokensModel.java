@@ -51,9 +51,14 @@ public class TypeSetTypeTokensModel extends BaseTypeSetTypeTokensModel
 	 * @param bos the initial business object selection
 	 */
 	public TypeSetTypeTokensModel(final BusinessObjectSelection bos) {
+		super(false);
 		setBusinessObjectSelection(bos);
 	}
 
+	/**
+	 * Refreshes the state of the model based on the specified business object selection
+	 * @param value the business object selection
+	 */
 	public final void setBusinessObjectSelection(final BusinessObjectSelection value) {
 		this.bos = Objects.requireNonNull(value, "value must not be null");
 		setTypeSets(bos.boStream(TypeSet.class).collect(Collectors.toList()));

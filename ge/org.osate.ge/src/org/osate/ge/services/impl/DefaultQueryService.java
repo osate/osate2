@@ -29,13 +29,21 @@ import java.util.Optional;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.services.ReferenceService;
-import org.osate.ge.query.QueryResult;
 import org.osate.ge.query.ExecutableQuery;
+import org.osate.ge.query.QueryResult;
 import org.osate.ge.services.QueryService;
 
+/**
+ * {@link QueryService} implementation
+ *
+ */
 public class DefaultQueryService implements QueryService {
 	private final QueryRunner queryRunner;
 
+	/**
+	 * Creates a new instance
+	 * @param refBuilder the reference builder used when executing queries
+	 */
 	public DefaultQueryService(final ReferenceService refBuilder) {
 		this.queryRunner = new QueryRunner(refBuilder);
 	}

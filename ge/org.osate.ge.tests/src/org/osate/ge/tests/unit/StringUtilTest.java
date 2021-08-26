@@ -29,21 +29,33 @@ import org.junit.Test;
 import org.osate.ge.StringUtil;
 
 public class StringUtilTest {
-
 	@Test
 	public void joinTest() {
-		String[] test_str_arry = {"All","The","Strings","dot","JPEG"};
+		String[] test_str_arry = { "All", "The", "Strings", "dot", "JPEG" };
 		int startId = 0;
 		int endId = 4;
 		String delimit = "-";
 
-		assertEquals("check if Valid Join","All-The-Strings-dot", StringUtil.join(test_str_arry, startId, endId, delimit));
+		assertEquals("All-The-Strings-dot", StringUtil.join(test_str_arry, startId, endId, delimit));
 
 	}
+
 	@Test
-	public void camelCaseTest()
-	{
+	public void camelCaseTest() {
 		String testStr = "testMethodOneTwoThreeFourFiveSixSeven";
-		assertEquals("Test if camelCase method works","Test Method One Two Three Four Five Six Seven", StringUtil.camelCaseToUser(testStr));
+		assertEquals("Test Method One Two Three Four Five Six Seven", StringUtil.camelCaseToUser(testStr));
+	}
+
+	@Test
+	public void snakeCaseToLowercaseWordsTest() {
+		String testStr = "NEW_CLASSIFIER_TEST";
+		assertEquals("new classifier test",
+				StringUtil.snakeCaseToLowercaseWords(testStr));
+	}
+
+	@Test
+	public void snakeCaseToTitleCaseTest() {
+		String testStr = "NEW_CLASSIFIER_TEST";
+		assertEquals("New Classifier Test", StringUtil.snakeCaseToTitleCase(testStr));
 	}
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -29,20 +29,45 @@ import java.util.Objects;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 
+/**
+ * Polygon and polyline graphics
+ *
+ */
 public class Poly implements AgeShape {
+	/**
+	 * The type of poly
+	 *
+	 */
 	public enum Type {
-		POLYGON, POLYLINE
+		/**
+		 * Polygon. A closed shape.
+		 */
+		POLYGON,
+		/**
+		 * Polyline. A series of lines.
+		 */
+		POLYLINE
 	}
 
 	private final Point[] points;
 
 	/**
-	 * May be null.
+	 * The fixed size for the poly. If null, then the polygon does not have a fixed size.
 	 */
 	public final Dimension fixedSize;
 
+	/**
+	 * The type of the poly
+	 */
 	public final Type type;
 
+	/**
+	 * Creates a new instance
+	 * @param points the points for the poly. All coordinates must be in the range of [0.0, 1.0]. Polys are scaled based on the graphic's size.
+	 * @param fixedSize the fixed size for the poly. If null, then the polygon is resizable. If not null, then the poly has a fixed size and is
+	 * not resizable.
+	 * @param type the type of the poly
+	 */
 	public Poly(final Point[] points, final Dimension fixedSize, final Type type) {
 		this.points = Objects.requireNonNull(points, "points must not be null").clone();
 		this.fixedSize = fixedSize;
@@ -54,6 +79,10 @@ public class Poly implements AgeShape {
 		return fixedSize == null;
 	}
 
+	/**
+	 * Returns the points which define the poly. See {@link #Poly(Point[], Dimension, Type)}
+	 * @return the points which define the poly
+	 */
 	public final Point[] getPoints() {
 		return this.points;
 	}

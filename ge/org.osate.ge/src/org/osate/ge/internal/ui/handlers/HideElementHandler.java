@@ -35,13 +35,16 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.filtering.Filtering;
+import org.osate.ge.internal.diagram.runtime.filtering.FilteringUtil;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
+/**
+ * Handler for the hide command
+ */
 public class HideElementHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
@@ -93,7 +96,8 @@ public class HideElementHandler extends AbstractHandler {
 				EclipseContextFactory.getServiceContext(bundle.getBundleContext()).get(ExtensionRegistryService.class),
 				"Unable to retrieve extension registry");
 
-		return selectedDiagramElements.stream().filter(de -> (!diagramHasContext || de.getContainer() != diagram)
-				&& Filtering.isConfigurable(extService, de.getBusinessObject())).collect(Collectors.toList());
+		return selectedDiagramElements.stream()
+				.filter(de -> (!diagramHasContext || de.getParent() != diagram)
+						&& FilteringUtil.isConfigurable(extService, de.getBusinessObject())).collect(Collectors.toList());
 	}
 }

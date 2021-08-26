@@ -28,6 +28,8 @@ import java.util.Optional;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IWorkbench;
@@ -52,7 +54,21 @@ import org.osate.ge.internal.util.DiagramElementUtil;
 
 import com.google.common.base.Strings;
 
-public class UiUtil {
+/**
+ * Utility class containing miscellaneous function to assist in implementing the user interface.
+ *
+ */
+public final class UiUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private UiUtil() {
+	}
+
+	/**
+	 * Returns the active workbench window
+	 * @return the active workbench window. Returns null if the window could not be retrieved.
+	 */
 	public static IWorkbenchWindow getActiveWorkbenchWindow() {
 		final IWorkbench wb = PlatformUI.getWorkbench();
 		if (wb == null) {
@@ -62,6 +78,10 @@ public class UiUtil {
 		return wb.getActiveWorkbenchWindow();
 	}
 
+	/**
+	 * Returns the active diagram editor.
+	 * @return the active diagram editor. Returns null if the editor could not be retrieved or the active editor is not a diagram editor.
+	 */
 	public static InternalDiagramEditor getActiveDiagramEditor() {
 		final IWorkbenchWindow activeWindow = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		if (activeWindow != null) {
@@ -76,6 +96,9 @@ public class UiUtil {
 		return null;
 	}
 
+	/**
+	 * Opens the Eclipse Properties view.
+	 */
 	public static void openPropertiesView() {
 		final IWorkbenchWindow win = getActiveWorkbenchWindow();
 		if (win == null) {
@@ -94,6 +117,12 @@ public class UiUtil {
 		}
 	}
 
+	/**
+	 * Returns the diagram which contains all of the specified elements.
+	 * @param elements the diagram elements for which to retrieve the diagram.
+	 * @return the diagram which contains all of the specified elements. Returns null if the specified list is empty or the
+	 * diagram elements are not all contained in the same diagram.
+	 */
 	public static AgeDiagram getDiagram(final List<DiagramElement> elements) {
 		if (elements.size() == 0) {
 			return null;
@@ -108,13 +137,13 @@ public class UiUtil {
 	}
 
 	/**
-	 * Returns a label for a business object context. This method determines the appropriate business object handler and uses it to to retrieve the name.
+	 * Returns a user friendly description for a business object context. This method determines the appropriate business object handler
+	 * and uses it to to retrieve the name.
 	 * This method adds descriptive prefixes in some cases.
-	 * It is advised to use other methods when working with DiagramElements in order to avoid calling the business object handlers.
-	 * @param boc
-	 * @param extService
-	 * @param bocHelper
-	 * @return
+	 * It is advised to use other methods when working with diagram elements in order to avoid calling the business object handlers.
+	 * @param boc the business object context for which to retrieve the description
+	 * @param extService the extension registry
+	 * @return the description of the business object context
 	 */
 	public static String getDescription(final BusinessObjectContext boc, final ExtensionRegistryService extService) {
 		// Build a prefix based on the business object type
@@ -149,9 +178,9 @@ public class UiUtil {
 	}
 
 	/**
-	 * Returns a string which consists of the names contained in the hierarchy of the specified queryable separated by "::"
-	 * @param q
-	 * @return
+	 * Returns a string which consists of the names contained in the hierarchy of the specified diagram node separated by "::"
+	 * @param dn the diagram node for which to return the path label
+	 * @return the path label
 	 */
 	public static String getPathLabel(final DiagramNode dn) {
 		if (dn instanceof DiagramElement) {
@@ -169,15 +198,38 @@ public class UiUtil {
 		}
 	}
 
+	/**
+	 * Returns the icon for a business object
+	 * @param bohProvider the business object handler provider for determining the business object handler to use to retrieve the icon ID
+	 * @param bo the business object for which to retrieve the icon
+	 * @return the business object's icon
+	 */
 	public static Optional<Image> getImage(final BusinessObjectHandlerProvider bohProvider, final Object bo) {
 		return getImage(bohProvider.getApplicableBusinessObjectHandler(bo), bo);
 	}
 
+	/**
+	 * Returns the icon for a business object
+	 * @param boh the business object handler to use to retrieve the icon ID
+	 * @param bo the business object for which to retrieve the icon
+	 * @return the business object's icon
+	 */
 	public static Optional<Image> getImage(final BusinessObjectHandler boh, final Object bo) {
 		if (boh == null) {
 			return Optional.empty();
 		}
 
 		return boh.getIconId(new GetIconIdContext(bo)).map(Activator.getDefault().getImageRegistry()::get);
+	}
+
+	/**
+	 * Calculates the offset point relative to the top left of a specified rectangle.
+	 * @param rect to be offset
+	 * @param xOffset the amount to offset the x coordinate
+	 * @param yOffset the amount to offset the y coordinate
+	 * @return the new point to place the rectangle
+	 */
+	public static Point getOffsetRectangleLocation(final Rectangle rect, final int xOffset, final int yOffset) {
+		return new Point(rect.x + xOffset, rect.y + yOffset);
 	}
 }

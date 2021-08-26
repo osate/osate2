@@ -101,8 +101,15 @@ import com.google.common.io.CharStreams;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
+/**
+ * {@link AadlModificationService} implementation
+ *
+ */
 @SuppressWarnings("restriction")
 public class DefaultAadlModificationService implements AadlModificationService {
+	/**
+	 * Context function which instantiates this service
+	 */
 	public static class ContextFunction extends SimpleServiceContextFunction<AadlModificationService> {
 		@Override
 		public AadlModificationService createService(final IEclipseContext context) {
@@ -118,7 +125,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 	@FormatterPreferences
 	private IPreferenceValuesProvider preferencesProvider;
 
-	public DefaultAadlModificationService(final ModelChangeNotifier modelChangeNotifier,
+	private DefaultAadlModificationService(final ModelChangeNotifier modelChangeNotifier,
 			final ActionService actionService) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier,
 				"modelChangeNotifier must not be null");

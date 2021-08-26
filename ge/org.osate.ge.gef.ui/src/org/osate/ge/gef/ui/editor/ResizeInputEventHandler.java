@@ -163,7 +163,7 @@ class ResizeInteraction extends BaseInteraction {
 			//
 			double minChildLayoutX = Double.POSITIVE_INFINITY;
 			double minChildLayoutY = Double.POSITIVE_INFINITY;
-			for (final DiagramElement childDiagramElement : snapshot.diagramElement.getDiagramElements()) {
+			for (final DiagramElement childDiagramElement : snapshot.diagramElement.getChildren()) {
 				final Node childSceneNode = editor.getGefDiagram().getSceneNode(childDiagramElement);
 				if (childSceneNode instanceof ContainerShape) {
 					minChildLayoutX = Math.min(minChildLayoutX, childSceneNode.getLayoutX());
@@ -243,7 +243,7 @@ class ResizeInteraction extends BaseInteraction {
 						: (newPositionY - currentPreferredPosition.getY());
 
 				// Reposition children so that their absolute positions do not change.
-				for (final DiagramElement childDiagramElement : snapshot.diagramElement.getDiagramElements()) {
+				for (final DiagramElement childDiagramElement : snapshot.diagramElement.getChildren()) {
 					final Node childSceneNode = editor.getGefDiagram().getSceneNode(childDiagramElement);
 					if (childSceneNode instanceof ContainerShape || childSceneNode instanceof DockedShape
 							|| childSceneNode instanceof FlowIndicatorNode) {

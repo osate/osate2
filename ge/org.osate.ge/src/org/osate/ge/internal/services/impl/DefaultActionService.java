@@ -48,17 +48,25 @@ import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import com.google.common.collect.Lists;
 
 /**
- * Implementation of the ActionService.
+ * {@link ActionService} implementation
  *
- * If an action is executed while another action is running, then the action is grouped with the current action. When actions are
+ * <p>If an action is executed while another action is running, then the action is grouped with the current action. When actions are
  * undone or redone, the behavior of the actions will not be interleaved. For this reason, it is recommended to not perform multiple actions
- * which provide a reverse action at the same time.
+ * which provide a reverse action at the same time.</p>
  *
  */
 public class DefaultActionService implements ActionService {
+	/**
+	 * The undo context used by {@link AbstractOperation} instances which wrap action groups. Used to identify operations which belong
+	 * to the graphical editor within the operation history
+	 */
 	public static final IUndoContext CONTEXT = new UndoContext();
 	private final IOperationHistory history = PlatformUI.getWorkbench().getOperationSupport().getOperationHistory();
 
+	/**
+	 * Context function which instantiates this service
+	 *
+	 */
 	public static class ContextFunction extends SimpleServiceContextFunction<ActionService> {
 		// Listener that will clear the action stack whenever the model is changed when the model is unlocked.
 		private final ChangeListener modelChangeListener = new ChangeListener() {
@@ -102,18 +110,18 @@ public class DefaultActionService implements ActionService {
 
 	}
 
-	private class DefaultActionGroup implements AgeAction, ActionGroup {
+	private class ActionGroup implements AgeAction {
 		private final String label;
 		private final ExecutionMode mode;
 		// Undo actions are the actions needed to undo the original action. Must be in the order
 		// they were originally performed. An action group can be used for redoing as well. In that case, redo is treated as undoing the undo.
 		private final List<AgeAction> undoActions;
 
-		public DefaultActionGroup(final String label, final ExecutionMode mode) {
+		public ActionGroup(final String label, final ExecutionMode mode) {
 			this(label, mode, new ArrayList<>());
 		}
 
-		public DefaultActionGroup(final String label, final ExecutionMode mode, final List<AgeAction> actions) {
+		public ActionGroup(final String label, final ExecutionMode mode, final List<AgeAction> actions) {
 			this.label = Objects.requireNonNull(label, "label must not be null");
 			this.mode = Objects.requireNonNull(mode, "mode must not be null");
 			this.undoActions = Objects.requireNonNull(actions, "actions must not be null");
@@ -125,12 +133,12 @@ public class DefaultActionService implements ActionService {
 		}
 
 		@Override
-		public DefaultActionGroup execute() {
+		public ActionGroup execute() {
 			// Perform the actions in opposite order to undo
 			final List<AgeAction> newUndoActions = Lists.reverse(undoActions).stream().sequential()
 					.map(AgeAction::execute).filter(Objects::nonNull).collect(Collectors.toCollection(ArrayList::new));
 
-			return newUndoActions.size() == 0 ? null : new DefaultActionGroup(label, mode, newUndoActions);
+			return newUndoActions.size() == 0 ? null : new ActionGroup(label, mode, newUndoActions);
 		}
 
 		@Override
@@ -140,9 +148,9 @@ public class DefaultActionService implements ActionService {
 	}
 
 	private class AgeUndoableOperation extends AbstractOperation {
-		DefaultActionGroup actionGroup;
+		ActionGroup actionGroup;
 
-		public AgeUndoableOperation(final DefaultActionGroup actionGroup) {
+		public AgeUndoableOperation(final ActionGroup actionGroup) {
 			super(actionGroup.label);
 			this.actionGroup = actionGroup;
 			addContext(CONTEXT);
@@ -200,7 +208,7 @@ public class DefaultActionService implements ActionService {
 		}
 	};
 
-	private DefaultActionGroup currentActionGroup; // Action group that is currently being built.
+	private ActionGroup currentActionGroup; // Action group that is currently being built.
 
 	// Flag which indicates that an undo or redo is currently being performed.
 	private boolean inUndoOrRedo = false;
@@ -267,15 +275,14 @@ public class DefaultActionService implements ActionService {
 
 	private synchronized ActionGroup beginExecuteGroup(final String label, ExecutionMode mode) {
 		if (currentActionGroup == null) {
-			currentActionGroup = new DefaultActionGroup(label, mode);
+			currentActionGroup = new ActionGroup(label, mode);
 			return currentActionGroup;
 		} else {
 			return null;
 		}
 	}
 
-	@Override
-	public synchronized boolean endExecuteGroup(final ActionGroup actionGroup) {
+	private synchronized boolean endExecuteGroup(final ActionGroup actionGroup) {
 		if (actionGroup != currentActionGroup) {
 			return false;
 		}

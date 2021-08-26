@@ -58,22 +58,36 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.GraphicalEditorException;
 import org.osate.ge.internal.businessobjecthandlers.InternalReferenceUtil;
-import org.osate.ge.internal.diagram.runtime.filtering.ContentFilterProvider;
 import org.osate.ge.internal.diagram.runtime.types.UnrecognizedDiagramType;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 
 /**
- * Class to help read and write the native diagram format used by the editor.
+ * Utility class with members related to reading and writing the diagram file format used by the editor.
  *
  */
-public class DiagramSerialization {
+public final class DiagramSerialization {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private DiagramSerialization() {
+	}
+
+	/**
+	 * The version of the diagram file format. This number should be incremented when changes are made to the format. This value
+	 * is stored in the diagram file and is used to detect potential compatibility issues.
+	 */
 	public final static int FORMAT_VERSION = 7;
 
 	private static Comparator<DiagramElement> elementComparator = (e1, e2) -> e1.getRelativeReference()
 			.compareTo(e2.getRelativeReference());
 
+	/**
+	 * Loads the serialized diagram
+	 * @param uri the URI specifying the location of the diagram file
+	 * @return the serialized diagram
+	 */
 	public static org.osate.ge.diagram.Diagram readMetaModelDiagram(final URI uri) {
 		Objects.requireNonNull(uri, "uri must not be null");
 
@@ -94,6 +108,13 @@ public class DiagramSerialization {
 		}
 	}
 
+	/**
+	 * Converts the serialized diagram to a runtime diagram
+	 * @param project the project in which the serialized diagram is contained.
+	 * @param mmDiagram the serialized diagram
+	 * @param extRegistry the Eclipse extension registry
+	 * @return the runtime diagram
+	 */
 	public static AgeDiagram createAgeDiagram(final IProject project, final org.osate.ge.diagram.Diagram mmDiagram,
 			final ExtensionRegistryService extRegistry) {
 		Objects.requireNonNull(extRegistry, "extRegistry is null");
@@ -132,7 +153,7 @@ public class DiagramSerialization {
 
 		if (mmDiagram.getConfig() != null) {
 			final org.osate.ge.diagram.DiagramConfiguration mmDiagramConfig = mmDiagram.getConfig();
-			configBuilder.setContextBoReference(convert(mmDiagramConfig.getContext()));
+			configBuilder.contextBoReference(convert(mmDiagramConfig.getContext()));
 
 			final org.osate.ge.diagram.AadlPropertiesSet enabledAadlProperties = mmDiagramConfig
 					.getEnabledAadlProperties();
@@ -155,10 +176,9 @@ public class DiagramSerialization {
 		});
 
 		// Read elements
-		ageDiagram.modify("Read from File",
-				m -> {
-					readElements(project, m, extRegistry, ageDiagram, mmDiagram, legacyIdToUuidMap, false);
-				});
+		ageDiagram.modify("Read from File", m -> {
+			readElements(project, m, ageDiagram, mmDiagram, legacyIdToUuidMap);
+		});
 
 		return ageDiagram;
 	}
@@ -166,7 +186,7 @@ public class DiagramSerialization {
 	/**
 	 * Ensures all elements have a UUID. Migrates legacy id's to UUIDs.
 	 * @param diagram
-	 * @param legacyIdToUuidMap map to populate with a mapping form legacy id's to the UUIDs. Needed to migrate referenecs.
+	 * @param legacyIdToUuidMap map to populate with a mapping form legacy id's to the UUIDs. Needed to migrate references.
 	 */
 	private static void ensureIdsAreValid(final org.osate.ge.diagram.Diagram diagram,
 			Map<Long, UUID> legacyIdToUuidMap) {
@@ -199,8 +219,8 @@ public class DiagramSerialization {
 			final Object o = it.next();
 			if (o instanceof org.osate.ge.diagram.RelativeBusinessObjectReference) {
 				org.osate.ge.diagram.RelativeBusinessObjectReference ref = (org.osate.ge.diagram.RelativeBusinessObjectReference) o;
-				if (ref.getSeg().size() == 3 && Objects.equals(ref.getSeg().get(0),
-						AadlReferenceUtil.PROPERTY_VALUE_GROUP_KEY)) {
+				if (ref.getSeg().size() == 3
+						&& Objects.equals(ref.getSeg().get(0), AadlReferenceUtil.PROPERTY_VALUE_GROUP_KEY)) {
 					final int idSegmentIndex = 2;
 					final UUID referencedUuid = legacyIdToUuidMap.get(Long.parseLong(ref.getSeg().get(idSegmentIndex)));
 
@@ -212,12 +232,22 @@ public class DiagramSerialization {
 		}
 	}
 
+	/**
+	 * Converts a serialized relative business object reference to a runtime relative business object reference
+	 * @param ref the reference to convert
+	 * @return the runtime relative business object reference
+	 */
 	public static RelativeBusinessObjectReference convert(
 			final org.osate.ge.diagram.RelativeBusinessObjectReference ref) {
 		final String[] segs = toReferenceSegments(ref);
 		return segs == null ? null : new RelativeBusinessObjectReference(segs);
 	}
 
+	/**
+	 * Converts a serialized canonical business object reference to a runtime canonical business object reference
+	 * @param ref the reference to convert
+	 * @return the runtime canonical business object reference
+	 */
 	public static CanonicalBusinessObjectReference convert(
 			final org.osate.ge.diagram.CanonicalBusinessObjectReference ref) {
 		final String[] segs = toReferenceSegments(ref);
@@ -228,28 +258,22 @@ public class DiagramSerialization {
 		return ref == null || ref.getSeg().size() == 0 ? null : ref.getSeg().toArray(new String[ref.getSeg().size()]);
 	}
 
-	private static void readElements(final IProject project, final DiagramModification m,
-			final ContentFilterProvider contentFilterProvider, final DiagramNode container,
-			final org.osate.ge.diagram.DiagramNode mmContainer, final Map<Long, UUID> legacyIdToUuidMap,
-			final boolean usingLegacyContentFilters) {
+	private static void readElements(final IProject project, final DiagramModification m, final DiagramNode container,
+			final org.osate.ge.diagram.DiagramNode mmContainer, final Map<Long, UUID> legacyIdToUuidMap) {
 		for (final org.osate.ge.diagram.DiagramElement mmElement : mmContainer.getElement()) {
-			createElement(project, m, contentFilterProvider, container, mmElement, legacyIdToUuidMap,
-					usingLegacyContentFilters);
+			createElement(project, m, container, mmElement, legacyIdToUuidMap);
 		}
 	}
 
-	private static void createElement(final IProject project, final DiagramModification m,
-			final ContentFilterProvider contentFilterProvider, final DiagramNode container,
-			final org.osate.ge.diagram.DiagramElement mmChild, final Map<Long, UUID> legacyIdToUuidMap,
-			boolean usingLegacyContentFilters) {
+	private static void createElement(final IProject project, final DiagramModification m, final DiagramNode container,
+			final org.osate.ge.diagram.DiagramElement mmChild, final Map<Long, UUID> legacyIdToUuidMap) {
 		final String[] refSegs = toReferenceSegments(mmChild.getBo());
 		if (refSegs == null) {
 			throw new GraphicalEditorException("Invalid element. Invalid business object reference.");
 		}
 
 		final RelativeBusinessObjectReference relReference = new RelativeBusinessObjectReference(refSegs);
-		final Object bo = InternalReferenceUtil.createEmbeddedObject(relReference,
-				mmChild.getBoData());
+		final Object bo = InternalReferenceUtil.createEmbeddedObject(relReference, mmChild.getBoData());
 
 		// Set the ID
 		final UUID uuid = UUID.fromString(mmChild.getUuid());
@@ -280,16 +304,25 @@ public class DiagramSerialization {
 		final Double fontSize = mmChild.getFontSize();
 		final Boolean primaryLabelVisible = mmChild.getPrimaryLabelVisible();
 
-		newElement.setStyle(StyleBuilder.create().backgroundColor(background).showAsImage(showAsImage).imagePath(image)
-				.fontColor(fontColor).outlineColor(outline).fontSize(fontSize).lineWidth(lineWidth)
-				.primaryLabelVisible(primaryLabelVisible).build());
+		newElement.setStyle(StyleBuilder.create()
+				.backgroundColor(background)
+				.showAsImage(showAsImage)
+				.imagePath(image)
+				.fontColor(fontColor)
+				.outlineColor(outline)
+				.fontSize(fontSize)
+				.lineWidth(lineWidth)
+				.primaryLabelVisible(primaryLabelVisible)
+				.build());
 
 		// Bendpoints
 		final org.osate.ge.diagram.BendpointList mmBendpoints = mmChild.getBendpoints();
 		if (mmBendpoints == null) {
 			newElement.setBendpoints(Collections.emptyList());
 		} else {
-			newElement.setBendpoints(mmBendpoints.getPoint().stream().map(DiagramSerialization::convertPoint)
+			newElement.setBendpoints(mmBendpoints.getPoint()
+					.stream()
+					.map(DiagramSerialization::convertPoint)
 					.collect(Collectors.toList()));
 		}
 
@@ -300,8 +333,7 @@ public class DiagramSerialization {
 		m.addElement(newElement);
 
 		// Create children
-		readElements(project, m, contentFilterProvider, newElement, mmChild, legacyIdToUuidMap,
-				usingLegacyContentFilters);
+		readElements(project, m, newElement, mmChild, legacyIdToUuidMap);
 	}
 
 	private static Point convertPoint(final org.osate.ge.diagram.Point mmPoint) {
@@ -320,6 +352,12 @@ public class DiagramSerialization {
 		return new Dimension((int) Math.round(mmDimension.getWidth()), (int) Math.round(mmDimension.getHeight()));
 	}
 
+	/**
+	 * Serialized the specified runtime diagram and writes is to a file.
+	 * @param project the project in which the diagram is contained.
+	 * @param diagram the runtime diagram to serialize
+	 * @param uri the URI specifying the file to which to write the serialized diagram
+	 */
 	public static void write(final IProject project, final AgeDiagram diagram, final URI uri) {
 		// Convert from the runtime format to the metamodel format which is stored
 		final org.osate.ge.diagram.Diagram mmDiagram = new Diagram();
@@ -341,7 +379,7 @@ public class DiagramSerialization {
 			enabledProperties.getProperty().add(enabledPropertyName);
 		}
 
-		convertElementsToMetamodel(project, mmDiagram, diagram.getDiagramElements());
+		convertElementsToMetamodel(project, mmDiagram, diagram.getChildren());
 
 		// Save the resource
 		final ResourceSet rs = new ResourceSetImpl();
@@ -355,13 +393,13 @@ public class DiagramSerialization {
 	}
 
 	/**
-	 *  Converts specified elements from runtime datastructure into a metamodel.
-	 * @param project
-	 * @param mmContainer
-	 * @param elements
+	 * Serialized the specified runtime diagram elements and adds them to a serialized diagram element. Recursive
+	 * @param project the project in which the diagram elements are contained
+	 * @param mmContainer the container of the new diagram elements
+	 * @param elements the elements to serialized
 	 */
-	private static void convertElementsToMetamodel(IProject project, final org.osate.ge.diagram.DiagramNode mmContainer,
-			Collection<DiagramElement> elements) {
+	private static void convertElementsToMetamodel(final IProject project,
+			final org.osate.ge.diagram.DiagramNode mmContainer, Collection<DiagramElement> elements) {
 		// Sort elements to ensure a consistent ordering after serialization
 		elements = elements.stream().sorted(elementComparator).collect(Collectors.toList());
 
@@ -452,7 +490,7 @@ public class DiagramSerialization {
 			newElement.setPrimaryLabelPosition(e.getConnectionPrimaryLabelPosition().toMetamodel());
 		}
 
-		convertElementsToMetamodel(project, newElement, e.getDiagramElements());
+		convertElementsToMetamodel(project, newElement, e.getChildren());
 	}
 
 	// Create hex string from color

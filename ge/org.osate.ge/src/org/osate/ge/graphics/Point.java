@@ -33,7 +33,14 @@ public final class Point {
 	 */
 	public static final Point ZERO = new Point(0.0, 0.0);
 
+	/**
+	 * The X component
+	 */
 	public final double x;
+
+	/**
+	 * The Y component
+	 */
 	public final double y;
 
 	/**

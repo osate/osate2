@@ -67,7 +67,7 @@ public final class BehaviorAnnexNamingUtil {
 	/**
 	 * Creates a new unique identifier
 	 * @param ba the behavior annex for which the identifier must be unique
-	 * @param baseIdentifier the identifier to start with when building the identifier. If this identifier is unused, it will be returned.
+	 * @param baseIdentifier the identifier to start with when building the identifier. If this identifier is unique, it will be returned.
 	 * @return a new unique identifier
 	 */
 	public static String buildUniqueIdentifier(final BehaviorAnnex ba, final String baseIdentifier) {

@@ -25,9 +25,19 @@ package org.osate.ge.errormodel.ui.viewmodels;
 
 import java.util.stream.Stream;
 
+/**
+ * Implementation of {@link NamedObjectsProvider} which provides an empty stream.
+ *
+ * @param <T> the type of object provided
+ */
 public class EmptyNamedObjectsProvider<T> implements NamedObjectsProvider<T> {
 	private static EmptyNamedObjectsProvider<?> instance = new EmptyNamedObjectsProvider<>();
 
+	/**
+	 * Returns an instance of this class
+	 * @param <T> the type of object provided
+	 * @return an instance of the provider
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> EmptyNamedObjectsProvider<T> instance() {
 		return (EmptyNamedObjectsProvider<T>) instance;
