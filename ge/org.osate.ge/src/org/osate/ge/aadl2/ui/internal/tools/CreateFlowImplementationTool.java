@@ -62,9 +62,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.Connection;
 import org.osate.aadl2.Context;
-import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowEnd;
@@ -85,7 +83,7 @@ import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.UiService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.handlers.AgeHandlerUtil;
 import org.osate.ge.internal.ui.tools.ActivatedEvent;
 import org.osate.ge.internal.ui.tools.DeactivatedEvent;
@@ -93,7 +91,7 @@ import org.osate.ge.internal.ui.tools.SelectionChangedEvent;
 import org.osate.ge.internal.ui.tools.Tool;
 import org.osate.ge.internal.ui.tools.ToolUtil;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
-import org.osate.ge.internal.ui.util.DialogPlacementHelper;
+import org.osate.ge.internal.ui.util.UiUtil;
 
 public class CreateFlowImplementationTool implements Tool {
 	private final ArrayList<SegmentData> segmentSelections = new ArrayList<>();
@@ -102,7 +100,7 @@ public class CreateFlowImplementationTool implements Tool {
 	private ColoringService.Coloring coloring = null;
 	private CreateFlowImplementationDialog createFlowImplDlg;
 
-	public CreateFlowImplementationTool(final AgeDiagramEditor editor, final DiagramElement container,
+	public CreateFlowImplementationTool(final InternalDiagramEditor editor, final DiagramElement container,
 			final FlowImplementation flowImpl) {
 		final UiService uiService = Objects.requireNonNull(Adapters.adapt(editor, UiService.class),
 				"ui service must not be null");
@@ -113,16 +111,17 @@ public class CreateFlowImplementationTool implements Tool {
 
 		// Populate segments
 		final FlowSpecification flowSpec = flowImpl.getSpecification();
-		segmentSelections.add(new SegmentData(
-				FlowToolUtil.findOrCreateBusinessObjectContext(referenceService, container, flowSpec)));
+		segmentSelections.add(
+				new SegmentData(FlowToolUtil.findOrCreateBusinessObjectContext(referenceService, container, flowSpec)));
 
 		final FlowEnd inEnd = flowImpl.getInEnd();
 		if (inEnd != null) {
 			segmentSelections.add(FlowToolUtil.createSegmentData(referenceService, container, inEnd));
 		}
 
-		flowImpl.getOwnedFlowSegments().stream().map(
-				flowSegment -> FlowToolUtil.createSegmentData(referenceService, container, flowSegment))
+		flowImpl.getOwnedFlowSegments()
+		.stream()
+		.map(flowSegment -> FlowToolUtil.createSegmentData(referenceService, container, flowSegment))
 		.forEachOrdered(segmentSelections::add);
 
 		final FlowEnd outEnd = flowImpl.getOutEnd();
@@ -131,13 +130,13 @@ public class CreateFlowImplementationTool implements Tool {
 		}
 
 		// Populate in mode features
-		flowImpl.getInModeOrTransitions().stream()
+		flowImpl.getInModeOrTransitions()
+		.stream()
 		.forEachOrdered(modeFeature -> modeFeatureSelections
-				.add(FlowToolUtil
-						.findOrCreateBusinessObjectContext(referenceService, container, modeFeature)));
+				.add(FlowToolUtil.findOrCreateBusinessObjectContext(referenceService, container, modeFeature)));
 	}
 
-	public CreateFlowImplementationTool(final AgeDiagramEditor editor) {
+	public CreateFlowImplementationTool(final InternalDiagramEditor editor) {
 		final Display display = Display.getCurrent();
 		final UiService uiService = Objects.requireNonNull(Adapters.adapt(editor, UiService.class),
 				"ui service must not be null");
@@ -154,11 +153,14 @@ public class CreateFlowImplementationTool implements Tool {
 				final AadlModificationService aadlModService = ctx.getAadlModificatonService();
 				final ColoringService coloringService = ctx.getColoringService();
 
-				// Check for existing errors or warnings
+				// Check for existing errors and warnings
 				final Set<Diagnostic> diagnostics = ToolUtil.getAllReferencedPackageDiagnostics(selectedBoc);
-				if (!diagnostics.isEmpty()) {
-					Display.getDefault().asyncExec(
-							() -> new FlowDialogUtil.ErrorDialog("The Create Flow Implementation", diagnostics).open());
+				// Do not allow tool activation if there are errors in the models
+				final Set<Diagnostic> errors = FlowDialogUtil.getErrors(diagnostics);
+				if (!errors.isEmpty()) {
+					Display.getDefault()
+					.asyncExec(() -> new FlowDialogUtil.ErrorDialog("The Create Flow Implementation", errors)
+							.open());
 				} else {
 					coloring = coloringService.adjustColors();
 
@@ -173,7 +175,7 @@ public class CreateFlowImplementationTool implements Tool {
 							setColor(segmentIt.next().getBoc(), Color.ORANGE.darker());
 
 							// Set color for flow segments
-							while(segmentIt.hasNext()) {
+							while (segmentIt.hasNext()) {
 								setColor(segmentIt.next().getBoc(), Color.MAGENTA.darker());
 							}
 						}
@@ -186,11 +188,11 @@ public class CreateFlowImplementationTool implements Tool {
 					}
 
 					if (createFlowImplDlg.open() == Window.OK && createFlowImplDlg != null) {
+						final BusinessObjectContext ownerBoc = createFlowImplDlg.getOwnerBoc().orElse(null);
 						// Create a new flow impl based on selections
-						final FlowImplementation flowImpl = createFlowImplDlg.createFlow();
+						final FlowImplementation flowImpl = createFlowImplDlg.createFlow(ownerBoc);
 
-						createFlowImplDlg.getFlowComponentImplementation(createFlowImplDlg.getOwnerBoc().orElse(null))
-						.ifPresent(ownerCi -> {
+						createFlowImplDlg.getFlowComponentImplementation(ownerBoc).ifPresent(ownerCi -> {
 							// Modifications to perform
 							final List<AadlModificationService.Modification<? extends NamedElement, ? extends NamedElement>> modifications = new ArrayList<>();
 							if (createFlowImplDlg.flowImplToEdit != null) {
@@ -269,9 +271,9 @@ public class CreateFlowImplementationTool implements Tool {
 					&& createFlowImplDlg.elementSelectionDlg == null) {
 				// Handle selection for creating flow segments and mode features
 				if (selectedBocs.size() > 1) {
-					createFlowImplDlg.setMultipleElementsSelected(true, isInit);
+					createFlowImplDlg.setMultipleElementsSelected(true);
 				} else if (selectedBocs.size() == 1) {
-					createFlowImplDlg.setMultipleElementsSelected(false, isInit);
+					createFlowImplDlg.setMultipleElementsSelected(false);
 					createFlowImplDlg.addSelectedElement(selectedBocs.get(0), isInit);
 				}
 			} else if (createFlowImplDlg.elementSelectionDlg != null
@@ -342,7 +344,7 @@ public class CreateFlowImplementationTool implements Tool {
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
 
-		private void setMultipleElementsSelected(final boolean multipleElementsSelected, final boolean isInit) {
+		private void setMultipleElementsSelected(final boolean multipleElementsSelected) {
 			this.multipleElementsSelected = multipleElementsSelected;
 			updateMessage();
 		}
@@ -404,17 +406,16 @@ public class CreateFlowImplementationTool implements Tool {
 		/**
 		 * Create a Flow Implementation based on user selections
 		 */
-		private FlowImplementation createFlow() {
+		private FlowImplementation createFlow(final BusinessObjectContext ownerBoc) {
 			// Create a flow implementation based on the state of the dialog
 			final FlowImplementation flowImpl = (FlowImplementation) pkg.getEFactoryInstance()
 					.create(pkg.getFlowImplementation());
-			getFlowComponentImplementationBoc(getOwnerBoc().orElse(null)).ifPresent(flowImplOwnerBoc -> {
+			getFlowComponentImplementationBoc(ownerBoc).ifPresent(flowImplOwnerBoc -> {
 				final Iterator<SegmentData> it = segmentSelections.iterator();
 				if (it.hasNext()) {
 					final FlowSpecification fs = (FlowSpecification) it.next().getBoc().getBusinessObject();
 					flowImpl.setSpecification(fs);
 					flowImpl.setKind(fs.getKind());
-
 					while (it.hasNext()) {
 						final BusinessObjectContext segment = it.next().getBoc();
 						final Object bo = segment.getBusinessObject();
@@ -422,18 +423,16 @@ public class CreateFlowImplementationTool implements Tool {
 							if ((fs.getKind() == FlowKind.PATH || fs.getKind() == FlowKind.SINK)
 									&& flowImpl.getInEnd() == null) {
 								final FlowEnd inEnd = flowImpl.createInEnd();
-								inEnd.setContext(ToolUtil.findContext(segment));
+								inEnd.setContext(ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc));
 								inEnd.setFeature((Feature) bo);
 							} else if (flowImpl.getOutEnd() == null) {
 								final FlowEnd outEnd = flowImpl.createOutEnd();
-								outEnd.setContext(ToolUtil.findContext(segment));
+								outEnd.setContext(ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc));
 								outEnd.setFeature((Feature) bo);
 							}
-						} else if (!(bo instanceof DataAccess)) {
+						} else {
 							final FlowSegment newFlowSegment = flowImpl.createOwnedFlowSegment();
-							if (!(bo instanceof Connection)) {
-								newFlowSegment.setContext(ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc));
-							}
+							newFlowSegment.setContext(ToolUtil.findContextExcludeOwner(segment, flowImplOwnerBoc));
 							newFlowSegment.setFlowElement((FlowElement) bo);
 						}
 					}
@@ -466,9 +465,8 @@ public class CreateFlowImplementationTool implements Tool {
 							final DiagramElement container = (DiagramElement) boc.getParent();
 							final FlowEnd inEnd = fs.getAllInEnd();
 							if (inEnd != null) {
-								addSegmentSelection(FlowToolUtil.createSegmentData(referenceService,
-										container, inEnd), segmentSelections.size(),
-										Color.MAGENTA.darker());
+								addSegmentSelection(FlowToolUtil.createSegmentData(referenceService, container, inEnd),
+										segmentSelections.size(), Color.MAGENTA.darker());
 							}
 						}
 					} else {
@@ -557,19 +555,18 @@ public class CreateFlowImplementationTool implements Tool {
 			}
 
 			// Errors to show to user
-			final Set<Diagnostic> dialogDiagnostics = diagnostics.stream()
-					.filter(diagnostic -> {
-						final String errorMsg = diagnostic.getMessage();
-						return errorMsg == null || !errorMsg.contains("Serialization Error");
-					})
-					.collect(Collectors.toSet());
+			final Set<Diagnostic> dialogDiagnostics = diagnostics.stream().filter(diagnostic -> {
+				final String errorMsg = diagnostic.getMessage();
+				return errorMsg == null || !errorMsg.contains("Serialization Error");
+			}).collect(Collectors.toSet());
 
 			// Update error table
-			FlowDialogUtil.setInput(errorTableViewer,
-					dialogDiagnostics);
+			FlowDialogUtil.setInput(errorTableViewer, dialogDiagnostics);
 
 			return !diagnostics.stream()
-					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR).findAny().isPresent();
+					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR)
+					.findAny()
+					.isPresent();
 		}
 
 		private Optional<ComponentImplementation> getFlowComponentImplementation(final BusinessObjectContext owner) {
@@ -604,7 +601,8 @@ public class CreateFlowImplementationTool implements Tool {
 				child.dispose();
 			}
 
-			flowImpl = createFlow();
+			final BusinessObjectContext ownerBoc = createFlowImplDlg.getOwnerBoc().orElse(null);
+			flowImpl = createFlow(ownerBoc);
 
 			isValid = isFlowImplValid(flowImpl);
 			getButton(IDialogConstants.OK_ID).setEnabled(isValid);
@@ -627,14 +625,13 @@ public class CreateFlowImplementationTool implements Tool {
 					boc = segmentData.getBoc();
 
 					final StringBuilder segmentNameBuilder = new StringBuilder();
-					final Context context = ToolUtil.findContext(boc);
+					final Context context = ToolUtil.findContextExcludeOwner(boc, ownerBoc);
 					if (context != null) {
 						segmentNameBuilder.append(AgeAadlUtil.getRootName(context));
 						segmentNameBuilder.append(".");
 					}
 
 					segmentNameBuilder.append(AgeAadlUtil.getRootName((NamedElement) boc.getBusinessObject()));
-
 					createSegmentButton(segmentNameBuilder.toString(), segmentData, getType(boc));
 					if (segmentIt.hasNext()) {
 						// If segment is not last, add an arrow
@@ -693,9 +690,8 @@ public class CreateFlowImplementationTool implements Tool {
 			label.setLayoutData(new RowData());
 			final String flowKind = fs.getKind().getName();
 			label.setText(" :  flow " + flowKind);
-			label.setStyleRange(
-					new StyleRange(4, 5 + flowKind.length(), Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED),
-							null, SWT.BOLD));
+			label.setStyleRange(new StyleRange(4, 5 + flowKind.length(),
+					Display.getCurrent().getSystemColor(SWT.COLOR_DARK_RED), null, SWT.BOLD));
 		}
 
 		private void createSegmentButton(final String name, final SegmentData segmentData,
@@ -726,8 +722,9 @@ public class CreateFlowImplementationTool implements Tool {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
 					final Point location = segmentBtn.getLocation();
-					editMenu.setLocation(Display.getCurrent().map(createFlowImplDlg.flowComposite, null,
-							new Point(location.x, location.y + segmentBtn.getSize().y)));
+					editMenu.setLocation(Display.getCurrent()
+							.map(createFlowImplDlg.flowComposite, null,
+									new Point(location.x, location.y + segmentBtn.getSize().y)));
 					// Only allow replacing for impl's flow spec and in/out end features
 					if (segmentSelections.indexOf(segmentData) == 0) {
 						insertBeforeMenuItem.setEnabled(false);
@@ -831,8 +828,9 @@ public class CreateFlowImplementationTool implements Tool {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
 					final Point location = createModeFeatureBtn.getLocation();
-					menu.setLocation(Display.getCurrent().map(createFlowImplDlg.flowComposite, null,
-							new Point(location.x, location.y + createModeFeatureBtn.getSize().y)));
+					menu.setLocation(Display.getCurrent()
+							.map(createFlowImplDlg.flowComposite, null,
+									new Point(location.x, location.y + createModeFeatureBtn.getSize().y)));
 					menu.setVisible(true);
 				};
 			});
@@ -1006,8 +1004,8 @@ public class CreateFlowImplementationTool implements Tool {
 			protected void configureShell(final Shell newShell) {
 				super.configureShell(newShell);
 				newShell.setText("Element Selection");
-				newShell.setLocation(DialogPlacementHelper
-						.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+				newShell.setLocation(
+						UiUtil.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 				newShell.setSize(400, 200);
 				newShell.setMinimumSize(400, 200);
 			}
@@ -1088,8 +1086,8 @@ public class CreateFlowImplementationTool implements Tool {
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
 			newShell.setText("Flow Implementation Tool");
-			newShell.setLocation(DialogPlacementHelper
-					.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+			newShell.setLocation(
+					UiUtil.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(800, 400);
 			newShell.setMinimumSize(300, 215);
 		}

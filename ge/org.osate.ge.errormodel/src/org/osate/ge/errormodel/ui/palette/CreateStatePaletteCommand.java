@@ -35,7 +35,13 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 
+/**
+ * Palette command for creating {@link ErrorBehaviorState} elements.
+ */
 public class CreateStatePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
+	/**
+	 * Creates a new instance
+	 */
 	public CreateStatePaletteCommand() {
 		super("Error State", ErrorModelPaletteCategories.ERROR_BEHAVIOR, null);
 	}

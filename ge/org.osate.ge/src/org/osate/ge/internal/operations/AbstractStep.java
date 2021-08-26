@@ -23,16 +23,23 @@
  */
 package org.osate.ge.internal.operations;
 
-public class AbstractStep<ResultUserType> implements Step<ResultUserType> {
-	private final Step<?> nextStep;
+/**
+ * Abstract base class for {@link Step} implementations
+ *
+ */
+abstract class AbstractStep implements Step {
+	private final Step nextStep;
 
-	public AbstractStep(final Step<?> nextStep) {
+	/**
+	 * Creates a new instance
+	 * @param nextStep the next step in the step sequence
+	 */
+	protected AbstractStep(final Step nextStep) {
 		this.nextStep = nextStep;
 	}
 
 	@Override
-	public Step<?> getNextStep() {
+	public Step getNextStep() {
 		return nextStep;
 	}
-
 }

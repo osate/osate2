@@ -41,10 +41,18 @@ public class LabelFilteringListSelectorModel<T>
 	private String filter;
 	private Pattern regex;
 
+	/**
+	 * Creates a new instance from a {@link SingleSelectorModel}
+	 * @param inner the model to wrap
+	 */
 	public LabelFilteringListSelectorModel(final SingleSelectorModel<T> inner) {
 		this(new SingleSelectorModelToSelectorModelAdapter<>(inner));
 	}
 
+	/**
+	 * Creates a new instance from a {@link SelectorModel}
+	 * @param inner the model to wrap
+	 */
 	public LabelFilteringListSelectorModel(final SelectorModel<T> inner) {
 		super(inner);
 		this.setFilter("");
@@ -67,9 +75,9 @@ public class LabelFilteringListSelectorModel<T>
 			int flags = Pattern.CASE_INSENSITIVE;
 
 			// Build a regular expression based on the pattern. The expression should add wildcards to each end and optionally process wildcards in the pattern
-			String regexPattern = filter.replaceAll("\\\\E", Matcher.quoteReplacement("\\E\\\\E\\Q"));
-			regexPattern = regexPattern.replaceAll("\\*", Matcher.quoteReplacement("\\E.*\\Q"));
-			regexPattern = regexPattern.replaceAll("\\?", Matcher.quoteReplacement("\\E.?\\Q"));
+			String regexPattern = filter.replace("\\\\E", Matcher.quoteReplacement("\\E\\\\E\\Q"));
+			regexPattern = regexPattern.replace("\\*", Matcher.quoteReplacement("\\E.*\\Q"));
+			regexPattern = regexPattern.replace("\\?", Matcher.quoteReplacement("\\E.?\\Q"));
 			regexPattern = ".*\\Q" + regexPattern + "\\E.*"; // Add quotes and wildcards
 			this.regex = Pattern.compile(regexPattern, flags);
 

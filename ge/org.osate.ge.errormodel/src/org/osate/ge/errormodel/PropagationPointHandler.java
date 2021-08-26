@@ -48,6 +48,9 @@ import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 
+/**
+ * Business object handler for {@link PropagationPoint} objects.
+ */
 public class PropagationPointHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = EllipseBuilder.create().fixedSize(new Dimension(16, 16)).build();
 

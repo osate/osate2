@@ -35,6 +35,9 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
 
+/**
+ * Handler for the distribute horizontally command
+ */
 public class DistributeHorizontallyHandler extends AbstractHandler {
 	/**
 	 * Distributes shapes along the X axis so each shape has an equal distance between them

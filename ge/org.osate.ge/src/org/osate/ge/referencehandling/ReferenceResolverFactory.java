@@ -26,7 +26,8 @@ package org.osate.ge.referencehandling;
 /**
  * Factory for instantiating a reference resolver. Reference resolvers are associated with a project. At a minimum, reference resolvers
  * are kept alive until a all diagrams in a project are closed.
- *
+ * Reference resolvers are registered using the <i>org.osate.ge.referenceResolvers</i> extension point.
+ * @see ReferenceResolver
  * @since 2.0
  */
 public interface ReferenceResolverFactory {

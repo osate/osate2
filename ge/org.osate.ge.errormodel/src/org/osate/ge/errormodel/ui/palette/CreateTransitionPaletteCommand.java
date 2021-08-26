@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.widgets.Display;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.aadl2.ui.NamedElementCollectionSingleSelectorModel;
 import org.osate.ge.errormodel.model.BehaviorTransitionTrunk;
 import org.osate.ge.errormodel.util.ErrorModelNamingUtil;
@@ -54,7 +55,13 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
 
+/**
+ * Palette command for creating {@link ErrorBehaviorTransition} elements.
+ */
 public class CreateTransitionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
+	/**
+	 * Creates a new instance
+	 */
 	public CreateTransitionPaletteCommand() {
 		super("Error Behavior Transition", ErrorModelPaletteCategories.ERROR_BEHAVIOR, null);
 	}
@@ -69,7 +76,7 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 	@Override
 	public Optional<Operation> getOperation(GetCreateConnectionOperationContext ctx) {
 		return ctx.getDestination().getBusinessObject(ErrorBehaviorState.class).map(targetStateReadonly -> {
-			if(getStateMachine(ctx.getSource().getBusinessObject()) != getStateMachine(targetStateReadonly)) {
+			if (getStateMachine(ctx.getSource().getBusinessObject()) != getStateMachine(targetStateReadonly)) {
 				return null;
 			}
 
@@ -86,63 +93,64 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 			final ErrorBehaviorState srcStateReadonly = (ErrorBehaviorState) srcBo;
 			final URI srcStateUri = EcoreUtil.getURI(srcStateReadonly);
 
-			return Operation.createWithBuilder(createOp -> {
-				createOp.supply(() -> StepResult.forValue(getStateMachine(srcStateReadonly)))
-						.modifyPreviousResult(stateMachine -> {
-							final ErrorBehaviorState targetState = (ErrorBehaviorState) stateMachine.eResource()
-									.getResourceSet().getEObject(targetStateUri, true);
-							final ErrorBehaviorState srcState = (ErrorBehaviorState) stateMachine.eResource()
-									.getResourceSet().getEObject(srcStateUri, true);
+			return Operation.createWithBuilder(
+					createOp -> createOp.supply(() -> StepResult.forValue(getStateMachine(srcStateReadonly)))
+							.modifyPreviousResult(stateMachine -> {
+								final ErrorBehaviorState targetState = (ErrorBehaviorState) stateMachine.eResource()
+										.getResourceSet()
+										.getEObject(targetStateUri, true);
+								final ErrorBehaviorState srcState = (ErrorBehaviorState) stateMachine.eResource()
+										.getResourceSet()
+										.getEObject(srcStateUri, true);
 
-							final NamedElementCollectionSingleSelectorModel<ErrorBehaviorEvent> model = new NamedElementCollectionSingleSelectorModel<>(
-									stateMachine.getEvents());
-							if (!FilteringSelectorDialog.open(Display.getCurrent().getActiveShell(), "Select Event",
-									new LabelFilteringListSelectorModel<>(
-											model))) {
-								return null;
-							}
+								final NamedElementCollectionSingleSelectorModel<ErrorBehaviorEvent> model = new NamedElementCollectionSingleSelectorModel<>(
+										stateMachine.getEvents());
+								if (!FilteringSelectorDialog.open(Display.getCurrent().getActiveShell(), "Select Event",
+										new LabelFilteringListSelectorModel<>(model))) {
+									return null;
+								}
 
-							final ErrorBehaviorEvent event = model.getSelectedElement();
-							// Create the transition
-							final ErrorBehaviorTransition newTransition = ErrorModelFactory.eINSTANCE
-									.createErrorBehaviorTransition();
+								final ErrorBehaviorEvent event = model.getSelectedElement();
+								// Create the transition
+								final ErrorBehaviorTransition newTransition = ErrorModelFactory.eINSTANCE
+										.createErrorBehaviorTransition();
 
-							newTransition.setSource(srcState);
+								newTransition.setSource(srcState);
 
-							// Set the target
-							if (srcState == targetState) {
-								newTransition.setSteadyState(true);
-							} else {
-								newTransition.setTarget(targetState);
-							}
+								// Set the target
+								if (srcState == targetState) {
+									newTransition.setSteadyState(true);
+								} else {
+									newTransition.setTarget(targetState);
+								}
 
-							newTransition.setName(
-									ErrorModelNamingUtil.buildUniqueIdentifier(stateMachine, "new_transition"));
+								newTransition.setName(
+										ErrorModelNamingUtil.buildUniqueIdentifier(stateMachine, "new_transition"));
 
-							final ConditionElement conditionElement = ErrorModelFactory.eINSTANCE
-									.createConditionElement();
+								final ConditionElement conditionElement = ErrorModelFactory.eINSTANCE
+										.createConditionElement();
 
-							newTransition.setCondition(conditionElement);
+								newTransition.setCondition(conditionElement);
 
-							final EMV2PathElement conditionPathElement = ErrorModelFactory.eINSTANCE
-									.createEMV2PathElement();
-							conditionPathElement.setNamedElement(event);
+								final EMV2PathElement conditionPathElement = ErrorModelFactory.eINSTANCE
+										.createEMV2PathElement();
+								conditionPathElement.setNamedElement(event);
 
-							final QualifiedErrorEventOrPropagation errorEventOrPropogation = ErrorModelFactory.eINSTANCE
-									.createQualifiedErrorEventOrPropagation();
-							errorEventOrPropogation.setEmv2Target(conditionPathElement);
+								final QualifiedErrorEventOrPropagation errorEventOrPropogation = ErrorModelFactory.eINSTANCE
+										.createQualifiedErrorEventOrPropagation();
+								errorEventOrPropogation.setEmv2Target(conditionPathElement);
 
-							conditionElement.setQualifiedErrorPropagationReference(errorEventOrPropogation);
+								conditionElement.setQualifiedErrorPropagationReference(errorEventOrPropogation);
 
-							stateMachine.getTransitions().add(newTransition);
+								stateMachine.getTransitions().add(newTransition);
 
-							return StepResultBuilder.create().showNewBusinessObject(srcBoc.getParent(), newTransition)
-									.build();
-						});
-			});
+								return StepResultBuilder.create()
+										.showNewBusinessObject(srcBoc.getParent(), newTransition)
+										.build();
+							}));
 		} else if (srcBo instanceof ErrorBehaviorTransition || srcBo instanceof BehaviorTransitionTrunk
 				|| srcBo instanceof TransitionBranch) {
-			// Gee the transition to modify
+			// Get the transition to modify
 			final ErrorBehaviorTransition transitionReadonly;
 			if (srcBo instanceof ErrorBehaviorTransition) {
 				transitionReadonly = (ErrorBehaviorTransition) srcBo;
@@ -151,12 +159,14 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 			} else if (srcBo instanceof TransitionBranch) {
 				transitionReadonly = (ErrorBehaviorTransition) ((TransitionBranch) srcBo).eContainer();
 			} else {
-				throw new RuntimeException("Unexpected case: " + srcBo);
+				throw new AadlGraphicalEditorException("Unexpected case: " + srcBo);
 			}
 
-			return Operation.createWithBuilder(createOp -> {
-				createOp.supply(() -> StepResult.forValue(transitionReadonly)).modifyPreviousResult(transition -> {
-					final ErrorBehaviorState targetState = (ErrorBehaviorState) transition.eResource().getResourceSet()
+			return Operation
+					.createWithBuilder(createOp -> createOp.supply(() -> StepResult.forValue(transitionReadonly))
+							.modifyPreviousResult(transition -> {
+								final ErrorBehaviorState targetState = (ErrorBehaviorState) transition.eResource()
+										.getResourceSet()
 							.getEObject(targetStateUri, true);
 
 					// Convert from using steady state and target field to using branches.
@@ -195,10 +205,9 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 					transition.getDestinationBranches().add(newBranch);
 
 					return StepResultBuilder.create().build();
-				});
-			});
+							}));
 		} else {
-			throw new RuntimeException("Unsupported case: " + srcBo);
+			throw new AadlGraphicalEditorException("Unsupported case: " + srcBo);
 		}
 	}
 
@@ -210,7 +219,7 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 		} else if (bo instanceof BehaviorTransitionTrunk) {
 			return (ErrorBehaviorStateMachine) ((BehaviorTransitionTrunk) bo).getTransition().eContainer();
 		} else {
-			throw new RuntimeException("Unsupported case");
+			throw new AadlGraphicalEditorException("Unsupported case");
 		}
 	}
 }

@@ -41,6 +41,9 @@ public class TestSelectorModel extends BaseObservableModel implements SelectorMo
 	private final List<String> elements = new ArrayList<>();
 	private List<String> selection = Collections.emptyList();
 
+	/**
+	 * Creates a new instance
+	 */
 	public TestSelectorModel() {
 		elements.add(null);
 		elements.add("A");

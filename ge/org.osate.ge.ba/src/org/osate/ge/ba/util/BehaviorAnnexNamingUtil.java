@@ -31,7 +31,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Stream;
 
-import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -39,25 +38,38 @@ import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.RefinableElement;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
+import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.businessobjecthandling.RenameContext;
 
-public class BehaviorAnnexNamingUtil {
+/**
+ * Utility class for naming behavior annex elements
+ *
+ */
+public final class BehaviorAnnexNamingUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private BehaviorAnnexNamingUtil() {
 	}
 
-	private final static Set<String> reservedWords; // Set which compares entries base on a case-insensitive comparison
+	private final static Set<String> RESERVED_WORDS; // Set which compares entries base on a case-insensitive comparison
 	static {
-		reservedWords = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-		reservedWords.addAll(
-				Arrays.asList(new String[] { "complete", "initial", "final", "state", "states", "transitions",
-						"variables", "timeout", "frozen", "on", "dispatch", "stop", "otherwise", "or", "and", "if",
-						"elsif", "end", "for", "forall", "in", "do", "until", "computation", "binding", "any", "count",
-						"fresh", "true", "false", "upper_bound", "lower_bound", "not" }));
+		RESERVED_WORDS = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+		RESERVED_WORDS.addAll(Arrays.asList("abs", "and", "any", "binding", "classifier", "complete", "computation",
+				"count", "dispatch", "do", "else", "elsif", "end", "false", "final", "for", "forall", "fresh", "frozen",
+				"if", "in", "initial", "lower_bound", "mod", "not", "on", "or", "otherwise", "reference", "variables",
+				"rem", "state", "states", "stop", "timeout", "transitions", "true", "until", "upper_bound", "while",
+				"xor"));
 	}
 
+	/**
+	 * Creates a new unique identifier
+	 * @param ba the behavior annex for which the identifier must be unique
+	 * @param baseIdentifier the identifier to start with when building the identifier. If this identifier is unique, it will be returned.
+	 * @return a new unique identifier
+	 */
 	public static String buildUniqueIdentifier(final BehaviorAnnex ba, final String baseIdentifier) {
 		final Set<String> existingIdentifiers = buildNameSet(ba);
 		return buildUniqueIdentifier(existingIdentifiers, baseIdentifier);
@@ -96,21 +108,17 @@ public class BehaviorAnnexNamingUtil {
 		}
 	}
 
-	public static String getQualifiedName(final IEObjectDescription desc) {
-		return desc.getQualifiedName().toString("::");
-	}
-
 	/**
 	 * Determines whether a specified string is a valid AADL identifier
 	 * @param value
 	 * @return
 	 */
 	private static boolean isValidIdentifier(final String value) {
-		if (reservedWords.contains(value)) {
+		if (RESERVED_WORDS.contains(value)) {
 			return false;
 		}
 
-		return value.matches("[a-zA-Z]([_]?[a-zA-Z0-9])*");
+		return value.matches("[a-zA-Z]([_]?[a-zA-Z0-9])*+");
 	}
 
 	/**
@@ -124,36 +132,27 @@ public class BehaviorAnnexNamingUtil {
 		if (classifier instanceof ComponentImplementation) {
 			((ComponentImplementation) classifier).getAllSubcomponents().stream()
 					.filter(sc -> sc instanceof DataSubcomponent)
-					.forEach(sc -> builder.add(getRootRefinedElement(sc).getName()));
+					.forEach(sc -> builder.add(AgeAadlUtil.getRootRefinedElement(sc).getName()));
 		}
 
 		return builder.build().anyMatch(name -> newName.equalsIgnoreCase(name));
 	}
 
-	private static NamedElement getRootRefinedElement(NamedElement ne) {
-		if (ne instanceof RefinableElement) {
-			NamedElement refined = ne;
-			do {
-				ne = refined;
-				refined = ((RefinableElement) ne).getRefinedElement();
-			} while (refined != null);
-		}
-
-		return ne;
-	}
-
 	/**
 	 * Check if behavior element new name is valid.
-	 * @return empty if the name is valid.  Otherwise return the error message
+	 * @param ctx the context containing the informaton regarding the proposed rename
+	 * @return empty if the name is valid. Otherwise returns the error message
 	 */
 	public static Optional<String> checkNameValidity(final RenameContext ctx) {
-		final NamedElement ne = ctx.getBusinessObject(NamedElement.class).get();
+		final NamedElement ne = ctx.getBusinessObject(NamedElement.class).orElseThrow();
 		final String newName = ctx.getNewName();
 		return checkNameValidity(ne, newName);
 	}
 
 	/**
 	 * Check if behavior element new name is valid.
+	 * @param ne the named element to check
+	 * @param newName the proposed name
 	 * @return empty if the name is valid.  Otherwise return the error message
 	 */
 	public static Optional<String> checkNameValidity(final NamedElement ne, final String newName) {

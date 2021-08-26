@@ -58,19 +58,29 @@ import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 
 import com.google.common.base.Predicates;
 
-public class ToolUtil {
+/**
+ * Contains utility functions for working with {@link Tool} instances
+ *
+ */
+public final class ToolUtil {
 	/**
-	 * Looks in ancestors and returns the first BOC which is associated with a ComponentImplementation.
-	 * Returns null if any ancestor is not associated with a NamedElement.
-	 * @param boc
-	 * @return
+	 * Private constructor to prevent instantiation.
+	 */
+	private ToolUtil() {
+	}
+
+	/**
+	 * Looks at the specified {@link BusinessObjectContext} and ancestors and returns the first one which is associated with
+	 * a {@link ComponentImplementation}
+	 * @param boc the business object ocntext at which to begin the search.
+	 * @return the component implementation. Returns null if any ancestor is not associated with a NamedElement.
 	 */
 	public static BusinessObjectContext findComponentImplementationBoc(final BusinessObjectContext boc) {
 		BusinessObjectContext tmp = boc;
-		while(tmp != null) {
-			if(tmp.getBusinessObject() instanceof ComponentImplementation) {
+		while (tmp != null) {
+			if (tmp.getBusinessObject() instanceof ComponentImplementation) {
 				return tmp;
-			} else if(!(tmp.getBusinessObject() instanceof NamedElement)) {
+			} else if (!(tmp.getBusinessObject() instanceof NamedElement)) {
 				return null;
 			}
 
@@ -82,8 +92,8 @@ public class ToolUtil {
 
 	private static BusinessObjectContext findContextAncestorBoc(final BusinessObjectContext boc) {
 		BusinessObjectContext tmp = boc.getParent();
-		while(tmp != null) {
-			if(tmp.getBusinessObject() instanceof Context) {
+		while (tmp != null) {
+			if (tmp.getBusinessObject() instanceof Context) {
 				return tmp;
 			}
 
@@ -93,17 +103,24 @@ public class ToolUtil {
 		return null;
 	}
 
+	/**
+	 * Finds a {@link Context} by starting with the parent of the specified {@link BusinessObjectContext} and walking up until one is found.
+	 * @param boc the business object context whose parent will be the first {@link BusinessObjectContext} to check
+	 * @return the {@link Context} business object. Returns null if one could not be found.
+	 */
 	public static Context findContext(final BusinessObjectContext boc) {
 		final BusinessObjectContext contextBoc = findContextAncestorBoc(boc);
-		return contextBoc == null ? null : (Context)contextBoc.getBusinessObject();
+		return contextBoc == null ? null : (Context) contextBoc.getBusinessObject();
 	}
 
 	/**
-	 * Finds a context. If the context BOC is the specified owner BOC, null is returned. It is expected that the owner's business object will be a valid context and is a container
+	 * Finds a context. If the context {@link BusinessObjectContext} is the specified owner {@link BusinessObjectContext}, null is returned.
+	 * It is expected that the owner's business object will be a valid context and is a container
 	 * of the specified BOC. In such cases the function will return a context only if it is inside the owner business object context.
-	 * @param boc
-	 * @param ownerBoc
-	 * @return
+	 * @param boc the object to use to find the {@link Context}
+	 * @param ownerBoc the business context from which not return the context
+	 * @return the {@link Context} business object. Returns null if one could not be found or if the business object context was the specified
+	 * owner business object context
 	 */
 	public static Context findContextExcludeOwner(final BusinessObjectContext boc,
 			final BusinessObjectContext ownerBoc) {
@@ -112,12 +129,13 @@ public class ToolUtil {
 	}
 
 	/**
-	 * Get the errors and warnings for referenced element's root
+	 * Get the errors and warnings for the AADL packages whose contents are in the same tree as the specified business object context
+	 * @param boc the business object context whose tree will be used.
+	 * @return the errors and warnings.
 	 */
 	public static Set<Diagnostic> getAllReferencedPackageDiagnostics(final BusinessObjectContext boc) {
 		// Find root to get all referenced package diagnostics
-		final BusinessObjectContext root = findRoot(boc)
-				.orElseThrow(() -> new RuntimeException("Cannot find root"));
+		final BusinessObjectContext root = findRoot(boc).orElseThrow(() -> new RuntimeException("Cannot find root"));
 
 		// Get referenced packages of root boc
 		final Set<AadlPackage> packages = getReferencedPackages(root);
@@ -125,19 +143,17 @@ public class ToolUtil {
 		// Collect errors and warnings for referenced AADL packages
 		final List<DiagnosticBuilder> diagnosticBuilders = new ArrayList<>();
 		for (final AadlPackage pkg : packages) {
-			final IProject project = ProjectUtil.getProjectForBoOrThrow(pkg);
-			final ResourceSet resourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
-			final DiagnosticBuilder diagnosticBuilder = new DiagnosticBuilder(pkg);
-			// Model error and warning diagnostics
-			populateDiagnostics(diagnosticBuilder,
-					pkg,
-					resourceSet);
+			ProjectUtil.getProjectForBo(pkg).ifPresent(project -> {
+				final ResourceSet resourceSet = AadlModelAccessUtil.getLiveResourceSet(project);
+				final DiagnosticBuilder diagnosticBuilder = new DiagnosticBuilder(pkg);
+				// Model error and warning diagnostics
+				populateDiagnostics(diagnosticBuilder, pkg, resourceSet);
 
-			diagnosticBuilders.add(diagnosticBuilder);
+				diagnosticBuilders.add(diagnosticBuilder);
+			});
 		}
 
-		return diagnosticBuilders.stream().flatMap(DiagnosticBuilder::getDiagnostics)
-				.collect(toDiagnosticTreeSet());
+		return diagnosticBuilders.stream().flatMap(DiagnosticBuilder::getDiagnostics).collect(toDiagnosticTreeSet());
 	}
 
 	/**
@@ -184,18 +200,14 @@ public class ToolUtil {
 		final List<DiagnosticBuilder> diagnosticBuilders = new ArrayList<>();
 		final NamedElement root = elementToModify.getElementRoot();
 		if (root instanceof AadlPackage) {
-			final DiagnosticBuilder diagnosticBuilder = new DiagnosticBuilder((AadlPackage)root);
+			final DiagnosticBuilder diagnosticBuilder = new DiagnosticBuilder((AadlPackage) root);
 			// Model error and warning diagnostics
-			populateDiagnostics(diagnosticBuilder,
-					modifiedObject,
-					resourceSet);
+			populateDiagnostics(diagnosticBuilder, modifiedObject, resourceSet);
 			diagnosticBuilders.add(diagnosticBuilder);
 		}
 
-		return diagnosticBuilders.stream().flatMap(DiagnosticBuilder::getDiagnostics)
-				.collect(toDiagnosticTreeSet());
+		return diagnosticBuilders.stream().flatMap(DiagnosticBuilder::getDiagnostics).collect(toDiagnosticTreeSet());
 	}
-
 
 	/**
 	 * Converts a stream to a tree set of diagnostics sorted by severity and message.
@@ -221,9 +233,7 @@ public class ToolUtil {
 	}
 
 	// Get error and warning diagnostics
-	private static void populateDiagnostics(
-			final DiagnosticBuilder diagnosticsBuilder,
-			final EObject eObjectToValidate,
+	private static void populateDiagnostics(final DiagnosticBuilder diagnosticsBuilder, final EObject eObjectToValidate,
 			final ResourceSet resourceSet) {
 		// Serialize
 		final Optional<String> serializedSrc = getSerializedSource(eObjectToValidate);
@@ -236,7 +246,8 @@ public class ToolUtil {
 		loadResource(resource, serializedSrc.get());
 
 		// Concrete Syntax Validation
-		resource.validateConcreteSyntax().stream()
+		resource.validateConcreteSyntax()
+		.stream()
 		.filter(diagnostic -> isErrorOrWarning(diagnostic))
 		.forEach(diagnostic -> diagnosticsBuilder.addDiagnostic(diagnostic));
 
@@ -251,14 +262,10 @@ public class ToolUtil {
 		}
 
 		// Errors
-		getResourceDiagnostics(resource.getErrors(),
-				diagnosticsBuilder,
-				Diagnostic.ERROR);
+		getResourceDiagnostics(resource.getErrors(), diagnosticsBuilder, Diagnostic.ERROR);
 
 		// Warnings
-		getResourceDiagnostics(resource.getWarnings(),
-				diagnosticsBuilder,
-				Diagnostic.WARNING);
+		getResourceDiagnostics(resource.getWarnings(), diagnosticsBuilder, Diagnostic.WARNING);
 	}
 
 	/**
@@ -278,8 +285,7 @@ public class ToolUtil {
 		}
 
 		private static String getMessagePrefix(final String pkgName) {
-			return new StringBuilder("Package ").append(pkgName).append(": ")
-					.toString();
+			return new StringBuilder("Package ").append(pkgName).append(": ").toString();
 		}
 
 		public Stream<Diagnostic> getDiagnostics() {
@@ -322,8 +328,7 @@ public class ToolUtil {
 
 	private static void getResourceDiagnostics(
 			final List<org.eclipse.emf.ecore.resource.Resource.Diagnostic> diagnostics,
-			final DiagnosticBuilder diagnosticBuilder,
-			final int severity) {
+			final DiagnosticBuilder diagnosticBuilder, final int severity) {
 		diagnostics.stream().forEach(diagnostic -> diagnosticBuilder.addDiagnostic(severity, diagnostic));
 	}
 
@@ -337,7 +342,9 @@ public class ToolUtil {
 			return Stream.of(diagnostic);
 		}
 
-		return Stream.concat(Stream.of(diagnostic), diagnostic.getChildren().stream()
+		return Stream.concat(Stream.of(diagnostic),
+				diagnostic.getChildren()
+				.stream()
 				.flatMap(childDiagnostic -> getDiagnosticDescendants(childDiagnostic)));
 	}
 
@@ -366,6 +373,5 @@ public class ToolUtil {
 		final XtextResource resource = (XtextResource) resourceSet.getResource(uri, true);
 		return resource != null ? resource : (XtextResource) resourceSet.createResource(uri);
 	}
-
 
 }

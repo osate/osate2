@@ -35,7 +35,7 @@ final class TestNameEditorModel extends BaseObservableModel implements NameEdito
 	@Override
 	public boolean isEnabled() {
 		return name != null;
-	};
+	}
 
 	@Override
 	public String getName() {

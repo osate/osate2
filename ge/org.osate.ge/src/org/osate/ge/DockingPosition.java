@@ -23,30 +23,32 @@
  */
 package org.osate.ge;
 
-import org.osate.ge.internal.diagram.runtime.DockArea;
-
 /**
- * Describes a docking position.
+ * Describes a docking position. Used to specify the default docking positions and target docking position for a diagram element.
  */
 public enum DockingPosition {
-	ANY(DockArea.LEFT),
-	NOT_DOCKABLE(null),
-	LEFT(DockArea.LEFT),
-	RIGHT(DockArea.RIGHT),
-	TOP(DockArea.TOP),
-	BOTTOM(DockArea.BOTTOM);
-
-	private final DockArea defaultDockArea;
-
-	DockingPosition(DockArea defaultDockArea) {
-		this.defaultDockArea = defaultDockArea;
-	}
-
 	/**
-	 *
-	 * @noreference
+	 * Used by {@link GraphicalConfiguration} to specify that the diagram element should be docked but does not specify a preferred side.
 	 */
-	public DockArea getDefaultDockArea() {
-		return defaultDockArea;
-	}
+	ANY,
+	/**
+	 * Used by {@link GraphicalConfiguration} to specify that the diagram element is not dockable.
+	 */
+	NOT_DOCKABLE,
+	/**
+	 * Left side
+	 */
+	LEFT,
+	/**
+	 * Right side
+	 */
+	RIGHT,
+	/**
+	 * Top side
+	 */
+	TOP,
+	/**
+	 * Bottom side
+	 */
+	BOTTOM
 }

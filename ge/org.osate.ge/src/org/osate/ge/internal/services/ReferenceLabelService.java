@@ -26,6 +26,9 @@ package org.osate.ge.internal.services;
 import org.osate.ge.CanonicalBusinessObjectReference;
 import org.osate.ge.RelativeBusinessObjectReference;
 
+/**
+ * Contains members which allow retrieving a label for a canonical or relative reference
+ */
 public interface ReferenceLabelService {
 	/**
 	 * Returns a label for a canonical reference.
