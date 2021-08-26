@@ -104,7 +104,8 @@ public class BehaviorAnnexReferenceResolver implements ReferenceResolver {
 			final Long index) {
 		return classifier.getSelfPlusAllExtended().stream().sequential()
 				.flatMap(c -> c.getOwnedAnnexSubclauses().stream().sequential())
-				.filter(as -> annexSubclauseName.equalsIgnoreCase(as.getName())).skip(index)
+				.filter(as -> annexSubclauseName.equalsIgnoreCase(as.getName()))
+				.skip(index)
 				.findFirst()
 				.map(as -> ((DefaultAnnexSubclause) as).getParsedAnnexSubclause());
 	}

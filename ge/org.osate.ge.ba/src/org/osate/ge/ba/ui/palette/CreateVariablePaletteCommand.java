@@ -87,6 +87,7 @@ public class CreateVariablePaletteCommand extends BasePaletteCommand implements 
 							final String newName = BehaviorAnnexNamingUtil.buildUniqueIdentifier(behaviorAnnexToModify,
 									"new_behavior_variable");
 							newVariable.setName(newName);
+
 							newVariable.setDataClassifier(prevResult);
 
 							behaviorAnnexToModify.getVariables().add(newVariable);

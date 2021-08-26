@@ -38,9 +38,9 @@ import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.RefinableElement;
 import org.osate.ba.aadlba.BehaviorAnnex;
 import org.osate.ba.aadlba.BehaviorState;
+import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.businessobjecthandling.RenameContext;
 
 /**
@@ -54,10 +54,10 @@ public final class BehaviorAnnexNamingUtil {
 	private BehaviorAnnexNamingUtil() {
 	}
 
-	private final static Set<String> reservedWords; // Set which compares entries base on a case-insensitive comparison
+	private final static Set<String> RESERVED_WORDS; // Set which compares entries base on a case-insensitive comparison
 	static {
-		reservedWords = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-		reservedWords.addAll(Arrays.asList("abs", "and", "any", "binding", "classifier", "complete", "computation",
+		RESERVED_WORDS = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+		RESERVED_WORDS.addAll(Arrays.asList("abs", "and", "any", "binding", "classifier", "complete", "computation",
 				"count", "dispatch", "do", "else", "elsif", "end", "false", "final", "for", "forall", "fresh", "frozen",
 				"if", "in", "initial", "lower_bound", "mod", "not", "on", "or", "otherwise", "reference", "variables",
 				"rem", "state", "states", "stop", "timeout", "transitions", "true", "until", "upper_bound", "while",
@@ -114,7 +114,7 @@ public final class BehaviorAnnexNamingUtil {
 	 * @return
 	 */
 	private static boolean isValidIdentifier(final String value) {
-		if (reservedWords.contains(value)) {
+		if (RESERVED_WORDS.contains(value)) {
 			return false;
 		}
 
@@ -132,22 +132,10 @@ public final class BehaviorAnnexNamingUtil {
 		if (classifier instanceof ComponentImplementation) {
 			((ComponentImplementation) classifier).getAllSubcomponents().stream()
 					.filter(sc -> sc instanceof DataSubcomponent)
-					.forEach(sc -> builder.add(getRootRefinedElement(sc).getName()));
+					.forEach(sc -> builder.add(AgeAadlUtil.getRootRefinedElement(sc).getName()));
 		}
 
 		return builder.build().anyMatch(name -> newName.equalsIgnoreCase(name));
-	}
-
-	private static NamedElement getRootRefinedElement(NamedElement ne) {
-		if (ne instanceof RefinableElement) {
-			NamedElement refined = ne;
-			do {
-				ne = refined;
-				refined = ((RefinableElement) ne).getRefinedElement();
-			} while (refined != null);
-		}
-
-		return ne;
 	}
 
 	/**

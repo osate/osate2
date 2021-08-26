@@ -44,6 +44,9 @@ public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvid
 		return getChildBusinessObjects(bo);
 	}
 
+	/**
+	 * Returns {@link BehaviorAnnex} children of the business object
+	 */
 	private Stream<?> getChildBusinessObjects(final Object bo) {
 		if (bo instanceof Classifier) {
 			return getBehaviorAnnexes((Classifier) bo);
@@ -63,6 +66,9 @@ public class BehaviorAnnexBusinessObjectProvider implements BusinessObjectProvid
 		return Stream.empty();
 	}
 
+	/**
+	 * Returns all behavior annexes owned by the classifier
+	 */
 	private static Stream<BehaviorAnnex> getBehaviorAnnexes(final Classifier c) {
 		return GraphicalAnnexUtil.getAllParsedAnnexSubclauses(c, BehaviorAnnexReferenceUtil.ANNEX_NAME,
 				BehaviorAnnex.class);
