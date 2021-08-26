@@ -35,8 +35,11 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.osate.ge.internal.GraphicalEditorException;
 
-// Responds to resource change events and invalidates a SaveDiagramIndex accordingly.
-// An instance of this class should be registered as a resource change listener for the workspace.
+/**
+ * Listener which responds to resource change events and invalidates a {@link SavedDiagramIndex} accordingly.
+ * An instance of this class should be registered as a resource change listener for the workspace.
+ *
+ */
 public class SavedDiagramIndexInvalidator implements IResourceChangeListener {
 	private SavedDiagramIndex index;
 
@@ -59,6 +62,10 @@ public class SavedDiagramIndexInvalidator implements IResourceChangeListener {
 		return true;
 	};
 
+	/**
+	 * Creates an instance
+	 * @param index the index to invalidate
+	 */
 	public SavedDiagramIndexInvalidator(final SavedDiagramIndex index) {
 		this.index = Objects.requireNonNull(index, "index must not be null");
 	}

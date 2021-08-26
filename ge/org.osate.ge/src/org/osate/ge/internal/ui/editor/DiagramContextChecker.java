@@ -249,11 +249,11 @@ public class DiagramContextChecker {
 		diagram.modify("Update Diagram Context", m -> {
 			// Update the diagram's context
 			m.setDiagramConfiguration(new DiagramConfigurationBuilder(diagram.getConfiguration())
-					.setContextBoReference(newContextCanonicalRef).build());
+					.contextBoReference(newContextCanonicalRef).build());
 
 			// Update the root element
-			if (diagram.getDiagramElements().size() == 1) {
-				m.updateBusinessObject(diagram.getDiagramElements().stream().findAny().get(), newContext,
+			if (diagram.getChildren().size() == 1) {
+				m.updateBusinessObject(diagram.getChildren().stream().findAny().get(), newContext,
 						newContextRelativeRef);
 			}
 

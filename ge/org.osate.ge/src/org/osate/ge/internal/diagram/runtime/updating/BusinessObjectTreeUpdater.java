@@ -21,20 +21,21 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.ge.internal.util;
+package org.osate.ge.internal.diagram.runtime.updating;
 
-import org.eclipse.emf.ecore.EClass;
+import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
 
-public class ImageHelper {
-	protected static final String PREFIX = "org.osate.ge.";
+/**
+ * Interface for creating a new tree based on an existing tree.
+ *
+ */
+public interface BusinessObjectTreeUpdater {
 	/**
-	 * Returns the full image id of an image registered by the org.osate.ge plugin.
+	 * Creates a new business object tree based on the current state and the diagram configuration.
+	 * The tree updater is required to fill in any required fields on the business object nodes.
+	 * @param configuration the diagram configuration used to update the tree
+	 * @param tree the initial tree
+	 * @return the new tree
 	 */
-	public static String getImage(final String imageId) {
-		return PREFIX + imageId;
-	}
-
-	public static String getImage(final EClass eClass) {
-		return getImage(eClass.getName());
-	}
+	BusinessObjectNode updateTree(final DiagramConfiguration configuration, BusinessObjectNode tree);
 }

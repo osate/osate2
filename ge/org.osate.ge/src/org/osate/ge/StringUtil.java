@@ -97,11 +97,11 @@ public final class StringUtil {
 	 * Deprecated. Use @link #snakeCaseToLowercaseUser(String)}.
 	 * @param value is the string to convert.
 	 * @return the converted string.
-	 * @deprecated use {@link #snakeCaseToLowercaseUser(String)}
+	 * @deprecated use {@link #snakeCaseToLowercaseWords(String)}
 	 */
 	@Deprecated
 	public static String upperUnderscoreToLowercaseUser(final String value) {
-		return snakeCaseToLowercaseUser(value);
+		return snakeCaseToLowercaseWords(value);
 	}
 
 	/**
@@ -111,7 +111,21 @@ public final class StringUtil {
 	 * @return the resulting string
 	 * @since 3.0
 	 */
-	public static String snakeCaseToLowercaseUser(final String value) {
+	public static String snakeCaseToLowercaseWords(final String value) {
 		return Arrays.stream(value.split("_")).map(String::toLowerCase).collect(Collectors.joining(" "));
+	}
+
+	/**
+	 * Converts a string which is in snake case format to a phrase which is all in lower-case and which has underscores replaced with
+	 * spaces. Example "NEW_CLASSIFIER" =&gt; "New Classifier"
+	 * @param value a snake case string
+	 * @return the resulting string
+	 * @since 3.0
+	 */
+	public static String snakeCaseToTitleCase(final String value) {
+		return Arrays.stream(value.split("_"))
+				.map(String::toLowerCase)
+				.map(StringUtil::capitalize)
+				.collect(Collectors.joining(" "));
 	}
 }

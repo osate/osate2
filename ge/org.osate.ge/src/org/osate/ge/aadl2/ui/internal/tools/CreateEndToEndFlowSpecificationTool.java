@@ -89,8 +89,8 @@ import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.aadl2.ui.internal.tools.FlowDialogUtil.SegmentData;
 import org.osate.ge.graphics.Color;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
-import org.osate.ge.internal.diagram.runtime.botree.Completeness;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.updating.Completeness;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ReferenceService;
@@ -103,7 +103,7 @@ import org.osate.ge.internal.ui.tools.SelectionChangedEvent;
 import org.osate.ge.internal.ui.tools.Tool;
 import org.osate.ge.internal.ui.tools.ToolUtil;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
-import org.osate.ge.internal.ui.util.DialogPlacementHelper;
+import org.osate.ge.internal.ui.util.UiUtil;
 
 public class CreateEndToEndFlowSpecificationTool implements Tool {
 	private ColoringService.Coloring coloring = null;
@@ -127,12 +127,15 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 		createFlowDialog.setEndToEndFlowName(endToEndFlow.getName());
 
 		// Find segments in order
-		endToEndFlow.getAllFlowSegments().stream().map(
-				flowSegment -> FlowToolUtil.createSegmentData(referenceService, container, flowSegment))
+		endToEndFlow.getAllFlowSegments()
+		.stream()
+		.map(flowSegment -> FlowToolUtil.createSegmentData(referenceService, container, flowSegment))
 		.forEachOrdered(segmentSelections::add);
 
-		endToEndFlow.getInModeOrTransitions().stream().map(modeFeature -> FlowToolUtil
-				.findOrCreateBusinessObjectContext(referenceService, container, modeFeature))
+		endToEndFlow.getInModeOrTransitions()
+		.stream()
+		.map(modeFeature -> FlowToolUtil.findOrCreateBusinessObjectContext(referenceService, container,
+				modeFeature))
 		.forEachOrdered(modeFeatureSelections::add);
 	}
 
@@ -157,8 +160,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				// Do not allow tool activation if there are errors in the models
 				final Set<Diagnostic> errors = FlowDialogUtil.getErrors(diagnostics);
 				if (!errors.isEmpty()) {
-					Display.getDefault().asyncExec(
-							() -> new FlowDialogUtil.ErrorDialog("The Create End-To-End", errors).open());
+					Display.getDefault()
+					.asyncExec(() -> new FlowDialogUtil.ErrorDialog("The Create End-To-End", errors).open());
 				} else {
 					coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
 					// Create and update based on current selection
@@ -406,8 +409,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 		private ElementSelectionDialog elementSelectionDlg;
 
 		public CreateFlowsToolsDialog(final Shell parentShell, final DiagramElement eteFlowToEditContainer,
-				final EndToEndFlow eteFlowToEdit,
-				final UiService uiService) {
+				final EndToEndFlow eteFlowToEdit, final UiService uiService) {
 			super(parentShell);
 			setHelpAvailable(true);
 			this.eteFlowToEditContainer = eteFlowToEditContainer;
@@ -519,11 +521,12 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				return errorMsg == null || !errorMsg.contains("Serialization Error");
 			}).collect(Collectors.toSet());
 
-			FlowDialogUtil.setInput(errorTableViewer,
-					dialogDiagnostics);
+			FlowDialogUtil.setInput(errorTableViewer, dialogDiagnostics);
 
 			return !diagnostics.stream()
-					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR).findAny().isPresent();
+					.filter(diagnostic -> diagnostic.getSeverity() == Diagnostic.ERROR)
+					.findAny()
+					.isPresent();
 		}
 
 		private Function<ResourceSet, EObject> modifyObject(final EndToEndFlow endToEndFlow,
@@ -541,7 +544,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 					endToEndFlowToEdit.getAllFlowSegments().addAll(endToEndFlow.getAllFlowSegments());
 					endToEndFlowToEdit.setName(endToEndFlow.getName());
 					endToEndFlowToEdit.getInModeOrTransitions().clear();
-					endToEndFlow.getInModeOrTransitions().forEach(mf -> endToEndFlowToEdit.getInModeOrTransitions()
+					endToEndFlow.getInModeOrTransitions()
+					.forEach(mf -> endToEndFlowToEdit.getInModeOrTransitions()
 							.add((ModeFeature) resourceSet.getEObject(EcoreUtil.getURI(mf), true)));
 				} else {
 					objectToModify.getOwnedEndToEndFlows().add(endToEndFlow);
@@ -600,9 +604,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 					segmentNameBuilder.append(AgeAadlUtil.getRootName((NamedElement) boc.getBusinessObject()));
 
-					createSegmentButton(flowComposite,
-							segmentNameBuilder.toString(),
-							flowSegment);
+					createSegmentButton(flowComposite, segmentNameBuilder.toString(), flowSegment);
 
 					// If segment is not last, add an arrow
 					if (segmentsIt.hasNext()) {
@@ -698,8 +700,9 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				public void widgetSelected(final SelectionEvent e) {
 					// Show menu at bottom of button
 					final Point location = segmentButton.getLocation();
-					editMenu.setLocation(Display.getCurrent().map(createFlowDialog.flowComposite, null,
-							new Point(location.x, location.y + segmentButton.getSize().y)));
+					editMenu.setLocation(Display.getCurrent()
+							.map(createFlowDialog.flowComposite, null,
+									new Point(location.x, location.y + segmentButton.getSize().y)));
 					editMenu.setVisible(true);
 				};
 			});
@@ -747,7 +750,6 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 
 					createFlowDialog.updateSegments();
 
-
 					createFlowDialog.setErrorMessage(null);
 					createFlowDialog.setMessage(getDialogMessage());
 
@@ -793,8 +795,9 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
 					final Point location = segmentButton.getLocation();
-					menu.setLocation(Display.getCurrent().map(createFlowDialog.flowComposite, null,
-							new Point(location.x, location.y + segmentButton.getSize().y)));
+					menu.setLocation(Display.getCurrent()
+							.map(createFlowDialog.flowComposite, null,
+									new Point(location.x, location.y + segmentButton.getSize().y)));
 					menu.setVisible(true);
 				};
 			});
@@ -839,8 +842,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
 			newShell.setText("End To End Flow Specification Tool");
-			newShell.setLocation(DialogPlacementHelper
-					.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+			newShell.setLocation(
+					UiUtil.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 			newShell.setSize(800, 400);
 			newShell.setMinimumSize(460, 215);
 		}
@@ -943,8 +946,7 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 								.getAncestorDiagramElement(editor.getDiagram(), ancestors)
 								.orElseThrow(() -> new RuntimeException(
 										"Cannot find container: " + selectedCi.getBusinessObject()));
-						FlowToolUtil.findSegmentDiagramElements(
-								(EndToEndFlow) selectedBoc.getBusinessObject(),
+						FlowToolUtil.findSegmentDiagramElements((EndToEndFlow) selectedBoc.getBusinessObject(),
 								ancestor, highlightableSegments);
 					}
 
@@ -1137,8 +1139,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			protected void configureShell(final Shell newShell) {
 				super.configureShell(newShell);
 				newShell.setText("Element Selection");
-				newShell.setLocation(DialogPlacementHelper
-						.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+				newShell.setLocation(
+						UiUtil.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 				newShell.setSize(400, 200);
 				newShell.setMinimumSize(400, 200);
 			}
@@ -1192,7 +1194,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 				final List<BusinessObjectContext> bocs = AgeHandlerUtil.getSelectedBusinessObjectContexts();
 				if (bocs.size() == 1 && bocs.get(0).getBusinessObject() instanceof NamedElement) {
 					final String text = AgeAadlUtil
-							.getRootRefinedElement((NamedElement) bocs.get(0).getBusinessObject()).getName();
+							.getRootRefinedElement((NamedElement) bocs.get(0).getBusinessObject())
+							.getName();
 					selectionLabel.setText(text);
 				} else {
 					selectionLabel.setText("<Invalid>");
@@ -1228,8 +1231,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 			protected void configureShell(final Shell newShell) {
 				super.configureShell(newShell);
 				newShell.setText("Element Selection");
-				newShell.setLocation(DialogPlacementHelper
-						.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
+				newShell.setLocation(
+						UiUtil.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
 				newShell.setSize(400, 200);
 				newShell.setMinimumSize(400, 200);
 			}
@@ -1289,7 +1292,8 @@ public class CreateEndToEndFlowSpecificationTool implements Tool {
 						GridDataFactory.fillDefaults().grab(false, true).align(SWT.CENTER, SWT.CENTER).create());
 
 				comboViewer = new ComboViewer(composite, SWT.READ_ONLY);
-				comboViewer.getCombo().setLayoutData(
+				comboViewer.getCombo()
+				.setLayoutData(
 						GridDataFactory.fillDefaults().grab(true, true).align(SWT.CENTER, SWT.CENTER).create());
 
 				comboViewer.setContentProvider(ArrayContentProvider.getInstance());

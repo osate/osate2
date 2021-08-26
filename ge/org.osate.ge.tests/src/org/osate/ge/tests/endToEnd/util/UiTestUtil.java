@@ -1015,9 +1015,9 @@ public class UiTestUtil {
 		final AgeEditor editor = getDiagramEditor(diagram);
 		final AgeDiagram ageDiagram = editor.getDiagram();
 		ImmutableList<RelativeBusinessObjectReference> refs = element.pathToElement;
-		DiagramElement de = ageDiagram.getByRelativeReference(refs.get(0));
+		DiagramElement de = ageDiagram.getChildByRelativeReference(refs.get(0));
 		for (int i = 1; i < refs.size() && de != null; i++) {
-			de = de.getByRelativeReference(refs.get(i));
+			de = de.getChildByRelativeReference(refs.get(i));
 		}
 
 		return Optional.ofNullable(de);

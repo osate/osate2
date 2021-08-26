@@ -56,9 +56,12 @@ public class TypeTokenListField extends BaseField<TypeTokenListEditorModel> {
 		return getModel().getErrorTypes().limit(1).count() != 0;
 	}
 
+	/**
+	 * Entry point for a test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new TypeTokenListField(shell, new TestTypeTokenListEditorModel());
-		});
+		SwtUtil.run(shell -> new TypeTokenListField(shell, new TestTypeTokenListEditorModel()));
 	}
 }

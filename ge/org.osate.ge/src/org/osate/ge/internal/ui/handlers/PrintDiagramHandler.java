@@ -52,6 +52,9 @@ import org.osate.ge.services.DiagramExportService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
+/**
+ * Handler for the print diagram command
+ */
 public class PrintDiagramHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {

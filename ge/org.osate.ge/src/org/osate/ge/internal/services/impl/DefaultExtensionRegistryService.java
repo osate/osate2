@@ -68,7 +68,6 @@ import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
@@ -97,13 +96,6 @@ import com.google.common.collect.ImmutableMap;
  * Instantiates extensions which are registered via extension points.
  */
 public class DefaultExtensionRegistryService implements ExtensionRegistryService {
-	public static class ContextFunction extends SimpleServiceContextFunction<ExtensionRegistryService> {
-		@Override
-		public ExtensionRegistryService createService(final IEclipseContext context) {
-			return new DefaultExtensionRegistryService();
-		}
-	}
-
 	private static class PrioritizedExtensionInfo<T> {
 		final private int priority;
 		final private T object;
@@ -138,6 +130,9 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	private final ImmutableMap<String, RegisteredImage> imageMap;
 	private final PaletteContributorRegistry paletteExtensions;
 
+	/**
+	 * Creates a new instance
+	 */
 	public DefaultExtensionRegistryService() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();
 		boHandlers = instantiatePrioritizedExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler",

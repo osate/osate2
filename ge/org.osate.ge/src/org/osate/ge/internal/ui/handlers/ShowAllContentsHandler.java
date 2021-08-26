@@ -39,6 +39,9 @@ import org.osgi.framework.FrameworkUtil;
 
 import com.google.common.collect.ImmutableSet;
 
+/**
+ * Handler for the show all contents command
+ */
 public class ShowAllContentsHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {

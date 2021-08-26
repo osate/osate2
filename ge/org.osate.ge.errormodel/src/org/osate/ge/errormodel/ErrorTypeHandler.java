@@ -87,7 +87,7 @@ public class ErrorTypeHandler implements BusinessObjectHandler {
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic)
 				.annotation("<Error Type>")
-				.style(ErrorModelGeUtil.topCenteredLabelStyle).build());
+				.style(ErrorModelGeUtil.TOP_CENTERED_LABEL_STYLE).build());
 	}
 
 	@Override

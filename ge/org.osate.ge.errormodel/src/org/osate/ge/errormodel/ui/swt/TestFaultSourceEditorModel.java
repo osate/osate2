@@ -35,11 +35,17 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 
+/**
+ * Test view model for {@link FaultSourceEditorDialog} and {@link FaultSourceField}
+ */
 class TestFaultSourceEditorModel extends BaseObservableModel implements FaultSourceEditorModel {
 	private final List<ErrorBehaviorState> stateOptions = new ArrayList<>();
 	private FaultSource value = new FaultSource("Test");
 	private TestErrorTypesProvider errorTypes = new TestErrorTypesProvider();
 
+	/**
+	 * Creates a new instance
+	 */
 	public TestFaultSourceEditorModel() {
 		stateOptions.add(null);
 		stateOptions.add(createState("S1"));

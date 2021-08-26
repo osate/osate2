@@ -122,7 +122,11 @@ public class ReferenceEncoder {
 		}
 	}
 
-	// Simple main function that encodes and decodes strings for testing purposes.
+	/**
+	 * Simple main function that encodes and decodes strings for testing purposes.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(final String[] args) {
 		final StringBuilder sb = new StringBuilder();
 		testEncodeDecodeSegment(sb, "Test");

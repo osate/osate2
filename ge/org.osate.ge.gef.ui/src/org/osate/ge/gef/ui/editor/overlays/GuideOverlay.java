@@ -180,7 +180,7 @@ public final class GuideOverlay implements AutoCloseable {
 			if (DiagramElementPredicates.isShape(diagramElementBeingModified)) {
 				if (diagramElementBeingModified.getDockArea() == null) {
 					// Add siblings to check for alignment
-					for (final DiagramElement sibling : diagramElementBeingModified.getParent().getDiagramElements()) {
+					for (final DiagramElement sibling : diagramElementBeingModified.getParent().getChildren()) {
 						if (DiagramElementPredicates.isMoveableShape(sibling) && sibling.getDockArea() == null) {
 							undockedDiagramElementsToInclude.add(sibling);
 						}
@@ -190,7 +190,7 @@ public final class GuideOverlay implements AutoCloseable {
 
 					// Add docked siblings to ignore set
 					diagramElementBeingModified.getParent()
-							.getDiagramElements()
+							.getChildren()
 							.stream()
 							.filter(DiagramElementPredicates::isDocked)
 							.forEachOrdered(diagramElementsToIgnore::add);
@@ -225,7 +225,7 @@ public final class GuideOverlay implements AutoCloseable {
 			final Set<DiagramElement> diagramElementsToIgnore, final Set<DiagramElement> diagramElementsToInclude,
 			final boolean includeDockedShapes, final Collection<Double> xValues, final Collection<Double> centerXValues,
 			final Collection<Double> yValues, final Collection<Double> centerYValues) {
-		for (final DiagramElement child : parent.getDiagramElements()) {
+		for (final DiagramElement child : parent.getChildren()) {
 			if (!diagramElementsToIgnore.contains(child)) {
 				final double childLeft = parentX + child.getX();
 				final double childTop = parentY + child.getY();

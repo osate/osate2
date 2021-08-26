@@ -33,11 +33,14 @@ import org.eclipse.core.commands.ExecutionException;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.ui.handlers.AlignmentHelper.AlignmentElement;
-import org.osate.ge.internal.ui.handlers.AlignmentHelper.HorizontalAxis;
 import org.osate.ge.internal.ui.util.UiUtil;
 
+/**
+ * Handler which aligns the lefts of selected diagram elements
+ *
+ */
 public class AlignLeftHandler extends AbstractHandler {
-	private static final AlignmentHelper alignmentHelper = AlignmentHelper.create(new HorizontalAxis());
+	private static final AlignmentHelper alignmentHelper = AlignmentHelper.createHorizontal();
 
 	// This handler allows for alignment of selected diagram elements that are not docked left or right.
 	// Any selected element must not an ancestor of another selected element.
@@ -50,7 +53,7 @@ public class AlignLeftHandler extends AbstractHandler {
 		}
 
 		final List<AlignmentElement> alignmentElements = selectedDiagramElements.stream()
-				.map(de -> new AlignmentElement(de, alignmentHelper.getAxisLocation()))
+				.map(alignmentHelper::createAlignmentElement)
 				.collect(Collectors.toList());
 
 		diagram.modify("Align Left", m -> {

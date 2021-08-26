@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -23,20 +23,19 @@
  */
 package org.osate.ge.internal.services;
 
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
+
 /**
- * ActionExecutor that manages an action stack. The action stack allows undoing and redoing actions.
- * It also provides notifications of changes to the action stack.
+ * Global {@link ActionExecutor} which manages an action stack. The action stack allows undoing and redoing actions.
+ * It also provides notifications of changes to the action stack. To execute actions, the {@link ActionExecutor} returned by
+ * {@link InternalDiagramEditor#getActionExecutor()} should be used in most cases.
  *
  * ActionService implementations must handle the execution of actions while another action is running.
  *
  */
 public interface ActionService extends ActionExecutor {
-	public interface ActionGroup {
-
-	}
-
 	/**
-	 *
+	 * Returns true if an action is currently being executed.
 	 * @return true if an action is currently being executed.
 	 */
 	boolean isActionExecuting();
@@ -46,7 +45,10 @@ public interface ActionService extends ActionExecutor {
 	 */
 	void clearActionStack();
 
+	/**
+	 * Removes references to actions which are no longer valid. This should be called to prevent memory leaks associated with holding unto
+	 * actions which cannot be undone.
+	 * @see AgeAction#isValid()
+	 */
 	void invalidateInvalidActions();
-
-	boolean endExecuteGroup(final ActionGroup actionGroup);
 }

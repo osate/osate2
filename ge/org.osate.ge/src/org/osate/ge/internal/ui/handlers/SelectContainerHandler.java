@@ -36,6 +36,9 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 
+/**
+ * Handler for the select container command
+ */
 public class SelectContainerHandler extends AbstractHandler {
 	@Override
 	public void setEnabled(final Object evaluationContext) {
