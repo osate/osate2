@@ -51,14 +51,16 @@ public class BehaviorActionBlockEmbeddedTextValue extends EditableEmbeddedTextVa
 	/**
 	 * Instantiates an {@link EditableEmbeddedTextValue} for {@link BehaviorActionBlock} and editing support within an {@link EmbeddedTextEditor}
 	 * @param behaviorTransition the owner of the {@link BehaviorActionBlock} being edited
-	 * @param updateLength is the length of the text to be replaced when updating the resource
+	 * @param originalSrcLength is the length of the AADL source before being edited
+	 * Note: The {@link #originalSrcLength} may not be the same length as {@link #prefix}, {@link #editableText}, and {@link #suffix} combined
+	 * because although these values are derived from the original AADL source, they may be modified to support embedded editing.
 	 * @param prefix is the text before the modifiable text
 	 * @param editableText is the text that is modifiable
 	 * @param suffix is the text after the modifiable text
 	 */
 	private BehaviorActionBlockEmbeddedTextValue(final BehaviorTransition behaviorTransition,
-			final int updateLength, final String prefix, final String editableText, final String suffix) {
-		super(ProjectUtil.getProjectForBoOrThrow(behaviorTransition), updateLength, prefix, editableText, suffix);
+			final int originalSrcLength, final String prefix, final String editableText, final String suffix) {
+		super(ProjectUtil.getProjectForBoOrThrow(behaviorTransition), originalSrcLength, prefix, editableText, suffix);
 		this.behaviorTransition = behaviorTransition;
 	}
 
@@ -191,10 +193,8 @@ public class BehaviorActionBlockEmbeddedTextValue extends EditableEmbeddedTextVa
 			suffix = sourceText.substring(terminationOffset);
 		}
 
-		final int updateLength = Math.max(0, sourceText.length() - prefix.length() - suffix.length());
-
 		// Create the value
-		return new BehaviorActionBlockEmbeddedTextValue(behaviorTransition, updateLength, prefix, actionText,
+		return new BehaviorActionBlockEmbeddedTextValue(behaviorTransition, sourceText.length(), prefix, actionText,
 				suffix);
 	}
 

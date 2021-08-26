@@ -67,6 +67,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	 * Widget ID for OK Button
 	 */
 	public static String WIDGET_ID_CONFIRM = WIDGET_ID + ".confirmation";
+	private final ValidationTask validationTask = new ValidationTask();
 	private final EmbeddedStyledTextXtextAdapter xtextAdapter;
 	private final ExtendedModifyListener textValidator;
 	private final IHandlerService service;
@@ -161,7 +162,6 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 	// Text modification listener that sets the OK button as enabled
 	// or disabled based on if the new text is valid
 	private ExtendedModifyListener createTextValidator() {
-		final ValidationTask validationTask = new ValidationTask();
 		return event -> {
 			// Disable button until validation occurs
 			final Button okBtn = getButton(IDialogConstants.OK_ID);
@@ -175,37 +175,43 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		private String textToValidate;
 
 		public void schedule(final Button okBtn) {
-			if (validationTimer != null) {
-				validationTimer.cancel();
-				validationTimer.purge();
-			}
+			cancelTimer();
 
 			validationTimer = new Timer();
 			validationTimer.schedule(new TimerTask() {
 				@Override
 				public void run() {
 					Display.getDefault().asyncExec(() -> {
-						final String newText = styledText.getText();
-						if (newText.equals(textToValidate)) {
-							return;
+						if(!styledText.isDisposed()) {
+							final String newText = styledText.getText();
+							if (newText.equals(textToValidate)) {
+								return;
+							}
+
+							textToValidate = newText;
+
+							// Disable ok button if text has not changed
+							if (newText.equals(xtextAdapter.getEmbeddedTextValue().getEditableText())) {
+								okBtn.setEnabled(false);
+								return;
+							}
+
+							// Source text to load
+							final String modifiedSrc = xtextAdapter.getValidModifiedSource(newText).orElse(null);
+							// Set modified source text data
+							styledText.setData(MODIFIED_SOURCE_KEY, modifiedSrc);
+							okBtn.setEnabled(modifiedSrc != null);
 						}
-
-						textToValidate = newText;
-
-						// Disable ok button if text has not changed
-						if (newText.equals(xtextAdapter.getEmbeddedTextValue().getEditableText())) {
-							okBtn.setEnabled(false);
-							return;
-						}
-
-						// Source text to load
-						final String modifiedSrc = xtextAdapter.getValidModifiedSource(newText).orElse(null);
-						// Set modified source text data
-						styledText.setData(MODIFIED_SOURCE_KEY, modifiedSrc);
-						okBtn.setEnabled(modifiedSrc != null);
 					});
 				}
 			}, 1000);
+		}
+
+		public void cancelTimer() {
+			if (validationTimer != null) {
+				validationTimer.cancel();
+				validationTimer.purge();
+			}
 		}
 	}
 
@@ -225,6 +231,7 @@ public class EditEmbeddedTextDialog extends MessageDialog {
 		xtextAdapter.dispose();
 		service.deactivateHandler(undoHandler);
 		service.deactivateHandler(redoHandler);
+		validationTask.cancelTimer();
 		return super.close();
 	}
 

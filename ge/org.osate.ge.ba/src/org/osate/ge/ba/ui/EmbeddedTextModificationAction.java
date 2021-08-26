@@ -123,6 +123,8 @@ class EmbeddedTextModificationAction implements AgeAction {
 			ModelChangeNotifier modelChangeNotifier, final String originalText) {
 		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier cannot be null");
 		embeddedEditingActionSupplier = () -> {
+			final String undoRedoOriginalText = BehaviorAnnexXtextUtil.getText(null, xtextResource);
+
 			// Modify and save the xtext resource
 			final Void<XtextResource> work = createUpdateProcess(null, originalText);
 			final RecordingCommand cmd = createRecordingCommand(editingDomain, work, xtextResource);
@@ -132,7 +134,7 @@ class EmbeddedTextModificationAction implements AgeAction {
 
 			// Return the undo/redo action
 			return new EmbeddedTextModificationAction(editingDomain, xtextResource, modelChangeNotifier,
-					originalText);
+					undoRedoOriginalText);
 		};
 	}
 
