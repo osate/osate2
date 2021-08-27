@@ -51,6 +51,7 @@ import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
+import org.osate.ui.handlers.NewAbstractAaxlHandler;
 
 /**
  * @since 3.0
