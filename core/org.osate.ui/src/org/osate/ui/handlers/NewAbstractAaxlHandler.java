@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.analysis.resource.budgets.handlers;
+package org.osate.ui.handlers;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,8 +58,8 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.FileNameConstants;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
 import org.osate.core.AadlNature;
+import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.internal.instantiate.InstantiationEngine;
 
 /**
@@ -67,22 +67,21 @@ import org.osate.ui.internal.instantiate.InstantiationEngine;
  * is why it is currently package visibility.  Also consider integrating with
  * {@code org.osate.ui.handlers.AbstractMultiJobHandler}.
  *
- * Assumptions: The analysis selection is a bunch of working sets, AADL projects, folders, and aaxl files.
+ * <p>Assumptions: The analysis selection is a bunch of working sets, AADL projects, folders, and aaxl files.
  * There is a method for getting a list of unique aaxl files from that.  IT is assumed analysis can
  * run on each aaxl file independently.  Analysis may produce markers on each aaxl file, and may create a
  * single output file for each input aaxl file.  For each input file, the output file is located
  * in "reports/subdir/" rooted in the same directory as the input file.  The analysis names "subdir"
  * using an abstract method.  The output file is named using an abstract method.
  *
- * We need more experience writing some "modern" osate analyses.  I'm sure this draft class will
- * need to be modified further.  It's possible we will find some analysis that doesn't fit
+ * <p>We need more experience writing some "modern" osate analyses.  This class is expected to evolve as
+ * it sees more use.  It's possible we will find some analysis that doesn't fit
  * the assumptions at all.
  *
  * @author aarong
- *
- * @since 3.0
+ * @since 6.2
  */
-abstract class NewAbstractAaxlHandler extends AbstractHandler {
+public abstract class NewAbstractAaxlHandler extends AbstractHandler {
 	private static final String REPORTS_DIR = "/reports";
 
 	@Override
@@ -95,8 +94,6 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 		final List<Object> selectionAsList = HandlerUtil.getCurrentStructuredSelection(event).toList();
 		final Job job = new KickoffJob(selectionAsList);
 		job.setRule(null); // doesn't use resources
-//		job.setUser(false); // background helper job, don't let the user see it
-//		job.setSystem(true); // background helper job, don't let the user see it
 		job.schedule();
 
 		// Supposed to always return null
@@ -321,7 +318,7 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 					try {
 						findAllInstanceFilesAndComponentImpls(container.members(), instanceFiles, forEngine);
 					} catch (final CoreException e) {
-						ResourceBudgetPlugin.getDefault().getLog().error(e.getMessage(), e);
+						OsateUiPlugin.getDefault().getLog().error(e.getMessage(), e);
 					}
 				}
 			} else {
@@ -342,7 +339,7 @@ abstract class NewAbstractAaxlHandler extends AbstractHandler {
 			try {
 				folder.create(true, true, null);
 			} catch (final CoreException e) {
-				ResourceBudgetPlugin.getDefault().getLog().error(e.getMessage(), e);
+				OsateUiPlugin.getDefault().getLog().error(e.getMessage(), e);
 			}
 		}
 	}
