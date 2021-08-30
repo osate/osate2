@@ -81,7 +81,7 @@ import org.osate.ui.internal.instantiate.InstantiationEngine;
  * @author aarong
  * @since 6.2
  */
-public abstract class NewAbstractAaxlHandler extends AbstractHandler {
+public abstract class AbstractAnalysisHandler extends AbstractHandler {
 	private static final String REPORTS_DIR = "/reports";
 
 	@Override
