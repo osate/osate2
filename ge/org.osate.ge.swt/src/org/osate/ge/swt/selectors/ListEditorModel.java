@@ -25,8 +25,9 @@ package org.osate.ge.swt.selectors;
 
 /**
  * View Model used by {@link ListEditor}
- * @since 1.1
  *
+ * @param <T> See {@link SingleSelectorModel}
+ * @since 1.1
  */
 public interface ListEditorModel<T> extends SingleSelectorModel<T> {
 	/**

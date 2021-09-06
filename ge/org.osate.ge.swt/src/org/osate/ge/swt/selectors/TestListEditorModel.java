@@ -40,6 +40,9 @@ final class TestListEditorModel extends BaseObservableModel
 	private String selectedElement = null;
 	private int numberOfElementsCreated = 0;
 
+	/**
+	 * Creates a new instance
+	 */
 	public TestListEditorModel() {
 		// Add initial elements
 		elements.add(null);

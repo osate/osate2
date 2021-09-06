@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,25 +23,34 @@
  */
 package org.osate.ge.graphics;
 
-import java.util.Objects;
-
 /**
- * Immutable dimension type.
+ * Immutable dimension type. A dimension is defined by a width and a height.
  *
  */
-public class Dimension {
+public final class Dimension {
+	/**
+	 * @since 3.0
+	 */
+	public static final Dimension ZERO = new Dimension(0, 0);
+
+	/**
+	 * The dimension's width
+	 */
 	public final double width;
+
+	/**
+	 * The dimension's height
+	 */
 	public final double height;
 
+	/**
+	 * Creates a new instance with the specified width and height.
+	 * @param width the width value
+	 * @param height the height value
+	 */
 	public Dimension(final double width, final double height) {
 		this.width = width;
 		this.height = height;
-	}
-
-	public Dimension(final Dimension d) {
-		Objects.requireNonNull(d, "d must not be null");
-		this.width = d.width;
-		this.height = d.height;
 	}
 
 	@Override
@@ -71,10 +80,7 @@ public class Dimension {
 		if (Double.doubleToLongBits(height) != Double.doubleToLongBits(other.height)) {
 			return false;
 		}
-		if (Double.doubleToLongBits(width) != Double.doubleToLongBits(other.width)) {
-			return false;
-		}
-		return true;
+		return Double.doubleToLongBits(width) == Double.doubleToLongBits(other.width);
 	}
 
 	@Override
@@ -82,6 +88,10 @@ public class Dimension {
 		return "(" + width + "," + height + ")";
 	}
 
+	/**
+	 * Converts the instance to an instance of the serialized diagram model type.
+	 * @return the converted object.
+	 */
 	public org.osate.ge.diagram.Dimension toMetamodel() {
 		final org.osate.ge.diagram.Dimension newDimension = new org.osate.ge.diagram.Dimension();
 		newDimension.setWidth(width);

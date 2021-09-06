@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -38,13 +38,22 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.statushandlers.StatusManager;
+import org.osate.ge.internal.GraphicalEditorException;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.ui.xtext.XtextDocumentChangeListener;
+import org.osgi.framework.FrameworkUtil;
 
+/**
+ * {@link ModelChangeNotifier} implementation
+ *
+ */
 public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 	private final ProjectDeltaVisitor projectVisitor = new ProjectDeltaVisitor();
 	private final AadlResourceUriCollectorVisitor resourceUriCollectorVisitor = new AadlResourceUriCollectorVisitor();
@@ -54,6 +63,9 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 	private boolean hasModelChanged = false;
 	private boolean hasChangesWhileUnlocked = false;
 
+	/**
+	 * Context function which instantiates this service
+	 */
 	public static class ContextFunction extends SimpleServiceContextFunction<ModelChangeNotifier> {
 		@Override
 		public  ModelChangeNotifier createService(final IEclipseContext context) {
@@ -90,7 +102,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 
 			return resource.getType() == IResource.ROOT && !hasModelChanged;
 		}
-	};
+	}
 
 	private class AadlResourceUriCollectorVisitor implements IResourceDeltaVisitor {
 		@Override
@@ -106,7 +118,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 
 			return true;
 		}
-	};
+	}
 
 	private final IResourceChangeListener resourceChangeListener = event -> {
 		final IResourceDelta delta = event.getDelta();
@@ -114,7 +126,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 			try {
 				delta.accept(resourceUriCollectorVisitor);
 
-				hasModelChanged = hasModelChanged || pendingChangedResourceUris.size() > 0;
+				hasModelChanged = hasModelChanged || !pendingChangedResourceUris.isEmpty();
 				if (hasModelChanged) {
 					if (currentLock == null) {
 						hasChangesWhileUnlocked = true;
@@ -123,13 +135,13 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 					delta.accept(projectVisitor);
 				}
 			} catch (final CoreException e) {
-				// Ignore. No reasonable way to handle.
-				e.printStackTrace();
+				// Log and ignore
+				StatusManager.getManager()
+				.handle(new Status(IStatus.ERROR, FrameworkUtil.getBundle(getClass()).getSymbolicName(),
+						"Error listening for resource changes", e), StatusManager.LOG);
 			}
 
-			Display.getDefault().syncExec(() -> {
-				handleNotifications();
-			});
+			Display.getDefault().syncExec(this::handleNotifications);
 		}
 	};
 
@@ -157,49 +169,47 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 	// Checks notifications. If there is a lock then it does nothing. Change notifications will wait until the lock is closed. If there isn't a lock, it
 	// notifies listeners of changes that are pending.
 	private synchronized void handleNotifications() {
-		if (currentLock == null) {
-			if (pendingChangedResourceUris.size() > 0 || hasModelChanged) {
-				// Make copy of the flags so that recursive calls to handle notifications will not trigger an update for the same resources
-				final List<URI> changedResourceUrisBeingProcessed = new ArrayList<>(pendingChangedResourceUris);
-				final boolean hadModelChanged = hasModelChanged;
-				final boolean wasModelLocked = !hasChangesWhileUnlocked;
+		if (currentLock == null && (!pendingChangedResourceUris.isEmpty() || hasModelChanged)) {
+			// Make copy of the flags so that recursive calls to handle notifications will not trigger an update for the same resources
+			final List<URI> changedResourceUrisBeingProcessed = new ArrayList<>(pendingChangedResourceUris);
+			final boolean hadModelChanged = hasModelChanged;
+			final boolean wasModelLocked = !hasChangesWhileUnlocked;
 
-				// Reset flags
-				pendingChangedResourceUris.clear();
-				hasModelChanged = false;
-				hasChangesWhileUnlocked = false;
+			// Reset flags
+			pendingChangedResourceUris.clear();
+			hasModelChanged = false;
+			hasChangesWhileUnlocked = false;
 
-				// Send notifications. Notifications are sent using the display thread so that all diagrams updates will take place in the main thread and avoid
-				// updating the diagram while change notifications are being handled.
-				Display.getDefault().asyncExec(() -> {
-					// Send resource change notifications
-					for (final URI resourceUri : changedResourceUrisBeingProcessed) {
-						for (final ChangeListener listener : changeListeners) {
-							listener.resourceChanged(resourceUri);
-						}
+			// Send notifications. Notifications are sent using the display thread so that all diagrams updates will take place in the main thread and avoid
+			// updating the diagram while change notifications are being handled.
+			Display.getDefault().asyncExec(() -> {
+				// Send resource change notifications
+				for (final URI resourceUri : changedResourceUrisBeingProcessed) {
+					for (final ChangeListener listener : changeListeners) {
+						listener.resourceChanged(resourceUri);
 					}
+				}
 
-					// Send a single notification that the model has changed regardless of the number of changes
-					if (hadModelChanged) {
-						onModelChanged(wasModelLocked);
-					}
-				});
-			}
+				// Send a single notification that the model has changed regardless of the number of changes
+				if (hadModelChanged) {
+					onModelChanged(wasModelLocked);
+				}
+			});
 		}
 	}
 
-	public DefaultModelChangeNotifier() {
+	private DefaultModelChangeNotifier() {
 		// Register a resource change listener
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		workspace.addResourceChangeListener(resourceChangeListener, IResourceChangeEvent.POST_BUILD);
 
 		// Listen for xtext model changes
-		AgeXtextUtil.addModelListener(xtextModelListener);
+		AgeXtextUtil.addDocumentListener(xtextModelListener);
 	}
 
-	public void dispose() {
+	private void dispose() {
 		// Stop listening for xtext model changes
-		AgeXtextUtil.removeModelListener(xtextModelListener);
+		AgeXtextUtil.removeDocumentListener(xtextModelListener);
 
 		// Remove the resource change listener
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
@@ -231,7 +241,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 	@Override
 	public synchronized Lock lock() {
 		if(currentLock != null) {
-			throw new RuntimeException("Already locked");
+			throw new GraphicalEditorException("Already locked");
 		}
 
 		// Create a new lock
@@ -240,7 +250,7 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 			public void close() {
 				synchronized (DefaultModelChangeNotifier.this) {
 					if (currentLock != this) {
-						throw new RuntimeException("Not the current lock");
+						throw new GraphicalEditorException("Not the current lock");
 					}
 
 					currentLock = null;

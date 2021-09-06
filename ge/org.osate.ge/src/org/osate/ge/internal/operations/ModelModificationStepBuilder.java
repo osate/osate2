@@ -28,22 +28,37 @@ import java.util.Objects;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.ge.operations.ModelModifier;
 
-class ModelModificationStepBuilder<TagType, BusinessObjectType extends EObject, PrevResultUserType, ResultUserType>
-extends AbstractStepBuilder<ResultUserType> {
-	private final TagType tag;
-	private final BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider;
-	private final ModelModifier<TagType, BusinessObjectType, PrevResultUserType, ResultUserType> modifier;
+/**
+ * Builder for {@link ModelModificationStep}
+ *
+ * @param <T> the type of the tag to use when modifying the model
+ * @param <B> the type of the business object being modified
+ * @param <P> the type of the user value of the result of the previous step
+ * @param <R> the type of the user value of the new step's result
+ * @see ModelModificationStep
+ */
+class ModelModificationStepBuilder<T, B extends EObject, P, R>
+extends AbstractStepBuilder<R> {
+	private final T tag;
+	private final BusinessObjectToModifyProvider<T, B, P> boProvider;
+	private final ModelModifier<T, B, P, R> modifier;
 
-	public ModelModificationStepBuilder(final TagType tag,
-			final BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider,
-			final ModelModifier<TagType, BusinessObjectType, PrevResultUserType, ResultUserType> modifier) {
+	/**
+	 * Creates a new instance
+	 * @param tag see {@link ModelModificationStep#getTag()}
+	 * @param boProvider see {@link ModelModificationStep#getBusinessObjectProvider()}
+	 * @param modifier see {@link ModelModificationStep#getModifier()}
+	 */
+	public ModelModificationStepBuilder(final T tag,
+			final BusinessObjectToModifyProvider<T, B, P> boProvider,
+			final ModelModifier<T, B, P, R> modifier) {
 		this.tag = tag;
 		this.boProvider = Objects.requireNonNull(boProvider, "boProvider must not be null");
 		this.modifier = Objects.requireNonNull(modifier, "modifier must not be null");
 	}
 
 	@Override
-	protected Step<?> buildStep(final Step<?> nextStep) {
+	protected Step buildStep(final Step nextStep) {
 		return new ModelModificationStep<>(nextStep, tag, boProvider, modifier);
 	}
 }

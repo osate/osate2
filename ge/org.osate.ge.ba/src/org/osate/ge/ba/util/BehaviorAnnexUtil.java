@@ -23,34 +23,36 @@
  */
 package org.osate.ge.ba.util;
 
-import java.util.Objects;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DataClassifier;
-import org.osate.aadl2.ModelUnit;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.PublicPackageSection;
-import org.osate.ba.aadlba.BehaviorAnnex;
+import org.osate.aadl2.Element;
 import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
-import org.osate.ge.ba.ui.dialogs.EObjectDescriptionSingleSelectorModel;
 import org.osate.ge.swt.selectors.FilteringSelectorDialog;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 
-public class BehaviorAnnexUtil {
+/**
+ * Utility class containing miscellaneous helper functions used by the OSATE graphical editor's behavior annex plugin.
+ *
+ */
+public final class BehaviorAnnexUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private BehaviorAnnexUtil() {
 	}
 
 	/**
 	 * Prompts the user for to select a data classifier
+	 * @param resource the resource from which the classifier will be referenced. Used to determine which classifiers may be referenced.
+	 * @return an optional containing the selected classifier. Returns an empty optional if a classifier was not selected.
 	 */
-	public static Optional<DataClassifier> getDataClassifier(final Resource resource) {
+	public static Optional<DataClassifier> promptForDataClassifier(final Resource resource) {
 		final EObjectDescriptionSingleSelectorModel model = new EObjectDescriptionSingleSelectorModel(
 				AadlModelAccessUtil.getAllEObjectsByType(resource, Aadl2Package.eINSTANCE.getDataClassifier()));
 		if (!FilteringSelectorDialog.open(Display.getCurrent().getActiveShell(), "Set the Variable's Data Classifier",
@@ -63,103 +65,16 @@ public class BehaviorAnnexUtil {
 	}
 
 	/**
-	 * Adds an import for package to section if it is not already imported.
-	 * @param section the section to add the package to
-	 * @param pkg the package to import
+	 * Return the package containing the specified element
+	 * @param e the element for which to get the package
+	 * @return the package containing the element. An empty optional is returned if the package cannot be determined.
 	 */
-	public static void addImportIfNeeded(final PackageSection section, final AadlPackage pkg) {
-		final String pkgQualifiedName = pkg.getQualifiedName();
-		if (pkgQualifiedName == null) {
-			return;
-		}
-
-		// Don't do anything if the package is the owner of the section
-		if (section.getOwner() instanceof AadlPackage
-				&& pkgQualifiedName.equalsIgnoreCase(((AadlPackage) section.getOwner()).getQualifiedName())) {
-			return;
-		}
-
-		// Check if package is already imported
-		boolean isImported = false;
-		for (final ModelUnit mu : section.getImportedUnits()) {
-			final String qn = mu.getQualifiedName();
-			if (pkgQualifiedName.equalsIgnoreCase(qn)) {
-				isImported = true;
-				break;
-			}
-		}
-
-		// Import the package if needed
-		if (!isImported) {
-			section.getImportedUnits().add(pkg);
-		}
-	}
-
-	/**
-	 * Operation for creating behavior variables
-	 */
-	public static class VariableOperation {
-		private final PublicPackageSection section;
-		private final BehaviorAnnex behaviorAnnex;
-		private final DataClassifier dataClassifier;
-		private final AadlPackage dataClassifierPkg;
-
-		public VariableOperation(final PublicPackageSection section, final BehaviorAnnex behaviorAnnex,
-				final DataClassifier dataClassifier, final AadlPackage dataClassifierPkg) {
-			this.section = Objects.requireNonNull(section, "section cannot be null");
-			this.behaviorAnnex = Objects.requireNonNull(behaviorAnnex, "behavior annex cannot be null");
-			this.dataClassifier = Objects.requireNonNull(dataClassifier, "data classifier cannot be null");
-			this.dataClassifierPkg = Objects.requireNonNull(dataClassifierPkg,
-					"data classifier package cannot be null");
-		}
-
-		public BehaviorAnnex getBehaviorAnnex() {
-			return behaviorAnnex;
-		}
-
-		public PublicPackageSection getPublicSection() {
-			return section;
-		}
-
-		public DataClassifier getDataClassifier() {
-			return dataClassifier;
-		}
-
-		public AadlPackage getDataClassifierPackage() {
-			return dataClassifierPkg;
-		}
-	}
-
-	/**
-	 * Show dialog to select a data classifier for behavior variables
-	 */
-	static class VariableDialog {
-		public static Optional<VariableOperation> show(final Shell shell, final PublicPackageSection section,
-				final BehaviorAnnex behaviorAnnex) {
-			final Resource resource = behaviorAnnex.eResource();
-			return BehaviorAnnexUtil.getDataClassifier(resource).map(dataClassifier -> getPackage(dataClassifier)
-					.map(pkg -> new VariableOperation(section, behaviorAnnex, dataClassifier, pkg)).orElse(null));
-		}
-	}
-
-	/**
-	 * Prompt user for data classifier and get information needed for creating new behavior variable
-	 * @return the operation that contains the information for creating behavior variables
-	 */
-	public static Optional<VariableOperation> getVariableBuildOperation(final PublicPackageSection section,
-			final BehaviorAnnex behaviorAnnex) {
-		return VariableDialog.show(Display.getCurrent().getActiveShell(), section, behaviorAnnex);
-	}
-
-	/**
-	 * Return the package of the specified named element
-	 */
-	public static Optional<AadlPackage> getPackage(final NamedElement ne) {
-		if (ne == null) {
+	public static Optional<AadlPackage> getPackage(final Element e) {
+		if (e == null) {
 			return Optional.empty();
 		}
 
-		final NamedElement root = ne.getElementRoot();
+		final Element root = e.getElementRoot();
 		final AadlPackage pkg = root instanceof AadlPackage ? (AadlPackage) root : null;
 		return Optional.ofNullable(pkg);
 	}

@@ -52,7 +52,11 @@ public class ErrorFlowTypeTokensModel extends BaseTypeSetTypeTokensModel impleme
 		super(true);
 		setBusinessObjectSelection(bos);
 	}
-
+	
+	/**
+	 * Refreshes the state of the model based on the specified business object selection
+	 * @param value the business object selection
+	 */
 	public final void setBusinessObjectSelection(final BusinessObjectSelection value) {
 		this.bos = Objects.requireNonNull(value, "value must not be null");
 

@@ -31,8 +31,8 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import org.osate.ge.RelativeBusinessObjectReference;
+import org.osate.ge.gef.ui.editor.AgeEditor;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.swt.BorderedCLabel;
 
 /**
@@ -49,15 +49,15 @@ public class OsateGeTestUtil {
 	private OsateGeTestUtil() {
 	}
 
-	public static void assertOsateShellIsActive() {
-		assertActiveShellTitleContains("OSATE2");
+	public static void assertOsateWindowIsActive() {
+		assertActiveWindowTitleContains("OSATE2");
 	}
 
 	/**
-	 * Asserts that the OSATE shell is active and the navigator is visible
+	 * Asserts that the OSATE window is active and the navigator is visible
 	 */
 	public static void assertAadlNavigatorIsVisible() {
-		assertOsateShellIsActive();
+		assertOsateWindowIsActive();
 		assertViewIsVisible(AADL_NAVIGATOR);
 	}
 
@@ -101,7 +101,7 @@ public class OsateGeTestUtil {
 	 * The diagram file extension should not be included in the path segments.
 	 */
 	public static boolean isDiagramEditorOpen(final DiagramReference diagram) {
-		return isEditorOpen(AgeDiagramEditor.class, diagram.getUri());
+		return isEditorOpen(AgeEditor.class, diagram.getInputName());
 	}
 
 	/**
@@ -113,10 +113,10 @@ public class OsateGeTestUtil {
 	}
 
 	/**
-	 * Checks all rows in the simple table which is the nth table in the active shell.
+	 * Checks all rows in the simple table which is the nth table in the active window.
 	 * Assumes the table is a simple table with checkboxes. Such a table does not have any columns.
 	 */
-	public static void checkItemsInSimpleTable(final int tableIndex, final String... itemTexts) {
+	public static void checkItemsInSimpleTable(final String... itemTexts) {
 		Arrays.stream(itemTexts).forEach(itemText -> checkItemInSimpleTable(0, itemText));
 	}
 
@@ -124,6 +124,7 @@ public class OsateGeTestUtil {
 			final DiagramElementReference element,
 			final String... texts) {
 		openDiagramEditor(diagram);
+
 		selectDiagramElements(diagram, element);
 
 		clickContextMenuOfFocused(texts);

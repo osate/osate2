@@ -57,7 +57,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectSelection;
-import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
+import org.osate.ge.aadl2.AadlImportsUtil;
 import org.osate.ge.aadl2.ui.AadlModelAccessUtil;
 import org.osate.ge.aadl2.ui.internal.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;

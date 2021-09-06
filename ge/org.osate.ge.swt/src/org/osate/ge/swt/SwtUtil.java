@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Widget;
  * Contains static utility functions including.
  * @since 1.1
   */
-public class SwtUtil {
+public final class SwtUtil {
 	private static final String AUTOMATED_SWTBOT_TESTING_KEY = "org.eclipse.swtbot.widget.key";
 
 	private SwtUtil() {
@@ -61,14 +61,19 @@ public class SwtUtil {
 
 		final Object layoutData = c.getLayoutData();
 		if (layoutData == null) {
-			throw new RuntimeException("Layout data is null");
+			throw new IllegalArgumentException("Specified control has invalid layout data. Layout data is null");
 		} else if (layoutData instanceof GridData) {
 			((GridData) layoutData).exclude = !visible;
 		} else {
-			throw new RuntimeException("Unsupported layout data type: " + layoutData.getClass().getName());
+			throw new IllegalArgumentException(
+					"Specified control has unsupported layout data type: " + layoutData.getClass().getName());
 		}
 	}
 
+	/**
+	 * Sets the background and foreground color of a control to that of its parent.
+	 * @param c the control of which to update the background and foreground colors
+	 */
 	public static void setColorsToMatchParent(final Control c) {
 		c.setBackground(c.getParent().getBackground());
 		c.setForeground(c.getParent().getForeground());

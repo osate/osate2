@@ -23,9 +23,12 @@
  */
 package org.osate.ge.errormodel.ui.viewmodels;
 
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.common.util.URI;
@@ -33,6 +36,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.util.Strings;
 import org.osate.aadl2.AadlPackage;
 import org.osate.ge.BusinessObjectSelection;
@@ -44,6 +48,8 @@ import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 import org.osate.ge.swt.selectors.ListEditorModel;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
+
+import com.google.common.collect.Streams;
 
 /**
  * View model which sets the extended error libraries for a {@link ErrorModelLibrary} objects associated with {@link AadlPackage} instances
@@ -64,7 +70,8 @@ public class ExtendedLibrariesModel extends BaseObservableModel implements ListE
 	}
 
 	/**
-	 * Refreshes the internal state of the model based on the specified business object selection
+	 * Refreshes the state of the model based on the specified business object selection
+	 * @param value the business object selection
 	 */
 	public void setBusinessObjectSelection(final BusinessObjectSelection value) {
 		this.bos = Objects.requireNonNull(value, "value must not be null");
@@ -122,7 +129,7 @@ public class ExtendedLibrariesModel extends BaseObservableModel implements ListE
 			}
 
 			// Prompt user to select an error model library
-			final ErrorModelObjectDescriptionCollectionSingleSelectorModel model = new ErrorModelObjectDescriptionCollectionSingleSelectorModel(
+			final ErrorModelLibraryDescriptionSingleSelectionModel model = new ErrorModelLibraryDescriptionSingleSelectionModel(
 					AadlModelAccessUtil.getAllEObjectsByType(resource,
 							ErrorModelPackage.eINSTANCE.getErrorModelLibrary()));
 			if (FilteringSelectorDialog.open(Display.getCurrent().getActiveShell(), "Select Error Library to Extend",
@@ -131,10 +138,35 @@ public class ExtendedLibrariesModel extends BaseObservableModel implements ListE
 				modifyErrorModelLibrary(lib -> {
 					final ErrorModelLibrary libToExtend = (ErrorModelLibrary) model.getSelectedElement()
 							.getEObjectOrProxy();
-					lib.getExtends().add(libToExtend);
+					// Do not add library if it extends already
+					if (lib.getExtends()
+							.stream()
+							.map(EcoreUtil::getURI)
+							.noneMatch(uri -> uri.equals(EcoreUtil.getURI(libToExtend)))) {
+						lib.getExtends().add(libToExtend);
+					}
 				});
 			}
 		});
+	}
+
+	private class ErrorModelLibraryDescriptionSingleSelectionModel
+			extends ErrorModelObjectDescriptionCollectionSingleSelectorModel {
+		public ErrorModelLibraryDescriptionSingleSelectionModel(Collection<IEObjectDescription> objectDescriptions) {
+			super(objectDescriptions);
+		}
+
+		@Override
+		public Stream<IEObjectDescription> getElements() {
+			// Do not allow selection of ErrorModelLibraries of selected package resources
+			final Set<URI> selectedPkgContentURIs = bos.boStream(AadlPackage.class)
+					.map(AadlPackage::eResource)
+					.flatMap(resource -> Streams.stream(resource.getAllContents()))
+					.map(EcoreUtil::getURI)
+					.collect(Collectors.toSet());
+
+			return super.getElements().filter(desc -> !selectedPkgContentURIs.contains(desc.getEObjectURI()));
+		}
 	}
 
 	@Override
@@ -155,9 +187,7 @@ public class ExtendedLibrariesModel extends BaseObservableModel implements ListE
 				boc -> ErrorModelGeUtil.getErrorModelLibrary((boc.getBusinessObject(AadlPackage.class).get()))
 						.isPresent(),
 				boc -> ErrorModelGeUtil.getErrorModelLibrary((boc.getBusinessObject(AadlPackage.class).get())).get(),
-				(lib, boc) -> {
-					modifier.accept(lib);
-				});
+				(lib, boc) -> modifier.accept(lib));
 
 	}
 

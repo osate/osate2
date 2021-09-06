@@ -26,8 +26,19 @@ package org.osate.ge.errormodel.filters;
 import org.osate.ge.ContentFilter;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
+/**
+ * Content filter which matches {@link ErrorType} objects.
+ */
 public class ErrorTypeFilter implements ContentFilter {
+	/**
+	 * Unique identifier for the content filter
+	 */
 	public static final String ID = "emv2.errorTypes";
+
+	@Override
+	public String getParentId() {
+		return ErrorModelLibraryElementsFilter.ID;
+	}
 
 	@Override
 	public String getId() {
