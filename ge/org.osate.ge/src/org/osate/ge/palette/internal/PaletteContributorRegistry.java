@@ -37,14 +37,18 @@ import com.google.common.collect.ImmutableList;
  *
  */
 public class PaletteContributorRegistry {
-	private static final String PALETTE_COMMANDS_EXTENSION_POINT_ID = "org.osate.ge.paletteContributors";
+	private static final String PALETTE_CONTRIBUTORS_EXTENSION_POINT_ID = "org.osate.ge.paletteContributors";
 
 	private final ImmutableCollection<PaletteContributor> contributors;
 	private final ImmutableList<PaletteCategory> categories;
 
+	/**
+	 * Creates a new instance
+	 * @param registry the extension register from which to retrieve palette contributor extensions
+	 */
 	public PaletteContributorRegistry(final IExtensionRegistry registry) {
 		this.contributors = EclipseExtensionUtil.instantiateSimpleExtensions(registry,
-				PALETTE_COMMANDS_EXTENSION_POINT_ID, "contributor", PaletteContributor.class);
+				PALETTE_CONTRIBUTORS_EXTENSION_POINT_ID, "contributor", PaletteContributor.class);
 
 		// Build category list
 		final ImmutableList.Builder<PaletteCategory> categoriesListBuilder = ImmutableList.builder();
@@ -63,6 +67,10 @@ public class PaletteContributorRegistry {
 		return categories;
 	}
 
+	/**
+	 * Returns the palette contributor instantiated for the registered extensions
+	 * @return the registered palette contributors
+	 */
 	public ImmutableCollection<PaletteContributor> getPaletteContributors() {
 		return contributors;
 	}

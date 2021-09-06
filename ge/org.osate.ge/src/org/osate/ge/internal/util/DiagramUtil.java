@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -24,11 +24,29 @@
 package org.osate.ge.internal.util;
 
 import org.eclipse.core.resources.IFile;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
+/**
+ * Contains utility functions related to diagrams
+ *
+ */
 public class DiagramUtil {
-	public static boolean isDiagram(final IFile file) {
-		return file.getName().toLowerCase().endsWith(AgeDiagramEditor.EXTENSION);
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private DiagramUtil() {
 	}
 
+	/**
+	 * Extension used by diagram files
+	 */
+	public static final String EXTENSION = ".aadl_diagram";
+
+	/**
+	 * Returns true if the specified file has an extension which matches the diagram file extension
+	 * @param file the file to check
+	 * @return true if the specified file has an extension which matches the diagram file extension
+	 */
+	public static boolean isDiagram(final IFile file) {
+		return file.getName().toLowerCase().endsWith(EXTENSION);
+	}
 }

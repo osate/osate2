@@ -142,7 +142,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 								inModes.contains(mf.getName()) ? ButtonState.SELECTED : ButtonState.NOT_SELECTED);
 					}
 				} else {
-					populateLocalModes(localModes, cc, modalElement, inModes);
+					populateLocalModes(localModes, cc, inModes);
 				}
 
 				if (modalElement instanceof Subcomponent) {
@@ -200,7 +200,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 									: ButtonState.NOT_SELECTED);
 						}
 					} else {
-						populateModeTransitions(localModeTransitions, cc, modalPath, inModeTransitions);
+						populateModeTransitions(localModeTransitions, cc, inModeTransitions);
 					}
 				} else {
 					nonModePathSelected = true;
@@ -286,19 +286,19 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 			final RefinableElement refinedElement = modalElement instanceof RefinableElement
 					? ((RefinableElement) modalElement).getRefinedElement()
 							: null;
-					if (refinedElement != null) {
-						if (modalElement instanceof ModalPath) {
-							final ModalPath mp = (ModalPath) modalElement;
-							if (mp.getInModeOrTransitions().size() == 0
-									&& (mp.getAllInModeTransitions().size() > 0 || mp.getAllInModes().size() > 0)) {
-								return true;
-							}
-						} else if (modalElement instanceof ModalElement) {
-							if (modalElement.getInModes().size() == 0 && modalElement.getAllInModes().size() > 0) {
-								return true;
-							}
-						}
+			if (refinedElement != null) {
+				if (modalElement instanceof ModalPath) {
+					final ModalPath mp = (ModalPath) modalElement;
+					if (mp.getInModeOrTransitions().size() == 0
+							&& (mp.getAllInModeTransitions().size() > 0 || mp.getAllInModes().size() > 0)) {
+						return true;
 					}
+				} else if (modalElement instanceof ModalElement) {
+					if (modalElement.getInModes().size() == 0 && modalElement.getAllInModes().size() > 0) {
+						return true;
+					}
+				}
+			}
 
 		}
 
@@ -325,7 +325,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 	}
 
 	private static void populateModeTransitions(final Map<ModeFeature, ButtonState> localModeTransitions,
-			final ComponentClassifier cc, final ModalPath modalPath, final Set<String> inModeTransitions) {
+			final ComponentClassifier cc, final Set<String> inModeTransitions) {
 		// Set to disabled if not available
 		for (final ModeFeature mf : localModeTransitions.keySet()) {
 			if (!cc.getAllModeTransitions().contains(mf)) {
@@ -358,7 +358,7 @@ public class ConfigureInModesSection extends AbstractPropertySection {
 	}
 
 	private static void populateLocalModes(final Map<ModeFeature, ButtonState> localModeFeatures,
-			final ComponentClassifier cc, final ModalElement modalElement, final Set<String> inModes) {
+			final ComponentClassifier cc, final Set<String> inModes) {
 		// Set to disabled if not available for all selected modal elements
 		for (final ModeFeature mf : localModeFeatures.keySet()) {
 			if (!cc.getAllModes().contains(mf)) {

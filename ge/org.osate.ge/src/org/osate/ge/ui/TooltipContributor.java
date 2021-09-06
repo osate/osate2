@@ -25,6 +25,7 @@ package org.osate.ge.ui;
 
 /**
  * Contributes contents to the tooltip displayed for diagram elements in the diagram editor.
+ * Tooltip contributors are registered using the <i>org.osate.ge.tooltips</i> extension point.
  * @since 2.0
  */
 public interface TooltipContributor {

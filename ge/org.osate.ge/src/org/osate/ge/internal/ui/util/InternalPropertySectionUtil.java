@@ -54,9 +54,27 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 
-public class InternalPropertySectionUtil {
+/**
+ * Utility class containing members used to implement property section
+ *
+ */
+public final class InternalPropertySectionUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private InternalPropertySectionUtil() {
+	}
+
+	/**
+	 * Creates a combo viewer
+	 * @param container the container for the viewer
+	 * @param lblWidth the width of the label
+	 * @param selectionListener the selection listener for the combo viewer
+	 * @param lblProvider the label provider for the combo viewer
+	 * @return the new combo viewer
+	 */
 	public static ComboViewer createComboViewer(final Composite container, final int lblWidth,
-			final SelectionAdapter selectionAdapter, final LabelProvider lblProvider) {
+			final SelectionListener selectionListener, final LabelProvider lblProvider) {
 		final ComboViewer comboViewer = new ComboViewer(container);
 		comboViewer.setContentProvider(new ArrayContentProvider());
 		comboViewer.setLabelProvider(lblProvider);
@@ -65,27 +83,49 @@ public class InternalPropertySectionUtil {
 		final FormData fd = new FormData();
 		fd.left = new FormAttachment(0, lblWidth);
 		combo.setLayoutData(fd);
-		combo.addSelectionListener(selectionAdapter);
+		combo.addSelectionListener(selectionListener);
 		// Disable scroll so selection listeners are not constantly called resulting in a burst of AADL modifications.
 		combo.addListener(SWT.MouseVerticalWheel, event -> event.doit = false);
 		return comboViewer;
 	}
 
+	/**
+	 * Sets the context help ID for the specified control to be that of the properties view
+	 * @param control the control for which to set the context help ID
+	 * @see ContextHelpUtil#PROPERTIES_VIEW
+	 */
 	public static void setPropertiesHelp(final Control control) {
 		ContextHelpUtil.setHelp(control, ContextHelpUtil.PROPERTIES_VIEW);
 	}
 
+	/**
+	 * Creates a button
+	 * @param widgetFactory the widget factory used to create the button
+	 * @param composite the composite to which the button will be added
+	 * @param data the data from the button
+	 * @param listener the selection listener for the button
+	 * @param txt the text for the button
+	 * @param style the style for the button
+	 * @return the new button
+	 */
 	public static Button createButton(final TabbedPropertySheetWidgetFactory widgetFactory, final Composite composite,
-			final Object data, final SelectionListener listener, final String txt, final int type) {
-		final Button btn = widgetFactory.createButton(composite, txt, type);
+			final Object data, final SelectionListener listener, final String txt, final int style) {
+		final Button btn = widgetFactory.createButton(composite, txt, style);
 		btn.setData(data);
 		btn.addSelectionListener(listener);
 		return btn;
 	}
 
+	/**
+	 * Creates a composite with a row layout
+	 * @param widgetFactory the factory to use to create the composite
+	 * @param parent the component to which the new composite will be added.
+	 * @param offset the horizontal offset for the composite. This typically matches the label width of other widgets
+	 * @return the new composite
+	 */
 	public static Composite createRowLayoutComposite(final TabbedPropertySheetWidgetFactory widgetFactory,
-			final Composite composite, final int offset) {
-		final Composite container = widgetFactory.createComposite(composite);
+			final Composite parent, final int offset) {
+		final Composite container = widgetFactory.createComposite(parent);
 		container.setLayout(RowLayoutFactory.fillDefaults().wrap(false).create());
 		final FormData ld = new FormData();
 		ld.left = new FormAttachment(0, offset);
@@ -94,6 +134,14 @@ public class InternalPropertySectionUtil {
 		return container;
 	}
 
+	/**
+	 * Creates a new table viewer column
+	 * @param tableViewer the table viewer for which the column is being created
+	 * @param colHeader the header of the column
+	 * @param style the style of the table viewer column
+	 * @param cellLabelProvider the label provider which provides the text for the cells
+	 * @return the new table viewer column
+	 */
 	public static TableViewerColumn createTableColumnViewer(final TableViewer tableViewer, final String colHeader,
 			final int style, final CellLabelProvider cellLabelProvider) {
 		final TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, style);
@@ -102,29 +150,46 @@ public class InternalPropertySectionUtil {
 		return tableViewerColumn;
 	}
 
+	/**
+	 * Helper class for implementing drag and drop for a table.
+	 *
+	 */
 	public static class DragAndDropSupport {
 		private final int operations = DND.DROP_MOVE;
 		private final Transfer[] types = new Transfer[] { LocalSelectionTransfer.getTransfer() };
 		private final Table table;
-		private final ExecuteOrderChange<Integer, Integer, DragAndDropElement> execute;
+		private final ExecuteOrderChange execute;
 		private DragAndDropElement dragElement; // Element moving indices
 		private DragAndDropElement dropElement; // Element dropped upon
 
+		/**
+		 * Creates a new instance for use with a table
+		 * @param table the table whose items uses {@link DragAndDropElement} instances for its data
+		 * @param execute the function to use to modify the order
+		 */
 		public DragAndDropSupport(final Table table,
-				final ExecuteOrderChange<Integer, Integer, DragAndDropElement> execute) {
+				final ExecuteOrderChange execute) {
 			this.table = table;
 			this.execute = execute;
 		}
 
-		public DragSourceAdapter dragSourceListener = new DragSourceAdapter() {
+		/**
+		 * Drag source adapter which updates {@link #dragElement} when a drag starts
+		 * @see TableViewer#addDropSupport(int, Transfer[], org.eclipse.swt.dnd.DropTargetListener)
+		 */
+		public final DragSourceAdapter dragSourceListener = new DragSourceAdapter() {
 			@Override
 			public void dragStart(final DragSourceEvent event) {
 				dragElement = (DragAndDropElement) table.getSelection()[0].getData();
 			}
 		};
 
-		// Drag element will be placed above targeted element
-		public DropTargetAdapter dropTargetListener = new DropTargetAdapter() {
+		/**
+		 * Drop target adapter for handling dropping
+		 * Drag element will be placed above targeted element
+		 * @see TableViewer#addDropSupport(int, Transfer[], org.eclipse.swt.dnd.DropTargetListener)
+		 */
+		public final DropTargetAdapter dropTargetListener = new DropTargetAdapter() {
 			@Override
 			public void drop(final DropTargetEvent event) {
 				final int curIndex = dragElement.getIndex() - 1;
@@ -208,39 +273,77 @@ public class InternalPropertySectionUtil {
 			}
 		};
 
+		/**
+		 * Returns supported drag and drop operations
+		 * @return supported drag and drop operations
+		 */
 		public int getDragAndDropOperations() {
 			return operations;
 		}
 
+		/**
+		 * Returns the supported transfer types
+		 * @return the supported transfer types
+		 */
 		public Transfer[] getTransferTypes() {
 			return types;
 		}
 	}
 
+	/**
+	 * The data type for items supported by {@link DragAndDropSupport}
+	 * @see TableItem#setData(Object)
+	 */
 	public static class DragAndDropElement {
 		private final String name;
 		private final int index;
 
-		public DragAndDropElement(final String scName, final int index) {
-			this.name = scName;
+		/**
+		 * Creates a new instance
+		 * @param name the name of the item. Ignored by {@link DragAndDropSupport}
+		 * @param index the index of the item
+		 */
+		public DragAndDropElement(final String name, final int index) {
+			this.name = name;
 			this.index = index;
 		}
 
+		/**
+		 * Returns the name of the item
+		 * @return the name of the item
+		 */
 		public String getName() {
 			return name;
 		}
 
+		/**
+		 * Returns the index of the item
+		 * @return the index of the item
+		 */
 		public int getIndex() {
 			return index;
 		}
 	}
 
+	/**
+	 * Selection listener used to increase or decrease and item's index.
+	 * The listener must be attached to a button which has a boolean data value.
+	 * If the value is true then the item is moved "up" by decreasing its index
+	 * If the value is false then the item is moved "down" by increasing its index.
+	 *
+	 * @see Button#setData(Object)
+	 */
 	public static class UpDownButtonSelectionAdapter extends SelectionAdapter {
 		private final TableViewer tableViewer;
-		private final ExecuteOrderChange<Integer, Integer, DragAndDropElement> executeChangeOrder;
+		private final ExecuteOrderChange executeChangeOrder;
 
+		/**
+		 * Creates a new instance which moves the item selected in the specified table viewer
+		 * @param tableViewer the table viewer containing the items adjusted by this listener.
+		 * @param executeChangeOrder the object to use to change the index of an element
+		 */
 		public UpDownButtonSelectionAdapter(final TableViewer tableViewer,
-				final ExecuteOrderChange<Integer, Integer, DragAndDropElement> executeChangeOrder) {
+				final ExecuteOrderChange executeChangeOrder) {
 			this.tableViewer = tableViewer;
 			this.executeChangeOrder = executeChangeOrder;
 		}
@@ -266,7 +369,16 @@ public class InternalPropertySectionUtil {
 		}
 	}
 
-	public interface ExecuteOrderChange<T, V, U> {
+	/**
+	 * Functional interface for reordering elements
+	 */
+	public interface ExecuteOrderChange {
+		/**
+		 * Changes the index of the specified item
+		 * @param newIndex the new index of the item
+		 * @param curIndex the current index of the item
+		 * @param element the item to reorder
+		 */
 		public void apply(final Integer newIndex, final Integer curIndex, final DragAndDropElement element);
 	}
 }

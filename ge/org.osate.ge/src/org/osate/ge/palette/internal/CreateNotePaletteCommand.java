@@ -30,17 +30,21 @@ import org.osate.ge.Categories;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DiagramNodePredicates;
 import org.osate.ge.internal.model.Note;
-import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.GetTargetedOperationContext;
 import org.osate.ge.palette.TargetedPaletteCommand;
 
+/**
+ * Palette command for creating {@link Note} objects
+ */
 public class CreateNotePaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
-
+	/**
+	 * Creates a new instance
+	 */
 	public CreateNotePaletteCommand() {
-		super("Note", Categories.ANNOTATION, ImageHelper.getImage("Note"));
+		super("Note", Categories.ANNOTATION, "org.osate.ge.Note");
 	}
 
 	@Override

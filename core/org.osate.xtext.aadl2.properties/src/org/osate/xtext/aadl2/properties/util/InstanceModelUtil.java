@@ -30,6 +30,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -39,7 +41,6 @@ import org.osate.aadl2.BusSubcomponent;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.MemorySubcomponent;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessSubcomponent;
@@ -48,6 +49,11 @@ import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.VirtualBusSubcomponent;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.contrib.aadlproject.SupportedDispatchProtocols;
+import org.osate.aadl2.contrib.communication.CommunicationProperties;
+import org.osate.aadl2.contrib.communication.Timing;
+import org.osate.aadl2.contrib.deployment.DeploymentProperties;
+import org.osate.aadl2.contrib.thread.ThreadProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -62,16 +68,20 @@ import org.osate.aadl2.util.OsateDebug;
 
 public class InstanceModelUtil {
 
-	/**
-	 * true if the connection is a port connection
-	 * @param conn
-	 * @return
-	 */
-	public static boolean isPortConnection(final ConnectionInstance conn) {
-		if (conn == null) {
-			return false;
-		}
-		return conn.getKind() == ConnectionKind.PORT_CONNECTION;
+	/* XXX: Where to put this? */
+	private static final <V> boolean propertyEquals(final Function<NamedElement, Optional<V>> f, final NamedElement ne,
+			final V value) {
+		return f.apply(ne).map(x -> x == value).orElse(false);
+	}
+
+	/* XXX: WHere to put this? */
+	private static final List<ComponentInstance> getListAsComponentInstance(
+			final Function<NamedElement, Optional<List<InstanceObject>>> f, final NamedElement ne) {
+		return f.apply(ne).map(v -> {
+			final List<ComponentInstance> list = new ArrayList<>(v.size());
+			v.forEach(x -> list.add((ComponentInstance) x));
+			return list;
+		}).orElse(Collections.emptyList());
 	}
 
 	/**
@@ -80,12 +90,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isDelayedPortConnection(final ConnectionInstance conn) {
-		if (conn == null) {
-			return false;
-		}
-		if (isPortConnection(conn)) {
-			EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
-			return el == GetProperties.getDelayedUnitLiteral(conn);
+		if ((conn == null) ? false : conn.getKind() == ConnectionKind.PORT_CONNECTION) {
+			return propertyEquals(CommunicationProperties::getTiming, conn, Timing.DELAYED);
 		}
 		return false;
 	}
@@ -93,15 +99,10 @@ public class InstanceModelUtil {
 	/**
 	 * true if a sampled connection (Timing property set no no Timing value (default Sampled)
 	 * @param conn
-	 * @return
 	 */
 	public static boolean isSampledPortConnection(final ConnectionInstance conn) {
-		if (conn == null) {
-			return false;
-		}
-		if (isPortConnection(conn)) {
-			EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
-			return el == GetProperties.getSampledUnitLiteral(conn);
+		if ((conn == null) ? false : conn.getKind() == ConnectionKind.PORT_CONNECTION) {
+			return propertyEquals(CommunicationProperties::getTiming, conn, Timing.SAMPLED);
 		}
 		return false;
 	}
@@ -109,17 +110,21 @@ public class InstanceModelUtil {
 	/**
 	 * true if connection is immediate connection (Timing property on connection)
 	 * @param conn
-	 * @return
 	 */
 	public static boolean isImmediatePortConnection(final ConnectionInstance conn) {
-		if (conn == null) {
-			return false;
-		}
-		if (isPortConnection(conn)) {
-			EnumerationLiteral el = GetProperties.getConnectionTiming(conn);
-			return el == GetProperties.getImmediateUnitLiteral(conn);
+		if ((conn == null) ? false : conn.getKind() == ConnectionKind.PORT_CONNECTION) {
+			return propertyEquals(CommunicationProperties::getTiming, conn, Timing.IMMEDIATE);
 		}
 		return false;
+	}
+
+	/**
+	 * true if the connection is a port connection
+	 * @param conn
+	 * @return
+	 */
+	public static boolean isPortConnection(final ConnectionInstance conn) {
+		return (conn == null) ? false : conn.getKind() == ConnectionKind.PORT_CONNECTION;
 	}
 
 	/**
@@ -283,11 +288,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isPeriodicComponent(final NamedElement subcomponent) {
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
-		if (dp == null) {
-			return false;
-		}
-		return dp.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL);
+		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent, SupportedDispatchProtocols.PERIODIC);
 	}
 
 	/**
@@ -296,11 +297,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isAperiodicComponent(final NamedElement subcomponent) {
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
-		if (dp == null) {
-			return false;
-		}
-		return dp.getName().equalsIgnoreCase(AadlProject.APERIODIC_LITERAL);
+		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent,
+				SupportedDispatchProtocols.APERIODIC);
 	}
 
 	/**
@@ -309,11 +307,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isSporadicComponent(final NamedElement subcomponent) {
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
-		if (dp == null) {
-			return false;
-		}
-		return dp.getName().equalsIgnoreCase(AadlProject.SPORADIC_LITERAL);
+		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent, SupportedDispatchProtocols.SPORADIC);
 	}
 
 	/**
@@ -322,11 +316,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isTimedComponent(final NamedElement subcomponent) {
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
-		if (dp == null) {
-			return false;
-		}
-		return dp.getName().equalsIgnoreCase(AadlProject.TIMED_LITERAL);
+		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent, SupportedDispatchProtocols.TIMED);
 	}
 
 	/**
@@ -335,11 +325,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isHybridComponent(final NamedElement subcomponent) {
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
-		if (dp == null) {
-			return false;
-		}
-		return dp.getName().equalsIgnoreCase(AadlProject.HYBRID_LITERAL);
+		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent, SupportedDispatchProtocols.HYBRID);
 	}
 
 	/**
@@ -348,11 +334,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isBackgroundComponent(final NamedElement subcomponent) {
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(subcomponent);
-		if (dp == null) {
-			return false;
-		}
-		return dp.getName().equalsIgnoreCase(AadlProject.BACKGROUND_LITERAL);
+		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent,
+				SupportedDispatchProtocols.BACKGROUND);
 	}
 
 	/**
@@ -361,14 +344,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isPeriodicThread(final NamedElement thread) {
-		if (!isThread(thread)) {
-			return false;
-		}
-		final EnumerationLiteral dp = GetProperties.getDispatchProtocol(thread);
-		if (dp == null) {
-			return false;
-		}
-		return dp.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL);
+		return isThread(thread) && isPeriodicComponent(thread);
 	}
 
 	/**
@@ -377,15 +353,9 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isPeriodicDevice(final NamedElement device) {
-		if (device instanceof ComponentInstance
-				&& ((ComponentInstance) device).getCategory().equals(ComponentCategory.DEVICE)) {
-			final EnumerationLiteral dp = GetProperties.getDispatchProtocol(device);
-			if (dp == null) {
-				return false;
-			}
-			return dp.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL);
-		}
-		return false;
+		return (device instanceof ComponentInstance
+				&& ((ComponentInstance) device).getCategory().equals(ComponentCategory.DEVICE))
+				&& isPeriodicComponent(device);
 	}
 
 	/**
@@ -406,13 +376,15 @@ public class InstanceModelUtil {
 			return true;
 		}
 
-		List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
-		for (ComponentInstance boundCompInstance : bindinglist) {
+		List<InstanceObject> bindinglist = canHaveActualProcessorBinding(componentInstance)
+				? getProcessorBindings(componentInstance)
+				: Collections.emptyList();
+		for (final InstanceObject boundCompInstance : bindinglist) {
 			if (boundCompInstance == processor) {
 				return true;
 			} else if (isVirtualProcessor(boundCompInstance)) {
 				// it is bound to or contained in
-				if (isBoundToProcessor(boundCompInstance, processor)) {
+				if (isBoundToProcessor((ComponentInstance) boundCompInstance, processor)) {
 					return true;
 				}
 			}
@@ -421,33 +393,86 @@ public class InstanceModelUtil {
 	}
 
 	/**
-	 * return the list of system that the functional component is directly bound to
+	 * return the list of system that the functional component is directly bound to.
+	 *
+	 * <p>This method copies a list internally for the sole purpose of changing the type
+	 * from {@code List<InstanceObject>} to {@code List<ComponentInstance>}.  Please use
+	 * {@link #getFunctionBindings} and change the call site to handle {@code InstanceObject}
+	 * to avoid this.
+	 *
 	 * @param io
 	 * @return list of system component instances
+	 * @deprecated To be removed in 2.10.0.  Please use {@link #getFunctionBindings}.
 	 */
+	@Deprecated
 	public static List<ComponentInstance> getFunctionBinding(final ComponentInstance io) {
-		List<ComponentInstance> bindinglist = GetProperties.getActualFunctionBinding(io);
-		return bindinglist;
+		return getListAsComponentInstance(DeploymentProperties::getActualFunctionBinding, io);
+	}
+
+	/**
+	 * return the list of system that the functional component is directly bound to.
+	 * @param io
+	 * @return list of system component instances
+	 * @since 3.1
+	 */
+	public static List<InstanceObject> getFunctionBindings(final ComponentInstance io) {
+		return DeploymentProperties.getActualFunctionBinding(io).orElse(Collections.emptyList());
 	}
 
 	/**
 	 * return the processor or virtual processor that the component is directly bound to
+	 *
+	 * <p>This method recopies a list internally for the sole purpose of changing the type
+	 * from {@code List<InstanceObject>} to {@code List<ComponentInstance>}.  Please use
+	 * {@link #getFunctionBindings} and change the call site to handle {@code InstanceObject}
+	 * to avoid this.
+	 *
 	 * @param io
 	 * @return
+	 * @deprecated To be removed in 2.10.0.  Please use {@link #getMemoryBindings}.
 	 */
+	@Deprecated
 	public static List<ComponentInstance> getMemoryBinding(final ComponentInstance io) {
-		List<ComponentInstance> bindinglist = GetProperties.getActualMemoryBinding(io);
-		return bindinglist;
+		return getListAsComponentInstance(DeploymentProperties::getActualMemoryBinding, io);
 	}
 
 	/**
 	 * return the processor or virtual processor that the component is directly bound to
+	 *
 	 * @param io
 	 * @return
+	 * @since 3.1
 	 */
+	public static List<InstanceObject> getMemoryBindings(final ComponentInstance io) {
+		return DeploymentProperties.getActualMemoryBinding(io).orElse(Collections.emptyList());
+	}
+
+	/**
+	 * return the processor or virtual processor that the component is directly bound to
+	 *
+	 * <p>This method recopies a list internally for the sole purpose of changing the type
+	 * from {@code List<InstanceObject>} to {@code List<ComponentInstance>}.  Please use
+	 * {@link #getFunctionBindings} and change the call site to handle {@code InstanceObject}
+	 * to avoid this.
+	 *
+	 * @param io
+	 * @return
+	 * @deprecated To be removed in 2.10.0.  Please use {@link #getProcessorBindings}.
+	 */
+	@Deprecated
 	public static List<ComponentInstance> getProcessorBinding(final ComponentInstance io) {
-		List<ComponentInstance> bindinglist = GetProperties.getActualProcessorBinding(io);
-		return bindinglist;
+		return getListAsComponentInstance(DeploymentProperties::getActualProcessorBinding, io);
+	}
+
+	/**
+	 * return the processor or virtual processor that the component is directly bound to
+	 *
+	 * @param io
+	 * @return
+	 * @since 3.1
+	 */
+	public static List<InstanceObject> getProcessorBindings(final ComponentInstance io) {
+		return DeploymentProperties.getActualProcessorBinding(io).orElse(Collections.emptyList());
 	}
 
 	/**
@@ -473,6 +498,22 @@ public class InstanceModelUtil {
 		return getBoundPhysicalProcessor(swci);
 	}
 
+	private static boolean canHaveActualProcessorBinding(final ComponentInstance ci) {
+		switch (ci.getCategory()) {
+		case ABSTRACT:
+		case THREAD:
+		case THREAD_GROUP:
+		case PROCESS:
+		case SYSTEM:
+		case VIRTUAL_PROCESSOR:
+		case DEVICE:
+			return true;
+		default:
+			return false;
+
+		}
+	}
+
 	/**
 	 * processor instance is directly or indirectly bound to the processor
 	 * It could be bound to a virtual processor which in turn is bound to a processor
@@ -481,16 +522,19 @@ public class InstanceModelUtil {
 	 * @return processor instance
 	 */
 	public static ComponentInstance getBoundPhysicalProcessor(ComponentInstance componentInstance) {
-		List<ComponentInstance> cil = getProcessorBinding(componentInstance);
+		final List<InstanceObject> cil = canHaveActualProcessorBinding(componentInstance)
+				? getProcessorBindings(componentInstance)
+				: Collections.emptyList();
 		if (cil.isEmpty()) {
 			return null;
 		}
-		for (ComponentInstance ci : cil) {
+		for (final InstanceObject ci : cil) {
 			if (isProcessor(ci) || isSystem(ci) || isAbstract(ci)) {
-				return ci;
+				return (ComponentInstance) ci;
 			}
 		}
-		for (ComponentInstance boundCompInstance : cil) {
+		for (final InstanceObject io : cil) {
+			final ComponentInstance boundCompInstance = (ComponentInstance) io;
 			if (isVirtualProcessor(boundCompInstance)) {
 				// it is bound to or contained in
 				ComponentInstance res = getBoundPhysicalProcessor(boundCompInstance);
@@ -524,14 +568,17 @@ public class InstanceModelUtil {
 	 */
 	public static Collection<ComponentInstance> getBoundPhysicalProcessors(ComponentInstance componentInstance) {
 		final Collection<ComponentInstance> actualProcs = new HashSet<ComponentInstance>();
-		addBoundProcessors(componentInstance, actualProcs);
+		if (canHaveActualProcessorBinding(componentInstance)) {
+			addBoundProcessors(componentInstance, actualProcs);
+		}
 		return actualProcs;
 	}
 
 	protected static void addBoundProcessors(ComponentInstance componentInstance,
 			Collection<ComponentInstance> result) {
-		List<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
-		for (ComponentInstance boundCompInstance : bindinglist) {
+		final List<InstanceObject> bindinglist = getProcessorBindings(componentInstance);
+		for (InstanceObject io : bindinglist) {
+			final ComponentInstance boundCompInstance = (ComponentInstance) io;
 			if (isVirtualProcessor(boundCompInstance)) {
 				// it is bound to or contained in
 				addBoundProcessors(boundCompInstance, result);
@@ -557,7 +604,9 @@ public class InstanceModelUtil {
 	 */
 	public static Collection<ComponentInstance> getBoundVirtualProcessors(ComponentInstance componentInstance) {
 		final Collection<ComponentInstance> actualProcs = new HashSet<ComponentInstance>();
-		addBoundVirtualProcessors(componentInstance, actualProcs, false);
+		if (canHaveActualProcessorBinding(componentInstance)) {
+			addBoundVirtualProcessors(componentInstance, actualProcs, false);
+		}
 		return actualProcs;
 	}
 
@@ -568,14 +617,17 @@ public class InstanceModelUtil {
 	 */
 	public static Collection<ComponentInstance> getAllBoundVirtualProcessors(ComponentInstance componentInstance) {
 		final Collection<ComponentInstance> actualProcs = new ArrayList<ComponentInstance>();
-		addBoundVirtualProcessors(componentInstance, actualProcs, true);
+		if (canHaveActualProcessorBinding(componentInstance)) {
+			addBoundVirtualProcessors(componentInstance, actualProcs, true);
+		}
 		return actualProcs;
 	}
 
 	protected static void addBoundVirtualProcessors(ComponentInstance componentInstance,
 			Collection<ComponentInstance> result, boolean doAll) {
-		Collection<ComponentInstance> bindinglist = getProcessorBinding(componentInstance);
-		for (ComponentInstance boundCompInstance : bindinglist) {
+		final Collection<InstanceObject> bindinglist = getProcessorBindings(componentInstance);
+		for (final InstanceObject io : bindinglist) {
+			final ComponentInstance boundCompInstance = (ComponentInstance) io;
 			if (isVirtualProcessor(boundCompInstance)) {
 				result.add(boundCompInstance);
 				if (doAll) {
@@ -602,7 +654,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static EList<ComponentInstance> getBoundSWComponents(final ComponentInstance associatedObject) {
-		EList boundComponents = null;
+		EList<Element> boundComponents = null;
 
 		if (boundSWCache.containsKey(associatedObject)) {
 			return boundSWCache.get(associatedObject);
@@ -627,12 +679,10 @@ public class InstanceModelUtil {
 			boundComponents = new ForAllElement() {
 				@Override
 				protected boolean suchThat(Element obj) {
-					List<ComponentInstance> boundMemoryList = GetProperties
-							.getActualMemoryBinding((ComponentInstance) obj);
-					if (boundMemoryList.isEmpty()) {
-						return false;
-					}
-					return boundMemoryList.get(0) == associatedObject;
+					return DeploymentProperties.getActualMemoryBinding((ComponentInstance) obj).map(
+							boundMemoryList -> boundMemoryList.isEmpty() ? false
+									: boundMemoryList.get(0) == associatedObject)
+							.orElse(false);
 				}
 				// process bottom up so we can check whether children had budgets
 			}.processPostOrderComponentInstance(root);
@@ -652,6 +702,7 @@ public class InstanceModelUtil {
 	 * @param procorVP
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static EList<ComponentInstance> getAllBoundSWComponents(final ComponentInstance procorVP) {
 		SystemInstance root = procorVP.getSystemInstance();
 		EList boundComponents = new ForAllElement() {
@@ -672,6 +723,7 @@ public class InstanceModelUtil {
 	 * @param procorVP
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static EList<ComponentInstance> getBoundThreads(final ComponentInstance procorVP) {
 		SystemInstance root = procorVP.getSystemInstance();
 		EList boundComponents = new ForAllElement() {
@@ -691,6 +743,7 @@ public class InstanceModelUtil {
 	 * @param procorVP
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static EList<ComponentInstance> getBoundProcesses(final ComponentInstance procorVP) {
 		SystemInstance root = procorVP.getSystemInstance();
 		EList boundComponents = new ForAllElement() {
@@ -730,8 +783,8 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean isBoundToBus(InstanceObject boundObject, ComponentInstance bus) {
-		List<ComponentInstance> bindinglist = getConnectionBinding(boundObject);
-		for (ComponentInstance boundCompInstance : bindinglist) {
+		List<InstanceObject> bindinglist = getConnectionBindings(boundObject);
+		for (InstanceObject boundCompInstance : bindinglist) {
 			if (isVirtualProcessor(boundCompInstance)) {
 				// it is bound to or contained in
 				if (isBoundToBus(boundCompInstance, bus)) {
@@ -750,18 +803,27 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	public static boolean hasBusBinding(InstanceObject boundObject) {
-		List<ComponentInstance> bindinglist = getConnectionBinding(boundObject);
-		return !bindinglist.isEmpty();
+		return !getConnectionBindings(boundObject).isEmpty();
 	}
 
 	/**
 	 * return set of components the specified instance object (connection or virtual bus) is bound to.
 	 * Takes into account virtual buses contained in buses or virtual buses
+	 *
+	 * <p>This method copies a list internally for the sole purpose of changing the type
+	 * from {@code List<InstanceObject>} to {@code List<ComponentInstance>}.  Please use
+	 * {@link #getConnectionBindings} and change the call site to handle {@code InstanceObject}
+	 * to avoid this.
+	 *
 	 * @param io
 	 * @return
+	 *
+	 * @deprecated To be removed in 2.10.0.  Use {@link #getConnectionBindings(InstanceObject)
 	 */
+	@Deprecated
 	public static List<ComponentInstance> getConnectionBinding(final InstanceObject io) {
-		List<ComponentInstance> bindinglist = GetProperties.getActualConnectionBinding(io);
+		final List<ComponentInstance> bindinglist = getListAsComponentInstance(
+				DeploymentProperties::getActualConnectionBinding, io);
 		/**
 		 * If we have a virtual bus, we consider that it is bound to
 		 * its containing bus. Semantically, we thus consider
@@ -773,7 +835,34 @@ public class InstanceModelUtil {
 			ComponentInstance parent = io.getContainingComponentInstance();
 			if (parent.getCategory() == ComponentCategory.BUS
 					|| parent.getCategory() == ComponentCategory.VIRTUAL_BUS) {
-				bindinglist.add(parent);
+				return Collections.singletonList(parent);
+			}
+		}
+		return bindinglist;
+	}
+
+	/**
+	 * return set of components the specified instance object (connection or virtual bus) is bound to.
+	 * Takes into account virtual buses contained in buses or virtual buses
+	 * @param io
+	 * @return
+	 * @since 3.1
+	 */
+	public static List<InstanceObject> getConnectionBindings(final InstanceObject io) {
+		final List<InstanceObject> bindinglist = DeploymentProperties.getActualConnectionBinding(io)
+				.orElse(Collections.emptyList());
+		/**
+		 * If we have a virtual bus, we consider that it is bound to
+		 * its containing bus. Semantically, we thus consider
+		 * that all contained virtual bus are bound to the enclosing
+		 * physical bus or VB. Then, we add it in the list.
+		 */
+		if (bindinglist.isEmpty() && io instanceof ComponentInstance
+				&& ((ComponentInstance) io).getCategory() == ComponentCategory.VIRTUAL_BUS) {
+			ComponentInstance parent = io.getContainingComponentInstance();
+			if (parent.getCategory() == ComponentCategory.BUS
+					|| parent.getCategory() == ComponentCategory.VIRTUAL_BUS) {
+				return Collections.singletonList(parent);
 			}
 		}
 		return bindinglist;
@@ -793,13 +882,13 @@ public class InstanceModelUtil {
 	}
 
 	protected static void addPhysicalConnectionBinding(InstanceObject VBorConni, Collection<ComponentInstance> result) {
-		List<ComponentInstance> bindinglist = getConnectionBinding(VBorConni);
-		for (ComponentInstance boundCompInstance : bindinglist) {
+		List<InstanceObject> bindinglist = getConnectionBindings(VBorConni);
+		for (InstanceObject boundCompInstance : bindinglist) {
 			if (isVirtualBus(boundCompInstance)) {
 				// it is bound to or contained in
 				addPhysicalConnectionBinding(boundCompInstance, result);
 			} else {
-				result.add(boundCompInstance);
+				result.add((ComponentInstance) boundCompInstance);
 			}
 		}
 	}
@@ -925,7 +1014,7 @@ public class InstanceModelUtil {
 		ComponentInstance srcHW = getHardwareComponent(connectionInstance.getSource());
 		ComponentInstance dstHW = getHardwareComponent(connectionInstance.getDestination());
 		if (isBusAccessConnection(connectionInstance)) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		return connectedByBus(srcHW, dstHW);
 	}
@@ -956,7 +1045,6 @@ public class InstanceModelUtil {
 		if (srcHW == null || dstHW == null || srcHW == dstHW) {
 			return visitedBuses;
 		}
-		EList<FeatureInstance> busaccesslist = srcHW.getFeatureInstances();
 		for (FeatureInstance fi : srcHW.getFeatureInstances()) {
 			if (fi.getCategory() == FeatureCategory.BUS_ACCESS) {
 				for (ConnectionInstance aci : fi.getDstConnectionInstances()) {

@@ -52,20 +52,18 @@ import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.businessobjecthandling.RenameContext;
 import org.osate.ge.graphics.ArrowBuilder;
-import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.graphics.StyleBuilder;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 /**
- * Business Object Handler for {@link BehaviorTransition}.
+ * Business Object Handler for {@link BehaviorTransition} objects.
  */
 public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
-	private static final StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
-			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> {
+	private static final ExecutableQuery<BehaviorTransition> SRC_QUERY = ExecutableQuery.<BehaviorTransition> create(
+			rootQuery -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(bt -> {
 				if (bt instanceof DeclarativeBehaviorTransition) {
 					final DeclarativeBehaviorTransition dt = (DeclarativeBehaviorTransition) bt;
 					if (!dt.getSrcStates().isEmpty()) {
@@ -78,8 +76,8 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 				return bt.getSourceState();
 			}));
 
-	private static final StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children()
-			.filterByBusinessObjectRelativeReference((BehaviorTransition bt) -> {
+	private static final ExecutableQuery<BehaviorTransition> DST_QUERY = ExecutableQuery
+			.create(rootQuery -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(bt -> {
 				if (bt instanceof DeclarativeBehaviorTransition) {
 					final DeclarativeBehaviorTransition dt = (DeclarativeBehaviorTransition) bt;
 					final Identifier dest = dt.getDestState();
@@ -93,15 +91,16 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 			}));
 
 	private static Element getState(final BehaviorAnnex ba, final String id) {
-		return ba.getChildren().stream()
-				.filter(c -> c instanceof NamedElement && id.equals(((NamedElement) c).getName())).findAny()
+		return ba.getChildren()
+				.stream()
+				.filter(c -> c instanceof NamedElement && id.equals(((NamedElement) c).getName()))
+				.findAny()
 				.orElse(null);
 	}
 
-	public static final Graphic transitionConnectionGraphic = ConnectionBuilder.create()
-			.destinationTerminator(ArrowBuilder.create().small().filled().build()).build();
-	public static final Style transitionConnectionStyle = StyleBuilder.create().backgroundColor(Color.BLACK)
-			.labelsAboveTop().labelsLeft().build();
+	private static final Graphic TRANSITION_CONNECTION_GRAPHIC = ConnectionBuilder.create()
+			.destinationTerminator(ArrowBuilder.create().small().filled().build())
+			.build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -125,21 +124,22 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
+		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).orElseThrow();
 		final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorTransition.getOwner();
 		final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
-		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE,
-				Integer.toString(index));
+		return new CanonicalBusinessObjectReference(BehaviorAnnexReferenceUtil.TRANSITION_TYPE, Integer.toString(index),
+				ctx.getReferenceBuilder().getCanonicalReference(behaviorAnnex).encode());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
+		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).orElseThrow();
 		final String refSeg = getTransitionReference((BehaviorAnnex) behaviorTransition.getOwner(), behaviorTransition);
 		return BehaviorAnnexReferenceUtil.getTransitionRelativeReference(refSeg);
 	}
 
-	private static String getTransitionReference(final BehaviorAnnex behaviorAnnex, final BehaviorTransition behaviorTransition) {
+	private static String getTransitionReference(final BehaviorAnnex behaviorAnnex,
+			final BehaviorTransition behaviorTransition) {
 		final String name = behaviorTransition.getName();
 		if (name == null) {
 			final int index = behaviorAnnex.getTransitions().indexOf(behaviorTransition);
@@ -158,24 +158,27 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final QueryService queryService = ctx.getQueryService();
-		return Optional
-				.of(GraphicalConfigurationBuilder.create().graphic(transitionConnectionGraphic)
-						.style(transitionConnectionStyle).source(getSource(boc, queryService))
-						.destination(getDestination(boc, queryService)).build());
+		return Optional.of(GraphicalConfigurationBuilder.create()
+				.graphic(TRANSITION_CONNECTION_GRAPHIC)
+				.style(Style.EMPTY)
+				.source(getSource(boc, queryService))
+				.destination(getDestination(boc, queryService))
+				.build());
 	}
 
 	private BusinessObjectContext getSource(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(srcQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(SRC_QUERY, boc,
+				boc.getBusinessObject(BehaviorTransition.class).orElseThrow());
 	}
 
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
+		return queryService.getFirstBusinessObjectContextOrNull(DST_QUERY, boc,
+				boc.getBusinessObject(BehaviorTransition.class).orElseThrow());
 	}
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(BehaviorTransition.class).map(BehaviorTransition::getName)
-				.orElse("");
+		return ctx.getBusinessObject(BehaviorTransition.class).map(BehaviorTransition::getName).orElse("");
 	}
 
 	@Override
@@ -191,10 +194,11 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 
 	@Override
 	public void delete(final CustomDeleteContext ctx) {
-		final BehaviorAnnex behaviorAnnex = ctx.getContainerBusinessObject(BehaviorAnnex.class).get();
+		final BehaviorAnnex behaviorAnnex = ctx.getContainerBusinessObject(BehaviorAnnex.class).orElseThrow();
 		// Find transition by URI.
-		final BehaviorTransition behaviorTransition = (BehaviorTransition) behaviorAnnex.eResource().getResourceSet()
-				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorTransition.class).get()), true);
+		final BehaviorTransition behaviorTransition = (BehaviorTransition) behaviorAnnex.eResource()
+				.getResourceSet()
+				.getEObject(EcoreUtil.getURI(ctx.getReadonlyBoToDelete(BehaviorTransition.class).orElseThrow()), true);
 		EcoreUtil.remove(behaviorTransition);
 		if (behaviorAnnex.getTransitions().isEmpty()) {
 			behaviorAnnex.unsetTransitions();
@@ -203,7 +207,7 @@ public class BehaviorTransitionHandler implements BusinessObjectHandler, CustomD
 
 	@Override
 	public void rename(final RenameContext ctx) {
-		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).get();
+		final BehaviorTransition behaviorTransition = ctx.getBusinessObject(BehaviorTransition.class).orElseThrow();
 		final String newName = ctx.getNewName();
 		// An unnamed transition's name must be set to null
 		behaviorTransition.setName(newName.isEmpty() ? null : newName);

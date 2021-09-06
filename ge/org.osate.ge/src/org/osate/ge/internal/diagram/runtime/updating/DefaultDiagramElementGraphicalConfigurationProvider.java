@@ -34,7 +34,6 @@ import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.businessobjecthandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.services.QueryService;
 
 /**
@@ -46,8 +45,14 @@ public class DefaultDiagramElementGraphicalConfigurationProvider implements Diag
 	private final QueryService queryService;
 	private final AgeDiagramProvider diagramProvider;
 
-	public DefaultDiagramElementGraphicalConfigurationProvider(final ProjectReferenceService refService,
-			final QueryService queryService, final AgeDiagramProvider diagramProvider,
+	/**
+	 * Creates a new instance
+	 * @param queryService the query service
+	 * @param diagramProvider the diagram provider
+	 * @param extService the extension registry
+	 */
+	public DefaultDiagramElementGraphicalConfigurationProvider(final QueryService queryService,
+			final AgeDiagramProvider diagramProvider,
 			final ExtensionRegistryService extService) {
 		this.bohProvider = Objects.requireNonNull(extService, "extService must not be null");
 		this.queryService = Objects.requireNonNull(queryService, "queryService must not be null");

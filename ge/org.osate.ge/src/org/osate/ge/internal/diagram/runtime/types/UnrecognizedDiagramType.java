@@ -37,6 +37,10 @@ import com.google.common.collect.ImmutableSet;
 public class UnrecognizedDiagramType implements DiagramType {
 	private String id;
 
+	/**
+	 * Creates a new instance
+	 * @param id the ID of the unrecognized diagram type. This allows the original diagram type ID to be retained when the diagram is saved.
+	 */
 	public UnrecognizedDiagramType(final String id) {
 		this.id = Objects.requireNonNull(id, "id must not be null");
 	}

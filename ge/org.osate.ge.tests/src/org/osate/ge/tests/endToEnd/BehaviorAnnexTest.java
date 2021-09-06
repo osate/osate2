@@ -35,9 +35,9 @@ import org.junit.Test;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.AadlReferenceUtil;
 import org.osate.ge.ba.BehaviorAnnexReferenceUtil;
+import org.osate.ge.ba.ui.EditEmbeddedTextDialog;
 import org.osate.ge.ba.ui.properties.BehaviorStatePropertySection;
 import org.osate.ge.ba.ui.properties.BehaviorTransitionPropertySection;
-import org.osate.ge.ba.ui.properties.EditEmbeddedTextDialog;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.tests.endToEnd.util.DiagramElementReference;
 import org.osate.ge.tests.endToEnd.util.DiagramReference;
@@ -72,7 +72,7 @@ public class BehaviorAnnexTest {
 
 		// Setup classifiers for testing
 		final String typeName = "Abstract_type";
-		final String modeName = "src_state";
+		final String modeName = "srcstate";
 		setupClassifiers(diagram, pkgElement, pkgRef, typeName, modeName);
 
 		// Use Open -> Behavior Annex Diagram command to create new behavior annex diagram
@@ -159,7 +159,7 @@ public class BehaviorAnnexTest {
 		final DiagramElementReference classifierDiagramRef = element(pkgRef, classifierRef);
 
 		// Create behavior specification
-		createBehaviorAnnexWithInitialState(diagram, pkgRef, classifierDiagramRef, behaviorSpecification, modeName);
+		createBehaviorAnnexWithInitialState(diagram, classifierDiagramRef, behaviorSpecification, modeName);
 
 		// Hide all to test behavior specification filter
 		clickContextMenuOfDiagramElement(diagram, classifierDiagramRef, "Hide Contents", "All");
@@ -195,7 +195,7 @@ public class BehaviorAnnexTest {
 	private static void testBehaviorVariable(final DiagramReference baDiagram,
 			final DiagramElementReference baDiagramSpecRef) {
 		// Create variable
-		final String newVariableName = "ba_variable";
+		final String newVariableName = "v1";
 		createBehaviorVariable(baDiagram, baDiagramSpecRef, "Base_Types::String", "new_behavior_variable",
 				newVariableName);
 
@@ -270,10 +270,12 @@ public class BehaviorAnnexTest {
 				behaviorSpecification, transitionRef);
 
 		// Test renaming for states with same name of a mode with transition
-		renameElementDirectEdit(baDiagram, element(behaviorSpecification),
-				BehaviorAnnexReferenceUtil.getStateRelativeReference("src_state"), "new_mode");
-		renameElementDirectEdit(baDiagram, element(behaviorSpecification),
-				BehaviorAnnexReferenceUtil.getStateRelativeReference("new_mode"), "src_state");
+		renameElementDirectEdit(baDiagram,
+				element(behaviorSpecification).join(BehaviorAnnexReferenceUtil.getStateRelativeReference("srcstate")),
+				"newmode");
+		renameElementDirectEdit(baDiagram,
+				element(behaviorSpecification).join(BehaviorAnnexReferenceUtil.getStateRelativeReference("newmode")),
+				"srcstate");
 
 		// Test delete transition
 		deleteElement(baDiagram, element(behaviorSpecification).join(transitionRef));
@@ -331,10 +333,10 @@ public class BehaviorAnnexTest {
 				new String[] { "Open", "Behavior Specification Diagram" });
 
 		waitForWindowWithTitle("Create New Diagram?");
-		clickButtonForShell("Create New Diagram?", "Yes");
+		clickButtonForWindow("Create New Diagram?", "Yes");
 
 		waitForWindowWithTitle("Create Diagram");
-		clickButtonForShell("Create Diagram", "OK");
+		clickButtonForWindow("Create Diagram", "OK");
 
 		final String diagramName = BA_TEST + "_" + newStatePrefix + "_" + BehaviorAnnexReferenceUtil.ANNEX_NAME;
 		final DiagramReference baDiagram = defaultDiagram(BA_TEST, diagramName);
@@ -349,7 +351,7 @@ public class BehaviorAnnexTest {
 		clickContextMenuOfOutlineViewItem(ref.toOutlineTreeItemPath(), new String[] { "Open", "New Diagram..." });
 
 		waitForWindowWithTitle("Create Diagram");
-		clickButtonForShell("Create Diagram", "OK");
+		clickButtonForWindow("Create Diagram", "OK");
 
 		final DiagramReference baDiagram = defaultDiagram(BA_TEST,
 				BA_TEST + "_" + newStatePrefix + "_" + BehaviorAnnexReferenceUtil.ANNEX_NAME);

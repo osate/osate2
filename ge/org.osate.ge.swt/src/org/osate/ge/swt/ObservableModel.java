@@ -34,5 +34,5 @@ public interface ObservableModel {
 	 * View models should avoid sending change events unless a change has actually occurred.
 	 * @return an {@link EventSource} for change events.
 	 */
-	EventSource<ChangeEvent> changed();
+	EventSource changed();
 }

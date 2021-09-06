@@ -38,18 +38,21 @@ import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.CanStartConnectionContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
 import org.osate.ge.palette.GetCreateConnectionOperationContext;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 /**
  * Palette command for create {@link BehaviorTransition}.
  */
 public class CreateTransitionPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
-	private static final StandaloneQuery containerQuery = StandaloneQuery
-			.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof BehaviorAnnex).first());
+	private static final ExecutableQuery<Object> CONTAINER_QUERY = ExecutableQuery
+			.create(root -> root.ancestors().filter(fa -> fa.getBusinessObject() instanceof BehaviorAnnex).first());
 
+	/**
+	 * Creates a new instance
+	 */
 	public CreateTransitionPaletteCommand() {
-		super("Behavior Transition", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX, null);
+		super("Behavior Transition", BehaviorAnnexPaletteContributor.BEHAVIOR_ANNEX_CATEGORY_ID, null);
 	}
 
 	@Override
@@ -73,8 +76,8 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 			return Optional.empty();
 		}
 
-		final BehaviorState srcState = ctx.getSource().getBusinessObject(BehaviorState.class).get();
-		final BehaviorState dstState = ctx.getDestination().getBusinessObject(BehaviorState.class).get();
+		final BehaviorState srcState = ctx.getSource().getBusinessObject(BehaviorState.class).orElseThrow();
+		final BehaviorState dstState = ctx.getDestination().getBusinessObject(BehaviorState.class).orElseThrow();
 		return srcContainer.getBusinessObject(BehaviorAnnex.class)
 				.map(ba -> Operation.createSimple(srcContainer, BehaviorAnnex.class, boToModify -> {
 					final BehaviorTransition baTransition = (BehaviorTransition) EcoreUtil
@@ -124,6 +127,6 @@ public class CreateTransitionPaletteCommand extends BasePaletteCommand implement
 
 	private static BusinessObjectContext getOwnerBoc(final BusinessObjectContext modeBoc,
 			final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(containerQuery, modeBoc);
+		return queryService.getFirstBusinessObjectContextOrNull(CONTAINER_QUERY, modeBoc, modeBoc.getBusinessObject());
 	}
 }
