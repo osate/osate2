@@ -25,11 +25,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 <feature
       id="org.osate.ge.feature"
       label="OSATE Graphical Editor"
-<<<<<<< HEAD
-      version="4.1.1.qualifier"
-=======
       version="5.0.0.qualifier"
->>>>>>> refs/remotes/origin/master
       provider-name="The University of Alabama in Huntsville"
       plugin="org.osate.ge"
       license-feature="org.osate.license"
