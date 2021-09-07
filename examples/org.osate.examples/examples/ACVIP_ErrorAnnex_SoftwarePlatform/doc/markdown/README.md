@@ -9,7 +9,7 @@ capabilities of OSATE:
 * Check Flow Latency
 
 This model is the second implementation of the Sensor Control System demonstrating the next level of complexity within an AADL model. Within this model, a software platform has been added for each of the three components, as well as an error model using EMV2. 
-Each platform contains a processor and memory. Various buses have been added to the model for communication between components. The error model shows how errors can be propogated up through the hierarchy of the system. On top of error propagation, it shows that an error can change the state of the system. 
+Each platform contains a processor and memory. Various buses have been added to the model for communication between components. The error model shows how errors can be propagated up through the hierarchy of the system. On top of error propagation, it shows that an error can change the state of the system. 
 
 More information on the Architecture Centric Virtual Integration Process (ACVIP) can be found via a conference paper from [SEI's Digital Library](https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=634965).
 For more information on EMV2, please refer to OSATE's help contents.
@@ -18,7 +18,7 @@ This model and README is based on OSATE 2.9.1.
 
 ### Organization of the example
 
-There is one model contained within this project, along with one instance and two diagrams of the new HighLevelSCS implementation. The model used for this example is built upon the previous exampe and will be continue to be built upon in subsequent examples.
+There is one model contained within this project, along with one instance and two diagrams of the new HighLevelSCS implementation. The model used for this example is built upon the previous example and will be continue to be built upon in subsequent examples.
 
 ### Creating a diagram
 

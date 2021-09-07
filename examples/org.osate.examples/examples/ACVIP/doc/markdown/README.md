@@ -1,7 +1,6 @@
 # ACVIP Example
 
-This example is the first example of the AADL/ACVIP tutorial.
-It is the first iteration of creating a Sensor Control System (SCS).
+This example is the Sensor Control System (SCS) example presented in the AADL/ACVIP video tutorial.
 It was originally designed by the Software Engineering Institute (SEI) at
 Carnegie Mellon University (CMU) to demonstrate the following
 capabilities of OSATE:
