@@ -33,6 +33,10 @@ import java.util.Objects;
 public final class NameEditorRenameDialogModel implements NameEditorDialogModel {
 	private final NameEditorModel innerModel;
 
+	/**
+	 * Creates a new instance
+	 * @param innerModel the model wrapped by this instance.
+	 */
 	public NameEditorRenameDialogModel(final NameEditorModel innerModel) {
 		this.innerModel = Objects.requireNonNull(innerModel, "innerModel must not be null");
 	}

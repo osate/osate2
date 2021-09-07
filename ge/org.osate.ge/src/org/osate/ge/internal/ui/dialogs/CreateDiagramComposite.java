@@ -44,7 +44,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.util.DiagramUtil;
 import org.osate.ge.swt.SwtUtil;
 
 import com.google.common.collect.ImmutableCollection;
@@ -193,7 +193,7 @@ public class CreateDiagramComposite<DiagramType> extends Composite {
 		}
 
 		final IFolder diagramFolder = project.getFolder("diagrams/");
-		return diagramFolder.getFile(name + AgeDiagramEditor.EXTENSION);
+		return diagramFolder.getFile(name + DiagramUtil.EXTENSION);
 	}
 
 	/**

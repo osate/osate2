@@ -35,40 +35,50 @@ import org.osate.ge.operations.StepResult;
 
 import com.google.common.collect.ImmutableList;
 
-abstract class AbstractStepBuilder<PrevResultUserType> implements OperationBuilder<PrevResultUserType> {
+/**
+ * Abstract class for step builders
+ *
+ * @param <P> the type of the user value of the result of the previous step
+ */
+abstract class AbstractStepBuilder<P> implements OperationBuilder<P> {
 	private final List<AbstractStepBuilder<?>> nextStepBuilders = new ArrayList<>();
 
 	@Override
 	public <TagType, BusinessObjectType extends EObject, ResultUserType> OperationBuilder<ResultUserType> modifyModel(final TagType tag,
-			BusinessObjectToModifyProvider<TagType, BusinessObjectType, PrevResultUserType> boProvider,
-			final ModelModifier<TagType, BusinessObjectType, PrevResultUserType, ResultUserType> modifier) {
+			BusinessObjectToModifyProvider<TagType, BusinessObjectType, P> boProvider,
+			final ModelModifier<TagType, BusinessObjectType, P, ResultUserType> modifier) {
 		return addNextStepBuilder(new ModelModificationStepBuilder<>(tag, boProvider, modifier));
 	}
 
 	@Override
-	public <ResultUserType> OperationBuilder<ResultUserType> map(
-			Function<PrevResultUserType, StepResult<ResultUserType>> mapper) {
+	public <R> OperationBuilder<R> map(
+			Function<P, StepResult<R>> mapper) {
 		return addNextStepBuilder(new MapStepBuilder<>(mapper));
 	}
 
 	@Override
-	public void executeOperation(final Function<PrevResultUserType, Operation> opProvider) {
+	public void executeOperation(final Function<P, Operation> opProvider) {
 		addNextStepBuilder(new SuboperationStepBuilder<>(opProvider));
 	}
 
-	private <ResultUserType> OperationBuilder<ResultUserType> addNextStepBuilder(
-			final AbstractStepBuilder<ResultUserType> nextStepBuilder) {
+	private <R> OperationBuilder<R> addNextStepBuilder(
+			final AbstractStepBuilder<R> nextStepBuilder) {
 		nextStepBuilders.add(nextStepBuilder);
 		return nextStepBuilder;
 	}
 
-	public final Step<?> build() {
-		final Step<?> nextStep;
+	/**
+	 * Creates the step.
+	 * @return the new step
+	 */
+	public final Step build() {
+		final Step nextStep;
 		if (nextStepBuilders.isEmpty()) {
 			nextStep = null;
 		} else if (nextStepBuilders.size() == 1) {
 			nextStep = nextStepBuilders.get(0).build();
 		} else {
+			// If there are multiple next steps, use a split step which will execute multiple sequences
 			nextStep = new SplitStep(
 					nextStepBuilders.stream().map(b -> b.build()).collect(ImmutableList.toImmutableList()));
 		}
@@ -76,5 +86,10 @@ abstract class AbstractStepBuilder<PrevResultUserType> implements OperationBuild
 		return buildStep(nextStep);
 	}
 
-	protected abstract Step<?> buildStep(final Step<?> nextStep);
+	/**
+	 * Creates the step. The type of step is dependent on the subclass which implements this method.
+	 * @param nextStep the step to be executed after the step being created
+	 * @return the step
+	 */
+	protected abstract Step buildStep(final Step nextStep);
 }

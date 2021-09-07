@@ -48,13 +48,33 @@ import org.osgi.framework.FrameworkUtil;
  * Utility class containing methods which are useful for implementing property sections
  * @since 2.0
  */
-public class PropertySectionUtil {
+public final class PropertySectionUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private PropertySectionUtil() {
+	}
+
+	/**
+	 * Adapts an object to {@link BusinessObjectContext} and then checks if it is compatible. False will be returned
+	 * if a business object context cannot be retrieved or if the business object is an EMF proxy.
+	 * @param toTest the object which is checked for compatibility
+	 * @param predicate the predicate which returns true if the business object context is compatible.
+	 * @return true if the business object context passes the compatibility check
+	 */
 	public static boolean isBocCompatible(final Object toTest, final Predicate<BusinessObjectContext> predicate) {
 		final BusinessObjectContext boc = Adapters.adapt(toTest, BusinessObjectContext.class);
 		final Object bo = boc == null ? null : boc.getBusinessObject();
 		return boc != null && (!(bo instanceof EObject) || !((EObject) bo).eIsProxy()) && predicate.test(boc);
 	}
 
+	/**
+	 * Adapts an object to {@link BusinessObjectContext} and then checks its business object for compatibility.
+	 * False will be returned if a business object cannot be retrieved or if is an EMF proxy.
+	 * @param toTest the object which is checked for compatibility
+	 * @param predicate the predicate which returns true if the business object is compatible.
+	 * @return true if the business object context passes the compatibility check
+	 */
 	public static boolean isBoCompatible(final Object toTest, final Predicate<Object> predicate) {
 		final BusinessObjectContext boc = Adapters.adapt(toTest, BusinessObjectContext.class);
 		final Object bo = boc == null ? null : boc.getBusinessObject();
@@ -63,8 +83,9 @@ public class PropertySectionUtil {
 	}
 
 	/**
-	 * Executes an operation in a context which is not associated with a diagram. As such, elements are not added to the diagram based on the hints provided by the step results.
-	 * @param operation
+	 * Executes an operation in a context which is not associated with a diagram.
+	 * As such, elements are not added to the diagram based on the hints provided by the step results.
+	 * @param operation the operation to execute.
 	 */
 	public static void execute(final Operation operation) {
 		if (operation != null) {
@@ -75,10 +96,9 @@ public class PropertySectionUtil {
 			final ReferenceBuilderService referenceBuilder = Objects.requireNonNull(
 					context.getActive(ReferenceBuilderService.class), "Unable to retrieve reference builder service");
 			final OperationExecutor operationExecutor = new OperationExecutor(aadlModService, referenceBuilder);
-			operationExecutor.execute(operation, (results) -> {
-			});
+			operationExecutor.execute(operation);
 		}
-	};
+	}
 
 	/**
 	 * Creates a label intended to be used as the section label. Returned label will have a {@link FormData} layout data set to align to the left.

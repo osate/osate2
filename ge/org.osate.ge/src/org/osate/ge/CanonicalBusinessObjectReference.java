@@ -23,100 +23,54 @@
  */
 package org.osate.ge;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.internal.services.impl.ReferenceEncoder;
 
-import com.google.common.collect.ImmutableList;
-
 /**
- * Immutable data type for canonical references to a business object.
- * A canonical reference uniquely identifies a business object.
+ * Immutable data type for canonical references to a business object. Canonical business object references are created for a
+ * business object using the registered {@link BusinessObjectHandler}.
+ * A canonical reference uniquely identifies a business object in the context of the current project.
+ * If the canonical references of two business objects are equal, then the business objects are treated as being the same object.
  * @since 2.0
  *
  */
-public class CanonicalBusinessObjectReference {
-	private ImmutableList<String> segments;
-	private ImmutableList<String> lcSegments; // Lowercase segments. Used for comparison.
-
+public final class CanonicalBusinessObjectReference extends BusinessObjectReference {
 	/**
 	 * Creates an instance from an array of segments. Segments are case insensitive. Throws an exception is optional or if the segments
 	 * array is null or empty.
 	 * @param segments is an array of segments that makes up the reference.
 	 */
 	public CanonicalBusinessObjectReference(final String... segments) {
-		if (segments == null || segments.length < 1) {
-			throw new RuntimeException("segments must contain at least one segment");
-		}
-
-		// Check that all segments are non-null
-		for (final String seg : segments) {
-			if (seg == null) {
-				throw new RuntimeException("segment is null");
-			}
-		}
-
-		// Store segments and lower case segments in separate lists. The lowercase segments are used for comparison while the other list is used to preserve
-		// case for serialization.
-		this.segments = ImmutableList.copyOf(segments);
-		this.lcSegments = this.segments.stream().map(s -> s.toLowerCase(Locale.ROOT))
-				.collect(ImmutableList.toImmutableList());
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((lcSegments == null) ? 0 : lcSegments.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-
-		final CanonicalBusinessObjectReference other = (CanonicalBusinessObjectReference)obj;
-		if (!lcSegments.equals(other.lcSegments)) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return Arrays.toString(segments.toArray());
+		super(segments);
 	}
 
 	/**
-	 * Returns an unmodifiable list containing the segments.
-	 * @return
+	 * Returns a string representation of the reference that can be converted back to an equal instance using
+	 * {@link CanonicalBusinessObjectReference#decode(String)}. One use of this method is to convert a canonical reference into a string that can be used
+	 * as a segment of another canonical reference.
+	 * @return the encoded reference
 	 */
-	public List<String> getSegments() {
-		return segments;
-	}
-
 	public String encode() {
-		return ReferenceEncoder.encode(segments);
+		return ReferenceEncoder.encode(getSegments());
 	}
 
-	public org.osate.ge.diagram.CanonicalBusinessObjectReference toMetamodel() {
+	/**
+	 * Converts the instance to an instance of the serialized diagram model type.
+	 * @return the converted object.
+	 */
+	public final org.osate.ge.diagram.CanonicalBusinessObjectReference toMetamodel() {
 		final org.osate.ge.diagram.CanonicalBusinessObjectReference newValue = new org.osate.ge.diagram.CanonicalBusinessObjectReference();
-		for(final String seg : segments) {
+		for (final String seg : getSegments()) {
 			newValue.getSeg().add(seg);
 		}
 		return newValue;
 	}
 
+	/**
+	 * Converts an encoded string as returned by {@link CanonicalBusinessObjectReference#encode()} into an instance of {@link CanonicalBusinessObjectReference}
+	 * @param reference the encoded reference
+	 * @return the decoded reference object
+	 */
 	public static CanonicalBusinessObjectReference decode(final String reference) {
 		return new CanonicalBusinessObjectReference(ReferenceEncoder.decode(reference));
 	}

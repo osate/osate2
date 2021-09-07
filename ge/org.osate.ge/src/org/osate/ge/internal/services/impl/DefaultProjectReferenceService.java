@@ -40,6 +40,10 @@ import org.osate.ge.services.ReferenceBuilderService;
 
 import com.google.common.collect.ImmutableList;
 
+/**
+ * {@link ProjectReferenceService} implementation
+ *
+ */
 public class DefaultProjectReferenceService implements ProjectReferenceService, AutoCloseable {
 	private static class CleanupRunnable implements Runnable {
 		private final ImmutableList<ReferenceResolver> referenceResolvers;
@@ -64,6 +68,12 @@ public class DefaultProjectReferenceService implements ProjectReferenceService, 
 	private final ImmutableList<ReferenceResolver> referenceResolvers;
 	private final CleanupRunnable cleanup;
 
+	/**
+	 * Creates a new instance
+	 * @param referenceBuilder the global reference builder
+	 * @param referenceLabelService the global reference label service
+	 * @param project the project for which this service resolves references
+	 */
 	public DefaultProjectReferenceService(final ReferenceBuilderService referenceBuilder,
 			final ReferenceLabelService referenceLabelService,
 			final IProject project) {

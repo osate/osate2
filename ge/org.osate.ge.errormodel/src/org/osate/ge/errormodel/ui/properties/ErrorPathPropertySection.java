@@ -38,25 +38,40 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.errormodel.ui.swt.TypeTokenListField;
 import org.osate.ge.errormodel.ui.viewmodels.ErrorPathTargetErrorTypeInstanceModel;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 
+/**
+ * Property section for {@link ErrorPath} elements
+ */
 public class ErrorPathPropertySection extends AbstractPropertySection {
-	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorPath.";
-	public static final String WIDGET_ID_ERROR_TARGET_ERROR_TYPE_INSTANCE_LABEL = WIDGET_ID_PREFIX
-			+ "targetErrorTypeInstance.label";
-	public static final String WIDGET_ID_ERROR_TARGET_ERROR_TYPE_INSTANCE_CHOOSE_BUTTON = WIDGET_ID_PREFIX
-			+ "targetErrorTypeInstance.choose";
-
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				return bo instanceof ErrorPath;
-			});
+			return PropertySectionUtil.isBoCompatible(toTest, ErrorPath.class::isInstance);
 		}
 	}
+
+	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorPath.";
+
+	/**
+	 * Testing ID of the label displaying the error path's target tokens
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_ERROR_TARGET_ERROR_TYPE_INSTANCE_LABEL = WIDGET_ID_PREFIX
+			+ "targetErrorTypeInstance.label";
+
+	/**
+	 * Testing ID of the button which allows setting the error path's target tokens
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_ERROR_TARGET_ERROR_TYPE_INSTANCE_CHOOSE_BUTTON = WIDGET_ID_PREFIX
+			+ "targetErrorTypeInstance.choose";
 
 	private BusinessObjectSelection selectedBos;
 	private final ErrorPathTargetErrorTypeInstanceModel model = new ErrorPathTargetErrorTypeInstanceModel(
@@ -75,16 +90,14 @@ public class ErrorPathPropertySection extends AbstractPropertySection {
 		targetErrorTypeInstance.setValueLabelTestingId(WIDGET_ID_ERROR_TARGET_ERROR_TYPE_INSTANCE_LABEL);
 		targetErrorTypeInstance.setModifyButtonTestingId(WIDGET_ID_ERROR_TARGET_ERROR_TYPE_INSTANCE_CHOOSE_BUTTON);
 		targetErrorTypeInstance
-		.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
+				.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.CENTER).create());
 
-		{
-			final FormData fd = new FormData();
-			fd.left = new FormAttachment(0, AbstractPropertySection.STANDARD_LABEL_WIDTH);
-			fd.right = new FormAttachment(100, 0);
-			fd.top = new FormAttachment(typeSetLabel, 0, SWT.CENTER);
-			fd.width = 200;
-			targetErrorTypeInstance.setLayoutData(fd);
-		}
+		final FormData targetErrorTypeInstanceFormData = new FormData();
+		targetErrorTypeInstanceFormData.left = new FormAttachment(0, AbstractPropertySection.STANDARD_LABEL_WIDTH);
+		targetErrorTypeInstanceFormData.right = new FormAttachment(100, 0);
+		targetErrorTypeInstanceFormData.top = new FormAttachment(typeSetLabel, 0, SWT.CENTER);
+		targetErrorTypeInstanceFormData.width = 200;
+		targetErrorTypeInstance.setLayoutData(targetErrorTypeInstanceFormData);
 	}
 
 	@Override

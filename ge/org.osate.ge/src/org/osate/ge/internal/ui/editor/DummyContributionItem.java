@@ -48,6 +48,7 @@ public class DummyContributionItem extends ComboContributionItem {
 		super.onControlDisposed();
 	}
 	
+	@Override
 	protected Control createControl(final Composite parent) {
 		final Control control = super.createControl(parent);
 		ComboViewer combo = getComboViewer();
@@ -62,5 +63,4 @@ public class DummyContributionItem extends ComboContributionItem {
 	protected int computeWidth(Control control) {
 	    return 0;
 	}
-
 }

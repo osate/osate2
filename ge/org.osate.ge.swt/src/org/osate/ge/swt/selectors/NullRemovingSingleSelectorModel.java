@@ -33,6 +33,10 @@ import java.util.stream.Stream;
 class NullRemovingSingleSelectorModel extends SingleSelectorModelDecorator<Object> {
 	private static final Object nullObject = new Object();
 
+	/**
+	 * Creates a new instance
+	 * @param inner the model to wrap
+	 */
 	@SuppressWarnings("unchecked")
 	public NullRemovingSingleSelectorModel(final SingleSelectorModel<?> inner) {
 		super((SingleSelectorModel<Object>) inner);

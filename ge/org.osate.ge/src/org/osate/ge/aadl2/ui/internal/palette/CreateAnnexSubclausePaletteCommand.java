@@ -52,7 +52,7 @@ public class CreateAnnexSubclausePaletteCommand extends BasePaletteCommand imple
 	public Optional<Operation> getOperation(final GetTargetedOperationContext ctx) {
 		return ctx.getTarget().getBusinessObject(Classifier.class).map(readonlyClassifier -> Operation.createPromptAndModifyWithExtra(() -> {
 			final AnnexNameDialog annexNameDialog = new AnnexNameDialog(Display.getCurrent().getActiveShell(),
-					readonlyClassifier, "Create Annex Subclause", "Enter a name for the new Annex Subclause.");
+					"Create Annex Subclause", "Enter a name for the new Annex Subclause.");
 			if (annexNameDialog.open() == Window.CANCEL || annexNameDialog.getValue() == null) {
 				return Optional.empty();
 			}

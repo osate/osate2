@@ -3,10 +3,10 @@
 <schema targetNamespace="org.osate.ge" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.osate.ge" id="org.osate.ge.referenceLabels" name="Reference Label"/>
+         <meta.schema plugin="org.osate.ge" id="org.osate.ge.referenceLabelProviders" name="Reference Label Providers"/>
       </appinfo>
       <documentation>
-         Extension point for registering reference label providers.
+         This extension point is used for registering reference label providers with the OSATE graphical editor. Reference label providers are used to convert a reference to a user friendly string in cases where it is inappropriate or impossible to resolve the reference.
       </documentation>
    </annotation>
 
@@ -62,41 +62,19 @@
       </complexType>
    </element>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="since"/>
-      </appinfo>
-      <documentation>
-         [Enter the first release in which this extension point appears.]
-      </documentation>
-   </annotation>
 
    <annotation>
       <appinfo>
          <meta.section type="examples"/>
       </appinfo>
       <documentation>
-         [Enter extension point usage example here.]
+         &lt;extension point=&quot;org.osate.ge.referenceLabelProviders&quot;&gt;
+    &lt;provider class=&quot;org.osate.ge.aadl2.internal.DeclarativeReferenceLabelProvider&quot; /&gt;
+&lt;/extension&gt;
       </documentation>
    </annotation>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="apiinfo"/>
-      </appinfo>
-      <documentation>
-         [Enter API information here.]
-      </documentation>
-   </annotation>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="implementation"/>
-      </appinfo>
-      <documentation>
-         [Enter information about supplied implementation of this extension point.]
-      </documentation>
-   </annotation>
 
 
 </schema>

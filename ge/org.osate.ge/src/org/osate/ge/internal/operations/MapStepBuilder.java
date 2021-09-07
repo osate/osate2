@@ -28,15 +28,26 @@ import java.util.function.Function;
 
 import org.osate.ge.operations.StepResult;
 
-class MapStepBuilder<PrevResultUserType, ResultUserType> extends AbstractStepBuilder<ResultUserType> {
-	private final Function<PrevResultUserType, StepResult<ResultUserType>> mapper;
+/**
+ * Builder for {@link MapStep}
+ *
+ * @param <P> the type of the user value of the result of the previous step
+ * @param <R> the type of the user value of the new step's result
+ * @see MapStep
+ */
+class MapStepBuilder<P, R> extends AbstractStepBuilder<R> {
+	private final Function<P, StepResult<R>> mapper;
 
-	public MapStepBuilder(final Function<PrevResultUserType, StepResult<ResultUserType>> mapper) {
+	/**
+	 * Creates a new instance
+	 * @param mapper the mapping function. See {@link MapStep#getMapper()}
+	 */
+	public MapStepBuilder(final Function<P, StepResult<R>> mapper) {
 		this.mapper = Objects.requireNonNull(mapper, "mapper must not be null");
 	}
 
 	@Override
-	protected Step<?> buildStep(final Step<?> nextStep) {
-		return new MapStep<PrevResultUserType, ResultUserType>(nextStep, mapper);
+	protected Step buildStep(final Step nextStep) {
+		return new MapStep<P, R>(nextStep, mapper);
 	}
 }

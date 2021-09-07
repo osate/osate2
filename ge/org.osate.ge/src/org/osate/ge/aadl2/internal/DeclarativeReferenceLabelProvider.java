@@ -32,8 +32,6 @@ import org.osate.ge.referencehandling.GetCanonicalReferenceLabelContext;
 import org.osate.ge.referencehandling.GetRelativeReferenceLabelContext;
 import org.osate.ge.referencehandling.ReferenceLabelProvider;
 
-import com.google.common.base.CaseFormat;
-
 public class DeclarativeReferenceLabelProvider implements ReferenceLabelProvider {
 	@Override
 	public Optional<String> getCanonicalReferenceLabel(final GetCanonicalReferenceLabelContext ctx) {
@@ -64,6 +62,6 @@ public class DeclarativeReferenceLabelProvider implements ReferenceLabelProvider
 	}
 
 	private static final String getFormattedTag(final String tag) {
-		return StringUtil.camelCaseToUser(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, tag));
+		return StringUtil.snakeCaseToTitleCase(tag);
 	}
 }

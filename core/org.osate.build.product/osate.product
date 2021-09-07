@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.10.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.10.1.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/osateAbout_hc90.jpg"/>
@@ -14,7 +14,7 @@
    </configIni>
 
    <launcherArgs>
-      <vmArgs>-Dosgi.requiredJavaVersion=1.8 -Xms40m -Xmx768m --add-modules=ALL-SYSTEM
+      <vmArgs>-Dosgi.requiredJavaVersion=1.11 -Dosgi.framework.extensions=org.eclipse.fx.osgi -Xms40m -Xmx768m --add-modules=ALL-SYSTEM
       </vmArgs>
    </launcherArgs>
 
@@ -55,7 +55,6 @@
       <feature id="org.eclipse.equinox.p2.discovery.feature"/>
       <feature id="org.eclipse.platform"/>
       <feature id="org.eclipse.mylyn.context_feature"/>
-      <feature id="org.eclipse.graphiti.export.feature"/>
       <feature id="org.eclipse.sirius.runtime.ide.ui"/>
       <feature id="org.eclipse.elk.feature"/>
       <feature id="org.eclipse.elk.algorithms.feature"/>
@@ -66,6 +65,11 @@
       <feature id="org.eclipse.ease.modules.feature"/>
       <feature id="org.eclipse.ease.ui.feature"/>
       <feature id="org.py4j.feature"/>
+      <feature id="org.eclipse.fx.runtime.min.feature"/>
+      <feature id="openjfx.standard.feature"/>
+      <feature id="openjfx.swing.feature"/>
+      <feature id="openjfx.swt.feature"/>
+      <feature id="org.eclipse.justj.openjdk.hotspot.jre.full"/>
    </features>
 
    <configurations>
@@ -80,8 +84,15 @@
 
    <repositories>
       <repository location="http://osate-build.sei.cmu.edu/download/osate/testing/updates/" enabled="true" />
-      <repository location="http://download.eclipse.org/eclipse/updates/4.16" enabled="true" />
-      <repository location="http://download.eclipse.org/releases/2020-06" enabled="true" />
+      <repository location="http://download.eclipse.org/eclipse/updates/4.19" enabled="true" />
+      <repository location="http://download.eclipse.org/releases/2021-03" enabled="true" />
    </repositories>
+
+   <preferencesInfo>
+      <targetfile overwrite="false"/>
+   </preferencesInfo>
+
+   <cssInfo>
+   </cssInfo>
 
 </product>

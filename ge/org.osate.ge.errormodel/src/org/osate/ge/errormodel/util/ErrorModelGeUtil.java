@@ -43,7 +43,6 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.AadlGraphicalEditorException;
 import org.osate.ge.aadl2.GraphicalAnnexUtil;
 import org.osate.ge.graphics.ArrowBuilder;
-import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
@@ -55,7 +54,14 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
-public class ErrorModelGeUtil {
+/**
+ * Utility class containing miscellaneous functions for working with the error model annex
+ *
+ */
+public final class ErrorModelGeUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private ErrorModelGeUtil() {
 	}
 
@@ -64,26 +70,57 @@ public class ErrorModelGeUtil {
 				ErrorModelPackage.eINSTANCE.getErrorModelLibrary(), ErrorModelLibrary.class);
 	}
 
+	/**
+	 * Returns the first parsed annex library for the specified package
+	 * @param pkg the package for which to return the error model library
+	 * @return the error model library
+	 * @see GraphicalAnnexUtil#getFirstParsedAnnexLibrary
+	 */
 	public static Optional<ErrorModelLibrary> getErrorModelLibrary(final AadlPackage pkg) {
 		return GraphicalAnnexUtil.getFirstParsedAnnexLibrary(pkg, EMV2Util.ErrorModelAnnexName,
 				ErrorModelLibrary.class);
 	}
 
+	/**
+	 * Gets the error model subclause for the specified classifier. If an error model subclause
+	 * does not exist, it is created.
+	 * @param classifier the classifier for which to get or create the error model subclause
+	 * @return the error model subclause
+	 * @see GraphicalAnnexUtil#getOrCreateParsedAnnexSubclause
+	 */
 	public static ErrorModelSubclause getOrCreateErrorModelSubclause(final Classifier classifier) {
 		return GraphicalAnnexUtil.getOrCreateParsedAnnexSubclause(classifier, EMV2Util.ErrorModelAnnexName,
 				ErrorModelPackage.eINSTANCE.getErrorModelSubclause(), ErrorModelSubclause.class);
 	}
 
+	/**
+	 * Returns the first error model subclause for the specified classifier
+	 * @param classifier the classifier for which to return the subclause
+	 * @return the error model subclause
+	 * @see GraphicalAnnexUtil#getFirstParsedAnnexSubclause
+	 */
 	public static Optional<ErrorModelSubclause> getFirstErrorModelSubclause(final Classifier classifier) {
 		return GraphicalAnnexUtil.getFirstParsedAnnexSubclause(classifier, EMV2Util.ErrorModelAnnexName,
 				ErrorModelSubclause.class);
 	}
 
+	/**
+	 * Returns all the error model subclauses owned by the specified classifier. This method does not
+	 * return subclauses contained in extended or implemented classifiers
+	 * @param classifier the classifier for which to return the subclauses
+	 * @return the error model subclauses owned by the classifier
+	 */
 	public static Stream<ErrorModelSubclause> getAllErrorModelSubclauses(final Classifier classifier) {
 		return GraphicalAnnexUtil.getAllParsedAnnexSubclauses(classifier, EMV2Util.ErrorModelAnnexName,
 				ErrorModelSubclause.class);
 	}
 
+	/**
+	 * Returns a stream containing the error model subclauses contained in the classifier. This method includes
+	 * subclauses contained in extended and implemented classifiers
+	 * @param classifier the classifier for which to return the subclauses
+	 * @return the error model subclauses
+	 */
 	public static Stream<ErrorModelSubclause> getAllInheritedErrorModelSubclauses(final Classifier classifier) {
 		if (classifier == null) {
 			return Stream.empty();
@@ -99,18 +136,29 @@ public class ErrorModelGeUtil {
 		return classifiers.flatMap(tmpClassifier -> getAllErrorModelSubclauses(tmpClassifier));
 	}
 
-	public static final Style topCenteredLabelStyle = StyleBuilder.create().labelsTop().labelsHorizontalCenter()
+	/**
+	 * Style which places labels at the top and horizontal center.
+	 */
+	public static final Style TOP_CENTERED_LABEL_STYLE = StyleBuilder.create()
+			.labelsTop()
+			.labelsHorizontalCenter()
 			.build();
 
-	public static final Style centeredStyle = StyleBuilder.create().labelsCenter().build();
+	/**
+	 * Style which places labels at the horizontal and vertical center
+	 */
+	public static final Style CENTERED_STYLE = StyleBuilder.create().labelsCenter().build();
 
-	public static final Style transitionConnectionStyle = StyleBuilder.create().backgroundColor(Color.BLACK).build();
-	public static final Graphic transitionConnectionGraphic = ConnectionBuilder.create()
-			.destinationTerminator(ArrowBuilder.create().small().filled().build()).build();
+	/**
+	 * Graphic used by transition connections
+	 */
+	public static final Graphic TRANSITION_CONNECTION_GRAPHIC = ConnectionBuilder.create()
+			.destinationTerminator(ArrowBuilder.create().small().filled().build())
+			.build();
 
 	/**
 	 * Creates an operation which allows prompting the user and then modifies the error model library of a package.
-	 * @param <PromptResult> is a type of result that is returned by the prompter function.
+	 * @param <P> is a type of result that is returned by the prompter function.
 	 * @param packageBoc is the business object context of the package to be modified.
 	 * @param prompter is a function that will return results of prompting the user. If it returns an empty optional,
 	 * 	the modification portion of the operation will not be executed.
@@ -118,12 +166,12 @@ public class ErrorModelGeUtil {
 	 * @return an optional describing the operation. If the business object context does not have an {@link AadlPackage}
 	 * as a business object, an empty optional will be returned.
 	 */
-	public static <PromptResult> Optional<Operation> createErrorModelLibraryPromptAndModifyOperation(
-			final BusinessObjectContext packageBoc, final Supplier<Optional<PromptResult>> prompter,
-			BiFunction<ErrorModelLibrary, PromptResult, StepResult<?>> modifier) {
-		return packageBoc.getBusinessObject(AadlPackage.class).map(readonlyPkg -> {
-			return Operation.createWithBuilder(b -> {
-				b.supply(() -> prompter.get().map(v -> StepResult.forValue(v)).orElseGet(() -> StepResult.abort()))
+	public static <P> Optional<Operation> createErrorModelLibraryPromptAndModifyOperation(
+			final BusinessObjectContext packageBoc, final Supplier<Optional<P>> prompter,
+			BiFunction<ErrorModelLibrary, P, StepResult<?>> modifier) {
+		return packageBoc.getBusinessObject(AadlPackage.class)
+				.map(readonlyPkg -> Operation.createWithBuilder(b -> b
+						.supply(() -> prompter.get().map(v -> StepResult.forValue(v)).orElseGet(StepResult::abort))
 						.modifyModel(null, (tag, promptResult) -> {
 							// Select the object to modify. If an error model library exists, modify it. Otherwise, modify the package.
 							final Optional<ErrorModelLibrary> readonlyLibrary = getErrorModelLibrary(readonlyPkg);
@@ -143,22 +191,18 @@ public class ErrorModelGeUtil {
 
 							// Perform the modification
 							return modifier.apply(lib, promptResult);
-						});
-			});
-		});
+						})));
 	}
 
 	/**
 	 * Creates an operation to modify the error model library of a package. If the specified {@link BusinessObjectContext} doesn't contain a
 	 * {@link AadlPackage} business object, an empty optional is returned. If the error model library doesn't exist, it is created.
-	 * @param <ResultUserType>
 	 * @param packageBoc the business object being modified. Must be the business object context for a package.
 	 * @param modifier is the function that will modify the error model library
 	 * @return an optional containing the operation.
 	 */
-	public static <ResultUserType> Optional<Operation> createErrorModelLibraryModifyOperation(
-			final BusinessObjectContext packageBoc,
-			final Function<ErrorModelLibrary, StepResult<ResultUserType>> modifier) {
+	public static Optional<Operation> createErrorModelLibraryModifyOperation(final BusinessObjectContext packageBoc,
+			final Function<ErrorModelLibrary, StepResult<?>> modifier) {
 		return createErrorModelLibraryPromptAndModifyOperation(packageBoc, () -> Optional.of(true),
 				(lib, promptResult) -> modifier.apply(lib));
 	}
@@ -167,7 +211,7 @@ public class ErrorModelGeUtil {
 	 * Creates an operation which allows prompt the user and then modifies the first error model subclause of a classifier or subcomponent.
 	 * If the specified {@link BusinessObjectContext} doesn't contain an appropriate business object, an empty optional is returned.
 	 * If a error model subclause doesn't exist in the classifier, it is created.
-	 * @param <ResultUserType>
+	 * @param <P> the result of prompting the user
 	 * @param boc the business object being modified. Must be the business object context for a classifier or subcomponent.
 	 * @param prompter is a function that will return results of prompting the user. If it returns an empty optional,
 	 * 	the modification portion of the operation will not be executed.
@@ -175,9 +219,9 @@ public class ErrorModelGeUtil {
 	 * @return an optional describing the operation. If the business object context does not have a classifier or subcomponent
 	 * as a business object, an empty optional will be returned.
 	 */
-	public static <PromptResult> Optional<Operation> createErrorModelSubclausePromptAndModifyOperation(
-			final BusinessObjectContext boc, final Supplier<Optional<PromptResult>> prompter,
-			BiFunction<ErrorModelSubclause, PromptResult, StepResult<?>> modifier) {
+	public static <P> Optional<Operation> createErrorModelSubclausePromptAndModifyOperation(
+			final BusinessObjectContext boc, final Supplier<Optional<P>> prompter,
+			BiFunction<ErrorModelSubclause, P, StepResult<?>> modifier) {
 		final Object readonlyBo = boc.getBusinessObject();
 		final Classifier readonlyClassifier;
 		if (readonlyBo instanceof Classifier) {
@@ -192,44 +236,43 @@ public class ErrorModelGeUtil {
 			return Optional.empty();
 		}
 
-		return Optional.of(Operation.createWithBuilder(b -> {
-			b.supply(() -> prompter.get().map(v -> StepResult.forValue(v)).orElseGet(() -> StepResult.abort()))
-					.modifyModel(null, (tag, promptResult) -> {
-						// Select the object to modify. If an error model subclause exists, modify it. Otherwise, modify the classifier.
-						final Optional<ErrorModelSubclause> readonlySubclause = getFirstErrorModelSubclause(
-								readonlyClassifier);
-						if (readonlySubclause.isPresent()) {
-							return readonlySubclause.filter(subclause -> subclause.getContainingClassifier() != null)
-									.orElse(null);
-						} else {
-							return readonlyClassifier;
-						}
-					}, (tag, boToModify, promptResult) -> {
-						// Get or create the error model subclause as needed
-						final ErrorModelSubclause subclause;
-						if (boToModify instanceof Classifier) {
-							subclause = getOrCreateErrorModelSubclause((Classifier) boToModify);
-						} else {
-							subclause = (ErrorModelSubclause) boToModify;
-						}
+		return Optional.of(Operation.createWithBuilder(
+				b -> b.supply(() -> prompter.get().map(v -> StepResult.forValue(v)).orElseGet(StepResult::abort))
+						.modifyModel(null, (tag, promptResult) -> {
+							// Select the object to modify. If an error model subclause exists, modify it. Otherwise, modify the classifier.
+							final Optional<ErrorModelSubclause> readonlySubclause = getFirstErrorModelSubclause(
+									readonlyClassifier);
+							if (readonlySubclause.isPresent()) {
+								return readonlySubclause
+										.filter(subclause -> subclause.getContainingClassifier() != null)
+										.orElse(null);
+							} else {
+								return readonlyClassifier;
+							}
+						}, (tag, boToModify, promptResult) -> {
+							// Get or create the error model subclause as needed
+							final ErrorModelSubclause subclause;
+							if (boToModify instanceof Classifier) {
+								subclause = getOrCreateErrorModelSubclause((Classifier) boToModify);
+							} else {
+								subclause = (ErrorModelSubclause) boToModify;
+							}
 
-						// Perform the modification
-						return modifier.apply(subclause, promptResult);
-					});
-		}));
+							// Perform the modification
+							return modifier.apply(subclause, promptResult);
+						})));
 	}
 
 	/**
 	 * Creates an operation to modify the first error model subclause of a classifier or subcomponent.
 	 * If the specified {@link BusinessObjectContext} doesn't contain an appropriate business object, an empty optional is returned.
 	 * If a error model subclause doesn't exist in the classifier, it is created.
-	 * @param <ResultUserType>
 	 * @param boc the business object being modified. Must be the business object context for a classifier or subcomponent.
 	 * @param modifier is the function that will modify the error model subclause
 	 * @return an optional containing the operation.
 	 */
-	public static <ResultUserType> Optional<Operation> createErrorModelSubclauseModifyOperation(
-			final BusinessObjectContext boc, final Function<ErrorModelSubclause, StepResult<ResultUserType>> modifier) {
+	public static Optional<Operation> createErrorModelSubclauseModifyOperation(final BusinessObjectContext boc,
+			final Function<ErrorModelSubclause, StepResult<?>> modifier) {
 		return createErrorModelSubclausePromptAndModifyOperation(boc, () -> Optional.of(true),
 				(subclause, promptResult) -> modifier.apply(subclause));
 	}

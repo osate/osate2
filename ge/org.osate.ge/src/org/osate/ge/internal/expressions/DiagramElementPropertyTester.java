@@ -38,7 +38,7 @@ public class DiagramElementPropertyTester extends PropertyTester {
 		if (property.equals("isUndocked")) {
 			return DiagramElementPredicates.isUndocked(de);
 		} else if (property.equals("isMoveable")) {
-			return DiagramElementPredicates.isMoveable(de);
+			return DiagramElementPredicates.isMoveableShape(de);
 		} else if (property.equals("isResizable")) {
 			return DiagramElementPredicates.isResizeable(de);
 		}

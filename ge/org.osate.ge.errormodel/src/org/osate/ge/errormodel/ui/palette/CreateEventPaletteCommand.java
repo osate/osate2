@@ -37,9 +37,16 @@ import org.osate.ge.palette.TargetedPaletteCommand;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 
+/**
+ * Palette command for creating elements which are subtypes of {@link ErrorBehaviorEvent}.
+ */
 public class CreateEventPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	private final EClass eventType;
 
+	/**
+	 * Creates a new instance which will create an instance of the specified {@link ErrorBehaviorEvent} subtype
+	 * @param eventType the type of event to created. This event must be a subtype of {@link ErrorBehaviorEvent}
+	 */
 	public CreateEventPaletteCommand(final EClass eventType) {
 		super(StringUtil.camelCaseToUser(eventType.getName()), ErrorModelPaletteCategories.ERROR_BEHAVIOR, null);
 		this.eventType = eventType;

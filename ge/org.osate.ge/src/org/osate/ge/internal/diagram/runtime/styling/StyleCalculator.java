@@ -51,7 +51,7 @@ public class StyleCalculator implements StyleProvider {
 
 	/**
 	 * Sets the diagram configuration used when building styles.
-	 * @param config
+	 * @param config the diagram configuration used when determining the final style.
 	 */
 	public final void setDiagramConfiguration(final DiagramConfiguration config) {
 		this.diagramConnectionStyle = getDiagramConnectionStyle(
