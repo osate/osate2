@@ -1,0 +1,27 @@
+Bus load analysis of HighLevelSCS_i_Instance
+
+
+"Physical Bus","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"canBus","768.0","512.0","0.0","0.0"
+"bus1553","768.0","512.0","0.0","0.32"
+"power","0.0","0.0","0.0","0.0"
+
+"Bus canBus has data overhead of 8 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"controller1.dataOut -> brake1.dataIn","","0.0","","0.0"
+
+"Connection controller1.dataOut -> brake1.dataIn bound to canBus""WARNING: Connection controller1.dataOut -> brake1.dataIn has no bandwidth budget"
+
+"Bus bus1553 has data overhead of 8 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"sensor1.dataOut -> controller1.dataIn","","0.0","","0.32"
+
+"Connection sensor1.dataOut -> controller1.dataIn bound to bus1553""WARNING: Connection sensor1.dataOut -> controller1.dataIn has no bandwidth budget"
+
+"Bus power has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+
+"WARNING: Bus power has no capacity"
+"WARNING: Bus power has no bandwidth budget"
+
+

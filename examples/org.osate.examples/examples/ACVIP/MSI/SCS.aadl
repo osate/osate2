@@ -1,0 +1,42 @@
+package SCS
+public
+	
+	with SimpleSensor, Controller, Infrastructure, Brake, DataDictionary;
+	system HighLevelSCS 
+		
+	end HighLevelSCS;
+
+	system implementation HighLevelSCS.i
+		subcomponents
+			sensor1: device SimpleSensor::SimpleSensor.i;
+			controller1: system Controller::SimpleController.i;
+			brake1: device Brake::SimpleBrake.i;                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+			canBus: bus  Infrastructure::CanBus.i{latency=> 13ms..15ms;};
+			bus1553: bus  Infrastructure::Bus1553.i{latency=> 7ms..7ms;};
+			powerSource: system  Infrastructure::PowerSource.i;
+			power: bus Infrastructure::power.generic;
+			
+		connections
+			c1: port sensor1.dataOut -> controller1.dataIn;
+			c2: port controller1.dataOut -> brake1.dataIn;
+			--c3: port powerSource.powerOut -> sensor1.powerIn; 
+			--c4: port powerSource.powerOut -> controller1.powerIn;
+			--c5: port powerSource.powerOut -> brake1.powerIn; 
+			bus1: bus access sensor1.busOut <-> bus1553;
+			bus2: bus access controller1.busIn <-> bus1553;
+			bus3: bus access controller1.busOut <-> canBus;
+			bus4: bus access brake1.busIn <-> canBus;
+			bus5: bus access power <-> sensor1.powerIn;
+			bus6: bus access power <-> brake1.powerIn;
+			bus7: bus access power <-> controller1.powerIn;
+		 flows
+			ete1: end to end flow sensor1.sensorFlow ->c1 -> controller1.controllerFlow -> c2 -> brake1.brakeFlow{latency=>30ms..40ms;};                     
+		properties                                                                                                                                                                                                                                                                                                 
+			actual_connection_binding => (reference (bus1553)) applies to c1;
+			actual_connection_binding => (reference (canBus)) applies to c2;
+			latency => 15ms..25ms applies to c1, c2;
+					
+	end HighLevelSCS.i;
+	
+end SCS;                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+		

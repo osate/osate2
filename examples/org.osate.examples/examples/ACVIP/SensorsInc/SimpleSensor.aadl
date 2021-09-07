@@ -1,0 +1,24 @@
+package SimpleSensor
+public
+	with DataDictionary, Infrastructure, SEI, PhysicalResources;
+	device SimpleSensor
+		features
+			dataOut: out data port DataDictionary::SensorData;
+			busOut: requires bus access Infrastructure::bus1553.i;
+			--powerIn: in data port PhysicalResources::ElectricalPower{SEI::powerBudget =>6.0W;};
+			powerIn: requires bus access Infrastructure::power.generic;
+			
+		flows
+			sensorFlow: flow source dataOut;
+		
+	end SimpleSensor;
+	
+	device implementation SimpleSensor.i  
+		properties
+			dispatch_protocol => periodic;
+			period => 50ms; 
+			latency => 3ms..5ms applies to sensorFlow;
+			SEI::WeightLimit => 0.2kg;
+			SEI::powerBudget =>4.0W applies to powerIn;                 
+	end SimpleSensor.i;
+end SimpleSensor;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
