@@ -30,7 +30,7 @@ import org.osate.ge.referencehandling.ReferenceLabelProvider;
 import com.google.common.collect.ImmutableCollection;
 
 /**
- * Instantiates extensions registered using the reference label providers extension point.
+ * Instantiates registered reference label provider extensions.
  *
  */
 public class ReferenceLabelProviderRegistry {
@@ -38,12 +38,20 @@ public class ReferenceLabelProviderRegistry {
 
 	private final ImmutableCollection<ReferenceLabelProvider> providers;
 
+	/**
+	 * Creates a new instance
+	 * @param registry the eclipse extension registry
+	 */
 	public ReferenceLabelProviderRegistry(final IExtensionRegistry registry) {
 		this.providers = EclipseExtensionUtil
 				.instantiateSimpleExtensions(registry,
-				EXTENSION_POINT_ID, "provider", ReferenceLabelProvider.class);
+						EXTENSION_POINT_ID, "provider", ReferenceLabelProvider.class);
 	}
 
+	/**
+	 * Returns the reference label providers
+	 * @return the reference label providers
+	 */
 	public ImmutableCollection<ReferenceLabelProvider> getProviders() {
 		return providers;
 	}

@@ -24,19 +24,19 @@
 package org.osate.ge.swt.selectors;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.osate.ge.swt.BaseObservableModel;
-import org.osate.ge.swt.ChangeEvent;
 
 /**
  * Abstract decorator for {@link SingleSelectorModel}
+ *
+ * @param <T> See {@link SingleSelectorModel}
  * @since 1.1
  */
 public class SingleSelectorModelDecorator<T> extends BaseObservableModel implements SingleSelectorModel<T> {
 	private final SingleSelectorModel<T> inner;
-	private final Consumer<ChangeEvent> changeListener = e -> triggerChangeEvent();
+	private final Runnable changeListener = this::triggerChangeEvent;
 
 	/**
 	 * Creates a new instance

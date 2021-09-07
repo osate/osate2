@@ -30,18 +30,22 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.model.Note;
 import org.osate.ge.internal.model.NoteReference;
 import org.osate.ge.internal.util.BusinessObjectContextUtil;
-import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.StepResultBuilder;
 import org.osate.ge.palette.BasePaletteCommand;
 import org.osate.ge.palette.CanStartConnectionContext;
-import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
+import org.osate.ge.palette.GetCreateConnectionOperationContext;
 
+/**
+ * Palette command for creating {@link NoteReference} objects
+ */
 public class CreateNoteReferencePaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
-
+	/**
+	 * Creates a new instance
+	 */
 	public CreateNoteReferencePaletteCommand() {
-		super("Note Reference", Categories.ANNOTATION, ImageHelper.getImage("NoteReference"));
+		super("Note Reference", Categories.ANNOTATION, "org.osate.ge.NoteReference");
 	}
 
 	@Override

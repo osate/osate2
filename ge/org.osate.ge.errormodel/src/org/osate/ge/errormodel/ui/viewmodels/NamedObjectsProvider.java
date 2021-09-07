@@ -37,7 +37,17 @@ import org.eclipse.xtext.resource.IEObjectDescription;
  * @param <T> the type of object provided
  */
 public interface NamedObjectsProvider<T> {
+	/**
+	 * Returns the object being provided
+	 * @return the objects being provided
+	 */
 	Stream<T> getValues();
 
-	String getName(T type);
+	/**
+	 * Returns the name of the specified value. The returned name is a string that can be used to identify the object in the user name.
+	 * The value should be a value returned by {@link #getValues()}
+	 * @param value is the object for which to return the name.
+	 * @return the name of the object. Returns null if the name could not be determined.
+	 */
+	String getName(T value);
 }

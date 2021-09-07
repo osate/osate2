@@ -38,20 +38,27 @@ import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.graphics.ArrowBuilder;
-import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
-import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.services.QueryService;
 
 public class SubprogramCallOrderHandler extends AadlBusinessObjectHandler {
-	private static final Graphic graphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().line().build()).build();
-	private static final Style style = StyleBuilder.create().backgroundColor(Color.BLACK).build();
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(sco->((SubprogramCallOrder)sco).previousSubprogramCall));
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(sco->((SubprogramCallOrder)sco).subprogramCall));
+	private static final Graphic GRAPHIC = ConnectionBuilder.create()
+			.destinationTerminator(ArrowBuilder.create().line().build())
+			.build();
+	private static final Style STYLE = StyleBuilder.create().build();
+	private static final ExecutableQuery<SubprogramCallOrder> SRC_QUERY = ExecutableQuery.create(
+			rootQuery -> rootQuery.parent()
+			.children()
+			.filterByBusinessObjectRelativeReference(sco -> sco.previousSubprogramCall));
+	private static final ExecutableQuery<SubprogramCallOrder> DST_QUERY = ExecutableQuery.create(
+			rootQuery -> rootQuery.parent()
+			.children()
+			.filterByBusinessObjectRelativeReference(sco -> sco.subprogramCall));
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -60,15 +67,14 @@ public class SubprogramCallOrderHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final ReferenceContext ctx) {
-		final SubprogramCallOrder sco = ctx.getBusinessObject(SubprogramCallOrder.class).get();
+		final SubprogramCallOrder sco = ctx.getBusinessObject(SubprogramCallOrder.class).orElseThrow();
 		return new CanonicalBusinessObjectReference(DeclarativeReferenceType.SUBPROGRAM_CALL_ORDER.getId(),
-				sco.previousSubprogramCall.getQualifiedName(),
-				sco.subprogramCall.getQualifiedName());
+				sco.previousSubprogramCall.getQualifiedName(), sco.subprogramCall.getQualifiedName());
 	}
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		final SubprogramCallOrder sco = ctx.getBusinessObject(SubprogramCallOrder.class).get();
+		final SubprogramCallOrder sco = ctx.getBusinessObject(SubprogramCallOrder.class).orElseThrow();
 		return new RelativeBusinessObjectReference(DeclarativeReferenceType.SUBPROGRAM_CALL_ORDER.getId(),
 				AadlReferenceUtil.getNameForSerialization(sco.previousSubprogramCall),
 				AadlReferenceUtil.getNameForSerialization(sco.subprogramCall));
@@ -76,8 +82,7 @@ public class SubprogramCallOrderHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(
-				SubprogramCallOrder.class)
+		return ctx.getBusinessObject(SubprogramCallOrder.class)
 				.map(bo -> "Subprogram Call Order " + Strings.emptyIfNull(bo.previousSubprogramCall.getName()) + " -> "
 						+ Strings.emptyIfNull(bo.subprogramCall.getName()))
 				.orElse("");
@@ -91,27 +96,26 @@ public class SubprogramCallOrderHandler extends AadlBusinessObjectHandler {
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
-		final SubprogramCallOrder bo = boc.getBusinessObject(SubprogramCallOrder.class).get();
 		final QueryService queryService = ctx.getQueryService();
-		return Optional.of(GraphicalConfigurationBuilder.create().
-				graphic(getGraphicalRepresentation(bo)).
-				style(style).
-				source(getSource(boc, queryService)).
-				destination(getDestination(boc, queryService)).
-				build());
+		return Optional.of(GraphicalConfigurationBuilder.create()
+				.graphic(getGraphicalRepresentation())
+				.style(STYLE)
+				.source(getSource(boc, queryService))
+				.destination(getDestination(boc, queryService))
+				.build());
 	}
 
-	private Graphic getGraphicalRepresentation(final SubprogramCallOrder bo) {
-		return graphic;
+	private Graphic getGraphicalRepresentation() {
+		return GRAPHIC;
 	}
 
-	private BusinessObjectContext getSource(final BusinessObjectContext boc,
-			final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(srcQuery, boc);
+	private BusinessObjectContext getSource(final BusinessObjectContext boc, final QueryService queryService) {
+		return queryService.getFirstBusinessObjectContextOrNull(SRC_QUERY, boc,
+				boc.getBusinessObject(SubprogramCallOrder.class).orElseThrow());
 	}
 
-	private BusinessObjectContext getDestination(final BusinessObjectContext boc,
-			final QueryService queryService) {
-		return queryService.getFirstBusinessObjectContextOrNull(dstQuery, boc);
+	private BusinessObjectContext getDestination(final BusinessObjectContext boc, final QueryService queryService) {
+		return queryService.getFirstBusinessObjectContextOrNull(DST_QUERY, boc,
+				boc.getBusinessObject(SubprogramCallOrder.class).orElseThrow());
 	}
 }

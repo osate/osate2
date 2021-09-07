@@ -52,22 +52,19 @@ public abstract class BaseTypeSetTypeTokensModel extends BaseObservableModel imp
 	private String error = null;
 	private NamedObjectsProvider<ErrorTypes> knownErrorTypes;
 
-	public BaseTypeSetTypeTokensModel() {
-		this(false);
-	}
-
 	/**
 	 * Creates a new instance
 	 * @param allowEmpty is whether the model should allow removing all type tokens from a type set.
 	 */
-	public BaseTypeSetTypeTokensModel(final boolean allowEmpty) {
+	protected BaseTypeSetTypeTokensModel(final boolean allowEmpty) {
 		this.allowEmpty = allowEmpty;
 		setTypeSets(Collections.emptyList());
 	}
 
 	/**
-	* Updates the state of the model. If possible, retrieves the project from the first type set in the list.
-	* {@link BaseTypeSetTypeTokensModel#setState(List, IProject)}
+	* Updates the state of the model. Determines the project from the first type set in the specified list.
+	* @param typeSets the type sets from which to retrieve tokens. The first type set in the list is used to determine the project.
+	* @see #setState(List, IProject)
 	*/
 	protected final void setTypeSets(final List<TypeSet> typeSets) {
 		final IProject project = typeSets.isEmpty() ? null : ProjectUtil.getProjectForBo(typeSets.get(0)).orElse(null);
@@ -77,6 +74,8 @@ public abstract class BaseTypeSetTypeTokensModel extends BaseObservableModel imp
 	/**
 	 * Refreshes the internal state of the model based on the specified type sets.
 	 * Must be called to update the state of the model.
+	 * @param typeSets the type sets from which to retrieve tokens. Multiple type sets are only editable if they match.
+	 * @param project the project used to determine referenceable error types
 	 */
 	protected final void setState(List<TypeSet> typeSets, final IProject project) {
 		inner = null;
@@ -121,9 +120,10 @@ public abstract class BaseTypeSetTypeTokensModel extends BaseObservableModel imp
 	 * @return
 	 */
 	private Object getComparisonKey(final TypeSet typeSet) {
-		return typeSet.getTypeTokens().stream().map(t -> {
-			return t.getType().stream().map(type -> EcoreUtil.getURI(type)).collect(Collectors.toSet());
-		}).collect(Collectors.toSet());
+		return typeSet.getTypeTokens()
+				.stream()
+				.map(t -> t.getType().stream().map(type -> EcoreUtil.getURI(type)).collect(Collectors.toSet()))
+				.collect(Collectors.toSet());
 	}
 
 	/**
@@ -151,7 +151,7 @@ public abstract class BaseTypeSetTypeTokensModel extends BaseObservableModel imp
 	}
 
 	@Override
-	public final Stream<ErrorTypes> getErrorTypes() {
+	public Stream<ErrorTypes> getErrorTypes() {
 		return inner == null ? Stream.empty() : inner.getErrorTypes();
 	}
 
@@ -164,7 +164,6 @@ public abstract class BaseTypeSetTypeTokensModel extends BaseObservableModel imp
 	public final String validate(List<TypeToken> value) {
 		return inner == null ? "" : inner.validate(value);
 	}
-
 
 	@Override
 	public String getTypeTokenLabel(final TypeToken value) {

@@ -66,8 +66,8 @@ censes only apply to the Third Party Software and not any other portion of this 
       <id>httpproxy</id>
       <active>true</active>
       <protocol>http</protocol>
-      <host>proxy.sei.cmu.edu</host>
-      <port>8080</port>
+      <host>cloudproxy.sei.cmu.edu</host>
+      <port>80</port>
       <nonProxyHosts>localhost|*.sei.cmu.edu</nonProxyHosts>
     </proxy>
 
@@ -75,8 +75,8 @@ censes only apply to the Third Party Software and not any other portion of this 
       <id>httpsproxy</id>
       <active>true</active>
       <protocol>https</protocol>
-      <host>proxy.sei.cmu.edu</host>
-      <port>8080</port>
+      <host>cloudproxy.sei.cmu.edu</host>
+      <port>80</port>
       <nonProxyHosts>localhost|*.sei.cmu.edu</nonProxyHosts>
     </proxy>
 
@@ -87,7 +87,7 @@ censes only apply to the Third Party Software and not any other portion of this 
     <mirror>
       <id>eclipse-mirror</id>
       <mirrorOf>http://download.eclipse.org</mirrorOf>
-      <url>file:/var/cache/p2mirror</url>
+      <url>file:/var/cache/p2mirror/2021-03</url>
       <layout>p2</layout>
       <mirrorOfLayouts>p2</mirrorOfLayouts>
     </mirror>
@@ -95,7 +95,7 @@ censes only apply to the Third Party Software and not any other portion of this 
     <mirror>
       <id>py4j-mirror</id>
       <mirrorOf>http://eclipse.py4j.org</mirrorOf>
-      <url>file:/var/cache/p2mirror/py4j</url>
+      <url>file:/var/cache/p2mirror/2021-03/py4j</url>
       <layout>p2</layout>
       <mirrorOfLayouts>p2</mirrorOfLayouts>
     </mirror>
@@ -103,7 +103,7 @@ censes only apply to the Third Party Software and not any other portion of this 
     <mirror>
       <id>py4j-mirror1</id>
       <mirrorOf>https://eclipse.py4j.org</mirrorOf>
-      <url>file:/var/cache/p2mirror/py4j</url>
+      <url>file:/var/cache/p2mirror/2021-03/py4j</url>
       <layout>p2</layout>
       <mirrorOfLayouts>p2</mirrorOfLayouts>
     </mirror>
@@ -111,7 +111,7 @@ censes only apply to the Third Party Software and not any other portion of this 
     <mirror>
       <id>ocarina-mirror</id>
       <mirrorOf>http://osate-build.sei.cmu.edu/p2/ocarina</mirrorOf>
-      <url>file:/var/cache/p2mirror/ocarina</url>
+      <url>file:/var/cache/p2mirror/2021-03/ocarina</url>
       <layout>p2</layout>
       <mirrorOfLayouts>p2</mirrorOfLayouts>
     </mirror>
@@ -119,7 +119,7 @@ censes only apply to the Third Party Software and not any other portion of this 
     <mirror>
       <id>resolute-mirror</id>
       <mirrorOf>http://osate-build.sei.cmu.edu/download/osate/stable/2.3.7/updates</mirrorOf>
-      <url>file:/var/cache/p2mirror/resolute</url>
+      <url>file:/var/cache/p2mirror/2021-03/resolute</url>
       <layout>p2</layout>
       <mirrorOfLayouts>p2</mirrorOfLayouts>
     </mirror>
@@ -127,7 +127,7 @@ censes only apply to the Third Party Software and not any other portion of this 
     <mirror>
       <id>yakindu-mirror</id>
       <mirrorOf>http://updates.yakindu.com/statecharts/releases/3.5.9</mirrorOf>
-      <url>file:/var/cache/p2mirror/yakindu</url>
+      <url>file:/var/cache/p2mirror/2021-03/yakindu</url>
       <layout>p2</layout>
       <mirrorOfLayouts>p2</mirrorOfLayouts>
     </mirror>
@@ -136,6 +136,22 @@ censes only apply to the Third Party Software and not any other portion of this 
       <id>osate-build-jericho-http</id>
       <mirrorOf>http://osate-build.sei.cmu.edu/</mirrorOf>
       <url>http://jericho.sei.cmu.edu/</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>openjfx-16-mirror</id>
+      <mirrorOf>https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-16</mirrorOf>
+      <url>file:/var/cache/p2mirror/2021-03/openjfx-16</url>
+      <layout>p2</layout>
+      <mirrorOfLayouts>p2</mirrorOfLayouts>
+    </mirror>
+
+    <mirror>
+      <id>justj-mirror</id>
+      <mirrorOf>https://downloads.efxclipse.bestsolution.at/p2-repos/openjfx-16</mirrorOf>
+      <url>file:/var/cache/p2mirror/2021-03/openjfx-16</url>
       <layout>p2</layout>
       <mirrorOfLayouts>p2</mirrorOfLayouts>
     </mirror>

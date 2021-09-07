@@ -71,12 +71,12 @@ public class OsateGeTestCommands {
 
 	/**
 	 * Creates a new AADL Project
-	 * Preconditions: OSATE Shell is active and AADL Navigator is visible.
+	 * Preconditions: OSATE Window is active and AADL Navigator is visible.
 	 * Postconditions: Project has been created and exists in the AADL Navigator
 	 * @param name is the name of the AADL project to create.
 	 */
 	public static void createAadlProject(final String name) {
-		assertOsateShellIsActive();
+		assertOsateWindowIsActive();
 		assertAadlNavigatorIsVisible();
 		clickMenu(MENU_FILE_NEW_AADL_PROJECT);
 
@@ -91,12 +91,12 @@ public class OsateGeTestCommands {
 
 	/**
 	 * Creates a new AADL Project with the specified referenced projects
-	 * Preconditions: OSATE Shell is active and AADL Navigator is visible.
+	 * Preconditions: OSATE Window is active and AADL Navigator is visible.
 	 * Postconditions: Project has been created and exists in the AADL Navigator
 	 * @param name is the name of the AADL project to create.
 	 */
 	public static void createAadlProjectWithReferencedProjects(final String name, final String... projectsToReference) {
-		assertOsateShellIsActive();
+		assertOsateWindowIsActive();
 		assertAadlNavigatorIsVisible();
 		clickMenu(MENU_FILE_NEW_AADL_PROJECT);
 
@@ -107,12 +107,42 @@ public class OsateGeTestCommands {
 
 		// Configure referenced projects
 		waitForWindowWithTitle("New");
-		checkItemsInSimpleTable(0, projectsToReference);
+		checkItemsInSimpleTable(projectsToReference);
 		clickButton("Finish");
 
 		// Verify results
 		waitUntilProjectExistsInAadlNavigator(name);
 		assertReferencedProjects(name, projectsToReference);
+	}
+
+	/**
+	 * Opens the "Configure Diagram" dialog and checks the tree item at the specified item text path.
+	 * Preconditions: The element to show does not exist on the diagram
+	 * Postconditions: The element exists on the diagram
+	 * @param diagram is the diagram
+	 * @param element is the element to open the context menu for
+	 * @param elementToShow is the element that will exist on the diagram after the item is checked
+	 * @param itemTexts is the path to the tree item to check
+	 */
+	public static void configureDiagramToShowElement(final DiagramReference diagram,
+			final DiagramElementReference element, final RelativeBusinessObjectReference elementToShow,
+			final String... itemTexts) {
+		final DiagramElementReference newElement = element.join(elementToShow);
+		assertFalse("Diagram element '" + elementToShow + "' already exists in the diagram.",
+				getDiagramElement(diagram, newElement).isPresent());
+
+		clickContextMenuOfDiagramElement(diagram, element, "Configure Diagram...");
+		waitForWindowWithTitle("Configure Diagram");
+
+		// Add a space to end for text labels in the tree
+		for (int i = 0; i < itemTexts.length; i++) {
+			itemTexts[i] = itemTexts[i] + " ";
+		}
+
+		checkTreeItemInWindowWithTitle("Configure Diagram", itemTexts);
+		clickButton("OK");
+
+		waitForDiagramElementToExist(diagram, newElement);
 	}
 
 	private static void assertReferencedProjects(final String projectName, final String[] expectedReferencedProjects) {
@@ -153,16 +183,8 @@ public class OsateGeTestCommands {
 	}
 
 	/**
-	 * Version of {@link #createNewPackageWithDiagram(String, String, String, String)} which uses the package as the diagram name.
-	 */
-	public static void createNewPackageWithDiagram(final String projectName, final String packageName,
-			final String diagramType) {
-		createNewPackageWithDiagram(projectName, packageName, packageName, "Package Diagram");
-	}
-
-	/**
 	 * Creates a new AADL package using the diagram wizard and opens it with the Diagram Editor.
-	 * Preconditions: OSATE Shell is active and specified project is in the AADL Navigator
+	 * Preconditions: OSATE Window is active and specified project is in the AADL Navigator
 	 * Postconditions: diagram editor for the new diagram is active.
 	 * @param projectName the name of the project to create
 	 * @param packageName the name of the package to create
@@ -258,9 +280,8 @@ public class OsateGeTestCommands {
 	 * @param dataClassifier the data classifier to set for the behavior variable
 	 * @param newVariableName the new name for the behavior variable
 	 */
-	public static void createBehaviorVariable(final DiagramReference diagram,
-			final DiagramElementReference parentSpec, final String dataClassifierQualifiedName,
-			final String defaultVariableName, final String newName) {
+	public static void createBehaviorVariable(final DiagramReference diagram, final DiagramElementReference parentSpec,
+			final String dataClassifierQualifiedName, final String defaultVariableName, final String newName) {
 		openDiagramEditor(diagram);
 
 		selectPaletteItem(diagram, "Behavior Variable");
@@ -271,8 +292,8 @@ public class OsateGeTestCommands {
 		waitForDiagramElementToExist(diagram,
 				parentSpec.join(BehaviorAnnexReferenceUtil.getVariableRelativeReference(defaultVariableName)));
 
-		renameElementDirectEdit(diagram, parentSpec,
-				BehaviorAnnexReferenceUtil.getVariableRelativeReference(defaultVariableName), newName);
+		renameElementDirectEdit(diagram,
+				parentSpec.join(BehaviorAnnexReferenceUtil.getVariableRelativeReference(defaultVariableName)), newName);
 
 		layoutDiagram(diagram, parentSpec);
 	}
@@ -331,7 +352,7 @@ public class OsateGeTestCommands {
 
 	/**
 	 * Creates a diagram element using a palette tool which will be represented as a shape.
-	 * Preconditions: OSATE shell is active. Specified parent element exists.
+	 * Preconditions: OSATE Window is active. Specified parent element exists.
 	 * Postconditions: new diagram element has been created, renamed to match the specified name, and the diagram layout has been updated.
 	 * @param diagram is the diagram in which to create the diagram element
 	 * @param parentElement reference to the element in which the new diagram element will be created
@@ -348,7 +369,7 @@ public class OsateGeTestCommands {
 
 	/**
 	 * Creates a diagram element using a palette tool which will be represented as a shape.
-	 * Preconditions: OSATE shell is active. Specified parent element exists.
+	 * Preconditions: OSATE Window is active. Specified parent element exists.
 	 * Postconditions: new diagram element has been created, renamed to match the specified name, and the diagram layout has been updated.
 	 * @param diagram is the diagram in which to create the diagram element
 	 * @param parentElement reference to the element in which the new diagram element will be created
@@ -368,7 +389,7 @@ public class OsateGeTestCommands {
 
 	/**
 	 * Creates an element represented by a flow indicator using the palette tool.
-	 * Preconditions: OSATE shell is active.  Specified parent element exists.
+	 * Preconditions: OSATE Window is active.  Specified parent element exists.
 	 * Postconditions: New flow indicator has been created, renamed to match the specified name
 	 * @param diagram is the diagram in which to create the flow indicator
 	 * @param parentElement is the reference to the element in which the flow indicator will be created
@@ -387,16 +408,15 @@ public class OsateGeTestCommands {
 
 	/**
 	 * Creates a behavior annex and an initial state using the palette tool.
-	 * Preconditions: OSATE shell is active.  Specified classifier element exists.
+	 * Preconditions: OSATE Window is active.  Specified classifier element exists.
 	 * Postconditions: A new behavior annex with an initial state has been created.  The state will be renamed to the specified name.
 	 * @param diagram is the diagram in which to create the behavior annex and behavior state
-	 * @param pkgRef is the package reference in which the classifier belongs to
 	 * @param classifierDiagramRef is the diagram reference of the parent classifier for the behavior specification
 	 * @param behaviorSpecification is the relative reference to the new behavior specification
 	 * @param newStateName is the name to which the behavior state should be renamed to
 	 */
 	public static void createBehaviorAnnexWithInitialState(final DiagramReference diagram,
-			final RelativeBusinessObjectReference pkgRef, final DiagramElementReference classifierDiagramRef,
+			final DiagramElementReference classifierDiagramRef,
 			final RelativeBusinessObjectReference behaviorSpecification, final String newStateName) {
 		// Create Behavior Annex specification
 		createShapeElement(diagram, classifierDiagramRef, "Behavior Specification", behaviorSpecification);
@@ -416,13 +436,13 @@ public class OsateGeTestCommands {
 				newStateDiagramRef);
 
 		// Rename initial state
-		renameElementDirectEdit(diagram, behaviorSpecDiagramRef, newStateRef, newStateName);
+		renameElementDirectEdit(diagram, behaviorSpecDiagramRef.join(newStateRef), newStateName);
 	}
 
 	/**
 	 * Creates an end to end flow using the segments specified.  The segments
 	 * will be selected in the order received.
-	 * Preconditions: OSATE shell is active.  Flow segments exist.
+	 * Preconditions: OSATE Window is active.  Flow segments exist.
 	 * Postconditions: New end to end flow specification has been created and highlighted
 	 * @param classifier is the reference to the diagram element to select to enable tool item
 	 * @param eteQualifiedName the qualified name of the end to end flow
@@ -441,16 +461,16 @@ public class OsateGeTestCommands {
 		clickElements(flowSegments);
 
 		final String eteName = eteQualifiedName.substring(eteQualifiedName.lastIndexOf(':') + 1);
-		setTextForShell("End To End Flow Specification Tool", 0, eteName);
+		setTextForWindow("End To End Flow Specification Tool", 0, eteName);
 		sendTextKeyUpEvent("End To End Flow Specification Tool", 0, SWT.KeyUp, new Event());
 
-		clickButtonForShell("End To End Flow Specification Tool", "OK");
+		clickButtonForWindow("End To End Flow Specification Tool", "OK");
 
 		// Highlight flow to ensure it was created successfully
-		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, eteQualifiedName);
+		setComboBoxWithIdSelection(FlowContributionItem.WIDGET_ID_HIGHLIGHT_FLOW, eteQualifiedName);
 
 		// Set selection to default
-		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, "<Flows>");
+		setComboBoxWithIdSelection(FlowContributionItem.WIDGET_ID_HIGHLIGHT_FLOW, "<Flows>");
 	}
 
 	private static void clickElements(final DiagramElementReference[] elements) {
@@ -462,7 +482,7 @@ public class OsateGeTestCommands {
 	/**
 	 * Creates a flow implementation using the segments specified.  The segments
 	 * will be selected in the order received.
-	 * Preconditions: OSATE shell is active.  Flow segments exist.
+	 * Preconditions: OSATE Window is active.  Flow segments exist.
 	 * Postconditions: New flow implementation has been created and highlighted
 	 * @param classifier is the reference to the diagram element to select to enable tool item
 	 * @param flowImpQualifiedlName the qualified name of the flow implementation
@@ -480,18 +500,18 @@ public class OsateGeTestCommands {
 
 		clickElements(flowSegments);
 
-		clickButtonForShell("Flow Implementation Tool", "OK");
+		clickButtonForWindow("Flow Implementation Tool", "OK");
 
 		// Highlight flow to ensure it was created successfully
-		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, flowImpQualifiedlName);
+		setComboBoxWithIdSelection(FlowContributionItem.WIDGET_ID_HIGHLIGHT_FLOW, flowImpQualifiedlName);
 
 		// Set selection to default
-		setComboBoxWithIdSelection(FlowContributionItem.highlightFlow, "<Flows>");
+		setComboBoxWithIdSelection(FlowContributionItem.WIDGET_ID_HIGHLIGHT_FLOW, "<Flows>");
 	}
 
 	/**
 	 * Creates a diagram element using a palette tool which will be represented as a connection.
-	 * Preconditions: OSATE shell is active. Specified parent element exists.
+	 * Preconditions: OSATE Window is active. Specified parent element exists.
 	 * Postconditions: new diagram element has been created, renamed to match the specified name, and the diagram layout has been updated.
 	 * @param diagram is the diagram in which to create the connection
 	 * @param src the source of the connection
@@ -511,7 +531,7 @@ public class OsateGeTestCommands {
 
 	/**
 	 * Creates a diagram element using a palette tool which will be represented as a connection.
-	 * Preconditions: OSATE shell is active. Specified parent element exists.
+	 * Preconditions: OSATE Window is active. Specified parent element exists.
 	 * Postconditions: new diagram element has been created, renamed to match the specified name, and the diagram layout has been updated.
 	 * @param diagram is the diagram in which to create the connection
 	 * @param src the source of the connection
@@ -565,11 +585,9 @@ public class OsateGeTestCommands {
 		selectDiagramElements(diagram, elementsToBind);
 
 		clickToolbarItem("Bind...");
-
-		waitForWindowWithTitle("Bind");
-
 		setComboBoxSelection(0, bindType);
 		selectDiagramElements(diagram, targetElements);
+		setFocusToShell("Bind");
 
 		clickButton("OK");
 	}
@@ -637,8 +655,8 @@ public class OsateGeTestCommands {
 		clickButton("OK");
 
 		// Wait until the current classifier label has been updated
-		waitUntilBorderedCLabelWithIdTextMatches(SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL,
-				expectedNewLabelText);
+		waitUntilBorderedCLabelWithIdTextMatches(
+				SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL, expectedNewLabelText);
 	}
 
 	public static void checkSubcomponentClassifier(final DiagramReference diagram, final String labelText,
@@ -652,8 +670,8 @@ public class OsateGeTestCommands {
 		clickPropertiesViewTab("AADL");
 
 		// Wait until the current classifier label is the expected value
-		waitUntilBorderedCLabelWithIdTextMatches(SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL,
-				labelText);
+		waitUntilBorderedCLabelWithIdTextMatches(
+				SetSubcomponentClassifierPropertySection.WIDGET_ID_CURRENT_CLASSIFIER_LABEL, labelText);
 	}
 
 	/**
@@ -756,7 +774,6 @@ public class OsateGeTestCommands {
 		clickContextMenuOfFocused("Layout", "Layout Diagram");
 	}
 
-
 	/**
 	 * Renames an element using the diagram context menu. NOTE: This function currently assumes that the relative reference
 	 * is composed of exactly two elements and the second element is the name.
@@ -797,8 +814,7 @@ public class OsateGeTestCommands {
 	/** Delete an element using the diagram context menu.
 	 * @param element is the element to delete
 	 */
-	public static void deleteElement(final DiagramReference diagram,
-			final DiagramElementReference element) {
+	public static void deleteElement(final DiagramReference diagram, final DiagramElementReference element) {
 		clickContextMenuOfDiagramElement(diagram, element, "Delete");
 		waitForWindowWithTitle("Confirm Delete");
 		clickButton("Yes");
@@ -808,30 +824,13 @@ public class OsateGeTestCommands {
 	}
 
 	/**
-	 * Rename an element using direct edit feature. NOTE: This function currently assumes that the relative reference
-	 * is composed of exactly two elements and the second element is the name.
-	 * @param parent the parent of the new element
-	 * @param element is the element to rename
-	 * @param newName the name of the new element
-	 */
-	public static void renameElementFromDiagramEditor(final DiagramReference diagram,
-			final DiagramElementReference parent, final RelativeBusinessObjectReference element, final String newName) {
-		renameElementDirectEdit(diagram, parent, element, newName);
-
-		// Wait for element to be created
-		waitForDiagramElementToExist(diagram,
-				parent.join(new RelativeBusinessObjectReference(element.getSegments().get(0), newName)));
-	}
-
-	/**
 	 * Rename an element using the outline view.
 	 * @param parent the parent of the new element
 	 * @param element is the element to rename
 	 * @param newName the name of the new element
 	 */
 	public static void renameElementFromOutlineView(final DiagramReference diagram,
-			final DiagramElementReference parent, final RelativeBusinessObjectReference element,
-			final String newName) {
+			final DiagramElementReference parent, final RelativeBusinessObjectReference element, final String newName) {
 		clickContextMenuOfOutlineViewItem(parent.join(element).toOutlineTreeItemPath(), new String[] { "Rename..." });
 		waitForWindowWithTitle("Rename");
 		setTextFieldText(0, newName);

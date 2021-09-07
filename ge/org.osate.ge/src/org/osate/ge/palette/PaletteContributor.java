@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 
 /**
  * Interface for making contributions to the diagram editor's palette.
+ * Palette contributors are registered using the <i>org.osate.ge.paletteContributors</i> extension point.
  *
  * @noextend This class is not intended to be subclassed by clients.
  * @since 2.0

@@ -34,6 +34,9 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
 
+/**
+ * Handler which aligns selected diagram elements in a grid
+ */
 public class ArrangeInGridHandler extends AbstractHandler {
 
 	@Override

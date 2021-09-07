@@ -51,13 +51,13 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.HighlightableFlowInfo;
 import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItemUtil.FlowImplementationSelectionDialog;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
-import org.osate.ge.internal.util.ProxyUtil;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
+import org.osate.ge.internal.util.AgeEmfUtil;
 
 public class DeleteFlowContributionItem extends ControlContribution {
 	private final static Image deleteImage = PlatformUI.getWorkbench().getSharedImages()
 			.getImage(ISharedImages.IMG_TOOL_DELETE);
-	private AgeDiagramEditor editor = null;
+	private InternalDiagramEditor editor = null;
 	private Button deleteFlowBtn;
 	private HighlightableFlowInfo selectedFlow;
 
@@ -93,14 +93,13 @@ public class DeleteFlowContributionItem extends ControlContribution {
 				final ComponentImplementation componentImpl = FlowContributionItemUtil
 						.getComponentImplementation(container);
 				if (selectedFlowSegment instanceof EndToEndFlow) {
-					final ComponentImplementation endToEndFlowContainer = ProxyUtil
-							.resolveOrNull(
-									selectedFlowSegment.getContainingComponentImpl(), ComponentImplementation.class,
-									componentImpl.eResource().getResourceSet());
-					return Optional.of(ProxyUtil.resolveOrNull(selectedFlowSegment, EndToEndFlow.class,
+					final ComponentImplementation endToEndFlowContainer = AgeEmfUtil.resolveOrNull(
+							selectedFlowSegment.getContainingComponentImpl(), ComponentImplementation.class,
+							componentImpl.eResource().getResourceSet());
+					return Optional.of(AgeEmfUtil.resolveOrNull(selectedFlowSegment, EndToEndFlow.class,
 							endToEndFlowContainer.eResource().getResourceSet()));
 				} else if (selectedFlowSegment instanceof FlowSpecification) {
-					final FlowSpecification flowSpecification = ProxyUtil.resolveOrNull(selectedFlowSegment,
+					final FlowSpecification flowSpecification = AgeEmfUtil.resolveOrNull(selectedFlowSegment,
 							FlowSpecification.class, componentImpl.eResource().getResourceSet());
 					// If there are multiple flow implementations for the flow spec, choose desired one.
 					final List<FlowImplementation> flowImpls = componentImpl.getOwnedFlowImplementations().stream()
@@ -133,8 +132,8 @@ public class DeleteFlowContributionItem extends ControlContribution {
 	public final void setActiveEditor(final IEditorPart newEditor) {
 		if (this.editor != newEditor) {
 			// Update the editor
-			if (newEditor instanceof AgeDiagramEditor) {
-				this.editor = (AgeDiagramEditor) newEditor;
+			if (newEditor instanceof InternalDiagramEditor) {
+				this.editor = (InternalDiagramEditor) newEditor;
 			} else {
 				this.editor = null;
 			}

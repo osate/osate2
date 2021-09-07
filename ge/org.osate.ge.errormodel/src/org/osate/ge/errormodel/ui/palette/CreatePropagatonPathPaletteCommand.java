@@ -51,7 +51,13 @@ import org.osate.xtext.aadl2.errormodel.errorModel.PropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 
+/**
+ * Palette command for creating {@link PropagationPath} elements.
+ */
 public class CreatePropagatonPathPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
+	/**
+	 * Creates a new instance
+	 */
 	public CreatePropagatonPathPaletteCommand() {
 		super("Propagation Path", ErrorModelPaletteCategories.ERROR_PROPAGATION, null);
 	}
@@ -76,7 +82,7 @@ public class CreatePropagatonPathPaletteCommand extends BasePaletteCommand imple
 			return Optional.empty();
 		}
 
-		return ErrorModelGeUtil.createErrorModelSubclauseModifyOperation(classifierSourceBoc, (subclause) -> {
+		return ErrorModelGeUtil.createErrorModelSubclauseModifyOperation(classifierSourceBoc, subclause -> {
 			final PropagationPath newPath = ErrorModelFactory.eINSTANCE.createPropagationPath();
 			final String newName = ErrorModelNamingUtil.buildUniqueIdentifier(subclause.getContainingClassifier(),
 					"new_propagation_path");

@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,35 +23,23 @@
  */
 package org.osate.ge.internal.util;
 
-import java.util.Collection;
-import java.util.Collections;
-
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.services.ProjectProvider;
 
+/**
+ * Contains utility functions related to business object contexts.
+ */
 public class BusinessObjectContextUtil {
-	public static BusinessObjectContext getRootContextForProject(final ProjectProvider projectProvider) {
-		return new BusinessObjectContext() {
-			@Override
-			public Collection<? extends BusinessObjectContext> getChildren() {
-				return Collections.emptyList();
-			}
-
-			@Override
-			public BusinessObjectContext getParent() {
-				return null;
-			}
-
-			@Override
-			public Object getBusinessObject() {
-				return projectProvider.getProject();
-			}
-		};
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private BusinessObjectContextUtil() {
 	}
 
 	/**
-	 * Returns whether potential ancestor is an ancestor of boc
-	 * @return
+	 * Returns whether a {@ink BusinessObjectContext} is an ancestor of another one
+	 * @param potentialAncestor the object to check if it a potential ancestor
+	 * @param boc the potential descendant
+	 * @return true if the specified potential ancestor is an ancestor of the other {@ink BusinessObjectContext}
 	 */
 	public static boolean isAncestor(final BusinessObjectContext potentialAncestor, final BusinessObjectContext boc) {
 		for (BusinessObjectContext tmp = boc; tmp != null; tmp = tmp.getParent()) {
