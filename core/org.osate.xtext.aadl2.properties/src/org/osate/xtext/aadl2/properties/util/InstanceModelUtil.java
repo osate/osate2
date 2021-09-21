@@ -413,7 +413,7 @@ public class InstanceModelUtil {
 	 * return the list of system that the functional component is directly bound to.
 	 * @param io
 	 * @return list of system component instances
-	 * @since 3.1
+	 * @since 4.0
 	 */
 	public static List<InstanceObject> getFunctionBindings(final ComponentInstance io) {
 		return DeploymentProperties.getActualFunctionBinding(io).orElse(Collections.emptyList());
@@ -441,7 +441,7 @@ public class InstanceModelUtil {
 	 *
 	 * @param io
 	 * @return
-	 * @since 3.1
+	 * @since 4.0
 	 */
 	public static List<InstanceObject> getMemoryBindings(final ComponentInstance io) {
 		return DeploymentProperties.getActualMemoryBinding(io).orElse(Collections.emptyList());
@@ -469,7 +469,7 @@ public class InstanceModelUtil {
 	 *
 	 * @param io
 	 * @return
-	 * @since 3.1
+	 * @since 4.0
 	 */
 	public static List<InstanceObject> getProcessorBindings(final ComponentInstance io) {
 		return DeploymentProperties.getActualProcessorBinding(io).orElse(Collections.emptyList());
@@ -846,7 +846,7 @@ public class InstanceModelUtil {
 	 * Takes into account virtual buses contained in buses or virtual buses
 	 * @param io
 	 * @return
-	 * @since 3.1
+	 * @since 4.0
 	 */
 	public static List<InstanceObject> getConnectionBindings(final InstanceObject io) {
 		final List<InstanceObject> bindinglist = DeploymentProperties.getActualConnectionBinding(io)
