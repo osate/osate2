@@ -451,5 +451,38 @@ public final class ResultUtil {
 		result.setResultType(ResultType.ERROR);
 	}
 
+	/**
+	 * Add a new ERROR diagnostic to the given result object.  The message of the diagnostic is created by using
+	 * {@link String#format(String, Object...)} with the given format string and set of arguments.  The diagnostic
+	 * is located on the object {@code io}.
+	 * @since 3.0
+	 */
+	public static void addError(final Result result, final EObject io, final String formatString,
+			final Object... args) {
+		result.getDiagnostics()
+				.add(ResultUtil.createDiagnostic(String.format(formatString, args), io, DiagnosticType.ERROR));
+	}
 
+	/**
+	 * Add a new WARNING diagnostic to the given result object.  The message of the diagnostic is created by using
+	 * {@link String#format(String, Object...)} with the given format string and set of arguments.  The diagnostic
+	 * is located on the object {@code io}.
+	 * @since 3.0
+	 */
+	public static void addWarning(final Result result, final EObject io, final String formatString,
+			final Object... args) {
+		result.getDiagnostics()
+				.add(ResultUtil.createDiagnostic(String.format(formatString, args), io, DiagnosticType.WARNING));
+	}
+
+	/**
+	 * Add a new INFO diagnostic to the given result object.  The message of the diagnostic is created by using
+	 * {@link String#format(String, Object...)} with the given format string and set of arguments.  The diagnostic
+	 * is located on the object {@code io}.
+	 * @since 3.0
+	 */
+	public static void addInfo(final Result result, final EObject io, final String formatString, final Object... args) {
+		result.getDiagnostics()
+				.add(ResultUtil.createDiagnostic(String.format(formatString, args), io, DiagnosticType.INFO));
+	}
 }
