@@ -38,7 +38,6 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.Activator;
@@ -114,49 +113,6 @@ public final class NewBusLoadAnalysisHandler extends AbstractAnalysisHandler {
 			return cancelled ? Status.CANCEL_STATUS : Status.OK_STATUS;
 		}
 
-	}
-
-	/*
-	 * This seems like the type of thing we want to do all the time, but the problem is that so far
-	 * there hasn't been a standard way of dealing with the system operation modes. Here we
-	 * have the system operation modes as the first level of results under the AnalysisResult
-	 * object. If we can standardize the handling of SOMs then we can standardize these methods
-	 * somewhere;
-	 */
-
-	private static void generateMarkers(final AnalysisResult analysisResult,
-			final AnalysisErrorReporterManager errManager) {
-		// Handle each SOM
-		analysisResult.getResults().forEach(r -> {
-			final String somName = r.getMessage();
-			final String somPostfix = somName.isEmpty() ? "" : (" in modes " + somName);
-			generateMarkersForSOM(r, errManager, somPostfix);
-		});
-	}
-
-	private static void generateMarkersForSOM(final Result result, final AnalysisErrorReporterManager errManager,
-			final String somPostfix) {
-		generateMarkersFromDiagnostics(result.getDiagnostics(), errManager, somPostfix);
-		result.getSubResults().forEach(r -> generateMarkersForSOM(r, errManager, somPostfix));
-	}
-
-	private static void generateMarkersFromDiagnostics(final List<Diagnostic> diagnostics,
-			final AnalysisErrorReporterManager errManager, final String somPostfix) {
-		diagnostics.forEach(issue -> {
-			switch (issue.getDiagnosticType()) {
-			case ERROR:
-				errManager.error((Element) issue.getModelElement(), issue.getMessage() + somPostfix);
-				break;
-			case INFO:
-				errManager.info((Element) issue.getModelElement(), issue.getMessage() + somPostfix);
-				break;
-			case WARNING:
-				errManager.warning((Element) issue.getModelElement(), issue.getMessage() + somPostfix);
-				break;
-			default:
-				// Do nothing.
-			}
-		});
 	}
 
 	// === CSV Output methods ===
