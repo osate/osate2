@@ -406,7 +406,9 @@ public abstract class AbstractAnalysisHandler extends AbstractHandler {
 	// ============================================================
 
 	/*
-	 * XXX: SHould this be moved somewhere else? Maybe org.osate.result.util??
+	 * XXX: SHould this be moved somewhere else? Maybe org.osate.result.util?? I kept
+	 * the methods names more generic, that is, "content" instead of "CSV" in case they
+	 * are later moved to a superclass.
 	 */
 
 	// Should this have a superclass? Are there other output types we want to deal with?
@@ -497,7 +499,5 @@ public abstract class AbstractAnalysisHandler extends AbstractHandler {
 		protected final void printSeparator(final PrintWriter pw) {
 			pw.print(',');
 		}
-
 	}
-
 }
