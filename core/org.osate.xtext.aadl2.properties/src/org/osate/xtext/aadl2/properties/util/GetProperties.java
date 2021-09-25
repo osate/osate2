@@ -1145,7 +1145,7 @@ public class GetProperties {
 	}
 
 	/**
-	 * @since 4.0
+	 * @since 3.1
 	 */
 	public static double scaleTime(final double time, final NamedElement ne) {
 		ComponentInstance ci = null;
