@@ -36,15 +36,22 @@ import org.osate.ge.businessobjecthandling.CustomRenamer;
 import org.osate.ge.businessobjecthandling.RenameContext;
 
 /**
- * Helper functions related to the renaming aspect of Business Object Handlers.
+ * Utility functions related to the renaming business objects.
  *
  */
 @SuppressWarnings("restriction")
-public class RenameUtil {
+public final class RenameUtil {
 	/**
-	 * @param bo
-	 * @param boHandler
-	 * @param name
+	 * Private constructor to prevent instantiation.
+	 */
+	private RenameUtil() {
+	}
+
+	/**
+	 * Checks a proposed name for validity
+	 * @param bo the business object for which to check validity
+	 * @param boHandler the handler for the business object
+	 * @param name the proposed name
 	 * @return null if the name is valid. Otherwise, returns a descriptions of the validation error.
 	 */
 	public static String checkNewNameValidity(final Object bo,
@@ -54,16 +61,21 @@ public class RenameUtil {
 	}
 
 	/**
-	 * Returns true if the business object handlers supports renaming without using LTK-based refactoring.
-	 * @param handler
+	 * Returns true if the business object handlers supports renaming without using an LTK-based refactoring.
+	 * @param handler the business object handler
+	 * @return true if the business object handlers supports renaming without using an LTK-based refactoring.
 	 */
 	public static boolean supportsNonLtkRename(final BusinessObjectHandler handler) {
 		return handler instanceof CustomRenamer;
 	}
 
 	/**
-	 * Renames using the {@link CustomRenamer} implementation. Throws exception if the specified business object handler
-	 * does not implement {@link CustomRenamer}.
+	 * Renames a business object using the business object handler.
+	 * @param bo the business object to rename
+	 * @param boHandler the business object handler to use to rename.
+	 * @param name the new name for the business object
+	 * @throws ClassCastException if the specified business object handler does not support non-LTK renaming.
+	 * @see #supportsNonLtkRename(BusinessObjectHandler)
 	 */
 	public static void performNonLtkRename(final Object bo, final BusinessObjectHandler boHandler,
 			final String name) {
@@ -71,10 +83,20 @@ public class RenameUtil {
 		renamer.rename(new RenameContext(bo, name));
 	}
 
+	/**
+	 * Returns true if the business object can be renamed using an LTK refactoring
+	 * @param bo the business object rename
+	 * @return true if the business object can be renamed using an LTK refactoring
+	 */
 	public static boolean supportsLtkRename(final Object bo) {
 		return RenameUtil.getRenameRefactoring(bo) != null;
 	}
 
+	/**
+	 * Returns a refactoring which will rename the specified business object
+	 * @param bo the business object to be refactored
+	 * @return a refactoring which will rename the specified business object
+	 */
 	public static ProcessorBasedRefactoring getRenameRefactoring(final Object bo) {
 		final EObject eObjBo = (EObject) bo;
 		if (!(eObjBo.eResource() instanceof XtextResource)) {

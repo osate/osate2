@@ -41,27 +41,51 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 
 import com.google.common.base.Strings;
 
-public class ErrorModelNamingUtil {
-	private final static Set<String> reservedWords; // Set which compares entries base on a case-insensitive comparison
+/**
+ * Utility class containing function related to naming error model annex elements
+ *
+ */
+public final class ErrorModelNamingUtil {
+	private static final Set<String> reservedWords; // Set which compares entries base on a case-insensitive comparison
 	static {
-		reservedWords = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-		reservedWords.addAll(Arrays.asList(new String[] { "true", "false", "error" }));
+		reservedWords = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+		reservedWords.addAll(Arrays.asList("true", "false", "error"));
 	}
 
-	// All methods are static
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private ErrorModelNamingUtil() {
 	}
 
+	/**
+	 * Builds an identifier name which is unique in the scope of the specified error model library
+	 * @param lib the error model library for which the identifier must be unique
+	 * @param baseIdentifier the identifier to start with when building the identifier. If this identifier is unique, it will be returned.
+	 * @return the unique identifier
+	 */
 	public static String buildUniqueIdentifier(final ErrorModelLibrary lib, final String baseIdentifier) {
 		final Set<String> existingIdentifiers = buildNameSet(lib);
 		return buildUniqueIdentifier(existingIdentifiers, baseIdentifier);
 	}
 
+	/**
+	 * Builds an identifier name which is unique in the scope of the specified error behavior state machine
+	 * @param sm the error behavior state machine for which the identifier must be unique
+	 * @param baseIdentifier the identifier to start with when building the identifier. If this identifier is unique, it will be returned.
+	 * @return the unique identifier
+	 */
 	public static String buildUniqueIdentifier(final ErrorBehaviorStateMachine sm, final String baseIdentifier) {
 		final Set<String> existingIdentifiers = buildNameSet(sm);
 		return buildUniqueIdentifier(existingIdentifiers, baseIdentifier);
 	}
 
+	/**
+	 * Builds an identifier name which is unique in the scope of the specified classifier
+	 * @param c the classifier for which the identifier must be unique
+	 * @param baseIdentifier the identifier to start with when building the identifier. If this identifier is unique, it will be returned.
+	 * @return the unique identifier
+	 */
 	public static String buildUniqueIdentifier(final Classifier c, final String baseIdentifier) {
 		final Set<String> existingIdentifiers = buildNameSet(c);
 		final String prefix = c.getName() == null ? "" : c.getName().replace('.', '_') + "_";
@@ -69,16 +93,23 @@ public class ErrorModelNamingUtil {
 	}
 
 	/**
-	 * Returns null if validation succeeds. Otherwise, returns a reason the name is not valid.
-	 * @param lib
-	 * @param oldName
-	 * @param newName
-	 * @return
+	 * Validates a proposed rename in the scope of an error model library.
+	 * @param lib the error model library whose scope determines the valid names.
+	 * @param oldName the original name of the element
+	 * @param newName the new name of the element
+	 * @return null if validation succeeds. Otherwise, returns a reason the name is not valid.
 	 */
 	public static String validateName(final ErrorModelLibrary lib, final String oldName, final String newName) {
 		return validateName(buildNameSet(lib), oldName, newName);
 	}
 
+	/**
+	 * Validates a proposed rename in the scope of an error behavior state machine
+	 * @param sm the error behavior state machine whose scope determines the valid names.
+	 * @param oldName the original name of the element
+	 * @param newName the new name of the element
+	 * @return null if validation succeeds. Otherwise, returns a reason the name is not valid.
+	 */
 	public static String validateName(final ErrorBehaviorStateMachine sm, final String oldName, final String newName) {
 		return validateName(buildNameSet(sm), oldName, newName);
 	}
@@ -92,7 +123,7 @@ public class ErrorModelNamingUtil {
 	public static Optional<String> validateSubclauseChildName(final RenameContext ctx) {
 		return ctx.getBusinessObject(NamedElement.class).map(ne -> {
 			final ErrorModelSubclause containingSubclause = (ErrorModelSubclause) ne.eContainer();
-			final Set<String> names = new HashSet<String>();
+			final Set<String> names = new HashSet<>();
 			final Classifier classifier = containingSubclause.getContainingClassifier();
 			ErrorModelNamingUtil.addToNameSet(names, classifier.getMembers());
 			ErrorModelGeUtil.getAllErrorModelSubclauses(classifier).forEachOrdered(subclause -> {
@@ -105,7 +136,7 @@ public class ErrorModelNamingUtil {
 		});
 	}
 
-	public static String validateName(final Set<String> existingNames, final String oldName, final String newName) {
+	private static String validateName(final Set<String> existingNames, final String oldName, final String newName) {
 		if (newName.equalsIgnoreCase(oldName)) {
 			// Name is unchanged
 			return null;
@@ -145,7 +176,7 @@ public class ErrorModelNamingUtil {
 	}
 
 	private static Set<String> buildNameSet(final Classifier classifier) {
-		final Set<String> names = new HashSet<String>();
+		final Set<String> names = new HashSet<>();
 
 		ErrorModelGeUtil.getAllErrorModelSubclauses(classifier).forEachOrdered(subclause -> {
 			addToNameSet(names, subclause.getErrorDetections());
@@ -172,7 +203,7 @@ public class ErrorModelNamingUtil {
 	}
 
 	private static Set<String> buildNameSet(final ErrorModelLibrary lib) {
-		final Set<String> names = new HashSet<String>();
+		final Set<String> names = new HashSet<>();
 		addToNameSet(names, lib.getBehaviors());
 		addToNameSet(names, lib.getMappings());
 		addToNameSet(names, lib.getTransformations());
@@ -182,14 +213,14 @@ public class ErrorModelNamingUtil {
 	}
 
 	private static Set<String> buildNameSet(final ErrorBehaviorStateMachine sm) {
-		final Set<String> names = new HashSet<String>();
+		final Set<String> names = new HashSet<>();
 		ErrorModelNamingUtil.addToNameSet(names, sm.getEvents());
 		ErrorModelNamingUtil.addToNameSet(names, sm.getStates());
 		ErrorModelNamingUtil.addToNameSet(names, sm.getTransitions());
 		return names;
 	}
 
-	public static void addToNameSet(final Set<String> names, final Collection<? extends NamedElement> elements) {
+	private static void addToNameSet(final Set<String> names, final Collection<? extends NamedElement> elements) {
 		for (final NamedElement el : elements) {
 			if (el.getName() != null) {
 				names.add(el.getName().toLowerCase());

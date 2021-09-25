@@ -46,7 +46,12 @@ final class LayoutDebugUtil {
 	private static final boolean SAVE_GRAPH_ENABLED = false;
 	private static final String MAGIC_PROJECT_NAME = "__osate_ge_debug";
 
-	static void saveElkGraphToDebugProject(final ElkNode g, final String suffix) {
+	/**
+	 * When {@link #SAVE_GRAPH_ENABLED} is true, saves the ELK graph to a file in the {@link #MAGIC_PROJECT_NAME} project.
+	 * @param g the graph to safe
+	 * @param suffix an identifier to add to the name of the file.
+	 */
+	public static void saveElkGraphToDebugProject(final ElkNode g, final String suffix) {
 		if (SAVE_GRAPH_ENABLED) {
 			final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(MAGIC_PROJECT_NAME);
 			if (project != null && project.exists()) {

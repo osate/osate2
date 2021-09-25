@@ -234,7 +234,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 						final DiagramNode parentNode = (DiagramNode) parent;
 
 						// Add child diagram nodes
-						parentNode.getDiagramElements()
+						parentNode.getChildren()
 						.stream()
 						.filter((de) -> !Strings.isNullOrEmpty(de.getUserInterfaceName())
 								|| de.getBusinessObject() instanceof EObject)

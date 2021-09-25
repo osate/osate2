@@ -69,6 +69,10 @@ import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.styling.StyleProvider;
 import org.osate.ge.internal.util.DiagramElementUtil;
 
+/**
+ * Converts a branch to an ELK graph.
+ *
+ */
 class ElkGraphBuilder {
 	// Filter for diagram elements for which ELK ports will be created.
 	private final Predicate<DiagramElement> dockedShapeFilter = de -> de.getGraphic() instanceof AgeShape
@@ -90,11 +94,23 @@ class ElkGraphBuilder {
 	 * sibling ports.
 	 */
 	public static interface FixedPortPositionProvider {
+		/**
+		 * Gets the side for the diagram element
+		 * @param de the diagram element for which to get the side
+		 * @return the side for the element element. A null value indicates that a fixed side is not provided.
+		 */
 		PortSide getPortSide(final DiagramElement de);
 
-		Double getPortPosition(final DiagramElement de); // Gets position along axis
+		/**
+		 * Gets position along axis
+		 * @param de the diagram element for which to get the position
+		 * @return the position along the axis
+		 */
+		Double getPortPosition(final DiagramElement de);
 
-		// Implementation that returns null for all values
+		/**
+		 * Implementation that returns null for all values
+		 */
 		public static final FixedPortPositionProvider NO_OP = new FixedPortPositionProvider() {
 			@Override
 			public PortSide getPortSide(DiagramElement de) {
@@ -124,16 +140,16 @@ class ElkGraphBuilder {
 	}
 
 	/**
-	 *
-	 * @param rootDiagramNode
+	 * Builds an ELK graph for a node
+	 * @param rootDiagramNode the root of the diagram branch for which to build the graph
 	 * @param styleProvider is a style provider which provides the style for the diagram elements. The style provider is expected to return a final style. The style must not contain null values.
 	 * @param layoutInfoProvider is the layout info provider which is used to determine label sizes.
-	 * @param options
-	 * @param ignoreNestedPorts must be false if layout ports on default sides is true.
-	 * @param portPlacementInfoProvider
-	 * @return
+	 * @param options the layout options
+	 * @param omitNestedPorts must be false if layout ports on default sides is true.
+	 * @param portPlacementInfoProvider provider which determines fixed port positions
+	 * @return the layout mapping which contains the graph
 	 */
-	static LayoutMapping buildLayoutGraph(final DiagramNode rootDiagramNode, final StyleProvider styleProvider,
+	public static LayoutMapping buildLayoutGraph(final DiagramNode rootDiagramNode, final StyleProvider styleProvider,
 			final LayoutInfoProvider layoutInfoProvider, final LayoutOptions options, final boolean omitNestedPorts,
 			final FixedPortPositionProvider portPlacementInfoProvider) {
 		// This case would indicate that we are using a multi-pass layout even though fixed position ports are being used.
@@ -176,7 +192,7 @@ class ElkGraphBuilder {
 
 	private void createElkGraphElementsForNonLabelChildShapes(final DiagramNode parentNode, final ElkNode parent,
 			final LayoutMapping mapping) {
-		createElkGraphElementsForElements(parentNode.getDiagramElements(), parent, mapping);
+		createElkGraphElementsForElements(parentNode.getChildren(), parent, mapping);
 	}
 
 	private void createElkGraphElementsForElements(final Collection<DiagramElement> elements, final ElkNode parent,
@@ -210,7 +226,7 @@ class ElkGraphBuilder {
 				.filter(dockedShapeFilter)
 				.collect(Collectors.toList());
 		final boolean diagramElementIncludesNestedPorts = dockedShapes.stream()
-				.flatMap(de -> de.getDiagramElements().stream())
+				.flatMap(de -> de.getChildren().stream())
 				.anyMatch(dockedShapeFilter);
 
 		// Set the flag to indicate that there are nested ports which will not be included in the final layout graph
@@ -467,8 +483,8 @@ class ElkGraphBuilder {
 
 	}
 
-	public List<DiagramElement> getDockedChildren(final DiagramElement de) {
-		return de.getDiagramElements()
+	private List<DiagramElement> getDockedChildren(final DiagramElement de) {
+		return de.getChildren()
 				.stream()
 				.filter(child -> child.getGraphic() instanceof AgeShape && !(child.getGraphic() instanceof Label)
 						&& child.getDockArea() != null)
@@ -538,7 +554,7 @@ class ElkGraphBuilder {
 		}
 
 		// Create Secondary Labels
-		parentElement.getDiagramElements()
+		parentElement.getChildren()
 		.stream()
 		.filter(c -> c.getGraphic() instanceof Label)
 		.forEachOrdered(labelElement -> {
@@ -616,7 +632,7 @@ class ElkGraphBuilder {
 
 		// Only attempt to update child ports if nested ports are not being omitted.
 		if (!omitNestedPorts) {
-			de.getDiagramElements()
+			de.getChildren()
 			.stream()
 			.filter(child -> child.getGraphic() instanceof AgeShape && !(child.getGraphic() instanceof Label)
 					&& child.getDockArea() != null)
@@ -664,7 +680,7 @@ class ElkGraphBuilder {
 	 * Even though the results of the ELK edge routing are not used, it is still important because it affects the placements of shapes.
 	 */
 	private void createElkGraphElementsForConnections(final DiagramNode dn, final LayoutMapping mapping) {
-		for (final DiagramElement de : dn.getDiagramElements()) {
+		for (final DiagramElement de : dn.getChildren()) {
 			if (de.getGraphic() instanceof AgeConnection) {
 				final AgeConnection connection = (AgeConnection) de.getGraphic();
 

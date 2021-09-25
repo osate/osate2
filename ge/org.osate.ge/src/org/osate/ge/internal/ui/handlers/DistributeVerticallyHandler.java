@@ -35,6 +35,9 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
 
+/**
+ * Handler for the distribute vertically command
+ */
 public class DistributeVerticallyHandler extends AbstractHandler {
 
 	/**

@@ -166,8 +166,8 @@ censes only apply to the Third Party Software and not any other portion of this 
             id="org.osate.ge.showContentFilter"
             name="Show Content Filter">
          <commandParameter
-               id="contentsFilterId"
-               name="Contents Filter ID"
+               id="contentFilterId"
+               name="Content Filter ID"
                optional="false">
          </commandParameter>
       </command>
@@ -176,8 +176,8 @@ censes only apply to the Third Party Software and not any other portion of this 
             id="org.osate.ge.hideContentFilter"
             name="Hide Content Filter">
          <commandParameter
-               id="contentsFilterId"
-               name="Contents Filter ID"
+               id="contentFilterId"
+               name="Content Filter ID"
                optional="false">
          </commandParameter>
       </command>
@@ -1377,7 +1377,7 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<extension point="org.eclipse.core.runtime.adapters">
   <factory
         adaptableType="org.eclipse.jface.viewers.ISelection"
-        class="org.osate.ge.internal.selection.AgeBusinessObjectSelectionAdapterFactory">
+        class="org.osate.ge.internal.AgeBusinessObjectSelectionAdapterFactory">
         <adapter type="org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource"/>
      <adapter
            type="org.osate.ge.BusinessObjectSelection">
@@ -1385,7 +1385,7 @@ censes only apply to the Third Party Software and not any other portion of this 
   </factory>
     <factory
         adaptableType="org.osate.ge.BusinessObjectSelection"
-        class="org.osate.ge.internal.selection.BusinessObjectSelectionExpressionAdapterFactory">
+        class="org.osate.ge.internal.BusinessObjectSelectionExpressionAdapterFactory">
      <adapter
            type="org.eclipse.core.expressions.ICountable">
      </adapter>
@@ -1404,8 +1404,6 @@ censes only apply to the Third Party Software and not any other portion of this 
                  isRoot="false"
                  pattern="org.osate.ge.navigatorContent">
            </contentExtension>
-           <contentExtension
-                 pattern="org.osate.ge.linkHelper"/>
         </includes>
      </viewerContentBinding>
      <viewerContentBinding
@@ -1415,8 +1413,6 @@ censes only apply to the Third Party Software and not any other portion of this 
                  isRoot="false"
                  pattern="org.osate.ge.navigatorContent">
            </contentExtension>
-           <contentExtension
-                 pattern="org.osate.ge.linkHelper"/>
         </includes>
      </viewerContentBinding>
      <viewerContentBinding
@@ -1428,7 +1424,6 @@ censes only apply to the Third Party Software and not any other portion of this 
                   pattern="org.osate.ge.internal.ui.diagramNavigator.content">
             </contentExtension>
             <contentExtension pattern="org.osate.ui.navigator.AadlNavigatorLinkHelper"/>
-            <contentExtension pattern="org.osate.ge.linkHelper"/>
          </includes>
       </viewerContentBinding>
       <viewerActionBinding

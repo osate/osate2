@@ -96,8 +96,7 @@ public final class PropertySectionUtil {
 			final ReferenceBuilderService referenceBuilder = Objects.requireNonNull(
 					context.getActive(ReferenceBuilderService.class), "Unable to retrieve reference builder service");
 			final OperationExecutor operationExecutor = new OperationExecutor(aadlModService, referenceBuilder);
-			operationExecutor.execute(operation, results -> {
-			});
+			operationExecutor.execute(operation);
 		}
 	}
 

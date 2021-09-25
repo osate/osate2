@@ -64,7 +64,6 @@ public final class BehaviorAnnexUtil {
 				.of((DataClassifier) EcoreUtil.resolve(model.getSelectedElement().getEObjectOrProxy(), resource));
 	}
 
-
 	/**
 	 * Return the package containing the specified element
 	 * @param e the element for which to get the package

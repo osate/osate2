@@ -35,6 +35,9 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramElementPredicates;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 
+/**
+ * Handler for the select all connections command
+ */
 public class SelectAllConnectionsHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {

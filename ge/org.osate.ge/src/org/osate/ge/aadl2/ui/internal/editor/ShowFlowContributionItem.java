@@ -75,12 +75,12 @@ import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.FlowSegmentSta
 import org.osate.ge.aadl2.ui.internal.editor.FlowContributionItem.HighlightableFlowInfo;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
-import org.osate.ge.internal.diagram.runtime.botree.Completeness;
-import org.osate.ge.internal.diagram.runtime.botree.DiagramToBusinessObjectTreeConverter;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectTreeUpdater;
+import org.osate.ge.internal.diagram.runtime.updating.Completeness;
+import org.osate.ge.internal.diagram.runtime.updating.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ProjectReferenceService;

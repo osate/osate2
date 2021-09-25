@@ -28,7 +28,7 @@ import org.osate.ge.ContentFilter;
 import com.google.common.collect.ImmutableSet;
 
 /**
- * Utility class containing functions for working with {@link ContentFilter} instances.
+ * Contains functions for working with {@link ContentFilter} instances.
  *
  */
 public final class ContentFilterUtil {

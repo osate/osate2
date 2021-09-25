@@ -44,6 +44,9 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.model.Note;
 import org.osate.ge.internal.model.NoteReference;
 
+/**
+ * Business object handler for {@link NoteReference} objects.
+ */
 public class NoteReferenceHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().build();
 	private static final Style style = StyleBuilder.create().build();

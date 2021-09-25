@@ -101,8 +101,7 @@ public class TransitionBranchHandler implements BusinessObjectHandler, CustomDel
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
 		final QueryService queryService = ctx.getQueryService();
 		return Optional.of(GraphicalConfigurationBuilder.create()
-				.graphic(ErrorModelGeUtil.transitionConnectionGraphic)
-				.style(ErrorModelGeUtil.transitionConnectionStyle)
+				.graphic(ErrorModelGeUtil.TRANSITION_CONNECTION_GRAPHIC)
 				.source(getSource(boc, queryService))
 				.destination(getDestination(boc, queryService))
 				.build());
