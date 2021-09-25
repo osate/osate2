@@ -34,11 +34,26 @@ import org.osate.ge.DockingPosition;
  *
  */
 public enum DockArea {
+	/**
+	 * Left Side
+	 */
 	LEFT("left"),
+	/**
+	 * Right Side
+	 */
 	RIGHT("right"),
+	/**
+	 * Top Side
+	 */
 	TOP("top"),
+	/**
+	 * Bottom Side
+	 */
 	BOTTOM("bottom"),
-	GROUP("feature_group"); // Container is a group of docked shapes. String "feature_group" is for backwards compatibility purposes
+	/**
+	 * Container is a group of docked shapes. String "feature_group" is for backwards compatibility purposes
+	 */
+	GROUP("feature_group");
 
 	private static final Map<String, DockArea> idToDockAreaMap;
 	static {
@@ -49,16 +64,30 @@ public enum DockArea {
 		idToDockAreaMap = Collections.unmodifiableMap(modifiableMap);
 	}
 
+
+	/**
+	 * Returns the instance with the specified ID
+	 * @param dockAreaId the ID
+	 * @return the instance with the specified ID. Returns null if an instance with the ID does not exist.
+	 * @see #id
+	 */
 	public static DockArea getById(final String dockAreaId) {
 		return idToDockAreaMap.get(dockAreaId);
 	}
 
+	/**
+	 * Unique identifier
+	 */
 	public final String id;
 
 	DockArea(final String id) {
 		this.id = id;
 	}
 
+	/**
+	 * Returns whether this instance is {@link #LEFT} or {@link #RIGHT}
+	 * @return whether this instance is {@link #LEFT} or {@link #RIGHT}
+	 */
 	public boolean isLeftOrRight() {
 		return this == LEFT || this == RIGHT;
 	}

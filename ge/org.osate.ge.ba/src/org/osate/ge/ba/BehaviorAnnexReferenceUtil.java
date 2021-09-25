@@ -38,6 +38,9 @@ public class BehaviorAnnexReferenceUtil {
 	private BehaviorAnnexReferenceUtil() {
 	}
 
+	/**
+	 * First segment for annex subclause references
+	 */
 	private static final String ANNEX_SUBCLAUSE = DeclarativeReferenceType.ANNEX_SUBCLAUSE.getId();
 
 	/**
@@ -63,6 +66,7 @@ public class BehaviorAnnexReferenceUtil {
 	public static final String VARIABLE_TYPE = BA_REFERENCE_PREFIX + "behavior_variable";
 
 	/**
+	 * First segment of behavior condition references
 	 * @since 2.0
 	 */
 	public static final String BEHAVIOR_CONDITION = BA_REFERENCE_PREFIX + "behavior_condition";

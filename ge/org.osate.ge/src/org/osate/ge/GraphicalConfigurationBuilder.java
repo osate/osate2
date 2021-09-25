@@ -23,23 +23,28 @@
  */
 package org.osate.ge;
 
-import org.osate.ge.diagram.DiagramConfiguration;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
 /**
- * Builder for creating graphical configurations. Used to create instances of {@link DiagramConfiguration}
+ * Builder for creating {@link GraphicalConfiguration} instances
  * @noextend
  * @see GraphicalConfiguration
  */
 public class GraphicalConfigurationBuilder {
-	protected Graphic graphic;
-	protected Style style = Style.EMPTY;
-	protected DockingPosition defaultDockingPosition = DockingPosition.NOT_DOCKABLE;
-	protected DiagramElement connectionSource;
-	protected DiagramElement connectionDestination;
-	protected String annotation;
+	private Graphic graphic;
+	private Style style = Style.EMPTY;
+	private DockingPosition defaultDockingPosition = DockingPosition.NOT_DOCKABLE;
+	private DiagramElement connectionSource;
+	private DiagramElement connectionDestination;
+	private String annotation;
+
+	/**
+	 * See {@link GraphicalConfiguration#isPrimaryLabelIsMultiline()}. This field is protected because it was designed for internal use. It may be
+	 * removed or promoted to API in a future release. Internal users should use {@link org.osate.ge.graphics.internal.InternalGraphicalConfigurationBuilder} to set this field.
+	 * @noreference This field is not intended to be referenced by clients.
+	 */
 	protected boolean primaryLabelIsMultiline;
 
 	/**
@@ -112,6 +117,7 @@ public class GraphicalConfigurationBuilder {
 	}
 
 	/**
+	 * Configures the builder to build an instance with the specified annotation text.
 	 * Annotations are only supported for use with shape graphics at this time.
 	 * @param value is the value for the annotation.
 	 * @return this builder to allow method chaining.

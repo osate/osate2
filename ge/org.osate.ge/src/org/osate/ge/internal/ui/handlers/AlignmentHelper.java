@@ -24,7 +24,6 @@
 package org.osate.ge.internal.ui.handlers;
 
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.osate.ge.BusinessObjectContext;
@@ -35,18 +34,45 @@ import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 
-
+/**
+ * Helper class for alignment handlers
+ *
+ */
 class AlignmentHelper {
 	private final Axis axis;
 
+	/**
+	 * Private constructor to prevent direct instantiation.
+	 * @param axis the axis on which this instance aligns elements.
+	 * @see #create()
+	 */
 	private AlignmentHelper(final Axis axis) {
 		this.axis = axis;
 	}
 
-	public static AlignmentHelper create(final Axis axis) {
-		return new AlignmentHelper(axis);
+	/**
+	 * Creates an instance for the horizontal axis
+	 * @return an instance for the horizontal axis
+	 */
+	public static AlignmentHelper createHorizontal() {
+		return new AlignmentHelper(HORIZONTAL_AXIS);
 	}
 
+	/**
+	 * Creates an instance for the vertical axis
+	 * @return an instance for the vertical axis
+	 */
+	public static AlignmentHelper createVertical() {
+		return new AlignmentHelper(VERTICAL_AXIS);
+	}
+
+	/**
+	 * Aligns the specified element to the specified location
+	 * @param m the diagram modification to use to modify the diagram
+	 * @param alignmentElement the diagram element to align
+	 * @param alignLocation the absolute position along the axis to which align the element.
+	 * @param elementOffset the offset from the alignment element's position to the position of the element to align.
+	 */
 	public void alignElement(
 			final DiagramModification m,
 			AlignmentElement alignmentElement, final double alignLocation,
@@ -63,7 +89,6 @@ class AlignmentHelper {
 			// If new location is to the left of parent for horizontal alignment or above parent for vertical alignment,
 			// parent will have to shift and resize
 			if (parentAbsoluteLocation > newLocation) {
-
 				// Amount that the children need to shift to stay in same place after parent resize
 				final double childOffset = parentAbsoluteLocation - newLocation;
 				shiftChildren(m, parentDe, childOffset);
@@ -122,7 +147,7 @@ class AlignmentHelper {
 	private void shiftChildren(final DiagramModification m,
 			final DiagramElement parentDe, final double childOffset) {
 		for (final BusinessObjectContext q : parentDe.getChildren()) {
-			if (q instanceof DiagramElement && axis.isValidDockArea().apply(((DiagramElement) q).getDockArea())) {
+			if (q instanceof DiagramElement && axis.isValidDockArea(((DiagramElement) q).getDockArea())) {
 				final DiagramElement childDe = (DiagramElement) q;
 				DiagramElementLayoutUtil.moveElement(m, childDe, axis.getShiftPostion(childDe, childOffset),
 						false,
@@ -131,9 +156,12 @@ class AlignmentHelper {
 		}
 	}
 
-	// Any selected element must not be a descendant of any other selected element.
-	// Must be docked to appropriate area
-	boolean getEnabled() {
+	/**
+	 * Returns whether the alignment command should be enabled. Any selected element must not be a descendant of any other selected element.
+	 * Must be docked to appropriate area
+	 * @return whether the alignment command should be enabled
+	 */
+	public boolean getEnabled() {
 		final List<DiagramElement> selectedElements = AgeHandlerUtil.getSelectedDiagramElements();
 
 		// More than one diagram elements must be selected
@@ -142,7 +170,7 @@ class AlignmentHelper {
 		}
 
 		for (final DiagramElement de : selectedElements) {
-			if (!axis.isValidDockArea().apply(de.getDockArea()) || isAncestorSelected(de, selectedElements)) {
+			if (!axis.isValidDockArea(de.getDockArea()) || isAncestorSelected(de, selectedElements)) {
 				return false;
 			}
 		}
@@ -180,7 +208,7 @@ class AlignmentHelper {
 		return false;
 	}
 
-	static boolean isAncestorSelected(final DiagramElement de, final List<DiagramElement> selectedElements) {
+	private static boolean isAncestorSelected(final DiagramElement de, final List<DiagramElement> selectedElements) {
 		BusinessObjectContext parent = de.getParent();
 
 		while (parent != null) {
@@ -193,7 +221,11 @@ class AlignmentHelper {
 		return false;
 	}
 
-	// Element that other elements will align with
+	/**
+	 * Returns the first alignment element in the specified collection. This is the alignment element that other elements will align with
+	 * @param elements the alignment elements
+	 * @return the first alignment element in the specified collection.
+	 */
 	public static AlignmentElement getPrimaryAlignmentElement(final List<AlignmentElement> elements) {
 		if (elements.size() == 0) {
 			return null;
@@ -202,36 +234,33 @@ class AlignmentHelper {
 		return elements.get(elements.size() - 1);
 	}
 
-	static class AlignmentElement {
+	/**
+	 * Contains a diagram element and alignment position
+	 *
+	 */
+	public static class AlignmentElement {
 		private final DiagramElement de;
 		private double absoluteLocation; // Element's location relative to the diagram
 
-		public AlignmentElement(final DiagramElement de, final double absoluteLocation) {
+		private AlignmentElement(final DiagramElement de, final double absoluteLocation) {
 			this.de = de;
 			this.absoluteLocation = absoluteLocation;
 		}
 
-		public AlignmentElement(final DiagramElement de, final Function<DiagramElement, Double> getAxisValue) {
-			this(de, getDiagramAbsoluteLocation(de, getAxisValue));
-		}
-
+		/**
+		 * Returns the position along the axis
+		 * @return the position along the axis
+		 */
 		public double getAbsoluteLocation() {
 			return absoluteLocation;
 		}
 
+		/**
+		 * Returns the diagram element for which this instance contains a location
+		 * @return diagram element
+		 */
 		public DiagramElement getDiagramElement() {
 			return de;
-		}
-
-		private static double getDiagramAbsoluteLocation(DiagramElement de,
-				final Function<DiagramElement, Double> getLocation) {
-			double loc = getLocation.apply(de);
-			while (de.getParent() instanceof DiagramElement) {
-				de = (DiagramElement) de.getParent();
-				loc += getLocation.apply(de);
-			}
-
-			return loc;
 		}
 	}
 
@@ -251,19 +280,20 @@ class AlignmentHelper {
 
 		Point getAlignmentPosition(final DiagramElement de, final double newLoc);
 
-		Function<DiagramElement, Double> getAxisLocation();
+		double getAxisLocation(final DiagramElement de);
 
 		boolean isPortCollision(final DiagramElement dockedChild, final double location);
 
 		Point getNewPortLocation(final DiagramElement dockedChild, final double location);
 
-		Function<DockArea, Boolean> isValidDockArea();
+		boolean isValidDockArea(DockArea dockArea);
 	}
 
+
 	/**
-	 * Horizontal axis alignment methods
+	 * Horizontal axis
 	 */
-	static class HorizontalAxis implements Axis {
+	private static final Axis HORIZONTAL_AXIS = new Axis() {
 		@Override
 		public Dimension getParentSize(final DiagramElement de, final double offset) {
 			return new Dimension(de.getWidth() + offset, de.getHeight());
@@ -295,8 +325,8 @@ class AlignmentHelper {
 		}
 
 		@Override
-		public Function<DiagramElement, Double> getAxisLocation() {
-			return (diagramElement) -> (diagramElement.getX());
+		public double getAxisLocation(final DiagramElement de) {
+			return de.getX();
 		}
 
 		@Override
@@ -311,15 +341,15 @@ class AlignmentHelper {
 		}
 
 		@Override
-		public Function<DockArea, Boolean> isValidDockArea() {
-			return (dockArea) -> dockArea == null || dockArea == DockArea.TOP || dockArea == DockArea.BOTTOM;
+		public boolean isValidDockArea(DockArea dockArea) {
+			return dockArea == null || dockArea == DockArea.TOP || dockArea == DockArea.BOTTOM;
 		}
-	}
+	};
 
 	/**
-	 * Vertical axis alignment methods
+	 * Vertical axis
 	 */
-	static class VerticalAxis implements Axis {
+	private static final Axis VERTICAL_AXIS = new Axis() {
 		@Override
 		public Dimension getParentSize(final DiagramElement de, final double offset) {
 			return new Dimension(de.getWidth(), de.getHeight() + offset);
@@ -351,8 +381,8 @@ class AlignmentHelper {
 		}
 
 		@Override
-		public Function<DiagramElement, Double> getAxisLocation() {
-			return (de) -> (de.getY());
+		public double getAxisLocation(final DiagramElement de) {
+			return de.getY();
 		}
 
 		@Override
@@ -367,12 +397,31 @@ class AlignmentHelper {
 		}
 
 		@Override
-		public Function<DockArea, Boolean> isValidDockArea() {
-			return (dockArea) -> dockArea == null || dockArea == DockArea.LEFT || dockArea == DockArea.RIGHT;
+		public boolean isValidDockArea(DockArea dockArea) {
+			return dockArea == null || dockArea == DockArea.LEFT || dockArea == DockArea.RIGHT;
 		}
+	};
+
+	/**
+	 * Creates an {@link AlignmentElement} for the specified diagram element
+	 * @param de the diagram element for which an {@link AlignmentElement} will be created
+	 * @return the new {@link AlignmentElement} instance
+	 */
+	public AlignmentElement createAlignmentElement(final DiagramElement de) {
+		if (de == null) {
+			return null;
+		}
+
+		return new AlignmentElement(de, getDiagramAbsoluteLocation(de, axis));
 	}
 
-	public Function<DiagramElement, Double> getAxisLocation() {
-		return axis.getAxisLocation();
+	private static double getDiagramAbsoluteLocation(DiagramElement de, final Axis axis) {
+		double loc = axis.getAxisLocation(de);
+		while (de.getParent() instanceof DiagramElement) {
+			de = (DiagramElement) de.getParent();
+			loc += axis.getAxisLocation(de);
+		}
+
+		return loc;
 	}
 }

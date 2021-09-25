@@ -67,7 +67,19 @@ public interface TypeTokenListEditorModel extends ObservableModel {
 	 */
 	String getErrorTypeLabel(ErrorTypes value);
 
+	/**
+	 * Returns a label for the specified type token. This method allows the model to provide labels for type tokens which reference error types for
+	 * which names are not be available. An EMF proxy is a case where names are not available.
+	 * @param value the token for which to get the type token
+	 * @return a label for the specified type token
+	 */
 	String getTypeTokenLabel(TypeToken value);
 
+	/**
+	 * Returns a label which should be used to display the type tokens being edited. This method allows the model to provide specialized labels.
+	 * For example: this method allows the model to provide an explanation when {@link #getTypeTokens()} returns an empty stream due to it not
+	 * supporting editing multiple selected elements.
+	 * @return the label for the type tokens being edited.
+	 */
 	String getTypeTokensLabel();
 }

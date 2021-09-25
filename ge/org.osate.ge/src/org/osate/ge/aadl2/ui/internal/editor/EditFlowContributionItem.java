@@ -55,10 +55,10 @@ import org.osate.ge.aadl2.ui.internal.tools.CreateEndToEndFlowSpecificationTool;
 import org.osate.ge.aadl2.ui.internal.tools.CreateFlowImplementationTool;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectNode;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
-import org.osate.ge.internal.util.ProxyUtil;
+import org.osate.ge.internal.util.AgeEmfUtil;
 
 public class EditFlowContributionItem extends ControlContribution {
 	private final static ImageDescriptor editIcon = Activator.getImageDescriptor("icons/flow_edit.png");
@@ -100,7 +100,7 @@ public class EditFlowContributionItem extends ControlContribution {
 				final UiService uiService = Adapters.adapt(editor, UiService.class);
 				// Create dialog and activate appropriate flow tool
 				if (flowSegment instanceof EndToEndFlow) {
-					final EndToEndFlow endToEndFlow = ProxyUtil
+					final EndToEndFlow endToEndFlow = AgeEmfUtil
 							.resolveOrNull(
 									flowSegment,
 									EndToEndFlow.class,
@@ -110,7 +110,8 @@ public class EditFlowContributionItem extends ControlContribution {
 					uiService.activateTool(
 							new CreateEndToEndFlowSpecificationTool(editor, container, endToEndFlow));
 				} else if (flowSegment instanceof FlowSpecification) {
-					final FlowSpecification fs = ProxyUtil.resolveOrNull(
+					final FlowSpecification fs = AgeEmfUtil
+							.resolveOrNull(
 							flowSegment,
 							FlowSpecification.class, ci.eResource().getResourceSet());
 					getFlowImplementation(ci, fs).ifPresent(fi -> {

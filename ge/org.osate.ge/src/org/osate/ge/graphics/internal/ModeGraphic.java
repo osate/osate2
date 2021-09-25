@@ -23,14 +23,40 @@
  */
 package org.osate.ge.graphics.internal;
 
-public class ModeGraphic implements AgeShape {
-	// Mode graphics specific constants
-	public final static int initialModeEllipseSize = 10;
-	public final static int spacingBetweenInitialModeEllipseAndMode = 10;
-	public final static int initialModeAreaHeight = initialModeEllipseSize + spacingBetweenInitialModeEllipseAndMode;
+import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
 
+/**
+ * AADL mode graphic
+ *
+ */
+public class ModeGraphic implements AgeShape {
+	/**
+	 * The diameter of the ellipse used as part of the initial mode indicator
+	 */
+	private final static int INITIAL_MODE_CIRCLE_SIZE = 10;
+
+	/**
+	 * The vertical spacing between the circle used in the initial mode indicator and the mode shape.
+	 */
+	private final static int SPACING_BETWEEN_INITIAL_MODE_ELLIPSE_AND_MODE = 10;
+
+	/**
+	 * The height of the area consumed by the initial mode indicator. This value is not used by the actual mode graphic implementation.
+	 * This is part of a workaround to ensure adequate minimum height for initial modes. This should be removed and {@link LayoutInfoProvider}
+	 * should be expanded to allow the minimum height adjustment.
+	 */
+	public final static int INITIAL_MODE_AREA_HEIGHT = INITIAL_MODE_CIRCLE_SIZE
+			+ SPACING_BETWEEN_INITIAL_MODE_ELLIPSE_AND_MODE;
+
+	/**
+	 * Whether the graphic should include the initial mode indicator
+	 */
 	public final boolean isInitialMode;
 
+	/**
+	 * Creates a new instance
+	 * @param isInitialMode whether the mode graphic should include the initial mode indicator
+	 */
 	public ModeGraphic(final boolean isInitialMode) {
 		this.isInitialMode = isInitialMode;
 	}

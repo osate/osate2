@@ -36,11 +36,11 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectNode;
-import org.osate.ge.internal.diagram.runtime.botree.BusinessObjectTreeUpdater;
-import org.osate.ge.internal.diagram.runtime.botree.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.diagram.runtime.layout.LayoutInfoProvider;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectTreeUpdater;
+import org.osate.ge.internal.diagram.runtime.updating.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ExtensionRegistryService;
@@ -50,7 +50,14 @@ import org.osate.ge.internal.ui.dialogs.DefaultDiagramConfigurationDialogModel;
 import org.osate.ge.internal.ui.dialogs.DiagramConfigurationDialog;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 
+/**
+ * Handler for the configure diagram command
+ *
+ */
 public class ConfigureDiagramHandler extends AbstractHandler {
+	/**
+	 * The ID of the configure diagram command
+	 */
 	public static String COMMAND_ID = "org.osate.ge.configureDiagram";
 
 	@Override

@@ -32,14 +32,49 @@ public final class Color {
 	private static final double COLOR_SCALING = 0.7; // Used for scaling colors with darker() and brighter()
 	private static final double MIN_BRIGHTER_COLOR = 3.0;
 
+	/**
+	 * The color black
+	 */
 	public static final Color BLACK = new Color(0, 0, 0);
+
+	/**
+	 * The color white
+	 */
 	public static final Color WHITE = new Color(255, 255, 255);
+
+	/**
+	 * The color blue
+	 */
 	public static final Color BLUE = new Color(0, 0, 255);
+
+	/**
+	 * The color green
+	 */
 	public static final Color GREEN = new Color(0, 255, 0);
+
+	/**
+	 * The color cyan
+	 */
 	public static final Color CYAN = new Color(0, 255, 255);
+
+	/**
+	 * The color magenta
+	 */
 	public static final Color MAGENTA = new Color(255, 0, 255);
+
+	/**
+	 * The color orange
+	 */
 	public static final Color ORANGE = new Color(255, 128, 0);
+
+	/**
+	 * The color purple
+	 */
 	public static final Color PURPLE = new Color(128, 0, 128);
+
+	/**
+	 * The color dark orange
+	 */
 	public static final Color DARK_ORANGE = new Color(255, 140, 0);
 
 	private final int r;
@@ -47,7 +82,7 @@ public final class Color {
 	private final int b;
 
 	/**
-	 * Creates a new instance
+	 * Creates a new instance. The value of each component should be within the range [0, 255]
 	 * @param red the value of the red component
 	 * @param green the value of the green component
 	 * @param blue the value of the blue component
@@ -58,14 +93,26 @@ public final class Color {
 		this.b = blue;
 	}
 
+	/**
+	 * Returns the red component.
+	 * @return the red component
+	 */
 	public final int getRed() {
 		return r;
 	}
 
+	/**
+	 * Returns the green component.
+	 * @return the green component
+	 */
 	public final int getGreen() {
 		return g;
 	}
 
+	/**
+	 * Returns the blue component.
+	 * @return the blue component
+	 */
 	public final int getBlue() {
 		return b;
 	}

@@ -37,29 +37,45 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.aadl2.Classifier;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.errormodel.ui.viewmodels.ErrorBehaviorModel;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.selectors.FilteringListSelectorField;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.ge.ui.UiBusinessObjectSelection;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 
+/**
+ * Property section for {@link ErrorModelSubclause} elements. The property section is enabled for all classifiers. If an EMV2 subclause doesn't exist,
+ * then it is created when a modification is made.
+ */
 public class ErrorModelSubclausePropertySection extends AbstractPropertySection {
-	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorModelSubclause.";
-	public static final String WIDGET_ID_BEHAVIOR_VALUE_LABEL = WIDGET_ID_PREFIX + "behavior.label";
-	public static final String WIDGET_ID_BEHAVIOR_CHOOSE_BUTTON = WIDGET_ID_PREFIX + "behavior.choose";
-
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				return bo instanceof Classifier;
-			});
+			return PropertySectionUtil.isBoCompatible(toTest, Classifier.class::isInstance);
 		}
 	}
+
+	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorModelSubclause.";
+
+	/**
+	 * Testing ID of the label which displays the error model subclause's used behavior
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_BEHAVIOR_VALUE_LABEL = WIDGET_ID_PREFIX + "behavior.label";
+
+	/**
+	 * Testing ID of the button which allows setting the subclause's used behavior
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_BEHAVIOR_CHOOSE_BUTTON = WIDGET_ID_PREFIX + "behavior.choose";
 
 	private BusinessObjectSelection selectedBos;
 	private final ErrorBehaviorModel model = new ErrorBehaviorModel(
 			new UiBusinessObjectSelection());
-	private FilteringListSelectorField<?> behaviorField;
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -69,7 +85,8 @@ public class ErrorModelSubclausePropertySection extends AbstractPropertySection 
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
 		final Label label = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Error Behavior:");
 
-		behaviorField = new FilteringListSelectorField<>(container, "Select Error Behavior State Machine",
+		final FilteringListSelectorField<?> behaviorField = new FilteringListSelectorField<>(container,
+				"Select Error Behavior State Machine",
 				new LabelFilteringListSelectorModel<>(model));
 		behaviorField.setValueLabelTestingId(WIDGET_ID_BEHAVIOR_VALUE_LABEL);
 		behaviorField.setModifyButtonTestingId(WIDGET_ID_BEHAVIOR_CHOOSE_BUTTON);

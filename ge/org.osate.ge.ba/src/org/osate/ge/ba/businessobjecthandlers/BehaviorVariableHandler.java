@@ -53,10 +53,8 @@ import org.osate.ge.graphics.StyleBuilder;
  * Business Object Handler for {@link BehaviorVariable} objects.
  */
 public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDeleter, CustomRenamer {
-	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create()
-			.graphic(RectangleBuilder.create().build())
-			.style(StyleBuilder.create().labelsCenter().build())
-			.build();
+	private static final GraphicalConfiguration GRAPHICAL_CONFIG = GraphicalConfigurationBuilder.create()
+			.graphic(RectangleBuilder.create().build()).style(StyleBuilder.create().labelsCenter().build()).build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -108,7 +106,7 @@ public class BehaviorVariableHandler implements BusinessObjectHandler, CustomDel
 
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
-		return Optional.of(graphicalConfig);
+		return Optional.of(GRAPHICAL_CONFIG);
 	}
 
 	@Override

@@ -36,6 +36,9 @@ import org.osate.ge.internal.ui.editor.EditorRenameUtil;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.swt.name.NameEditorDialogModel;
 
+/**
+ * Handler for the rename command
+ */
 public class RenameHandler extends AbstractHandler {
 	@Override
 	public void setEnabled(final Object evaluationContext) {
@@ -89,11 +92,11 @@ public class RenameHandler extends AbstractHandler {
 
 			@Override
 			public String validateName(String newName) {
-						return EditorRenameUtil.validateName(selectedElement, newName);
+				return EditorRenameUtil.validateName(selectedElement, newName);
 			}
 
 			@Override
-					public void setName(final String value) {
+			public void setName(final String value) {
 				EditorRenameUtil.rename(selectedElement, value, editor);
 			}
 		});

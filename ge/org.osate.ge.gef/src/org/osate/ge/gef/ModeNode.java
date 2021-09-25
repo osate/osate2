@@ -43,15 +43,15 @@ import javafx.scene.shape.StrokeType;
  * Node for mode graphics
  */
 public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylable, MinimumTopLabelPaddingProvider {
-	private static final double INITIAL_MODE_ELLIPSE_RADIUS = 5.0;
+	private static final double INITIAL_MODE_CIRCLE_RADIUS = 5.0;
 	private static final double SPACING_BETWEEN_INITIAL_MODE_ELLIPSE_AND_MODE = 10.0;
-	private static final double INITIAL_MODE_AREA_HEIGHT = 2.0 * INITIAL_MODE_ELLIPSE_RADIUS
+	private static final double INITIAL_MODE_AREA_HEIGHT = 2.0 * INITIAL_MODE_CIRCLE_RADIUS
 			+ SPACING_BETWEEN_INITIAL_MODE_ELLIPSE_AND_MODE;
 	private static final double MIN_MODE_SYMBOL_SIZE = 10.0;
 	private static final double ARROW_SIZE = 8.0;
 
 	private final Path modeSymbol = new Path();
-	private final Circle initialModeCircle = new Circle(INITIAL_MODE_ELLIPSE_RADIUS);
+	private final Circle initialModeCircle = new Circle(INITIAL_MODE_CIRCLE_RADIUS);
 	private final CubicCurve initialModeCurve = new CubicCurve();
 	private final Path initialModeArrow = new Path();
 	private BooleanProperty initialMode = new SimpleBooleanProperty();

@@ -70,9 +70,9 @@ import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.DiagramSerialization;
-import org.osate.ge.internal.diagram.runtime.botree.DefaultBusinessObjectNodeFactory;
-import org.osate.ge.internal.diagram.runtime.botree.DefaultBusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
+import org.osate.ge.internal.diagram.runtime.updating.BusinessObjectNodeFactory;
+import org.osate.ge.internal.diagram.runtime.updating.DefaultBusinessObjectTreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DefaultDiagramElementGraphicalConfigurationProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.services.ActionService;
@@ -256,7 +256,7 @@ public class GefDiagramExportService implements InternalDiagramExportService {
 		final ProjectProvider projectProvider = diagramFile::getProject;
 		final ProjectReferenceService projectReferenceService = new ProjectReferenceServiceProxy(referenceService,
 				projectProvider);
-		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(
+		final BusinessObjectNodeFactory nodeFactory = new BusinessObjectNodeFactory(
 				projectReferenceService);
 		final DefaultBusinessObjectTreeUpdater boTreeUpdater = new DefaultBusinessObjectTreeUpdater(projectProvider, extensionRegistry,
 				projectReferenceService, queryService, nodeFactory);

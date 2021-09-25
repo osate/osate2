@@ -25,6 +25,7 @@ package org.osate.ge.query;
 
 /**
  * Provides access to the arguments used to filter query results using {@link Query#filter(java.util.function.Predicate)}.
+ * @param <T> the query parameter type
  * @noextend
  * @noimplement
  * @see Query#filter(java.util.function.Predicate)

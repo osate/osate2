@@ -161,7 +161,7 @@ public class DefaultCreateSelectClassifierDialogModel implements ClassifierOpera
 
 							return "Base: category(" + baseCategory.getCategory()
 							+ ") of the selected classifier is not compatible with category type of the "
-							+ StringUtil.snakeCaseToLowercaseUser(op.getType().name())
+							+ StringUtil.snakeCaseToLowercaseWords(op.getType().name())
 							+ "(" + op.getComponentCategory() + ").";
 						}
 					}

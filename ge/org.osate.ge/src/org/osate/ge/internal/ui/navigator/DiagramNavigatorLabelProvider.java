@@ -60,6 +60,10 @@ import org.osgi.framework.FrameworkUtil;
 
 import com.google.common.io.Files;
 
+/**
+ * Label provider for the AADL Diagrams view
+ *
+ */
 public class DiagramNavigatorLabelProvider extends DecoratingLabelProvider implements
 org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider, ICommonLabelProvider {
 	private final DiagramService diagramService;
@@ -73,6 +77,9 @@ org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider
 		}
 	};
 
+	/**
+	 * Creates a new instance
+	 */
 	public DiagramNavigatorLabelProvider() {
 		super(new WorkbenchLabelProvider(), null);
 
@@ -137,8 +144,10 @@ org.eclipse.jface.viewers.DelegatingStyledCellLabelProvider.IStyledLabelProvider
 			final IProject project = file.getProject();
 			if (project != null) {
 				final Optional<? extends DiagramReference> optDiagramRef = diagramService
-						.findDiagrams(Collections.singleton(project)).stream()
-						.filter(dr -> dr.isValid() && file.equals(dr.getFile())).findAny();
+						.findDiagrams(Collections.singleton(project))
+						.stream()
+						.filter(dr -> dr.isValid() && file.equals(dr.getFile()))
+						.findAny();
 				if (optDiagramRef.isPresent()) {
 					final DiagramReference diagramRef = optDiagramRef.get();
 					final StyledString diagramLabel = new StyledString(getText(diagramRef.getFile()));

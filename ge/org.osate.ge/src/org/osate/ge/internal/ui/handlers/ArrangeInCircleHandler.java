@@ -35,6 +35,9 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.layout.DiagramElementLayoutUtil;
 import org.osate.ge.internal.ui.util.UiUtil;
 
+/**
+ * Handler which arranges selected diagram elements in a circle
+ */
 public class ArrangeInCircleHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {

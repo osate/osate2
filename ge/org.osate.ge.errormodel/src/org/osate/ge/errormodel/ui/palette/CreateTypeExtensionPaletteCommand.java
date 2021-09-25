@@ -59,13 +59,12 @@ public class CreateTypeExtensionPaletteCommand extends BasePaletteCommand implem
 				return null;
 			}
 
-			return Operation.createWithBuilder(createOp -> {
-				createOp.supply(() -> StepResult.forValue(subtypeReadonly)).modifyPreviousResult(subtype -> {
-					subtype.setSuperType(supertype);
-					final Object newBo = new ErrorTypeExtension(supertype, subtype);
-					return StepResultBuilder.create().showNewBusinessObject(ctx.getSource(), newBo).build();
-				});
-			});
+			return Operation.createWithBuilder(createOp -> createOp.supply(() -> StepResult.forValue(subtypeReadonly))
+					.modifyPreviousResult(subtype -> {
+						subtype.setSuperType(supertype);
+						final Object newBo = new ErrorTypeExtension(supertype, subtype);
+						return StepResultBuilder.create().showNewBusinessObject(ctx.getSource(), newBo).build();
+					}));
 		});
 	}
 }

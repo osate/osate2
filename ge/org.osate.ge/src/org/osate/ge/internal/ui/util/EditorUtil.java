@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -38,9 +38,25 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.handlers.ConfigureDiagramHandler;
 
-public class EditorUtil {
+/**
+ * Utility class containing members related to graphical editor
+ *
+ */
+public final class EditorUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private EditorUtil() {
+	}
+
 	private static final String DIAGRAM_EDITOR_ID = "org.osate.gef.ui.editor.AgeEditor";
 
+	/**
+	 * Opens the specified diagram file in the diagram editor
+	 * @param diagramFile the diagram file to open
+	 * @param promptToConfigure if true, the configure diagram dialog will be opened after the editor is opened
+	 * @return the opened editor
+	 */
 	public static InternalDiagramEditor openEditor(final IFile diagramFile, final boolean promptToConfigure) {
 		final FileEditorInput editorInput = new FileEditorInput(diagramFile);
 		try {

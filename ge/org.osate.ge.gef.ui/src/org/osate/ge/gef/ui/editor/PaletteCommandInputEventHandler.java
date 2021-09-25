@@ -41,7 +41,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.AgeAction;
-import org.osate.ge.internal.ui.DefaultOperationResultsProcessor;
+import org.osate.ge.internal.ui.OperationResultsProcessor;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.palette.CanStartConnectionContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
@@ -118,8 +118,8 @@ public class PaletteCommandInputEventHandler implements InputEventHandler {
 								// Perform modification
 								final OperationExecutor opExecutor = new OperationExecutor(
 										editor.getAadlModificationService(), editor.getReferenceService());
-								opExecutor.execute(operation, new DefaultOperationResultsProcessor(editor, targetNode,
-										GefAgeDiagramUtil.toAgePoint(p)));
+								OperationResultsProcessor.processResults(editor, targetNode,
+										GefAgeDiagramUtil.toAgePoint(p), opExecutor.execute(operation));
 							});
 
 							return null;
@@ -295,8 +295,7 @@ class CreateConnectionInteraction extends BaseInteraction {
 
 	@Override
 	protected Interaction.InteractionState onMousePressed(final MouseEvent e) {
-		if (e.getButton() != MouseButton.PRIMARY
-				|| InputEventHandlerUtil.isScrollBar(e.getTarget())) {
+		if (e.getButton() != MouseButton.PRIMARY || InputEventHandlerUtil.isScrollBar(e.getTarget())) {
 			return super.onMousePressed(e);
 		}
 
@@ -309,7 +308,7 @@ class CreateConnectionInteraction extends BaseInteraction {
 						// Perform modification
 						final OperationExecutor opExecutor = new OperationExecutor(editor.getAadlModificationService(),
 								editor.getReferenceService());
-						opExecutor.execute(operation, new DefaultOperationResultsProcessor(editor));
+						OperationResultsProcessor.processResults(editor, opExecutor.execute(operation));
 					});
 
 					return null;

@@ -43,8 +43,15 @@ public final class InternalReferenceUtil {
 	private InternalReferenceUtil() {
 	}
 
-	final static String TYPE_NOTE = "note";
-	final static String TYPE_NOTE_REFERENCE = "note_reference";
+	/**
+	 * The reference type for {@link Note} business objects. Used as the first segment of note references.
+	 */
+	public static final String TYPE_NOTE = "note";
+
+	/**
+	 * The reference type for {@link NoteReference} business objects. Used as the first segment of references.
+	 */
+	public static final String TYPE_NOTE_REFERENCE = "note_reference";
 
 	/**
 	 * Creates an embedded object based on its reference and extra data.

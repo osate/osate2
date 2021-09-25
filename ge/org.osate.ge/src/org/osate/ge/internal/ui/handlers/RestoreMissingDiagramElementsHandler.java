@@ -53,7 +53,6 @@ import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.dialogs.RestoreMissingDiagramElementsDialog;
 import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
-import org.osate.ge.internal.util.BusinessObjectContextUtil;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osgi.framework.FrameworkUtil;
 
@@ -103,7 +102,7 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 			if (!ghosts.isEmpty()) {
 				final BusinessObjectContext parentToUse;
 				if (diagram.getConfiguration().getContextBoReference() == null && parent.getParent() == null) {
-					parentToUse = BusinessObjectContextUtil.getRootContextForProject(projectProvider);
+					parentToUse = getRootContextForProject(projectProvider);
 				} else {
 					parentToUse = parent;
 				}
@@ -118,7 +117,7 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 						}, Map::putAll);
 
 				// Remove any entries based on existing node relative references.
-				parent.getDiagramElements()
+				parent.getChildren()
 				.forEach(de -> relRefToBusinessObjectMap.remove(de.getRelativeReference()));
 
 				// Don't show ghosts if there aren't any unused business objects
@@ -202,5 +201,24 @@ public class RestoreMissingDiagramElementsHandler extends AbstractHandler {
 		}
 
 		return null;
+	}
+
+	private static BusinessObjectContext getRootContextForProject(final ProjectProvider projectProvider) {
+		return new BusinessObjectContext() {
+			@Override
+			public Collection<? extends BusinessObjectContext> getChildren() {
+				return Collections.emptyList();
+			}
+
+			@Override
+			public BusinessObjectContext getParent() {
+				return null;
+			}
+
+			@Override
+			public Object getBusinessObject() {
+				return projectProvider.getProject();
+			}
+		};
 	}
 }

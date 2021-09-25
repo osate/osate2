@@ -50,8 +50,7 @@ import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.graphics.StyleBuilder;
 
 /**
- * Business object handler for {@link BehaviorAnnex}. This handler only exists to prevent the annex from being added by the AADL
- * business object provider. Since the object isn't contributed at this time, the other methods are not necessary.
+ * Business object handler for {@link BehaviorAnnex}
  */
 public class BehaviorSpecificationHandler implements BusinessObjectHandler {
 	private final AnnexHandler annexHandler = new AnnexHandler();

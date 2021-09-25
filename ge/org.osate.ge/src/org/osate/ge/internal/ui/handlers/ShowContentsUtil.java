@@ -46,7 +46,17 @@ import org.osate.ge.services.ReferenceBuilderService;
 
 import com.google.common.collect.ImmutableSet;
 
-class ShowContentsUtil {
+/**
+ * Contains utility functions related to adding child diagram elements for business objects which match content filters
+ *
+ */
+final class ShowContentsUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private ShowContentsUtil() {
+	}
+
 	/**
 	 * Adds contents to the selected diagram elements. Adds all children which pass the specified filter.
 	 * @param event is the ExecutionEvent of the handler which provides the active editor.
@@ -103,7 +113,7 @@ class ShowContentsUtil {
 					final RelativeBusinessObjectReference relativeReference = referenceBuilder
 							.getRelativeReference(childBo);
 					if (relativeReference != null
-							&& selectedElement.getByRelativeReference(relativeReference) == null
+							&& selectedElement.getChildByRelativeReference(relativeReference) == null
 							&& ContentFilterUtil.passesAnyContentFilter(childBo, contentFilters)) {
 						diagramUpdater.addToNextUpdate(selectedElement, relativeReference, new FutureElementInfo());
 						childrenAdded = true;

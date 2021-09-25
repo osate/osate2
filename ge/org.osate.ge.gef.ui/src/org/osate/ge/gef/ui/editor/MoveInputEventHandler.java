@@ -592,11 +592,11 @@ class SelectedElementsMover implements AutoCloseable {
 	 * @param editor the editor containing the diagram
 	 * @param parent the node whose children will have snapshots created.
 	 * @param selectedDiagramElements the currently selected diagram elements.
-	 * @param results the list to which created snapshots are aded.
+	 * @param results the list to which created snapshots are added.
 	 */
 	private static void addSnapshots(final AgeEditor editor, final DiagramNode parent,
 			final Set<DiagramElement> selectedDiagramElements, final List<DiagramElementSnapshot> results) {
-		for (final DiagramElement childDiagramElement : parent.getDiagramElements()) {
+		for (final DiagramElement childDiagramElement : parent.getChildren()) {
 			if (selectedDiagramElements.contains(childDiagramElement)
 					&& DiagramElementPredicates.isMoveable(childDiagramElement)) {
 				DiagramElementSnapshot.create(editor, childDiagramElement).ifPresent(results::add);

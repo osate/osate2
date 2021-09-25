@@ -24,7 +24,7 @@
 package org.osate.ge.graphics;
 
 /**
- * Immutable dimension type.
+ * Immutable dimension type. A dimension is defined by a width and a height.
  *
  */
 public final class Dimension {
@@ -33,7 +33,14 @@ public final class Dimension {
 	 */
 	public static final Dimension ZERO = new Dimension(0, 0);
 
+	/**
+	 * The dimension's width
+	 */
 	public final double width;
+
+	/**
+	 * The dimension's height
+	 */
 	public final double height;
 
 	/**
