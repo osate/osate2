@@ -1,6 +1,6 @@
 # ACVIP Example
 
-This example is the Sensor Control System (SCS) example presented in the AADL/ACVIP video tutorial.
+This example is the Sensor Control System (SCS) example presented in the AADL/ACVIP video tutorial ([available on YouTube](https://youtu.be/UQ9dWhLws-Q)).
 It was originally designed by the Software Engineering Institute (SEI) at
 Carnegie Mellon University (CMU) to demonstrate the following
 capabilities of OSATE:
