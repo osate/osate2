@@ -64,7 +64,6 @@ import org.osate.contribution.sei.sei.MessageRate;
 import org.osate.contribution.sei.sei.Sei;
 import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.result.AnalysisResult;
-import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
 import org.osate.result.ResultType;
 import org.osate.result.util.ResultUtil;
@@ -292,12 +291,11 @@ public final class NewBusLoadAnalysis {
 
 			if (budget > 0.0) {
 				if (actual > budget) {
-					error(connectionResult, connectionInstance, "Connection " + connectionInstance.getName()
-							+ " -- Actual bandwidth > budget: " + actual + " KB/s > " + budget + " KB/s");
+					ResultUtil.addError(connectionResult, connectionInstance, "Connection " + connectionInstance.getName()
+					+ " -- Actual bandwidth > budget: " + actual + " KB/s > " + budget + " KB/s");
 				}
 			} else {
-				warning(connectionResult, connectionInstance,
-						"Connection " + connectionInstance.getName() + " has no bandwidth budget");
+				ResultUtil.addWarning(connectionResult, connectionInstance, "Connection " + connectionInstance.getName() + " has no bandwidth budget");
 			}
 
 			return Nothing.NONE;
@@ -331,10 +329,9 @@ public final class NewBusLoadAnalysis {
 
 			if (unequal) {
 				for (final Connection c : broadcast.getConnections()) {
-					warning(broadcastResult, c.getConnectionInstance(),
-							"Connection " + c.getConnectionInstance().getName() + " sharing broadcast source "
-									+ broadcast.getSource().getInstanceObjectPath() + " has budget " + c.getBudget()
-									+ " KB/s; using maximum");
+					ResultUtil.addWarning(broadcastResult, c.getConnectionInstance(), "Connection " + c.getConnectionInstance().getName() + " sharing broadcast source "
+					+ broadcast.getSource().getInstanceObjectPath() + " has budget " + c.getBudget()
+					+ " KB/s; using maximum");
 				}
 			}
 
@@ -382,26 +379,25 @@ public final class NewBusLoadAnalysis {
 			ResultUtil.addIntegerValue(busResult, myDataOverheadInBytes);
 
 			if (capacity == 0.0) {
-				warning(busResult, busInstance,
-						getLabel(bus) + busInstance.getName() + " has no capacity");
+				ResultUtil.addWarning(busResult, busInstance, getLabel(bus) + busInstance.getName() + " has no capacity");
 			} else {
 				if (actual > capacity) {
-					error(busResult, busInstance, getLabel(bus) + busInstance.getName()
-							+ " -- Actual bandwidth > capacity: " + actual + " KB/s > " + capacity + " KB/s");
+					ResultUtil.addError(busResult, busInstance, getLabel(bus) + busInstance.getName()
+					+ " -- Actual bandwidth > capacity: " + actual + " KB/s > " + capacity + " KB/s");
 				}
 			}
 
 			if (budget == 0.0) {
-				warning(busResult, busInstance, getLabel(bus) + busInstance.getName()
-						+ " has no bandwidth budget");
+				ResultUtil.addWarning(busResult, busInstance, getLabel(bus) + busInstance.getName()
+				+ " has no bandwidth budget");
 			} else {
 				if (budget > capacity) {
-					error(busResult, busInstance, getLabel(bus) + busInstance.getName()
-							+ " -- budget > capacity: " + budget + " KB/s > " + capacity + " KB/s");
+					ResultUtil.addError(busResult, busInstance, getLabel(bus) + busInstance.getName()
+					+ " -- budget > capacity: " + budget + " KB/s > " + capacity + " KB/s");
 				}
 				if (totalBudget > budget) {
-					error(busResult, busInstance, getLabel(bus) + busInstance.getName()
-							+ " -- Required budget > budget: " + totalBudget + " KB/s > " + budget + " KB/s");
+					ResultUtil.addError(busResult, busInstance, getLabel(bus) + busInstance.getName()
+					+ " -- Required budget > budget: " + totalBudget + " KB/s > " + budget + " KB/s");
 				}
 			}
 
@@ -472,16 +468,6 @@ public final class NewBusLoadAnalysis {
 	private static double getPeriodInSeconds(final NamedElement containingClassifier) {
 		return PropertyUtils.getScaled(TimingProperties::getPeriod, containingClassifier,
 				TimeUnits.SEC).orElse(0.0);
-	}
-
-	// ==== Error reporting methods for the visitor ===
-
-	private static void error(final Result result, final InstanceObject io, final String msg) {
-		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.ERROR));
-	}
-
-	private static void warning(final Result result, final InstanceObject io, final String msg) {
-		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.WARNING));
 	}
 
 	@SuppressWarnings("unused")

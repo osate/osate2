@@ -92,13 +92,16 @@ public final class UiUtil {
 	@Inject
 	private ILocationInFileProvider locationProvider;
 
-	private static final UiUtil PROTOTYPE = new UiUtil();
+	private static UiUtil PROTOTYPE;
 
 	private UiUtil() {
 		Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).injectMembers(this);
 	}
 
 	public static final UiUtil getInstance() {
+		if (PROTOTYPE == null) {
+			PROTOTYPE = new UiUtil();
+		}
 		return PROTOTYPE;
 	}
 
