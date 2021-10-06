@@ -132,7 +132,7 @@
 				</file>
 			</activation>
 			<properties>
-				<build.version>${project.parent.version}</build.version>
+				<build.version>${osate.version}</build.version>
 				<build.date>${maven.build.timestamp}</build.date>
 				<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
 			</properties>
