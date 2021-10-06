@@ -6,6 +6,10 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.handlers.HandlerUtil;
 
+/**
+ * Handler for the zoom out command.
+ * Increases the zoom level by calling {@link AgeEditor#zoomOut()} when the command is activated.
+ */
 public class ZoomOutHandler extends AbstractHandler {
 
 	@Override

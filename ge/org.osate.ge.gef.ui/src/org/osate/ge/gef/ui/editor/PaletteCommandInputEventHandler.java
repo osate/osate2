@@ -41,7 +41,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.operations.OperationExecutor;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.AgeAction;
-import org.osate.ge.internal.ui.DefaultOperationResultsProcessor;
+import org.osate.ge.internal.ui.OperationResultsProcessor;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.palette.CanStartConnectionContext;
 import org.osate.ge.palette.CreateConnectionPaletteCommand;
@@ -67,6 +67,10 @@ import javafx.scene.transform.NonInvertibleTransformException;
 public class PaletteCommandInputEventHandler implements InputEventHandler {
 	private final AgeEditor editor;
 
+	/**
+	 * Creates a new instance
+	 * @param editor the editor from which events originate.
+	 */
 	public PaletteCommandInputEventHandler(final AgeEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 	}
@@ -114,8 +118,8 @@ public class PaletteCommandInputEventHandler implements InputEventHandler {
 								// Perform modification
 								final OperationExecutor opExecutor = new OperationExecutor(
 										editor.getAadlModificationService(), editor.getReferenceService());
-								opExecutor.execute(operation, new DefaultOperationResultsProcessor(editor, targetNode,
-										GefAgeDiagramUtil.toAgePoint(p)));
+								OperationResultsProcessor.processResults(editor, targetNode,
+										GefAgeDiagramUtil.toAgePoint(p), opExecutor.execute(operation));
 							});
 
 							return null;
@@ -201,6 +205,10 @@ public class PaletteCommandInputEventHandler implements InputEventHandler {
 	}
 }
 
+/**
+ * An interaction which creates a connection using a {@link CreateConnectionPaletteCommand}
+ *
+ */
 class CreateConnectionInteraction extends BaseInteraction {
 	private static final Color CONNECTION_COLOR = new Color(1.0, 0.518, 0.0, 1.0);
 
@@ -215,6 +223,13 @@ class CreateConnectionInteraction extends BaseInteraction {
 	private final Connection connection;
 	private final StaticAnchor mouseAnchor;
 
+	/**
+	 * Creates a new instance
+	 * @param cmd the palette command to use to create the connection
+	 * @param sourceDiagramElement the start of the connection
+	 * @param editor the editor containing the diagram being edited
+	 * @param e the mouse pressed event that started the interaction
+	 */
 	public CreateConnectionInteraction(final CreateConnectionPaletteCommand cmd,
 			final DiagramElement sourceDiagramElement, final AgeEditor editor, final MouseEvent e) {
 		this.cmd = Objects.requireNonNull(cmd, "cmd must not be null");
@@ -280,8 +295,7 @@ class CreateConnectionInteraction extends BaseInteraction {
 
 	@Override
 	protected Interaction.InteractionState onMousePressed(final MouseEvent e) {
-		if (e.getButton() != MouseButton.PRIMARY
-				|| InputEventHandlerUtil.isScrollBar(e.getTarget())) {
+		if (e.getButton() != MouseButton.PRIMARY || InputEventHandlerUtil.isScrollBar(e.getTarget())) {
 			return super.onMousePressed(e);
 		}
 
@@ -294,7 +308,7 @@ class CreateConnectionInteraction extends BaseInteraction {
 						// Perform modification
 						final OperationExecutor opExecutor = new OperationExecutor(editor.getAadlModificationService(),
 								editor.getReferenceService());
-						opExecutor.execute(operation, new DefaultOperationResultsProcessor(editor));
+						OperationResultsProcessor.processResults(editor, opExecutor.execute(operation));
 					});
 
 					return null;

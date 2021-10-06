@@ -27,7 +27,13 @@ import org.osate.ge.ContentFilter;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 
+/**
+ * Content filter which matches {@link ErrorBehaviorStateMachine} objects.
+ */
 public class ErrorBehaviorEventFilter implements ContentFilter {
+	/**
+	 * Unique identifier for the content filter
+	 */
 	public static final String ID = "emv2.errorBehaviorEvents";
 
 	@Override

@@ -23,6 +23,7 @@
  */
 package org.osate.xtext.aadl2.properties.linking;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -65,6 +66,7 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 				String[] ignoredPerPreference = getIgnoredPropertySetPreference();
 				showWarningInstead = getIgnoredPropertySetAlertPreference();
 
+				// FIXME - should process property set name only
 				for (String propSetName : context.getLinkText().split("::")) {
 					if (!suppressError) {
 						// check against preference
@@ -149,25 +151,28 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 	private String[] getIgnoredPropertySetPreference() {
 		// get preferences ~ same as org.osate.ui.utils.PropertySetModel
 		String[] ignoredPerPreference = new String[] {};
-		String separator = "&~!";
-		String PREFS_IGNORED_PROPERTY_SET_NAMES = "org.osate.ui.internal.propertysetnames";
 
-		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-		String allNames = store.getString(PREFS_IGNORED_PROPERTY_SET_NAMES);
-		if (allNames != null && !allNames.isEmpty()) {
-			ignoredPerPreference = allNames.split(separator);
+		if (Platform.isRunning()) {
+			String separator = "&~!";
+			String PREFS_IGNORED_PROPERTY_SET_NAMES = "org.osate.ui.internal.propertysetnames";
+
+			final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+			String allNames = store.getString(PREFS_IGNORED_PROPERTY_SET_NAMES);
+			if (allNames != null && !allNames.isEmpty()) {
+				ignoredPerPreference = allNames.split(separator);
+			}
 		}
-
 		return ignoredPerPreference;
 	}
 
 	private Boolean getIgnoredPropertySetAlertPreference() {
 		Boolean showWarningInstead = false;
 
-		String PREFS_SHOW_WARNING = "org.osate.ui.internal.propertysetnames.showWarning";
-		final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
-		showWarningInstead = store.getBoolean(PREFS_SHOW_WARNING);
-
+		if (Platform.isRunning()) {
+			String PREFS_SHOW_WARNING = "org.osate.ui.internal.propertysetnames.showWarning";
+			final IPreferenceStore store = OsateCorePlugin.getDefault().getPreferenceStore();
+			showWarningInstead = store.getBoolean(PREFS_SHOW_WARNING);
+		}
 		return showWarningInstead;
 	}
 }

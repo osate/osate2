@@ -26,6 +26,8 @@ package org.osate.ge.swt.selectors;
 /**
  * View Model used by {@link FilteringListSelector}. It is the view models responsibility to keep track of and apply the filter
  * to returned results.
+ *
+ * @param <T> See {@link SingleSelectorModel}
  * @since 1.1
  */
 public interface FilteringSelectorModel<T> extends SelectorModel<T> {

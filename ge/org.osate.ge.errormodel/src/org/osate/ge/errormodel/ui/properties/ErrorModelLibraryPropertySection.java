@@ -37,30 +37,50 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.errormodel.ui.viewmodels.ExtendedLibrariesModel;
 import org.osate.ge.errormodel.util.ErrorModelGeUtil;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.selectors.ListEditor;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 
+/**
+ * Property section for {@link ErrorModelLibrary} elements
+ */
 public class ErrorModelLibraryPropertySection extends AbstractPropertySection {
-	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorModelLibrary.";
-	public static final String WIDGET_ID_EXTENDED_LIBRARIES_LIST = WIDGET_ID_PREFIX + "extendedLibraries.label";
-	public static final String WIDGET_ID_EXTENDED_LIBRARIES_ADD_BUTTON = WIDGET_ID_PREFIX + "extendedLibraries.add";
-	public static final String WIDGET_ID_EXTENDED_LIBRARIES_REMOVE_BUTTON = WIDGET_ID_PREFIX
-			+ "extendedLibraries.remove";
-
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				// Only support this property section for packages which contain an error model library
-				return bo instanceof AadlPackage && ErrorModelGeUtil.getErrorModelLibrary((AadlPackage) bo).isPresent();
-			});
+			// Only support this property section for packages which contain an error model library
+			return PropertySectionUtil.isBoCompatible(toTest, bo -> bo instanceof AadlPackage
+					&& ErrorModelGeUtil.getErrorModelLibrary((AadlPackage) bo).isPresent());
 		}
 	}
 
+	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorModelLibrary.";
+
+	/**
+	 * Testing ID of the list containing the extended error model libraries
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_EXTENDED_LIBRARIES_LIST = WIDGET_ID_PREFIX + "extendedLibraries.label";
+
+	/**
+	 * Testing ID of the button for adding an error model library to the extended library list
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_EXTENDED_LIBRARIES_ADD_BUTTON = WIDGET_ID_PREFIX + "extendedLibraries.add";
+
+	/**
+	 * Testing ID of the button which removes an error model library from the extended library list
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_EXTENDED_LIBRARIES_REMOVE_BUTTON = WIDGET_ID_PREFIX
+			+ "extendedLibraries.remove";
+
 	private BusinessObjectSelection selectedBos;
-	private ListEditor<ErrorModelLibrary> extendedLibrariesField;
 	private final ExtendedLibrariesModel model = new ExtendedLibrariesModel(new UiBusinessObjectSelection());
 
 	@Override
@@ -69,10 +89,9 @@ public class ErrorModelLibraryPropertySection extends AbstractPropertySection {
 		FormData fd;
 
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
-		PropertySectionUtil.createSectionLabel(container, getWidgetFactory(),
-				"Extended\nError Libraries:");
+		PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Extended\nError Libraries:");
 
-		extendedLibrariesField = new ListEditor<ErrorModelLibrary>(container, model);
+		final ListEditor<ErrorModelLibrary> extendedLibrariesField = new ListEditor<>(container, model);
 		extendedLibrariesField.setListTestingId(WIDGET_ID_EXTENDED_LIBRARIES_LIST);
 		extendedLibrariesField.setAddButtonTestingId(WIDGET_ID_EXTENDED_LIBRARIES_ADD_BUTTON);
 		extendedLibrariesField.setRemoveButtonTestingId(WIDGET_ID_EXTENDED_LIBRARIES_REMOVE_BUTTON);

@@ -68,6 +68,10 @@ import org.osate.ge.internal.services.ColoringService;
 
 import com.google.common.base.Predicates;
 
+/**
+ * {@link ColoringService} implementation
+ *
+ */
 public class DefaultColoringService implements ColoringService {
 	private static final Color inSelectedModeColor = new Color(255, 0, 128);
 	private static final Color inSelectedFlowColor = Color.DARK_ORANGE.brighter();
@@ -373,35 +377,35 @@ public class DefaultColoringService implements ColoringService {
 					? (Subcomponent) subcompQueryable.getBusinessObject()
 							: ((ComponentInstance) subcompQueryable.getBusinessObject())
 							.getSubcomponent();
-					// In all modes
-					final List<ModeBinding> modeBindings = AadlModalElementUtil.getAllModeBindings(subcomponent);
-					if (modeBindings.isEmpty()) {
-						if (subcomponent.getComponentType() == null) {
-							return Stream.of(subcompQueryable);
-						}
+			// In all modes
+			final List<ModeBinding> modeBindings = AadlModalElementUtil.getAllModeBindings(subcomponent);
+			if (modeBindings.isEmpty()) {
+				if (subcomponent.getComponentType() == null) {
+					return Stream.of(subcompQueryable);
+				}
 
-						final Optional<Mode> modeOpt = subcomponent.getComponentType().getAllModes().stream()
-								.filter(mode -> AgeAadlUtil.namesMatch(mode, selectedModeFeature)).findAny();
-						// Check if mode in subcomponent is also in component type
-						if (modeOpt.isPresent()) {
-							return Stream.concat(Stream.of(subcompQueryable),
-									getInModeElements(modeOpt.get(), subcompQueryable));
-						}
-					} else {
+				final Optional<Mode> modeOpt = subcomponent.getComponentType().getAllModes().stream()
+						.filter(mode -> AgeAadlUtil.namesMatch(mode, selectedModeFeature)).findAny();
+				// Check if mode in subcomponent is also in component type
+				if (modeOpt.isPresent()) {
+					return Stream.concat(Stream.of(subcompQueryable),
+							getInModeElements(modeOpt.get(), subcompQueryable));
+				}
+			} else {
 
-						// In modes
-						// Use derived mode to highlight children. If derived mode is null, find the mode with same name as parent mode
-						final Optional<ModeBinding> mbOpt = modeBindings.stream()
-								.filter(mb -> AgeAadlUtil.namesMatch(mb.getParentMode(), selectedModeFeature)).findAny();
-						if (mbOpt.isPresent()) {
-							final ModeBinding mb = mbOpt.get();
-							// If derived mode is null, look for parent mode
-							final Mode inMode = mb.getDerivedMode() == null ? mb.getParentMode() : mb.getDerivedMode();
-							return Stream.concat(Stream.of(subcompQueryable), getInModeElements(inMode, subcompQueryable));
-						}
-					}
+				// In modes
+				// Use derived mode to highlight children. If derived mode is null, find the mode with same name as parent mode
+				final Optional<ModeBinding> mbOpt = modeBindings.stream()
+						.filter(mb -> AgeAadlUtil.namesMatch(mb.getParentMode(), selectedModeFeature)).findAny();
+				if (mbOpt.isPresent()) {
+					final ModeBinding mb = mbOpt.get();
+					// If derived mode is null, look for parent mode
+					final Mode inMode = mb.getDerivedMode() == null ? mb.getParentMode() : mb.getDerivedMode();
+					return Stream.concat(Stream.of(subcompQueryable), getInModeElements(inMode, subcompQueryable));
+				}
+			}
 
-					return Stream.empty();
+			return Stream.empty();
 		}
 
 		/**
@@ -487,8 +491,12 @@ public class DefaultColoringService implements ColoringService {
 		}
 	};
 
-	public DefaultColoringService(final StyleRefresher editor) {
-		this.styleRefresher = Objects.requireNonNull(editor, "editor must not be null");
+	/**
+	 * Creates a new instance
+	 * @param styleRefresher the refresher to use to update the colors of the rendered diagram.
+	 */
+	public DefaultColoringService(final StyleRefresher styleRefresher) {
+		this.styleRefresher = Objects.requireNonNull(styleRefresher, "editor must not be null");
 
 		// Add coloring calculator to handle mode and flow behavior. It is contained here to replicate behavior of the highlighting service.
 		// In the future this could be moved outside the coloring service
@@ -525,9 +533,9 @@ public class DefaultColoringService implements ColoringService {
 		highlightInModeName = highlightInMode instanceof Mode || highlightInMode instanceof ModeInstance
 				? highlightInMode.getName()
 						: null;
-				highlightInModeTransitionName = highlightInMode instanceof ModeTransition
-						|| highlightInMode instanceof ModeTransitionInstance ? highlightInMode.getName() : null;
-						styleRefresher.refreshDiagramColoring();
+		highlightInModeTransitionName = highlightInMode instanceof ModeTransition
+				|| highlightInMode instanceof ModeTransitionInstance ? highlightInMode.getName() : null;
+		styleRefresher.refreshDiagramColoring();
 	}
 
 	@Override
@@ -536,9 +544,9 @@ public class DefaultColoringService implements ColoringService {
 		highlightFlowImplSpecName = highlightedFlow instanceof FlowSpecification
 				? ((FlowSpecification) highlightedFlow).getName()
 						: null;
-				highlightEndToEndFlowName = highlightedFlow instanceof EndToEndFlow
-						|| highlightedFlow instanceof EndToEndFlowInstance ? highlightedFlow.getName() : null;
-						styleRefresher.refreshDiagramColoring();
+		highlightEndToEndFlowName = highlightedFlow instanceof EndToEndFlow
+				|| highlightedFlow instanceof EndToEndFlowInstance ? highlightedFlow.getName() : null;
+		styleRefresher.refreshDiagramColoring();
 	}
 
 	@Override

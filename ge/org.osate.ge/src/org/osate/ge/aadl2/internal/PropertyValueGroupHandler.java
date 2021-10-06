@@ -66,7 +66,7 @@ public class PropertyValueGroupHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		final PropertyValueGroup pvg = ctx.getBusinessObject(PropertyValueGroup.class).get();
+		final PropertyValueGroup pvg = ctx.getBusinessObject(PropertyValueGroup.class).orElseThrow();
 		final String propertyName = pvg.getProperty().getQualifiedName();
 		if (propertyName == null) {
 			throw new RuntimeException("Unable to build reference. Property name is null");
@@ -86,7 +86,7 @@ public class PropertyValueGroupHandler extends AadlBusinessObjectHandler {
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
-		final PropertyValueGroup pvg = boc.getBusinessObject(PropertyValueGroup.class).get();
+		final PropertyValueGroup pvg = boc.getBusinessObject(PropertyValueGroup.class).orElseThrow();
 
 		if(pvg.getReferenceId() == null) {
 			return Optional.of(createTextGraphicalConfiguration());
@@ -121,7 +121,6 @@ public class PropertyValueGroupHandler extends AadlBusinessObjectHandler {
 	private GraphicalConfiguration createTextGraphicalConfiguration() {
 		return GraphicalConfigurationBuilder.create().
 				graphic(labelGraphic).
-				decoration().
 				build();
 	}
 

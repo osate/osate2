@@ -43,15 +43,26 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 
+/**
+ * Palette command for creating {@link ErrorSource} and {@link ErrorSink} elements.
+ */
 public class CreateErrorSourceOrSinkPaletteCommand extends BasePaletteCommand implements TargetedPaletteCommand {
 	private final EClass eclass;
 	private final DirectionType requiredPropagationDirection;
 
+	/**
+	 * Creates a new instance which creates an {@link ErrorSource}
+	 * @return the new command
+	 */
 	public static TargetedPaletteCommand createErrorSourcePaletteCommand() {
 		return new CreateErrorSourceOrSinkPaletteCommand("Error Source", ErrorModelPackage.eINSTANCE.getErrorSource(),
 				DirectionType.OUT);
 	}
 
+	/**
+	 * Creates a new instance which creates an {@link ErrorSink}
+	 * @return the new command
+	 */
 	public static TargetedPaletteCommand createErrorSinkPaletteCommand() {
 		return new CreateErrorSourceOrSinkPaletteCommand("Error Sink", ErrorModelPackage.eINSTANCE.getErrorSink(),
 				DirectionType.IN);
@@ -75,47 +86,46 @@ public class CreateErrorSourceOrSinkPaletteCommand extends BasePaletteCommand im
 	}
 
 	private Optional<Operation> createPropgationCreationOperation(final BusinessObjectContext target) {
-		return ErrorModelGeUtil.getClassifierSourceBoc(target).flatMap(container -> {
-			return ErrorModelGeUtil.createErrorModelSubclausePromptAndModifyOperation(container, () -> {
-				final CombinedErrorModelSubclause combined = CombinedErrorModelSubclause
-						.create(ErrorModelGeUtil.getClassifier(container).get());
-				return ErrorFlowPaletteCommandUtil.validateAndShowError(combined, target, requiredPropagationDirection)
-						? Optional.of(true)
-						: Optional.empty();
-			}, (subclause, unused) -> {
-				final ErrorFlow newFlow = (ErrorFlow) EcoreUtil.create(eclass);
+		return ErrorModelGeUtil.getClassifierSourceBoc(target)
+				.flatMap(container -> ErrorModelGeUtil.createErrorModelSubclausePromptAndModifyOperation(container,
+						() -> {
+							final CombinedErrorModelSubclause combined = CombinedErrorModelSubclause
+									.create(ErrorModelGeUtil.getClassifier(container).get());
+							return ErrorFlowPaletteCommandUtil.validateAndShowError(combined, target,
+									requiredPropagationDirection) ? Optional.of(true) : Optional.empty();
+						}, (subclause, unused) -> {
+							final ErrorFlow newFlow = (ErrorFlow) EcoreUtil.create(eclass);
 
-				// Set name
-				final String newName = ErrorModelNamingUtil.buildUniqueIdentifier(subclause.getContainingClassifier(),
-						"new_error_flow");
-				newFlow.setName(newName);
+							// Set name
+							final String newName = ErrorModelNamingUtil
+									.buildUniqueIdentifier(subclause.getContainingClassifier(), "new_error_flow");
+							newFlow.setName(newName);
 
-				// Finish creating the source or sink
-				final CombinedErrorModelSubclause combined = CombinedErrorModelSubclause
-						.create(subclause.getContainingClassifier());
-				final boolean allTarget = ErrorFlowPaletteCommandUtil.isAll(target);
-				if (newFlow instanceof ErrorSource) {
-					final ErrorSource src = ((ErrorSource) newFlow);
-					if (allTarget) {
-						src.setAll(allTarget);
-					} else {
-						src.setSourceModelElement(ErrorFlowPaletteCommandUtil.findErrorPropagationOrThrow(combined,
-								target, requiredPropagationDirection));
-					}
-				} else if (newFlow instanceof ErrorSink) {
-					final ErrorSink snk = (ErrorSink) newFlow;
-					if (allTarget) {
-						snk.setAllIncoming(allTarget);
-					} else {
-						snk.setIncoming(ErrorFlowPaletteCommandUtil.findErrorPropagationOrThrow(combined, target,
-								requiredPropagationDirection));
-					}
-				}
+							// Finish creating the source or sink
+							final CombinedErrorModelSubclause combined = CombinedErrorModelSubclause
+									.create(subclause.getContainingClassifier());
+							final boolean allTarget = ErrorFlowPaletteCommandUtil.isAll(target);
+							if (newFlow instanceof ErrorSource) {
+								final ErrorSource src = ((ErrorSource) newFlow);
+								if (allTarget) {
+									src.setAll(allTarget);
+								} else {
+									src.setSourceModelElement(ErrorFlowPaletteCommandUtil.findErrorPropagationOrThrow(
+											combined, target, requiredPropagationDirection));
+								}
+							} else if (newFlow instanceof ErrorSink) {
+								final ErrorSink snk = (ErrorSink) newFlow;
+								if (allTarget) {
+									snk.setAllIncoming(allTarget);
+								} else {
+									snk.setIncoming(ErrorFlowPaletteCommandUtil.findErrorPropagationOrThrow(combined,
+											target, requiredPropagationDirection));
+								}
+							}
 
-				subclause.getFlows().add(newFlow);
+							subclause.getFlows().add(newFlow);
 
-				return StepResultBuilder.create().showNewBusinessObject(container, newFlow).build();
-			});
-		});
+							return StepResultBuilder.create().showNewBusinessObject(container, newFlow).build();
+						}));
 	}
 }

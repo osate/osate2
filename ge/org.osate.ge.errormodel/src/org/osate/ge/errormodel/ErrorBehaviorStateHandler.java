@@ -46,6 +46,9 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 
+/**
+ * Business object handler for {@link ErrorBehaviorState} objects.
+ */
 public class ErrorBehaviorStateHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = EllipseBuilder.create().build();
 
@@ -84,7 +87,7 @@ public class ErrorBehaviorStateHandler implements BusinessObjectHandler {
 		final ErrorBehaviorState state = ctx.getBusinessObjectContext().getBusinessObject(ErrorBehaviorState.class)
 				.get();
 		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic)
-				.annotation(state.isIntial() ? "<Initial>" : null).style(ErrorModelGeUtil.centeredStyle).build());
+				.annotation(state.isIntial() ? "<Initial>" : null).style(ErrorModelGeUtil.CENTERED_STYLE).build());
 	}
 
 	@Override

@@ -33,10 +33,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 /**
- * Palette component. Displays the palette items and the active item status provided by the {@link PaletteModel}.
- *
+ * Palette component. The palette is a JavaFX node which displays the palette items and the active item status provided by the {@link PaletteModel}.
+ * @param <G> the type of the group model object
+ * @param <I> the type of the palette item model object
  */
 public class Palette<G, I> extends VBox {
+	/**
+	 * Create a new instance
+	 * @param model the palette model which defines the contents of the palette
+	 */
 	public Palette(final PaletteModel<G, I> model) {
 		super(2);
 		Objects.requireNonNull(model, "model must not be null");

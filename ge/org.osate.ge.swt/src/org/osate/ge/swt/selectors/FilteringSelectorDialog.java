@@ -27,7 +27,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -40,7 +39,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 
 /**
@@ -60,15 +58,13 @@ public final class FilteringSelectorDialog {
 	 * @param parent is the parent shell or null if the dialog should be a top-level window.
 	 * @param title is the title of the dialog's shell.
 	 * @param model is the view model for the dialog.
-	 * @param multi whether to allow multiple selections
 	 * @return true if OK was selected and the selected elements was updated.
 	 *
 	 * @see #open(Shell, String, FilteringSelectorModel, BiFunction)
 	 */
 	public static <T> boolean open(final Shell parent, final String title, final FilteringSelectorModel<T> model) {
 		return open(parent, title,
-				model,
-				(container, dialogModel) -> new FilteringListSelector<>(container, dialogModel));
+				model, FilteringListSelector::new);
 
 	}
 
@@ -107,8 +103,8 @@ public final class FilteringSelectorDialog {
 		private final String title;
 		private final FilteringSelectorModel<T> model;
 		private final BiFunction<Composite, FilteringSelectorModel<T>, Control> controlCreator;
-		private final Consumer<ChangeEvent> changeListener = e -> refresh();
-		private final Consumer<SelectionDoubleClickedEvent> selectionDoubleClickedListener = e -> {
+		private final Runnable changeListener = this::refresh;
+		private final Runnable selectionDoubleClickedListener = () -> {
 			final Button okBtn = getButton(IDialogConstants.OK_ID);
 			if (okBtn != null && okBtn.isEnabled()) {
 				okPressed();
@@ -202,11 +198,14 @@ public final class FilteringSelectorDialog {
 		}
 	}
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.runDialog(() -> {
-			FilteringSelectorDialog.open(null,
+		SwtUtil.runDialog(() -> FilteringSelectorDialog.open(null,
 					"Select Items",
-					new LabelFilteringListSelectorModel<>(new TestSelectorModel()));
-		});
+				new LabelFilteringListSelectorModel<>(new TestSelectorModel())));
 	}
 }

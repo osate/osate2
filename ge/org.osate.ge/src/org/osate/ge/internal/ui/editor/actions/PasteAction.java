@@ -49,7 +49,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.RelativeBusinessObjectReference;
-import org.osate.ge.aadl2.internal.util.AadlImportsUtil;
+import org.osate.ge.aadl2.AadlImportsUtil;
 import org.osate.ge.aadl2.internal.util.AadlNameUtil;
 import org.osate.ge.aadl2.internal.util.classifiers.ClassifierCreationHelper;
 import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
@@ -196,7 +196,7 @@ public class PasteAction extends Action {
 
 			// Remove existing element
 			final DiagramElement existingDiagramElement = dstDiagramNode
-					.getByRelativeReference(newDiagramElement.getRelativeReference());
+					.getChildByRelativeReference(newDiagramElement.getRelativeReference());
 			if (existingDiagramElement != null) {
 				m.removeElement(existingDiagramElement);
 			}

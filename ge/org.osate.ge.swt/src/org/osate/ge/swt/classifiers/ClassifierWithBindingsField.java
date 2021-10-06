@@ -24,7 +24,6 @@
 package org.osate.ge.swt.classifiers;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -34,7 +33,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.osate.ge.swt.BorderedCLabel;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 
 /**
@@ -51,7 +49,7 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 	private N node;
 	private final BorderedCLabel selectedLbl;
 	private final Button chooseBtn;
-	private final Consumer<ChangeEvent> changeListener = e -> refresh();
+	private final Runnable changeListener = this::refresh;
 
 	/**
 	 * Create a new instance.
@@ -123,9 +121,12 @@ public final class ClassifierWithBindingsField<N, D, T, C> extends Composite {
 		}
 	}
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.run(shell -> {
-			new ClassifierWithBindingsField<>(shell, new TestPrototypeBindingsModel(), null);
-		});
+		SwtUtil.run(shell -> new ClassifierWithBindingsField<>(shell, new TestPrototypeBindingsModel(), null));
 	}
 }

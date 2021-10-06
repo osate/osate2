@@ -52,35 +52,27 @@
          <attribute name="id" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  A unique identifier that will be used to reference the image.
                </documentation>
             </annotation>
          </attribute>
          <attribute name="plugin" type="string">
             <annotation>
                <documentation>
-                  
+                  The plugin id of the plugin containing the image. If not specified, the plugin defaults to the current plugin.
                </documentation>
             </annotation>
          </attribute>
          <attribute name="path" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  The filepath of the image relative to the specified plugin.
                </documentation>
             </annotation>
          </attribute>
       </complexType>
    </element>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="since"/>
-      </appinfo>
-      <documentation>
-         [Enter the first release in which this extension point appears.]
-      </documentation>
-   </annotation>
 
    <annotation>
       <appinfo>
@@ -93,26 +85,7 @@
       </documentation>
    </annotation>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="apiinfo"/>
-      </appinfo>
-      <documentation>
-         Element: image
- Attribute: id - unique identifier for the image
- Attribute: plugin (optional) - plugin identifier, used if filepath is relative to a specified plugin
- Attribute: path - filepath of the image
-      </documentation>
-   </annotation>
 
-   <annotation>
-      <appinfo>
-         <meta.section type="implementation"/>
-      </appinfo>
-      <documentation>
-         [Enter information about supplied implementation of this extension point.]
-      </documentation>
-   </annotation>
 
 
 </schema>

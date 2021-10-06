@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -28,24 +28,23 @@ import org.osate.ge.query.FilterArguments;
 
 /**
  * Simple implementation of ConditionArguments and FilterArguments
- * @param  is the type of the query argument
  */
-public class ExpressionArguments implements ConditionArguments, FilterArguments {
-	private QueryExecutionState state;
+public class ExpressionArguments<T> implements ConditionArguments<T>, FilterArguments<T> {
+	private QueryExecutionState<T> state;
 	private BusinessObjectContext container;
 
-	void update(final QueryExecutionState state, final BusinessObjectContext container) {
+	void update(final QueryExecutionState<T> state, final BusinessObjectContext container) {
 		this.state = state;
 		this.container = container;
-	}		
-	
+	}
+
 	@Override
 	public Object getBusinessObject() {
 		return container.getBusinessObject();
 	}
 
 	@Override
-	public Object getQueryArgument() {
+	public T getQueryArgument() {
 		return state.arg;
-	}	
+	}
 }

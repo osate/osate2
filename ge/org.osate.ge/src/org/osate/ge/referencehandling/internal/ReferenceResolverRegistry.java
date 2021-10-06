@@ -30,7 +30,7 @@ import org.osate.ge.referencehandling.ReferenceResolverFactory;
 import com.google.common.collect.ImmutableCollection;
 
 /**
- * Instantiates extensions registered using the reference resolvers extension point.
+ * Instantiates registered reference resolver factory extensions.
  *
  */
 public class ReferenceResolverRegistry {
@@ -38,11 +38,19 @@ public class ReferenceResolverRegistry {
 
 	private final ImmutableCollection<ReferenceResolverFactory> factories;
 
+	/**
+	 * Creates a new instance
+	 * @param registry the eclipse extension registry
+	 */
 	public ReferenceResolverRegistry(final IExtensionRegistry registry) {
 		this.factories = EclipseExtensionUtil.instantiateSimpleExtensions(registry,
 				EXTENSION_POINT_ID, "factory", ReferenceResolverFactory.class);
 	}
 
+	/**
+	 * Returns the reference resolver factories
+	 * @return the reference resolver factories
+	 */
 	public ImmutableCollection<ReferenceResolverFactory> getFactories() {
 		return factories;
 	}

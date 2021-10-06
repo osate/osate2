@@ -33,7 +33,14 @@ import org.osgi.framework.BundleContext;
 
 import javafx.scene.image.Image;
 
+/**
+ * The bundle activator for the plugin.
+ *
+ */
 public final class AgeGefUiPlugin extends AbstractUIPlugin {
+	/**
+	 * Constant containing the bundle/plugin ID.
+	 */
 	public static final String PLUGIN_ID = "org.osate.ge.gef.ui";
 
 	// The shared instance

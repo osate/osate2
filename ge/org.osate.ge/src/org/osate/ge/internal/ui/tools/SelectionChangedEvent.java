@@ -41,6 +41,7 @@ public final class SelectionChangedEvent {
 
 	/**
 	 * Creates a new instance.
+	 * @param selectedBocs the selected business object contexts
 	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
 	public SelectionChangedEvent(ImmutableList<BusinessObjectContext> selectedBocs) {

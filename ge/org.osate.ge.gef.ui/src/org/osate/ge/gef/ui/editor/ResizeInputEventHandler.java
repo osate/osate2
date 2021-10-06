@@ -57,6 +57,10 @@ import javafx.scene.transform.Transform;
 public class ResizeInputEventHandler implements InputEventHandler {
 	private final AgeEditor editor;
 
+	/**
+	 * Creates a new instance
+	 * @param editor the editor from which events originate.
+	 */
 	public ResizeInputEventHandler(final AgeEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 	}
@@ -82,6 +86,10 @@ public class ResizeInputEventHandler implements InputEventHandler {
 	}
 }
 
+/**
+ * Interaction which resizes the selected diagram elements
+ *
+ */
 class ResizeInteraction extends BaseInteraction {
 	private final AgeEditor editor;
 	private final ResizeShapeHandle handle;
@@ -89,6 +97,11 @@ class ResizeInteraction extends BaseInteraction {
 	private final List<DiagramElementSnapshot> elementsToResize;
 	private final GuideOverlay guides;
 
+	/**
+	 * Creates a new instance
+	 * @param editor the editor containing the diagram being modified
+	 * @param e the mouse pressed event which started the interaction
+	 */
 	public ResizeInteraction(final AgeEditor editor, final MouseEvent e) {
 		this.editor = editor;
 		this.handle = (ResizeShapeHandle) e.getTarget();
@@ -150,7 +163,7 @@ class ResizeInteraction extends BaseInteraction {
 			//
 			double minChildLayoutX = Double.POSITIVE_INFINITY;
 			double minChildLayoutY = Double.POSITIVE_INFINITY;
-			for (final DiagramElement childDiagramElement : snapshot.diagramElement.getDiagramElements()) {
+			for (final DiagramElement childDiagramElement : snapshot.diagramElement.getChildren()) {
 				final Node childSceneNode = editor.getGefDiagram().getSceneNode(childDiagramElement);
 				if (childSceneNode instanceof ContainerShape) {
 					minChildLayoutX = Math.min(minChildLayoutX, childSceneNode.getLayoutX());
@@ -230,13 +243,14 @@ class ResizeInteraction extends BaseInteraction {
 						: (newPositionY - currentPreferredPosition.getY());
 
 				// Reposition children so that their absolute positions do not change.
-				for (final DiagramElement childDiagramElement : snapshot.diagramElement.getDiagramElements()) {
+				for (final DiagramElement childDiagramElement : snapshot.diagramElement.getChildren()) {
 					final Node childSceneNode = editor.getGefDiagram().getSceneNode(childDiagramElement);
 					if (childSceneNode instanceof ContainerShape || childSceneNode instanceof DockedShape
 							|| childSceneNode instanceof FlowIndicatorNode) {
 						final Point2D childPosition = PreferredPosition.get(childSceneNode);
 						if (childPosition != null) {
-							final double newPreferredPositionX, newPreferredPositionY;
+							final double newPreferredPositionX;
+							final double newPreferredPositionY;
 
 							// Special handling of flow indicators since they will only shift in one axis.
 							// This assumes the flow indicator is attaches to a vertical side.
@@ -295,9 +309,7 @@ class ResizeInteraction extends BaseInteraction {
 		}
 
 		// Resize diagram elements by updating the diagram to reflect the current scene graph
-		editor.getDiagram().modify("Resize", m -> {
-			editor.getGefDiagram().updateDiagramFromSceneGraph();
-		});
+		editor.getDiagram().modify("Resize", m -> editor.getGefDiagram().updateDiagramFromSceneGraph());
 
 		return InteractionState.COMPLETE;
 	}
@@ -332,6 +344,11 @@ class ResizeInteraction extends BaseInteraction {
 		return results;
 	}
 
+	/**
+	 * Returns the cursor to be shown when the mouse cursor is over the specified resize shape handle.
+	 * @param handle the handle for which to get the cursor
+	 * @return the cursor based on the handle's direction
+	 */
 	static Cursor getCursor(final ResizeShapeHandle handle) {
 		final Vector d = handle.getDirection();
 

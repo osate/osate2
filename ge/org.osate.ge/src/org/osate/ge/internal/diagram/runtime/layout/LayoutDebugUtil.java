@@ -24,7 +24,6 @@
 package org.osate.ge.internal.diagram.runtime.layout;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Collections;
 
 import org.eclipse.core.resources.IProject;
@@ -34,22 +33,27 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.PlatformUI;
+import org.osate.ge.internal.GraphicalEditorException;
 
 /**
- * Helper class for debugging layout issues. Functions are no-op unless the enabled flag is true.
- * If this is used regularly, this should likely be switched to use a preference.
+ * Utility class for debugging layout issues. Functions are no-op unless the enabled flag is true.
+ * The flag is intended to be enabled while debugging layout issues and then disabled before being committed.
  */
-class LayoutDebugUtil {
-	private static final boolean saveGraphEnabled = false;
-	private static final boolean showGraphEnabled = false;
-	private static final String magicProjectName = "__osate_ge_debug";
+final class LayoutDebugUtil {
+	private LayoutDebugUtil() {
+	}
 
-	static void saveElkGraphToDebugProject(final ElkNode g, final String suffix) {
-		if (saveGraphEnabled) {
-			final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(magicProjectName);
+	private static final boolean SAVE_GRAPH_ENABLED = false;
+	private static final String MAGIC_PROJECT_NAME = "__osate_ge_debug";
+
+	/**
+	 * When {@link #SAVE_GRAPH_ENABLED} is true, saves the ELK graph to a file in the {@link #MAGIC_PROJECT_NAME} project.
+	 * @param g the graph to safe
+	 * @param suffix an identifier to add to the name of the file.
+	 */
+	public static void saveElkGraphToDebugProject(final ElkNode g, final String suffix) {
+		if (SAVE_GRAPH_ENABLED) {
+			final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(MAGIC_PROJECT_NAME);
 			if (project != null && project.exists()) {
 				final URI uri = URI
 						.createPlatformResourceURI(
@@ -62,27 +66,9 @@ class LayoutDebugUtil {
 				try {
 					resource.save(Collections.emptyMap());
 				} catch (IOException e) {
-					throw new RuntimeException(e);
+					throw new GraphicalEditorException(e);
 				}
 			}
-		}
-	}
-
-	static void showGraphInLayoutGraphView(final ElkNode n) {
-		if (showGraphEnabled) {
-			Display.getCurrent().syncExec(() -> {
-				try {
-					final IViewPart viewPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-							.showView("org.eclipse.elk.debug.graphView");
-					if (viewPart != null) {
-						final Method updateWithGraphMethod = viewPart.getClass().getMethod("updateWithGraph",
-								ElkNode.class);
-						updateWithGraphMethod.invoke(null, n);
-					}
-				} catch (final Exception e) {
-					e.printStackTrace();
-				}
-			});
 		}
 	}
 }

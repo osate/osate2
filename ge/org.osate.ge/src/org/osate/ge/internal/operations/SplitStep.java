@@ -28,18 +28,26 @@ import java.util.Objects;
 import com.google.common.collect.ImmutableList;
 
 /**
- * A step that contains multiple next steps. Each next steps is a separate chain of steps which will all be provided the same previous step.
+ * A step that contains multiple next steps. Each next steps is a separate sequence of steps which will all be provided the same previous step.
  * A split step does not have a result.
  *
  */
 public class SplitStep extends AbstractStep {
 	private final ImmutableList<Step> steps;
 
+	/**
+	 * Creates a new instance
+	 * @param steps the list of next steps. Each step is separate sequence of steps which will share the same previous step.
+	 */
 	public SplitStep(final ImmutableList<Step> steps) {
 		super(null);
 		this.steps = Objects.requireNonNull(steps, "steps must not be null");
 	}
 
+	/**
+	 * Returns the next step sequences
+	 * @return the next steps
+	 */
 	public ImmutableList<Step> getSteps() {
 		return steps;
 	}

@@ -29,7 +29,7 @@ import org.osate.ge.graphics.internal.Poly;
 import org.osate.ge.graphics.internal.Poly.Type;
 
 /**
- * Builder for creating polygon or polyline graphics. Builds polygon by default.
+ * Builder for creating polygon and polyline graphics. Builds polygon by default.
  * @noextend
  * @see Graphic
  */
@@ -38,6 +38,10 @@ public class PolyBuilder {
 	private Dimension fixedSize;
 	private Type type = Type.POLYGON;
 
+	/**
+	 * Private constructor to prevent direct instantiation.
+	 * @see #create()
+	 */
 	private PolyBuilder() {}
 
 	/**

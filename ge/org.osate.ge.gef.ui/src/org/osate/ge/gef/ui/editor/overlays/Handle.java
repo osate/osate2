@@ -29,6 +29,10 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
  * A handle is a user interface element that is shown in the diagram and is used to modify a diagram element.
  */
 public interface Handle {
+	/**
+	 * Returns the diagram element which the handle is used to modify.
+	 * @return the diagram element which the handle is used to modify.
+	 */
 	DiagramElement getDiagramElement();
 
 	/**

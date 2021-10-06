@@ -26,8 +26,11 @@ package org.osate.ge.palette;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.osate.ge.Categories;
+import org.osate.ge.aadl2.AadlCategories;
+
 /**
- * Implementation of the {@link PaletteCommand} interface. Intended to serve as a base class for palette commands.
+ * Abstract implementation of the {@link PaletteCommand} interface. Intended to serve as a base class for palette commands.
  * @since 2.0
  *
  */
@@ -36,7 +39,13 @@ public abstract class BasePaletteCommand implements PaletteCommand {
 	private final String categoryId;
 	private final String iconId;
 
-	public BasePaletteCommand(final String label, final String categoryId, final String iconId) {
+	/**
+	 * Create a new instance
+	 * @param label the text shown in the palette
+	 * @param categoryId the ID of the category for the command. Categories are represented as folders. Categories are registered using {@link PaletteContributor}. Constants for predefined categories are defined by {@link Categories} and {@link AadlCategories}
+	 * @param iconId the ID of the icon shown in the palette. Image IDs are registered using the <i>org.osate.ge.images</i> extension point.
+	 */
+	protected BasePaletteCommand(final String label, final String categoryId, final String iconId) {
 		this.label = Objects.requireNonNull(label, "label must not be null");
 		this.categoryId = Objects.requireNonNull(categoryId, "categoryId must not be null");
 		this.iconId = iconId;
