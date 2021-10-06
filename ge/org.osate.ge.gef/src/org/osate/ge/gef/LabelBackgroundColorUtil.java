@@ -38,11 +38,12 @@ class LabelBackgroundColorUtil {
 
 	/**
 	 * Sets the label background color by calling {@link HasLabelBackgroundColor#setLabelBackgroundColor(Color)} on the specified nodes.
+	 * @param <N> the type of nodes contained in the specified node collection
 	 * @param nodes the nodes for which to set the label background color
 	 * @param value the label background color
 	 */
-	public static void setLabelBackgroundColor(final List<? extends Node> nodes, Color value) {
-		for (final Node n : nodes) {
+	public static <N extends Node> void setLabelBackgroundColor(final List<N> nodes, Color value) {
+		for (final N n : nodes) {
 			if (n instanceof HasLabelBackgroundColor) {
 				((HasLabelBackgroundColor) n).setLabelBackgroundColor(value);
 			}

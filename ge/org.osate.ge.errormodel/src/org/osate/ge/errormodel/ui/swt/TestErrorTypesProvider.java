@@ -9,9 +9,16 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 
+/**
+ * Implementation of {@link NamedObjectsProvider} which provides a fixed set of {@link ErrorType} instances for use in test view models.
+ *
+ */
 public class TestErrorTypesProvider implements NamedObjectsProvider<ErrorTypes> {
 	private final List<ErrorTypes> values = new ArrayList<>();
 
+	/**
+	 * Creates a new instance
+	 */
 	public TestErrorTypesProvider() {
 		values.add(createType("T1"));
 		values.add(createType("T2"));

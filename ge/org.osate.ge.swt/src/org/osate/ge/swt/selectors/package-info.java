@@ -23,6 +23,6 @@
  */
 
 /**
- * Component for selecting from and editing lists.
+ * Contains components for selecting from and editing lists.
  */
 package org.osate.ge.swt.selectors;

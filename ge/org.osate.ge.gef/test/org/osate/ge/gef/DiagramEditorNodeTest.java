@@ -23,17 +23,21 @@
  */
 package org.osate.ge.gef;
 
-import org.osate.gef.palette.TestPaletteModel;
+import org.osate.ge.gef.palette.TestPaletteModel;
 
 import javafx.scene.layout.VBox;
 
 /**
- * Standalone test application for {@link DiagramEditorNode}
+ * Interactive test application for {@link DiagramEditorNode}
  */
 public class DiagramEditorNodeTest {
 	private DiagramEditorNodeTest() {
 	}
 
+	/**
+	 * Entry point for the test application
+	 * @param args command line arguments
+	 */
 	public static void main(final String[] args) {
 		NodeApplication.run(() -> {
 			return new DiagramEditorNode(new TestPaletteModel(), new VBox());

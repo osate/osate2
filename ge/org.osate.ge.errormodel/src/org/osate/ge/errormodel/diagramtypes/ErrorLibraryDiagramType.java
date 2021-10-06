@@ -33,12 +33,14 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
 
+/**
+ * Diagram type which shows the contents of a package's error type library
+ */
 public class ErrorLibraryDiagramType implements DiagramType {
-	private final static String ID = "em.typeLibrary";
-
-	private final ImmutableSet<String> defaultPackageFilters = ImmutableSet.of(ErrorTypeFilter.ID,
+	private static final String ID = "em.typeLibrary";
+	private static final ImmutableSet<String> defaultPackageFilters = ImmutableSet.of(ErrorTypeFilter.ID,
 			TypeSetFilter.ID);
-	private final ImmutableSet<String> defaultErrorTypeFilters = ImmutableSet.of(ErrorTypeExtensionFilter.ID);
+	private static final ImmutableSet<String> defaultErrorTypeFilters = ImmutableSet.of(ErrorTypeExtensionFilter.ID);
 
 	@Override
 	public String getId() {

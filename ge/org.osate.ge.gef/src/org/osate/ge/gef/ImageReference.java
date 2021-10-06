@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
  * A reference to an image. Created and updated by {@link ImageManager}.
  */
 public class ImageReference {
-	private ReadOnlyObjectWrapper<Image> image = new ReadOnlyObjectWrapper<Image>(null);
+	private ReadOnlyObjectWrapper<Image> image = new ReadOnlyObjectWrapper<>(null);
 
 	/**
 	 * Creates a new instance

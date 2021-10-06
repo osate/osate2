@@ -37,7 +37,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Helper class intended for testing purposes.
+ * Application used for creating JavaFX interactive test applications. The application creates a window which shows one or more nodes.
  *
  */
 public class NodeApplication extends Application {

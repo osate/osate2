@@ -26,9 +26,11 @@ package org.osate.ge.ba;
 import java.util.List;
 import java.util.Optional;
 
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.ge.CanonicalBusinessObjectReference;
+import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
 import org.osate.ge.referencehandling.CreateReferenceResolverFactoryContext;
 import org.osate.ge.referencehandling.ReferenceResolver;
@@ -37,7 +39,15 @@ import org.osate.ge.referencehandling.ResolveContext;
 
 import com.google.common.primitives.Longs;
 
+/**
+ * Reference resolver for canonical references produces by {@link BusinessObjectHandler} implementations defined by this plugin.
+ *
+ */
 public class BehaviorAnnexReferenceResolver implements ReferenceResolver {
+	/**
+	 * Factory for {@link BehaviorAnnexReferenceResolver}
+	 *
+	 */
 	public static class Factory implements ReferenceResolverFactory {
 		@Override
 		public ReferenceResolver create(final CreateReferenceResolverFactoryContext ctx) {
@@ -75,18 +85,27 @@ public class BehaviorAnnexReferenceResolver implements ReferenceResolver {
 		final Long index = Longs.tryParse(ref.get(3));
 		if (index != null && index >= 0) {
 			final Classifier classifier = (Classifier) ref1;
-			return getBehaviorAnnexByQualifiedName(classifier, BehaviorAnnexReferenceUtil.ANNEX_NAME, index);
+			return findParsedBehaviorAnnexSubclause(classifier, BehaviorAnnexReferenceUtil.ANNEX_NAME, index)
+					.map(Object.class::cast);
 		}
 
 		return Optional.empty();
 	}
 
-	public static Optional<Object> getBehaviorAnnexByQualifiedName(final Classifier classifier,
+	/**
+	 * Finds a parsed annex subclause
+	 * @param classifier the classifier containing the subclause
+	 * @param annexSubclauseName the name of the subclause
+	 * @param index the index of the subclause to returned out of the sequence of subclauses which have the specified name. Does not consider extended classifiers.
+	 * @return an optional containing the requested subclause. An empty optional is returned if the subclause was not found.
+	 */
+	private static Optional<AnnexSubclause> findParsedBehaviorAnnexSubclause(final Classifier classifier,
 			final String annexSubclauseName,
 			final Long index) {
 		return classifier.getSelfPlusAllExtended().stream().sequential()
 				.flatMap(c -> c.getOwnedAnnexSubclauses().stream().sequential())
-				.filter(as -> annexSubclauseName.equalsIgnoreCase(as.getName())).skip(index)
+				.filter(as -> annexSubclauseName.equalsIgnoreCase(as.getName()))
+				.skip(index)
 				.findFirst()
 				.map(as -> ((DefaultAnnexSubclause) as).getParsedAnnexSubclause());
 	}

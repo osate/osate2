@@ -35,9 +35,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+/**
+ * Node which represents a single palette item
+ *
+ * @param <I> the type of the palette item model object
+ */
 public class PaletteItem<I> extends VBox {
 	/**
-	 * Style class used to find palette item durign tests.
+	 * Style class used to find palette item during tests.
 	 */
 	public static final String STYLE_CLASS = "palette_item";
 
@@ -50,6 +55,11 @@ public class PaletteItem<I> extends VBox {
 	private final I item;
 	private ChangeListener<I> listener;
 
+	/**
+	 * Creates a new instance
+	 * @param model the palette model which defines the contents of the palette
+	 * @param item the palette item represented by this node
+	 */
 	public PaletteItem(final PaletteModel<?, I> model, I item) {
 		this.model = Objects.requireNonNull(model, "model must not be null");
 		this.item = Objects.requireNonNull(item, "item must not be null");
@@ -72,9 +82,7 @@ public class PaletteItem<I> extends VBox {
 
 		button.setAlignment(Pos.BASELINE_LEFT);
 		button.setGraphic(new ImageView(model.getItemIcon(item)));
-		button.setOnAction(e -> {
-			model.activateItem(item);
-		});
+		button.setOnAction(e -> model.activateItem(item));
 		this.getChildren().add(button);
 		updateStyle();
 	}

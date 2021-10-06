@@ -26,11 +26,8 @@ package org.osate.ge.gef;
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.geometry.Dimension2D;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
@@ -75,9 +72,8 @@ public class EllipseNode extends Region implements ChopBoxGeometryProvider, Styl
 		ellipse.setStrokeType(StrokeType.INSIDE);
 		ellipse.setStrokeLineCap(StrokeLineCap.BUTT);
 
-		setLineWidth(2.0);
-		setBackgroundColor(Color.WHITE);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
 	@Override
@@ -96,26 +92,10 @@ public class EllipseNode extends Region implements ChopBoxGeometryProvider, Styl
 
 	@Override
 	public final void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
-	}
-
-	public final void setBackgroundColor(final Color value) {
-		ellipse.setFill(value);
-	}
-
-	public final void setOutlineColor(final Color value) {
-		ellipse.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		ellipse.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		ellipse.getStrokeDashArray().setAll(value);
+		ellipse.setFill(style.getBackgroundColor());
+		ellipse.setStroke(style.getOutlineColor());
+		ellipse.setStrokeWidth(style.getLineWidth());
+		ellipse.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 
 	@Override

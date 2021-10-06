@@ -32,7 +32,6 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.RelativeBusinessObjectReference;
 import org.osate.ge.aadl2.internal.diagramtypes.CustomDiagramType;
@@ -40,7 +39,8 @@ import org.osate.ge.businessobjecthandling.BusinessObjectHandler;
 import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.Style;
-import org.osate.ge.internal.diagram.runtime.botree.Completeness;
+import org.osate.ge.internal.GraphicalEditorException;
+import org.osate.ge.internal.diagram.runtime.updating.Completeness;
 import org.osate.ge.internal.model.EmbeddedBusinessObject;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.AgeAction;
@@ -53,21 +53,17 @@ import com.google.common.collect.Lists;
  * Represents the state of the diagram independent of the UI library being used to present the diagram.
  * Listeners are used to provide notifications when the diagram state changes. For example: when an element is moved listeners are notified.
  */
-public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContainer {
+public class AgeDiagram extends DiagramNode {
 	private final List<DiagramModificationListener> modificationListeners = new CopyOnWriteArrayList<>();
 	private DiagramConfiguration diagramConfiguration;
 	private final DiagramElementCollection elements = new DiagramElementCollection();
 	private ActionExecutor actionExecutor = new SimpleActionExecutor();
 	private boolean actionExecutorSet = false;
 	private DiagramModification currentModification;
-
-	// Incrementing number that is not persisted which indicates a change that would affect the persisted version of the diagram.
-	// Used to determine whether a diagram is "dirty"
 	private int changeNumber = 0;
 
 	/**
-	 *
-	 * @param startingElementId is the id of the first diagram element which has an id automatically assigned to it.
+	 * Creates a new instance
 	 */
 	public AgeDiagram() {
 		this.diagramConfiguration = new DiagramConfiguration(new CustomDiagramType(), null, Collections.emptySet(),
@@ -75,65 +71,85 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	}
 
 	/**
-	 * Returns a copy of the diagram configuration
-	 * @return
+	 * Returns the diagram configuration
+	 * @return the diagram configuration
 	 */
 	public DiagramConfiguration getConfiguration() {
 		return diagramConfiguration;
 	}
 
 	@Override
-	public DiagramNode getContainer() {
+	public DiagramNode getParent() {
 		return null;
 	}
 
 	@Override
-	public Collection<DiagramElement> getDiagramElements() {
+	public Collection<DiagramElement> getChildren() {
 		return Collections.unmodifiableCollection(elements);
 	}
 
 	@Override
-	public DiagramElementCollection getModifiableDiagramElements() {
+	public DiagramElementCollection getModifiableChildren() {
 		return elements;
 	}
 
 	@Override
-	public DiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
+	public DiagramElement getChildByRelativeReference(final RelativeBusinessObjectReference ref) {
 		return elements.getByRelativeReference(ref);
 	}
 
+	/**
+	 * Adds a listener which is notified when the diagram is modified
+	 * @param listener the listener to notify
+	 * @see #removeModificationListener(DiagramModificationListener)
+	 */
 	public void addModificationListener(final DiagramModificationListener listener) {
 		this.modificationListeners.add(Objects.requireNonNull(listener, "listener must not be null"));
 	}
 
+	/**
+	 * Removes a listener from the collection of listeners which are notified when the diagram is modified
+	 * @param listener the listener to remove. If the instance is not in the listener collection, it is ignored.
+	 * @see #addModificationListener(DiagramModificationListener)
+	 */
 	public void removeModificationListener(final DiagramModificationListener listener) {
 		this.modificationListeners.remove(Objects.requireNonNull(listener, "listener must not be null"));
 	}
 
 	/**
 	 * Sets the action executor to be used when performing modifications.
-	 * Must be set at most once. An exception will be thrown if this method is called more than once.
+	 * Must be set at most once. An exception will be thrown if this method is called more than once without resetting the action listener.
 	 * If the action executor is not set, a default action executor which simply executes the action will be used.
-	 * @param actionExecutor
+	 * @param actionExecutor the action executor to use when performing modifications
+	 * @see #resetActionExecutor()
 	 */
 	public void setActionExecutor(final ActionExecutor actionExecutor) {
 		if (actionExecutorSet) {
-			throw new RuntimeException("The action executor for the diagram must not be set multiple times");
+			throw new GraphicalEditorException("The action executor for the diagram must not be set multiple times");
 		}
 
 		this.actionExecutor = Objects.requireNonNull(actionExecutor, "actionExecutor must not be null");
 		actionExecutorSet = true;
 	}
 
+	/**
+	 * Resets the action executor. Sets the action executor to a default value which simply executes the action. Once this method has been
+	 * called, {@link #setActionExecutor(ActionExecutor)} may be called again. The set -> reset mechanism is used to detect errors which
+	 * would occur if the action executor was replaced. Diagrams editors typically create the action executor and the same action executor
+	 * should be used for all actions related to the diagram.
+	 * @see #setActionExecutor(ActionExecutor)
+	 */
 	public void resetActionExecutor() {
 		this.actionExecutor = new SimpleActionExecutor();
 		actionExecutorSet = false;
 	}
 
 	/**
-	 * Calls a modifier to modify the diagram. The current action executor will be used to execute the modification.
-	 * @param label
-	 * @param modifier
+	 * Calls a modifier to modify the diagram. If a modification is not in progress, a new action will be executed using the current action executor.
+	 * If a modification is in progress, the modification will simply be performed as part of the current modification.
+	 * @param label the label for the action. If a modification is already in progress, then it will be ignored.
+	 * @param modifier the modifier which performs the modification.
+	 * @see #setActionExecutor(ActionExecutor)
 	 */
 	public synchronized void modify(final String label, final DiagramModifier modifier) {
 		final boolean modificationInProgress = currentModification != null;
@@ -172,27 +188,33 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		return sb.toString();
 	}
 
-	@Override
-	public Collection<BusinessObjectContext> getChildren() {
-		return Collections.unmodifiableCollection(elements);
-	}
-
 	// The diagram does not have a business object. However, the diagram configuration may provide a business object to scope the diagram.
 	@Override
 	public Object getBusinessObject() {
 		return null;
 	}
 
+	/**
+	 * Searches for a diagram element using the specified ID
+	 * @param id the ID of the element to return
+	 * @return the element with the specified ID. Returns null if the element cannot be returned.
+	 * @see DiagramElement#getId()
+	 */
 	public DiagramElement findElementById(final UUID id) {
 		return findDescendantById(this, id);
 	}
 
+	/**
+	 * Returns the change number. The change number is an Incrementing number that is not persisted which indicates the diagram has been
+	 * modified in a way which would affect the persisted version of the diagram. Used to determine whether a diagram is "dirty".
+	 * @return the change number
+	 */
 	public int getCurrentChangeNumber() {
 		return changeNumber;
 	}
 
 	private static DiagramElement findDescendantById(final DiagramNode container, final UUID id) {
-		for (final DiagramElement child : container.getDiagramElements()) {
+		for (final DiagramElement child : container.getChildren()) {
 			if (Objects.equals(id, child.getId())) {
 				return child;
 			}
@@ -206,6 +228,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		return null;
 	}
 
+	/**
+	 * {@link DiagramModification} implementation which modifies diagram elements. It also tracks changes to allow undo and redo.
+	 */
 	private class AgeDiagramModification implements DiagramModification {
 		private DiagramElement addedElement;
 		private DiagramElement updatedElement;
@@ -261,7 +286,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			final boolean valuesAreEqual = Objects.equals(relativeReference, e.getRelativeReference());
 			boolean wasRemoved = false;
 			if (!valuesAreEqual) {
-				wasRemoved = e.getModifiableContainer().getModifiableDiagramElements().remove(e);
+				wasRemoved = e.getParent().getModifiableChildren().remove(e);
 
 				storeFieldChange(e, ModifiableField.RELATIVE_REFERENCE, e.getRelativeReference(), relativeReference);
 			}
@@ -272,7 +297,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 			if (!valuesAreEqual) {
 				if (wasRemoved) {
-					e.getModifiableContainer().getModifiableDiagramElements().add(e);
+					e.getParent().getModifiableChildren().add(e);
 				}
 
 				afterUpdate(e, ModifiableField.RELATIVE_REFERENCE);
@@ -291,7 +316,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			if (bo instanceof EmbeddedBusinessObject) {
 				// Conversion from non-embedded to an embedded object is not supported.
 				if (!(e.getBusinessObject() instanceof EmbeddedBusinessObject)) {
-					throw new RuntimeException(
+					throw new GraphicalEditorException(
 							"Invalid case. Conversion from non-embeedded to embedded business object");
 				}
 
@@ -449,7 +474,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				notifyListeners();
 			}
 
-			e.getModifiableContainer().getModifiableDiagramElements().remove(e);
+			e.getParent().getModifiableChildren().remove(e);
 			removedElement = e;
 			changes.add(new RemoveElementChange(e));
 		}
@@ -461,7 +486,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				notifyListeners();
 			}
 
-			e.getModifiableContainer().getModifiableDiagramElements().add(e);
+			e.getParent().getModifiableChildren().add(e);
 			addedElement = e;
 			changes.add(new AddElementChange(e));
 		}

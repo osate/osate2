@@ -30,7 +30,16 @@ import java.util.Map;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.contrib.aadlproject.DataRateUnits;
+import org.osate.aadl2.contrib.aadlproject.SizeUnits;
+import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.communication.CommunicationProperties;
+import org.osate.aadl2.contrib.communication.RateSpec.RateUnit_FieldType;
+import org.osate.aadl2.contrib.memory.MemoryProperties;
+import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -50,13 +59,15 @@ import org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualB
 import org.osate.analysis.resource.budgets.internal.models.busload.Connection;
 import org.osate.analysis.resource.budgets.internal.models.busload.VirtualBus;
 import org.osate.analysis.resource.budgets.internal.models.busload.util.BusloadSwitch;
+import org.osate.contribution.sei.sei.DataRate;
+import org.osate.contribution.sei.sei.MessageRate;
+import org.osate.contribution.sei.sei.Sei;
+import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.result.AnalysisResult;
-import org.osate.result.DiagnosticType;
 import org.osate.result.Result;
 import org.osate.result.ResultType;
 import org.osate.result.util.ResultUtil;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * Class for performing "bus load" analysis on a system.  Basically it makes sure all the connections and buses
@@ -228,8 +239,8 @@ public final class NewBusLoadAnalysis {
 			final EObject parent = bus.eContainer();
 			final double parentOverhead = parent instanceof BusLoadModel ? 0.0
 					: ((BusOrVirtualBus) parent).getDataOverhead();
-			final double localOverheadKBytesps = GetProperties.getDataSize(busInstance,
-					GetProperties.getKBUnitLiteral(busInstance));
+			final double localOverheadKBytesps = PropertyUtils
+					.getScaled(MemoryProperties::getDataSize, busInstance, SizeUnits.KBYTE).orElse(0.0);
 			bus.setDataOverhead(parentOverhead + localOverheadKBytesps);
 
 			return Nothing.NONE;
@@ -270,7 +281,9 @@ public final class NewBusLoadAnalysis {
 			final double actual = getConnectionActualKBytesps(connectionInstance.getSource(), dataOverheadKBytes);
 			connection.setActual(actual);
 
-			final double budget = GetProperties.getBandWidthBudgetInKBytesps(connectionInstance, 0.0);
+			final double budget = PropertyUtils
+					.getScaled(Sei::getBandwidthbudget, connectionInstance, DataRateUnits.KBYTESPS)
+					.orElse(0.0);
 			connection.setBudget(budget);
 
 			ResultUtil.addRealValue(connectionResult, budget);
@@ -278,12 +291,11 @@ public final class NewBusLoadAnalysis {
 
 			if (budget > 0.0) {
 				if (actual > budget) {
-					error(connectionResult, connectionInstance, "Connection " + connectionInstance.getName()
-							+ " -- Actual bandwidth > budget: " + actual + " KB/s > " + budget + " KB/s");
+					ResultUtil.addError(connectionResult, connectionInstance, "Connection " + connectionInstance.getName()
+					+ " -- Actual bandwidth > budget: " + actual + " KB/s > " + budget + " KB/s");
 				}
 			} else {
-				warning(connectionResult, connectionInstance,
-						"Connection " + connectionInstance.getName() + " has no bandwidth budget");
+				ResultUtil.addWarning(connectionResult, connectionInstance, "Connection " + connectionInstance.getName() + " has no bandwidth budget");
 			}
 
 			return Nothing.NONE;
@@ -317,10 +329,9 @@ public final class NewBusLoadAnalysis {
 
 			if (unequal) {
 				for (final Connection c : broadcast.getConnections()) {
-					warning(broadcastResult, c.getConnectionInstance(),
-							"Connection " + c.getConnectionInstance().getName() + " sharing broadcast source "
-									+ broadcast.getSource().getInstanceObjectPath() + " has budget " + c.getBudget()
-									+ " KB/s; using maximum");
+					ResultUtil.addWarning(broadcastResult, c.getConnectionInstance(), "Connection " + c.getConnectionInstance().getName() + " sharing broadcast source "
+					+ broadcast.getSource().getInstanceObjectPath() + " has budget " + c.getBudget()
+					+ " KB/s; using maximum");
 				}
 			}
 
@@ -351,8 +362,11 @@ public final class NewBusLoadAnalysis {
 			bus.setActual(actual);
 
 			final ComponentInstance busInstance = bus.getBusInstance();
-			final double capacity = GetProperties.getBandWidthCapacityInKBytesps(busInstance, 0.0);
-			final double budget = GetProperties.getBandWidthBudgetInKBytesps(busInstance, 0.0);
+			final double capacity = PropertyUtils
+					.getScaled(Sei::getBandwidthcapacity, busInstance, DataRateUnits.KBYTESPS)
+					.orElse(0.0);
+			final double budget = PropertyUtils.getScaled(Sei::getBandwidthbudget, busInstance, DataRateUnits.KBYTESPS)
+					.orElse(0.0);
 			bus.setBudget(budget);
 
 			ResultUtil.addRealValue(busResult, capacity);
@@ -365,26 +379,25 @@ public final class NewBusLoadAnalysis {
 			ResultUtil.addIntegerValue(busResult, myDataOverheadInBytes);
 
 			if (capacity == 0.0) {
-				warning(busResult, busInstance,
-						getLabel(bus) + busInstance.getName() + " has no capacity");
+				ResultUtil.addWarning(busResult, busInstance, getLabel(bus) + busInstance.getName() + " has no capacity");
 			} else {
 				if (actual > capacity) {
-					error(busResult, busInstance, getLabel(bus) + busInstance.getName()
-							+ " -- Actual bandwidth > capacity: " + actual + " KB/s > " + capacity + " KB/s");
+					ResultUtil.addError(busResult, busInstance, getLabel(bus) + busInstance.getName()
+					+ " -- Actual bandwidth > capacity: " + actual + " KB/s > " + capacity + " KB/s");
 				}
 			}
 
 			if (budget == 0.0) {
-				warning(busResult, busInstance, getLabel(bus) + busInstance.getName()
-						+ " has no bandwidth budget");
+				ResultUtil.addWarning(busResult, busInstance, getLabel(bus) + busInstance.getName()
+				+ " has no bandwidth budget");
 			} else {
 				if (budget > capacity) {
-					error(busResult, busInstance, getLabel(bus) + busInstance.getName()
-							+ " -- budget > capacity: " + budget + " KB/s > " + capacity + " KB/s");
+					ResultUtil.addError(busResult, busInstance, getLabel(bus) + busInstance.getName()
+					+ " -- budget > capacity: " + budget + " KB/s > " + capacity + " KB/s");
 				}
 				if (totalBudget > budget) {
-					error(busResult, busInstance, getLabel(bus) + busInstance.getName()
-							+ " -- Required budget > budget: " + totalBudget + " KB/s > " + budget + " KB/s");
+					ResultUtil.addError(busResult, busInstance, getLabel(bus) + busInstance.getName()
+					+ " -- Required budget > budget: " + totalBudget + " KB/s > " + budget + " KB/s");
 				}
 			}
 
@@ -413,21 +426,48 @@ public final class NewBusLoadAnalysis {
 		if (cie instanceof FeatureInstance) {
 			final FeatureInstance fi = (FeatureInstance) cie;
 			final double datasize = dataOverheadKBytes
-					+ GetProperties.getSourceDataSize(fi, GetProperties.getKBUnitLiteral(fi));
-			final double srcRate = GetProperties.getOutgoingMessageRatePerSecond(fi);
+					+ PropertyUtils.getScaled(MemoryProperties::getDataSize, fi, SizeUnits.KBYTE).orElseGet(
+							() -> PropertyUtils.getScaled(MemoryProperties::getSourceDataSize, fi, SizeUnits.KBYTE)
+									.orElse(0.0));
+			final double srcRate = getOutgoingMessageRatePerSecond(fi);
 			actualDataRate = datasize * srcRate;
 		}
 		return actualDataRate;
 	}
 
-	// ==== Error reporting methods for the visitor ===
-
-	private static void error(final Result result, final InstanceObject io, final String msg) {
-		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.ERROR));
+	private static double getOutgoingMessageRatePerSecond(final FeatureInstance fi) {
+		return PropertyUtils.getScaled(Sei::getDataRate, fi, DataRate.PERSECOND)
+				.orElseGet(
+						() -> PropertyUtils.getScaled(Sei::getMessageRate, fi, MessageRate.PERSECOND).orElseGet(() -> {
+					// Try to get rate from the OUTPUT_RATE record
+					final Classifier containingClassifier = fi.getContainingClassifier();
+					return CommunicationProperties.getOutputRate(fi).map(rateSpec -> {
+						final double maxDataRate = rateSpec.getValueRange().map(rr -> rr.getMaximum()).orElse(0.0);
+						return rateSpec.getRateUnit().filter(x -> x == RateUnit_FieldType.PERDISPATCH).map(ignore -> {
+							final double period = getPeriodInSeconds(
+									((InstanceObject) fi).getContainingComponentInstance());
+							return period == 0.0 ? 0.0 : maxDataRate / period;
+						}).orElseGet(() -> {
+							if (maxDataRate > 0.0) {
+								return maxDataRate;
+							} else {
+								// unit is PERSECOND, but the max data rate is missing, so try the period from the containing classifier
+								double period = getPeriodInSeconds(containingClassifier);
+								return period == 0.0 ? 0.0 : 1.0 / period;
+							}
+						});
+					}).orElseGet(
+							// Cannot get rate from the FeatureInstance, try the period of the containing classifier
+							() -> {
+								double period = getPeriodInSeconds(containingClassifier);
+								return period == 0.0 ? 0.0 : 1.0 / period;
+							});
+				}));
 	}
 
-	private static void warning(final Result result, final InstanceObject io, final String msg) {
-		result.getDiagnostics().add(ResultUtil.createDiagnostic(msg, io, DiagnosticType.WARNING));
+	private static double getPeriodInSeconds(final NamedElement containingClassifier) {
+		return PropertyUtils.getScaled(TimingProperties::getPeriod, containingClassifier,
+				TimeUnits.SEC).orElse(0.0);
 	}
 
 	@SuppressWarnings("unused")
@@ -492,5 +532,4 @@ public final class NewBusLoadAnalysis {
 		}, null);
 		pw.flush();
 	}
-
 }

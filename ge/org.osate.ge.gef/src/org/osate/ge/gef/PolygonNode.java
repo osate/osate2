@@ -28,11 +28,8 @@ import java.util.Objects;
 import org.eclipse.gef.fx.utils.NodeUtils;
 import org.eclipse.gef.geometry.planar.IGeometry;
 
-import com.google.common.collect.ImmutableList;
-
 import javafx.geometry.Dimension2D;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
@@ -41,7 +38,10 @@ import javafx.scene.shape.StrokeType;
  * Node for polygon graphics
  */
 public class PolygonNode extends Region implements ChopBoxGeometryProvider, Stylable {
-	private final Polygon poly = new Polygon();
+	/**
+	 * The actual polygon node
+	 */
+	final Polygon poly = new Polygon();
 	private double[] points;
 
 	/**
@@ -72,9 +72,8 @@ public class PolygonNode extends Region implements ChopBoxGeometryProvider, Styl
 		poly.setStrokeType(StrokeType.INSIDE);
 		poly.setStrokeLineCap(StrokeLineCap.BUTT);
 
-		setLineWidth(2.0);
-		setBackgroundColor(Color.WHITE);
-		setOutlineColor(Color.BLACK);
+		// Apply initial style
+		apply(FxStyle.DEFAULT);
 	}
 
 	@Override
@@ -93,26 +92,10 @@ public class PolygonNode extends Region implements ChopBoxGeometryProvider, Styl
 
 	@Override
 	public void apply(final FxStyle style) {
-		setBackgroundColor(style.getBackgroundColor());
-		setOutlineColor(style.getOutlineColor());
-		setLineWidth(style.getLineWidth());
-		setStrokeDashArray(style.getStrokeDashArray());
-	}
-
-	public final void setBackgroundColor(final Color value) {
-		poly.setFill(value);
-	}
-
-	public final void setOutlineColor(final Color value) {
-		poly.setStroke(value);
-	}
-
-	public final void setLineWidth(final double value) {
-		poly.setStrokeWidth(value);
-	}
-
-	public final void setStrokeDashArray(final ImmutableList<Double> value) {
-		poly.getStrokeDashArray().setAll(value);
+		poly.setFill(style.getBackgroundColor());
+		poly.setStroke(style.getOutlineColor());
+		poly.setStrokeWidth(style.getLineWidth());
+		poly.getStrokeDashArray().setAll(style.getStrokeDashArray());
 	}
 
 	@Override

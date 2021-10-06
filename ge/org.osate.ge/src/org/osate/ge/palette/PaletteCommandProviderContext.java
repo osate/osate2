@@ -45,7 +45,7 @@ public final class PaletteCommandProviderContext {
 
 	/**
 	 * Is the business object for the root of the diagram. Must not be null.
-	 * Contextless diagrams will have an IProject instance as the business object.
+	 * Diagrams without a context will have an IProject instance as the business object.
 	 * @return the business object for the diagram.
 	 */
 	public final Object getDiagramBusinessObject() {

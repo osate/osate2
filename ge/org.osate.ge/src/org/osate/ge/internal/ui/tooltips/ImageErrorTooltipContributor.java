@@ -36,6 +36,10 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.ui.TooltipContributor;
 import org.osate.ge.ui.TooltipContributorContext;
 
+/**
+ * Tooltip contributor which contributes an error message for diagram elements which are represented as images when the image could not be
+ * loaded.
+ */
 public class ImageErrorTooltipContributor  implements TooltipContributor {
 	@Override
 	public void addTooltipContents(final TooltipContributorContext ctx) {

@@ -16,7 +16,13 @@ import javafx.scene.control.ScrollBar;
 /**
  * Utility functions for implementing {@link InputEventHandler} and {@Interaction}
  */
-public class InputEventHandlerUtil {
+public final class InputEventHandlerUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private InputEventHandlerUtil() {
+	}
+
 	/**
 	 * If the event target is a {@link Node}, walks up the scene graph and returns the first {@link DiagramNode} associated with the node
 	 * or ancestors.

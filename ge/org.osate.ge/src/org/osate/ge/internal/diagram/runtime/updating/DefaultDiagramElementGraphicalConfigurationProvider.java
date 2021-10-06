@@ -45,6 +45,12 @@ public class DefaultDiagramElementGraphicalConfigurationProvider implements Diag
 	private final QueryService queryService;
 	private final AgeDiagramProvider diagramProvider;
 
+	/**
+	 * Creates a new instance
+	 * @param queryService the query service
+	 * @param diagramProvider the diagram provider
+	 * @param extService the extension registry
+	 */
 	public DefaultDiagramElementGraphicalConfigurationProvider(final QueryService queryService,
 			final AgeDiagramProvider diagramProvider,
 			final ExtensionRegistryService extService) {

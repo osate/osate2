@@ -56,21 +56,22 @@ public interface PaletteModel<G, I> {
 
 	/**
 	 * Requests the activation of a palette item.
-	 * If the active palette item is changed, it will be reflected by {@link activeItemProperty}.
+	 * If the active palette item is changed, it will be reflected by {@link #activeItemProperty}.
 	 * @param item is the palette item to activate.
 	 */
 	void activateItem(I item);
 
 	/**
-	 * Retrieves the active item.
-	 * @return the active item or null if no item is active
+	 * Gets the value of {@link #activeItemProperty()}
+	 * @return the active palette item or null if no item is active
 	 */
 	public default I getActiveItem() {
 		return activeItemProperty().getValue();
 	}
 
 	/**
-	 * Property for the active item.
+	 * The active palette item. The value of the property will be null if no item is active
+	 * @return the active palette item. The value of the property will be null if no item is active
 	 */
 	public ReadOnlyProperty<I> activeItemProperty();
 }

@@ -24,22 +24,55 @@
 package org.osate.ge.ba.util;
 
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.xbase.lib.Pair;
+import org.osate.aadl2.Element;
+import org.osate.ge.aadl2.AadlGraphicalEditorException;
+import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.PeekingIterator;
 
+/**
+ * Utility class for working with Xtext documents and resources within the OSATE graphical editor's behavior annex plugin.
+ *
+ */
 public class BehaviorAnnexXtextUtil {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private BehaviorAnnexXtextUtil() {
 	}
 
-	// All source text
+	/**
+	 * Returns the source of the resource which contains the specified element. If an Xtext document is open for the resource, then the contents
+	 * of the document will be returned.
+	 * @param element the element for which to return the resource source text
+	 * @return the source text of the resource which contains the specified element.
+	 */
+	public static String getText(final Element element) {
+		final Resource resource = element.eResource();
+		if (!(resource instanceof XtextResource)) {
+			throw new AadlGraphicalEditorException("resource must be XtextResource");
+		}
+
+		final IXtextDocument xtextDocument = AgeXtextUtil.getDocumentByRootElement(element.getElementRoot());
+		return getText(xtextDocument, (XtextResource) resource);
+	}
+
+	/**
+	 * Returns the source contained in the Xtext document. If the Xtext document is null, then the source contained in the resource is returned.
+	 * @param xtextDocument the {@link IXtextDocument} that contains the AADL source if not null
+	 * @param xtextResource the {@link XtextResource} that contains the AADL source if the xtextDocument is null
+	 * @return the complete source from the document or resource
+	 */
 	public static String getText(final IXtextDocument xtextDocument, final XtextResource xtextResource) {
 		if (xtextDocument == null) {
 			return xtextResource.getParseResult().getRootNode().getText();
@@ -85,8 +118,7 @@ public class BehaviorAnnexXtextUtil {
 	}
 
 	private static int findClosingBracket(final Iterator<Character> charPeekingIt,
-			final ImmutableList<Character> openBrackets, final ImmutableList<Character> closeBrackets,
-			int offset) {
+			final ImmutableList<Character> openBrackets, final ImmutableList<Character> closeBrackets, int offset) {
 		int bracketsOpenCount = 1;
 		for (; charPeekingIt.hasNext(); offset++) {
 			final Character c = charPeekingIt.next();
@@ -119,7 +151,8 @@ public class BehaviorAnnexXtextUtil {
 				.peekingIterator(str.chars().mapToObj(e -> (char) e).collect(Collectors.toList()).iterator());
 		for (int offset = 0; charPeekingIt.hasNext(); offset++) {
 			final Character c = charPeekingIt.next();
-			if (c == charsToMatch.getKey() && charPeekingIt.peek() == charsToMatch.getValue()) {
+			if (Objects.equals(c, charsToMatch.getKey())
+					&& Objects.equals(charPeekingIt.peek(), charsToMatch.getValue())) {
 				return offset + 2;
 			} else if (c == '-' && charPeekingIt.peek() == '-') {
 				for (offset = offset + 1; charPeekingIt.hasNext(); offset++) {

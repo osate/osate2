@@ -28,16 +28,31 @@ import java.util.function.Function;
 
 import org.osate.ge.operations.StepResult;
 
-public class MapStep<PrevResultUserType, ResultUserType> extends AbstractStep {
-	private final Function<PrevResultUserType, StepResult<ResultUserType>> mapper;
+/**
+ * A step which converts/replaces the user value from the previous step to a new value.
+ *
+ * @param <P> the type of the user value of the result of the previous step
+ * @param <R> the type of the user value of the new step's result
+ */
+public class MapStep<P, R> extends AbstractStep {
+	private final Function<P, StepResult<R>> mapper;
 
+	/**
+	 * Creates a new instance
+	 * @param nextStep the next step in the sequence
+	 * @param mapper the function which converts the previous step result's user value to a new result.
+	 */
 	public MapStep(final Step nextStep,
-			final Function<PrevResultUserType, StepResult<ResultUserType>> mapper) {
+			final Function<P, StepResult<R>> mapper) {
 		super(nextStep);
 		this.mapper = Objects.requireNonNull(mapper, "mapper must not be null");
 	}
 
-	public Function<PrevResultUserType, StepResult<ResultUserType>> getMapper() {
+	/**
+	 * Returns the mapping the function which converts the previous step result's user value to a new result.
+	 * @return the mapping function
+	 */
+	public Function<P, StepResult<R>> getMapper() {
 		return mapper;
 	}
 }

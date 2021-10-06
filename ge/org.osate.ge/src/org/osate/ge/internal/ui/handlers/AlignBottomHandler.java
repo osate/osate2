@@ -32,12 +32,14 @@ import org.eclipse.core.commands.ExecutionException;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.ui.handlers.AlignmentHelper.AlignmentElement;
-import org.osate.ge.internal.ui.handlers.AlignmentHelper.VerticalAxis;
 import org.osate.ge.internal.ui.util.UiUtil;
 
+/**
+ * Handler which aligns the bottoms of selected diagram elements
+ *
+ */
 public class AlignBottomHandler extends AbstractHandler {
-	private static final AlignmentHelper alignmentHelper = AlignmentHelper.create(new VerticalAxis());
-
+	private static final AlignmentHelper alignmentHelper = AlignmentHelper.createVertical();
 
 	// This handler allows for alignment of selected diagram elements that are not docked top or bottom.
 	// Any selected element must not an ancestor of another selected element.
@@ -50,7 +52,7 @@ public class AlignBottomHandler extends AbstractHandler {
 		}
 
 		final List<AlignmentElement> alignmentElements = selectedDiagramElements.stream()
-				.map(de -> new AlignmentElement(de, alignmentHelper.getAxisLocation()))
+				.map(alignmentHelper::createAlignmentElement)
 				.collect(Collectors.toList());
 
 		diagram.modify("Align Bottom", m -> {

@@ -92,9 +92,9 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private static final String PREFERENCE_SHOW_HIDDEN_ELEMENTS = "outline.showHiddenElements";
 	private IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
 
-	private InternalDiagramEditor editor; // TODO: Make final again?
-	private ProjectProvider projectProvider; // TODO: Make final again?
-	private ProjectReferenceService referenceService; // TODO: Make final again?
+	private InternalDiagramEditor editor;
+	private ProjectProvider projectProvider;
+	private ProjectReferenceService referenceService;
 	private final ExtensionRegistryService extRegistry;
 	private final BusinessObjectProviderHelper bopHelper;
 	private final Action linkWithEditorAction = new ToggleLinkWithEditorAction();
@@ -148,7 +148,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			editor = null;
 		}
 
-		projectProvider = null; // TODO
+		projectProvider = null;
 		referenceService = null;
 
 		super.dispose();
@@ -234,7 +234,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 						final DiagramNode parentNode = (DiagramNode) parent;
 
 						// Add child diagram nodes
-						parentNode.getDiagramElements()
+						parentNode.getChildren()
 						.stream()
 						.filter((de) -> !Strings.isNullOrEmpty(de.getUserInterfaceName())
 								|| de.getBusinessObject() instanceof EObject)

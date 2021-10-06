@@ -172,6 +172,16 @@ public class UiTestUtil {
 	}
 
 	/**
+	 * Checks the item in the tree at the specified item text path in the first tree in the shell with the specified title.
+	 * Throws an exception if it is unable to do so.
+	 */
+	public static void checkTreeItemInWindowWithTitle(final String title, final String... itemTexts) {
+		final Optional<SWTBotTreeItem> item = getItemInTree(bot.shell(title).bot().tree(0), itemTexts);
+		assertTrue("Item with texts '" + String.join(",", itemTexts) + "' not found in tree", item.isPresent());
+		item.orElseThrow().check();
+	}
+
+	/**
 	 * Waits for a window with the specified title to appear but is not the specified window.
 	 */
 	public static void waitForOtherWindowWithTitle(final String title, final Shell windowToIgnore) {
@@ -559,7 +569,7 @@ public class UiTestUtil {
 	public static void selectItemInTreeView(final String viewTitle, final String... itemTexts) {
 		final Optional<SWTBotTreeItem> item = getItemInTree(getFirstTreeInView(viewTitle), itemTexts);
 		assertTrue("Item with texts '" + String.join(",", itemTexts) + "' not found in tree", item.isPresent());
-		item.get().select();
+		item.orElseThrow().select();
 	}
 
 	/**
@@ -569,7 +579,7 @@ public class UiTestUtil {
 	public static void doubleClickItemInTreeView(final String viewTitle, final String... itemTexts) {
 		final Optional<SWTBotTreeItem> item = getItemInTree(getFirstTreeInView(viewTitle), itemTexts);
 		assertTrue("Item with texts '" + String.join(",", itemTexts) + "' not found in tree", item.isPresent());
-		item.get().doubleClick();
+		item.orElseThrow().doubleClick();
 	}
 
 	/**
@@ -590,6 +600,7 @@ public class UiTestUtil {
 		Optional<SWTBotTreeItem> item = Arrays.stream(tree.getAllItems())
 				.filter(tmpItem -> tmpItem.getText().equals(itemTexts[0]))
 				.findAny();
+
 		if (item.isPresent()) {
 			for (int i = 1; i < itemTexts.length && item.isPresent(); i++) {
 				final SWTBotTreeItem treeItem = item.get();
@@ -1004,9 +1015,9 @@ public class UiTestUtil {
 		final AgeEditor editor = getDiagramEditor(diagram);
 		final AgeDiagram ageDiagram = editor.getDiagram();
 		ImmutableList<RelativeBusinessObjectReference> refs = element.pathToElement;
-		DiagramElement de = ageDiagram.getByRelativeReference(refs.get(0));
+		DiagramElement de = ageDiagram.getChildByRelativeReference(refs.get(0));
 		for (int i = 1; i < refs.size() && de != null; i++) {
-			de = de.getByRelativeReference(refs.get(i));
+			de = de.getChildByRelativeReference(refs.get(i));
 		}
 
 		return Optional.ofNullable(de);

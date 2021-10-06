@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.eclipse.xtext.util.Strings;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
@@ -39,28 +40,43 @@ import org.osate.ge.aadl2.internal.util.AadlInheritanceUtil;
 import org.osate.ge.businessobjecthandling.CanDeleteContext;
 import org.osate.ge.businessobjecthandling.CanRenameContext;
 import org.osate.ge.businessobjecthandling.GetGraphicalConfigurationContext;
+import org.osate.ge.businessobjecthandling.GetIconIdContext;
 import org.osate.ge.businessobjecthandling.GetNameContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.graphics.Style;
 import org.osate.ge.graphics.StyleBuilder;
 import org.osate.ge.internal.services.impl.DeclarativeReferenceType;
+import org.osate.ge.query.ExecutableQuery;
 import org.osate.ge.query.QueryResult;
-import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent()
-			.descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(
-					fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd()), 1)
-			.first());
-	private static StandaloneQuery dstQuery = StandaloneQuery
-			.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference(
-					(FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd()), 1).first());
+	private static final ExecutableQuery<FlowSpecification> SRC_QUERY = ExecutableQuery
+			.create(rootQuery -> rootQuery.parent()
+					.descendantsByBusinessObjectsRelativeReference(fs -> getBusinessObjectsPathToFlowEnd(
+							fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd()), 1)
+					.first());
+	private static final ExecutableQuery<FlowSpecification> DST_QUERY = ExecutableQuery
+			.create(rootQuery -> rootQuery.parent()
+					.descendantsByBusinessObjectsRelativeReference(
+							fs -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd()), 1)
+					.first());
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
 		return ctx.getBusinessObject(FlowSpecification.class).isPresent();
+	}
+
+	@Override
+	public Optional<String> getIconId(final GetIconIdContext ctx) {
+		return ctx.getBusinessObject(FlowSpecification.class)
+				.map(FlowSpecificationHandler::getIconId)
+				.map(AadlImages::getImage);
+	}
+
+	private static String getIconId(final FlowSpecification fs) {
+		return "Flow" + Strings.toFirstUpper(fs.getKind().getName());
 	}
 
 	@Override
@@ -77,8 +93,7 @@ public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public String getName(final GetNameContext ctx) {
-		return ctx.getBusinessObject(FlowSpecification.class)
-				.map(fs -> fs.getName()).orElse("");
+		return ctx.getBusinessObject(FlowSpecification.class).map(fs -> fs.getName()).orElse("");
 	}
 
 	@Override
@@ -94,15 +109,15 @@ public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
-		final FlowSpecification fs = boc.getBusinessObject(FlowSpecification.class).get();
+		final FlowSpecification fs = boc.getBusinessObject(FlowSpecification.class).orElseThrow();
 		final QueryService queryService = ctx.getQueryService();
-		final QueryResult srcResult = queryService.getFirstResult(srcQuery, boc).orElse(null);
+		final QueryResult srcResult = queryService.getFirstResult(SRC_QUERY, boc, fs).orElse(null);
 		final BusinessObjectContext src = srcResult == null ? null : srcResult.getBusinessObjectContext();
 		boolean partial = (srcResult != null && srcResult.isPartial());
 
 		BusinessObjectContext dst = null;
 		if (fs.getKind() == FlowKind.PATH) {
-			final QueryResult dstResult = queryService.getFirstResult(dstQuery, boc).orElse(null);
+			final QueryResult dstResult = queryService.getFirstResult(DST_QUERY, boc, fs).orElse(null);
 			dst = dstResult == null ? null : dstResult.getBusinessObjectContext();
 			partial |= (dstResult != null && dstResult.isPartial());
 		}
@@ -118,8 +133,12 @@ public class FlowSpecificationHandler extends AadlBusinessObjectHandler {
 			sb.dotted();
 		}
 
-		return Optional.of(GraphicalConfigurationBuilder.create().graphic(AadlGraphics.getFlowSpecificationGraphic(fs))
-				.style(sb.build()).source(src).destination(dst).build());
+		return Optional.of(GraphicalConfigurationBuilder.create()
+				.graphic(AadlGraphics.getFlowSpecificationGraphic(fs))
+				.style(sb.build())
+				.source(src)
+				.destination(dst)
+				.build());
 	}
 
 	/**

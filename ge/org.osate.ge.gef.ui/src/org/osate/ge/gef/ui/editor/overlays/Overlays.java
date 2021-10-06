@@ -89,13 +89,17 @@ public class Overlays extends Group implements ISelectionChangedListener {
 	/**
 	 * Property for the transform between scene coordinates and the overlay
 	 */
-	private final ReadOnlyObjectWrapper<Transform> sceneToLocalTransform = new ReadOnlyObjectWrapper<Transform>();
+	private final ReadOnlyObjectWrapper<Transform> sceneToLocalTransform = new ReadOnlyObjectWrapper<>();
 
 	/**
 	 * Property for the transform between diagram coordinates and the overlay
 	 */
-	private final ReadOnlyObjectWrapper<Transform> diagramToLocalTransform = new ReadOnlyObjectWrapper<Transform>();
+	private final ReadOnlyObjectWrapper<Transform> diagramToLocalTransform = new ReadOnlyObjectWrapper<>();
 
+	/**
+	 * Creates a new instance
+	 * @param gefDiagram the diagram which is being overlaid.
+	 */
 	public Overlays(final GefAgeDiagram gefDiagram) {
 		this.gefDiagram = gefDiagram;
 		this.setAutoSizeChildren(false);
@@ -245,8 +249,17 @@ public class Overlays extends Group implements ISelectionChangedListener {
 	 * Interface shared by shape and connection overlays
 	 */
 	public static interface SelectedNodeOverlay {
+		/**
+		 * Returns the node which is selected
+		 * @return the node which is selected.
+		 */
 		Node getSelectedNode();
 
+		/**
+		 * Sets whether the overlay is for the primary selection. The primary selection is visually distinct because the primary selection may
+		 * have special meaning to the modification operation. For example: alignment operations align nodes to the primary selection.
+		 * @param primary whether the overlay is primary selection.
+		 */
 		void setPrimary(boolean primary);
 	}
 
@@ -254,7 +267,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 	 * Overlay used for selected shapes. Specifically, {@link ContainerShape} and {@link DockedShape}.
 	 */
 	private static class SelectedShapeOverlay extends Group implements SelectedNodeOverlay {
-		private static Vector resizeShapeDirections[] = { new Vector(-1.0, -1.0), new Vector(0.0, -1.0),
+		private static Vector[] resizeShapeDirections = { new Vector(-1.0, -1.0), new Vector(0.0, -1.0),
 				new Vector(1.0, -1.0), new Vector(-1.0, 0.0), new Vector(1.0, 0.0), new Vector(-1.0, 1.0),
 				new Vector(0.0, 1.0), new Vector(1.0, 1.0) };
 
@@ -417,24 +430,22 @@ public class Overlays extends Group implements ISelectionChangedListener {
 			updateSelectionIndicator(selectedNode);
 		};
 
-		private ChangeListener<?> changeListener = (ChangeListener<?>) (o, oldValue, newValue) -> {
-			updateSelectionIndicator(selectedNode);
-		};
+		private ChangeListener<?> changeListener = (ChangeListener<?>) (o, oldValue,
+				newValue) -> updateSelectionIndicator(selectedNode);
 
-		private final ReadOnlyObjectWrapper<Transform> selectedToOverlayTransform = new ReadOnlyObjectWrapper<Transform>();
+		private final ReadOnlyObjectWrapper<Transform> selectedToOverlayTransform = new ReadOnlyObjectWrapper<>();
 
 		/**
 		 * Creates a new instance.
 		 * @param overlays is the overlays object that will be used to determine the transform into local space. This instance
 		 * must be in the same coordinate system as the specified overlays.
-		 * @param de is the diagram element which is represented by the selected node.
+		 * @param diagramElement is the diagram element which is represented by the selected node.
 		 * @param selectedNode the node for which this instance is an overlay
 		 * @param primary whether the selected node is the primary selection
 		 */
 		@SuppressWarnings("unchecked")
 		public SelectedConnectionOverlay(final Overlays overlays, final DiagramElement diagramElement,
-				final BaseConnectionNode selectedNode,
-				final boolean primary) {
+				final BaseConnectionNode selectedNode, final boolean primary) {
 			this.diagramElement = diagramElement;
 			this.selectedNode = selectedNode;
 			this.primary = primary;
@@ -486,8 +497,7 @@ public class Overlays extends Group implements ISelectionChangedListener {
 				final org.eclipse.gef.geometry.planar.Point p = controlPointIndex == controlPoints.size()
 						? allPoints.get(allPoints.size() - 1)
 						: controlPoints.get(controlPointIndex);
-				final Point2D midInLocal = selectedToOverlay
-						.transform((prev.x + p.x) / 2.0, (prev.y + p.y) / 2.0);
+				final Point2D midInLocal = selectedToOverlay.transform((prev.x + p.x) / 2.0, (prev.y + p.y) / 2.0);
 
 				// Create a handle for the control point
 				if (controlPointIndex < controlPoints.size()) {

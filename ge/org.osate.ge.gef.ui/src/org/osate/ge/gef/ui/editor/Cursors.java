@@ -34,8 +34,23 @@ import javafx.scene.ImageCursor;
 final class Cursors {
 	private Cursors() {}
 
+	/**
+	 * Generic cursor which indicates that an action is now allowed. Shown when {@link org.osate.ge.palette.TargetedPaletteCommand} cannot be executed
+	 */
 	public static final Cursor NO = new ImageCursor(AgeGefUiPlugin.loadBundleImage("/icons/cursors/no.png"));
+
+	/**
+	 * Cursor shown when a {@link org.osate.ge.palette.TargetedPaletteCommand} can be executed.
+	 */
 	public static final Cursor CREATE = new ImageCursor(AgeGefUiPlugin.loadBundleImage("/icons/cursors/create.png"));
+
+	/**
+	 * Cursor shown when a {@link org.osate.ge.palette.CreateConnectionPaletteCommand} can be executed.
+	 */
 	public static final Cursor PLUG = new ImageCursor(AgeGefUiPlugin.loadBundleImage("/icons/cursors/plug.png"));
+
+	/**
+	 * Cursor shown when a {@link org.osate.ge.palette.CreateConnectionPaletteCommand} cannot be executed.
+	 */
 	public static final Cursor PLUG_NO = new ImageCursor(AgeGefUiPlugin.loadBundleImage("/icons/cursors/plug_no.png"));
 }
