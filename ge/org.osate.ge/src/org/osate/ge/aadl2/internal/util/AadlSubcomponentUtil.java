@@ -70,6 +70,7 @@ import org.osate.aadl2.VirtualBusSubcomponentType;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.VirtualProcessorSubcomponentType;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.aadl2.AadlImportsUtil;
 
 public class AadlSubcomponentUtil {
 	private static final Map<EClass, String> subcomponentTypeToCreateMethodNameMap = createSubcomponentTypeToMethodMap();

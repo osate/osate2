@@ -77,12 +77,12 @@ class ShowHideFiltersContributionItem extends CompoundContributionItem {
 		}
 
 		final IEditorPart activeEditor = window.getActivePage().getActiveEditor();
-		if (!(activeEditor instanceof AgeDiagramEditor)) {
+		if (!(activeEditor instanceof InternalDiagramEditor)) {
 			return EMPTY;
 		}
 
 		// Don't contribute commands if editor is not editable
-		final AgeDiagramEditor editor = (AgeDiagramEditor) activeEditor;
+		final InternalDiagramEditor editor = (InternalDiagramEditor) activeEditor;
 		if (activeEditor == null || !editor.isEditable()) {
 			return EMPTY;
 		}

@@ -44,8 +44,14 @@ public class BusinessObjectProxy {
 	private final CanonicalBusinessObjectReference canonicalReference;
 	private final RelativeBusinessObjectReference relativeReference;
 
-	public BusinessObjectProxy(final String name,
-			final String typeId,
+	/**
+	 * Creates a new instance
+	 * @param name the name of the business object for which this instance is a proxy
+	 * @param typeId an identifier which indicates the type of object for which this instance is a proxy
+	 * @param canonicalReference the canonical reference for the business object for which this instance is a proxy
+	 * @param relativeReference the relative reference for the business object for which this instance is a proxy
+	 */
+	public BusinessObjectProxy(final String name, final String typeId,
 			final CanonicalBusinessObjectReference canonicalReference,
 			final RelativeBusinessObjectReference relativeReference) {
 		this.name = Objects.requireNonNull(name, "name must not be null");
@@ -54,22 +60,43 @@ public class BusinessObjectProxy {
 		this.relativeReference = Objects.requireNonNull(relativeReference, "relativeReference must not be null");
 	}
 
+	/**
+	 * Returns the name of the business object for which this instance is a proxy
+	 * @return the name of the business object for which this instance is a proxy
+	 */
 	public final String getName() {
 		return name;
 	}
 
+	/**
+	 * Return the identifier which indicates the type of object for which this instance is a proxy
+	 * @return the identifier which indicates the type of object for which this instance is a proxy
+	 */
 	public final String getTypeId() {
 		return typeId;
 	}
 
+	/**
+	 * Returns the canonical reference for the business object for which this instance is a proxy
+	 * @return the canonical reference for the business object for which this instance is a proxy
+	 */
 	public final CanonicalBusinessObjectReference getCanonicalReference() {
 		return canonicalReference;
 	}
 
+	/**
+	 * Returns the relative reference for the business object for which this instance is a proxy
+	 * @return the relative reference for the business object for which this instance is a proxy
+	 */
 	public final RelativeBusinessObjectReference getRelativeReference() {
 		return relativeReference;
 	}
 
+	/**
+	 * Resolves the proxy
+	 * @param projectReferenceService the reference service to use when resolving the proxy
+	 * @return the business object for which the instance is a proxy. Returns null if the proxy could not be resolved.
+	 */
 	public Object resolve(final ProjectReferenceService projectReferenceService) {
 		return projectReferenceService.resolve(canonicalReference);
 	}

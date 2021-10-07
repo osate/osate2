@@ -31,6 +31,10 @@ import org.osate.ge.internal.util.EObjectDocumentationUtil;
 import org.osate.ge.ui.TooltipContributor;
 import org.osate.ge.ui.TooltipContributorContext;
 
+/**
+ * Tooltip contributor which contributes documentation provided by the business object's documentation provider to the tooltip
+ * @see EObjectDocumentationUtil#getPlainTextDocumentation(Object)
+ */
 public class EObjectDocumentationTooltipContributor implements TooltipContributor {
 	@Override
 	public void addTooltipContents(final TooltipContributorContext ctx) {

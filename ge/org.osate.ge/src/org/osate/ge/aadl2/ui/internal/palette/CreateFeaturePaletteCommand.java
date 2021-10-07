@@ -36,6 +36,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.DockingPosition;
 import org.osate.ge.StringUtil;
+import org.osate.ge.aadl2.AadlCategories;
 import org.osate.ge.aadl2.internal.AadlImages;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.util.AadlFeatureUtil;
@@ -51,7 +52,7 @@ public class CreateFeaturePaletteCommand extends BasePaletteCommand implements T
 
 	public CreateFeaturePaletteCommand(final EClass featureType) {
 		super(StringUtil.camelCaseToUser(featureType.getName()),
-				AadlPaletteCategories.FEATURES,
+				AadlCategories.FEATURES,
 				AadlImages.getImage(featureType));
 		this.featureType = featureType;
 	}

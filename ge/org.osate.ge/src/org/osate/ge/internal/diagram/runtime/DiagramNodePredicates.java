@@ -23,13 +23,28 @@
  */
 package org.osate.ge.internal.diagram.runtime;
 
-public class DiagramNodePredicates {
+/**
+ * Utility class containing methods related to {@link DiagramNode}
+ *
+ */
+public final class DiagramNodePredicates {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
+	private DiagramNodePredicates() {
+	}
 
-	public static boolean isDiagramOrUndockedShape(final DiagramNode dstDiagramNode) {
-		if (dstDiagramNode instanceof AgeDiagram) {
+	/**
+	 * Returns true if the specified diagram not is an instance of {@link AgeDiagram} or if us a {@link DiagramElement} whose graphic is an an
+	 * undocked shape.
+	 * @param dn the diagram node to check.
+	 * @return the result of the predicate.
+	 */
+	public static boolean isDiagramOrUndockedShape(final DiagramNode dn) {
+		if (dn instanceof AgeDiagram) {
 			return true;
-		} else if (dstDiagramNode instanceof DiagramElement) {
-			final DiagramElement dstDiagramElement = (DiagramElement) dstDiagramNode;
+		} else if (dn instanceof DiagramElement) {
+			final DiagramElement dstDiagramElement = (DiagramElement) dn;
 			return DiagramElementPredicates.isShape(dstDiagramElement)
 					&& DiagramElementPredicates.isUndocked(dstDiagramElement);
 		} else {
@@ -37,6 +52,12 @@ public class DiagramNodePredicates {
 		}
 	}
 
+	/**
+	 * Returns true if the diagram node is a {@link DiagramElement} whose graphic is a flow indicator
+	 * @param dn the diagram node to check
+	 * @return true if the diagram node is a {@link DiagramElement} whose graphic is a flow indicator
+	 * @see DiagramElementPredicates#isFlowIndicator(DiagramElement)
+	 */
 	public static boolean isFlowIndicator(final DiagramNode dn) {
 		return dn instanceof DiagramElement && DiagramElementPredicates.isFlowIndicator((DiagramElement) dn);
 	}

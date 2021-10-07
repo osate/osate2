@@ -38,7 +38,6 @@ import org.osate.ge.businessobjecthandling.GetNameForDiagramContext;
 import org.osate.ge.businessobjecthandling.IsApplicableContext;
 import org.osate.ge.businessobjecthandling.ReferenceContext;
 import org.osate.ge.graphics.ArrowBuilder;
-import org.osate.ge.graphics.Color;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.LabelBuilder;
@@ -52,8 +51,8 @@ public class PropertyValueGroupHandler extends AadlBusinessObjectHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().
 			destinationTerminator(ArrowBuilder.create().filled().small().build()).
 			build();
-	private static final Style referenceStyle = StyleBuilder.create().backgroundColor(Color.BLACK).dashed().build();
-	private static final Style abstractStyle = StyleBuilder.create().backgroundColor(Color.BLACK).dotted().build();
+	private static final Style referenceStyle = StyleBuilder.create().dashed().build();
+	private static final Style abstractStyle = StyleBuilder.create().dotted().build();
 
 	@Override
 	public boolean isApplicable(final IsApplicableContext ctx) {
@@ -67,7 +66,7 @@ public class PropertyValueGroupHandler extends AadlBusinessObjectHandler {
 
 	@Override
 	public RelativeBusinessObjectReference getRelativeReference(final ReferenceContext ctx) {
-		final PropertyValueGroup pvg = ctx.getBusinessObject(PropertyValueGroup.class).get();
+		final PropertyValueGroup pvg = ctx.getBusinessObject(PropertyValueGroup.class).orElseThrow();
 		final String propertyName = pvg.getProperty().getQualifiedName();
 		if (propertyName == null) {
 			throw new RuntimeException("Unable to build reference. Property name is null");
@@ -87,7 +86,7 @@ public class PropertyValueGroupHandler extends AadlBusinessObjectHandler {
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		final BusinessObjectContext boc = ctx.getBusinessObjectContext();
-		final PropertyValueGroup pvg = boc.getBusinessObject(PropertyValueGroup.class).get();
+		final PropertyValueGroup pvg = boc.getBusinessObject(PropertyValueGroup.class).orElseThrow();
 
 		if(pvg.getReferenceId() == null) {
 			return Optional.of(createTextGraphicalConfiguration());
@@ -122,7 +121,6 @@ public class PropertyValueGroupHandler extends AadlBusinessObjectHandler {
 	private GraphicalConfiguration createTextGraphicalConfiguration() {
 		return GraphicalConfigurationBuilder.create().
 				graphic(labelGraphic).
-				decoration().
 				build();
 	}
 

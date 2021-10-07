@@ -36,30 +36,45 @@ import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.osate.ge.BusinessObjectSelection;
 import org.osate.ge.errormodel.ui.viewmodels.ErrorTypeAliasedTypeModel;
+import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.selectors.FilteringListSelectorField;
 import org.osate.ge.swt.selectors.LabelFilteringListSelectorModel;
 import org.osate.ge.ui.PropertySectionUtil;
 import org.osate.ge.ui.UiBusinessObjectSelection;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
+/**
+ * Property section for {@link ErrorType} elements which are aliases.
+ */
 public class ErrorTypeAliasPropertySection extends AbstractPropertySection {
-	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorTypeAlias.";
-	public static final String WIDGET_ID_ALIASED_TYPE_LABEL = WIDGET_ID_PREFIX + "aliasedType.label";
-	public static final String WIDGET_ID_ALIASED_TYPE_CHOOSE_BUTTON = WIDGET_ID_PREFIX + "aliasedType.choose";
-
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
-			return PropertySectionUtil.isBoCompatible(toTest, bo -> {
-				return bo instanceof ErrorType && ((ErrorType) bo).getAliasedType() != null;
-			});
+			return PropertySectionUtil.isBoCompatible(toTest,
+					bo -> bo instanceof ErrorType && ((ErrorType) bo).getAliasedType() != null);
 		}
 	}
+
+	private static final String WIDGET_ID_PREFIX = "org.osate.ge.errormodel.ui.properties.errorTypeAlias.";
+
+	/**
+	 * Testing ID of the label displaying the aliased type
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_ALIASED_TYPE_LABEL = WIDGET_ID_PREFIX + "aliasedType.label";
+
+	/**
+	 * Testing ID of the button for modifying the aliased type
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_ALIASED_TYPE_CHOOSE_BUTTON = WIDGET_ID_PREFIX + "aliasedType.choose";
 
 	private BusinessObjectSelection selectedBos;
 	private final ErrorTypeAliasedTypeModel model = new ErrorTypeAliasedTypeModel(
 			new UiBusinessObjectSelection());
-	private FilteringListSelectorField<?> aliasedTypeField;
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -69,7 +84,8 @@ public class ErrorTypeAliasPropertySection extends AbstractPropertySection {
 		final Composite container = getWidgetFactory().createFlatFormComposite(parent);
 		final Label label = PropertySectionUtil.createSectionLabel(container, getWidgetFactory(), "Aliased Type:");
 
-		aliasedTypeField = new FilteringListSelectorField<>(container, "Select Aliased Type",
+		final FilteringListSelectorField<?> aliasedTypeField = new FilteringListSelectorField<>(container,
+				"Select Aliased Type",
 				new LabelFilteringListSelectorModel<>(model));
 		aliasedTypeField.setValueLabelTestingId(WIDGET_ID_ALIASED_TYPE_LABEL);
 		aliasedTypeField.setModifyButtonTestingId(WIDGET_ID_ALIASED_TYPE_CHOOSE_BUTTON);

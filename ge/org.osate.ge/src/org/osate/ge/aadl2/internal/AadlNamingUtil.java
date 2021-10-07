@@ -109,7 +109,7 @@ public class AadlNamingUtil {
 			return false;
 		}
 
-		return value.matches("[a-zA-Z]([_]?[a-zA-Z0-9])*");
+		return value.matches("[a-zA-Z]([_]?[a-zA-Z0-9])*+");
 	}
 
 	/**

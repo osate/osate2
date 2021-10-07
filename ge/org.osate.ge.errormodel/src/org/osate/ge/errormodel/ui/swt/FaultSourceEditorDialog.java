@@ -26,7 +26,6 @@ package org.osate.ge.errormodel.ui.swt;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -40,7 +39,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.osate.ge.StringUtil;
 import org.osate.ge.errormodel.ui.viewmodels.BasicTypeTokenListEditorModel;
-import org.osate.ge.swt.ChangeEvent;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.ge.swt.selectors.CollectionSingleSelectorModel;
 import org.osate.ge.swt.selectors.FilteringListSelectorField;
@@ -57,18 +55,46 @@ import com.google.common.base.Strings;
  * Dialog for editing a {@link FaultSource} provided by a {@link FaultSourceEditorModel}
  *
  */
-public class FaultSourceEditorDialog {
+public final class FaultSourceEditorDialog {
 	private static final String WIDGET_ID_PREFIX = FaultSourceEditorDialog.class.getCanonicalName() + ".";
+
+	/**
+	 * Testing ID of the label displaying the fault source's error behavior state
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_STATE_VALUE_LABEL = WIDGET_ID_PREFIX + "stateValue";
+
+	/**
+	 * Testing ID of the button for modifying the fault source's error behavior state
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_STATE_MODIFY_BUTTON = WIDGET_ID_PREFIX + "stateModify";
+
+	/**
+	 * Testing ID of the label displaying the fault source's type set
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_TYPE_SET_VALUE_LABEL = WIDGET_ID_PREFIX + "typeSetValue";
+
+	/**
+	 * Testing ID of the button for modifying the fault source's type set
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_TYPE_SET_MODIFY_BUTTON = WIDGET_ID_PREFIX + "typeSetModify";
+
+	/**
+	 * Testing ID of the text field for the fault source's failure mode description
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_DESCRIPTION_TEXT = WIDGET_ID_PREFIX + "description";
 
 	private static enum FaultSourceType {
-		ErrorTypeSet, Description
+		ERROR_TYPE_SET, DESCRIPTION
 	}
 
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private FaultSourceEditorDialog() {
 	}
 
@@ -89,7 +115,7 @@ public class FaultSourceEditorDialog {
 	}
 
 	private static class InnerDialog extends TitleAreaDialog {
-		private final Consumer<ChangeEvent> changeListener = e -> refresh();
+		private final Runnable changeListener = this::refresh;
 		private final String title;
 		private final SingleSelectorModel<FaultSourceType> typeSelectorModel;
 		private final FaultSourceEditorModel model;
@@ -113,15 +139,15 @@ public class FaultSourceEditorDialog {
 					Arrays.asList(FaultSourceType.values())) {
 				@Override
 				public String getLabel(final FaultSourceType element) {
-					return StringUtil.camelCaseToUser(element.name());
+					return StringUtil.snakeCaseToTitleCase(element.name());
 				}
 			};
 
 			final FaultSourceType type;
 			if (model.getFaultSource().getFailureModeDescription() != null) {
-				type = FaultSourceType.Description;
+				type = FaultSourceType.DESCRIPTION;
 			} else {
-				type = FaultSourceType.ErrorTypeSet;
+				type = FaultSourceType.ERROR_TYPE_SET;
 			}
 			typeSelectorModel.setSelectedElement(type);
 			typeSelectorModel.changed().addListener(changeListener);
@@ -195,7 +221,7 @@ public class FaultSourceEditorDialog {
 					.setLayoutData(GridDataFactory.swtDefaults().grab(true, false).align(SWT.FILL, SWT.FILL).create());
 			description = model.getFaultSource().getFailureModeDescription();
 			descriptionField.setText(Strings.nullToEmpty(description));
-			descriptionField.addModifyListener((e) -> {
+			descriptionField.addModifyListener(e -> {
 				description = descriptionField.getText();
 				refresh();
 			});
@@ -218,15 +244,15 @@ public class FaultSourceEditorDialog {
 			if (this.getShell() != null && !this.getShell().isDisposed()) {
 				final FaultSourceType type = typeSelectorModel.getSelectedElement();
 
-				final boolean showState = type == FaultSourceType.ErrorTypeSet;
+				final boolean showState = type == FaultSourceType.ERROR_TYPE_SET;
 				SwtUtil.setVisibilityAndExclusion(stateLabel, showState);
 				SwtUtil.setVisibilityAndExclusion(stateField, showState);
 
-				final boolean showTypeTokens = type == FaultSourceType.ErrorTypeSet;
+				final boolean showTypeTokens = type == FaultSourceType.ERROR_TYPE_SET;
 				SwtUtil.setVisibilityAndExclusion(typeTokensLabel, showTypeTokens);
 				SwtUtil.setVisibilityAndExclusion(typeTokensField, showTypeTokens);
 
-				final boolean showDescription = type == FaultSourceType.Description;
+				final boolean showDescription = type == FaultSourceType.DESCRIPTION;
 				SwtUtil.setVisibilityAndExclusion(descriptionLabel, showDescription);
 				SwtUtil.setVisibilityAndExclusion(descriptionField, showDescription);
 			}
@@ -235,7 +261,7 @@ public class FaultSourceEditorDialog {
 		public FaultSource getValue() {
 			final TypeSet typeSet = ErrorModelFactory.eINSTANCE.createTypeSet();
 			typeTokensModel.getTypeTokens().forEachOrdered(typeSet.getTypeTokens()::add);
-			if (typeSelectorModel.getSelectedElement() == FaultSourceType.Description) {
+			if (typeSelectorModel.getSelectedElement() == FaultSourceType.DESCRIPTION) {
 				return new FaultSource(description);
 			} else {
 				return new FaultSource(stateModel.getSelectedElement(), typeSet);
@@ -243,9 +269,13 @@ public class FaultSourceEditorDialog {
 		}
 	}
 
+	/**
+	 * Entry point for a test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.runDialog(() -> {
-			FaultSourceEditorDialog.open(null, "Edit Fault Source", new TestFaultSourceEditorModel());
-		});
+		SwtUtil.runDialog(
+				() -> FaultSourceEditorDialog.open(null, "Edit Fault Source", new TestFaultSourceEditorModel()));
 	}
 }

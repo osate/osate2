@@ -71,6 +71,7 @@ import org.osate.ge.graphics.internal.AgeShape;
 import org.osate.ge.graphics.internal.Label;
 import org.osate.ge.graphics.internal.ModeGraphic;
 import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.GraphicalEditorException;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
@@ -81,7 +82,7 @@ import org.osate.ge.internal.diagram.runtime.DiagramNodePredicates;
 import org.osate.ge.internal.diagram.runtime.DockArea;
 import org.osate.ge.internal.diagram.runtime.styling.StyleCalculator;
 import org.osate.ge.internal.diagram.runtime.styling.StyleProvider;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.util.DiagramElementUtil;
 
 import com.google.common.collect.ArrayListMultimap;
@@ -89,46 +90,77 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 /**
- * NOTE: The methods in this class will catch error exceptions, display and error, and suppress them.
- *
+ * Utility class which provides functions for laying out diagrams.
+ * <p>The methods in this class will catch error exceptions, display the error, and suppress them.</p>
  */
 public class DiagramElementLayoutUtil {
-	private static final String incrementalLayoutLabel = "Incremental Layout";
-	private static final String layoutAlgorithm = "org.eclipse.elk.layered";
-	private static final double portWidthPadding = 40.0;
-	private static final double startAndEndBendpointDistance = 4.0;
+	private DiagramElementLayoutUtil() {
+	}
 
-	// Offset to the initial flow indicator in the primary axis from the start element. The primary axis is the X axis for start elements
-	// docked to the left or right sides. Used for incremental flow indicator layout.
-	private static final double incrementalFlowIndicatorPrimaryOffset = 50.0;
+	private static final String INCREMENTAL_LAYOUT_LABEL = "Incremental Layout";
+	private static final String LAYOUT_ALGORITHM = "org.eclipse.elk.layered";
+	private static final double PORT_WIDTH_PADDING = 40.0;
+	private static final double START_AND_END_BENDPOINT_DISTANCE = 4.0;
 
-	// Amount to increment the position of the flow indicator in the secondary axis. The secondary axis is the Y axis for start elements
-	// docked to the top or bottom. Used for incremental flow indicator layout.
-	private static final double incrementalFlowIndicatorSecondaryIncrement = 20.0;
+	/**
+	 * Offset to the initial flow indicator in the primary axis from the start element. The primary axis is the X axis for start elements
+	 * docked to the left or right sides. Used for incremental flow indicator layout.
+	 */
+	private static final double INCREMENTAL_FLOW_INDICATOR_PRIMARY_OFFSET = 50.0;
 
-	// Amount to use to scale the primary offset when determining where to place bendpoint for incremental flow indicator layout
-	private static final double incrementalFlowIndicatorBendpointOffsetScaling = 0.8;
+	/**
+	 * Amount to increment the position of the flow indicator in the secondary axis. The secondary axis is the Y axis for start elements
+	 * docked to the top or bottom. Used for incremental flow indicator layout.
+	 */
+	private static final double INCREMENTAL_FLOW_INDICATOR_SECONDARY_INCREMENT = 20.0;
 
-	public static void layout(final String label, final IEditorPart editor,
+	/**
+	 * Amount to use to scale the primary offset when determining where to place bendpoint for incremental flow indicator layout
+	 */
+	private static final double INCREMENTAL_FLOW_INDICATOR_BENDPOINT_OFFSET_SCALING = 0.8;
+
+	/**
+	 * Performs a layout of the specified diagram nodes
+	 * @param actionLabel description of the action
+	 * @param editor the editor containing the diagram
+	 * @param diagramNodes the nodes to layout. If null, the entire diagram will be laid out
+	 * @param options the layout options
+	 */
+	public static void layout(final String actionLabel, final IEditorPart editor,
 			final Collection<? extends DiagramNode> diagramNodes, final LayoutOptions options) {
-		if (!(editor instanceof AgeDiagramEditor)) {
-			throw new RuntimeException("Editor must be an " + AgeDiagramEditor.class.getName());
+		if (!(editor instanceof InternalDiagramEditor)) {
+			throw new GraphicalEditorException("Editor must be an " + InternalDiagramEditor.class.getName());
 		}
 
-		final AgeDiagramEditor ageDiagramEditor = ((AgeDiagramEditor) editor);
-		final LayoutInfoProvider layoutInfoProvider = Adapters.adapt(ageDiagramEditor, LayoutInfoProvider.class);
-		layout(label, ageDiagramEditor.getDiagram(), diagramNodes, layoutInfoProvider, options);
+		final InternalDiagramEditor diagramEditor = ((InternalDiagramEditor) editor);
+		final LayoutInfoProvider layoutInfoProvider = Adapters.adapt(diagramEditor, LayoutInfoProvider.class);
+		layout(actionLabel, diagramEditor.getDiagram(), diagramNodes, layoutInfoProvider, options);
 	}
 
-	public static void layout(final String label, final AgeDiagram diagram, final LayoutInfoProvider layoutInfoProvider,
+	/**
+	 * Perform a full diagram layout
+	 * @param actionLabel description of the action
+	 * @param diagram the diagram to layout
+	 * @param layoutInfoProvider the layout info provider which provides additional information required for laying out the diagram
+	 * @param options the layout options
+	 */
+	public static void layout(final String actionLabel, final AgeDiagram diagram, final LayoutInfoProvider layoutInfoProvider,
 			final LayoutOptions options) {
-		layout(label, diagram, null, layoutInfoProvider, options);
+		layout(actionLabel, diagram, null, layoutInfoProvider, options);
 	}
 
-	public static void layout(final String label, final AgeDiagram diagram,
+	/**
+	 * Performs a layout of the specified diagram nodes
+	 * @param actionLabel description of the action
+	 * @param diagram the diagram to layout. Tee specified nodes must be part of the specified diagram.
+	 * @param diagramNodes the nodes to layout. If null, the entire diagram will be laid out
+	 * @param layoutInfoProvider the layout info provider which provides additional information required for performing the layout
+	 * @param options the layout options
+	 */
+	public static void layout(final String actionLabel, final AgeDiagram diagram,
 			final Collection<? extends DiagramNode> diagramNodes, final LayoutInfoProvider layoutInfoProvider,
 			final LayoutOptions options) {
-		Objects.requireNonNull(label, "label must not be null");
+		Objects.requireNonNull(actionLabel, "label must not be null");
 		Objects.requireNonNull(diagram, "diagram must not be null");
 		Objects.requireNonNull(layoutInfoProvider, "layoutInfoProvider must not be null");
 		Objects.requireNonNull(options, "options must not be null");
@@ -146,7 +178,7 @@ public class DiagramElementLayoutUtil {
 			return;
 		}
 
-		diagram.modify(label, m -> layout(m, nodesToLayout,
+		diagram.modify(actionLabel, m -> layout(m, nodesToLayout,
 				new StyleCalculator(diagram.getConfiguration(), StyleProvider.EMPTY), layoutInfoProvider, options));
 	}
 
@@ -167,8 +199,8 @@ public class DiagramElementLayoutUtil {
 				mapping = ElkGraphBuilder.buildLayoutGraph(dn, styleProvider, layoutInfoProvider, options,
 						!options.layoutPortsOnDefaultSides, ElkGraphBuilder.FixedPortPositionProvider.NO_OP);
 				layoutGraph = mapping.getLayoutGraph();
-				layoutGraph.setProperty(CoreOptions.ALGORITHM, layoutAlgorithm);
-				applyProperties(dn, mapping, layoutInfoProvider, options);
+				layoutGraph.setProperty(CoreOptions.ALGORITHM, LAYOUT_ALGORITHM);
+				applyProperties(dn, mapping);
 				LayoutDebugUtil.saveElkGraphToDebugProject(layoutGraph, "pass1");
 				layoutEngine.layout(layoutGraph, new BasicProgressMonitor());
 
@@ -212,19 +244,19 @@ public class DiagramElementLayoutUtil {
 						}
 					});
 					layoutGraph = mapping.getLayoutGraph();
-					layoutGraph.setProperty(CoreOptions.ALGORITHM, layoutAlgorithm);
-					applyProperties(dn, mapping, layoutInfoProvider, options);
+					layoutGraph.setProperty(CoreOptions.ALGORITHM, LAYOUT_ALGORITHM);
+					applyProperties(dn, mapping);
 					LayoutDebugUtil.saveElkGraphToDebugProject(layoutGraph, "pass2");
 					layoutEngine.layout(layoutGraph, new BasicProgressMonitor());
 				}
+				LayoutDebugUtil.saveElkGraphToDebugProject(layoutGraph, "final");
 
 				applyShapeLayout(mapping, m);
 				applyConnectionLayout(mapping, m);
 
-				LayoutDebugUtil.showGraphInLayoutGraphView(layoutGraph);
-
 				// Layout feature self loop connections. These are omitted from the ELK based layout.
-				dn.getAllDiagramNodes().filter(DiagramElementLayoutUtil::isFeatureSelfLoopConnection)
+				dn.getAllDiagramNodes()
+				.filter(DiagramElementLayoutUtil::isFeatureSelfLoopConnection)
 				.map(DiagramElement.class::cast)
 				.forEachOrdered(de -> layoutFeatureSelfLoopConnection(de, m, layoutInfoProvider));
 			}
@@ -240,9 +272,10 @@ public class DiagramElementLayoutUtil {
 	}
 
 	/**
-	 * Performs layout on elements in the specified diagram which have not been layed out.
-	 * @param diagram
-	 * @param mod
+	 * Performs layout on elements in the specified diagram which have not been laid out.
+	 * @param diagram the diagram for which to perform the incremental layout
+	 * @param mod the modification to use to modify the diagram
+	 * @param layoutInfoProvider the layout info provider which provides additional information required for laying out the diagram
 	 */
 	public static void layoutIncrementally(final AgeDiagram diagram, final DiagramModification mod,
 			final LayoutInfoProvider layoutInfoProvider) {
@@ -250,7 +283,7 @@ public class DiagramElementLayoutUtil {
 		Objects.requireNonNull(mod, "mod must not be null");
 		Objects.requireNonNull(layoutInfoProvider, "layoutInfoProvider must not be null");
 
-		final IncrementalLayoutMode currentLayoutMode = LayoutPreferences.getCurrentLayoutMode();
+		final IncrementalLayoutMode currentLayoutMode = LayoutPreferences.getCurrentIncrementalLayoutMode();
 
 		// Get all the nodes that need to be layed out.
 		final Set<DiagramNode> unfilteredNodesToLayout = getNodesToLayoutIncrementally(diagram, currentLayoutMode,
@@ -261,14 +294,19 @@ public class DiagramElementLayoutUtil {
 
 		// Lay our flow indicators. In the container is eventually layed out, this will be replaced but in cases where that is not the case,
 		// we provide a default layout. Flow indicators are connections and as such will be filtered in the next step.
-		layoutFlowIndicators(mod, unfilteredNodesToLayout.stream().filter(DiagramNodePredicates::isFlowIndicator)
-				.map(DiagramElement.class::cast), layoutInfoProvider);
+		layoutFlowIndicators(mod,
+				unfilteredNodesToLayout.stream()
+				.filter(DiagramNodePredicates::isFlowIndicator)
+				.map(DiagramElement.class::cast),
+				layoutInfoProvider);
 
 		final Collection<DiagramNode> nodesToLayout = DiagramElementLayoutUtil.filterUnnecessaryNodes(
 				unfilteredNodesToLayout, currentLayoutMode == IncrementalLayoutMode.LAYOUT_DIAGRAM);
+
 		if (nodesToLayout.size() == 0) {
 			// If the filtered node list is empty then the unfiltered list still contain feature self loop connections that need to be layed out.
-			unfilteredNodesToLayout.stream().filter(DiagramElementLayoutUtil::isFeatureSelfLoopConnection)
+			unfilteredNodesToLayout.stream()
+			.filter(DiagramElementLayoutUtil::isFeatureSelfLoopConnection)
 			.map(DiagramElement.class::cast)
 			.forEachOrdered(de -> layoutFeatureSelfLoopConnection(de, mod, layoutInfoProvider));
 			return;
@@ -276,7 +314,7 @@ public class DiagramElementLayoutUtil {
 
 		final LayoutOptions layoutOptions = LayoutOptions.createFromPreferences();
 		if (currentLayoutMode == IncrementalLayoutMode.LAYOUT_DIAGRAM) {
-			layout(incrementalLayoutLabel, diagram, layoutInfoProvider, layoutOptions);
+			layout(INCREMENTAL_LAYOUT_LABEL, diagram, layoutInfoProvider, layoutOptions);
 		} else {
 			layout(mod, nodesToLayout, new StyleCalculator(diagram.getConfiguration(), StyleProvider.EMPTY),
 					layoutInfoProvider, layoutOptions);
@@ -292,11 +330,12 @@ public class DiagramElementLayoutUtil {
 							final DiagramElement parent = (DiagramElement) de.getParent();
 							final DockingPosition defaultDockingPosition = de.getGraphicalConfiguration()
 									.getDefaultDockingPosition();
-							final DockArea defaultDockArea = defaultDockingPosition.getDefaultDockArea();
+							final DockArea defaultDockArea = DockArea.fromDockingPosition(defaultDockingPosition);
 
 							if (parent.hasSize()) {
-								final Stream<DiagramElement> otherElementsAlongSide = parent.getDiagramElements()
-										.stream().filter(c -> c.hasPosition() && c.hasSize()
+								final Stream<DiagramElement> otherElementsAlongSide = parent.getChildren()
+										.stream()
+										.filter(c -> c.hasPosition() && c.hasSize()
 												&& c.getDockArea() == defaultDockArea);
 
 								// Determine the position of the new element along it's preferred docking position.
@@ -305,11 +344,13 @@ public class DiagramElementLayoutUtil {
 										|| defaultDockingPosition == DockingPosition.BOTTOM) {
 									locationAlongSide = otherElementsAlongSide
 											.max(Comparator.comparingDouble(c -> c.getY()))
-											.map(c -> c.getX() + c.getWidth()).orElse(0.0);
+											.map(c -> c.getX() + c.getWidth())
+											.orElse(0.0);
 								} else {
 									locationAlongSide = otherElementsAlongSide
 											.max(Comparator.comparingDouble(c -> c.getY()))
-											.map(c -> c.getY() + c.getHeight()).orElse(0.0);
+											.map(c -> c.getY() + c.getHeight())
+											.orElse(0.0);
 								}
 
 								// Set position based on the docking position
@@ -409,7 +450,7 @@ public class DiagramElementLayoutUtil {
 	private static Point getPortAnchorOffset(final DiagramElement element, final DockArea nonGroupDockArea,
 			final Point referencePosition, final LayoutInfoProvider layoutInfoProvider) {
 		// Find offset based on orientation and nature of the diagram element
-		final Dimension labelsSize = layoutInfoProvider.getLabelsSize(element);
+		final Dimension labelsSize = layoutInfoProvider.getDockedElementLabelsSize(element);
 		final double anchorOffset;
 		if (DiagramElementPredicates.isResizeable(element) && element.hasSize()) {
 			// Feature groups
@@ -446,9 +487,9 @@ public class DiagramElementLayoutUtil {
 			final IncrementalLayoutMode mode, final Set<DiagramNode> results) {
 		final boolean alwaysLayoutContainer = mode != IncrementalLayoutMode.LAYOUT_CONTENTS;
 
-		for (final DiagramElement child : node.getDiagramElements()) {
+		for (final DiagramElement child : node.getChildren()) {
 			if (DiagramElementPredicates.isShape(child)) {
-				final boolean positionIsSet = child.hasPosition() || !DiagramElementPredicates.isMoveable(child);
+				final boolean positionIsSet = child.hasPosition() || !DiagramElementPredicates.isMoveableShape(child);
 				final boolean sizeIsSet = child.hasSize() || !DiagramElementPredicates.isResizeable(child);
 
 				// The position is set but the size isn't, then layout the child.
@@ -462,7 +503,7 @@ public class DiagramElementLayoutUtil {
 						// If always layout container is specified, layout container
 						// If container does not have any layed out shapes, layout container.
 						final boolean layoutContainer = alwaysLayoutContainer
-								|| !hasLayedOutShapes(node.getDiagramElements());
+								|| !hasLayedOutShapes(node.getChildren());
 						if (layoutContainer) {
 							results.add(node);
 							break;
@@ -479,7 +520,7 @@ public class DiagramElementLayoutUtil {
 						// If we should lay out container than lay out the container of the flow indicator
 						if (alwaysLayoutContainer) {
 							DiagramElement undockedContainer = DiagramElementUtil
-									.getUndockedDiagramElement(child.getStartElement().getContainer());
+									.getUndockedDiagramElement(child.getStartElement().getParent());
 							if (undockedContainer != null) {
 								results.add(undockedContainer);
 							}
@@ -492,7 +533,7 @@ public class DiagramElementLayoutUtil {
 					// Only layout the connection if its bendpoints have not been set regardless of whether it has any bendpoints.
 					if (child.getStartElement() != null && child.getEndElement() != null && !child.isBendpointsSet()) {
 						final Optional<BusinessObjectContext> ancestor = BusinessObjectContext.getFirstCommonAncestor(
-								child.getStartElement().getContainer(), child.getEndElement().getContainer());
+								child.getStartElement().getParent(), child.getEndElement().getParent());
 						if (ancestor.isPresent()) {
 							results.add((DiagramNode) ancestor.get());
 						}
@@ -508,7 +549,7 @@ public class DiagramElementLayoutUtil {
 
 	private static boolean hasLayedOutShapes(final Collection<DiagramElement> diagramElements) {
 		return diagramElements.stream().anyMatch(de -> {
-			final boolean moveable = DiagramElementPredicates.isMoveable(de);
+			final boolean moveable = DiagramElementPredicates.isMoveableShape(de);
 			final boolean resizable = DiagramElementPredicates.isResizeable(de);
 			return ((de.hasPosition() && moveable) || !moveable) && ((de.hasSize() && resizable) || !resizable)
 					&& (moveable || resizable);
@@ -539,8 +580,10 @@ public class DiagramElementLayoutUtil {
 		// Search diagram and build a multimap mapping start elements to the flow indicators which reference them.
 		final ArrayListMultimap<DiagramElement, DiagramElement> startElementToFlowIndicators = ArrayListMultimap
 				.create();
-		m.getDiagram().getAllDescendants().filter(
-				q -> q instanceof DiagramElement && DiagramElementPredicates.isFlowIndicator((DiagramElement) q))
+		m.getDiagram()
+		.getAllDescendants()
+		.filter(q -> q instanceof DiagramElement
+				&& DiagramElementPredicates.isFlowIndicator((DiagramElement) q))
 		.forEachOrdered(q -> {
 			final DiagramElement e = (DiagramElement) q;
 			final DiagramElement start = e.getStartElement();
@@ -605,38 +648,38 @@ public class DiagramElementLayoutUtil {
 
 			switch (dockArea) {
 			case LEFT:
-				initialPositionOffsetX = incrementalFlowIndicatorPrimaryOffset;
+				initialPositionOffsetX = INCREMENTAL_FLOW_INDICATOR_PRIMARY_OFFSET;
 				initialPositionOffsetY = 0;
 				positionIncrementX = 0.0;
-				positionIncrementY = incrementalFlowIndicatorSecondaryIncrement;
+				positionIncrementY = INCREMENTAL_FLOW_INDICATOR_SECONDARY_INCREMENT;
 
 				break;
 			case RIGHT:
-				initialPositionOffsetX = -incrementalFlowIndicatorPrimaryOffset;
+				initialPositionOffsetX = -INCREMENTAL_FLOW_INDICATOR_PRIMARY_OFFSET;
 				initialPositionOffsetY = 0;
 				positionIncrementX = 0;
-				positionIncrementY = incrementalFlowIndicatorSecondaryIncrement;
+				positionIncrementY = INCREMENTAL_FLOW_INDICATOR_SECONDARY_INCREMENT;
 				break;
 
 			case TOP:
 
 				initialPositionOffsetX = 0;
-				initialPositionOffsetY = incrementalFlowIndicatorPrimaryOffset;
-				positionIncrementX = incrementalFlowIndicatorSecondaryIncrement;
+				initialPositionOffsetY = INCREMENTAL_FLOW_INDICATOR_PRIMARY_OFFSET;
+				positionIncrementX = INCREMENTAL_FLOW_INDICATOR_SECONDARY_INCREMENT;
 				positionIncrementY = 0;
 				break;
 
 			case BOTTOM:
 				initialPositionOffsetX = 0;
-				initialPositionOffsetY = -incrementalFlowIndicatorPrimaryOffset;
-				positionIncrementX = incrementalFlowIndicatorSecondaryIncrement;
+				initialPositionOffsetY = -INCREMENTAL_FLOW_INDICATOR_PRIMARY_OFFSET;
+				positionIncrementX = INCREMENTAL_FLOW_INDICATOR_SECONDARY_INCREMENT;
 				positionIncrementY = 0;
 				break;
 
 			case GROUP:
 			default:
 				// Our dock area should never have the group value and all other values should be handled
-				throw new RuntimeException("Unexpected case: " + dockArea);
+				throw new GraphicalEditorException("Unexpected case: " + dockArea);
 			}
 
 			// Calculate absolute position for the start anchor. Used for bendpoints
@@ -665,16 +708,16 @@ public class DiagramElementLayoutUtil {
 						// Set bendpoints
 						final Point bp1 = new Point(
 								startAnchorAbsPosition.x
-								+ (initialPositionOffsetX * incrementalFlowIndicatorBendpointOffsetScaling),
+								+ (initialPositionOffsetX * INCREMENTAL_FLOW_INDICATOR_BENDPOINT_OFFSET_SCALING),
 								startAnchorAbsPosition.y
-								+ (initialPositionOffsetY * incrementalFlowIndicatorBendpointOffsetScaling));
+								+ (initialPositionOffsetY * INCREMENTAL_FLOW_INDICATOR_BENDPOINT_OFFSET_SCALING));
 
 						final Point positionAbs = new Point(containerAbsPosition.x + nextPosition.x,
 								+containerAbsPosition.y + nextPosition.y);
 						final Point bp2 = new Point(positionAbs.x
-								- (initialPositionOffsetX * (1.0 - incrementalFlowIndicatorBendpointOffsetScaling)),
+								- (initialPositionOffsetX * (1.0 - INCREMENTAL_FLOW_INDICATOR_BENDPOINT_OFFSET_SCALING)),
 								positionAbs.y - (initialPositionOffsetY
-										* (1.0 - incrementalFlowIndicatorBendpointOffsetScaling)));
+										* (1.0 - INCREMENTAL_FLOW_INDICATOR_BENDPOINT_OFFSET_SCALING)));
 
 						m.setBendpoints(indicator, ImmutableList.of(bp1, bp2));
 					}
@@ -687,7 +730,7 @@ public class DiagramElementLayoutUtil {
 		}
 	}
 
-	public static void resetFlowIndicatorsWithStartElementsPositions(final DiagramModification m,
+	private static void resetFlowIndicatorsWithStartElementsPositions(final DiagramModification m,
 			final Stream<? extends DiagramNode> startElementsStream) {
 		getFlowIndicatorsWithStartElements(m.getDiagram(), startElementsStream).forEach(de -> {
 			m.setPosition(de, null);
@@ -713,10 +756,8 @@ public class DiagramElementLayoutUtil {
 	/**
 	 * Sets the ELK properties of elements in the specified layout mapping based on the layout options.
 	 * @param layoutMapping
-	 * @param options
 	 */
-	private static void applyProperties(final DiagramNode rootDiagramNode, final LayoutMapping layoutMapping,
-			final LayoutInfoProvider layoutInfoProvider, final LayoutOptions options) {
+	private static void applyProperties(final DiagramNode rootDiagramNode, final LayoutMapping layoutMapping) {
 		// Set the minimum node size based on the ports and their assigned sides.
 		final IGraphElementVisitor minNodeSizeVisitor = element -> {
 			if (element instanceof ElkNode) {
@@ -726,12 +767,18 @@ public class DiagramElementLayoutUtil {
 				final double labelHeightSum = n.getLabels().stream().mapToDouble(l -> l.getHeight()).sum();
 
 				// Determine max width for ports on the left and right sides
-				final double maxLeftPortWidth = n.getPorts().stream()
+				final double maxLeftPortWidth = n.getPorts()
+						.stream()
 						.filter(p -> p.getProperty(CoreOptions.PORT_SIDE) == PortSide.WEST)
-						.mapToDouble(p -> p.getWidth()).max().orElse(0.0);
-				final double maxRightPortWidth = n.getPorts().stream()
+						.mapToDouble(p -> p.getWidth())
+						.max()
+						.orElse(0.0);
+				final double maxRightPortWidth = n.getPorts()
+						.stream()
 						.filter(p -> p.getProperty(CoreOptions.PORT_SIDE) == PortSide.EAST)
-						.mapToDouble(p -> p.getWidth()).max().orElse(0.0);
+						.mapToDouble(p -> p.getWidth())
+						.max()
+						.orElse(0.0);
 
 				final DiagramNode dn = (DiagramNode) layoutMapping.getGraphMap().get(n);
 
@@ -740,9 +787,9 @@ public class DiagramElementLayoutUtil {
 					// Ensure the minimum width is such that the label can be centered without overlapping with ports.
 					// This happens because ports are inside the node due to the PORT_BORDER_OFFSET and ELK centers the labels in the remaining space.
 					final double widthForPorts = 2 * Math.max(maxLeftPortWidth, maxRightPortWidth);
-					minWidth = Math.max(40, maxLabelWidth + widthForPorts + portWidthPadding);
+					minWidth = Math.max(40, maxLabelWidth + widthForPorts + PORT_WIDTH_PADDING);
 				} else {
-					final double widthForPorts = maxLeftPortWidth + maxRightPortWidth + portWidthPadding;
+					final double widthForPorts = maxLeftPortWidth + maxRightPortWidth + PORT_WIDTH_PADDING;
 					minWidth = Math.max(40, Math.max(maxLabelWidth, widthForPorts));
 				}
 
@@ -767,7 +814,7 @@ public class DiagramElementLayoutUtil {
 					}
 
 					if (graphic instanceof ModeGraphic && ((ModeGraphic) graphic).isInitialMode) {
-						minHeight += ModeGraphic.initialModeAreaHeight;
+						minHeight += ModeGraphic.INITIAL_MODE_AREA_HEIGHT;
 					}
 
 					// Special min size handling for elements shown as image
@@ -825,14 +872,16 @@ public class DiagramElementLayoutUtil {
 	 *   Not shapes
 	 *   Elements which have an ancestor in the specified list.
 	 *   Children of a docked element unless the current diagram mode is layout diagram.
-	 * @param diagramNodes
-	 * @return
+	 * @param diagramNodes the diagram nodes to filter
+	 * @return a list which contains the specified diagram nodes with unnecessary nodes removed.
 	 */
-	static Collection<DiagramNode> filterUnnecessaryNodes(final Collection<? extends DiagramNode> diagramNodes,
+	private static Collection<DiagramNode> filterUnnecessaryNodes(final Collection<? extends DiagramNode> diagramNodes,
 			final boolean includeGroupChildren) {
-		return diagramNodes.stream().filter(dn -> dn instanceof AgeDiagram || (dn instanceof DiagramElement
-				&& DiagramElementPredicates.isShape((DiagramElement) dn) && !containsAnyAncestor(diagramNodes, dn)
-				&& (includeGroupChildren || ((DiagramElement) dn).getDockArea() != DockArea.GROUP)))
+		return diagramNodes.stream()
+				.filter(dn -> dn instanceof AgeDiagram
+						|| (dn instanceof DiagramElement && DiagramElementPredicates.isShape((DiagramElement) dn)
+								&& !containsAnyAncestor(diagramNodes, dn)
+								&& (includeGroupChildren || ((DiagramElement) dn).getDockArea() != DockArea.GROUP)))
 				.collect(Collectors.toList());
 	}
 
@@ -878,7 +927,7 @@ public class DiagramElementLayoutUtil {
 			}
 
 			// Set Position. Don't set the position of top level elements
-			if (!isTopLevelElement && DiagramElementPredicates.isMoveable(de)) {
+			if (!isTopLevelElement && DiagramElementPredicates.isMoveableShape(de)) {
 				// Determine position for the element
 				double x = elkShape.getX();
 				double y = elkShape.getY();
@@ -893,7 +942,7 @@ public class DiagramElementLayoutUtil {
 						} else if (PortSide.SIDES_EAST_WEST.contains(side)) {
 							y = elkShape.getY() - parentPort.getY();
 						} else {
-							throw new RuntimeException("Unexpected side: " + side);
+							throw new GraphicalEditorException("Unexpected side: " + side);
 						}
 					}
 				}
@@ -954,15 +1003,16 @@ public class DiagramElementLayoutUtil {
 			// Don't update connections if it wasn't updated. This prevents updating bendpoints to invalid values if an edge is not layed out.
 			if (edgeSection.eIsSet(ElkGraphPackage.eINSTANCE.getElkEdgeSection_StartX())
 					&& edgeSection.eIsSet(ElkGraphPackage.eINSTANCE.getElkEdgeSection_EndX())) {
-				final List<Point> bendpointsInParentCoordinateSystem = edgeSection.getBendPoints().stream()
-						.map(bp -> new Point(bp.getX(), bp.getY())).collect(Collectors.toCollection(LinkedList::new));
+				final List<Point> bendpointsInParentCoordinateSystem = edgeSection.getBendPoints()
+						.stream()
+						.map(bp -> new Point(bp.getX(), bp.getY()))
+						.collect(Collectors.toCollection(LinkedList::new));
 
 				//
 				// Set bendpoints
 				//
 
-				// Add the start and end points to the bendpoints list if the the start/end element is not a node. This is needed
-				// because the behavior of Graphiti chopbox anchors differ from ELK routing.
+				// Add the start and end points to the bendpoints list if the the start/end element is not a port.
 				// For ports the start and end points are unnecessary and will actually be located inside the port graphic.
 				final boolean srcIsPort = edge.getSources().size() == 1 ? edge.getSources().get(0) instanceof ElkPort
 						: false;
@@ -982,7 +1032,7 @@ public class DiagramElementLayoutUtil {
 				if (!srcIsPort && bendpointsInParentCoordinateSystem.size() >= 2) {
 					bendpointsInParentCoordinateSystem.set(0,
 							getAdjacentPoint(bendpointsInParentCoordinateSystem.get(0),
-									bendpointsInParentCoordinateSystem.get(1), startAndEndBendpointDistance));
+									bendpointsInParentCoordinateSystem.get(1), START_AND_END_BENDPOINT_DISTANCE));
 				}
 
 				if (!dstIsPort && bendpointsInParentCoordinateSystem.size() >= 2) {
@@ -992,7 +1042,7 @@ public class DiagramElementLayoutUtil {
 									.get(bendpointsInParentCoordinateSystem.size() - 1),
 									bendpointsInParentCoordinateSystem
 									.get(bendpointsInParentCoordinateSystem.size() - 2),
-									startAndEndBendpointDistance));
+									START_AND_END_BENDPOINT_DISTANCE));
 				}
 
 				// Get the absolute coordinate in the diagram of the edge's ELK container.
@@ -1049,16 +1099,21 @@ public class DiagramElementLayoutUtil {
 		for (final ElkLabel edgeLabel : edge.getLabels()) {
 			final Object labelValue = mapping.getGraphMap().get(edgeLabel);
 			if (labelValue instanceof ConnectionLabelReference) {
-				final double lx = edgeLabel.getX() - edgeMidpoint.x;
-				final double ly = edgeLabel.getY() - edgeMidpoint.y;
-				((ConnectionLabelReference) labelValue).setPosition(m, new Point(lx, ly));
+				final ConnectionLabelReference labelRef = (ConnectionLabelReference) labelValue;
+				if (Boolean.TRUE.equals(edgeLabel.getProperty(CoreOptions.NO_LAYOUT))) {
+					labelRef.setPosition(m, null);
+				} else {
+					final double lx = edgeLabel.getX() - edgeMidpoint.x;
+					final double ly = edgeLabel.getY() - edgeMidpoint.y;
+					labelRef.setPosition(m, new Point(lx, ly));
+				}
 			}
 		}
 	}
 
 	private static Point findMidpoint(final List<Point> points) {
 		if (points.size() < 2) {
-			throw new RuntimeException("At least two points must be specified");
+			throw new IllegalArgumentException("At least two points must be specified");
 		}
 
 		final double totalLength = length(points);
@@ -1077,7 +1132,7 @@ public class DiagramElementLayoutUtil {
 			}
 		}
 
-		throw new RuntimeException("Unexpected case: midpoint not found");
+		throw new GraphicalEditorException("Unexpected case: midpoint not found");
 	}
 
 	private static double length(final List<Point> points) {
@@ -1114,6 +1169,12 @@ public class DiagramElementLayoutUtil {
 		return new Point(p1.x + d * ux, p1.y + d * uy);
 	}
 
+	/**
+	 * Gets the absolute position of a node. This absolute position only considers the positions of shapes.
+	 * Connections are ignored.
+	 * @param dn the node for which to get the absolute position.
+	 * @return the absolute position.
+	 */
 	public static Point getAbsolutePosition(final DiagramNode dn) {
 		int x = 0;
 		int y = 0;
@@ -1147,44 +1208,74 @@ public class DiagramElementLayoutUtil {
 		final Set<BusinessObjectContext> movedElementsSet = movedElements.collect(Collectors.toSet());
 
 		// Build a set containing the moved elements and all of their descendant which are represented as shapes
-		final Set<BusinessObjectContext> diagramElements = checkDescendants ? movedElementsSet.stream()
-				.flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants())).collect(Collectors.toSet())
-				: movedElementsSet;
-				final Stream<DiagramElement> connections = m.getDiagram().getAllDiagramNodes()
-						.filter(q -> q instanceof DiagramElement && DiagramElementPredicates.isConnection((DiagramElement) q))
-						.map(DiagramElement.class::cast);
+		final Set<BusinessObjectContext> diagramElements = checkDescendants
+				? movedElementsSet.stream()
+						.flatMap(de -> Stream.concat(Stream.of(de), de.getAllDescendants()))
+						.collect(Collectors.toSet())
+						: movedElementsSet;
+		final Stream<DiagramElement> connections = m.getDiagram()
+				.getAllDiagramNodes()
+				.filter(q -> q instanceof DiagramElement && DiagramElementPredicates.isConnection((DiagramElement) q))
+				.map(DiagramElement.class::cast);
 
-				// Iterate over all the connections in the diagram and update their bendpoints if their ends are in the set above.
-				connections.forEachOrdered(connection -> {
-					final DiagramElement startElement = connection.getStartElement();
-					final DiagramElement endElement = connection.getEndElement();
-					final boolean isFlowIndicator = ((AgeConnection) connection.getGraphic()).isFlowIndicator;
-					if (diagramElements.contains(startElement) && (diagramElements.contains(endElement) || isFlowIndicator)) {
-						if (shiftBendpoints) {
-							shiftBendpoints(connection, delta, m);
-						}
+		// Iterate over all the connections in the diagram and update their bendpoints if their ends are in the set above.
+		connections.forEachOrdered(connection -> {
+			final DiagramElement startElement = connection.getStartElement();
+			final DiagramElement endElement = connection.getEndElement();
+			final boolean isFlowIndicator = ((AgeConnection) connection.getGraphic()).isFlowIndicator;
+			if (diagramElements.contains(startElement) && (diagramElements.contains(endElement) || isFlowIndicator)) {
+				if (shiftBendpoints) {
+					shiftBendpoints(connection, delta, m);
+				}
 
-						// Shift flow indicator positions
-						if (shiftFlowIndicatorPositions && isFlowIndicator && connection.hasPosition()) {
-							// Flow indicator positions are relative to the container of the flow indicator.
-							// If the flow indicator's ancestor has moved, then do not shift the flow indicator's position
-							boolean ancestorHasMoved = false;
-							for (DiagramNode tmp = connection.getParent(); tmp != null; tmp = tmp.getParent()) {
-								if (movedElementsSet.contains(tmp)) {
-									ancestorHasMoved = true;
-								}
-							}
-
-							if (!ancestorHasMoved) {
-								final DockArea startDockArea = getNonGroupDockArea(startElement);
-								m.setPosition(connection, new org.osate.ge.graphics.Point(connection.getX()
-										+ (startDockArea == null || !startDockArea.isLeftOrRight() ? delta.x : 0),
-										connection.getY()
-										+ (startDockArea == null || startDockArea.isLeftOrRight() ? delta.y : 0)));
-							}
+				// Shift flow indicator positions
+				if (shiftFlowIndicatorPositions && isFlowIndicator && connection.hasPosition()) {
+					// Flow indicator positions are relative to the container of the flow indicator.
+					// If the flow indicator's ancestor has moved, then do not shift the flow indicator's position
+					boolean ancestorHasMoved = false;
+					for (DiagramNode tmp = connection.getParent(); tmp != null; tmp = tmp.getParent()) {
+						if (movedElementsSet.contains(tmp)) {
+							ancestorHasMoved = true;
 						}
 					}
-				});
+
+					if (!ancestorHasMoved) {
+						final DockArea startDockArea = getNonGroupDockArea(startElement);
+						m.setPosition(connection, new org.osate.ge.graphics.Point(
+								connection.getX()
+								+ (startDockArea == null || !startDockArea.isLeftOrRight() ? delta.x : 0),
+								connection.getY()
+								+ (startDockArea == null || startDockArea.isLeftOrRight() ? delta.y : 0)));
+					}
+				}
+			}
+		});
+	}
+
+	/**
+	 * Returns the connections which are affected by moving the specified elements
+	 * @param movedElement is the element which to get the affected connections
+	 * @param diagram is the diagram which contains the connections.
+	 * @param checkDescendants whether to check descendants of the specified elements when looking for connections
+	 * @return he connections which are affected by moving the specified elements
+	 */
+	public static Stream<DiagramElement> getConnectionsAffectedByMove(final DiagramElement movedElement,
+			final AgeDiagram diagram, final boolean checkDescendants) {
+		// Build a set containing the moved elements and all of their descendant which are represented as shapes
+		final Set<BusinessObjectContext> diagramElements = checkDescendants
+				? movedElement.getAllDescendants().collect(Collectors.toSet())
+						: Collections.singleton(movedElement);
+		final Stream<DiagramElement> connections = diagram.getAllDiagramNodes()
+				.filter(q -> q instanceof DiagramElement && DiagramElementPredicates.isConnection((DiagramElement) q))
+				.map(DiagramElement.class::cast);
+
+		// Iterate over all the connections in the diagram and update their bendpoints if their ends are in the set above.
+		return connections.filter(c -> {
+			final DiagramElement startElement = c.getStartElement();
+			final DiagramElement endElement = c.getEndElement();
+			final boolean isFlowIndicator = ((AgeConnection) c.getGraphic()).isFlowIndicator;
+			return diagramElements.contains(startElement) && (diagramElements.contains(endElement) || isFlowIndicator);
+		});
 	}
 
 	private static void shiftBendpoints(final DiagramElement connection, final org.osate.ge.graphics.Point delta,
@@ -1200,9 +1291,10 @@ public class DiagramElementLayoutUtil {
 	}
 
 	/**
-	 * Returns the first dock area that isn't the group dock area. Checks the specified diagram node and then ancestors.
+	 * Walks up the tree from the given node and returns the first dock area that isn't the group dock area.
+	 * Checks the specified diagram node and then ancestors.
 	 * @param diagramNode is the diagram for which to return the non group docker area.
-	 * @return
+	 * @return the first dock area that isn't the group dock area.
 	 */
 	public static DockArea getNonGroupDockArea(DiagramNode diagramNode) {
 		DockArea result = null;
@@ -1213,7 +1305,7 @@ public class DiagramElementLayoutUtil {
 			}
 
 			result = ((DiagramElement) diagramNode).getDockArea();
-			diagramNode = diagramNode.getContainer();
+			diagramNode = diagramNode.getParent();
 		} while (result != null && result == DockArea.GROUP);
 
 		return result;
@@ -1222,21 +1314,38 @@ public class DiagramElementLayoutUtil {
 	//
 	// The following methods are used to move elements and make related changes appropriate
 	//
+	/**
+	 * Sets the position of a diagram element. Updates dock area, bendpoints, and flow indicators
+	 * @param modification the diagram modification to use to modify the diagram
+	 * @param e the element for which to set the position
+	 * @param value the new position of the element
+	 * @see #moveElement(DiagramModification, DiagramElement, Point, boolean, boolean, boolean)
+	 */
 	public static void moveElement(final DiagramModification modification, final DiagramElement e, final Point value) {
 		moveElement(modification, e, value, true, true);
 	}
 
+	/**
+	 * Sets the position of a diagram element. Updates the flow indicators
+	 * @param modification the diagram modification to use to modify the diagram
+	 * @param e the element for which to set the position
+	 * @param value the new position of the element
+	 * @param updateDockArea whether the dock area should be updated based on the set position.
+	 * @param updateBendpoints whether to shift bendpoints of related connections
+	 * @see #moveElement(DiagramModification, DiagramElement, Point, boolean, boolean, boolean)
+	 */
 	public static void moveElement(final DiagramModification modification, final DiagramElement e, final Point value,
-			final boolean updateDockArea, final boolean updatedBendpoints) {
-		moveElement(modification, e, value, updateDockArea, updatedBendpoints, true);
+			final boolean updateDockArea, final boolean updateBendpoints) {
+		moveElement(modification, e, value, updateDockArea, updateBendpoints, true);
 	}
 
 	/**
 	 * Sets the position of a diagram element
-	 * @param e the element to set position
+	 * @param modification the diagram modification to use to modify the diagram
+	 * @param e the element for which to set the position
 	 * @param value the new position of the element
 	 * @param updateDockArea whether the dock area should be updated based on the set position.
-	 * @param updateBendpoints whether to update contained bendpoints
+	 * @param updateBendpoints whether to shift bendpoints of related connections
 	 * @param updateFlowIndicators if related flow indicators should be moved. If dock area has changed the position of the dock areas will be reset to allow for a new layout.
 	 */
 	public static void moveElement(final DiagramModification modification, final DiagramElement e, final Point value,
@@ -1277,9 +1386,8 @@ public class DiagramElementLayoutUtil {
 	}
 
 	private static DockArea calculateDockArea(final DiagramElement e) {
-		return AgeDiagramUtil
-				.determineDockingPosition(e.getContainer(), e.getX(), e.getY(), e.getWidth(), e.getHeight())
-				.getDefaultDockArea();
+		return DockArea.fromDockingPosition(AgeDiagramUtil.determineDockingPosition(e.getParent(), e.getX(), e.getY(),
+				e.getWidth(), e.getHeight()));
 	}
 
 }

@@ -72,92 +72,92 @@ public class DiagramUpdaterTest {
 	@Test
 	public void testDiagramElementCreation() {
 		diagramUpdater.updateDiagram(diagram);
-		assignPositions(diagram.getDiagramElements());
-		checkElements(diagram.getDiagramElements(), testModel.getModel());
+		assignPositions(diagram.getChildren());
+		checkElements(diagram.getChildren(), testModel.getModel());
 	}
 
 	// Test that when update is called multiple times, elements are not duplicated
 	@Test
 	public void testDiagramElementUpdating() {
 		diagramUpdater.updateDiagram(diagram);
-		assignPositions(diagram.getDiagramElements());
+		assignPositions(diagram.getChildren());
 
 		diagramUpdater.updateDiagram(diagram);
-		checkElements(diagram.getDiagramElements(), testModel.getModel());
+		checkElements(diagram.getChildren(), testModel.getModel());
 	}
 
 	// Test that when all objects are removed from the model, all elements are removed from the diagram.
 	@Test
 	public void testDiagramElementRemovalOfAll() {
 		diagramUpdater.updateDiagram(diagram);
-		assignPositions(diagram.getDiagramElements());
+		assignPositions(diagram.getChildren());
 
 		testModel.setModel(newBO());
 		diagramUpdater.updateDiagram(diagram);
-		assertThat(diagram.getDiagramElements().size(), is(equalTo(0)));
+		assertThat(diagram.getChildren().size(), is(equalTo(0)));
 	}
 
 	// Test that when part of the model is removed
 	@Test
 	public void testDiagramElementPartialRemoval() {
 		diagramUpdater.updateDiagram(diagram);
-		assignPositions(diagram.getDiagramElements());
-		checkElements(diagram.getDiagramElements(), testModel.getModel());
+		assignPositions(diagram.getChildren());
+		checkElements(diagram.getChildren(), testModel.getModel());
 		testModel.setModel(newBO(testModel.getModel().children[0].children));
 		diagramUpdater.updateDiagram(diagram);
-		assignPositions(diagram.getDiagramElements());
-		checkElements(diagram.getDiagramElements(), testModel.getModel());
+		assignPositions(diagram.getChildren());
+		checkElements(diagram.getChildren(), testModel.getModel());
 	}
 
 	// Test that when a business object is replace by a new one with the same reference.
 	@Test
 	public void testDiagramElementUpdateBusinessObject() {
 		diagramUpdater.updateDiagram(diagram);
-		assignPositions(diagram.getDiagramElements());
-		checkElements(diagram.getDiagramElements(), testModel.getModel());
+		assignPositions(diagram.getChildren());
+		checkElements(diagram.getChildren(), testModel.getModel());
 		final TestBusinessObject owner = testModel.getModel().children[1];
 		final TestBusinessObject newBusinessObject = newBO(owner.children[0].value); // Create a copy with the same value. It is assumed that this element does not container children
 		owner.children[0] = newBusinessObject;
 		diagramUpdater.updateDiagram(diagram);
 
-		final DiagramElement element = diagram.getByRelativeReference(owner.getRelativeReference()).
-				getByRelativeReference(newBusinessObject.getRelativeReference());
+		final DiagramElement element = diagram.getChildByRelativeReference(owner.getRelativeReference()).
+				getChildByRelativeReference(newBusinessObject.getRelativeReference());
 		assertThat(element.getBusinessObject(), is(sameInstance(newBusinessObject)));
 
-		checkElements(diagram.getDiagramElements(), testModel.getModel());
+		checkElements(diagram.getChildren(), testModel.getModel());
 	}
 
 	// Test that when a business object is replaced by a new one with a different reference that the diagram elements are updated appropriately
 	@Test
 	public void testDiagramElementReplaceBusinessObjectWithNew() {
 		diagramUpdater.updateDiagram(diagram);
-		assignPositions(diagram.getDiagramElements());
-		checkElements(diagram.getDiagramElements(), testModel.getModel());
+		assignPositions(diagram.getChildren());
+		checkElements(diagram.getChildren(), testModel.getModel());
 		final TestBusinessObject owner = testModel.getModel().children[1];
 		final TestBusinessObject newBusinessObject = newBO(42);
 		owner.children[0] = newBusinessObject;
 		diagramUpdater.updateDiagram(diagram);
 
 		// Get the new element
-		final DiagramElement element = diagram.getByRelativeReference(owner.getRelativeReference()).
-				getByRelativeReference(newBusinessObject.getRelativeReference());
+		final DiagramElement element = diagram.getChildByRelativeReference(owner.getRelativeReference()).
+				getChildByRelativeReference(newBusinessObject.getRelativeReference());
 		assertThat(element, is(notNullValue()));
 		assertThat(element.getPosition(), is(nullValue()));
 		assertThat(element.getBusinessObject(), is(sameInstance(newBusinessObject)));
 
-		final DiagramElement e = diagram.getByRelativeReference(owner.getRelativeReference()).
-				getByRelativeReference(newBusinessObject.getRelativeReference());
+		final DiagramElement e = diagram.getChildByRelativeReference(owner.getRelativeReference()).
+				getChildByRelativeReference(newBusinessObject.getRelativeReference());
 		diagram.modify("Set Position", m -> m.setPosition(e, newBusinessObject.getTestPosition()));
 
-		checkElements(diagram.getDiagramElements(), testModel.getModel());
+		checkElements(diagram.getChildren(), testModel.getModel());
 	}
 
 	// Test that when a business object is ghosted and re-added, that the position is restored.
 	@Test
 	public void testDiagramElementGhostingAndReadd() {
 		diagramUpdater.updateDiagram(diagram);
-		assignPositions(diagram.getDiagramElements());
-		checkElements(diagram.getDiagramElements(), testModel.getModel());
+		assignPositions(diagram.getChildren());
+		checkElements(diagram.getChildren(), testModel.getModel());
 
 		// Remove a business object from the tree and update the diagram. This will remove the element from the diagram
 		final TestBusinessObject owner = testModel.getModel().children[0];
@@ -169,7 +169,7 @@ public class DiagramUpdaterTest {
 		// Re-add the business object to the tree and update the diagram. Verify that the element is re-added and the position is restored.
 		owner.children[0] = oldBusinessObject;
 		diagramUpdater.updateDiagram(diagram);
-		checkElements(diagram.getDiagramElements(), testModel.getModel());
+		checkElements(diagram.getChildren(), testModel.getModel());
 	}
 
 	// Test that element docking are works as expected
@@ -182,17 +182,17 @@ public class DiagramUpdaterTest {
 
 		// Update the diagram and assign positions
 		diagramUpdater.updateDiagram(diagram);
-		assignPositions(diagram.getDiagramElements());
+		assignPositions(diagram.getChildren());
 
 		// Check that the contents of test diagram element have the appropriate docking area
-		checkElements(diagram.getDiagramElements(), testModel.getModel());
+		checkElements(diagram.getChildren(), testModel.getModel());
 
 		// Check that Changing the Docking Area and updating the diagram does not reset the docking area.
-		final DiagramElement dockableDiagramElement = diagram.getByRelativeReference(testBoParent.getRelativeReference()).
-				getByRelativeReference(testBo.getRelativeReference());
+		final DiagramElement dockableDiagramElement = diagram.getChildByRelativeReference(testBoParent.getRelativeReference()).
+				getChildByRelativeReference(testBo.getRelativeReference());
 		assertThat(dockableDiagramElement.getDockArea(),
-				is(equalTo(testBo.getDefaultDockingPosition().getDefaultDockArea())));
-		final DockArea newDockArea = DockingPosition.RIGHT.getDefaultDockArea();
+				is(equalTo(DockArea.fromDockingPosition(testBo.getDefaultDockingPosition()))));
+		final DockArea newDockArea = DockArea.fromDockingPosition(DockingPosition.RIGHT);
 
 		diagram.modify("Set Dock Area", m -> m.setDockArea(dockableDiagramElement, newDockArea));
 
@@ -211,7 +211,7 @@ public class DiagramUpdaterTest {
 		testModel.getModel().children[0].makeConnection(testModel.getModel().children[1], testModel.getModel().children[2]);
 		diagramUpdater.updateDiagram(diagram);
 
-		final DiagramElement testConnectionDiagramElement = diagram.getByRelativeReference(testModel.getModel().children[0].getRelativeReference());
+		final DiagramElement testConnectionDiagramElement = diagram.getChildByRelativeReference(testModel.getModel().children[0].getRelativeReference());
 		assertThat(testConnectionDiagramElement, notNullValue());
 		assertThat(testConnectionDiagramElement.getGraphic(), instanceOf(AgeConnection.class));
 		assertThat(testConnectionDiagramElement.getStartElement(), notNullValue());
@@ -229,7 +229,7 @@ public class DiagramUpdaterTest {
 		testModel.getModel().children[0].makeConnection(null, testModel.getModel().children[2]);
 		diagramUpdater.updateDiagram(diagram);
 
-		final DiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.getModel().children[0].getRelativeReference());
+		final DiagramElement testDiagramElement = diagram.getChildByRelativeReference(testModel.getModel().children[0].getRelativeReference());
 		assertThat(testDiagramElement, nullValue());
 	}
 
@@ -244,7 +244,7 @@ public class DiagramUpdaterTest {
 		testModel.getModel().children[0].makeConnection(testModel.getModel().children[1], null);
 		diagramUpdater.updateDiagram(diagram);
 
-		final DiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.getModel().children[0].getRelativeReference());
+		final DiagramElement testDiagramElement = diagram.getChildByRelativeReference(testModel.getModel().children[0].getRelativeReference());
 		assertThat(testDiagramElement, nullValue());
 	}
 
@@ -260,7 +260,7 @@ public class DiagramUpdaterTest {
 		testModel.getModel().children[2].makeConnection(null, null); // Invalid connection
 		diagramUpdater.updateDiagram(diagram);
 
-		final DiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.getModel().children[0].getRelativeReference());
+		final DiagramElement testDiagramElement = diagram.getChildByRelativeReference(testModel.getModel().children[0].getRelativeReference());
 		assertThat(testDiagramElement, nullValue());
 	}
 
@@ -274,7 +274,7 @@ public class DiagramUpdaterTest {
 			m.setPosition(element, bo.getTestPosition());
 
 			// Assign positions to children
-			assignPositions(m, element.getDiagramElements());
+			assignPositions(m, element.getChildren());
 		}
 	}
 
@@ -322,17 +322,17 @@ public class DiagramUpdaterTest {
 			}
 
 			// Check the children
-			checkElements(e.getDiagramElements(), (TestBusinessObject)e.getBusinessObject(), dockArea, flags);
+			checkElements(e.getChildren(), (TestBusinessObject) e.getBusinessObject(), dockArea, flags);
 		}
 	}
 
 	public static DockArea getExpectedDockArea(final TestBusinessObject bo, final DockArea parentDockArea) {
 		// Return the dock area based on the default docking position if the parent isn't docked. Otherwise, ensure that the dock area is set to GROUP.
-		final DockArea boDockArea = bo.getDefaultDockingPosition().getDefaultDockArea();
+		final DockArea boDockArea = DockArea.fromDockingPosition(bo.getDefaultDockingPosition());
 		if(boDockArea == null) {
 			return null;
 		} else if(parentDockArea == null) {
-			return bo.getDefaultDockingPosition().getDefaultDockArea();
+			return DockArea.fromDockingPosition(bo.getDefaultDockingPosition());
 		} else {
 			return DockArea.GROUP;
 		}

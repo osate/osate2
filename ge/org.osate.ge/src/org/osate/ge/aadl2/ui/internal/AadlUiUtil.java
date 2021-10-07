@@ -148,7 +148,7 @@ public class AadlUiUtil {
 				.collect(Collectors.toList());
 	}
 
-	public static <ClassifierType extends Classifier> List<ClassifierType> getPotentialClassifiersForEditing(
+	public static <ClassifierType> List<ClassifierType> getPotentialClassifiersForEditing(
 			final Object bo, final Class<ClassifierType> classifierClass, final Predicate<ClassifierType> filter) {
 		return getPotentialClassifiersForEditing(bo, classifierClass, filter, false);
 	}
@@ -231,7 +231,7 @@ public class AadlUiUtil {
 		return selectedBo;
 	}
 
-	public static <ClassifierType> boolean isSubcomponentWithoutClassifier(final Object bo) {
+	public static boolean isSubcomponentWithoutClassifier(final Object bo) {
 		if (bo instanceof Subcomponent) {
 			return ((Subcomponent) bo).getAllClassifier() == null;
 		}
@@ -239,7 +239,7 @@ public class AadlUiUtil {
 		return false;
 	}
 
-	public static <ClassifierType> boolean isFeatureGroupWithoutClassifier(final Object bo) {
+	public static boolean isFeatureGroupWithoutClassifier(final Object bo) {
 		if (bo instanceof FeatureGroup) {
 			return ((FeatureGroup) bo).getAllClassifier() == null;
 		}
@@ -247,7 +247,7 @@ public class AadlUiUtil {
 		return false;
 	}
 
-	public static <ClassifierType> boolean isSubcomponentOrFeatureGroupWithoutClassifier(final Object bo) {
+	public static boolean isSubcomponentOrFeatureGroupWithoutClassifier(final Object bo) {
 		return isSubcomponentWithoutClassifier(bo) || isFeatureGroupWithoutClassifier(bo);
 	}
 
@@ -263,8 +263,8 @@ public class AadlUiUtil {
 			final String targetDescription = bo instanceof NamedElement
 					? ("The element '" + ((NamedElement) bo).getQualifiedName() + "'")
 							: "The target element";
-					MessageDialog.openError(Display.getDefault().getActiveShell(), "Classifier Not Set",
-							targetDescription + " does not have a classifier. " + secondaryMsg);
+			MessageDialog.openError(Display.getDefault().getActiveShell(), "Classifier Not Set",
+					targetDescription + " does not have a classifier. " + secondaryMsg);
 		}
 
 		return showMsg;

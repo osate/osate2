@@ -38,7 +38,7 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.ge.aadl2.internal.AadlNamingUtil;
 import org.osate.ge.aadl2.internal.util.AadlNameUtil;
-import org.osate.ge.internal.util.ProxyUtil;
+import org.osate.ge.internal.util.AgeEmfUtil;
 
 public class ClassifierCreationHelper {
 	private final ResourceSet resourceSet;
@@ -149,14 +149,14 @@ public class ClassifierCreationHelper {
 			return (ComponentType) c;
 		} else if (c instanceof ComponentImplementation) {
 			final ComponentImplementation ci = (ComponentImplementation) c;
-			return ProxyUtil.resolveOrNull(ci.getType(), ComponentType.class, resourceSet);
+			return AgeEmfUtil.resolveOrNull(ci.getType(), ComponentType.class, resourceSet);
 		} else {
 			throw new RuntimeException("Unexpected case: " + c);
 		}
 	}
 
 	public AadlPackage getResolvedPackage(final Object value) {
-		return ProxyUtil.resolveOrNull(value, AadlPackage.class, resourceSet);
+		return AgeEmfUtil.resolveOrNull(value, AadlPackage.class, resourceSet);
 	}
 
 	public PublicPackageSection getResolvedPublicSection(final Object pkgValue) {
@@ -165,6 +165,6 @@ public class ClassifierCreationHelper {
 	}
 
 	public Classifier getResolvedClassifier(final Object value) {
-		return ProxyUtil.resolveOrNull(value, Classifier.class, resourceSet);
+		return AgeEmfUtil.resolveOrNull(value, Classifier.class, resourceSet);
 	}
 }

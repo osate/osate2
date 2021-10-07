@@ -145,7 +145,7 @@ public class PrototypeEndToEndTest {
 		createElementAndLayout(diagram, element(pkg, getClassifierRelativeReference("test_system.impl")),
 				"System Subcomponent", getSubcomponentRelativeReference("test_system_impl_new_subcomponent"), "ss");
 		setSubcomponentClassifierFromPropertiesView(diagram, "prototype_test::subsystem", () -> {
-			final Shell dialog = getActiveShell();
+			final Shell dialog = getActiveWindow();
 
 			// Edit the binding for iface_pt
 			clickButton("Choose...");
@@ -153,7 +153,7 @@ public class PrototypeEndToEndTest {
 			selectListItem(0, "interfaces::subsystem_interface");
 
 			// Edit the binding for event_fpt
-			final Shell bindingDialog = getActiveShell();
+			final Shell bindingDialog = getActiveWindow();
 			setComboBoxSelection(0, "data port");
 			setComboBoxSelection(1, "out");
 			clickButton("Choose...", 0);

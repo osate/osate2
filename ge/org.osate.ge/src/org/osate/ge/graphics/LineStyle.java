@@ -24,10 +24,22 @@
 package org.osate.ge.graphics;
 
 /**
+ * Enumeration for the supported line styled.
  * @since 1.1
  */
 public enum LineStyle {
+	/**
+	 * An uninterrupted line
+	 */
 	SOLID,
+
+	/**
+	 * A line rendered as a series of dashes and spaces
+	 */
 	DASHED,
+
+	/**
+	 * A line rendered as a series of dots and spaces
+	 */
 	DOTTED
 }

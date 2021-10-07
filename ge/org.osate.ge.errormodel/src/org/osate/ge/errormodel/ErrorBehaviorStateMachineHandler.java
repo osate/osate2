@@ -46,6 +46,9 @@ import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 
+/**
+ * Business object handler for {@link ErrorBehaviorStateMachine} objects.
+ */
 public class ErrorBehaviorStateMachineHandler implements BusinessObjectHandler {
 	private static final Graphic graphic = RectangleBuilder.create().rounded().build();
 
@@ -81,7 +84,7 @@ public class ErrorBehaviorStateMachineHandler implements BusinessObjectHandler {
 	@Override
 	public Optional<GraphicalConfiguration> getGraphicalConfiguration(final GetGraphicalConfigurationContext ctx) {
 		return Optional.of(GraphicalConfigurationBuilder.create().graphic(graphic)
-				.annotation("<Error Behavior State Machine>").style(ErrorModelGeUtil.topCenteredLabelStyle).build());
+				.annotation("<Error Behavior State Machine>").style(ErrorModelGeUtil.TOP_CENTERED_LABEL_STYLE).build());
 	}
 
 	@Override
