@@ -25,7 +25,12 @@ package org.osate.ge.graphics;
 
 import org.eclipse.core.runtime.IPath;
 
-public class StyleBuilder {
+/**
+ * Builder for the {@link Style} class.
+ * @since 2.0
+ * @see Style
+ */
+public final class StyleBuilder {
 	private Color background;
 	private IPath image;
 	private Boolean showAsImage;
@@ -38,22 +43,36 @@ public class StyleBuilder {
 	private LabelPosition verticalLabelPosition;
 	private Boolean primaryLabelVisible;
 
-	private StyleBuilder() {}
+	/**
+	 * Private constructor to prevent direct instantiation.
+	 * @see #create()
+	 */
+	private StyleBuilder() {
+	}
 
+	/**
+	 * Creates a new instance of the builder.
+	 * @return a new builder
+	 */
 	public static StyleBuilder create() {
 		return new StyleBuilder();
 	}
 
 	/**
-	 * Returns a style builder initialized by the specified styles. Styles specified earlier override later styles. Null values are ignored.
-	 * @param styles
-	 * @return
+	 * Create a new instance configured using specified styles. The first non-null value for each field is used to configure the builder.
+	 * In other words, styles specified earlier override later styles. Null styles or null values within a style are ignored.
+	 * @param styles the styles to use to configure the instance
+	 * @return the new builder
 	 */
 	public static StyleBuilder create(final Style... styles) {
 		final StyleBuilder sb = new StyleBuilder();
 
 		for (int i = styles.length - 1; i >= 0; i--) {
 			final Style s = styles[i];
+			if (s == null) {
+				continue;
+			}
+
 			if(s.getBackgroundColor() != null) {
 				sb.backgroundColor(s.getBackgroundColor());
 			}
@@ -102,49 +121,101 @@ public class StyleBuilder {
 		return sb;
 	}
 
-	public StyleBuilder backgroundColor(final Color background) {
-		this.background = background;
+	/**
+	 * Configures the builder to build an instance with the specified background color.
+	 * @param value the background color
+	 * @return this builder to allow method chaining.
+	 * @see Style#getBackgroundColor()
+	 */
+	public StyleBuilder backgroundColor(final Color value) {
+		this.background = value;
 		return this;
 	}
 
-	public StyleBuilder showAsImage(final Boolean showAsImage) {
-		this.showAsImage = showAsImage;
+	/**
+	 * Configures the builder to build an instance with the specified show as image value.
+	 * @param value the value for the show as image field
+	 * @return this builder to allow method chaining.
+	 * @see Style#getShowAsImage()
+	 */
+	public StyleBuilder showAsImage(final Boolean value) {
+		this.showAsImage = value;
 		return this;
 	}
 
-	public StyleBuilder imagePath(final IPath image) {
-		this.image = image;
+	/**
+	 * Configures the builder to build an instance with the specified image path.
+	 * @param value the image path
+	 * @return this builder to allow method chaining.
+	 * @see Style#getImagePath()
+	 */
+	public StyleBuilder imagePath(final IPath value) {
+		this.image = value;
 		return this;
 	}
 
-	// Sets both the font and outline colors
+	/**
+	 * Configures the builder to build an instance with the specified outline and font color.
+	 * @param value the outline and font color.
+	 * @return this builder to allow method chaining.
+	 * @see #outlineColor(Color)
+	 * @see #fontColor(Color)
+	 * @see Style#getOutlineColor()
+	 * @see Style#getFontColor()
+	 */
 	public StyleBuilder foregroundColor(final Color value) {
 		return outlineColor(value).fontColor(value);
 	}
 
-	public StyleBuilder outlineColor(final Color outline) {
-		this.outline = outline;
+	/**
+	 * Configures the builder to build an instance with the specified outline color.
+	 * @param value the outline color
+	 * @return this builder to allow method chaining.
+	 * @see Style#getOutlineColor()
+	 */
+	public StyleBuilder outlineColor(final Color value) {
+		this.outline = value;
 		return this;
 	}
 
-	public StyleBuilder fontColor(final Color fontColor) {
-		this.fontColor = fontColor;
+	/**
+	 * Configures the builder to build an instance with the specified font color.
+	 * @param value the font color
+	 * @return this builder to allow method chaining.
+	 * @see Style#getFontColor()
+	 */
+	public StyleBuilder fontColor(final Color value) {
+		this.fontColor = value;
 		return this;
 	}
 
-	public StyleBuilder fontSize(final Double fontSize) {
-		this.fontSize = fontSize;
+	/**
+	 * Configures the builder to build an instance with the specified font size.
+	 * @param value the font size
+	 * @return this builder to allow method chaining.
+	 * @see Style#getFontSize()
+	 */
+	public StyleBuilder fontSize(final Double value) {
+		this.fontSize = value;
 		return this;
 	}
 
-	public StyleBuilder lineWidth(final Double lineWidth) {
-		this.lineWidth = lineWidth;
+	/**
+	 * Configures the builder to build an instance with the specified line width.
+	 * @param value the line width
+	 * @return this builder to allow method chaining.
+	 * @see Style#getLineWidth()
+	 */
+	public StyleBuilder lineWidth(final Double value) {
+		this.lineWidth = value;
 		return this;
 	}
 
 	/**
 	 * Configures the style builder to create a dashed lines.
 	 * @return this builder to allow method chaining.
+	 * @see LineStyle
+	 * @see Style#getLineStyle()
 	 */
 	public StyleBuilder dashed() {
 		this.lineStyle = LineStyle.DASHED;
@@ -154,6 +225,8 @@ public class StyleBuilder {
 	/**
 	 * Configures the style builder to create a dotted lines.
 	 * @return this builder to allow method chaining.
+	 * @see LineStyle
+	 * @see Style#getLineStyle()
 	 */
 	public StyleBuilder dotted() {
 		this.lineStyle = LineStyle.DOTTED;
@@ -161,23 +234,44 @@ public class StyleBuilder {
 	}
 
 	/**
+	 * Configures the builder to build an instance with the specified line style.
+	 * @param value the line style
+	 * @return this builder to allow method chaining.
 	 * @since 1.1
 	 */
-	public StyleBuilder lineStyle(final LineStyle lineStyle) {
-		this.lineStyle = lineStyle;
+	public StyleBuilder lineStyle(final LineStyle value) {
+		this.lineStyle = value;
 		return this;
 	}
 
+	/**
+	 * Configures the builder to build an instance with the specified horizontal label position.
+	 * @param value the horizontal label position
+	 * @return this builder to allow method chaining.
+	 * @see Style#getHorizontalLabelPosition()
+	 */
 	public StyleBuilder labelsHorizontalPosition(final LabelPosition value) {
 		this.horizontalLabelPosition = value;
 		return this;
 	}
 
+	/**
+	 * Configures the builder to build an instance with the specified vertical label position
+	 * @param value the vertical label position
+	 * @return this builder to allow method chaining.
+	 * @see Style#getVerticalLabelPosition()
+	 */
 	public StyleBuilder labelsVerticalPosition(final LabelPosition value) {
 		this.verticalLabelPosition = value;
 		return this;
 	}
 
+	/**
+	 * Configures the builder to build an instance with the specified primary label visible value
+	 * @param value the value for the primary label visible field
+	 * @return this builder to allow method chaining.
+	 * @see Style#getPrimaryLabelVisible()
+	 */
 	public StyleBuilder primaryLabelVisible(final Boolean value) {
 		this.primaryLabelVisible = value;
 		return this;
@@ -186,6 +280,8 @@ public class StyleBuilder {
 	/**
 	 * Configures labels to be left aligned.
 	 * @return this builder to allow method chaining.
+	 * @see #labelsHorizontalPosition(LabelPosition)
+	 * @see Style#getHorizontalLabelPosition()
 	 */
 	public StyleBuilder labelsLeft() {
 		this.horizontalLabelPosition = LabelPosition.GRAPHIC_BEGINNING;
@@ -195,6 +291,8 @@ public class StyleBuilder {
 	/**
 	 * Configures labels to be centered horizontally.
 	 * @return this builder to allow method chaining.
+	 * @see #labelsHorizontalPosition(LabelPosition)
+	 * @see Style#getHorizontalLabelPosition()
 	 */
 	public StyleBuilder labelsHorizontalCenter() {
 		this.horizontalLabelPosition = LabelPosition.GRAPHIC_CENTER;
@@ -204,6 +302,8 @@ public class StyleBuilder {
 	/**
 	 * Configures labels to be right aligned.
 	 * @return this builder to allow method chaining.
+	 * @see #labelsHorizontalPosition(LabelPosition)
+	 * @see Style#getHorizontalLabelPosition()
 	 */
 	public StyleBuilder labelsRight() {
 		this.horizontalLabelPosition = LabelPosition.GRAPHIC_END;
@@ -213,6 +313,8 @@ public class StyleBuilder {
 	/**
 	 * Configures labels to be positioned above the top of the graphic. Only supported for docked shapes.
 	 * @return this builder to allow method chaining.
+	 * @see #labelsVerticalPosition(LabelPosition)
+	 * @see Style#getVerticalLabelPosition()
 	 */
 	public StyleBuilder labelsAboveTop() {
 		this.verticalLabelPosition = LabelPosition.BEFORE_GRAPHIC;
@@ -222,6 +324,8 @@ public class StyleBuilder {
 	/**
 	 * Configures labels to be top aligned.
 	 * @return this builder to allow method chaining.
+	 * @see #labelsVerticalPosition(LabelPosition)
+	 * @see Style#getVerticalLabelPosition()
 	 */
 	public StyleBuilder labelsTop() {
 		this.verticalLabelPosition = LabelPosition.GRAPHIC_BEGINNING;
@@ -231,6 +335,8 @@ public class StyleBuilder {
 	/**
 	 * Configures labels to be centered vertically.
 	 * @return this builder to allow method chaining.
+	 * @see #labelsVerticalPosition(LabelPosition)
+	 * @see Style#getVerticalLabelPosition()
 	 */
 	public StyleBuilder labelsVerticalCenter() {
 		this.verticalLabelPosition = LabelPosition.GRAPHIC_CENTER;
@@ -240,6 +346,8 @@ public class StyleBuilder {
 	/**
 	 * Configures labels to be bottom aligned.
 	 * @return this builder to allow method chaining.
+	 * @see #labelsVerticalPosition(LabelPosition)
+	 * @see Style#getVerticalLabelPosition()
 	 */
 	public StyleBuilder labelsBottom() {
 		this.verticalLabelPosition = LabelPosition.GRAPHIC_END;
@@ -249,6 +357,8 @@ public class StyleBuilder {
 	/**
 	 * Configures labels to be centered horizontally and vertically
 	 * @return this builder to allow method chaining.
+	 * @see #labelsHorizontalCenter()
+	 * @see #labelsVerticalCenter()
 	 */
 	public StyleBuilder labelsCenter() {
 		this.horizontalLabelPosition = LabelPosition.GRAPHIC_CENTER;
@@ -256,6 +366,10 @@ public class StyleBuilder {
 		return this;
 	}
 
+	/**
+	 * Creates a new style with the configured values.
+	 * @return a new style with the configured values.
+	 */
 	public Style build() {
 		return new Style(background, fontColor, outline, fontSize, showAsImage, image, lineWidth, lineStyle,
 				horizontalLabelPosition,

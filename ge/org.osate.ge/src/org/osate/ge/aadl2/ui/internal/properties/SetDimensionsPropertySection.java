@@ -25,6 +25,7 @@ package org.osate.ge.aadl2.ui.internal.properties;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -194,183 +195,184 @@ public class SetDimensionsPropertySection extends AbstractPropertySection {
 	}
 
 // Move call element
-	private final ExecuteOrderChange<Integer, Integer, DragAndDropElement> executeChangeOrder = (newIndex, curIndex,
-			dNDElement) -> {
-				if (newIndex != curIndex) {
-					selectedIndex = newIndex;
-					selectedBos.modify(ArrayableElement.class, ae -> {
-						final ArrayDimension dim = ae.getArrayDimensions().get(dNDElement.getIndex() - 1);
-						ae.getArrayDimensions().move(newIndex, dim);
-					});
-				}
-			};
+	private final ExecuteOrderChange executeChangeOrder = (newIndex, curIndex, dNDElement) -> {
+		if (!Objects.equals(newIndex, curIndex)) {
+			selectedIndex = newIndex;
+			selectedBos.modify(ArrayableElement.class, ae -> {
+				final ArrayDimension dim = ae.getArrayDimensions().get(dNDElement.getIndex() - 1);
+				ae.getArrayDimensions().move(newIndex, dim);
+			});
+		}
+	};
 
-			private static ArrayDimension createArrayDimensionDuplicate(final Aadl2Package pkg, final ArrayDimension dim) {
-				final ArrayDimension newDim = (ArrayDimension) pkg.getEFactoryInstance().create(pkg.getArrayDimension());
-				if (dim.getSize() != null) {
-					final ArraySize newArraySize = (ArraySize) pkg.getEFactoryInstance().create(pkg.getArraySize());
-					newArraySize.setSize(dim.getSize().getSize());
-					newArraySize.setSizeProperty(dim.getSize().getSizeProperty());
-					newDim.setSize(newArraySize);
-				}
+	private static ArrayDimension createArrayDimensionDuplicate(final Aadl2Package pkg, final ArrayDimension dim) {
+		final ArrayDimension newDim = (ArrayDimension) pkg.getEFactoryInstance().create(pkg.getArrayDimension());
+		if (dim.getSize() != null) {
+			final ArraySize newArraySize = (ArraySize) pkg.getEFactoryInstance().create(pkg.getArraySize());
+			newArraySize.setSize(dim.getSize().getSize());
+			newArraySize.setSizeProperty(dim.getSize().getSizeProperty());
+			newDim.setSize(newArraySize);
+		}
 
-				return newDim;
+		return newDim;
+	}
+
+	private ArrayDimension getSelectedDimension() {
+		final IStructuredSelection selection = tableViewer.getStructuredSelection();
+		if (!selection.isEmpty()) {
+			final Optional<ArrayableElement> optAe = selectedBos.boStream(ArrayableElement.class).findFirst();
+			if (optAe.isPresent()) {
+				return optAe.get().getArrayDimensions().get(selectedIndex);
 			}
+		}
 
-			private ArrayDimension getSelectedDimension() {
-				final IStructuredSelection selection = tableViewer.getStructuredSelection();
-				if (!selection.isEmpty()) {
-					final Optional<ArrayableElement> optAe = selectedBos.boStream(ArrayableElement.class).findFirst();
-					if (optAe.isPresent()) {
-						return optAe.get().getArrayDimensions().get(selectedIndex);
-					}
-				}
+		return null;
+	}
 
-				return null;
-			}
-
-			private final SelectionAdapter modifyDimensionSelectionListener = new SelectionAdapter() {
-				@Override
-				public void widgetSelected(final SelectionEvent e) {
-					selectedIndex = tableViewer.getTable().getSelectionIndex();
-					final ArrayDimension readonlyDim = getSelectedDimension();
-					if (readonlyDim != null) {
-						final Aadl2Package pkg = Aadl2Package.eINSTANCE;
-						final ArrayDimension dim = createArrayDimensionDuplicate(pkg, readonlyDim);
-						selectedBos.boStream(ArrayableElement.class).findAny().ifPresent(ele -> {
-							if (modifiedArrayDimension(dim, ProjectUtil.getProjectOrThrow(ele.eResource()))) {
-								selectedBos.modify(ArrayableElement.class, ae -> {
-									ae.getArrayDimensions().set(selectedIndex, createArrayDimensionDuplicate(pkg, dim));
-								});
-							}
-						});
-					}
-				}
-			};
-
-			private final SelectionAdapter addDimensionSelectionListener = new SelectionAdapter() {
-				@Override
-				public void widgetSelected(final SelectionEvent e) {
-					final Aadl2Package pkg = Aadl2Package.eINSTANCE;
-					final ArrayDimension dim = (ArrayDimension) pkg.getEFactoryInstance().create(pkg.getArrayDimension());
-					selectedBos.boStream(ArrayableElement.class).findAny().ifPresent(ele -> {
-						if (modifiedArrayDimension(dim, ProjectUtil.getProjectOrThrow(ele.eResource()))) {
-							selectedBos.modify(ArrayableElement.class, ae -> {
-								ae.getArrayDimensions().add(createArrayDimensionDuplicate(pkg, dim));
-							});
-						}
-					});
-				}
-			};
-
-			private final SelectionAdapter deleteDimensionSelectionListener = new SelectionAdapter() {
-				@Override
-				public void widgetSelected(final SelectionEvent e) {
-					final boolean confirmDelete = MessageDialog.openQuestion(Display.getCurrent().getActiveShell(), "Confirm",
-							"Would you like to delete the selected dimension?");
-					if (confirmDelete) {
-						final int index = tableViewer.getTable().getSelectionIndex();
+	private final SelectionAdapter modifyDimensionSelectionListener = new SelectionAdapter() {
+		@Override
+		public void widgetSelected(final SelectionEvent e) {
+			selectedIndex = tableViewer.getTable().getSelectionIndex();
+			final ArrayDimension readonlyDim = getSelectedDimension();
+			if (readonlyDim != null) {
+				final Aadl2Package pkg = Aadl2Package.eINSTANCE;
+				final ArrayDimension dim = createArrayDimensionDuplicate(pkg, readonlyDim);
+				selectedBos.boStream(ArrayableElement.class).findAny().ifPresent(ele -> {
+					if (modifiedArrayDimension(dim, ProjectUtil.getProjectOrThrow(ele.eResource()))) {
 						selectedBos.modify(ArrayableElement.class, ae -> {
-							ae.getArrayDimensions().remove(index);
+							ae.getArrayDimensions().set(selectedIndex, createArrayDimensionDuplicate(pkg, dim));
 						});
 					}
-				}
-			};
-
-			private static TableColumnLayout createTableColumnLayout(final TableColumn column) {
-				final TableColumnLayout tcl = new TableColumnLayout();
-				tcl.setColumnData(column, new ColumnWeightData(1, true));
-				return tcl;
+				});
 			}
+		}
+	};
+
+	private final SelectionAdapter addDimensionSelectionListener = new SelectionAdapter() {
+		@Override
+		public void widgetSelected(final SelectionEvent e) {
+			final Aadl2Package pkg = Aadl2Package.eINSTANCE;
+			final ArrayDimension dim = (ArrayDimension) pkg.getEFactoryInstance().create(pkg.getArrayDimension());
+			selectedBos.boStream(ArrayableElement.class).findAny().ifPresent(ele -> {
+				if (modifiedArrayDimension(dim, ProjectUtil.getProjectOrThrow(ele.eResource()))) {
+					selectedBos.modify(ArrayableElement.class, ae -> {
+						ae.getArrayDimensions().add(createArrayDimensionDuplicate(pkg, dim));
+					});
+				}
+			});
+		}
+	};
+
+	private final SelectionAdapter deleteDimensionSelectionListener = new SelectionAdapter() {
+		@Override
+		public void widgetSelected(final SelectionEvent e) {
+			final boolean confirmDelete = MessageDialog.openQuestion(Display.getCurrent().getActiveShell(), "Confirm",
+					"Would you like to delete the selected dimension?");
+			if (confirmDelete) {
+				final int index = tableViewer.getTable().getSelectionIndex();
+				selectedBos.modify(ArrayableElement.class, ae -> {
+					ae.getArrayDimensions().remove(index);
+				});
+			}
+		}
+	};
+
+	private static TableColumnLayout createTableColumnLayout(final TableColumn column) {
+		final TableColumnLayout tcl = new TableColumnLayout();
+		tcl.setColumnData(column, new ColumnWeightData(1, true));
+		return tcl;
+	}
 
 // Prompt user
-			private static boolean modifiedArrayDimension(final ArrayDimension dim, final IProject project) {
-				// Show the editor dimension dialog. If the user selects OK, it will modify the passed in object.
-				final EditDimensionDialog dlg = new EditDimensionDialog(Display.getCurrent().getActiveShell(), project, dim);
-				if (dlg.open() == Window.CANCEL) {
-					return false;
-				}
+	private static boolean modifiedArrayDimension(final ArrayDimension dim, final IProject project) {
+		// Show the editor dimension dialog. If the user selects OK, it will modify the passed in object.
+		final EditDimensionDialog dlg = new EditDimensionDialog(Display.getCurrent().getActiveShell(), project, dim);
+		if (dlg.open() == Window.CANCEL) {
+			return false;
+		}
 
-				return true;
+		return true;
+	}
+
+	@Override
+	public void setInput(final IWorkbenchPart part, final ISelection selection) {
+		super.setInput(part, selection);
+		selectedBos = Adapters.adapt(selection, BusinessObjectSelection.class);
+	}
+
+	@Override
+	public void refresh() {
+		final List<ArrayableElement> arrayableElements = selectedBos.boStream(ArrayableElement.class)
+				.collect(Collectors.toList());
+		final Iterator<ArrayableElement> it = arrayableElements.iterator();
+		ArrayableElement ae = it.next();
+		boolean allowMultipleDimensions = !isFeature(ae);
+		final List<String> arrayableDimensions = ae.getArrayDimensions()
+				.stream()
+				.map(ad -> getLabel(ad))
+				.collect(Collectors.toList());
+		boolean tableEnabled = true;
+		while (it.hasNext()) {
+			ae = it.next();
+			if (allowMultipleDimensions) {
+				allowMultipleDimensions = !isFeature(ae);
 			}
-
-			@Override
-			public void setInput(final IWorkbenchPart part, final ISelection selection) {
-				super.setInput(part, selection);
-				selectedBos = Adapters.adapt(selection, BusinessObjectSelection.class);
+			if (arrayableDimensions
+					.equals(ae.getArrayDimensions().stream().map(ad -> getLabel(ad)).collect(Collectors.toList()))) {
+			} else {
+				// Table disabled and cleared
+				tableEnabled = false;
+				selectedIndex = 0;
+				arrayableDimensions.clear();
+				break;
 			}
+		}
 
-			@Override
-			public void refresh() {
-				final List<ArrayableElement> arrayableElements = selectedBos.boStream(ArrayableElement.class)
-						.collect(Collectors.toList());
-				final Iterator<ArrayableElement> it = arrayableElements.iterator();
-				ArrayableElement ae = it.next();
-				boolean allowMultipleDimensions = !isFeature(ae);
-				final List<String> arrayableDimensions = ae.getArrayDimensions().stream().map(ad -> getLabel(ad))
-						.collect(Collectors.toList());
-				boolean tableEnabled = true;
-				while (it.hasNext()) {
-					ae = it.next();
-					if (allowMultipleDimensions) {
-						allowMultipleDimensions = !isFeature(ae);
-					}
-					if (arrayableDimensions
-							.equals(ae.getArrayDimensions().stream().map(ad -> getLabel(ad)).collect(Collectors.toList()))) {
-					} else {
-						// Table disabled and cleared
-						tableEnabled = false;
-						selectedIndex = 0;
-						arrayableDimensions.clear();
-						break;
-					}
-				}
+		final int[] mutableIndex = { 0 };
+		tableViewer.setInput(arrayableDimensions.stream().map(sc -> {
+			mutableIndex[0] = ++mutableIndex[0];
+			return new DragAndDropElement(sc, mutableIndex[0]);
+		}).toArray());
 
-				final int[] mutableIndex = { 0 };
-				tableViewer.setInput(arrayableDimensions.stream().map(sc -> {
-					mutableIndex[0] = ++mutableIndex[0];
-					return new DragAndDropElement(sc, mutableIndex[0]);
-				}).toArray());
+		tableViewer.getTable().setSelection(selectedIndex);
+		setControlsEnabled(tableEnabled, arrayableDimensions.size(), allowMultipleDimensions);
+	}
 
-				tableViewer.getTable().setSelection(selectedIndex);
-				setControlsEnabled(tableEnabled, arrayableDimensions.size(), allowMultipleDimensions);
+	private static boolean isFeature(final ArrayableElement ae) {
+		return ae instanceof Feature;
+	}
+
+	private void setControlsEnabled(final boolean tableEnabled, final int size, final boolean allowMultipleDimensions) {
+		final boolean isEmpty = size == 0;
+		tableViewer.getTable().setEnabled(tableEnabled);
+		modifyBtn.setEnabled(!isEmpty);
+		deleteBtn.setEnabled(!isEmpty);
+		addBtn.setEnabled(tableEnabled && (isEmpty || allowMultipleDimensions));
+		updateMoveButtons(size - 1);
+	}
+
+	private void updateMoveButtons(final int size) {
+		upBtn.setEnabled(selectedIndex - 1 >= 0);
+		downBtn.setEnabled(selectedIndex + 1 <= size);
+	}
+
+	private String getLabel(final ArrayDimension ad) {
+		final ArraySize dimSize = ad.getSize();
+		final String txt;
+		if (dimSize == null) {
+			txt = emptyString;
+		} else if (dimSize.getSizeProperty() != null) {
+			if (dimSize.getSizeProperty() instanceof Property) {
+				txt = ((Property) dimSize.getSizeProperty()).getQualifiedName();
+			} else if (dimSize.getSizeProperty() instanceof PropertyConstant) {
+				txt = ((PropertyConstant) dimSize.getSizeProperty()).getQualifiedName();
+			} else {
+				txt = "<Unsupported case>";
 			}
+		} else {
+			txt = Long.toString(dimSize.getSize());
+		}
 
-			private static boolean isFeature(final ArrayableElement ae) {
-				return ae instanceof Feature;
-			}
-
-			private void setControlsEnabled(final boolean tableEnabled, final int size, final boolean allowMultipleDimensions) {
-				final boolean isEmpty = size == 0;
-				tableViewer.getTable().setEnabled(tableEnabled);
-				modifyBtn.setEnabled(!isEmpty);
-				deleteBtn.setEnabled(!isEmpty);
-				addBtn.setEnabled(tableEnabled && (isEmpty || allowMultipleDimensions));
-				updateMoveButtons(size - 1);
-			}
-
-			private void updateMoveButtons(final int size) {
-				upBtn.setEnabled(selectedIndex - 1 >= 0);
-				downBtn.setEnabled(selectedIndex + 1 <= size);
-			}
-
-			private String getLabel(final ArrayDimension ad) {
-				final ArraySize dimSize = ad.getSize();
-				final String txt;
-				if (dimSize == null) {
-					txt = emptyString;
-				} else if (dimSize.getSizeProperty() != null) {
-					if (dimSize.getSizeProperty() instanceof Property) {
-						txt = ((Property) dimSize.getSizeProperty()).getQualifiedName();
-					} else if (dimSize.getSizeProperty() instanceof PropertyConstant) {
-						txt = ((PropertyConstant) dimSize.getSizeProperty()).getQualifiedName();
-					} else {
-						txt = "<Unsupported case>";
-					}
-				} else {
-					txt = Long.toString(dimSize.getSize());
-				}
-
-				return txt;
-			}
+		return txt;
+	}
 }

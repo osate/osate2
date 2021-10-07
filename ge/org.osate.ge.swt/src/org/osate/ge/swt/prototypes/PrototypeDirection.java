@@ -31,11 +31,20 @@ import java.util.Objects;
  *
  */
 public enum PrototypeDirection {
-	//@formatter:off
+	/**
+	 * Input prototypes
+	 */
 	INPUT("Input"),
+
+	/**
+	 * Output prototypes
+	 */
 	OUTPUT("Output"),
+
+	/**
+	 * Prototype with unspecified direction
+	 */
 	UNSPECIFIED("Unspecified");
-	//@formatter:on
 
 	private final String label;
 

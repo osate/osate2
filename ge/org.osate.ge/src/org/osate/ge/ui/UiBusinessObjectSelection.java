@@ -41,7 +41,7 @@ import org.osate.ge.internal.services.AadlModificationService.Modification;
 import org.osate.ge.internal.services.ActionExecutor;
 import org.osate.ge.internal.services.ActionExecutor.ExecutionMode;
 import org.osate.ge.internal.services.ActionService;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.editor.InternalDiagramEditor;
 import org.osate.ge.internal.ui.util.UiUtil;
 import org.osate.ge.operations.OperationBuilder;
 import org.osate.ge.operations.StepResultBuilder;
@@ -65,13 +65,12 @@ public class UiBusinessObjectSelection implements BusinessObjectSelection {
 	}
 
 	/**
-	 *
-	 * @param bocs
-	 * @param modificationService may be null if bocs is empty
+	 * Creates a new instance
+	 * @param bocs the business object contexts which are wrapped by this instance.
+	 * @param modificationService the modification service used to modify the model. May be null if {@code bocs} is empty.
 	 * @noreference This constructor is not intended to be referenced by clients.
 	 */
-	public UiBusinessObjectSelection(
-			final Collection<? extends BusinessObjectContext> bocs,
+	public UiBusinessObjectSelection(final Collection<? extends BusinessObjectContext> bocs,
 			final AadlModificationService modificationService) {
 		this.bocs = ImmutableList.copyOf(bocs);
 		this.modificationService = bocs.isEmpty() ? null
@@ -80,7 +79,8 @@ public class UiBusinessObjectSelection implements BusinessObjectSelection {
 
 	@Override
 	public final <T> Stream<T> boStream(final Class<T> c) {
-		return bocs.stream().filter(boc -> c.isInstance(boc.getBusinessObject()))
+		return bocs.stream()
+				.filter(boc -> c.isInstance(boc.getBusinessObject()))
 				.map(boc -> c.cast(boc.getBusinessObject()));
 	}
 
@@ -93,15 +93,15 @@ public class UiBusinessObjectSelection implements BusinessObjectSelection {
 	public <T extends EObject> void modify(final String label, final Predicate<BusinessObjectContext> bocFilter,
 			final Function<BusinessObjectContext, T> bocToBoToModifyMapper,
 			final BiConsumer<T, BusinessObjectContext> modifier) {
-		if (!bocs.stream().filter(bocFilter).findAny().isPresent()) {
+		if (bocs.stream().noneMatch(bocFilter)) {
 			return;
 		}
 
-		final ImmutableList<Modification<BusinessObjectContext, T>> modifications = bocs.stream().filter(
-				bocFilter)
-				.map(boc -> Modification.create(boc, bocToBoToModifyMapper, (boc2, liveBoToModify) -> {
-					modifier.accept(liveBoToModify, boc2);
-				})).collect(ImmutableList.toImmutableList());
+		final ImmutableList<Modification<BusinessObjectContext, T>> modifications = bocs.stream()
+				.filter(bocFilter)
+				.map(boc -> Modification.create(boc, bocToBoToModifyMapper,
+						(boc2, liveBoToModify) -> modifier.accept(liveBoToModify, boc2)))
+				.collect(ImmutableList.toImmutableList());
 
 		// Wrap the modifications in an another action so that the undo will take the user to the currently active graphical editor(if any).
 		getActionExecutor().execute(label, ExecutionMode.NORMAL, () -> {
@@ -112,22 +112,18 @@ public class UiBusinessObjectSelection implements BusinessObjectSelection {
 
 	@Override
 	public <T extends EObject> void modify(final String label, final Class<T> c,
-			final Predicate<BusinessObjectContext> bocFilter,
-			final Consumer<T> modifier) {
+			final Predicate<BusinessObjectContext> bocFilter, final Consumer<T> modifier) {
 		modify(label, boc -> c.isInstance(boc.getBusinessObject()) && bocFilter.test(boc),
-				boc -> c.cast(boc.getBusinessObject()),
-				(bo, boc) -> modifier.accept(bo));
+				boc -> c.cast(boc.getBusinessObject()), (bo, boc) -> modifier.accept(bo));
 	}
 
 	@Override
 	public <T extends EObject, O> void modifyWithOperation(final OperationBuilder<O> opBuilder, final Class<T> c,
 			final BiConsumer<T, O> modifier) {
-		boStream(c).forEachOrdered(e -> {
-			opBuilder.modifyModel(null, (tag, prev) -> e, (tag, boToModify, prev) -> {
-				modifier.accept(boToModify, prev);
-				return StepResultBuilder.create().build();
-			});
-		});
+		boStream(c).forEachOrdered(e -> opBuilder.modifyModel(null, (tag, prev) -> e, (tag, boToModify, prev) -> {
+			modifier.accept(boToModify, prev);
+			return StepResultBuilder.create().build();
+		}));
 	}
 
 	/**
@@ -135,7 +131,7 @@ public class UiBusinessObjectSelection implements BusinessObjectSelection {
 	 * @return
 	 */
 	private static ActionExecutor getActionExecutor() {
-		final AgeDiagramEditor editor = UiUtil.getActiveDiagramEditor();
+		final InternalDiagramEditor editor = UiUtil.getActiveDiagramEditor();
 		ActionExecutor executor = null;
 		if (editor != null) {
 			executor = editor.getActionExecutor();

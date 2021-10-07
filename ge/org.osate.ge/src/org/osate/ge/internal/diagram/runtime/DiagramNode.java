@@ -29,27 +29,37 @@ import java.util.stream.Stream;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.RelativeBusinessObjectReference;
 
-public interface DiagramNode extends BusinessObjectContext {
-	/**
-	 * @return an unmodifiable view to the child diagram elements.
-	 */
-	Collection<DiagramElement> getDiagramElements();
-
-	/**
-	 *
-	 * @param ref
-	 * @return the child diagram element which has the specified relative reference
-	 */
-	DiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref);
-	DiagramNode getContainer();
+/**
+ * A node in a diagram. {@link AgeDiagram} is expected to be the root of the diagram. Other nodes are expected to be
+ * instances of {@link DiagramElement}.
+ */
+public abstract class DiagramNode implements BusinessObjectContext {
+	@Override
+	public abstract DiagramNode getParent();
 
 	@Override
-	default DiagramNode getParent() { return getContainer(); }
+	public abstract Collection<DiagramElement> getChildren();
 
 	/**
+	 * Returns the child which has the specified relative reference
+	 * @param ref the relative reference of the requested child
+	 * @return the child diagram element which has the specified relative reference
+	 */
+	public abstract DiagramElement getChildByRelativeReference(final RelativeBusinessObjectReference ref);
+
+	/**
+	 * Returns this node and all of its descendants
 	 * @return a stream containing this and all descendant nodes.
 	 */
-	default Stream<DiagramNode> getAllDiagramNodes() {
-		return Stream.concat(Stream.of(this), getDiagramElements().stream().flatMap(DiagramNode::getAllDiagramNodes));
+	public Stream<DiagramNode> getAllDiagramNodes() {
+		return Stream.concat(Stream.of(this), getChildren().stream().flatMap(DiagramNode::getAllDiagramNodes));
 	}
+
+	/**
+	 * Returns a modifiable collection containing the diagram node's children
+	 * @return a modifiable collection containing the diagram node's children
+	 * @see DiagramModification#addElement(DiagramElement)
+	 * @see DiagramModification#removeElement(DiagramElement)
+	 */
+	abstract DiagramElementCollection getModifiableChildren();
 }

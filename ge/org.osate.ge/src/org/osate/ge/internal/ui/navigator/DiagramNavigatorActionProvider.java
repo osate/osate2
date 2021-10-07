@@ -53,6 +53,10 @@ import org.eclipse.ui.navigator.ICommonMenuConstants;
 import org.eclipse.ui.navigator.IExtensionStateModel;
 import org.osate.ge.internal.Activator;
 
+/**
+ * The action provider for the AADL Diagrams vew
+ *
+ */
 public class DiagramNavigatorActionProvider extends CommonActionProvider {
 	private IExtensionStateModel stateModel;
 	private StructuredViewer viewer;

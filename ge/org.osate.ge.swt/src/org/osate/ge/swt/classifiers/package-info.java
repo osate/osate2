@@ -23,6 +23,6 @@
  */
 
 /**
- * Components related to AADL classifiers.
+ * Contains components related to AADL classifiers and prototype bindings.
  */
 package org.osate.ge.swt.classifiers;

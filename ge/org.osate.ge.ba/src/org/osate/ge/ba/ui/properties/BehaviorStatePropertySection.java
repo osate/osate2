@@ -56,6 +56,9 @@ import org.osate.ge.ui.PropertySectionUtil;
  * Property section for {@link BehaviorState}
  */
 public class BehaviorStatePropertySection extends AbstractPropertySection {
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
@@ -68,9 +71,23 @@ public class BehaviorStatePropertySection extends AbstractPropertySection {
 	private Button finalStatePropertyBtn;
 	private Button initialStatePropertyBtn;
 
-	public static String WIDGET_ID_COMPLETE = "org.osate.ge.ba.behaviorstate.complete";
-	public static String WIDGET_ID_FINAL = "org.osate.ge.ba.behaviorstate.final";
-	public static String WIDGET_ID_INITIAL = "org.osate.ge.ba.behaviorstate.initial";
+	/**
+	 * Testing ID for the "complete" check box
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_COMPLETE = "org.osate.ge.ba.behaviorstate.complete";
+
+	/**
+	 * Testing ID for the "final" check box
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_FINAL = "org.osate.ge.ba.behaviorstate.final";
+
+	/**
+	 * Testing ID for the "initial" check box
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
+	public static final String WIDGET_ID_INITIAL = "org.osate.ge.ba.behaviorstate.initial";
 
 	@Override
 	public void setInput(final IWorkbenchPart part, final ISelection selection) {
@@ -161,7 +178,7 @@ public class BehaviorStatePropertySection extends AbstractPropertySection {
 		@Override
 		public void widgetSelected(final SelectionEvent e) {
 			selectedBos.modify(label, boc -> boc.getBusinessObject(BehaviorState.class).isPresent(),
-					boc -> boc.getBusinessObject(BehaviorState.class).get(),
+					boc -> boc.getBusinessObject(BehaviorState.class).orElseThrow(),
 					(behaviorState, boc) -> modifier.accept(behaviorState, ((Button) e.getSource()).getSelection()));
 		}
 	}

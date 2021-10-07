@@ -46,10 +46,6 @@ The OSATE Graphical Editor provides the following extension points to allow Ecli
 - org.osate.ge.referenceLabelProviders
 - org.osate.ge.referenceResolvers
 - org.osate.ge.tooltips
-   
-# API Documentation
-The [API Documentation](../api/index.html) provides details regarding available APIs.
-
 
 	
 

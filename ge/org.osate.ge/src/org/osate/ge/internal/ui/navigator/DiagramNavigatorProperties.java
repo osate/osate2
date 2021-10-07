@@ -25,34 +25,84 @@ package org.osate.ge.internal.ui.navigator;
 
 import org.eclipse.ui.navigator.IExtensionStateModel;
 
-public class DiagramNavigatorProperties {
+/**
+ * Utility class containing property constants for the AADL Diagram view preferences and extension state model.
+ * The extension state model is the state shared between the components of the AADL Diagram view. Preferences are used to allow restoring
+ * state when the view is opened.
+ *
+ */
+final class DiagramNavigatorProperties {
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private DiagramNavigatorProperties() {
 	}
 
+	/**
+	 * The name of the boolean preference for whether to show annotations
+	 */
 	public static final String PROPERTY_SHOW_ANNOTATIONS = "org.osate.ge.show_annotations";
+
+	/**
+	 * The name of the boolean preference for whether to group diagrams by diagram type
+	 */
 	public static final String PROPERTY_GROUP_BY_DIAGRAM_TYPE = "org.osate.ge.group_by_diagram_type";
+
+	/**
+	 * The name of the boolean preference for whether to group diagrams by their context
+	 */
 	public static final String PROPERTY_GROUP_BY_DIAGRAM_CONTEXT = "org.osate.ge.group_by_diagram_context";
 
+	/**
+	 * Sets the value of the show annotations flag of an extension state model
+	 * @param stateModel the extenion's state model
+	 * @param value the new value
+	 */
 	public static void setShowAnnotations(final IExtensionStateModel stateModel, final boolean value) {
 		stateModel.setProperty(PROPERTY_SHOW_ANNOTATIONS, value);
 	}
 
+	/**
+	 * Returns the value of the show annotations flag from an extension state model
+	 * @param stateModel the extension state model
+	 * @return the value of the show annotations flag
+	 */
 	public static boolean getShowAnnotations(final IExtensionStateModel stateModel) {
 		return stateModel.getBooleanProperty(PROPERTY_SHOW_ANNOTATIONS);
 	}
 
+	/**
+	 * Sets the value of the group by diagram type flag of an extension state model
+	 * @param stateModel the extenion's state model
+	 * @param value the new value
+	 */
 	public static void setGroupByDiagramType(final IExtensionStateModel stateModel, final boolean value) {
 		stateModel.setProperty(PROPERTY_GROUP_BY_DIAGRAM_TYPE, value);
 	}
 
+	/**
+	 * Returns the value of the group by diagram type flag from an extension state model
+	 * @param stateModel the extension state model
+	 * @return the value of the group by diagram type flag
+	 */
 	public static boolean getGroupByDiagramType(final IExtensionStateModel stateModel) {
 		return stateModel.getBooleanProperty(PROPERTY_GROUP_BY_DIAGRAM_TYPE);
 	}
 
+	/**
+	 * Sets the value of the group by diagram context of an extension state model
+	 * @param stateModel the extenion's state model
+	 * @param value the new value
+	 */
 	public static void setGroupByDiagramContext(final IExtensionStateModel stateModel, final boolean value) {
 		stateModel.setProperty(PROPERTY_GROUP_BY_DIAGRAM_CONTEXT, value);
 	}
 
+	/**
+	 * Returns the value of the group by diagram context flag from an extension state model
+	 * @param stateModel the extension state model
+	 * @return the value of the group by diagram context flag
+	 */
 	public static boolean getGroupByDiagramContext(final IExtensionStateModel stateModel) {
 		return stateModel.getBooleanProperty(PROPERTY_GROUP_BY_DIAGRAM_CONTEXT);
 	}

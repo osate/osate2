@@ -39,7 +39,13 @@ import org.osate.ge.palette.GetCreateConnectionOperationContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 
+/**
+ * Palette command for creating {@link ErrorPath} elements.
+ */
 public class CreateErrorPathPaletteCommand extends BasePaletteCommand implements CreateConnectionPaletteCommand {
+	/**
+	 * Creates a new instance
+	 */
 	public CreateErrorPathPaletteCommand() {
 		super("Error Path", ErrorModelPaletteCategories.ERROR_FLOWS, null);
 	}

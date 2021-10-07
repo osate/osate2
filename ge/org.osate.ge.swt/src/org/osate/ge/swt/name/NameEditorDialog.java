@@ -37,6 +37,10 @@ import org.osate.ge.swt.SwtUtil;
  *
  */
 public final class NameEditorDialog {
+	/**
+	* Private constructor to prevent direct instantiation.
+	* @see #open(Shell, NameEditorDialogModel)
+	*/
 	private NameEditorDialog() {
 	}
 
@@ -55,14 +59,18 @@ public final class NameEditorDialog {
 
 	private static class InnerDialog extends InputDialog {
 		public InnerDialog(final Shell parent, final NameEditorDialogModel model) {
-			super(parent, "Rename", "Enter Name", model.getName(), newName -> model.validateName(newName));
+			super(parent, "Rename", "Enter Name", model.getName(), model::validateName);
 			setShellStyle(getShellStyle() | SWT.RESIZE);
 		}
 	}
 
+	/**
+	 * Entry point for an interactive test application.
+	 * @param args command line arguments
+	 * @noreference This method is not intended to be referenced by clients.
+	 */
 	public static void main(String[] args) {
-		SwtUtil.runDialog(() -> {
-			NameEditorDialog.open(null, new NameEditorRenameDialogModel(new TestNameEditorModel()));
-		});
+		SwtUtil.runDialog(
+				() -> NameEditorDialog.open(null, new NameEditorRenameDialogModel(new TestNameEditorModel())));
 	}
 }

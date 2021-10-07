@@ -87,6 +87,12 @@ censes only apply to the Third Party Software and not any other portion of this 
    <extension
          point="org.osate.ge.contentFilters">
       <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorModelLibraryElementsFilter">
+      </contentFilter>
+      <contentFilter
+            class="org.osate.ge.errormodel.filters.ErrorModelSubclauseElementsFilter">
+      </contentFilter>
+      <contentFilter
             class="org.osate.ge.errormodel.filters.ErrorTypeFilter">
       </contentFilter>
       <contentFilter
@@ -114,7 +120,7 @@ censes only apply to the Third Party Software and not any other portion of this 
             class="org.osate.ge.errormodel.filters.PropagationPointFilter">
       </contentFilter>
       <contentFilter
-            class="org.osate.ge.errormodel.filters.KeywordPropagationPointFilter">
+            class="org.osate.ge.errormodel.filters.UsedKeywordPropagationPointFilter">
       </contentFilter>
       <contentFilter
             class="org.osate.ge.errormodel.filters.ErrorPropagationFilter">
@@ -133,6 +139,12 @@ censes only apply to the Third Party Software and not any other portion of this 
          point="org.eclipse.ui.views.properties.tabbed.propertySections">
       <propertySections
             contributorId="org.osate.ge.editor.AgeDiagramEditor">
+         <propertySection
+               class="org.osate.ge.errormodel.ui.properties.ErrorTypePropertySection"
+               filter="org.osate.ge.errormodel.ui.properties.ErrorTypePropertySection$Filter"
+               id="org.osate.ge.errormodel.propertySections.errorTypeExtends"
+               tab="org.osate.ge.ui.properties.tabs.aadl">
+         </propertySection>
          <propertySection
                class="org.osate.ge.errormodel.ui.properties.ErrorModelLibraryPropertySection"
                filter="org.osate.ge.errormodel.ui.properties.ErrorModelLibraryPropertySection$Filter"

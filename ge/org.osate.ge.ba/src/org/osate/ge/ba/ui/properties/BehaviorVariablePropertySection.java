@@ -23,12 +23,9 @@
  */
 package org.osate.ge.ba.ui.properties;
 
-import static org.osate.ge.ba.util.BehaviorAnnexUtil.getPackage;
-import static org.osate.ge.ba.util.BehaviorAnnexUtil.getVariableBuildOperation;
-
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.Adapters;
@@ -56,8 +53,8 @@ import org.osate.ba.aadlba.BehaviorVariable;
 import org.osate.ba.declarative.Identifier;
 import org.osate.ba.declarative.QualifiedNamedElement;
 import org.osate.ge.BusinessObjectSelection;
+import org.osate.ge.aadl2.AadlImportsUtil;
 import org.osate.ge.ba.util.BehaviorAnnexUtil;
-import org.osate.ge.ba.util.BehaviorAnnexUtil.VariableOperation;
 import org.osate.ge.internal.ui.util.InternalPropertySectionUtil;
 import org.osate.ge.operations.Operation;
 import org.osate.ge.operations.OperationBuilder;
@@ -69,6 +66,9 @@ import org.osate.ge.ui.PropertySectionUtil;
  * Property section for {@link BehaviorVariable}
  */
 public class BehaviorVariablePropertySection extends AbstractPropertySection {
+	/**
+	 * Filter which determines if the property section is compatible with an object.
+	 */
 	public static class Filter implements IFilter {
 		@Override
 		public boolean select(final Object toTest) {
@@ -76,10 +76,60 @@ public class BehaviorVariablePropertySection extends AbstractPropertySection {
 		}
 	}
 
+	/**
+	 * Testing ID for the label containing the variable's data classifier
+	 * @see SwtUtil#getTestingId(org.eclipse.swt.widgets.Widget)
+	 */
 	public static final String WIDGET_ID_DATA_CLASSIFIER_LABEL = "org.osate.ge.ba.ui.properties.setVariableDataClassifierPropertySection.label";
+
 	private BusinessObjectSelection selectedBos;
 	private Label curDataClassifier;
 	private Button chooseDataClassifierBtn;
+
+	private final SelectionListener setDataClassifierListener = new SelectionAdapter() {
+		@Override
+		public void widgetSelected(final SelectionEvent e) {
+			final BehaviorVariable behaviorVariable = selectedBos.boStream(BehaviorVariable.class).findAny()
+					.orElseThrow(() -> new RuntimeException("Selected behavior variable cannot be found"));
+			final BehaviorAnnex anyBehaviorAnnex = (BehaviorAnnex) behaviorVariable.getOwner();
+
+			// Set data classifier
+			final Operation op = Operation.createWithBuilder(builder -> {
+				final OperationBuilder<DataClassifier> prompt = builder
+						.supply(() -> BehaviorAnnexUtil.promptForDataClassifier(anyBehaviorAnnex.eResource())
+								.filter(c -> BehaviorAnnexUtil.getPackage(c).isPresent())
+								.map(StepResult::forValue)
+								.orElseGet(StepResult::abort));
+
+				prompt.executeOperation(dataClassifier -> Operation.createWithBuilder(innerBuilder -> {
+					final AadlPackage referencedPackage = BehaviorAnnexUtil.getPackage(dataClassifier).orElseThrow();
+
+					final Set<PublicPackageSection> sections = selectedBos.boStream(BehaviorVariable.class)
+							.flatMap(v -> BehaviorAnnexUtil.getPackage(v).stream())
+							.distinct()
+							.map(AadlPackage::getPublicSection)
+							.filter(s -> s != null)
+							.collect(Collectors.toSet());
+
+					OperationBuilder<?> opBuilder = innerBuilder;
+					for(final PublicPackageSection section : sections) {
+						opBuilder = innerBuilder.modifyModel(section,
+								(tag, prevResult) -> tag, (tag, sectionToModify, prevResult) -> {
+									// Import package if needed
+									AadlImportsUtil.addImportIfNeeded(sectionToModify, referencedPackage);
+									return StepResult.complete();
+								});
+					}
+
+					// Update the variables
+					selectedBos.modifyWithOperation(opBuilder, BehaviorVariable.class,
+							(bv, prevResult) -> bv.setDataClassifier(dataClassifier));
+				}));
+			});
+
+			PropertySectionUtil.execute(op);
+		}
+	};
 
 	@Override
 	public void createControls(final Composite parent, final TabbedPropertySheetPage aTabbedPropertySheetPage) {
@@ -105,51 +155,13 @@ public class BehaviorVariablePropertySection extends AbstractPropertySection {
 		SwtUtil.setTestingId(curDataClassifier, WIDGET_ID_DATA_CLASSIFIER_LABEL);
 
 		chooseDataClassifierBtn = InternalPropertySectionUtil.createButton(getWidgetFactory(), container, null,
-				setDataClassifierListener,
-				"Choose...", SWT.PUSH);
+				setDataClassifierListener, "Choose...", SWT.PUSH);
 
 		fd = new FormData();
 		fd.left = new FormAttachment(curDataClassifier, ITabbedPropertyConstants.HSPACE);
 		fd.top = new FormAttachment(curDataClassifier, 0, SWT.CENTER);
 		chooseDataClassifierBtn.setLayoutData(fd);
 	}
-
-	final SelectionListener setDataClassifierListener = new SelectionAdapter() {
-		@Override
-		public void widgetSelected(final SelectionEvent e) {
-			final BehaviorVariable behaviorVariable = selectedBos.boStream(BehaviorVariable.class).findAny()
-					.orElseThrow(() -> new RuntimeException("Selected behavior variable cannot be found"));
-			final BehaviorAnnex behaviorAnnex = (BehaviorAnnex) behaviorVariable.getOwner();
-			final PublicPackageSection section = getPackage(behaviorAnnex)
-					.map(AadlPackage::getPublicSection).orElse(null);
-			if (section == null) {
-				return;
-			}
-
-			// Set data classifier
-			final Operation op = Operation.createWithBuilder(builder -> {
-				builder.supply(() -> {
-					final Optional<VariableOperation> variableOperation = getVariableBuildOperation(section, behaviorAnnex);
-					return !variableOperation.isPresent() ? StepResult.abort()
-							: StepResult.forValue(variableOperation.get());
-				}).executeOperation(variableOp -> Operation.createWithBuilder(innerBuilder -> {
-					final OperationBuilder<VariableOperation> opBuilder = innerBuilder.modifyModel(
-							variableOp.getPublicSection(), (tag, prevResult) -> tag,
-							(tag, sectionToModify, prevResult) -> {
-								// Import package if needed
-								BehaviorAnnexUtil.addImportIfNeeded(sectionToModify,
-										variableOp.getDataClassifierPackage());
-								return StepResult.forValue(variableOp);
-							});
-
-					selectedBos.modifyWithOperation(opBuilder, BehaviorVariable.class,
-							(bv, varOp) -> bv.setDataClassifier(varOp.getDataClassifier()));
-				}));
-			});
-
-			PropertySectionUtil.execute(op);
-		}
-	};
 
 	@Override
 	public void setInput(final IWorkbenchPart part, final ISelection selection) {
