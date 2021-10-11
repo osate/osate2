@@ -82,7 +82,12 @@ public class AnnexParseUtil {
 	private static String genWhitespace(int line, int length) {
 		char[] array = new char[length];
 		Arrays.fill(array, ' ');
-		Arrays.fill(array, 0, line - 1, '\n');
+		if (line > 0) {
+			if (line > length) {
+				line = length;
+			}
+			Arrays.fill(array, 0, line - 1, '\n');
+		}
 		return new String(array);
 	}
 
