@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.ge.gef" version="2">
+    <resource path="test/org/osate/ge/gef/DiagramEditorNodeTest.java" type="org.osate.ge.gef.DiagramEditorNodeTest">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ge.gef.DiagramEditorNodeTest"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="test/org/osate/ge/gef/GefTest.java" type="org.osate.ge.gef.GefTest">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ge.gef.GefTest"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="test/org/osate/ge/gef/ImageNodeTest.java" type="org.osate.ge.gef.ImageNodeTest">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ge.gef.ImageNodeTest"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="test/org/osate/ge/gef/NodeApplication.java" type="org.osate.ge.gef.NodeApplication">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ge.gef.NodeApplication"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="test/org/osate/ge/gef/palette/PaletteTest.java" type="org.osate.ge.gef.palette.PaletteTest">
+        <filter id="1110441988">
+            <message_arguments>
+                <message_argument value="org.osate.ge.gef.palette.PaletteTest"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
