@@ -120,20 +120,32 @@ public class FeatureGroupTypeNode extends Region implements ChopBoxGeometryProvi
 		setStrokeDashArray(style.getStrokeDashArray());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setBackgroundColor(final Color value) {
 		area.setFill(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setOutlineColor(final Color value) {
 		area.setStroke(value);
 		inner.setStroke(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setLineWidth(final double value) {
 		area.setStrokeWidth(value);
 		inner.setStrokeWidth(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {
 		area.getStrokeDashArray().setAll(value);
 		inner.getStrokeDashArray().setAll(value);

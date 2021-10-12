@@ -86,18 +86,30 @@ public class RectangleNode extends Region implements ChopBoxGeometryProvider, St
 		setStrokeDashArray(style.getStrokeDashArray());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setBackgroundColor(final Color value) {
 		rect.setFill(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setOutlineColor(final Color value) {
 		rect.setStroke(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setLineWidth(final double value) {
 		rect.setStrokeWidth(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {
 		rect.getStrokeDashArray().setAll(value);
 	}

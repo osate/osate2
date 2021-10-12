@@ -90,20 +90,32 @@ public class AbstractFeatureNode extends Parent implements Stylable {
 		setStrokeDashArray(style.getStrokeDashArray());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setBackgroundColor(final Color value) {
 		circle.setFill(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setOutlineColor(final Color value) {
 		directionIndicator.setStroke(value);
 		circle.setStroke(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setLineWidth(final double value) {
 		directionIndicator.setStrokeWidth(value);
 		circle.setStrokeWidth(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {
 		circle.getStrokeDashArray().setAll(value);
 	}

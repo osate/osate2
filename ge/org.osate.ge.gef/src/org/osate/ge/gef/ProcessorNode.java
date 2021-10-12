@@ -88,21 +88,33 @@ public class ProcessorNode extends Region implements ChopBoxGeometryProvider, St
 		setStrokeDashArray(style.getStrokeDashArray());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setBackgroundColor(final Color value) {
 		outlineFill.setFill(value);
 		shadedArea.setFill(value.darker());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setOutlineColor(final Color value) {
 		outline.setStroke(value);
 		lineSegments.setStroke(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setLineWidth(final double value) {
 		outline.setStrokeWidth(value);
 		lineSegments.setStrokeWidth(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {
 		outline.getStrokeDashArray().setAll(value);
 		lineSegments.getStrokeDashArray().setAll(value);

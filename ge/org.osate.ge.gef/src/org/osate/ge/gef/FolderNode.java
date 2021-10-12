@@ -80,18 +80,30 @@ public class FolderNode extends Region implements ChopBoxGeometryProvider, Styla
 		setStrokeDashArray(style.getStrokeDashArray());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setBackgroundColor(final Color value) {
 		poly.setFill(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setOutlineColor(final Color value) {
 		poly.setStroke(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setLineWidth(final double value) {
 		poly.setStrokeWidth(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {
 		poly.getStrokeDashArray().setAll(value);
 	}

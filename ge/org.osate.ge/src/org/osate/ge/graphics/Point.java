@@ -43,6 +43,9 @@ public class Point {
 		this.y = y;
 	}
 
+	/**
+	 * @since 3.0
+	 */
 	public Point(final Point p) {
 		Objects.requireNonNull(p, "p must not be null");
 		this.x = p.x;

@@ -75,20 +75,32 @@ public class NoteNode extends Region implements ChopBoxGeometryProvider, Stylabl
 		setStrokeDashArray(style.getStrokeDashArray());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setBackgroundColor(final Color value) {
 		polygon.setFill(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setOutlineColor(final Color value) {
 		polygon.setStroke(value);
 		polyline.setStroke(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setLineWidth(final double value) {
 		polygon.setStrokeWidth(value);
 		polyline.setStrokeWidth(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {
 		polygon.getStrokeDashArray().setAll(value);
 		polyline.getStrokeDashArray().setAll(value);

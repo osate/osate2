@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -37,6 +37,12 @@ import org.osate.ge.internal.query.ConditionArguments;
  * </p>
  * @noextend
  * @noimplement
+ * @since 3.0
+ * @since 3.0
+ * @since 3.0
+ * @since 3.0
+ * @since 3.0
+ * @since 3.0
  */
 public interface Query {
 	/**
@@ -64,6 +70,7 @@ public interface Query {
 	 * matches the relative reference of the business object provided by the specified supplier.
 	 * @param boSupplier the supplier of the business object to use for filtering. The supplier's argument is the query argument.
 	 * @return the new query
+	 * @since 3.0
 	 */
 	Query filterByBusinessObjectRelativeReference(Supplier<?, Object> boSupplier);
 
@@ -72,6 +79,7 @@ public interface Query {
 	 * matches the canonical reference of the business object provided by the specified supplier.
 	 * @param boSupplier the supplier of the business object to use for filtering. The supplier's argument is the query argument.
 	 * @return the new query
+	 * @since 3.0
 	 */
 	Query filterByBusinessObjectCanonicalReference(Supplier<?, Object> boSupplier);
 
@@ -109,14 +117,24 @@ public interface Query {
 	 * Both this query and the specified query must return at most 1 result.
 	 * @param q2 the query with which to find the common ancestors
 	 * @return the new query
+	 * @since 3.0
 	 */
 	Query commonAncestors(Query q2);
 
+	/**
+	 * @since 3.0
+	 */
 	Query ifElse(Supplier<ConditionArguments, Boolean> cond,
 			final Supplier<Query, Query> trueQuerySupplier,
 			final Supplier<Query, Query> falseQuerySupplier);
 
+	/**
+	 * @since 3.0
+	 */
 	Query descendantsByBusinessObjectsRelativeReference(final Supplier<?, Object[]> bosSupplier);
 
+	/**
+	 * @since 3.0
+	 */
 	Query descendantsByBusinessObjectsRelativeReference(final Supplier<?, Object[]> bosSupplier, final int minSegments);
 }

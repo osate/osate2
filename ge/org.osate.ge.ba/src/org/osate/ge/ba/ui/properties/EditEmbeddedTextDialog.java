@@ -56,6 +56,9 @@ import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
 import org.osate.ba.aadlba.BehaviorTransition;
 import org.osate.ge.swt.SwtUtil;
 
+/**
+ * @since 3.0
+ */
 public class EditEmbeddedTextDialog extends MessageDialog {
 	private static String WIDGET_ID = "org.osate.ge.ba.behaviortransition.editdialog";
 	private static String MODIFIED_SOURCE_KEY = WIDGET_ID + ".modifiedsource";

@@ -35,6 +35,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.osate.ge.swt.SwtUtil;
 
+/**
+ * @since 3.0
+ */
 public class EmbeddedTextEditor extends Composite {
 	private StyledText styledText;
 	private Button btn;

@@ -90,20 +90,32 @@ public class MemoryNode extends Region implements ChopBoxGeometryProvider, Styla
 		setStrokeDashArray(style.getStrokeDashArray());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setBackgroundColor(final Color value) {
 		outline.setFill(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setOutlineColor(final Color value) {
 		outline.setStroke(value);
 		innerCurve.setStroke(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setLineWidth(final double value) {
 		outline.setStrokeWidth(value);
 		innerCurve.setStrokeWidth(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {
 		outline.getStrokeDashArray().setAll(value);
 		innerCurve.getStrokeDashArray().setAll(value);

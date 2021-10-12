@@ -105,21 +105,33 @@ public class DeviceNode extends Region implements ChopBoxGeometryProvider, Styla
 		setStrokeDashArray(style.getStrokeDashArray());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setBackgroundColor(final Color value) {
 		shadedArea.setFill(value.darker());
 		fillRect.setFill(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setOutlineColor(final Color value) {
 		outlineRect.setStroke(value);
 		lineSegments.setStroke(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setLineWidth(final double value) {
 		outlineRect.setStrokeWidth(value);
 		lineSegments.setStrokeWidth(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {
 		lineSegments.getStrokeDashArray().setAll(value);
 	}

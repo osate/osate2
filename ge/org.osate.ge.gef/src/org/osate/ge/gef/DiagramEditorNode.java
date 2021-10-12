@@ -159,6 +159,9 @@ public class DiagramEditorNode extends Region {
 		contents.resize(getWidth(), getHeight());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public void updateCollapse() {
 		// Adjust visibility and layout of nodes based on whether the palette is collapsed
 		if (collapseButton.isSelected()) {

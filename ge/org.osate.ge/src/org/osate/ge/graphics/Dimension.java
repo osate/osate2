@@ -43,6 +43,9 @@ public class Dimension {
 		this.height = height;
 	}
 
+	/**
+	 * @since 3.0
+	 */
 	public Dimension(final Dimension d) {
 		Objects.requireNonNull(d, "d must not be null");
 		this.width = d.width;

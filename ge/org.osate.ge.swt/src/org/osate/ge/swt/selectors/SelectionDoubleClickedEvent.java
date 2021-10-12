@@ -25,7 +25,7 @@ package org.osate.ge.swt.selectors;
 
 /**
  * Stores data related to events generated when a selection is double clicked.
- * @since 1.1
+ * @since 3.0
  *
  */
 public final class SelectionDoubleClickedEvent {

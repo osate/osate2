@@ -141,7 +141,7 @@ public final class PredeclaredProperties {
 	}
 
 	/**
-	 * @since 6.1
+	 * @since 7.1
 	 */
 	public synchronized static List<URI> getDisabledContributions() {
 		List<URI> result = new ArrayList<URI>();
@@ -187,7 +187,7 @@ public final class PredeclaredProperties {
 	}
 
 	/**
-	 * @since 6.1
+	 * @since 7.1
 	 */
 	public synchronized static void setDisabledContributions(List<URI> disabled) {
 		/*

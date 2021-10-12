@@ -157,11 +157,17 @@ public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylabl
 		setStrokeDashArray(style.getStrokeDashArray());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setBackgroundColor(final Color value) {
 		modeSymbol.setFill(value);
 		initialModeCircle.setFill(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setOutlineColor(final Color value) {
 		modeSymbol.setStroke(value);
 		initialModeCircle.setStroke(value);
@@ -170,6 +176,9 @@ public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylabl
 		initialModeArrow.setFill(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setLineWidth(final double value) {
 		modeSymbol.setStrokeWidth(value);
 		initialModeCircle.setStrokeWidth(value);
@@ -177,6 +186,9 @@ public class ModeNode extends Region implements ChopBoxGeometryProvider, Stylabl
 		initialModeArrow.setStrokeWidth(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {
 		modeSymbol.getStrokeDashArray().setAll(value);
 		initialModeCircle.getStrokeDashArray().setAll(value);

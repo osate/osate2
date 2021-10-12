@@ -33,12 +33,33 @@ import org.osate.ge.internal.diagram.runtime.DiagramElement;
  * @see GraphicalConfiguration
  */
 public class GraphicalConfigurationBuilder {
+	/**
+	 * @since 3.0
+	 */
 	protected Graphic graphic;
+	/**
+	 * @since 3.0
+	 */
 	protected Style style = Style.EMPTY;
+	/**
+	 * @since 3.0
+	 */
 	protected DockingPosition defaultDockingPosition = DockingPosition.NOT_DOCKABLE;
+	/**
+	 * @since 3.0
+	 */
 	protected DiagramElement connectionSource;
+	/**
+	 * @since 3.0
+	 */
 	protected DiagramElement connectionDestination;
+	/**
+	 * @since 3.0
+	 */
 	protected boolean isDecoration = false;
+	/**
+	 * @since 3.0
+	 */
 	protected String annotation;
 	protected boolean primaryLabelIsMultiline;
 
@@ -64,6 +85,9 @@ public class GraphicalConfigurationBuilder {
 		return this;
 	}
 
+	/**
+	 * @since 3.0
+	 */
 	public GraphicalConfigurationBuilder destination(final BusinessObjectContext value) {
 		this.connectionDestination = (DiagramElement) value;
 		return this;
@@ -74,6 +98,9 @@ public class GraphicalConfigurationBuilder {
 		return this;
 	}
 
+	/**
+	 * @since 3.0
+	 */
 	public GraphicalConfigurationBuilder decoration() {
 		this.isDecoration = true;
 		return this;

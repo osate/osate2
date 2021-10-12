@@ -78,6 +78,9 @@ public class ImageNode extends Region implements ChopBoxGeometryProvider, Stylab
 		outline.setHeight(height);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public ImageReference getImageReference() {
 		return this.imageReference;
 	}
@@ -102,16 +105,25 @@ public class ImageNode extends Region implements ChopBoxGeometryProvider, Stylab
 		}
 	}
 
+	/**
+	 * @since 1.0
+	 */
 	@Override
 	public final void apply(final FxStyle style) {
 		setBackgroundColor(style.getBackgroundColor());
 		setOutlineColor(style.getOutlineColor());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setBackgroundColor(final Color value) {
 		background.setFill(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setOutlineColor(final Color value) {
 		outline.setStroke(value);
 	}

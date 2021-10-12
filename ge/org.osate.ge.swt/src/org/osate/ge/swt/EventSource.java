@@ -39,6 +39,7 @@ public interface EventSource<T> {
 	 * Should only be called on the UI thread.
 	 *
 	 * @param listener is the listener to register.
+	 * @since 3.0
 	 */
 	void addListener(Consumer<T> listener);
 }

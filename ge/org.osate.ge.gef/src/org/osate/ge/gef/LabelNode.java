@@ -118,10 +118,16 @@ public class LabelNode extends Region implements Stylable, HasLabelBackgroundCol
 				new BackgroundFill(value, CornerRadii.EMPTY, PADDING_INSETS)));
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public void setFont(final Font font) {
 		text.setFont(font);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public void setFontColor(final Color value) {
 		text.setTextFill(value);
 	}

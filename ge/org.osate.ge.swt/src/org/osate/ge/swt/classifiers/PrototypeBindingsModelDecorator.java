@@ -39,6 +39,7 @@ public abstract class PrototypeBindingsModelDecorator<N, D, T, C> implements Pro
 	/**
 	 * Creates a new instance
 	 * @param inner the model to decorate.
+	 * @since 3.0
 	 */
 	public PrototypeBindingsModelDecorator(final PrototypeBindingsModel<N, D, T, C> inner) {
 		this.inner = Objects.requireNonNull(inner, "inner must not be null");

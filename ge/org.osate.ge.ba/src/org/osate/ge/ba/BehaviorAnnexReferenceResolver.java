@@ -81,6 +81,9 @@ public class BehaviorAnnexReferenceResolver implements ReferenceResolver {
 		return Optional.empty();
 	}
 
+	/**
+	 * @since 3.0
+	 */
 	public static Optional<Object> getBehaviorAnnexByQualifiedName(final Classifier classifier,
 			final String annexSubclauseName,
 			final Long index) {

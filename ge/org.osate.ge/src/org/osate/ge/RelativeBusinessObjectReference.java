@@ -94,6 +94,9 @@ public class RelativeBusinessObjectReference implements Comparable<RelativeBusin
 		return Arrays.toString(segments.toArray());
 	}
 
+	/**
+	 * @since 3.0
+	 */
 	@Override
 	public int compareTo(final RelativeBusinessObjectReference o) {
 		for (int i = 0; i < lcSegments.size(); i++) {

@@ -25,6 +25,7 @@ package org.osate.ge.ba.ui.properties;
 
 /**
  * Text information for editing embedded models
+ * @since 3.0
  */
 public class EmbeddedTextValue {
 	private final String wholeText;

@@ -55,6 +55,7 @@ public abstract class BaseField<M extends ObservableModel> extends Composite {
 	 * Create a new instance.
 	 * @param parent is the container for the new component.
 	 * @param model provides the information for the component.
+	 * @since 3.0
 	 */
 	public BaseField(final Composite parent, final M model) {
 		this(parent, model, "Choose...");
@@ -65,6 +66,7 @@ public abstract class BaseField<M extends ObservableModel> extends Composite {
 	 * @param parent is the container for the new component.
 	 * @param model provides the information for the component.
 	 * @param modifyBtnLabel the label to use for the modify button
+	 * @since 3.0
 	 */
 	public BaseField(final Composite parent, final M model, final String modifyBtnLabel) {
 		super(parent, SWT.NONE);

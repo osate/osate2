@@ -127,20 +127,32 @@ public class PortNode extends Parent implements Stylable {
 		setStrokeDashArray(style.getStrokeDashArray());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setBackgroundColor(final Color value) {
 		dataNode.setFill(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setOutlineColor(final Color value) {
 		eventNode.setStroke(value);
 		dataNode.setStroke(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setLineWidth(final double value) {
 		eventNode.setStrokeWidth(value);
 		dataNode.setStrokeWidth(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {
 		eventNode.getStrokeDashArray().setAll(value);
 		dataNode.getStrokeDashArray().setAll(value);

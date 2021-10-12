@@ -119,6 +119,7 @@ public abstract class BaseConnectionNode extends Group implements ChopBoxGeometr
 
 	/**
 	 * Creates a new instance
+	 * @since 2.0
 	 */
 	public BaseConnectionNode() {
 		setPickOnBounds(false);
@@ -329,17 +330,26 @@ public abstract class BaseConnectionNode extends Group implements ChopBoxGeometr
 		LabelBackgroundColorUtil.setLabelBackgroundColor(getSecondaryLabels(), value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setOutlineColor(final Color value) {
 		final GeometryNode<?> gn = (GeometryNode<?>) connection.getCurve();
 		gn.setStroke(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setLineWidth(final double value) {
 		final GeometryNode<?> gn = (GeometryNode<?>) connection.getCurve();
 		gn.setStrokeWidth(value);
 		gn.setClickableAreaWidth(Math.max(5.0, value));
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {
 		final GeometryNode<?> gn = (GeometryNode<?>) connection.getCurve();
 		gn.getStrokeDashArray().setAll(value);
@@ -348,6 +358,7 @@ public abstract class BaseConnectionNode extends Group implements ChopBoxGeometr
 	/**
 	 * Sets the managed and visible flags of the primary labels to the specified value.
 	 * @param value whether to show the primary label nodes.
+	 * @since 2.0
 	 */
 	public void setPrimaryLabelsVisible(final boolean value) {
 		primaryLabels.inner.setManaged(value);

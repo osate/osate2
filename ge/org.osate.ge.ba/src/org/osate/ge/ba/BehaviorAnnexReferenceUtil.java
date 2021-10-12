@@ -30,6 +30,9 @@ public class BehaviorAnnexReferenceUtil {
 	private BehaviorAnnexReferenceUtil() {
 	}
 
+	/**
+	 * @since 3.0
+	 */
 	public static final String ANNEX_SUBCLAUSE = "annex_subclause";
 	public static final String ANNEX_NAME = "behavior_specification";
 	private static final String BA_REFERENCE_PREFIX = "ba.";

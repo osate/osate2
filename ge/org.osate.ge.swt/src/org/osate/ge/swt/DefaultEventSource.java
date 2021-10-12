@@ -43,6 +43,7 @@ public class DefaultEventSource<T> implements EventSource<T> {
 	/**
 	 * Dispatches the event. Calls all registered listeners
 	 * @param event is the event to send to listeners.
+	 * @since 3.0
 	 */
 	public void triggerEvent(T event) {
 		// Iterate over listeners by index and call each of them. Listeners added during the loop will not be called.

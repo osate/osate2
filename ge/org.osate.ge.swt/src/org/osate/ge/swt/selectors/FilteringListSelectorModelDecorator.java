@@ -37,6 +37,7 @@ public abstract class FilteringListSelectorModelDecorator<T>
 	/**
 	 * Creates a new instance
 	 * @param inner the model to decorate.
+	 * @since 3.0
 	 */
 	public FilteringListSelectorModelDecorator(final FilteringSelectorModel<T> inner) {
 		super(inner);

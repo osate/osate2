@@ -344,6 +344,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	/**
 	 * Sets how labels are positioned horizontally.
 	 * @param value the new horizontal label position
+	 * @since 2.0
 	 */
 	public void setHorizontalLabelPosition(final LabelPosition value) {
 		if (this.horizontalLabelPosition != value) {
@@ -355,6 +356,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	/**
 	 * Sets how labels are positioned vertically.
 	 * @param value the new vertical label position
+	 * @since 2.0
 	 */
 	public void setVerticalLabelPosition(final LabelPosition value) {
 		if (this.verticalLabelPosition != value) {
@@ -366,6 +368,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	/**
 	 * Sets the managed and visible flags of the primary labels to the specified value.
 	 * @param value whether to show the primary label nodes.
+	 * @since 2.0
 	 */
 	public void setPrimaryLabelsVisible(final boolean value) {
 		primaryLabels.setManaged(value);
@@ -375,6 +378,7 @@ public class ContainerShape extends Region implements ChopBoxGeometryProvider, S
 	/**
 	 * Sets the image to display in place of the graphics
 	 * @param value a reference to an image to display instead of graphics. If null, the graphics will be displayed.
+	 * @since 2.0
 	 */
 	public void setImage(final ImageReference value) {
 		if (value == null) {

@@ -41,6 +41,7 @@ public abstract class CollectionSingleSelectorModel<T> extends BaseObservableMod
 	/**
 	 * Creates a new instance
 	 * @param elements the collection of elements. The collection will be copied by the model. Changes to the collection will not be reflected by the model.
+	 * @since 3.0
 	 */
 	public CollectionSingleSelectorModel(final Collection<T> elements) {
 		this.elements = new ArrayList<>(Objects.requireNonNull(elements, "elements must not be null"));

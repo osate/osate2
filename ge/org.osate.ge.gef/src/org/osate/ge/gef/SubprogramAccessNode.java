@@ -90,10 +90,16 @@ public class SubprogramAccessNode extends Parent implements Stylable {
 		setStrokeDashArray(style.getStrokeDashArray());
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setBackgroundColor(final Color value) {
 		ellipse.setFill(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setOutlineColor(final Color value) {
 		if (hasBorder) {
 			ellipse.setStroke(value);
@@ -101,11 +107,17 @@ public class SubprogramAccessNode extends Parent implements Stylable {
 		directionIndicator.setStroke(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setLineWidth(final double value) {
 		ellipse.setStrokeWidth(value);
 		directionIndicator.setStrokeWidth(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setStrokeDashArray(final ImmutableList<Double> value) {
 		ellipse.getStrokeDashArray().setAll(value);
 		directionIndicator.getStrokeDashArray().setAll(value);

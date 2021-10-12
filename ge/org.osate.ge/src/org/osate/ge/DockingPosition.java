@@ -42,6 +42,9 @@ public enum DockingPosition {
 		this.defaultDockArea = defaultDockArea;
 	}
 
+	/**
+	 * @since 3.0
+	 */
 	public DockArea getDefaultDockArea() {
 		return defaultDockArea;
 	}
