@@ -61,7 +61,7 @@ public class AnnexParseUtil {
 			int line, int offset, ParseErrorReporter err) {
 
 		try {
-			editString = genWhitespace(offset) + editString;
+			editString = genWhitespace(line, offset) + editString;
 			IParseResult parseResult = parser.parse(parserRule, new StringReader(editString));
 			ParseResultHolder parseResultHolder = ParseResultHolder.Factory.INSTANCE
 					.adapt(parseResult.getRootASTElement());
@@ -77,6 +77,18 @@ public class AnnexParseUtil {
 			AnnexPlugin.logError(exc);
 			return null;
 		}
+	}
+
+	private static String genWhitespace(int line, int length) {
+		char[] array = new char[length];
+		Arrays.fill(array, ' ');
+		if (line > 0) {
+			if (line > length) {
+				line = length;
+			}
+			Arrays.fill(array, 0, line - 1, '\n');
+		}
+		return new String(array);
 	}
 
 	public static String genWhitespace(int length) {

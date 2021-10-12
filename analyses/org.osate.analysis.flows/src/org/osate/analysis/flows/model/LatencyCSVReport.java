@@ -23,16 +23,17 @@
  */
 package org.osate.analysis.flows.model;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.URIConverter;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
@@ -101,24 +102,21 @@ public class LatencyCSVReport {
 	}
 
 	public static void generateCSVReport(AnalysisResult latres) {
-		IFile file;
-		InputStream input;
-		StringBuffer reportContent;
-
-		reportContent = getReportContent(latres);
-		file = getCSVFile(latres);
-		input = new ByteArrayInputStream(reportContent.toString().getBytes());
-		try {
-			if (file.exists()) {
-				file.setContents(input, true, true, null);
-			} else {
-				AadlUtil.makeSureFoldersExist(file.getFullPath());
-				file.create(input, true, null);
-			}
-		} catch (final CoreException e) {
+		StringBuffer reportContent = getReportContent(latres);
+		Resource res = latres.eResource();
+		URI csvuri = res.getURI().trimFileExtension().appendFileExtension("csv");
+		URIConverter converter = res.getResourceSet().getURIConverter();
+		try (OutputStream output = converter.createOutputStream(csvuri);
+				OutputStreamWriter writer = new OutputStreamWriter(output)) {
+			writer.write(reportContent.toString());
+		} catch (IOException ioe) {
 		}
 	}
 
+	/**
+	 * @deprecated No longer used, should never have been API.
+	 */
+	@Deprecated
 	public static IFile getCSVFile(AnalysisResult ar) {
 		URI arURI = ar.eResource().getURI();
 		URI csvURI = arURI.trimFileExtension().appendFileExtension("csv");
