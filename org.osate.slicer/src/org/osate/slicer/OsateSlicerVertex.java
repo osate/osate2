@@ -1,23 +1,30 @@
 package org.osate.slicer;
 
-import org.jgrapht.graph.MaskSubgraph;
-
 /**
+ * The vertex type used by the slicer. See the
+ * <a href="https://jgrapht.org/guide/VertexAndEdgeTypes#vertices-as-pointers">
+ * JGRaphT Docs</a> for additional explanation of the structure
  *
  * @author sprocter
- * see https://jgrapht.org/guide/VertexAndEdgeTypes#vertices-as-pointers
  */
 public class OsateSlicerVertex {
-	private MaskSubgraph g;
-	final String path; // key
 
-	public OsateSlicerVertex(String path) {
-		this.path = path;
+	/**
+	 * A globally unique name for the vertex
+	 */
+	final String name; // key
+
+	/**
+	 * Make a new vertex with the given name
+	 * @param name The vertex's name
+	 */
+	public OsateSlicerVertex(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public String toString() {
-		return path;
+		return name;
 	}
 
 	@Override

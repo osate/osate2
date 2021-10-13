@@ -26,7 +26,7 @@ public class POForwardingTests {
 
 	@Before
 	public void setUp() throws Exception {
-		tlg = new SlicerRepresentation("PulseOx_Forwarding_System_imp_Instance");
+		tlg = new SlicerRepresentation();
 
 		// Build vertices
 		tlg.addVertex(doctorDocGiveAdvice);
@@ -62,6 +62,8 @@ public class POForwardingTests {
 		tlg.addEdge(appLogicLogicSpO2, appLogicLogicDerivedAlarm);
 		tlg.addEdge(appDisplayDispDerivedAlarm, appDisplayDispSpO2);
 		tlg.addEdge(appDisplayDispSpO2, appDisplayDispSpO2);
+
+		tlg.freeze();
 	}
 
 	@Test
