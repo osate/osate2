@@ -27,7 +27,7 @@ package org.osate.ge.query;
  * A generic interface for a supplier which accepts a single argument.
  * @param <A> the type of the argument
  * @param <R> the type of the result
- * @since 3.0
+ * @since 4.0
  */
 @FunctionalInterface
 public interface Supplier<A, R> {

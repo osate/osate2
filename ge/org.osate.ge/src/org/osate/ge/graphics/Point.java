@@ -44,7 +44,7 @@ public class Point {
 	}
 
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	public Point(final Point p) {
 		Objects.requireNonNull(p, "p must not be null");

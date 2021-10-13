@@ -95,7 +95,7 @@ public class RelativeBusinessObjectReference implements Comparable<RelativeBusin
 	}
 
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	@Override
 	public int compareTo(final RelativeBusinessObjectReference o) {

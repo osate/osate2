@@ -37,7 +37,7 @@ public abstract class BasePaletteCommand implements PaletteCommand {
 	private final String iconId;
 
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	public BasePaletteCommand(final String label, final String categoryId, final String iconId) {
 		this.label = Objects.requireNonNull(label, "label must not be null");

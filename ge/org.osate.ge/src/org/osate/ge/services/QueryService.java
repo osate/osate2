@@ -33,14 +33,14 @@ import org.osate.ge.query.StandaloneQuery;
 public interface QueryService {
 	/**
 	 * boc's BO will be query argument
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	default BusinessObjectContext getFirstBusinessObjectContextOrNull(final StandaloneQuery query, final BusinessObjectContext boc) {
 		return getFirstBusinessObjectContextOrNull(query, boc, boc.getBusinessObject());
 	}
 
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	default BusinessObjectContext getFirstBusinessObjectContextOrNull(StandaloneQuery query, BusinessObjectContext boc,
 			final Object arg) {
@@ -50,26 +50,26 @@ public interface QueryService {
 
 	/**
 	 * boc's BO will be query argument
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	default Optional<Object> getFirstBusinessObject(final StandaloneQuery query, final BusinessObjectContext boc) {
 		return getFirstBusinessObject(query, boc, boc.getBusinessObject());
 	}
 
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	Optional<Object> getFirstBusinessObject(StandaloneQuery query, BusinessObjectContext boc, final Object arg);
 
 	/**
 	 * Gets the first result
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	Optional<QueryResult> getFirstResult(StandaloneQuery query, BusinessObjectContext boc, final Object arg);
 
 	/**
 	 * boc's BO will be query argument
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	default Optional<QueryResult> getFirstResult(final StandaloneQuery query, final BusinessObjectContext boc) {
 		return getFirstResult(query, boc, boc.getBusinessObject());
@@ -77,14 +77,14 @@ public interface QueryService {
 
 	/**
 	 * boc's BO will be query argument
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	default List<QueryResult> getResults(final StandaloneQuery query, final BusinessObjectContext boc) {
 		return getResults(query, boc, boc.getBusinessObject());
 	}
 
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	List<QueryResult> getResults(StandaloneQuery query, BusinessObjectContext boc, final Object arg);
 }

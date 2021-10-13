@@ -31,7 +31,7 @@ public enum LabelPosition {
 	AFTER_GRAPHIC;
 
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	public LabelPosition mirror() {
 		switch(this) {
@@ -56,7 +56,7 @@ public enum LabelPosition {
 	}
 
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	public final boolean isOutside() {
 		return this == BEFORE_GRAPHIC || this == AFTER_GRAPHIC;

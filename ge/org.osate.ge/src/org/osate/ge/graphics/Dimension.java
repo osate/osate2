@@ -44,7 +44,7 @@ public class Dimension {
 	}
 
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	public Dimension(final Dimension d) {
 		Objects.requireNonNull(d, "d must not be null");

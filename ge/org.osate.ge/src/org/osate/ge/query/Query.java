@@ -70,7 +70,7 @@ public interface Query {
 	 * matches the relative reference of the business object provided by the specified supplier.
 	 * @param boSupplier the supplier of the business object to use for filtering. The supplier's argument is the query argument.
 	 * @return the new query
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	Query filterByBusinessObjectRelativeReference(Supplier<?, Object> boSupplier);
 
@@ -79,7 +79,7 @@ public interface Query {
 	 * matches the canonical reference of the business object provided by the specified supplier.
 	 * @param boSupplier the supplier of the business object to use for filtering. The supplier's argument is the query argument.
 	 * @return the new query
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	Query filterByBusinessObjectCanonicalReference(Supplier<?, Object> boSupplier);
 
@@ -122,19 +122,19 @@ public interface Query {
 	Query commonAncestors(Query q2);
 
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	Query ifElse(Supplier<ConditionArguments, Boolean> cond,
 			final Supplier<Query, Query> trueQuerySupplier,
 			final Supplier<Query, Query> falseQuerySupplier);
 
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	Query descendantsByBusinessObjectsRelativeReference(final Supplier<?, Object[]> bosSupplier);
 
 	/**
-	 * @since 3.0
+	 * @since 4.0
 	 */
 	Query descendantsByBusinessObjectsRelativeReference(final Supplier<?, Object[]> bosSupplier, final int minSegments);
 }

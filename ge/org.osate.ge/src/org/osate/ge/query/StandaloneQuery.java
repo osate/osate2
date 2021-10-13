@@ -34,7 +34,7 @@ import org.osate.ge.internal.query.RootQuery;
 
 /**
  * @noextend This class is not intended to be subclassed by clients.
- * @since 3.0
+ * @since 4.0
  *
  */
 public class StandaloneQuery {
