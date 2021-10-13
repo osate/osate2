@@ -141,10 +141,16 @@ public class DockedShape extends Region
 		return side.get();
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public final void setSide(final DockSide value) {
 		side.set(value);
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public ObjectProperty<DockSide> sideProperty() {
 		return side;
 	}
@@ -544,6 +550,7 @@ public class DockedShape extends Region
 	/**
 	 * Sets the managed and visible flags of the primary labels to the specified value.
 	 * @param value whether to show the primary label nodes.
+	 * @since 2.0
 	 */
 	public void setPrimaryLabelsVisible(final boolean value) {
 		primaryLabels.setManaged(value);
