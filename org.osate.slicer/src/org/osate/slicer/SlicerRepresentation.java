@@ -2,8 +2,11 @@ package org.osate.slicer;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.jgrapht.Graph;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.AbstractGraph;
@@ -12,6 +15,14 @@ import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.EdgeReversedGraph;
 import org.jgrapht.traverse.BreadthFirstIterator;
+import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.util.InstanceSwitch;
 
 /**
  *
@@ -38,9 +49,27 @@ public class SlicerRepresentation {
 	private final Map<String, OsateSlicerVertex> vertexMap = new HashMap<>();
 
 	/**
-	 * Tracks if the representation has been frozen.
+	 * Switch used to traverse instance model that gets passed in
 	 */
-	private boolean frozen = false;
+	private SlicerSwitch mySwitch = new SlicerSwitch();
+
+	public void buildGraph(SystemInstance si) {
+
+		// Add vertices and explicit edges
+		EcoreUtil.getAllContents(si.eResource(), true).forEachRemaining(elem -> {
+			mySwitch.doSwitch((Element) elem);
+		});
+
+		// Add implicit edges
+		buildIntraConnections();
+
+		// Create a separate graph, rather than a wrapper, saving CPU at the expense of memory
+		Graphs.addGraphReversed(rg, g);
+
+		System.out.println(toString());
+		System.out.println(forwardReachability("sys_impl_Instance.b.output"));
+		System.out.println(backwardReachability("sys_impl_Instance.b.output"));
+	}
 
 	/**
 	 * Adds a new vertex by the given name to the graph.
@@ -64,18 +93,6 @@ public class SlicerRepresentation {
 	 */
 	public void addEdge(String src, String tgt) {
 		g.addEdge(vertexMap.get(src), vertexMap.get(tgt));
-	}
-
-	/**
-	 * This method should be called once all vertices and edges have been added
-	 */
-	public void freeze() {
-		if (frozen) {
-			return;
-		}
-		// Create a separate graph, rather than a wrapper, saving CPU at the expense of memory
-		Graphs.addGraphReversed(rg, g);
-		frozen = true;
 	}
 
 	/**
@@ -119,8 +136,81 @@ public class SlicerRepresentation {
 		return reachableSubgraph;
 	}
 
+	private void buildIntraConnections() {
+		Set<String> intraConnectedComponents = new HashSet<>(mySwitch.inFeats.keySet());
+		intraConnectedComponents.retainAll(mySwitch.outFeats.keySet());
+		intraConnectedComponents.forEach(container -> {
+			mySwitch.inFeats.get(container).forEach(i -> {
+				mySwitch.outFeats.get(container).forEach(o -> {
+					if (!i.equals(o)) {
+						addEdge(i, o);
+					}
+				});
+			});
+		});
+	}
+
 	@Override
 	public String toString() {
 		return g.toString();
 	}
+
+	/**
+	 * This switch handles parsing AADL instance models
+	 *
+	 * @author sprocter
+	 */
+	private class SlicerSwitch extends InstanceSwitch<Void> {
+
+		/**
+		 * This maps a container name to the set of input features it has
+		 */
+		private Map<String, Set<String>> inFeats = new HashMap<>();
+
+		/**
+		 * This maps a container name to the set of output features it has
+		 */
+		private Map<String, Set<String>> outFeats = new HashMap<>();
+
+		@Override
+		public Void caseFeatureInstance(FeatureInstance fi) {
+			String fullFeatureName = getCompleteFeatureName(fi);
+			String fullContainerName = fullFeatureName.substring(0, fullFeatureName.lastIndexOf('.'));
+			addVertex(fullFeatureName);
+			if (fi.getDirection() == DirectionType.IN || fi.getDirection() == DirectionType.IN_OUT) {
+				if (!inFeats.containsKey(fullContainerName)) {
+					inFeats.put(fullContainerName, new HashSet<String>());
+				}
+				inFeats.get(fullContainerName).add(fullFeatureName);
+			}
+			if (fi.getDirection() == DirectionType.OUT || fi.getDirection() == DirectionType.IN_OUT) {
+				if (!outFeats.containsKey(fullContainerName)) {
+					outFeats.put(fullContainerName, new HashSet<String>());
+				}
+				outFeats.get(fullContainerName).add(fullFeatureName);
+			}
+			return null;
+		}
+
+		@Override
+		public Void caseConnectionInstance(ConnectionInstance ci) {
+			addEdge(getCompleteFeatureName(ci.getSource()), getCompleteFeatureName(ci.getDestination()));
+			return null;
+		}
+
+		/**
+		 * Builds a dot-qualified full name from the given feature / connection end
+		 * @param cie The connection end / feature
+		 * @return The full name / path to the component
+		 */
+		private String getCompleteFeatureName(ConnectionInstanceEnd cie) {
+			NamedElement ne = cie;
+			StringBuilder sb = new StringBuilder(ne.getFullName());
+			do {
+				ne = (NamedElement) ne.eContainer();
+				sb.insert(0, ne.getFullName() + ".");
+			} while (ne.eContainer() != null);
+			return sb.toString();
+		}
+	};
 }
