@@ -1,10 +1,18 @@
 package org.osate.pluginsupport.properties;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 
 /**
  * @since 7.0
@@ -122,6 +130,31 @@ public final class PropertyUtils {
 			final NamedElement ne,
 			final V value) {
 		return equals(getProperty.apply(ne), value, false);
+	}
+
+	/**
+	 * @since 7.1
+	 */
+	public static <V> V lookupPropertyConstant(final NamedElement lookupContext, final String qname,
+			final BiFunction<NamedElement, PropertyExpression, V> processValue) {
+		final PropertyConstant propertyConstant = Aadl2GlobalScopeUtil.get(lookupContext,
+				Aadl2Package.eINSTANCE.getPropertyConstant(), qname);
+		final PropertyExpression value = propertyConstant.getConstantValue();
+		final PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, Optional.empty());
+		return processValue.apply(lookupContext, resolved);
+//		return Optional.of(((StringLiteral) resolved).getValue());
+	}
+
+	/**
+	 * @since 7.1
+	 */
+	public static <V> List<V> processListValue(final NamedElement lookupContext, final PropertyExpression resolvedValue,
+			final BiFunction<NamedElement, PropertyExpression, V> processValue) {
+		return ((ListValue) resolvedValue).getOwnedListElements().stream().map(element1 -> {
+			final PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext,
+					Optional.empty());
+			return processValue.apply(lookupContext, resolved1);
+		}).collect(Collectors.toList());
 	}
 
 }
