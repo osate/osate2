@@ -36,6 +36,7 @@ class ContributedAadlStorage extends PlatformObject implements IStorage, Project
 	
 	@Accessors
 	val URI uri
+	val boolean disabled
 	
 	/**
 	 * @since 5.0
@@ -43,6 +44,13 @@ class ContributedAadlStorage extends PlatformObject implements IStorage, Project
 	new(ProjectMember parent, URI uri) {
 		this.parent = parent
 		this.uri = uri
+		this.disabled = false
+	}
+
+	new(ProjectMember parent, URI uri, boolean disabled) {
+		this.parent = parent
+		this.uri = uri
+		this.disabled = disabled
 	}
 	
 	/**
@@ -61,7 +69,7 @@ class ContributedAadlStorage extends PlatformObject implements IStorage, Project
 	}
 	
 	override getName() {
-		uri.segments.last
+		(disabled ? "[Disabled] " : "") + uri.segments.last
 	}
 	
 	override isReadOnly() {
