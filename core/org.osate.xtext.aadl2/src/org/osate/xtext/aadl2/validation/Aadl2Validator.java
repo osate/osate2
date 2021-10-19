@@ -5372,12 +5372,12 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			if (reservedPorts.contains(port.getName().toLowerCase())) {
 				if (port.getName().equalsIgnoreCase("error")) { // Error must be an out event data port
 					if (!(port.getDirection().equals(DirectionType.OUT) && port instanceof EventDataPort)) {
-						error(port, port.getName() + " must be out event data port.");
+						error(port, port.getName() + " must be an out event data port.");
 					}
 				}
 				else { // other reserved ports
 					if (!(port.getDirection().equals(DirectionType.OUT) && port instanceof EventPort)) {
-						error(port, port.getName() + " must be out event port.");
+						error(port, port.getName() + " must be an out event port.");
 					}
 				}
 			}
