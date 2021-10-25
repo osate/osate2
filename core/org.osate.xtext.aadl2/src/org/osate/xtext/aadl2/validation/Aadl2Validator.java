@@ -81,7 +81,6 @@ import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.ModelingProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
@@ -5540,57 +5539,90 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 
 	private boolean classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(Connection connection,
 			Classifier source, Classifier destination) {
-		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection,
-				AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES);
-		if (matchesPropertyConstant == null) {
-			return false;
-		}
-		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
-		if (!(constantValue instanceof ListValue)) {
-			return false;
-		}
-		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
-			if (classifierPair instanceof ListValue) {
-				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
-				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
-						&& innerListElements.get(1) instanceof ClassifierValue) {
-					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
-					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
-					if ((firstPairElement == source && secondPairElement == destination)
-							|| (firstPairElement == destination && secondPairElement == source)) {
-						return true;
-					}
+		final List<List<Classifier>> constValue = org.osate.pluginsupport.properties.PropertyUtils
+				.lookupPropertyConstant(connection, AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES,
+						(c, v) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c, v,
+								(c2, v2) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c2, v2,
+										org.osate.pluginsupport.properties.PropertyUtils::processClassifier)));
+		for (final List<Classifier> classifierPair : constValue) {
+			if (classifierPair.size() == 2) {
+				final Classifier firstPairElement = classifierPair.get(0);
+				final Classifier secondPairElement = classifierPair.get(1);
+				if ((firstPairElement == source && secondPairElement == destination)
+						|| (firstPairElement == destination && secondPairElement == source)) {
+					return true;
 				}
 			}
 		}
 		return false;
+
+//		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection,
+//				AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES);
+//		if (matchesPropertyConstant == null) {
+//			return false;
+//		}
+//		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
+//		if (!(constantValue instanceof ListValue)) {
+//			return false;
+//		}
+//		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
+//			if (classifierPair instanceof ListValue) {
+//				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
+//				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
+//						&& innerListElements.get(1) instanceof ClassifierValue) {
+//					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
+//					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
+//					if ((firstPairElement == source && secondPairElement == destination)
+//							|| (firstPairElement == destination && secondPairElement == source)) {
+//						return true;
+//					}
+//				}
+//			}
+//		}
+//		return false;
 	}
 
 	private boolean classifiersFoundInSupportedClassifierSubsetMatchesProperty(Connection connection, Classifier source,
 			Classifier destination) {
-		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection,
-				AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES);
-		if (matchesPropertyConstant == null) {
-			return false;
-		}
-		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
-		if (!(constantValue instanceof ListValue)) {
-			return false;
-		}
-		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
-			if (classifierPair instanceof ListValue) {
-				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
-				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
-						&& innerListElements.get(1) instanceof ClassifierValue) {
-					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
-					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
-					if (firstPairElement == source && secondPairElement == destination) {
-						return true;
-					}
+		final List<List<Classifier>> constValue = org.osate.pluginsupport.properties.PropertyUtils
+				.lookupPropertyConstant(connection, AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES,
+						(c, v) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c, v,
+								(c2, v2) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c2, v2,
+										org.osate.pluginsupport.properties.PropertyUtils::processClassifier)));
+		for (final List<Classifier> classifierPair : constValue) {
+			if (classifierPair.size() == 2) {
+				final Classifier firstPairElement = classifierPair.get(0);
+				final Classifier secondPairElement = classifierPair.get(1);
+				if (firstPairElement == source && secondPairElement == destination) {
+					return true;
 				}
 			}
 		}
 		return false;
+
+//		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection,
+//				AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES);
+//		if (matchesPropertyConstant == null) {
+//			return false;
+//		}
+//		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
+//		if (!(constantValue instanceof ListValue)) {
+//			return false;
+//		}
+//		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
+//			if (classifierPair instanceof ListValue) {
+//				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
+//				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
+//						&& innerListElements.get(1) instanceof ClassifierValue) {
+//					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
+//					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
+//					if (firstPairElement == source && secondPairElement == destination) {
+//						return true;
+//					}
+//				}
+//			}
+//		}
+//		return false;
 	}
 
 	private boolean isDataSubset(Classifier source, Classifier destination) {
@@ -5616,29 +5648,45 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 
 	private boolean classifiersFoundInSupportedTypeConversionsProperty(Connection connection, Classifier source,
 			Classifier destination) {
-		PropertyConstant conversionsPropertyConstant = GetProperties.lookupPropertyConstant(connection,
-				AadlProject.SUPPORTED_TYPE_CONVERSIONS);
-		if (conversionsPropertyConstant == null) {
-			return false;
-		}
-		PropertyExpression constantValue = conversionsPropertyConstant.getConstantValue();
-		if (!(constantValue instanceof ListValue)) {
-			return false;
-		}
-		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
-			if (classifierPair instanceof ListValue) {
-				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
-				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
-						&& innerListElements.get(1) instanceof ClassifierValue) {
-					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
-					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
-					if (firstPairElement == source && secondPairElement == destination) {
-						return true;
-					}
+		final List<List<Classifier>> constValue = org.osate.pluginsupport.properties.PropertyUtils
+				.lookupPropertyConstant(connection, AadlProject.SUPPORTED_TYPE_CONVERSIONS,
+						(c, v) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c, v,
+								(c2, v2) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c2, v2,
+										org.osate.pluginsupport.properties.PropertyUtils::processClassifier)));
+		for (final List<Classifier> classifierPair : constValue) {
+			if (classifierPair.size() == 2) {
+				final Classifier firstPairElement = classifierPair.get(0);
+				final Classifier secondPairElement = classifierPair.get(1);
+				if (firstPairElement == source && secondPairElement == destination) {
+					return true;
 				}
 			}
 		}
 		return false;
+
+//		PropertyConstant conversionsPropertyConstant = GetProperties.lookupPropertyConstant(connection,
+//				AadlProject.SUPPORTED_TYPE_CONVERSIONS);
+//		if (conversionsPropertyConstant == null) {
+//			return false;
+//		}
+//		PropertyExpression constantValue = conversionsPropertyConstant.getConstantValue();
+//		if (!(constantValue instanceof ListValue)) {
+//			return false;
+//		}
+//		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
+//			if (classifierPair instanceof ListValue) {
+//				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
+//				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
+//						&& innerListElements.get(1) instanceof ClassifierValue) {
+//					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
+//					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
+//					if (firstPairElement == source && secondPairElement == destination) {
+//						return true;
+//					}
+//				}
+//			}
+//		}
+//		return false;
 	}
 
 	private void checkFeatureRefinementClassifierSubstitution(Feature feature) {
@@ -8981,30 +9029,47 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 
 	private boolean classifiersFoundInSupportedClassifierComplementMatchesProperty(FeatureGroupConnection connection,
 			FeatureGroupType source, FeatureGroupType destination) {
-		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection,
-				AadlProject.SUPPORTED_CLASSIFIER_COMPLEMENT_MATCHES);
-		if (matchesPropertyConstant == null) {
-			return false;
-		}
-		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
-		if (!(constantValue instanceof ListValue)) {
-			return false;
-		}
-		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
-			if (classifierPair instanceof ListValue) {
-				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
-				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
-						&& innerListElements.get(1) instanceof ClassifierValue) {
-					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
-					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
-					if ((firstPairElement == source && secondPairElement == destination)
-							|| (firstPairElement == destination && secondPairElement == source)) {
-						return true;
-					}
+		final List<List<Classifier>> constValue = org.osate.pluginsupport.properties.PropertyUtils
+				.lookupPropertyConstant(connection, AadlProject.SUPPORTED_CLASSIFIER_COMPLEMENT_MATCHES,
+						(c, v) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c, v,
+								(c2, v2) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c2, v2,
+										org.osate.pluginsupport.properties.PropertyUtils::processClassifier)));
+		for (final List<Classifier> classifierPair : constValue) {
+			if (classifierPair.size() == 2) {
+				final Classifier firstPairElement = classifierPair.get(0);
+				final Classifier secondPairElement = classifierPair.get(1);
+				if ((firstPairElement == source && secondPairElement == destination)
+						|| (firstPairElement == destination && secondPairElement == source)) {
+					return true;
 				}
 			}
 		}
 		return false;
+
+//		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection,
+//				AadlProject.SUPPORTED_CLASSIFIER_COMPLEMENT_MATCHES);
+//		if (matchesPropertyConstant == null) {
+//			return false;
+//		}
+//		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
+//		if (!(constantValue instanceof ListValue)) {
+//			return false;
+//		}
+//		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
+//			if (classifierPair instanceof ListValue) {
+//				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
+//				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
+//						&& innerListElements.get(1) instanceof ClassifierValue) {
+//					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
+//					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
+//					if ((firstPairElement == source && secondPairElement == destination)
+//							|| (firstPairElement == destination && secondPairElement == source)) {
+//						return true;
+//					}
+//				}
+//			}
+//		}
+//		return false;
 	}
 
 	private boolean checkSubprogramGroupNoFlowSpecification(FlowSpecification flowSpec) {
