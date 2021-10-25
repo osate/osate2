@@ -8,6 +8,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyConstant;
@@ -157,4 +159,12 @@ public final class PropertyUtils {
 		}).collect(Collectors.toList());
 	}
 
+	// XXX: SHOULD HAVE PROCESS AADLINTEGER, PROCESS ADDL REAL, ETC.
+	/**
+	 * @since 7.1
+	 */
+	public static Classifier processClassifier(final NamedElement lookupContext,
+			final PropertyExpression resolvedValue) {
+		return ((ClassifierValue) resolvedValue).getClassifier();
+	}
 }
