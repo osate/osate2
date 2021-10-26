@@ -30,7 +30,7 @@ censes only apply to the Third Party Software and not any other portion of this 
       <editor
             id="org.osate.aadl2.instance.presentation.InstanceEditorID"
             name="%_UI_InstanceEditor_label"
-            icon="icons/full/obj16/AADL.gif"
+            icon="icons/full/obj16/InstanceModelFile.gif"
             extensions="aaxl2,aail2"
             class="org.osate.aadl2.presentation.Aadl2ModelEditor"
             contributorClass="org.osate.aadl2.presentation.Aadl2ActionBarContributor">
