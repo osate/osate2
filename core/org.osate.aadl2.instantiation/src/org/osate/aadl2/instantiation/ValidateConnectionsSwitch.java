@@ -45,6 +45,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataImplementation;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.contrib.aadlproject.constants.AadlProjectConstants;
 import org.osate.aadl2.contrib.modeling.ClassifierMatchingRule;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -61,7 +62,6 @@ import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.xtext.aadl2.properties.util.AadlProject;
 
 class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private final Map<InstanceObject, InstantiatedClassifier> classifierCache;
@@ -473,7 +473,7 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						+ destClassifier
 								.getQualifiedName()
 						+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-						+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
+						+ AadlProjectConstants.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES__NAME + "'.");
 			}
 //		} else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue)) {
 		} else if (ClassifierMatchingRule.SUBSET == matchingRule) {
@@ -486,7 +486,7 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						+ destClassifier
 								.getQualifiedName()
 								+ "') based on name matching or the property constant '"
-								+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
+						+ AadlProjectConstants.SUPPORTED_CLASSIFIER_SUBSET_MATCHES__NAME + "'.");
 			}
 //		} else if (ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue)) {
 		} else if (ClassifierMatchingRule.CONVERSION == matchingRule) {
@@ -498,7 +498,7 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						+ destClassifier
 								.getQualifiedName()
 						+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-						+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
+						+ AadlProjectConstants.SUPPORTED_TYPE_CONVERSIONS__NAME + "'.");
 			}
 		}
 	}
@@ -535,7 +535,7 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private boolean classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(final ConnectionInstance connection,
 			Classifier source, Classifier destination) {
 		final List<List<Classifier>> constValue = org.osate.pluginsupport.properties.PropertyUtils
-				.lookupPropertyConstant(connection, AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES,
+				.lookupPropertyConstant(connection, AadlProjectConstants.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES__NAME,
 						(c, v) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c, v,
 								(c2, v2) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c2, v2,
 										org.osate.pluginsupport.properties.PropertyUtils::processClassifier)));
@@ -583,7 +583,7 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			Classifier source,
 			Classifier destination) {
 		final List<List<Classifier>> constValue = org.osate.pluginsupport.properties.PropertyUtils
-				.lookupPropertyConstant(connection, AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES,
+				.lookupPropertyConstant(connection, AadlProjectConstants.SUPPORTED_CLASSIFIER_SUBSET_MATCHES__NAME,
 						(c, v) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c, v,
 								(c2, v2) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c2, v2,
 										org.osate.pluginsupport.properties.PropertyUtils::processClassifier)));
@@ -648,7 +648,7 @@ class ValidateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private boolean classifiersFoundInSupportedTypeConversionsProperty(ConnectionInstance connection,
 			Classifier source, Classifier destination) {
 		final List<List<Classifier>> constValue = org.osate.pluginsupport.properties.PropertyUtils
-				.lookupPropertyConstant(connection, AadlProject.SUPPORTED_TYPE_CONVERSIONS,
+				.lookupPropertyConstant(connection, AadlProjectConstants.SUPPORTED_TYPE_CONVERSIONS__NAME,
 						(c, v) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c, v,
 								(c2, v2) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c2, v2,
 										org.osate.pluginsupport.properties.PropertyUtils::processClassifier)));

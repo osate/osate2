@@ -23,11 +23,11 @@
  */
 package org.osate.analysis.resource.budgets.logic;
 
+import org.osate.aadl2.contrib.aadlproject.DataRateUnits;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ui.handlers.AbstractAaxlHandler;
-import org.osate.xtext.aadl2.properties.util.AadlProject;
 
 abstract class AbstractLoggingAnalysis {
 	private final boolean doDetailedLog = true;
@@ -44,8 +44,8 @@ abstract class AbstractLoggingAnalysis {
 
 	protected void detailedLog(InstanceObject obj, double budget, double actual, String msg) {
 		if (doDetailedLog) {
-			String budgetmsg = budget + " " + AadlProject.KBYTESPS_LITERAL + ",";
-			String actualmsg = actual + " " + AadlProject.KBYTESPS_LITERAL + ",";
+			String budgetmsg = budget + " " + DataRateUnits.KBYTESPS + ",";
+			String actualmsg = actual + " " + DataRateUnits.KBYTESPS + ",";
 			String objname = (obj instanceof ConnectionInstance) ? obj.getFullName()
 					: ((ComponentInstance) obj).getComponentInstancePath();
 			errManager.logInfo(objname + ", " + budgetmsg + actualmsg + msg);

@@ -32,6 +32,7 @@ import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.contrib.aadlproject.DataRateUnits;
 import org.osate.aadl2.contrib.aadlproject.SizeUnits;
 import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -47,7 +48,6 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.resource.budgets.busload.NewBusLoadAnalysis;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractAaxlHandler;
-import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -296,7 +296,7 @@ public class BusLoadAnalysis extends AbstractLoggingAnalysis {
 	 * @since 3.0
 	 */
 	protected void detailedLog(InstanceObject obj, double budget, String msg) {
-		String budgetmsg = budget + " " + AadlProject.KBYTESPS_LITERAL + ",";
+		String budgetmsg = budget + " " + DataRateUnits.KBYTESPS + ",";
 		String objname = (obj instanceof ConnectionInstance) ? obj.getFullName()
 				: ((ComponentInstance) obj).getComponentInstancePath();
 		errManager.logInfo(objname + ", " + budgetmsg + msg);
