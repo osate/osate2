@@ -23,20 +23,25 @@
  */
 package org.osate.analysis.architecture;
 
+import java.util.Optional;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.contrib.aadlproject.SizeUnits;
+import org.osate.aadl2.contrib.communication.CommunicationProperties;
+import org.osate.aadl2.contrib.communication.RateSpec;
+import org.osate.aadl2.contrib.communication.RateSpec.RateUnit_FieldType;
 import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.contribution.sei.datamodel.DataModel;
+import org.osate.contribution.sei.sei.Sei;
+import org.osate.pluginsupport.properties.RealRange;
 import org.osate.ui.handlers.AbstractAaxlHandler;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * @author phf
@@ -85,31 +90,72 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 		double srcDataSize = AadlContribUtils.getDataSize(srcFI, SizeUnits.BYTES);
 		double dstDataSize = AadlContribUtils.getDataSize(dstFI, SizeUnits.BYTES);
 
-		RecordValue srcRate = GetProperties.getOutPutRate(srcFI);
-		RecordValue dstRate = GetProperties.getInPutRate(dstFI);
-		EnumerationLiteral srcRU = null;
-		EnumerationLiteral dstRU = null;
+//		RecordValue srcRate = GetProperties.getOutPutRate(srcFI);
+//		RecordValue dstRate = GetProperties.getInPutRate(dstFI);
+
+		final Optional<RateSpec> srcRateOpt = CommunicationProperties.getOutputRate(srcFI);
+		final Optional<RateSpec> dstRateOpt = CommunicationProperties.getInputRate(dstFI);
+
+		RateUnit_FieldType srcRU = null;
+		RateUnit_FieldType dstRU = null;
 		double srcMaxRateValue = 0;
 		double dstMaxRateValue = 0;
 		double srcMinRateValue = 0;
 		double dstMinRateValue = 0;
-		if (srcRate != null && dstRate != null) {
-			srcRU = GetProperties.getRateUnit(srcRate);
-			dstRU = GetProperties.getRateUnit(dstRate);
-			srcMaxRateValue = GetProperties.getMaxDataRate(srcRate);
-			dstMaxRateValue = GetProperties.getMaxDataRate(dstRate);
-			srcMinRateValue = GetProperties.getMinDataRate(srcRate);
-			dstMinRateValue = GetProperties.getMinDataRate(dstRate);
+
+		if (srcRateOpt.isPresent() && dstRateOpt.isPresent()) {
+//		if (srcRate != null && dstRate != null) {
+			final RateSpec srcRate = srcRateOpt.get();
+			final RateSpec dstRate = dstRateOpt.get();
+			srcRU = srcRate.getRateUnit().orElse(null);
+			dstRU = dstRate.getRateUnit().orElse(null);
+			final RealRange srcRateRange = srcRate.getValueRange().orElse(RealRange.ZEROED);
+			srcMaxRateValue = srcRateRange.getMaximum();
+			srcMinRateValue = srcRateRange.getMinimum();
+			final RealRange dstRateRange = dstRate.getValueRange().orElse(RealRange.ZEROED);
+			dstMaxRateValue = dstRateRange.getMaximum();
+			dstMinRateValue = dstRateRange.getMinimum();
+//			srcRU = GetProperties.getRateUnit(srcRate);
+//			dstRU = GetProperties.getRateUnit(dstRate);
+//			srcMaxRateValue = GetProperties.getMaxDataRate(srcRate);
+//			dstMaxRateValue = GetProperties.getMaxDataRate(dstRate);
+//			srcMinRateValue = GetProperties.getMinDataRate(srcRate);
+//			dstMinRateValue = GetProperties.getMinDataRate(dstRate);
 		}
 		// now try it as SEI::Data_Rate
-		double srcRateValue = GetProperties.getMessageRatePerSecond(srcFI);
-		double dstRateValue = GetProperties.getMessageRatePerSecond(dstFI);
+//		public static double getMessageRatePerSecond(NamedElement ne) {
+//			Property dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.DATA_RATE);
+//			if (dr == null) {
+//				dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.MESSAGE_RATE);
+//			}
+//			if (dr == null) {
+//				return 0;
+//			}
+//			return PropertyUtils.getRealValue(ne, dr, 0.0);
+//		}
 
-		Classifier srcC = GetProperties.getSingleBaseType(srcFI);
-		Classifier dstC = GetProperties.getSingleBaseType(dstFI);
+		final double srcRateValue = Sei.getDataRate(srcFI)
+				.map(v -> v.getValue())
+				.orElseGet(() -> Sei.getMessageRate(srcFI).map(v -> v.getValue()).orElse(0.0));
+		final double dstRateValue = Sei.getDataRate(dstFI)
+				.map(v -> v.getValue())
+				.orElseGet(() -> Sei.getMessageRate(dstFI).map(v -> v.getValue()).orElse(0.0));
+//		double srcRateValue = GetProperties.getMessageRatePerSecond(srcFI);
+//		double dstRateValue = GetProperties.getMessageRatePerSecond(dstFI);
 
-		String srcS = GetProperties.getMeasurementUnit(srcFI);
-		String dstS = GetProperties.getMeasurementUnit(dstFI);
+		final Classifier srcC = DataModel.getBaseType(srcFI)
+				.map(list -> list.size() == 1 ? list.get(0) : null)
+				.orElse(null);
+		final Classifier dstC = DataModel.getBaseType(dstFI)
+				.map(list -> list.size() == 1 ? list.get(0) : null)
+				.orElse(null);
+//		Classifier srcC = GetProperties.getSingleBaseType(srcFI);
+//		Classifier dstC = GetProperties.getSingleBaseType(dstFI);
+
+		final String srcS = DataModel.getMeasurementUnit(srcFI).orElse(null);
+		final String dstS = DataModel.getMeasurementUnit(dstFI).orElse(null);
+//		String srcS = GetProperties.getMeasurementUnit(srcFI);
+//		String dstS = GetProperties.getMeasurementUnit(dstFI);
 
 		// error logging
 
@@ -128,7 +174,7 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 		}
 
 		if (srcRU != null && dstRU != null && srcRU != dstRU) {
-			error(conni, "Source rate unit " + srcRU.getName() + " and destination rate unit " + dstRU.getName()
+			error(conni, "Source rate unit " + srcRU.name() + " and destination rate unit " + dstRU.name()
 					+ " differ");
 		}
 
@@ -142,7 +188,8 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 						+ " is less than minimum destination data rate " + dstMinRateValue);
 			}
 		} else {
-			if (srcRate != null || dstRate != null) {
+			if (srcRateOpt.isEmpty() || dstRateOpt.isEmpty()) {
+//			if (srcRate != null || dstRate != null) {
 				error(conni, "Missing input rate or output rate");
 			}
 		}
