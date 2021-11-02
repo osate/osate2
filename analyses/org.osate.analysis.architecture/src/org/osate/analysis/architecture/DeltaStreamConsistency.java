@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,6 +23,8 @@
  */
 package org.osate.analysis.architecture;
 
+import java.util.OptionalDouble;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -30,8 +32,7 @@ import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.contribution.sei.sei.Sei;
 
 /**
  * @author phf This class provides for checking whether delta streams are
@@ -60,33 +61,44 @@ public class DeltaStreamConsistency extends AadlProcessingSwitchWithProgress {
 
 						ConnectionInstanceEnd src = conni.getSource();
 						ConnectionInstanceEnd dst = conni.getDestination();
-						if (src == null || dst == null)
+						if (src == null || dst == null) {
 							return DONE;
-						double sourceValue = 0;
-						boolean sourceValueExists;
-						try {
-							sourceValue = GetProperties.getStreamMissRate(src);
-							sourceValueExists = true;
-						} catch (PropertyNotPresentException e) {
-							sourceValueExists = false;
 						}
-						double destinationValue = 0;
-						boolean destinationValueExists;
-						try {
-							destinationValue = GetProperties.getStreamMissRate(dst);
-							destinationValueExists = true;
-						} catch (PropertyNotPresentException e) {
-							destinationValueExists = false;
-						}
-						if (!sourceValueExists && !destinationValueExists)
+//						double sourceValue = 0;
+//						boolean sourceValueExists;
+//						try {
+//							sourceValue = GetProperties.getStreamMissRate(src);
+//							sourceValueExists = true;
+//						} catch (PropertyNotPresentException e) {
+//							sourceValueExists = false;
+//						}
+						final OptionalDouble srcMissRate = Sei.getStreammissrate(src);
+						final boolean sourceValueExists = srcMissRate.isPresent();
+						final double sourceValue = srcMissRate.orElse(0.0);
+
+						final OptionalDouble destMissRate = Sei.getStreammissrate(dst);
+						final boolean destinationValueExists = destMissRate.isPresent();
+						final double destinationValue = destMissRate.orElse(0.0);
+
+//						double destinationValue = 0;
+//						boolean destinationValueExists;
+//						try {
+//							destinationValue = GetProperties.getStreamMissRate(dst);
+//							destinationValueExists = true;
+//						} catch (PropertyNotPresentException e) {
+//							destinationValueExists = false;
+//						}
+						if (!sourceValueExists && !destinationValueExists) {
 							return DONE;
+						}
 						if (sourceValueExists != destinationValueExists) {
 							warning(conni, "One of the ports has no stream miss rate specification");
 							return DONE;
 						}
-						if (sourceValue > destinationValue)
+						if (sourceValue > destinationValue) {
 							error(conni,
 									"The stream missrate of the source is larger than the stream missrate the destination can handle.");
+						}
 					}
 					return DONE;
 				} finally {
