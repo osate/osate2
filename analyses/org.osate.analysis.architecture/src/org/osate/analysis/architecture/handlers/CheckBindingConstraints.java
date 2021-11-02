@@ -50,9 +50,10 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.contrib.aadlproject.SupportedDispatchProtocols;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
+import org.osate.aadl2.contrib.thread.ThreadProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureCategory;
@@ -65,7 +66,6 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 	@Override
@@ -120,8 +120,12 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 			processorChild.setTaskName("Checking Processor Bindings");
 			processorChild.split(1);
 			issuesList.addAll(checkBindingConstraints(processorBindingComponents.stream(), "processor",
-					GetProperties::getActualProcessorBinding, GetProperties::getAllowedProcessorBinding,
-					GetProperties::getAllowedProcessorBindingClass, som));
+					e -> DeploymentProperties.getActualProcessorBinding(e).orElse(Collections.emptyList()),
+					e -> DeploymentProperties.getAllowedProcessorBinding(e).orElse(Collections.emptyList()),
+					e -> DeploymentProperties.getAllowedProcessorBindingClass(e).orElse(Collections.emptyList()), som));
+//			issuesList.addAll(checkBindingConstraints(processorBindingComponents.stream(), "processor",
+//					GetProperties::getActualProcessorBinding, GetProperties::getAllowedProcessorBinding,
+//					GetProperties::getAllowedProcessorBindingClass, som));
 
 
 			// Dispatch Protocol
@@ -144,8 +148,10 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 			Stream<InstanceObject> memoryBindingElements = Stream.concat(memoryBindingComponents,
 					memoryBindingFeatures);
 			issuesList.addAll(
-					checkBindingConstraints(memoryBindingElements, "memory", GetProperties::getActualMemoryBinding,
-							GetProperties::getAllowedMemoryBinding, GetProperties::getAllowedMemoryBindingClass, som));
+					checkBindingConstraints(memoryBindingElements, "memory",
+							e -> DeploymentProperties.getActualMemoryBinding(e).orElse(Collections.emptyList()),
+							e -> DeploymentProperties.getAllowedMemoryBinding(e).orElse(Collections.emptyList()),
+							e -> DeploymentProperties.getAllowedMemoryBindingClass(e).orElse(Collections.emptyList()), som));
 
 
 			// Connection binding (only handles connection and virtual bus)
@@ -157,29 +163,41 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 			List<InstanceObject> connectionBindingElements = Stream
 					.concat(connectionBindingComponents, connectionBindingConnections).collect(Collectors.toList());
 			issuesList.addAll(checkBindingConstraints(connectionBindingElements.stream(), "connection",
-					GetProperties::getActualConnectionBinding, GetProperties::getAllowedConnectionBinding,
-					GetProperties::getAllowedConnectionBindingClass, som));
+					e -> DeploymentProperties.getActualConnectionBinding(e).orElse(Collections.emptyList()),
+					e -> DeploymentProperties.getAllowedConnectionBinding(e).orElse(Collections.emptyList()),
+					e -> DeploymentProperties.getAllowedConnectionBindingClass(e).orElse(Collections.emptyList()), som));
 
 
 			// Connection Quality of Service
 			subMonitor.setTaskName("Checking Connection Quality of Services");
 			SubMonitor qualityChild = iterationMonitor.split(1);
 			issuesList.addAll(checkRequiredAndProvided(connectionBindingElements.stream(),
-					GetProperties::getRequiredConnectionQualityOfService, "Required_Connection_Quality_Of_Service",
-					GetProperties::getProvidedConnectionQualityOfService, qos -> qos.getName(), som));
+					e -> DeploymentProperties.getRequiredConnectionQualityOfService(e).orElse(Collections.emptyList()),
+					"Required_Connection_Quality_Of_Service",
+					e -> DeploymentProperties.getProvidedConnectionQualityOfService(e).orElse(Collections.emptyList()),
+					qos -> qos.name(), som));
 
 			// Virtual Bus Class
 			subMonitor.setTaskName("Checking Virtual Bus Bindings");
 			SubMonitor busChild = iterationMonitor.split(1);
-			Function<ComponentInstance, Collection<ComponentClassifier>> getProvidedVBClass = boundElement -> {
-				Stream<ComponentClassifier> providedProperty = GetProperties.getProvidedVirtualBusClass(boundElement)
+			Function<ComponentInstance, Collection<Classifier>> getProvidedVBClass = boundElement -> {
+				Stream<Classifier> providedProperty = DeploymentProperties
+						.getProvidedVirtualBusClass(boundElement)
+						.orElse(Collections.emptyList())
 						.stream();
-				Stream<ComponentClassifier> providedBySubcomponent = boundElement.getComponentInstances().stream()
+				Stream<Classifier> providedBySubcomponent = boundElement.getComponentInstances()
+						.stream()
 						.map(subcomponent -> subcomponent.getClassifier());
+
+//				Stream<ComponentClassifier> providedProperty = DeploymentProperties.getProvidedVirtualBusClass(boundElement)
+//						.stream();
+//				Stream<ComponentClassifier> providedBySubcomponent = boundElement.getComponentInstances().stream()
+//						.map(subcomponent -> subcomponent.getClassifier());
 				return Stream.concat(providedProperty, providedBySubcomponent).collect(Collectors.toSet());
 			};
 			issuesList.addAll(checkRequiredAndProvided(connectionBindingElements.stream(),
-					GetProperties::getRequiredVirtualBusClass, "Required_Virtual_Bus_Class", getProvidedVBClass,
+					v -> DeploymentProperties.getRequiredVirtualBusClass(v).orElse(Collections.emptyList()),
+					"Required_Virtual_Bus_Class", getProvidedVBClass,
 					vbClass -> vbClass.getName(), som));
 			busChild.setWorkRemaining(0);
 		}
@@ -188,13 +206,13 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 	}
 
 	private static <T extends InstanceObject> List<Issue> checkBindingConstraints(Stream<T> bindingElements,
-			String bindingType, Function<T, List<ComponentInstance>> getActualBinding,
-			Function<T, List<ComponentInstance>> getAllowedBinding,
+			String bindingType, Function<T, List<InstanceObject>> getActualBinding,
+			Function<T, List<InstanceObject>> getAllowedBinding,
 			Function<T, List<Classifier>> getAllowedBindingClass, SystemOperationMode som) {
 		return bindingElements.flatMap(element -> {
-			Set<ComponentInstance> actualBinding = Collections
+			Set<InstanceObject> actualBinding = Collections
 					.unmodifiableSet(new HashSet<>(getActualBinding.apply(element)));
-			Set<ComponentInstance> allowedBinding = Collections
+			Set<InstanceObject> allowedBinding = Collections
 					.unmodifiableSet(new HashSet<>(getAllowedBinding.apply(element)));
 			Set<Classifier> allowedBindingClasses = Collections
 					.unmodifiableSet(new HashSet<>(getAllowedBindingClass.apply(element)));
@@ -202,9 +220,9 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 			Stream<Issue> issues = Stream.empty();
 
 			if (!actualBinding.isEmpty() && !allowedBindingClasses.isEmpty()) {
-				Set<ComponentInstance> modifiableActual = new HashSet<>(actualBinding);
+				Set<InstanceObject> modifiableActual = new HashSet<>(actualBinding);
 				modifiableActual.removeIf(boundElement -> {
-					ComponentClassifier boundElementClassifier = boundElement.getClassifier();
+					ComponentClassifier boundElementClassifier = ((ComponentInstance) boundElement).getClassifier();
 					return boundElementClassifier != null && allowedBindingClasses.stream()
 							.anyMatch(allowedClass -> AadlUtil.isSameOrExtends(allowedClass, boundElementClassifier));
 				});
@@ -214,7 +232,7 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 			}
 
 			if (!actualBinding.isEmpty() && !allowedBinding.isEmpty()) {
-				Set<ComponentInstance> modifiableActual = new HashSet<>(actualBinding);
+				Set<InstanceObject> modifiableActual = new HashSet<>(actualBinding);
 				modifiableActual.removeAll(allowedBinding);
 				String propertyName = "Allowed_" + StringExtensions.toFirstUpper(bindingType) + "_Binding";
 				issues = Stream.concat(issues,
@@ -227,17 +245,26 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 	private static List<Issue> checkDispatchProtocol(Stream<ComponentInstance> bindingElements,
 			SystemOperationMode som) {
 		return bindingElements.flatMap(element -> {
-			EnumerationLiteral dispatchProtocol = GetProperties.getDispatchProtocol(element);
+			final SupportedDispatchProtocols dispatchProtocol = ThreadProperties.getDispatchProtocol(element)
+					.orElse(null);
+//			EnumerationLiteral dispatchProtocol = GetProperties.getDispatchProtocol(element);
 			if (dispatchProtocol != null) {
-				return GetProperties.getActualProcessorBinding(element).stream().map(boundElement -> {
-					List<EnumerationLiteral> allowedDispatchProtocol = GetProperties
-							.getAllowedDispatchProtocol(boundElement);
+//				return GetProperties.getActualProcessorBinding(element).stream().map(boundElement -> {
+				return DeploymentProperties.getActualProcessorBinding(element)
+						.orElse(Collections.emptyList())
+						.stream()
+						.map(boundElement -> {
+					final List<SupportedDispatchProtocols> allowedDispatchProtocol = DeploymentProperties
+							.getAllowedDispatchProtocol(boundElement)
+							.orElse(Collections.emptyList());
+//					List<EnumerationLiteral> allowedDispatchProtocol = GetProperties
+//							.getAllowedDispatchProtocol(boundElement);
 					if (!allowedDispatchProtocol.isEmpty() && !allowedDispatchProtocol.contains(dispatchProtocol)) {
 						StringBuilder message = new StringBuilder(getTitle(element));
 						message.append(" '");
 						message.append(element.getName());
 						message.append("' has a Dispatch_Protocol '");
-						message.append(dispatchProtocol.getName());
+						message.append(dispatchProtocol.name());
 						if (!Aadl2Util.isNoModes(som)) {
 							message.append("' in mode '");
 							message.append(som.getName());
@@ -292,7 +319,7 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 		}).collect(Collectors.toList());
 	}
 
-	private static Stream<Issue> createErrorsForBindings(Set<ComponentInstance> actualBinding, InstanceObject element,
+	private static Stream<Issue> createErrorsForBindings(Set<InstanceObject> actualBinding, InstanceObject element,
 			String bindingType, SystemOperationMode som, String propertyName) {
 		return actualBinding.stream().map(boundElement -> {
 			StringBuilder message = new StringBuilder(getTitle(element));
