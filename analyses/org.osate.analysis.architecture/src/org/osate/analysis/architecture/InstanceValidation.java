@@ -23,8 +23,8 @@
  */
 package org.osate.analysis.architecture;
 
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
 import org.osate.aadl2.contrib.timing.TimingProperties;
@@ -34,7 +34,6 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.pluginsupport.properties.RealRange;
 import org.osate.ui.handlers.AbstractAaxlHandler;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class InstanceValidation {
 	private final AbstractAaxlHandler handler;
@@ -64,7 +63,8 @@ public class InstanceValidation {
 					.getMaximum();
 //			double et = GetProperties.getMaximumComputeExecutionTimeinSec(ci);
 			if (et != 0) {
-				ComponentClassifier refproc = GetProperties.getReferenceProcessor(ci);
+				final Classifier refproc = TimingProperties.getReferenceProcessor(ci).orElse(null);
+//				ComponentClassifier refproc = GetProperties.getReferenceProcessor(ci);
 				if (refproc == null) {
 					isOK = false;
 					handler.error(ci, "Thread instance " + ci.getComponentInstancePath()
