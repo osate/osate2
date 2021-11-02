@@ -725,7 +725,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	public void checkOneSequencePerMode(SubprogramCallSequence sequence) {
 		BehavioredImplementation classifier = EcoreUtil2.getContainerOfType(sequence, BehavioredImplementation.class);
 
-		if (classifier instanceof org.osate.aadl2.impl.ThreadImplementationImpl) {
+		if (!(classifier instanceof SubprogramImplementation)) {
 			/*
 			 * 5.2 (L3) only applies to subprograms, not threads. Multiple call sequences are needed
 			 * to provide different call sequences for the various ..._Entrypoint_Call_Sequence properties.
