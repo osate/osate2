@@ -174,7 +174,7 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 		}
 
 		if (srcRU != null && dstRU != null && srcRU != dstRU) {
-			error(conni, "Source rate unit " + srcRU.name() + " and destination rate unit " + dstRU.name()
+			error(conni, "Source rate unit " + srcRU + " and destination rate unit " + dstRU
 					+ " differ");
 		}
 
@@ -188,7 +188,7 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 						+ " is less than minimum destination data rate " + dstMinRateValue);
 			}
 		} else {
-			if (srcRateOpt.isEmpty() || dstRateOpt.isEmpty()) {
+			if (!srcRateOpt.isPresent() || !dstRateOpt.isPresent()) {
 //			if (srcRate != null || dstRate != null) {
 				error(conni, "Missing input rate or output rate");
 			}

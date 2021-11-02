@@ -175,7 +175,7 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 					e -> DeploymentProperties.getRequiredConnectionQualityOfService(e).orElse(Collections.emptyList()),
 					"Required_Connection_Quality_Of_Service",
 					e -> DeploymentProperties.getProvidedConnectionQualityOfService(e).orElse(Collections.emptyList()),
-					qos -> qos.name(), som));
+					qos -> qos.toString(), som));
 
 			// Virtual Bus Class
 			subMonitor.setTaskName("Checking Virtual Bus Bindings");
@@ -264,7 +264,7 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 						message.append(" '");
 						message.append(element.getName());
 						message.append("' has a Dispatch_Protocol '");
-						message.append(dispatchProtocol.name());
+						message.append(dispatchProtocol.toString());
 						if (!Aadl2Util.isNoModes(som)) {
 							message.append("' in mode '");
 							message.append(som.getName());
