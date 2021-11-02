@@ -36,7 +36,9 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.flows.reporting.model.Line;
 import org.osate.analysis.flows.reporting.model.Report;
 import org.osate.analysis.flows.reporting.model.Section;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.contribution.sei.sei.PowerUnits;
+import org.osate.contribution.sei.sei.Sei;
+import org.osate.pluginsupport.properties.PropertyUtils;
 
 /**
  * @since 2.0
@@ -66,7 +68,8 @@ public class PowerAnalysis {
 				budgetTotal = 0.0;
 				supplyTotal = 0.0;
 				ComponentInstance ci = (ComponentInstance) aobj;
-				capacity = GetProperties.getPowerCapacity(ci, 0.0);
+				capacity = PropertyUtils.getScaled(Sei::getPowercapacity, ci, PowerUnits.MW).orElse(0.0);
+//				capacity = GetProperties.getPowerCapacity(ci, 0.0);
 				if (capacity == 0) {
 					return;
 				}
@@ -75,7 +78,8 @@ public class PowerAnalysis {
 				String supplyLine = "";
 				String budgetLine = "";
 				for (FeatureInstance fi : ci.getFeatureInstances()) {
-					double supply = GetProperties.getPowerBudget(fi, 0.0);
+					double supply = PropertyUtils.getScaled(Sei::getPowerbudget, fi, PowerUnits.MW).orElse(0.0);
+//					double supply = GetProperties.getPowerBudget(fi, 0.0);
 					if (supply > 0) {
 						// supply in form of power budget drawn this power supply from other supply
 						// this could be a requires bus access, or an incoming abstract feature
@@ -92,7 +96,8 @@ public class PowerAnalysis {
 					for (ConnectionInstance inconni : fi.getDstConnectionInstances()) {
 						// incoming connections: does the other end provide power?
 						ConnectionInstanceEnd srcfi = inconni.getSource();
-						supply = GetProperties.getPowerSupply(srcfi, 0.0);
+						supply = PropertyUtils.getScaled(Sei::getPowersupply, srcfi, PowerUnits.MW).orElse(0.0);
+//						supply = GetProperties.getPowerSupply(srcfi, 0.0);
 						if (supply > 0) {
 							supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
 									+ PowerAnalysis.this.toString(supply) + " from "
@@ -103,7 +108,8 @@ public class PowerAnalysis {
 					for (ConnectionInstance outconni : fi.getSrcConnectionInstances()) {
 						// outgoing connection. Does the other end have a power budget?
 						ConnectionInstanceEnd dstfi = outconni.getDestination();
-						double budget = GetProperties.getPowerBudget(dstfi, 0.0);
+						double budget = PropertyUtils.getScaled(Sei::getPowerbudget, dstfi, PowerUnits.MW).orElse(0.0);
+//						double budget = GetProperties.getPowerBudget(dstfi, 0.0);
 						if (budget > 0) {
 							budgetLine = budgetLine + (budgetLine.isEmpty() ? "" : ", ")
 									+ PowerAnalysis.this.toString(budget) + " for "
@@ -118,14 +124,16 @@ public class PowerAnalysis {
 				for (ConnectionInstance ac : ci.getSrcConnectionInstances()) {
 					// Outgoing from Power system as bus
 					FeatureInstance dstfi = (FeatureInstance) ac.getDestination();
-					double budget = GetProperties.getPowerBudget(dstfi, 0.0);
+					double budget = PropertyUtils.getScaled(Sei::getPowerbudget, dstfi, PowerUnits.MW).orElse(0.0);
+//					double budget = GetProperties.getPowerBudget(dstfi, 0.0);
 					if (budget > 0) {
 						budgetLine = budgetLine + (budgetLine.isEmpty() ? "" : ", ")
 								+ PowerAnalysis.this.toString(budget) + " for "
 								+ dstfi.getContainingComponentInstance().getName();
 						budgetTotal += budget;
 					}
-					double supply = GetProperties.getPowerSupply(dstfi, 0.0);
+					double supply = PropertyUtils.getScaled(Sei::getPowersupply, dstfi, PowerUnits.MW).orElse(0.0);
+//					double supply = GetProperties.getPowerSupply(dstfi, 0.0);
 					if (supply > 0) {
 						supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
 								+ PowerAnalysis.this.toString(supply) + " from "
@@ -136,14 +144,16 @@ public class PowerAnalysis {
 				for (ConnectionInstance ac : ci.getDstConnectionInstances()) {
 					// Incoming to Power system as bus
 					FeatureInstance srcfi = (FeatureInstance) ac.getSource();
-					double budget = GetProperties.getPowerBudget(srcfi, 0.0);
+					double budget = PropertyUtils.getScaled(Sei::getPowerbudget, srcfi, PowerUnits.MW).orElse(0.0);
+//					double budget = GetProperties.getPowerBudget(srcfi, 0.0);
 					if (budget > 0) {
 						budgetLine = budgetLine + (budgetLine.isEmpty() ? "" : ", ")
 								+ PowerAnalysis.this.toString(budget) + " for "
 								+ srcfi.getContainingComponentInstance().getName();
 						budgetTotal += budget;
 					}
-					double supply = GetProperties.getPowerSupply(srcfi, 0.0);
+					double supply = PropertyUtils.getScaled(Sei::getPowersupply, srcfi, PowerUnits.MW).orElse(0.0);
+//					double supply = GetProperties.getPowerSupply(srcfi, 0.0);
 					if (supply > 0) {
 						supplyLine = supplyLine + (supplyLine.isEmpty() ? "" : ", ")
 								+ PowerAnalysis.this.toString(supply) + " from "
