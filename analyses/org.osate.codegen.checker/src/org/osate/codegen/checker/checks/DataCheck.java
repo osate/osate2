@@ -29,9 +29,9 @@ import java.util.stream.Collectors;
 
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.contrib.aadlproject.SizeUnits;
-import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.properties.util.AadlContribUtils;
 import org.osate.codegen.checker.report.ErrorReport;
 
 public class DataCheck extends AbstractCheck {

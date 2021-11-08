@@ -21,5 +21,4 @@ Export-Package: org.osate.aadl2.contrib,
  org.osate.aadl2.contrib.modeling,
  org.osate.aadl2.contrib.programming,
  org.osate.aadl2.contrib.thread,
- org.osate.aadl2.contrib.timing,
- org.osate.aadl2.contrib.util
+ org.osate.aadl2.contrib.timing

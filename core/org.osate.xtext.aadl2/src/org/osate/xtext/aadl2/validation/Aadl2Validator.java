@@ -74,11 +74,11 @@ import org.osate.aadl2.contrib.memory.AccessRights;
 import org.osate.aadl2.contrib.modeling.ClassifierMatchingRule;
 import org.osate.aadl2.contrib.modeling.ClassifierSubstitutionRule;
 import org.osate.aadl2.contrib.modeling.ModelingProperties;
-import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.modelsupport.scoping.IEClassGlobalScopeProvider;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyIsModalException;
+import org.osate.aadl2.properties.util.AadlContribUtils;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
 

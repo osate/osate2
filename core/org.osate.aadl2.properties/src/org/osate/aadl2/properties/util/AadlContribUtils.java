@@ -1,4 +1,4 @@
-package org.osate.aadl2.contrib.util;
+package org.osate.aadl2.properties.util;
 
 import java.util.EnumSet;
 import java.util.Set;
