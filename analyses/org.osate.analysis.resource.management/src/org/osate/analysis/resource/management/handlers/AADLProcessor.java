@@ -25,8 +25,8 @@ package org.osate.analysis.resource.management.handlers;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.aadl2.properties.util.AadlContribUtils;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import EAnalysis.BinPacking.BandwidthComparator;
 import EAnalysis.BinPacking.DMScheduler;
@@ -86,7 +86,8 @@ public final class AADLProcessor extends Processor {
 	public static AADLProcessor createInstance(final ComponentInstance proc) {
 		final Scheduler scheduler = getScheduler(proc);
 		if (scheduler != null) {
-			double instructionsPerSecond = GetProperties.getProcessorMIPS(proc) * 1e6;
+			double instructionsPerSecond = AadlContribUtils.getMIPSCapacityInMIPS(proc, 0) * 1e6;
+//			double instructionsPerSecond = GetProperties.getProcessorMIPS(proc) * 1e6;
 			if (instructionsPerSecond == 0) {
 				instructionsPerSecond = Binpack.defaultMIPS * 1e6;
 			}
@@ -99,7 +100,8 @@ public final class AADLProcessor extends Processor {
 	private static Scheduler getScheduler(final ComponentInstance proc) {
 		final String sched;
 		try {
-			sched = GetProperties.getSchedulingProtocol(proc);
+			sched = Schedule.getSchedulingProtocol(proc);
+//			sched = GetProperties.getSchedulingProtocol(proc);
 		} catch (PropertyNotPresentException e) {
 			// No scheduler specified, use EDF
 			return new EDFScheduler(new BandwidthComparator());

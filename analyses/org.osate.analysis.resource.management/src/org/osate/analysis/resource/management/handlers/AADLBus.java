@@ -23,12 +23,9 @@
  */
 package org.osate.analysis.resource.management.handlers;
 
-import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.RangeValue;
-import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.communication.CommunicationProperties;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 import EAnalysis.BinPacking.BandwidthComparator;
 import EAnalysis.BinPacking.CapacityComparator;
@@ -57,16 +54,22 @@ public class AADLBus extends Link {
 	}
 
 	private static double getTransmissionTimePerByte(final ComponentInstance proc) {
-		RecordValue rv = GetProperties.getTransmissionTime(proc);
-		if (rv == null) {
-			return DEFAULT_TRANSMISSION_TIME;
-		}
-		RangeValue bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "PerByte");
-		if (bpa != null) {
-			NumberValue nv = bpa.getMaximumValue();
-			return nv.getScaledValue(GetProperties.getSecUnitLiteral(proc));
-		}
-		return 0;
+		return CommunicationProperties.getTransmissionTime(proc)
+				.map(tt -> tt.getPerbyte()
+						.map(pb -> org.osate.pluginsupport.properties.PropertyUtils.scaleRange(pb, TimeUnits.SEC)
+								.getMaximum())
+						.orElse(0.0))
+				.orElse(DEFAULT_TRANSMISSION_TIME);
+//		RecordValue rv = GetProperties.getTransmissionTime(proc);
+//		if (rv == null) {
+//			return DEFAULT_TRANSMISSION_TIME;
+//		}
+//		RangeValue bpa = (RangeValue) PropertyUtils.getRecordFieldValue(rv, "PerByte");
+//		if (bpa != null) {
+//			NumberValue nv = bpa.getMaximumValue();
+//			return nv.getScaledValue(GetProperties.getSecUnitLiteral(proc));
+//		}
+//		return 0;
 	}
 
 	public String getReport() {

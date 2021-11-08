@@ -16,9 +16,12 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.contrib.aadlproject.SizeUnits;
 import org.osate.aadl2.contrib.memory.AccessRights;
 import org.osate.aadl2.contrib.memory.MemoryProperties;
+import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.contribution.sei.sei.ProcessorSpeedUnits;
+import org.osate.contribution.sei.sei.Sei;
 import org.osate.pluginsupport.properties.PropertyUtils;
 
 /**
@@ -117,4 +120,15 @@ public final class AadlContribUtils {
 			return AccessRights.READ_ONLY;
 		}
 	}
+
+	// ==================
+
+	public static double getMIPSCapacityInMIPS(final NamedElement ne, final double defaultValue) {
+		return PropertyUtils.getScaled(Sei::getMipscapacity, ne, ProcessorSpeedUnits.MIPS).orElseGet(
+				() -> PropertyUtils
+						.getScaled(TimingProperties::getProcessorCapacity, ne,
+								org.osate.aadl2.contrib.aadlproject.ProcessorSpeedUnits.MIPS)
+						.orElse(defaultValue));
+	}
+
 }

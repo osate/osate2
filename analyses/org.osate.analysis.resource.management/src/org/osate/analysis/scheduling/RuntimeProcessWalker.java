@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.thread.ThreadProperties;
 import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.PropertyNotPresentException;
@@ -112,7 +113,8 @@ public class RuntimeProcessWalker {
 
 		double val;
 		try {
-			val = GetProperties.getPeriodinMS(elt);
+			val = PropertyUtils.getScaled(TimingProperties::getPeriod, elt, TimeUnits.MS).orElse(0.0);
+//			val = GetProperties.getPeriodinMS(elt);
 		} catch (PropertyNotPresentException e) {
 			scheduleAction.error(elt, elt.getComponentInstancePath() + ": Period is not set");
 			return;
@@ -129,7 +131,8 @@ public class RuntimeProcessWalker {
 		curComponent.setPhaseOffset(0);
 
 		/* There is no standard Priority property */
-		long priority = GetProperties.getPriority(elt, 0);
+		long priority = ThreadProperties.getPriority(elt).orElse(0L);
+//		long priority = GetProperties.getPriority(elt, 0);
 		curComponent.setPriority((int) priority);
 
 		curComponent.setComponentName(elt.getInstanceObjectPath());
