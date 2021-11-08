@@ -23,8 +23,10 @@
  */
 package org.osate.analysis.resource.management.handlers;
 
+import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import EAnalysis.BinPacking.SoftwareNode;
@@ -46,15 +48,17 @@ public final class AADLThread extends SoftwareNode {
 	}
 
 	public static AADLThread createInstance(final ComponentInstance thread) {
-		final long period = (long) GetProperties.getPeriodinNS(thread);
+		final double period = PropertyUtils.getScaled(TimingProperties::getPeriod, thread, TimeUnits.NS).orElse(0.0);
+//		final long period = (long) GetProperties.getPeriodinNS(thread);
 
-		long deadline;
 		long cycles = 0;
-		try {
-			deadline = (long) GetProperties.getDeadlineinNS(thread);
-		} catch (PropertyNotPresentException e) {
-			deadline = 0;
-		}
+//		long deadline;
+//		try {
+//			deadline = (long) GetProperties.getDeadlineinNS(thread);
+//		} catch (PropertyNotPresentException e) {
+//			deadline = 0;
+//		}
+		double deadline = PropertyUtils.getScaled(TimingProperties::getDeadline, thread, TimeUnits.NS).orElse(0.0);
 
 //		double instructionsperdispatch = GetProperties.getSpecifiedThreadInstructionsinIPD(thread);
 //		if (instructionsperdispatch == 0){
@@ -72,7 +76,7 @@ public final class AADLThread extends SoftwareNode {
 
 		cycles = (long) GetProperties.getThreadExecutionInCycles(thread, Binpack.defaultMIPS);
 
-		return new AADLThread(thread, cycles, period, deadline);
+		return new AADLThread(thread, cycles, (long) period, (long) deadline);
 	}
 
 	/** Get the AADL thread component instance represented by this object. */

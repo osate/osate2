@@ -23,6 +23,7 @@
  */
 package org.osate.analysis.scheduling.inversion;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.util.ECollections;
@@ -30,14 +31,16 @@ import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.deployment.DeploymentProperties;
+import org.osate.aadl2.contrib.thread.ThreadProperties;
 import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.PropertyUtils;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
@@ -74,9 +77,12 @@ public class PriorityInversion {
 				if (!InstanceModelUtil.isPeriodicThread((ComponentInstance) obj)) {
 					return false;
 				}
-				List<ComponentInstance> boundProcessor;
+//				List<ComponentInstance> boundProcessor;
+				List<InstanceObject> boundProcessor;
 				try {
-					boundProcessor = GetProperties.getActualProcessorBinding((ComponentInstance) obj);
+					boundProcessor = DeploymentProperties.getActualProcessorBinding((ComponentInstance) obj)
+							.orElse(Collections.emptyList());
+//					boundProcessor = GetProperties.getActualProcessorBinding((ComponentInstance) obj);
 				} catch (PropertyNotPresentException e) {
 					return false;
 				}
@@ -129,7 +135,8 @@ public class PriorityInversion {
 			ComponentInstance thread = (ComponentInstance) e;
 			double period = PropertyUtils
 					.getScaled(TimingProperties::getPeriod, thread, TimeUnits.MS).orElse(0.0);
-			long priority = GetProperties.getPriority(thread, Long.MIN_VALUE);
+//			long priority = GetProperties.getPriority(thread, Long.MIN_VALUE);
+			long priority = ThreadProperties.getPriority(thread).orElse(Long.MIN_VALUE);
 
 			if (priority == Long.MIN_VALUE) {
 				errManager.warning(thread, "Thread '" + thread.getName() + "' has no priority assigned");
