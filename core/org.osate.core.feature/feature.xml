@@ -113,6 +113,7 @@
       <import plugin="org.eclipse.mylyn.resources.ui" version="3.24.2" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.navigator" version="3.7.300" match="greaterOrEqual"/>
       <import plugin="org.eclipse.mylyn.commons.core" version="3.24.2" match="greaterOrEqual"/>
+      <import plugin="org.osate.aadl2.properties"/>
    </requires>
 
    <plugin
