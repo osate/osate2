@@ -378,7 +378,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	}
 
 	/**
-	 * @since 6.0
+	 * @since 6.1
 	 */
 	@Check(CheckType.FAST)
 	public void casePort(Port port) {
