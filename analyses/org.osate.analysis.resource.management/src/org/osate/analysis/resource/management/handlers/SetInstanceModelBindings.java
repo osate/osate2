@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -28,20 +28,22 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.emf.common.command.AbstractCommand;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceReferenceValue;
+import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.analysis.resource.management.ResourcemanagementPlugin;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * Command used by {@link Binpack} to set the properties in the instance model
  * to match the results of the binpacking/scheduling operation.  This command
  * is undoable/redoable.
- * 
+ *
  * @author aarong
  */
 class SetInstanceModelBindings extends AbstractCommand {
@@ -54,40 +56,50 @@ class SetInstanceModelBindings extends AbstractCommand {
 		oldThreadsToProc = new HashMap();
 	}
 
+	private static Property getActualProcessorBindingProperty(final ComponentInstance io) {
+		final String name = "Deployment_Properties::Actual_Processor_Binding";
+		return Aadl2GlobalScopeUtil.get(io, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+
+	@Override
 	public void execute() {
 		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext();) {
 			final ComponentInstance thread = (ComponentInstance) iter.next();
 			final InstanceReferenceValue val = (InstanceReferenceValue) threadsToProc.get(thread);
-			thread.setPropertyValue(GetProperties.getActualProcessorBindingProperty(thread), val);
+			thread.setPropertyValue(getActualProcessorBindingProperty(thread), val);
 		}
 	}
 
+	@Override
 	public void redo() {
 		// same as execute
 		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext();) {
 			final ComponentInstance thread = (ComponentInstance) iter.next();
 			final InstanceReferenceValue val = (InstanceReferenceValue) threadsToProc.get(thread);
-			thread.setPropertyValue(GetProperties.getActualProcessorBindingProperty(thread), val);
+			thread.setPropertyValue(getActualProcessorBindingProperty(thread), val);
 		}
 	}
 
+	@Override
 	public boolean canUndo() {
 		return true;
 	}
 
+	@Override
 	public void undo() {
 		// reset to the old property values -- or remove entirely if the old val is null
 		for (Iterator iter = oldThreadsToProc.keySet().iterator(); iter.hasNext();) {
 			final ComponentInstance thread = (ComponentInstance) iter.next();
 			final PropertyValue oldVal = (PropertyValue) oldThreadsToProc.get(thread);
 			if (oldVal == null) {
-				thread.removePropertyAssociations(GetProperties.getActualProcessorBindingProperty(thread));
+				thread.removePropertyAssociations(getActualProcessorBindingProperty(thread));
 			} else {
-				thread.setPropertyValue(GetProperties.getActualProcessorBindingProperty(thread), oldVal);
+				thread.setPropertyValue(getActualProcessorBindingProperty(thread), oldVal);
 			}
 		}
 	}
 
+	@Override
 	public boolean prepare() {
 		/*
 		 * First get the old processor bindings so we can undo.
@@ -100,7 +112,7 @@ class SetInstanceModelBindings extends AbstractCommand {
 				PropertyValue oldVal;
 				try {
 					oldVal = (PropertyValue) thread
-							.getSimplePropertyValue(GetProperties.getActualProcessorBindingProperty(thread));
+							.getSimplePropertyValue(getActualProcessorBindingProperty(thread));
 				} catch (PropertyNotPresentException e) {
 					oldVal = null;
 				}
@@ -128,16 +140,19 @@ class SetInstanceModelBindings extends AbstractCommand {
 		}
 	}
 
+	@Override
 	public void dispose() {
 		// clean up after ourselves
 		oldThreadsToProc.clear();
 		threadsToProc.clear();
 	}
 
+	@Override
 	public String getLabel() {
 		return "Bind threads to processors";
 	}
 
+	@Override
 	public String getDescription() {
 		return "Sets the Actual_Processor_Binding property of all the threads in the system based on a bin packing algorithm.";
 	}

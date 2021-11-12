@@ -26,8 +26,8 @@ package org.osate.analysis.resource.management.handlers;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
 import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.analysis.scheduling.SchedulingProperties;
 import org.osate.pluginsupport.properties.PropertyUtils;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import EAnalysis.BinPacking.SoftwareNode;
 
@@ -74,7 +74,7 @@ public final class AADLThread extends SoftwareNode {
 //			cycles = (long) instructionsperdispatch ;
 //		}
 
-		cycles = (long) GetProperties.getThreadExecutionInCycles(thread, Binpack.defaultMIPS);
+		cycles = (long) SchedulingProperties.getThreadExecutionInCycles(thread, Binpack.defaultMIPS);
 
 		return new AADLThread(thread, cycles, (long) period, (long) deadline);
 	}
