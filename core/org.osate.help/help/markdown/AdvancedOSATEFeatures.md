@@ -24,6 +24,12 @@ When a contributed resource is overridden, the tree marks it as such, and the UR
 
 To restore an overridden resource to its original contributed URI, select it in the tree and press the "Restore" button. 
 
+All property sets and packages contributed by plug-ins are added to each build by default. Many models only need the predeclared properties and maybe the EMV2 library. To increase performance there's an option to exclude unnecessary contributions.
+
+![An Overridden Resource](images/ContributedIgnored.png)
+
+In example above, `AADL Project, Communication Properties and ARP4761` property sets are disabled.
+
 # Managing Ignored Property Sets
 
 Within AADL, predeclared and user defined property, property types and property constant declarations are contained in property sets.

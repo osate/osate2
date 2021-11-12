@@ -71,11 +71,13 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 			}
 			return new Object[0];
 		} else if (element instanceof VirtualPluginResources) {
+			List<URI> disabled = PredeclaredProperties.getDisabledContributions();
 			return PredeclaredProperties.getContributedResources().stream().map(uri -> {
 				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (!firstSignificantIndex.isPresent() || firstSignificantIndex.getAsInt() == uri.segmentCount() - 1) {
 					final URI replacedBy = PredeclaredProperties.getOverriddenResources().getOrDefault(uri, uri);
-					return new ContributedAadlStorage((VirtualPluginResources) element, replacedBy);
+					return new ContributedAadlStorage((VirtualPluginResources) element, replacedBy,
+							disabled.contains(replacedBy));
 				} else {
 					return new ContributedDirectory((VirtualPluginResources) element,
 							Collections.singletonList(uri.segment(firstSignificantIndex.getAsInt())));
@@ -97,9 +99,11 @@ public class AadlContributionContentProvider extends WorkbenchContentProvider {
 			return inDirectory.map(uri -> {
 				int nextSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri).getAsInt()
 						+ directoryPath.size();
+				List<URI> disabled = PredeclaredProperties.getDisabledContributions();
 				if (nextSignificantIndex == uri.segmentCount() - 1) {
 					final URI replacedBy = PredeclaredProperties.getOverriddenResources().getOrDefault(uri, uri);
-					return new ContributedAadlStorage((ContributedDirectory) element, replacedBy);
+					return new ContributedAadlStorage((ContributedDirectory) element, replacedBy,
+							disabled.contains(replacedBy));
 				} else {
 					ArrayList<String> newPath = new ArrayList<>(directoryPath);
 					newPath.add(uri.segment(nextSignificantIndex));
