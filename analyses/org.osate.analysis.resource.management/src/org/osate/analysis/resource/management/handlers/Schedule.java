@@ -32,15 +32,16 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.analysis.scheduling.RuntimeProcessWalker;
+import org.osate.analysis.scheduling.SchedulingProperties;
 import org.osate.ui.UiUtil;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHandler {
@@ -135,7 +136,7 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHand
 				return InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, processor);
 			}
 		}.processPreOrderComponentInstance(processor.getSystemInstance(), ComponentCategory.THREAD);
-		double cpuMips = GetProperties.getMIPSCapacityInMIPS(processor, 0);
+		double cpuMips = SchedulingProperties.getMIPSCapacityInMIPS(processor, 0);
 		double utilization = 0.0;
 		if (cpuMips == 0) {
 			if (!boundThreads.isEmpty()) {
@@ -155,7 +156,7 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHand
 			return false;
 		} else {
 			for (Element element : boundThreads) {
-				demandMips = demandMips + GetProperties.getThreadExecutioninMIPS((ComponentInstance) element);
+				demandMips = demandMips + SchedulingProperties.getThreadExecutioninMIPS((ComponentInstance) element);
 			}
 			utilization = (demandMips / cpuMips) * 100;
 			if (utilization > 100) {
@@ -171,26 +172,27 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHand
 	}
 
 	public void reportProcessorBinding(ComponentInstance elt) {
-		double threadMips = GetProperties.getThreadExecutioninMIPS(elt);
+		double threadMips = SchedulingProperties.getThreadExecutioninMIPS(elt);
 		reportProcessorBinding(elt, threadMips, "");
 	}
 
 	public void reportProcessorBinding(ComponentInstance elt, double threadMips, String prefix) {
-		List<ComponentInstance> bindinglist;
+		List<InstanceObject> bindinglist;
 		// report binding of threads to VP and processor
 		String threadText = prefix + elt.getCategory().getName() + " " + elt.getComponentInstancePath()
 				+ (InstanceModelUtil.isThread(elt) ? "(" + UiUtil.BestDecPoint(threadMips) + " MIPS)" : "") + " ==> ";
-		bindinglist = GetProperties.getActualProcessorBinding(elt);
+		bindinglist = SchedulingProperties.getActualProcessorBinding(elt);
 		if (bindinglist.isEmpty()) {
 			logInfo(threadText + " NOTHING");
 
 		} else {
-			for (ComponentInstance componentInstance : bindinglist) {
+			for (final InstanceObject io : bindinglist) {
+				final ComponentInstance componentInstance = (ComponentInstance) io;
 				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)) {
 					reportProcessorBinding(componentInstance, threadMips, threadText);
 				} else {
 					// we have a processor
-					double cpumips = GetProperties.getMIPSCapacityInMIPS(componentInstance, 0);
+					double cpumips = SchedulingProperties.getMIPSCapacityInMIPS(componentInstance, 0);
 					logInfo(threadText + componentInstance.getCategory().getName() + " "
 							+ componentInstance.getComponentInstancePath() + "(" + UiUtil.BestDecPoint(cpumips)
 							+ "MIPS)"

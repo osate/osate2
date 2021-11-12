@@ -3,7 +3,7 @@ package org.osate.aadl2.contrib.aadlproject.constants;
 /**
  * String constants for the Property Constants declared in AadlProject.  Ideally should be generated
  * in AadlProject along with the property name constants.
- * @since 1.2
+ * @since 2.0
  */
 public final class AadlProjectConstants {
 	public static final String SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES__NAME = "Supported_Classifier_Equivalence_Matches";

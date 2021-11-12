@@ -5,7 +5,7 @@ Bundle-SymbolicName: org.osate.aadl2.properties
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.osate.aadl2.properties.Activator
 Require-Bundle: org.eclipse.core.runtime,
- org.osate.aadl2.contrib;bundle-version="[1.2.0,2.0.0)",
+ org.osate.aadl2.contrib;bundle-version="[2.0.0, 3.0.0)",
  org.osate.contribution.sei;bundle-version="[1.2.1,2.0.0)",
  org.osate.aadl2;bundle-version="[4.0.2,5.0.0)",
  org.osate.pluginsupport;bundle-version="[7.1.0,8.0.0)",

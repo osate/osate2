@@ -39,7 +39,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.analysis.resource.management.handlers.Schedule;
 import org.osate.pluginsupport.properties.PropertyUtils;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class RuntimeProcessWalker {
@@ -102,7 +101,7 @@ public class RuntimeProcessWalker {
 	public void addThread(ComponentInstance elt) {
 		double exectimeval;
 		try {
-			exectimeval = GetProperties.getThreadExecutioninMilliSec(elt);
+			exectimeval = SchedulingProperties.getThreadExecutioninMilliSec(elt);
 		} catch (PropertyNotPresentException e) {
 			scheduleAction.error(elt, elt.getComponentInstancePath() + ": Execution time is not set");
 			return;
