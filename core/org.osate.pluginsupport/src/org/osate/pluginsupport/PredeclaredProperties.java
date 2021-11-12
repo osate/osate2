@@ -41,6 +41,14 @@ public final class PredeclaredProperties {
 	 */
 	private static final String WORKSPACE_OVERRIDE_VALUE_PREFIX = "contributed.resource.override.value.";
 
+	/**
+	 * All property sets and packages contributed by plug-ins are added to each build by default.
+	 * Many models only need the predeclared properties and maybe the EMV2 library.
+	 * To increase performance the user should have the option to exclude unnecessary contributions.
+	 * */
+	private static final String WORKSPACE_DISABLED_CONTRIBUTIONS_VALUE_PREFIX = "contributed.resource.disabled.";
+	private static final String NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES = "contributed.resource.disabled.numOverrides";
+
 	private static final IPreferenceStore preferenceStore = PluginSupportPlugin.getDefault().getPreferenceStore();
 
 	/*
@@ -87,7 +95,9 @@ public final class PredeclaredProperties {
 	}
 
 	private static synchronized void buildContributedResources() {
-		final List<URI> contributed = PluginSupportUtil.getContributedAadl();
+		final List<URI> disabled = getDisabledContributions();
+
+		List<URI> contributed = PluginSupportUtil.getContributedAadl();
 
 		final Map<URI, URI> replaced = new HashMap<>();
 		final Map<URI, URI> replaces = new HashMap<>();
@@ -102,13 +112,16 @@ public final class PredeclaredProperties {
 		final List<URI> effective = new ArrayList<>(contributed.size());
 		for (final URI key : contributed) {
 			final URI value = replaced.get(key);
-			effective.add(value == null ? key : value);
+
+			if (!disabled.contains(key) && !disabled.contains(value)) { // do not include into processing if it is disabled
+				effective.add(value == null ? key : value);
+			}
 		}
 
 		contributedResources = Collections.unmodifiableList(contributed);
 		overriddenResources = Collections.unmodifiableMap(replaced);
 		overriddingResources = Collections.unmodifiableMap(replaces);
-		effectiveContributedResources = Collections.unmodifiableList(effective);
+		effectiveContributedResources = Collections.unmodifiableList(effective); // filter out disabled here
 		isChanged = false;
 	}
 
@@ -126,6 +139,20 @@ public final class PredeclaredProperties {
 	public static List<URI> getContributedResources() {
 		updateCachedState();
 		return contributedResources;
+	}
+
+	/**
+	 * @since 7.1
+	 */
+	public synchronized static List<URI> getDisabledContributions() {
+		List<URI> result = new ArrayList<URI>();
+		final int size = preferenceStore.getInt(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES);
+		for (int i = 0; i < size; i++) {
+			final String valueName = WORKSPACE_DISABLED_CONTRIBUTIONS_VALUE_PREFIX + i;
+			result.add(URI.createURI(preferenceStore.getString(valueName)));
+		}
+
+		return result;
 	}
 
 	/**
@@ -160,6 +187,33 @@ public final class PredeclaredProperties {
 	}
 
 	/**
+	 * @since 7.1
+	 */
+	public synchronized static void setDisabledContributions(List<URI> disabled) {
+		/*
+		 * First clean up the old settings. This isn't strictly necessary, but things can bet confusing if the
+		 * number of overrides shrinks but the old key and value preferences are still left hanging around.
+		 */
+		final int oldSize = preferenceStore.getInt(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES);
+		for (int i = 0; i < oldSize; i++) {
+			final String valueName = WORKSPACE_DISABLED_CONTRIBUTIONS_VALUE_PREFIX + i;
+			preferenceStore.setToDefault(valueName);
+		}
+		preferenceStore.setToDefault(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES);
+
+		/* Now set the new values */
+		int i = 0;
+		for (URI disabledURI : disabled) {
+			if (!disabledURI.isEmpty()) {
+				final String valueName = WORKSPACE_DISABLED_CONTRIBUTIONS_VALUE_PREFIX + i++;
+				preferenceStore.setValue(valueName, disabledURI.toString());
+			}
+		}
+
+		preferenceStore.setValue(NUMBER_OF_WORKSPACE_DISABLED_CONTRIBUTIONS_OVERRIDES, i);
+	}
+
+	/**
 	 * Update the overridden contributed resources in the the stored properties.
 	 */
 	public static synchronized void setOverriddenResources(final Map<URI, URI> replaced) {
@@ -187,7 +241,7 @@ public final class PredeclaredProperties {
 			final String keyName = WORKSPACE_OVERRIDE_KEY_PREFIX + i;
 			preferenceStore.setValue(keyName, entry.getKey().toString());
 
-			final String valueName = WORKSPACE_OVERRIDE_VALUE_PREFIX + i;
+			final String valueName = WORKSPACE_OVERRIDE_VALUE_PREFIX + i++;
 			preferenceStore.setValue(valueName, entry.getValue().toString());
 		}
 		isChanged = true;

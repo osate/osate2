@@ -578,6 +578,7 @@
   </setupTask>
   <setupTask
       xsi:type="setup.p2:P2Task"
+      disabled="true"
       label="SpotBugs">
     <requirement
         name="com.github.spotbugs.plugin.eclipse.feature.group"/>
