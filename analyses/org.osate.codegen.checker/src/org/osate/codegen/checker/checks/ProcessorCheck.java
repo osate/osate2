@@ -29,14 +29,15 @@ import java.util.stream.Collectors;
 
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.programming.ProgrammingProperties;
 import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.codegen.checker.report.ErrorReport;
 import org.osate.codegen.checker.utils.PokProperties;
+import org.osate.contribution.sei.arinc653.Arinc653;
 import org.osate.pluginsupport.properties.PropertyUtils;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class ProcessorCheck extends AbstractCheck {
 
@@ -49,7 +50,8 @@ public class ProcessorCheck extends AbstractCheck {
 		if (vxworks() || deos()) {
 			final List<ComponentInstance> badProcessors = si.getAllComponentInstances().stream()
 					.filter(comp -> comp.getCategory() == ComponentCategory.PROCESSOR)
-					.filter(cpu -> GetProperties.getModuleSchedule(cpu).size() == 0).collect(Collectors.toList());
+					.filter(cpu -> Arinc653.getModuleSchedule(cpu).map(schedule -> schedule.isEmpty()).orElse(true))
+					.collect(Collectors.toList());
 
 			for (ComponentInstance cpu : badProcessors) {
 				addError(new ErrorReport(cpu, "Processor must define the property ARINC653::Module_Schedule"));
@@ -64,7 +66,7 @@ public class ProcessorCheck extends AbstractCheck {
 			final List<ComponentInstance> virtualProcessorsWithoutSourceName = si
 					.getAllComponentInstances(ComponentCategory.VIRTUAL_PROCESSOR).stream()
 					.filter(comp -> ((comp.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
-							&& (GetProperties.getSourceName(comp) == null)))
+							&& ProgrammingProperties.getSourceName(comp).map(x -> false).orElse(true)))
 					.collect(Collectors.toList());
 			for (ComponentInstance vp : virtualProcessorsWithoutSourceName) {
 				addError(new ErrorReport(vp,
@@ -80,7 +82,7 @@ public class ProcessorCheck extends AbstractCheck {
 			final List<ComponentInstance> virtualProcessorsWithoutExecutionTime = si
 					.getAllComponentInstances(ComponentCategory.VIRTUAL_PROCESSOR).stream()
 					.filter(comp -> ((comp.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
-							&& (GetProperties.getExecutionTimeInMS(comp) == 0)))
+							&& TimingProperties.getExecutionTime(comp).map(v -> false).orElse(true)))
 					.collect(Collectors.toList());
 			for (ComponentInstance vp : virtualProcessorsWithoutExecutionTime) {
 				addError(new ErrorReport(vp,
