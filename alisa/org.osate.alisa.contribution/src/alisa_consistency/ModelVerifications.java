@@ -30,6 +30,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.properties.util.RawProperties;
 import org.osate.contribution.sei.physical.Physical;
 import org.osate.contribution.sei.physical.VoltageUnits;
 import org.osate.contribution.sei.sei.PowerUnits;
@@ -40,7 +41,6 @@ import org.osate.result.Result;
 import org.osate.result.ResultFactory;
 import org.osate.result.ResultType;
 import org.osate.result.util.ResultUtil;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class ModelVerifications {
 
@@ -235,7 +235,7 @@ public class ModelVerifications {
 		  }
 
 		  public boolean hasNoExternalCPUDemand(final ComponentInstance ci) {
-				if (GetProperties.hasAssignedPropertyValue(ci, "SEI::MIPSBudget")
+				if (RawProperties.hasAssignedPropertyValue(ci, "SEI::MIPSBudget")
 						&& PropertyUtils.getScaled(Sei::getPowerbudget, ci, PowerUnits.MW).orElse(0.0) != 0.0) {
 		      return false;
 		    }
@@ -243,7 +243,7 @@ public class ModelVerifications {
 		  }
 
 		  public boolean providesNoCPUExternally(final ComponentInstance ci) {
-				if (GetProperties.hasAssignedPropertyValue(ci, "SEI::MIPSCapacity")
+				if (RawProperties.hasAssignedPropertyValue(ci, "SEI::MIPSCapacity")
 						&& PropertyUtils.getScaled(Sei::getPowersupply, ci, PowerUnits.MW).orElse(0.0) != 0.0) {
 		      return false;
 		    }

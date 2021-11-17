@@ -52,6 +52,7 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.properties.util.RawProperties;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
@@ -65,7 +66,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class EMV2Properties {
 
@@ -189,7 +189,7 @@ public class EMV2Properties {
 		if (val instanceof RecordValue) {
 			RecordValue rv = (RecordValue) val;
 			EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-			BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "description");
+			BasicPropertyAssociation xref = RawProperties.getRecordField(fields, "description");
 			if (xref != null) {
 				PropertyExpression peVal = getPropertyValue(xref);
 				if (peVal instanceof StringLiteral) {
@@ -203,7 +203,7 @@ public class EMV2Properties {
 				if (pe instanceof RecordValue) {
 					RecordValue rv = (RecordValue) pe;
 					EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-					BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "description");
+					BasicPropertyAssociation xref = RawProperties.getRecordField(fields, "description");
 					if (xref != null) {
 						PropertyExpression peVal = getPropertyValue(xref);
 						if (peVal instanceof StringLiteral) {
@@ -247,7 +247,7 @@ public class EMV2Properties {
 		if (val instanceof RecordValue) {
 			RecordValue rv = (RecordValue) val;
 			EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-			BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "failure");
+			BasicPropertyAssociation xref = RawProperties.getRecordField(fields, "failure");
 			if (xref != null) {
 				PropertyExpression peVal = getPropertyValue(xref);
 				if (peVal instanceof StringLiteral) {
@@ -261,7 +261,7 @@ public class EMV2Properties {
 				if (pe instanceof RecordValue) {
 					RecordValue rv = (RecordValue) pe;
 					EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-					BasicPropertyAssociation xref = GetProperties.getRecordField(fields, "failure");
+					BasicPropertyAssociation xref = RawProperties.getRecordField(fields, "failure");
 					if (xref != null) {
 						PropertyExpression peVal = getPropertyValue(xref);
 						if (peVal instanceof StringLiteral) {

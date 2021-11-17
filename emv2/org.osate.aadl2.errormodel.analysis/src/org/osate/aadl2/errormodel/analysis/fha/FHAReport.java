@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -48,6 +48,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
+import org.osate.aadl2.properties.util.RawProperties;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
@@ -64,7 +65,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public final class FHAReport {
 
@@ -611,7 +611,7 @@ public final class FHAReport {
 	 */
 	protected Boolean reportStringProperty(EList<BasicPropertyAssociation> fields, String fieldName,
 			WriteToFile report) {
-		BasicPropertyAssociation xref = GetProperties.getRecordField(fields, fieldName);
+		BasicPropertyAssociation xref = RawProperties.getRecordField(fields, fieldName);
 		String text = null;
 		if (xref != null) {
 			PropertyExpression val = xref.getOwnedValue();
@@ -648,7 +648,7 @@ public final class FHAReport {
 			String fieldName, WriteToFile report, PropertyExpression alternativeValue) {
 		// added code to handle integer value and use of property constant instead of enumeration literal
 		PropertyExpression val = alternativeValue;
-		BasicPropertyAssociation xref = GetProperties.getRecordField(fields, fieldName);
+		BasicPropertyAssociation xref = RawProperties.getRecordField(fields, fieldName);
 		if (xref != null) {
 			val = xref.getOwnedValue();
 		}
@@ -656,7 +656,7 @@ public final class FHAReport {
 	}
 
 	protected boolean hasFieldValue(EList<BasicPropertyAssociation> fields, String fieldName) {
-		return GetProperties.getRecordField(fields, fieldName) != null;
+		return RawProperties.getRecordField(fields, fieldName) != null;
 	}
 
 	protected String stripQuotes(String text) {
