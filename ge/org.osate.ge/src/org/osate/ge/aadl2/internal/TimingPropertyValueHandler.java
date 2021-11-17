@@ -28,6 +28,8 @@ import java.util.Optional;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.contrib.communication.CommunicationProperties;
+import org.osate.aadl2.contrib.communication.Timing;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.CanonicalBusinessObjectReference;
@@ -45,13 +47,13 @@ import org.osate.ge.graphics.Dimension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.Point;
 import org.osate.ge.graphics.PolyBuilder;
-import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 
 /**
  * {@link BusinessObjectHandler} implementation for Communication_Properties::Timing property values
  */
 public class TimingPropertyValueHandler extends AadlBusinessObjectHandler {
-	private static final String TIMING_PROPERTY_QUALIFIED_NAME = CommunicationProperties._NAME + "::" + CommunicationProperties.TIMING;
+	private static final String TIMING_PROPERTY_QUALIFIED_NAME = CommunicationProperties.COMMUNICATION_PROPERTIES__NAME
+			+ "::" + CommunicationProperties.TIMING__NAME;
 
 	private static final Graphic IMMEDIATE_GRAPHIC = PolyBuilder.create().
 			polyline().
@@ -102,9 +104,10 @@ public class TimingPropertyValueHandler extends AadlBusinessObjectHandler {
 		Graphic graphic = null;
 		if(namedValue.getNamedValue() instanceof NamedElement) {
 			final NamedElement ne = (NamedElement)namedValue.getNamedValue();
-			if(CommunicationProperties.IMMEDIATE.equalsIgnoreCase(ne.getName())) {
+			if (Timing.IMMEDIATE.toString()
+					.equalsIgnoreCase(ne.getName())) {
 				graphic = IMMEDIATE_GRAPHIC;
-			} else if(CommunicationProperties.DELAYED.equalsIgnoreCase(ne.getName())) {
+			} else if (Timing.DELAYED.toString().equalsIgnoreCase(ne.getName())) {
 				graphic = DELAYED_GRAPHIC;
 			}
 		}

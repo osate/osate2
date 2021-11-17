@@ -23,10 +23,10 @@
  */
 package org.osate.analysis.resource.management.handlers;
 
+import org.osate.aadl2.contrib.aadlproject.SupportedSchedulingProtocols;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.properties.util.AadlContribUtils;
-import org.osate.xtext.aadl2.properties.util.AadlProject;
 
 import EAnalysis.BinPacking.BandwidthComparator;
 import EAnalysis.BinPacking.DMScheduler;
@@ -111,11 +111,11 @@ public final class AADLProcessor extends Processor {
 			return new EDFScheduler(new BandwidthComparator());
 		} else {
 			// Use the first scheduler in the list
-			if (sched.equals(AadlProject.EDF_LITERAL)) {
+			if (sched.equals(SupportedSchedulingProtocols.EDF.toString())) {
 				return new EDFScheduler(new BandwidthComparator());
-			} else if (sched.equals(AadlProject.RMS_LITERAL)) {
+			} else if (sched.equals(SupportedSchedulingProtocols.RMS.toString())) {
 				return new RMScheduler(); // new RMASchedulerNew();
-			} else if (sched.equals(AadlProject.DMS_LITERAL)) {
+			} else if (sched.equals(SupportedSchedulingProtocols.DMS.toString())) {
 				return new DMScheduler();
 			} else {
 				return null;

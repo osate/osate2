@@ -439,7 +439,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					report.isMajorFrameDelay());
 
 			if (hasAssignedPropertyValue(incomingConnectionFI,
-					org.osate.xtext.aadl2.properties.util.CommunicationProperties.QUEUE_SIZE)) {
+					CommunicationProperties.QUEUE_SIZE__NAME)) {
 				qs = CommunicationProperties.getQueueSize(incomingConnectionFI).orElse(0);
 			} else if (incomingConnectionFI.getCategory() == FeatureCategory.DATA_PORT
 					&& isThreadOrDevice && (InstanceModelUtil.isSporadicComponent(componentInstance)
@@ -1492,8 +1492,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	// *****************************
 
 	private static boolean isAssignedDeadline(final NamedElement ne) {
-		Property deadline = lookupPropertyDefinition(ne, org.osate.xtext.aadl2.properties.util.TimingProperties._NAME,
-				org.osate.xtext.aadl2.properties.util.TimingProperties.DEADLINE);
+		Property deadline = lookupPropertyDefinition(ne, TimingProperties.TIMING_PROPERTIES__NAME,
+				TimingProperties.DEADLINE__NAME);
 		return isAssignedPropertyValue(ne, deadline);
 	}
 
