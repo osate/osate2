@@ -51,12 +51,8 @@ public final class RawProperties {
 	 * @return
 	 */
 	public static boolean hasAssignedPropertyValue(NamedElement element, String pname) {
-		Property pn = lookupPropertyDefinition(element, pname);
+		Property pn = Aadl2GlobalScopeUtil.get((EObject) element, Aadl2Package.eINSTANCE.getProperty(), pname);
 		return isAssignedPropertyValue(element, pn);
-	}
-
-	public static Property lookupPropertyDefinition(EObject context, String qpname) {
-		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getProperty(), qpname);
 	}
 
 	/**
@@ -95,22 +91,6 @@ public final class RawProperties {
 		}
 	}
 
-	/**
-	 * find property type for given name. The property may be qualified by the
-	 * property set name via the ps parameter For predeclared properties this is
-	 * not required
-	 *
-	 * @param context
-	 *            EObject the model object that references the property
-	 *            definition
-	 * @param qname
-	 *            String Property Type qualified name
-	 * @return PropertyType or null
-	 */
-	public static PropertyType lookupPropertyType(EObject context, String qname) {
-		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyType(), qname);
-	}
-
 	// XXX: Taken from PropertiesLinkingService because I don't want a dependency on org.osate.xtext.aadl2.properties
 	public static UnitLiteral findUnitLiteral(Property property, String name) {
 		PropertyType propertyType = property.getPropertyType();
@@ -127,17 +107,10 @@ public final class RawProperties {
 	}
 
 	public static UnitLiteral findUnitLiteral(Element context, String unitsType, String literal) {
-		PropertyType pt = lookupPropertyType(context, unitsType);
+		PropertyType pt = Aadl2GlobalScopeUtil.get((EObject) context, Aadl2Package.eINSTANCE.getPropertyType(), unitsType);
 		if (pt == null || !(pt instanceof UnitsType)) {
 			return null;
 		}
 		return (UnitLiteral) ((UnitsType) pt).findNamedElement(literal);
-	}
-
-	public static final String TIME_UNITS = "Time_Units";
-	public static final String MS_LITERAL = "Ms";
-
-	public static UnitLiteral getMSUnitLiteral(NamedElement context) {
-		return findUnitLiteral(context, TIME_UNITS, MS_LITERAL);
 	}
 }

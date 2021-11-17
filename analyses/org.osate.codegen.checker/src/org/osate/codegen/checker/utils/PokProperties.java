@@ -43,6 +43,9 @@ public class PokProperties {
 	public static final String _SLOTS = "slots";
 	public static final String _SLOTS_ALLOCATION = "slots_allocation";
 
+	private static final String TIME_UNITS = "Time_Units";
+	private static final String MS_LITERAL = "Ms";
+
 	public static List<ComponentInstance> getSlotsAllocation(final NamedElement ne) {
 		List<ComponentInstance> res;
 
@@ -71,7 +74,7 @@ public class PokProperties {
 		res = new ArrayList<Double>();
 		try {
 			Property slots = RawProperties.lookupPropertyDefinition(ne, PokProperties._NAME, PokProperties._SLOTS);
-			milliseconds = RawProperties.getMSUnitLiteral(slots);
+			milliseconds = RawProperties.findUnitLiteral(slots, TIME_UNITS, MS_LITERAL);
 
 			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(slots);
 			for (PropertyExpression propertyExpression : propertyValues) {
