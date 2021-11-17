@@ -72,6 +72,7 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
  * @author aarong
  */
 // FIXME-LW: Range min, max, delta - evaluate signed constant; sign currently ignored
+@Deprecated
 public class PropertyUtils {
 	/*
 	 * Private constructor: prevent instantiation of this class.
