@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -27,17 +27,20 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.contribution.sei.physical.Physical;
+import org.osate.contribution.sei.physical.VoltageUnits;
+import org.osate.contribution.sei.sei.PowerUnits;
+import org.osate.contribution.sei.sei.Sei;
+import org.osate.contribution.sei.sei.Weightunits;
+import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.result.Result;
 import org.osate.result.ResultFactory;
 import org.osate.result.ResultType;
 import org.osate.result.util.ResultUtil;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 public class ModelVerifications {
 
@@ -136,9 +139,9 @@ public class ModelVerifications {
 	 */
 	public static boolean hasWattageBudgetValue(FeatureInstance fi, double w) {
 		if (fi.getFlowDirection().incoming()) {
-				double watt = GetProperties.getPowerBudget(fi, 0.0);
-				return watt == w;
-			}
+			final double watt = PropertyUtils.getScaled(Sei::getPowerbudget, fi, PowerUnits.MW).orElse(0.0);
+			return watt == w;
+		}
 		return false;
 	}
 
@@ -177,8 +180,12 @@ public class ModelVerifications {
 			}
 		}
 		if (inlets.size() == 2) {
-			double pb1 = GetProperties.getPowerBudget(inlets.get(0), 0.0);
-			double pb2 = GetProperties.getPowerBudget(inlets.get(1), 0.0);
+			double pb1 = org.osate.pluginsupport.properties.PropertyUtils
+					.getScaled(Sei::getPowerbudget, inlets.get(0), PowerUnits.MW)
+					.orElse(0.0);
+			double pb2 = org.osate.pluginsupport.properties.PropertyUtils
+					.getScaled(Sei::getPowerbudget, inlets.get(1), PowerUnits.MW)
+					.orElse(0.0);
 			return pb1 == pb2;
 		}
 		return false;
@@ -190,35 +197,33 @@ public class ModelVerifications {
 	 * @return double
 	 */
 	public static double getVoltage(final FeatureInstance fi) {
-		Property voltage = GetProperties.lookupPropertyDefinition(fi, "Physical", "Voltage");
-		UnitLiteral volts = GetProperties.findUnitLiteral(voltage, "V");
-		return PropertyUtils.getScaledNumberValue(fi, voltage, volts, 0.0);
+		return PropertyUtils.getScaled(Physical::getVoltage, fi, VoltageUnits.V).orElse(0.0);
 	}
 
 
 		  public boolean hasWattageCapacityValue(final ComponentInstance ci, final double capacity) {
-		    final double prop = GetProperties.getPowerCapacity(ci, 0.0);
+				final double prop = PropertyUtils.getScaled(Sei::getPowercapacity, ci, PowerUnits.MW).orElse(0.0);
 		    return prop == capacity;
 		  }
 
 		  public boolean consistentWeightLimit(final ComponentInstance ci, final double limit) {
-		    final double prop = GetProperties.getWeightLimit(ci, 0.0);
+				final double prop = PropertyUtils.getScaled(Sei::getWeightlimit, ci, Weightunits.KG).orElse(0.0);
 		    return prop == limit;
 		  }
 
 		  public boolean electricalPowerSelfSufficiency(final ComponentInstance ci) {
 		    final EList<FeatureInstance> fil = ci.getFeatureInstances();
 		    for (final FeatureInstance fi : fil) {
-		      return ((GetProperties.getPowerBudget(fi, 0.0) != 0.0) ||
-		        (GetProperties.getPowerSupply(fi, 0.0) != 0.0));
+				return PropertyUtils.getScaled(Sei::getPowerbudget, fi, PowerUnits.MW).orElse(0.0) != 0.0
+						|| PropertyUtils.getScaled(Sei::getPowersupply, ci, PowerUnits.MW).orElse(0.0) != 0.0;
 		    }
 		    return false;
 		  }
 
 		  public boolean electricalPowerSelfSufficiency1(final ComponentInstance ci) {
 			  for (FeatureInstance fi : ci.getFeatureInstances()) {
-				  if (((GetProperties.getPowerBudget(fi, 0.0) != 0.0) ||
-					        (GetProperties.getPowerSupply(fi, 0.0) != 0.0))) {
+					if (PropertyUtils.getScaled(Sei::getPowerbudget, fi, PowerUnits.MW).orElse(0.0) != 0.0
+							|| PropertyUtils.getScaled(Sei::getPowersupply, ci, PowerUnits.MW).orElse(0.0) != 0.0) {
 					  return false;
 				  }
 			  }
@@ -230,16 +235,16 @@ public class ModelVerifications {
 		  }
 
 		  public boolean hasNoExternalCPUDemand(final ComponentInstance ci) {
-		    if ((GetProperties.hasAssignedPropertyValue(ci, "SEI::MIPSBudget") &&
-		      (GetProperties.getPowerBudget(ci, 0.0) != 0.0))) {
+				if (GetProperties.hasAssignedPropertyValue(ci, "SEI::MIPSBudget")
+						&& PropertyUtils.getScaled(Sei::getPowerbudget, ci, PowerUnits.MW).orElse(0.0) != 0.0) {
 		      return false;
 		    }
 		    return true;
 		  }
 
 		  public boolean providesNoCPUExternally(final ComponentInstance ci) {
-		    if ((GetProperties.hasAssignedPropertyValue(ci, "SEI::MIPSCapacity") &&
-		      (GetProperties.getPowerSupply(ci, 0.0) != 0.0))) {
+				if (GetProperties.hasAssignedPropertyValue(ci, "SEI::MIPSCapacity")
+						&& PropertyUtils.getScaled(Sei::getPowersupply, ci, PowerUnits.MW).orElse(0.0) != 0.0) {
 		      return false;
 		    }
 		    return true;
