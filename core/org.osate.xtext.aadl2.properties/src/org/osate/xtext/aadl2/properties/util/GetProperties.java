@@ -170,6 +170,7 @@ public class GetProperties {
 	 * @param pn Property definition
 	 * @return
 	 */
+	// XXX: KEEP
 	public static boolean isAssignedPropertyValue(NamedElement element, Property pn) {
 		try {
 			final PropertyAcc propertyAccumulator = element.getPropertyValue(pn);
@@ -266,6 +267,7 @@ public class GetProperties {
 	 *            Property definition
 	 * @return
 	 */
+	// XXX: KEEP
 	public static boolean hasAssignedPropertyValue(NamedElement element, String pname) {
 		Property pn = GetProperties.lookupPropertyDefinition(element, pname);
 		return isAssignedPropertyValue(element, pn);
@@ -285,6 +287,7 @@ public class GetProperties {
 	 *            String Property Definition name
 	 * @return Property or null
 	 */
+	// XXX: KEEP
 	public static Property lookupPropertyDefinition(EObject context, String ps, String name) {
 		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getProperty(),
 				((ps != null && !ps.isEmpty()) ? (ps + "::" + name) : name));
@@ -320,6 +323,7 @@ public class GetProperties {
 	 *            String Property Type name
 	 * @return PropertyType or null
 	 */
+	// XXX: KEEP
 	public static PropertyType lookupPropertyType(EObject context, String ps, String name) {
 		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyType(),
 				((ps != null && !ps.isEmpty()) ? (ps + "::" + name) : name));
@@ -355,6 +359,7 @@ public class GetProperties {
 	 *            String Property Constant name
 	 * @return PropertyConstant or null
 	 */
+	// XXX: KEEP
 	public static PropertyConstant lookupPropertyConstant(EObject context, String ps, String name) {
 		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyConstant(),
 				((ps != null && !ps.isEmpty()) ? (ps + "::" + name) : name));
@@ -374,6 +379,7 @@ public class GetProperties {
 	 *            String Property Constant name
 	 * @return PropertyConstant or null
 	 */
+	// XXX: KEEP
 	public static PropertyConstant lookupPropertyConstant(EObject context, String qname) {
 		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyConstant(), qname);
 	}
@@ -389,10 +395,12 @@ public class GetProperties {
 	 * @return UnitLiteral or null if the unit literal could not be found or the
 	 *         definition does not have a unit
 	 */
+	// XXX: KEEP
 	public static UnitLiteral findUnitLiteral(Property pd, String literalname) {
 		return PropertiesLinkingService.findUnitLiteral(pd, literalname);
 	}
 
+	// XXX: KEEP
 	public static UnitLiteral findUnitLiteral(Element context, String unitsType, String literal) {
 		PropertyType pt = lookupPropertyType(context, unitsType);
 		if (pt == null || !(pt instanceof UnitsType)) {
@@ -405,6 +413,7 @@ public class GetProperties {
 		return PropertiesLinkingService.findEnumerationLiteral(pd, literalname);
 	}
 
+	// XXX: KEEP
 	public static EnumerationLiteral findEnumerationLiteral(Element context, String enumerationType, String literal) {
 		PropertyType pt = lookupPropertyType(context, enumerationType);
 		if (pt == null || !(pt instanceof EnumerationType)) {
@@ -425,6 +434,7 @@ public class GetProperties {
 		return findUnitLiteral(context, AadlProject.SIZE_UNITS, AadlProject.KB_LITERAL);
 	}
 
+	// XXX: KEEP
 	public static UnitLiteral getMSUnitLiteral(NamedElement context) {
 		return findUnitLiteral(context, AadlProject.TIME_UNITS, AadlProject.MS_LITERAL);
 	}
@@ -1359,18 +1369,21 @@ public class GetProperties {
 		return mipd;
 	}
 
+	@Deprecated
 	public static double getPowerCapacity(final NamedElement ne, final double defaultValue) {
 		Property powerCapacity = lookupPropertyDefinition(ne, SEI._NAME, SEI.POWER_CAPACITY);
 		UnitLiteral mWatt = findUnitLiteral(powerCapacity, SEI.MW_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, powerCapacity, mWatt, defaultValue);
 	}
 
+	@Deprecated
 	public static double getPowerBudget(final NamedElement ne, final double defaultValue) {
 		Property powerBudget = lookupPropertyDefinition(ne, SEI._NAME, SEI.POWER_BUDGET);
 		UnitLiteral mWatt = findUnitLiteral(powerBudget, SEI.MW_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, powerBudget, mWatt, defaultValue);
 	}
 
+	@Deprecated
 	public static double getPowerSupply(final NamedElement ne, final double defaultValue) {
 		Property powerSupply = lookupPropertyDefinition(ne, SEI._NAME, SEI.POWER_SUPPLY);
 		UnitLiteral mWatt = findUnitLiteral(powerSupply, SEI.MW_LITERAL);
@@ -1985,6 +1998,7 @@ public class GetProperties {
 		return null;
 	}
 
+	// XXX: KEEP
 	public static BasicPropertyAssociation getRecordField(EList<BasicPropertyAssociation> props, String fieldName) {
 		for (BasicPropertyAssociation propertyAssociation : props) {
 			BasicProperty prop = propertyAssociation.getProperty();
