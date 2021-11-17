@@ -32,7 +32,7 @@ import org.osate.analysis.architecture.handlers.CheckConnectionBindingConsistenc
 import org.osate.analysis.architecture.handlers.DoPortConnectionConsistency
 import org.osate.analysis.architecture.handlers.DoPropertyTotals
 import org.osate.analysis.resource.budgets.handlers.BoundResourceAnalysisHandler
-import org.osate.analysis.resource.budgets.handlers.BusLoadAnalysisHandler
+//import org.osate.analysis.resource.budgets.handlers.BusLoadAnalysisHandler
 import org.osate.analysis.resource.budgets.handlers.NotBoundResourceAnalysisHandler
 import org.osate.analysis.resource.budgets.handlers.PowerAnalysisHandler
 
@@ -117,20 +117,20 @@ class AnalysisPluginInterface {
 		markerType
 	}
 
-	def static String NetworkBandWidthAnalysis(InstanceObject ci) {
-		val checker = new BusLoadAnalysisHandler
-		val markerType = checker.getMarkerType
-		val instance = ci.elementRoot as SystemInstance
-		if (!getHasRun(markerType, instance)) {
-			try {
-				checker.invoke(new NullProgressMonitor, instance)
-				setHasRun(markerType, instance)
-			} catch (Throwable e) {
-				unsetHasRun(markerType, instance)
-			}
-		}
-		markerType
-	}
+//	def static String NetworkBandWidthAnalysis(InstanceObject ci) {
+//		val checker = new BusLoadAnalysisHandler
+//		val markerType = checker.getMarkerType
+//		val instance = ci.elementRoot as SystemInstance
+//		if (!getHasRun(markerType, instance)) {
+//			try {
+//				checker.invoke(new NullProgressMonitor, instance)
+//				setHasRun(markerType, instance)
+//			} catch (Throwable e) {
+//				unsetHasRun(markerType, instance)
+//			}
+//		}
+//		markerType
+//	}
 
 	def static String PowerAnalysis(InstanceObject ci) {
 		val checker = new PowerAnalysisHandler()

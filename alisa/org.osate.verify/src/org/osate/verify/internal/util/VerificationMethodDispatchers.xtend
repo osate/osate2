@@ -56,8 +56,8 @@ import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface
 				if(target === null) true else target.MassAnalysis
 			case "BoundResourceAnalysis":
 				if(target === null) true else target.BoundResourceAnalysis
-			case "NetworkBandwidthAnalysis":
-				if(target === null) true else target.NetworkBandWidthAnalysis
+//			case "NetworkBandwidthAnalysis":
+//				if(target === null) true else target.NetworkBandWidthAnalysis
 			case "PowerAnalysis":
 				if(target === null) true else target.PowerAnalysis
 			case "ResourceBudgets":

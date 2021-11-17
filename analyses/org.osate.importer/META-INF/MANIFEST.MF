@@ -39,7 +39,6 @@ Import-Package: org.eclipse.core.resources,
 Bundle-ClassPath: ., lib/jxl.jar
 Export-Package: org.osate.importer,
  org.osate.importer.model,
- org.osate.importer.model.sm,
- org.osate.importer.properties
+ org.osate.importer.model.sm
 Automatic-Module-Name: org.osate.importer
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
