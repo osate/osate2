@@ -73,6 +73,7 @@ import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
+@Deprecated
 public class GetProperties {
 	@SuppressWarnings("unused")
 	private static final class DataModel {

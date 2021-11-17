@@ -49,11 +49,10 @@ import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil
 import org.osate.xtext.aadl2.properties.util.AadlProject
-import org.osate.xtext.aadl2.properties.util.CommunicationProperties
-import org.osate.xtext.aadl2.properties.util.GetProperties
-import org.osate.xtext.aadl2.properties.util.MemoryProperties
 import org.osate.xtext.aadl2.properties.validation.PropertiesValidator
 import org.osate.aadl2.properties.util.RawProperties
+import org.osate.aadl2.contrib.memory.MemoryProperties
+import org.osate.aadl2.contrib.communication.CommunicationProperties
 
 class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
@@ -218,12 +217,12 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 				override void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
 					val ownedValues = pa.ownedValues
-					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.MEMORY_SIZE)
+					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), org.osate.aadl2.contrib.memory.MemoryProperties.MEMORY_SIZE__NAME)
 					for (ModalPropertyValue mpv : ownedValues) {
 						val ownedVal = mpv.ownedValue
 						switch ownedVal {
 							NumberValue:
-								ownedVal.unit = RawProperties.findUnitLiteral(pa, AadlProject.SIZE_UNITS,
+								ownedVal.unit = RawProperties.findUnitLiteral(pa, "Size_Units",
 									ownedVal.unit.name)
 						}
 					}
@@ -246,12 +245,12 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 				override void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
 					val ownedValues = pa.ownedValues
-					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), CommunicationProperties.DATA_RATE)
+					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), CommunicationProperties.DATA_RATE__NAME)
 					for (ModalPropertyValue mpv : ownedValues) {
 						val ownedVal = mpv.ownedValue
 						switch ownedVal {
 							NumberValue:
-								ownedVal.unit = RawProperties.findUnitLiteral(pa, AadlProject.DATA_RATE_UNITS,
+								ownedVal.unit = RawProperties.findUnitLiteral(pa, "Data_Rate_Units",
 									ownedVal.unit.name)
 						}
 					}
@@ -299,7 +298,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 			new ISemanticModification() {
 				override void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
-					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.CODE_SIZE)
+					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.CODE_SIZE__NAME)
 				}
 			}
 		)
@@ -318,7 +317,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 			new ISemanticModification() {
 				override void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
-					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.DATA_SIZE)
+					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.DATA_SIZE__NAME)
 				}
 			}
 		)
@@ -337,7 +336,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 			new ISemanticModification() {
 				override void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
-					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.HEAP_SIZE)
+					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.HEAP_SIZE__NAME)
 				}
 			}
 		)
@@ -356,7 +355,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 			new ISemanticModification() {
 				override void apply(EObject element, IModificationContext context) throws Exception {
 					val pa = (element as PropertyAssociation)
-					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.STACK_SIZE)
+					pa.property = Aadl2GlobalScopeUtil.get(pa, Aadl2Package.eINSTANCE.getProperty(), MemoryProperties.STACK_SIZE__NAME)
 				}
 			}
 		)
