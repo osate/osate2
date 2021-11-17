@@ -67,6 +67,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.properties.util.RawProperties;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.aadl2.internal.util.AgeAadlUtil;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
@@ -83,7 +84,6 @@ import org.osate.ge.internal.ui.tools.ToolUtil;
 import org.osate.ge.internal.ui.util.ContextHelpUtil;
 import org.osate.ge.swt.SwtUtil;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * The Set Binding Action presents a non-modal dialog to the user that allows create a property association for a standard AADL binding property.
@@ -202,19 +202,19 @@ public class SetBindingTool implements Tool {
 			container.setLayout(layout);
 
 			final List<Property> bindingProperties = new ArrayList<Property>();
-			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementsToBind[0],
+			addPropertyIfApplicable(bindingProperties, RawProperties.lookupPropertyDefinition(elementsToBind[0],
 					DeploymentProperties._NAME, DeploymentProperties.ACTUAL_CONNECTION_BINDING));
-			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementsToBind[0],
+			addPropertyIfApplicable(bindingProperties, RawProperties.lookupPropertyDefinition(elementsToBind[0],
 					DeploymentProperties._NAME, DeploymentProperties.ALLOWED_CONNECTION_BINDING));
-			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementsToBind[0],
+			addPropertyIfApplicable(bindingProperties, RawProperties.lookupPropertyDefinition(elementsToBind[0],
 					DeploymentProperties._NAME, DeploymentProperties.ACTUAL_FUNCTION_BINDING));
-			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementsToBind[0],
+			addPropertyIfApplicable(bindingProperties, RawProperties.lookupPropertyDefinition(elementsToBind[0],
 					DeploymentProperties._NAME, DeploymentProperties.ACTUAL_MEMORY_BINDING));
-			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementsToBind[0],
+			addPropertyIfApplicable(bindingProperties, RawProperties.lookupPropertyDefinition(elementsToBind[0],
 					DeploymentProperties._NAME, DeploymentProperties.ALLOWED_MEMORY_BINDING));
-			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementsToBind[0],
+			addPropertyIfApplicable(bindingProperties, RawProperties.lookupPropertyDefinition(elementsToBind[0],
 					DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING));
-			addPropertyIfApplicable(bindingProperties, GetProperties.lookupPropertyDefinition(elementsToBind[0],
+			addPropertyIfApplicable(bindingProperties, RawProperties.lookupPropertyDefinition(elementsToBind[0],
 					DeploymentProperties._NAME, DeploymentProperties.ALLOWED_PROCESSOR_BINDING));
 
 			// Create combo box for selection type

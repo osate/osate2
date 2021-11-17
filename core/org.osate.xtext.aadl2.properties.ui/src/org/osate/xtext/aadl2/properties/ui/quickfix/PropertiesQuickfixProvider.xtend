@@ -53,6 +53,7 @@ import org.osate.xtext.aadl2.properties.util.CommunicationProperties
 import org.osate.xtext.aadl2.properties.util.GetProperties
 import org.osate.xtext.aadl2.properties.util.MemoryProperties
 import org.osate.xtext.aadl2.properties.validation.PropertiesValidator
+import org.osate.aadl2.properties.util.RawProperties
 
 class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 	/**
@@ -222,7 +223,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 						val ownedVal = mpv.ownedValue
 						switch ownedVal {
 							NumberValue:
-								ownedVal.unit = GetProperties.findUnitLiteral(pa, AadlProject.SIZE_UNITS,
+								ownedVal.unit = RawProperties.findUnitLiteral(pa, AadlProject.SIZE_UNITS,
 									ownedVal.unit.name)
 						}
 					}
@@ -250,7 +251,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 						val ownedVal = mpv.ownedValue
 						switch ownedVal {
 							NumberValue:
-								ownedVal.unit = GetProperties.findUnitLiteral(pa, AadlProject.DATA_RATE_UNITS,
+								ownedVal.unit = RawProperties.findUnitLiteral(pa, AadlProject.DATA_RATE_UNITS,
 									ownedVal.unit.name)
 						}
 					}
@@ -277,7 +278,7 @@ class PropertiesQuickfixProvider extends DefaultQuickfixProvider {
 					for (ModalPropertyValue mpv : ownedValues) {
 						val ownedVal = mpv.ownedValue
 						switch ownedVal {
-							NumberValue: ownedVal.unit = GetProperties.findUnitLiteral(pa.property, ownedVal.unit.name)
+							NumberValue: ownedVal.unit = RawProperties.findUnitLiteral(pa.property, ownedVal.unit.name)
 						}
 					}
 				}
