@@ -140,7 +140,7 @@ public class TimingPropertyValueHandler extends AadlBusinessObjectHandler {
 		final NamedValue namedValue = getNamedValue(pvg);
 		if (namedValue != null && namedValue.getNamedValue() instanceof NamedElement) {
 			final NamedElement ne = (NamedElement) namedValue.getNamedValue();
-			return CommunicationProperties.IMMEDIATE.equalsIgnoreCase(ne.getName());
+			return Timing.IMMEDIATE.toString().equalsIgnoreCase(ne.getName());
 		}
 
 		return false;

@@ -35,7 +35,6 @@ import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xsemantics.runtime.RuleEnvironment
-import org.eclipse.xsemantics.runtime.RuleFailedException
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.junit.runner.JUnitCore
@@ -96,7 +95,6 @@ import org.osate.verify.verify.PluginMethod
 import org.osate.verify.verify.PythonMethod
 import org.osate.verify.verify.ResoluteMethod
 import org.osate.verify.verify.VerificationMethod
-import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
@@ -104,6 +102,7 @@ import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.result.util.ResultUtil.*
 import static extension org.osate.verify.internal.util.VerifyUtilExtension.*
 import org.osate.aadl2.instance.EndToEndFlowInstance
+import org.osate.aadl2.properties.util.RawProperties
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -954,7 +953,7 @@ class AssureProcessor implements IAssureProcessor {
 							if (value instanceof NumberValue) {
 								val unit = value.unit
 								val reqValue = value.getScaledValue(unit)
-								val modelValue = PropertyUtils.getScaledNumberValue(target, property, unit)
+								val modelValue = RawProperties.getScaledNumberValue(target, property, unit)
 
 								if (reqValue != modelValue) {
 									verificationResult.addErrorIssue(target,
