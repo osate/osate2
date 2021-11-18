@@ -51,11 +51,6 @@ verification methods Plugins [
 		description "Perform full weight (mass) analysis. This includes net/gross weight consistency, weight budget (limit) analysis, and comparison of weight actuals (net/gross) against budget (limit)."
 	]
 
-	method NetworkUtilizationAnalysis: "Analyze bandwidth demands of connections against network capacities " [
-		plugin NetworkBandwidthAnalysis
-		category Quality.NetworkUtilization
-		description "Perform bandwidth budget analysis for connections when tasks are bound to processors and memory. Connection binding may be derived from thread bindings. Bandwidth budgets may be derived from port data size and output rates."
-	]
 	method BoundResourceAnalysis: "Analyze CPU cycle and memory budgets against bound resource capacities " [
 		plugin BoundResourceAnalysis
 		category Quality.CPUUtilization Quality.MemoryUtilization
