@@ -44,13 +44,13 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.contribution.sei.sei.ProcessorSpeedUnits;
 import org.osate.contribution.sei.sei.Sei;
 import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractAaxlHandler;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 //TODO-LW: assumes connection ends are features
 /**

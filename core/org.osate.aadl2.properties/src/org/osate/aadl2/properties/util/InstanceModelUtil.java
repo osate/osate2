@@ -21,7 +21,7 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.xtext.aadl2.properties.util;
+package org.osate.aadl2.properties.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -67,22 +67,18 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.OsateDebug;
 
 /**
- * @deprecated Use {@link org.osate.aasl2.properties.util.InstanceModelUtil}.
+ * Used to be {@code org.osate.xtext.aadl2.properties.util.InstanceModelUtil} in project
+ * {@code org.osate.xtext.aadl2.properties}.  Removed the truly obsolete methods and completely
+ * unused methods.  This is put in the
+ * {@code org.osate.aadl2.properties} project because it makes use of the property getter
+ * methods, and this project depends on on the two major projects that contains the
+ * generated property getter methods: {@code org.osate.aadl.contrib} and
+ * {@code org.osate.contribution.sei}.
  */
-@Deprecated
 public class InstanceModelUtil {
 	private static final <V> boolean propertyEquals(final Function<NamedElement, Optional<V>> f, final NamedElement ne,
 			final V value) {
 		return f.apply(ne).map(x -> x == value).orElse(false);
-	}
-
-	private static final List<ComponentInstance> getListAsComponentInstance(
-			final Function<NamedElement, Optional<List<InstanceObject>>> f, final NamedElement ne) {
-		return f.apply(ne).map(v -> {
-			final List<ComponentInstance> list = new ArrayList<>(v.size());
-			v.forEach(x -> list.add((ComponentInstance) x));
-			return list;
-		}).orElse(Collections.emptyList());
 	}
 
 	/**
@@ -321,45 +317,12 @@ public class InstanceModelUtil {
 	}
 
 	/**
-	 * true if component (thread or device) is hybrid
-	 * @param subcomponent
-	 * @return
-	 */
-	@Deprecated
-	public static boolean isHybridComponent(final NamedElement subcomponent) {
-		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent, SupportedDispatchProtocols.HYBRID);
-	}
-
-	/**
-	 * true if component (thread or device) is background
-	 * @param subcomponent
-	 * @return
-	 */
-	@Deprecated
-	public static boolean isBackgroundComponent(final NamedElement subcomponent) {
-		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent,
-				SupportedDispatchProtocols.BACKGROUND);
-	}
-
-	/**
 	 * true thread is periodic
 	 * @param subcomponent
 	 * @return
 	 */
 	public static boolean isPeriodicThread(final NamedElement thread) {
 		return isThread(thread) && isPeriodicComponent(thread);
-	}
-
-	/**
-	 * true if device is periodic
-	 * @param subcomponent
-	 * @return
-	 */
-	@Deprecated
-	public static boolean isPeriodicDevice(final NamedElement device) {
-		return (device instanceof ComponentInstance
-				&& ((ComponentInstance) device).getCategory().equals(ComponentCategory.DEVICE))
-				&& isPeriodicComponent(device);
 	}
 
 	/**
@@ -398,23 +361,6 @@ public class InstanceModelUtil {
 
 	/**
 	 * return the list of system that the functional component is directly bound to.
-	 *
-	 * <p>This method copies a list internally for the sole purpose of changing the type
-	 * from {@code List<InstanceObject>} to {@code List<ComponentInstance>}.  Please use
-	 * {@link #getFunctionBindings} and change the call site to handle {@code InstanceObject}
-	 * to avoid this.
-	 *
-	 * @param io
-	 * @return list of system component instances
-	 * @deprecated To be removed in 2.10.0.  Please use {@link #getFunctionBindings}.
-	 */
-	@Deprecated
-	public static List<ComponentInstance> getFunctionBinding(final ComponentInstance io) {
-		return getListAsComponentInstance(DeploymentProperties::getActualFunctionBinding, io);
-	}
-
-	/**
-	 * return the list of system that the functional component is directly bound to.
 	 * @param io
 	 * @return list of system component instances
 	 * @since 3.1
@@ -426,46 +372,12 @@ public class InstanceModelUtil {
 	/**
 	 * return the processor or virtual processor that the component is directly bound to
 	 *
-	 * <p>This method recopies a list internally for the sole purpose of changing the type
-	 * from {@code List<InstanceObject>} to {@code List<ComponentInstance>}.  Please use
-	 * {@link #getFunctionBindings} and change the call site to handle {@code InstanceObject}
-	 * to avoid this.
-	 *
-	 * @param io
-	 * @return
-	 * @deprecated To be removed in 2.10.0.  Please use {@link #getMemoryBindings}.
-	 */
-	@Deprecated
-	public static List<ComponentInstance> getMemoryBinding(final ComponentInstance io) {
-		return getListAsComponentInstance(DeploymentProperties::getActualMemoryBinding, io);
-	}
-
-	/**
-	 * return the processor or virtual processor that the component is directly bound to
-	 *
 	 * @param io
 	 * @return
 	 * @since 3.1
 	 */
 	public static List<InstanceObject> getMemoryBindings(final ComponentInstance io) {
 		return DeploymentProperties.getActualMemoryBinding(io).orElse(Collections.emptyList());
-	}
-
-	/**
-	 * return the processor or virtual processor that the component is directly bound to
-	 *
-	 * <p>This method recopies a list internally for the sole purpose of changing the type
-	 * from {@code List<InstanceObject>} to {@code List<ComponentInstance>}.  Please use
-	 * {@link #getFunctionBindings} and change the call site to handle {@code InstanceObject}
-	 * to avoid this.
-	 *
-	 * @param io
-	 * @return
-	 * @deprecated To be removed in 2.10.0.  Please use {@link #getProcessorBindings}.
-	 */
-	@Deprecated
-	public static List<ComponentInstance> getProcessorBinding(final ComponentInstance io) {
-		return getListAsComponentInstance(DeploymentProperties::getActualProcessorBinding, io);
 	}
 
 	/**
@@ -614,20 +526,6 @@ public class InstanceModelUtil {
 		return actualProcs;
 	}
 
-	/**
-	 * virtual processor instances directly or indirectly bound to by component
-	 * @param componentInstance
-	 * @return virtual processor instance
-	 */
-	@Deprecated
-	public static Collection<ComponentInstance> getAllBoundVirtualProcessors(ComponentInstance componentInstance) {
-		final Collection<ComponentInstance> actualProcs = new ArrayList<ComponentInstance>();
-		if (canHaveActualProcessorBinding(componentInstance)) {
-			addBoundVirtualProcessors(componentInstance, actualProcs, true);
-		}
-		return actualProcs;
-	}
-
 	protected static void addBoundVirtualProcessors(ComponentInstance componentInstance,
 			Collection<ComponentInstance> result, boolean doAll) {
 		final Collection<InstanceObject> bindinglist = getProcessorBindings(componentInstance);
@@ -701,71 +599,6 @@ public class InstanceModelUtil {
 		return topobjects;
 	}
 
-	/**
-	 * get all SW components bound to the given processor or VP component
-	 * This includes the children of a component that is bound as the binding property is inherited.
-	 * @param procorVP
-	 * @return
-	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Deprecated
-	public static EList<ComponentInstance> getAllBoundSWComponents(final ComponentInstance procorVP) {
-		SystemInstance root = procorVP.getSystemInstance();
-		EList boundComponents = new ForAllElement() {
-			@Override
-			protected boolean suchThat(Element obj) {
-				ComponentInstance ci = (ComponentInstance) obj;
-				ComponentCategory cat = ci.getCategory();
-				return ((cat == ComponentCategory.THREAD || cat == ComponentCategory.THREAD_GROUP
-						|| cat == ComponentCategory.PROCESS || cat == ComponentCategory.SYSTEM)
-						&& InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP));
-			}
-		}.processPreOrderComponentInstance(root);
-		return boundComponents;
-	}
-
-	/**
-	 * get all threads bound to the given component
-	 * @param procorVP
-	 * @return
-	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Deprecated
-	public static EList<ComponentInstance> getBoundThreads(final ComponentInstance procorVP) {
-		SystemInstance root = procorVP.getSystemInstance();
-		EList boundComponents = new ForAllElement() {
-			@Override
-			protected boolean suchThat(Element obj) {
-				ComponentInstance ci = (ComponentInstance) obj;
-				ComponentCategory cat = ci.getCategory();
-				return ((cat == ComponentCategory.THREAD)
-						&& InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP));
-			}
-		}.processPreOrderComponentInstance(root);
-		return boundComponents;
-	}
-
-	/**
-	 * get all processes bound to the given component
-	 * @param procorVP
-	 * @return
-	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Deprecated
-	public static EList<ComponentInstance> getBoundProcesses(final ComponentInstance procorVP) {
-		SystemInstance root = procorVP.getSystemInstance();
-		EList boundComponents = new ForAllElement() {
-			@Override
-			protected boolean suchThat(Element obj) {
-				ComponentInstance ci = (ComponentInstance) obj;
-				ComponentCategory cat = ci.getCategory();
-				return ((cat == ComponentCategory.PROCESS)
-						&& InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, procorVP));
-			}
-		}.processPreOrderComponentInstance(root);
-		return boundComponents;
-	}
-
 	public static void addAsRoot(EList<ComponentInstance> blist, ComponentInstance ci) {
 		BasicEList<ComponentInstance> removeme = new BasicEList<ComponentInstance>();
 		for (ComponentInstance bi : blist) {
@@ -812,41 +645,6 @@ public class InstanceModelUtil {
 	 */
 	public static boolean hasBusBinding(InstanceObject boundObject) {
 		return !getConnectionBindings(boundObject).isEmpty();
-	}
-
-	/**
-	 * return set of components the specified instance object (connection or virtual bus) is bound to.
-	 * Takes into account virtual buses contained in buses or virtual buses
-	 *
-	 * <p>This method copies a list internally for the sole purpose of changing the type
-	 * from {@code List<InstanceObject>} to {@code List<ComponentInstance>}.  Please use
-	 * {@link #getConnectionBindings} and change the call site to handle {@code InstanceObject}
-	 * to avoid this.
-	 *
-	 * @param io
-	 * @return
-	 *
-	 * @deprecated To be removed in 2.10.0.  Use {@link #getConnectionBindings(InstanceObject)
-	 */
-	@Deprecated
-	public static List<ComponentInstance> getConnectionBinding(final InstanceObject io) {
-		final List<ComponentInstance> bindinglist = getListAsComponentInstance(
-				DeploymentProperties::getActualConnectionBinding, io);
-		/**
-		 * If we have a virtual bus, we consider that it is bound to
-		 * its containing bus. Semantically, we thus consider
-		 * that all contained virtual bus are bound to the enclosing
-		 * physical bus or VB. Then, we add it in the list.
-		 */
-		if (bindinglist.isEmpty() && io instanceof ComponentInstance
-				&& ((ComponentInstance) io).getCategory() == ComponentCategory.VIRTUAL_BUS) {
-			ComponentInstance parent = io.getContainingComponentInstance();
-			if (parent.getCategory() == ComponentCategory.BUS
-					|| parent.getCategory() == ComponentCategory.VIRTUAL_BUS) {
-				return Collections.singletonList(parent);
-			}
-		}
-		return bindinglist;
 	}
 
 	/**
@@ -1048,7 +846,6 @@ public class InstanceModelUtil {
 	 * @param destination HW component
 	 * @return list of buses involved in the physical connection
 	 */
-	@Deprecated
 	protected static List<ComponentInstance> doConnectedByBus(ComponentInstance srcHW, ComponentInstance dstHW,
 			List<ComponentInstance> visitedBuses) {
 		if (srcHW == null || dstHW == null || srcHW == dstHW) {
@@ -1101,33 +898,6 @@ public class InstanceModelUtil {
 	}
 
 	/**
-	 * list of buses the hardware component is directly connected to
-	 *
-	 * @param HWcomp ComponentInstance hardware component
-	 * @return list of buses
-	 */
-	@Deprecated
-	public static EList<ComponentInstance> getConnectedBuses(ComponentInstance HWcomp) {
-		EList<ComponentInstance> result = new BasicEList<ComponentInstance>();
-		EList<ConnectionInstance> acl = HWcomp.getSrcConnectionInstances();
-		for (ConnectionInstance srcaci : acl) {
-			ComponentInstance res = srcaci.getDestination().getComponentInstance();
-			if (res.getCategory() == ComponentCategory.BUS) {
-				result.add(res);
-			}
-		}
-		// we have to check the connection the other way around. The bus be the source or destination
-		acl = HWcomp.getDstConnectionInstances();
-		for (ConnectionInstance dstaci : acl) {
-			ComponentInstance res = dstaci.getSource().getComponentInstance();
-			if (res.getCategory() == ComponentCategory.BUS) {
-				result.add(res);
-			}
-		}
-		return result;
-	}
-
-	/**
 	* is hardware component connected (directly) to the given bus
 	*
 	* @param HWcomp ComponentInstance hardware component
@@ -1152,30 +922,4 @@ public class InstanceModelUtil {
 		}
 		return false;
 	}
-
-	/**
-	 * is hardware component connected (directly) to the given bus, incl. bus to
-	 * bus
-	 *
-	 * @param HWcomp ComponentInstance hardware component
-	 * @param bus ComponentInstance bus component
-	 * @return access connection instance if they are connected by bus access
-	 *         connection
-	 */
-	@Deprecated
-	public static ConnectionInstance getBusAccessConnection(ComponentInstance HWcomp, ComponentInstance bus) {
-		for (ConnectionInstance srcaci : bus.getSrcConnectionInstances()) {
-			if (srcaci.getDestination().getContainingComponentInstance() == HWcomp) {
-				return srcaci;
-			}
-		}
-		// check the other way
-		for (ConnectionInstance srcaci : HWcomp.getSrcConnectionInstances()) {
-			if (srcaci.getDestination().getContainingComponentInstance() == bus) {
-				return srcaci;
-			}
-		}
-		return null;
-	}
-
 }

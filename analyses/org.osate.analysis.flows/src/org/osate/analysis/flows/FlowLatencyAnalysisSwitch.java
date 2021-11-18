@@ -68,6 +68,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgr
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.properties.util.AadlContribUtils;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
 import org.osate.analysis.flows.internal.utils.AnalysisUtils;
 import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyCSVReport;
@@ -84,7 +85,6 @@ import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.pluginsupport.properties.RealRange;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
  * @author phf

@@ -38,11 +38,11 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
 import org.osate.analysis.scheduling.RuntimeProcessWalker;
 import org.osate.analysis.scheduling.SchedulingProperties;
 import org.osate.ui.UiUtil;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHandler {
 	@Override

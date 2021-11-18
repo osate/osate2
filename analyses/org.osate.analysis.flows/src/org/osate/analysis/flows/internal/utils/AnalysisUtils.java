@@ -5,10 +5,10 @@ import java.util.Iterator;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
 import org.osate.contribution.sei.sei.ProcessorSpeedUnits;
 import org.osate.contribution.sei.sei.Sei;
 import org.osate.pluginsupport.properties.RealRange;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /* XXX Not sure where to put this yet.
  *

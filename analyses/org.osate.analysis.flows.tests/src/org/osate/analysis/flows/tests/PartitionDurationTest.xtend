@@ -43,7 +43,7 @@ import org.osate.testsupport.TestHelper
 import static org.junit.Assert.*
 
 import static extension org.junit.Assert.assertEquals
-import static extension org.osate.xtext.aadl2.properties.util.InstanceModelUtil.*
+import static extension org.osate.aadl2.properties.util.InstanceModelUtil.*
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2InjectorProvider))
