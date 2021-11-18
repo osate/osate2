@@ -35,8 +35,7 @@ Import-Package: org.eclipse.core.resources,
  org.osate.ui.dialogs,
  org.osate.xtext.aadl2;bundle-version="1.0.0",
  org.osate.xtext.aadl2.linking,
- org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
- org.osate.xtext.aadl2.properties.util
+ org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
 Bundle-ClassPath: .
 Automatic-Module-Name: org.osate.importer.simulink
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
