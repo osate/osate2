@@ -40,8 +40,8 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
 import org.osate.pluginsupport.properties.PropertyUtils;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
  * @author phf

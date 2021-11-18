@@ -40,6 +40,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
 import org.osate.analysis.resource.budgets.internal.models.busload.Broadcast;
 import org.osate.analysis.resource.budgets.internal.models.busload.Bus;
 import org.osate.analysis.resource.budgets.internal.models.busload.BusLoadModel;
@@ -48,7 +49,6 @@ import org.osate.analysis.resource.budgets.internal.models.busload.BusloadFactor
 import org.osate.analysis.resource.budgets.internal.models.busload.Connection;
 import org.osate.analysis.resource.budgets.internal.models.busload.VirtualBus;
 import org.osate.contribution.sei.sei.Sei;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 final class BusLoadModelBuilder {
 	private final Map<ComponentInstance, Bus> buses = new HashMap<>();

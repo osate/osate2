@@ -41,7 +41,7 @@ import org.osate.testsupport.TestHelper
 import static org.junit.Assert.*
 
 import static extension org.junit.Assert.assertEquals
-import static extension org.osate.xtext.aadl2.properties.util.InstanceModelUtil.*
+import static extension org.osate.aadl2.properties.util.InstanceModelUtil.*
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch
 
 @RunWith(typeof(XtextRunner))

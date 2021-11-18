@@ -28,9 +28,9 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
 import org.osate.analysis.resource.budgets.logic.BoundResourceAnalysis;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
  * @author lwrage

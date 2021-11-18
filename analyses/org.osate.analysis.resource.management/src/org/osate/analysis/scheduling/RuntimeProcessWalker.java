@@ -37,9 +37,9 @@ import org.osate.aadl2.contrib.thread.ThreadProperties;
 import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
 import org.osate.analysis.resource.management.handlers.Schedule;
 import org.osate.pluginsupport.properties.PropertyUtils;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class RuntimeProcessWalker {
 	// to record the invariants visisted and put back to the system tree.

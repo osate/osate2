@@ -37,13 +37,13 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.properties.util.AadlContribUtils;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
 import org.osate.contribution.sei.sei.Instructionvolumeunits;
 import org.osate.contribution.sei.sei.ProcessorSpeedUnits;
 import org.osate.contribution.sei.sei.Sei;
 import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.pluginsupport.properties.RealRange;
 import org.osate.ui.handlers.AbstractAaxlHandler;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 abstract class AbstractResourceAnalysis extends AbstractLoggingAnalysis {
 	private final String prefixSymbol = "  ";

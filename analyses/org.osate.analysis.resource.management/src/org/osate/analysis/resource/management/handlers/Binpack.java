@@ -69,9 +69,9 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.util.AadlContribUtils;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
 import org.osate.analysis.scheduling.SchedulingProperties;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 import EAnalysis.BinPacking.AssignmentResult;
 import EAnalysis.BinPacking.BFCPBinPacker;

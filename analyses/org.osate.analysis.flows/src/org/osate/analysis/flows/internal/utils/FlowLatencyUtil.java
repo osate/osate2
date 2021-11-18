@@ -55,13 +55,13 @@ import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.properties.PropertyLookupException;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
 import org.osate.contribution.sei.arinc653.Arinc653;
 import org.osate.contribution.sei.arinc653.ScheduleWindow;
 import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class FlowLatencyUtil {
 	public static FeatureInstance getIncomingConnectionFeatureInstance(final EndToEndFlowInstance etef,
