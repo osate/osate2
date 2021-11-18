@@ -25,6 +25,7 @@
 		<module>org.osate.aadl2.instantiation</module>
 		<module>org.osate.aadl2.model.editor</module>
 		<module>org.osate.aadl2.modelsupport</module>
+		<module>org.osate.aadl2.properties</module>
 		<module>org.osate.annexsupport</module>
 		<module>org.osate.branding</module>
 		<module>org.osate.build.main</module>
