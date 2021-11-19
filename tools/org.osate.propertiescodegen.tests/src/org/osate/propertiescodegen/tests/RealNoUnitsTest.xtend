@@ -67,6 +67,12 @@ class RealNoUnitsTest {
 				public static final String LIST_1_REAL__NAME = "list_1_real";
 				public static final String LIST_5_REAL__NAME = "list_5_real";
 				
+				// Lookup methods for real_no_units_test::owned_real
+				
+				public static boolean acceptsOwnedReal(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getOwnedReal_Property(lookupContext));
+				}
+				
 				public static OptionalDouble getOwnedReal(NamedElement lookupContext) {
 					return getOwnedReal(lookupContext, Optional.empty());
 				}
@@ -76,8 +82,7 @@ class RealNoUnitsTest {
 				}
 				
 				public static OptionalDouble getOwnedReal(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "real_no_units_test::owned_real";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getOwnedReal_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -87,10 +92,19 @@ class RealNoUnitsTest {
 					}
 				}
 				
+				public static Property getOwnedReal_Property(NamedElement lookupContext) {
+					String name = REAL_NO_UNITS_TEST__NAME + "::" + OWNED_REAL__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getOwnedReal_EObject(NamedElement lookupContext) {
-					String name = "real_no_units_test::owned_real";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getOwnedReal_Property(lookupContext));
+				}
+				
+				// Lookup methods for real_no_units_test::referenced_real_local
+				
+				public static boolean acceptsReferencedRealLocal(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getReferencedRealLocal_Property(lookupContext));
 				}
 				
 				public static OptionalDouble getReferencedRealLocal(NamedElement lookupContext) {
@@ -102,8 +116,7 @@ class RealNoUnitsTest {
 				}
 				
 				public static OptionalDouble getReferencedRealLocal(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "real_no_units_test::referenced_real_local";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getReferencedRealLocal_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -113,10 +126,19 @@ class RealNoUnitsTest {
 					}
 				}
 				
+				public static Property getReferencedRealLocal_Property(NamedElement lookupContext) {
+					String name = REAL_NO_UNITS_TEST__NAME + "::" + REFERENCED_REAL_LOCAL__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getReferencedRealLocal_EObject(NamedElement lookupContext) {
-					String name = "real_no_units_test::referenced_real_local";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getReferencedRealLocal_Property(lookupContext));
+				}
+				
+				// Lookup methods for real_no_units_test::referenced_real_other
+				
+				public static boolean acceptsReferencedRealOther(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getReferencedRealOther_Property(lookupContext));
 				}
 				
 				public static OptionalDouble getReferencedRealOther(NamedElement lookupContext) {
@@ -128,8 +150,7 @@ class RealNoUnitsTest {
 				}
 				
 				public static OptionalDouble getReferencedRealOther(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "real_no_units_test::referenced_real_other";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getReferencedRealOther_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -139,10 +160,19 @@ class RealNoUnitsTest {
 					}
 				}
 				
+				public static Property getReferencedRealOther_Property(NamedElement lookupContext) {
+					String name = REAL_NO_UNITS_TEST__NAME + "::" + REFERENCED_REAL_OTHER__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getReferencedRealOther_EObject(NamedElement lookupContext) {
-					String name = "real_no_units_test::referenced_real_other";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getReferencedRealOther_Property(lookupContext));
+				}
+				
+				// Lookup methods for real_no_units_test::list_1_real
+				
+				public static boolean acceptsList1Real(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getList1Real_Property(lookupContext));
 				}
 				
 				public static Optional<List<Double>> getList1Real(NamedElement lookupContext) {
@@ -154,8 +184,7 @@ class RealNoUnitsTest {
 				}
 				
 				public static Optional<List<Double>> getList1Real(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "real_no_units_test::list_1_real";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getList1Real_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -168,10 +197,19 @@ class RealNoUnitsTest {
 					}
 				}
 				
+				public static Property getList1Real_Property(NamedElement lookupContext) {
+					String name = REAL_NO_UNITS_TEST__NAME + "::" + LIST_1_REAL__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getList1Real_EObject(NamedElement lookupContext) {
-					String name = "real_no_units_test::list_1_real";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getList1Real_Property(lookupContext));
+				}
+				
+				// Lookup methods for real_no_units_test::list_5_real
+				
+				public static boolean acceptsList5Real(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getList5Real_Property(lookupContext));
 				}
 				
 				public static Optional<List<List<List<List<List<Double>>>>>> getList5Real(NamedElement lookupContext) {
@@ -183,8 +221,7 @@ class RealNoUnitsTest {
 				}
 				
 				public static Optional<List<List<List<List<List<Double>>>>>> getList5Real(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "real_no_units_test::list_5_real";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getList5Real_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -209,10 +246,13 @@ class RealNoUnitsTest {
 					}
 				}
 				
+				public static Property getList5Real_Property(NamedElement lookupContext) {
+					String name = REAL_NO_UNITS_TEST__NAME + "::" + LIST_5_REAL__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getList5Real_EObject(NamedElement lookupContext) {
-					String name = "real_no_units_test::list_5_real";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getList5Real_Property(lookupContext));
 				}
 			}
 		'''

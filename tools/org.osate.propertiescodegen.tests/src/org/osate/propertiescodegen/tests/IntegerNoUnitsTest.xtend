@@ -67,6 +67,12 @@ class IntegerNoUnitsTest {
 				public static final String LIST_1_INTEGER__NAME = "list_1_integer";
 				public static final String LIST_5_INTEGER__NAME = "list_5_integer";
 				
+				// Lookup methods for integer_no_units_test::owned_integer
+				
+				public static boolean acceptsOwnedInteger(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getOwnedInteger_Property(lookupContext));
+				}
+				
 				public static OptionalLong getOwnedInteger(NamedElement lookupContext) {
 					return getOwnedInteger(lookupContext, Optional.empty());
 				}
@@ -76,8 +82,7 @@ class IntegerNoUnitsTest {
 				}
 				
 				public static OptionalLong getOwnedInteger(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "integer_no_units_test::owned_integer";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getOwnedInteger_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -87,10 +92,19 @@ class IntegerNoUnitsTest {
 					}
 				}
 				
+				public static Property getOwnedInteger_Property(NamedElement lookupContext) {
+					String name = INTEGER_NO_UNITS_TEST__NAME + "::" + OWNED_INTEGER__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getOwnedInteger_EObject(NamedElement lookupContext) {
-					String name = "integer_no_units_test::owned_integer";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getOwnedInteger_Property(lookupContext));
+				}
+				
+				// Lookup methods for integer_no_units_test::referenced_integer_local
+				
+				public static boolean acceptsReferencedIntegerLocal(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getReferencedIntegerLocal_Property(lookupContext));
 				}
 				
 				public static OptionalLong getReferencedIntegerLocal(NamedElement lookupContext) {
@@ -102,8 +116,7 @@ class IntegerNoUnitsTest {
 				}
 				
 				public static OptionalLong getReferencedIntegerLocal(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "integer_no_units_test::referenced_integer_local";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getReferencedIntegerLocal_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -113,10 +126,19 @@ class IntegerNoUnitsTest {
 					}
 				}
 				
+				public static Property getReferencedIntegerLocal_Property(NamedElement lookupContext) {
+					String name = INTEGER_NO_UNITS_TEST__NAME + "::" + REFERENCED_INTEGER_LOCAL__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getReferencedIntegerLocal_EObject(NamedElement lookupContext) {
-					String name = "integer_no_units_test::referenced_integer_local";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getReferencedIntegerLocal_Property(lookupContext));
+				}
+				
+				// Lookup methods for integer_no_units_test::referenced_integer_other
+				
+				public static boolean acceptsReferencedIntegerOther(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getReferencedIntegerOther_Property(lookupContext));
 				}
 				
 				public static OptionalLong getReferencedIntegerOther(NamedElement lookupContext) {
@@ -128,8 +150,7 @@ class IntegerNoUnitsTest {
 				}
 				
 				public static OptionalLong getReferencedIntegerOther(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "integer_no_units_test::referenced_integer_other";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getReferencedIntegerOther_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -139,10 +160,19 @@ class IntegerNoUnitsTest {
 					}
 				}
 				
+				public static Property getReferencedIntegerOther_Property(NamedElement lookupContext) {
+					String name = INTEGER_NO_UNITS_TEST__NAME + "::" + REFERENCED_INTEGER_OTHER__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getReferencedIntegerOther_EObject(NamedElement lookupContext) {
-					String name = "integer_no_units_test::referenced_integer_other";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getReferencedIntegerOther_Property(lookupContext));
+				}
+				
+				// Lookup methods for integer_no_units_test::list_1_integer
+				
+				public static boolean acceptsList1Integer(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getList1Integer_Property(lookupContext));
 				}
 				
 				public static Optional<List<Long>> getList1Integer(NamedElement lookupContext) {
@@ -154,8 +184,7 @@ class IntegerNoUnitsTest {
 				}
 				
 				public static Optional<List<Long>> getList1Integer(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "integer_no_units_test::list_1_integer";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getList1Integer_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -168,10 +197,19 @@ class IntegerNoUnitsTest {
 					}
 				}
 				
+				public static Property getList1Integer_Property(NamedElement lookupContext) {
+					String name = INTEGER_NO_UNITS_TEST__NAME + "::" + LIST_1_INTEGER__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getList1Integer_EObject(NamedElement lookupContext) {
-					String name = "integer_no_units_test::list_1_integer";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getList1Integer_Property(lookupContext));
+				}
+				
+				// Lookup methods for integer_no_units_test::list_5_integer
+				
+				public static boolean acceptsList5Integer(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getList5Integer_Property(lookupContext));
 				}
 				
 				public static Optional<List<List<List<List<List<Long>>>>>> getList5Integer(NamedElement lookupContext) {
@@ -183,8 +221,7 @@ class IntegerNoUnitsTest {
 				}
 				
 				public static Optional<List<List<List<List<List<Long>>>>>> getList5Integer(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "integer_no_units_test::list_5_integer";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getList5Integer_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -209,10 +246,13 @@ class IntegerNoUnitsTest {
 					}
 				}
 				
+				public static Property getList5Integer_Property(NamedElement lookupContext) {
+					String name = INTEGER_NO_UNITS_TEST__NAME + "::" + LIST_5_INTEGER__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getList5Integer_EObject(NamedElement lookupContext) {
-					String name = "integer_no_units_test::list_5_integer";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getList5Integer_Property(lookupContext));
 				}
 			}
 		'''

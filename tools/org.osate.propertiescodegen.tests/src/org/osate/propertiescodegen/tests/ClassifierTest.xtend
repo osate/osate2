@@ -67,6 +67,12 @@ class ClassifierTest {
 				public static final String LIST_1_CLASSIFIER__NAME = "list_1_classifier";
 				public static final String LIST_5_CLASSIFIER__NAME = "list_5_classifier";
 				
+				// Lookup methods for classifier_test::owned_classifier
+				
+				public static boolean acceptsOwnedClassifier(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getOwnedClassifier_Property(lookupContext));
+				}
+				
 				public static Optional<Classifier> getOwnedClassifier(NamedElement lookupContext) {
 					return getOwnedClassifier(lookupContext, Optional.empty());
 				}
@@ -76,8 +82,7 @@ class ClassifierTest {
 				}
 				
 				public static Optional<Classifier> getOwnedClassifier(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "classifier_test::owned_classifier";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getOwnedClassifier_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -87,10 +92,19 @@ class ClassifierTest {
 					}
 				}
 				
+				public static Property getOwnedClassifier_Property(NamedElement lookupContext) {
+					String name = CLASSIFIER_TEST__NAME + "::" + OWNED_CLASSIFIER__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getOwnedClassifier_EObject(NamedElement lookupContext) {
-					String name = "classifier_test::owned_classifier";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getOwnedClassifier_Property(lookupContext));
+				}
+				
+				// Lookup methods for classifier_test::referenced_classifier_local
+				
+				public static boolean acceptsReferencedClassifierLocal(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getReferencedClassifierLocal_Property(lookupContext));
 				}
 				
 				public static Optional<Classifier> getReferencedClassifierLocal(NamedElement lookupContext) {
@@ -102,8 +116,7 @@ class ClassifierTest {
 				}
 				
 				public static Optional<Classifier> getReferencedClassifierLocal(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "classifier_test::referenced_classifier_local";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getReferencedClassifierLocal_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -113,10 +126,19 @@ class ClassifierTest {
 					}
 				}
 				
+				public static Property getReferencedClassifierLocal_Property(NamedElement lookupContext) {
+					String name = CLASSIFIER_TEST__NAME + "::" + REFERENCED_CLASSIFIER_LOCAL__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getReferencedClassifierLocal_EObject(NamedElement lookupContext) {
-					String name = "classifier_test::referenced_classifier_local";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getReferencedClassifierLocal_Property(lookupContext));
+				}
+				
+				// Lookup methods for classifier_test::referenced_classifier_other
+				
+				public static boolean acceptsReferencedClassifierOther(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getReferencedClassifierOther_Property(lookupContext));
 				}
 				
 				public static Optional<Classifier> getReferencedClassifierOther(NamedElement lookupContext) {
@@ -128,8 +150,7 @@ class ClassifierTest {
 				}
 				
 				public static Optional<Classifier> getReferencedClassifierOther(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "classifier_test::referenced_classifier_other";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getReferencedClassifierOther_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -139,10 +160,19 @@ class ClassifierTest {
 					}
 				}
 				
+				public static Property getReferencedClassifierOther_Property(NamedElement lookupContext) {
+					String name = CLASSIFIER_TEST__NAME + "::" + REFERENCED_CLASSIFIER_OTHER__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getReferencedClassifierOther_EObject(NamedElement lookupContext) {
-					String name = "classifier_test::referenced_classifier_other";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getReferencedClassifierOther_Property(lookupContext));
+				}
+				
+				// Lookup methods for classifier_test::list_1_classifier
+				
+				public static boolean acceptsList1Classifier(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getList1Classifier_Property(lookupContext));
 				}
 				
 				public static Optional<List<Classifier>> getList1Classifier(NamedElement lookupContext) {
@@ -154,8 +184,7 @@ class ClassifierTest {
 				}
 				
 				public static Optional<List<Classifier>> getList1Classifier(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "classifier_test::list_1_classifier";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getList1Classifier_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -168,10 +197,19 @@ class ClassifierTest {
 					}
 				}
 				
+				public static Property getList1Classifier_Property(NamedElement lookupContext) {
+					String name = CLASSIFIER_TEST__NAME + "::" + LIST_1_CLASSIFIER__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getList1Classifier_EObject(NamedElement lookupContext) {
-					String name = "classifier_test::list_1_classifier";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getList1Classifier_Property(lookupContext));
+				}
+				
+				// Lookup methods for classifier_test::list_5_classifier
+				
+				public static boolean acceptsList5Classifier(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getList5Classifier_Property(lookupContext));
 				}
 				
 				public static Optional<List<List<List<List<List<Classifier>>>>>> getList5Classifier(NamedElement lookupContext) {
@@ -183,8 +221,7 @@ class ClassifierTest {
 				}
 				
 				public static Optional<List<List<List<List<List<Classifier>>>>>> getList5Classifier(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "classifier_test::list_5_classifier";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getList5Classifier_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -209,10 +246,13 @@ class ClassifierTest {
 					}
 				}
 				
+				public static Property getList5Classifier_Property(NamedElement lookupContext) {
+					String name = CLASSIFIER_TEST__NAME + "::" + LIST_5_CLASSIFIER__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getList5Classifier_EObject(NamedElement lookupContext) {
-					String name = "classifier_test::list_5_classifier";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getList5Classifier_Property(lookupContext));
 				}
 			}
 		'''
