@@ -87,6 +87,12 @@ class ResolveNamedValueTest {
 				public static final String REAL_RANGE_WITH_UNITS_DEF__NAME = "real_range_with_units_def";
 				public static final String RECORD_DEF__NAME = "record_def";
 				
+				// Lookup methods for resolve_named_value_test::int_def_1
+				
+				public static boolean acceptsIntDef1(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getIntDef1_Property(lookupContext));
+				}
+				
 				public static OptionalLong getIntDef1(NamedElement lookupContext) {
 					return getIntDef1(lookupContext, Optional.empty());
 				}
@@ -96,8 +102,7 @@ class ResolveNamedValueTest {
 				}
 				
 				public static OptionalLong getIntDef1(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "resolve_named_value_test::int_def_1";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getIntDef1_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -107,10 +112,19 @@ class ResolveNamedValueTest {
 					}
 				}
 				
+				public static Property getIntDef1_Property(NamedElement lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + INT_DEF_1__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getIntDef1_EObject(NamedElement lookupContext) {
-					String name = "resolve_named_value_test::int_def_1";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getIntDef1_Property(lookupContext));
+				}
+				
+				// Lookup methods for resolve_named_value_test::int_def_2
+				
+				public static boolean acceptsIntDef2(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getIntDef2_Property(lookupContext));
 				}
 				
 				public static OptionalLong getIntDef2(NamedElement lookupContext) {
@@ -122,8 +136,7 @@ class ResolveNamedValueTest {
 				}
 				
 				public static OptionalLong getIntDef2(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "resolve_named_value_test::int_def_2";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getIntDef2_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -133,10 +146,19 @@ class ResolveNamedValueTest {
 					}
 				}
 				
+				public static Property getIntDef2_Property(NamedElement lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + INT_DEF_2__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getIntDef2_EObject(NamedElement lookupContext) {
-					String name = "resolve_named_value_test::int_def_2";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getIntDef2_Property(lookupContext));
+				}
+				
+				// Lookup methods for resolve_named_value_test::list_3_int_def
+				
+				public static boolean acceptsList3IntDef(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getList3IntDef_Property(lookupContext));
 				}
 				
 				public static Optional<List<List<List<Long>>>> getList3IntDef(NamedElement lookupContext) {
@@ -148,8 +170,7 @@ class ResolveNamedValueTest {
 				}
 				
 				public static Optional<List<List<List<Long>>>> getList3IntDef(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "resolve_named_value_test::list_3_int_def";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getList3IntDef_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -168,10 +189,19 @@ class ResolveNamedValueTest {
 					}
 				}
 				
+				public static Property getList3IntDef_Property(NamedElement lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + LIST_3_INT_DEF__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getList3IntDef_EObject(NamedElement lookupContext) {
-					String name = "resolve_named_value_test::list_3_int_def";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getList3IntDef_Property(lookupContext));
+				}
+				
+				// Lookup methods for resolve_named_value_test::int_range_no_units_def
+				
+				public static boolean acceptsIntRangeNoUnitsDef(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getIntRangeNoUnitsDef_Property(lookupContext));
 				}
 				
 				public static Optional<IntegerRange> getIntRangeNoUnitsDef(NamedElement lookupContext) {
@@ -183,8 +213,7 @@ class ResolveNamedValueTest {
 				}
 				
 				public static Optional<IntegerRange> getIntRangeNoUnitsDef(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "resolve_named_value_test::int_range_no_units_def";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getIntRangeNoUnitsDef_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -194,10 +223,19 @@ class ResolveNamedValueTest {
 					}
 				}
 				
+				public static Property getIntRangeNoUnitsDef_Property(NamedElement lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + INT_RANGE_NO_UNITS_DEF__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getIntRangeNoUnitsDef_EObject(NamedElement lookupContext) {
-					String name = "resolve_named_value_test::int_range_no_units_def";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getIntRangeNoUnitsDef_Property(lookupContext));
+				}
+				
+				// Lookup methods for resolve_named_value_test::int_range_with_units_def
+				
+				public static boolean acceptsIntRangeWithUnitsDef(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getIntRangeWithUnitsDef_Property(lookupContext));
 				}
 				
 				public static Optional<IntegerRangeWithUnits<Length>> getIntRangeWithUnitsDef(NamedElement lookupContext) {
@@ -209,8 +247,7 @@ class ResolveNamedValueTest {
 				}
 				
 				public static Optional<IntegerRangeWithUnits<Length>> getIntRangeWithUnitsDef(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "resolve_named_value_test::int_range_with_units_def";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getIntRangeWithUnitsDef_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -220,10 +257,19 @@ class ResolveNamedValueTest {
 					}
 				}
 				
+				public static Property getIntRangeWithUnitsDef_Property(NamedElement lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + INT_RANGE_WITH_UNITS_DEF__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getIntRangeWithUnitsDef_EObject(NamedElement lookupContext) {
-					String name = "resolve_named_value_test::int_range_with_units_def";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getIntRangeWithUnitsDef_Property(lookupContext));
+				}
+				
+				// Lookup methods for resolve_named_value_test::real_range_no_units_def
+				
+				public static boolean acceptsRealRangeNoUnitsDef(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getRealRangeNoUnitsDef_Property(lookupContext));
 				}
 				
 				public static Optional<RealRange> getRealRangeNoUnitsDef(NamedElement lookupContext) {
@@ -235,8 +281,7 @@ class ResolveNamedValueTest {
 				}
 				
 				public static Optional<RealRange> getRealRangeNoUnitsDef(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "resolve_named_value_test::real_range_no_units_def";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getRealRangeNoUnitsDef_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -246,10 +291,19 @@ class ResolveNamedValueTest {
 					}
 				}
 				
+				public static Property getRealRangeNoUnitsDef_Property(NamedElement lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + REAL_RANGE_NO_UNITS_DEF__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getRealRangeNoUnitsDef_EObject(NamedElement lookupContext) {
-					String name = "resolve_named_value_test::real_range_no_units_def";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getRealRangeNoUnitsDef_Property(lookupContext));
+				}
+				
+				// Lookup methods for resolve_named_value_test::real_range_with_units_def
+				
+				public static boolean acceptsRealRangeWithUnitsDef(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getRealRangeWithUnitsDef_Property(lookupContext));
 				}
 				
 				public static Optional<RealRangeWithUnits<Length>> getRealRangeWithUnitsDef(NamedElement lookupContext) {
@@ -261,8 +315,7 @@ class ResolveNamedValueTest {
 				}
 				
 				public static Optional<RealRangeWithUnits<Length>> getRealRangeWithUnitsDef(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "resolve_named_value_test::real_range_with_units_def";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getRealRangeWithUnitsDef_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -272,10 +325,19 @@ class ResolveNamedValueTest {
 					}
 				}
 				
+				public static Property getRealRangeWithUnitsDef_Property(NamedElement lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + REAL_RANGE_WITH_UNITS_DEF__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getRealRangeWithUnitsDef_EObject(NamedElement lookupContext) {
-					String name = "resolve_named_value_test::real_range_with_units_def";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getRealRangeWithUnitsDef_Property(lookupContext));
+				}
+				
+				// Lookup methods for resolve_named_value_test::record_def
+				
+				public static boolean acceptsRecordDef(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getRecordDef_Property(lookupContext));
 				}
 				
 				public static Optional<RecordDef> getRecordDef(NamedElement lookupContext) {
@@ -287,8 +349,7 @@ class ResolveNamedValueTest {
 				}
 				
 				public static Optional<RecordDef> getRecordDef(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "resolve_named_value_test::record_def";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getRecordDef_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -298,10 +359,13 @@ class ResolveNamedValueTest {
 					}
 				}
 				
+				public static Property getRecordDef_Property(NamedElement lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + RECORD_DEF__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getRecordDef_EObject(NamedElement lookupContext) {
-					String name = "resolve_named_value_test::record_def";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getRecordDef_Property(lookupContext));
 				}
 			}
 		'''

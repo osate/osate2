@@ -66,6 +66,12 @@ class StringTest {
 				public static final String LIST_1_STRING__NAME = "list_1_string";
 				public static final String LIST_5_STRING__NAME = "list_5_string";
 				
+				// Lookup methods for string_test::owned_string
+				
+				public static boolean acceptsOwnedString(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getOwnedString_Property(lookupContext));
+				}
+				
 				public static Optional<String> getOwnedString(NamedElement lookupContext) {
 					return getOwnedString(lookupContext, Optional.empty());
 				}
@@ -75,8 +81,7 @@ class StringTest {
 				}
 				
 				public static Optional<String> getOwnedString(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "string_test::owned_string";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getOwnedString_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -86,10 +91,19 @@ class StringTest {
 					}
 				}
 				
+				public static Property getOwnedString_Property(NamedElement lookupContext) {
+					String name = STRING_TEST__NAME + "::" + OWNED_STRING__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getOwnedString_EObject(NamedElement lookupContext) {
-					String name = "string_test::owned_string";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getOwnedString_Property(lookupContext));
+				}
+				
+				// Lookup methods for string_test::referenced_string_local
+				
+				public static boolean acceptsReferencedStringLocal(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getReferencedStringLocal_Property(lookupContext));
 				}
 				
 				public static Optional<String> getReferencedStringLocal(NamedElement lookupContext) {
@@ -101,8 +115,7 @@ class StringTest {
 				}
 				
 				public static Optional<String> getReferencedStringLocal(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "string_test::referenced_string_local";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getReferencedStringLocal_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -112,10 +125,19 @@ class StringTest {
 					}
 				}
 				
+				public static Property getReferencedStringLocal_Property(NamedElement lookupContext) {
+					String name = STRING_TEST__NAME + "::" + REFERENCED_STRING_LOCAL__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getReferencedStringLocal_EObject(NamedElement lookupContext) {
-					String name = "string_test::referenced_string_local";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getReferencedStringLocal_Property(lookupContext));
+				}
+				
+				// Lookup methods for string_test::referenced_string_other
+				
+				public static boolean acceptsReferencedStringOther(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getReferencedStringOther_Property(lookupContext));
 				}
 				
 				public static Optional<String> getReferencedStringOther(NamedElement lookupContext) {
@@ -127,8 +149,7 @@ class StringTest {
 				}
 				
 				public static Optional<String> getReferencedStringOther(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "string_test::referenced_string_other";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getReferencedStringOther_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -138,10 +159,19 @@ class StringTest {
 					}
 				}
 				
+				public static Property getReferencedStringOther_Property(NamedElement lookupContext) {
+					String name = STRING_TEST__NAME + "::" + REFERENCED_STRING_OTHER__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getReferencedStringOther_EObject(NamedElement lookupContext) {
-					String name = "string_test::referenced_string_other";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getReferencedStringOther_Property(lookupContext));
+				}
+				
+				// Lookup methods for string_test::list_1_string
+				
+				public static boolean acceptsList1String(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getList1String_Property(lookupContext));
 				}
 				
 				public static Optional<List<String>> getList1String(NamedElement lookupContext) {
@@ -153,8 +183,7 @@ class StringTest {
 				}
 				
 				public static Optional<List<String>> getList1String(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "string_test::list_1_string";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getList1String_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -167,10 +196,19 @@ class StringTest {
 					}
 				}
 				
+				public static Property getList1String_Property(NamedElement lookupContext) {
+					String name = STRING_TEST__NAME + "::" + LIST_1_STRING__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getList1String_EObject(NamedElement lookupContext) {
-					String name = "string_test::list_1_string";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getList1String_Property(lookupContext));
+				}
+				
+				// Lookup methods for string_test::list_5_string
+				
+				public static boolean acceptsList5String(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getList5String_Property(lookupContext));
 				}
 				
 				public static Optional<List<List<List<List<List<String>>>>>> getList5String(NamedElement lookupContext) {
@@ -182,8 +220,7 @@ class StringTest {
 				}
 				
 				public static Optional<List<List<List<List<List<String>>>>>> getList5String(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "string_test::list_5_string";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getList5String_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -208,10 +245,13 @@ class StringTest {
 					}
 				}
 				
+				public static Property getList5String_Property(NamedElement lookupContext) {
+					String name = STRING_TEST__NAME + "::" + LIST_5_STRING__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getList5String_EObject(NamedElement lookupContext) {
-					String name = "string_test::list_5_string";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getList5String_Property(lookupContext));
 				}
 			}
 		'''

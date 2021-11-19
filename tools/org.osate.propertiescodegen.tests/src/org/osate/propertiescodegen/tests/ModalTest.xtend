@@ -106,6 +106,12 @@ class ModalTest {
 				public static final String STRING_LIST_DEF_4__NAME = "string_list_def_4";
 				public static final String RECORD_DEF_1__NAME = "record_def_1";
 				
+				// Lookup methods for modal_test::string_def_1
+				
+				public static boolean acceptsStringDef1(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef1_Property(lookupContext));
+				}
+				
 				public static Optional<String> getStringDef1(NamedElement lookupContext) {
 					return getStringDef1(lookupContext, Optional.empty());
 				}
@@ -115,8 +121,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef1(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_1";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef1_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -126,10 +131,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef1_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_1__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef1_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_1";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef1_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_2
+				
+				public static boolean acceptsStringDef2(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef2_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef2(NamedElement lookupContext) {
@@ -141,8 +155,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef2(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_2";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef2_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -152,10 +165,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef2_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_2__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef2_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_2";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef2_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_3
+				
+				public static boolean acceptsStringDef3(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef3_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef3(NamedElement lookupContext) {
@@ -167,8 +189,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef3(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_3";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef3_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -178,10 +199,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef3_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_3__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef3_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_3";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef3_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_4
+				
+				public static boolean acceptsStringDef4(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef4_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef4(NamedElement lookupContext) {
@@ -193,8 +223,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef4(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_4";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef4_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -204,10 +233,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef4_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_4__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef4_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_4";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef4_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_5
+				
+				public static boolean acceptsStringDef5(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef5_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef5(NamedElement lookupContext) {
@@ -219,8 +257,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef5(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_5";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef5_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -230,10 +267,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef5_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_5__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef5_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_5";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef5_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_6
+				
+				public static boolean acceptsStringDef6(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef6_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef6(NamedElement lookupContext) {
@@ -245,8 +291,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef6(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_6";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef6_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -256,10 +301,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef6_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_6__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef6_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_6";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef6_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_7
+				
+				public static boolean acceptsStringDef7(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef7_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef7(NamedElement lookupContext) {
@@ -271,8 +325,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef7(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_7";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef7_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -282,10 +335,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef7_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_7__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef7_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_7";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef7_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_8
+				
+				public static boolean acceptsStringDef8(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef8_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef8(NamedElement lookupContext) {
@@ -297,8 +359,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef8(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_8";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef8_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -308,10 +369,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef8_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_8__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef8_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_8";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef8_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_9
+				
+				public static boolean acceptsStringDef9(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef9_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef9(NamedElement lookupContext) {
@@ -323,8 +393,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef9(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_9";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef9_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -334,10 +403,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef9_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_9__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef9_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_9";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef9_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_10
+				
+				public static boolean acceptsStringDef10(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef10_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef10(NamedElement lookupContext) {
@@ -349,8 +427,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef10(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_10";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef10_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -360,10 +437,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef10_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_10__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef10_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_10";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef10_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_11
+				
+				public static boolean acceptsStringDef11(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef11_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef11(NamedElement lookupContext) {
@@ -375,8 +461,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef11(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_11";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef11_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -386,10 +471,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef11_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_11__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef11_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_11";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef11_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_12
+				
+				public static boolean acceptsStringDef12(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef12_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef12(NamedElement lookupContext) {
@@ -401,8 +495,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef12(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_12";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef12_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -412,10 +505,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef12_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_12__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef12_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_12";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef12_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_13
+				
+				public static boolean acceptsStringDef13(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef13_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef13(NamedElement lookupContext) {
@@ -427,8 +529,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef13(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_13";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef13_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -438,10 +539,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef13_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_13__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef13_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_13";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef13_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_14
+				
+				public static boolean acceptsStringDef14(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef14_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef14(NamedElement lookupContext) {
@@ -453,8 +563,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef14(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_14";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef14_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -464,10 +573,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef14_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_14__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef14_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_14";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef14_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_15
+				
+				public static boolean acceptsStringDef15(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef15_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef15(NamedElement lookupContext) {
@@ -479,8 +597,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef15(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_15";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef15_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -490,10 +607,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef15_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_15__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef15_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_15";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef15_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_16
+				
+				public static boolean acceptsStringDef16(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef16_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef16(NamedElement lookupContext) {
@@ -505,8 +631,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef16(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_16";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef16_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -516,10 +641,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef16_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_16__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef16_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_16";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef16_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_17
+				
+				public static boolean acceptsStringDef17(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef17_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef17(NamedElement lookupContext) {
@@ -531,8 +665,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef17(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_17";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef17_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -542,10 +675,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef17_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_17__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef17_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_17";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef17_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_18
+				
+				public static boolean acceptsStringDef18(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef18_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef18(NamedElement lookupContext) {
@@ -557,8 +699,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef18(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_18";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef18_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -568,10 +709,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef18_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_18__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef18_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_18";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef18_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_def_19
+				
+				public static boolean acceptsStringDef19(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDef19_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDef19(NamedElement lookupContext) {
@@ -583,8 +733,7 @@ class ModalTest {
 				}
 				
 				public static Optional<String> getStringDef19(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_def_19";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDef19_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -594,10 +743,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringDef19_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_DEF_19__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDef19_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_def_19";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDef19_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_list_def_1
+				
+				public static boolean acceptsStringListDef1(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringListDef1_Property(lookupContext));
 				}
 				
 				public static Optional<List<String>> getStringListDef1(NamedElement lookupContext) {
@@ -609,8 +767,7 @@ class ModalTest {
 				}
 				
 				public static Optional<List<String>> getStringListDef1(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_list_def_1";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringListDef1_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -623,10 +780,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringListDef1_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_LIST_DEF_1__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringListDef1_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_list_def_1";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringListDef1_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_list_def_2
+				
+				public static boolean acceptsStringListDef2(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringListDef2_Property(lookupContext));
 				}
 				
 				public static Optional<List<List<String>>> getStringListDef2(NamedElement lookupContext) {
@@ -638,8 +804,7 @@ class ModalTest {
 				}
 				
 				public static Optional<List<List<String>>> getStringListDef2(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_list_def_2";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringListDef2_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -655,10 +820,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringListDef2_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_LIST_DEF_2__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringListDef2_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_list_def_2";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringListDef2_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_list_def_3
+				
+				public static boolean acceptsStringListDef3(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringListDef3_Property(lookupContext));
 				}
 				
 				public static Optional<List<String>> getStringListDef3(NamedElement lookupContext) {
@@ -670,8 +844,7 @@ class ModalTest {
 				}
 				
 				public static Optional<List<String>> getStringListDef3(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_list_def_3";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringListDef3_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -684,10 +857,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringListDef3_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_LIST_DEF_3__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringListDef3_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_list_def_3";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringListDef3_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::string_list_def_4
+				
+				public static boolean acceptsStringListDef4(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringListDef4_Property(lookupContext));
 				}
 				
 				public static Optional<List<List<String>>> getStringListDef4(NamedElement lookupContext) {
@@ -699,8 +881,7 @@ class ModalTest {
 				}
 				
 				public static Optional<List<List<String>>> getStringListDef4(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::string_list_def_4";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringListDef4_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -716,10 +897,19 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getStringListDef4_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_LIST_DEF_4__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringListDef4_EObject(NamedElement lookupContext) {
-					String name = "modal_test::string_list_def_4";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringListDef4_Property(lookupContext));
+				}
+				
+				// Lookup methods for modal_test::record_def_1
+				
+				public static boolean acceptsRecordDef1(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getRecordDef1_Property(lookupContext));
 				}
 				
 				public static Optional<RecordDef1> getRecordDef1(NamedElement lookupContext) {
@@ -731,8 +921,7 @@ class ModalTest {
 				}
 				
 				public static Optional<RecordDef1> getRecordDef1(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "modal_test::record_def_1";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getRecordDef1_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -742,10 +931,13 @@ class ModalTest {
 					}
 				}
 				
+				public static Property getRecordDef1_Property(NamedElement lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + RECORD_DEF_1__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getRecordDef1_EObject(NamedElement lookupContext) {
-					String name = "modal_test::record_def_1";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getRecordDef1_Property(lookupContext));
 				}
 			}
 		'''
