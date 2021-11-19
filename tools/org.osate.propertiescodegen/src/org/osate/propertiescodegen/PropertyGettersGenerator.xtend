@@ -53,20 +53,25 @@ package class PropertyGettersGenerator extends AbstractPropertyGenerator {
 		)
 		
 		val returnType = getGenericOptionalType(type)
-		val methodName = "get" + property.name.toCamelCase
+		val camelName = property.name.toCamelCase
 		
 		'''
-			public static «returnType» «methodName»(NamedElement lookupContext) {
-				return «methodName»(lookupContext, Optional.empty());
+			// Lookup methods for «propertySet.name»::«property.name»
+			
+			public static boolean accepts«camelName»(NamedElement lookupContext) {
+				return lookupContext.acceptsProperty(get«camelName»_Property(lookupContext));
 			}
 			
-			public static «returnType» «methodName»(NamedElement lookupContext, Mode mode) {
-				return «methodName»(lookupContext, Optional.of(mode));
+			public static «returnType» get«camelName»(NamedElement lookupContext) {
+				return get«camelName»(lookupContext, Optional.empty());
 			}
 			
-			public static «returnType» «methodName»(NamedElement lookupContext, Optional<Mode> mode) {
-				String name = "«propertySet.name»::«property.name»";
-				Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+			public static «returnType» get«camelName»(NamedElement lookupContext, Mode mode) {
+				return get«camelName»(lookupContext, Optional.of(mode));
+			}
+			
+			public static «returnType» get«camelName»(NamedElement lookupContext, Optional<Mode> mode) {
+				Property property = get«camelName»_Property(lookupContext);
 				try {
 					PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -76,10 +81,13 @@ package class PropertyGettersGenerator extends AbstractPropertyGenerator {
 				}
 			}
 			
-			public static PropertyExpression «methodName»_EObject(NamedElement lookupContext) {
-				String name = "«propertySet.name»::«property.name»";
-				Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-				return lookupContext.getNonModalPropertyValue(property);
+			public static Property get«camelName»_Property(NamedElement lookupContext) {
+				String name = «propertySet.name.toUpperCase»__NAME + "::" + «property.name.toUpperCase»__NAME;
+				return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+			}
+			
+			public static PropertyExpression get«camelName»_EObject(NamedElement lookupContext) {
+				return lookupContext.getNonModalPropertyValue(get«camelName»_Property(lookupContext));
 			}
 		'''
 	}
