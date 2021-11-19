@@ -1,0 +1,135 @@
+package Issue2722C
+public
+	system A
+		features
+			f_out: out event port;
+	end A;
+
+	system implementation A.wrapper
+		subcomponents 
+			x: system A;
+		connections
+			c: port x.f_out -> f_out;
+	end A.wrapper;
+
+	system implementation A.modal_wrapper
+		subcomponents 
+			x: system A in modes (m1);
+		connections
+			c: port x.f_out -> f_out; -- implied modes m1
+		modes
+			m1: initial mode;
+			m2: mode;			
+	end A.modal_wrapper;
+
+	system B
+		features
+			f_in: in event port;
+	end B;
+	
+	system implementation B.wrapper
+		subcomponents 
+			y: system B;
+		connections
+			c: port f_in -> y.f_in;		
+	end B.wrapper;
+
+	system implementation B.modal_wrapper
+		subcomponents 
+			y: system B in modes (mm2);
+		connections
+			c: port f_in -> y.f_in; -- implied mode mm2
+		modes
+			mm1: initial mode;
+			mm2: mode;			
+	end B.modal_wrapper;
+	
+	system C
+		features
+			f_out: out event port;
+			f_in: in event port;
+	end C;
+	
+	system implementation C.no_modes
+		subcomponents
+			src1: system A;
+			snk1: system B;
+			
+			src2: system A;
+			snk2: system B;
+			
+		connections
+			c1: port src1.f_out -> f_out;
+			c2: port f_in -> snk1.f_in;
+			
+			c3: port src2.f_out -> snk2.f_in;
+	end C.no_modes;
+	
+	system implementation C.with_modes
+		subcomponents
+			src1: system A in modes (m1);
+			snk1: system B in modes (m2);
+			
+			src2: system A in modes (m1);
+			snk2: system B;
+			
+		connections
+			c1: port src1.f_out -> f_out; -- implied mode m1
+			c2: port f_in -> snk1.f_in; -- implied mode m2
+			
+			c3: port src2.f_out -> snk2.f_in; -- implied mode m1
+			
+		modes
+			m1: initial mode;
+			m2: mode;
+	end C.with_modes;
+
+	system implementation C.wrappers
+		subcomponents
+			src1: system A.wrapper;
+			snk1: system B.wrapper;
+			
+			src2: system A.wrapper;
+			snk2: system B.wrapper;
+			
+		connections
+			c1: port src1.f_out -> f_out;
+			c2: port f_in -> snk1.f_in;
+			
+			c3: port src2.f_out -> snk2.f_in;
+	end C.wrappers;
+
+
+	system implementation C.modal_wrappers
+		subcomponents
+			src1: system A.modal_wrapper;
+			snk1: system B.modal_wrapper;
+			
+			src2: system A.modal_wrapper;
+			snk2: system B.modal_wrapper;
+			
+		connections
+			c1: port src1.f_out -> f_out; -- implied m1
+			c2: port f_in -> snk1.f_in; -- implied mm2
+			
+			c3: port src2.f_out -> snk2.f_in; -- implied m1 x mm2
+	end C.modal_wrappers;
+	
+	
+	
+	system foo
+	end foo;
+	
+	system implementation foo.bar
+		subcomponents 
+			sub1: system A in modes (a);
+			sub2: system B in modes (b);
+		connections
+			cc: port sub1.f_out -> sub2.f_in in modes (c); -- this is nonsense!  Currently has a warning during instantiation
+		modes
+			a: initial mode;
+			b: mode;
+			c: mode;
+		
+	end foo.bar;
+end Issue2722C;
