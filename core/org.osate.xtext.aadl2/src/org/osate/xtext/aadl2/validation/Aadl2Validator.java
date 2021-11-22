@@ -377,6 +377,14 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		checkOutOnly(port);
 	}
 
+	/**
+	 * @since 6.1
+	 */
+	@Check(CheckType.FAST)
+	public void casePort(Port port) {
+		checkReservedPort(port);
+	}
+
 	@Check(CheckType.FAST)
 	public void caseConnection(Connection connection) {
 		if (connection.getRefined() == null) {
@@ -5354,6 +5362,33 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			if (spAccess.getKind().equals(AccessType.PROVIDES)) {
 				error("Subprograms cannot have provides subprogram group access.", spAccess, null, REVERSE_ACCESS_KIND,
 						AccessType.PROVIDES.getName(), AccessType.REQUIRES.getName());
+			}
+		}
+	}
+
+	private void checkReservedPort(Port port) {
+		/*
+		 * (C1) AADL reserves the following ports. If defined, they must match the following constraints:
+		 * Complete must be an out event port
+		 * Error must be an out event data port
+		 * Abort must be out event port
+		 * Stop must be out event port
+		 */
+
+		Classifier cl = port.getContainingClassifier();
+		if ((cl instanceof ThreadType)) {
+			List<String> reservedPorts = Arrays.asList("complete", "error", "abort", "stop");
+			if (reservedPorts.contains(port.getName().toLowerCase())) {
+				if (port.getName().equalsIgnoreCase("error")) { // Error must be an out event data port
+					if (!(port.getDirection().equals(DirectionType.OUT) && port instanceof EventDataPort)) {
+						error(port, port.getName() + " must be an out event data port.");
+					}
+				}
+				else { // other reserved ports
+					if (!(port.getDirection().equals(DirectionType.OUT) && port instanceof EventPort)) {
+						error(port, port.getName() + " must be an out event port.");
+					}
+				}
 			}
 		}
 	}
