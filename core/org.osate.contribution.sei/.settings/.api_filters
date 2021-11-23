@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.osate.contribution.sei" version="2">
+    <resource path="src-gen/org/osate/contribution/sei/arinc429/Arinc429.java" type="org.osate.contribution.sei.arinc429.Arinc429">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="acceptsFirstbit(NamedElement)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="acceptsNumberbits(NamedElement)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="acceptsWordid(NamedElement)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getFirstbit_Property(NamedElement)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getNumberbits_Property(NamedElement)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getWordid_Property(NamedElement)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
