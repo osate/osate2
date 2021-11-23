@@ -26,6 +26,12 @@ public class ModelingProperties {
 	public static final String IMPLEMENTED_AS__NAME = "Implemented_As";
 	public static final String PROTOTYPE_SUBSTITUTION_RULE__NAME = "Prototype_Substitution_Rule";
 	
+	// Lookup methods for Modeling_Properties::Acceptable_Array_Size
+	
+	public static boolean acceptsAcceptableArraySize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAcceptableArraySize_Property(lookupContext));
+	}
+	
 	public static Optional<List<IntegerRange>> getAcceptableArraySize(NamedElement lookupContext) {
 		return getAcceptableArraySize(lookupContext, Optional.empty());
 	}
@@ -35,8 +41,7 @@ public class ModelingProperties {
 	}
 	
 	public static Optional<List<IntegerRange>> getAcceptableArraySize(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Modeling_Properties::Acceptable_Array_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAcceptableArraySize_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -49,10 +54,19 @@ public class ModelingProperties {
 		}
 	}
 	
+	public static Property getAcceptableArraySize_Property(NamedElement lookupContext) {
+		String name = MODELING_PROPERTIES__NAME + "::" + ACCEPTABLE_ARRAY_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAcceptableArraySize_EObject(NamedElement lookupContext) {
-		String name = "Modeling_Properties::Acceptable_Array_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAcceptableArraySize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Modeling_Properties::Classifier_Matching_Rule
+	
+	public static boolean acceptsClassifierMatchingRule(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getClassifierMatchingRule_Property(lookupContext));
 	}
 	
 	public static Optional<ClassifierMatchingRule> getClassifierMatchingRule(NamedElement lookupContext) {
@@ -64,8 +78,7 @@ public class ModelingProperties {
 	}
 	
 	public static Optional<ClassifierMatchingRule> getClassifierMatchingRule(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Modeling_Properties::Classifier_Matching_Rule";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getClassifierMatchingRule_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -75,10 +88,19 @@ public class ModelingProperties {
 		}
 	}
 	
+	public static Property getClassifierMatchingRule_Property(NamedElement lookupContext) {
+		String name = MODELING_PROPERTIES__NAME + "::" + CLASSIFIER_MATCHING_RULE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getClassifierMatchingRule_EObject(NamedElement lookupContext) {
-		String name = "Modeling_Properties::Classifier_Matching_Rule";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getClassifierMatchingRule_Property(lookupContext));
+	}
+	
+	// Lookup methods for Modeling_Properties::Classifier_Substitution_Rule
+	
+	public static boolean acceptsClassifierSubstitutionRule(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getClassifierSubstitutionRule_Property(lookupContext));
 	}
 	
 	public static Optional<ClassifierSubstitutionRule> getClassifierSubstitutionRule(NamedElement lookupContext) {
@@ -90,8 +112,7 @@ public class ModelingProperties {
 	}
 	
 	public static Optional<ClassifierSubstitutionRule> getClassifierSubstitutionRule(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Modeling_Properties::Classifier_Substitution_Rule";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getClassifierSubstitutionRule_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -101,10 +122,19 @@ public class ModelingProperties {
 		}
 	}
 	
+	public static Property getClassifierSubstitutionRule_Property(NamedElement lookupContext) {
+		String name = MODELING_PROPERTIES__NAME + "::" + CLASSIFIER_SUBSTITUTION_RULE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getClassifierSubstitutionRule_EObject(NamedElement lookupContext) {
-		String name = "Modeling_Properties::Classifier_Substitution_Rule";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getClassifierSubstitutionRule_Property(lookupContext));
+	}
+	
+	// Lookup methods for Modeling_Properties::Implemented_As
+	
+	public static boolean acceptsImplementedAs(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getImplementedAs_Property(lookupContext));
 	}
 	
 	public static Optional<Classifier> getImplementedAs(NamedElement lookupContext) {
@@ -116,8 +146,7 @@ public class ModelingProperties {
 	}
 	
 	public static Optional<Classifier> getImplementedAs(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Modeling_Properties::Implemented_As";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getImplementedAs_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -127,10 +156,19 @@ public class ModelingProperties {
 		}
 	}
 	
+	public static Property getImplementedAs_Property(NamedElement lookupContext) {
+		String name = MODELING_PROPERTIES__NAME + "::" + IMPLEMENTED_AS__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getImplementedAs_EObject(NamedElement lookupContext) {
-		String name = "Modeling_Properties::Implemented_As";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getImplementedAs_Property(lookupContext));
+	}
+	
+	// Lookup methods for Modeling_Properties::Prototype_Substitution_Rule
+	
+	public static boolean acceptsPrototypeSubstitutionRule(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getPrototypeSubstitutionRule_Property(lookupContext));
 	}
 	
 	public static Optional<PrototypeSubstitutionRule> getPrototypeSubstitutionRule(NamedElement lookupContext) {
@@ -142,8 +180,7 @@ public class ModelingProperties {
 	}
 	
 	public static Optional<PrototypeSubstitutionRule> getPrototypeSubstitutionRule(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Modeling_Properties::Prototype_Substitution_Rule";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getPrototypeSubstitutionRule_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -153,9 +190,12 @@ public class ModelingProperties {
 		}
 	}
 	
+	public static Property getPrototypeSubstitutionRule_Property(NamedElement lookupContext) {
+		String name = MODELING_PROPERTIES__NAME + "::" + PROTOTYPE_SUBSTITUTION_RULE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getPrototypeSubstitutionRule_EObject(NamedElement lookupContext) {
-		String name = "Modeling_Properties::Prototype_Substitution_Rule";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getPrototypeSubstitutionRule_Property(lookupContext));
 	}
 }

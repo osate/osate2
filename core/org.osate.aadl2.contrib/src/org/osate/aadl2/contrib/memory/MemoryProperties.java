@@ -40,6 +40,12 @@ public class MemoryProperties {
 	public static final String WORD_SPACE__NAME = "Word_Space";
 	public static final String WRITE_TIME__NAME = "Write_Time";
 	
+	// Lookup methods for Memory_Properties::Access_Right
+	
+	public static boolean acceptsAccessRight(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAccessRight_Property(lookupContext));
+	}
+	
 	public static Optional<AccessRights> getAccessRight(NamedElement lookupContext) {
 		return getAccessRight(lookupContext, Optional.empty());
 	}
@@ -49,8 +55,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<AccessRights> getAccessRight(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Access_Right";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAccessRight_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -60,10 +65,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getAccessRight_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + ACCESS_RIGHT__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAccessRight_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Access_Right";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAccessRight_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Access_Time
+	
+	public static boolean acceptsAccessTime(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAccessTime_Property(lookupContext));
 	}
 	
 	public static Optional<AccessTime> getAccessTime(NamedElement lookupContext) {
@@ -75,8 +89,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<AccessTime> getAccessTime(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Access_Time";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAccessTime_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -86,10 +99,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getAccessTime_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + ACCESS_TIME__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAccessTime_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Access_Time";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAccessTime_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Allowed_Message_Size
+	
+	public static boolean acceptsAllowedMessageSize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAllowedMessageSize_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerRangeWithUnits<SizeUnits>> getAllowedMessageSize(NamedElement lookupContext) {
@@ -101,8 +123,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<IntegerRangeWithUnits<SizeUnits>> getAllowedMessageSize(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Allowed_Message_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAllowedMessageSize_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -112,10 +133,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getAllowedMessageSize_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + ALLOWED_MESSAGE_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAllowedMessageSize_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Allowed_Message_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAllowedMessageSize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Assign_Time
+	
+	public static boolean acceptsAssignTime(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAssignTime_Property(lookupContext));
 	}
 	
 	public static Optional<AssignTime> getAssignTime(NamedElement lookupContext) {
@@ -127,8 +157,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<AssignTime> getAssignTime(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Assign_Time";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAssignTime_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -138,10 +167,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getAssignTime_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + ASSIGN_TIME__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAssignTime_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Assign_Time";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAssignTime_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Base_Address
+	
+	public static boolean acceptsBaseAddress(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getBaseAddress_Property(lookupContext));
 	}
 	
 	public static OptionalLong getBaseAddress(NamedElement lookupContext) {
@@ -153,8 +191,7 @@ public class MemoryProperties {
 	}
 	
 	public static OptionalLong getBaseAddress(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Base_Address";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getBaseAddress_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -164,10 +201,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getBaseAddress_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + BASE_ADDRESS__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getBaseAddress_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Base_Address";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getBaseAddress_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Device_Register_Address
+	
+	public static boolean acceptsDeviceRegisterAddress(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getDeviceRegisterAddress_Property(lookupContext));
 	}
 	
 	public static OptionalLong getDeviceRegisterAddress(NamedElement lookupContext) {
@@ -179,8 +225,7 @@ public class MemoryProperties {
 	}
 	
 	public static OptionalLong getDeviceRegisterAddress(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Device_Register_Address";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getDeviceRegisterAddress_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -190,10 +235,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getDeviceRegisterAddress_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + DEVICE_REGISTER_ADDRESS__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getDeviceRegisterAddress_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Device_Register_Address";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getDeviceRegisterAddress_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Read_Time
+	
+	public static boolean acceptsReadTime(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getReadTime_Property(lookupContext));
 	}
 	
 	public static Optional<ReadTime> getReadTime(NamedElement lookupContext) {
@@ -205,8 +259,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<ReadTime> getReadTime(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Read_Time";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getReadTime_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -216,10 +269,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getReadTime_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + READ_TIME__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getReadTime_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Read_Time";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getReadTime_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Code_Size
+	
+	public static boolean acceptsCodeSize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getCodeSize_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getCodeSize(NamedElement lookupContext) {
@@ -231,8 +293,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getCodeSize(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Code_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getCodeSize_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -242,10 +303,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getCodeSize_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + CODE_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getCodeSize_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Code_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getCodeSize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Data_Size
+	
+	public static boolean acceptsDataSize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getDataSize_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getDataSize(NamedElement lookupContext) {
@@ -257,8 +327,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getDataSize(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Data_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getDataSize_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -268,10 +337,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getDataSize_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + DATA_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getDataSize_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Data_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getDataSize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Heap_Size
+	
+	public static boolean acceptsHeapSize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getHeapSize_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getHeapSize(NamedElement lookupContext) {
@@ -283,8 +361,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getHeapSize(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Heap_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getHeapSize_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -294,10 +371,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getHeapSize_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + HEAP_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getHeapSize_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Heap_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getHeapSize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Stack_Size
+	
+	public static boolean acceptsStackSize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getStackSize_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getStackSize(NamedElement lookupContext) {
@@ -309,8 +395,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getStackSize(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Stack_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getStackSize_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -320,10 +405,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getStackSize_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + STACK_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getStackSize_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Stack_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getStackSize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Source_Code_Size
+	
+	public static boolean acceptsSourceCodeSize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getSourceCodeSize_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getSourceCodeSize(NamedElement lookupContext) {
@@ -335,8 +429,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getSourceCodeSize(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Source_Code_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getSourceCodeSize_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -346,10 +439,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getSourceCodeSize_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + SOURCE_CODE_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getSourceCodeSize_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Source_Code_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getSourceCodeSize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Source_Data_Size
+	
+	public static boolean acceptsSourceDataSize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getSourceDataSize_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getSourceDataSize(NamedElement lookupContext) {
@@ -361,8 +463,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getSourceDataSize(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Source_Data_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getSourceDataSize_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -372,10 +473,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getSourceDataSize_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + SOURCE_DATA_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getSourceDataSize_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Source_Data_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getSourceDataSize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Source_Heap_Size
+	
+	public static boolean acceptsSourceHeapSize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getSourceHeapSize_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getSourceHeapSize(NamedElement lookupContext) {
@@ -387,8 +497,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getSourceHeapSize(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Source_Heap_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getSourceHeapSize_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -398,10 +507,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getSourceHeapSize_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + SOURCE_HEAP_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getSourceHeapSize_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Source_Heap_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getSourceHeapSize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Source_Stack_Size
+	
+	public static boolean acceptsSourceStackSize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getSourceStackSize_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getSourceStackSize(NamedElement lookupContext) {
@@ -413,8 +531,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getSourceStackSize(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Source_Stack_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getSourceStackSize_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -424,10 +541,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getSourceStackSize_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + SOURCE_STACK_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getSourceStackSize_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Source_Stack_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getSourceStackSize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Byte_Count
+	
+	public static boolean acceptsByteCount(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getByteCount_Property(lookupContext));
 	}
 	
 	public static OptionalLong getByteCount(NamedElement lookupContext) {
@@ -439,8 +565,7 @@ public class MemoryProperties {
 	}
 	
 	public static OptionalLong getByteCount(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Byte_Count";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getByteCount_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -450,10 +575,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getByteCount_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + BYTE_COUNT__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getByteCount_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Byte_Count";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getByteCount_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Memory_Size
+	
+	public static boolean acceptsMemorySize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getMemorySize_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getMemorySize(NamedElement lookupContext) {
@@ -465,8 +599,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getMemorySize(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Memory_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getMemorySize_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -476,10 +609,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getMemorySize_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + MEMORY_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getMemorySize_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Memory_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getMemorySize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Word_Size
+	
+	public static boolean acceptsWordSize(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getWordSize_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getWordSize(NamedElement lookupContext) {
@@ -491,8 +633,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<IntegerWithUnits<SizeUnits>> getWordSize(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Word_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getWordSize_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -502,10 +643,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getWordSize_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + WORD_SIZE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getWordSize_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Word_Size";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getWordSize_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Word_Space
+	
+	public static boolean acceptsWordSpace(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getWordSpace_Property(lookupContext));
 	}
 	
 	public static OptionalLong getWordSpace(NamedElement lookupContext) {
@@ -517,8 +667,7 @@ public class MemoryProperties {
 	}
 	
 	public static OptionalLong getWordSpace(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Word_Space";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getWordSpace_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -528,10 +677,19 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getWordSpace_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + WORD_SPACE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getWordSpace_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Word_Space";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getWordSpace_Property(lookupContext));
+	}
+	
+	// Lookup methods for Memory_Properties::Write_Time
+	
+	public static boolean acceptsWriteTime(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getWriteTime_Property(lookupContext));
 	}
 	
 	public static Optional<WriteTime> getWriteTime(NamedElement lookupContext) {
@@ -543,8 +701,7 @@ public class MemoryProperties {
 	}
 	
 	public static Optional<WriteTime> getWriteTime(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Memory_Properties::Write_Time";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getWriteTime_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -554,9 +711,12 @@ public class MemoryProperties {
 		}
 	}
 	
+	public static Property getWriteTime_Property(NamedElement lookupContext) {
+		String name = MEMORY_PROPERTIES__NAME + "::" + WRITE_TIME__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getWriteTime_EObject(NamedElement lookupContext) {
-		String name = "Memory_Properties::Write_Time";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getWriteTime_Property(lookupContext));
 	}
 }
