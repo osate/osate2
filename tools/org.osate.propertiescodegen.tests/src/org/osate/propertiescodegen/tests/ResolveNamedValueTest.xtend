@@ -75,7 +75,7 @@ class ResolveNamedValueTest {
 			import org.osate.pluginsupport.properties.RealRange;
 			import org.osate.pluginsupport.properties.RealRangeWithUnits;
 			
-			public class ResolveNamedValueTest {
+			public final class ResolveNamedValueTest {
 				public static final String RESOLVE_NAMED_VALUE_TEST__NAME = "resolve_named_value_test";
 				
 				public static final String INT_DEF_1__NAME = "int_def_1";
@@ -86,6 +86,8 @@ class ResolveNamedValueTest {
 				public static final String REAL_RANGE_NO_UNITS_DEF__NAME = "real_range_no_units_def";
 				public static final String REAL_RANGE_WITH_UNITS_DEF__NAME = "real_range_with_units_def";
 				public static final String RECORD_DEF__NAME = "record_def";
+				
+				private ResolveNamedValueTest() {}
 				
 				// Lookup methods for resolve_named_value_test::int_def_1
 				

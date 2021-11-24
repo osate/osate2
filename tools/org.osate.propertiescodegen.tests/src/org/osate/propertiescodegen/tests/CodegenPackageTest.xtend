@@ -64,10 +64,12 @@ class CodegenPackageTest {
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
-			public class CodegenPackageBase {
+			public final class CodegenPackageBase {
 				public static final String CODEGEN_PACKAGE_BASE__NAME = "codegen_package_base";
 				
 				public static final String RECORD_DEF__NAME = "record_def";
+				
+				private CodegenPackageBase() {}
 				
 				// Lookup methods for codegen_package_base::record_def
 				
@@ -280,11 +282,13 @@ class CodegenPackageTest {
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.IntegerWithUnits;
 			
-			public class CodegenPackageSame {
+			public final class CodegenPackageSame {
 				public static final String CODEGEN_PACKAGE_SAME__NAME = "codegen_package_same";
 				
 				public static final String RECORD_DEF__NAME = "record_def";
 				public static final String INT_DEF__NAME = "int_def";
+				
+				private CodegenPackageSame() {}
 				
 				// Lookup methods for codegen_package_same::record_def
 				
@@ -382,11 +386,13 @@ class CodegenPackageTest {
 			import org.osate.properties.codegenpackage.RecordType;
 			import org.osate.properties.codegenpackage.Speed;
 			
-			public class CodegenPackageOther {
+			public final class CodegenPackageOther {
 				public static final String CODEGEN_PACKAGE_OTHER__NAME = "codegen_package_other";
 				
 				public static final String RECORD_DEF__NAME = "record_def";
 				public static final String INT_DEF__NAME = "int_def";
+				
+				private CodegenPackageOther() {}
 				
 				// Lookup methods for codegen_package_other::record_def
 				

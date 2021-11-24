@@ -85,7 +85,7 @@ class PropertyDefinitionTest {
 			import ps2.Color;
 			import ps2.Mass;
 			
-			public class Ps1 {
+			public final class Ps1 {
 				public static final String PS1__NAME = "ps1";
 				
 				public static final String BOOLEAN_DEFINITION__NAME = "boolean_definition";
@@ -102,6 +102,8 @@ class PropertyDefinitionTest {
 				public static final String DEFINITION_WITH_REFERENCED_TYPE_LOCAL__NAME = "definition_with_referenced_type_local";
 				public static final String DEFINITION_WITH_REFERENCED_TYPE_OTHER_FILE__NAME = "definition_with_referenced_type_other_file";
 				public static final String DEFINITION_WITH_UNDERSCORE_IMPORT__NAME = "definition_with_underscore_import";
+				
+				private Ps1() {}
 				
 				// Lookup methods for ps1::boolean_definition
 				
@@ -788,8 +790,10 @@ class PropertyDefinitionTest {
 		val emptyPsClass = '''
 			package emptyps;
 			
-			public class EmptyPs {
+			public final class EmptyPs {
 				public static final String EMPTY_PS__NAME = "empty_ps";
+				
+				private EmptyPs() {}
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(emptyPs))
@@ -822,10 +826,12 @@ class PropertyDefinitionTest {
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
-			public class SingleDefinitionPs {
+			public final class SingleDefinitionPs {
 				public static final String SINGLE_DEFINITION_PS__NAME = "single_definition_ps";
 				
 				public static final String SOLE_DEFINITION__NAME = "sole_definition";
+				
+				private SingleDefinitionPs() {}
 				
 				// Lookup methods for single_definition_ps::sole_definition
 				

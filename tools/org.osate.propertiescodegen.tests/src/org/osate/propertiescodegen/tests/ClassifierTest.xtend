@@ -58,7 +58,7 @@ class ClassifierTest {
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
-			public class ClassifierTest {
+			public final class ClassifierTest {
 				public static final String CLASSIFIER_TEST__NAME = "classifier_test";
 				
 				public static final String OWNED_CLASSIFIER__NAME = "owned_classifier";
@@ -66,6 +66,8 @@ class ClassifierTest {
 				public static final String REFERENCED_CLASSIFIER_OTHER__NAME = "referenced_classifier_other";
 				public static final String LIST_1_CLASSIFIER__NAME = "list_1_classifier";
 				public static final String LIST_5_CLASSIFIER__NAME = "list_5_classifier";
+				
+				private ClassifierTest() {}
 				
 				// Lookup methods for classifier_test::owned_classifier
 				

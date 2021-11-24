@@ -97,7 +97,7 @@ class RangeTest {
 			
 			import otherps.Mass;
 			
-			public class RangeTest {
+			public final class RangeTest {
 				public static final String RANGE_TEST__NAME = "range_test";
 				
 				public static final String INTEGER_NO_UNITS__NAME = "integer_no_units";
@@ -117,6 +117,8 @@ class RangeTest {
 				public static final String LIST_1_REAL_SAME_FILE_UNITS__NAME = "list_1_real_same_file_units";
 				public static final String LIST_1_REAL_OTHER_FILE_UNITS__NAME = "list_1_real_other_file_units";
 				public static final String RECORD_PROPERTY__NAME = "record_property";
+				
+				private RangeTest() {}
 				
 				// Lookup methods for range_test::integer_no_units
 				

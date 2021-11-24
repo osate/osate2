@@ -57,7 +57,7 @@ class StringTest {
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
-			public class StringTest {
+			public final class StringTest {
 				public static final String STRING_TEST__NAME = "string_test";
 				
 				public static final String OWNED_STRING__NAME = "owned_string";
@@ -65,6 +65,8 @@ class StringTest {
 				public static final String REFERENCED_STRING_OTHER__NAME = "referenced_string_other";
 				public static final String LIST_1_STRING__NAME = "list_1_string";
 				public static final String LIST_5_STRING__NAME = "list_5_string";
+				
+				private StringTest() {}
 				
 				// Lookup methods for string_test::owned_string
 				
