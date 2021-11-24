@@ -18,20 +18,20 @@ package class PropertyGettersGenerator extends AbstractPropertyGenerator {
 	override String generate() {
 		val propertyGetters = propertySet.ownedProperties.map[generatePropertyGetter(it)]
 		'''
-			public class «className» {
+			public final class «className» {
 				public static final String «propertySet.name.toUpperCase»__NAME = "«propertySet.name»";
 				«IF !propertySet.ownedProperties.empty»
 				
 				«FOR property : propertySet.ownedProperties»
 				public static final String «property.name.toUpperCase»__NAME = "«property.name»";
 				«ENDFOR»
+				«ENDIF»
 				
-				«propertyGetters.head»
-				«FOR getter : propertyGetters.tail»
+				private «className»() {}
+				«FOR getter : propertyGetters»
 				
 				«getter»
 				«ENDFOR»
-				«ENDIF»
 			}
 		'''
 	}
