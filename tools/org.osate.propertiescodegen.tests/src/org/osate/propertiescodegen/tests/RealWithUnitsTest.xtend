@@ -70,7 +70,7 @@ class RealWithUnitsTest {
 			
 			import otherps.Mass;
 			
-			public class RealWithUnitsTest {
+			public final class RealWithUnitsTest {
 				public static final String REAL_WITH_UNITS_TEST__NAME = "real_with_units_test";
 				
 				public static final String OWNED__NAME = "owned";
@@ -80,6 +80,8 @@ class RealWithUnitsTest {
 				public static final String LIST_1_SAME_FILE__NAME = "list_1_same_file";
 				public static final String LIST_1_OTHER_FILE__NAME = "list_1_other_file";
 				public static final String RECORD_PROPERTY__NAME = "record_property";
+				
+				private RealWithUnitsTest() {}
 				
 				// Lookup methods for real_with_units_test::owned
 				

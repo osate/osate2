@@ -78,7 +78,7 @@ class ModalTest {
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
-			public class ModalTest {
+			public final class ModalTest {
 				public static final String MODAL_TEST__NAME = "modal_test";
 				
 				public static final String STRING_DEF_1__NAME = "string_def_1";
@@ -105,6 +105,8 @@ class ModalTest {
 				public static final String STRING_LIST_DEF_3__NAME = "string_list_def_3";
 				public static final String STRING_LIST_DEF_4__NAME = "string_list_def_4";
 				public static final String RECORD_DEF_1__NAME = "record_def_1";
+				
+				private ModalTest() {}
 				
 				// Lookup methods for modal_test::string_def_1
 				

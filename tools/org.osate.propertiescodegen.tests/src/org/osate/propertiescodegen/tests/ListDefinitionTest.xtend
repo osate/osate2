@@ -114,7 +114,7 @@ class ListDefinitionTest {
 			import ps2.Color;
 			import ps2.Mass;
 			
-			public class Ps1 {
+			public final class Ps1 {
 				public static final String PS1__NAME = "ps1";
 				
 				public static final String LIST_1_BOOLEAN__NAME = "list_1_boolean";
@@ -146,6 +146,8 @@ class ListDefinitionTest {
 				public static final String LIST_5_OWNED_RANGE__NAME = "list_5_owned_range";
 				public static final String LIST_3_REFERENCED_ENUM_NO_IMPORT__NAME = "list_3_referenced_enum_no_import";
 				public static final String LIST_5_REFERENCED_RANGE_WITH_IMPORT__NAME = "list_5_referenced_range_with_import";
+				
+				private Ps1() {}
 				
 				// Lookup methods for ps1::list_1_boolean
 				

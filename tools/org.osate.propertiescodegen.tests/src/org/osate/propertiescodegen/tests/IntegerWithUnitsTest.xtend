@@ -70,7 +70,7 @@ class IntegerWithUnitsTest {
 			
 			import otherps.Mass;
 			
-			public class IntegerWithUnitsTest {
+			public final class IntegerWithUnitsTest {
 				public static final String INTEGER_WITH_UNITS_TEST__NAME = "integer_with_units_test";
 				
 				public static final String OWNED__NAME = "owned";
@@ -80,6 +80,8 @@ class IntegerWithUnitsTest {
 				public static final String LIST_1_SAME_FILE__NAME = "list_1_same_file";
 				public static final String LIST_1_OTHER_FILE__NAME = "list_1_other_file";
 				public static final String RECORD_PROPERTY__NAME = "record_property";
+				
+				private IntegerWithUnitsTest() {}
 				
 				// Lookup methods for integer_with_units_test::owned
 				

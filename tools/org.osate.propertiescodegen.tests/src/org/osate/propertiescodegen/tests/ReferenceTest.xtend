@@ -63,7 +63,7 @@ class ReferenceTest {
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
-			public class ReferenceTest {
+			public final class ReferenceTest {
 				public static final String REFERENCE_TEST__NAME = "reference_test";
 				
 				public static final String OWNED_REFERENCE__NAME = "owned_reference";
@@ -71,6 +71,8 @@ class ReferenceTest {
 				public static final String REFERENCED_REFERENCE_OTHER__NAME = "referenced_reference_other";
 				public static final String LIST_1_REFERENCE__NAME = "list_1_reference";
 				public static final String LIST_5_REFERENCE__NAME = "list_5_reference";
+				
+				private ReferenceTest() {}
 				
 				// Lookup methods for reference_test::owned_reference
 				

@@ -57,7 +57,7 @@ class BooleanTest {
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
-			public class BooleanTest {
+			public final class BooleanTest {
 				public static final String BOOLEAN_TEST__NAME = "boolean_test";
 				
 				public static final String OWNED_BOOLEAN__NAME = "owned_boolean";
@@ -65,6 +65,8 @@ class BooleanTest {
 				public static final String REFERENCED_BOOLEAN_OTHER__NAME = "referenced_boolean_other";
 				public static final String LIST_1_BOOLEAN__NAME = "list_1_boolean";
 				public static final String LIST_5_BOOLEAN__NAME = "list_5_boolean";
+				
+				private BooleanTest() {}
 				
 				// Lookup methods for boolean_test::owned_boolean
 				
