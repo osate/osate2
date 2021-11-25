@@ -22,7 +22,7 @@ import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 
-public class ThreadProperties {
+public final class ThreadProperties {
 	public static final String THREAD_PROPERTIES__NAME = "Thread_Properties";
 	
 	public static final String DISPATCH_PROTOCOL__NAME = "Dispatch_Protocol";
@@ -44,6 +44,8 @@ public class ThreadProperties {
 	public static final String RUNTIME_PROTECTION__NAME = "Runtime_Protection";
 	public static final String SUBPROGRAM_CALL_TYPE__NAME = "Subprogram_Call_Type";
 	public static final String SYNCHRONIZED_COMPONENT__NAME = "Synchronized_Component";
+	
+	private ThreadProperties() {}
 	
 	// Lookup methods for Thread_Properties::Dispatch_Protocol
 	

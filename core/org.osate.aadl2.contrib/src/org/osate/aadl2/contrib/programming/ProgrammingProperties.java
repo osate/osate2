@@ -21,7 +21,7 @@ import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 
-public class ProgrammingProperties {
+public final class ProgrammingProperties {
 	public static final String PROGRAMMING_PROPERTIES__NAME = "Programming_Properties";
 	
 	public static final String ACTIVATE_ENTRYPOINT__NAME = "Activate_Entrypoint";
@@ -50,6 +50,8 @@ public class ProgrammingProperties {
 	public static final String HARDWARE_DESCRIPTION_SOURCE_TEXT__NAME = "Hardware_Description_Source_Text";
 	public static final String HARDWARE_SOURCE_LANGUAGE__NAME = "Hardware_Source_Language";
 	public static final String DEVICE_DRIVER__NAME = "Device_Driver";
+	
+	private ProgrammingProperties() {}
 	
 	// Lookup methods for Programming_Properties::Activate_Entrypoint
 	

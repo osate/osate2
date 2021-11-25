@@ -23,7 +23,7 @@ import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
 import org.osate.pluginsupport.properties.IntegerWithUnits;
 
-public class CommunicationProperties {
+public final class CommunicationProperties {
 	public static final String COMMUNICATION_PROPERTIES__NAME = "Communication_Properties";
 	
 	public static final String FAN_OUT_POLICY__NAME = "Fan_Out_Policy";
@@ -44,6 +44,8 @@ public class CommunicationProperties {
 	public static final String ACTUAL_LATENCY__NAME = "Actual_Latency";
 	public static final String LATENCY__NAME = "Latency";
 	public static final String DATA_RATE__NAME = "Data_Rate";
+	
+	private CommunicationProperties() {}
 	
 	// Lookup methods for Communication_Properties::Fan_Out_Policy
 	

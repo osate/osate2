@@ -17,7 +17,7 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.IntegerRange;
 
-public class ModelingProperties {
+public final class ModelingProperties {
 	public static final String MODELING_PROPERTIES__NAME = "Modeling_Properties";
 	
 	public static final String ACCEPTABLE_ARRAY_SIZE__NAME = "Acceptable_Array_Size";
@@ -25,6 +25,8 @@ public class ModelingProperties {
 	public static final String CLASSIFIER_SUBSTITUTION_RULE__NAME = "Classifier_Substitution_Rule";
 	public static final String IMPLEMENTED_AS__NAME = "Implemented_As";
 	public static final String PROTOTYPE_SUBSTITUTION_RULE__NAME = "Prototype_Substitution_Rule";
+	
+	private ModelingProperties() {}
 	
 	// Lookup methods for Modeling_Properties::Acceptable_Array_Size
 	

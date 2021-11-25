@@ -22,7 +22,7 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.IntegerWithUnits;
 
-public class Arinc653 {
+public final class Arinc653 {
 	public static final String ARINC653__NAME = "ARINC653";
 	
 	public static final String MODULE_MAJOR_FRAME__NAME = "Module_Major_Frame";
@@ -43,6 +43,8 @@ public class Arinc653 {
 	public static final String MODULE_SCHEDULE__NAME = "Module_Schedule";
 	public static final String TIME_CAPACITY__NAME = "Time_Capacity";
 	public static final String DEADLINE_TYPE__NAME = "Deadline_Type";
+	
+	private Arinc653() {}
 	
 	// Lookup methods for ARINC653::Module_Major_Frame
 	

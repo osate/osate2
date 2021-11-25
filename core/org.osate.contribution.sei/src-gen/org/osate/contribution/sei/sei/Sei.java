@@ -27,7 +27,7 @@ import org.osate.pluginsupport.properties.IntegerWithUnits;
 import org.osate.pluginsupport.properties.RealRangeWithUnits;
 import org.osate.pluginsupport.properties.RealWithUnits;
 
-public class Sei {
+public final class Sei {
 	public static final String SEI__NAME = "SEI";
 	
 	public static final String SECURITYLEVEL__NAME = "SecurityLevel";
@@ -63,6 +63,8 @@ public class Sei {
 	public static final String PRICE__NAME = "Price";
 	public static final String MODEL_REFERENCES__NAME = "Model_References";
 	public static final String RESPONSE_TIME__NAME = "Response_Time";
+	
+	private Sei() {}
 	
 	// Lookup methods for SEI::SecurityLevel
 	

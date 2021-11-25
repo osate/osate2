@@ -20,7 +20,7 @@ import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
 import org.osate.pluginsupport.properties.IntegerWithUnits;
 import org.osate.pluginsupport.properties.RealWithUnits;
 
-public class TimingProperties {
+public final class TimingProperties {
 	public static final String TIMING_PROPERTIES__NAME = "Timing_Properties";
 	
 	public static final String ACTIVATE_DEADLINE__NAME = "Activate_Deadline";
@@ -57,6 +57,8 @@ public class TimingProperties {
 	public static final String THREAD_SWAP_EXECUTION_TIME__NAME = "Thread_Swap_Execution_Time";
 	public static final String FRAME_PERIOD__NAME = "Frame_Period";
 	public static final String SLOT_TIME__NAME = "Slot_Time";
+	
+	private TimingProperties() {}
 	
 	// Lookup methods for Timing_Properties::Activate_Deadline
 	
