@@ -13,12 +13,14 @@ import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 
-public class Arinc429 {
+public final class Arinc429 {
 	public static final String ARINC429__NAME = "ARINC429";
 	
 	public static final String WORDID__NAME = "WordID";
 	public static final String FIRSTBIT__NAME = "FirstBit";
 	public static final String NUMBERBITS__NAME = "NumberBits";
+	
+	private Arinc429() {}
 	
 	// Lookup methods for ARINC429::WordID
 	

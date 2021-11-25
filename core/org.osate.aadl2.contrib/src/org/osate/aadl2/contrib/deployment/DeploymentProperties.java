@@ -27,7 +27,7 @@ import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.IntegerRange;
 import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
 
-public class DeploymentProperties {
+public final class DeploymentProperties {
 	public static final String DEPLOYMENT_PROPERTIES__NAME = "Deployment_Properties";
 	
 	public static final String ALLOWED_PROCESSOR_BINDING_CLASS__NAME = "Allowed_Processor_Binding_Class";
@@ -62,6 +62,8 @@ public class DeploymentProperties {
 	public static final String THREAD_LIMIT__NAME = "Thread_Limit";
 	public static final String PRIORITY_MAP__NAME = "Priority_Map";
 	public static final String PRIORITY_RANGE__NAME = "Priority_Range";
+	
+	private DeploymentProperties() {}
 	
 	// Lookup methods for Deployment_Properties::Allowed_Processor_Binding_Class
 	

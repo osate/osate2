@@ -21,7 +21,7 @@ import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.IntegerRange;
 import org.osate.pluginsupport.properties.RealRange;
 
-public class DataModel {
+public final class DataModel {
 	public static final String DATA_MODEL__NAME = "Data_Model";
 	
 	public static final String BASE_TYPE__NAME = "Base_Type";
@@ -40,6 +40,8 @@ public class DataModel {
 	public static final String NUMBER_REPRESENTATION__NAME = "Number_Representation";
 	public static final String REAL_RANGE__NAME = "Real_Range";
 	public static final String REPRESENTATION__NAME = "Representation";
+	
+	private DataModel() {}
 	
 	// Lookup methods for Data_Model::Base_Type
 	

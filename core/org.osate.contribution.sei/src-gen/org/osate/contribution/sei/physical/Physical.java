@@ -12,10 +12,12 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.RealWithUnits;
 
-public class Physical {
+public final class Physical {
 	public static final String PHYSICAL__NAME = "Physical";
 	
 	public static final String VOLTAGE__NAME = "Voltage";
+	
+	private Physical() {}
 	
 	// Lookup methods for Physical::Voltage
 	

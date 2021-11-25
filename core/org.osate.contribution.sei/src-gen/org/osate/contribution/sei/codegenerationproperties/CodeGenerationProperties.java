@@ -12,12 +12,14 @@ import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 
-public class CodeGenerationProperties {
+public final class CodeGenerationProperties {
 	public static final String CODE_GENERATION_PROPERTIES__NAME = "Code_Generation_Properties";
 	
 	public static final String CONVENTION__NAME = "Convention";
 	public static final String PARAMETER_USAGE__NAME = "Parameter_Usage";
 	public static final String RETURN_PARAMETER__NAME = "Return_Parameter";
+	
+	private CodeGenerationProperties() {}
 	
 	// Lookup methods for Code_Generation_Properties::Convention
 	

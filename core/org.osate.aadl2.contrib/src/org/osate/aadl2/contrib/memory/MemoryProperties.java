@@ -16,7 +16,7 @@ import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
 import org.osate.pluginsupport.properties.IntegerWithUnits;
 
-public class MemoryProperties {
+public final class MemoryProperties {
 	public static final String MEMORY_PROPERTIES__NAME = "Memory_Properties";
 	
 	public static final String ACCESS_RIGHT__NAME = "Access_Right";
@@ -39,6 +39,8 @@ public class MemoryProperties {
 	public static final String WORD_SIZE__NAME = "Word_Size";
 	public static final String WORD_SPACE__NAME = "Word_Space";
 	public static final String WRITE_TIME__NAME = "Write_Time";
+	
+	private MemoryProperties() {}
 	
 	// Lookup methods for Memory_Properties::Access_Right
 	
