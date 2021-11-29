@@ -61,15 +61,11 @@ class BooleanTest {
 			public final class BooleanTest {
 				public static final String BOOLEAN_TEST__NAME = "boolean_test";
 				
-				public static final String OWNED_BOOLEAN__NAME = "owned_boolean";
-				public static final String REFERENCED_BOOLEAN_LOCAL__NAME = "referenced_boolean_local";
-				public static final String REFERENCED_BOOLEAN_OTHER__NAME = "referenced_boolean_other";
-				public static final String LIST_1_BOOLEAN__NAME = "list_1_boolean";
-				public static final String LIST_5_BOOLEAN__NAME = "list_5_boolean";
-				
 				private BooleanTest() {}
 				
 				// Lookup methods for boolean_test::owned_boolean
+				
+				public static final String OWNED_BOOLEAN__NAME = "owned_boolean";
 				
 				public static boolean acceptsOwnedBoolean(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getOwnedBoolean_Property(lookupContext));
@@ -105,6 +101,8 @@ class BooleanTest {
 				
 				// Lookup methods for boolean_test::referenced_boolean_local
 				
+				public static final String REFERENCED_BOOLEAN_LOCAL__NAME = "referenced_boolean_local";
+				
 				public static boolean acceptsReferencedBooleanLocal(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getReferencedBooleanLocal_Property(lookupContext));
 				}
@@ -139,6 +137,8 @@ class BooleanTest {
 				
 				// Lookup methods for boolean_test::referenced_boolean_other
 				
+				public static final String REFERENCED_BOOLEAN_OTHER__NAME = "referenced_boolean_other";
+				
 				public static boolean acceptsReferencedBooleanOther(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getReferencedBooleanOther_Property(lookupContext));
 				}
@@ -172,6 +172,8 @@ class BooleanTest {
 				}
 				
 				// Lookup methods for boolean_test::list_1_boolean
+				
+				public static final String LIST_1_BOOLEAN__NAME = "list_1_boolean";
 				
 				public static boolean acceptsList1Boolean(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1Boolean_Property(lookupContext));
@@ -209,6 +211,8 @@ class BooleanTest {
 				}
 				
 				// Lookup methods for boolean_test::list_5_boolean
+				
+				public static final String LIST_5_BOOLEAN__NAME = "list_5_boolean";
 				
 				public static boolean acceptsList5Boolean(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList5Boolean_Property(lookupContext));

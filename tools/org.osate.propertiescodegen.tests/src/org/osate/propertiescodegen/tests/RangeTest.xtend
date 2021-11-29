@@ -101,27 +101,11 @@ class RangeTest {
 			public final class RangeTest {
 				public static final String RANGE_TEST__NAME = "range_test";
 				
-				public static final String INTEGER_NO_UNITS__NAME = "integer_no_units";
-				public static final String INTEGER_OWNED_UNITS__NAME = "integer_owned_units";
-				public static final String INTEGER_SAME_FILE_UNITS__NAME = "integer_same_file_units";
-				public static final String INTEGER_OTHER_FILE_UNITS__NAME = "integer_other_file_units";
-				public static final String LIST_1_INTEGER_NO_UNITS__NAME = "list_1_integer_no_units";
-				public static final String LIST_1_INTEGER_OWNED_UNITS__NAME = "list_1_integer_owned_units";
-				public static final String LIST_1_INTEGER_SAME_FILE_UNITS__NAME = "list_1_integer_same_file_units";
-				public static final String LIST_1_INTEGER_OTHER_FILE_UNITS__NAME = "list_1_integer_other_file_units";
-				public static final String REAL_NO_UNITS__NAME = "real_no_units";
-				public static final String REAL_OWNED_UNITS__NAME = "real_owned_units";
-				public static final String REAL_SAME_FILE_UNITS__NAME = "real_same_file_units";
-				public static final String REAL_OTHER_FILE_UNITS__NAME = "real_other_file_units";
-				public static final String LIST_1_REAL_NO_UNITS__NAME = "list_1_real_no_units";
-				public static final String LIST_1_REAL_OWNED_UNITS__NAME = "list_1_real_owned_units";
-				public static final String LIST_1_REAL_SAME_FILE_UNITS__NAME = "list_1_real_same_file_units";
-				public static final String LIST_1_REAL_OTHER_FILE_UNITS__NAME = "list_1_real_other_file_units";
-				public static final String RECORD_PROPERTY__NAME = "record_property";
-				
 				private RangeTest() {}
 				
 				// Lookup methods for range_test::integer_no_units
+				
+				public static final String INTEGER_NO_UNITS__NAME = "integer_no_units";
 				
 				public static boolean acceptsIntegerNoUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getIntegerNoUnits_Property(lookupContext));
@@ -157,6 +141,8 @@ class RangeTest {
 				
 				// Lookup methods for range_test::integer_owned_units
 				
+				public static final String INTEGER_OWNED_UNITS__NAME = "integer_owned_units";
+				
 				public static boolean acceptsIntegerOwnedUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getIntegerOwnedUnits_Property(lookupContext));
 				}
@@ -190,6 +176,8 @@ class RangeTest {
 				}
 				
 				// Lookup methods for range_test::integer_same_file_units
+				
+				public static final String INTEGER_SAME_FILE_UNITS__NAME = "integer_same_file_units";
 				
 				public static boolean acceptsIntegerSameFileUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getIntegerSameFileUnits_Property(lookupContext));
@@ -225,6 +213,8 @@ class RangeTest {
 				
 				// Lookup methods for range_test::integer_other_file_units
 				
+				public static final String INTEGER_OTHER_FILE_UNITS__NAME = "integer_other_file_units";
+				
 				public static boolean acceptsIntegerOtherFileUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getIntegerOtherFileUnits_Property(lookupContext));
 				}
@@ -258,6 +248,8 @@ class RangeTest {
 				}
 				
 				// Lookup methods for range_test::list_1_integer_no_units
+				
+				public static final String LIST_1_INTEGER_NO_UNITS__NAME = "list_1_integer_no_units";
 				
 				public static boolean acceptsList1IntegerNoUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1IntegerNoUnits_Property(lookupContext));
@@ -296,6 +288,8 @@ class RangeTest {
 				
 				// Lookup methods for range_test::list_1_integer_owned_units
 				
+				public static final String LIST_1_INTEGER_OWNED_UNITS__NAME = "list_1_integer_owned_units";
+				
 				public static boolean acceptsList1IntegerOwnedUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1IntegerOwnedUnits_Property(lookupContext));
 				}
@@ -332,6 +326,8 @@ class RangeTest {
 				}
 				
 				// Lookup methods for range_test::list_1_integer_same_file_units
+				
+				public static final String LIST_1_INTEGER_SAME_FILE_UNITS__NAME = "list_1_integer_same_file_units";
 				
 				public static boolean acceptsList1IntegerSameFileUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1IntegerSameFileUnits_Property(lookupContext));
@@ -370,6 +366,8 @@ class RangeTest {
 				
 				// Lookup methods for range_test::list_1_integer_other_file_units
 				
+				public static final String LIST_1_INTEGER_OTHER_FILE_UNITS__NAME = "list_1_integer_other_file_units";
+				
 				public static boolean acceptsList1IntegerOtherFileUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1IntegerOtherFileUnits_Property(lookupContext));
 				}
@@ -407,6 +405,8 @@ class RangeTest {
 				
 				// Lookup methods for range_test::real_no_units
 				
+				public static final String REAL_NO_UNITS__NAME = "real_no_units";
+				
 				public static boolean acceptsRealNoUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRealNoUnits_Property(lookupContext));
 				}
@@ -440,6 +440,8 @@ class RangeTest {
 				}
 				
 				// Lookup methods for range_test::real_owned_units
+				
+				public static final String REAL_OWNED_UNITS__NAME = "real_owned_units";
 				
 				public static boolean acceptsRealOwnedUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRealOwnedUnits_Property(lookupContext));
@@ -475,6 +477,8 @@ class RangeTest {
 				
 				// Lookup methods for range_test::real_same_file_units
 				
+				public static final String REAL_SAME_FILE_UNITS__NAME = "real_same_file_units";
+				
 				public static boolean acceptsRealSameFileUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRealSameFileUnits_Property(lookupContext));
 				}
@@ -509,6 +513,8 @@ class RangeTest {
 				
 				// Lookup methods for range_test::real_other_file_units
 				
+				public static final String REAL_OTHER_FILE_UNITS__NAME = "real_other_file_units";
+				
 				public static boolean acceptsRealOtherFileUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRealOtherFileUnits_Property(lookupContext));
 				}
@@ -542,6 +548,8 @@ class RangeTest {
 				}
 				
 				// Lookup methods for range_test::list_1_real_no_units
+				
+				public static final String LIST_1_REAL_NO_UNITS__NAME = "list_1_real_no_units";
 				
 				public static boolean acceptsList1RealNoUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1RealNoUnits_Property(lookupContext));
@@ -580,6 +588,8 @@ class RangeTest {
 				
 				// Lookup methods for range_test::list_1_real_owned_units
 				
+				public static final String LIST_1_REAL_OWNED_UNITS__NAME = "list_1_real_owned_units";
+				
 				public static boolean acceptsList1RealOwnedUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1RealOwnedUnits_Property(lookupContext));
 				}
@@ -616,6 +626,8 @@ class RangeTest {
 				}
 				
 				// Lookup methods for range_test::list_1_real_same_file_units
+				
+				public static final String LIST_1_REAL_SAME_FILE_UNITS__NAME = "list_1_real_same_file_units";
 				
 				public static boolean acceptsList1RealSameFileUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1RealSameFileUnits_Property(lookupContext));
@@ -654,6 +666,8 @@ class RangeTest {
 				
 				// Lookup methods for range_test::list_1_real_other_file_units
 				
+				public static final String LIST_1_REAL_OTHER_FILE_UNITS__NAME = "list_1_real_other_file_units";
+				
 				public static boolean acceptsList1RealOtherFileUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1RealOtherFileUnits_Property(lookupContext));
 				}
@@ -690,6 +704,8 @@ class RangeTest {
 				}
 				
 				// Lookup methods for range_test::record_property
+				
+				public static final String RECORD_PROPERTY__NAME = "record_property";
 				
 				public static boolean acceptsRecordProperty(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRecordProperty_Property(lookupContext));

@@ -67,15 +67,11 @@ class ReferenceTest {
 			public final class ReferenceTest {
 				public static final String REFERENCE_TEST__NAME = "reference_test";
 				
-				public static final String OWNED_REFERENCE__NAME = "owned_reference";
-				public static final String REFERENCED_REFERENCE_LOCAL__NAME = "referenced_reference_local";
-				public static final String REFERENCED_REFERENCE_OTHER__NAME = "referenced_reference_other";
-				public static final String LIST_1_REFERENCE__NAME = "list_1_reference";
-				public static final String LIST_5_REFERENCE__NAME = "list_5_reference";
-				
 				private ReferenceTest() {}
 				
 				// Lookup methods for reference_test::owned_reference
+				
+				public static final String OWNED_REFERENCE__NAME = "owned_reference";
 				
 				public static boolean acceptsOwnedReference(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getOwnedReference_Property(lookupContext));
@@ -111,6 +107,8 @@ class ReferenceTest {
 				
 				// Lookup methods for reference_test::referenced_reference_local
 				
+				public static final String REFERENCED_REFERENCE_LOCAL__NAME = "referenced_reference_local";
+				
 				public static boolean acceptsReferencedReferenceLocal(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getReferencedReferenceLocal_Property(lookupContext));
 				}
@@ -145,6 +143,8 @@ class ReferenceTest {
 				
 				// Lookup methods for reference_test::referenced_reference_other
 				
+				public static final String REFERENCED_REFERENCE_OTHER__NAME = "referenced_reference_other";
+				
 				public static boolean acceptsReferencedReferenceOther(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getReferencedReferenceOther_Property(lookupContext));
 				}
@@ -178,6 +178,8 @@ class ReferenceTest {
 				}
 				
 				// Lookup methods for reference_test::list_1_reference
+				
+				public static final String LIST_1_REFERENCE__NAME = "list_1_reference";
 				
 				public static boolean acceptsList1Reference(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1Reference_Property(lookupContext));
@@ -215,6 +217,8 @@ class ReferenceTest {
 				}
 				
 				// Lookup methods for reference_test::list_5_reference
+				
+				public static final String LIST_5_REFERENCE__NAME = "list_5_reference";
 				
 				public static boolean acceptsList5Reference(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList5Reference_Property(lookupContext));

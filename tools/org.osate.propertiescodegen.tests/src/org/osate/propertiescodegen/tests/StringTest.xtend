@@ -61,15 +61,11 @@ class StringTest {
 			public final class StringTest {
 				public static final String STRING_TEST__NAME = "string_test";
 				
-				public static final String OWNED_STRING__NAME = "owned_string";
-				public static final String REFERENCED_STRING_LOCAL__NAME = "referenced_string_local";
-				public static final String REFERENCED_STRING_OTHER__NAME = "referenced_string_other";
-				public static final String LIST_1_STRING__NAME = "list_1_string";
-				public static final String LIST_5_STRING__NAME = "list_5_string";
-				
 				private StringTest() {}
 				
 				// Lookup methods for string_test::owned_string
+				
+				public static final String OWNED_STRING__NAME = "owned_string";
 				
 				public static boolean acceptsOwnedString(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getOwnedString_Property(lookupContext));
@@ -105,6 +101,8 @@ class StringTest {
 				
 				// Lookup methods for string_test::referenced_string_local
 				
+				public static final String REFERENCED_STRING_LOCAL__NAME = "referenced_string_local";
+				
 				public static boolean acceptsReferencedStringLocal(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getReferencedStringLocal_Property(lookupContext));
 				}
@@ -139,6 +137,8 @@ class StringTest {
 				
 				// Lookup methods for string_test::referenced_string_other
 				
+				public static final String REFERENCED_STRING_OTHER__NAME = "referenced_string_other";
+				
 				public static boolean acceptsReferencedStringOther(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getReferencedStringOther_Property(lookupContext));
 				}
@@ -172,6 +172,8 @@ class StringTest {
 				}
 				
 				// Lookup methods for string_test::list_1_string
+				
+				public static final String LIST_1_STRING__NAME = "list_1_string";
 				
 				public static boolean acceptsList1String(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1String_Property(lookupContext));
@@ -209,6 +211,8 @@ class StringTest {
 				}
 				
 				// Lookup methods for string_test::list_5_string
+				
+				public static final String LIST_5_STRING__NAME = "list_5_string";
 				
 				public static boolean acceptsList5String(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList5String_Property(lookupContext));

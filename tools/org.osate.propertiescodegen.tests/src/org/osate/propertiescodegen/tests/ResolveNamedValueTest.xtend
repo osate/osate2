@@ -79,18 +79,11 @@ class ResolveNamedValueTest {
 			public final class ResolveNamedValueTest {
 				public static final String RESOLVE_NAMED_VALUE_TEST__NAME = "resolve_named_value_test";
 				
-				public static final String INT_DEF_1__NAME = "int_def_1";
-				public static final String INT_DEF_2__NAME = "int_def_2";
-				public static final String LIST_3_INT_DEF__NAME = "list_3_int_def";
-				public static final String INT_RANGE_NO_UNITS_DEF__NAME = "int_range_no_units_def";
-				public static final String INT_RANGE_WITH_UNITS_DEF__NAME = "int_range_with_units_def";
-				public static final String REAL_RANGE_NO_UNITS_DEF__NAME = "real_range_no_units_def";
-				public static final String REAL_RANGE_WITH_UNITS_DEF__NAME = "real_range_with_units_def";
-				public static final String RECORD_DEF__NAME = "record_def";
-				
 				private ResolveNamedValueTest() {}
 				
 				// Lookup methods for resolve_named_value_test::int_def_1
+				
+				public static final String INT_DEF_1__NAME = "int_def_1";
 				
 				public static boolean acceptsIntDef1(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getIntDef1_Property(lookupContext));
@@ -126,6 +119,8 @@ class ResolveNamedValueTest {
 				
 				// Lookup methods for resolve_named_value_test::int_def_2
 				
+				public static final String INT_DEF_2__NAME = "int_def_2";
+				
 				public static boolean acceptsIntDef2(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getIntDef2_Property(lookupContext));
 				}
@@ -159,6 +154,8 @@ class ResolveNamedValueTest {
 				}
 				
 				// Lookup methods for resolve_named_value_test::list_3_int_def
+				
+				public static final String LIST_3_INT_DEF__NAME = "list_3_int_def";
 				
 				public static boolean acceptsList3IntDef(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList3IntDef_Property(lookupContext));
@@ -203,6 +200,8 @@ class ResolveNamedValueTest {
 				
 				// Lookup methods for resolve_named_value_test::int_range_no_units_def
 				
+				public static final String INT_RANGE_NO_UNITS_DEF__NAME = "int_range_no_units_def";
+				
 				public static boolean acceptsIntRangeNoUnitsDef(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getIntRangeNoUnitsDef_Property(lookupContext));
 				}
@@ -236,6 +235,8 @@ class ResolveNamedValueTest {
 				}
 				
 				// Lookup methods for resolve_named_value_test::int_range_with_units_def
+				
+				public static final String INT_RANGE_WITH_UNITS_DEF__NAME = "int_range_with_units_def";
 				
 				public static boolean acceptsIntRangeWithUnitsDef(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getIntRangeWithUnitsDef_Property(lookupContext));
@@ -271,6 +272,8 @@ class ResolveNamedValueTest {
 				
 				// Lookup methods for resolve_named_value_test::real_range_no_units_def
 				
+				public static final String REAL_RANGE_NO_UNITS_DEF__NAME = "real_range_no_units_def";
+				
 				public static boolean acceptsRealRangeNoUnitsDef(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRealRangeNoUnitsDef_Property(lookupContext));
 				}
@@ -305,6 +308,8 @@ class ResolveNamedValueTest {
 				
 				// Lookup methods for resolve_named_value_test::real_range_with_units_def
 				
+				public static final String REAL_RANGE_WITH_UNITS_DEF__NAME = "real_range_with_units_def";
+				
 				public static boolean acceptsRealRangeWithUnitsDef(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRealRangeWithUnitsDef_Property(lookupContext));
 				}
@@ -338,6 +343,8 @@ class ResolveNamedValueTest {
 				}
 				
 				// Lookup methods for resolve_named_value_test::record_def
+				
+				public static final String RECORD_DEF__NAME = "record_def";
 				
 				public static boolean acceptsRecordDef(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRecordDef_Property(lookupContext));

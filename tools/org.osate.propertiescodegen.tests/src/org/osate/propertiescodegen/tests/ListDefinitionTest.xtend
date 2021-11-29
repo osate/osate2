@@ -118,39 +118,11 @@ class ListDefinitionTest {
 			public final class Ps1 {
 				public static final String PS1__NAME = "ps1";
 				
-				public static final String LIST_1_BOOLEAN__NAME = "list_1_boolean";
-				public static final String LIST_2_BOOLEAN__NAME = "list_2_boolean";
-				public static final String LIST_3_BOOLEAN__NAME = "list_3_boolean";
-				public static final String LIST_4_BOOLEAN__NAME = "list_4_boolean";
-				public static final String LIST_5_BOOLEAN__NAME = "list_5_boolean";
-				public static final String LIST_1_STRING__NAME = "list_1_string";
-				public static final String LIST_1_CLASSIFIER__NAME = "list_1_classifier";
-				public static final String LIST_1_INTEGER_NO_UNITS__NAME = "list_1_integer_no_units";
-				public static final String LIST_1_REAL_NO_UNITS__NAME = "list_1_real_no_units";
-				public static final String LIST_1_REFERENCE__NAME = "list_1_reference";
-				public static final String LIST_1_OWNED_ENUM__NAME = "list_1_owned_enum";
-				public static final String LIST_1_OWNED_UNITS__NAME = "list_1_owned_units";
-				public static final String LIST_1_OWNED_INTEGER_WITH_UNITS__NAME = "list_1_owned_integer_with_units";
-				public static final String LIST_1_OWNED_RANGE__NAME = "list_1_owned_range";
-				public static final String LIST_1_OWNED_RECORD__NAME = "list_1_owned_record";
-				public static final String LIST_1_REFERENCED_ENUM_NO_IMPORT__NAME = "list_1_referenced_enum_no_import";
-				public static final String LIST_1_REFERENCED_ENUM_WITH_IMPORT__NAME = "list_1_referenced_enum_with_import";
-				public static final String LIST_1_REFERENCED_UNITS_NO_IMPORT__NAME = "list_1_referenced_units_no_import";
-				public static final String LIST_1_REFERENCED_UNITS_WITH_IMPORT__NAME = "list_1_referenced_units_with_import";
-				public static final String LIST_1_REFERENCED_NUMBER_WITH_UNITS_NO_IMPORT__NAME = "list_1_referenced_number_with_units_no_import";
-				public static final String LIST_1_REFERENCED_NUMBER_WITH_UNITS_WITH_IMPORT__NAME = "list_1_referenced_number_with_units_with_import";
-				public static final String LIST_1_REFERENCED_RANGE_NO_IMPORT__NAME = "list_1_referenced_range_no_import";
-				public static final String LIST_1_REFERENCED_RANGE_WITH_IMPORT__NAME = "list_1_referenced_range_with_import";
-				public static final String LIST_1_REFERENCED_RECORD_NO_IMPORT__NAME = "list_1_referenced_record_no_import";
-				public static final String LIST_1_REFERENCED_RECORD_WITH_IMPORT__NAME = "list_1_referenced_record_with_import";
-				public static final String LIST_3_OWNED_ENUM__NAME = "list_3_owned_enum";
-				public static final String LIST_5_OWNED_RANGE__NAME = "list_5_owned_range";
-				public static final String LIST_3_REFERENCED_ENUM_NO_IMPORT__NAME = "list_3_referenced_enum_no_import";
-				public static final String LIST_5_REFERENCED_RANGE_WITH_IMPORT__NAME = "list_5_referenced_range_with_import";
-				
 				private Ps1() {}
 				
 				// Lookup methods for ps1::list_1_boolean
+				
+				public static final String LIST_1_BOOLEAN__NAME = "list_1_boolean";
 				
 				public static boolean acceptsList1Boolean(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1Boolean_Property(lookupContext));
@@ -188,6 +160,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_2_boolean
+				
+				public static final String LIST_2_BOOLEAN__NAME = "list_2_boolean";
 				
 				public static boolean acceptsList2Boolean(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList2Boolean_Property(lookupContext));
@@ -228,6 +202,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_3_boolean
+				
+				public static final String LIST_3_BOOLEAN__NAME = "list_3_boolean";
 				
 				public static boolean acceptsList3Boolean(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList3Boolean_Property(lookupContext));
@@ -271,6 +247,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_4_boolean
+				
+				public static final String LIST_4_BOOLEAN__NAME = "list_4_boolean";
 				
 				public static boolean acceptsList4Boolean(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList4Boolean_Property(lookupContext));
@@ -317,6 +295,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_5_boolean
+				
+				public static final String LIST_5_BOOLEAN__NAME = "list_5_boolean";
 				
 				public static boolean acceptsList5Boolean(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList5Boolean_Property(lookupContext));
@@ -367,6 +347,8 @@ class ListDefinitionTest {
 				
 				// Lookup methods for ps1::list_1_string
 				
+				public static final String LIST_1_STRING__NAME = "list_1_string";
+				
 				public static boolean acceptsList1String(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1String_Property(lookupContext));
 				}
@@ -403,6 +385,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_1_classifier
+				
+				public static final String LIST_1_CLASSIFIER__NAME = "list_1_classifier";
 				
 				public static boolean acceptsList1Classifier(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1Classifier_Property(lookupContext));
@@ -441,6 +425,8 @@ class ListDefinitionTest {
 				
 				// Lookup methods for ps1::list_1_integer_no_units
 				
+				public static final String LIST_1_INTEGER_NO_UNITS__NAME = "list_1_integer_no_units";
+				
 				public static boolean acceptsList1IntegerNoUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1IntegerNoUnits_Property(lookupContext));
 				}
@@ -477,6 +463,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_1_real_no_units
+				
+				public static final String LIST_1_REAL_NO_UNITS__NAME = "list_1_real_no_units";
 				
 				public static boolean acceptsList1RealNoUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1RealNoUnits_Property(lookupContext));
@@ -515,6 +503,8 @@ class ListDefinitionTest {
 				
 				// Lookup methods for ps1::list_1_reference
 				
+				public static final String LIST_1_REFERENCE__NAME = "list_1_reference";
+				
 				public static boolean acceptsList1Reference(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1Reference_Property(lookupContext));
 				}
@@ -551,6 +541,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_1_owned_enum
+				
+				public static final String LIST_1_OWNED_ENUM__NAME = "list_1_owned_enum";
 				
 				public static boolean acceptsList1OwnedEnum(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1OwnedEnum_Property(lookupContext));
@@ -589,6 +581,8 @@ class ListDefinitionTest {
 				
 				// Lookup methods for ps1::list_1_owned_units
 				
+				public static final String LIST_1_OWNED_UNITS__NAME = "list_1_owned_units";
+				
 				public static boolean acceptsList1OwnedUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1OwnedUnits_Property(lookupContext));
 				}
@@ -625,6 +619,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_1_owned_integer_with_units
+				
+				public static final String LIST_1_OWNED_INTEGER_WITH_UNITS__NAME = "list_1_owned_integer_with_units";
 				
 				public static boolean acceptsList1OwnedIntegerWithUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1OwnedIntegerWithUnits_Property(lookupContext));
@@ -663,6 +659,8 @@ class ListDefinitionTest {
 				
 				// Lookup methods for ps1::list_1_owned_range
 				
+				public static final String LIST_1_OWNED_RANGE__NAME = "list_1_owned_range";
+				
 				public static boolean acceptsList1OwnedRange(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1OwnedRange_Property(lookupContext));
 				}
@@ -699,6 +697,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_1_owned_record
+				
+				public static final String LIST_1_OWNED_RECORD__NAME = "list_1_owned_record";
 				
 				public static boolean acceptsList1OwnedRecord(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1OwnedRecord_Property(lookupContext));
@@ -737,6 +737,8 @@ class ListDefinitionTest {
 				
 				// Lookup methods for ps1::list_1_referenced_enum_no_import
 				
+				public static final String LIST_1_REFERENCED_ENUM_NO_IMPORT__NAME = "list_1_referenced_enum_no_import";
+				
 				public static boolean acceptsList1ReferencedEnumNoImport(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1ReferencedEnumNoImport_Property(lookupContext));
 				}
@@ -773,6 +775,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_1_referenced_enum_with_import
+				
+				public static final String LIST_1_REFERENCED_ENUM_WITH_IMPORT__NAME = "list_1_referenced_enum_with_import";
 				
 				public static boolean acceptsList1ReferencedEnumWithImport(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1ReferencedEnumWithImport_Property(lookupContext));
@@ -811,6 +815,8 @@ class ListDefinitionTest {
 				
 				// Lookup methods for ps1::list_1_referenced_units_no_import
 				
+				public static final String LIST_1_REFERENCED_UNITS_NO_IMPORT__NAME = "list_1_referenced_units_no_import";
+				
 				public static boolean acceptsList1ReferencedUnitsNoImport(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1ReferencedUnitsNoImport_Property(lookupContext));
 				}
@@ -847,6 +853,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_1_referenced_units_with_import
+				
+				public static final String LIST_1_REFERENCED_UNITS_WITH_IMPORT__NAME = "list_1_referenced_units_with_import";
 				
 				public static boolean acceptsList1ReferencedUnitsWithImport(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1ReferencedUnitsWithImport_Property(lookupContext));
@@ -885,6 +893,8 @@ class ListDefinitionTest {
 				
 				// Lookup methods for ps1::list_1_referenced_number_with_units_no_import
 				
+				public static final String LIST_1_REFERENCED_NUMBER_WITH_UNITS_NO_IMPORT__NAME = "list_1_referenced_number_with_units_no_import";
+				
 				public static boolean acceptsList1ReferencedNumberWithUnitsNoImport(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1ReferencedNumberWithUnitsNoImport_Property(lookupContext));
 				}
@@ -921,6 +931,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_1_referenced_number_with_units_with_import
+				
+				public static final String LIST_1_REFERENCED_NUMBER_WITH_UNITS_WITH_IMPORT__NAME = "list_1_referenced_number_with_units_with_import";
 				
 				public static boolean acceptsList1ReferencedNumberWithUnitsWithImport(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1ReferencedNumberWithUnitsWithImport_Property(lookupContext));
@@ -959,6 +971,8 @@ class ListDefinitionTest {
 				
 				// Lookup methods for ps1::list_1_referenced_range_no_import
 				
+				public static final String LIST_1_REFERENCED_RANGE_NO_IMPORT__NAME = "list_1_referenced_range_no_import";
+				
 				public static boolean acceptsList1ReferencedRangeNoImport(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1ReferencedRangeNoImport_Property(lookupContext));
 				}
@@ -995,6 +1009,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_1_referenced_range_with_import
+				
+				public static final String LIST_1_REFERENCED_RANGE_WITH_IMPORT__NAME = "list_1_referenced_range_with_import";
 				
 				public static boolean acceptsList1ReferencedRangeWithImport(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1ReferencedRangeWithImport_Property(lookupContext));
@@ -1033,6 +1049,8 @@ class ListDefinitionTest {
 				
 				// Lookup methods for ps1::list_1_referenced_record_no_import
 				
+				public static final String LIST_1_REFERENCED_RECORD_NO_IMPORT__NAME = "list_1_referenced_record_no_import";
+				
 				public static boolean acceptsList1ReferencedRecordNoImport(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1ReferencedRecordNoImport_Property(lookupContext));
 				}
@@ -1070,6 +1088,8 @@ class ListDefinitionTest {
 				
 				// Lookup methods for ps1::list_1_referenced_record_with_import
 				
+				public static final String LIST_1_REFERENCED_RECORD_WITH_IMPORT__NAME = "list_1_referenced_record_with_import";
+				
 				public static boolean acceptsList1ReferencedRecordWithImport(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1ReferencedRecordWithImport_Property(lookupContext));
 				}
@@ -1106,6 +1126,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_3_owned_enum
+				
+				public static final String LIST_3_OWNED_ENUM__NAME = "list_3_owned_enum";
 				
 				public static boolean acceptsList3OwnedEnum(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList3OwnedEnum_Property(lookupContext));
@@ -1149,6 +1171,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_5_owned_range
+				
+				public static final String LIST_5_OWNED_RANGE__NAME = "list_5_owned_range";
 				
 				public static boolean acceptsList5OwnedRange(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList5OwnedRange_Property(lookupContext));
@@ -1199,6 +1223,8 @@ class ListDefinitionTest {
 				
 				// Lookup methods for ps1::list_3_referenced_enum_no_import
 				
+				public static final String LIST_3_REFERENCED_ENUM_NO_IMPORT__NAME = "list_3_referenced_enum_no_import";
+				
 				public static boolean acceptsList3ReferencedEnumNoImport(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList3ReferencedEnumNoImport_Property(lookupContext));
 				}
@@ -1241,6 +1267,8 @@ class ListDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::list_5_referenced_range_with_import
+				
+				public static final String LIST_5_REFERENCED_RANGE_WITH_IMPORT__NAME = "list_5_referenced_range_with_import";
 				
 				public static boolean acceptsList5ReferencedRangeWithImport(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList5ReferencedRangeWithImport_Property(lookupContext));
