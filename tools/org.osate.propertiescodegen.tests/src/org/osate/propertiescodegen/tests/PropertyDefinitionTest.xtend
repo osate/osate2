@@ -62,6 +62,7 @@ class PropertyDefinitionTest {
 			import java.util.OptionalDouble;
 			import java.util.OptionalLong;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.Classifier;
@@ -130,7 +131,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getBooleanDefinition_Property(NamedElement lookupContext) {
+				public static Property getBooleanDefinition_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + BOOLEAN_DEFINITION__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -164,7 +165,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getStringDefinition_Property(NamedElement lookupContext) {
+				public static Property getStringDefinition_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + STRING_DEFINITION__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -198,7 +199,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getClassifierDefinition_Property(NamedElement lookupContext) {
+				public static Property getClassifierDefinition_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + CLASSIFIER_DEFINITION__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -232,7 +233,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getUnitsDefinition_Property(NamedElement lookupContext) {
+				public static Property getUnitsDefinition_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + UNITS_DEFINITION__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -266,7 +267,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getEnumDefinition_Property(NamedElement lookupContext) {
+				public static Property getEnumDefinition_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + ENUM_DEFINITION__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -300,7 +301,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getIntegerDefinitionNoUnits_Property(NamedElement lookupContext) {
+				public static Property getIntegerDefinitionNoUnits_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + INTEGER_DEFINITION_NO_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -334,7 +335,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getIntegerDefinitionWithUnits_Property(NamedElement lookupContext) {
+				public static Property getIntegerDefinitionWithUnits_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + INTEGER_DEFINITION_WITH_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -368,7 +369,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getRealDefinitionNoUnits_Property(NamedElement lookupContext) {
+				public static Property getRealDefinitionNoUnits_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + REAL_DEFINITION_NO_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -402,7 +403,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getRangeDefinition_Property(NamedElement lookupContext) {
+				public static Property getRangeDefinition_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + RANGE_DEFINITION__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -436,7 +437,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getRecordDefinition_Property(NamedElement lookupContext) {
+				public static Property getRecordDefinition_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + RECORD_DEFINITION__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -470,7 +471,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getReferenceDefinition_Property(NamedElement lookupContext) {
+				public static Property getReferenceDefinition_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + REFERENCE_DEFINITION__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -504,7 +505,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getDefinitionWithReferencedTypeLocal_Property(NamedElement lookupContext) {
+				public static Property getDefinitionWithReferencedTypeLocal_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + DEFINITION_WITH_REFERENCED_TYPE_LOCAL__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -538,7 +539,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getDefinitionWithReferencedTypeOtherFile_Property(NamedElement lookupContext) {
+				public static Property getDefinitionWithReferencedTypeOtherFile_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + DEFINITION_WITH_REFERENCED_TYPE_OTHER_FILE__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -572,7 +573,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getDefinitionWithUnderscoreImport_Property(NamedElement lookupContext) {
+				public static Property getDefinitionWithUnderscoreImport_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + DEFINITION_WITH_UNDERSCORE_IMPORT__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -816,6 +817,7 @@ class PropertyDefinitionTest {
 			
 			import java.util.Optional;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.Mode;
@@ -858,7 +860,7 @@ class PropertyDefinitionTest {
 					}
 				}
 				
-				public static Property getSoleDefinition_Property(NamedElement lookupContext) {
+				public static Property getSoleDefinition_Property(EObject lookupContext) {
 					String name = SINGLE_DEFINITION_PS__NAME + "::" + SOLE_DEFINITION__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}

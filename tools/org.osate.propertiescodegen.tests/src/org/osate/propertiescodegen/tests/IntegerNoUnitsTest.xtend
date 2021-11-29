@@ -47,6 +47,7 @@ class IntegerNoUnitsTest {
 			import java.util.OptionalLong;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.ListValue;
@@ -94,7 +95,7 @@ class IntegerNoUnitsTest {
 					}
 				}
 				
-				public static Property getOwnedInteger_Property(NamedElement lookupContext) {
+				public static Property getOwnedInteger_Property(EObject lookupContext) {
 					String name = INTEGER_NO_UNITS_TEST__NAME + "::" + OWNED_INTEGER__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -128,7 +129,7 @@ class IntegerNoUnitsTest {
 					}
 				}
 				
-				public static Property getReferencedIntegerLocal_Property(NamedElement lookupContext) {
+				public static Property getReferencedIntegerLocal_Property(EObject lookupContext) {
 					String name = INTEGER_NO_UNITS_TEST__NAME + "::" + REFERENCED_INTEGER_LOCAL__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -162,7 +163,7 @@ class IntegerNoUnitsTest {
 					}
 				}
 				
-				public static Property getReferencedIntegerOther_Property(NamedElement lookupContext) {
+				public static Property getReferencedIntegerOther_Property(EObject lookupContext) {
 					String name = INTEGER_NO_UNITS_TEST__NAME + "::" + REFERENCED_INTEGER_OTHER__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -199,7 +200,7 @@ class IntegerNoUnitsTest {
 					}
 				}
 				
-				public static Property getList1Integer_Property(NamedElement lookupContext) {
+				public static Property getList1Integer_Property(EObject lookupContext) {
 					String name = INTEGER_NO_UNITS_TEST__NAME + "::" + LIST_1_INTEGER__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -248,7 +249,7 @@ class IntegerNoUnitsTest {
 					}
 				}
 				
-				public static Property getList5Integer_Property(NamedElement lookupContext) {
+				public static Property getList5Integer_Property(EObject lookupContext) {
 					String name = INTEGER_NO_UNITS_TEST__NAME + "::" + LIST_5_INTEGER__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}

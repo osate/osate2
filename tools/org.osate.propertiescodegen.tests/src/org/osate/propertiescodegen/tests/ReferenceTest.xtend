@@ -51,6 +51,7 @@ class ReferenceTest {
 			import java.util.Optional;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Mode;
@@ -99,7 +100,7 @@ class ReferenceTest {
 					}
 				}
 				
-				public static Property getOwnedReference_Property(NamedElement lookupContext) {
+				public static Property getOwnedReference_Property(EObject lookupContext) {
 					String name = REFERENCE_TEST__NAME + "::" + OWNED_REFERENCE__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -133,7 +134,7 @@ class ReferenceTest {
 					}
 				}
 				
-				public static Property getReferencedReferenceLocal_Property(NamedElement lookupContext) {
+				public static Property getReferencedReferenceLocal_Property(EObject lookupContext) {
 					String name = REFERENCE_TEST__NAME + "::" + REFERENCED_REFERENCE_LOCAL__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -167,7 +168,7 @@ class ReferenceTest {
 					}
 				}
 				
-				public static Property getReferencedReferenceOther_Property(NamedElement lookupContext) {
+				public static Property getReferencedReferenceOther_Property(EObject lookupContext) {
 					String name = REFERENCE_TEST__NAME + "::" + REFERENCED_REFERENCE_OTHER__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -204,7 +205,7 @@ class ReferenceTest {
 					}
 				}
 				
-				public static Property getList1Reference_Property(NamedElement lookupContext) {
+				public static Property getList1Reference_Property(EObject lookupContext) {
 					String name = REFERENCE_TEST__NAME + "::" + LIST_1_REFERENCE__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -253,7 +254,7 @@ class ReferenceTest {
 					}
 				}
 				
-				public static Property getList5Reference_Property(NamedElement lookupContext) {
+				public static Property getList5Reference_Property(EObject lookupContext) {
 					String name = REFERENCE_TEST__NAME + "::" + LIST_5_REFERENCE__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}

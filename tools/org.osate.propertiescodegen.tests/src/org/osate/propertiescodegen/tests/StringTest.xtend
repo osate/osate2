@@ -46,6 +46,7 @@ class StringTest {
 			import java.util.Optional;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Mode;
@@ -93,7 +94,7 @@ class StringTest {
 					}
 				}
 				
-				public static Property getOwnedString_Property(NamedElement lookupContext) {
+				public static Property getOwnedString_Property(EObject lookupContext) {
 					String name = STRING_TEST__NAME + "::" + OWNED_STRING__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -127,7 +128,7 @@ class StringTest {
 					}
 				}
 				
-				public static Property getReferencedStringLocal_Property(NamedElement lookupContext) {
+				public static Property getReferencedStringLocal_Property(EObject lookupContext) {
 					String name = STRING_TEST__NAME + "::" + REFERENCED_STRING_LOCAL__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -161,7 +162,7 @@ class StringTest {
 					}
 				}
 				
-				public static Property getReferencedStringOther_Property(NamedElement lookupContext) {
+				public static Property getReferencedStringOther_Property(EObject lookupContext) {
 					String name = STRING_TEST__NAME + "::" + REFERENCED_STRING_OTHER__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -198,7 +199,7 @@ class StringTest {
 					}
 				}
 				
-				public static Property getList1String_Property(NamedElement lookupContext) {
+				public static Property getList1String_Property(EObject lookupContext) {
 					String name = STRING_TEST__NAME + "::" + LIST_1_STRING__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -247,7 +248,7 @@ class StringTest {
 					}
 				}
 				
-				public static Property getList5String_Property(NamedElement lookupContext) {
+				public static Property getList5String_Property(EObject lookupContext) {
 					String name = STRING_TEST__NAME + "::" + LIST_5_STRING__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}

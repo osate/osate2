@@ -46,6 +46,7 @@ class ClassifierTest {
 			import java.util.Optional;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.Classifier;
 			import org.osate.aadl2.ClassifierValue;
@@ -94,7 +95,7 @@ class ClassifierTest {
 					}
 				}
 				
-				public static Property getOwnedClassifier_Property(NamedElement lookupContext) {
+				public static Property getOwnedClassifier_Property(EObject lookupContext) {
 					String name = CLASSIFIER_TEST__NAME + "::" + OWNED_CLASSIFIER__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -128,7 +129,7 @@ class ClassifierTest {
 					}
 				}
 				
-				public static Property getReferencedClassifierLocal_Property(NamedElement lookupContext) {
+				public static Property getReferencedClassifierLocal_Property(EObject lookupContext) {
 					String name = CLASSIFIER_TEST__NAME + "::" + REFERENCED_CLASSIFIER_LOCAL__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -162,7 +163,7 @@ class ClassifierTest {
 					}
 				}
 				
-				public static Property getReferencedClassifierOther_Property(NamedElement lookupContext) {
+				public static Property getReferencedClassifierOther_Property(EObject lookupContext) {
 					String name = CLASSIFIER_TEST__NAME + "::" + REFERENCED_CLASSIFIER_OTHER__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -199,7 +200,7 @@ class ClassifierTest {
 					}
 				}
 				
-				public static Property getList1Classifier_Property(NamedElement lookupContext) {
+				public static Property getList1Classifier_Property(EObject lookupContext) {
 					String name = CLASSIFIER_TEST__NAME + "::" + LIST_1_CLASSIFIER__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -248,7 +249,7 @@ class ClassifierTest {
 					}
 				}
 				
-				public static Property getList5Classifier_Property(NamedElement lookupContext) {
+				public static Property getList5Classifier_Property(EObject lookupContext) {
 					String name = CLASSIFIER_TEST__NAME + "::" + LIST_5_CLASSIFIER__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}

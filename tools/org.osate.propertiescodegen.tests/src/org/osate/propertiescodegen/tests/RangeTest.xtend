@@ -81,6 +81,7 @@ class RangeTest {
 			import java.util.Optional;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Mode;
@@ -145,7 +146,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getIntegerNoUnits_Property(NamedElement lookupContext) {
+				public static Property getIntegerNoUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + INTEGER_NO_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -179,7 +180,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getIntegerOwnedUnits_Property(NamedElement lookupContext) {
+				public static Property getIntegerOwnedUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + INTEGER_OWNED_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -213,7 +214,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getIntegerSameFileUnits_Property(NamedElement lookupContext) {
+				public static Property getIntegerSameFileUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + INTEGER_SAME_FILE_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -247,7 +248,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getIntegerOtherFileUnits_Property(NamedElement lookupContext) {
+				public static Property getIntegerOtherFileUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + INTEGER_OTHER_FILE_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -284,7 +285,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getList1IntegerNoUnits_Property(NamedElement lookupContext) {
+				public static Property getList1IntegerNoUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + LIST_1_INTEGER_NO_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -321,7 +322,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getList1IntegerOwnedUnits_Property(NamedElement lookupContext) {
+				public static Property getList1IntegerOwnedUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + LIST_1_INTEGER_OWNED_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -358,7 +359,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getList1IntegerSameFileUnits_Property(NamedElement lookupContext) {
+				public static Property getList1IntegerSameFileUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + LIST_1_INTEGER_SAME_FILE_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -395,7 +396,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getList1IntegerOtherFileUnits_Property(NamedElement lookupContext) {
+				public static Property getList1IntegerOtherFileUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + LIST_1_INTEGER_OTHER_FILE_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -429,7 +430,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getRealNoUnits_Property(NamedElement lookupContext) {
+				public static Property getRealNoUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + REAL_NO_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -463,7 +464,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getRealOwnedUnits_Property(NamedElement lookupContext) {
+				public static Property getRealOwnedUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + REAL_OWNED_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -497,7 +498,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getRealSameFileUnits_Property(NamedElement lookupContext) {
+				public static Property getRealSameFileUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + REAL_SAME_FILE_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -531,7 +532,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getRealOtherFileUnits_Property(NamedElement lookupContext) {
+				public static Property getRealOtherFileUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + REAL_OTHER_FILE_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -568,7 +569,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getList1RealNoUnits_Property(NamedElement lookupContext) {
+				public static Property getList1RealNoUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + LIST_1_REAL_NO_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -605,7 +606,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getList1RealOwnedUnits_Property(NamedElement lookupContext) {
+				public static Property getList1RealOwnedUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + LIST_1_REAL_OWNED_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -642,7 +643,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getList1RealSameFileUnits_Property(NamedElement lookupContext) {
+				public static Property getList1RealSameFileUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + LIST_1_REAL_SAME_FILE_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -679,7 +680,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getList1RealOtherFileUnits_Property(NamedElement lookupContext) {
+				public static Property getList1RealOtherFileUnits_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + LIST_1_REAL_OTHER_FILE_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -713,7 +714,7 @@ class RangeTest {
 					}
 				}
 				
-				public static Property getRecordProperty_Property(NamedElement lookupContext) {
+				public static Property getRecordProperty_Property(EObject lookupContext) {
 					String name = RANGE_TEST__NAME + "::" + RECORD_PROPERTY__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}

@@ -57,6 +57,7 @@ class IntegerWithUnitsTest {
 			import java.util.Optional;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Mode;
@@ -108,7 +109,7 @@ class IntegerWithUnitsTest {
 					}
 				}
 				
-				public static Property getOwned_Property(NamedElement lookupContext) {
+				public static Property getOwned_Property(EObject lookupContext) {
 					String name = INTEGER_WITH_UNITS_TEST__NAME + "::" + OWNED__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -142,7 +143,7 @@ class IntegerWithUnitsTest {
 					}
 				}
 				
-				public static Property getSameFile_Property(NamedElement lookupContext) {
+				public static Property getSameFile_Property(EObject lookupContext) {
 					String name = INTEGER_WITH_UNITS_TEST__NAME + "::" + SAME_FILE__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -176,7 +177,7 @@ class IntegerWithUnitsTest {
 					}
 				}
 				
-				public static Property getOtherFile_Property(NamedElement lookupContext) {
+				public static Property getOtherFile_Property(EObject lookupContext) {
 					String name = INTEGER_WITH_UNITS_TEST__NAME + "::" + OTHER_FILE__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -213,7 +214,7 @@ class IntegerWithUnitsTest {
 					}
 				}
 				
-				public static Property getList1Owned_Property(NamedElement lookupContext) {
+				public static Property getList1Owned_Property(EObject lookupContext) {
 					String name = INTEGER_WITH_UNITS_TEST__NAME + "::" + LIST_1_OWNED__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -250,7 +251,7 @@ class IntegerWithUnitsTest {
 					}
 				}
 				
-				public static Property getList1SameFile_Property(NamedElement lookupContext) {
+				public static Property getList1SameFile_Property(EObject lookupContext) {
 					String name = INTEGER_WITH_UNITS_TEST__NAME + "::" + LIST_1_SAME_FILE__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -287,7 +288,7 @@ class IntegerWithUnitsTest {
 					}
 				}
 				
-				public static Property getList1OtherFile_Property(NamedElement lookupContext) {
+				public static Property getList1OtherFile_Property(EObject lookupContext) {
 					String name = INTEGER_WITH_UNITS_TEST__NAME + "::" + LIST_1_OTHER_FILE__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -321,7 +322,7 @@ class IntegerWithUnitsTest {
 					}
 				}
 				
-				public static Property getRecordProperty_Property(NamedElement lookupContext) {
+				public static Property getRecordProperty_Property(EObject lookupContext) {
 					String name = INTEGER_WITH_UNITS_TEST__NAME + "::" + RECORD_PROPERTY__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
