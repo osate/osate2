@@ -20,12 +20,6 @@ package class PropertyGettersGenerator extends AbstractPropertyGenerator {
 		'''
 			public final class «className» {
 				public static final String «propertySet.name.toUpperCase»__NAME = "«propertySet.name»";
-				«IF !propertySet.ownedProperties.empty»
-				
-				«FOR property : propertySet.ownedProperties»
-				public static final String «property.name.toUpperCase»__NAME = "«property.name»";
-				«ENDFOR»
-				«ENDIF»
 				
 				private «className»() {}
 				«FOR getter : propertyGetters»
@@ -58,6 +52,8 @@ package class PropertyGettersGenerator extends AbstractPropertyGenerator {
 		
 		'''
 			// Lookup methods for «propertySet.name»::«property.name»
+			
+			public static final String «property.name.toUpperCase»__NAME = "«property.name»";
 			
 			public static boolean accepts«camelName»(NamedElement lookupContext) {
 				return lookupContext.acceptsProperty(get«camelName»_Property(lookupContext));
