@@ -68,11 +68,11 @@ class CodegenPackageTest {
 			public final class CodegenPackageBase {
 				public static final String CODEGEN_PACKAGE_BASE__NAME = "codegen_package_base";
 				
-				public static final String RECORD_DEF__NAME = "record_def";
-				
 				private CodegenPackageBase() {}
 				
 				// Lookup methods for codegen_package_base::record_def
+				
+				public static final String RECORD_DEF__NAME = "record_def";
 				
 				public static boolean acceptsRecordDef(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRecordDef_Property(lookupContext));
@@ -287,12 +287,11 @@ class CodegenPackageTest {
 			public final class CodegenPackageSame {
 				public static final String CODEGEN_PACKAGE_SAME__NAME = "codegen_package_same";
 				
-				public static final String RECORD_DEF__NAME = "record_def";
-				public static final String INT_DEF__NAME = "int_def";
-				
 				private CodegenPackageSame() {}
 				
 				// Lookup methods for codegen_package_same::record_def
+				
+				public static final String RECORD_DEF__NAME = "record_def";
 				
 				public static boolean acceptsRecordDef(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRecordDef_Property(lookupContext));
@@ -327,6 +326,8 @@ class CodegenPackageTest {
 				}
 				
 				// Lookup methods for codegen_package_same::int_def
+				
+				public static final String INT_DEF__NAME = "int_def";
 				
 				public static boolean acceptsIntDef(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getIntDef_Property(lookupContext));
@@ -392,12 +393,11 @@ class CodegenPackageTest {
 			public final class CodegenPackageOther {
 				public static final String CODEGEN_PACKAGE_OTHER__NAME = "codegen_package_other";
 				
-				public static final String RECORD_DEF__NAME = "record_def";
-				public static final String INT_DEF__NAME = "int_def";
-				
 				private CodegenPackageOther() {}
 				
 				// Lookup methods for codegen_package_other::record_def
+				
+				public static final String RECORD_DEF__NAME = "record_def";
 				
 				public static boolean acceptsRecordDef(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRecordDef_Property(lookupContext));
@@ -432,6 +432,8 @@ class CodegenPackageTest {
 				}
 				
 				// Lookup methods for codegen_package_other::int_def
+				
+				public static final String INT_DEF__NAME = "int_def";
 				
 				public static boolean acceptsIntDef(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getIntDef_Property(lookupContext));

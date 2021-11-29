@@ -89,24 +89,11 @@ class PropertyDefinitionTest {
 			public final class Ps1 {
 				public static final String PS1__NAME = "ps1";
 				
-				public static final String BOOLEAN_DEFINITION__NAME = "boolean_definition";
-				public static final String STRING_DEFINITION__NAME = "string_definition";
-				public static final String CLASSIFIER_DEFINITION__NAME = "classifier_definition";
-				public static final String UNITS_DEFINITION__NAME = "units_definition";
-				public static final String ENUM_DEFINITION__NAME = "enum_definition";
-				public static final String INTEGER_DEFINITION_NO_UNITS__NAME = "integer_definition_no_units";
-				public static final String INTEGER_DEFINITION_WITH_UNITS__NAME = "integer_definition_with_units";
-				public static final String REAL_DEFINITION_NO_UNITS__NAME = "real_definition_no_units";
-				public static final String RANGE_DEFINITION__NAME = "range_definition";
-				public static final String RECORD_DEFINITION__NAME = "record_definition";
-				public static final String REFERENCE_DEFINITION__NAME = "reference_definition";
-				public static final String DEFINITION_WITH_REFERENCED_TYPE_LOCAL__NAME = "definition_with_referenced_type_local";
-				public static final String DEFINITION_WITH_REFERENCED_TYPE_OTHER_FILE__NAME = "definition_with_referenced_type_other_file";
-				public static final String DEFINITION_WITH_UNDERSCORE_IMPORT__NAME = "definition_with_underscore_import";
-				
 				private Ps1() {}
 				
 				// Lookup methods for ps1::boolean_definition
+				
+				public static final String BOOLEAN_DEFINITION__NAME = "boolean_definition";
 				
 				public static boolean acceptsBooleanDefinition(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getBooleanDefinition_Property(lookupContext));
@@ -142,6 +129,8 @@ class PropertyDefinitionTest {
 				
 				// Lookup methods for ps1::string_definition
 				
+				public static final String STRING_DEFINITION__NAME = "string_definition";
+				
 				public static boolean acceptsStringDefinition(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDefinition_Property(lookupContext));
 				}
@@ -175,6 +164,8 @@ class PropertyDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::classifier_definition
+				
+				public static final String CLASSIFIER_DEFINITION__NAME = "classifier_definition";
 				
 				public static boolean acceptsClassifierDefinition(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getClassifierDefinition_Property(lookupContext));
@@ -210,6 +201,8 @@ class PropertyDefinitionTest {
 				
 				// Lookup methods for ps1::units_definition
 				
+				public static final String UNITS_DEFINITION__NAME = "units_definition";
+				
 				public static boolean acceptsUnitsDefinition(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getUnitsDefinition_Property(lookupContext));
 				}
@@ -243,6 +236,8 @@ class PropertyDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::enum_definition
+				
+				public static final String ENUM_DEFINITION__NAME = "enum_definition";
 				
 				public static boolean acceptsEnumDefinition(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getEnumDefinition_Property(lookupContext));
@@ -278,6 +273,8 @@ class PropertyDefinitionTest {
 				
 				// Lookup methods for ps1::integer_definition_no_units
 				
+				public static final String INTEGER_DEFINITION_NO_UNITS__NAME = "integer_definition_no_units";
+				
 				public static boolean acceptsIntegerDefinitionNoUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getIntegerDefinitionNoUnits_Property(lookupContext));
 				}
@@ -311,6 +308,8 @@ class PropertyDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::integer_definition_with_units
+				
+				public static final String INTEGER_DEFINITION_WITH_UNITS__NAME = "integer_definition_with_units";
 				
 				public static boolean acceptsIntegerDefinitionWithUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getIntegerDefinitionWithUnits_Property(lookupContext));
@@ -346,6 +345,8 @@ class PropertyDefinitionTest {
 				
 				// Lookup methods for ps1::real_definition_no_units
 				
+				public static final String REAL_DEFINITION_NO_UNITS__NAME = "real_definition_no_units";
+				
 				public static boolean acceptsRealDefinitionNoUnits(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRealDefinitionNoUnits_Property(lookupContext));
 				}
@@ -379,6 +380,8 @@ class PropertyDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::range_definition
+				
+				public static final String RANGE_DEFINITION__NAME = "range_definition";
 				
 				public static boolean acceptsRangeDefinition(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRangeDefinition_Property(lookupContext));
@@ -414,6 +417,8 @@ class PropertyDefinitionTest {
 				
 				// Lookup methods for ps1::record_definition
 				
+				public static final String RECORD_DEFINITION__NAME = "record_definition";
+				
 				public static boolean acceptsRecordDefinition(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRecordDefinition_Property(lookupContext));
 				}
@@ -447,6 +452,8 @@ class PropertyDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::reference_definition
+				
+				public static final String REFERENCE_DEFINITION__NAME = "reference_definition";
 				
 				public static boolean acceptsReferenceDefinition(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getReferenceDefinition_Property(lookupContext));
@@ -482,6 +489,8 @@ class PropertyDefinitionTest {
 				
 				// Lookup methods for ps1::definition_with_referenced_type_local
 				
+				public static final String DEFINITION_WITH_REFERENCED_TYPE_LOCAL__NAME = "definition_with_referenced_type_local";
+				
 				public static boolean acceptsDefinitionWithReferencedTypeLocal(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getDefinitionWithReferencedTypeLocal_Property(lookupContext));
 				}
@@ -516,6 +525,8 @@ class PropertyDefinitionTest {
 				
 				// Lookup methods for ps1::definition_with_referenced_type_other_file
 				
+				public static final String DEFINITION_WITH_REFERENCED_TYPE_OTHER_FILE__NAME = "definition_with_referenced_type_other_file";
+				
 				public static boolean acceptsDefinitionWithReferencedTypeOtherFile(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getDefinitionWithReferencedTypeOtherFile_Property(lookupContext));
 				}
@@ -549,6 +560,8 @@ class PropertyDefinitionTest {
 				}
 				
 				// Lookup methods for ps1::definition_with_underscore_import
+				
+				public static final String DEFINITION_WITH_UNDERSCORE_IMPORT__NAME = "definition_with_underscore_import";
 				
 				public static boolean acceptsDefinitionWithUnderscoreImport(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getDefinitionWithUnderscoreImport_Property(lookupContext));
@@ -831,11 +844,11 @@ class PropertyDefinitionTest {
 			public final class SingleDefinitionPs {
 				public static final String SINGLE_DEFINITION_PS__NAME = "single_definition_ps";
 				
-				public static final String SOLE_DEFINITION__NAME = "sole_definition";
-				
 				private SingleDefinitionPs() {}
 				
 				// Lookup methods for single_definition_ps::sole_definition
+				
+				public static final String SOLE_DEFINITION__NAME = "sole_definition";
 				
 				public static boolean acceptsSoleDefinition(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getSoleDefinition_Property(lookupContext));

@@ -62,15 +62,11 @@ class IntegerNoUnitsTest {
 			public final class IntegerNoUnitsTest {
 				public static final String INTEGER_NO_UNITS_TEST__NAME = "integer_no_units_test";
 				
-				public static final String OWNED_INTEGER__NAME = "owned_integer";
-				public static final String REFERENCED_INTEGER_LOCAL__NAME = "referenced_integer_local";
-				public static final String REFERENCED_INTEGER_OTHER__NAME = "referenced_integer_other";
-				public static final String LIST_1_INTEGER__NAME = "list_1_integer";
-				public static final String LIST_5_INTEGER__NAME = "list_5_integer";
-				
 				private IntegerNoUnitsTest() {}
 				
 				// Lookup methods for integer_no_units_test::owned_integer
+				
+				public static final String OWNED_INTEGER__NAME = "owned_integer";
 				
 				public static boolean acceptsOwnedInteger(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getOwnedInteger_Property(lookupContext));
@@ -106,6 +102,8 @@ class IntegerNoUnitsTest {
 				
 				// Lookup methods for integer_no_units_test::referenced_integer_local
 				
+				public static final String REFERENCED_INTEGER_LOCAL__NAME = "referenced_integer_local";
+				
 				public static boolean acceptsReferencedIntegerLocal(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getReferencedIntegerLocal_Property(lookupContext));
 				}
@@ -140,6 +138,8 @@ class IntegerNoUnitsTest {
 				
 				// Lookup methods for integer_no_units_test::referenced_integer_other
 				
+				public static final String REFERENCED_INTEGER_OTHER__NAME = "referenced_integer_other";
+				
 				public static boolean acceptsReferencedIntegerOther(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getReferencedIntegerOther_Property(lookupContext));
 				}
@@ -173,6 +173,8 @@ class IntegerNoUnitsTest {
 				}
 				
 				// Lookup methods for integer_no_units_test::list_1_integer
+				
+				public static final String LIST_1_INTEGER__NAME = "list_1_integer";
 				
 				public static boolean acceptsList1Integer(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1Integer_Property(lookupContext));
@@ -210,6 +212,8 @@ class IntegerNoUnitsTest {
 				}
 				
 				// Lookup methods for integer_no_units_test::list_5_integer
+				
+				public static final String LIST_5_INTEGER__NAME = "list_5_integer";
 				
 				public static boolean acceptsList5Integer(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList5Integer_Property(lookupContext));

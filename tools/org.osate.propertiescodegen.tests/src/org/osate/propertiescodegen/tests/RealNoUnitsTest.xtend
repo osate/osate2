@@ -62,15 +62,11 @@ class RealNoUnitsTest {
 			public final class RealNoUnitsTest {
 				public static final String REAL_NO_UNITS_TEST__NAME = "real_no_units_test";
 				
-				public static final String OWNED_REAL__NAME = "owned_real";
-				public static final String REFERENCED_REAL_LOCAL__NAME = "referenced_real_local";
-				public static final String REFERENCED_REAL_OTHER__NAME = "referenced_real_other";
-				public static final String LIST_1_REAL__NAME = "list_1_real";
-				public static final String LIST_5_REAL__NAME = "list_5_real";
-				
 				private RealNoUnitsTest() {}
 				
 				// Lookup methods for real_no_units_test::owned_real
+				
+				public static final String OWNED_REAL__NAME = "owned_real";
 				
 				public static boolean acceptsOwnedReal(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getOwnedReal_Property(lookupContext));
@@ -106,6 +102,8 @@ class RealNoUnitsTest {
 				
 				// Lookup methods for real_no_units_test::referenced_real_local
 				
+				public static final String REFERENCED_REAL_LOCAL__NAME = "referenced_real_local";
+				
 				public static boolean acceptsReferencedRealLocal(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getReferencedRealLocal_Property(lookupContext));
 				}
@@ -140,6 +138,8 @@ class RealNoUnitsTest {
 				
 				// Lookup methods for real_no_units_test::referenced_real_other
 				
+				public static final String REFERENCED_REAL_OTHER__NAME = "referenced_real_other";
+				
 				public static boolean acceptsReferencedRealOther(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getReferencedRealOther_Property(lookupContext));
 				}
@@ -173,6 +173,8 @@ class RealNoUnitsTest {
 				}
 				
 				// Lookup methods for real_no_units_test::list_1_real
+				
+				public static final String LIST_1_REAL__NAME = "list_1_real";
 				
 				public static boolean acceptsList1Real(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1Real_Property(lookupContext));
@@ -210,6 +212,8 @@ class RealNoUnitsTest {
 				}
 				
 				// Lookup methods for real_no_units_test::list_5_real
+				
+				public static final String LIST_5_REAL__NAME = "list_5_real";
 				
 				public static boolean acceptsList5Real(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList5Real_Property(lookupContext));

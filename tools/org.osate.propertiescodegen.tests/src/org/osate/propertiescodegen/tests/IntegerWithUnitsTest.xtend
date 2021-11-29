@@ -74,17 +74,11 @@ class IntegerWithUnitsTest {
 			public final class IntegerWithUnitsTest {
 				public static final String INTEGER_WITH_UNITS_TEST__NAME = "integer_with_units_test";
 				
-				public static final String OWNED__NAME = "owned";
-				public static final String SAME_FILE__NAME = "same_file";
-				public static final String OTHER_FILE__NAME = "other_file";
-				public static final String LIST_1_OWNED__NAME = "list_1_owned";
-				public static final String LIST_1_SAME_FILE__NAME = "list_1_same_file";
-				public static final String LIST_1_OTHER_FILE__NAME = "list_1_other_file";
-				public static final String RECORD_PROPERTY__NAME = "record_property";
-				
 				private IntegerWithUnitsTest() {}
 				
 				// Lookup methods for integer_with_units_test::owned
+				
+				public static final String OWNED__NAME = "owned";
 				
 				public static boolean acceptsOwned(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getOwned_Property(lookupContext));
@@ -120,6 +114,8 @@ class IntegerWithUnitsTest {
 				
 				// Lookup methods for integer_with_units_test::same_file
 				
+				public static final String SAME_FILE__NAME = "same_file";
+				
 				public static boolean acceptsSameFile(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getSameFile_Property(lookupContext));
 				}
@@ -154,6 +150,8 @@ class IntegerWithUnitsTest {
 				
 				// Lookup methods for integer_with_units_test::other_file
 				
+				public static final String OTHER_FILE__NAME = "other_file";
+				
 				public static boolean acceptsOtherFile(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getOtherFile_Property(lookupContext));
 				}
@@ -187,6 +185,8 @@ class IntegerWithUnitsTest {
 				}
 				
 				// Lookup methods for integer_with_units_test::list_1_owned
+				
+				public static final String LIST_1_OWNED__NAME = "list_1_owned";
 				
 				public static boolean acceptsList1Owned(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1Owned_Property(lookupContext));
@@ -225,6 +225,8 @@ class IntegerWithUnitsTest {
 				
 				// Lookup methods for integer_with_units_test::list_1_same_file
 				
+				public static final String LIST_1_SAME_FILE__NAME = "list_1_same_file";
+				
 				public static boolean acceptsList1SameFile(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1SameFile_Property(lookupContext));
 				}
@@ -262,6 +264,8 @@ class IntegerWithUnitsTest {
 				
 				// Lookup methods for integer_with_units_test::list_1_other_file
 				
+				public static final String LIST_1_OTHER_FILE__NAME = "list_1_other_file";
+				
 				public static boolean acceptsList1OtherFile(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1OtherFile_Property(lookupContext));
 				}
@@ -298,6 +302,8 @@ class IntegerWithUnitsTest {
 				}
 				
 				// Lookup methods for integer_with_units_test::record_property
+				
+				public static final String RECORD_PROPERTY__NAME = "record_property";
 				
 				public static boolean acceptsRecordProperty(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRecordProperty_Property(lookupContext));

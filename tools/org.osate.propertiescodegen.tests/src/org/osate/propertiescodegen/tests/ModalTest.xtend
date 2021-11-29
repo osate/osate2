@@ -82,34 +82,11 @@ class ModalTest {
 			public final class ModalTest {
 				public static final String MODAL_TEST__NAME = "modal_test";
 				
-				public static final String STRING_DEF_1__NAME = "string_def_1";
-				public static final String STRING_DEF_2__NAME = "string_def_2";
-				public static final String STRING_DEF_3__NAME = "string_def_3";
-				public static final String STRING_DEF_4__NAME = "string_def_4";
-				public static final String STRING_DEF_5__NAME = "string_def_5";
-				public static final String STRING_DEF_6__NAME = "string_def_6";
-				public static final String STRING_DEF_7__NAME = "string_def_7";
-				public static final String STRING_DEF_8__NAME = "string_def_8";
-				public static final String STRING_DEF_9__NAME = "string_def_9";
-				public static final String STRING_DEF_10__NAME = "string_def_10";
-				public static final String STRING_DEF_11__NAME = "string_def_11";
-				public static final String STRING_DEF_12__NAME = "string_def_12";
-				public static final String STRING_DEF_13__NAME = "string_def_13";
-				public static final String STRING_DEF_14__NAME = "string_def_14";
-				public static final String STRING_DEF_15__NAME = "string_def_15";
-				public static final String STRING_DEF_16__NAME = "string_def_16";
-				public static final String STRING_DEF_17__NAME = "string_def_17";
-				public static final String STRING_DEF_18__NAME = "string_def_18";
-				public static final String STRING_DEF_19__NAME = "string_def_19";
-				public static final String STRING_LIST_DEF_1__NAME = "string_list_def_1";
-				public static final String STRING_LIST_DEF_2__NAME = "string_list_def_2";
-				public static final String STRING_LIST_DEF_3__NAME = "string_list_def_3";
-				public static final String STRING_LIST_DEF_4__NAME = "string_list_def_4";
-				public static final String RECORD_DEF_1__NAME = "record_def_1";
-				
 				private ModalTest() {}
 				
 				// Lookup methods for modal_test::string_def_1
+				
+				public static final String STRING_DEF_1__NAME = "string_def_1";
 				
 				public static boolean acceptsStringDef1(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef1_Property(lookupContext));
@@ -145,6 +122,8 @@ class ModalTest {
 				
 				// Lookup methods for modal_test::string_def_2
 				
+				public static final String STRING_DEF_2__NAME = "string_def_2";
+				
 				public static boolean acceptsStringDef2(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef2_Property(lookupContext));
 				}
@@ -178,6 +157,8 @@ class ModalTest {
 				}
 				
 				// Lookup methods for modal_test::string_def_3
+				
+				public static final String STRING_DEF_3__NAME = "string_def_3";
 				
 				public static boolean acceptsStringDef3(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef3_Property(lookupContext));
@@ -213,6 +194,8 @@ class ModalTest {
 				
 				// Lookup methods for modal_test::string_def_4
 				
+				public static final String STRING_DEF_4__NAME = "string_def_4";
+				
 				public static boolean acceptsStringDef4(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef4_Property(lookupContext));
 				}
@@ -246,6 +229,8 @@ class ModalTest {
 				}
 				
 				// Lookup methods for modal_test::string_def_5
+				
+				public static final String STRING_DEF_5__NAME = "string_def_5";
 				
 				public static boolean acceptsStringDef5(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef5_Property(lookupContext));
@@ -281,6 +266,8 @@ class ModalTest {
 				
 				// Lookup methods for modal_test::string_def_6
 				
+				public static final String STRING_DEF_6__NAME = "string_def_6";
+				
 				public static boolean acceptsStringDef6(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef6_Property(lookupContext));
 				}
@@ -314,6 +301,8 @@ class ModalTest {
 				}
 				
 				// Lookup methods for modal_test::string_def_7
+				
+				public static final String STRING_DEF_7__NAME = "string_def_7";
 				
 				public static boolean acceptsStringDef7(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef7_Property(lookupContext));
@@ -349,6 +338,8 @@ class ModalTest {
 				
 				// Lookup methods for modal_test::string_def_8
 				
+				public static final String STRING_DEF_8__NAME = "string_def_8";
+				
 				public static boolean acceptsStringDef8(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef8_Property(lookupContext));
 				}
@@ -382,6 +373,8 @@ class ModalTest {
 				}
 				
 				// Lookup methods for modal_test::string_def_9
+				
+				public static final String STRING_DEF_9__NAME = "string_def_9";
 				
 				public static boolean acceptsStringDef9(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef9_Property(lookupContext));
@@ -417,6 +410,8 @@ class ModalTest {
 				
 				// Lookup methods for modal_test::string_def_10
 				
+				public static final String STRING_DEF_10__NAME = "string_def_10";
+				
 				public static boolean acceptsStringDef10(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef10_Property(lookupContext));
 				}
@@ -450,6 +445,8 @@ class ModalTest {
 				}
 				
 				// Lookup methods for modal_test::string_def_11
+				
+				public static final String STRING_DEF_11__NAME = "string_def_11";
 				
 				public static boolean acceptsStringDef11(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef11_Property(lookupContext));
@@ -485,6 +482,8 @@ class ModalTest {
 				
 				// Lookup methods for modal_test::string_def_12
 				
+				public static final String STRING_DEF_12__NAME = "string_def_12";
+				
 				public static boolean acceptsStringDef12(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef12_Property(lookupContext));
 				}
@@ -518,6 +517,8 @@ class ModalTest {
 				}
 				
 				// Lookup methods for modal_test::string_def_13
+				
+				public static final String STRING_DEF_13__NAME = "string_def_13";
 				
 				public static boolean acceptsStringDef13(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef13_Property(lookupContext));
@@ -553,6 +554,8 @@ class ModalTest {
 				
 				// Lookup methods for modal_test::string_def_14
 				
+				public static final String STRING_DEF_14__NAME = "string_def_14";
+				
 				public static boolean acceptsStringDef14(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef14_Property(lookupContext));
 				}
@@ -586,6 +589,8 @@ class ModalTest {
 				}
 				
 				// Lookup methods for modal_test::string_def_15
+				
+				public static final String STRING_DEF_15__NAME = "string_def_15";
 				
 				public static boolean acceptsStringDef15(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef15_Property(lookupContext));
@@ -621,6 +626,8 @@ class ModalTest {
 				
 				// Lookup methods for modal_test::string_def_16
 				
+				public static final String STRING_DEF_16__NAME = "string_def_16";
+				
 				public static boolean acceptsStringDef16(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef16_Property(lookupContext));
 				}
@@ -654,6 +661,8 @@ class ModalTest {
 				}
 				
 				// Lookup methods for modal_test::string_def_17
+				
+				public static final String STRING_DEF_17__NAME = "string_def_17";
 				
 				public static boolean acceptsStringDef17(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef17_Property(lookupContext));
@@ -689,6 +698,8 @@ class ModalTest {
 				
 				// Lookup methods for modal_test::string_def_18
 				
+				public static final String STRING_DEF_18__NAME = "string_def_18";
+				
 				public static boolean acceptsStringDef18(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef18_Property(lookupContext));
 				}
@@ -723,6 +734,8 @@ class ModalTest {
 				
 				// Lookup methods for modal_test::string_def_19
 				
+				public static final String STRING_DEF_19__NAME = "string_def_19";
+				
 				public static boolean acceptsStringDef19(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringDef19_Property(lookupContext));
 				}
@@ -756,6 +769,8 @@ class ModalTest {
 				}
 				
 				// Lookup methods for modal_test::string_list_def_1
+				
+				public static final String STRING_LIST_DEF_1__NAME = "string_list_def_1";
 				
 				public static boolean acceptsStringListDef1(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringListDef1_Property(lookupContext));
@@ -793,6 +808,8 @@ class ModalTest {
 				}
 				
 				// Lookup methods for modal_test::string_list_def_2
+				
+				public static final String STRING_LIST_DEF_2__NAME = "string_list_def_2";
 				
 				public static boolean acceptsStringListDef2(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringListDef2_Property(lookupContext));
@@ -834,6 +851,8 @@ class ModalTest {
 				
 				// Lookup methods for modal_test::string_list_def_3
 				
+				public static final String STRING_LIST_DEF_3__NAME = "string_list_def_3";
+				
 				public static boolean acceptsStringListDef3(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringListDef3_Property(lookupContext));
 				}
@@ -870,6 +889,8 @@ class ModalTest {
 				}
 				
 				// Lookup methods for modal_test::string_list_def_4
+				
+				public static final String STRING_LIST_DEF_4__NAME = "string_list_def_4";
 				
 				public static boolean acceptsStringListDef4(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getStringListDef4_Property(lookupContext));
@@ -910,6 +931,8 @@ class ModalTest {
 				}
 				
 				// Lookup methods for modal_test::record_def_1
+				
+				public static final String RECORD_DEF_1__NAME = "record_def_1";
 				
 				public static boolean acceptsRecordDef1(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getRecordDef1_Property(lookupContext));

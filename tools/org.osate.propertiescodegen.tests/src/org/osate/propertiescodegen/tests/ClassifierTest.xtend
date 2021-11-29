@@ -62,15 +62,11 @@ class ClassifierTest {
 			public final class ClassifierTest {
 				public static final String CLASSIFIER_TEST__NAME = "classifier_test";
 				
-				public static final String OWNED_CLASSIFIER__NAME = "owned_classifier";
-				public static final String REFERENCED_CLASSIFIER_LOCAL__NAME = "referenced_classifier_local";
-				public static final String REFERENCED_CLASSIFIER_OTHER__NAME = "referenced_classifier_other";
-				public static final String LIST_1_CLASSIFIER__NAME = "list_1_classifier";
-				public static final String LIST_5_CLASSIFIER__NAME = "list_5_classifier";
-				
 				private ClassifierTest() {}
 				
 				// Lookup methods for classifier_test::owned_classifier
+				
+				public static final String OWNED_CLASSIFIER__NAME = "owned_classifier";
 				
 				public static boolean acceptsOwnedClassifier(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getOwnedClassifier_Property(lookupContext));
@@ -106,6 +102,8 @@ class ClassifierTest {
 				
 				// Lookup methods for classifier_test::referenced_classifier_local
 				
+				public static final String REFERENCED_CLASSIFIER_LOCAL__NAME = "referenced_classifier_local";
+				
 				public static boolean acceptsReferencedClassifierLocal(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getReferencedClassifierLocal_Property(lookupContext));
 				}
@@ -140,6 +138,8 @@ class ClassifierTest {
 				
 				// Lookup methods for classifier_test::referenced_classifier_other
 				
+				public static final String REFERENCED_CLASSIFIER_OTHER__NAME = "referenced_classifier_other";
+				
 				public static boolean acceptsReferencedClassifierOther(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getReferencedClassifierOther_Property(lookupContext));
 				}
@@ -173,6 +173,8 @@ class ClassifierTest {
 				}
 				
 				// Lookup methods for classifier_test::list_1_classifier
+				
+				public static final String LIST_1_CLASSIFIER__NAME = "list_1_classifier";
 				
 				public static boolean acceptsList1Classifier(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList1Classifier_Property(lookupContext));
@@ -210,6 +212,8 @@ class ClassifierTest {
 				}
 				
 				// Lookup methods for classifier_test::list_5_classifier
+				
+				public static final String LIST_5_CLASSIFIER__NAME = "list_5_classifier";
 				
 				public static boolean acceptsList5Classifier(NamedElement lookupContext) {
 					return lookupContext.acceptsProperty(getList5Classifier_Property(lookupContext));
