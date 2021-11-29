@@ -55,6 +55,7 @@ class CodegenPackageTest {
 			
 			import java.util.Optional;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
@@ -96,7 +97,7 @@ class CodegenPackageTest {
 					}
 				}
 				
-				public static Property getRecordDef_Property(NamedElement lookupContext) {
+				public static Property getRecordDef_Property(EObject lookupContext) {
 					String name = CODEGEN_PACKAGE_BASE__NAME + "::" + RECORD_DEF__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -272,6 +273,7 @@ class CodegenPackageTest {
 			
 			import java.util.Optional;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
@@ -315,7 +317,7 @@ class CodegenPackageTest {
 					}
 				}
 				
-				public static Property getRecordDef_Property(NamedElement lookupContext) {
+				public static Property getRecordDef_Property(EObject lookupContext) {
 					String name = CODEGEN_PACKAGE_SAME__NAME + "::" + RECORD_DEF__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -349,7 +351,7 @@ class CodegenPackageTest {
 					}
 				}
 				
-				public static Property getIntDef_Property(NamedElement lookupContext) {
+				public static Property getIntDef_Property(EObject lookupContext) {
 					String name = CODEGEN_PACKAGE_SAME__NAME + "::" + INT_DEF__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -374,6 +376,7 @@ class CodegenPackageTest {
 			
 			import java.util.Optional;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
@@ -419,7 +422,7 @@ class CodegenPackageTest {
 					}
 				}
 				
-				public static Property getRecordDef_Property(NamedElement lookupContext) {
+				public static Property getRecordDef_Property(EObject lookupContext) {
 					String name = CODEGEN_PACKAGE_OTHER__NAME + "::" + RECORD_DEF__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -453,7 +456,7 @@ class CodegenPackageTest {
 					}
 				}
 				
-				public static Property getIntDef_Property(NamedElement lookupContext) {
+				public static Property getIntDef_Property(EObject lookupContext) {
 					String name = CODEGEN_PACKAGE_OTHER__NAME + "::" + INT_DEF__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}

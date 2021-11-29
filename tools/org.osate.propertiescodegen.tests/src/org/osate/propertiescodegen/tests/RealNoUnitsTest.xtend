@@ -47,6 +47,7 @@ class RealNoUnitsTest {
 			import java.util.OptionalDouble;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Mode;
@@ -94,7 +95,7 @@ class RealNoUnitsTest {
 					}
 				}
 				
-				public static Property getOwnedReal_Property(NamedElement lookupContext) {
+				public static Property getOwnedReal_Property(EObject lookupContext) {
 					String name = REAL_NO_UNITS_TEST__NAME + "::" + OWNED_REAL__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -128,7 +129,7 @@ class RealNoUnitsTest {
 					}
 				}
 				
-				public static Property getReferencedRealLocal_Property(NamedElement lookupContext) {
+				public static Property getReferencedRealLocal_Property(EObject lookupContext) {
 					String name = REAL_NO_UNITS_TEST__NAME + "::" + REFERENCED_REAL_LOCAL__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -162,7 +163,7 @@ class RealNoUnitsTest {
 					}
 				}
 				
-				public static Property getReferencedRealOther_Property(NamedElement lookupContext) {
+				public static Property getReferencedRealOther_Property(EObject lookupContext) {
 					String name = REAL_NO_UNITS_TEST__NAME + "::" + REFERENCED_REAL_OTHER__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -199,7 +200,7 @@ class RealNoUnitsTest {
 					}
 				}
 				
-				public static Property getList1Real_Property(NamedElement lookupContext) {
+				public static Property getList1Real_Property(EObject lookupContext) {
 					String name = REAL_NO_UNITS_TEST__NAME + "::" + LIST_1_REAL__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -248,7 +249,7 @@ class RealNoUnitsTest {
 					}
 				}
 				
-				public static Property getList5Real_Property(NamedElement lookupContext) {
+				public static Property getList5Real_Property(EObject lookupContext) {
 					String name = REAL_NO_UNITS_TEST__NAME + "::" + LIST_5_REAL__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}

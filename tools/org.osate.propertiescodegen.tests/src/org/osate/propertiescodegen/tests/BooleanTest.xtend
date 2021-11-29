@@ -46,6 +46,7 @@ class BooleanTest {
 			import java.util.Optional;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.ListValue;
@@ -93,7 +94,7 @@ class BooleanTest {
 					}
 				}
 				
-				public static Property getOwnedBoolean_Property(NamedElement lookupContext) {
+				public static Property getOwnedBoolean_Property(EObject lookupContext) {
 					String name = BOOLEAN_TEST__NAME + "::" + OWNED_BOOLEAN__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -127,7 +128,7 @@ class BooleanTest {
 					}
 				}
 				
-				public static Property getReferencedBooleanLocal_Property(NamedElement lookupContext) {
+				public static Property getReferencedBooleanLocal_Property(EObject lookupContext) {
 					String name = BOOLEAN_TEST__NAME + "::" + REFERENCED_BOOLEAN_LOCAL__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -161,7 +162,7 @@ class BooleanTest {
 					}
 				}
 				
-				public static Property getReferencedBooleanOther_Property(NamedElement lookupContext) {
+				public static Property getReferencedBooleanOther_Property(EObject lookupContext) {
 					String name = BOOLEAN_TEST__NAME + "::" + REFERENCED_BOOLEAN_OTHER__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -198,7 +199,7 @@ class BooleanTest {
 					}
 				}
 				
-				public static Property getList1Boolean_Property(NamedElement lookupContext) {
+				public static Property getList1Boolean_Property(EObject lookupContext) {
 					String name = BOOLEAN_TEST__NAME + "::" + LIST_1_BOOLEAN__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -247,7 +248,7 @@ class BooleanTest {
 					}
 				}
 				
-				public static Property getList5Boolean_Property(NamedElement lookupContext) {
+				public static Property getList5Boolean_Property(EObject lookupContext) {
 					String name = BOOLEAN_TEST__NAME + "::" + LIST_5_BOOLEAN__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}

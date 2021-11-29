@@ -67,6 +67,7 @@ class ModalTest {
 			import java.util.Optional;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Mode;
@@ -133,7 +134,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef1_Property(NamedElement lookupContext) {
+				public static Property getStringDef1_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_1__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -167,7 +168,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef2_Property(NamedElement lookupContext) {
+				public static Property getStringDef2_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_2__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -201,7 +202,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef3_Property(NamedElement lookupContext) {
+				public static Property getStringDef3_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_3__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -235,7 +236,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef4_Property(NamedElement lookupContext) {
+				public static Property getStringDef4_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_4__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -269,7 +270,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef5_Property(NamedElement lookupContext) {
+				public static Property getStringDef5_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_5__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -303,7 +304,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef6_Property(NamedElement lookupContext) {
+				public static Property getStringDef6_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_6__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -337,7 +338,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef7_Property(NamedElement lookupContext) {
+				public static Property getStringDef7_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_7__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -371,7 +372,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef8_Property(NamedElement lookupContext) {
+				public static Property getStringDef8_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_8__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -405,7 +406,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef9_Property(NamedElement lookupContext) {
+				public static Property getStringDef9_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_9__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -439,7 +440,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef10_Property(NamedElement lookupContext) {
+				public static Property getStringDef10_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_10__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -473,7 +474,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef11_Property(NamedElement lookupContext) {
+				public static Property getStringDef11_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_11__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -507,7 +508,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef12_Property(NamedElement lookupContext) {
+				public static Property getStringDef12_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_12__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -541,7 +542,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef13_Property(NamedElement lookupContext) {
+				public static Property getStringDef13_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_13__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -575,7 +576,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef14_Property(NamedElement lookupContext) {
+				public static Property getStringDef14_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_14__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -609,7 +610,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef15_Property(NamedElement lookupContext) {
+				public static Property getStringDef15_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_15__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -643,7 +644,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef16_Property(NamedElement lookupContext) {
+				public static Property getStringDef16_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_16__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -677,7 +678,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef17_Property(NamedElement lookupContext) {
+				public static Property getStringDef17_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_17__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -711,7 +712,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef18_Property(NamedElement lookupContext) {
+				public static Property getStringDef18_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_18__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -745,7 +746,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringDef19_Property(NamedElement lookupContext) {
+				public static Property getStringDef19_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_DEF_19__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -782,7 +783,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringListDef1_Property(NamedElement lookupContext) {
+				public static Property getStringListDef1_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_LIST_DEF_1__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -822,7 +823,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringListDef2_Property(NamedElement lookupContext) {
+				public static Property getStringListDef2_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_LIST_DEF_2__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -859,7 +860,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringListDef3_Property(NamedElement lookupContext) {
+				public static Property getStringListDef3_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_LIST_DEF_3__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -899,7 +900,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getStringListDef4_Property(NamedElement lookupContext) {
+				public static Property getStringListDef4_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + STRING_LIST_DEF_4__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -933,7 +934,7 @@ class ModalTest {
 					}
 				}
 				
-				public static Property getRecordDef1_Property(NamedElement lookupContext) {
+				public static Property getRecordDef1_Property(EObject lookupContext) {
 					String name = MODAL_TEST__NAME + "::" + RECORD_DEF_1__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}

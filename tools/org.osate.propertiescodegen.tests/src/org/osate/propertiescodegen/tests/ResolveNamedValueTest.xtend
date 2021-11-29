@@ -60,6 +60,7 @@ class ResolveNamedValueTest {
 			import java.util.OptionalLong;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.ListValue;
@@ -114,7 +115,7 @@ class ResolveNamedValueTest {
 					}
 				}
 				
-				public static Property getIntDef1_Property(NamedElement lookupContext) {
+				public static Property getIntDef1_Property(EObject lookupContext) {
 					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + INT_DEF_1__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -148,7 +149,7 @@ class ResolveNamedValueTest {
 					}
 				}
 				
-				public static Property getIntDef2_Property(NamedElement lookupContext) {
+				public static Property getIntDef2_Property(EObject lookupContext) {
 					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + INT_DEF_2__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -191,7 +192,7 @@ class ResolveNamedValueTest {
 					}
 				}
 				
-				public static Property getList3IntDef_Property(NamedElement lookupContext) {
+				public static Property getList3IntDef_Property(EObject lookupContext) {
 					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + LIST_3_INT_DEF__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -225,7 +226,7 @@ class ResolveNamedValueTest {
 					}
 				}
 				
-				public static Property getIntRangeNoUnitsDef_Property(NamedElement lookupContext) {
+				public static Property getIntRangeNoUnitsDef_Property(EObject lookupContext) {
 					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + INT_RANGE_NO_UNITS_DEF__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -259,7 +260,7 @@ class ResolveNamedValueTest {
 					}
 				}
 				
-				public static Property getIntRangeWithUnitsDef_Property(NamedElement lookupContext) {
+				public static Property getIntRangeWithUnitsDef_Property(EObject lookupContext) {
 					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + INT_RANGE_WITH_UNITS_DEF__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -293,7 +294,7 @@ class ResolveNamedValueTest {
 					}
 				}
 				
-				public static Property getRealRangeNoUnitsDef_Property(NamedElement lookupContext) {
+				public static Property getRealRangeNoUnitsDef_Property(EObject lookupContext) {
 					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + REAL_RANGE_NO_UNITS_DEF__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -327,7 +328,7 @@ class ResolveNamedValueTest {
 					}
 				}
 				
-				public static Property getRealRangeWithUnitsDef_Property(NamedElement lookupContext) {
+				public static Property getRealRangeWithUnitsDef_Property(EObject lookupContext) {
 					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + REAL_RANGE_WITH_UNITS_DEF__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -361,7 +362,7 @@ class ResolveNamedValueTest {
 					}
 				}
 				
-				public static Property getRecordDef_Property(NamedElement lookupContext) {
+				public static Property getRecordDef_Property(EObject lookupContext) {
 					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + RECORD_DEF__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}

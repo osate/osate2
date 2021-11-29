@@ -88,6 +88,7 @@ class ListDefinitionTest {
 			import java.util.Optional;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.Classifier;
@@ -177,7 +178,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1Boolean_Property(NamedElement lookupContext) {
+				public static Property getList1Boolean_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_BOOLEAN__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -217,7 +218,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList2Boolean_Property(NamedElement lookupContext) {
+				public static Property getList2Boolean_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_2_BOOLEAN__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -260,7 +261,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList3Boolean_Property(NamedElement lookupContext) {
+				public static Property getList3Boolean_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_3_BOOLEAN__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -306,7 +307,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList4Boolean_Property(NamedElement lookupContext) {
+				public static Property getList4Boolean_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_4_BOOLEAN__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -355,7 +356,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList5Boolean_Property(NamedElement lookupContext) {
+				public static Property getList5Boolean_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_5_BOOLEAN__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -392,7 +393,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1String_Property(NamedElement lookupContext) {
+				public static Property getList1String_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_STRING__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -429,7 +430,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1Classifier_Property(NamedElement lookupContext) {
+				public static Property getList1Classifier_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_CLASSIFIER__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -466,7 +467,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1IntegerNoUnits_Property(NamedElement lookupContext) {
+				public static Property getList1IntegerNoUnits_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_INTEGER_NO_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -503,7 +504,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1RealNoUnits_Property(NamedElement lookupContext) {
+				public static Property getList1RealNoUnits_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_REAL_NO_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -540,7 +541,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1Reference_Property(NamedElement lookupContext) {
+				public static Property getList1Reference_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_REFERENCE__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -577,7 +578,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1OwnedEnum_Property(NamedElement lookupContext) {
+				public static Property getList1OwnedEnum_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_OWNED_ENUM__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -614,7 +615,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1OwnedUnits_Property(NamedElement lookupContext) {
+				public static Property getList1OwnedUnits_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_OWNED_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -651,7 +652,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1OwnedIntegerWithUnits_Property(NamedElement lookupContext) {
+				public static Property getList1OwnedIntegerWithUnits_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_OWNED_INTEGER_WITH_UNITS__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -688,7 +689,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1OwnedRange_Property(NamedElement lookupContext) {
+				public static Property getList1OwnedRange_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_OWNED_RANGE__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -725,7 +726,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1OwnedRecord_Property(NamedElement lookupContext) {
+				public static Property getList1OwnedRecord_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_OWNED_RECORD__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -762,7 +763,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1ReferencedEnumNoImport_Property(NamedElement lookupContext) {
+				public static Property getList1ReferencedEnumNoImport_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_REFERENCED_ENUM_NO_IMPORT__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -799,7 +800,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1ReferencedEnumWithImport_Property(NamedElement lookupContext) {
+				public static Property getList1ReferencedEnumWithImport_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_REFERENCED_ENUM_WITH_IMPORT__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -836,7 +837,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1ReferencedUnitsNoImport_Property(NamedElement lookupContext) {
+				public static Property getList1ReferencedUnitsNoImport_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_REFERENCED_UNITS_NO_IMPORT__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -873,7 +874,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1ReferencedUnitsWithImport_Property(NamedElement lookupContext) {
+				public static Property getList1ReferencedUnitsWithImport_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_REFERENCED_UNITS_WITH_IMPORT__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -910,7 +911,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1ReferencedNumberWithUnitsNoImport_Property(NamedElement lookupContext) {
+				public static Property getList1ReferencedNumberWithUnitsNoImport_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_REFERENCED_NUMBER_WITH_UNITS_NO_IMPORT__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -947,7 +948,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1ReferencedNumberWithUnitsWithImport_Property(NamedElement lookupContext) {
+				public static Property getList1ReferencedNumberWithUnitsWithImport_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_REFERENCED_NUMBER_WITH_UNITS_WITH_IMPORT__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -984,7 +985,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1ReferencedRangeNoImport_Property(NamedElement lookupContext) {
+				public static Property getList1ReferencedRangeNoImport_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_REFERENCED_RANGE_NO_IMPORT__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -1021,7 +1022,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1ReferencedRangeWithImport_Property(NamedElement lookupContext) {
+				public static Property getList1ReferencedRangeWithImport_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_REFERENCED_RANGE_WITH_IMPORT__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -1058,7 +1059,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1ReferencedRecordNoImport_Property(NamedElement lookupContext) {
+				public static Property getList1ReferencedRecordNoImport_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_REFERENCED_RECORD_NO_IMPORT__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -1095,7 +1096,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList1ReferencedRecordWithImport_Property(NamedElement lookupContext) {
+				public static Property getList1ReferencedRecordWithImport_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_1_REFERENCED_RECORD_WITH_IMPORT__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -1138,7 +1139,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList3OwnedEnum_Property(NamedElement lookupContext) {
+				public static Property getList3OwnedEnum_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_3_OWNED_ENUM__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -1187,7 +1188,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList5OwnedRange_Property(NamedElement lookupContext) {
+				public static Property getList5OwnedRange_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_5_OWNED_RANGE__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -1230,7 +1231,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList3ReferencedEnumNoImport_Property(NamedElement lookupContext) {
+				public static Property getList3ReferencedEnumNoImport_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_3_REFERENCED_ENUM_NO_IMPORT__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
@@ -1279,7 +1280,7 @@ class ListDefinitionTest {
 					}
 				}
 				
-				public static Property getList5ReferencedRangeWithImport_Property(NamedElement lookupContext) {
+				public static Property getList5ReferencedRangeWithImport_Property(EObject lookupContext) {
 					String name = PS1__NAME + "::" + LIST_5_REFERENCED_RANGE_WITH_IMPORT__NAME;
 					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 				}
