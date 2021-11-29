@@ -42,6 +42,7 @@ package class PropertyGettersGenerator extends AbstractPropertyGenerator {
 		
 		imports.add(
 			"java.util.Optional",
+			"org.eclipse.emf.ecore.EObject",
 			"org.osate.aadl2.Aadl2Package",
 			"org.osate.aadl2.Mode",
 			"org.osate.aadl2.NamedElement",
@@ -81,7 +82,7 @@ package class PropertyGettersGenerator extends AbstractPropertyGenerator {
 				}
 			}
 			
-			public static Property get«camelName»_Property(NamedElement lookupContext) {
+			public static Property get«camelName»_Property(EObject lookupContext) {
 				String name = «propertySet.name.toUpperCase»__NAME + "::" + «property.name.toUpperCase»__NAME;
 				return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 			}
