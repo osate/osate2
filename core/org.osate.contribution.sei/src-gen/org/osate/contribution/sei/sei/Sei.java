@@ -1,3 +1,26 @@
+/*******************************************************************************
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ *******************************************************************************/
 package org.osate.contribution.sei.sei;
 
 import java.util.List;
@@ -6,6 +29,7 @@ import java.util.OptionalDouble;
 import java.util.OptionalLong;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.IntegerLiteral;
@@ -30,43 +54,11 @@ import org.osate.pluginsupport.properties.RealWithUnits;
 public final class Sei {
 	public static final String SEI__NAME = "SEI";
 	
-	public static final String SECURITYLEVEL__NAME = "SecurityLevel";
-	public static final String SAFETYCRITICALITY__NAME = "SafetyCriticality";
-	public static final String STREAMMISSRATE__NAME = "StreamMissRate";
-	public static final String NETWEIGHT__NAME = "NetWeight";
-	public static final String GROSSWEIGHT__NAME = "GrossWeight";
-	public static final String WEIGHTLIMIT__NAME = "WeightLimit";
-	public static final String STATEREPRESENTATION__NAME = "StateRepresentation";
-	public static final String PROTOCOLQOS__NAME = "ProtocolQoS";
-	public static final String PARTITION_LATENCY__NAME = "Partition_Latency";
-	public static final String IS_PARTITION__NAME = "Is_Partition";
-	public static final String INSTRUCTIONSPERDISPATCH__NAME = "InstructionsPerDispatch";
-	public static final String MIPSCAPACITY__NAME = "MIPSCapacity";
-	public static final String MIPSBUDGET__NAME = "MIPSBudget";
-	public static final String RAMCAPACITY__NAME = "RAMCapacity";
-	public static final String RAMBUDGET__NAME = "RAMBudget";
-	public static final String ROMCAPACITY__NAME = "ROMCapacity";
-	public static final String ROMBUDGET__NAME = "ROMBudget";
-	public static final String POWERCAPACITY__NAME = "PowerCapacity";
-	public static final String POWERBUDGET__NAME = "PowerBudget";
-	public static final String POWERSUPPLY__NAME = "PowerSupply";
-	public static final String BANDWIDTHCAPACITY__NAME = "BandWidthCapacity";
-	public static final String BANDWIDTHBUDGET__NAME = "BandWidthBudget";
-	public static final String RAMACTUAL__NAME = "RAMActual";
-	public static final String ROMACTUAL__NAME = "ROMActual";
-	public static final String DATA_RATE__NAME = "Data_Rate";
-	public static final String MESSAGE_RATE__NAME = "Message_Rate";
-	public static final String NSLOC__NAME = "nsloc";
-	public static final String VDID_INSPECT__NAME = "vdid_inspect";
-	public static final String BROADCAST_PROTOCOL__NAME = "Broadcast_Protocol";
-	public static final String PLATFORM__NAME = "Platform";
-	public static final String PRICE__NAME = "Price";
-	public static final String MODEL_REFERENCES__NAME = "Model_References";
-	public static final String RESPONSE_TIME__NAME = "Response_Time";
-	
 	private Sei() {}
 	
 	// Lookup methods for SEI::SecurityLevel
+	
+	public static final String SECURITYLEVEL__NAME = "SecurityLevel";
 	
 	public static boolean acceptsSecuritylevel(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getSecuritylevel_Property(lookupContext));
@@ -91,7 +83,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getSecuritylevel_Property(NamedElement lookupContext) {
+	public static Property getSecuritylevel_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + SECURITYLEVEL__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -101,6 +93,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::SafetyCriticality
+	
+	public static final String SAFETYCRITICALITY__NAME = "SafetyCriticality";
 	
 	public static boolean acceptsSafetycriticality(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getSafetycriticality_Property(lookupContext));
@@ -125,7 +119,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getSafetycriticality_Property(NamedElement lookupContext) {
+	public static Property getSafetycriticality_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + SAFETYCRITICALITY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -135,6 +129,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::StreamMissRate
+	
+	public static final String STREAMMISSRATE__NAME = "StreamMissRate";
 	
 	public static boolean acceptsStreammissrate(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getStreammissrate_Property(lookupContext));
@@ -159,7 +155,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getStreammissrate_Property(NamedElement lookupContext) {
+	public static Property getStreammissrate_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + STREAMMISSRATE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -169,6 +165,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::NetWeight
+	
+	public static final String NETWEIGHT__NAME = "NetWeight";
 	
 	public static boolean acceptsNetweight(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getNetweight_Property(lookupContext));
@@ -193,7 +191,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getNetweight_Property(NamedElement lookupContext) {
+	public static Property getNetweight_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + NETWEIGHT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -203,6 +201,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::GrossWeight
+	
+	public static final String GROSSWEIGHT__NAME = "GrossWeight";
 	
 	public static boolean acceptsGrossweight(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getGrossweight_Property(lookupContext));
@@ -227,7 +227,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getGrossweight_Property(NamedElement lookupContext) {
+	public static Property getGrossweight_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + GROSSWEIGHT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -237,6 +237,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::WeightLimit
+	
+	public static final String WEIGHTLIMIT__NAME = "WeightLimit";
 	
 	public static boolean acceptsWeightlimit(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getWeightlimit_Property(lookupContext));
@@ -261,7 +263,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getWeightlimit_Property(NamedElement lookupContext) {
+	public static Property getWeightlimit_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + WEIGHTLIMIT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -271,6 +273,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::StateRepresentation
+	
+	public static final String STATEREPRESENTATION__NAME = "StateRepresentation";
 	
 	public static boolean acceptsStaterepresentation(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getStaterepresentation_Property(lookupContext));
@@ -295,7 +299,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getStaterepresentation_Property(NamedElement lookupContext) {
+	public static Property getStaterepresentation_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + STATEREPRESENTATION__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -305,6 +309,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::ProtocolQoS
+	
+	public static final String PROTOCOLQOS__NAME = "ProtocolQoS";
 	
 	public static boolean acceptsProtocolqos(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getProtocolqos_Property(lookupContext));
@@ -332,7 +338,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getProtocolqos_Property(NamedElement lookupContext) {
+	public static Property getProtocolqos_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + PROTOCOLQOS__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -342,6 +348,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::Partition_Latency
+	
+	public static final String PARTITION_LATENCY__NAME = "Partition_Latency";
 	
 	public static boolean acceptsPartitionLatency(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getPartitionLatency_Property(lookupContext));
@@ -366,7 +374,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getPartitionLatency_Property(NamedElement lookupContext) {
+	public static Property getPartitionLatency_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + PARTITION_LATENCY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -376,6 +384,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::Is_Partition
+	
+	public static final String IS_PARTITION__NAME = "Is_Partition";
 	
 	public static boolean acceptsIsPartition(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getIsPartition_Property(lookupContext));
@@ -400,7 +410,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getIsPartition_Property(NamedElement lookupContext) {
+	public static Property getIsPartition_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + IS_PARTITION__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -410,6 +420,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::InstructionsPerDispatch
+	
+	public static final String INSTRUCTIONSPERDISPATCH__NAME = "InstructionsPerDispatch";
 	
 	public static boolean acceptsInstructionsperdispatch(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getInstructionsperdispatch_Property(lookupContext));
@@ -434,7 +446,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getInstructionsperdispatch_Property(NamedElement lookupContext) {
+	public static Property getInstructionsperdispatch_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + INSTRUCTIONSPERDISPATCH__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -444,6 +456,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::MIPSCapacity
+	
+	public static final String MIPSCAPACITY__NAME = "MIPSCapacity";
 	
 	public static boolean acceptsMipscapacity(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getMipscapacity_Property(lookupContext));
@@ -468,7 +482,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getMipscapacity_Property(NamedElement lookupContext) {
+	public static Property getMipscapacity_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + MIPSCAPACITY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -478,6 +492,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::MIPSBudget
+	
+	public static final String MIPSBUDGET__NAME = "MIPSBudget";
 	
 	public static boolean acceptsMipsbudget(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getMipsbudget_Property(lookupContext));
@@ -502,7 +518,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getMipsbudget_Property(NamedElement lookupContext) {
+	public static Property getMipsbudget_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + MIPSBUDGET__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -512,6 +528,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::RAMCapacity
+	
+	public static final String RAMCAPACITY__NAME = "RAMCapacity";
 	
 	public static boolean acceptsRamcapacity(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getRamcapacity_Property(lookupContext));
@@ -536,7 +554,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getRamcapacity_Property(NamedElement lookupContext) {
+	public static Property getRamcapacity_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + RAMCAPACITY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -546,6 +564,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::RAMBudget
+	
+	public static final String RAMBUDGET__NAME = "RAMBudget";
 	
 	public static boolean acceptsRambudget(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getRambudget_Property(lookupContext));
@@ -570,7 +590,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getRambudget_Property(NamedElement lookupContext) {
+	public static Property getRambudget_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + RAMBUDGET__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -580,6 +600,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::ROMCapacity
+	
+	public static final String ROMCAPACITY__NAME = "ROMCapacity";
 	
 	public static boolean acceptsRomcapacity(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getRomcapacity_Property(lookupContext));
@@ -604,7 +626,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getRomcapacity_Property(NamedElement lookupContext) {
+	public static Property getRomcapacity_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + ROMCAPACITY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -614,6 +636,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::ROMBudget
+	
+	public static final String ROMBUDGET__NAME = "ROMBudget";
 	
 	public static boolean acceptsRombudget(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getRombudget_Property(lookupContext));
@@ -638,7 +662,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getRombudget_Property(NamedElement lookupContext) {
+	public static Property getRombudget_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + ROMBUDGET__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -648,6 +672,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::PowerCapacity
+	
+	public static final String POWERCAPACITY__NAME = "PowerCapacity";
 	
 	public static boolean acceptsPowercapacity(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getPowercapacity_Property(lookupContext));
@@ -672,7 +698,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getPowercapacity_Property(NamedElement lookupContext) {
+	public static Property getPowercapacity_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + POWERCAPACITY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -682,6 +708,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::PowerBudget
+	
+	public static final String POWERBUDGET__NAME = "PowerBudget";
 	
 	public static boolean acceptsPowerbudget(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getPowerbudget_Property(lookupContext));
@@ -706,7 +734,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getPowerbudget_Property(NamedElement lookupContext) {
+	public static Property getPowerbudget_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + POWERBUDGET__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -716,6 +744,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::PowerSupply
+	
+	public static final String POWERSUPPLY__NAME = "PowerSupply";
 	
 	public static boolean acceptsPowersupply(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getPowersupply_Property(lookupContext));
@@ -740,7 +770,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getPowersupply_Property(NamedElement lookupContext) {
+	public static Property getPowersupply_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + POWERSUPPLY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -750,6 +780,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::BandWidthCapacity
+	
+	public static final String BANDWIDTHCAPACITY__NAME = "BandWidthCapacity";
 	
 	public static boolean acceptsBandwidthcapacity(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getBandwidthcapacity_Property(lookupContext));
@@ -774,7 +806,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getBandwidthcapacity_Property(NamedElement lookupContext) {
+	public static Property getBandwidthcapacity_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + BANDWIDTHCAPACITY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -784,6 +816,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::BandWidthBudget
+	
+	public static final String BANDWIDTHBUDGET__NAME = "BandWidthBudget";
 	
 	public static boolean acceptsBandwidthbudget(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getBandwidthbudget_Property(lookupContext));
@@ -808,7 +842,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getBandwidthbudget_Property(NamedElement lookupContext) {
+	public static Property getBandwidthbudget_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + BANDWIDTHBUDGET__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -818,6 +852,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::RAMActual
+	
+	public static final String RAMACTUAL__NAME = "RAMActual";
 	
 	public static boolean acceptsRamactual(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getRamactual_Property(lookupContext));
@@ -842,7 +878,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getRamactual_Property(NamedElement lookupContext) {
+	public static Property getRamactual_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + RAMACTUAL__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -852,6 +888,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::ROMActual
+	
+	public static final String ROMACTUAL__NAME = "ROMActual";
 	
 	public static boolean acceptsRomactual(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getRomactual_Property(lookupContext));
@@ -876,7 +914,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getRomactual_Property(NamedElement lookupContext) {
+	public static Property getRomactual_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + ROMACTUAL__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -886,6 +924,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::Data_Rate
+	
+	public static final String DATA_RATE__NAME = "Data_Rate";
 	
 	public static boolean acceptsDataRate(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDataRate_Property(lookupContext));
@@ -910,7 +950,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getDataRate_Property(NamedElement lookupContext) {
+	public static Property getDataRate_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + DATA_RATE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -920,6 +960,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::Message_Rate
+	
+	public static final String MESSAGE_RATE__NAME = "Message_Rate";
 	
 	public static boolean acceptsMessageRate(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getMessageRate_Property(lookupContext));
@@ -944,7 +986,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getMessageRate_Property(NamedElement lookupContext) {
+	public static Property getMessageRate_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + MESSAGE_RATE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -954,6 +996,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::nsloc
+	
+	public static final String NSLOC__NAME = "nsloc";
 	
 	public static boolean acceptsNsloc(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getNsloc_Property(lookupContext));
@@ -978,7 +1022,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getNsloc_Property(NamedElement lookupContext) {
+	public static Property getNsloc_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + NSLOC__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -988,6 +1032,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::vdid_inspect
+	
+	public static final String VDID_INSPECT__NAME = "vdid_inspect";
 	
 	public static boolean acceptsVdidInspect(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getVdidInspect_Property(lookupContext));
@@ -1012,7 +1058,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getVdidInspect_Property(NamedElement lookupContext) {
+	public static Property getVdidInspect_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + VDID_INSPECT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -1022,6 +1068,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::Broadcast_Protocol
+	
+	public static final String BROADCAST_PROTOCOL__NAME = "Broadcast_Protocol";
 	
 	public static boolean acceptsBroadcastProtocol(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getBroadcastProtocol_Property(lookupContext));
@@ -1046,7 +1094,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getBroadcastProtocol_Property(NamedElement lookupContext) {
+	public static Property getBroadcastProtocol_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + BROADCAST_PROTOCOL__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -1056,6 +1104,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::Platform
+	
+	public static final String PLATFORM__NAME = "Platform";
 	
 	public static boolean acceptsPlatform(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getPlatform_Property(lookupContext));
@@ -1080,7 +1130,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getPlatform_Property(NamedElement lookupContext) {
+	public static Property getPlatform_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + PLATFORM__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -1090,6 +1140,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::Price
+	
+	public static final String PRICE__NAME = "Price";
 	
 	public static boolean acceptsPrice(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getPrice_Property(lookupContext));
@@ -1114,7 +1166,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getPrice_Property(NamedElement lookupContext) {
+	public static Property getPrice_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + PRICE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -1124,6 +1176,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::Model_References
+	
+	public static final String MODEL_REFERENCES__NAME = "Model_References";
 	
 	public static boolean acceptsModelReferences(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getModelReferences_Property(lookupContext));
@@ -1151,7 +1205,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getModelReferences_Property(NamedElement lookupContext) {
+	public static Property getModelReferences_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + MODEL_REFERENCES__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -1161,6 +1215,8 @@ public final class Sei {
 	}
 	
 	// Lookup methods for SEI::Response_Time
+	
+	public static final String RESPONSE_TIME__NAME = "Response_Time";
 	
 	public static boolean acceptsResponseTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getResponseTime_Property(lookupContext));
@@ -1185,7 +1241,7 @@ public final class Sei {
 		}
 	}
 	
-	public static Property getResponseTime_Property(NamedElement lookupContext) {
+	public static Property getResponseTime_Property(EObject lookupContext) {
 		String name = SEI__NAME + "::" + RESPONSE_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
