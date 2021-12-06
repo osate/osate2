@@ -49,7 +49,9 @@ package class RecordGenerator extends AbstractPropertyGenerator {
 				
 				«generateFieldByFieldConstructor»
 				
-				«generateExtractionConstructor»
+				«generatePropertyExtractionConstructor»
+				
+				«generateConstantExtractionConstructor»
 				«generateGetters»
 				
 				«generateToPropertyExpression»
@@ -106,7 +108,7 @@ package class RecordGenerator extends AbstractPropertyGenerator {
 		'''
 	}
 	
-	def private String generateExtractionConstructor() {
+	def private String generatePropertyExtractionConstructor() {
 		imports.add(
 			"java.util.Optional",
 			"org.osate.aadl2.Mode",
@@ -128,6 +130,35 @@ package class RecordGenerator extends AbstractPropertyGenerator {
 					«fieldName»_local = findFieldValue(recordValue, «field.name.toUpperCase»__NAME).map(field -> {
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 						return «getValueExtractor(fieldType, "resolved", 1)»;
+					«getPrimitiveConversion(fieldType)»
+				} catch (PropertyNotPresentException e) {
+					«fieldName»_local = «getBaseOptionalType(fieldType)».empty();
+				}
+				this.«fieldName» = «fieldName»_local;
+				«ENDFOR»
+			}
+		'''
+	}
+	
+	def private String generateConstantExtractionConstructor() {
+		imports.add(
+			"org.osate.aadl2.PropertyExpression",
+			"org.osate.aadl2.RecordValue",
+			"org.osate.aadl2.properties.PropertyNotPresentException",
+			"org.osate.pluginsupport.properties.CodeGenUtil"
+		)
+		'''
+			public «typeName»(PropertyExpression propertyExpression) {
+				RecordValue recordValue = (RecordValue) propertyExpression;
+				«FOR field : recordType.ownedFields»
+				
+				«val fieldName = field.name.toCamelCase.toFirstLower»
+				«val fieldType = field.propertyType»
+				«getGenericOptionalType(fieldType)» «fieldName»_local;
+				try {
+					«fieldName»_local = findFieldValue(recordValue, «field.name.toUpperCase»__NAME).map(field -> {
+						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+						return «getConstantValueExtractor(fieldType, "resolved", 1)»;
 					«getPrimitiveConversion(fieldType)»
 				} catch (PropertyNotPresentException e) {
 					«fieldName»_local = «getBaseOptionalType(fieldType)».empty();
