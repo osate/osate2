@@ -1,0 +1,43 @@
+package Issue2722A
+public
+	system S
+	end S;
+	
+	system implementation S.i
+		subcomponents
+			l: system C.l;
+			r: system C.r;
+		connections
+			c: port l.o -> r.i;
+	end S.i;
+	
+	system C
+		features
+			i: in event data port;
+			o: out event data port;
+	end C;
+	
+	system implementation C.i
+	end C.i;
+	
+	system implementation C.l extends C.i
+		subcomponents
+			ll: system C in modes (ml1);
+		connections
+			c: port ll.o -> o;
+		modes
+			ml1: initial mode;
+			ml2: mode;
+	end C.l;
+	
+	system implementation C.r extends C.i
+		subcomponents
+			rr: system C in modes (mr1);
+		connections
+			c: port i -> rr.i;
+		modes
+			mr1: initial mode;
+			mr2: mode;
+	end C.r;
+	
+end Issue2722A;
