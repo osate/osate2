@@ -1,9 +1,33 @@
+/*******************************************************************************
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ *******************************************************************************/
 package org.osate.aadl2.contrib.programming;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
@@ -24,36 +48,11 @@ import org.osate.pluginsupport.properties.CodeGenUtil;
 public final class ProgrammingProperties {
 	public static final String PROGRAMMING_PROPERTIES__NAME = "Programming_Properties";
 	
-	public static final String ACTIVATE_ENTRYPOINT__NAME = "Activate_Entrypoint";
-	public static final String ACTIVATE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Activate_Entrypoint_Call_Sequence";
-	public static final String ACTIVATE_ENTRYPOINT_SOURCE_TEXT__NAME = "Activate_Entrypoint_Source_Text";
-	public static final String COMPUTE_ENTRYPOINT__NAME = "Compute_Entrypoint";
-	public static final String COMPUTE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Compute_Entrypoint_Call_Sequence";
-	public static final String COMPUTE_ENTRYPOINT_SOURCE_TEXT__NAME = "Compute_Entrypoint_Source_Text";
-	public static final String DEACTIVATE_ENTRYPOINT__NAME = "Deactivate_Entrypoint";
-	public static final String DEACTIVATE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Deactivate_Entrypoint_Call_Sequence";
-	public static final String DEACTIVATE_ENTRYPOINT_SOURCE_TEXT__NAME = "Deactivate_Entrypoint_Source_Text";
-	public static final String FINALIZE_ENTRYPOINT__NAME = "Finalize_Entrypoint";
-	public static final String FINALIZE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Finalize_Entrypoint_Call_Sequence";
-	public static final String FINALIZE_ENTRYPOINT_SOURCE_TEXT__NAME = "Finalize_Entrypoint_Source_Text";
-	public static final String INITIALIZE_ENTRYPOINT__NAME = "Initialize_Entrypoint";
-	public static final String INITIALIZE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Initialize_Entrypoint_Call_Sequence";
-	public static final String INITIALIZE_ENTRYPOINT_SOURCE_TEXT__NAME = "Initialize_Entrypoint_Source_Text";
-	public static final String RECOVER_ENTRYPOINT__NAME = "Recover_Entrypoint";
-	public static final String RECOVER_ENTRYPOINT_CALL_SEQUENCE__NAME = "Recover_Entrypoint_Call_Sequence";
-	public static final String RECOVER_ENTRYPOINT_SOURCE_TEXT__NAME = "Recover_Entrypoint_Source_Text";
-	public static final String SOURCE_LANGUAGE__NAME = "Source_Language";
-	public static final String SOURCE_NAME__NAME = "Source_Name";
-	public static final String SOURCE_TEXT__NAME = "Source_Text";
-	public static final String SUPPORTED_SOURCE_LANGUAGE__NAME = "Supported_Source_Language";
-	public static final String TYPE_SOURCE_NAME__NAME = "Type_Source_Name";
-	public static final String HARDWARE_DESCRIPTION_SOURCE_TEXT__NAME = "Hardware_Description_Source_Text";
-	public static final String HARDWARE_SOURCE_LANGUAGE__NAME = "Hardware_Source_Language";
-	public static final String DEVICE_DRIVER__NAME = "Device_Driver";
-	
 	private ProgrammingProperties() {}
 	
 	// Lookup methods for Programming_Properties::Activate_Entrypoint
+	
+	public static final String ACTIVATE_ENTRYPOINT__NAME = "Activate_Entrypoint";
 	
 	public static boolean acceptsActivateEntrypoint(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getActivateEntrypoint_Property(lookupContext));
@@ -78,7 +77,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getActivateEntrypoint_Property(NamedElement lookupContext) {
+	public static Property getActivateEntrypoint_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + ACTIVATE_ENTRYPOINT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -88,6 +87,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Activate_Entrypoint_Call_Sequence
+	
+	public static final String ACTIVATE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Activate_Entrypoint_Call_Sequence";
 	
 	public static boolean acceptsActivateEntrypointCallSequence(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getActivateEntrypointCallSequence_Property(lookupContext));
@@ -112,7 +113,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getActivateEntrypointCallSequence_Property(NamedElement lookupContext) {
+	public static Property getActivateEntrypointCallSequence_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + ACTIVATE_ENTRYPOINT_CALL_SEQUENCE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -122,6 +123,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Activate_Entrypoint_Source_Text
+	
+	public static final String ACTIVATE_ENTRYPOINT_SOURCE_TEXT__NAME = "Activate_Entrypoint_Source_Text";
 	
 	public static boolean acceptsActivateEntrypointSourceText(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getActivateEntrypointSourceText_Property(lookupContext));
@@ -146,7 +149,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getActivateEntrypointSourceText_Property(NamedElement lookupContext) {
+	public static Property getActivateEntrypointSourceText_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + ACTIVATE_ENTRYPOINT_SOURCE_TEXT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -156,6 +159,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Compute_Entrypoint
+	
+	public static final String COMPUTE_ENTRYPOINT__NAME = "Compute_Entrypoint";
 	
 	public static boolean acceptsComputeEntrypoint(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getComputeEntrypoint_Property(lookupContext));
@@ -180,7 +185,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getComputeEntrypoint_Property(NamedElement lookupContext) {
+	public static Property getComputeEntrypoint_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + COMPUTE_ENTRYPOINT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -190,6 +195,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Compute_Entrypoint_Call_Sequence
+	
+	public static final String COMPUTE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Compute_Entrypoint_Call_Sequence";
 	
 	public static boolean acceptsComputeEntrypointCallSequence(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getComputeEntrypointCallSequence_Property(lookupContext));
@@ -214,7 +221,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getComputeEntrypointCallSequence_Property(NamedElement lookupContext) {
+	public static Property getComputeEntrypointCallSequence_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + COMPUTE_ENTRYPOINT_CALL_SEQUENCE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -224,6 +231,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Compute_Entrypoint_Source_Text
+	
+	public static final String COMPUTE_ENTRYPOINT_SOURCE_TEXT__NAME = "Compute_Entrypoint_Source_Text";
 	
 	public static boolean acceptsComputeEntrypointSourceText(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getComputeEntrypointSourceText_Property(lookupContext));
@@ -248,7 +257,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getComputeEntrypointSourceText_Property(NamedElement lookupContext) {
+	public static Property getComputeEntrypointSourceText_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + COMPUTE_ENTRYPOINT_SOURCE_TEXT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -258,6 +267,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Deactivate_Entrypoint
+	
+	public static final String DEACTIVATE_ENTRYPOINT__NAME = "Deactivate_Entrypoint";
 	
 	public static boolean acceptsDeactivateEntrypoint(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDeactivateEntrypoint_Property(lookupContext));
@@ -282,7 +293,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getDeactivateEntrypoint_Property(NamedElement lookupContext) {
+	public static Property getDeactivateEntrypoint_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + DEACTIVATE_ENTRYPOINT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -292,6 +303,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Deactivate_Entrypoint_Call_Sequence
+	
+	public static final String DEACTIVATE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Deactivate_Entrypoint_Call_Sequence";
 	
 	public static boolean acceptsDeactivateEntrypointCallSequence(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDeactivateEntrypointCallSequence_Property(lookupContext));
@@ -316,7 +329,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getDeactivateEntrypointCallSequence_Property(NamedElement lookupContext) {
+	public static Property getDeactivateEntrypointCallSequence_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + DEACTIVATE_ENTRYPOINT_CALL_SEQUENCE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -326,6 +339,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Deactivate_Entrypoint_Source_Text
+	
+	public static final String DEACTIVATE_ENTRYPOINT_SOURCE_TEXT__NAME = "Deactivate_Entrypoint_Source_Text";
 	
 	public static boolean acceptsDeactivateEntrypointSourceText(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDeactivateEntrypointSourceText_Property(lookupContext));
@@ -350,7 +365,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getDeactivateEntrypointSourceText_Property(NamedElement lookupContext) {
+	public static Property getDeactivateEntrypointSourceText_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + DEACTIVATE_ENTRYPOINT_SOURCE_TEXT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -360,6 +375,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Finalize_Entrypoint
+	
+	public static final String FINALIZE_ENTRYPOINT__NAME = "Finalize_Entrypoint";
 	
 	public static boolean acceptsFinalizeEntrypoint(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getFinalizeEntrypoint_Property(lookupContext));
@@ -384,7 +401,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getFinalizeEntrypoint_Property(NamedElement lookupContext) {
+	public static Property getFinalizeEntrypoint_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + FINALIZE_ENTRYPOINT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -394,6 +411,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Finalize_Entrypoint_Call_Sequence
+	
+	public static final String FINALIZE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Finalize_Entrypoint_Call_Sequence";
 	
 	public static boolean acceptsFinalizeEntrypointCallSequence(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getFinalizeEntrypointCallSequence_Property(lookupContext));
@@ -418,7 +437,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getFinalizeEntrypointCallSequence_Property(NamedElement lookupContext) {
+	public static Property getFinalizeEntrypointCallSequence_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + FINALIZE_ENTRYPOINT_CALL_SEQUENCE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -428,6 +447,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Finalize_Entrypoint_Source_Text
+	
+	public static final String FINALIZE_ENTRYPOINT_SOURCE_TEXT__NAME = "Finalize_Entrypoint_Source_Text";
 	
 	public static boolean acceptsFinalizeEntrypointSourceText(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getFinalizeEntrypointSourceText_Property(lookupContext));
@@ -452,7 +473,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getFinalizeEntrypointSourceText_Property(NamedElement lookupContext) {
+	public static Property getFinalizeEntrypointSourceText_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + FINALIZE_ENTRYPOINT_SOURCE_TEXT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -462,6 +483,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Initialize_Entrypoint
+	
+	public static final String INITIALIZE_ENTRYPOINT__NAME = "Initialize_Entrypoint";
 	
 	public static boolean acceptsInitializeEntrypoint(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getInitializeEntrypoint_Property(lookupContext));
@@ -486,7 +509,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getInitializeEntrypoint_Property(NamedElement lookupContext) {
+	public static Property getInitializeEntrypoint_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + INITIALIZE_ENTRYPOINT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -496,6 +519,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Initialize_Entrypoint_Call_Sequence
+	
+	public static final String INITIALIZE_ENTRYPOINT_CALL_SEQUENCE__NAME = "Initialize_Entrypoint_Call_Sequence";
 	
 	public static boolean acceptsInitializeEntrypointCallSequence(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getInitializeEntrypointCallSequence_Property(lookupContext));
@@ -520,7 +545,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getInitializeEntrypointCallSequence_Property(NamedElement lookupContext) {
+	public static Property getInitializeEntrypointCallSequence_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + INITIALIZE_ENTRYPOINT_CALL_SEQUENCE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -530,6 +555,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Initialize_Entrypoint_Source_Text
+	
+	public static final String INITIALIZE_ENTRYPOINT_SOURCE_TEXT__NAME = "Initialize_Entrypoint_Source_Text";
 	
 	public static boolean acceptsInitializeEntrypointSourceText(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getInitializeEntrypointSourceText_Property(lookupContext));
@@ -554,7 +581,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getInitializeEntrypointSourceText_Property(NamedElement lookupContext) {
+	public static Property getInitializeEntrypointSourceText_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + INITIALIZE_ENTRYPOINT_SOURCE_TEXT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -564,6 +591,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Recover_Entrypoint
+	
+	public static final String RECOVER_ENTRYPOINT__NAME = "Recover_Entrypoint";
 	
 	public static boolean acceptsRecoverEntrypoint(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getRecoverEntrypoint_Property(lookupContext));
@@ -588,7 +617,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getRecoverEntrypoint_Property(NamedElement lookupContext) {
+	public static Property getRecoverEntrypoint_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + RECOVER_ENTRYPOINT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -598,6 +627,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Recover_Entrypoint_Call_Sequence
+	
+	public static final String RECOVER_ENTRYPOINT_CALL_SEQUENCE__NAME = "Recover_Entrypoint_Call_Sequence";
 	
 	public static boolean acceptsRecoverEntrypointCallSequence(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getRecoverEntrypointCallSequence_Property(lookupContext));
@@ -622,7 +653,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getRecoverEntrypointCallSequence_Property(NamedElement lookupContext) {
+	public static Property getRecoverEntrypointCallSequence_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + RECOVER_ENTRYPOINT_CALL_SEQUENCE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -632,6 +663,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Recover_Entrypoint_Source_Text
+	
+	public static final String RECOVER_ENTRYPOINT_SOURCE_TEXT__NAME = "Recover_Entrypoint_Source_Text";
 	
 	public static boolean acceptsRecoverEntrypointSourceText(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getRecoverEntrypointSourceText_Property(lookupContext));
@@ -656,7 +689,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getRecoverEntrypointSourceText_Property(NamedElement lookupContext) {
+	public static Property getRecoverEntrypointSourceText_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + RECOVER_ENTRYPOINT_SOURCE_TEXT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -666,6 +699,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Source_Language
+	
+	public static final String SOURCE_LANGUAGE__NAME = "Source_Language";
 	
 	public static boolean acceptsSourceLanguage(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getSourceLanguage_Property(lookupContext));
@@ -693,7 +728,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getSourceLanguage_Property(NamedElement lookupContext) {
+	public static Property getSourceLanguage_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + SOURCE_LANGUAGE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -703,6 +738,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Source_Name
+	
+	public static final String SOURCE_NAME__NAME = "Source_Name";
 	
 	public static boolean acceptsSourceName(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getSourceName_Property(lookupContext));
@@ -727,7 +764,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getSourceName_Property(NamedElement lookupContext) {
+	public static Property getSourceName_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + SOURCE_NAME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -737,6 +774,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Source_Text
+	
+	public static final String SOURCE_TEXT__NAME = "Source_Text";
 	
 	public static boolean acceptsSourceText(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getSourceText_Property(lookupContext));
@@ -764,7 +803,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getSourceText_Property(NamedElement lookupContext) {
+	public static Property getSourceText_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + SOURCE_TEXT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -774,6 +813,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Supported_Source_Language
+	
+	public static final String SUPPORTED_SOURCE_LANGUAGE__NAME = "Supported_Source_Language";
 	
 	public static boolean acceptsSupportedSourceLanguage(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getSupportedSourceLanguage_Property(lookupContext));
@@ -801,7 +842,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getSupportedSourceLanguage_Property(NamedElement lookupContext) {
+	public static Property getSupportedSourceLanguage_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + SUPPORTED_SOURCE_LANGUAGE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -811,6 +852,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Type_Source_Name
+	
+	public static final String TYPE_SOURCE_NAME__NAME = "Type_Source_Name";
 	
 	public static boolean acceptsTypeSourceName(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getTypeSourceName_Property(lookupContext));
@@ -835,7 +878,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getTypeSourceName_Property(NamedElement lookupContext) {
+	public static Property getTypeSourceName_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + TYPE_SOURCE_NAME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -845,6 +888,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Hardware_Description_Source_Text
+	
+	public static final String HARDWARE_DESCRIPTION_SOURCE_TEXT__NAME = "Hardware_Description_Source_Text";
 	
 	public static boolean acceptsHardwareDescriptionSourceText(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getHardwareDescriptionSourceText_Property(lookupContext));
@@ -872,7 +917,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getHardwareDescriptionSourceText_Property(NamedElement lookupContext) {
+	public static Property getHardwareDescriptionSourceText_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + HARDWARE_DESCRIPTION_SOURCE_TEXT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -882,6 +927,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Hardware_Source_Language
+	
+	public static final String HARDWARE_SOURCE_LANGUAGE__NAME = "Hardware_Source_Language";
 	
 	public static boolean acceptsHardwareSourceLanguage(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getHardwareSourceLanguage_Property(lookupContext));
@@ -906,7 +953,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getHardwareSourceLanguage_Property(NamedElement lookupContext) {
+	public static Property getHardwareSourceLanguage_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + HARDWARE_SOURCE_LANGUAGE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -916,6 +963,8 @@ public final class ProgrammingProperties {
 	}
 	
 	// Lookup methods for Programming_Properties::Device_Driver
+	
+	public static final String DEVICE_DRIVER__NAME = "Device_Driver";
 	
 	public static boolean acceptsDeviceDriver(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDeviceDriver_Property(lookupContext));
@@ -940,7 +989,7 @@ public final class ProgrammingProperties {
 		}
 	}
 	
-	public static Property getDeviceDriver_Property(NamedElement lookupContext) {
+	public static Property getDeviceDriver_Property(EObject lookupContext) {
 		String name = PROGRAMMING_PROPERTIES__NAME + "::" + DEVICE_DRIVER__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}

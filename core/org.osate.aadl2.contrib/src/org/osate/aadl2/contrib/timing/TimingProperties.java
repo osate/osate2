@@ -1,7 +1,31 @@
+/*******************************************************************************
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ *******************************************************************************/
 package org.osate.aadl2.contrib.timing;
 
 import java.util.Optional;
 
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
@@ -23,44 +47,11 @@ import org.osate.pluginsupport.properties.RealWithUnits;
 public final class TimingProperties {
 	public static final String TIMING_PROPERTIES__NAME = "Timing_Properties";
 	
-	public static final String ACTIVATE_DEADLINE__NAME = "Activate_Deadline";
-	public static final String ACTIVATE_EXECUTION_TIME__NAME = "Activate_Execution_Time";
-	public static final String COMPUTE_DEADLINE__NAME = "Compute_Deadline";
-	public static final String COMPUTE_EXECUTION_TIME__NAME = "Compute_Execution_Time";
-	public static final String CLIENT_SUBPROGRAM_EXECUTION_TIME__NAME = "Client_Subprogram_Execution_Time";
-	public static final String DEACTIVATE_DEADLINE__NAME = "Deactivate_Deadline";
-	public static final String DEACTIVATE_EXECUTION_TIME__NAME = "Deactivate_Execution_Time";
-	public static final String DEADLINE__NAME = "Deadline";
-	public static final String FIRST_DISPATCH_TIME__NAME = "First_Dispatch_Time";
-	public static final String DISPATCH_JITTER__NAME = "Dispatch_Jitter";
-	public static final String DISPATCH_OFFSET__NAME = "Dispatch_Offset";
-	public static final String EXECUTION_TIME__NAME = "Execution_Time";
-	public static final String FINALIZE_DEADLINE__NAME = "Finalize_Deadline";
-	public static final String FINALIZE_EXECUTION_TIME__NAME = "Finalize_Execution_Time";
-	public static final String INITIALIZE_DEADLINE__NAME = "Initialize_Deadline";
-	public static final String INITIALIZE_EXECUTION_TIME__NAME = "Initialize_Execution_Time";
-	public static final String LOAD_DEADLINE__NAME = "Load_Deadline";
-	public static final String LOAD_TIME__NAME = "Load_Time";
-	public static final String PROCESSOR_CAPACITY__NAME = "Processor_Capacity";
-	public static final String PERIOD__NAME = "Period";
-	public static final String RECOVER_DEADLINE__NAME = "Recover_Deadline";
-	public static final String RECOVER_EXECUTION_TIME__NAME = "Recover_Execution_Time";
-	public static final String REFERENCE_TIME__NAME = "Reference_Time";
-	public static final String STARTUP_DEADLINE__NAME = "Startup_Deadline";
-	public static final String STARTUP_EXECUTION_TIME__NAME = "Startup_Execution_Time";
-	public static final String CLOCK_JITTER__NAME = "Clock_Jitter";
-	public static final String CLOCK_PERIOD__NAME = "Clock_Period";
-	public static final String CLOCK_PERIOD_RANGE__NAME = "Clock_Period_Range";
-	public static final String PROCESS_SWAP_EXECUTION_TIME__NAME = "Process_Swap_Execution_Time";
-	public static final String REFERENCE_PROCESSOR__NAME = "Reference_Processor";
-	public static final String SCHEDULER_QUANTUM__NAME = "Scheduler_Quantum";
-	public static final String THREAD_SWAP_EXECUTION_TIME__NAME = "Thread_Swap_Execution_Time";
-	public static final String FRAME_PERIOD__NAME = "Frame_Period";
-	public static final String SLOT_TIME__NAME = "Slot_Time";
-	
 	private TimingProperties() {}
 	
 	// Lookup methods for Timing_Properties::Activate_Deadline
+	
+	public static final String ACTIVATE_DEADLINE__NAME = "Activate_Deadline";
 	
 	public static boolean acceptsActivateDeadline(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getActivateDeadline_Property(lookupContext));
@@ -85,7 +76,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getActivateDeadline_Property(NamedElement lookupContext) {
+	public static Property getActivateDeadline_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + ACTIVATE_DEADLINE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -95,6 +86,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Activate_Execution_Time
+	
+	public static final String ACTIVATE_EXECUTION_TIME__NAME = "Activate_Execution_Time";
 	
 	public static boolean acceptsActivateExecutionTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getActivateExecutionTime_Property(lookupContext));
@@ -119,7 +112,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getActivateExecutionTime_Property(NamedElement lookupContext) {
+	public static Property getActivateExecutionTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + ACTIVATE_EXECUTION_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -129,6 +122,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Compute_Deadline
+	
+	public static final String COMPUTE_DEADLINE__NAME = "Compute_Deadline";
 	
 	public static boolean acceptsComputeDeadline(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getComputeDeadline_Property(lookupContext));
@@ -153,7 +148,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getComputeDeadline_Property(NamedElement lookupContext) {
+	public static Property getComputeDeadline_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + COMPUTE_DEADLINE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -163,6 +158,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Compute_Execution_Time
+	
+	public static final String COMPUTE_EXECUTION_TIME__NAME = "Compute_Execution_Time";
 	
 	public static boolean acceptsComputeExecutionTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getComputeExecutionTime_Property(lookupContext));
@@ -187,7 +184,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getComputeExecutionTime_Property(NamedElement lookupContext) {
+	public static Property getComputeExecutionTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + COMPUTE_EXECUTION_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -197,6 +194,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Client_Subprogram_Execution_Time
+	
+	public static final String CLIENT_SUBPROGRAM_EXECUTION_TIME__NAME = "Client_Subprogram_Execution_Time";
 	
 	public static boolean acceptsClientSubprogramExecutionTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getClientSubprogramExecutionTime_Property(lookupContext));
@@ -221,7 +220,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getClientSubprogramExecutionTime_Property(NamedElement lookupContext) {
+	public static Property getClientSubprogramExecutionTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + CLIENT_SUBPROGRAM_EXECUTION_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -231,6 +230,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Deactivate_Deadline
+	
+	public static final String DEACTIVATE_DEADLINE__NAME = "Deactivate_Deadline";
 	
 	public static boolean acceptsDeactivateDeadline(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDeactivateDeadline_Property(lookupContext));
@@ -255,7 +256,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getDeactivateDeadline_Property(NamedElement lookupContext) {
+	public static Property getDeactivateDeadline_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + DEACTIVATE_DEADLINE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -265,6 +266,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Deactivate_Execution_Time
+	
+	public static final String DEACTIVATE_EXECUTION_TIME__NAME = "Deactivate_Execution_Time";
 	
 	public static boolean acceptsDeactivateExecutionTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDeactivateExecutionTime_Property(lookupContext));
@@ -289,7 +292,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getDeactivateExecutionTime_Property(NamedElement lookupContext) {
+	public static Property getDeactivateExecutionTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + DEACTIVATE_EXECUTION_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -299,6 +302,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Deadline
+	
+	public static final String DEADLINE__NAME = "Deadline";
 	
 	public static boolean acceptsDeadline(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDeadline_Property(lookupContext));
@@ -323,7 +328,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getDeadline_Property(NamedElement lookupContext) {
+	public static Property getDeadline_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + DEADLINE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -333,6 +338,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::First_Dispatch_Time
+	
+	public static final String FIRST_DISPATCH_TIME__NAME = "First_Dispatch_Time";
 	
 	public static boolean acceptsFirstDispatchTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getFirstDispatchTime_Property(lookupContext));
@@ -357,7 +364,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getFirstDispatchTime_Property(NamedElement lookupContext) {
+	public static Property getFirstDispatchTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + FIRST_DISPATCH_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -367,6 +374,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Dispatch_Jitter
+	
+	public static final String DISPATCH_JITTER__NAME = "Dispatch_Jitter";
 	
 	public static boolean acceptsDispatchJitter(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDispatchJitter_Property(lookupContext));
@@ -391,7 +400,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getDispatchJitter_Property(NamedElement lookupContext) {
+	public static Property getDispatchJitter_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + DISPATCH_JITTER__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -401,6 +410,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Dispatch_Offset
+	
+	public static final String DISPATCH_OFFSET__NAME = "Dispatch_Offset";
 	
 	public static boolean acceptsDispatchOffset(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDispatchOffset_Property(lookupContext));
@@ -425,7 +436,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getDispatchOffset_Property(NamedElement lookupContext) {
+	public static Property getDispatchOffset_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + DISPATCH_OFFSET__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -435,6 +446,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Execution_Time
+	
+	public static final String EXECUTION_TIME__NAME = "Execution_Time";
 	
 	public static boolean acceptsExecutionTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getExecutionTime_Property(lookupContext));
@@ -459,7 +472,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getExecutionTime_Property(NamedElement lookupContext) {
+	public static Property getExecutionTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + EXECUTION_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -469,6 +482,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Finalize_Deadline
+	
+	public static final String FINALIZE_DEADLINE__NAME = "Finalize_Deadline";
 	
 	public static boolean acceptsFinalizeDeadline(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getFinalizeDeadline_Property(lookupContext));
@@ -493,7 +508,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getFinalizeDeadline_Property(NamedElement lookupContext) {
+	public static Property getFinalizeDeadline_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + FINALIZE_DEADLINE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -503,6 +518,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Finalize_Execution_Time
+	
+	public static final String FINALIZE_EXECUTION_TIME__NAME = "Finalize_Execution_Time";
 	
 	public static boolean acceptsFinalizeExecutionTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getFinalizeExecutionTime_Property(lookupContext));
@@ -527,7 +544,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getFinalizeExecutionTime_Property(NamedElement lookupContext) {
+	public static Property getFinalizeExecutionTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + FINALIZE_EXECUTION_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -537,6 +554,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Initialize_Deadline
+	
+	public static final String INITIALIZE_DEADLINE__NAME = "Initialize_Deadline";
 	
 	public static boolean acceptsInitializeDeadline(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getInitializeDeadline_Property(lookupContext));
@@ -561,7 +580,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getInitializeDeadline_Property(NamedElement lookupContext) {
+	public static Property getInitializeDeadline_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + INITIALIZE_DEADLINE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -571,6 +590,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Initialize_Execution_Time
+	
+	public static final String INITIALIZE_EXECUTION_TIME__NAME = "Initialize_Execution_Time";
 	
 	public static boolean acceptsInitializeExecutionTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getInitializeExecutionTime_Property(lookupContext));
@@ -595,7 +616,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getInitializeExecutionTime_Property(NamedElement lookupContext) {
+	public static Property getInitializeExecutionTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + INITIALIZE_EXECUTION_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -605,6 +626,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Load_Deadline
+	
+	public static final String LOAD_DEADLINE__NAME = "Load_Deadline";
 	
 	public static boolean acceptsLoadDeadline(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getLoadDeadline_Property(lookupContext));
@@ -629,7 +652,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getLoadDeadline_Property(NamedElement lookupContext) {
+	public static Property getLoadDeadline_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + LOAD_DEADLINE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -639,6 +662,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Load_Time
+	
+	public static final String LOAD_TIME__NAME = "Load_Time";
 	
 	public static boolean acceptsLoadTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getLoadTime_Property(lookupContext));
@@ -663,7 +688,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getLoadTime_Property(NamedElement lookupContext) {
+	public static Property getLoadTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + LOAD_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -673,6 +698,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Processor_Capacity
+	
+	public static final String PROCESSOR_CAPACITY__NAME = "Processor_Capacity";
 	
 	public static boolean acceptsProcessorCapacity(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getProcessorCapacity_Property(lookupContext));
@@ -697,7 +724,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getProcessorCapacity_Property(NamedElement lookupContext) {
+	public static Property getProcessorCapacity_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + PROCESSOR_CAPACITY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -707,6 +734,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Period
+	
+	public static final String PERIOD__NAME = "Period";
 	
 	public static boolean acceptsPeriod(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getPeriod_Property(lookupContext));
@@ -731,7 +760,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getPeriod_Property(NamedElement lookupContext) {
+	public static Property getPeriod_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + PERIOD__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -741,6 +770,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Recover_Deadline
+	
+	public static final String RECOVER_DEADLINE__NAME = "Recover_Deadline";
 	
 	public static boolean acceptsRecoverDeadline(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getRecoverDeadline_Property(lookupContext));
@@ -765,7 +796,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getRecoverDeadline_Property(NamedElement lookupContext) {
+	public static Property getRecoverDeadline_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + RECOVER_DEADLINE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -775,6 +806,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Recover_Execution_Time
+	
+	public static final String RECOVER_EXECUTION_TIME__NAME = "Recover_Execution_Time";
 	
 	public static boolean acceptsRecoverExecutionTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getRecoverExecutionTime_Property(lookupContext));
@@ -799,7 +832,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getRecoverExecutionTime_Property(NamedElement lookupContext) {
+	public static Property getRecoverExecutionTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + RECOVER_EXECUTION_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -809,6 +842,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Reference_Time
+	
+	public static final String REFERENCE_TIME__NAME = "Reference_Time";
 	
 	public static boolean acceptsReferenceTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getReferenceTime_Property(lookupContext));
@@ -833,7 +868,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getReferenceTime_Property(NamedElement lookupContext) {
+	public static Property getReferenceTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + REFERENCE_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -843,6 +878,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Startup_Deadline
+	
+	public static final String STARTUP_DEADLINE__NAME = "Startup_Deadline";
 	
 	public static boolean acceptsStartupDeadline(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getStartupDeadline_Property(lookupContext));
@@ -867,7 +904,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getStartupDeadline_Property(NamedElement lookupContext) {
+	public static Property getStartupDeadline_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + STARTUP_DEADLINE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -877,6 +914,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Startup_Execution_Time
+	
+	public static final String STARTUP_EXECUTION_TIME__NAME = "Startup_Execution_Time";
 	
 	public static boolean acceptsStartupExecutionTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getStartupExecutionTime_Property(lookupContext));
@@ -901,7 +940,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getStartupExecutionTime_Property(NamedElement lookupContext) {
+	public static Property getStartupExecutionTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + STARTUP_EXECUTION_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -911,6 +950,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Clock_Jitter
+	
+	public static final String CLOCK_JITTER__NAME = "Clock_Jitter";
 	
 	public static boolean acceptsClockJitter(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getClockJitter_Property(lookupContext));
@@ -935,7 +976,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getClockJitter_Property(NamedElement lookupContext) {
+	public static Property getClockJitter_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + CLOCK_JITTER__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -945,6 +986,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Clock_Period
+	
+	public static final String CLOCK_PERIOD__NAME = "Clock_Period";
 	
 	public static boolean acceptsClockPeriod(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getClockPeriod_Property(lookupContext));
@@ -969,7 +1012,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getClockPeriod_Property(NamedElement lookupContext) {
+	public static Property getClockPeriod_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + CLOCK_PERIOD__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -979,6 +1022,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Clock_Period_Range
+	
+	public static final String CLOCK_PERIOD_RANGE__NAME = "Clock_Period_Range";
 	
 	public static boolean acceptsClockPeriodRange(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getClockPeriodRange_Property(lookupContext));
@@ -1003,7 +1048,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getClockPeriodRange_Property(NamedElement lookupContext) {
+	public static Property getClockPeriodRange_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + CLOCK_PERIOD_RANGE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -1013,6 +1058,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Process_Swap_Execution_Time
+	
+	public static final String PROCESS_SWAP_EXECUTION_TIME__NAME = "Process_Swap_Execution_Time";
 	
 	public static boolean acceptsProcessSwapExecutionTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getProcessSwapExecutionTime_Property(lookupContext));
@@ -1037,7 +1084,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getProcessSwapExecutionTime_Property(NamedElement lookupContext) {
+	public static Property getProcessSwapExecutionTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + PROCESS_SWAP_EXECUTION_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -1047,6 +1094,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Reference_Processor
+	
+	public static final String REFERENCE_PROCESSOR__NAME = "Reference_Processor";
 	
 	public static boolean acceptsReferenceProcessor(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getReferenceProcessor_Property(lookupContext));
@@ -1071,7 +1120,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getReferenceProcessor_Property(NamedElement lookupContext) {
+	public static Property getReferenceProcessor_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + REFERENCE_PROCESSOR__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -1081,6 +1130,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Scheduler_Quantum
+	
+	public static final String SCHEDULER_QUANTUM__NAME = "Scheduler_Quantum";
 	
 	public static boolean acceptsSchedulerQuantum(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getSchedulerQuantum_Property(lookupContext));
@@ -1105,7 +1156,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getSchedulerQuantum_Property(NamedElement lookupContext) {
+	public static Property getSchedulerQuantum_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + SCHEDULER_QUANTUM__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -1115,6 +1166,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Thread_Swap_Execution_Time
+	
+	public static final String THREAD_SWAP_EXECUTION_TIME__NAME = "Thread_Swap_Execution_Time";
 	
 	public static boolean acceptsThreadSwapExecutionTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getThreadSwapExecutionTime_Property(lookupContext));
@@ -1139,7 +1192,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getThreadSwapExecutionTime_Property(NamedElement lookupContext) {
+	public static Property getThreadSwapExecutionTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + THREAD_SWAP_EXECUTION_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -1149,6 +1202,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Frame_Period
+	
+	public static final String FRAME_PERIOD__NAME = "Frame_Period";
 	
 	public static boolean acceptsFramePeriod(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getFramePeriod_Property(lookupContext));
@@ -1173,7 +1228,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getFramePeriod_Property(NamedElement lookupContext) {
+	public static Property getFramePeriod_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + FRAME_PERIOD__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -1183,6 +1238,8 @@ public final class TimingProperties {
 	}
 	
 	// Lookup methods for Timing_Properties::Slot_Time
+	
+	public static final String SLOT_TIME__NAME = "Slot_Time";
 	
 	public static boolean acceptsSlotTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getSlotTime_Property(lookupContext));
@@ -1207,7 +1264,7 @@ public final class TimingProperties {
 		}
 	}
 	
-	public static Property getSlotTime_Property(NamedElement lookupContext) {
+	public static Property getSlotTime_Property(EObject lookupContext) {
 		String name = TIMING_PROPERTIES__NAME + "::" + SLOT_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}

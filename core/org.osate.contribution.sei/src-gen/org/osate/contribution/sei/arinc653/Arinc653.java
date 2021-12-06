@@ -1,3 +1,26 @@
+/*******************************************************************************
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ *******************************************************************************/
 package org.osate.contribution.sei.arinc653;
 
 import java.util.List;
@@ -5,6 +28,7 @@ import java.util.Optional;
 import java.util.OptionalLong;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.IntegerLiteral;
@@ -25,28 +49,11 @@ import org.osate.pluginsupport.properties.IntegerWithUnits;
 public final class Arinc653 {
 	public static final String ARINC653__NAME = "ARINC653";
 	
-	public static final String MODULE_MAJOR_FRAME__NAME = "Module_Major_Frame";
-	public static final String SAMPLING_REFRESH_PERIOD__NAME = "Sampling_Refresh_Period";
-	public static final String MEMORY_KIND__NAME = "Memory_Kind";
-	public static final String TIMEOUT__NAME = "Timeout";
-	public static final String DAL__NAME = "DAL";
-	public static final String MODULE_VERSION__NAME = "Module_Version";
-	public static final String MODULE_IDENTIFIER__NAME = "Module_Identifier";
-	public static final String PARTITION_IDENTIFIER__NAME = "Partition_Identifier";
-	public static final String PARTITION_NAME__NAME = "Partition_Name";
-	public static final String SYSTEM_PARTITION__NAME = "System_Partition";
-	public static final String ERROR_HANDLING__NAME = "Error_Handling";
-	public static final String HM_ERROR_ID_LEVELS__NAME = "HM_Error_ID_Levels";
-	public static final String HM_ERROR_ID_ACTIONS__NAME = "HM_Error_ID_Actions";
-	public static final String STATE_INFORMATION__NAME = "State_Information";
-	public static final String QUEUEING_DISCIPLINE__NAME = "Queueing_Discipline";
-	public static final String MODULE_SCHEDULE__NAME = "Module_Schedule";
-	public static final String TIME_CAPACITY__NAME = "Time_Capacity";
-	public static final String DEADLINE_TYPE__NAME = "Deadline_Type";
-	
 	private Arinc653() {}
 	
 	// Lookup methods for ARINC653::Module_Major_Frame
+	
+	public static final String MODULE_MAJOR_FRAME__NAME = "Module_Major_Frame";
 	
 	public static boolean acceptsModuleMajorFrame(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getModuleMajorFrame_Property(lookupContext));
@@ -71,7 +78,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getModuleMajorFrame_Property(NamedElement lookupContext) {
+	public static Property getModuleMajorFrame_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + MODULE_MAJOR_FRAME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -81,6 +88,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::Sampling_Refresh_Period
+	
+	public static final String SAMPLING_REFRESH_PERIOD__NAME = "Sampling_Refresh_Period";
 	
 	public static boolean acceptsSamplingRefreshPeriod(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getSamplingRefreshPeriod_Property(lookupContext));
@@ -105,7 +114,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getSamplingRefreshPeriod_Property(NamedElement lookupContext) {
+	public static Property getSamplingRefreshPeriod_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + SAMPLING_REFRESH_PERIOD__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -115,6 +124,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::Memory_Kind
+	
+	public static final String MEMORY_KIND__NAME = "Memory_Kind";
 	
 	public static boolean acceptsMemoryKind(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getMemoryKind_Property(lookupContext));
@@ -142,7 +153,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getMemoryKind_Property(NamedElement lookupContext) {
+	public static Property getMemoryKind_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + MEMORY_KIND__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -152,6 +163,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::Timeout
+	
+	public static final String TIMEOUT__NAME = "Timeout";
 	
 	public static boolean acceptsTimeout(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getTimeout_Property(lookupContext));
@@ -176,7 +189,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getTimeout_Property(NamedElement lookupContext) {
+	public static Property getTimeout_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + TIMEOUT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -186,6 +199,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::DAL
+	
+	public static final String DAL__NAME = "DAL";
 	
 	public static boolean acceptsDal(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDal_Property(lookupContext));
@@ -210,7 +225,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getDal_Property(NamedElement lookupContext) {
+	public static Property getDal_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + DAL__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -220,6 +235,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::Module_Version
+	
+	public static final String MODULE_VERSION__NAME = "Module_Version";
 	
 	public static boolean acceptsModuleVersion(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getModuleVersion_Property(lookupContext));
@@ -244,7 +261,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getModuleVersion_Property(NamedElement lookupContext) {
+	public static Property getModuleVersion_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + MODULE_VERSION__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -254,6 +271,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::Module_Identifier
+	
+	public static final String MODULE_IDENTIFIER__NAME = "Module_Identifier";
 	
 	public static boolean acceptsModuleIdentifier(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getModuleIdentifier_Property(lookupContext));
@@ -278,7 +297,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getModuleIdentifier_Property(NamedElement lookupContext) {
+	public static Property getModuleIdentifier_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + MODULE_IDENTIFIER__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -288,6 +307,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::Partition_Identifier
+	
+	public static final String PARTITION_IDENTIFIER__NAME = "Partition_Identifier";
 	
 	public static boolean acceptsPartitionIdentifier(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getPartitionIdentifier_Property(lookupContext));
@@ -312,7 +333,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getPartitionIdentifier_Property(NamedElement lookupContext) {
+	public static Property getPartitionIdentifier_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + PARTITION_IDENTIFIER__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -322,6 +343,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::Partition_Name
+	
+	public static final String PARTITION_NAME__NAME = "Partition_Name";
 	
 	public static boolean acceptsPartitionName(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getPartitionName_Property(lookupContext));
@@ -346,7 +369,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getPartitionName_Property(NamedElement lookupContext) {
+	public static Property getPartitionName_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + PARTITION_NAME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -356,6 +379,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::System_Partition
+	
+	public static final String SYSTEM_PARTITION__NAME = "System_Partition";
 	
 	public static boolean acceptsSystemPartition(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getSystemPartition_Property(lookupContext));
@@ -380,7 +405,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getSystemPartition_Property(NamedElement lookupContext) {
+	public static Property getSystemPartition_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + SYSTEM_PARTITION__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -390,6 +415,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::Error_Handling
+	
+	public static final String ERROR_HANDLING__NAME = "Error_Handling";
 	
 	public static boolean acceptsErrorHandling(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getErrorHandling_Property(lookupContext));
@@ -414,7 +441,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getErrorHandling_Property(NamedElement lookupContext) {
+	public static Property getErrorHandling_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + ERROR_HANDLING__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -424,6 +451,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::HM_Error_ID_Levels
+	
+	public static final String HM_ERROR_ID_LEVELS__NAME = "HM_Error_ID_Levels";
 	
 	public static boolean acceptsHmErrorIdLevels(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getHmErrorIdLevels_Property(lookupContext));
@@ -451,7 +480,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getHmErrorIdLevels_Property(NamedElement lookupContext) {
+	public static Property getHmErrorIdLevels_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + HM_ERROR_ID_LEVELS__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -461,6 +490,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::HM_Error_ID_Actions
+	
+	public static final String HM_ERROR_ID_ACTIONS__NAME = "HM_Error_ID_Actions";
 	
 	public static boolean acceptsHmErrorIdActions(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getHmErrorIdActions_Property(lookupContext));
@@ -488,7 +519,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getHmErrorIdActions_Property(NamedElement lookupContext) {
+	public static Property getHmErrorIdActions_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + HM_ERROR_ID_ACTIONS__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -498,6 +529,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::State_Information
+	
+	public static final String STATE_INFORMATION__NAME = "State_Information";
 	
 	public static boolean acceptsStateInformation(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getStateInformation_Property(lookupContext));
@@ -522,7 +555,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getStateInformation_Property(NamedElement lookupContext) {
+	public static Property getStateInformation_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + STATE_INFORMATION__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -532,6 +565,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::Queueing_Discipline
+	
+	public static final String QUEUEING_DISCIPLINE__NAME = "Queueing_Discipline";
 	
 	public static boolean acceptsQueueingDiscipline(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getQueueingDiscipline_Property(lookupContext));
@@ -556,7 +591,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getQueueingDiscipline_Property(NamedElement lookupContext) {
+	public static Property getQueueingDiscipline_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + QUEUEING_DISCIPLINE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -566,6 +601,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::Module_Schedule
+	
+	public static final String MODULE_SCHEDULE__NAME = "Module_Schedule";
 	
 	public static boolean acceptsModuleSchedule(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getModuleSchedule_Property(lookupContext));
@@ -593,7 +630,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getModuleSchedule_Property(NamedElement lookupContext) {
+	public static Property getModuleSchedule_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + MODULE_SCHEDULE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -603,6 +640,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::Time_Capacity
+	
+	public static final String TIME_CAPACITY__NAME = "Time_Capacity";
 	
 	public static boolean acceptsTimeCapacity(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getTimeCapacity_Property(lookupContext));
@@ -627,7 +666,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getTimeCapacity_Property(NamedElement lookupContext) {
+	public static Property getTimeCapacity_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + TIME_CAPACITY__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -637,6 +676,8 @@ public final class Arinc653 {
 	}
 	
 	// Lookup methods for ARINC653::Deadline_Type
+	
+	public static final String DEADLINE_TYPE__NAME = "Deadline_Type";
 	
 	public static boolean acceptsDeadlineType(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDeadlineType_Property(lookupContext));
@@ -661,7 +702,7 @@ public final class Arinc653 {
 		}
 	}
 	
-	public static Property getDeadlineType_Property(NamedElement lookupContext) {
+	public static Property getDeadlineType_Property(EObject lookupContext) {
 		String name = ARINC653__NAME + "::" + DEADLINE_TYPE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}

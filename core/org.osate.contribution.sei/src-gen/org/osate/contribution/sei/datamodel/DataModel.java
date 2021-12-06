@@ -1,3 +1,26 @@
+/*******************************************************************************
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ *******************************************************************************/
 package org.osate.contribution.sei.datamodel;
 
 import java.util.List;
@@ -5,6 +28,7 @@ import java.util.Optional;
 import java.util.OptionalLong;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
@@ -24,26 +48,11 @@ import org.osate.pluginsupport.properties.RealRange;
 public final class DataModel {
 	public static final String DATA_MODEL__NAME = "Data_Model";
 	
-	public static final String BASE_TYPE__NAME = "Base_Type";
-	public static final String CODE_SET__NAME = "Code_Set";
-	public static final String DATA_DIGITS__NAME = "Data_Digits";
-	public static final String DATA_SCALE__NAME = "Data_Scale";
-	public static final String DATA_REPRESENTATION__NAME = "Data_Representation";
-	public static final String MYDIMENSION__NAME = "MyDimension";
-	public static final String DIMENSION__NAME = "Dimension";
-	public static final String ELEMENT_NAMES__NAME = "Element_Names";
-	public static final String ENUMERATORS__NAME = "Enumerators";
-	public static final String IEEE754_PRECISION__NAME = "IEEE754_Precision";
-	public static final String INITIAL_VALUE__NAME = "Initial_Value";
-	public static final String INTEGER_RANGE__NAME = "Integer_Range";
-	public static final String MEASUREMENT_UNIT__NAME = "Measurement_Unit";
-	public static final String NUMBER_REPRESENTATION__NAME = "Number_Representation";
-	public static final String REAL_RANGE__NAME = "Real_Range";
-	public static final String REPRESENTATION__NAME = "Representation";
-	
 	private DataModel() {}
 	
 	// Lookup methods for Data_Model::Base_Type
+	
+	public static final String BASE_TYPE__NAME = "Base_Type";
 	
 	public static boolean acceptsBaseType(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getBaseType_Property(lookupContext));
@@ -71,7 +80,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getBaseType_Property(NamedElement lookupContext) {
+	public static Property getBaseType_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + BASE_TYPE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -81,6 +90,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::Code_Set
+	
+	public static final String CODE_SET__NAME = "Code_Set";
 	
 	public static boolean acceptsCodeSet(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getCodeSet_Property(lookupContext));
@@ -105,7 +116,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getCodeSet_Property(NamedElement lookupContext) {
+	public static Property getCodeSet_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + CODE_SET__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -115,6 +126,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::Data_Digits
+	
+	public static final String DATA_DIGITS__NAME = "Data_Digits";
 	
 	public static boolean acceptsDataDigits(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDataDigits_Property(lookupContext));
@@ -139,7 +152,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getDataDigits_Property(NamedElement lookupContext) {
+	public static Property getDataDigits_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + DATA_DIGITS__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -149,6 +162,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::Data_Scale
+	
+	public static final String DATA_SCALE__NAME = "Data_Scale";
 	
 	public static boolean acceptsDataScale(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDataScale_Property(lookupContext));
@@ -173,7 +188,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getDataScale_Property(NamedElement lookupContext) {
+	public static Property getDataScale_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + DATA_SCALE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -183,6 +198,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::Data_Representation
+	
+	public static final String DATA_REPRESENTATION__NAME = "Data_Representation";
 	
 	public static boolean acceptsDataRepresentation(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDataRepresentation_Property(lookupContext));
@@ -207,7 +224,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getDataRepresentation_Property(NamedElement lookupContext) {
+	public static Property getDataRepresentation_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + DATA_REPRESENTATION__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -217,6 +234,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::MyDimension
+	
+	public static final String MYDIMENSION__NAME = "MyDimension";
 	
 	public static boolean acceptsMydimension(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getMydimension_Property(lookupContext));
@@ -241,7 +260,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getMydimension_Property(NamedElement lookupContext) {
+	public static Property getMydimension_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + MYDIMENSION__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -251,6 +270,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::Dimension
+	
+	public static final String DIMENSION__NAME = "Dimension";
 	
 	public static boolean acceptsDimension(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDimension_Property(lookupContext));
@@ -278,7 +299,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getDimension_Property(NamedElement lookupContext) {
+	public static Property getDimension_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + DIMENSION__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -288,6 +309,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::Element_Names
+	
+	public static final String ELEMENT_NAMES__NAME = "Element_Names";
 	
 	public static boolean acceptsElementNames(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getElementNames_Property(lookupContext));
@@ -315,7 +338,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getElementNames_Property(NamedElement lookupContext) {
+	public static Property getElementNames_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + ELEMENT_NAMES__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -325,6 +348,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::Enumerators
+	
+	public static final String ENUMERATORS__NAME = "Enumerators";
 	
 	public static boolean acceptsEnumerators(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getEnumerators_Property(lookupContext));
@@ -352,7 +377,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getEnumerators_Property(NamedElement lookupContext) {
+	public static Property getEnumerators_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + ENUMERATORS__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -362,6 +387,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::IEEE754_Precision
+	
+	public static final String IEEE754_PRECISION__NAME = "IEEE754_Precision";
 	
 	public static boolean acceptsIeee754Precision(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getIeee754Precision_Property(lookupContext));
@@ -386,7 +413,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getIeee754Precision_Property(NamedElement lookupContext) {
+	public static Property getIeee754Precision_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + IEEE754_PRECISION__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -396,6 +423,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::Initial_Value
+	
+	public static final String INITIAL_VALUE__NAME = "Initial_Value";
 	
 	public static boolean acceptsInitialValue(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getInitialValue_Property(lookupContext));
@@ -423,7 +452,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getInitialValue_Property(NamedElement lookupContext) {
+	public static Property getInitialValue_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + INITIAL_VALUE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -433,6 +462,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::Integer_Range
+	
+	public static final String INTEGER_RANGE__NAME = "Integer_Range";
 	
 	public static boolean acceptsIntegerRange(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getIntegerRange_Property(lookupContext));
@@ -457,7 +488,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getIntegerRange_Property(NamedElement lookupContext) {
+	public static Property getIntegerRange_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + INTEGER_RANGE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -467,6 +498,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::Measurement_Unit
+	
+	public static final String MEASUREMENT_UNIT__NAME = "Measurement_Unit";
 	
 	public static boolean acceptsMeasurementUnit(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getMeasurementUnit_Property(lookupContext));
@@ -491,7 +524,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getMeasurementUnit_Property(NamedElement lookupContext) {
+	public static Property getMeasurementUnit_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + MEASUREMENT_UNIT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -501,6 +534,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::Number_Representation
+	
+	public static final String NUMBER_REPRESENTATION__NAME = "Number_Representation";
 	
 	public static boolean acceptsNumberRepresentation(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getNumberRepresentation_Property(lookupContext));
@@ -525,7 +560,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getNumberRepresentation_Property(NamedElement lookupContext) {
+	public static Property getNumberRepresentation_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + NUMBER_REPRESENTATION__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -535,6 +570,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::Real_Range
+	
+	public static final String REAL_RANGE__NAME = "Real_Range";
 	
 	public static boolean acceptsRealRange(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getRealRange_Property(lookupContext));
@@ -559,7 +596,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getRealRange_Property(NamedElement lookupContext) {
+	public static Property getRealRange_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + REAL_RANGE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -569,6 +606,8 @@ public final class DataModel {
 	}
 	
 	// Lookup methods for Data_Model::Representation
+	
+	public static final String REPRESENTATION__NAME = "Representation";
 	
 	public static boolean acceptsRepresentation(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getRepresentation_Property(lookupContext));
@@ -596,7 +635,7 @@ public final class DataModel {
 		}
 	}
 	
-	public static Property getRepresentation_Property(NamedElement lookupContext) {
+	public static Property getRepresentation_Property(EObject lookupContext) {
 		String name = DATA_MODEL__NAME + "::" + REPRESENTATION__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}

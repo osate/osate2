@@ -1,5 +1,232 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.osate.aadl2.contrib" version="2">
+    <resource path="src/org/osate/aadl2/contrib/aadlproject/AadlProject.java" type="org.osate.aadl2.contrib.aadlproject.AadlProject">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="MAX_AADLINTEGER__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="MAX_BASE_ADDRESS__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="MAX_BYTE_COUNT__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="MAX_MEMORY_SIZE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="MAX_QUEUE_SIZE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="MAX_TARGET_INTEGER__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="MAX_THREAD_LIMIT__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="MAX_TIME__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="MAX_URGENCY__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="MAX_VOLUME__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="MAX_WORD_SPACE__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="SUPPORTED_CLASSIFIER_COMPLEMENT_MATCHES__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="SUPPORTED_CLASSIFIER_SUBSET_MATCHES__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="SUPPORTED_TYPE_CONVERSIONS__NAME"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxAadlinteger(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxAadlinteger_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxBaseAddress(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxBaseAddress_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxByteCount(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxByteCount_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxMemorySize(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxMemorySize_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxQueueSize(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxQueueSize_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxTargetInteger(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxTargetInteger_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxThreadLimit(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxThreadLimit_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxTime(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxTime_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxUrgency(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxUrgency_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxVolume(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxVolume_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxWordSpace(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getMaxWordSpace_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getSupportedClassifierComplementMatches(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getSupportedClassifierComplementMatches_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getSupportedClassifierEquivalenceMatches(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getSupportedClassifierEquivalenceMatches_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getSupportedClassifierSubsetMatches(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getSupportedClassifierSubsetMatches_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getSupportedTypeConversions(EObject)"/>
+            </message_arguments>
+        </filter>
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="getSupportedTypeConversions_PropertyConstant(EObject)"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/osate/aadl2/contrib/communication/CommunicationProperties.java" type="org.osate.aadl2.contrib.communication.CommunicationProperties">
         <filter id="1143996420">
             <message_arguments>
@@ -93,92 +320,127 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getActualLatency_Property(NamedElement)"/>
+                <message_argument value="getActualLatency_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getConnectionPattern_Property(NamedElement)"/>
+                <message_argument value="getConnectionPattern_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getConnectionSet_Property(NamedElement)"/>
+                <message_argument value="getConnectionSet_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDataRate_Property(NamedElement)"/>
+                <message_argument value="getDataRate_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getFanOutPolicy_Property(NamedElement)"/>
+                <message_argument value="getFanOutPolicy_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getInputRate_Property(NamedElement)"/>
+                <message_argument value="getInputRate_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getInputTime_Property(NamedElement)"/>
+                <message_argument value="getInputTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getLatency_Property(NamedElement)"/>
+                <message_argument value="getLatency_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getOutputRate_Property(NamedElement)"/>
+                <message_argument value="getOutputRate_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getOutputTime_Property(NamedElement)"/>
+                <message_argument value="getOutputTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getOverflowHandlingProtocol_Property(NamedElement)"/>
+                <message_argument value="getOverflowHandlingProtocol_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getQueueProcessingProtocol_Property(NamedElement)"/>
+                <message_argument value="getQueueProcessingProtocol_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getQueueSize_Property(NamedElement)"/>
+                <message_argument value="getQueueSize_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getRequiredConnection_Property(NamedElement)"/>
+                <message_argument value="getRequiredConnection_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getSubprogramCallRate_Property(NamedElement)"/>
+                <message_argument value="getSubprogramCallRate_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getTiming_Property(NamedElement)"/>
+                <message_argument value="getTiming_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getTransmissionTime_Property(NamedElement)"/>
+                <message_argument value="getTransmissionTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getTransmissionType_Property(NamedElement)"/>
+                <message_argument value="getTransmissionType_Property(EObject)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/contrib/communication/ConnectionPair.java" type="org.osate.aadl2.contrib.communication.ConnectionPair">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="ConnectionPair(PropertyExpression)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/contrib/communication/IoTimeSpec.java" type="org.osate.aadl2.contrib.communication.IoTimeSpec">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="IoTimeSpec(PropertyExpression)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/contrib/communication/RateSpec.java" type="org.osate.aadl2.contrib.communication.RateSpec">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="RateSpec(PropertyExpression)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/contrib/communication/TransmissionTime.java" type="org.osate.aadl2.contrib.communication.TransmissionTime">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="TransmissionTime(PropertyExpression)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/contrib/deployment/Collocated.java" type="org.osate.aadl2.contrib.deployment.Collocated">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="Collocated(PropertyExpression)"/>
             </message_arguments>
         </filter>
     </resource>
@@ -345,167 +607,192 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getActualConnectionBinding_Property(NamedElement)"/>
+                <message_argument value="getActualConnectionBinding_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getActualFunctionBinding_Property(NamedElement)"/>
+                <message_argument value="getActualFunctionBinding_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getActualMemoryBinding_Property(NamedElement)"/>
+                <message_argument value="getActualMemoryBinding_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getActualProcessorBinding_Property(NamedElement)"/>
+                <message_argument value="getActualProcessorBinding_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getActualSubprogramCallBinding_Property(NamedElement)"/>
+                <message_argument value="getActualSubprogramCallBinding_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getActualSubprogramCall_Property(NamedElement)"/>
+                <message_argument value="getActualSubprogramCall_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAllowedConnectionBindingClass_Property(NamedElement)"/>
+                <message_argument value="getAllowedConnectionBindingClass_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAllowedConnectionBinding_Property(NamedElement)"/>
+                <message_argument value="getAllowedConnectionBinding_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAllowedConnectionType_Property(NamedElement)"/>
+                <message_argument value="getAllowedConnectionType_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAllowedDispatchProtocol_Property(NamedElement)"/>
+                <message_argument value="getAllowedDispatchProtocol_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAllowedMemoryBindingClass_Property(NamedElement)"/>
+                <message_argument value="getAllowedMemoryBindingClass_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAllowedMemoryBinding_Property(NamedElement)"/>
+                <message_argument value="getAllowedMemoryBinding_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAllowedPeriod_Property(NamedElement)"/>
+                <message_argument value="getAllowedPeriod_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAllowedPhysicalAccessClass_Property(NamedElement)"/>
+                <message_argument value="getAllowedPhysicalAccessClass_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAllowedPhysicalAccess_Property(NamedElement)"/>
+                <message_argument value="getAllowedPhysicalAccess_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAllowedProcessorBindingClass_Property(NamedElement)"/>
+                <message_argument value="getAllowedProcessorBindingClass_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAllowedProcessorBinding_Property(NamedElement)"/>
+                <message_argument value="getAllowedProcessorBinding_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAllowedSubprogramCallBinding_Property(NamedElement)"/>
+                <message_argument value="getAllowedSubprogramCallBinding_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAllowedSubprogramCall_Property(NamedElement)"/>
+                <message_argument value="getAllowedSubprogramCall_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getCollocated_Property(NamedElement)"/>
+                <message_argument value="getCollocated_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getMemoryProtocol_Property(NamedElement)"/>
+                <message_argument value="getMemoryProtocol_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getNotCollocated_Property(NamedElement)"/>
+                <message_argument value="getNotCollocated_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getPreemptiveScheduler_Property(NamedElement)"/>
+                <message_argument value="getPreemptiveScheduler_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getPriorityMap_Property(NamedElement)"/>
+                <message_argument value="getPriorityMap_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getPriorityRange_Property(NamedElement)"/>
+                <message_argument value="getPriorityRange_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getProvidedConnectionQualityOfService_Property(NamedElement)"/>
+                <message_argument value="getProvidedConnectionQualityOfService_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getProvidedVirtualBusClass_Property(NamedElement)"/>
+                <message_argument value="getProvidedVirtualBusClass_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getRequiredConnectionQualityOfService_Property(NamedElement)"/>
+                <message_argument value="getRequiredConnectionQualityOfService_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getRequiredVirtualBusClass_Property(NamedElement)"/>
+                <message_argument value="getRequiredVirtualBusClass_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getRuntimeProtectionSupport_Property(NamedElement)"/>
+                <message_argument value="getRuntimeProtectionSupport_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getSchedulingProtocol_Property(NamedElement)"/>
+                <message_argument value="getSchedulingProtocol_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getThreadLimit_Property(NamedElement)"/>
+                <message_argument value="getThreadLimit_Property(EObject)"/>
             </message_arguments>
         </filter>
     </resource>
-    <resource path="src/org/osate/aadl2/contrib/memory/MemoryProperties.java">
-        <filter id="0"/>
+    <resource path="src/org/osate/aadl2/contrib/deployment/NotCollocated.java" type="org.osate.aadl2.contrib.deployment.NotCollocated">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="NotCollocated(PropertyExpression)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/contrib/deployment/PriorityMapping.java" type="org.osate.aadl2.contrib.deployment.PriorityMapping">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="PriorityMapping(PropertyExpression)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/contrib/memory/AccessTime.java" type="org.osate.aadl2.contrib.memory.AccessTime">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="AccessTime(PropertyExpression)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/contrib/memory/AssignTime.java" type="org.osate.aadl2.contrib.memory.AssignTime">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="AssignTime(PropertyExpression)"/>
+            </message_arguments>
+        </filter>
     </resource>
     <resource path="src/org/osate/aadl2/contrib/memory/MemoryProperties.java" type="org.osate.aadl2.contrib.memory.MemoryProperties">
         <filter id="1143996420">
@@ -610,102 +897,116 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAccessRight_Property(NamedElement)"/>
+                <message_argument value="getAccessRight_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAccessTime_Property(NamedElement)"/>
+                <message_argument value="getAccessTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAllowedMessageSize_Property(NamedElement)"/>
+                <message_argument value="getAllowedMessageSize_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAssignTime_Property(NamedElement)"/>
+                <message_argument value="getAssignTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getBaseAddress_Property(NamedElement)"/>
+                <message_argument value="getBaseAddress_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getByteCount_Property(NamedElement)"/>
+                <message_argument value="getByteCount_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getCodeSize_Property(NamedElement)"/>
+                <message_argument value="getCodeSize_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDataSize_Property(NamedElement)"/>
+                <message_argument value="getDataSize_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDeviceRegisterAddress_Property(NamedElement)"/>
+                <message_argument value="getDeviceRegisterAddress_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getHeapSize_Property(NamedElement)"/>
+                <message_argument value="getHeapSize_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getMemorySize_Property(NamedElement)"/>
+                <message_argument value="getMemorySize_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getReadTime_Property(NamedElement)"/>
+                <message_argument value="getReadTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getSourceCodeSize_Property(NamedElement)"/>
+                <message_argument value="getSourceCodeSize_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getSourceDataSize_Property(NamedElement)"/>
+                <message_argument value="getSourceDataSize_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getSourceHeapSize_Property(NamedElement)"/>
+                <message_argument value="getSourceHeapSize_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getSourceStackSize_Property(NamedElement)"/>
+                <message_argument value="getSourceStackSize_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getStackSize_Property(NamedElement)"/>
+                <message_argument value="getStackSize_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getWordSize_Property(NamedElement)"/>
+                <message_argument value="getWordSize_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getWordSpace_Property(NamedElement)"/>
+                <message_argument value="getWordSpace_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getWriteTime_Property(NamedElement)"/>
+                <message_argument value="getWriteTime_Property(EObject)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/contrib/memory/ReadTime.java" type="org.osate.aadl2.contrib.memory.ReadTime">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="ReadTime(PropertyExpression)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/osate/aadl2/contrib/memory/WriteTime.java" type="org.osate.aadl2.contrib.memory.WriteTime">
+        <filter id="1143996420">
+            <message_arguments>
+                <message_argument value="WriteTime(PropertyExpression)"/>
             </message_arguments>
         </filter>
     </resource>
@@ -737,27 +1038,27 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getAcceptableArraySize_Property(NamedElement)"/>
+                <message_argument value="getAcceptableArraySize_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getClassifierMatchingRule_Property(NamedElement)"/>
+                <message_argument value="getClassifierMatchingRule_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getClassifierSubstitutionRule_Property(NamedElement)"/>
+                <message_argument value="getClassifierSubstitutionRule_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getImplementedAs_Property(NamedElement)"/>
+                <message_argument value="getImplementedAs_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getPrototypeSubstitutionRule_Property(NamedElement)"/>
+                <message_argument value="getPrototypeSubstitutionRule_Property(EObject)"/>
             </message_arguments>
         </filter>
     </resource>
@@ -894,132 +1195,132 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getActivateEntrypointCallSequence_Property(NamedElement)"/>
+                <message_argument value="getActivateEntrypointCallSequence_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getActivateEntrypointSourceText_Property(NamedElement)"/>
+                <message_argument value="getActivateEntrypointSourceText_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getActivateEntrypoint_Property(NamedElement)"/>
+                <message_argument value="getActivateEntrypoint_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getComputeEntrypointCallSequence_Property(NamedElement)"/>
+                <message_argument value="getComputeEntrypointCallSequence_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getComputeEntrypointSourceText_Property(NamedElement)"/>
+                <message_argument value="getComputeEntrypointSourceText_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getComputeEntrypoint_Property(NamedElement)"/>
+                <message_argument value="getComputeEntrypoint_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDeactivateEntrypointCallSequence_Property(NamedElement)"/>
+                <message_argument value="getDeactivateEntrypointCallSequence_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDeactivateEntrypointSourceText_Property(NamedElement)"/>
+                <message_argument value="getDeactivateEntrypointSourceText_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDeactivateEntrypoint_Property(NamedElement)"/>
+                <message_argument value="getDeactivateEntrypoint_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDeviceDriver_Property(NamedElement)"/>
+                <message_argument value="getDeviceDriver_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getFinalizeEntrypointCallSequence_Property(NamedElement)"/>
+                <message_argument value="getFinalizeEntrypointCallSequence_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getFinalizeEntrypointSourceText_Property(NamedElement)"/>
+                <message_argument value="getFinalizeEntrypointSourceText_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getFinalizeEntrypoint_Property(NamedElement)"/>
+                <message_argument value="getFinalizeEntrypoint_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getHardwareDescriptionSourceText_Property(NamedElement)"/>
+                <message_argument value="getHardwareDescriptionSourceText_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getHardwareSourceLanguage_Property(NamedElement)"/>
+                <message_argument value="getHardwareSourceLanguage_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getInitializeEntrypointCallSequence_Property(NamedElement)"/>
+                <message_argument value="getInitializeEntrypointCallSequence_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getInitializeEntrypointSourceText_Property(NamedElement)"/>
+                <message_argument value="getInitializeEntrypointSourceText_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getInitializeEntrypoint_Property(NamedElement)"/>
+                <message_argument value="getInitializeEntrypoint_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getRecoverEntrypointCallSequence_Property(NamedElement)"/>
+                <message_argument value="getRecoverEntrypointCallSequence_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getRecoverEntrypointSourceText_Property(NamedElement)"/>
+                <message_argument value="getRecoverEntrypointSourceText_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getRecoverEntrypoint_Property(NamedElement)"/>
+                <message_argument value="getRecoverEntrypoint_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getSourceLanguage_Property(NamedElement)"/>
+                <message_argument value="getSourceLanguage_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getSourceName_Property(NamedElement)"/>
+                <message_argument value="getSourceName_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getSourceText_Property(NamedElement)"/>
+                <message_argument value="getSourceText_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getSupportedSourceLanguage_Property(NamedElement)"/>
+                <message_argument value="getSupportedSourceLanguage_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getTypeSourceName_Property(NamedElement)"/>
+                <message_argument value="getTypeSourceName_Property(EObject)"/>
             </message_arguments>
         </filter>
     </resource>
@@ -1121,102 +1422,99 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getActiveThreadHandlingProtocol_Property(NamedElement)"/>
+                <message_argument value="getActiveThreadHandlingProtocol_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getActiveThreadQueueHandlingProtocol_Property(NamedElement)"/>
+                <message_argument value="getActiveThreadQueueHandlingProtocol_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getConcurrencyControlProtocol_Property(NamedElement)"/>
+                <message_argument value="getConcurrencyControlProtocol_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getCriticality_Property(NamedElement)"/>
+                <message_argument value="getCriticality_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDeactivationPolicy_Property(NamedElement)"/>
+                <message_argument value="getDeactivationPolicy_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDequeueProtocol_Property(NamedElement)"/>
+                <message_argument value="getDequeueProtocol_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDequeuedItems_Property(NamedElement)"/>
+                <message_argument value="getDequeuedItems_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDispatchAble_Property(NamedElement)"/>
+                <message_argument value="getDispatchAble_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDispatchProtocol_Property(NamedElement)"/>
+                <message_argument value="getDispatchProtocol_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDispatchTrigger_Property(NamedElement)"/>
+                <message_argument value="getDispatchTrigger_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getModeTransitionResponse_Property(NamedElement)"/>
+                <message_argument value="getModeTransitionResponse_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getPosixSchedulingPolicy_Property(NamedElement)"/>
+                <message_argument value="getPosixSchedulingPolicy_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getPriority_Property(NamedElement)"/>
+                <message_argument value="getPriority_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getResumptionPolicy_Property(NamedElement)"/>
+                <message_argument value="getResumptionPolicy_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getRuntimeProtection_Property(NamedElement)"/>
+                <message_argument value="getRuntimeProtection_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getSubprogramCallType_Property(NamedElement)"/>
+                <message_argument value="getSubprogramCallType_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getSynchronizedComponent_Property(NamedElement)"/>
+                <message_argument value="getSynchronizedComponent_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getTimeSlot_Property(NamedElement)"/>
+                <message_argument value="getTimeSlot_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getUrgency_Property(NamedElement)"/>
+                <message_argument value="getUrgency_Property(EObject)"/>
             </message_arguments>
         </filter>
-    </resource>
-    <resource path="src/org/osate/aadl2/contrib/timing/TimingProperties.java">
-        <filter id="0"/>
     </resource>
     <resource path="src/org/osate/aadl2/contrib/timing/TimingProperties.java" type="org.osate.aadl2.contrib.timing.TimingProperties">
         <filter id="1143996420">
@@ -1391,172 +1689,172 @@
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getActivateDeadline_Property(NamedElement)"/>
+                <message_argument value="getActivateDeadline_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getActivateExecutionTime_Property(NamedElement)"/>
+                <message_argument value="getActivateExecutionTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getClientSubprogramExecutionTime_Property(NamedElement)"/>
+                <message_argument value="getClientSubprogramExecutionTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getClockJitter_Property(NamedElement)"/>
+                <message_argument value="getClockJitter_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getClockPeriodRange_Property(NamedElement)"/>
+                <message_argument value="getClockPeriodRange_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getClockPeriod_Property(NamedElement)"/>
+                <message_argument value="getClockPeriod_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getComputeDeadline_Property(NamedElement)"/>
+                <message_argument value="getComputeDeadline_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getComputeExecutionTime_Property(NamedElement)"/>
+                <message_argument value="getComputeExecutionTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDeactivateDeadline_Property(NamedElement)"/>
+                <message_argument value="getDeactivateDeadline_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDeactivateExecutionTime_Property(NamedElement)"/>
+                <message_argument value="getDeactivateExecutionTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDeadline_Property(NamedElement)"/>
+                <message_argument value="getDeadline_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDispatchJitter_Property(NamedElement)"/>
+                <message_argument value="getDispatchJitter_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getDispatchOffset_Property(NamedElement)"/>
+                <message_argument value="getDispatchOffset_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getExecutionTime_Property(NamedElement)"/>
+                <message_argument value="getExecutionTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getFinalizeDeadline_Property(NamedElement)"/>
+                <message_argument value="getFinalizeDeadline_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getFinalizeExecutionTime_Property(NamedElement)"/>
+                <message_argument value="getFinalizeExecutionTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getFirstDispatchTime_Property(NamedElement)"/>
+                <message_argument value="getFirstDispatchTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getFramePeriod_Property(NamedElement)"/>
+                <message_argument value="getFramePeriod_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getInitializeDeadline_Property(NamedElement)"/>
+                <message_argument value="getInitializeDeadline_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getInitializeExecutionTime_Property(NamedElement)"/>
+                <message_argument value="getInitializeExecutionTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getLoadDeadline_Property(NamedElement)"/>
+                <message_argument value="getLoadDeadline_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getLoadTime_Property(NamedElement)"/>
+                <message_argument value="getLoadTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getPeriod_Property(NamedElement)"/>
+                <message_argument value="getPeriod_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getProcessSwapExecutionTime_Property(NamedElement)"/>
+                <message_argument value="getProcessSwapExecutionTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getProcessorCapacity_Property(NamedElement)"/>
+                <message_argument value="getProcessorCapacity_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getRecoverDeadline_Property(NamedElement)"/>
+                <message_argument value="getRecoverDeadline_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getRecoverExecutionTime_Property(NamedElement)"/>
+                <message_argument value="getRecoverExecutionTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getReferenceProcessor_Property(NamedElement)"/>
+                <message_argument value="getReferenceProcessor_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getReferenceTime_Property(NamedElement)"/>
+                <message_argument value="getReferenceTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getSchedulerQuantum_Property(NamedElement)"/>
+                <message_argument value="getSchedulerQuantum_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getSlotTime_Property(NamedElement)"/>
+                <message_argument value="getSlotTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getStartupDeadline_Property(NamedElement)"/>
+                <message_argument value="getStartupDeadline_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getStartupExecutionTime_Property(NamedElement)"/>
+                <message_argument value="getStartupExecutionTime_Property(EObject)"/>
             </message_arguments>
         </filter>
         <filter id="1143996420">
             <message_arguments>
-                <message_argument value="getThreadSwapExecutionTime_Property(NamedElement)"/>
+                <message_argument value="getThreadSwapExecutionTime_Property(EObject)"/>
             </message_arguments>
         </filter>
     </resource>

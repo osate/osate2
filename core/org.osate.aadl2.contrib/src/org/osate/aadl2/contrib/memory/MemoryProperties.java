@@ -1,8 +1,32 @@
+/*******************************************************************************
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ *******************************************************************************/
 package org.osate.aadl2.contrib.memory;
 
 import java.util.Optional;
 import java.util.OptionalLong;
 
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.Mode;
@@ -19,30 +43,11 @@ import org.osate.pluginsupport.properties.IntegerWithUnits;
 public final class MemoryProperties {
 	public static final String MEMORY_PROPERTIES__NAME = "Memory_Properties";
 	
-	public static final String ACCESS_RIGHT__NAME = "Access_Right";
-	public static final String ACCESS_TIME__NAME = "Access_Time";
-	public static final String ALLOWED_MESSAGE_SIZE__NAME = "Allowed_Message_Size";
-	public static final String ASSIGN_TIME__NAME = "Assign_Time";
-	public static final String BASE_ADDRESS__NAME = "Base_Address";
-	public static final String DEVICE_REGISTER_ADDRESS__NAME = "Device_Register_Address";
-	public static final String READ_TIME__NAME = "Read_Time";
-	public static final String CODE_SIZE__NAME = "Code_Size";
-	public static final String DATA_SIZE__NAME = "Data_Size";
-	public static final String HEAP_SIZE__NAME = "Heap_Size";
-	public static final String STACK_SIZE__NAME = "Stack_Size";
-	public static final String SOURCE_CODE_SIZE__NAME = "Source_Code_Size";
-	public static final String SOURCE_DATA_SIZE__NAME = "Source_Data_Size";
-	public static final String SOURCE_HEAP_SIZE__NAME = "Source_Heap_Size";
-	public static final String SOURCE_STACK_SIZE__NAME = "Source_Stack_Size";
-	public static final String BYTE_COUNT__NAME = "Byte_Count";
-	public static final String MEMORY_SIZE__NAME = "Memory_Size";
-	public static final String WORD_SIZE__NAME = "Word_Size";
-	public static final String WORD_SPACE__NAME = "Word_Space";
-	public static final String WRITE_TIME__NAME = "Write_Time";
-	
 	private MemoryProperties() {}
 	
 	// Lookup methods for Memory_Properties::Access_Right
+	
+	public static final String ACCESS_RIGHT__NAME = "Access_Right";
 	
 	public static boolean acceptsAccessRight(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getAccessRight_Property(lookupContext));
@@ -67,7 +72,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getAccessRight_Property(NamedElement lookupContext) {
+	public static Property getAccessRight_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + ACCESS_RIGHT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -77,6 +82,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Access_Time
+	
+	public static final String ACCESS_TIME__NAME = "Access_Time";
 	
 	public static boolean acceptsAccessTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getAccessTime_Property(lookupContext));
@@ -101,7 +108,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getAccessTime_Property(NamedElement lookupContext) {
+	public static Property getAccessTime_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + ACCESS_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -111,6 +118,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Allowed_Message_Size
+	
+	public static final String ALLOWED_MESSAGE_SIZE__NAME = "Allowed_Message_Size";
 	
 	public static boolean acceptsAllowedMessageSize(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getAllowedMessageSize_Property(lookupContext));
@@ -135,7 +144,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getAllowedMessageSize_Property(NamedElement lookupContext) {
+	public static Property getAllowedMessageSize_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + ALLOWED_MESSAGE_SIZE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -145,6 +154,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Assign_Time
+	
+	public static final String ASSIGN_TIME__NAME = "Assign_Time";
 	
 	public static boolean acceptsAssignTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getAssignTime_Property(lookupContext));
@@ -169,7 +180,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getAssignTime_Property(NamedElement lookupContext) {
+	public static Property getAssignTime_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + ASSIGN_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -179,6 +190,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Base_Address
+	
+	public static final String BASE_ADDRESS__NAME = "Base_Address";
 	
 	public static boolean acceptsBaseAddress(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getBaseAddress_Property(lookupContext));
@@ -203,7 +216,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getBaseAddress_Property(NamedElement lookupContext) {
+	public static Property getBaseAddress_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + BASE_ADDRESS__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -213,6 +226,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Device_Register_Address
+	
+	public static final String DEVICE_REGISTER_ADDRESS__NAME = "Device_Register_Address";
 	
 	public static boolean acceptsDeviceRegisterAddress(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDeviceRegisterAddress_Property(lookupContext));
@@ -237,7 +252,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getDeviceRegisterAddress_Property(NamedElement lookupContext) {
+	public static Property getDeviceRegisterAddress_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + DEVICE_REGISTER_ADDRESS__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -247,6 +262,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Read_Time
+	
+	public static final String READ_TIME__NAME = "Read_Time";
 	
 	public static boolean acceptsReadTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getReadTime_Property(lookupContext));
@@ -271,7 +288,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getReadTime_Property(NamedElement lookupContext) {
+	public static Property getReadTime_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + READ_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -281,6 +298,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Code_Size
+	
+	public static final String CODE_SIZE__NAME = "Code_Size";
 	
 	public static boolean acceptsCodeSize(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getCodeSize_Property(lookupContext));
@@ -305,7 +324,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getCodeSize_Property(NamedElement lookupContext) {
+	public static Property getCodeSize_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + CODE_SIZE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -315,6 +334,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Data_Size
+	
+	public static final String DATA_SIZE__NAME = "Data_Size";
 	
 	public static boolean acceptsDataSize(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getDataSize_Property(lookupContext));
@@ -339,7 +360,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getDataSize_Property(NamedElement lookupContext) {
+	public static Property getDataSize_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + DATA_SIZE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -349,6 +370,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Heap_Size
+	
+	public static final String HEAP_SIZE__NAME = "Heap_Size";
 	
 	public static boolean acceptsHeapSize(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getHeapSize_Property(lookupContext));
@@ -373,7 +396,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getHeapSize_Property(NamedElement lookupContext) {
+	public static Property getHeapSize_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + HEAP_SIZE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -383,6 +406,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Stack_Size
+	
+	public static final String STACK_SIZE__NAME = "Stack_Size";
 	
 	public static boolean acceptsStackSize(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getStackSize_Property(lookupContext));
@@ -407,7 +432,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getStackSize_Property(NamedElement lookupContext) {
+	public static Property getStackSize_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + STACK_SIZE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -417,6 +442,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Source_Code_Size
+	
+	public static final String SOURCE_CODE_SIZE__NAME = "Source_Code_Size";
 	
 	public static boolean acceptsSourceCodeSize(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getSourceCodeSize_Property(lookupContext));
@@ -441,7 +468,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getSourceCodeSize_Property(NamedElement lookupContext) {
+	public static Property getSourceCodeSize_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + SOURCE_CODE_SIZE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -451,6 +478,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Source_Data_Size
+	
+	public static final String SOURCE_DATA_SIZE__NAME = "Source_Data_Size";
 	
 	public static boolean acceptsSourceDataSize(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getSourceDataSize_Property(lookupContext));
@@ -475,7 +504,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getSourceDataSize_Property(NamedElement lookupContext) {
+	public static Property getSourceDataSize_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + SOURCE_DATA_SIZE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -485,6 +514,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Source_Heap_Size
+	
+	public static final String SOURCE_HEAP_SIZE__NAME = "Source_Heap_Size";
 	
 	public static boolean acceptsSourceHeapSize(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getSourceHeapSize_Property(lookupContext));
@@ -509,7 +540,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getSourceHeapSize_Property(NamedElement lookupContext) {
+	public static Property getSourceHeapSize_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + SOURCE_HEAP_SIZE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -519,6 +550,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Source_Stack_Size
+	
+	public static final String SOURCE_STACK_SIZE__NAME = "Source_Stack_Size";
 	
 	public static boolean acceptsSourceStackSize(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getSourceStackSize_Property(lookupContext));
@@ -543,7 +576,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getSourceStackSize_Property(NamedElement lookupContext) {
+	public static Property getSourceStackSize_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + SOURCE_STACK_SIZE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -553,6 +586,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Byte_Count
+	
+	public static final String BYTE_COUNT__NAME = "Byte_Count";
 	
 	public static boolean acceptsByteCount(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getByteCount_Property(lookupContext));
@@ -577,7 +612,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getByteCount_Property(NamedElement lookupContext) {
+	public static Property getByteCount_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + BYTE_COUNT__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -587,6 +622,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Memory_Size
+	
+	public static final String MEMORY_SIZE__NAME = "Memory_Size";
 	
 	public static boolean acceptsMemorySize(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getMemorySize_Property(lookupContext));
@@ -611,7 +648,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getMemorySize_Property(NamedElement lookupContext) {
+	public static Property getMemorySize_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + MEMORY_SIZE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -621,6 +658,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Word_Size
+	
+	public static final String WORD_SIZE__NAME = "Word_Size";
 	
 	public static boolean acceptsWordSize(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getWordSize_Property(lookupContext));
@@ -645,7 +684,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getWordSize_Property(NamedElement lookupContext) {
+	public static Property getWordSize_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + WORD_SIZE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -655,6 +694,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Word_Space
+	
+	public static final String WORD_SPACE__NAME = "Word_Space";
 	
 	public static boolean acceptsWordSpace(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getWordSpace_Property(lookupContext));
@@ -679,7 +720,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getWordSpace_Property(NamedElement lookupContext) {
+	public static Property getWordSpace_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + WORD_SPACE__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
@@ -689,6 +730,8 @@ public final class MemoryProperties {
 	}
 	
 	// Lookup methods for Memory_Properties::Write_Time
+	
+	public static final String WRITE_TIME__NAME = "Write_Time";
 	
 	public static boolean acceptsWriteTime(NamedElement lookupContext) {
 		return lookupContext.acceptsProperty(getWriteTime_Property(lookupContext));
@@ -713,7 +756,7 @@ public final class MemoryProperties {
 		}
 	}
 	
-	public static Property getWriteTime_Property(NamedElement lookupContext) {
+	public static Property getWriteTime_Property(EObject lookupContext) {
 		String name = MEMORY_PROPERTIES__NAME + "::" + WRITE_TIME__NAME;
 		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
 	}
