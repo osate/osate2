@@ -25,9 +25,23 @@ class ClassifierTest {
 				other_classifier_type: type classifier;
 			end other_ps;
 		'''
+		val pkg1 = '''
+			package pkg1
+			public
+				system s1
+				end s1;
+				
+				thread t1
+				end t1;
+				
+				data d1
+				end d1;
+			end pkg1;
+		'''
 		val classifierTest = '''
 			property set classifier_test is
 				with other_ps;
+				with pkg1;
 				
 				local_classifier_type: type classifier;
 				
@@ -37,6 +51,22 @@ class ClassifierTest {
 				
 				list_1_classifier: list of other_ps::other_classifier_type applies to (all);
 				list_5_classifier: list of list of list of list of list of other_ps::other_classifier_type applies to (all);
+				
+				classifier_constant: constant classifier => classifier (pkg1::s1);
+				
+				constant_chain_1: constant classifier_test::local_classifier_type => classifier_test::constant_chain_2;
+				constant_chain_2: constant classifier_test::local_classifier_type => classifier_test::constant_chain_3;
+				constant_chain_3: constant classifier_test::local_classifier_type => classifier (pkg1::t1);
+				
+				list_1_classifier_constant: constant list of classifier_test::local_classifier_type => (
+					classifier_test::constant_chain_1,
+					classifier (pkg1::d1)
+				);
+				
+				list_5_classifier_constant: constant list of list of list of list of list of classifier => ((((
+					(classifier (pkg1::s1)),
+					()
+				))));
 			end classifier_test;
 		'''
 		val classifierTestClass = '''
@@ -54,6 +84,7 @@ class ClassifierTest {
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
@@ -261,9 +292,117 @@ class ClassifierTest {
 				public static PropertyExpression getList5Classifier_EObject(NamedElement lookupContext) {
 					return lookupContext.getNonModalPropertyValue(getList5Classifier_Property(lookupContext));
 				}
+				
+				// Lookup methods for classifier_test::classifier_constant
+				
+				public static final String CLASSIFIER_CONSTANT__NAME = "classifier_constant";
+				
+				public static Classifier getClassifierConstant(EObject lookupContext) {
+					PropertyConstant constant = getClassifierConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ClassifierValue) resolved).getClassifier();
+				}
+				
+				public static PropertyConstant getClassifierConstant_PropertyConstant(EObject lookupContext) {
+					String name = CLASSIFIER_TEST__NAME + "::" + CLASSIFIER_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for classifier_test::constant_chain_1
+				
+				public static final String CONSTANT_CHAIN_1__NAME = "constant_chain_1";
+				
+				public static Classifier getConstantChain1(EObject lookupContext) {
+					PropertyConstant constant = getConstantChain1_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ClassifierValue) resolved).getClassifier();
+				}
+				
+				public static PropertyConstant getConstantChain1_PropertyConstant(EObject lookupContext) {
+					String name = CLASSIFIER_TEST__NAME + "::" + CONSTANT_CHAIN_1__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for classifier_test::constant_chain_2
+				
+				public static final String CONSTANT_CHAIN_2__NAME = "constant_chain_2";
+				
+				public static Classifier getConstantChain2(EObject lookupContext) {
+					PropertyConstant constant = getConstantChain2_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ClassifierValue) resolved).getClassifier();
+				}
+				
+				public static PropertyConstant getConstantChain2_PropertyConstant(EObject lookupContext) {
+					String name = CLASSIFIER_TEST__NAME + "::" + CONSTANT_CHAIN_2__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for classifier_test::constant_chain_3
+				
+				public static final String CONSTANT_CHAIN_3__NAME = "constant_chain_3";
+				
+				public static Classifier getConstantChain3(EObject lookupContext) {
+					PropertyConstant constant = getConstantChain3_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ClassifierValue) resolved).getClassifier();
+				}
+				
+				public static PropertyConstant getConstantChain3_PropertyConstant(EObject lookupContext) {
+					String name = CLASSIFIER_TEST__NAME + "::" + CONSTANT_CHAIN_3__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for classifier_test::list_1_classifier_constant
+				
+				public static final String LIST_1_CLASSIFIER_CONSTANT__NAME = "list_1_classifier_constant";
+				
+				public static List<Classifier> getList1ClassifierConstant(EObject lookupContext) {
+					PropertyConstant constant = getList1ClassifierConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+						PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+						return ((ClassifierValue) resolved1).getClassifier();
+					}).collect(Collectors.toList());
+				}
+				
+				public static PropertyConstant getList1ClassifierConstant_PropertyConstant(EObject lookupContext) {
+					String name = CLASSIFIER_TEST__NAME + "::" + LIST_1_CLASSIFIER_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for classifier_test::list_5_classifier_constant
+				
+				public static final String LIST_5_CLASSIFIER_CONSTANT__NAME = "list_5_classifier_constant";
+				
+				public static List<List<List<List<List<Classifier>>>>> getList5ClassifierConstant(EObject lookupContext) {
+					PropertyConstant constant = getList5ClassifierConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+						PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+						return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+							PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
+							return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+								PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3);
+								return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+									PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4);
+									return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
+										PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5);
+										return ((ClassifierValue) resolved5).getClassifier();
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						}).collect(Collectors.toList());
+					}).collect(Collectors.toList());
+				}
+				
+				public static PropertyConstant getList5ClassifierConstant_PropertyConstant(EObject lookupContext) {
+					String name = CLASSIFIER_TEST__NAME + "::" + LIST_5_CLASSIFIER_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
 			}
 		'''
-		val results = PropertiesCodeGen.generateJava(testHelper.parseString(classifierTest, otherPs))
+		val results = PropertiesCodeGen.generateJava(testHelper.parseString(classifierTest, otherPs, pkg1))
 		assertEquals("src-gen/classifiertest", results.packagePath)
 		assertEquals(1, results.classes.size)
 		

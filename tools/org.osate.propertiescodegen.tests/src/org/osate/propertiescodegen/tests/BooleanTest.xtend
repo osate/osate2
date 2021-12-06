@@ -37,6 +37,14 @@ class BooleanTest {
 				
 				list_1_boolean: list of other_ps::other_boolean_type applies to (all);
 				list_5_boolean: list of list of list of list of list of other_ps::other_boolean_type applies to (all);
+				
+				boolean_constant: constant aadlboolean => true;
+				
+				list_1_boolean_constant: constant list of aadlboolean => (boolean_test::boolean_constant, false);
+				list_5_boolean_constant: constant list of list of list of list of list of aadlboolean => ((((
+					(true, false, true),
+					()
+				))));
 			end boolean_test;
 		'''
 		val booleanTestClass = '''
@@ -53,6 +61,7 @@ class BooleanTest {
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
@@ -259,6 +268,69 @@ class BooleanTest {
 				
 				public static PropertyExpression getList5Boolean_EObject(NamedElement lookupContext) {
 					return lookupContext.getNonModalPropertyValue(getList5Boolean_Property(lookupContext));
+				}
+				
+				// Lookup methods for boolean_test::boolean_constant
+				
+				public static final String BOOLEAN_CONSTANT__NAME = "boolean_constant";
+				
+				public static boolean getBooleanConstant(EObject lookupContext) {
+					PropertyConstant constant = getBooleanConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((BooleanLiteral) resolved).getValue();
+				}
+				
+				public static PropertyConstant getBooleanConstant_PropertyConstant(EObject lookupContext) {
+					String name = BOOLEAN_TEST__NAME + "::" + BOOLEAN_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for boolean_test::list_1_boolean_constant
+				
+				public static final String LIST_1_BOOLEAN_CONSTANT__NAME = "list_1_boolean_constant";
+				
+				public static List<Boolean> getList1BooleanConstant(EObject lookupContext) {
+					PropertyConstant constant = getList1BooleanConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+						PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+						return ((BooleanLiteral) resolved1).getValue();
+					}).collect(Collectors.toList());
+				}
+				
+				public static PropertyConstant getList1BooleanConstant_PropertyConstant(EObject lookupContext) {
+					String name = BOOLEAN_TEST__NAME + "::" + LIST_1_BOOLEAN_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for boolean_test::list_5_boolean_constant
+				
+				public static final String LIST_5_BOOLEAN_CONSTANT__NAME = "list_5_boolean_constant";
+				
+				public static List<List<List<List<List<Boolean>>>>> getList5BooleanConstant(EObject lookupContext) {
+					PropertyConstant constant = getList5BooleanConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+						PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+						return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+							PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
+							return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+								PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3);
+								return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+									PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4);
+									return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
+										PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5);
+										return ((BooleanLiteral) resolved5).getValue();
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						}).collect(Collectors.toList());
+					}).collect(Collectors.toList());
+				}
+				
+				public static PropertyConstant getList5BooleanConstant_PropertyConstant(EObject lookupContext) {
+					String name = BOOLEAN_TEST__NAME + "::" + LIST_5_BOOLEAN_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
 				}
 			}
 		'''

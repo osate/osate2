@@ -22,6 +22,7 @@ class CodegenPackageTest {
 			speed: type units (light, ridiculous => light * 1000, ludicrous => ridiculous * 1000);
 			record_type: type record (bool: aadlboolean;);
 			record_def: codegen_package_base::record_type applies to (all);
+			record_const: constant codegen_package_base::record_type => [bool => true;];
 		end codegen_package_base;
 	'''
 	
@@ -32,6 +33,7 @@ class CodegenPackageTest {
 			
 			record_def: codegen_package_base::record_type applies to (all);
 			int_def: aadlinteger units codegen_package_base::speed applies to (all);
+			record_const: constant codegen_package_base::record_type => [bool => false;];
 		end codegen_package_same;
 	'''
 	
@@ -42,6 +44,7 @@ class CodegenPackageTest {
 			
 			record_def: codegen_package_base::record_type applies to (all);
 			int_def: aadlinteger units codegen_package_base::speed applies to (all);
+			record_const: constant codegen_package_base::record_type => [bool => true;];
 		end codegen_package_other;
 	'''
 	
@@ -60,6 +63,7 @@ class CodegenPackageTest {
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
@@ -104,6 +108,21 @@ class CodegenPackageTest {
 				
 				public static PropertyExpression getRecordDef_EObject(NamedElement lookupContext) {
 					return lookupContext.getNonModalPropertyValue(getRecordDef_Property(lookupContext));
+				}
+				
+				// Lookup methods for codegen_package_base::record_const
+				
+				public static final String RECORD_CONST__NAME = "record_const";
+				
+				public static RecordType getRecordConst(EObject lookupContext) {
+					PropertyConstant constant = getRecordConst_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return new RecordType(resolved);
+				}
+				
+				public static PropertyConstant getRecordConst_PropertyConstant(EObject lookupContext) {
+					String name = CODEGEN_PACKAGE_BASE__NAME + "::" + RECORD_CONST__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
 				}
 			}
 		'''
@@ -202,6 +221,21 @@ class CodegenPackageTest {
 					this.bool = bool_local;
 				}
 				
+				public RecordType(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<Boolean> bool_local;
+					try {
+						bool_local = findFieldValue(recordValue, BOOL__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((BooleanLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						bool_local = Optional.empty();
+					}
+					this.bool = bool_local;
+				}
+				
 				public Optional<Boolean> getBool() {
 					return bool;
 				}
@@ -278,6 +312,7 @@ class CodegenPackageTest {
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
@@ -360,6 +395,21 @@ class CodegenPackageTest {
 				public static PropertyExpression getIntDef_EObject(NamedElement lookupContext) {
 					return lookupContext.getNonModalPropertyValue(getIntDef_Property(lookupContext));
 				}
+				
+				// Lookup methods for codegen_package_same::record_const
+				
+				public static final String RECORD_CONST__NAME = "record_const";
+				
+				public static RecordType getRecordConst(EObject lookupContext) {
+					PropertyConstant constant = getRecordConst_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return new RecordType(resolved);
+				}
+				
+				public static PropertyConstant getRecordConst_PropertyConstant(EObject lookupContext) {
+					String name = CODEGEN_PACKAGE_SAME__NAME + "::" + RECORD_CONST__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(CODEGEN_PACKAGE_SAME, CODEGEN_PACKAGE_BASE))
@@ -382,6 +432,7 @@ class CodegenPackageTest {
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
@@ -465,6 +516,21 @@ class CodegenPackageTest {
 				
 				public static PropertyExpression getIntDef_EObject(NamedElement lookupContext) {
 					return lookupContext.getNonModalPropertyValue(getIntDef_Property(lookupContext));
+				}
+				
+				// Lookup methods for codegen_package_other::record_const
+				
+				public static final String RECORD_CONST__NAME = "record_const";
+				
+				public static RecordType getRecordConst(EObject lookupContext) {
+					PropertyConstant constant = getRecordConst_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return new RecordType(resolved);
+				}
+				
+				public static PropertyConstant getRecordConst_PropertyConstant(EObject lookupContext) {
+					String name = CODEGEN_PACKAGE_OTHER__NAME + "::" + RECORD_CONST__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
 				}
 			}
 		'''

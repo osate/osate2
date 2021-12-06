@@ -37,6 +37,14 @@ class StringTest {
 				
 				list_1_string: list of other_ps::other_string_type applies to (all);
 				list_5_string: list of list of list of list of list of other_ps::other_string_type applies to (all);
+				
+				string_constant: constant aadlstring => "constant value";
+				
+				list_1_string_constant: constant list of aadlstring => (string_test::string_constant, "abc");
+				list_5_string_constant: constant list of list of list of list of list of aadlstring => ((((
+					("one", "two", "three"),
+					()
+				))));
 			end string_test;
 		'''
 		val stringTestClass = '''
@@ -52,6 +60,7 @@ class StringTest {
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.StringLiteral;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
@@ -259,6 +268,69 @@ class StringTest {
 				
 				public static PropertyExpression getList5String_EObject(NamedElement lookupContext) {
 					return lookupContext.getNonModalPropertyValue(getList5String_Property(lookupContext));
+				}
+				
+				// Lookup methods for string_test::string_constant
+				
+				public static final String STRING_CONSTANT__NAME = "string_constant";
+				
+				public static String getStringConstant(EObject lookupContext) {
+					PropertyConstant constant = getStringConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((StringLiteral) resolved).getValue();
+				}
+				
+				public static PropertyConstant getStringConstant_PropertyConstant(EObject lookupContext) {
+					String name = STRING_TEST__NAME + "::" + STRING_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for string_test::list_1_string_constant
+				
+				public static final String LIST_1_STRING_CONSTANT__NAME = "list_1_string_constant";
+				
+				public static List<String> getList1StringConstant(EObject lookupContext) {
+					PropertyConstant constant = getList1StringConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+						PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+						return ((StringLiteral) resolved1).getValue();
+					}).collect(Collectors.toList());
+				}
+				
+				public static PropertyConstant getList1StringConstant_PropertyConstant(EObject lookupContext) {
+					String name = STRING_TEST__NAME + "::" + LIST_1_STRING_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for string_test::list_5_string_constant
+				
+				public static final String LIST_5_STRING_CONSTANT__NAME = "list_5_string_constant";
+				
+				public static List<List<List<List<List<String>>>>> getList5StringConstant(EObject lookupContext) {
+					PropertyConstant constant = getList5StringConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+						PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+						return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+							PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
+							return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+								PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3);
+								return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+									PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4);
+									return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
+										PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5);
+										return ((StringLiteral) resolved5).getValue();
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						}).collect(Collectors.toList());
+					}).collect(Collectors.toList());
+				}
+				
+				public static PropertyConstant getList5StringConstant_PropertyConstant(EObject lookupContext) {
+					String name = STRING_TEST__NAME + "::" + LIST_5_STRING_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
 				}
 			}
 		'''
