@@ -37,6 +37,14 @@ class IntegerNoUnitsTest {
 				
 				list_1_integer: list of other_ps::other_integer_no_units_type applies to (all);
 				list_5_integer: list of list of list of list of list of other_ps::other_integer_no_units_type applies to (all);
+				
+				integer_constant: constant aadlinteger => 1;
+				
+				list_1_integer_constant: constant list of aadlinteger => (integer_no_units_test::integer_constant, 2);
+				list_5_integer_constant: constant list of list of list of list of list of aadlinteger => ((((
+					(3, 4, 5),
+					()
+				))));
 			end integer_no_units_test;
 		'''
 		val integerNoUnitsTestClass = '''
@@ -54,6 +62,7 @@ class IntegerNoUnitsTest {
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
@@ -260,6 +269,69 @@ class IntegerNoUnitsTest {
 				
 				public static PropertyExpression getList5Integer_EObject(NamedElement lookupContext) {
 					return lookupContext.getNonModalPropertyValue(getList5Integer_Property(lookupContext));
+				}
+				
+				// Lookup methods for integer_no_units_test::integer_constant
+				
+				public static final String INTEGER_CONSTANT__NAME = "integer_constant";
+				
+				public static long getIntegerConstant(EObject lookupContext) {
+					PropertyConstant constant = getIntegerConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((IntegerLiteral) resolved).getValue();
+				}
+				
+				public static PropertyConstant getIntegerConstant_PropertyConstant(EObject lookupContext) {
+					String name = INTEGER_NO_UNITS_TEST__NAME + "::" + INTEGER_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for integer_no_units_test::list_1_integer_constant
+				
+				public static final String LIST_1_INTEGER_CONSTANT__NAME = "list_1_integer_constant";
+				
+				public static List<Long> getList1IntegerConstant(EObject lookupContext) {
+					PropertyConstant constant = getList1IntegerConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+						PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+						return ((IntegerLiteral) resolved1).getValue();
+					}).collect(Collectors.toList());
+				}
+				
+				public static PropertyConstant getList1IntegerConstant_PropertyConstant(EObject lookupContext) {
+					String name = INTEGER_NO_UNITS_TEST__NAME + "::" + LIST_1_INTEGER_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for integer_no_units_test::list_5_integer_constant
+				
+				public static final String LIST_5_INTEGER_CONSTANT__NAME = "list_5_integer_constant";
+				
+				public static List<List<List<List<List<Long>>>>> getList5IntegerConstant(EObject lookupContext) {
+					PropertyConstant constant = getList5IntegerConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+						PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+						return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+							PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
+							return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+								PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3);
+								return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+									PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4);
+									return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
+										PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5);
+										return ((IntegerLiteral) resolved5).getValue();
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						}).collect(Collectors.toList());
+					}).collect(Collectors.toList());
+				}
+				
+				public static PropertyConstant getList5IntegerConstant_PropertyConstant(EObject lookupContext) {
+					String name = INTEGER_NO_UNITS_TEST__NAME + "::" + LIST_5_INTEGER_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
 				}
 			}
 		'''

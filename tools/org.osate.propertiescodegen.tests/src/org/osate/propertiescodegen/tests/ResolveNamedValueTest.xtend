@@ -62,19 +62,24 @@ class ResolveNamedValueTest {
 			
 			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
+			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.IntegerLiteral;
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.RealLiteral;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			import org.osate.pluginsupport.properties.IntegerRange;
 			import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
+			import org.osate.pluginsupport.properties.IntegerWithUnits;
 			import org.osate.pluginsupport.properties.RealRange;
 			import org.osate.pluginsupport.properties.RealRangeWithUnits;
+			import org.osate.pluginsupport.properties.RealWithUnits;
 			
 			public final class ResolveNamedValueTest {
 				public static final String RESOLVE_NAMED_VALUE_TEST__NAME = "resolve_named_value_test";
@@ -377,6 +382,204 @@ class ResolveNamedValueTest {
 				public static PropertyExpression getRecordDef_EObject(NamedElement lookupContext) {
 					return lookupContext.getNonModalPropertyValue(getRecordDef_Property(lookupContext));
 				}
+				
+				// Lookup methods for resolve_named_value_test::bool_const
+				
+				public static final String BOOL_CONST__NAME = "bool_const";
+				
+				public static boolean getBoolConst(EObject lookupContext) {
+					PropertyConstant constant = getBoolConst_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((BooleanLiteral) resolved).getValue();
+				}
+				
+				public static PropertyConstant getBoolConst_PropertyConstant(EObject lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + BOOL_CONST__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for resolve_named_value_test::int_const_1
+				
+				public static final String INT_CONST_1__NAME = "int_const_1";
+				
+				public static long getIntConst1(EObject lookupContext) {
+					PropertyConstant constant = getIntConst1_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((IntegerLiteral) resolved).getValue();
+				}
+				
+				public static PropertyConstant getIntConst1_PropertyConstant(EObject lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + INT_CONST_1__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for resolve_named_value_test::int_const_2
+				
+				public static final String INT_CONST_2__NAME = "int_const_2";
+				
+				public static long getIntConst2(EObject lookupContext) {
+					PropertyConstant constant = getIntConst2_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((IntegerLiteral) resolved).getValue();
+				}
+				
+				public static PropertyConstant getIntConst2_PropertyConstant(EObject lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + INT_CONST_2__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for resolve_named_value_test::int_with_units_const_1
+				
+				public static final String INT_WITH_UNITS_CONST_1__NAME = "int_with_units_const_1";
+				
+				public static IntegerWithUnits<Length> getIntWithUnitsConst1(EObject lookupContext) {
+					PropertyConstant constant = getIntWithUnitsConst1_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return new IntegerWithUnits<>(resolved, Length.class);
+				}
+				
+				public static PropertyConstant getIntWithUnitsConst1_PropertyConstant(EObject lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + INT_WITH_UNITS_CONST_1__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for resolve_named_value_test::int_with_units_const_2
+				
+				public static final String INT_WITH_UNITS_CONST_2__NAME = "int_with_units_const_2";
+				
+				public static IntegerWithUnits<Length> getIntWithUnitsConst2(EObject lookupContext) {
+					PropertyConstant constant = getIntWithUnitsConst2_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return new IntegerWithUnits<>(resolved, Length.class);
+				}
+				
+				public static PropertyConstant getIntWithUnitsConst2_PropertyConstant(EObject lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + INT_WITH_UNITS_CONST_2__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for resolve_named_value_test::real_const_1
+				
+				public static final String REAL_CONST_1__NAME = "real_const_1";
+				
+				public static double getRealConst1(EObject lookupContext) {
+					PropertyConstant constant = getRealConst1_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((RealLiteral) resolved).getValue();
+				}
+				
+				public static PropertyConstant getRealConst1_PropertyConstant(EObject lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + REAL_CONST_1__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for resolve_named_value_test::real_const_2
+				
+				public static final String REAL_CONST_2__NAME = "real_const_2";
+				
+				public static double getRealConst2(EObject lookupContext) {
+					PropertyConstant constant = getRealConst2_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((RealLiteral) resolved).getValue();
+				}
+				
+				public static PropertyConstant getRealConst2_PropertyConstant(EObject lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + REAL_CONST_2__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for resolve_named_value_test::real_with_units_const_1
+				
+				public static final String REAL_WITH_UNITS_CONST_1__NAME = "real_with_units_const_1";
+				
+				public static RealWithUnits<Length> getRealWithUnitsConst1(EObject lookupContext) {
+					PropertyConstant constant = getRealWithUnitsConst1_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return new RealWithUnits<>(resolved, Length.class);
+				}
+				
+				public static PropertyConstant getRealWithUnitsConst1_PropertyConstant(EObject lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + REAL_WITH_UNITS_CONST_1__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for resolve_named_value_test::real_with_units_const_2
+				
+				public static final String REAL_WITH_UNITS_CONST_2__NAME = "real_with_units_const_2";
+				
+				public static RealWithUnits<Length> getRealWithUnitsConst2(EObject lookupContext) {
+					PropertyConstant constant = getRealWithUnitsConst2_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return new RealWithUnits<>(resolved, Length.class);
+				}
+				
+				public static PropertyConstant getRealWithUnitsConst2_PropertyConstant(EObject lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + REAL_WITH_UNITS_CONST_2__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for resolve_named_value_test::list_1_int_const
+				
+				public static final String LIST_1_INT_CONST__NAME = "list_1_int_const";
+				
+				public static List<Long> getList1IntConst(EObject lookupContext) {
+					PropertyConstant constant = getList1IntConst_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+						PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+						return ((IntegerLiteral) resolved1).getValue();
+					}).collect(Collectors.toList());
+				}
+				
+				public static PropertyConstant getList1IntConst_PropertyConstant(EObject lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + LIST_1_INT_CONST__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for resolve_named_value_test::list_2_int_const
+				
+				public static final String LIST_2_INT_CONST__NAME = "list_2_int_const";
+				
+				public static List<List<Long>> getList2IntConst(EObject lookupContext) {
+					PropertyConstant constant = getList2IntConst_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+						PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+						return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+							PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
+							return ((IntegerLiteral) resolved2).getValue();
+						}).collect(Collectors.toList());
+					}).collect(Collectors.toList());
+				}
+				
+				public static PropertyConstant getList2IntConst_PropertyConstant(EObject lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + LIST_2_INT_CONST__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for resolve_named_value_test::list_3_int_const
+				
+				public static final String LIST_3_INT_CONST__NAME = "list_3_int_const";
+				
+				public static List<List<List<Long>>> getList3IntConst(EObject lookupContext) {
+					PropertyConstant constant = getList3IntConst_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+						PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+						return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+							PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
+							return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+								PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3);
+								return ((IntegerLiteral) resolved3).getValue();
+							}).collect(Collectors.toList());
+						}).collect(Collectors.toList());
+					}).collect(Collectors.toList());
+				}
+				
+				public static PropertyConstant getList3IntConst_PropertyConstant(EObject lookupContext) {
+					String name = RESOLVE_NAMED_VALUE_TEST__NAME + "::" + LIST_3_INT_CONST__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
 			}
 		'''
 		val length = '''
@@ -527,6 +730,63 @@ class ResolveNamedValueTest {
 									PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext, mode);
 									return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
 										PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3, lookupContext, mode);
+										return ((IntegerLiteral) resolved3).getValue();
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						list3IntField_local = Optional.empty();
+					}
+					this.list3IntField = list3IntField_local;
+				}
+				
+				public RecordDef(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<Boolean> boolField_local;
+					try {
+						boolField_local = findFieldValue(recordValue, BOOL_FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((BooleanLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						boolField_local = Optional.empty();
+					}
+					this.boolField = boolField_local;
+					
+					OptionalLong intField_local;
+					try {
+						intField_local = findFieldValue(recordValue, INT_FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((IntegerLiteral) resolved).getValue();
+						}).map(OptionalLong::of).orElse(OptionalLong.empty());
+					} catch (PropertyNotPresentException e) {
+						intField_local = OptionalLong.empty();
+					}
+					this.intField = intField_local;
+					
+					OptionalDouble realField_local;
+					try {
+						realField_local = findFieldValue(recordValue, REAL_FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((RealLiteral) resolved).getValue();
+						}).map(OptionalDouble::of).orElse(OptionalDouble.empty());
+					} catch (PropertyNotPresentException e) {
+						realField_local = OptionalDouble.empty();
+					}
+					this.realField = realField_local;
+					
+					Optional<List<List<List<Long>>>> list3IntField_local;
+					try {
+						list3IntField_local = findFieldValue(recordValue, LIST_3_INT_FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+									PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
+									return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+										PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3);
 										return ((IntegerLiteral) resolved3).getValue();
 									}).collect(Collectors.toList());
 								}).collect(Collectors.toList());

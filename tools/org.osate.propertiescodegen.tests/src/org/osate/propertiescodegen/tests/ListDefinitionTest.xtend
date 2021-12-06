@@ -1504,6 +1504,21 @@ class ListDefinitionTest {
 					this.field = field_local;
 				}
 				
+				public RecordOfBoolean(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<Boolean> field_local;
+					try {
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((BooleanLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
+				}
+				
 				public Optional<Boolean> getField() {
 					return field;
 				}
@@ -1727,6 +1742,43 @@ class ListDefinitionTest {
 					this.recordField = recordField_local;
 				}
 				
+				public List1OwnedRecord(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<Boolean> booleanField_local;
+					try {
+						booleanField_local = findFieldValue(recordValue, BOOLEAN_FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((BooleanLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						booleanField_local = Optional.empty();
+					}
+					this.booleanField = booleanField_local;
+					
+					Optional<String> stringField_local;
+					try {
+						stringField_local = findFieldValue(recordValue, STRING_FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((StringLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						stringField_local = Optional.empty();
+					}
+					this.stringField = stringField_local;
+					
+					Optional<RecordField_FieldType> recordField_local;
+					try {
+						recordField_local = findFieldValue(recordValue, RECORD_FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new RecordField_FieldType(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						recordField_local = Optional.empty();
+					}
+					this.recordField = recordField_local;
+				}
+				
 				public Optional<Boolean> getBooleanField() {
 					return booleanField;
 				}
@@ -1850,6 +1902,32 @@ class ListDefinitionTest {
 						try {
 							realField_local = findFieldValue(recordValue, REAL_FIELD__NAME).map(field -> {
 								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+								return ((RealLiteral) resolved).getValue();
+							}).map(OptionalDouble::of).orElse(OptionalDouble.empty());
+						} catch (PropertyNotPresentException e) {
+							realField_local = OptionalDouble.empty();
+						}
+						this.realField = realField_local;
+					}
+					
+					public RecordField_FieldType(PropertyExpression propertyExpression) {
+						RecordValue recordValue = (RecordValue) propertyExpression;
+						
+						OptionalLong integerField_local;
+						try {
+							integerField_local = findFieldValue(recordValue, INTEGER_FIELD__NAME).map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+								return ((IntegerLiteral) resolved).getValue();
+							}).map(OptionalLong::of).orElse(OptionalLong.empty());
+						} catch (PropertyNotPresentException e) {
+							integerField_local = OptionalLong.empty();
+						}
+						this.integerField = integerField_local;
+						
+						OptionalDouble realField_local;
+						try {
+							realField_local = findFieldValue(recordValue, REAL_FIELD__NAME).map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 								return ((RealLiteral) resolved).getValue();
 							}).map(OptionalDouble::of).orElse(OptionalDouble.empty());
 						} catch (PropertyNotPresentException e) {

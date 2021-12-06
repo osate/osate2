@@ -728,6 +728,21 @@ class PropertyDefinitionTest {
 					this.field = field_local;
 				}
 				
+				public RecordDefinition(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<Boolean> field_local;
+					try {
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((BooleanLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
+				}
+				
 				public Optional<Boolean> getField() {
 					return field;
 				}

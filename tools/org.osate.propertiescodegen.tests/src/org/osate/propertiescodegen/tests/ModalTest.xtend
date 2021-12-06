@@ -73,6 +73,7 @@ class ModalTest {
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.StringLiteral;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
@@ -965,6 +966,66 @@ class ModalTest {
 				public static PropertyExpression getRecordDef1_EObject(NamedElement lookupContext) {
 					return lookupContext.getNonModalPropertyValue(getRecordDef1_Property(lookupContext));
 				}
+				
+				// Lookup methods for modal_test::string_const_1
+				
+				public static final String STRING_CONST_1__NAME = "string_const_1";
+				
+				public static String getStringConst1(EObject lookupContext) {
+					PropertyConstant constant = getStringConst1_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((StringLiteral) resolved).getValue();
+				}
+				
+				public static PropertyConstant getStringConst1_PropertyConstant(EObject lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_CONST_1__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for modal_test::string_const_2
+				
+				public static final String STRING_CONST_2__NAME = "string_const_2";
+				
+				public static String getStringConst2(EObject lookupContext) {
+					PropertyConstant constant = getStringConst2_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((StringLiteral) resolved).getValue();
+				}
+				
+				public static PropertyConstant getStringConst2_PropertyConstant(EObject lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_CONST_2__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for modal_test::string_const_3
+				
+				public static final String STRING_CONST_3__NAME = "string_const_3";
+				
+				public static String getStringConst3(EObject lookupContext) {
+					PropertyConstant constant = getStringConst3_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((StringLiteral) resolved).getValue();
+				}
+				
+				public static PropertyConstant getStringConst3_PropertyConstant(EObject lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_CONST_3__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for modal_test::string_const_4
+				
+				public static final String STRING_CONST_4__NAME = "string_const_4";
+				
+				public static String getStringConst4(EObject lookupContext) {
+					PropertyConstant constant = getStringConst4_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((StringLiteral) resolved).getValue();
+				}
+				
+				public static PropertyConstant getStringConst4_PropertyConstant(EObject lookupContext) {
+					String name = MODAL_TEST__NAME + "::" + STRING_CONST_4__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
 			}
 		'''
 		val recordDef1 = '''
@@ -1063,6 +1124,63 @@ class ModalTest {
 								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 								return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
 									PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2, lookupContext, mode);
+									return ((StringLiteral) resolved2).getValue();
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						listField2_local = Optional.empty();
+					}
+					this.listField2 = listField2_local;
+				}
+				
+				public RecordDef1(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<String> field1_local;
+					try {
+						field1_local = findFieldValue(recordValue, FIELD_1__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((StringLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						field1_local = Optional.empty();
+					}
+					this.field1 = field1_local;
+					
+					Optional<String> field2_local;
+					try {
+						field2_local = findFieldValue(recordValue, FIELD_2__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((StringLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						field2_local = Optional.empty();
+					}
+					this.field2 = field2_local;
+					
+					Optional<List<String>> listField1_local;
+					try {
+						listField1_local = findFieldValue(recordValue, LIST_FIELD_1__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((StringLiteral) resolved1).getValue();
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						listField1_local = Optional.empty();
+					}
+					this.listField1 = listField1_local;
+					
+					Optional<List<List<String>>> listField2_local;
+					try {
+						listField2_local = findFieldValue(recordValue, LIST_FIELD_2__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+									PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
 									return ((StringLiteral) resolved2).getValue();
 								}).collect(Collectors.toList());
 							}).collect(Collectors.toList());
