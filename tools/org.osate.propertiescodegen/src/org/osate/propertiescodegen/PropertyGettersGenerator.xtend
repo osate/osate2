@@ -100,8 +100,10 @@ package class PropertyGettersGenerator extends AbstractPropertyGenerator {
 	def private String generateGetter(PropertyConstant constant) {
 		imports.add(
 			"org.eclipse.emf.ecore.EObject",
+			"org.osate.aadl2.Aadl2Package",
 			"org.osate.aadl2.PropertyConstant",
 			"org.osate.aadl2.PropertyExpression",
+			"org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil",
 			"org.osate.pluginsupport.properties.CodeGenUtil"
 		)
 		
