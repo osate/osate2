@@ -11,6 +11,7 @@ import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.ListType
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Property
+import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RangeType
@@ -68,16 +69,16 @@ package abstract class AbstractPropertyGenerator {
 			}
 			default: {
 				imports.add("java.util.Optional")
-				'''Optional<«getJavaName(type)»>'''
+				'''Optional<«getJavaType(type)»>'''
 			}
 		}
 	}
 	
-	def protected String getJavaName(PropertyType type) {
+	def protected String getJavaType(PropertyType type) {
 		switch type {
 			ListType: {
 				imports.add("java.util.List")
-				'''List<«getJavaName(type.elementType)»>'''
+				'''List<«getJavaType(type.elementType)»>'''
 			}
 			AadlBoolean: "Boolean"
 			AadlString: "String"
@@ -128,9 +129,15 @@ package abstract class AbstractPropertyGenerator {
 				name
 			}
 			default: {
-				switch basicProperty : type.getContainerOfType(BasicProperty) {
-					Property: basicProperty.name.toCamelCase
-					default: basicProperty.name.toCamelCase + "_FieldType"
+				var NamedElement namedElement = type
+				do {
+					namedElement = namedElement.eContainer.getContainerOfType(NamedElement)
+				} while (namedElement.name === null)
+				val name = namedElement.name.toCamelCase
+				switch namedElement {
+					Property,
+					PropertyConstant: name
+					BasicProperty: name + "_FieldType"
 				}
 			}
 		}
@@ -143,6 +150,7 @@ package abstract class AbstractPropertyGenerator {
 		 * 2. The UnitsType could be in a NumberType with a name.
 		 * 3. The UnitsType could be in a NumberType in a RangeType with a name.
 		 * 4. The UnitsType could be indirectly in a Property which must have a name.
+		 * 5. The UnitsType could be indirectly in a PropertyConstant which must have a name.
 		 * 5. The UnitsType could be indirectly in a BasicProperty (record field) which must have a name.
 		 */
 		var NamedElement namedElement = type
@@ -159,6 +167,7 @@ package abstract class AbstractPropertyGenerator {
 				name
 			}
 			Property: name
+			PropertyConstant: name
 			BasicProperty: name + "_FieldType"
 		}
 	}
@@ -192,7 +201,7 @@ package abstract class AbstractPropertyGenerator {
 				imports.add("org.osate.aadl2.ClassifierValue")
 				'''((ClassifierValue) «parameterName»).getClassifier()'''
 			}
-			EnumerationType: '''«getJavaName(type)».valueOf(«parameterName»)'''
+			EnumerationType: '''«getJavaType(type)».valueOf(«parameterName»)'''
 			AadlInteger case type.unitsType === null: {
 				imports.add("org.osate.aadl2.IntegerLiteral")
 				'''((IntegerLiteral) «parameterName»).getValue()'''
@@ -231,11 +240,55 @@ package abstract class AbstractPropertyGenerator {
 					}
 				}
 			}
-			RecordType: '''new «getJavaName(type)»(«parameterName», lookupContext, mode)'''
+			RecordType: '''new «getJavaType(type)»(«parameterName», lookupContext, mode)'''
 			ReferenceType: {
 				imports.add("org.osate.aadl2.instance.InstanceReferenceValue")
 				'''((InstanceReferenceValue) «parameterName»).getReferencedInstanceObject()'''
 			}
+		}
+	}
+	
+	def protected String getConstantValueExtractor(PropertyType type, String parameterName, int listDepth) {
+		switch type {
+			ListType: {
+				imports.add(
+					"java.util.stream.Collectors",
+					"org.osate.aadl2.ListValue",
+					"org.osate.aadl2.PropertyExpression",
+					"org.osate.pluginsupport.properties.CodeGenUtil"
+				)
+				val nextParameterName = "element" + listDepth
+				val resolvedName = "resolved" + listDepth
+				'''
+					((ListValue) «parameterName»).getOwnedListElements().stream().map(«nextParameterName» -> {
+						PropertyExpression «resolvedName» = CodeGenUtil.resolveNamedValue(«nextParameterName»);
+						return «getConstantValueExtractor(type.elementType, resolvedName, listDepth + 1)»;
+					}).collect(Collectors.toList())'''
+			}
+			RangeType: {
+				switch numberType : type.numberType {
+					AadlInteger case numberType.unitsType === null: {
+						imports.add("org.osate.pluginsupport.properties.IntegerRange")
+						'''new IntegerRange(«parameterName»)'''
+					}
+					AadlInteger: {
+						imports.add("org.osate.pluginsupport.properties.IntegerRangeWithUnits")
+						val unitsName = getUnitsJavaName(numberType.unitsType)
+						'''new IntegerRangeWithUnits<>(«parameterName», «unitsName».class)'''
+					}
+					AadlReal case numberType.unitsType === null: {
+						imports.add("org.osate.pluginsupport.properties.RealRange")
+						'''new RealRange(«parameterName»)'''
+					}
+					AadlReal: {
+						imports.add("org.osate.pluginsupport.properties.RealRangeWithUnits")
+						val unitsName = getUnitsJavaName(numberType.unitsType)
+						'''new RealRangeWithUnits<>(«parameterName», «unitsName».class)'''
+					}
+				}
+			}
+			RecordType: '''new «getJavaType(type)»(«parameterName»)'''
+			default: getValueExtractor(type, parameterName, listDepth)
 		}
 	}
 }

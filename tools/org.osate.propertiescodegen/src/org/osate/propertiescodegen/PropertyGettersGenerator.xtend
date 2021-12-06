@@ -1,7 +1,12 @@
 package org.osate.propertiescodegen
 
+import org.osate.aadl2.AadlBoolean
+import org.osate.aadl2.AadlInteger
+import org.osate.aadl2.AadlReal
 import org.osate.aadl2.Property
+import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.PropertySet
+import org.osate.aadl2.PropertyType
 
 import static extension org.osate.propertiescodegen.PropertiesCodeGen.toCamelCase
 
@@ -16,13 +21,16 @@ package class PropertyGettersGenerator extends AbstractPropertyGenerator {
 	}
 	
 	override String generate() {
-		val propertyGetters = propertySet.ownedProperties.map[generatePropertyGetter(it)]
 		'''
 			public final class «className» {
 				public static final String «propertySet.name.toUpperCase»__NAME = "«propertySet.name»";
 				
 				private «className»() {}
-				«FOR getter : propertyGetters»
+				«FOR getter : propertySet.ownedProperties.map[property | generateGetter(property)]»
+				
+				«getter»
+				«ENDFOR»
+				«FOR getter : propertySet.ownedPropertyConstants.map[constant | generateGetter(constant)]»
 				
 				«getter»
 				«ENDFOR»
@@ -30,7 +38,7 @@ package class PropertyGettersGenerator extends AbstractPropertyGenerator {
 		'''
 	}
 	
-	def private String generatePropertyGetter(Property property) {
+	def private String generateGetter(Property property) {
 		val type = property.propertyType
 		val baseOptionalType = getBaseOptionalType(type)
 		
@@ -87,5 +95,42 @@ package class PropertyGettersGenerator extends AbstractPropertyGenerator {
 				return lookupContext.getNonModalPropertyValue(get«camelName»_Property(lookupContext));
 			}
 		'''
+	}
+	
+	def private String generateGetter(PropertyConstant constant) {
+		imports.add(
+			"org.eclipse.emf.ecore.EObject",
+			"org.osate.aadl2.PropertyConstant",
+			"org.osate.aadl2.PropertyExpression",
+			"org.osate.pluginsupport.properties.CodeGenUtil"
+		)
+		
+		val camelName = constant.name.toCamelCase
+		
+		'''
+			// Lookup methods for «propertySet.name»::«constant.name»
+			
+			public static final String «constant.name.toUpperCase»__NAME = "«constant.name»";
+			
+			public static «getPrimitiveJavaType(constant.propertyType)» get«camelName»(EObject lookupContext) {
+				PropertyConstant constant = get«camelName»_PropertyConstant(lookupContext);
+				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+				return «getConstantValueExtractor(constant.propertyType, "resolved", 1)»;
+			}
+			
+			public static PropertyConstant get«camelName»_PropertyConstant(EObject lookupContext) {
+				String name = «propertySet.name.toUpperCase»__NAME + "::" + «constant.name.toUpperCase»__NAME;
+				return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+			}
+		'''
+	}
+	
+	def private String getPrimitiveJavaType(PropertyType type) {
+		switch type {
+			AadlBoolean: "boolean"
+			AadlInteger case type.unitsType === null: "long"
+			AadlReal case type.unitsType === null: "double"
+			default: getJavaType(type)
+		}
 	}
 }
