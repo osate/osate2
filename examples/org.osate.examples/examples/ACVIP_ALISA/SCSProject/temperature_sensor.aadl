@@ -1,0 +1,20 @@
+package temperature_sensor
+public
+	with isoletteDataModel;
+	
+device temperature_sensor_dev
+	
+	
+features
+	current_temperature : out data port isoletteDataModel::current_temperature;
+	
+flows 
+	current_temperature_flow : flow source current_temperature;
+end temperature_sensor_dev;
+
+device implementation temperature_sensor_dev.impl
+	
+
+end temperature_sensor_dev.impl;
+	
+end temperature_sensor;

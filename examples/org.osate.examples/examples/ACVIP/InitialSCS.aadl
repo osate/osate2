@@ -1,0 +1,63 @@
+package InitialSCS
+public
+	system HighLevelSCS
+		
+	end HighLevelSCS;
+
+	system implementation HighLevelSCS.i
+		subcomponents
+			sensor1: device SimpleSensor.i;
+			controller1: system SimpleController.i;
+			brake1: device SimpleBrake.i;
+		connections
+			c1: port sensor1.dataOut -> controller1.dataIn;
+			c2: port controller1.dataOut -> brake1.dataIn;
+		flows
+			ete1: end to end flow sensor1.sensorFlow ->c1 -> controller1.controllerFlow -> c2 -> brake1.brakeFlow;  
+	end HighLevelSCS.i;
+	
+	data SensorData
+	end SensorData;
+	
+	data BrakeSignal
+	end BrakeSignal;
+	
+	device SimpleSensor
+		features
+			dataOut: out data port SensorData;
+		flows
+			sensorFlow: flow source dataOut;
+	end SimpleSensor;
+	
+	device implementation SimpleSensor.i
+		properties
+			latency => 3ms..5ms applies to sensorFlow;                  
+	end SimpleSensor.i;
+
+
+	system SimpleController
+		features
+			dataIn: in data port SensorData;
+			dataOut: out data port BrakeSignal;
+		flows
+			controllerFlow: flow path dataIn -> dataOut;
+	end SimpleController;
+	
+	system implementation SimpleController.i
+		properties
+			latency => 3ms..5ms  applies to controllerFlow;
+	end SimpleController.i;
+	
+	device SimpleBrake
+		features
+			dataIn: in data port BrakeSignal;
+		flows
+			brakeFlow: flow sink dataIn;
+	end SimpleBrake;
+	
+	device implementation SimpleBrake.i
+		properties
+			latency => 3ms..5ms applies to brakeFlow; 
+	end SimpleBrake.i;
+	
+end InitialSCS;

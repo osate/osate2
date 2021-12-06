@@ -1,0 +1,46 @@
+package Infrastructure
+public
+	with SEI, PhysicalResources;
+	bus CanBus
+		properties
+			Data_Size => 8 Bytes;
+            SEI::BandWidthBudget => 512.0 KBytesps;
+            SEI::BandWidthCapacity => 768.0 KBytesps;
+	end CanBus;
+	
+	bus implementation CanBus.i
+	end CanBus.i;
+	
+	bus Bus1553
+		properties
+			Data_Size => 8 Bytes;
+            SEI::BandWidthBudget => 512.0 KBytesps;
+            SEI::BandWidthCapacity => 768.0 KBytesps;
+	end Bus1553;
+	
+	bus implementation Bus1553.i
+	end Bus1553.i;
+	
+	bus power
+	end power;
+
+	bus implementation power.generic
+		--subcomponents
+			--powerOut: system PowerSource.i;
+	end power.generic;
+	
+	
+	
+	
+	system PowerSource
+		features
+			powerOut: provides bus access power.generic;
+			--powerOut: out data port PhysicalResources::ElectricalPower;
+		properties 
+			SEI::PowerSupply => 10.0 W applies to powerOut;
+	end PowerSource;
+	
+	system implementation PowerSource.i
+		
+	end PowerSource.i;
+end Infrastructure;

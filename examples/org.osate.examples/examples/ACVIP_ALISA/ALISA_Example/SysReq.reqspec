@@ -1,0 +1,18 @@
+
+// Copyright 2016 Carnegie Mellon University. See Notice.txt
+// Distribution Statement A: Approved for Public Release; Distribution is Unlimited.
+system requirements SysReq for isoletteSystem::isoletteSystem [ 
+	description "These are requirements for SCS"
+
+	requirement R2_Lat: "SCS sensor to actuator response time limit" [
+		val MaximumLatency = 20ms
+		val ExpectedLatencyRange = [12ms..20ms]
+		val ExpectedMaximumLatency = 20 ms
+		compute MinLatency : Time
+		compute MaxLatency : Time
+		description this " shall have a sensor to actuator response time within " MaximumLatency
+		value predicate MaxLatency <= ExpectedMaximumLatency
+		category Quality.Latency
+		see goal SCSFamilyGoals.g1
+	]
+]

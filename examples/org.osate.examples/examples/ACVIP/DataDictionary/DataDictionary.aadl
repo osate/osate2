@@ -1,0 +1,19 @@
+package DataDictionary
+public
+	
+	with SEI, PhysicalResources;
+	
+	data SensorData
+		properties
+			Data_Size => 8 bytes;
+	end SensorData;
+	
+	data BrakeSignal
+		properties
+			Data_Size => 8 bytes;
+	end BrakeSignal;
+	
+
+
+	
+end DataDictionary;
