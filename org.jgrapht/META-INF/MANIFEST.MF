@@ -3,7 +3,8 @@ Bundle-ManifestVersion: 2
 Bundle-Name: JGraphT Libraries
 Bundle-SymbolicName: org.jgrapht
 Bundle-Version: 1.4.0.qualifier
-Bundle-ClassPath: jgrapht-core-1.5.1.jar
+Bundle-ClassPath: jgrapht-core-1.5.1.jar,
+ jgrapht-io-1.5.1.jar
 Export-Package: org.jgrapht,
  org.jgrapht.alg,
  org.jgrapht.alg.clique,
@@ -40,6 +41,8 @@ Export-Package: org.jgrapht,
  org.jgrapht.graph.builder,
  org.jgrapht.graph.concurrent,
  org.jgrapht.graph.specifics,
+ org.jgrapht.nio,
+ org.jgrapht.nio.dot,
  org.jgrapht.traverse,
  org.jgrapht.util
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
