@@ -73,6 +73,7 @@ import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
+@Deprecated
 public class GetProperties {
 	@SuppressWarnings("unused")
 	private static final class DataModel {
@@ -170,6 +171,7 @@ public class GetProperties {
 	 * @param pn Property definition
 	 * @return
 	 */
+	// XXX: KEEP
 	public static boolean isAssignedPropertyValue(NamedElement element, Property pn) {
 		try {
 			final PropertyAcc propertyAccumulator = element.getPropertyValue(pn);
@@ -266,6 +268,7 @@ public class GetProperties {
 	 *            Property definition
 	 * @return
 	 */
+	// XXX: KEEP
 	public static boolean hasAssignedPropertyValue(NamedElement element, String pname) {
 		Property pn = GetProperties.lookupPropertyDefinition(element, pname);
 		return isAssignedPropertyValue(element, pn);
@@ -285,6 +288,7 @@ public class GetProperties {
 	 *            String Property Definition name
 	 * @return Property or null
 	 */
+	// XXX: KEEP
 	public static Property lookupPropertyDefinition(EObject context, String ps, String name) {
 		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getProperty(),
 				((ps != null && !ps.isEmpty()) ? (ps + "::" + name) : name));
@@ -320,6 +324,7 @@ public class GetProperties {
 	 *            String Property Type name
 	 * @return PropertyType or null
 	 */
+	// XXX: KEEP
 	public static PropertyType lookupPropertyType(EObject context, String ps, String name) {
 		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyType(),
 				((ps != null && !ps.isEmpty()) ? (ps + "::" + name) : name));
@@ -355,6 +360,7 @@ public class GetProperties {
 	 *            String Property Constant name
 	 * @return PropertyConstant or null
 	 */
+	// XXX: KEEP
 	public static PropertyConstant lookupPropertyConstant(EObject context, String ps, String name) {
 		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyConstant(),
 				((ps != null && !ps.isEmpty()) ? (ps + "::" + name) : name));
@@ -374,6 +380,7 @@ public class GetProperties {
 	 *            String Property Constant name
 	 * @return PropertyConstant or null
 	 */
+	// XXX: KEEP
 	public static PropertyConstant lookupPropertyConstant(EObject context, String qname) {
 		return Aadl2GlobalScopeUtil.get(context, Aadl2Package.eINSTANCE.getPropertyConstant(), qname);
 	}
@@ -389,10 +396,12 @@ public class GetProperties {
 	 * @return UnitLiteral or null if the unit literal could not be found or the
 	 *         definition does not have a unit
 	 */
+	// XXX: KEEP
 	public static UnitLiteral findUnitLiteral(Property pd, String literalname) {
 		return PropertiesLinkingService.findUnitLiteral(pd, literalname);
 	}
 
+	// XXX: KEEP
 	public static UnitLiteral findUnitLiteral(Element context, String unitsType, String literal) {
 		PropertyType pt = lookupPropertyType(context, unitsType);
 		if (pt == null || !(pt instanceof UnitsType)) {
@@ -405,6 +414,7 @@ public class GetProperties {
 		return PropertiesLinkingService.findEnumerationLiteral(pd, literalname);
 	}
 
+	// XXX: KEEP
 	public static EnumerationLiteral findEnumerationLiteral(Element context, String enumerationType, String literal) {
 		PropertyType pt = lookupPropertyType(context, enumerationType);
 		if (pt == null || !(pt instanceof EnumerationType)) {
@@ -425,6 +435,7 @@ public class GetProperties {
 		return findUnitLiteral(context, AadlProject.SIZE_UNITS, AadlProject.KB_LITERAL);
 	}
 
+	// XXX: KEEP
 	public static UnitLiteral getMSUnitLiteral(NamedElement context) {
 		return findUnitLiteral(context, AadlProject.TIME_UNITS, AadlProject.MS_LITERAL);
 	}
@@ -441,6 +452,12 @@ public class GetProperties {
 		return findUnitLiteral(context, "SEI::" + SEI.PROCESSOR_SPEED_UNITS, SEI.MIPS_LITERAL);
 	}
 
+	/**
+	 * @deprecated deadcode
+	 * @param io
+	 * @return
+	 */
+	@Deprecated
 	public static Property getActualProcessorBindingProperty(final ComponentInstance io) {
 		return lookupPropertyDefinition(io, DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
 	}
@@ -460,6 +477,7 @@ public class GetProperties {
 	// return null;
 	// }
 
+	// XXX: Already fixed in SchedulingProperites, but still used in codegen
 	public static List<ComponentInstance> getActualProcessorBinding(final ComponentInstance io) {
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
 		Property actualProcessorBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
@@ -671,6 +689,7 @@ public class GetProperties {
 		return propertyValues;
 	}
 
+	@Deprecated
 	public static double getMIPSCapacityInMIPS(final NamedElement ne, final double defaultValue) {
 		Property MIPSCapacity = lookupPropertyDefinition(ne, SEI._NAME, SEI.MIPS_CAPACITY);
 		UnitLiteral MIPS = findUnitLiteral(MIPSCapacity, SEI.MIPS_LITERAL);
@@ -758,6 +777,7 @@ public class GetProperties {
 		}
 	}
 
+	@Deprecated
 	public static ComponentClassifier getReferenceProcessor(final NamedElement ne) {
 		Property referenceProcessor = lookupPropertyDefinition(ne, TimingProperties._NAME,
 				TimingProperties.REFERENCE_PROCESSOR);
@@ -969,6 +989,7 @@ public class GetProperties {
 	 * @param thread
 	 * @return double scaling factor of processor speed
 	 */
+	@Deprecated
 	public static double getProcessorScalingFactor(final ComponentInstance thread) {
 		double refmipspersec = getReferenceMIPS(thread);
 		double mipspersec = getBoundPhysicalProcessorMIPS(thread);
@@ -983,6 +1004,7 @@ public class GetProperties {
 	 * MIPS capacity. It then tries an explicit reference processor. If it finds
 	 * it, then it gets the cycle time of that processor.
 	 */
+	@Deprecated
 	public static double getReferenceMIPS(final ComponentInstance thread) {
 		ComponentClassifier pci = getReferenceProcessor(thread);
 		if (pci != null) {
@@ -994,7 +1016,9 @@ public class GetProperties {
 	/**
 	 * Get the MIPS per sec of the bound physical processor. The MIPS
 	 * capacity of the bound physical processor
+	 * @Deprecated only used by deprecated methods
 	 */
+	@Deprecated
 	public static double getBoundPhysicalProcessorMIPS(final ComponentInstance thread) {
 		Iterator<ComponentInstance> pcis = InstanceModelUtil.getBoundPhysicalProcessors(thread).iterator();
 		if (pcis.hasNext()) {
@@ -1005,7 +1029,9 @@ public class GetProperties {
 
 	/**
 	 * Get the MIPS capacity of the bound processor.
+	 * @deprecated Replaced by methods in {@link org.osate.analysis.scheduling.SchedulingProperties}
 	 */
+	@Deprecated
 	public static double getBoundProcessorMIPS(final ComponentInstance thread) {
 		List<ComponentInstance> pciList = getActualProcessorBinding(thread);
 		ComponentInstance pci = pciList.isEmpty() ? null : pciList.get(0);
@@ -1041,7 +1067,10 @@ public class GetProperties {
 	 * @param threadinstance
 	 *            thread instance
 	 * @return MIPS or 0.0
+	 *
+	 * @deprecated only used by deprecated methods
 	 */
+	@Deprecated
 	public static double getThreadExecutionIPDinMIPS(ComponentInstance threadinstance) {
 		double period = getPeriodInSeconds(threadinstance, 0.0);
 		double mipd = getSpecifiedThreadInstructionsinMIPD(threadinstance);
@@ -1060,7 +1089,10 @@ public class GetProperties {
 	 *
 	 * @param threadInstance
 	 * @return execution time in cyles
+	 *
+	 * @deprecated Moved to SchedulingProperties
 	 */
+	@Deprecated
 	public static double getThreadExecutionInCycles(ComponentInstance threadInstance, double defaultMIPS) {
 		double cycles = 0.0;
 		double exectimeval = getMaximumComputeExecutionTimeinSec(threadInstance);
@@ -1080,6 +1112,7 @@ public class GetProperties {
 	 *            thread instance
 	 * @return MIPS or 0.0
 	 */
+	@Deprecated
 	public static double getThreadExecutioninMIPS(ComponentInstance threadinstance) {
 		if (!InstanceModelUtil.isThread(threadinstance)) {
 			return 0;
@@ -1107,7 +1140,9 @@ public class GetProperties {
 	 * @param threadinstance
 	 *            thread instance
 	 * @return double scaled execution time in Sec
+	 * @deprecated -- unused?
 	 */
+	@Deprecated
 	public static double getThreadExecutioninSec(ComponentInstance threadinstance) {
 		double mipd = getSpecifiedThreadInstructionsinMIPD(threadinstance);
 		double actualProcMips = getBoundProcessorMIPS(threadinstance);
@@ -1124,7 +1159,10 @@ public class GetProperties {
 	 * @param threadinstance
 	 *            thread instance
 	 * @return double scaled execution time in Sec
+	 *
+	 * @deprecated Replaced by methods in {@link org.osate.analysis.scheduling.SchedulingProperties}
 	 */
+	@Deprecated
 	public static double getThreadExecutioninMilliSec(ComponentInstance threadinstance) {
 		double mipd = getSpecifiedThreadInstructionsinMIPD(threadinstance);
 		double actualProcMips = getBoundProcessorMIPS(threadinstance);
@@ -1146,7 +1184,9 @@ public class GetProperties {
 
 	/**
 	 * @since 3.1
+	 * @Deprecated Only used by other deprecated methods
 	 */
+	@Deprecated
 	public static double scaleTime(final double time, final NamedElement ne) {
 		ComponentInstance ci = null;
 		if (ne instanceof FeatureInstance) {
@@ -1170,7 +1210,10 @@ public class GetProperties {
 	 * @param ne
 	 *            thread component instance
 	 * @return scaled time or 0.0
+	 *
+	 * @Deprecated Can be replaced with direct use of property methods
 	 */
+	@Deprecated
 	public static double getScaledMaxComputeExecutionTimeinMilliSec(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
 				TimingProperties.COMPUTE_EXECUTION_TIME);
@@ -1186,7 +1229,9 @@ public class GetProperties {
 	 * @param ne
 	 *            thread component instance
 	 * @return scaled time or 0.0
+	 * @deprecated Seems to be unused
 	 */
+	@Deprecated
 	public static double getScaledMinComputeExecutionTimeinMilliSec(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
 				TimingProperties.COMPUTE_EXECUTION_TIME);
@@ -1202,7 +1247,9 @@ public class GetProperties {
 	 * @param ne
 	 *            thread component instance
 	 * @return scaled time or 0.0
+	 * @deprecated Only used by unused methods
 	 */
+	@Deprecated
 	public static double getScaledComputeExecutionTimeinSec(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
 				TimingProperties.COMPUTE_EXECUTION_TIME);
@@ -1234,7 +1281,10 @@ public class GetProperties {
 	 * @param ne
 	 *            thread component instance
 	 * @return specified time or 0.0
+	 *
+	 * @deprecated Only used by deprecated code
 	 */
+	@Deprecated
 	public static double getMaximumComputeExecutionTimeinSec(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne, TimingProperties._NAME,
 				TimingProperties.COMPUTE_EXECUTION_TIME);
@@ -1298,6 +1348,7 @@ public class GetProperties {
 	 *            thread component instance
 	 * @return double MIPD
 	 */
+	@Deprecated
 	public static double getSpecifiedThreadInstructionsinMIPD(final NamedElement ne) {
 		Property ipd = lookupPropertyDefinition(ne, SEI._NAME, SEI.INSTRUCTIONSPERDISPATCH);
 		UnitLiteral mipdunit = findUnitLiteral(ipd, SEI.MIPD_LITERAL);
@@ -1319,18 +1370,21 @@ public class GetProperties {
 		return mipd;
 	}
 
+	@Deprecated
 	public static double getPowerCapacity(final NamedElement ne, final double defaultValue) {
 		Property powerCapacity = lookupPropertyDefinition(ne, SEI._NAME, SEI.POWER_CAPACITY);
 		UnitLiteral mWatt = findUnitLiteral(powerCapacity, SEI.MW_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, powerCapacity, mWatt, defaultValue);
 	}
 
+	@Deprecated
 	public static double getPowerBudget(final NamedElement ne, final double defaultValue) {
 		Property powerBudget = lookupPropertyDefinition(ne, SEI._NAME, SEI.POWER_BUDGET);
 		UnitLiteral mWatt = findUnitLiteral(powerBudget, SEI.MW_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, powerBudget, mWatt, defaultValue);
 	}
 
+	@Deprecated
 	public static double getPowerSupply(final NamedElement ne, final double defaultValue) {
 		Property powerSupply = lookupPropertyDefinition(ne, SEI._NAME, SEI.POWER_SUPPLY);
 		UnitLiteral mWatt = findUnitLiteral(powerSupply, SEI.MW_LITERAL);
@@ -1420,6 +1474,10 @@ public class GetProperties {
 		return PropertyUtils.getScaledNumberValue(ne, deadline, nanoSecond, 0.0);
 	}
 
+	/**
+	 * @deprecated only used by deprecated methods
+	 */
+	@Deprecated
 	public static double getPeriodInSeconds(final NamedElement ne, final double defaultValue) {
 		Property period = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.PERIOD);
 		UnitLiteral second = findUnitLiteral(period, AadlProject.SEC_LITERAL);
@@ -1807,6 +1865,10 @@ public class GetProperties {
 		}
 	}
 
+	/**
+	 * @deprecated moved to SchedulingPreoperties
+	 */
+	@Deprecated
 	public static RecordValue getNotCollocated(final NamedElement ne) {
 		try {
 			Property nocoll = lookupPropertyDefinition(ne, DeploymentProperties._NAME,
@@ -1937,6 +1999,7 @@ public class GetProperties {
 		return null;
 	}
 
+	// XXX: KEEP
 	public static BasicPropertyAssociation getRecordField(EList<BasicPropertyAssociation> props, String fieldName) {
 		for (BasicPropertyAssociation propertyAssociation : props) {
 			BasicProperty prop = propertyAssociation.getProperty();
@@ -2155,6 +2218,10 @@ public class GetProperties {
 	 * using Period. If Period is zero then the resulting data rate is zero as
 	 * well.
 	 */
+	/**
+	 * @deprecated only used by deprecated methods/classes
+	 */
+	@Deprecated
 	public static double getOutgoingMessageRatePerSecond(final NamedElement ne) {
 		double res = GetProperties.getMessageRatePerSecond(ne);
 		if (res > 0) {

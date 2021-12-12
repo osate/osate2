@@ -53,7 +53,6 @@ import org.osate.aadl2.contrib.communication.CommunicationProperties;
 import org.osate.aadl2.contrib.communication.TransmissionTime;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.contrib.timing.TimingProperties;
-import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
@@ -68,6 +67,8 @@ import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.properties.PropertyAcc;
+import org.osate.aadl2.properties.util.AadlContribUtils;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
 import org.osate.analysis.flows.internal.utils.AnalysisUtils;
 import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 import org.osate.analysis.flows.model.LatencyCSVReport;
@@ -84,7 +85,6 @@ import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.pluginsupport.properties.RealRange;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Result;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
  * @author phf
@@ -439,7 +439,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					report.isMajorFrameDelay());
 
 			if (hasAssignedPropertyValue(incomingConnectionFI,
-					org.osate.xtext.aadl2.properties.util.CommunicationProperties.QUEUE_SIZE)) {
+					CommunicationProperties.QUEUE_SIZE__NAME)) {
 				qs = CommunicationProperties.getQueueSize(incomingConnectionFI).orElse(0);
 			} else if (incomingConnectionFI.getCategory() == FeatureCategory.DATA_PORT
 					&& isThreadOrDevice && (InstanceModelUtil.isSporadicComponent(componentInstance)
@@ -1492,8 +1492,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	// *****************************
 
 	private static boolean isAssignedDeadline(final NamedElement ne) {
-		Property deadline = lookupPropertyDefinition(ne, org.osate.xtext.aadl2.properties.util.TimingProperties._NAME,
-				org.osate.xtext.aadl2.properties.util.TimingProperties.DEADLINE);
+		Property deadline = lookupPropertyDefinition(ne, TimingProperties.TIMING_PROPERTIES__NAME,
+				TimingProperties.DEADLINE__NAME);
 		return isAssignedPropertyValue(ne, deadline);
 	}
 

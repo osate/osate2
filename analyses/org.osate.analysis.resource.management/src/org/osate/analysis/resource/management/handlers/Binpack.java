@@ -47,22 +47,20 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.ListValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessorClassifier;
-import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.SystemClassifier;
 import org.osate.aadl2.contrib.aadlproject.SizeUnits;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.communication.CommunicationProperties;
+import org.osate.aadl2.contrib.deployment.DeploymentProperties;
+import org.osate.aadl2.contrib.deployment.NotCollocated;
 import org.osate.aadl2.contrib.timing.TimingProperties;
-import org.osate.aadl2.contrib.util.AadlContribUtils;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
@@ -70,11 +68,10 @@ import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
-import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.aadl2.properties.util.AadlContribUtils;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
+import org.osate.analysis.scheduling.SchedulingProperties;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
-import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 import EAnalysis.BinPacking.AssignmentResult;
 import EAnalysis.BinPacking.BFCPBinPacker;
@@ -164,11 +161,17 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 	}
 
 	protected void checkBuses(ComponentInstance obj) {
-		final RecordValue transTime = GetProperties.getTransmissionTime(obj);
-		if (transTime == null) {
+		CommunicationProperties.getTransmissionTime(obj).orElseGet(() -> {
 			logWarning("Bus " + obj.getComponentInstancePath()
 					+ " is missing Transmission Time property. Using default of " + AADLBus.DEFAULT_TRANSMISSION_TIME);
-		}
+			return null;
+		});
+
+//		final RecordValue transTime = GetProperties.getTransmissionTime(obj);
+//		if (transTime == null) {
+//			logWarning("Bus " + obj.getComponentInstancePath()
+//					+ " is missing Transmission Time property. Using default of " + AADLBus.DEFAULT_TRANSMISSION_TIME);
+//		}
 
 	}
 
@@ -230,7 +233,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 			incompletethreads = new ForAllElement() {
 				@Override
 				protected boolean suchThat(Element obj) {
-					return GetProperties.getThreadExecutioninMilliSec((ComponentInstance) obj) == 0.0;
+					return SchedulingProperties.getThreadExecutioninMilliSec((ComponentInstance) obj) == 0.0;
 				}
 			}.processPreOrderComponentInstance(root, ComponentCategory.THREAD);
 			for (final Iterator<Element> i = incompletethreads.iterator(); i.hasNext();) {
@@ -371,7 +374,8 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 			public void process(Element obj) {
 				ComponentInstance ci = (ComponentInstance) obj;
 				// the createInstance method already assigns a default MIPS if none exists
-				double mips = GetProperties.getProcessorMIPS(ci);
+				double mips = AadlContribUtils.getMIPSCapacityInMIPS(ci, 0.0);
+//				double mips = GetProperties.getProcessorMIPS(ci);
 				// checking consistency;
 				existsProcessorWithMIPS |= (mips != 0);
 				existsProcessorWithoutMIPS |= (mips == 0);
@@ -471,7 +475,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 				}
 
 				final AADLThread thread = AADLThread.createInstance(ci);
-				double refmips = GetProperties.getReferenceMIPS(ci);
+				double refmips = SchedulingProperties.getReferenceMIPS(ci);
 
 				// validate consistency
 				existsThreadWithReferenceProcessor |= (refmips != 0);
@@ -483,23 +487,27 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 				threadToSoftwareNode.put(ci, thread);
 
 				// Process NOT_COLLOCATED property.
-				RecordValue disjunctFrom = GetProperties.getNotCollocated(ci);
+				final NotCollocated disjunctFrom = DeploymentProperties.getNotCollocated(ci).orElse(null);
+//				RecordValue disjunctFrom = GetProperties.getNotCollocated(ci);
 				if (disjunctFrom == null) {
 					return;
 				}
 				final Set<ComponentInstance> disjunctSet = new HashSet<>();
-				ListValue tvl = (ListValue) PropertyUtils.getRecordFieldValue(disjunctFrom, "Targets");
-				for (PropertyExpression ref : tvl.getOwnedListElements()) {
-					/*
-					 * Add all the instances rooted at the named instance.
-					 * For example, the thread may be declared to be disjunct
-					 * from another process, so we really want to be disjunct
-					 * from the other threads contained in that process.
-					 */
-					final InstanceReferenceValue rv = (InstanceReferenceValue) ref;
-					final ComponentInstance refCI = (ComponentInstance) rv.getReferencedInstanceObject();
-					disjunctSet.addAll(refCI.getAllComponentInstances());
-				}
+				final List<InstanceObject> tvl = disjunctFrom.getTargets().orElse(Collections.emptyList());
+				tvl.forEach(io -> disjunctSet.addAll(((ComponentInstance) io).getAllComponentInstances()));
+
+//				ListValue tvl = (ListValue) PropertyUtils.getRecordFieldValue(disjunctFrom, "Targets");
+//				for (PropertyExpression ref : tvl.getOwnedListElements()) {
+//					/*
+//					 * Add all the instances rooted at the named instance.
+//					 * For example, the thread may be declared to be disjunct
+//					 * from another process, so we really want to be disjunct
+//					 * from the other threads contained in that process.
+//					 */
+//					final InstanceReferenceValue rv = (InstanceReferenceValue) ref;
+//					final ComponentInstance refCI = (ComponentInstance) rv.getReferencedInstanceObject();
+//					disjunctSet.addAll(refCI.getAllComponentInstances());
+//				}
 				if (!disjunctSet.isEmpty()) {
 					notCollocated.put(ci, disjunctSet);
 				}
@@ -566,7 +574,11 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 							errManager.warning(connInst, "No Data Size for connection");
 						}
 						try {
-							threadPeriod = GetProperties.getPeriodinNS(ci);
+							threadPeriod = org.osate.pluginsupport.properties.PropertyUtils
+									.getScaled(TimingProperties::getPeriod, ci, TimeUnits.NS)
+									.orElse(0.0)
+									.longValue();
+//							threadPeriod = GetProperties.getPeriodinNS(ci);
 						} catch (Exception e) {
 							errManager.warning(connInst, "No Period for connection");
 						}
@@ -734,8 +746,8 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext();) {
 			final ComponentInstance thread = (ComponentInstance) iter.next();
 			final ComponentInstance proc = (ComponentInstance) threadsToProc.get(thread);
-			double threadMips = GetProperties.getThreadExecutioninMIPS(thread);
-			double cpumips = GetProperties.getMIPSCapacityInMIPS(proc, 0);
+			double threadMips = SchedulingProperties.getThreadExecutioninMIPS(thread);
+			double cpumips = SchedulingProperties.getMIPSCapacityInMIPS(proc, 0);
 
 			logInfo("Thread " + thread.getInstanceObjectPath() + " ==> Processor " + proc.getInstanceObjectPath()
 					+ (cpumips > 0 ? (" Utilization " + threadMips / cpumips * 100 + "%") : " No CPU capacity"));
@@ -846,27 +858,34 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 		if (thread.getCategory() != ComponentCategory.THREAD) {
 			throw new IllegalArgumentException("Component \"" + thread.getName() + "\" is not a thread.");
 		}
-		List<ComponentInstance> allowedBindingsVals;
-		try {
-			allowedBindingsVals = GetProperties.getAllowedProcessorBinding(thread);
-		} catch (PropertyNotPresentException e) {
-			// Ignore this situation and move on.
-			allowedBindingsVals = Collections.emptyList();
-		}
-		List<Classifier> allowedClassVals;
-		try {
-			allowedClassVals = GetProperties.getAllowedProcessorBindingClass(thread);
-		} catch (PropertyNotPresentException e) {
-			// Ignore this situation and move on.
-			allowedClassVals = Collections.emptyList();
-		}
+
+		final List<InstanceObject> allowedBindingsVals = DeploymentProperties.getAllowedProcessorBinding(thread)
+				.orElse(Collections.emptyList());
+//		List<ComponentInstance> allowedBindingsVals;
+//		try {
+//			allowedBindingsVals = GetProperties.getAllowedProcessorBinding(thread);
+//		} catch (PropertyNotPresentException e) {
+//			// Ignore this situation and move on.
+//			allowedBindingsVals = Collections.emptyList();
+//		}
+
+		final List<Classifier> allowedClassVals = DeploymentProperties.getAllowedProcessorBindingClass(thread)
+				.orElse(Collections.emptyList());
+//		List<Classifier> allowedClassVals;
+//		try {
+//			allowedClassVals = GetProperties.getAllowedProcessorBindingClass(thread);
+//		} catch (PropertyNotPresentException e) {
+//			// Ignore this situation and move on.
+//			allowedClassVals = Collections.emptyList();
+//		}
+
 		final Set<ComponentInstance> searchRoots = new HashSet<>();
 		if (allowedBindingsVals.isEmpty()) {
 			searchRoots.add(thread.getSystemInstance());
 		} else {
-			for (final Iterator<ComponentInstance> i = allowedBindingsVals.iterator(); i.hasNext();) {
-				final ComponentInstance rv = i.next();
-				searchRoots.add(rv);
+			for (final Iterator<InstanceObject> i = allowedBindingsVals.iterator(); i.hasNext();) {
+				final InstanceObject rv = i.next();
+				searchRoots.add((ComponentInstance) rv);
 			}
 		}
 		final Set<SystemClassifier> allowedSystemClassifiers = new HashSet<>();

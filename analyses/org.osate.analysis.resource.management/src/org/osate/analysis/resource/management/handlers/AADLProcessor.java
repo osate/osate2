@@ -23,10 +23,10 @@
  */
 package org.osate.analysis.resource.management.handlers;
 
+import org.osate.aadl2.contrib.aadlproject.SupportedSchedulingProtocols;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.xtext.aadl2.properties.util.AadlProject;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.aadl2.properties.util.AadlContribUtils;
 
 import EAnalysis.BinPacking.BandwidthComparator;
 import EAnalysis.BinPacking.DMScheduler;
@@ -86,7 +86,8 @@ public final class AADLProcessor extends Processor {
 	public static AADLProcessor createInstance(final ComponentInstance proc) {
 		final Scheduler scheduler = getScheduler(proc);
 		if (scheduler != null) {
-			double instructionsPerSecond = GetProperties.getProcessorMIPS(proc) * 1e6;
+			double instructionsPerSecond = AadlContribUtils.getMIPSCapacityInMIPS(proc, 0) * 1e6;
+//			double instructionsPerSecond = GetProperties.getProcessorMIPS(proc) * 1e6;
 			if (instructionsPerSecond == 0) {
 				instructionsPerSecond = Binpack.defaultMIPS * 1e6;
 			}
@@ -99,7 +100,8 @@ public final class AADLProcessor extends Processor {
 	private static Scheduler getScheduler(final ComponentInstance proc) {
 		final String sched;
 		try {
-			sched = GetProperties.getSchedulingProtocol(proc);
+			sched = Schedule.getSchedulingProtocol(proc);
+//			sched = GetProperties.getSchedulingProtocol(proc);
 		} catch (PropertyNotPresentException e) {
 			// No scheduler specified, use EDF
 			return new EDFScheduler(new BandwidthComparator());
@@ -109,11 +111,11 @@ public final class AADLProcessor extends Processor {
 			return new EDFScheduler(new BandwidthComparator());
 		} else {
 			// Use the first scheduler in the list
-			if (sched.equals(AadlProject.EDF_LITERAL)) {
+			if (sched.equals(SupportedSchedulingProtocols.EDF.toString())) {
 				return new EDFScheduler(new BandwidthComparator());
-			} else if (sched.equals(AadlProject.RMS_LITERAL)) {
+			} else if (sched.equals(SupportedSchedulingProtocols.RMS.toString())) {
 				return new RMScheduler(); // new RMASchedulerNew();
-			} else if (sched.equals(AadlProject.DMS_LITERAL)) {
+			} else if (sched.equals(SupportedSchedulingProtocols.DMS.toString())) {
 				return new DMScheduler();
 			} else {
 				return null;

@@ -43,8 +43,8 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.importer.properties.InspectProperty;
 
 public class Utils {
 
@@ -122,7 +122,7 @@ public class Utils {
 
 	public static boolean shallAnalyze(ComponentInstance ci) {
 		if (ci.getContainingComponentInstance() != null) {
-			if (InspectProperty.shallInspect(ci.getContainingComponentInstance())) {
+			if (org.osate.contribution.sei.sei.Sei.getVdidInspect(ci.getContainingComponentInstance()).orElse(false)) {
 				return true;
 			}
 
@@ -141,8 +141,9 @@ public class Utils {
 			if (c instanceof ComponentInstance) {
 
 				ComponentInstance ci = (ComponentInstance) c;
+				final NamedElement ph = ci;
 
-				if (InspectProperty.shallInspect(ci)) {
+				if (org.osate.contribution.sei.sei.Sei.getVdidInspect(ph).orElse(false)) {
 					listComponents(ci, componentList);
 				} else {
 					componentList.add(ci);
@@ -157,8 +158,9 @@ public class Utils {
 			if (c instanceof ComponentInstance) {
 
 				ComponentInstance ci = (ComponentInstance) c;
+				final NamedElement ph = ci;
 
-				if (InspectProperty.shallInspect(ci)) {
+				if (org.osate.contribution.sei.sei.Sei.getVdidInspect(ph).orElse(false)) {
 					listComponentsNames(ci, componentList);
 				} else {
 					String componentName = Utils.getComponentName(ci);

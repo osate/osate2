@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -70,20 +69,17 @@ import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.*;
 import org.osate.aadl2.contrib.aadlproject.SizeUnits;
+import org.osate.aadl2.contrib.aadlproject.constants.AadlProjectConstants;
 import org.osate.aadl2.contrib.memory.AccessRights;
 import org.osate.aadl2.contrib.modeling.ClassifierMatchingRule;
 import org.osate.aadl2.contrib.modeling.ClassifierSubstitutionRule;
-import org.osate.aadl2.contrib.util.AadlContribUtils;
+import org.osate.aadl2.contrib.modeling.ModelingProperties;
 import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 import org.osate.aadl2.modelsupport.scoping.IEClassGlobalScopeProvider;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyIsModalException;
-import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.aadl2.properties.util.AadlContribUtils;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.xtext.aadl2.properties.util.AadlProject;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osate.xtext.aadl2.properties.util.ModelingProperties;
-import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
 
 import com.google.inject.Inject;
@@ -716,7 +712,8 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 	@Check(CheckType.FAST)
 	public void casePropertyAssociation(final PropertyAssociation pa) {
 		super.casePropertyAssociation(pa);
-		checkPropertyAssociationIsModal(pa, ModelingProperties._NAME, ModelingProperties.CLASSIFIER_MATCHING_RULE);
+		checkPropertyAssociationIsModal(pa, ModelingProperties.MODELING_PROPERTIES__NAME,
+				ModelingProperties.CLASSIFIER_MATCHING_RULE__NAME);
 	}
 
 	@Check(CheckType.FAST)
@@ -4202,108 +4199,114 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 		// }
 	}
 
-	private static Stream<Optional<LongWithUnits>> getSizesForSubcomponents(DataImplementation dataImplementation,
-			Property dataSizeProperty) {
-		return dataImplementation.getAllSubcomponents()
-				.stream()
-				.filter(subcomponent -> subcomponent instanceof DataSubcomponent)
-				.<Optional<LongWithUnits>> flatMap(dataSubcomponent -> {
-					try {
-						return Stream.of(Optional.of(new LongWithUnits((IntegerLiteral) PropertyUtils
-								.getSimplePropertyValue(dataSubcomponent, dataSizeProperty))));
-					} catch (PropertyNotPresentException e) {
-						ComponentImplementation subcomponentClassifier = dataSubcomponent.getComponentImplementation();
-						if (subcomponentClassifier instanceof DataImplementation) {
-							return getSizesForSubcomponents((DataImplementation) subcomponentClassifier,
-									dataSizeProperty);
-						} else {
-							return Stream.of(Optional.empty());
-						}
-					}
-				});
-	}
+	/*
+	 * XXX: This is unused, and possibly duplicative of AadlContribUtils.getDataSize() and
+	 * AadlContribUtils.sumElementsDataSize(). I think it was used above, where it has now been
+	 * replaced by a call to sumElementsDataSize();
+	 */
+//	private static Stream<Optional<LongWithUnits>> getSizesForSubcomponents(DataImplementation dataImplementation,
+//			Property dataSizeProperty) {
+//		return dataImplementation.getAllSubcomponents()
+//				.stream()
+//				.filter(subcomponent -> subcomponent instanceof DataSubcomponent)
+//				.<Optional<LongWithUnits>> flatMap(dataSubcomponent -> {
+//					try {
+//						return Stream.of(Optional.of(new LongWithUnits((IntegerLiteral) PropertyUtils
+//								.getSimplePropertyValue(dataSubcomponent, dataSizeProperty))));
+//					} catch (PropertyNotPresentException e) {
+//						ComponentImplementation subcomponentClassifier = dataSubcomponent.getComponentImplementation();
+//						if (subcomponentClassifier instanceof DataImplementation) {
+//							return getSizesForSubcomponents((DataImplementation) subcomponentClassifier,
+//									dataSizeProperty);
+//						} else {
+//							return Stream.of(Optional.empty());
+//						}
+//					}
+//				});
+//	}
 
-	private static class LongWithUnits {
-		private final long value;
-		private final UnitLiteral unit;
-
-		public LongWithUnits(IntegerLiteral integerLiteral) {
-			value = integerLiteral.getValue();
-			unit = integerLiteral.getUnit();
-		}
-
-		private LongWithUnits(long value, UnitLiteral unit) {
-			this.value = value;
-			this.unit = unit;
-		}
-
-		public LongWithUnits add(LongWithUnits other) {
-			if (unit == other.unit) {
-				return new LongWithUnits(value + other.value, unit);
-			} else {
-				UnitLiteral targetUnit = getTargetUnit(unit, other.unit);
-				LongWithUnits thisConverted = convertTo(targetUnit);
-				LongWithUnits otherConverted = other.convertTo(targetUnit);
-				return new LongWithUnits(thisConverted.value + otherConverted.value, targetUnit);
-			}
-		}
-
-		public boolean isGreaterThan(LongWithUnits other) {
-			if (unit == other.unit) {
-				return value > other.value;
-			} else {
-				UnitLiteral targetUnit = getTargetUnit(unit, other.unit);
-				LongWithUnits thisConverted = convertTo(targetUnit);
-				LongWithUnits otherConverted = other.convertTo(targetUnit);
-				return thisConverted.value > otherConverted.value;
-			}
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (obj instanceof LongWithUnits) {
-				LongWithUnits other = (LongWithUnits) obj;
-				if (unit == other.unit) {
-					return value == other.value;
-				} else {
-					UnitLiteral targetUnit = getTargetUnit(unit, other.unit);
-					LongWithUnits thisConverted = convertTo(targetUnit);
-					LongWithUnits otherConverted = other.convertTo(targetUnit);
-					return thisConverted.value == otherConverted.value;
-				}
-			} else {
-				return false;
-			}
-		}
-
-		@Override
-		public String toString() {
-			return value + " " + unit.getName();
-		}
-
-		private static UnitLiteral getTargetUnit(UnitLiteral a, UnitLiteral b) {
-			final EList<EnumerationLiteral> unitLiterals = ((UnitsType) a.getOwner()).getOwnedLiterals();
-			if (unitLiterals.indexOf(a) < unitLiterals.indexOf(b)) {
-				return a;
-			} else {
-				return b;
-			}
-		}
-
-		private LongWithUnits convertTo(UnitLiteral targetUnit) {
-			if (unit == targetUnit) {
-				return this;
-			} else {
-				long currentValue = value;
-				UnitLiteral currentUnit = unit;
-				while (currentUnit != targetUnit) {
-					currentValue = currentValue * ((IntegerLiteral) currentUnit.getFactor()).getValue();
-					currentUnit = currentUnit.getBaseUnit();
-				}
-				return new LongWithUnits(currentValue, currentUnit);
-			}
-		}
-	}
+	/* XXX: This is only used by the above commented out method, so it too is probably useless now. */
+//	private static class LongWithUnits {
+//		private final long value;
+//		private final UnitLiteral unit;
+//
+//		public LongWithUnits(IntegerLiteral integerLiteral) {
+//			value = integerLiteral.getValue();
+//			unit = integerLiteral.getUnit();
+//		}
+//
+//		private LongWithUnits(long value, UnitLiteral unit) {
+//			this.value = value;
+//			this.unit = unit;
+//		}
+//
+//		public LongWithUnits add(LongWithUnits other) {
+//			if (unit == other.unit) {
+//				return new LongWithUnits(value + other.value, unit);
+//			} else {
+//				UnitLiteral targetUnit = getTargetUnit(unit, other.unit);
+//				LongWithUnits thisConverted = convertTo(targetUnit);
+//				LongWithUnits otherConverted = other.convertTo(targetUnit);
+//				return new LongWithUnits(thisConverted.value + otherConverted.value, targetUnit);
+//			}
+//		}
+//
+//		public boolean isGreaterThan(LongWithUnits other) {
+//			if (unit == other.unit) {
+//				return value > other.value;
+//			} else {
+//				UnitLiteral targetUnit = getTargetUnit(unit, other.unit);
+//				LongWithUnits thisConverted = convertTo(targetUnit);
+//				LongWithUnits otherConverted = other.convertTo(targetUnit);
+//				return thisConverted.value > otherConverted.value;
+//			}
+//		}
+//
+//		@Override
+//		public boolean equals(Object obj) {
+//			if (obj instanceof LongWithUnits) {
+//				LongWithUnits other = (LongWithUnits) obj;
+//				if (unit == other.unit) {
+//					return value == other.value;
+//				} else {
+//					UnitLiteral targetUnit = getTargetUnit(unit, other.unit);
+//					LongWithUnits thisConverted = convertTo(targetUnit);
+//					LongWithUnits otherConverted = other.convertTo(targetUnit);
+//					return thisConverted.value == otherConverted.value;
+//				}
+//			} else {
+//				return false;
+//			}
+//		}
+//
+//		@Override
+//		public String toString() {
+//			return value + " " + unit.getName();
+//		}
+//
+//		private static UnitLiteral getTargetUnit(UnitLiteral a, UnitLiteral b) {
+//			final EList<EnumerationLiteral> unitLiterals = ((UnitsType) a.getOwner()).getOwnedLiterals();
+//			if (unitLiterals.indexOf(a) < unitLiterals.indexOf(b)) {
+//				return a;
+//			} else {
+//				return b;
+//			}
+//		}
+//
+//		private LongWithUnits convertTo(UnitLiteral targetUnit) {
+//			if (unit == targetUnit) {
+//				return this;
+//			} else {
+//				long currentValue = value;
+//				UnitLiteral currentUnit = unit;
+//				while (currentUnit != targetUnit) {
+//					currentValue = currentValue * ((IntegerLiteral) currentUnit.getFactor()).getValue();
+//					currentUnit = currentUnit.getBaseUnit();
+//				}
+//				return new LongWithUnits(currentValue, currentUnit);
+//			}
+//		}
+//	}
 
 	/**
 	 * Checks legality rule 4 in section 5.5 (Thread Groups) on page 95.
@@ -5507,7 +5510,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 									+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
 									+ destinationClassifier.getQualifiedName()
 									+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-									+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
+									+ AadlProjectConstants.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES__NAME + "'.");
 						}
 					} else if (classifierMatchingRuleValue == ClassifierMatchingRule.SUBSET) {
 						if (!classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier,
@@ -5516,7 +5519,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 									+ sourceClassifier.getQualifiedName() + "') is not a subset of the data type of '"
 									+ destination.getName() + "' ('" + destinationClassifier.getQualifiedName()
 									+ "') based on name matching or the property constant '"
-									+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
+									+ AadlProjectConstants.SUPPORTED_CLASSIFIER_SUBSET_MATCHES__NAME + "'.");
 						}
 					} else if (classifierMatchingRuleValue == ClassifierMatchingRule.CONVERSION) {
 						if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
@@ -5527,7 +5530,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 									+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
 									+ destinationClassifier.getQualifiedName()
 									+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-									+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
+									+ AadlProjectConstants.SUPPORTED_TYPE_CONVERSIONS__NAME + "'.");
 						}
 					}
 				} catch (PropertyIsModalException e) {
@@ -5584,57 +5587,90 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 
 	private boolean classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(Connection connection,
 			Classifier source, Classifier destination) {
-		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection,
-				AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES);
-		if (matchesPropertyConstant == null) {
-			return false;
-		}
-		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
-		if (!(constantValue instanceof ListValue)) {
-			return false;
-		}
-		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
-			if (classifierPair instanceof ListValue) {
-				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
-				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
-						&& innerListElements.get(1) instanceof ClassifierValue) {
-					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
-					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
-					if ((firstPairElement == source && secondPairElement == destination)
-							|| (firstPairElement == destination && secondPairElement == source)) {
-						return true;
-					}
+		final List<List<Classifier>> constValue = org.osate.pluginsupport.properties.PropertyUtils
+				.lookupPropertyConstant(connection, AadlProjectConstants.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES__NAME,
+						(c, v) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c, v,
+								(c2, v2) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c2, v2,
+										org.osate.pluginsupport.properties.PropertyUtils::processClassifier)));
+		for (final List<Classifier> classifierPair : constValue) {
+			if (classifierPair.size() == 2) {
+				final Classifier firstPairElement = classifierPair.get(0);
+				final Classifier secondPairElement = classifierPair.get(1);
+				if ((firstPairElement == source && secondPairElement == destination)
+						|| (firstPairElement == destination && secondPairElement == source)) {
+					return true;
 				}
 			}
 		}
 		return false;
+
+//		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection,
+//				AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES);
+//		if (matchesPropertyConstant == null) {
+//			return false;
+//		}
+//		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
+//		if (!(constantValue instanceof ListValue)) {
+//			return false;
+//		}
+//		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
+//			if (classifierPair instanceof ListValue) {
+//				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
+//				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
+//						&& innerListElements.get(1) instanceof ClassifierValue) {
+//					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
+//					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
+//					if ((firstPairElement == source && secondPairElement == destination)
+//							|| (firstPairElement == destination && secondPairElement == source)) {
+//						return true;
+//					}
+//				}
+//			}
+//		}
+//		return false;
 	}
 
 	private boolean classifiersFoundInSupportedClassifierSubsetMatchesProperty(Connection connection, Classifier source,
 			Classifier destination) {
-		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection,
-				AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES);
-		if (matchesPropertyConstant == null) {
-			return false;
-		}
-		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
-		if (!(constantValue instanceof ListValue)) {
-			return false;
-		}
-		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
-			if (classifierPair instanceof ListValue) {
-				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
-				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
-						&& innerListElements.get(1) instanceof ClassifierValue) {
-					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
-					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
-					if (firstPairElement == source && secondPairElement == destination) {
-						return true;
-					}
+		final List<List<Classifier>> constValue = org.osate.pluginsupport.properties.PropertyUtils
+				.lookupPropertyConstant(connection, AadlProjectConstants.SUPPORTED_CLASSIFIER_SUBSET_MATCHES__NAME,
+						(c, v) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c, v,
+								(c2, v2) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c2, v2,
+										org.osate.pluginsupport.properties.PropertyUtils::processClassifier)));
+		for (final List<Classifier> classifierPair : constValue) {
+			if (classifierPair.size() == 2) {
+				final Classifier firstPairElement = classifierPair.get(0);
+				final Classifier secondPairElement = classifierPair.get(1);
+				if (firstPairElement == source && secondPairElement == destination) {
+					return true;
 				}
 			}
 		}
 		return false;
+
+//		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection,
+//				AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES);
+//		if (matchesPropertyConstant == null) {
+//			return false;
+//		}
+//		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
+//		if (!(constantValue instanceof ListValue)) {
+//			return false;
+//		}
+//		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
+//			if (classifierPair instanceof ListValue) {
+//				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
+//				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
+//						&& innerListElements.get(1) instanceof ClassifierValue) {
+//					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
+//					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
+//					if (firstPairElement == source && secondPairElement == destination) {
+//						return true;
+//					}
+//				}
+//			}
+//		}
+//		return false;
 	}
 
 	private boolean isDataSubset(Classifier source, Classifier destination) {
@@ -5660,29 +5696,45 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 
 	private boolean classifiersFoundInSupportedTypeConversionsProperty(Connection connection, Classifier source,
 			Classifier destination) {
-		PropertyConstant conversionsPropertyConstant = GetProperties.lookupPropertyConstant(connection,
-				AadlProject.SUPPORTED_TYPE_CONVERSIONS);
-		if (conversionsPropertyConstant == null) {
-			return false;
-		}
-		PropertyExpression constantValue = conversionsPropertyConstant.getConstantValue();
-		if (!(constantValue instanceof ListValue)) {
-			return false;
-		}
-		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
-			if (classifierPair instanceof ListValue) {
-				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
-				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
-						&& innerListElements.get(1) instanceof ClassifierValue) {
-					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
-					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
-					if (firstPairElement == source && secondPairElement == destination) {
-						return true;
-					}
+		final List<List<Classifier>> constValue = org.osate.pluginsupport.properties.PropertyUtils
+				.lookupPropertyConstant(connection, AadlProjectConstants.SUPPORTED_TYPE_CONVERSIONS__NAME,
+						(c, v) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c, v,
+								(c2, v2) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c2, v2,
+										org.osate.pluginsupport.properties.PropertyUtils::processClassifier)));
+		for (final List<Classifier> classifierPair : constValue) {
+			if (classifierPair.size() == 2) {
+				final Classifier firstPairElement = classifierPair.get(0);
+				final Classifier secondPairElement = classifierPair.get(1);
+				if (firstPairElement == source && secondPairElement == destination) {
+					return true;
 				}
 			}
 		}
 		return false;
+
+//		PropertyConstant conversionsPropertyConstant = GetProperties.lookupPropertyConstant(connection,
+//				AadlProject.SUPPORTED_TYPE_CONVERSIONS);
+//		if (conversionsPropertyConstant == null) {
+//			return false;
+//		}
+//		PropertyExpression constantValue = conversionsPropertyConstant.getConstantValue();
+//		if (!(constantValue instanceof ListValue)) {
+//			return false;
+//		}
+//		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
+//			if (classifierPair instanceof ListValue) {
+//				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
+//				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
+//						&& innerListElements.get(1) instanceof ClassifierValue) {
+//					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
+//					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
+//					if (firstPairElement == source && secondPairElement == destination) {
+//						return true;
+//					}
+//				}
+//			}
+//		}
+//		return false;
 	}
 
 	private void checkFeatureRefinementClassifierSubstitution(Feature feature) {
@@ -6108,7 +6160,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
 								+ destinationClassifier.getQualifiedName()
 								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-								+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
+								+ AadlProjectConstants.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES__NAME + "'.");
 					}
 				} else if (classifierMatchingRuleValue == ClassifierMatchingRule.SUBSET) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
@@ -6119,7 +6171,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
 								+ destinationClassifier.getQualifiedName()
 								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-								+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
+								+ AadlProjectConstants.SUPPORTED_CLASSIFIER_SUBSET_MATCHES__NAME + "'.");
 					}
 				} else if (classifierMatchingRuleValue == ClassifierMatchingRule.CONVERSION) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
@@ -6130,7 +6182,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
 								+ destinationClassifier.getQualifiedName()
 								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-								+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
+								+ AadlProjectConstants.SUPPORTED_TYPE_CONVERSIONS__NAME + "'.");
 					}
 				}
 			}
@@ -6656,7 +6708,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
 								+ destinationClassifier.getQualifiedName()
 								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-								+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
+								+ AadlProjectConstants.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES__NAME + "'.");
 					}
 				} else if (classifierMatchingRuleValue == ClassifierMatchingRule.SUBSET) {
 					if (!testAccessClassifierMatchRule(connection, source, sourceClassifier, destination,
@@ -6667,7 +6719,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
 								+ destinationClassifier.getQualifiedName()
 								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-								+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
+								+ AadlProjectConstants.SUPPORTED_CLASSIFIER_SUBSET_MATCHES__NAME + "'.");
 					}
 				} else if (classifierMatchingRuleValue == ClassifierMatchingRule.CONVERSION) {
 					if (!testAccessClassifierMatchRule(connection, source, sourceClassifier, destination,
@@ -6678,7 +6730,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 								+ "' ('" + sourceClassifier.getQualifiedName() + "' and '"
 								+ destinationClassifier.getQualifiedName()
 								+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
-								+ AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
+								+ AadlProjectConstants.SUPPORTED_TYPE_CONVERSIONS__NAME + "'.");
 					}
 				}
 			}
@@ -8526,10 +8578,10 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 							+ "' are not inverses of each other.");
 				}
 			} else if (classifierMatchingRuleValue == ClassifierMatchingRule.EQUIVALENCE) {
-				warning(connection, "The classifier matching rule '" + ModelingProperties.EQUIVALENCE
+				warning(connection, "The classifier matching rule '" + ClassifierMatchingRule.EQUIVALENCE
 						+ "': trusting user that feature groups are equivalent.");
 			} else if (classifierMatchingRuleValue == ClassifierMatchingRule.CONVERSION) {
-				warning(connection, "The classifier matching rule '" + ModelingProperties.CONVERSION
+				warning(connection, "The classifier matching rule '" + ClassifierMatchingRule.CONVERSION
 						+ "':  'conversion' not supported.");
 			}
 
@@ -8552,9 +8604,9 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 			) {
 				if (classifierMatchingRuleValue == ClassifierMatchingRule.CONVERSION) {
 					warning(connection,
-							"The classifier matching rule '" + ModelingProperties.CONVERSION
+							"The classifier matching rule '" + ClassifierMatchingRule.CONVERSION
 									+ "' is not supported for feature group connections. Using rule '"
-									+ ModelingProperties.CLASSIFIER_MATCH + "' instead.");
+									+ ClassifierMatchingRule.CLASSIFIER_MATCH + "' instead.");
 				}
 				// if (classifierMatchingRuleValue != null &&
 				// ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName()))
@@ -8597,7 +8649,7 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 					error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
 							+ sourceType.getQualifiedName() + "' and '" + destinationType.getQualifiedName()
 							+ "') are not identical and they are not listed as matching classifiers in the property constant '"
-							+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
+							+ AadlProjectConstants.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES__NAME + "'.");
 				}
 			} else if (classifierMatchingRuleValue == ClassifierMatchingRule.SUBSET) {
 				FeatureGroupType innerFeatureGroupType;
@@ -9025,30 +9077,47 @@ public class Aadl2Validator extends AbstractAadl2Validator {
 
 	private boolean classifiersFoundInSupportedClassifierComplementMatchesProperty(FeatureGroupConnection connection,
 			FeatureGroupType source, FeatureGroupType destination) {
-		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection,
-				AadlProject.SUPPORTED_CLASSIFIER_COMPLEMENT_MATCHES);
-		if (matchesPropertyConstant == null) {
-			return false;
-		}
-		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
-		if (!(constantValue instanceof ListValue)) {
-			return false;
-		}
-		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
-			if (classifierPair instanceof ListValue) {
-				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
-				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
-						&& innerListElements.get(1) instanceof ClassifierValue) {
-					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
-					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
-					if ((firstPairElement == source && secondPairElement == destination)
-							|| (firstPairElement == destination && secondPairElement == source)) {
-						return true;
-					}
+		final List<List<Classifier>> constValue = org.osate.pluginsupport.properties.PropertyUtils
+				.lookupPropertyConstant(connection, AadlProjectConstants.SUPPORTED_CLASSIFIER_COMPLEMENT_MATCHES__NAME,
+						(c, v) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c, v,
+								(c2, v2) -> org.osate.pluginsupport.properties.PropertyUtils.processListValue(c2, v2,
+										org.osate.pluginsupport.properties.PropertyUtils::processClassifier)));
+		for (final List<Classifier> classifierPair : constValue) {
+			if (classifierPair.size() == 2) {
+				final Classifier firstPairElement = classifierPair.get(0);
+				final Classifier secondPairElement = classifierPair.get(1);
+				if ((firstPairElement == source && secondPairElement == destination)
+						|| (firstPairElement == destination && secondPairElement == source)) {
+					return true;
 				}
 			}
 		}
 		return false;
+
+//		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection,
+//				AadlProject.SUPPORTED_CLASSIFIER_COMPLEMENT_MATCHES);
+//		if (matchesPropertyConstant == null) {
+//			return false;
+//		}
+//		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
+//		if (!(constantValue instanceof ListValue)) {
+//			return false;
+//		}
+//		for (PropertyExpression classifierPair : ((ListValue) constantValue).getOwnedListElements()) {
+//			if (classifierPair instanceof ListValue) {
+//				EList<PropertyExpression> innerListElements = ((ListValue) classifierPair).getOwnedListElements();
+//				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue
+//						&& innerListElements.get(1) instanceof ClassifierValue) {
+//					Classifier firstPairElement = ((ClassifierValue) innerListElements.get(0)).getClassifier();
+//					Classifier secondPairElement = ((ClassifierValue) innerListElements.get(1)).getClassifier();
+//					if ((firstPairElement == source && secondPairElement == destination)
+//							|| (firstPairElement == destination && secondPairElement == source)) {
+//						return true;
+//					}
+//				}
+//			}
+//		}
+//		return false;
 	}
 
 	private boolean checkSubprogramGroupNoFlowSpecification(FlowSpecification flowSpec) {

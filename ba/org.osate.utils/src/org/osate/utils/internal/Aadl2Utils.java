@@ -48,22 +48,20 @@ import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataPrototype;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
-import org.osate.aadl2.Property;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.contrib.memory.MemoryProperties;
 import org.osate.aadl2.parsesupport.LocationReference;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.contribution.sei.codegenerationproperties.CodeGenerationProperties;
 import org.osgi.framework.Bundle;
 
 /**
@@ -161,7 +159,7 @@ public class Aadl2Utils {
 	 * public static List<StructuralFeature> orderFeaturesAndFeaturesPrototype(ComponentType cpt)
 	 * {
 	 * List<StructuralFeature> result = new ArrayList<StructuralFeature>() ;
-	 * 
+	 *
 	 * for (NamedElement ne : Aadl2Visitors.getMembers(cpt))
 	 * {
 	 * if (ne instanceof Feature || ne instanceof FeaturePrototype)
@@ -169,10 +167,10 @@ public class Aadl2Utils {
 	 * result.add((StructuralFeature) ne) ;
 	 * }
 	 * }
-	 * 
+	 *
 	 * FeaturePositionComparator comparator = new FeaturePositionComparator() ;
 	 * Collections.sort(result, comparator) ;
-	 * 
+	 *
 	 * return result ;
 	 * }
 	 */
@@ -279,21 +277,7 @@ public class Aadl2Utils {
 	 * @return local parameter usage or default parameter usage or an empty string
 	 */
 	public static String getParameterUsage(NamedElement ne) {
-		String result = PropertyUtils.getEnumValue(ne, "Parameter_Usage");
-		if (result == null) {
-			Property prop = GetProperties.lookupPropertyDefinition(ne, "Code_Generation_Properties", "Parameter_Usage");
-			if (prop != null) {
-				NamedValue nv = (NamedValue) prop.getDefaultValue();
-				if (nv != null) {
-					result = ((EnumerationLiteral) nv.getNamedValue()).getName();
-				} else {
-					return "";
-				}
-			} else {
-				return "";
-			}
-		}
-		return result;
+		return CodeGenerationProperties.getParameterUsage(ne).map(v -> v.toString()).orElse("");
 	}
 
 	/**
@@ -309,23 +293,7 @@ public class Aadl2Utils {
 	 * @return local access right or default access right or "unknown"
 	 */
 	public static String getAccessRight(NamedElement ne) {
-		String result = PropertyUtils.getEnumValue(ne, "Access_Right");
-		if (result == null) {
-			if (DEFAULT_ACCESS_RIGHT == null) {
-				Property prop = GetProperties.lookupPropertyDefinition(ne, "Memory_Properties", "Access_Right");
-				if (prop != null) {
-					NamedValue nv = (NamedValue) prop.getDefaultValue();
-					result = ((EnumerationLiteral) nv.getNamedValue()).getName();
-					DEFAULT_ACCESS_RIGHT = result;
-				} else {
-					return "unknown";
-				}
-			} else {
-				return DEFAULT_ACCESS_RIGHT;
-			}
-		}
-
-		return result;
+		return MemoryProperties.getAccessRight(ne).map(v -> v.toString()).orElse("unknown");
 	}
 
 	/**

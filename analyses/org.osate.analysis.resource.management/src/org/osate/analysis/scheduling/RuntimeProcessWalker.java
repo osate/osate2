@@ -33,13 +33,13 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.thread.ThreadProperties;
 import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
 import org.osate.analysis.resource.management.handlers.Schedule;
 import org.osate.pluginsupport.properties.PropertyUtils;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public class RuntimeProcessWalker {
 	// to record the invariants visisted and put back to the system tree.
@@ -101,7 +101,7 @@ public class RuntimeProcessWalker {
 	public void addThread(ComponentInstance elt) {
 		double exectimeval;
 		try {
-			exectimeval = GetProperties.getThreadExecutioninMilliSec(elt);
+			exectimeval = SchedulingProperties.getThreadExecutioninMilliSec(elt);
 		} catch (PropertyNotPresentException e) {
 			scheduleAction.error(elt, elt.getComponentInstancePath() + ": Execution time is not set");
 			return;
@@ -112,7 +112,8 @@ public class RuntimeProcessWalker {
 
 		double val;
 		try {
-			val = GetProperties.getPeriodinMS(elt);
+			val = PropertyUtils.getScaled(TimingProperties::getPeriod, elt, TimeUnits.MS).orElse(0.0);
+//			val = GetProperties.getPeriodinMS(elt);
 		} catch (PropertyNotPresentException e) {
 			scheduleAction.error(elt, elt.getComponentInstancePath() + ": Period is not set");
 			return;
@@ -129,7 +130,8 @@ public class RuntimeProcessWalker {
 		curComponent.setPhaseOffset(0);
 
 		/* There is no standard Priority property */
-		long priority = GetProperties.getPriority(elt, 0);
+		long priority = ThreadProperties.getPriority(elt).orElse(0L);
+//		long priority = GetProperties.getPriority(elt, 0);
 		curComponent.setPriority((int) priority);
 
 		curComponent.setComponentName(elt.getInstanceObjectPath());

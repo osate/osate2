@@ -39,13 +39,13 @@ import org.osate.aadl2.SystemImplementation
 import org.osate.aadl2.EndToEndFlow
 import org.osate.aadl2.Connection
 import static extension org.osate.testsupport.AssertHelper.assertError
-import org.osate.xtext.aadl2.properties.util.ModelingProperties
 import org.osate.aadl2.PortConnection
 import org.osate.testsupport.AssertHelper
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1
 import org.eclipse.xtext.validation.Issue
 import org.eclipse.emf.ecore.resource.Resource
 import java.util.ArrayList
+import org.osate.aadl2.contrib.modeling.ModelingProperties
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2InjectorProvider)
@@ -94,7 +94,7 @@ class Issue2417Test extends XtextTest {
 				ownedPortConnections.findFirst[name == "conn1"] => [
 					"conn1".assertEquals(name)
 		
-					ownedPropertyAssociations.get(0).assertError(testFileResult.issues, issueCollection, ModelingProperties.CLASSIFIER_MATCHING_RULE + ": Property can not be modal")		
+					ownedPropertyAssociations.get(0).assertError(testFileResult.issues, issueCollection, ModelingProperties.CLASSIFIER_MATCHING_RULE__NAME + ": Property can not be modal")		
 				]
 			]
 		]
@@ -140,7 +140,7 @@ class Issue2417Test extends XtextTest {
 			publicSection.ownedClassifiers.findFirst[name == "s.i"] as SystemImplementation => [
 				"s.i".assertEquals(name)
 				
-				ownedPropertyAssociations.get(0).assertError(testFileResult.issues, issueCollection, ModelingProperties.CLASSIFIER_MATCHING_RULE + ": Property can not be modal");
+				ownedPropertyAssociations.get(0).assertError(testFileResult.issues, issueCollection, ModelingProperties.CLASSIFIER_MATCHING_RULE__NAME + ": Property can not be modal");
 			]
 		]
 		issueCollection.sizeIs(testFileResult.issues.size)

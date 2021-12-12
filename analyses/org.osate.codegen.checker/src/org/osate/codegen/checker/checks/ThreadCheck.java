@@ -29,18 +29,18 @@ import java.util.stream.Collectors;
 
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.contrib.aadlproject.SupportedDispatchProtocols;
 import org.osate.aadl2.contrib.aadlproject.TimeUnits;
+import org.osate.aadl2.contrib.programming.ProgrammingProperties;
+import org.osate.aadl2.contrib.thread.ThreadProperties;
 import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.codegen.checker.report.ErrorReport;
 import org.osate.pluginsupport.properties.PropertyUtils;
-import org.osate.xtext.aadl2.properties.util.AadlProject;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class ThreadCheck extends AbstractCheck {
 
@@ -56,11 +56,10 @@ public class ThreadCheck extends AbstractCheck {
 		 * Each thread needs to specify the dispatch protocol "periodic" or
 		 * "sporadic"
 		 */
-		allThreads.stream().filter(comp -> {
-			EnumerationLiteral protocol = GetProperties.getDispatchProtocol(comp);
-			return protocol == null || !(protocol.toString().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL)
-					|| protocol.toString().equalsIgnoreCase(AadlProject.SPORADIC_LITERAL));
-		})
+		allThreads.stream().filter(comp ->
+			ThreadProperties.getDispatchProtocol(comp).map(protocol ->
+					protocol != SupportedDispatchProtocols.PERIODIC &&
+					protocol != SupportedDispatchProtocols.SPORADIC).orElse(true))
 				.forEach(thr -> addError(new ErrorReport(thr,
 						"Thread needs a Thread_Properties::Dispatch_Protocol property of 'Periodic' or 'Sporadic'")));
 
@@ -90,17 +89,17 @@ public class ThreadCheck extends AbstractCheck {
 				for (SubprogramCall sc : ti.getSubprogramCalls()) {
 					NamedElement cs = (NamedElement) sc.getCalledSubprogram();
 
-					if (GetProperties.getSourceName(cs) == null) {
+					if (ProgrammingProperties.getSourceName(cs).map(v -> false).orElse(true)) {
 						addError(new ErrorReport(cs,
 								"Subprogram must define the property Programming_Properties::Source_Name"));
 					}
 
-					if (GetProperties.getSourceText(cs).size() == 0) {
+					if (ProgrammingProperties.getSourceText(cs).map(v -> v.isEmpty() ? true : false).orElse(true)) {
 						addError(new ErrorReport(cs,
 								"Subprogram must define the property Programming_Properties::Source_Text"));
 					}
 
-					if (GetProperties.getSourceLanguage(cs).size() == 0) {
+					if (ProgrammingProperties.getSourceLanguage(cs).map(v -> v.isEmpty() ? true : false).orElse(true)) {
 						addError(new ErrorReport(cs,
 								"Subprogram must define the property Programming_Properties::Source_Language"));
 					}

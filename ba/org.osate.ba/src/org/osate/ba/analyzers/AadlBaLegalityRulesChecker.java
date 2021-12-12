@@ -42,6 +42,8 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.SubprogramClassifier;
 import org.osate.aadl2.ThreadClassifier;
 import org.osate.aadl2.VirtualProcessorClassifier;
+import org.osate.aadl2.contrib.thread.ThreadProperties;
+import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.ba.aadlba.AssignmentAction;
 import org.osate.ba.aadlba.BasicAction;
@@ -73,8 +75,6 @@ import org.osate.utils.internal.Aadl2Visitors;
 import org.osate.utils.internal.PropertyUtils;
 import org.osate.utils.internal.names.DispatchTriggerProperties;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
-import org.osate.xtext.aadl2.properties.util.ThreadProperties;
-import org.osate.xtext.aadl2.properties.util.TimingProperties;
 
 @SuppressWarnings("unused")
 public class AadlBaLegalityRulesChecker {
@@ -197,13 +197,13 @@ public class AadlBaLegalityRulesChecker {
 		/*
 		 * // As the user can add component which have initialization and finalization
 		 * // entrypoints, fetches the component list.
-		 * 
+		 *
 		 * PackageSection[] contextsTab =AadlBaVisitors.getBaPackageSections(_ba);
-		 * 
+		 *
 		 * PropertiesLinkingService pls = new PropertiesLinkingService() ;
-		 * 
+		 *
 		 * EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue();
-		 * 
+		 *
 		 * EObject ne=pls.findNamedElementInPredeclaredPropertySets(
 		 * AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTY_NAME,
 		 * contextsTab[0], reference);
@@ -215,17 +215,17 @@ public class AadlBaLegalityRulesChecker {
 		 * ne = ps.findNamedElement(AadlBaVisitors.
 		 * INITIALIZE_ENTRYPOINT_PROPERTY_NAME);
 		 * }
-		 * 
+		 *
 		 * ArrayList<Class<? extends org.osate.aadl2.Element>> klassl =
 		 * new ArrayList<Class<? extends org.osate.aadl2.Element>>() ;
-		 * 
+		 *
 		 * Class<? extends org.osate.aadl2.Element> klass ;
-		 * 
+		 *
 		 * StringBuilder klassName = new StringBuilder();
-		 * 
+		 *
 		 * String firstChar ;
 		 * int firstCharIndex ;
-		 * 
+		 *
 		 * if (ne != null)
 		 * {
 		 * EList<PropertyOwner> pol = ((Property) ne).getAppliesTos() ;
@@ -236,25 +236,25 @@ public class AadlBaLegalityRulesChecker {
 		 * {
 		 * klassName.append(AadlBaVisitors.SEI_AADL2_PACKAGE_NAME);
 		 * klassName.append('.');
-		 * 
+		 *
 		 * firstCharIndex = klassName.length() ;
-		 * 
+		 *
 		 * klassName.append(((MetaclassReference) p).getMetaclass().getName()) ;
-		 * 
+		 *
 		 * firstChar = klassName.substring(firstCharIndex, firstCharIndex+1) ;
-		 * 
+		 *
 		 * // Transform the first char of the property name to upper case.
 		 * firstChar.toUpperCase() ;
-		 * 
+		 *
 		 * klassName.setCharAt(firstCharIndex, firstChar.charAt(0)) ;
-		 * 
+		 *
 		 * klassName.append(AadlBaVisitors.SEI_AADL2_CLASSIFIER_SUFFIX);
-		 * 
+		 *
 		 * try
 		 * {
 		 * klass = (Class<? extends org.osate.aadl2.Element>)
 		 * Class.forName(klassName.toString()) ;
-		 * 
+		 *
 		 * klassl.add(klass);
 		 * }
 		 * catch (java.lang.ClassNotFoundException e)
@@ -266,14 +266,14 @@ public class AadlBaLegalityRulesChecker {
 		 * klassName.setLength(0) ;
 		 * }
 		 * }
-		 * 
+		 *
 		 * // Checks the rule for the given component list.
 		 * for(Class<? extends org.osate.aadl2.Element> tmp : klassl)
 		 * {
 		 * if(tmp.isAssignableFrom(_baParentContainer.getClass()))
 		 * {
 		 * String reportElements = null ;
-		 * 
+		 *
 		 * if(initialStates.size() > 1)
 		 * {
 		 * result = false ;
@@ -293,7 +293,7 @@ public class AadlBaLegalityRulesChecker {
 		 * + " has no initial state : " +
 		 * "Behavior Annex D.3.(L4) legality rule warning") ;
 		 * }
-		 * 
+		 *
 		 * if(finalStates.size() == 0)
 		 * {
 		 * result = false ;
@@ -302,7 +302,7 @@ public class AadlBaLegalityRulesChecker {
 		 * " has no final state : Behavior Annex D.3.(L4)"+
 		 * " legality rules warning") ;
 		 * }
-		 * 
+		 *
 		 * return result ;
 		 * }
 		 * }
@@ -310,7 +310,7 @@ public class AadlBaLegalityRulesChecker {
 		 * else
 		 * {
 		 * String reportElements = null ;
-		 * 
+		 *
 		 * if(initialStates.size() > 1)
 		 * {
 		 * result = false ;
@@ -329,7 +329,7 @@ public class AadlBaLegalityRulesChecker {
 		 * + " has no initial state : " +
 		 * "Behavior Annex D.3.(L4) legality rule failed") ;
 		 * }
-		 * 
+		 *
 		 * if(finalStates.size() == 0)
 		 * {
 		 * result = false ;
@@ -338,7 +338,7 @@ public class AadlBaLegalityRulesChecker {
 		 * " has no final state : Behavior Annex D.3.(L4)"+
 		 * " legality rules failed") ;
 		 * }
-		 * 
+		 *
 		 * return result ;
 		 * }
 		 */
@@ -475,7 +475,8 @@ public class AadlBaLegalityRulesChecker {
 				// list will be empty.
 
 				EList<org.osate.aadl2.PropertyExpression> vl;
-				vl = PropertyUtils.findPropertyExpression(_baParentContainer, ThreadProperties.DISPATCH_PROTOCOL);
+				vl = PropertyUtils.findPropertyExpression(_baParentContainer,
+						ThreadProperties.DISPATCH_PROTOCOL__NAME);
 				if (vl.size() > 0) {
 					org.osate.aadl2.PropertyExpression value = vl.get(vl.size() - 1);
 
@@ -488,7 +489,8 @@ public class AadlBaLegalityRulesChecker {
 						if (literal.equalsIgnoreCase(DispatchTriggerProperties.TIMED)) {
 							boolean hasPeriod = false;
 
-							Long period = PropertyUtils.getIntValue(_baParentContainer, TimingProperties.PERIOD);
+							Long period = PropertyUtils.getIntValue(_baParentContainer,
+									TimingProperties.PERIOD__NAME);
 							hasPeriod = period != null;
 
 							if (hasPeriod) {
@@ -557,7 +559,8 @@ public class AadlBaLegalityRulesChecker {
 				_alreadyFoundCompletionRelativeTimeoutConditionCatchTransition.put(bs, bt);
 
 				EList<org.osate.aadl2.PropertyExpression> vl;
-				vl = PropertyUtils.findPropertyExpression(_baParentContainer, ThreadProperties.DISPATCH_PROTOCOL);
+				vl = PropertyUtils.findPropertyExpression(_baParentContainer,
+						ThreadProperties.DISPATCH_PROTOCOL__NAME);
 				if (vl.size() > 0) {
 					org.osate.aadl2.PropertyExpression value = vl.get(vl.size() - 1);
 
@@ -570,7 +573,8 @@ public class AadlBaLegalityRulesChecker {
 						if (literal.equalsIgnoreCase(DispatchTriggerProperties.TIMED)) {
 							boolean hasPeriod = false;
 
-							Long period = PropertyUtils.getIntValue(_baParentContainer, TimingProperties.PERIOD);
+							Long period = PropertyUtils.getIntValue(_baParentContainer,
+									TimingProperties.PERIOD__NAME);
 							hasPeriod = period != null;
 							Long timeoutConstantValue = null;
 							IntegerValue iv = crtcac.getIntegerValue();

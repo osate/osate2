@@ -66,15 +66,16 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.OsateDebug;
 
+/**
+ * @deprecated Use {@link org.osate.aasl2.properties.util.InstanceModelUtil}.
+ */
+@Deprecated
 public class InstanceModelUtil {
-
-	/* XXX: Where to put this? */
 	private static final <V> boolean propertyEquals(final Function<NamedElement, Optional<V>> f, final NamedElement ne,
 			final V value) {
 		return f.apply(ne).map(x -> x == value).orElse(false);
 	}
 
-	/* XXX: WHere to put this? */
 	private static final List<ComponentInstance> getListAsComponentInstance(
 			final Function<NamedElement, Optional<List<InstanceObject>>> f, final NamedElement ne) {
 		return f.apply(ne).map(v -> {
@@ -324,6 +325,7 @@ public class InstanceModelUtil {
 	 * @param subcomponent
 	 * @return
 	 */
+	@Deprecated
 	public static boolean isHybridComponent(final NamedElement subcomponent) {
 		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent, SupportedDispatchProtocols.HYBRID);
 	}
@@ -333,6 +335,7 @@ public class InstanceModelUtil {
 	 * @param subcomponent
 	 * @return
 	 */
+	@Deprecated
 	public static boolean isBackgroundComponent(final NamedElement subcomponent) {
 		return propertyEquals(ThreadProperties::getDispatchProtocol, subcomponent,
 				SupportedDispatchProtocols.BACKGROUND);
@@ -352,6 +355,7 @@ public class InstanceModelUtil {
 	 * @param subcomponent
 	 * @return
 	 */
+	@Deprecated
 	public static boolean isPeriodicDevice(final NamedElement device) {
 		return (device instanceof ComponentInstance
 				&& ((ComponentInstance) device).getCategory().equals(ComponentCategory.DEVICE))
@@ -615,6 +619,7 @@ public class InstanceModelUtil {
 	 * @param componentInstance
 	 * @return virtual processor instance
 	 */
+	@Deprecated
 	public static Collection<ComponentInstance> getAllBoundVirtualProcessors(ComponentInstance componentInstance) {
 		final Collection<ComponentInstance> actualProcs = new ArrayList<ComponentInstance>();
 		if (canHaveActualProcessorBinding(componentInstance)) {
@@ -703,6 +708,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Deprecated
 	public static EList<ComponentInstance> getAllBoundSWComponents(final ComponentInstance procorVP) {
 		SystemInstance root = procorVP.getSystemInstance();
 		EList boundComponents = new ForAllElement() {
@@ -724,6 +730,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Deprecated
 	public static EList<ComponentInstance> getBoundThreads(final ComponentInstance procorVP) {
 		SystemInstance root = procorVP.getSystemInstance();
 		EList boundComponents = new ForAllElement() {
@@ -744,6 +751,7 @@ public class InstanceModelUtil {
 	 * @return
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Deprecated
 	public static EList<ComponentInstance> getBoundProcesses(final ComponentInstance procorVP) {
 		SystemInstance root = procorVP.getSystemInstance();
 		EList boundComponents = new ForAllElement() {
@@ -1040,6 +1048,7 @@ public class InstanceModelUtil {
 	 * @param destination HW component
 	 * @return list of buses involved in the physical connection
 	 */
+	@Deprecated
 	protected static List<ComponentInstance> doConnectedByBus(ComponentInstance srcHW, ComponentInstance dstHW,
 			List<ComponentInstance> visitedBuses) {
 		if (srcHW == null || dstHW == null || srcHW == dstHW) {
@@ -1097,6 +1106,7 @@ public class InstanceModelUtil {
 	 * @param HWcomp ComponentInstance hardware component
 	 * @return list of buses
 	 */
+	@Deprecated
 	public static EList<ComponentInstance> getConnectedBuses(ComponentInstance HWcomp) {
 		EList<ComponentInstance> result = new BasicEList<ComponentInstance>();
 		EList<ConnectionInstance> acl = HWcomp.getSrcConnectionInstances();
@@ -1152,6 +1162,7 @@ public class InstanceModelUtil {
 	 * @return access connection instance if they are connected by bus access
 	 *         connection
 	 */
+	@Deprecated
 	public static ConnectionInstance getBusAccessConnection(ComponentInstance HWcomp, ComponentInstance bus) {
 		for (ConnectionInstance srcaci : bus.getSrcConnectionInstances()) {
 			if (srcaci.getDestination().getContainingComponentInstance() == HWcomp) {

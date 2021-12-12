@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -29,13 +29,14 @@ import java.util.stream.Collectors;
 
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.VirtualProcessor;
+import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.codegen.checker.report.ErrorReport;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class ProcessCheck extends AbstractCheck {
 
+	@Override
 	public void perform(SystemInstance si) {
 
 		/**
@@ -53,12 +54,12 @@ public class ProcessCheck extends AbstractCheck {
 		}
 
 		/**
-		 * 
+		 *
 		 * Get Processes that are not bound to a virtual processor/runtime
 		 */
 		final List<ComponentInstance> processWithoutRuntime = si.getAllComponentInstances().stream()
 				.filter(comp -> comp.getCategory() == ComponentCategory.PROCESS
-						&& !(GetProperties.getBoundProcessor(comp) instanceof VirtualProcessor))
+						&& isNotBoundToVirtualProcessor(comp))
 				.collect(Collectors.toList());
 
 		for (ComponentInstance process : processWithoutRuntime) {
@@ -72,13 +73,23 @@ public class ProcessCheck extends AbstractCheck {
 
 		final List<ComponentInstance> processWithoutMemory = si.getAllComponentInstances().stream()
 				.filter(comp -> (comp.getCategory() == ComponentCategory.PROCESS)
-						&& (GetProperties.getActualMemoryBinding(comp) == null))
+						&& hasNoMemoryBindings(comp))
 				.collect(Collectors.toList());
 
 		for (ComponentInstance process : processWithoutMemory) {
 			addError(new ErrorReport(process,
 					"Process must define the property Deployment_Properties::Actual_Memory_Binding"));
 		}
+	}
+
+	private static final boolean hasNoMemoryBindings(final ComponentInstance comp) {
+		return DeploymentProperties.getActualMemoryBinding(comp).map(bindings -> false).orElse(true);
+	}
+
+	private static final boolean isNotBoundToVirtualProcessor(final ComponentInstance comp) {
+		// xxx: only considers the first processor in the list
+		return DeploymentProperties.getActualProcessorBinding(comp).map(bindings ->
+		bindings.isEmpty() ? true : !(bindings.get(0) instanceof VirtualProcessor)).orElse(true);
 	}
 
 }

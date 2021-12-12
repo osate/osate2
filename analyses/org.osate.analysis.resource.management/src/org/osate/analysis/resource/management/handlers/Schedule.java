@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
  * All Rights Reserved.
- * 
+ *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- * 
+ *
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- * 
+ *
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- * 
+ *
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -30,17 +30,19 @@ import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.util.InstanceModelUtil;
 import org.osate.analysis.scheduling.RuntimeProcessWalker;
+import org.osate.analysis.scheduling.SchedulingProperties;
 import org.osate.ui.UiUtil;
 import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHandler {
 	@Override
@@ -79,7 +81,8 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHand
 				@Override
 				public void process(Element obj) {
 					ComponentInstance processor = (ComponentInstance) obj;
-					String protocol = GetProperties.getSchedulingProtocol(processor);
+//					String protocol = GetProperties.getSchedulingProtocol(processor);
+					String protocol = getSchedulingProtocol(processor);
 					if (protocol == null || protocol.equalsIgnoreCase("EDF")) {
 						doUtilization(processor);
 					} else {
@@ -133,7 +136,7 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHand
 				return InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, processor);
 			}
 		}.processPreOrderComponentInstance(processor.getSystemInstance(), ComponentCategory.THREAD);
-		double cpuMips = GetProperties.getMIPSCapacityInMIPS(processor, 0);
+		double cpuMips = SchedulingProperties.getMIPSCapacityInMIPS(processor, 0);
 		double utilization = 0.0;
 		if (cpuMips == 0) {
 			if (!boundThreads.isEmpty()) {
@@ -153,7 +156,7 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHand
 			return false;
 		} else {
 			for (Element element : boundThreads) {
-				demandMips = demandMips + GetProperties.getThreadExecutioninMIPS((ComponentInstance) element);
+				demandMips = demandMips + SchedulingProperties.getThreadExecutioninMIPS((ComponentInstance) element);
 			}
 			utilization = (demandMips / cpuMips) * 100;
 			if (utilization > 100) {
@@ -169,26 +172,27 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHand
 	}
 
 	public void reportProcessorBinding(ComponentInstance elt) {
-		double threadMips = GetProperties.getThreadExecutioninMIPS(elt);
+		double threadMips = SchedulingProperties.getThreadExecutioninMIPS(elt);
 		reportProcessorBinding(elt, threadMips, "");
 	}
 
 	public void reportProcessorBinding(ComponentInstance elt, double threadMips, String prefix) {
-		List<ComponentInstance> bindinglist;
+		List<InstanceObject> bindinglist;
 		// report binding of threads to VP and processor
 		String threadText = prefix + elt.getCategory().getName() + " " + elt.getComponentInstancePath()
 				+ (InstanceModelUtil.isThread(elt) ? "(" + UiUtil.BestDecPoint(threadMips) + " MIPS)" : "") + " ==> ";
-		bindinglist = GetProperties.getActualProcessorBinding(elt);
+		bindinglist = SchedulingProperties.getActualProcessorBinding(elt);
 		if (bindinglist.isEmpty()) {
 			logInfo(threadText + " NOTHING");
 
 		} else {
-			for (ComponentInstance componentInstance : bindinglist) {
+			for (final InstanceObject io : bindinglist) {
+				final ComponentInstance componentInstance = (ComponentInstance) io;
 				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)) {
 					reportProcessorBinding(componentInstance, threadMips, threadText);
 				} else {
 					// we have a processor
-					double cpumips = GetProperties.getMIPSCapacityInMIPS(componentInstance, 0);
+					double cpumips = SchedulingProperties.getMIPSCapacityInMIPS(componentInstance, 0);
 					logInfo(threadText + componentInstance.getCategory().getName() + " "
 							+ componentInstance.getComponentInstancePath() + "(" + UiUtil.BestDecPoint(cpumips)
 							+ "MIPS)"
@@ -201,5 +205,9 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHand
 
 	public void invoke(IProgressMonitor monitor, SystemInstance root) {
 		actionBody(monitor, root);
+	}
+
+	static String getSchedulingProtocol(ComponentInstance processor) {
+		return DeploymentProperties.getSchedulingProtocol(processor).map(list -> list.get(0).toString()).orElse(null);
 	}
 }
