@@ -23,7 +23,6 @@
  */
 package org.osate.analysis.resource.budgets.logic;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -34,9 +33,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.contrib.aadlproject.SizeUnits;
-import org.osate.aadl2.contrib.deployment.DeploymentProperties;
-import org.osate.aadl2.contrib.memory.MemoryProperties;
+import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
@@ -45,11 +42,9 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.contribution.sei.sei.ProcessorSpeedUnits;
-import org.osate.contribution.sei.sei.Sei;
-import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AbstractAaxlHandler;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 //TODO-LW: assumes connection ends are features
@@ -146,17 +141,17 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 			return;
 		}
 
-		double MIPScapacity = getMIPSCapacityInMIPS(curProcessor, 0.0);
+		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(curProcessor);
+		double MIPScapacity = GetProperties.getMIPSCapacityInMIPS(curProcessor, 0.0);
 		if (MIPScapacity == 0 && InstanceModelUtil.isVirtualProcessor(curProcessor)) {
-			MIPScapacity = PropertyUtils.getScaled(Sei::getMipsbudget, curProcessor, ProcessorSpeedUnits.MIPS)
-					.orElse(0.0);
+			MIPScapacity = GetProperties.getMIPSBudgetInMIPS(curProcessor);
 		}
 		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundSWComponents(curProcessor);
 
 		if (boundComponents.size() == 0 && MIPScapacity > 0) {
 			errManager.infoSummary(curProcessor, som.getName(),
 					"No application components bound to " + curProcessor.getComponentInstancePath()
-							+ " with MIPS capacity " + toStringScaled(MIPScapacity, ProcessorSpeedUnits.MIPS));
+							+ " with MIPS capacity " + GetProperties.toStringScaled(MIPScapacity, mipsliteral));
 			return;
 		}
 		if (MIPScapacity == 0 && InstanceModelUtil.isVirtualProcessor(curProcessor)) {
@@ -171,36 +166,36 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 		if (InstanceModelUtil.isVirtualProcessor(curProcessor)) {
 			logHeader("\n\nDetailed Workload Report: " + Aadl2Util.getPrintableSOMName(som) + " for Virtual Processor "
 					+ curProcessor.getComponentInstancePath() + " with Capacity "
-					+ toStringScaled(MIPScapacity, ProcessorSpeedUnits.MIPS) + "\n\nComponent,Budget,Actual");
+					+ GetProperties.toStringScaled(MIPScapacity, mipsliteral) + "\n\nComponent,Budget,Actual");
 		} else {
 			logHeader("\n\nDetailed Workload Report: " + Aadl2Util.getPrintableSOMName(som) + " for Processor "
 					+ curProcessor.getComponentInstancePath() + " with Capacity "
-					+ toStringScaled(MIPScapacity, ProcessorSpeedUnits.MIPS) + "\n\nComponent,Budget,Actual");
+					+ GetProperties.toStringScaled(MIPScapacity, mipsliteral) + "\n\nComponent,Budget,Actual");
 		}
 		double totalMIPS = 0.0;
 		for (Iterator<ComponentInstance> it = boundComponents.iterator(); it.hasNext();) {
 			ComponentInstance bci = it.next();
 
-			double actualmips = sumBudgets(bci, ResourceKind.MIPS, som, "");
+			double actualmips = sumBudgets(bci, ResourceKind.MIPS, mipsliteral, som, "");
 			if (actualmips > 0) {
 				totalMIPS += actualmips;
 			}
 		}
-		logHeader("Total,," + toStringScaled(totalMIPS, ProcessorSpeedUnits.MIPS));
+		logHeader("Total,," + GetProperties.toStringScaled(totalMIPS, mipsliteral));
 		if (totalMIPS > MIPScapacity) {
 			errManager.errorSummary(curProcessor, null,
 					"  Processor " + curProcessor.getComponentInstancePath() + ": Total MIPS "
-							+ toStringScaled(totalMIPS, ProcessorSpeedUnits.MIPS)
+							+ GetProperties.toStringScaled(totalMIPS, mipsliteral)
 							+ " of bound tasks exceeds MIPS capacity "
-							+ toStringScaled(MIPScapacity, ProcessorSpeedUnits.MIPS));
+							+ GetProperties.toStringScaled(MIPScapacity, mipsliteral));
 		} else if (totalMIPS == 0.0) {
 			errManager.warningSummary(curProcessor, null,
 					"  Processor " + curProcessor.getComponentInstancePath() + ": Bound app's have no MIPS budget.");
 		} else {
 			errManager.infoSummary(curProcessor, null,
 					"  Processor " + curProcessor.getComponentInstancePath() + ": Total MIPS "
-							+ toStringScaled(totalMIPS, ProcessorSpeedUnits.MIPS) + " of bound tasks within "
-							+ "MIPS capacity " + toStringScaled(MIPScapacity, ProcessorSpeedUnits.MIPS) + " of "
+							+ GetProperties.toStringScaled(totalMIPS, mipsliteral) + " of bound tasks within "
+							+ "MIPS capacity " + GetProperties.toStringScaled(MIPScapacity, mipsliteral) + " of "
 							+ curProcessor.getComponentInstancePath());
 		}
 	}
@@ -223,9 +218,9 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 			@Override
 			protected void process(Element obj) {
 				if (canHaveMemory(obj)) {
-					if (getROMCapacityInKB(obj) > 0.0
-							|| getRAMCapacityInKB(obj) > 0.0
-							|| getMemorySize(obj) > 0.0) {
+					if (GetProperties.getROMCapacityInKB((InstanceObject) obj, 0.0) > 0.0
+							|| GetProperties.getRAMCapacityInKB((InstanceObject) obj, 0.0) > 0.0
+							|| GetProperties.getMemorySizeInKB((InstanceObject) obj) > 0.0) {
 						count = count + 1;
 					}
 				}
@@ -257,10 +252,11 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 	 * @param curMemory Component Instance of memory
 	 */
 	private void checkMemoryLoad(ComponentInstance curMemory, final SystemOperationMode som) {
+		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(curMemory);
 		EList<ComponentInstance> boundComponents = getMemoryBindings(curMemory);
-		final double MemoryCapacity = getMemorySize(curMemory);
-		final double ROMCapacity = getROMCapacityInKB(curMemory);
-		final double RAMCapacity = getRAMCapacityInKB(curMemory);
+		double MemoryCapacity = GetProperties.getMemorySize(curMemory, kbliteral);
+		double ROMCapacity = GetProperties.getROMCapacityInKB(curMemory, 0.0);
+		double RAMCapacity = GetProperties.getRAMCapacityInKB(curMemory, 0.0);
 
 		if (MemoryCapacity > 0.0) {
 			doMemoryLoad(curMemory, som, MemoryCapacity, boundComponents, ResourceKind.Memory); // Memory
@@ -285,10 +281,11 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 		String somName = null;
 		String resourceName = rk.name();
 		boolean isROM = rk.equals(ResourceKind.ROM);
+		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(curMemory);
 		if (boundComponents.size() == 0 && Memorycapacity > 0) {
 			errManager.infoSummary(curMemory, somName,
 					"  No application components bound to " + curMemory.getComponentInstancePath() + " with "
-							+ resourceName + " capacity " + toStringScaled(Memorycapacity, SizeUnits.KBYTE));
+							+ resourceName + " capacity " + GetProperties.toStringScaled(Memorycapacity, kbliteral));
 			return;
 		}
 		if (Memorycapacity == 0) {
@@ -297,13 +294,13 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 		}
 		logHeader("\n\nDetailed Workload Report: " + Aadl2Util.getPrintableSOMName(som) + " for memory "
 				+ curMemory.getComponentInstancePath() + " with Capacity "
-				+ toStringScaled(Memorycapacity, SizeUnits.KBYTE) + "\n\nComponent,Budget,Actual");
+				+ GetProperties.toStringScaled(Memorycapacity, kbliteral) + "\n\nComponent,Budget,Actual");
 		Set<ComponentInstance> budgeted = new HashSet<>();
 		for (ComponentInstance bci : boundComponents) {
 			String notes = "";
 			double totalactual = sumMemoryActualPropertyValue(bci, isROM);
-			double budget = isROM ? getROMBudgetInKB(bci) : getRAMBudgetInKB(bci);
-			double actualsize = getMemoryUseActual(bci, resourceName, SizeUnits.KBYTE);
+			double budget = isROM ? GetProperties.getROMBudgetInKB(bci, 0.0) : GetProperties.getRAMBudgetInKB(bci, 0.0);
+			double actualsize = getMemoryUseActual(bci, resourceName, kbliteral);
 
 			if (actualsize > 0) {
 				// only compare if there were actuals
@@ -343,13 +340,14 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 					totalMemory += actualsize;
 				} else {
 					// add only the current actual; the children actual have been added before
-					double currentActual = isROM ? getROMActualInKB(bci) : getRAMActualInKB(bci);
+					double currentActual = isROM ? GetProperties.getROMActualInKB(bci, 0.0)
+							: GetProperties.getRAMActualInKB(bci, 0.0);
 					detailedLog(bci, budget, currentActual, notes);
 					totalMemory += currentActual;
 				}
 			}
 		}
-		detailedLogTotal2(null, totalMemory, SizeUnits.KBYTE);
+		detailedLogTotal2(null, totalMemory, kbliteral);
 		if (Memorycapacity == 0) {
 			errManager.errorSummary(curMemory, somName,
 					"  " + resourceName + curMemory.getComponentInstancePath() + " has no memory capacity specified");
@@ -370,7 +368,7 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 
 	private double sumMemoryActualPropertyValue(ComponentInstance ci, boolean isROM) {
 		try {
-			double total = isROM ? getROMActualInKB(ci) : getRAMActualInKB(ci);
+			double total = isROM ? GetProperties.getROMActualInKB(ci, 0.0) : GetProperties.getRAMActualInKB(ci, 0.0);
 			EList<ComponentInstance> subcis = ci.getComponentInstances();
 			for (Iterator<ComponentInstance> it = subcis.iterator(); it.hasNext();) {
 				ComponentInstance subci = it.next();
@@ -403,8 +401,8 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 			boundComponents = new ForAllElement() {
 				@Override
 				protected boolean suchThat(Element obj) {
-					final List<InstanceObject> boundMemoryList = DeploymentProperties
-							.getActualMemoryBinding((ComponentInstance) obj).orElse(Collections.emptyList());
+					List<ComponentInstance> boundMemoryList = GetProperties
+							.getActualMemoryBinding((ComponentInstance) obj);
 					if (boundMemoryList.isEmpty()) {
 						return false;
 					}
@@ -421,38 +419,5 @@ public class BoundResourceAnalysis extends AbstractResourceAnalysis {
 			InstanceModelUtil.addAsRoot(topobjects, (ComponentInstance) componentInstance);
 		}
 		return topobjects;
-	}
-
-	private static double getROMCapacityInKB(Element obj) {
-		return PropertyUtils.getScaled(Sei::getRomcapacity, (InstanceObject) obj, SizeUnits.KBYTE).orElse(0.0);
-	}
-
-	private static double getRAMCapacityInKB(Element obj) {
-		return PropertyUtils.getScaled(Sei::getRamcapacity, (InstanceObject) obj, SizeUnits.KBYTE).orElse(0.0);
-	}
-
-	private static double getROMBudgetInKB(Element obj) {
-		return PropertyUtils.getScaled(Sei::getRombudget, (InstanceObject) obj, SizeUnits.KBYTE).orElse(0.0);
-	}
-
-	private static double getRAMBudgetInKB(Element obj) {
-		return PropertyUtils.getScaled(Sei::getRambudget, (InstanceObject) obj, SizeUnits.KBYTE).orElse(0.0);
-	}
-
-	private static double getROMActualInKB(Element obj) {
-		return PropertyUtils.getScaled(Sei::getRomactual, (InstanceObject) obj, SizeUnits.KBYTE).orElse(0.0);
-	}
-
-	private static double getRAMActualInKB(Element obj) {
-		return PropertyUtils.getScaled(Sei::getRamactual, (InstanceObject) obj, SizeUnits.KBYTE).orElse(0.0);
-	}
-
-	private static double getMemorySize(Element obj) {
-		return PropertyUtils.getScaled(MemoryProperties::getMemorySize, (InstanceObject) obj, SizeUnits.KBYTE)
-				.orElse(0.0);
-	}
-
-	private static String toStringScaled(double d, Enum<?> u) {
-		return String.format("%.3f " + u.name(), d);
 	}
 }

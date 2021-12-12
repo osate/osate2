@@ -1,18 +1,18 @@
 /**
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
- *
+ * 
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
  * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
  * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
  * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
- *
+ * 
  * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
  * which is available at https://www.eclipse.org/legal/epl-2.0/
  * SPDX-License-Identifier: EPL-2.0
- *
+ * 
  * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
- *
+ * 
  * This program includes and/or can make use of certain third party source code, object code, documentation and other
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
@@ -23,8 +23,6 @@
  */
 package org.osate.analysis.architecture;
 
-import java.util.EnumSet;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.EList;
@@ -32,13 +30,9 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
-import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.contribution.sei.sei.Sei;
-import org.osate.contribution.sei.sei.Weightunits;
-import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.result.AnalysisResult;
 import org.osate.result.Diagnostic;
 import org.osate.result.DiagnosticType;
@@ -47,6 +41,7 @@ import org.osate.result.Result;
 import org.osate.result.ResultFactory;
 import org.osate.result.util.ResultUtil;
 import org.osate.ui.handlers.AbstractAaxlHandler;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * @author phf
@@ -79,7 +74,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		for (ComponentInstance subi : cil) {
 			price += calcPrice(subi);
 		}
-		price += Sei.getPrice(ci).orElse(0.0);
+		price += GetProperties.getPrice(ci, 0.0);
 		return price;
 	}
 
@@ -143,19 +138,13 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		return result;
 	}
 
-	private static final EnumSet<ComponentCategory> hasWeight = EnumSet.of(ComponentCategory.SYSTEM,
-			ComponentCategory.PROCESSOR, ComponentCategory.MEMORY, ComponentCategory.BUS, ComponentCategory.DEVICE,
-			ComponentCategory.ABSTRACT);
-
 	private static Result calcWeight(ComponentInstance ci, boolean needWeight) {
 		Result result = ResultFactory.eINSTANCE.createResult();
 		result.setModelElement(ci);
 
-		final boolean getWeight = hasWeight.contains(ci.getCategory());
-		final double net = getWeight ? PropertyUtils.getScaled(Sei::getNetweight, ci, Weightunits.KG).orElse(0.0) : 0.0;
+		final double net = GetProperties.getNetWeight(ci, 0.0);
 		double weight = 0.0;
-		final double gross = getWeight ? PropertyUtils.getScaled(Sei::getGrossweight, ci, Weightunits.KG).orElse(0.0)
-				: 0.0;
+		final double gross = GetProperties.getGrossWeight(ci, 0.0);
 		double sublimit = 0.0;
 		EList<ComponentInstance> cil = ci.getComponentInstances();
 		for (ComponentInstance subi : cil) {
@@ -166,9 +155,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 				result.getSubResults().add(subresult);
 				double subweight = ResultUtil.getReal(subresult, 0);
 				weight += subweight;
-				sublimit += hasWeight.contains(subi.getCategory())
-						? PropertyUtils.getScaled(Sei::getWeightlimit, subi, Weightunits.KG).orElse(0.0)
-						: 0.0;
+				sublimit += GetProperties.getWeightLimit(subi, 0.0);
 			}
 		}
 		EList<ConnectionInstance> connl = ci.getConnectionInstances();
@@ -179,10 +166,8 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 					&& ((FeatureInstance) source).getCategory() == FeatureCategory.BUS_ACCESS)
 					|| (destination instanceof FeatureInstance
 							&& ((FeatureInstance) destination).getCategory() == FeatureCategory.BUS_ACCESS)) {
-				double netconn = PropertyUtils.getScaled(Sei::getNetweight, connectionInstance, Weightunits.KG)
-						.orElse(0.0);
-				double grossconn = PropertyUtils.getScaled(Sei::getGrossweight, connectionInstance, Weightunits.KG)
-						.orElse(0.0);
+				double netconn = GetProperties.getNetWeight(connectionInstance, 0.0);
+				double grossconn = GetProperties.getGrossWeight(connectionInstance, 0.0);
 				weight += netconn > 0 ? netconn : grossconn;
 				if (netconn > 0 || grossconn > 0) {
 					String ResultMsg = String.format(
@@ -190,9 +175,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 							netconn > 0 ? netconn : grossconn);
 					result.getDiagnostics().add(ResultUtil.createInfoDiagnostic(ResultMsg, connectionInstance));
 				}
-				sublimit += connectionInstance.getKind() == ConnectionKind.ACCESS_CONNECTION
-						? PropertyUtils.getScaled(Sei::getWeightlimit, connectionInstance, Weightunits.KG).orElse(0.0)
-						: 0.0;
+				sublimit += GetProperties.getWeightLimit(connectionInstance, 0.0);
 			}
 		}
 		if (weight == 0.0 && cil.isEmpty()) {
@@ -223,8 +206,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 				weight = gross;
 			}
 		}
-		final double limit = getWeight ? PropertyUtils.getScaled(Sei::getWeightlimit, ci, Weightunits.KG).orElse(0.0)
-				: 0.0;
+		final double limit = GetProperties.getWeightLimit(ci, 0.0);
 		if (limit > 0.0) {
 			if (weight > limit) {
 				// problem

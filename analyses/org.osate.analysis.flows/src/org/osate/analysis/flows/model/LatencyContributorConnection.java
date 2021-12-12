@@ -23,10 +23,8 @@
  */
 package org.osate.analysis.flows.model;
 
-import org.osate.aadl2.contrib.communication.CommunicationProperties;
-import org.osate.aadl2.contrib.communication.Timing;
 import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionKind;
+import org.osate.analysis.flows.internal.utils.FlowLatencyUtil;
 
 /**
  * A latency Result represents something in the flow
@@ -47,19 +45,15 @@ public class LatencyContributorConnection extends LatencyContributor {
 
 	@Override
 	protected String getContributorType() {
-		final ConnectionInstance connInstance = (ConnectionInstance) this.relatedElement;
-		final Timing connectionType = connInstance.getKind() == ConnectionKind.PORT_CONNECTION
-				? CommunicationProperties.getTiming(connInstance).orElse(Timing.SAMPLED)
-				: null;
-		if (connectionType == Timing.DELAYED) {
+		if (FlowLatencyUtil.getConnectionType((ConnectionInstance) this.relatedElement) == ConnectionType.DELAYED) {
 			return "delayed connection";
 		}
 
-		if (connectionType == Timing.IMMEDIATE) {
+		if (FlowLatencyUtil.getConnectionType((ConnectionInstance) this.relatedElement) == ConnectionType.IMMEDIATE) {
 			return "immediate connection";
 		}
 
-		if (connectionType == Timing.SAMPLED) {
+		if (FlowLatencyUtil.getConnectionType((ConnectionInstance) this.relatedElement) == ConnectionType.SAMPLED) {
 			return "connection";
 		}
 

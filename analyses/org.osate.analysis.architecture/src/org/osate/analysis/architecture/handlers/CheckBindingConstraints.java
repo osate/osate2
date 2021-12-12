@@ -52,7 +52,6 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureCategory;
@@ -264,10 +263,9 @@ public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 		return bindingElements.flatMap(element -> {
 			Set<T> required = Collections.unmodifiableSet(new HashSet<>(getRequired.apply(element)));
 			if (!required.isEmpty()) {
-				return DeploymentProperties.getActualConnectionBinding(element).orElse(Collections.emptyList()).stream()
-						.flatMap(boundElement -> {
+				return GetProperties.getActualConnectionBinding(element).stream().flatMap(boundElement -> {
 					Set<T> missingSet = new HashSet<>(required);
-							missingSet.removeAll(getProvided.apply((ComponentInstance) boundElement));
+					missingSet.removeAll(getProvided.apply(boundElement));
 					return missingSet.stream().map(missing -> {
 						StringBuilder message = new StringBuilder(getTitle(element));
 						message.append(" '");

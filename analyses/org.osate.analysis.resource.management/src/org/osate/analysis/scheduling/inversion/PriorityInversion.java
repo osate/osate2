@@ -29,14 +29,11 @@ import org.eclipse.emf.common.util.ECollections;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.contrib.aadlproject.TimeUnits;
-import org.osate.aadl2.contrib.timing.TimingProperties;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
@@ -86,10 +83,8 @@ public class PriorityInversion {
 		// we will sort the thread list by period and
 		// check to make sure the assigned priority is monotonically decreasing
 		ECollections.sort(boundThreads, (obj1, obj2) -> {
-			final double a = PropertyUtils
-					.getScaled(TimingProperties::getPeriod, (ComponentInstance) obj1, TimeUnits.MS).orElse(0.0);
-			final double b = PropertyUtils
-					.getScaled(TimingProperties::getPeriod, (ComponentInstance) obj2, TimeUnits.MS).orElse(0.0);
+			final double a = GetProperties.getPeriodinMS((ComponentInstance) obj1);
+			final double b = GetProperties.getPeriodinMS((ComponentInstance) obj2);
 			if (a > b) {
 				return 1;
 			}
@@ -127,8 +122,7 @@ public class PriorityInversion {
 
 		for (Element e : threadList) {
 			ComponentInstance thread = (ComponentInstance) e;
-			double period = PropertyUtils
-					.getScaled(TimingProperties::getPeriod, thread, TimeUnits.MS).orElse(0.0);
+			double period = GetProperties.getPeriodinMS(thread);
 			long priority = GetProperties.getPriority(thread, Long.MIN_VALUE);
 
 			if (priority == Long.MIN_VALUE) {

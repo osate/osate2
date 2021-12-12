@@ -27,18 +27,14 @@ import java.util.Iterator;
 
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.contrib.aadlproject.SizeUnits;
-import org.osate.aadl2.contrib.memory.MemoryProperties;
+import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.contribution.sei.sei.ProcessorSpeedUnits;
-import org.osate.contribution.sei.sei.Sei;
-import org.osate.pluginsupport.properties.PropertyUtils;
 import org.osate.ui.handlers.AbstractAaxlHandler;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * @since 2.0
@@ -56,13 +52,15 @@ public class NotBoundResourceAnalysis extends AbstractResourceAnalysis {
 
 	public void analyzeResourceBudget(final SystemInstance si, final SystemOperationMode som) {
 		init();
+		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(si);
+		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(si);
 		@SuppressWarnings("unchecked")
 		EList<ComponentInstance> proclist = (EList<ComponentInstance>) (EList<?>) new ForAllElement()
 				.processPreOrderComponentInstance(si, ComponentCategory.PROCESSOR);
 		logHeader("\n\nDetailed Processor MIPS Capacity Report " + Aadl2Util.getPrintableSOMName(som) + "\n");
 		logHeader("Component,Capacity");
-		capacity = sumCapacity(proclist, ResourceKind.MIPS, "processor", ProcessorSpeedUnits.MIPS);
-		detailedLogTotal1(null, capacity, ProcessorSpeedUnits.MIPS);
+		capacity = sumCapacity(proclist, ResourceKind.MIPS, "processor", mipsliteral);
+		detailedLogTotal1(null, capacity, mipsliteral);
 		@SuppressWarnings("unchecked")
 		EList<ComponentInstance> vproclist = (EList<ComponentInstance>) (EList<?>) new ForAllElement()
 				.processPreOrderComponentInstance(si, ComponentCategory.VIRTUAL_PROCESSOR);
@@ -70,66 +68,66 @@ public class NotBoundResourceAnalysis extends AbstractResourceAnalysis {
 			logHeader(
 					"\n\nDetailed Virtual Processor MIPS Capacity Report " + Aadl2Util.getPrintableSOMName(som) + "\n");
 			logHeader("Component,Capacity");
-			vcapacity = sumVPMIPSBudget(vproclist);
-			detailedLogTotal1(null, vcapacity, ProcessorSpeedUnits.MIPS);
+			vcapacity = sumVPMIPSBudget(vproclist, mipsliteral);
+			detailedLogTotal1(null, vcapacity, mipsliteral);
 		}
 		logHeader("\n\nDetailed MIPS Budget Report " + Aadl2Util.getPrintableSOMName(som) + "\n");
 		logHeader("Component,Budget,Actual,Notes");
-		budgetTotal = sumBudgets(si, ResourceKind.MIPS, som, "");
+		budgetTotal = sumBudgets(si, ResourceKind.MIPS, mipsliteral, som, "");
 		if (budgetTotal >= 0) {
-			detailedLogTotal2(null, budgetTotal, ProcessorSpeedUnits.MIPS);
+			detailedLogTotal2(null, budgetTotal, mipsliteral);
 			errManager.infoSummaryReportOnly(si, null, "Resource Summary: " + Aadl2Util.getPrintableSOMName(som));
-			report(si, "MIPS", ProcessorSpeedUnits.MIPS, som);
+			report(si, "MIPS", mipsliteral, som);
 		}
 
 		init();
 		@SuppressWarnings("unchecked")
 		EList<ComponentInstance> memlist = (EList<ComponentInstance>) (EList<?>) new ForAllElement()
 				.processPreOrderComponentInstance(si, ComponentCategory.MEMORY);
-		capacity = capacityTotal(memlist, ResourceKind.Memory, "Memory");
+		capacity = capacityTotal(memlist, ResourceKind.Memory, "Memory", kbliteral);
 		if (capacity > 0) {
 			logHeader("\n\nDetailed Memory Capacity Report " + Aadl2Util.getPrintableSOMName(som) + "\n");
 			logHeader("Component,Capacity");
-			capacity = sumCapacity(memlist, ResourceKind.Memory, "Memory", SizeUnits.KBYTE);
-			detailedLogTotal1(null, capacity, SizeUnits.KBYTE);
+			capacity = sumCapacity(memlist, ResourceKind.Memory, "Memory", kbliteral);
+			detailedLogTotal1(null, capacity, kbliteral);
 			logHeader("\n\nDetailed Memory Budget Report " + Aadl2Util.getPrintableSOMName(som) + "\n");
 			logHeader("Component,Budget,Actual,Notes");
-			budgetTotal = sumBudgets(si, ResourceKind.Memory, som, "");
+			budgetTotal = sumBudgets(si, ResourceKind.Memory, kbliteral, som, "");
 			if (budgetTotal >= 0) {
-				detailedLogTotal2(null, budgetTotal, SizeUnits.KBYTE);
-				report(si, "Memory", SizeUnits.KBYTE, som);
+				detailedLogTotal2(null, budgetTotal, kbliteral);
+				report(si, "Memory", kbliteral, som);
 			}
 		}
 
 		init();
-		capacity = capacityTotal(memlist, ResourceKind.RAM, "RAM");
+		capacity = capacityTotal(memlist, ResourceKind.RAM, "RAM", kbliteral);
 		if (capacity > 0) {
 			logHeader("\n\nDetailed RAM Capacity Report " + Aadl2Util.getPrintableSOMName(som) + "\n");
 			logHeader("Component,Capacity");
-			capacity = sumCapacity(memlist, ResourceKind.RAM, "RAM", SizeUnits.KBYTE);
-			detailedLogTotal1(null, capacity, SizeUnits.KBYTE);
+			capacity = sumCapacity(memlist, ResourceKind.RAM, "RAM", kbliteral);
+			detailedLogTotal1(null, capacity, kbliteral);
 			logHeader("\n\nDetailed RAM Budget Report " + Aadl2Util.getPrintableSOMName(som) + "\n");
 			logHeader("Component,Budget,Actual,Notes");
-			budgetTotal = sumBudgets(si, ResourceKind.RAM, som, "");
+			budgetTotal = sumBudgets(si, ResourceKind.RAM, kbliteral, som, "");
 			if (budgetTotal >= 0) {
-				detailedLogTotal2(null, budgetTotal, SizeUnits.KBYTE);
-				report(si, "RAM", SizeUnits.KBYTE, som);
+				detailedLogTotal2(null, budgetTotal, kbliteral);
+				report(si, "RAM", kbliteral, som);
 			}
 		}
 
 		init();
-		capacity = capacityTotal(memlist, ResourceKind.ROM, "ROM");
+		capacity = capacityTotal(memlist, ResourceKind.ROM, "ROM", kbliteral);
 		if (capacity > 0) {
 			logHeader("\n\nDetailed ROM Capacity Report " + Aadl2Util.getPrintableSOMName(som) + "\n");
 			logHeader("Component,Capacity");
-			capacity = sumCapacity(memlist, ResourceKind.ROM, "ROM", SizeUnits.KBYTE);
-			detailedLogTotal1(null, capacity, SizeUnits.KBYTE);
+			capacity = sumCapacity(memlist, ResourceKind.ROM, "ROM", kbliteral);
+			detailedLogTotal1(null, capacity, kbliteral);
 			logHeader("\n\nDetailed ROM Budget Report " + Aadl2Util.getPrintableSOMName(som) + "\n");
 			logHeader("Component,Budget,Actual,Notes");
-			budgetTotal = sumBudgets(si, ResourceKind.ROM, som, "");
+			budgetTotal = sumBudgets(si, ResourceKind.ROM, kbliteral, som, "");
 			if (budgetTotal >= 0) {
-				detailedLogTotal2(null, budgetTotal, SizeUnits.KBYTE);
-				report(si, "ROM", SizeUnits.KBYTE, som);
+				detailedLogTotal2(null, budgetTotal, kbliteral);
+				report(si, "ROM", kbliteral, som);
 			}
 		}
 	}
@@ -143,40 +141,40 @@ public class NotBoundResourceAnalysis extends AbstractResourceAnalysis {
 		budgetTotal = 0;
 	}
 
-	private double getCapacity(ComponentInstance ne, ResourceKind kind) {
+	private double getCapacity(ComponentInstance ne, ResourceKind kind, UnitLiteral unit) {
 		switch (kind) {
 		case MIPS:
 			if (ne.getCategory().equals(ComponentCategory.PROCESSOR)) {
-				return getProcessorMIPS(ne);
+				return GetProperties.getProcessorMIPS(ne);
 			}
 			if (ne.getCategory().equals(ComponentCategory.VIRTUAL_PROCESSOR)) {
-				return PropertyUtils.getScaled(Sei::getMipsbudget, ne, ProcessorSpeedUnits.MIPS).orElse(0.0);
+				return GetProperties.getMIPSBudgetInMIPS(ne);
 			}
 		case RAM:
-			return PropertyUtils.getScaled(Sei::getRamcapacity, ne, SizeUnits.KBYTE).orElse(0.0);
+			return GetProperties.getRAMCapacityInKB(ne, 0.0);
 		case ROM:
-			return PropertyUtils.getScaled(Sei::getRomcapacity, ne, SizeUnits.KBYTE).orElse(0.0);
+			return GetProperties.getROMCapacityInKB(ne, 0.0);
 		case Memory:
-			return PropertyUtils.getScaled(MemoryProperties::getMemorySize, ne, SizeUnits.KBYTE).orElse(0.0);
+			return GetProperties.getMemorySize(ne, unit);
 		}
 		return 0.0;
 	}
 
-	private double sumVPMIPSBudget(EList<ComponentInstance> ilist) {
+	private double sumVPMIPSBudget(EList<ComponentInstance> ilist, UnitLiteral unit) {
 		double total = 0.0;
 		for (Iterator<ComponentInstance> it = ilist.iterator(); it.hasNext();) {
 			ComponentInstance io = it.next();
-			double budget = PropertyUtils.getScaled(Sei::getMipsbudget, io, ProcessorSpeedUnits.MIPS).orElse(0.0);
+			double budget = GetProperties.getMIPSBudgetInMIPS(io);
 			total += budget;
-			detailedLogTotal2(io, budget, ProcessorSpeedUnits.MIPS);
+			detailedLogTotal2(io, budget, unit);
 		}
 		return total;
 	}
 
-	private double sumCapacity(EList<ComponentInstance> ilist, ResourceKind rk, String resourceName, Enum<?> unit) {
+	private double sumCapacity(EList<ComponentInstance> ilist, ResourceKind rk, String resourceName, UnitLiteral unit) {
 		double total = 0.0;
 		for (ComponentInstance io : ilist) {
-			double capacity = getCapacity(io, rk);
+			double capacity = getCapacity(io, rk, unit);
 			total += capacity;
 			detailedLogTotal1(io, capacity, unit);
 			resources++;
@@ -187,10 +185,11 @@ public class NotBoundResourceAnalysis extends AbstractResourceAnalysis {
 		return total;
 	}
 
-	private double capacityTotal(EList<ComponentInstance> ilist, ResourceKind rk, String resourceName) {
+	private double capacityTotal(EList<ComponentInstance> ilist, ResourceKind rk, String resourceName,
+			UnitLiteral unit) {
 		double total = 0.0;
 		for (ComponentInstance io : ilist) {
-			double capacity = getCapacity(io, rk);
+			double capacity = getCapacity(io, rk, unit);
 			total += capacity;
 			resources++;
 			if (capacity > 0) {
@@ -200,14 +199,14 @@ public class NotBoundResourceAnalysis extends AbstractResourceAnalysis {
 		return total;
 	}
 
-	private void report(SystemInstance si, String resourceName, Enum<?> unit, final SystemOperationMode som) {
+	private void report(SystemInstance si, String resourceName, UnitLiteral unit, final SystemOperationMode som) {
 		String somName = Aadl2Util.getPrintableSOMName(som);
 		if (budgetTotal < 0) {
 			budgetTotal = 0;
 		}
 
-		String modelStats = resourceName + " capacity " + String.format("%.3f " + unit.name(), capacity) + " : "
-				+ resourceName + " budget " + String.format("%.3f " + unit.name(), budgetTotal);
+		String modelStats = resourceName + " capacity " + GetProperties.toStringScaled(capacity, unit) + " : "
+				+ resourceName + " budget " + GetProperties.toStringScaled(budgetTotal, unit);
 		if (budgetTotal > capacity) {
 			modelStats = "System " + si.getName() + " budgets over capacity: " + modelStats;
 			errManager.errorSummary(si, somName, "  " + modelStats);
@@ -226,11 +225,5 @@ public class NotBoundResourceAnalysis extends AbstractResourceAnalysis {
 		} else {
 			errManager.infoSummary(si, somName, modelStats);
 		}
-	}
-
-	private static double getProcessorMIPS(final NamedElement ne) {
-		return PropertyUtils.getScaled(Sei::getMipscapacity, ne, ProcessorSpeedUnits.MIPS).orElseGet(
-				() -> PropertyUtils.getScaled(org.osate.aadl2.contrib.timing.TimingProperties::getProcessorCapacity, ne,
-						org.osate.aadl2.contrib.aadlproject.ProcessorSpeedUnits.MIPS).orElse(0.0));
 	}
 }

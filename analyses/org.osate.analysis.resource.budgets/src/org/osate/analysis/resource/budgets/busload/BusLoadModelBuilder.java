@@ -47,7 +47,7 @@ import org.osate.analysis.resource.budgets.internal.models.busload.BusOrVirtualB
 import org.osate.analysis.resource.budgets.internal.models.busload.BusloadFactory;
 import org.osate.analysis.resource.budgets.internal.models.busload.Connection;
 import org.osate.analysis.resource.budgets.internal.models.busload.VirtualBus;
-import org.osate.contribution.sei.sei.Sei;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 final class BusLoadModelBuilder {
@@ -135,7 +135,7 @@ final class BusLoadModelBuilder {
 
 	private void addBusOrVirtualBus(final BusLoadModel model, final BusOrVirtualBus bus, final ComponentInstance ci,
 			final SystemOperationMode som) {
-		final boolean isBroadcast = Sei.getBroadcastProtocol(ci).orElse(false);
+		final boolean isBroadcast = GetProperties.isBroadcastProtocol(ci);
 		List<ConnectionInstance> budgetedConnections = InstanceModelUtil.getBoundConnections(ci);
 		List<ComponentInstance> budgetedVBs = InstanceModelUtil.getBoundVirtualBuses(ci);
 

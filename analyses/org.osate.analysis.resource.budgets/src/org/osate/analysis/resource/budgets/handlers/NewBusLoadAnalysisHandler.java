@@ -23,7 +23,10 @@
  */
 package org.osate.analysis.resource.budgets.handlers;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -36,19 +39,21 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.resource.budgets.busload.NewBusLoadAnalysis;
 import org.osate.result.AnalysisResult;
+import org.osate.result.Diagnostic;
 import org.osate.result.Result;
 import org.osate.result.util.ResultUtil;
-import org.osate.ui.handlers.AbstractAnalysisHandler;
 
 /**
  * @since 3.0
  */
-public final class NewBusLoadAnalysisHandler extends AbstractAnalysisHandler {
+public final class NewBusLoadAnalysisHandler extends NewAbstractAaxlHandler {
 	private static final String MARKER_TYPE = "org.osate.analysis.resource.budgets.BusLoadAnalysisMarker";
 	private static final String REPORT_SUB_DIR = "BusLoad";
 
@@ -98,7 +103,10 @@ public final class NewBusLoadAnalysisHandler extends AbstractAnalysisHandler {
 				}
 				generateMarkers(analysisResult, errManager);
 				subMonitor.worked(1);
-				new ResutWriter(outputFile).writeAnalysisResults(analysisResult, subMonitor.split(1));
+
+				final String csvContent = getCSVasString(analysisResult);
+				final InputStream inputStream = new ByteArrayInputStream(csvContent.getBytes());
+				writeCSVFile(inputStream, outputFile, subMonitor.split(1));
 			} catch (final OperationCanceledException e) {
 				cancelled = true;
 			}
@@ -108,138 +116,153 @@ public final class NewBusLoadAnalysisHandler extends AbstractAnalysisHandler {
 
 	}
 
-	// === CSV Output methods ===
+	/*
+	 * This seems like the type of thing we want to do all the time, but the problem is that so far
+	 * there hasn't been a standard way of dealing with the system operation modes. Here we
+	 * have the system operation modes as the first level of results under the AnalysisResult
+	 * object. If we can standardize the handling of SOMs then we can standardize these methods
+	 * somewhere;
+	 *
+	 * this is moved to NewAbstractAaxlHandler.java
+	 */
 
-	private final class ResutWriter extends CSVAnalysisResultWriter {
-		protected ResutWriter(final IFile outputFile) {
-			super(outputFile);
+	private static String getCSVasString(final AnalysisResult analysisResult) {
+		final StringWriter writer = new StringWriter();
+		final PrintWriter pw = new PrintWriter(writer);
+		generateCSVforAnalysis(pw, analysisResult);
+		pw.close();
+		return writer.toString();
+	}
+
+	/**
+	 * @since 4.1
+	 */
+	public static void generateCSVforAnalysis(final PrintWriter pw, final AnalysisResult analysisResult) {
+		pw.println(analysisResult.getMessage());
+		pw.println();
+		pw.println();
+		analysisResult.getResults().forEach(somResult -> generateCSVforSOM(pw, somResult));
+	}
+
+	/**
+	 * @since 4.1
+	 */
+	public static void generateCSVforSOM(final PrintWriter pw, final Result somResult) {
+		if (Aadl2Util.isPrintableSOMName((SystemOperationMode) somResult.getModelElement())) {
+			printItem(pw, "Analysis results in modes " + somResult.getMessage());
+			pw.println();
 		}
 
-		@Override
-		protected void generateContentforSOM(final PrintWriter pw, final Result somResult,
-				final IProgressMonitor monitor) {
-			/*
-			 * Go through the children twice: First to print summary information and then to recursively
-			 * print the sub information.
-			 */
+		/*
+		 * Go through the children twice: First to print summary information and then to recursively
+		 * print the sub information.
+		 */
 
-			printItems(pw, "Physical Bus", "Capacity (KB/s)", "Budget (KB/s)", "Required Budget (KB/s)",
-					"Actual (KB/s)");
+		printItems(pw, "Physical Bus", "Capacity (KB/s)", "Budget (KB/s)", "Required Budget (KB/s)", "Actual (KB/s)");
 
-			for (final Result subResult : somResult.getSubResults()) {
-				// Label, Capacity, Budget, Required Capacity, Actual
-				printItems(pw, subResult.getMessage(), Double.toString(ResultUtil.getReal(subResult, 0)),
-						Double.toString(ResultUtil.getReal(subResult, 1)),
-						Double.toString(ResultUtil.getReal(subResult, 2)),
-						Double.toString(ResultUtil.getReal(subResult, 3)));
-			}
+		for (final Result subResult : somResult.getSubResults()) {
+			// Label, Capacity, Budget, Required Capacity, Actual
+			printItems(pw, subResult.getMessage(), Double.toString(ResultUtil.getReal(subResult, 0)),
+					Double.toString(ResultUtil.getReal(subResult, 1)),
+					Double.toString(ResultUtil.getReal(subResult, 2)),
+					Double.toString(ResultUtil.getReal(subResult, 3)));
+		}
+		pw.println();
+
+		// NO DIAGNOSTICS AT THE SOM LEVEL
+
+		somResult.getSubResults().forEach(busResult -> generateCSVforBus(pw, busResult, null));
+		pw.println(); // add a second newline, the first is from the end of generateCSVforBus()
+	}
+
+	private static void generateCSVforBus(final PrintWriter pw, final Result busResult, final Result boundTo) {
+		final long dataOverhead = ResultUtil.getInteger(busResult, 7);
+		if (boundTo == null) {
+			printItem(pw, "Bus " + busResult.getMessage() + " has data overhead of " + dataOverhead + " bytes");
+		} else {
+			printItem(pw, "Virtual bus " + busResult.getMessage() + " bound to " + boundTo.getMessage()
+					+ " has data overhead of " + dataOverhead + " bytes");
+		}
+		pw.println();
+
+		/*
+		 * Go through the children twice: First to print summary information and then to recursively
+		 * print the sub information.
+		 */
+
+		printItems(pw, "Bound Virtual Bus/Connection", "Capacity (KB/s)", "Budget (KB/s)", "Required Budget (KB/s)",
+				"Actual (KB/s)");
+
+		final int numBus = (int) ResultUtil.getInteger(busResult, 4);
+		final int numConnections = (int) ResultUtil.getInteger(busResult, 5);
+		final List<Result> subResults = busResult.getSubResults();
+		for (final Result subResult : subResults.subList(0, numBus)) {
+			// Label, Capacity, Budget, Required Capacity, Actual
+			printItems(pw, subResult.getMessage(), Double.toString(ResultUtil.getReal(subResult, 0)),
+					Double.toString(ResultUtil.getReal(subResult, 1)),
+					Double.toString(ResultUtil.getReal(subResult, 2)),
+					Double.toString(ResultUtil.getReal(subResult, 3)));
+		}
+		for (final Result subResult : subResults.subList(numBus, subResults.size())) {
+			// Label, NO CAPACITY, Budget, NO REQUIRED CAPACITY, Actual
+			// Capacity, NO BUDGET, Required
+			printItems(pw, subResult.getMessage(), "", Double.toString(ResultUtil.getReal(subResult, 0)), "",
+					Double.toString(ResultUtil.getReal(subResult, 1)));
+		}
+		pw.println();
+
+		if (!busResult.getDiagnostics().isEmpty()) {
+			generateCSVforDiagnostics(pw, busResult.getDiagnostics());
 			pw.println();
-
-			// NO DIAGNOSTICS AT THE SOM LEVEL
-
-			final SubMonitor subMonitor = SubMonitor.convert(monitor, somResult.getSubResults().size());
-			somResult.getSubResults()
-					.forEach(busResult -> generateContentforBus(pw, busResult, null, subMonitor.split(1)));
-			pw.println(); // add a second newline, the first is from the end of generateContentForBus()
 		}
 
-		private void generateContentforBus(final PrintWriter pw, final Result busResult, final Result boundTo,
-				final IProgressMonitor monitor) {
-			final SubMonitor subMonitor = SubMonitor.convert(monitor, 2);
+		subResults.subList(0, numBus).forEach(br -> generateCSVforBus(pw, br, busResult));
+		subResults.subList(numBus, numBus + numConnections).forEach(br -> generateCSVforConnection(pw, br, busResult));
+		subResults.subList(numBus + numConnections, subResults.size())
+				.forEach(br -> generateCSVforBroadcast(pw, br, busResult));
+	}
 
-			final long dataOverhead = ResultUtil.getInteger(busResult, 7);
-			if (boundTo == null) {
-				printItem(pw, "Bus " + busResult.getMessage() + " has data overhead of " + dataOverhead + " bytes");
-			} else {
-				printItem(pw, "Virtual bus " + busResult.getMessage() + " bound to " + boundTo.getMessage()
-						+ " has data overhead of " + dataOverhead + " bytes");
-			}
+	private static void generateCSVforBroadcast(final PrintWriter pw, final Result broadcastResult,
+			final Result boundTo) {
+		printItem(pw, broadcastResult.getMessage() + " over bus " + boundTo.getMessage());
+		pw.println();
+
+		/*
+		 * Go through the children twice: First to print summary information and then to recursively
+		 * print the sub information.
+		 */
+
+		printItems(pw, "Included Connection", "Budget (KB/s)", "Actual (KB/s)");
+
+		final List<Result> subResults = broadcastResult.getSubResults();
+		for (final Result subResult : subResults) {
+			printItems(pw, subResult.getMessage(), Double.toString(ResultUtil.getReal(subResult, 0)),
+					Double.toString(ResultUtil.getReal(subResult, 1)));
+		}
+		pw.println();
+
+		if (!broadcastResult.getDiagnostics().isEmpty()) {
+			generateCSVforDiagnostics(pw, broadcastResult.getDiagnostics());
 			pw.println();
-
-			/*
-			 * Go through the children twice: First to print summary information and then to recursively
-			 * print the sub information.
-			 */
-
-			printItems(pw, "Bound Virtual Bus/Connection", "Capacity (KB/s)", "Budget (KB/s)", "Required Budget (KB/s)",
-					"Actual (KB/s)");
-
-			final int numBus = (int) ResultUtil.getInteger(busResult, 4);
-			final int numConnections = (int) ResultUtil.getInteger(busResult, 5);
-			final List<Result> subResults = busResult.getSubResults();
-			for (final Result subResult : subResults.subList(0, numBus)) {
-				// Label, Capacity, Budget, Required Capacity, Actual
-				printItems(pw, subResult.getMessage(), Double.toString(ResultUtil.getReal(subResult, 0)),
-						Double.toString(ResultUtil.getReal(subResult, 1)),
-						Double.toString(ResultUtil.getReal(subResult, 2)),
-						Double.toString(ResultUtil.getReal(subResult, 3)));
-			}
-			for (final Result subResult : subResults.subList(numBus, subResults.size())) {
-				// Label, NO CAPACITY, Budget, NO REQUIRED CAPACITY, Actual
-				// Capacity, NO BUDGET, Required
-				printItems(pw, subResult.getMessage(), "", Double.toString(ResultUtil.getReal(subResult, 0)), "",
-						Double.toString(ResultUtil.getReal(subResult, 1)));
-			}
-			pw.println();
-
-			generateContentforDiagnostics(pw, busResult.getDiagnostics(), subMonitor.split(1));
-			if (!busResult.getDiagnostics().isEmpty()) {
-				pw.println();
-			}
-
-			final SubMonitor loopMonitor = subMonitor.split(1).setWorkRemaining(subResults.size());
-			subResults.subList(0, numBus).forEach(br -> generateContentforBus(pw, br, busResult, loopMonitor.split(1)));
-			subResults.subList(numBus, numBus + numConnections)
-					.forEach(br -> generateContentforConnection(pw, br, busResult, loopMonitor.split(1)));
-			subResults.subList(numBus + numConnections, subResults.size())
-					.forEach(br -> generateContentforBroadcast(pw, br, busResult, loopMonitor.split(1)));
 		}
 
-		private void generateContentforBroadcast(final PrintWriter pw, final Result broadcastResult,
-				final Result boundTo, final IProgressMonitor monitor) {
-			final SubMonitor subMonitor = SubMonitor.convert(monitor, 2);
+		subResults.forEach(br -> generateCSVforConnection(pw, br, broadcastResult));
+	}
 
-			printItem(pw, broadcastResult.getMessage() + " over bus " + boundTo.getMessage());
+	private static void generateCSVforConnection(final PrintWriter pw, final Result connectionResult,
+			final Result boundTo) {
+		// only do something if there are diagnostics
+		if (!connectionResult.getDiagnostics().isEmpty()) {
+			printItem(pw, "Connection " + connectionResult.getMessage() + " bound to " + boundTo.getMessage());
+			generateCSVforDiagnostics(pw, connectionResult.getDiagnostics());
 			pw.println();
-
-			/*
-			 * Go through the children twice: First to print summary information and then to recursively
-			 * print the sub information.
-			 */
-
-			printItems(pw, "Included Connection", "Budget (KB/s)", "Actual (KB/s)");
-
-			final List<Result> subResults = broadcastResult.getSubResults();
-			for (final Result subResult : subResults) {
-				printItems(pw, subResult.getMessage(), Double.toString(ResultUtil.getReal(subResult, 0)),
-						Double.toString(ResultUtil.getReal(subResult, 1)));
-			}
-			pw.println();
-
-			generateContentforDiagnostics(pw, broadcastResult.getDiagnostics(), subMonitor.split(1));
-			if (!broadcastResult.getDiagnostics().isEmpty()) {
-				pw.println();
-			}
-
-			final SubMonitor loopMonitor = subMonitor.split(1).setWorkRemaining(subResults.size());
-			subResults.forEach(br -> generateContentforConnection(pw, br, broadcastResult, loopMonitor.split(1)));
 		}
+	}
 
-		private void generateContentforConnection(final PrintWriter pw, final Result connectionResult,
-				final Result boundTo, final IProgressMonitor monitor) {
-			// only do something if there are diagnostics
-			final SubMonitor subMonitor = SubMonitor.convert(monitor, 1);
-
-			if (!connectionResult.getDiagnostics().isEmpty()) {
-				printItem(pw, "Connection " + connectionResult.getMessage() + " bound to " + boundTo.getMessage());
-				pw.println();
-				final SubMonitor loopMonitor = subMonitor.split(1)
-						.setWorkRemaining(connectionResult.getDiagnostics().size());
-				generateContentforDiagnostics(pw, connectionResult.getDiagnostics(), loopMonitor);
-				pw.println();
-			} else {
-				subMonitor.setWorkRemaining(0);
-			}
+	private static void generateCSVforDiagnostics(final PrintWriter pw, final List<Diagnostic> diagnostics) {
+		for (final Diagnostic issue : diagnostics) {
+			printItem(pw, issue.getDiagnosticType().getName() + ": " + issue.getMessage());
+			pw.println();
 		}
 	}
 }
