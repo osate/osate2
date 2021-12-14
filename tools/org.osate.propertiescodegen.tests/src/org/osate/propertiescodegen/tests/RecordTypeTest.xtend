@@ -94,8 +94,10 @@ class RecordTypeTest {
 		val ps1Class = '''
 			package ps1;
 			
-			public class Ps1 {
+			public final class Ps1 {
 				public static final String PS1__NAME = "ps1";
+				
+				private Ps1() {}
 			}
 		'''
 		val time = '''
@@ -767,6 +769,340 @@ class RecordTypeTest {
 					try {
 						referencedReference_local = findFieldValue(recordValue, REFERENCED_REFERENCE__NAME).map(field -> {
 							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
+						});
+					} catch (PropertyNotPresentException e) {
+						referencedReference_local = Optional.empty();
+					}
+					this.referencedReference = referencedReference_local;
+				}
+				
+				public RecordType1(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<Boolean> ownedBoolean_local;
+					try {
+						ownedBoolean_local = findFieldValue(recordValue, OWNED_BOOLEAN__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((BooleanLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedBoolean_local = Optional.empty();
+					}
+					this.ownedBoolean = ownedBoolean_local;
+					
+					Optional<String> ownedString_local;
+					try {
+						ownedString_local = findFieldValue(recordValue, OWNED_STRING__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((StringLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedString_local = Optional.empty();
+					}
+					this.ownedString = ownedString_local;
+					
+					Optional<Classifier> ownedClassifier_local;
+					try {
+						ownedClassifier_local = findFieldValue(recordValue, OWNED_CLASSIFIER__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ClassifierValue) resolved).getClassifier();
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedClassifier_local = Optional.empty();
+					}
+					this.ownedClassifier = ownedClassifier_local;
+					
+					Optional<OwnedEnumeration_FieldType> ownedEnumeration_local;
+					try {
+						ownedEnumeration_local = findFieldValue(recordValue, OWNED_ENUMERATION__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return OwnedEnumeration_FieldType.valueOf(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedEnumeration_local = Optional.empty();
+					}
+					this.ownedEnumeration = ownedEnumeration_local;
+					
+					Optional<OwnedUnits_FieldType> ownedUnits_local;
+					try {
+						ownedUnits_local = findFieldValue(recordValue, OWNED_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return OwnedUnits_FieldType.valueOf(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedUnits_local = Optional.empty();
+					}
+					this.ownedUnits = ownedUnits_local;
+					
+					OptionalLong ownedIntegerNoUnits_local;
+					try {
+						ownedIntegerNoUnits_local = findFieldValue(recordValue, OWNED_INTEGER_NO_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((IntegerLiteral) resolved).getValue();
+						}).map(OptionalLong::of).orElse(OptionalLong.empty());
+					} catch (PropertyNotPresentException e) {
+						ownedIntegerNoUnits_local = OptionalLong.empty();
+					}
+					this.ownedIntegerNoUnits = ownedIntegerNoUnits_local;
+					
+					OptionalDouble ownedRealNoUnits_local;
+					try {
+						ownedRealNoUnits_local = findFieldValue(recordValue, OWNED_REAL_NO_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((RealLiteral) resolved).getValue();
+						}).map(OptionalDouble::of).orElse(OptionalDouble.empty());
+					} catch (PropertyNotPresentException e) {
+						ownedRealNoUnits_local = OptionalDouble.empty();
+					}
+					this.ownedRealNoUnits = ownedRealNoUnits_local;
+					
+					Optional<IntegerWithUnits<Time>> ownedNumberWithUnitsNoImport_local;
+					try {
+						ownedNumberWithUnitsNoImport_local = findFieldValue(recordValue, OWNED_NUMBER_WITH_UNITS_NO_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new IntegerWithUnits<>(resolved, Time.class);
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedNumberWithUnitsNoImport_local = Optional.empty();
+					}
+					this.ownedNumberWithUnitsNoImport = ownedNumberWithUnitsNoImport_local;
+					
+					Optional<IntegerWithUnits<Mass>> ownedNumberWithUnitsWithImport_local;
+					try {
+						ownedNumberWithUnitsWithImport_local = findFieldValue(recordValue, OWNED_NUMBER_WITH_UNITS_WITH_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new IntegerWithUnits<>(resolved, Mass.class);
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedNumberWithUnitsWithImport_local = Optional.empty();
+					}
+					this.ownedNumberWithUnitsWithImport = ownedNumberWithUnitsWithImport_local;
+					
+					Optional<IntegerRangeWithUnits<Mass>> ownedRangeNoImport_local;
+					try {
+						ownedRangeNoImport_local = findFieldValue(recordValue, OWNED_RANGE_NO_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new IntegerRangeWithUnits<>(resolved, Mass.class);
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedRangeNoImport_local = Optional.empty();
+					}
+					this.ownedRangeNoImport = ownedRangeNoImport_local;
+					
+					Optional<RealRangeWithUnits<Mass>> ownedRangeImportNumber_local;
+					try {
+						ownedRangeImportNumber_local = findFieldValue(recordValue, OWNED_RANGE_IMPORT_NUMBER__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new RealRangeWithUnits<>(resolved, Mass.class);
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedRangeImportNumber_local = Optional.empty();
+					}
+					this.ownedRangeImportNumber = ownedRangeImportNumber_local;
+					
+					Optional<IntegerRangeWithUnits<Mass>> ownedRangeImportUnits_local;
+					try {
+						ownedRangeImportUnits_local = findFieldValue(recordValue, OWNED_RANGE_IMPORT_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new IntegerRangeWithUnits<>(resolved, Mass.class);
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedRangeImportUnits_local = Optional.empty();
+					}
+					this.ownedRangeImportUnits = ownedRangeImportUnits_local;
+					
+					Optional<OwnedRecord_FieldType> ownedRecord_local;
+					try {
+						ownedRecord_local = findFieldValue(recordValue, OWNED_RECORD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new OwnedRecord_FieldType(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedRecord_local = Optional.empty();
+					}
+					this.ownedRecord = ownedRecord_local;
+					
+					Optional<InstanceObject> ownedReference_local;
+					try {
+						ownedReference_local = findFieldValue(recordValue, OWNED_REFERENCE__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedReference_local = Optional.empty();
+					}
+					this.ownedReference = ownedReference_local;
+					
+					Optional<Boolean> referencedBoolean_local;
+					try {
+						referencedBoolean_local = findFieldValue(recordValue, REFERENCED_BOOLEAN__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((BooleanLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						referencedBoolean_local = Optional.empty();
+					}
+					this.referencedBoolean = referencedBoolean_local;
+					
+					Optional<String> referencedString_local;
+					try {
+						referencedString_local = findFieldValue(recordValue, REFERENCED_STRING__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((StringLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						referencedString_local = Optional.empty();
+					}
+					this.referencedString = referencedString_local;
+					
+					Optional<Classifier> referencedClassifier_local;
+					try {
+						referencedClassifier_local = findFieldValue(recordValue, REFERENCED_CLASSIFIER__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ClassifierValue) resolved).getClassifier();
+						});
+					} catch (PropertyNotPresentException e) {
+						referencedClassifier_local = Optional.empty();
+					}
+					this.referencedClassifier = referencedClassifier_local;
+					
+					Optional<EnumType1> referencedEnumerationNoImport_local;
+					try {
+						referencedEnumerationNoImport_local = findFieldValue(recordValue, REFERENCED_ENUMERATION_NO_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return EnumType1.valueOf(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						referencedEnumerationNoImport_local = Optional.empty();
+					}
+					this.referencedEnumerationNoImport = referencedEnumerationNoImport_local;
+					
+					Optional<Color> referencedEnumerationWithImport_local;
+					try {
+						referencedEnumerationWithImport_local = findFieldValue(recordValue, REFERENCED_ENUMERATION_WITH_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return Color.valueOf(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						referencedEnumerationWithImport_local = Optional.empty();
+					}
+					this.referencedEnumerationWithImport = referencedEnumerationWithImport_local;
+					
+					Optional<Time> referencedUnitsNoImport_local;
+					try {
+						referencedUnitsNoImport_local = findFieldValue(recordValue, REFERENCED_UNITS_NO_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return Time.valueOf(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						referencedUnitsNoImport_local = Optional.empty();
+					}
+					this.referencedUnitsNoImport = referencedUnitsNoImport_local;
+					
+					Optional<Mass> referencedUnitsWithImport_local;
+					try {
+						referencedUnitsWithImport_local = findFieldValue(recordValue, REFERENCED_UNITS_WITH_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return Mass.valueOf(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						referencedUnitsWithImport_local = Optional.empty();
+					}
+					this.referencedUnitsWithImport = referencedUnitsWithImport_local;
+					
+					OptionalLong referencedIntegerNoUnits_local;
+					try {
+						referencedIntegerNoUnits_local = findFieldValue(recordValue, REFERENCED_INTEGER_NO_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((IntegerLiteral) resolved).getValue();
+						}).map(OptionalLong::of).orElse(OptionalLong.empty());
+					} catch (PropertyNotPresentException e) {
+						referencedIntegerNoUnits_local = OptionalLong.empty();
+					}
+					this.referencedIntegerNoUnits = referencedIntegerNoUnits_local;
+					
+					OptionalDouble referencedRealNoUnits_local;
+					try {
+						referencedRealNoUnits_local = findFieldValue(recordValue, REFERENCED_REAL_NO_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((RealLiteral) resolved).getValue();
+						}).map(OptionalDouble::of).orElse(OptionalDouble.empty());
+					} catch (PropertyNotPresentException e) {
+						referencedRealNoUnits_local = OptionalDouble.empty();
+					}
+					this.referencedRealNoUnits = referencedRealNoUnits_local;
+					
+					Optional<IntegerWithUnits<IntegerOwnedUnits>> referencedNumberWithUnitsNoImport_local;
+					try {
+						referencedNumberWithUnitsNoImport_local = findFieldValue(recordValue, REFERENCED_NUMBER_WITH_UNITS_NO_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new IntegerWithUnits<>(resolved, IntegerOwnedUnits.class);
+						});
+					} catch (PropertyNotPresentException e) {
+						referencedNumberWithUnitsNoImport_local = Optional.empty();
+					}
+					this.referencedNumberWithUnitsNoImport = referencedNumberWithUnitsNoImport_local;
+					
+					Optional<RealWithUnits<Mass>> referencedNumberWithUnitsWithImport_local;
+					try {
+						referencedNumberWithUnitsWithImport_local = findFieldValue(recordValue, REFERENCED_NUMBER_WITH_UNITS_WITH_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new RealWithUnits<>(resolved, Mass.class);
+						});
+					} catch (PropertyNotPresentException e) {
+						referencedNumberWithUnitsWithImport_local = Optional.empty();
+					}
+					this.referencedNumberWithUnitsWithImport = referencedNumberWithUnitsWithImport_local;
+					
+					Optional<IntegerRange> referencedRangeNoImport_local;
+					try {
+						referencedRangeNoImport_local = findFieldValue(recordValue, REFERENCED_RANGE_NO_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new IntegerRange(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						referencedRangeNoImport_local = Optional.empty();
+					}
+					this.referencedRangeNoImport = referencedRangeNoImport_local;
+					
+					Optional<RealRange> referencedRangeWithImport_local;
+					try {
+						referencedRangeWithImport_local = findFieldValue(recordValue, REFERENCED_RANGE_WITH_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new RealRange(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						referencedRangeWithImport_local = Optional.empty();
+					}
+					this.referencedRangeWithImport = referencedRangeWithImport_local;
+					
+					Optional<RecordOfBoolean> referencedRecordNoImport_local;
+					try {
+						referencedRecordNoImport_local = findFieldValue(recordValue, REFERENCED_RECORD_NO_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new RecordOfBoolean(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						referencedRecordNoImport_local = Optional.empty();
+					}
+					this.referencedRecordNoImport = referencedRecordNoImport_local;
+					
+					Optional<BasicRecord> referencedRecordWithImport_local;
+					try {
+						referencedRecordWithImport_local = findFieldValue(recordValue, REFERENCED_RECORD_WITH_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new BasicRecord(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						referencedRecordWithImport_local = Optional.empty();
+					}
+					this.referencedRecordWithImport = referencedRecordWithImport_local;
+					
+					Optional<InstanceObject> referencedReference_local;
+					try {
+						referencedReference_local = findFieldValue(recordValue, REFERENCED_REFERENCE__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 							return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
 						});
 					} catch (PropertyNotPresentException e) {
@@ -1462,6 +1798,32 @@ class RecordTypeTest {
 						this.integerField = integerField_local;
 					}
 					
+					public OwnedRecord_FieldType(PropertyExpression propertyExpression) {
+						RecordValue recordValue = (RecordValue) propertyExpression;
+						
+						Optional<String> stringField_local;
+						try {
+							stringField_local = findFieldValue(recordValue, STRING_FIELD__NAME).map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+								return ((StringLiteral) resolved).getValue();
+							});
+						} catch (PropertyNotPresentException e) {
+							stringField_local = Optional.empty();
+						}
+						this.stringField = stringField_local;
+						
+						OptionalLong integerField_local;
+						try {
+							integerField_local = findFieldValue(recordValue, INTEGER_FIELD__NAME).map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+								return ((IntegerLiteral) resolved).getValue();
+							}).map(OptionalLong::of).orElse(OptionalLong.empty());
+						} catch (PropertyNotPresentException e) {
+							integerField_local = OptionalLong.empty();
+						}
+						this.integerField = integerField_local;
+					}
+					
 					public Optional<String> getStringField() {
 						return stringField;
 					}
@@ -1578,6 +1940,21 @@ class RecordTypeTest {
 					this.field = field_local;
 				}
 				
+				public RecordOfBoolean(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<Boolean> field_local;
+					try {
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((BooleanLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
+				}
+				
 				public Optional<Boolean> getField() {
 					return field;
 				}
@@ -1664,6 +2041,21 @@ class RecordTypeTest {
 					try {
 						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
 							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((StringLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
+				}
+				
+				public RecordOfString(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<String> field_local;
+					try {
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 							return ((StringLiteral) resolved).getValue();
 						});
 					} catch (PropertyNotPresentException e) {
@@ -1767,6 +2159,21 @@ class RecordTypeTest {
 					this.field = field_local;
 				}
 				
+				public RecordOfClassifier(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<Classifier> field_local;
+					try {
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ClassifierValue) resolved).getClassifier();
+						});
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
+				}
+				
 				public Optional<Classifier> getField() {
 					return field;
 				}
@@ -1856,6 +2263,21 @@ class RecordTypeTest {
 					try {
 						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
 							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return Field_FieldType.valueOf(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
+				}
+				
+				public RecordOfEnum(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<Field_FieldType> field_local;
+					try {
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 							return Field_FieldType.valueOf(resolved);
 						});
 					} catch (PropertyNotPresentException e) {
@@ -1982,6 +2404,21 @@ class RecordTypeTest {
 					try {
 						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
 							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return Field_FieldType.valueOf(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
+				}
+				
+				public RecordOfUnits(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<Field_FieldType> field_local;
+					try {
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 							return Field_FieldType.valueOf(resolved);
 						});
 					} catch (PropertyNotPresentException e) {
@@ -2125,6 +2562,21 @@ class RecordTypeTest {
 					this.field = field_local;
 				}
 				
+				public RecordOfInteger(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					OptionalLong field_local;
+					try {
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((IntegerLiteral) resolved).getValue();
+						}).map(OptionalLong::of).orElse(OptionalLong.empty());
+					} catch (PropertyNotPresentException e) {
+						field_local = OptionalLong.empty();
+					}
+					this.field = field_local;
+				}
+				
 				public OptionalLong getField() {
 					return field;
 				}
@@ -2212,6 +2664,21 @@ class RecordTypeTest {
 					try {
 						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
 							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((RealLiteral) resolved).getValue();
+						}).map(OptionalDouble::of).orElse(OptionalDouble.empty());
+					} catch (PropertyNotPresentException e) {
+						field_local = OptionalDouble.empty();
+					}
+					this.field = field_local;
+				}
+				
+				public RecordOfReal(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					OptionalDouble field_local;
+					try {
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 							return ((RealLiteral) resolved).getValue();
 						}).map(OptionalDouble::of).orElse(OptionalDouble.empty());
 					} catch (PropertyNotPresentException e) {
@@ -2315,6 +2782,21 @@ class RecordTypeTest {
 					this.field = field_local;
 				}
 				
+				public RecordOfReference(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<InstanceObject> field_local;
+					try {
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((InstanceReferenceValue) resolved).getReferencedInstanceObject();
+						});
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
+				}
+				
 				public Optional<InstanceObject> getField() {
 					return field;
 				}
@@ -2410,6 +2892,21 @@ class RecordTypeTest {
 					this.field1 = field1_local;
 				}
 				
+				public NestedRecord(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<Field1_FieldType> field1_local;
+					try {
+						field1_local = findFieldValue(recordValue, FIELD1__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new Field1_FieldType(resolved);
+						});
+					} catch (PropertyNotPresentException e) {
+						field1_local = Optional.empty();
+					}
+					this.field1 = field1_local;
+				}
+				
 				public Optional<Field1_FieldType> getField1() {
 					return field1;
 				}
@@ -2477,6 +2974,21 @@ class RecordTypeTest {
 							field2_local = findFieldValue(recordValue, FIELD2__NAME).map(field -> {
 								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 								return new Field2_FieldType(resolved, lookupContext, mode);
+							});
+						} catch (PropertyNotPresentException e) {
+							field2_local = Optional.empty();
+						}
+						this.field2 = field2_local;
+					}
+					
+					public Field1_FieldType(PropertyExpression propertyExpression) {
+						RecordValue recordValue = (RecordValue) propertyExpression;
+						
+						Optional<Field2_FieldType> field2_local;
+						try {
+							field2_local = findFieldValue(recordValue, FIELD2__NAME).map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+								return new Field2_FieldType(resolved);
 							});
 						} catch (PropertyNotPresentException e) {
 							field2_local = Optional.empty();
@@ -2558,6 +3070,21 @@ class RecordTypeTest {
 							this.field3 = field3_local;
 						}
 						
+						public Field2_FieldType(PropertyExpression propertyExpression) {
+							RecordValue recordValue = (RecordValue) propertyExpression;
+							
+							Optional<Field3_FieldType> field3_local;
+							try {
+								field3_local = findFieldValue(recordValue, FIELD3__NAME).map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+									return new Field3_FieldType(resolved);
+								});
+							} catch (PropertyNotPresentException e) {
+								field3_local = Optional.empty();
+							}
+							this.field3 = field3_local;
+						}
+						
 						public Optional<Field3_FieldType> getField3() {
 							return field3;
 						}
@@ -2624,6 +3151,21 @@ class RecordTypeTest {
 								try {
 									innerField_local = findFieldValue(recordValue, INNER_FIELD__NAME).map(field -> {
 										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+										return ((IntegerLiteral) resolved).getValue();
+									}).map(OptionalLong::of).orElse(OptionalLong.empty());
+								} catch (PropertyNotPresentException e) {
+									innerField_local = OptionalLong.empty();
+								}
+								this.innerField = innerField_local;
+							}
+							
+							public Field3_FieldType(PropertyExpression propertyExpression) {
+								RecordValue recordValue = (RecordValue) propertyExpression;
+								
+								OptionalLong innerField_local;
+								try {
+									innerField_local = findFieldValue(recordValue, INNER_FIELD__NAME).map(field -> {
+										PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 										return ((IntegerLiteral) resolved).getValue();
 									}).map(OptionalLong::of).orElse(OptionalLong.empty());
 								} catch (PropertyNotPresentException e) {
