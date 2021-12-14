@@ -62,6 +62,7 @@ class PropertyDefinitionTest {
 			import java.util.OptionalDouble;
 			import java.util.OptionalLong;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.Classifier;
@@ -85,23 +86,18 @@ class PropertyDefinitionTest {
 			import ps2.Color;
 			import ps2.Mass;
 			
-			public class Ps1 {
+			public final class Ps1 {
 				public static final String PS1__NAME = "ps1";
 				
+				private Ps1() {}
+				
+				// Lookup methods for ps1::boolean_definition
+				
 				public static final String BOOLEAN_DEFINITION__NAME = "boolean_definition";
-				public static final String STRING_DEFINITION__NAME = "string_definition";
-				public static final String CLASSIFIER_DEFINITION__NAME = "classifier_definition";
-				public static final String UNITS_DEFINITION__NAME = "units_definition";
-				public static final String ENUM_DEFINITION__NAME = "enum_definition";
-				public static final String INTEGER_DEFINITION_NO_UNITS__NAME = "integer_definition_no_units";
-				public static final String INTEGER_DEFINITION_WITH_UNITS__NAME = "integer_definition_with_units";
-				public static final String REAL_DEFINITION_NO_UNITS__NAME = "real_definition_no_units";
-				public static final String RANGE_DEFINITION__NAME = "range_definition";
-				public static final String RECORD_DEFINITION__NAME = "record_definition";
-				public static final String REFERENCE_DEFINITION__NAME = "reference_definition";
-				public static final String DEFINITION_WITH_REFERENCED_TYPE_LOCAL__NAME = "definition_with_referenced_type_local";
-				public static final String DEFINITION_WITH_REFERENCED_TYPE_OTHER_FILE__NAME = "definition_with_referenced_type_other_file";
-				public static final String DEFINITION_WITH_UNDERSCORE_IMPORT__NAME = "definition_with_underscore_import";
+				
+				public static boolean acceptsBooleanDefinition(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getBooleanDefinition_Property(lookupContext));
+				}
 				
 				public static Optional<Boolean> getBooleanDefinition(NamedElement lookupContext) {
 					return getBooleanDefinition(lookupContext, Optional.empty());
@@ -112,8 +108,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static Optional<Boolean> getBooleanDefinition(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "ps1::boolean_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getBooleanDefinition_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -123,10 +118,21 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getBooleanDefinition_Property(EObject lookupContext) {
+					String name = PS1__NAME + "::" + BOOLEAN_DEFINITION__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getBooleanDefinition_EObject(NamedElement lookupContext) {
-					String name = "ps1::boolean_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getBooleanDefinition_Property(lookupContext));
+				}
+				
+				// Lookup methods for ps1::string_definition
+				
+				public static final String STRING_DEFINITION__NAME = "string_definition";
+				
+				public static boolean acceptsStringDefinition(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getStringDefinition_Property(lookupContext));
 				}
 				
 				public static Optional<String> getStringDefinition(NamedElement lookupContext) {
@@ -138,8 +144,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static Optional<String> getStringDefinition(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "ps1::string_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getStringDefinition_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -149,10 +154,21 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getStringDefinition_Property(EObject lookupContext) {
+					String name = PS1__NAME + "::" + STRING_DEFINITION__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getStringDefinition_EObject(NamedElement lookupContext) {
-					String name = "ps1::string_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getStringDefinition_Property(lookupContext));
+				}
+				
+				// Lookup methods for ps1::classifier_definition
+				
+				public static final String CLASSIFIER_DEFINITION__NAME = "classifier_definition";
+				
+				public static boolean acceptsClassifierDefinition(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getClassifierDefinition_Property(lookupContext));
 				}
 				
 				public static Optional<Classifier> getClassifierDefinition(NamedElement lookupContext) {
@@ -164,8 +180,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static Optional<Classifier> getClassifierDefinition(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "ps1::classifier_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getClassifierDefinition_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -175,10 +190,21 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getClassifierDefinition_Property(EObject lookupContext) {
+					String name = PS1__NAME + "::" + CLASSIFIER_DEFINITION__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getClassifierDefinition_EObject(NamedElement lookupContext) {
-					String name = "ps1::classifier_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getClassifierDefinition_Property(lookupContext));
+				}
+				
+				// Lookup methods for ps1::units_definition
+				
+				public static final String UNITS_DEFINITION__NAME = "units_definition";
+				
+				public static boolean acceptsUnitsDefinition(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getUnitsDefinition_Property(lookupContext));
 				}
 				
 				public static Optional<UnitsDefinition> getUnitsDefinition(NamedElement lookupContext) {
@@ -190,8 +216,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static Optional<UnitsDefinition> getUnitsDefinition(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "ps1::units_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getUnitsDefinition_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -201,10 +226,21 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getUnitsDefinition_Property(EObject lookupContext) {
+					String name = PS1__NAME + "::" + UNITS_DEFINITION__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getUnitsDefinition_EObject(NamedElement lookupContext) {
-					String name = "ps1::units_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getUnitsDefinition_Property(lookupContext));
+				}
+				
+				// Lookup methods for ps1::enum_definition
+				
+				public static final String ENUM_DEFINITION__NAME = "enum_definition";
+				
+				public static boolean acceptsEnumDefinition(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getEnumDefinition_Property(lookupContext));
 				}
 				
 				public static Optional<EnumDefinition> getEnumDefinition(NamedElement lookupContext) {
@@ -216,8 +252,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static Optional<EnumDefinition> getEnumDefinition(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "ps1::enum_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getEnumDefinition_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -227,10 +262,21 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getEnumDefinition_Property(EObject lookupContext) {
+					String name = PS1__NAME + "::" + ENUM_DEFINITION__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getEnumDefinition_EObject(NamedElement lookupContext) {
-					String name = "ps1::enum_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getEnumDefinition_Property(lookupContext));
+				}
+				
+				// Lookup methods for ps1::integer_definition_no_units
+				
+				public static final String INTEGER_DEFINITION_NO_UNITS__NAME = "integer_definition_no_units";
+				
+				public static boolean acceptsIntegerDefinitionNoUnits(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getIntegerDefinitionNoUnits_Property(lookupContext));
 				}
 				
 				public static OptionalLong getIntegerDefinitionNoUnits(NamedElement lookupContext) {
@@ -242,8 +288,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static OptionalLong getIntegerDefinitionNoUnits(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "ps1::integer_definition_no_units";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getIntegerDefinitionNoUnits_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -253,10 +298,21 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getIntegerDefinitionNoUnits_Property(EObject lookupContext) {
+					String name = PS1__NAME + "::" + INTEGER_DEFINITION_NO_UNITS__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getIntegerDefinitionNoUnits_EObject(NamedElement lookupContext) {
-					String name = "ps1::integer_definition_no_units";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getIntegerDefinitionNoUnits_Property(lookupContext));
+				}
+				
+				// Lookup methods for ps1::integer_definition_with_units
+				
+				public static final String INTEGER_DEFINITION_WITH_UNITS__NAME = "integer_definition_with_units";
+				
+				public static boolean acceptsIntegerDefinitionWithUnits(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getIntegerDefinitionWithUnits_Property(lookupContext));
 				}
 				
 				public static Optional<IntegerWithUnits<Mass>> getIntegerDefinitionWithUnits(NamedElement lookupContext) {
@@ -268,8 +324,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static Optional<IntegerWithUnits<Mass>> getIntegerDefinitionWithUnits(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "ps1::integer_definition_with_units";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getIntegerDefinitionWithUnits_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -279,10 +334,21 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getIntegerDefinitionWithUnits_Property(EObject lookupContext) {
+					String name = PS1__NAME + "::" + INTEGER_DEFINITION_WITH_UNITS__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getIntegerDefinitionWithUnits_EObject(NamedElement lookupContext) {
-					String name = "ps1::integer_definition_with_units";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getIntegerDefinitionWithUnits_Property(lookupContext));
+				}
+				
+				// Lookup methods for ps1::real_definition_no_units
+				
+				public static final String REAL_DEFINITION_NO_UNITS__NAME = "real_definition_no_units";
+				
+				public static boolean acceptsRealDefinitionNoUnits(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getRealDefinitionNoUnits_Property(lookupContext));
 				}
 				
 				public static OptionalDouble getRealDefinitionNoUnits(NamedElement lookupContext) {
@@ -294,8 +360,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static OptionalDouble getRealDefinitionNoUnits(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "ps1::real_definition_no_units";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getRealDefinitionNoUnits_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -305,10 +370,21 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getRealDefinitionNoUnits_Property(EObject lookupContext) {
+					String name = PS1__NAME + "::" + REAL_DEFINITION_NO_UNITS__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getRealDefinitionNoUnits_EObject(NamedElement lookupContext) {
-					String name = "ps1::real_definition_no_units";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getRealDefinitionNoUnits_Property(lookupContext));
+				}
+				
+				// Lookup methods for ps1::range_definition
+				
+				public static final String RANGE_DEFINITION__NAME = "range_definition";
+				
+				public static boolean acceptsRangeDefinition(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getRangeDefinition_Property(lookupContext));
 				}
 				
 				public static Optional<IntegerRange> getRangeDefinition(NamedElement lookupContext) {
@@ -320,8 +396,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static Optional<IntegerRange> getRangeDefinition(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "ps1::range_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getRangeDefinition_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -331,10 +406,21 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getRangeDefinition_Property(EObject lookupContext) {
+					String name = PS1__NAME + "::" + RANGE_DEFINITION__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getRangeDefinition_EObject(NamedElement lookupContext) {
-					String name = "ps1::range_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getRangeDefinition_Property(lookupContext));
+				}
+				
+				// Lookup methods for ps1::record_definition
+				
+				public static final String RECORD_DEFINITION__NAME = "record_definition";
+				
+				public static boolean acceptsRecordDefinition(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getRecordDefinition_Property(lookupContext));
 				}
 				
 				public static Optional<RecordDefinition> getRecordDefinition(NamedElement lookupContext) {
@@ -346,8 +432,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static Optional<RecordDefinition> getRecordDefinition(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "ps1::record_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getRecordDefinition_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -357,10 +442,21 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getRecordDefinition_Property(EObject lookupContext) {
+					String name = PS1__NAME + "::" + RECORD_DEFINITION__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getRecordDefinition_EObject(NamedElement lookupContext) {
-					String name = "ps1::record_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getRecordDefinition_Property(lookupContext));
+				}
+				
+				// Lookup methods for ps1::reference_definition
+				
+				public static final String REFERENCE_DEFINITION__NAME = "reference_definition";
+				
+				public static boolean acceptsReferenceDefinition(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getReferenceDefinition_Property(lookupContext));
 				}
 				
 				public static Optional<InstanceObject> getReferenceDefinition(NamedElement lookupContext) {
@@ -372,8 +468,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static Optional<InstanceObject> getReferenceDefinition(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "ps1::reference_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getReferenceDefinition_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -383,10 +478,21 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getReferenceDefinition_Property(EObject lookupContext) {
+					String name = PS1__NAME + "::" + REFERENCE_DEFINITION__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getReferenceDefinition_EObject(NamedElement lookupContext) {
-					String name = "ps1::reference_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getReferenceDefinition_Property(lookupContext));
+				}
+				
+				// Lookup methods for ps1::definition_with_referenced_type_local
+				
+				public static final String DEFINITION_WITH_REFERENCED_TYPE_LOCAL__NAME = "definition_with_referenced_type_local";
+				
+				public static boolean acceptsDefinitionWithReferencedTypeLocal(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getDefinitionWithReferencedTypeLocal_Property(lookupContext));
 				}
 				
 				public static Optional<Boolean> getDefinitionWithReferencedTypeLocal(NamedElement lookupContext) {
@@ -398,8 +504,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static Optional<Boolean> getDefinitionWithReferencedTypeLocal(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "ps1::definition_with_referenced_type_local";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getDefinitionWithReferencedTypeLocal_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -409,10 +514,21 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getDefinitionWithReferencedTypeLocal_Property(EObject lookupContext) {
+					String name = PS1__NAME + "::" + DEFINITION_WITH_REFERENCED_TYPE_LOCAL__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getDefinitionWithReferencedTypeLocal_EObject(NamedElement lookupContext) {
-					String name = "ps1::definition_with_referenced_type_local";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getDefinitionWithReferencedTypeLocal_Property(lookupContext));
+				}
+				
+				// Lookup methods for ps1::definition_with_referenced_type_other_file
+				
+				public static final String DEFINITION_WITH_REFERENCED_TYPE_OTHER_FILE__NAME = "definition_with_referenced_type_other_file";
+				
+				public static boolean acceptsDefinitionWithReferencedTypeOtherFile(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getDefinitionWithReferencedTypeOtherFile_Property(lookupContext));
 				}
 				
 				public static Optional<Color> getDefinitionWithReferencedTypeOtherFile(NamedElement lookupContext) {
@@ -424,8 +540,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static Optional<Color> getDefinitionWithReferencedTypeOtherFile(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "ps1::definition_with_referenced_type_other_file";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getDefinitionWithReferencedTypeOtherFile_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -435,10 +550,21 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getDefinitionWithReferencedTypeOtherFile_Property(EObject lookupContext) {
+					String name = PS1__NAME + "::" + DEFINITION_WITH_REFERENCED_TYPE_OTHER_FILE__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getDefinitionWithReferencedTypeOtherFile_EObject(NamedElement lookupContext) {
-					String name = "ps1::definition_with_referenced_type_other_file";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getDefinitionWithReferencedTypeOtherFile_Property(lookupContext));
+				}
+				
+				// Lookup methods for ps1::definition_with_underscore_import
+				
+				public static final String DEFINITION_WITH_UNDERSCORE_IMPORT__NAME = "definition_with_underscore_import";
+				
+				public static boolean acceptsDefinitionWithUnderscoreImport(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getDefinitionWithUnderscoreImport_Property(lookupContext));
 				}
 				
 				public static Optional<LanguageType> getDefinitionWithUnderscoreImport(NamedElement lookupContext) {
@@ -450,8 +576,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static Optional<LanguageType> getDefinitionWithUnderscoreImport(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "ps1::definition_with_underscore_import";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getDefinitionWithUnderscoreImport_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -461,10 +586,13 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getDefinitionWithUnderscoreImport_Property(EObject lookupContext) {
+					String name = PS1__NAME + "::" + DEFINITION_WITH_UNDERSCORE_IMPORT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getDefinitionWithUnderscoreImport_EObject(NamedElement lookupContext) {
-					String name = "ps1::definition_with_underscore_import";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getDefinitionWithUnderscoreImport_Property(lookupContext));
 				}
 			}
 		'''
@@ -600,6 +728,21 @@ class PropertyDefinitionTest {
 					this.field = field_local;
 				}
 				
+				public RecordDefinition(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<Boolean> field_local;
+					try {
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((BooleanLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
+				}
+				
 				public Optional<Boolean> getField() {
 					return field;
 				}
@@ -676,8 +819,10 @@ class PropertyDefinitionTest {
 		val emptyPsClass = '''
 			package emptyps;
 			
-			public class EmptyPs {
+			public final class EmptyPs {
 				public static final String EMPTY_PS__NAME = "empty_ps";
+				
+				private EmptyPs() {}
 			}
 		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(emptyPs))
@@ -700,6 +845,7 @@ class PropertyDefinitionTest {
 			
 			import java.util.Optional;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.BooleanLiteral;
 			import org.osate.aadl2.Mode;
@@ -710,10 +856,18 @@ class PropertyDefinitionTest {
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
-			public class SingleDefinitionPs {
+			public final class SingleDefinitionPs {
 				public static final String SINGLE_DEFINITION_PS__NAME = "single_definition_ps";
 				
+				private SingleDefinitionPs() {}
+				
+				// Lookup methods for single_definition_ps::sole_definition
+				
 				public static final String SOLE_DEFINITION__NAME = "sole_definition";
+				
+				public static boolean acceptsSoleDefinition(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getSoleDefinition_Property(lookupContext));
+				}
 				
 				public static Optional<Boolean> getSoleDefinition(NamedElement lookupContext) {
 					return getSoleDefinition(lookupContext, Optional.empty());
@@ -724,8 +878,7 @@ class PropertyDefinitionTest {
 				}
 				
 				public static Optional<Boolean> getSoleDefinition(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "single_definition_ps::sole_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getSoleDefinition_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -735,10 +888,13 @@ class PropertyDefinitionTest {
 					}
 				}
 				
+				public static Property getSoleDefinition_Property(EObject lookupContext) {
+					String name = SINGLE_DEFINITION_PS__NAME + "::" + SOLE_DEFINITION__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getSoleDefinition_EObject(NamedElement lookupContext) {
-					String name = "single_definition_ps::sole_definition";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getSoleDefinition_Property(lookupContext));
 				}
 			}
 		'''

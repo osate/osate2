@@ -92,8 +92,10 @@ class RecordOfListTest {
 		val ps1Class = '''
 			package ps1;
 			
-			public class Ps1 {
+			public final class Ps1 {
 				public static final String PS1__NAME = "ps1";
+				
+				private Ps1() {}
 			}
 		'''
 		val time = '''
@@ -274,6 +276,21 @@ class RecordOfListTest {
 					try {
 						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
 							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+							return ((BooleanLiteral) resolved).getValue();
+						});
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
+				}
+				
+				public RecordOfBoolean(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<Boolean> field_local;
+					try {
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 							return ((BooleanLiteral) resolved).getValue();
 						});
 					} catch (PropertyNotPresentException e) {
@@ -477,6 +494,110 @@ class RecordOfListTest {
 											PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4, lookupContext, mode);
 											return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
 												PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5, lookupContext, mode);
+												return ((BooleanLiteral) resolved5).getValue();
+											}).collect(Collectors.toList());
+										}).collect(Collectors.toList());
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						field5_local = Optional.empty();
+					}
+					this.field5 = field5_local;
+				}
+				
+				public RecordOfListOfBoolean(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<List<Boolean>> field1_local;
+					try {
+						field1_local = findFieldValue(recordValue, FIELD1__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((BooleanLiteral) resolved1).getValue();
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						field1_local = Optional.empty();
+					}
+					this.field1 = field1_local;
+					
+					Optional<List<List<Boolean>>> field2_local;
+					try {
+						field2_local = findFieldValue(recordValue, FIELD2__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+									PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
+									return ((BooleanLiteral) resolved2).getValue();
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						field2_local = Optional.empty();
+					}
+					this.field2 = field2_local;
+					
+					Optional<List<List<List<Boolean>>>> field3_local;
+					try {
+						field3_local = findFieldValue(recordValue, FIELD3__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+									PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
+									return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+										PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3);
+										return ((BooleanLiteral) resolved3).getValue();
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						field3_local = Optional.empty();
+					}
+					this.field3 = field3_local;
+					
+					Optional<List<List<List<List<Boolean>>>>> field4_local;
+					try {
+						field4_local = findFieldValue(recordValue, FIELD4__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+									PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
+									return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+										PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3);
+										return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+											PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4);
+											return ((BooleanLiteral) resolved4).getValue();
+										}).collect(Collectors.toList());
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						field4_local = Optional.empty();
+					}
+					this.field4 = field4_local;
+					
+					Optional<List<List<List<List<List<Boolean>>>>>> field5_local;
+					try {
+						field5_local = findFieldValue(recordValue, FIELD5__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+									PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
+									return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+										PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3);
+										return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+											PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4);
+											return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
+												PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5);
 												return ((BooleanLiteral) resolved5).getValue();
 											}).collect(Collectors.toList());
 										}).collect(Collectors.toList());
@@ -748,6 +869,50 @@ class RecordOfListTest {
 					this.field5 = field5_local;
 				}
 				
+				public RecordOfListOfString(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<List<String>> field1_local;
+					try {
+						field1_local = findFieldValue(recordValue, FIELD1__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((StringLiteral) resolved1).getValue();
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						field1_local = Optional.empty();
+					}
+					this.field1 = field1_local;
+					
+					Optional<List<List<List<List<List<String>>>>>> field5_local;
+					try {
+						field5_local = findFieldValue(recordValue, FIELD5__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+									PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
+									return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+										PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3);
+										return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+											PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4);
+											return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
+												PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5);
+												return ((StringLiteral) resolved5).getValue();
+											}).collect(Collectors.toList());
+										}).collect(Collectors.toList());
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						field5_local = Optional.empty();
+					}
+					this.field5 = field5_local;
+				}
+				
 				public Optional<List<String>> getField1() {
 					return field1;
 				}
@@ -927,6 +1092,50 @@ class RecordOfListTest {
 					this.field5 = field5_local;
 				}
 				
+				public RecordOfListOfClassifier(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<List<Classifier>> field1_local;
+					try {
+						field1_local = findFieldValue(recordValue, FIELD1__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((ClassifierValue) resolved1).getClassifier();
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						field1_local = Optional.empty();
+					}
+					this.field1 = field1_local;
+					
+					Optional<List<List<List<List<List<Classifier>>>>>> field5_local;
+					try {
+						field5_local = findFieldValue(recordValue, FIELD5__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+									PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
+									return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+										PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3);
+										return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+											PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4);
+											return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
+												PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5);
+												return ((ClassifierValue) resolved5).getClassifier();
+											}).collect(Collectors.toList());
+										}).collect(Collectors.toList());
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						field5_local = Optional.empty();
+					}
+					this.field5 = field5_local;
+				}
+				
 				public Optional<List<Classifier>> getField1() {
 					return field1;
 				}
@@ -1072,6 +1281,24 @@ class RecordOfListTest {
 					this.field = field_local;
 				}
 				
+				public RecordOfListOfIntegerNoUnits(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<List<Long>> field_local;
+					try {
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((IntegerLiteral) resolved1).getValue();
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
+				}
+				
 				public Optional<List<Long>> getField() {
 					return field;
 				}
@@ -1165,6 +1392,24 @@ class RecordOfListTest {
 							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
 							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
 								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
+								return ((RealLiteral) resolved1).getValue();
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						field_local = Optional.empty();
+					}
+					this.field = field_local;
+				}
+				
+				public RecordOfListOfRealNoUnits(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<List<Double>> field_local;
+					try {
+						field_local = findFieldValue(recordValue, FIELD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
 								return ((RealLiteral) resolved1).getValue();
 							}).collect(Collectors.toList());
 						});
@@ -1297,6 +1542,50 @@ class RecordOfListTest {
 											PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4, lookupContext, mode);
 											return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
 												PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5, lookupContext, mode);
+												return ((InstanceReferenceValue) resolved5).getReferencedInstanceObject();
+											}).collect(Collectors.toList());
+										}).collect(Collectors.toList());
+									}).collect(Collectors.toList());
+								}).collect(Collectors.toList());
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						field5_local = Optional.empty();
+					}
+					this.field5 = field5_local;
+				}
+				
+				public RecordOfListOfReference(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<List<InstanceObject>> field1_local;
+					try {
+						field1_local = findFieldValue(recordValue, FIELD1__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((InstanceReferenceValue) resolved1).getReferencedInstanceObject();
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						field1_local = Optional.empty();
+					}
+					this.field1 = field1_local;
+					
+					Optional<List<List<List<List<List<InstanceObject>>>>>> field5_local;
+					try {
+						field5_local = findFieldValue(recordValue, FIELD5__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return ((ListValue) resolved1).getOwnedListElements().stream().map(element2 -> {
+									PropertyExpression resolved2 = CodeGenUtil.resolveNamedValue(element2);
+									return ((ListValue) resolved2).getOwnedListElements().stream().map(element3 -> {
+										PropertyExpression resolved3 = CodeGenUtil.resolveNamedValue(element3);
+										return ((ListValue) resolved3).getOwnedListElements().stream().map(element4 -> {
+											PropertyExpression resolved4 = CodeGenUtil.resolveNamedValue(element4);
+											return ((ListValue) resolved4).getOwnedListElements().stream().map(element5 -> {
+												PropertyExpression resolved5 = CodeGenUtil.resolveNamedValue(element5);
 												return ((InstanceReferenceValue) resolved5).getReferencedInstanceObject();
 											}).collect(Collectors.toList());
 										}).collect(Collectors.toList());
@@ -1536,6 +1825,80 @@ class RecordOfListTest {
 							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
 								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 								return new OwnedRecord_FieldType(resolved1, lookupContext, mode);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedRecord_local = Optional.empty();
+					}
+					this.ownedRecord = ownedRecord_local;
+				}
+				
+				public RecordOfListOfOwnedTypes(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<List<OwnedEnum_FieldType>> ownedEnum_local;
+					try {
+						ownedEnum_local = findFieldValue(recordValue, OWNED_ENUM__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return OwnedEnum_FieldType.valueOf(resolved1);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedEnum_local = Optional.empty();
+					}
+					this.ownedEnum = ownedEnum_local;
+					
+					Optional<List<OwnedUnits_FieldType>> ownedUnits_local;
+					try {
+						ownedUnits_local = findFieldValue(recordValue, OWNED_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return OwnedUnits_FieldType.valueOf(resolved1);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedUnits_local = Optional.empty();
+					}
+					this.ownedUnits = ownedUnits_local;
+					
+					Optional<List<IntegerWithUnits<Time>>> ownedIntegerWithUnits_local;
+					try {
+						ownedIntegerWithUnits_local = findFieldValue(recordValue, OWNED_INTEGER_WITH_UNITS__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return new IntegerWithUnits<>(resolved1, Time.class);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedIntegerWithUnits_local = Optional.empty();
+					}
+					this.ownedIntegerWithUnits = ownedIntegerWithUnits_local;
+					
+					Optional<List<IntegerRange>> ownedRange_local;
+					try {
+						ownedRange_local = findFieldValue(recordValue, OWNED_RANGE__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return new IntegerRange(resolved1);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						ownedRange_local = Optional.empty();
+					}
+					this.ownedRange = ownedRange_local;
+					
+					Optional<List<OwnedRecord_FieldType>> ownedRecord_local;
+					try {
+						ownedRecord_local = findFieldValue(recordValue, OWNED_RECORD__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return new OwnedRecord_FieldType(resolved1);
 							}).collect(Collectors.toList());
 						});
 					} catch (PropertyNotPresentException e) {
@@ -1790,6 +2153,32 @@ class RecordOfListTest {
 						this.recordField = recordField_local;
 					}
 					
+					public OwnedRecord_FieldType(PropertyExpression propertyExpression) {
+						RecordValue recordValue = (RecordValue) propertyExpression;
+						
+						Optional<Boolean> booleanField_local;
+						try {
+							booleanField_local = findFieldValue(recordValue, BOOLEAN_FIELD__NAME).map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+								return ((BooleanLiteral) resolved).getValue();
+							});
+						} catch (PropertyNotPresentException e) {
+							booleanField_local = Optional.empty();
+						}
+						this.booleanField = booleanField_local;
+						
+						Optional<RecordField_FieldType> recordField_local;
+						try {
+							recordField_local = findFieldValue(recordValue, RECORD_FIELD__NAME).map(field -> {
+								PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+								return new RecordField_FieldType(resolved);
+							});
+						} catch (PropertyNotPresentException e) {
+							recordField_local = Optional.empty();
+						}
+						this.recordField = recordField_local;
+					}
+					
 					public Optional<Boolean> getBooleanField() {
 						return booleanField;
 					}
@@ -1895,6 +2284,32 @@ class RecordOfListTest {
 							try {
 								integerField_local = findFieldValue(recordValue, INTEGER_FIELD__NAME).map(field -> {
 									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue(), lookupContext, mode);
+									return ((IntegerLiteral) resolved).getValue();
+								}).map(OptionalLong::of).orElse(OptionalLong.empty());
+							} catch (PropertyNotPresentException e) {
+								integerField_local = OptionalLong.empty();
+							}
+							this.integerField = integerField_local;
+						}
+						
+						public RecordField_FieldType(PropertyExpression propertyExpression) {
+							RecordValue recordValue = (RecordValue) propertyExpression;
+							
+							Optional<String> stringField_local;
+							try {
+								stringField_local = findFieldValue(recordValue, STRING_FIELD__NAME).map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+									return ((StringLiteral) resolved).getValue();
+								});
+							} catch (PropertyNotPresentException e) {
+								stringField_local = Optional.empty();
+							}
+							this.stringField = stringField_local;
+							
+							OptionalLong integerField_local;
+							try {
+								integerField_local = findFieldValue(recordValue, INTEGER_FIELD__NAME).map(field -> {
+									PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
 									return ((IntegerLiteral) resolved).getValue();
 								}).map(OptionalLong::of).orElse(OptionalLong.empty());
 							} catch (PropertyNotPresentException e) {
@@ -2198,6 +2613,150 @@ class RecordOfListTest {
 							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
 								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1, lookupContext, mode);
 								return new BasicRecord(resolved1, lookupContext, mode);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						recordWithImport_local = Optional.empty();
+					}
+					this.recordWithImport = recordWithImport_local;
+				}
+				
+				public RecordOfListOfReferencedTypes(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<List<EnumType1>> enumNoImport_local;
+					try {
+						enumNoImport_local = findFieldValue(recordValue, ENUM_NO_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return EnumType1.valueOf(resolved1);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						enumNoImport_local = Optional.empty();
+					}
+					this.enumNoImport = enumNoImport_local;
+					
+					Optional<List<Color>> enumWithImport_local;
+					try {
+						enumWithImport_local = findFieldValue(recordValue, ENUM_WITH_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return Color.valueOf(resolved1);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						enumWithImport_local = Optional.empty();
+					}
+					this.enumWithImport = enumWithImport_local;
+					
+					Optional<List<Time>> unitsNoImport_local;
+					try {
+						unitsNoImport_local = findFieldValue(recordValue, UNITS_NO_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return Time.valueOf(resolved1);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						unitsNoImport_local = Optional.empty();
+					}
+					this.unitsNoImport = unitsNoImport_local;
+					
+					Optional<List<Mass>> unitsWithImport_local;
+					try {
+						unitsWithImport_local = findFieldValue(recordValue, UNITS_WITH_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return Mass.valueOf(resolved1);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						unitsWithImport_local = Optional.empty();
+					}
+					this.unitsWithImport = unitsWithImport_local;
+					
+					Optional<List<IntegerWithUnits<IntegerOwnedUnits>>> numberWithUnitsNoImport_local;
+					try {
+						numberWithUnitsNoImport_local = findFieldValue(recordValue, NUMBER_WITH_UNITS_NO_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return new IntegerWithUnits<>(resolved1, IntegerOwnedUnits.class);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						numberWithUnitsNoImport_local = Optional.empty();
+					}
+					this.numberWithUnitsNoImport = numberWithUnitsNoImport_local;
+					
+					Optional<List<RealWithUnits<Mass>>> numberWithUnitsWithImport_local;
+					try {
+						numberWithUnitsWithImport_local = findFieldValue(recordValue, NUMBER_WITH_UNITS_WITH_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return new RealWithUnits<>(resolved1, Mass.class);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						numberWithUnitsWithImport_local = Optional.empty();
+					}
+					this.numberWithUnitsWithImport = numberWithUnitsWithImport_local;
+					
+					Optional<List<IntegerRange>> rangeNoImport_local;
+					try {
+						rangeNoImport_local = findFieldValue(recordValue, RANGE_NO_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return new IntegerRange(resolved1);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						rangeNoImport_local = Optional.empty();
+					}
+					this.rangeNoImport = rangeNoImport_local;
+					
+					Optional<List<RealRange>> rangeWithImport_local;
+					try {
+						rangeWithImport_local = findFieldValue(recordValue, RANGE_WITH_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return new RealRange(resolved1);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						rangeWithImport_local = Optional.empty();
+					}
+					this.rangeWithImport = rangeWithImport_local;
+					
+					Optional<List<RecordOfBoolean>> recordNoImport_local;
+					try {
+						recordNoImport_local = findFieldValue(recordValue, RECORD_NO_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return new RecordOfBoolean(resolved1);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						recordNoImport_local = Optional.empty();
+					}
+					this.recordNoImport = recordNoImport_local;
+					
+					Optional<List<BasicRecord>> recordWithImport_local;
+					try {
+						recordWithImport_local = findFieldValue(recordValue, RECORD_WITH_IMPORT__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return new BasicRecord(resolved1);
 							}).collect(Collectors.toList());
 						});
 					} catch (PropertyNotPresentException e) {

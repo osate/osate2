@@ -5,6 +5,7 @@ import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.NumberType
 import org.osate.aadl2.Property
+import org.osate.aadl2.PropertyConstant
 import org.osate.aadl2.PropertySet
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RangeType
@@ -33,6 +34,12 @@ class PropertiesCodeGen {
 						default: null
 					}
 				}
+				PropertyConstant: {
+					switch baseType : namedElement.propertyType.basePropertyType {
+						case namedElement.isAncestor(baseType): baseType
+						default: null
+					}
+				}
 				default: null
 			}
 			val generator = switch type {
@@ -48,7 +55,7 @@ class PropertiesCodeGen {
 			if (generator !== null) {
 				generateFile(packageName, name, generator)
 			}
-		].filterNull.toList;
+		].filterNull.toList
 		
 		new GeneratedPackage("src-gen/" + packageName.replace(".", "/"), (#[propertySetFile] + typeFiles).toList)
 	}
