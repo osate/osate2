@@ -26,19 +26,21 @@ censes only apply to the Third Party Software and not any other portion of this 
 <plugin>
    <extension-point id="examples" name="OSATE Examples" schema="schema/examples.exsd"/>
 
-	<extension point="org.eclipse.ui.decorators"> 
-	  <decorator
-	     adaptable="true"
-	    class="org.osate.ui.ResourceDecorator"
-	    id="org.osate.ui.ResourceDecorator"
-	    label="Resource Decorator"
-	    lightweight="true"
-	    state="true">
-	     <enablement>
-		     <objectClass name="org.eclipse.core.resources.IFile" /> 
-     	</enablement> 
-	  </decorator>
-	</extension>
+   <extension point="org.eclipse.ui.decorators"> 
+      <decorator
+            class="org.osate.ui.ResourceDecorator"
+            id="org.osate.ui.ResourceDecorator"
+            label="Resource Decorator"
+            lightweight="true"
+            state="true">
+         <enablement>
+            <or>
+               <objectClass name="org.eclipse.core.resources.IFile"/>
+               <objectClass name="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage"/>
+            </or> 
+         </enablement> 
+      </decorator>
+   </extension>
 
    <extension
          point="org.eclipse.ui.preferencePages">
