@@ -7,7 +7,7 @@ import org.osate.ui.handlers.AadlFileTypePropertyTester;
 import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 /**
- * @since 6.2
+ * @since 6.3
  */
 public class ResourceDecorator implements ILightweightLabelDecorator {
 
