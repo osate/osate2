@@ -197,7 +197,7 @@
 		<dependency>
 			<groupId>org.osate</groupId>
 			<artifactId>org.osate.aadl2.edit</artifactId>
-			<version>4.0.3-SNAPSHOT</version>
+			<version>4.0.4-SNAPSHOT</version>
 			<optional>true</optional>
 			<scope>compile</scope>
 		</dependency>
