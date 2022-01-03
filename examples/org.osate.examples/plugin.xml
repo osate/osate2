@@ -26,6 +26,20 @@ censes only apply to the Third Party Software and not any other portion of this 
 <plugin>
    <extension point="org.osate.ui.examples">
       <example
+            exampleURI="/examples/ACVIP"
+            readmeURI="doc/html/README.html"
+            category="ACVIP Examples"
+            name="ACVIP">
+         <project path=""/>
+      </example>
+      <example
+            exampleURI="/examples/ACVIP_ALISA"
+            readmeURI="doc/html/README.html"
+            category="ACVIP Examples"
+            name="ACVIP with ALISA">
+         <project path=""/>
+      </example>
+      <example
             exampleURI="/examples/arp4761"
             readmeURI="doc/html/README.html"
             category="Safety Examples"
