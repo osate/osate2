@@ -1,0 +1,44 @@
+package Controller
+public
+	with DataDictionary, Infrastructure, SEI, PhysicalResources;
+	system SimpleController
+		features
+			busIn: requires bus access Infrastructure::bus1553.i; 
+			dataIn: in data port DataDictionary::SensorData;
+			busOut: requires bus access Infrastructure::canBus.i; 
+			dataOut: out data port DataDictionary::BrakeSignal;
+			--powerIn: in data port PhysicalResources::ElectricalPower{SEI::PowerBudget=>3.0W;};
+			powerIn: requires bus access Infrastructure::power.generic;
+		flows
+			controllerFlow: flow path dataIn -> dataOut;
+		annex EMV2{**
+			use types ErrorLibrary;
+			use behavior ErrorLibrary::FailStop;
+			error propagations		
+				datain: in propagation {ServiceOmission,ValueError};
+				dataout : out propagation {ServiceOmission,ValueError};
+		
+				flows
+					f1: error sink datain {ServiceOmission, ValueError};
+					f2 : error source dataout {ServiceOmission, ValueError};
+			end propagations;
+			component error behavior
+				events
+					serviceommission:error event;
+					valueerror:error event;
+				transitions
+					Operational-[serviceommission]-> FailStop;
+					Operational-[valueerror]-> FailStop;
+				--	Failed-[serviceommission ]-> FailStop;
+				--	Failed-[valueerror]->FailStop;
+		end component;
+		**};
+	end SimpleController;
+	
+	system implementation SimpleController.i
+		properties
+			latency => 3ms..5ms  applies to controllerFlow;
+			SEI::WeightLimit => 1.2kg;
+			SEI::powerBudget =>4.0W applies to powerIn;
+	end SimpleController.i;
+end Controller;
