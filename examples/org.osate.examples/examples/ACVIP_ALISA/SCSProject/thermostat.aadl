@@ -1,6 +1,7 @@
 package thermostat
 public
 	with isoletteDataModel;
+
 	system thermostat_ss
 		features
 			current_temperature : in data port isoletteDataModel::current_temperature;

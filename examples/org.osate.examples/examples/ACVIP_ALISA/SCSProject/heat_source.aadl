@@ -1,7 +1,7 @@
 package heat_source
 public
 	with isoletteDataModel;
-	
+
 	device heat_source_dev
 		features 
 			heat_control : in data port isoletteDataModel::heat_control;

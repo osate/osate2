@@ -1,6 +1,5 @@
 package SCS
 public
-	
 	with SimpleSensor, Controller, Infrastructure, Brake;
 	system HighLevelSCS 	
 	end HighLevelSCS;

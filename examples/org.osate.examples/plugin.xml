@@ -29,21 +29,14 @@ censes only apply to the Third Party Software and not any other portion of this 
             exampleURI="/examples/ACVIP"
             readmeURI="doc/html/README.html"
             category="ACVIP Examples"
-            name="SCS Example">
-         <project path=""/>
-      </example>
-  	  <example
-            exampleURI="/examples/ACVIP_ALISA"
-            readmeURI="doc/html/README.html"
-            category="ACVIP Examples"
-            name="Simple ALISA Example">
+            name="ACVIP">
          <project path=""/>
       </example>
       <example
-            exampleURI="/examples/ACVIP_ErrorAnnex_SoftwarePlatform"
+            exampleURI="/examples/ACVIP_ALISA"
             readmeURI="doc/html/README.html"
             category="ACVIP Examples"
-            name="Example with Error Annexes and Software Platform">
+            name="ACVIP with ALISA">
          <project path=""/>
       </example>
       <example

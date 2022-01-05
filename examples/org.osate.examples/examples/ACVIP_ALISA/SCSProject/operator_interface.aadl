@@ -1,7 +1,7 @@
 package operator_interface
 public
 	with isoletteDataModel;
-	
+
 	system operator_interface_ss
 		features
 			operator_settings : out data port isoletteDataModel::operator_settings;
