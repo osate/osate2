@@ -500,6 +500,9 @@
 						<useUIHarness>false</useUIHarness>
 						<!-- Use this if there's an org.eclipse.swt.SWTException: Invalid thread 
 							access <useUIThread>true</useUIThread> -->
+						<systemProperties>
+							<log4j2.formatMsgNoLookups>true</log4j2.formatMsgNoLookups>
+						</systemProperties>
 					</configuration>
 				</plugin>
 				<plugin>

@@ -48,6 +48,14 @@ class RealWithUnitsTest {
 					list_1_same_file: list of aadlreal units real_with_units_test::time;
 					list_1_other_file: list of aadlreal units other_ps::mass;
 				) applies to (all);
+				
+				owned_constant: constant aadlreal units (B, KiB => B * 1024) => 1.1 B;
+				same_file_constant: constant aadlreal units real_with_units_test::time => 2.2 sec;
+				other_file_constant: constant aadlreal units other_ps::mass => 3.3 g;
+				
+				list_1_owned_constant: constant list of aadlreal units (mg, g => mg * 1000) => (4.4 mg, 5.5 g);
+				list_1_same_file_constant: constant list of aadlreal units real_with_units_test::time => (6.6 sec, 7.7 min);
+				list_1_other_file_constant: constant list of aadlreal units other_ps::mass => (8.8 g, 9.9 kg);
 			end real_with_units_test;
 		'''
 		val realWithUnitsTestClass = '''
@@ -57,11 +65,13 @@ class RealWithUnitsTest {
 			import java.util.Optional;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Mode;
 			import org.osate.aadl2.NamedElement;
 			import org.osate.aadl2.Property;
+			import org.osate.aadl2.PropertyConstant;
 			import org.osate.aadl2.PropertyExpression;
 			import org.osate.aadl2.modelsupport.scoping.Aadl2GlobalScopeUtil;
 			import org.osate.aadl2.properties.PropertyNotPresentException;
@@ -70,16 +80,18 @@ class RealWithUnitsTest {
 			
 			import otherps.Mass;
 			
-			public class RealWithUnitsTest {
+			public final class RealWithUnitsTest {
 				public static final String REAL_WITH_UNITS_TEST__NAME = "real_with_units_test";
 				
+				private RealWithUnitsTest() {}
+				
+				// Lookup methods for real_with_units_test::owned
+				
 				public static final String OWNED__NAME = "owned";
-				public static final String SAME_FILE__NAME = "same_file";
-				public static final String OTHER_FILE__NAME = "other_file";
-				public static final String LIST_1_OWNED__NAME = "list_1_owned";
-				public static final String LIST_1_SAME_FILE__NAME = "list_1_same_file";
-				public static final String LIST_1_OTHER_FILE__NAME = "list_1_other_file";
-				public static final String RECORD_PROPERTY__NAME = "record_property";
+				
+				public static boolean acceptsOwned(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getOwned_Property(lookupContext));
+				}
 				
 				public static Optional<RealWithUnits<Owned>> getOwned(NamedElement lookupContext) {
 					return getOwned(lookupContext, Optional.empty());
@@ -90,8 +102,7 @@ class RealWithUnitsTest {
 				}
 				
 				public static Optional<RealWithUnits<Owned>> getOwned(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "real_with_units_test::owned";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getOwned_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -101,10 +112,21 @@ class RealWithUnitsTest {
 					}
 				}
 				
+				public static Property getOwned_Property(EObject lookupContext) {
+					String name = REAL_WITH_UNITS_TEST__NAME + "::" + OWNED__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getOwned_EObject(NamedElement lookupContext) {
-					String name = "real_with_units_test::owned";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getOwned_Property(lookupContext));
+				}
+				
+				// Lookup methods for real_with_units_test::same_file
+				
+				public static final String SAME_FILE__NAME = "same_file";
+				
+				public static boolean acceptsSameFile(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getSameFile_Property(lookupContext));
 				}
 				
 				public static Optional<RealWithUnits<Time>> getSameFile(NamedElement lookupContext) {
@@ -116,8 +138,7 @@ class RealWithUnitsTest {
 				}
 				
 				public static Optional<RealWithUnits<Time>> getSameFile(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "real_with_units_test::same_file";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getSameFile_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -127,10 +148,21 @@ class RealWithUnitsTest {
 					}
 				}
 				
+				public static Property getSameFile_Property(EObject lookupContext) {
+					String name = REAL_WITH_UNITS_TEST__NAME + "::" + SAME_FILE__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getSameFile_EObject(NamedElement lookupContext) {
-					String name = "real_with_units_test::same_file";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getSameFile_Property(lookupContext));
+				}
+				
+				// Lookup methods for real_with_units_test::other_file
+				
+				public static final String OTHER_FILE__NAME = "other_file";
+				
+				public static boolean acceptsOtherFile(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getOtherFile_Property(lookupContext));
 				}
 				
 				public static Optional<RealWithUnits<Mass>> getOtherFile(NamedElement lookupContext) {
@@ -142,8 +174,7 @@ class RealWithUnitsTest {
 				}
 				
 				public static Optional<RealWithUnits<Mass>> getOtherFile(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "real_with_units_test::other_file";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getOtherFile_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -153,10 +184,21 @@ class RealWithUnitsTest {
 					}
 				}
 				
+				public static Property getOtherFile_Property(EObject lookupContext) {
+					String name = REAL_WITH_UNITS_TEST__NAME + "::" + OTHER_FILE__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getOtherFile_EObject(NamedElement lookupContext) {
-					String name = "real_with_units_test::other_file";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getOtherFile_Property(lookupContext));
+				}
+				
+				// Lookup methods for real_with_units_test::list_1_owned
+				
+				public static final String LIST_1_OWNED__NAME = "list_1_owned";
+				
+				public static boolean acceptsList1Owned(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getList1Owned_Property(lookupContext));
 				}
 				
 				public static Optional<List<RealWithUnits<List1Owned>>> getList1Owned(NamedElement lookupContext) {
@@ -168,8 +210,7 @@ class RealWithUnitsTest {
 				}
 				
 				public static Optional<List<RealWithUnits<List1Owned>>> getList1Owned(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "real_with_units_test::list_1_owned";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getList1Owned_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -182,10 +223,21 @@ class RealWithUnitsTest {
 					}
 				}
 				
+				public static Property getList1Owned_Property(EObject lookupContext) {
+					String name = REAL_WITH_UNITS_TEST__NAME + "::" + LIST_1_OWNED__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getList1Owned_EObject(NamedElement lookupContext) {
-					String name = "real_with_units_test::list_1_owned";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getList1Owned_Property(lookupContext));
+				}
+				
+				// Lookup methods for real_with_units_test::list_1_same_file
+				
+				public static final String LIST_1_SAME_FILE__NAME = "list_1_same_file";
+				
+				public static boolean acceptsList1SameFile(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getList1SameFile_Property(lookupContext));
 				}
 				
 				public static Optional<List<RealWithUnits<Time>>> getList1SameFile(NamedElement lookupContext) {
@@ -197,8 +249,7 @@ class RealWithUnitsTest {
 				}
 				
 				public static Optional<List<RealWithUnits<Time>>> getList1SameFile(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "real_with_units_test::list_1_same_file";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getList1SameFile_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -211,10 +262,21 @@ class RealWithUnitsTest {
 					}
 				}
 				
+				public static Property getList1SameFile_Property(EObject lookupContext) {
+					String name = REAL_WITH_UNITS_TEST__NAME + "::" + LIST_1_SAME_FILE__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getList1SameFile_EObject(NamedElement lookupContext) {
-					String name = "real_with_units_test::list_1_same_file";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getList1SameFile_Property(lookupContext));
+				}
+				
+				// Lookup methods for real_with_units_test::list_1_other_file
+				
+				public static final String LIST_1_OTHER_FILE__NAME = "list_1_other_file";
+				
+				public static boolean acceptsList1OtherFile(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getList1OtherFile_Property(lookupContext));
 				}
 				
 				public static Optional<List<RealWithUnits<Mass>>> getList1OtherFile(NamedElement lookupContext) {
@@ -226,8 +288,7 @@ class RealWithUnitsTest {
 				}
 				
 				public static Optional<List<RealWithUnits<Mass>>> getList1OtherFile(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "real_with_units_test::list_1_other_file";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getList1OtherFile_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -240,10 +301,21 @@ class RealWithUnitsTest {
 					}
 				}
 				
+				public static Property getList1OtherFile_Property(EObject lookupContext) {
+					String name = REAL_WITH_UNITS_TEST__NAME + "::" + LIST_1_OTHER_FILE__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getList1OtherFile_EObject(NamedElement lookupContext) {
-					String name = "real_with_units_test::list_1_other_file";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getList1OtherFile_Property(lookupContext));
+				}
+				
+				// Lookup methods for real_with_units_test::record_property
+				
+				public static final String RECORD_PROPERTY__NAME = "record_property";
+				
+				public static boolean acceptsRecordProperty(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getRecordProperty_Property(lookupContext));
 				}
 				
 				public static Optional<RecordProperty> getRecordProperty(NamedElement lookupContext) {
@@ -255,8 +327,7 @@ class RealWithUnitsTest {
 				}
 				
 				public static Optional<RecordProperty> getRecordProperty(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "real_with_units_test::record_property";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getRecordProperty_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -266,10 +337,112 @@ class RealWithUnitsTest {
 					}
 				}
 				
+				public static Property getRecordProperty_Property(EObject lookupContext) {
+					String name = REAL_WITH_UNITS_TEST__NAME + "::" + RECORD_PROPERTY__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getRecordProperty_EObject(NamedElement lookupContext) {
-					String name = "real_with_units_test::record_property";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getRecordProperty_Property(lookupContext));
+				}
+				
+				// Lookup methods for real_with_units_test::owned_constant
+				
+				public static final String OWNED_CONSTANT__NAME = "owned_constant";
+				
+				public static RealWithUnits<OwnedConstant> getOwnedConstant(EObject lookupContext) {
+					PropertyConstant constant = getOwnedConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return new RealWithUnits<>(resolved, OwnedConstant.class);
+				}
+				
+				public static PropertyConstant getOwnedConstant_PropertyConstant(EObject lookupContext) {
+					String name = REAL_WITH_UNITS_TEST__NAME + "::" + OWNED_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for real_with_units_test::same_file_constant
+				
+				public static final String SAME_FILE_CONSTANT__NAME = "same_file_constant";
+				
+				public static RealWithUnits<Time> getSameFileConstant(EObject lookupContext) {
+					PropertyConstant constant = getSameFileConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return new RealWithUnits<>(resolved, Time.class);
+				}
+				
+				public static PropertyConstant getSameFileConstant_PropertyConstant(EObject lookupContext) {
+					String name = REAL_WITH_UNITS_TEST__NAME + "::" + SAME_FILE_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for real_with_units_test::other_file_constant
+				
+				public static final String OTHER_FILE_CONSTANT__NAME = "other_file_constant";
+				
+				public static RealWithUnits<Mass> getOtherFileConstant(EObject lookupContext) {
+					PropertyConstant constant = getOtherFileConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return new RealWithUnits<>(resolved, Mass.class);
+				}
+				
+				public static PropertyConstant getOtherFileConstant_PropertyConstant(EObject lookupContext) {
+					String name = REAL_WITH_UNITS_TEST__NAME + "::" + OTHER_FILE_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for real_with_units_test::list_1_owned_constant
+				
+				public static final String LIST_1_OWNED_CONSTANT__NAME = "list_1_owned_constant";
+				
+				public static List<RealWithUnits<List1OwnedConstant>> getList1OwnedConstant(EObject lookupContext) {
+					PropertyConstant constant = getList1OwnedConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+						PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+						return new RealWithUnits<>(resolved1, List1OwnedConstant.class);
+					}).collect(Collectors.toList());
+				}
+				
+				public static PropertyConstant getList1OwnedConstant_PropertyConstant(EObject lookupContext) {
+					String name = REAL_WITH_UNITS_TEST__NAME + "::" + LIST_1_OWNED_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for real_with_units_test::list_1_same_file_constant
+				
+				public static final String LIST_1_SAME_FILE_CONSTANT__NAME = "list_1_same_file_constant";
+				
+				public static List<RealWithUnits<Time>> getList1SameFileConstant(EObject lookupContext) {
+					PropertyConstant constant = getList1SameFileConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+						PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+						return new RealWithUnits<>(resolved1, Time.class);
+					}).collect(Collectors.toList());
+				}
+				
+				public static PropertyConstant getList1SameFileConstant_PropertyConstant(EObject lookupContext) {
+					String name = REAL_WITH_UNITS_TEST__NAME + "::" + LIST_1_SAME_FILE_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
+				}
+				
+				// Lookup methods for real_with_units_test::list_1_other_file_constant
+				
+				public static final String LIST_1_OTHER_FILE_CONSTANT__NAME = "list_1_other_file_constant";
+				
+				public static List<RealWithUnits<Mass>> getList1OtherFileConstant(EObject lookupContext) {
+					PropertyConstant constant = getList1OtherFileConstant_PropertyConstant(lookupContext);
+					PropertyExpression resolved = CodeGenUtil.resolveNamedValue(constant.getConstantValue());
+					return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+						PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+						return new RealWithUnits<>(resolved1, Mass.class);
+					}).collect(Collectors.toList());
+				}
+				
+				public static PropertyConstant getList1OtherFileConstant_PropertyConstant(EObject lookupContext) {
+					String name = REAL_WITH_UNITS_TEST__NAME + "::" + LIST_1_OTHER_FILE_CONSTANT__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getPropertyConstant(), name);
 				}
 			}
 		'''
@@ -569,6 +742,85 @@ class RealWithUnitsTest {
 					this.list1OtherFile = list1OtherFile_local;
 				}
 				
+				public RecordProperty(PropertyExpression propertyExpression) {
+					RecordValue recordValue = (RecordValue) propertyExpression;
+					
+					Optional<RealWithUnits<Owned_FieldType>> owned_local;
+					try {
+						owned_local = findFieldValue(recordValue, OWNED__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new RealWithUnits<>(resolved, Owned_FieldType.class);
+						});
+					} catch (PropertyNotPresentException e) {
+						owned_local = Optional.empty();
+					}
+					this.owned = owned_local;
+					
+					Optional<RealWithUnits<Time>> sameFile_local;
+					try {
+						sameFile_local = findFieldValue(recordValue, SAME_FILE__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new RealWithUnits<>(resolved, Time.class);
+						});
+					} catch (PropertyNotPresentException e) {
+						sameFile_local = Optional.empty();
+					}
+					this.sameFile = sameFile_local;
+					
+					Optional<RealWithUnits<Mass>> otherFile_local;
+					try {
+						otherFile_local = findFieldValue(recordValue, OTHER_FILE__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return new RealWithUnits<>(resolved, Mass.class);
+						});
+					} catch (PropertyNotPresentException e) {
+						otherFile_local = Optional.empty();
+					}
+					this.otherFile = otherFile_local;
+					
+					Optional<List<RealWithUnits<List1Owned_FieldType>>> list1Owned_local;
+					try {
+						list1Owned_local = findFieldValue(recordValue, LIST_1_OWNED__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return new RealWithUnits<>(resolved1, List1Owned_FieldType.class);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						list1Owned_local = Optional.empty();
+					}
+					this.list1Owned = list1Owned_local;
+					
+					Optional<List<RealWithUnits<Time>>> list1SameFile_local;
+					try {
+						list1SameFile_local = findFieldValue(recordValue, LIST_1_SAME_FILE__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return new RealWithUnits<>(resolved1, Time.class);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						list1SameFile_local = Optional.empty();
+					}
+					this.list1SameFile = list1SameFile_local;
+					
+					Optional<List<RealWithUnits<Mass>>> list1OtherFile_local;
+					try {
+						list1OtherFile_local = findFieldValue(recordValue, LIST_1_OTHER_FILE__NAME).map(field -> {
+							PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+							return ((ListValue) resolved).getOwnedListElements().stream().map(element1 -> {
+								PropertyExpression resolved1 = CodeGenUtil.resolveNamedValue(element1);
+								return new RealWithUnits<>(resolved1, Mass.class);
+							}).collect(Collectors.toList());
+						});
+					} catch (PropertyNotPresentException e) {
+						list1OtherFile_local = Optional.empty();
+					}
+					this.list1OtherFile = list1OtherFile_local;
+				}
+				
 				public Optional<RealWithUnits<Owned_FieldType>> getOwned() {
 					return owned;
 				}
@@ -798,9 +1050,109 @@ class RealWithUnitsTest {
 				}
 			}
 		'''
+		val ownedConstant = '''
+			package realwithunitstest;
+			
+			import org.eclipse.emf.common.util.URI;
+			import org.osate.aadl2.AbstractNamedValue;
+			import org.osate.aadl2.NamedValue;
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
+			
+			public enum OwnedConstant implements GeneratedUnits<OwnedConstant> {
+				B(1.0, "B", "__synthetic1.aadl#/0/@ownedPropertyConstant.0/@ownedPropertyType/@ownedUnitsType/@ownedLiteral.0"),
+				KIB(1024.0, "KiB", "__synthetic1.aadl#/0/@ownedPropertyConstant.0/@ownedPropertyType/@ownedUnitsType/@ownedLiteral.1");
+				
+				private final double factorToBase;
+				private final String originalName;
+				private final URI uri;
+				
+				private OwnedConstant(double factorToBase, String originalName, String uri) {
+					this.factorToBase = factorToBase;
+					this.originalName = originalName;
+					this.uri = URI.createURI(uri);
+				}
+				
+				public static OwnedConstant valueOf(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+				}
+				
+				@Override
+				public double getFactorToBase() {
+					return factorToBase;
+				}
+				
+				@Override
+				public double getFactorTo(OwnedConstant target) {
+					return factorToBase / target.factorToBase;
+				}
+				
+				@Override
+				public URI getURI() {
+					return uri;
+				}
+				
+				@Override
+				public String toString() {
+					return originalName;
+				}
+			}
+		'''
+		val list1OwnedConstant = '''
+			package realwithunitstest;
+			
+			import org.eclipse.emf.common.util.URI;
+			import org.osate.aadl2.AbstractNamedValue;
+			import org.osate.aadl2.NamedValue;
+			import org.osate.aadl2.PropertyExpression;
+			import org.osate.aadl2.UnitLiteral;
+			import org.osate.pluginsupport.properties.GeneratedUnits;
+			
+			public enum List1OwnedConstant implements GeneratedUnits<List1OwnedConstant> {
+				MG(1.0, "mg", "__synthetic1.aadl#/0/@ownedPropertyConstant.3/@ownedPropertyType/@ownedElementType/@ownedUnitsType/@ownedLiteral.0"),
+				G(1000.0, "g", "__synthetic1.aadl#/0/@ownedPropertyConstant.3/@ownedPropertyType/@ownedElementType/@ownedUnitsType/@ownedLiteral.1");
+				
+				private final double factorToBase;
+				private final String originalName;
+				private final URI uri;
+				
+				private List1OwnedConstant(double factorToBase, String originalName, String uri) {
+					this.factorToBase = factorToBase;
+					this.originalName = originalName;
+					this.uri = URI.createURI(uri);
+				}
+				
+				public static List1OwnedConstant valueOf(PropertyExpression propertyExpression) {
+					AbstractNamedValue abstractNamedValue = ((NamedValue) propertyExpression).getNamedValue();
+					return valueOf(((UnitLiteral) abstractNamedValue).getName().toUpperCase());
+				}
+				
+				@Override
+				public double getFactorToBase() {
+					return factorToBase;
+				}
+				
+				@Override
+				public double getFactorTo(List1OwnedConstant target) {
+					return factorToBase / target.factorToBase;
+				}
+				
+				@Override
+				public URI getURI() {
+					return uri;
+				}
+				
+				@Override
+				public String toString() {
+					return originalName;
+				}
+			}
+		'''
 		val results = PropertiesCodeGen.generateJava(testHelper.parseString(realWithUnitsTest, otherPs))
 		assertEquals("src-gen/realwithunitstest", results.packagePath)
-		assertEquals(5, results.classes.size)
+		assertEquals(7, results.classes.size)
 		
 		assertEquals("RealWithUnitsTest.java", results.classes.get(0).fileName)
 		assertEquals(realWithUnitsTestClass.toString, results.classes.get(0).contents)
@@ -816,5 +1168,11 @@ class RealWithUnitsTest {
 		
 		assertEquals("RecordProperty.java", results.classes.get(4).fileName)
 		assertEquals(recordProperty.toString, results.classes.get(4).contents)
+		
+		assertEquals("OwnedConstant.java", results.classes.get(5).fileName)
+		assertEquals(ownedConstant.toString, results.classes.get(5).contents)
+		
+		assertEquals("List1OwnedConstant.java", results.classes.get(6).fileName)
+		assertEquals(list1OwnedConstant.toString, results.classes.get(6).contents)
 	}
 }

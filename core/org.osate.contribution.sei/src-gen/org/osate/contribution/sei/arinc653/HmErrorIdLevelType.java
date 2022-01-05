@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file).
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
  * All Rights Reserved.
  *
  * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
@@ -17,10 +17,9 @@
  * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
  * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
  * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
- * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party
- * beneficiaries to this license with respect to the terms applicable to their Third Party Software. Third Party
- * Software licenses only apply to the Third Party Software and not any other portion of this program or this program
- * as a whole.
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  *******************************************************************************/
 package org.osate.contribution.sei.arinc653;
 
@@ -42,9 +41,6 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.GeneratedRecord;
 
-/**
- * @since 1.2
- */
 public class HmErrorIdLevelType extends GeneratedRecord {
 	public static final String ERRORIDENTIFIER__NAME = "ErrorIdentifier";
 	public static final String DESCRIPTION__NAME = "Description";
@@ -54,12 +50,12 @@ public class HmErrorIdLevelType extends GeneratedRecord {
 	public static final URI DESCRIPTION__URI = URI.createURI("platform:/plugin/org.osate.contribution.sei/resources/properties/ARINC653.aadl#/0/@ownedPropertyType.4/@ownedField.1");
 	public static final URI ERRORLEVEL__URI = URI.createURI("platform:/plugin/org.osate.contribution.sei/resources/properties/ARINC653.aadl#/0/@ownedPropertyType.4/@ownedField.2");
 	public static final URI ERRORCODE__URI = URI.createURI("platform:/plugin/org.osate.contribution.sei/resources/properties/ARINC653.aadl#/0/@ownedPropertyType.4/@ownedField.3");
-
+	
 	private final OptionalLong erroridentifier;
 	private final Optional<String> description;
 	private final Optional<ErrorLevelType> errorlevel;
 	private final Optional<SupportedErrorCode> errorcode;
-
+	
 	public HmErrorIdLevelType(
 			OptionalLong erroridentifier,
 			Optional<String> description,
@@ -71,10 +67,10 @@ public class HmErrorIdLevelType extends GeneratedRecord {
 		this.errorlevel = errorlevel;
 		this.errorcode = errorcode;
 	}
-
+	
 	public HmErrorIdLevelType(PropertyExpression propertyExpression, NamedElement lookupContext, Optional<Mode> mode) {
 		RecordValue recordValue = (RecordValue) propertyExpression;
-
+		
 		OptionalLong erroridentifier_local;
 		try {
 			erroridentifier_local = findFieldValue(recordValue, ERRORIDENTIFIER__NAME).map(field -> {
@@ -85,7 +81,7 @@ public class HmErrorIdLevelType extends GeneratedRecord {
 			erroridentifier_local = OptionalLong.empty();
 		}
 		this.erroridentifier = erroridentifier_local;
-
+		
 		Optional<String> description_local;
 		try {
 			description_local = findFieldValue(recordValue, DESCRIPTION__NAME).map(field -> {
@@ -96,7 +92,7 @@ public class HmErrorIdLevelType extends GeneratedRecord {
 			description_local = Optional.empty();
 		}
 		this.description = description_local;
-
+		
 		Optional<ErrorLevelType> errorlevel_local;
 		try {
 			errorlevel_local = findFieldValue(recordValue, ERRORLEVEL__NAME).map(field -> {
@@ -107,7 +103,7 @@ public class HmErrorIdLevelType extends GeneratedRecord {
 			errorlevel_local = Optional.empty();
 		}
 		this.errorlevel = errorlevel_local;
-
+		
 		Optional<SupportedErrorCode> errorcode_local;
 		try {
 			errorcode_local = findFieldValue(recordValue, ERRORCODE__NAME).map(field -> {
@@ -119,23 +115,71 @@ public class HmErrorIdLevelType extends GeneratedRecord {
 		}
 		this.errorcode = errorcode_local;
 	}
-
+	
+	public HmErrorIdLevelType(PropertyExpression propertyExpression) {
+		RecordValue recordValue = (RecordValue) propertyExpression;
+		
+		OptionalLong erroridentifier_local;
+		try {
+			erroridentifier_local = findFieldValue(recordValue, ERRORIDENTIFIER__NAME).map(field -> {
+				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+				return ((IntegerLiteral) resolved).getValue();
+			}).map(OptionalLong::of).orElse(OptionalLong.empty());
+		} catch (PropertyNotPresentException e) {
+			erroridentifier_local = OptionalLong.empty();
+		}
+		this.erroridentifier = erroridentifier_local;
+		
+		Optional<String> description_local;
+		try {
+			description_local = findFieldValue(recordValue, DESCRIPTION__NAME).map(field -> {
+				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+				return ((StringLiteral) resolved).getValue();
+			});
+		} catch (PropertyNotPresentException e) {
+			description_local = Optional.empty();
+		}
+		this.description = description_local;
+		
+		Optional<ErrorLevelType> errorlevel_local;
+		try {
+			errorlevel_local = findFieldValue(recordValue, ERRORLEVEL__NAME).map(field -> {
+				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+				return ErrorLevelType.valueOf(resolved);
+			});
+		} catch (PropertyNotPresentException e) {
+			errorlevel_local = Optional.empty();
+		}
+		this.errorlevel = errorlevel_local;
+		
+		Optional<SupportedErrorCode> errorcode_local;
+		try {
+			errorcode_local = findFieldValue(recordValue, ERRORCODE__NAME).map(field -> {
+				PropertyExpression resolved = CodeGenUtil.resolveNamedValue(field.getOwnedValue());
+				return SupportedErrorCode.valueOf(resolved);
+			});
+		} catch (PropertyNotPresentException e) {
+			errorcode_local = Optional.empty();
+		}
+		this.errorcode = errorcode_local;
+	}
+	
 	public OptionalLong getErroridentifier() {
 		return erroridentifier;
 	}
-
+	
 	public Optional<String> getDescription() {
 		return description;
 	}
-
+	
 	public Optional<ErrorLevelType> getErrorlevel() {
 		return errorlevel;
 	}
-
+	
 	public Optional<SupportedErrorCode> getErrorcode() {
 		return errorcode;
 	}
-
+	
 	@Override
 	public RecordValue toPropertyExpression(ResourceSet resourceSet) {
 		if (!erroridentifier.isPresent()
@@ -168,7 +212,7 @@ public class HmErrorIdLevelType extends GeneratedRecord {
 		});
 		return recordValue;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(
@@ -178,7 +222,7 @@ public class HmErrorIdLevelType extends GeneratedRecord {
 				errorcode
 		);
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -193,7 +237,7 @@ public class HmErrorIdLevelType extends GeneratedRecord {
 				&& Objects.equals(this.errorlevel, other.errorlevel)
 				&& Objects.equals(this.errorcode, other.errorcode);
 	}
-
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

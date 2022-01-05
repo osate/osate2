@@ -34,12 +34,30 @@ public class RealRangeWithUnits<U extends Enum<U> & GeneratedUnits<U>> implement
 		this.delta = delta;
 	}
 
+	/**
+	 * This constructor is meant only to be called by generated Java property getters when looking up the value of a
+	 * property.
+	 */
 	public RealRangeWithUnits(PropertyExpression propertyExpression, Class<U> unitsType, NamedElement lookupContext,
 			Optional<Mode> mode) {
 		RangeValue rangeValue = (RangeValue) propertyExpression;
 		minimum = new RealWithUnits<>(resolveNamedValue(rangeValue.getMinimum(), lookupContext, mode), unitsType);
 		maximum = new RealWithUnits<>(resolveNamedValue(rangeValue.getMaximum(), lookupContext, mode), unitsType);
 		delta = Optional.ofNullable(resolveNamedValue(rangeValue.getDelta(), lookupContext, mode))
+				.map(it -> new RealWithUnits<>(it, unitsType));
+	}
+
+	/**
+	 * This constructor is meant only to be called by generated Java property getters when looking up the value of a
+	 * property constant.
+	 *
+	 * @since 7.1
+	 */
+	public RealRangeWithUnits(PropertyExpression propertyExpression, Class<U> unitsType) {
+		RangeValue rangeValue = (RangeValue) propertyExpression;
+		minimum = new RealWithUnits<>(resolveNamedValue(rangeValue.getMinimum()), unitsType);
+		maximum = new RealWithUnits<>(resolveNamedValue(rangeValue.getMaximum()), unitsType);
+		delta = Optional.ofNullable(resolveNamedValue(rangeValue.getDelta()))
 				.map(it -> new RealWithUnits<>(it, unitsType));
 	}
 

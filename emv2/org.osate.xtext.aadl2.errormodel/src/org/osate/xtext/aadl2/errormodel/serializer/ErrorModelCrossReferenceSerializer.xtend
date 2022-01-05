@@ -83,7 +83,9 @@ class ErrorModelCrossReferenceSerializer extends CrossReferenceSerializer {
 				val package = target.getContainerOfType(AadlPackage)
 				package?.name
 			}
-			case ErrorModelPackage.Literals.FEATUREOR_PP_REFERENCE__FEATUREOR_PP: {
+			case ErrorModelPackage.Literals.FEATUREOR_PP_REFERENCE__FEATUREOR_PP,
+			case ErrorModelPackage.Literals.QUALIFIED_PROPAGATION_POINT__PROPAGATION_POINT,
+			case ErrorModelPackage.Literals.SUBCOMPONENT_ELEMENT__SUBCOMPONENT: {
 				(target as NamedElement)?.name
 			}
 			default:

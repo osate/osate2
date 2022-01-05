@@ -51,6 +51,7 @@ class ReferenceTest {
 			import java.util.Optional;
 			import java.util.stream.Collectors;
 			
+			import org.eclipse.emf.ecore.EObject;
 			import org.osate.aadl2.Aadl2Package;
 			import org.osate.aadl2.ListValue;
 			import org.osate.aadl2.Mode;
@@ -63,14 +64,18 @@ class ReferenceTest {
 			import org.osate.aadl2.properties.PropertyNotPresentException;
 			import org.osate.pluginsupport.properties.CodeGenUtil;
 			
-			public class ReferenceTest {
+			public final class ReferenceTest {
 				public static final String REFERENCE_TEST__NAME = "reference_test";
 				
+				private ReferenceTest() {}
+				
+				// Lookup methods for reference_test::owned_reference
+				
 				public static final String OWNED_REFERENCE__NAME = "owned_reference";
-				public static final String REFERENCED_REFERENCE_LOCAL__NAME = "referenced_reference_local";
-				public static final String REFERENCED_REFERENCE_OTHER__NAME = "referenced_reference_other";
-				public static final String LIST_1_REFERENCE__NAME = "list_1_reference";
-				public static final String LIST_5_REFERENCE__NAME = "list_5_reference";
+				
+				public static boolean acceptsOwnedReference(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getOwnedReference_Property(lookupContext));
+				}
 				
 				public static Optional<InstanceObject> getOwnedReference(NamedElement lookupContext) {
 					return getOwnedReference(lookupContext, Optional.empty());
@@ -81,8 +86,7 @@ class ReferenceTest {
 				}
 				
 				public static Optional<InstanceObject> getOwnedReference(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "reference_test::owned_reference";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getOwnedReference_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -92,10 +96,21 @@ class ReferenceTest {
 					}
 				}
 				
+				public static Property getOwnedReference_Property(EObject lookupContext) {
+					String name = REFERENCE_TEST__NAME + "::" + OWNED_REFERENCE__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getOwnedReference_EObject(NamedElement lookupContext) {
-					String name = "reference_test::owned_reference";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getOwnedReference_Property(lookupContext));
+				}
+				
+				// Lookup methods for reference_test::referenced_reference_local
+				
+				public static final String REFERENCED_REFERENCE_LOCAL__NAME = "referenced_reference_local";
+				
+				public static boolean acceptsReferencedReferenceLocal(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getReferencedReferenceLocal_Property(lookupContext));
 				}
 				
 				public static Optional<InstanceObject> getReferencedReferenceLocal(NamedElement lookupContext) {
@@ -107,8 +122,7 @@ class ReferenceTest {
 				}
 				
 				public static Optional<InstanceObject> getReferencedReferenceLocal(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "reference_test::referenced_reference_local";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getReferencedReferenceLocal_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -118,10 +132,21 @@ class ReferenceTest {
 					}
 				}
 				
+				public static Property getReferencedReferenceLocal_Property(EObject lookupContext) {
+					String name = REFERENCE_TEST__NAME + "::" + REFERENCED_REFERENCE_LOCAL__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getReferencedReferenceLocal_EObject(NamedElement lookupContext) {
-					String name = "reference_test::referenced_reference_local";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getReferencedReferenceLocal_Property(lookupContext));
+				}
+				
+				// Lookup methods for reference_test::referenced_reference_other
+				
+				public static final String REFERENCED_REFERENCE_OTHER__NAME = "referenced_reference_other";
+				
+				public static boolean acceptsReferencedReferenceOther(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getReferencedReferenceOther_Property(lookupContext));
 				}
 				
 				public static Optional<InstanceObject> getReferencedReferenceOther(NamedElement lookupContext) {
@@ -133,8 +158,7 @@ class ReferenceTest {
 				}
 				
 				public static Optional<InstanceObject> getReferencedReferenceOther(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "reference_test::referenced_reference_other";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getReferencedReferenceOther_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -144,10 +168,21 @@ class ReferenceTest {
 					}
 				}
 				
+				public static Property getReferencedReferenceOther_Property(EObject lookupContext) {
+					String name = REFERENCE_TEST__NAME + "::" + REFERENCED_REFERENCE_OTHER__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getReferencedReferenceOther_EObject(NamedElement lookupContext) {
-					String name = "reference_test::referenced_reference_other";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getReferencedReferenceOther_Property(lookupContext));
+				}
+				
+				// Lookup methods for reference_test::list_1_reference
+				
+				public static final String LIST_1_REFERENCE__NAME = "list_1_reference";
+				
+				public static boolean acceptsList1Reference(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getList1Reference_Property(lookupContext));
 				}
 				
 				public static Optional<List<InstanceObject>> getList1Reference(NamedElement lookupContext) {
@@ -159,8 +194,7 @@ class ReferenceTest {
 				}
 				
 				public static Optional<List<InstanceObject>> getList1Reference(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "reference_test::list_1_reference";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getList1Reference_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -173,10 +207,21 @@ class ReferenceTest {
 					}
 				}
 				
+				public static Property getList1Reference_Property(EObject lookupContext) {
+					String name = REFERENCE_TEST__NAME + "::" + LIST_1_REFERENCE__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getList1Reference_EObject(NamedElement lookupContext) {
-					String name = "reference_test::list_1_reference";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getList1Reference_Property(lookupContext));
+				}
+				
+				// Lookup methods for reference_test::list_5_reference
+				
+				public static final String LIST_5_REFERENCE__NAME = "list_5_reference";
+				
+				public static boolean acceptsList5Reference(NamedElement lookupContext) {
+					return lookupContext.acceptsProperty(getList5Reference_Property(lookupContext));
 				}
 				
 				public static Optional<List<List<List<List<List<InstanceObject>>>>>> getList5Reference(NamedElement lookupContext) {
@@ -188,8 +233,7 @@ class ReferenceTest {
 				}
 				
 				public static Optional<List<List<List<List<List<InstanceObject>>>>>> getList5Reference(NamedElement lookupContext, Optional<Mode> mode) {
-					String name = "reference_test::list_5_reference";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+					Property property = getList5Reference_Property(lookupContext);
 					try {
 						PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 						PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -214,10 +258,13 @@ class ReferenceTest {
 					}
 				}
 				
+				public static Property getList5Reference_Property(EObject lookupContext) {
+					String name = REFERENCE_TEST__NAME + "::" + LIST_5_REFERENCE__NAME;
+					return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+				}
+				
 				public static PropertyExpression getList5Reference_EObject(NamedElement lookupContext) {
-					String name = "reference_test::list_5_reference";
-					Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-					return lookupContext.getNonModalPropertyValue(property);
+					return lookupContext.getNonModalPropertyValue(getList5Reference_Property(lookupContext));
 				}
 			}
 		'''

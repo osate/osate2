@@ -36,12 +36,30 @@ public class IntegerRangeWithUnits<U extends Enum<U> & GeneratedUnits<U>>
 		this.delta = delta;
 	}
 
+	/**
+	 * This constructor is meant only to be called by generated Java property getters when looking up the value of a
+	 * property.
+	 */
 	public IntegerRangeWithUnits(PropertyExpression propertyExpression, Class<U> unitsType,
 			NamedElement lookupContext, Optional<Mode> mode) {
 		RangeValue rangeValue = (RangeValue) propertyExpression;
 		minimum = new IntegerWithUnits<>(resolveNamedValue(rangeValue.getMinimum(), lookupContext, mode), unitsType);
 		maximum = new IntegerWithUnits<>(resolveNamedValue(rangeValue.getMaximum(), lookupContext, mode), unitsType);
 		delta = Optional.ofNullable(resolveNamedValue(rangeValue.getDelta(), lookupContext, mode))
+				.map(it -> new IntegerWithUnits<>(it, unitsType));
+	}
+
+	/**
+	 * This constructor is meant only to be called by generated Java property getters when looking up the value of a
+	 * property constant.
+	 *
+	 * @since 7.1
+	 */
+	public IntegerRangeWithUnits(PropertyExpression propertyExpression, Class<U> unitsType) {
+		RangeValue rangeValue = (RangeValue) propertyExpression;
+		minimum = new IntegerWithUnits<>(resolveNamedValue(rangeValue.getMinimum()), unitsType);
+		maximum = new IntegerWithUnits<>(resolveNamedValue(rangeValue.getMaximum()), unitsType);
+		delta = Optional.ofNullable(resolveNamedValue(rangeValue.getDelta()))
 				.map(it -> new IntegerWithUnits<>(it, unitsType));
 	}
 

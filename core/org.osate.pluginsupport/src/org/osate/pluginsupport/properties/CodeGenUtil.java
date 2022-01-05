@@ -31,7 +31,12 @@ import org.osate.aadl2.properties.PropertyNotPresentException;
 public final class CodeGenUtil {
 	private CodeGenUtil() {
 	}
-	
+
+	/**
+	 * Recursively resolves references to other properties and property constants and returns the ultimate value of the
+	 * property expression. This is meant only to be called by generated Java property getters when looking up the value
+	 * of a property.
+	 */
 	public static PropertyExpression resolveNamedValue(PropertyExpression propertyExpression,
 			NamedElement lookupContext, Optional<Mode> mode) {
 		if (propertyExpression instanceof NamedValue) {
@@ -41,6 +46,23 @@ public final class CodeGenUtil {
 				return resolveNamedValue(lookupProperty(property, lookupContext, mode), lookupContext, mode);
 			} else if (namedValue instanceof PropertyConstant) {
 				return resolveNamedValue(((PropertyConstant) namedValue).getConstantValue(), lookupContext, mode);
+			}
+		}
+		return propertyExpression;
+	}
+
+	/**
+	 * Recursively resolves references to other property constants and returns the ultimate value of the property
+	 * expression. This is meant only to be called by generated Java property getters when looking up the value of
+	 * a property constant.
+	 *
+	 * @since 7.1
+	 */
+	public static PropertyExpression resolveNamedValue(PropertyExpression propertyExpression) {
+		if (propertyExpression instanceof NamedValue) {
+			AbstractNamedValue namedValue = ((NamedValue) propertyExpression).getNamedValue();
+			if (namedValue instanceof PropertyConstant) {
+				return resolveNamedValue(((PropertyConstant) namedValue).getConstantValue());
 			}
 		}
 		return propertyExpression;
@@ -76,31 +98,31 @@ public final class CodeGenUtil {
 		booleanLiteral.setValue(value);
 		return booleanLiteral;
 	}
-	
+
 	public static StringLiteral toPropertyExpression(String value) {
 		StringLiteral stringLiteral = Aadl2Factory.eINSTANCE.createStringLiteral();
 		stringLiteral.setValue(value);
 		return stringLiteral;
 	}
-	
+
 	public static ClassifierValue toPropertyExpression(Classifier value) {
 		ClassifierValue classifierValue = Aadl2Factory.eINSTANCE.createClassifierValue();
 		classifierValue.setClassifier(value);
 		return classifierValue;
 	}
-	
+
 	public static IntegerLiteral toPropertyExpression(long value) {
 		IntegerLiteral integerLiteral = Aadl2Factory.eINSTANCE.createIntegerLiteral();
 		integerLiteral.setValue(value);
 		return integerLiteral;
 	}
-	
+
 	public static RealLiteral toPropertyExpression(double value) {
 		RealLiteral realLiteral = Aadl2Factory.eINSTANCE.createRealLiteral();
 		realLiteral.setValue(value);
 		return realLiteral;
 	}
-	
+
 	public static InstanceReferenceValue toPropertyExpression(InstanceObject value) {
 		InstanceReferenceValue instanceReferenceValue = InstanceFactory.eINSTANCE.createInstanceReferenceValue();
 		instanceReferenceValue.setReferencedInstanceObject(value);
