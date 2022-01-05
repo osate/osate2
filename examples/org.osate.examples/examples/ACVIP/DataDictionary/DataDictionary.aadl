@@ -1,8 +1,5 @@
 package DataDictionary
 public
-	
-	with SEI, PhysicalResources;
-	
 	data SensorData
 		properties
 			Data_Size => 8 bytes;
@@ -12,8 +9,4 @@ public
 		properties
 			Data_Size => 8 bytes;
 	end BrakeSignal;
-	
-
-
-	
 end DataDictionary;

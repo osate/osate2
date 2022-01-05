@@ -1,7 +1,6 @@
 package InitialSCS
 public
-	system HighLevelSCS
-		
+	system HighLevelSCS		
 	end HighLevelSCS;
 
 	system implementation HighLevelSCS.i
@@ -34,7 +33,6 @@ public
 			latency => 3ms..5ms applies to sensorFlow;                  
 	end SimpleSensor.i;
 
-
 	system SimpleController
 		features
 			dataIn: in data port SensorData;
@@ -58,6 +56,5 @@ public
 	device implementation SimpleBrake.i
 		properties
 			latency => 3ms..5ms applies to brakeFlow; 
-	end SimpleBrake.i;
-	
+	end SimpleBrake.i;	
 end InitialSCS;

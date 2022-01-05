@@ -8,6 +8,5 @@ public
 	data actuatecmd
 		properties
 			Data_Size => 100 Bytes;
-	end actuatecmd;
-	
+	end actuatecmd;	
 end DataModel;

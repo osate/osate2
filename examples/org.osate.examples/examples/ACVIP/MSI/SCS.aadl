@@ -1,9 +1,8 @@
 package SCS
 public
 	
-	with SimpleSensor, Controller, Infrastructure, Brake, DataDictionary;
-	system HighLevelSCS 
-		
+	with SimpleSensor, Controller, Infrastructure, Brake;
+	system HighLevelSCS 	
 	end HighLevelSCS;
 
 	system implementation HighLevelSCS.i
@@ -14,14 +13,10 @@ public
 			canBus: bus  Infrastructure::CanBus.i{latency=> 13ms..15ms;};
 			bus1553: bus  Infrastructure::Bus1553.i{latency=> 7ms..7ms;};
 			powerSource: system  Infrastructure::PowerSource.i;
-			power: bus Infrastructure::power.generic;
-			
+			power: bus Infrastructure::power.generic;			
 		connections
 			c1: port sensor1.dataOut -> controller1.dataIn;
 			c2: port controller1.dataOut -> brake1.dataIn;
-			--c3: port powerSource.powerOut -> sensor1.powerIn; 
-			--c4: port powerSource.powerOut -> controller1.powerIn;
-			--c5: port powerSource.powerOut -> brake1.powerIn; 
 			bus1: bus access sensor1.busOut <-> bus1553;
 			bus2: bus access controller1.busIn <-> bus1553;
 			bus3: bus access controller1.busOut <-> canBus;
@@ -34,9 +29,6 @@ public
 		properties                                                                                                                                                                                                                                                                                                 
 			actual_connection_binding => (reference (bus1553)) applies to c1;
 			actual_connection_binding => (reference (canBus)) applies to c2;
-			latency => 15ms..25ms applies to c1, c2;
-					
-	end HighLevelSCS.i;
-	
-end SCS;                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-		
+			latency => 15ms..25ms applies to c1, c2;		
+	end HighLevelSCS.i;	
+end SCS;                                                                                                                                                                                                                                                                                                                                                                                                                                                                          	

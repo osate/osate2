@@ -4,13 +4,10 @@ public
 	device SimpleSensor
 		features
 			dataOut: out data port DataDictionary::SensorData;
-			busOut: requires bus access Infrastructure::bus1553.i;
-			--powerIn: in data port PhysicalResources::ElectricalPower{SEI::powerBudget =>6.0W;};
-			powerIn: requires bus access Infrastructure::power.generic;
-			
+			busOut: requires bus access Infrastructure::bus1553.i
+			powerIn: requires bus access Infrastructure::power.generic;	
 		flows
-			sensorFlow: flow source dataOut;
-		
+			sensorFlow: flow source dataOut;	
 	end SimpleSensor;
 	
 	device implementation SimpleSensor.i  

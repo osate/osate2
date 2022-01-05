@@ -1,20 +1,17 @@
 package SoftwareParts
 public
-		with DataModel;
+	with DataModel;
 		
-	system DigitalControl
-		
+	system DigitalControl	
 	end DigitalControl;
 
 	system implementation DigitalControl.tier1
 		subcomponents
 			IO_Process: process;
 			Command_Process: process;
-
 	end DigitalControl.tier1;
 
 	process IO_Process
-
 	end IO_Process;
 	
 	process implementation IO_Process.impl
@@ -33,7 +30,6 @@ public
 			pilot: thread;
 			control: thread controlApp;
 	end Command_Process.impl;
-
 
 	thread sensor_sense_thread
 		features
@@ -54,8 +50,7 @@ public
 			Period => 20 ms;
 			Compute_Execution_Time => 8 ms .. 10 ms;
 	end actuator_output_thread;
-	
-	
+		
 	thread filterApp
 		features
 			sensorraw: in data port DataModel::SensorData; -- from sensor
@@ -77,5 +72,4 @@ public
 			Period => 20 ms;
 			Compute_Execution_Time => 2 ms .. 6 ms; 
 	end controlApp;
-	
 end SoftwareParts;
