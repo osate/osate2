@@ -104,13 +104,16 @@ public final class InstantiationEngine extends AbstractInstantiationEngine<Compo
 
 			@Override
 			public void handleInput(final ComponentImplementation input) {
-				selectedCompImpls.add(input);
-				final IFile outputFile = OsateResourceUtil.toIFile(InstantiateModel.getInstanceModelURI(input));
-				outputFiles.add(outputFile);
-				// N.B. We KNOW there is an "Instances" folder above the .aaxl file
-				final IFolder outputFolder = (IFolder) outputFile.getParent();
-				outputFolders.add(outputFolder);
-				prereqRule = MultiRule.combine(prereqRule, ruleFactory.createRule(outputFolder));
+				if (input != null) {
+					selectedCompImpls.add(input);
+					URI instanceModelURI = InstantiateModel.getInstanceModelURI(input);
+					final IFile outputFile = OsateResourceUtil.toIFile(instanceModelURI);
+					outputFiles.add(outputFile);
+					// N.B. We KNOW there is an "Instances" folder above the .aaxl file
+					final IFolder outputFolder = (IFolder) outputFile.getParent();
+					outputFolders.add(outputFolder);
+					prereqRule = MultiRule.combine(prereqRule, ruleFactory.createRule(outputFolder));
+				}
 			}
 
 			@Override
@@ -300,10 +303,9 @@ public final class InstantiationEngine extends AbstractInstantiationEngine<Compo
 								// User just toggled the "don't show option"
 								if (MessageDialog.openQuestion(getShell(), "Confirm change",
 										"This results dialog will be hidden in the future.  "
-										+ "You can restore it by going to the \"OSATE > Instantiation\" preference pane.  "
+												+ "You can restore it by going to the \"OSATE > Instantiation\" preference pane.  "
 												+ "Do you wish to make this change?")) {
-									prefs.setValue(OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG,
-											false);
+									prefs.setValue(OsateCorePlugin.ALWAYS_SHOW_INSTANTIATION_AADL_DIALOG, false);
 								}
 							}
 							prefs.setValue(OsateCorePlugin.ONLY_INSTANTIATE_SYSTEM_IMPLS,

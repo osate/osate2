@@ -796,7 +796,7 @@ public class InstantiateModel {
 		newInstance.setCategory(sub.getCategory());
 		newInstance.setName(sub.getName());
 		newInstance.getIndices().addAll(indexStack);
-		newInstance.getIndices().add(new Long(index));
+		newInstance.getIndices().add(Long.valueOf(index));
 		parent.getComponentInstances().add(newInstance);
 		ic = getInstantiatedClassifier(newInstance);
 		if (ic == null) {

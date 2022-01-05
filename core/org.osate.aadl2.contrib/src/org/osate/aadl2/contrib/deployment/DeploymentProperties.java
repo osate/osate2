@@ -1,3 +1,26 @@
+/*******************************************************************************
+ * Copyright (c) 2004-2021 Carnegie Mellon University and others. (see Contributors file). 
+ * All Rights Reserved.
+ *
+ * NO WARRANTY. ALL MATERIAL IS FURNISHED ON AN "AS-IS" BASIS. CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY
+ * KIND, EITHER EXPRESSED OR IMPLIED, AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR PURPOSE
+ * OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF THE MATERIAL. CARNEGIE MELLON UNIVERSITY DOES NOT
+ * MAKE ANY WARRANTY OF ANY KIND WITH RESPECT TO FREEDOM FROM PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
+ *
+ * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Created, in part, with funding and support from the United States Government. (see Acknowledgments file).
+ *
+ * This program includes and/or can make use of certain third party source code, object code, documentation and other
+ * files ("Third Party Software"). The Third Party Software that is used by this program is dependent upon your system
+ * configuration. By using this program, You agree to comply with any and all relevant Third Party Software terms and
+ * conditions contained in any such Third Party Software or separate license file distributed with such Third Party
+ * Software. The parties who own the Third Party Software ("Third Party Licensors") are intended third party beneficiaries
+ * to this license with respect to the terms applicable to their Third Party Software. Third Party Software licenses
+ * only apply to the Third Party Software and not any other portion of this program or this program as a whole.
+ *******************************************************************************/
 package org.osate.aadl2.contrib.deployment;
 
 import java.util.List;
@@ -5,6 +28,7 @@ import java.util.Optional;
 import java.util.OptionalLong;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
@@ -27,41 +51,18 @@ import org.osate.pluginsupport.properties.CodeGenUtil;
 import org.osate.pluginsupport.properties.IntegerRange;
 import org.osate.pluginsupport.properties.IntegerRangeWithUnits;
 
-public class DeploymentProperties {
+public final class DeploymentProperties {
 	public static final String DEPLOYMENT_PROPERTIES__NAME = "Deployment_Properties";
 	
+	private DeploymentProperties() {}
+	
+	// Lookup methods for Deployment_Properties::Allowed_Processor_Binding_Class
+	
 	public static final String ALLOWED_PROCESSOR_BINDING_CLASS__NAME = "Allowed_Processor_Binding_Class";
-	public static final String ALLOWED_PROCESSOR_BINDING__NAME = "Allowed_Processor_Binding";
-	public static final String ACTUAL_PROCESSOR_BINDING__NAME = "Actual_Processor_Binding";
-	public static final String ALLOWED_MEMORY_BINDING_CLASS__NAME = "Allowed_Memory_Binding_Class";
-	public static final String ALLOWED_MEMORY_BINDING__NAME = "Allowed_Memory_Binding";
-	public static final String ACTUAL_MEMORY_BINDING__NAME = "Actual_Memory_Binding";
-	public static final String ALLOWED_CONNECTION_BINDING_CLASS__NAME = "Allowed_Connection_Binding_Class";
-	public static final String ALLOWED_CONNECTION_BINDING__NAME = "Allowed_Connection_Binding";
-	public static final String ACTUAL_CONNECTION_BINDING__NAME = "Actual_Connection_Binding";
-	public static final String ACTUAL_FUNCTION_BINDING__NAME = "Actual_Function_Binding";
-	public static final String ALLOWED_SUBPROGRAM_CALL__NAME = "Allowed_Subprogram_Call";
-	public static final String ACTUAL_SUBPROGRAM_CALL__NAME = "Actual_Subprogram_Call";
-	public static final String ALLOWED_SUBPROGRAM_CALL_BINDING__NAME = "Allowed_Subprogram_Call_Binding";
-	public static final String ACTUAL_SUBPROGRAM_CALL_BINDING__NAME = "Actual_Subprogram_Call_Binding";
-	public static final String PROVIDED_VIRTUAL_BUS_CLASS__NAME = "Provided_Virtual_Bus_Class";
-	public static final String REQUIRED_VIRTUAL_BUS_CLASS__NAME = "Required_Virtual_Bus_Class";
-	public static final String PROVIDED_CONNECTION_QUALITY_OF_SERVICE__NAME = "Provided_Connection_Quality_Of_Service";
-	public static final String REQUIRED_CONNECTION_QUALITY_OF_SERVICE__NAME = "Required_Connection_Quality_Of_Service";
-	public static final String NOT_COLLOCATED__NAME = "Not_Collocated";
-	public static final String COLLOCATED__NAME = "Collocated";
-	public static final String ALLOWED_CONNECTION_TYPE__NAME = "Allowed_Connection_Type";
-	public static final String ALLOWED_DISPATCH_PROTOCOL__NAME = "Allowed_Dispatch_Protocol";
-	public static final String ALLOWED_PERIOD__NAME = "Allowed_Period";
-	public static final String ALLOWED_PHYSICAL_ACCESS_CLASS__NAME = "Allowed_Physical_Access_Class";
-	public static final String ALLOWED_PHYSICAL_ACCESS__NAME = "Allowed_Physical_Access";
-	public static final String MEMORY_PROTOCOL__NAME = "Memory_Protocol";
-	public static final String RUNTIME_PROTECTION_SUPPORT__NAME = "Runtime_Protection_Support";
-	public static final String SCHEDULING_PROTOCOL__NAME = "Scheduling_Protocol";
-	public static final String PREEMPTIVE_SCHEDULER__NAME = "Preemptive_Scheduler";
-	public static final String THREAD_LIMIT__NAME = "Thread_Limit";
-	public static final String PRIORITY_MAP__NAME = "Priority_Map";
-	public static final String PRIORITY_RANGE__NAME = "Priority_Range";
+	
+	public static boolean acceptsAllowedProcessorBindingClass(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAllowedProcessorBindingClass_Property(lookupContext));
+	}
 	
 	public static Optional<List<Classifier>> getAllowedProcessorBindingClass(NamedElement lookupContext) {
 		return getAllowedProcessorBindingClass(lookupContext, Optional.empty());
@@ -72,8 +73,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<Classifier>> getAllowedProcessorBindingClass(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Allowed_Processor_Binding_Class";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAllowedProcessorBindingClass_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -86,10 +86,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getAllowedProcessorBindingClass_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ALLOWED_PROCESSOR_BINDING_CLASS__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAllowedProcessorBindingClass_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Allowed_Processor_Binding_Class";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAllowedProcessorBindingClass_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Allowed_Processor_Binding
+	
+	public static final String ALLOWED_PROCESSOR_BINDING__NAME = "Allowed_Processor_Binding";
+	
+	public static boolean acceptsAllowedProcessorBinding(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAllowedProcessorBinding_Property(lookupContext));
 	}
 	
 	public static Optional<List<InstanceObject>> getAllowedProcessorBinding(NamedElement lookupContext) {
@@ -101,8 +112,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<InstanceObject>> getAllowedProcessorBinding(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Allowed_Processor_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAllowedProcessorBinding_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -115,10 +125,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getAllowedProcessorBinding_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ALLOWED_PROCESSOR_BINDING__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAllowedProcessorBinding_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Allowed_Processor_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAllowedProcessorBinding_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Actual_Processor_Binding
+	
+	public static final String ACTUAL_PROCESSOR_BINDING__NAME = "Actual_Processor_Binding";
+	
+	public static boolean acceptsActualProcessorBinding(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getActualProcessorBinding_Property(lookupContext));
 	}
 	
 	public static Optional<List<InstanceObject>> getActualProcessorBinding(NamedElement lookupContext) {
@@ -130,8 +151,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<InstanceObject>> getActualProcessorBinding(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Actual_Processor_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getActualProcessorBinding_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -144,10 +164,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getActualProcessorBinding_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ACTUAL_PROCESSOR_BINDING__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getActualProcessorBinding_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Actual_Processor_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getActualProcessorBinding_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Allowed_Memory_Binding_Class
+	
+	public static final String ALLOWED_MEMORY_BINDING_CLASS__NAME = "Allowed_Memory_Binding_Class";
+	
+	public static boolean acceptsAllowedMemoryBindingClass(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAllowedMemoryBindingClass_Property(lookupContext));
 	}
 	
 	public static Optional<List<Classifier>> getAllowedMemoryBindingClass(NamedElement lookupContext) {
@@ -159,8 +190,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<Classifier>> getAllowedMemoryBindingClass(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Allowed_Memory_Binding_Class";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAllowedMemoryBindingClass_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -173,10 +203,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getAllowedMemoryBindingClass_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ALLOWED_MEMORY_BINDING_CLASS__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAllowedMemoryBindingClass_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Allowed_Memory_Binding_Class";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAllowedMemoryBindingClass_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Allowed_Memory_Binding
+	
+	public static final String ALLOWED_MEMORY_BINDING__NAME = "Allowed_Memory_Binding";
+	
+	public static boolean acceptsAllowedMemoryBinding(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAllowedMemoryBinding_Property(lookupContext));
 	}
 	
 	public static Optional<List<InstanceObject>> getAllowedMemoryBinding(NamedElement lookupContext) {
@@ -188,8 +229,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<InstanceObject>> getAllowedMemoryBinding(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Allowed_Memory_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAllowedMemoryBinding_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -202,10 +242,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getAllowedMemoryBinding_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ALLOWED_MEMORY_BINDING__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAllowedMemoryBinding_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Allowed_Memory_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAllowedMemoryBinding_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Actual_Memory_Binding
+	
+	public static final String ACTUAL_MEMORY_BINDING__NAME = "Actual_Memory_Binding";
+	
+	public static boolean acceptsActualMemoryBinding(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getActualMemoryBinding_Property(lookupContext));
 	}
 	
 	public static Optional<List<InstanceObject>> getActualMemoryBinding(NamedElement lookupContext) {
@@ -217,8 +268,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<InstanceObject>> getActualMemoryBinding(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Actual_Memory_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getActualMemoryBinding_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -231,10 +281,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getActualMemoryBinding_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ACTUAL_MEMORY_BINDING__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getActualMemoryBinding_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Actual_Memory_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getActualMemoryBinding_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Allowed_Connection_Binding_Class
+	
+	public static final String ALLOWED_CONNECTION_BINDING_CLASS__NAME = "Allowed_Connection_Binding_Class";
+	
+	public static boolean acceptsAllowedConnectionBindingClass(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAllowedConnectionBindingClass_Property(lookupContext));
 	}
 	
 	public static Optional<List<Classifier>> getAllowedConnectionBindingClass(NamedElement lookupContext) {
@@ -246,8 +307,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<Classifier>> getAllowedConnectionBindingClass(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Allowed_Connection_Binding_Class";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAllowedConnectionBindingClass_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -260,10 +320,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getAllowedConnectionBindingClass_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ALLOWED_CONNECTION_BINDING_CLASS__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAllowedConnectionBindingClass_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Allowed_Connection_Binding_Class";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAllowedConnectionBindingClass_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Allowed_Connection_Binding
+	
+	public static final String ALLOWED_CONNECTION_BINDING__NAME = "Allowed_Connection_Binding";
+	
+	public static boolean acceptsAllowedConnectionBinding(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAllowedConnectionBinding_Property(lookupContext));
 	}
 	
 	public static Optional<List<InstanceObject>> getAllowedConnectionBinding(NamedElement lookupContext) {
@@ -275,8 +346,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<InstanceObject>> getAllowedConnectionBinding(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Allowed_Connection_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAllowedConnectionBinding_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -289,10 +359,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getAllowedConnectionBinding_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ALLOWED_CONNECTION_BINDING__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAllowedConnectionBinding_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Allowed_Connection_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAllowedConnectionBinding_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Actual_Connection_Binding
+	
+	public static final String ACTUAL_CONNECTION_BINDING__NAME = "Actual_Connection_Binding";
+	
+	public static boolean acceptsActualConnectionBinding(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getActualConnectionBinding_Property(lookupContext));
 	}
 	
 	public static Optional<List<InstanceObject>> getActualConnectionBinding(NamedElement lookupContext) {
@@ -304,8 +385,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<InstanceObject>> getActualConnectionBinding(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Actual_Connection_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getActualConnectionBinding_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -318,10 +398,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getActualConnectionBinding_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ACTUAL_CONNECTION_BINDING__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getActualConnectionBinding_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Actual_Connection_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getActualConnectionBinding_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Actual_Function_Binding
+	
+	public static final String ACTUAL_FUNCTION_BINDING__NAME = "Actual_Function_Binding";
+	
+	public static boolean acceptsActualFunctionBinding(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getActualFunctionBinding_Property(lookupContext));
 	}
 	
 	public static Optional<List<InstanceObject>> getActualFunctionBinding(NamedElement lookupContext) {
@@ -333,8 +424,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<InstanceObject>> getActualFunctionBinding(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Actual_Function_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getActualFunctionBinding_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -347,10 +437,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getActualFunctionBinding_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ACTUAL_FUNCTION_BINDING__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getActualFunctionBinding_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Actual_Function_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getActualFunctionBinding_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Allowed_Subprogram_Call
+	
+	public static final String ALLOWED_SUBPROGRAM_CALL__NAME = "Allowed_Subprogram_Call";
+	
+	public static boolean acceptsAllowedSubprogramCall(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAllowedSubprogramCall_Property(lookupContext));
 	}
 	
 	public static Optional<List<InstanceObject>> getAllowedSubprogramCall(NamedElement lookupContext) {
@@ -362,8 +463,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<InstanceObject>> getAllowedSubprogramCall(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Allowed_Subprogram_Call";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAllowedSubprogramCall_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -376,10 +476,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getAllowedSubprogramCall_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ALLOWED_SUBPROGRAM_CALL__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAllowedSubprogramCall_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Allowed_Subprogram_Call";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAllowedSubprogramCall_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Actual_Subprogram_Call
+	
+	public static final String ACTUAL_SUBPROGRAM_CALL__NAME = "Actual_Subprogram_Call";
+	
+	public static boolean acceptsActualSubprogramCall(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getActualSubprogramCall_Property(lookupContext));
 	}
 	
 	public static Optional<InstanceObject> getActualSubprogramCall(NamedElement lookupContext) {
@@ -391,8 +502,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<InstanceObject> getActualSubprogramCall(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Actual_Subprogram_Call";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getActualSubprogramCall_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -402,10 +512,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getActualSubprogramCall_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ACTUAL_SUBPROGRAM_CALL__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getActualSubprogramCall_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Actual_Subprogram_Call";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getActualSubprogramCall_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Allowed_Subprogram_Call_Binding
+	
+	public static final String ALLOWED_SUBPROGRAM_CALL_BINDING__NAME = "Allowed_Subprogram_Call_Binding";
+	
+	public static boolean acceptsAllowedSubprogramCallBinding(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAllowedSubprogramCallBinding_Property(lookupContext));
 	}
 	
 	public static Optional<List<InstanceObject>> getAllowedSubprogramCallBinding(NamedElement lookupContext) {
@@ -417,8 +538,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<InstanceObject>> getAllowedSubprogramCallBinding(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Allowed_Subprogram_Call_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAllowedSubprogramCallBinding_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -431,10 +551,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getAllowedSubprogramCallBinding_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ALLOWED_SUBPROGRAM_CALL_BINDING__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAllowedSubprogramCallBinding_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Allowed_Subprogram_Call_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAllowedSubprogramCallBinding_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Actual_Subprogram_Call_Binding
+	
+	public static final String ACTUAL_SUBPROGRAM_CALL_BINDING__NAME = "Actual_Subprogram_Call_Binding";
+	
+	public static boolean acceptsActualSubprogramCallBinding(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getActualSubprogramCallBinding_Property(lookupContext));
 	}
 	
 	public static Optional<List<InstanceObject>> getActualSubprogramCallBinding(NamedElement lookupContext) {
@@ -446,8 +577,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<InstanceObject>> getActualSubprogramCallBinding(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Actual_Subprogram_Call_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getActualSubprogramCallBinding_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -460,10 +590,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getActualSubprogramCallBinding_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ACTUAL_SUBPROGRAM_CALL_BINDING__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getActualSubprogramCallBinding_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Actual_Subprogram_Call_Binding";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getActualSubprogramCallBinding_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Provided_Virtual_Bus_Class
+	
+	public static final String PROVIDED_VIRTUAL_BUS_CLASS__NAME = "Provided_Virtual_Bus_Class";
+	
+	public static boolean acceptsProvidedVirtualBusClass(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getProvidedVirtualBusClass_Property(lookupContext));
 	}
 	
 	public static Optional<List<Classifier>> getProvidedVirtualBusClass(NamedElement lookupContext) {
@@ -475,8 +616,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<Classifier>> getProvidedVirtualBusClass(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Provided_Virtual_Bus_Class";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getProvidedVirtualBusClass_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -489,10 +629,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getProvidedVirtualBusClass_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + PROVIDED_VIRTUAL_BUS_CLASS__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getProvidedVirtualBusClass_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Provided_Virtual_Bus_Class";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getProvidedVirtualBusClass_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Required_Virtual_Bus_Class
+	
+	public static final String REQUIRED_VIRTUAL_BUS_CLASS__NAME = "Required_Virtual_Bus_Class";
+	
+	public static boolean acceptsRequiredVirtualBusClass(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getRequiredVirtualBusClass_Property(lookupContext));
 	}
 	
 	public static Optional<List<Classifier>> getRequiredVirtualBusClass(NamedElement lookupContext) {
@@ -504,8 +655,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<Classifier>> getRequiredVirtualBusClass(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Required_Virtual_Bus_Class";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getRequiredVirtualBusClass_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -518,10 +668,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getRequiredVirtualBusClass_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + REQUIRED_VIRTUAL_BUS_CLASS__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getRequiredVirtualBusClass_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Required_Virtual_Bus_Class";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getRequiredVirtualBusClass_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Provided_Connection_Quality_Of_Service
+	
+	public static final String PROVIDED_CONNECTION_QUALITY_OF_SERVICE__NAME = "Provided_Connection_Quality_Of_Service";
+	
+	public static boolean acceptsProvidedConnectionQualityOfService(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getProvidedConnectionQualityOfService_Property(lookupContext));
 	}
 	
 	public static Optional<List<SupportedConnectionQos>> getProvidedConnectionQualityOfService(NamedElement lookupContext) {
@@ -533,8 +694,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<SupportedConnectionQos>> getProvidedConnectionQualityOfService(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Provided_Connection_Quality_Of_Service";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getProvidedConnectionQualityOfService_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -547,10 +707,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getProvidedConnectionQualityOfService_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + PROVIDED_CONNECTION_QUALITY_OF_SERVICE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getProvidedConnectionQualityOfService_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Provided_Connection_Quality_Of_Service";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getProvidedConnectionQualityOfService_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Required_Connection_Quality_Of_Service
+	
+	public static final String REQUIRED_CONNECTION_QUALITY_OF_SERVICE__NAME = "Required_Connection_Quality_Of_Service";
+	
+	public static boolean acceptsRequiredConnectionQualityOfService(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getRequiredConnectionQualityOfService_Property(lookupContext));
 	}
 	
 	public static Optional<List<SupportedConnectionQos>> getRequiredConnectionQualityOfService(NamedElement lookupContext) {
@@ -562,8 +733,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<SupportedConnectionQos>> getRequiredConnectionQualityOfService(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Required_Connection_Quality_Of_Service";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getRequiredConnectionQualityOfService_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -576,10 +746,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getRequiredConnectionQualityOfService_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + REQUIRED_CONNECTION_QUALITY_OF_SERVICE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getRequiredConnectionQualityOfService_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Required_Connection_Quality_Of_Service";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getRequiredConnectionQualityOfService_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Not_Collocated
+	
+	public static final String NOT_COLLOCATED__NAME = "Not_Collocated";
+	
+	public static boolean acceptsNotCollocated(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getNotCollocated_Property(lookupContext));
 	}
 	
 	public static Optional<NotCollocated> getNotCollocated(NamedElement lookupContext) {
@@ -591,8 +772,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<NotCollocated> getNotCollocated(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Not_Collocated";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getNotCollocated_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -602,10 +782,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getNotCollocated_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + NOT_COLLOCATED__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getNotCollocated_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Not_Collocated";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getNotCollocated_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Collocated
+	
+	public static final String COLLOCATED__NAME = "Collocated";
+	
+	public static boolean acceptsCollocated(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getCollocated_Property(lookupContext));
 	}
 	
 	public static Optional<Collocated> getCollocated(NamedElement lookupContext) {
@@ -617,8 +808,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<Collocated> getCollocated(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Collocated";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getCollocated_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -628,10 +818,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getCollocated_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + COLLOCATED__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getCollocated_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Collocated";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getCollocated_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Allowed_Connection_Type
+	
+	public static final String ALLOWED_CONNECTION_TYPE__NAME = "Allowed_Connection_Type";
+	
+	public static boolean acceptsAllowedConnectionType(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAllowedConnectionType_Property(lookupContext));
 	}
 	
 	public static Optional<List<AllowedConnectionType>> getAllowedConnectionType(NamedElement lookupContext) {
@@ -643,8 +844,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<AllowedConnectionType>> getAllowedConnectionType(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Allowed_Connection_Type";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAllowedConnectionType_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -657,10 +857,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getAllowedConnectionType_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ALLOWED_CONNECTION_TYPE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAllowedConnectionType_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Allowed_Connection_Type";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAllowedConnectionType_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Allowed_Dispatch_Protocol
+	
+	public static final String ALLOWED_DISPATCH_PROTOCOL__NAME = "Allowed_Dispatch_Protocol";
+	
+	public static boolean acceptsAllowedDispatchProtocol(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAllowedDispatchProtocol_Property(lookupContext));
 	}
 	
 	public static Optional<List<SupportedDispatchProtocols>> getAllowedDispatchProtocol(NamedElement lookupContext) {
@@ -672,8 +883,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<SupportedDispatchProtocols>> getAllowedDispatchProtocol(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Allowed_Dispatch_Protocol";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAllowedDispatchProtocol_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -686,10 +896,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getAllowedDispatchProtocol_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ALLOWED_DISPATCH_PROTOCOL__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAllowedDispatchProtocol_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Allowed_Dispatch_Protocol";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAllowedDispatchProtocol_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Allowed_Period
+	
+	public static final String ALLOWED_PERIOD__NAME = "Allowed_Period";
+	
+	public static boolean acceptsAllowedPeriod(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAllowedPeriod_Property(lookupContext));
 	}
 	
 	public static Optional<List<IntegerRangeWithUnits<TimeUnits>>> getAllowedPeriod(NamedElement lookupContext) {
@@ -701,8 +922,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<IntegerRangeWithUnits<TimeUnits>>> getAllowedPeriod(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Allowed_Period";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAllowedPeriod_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -715,10 +935,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getAllowedPeriod_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ALLOWED_PERIOD__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAllowedPeriod_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Allowed_Period";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAllowedPeriod_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Allowed_Physical_Access_Class
+	
+	public static final String ALLOWED_PHYSICAL_ACCESS_CLASS__NAME = "Allowed_Physical_Access_Class";
+	
+	public static boolean acceptsAllowedPhysicalAccessClass(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAllowedPhysicalAccessClass_Property(lookupContext));
 	}
 	
 	public static Optional<List<Classifier>> getAllowedPhysicalAccessClass(NamedElement lookupContext) {
@@ -730,8 +961,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<Classifier>> getAllowedPhysicalAccessClass(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Allowed_Physical_Access_Class";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAllowedPhysicalAccessClass_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -744,10 +974,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getAllowedPhysicalAccessClass_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ALLOWED_PHYSICAL_ACCESS_CLASS__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAllowedPhysicalAccessClass_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Allowed_Physical_Access_Class";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAllowedPhysicalAccessClass_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Allowed_Physical_Access
+	
+	public static final String ALLOWED_PHYSICAL_ACCESS__NAME = "Allowed_Physical_Access";
+	
+	public static boolean acceptsAllowedPhysicalAccess(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getAllowedPhysicalAccess_Property(lookupContext));
 	}
 	
 	public static Optional<List<InstanceObject>> getAllowedPhysicalAccess(NamedElement lookupContext) {
@@ -759,8 +1000,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<InstanceObject>> getAllowedPhysicalAccess(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Allowed_Physical_Access";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getAllowedPhysicalAccess_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -773,10 +1013,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getAllowedPhysicalAccess_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + ALLOWED_PHYSICAL_ACCESS__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getAllowedPhysicalAccess_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Allowed_Physical_Access";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getAllowedPhysicalAccess_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Memory_Protocol
+	
+	public static final String MEMORY_PROTOCOL__NAME = "Memory_Protocol";
+	
+	public static boolean acceptsMemoryProtocol(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getMemoryProtocol_Property(lookupContext));
 	}
 	
 	public static Optional<MemoryProtocol> getMemoryProtocol(NamedElement lookupContext) {
@@ -788,8 +1039,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<MemoryProtocol> getMemoryProtocol(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Memory_Protocol";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getMemoryProtocol_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -799,10 +1049,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getMemoryProtocol_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + MEMORY_PROTOCOL__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getMemoryProtocol_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Memory_Protocol";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getMemoryProtocol_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Runtime_Protection_Support
+	
+	public static final String RUNTIME_PROTECTION_SUPPORT__NAME = "Runtime_Protection_Support";
+	
+	public static boolean acceptsRuntimeProtectionSupport(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getRuntimeProtectionSupport_Property(lookupContext));
 	}
 	
 	public static Optional<Boolean> getRuntimeProtectionSupport(NamedElement lookupContext) {
@@ -814,8 +1075,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<Boolean> getRuntimeProtectionSupport(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Runtime_Protection_Support";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getRuntimeProtectionSupport_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -825,10 +1085,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getRuntimeProtectionSupport_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + RUNTIME_PROTECTION_SUPPORT__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getRuntimeProtectionSupport_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Runtime_Protection_Support";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getRuntimeProtectionSupport_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Scheduling_Protocol
+	
+	public static final String SCHEDULING_PROTOCOL__NAME = "Scheduling_Protocol";
+	
+	public static boolean acceptsSchedulingProtocol(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getSchedulingProtocol_Property(lookupContext));
 	}
 	
 	public static Optional<List<SupportedSchedulingProtocols>> getSchedulingProtocol(NamedElement lookupContext) {
@@ -840,8 +1111,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<SupportedSchedulingProtocols>> getSchedulingProtocol(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Scheduling_Protocol";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getSchedulingProtocol_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -854,10 +1124,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getSchedulingProtocol_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + SCHEDULING_PROTOCOL__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getSchedulingProtocol_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Scheduling_Protocol";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getSchedulingProtocol_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Preemptive_Scheduler
+	
+	public static final String PREEMPTIVE_SCHEDULER__NAME = "Preemptive_Scheduler";
+	
+	public static boolean acceptsPreemptiveScheduler(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getPreemptiveScheduler_Property(lookupContext));
 	}
 	
 	public static Optional<Boolean> getPreemptiveScheduler(NamedElement lookupContext) {
@@ -869,8 +1150,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<Boolean> getPreemptiveScheduler(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Preemptive_Scheduler";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getPreemptiveScheduler_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -880,10 +1160,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getPreemptiveScheduler_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + PREEMPTIVE_SCHEDULER__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getPreemptiveScheduler_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Preemptive_Scheduler";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getPreemptiveScheduler_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Thread_Limit
+	
+	public static final String THREAD_LIMIT__NAME = "Thread_Limit";
+	
+	public static boolean acceptsThreadLimit(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getThreadLimit_Property(lookupContext));
 	}
 	
 	public static OptionalLong getThreadLimit(NamedElement lookupContext) {
@@ -895,8 +1186,7 @@ public class DeploymentProperties {
 	}
 	
 	public static OptionalLong getThreadLimit(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Thread_Limit";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getThreadLimit_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -906,10 +1196,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getThreadLimit_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + THREAD_LIMIT__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getThreadLimit_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Thread_Limit";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getThreadLimit_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Priority_Map
+	
+	public static final String PRIORITY_MAP__NAME = "Priority_Map";
+	
+	public static boolean acceptsPriorityMap(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getPriorityMap_Property(lookupContext));
 	}
 	
 	public static Optional<List<PriorityMapping>> getPriorityMap(NamedElement lookupContext) {
@@ -921,8 +1222,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<List<PriorityMapping>> getPriorityMap(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Priority_Map";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getPriorityMap_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -935,10 +1235,21 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getPriorityMap_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + PRIORITY_MAP__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getPriorityMap_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Priority_Map";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getPriorityMap_Property(lookupContext));
+	}
+	
+	// Lookup methods for Deployment_Properties::Priority_Range
+	
+	public static final String PRIORITY_RANGE__NAME = "Priority_Range";
+	
+	public static boolean acceptsPriorityRange(NamedElement lookupContext) {
+		return lookupContext.acceptsProperty(getPriorityRange_Property(lookupContext));
 	}
 	
 	public static Optional<IntegerRange> getPriorityRange(NamedElement lookupContext) {
@@ -950,8 +1261,7 @@ public class DeploymentProperties {
 	}
 	
 	public static Optional<IntegerRange> getPriorityRange(NamedElement lookupContext, Optional<Mode> mode) {
-		String name = "Deployment_Properties::Priority_Range";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+		Property property = getPriorityRange_Property(lookupContext);
 		try {
 			PropertyExpression value = CodeGenUtil.lookupProperty(property, lookupContext, mode);
 			PropertyExpression resolved = CodeGenUtil.resolveNamedValue(value, lookupContext, mode);
@@ -961,9 +1271,12 @@ public class DeploymentProperties {
 		}
 	}
 	
+	public static Property getPriorityRange_Property(EObject lookupContext) {
+		String name = DEPLOYMENT_PROPERTIES__NAME + "::" + PRIORITY_RANGE__NAME;
+		return Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
+	}
+	
 	public static PropertyExpression getPriorityRange_EObject(NamedElement lookupContext) {
-		String name = "Deployment_Properties::Priority_Range";
-		Property property = Aadl2GlobalScopeUtil.get(lookupContext, Aadl2Package.eINSTANCE.getProperty(), name);
-		return lookupContext.getNonModalPropertyValue(property);
+		return lookupContext.getNonModalPropertyValue(getPriorityRange_Property(lookupContext));
 	}
 }
