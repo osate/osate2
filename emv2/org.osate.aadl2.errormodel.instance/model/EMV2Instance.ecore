@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="EMV2Instance" nsURI="http://www.osate.org/EMV2Instance" nsPrefix="EMV2Instance">
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="instance" nsURI="http://www.osate.org/EMV2Instance" nsPrefix="EMV2Instance">
   <eClassifiers xsi:type="ecore:EClass" name="EMV2AnnexInstance" eSuperTypes="../../org.osate.aadl2/model/instance.ecore#//AnnexInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" upperBound="-1"
         eType="#//StateTransitionInstance" containment="true"/>
@@ -39,7 +39,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="ConstrainedInstanceObject" eSuperTypes="#//ConstraintElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="instanceObject" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraint" upperBound="-1"
-        eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//TypeToken" containment="true"/>
+        eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//TypeToken"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="propagationKind" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StateTransitionInstance" eSuperTypes="#//EMV2InstanceObject">
