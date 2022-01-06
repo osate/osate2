@@ -1,4 +1,4 @@
-package org.osate.aadl2.errormodel.instance;
+package org.osate.aadl2.errormodel.instance.internal;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
