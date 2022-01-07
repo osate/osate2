@@ -18,9 +18,10 @@ PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
 [DISTRIBUTION STATEMENT A] This material has been approved for public release
 and unlimited distribution.  Please see Copyright notice for non-US Government
 use and distribution.
+
 * Internal use: Permission to reproduce this material and to prepare derivative
 works from this material for internal use is granted, provided the copyright
-and “No Warranty” statements are included with all reproductions and derivative
+and "No Warranty" statements are included with all reproductions and derivative
 works.
 * External use: This material may be reproduced in its entirety, without
 modification, and freely distributed in written or electronic form without
@@ -45,6 +46,7 @@ capabilities of ALISA:
 * Verification
 
 There's 2 folders presented in this example:
+
 * A folder named "ALISA_Example" contains the goals, requirements, verification 
   plans, and stakeholders.
 * A folder named "SCSProject" contains an AADL project that ALISA requirements
@@ -53,6 +55,7 @@ There's 2 folders presented in this example:
 ### ALISA
 
 Within the "ALISA_Example" folder, there are several types of files:
+
 * "SEI.org" contains information about the stakeholders of the project
 * "isolleteSystemCategories.cat" contains categories that can be assigned to a
   requirement to help group requirements together

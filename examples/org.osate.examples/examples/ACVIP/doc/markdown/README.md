@@ -18,9 +18,10 @@ PATENT, TRADEMARK, OR COPYRIGHT INFRINGEMENT.
 [DISTRIBUTION STATEMENT A] This material has been approved for public release
 and unlimited distribution.  Please see Copyright notice for non-US Government
 use and distribution.
+
 * Internal use: Permission to reproduce this material and to prepare derivative
 works from this material for internal use is granted, provided the copyright
-and “No Warranty” statements are included with all reproductions and derivative
+and "No Warranty" statements are included with all reproductions and derivative
 works.
 * External use: This material may be reproduced in its entirety, without
 modification, and freely distributed in written or electronic form without
