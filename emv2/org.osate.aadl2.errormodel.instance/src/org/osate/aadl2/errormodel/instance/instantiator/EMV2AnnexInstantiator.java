@@ -41,6 +41,7 @@ import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.contrib.deployment.DeploymentProperties;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
@@ -1136,9 +1137,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 
 	private void instantiateBindingPaths(ComponentInstance ci, EMV2AnnexInstance annex) {
-		List<ComponentInstance> cpus = InstanceModelUtil.getProcessorBinding(ci);
-		for (ComponentInstance cpu : cpus) {
-			instantiateBindingPropagationPaths(annex, ci, cpu, "processor");
+		if (DeploymentProperties.acceptsActualProcessorBinding(ci)) {
+			List<ComponentInstance> cpus = InstanceModelUtil.getProcessorBinding(ci);
+			for (ComponentInstance cpu : cpus) {
+				instantiateBindingPropagationPaths(annex, ci, cpu, "processor");
+			}
 		}
 		if (!(ci.getCategory() != ComponentCategory.VIRTUAL_PROCESSOR)) {
 			// do memory bindings
@@ -1154,9 +1157,11 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				instantiateBindingPropagationPaths(annex, ci, bres, "connection");
 			}
 		}
-		List<ComponentInstance> systems = InstanceModelUtil.getFunctionBinding(ci);
-		for (ComponentInstance system : systems) {
-			instantiateBindingPropagationPaths(annex, ci, system, "binding");
+		if (DeploymentProperties.acceptsActualFunctionBinding(ci)) {
+			List<ComponentInstance> systems = InstanceModelUtil.getFunctionBinding(ci);
+			for (ComponentInstance system : systems) {
+				instantiateBindingPropagationPaths(annex, ci, system, "binding");
+			}
 		}
 	}
 
