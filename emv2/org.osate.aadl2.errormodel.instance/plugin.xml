@@ -34,5 +34,14 @@
             class="org.osate.aadl2.errormodel.instance.EMV2InstancePackage"
             genModel="model/EMV2Instance.genmodel"/>
    </extension>
+   <extension
+         point="org.osate.annexsupport.instantiator">
+      <instantiator
+            annexName="EMV2"
+            class="org.osate.aadl2.errormodel.instance.instantiator.EMV2AnnexInstantiator"
+            id="org.osate.aadl2.errormodel.instance.instantiator"
+            name="EMV2 Annex Instantiator">
+      </instantiator>
+   </extension>
 
 </plugin>

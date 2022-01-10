@@ -1311,6 +1311,29 @@ public class EMV2Util {
 	}
 
 	/**
+	 * return list of error propagations including those inherited from classifiers being extended
+	 * @param cl Classifier
+	 * @return Collection<ErrorPropagation> list of ErrorPropagation excluding duplicates
+	 * @since 6.3
+	 */
+	public static Collection<ErrorPropagation> getAllErrorPropagations(Classifier cl) {
+		HashMap<String, ErrorPropagation> result = new LinkedHashMap<>();
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			EList<ErrorPropagation> eflist = errorModelSubclause.getPropagations();
+			for (ErrorPropagation errorProp : eflist) {
+				if (!errorProp.isNot()) {
+					String epname = EMV2Util.getPrintName(errorProp);
+					if (!result.containsKey(epname)) {
+						result.put(epname, errorProp);
+					}
+				}
+			}
+		}
+		return result.values();
+	}
+
+	/**
 	 * return list of ConnectionErrorSource including those inherited from classifiers being extended
 	 * @param cl Classifier
 	 * @return Collection<ConnectionErrorSource> list of ConnectionErrorSource excluding duplicates
@@ -1708,6 +1731,27 @@ public class EMV2Util {
 
 	public static Collection<ErrorBehaviorState> getAllErrorBehaviorStates(ComponentInstance ci) {
 		return getAllErrorBehaviorStates(ci.getComponentClassifier());
+	}
+
+	/**
+	 * @since 6.3
+	 */
+	public static ErrorBehaviorStateMachine getAllErrorBehaviorStateMachine(Classifier cl) {
+		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
+		for (ErrorModelSubclause errorModelSubclause : emslist) {
+			ErrorBehaviorStateMachine ebsm = errorModelSubclause.getUseBehavior();
+			if (ebsm != null) {
+				return ebsm;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * @since 6.3
+	 */
+	public static ErrorBehaviorStateMachine getAllErrorBehaviorStateMachine(ComponentInstance ci) {
+		return getAllErrorBehaviorStateMachine(ci.getComponentClassifier());
 	}
 
 	/**
@@ -2354,6 +2398,9 @@ public class EMV2Util {
 	 * @return Subcomponent
 	 */
 	public static Subcomponent getLastSubcomponent(EMV2Path epath) {
+		if (epath == null) {
+			return null;
+		}
 		if (epath.getContainmentPath() != null) {
 			// handle paths that come from the EMV2PropertyAssociation with the new syntax for the core path
 			ContainmentPathElement last = getLast(epath.getContainmentPath());
