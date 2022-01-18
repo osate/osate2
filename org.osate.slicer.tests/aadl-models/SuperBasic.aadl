@@ -1,0 +1,36 @@
+package SuperBasic
+public
+	
+	system sys
+		
+	end sys;
+	
+	system implementation sys.impl
+		subcomponents
+			a : abstract Thing.one;
+			b : abstract Thing.two;
+			c : abstract Thing.three;
+		connections
+			aToB : feature a.output -> b.input;
+			bToC : feature b.output -> c.input;
+	end sys.impl;
+	
+	abstract Thing
+		features
+			input : in feature;
+			output : out feature;
+	end Thing;
+	
+	abstract implementation Thing.one
+		
+	end Thing.one;
+	
+	abstract implementation Thing.two
+		
+	end Thing.two;
+	
+	abstract implementation Thing.three
+		
+	end Thing.three;
+	
+end SuperBasic;

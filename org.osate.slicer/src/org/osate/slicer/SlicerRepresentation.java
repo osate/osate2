@@ -30,13 +30,15 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 
+// TODO: Find a way to mark this unstable / discourage use, look into marking "internal" so you get non-API warnings
+// TODO: Use flow-specifications to guide intracomponent connections. Experience gained doing that will guide the
+// implementation of EMV2 instantiation, in particular error flows and error propagations.
+
 /**
  *
  * This API provides functionality for building the graph needed for slicing AADL models, as well as performing the slices.
  *
  * @author sprocter
- *
- * TODO: Find a way to mark this unstable / discourage use, look into marking "internal" so you get non-API warnings
  *
  */
 public class SlicerRepresentation {
@@ -47,7 +49,7 @@ public class SlicerRepresentation {
 	private final Graph<OsateSlicerVertex, DefaultEdge> g = new DefaultDirectedGraph<>(DefaultEdge.class);
 
 	/**
-	 * A reversed-direction version of the main graph. Not created until {@link #freeze() freeze} method has been run
+	 * A reversed-direction version of the main graph.
 	 */
 	private final Graph<OsateSlicerVertex, DefaultEdge> rg = new DefaultDirectedGraph<>(DefaultEdge.class);
 
@@ -70,9 +72,10 @@ public class SlicerRepresentation {
 		// Add implicit edges
 		buildIntraConnections(mySwitch.hasExplicitDecomp);
 
-		// Create a separate graph, rather than a wrapper, saving CPU at the expense of memory
+		// Create a separate reversed graph, rather than a wrapper, saving CPU at the expense of memory
 		Graphs.addGraphReversed(rg, g);
 
+		// Debugging info, remove at-will
 		System.out.println(this.toDot());
 	}
 
@@ -101,6 +104,12 @@ public class SlicerRepresentation {
 		g.addEdge(vertexMap.get(src), vertexMap.get(tgt));
 	}
 
+	/**
+	 * Calculates reachable components from the supplied component
+	 *
+	 * @param component Where to start the forward slice from
+	 * @return The set of reachable components
+	 */
 	public Collection<EObject> forwardReach(ComponentInstance component) {
 		Set<EObject> retSet = new HashSet<>();
 		for (FeatureInstance fi : component.getAllFeatureInstances()) {
@@ -111,6 +120,12 @@ public class SlicerRepresentation {
 		return retSet;
 	}
 
+	/**
+	 * Calculates components which can reach the supplied component
+	 *
+	 * @param component Where to start the backward slice from
+	 * @return The set of components which can reach the one supplied as a parameter
+	 */
 	public Collection<EObject> backwardReach(ComponentInstance component) {
 		Set<EObject> retSet = new HashSet<>();
 		for (FeatureInstance fi : component.getAllFeatureInstances()) {
@@ -152,8 +167,10 @@ public class SlicerRepresentation {
 			String origin) {
 		BreadthFirstIterator<OsateSlicerVertex, DefaultEdge> bfi = new BreadthFirstIterator<>(graph,
 				vertexMap.get(origin));
+
 		AsSubgraph<OsateSlicerVertex, DefaultEdge> reachableSubgraph = new AsSubgraph<>(graph,
 				Collections.singleton(vertexMap.get(origin)));
+
 		bfi.next(); // Disregard root node since we already added it
 		bfi.forEachRemaining(v -> {
 			reachableSubgraph.addVertex(v);
@@ -185,7 +202,7 @@ public class SlicerRepresentation {
 	 * @param ne
 	 * @return The full name / path to the component
 	 */
-	private String getCompleteFeatureName(NamedElement ne) {
+	public String getCompleteFeatureName(NamedElement ne) {
 		StringBuilder sb = new StringBuilder(ne.getFullName());
 		do {
 			ne = (NamedElement) ne.eContainer();
@@ -194,6 +211,10 @@ public class SlicerRepresentation {
 		return sb.toString();
 	}
 
+	/**
+	 * Debug function which dumps the internal graph to dot so it can be fed into graphviz
+	 * @return A string which can be input to graphviz
+	 */
 	public String toDot() {
 		DOTExporter<OsateSlicerVertex, DefaultEdge> exporter = new DOTExporter<>(v -> v.getName().replace('.', '_'));
 		Writer writer = new StringWriter();
