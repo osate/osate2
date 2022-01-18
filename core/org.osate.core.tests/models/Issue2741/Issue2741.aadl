@@ -1,0 +1,8 @@
+package Issue2741
+public
+	system s
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end Issue2741;
