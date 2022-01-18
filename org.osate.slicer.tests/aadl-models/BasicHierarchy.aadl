@@ -1,0 +1,48 @@
+package ConnectionInstantiationExample
+public
+	system sys
+		
+	end sys;
+	
+	system implementation sys.impl
+		subcomponents
+			p1 : process proc.one;
+			p2 : process proc.two;
+			p3 : process proc.three;
+		connections
+			sc1 : port p1.pOut -> p2.pIn;
+			sc2 : port p2.pOut -> p3.pIn;
+	end sys.impl;
+	
+	process proc
+		features
+			pIn : in event port;
+			pOut : out event port;
+	end proc;
+	
+	process implementation proc.one
+		
+	end proc.one;
+	
+	process implementation proc.two
+		subcomponents
+			t1 : thread thd.one;
+		connections
+			pc1 : port pIn -> t1.tIn;
+			pc2 : port t1.tOut -> pOut;
+	end proc.two;
+	
+	process implementation proc.three
+		
+	end proc.three;
+	
+	thread thd
+		features
+			tIn : in event port;
+			tOut : out event port;
+	end thd;
+	
+	thread implementation thd.one
+		
+	end thd.one;
+end ConnectionInstantiationExample;

@@ -18,7 +18,6 @@ import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.slicer.OsateSlicerVertex;
@@ -56,25 +55,30 @@ public class SuperBasicTests {
 				.collect(Collectors.toMap(OsateSlicerVertex::getName, Functions.identity()));
 
 		// Should have three vertices: b.out, c.in, and c.out
-		assertEquals(3, g.vertexSet().size());
-		assertTrue(m.containsKey("sys_impl_Instance.b.output"));
-		assertTrue(m.containsKey("sys_impl_Instance.c.input"));
-		assertTrue(m.containsKey("sys_impl_Instance.c.output"));
+		assertEquals("Number of vertices in forward reach", 3, g.vertexSet().size());
+		assertTrue("Vertex sys_impl_Instance.b.output not found", m.containsKey("sys_impl_Instance.b.output"));
+		assertTrue("Vertex sys_impl_Instance.c.input not found", m.containsKey("sys_impl_Instance.c.input"));
+		assertTrue("Vertex sys_impl_Instance.c.output not found", m.containsKey("sys_impl_Instance.c.output"));
 
 		// Should have an edge from b.out to c.in and c.in to c.out
-		assertEquals(2, g.edgeSet().size());
-		assertTrue(g.containsEdge(m.get("sys_impl_Instance.b.output"), m.get("sys_impl_Instance.c.input")));
-		assertTrue(g.containsEdge(m.get("sys_impl_Instance.c.input"), m.get("sys_impl_Instance.c.output")));
+		assertEquals("Number of edges in forward reach", 2, g.edgeSet().size());
+		assertTrue("Edge sys_impl_Instance.b.output -> sys_impl_Instance.c.input doesn't exist!",
+				g.containsEdge(m.get("sys_impl_Instance.b.output"), m.get("sys_impl_Instance.c.input")));
+		assertTrue("Edge sys_impl_Instance.c.input -> sys_impl_Instance.c.output doesn't exist!",
+				g.containsEdge(m.get("sys_impl_Instance.c.input"), m.get("sys_impl_Instance.c.output")));
 	}
 
 	@Test
 	public void testForwardReach() {
-		Collection<EObject> c = tlg.forwardReach(getAbstractInstance("sys_impl_Instance.b"));
+		Collection<EObject> c = tlg
+				.forwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si, tlg));
 
 		// Should have two elements: b and c
-		assertEquals(2, c.size());
-		c.contains(getAbstractInstance("sys_impl_Instance.b"));
-		c.contains(getAbstractInstance("sys_impl_Instance.c"));
+		assertEquals("Number of elements in forward reach", 2, c.size());
+		assertTrue("Element sys_impl_Instance.b not found",
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si, tlg)));
+		assertTrue("Element sys_impl_Instance.c not found",
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.c", ComponentCategory.ABSTRACT, si, tlg)));
 	}
 
 	@Test
@@ -85,34 +89,32 @@ public class SuperBasicTests {
 				.collect(Collectors.toMap(OsateSlicerVertex::getName, Functions.identity()));
 
 		// Should have four vertices: a.in, a.out, b.in, and b.out
-		assertEquals(4, g.vertexSet().size());
-		assertTrue(m.containsKey("sys_impl_Instance.a.input"));
-		assertTrue(m.containsKey("sys_impl_Instance.a.output"));
-		assertTrue(m.containsKey("sys_impl_Instance.b.input"));
-		assertTrue(m.containsKey("sys_impl_Instance.b.output"));
+		assertEquals("Number of vertices in backward reach", 4, g.vertexSet().size());
+		assertTrue("Vertex sys_impl_Instance.a.input not found", m.containsKey("sys_impl_Instance.a.input"));
+		assertTrue("Vertex sys_impl_Instance.a.output not found", m.containsKey("sys_impl_Instance.a.output"));
+		assertTrue("Vertex sys_impl_Instance.b.input not found", m.containsKey("sys_impl_Instance.b.input"));
+		assertTrue("Vertex sys_impl_Instance.b.output not found", m.containsKey("sys_impl_Instance.b.output"));
 
 		// Should have three edges: from a.in to a.out, a.out to b.in, and b.in to to b.out
-		assertEquals(3, g.edgeSet().size());
-		assertTrue(g.containsEdge(m.get("sys_impl_Instance.a.input"), m.get("sys_impl_Instance.a.output")));
-		assertTrue(g.containsEdge(m.get("sys_impl_Instance.a.output"), m.get("sys_impl_Instance.b.input")));
-		assertTrue(g.containsEdge(m.get("sys_impl_Instance.b.input"), m.get("sys_impl_Instance.b.output")));
+		assertEquals("Number of edges in backward reach", 3, g.edgeSet().size());
+		assertTrue("Edge sys_impl_Instance.a.input -> sys_impl_Instance.a.output doesn't exist!",
+				g.containsEdge(m.get("sys_impl_Instance.a.input"), m.get("sys_impl_Instance.a.output")));
+		assertTrue("Edge sys_impl_Instance.a.output -> sys_impl_Instance.b.input doesn't exist!",
+				g.containsEdge(m.get("sys_impl_Instance.a.output"), m.get("sys_impl_Instance.b.input")));
+		assertTrue("Edge sys_impl_Instance.b.input -> sys_impl_Instance.b.output doesn't exist!",
+				g.containsEdge(m.get("sys_impl_Instance.b.input"), m.get("sys_impl_Instance.b.output")));
 	}
 
 	@Test
 	public void testBackwardReach() {
-		Collection<EObject> c = tlg.forwardReach(getAbstractInstance("sys_impl_Instance.b"));
+		Collection<EObject> c = tlg
+				.backwardReach(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si, tlg));
 
 		// Should have two elements: a and b
-		assertEquals(2, c.size());
-		c.contains(getAbstractInstance("sys_impl_Instance.a"));
-		c.contains(getAbstractInstance("sys_impl_Instance.b"));
-	}
-
-	private ComponentInstance getAbstractInstance(String name) {
-		return si.getAllComponentInstances(ComponentCategory.ABSTRACT)
-				.stream()
-				.filter(ci -> name.equals(tlg.getCompleteFeatureName(ci)))
-				.findFirst()
-				.get();
+		assertEquals("Number of elements in backward reach", 2, c.size());
+		assertTrue("Element sys_impl_Instance.a not found",
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.a", ComponentCategory.ABSTRACT, si, tlg)));
+		assertTrue("Element sys_impl_Instance.b not found",
+				c.contains(SlicerTestUtil.getInstance("sys_impl_Instance.b", ComponentCategory.ABSTRACT, si, tlg)));
 	}
 }
