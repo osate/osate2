@@ -341,11 +341,23 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		epi.setName(EMV2Util.getName(ep));
 		epi.setErrorPropagation(ep);
 		ComponentInstance ci = (ComponentInstance) annex.eContainer();
-		InstanceObject io = findFeatureInstance(ci, ep.getFeatureorPPRef());
-		if (io == null) {
-			io = ci;
+
+		if (ep.getKind() != null) {
+			epi.setPropagationKind(ep.getKind());
+		} else if (ep.getFeatureorPPRef() != null) {
+			var featureOrPP = ep.getFeatureorPPRef().getFeatureorPP();
+			if (featureOrPP instanceof Feature) {
+				epi.setInstanceObject(findFeatureInstance(ci, ep.getFeatureorPPRef()));
+			} else if (featureOrPP instanceof PropagationPoint) {
+				epi.setInstanceObject(findPropagationPointInstance(annex, (PropagationPoint) featureOrPP));
+			} else {
+				throw new RuntimeException(
+						"featureorPPRef points to something other than a Feature or Propagation Point: " + featureOrPP);
+			}
+		} else {
+			throw new RuntimeException("Both kind and featureOrPPRef are null: " + ep);
 		}
-		epi.setInstanceObject(io);
+
 		for (TypeToken token : ep.getTypeSet().getTypeTokens()) {
 			epi.getConstraint().add(EcoreUtil.copy(token));
 		}
@@ -354,9 +366,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		} else if (ep.getDirection() == DirectionType.OUT) {
 			annex.getOutPropagations().add(epi);
 		} else if (ep.getDirection() == DirectionType.IN_OUT) {
-			annex.getInPropagations().add(epi);
-			ErrorPropagationInstance epicopy = EcoreUtil.copy(epi);
-			annex.getOutPropagations().add(epicopy);
+			throw new RuntimeException(
+					"Propagation has an in out direction which is not supported by the grammar: " + ep);
 		}
 	}
 
