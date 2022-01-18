@@ -113,12 +113,12 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		EMV2AnnexInstance emv2AI = EMV2InstanceFactory.eINSTANCE.createEMV2AnnexInstance();
 		instance.getAnnexInstances().add(emv2AI);
 
-		Collection<PropagationPoint> pps = EMV2Util.getAllPropagationPoints(instance.getClassifier());
+		Collection<PropagationPoint> pps = EMV2Util.getAllPropagationPoints(instance.getComponentClassifier());
 		for (PropagationPoint pp : pps) {
 			instantiatePropagationPoint(pp, emv2AI);
 		}
 
-		Collection<ErrorPropagation> eps = EMV2Util.getAllErrorPropagations(instance.getClassifier());
+		Collection<ErrorPropagation> eps = EMV2Util.getAllErrorPropagations(instance.getComponentClassifier());
 		for (ErrorPropagation ep : eps) {
 			instantiateErrorPropagation(ep, emv2AI);
 		}
@@ -153,7 +153,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			instantiateOutgoingPropagationCondition(opc, emv2AI);
 		}
 
-		Collection<ErrorDetection> eds = EMV2Util.getAllErrorDetections(instance.getClassifier());
+		Collection<ErrorDetection> eds = EMV2Util.getAllErrorDetections(instance.getComponentClassifier());
 		for (ErrorDetection ed : eds) {
 			instantiateErrorDetection(ed, emv2AI);
 		}
@@ -163,7 +163,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			instantiateConnectionPropagationPaths(conni, emv2AI);
 		}
 
-		Collection<PropagationPath> ppaths = EMV2Util.getAllPropagationPaths(instance.getClassifier());
+		Collection<PropagationPath> ppaths = EMV2Util.getAllPropagationPaths(instance.getComponentClassifier());
 		for (PropagationPath ppath : ppaths) {
 			instantiatePropagationPath(ppath, emv2AI);
 		}
@@ -391,7 +391,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			Collection<ErrorPropagation> ineps = EMV2Util.getAllIncomingErrorPropagations(relatedComponent);
 			for (ErrorPropagation ainep : ineps) {
 				Collection<ErrorPropagation> outeps = EMV2Util
-						.getAllOutgoingErrorPropagations(relatedComponent.getClassifier());
+						.getAllOutgoingErrorPropagations(relatedComponent.getComponentClassifier());
 				for (ErrorPropagation aoutep : outeps) {
 					instantiateErrorFlow(ef, annex, ainep, constraint, aoutep, outToken);
 				}
@@ -403,7 +403,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			}
 		} else if (allOutgoing) {
 			Collection<ErrorPropagation> outeps = EMV2Util
-					.getAllOutgoingErrorPropagations(relatedComponent.getClassifier());
+					.getAllOutgoingErrorPropagations(relatedComponent.getComponentClassifier());
 			for (ErrorPropagation aoutep : outeps) {
 				instantiateErrorFlow(ef, annex, inep, constraint, aoutep, outToken);
 			}
@@ -523,7 +523,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		}
 		if (opc.isAllPropagations()) {
 			Collection<ErrorPropagation> outeps = EMV2Util
-					.getAllOutgoingErrorPropagations(((ComponentInstance) annex.eContainer()).getClassifier());
+					.getAllOutgoingErrorPropagations(((ComponentInstance) annex.eContainer()).getComponentClassifier());
 			for (ErrorPropagation outep : outeps) {
 				ErrorPropagationConditionInstance bicopy = EcoreUtil.copy(bi);
 				ConstrainedInstanceObject outcio = createErrorPropagationCIO(outep, opc.getTypeToken(), annex);
