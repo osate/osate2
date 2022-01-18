@@ -31,6 +31,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -1313,24 +1314,32 @@ public class EMV2Util {
 	/**
 	 * return list of error propagations including those inherited from classifiers being extended
 	 * @param cl Classifier
-	 * @return Collection<ErrorPropagation> list of ErrorPropagation excluding duplicates
+	 * @return list of ErrorPropagation excluding duplicates
 	 * @since 6.3
 	 */
-	public static Collection<ErrorPropagation> getAllErrorPropagations(Classifier cl) {
-		HashMap<String, ErrorPropagation> result = new LinkedHashMap<>();
-		EList<ErrorModelSubclause> emslist = getAllContainingClassifierEMV2Subclauses(cl);
-		for (ErrorModelSubclause errorModelSubclause : emslist) {
-			EList<ErrorPropagation> eflist = errorModelSubclause.getPropagations();
-			for (ErrorPropagation errorProp : eflist) {
-				if (!errorProp.isNot()) {
-					String epname = EMV2Util.getPrintName(errorProp);
-					if (!result.containsKey(epname)) {
-						result.put(epname, errorProp);
-					}
+	public static List<ErrorPropagation> getAllErrorPropagations(Classifier cl) {
+		var result = new ArrayList<ErrorPropagation>();
+		var subclauses = getAllContainingClassifierEMV2Subclauses(cl);
+		var propagations = subclauses.stream()
+				.flatMap(subclause -> subclause.getPropagations().stream())
+				.filter(propagation -> !propagation.isNot())
+				.collect(Collectors.toList());
+		// Filter out propagations in extended classifiers that are overridden.
+		for (var propagation : propagations) {
+			var propagationName = getPrintName(propagation);
+			var alreadyExists = false;
+			for (var existing : result) {
+				var existingName = getPrintName(existing);
+				if (propagationName.equals(existingName) && propagation.getDirection() == existing.getDirection()) {
+					alreadyExists = true;
+					break;
 				}
 			}
+			if (!alreadyExists) {
+				result.add(propagation);
+			}
 		}
-		return result.values();
+		return result;
 	}
 
 	/**
