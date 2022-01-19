@@ -1,6 +1,6 @@
-verification plan SysVerify for isoletteSystem 
+verification plan SysVerify for SysReq 
 [
-	claim R2[
+	claim R2_Lat[
 		activities
 			a2: SysMethods.LAT()
 	]
