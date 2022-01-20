@@ -36,6 +36,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
@@ -350,6 +351,9 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				epi.setInstanceObject(findFeatureInstance(ci, ep.getFeatureorPPRef()));
 			} else if (featureOrPP instanceof PropagationPoint) {
 				epi.setInstanceObject(findPropagationPointInstance(annex, (PropagationPoint) featureOrPP));
+			} else if (featureOrPP instanceof InternalFeature) {
+				// Propagation not instantiated since InternalFeatures are not instantiated.
+				return;
 			} else {
 				throw new RuntimeException(
 						"featureorPPRef points to something other than a Feature or Propagation Point: " + featureOrPP);
