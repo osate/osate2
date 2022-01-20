@@ -45,7 +45,7 @@ capabilities of ALISA:
 * Requirements
 * Verification
 
-There's 2 AADL projects presented in this example:
+There are 2 AADL projects presented in this example:
 
 * "ALISA_Example" contains the goals, requirements, verification plans,
  and stakeholders.

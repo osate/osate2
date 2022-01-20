@@ -3,6 +3,7 @@
 	<name>ALISA_Example</name>
 	<comment></comment>
 	<projects>
+		<project>SCSProject</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
