@@ -45,16 +45,15 @@ capabilities of ALISA:
 * Requirements
 * Verification
 
-There's 2 folders presented in this example:
+There's 2 AADL projects presented in this example:
 
-* A folder named "ALISA_Example" contains the goals, requirements, verification 
-  plans, and stakeholders.
-* A folder named "SCSProject" contains an AADL project that ALISA requirements
-  are written for
+* "ALISA_Example" contains the goals, requirements, verification plans,
+ and stakeholders.
+* "SCSProject" contains an AADL project that ALISA requirements are written for
 
 ### ALISA
 
-Within the "ALISA_Example" folder, there are several types of files:
+Within the "ALISA_Example" project, there are several types of files:
 
 * "SEI.org" contains information about the stakeholders of the project
 * "isoletteSystemCategories.cat" contains categories that can be assigned to a

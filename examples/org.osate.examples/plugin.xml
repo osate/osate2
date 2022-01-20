@@ -37,7 +37,8 @@ censes only apply to the Third Party Software and not any other portion of this 
             readmeURI="doc/html/README.html"
             category="ACVIP Examples"
             name="ACVIP with ALISA">
-         <project path=""/>
+         <project path="ALISA_Example"/>
+         <project path="SCSProject"/>
       </example>
       <example
             exampleURI="/examples/arp4761"
