@@ -55,7 +55,7 @@
 		<pluginRepository>
 			<name>BestSolution.at e(fx)clipse releases</name>
 			<id>efxclipse-releases</id>
-			<url>http://maven.bestsolution.at/efxclipse-releases/</url>
+			<url>http://maven.bestsolution.at/repos/releases/</url>
 		</pluginRepository>
 	</pluginRepositories>
 	
