@@ -56,12 +56,12 @@ This model and README is based on OSATE 2.9.1.
 
 ### Organization of the example
 
-There is one model contained within this project, along with two diagrams of 
+There is one model contained within this project, along with a diagram of 
 the HighLevelSCS implementation. 
 
 ### Creating a diagram
 
-Although two diagrams are already contained inside of this example project,
+Although a diagram is already contained inside of this example project,
 additional ones can be generated. To generate additional diagrams,
 open InitialSCS.aadl, right click on the HighLevelSCS implementation in the
 Outline perspective and select "Create Diagram...". The resulting diagram may

@@ -107,7 +107,7 @@ public
 	data implementation temperature_range.measured_temperature_range
   		properties  
   			Data_Model::Real_Range => 68.0 .. 105.0;
-	end temperature.measured_temperature_range;  
+	end temperature_range.measured_temperature_range;  
 
 	data implementation temperature_range.lower_desired_range
   		properties     
