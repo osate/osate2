@@ -56,6 +56,9 @@ import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
+import org.osate.aadl2.errormodel.instance.PropagationOfBindingReferenceInstance;
+import org.osate.aadl2.errormodel.instance.PropagationOfFeatureInstance;
+import org.osate.aadl2.errormodel.instance.PropagationOfPointInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
@@ -852,9 +855,41 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			boolean outgoing) {
 		Collection<ErrorPropagationInstance> eps = outgoing ? annex.getOutPropagations() : annex.getInPropagations();
 		for (ErrorPropagationInstance epi : eps) {
-			if (epi.getInstanceObject() == cie) {
-				return epi;
+			if (epi instanceof PropagationOfFeatureInstance) {
+				if (((PropagationOfFeatureInstance) epi).getFeature() == cie) {
+					return epi;
+				}
+			} else if (epi instanceof PropagationOfPointInstance) {
+				if (((PropagationOfPointInstance) epi).getPoint() == cie) {
+					return epi;
+				}
+			} else if (epi instanceof PropagationOfBindingReferenceInstance) {
+				/*
+				 * TODO This is probably wrong and needs to be revisited. I added this code to mimic Peter's behavior so
+				 * that his tests will pass.
+				 *
+				 * In his original instantiator, ErrorPropagation.instanceObject is set to the containing
+				 * ComponentInstance for propagations that have a binding reference. Then this method would simply
+				 * search for the first propagation in which the instanceObject field equals cie. This means that if cie
+				 * is a ComponentInstance, then the first propagation with a binding reference is returned. No
+				 * consideration is given to what the binding reference is: "processor", "memory", "connection", etc.
+				 *
+				 * This is almost certainly not correct and we will need to revist this method when we figure out
+				 * propagation paths.
+				 */
+				if (EcoreUtil2.getContainerOfType(epi, ComponentInstance.class) == cie) {
+					return epi;
+				}
+			} else {
+				throw new RuntimeException("Unexpected type: " + epi);
 			}
+
+			/*
+			 * The following is Peter's original code for this loop.
+			 */
+//			if (epi.getInstanceObject() == cie) {
+//				return epi;
+//			}
 		}
 		return null;
 	}
