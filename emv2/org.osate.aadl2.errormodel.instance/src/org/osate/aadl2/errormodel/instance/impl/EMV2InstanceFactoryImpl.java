@@ -91,7 +91,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			case EMV2InstancePackage.EVENT_INSTANCE: return createEventInstance();
 			case EMV2InstancePackage.CONSTRAINT_EXPRESSION: return createConstraintExpression();
 			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: return createPropagationPathInstance();
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE: return createErrorPropagationInstance();
+			case EMV2InstancePackage.PROPAGATION_OF_FEATURE_INSTANCE: return createPropagationOfFeatureInstance();
+			case EMV2InstancePackage.PROPAGATION_OF_POINT_INSTANCE: return createPropagationOfPointInstance();
+			case EMV2InstancePackage.PROPAGATION_OF_BINDING_REFERENCE_INSTANCE: return createPropagationOfBindingReferenceInstance();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -107,6 +109,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 		switch (eDataType.getClassifierID()) {
 			case EMV2InstancePackage.EOPERATION:
 				return createEOperationFromString(eDataType, initialValue);
+			case EMV2InstancePackage.BINDING_REFERENCE:
+				return createBindingReferenceFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -122,6 +126,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 		switch (eDataType.getClassifierID()) {
 			case EMV2InstancePackage.EOPERATION:
 				return convertEOperationToString(eDataType, instanceValue);
+			case EMV2InstancePackage.BINDING_REFERENCE:
+				return convertBindingReferenceToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -276,9 +282,31 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public ErrorPropagationInstance createErrorPropagationInstance() {
-		ErrorPropagationInstanceImpl errorPropagationInstance = new ErrorPropagationInstanceImpl();
-		return errorPropagationInstance;
+	public PropagationOfFeatureInstance createPropagationOfFeatureInstance() {
+		PropagationOfFeatureInstanceImpl propagationOfFeatureInstance = new PropagationOfFeatureInstanceImpl();
+		return propagationOfFeatureInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PropagationOfPointInstance createPropagationOfPointInstance() {
+		PropagationOfPointInstanceImpl propagationOfPointInstance = new PropagationOfPointInstanceImpl();
+		return propagationOfPointInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PropagationOfBindingReferenceInstance createPropagationOfBindingReferenceInstance() {
+		PropagationOfBindingReferenceInstanceImpl propagationOfBindingReferenceInstance = new PropagationOfBindingReferenceInstanceImpl();
+		return propagationOfBindingReferenceInstance;
 	}
 
 	/**
@@ -298,6 +326,26 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	public String convertEOperationToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BindingReference createBindingReferenceFromString(EDataType eDataType, String initialValue) {
+		BindingReference result = BindingReference.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertBindingReferenceToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

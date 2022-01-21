@@ -114,7 +114,26 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//ConstraintElement"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//ConstrainedInstanceObject"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagationInstance" eSuperTypes="#//ConstrainedInstanceObject">
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagationInstance" abstract="true"
+      eSuperTypes="#//ConstrainedInstanceObject">
     <eStructuralFeatures xsi:type="ecore:EReference" name="errorPropagation" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorPropagation"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BindingReference">
+    <eLiterals name="processor"/>
+    <eLiterals name="memory" value="1"/>
+    <eLiterals name="connection" value="2"/>
+    <eLiterals name="binding" value="3"/>
+    <eLiterals name="bindings" value="4"/>
+    <eLiterals name="access" value="5"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropagationOfFeatureInstance" eSuperTypes="#//ErrorPropagationInstance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="feature" eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//FeatureInstance"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropagationOfPointInstance" eSuperTypes="#//ErrorPropagationInstance">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="point" eType="#//PropagationPointInstance"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PropagationOfBindingReferenceInstance"
+      eSuperTypes="#//ErrorPropagationInstance">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bindingReference" eType="#//BindingReference"/>
   </eClassifiers>
 </ecore:EPackage>

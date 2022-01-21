@@ -31,40 +31,40 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
+import org.osate.aadl2.errormodel.instance.PropagationOfFeatureInstance;
 
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.aadl2.instance.FeatureInstance;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Error Propagation Instance</b></em>'.
+ * An implementation of the model object '<em><b>Propagation Of Feature Instance</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getErrorPropagation <em>Error Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.PropagationOfFeatureInstanceImpl#getFeature <em>Feature</em>}</li>
  * </ul>
  *
  * @generated
  */
-public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceObjectImpl implements ErrorPropagationInstance {
+public class PropagationOfFeatureInstanceImpl extends ErrorPropagationInstanceImpl implements PropagationOfFeatureInstance {
 	/**
-	 * The cached value of the '{@link #getErrorPropagation() <em>Error Propagation</em>}' reference.
+	 * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getErrorPropagation()
+	 * @see #getFeature()
 	 * @generated
 	 * @ordered
 	 */
-	protected ErrorPropagation errorPropagation;
+	protected FeatureInstance feature;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ErrorPropagationInstanceImpl() {
+	protected PropagationOfFeatureInstanceImpl() {
 		super();
 	}
 
@@ -75,7 +75,7 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.ERROR_PROPAGATION_INSTANCE;
+		return EMV2InstancePackage.Literals.PROPAGATION_OF_FEATURE_INSTANCE;
 	}
 
 	/**
@@ -84,16 +84,16 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * @generated
 	 */
 	@Override
-	public ErrorPropagation getErrorPropagation() {
-		if (errorPropagation != null && errorPropagation.eIsProxy()) {
-			InternalEObject oldErrorPropagation = (InternalEObject)errorPropagation;
-			errorPropagation = (ErrorPropagation)eResolveProxy(oldErrorPropagation);
-			if (errorPropagation != oldErrorPropagation) {
+	public FeatureInstance getFeature() {
+		if (feature != null && feature.eIsProxy()) {
+			InternalEObject oldFeature = (InternalEObject)feature;
+			feature = (FeatureInstance)eResolveProxy(oldFeature);
+			if (feature != oldFeature) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION, oldErrorPropagation, errorPropagation));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.PROPAGATION_OF_FEATURE_INSTANCE__FEATURE, oldFeature, feature));
 			}
 		}
-		return errorPropagation;
+		return feature;
 	}
 
 	/**
@@ -101,8 +101,8 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ErrorPropagation basicGetErrorPropagation() {
-		return errorPropagation;
+	public FeatureInstance basicGetFeature() {
+		return feature;
 	}
 
 	/**
@@ -111,11 +111,11 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * @generated
 	 */
 	@Override
-	public void setErrorPropagation(ErrorPropagation newErrorPropagation) {
-		ErrorPropagation oldErrorPropagation = errorPropagation;
-		errorPropagation = newErrorPropagation;
+	public void setFeature(FeatureInstance newFeature) {
+		FeatureInstance oldFeature = feature;
+		feature = newFeature;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION, oldErrorPropagation, errorPropagation));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.PROPAGATION_OF_FEATURE_INSTANCE__FEATURE, oldFeature, feature));
 	}
 
 	/**
@@ -126,9 +126,9 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				if (resolve) return getErrorPropagation();
-				return basicGetErrorPropagation();
+			case EMV2InstancePackage.PROPAGATION_OF_FEATURE_INSTANCE__FEATURE:
+				if (resolve) return getFeature();
+				return basicGetFeature();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -141,8 +141,8 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				setErrorPropagation((ErrorPropagation)newValue);
+			case EMV2InstancePackage.PROPAGATION_OF_FEATURE_INSTANCE__FEATURE:
+				setFeature((FeatureInstance)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -156,8 +156,8 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				setErrorPropagation((ErrorPropagation)null);
+			case EMV2InstancePackage.PROPAGATION_OF_FEATURE_INSTANCE__FEATURE:
+				setFeature((FeatureInstance)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -171,10 +171,10 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				return errorPropagation != null;
+			case EMV2InstancePackage.PROPAGATION_OF_FEATURE_INSTANCE__FEATURE:
+				return feature != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ErrorPropagationInstanceImpl
+} //PropagationOfFeatureInstanceImpl

@@ -26,45 +26,53 @@ package org.osate.aadl2.errormodel.instance.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.osate.aadl2.errormodel.instance.BindingReference;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
-
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.aadl2.errormodel.instance.PropagationOfBindingReferenceInstance;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Error Propagation Instance</b></em>'.
+ * An implementation of the model object '<em><b>Propagation Of Binding Reference Instance</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getErrorPropagation <em>Error Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.PropagationOfBindingReferenceInstanceImpl#getBindingReference <em>Binding Reference</em>}</li>
  * </ul>
  *
  * @generated
  */
-public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceObjectImpl implements ErrorPropagationInstance {
+public class PropagationOfBindingReferenceInstanceImpl extends ErrorPropagationInstanceImpl implements PropagationOfBindingReferenceInstance {
 	/**
-	 * The cached value of the '{@link #getErrorPropagation() <em>Error Propagation</em>}' reference.
+	 * The default value of the '{@link #getBindingReference() <em>Binding Reference</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getErrorPropagation()
+	 * @see #getBindingReference()
 	 * @generated
 	 * @ordered
 	 */
-	protected ErrorPropagation errorPropagation;
+	protected static final BindingReference BINDING_REFERENCE_EDEFAULT = BindingReference.PROCESSOR;
+
+	/**
+	 * The cached value of the '{@link #getBindingReference() <em>Binding Reference</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBindingReference()
+	 * @generated
+	 * @ordered
+	 */
+	protected BindingReference bindingReference = BINDING_REFERENCE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ErrorPropagationInstanceImpl() {
+	protected PropagationOfBindingReferenceInstanceImpl() {
 		super();
 	}
 
@@ -75,7 +83,7 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.ERROR_PROPAGATION_INSTANCE;
+		return EMV2InstancePackage.Literals.PROPAGATION_OF_BINDING_REFERENCE_INSTANCE;
 	}
 
 	/**
@@ -84,25 +92,8 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * @generated
 	 */
 	@Override
-	public ErrorPropagation getErrorPropagation() {
-		if (errorPropagation != null && errorPropagation.eIsProxy()) {
-			InternalEObject oldErrorPropagation = (InternalEObject)errorPropagation;
-			errorPropagation = (ErrorPropagation)eResolveProxy(oldErrorPropagation);
-			if (errorPropagation != oldErrorPropagation) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION, oldErrorPropagation, errorPropagation));
-			}
-		}
-		return errorPropagation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ErrorPropagation basicGetErrorPropagation() {
-		return errorPropagation;
+	public BindingReference getBindingReference() {
+		return bindingReference;
 	}
 
 	/**
@@ -111,11 +102,11 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * @generated
 	 */
 	@Override
-	public void setErrorPropagation(ErrorPropagation newErrorPropagation) {
-		ErrorPropagation oldErrorPropagation = errorPropagation;
-		errorPropagation = newErrorPropagation;
+	public void setBindingReference(BindingReference newBindingReference) {
+		BindingReference oldBindingReference = bindingReference;
+		bindingReference = newBindingReference == null ? BINDING_REFERENCE_EDEFAULT : newBindingReference;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION, oldErrorPropagation, errorPropagation));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.PROPAGATION_OF_BINDING_REFERENCE_INSTANCE__BINDING_REFERENCE, oldBindingReference, bindingReference));
 	}
 
 	/**
@@ -126,9 +117,8 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				if (resolve) return getErrorPropagation();
-				return basicGetErrorPropagation();
+			case EMV2InstancePackage.PROPAGATION_OF_BINDING_REFERENCE_INSTANCE__BINDING_REFERENCE:
+				return getBindingReference();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -141,8 +131,8 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				setErrorPropagation((ErrorPropagation)newValue);
+			case EMV2InstancePackage.PROPAGATION_OF_BINDING_REFERENCE_INSTANCE__BINDING_REFERENCE:
+				setBindingReference((BindingReference)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -156,8 +146,8 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				setErrorPropagation((ErrorPropagation)null);
+			case EMV2InstancePackage.PROPAGATION_OF_BINDING_REFERENCE_INSTANCE__BINDING_REFERENCE:
+				setBindingReference(BINDING_REFERENCE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -171,10 +161,26 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				return errorPropagation != null;
+			case EMV2InstancePackage.PROPAGATION_OF_BINDING_REFERENCE_INSTANCE__BINDING_REFERENCE:
+				return bindingReference != BINDING_REFERENCE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ErrorPropagationInstanceImpl
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (bindingReference: ");
+		result.append(bindingReference);
+		result.append(')');
+		return result.toString();
+	}
+
+} //PropagationOfBindingReferenceInstanceImpl

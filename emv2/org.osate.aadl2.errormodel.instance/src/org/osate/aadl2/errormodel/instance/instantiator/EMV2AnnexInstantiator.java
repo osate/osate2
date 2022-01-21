@@ -33,7 +33,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.InternalFeature;
@@ -43,6 +42,7 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
+import org.osate.aadl2.errormodel.instance.BindingReference;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
 import org.osate.aadl2.errormodel.instance.ConstraintElement;
@@ -338,38 +338,50 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 	}
 
 	public void instantiateErrorPropagation(ErrorPropagation ep, EMV2AnnexInstance annex) {
-		ErrorPropagationInstance epi = EMV2InstanceFactory.eINSTANCE.createErrorPropagationInstance();
-		epi.setName(EMV2Util.getName(ep));
-		epi.setErrorPropagation(ep);
-		ComponentInstance ci = (ComponentInstance) annex.eContainer();
+		ErrorPropagationInstance epi;
 
 		if (ep.getKind() != null) {
-			epi.setPropagationKind(ep.getKind());
+			var propagationInstance = EMV2InstanceFactory.eINSTANCE.createPropagationOfBindingReferenceInstance();
+			propagationInstance.setBindingReference(BindingReference.get(ep.getKind().toLowerCase()));
+			epi = propagationInstance;
 		} else if (ep.getFeatureorPPRef() != null) {
 			var featureOrPP = ep.getFeatureorPPRef().getFeatureorPP();
 			if (featureOrPP instanceof Feature) {
-				epi.setInstanceObject(findFeatureInstance(ci, ep.getFeatureorPPRef()));
+				var propagationInstance = EMV2InstanceFactory.eINSTANCE.createPropagationOfFeatureInstance();
+				propagationInstance.setFeature(findFeatureInstance(
+						EcoreUtil2.getContainerOfType(annex, ComponentInstance.class), ep.getFeatureorPPRef()));
+				epi = propagationInstance;
 			} else if (featureOrPP instanceof PropagationPoint) {
-				epi.setInstanceObject(findPropagationPointInstance(annex, (PropagationPoint) featureOrPP));
+				var propagationInstance = EMV2InstanceFactory.eINSTANCE.createPropagationOfPointInstance();
+				propagationInstance.setPoint(findPropagationPointInstance(annex, (PropagationPoint) featureOrPP));
+				epi = propagationInstance;
 			} else if (featureOrPP instanceof InternalFeature) {
 				// Propagation not instantiated since InternalFeatures are not instantiated.
 				return;
 			} else {
 				throw new RuntimeException(
-						"featureorPPRef points to something other than a Feature or Propagation Point: " + featureOrPP);
+						"featureorPPRef points to something other than a Feature, an InternalFeature, or a PropagationPoint: "
+								+ featureOrPP);
 			}
 		} else {
 			throw new RuntimeException("Both kind and featureOrPPRef are null: " + ep);
 		}
 
-		for (TypeToken token : ep.getTypeSet().getTypeTokens()) {
+		epi.setName(EMV2Util.getName(ep));
+		epi.setErrorPropagation(ep);
+
+		for (var token : ep.getTypeSet().getTypeTokens()) {
 			epi.getConstraint().add(EcoreUtil.copy(token));
 		}
-		if (ep.getDirection() == DirectionType.IN) {
+
+		switch (ep.getDirection()) {
+		case IN:
 			annex.getInPropagations().add(epi);
-		} else if (ep.getDirection() == DirectionType.OUT) {
+			break;
+		case OUT:
 			annex.getOutPropagations().add(epi);
-		} else if (ep.getDirection() == DirectionType.IN_OUT) {
+			break;
+		case IN_OUT:
 			throw new RuntimeException(
 					"Propagation has an in out direction which is not supported by the grammar: " + ep);
 		}

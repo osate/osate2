@@ -23,45 +23,44 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Error Propagation Instance</b></em>'.
+ * A representation of the model object '<em><b>Propagation Of Point Instance</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.PropagationOfPointInstance#getPoint <em>Point</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance()
- * @model abstract="true"
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationOfPointInstance()
+ * @model
  * @generated
  */
-public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
+public interface PropagationOfPointInstance extends ErrorPropagationInstance {
 	/**
-	 * Returns the value of the '<em><b>Error Propagation</b></em>' reference.
+	 * Returns the value of the '<em><b>Point</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Error Propagation</em>' reference.
-	 * @see #setErrorPropagation(ErrorPropagation)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_ErrorPropagation()
+	 * @return the value of the '<em>Point</em>' reference.
+	 * @see #setPoint(PropagationPointInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationOfPointInstance_Point()
 	 * @model
 	 * @generated
 	 */
-	ErrorPropagation getErrorPropagation();
+	PropagationPointInstance getPoint();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.PropagationOfPointInstance#getPoint <em>Point</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Error Propagation</em>' reference.
-	 * @see #getErrorPropagation()
+	 * @param value the new value of the '<em>Point</em>' reference.
+	 * @see #getPoint()
 	 * @generated
 	 */
-	void setErrorPropagation(ErrorPropagation value);
+	void setPoint(PropagationPointInstance value);
 
-} // ErrorPropagationInstance
+} // PropagationOfPointInstance

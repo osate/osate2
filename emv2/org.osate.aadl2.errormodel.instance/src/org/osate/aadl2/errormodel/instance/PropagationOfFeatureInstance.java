@@ -23,45 +23,45 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.aadl2.instance.FeatureInstance;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Error Propagation Instance</b></em>'.
+ * A representation of the model object '<em><b>Propagation Of Feature Instance</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.PropagationOfFeatureInstance#getFeature <em>Feature</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance()
- * @model abstract="true"
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationOfFeatureInstance()
+ * @model
  * @generated
  */
-public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
+public interface PropagationOfFeatureInstance extends ErrorPropagationInstance {
 	/**
-	 * Returns the value of the '<em><b>Error Propagation</b></em>' reference.
+	 * Returns the value of the '<em><b>Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Error Propagation</em>' reference.
-	 * @see #setErrorPropagation(ErrorPropagation)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_ErrorPropagation()
+	 * @return the value of the '<em>Feature</em>' reference.
+	 * @see #setFeature(FeatureInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationOfFeatureInstance_Feature()
 	 * @model
 	 * @generated
 	 */
-	ErrorPropagation getErrorPropagation();
+	FeatureInstance getFeature();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.PropagationOfFeatureInstance#getFeature <em>Feature</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Error Propagation</em>' reference.
-	 * @see #getErrorPropagation()
+	 * @param value the new value of the '<em>Feature</em>' reference.
+	 * @see #getFeature()
 	 * @generated
 	 */
-	void setErrorPropagation(ErrorPropagation value);
+	void setFeature(FeatureInstance value);
 
-} // ErrorPropagationInstance
+} // PropagationOfFeatureInstance

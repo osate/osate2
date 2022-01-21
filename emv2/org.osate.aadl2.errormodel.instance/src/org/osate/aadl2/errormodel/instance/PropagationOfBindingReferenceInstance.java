@@ -23,45 +23,47 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Error Propagation Instance</b></em>'.
+ * A representation of the model object '<em><b>Propagation Of Binding Reference Instance</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.PropagationOfBindingReferenceInstance#getBindingReference <em>Binding Reference</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance()
- * @model abstract="true"
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationOfBindingReferenceInstance()
+ * @model
  * @generated
  */
-public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
+public interface PropagationOfBindingReferenceInstance extends ErrorPropagationInstance {
 	/**
-	 * Returns the value of the '<em><b>Error Propagation</b></em>' reference.
+	 * Returns the value of the '<em><b>Binding Reference</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.osate.aadl2.errormodel.instance.BindingReference}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Error Propagation</em>' reference.
-	 * @see #setErrorPropagation(ErrorPropagation)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_ErrorPropagation()
+	 * @return the value of the '<em>Binding Reference</em>' attribute.
+	 * @see org.osate.aadl2.errormodel.instance.BindingReference
+	 * @see #setBindingReference(BindingReference)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationOfBindingReferenceInstance_BindingReference()
 	 * @model
 	 * @generated
 	 */
-	ErrorPropagation getErrorPropagation();
+	BindingReference getBindingReference();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.PropagationOfBindingReferenceInstance#getBindingReference <em>Binding Reference</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Error Propagation</em>' reference.
-	 * @see #getErrorPropagation()
+	 * @param value the new value of the '<em>Binding Reference</em>' attribute.
+	 * @see org.osate.aadl2.errormodel.instance.BindingReference
+	 * @see #getBindingReference()
 	 * @generated
 	 */
-	void setErrorPropagation(ErrorPropagation value);
+	void setBindingReference(BindingReference value);
 
-} // ErrorPropagationInstance
+} // PropagationOfBindingReferenceInstance
