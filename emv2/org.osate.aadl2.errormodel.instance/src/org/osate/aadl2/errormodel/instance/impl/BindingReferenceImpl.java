@@ -30,49 +30,49 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.aadl2.errormodel.instance.BindingReference;
+import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.PropagationOfBindingReferenceInstance;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Propagation Of Binding Reference Instance</b></em>'.
+ * An implementation of the model object '<em><b>Binding Reference</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.PropagationOfBindingReferenceInstanceImpl#getBindingReference <em>Binding Reference</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.BindingReferenceImpl#getBinding <em>Binding</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class PropagationOfBindingReferenceInstanceImpl extends ErrorPropagationInstanceImpl implements PropagationOfBindingReferenceInstance {
+public class BindingReferenceImpl extends ErrorPropagationInstanceImpl implements BindingReference {
 	/**
-	 * The default value of the '{@link #getBindingReference() <em>Binding Reference</em>}' attribute.
+	 * The default value of the '{@link #getBinding() <em>Binding</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBindingReference()
+	 * @see #getBinding()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final BindingReference BINDING_REFERENCE_EDEFAULT = BindingReference.PROCESSOR;
+	protected static final BindingType BINDING_EDEFAULT = BindingType.PROCESSOR;
 
 	/**
-	 * The cached value of the '{@link #getBindingReference() <em>Binding Reference</em>}' attribute.
+	 * The cached value of the '{@link #getBinding() <em>Binding</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBindingReference()
+	 * @see #getBinding()
 	 * @generated
 	 * @ordered
 	 */
-	protected BindingReference bindingReference = BINDING_REFERENCE_EDEFAULT;
+	protected BindingType binding = BINDING_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PropagationOfBindingReferenceInstanceImpl() {
+	protected BindingReferenceImpl() {
 		super();
 	}
 
@@ -83,7 +83,7 @@ public class PropagationOfBindingReferenceInstanceImpl extends ErrorPropagationI
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.PROPAGATION_OF_BINDING_REFERENCE_INSTANCE;
+		return EMV2InstancePackage.Literals.BINDING_REFERENCE;
 	}
 
 	/**
@@ -92,8 +92,8 @@ public class PropagationOfBindingReferenceInstanceImpl extends ErrorPropagationI
 	 * @generated
 	 */
 	@Override
-	public BindingReference getBindingReference() {
-		return bindingReference;
+	public BindingType getBinding() {
+		return binding;
 	}
 
 	/**
@@ -102,11 +102,11 @@ public class PropagationOfBindingReferenceInstanceImpl extends ErrorPropagationI
 	 * @generated
 	 */
 	@Override
-	public void setBindingReference(BindingReference newBindingReference) {
-		BindingReference oldBindingReference = bindingReference;
-		bindingReference = newBindingReference == null ? BINDING_REFERENCE_EDEFAULT : newBindingReference;
+	public void setBinding(BindingType newBinding) {
+		BindingType oldBinding = binding;
+		binding = newBinding == null ? BINDING_EDEFAULT : newBinding;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.PROPAGATION_OF_BINDING_REFERENCE_INSTANCE__BINDING_REFERENCE, oldBindingReference, bindingReference));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.BINDING_REFERENCE__BINDING, oldBinding, binding));
 	}
 
 	/**
@@ -117,8 +117,8 @@ public class PropagationOfBindingReferenceInstanceImpl extends ErrorPropagationI
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_OF_BINDING_REFERENCE_INSTANCE__BINDING_REFERENCE:
-				return getBindingReference();
+			case EMV2InstancePackage.BINDING_REFERENCE__BINDING:
+				return getBinding();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -131,8 +131,8 @@ public class PropagationOfBindingReferenceInstanceImpl extends ErrorPropagationI
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_OF_BINDING_REFERENCE_INSTANCE__BINDING_REFERENCE:
-				setBindingReference((BindingReference)newValue);
+			case EMV2InstancePackage.BINDING_REFERENCE__BINDING:
+				setBinding((BindingType)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -146,8 +146,8 @@ public class PropagationOfBindingReferenceInstanceImpl extends ErrorPropagationI
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_OF_BINDING_REFERENCE_INSTANCE__BINDING_REFERENCE:
-				setBindingReference(BINDING_REFERENCE_EDEFAULT);
+			case EMV2InstancePackage.BINDING_REFERENCE__BINDING:
+				setBinding(BINDING_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -161,8 +161,8 @@ public class PropagationOfBindingReferenceInstanceImpl extends ErrorPropagationI
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_OF_BINDING_REFERENCE_INSTANCE__BINDING_REFERENCE:
-				return bindingReference != BINDING_REFERENCE_EDEFAULT;
+			case EMV2InstancePackage.BINDING_REFERENCE__BINDING:
+				return binding != BINDING_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -177,10 +177,10 @@ public class PropagationOfBindingReferenceInstanceImpl extends ErrorPropagationI
 		if (eIsProxy()) return super.toString();
 
 		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (bindingReference: ");
-		result.append(bindingReference);
+		result.append(" (binding: ");
+		result.append(binding);
 		result.append(')');
 		return result.toString();
 	}
 
-} //PropagationOfBindingReferenceInstanceImpl
+} //BindingReferenceImpl

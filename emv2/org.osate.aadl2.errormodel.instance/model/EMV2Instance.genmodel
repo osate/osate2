@@ -17,13 +17,13 @@
       <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//EOperation/KORMORE"/>
       <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//EOperation/KORLESS"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="EMV2Instance.ecore#//BindingReference">
-      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//BindingReference/processor"/>
-      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//BindingReference/memory"/>
-      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//BindingReference/connection"/>
-      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//BindingReference/binding"/>
-      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//BindingReference/bindings"/>
-      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//BindingReference/access"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="EMV2Instance.ecore#//BindingType">
+      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//BindingType/processor"/>
+      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//BindingType/memory"/>
+      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//BindingType/connection"/>
+      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//BindingType/binding"/>
+      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//BindingType/bindings"/>
+      <genEnumLiterals ecoreEnumLiteral="EMV2Instance.ecore#//BindingType/access"/>
     </genEnums>
     <genClasses ecoreClass="EMV2Instance.ecore#//EMV2AnnexInstance">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//EMV2AnnexInstance/transitions"/>
@@ -106,14 +106,14 @@
     <genClasses ecoreClass="EMV2Instance.ecore#//ErrorPropagationInstance">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//ErrorPropagationInstance/errorPropagation"/>
     </genClasses>
-    <genClasses ecoreClass="EMV2Instance.ecore#//PropagationOfFeatureInstance">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PropagationOfFeatureInstance/feature"/>
+    <genClasses ecoreClass="EMV2Instance.ecore#//FeatureReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//FeatureReference/feature"/>
     </genClasses>
-    <genClasses ecoreClass="EMV2Instance.ecore#//PropagationOfPointInstance">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PropagationOfPointInstance/point"/>
+    <genClasses ecoreClass="EMV2Instance.ecore#//PointReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference EMV2Instance.ecore#//PointReference/point"/>
     </genClasses>
-    <genClasses ecoreClass="EMV2Instance.ecore#//PropagationOfBindingReferenceInstance">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//PropagationOfBindingReferenceInstance/bindingReference"/>
+    <genClasses ecoreClass="EMV2Instance.ecore#//BindingReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute EMV2Instance.ecore#//BindingReference/binding"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

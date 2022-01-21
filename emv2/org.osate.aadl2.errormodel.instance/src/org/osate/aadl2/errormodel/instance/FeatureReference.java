@@ -23,47 +23,45 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
+import org.osate.aadl2.instance.FeatureInstance;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Propagation Of Binding Reference Instance</b></em>'.
+ * A representation of the model object '<em><b>Feature Reference</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.PropagationOfBindingReferenceInstance#getBindingReference <em>Binding Reference</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.FeatureReference#getFeature <em>Feature</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationOfBindingReferenceInstance()
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getFeatureReference()
  * @model
  * @generated
  */
-public interface PropagationOfBindingReferenceInstance extends ErrorPropagationInstance {
+public interface FeatureReference extends ErrorPropagationInstance {
 	/**
-	 * Returns the value of the '<em><b>Binding Reference</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.osate.aadl2.errormodel.instance.BindingReference}.
+	 * Returns the value of the '<em><b>Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Binding Reference</em>' attribute.
-	 * @see org.osate.aadl2.errormodel.instance.BindingReference
-	 * @see #setBindingReference(BindingReference)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPropagationOfBindingReferenceInstance_BindingReference()
+	 * @return the value of the '<em>Feature</em>' reference.
+	 * @see #setFeature(FeatureInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getFeatureReference_Feature()
 	 * @model
 	 * @generated
 	 */
-	BindingReference getBindingReference();
+	FeatureInstance getFeature();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.PropagationOfBindingReferenceInstance#getBindingReference <em>Binding Reference</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.FeatureReference#getFeature <em>Feature</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Binding Reference</em>' attribute.
-	 * @see org.osate.aadl2.errormodel.instance.BindingReference
-	 * @see #getBindingReference()
+	 * @param value the new value of the '<em>Feature</em>' reference.
+	 * @see #getFeature()
 	 * @generated
 	 */
-	void setBindingReference(BindingReference value);
+	void setFeature(FeatureInstance value);
 
-} // PropagationOfBindingReferenceInstance
+} // FeatureReference

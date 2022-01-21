@@ -91,9 +91,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			case EMV2InstancePackage.EVENT_INSTANCE: return createEventInstance();
 			case EMV2InstancePackage.CONSTRAINT_EXPRESSION: return createConstraintExpression();
 			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: return createPropagationPathInstance();
-			case EMV2InstancePackage.PROPAGATION_OF_FEATURE_INSTANCE: return createPropagationOfFeatureInstance();
-			case EMV2InstancePackage.PROPAGATION_OF_POINT_INSTANCE: return createPropagationOfPointInstance();
-			case EMV2InstancePackage.PROPAGATION_OF_BINDING_REFERENCE_INSTANCE: return createPropagationOfBindingReferenceInstance();
+			case EMV2InstancePackage.FEATURE_REFERENCE: return createFeatureReference();
+			case EMV2InstancePackage.POINT_REFERENCE: return createPointReference();
+			case EMV2InstancePackage.BINDING_REFERENCE: return createBindingReference();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -109,8 +109,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 		switch (eDataType.getClassifierID()) {
 			case EMV2InstancePackage.EOPERATION:
 				return createEOperationFromString(eDataType, initialValue);
-			case EMV2InstancePackage.BINDING_REFERENCE:
-				return createBindingReferenceFromString(eDataType, initialValue);
+			case EMV2InstancePackage.BINDING_TYPE:
+				return createBindingTypeFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -126,8 +126,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 		switch (eDataType.getClassifierID()) {
 			case EMV2InstancePackage.EOPERATION:
 				return convertEOperationToString(eDataType, instanceValue);
-			case EMV2InstancePackage.BINDING_REFERENCE:
-				return convertBindingReferenceToString(eDataType, instanceValue);
+			case EMV2InstancePackage.BINDING_TYPE:
+				return convertBindingTypeToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -282,9 +282,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public PropagationOfFeatureInstance createPropagationOfFeatureInstance() {
-		PropagationOfFeatureInstanceImpl propagationOfFeatureInstance = new PropagationOfFeatureInstanceImpl();
-		return propagationOfFeatureInstance;
+	public FeatureReference createFeatureReference() {
+		FeatureReferenceImpl featureReference = new FeatureReferenceImpl();
+		return featureReference;
 	}
 
 	/**
@@ -293,9 +293,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public PropagationOfPointInstance createPropagationOfPointInstance() {
-		PropagationOfPointInstanceImpl propagationOfPointInstance = new PropagationOfPointInstanceImpl();
-		return propagationOfPointInstance;
+	public PointReference createPointReference() {
+		PointReferenceImpl pointReference = new PointReferenceImpl();
+		return pointReference;
 	}
 
 	/**
@@ -304,9 +304,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public PropagationOfBindingReferenceInstance createPropagationOfBindingReferenceInstance() {
-		PropagationOfBindingReferenceInstanceImpl propagationOfBindingReferenceInstance = new PropagationOfBindingReferenceInstanceImpl();
-		return propagationOfBindingReferenceInstance;
+	public BindingReference createBindingReference() {
+		BindingReferenceImpl bindingReference = new BindingReferenceImpl();
+		return bindingReference;
 	}
 
 	/**
@@ -334,8 +334,8 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BindingReference createBindingReferenceFromString(EDataType eDataType, String initialValue) {
-		BindingReference result = BindingReference.get(initialValue);
+	public BindingType createBindingTypeFromString(EDataType eDataType, String initialValue) {
+		BindingType result = BindingType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 		return result;
 	}
@@ -345,7 +345,7 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertBindingReferenceToString(EDataType eDataType, Object instanceValue) {
+	public String convertBindingTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

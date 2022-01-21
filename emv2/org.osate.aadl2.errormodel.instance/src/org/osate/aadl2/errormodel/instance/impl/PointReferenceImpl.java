@@ -31,23 +31,23 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.PropagationOfPointInstance;
+import org.osate.aadl2.errormodel.instance.PointReference;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Propagation Of Point Instance</b></em>'.
+ * An implementation of the model object '<em><b>Point Reference</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.PropagationOfPointInstanceImpl#getPoint <em>Point</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.PointReferenceImpl#getPoint <em>Point</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class PropagationOfPointInstanceImpl extends ErrorPropagationInstanceImpl implements PropagationOfPointInstance {
+public class PointReferenceImpl extends ErrorPropagationInstanceImpl implements PointReference {
 	/**
 	 * The cached value of the '{@link #getPoint() <em>Point</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -63,7 +63,7 @@ public class PropagationOfPointInstanceImpl extends ErrorPropagationInstanceImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PropagationOfPointInstanceImpl() {
+	protected PointReferenceImpl() {
 		super();
 	}
 
@@ -74,7 +74,7 @@ public class PropagationOfPointInstanceImpl extends ErrorPropagationInstanceImpl
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.PROPAGATION_OF_POINT_INSTANCE;
+		return EMV2InstancePackage.Literals.POINT_REFERENCE;
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class PropagationOfPointInstanceImpl extends ErrorPropagationInstanceImpl
 			point = (PropagationPointInstance)eResolveProxy(oldPoint);
 			if (point != oldPoint) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.PROPAGATION_OF_POINT_INSTANCE__POINT, oldPoint, point));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.POINT_REFERENCE__POINT, oldPoint, point));
 			}
 		}
 		return point;
@@ -114,7 +114,7 @@ public class PropagationOfPointInstanceImpl extends ErrorPropagationInstanceImpl
 		PropagationPointInstance oldPoint = point;
 		point = newPoint;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.PROPAGATION_OF_POINT_INSTANCE__POINT, oldPoint, point));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.POINT_REFERENCE__POINT, oldPoint, point));
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class PropagationOfPointInstanceImpl extends ErrorPropagationInstanceImpl
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_OF_POINT_INSTANCE__POINT:
+			case EMV2InstancePackage.POINT_REFERENCE__POINT:
 				if (resolve) return getPoint();
 				return basicGetPoint();
 		}
@@ -140,7 +140,7 @@ public class PropagationOfPointInstanceImpl extends ErrorPropagationInstanceImpl
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_OF_POINT_INSTANCE__POINT:
+			case EMV2InstancePackage.POINT_REFERENCE__POINT:
 				setPoint((PropagationPointInstance)newValue);
 				return;
 		}
@@ -155,7 +155,7 @@ public class PropagationOfPointInstanceImpl extends ErrorPropagationInstanceImpl
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_OF_POINT_INSTANCE__POINT:
+			case EMV2InstancePackage.POINT_REFERENCE__POINT:
 				setPoint((PropagationPointInstance)null);
 				return;
 		}
@@ -170,10 +170,10 @@ public class PropagationOfPointInstanceImpl extends ErrorPropagationInstanceImpl
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.PROPAGATION_OF_POINT_INSTANCE__POINT:
+			case EMV2InstancePackage.POINT_REFERENCE__POINT:
 				return point != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //PropagationOfPointInstanceImpl
+} //PointReferenceImpl

@@ -23,300 +23,47 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the literals of the enumeration '<em><b>Binding Reference</b></em>',
- * and utility methods for working with them.
+ * A representation of the model object '<em><b>Binding Reference</b></em>'.
  * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.BindingReference#getBinding <em>Binding</em>}</li>
+ * </ul>
+ *
  * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingReference()
  * @model
  * @generated
  */
-public enum BindingReference implements Enumerator {
+public interface BindingReference extends ErrorPropagationInstance {
 	/**
-	 * The '<em><b>Processor</b></em>' literal object.
+	 * Returns the value of the '<em><b>Binding</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.osate.aadl2.errormodel.instance.BindingType}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #PROCESSOR_VALUE
+	 * @return the value of the '<em>Binding</em>' attribute.
+	 * @see org.osate.aadl2.errormodel.instance.BindingType
+	 * @see #setBinding(BindingType)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingReference_Binding()
+	 * @model
 	 * @generated
-	 * @ordered
 	 */
-	PROCESSOR(0, "processor", "processor"),
+	BindingType getBinding();
 
 	/**
-	 * The '<em><b>Memory</b></em>' literal object.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.BindingReference#getBinding <em>Binding</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #MEMORY_VALUE
+	 * @param value the new value of the '<em>Binding</em>' attribute.
+	 * @see org.osate.aadl2.errormodel.instance.BindingType
+	 * @see #getBinding()
 	 * @generated
-	 * @ordered
 	 */
-	MEMORY(1, "memory", "memory"),
+	void setBinding(BindingType value);
 
-	/**
-	 * The '<em><b>Connection</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CONNECTION_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	CONNECTION(2, "connection", "connection"),
-
-	/**
-	 * The '<em><b>Binding</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BINDING_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	BINDING(3, "binding", "binding"),
-
-	/**
-	 * The '<em><b>Bindings</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BINDINGS_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	BINDINGS(4, "bindings", "bindings"),
-
-	/**
-	 * The '<em><b>Access</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ACCESS_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	ACCESS(5, "access", "access");
-
-	/**
-	 * The '<em><b>Processor</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #PROCESSOR
-	 * @model name="processor"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int PROCESSOR_VALUE = 0;
-
-	/**
-	 * The '<em><b>Memory</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #MEMORY
-	 * @model name="memory"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int MEMORY_VALUE = 1;
-
-	/**
-	 * The '<em><b>Connection</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CONNECTION
-	 * @model name="connection"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int CONNECTION_VALUE = 2;
-
-	/**
-	 * The '<em><b>Binding</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BINDING
-	 * @model name="binding"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int BINDING_VALUE = 3;
-
-	/**
-	 * The '<em><b>Bindings</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #BINDINGS
-	 * @model name="bindings"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int BINDINGS_VALUE = 4;
-
-	/**
-	 * The '<em><b>Access</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ACCESS
-	 * @model name="access"
-	 * @generated
-	 * @ordered
-	 */
-	public static final int ACCESS_VALUE = 5;
-
-	/**
-	 * An array of all the '<em><b>Binding Reference</b></em>' enumerators.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private static final BindingReference[] VALUES_ARRAY =
-		new BindingReference[] {
-			PROCESSOR,
-			MEMORY,
-			CONNECTION,
-			BINDING,
-			BINDINGS,
-			ACCESS,
-		};
-
-	/**
-	 * A public read-only list of all the '<em><b>Binding Reference</b></em>' enumerators.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static final List<BindingReference> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
-
-	/**
-	 * Returns the '<em><b>Binding Reference</b></em>' literal with the specified literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param literal the literal.
-	 * @return the matching enumerator or <code>null</code>.
-	 * @generated
-	 */
-	public static BindingReference get(String literal) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			BindingReference result = VALUES_ARRAY[i];
-			if (result.toString().equals(literal)) {
-				return result;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Returns the '<em><b>Binding Reference</b></em>' literal with the specified name.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param name the name.
-	 * @return the matching enumerator or <code>null</code>.
-	 * @generated
-	 */
-	public static BindingReference getByName(String name) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			BindingReference result = VALUES_ARRAY[i];
-			if (result.getName().equals(name)) {
-				return result;
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Returns the '<em><b>Binding Reference</b></em>' literal with the specified integer value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the integer value.
-	 * @return the matching enumerator or <code>null</code>.
-	 * @generated
-	 */
-	public static BindingReference get(int value) {
-		switch (value) {
-			case PROCESSOR_VALUE: return PROCESSOR;
-			case MEMORY_VALUE: return MEMORY;
-			case CONNECTION_VALUE: return CONNECTION;
-			case BINDING_VALUE: return BINDING;
-			case BINDINGS_VALUE: return BINDINGS;
-			case ACCESS_VALUE: return ACCESS;
-		}
-		return null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private final int value;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private final String name;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private final String literal;
-
-	/**
-	 * Only this class can construct instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private BindingReference(int value, String name, String literal) {
-		this.value = value;
-		this.name = name;
-		this.literal = literal;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public int getValue() {
-	  return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String getName() {
-	  return name;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String getLiteral() {
-	  return literal;
-	}
-
-	/**
-	 * Returns the literal value of the enumerator, which is its string representation.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		return literal;
-	}
-	
-} //BindingReference
+} // BindingReference
