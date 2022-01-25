@@ -47,7 +47,8 @@ censes only apply to the Third Party Software and not any other portion of this 
             file="plugindevcontents.xml">
       </toc>
       <toc
-            file="javadoccontents.xml">
+            file="javadoccontents.xml"
+            primary="true">
       </toc>
       <toc
       		file="help/toc_instantiation.xml">
