@@ -294,6 +294,49 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case EMV2InstancePackage.TYPE_TOKEN_INSTANCE: {
+				TypeTokenInstance typeTokenInstance = (TypeTokenInstance)theEObject;
+				T result = caseTypeTokenInstance(typeTokenInstance);
+				if (result == null) result = caseEMV2InstanceObject(typeTokenInstance);
+				if (result == null) result = caseInstanceObject(typeTokenInstance);
+				if (result == null) result = caseNamedElement(typeTokenInstance);
+				if (result == null) result = caseElement(typeTokenInstance);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EMV2InstancePackage.TYPE_REFERENCE: {
+				TypeReference typeReference = (TypeReference)theEObject;
+				T result = caseTypeReference(typeReference);
+				if (result == null) result = caseTypeTokenInstance(typeReference);
+				if (result == null) result = caseEMV2InstanceObject(typeReference);
+				if (result == null) result = caseInstanceObject(typeReference);
+				if (result == null) result = caseNamedElement(typeReference);
+				if (result == null) result = caseElement(typeReference);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EMV2InstancePackage.TYPE_SET_INSTANCE: {
+				TypeSetInstance typeSetInstance = (TypeSetInstance)theEObject;
+				T result = caseTypeSetInstance(typeSetInstance);
+				if (result == null) result = caseTypeTokenInstance(typeSetInstance);
+				if (result == null) result = caseEMV2InstanceObject(typeSetInstance);
+				if (result == null) result = caseInstanceObject(typeSetInstance);
+				if (result == null) result = caseNamedElement(typeSetInstance);
+				if (result == null) result = caseElement(typeSetInstance);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE: {
+				TypeProductInstance typeProductInstance = (TypeProductInstance)theEObject;
+				T result = caseTypeProductInstance(typeProductInstance);
+				if (result == null) result = caseTypeTokenInstance(typeProductInstance);
+				if (result == null) result = caseEMV2InstanceObject(typeProductInstance);
+				if (result == null) result = caseInstanceObject(typeProductInstance);
+				if (result == null) result = caseNamedElement(typeProductInstance);
+				if (result == null) result = caseElement(typeProductInstance);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -580,6 +623,66 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseBindingReference(BindingReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Token Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Token Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTypeTokenInstance(TypeTokenInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTypeReference(TypeReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Set Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Set Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTypeSetInstance(TypeSetInstance object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Product Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Product Instance</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTypeProductInstance(TypeProductInstance object) {
 		return null;
 	}
 

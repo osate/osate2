@@ -171,6 +171,22 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 				return createBindingReferenceAdapter();
 			}
 			@Override
+			public Adapter caseTypeTokenInstance(TypeTokenInstance object) {
+				return createTypeTokenInstanceAdapter();
+			}
+			@Override
+			public Adapter caseTypeReference(TypeReference object) {
+				return createTypeReferenceAdapter();
+			}
+			@Override
+			public Adapter caseTypeSetInstance(TypeSetInstance object) {
+				return createTypeSetInstanceAdapter();
+			}
+			@Override
+			public Adapter caseTypeProductInstance(TypeProductInstance object) {
+				return createTypeProductInstanceAdapter();
+			}
+			@Override
 			public Adapter caseElement(Element object) {
 				return createElementAdapter();
 			}
@@ -469,6 +485,62 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createBindingReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.TypeTokenInstance <em>Type Token Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.TypeTokenInstance
+	 * @generated
+	 */
+	public Adapter createTypeTokenInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.TypeReference <em>Type Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.TypeReference
+	 * @generated
+	 */
+	public Adapter createTypeReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance <em>Type Set Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.TypeSetInstance
+	 * @generated
+	 */
+	public Adapter createTypeSetInstanceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.TypeProductInstance <em>Type Product Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.errormodel.instance.TypeProductInstance
+	 * @generated
+	 */
+	public Adapter createTypeProductInstanceAdapter() {
 		return null;
 	}
 

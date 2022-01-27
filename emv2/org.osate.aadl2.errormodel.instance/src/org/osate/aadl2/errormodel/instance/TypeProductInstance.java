@@ -24,58 +24,34 @@
 package org.osate.aadl2.errormodel.instance;
 
 import org.eclipse.emf.common.util.EList;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Error Propagation Instance</b></em>'.
+ * A representation of the model object '<em><b>Type Product Instance</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getTokens <em>Tokens</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.TypeProductInstance#getTypes <em>Types</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance()
- * @model abstract="true"
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeProductInstance()
+ * @model
  * @generated
  */
-public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
+public interface TypeProductInstance extends TypeTokenInstance {
 	/**
-	 * Returns the value of the '<em><b>Error Propagation</b></em>' reference.
+	 * Returns the value of the '<em><b>Types</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.TypeReference}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Error Propagation</em>' reference.
-	 * @see #setErrorPropagation(ErrorPropagation)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_ErrorPropagation()
-	 * @model
-	 * @generated
-	 */
-	ErrorPropagation getErrorPropagation();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Error Propagation</em>' reference.
-	 * @see #getErrorPropagation()
-	 * @generated
-	 */
-	void setErrorPropagation(ErrorPropagation value);
-
-	/**
-	 * Returns the value of the '<em><b>Tokens</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.TypeTokenInstance}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Tokens</em>' containment reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_Tokens()
+	 * @return the value of the '<em>Types</em>' containment reference list.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeProductInstance_Types()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<TypeTokenInstance> getTokens();
+	EList<TypeReference> getTypes();
 
-} // ErrorPropagationInstance
+} // TypeProductInstance

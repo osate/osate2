@@ -94,6 +94,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			case EMV2InstancePackage.FEATURE_REFERENCE: return createFeatureReference();
 			case EMV2InstancePackage.POINT_REFERENCE: return createPointReference();
 			case EMV2InstancePackage.BINDING_REFERENCE: return createBindingReference();
+			case EMV2InstancePackage.TYPE_REFERENCE: return createTypeReference();
+			case EMV2InstancePackage.TYPE_SET_INSTANCE: return createTypeSetInstance();
+			case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE: return createTypeProductInstance();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -307,6 +310,39 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	public BindingReference createBindingReference() {
 		BindingReferenceImpl bindingReference = new BindingReferenceImpl();
 		return bindingReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public TypeReference createTypeReference() {
+		TypeReferenceImpl typeReference = new TypeReferenceImpl();
+		return typeReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public TypeSetInstance createTypeSetInstance() {
+		TypeSetInstanceImpl typeSetInstance = new TypeSetInstanceImpl();
+		return typeSetInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public TypeProductInstance createTypeProductInstance() {
+		TypeProductInstanceImpl typeProductInstance = new TypeProductInstanceImpl();
+		return typeProductInstance;
 	}
 
 	/**

@@ -28,6 +28,7 @@ import static org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil.isNoError;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -64,6 +65,10 @@ import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
+import org.osate.aadl2.errormodel.instance.TypeProductInstance;
+import org.osate.aadl2.errormodel.instance.TypeReference;
+import org.osate.aadl2.errormodel.instance.TypeSetInstance;
+import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.AnnexInstance;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -93,6 +98,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrExpression;
@@ -373,9 +379,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		epi.setName(EMV2Util.getName(ep));
 		epi.setErrorPropagation(ep);
 
-		for (var token : ep.getTypeSet().getTypeTokens()) {
-			epi.getConstraint().add(EcoreUtil.copy(token));
-		}
+		epi.getTokens().addAll(createTypeTokenInstances(ep.getTypeSet().getTypeTokens()));
 
 		switch (ep.getDirection()) {
 		case IN:
@@ -388,6 +392,50 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			throw new RuntimeException(
 					"Propagation has an in out direction which is not supported by the grammar: " + ep);
 		}
+	}
+
+	private List<TypeTokenInstance> createTypeTokenInstances(List<TypeToken> tokens) {
+		var results = new ArrayList<TypeTokenInstance>();
+		for (var token : tokens) {
+			if (token.getType().size() == 1) {
+				var type = token.getType().get(0);
+				if (type instanceof ErrorType) {
+					results.add(createTypeReference((ErrorType) type));
+				} else {
+					results.add(createTypeSetInstance((TypeSet) type));
+				}
+			} else {
+				results.add(createTypeProductInstance(token));
+			}
+		}
+		return results;
+	}
+
+	private TypeReference createTypeReference(ErrorType type) {
+		var typeReference = EMV2InstanceFactory.eINSTANCE.createTypeReference();
+		typeReference.setDeclaredType(type);
+		typeReference.setResolvedType(EMV2Util.resolveAlias(type));
+		typeReference.setName(type.getName());
+		return typeReference;
+	}
+
+	private TypeSetInstance createTypeSetInstance(TypeSet set) {
+		var typeSetInstance = EMV2InstanceFactory.eINSTANCE.createTypeSetInstance();
+		typeSetInstance.setDeclaredSet(set);
+		var resolved = EMV2Util.resolveAlias(set);
+		typeSetInstance.setResolvedSet(resolved);
+		typeSetInstance.setName(set.getName());
+		typeSetInstance.getTokens().addAll(createTypeTokenInstances(resolved.getTypeTokens()));
+		return typeSetInstance;
+	}
+
+	private TypeProductInstance createTypeProductInstance(TypeToken token) {
+		var product = EMV2InstanceFactory.eINSTANCE.createTypeProductInstance();
+		for (var type : token.getType()) {
+			product.getTypes().add(createTypeReference((ErrorType) type));
+		}
+		product.setName(token.getType().stream().map(NamedElement::getName).collect(Collectors.joining(" * ")));
+		return product;
 	}
 
 	public void instantiateErrorFlow(ErrorFlow ef, EMV2AnnexInstance annex) {

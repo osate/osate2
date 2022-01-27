@@ -1725,13 +1725,22 @@ public interface EMV2InstancePackage extends EPackage {
 	int ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Tokens</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_PROPAGATION_INSTANCE__TOKENS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Error Propagation Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 1;
+	int ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.FeatureReferenceImpl <em>Feature Reference</em>}' class.
@@ -1832,6 +1841,15 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int FEATURE_REFERENCE__ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION;
+
+	/**
+	 * The feature id for the '<em><b>Tokens</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_REFERENCE__TOKENS = ERROR_PROPAGATION_INSTANCE__TOKENS;
 
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -1952,6 +1970,15 @@ public interface EMV2InstancePackage extends EPackage {
 	int POINT_REFERENCE__ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION;
 
 	/**
+	 * The feature id for the '<em><b>Tokens</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POINT_REFERENCE__TOKENS = ERROR_PROPAGATION_INSTANCE__TOKENS;
+
+	/**
 	 * The feature id for the '<em><b>Point</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2070,6 +2097,15 @@ public interface EMV2InstancePackage extends EPackage {
 	int BINDING_REFERENCE__ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION;
 
 	/**
+	 * The feature id for the '<em><b>Tokens</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINDING_REFERENCE__TOKENS = ERROR_PROPAGATION_INSTANCE__TOKENS;
+
+	/**
 	 * The feature id for the '<em><b>Binding</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2088,6 +2124,352 @@ public interface EMV2InstancePackage extends EPackage {
 	int BINDING_REFERENCE_FEATURE_COUNT = ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeTokenInstanceImpl <em>Type Token Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.TypeTokenInstanceImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeTokenInstance()
+	 * @generated
+	 */
+	int TYPE_TOKEN_INSTANCE = 19;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TOKEN_INSTANCE__OWNED_ELEMENT = EMV2_INSTANCE_OBJECT__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TOKEN_INSTANCE__OWNED_COMMENT = EMV2_INSTANCE_OBJECT__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TOKEN_INSTANCE__NAME = EMV2_INSTANCE_OBJECT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TOKEN_INSTANCE__QUALIFIED_NAME = EMV2_INSTANCE_OBJECT__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TOKEN_INSTANCE__OWNED_PROPERTY_ASSOCIATION = EMV2_INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TOKEN_INSTANCE__ANNEX_INSTANCE = EMV2_INSTANCE_OBJECT__ANNEX_INSTANCE;
+
+	/**
+	 * The number of structural features of the '<em>Type Token Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_TOKEN_INSTANCE_FEATURE_COUNT = EMV2_INSTANCE_OBJECT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeReferenceImpl <em>Type Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.TypeReferenceImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeReference()
+	 * @generated
+	 */
+	int TYPE_REFERENCE = 20;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_REFERENCE__OWNED_ELEMENT = TYPE_TOKEN_INSTANCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_REFERENCE__OWNED_COMMENT = TYPE_TOKEN_INSTANCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_REFERENCE__NAME = TYPE_TOKEN_INSTANCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_REFERENCE__QUALIFIED_NAME = TYPE_TOKEN_INSTANCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_REFERENCE__OWNED_PROPERTY_ASSOCIATION = TYPE_TOKEN_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_REFERENCE__ANNEX_INSTANCE = TYPE_TOKEN_INSTANCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Resolved Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_REFERENCE__RESOLVED_TYPE = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Declared Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_REFERENCE__DECLARED_TYPE = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Type Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_REFERENCE_FEATURE_COUNT = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl <em>Type Set Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeSetInstance()
+	 * @generated
+	 */
+	int TYPE_SET_INSTANCE = 21;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_SET_INSTANCE__OWNED_ELEMENT = TYPE_TOKEN_INSTANCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_SET_INSTANCE__OWNED_COMMENT = TYPE_TOKEN_INSTANCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_SET_INSTANCE__NAME = TYPE_TOKEN_INSTANCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_SET_INSTANCE__QUALIFIED_NAME = TYPE_TOKEN_INSTANCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_SET_INSTANCE__OWNED_PROPERTY_ASSOCIATION = TYPE_TOKEN_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_SET_INSTANCE__ANNEX_INSTANCE = TYPE_TOKEN_INSTANCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Resolved Set</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_SET_INSTANCE__RESOLVED_SET = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Declared Set</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_SET_INSTANCE__DECLARED_SET = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Tokens</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_SET_INSTANCE__TOKENS = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Type Set Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_SET_INSTANCE_FEATURE_COUNT = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeProductInstanceImpl <em>Type Product Instance</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.aadl2.errormodel.instance.impl.TypeProductInstanceImpl
+	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeProductInstance()
+	 * @generated
+	 */
+	int TYPE_PRODUCT_INSTANCE = 22;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_PRODUCT_INSTANCE__OWNED_ELEMENT = TYPE_TOKEN_INSTANCE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_PRODUCT_INSTANCE__OWNED_COMMENT = TYPE_TOKEN_INSTANCE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_PRODUCT_INSTANCE__NAME = TYPE_TOKEN_INSTANCE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_PRODUCT_INSTANCE__QUALIFIED_NAME = TYPE_TOKEN_INSTANCE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_PRODUCT_INSTANCE__OWNED_PROPERTY_ASSOCIATION = TYPE_TOKEN_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The feature id for the '<em><b>Annex Instance</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_PRODUCT_INSTANCE__ANNEX_INSTANCE = TYPE_TOKEN_INSTANCE__ANNEX_INSTANCE;
+
+	/**
+	 * The feature id for the '<em><b>Types</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_PRODUCT_INSTANCE__TYPES = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Type Product Instance</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_PRODUCT_INSTANCE_FEATURE_COUNT = TYPE_TOKEN_INSTANCE_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2095,7 +2477,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getEOperation()
 	 * @generated
 	 */
-	int EOPERATION = 19;
+	int EOPERATION = 23;
 
 
 	/**
@@ -2106,7 +2488,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getBindingType()
 	 * @generated
 	 */
-	int BINDING_TYPE = 20;
+	int BINDING_TYPE = 24;
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance <em>EMV2 Annex Instance</em>}'.
@@ -2830,6 +3212,17 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getErrorPropagationInstance_ErrorPropagation();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getTokens <em>Tokens</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Tokens</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getTokens()
+	 * @see #getErrorPropagationInstance()
+	 * @generated
+	 */
+	EReference getErrorPropagationInstance_Tokens();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.FeatureReference <em>Feature Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2891,6 +3284,112 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getBindingReference_Binding();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.TypeTokenInstance <em>Type Token Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type Token Instance</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.TypeTokenInstance
+	 * @generated
+	 */
+	EClass getTypeTokenInstance();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.TypeReference <em>Type Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type Reference</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.TypeReference
+	 * @generated
+	 */
+	EClass getTypeReference();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TypeReference#getResolvedType <em>Resolved Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Resolved Type</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.TypeReference#getResolvedType()
+	 * @see #getTypeReference()
+	 * @generated
+	 */
+	EReference getTypeReference_ResolvedType();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TypeReference#getDeclaredType <em>Declared Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Declared Type</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.TypeReference#getDeclaredType()
+	 * @see #getTypeReference()
+	 * @generated
+	 */
+	EReference getTypeReference_DeclaredType();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance <em>Type Set Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type Set Instance</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.TypeSetInstance
+	 * @generated
+	 */
+	EClass getTypeSetInstance();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getResolvedSet <em>Resolved Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Resolved Set</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.TypeSetInstance#getResolvedSet()
+	 * @see #getTypeSetInstance()
+	 * @generated
+	 */
+	EReference getTypeSetInstance_ResolvedSet();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getDeclaredSet <em>Declared Set</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Declared Set</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.TypeSetInstance#getDeclaredSet()
+	 * @see #getTypeSetInstance()
+	 * @generated
+	 */
+	EReference getTypeSetInstance_DeclaredSet();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getTokens <em>Tokens</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Tokens</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.TypeSetInstance#getTokens()
+	 * @see #getTypeSetInstance()
+	 * @generated
+	 */
+	EReference getTypeSetInstance_Tokens();
+
+	/**
+	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.TypeProductInstance <em>Type Product Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Type Product Instance</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.TypeProductInstance
+	 * @generated
+	 */
+	EClass getTypeProductInstance();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.TypeProductInstance#getTypes <em>Types</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Types</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.TypeProductInstance#getTypes()
+	 * @see #getTypeProductInstance()
+	 * @generated
+	 */
+	EReference getTypeProductInstance_Types();
 
 	/**
 	 * Returns the meta object for enum '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}'.
@@ -3503,6 +4002,14 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION = eINSTANCE.getErrorPropagationInstance_ErrorPropagation();
 
 		/**
+		 * The meta object literal for the '<em><b>Tokens</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ERROR_PROPAGATION_INSTANCE__TOKENS = eINSTANCE.getErrorPropagationInstance_Tokens();
+
+		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.FeatureReferenceImpl <em>Feature Reference</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3555,6 +4062,94 @@ public interface EMV2InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute BINDING_REFERENCE__BINDING = eINSTANCE.getBindingReference_Binding();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeTokenInstanceImpl <em>Type Token Instance</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.TypeTokenInstanceImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeTokenInstance()
+		 * @generated
+		 */
+		EClass TYPE_TOKEN_INSTANCE = eINSTANCE.getTypeTokenInstance();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeReferenceImpl <em>Type Reference</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.TypeReferenceImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeReference()
+		 * @generated
+		 */
+		EClass TYPE_REFERENCE = eINSTANCE.getTypeReference();
+
+		/**
+		 * The meta object literal for the '<em><b>Resolved Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE_REFERENCE__RESOLVED_TYPE = eINSTANCE.getTypeReference_ResolvedType();
+
+		/**
+		 * The meta object literal for the '<em><b>Declared Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE_REFERENCE__DECLARED_TYPE = eINSTANCE.getTypeReference_DeclaredType();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl <em>Type Set Instance</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeSetInstance()
+		 * @generated
+		 */
+		EClass TYPE_SET_INSTANCE = eINSTANCE.getTypeSetInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Resolved Set</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE_SET_INSTANCE__RESOLVED_SET = eINSTANCE.getTypeSetInstance_ResolvedSet();
+
+		/**
+		 * The meta object literal for the '<em><b>Declared Set</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE_SET_INSTANCE__DECLARED_SET = eINSTANCE.getTypeSetInstance_DeclaredSet();
+
+		/**
+		 * The meta object literal for the '<em><b>Tokens</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE_SET_INSTANCE__TOKENS = eINSTANCE.getTypeSetInstance_Tokens();
+
+		/**
+		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.TypeProductInstanceImpl <em>Type Product Instance</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.osate.aadl2.errormodel.instance.impl.TypeProductInstanceImpl
+		 * @see org.osate.aadl2.errormodel.instance.impl.EMV2InstancePackageImpl#getTypeProductInstance()
+		 * @generated
+		 */
+		EClass TYPE_PRODUCT_INSTANCE = eINSTANCE.getTypeProductInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Types</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE_PRODUCT_INSTANCE__TYPES = eINSTANCE.getTypeProductInstance_Types();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.EOperation <em>EOperation</em>}' enum.

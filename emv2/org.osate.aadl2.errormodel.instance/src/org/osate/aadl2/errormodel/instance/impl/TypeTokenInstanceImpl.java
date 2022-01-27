@@ -21,61 +21,38 @@
  * aries to this license with respect to the terms applicable to their Third Party Software. Third Party Software li-
  * censes only apply to the Third Party Software and not any other portion of this program or this program as a whole.
  */
-package org.osate.aadl2.errormodel.instance;
+package org.osate.aadl2.errormodel.instance.impl;
 
-import org.eclipse.emf.common.util.EList;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.eclipse.emf.ecore.EClass;
+
+import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Error Propagation Instance</b></em>'.
+ * An implementation of the model object '<em><b>Type Token Instance</b></em>'.
  * <!-- end-user-doc -->
  *
- * <p>
- * The following features are supported:
- * </p>
- * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getTokens <em>Tokens</em>}</li>
- * </ul>
- *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance()
- * @model abstract="true"
  * @generated
  */
-public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
+public abstract class TypeTokenInstanceImpl extends EMV2InstanceObjectImpl implements TypeTokenInstance {
 	/**
-	 * Returns the value of the '<em><b>Error Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Error Propagation</em>' reference.
-	 * @see #setErrorPropagation(ErrorPropagation)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_ErrorPropagation()
-	 * @model
 	 * @generated
 	 */
-	ErrorPropagation getErrorPropagation();
+	protected TypeTokenInstanceImpl() {
+		super();
+	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Error Propagation</em>' reference.
-	 * @see #getErrorPropagation()
 	 * @generated
 	 */
-	void setErrorPropagation(ErrorPropagation value);
+	@Override
+	protected EClass eStaticClass() {
+		return EMV2InstancePackage.Literals.TYPE_TOKEN_INSTANCE;
+	}
 
-	/**
-	 * Returns the value of the '<em><b>Tokens</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.errormodel.instance.TypeTokenInstance}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Tokens</em>' containment reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_Tokens()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<TypeTokenInstance> getTokens();
-
-} // ErrorPropagationInstance
+} //TypeTokenInstanceImpl

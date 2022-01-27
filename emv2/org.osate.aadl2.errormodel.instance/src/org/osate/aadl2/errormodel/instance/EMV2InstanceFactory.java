@@ -187,6 +187,33 @@ public interface EMV2InstanceFactory extends EFactory {
 	BindingReference createBindingReference();
 
 	/**
+	 * Returns a new object of class '<em>Type Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Reference</em>'.
+	 * @generated
+	 */
+	TypeReference createTypeReference();
+
+	/**
+	 * Returns a new object of class '<em>Type Set Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Set Instance</em>'.
+	 * @generated
+	 */
+	TypeSetInstance createTypeSetInstance();
+
+	/**
+	 * Returns a new object of class '<em>Type Product Instance</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Product Instance</em>'.
+	 * @generated
+	 */
+	TypeProductInstance createTypeProductInstance();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

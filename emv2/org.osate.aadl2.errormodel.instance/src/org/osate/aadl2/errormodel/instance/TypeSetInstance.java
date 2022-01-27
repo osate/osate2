@@ -24,47 +24,71 @@
 package org.osate.aadl2.errormodel.instance;
 
 import org.eclipse.emf.common.util.EList;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Error Propagation Instance</b></em>'.
+ * A representation of the model object '<em><b>Type Set Instance</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getTokens <em>Tokens</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getResolvedSet <em>Resolved Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getDeclaredSet <em>Declared Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getTokens <em>Tokens</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance()
- * @model abstract="true"
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeSetInstance()
+ * @model
  * @generated
  */
-public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
+public interface TypeSetInstance extends TypeTokenInstance {
 	/**
-	 * Returns the value of the '<em><b>Error Propagation</b></em>' reference.
+	 * Returns the value of the '<em><b>Resolved Set</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Error Propagation</em>' reference.
-	 * @see #setErrorPropagation(ErrorPropagation)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_ErrorPropagation()
+	 * @return the value of the '<em>Resolved Set</em>' reference.
+	 * @see #setResolvedSet(TypeSet)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeSetInstance_ResolvedSet()
 	 * @model
 	 * @generated
 	 */
-	ErrorPropagation getErrorPropagation();
+	TypeSet getResolvedSet();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getResolvedSet <em>Resolved Set</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Error Propagation</em>' reference.
-	 * @see #getErrorPropagation()
+	 * @param value the new value of the '<em>Resolved Set</em>' reference.
+	 * @see #getResolvedSet()
 	 * @generated
 	 */
-	void setErrorPropagation(ErrorPropagation value);
+	void setResolvedSet(TypeSet value);
+
+	/**
+	 * Returns the value of the '<em><b>Declared Set</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Declared Set</em>' reference.
+	 * @see #setDeclaredSet(TypeSet)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeSetInstance_DeclaredSet()
+	 * @model
+	 * @generated
+	 */
+	TypeSet getDeclaredSet();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.TypeSetInstance#getDeclaredSet <em>Declared Set</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Declared Set</em>' reference.
+	 * @see #getDeclaredSet()
+	 * @generated
+	 */
+	void setDeclaredSet(TypeSet value);
 
 	/**
 	 * Returns the value of the '<em><b>Tokens</b></em>' containment reference list.
@@ -72,10 +96,10 @@ public interface ErrorPropagationInstance extends ConstrainedInstanceObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Tokens</em>' containment reference list.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getErrorPropagationInstance_Tokens()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getTypeSetInstance_Tokens()
 	 * @model containment="true"
 	 * @generated
 	 */
 	EList<TypeTokenInstance> getTokens();
 
-} // ErrorPropagationInstance
+} // TypeSetInstance

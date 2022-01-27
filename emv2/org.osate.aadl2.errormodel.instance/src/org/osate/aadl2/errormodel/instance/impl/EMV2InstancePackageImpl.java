@@ -57,6 +57,10 @@ import org.osate.aadl2.errormodel.instance.StateInstance;
 import org.osate.aadl2.errormodel.instance.StateMachineInstance;
 import org.osate.aadl2.errormodel.instance.StateTransitionInstance;
 
+import org.osate.aadl2.errormodel.instance.TypeProductInstance;
+import org.osate.aadl2.errormodel.instance.TypeReference;
+import org.osate.aadl2.errormodel.instance.TypeSetInstance;
+import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
 import org.osate.aadl2.instance.InstancePackage;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -200,6 +204,34 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	private EClass bindingReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeTokenInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeReferenceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeSetInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeProductInstanceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -958,6 +990,16 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
+	public EReference getErrorPropagationInstance_Tokens() {
+		return (EReference)errorPropagationInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getFeatureReference() {
 		return featureReferenceEClass;
 	}
@@ -1010,6 +1052,106 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	@Override
 	public EAttribute getBindingReference_Binding() {
 		return (EAttribute)bindingReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getTypeTokenInstance() {
+		return typeTokenInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getTypeReference() {
+		return typeReferenceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTypeReference_ResolvedType() {
+		return (EReference)typeReferenceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTypeReference_DeclaredType() {
+		return (EReference)typeReferenceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getTypeSetInstance() {
+		return typeSetInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTypeSetInstance_ResolvedSet() {
+		return (EReference)typeSetInstanceEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTypeSetInstance_DeclaredSet() {
+		return (EReference)typeSetInstanceEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTypeSetInstance_Tokens() {
+		return (EReference)typeSetInstanceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getTypeProductInstance() {
+		return typeProductInstanceEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getTypeProductInstance_Types() {
+		return (EReference)typeProductInstanceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1143,6 +1285,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		errorPropagationInstanceEClass = createEClass(ERROR_PROPAGATION_INSTANCE);
 		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION);
+		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__TOKENS);
 
 		featureReferenceEClass = createEClass(FEATURE_REFERENCE);
 		createEReference(featureReferenceEClass, FEATURE_REFERENCE__FEATURE);
@@ -1152,6 +1295,20 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		bindingReferenceEClass = createEClass(BINDING_REFERENCE);
 		createEAttribute(bindingReferenceEClass, BINDING_REFERENCE__BINDING);
+
+		typeTokenInstanceEClass = createEClass(TYPE_TOKEN_INSTANCE);
+
+		typeReferenceEClass = createEClass(TYPE_REFERENCE);
+		createEReference(typeReferenceEClass, TYPE_REFERENCE__RESOLVED_TYPE);
+		createEReference(typeReferenceEClass, TYPE_REFERENCE__DECLARED_TYPE);
+
+		typeSetInstanceEClass = createEClass(TYPE_SET_INSTANCE);
+		createEReference(typeSetInstanceEClass, TYPE_SET_INSTANCE__RESOLVED_SET);
+		createEReference(typeSetInstanceEClass, TYPE_SET_INSTANCE__DECLARED_SET);
+		createEReference(typeSetInstanceEClass, TYPE_SET_INSTANCE__TOKENS);
+
+		typeProductInstanceEClass = createEClass(TYPE_PRODUCT_INSTANCE);
+		createEReference(typeProductInstanceEClass, TYPE_PRODUCT_INSTANCE__TYPES);
 
 		// Create enums
 		eOperationEEnum = createEEnum(EOPERATION);
@@ -1211,6 +1368,10 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		featureReferenceEClass.getESuperTypes().add(this.getErrorPropagationInstance());
 		pointReferenceEClass.getESuperTypes().add(this.getErrorPropagationInstance());
 		bindingReferenceEClass.getESuperTypes().add(this.getErrorPropagationInstance());
+		typeTokenInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
+		typeReferenceEClass.getESuperTypes().add(this.getTypeTokenInstance());
+		typeSetInstanceEClass.getESuperTypes().add(this.getTypeTokenInstance());
+		typeProductInstanceEClass.getESuperTypes().add(this.getTypeTokenInstance());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(emv2AnnexInstanceEClass, EMV2AnnexInstance.class, "EMV2AnnexInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1295,6 +1456,7 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(errorPropagationInstanceEClass, ErrorPropagationInstance.class, "ErrorPropagationInstance", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getErrorPropagationInstance_ErrorPropagation(), theErrorModelPackage.getErrorPropagation(), null, "errorPropagation", null, 0, 1, ErrorPropagationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getErrorPropagationInstance_Tokens(), this.getTypeTokenInstance(), null, "tokens", null, 0, -1, ErrorPropagationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureReferenceEClass, FeatureReference.class, "FeatureReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureReference_Feature(), theInstancePackage.getFeatureInstance(), null, "feature", null, 0, 1, FeatureReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1304,6 +1466,20 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 
 		initEClass(bindingReferenceEClass, BindingReference.class, "BindingReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBindingReference_Binding(), this.getBindingType(), "binding", null, 0, 1, BindingReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typeTokenInstanceEClass, TypeTokenInstance.class, "TypeTokenInstance", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(typeReferenceEClass, TypeReference.class, "TypeReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTypeReference_ResolvedType(), theErrorModelPackage.getErrorType(), null, "resolvedType", null, 0, 1, TypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeReference_DeclaredType(), theErrorModelPackage.getErrorType(), null, "declaredType", null, 0, 1, TypeReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typeSetInstanceEClass, TypeSetInstance.class, "TypeSetInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTypeSetInstance_ResolvedSet(), theErrorModelPackage.getTypeSet(), null, "resolvedSet", null, 0, 1, TypeSetInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeSetInstance_DeclaredSet(), theErrorModelPackage.getTypeSet(), null, "declaredSet", null, 0, 1, TypeSetInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypeSetInstance_Tokens(), this.getTypeTokenInstance(), null, "tokens", null, 0, -1, TypeSetInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(typeProductInstanceEClass, TypeProductInstance.class, "TypeProductInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getTypeProductInstance_Types(), this.getTypeReference(), null, "types", null, 0, -1, TypeProductInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eOperationEEnum, EOperation.class, "EOperation");

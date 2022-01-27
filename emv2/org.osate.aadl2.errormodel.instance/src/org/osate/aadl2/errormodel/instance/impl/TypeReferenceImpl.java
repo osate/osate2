@@ -23,65 +23,59 @@
  */
 package org.osate.aadl2.errormodel.instance.impl;
 
-import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
+import org.osate.aadl2.errormodel.instance.TypeReference;
 
-import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Error Propagation Instance</b></em>'.
+ * An implementation of the model object '<em><b>Type Reference</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getErrorPropagation <em>Error Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getTokens <em>Tokens</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeReferenceImpl#getResolvedType <em>Resolved Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeReferenceImpl#getDeclaredType <em>Declared Type</em>}</li>
  * </ul>
  *
  * @generated
  */
-public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceObjectImpl implements ErrorPropagationInstance {
+public class TypeReferenceImpl extends TypeTokenInstanceImpl implements TypeReference {
 	/**
-	 * The cached value of the '{@link #getErrorPropagation() <em>Error Propagation</em>}' reference.
+	 * The cached value of the '{@link #getResolvedType() <em>Resolved Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getErrorPropagation()
+	 * @see #getResolvedType()
 	 * @generated
 	 * @ordered
 	 */
-	protected ErrorPropagation errorPropagation;
+	protected ErrorType resolvedType;
 
 	/**
-	 * The cached value of the '{@link #getTokens() <em>Tokens</em>}' containment reference list.
+	 * The cached value of the '{@link #getDeclaredType() <em>Declared Type</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getTokens()
+	 * @see #getDeclaredType()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<TypeTokenInstance> tokens;
+	protected ErrorType declaredType;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ErrorPropagationInstanceImpl() {
+	protected TypeReferenceImpl() {
 		super();
 	}
 
@@ -92,7 +86,7 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.ERROR_PROPAGATION_INSTANCE;
+		return EMV2InstancePackage.Literals.TYPE_REFERENCE;
 	}
 
 	/**
@@ -101,16 +95,16 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * @generated
 	 */
 	@Override
-	public ErrorPropagation getErrorPropagation() {
-		if (errorPropagation != null && errorPropagation.eIsProxy()) {
-			InternalEObject oldErrorPropagation = (InternalEObject)errorPropagation;
-			errorPropagation = (ErrorPropagation)eResolveProxy(oldErrorPropagation);
-			if (errorPropagation != oldErrorPropagation) {
+	public ErrorType getResolvedType() {
+		if (resolvedType != null && resolvedType.eIsProxy()) {
+			InternalEObject oldResolvedType = (InternalEObject)resolvedType;
+			resolvedType = (ErrorType)eResolveProxy(oldResolvedType);
+			if (resolvedType != oldResolvedType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION, oldErrorPropagation, errorPropagation));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.TYPE_REFERENCE__RESOLVED_TYPE, oldResolvedType, resolvedType));
 			}
 		}
-		return errorPropagation;
+		return resolvedType;
 	}
 
 	/**
@@ -118,8 +112,8 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ErrorPropagation basicGetErrorPropagation() {
-		return errorPropagation;
+	public ErrorType basicGetResolvedType() {
+		return resolvedType;
 	}
 
 	/**
@@ -128,11 +122,11 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * @generated
 	 */
 	@Override
-	public void setErrorPropagation(ErrorPropagation newErrorPropagation) {
-		ErrorPropagation oldErrorPropagation = errorPropagation;
-		errorPropagation = newErrorPropagation;
+	public void setResolvedType(ErrorType newResolvedType) {
+		ErrorType oldResolvedType = resolvedType;
+		resolvedType = newResolvedType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION, oldErrorPropagation, errorPropagation));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TYPE_REFERENCE__RESOLVED_TYPE, oldResolvedType, resolvedType));
 	}
 
 	/**
@@ -141,11 +135,25 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * @generated
 	 */
 	@Override
-	public EList<TypeTokenInstance> getTokens() {
-		if (tokens == null) {
-			tokens = new EObjectContainmentEList<TypeTokenInstance>(TypeTokenInstance.class, this, EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__TOKENS);
+	public ErrorType getDeclaredType() {
+		if (declaredType != null && declaredType.eIsProxy()) {
+			InternalEObject oldDeclaredType = (InternalEObject)declaredType;
+			declaredType = (ErrorType)eResolveProxy(oldDeclaredType);
+			if (declaredType != oldDeclaredType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.TYPE_REFERENCE__DECLARED_TYPE, oldDeclaredType, declaredType));
+			}
 		}
-		return tokens;
+		return declaredType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ErrorType basicGetDeclaredType() {
+		return declaredType;
 	}
 
 	/**
@@ -154,12 +162,11 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__TOKENS:
-				return ((InternalEList<?>)getTokens()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
+	public void setDeclaredType(ErrorType newDeclaredType) {
+		ErrorType oldDeclaredType = declaredType;
+		declaredType = newDeclaredType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TYPE_REFERENCE__DECLARED_TYPE, oldDeclaredType, declaredType));
 	}
 
 	/**
@@ -170,11 +177,12 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				if (resolve) return getErrorPropagation();
-				return basicGetErrorPropagation();
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__TOKENS:
-				return getTokens();
+			case EMV2InstancePackage.TYPE_REFERENCE__RESOLVED_TYPE:
+				if (resolve) return getResolvedType();
+				return basicGetResolvedType();
+			case EMV2InstancePackage.TYPE_REFERENCE__DECLARED_TYPE:
+				if (resolve) return getDeclaredType();
+				return basicGetDeclaredType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -184,16 +192,14 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				setErrorPropagation((ErrorPropagation)newValue);
+			case EMV2InstancePackage.TYPE_REFERENCE__RESOLVED_TYPE:
+				setResolvedType((ErrorType)newValue);
 				return;
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__TOKENS:
-				getTokens().clear();
-				getTokens().addAll((Collection<? extends TypeTokenInstance>)newValue);
+			case EMV2InstancePackage.TYPE_REFERENCE__DECLARED_TYPE:
+				setDeclaredType((ErrorType)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -207,11 +213,11 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				setErrorPropagation((ErrorPropagation)null);
+			case EMV2InstancePackage.TYPE_REFERENCE__RESOLVED_TYPE:
+				setResolvedType((ErrorType)null);
 				return;
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__TOKENS:
-				getTokens().clear();
+			case EMV2InstancePackage.TYPE_REFERENCE__DECLARED_TYPE:
+				setDeclaredType((ErrorType)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -225,12 +231,12 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				return errorPropagation != null;
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__TOKENS:
-				return tokens != null && !tokens.isEmpty();
+			case EMV2InstancePackage.TYPE_REFERENCE__RESOLVED_TYPE:
+				return resolvedType != null;
+			case EMV2InstancePackage.TYPE_REFERENCE__DECLARED_TYPE:
+				return declaredType != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ErrorPropagationInstanceImpl
+} //TypeReferenceImpl

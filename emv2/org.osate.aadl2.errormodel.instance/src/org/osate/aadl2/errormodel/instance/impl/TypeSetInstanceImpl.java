@@ -24,10 +24,12 @@
 package org.osate.aadl2.errormodel.instance.impl;
 
 import java.util.Collection;
-import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -35,36 +37,48 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 
+import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.TypeSetInstance;
 import org.osate.aadl2.errormodel.instance.TypeTokenInstance;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Error Propagation Instance</b></em>'.
+ * An implementation of the model object '<em><b>Type Set Instance</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getErrorPropagation <em>Error Propagation</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.ErrorPropagationInstanceImpl#getTokens <em>Tokens</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl#getResolvedSet <em>Resolved Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl#getDeclaredSet <em>Declared Set</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.TypeSetInstanceImpl#getTokens <em>Tokens</em>}</li>
  * </ul>
  *
  * @generated
  */
-public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceObjectImpl implements ErrorPropagationInstance {
+public class TypeSetInstanceImpl extends TypeTokenInstanceImpl implements TypeSetInstance {
 	/**
-	 * The cached value of the '{@link #getErrorPropagation() <em>Error Propagation</em>}' reference.
+	 * The cached value of the '{@link #getResolvedSet() <em>Resolved Set</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getErrorPropagation()
+	 * @see #getResolvedSet()
 	 * @generated
 	 * @ordered
 	 */
-	protected ErrorPropagation errorPropagation;
+	protected TypeSet resolvedSet;
+
+	/**
+	 * The cached value of the '{@link #getDeclaredSet() <em>Declared Set</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDeclaredSet()
+	 * @generated
+	 * @ordered
+	 */
+	protected TypeSet declaredSet;
 
 	/**
 	 * The cached value of the '{@link #getTokens() <em>Tokens</em>}' containment reference list.
@@ -81,7 +95,7 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ErrorPropagationInstanceImpl() {
+	protected TypeSetInstanceImpl() {
 		super();
 	}
 
@@ -92,7 +106,7 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.ERROR_PROPAGATION_INSTANCE;
+		return EMV2InstancePackage.Literals.TYPE_SET_INSTANCE;
 	}
 
 	/**
@@ -101,16 +115,16 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * @generated
 	 */
 	@Override
-	public ErrorPropagation getErrorPropagation() {
-		if (errorPropagation != null && errorPropagation.eIsProxy()) {
-			InternalEObject oldErrorPropagation = (InternalEObject)errorPropagation;
-			errorPropagation = (ErrorPropagation)eResolveProxy(oldErrorPropagation);
-			if (errorPropagation != oldErrorPropagation) {
+	public TypeSet getResolvedSet() {
+		if (resolvedSet != null && resolvedSet.eIsProxy()) {
+			InternalEObject oldResolvedSet = (InternalEObject)resolvedSet;
+			resolvedSet = (TypeSet)eResolveProxy(oldResolvedSet);
+			if (resolvedSet != oldResolvedSet) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION, oldErrorPropagation, errorPropagation));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.TYPE_SET_INSTANCE__RESOLVED_SET, oldResolvedSet, resolvedSet));
 			}
 		}
-		return errorPropagation;
+		return resolvedSet;
 	}
 
 	/**
@@ -118,8 +132,8 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ErrorPropagation basicGetErrorPropagation() {
-		return errorPropagation;
+	public TypeSet basicGetResolvedSet() {
+		return resolvedSet;
 	}
 
 	/**
@@ -128,11 +142,51 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	 * @generated
 	 */
 	@Override
-	public void setErrorPropagation(ErrorPropagation newErrorPropagation) {
-		ErrorPropagation oldErrorPropagation = errorPropagation;
-		errorPropagation = newErrorPropagation;
+	public void setResolvedSet(TypeSet newResolvedSet) {
+		TypeSet oldResolvedSet = resolvedSet;
+		resolvedSet = newResolvedSet;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION, oldErrorPropagation, errorPropagation));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TYPE_SET_INSTANCE__RESOLVED_SET, oldResolvedSet, resolvedSet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public TypeSet getDeclaredSet() {
+		if (declaredSet != null && declaredSet.eIsProxy()) {
+			InternalEObject oldDeclaredSet = (InternalEObject)declaredSet;
+			declaredSet = (TypeSet)eResolveProxy(oldDeclaredSet);
+			if (declaredSet != oldDeclaredSet) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.TYPE_SET_INSTANCE__DECLARED_SET, oldDeclaredSet, declaredSet));
+			}
+		}
+		return declaredSet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeSet basicGetDeclaredSet() {
+		return declaredSet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setDeclaredSet(TypeSet newDeclaredSet) {
+		TypeSet oldDeclaredSet = declaredSet;
+		declaredSet = newDeclaredSet;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.TYPE_SET_INSTANCE__DECLARED_SET, oldDeclaredSet, declaredSet));
 	}
 
 	/**
@@ -143,7 +197,7 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public EList<TypeTokenInstance> getTokens() {
 		if (tokens == null) {
-			tokens = new EObjectContainmentEList<TypeTokenInstance>(TypeTokenInstance.class, this, EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__TOKENS);
+			tokens = new EObjectContainmentEList<TypeTokenInstance>(TypeTokenInstance.class, this, EMV2InstancePackage.TYPE_SET_INSTANCE__TOKENS);
 		}
 		return tokens;
 	}
@@ -156,7 +210,7 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__TOKENS:
+			case EMV2InstancePackage.TYPE_SET_INSTANCE__TOKENS:
 				return ((InternalEList<?>)getTokens()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -170,10 +224,13 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				if (resolve) return getErrorPropagation();
-				return basicGetErrorPropagation();
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__TOKENS:
+			case EMV2InstancePackage.TYPE_SET_INSTANCE__RESOLVED_SET:
+				if (resolve) return getResolvedSet();
+				return basicGetResolvedSet();
+			case EMV2InstancePackage.TYPE_SET_INSTANCE__DECLARED_SET:
+				if (resolve) return getDeclaredSet();
+				return basicGetDeclaredSet();
+			case EMV2InstancePackage.TYPE_SET_INSTANCE__TOKENS:
 				return getTokens();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -188,10 +245,13 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				setErrorPropagation((ErrorPropagation)newValue);
+			case EMV2InstancePackage.TYPE_SET_INSTANCE__RESOLVED_SET:
+				setResolvedSet((TypeSet)newValue);
 				return;
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__TOKENS:
+			case EMV2InstancePackage.TYPE_SET_INSTANCE__DECLARED_SET:
+				setDeclaredSet((TypeSet)newValue);
+				return;
+			case EMV2InstancePackage.TYPE_SET_INSTANCE__TOKENS:
 				getTokens().clear();
 				getTokens().addAll((Collection<? extends TypeTokenInstance>)newValue);
 				return;
@@ -207,10 +267,13 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				setErrorPropagation((ErrorPropagation)null);
+			case EMV2InstancePackage.TYPE_SET_INSTANCE__RESOLVED_SET:
+				setResolvedSet((TypeSet)null);
 				return;
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__TOKENS:
+			case EMV2InstancePackage.TYPE_SET_INSTANCE__DECLARED_SET:
+				setDeclaredSet((TypeSet)null);
+				return;
+			case EMV2InstancePackage.TYPE_SET_INSTANCE__TOKENS:
 				getTokens().clear();
 				return;
 		}
@@ -225,12 +288,14 @@ public abstract class ErrorPropagationInstanceImpl extends ConstrainedInstanceOb
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION:
-				return errorPropagation != null;
-			case EMV2InstancePackage.ERROR_PROPAGATION_INSTANCE__TOKENS:
+			case EMV2InstancePackage.TYPE_SET_INSTANCE__RESOLVED_SET:
+				return resolvedSet != null;
+			case EMV2InstancePackage.TYPE_SET_INSTANCE__DECLARED_SET:
+				return declaredSet != null;
+			case EMV2InstancePackage.TYPE_SET_INSTANCE__TOKENS:
 				return tokens != null && !tokens.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ErrorPropagationInstanceImpl
+} //TypeSetInstanceImpl
