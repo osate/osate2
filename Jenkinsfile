@@ -15,7 +15,7 @@ pipeline {
             sh(script: '''
                 mvn -T 3 -s core/osate.releng/seisettings.xml clean verify -Pfull \
                     -Dtycho.disableP2Mirrors=true -DfailIfNoTests=false \
-                    -Dcodecoverage=true -Dspotbugs=true
+                    -Dcodecoverage=true -Dspotbugs=true -Djavadoc=true
             ''')
           }
         }
