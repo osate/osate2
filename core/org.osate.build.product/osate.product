@@ -69,7 +69,7 @@
       <feature id="openjfx.standard.feature"/>
       <feature id="openjfx.swing.feature"/>
       <feature id="openjfx.swt.feature"/>
-      <feature id="org.eclipse.justj.openjdk.hotspot.jre.full"/>
+      <feature id="org.eclipse.justj.openjdk.hotspot.jre.full.stripped"/>
    </features>
 
    <configurations>
