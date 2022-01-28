@@ -413,28 +413,28 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private TypeReference createTypeReference(ErrorType type) {
 		var typeReference = EMV2InstanceFactory.eINSTANCE.createTypeReference();
+		typeReference.setName(type.getName());
 		typeReference.setDeclaredType(type);
 		typeReference.setResolvedType(EMV2Util.resolveAlias(type));
-		typeReference.setName(type.getName());
 		return typeReference;
 	}
 
 	private TypeSetInstance createTypeSetInstance(TypeSet set) {
 		var typeSetInstance = EMV2InstanceFactory.eINSTANCE.createTypeSetInstance();
+		typeSetInstance.setName(set.getName());
 		typeSetInstance.setDeclaredSet(set);
 		var resolved = EMV2Util.resolveAlias(set);
 		typeSetInstance.setResolvedSet(resolved);
-		typeSetInstance.setName(set.getName());
 		typeSetInstance.getTokens().addAll(createTypeTokenInstances(resolved.getTypeTokens()));
 		return typeSetInstance;
 	}
 
 	private TypeProductInstance createTypeProductInstance(TypeToken token) {
 		var product = EMV2InstanceFactory.eINSTANCE.createTypeProductInstance();
+		product.setName(token.getType().stream().map(NamedElement::getName).collect(Collectors.joining(" * ")));
 		for (var type : token.getType()) {
 			product.getTypes().add(createTypeReference((ErrorType) type));
 		}
-		product.setName(token.getType().stream().map(NamedElement::getName).collect(Collectors.joining(" * ")));
 		return product;
 	}
 
