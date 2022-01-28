@@ -39,8 +39,8 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>org.osate.examples</module>
 		<module>org.osate.examples/examples</module>
+		<module>org.osate.examples</module>
 		<module>org.osate.examples.feature</module>
 	</modules>
 

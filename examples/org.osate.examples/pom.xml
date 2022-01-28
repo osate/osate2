@@ -37,5 +37,5 @@ censes only apply to the Third Party Software and not any other portion of this 
 	<artifactId>org.osate.examples</artifactId>
 	<version>1.0.4-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
-	
+
 </project>
