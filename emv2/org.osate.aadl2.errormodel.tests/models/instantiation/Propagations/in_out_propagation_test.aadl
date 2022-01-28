@@ -1,0 +1,18 @@
+package in_out_propagation_test
+public
+	system s
+		features
+			f: feature;
+		annex EMV2 {**
+			use types ErrorLibrary;
+			
+			error propagations
+				f: in propagation {ServiceError};
+				f: out propagation {ItemValueError};
+			end propagations;
+		**};
+	end s;
+	
+	system implementation s.i
+	end s.i;
+end in_out_propagation_test;
