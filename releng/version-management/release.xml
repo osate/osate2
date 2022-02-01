@@ -896,7 +896,7 @@
 	<plugin name="org.osate.aadl2.model.editor" version="5.0.3"/>
 	<plugin name="org.osate.aadl2.modelsupport" version="6.0.1"/>
 	<plugin name="org.osate.alisa.common" version="3.0.4"/>
-	<plugin name="org.osate.alisa.common.ui" version="3.0.4"/>
+	<plugin name="org.osate.alisa.common.ui" version="3.0.3"/>
 	<plugin name="org.osate.alisa.contribution" version="1.0.7"/>
 	<plugin name="org.osate.alisa.help" version="1.0.5"/>
 	<plugin name="org.osate.alisa.workbench" version="3.0.4"/>
@@ -912,7 +912,7 @@
 	<plugin name="org.osate.ba" version="5.1.2"/>
 	<plugin name="org.osate.ba.contrib" version="1.0.7"/>
 	<plugin name="org.osate.ba.edit" version="5.1.0"/>
-	<plugin name="org.osate.branding" version="1.2.0"/>
+	<plugin name="org.osate.branding" version="1.1.0"/>
 	<plugin name="org.osate.categories" version="3.0.4"/>
 	<plugin name="org.osate.categories.ui" version="3.0.4"/>
 	<plugin name="org.osate.codegen.checker" version="1.0.7"/>
@@ -924,10 +924,10 @@
 	<plugin name="org.osate.ge.diagram" version="2.0.2"/>
 	<plugin name="org.osate.ge.doc" version="1.0.7"/>
 	<plugin name="org.osate.ge.errormodel" version="2.1.0"/>
-	<plugin name="org.osate.ge.gef" version="1.1.0"/>
+	<plugin name="org.osate.ge.gef" version="1.0.0"/>
 	<plugin name="org.osate.ge.gef.ui" version="1.0.1"/>
 	<plugin name="org.osate.ge.swt" version="2.0.0"/>
-	<plugin name="org.osate.help" version="2.11.0"/>
+	<plugin name="org.osate.help" version="2.10.1"/>
 	<plugin name="org.osate.importer" version="2.0.1"/>
 	<plugin name="org.osate.importer.simulink" version="1.0.6"/>
 	<plugin name="org.osate.modelstats" version="1.0.1"/>
