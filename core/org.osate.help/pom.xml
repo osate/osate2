@@ -151,6 +151,20 @@
 			<build>
 				<plugins>
 					<plugin>
+						<artifactId>maven-clean-plugin</artifactId>
+						<version>2.5</version>
+						<configuration>
+							<filesets>
+								<fileset>
+									<directory>api-docs/javadoc</directory>
+									<excludes>
+										<exclude>**/.gitignore</exclude>
+									</excludes>
+								</fileset>
+							</filesets>
+						</configuration>
+					</plugin>
+					<plugin>
 						<groupId>org.eclipse.tycho.extras</groupId>
 						<artifactId>tycho-document-bundle-plugin</artifactId>
 						<version>${tycho-extras.version}</version>
@@ -162,6 +176,7 @@
 									<goal>javadoc</goal>
 								</goals>
 								<configuration>
+									<cleanFirst>false</cleanFirst>
 									<outputDirectory>${project.basedir}/api-docs/javadoc</outputDirectory>
 									<tocFile>${project.basedir}/javadoccontents.xml</tocFile>
 									<tocOptions>
