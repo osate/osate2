@@ -26,53 +26,44 @@ package org.osate.aadl2.errormodel.instance.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.osate.aadl2.errormodel.instance.BindingReference;
-import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
+import org.osate.aadl2.errormodel.instance.PointPropagation;
+import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Binding Reference</b></em>'.
+ * An implementation of the model object '<em><b>Point Propagation</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.BindingReferenceImpl#getBinding <em>Binding</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.PointPropagationImpl#getPoint <em>Point</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class BindingReferenceImpl extends ErrorPropagationInstanceImpl implements BindingReference {
+public class PointPropagationImpl extends ErrorPropagationInstanceImpl implements PointPropagation {
 	/**
-	 * The default value of the '{@link #getBinding() <em>Binding</em>}' attribute.
+	 * The cached value of the '{@link #getPoint() <em>Point</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getBinding()
+	 * @see #getPoint()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final BindingType BINDING_EDEFAULT = BindingType.PROCESSOR;
-
-	/**
-	 * The cached value of the '{@link #getBinding() <em>Binding</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBinding()
-	 * @generated
-	 * @ordered
-	 */
-	protected BindingType binding = BINDING_EDEFAULT;
+	protected PropagationPointInstance point;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BindingReferenceImpl() {
+	protected PointPropagationImpl() {
 		super();
 	}
 
@@ -83,7 +74,7 @@ public class BindingReferenceImpl extends ErrorPropagationInstanceImpl implement
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.BINDING_REFERENCE;
+		return EMV2InstancePackage.Literals.POINT_PROPAGATION;
 	}
 
 	/**
@@ -92,8 +83,25 @@ public class BindingReferenceImpl extends ErrorPropagationInstanceImpl implement
 	 * @generated
 	 */
 	@Override
-	public BindingType getBinding() {
-		return binding;
+	public PropagationPointInstance getPoint() {
+		if (point != null && point.eIsProxy()) {
+			InternalEObject oldPoint = (InternalEObject)point;
+			point = (PropagationPointInstance)eResolveProxy(oldPoint);
+			if (point != oldPoint) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.POINT_PROPAGATION__POINT, oldPoint, point));
+			}
+		}
+		return point;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PropagationPointInstance basicGetPoint() {
+		return point;
 	}
 
 	/**
@@ -102,11 +110,11 @@ public class BindingReferenceImpl extends ErrorPropagationInstanceImpl implement
 	 * @generated
 	 */
 	@Override
-	public void setBinding(BindingType newBinding) {
-		BindingType oldBinding = binding;
-		binding = newBinding == null ? BINDING_EDEFAULT : newBinding;
+	public void setPoint(PropagationPointInstance newPoint) {
+		PropagationPointInstance oldPoint = point;
+		point = newPoint;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.BINDING_REFERENCE__BINDING, oldBinding, binding));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.POINT_PROPAGATION__POINT, oldPoint, point));
 	}
 
 	/**
@@ -117,8 +125,9 @@ public class BindingReferenceImpl extends ErrorPropagationInstanceImpl implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.BINDING_REFERENCE__BINDING:
-				return getBinding();
+			case EMV2InstancePackage.POINT_PROPAGATION__POINT:
+				if (resolve) return getPoint();
+				return basicGetPoint();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -131,8 +140,8 @@ public class BindingReferenceImpl extends ErrorPropagationInstanceImpl implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.BINDING_REFERENCE__BINDING:
-				setBinding((BindingType)newValue);
+			case EMV2InstancePackage.POINT_PROPAGATION__POINT:
+				setPoint((PropagationPointInstance)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -146,8 +155,8 @@ public class BindingReferenceImpl extends ErrorPropagationInstanceImpl implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.BINDING_REFERENCE__BINDING:
-				setBinding(BINDING_EDEFAULT);
+			case EMV2InstancePackage.POINT_PROPAGATION__POINT:
+				setPoint((PropagationPointInstance)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -161,26 +170,10 @@ public class BindingReferenceImpl extends ErrorPropagationInstanceImpl implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.BINDING_REFERENCE__BINDING:
-				return binding != BINDING_EDEFAULT;
+			case EMV2InstancePackage.POINT_PROPAGATION__POINT:
+				return point != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (binding: ");
-		result.append(binding);
-		result.append(')');
-		return result.toString();
-	}
-
-} //BindingReferenceImpl
+} //PointPropagationImpl

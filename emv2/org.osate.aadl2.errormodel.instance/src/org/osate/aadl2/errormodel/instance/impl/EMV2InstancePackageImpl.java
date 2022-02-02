@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.errormodel.instance.BindingReference;
+import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
@@ -49,8 +49,8 @@ import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
-import org.osate.aadl2.errormodel.instance.FeatureReference;
-import org.osate.aadl2.errormodel.instance.PointReference;
+import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
@@ -189,21 +189,21 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass featureReferenceEClass = null;
+	private EClass featurePropagationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass pointReferenceEClass = null;
+	private EClass pointPropagationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass bindingReferenceEClass = null;
+	private EClass bindingPropagationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1010,8 +1010,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getFeatureReference() {
-		return featureReferenceEClass;
+	public EClass getFeaturePropagation() {
+		return featurePropagationEClass;
 	}
 
 	/**
@@ -1020,8 +1020,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getFeatureReference_Feature() {
-		return (EReference)featureReferenceEClass.getEStructuralFeatures().get(0);
+	public EReference getFeaturePropagation_Feature() {
+		return (EReference)featurePropagationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1030,8 +1030,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getPointReference() {
-		return pointReferenceEClass;
+	public EClass getPointPropagation() {
+		return pointPropagationEClass;
 	}
 
 	/**
@@ -1040,8 +1040,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EReference getPointReference_Point() {
-		return (EReference)pointReferenceEClass.getEStructuralFeatures().get(0);
+	public EReference getPointPropagation_Point() {
+		return (EReference)pointPropagationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1050,8 +1050,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EClass getBindingReference() {
-		return bindingReferenceEClass;
+	public EClass getBindingPropagation() {
+		return bindingPropagationEClass;
 	}
 
 	/**
@@ -1060,8 +1060,8 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public EAttribute getBindingReference_Binding() {
-		return (EAttribute)bindingReferenceEClass.getEStructuralFeatures().get(0);
+	public EAttribute getBindingPropagation_Binding() {
+		return (EAttribute)bindingPropagationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1298,14 +1298,14 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__IN_TOKENS);
 		createEReference(errorPropagationInstanceEClass, ERROR_PROPAGATION_INSTANCE__OUT_TOKENS);
 
-		featureReferenceEClass = createEClass(FEATURE_REFERENCE);
-		createEReference(featureReferenceEClass, FEATURE_REFERENCE__FEATURE);
+		featurePropagationEClass = createEClass(FEATURE_PROPAGATION);
+		createEReference(featurePropagationEClass, FEATURE_PROPAGATION__FEATURE);
 
-		pointReferenceEClass = createEClass(POINT_REFERENCE);
-		createEReference(pointReferenceEClass, POINT_REFERENCE__POINT);
+		pointPropagationEClass = createEClass(POINT_PROPAGATION);
+		createEReference(pointPropagationEClass, POINT_PROPAGATION__POINT);
 
-		bindingReferenceEClass = createEClass(BINDING_REFERENCE);
-		createEAttribute(bindingReferenceEClass, BINDING_REFERENCE__BINDING);
+		bindingPropagationEClass = createEClass(BINDING_PROPAGATION);
+		createEAttribute(bindingPropagationEClass, BINDING_PROPAGATION__BINDING);
 
 		typeTokenInstanceEClass = createEClass(TYPE_TOKEN_INSTANCE);
 
@@ -1376,9 +1376,9 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		constraintElementEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 		propagationPathInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 		errorPropagationInstanceEClass.getESuperTypes().add(this.getConstrainedInstanceObject());
-		featureReferenceEClass.getESuperTypes().add(this.getErrorPropagationInstance());
-		pointReferenceEClass.getESuperTypes().add(this.getErrorPropagationInstance());
-		bindingReferenceEClass.getESuperTypes().add(this.getErrorPropagationInstance());
+		featurePropagationEClass.getESuperTypes().add(this.getErrorPropagationInstance());
+		pointPropagationEClass.getESuperTypes().add(this.getErrorPropagationInstance());
+		bindingPropagationEClass.getESuperTypes().add(this.getErrorPropagationInstance());
 		typeTokenInstanceEClass.getESuperTypes().add(this.getEMV2InstanceObject());
 		typeReferenceEClass.getESuperTypes().add(this.getTypeTokenInstance());
 		typeSetInstanceEClass.getESuperTypes().add(this.getTypeTokenInstance());
@@ -1470,14 +1470,14 @@ public class EMV2InstancePackageImpl extends EPackageImpl implements EMV2Instanc
 		initEReference(getErrorPropagationInstance_InTokens(), this.getTypeTokenInstance(), null, "inTokens", null, 0, -1, ErrorPropagationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getErrorPropagationInstance_OutTokens(), this.getTypeTokenInstance(), null, "outTokens", null, 0, -1, ErrorPropagationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(featureReferenceEClass, FeatureReference.class, "FeatureReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFeatureReference_Feature(), theInstancePackage.getFeatureInstance(), null, "feature", null, 0, 1, FeatureReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(featurePropagationEClass, FeaturePropagation.class, "FeaturePropagation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFeaturePropagation_Feature(), theInstancePackage.getFeatureInstance(), null, "feature", null, 0, 1, FeaturePropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(pointReferenceEClass, PointReference.class, "PointReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPointReference_Point(), this.getPropagationPointInstance(), null, "point", null, 0, 1, PointReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(pointPropagationEClass, PointPropagation.class, "PointPropagation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPointPropagation_Point(), this.getPropagationPointInstance(), null, "point", null, 0, 1, PointPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(bindingReferenceEClass, BindingReference.class, "BindingReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBindingReference_Binding(), this.getBindingType(), "binding", null, 0, 1, BindingReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(bindingPropagationEClass, BindingPropagation.class, "BindingPropagation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBindingPropagation_Binding(), this.getBindingType(), "binding", null, 0, 1, BindingPropagation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(typeTokenInstanceEClass, TypeTokenInstance.class, "TypeTokenInstance", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

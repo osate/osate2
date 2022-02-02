@@ -255,42 +255,42 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EMV2InstancePackage.FEATURE_REFERENCE: {
-				FeatureReference featureReference = (FeatureReference)theEObject;
-				T result = caseFeatureReference(featureReference);
-				if (result == null) result = caseErrorPropagationInstance(featureReference);
-				if (result == null) result = caseConstrainedInstanceObject(featureReference);
-				if (result == null) result = caseConstraintElement(featureReference);
-				if (result == null) result = caseEMV2InstanceObject(featureReference);
-				if (result == null) result = caseInstanceObject(featureReference);
-				if (result == null) result = caseNamedElement(featureReference);
-				if (result == null) result = caseElement(featureReference);
+			case EMV2InstancePackage.FEATURE_PROPAGATION: {
+				FeaturePropagation featurePropagation = (FeaturePropagation)theEObject;
+				T result = caseFeaturePropagation(featurePropagation);
+				if (result == null) result = caseErrorPropagationInstance(featurePropagation);
+				if (result == null) result = caseConstrainedInstanceObject(featurePropagation);
+				if (result == null) result = caseConstraintElement(featurePropagation);
+				if (result == null) result = caseEMV2InstanceObject(featurePropagation);
+				if (result == null) result = caseInstanceObject(featurePropagation);
+				if (result == null) result = caseNamedElement(featurePropagation);
+				if (result == null) result = caseElement(featurePropagation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EMV2InstancePackage.POINT_REFERENCE: {
-				PointReference pointReference = (PointReference)theEObject;
-				T result = casePointReference(pointReference);
-				if (result == null) result = caseErrorPropagationInstance(pointReference);
-				if (result == null) result = caseConstrainedInstanceObject(pointReference);
-				if (result == null) result = caseConstraintElement(pointReference);
-				if (result == null) result = caseEMV2InstanceObject(pointReference);
-				if (result == null) result = caseInstanceObject(pointReference);
-				if (result == null) result = caseNamedElement(pointReference);
-				if (result == null) result = caseElement(pointReference);
+			case EMV2InstancePackage.POINT_PROPAGATION: {
+				PointPropagation pointPropagation = (PointPropagation)theEObject;
+				T result = casePointPropagation(pointPropagation);
+				if (result == null) result = caseErrorPropagationInstance(pointPropagation);
+				if (result == null) result = caseConstrainedInstanceObject(pointPropagation);
+				if (result == null) result = caseConstraintElement(pointPropagation);
+				if (result == null) result = caseEMV2InstanceObject(pointPropagation);
+				if (result == null) result = caseInstanceObject(pointPropagation);
+				if (result == null) result = caseNamedElement(pointPropagation);
+				if (result == null) result = caseElement(pointPropagation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case EMV2InstancePackage.BINDING_REFERENCE: {
-				BindingReference bindingReference = (BindingReference)theEObject;
-				T result = caseBindingReference(bindingReference);
-				if (result == null) result = caseErrorPropagationInstance(bindingReference);
-				if (result == null) result = caseConstrainedInstanceObject(bindingReference);
-				if (result == null) result = caseConstraintElement(bindingReference);
-				if (result == null) result = caseEMV2InstanceObject(bindingReference);
-				if (result == null) result = caseInstanceObject(bindingReference);
-				if (result == null) result = caseNamedElement(bindingReference);
-				if (result == null) result = caseElement(bindingReference);
+			case EMV2InstancePackage.BINDING_PROPAGATION: {
+				BindingPropagation bindingPropagation = (BindingPropagation)theEObject;
+				T result = caseBindingPropagation(bindingPropagation);
+				if (result == null) result = caseErrorPropagationInstance(bindingPropagation);
+				if (result == null) result = caseConstrainedInstanceObject(bindingPropagation);
+				if (result == null) result = caseConstraintElement(bindingPropagation);
+				if (result == null) result = caseEMV2InstanceObject(bindingPropagation);
+				if (result == null) result = caseInstanceObject(bindingPropagation);
+				if (result == null) result = caseNamedElement(bindingPropagation);
+				if (result == null) result = caseElement(bindingPropagation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -582,47 +582,47 @@ public class EMV2InstanceSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Feature Reference</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Feature Propagation</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Feature Reference</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Feature Propagation</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseFeatureReference(FeatureReference object) {
+	public T caseFeaturePropagation(FeaturePropagation object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Point Reference</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Point Propagation</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Point Reference</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Point Propagation</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T casePointReference(PointReference object) {
+	public T casePointPropagation(PointPropagation object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Binding Reference</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Binding Propagation</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Binding Reference</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Binding Propagation</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseBindingReference(BindingReference object) {
+	public T caseBindingPropagation(BindingPropagation object) {
 		return null;
 	}
 

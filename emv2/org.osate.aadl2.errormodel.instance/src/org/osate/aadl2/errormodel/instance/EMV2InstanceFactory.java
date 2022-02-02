@@ -160,31 +160,31 @@ public interface EMV2InstanceFactory extends EFactory {
 	PropagationPathInstance createPropagationPathInstance();
 
 	/**
-	 * Returns a new object of class '<em>Feature Reference</em>'.
+	 * Returns a new object of class '<em>Feature Propagation</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Feature Reference</em>'.
+	 * @return a new object of class '<em>Feature Propagation</em>'.
 	 * @generated
 	 */
-	FeatureReference createFeatureReference();
+	FeaturePropagation createFeaturePropagation();
 
 	/**
-	 * Returns a new object of class '<em>Point Reference</em>'.
+	 * Returns a new object of class '<em>Point Propagation</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Point Reference</em>'.
+	 * @return a new object of class '<em>Point Propagation</em>'.
 	 * @generated
 	 */
-	PointReference createPointReference();
+	PointPropagation createPointPropagation();
 
 	/**
-	 * Returns a new object of class '<em>Binding Reference</em>'.
+	 * Returns a new object of class '<em>Binding Propagation</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Binding Reference</em>'.
+	 * @return a new object of class '<em>Binding Propagation</em>'.
 	 * @generated
 	 */
-	BindingReference createBindingReference();
+	BindingPropagation createBindingPropagation();
 
 	/**
 	 * Returns a new object of class '<em>Type Reference</em>'.

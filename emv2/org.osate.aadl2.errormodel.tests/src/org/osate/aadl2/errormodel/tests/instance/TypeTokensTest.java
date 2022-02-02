@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
-import org.osate.aadl2.errormodel.instance.FeatureReference;
+import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 import org.osate.aadl2.errormodel.instance.TypeProductInstance;
 import org.osate.aadl2.errormodel.instance.TypeReference;
 import org.osate.aadl2.errormodel.instance.TypeSetInstance;
@@ -34,7 +34,7 @@ public class TypeTokensTest {
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(1, annexInstance.getPropagations().size());
-		with((FeatureReference) annexInstance.getPropagations().get(0), propagation -> {
+		with((FeaturePropagation) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f", propagation.getName());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(2, propagation.getOutTokens().size());
@@ -57,7 +57,7 @@ public class TypeTokensTest {
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(1, annexInstance.getPropagations().size());
-		with((FeatureReference) annexInstance.getPropagations().get(0), propagation -> {
+		with((FeaturePropagation) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f", propagation.getName());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
@@ -84,7 +84,7 @@ public class TypeTokensTest {
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(1, annexInstance.getPropagations().size());
-		with((FeatureReference) annexInstance.getPropagations().get(0), propagation -> {
+		with((FeaturePropagation) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f", propagation.getName());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(2, propagation.getOutTokens().size());
@@ -139,7 +139,7 @@ public class TypeTokensTest {
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(1, annexInstance.getPropagations().size());
-		with((FeatureReference) annexInstance.getPropagations().get(0), propagation -> {
+		with((FeaturePropagation) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f", propagation.getName());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());
@@ -215,7 +215,7 @@ public class TypeTokensTest {
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(1, annexInstance.getPropagations().size());
-		with((FeatureReference) annexInstance.getPropagations().get(0), propagation -> {
+		with((FeaturePropagation) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f", propagation.getName());
 			assertEquals(0, propagation.getInTokens().size());
 			assertEquals(1, propagation.getOutTokens().size());

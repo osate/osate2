@@ -44,7 +44,7 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.contrib.deployment.DeploymentProperties;
-import org.osate.aadl2.errormodel.instance.BindingReference;
+import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.CompositeStateInstance;
 import org.osate.aadl2.errormodel.instance.ConstrainedInstanceObject;
@@ -59,8 +59,8 @@ import org.osate.aadl2.errormodel.instance.ErrorFlowInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationConditionInstance;
 import org.osate.aadl2.errormodel.instance.ErrorPropagationInstance;
 import org.osate.aadl2.errormodel.instance.EventInstance;
-import org.osate.aadl2.errormodel.instance.FeatureReference;
-import org.osate.aadl2.errormodel.instance.PointReference;
+import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.PropagationPathInstance;
 import org.osate.aadl2.errormodel.instance.PropagationPointInstance;
 import org.osate.aadl2.errormodel.instance.StateInstance;
@@ -354,18 +354,18 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 				ErrorPropagationInstance epi;
 
 				if (ep.getKind() != null) {
-					var propagationInstance = EMV2InstanceFactory.eINSTANCE.createBindingReference();
+					var propagationInstance = EMV2InstanceFactory.eINSTANCE.createBindingPropagation();
 					propagationInstance.setBinding(BindingType.get(ep.getKind().toLowerCase()));
 					epi = propagationInstance;
 				} else if (ep.getFeatureorPPRef() != null) {
 					var featureOrPP = ep.getFeatureorPPRef().getFeatureorPP();
 					if (featureOrPP instanceof Feature) {
-						var propagationInstance = EMV2InstanceFactory.eINSTANCE.createFeatureReference();
+						var propagationInstance = EMV2InstanceFactory.eINSTANCE.createFeaturePropagation();
 						propagationInstance.setFeature(findFeatureInstance(
 								EcoreUtil2.getContainerOfType(annex, ComponentInstance.class), ep.getFeatureorPPRef()));
 						epi = propagationInstance;
 					} else if (featureOrPP instanceof PropagationPoint) {
-						var propagationInstance = EMV2InstanceFactory.eINSTANCE.createPointReference();
+						var propagationInstance = EMV2InstanceFactory.eINSTANCE.createPointPropagation();
 						propagationInstance
 								.setPoint(findPropagationPointInstance(annex, (PropagationPoint) featureOrPP));
 						epi = propagationInstance;
@@ -919,15 +919,15 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		for (ErrorPropagationInstance epi : annex.getPropagations()) {
 			// TODO Replace with operations.
 			if (outgoing ? !epi.getOutTokens().isEmpty() : !epi.getInTokens().isEmpty()) {
-				if (epi instanceof FeatureReference) {
-					if (((FeatureReference) epi).getFeature() == cie) {
+				if (epi instanceof FeaturePropagation) {
+					if (((FeaturePropagation) epi).getFeature() == cie) {
 						return epi;
 					}
-				} else if (epi instanceof PointReference) {
-					if (((PointReference) epi).getPoint() == cie) {
+				} else if (epi instanceof PointPropagation) {
+					if (((PointPropagation) epi).getPoint() == cie) {
 						return epi;
 					}
-				} else if (epi instanceof BindingReference) {
+				} else if (epi instanceof BindingPropagation) {
 					/*
 					 * TODO This is probably wrong and needs to be revisited. I added this code to mimic Peter's
 					 * behavior so that his tests will pass.

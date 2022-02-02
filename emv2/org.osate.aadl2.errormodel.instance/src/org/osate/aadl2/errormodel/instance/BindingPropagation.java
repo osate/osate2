@@ -26,21 +26,21 @@ package org.osate.aadl2.errormodel.instance;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Binding Reference</b></em>'.
+ * A representation of the model object '<em><b>Binding Propagation</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.BindingReference#getBinding <em>Binding</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.BindingPropagation#getBinding <em>Binding</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingReference()
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingPropagation()
  * @model
  * @generated
  */
-public interface BindingReference extends ErrorPropagationInstance {
+public interface BindingPropagation extends ErrorPropagationInstance {
 	/**
 	 * Returns the value of the '<em><b>Binding</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.osate.aadl2.errormodel.instance.BindingType}.
@@ -49,14 +49,14 @@ public interface BindingReference extends ErrorPropagationInstance {
 	 * @return the value of the '<em>Binding</em>' attribute.
 	 * @see org.osate.aadl2.errormodel.instance.BindingType
 	 * @see #setBinding(BindingType)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingReference_Binding()
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getBindingPropagation_Binding()
 	 * @model
 	 * @generated
 	 */
 	BindingType getBinding();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.BindingReference#getBinding <em>Binding</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.BindingPropagation#getBinding <em>Binding</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Binding</em>' attribute.
@@ -66,4 +66,4 @@ public interface BindingReference extends ErrorPropagationInstance {
 	 */
 	void setBinding(BindingType value);
 
-} // BindingReference
+} // BindingPropagation

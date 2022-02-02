@@ -23,45 +23,44 @@
  */
 package org.osate.aadl2.errormodel.instance;
 
-import org.osate.aadl2.instance.FeatureInstance;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Feature Reference</b></em>'.
+ * A representation of the model object '<em><b>Point Propagation</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.FeatureReference#getFeature <em>Feature</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.PointPropagation#getPoint <em>Point</em>}</li>
  * </ul>
  *
- * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getFeatureReference()
+ * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPointPropagation()
  * @model
  * @generated
  */
-public interface FeatureReference extends ErrorPropagationInstance {
+public interface PointPropagation extends ErrorPropagationInstance {
 	/**
-	 * Returns the value of the '<em><b>Feature</b></em>' reference.
+	 * Returns the value of the '<em><b>Point</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Feature</em>' reference.
-	 * @see #setFeature(FeatureInstance)
-	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getFeatureReference_Feature()
+	 * @return the value of the '<em>Point</em>' reference.
+	 * @see #setPoint(PropagationPointInstance)
+	 * @see org.osate.aadl2.errormodel.instance.EMV2InstancePackage#getPointPropagation_Point()
 	 * @model
 	 * @generated
 	 */
-	FeatureInstance getFeature();
+	PropagationPointInstance getPoint();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.FeatureReference#getFeature <em>Feature</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.instance.PointPropagation#getPoint <em>Point</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Feature</em>' reference.
-	 * @see #getFeature()
+	 * @param value the new value of the '<em>Point</em>' reference.
+	 * @see #getPoint()
 	 * @generated
 	 */
-	void setFeature(FeatureInstance value);
+	void setPoint(PropagationPointInstance value);
 
-} // FeatureReference
+} // PointPropagation

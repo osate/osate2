@@ -159,16 +159,16 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 				return createErrorPropagationInstanceAdapter();
 			}
 			@Override
-			public Adapter caseFeatureReference(FeatureReference object) {
-				return createFeatureReferenceAdapter();
+			public Adapter caseFeaturePropagation(FeaturePropagation object) {
+				return createFeaturePropagationAdapter();
 			}
 			@Override
-			public Adapter casePointReference(PointReference object) {
-				return createPointReferenceAdapter();
+			public Adapter casePointPropagation(PointPropagation object) {
+				return createPointPropagationAdapter();
 			}
 			@Override
-			public Adapter caseBindingReference(BindingReference object) {
-				return createBindingReferenceAdapter();
+			public Adapter caseBindingPropagation(BindingPropagation object) {
+				return createBindingPropagationAdapter();
 			}
 			@Override
 			public Adapter caseTypeTokenInstance(TypeTokenInstance object) {
@@ -447,44 +447,44 @@ public class EMV2InstanceAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.FeatureReference <em>Feature Reference</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.FeaturePropagation <em>Feature Propagation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.FeatureReference
+	 * @see org.osate.aadl2.errormodel.instance.FeaturePropagation
 	 * @generated
 	 */
-	public Adapter createFeatureReferenceAdapter() {
+	public Adapter createFeaturePropagationAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.PointReference <em>Point Reference</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.PointPropagation <em>Point Propagation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.PointReference
+	 * @see org.osate.aadl2.errormodel.instance.PointPropagation
 	 * @generated
 	 */
-	public Adapter createPointReferenceAdapter() {
+	public Adapter createPointPropagationAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.BindingReference <em>Binding Reference</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.errormodel.instance.BindingPropagation <em>Binding Propagation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.osate.aadl2.errormodel.instance.BindingReference
+	 * @see org.osate.aadl2.errormodel.instance.BindingPropagation
 	 * @generated
 	 */
-	public Adapter createBindingReferenceAdapter() {
+	public Adapter createBindingPropagationAdapter() {
 		return null;
 	}
 

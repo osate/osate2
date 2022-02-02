@@ -11,11 +11,11 @@ import org.junit.runner.RunWith;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.errormodel.instance.BindingReference;
+import org.osate.aadl2.errormodel.instance.BindingPropagation;
 import org.osate.aadl2.errormodel.instance.BindingType;
 import org.osate.aadl2.errormodel.instance.EMV2AnnexInstance;
-import org.osate.aadl2.errormodel.instance.FeatureReference;
-import org.osate.aadl2.errormodel.instance.PointReference;
+import org.osate.aadl2.errormodel.instance.FeaturePropagation;
+import org.osate.aadl2.errormodel.instance.PointPropagation;
 import org.osate.aadl2.errormodel.instance.TypeReference;
 import org.osate.aadl2.errormodel.tests.ErrorModelInjectorProvider;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -38,7 +38,7 @@ public class PropagationTest {
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(6, annexInstance.getPropagations().size());
-		with((BindingReference) annexInstance.getPropagations().get(0), propagation -> {
+		with((BindingPropagation) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("processor", propagation.getName());
 			assertEquals(BindingType.PROCESSOR, propagation.getBinding());
 			assertNull(propagation.getInErrorPropagation());
@@ -48,7 +48,7 @@ public class PropagationTest {
 			assertEquals("ServiceError",
 					((TypeReference) propagation.getOutTokens().get(0)).getDeclaredType().getName());
 		});
-		with((BindingReference) annexInstance.getPropagations().get(1), propagation -> {
+		with((BindingPropagation) annexInstance.getPropagations().get(1), propagation -> {
 			assertEquals("memory", propagation.getName());
 			assertEquals(BindingType.MEMORY, propagation.getBinding());
 			assertNull(propagation.getInErrorPropagation());
@@ -58,7 +58,7 @@ public class PropagationTest {
 			assertEquals("ServiceError",
 					((TypeReference) propagation.getOutTokens().get(0)).getDeclaredType().getName());
 		});
-		with((BindingReference) annexInstance.getPropagations().get(2), propagation -> {
+		with((BindingPropagation) annexInstance.getPropagations().get(2), propagation -> {
 			assertEquals("connection", propagation.getName());
 			assertEquals(BindingType.CONNECTION, propagation.getBinding());
 			assertNull(propagation.getInErrorPropagation());
@@ -68,7 +68,7 @@ public class PropagationTest {
 			assertEquals("ServiceError",
 					((TypeReference) propagation.getOutTokens().get(0)).getDeclaredType().getName());
 		});
-		with((BindingReference) annexInstance.getPropagations().get(3), propagation -> {
+		with((BindingPropagation) annexInstance.getPropagations().get(3), propagation -> {
 			assertEquals("binding", propagation.getName());
 			assertEquals(BindingType.BINDING, propagation.getBinding());
 			assertNull(propagation.getInErrorPropagation());
@@ -78,7 +78,7 @@ public class PropagationTest {
 			assertEquals("ServiceError",
 					((TypeReference) propagation.getOutTokens().get(0)).getDeclaredType().getName());
 		});
-		with((BindingReference) annexInstance.getPropagations().get(4), propagation -> {
+		with((BindingPropagation) annexInstance.getPropagations().get(4), propagation -> {
 			assertEquals("bindings", propagation.getName());
 			assertEquals(BindingType.BINDINGS, propagation.getBinding());
 			assertNull(propagation.getInErrorPropagation());
@@ -88,7 +88,7 @@ public class PropagationTest {
 			assertEquals("ServiceError",
 					((TypeReference) propagation.getOutTokens().get(0)).getDeclaredType().getName());
 		});
-		with((BindingReference) annexInstance.getPropagations().get(5), propagation -> {
+		with((BindingPropagation) annexInstance.getPropagations().get(5), propagation -> {
 			assertEquals("access", propagation.getName());
 			assertEquals(BindingType.ACCESS, propagation.getBinding());
 			assertNull(propagation.getInErrorPropagation());
@@ -106,7 +106,7 @@ public class PropagationTest {
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(4, annexInstance.getPropagations().size());
-		with((FeatureReference) annexInstance.getPropagations().get(0), propagation -> {
+		with((FeaturePropagation) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f1", propagation.getName());
 			assertEquals("f1", propagation.getFeature().getName());
 			assertNull(propagation.getInErrorPropagation());
@@ -118,7 +118,7 @@ public class PropagationTest {
 			assertEquals("ServiceError",
 					((TypeReference) propagation.getOutTokens().get(0)).getDeclaredType().getName());
 		});
-		with((FeatureReference) annexInstance.getPropagations().get(1), propagation -> {
+		with((FeaturePropagation) annexInstance.getPropagations().get(1), propagation -> {
 			assertEquals("fg1.f2", propagation.getName());
 			assertEquals("f2", propagation.getFeature().getName());
 			assertNull(propagation.getInErrorPropagation());
@@ -132,7 +132,7 @@ public class PropagationTest {
 			assertEquals("ServiceError",
 					((TypeReference) propagation.getOutTokens().get(0)).getDeclaredType().getName());
 		});
-		with((FeatureReference) annexInstance.getPropagations().get(2), propagation -> {
+		with((FeaturePropagation) annexInstance.getPropagations().get(2), propagation -> {
 			assertEquals("fg1.fg2.f3", propagation.getName());
 			assertEquals("f3", propagation.getFeature().getName());
 			assertNull(propagation.getInErrorPropagation());
@@ -147,7 +147,7 @@ public class PropagationTest {
 			assertEquals("ServiceError",
 					((TypeReference) propagation.getOutTokens().get(0)).getDeclaredType().getName());
 		});
-		with((FeatureReference) annexInstance.getPropagations().get(3), propagation -> {
+		with((FeaturePropagation) annexInstance.getPropagations().get(3), propagation -> {
 			assertEquals("fg1.fg2.fg3.f4", propagation.getName());
 			assertEquals("f4", propagation.getFeature().getName());
 			assertNull(propagation.getInErrorPropagation());
@@ -171,7 +171,7 @@ public class PropagationTest {
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(1, annexInstance.getPropagations().size());
-		with((PointReference) annexInstance.getPropagations().get(0), propagation -> {
+		with((PointPropagation) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("point1", propagation.getName());
 			assertEquals("point1", propagation.getPoint().getName());
 			assertNull(propagation.getInErrorPropagation());
@@ -209,7 +209,7 @@ public class PropagationTest {
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(1, annexInstance.getPropagations().size());
-		with((FeatureReference) annexInstance.getPropagations().get(0), propagation -> {
+		with((FeaturePropagation) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f", propagation.getName());
 			assertEquals("f", propagation.getFeature().getName());
 			assertEquals("f",
@@ -229,7 +229,7 @@ public class PropagationTest {
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(1, annexInstance.getPropagations().size());
-		with((FeatureReference) annexInstance.getPropagations().get(0), propagation -> {
+		with((FeaturePropagation) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f", propagation.getName());
 			assertEquals("f", propagation.getFeature().getName());
 			assertEquals("f",
@@ -253,7 +253,7 @@ public class PropagationTest {
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(2);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
 		assertEquals(1, annexInstance.getPropagations().size());
-		with((FeatureReference) annexInstance.getPropagations().get(0), propagation -> {
+		with((FeaturePropagation) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f", propagation.getName());
 			assertEquals("f", propagation.getFeature().getName());
 			assertNull(propagation.getInErrorPropagation());

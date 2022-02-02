@@ -91,9 +91,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 			case EMV2InstancePackage.EVENT_INSTANCE: return createEventInstance();
 			case EMV2InstancePackage.CONSTRAINT_EXPRESSION: return createConstraintExpression();
 			case EMV2InstancePackage.PROPAGATION_PATH_INSTANCE: return createPropagationPathInstance();
-			case EMV2InstancePackage.FEATURE_REFERENCE: return createFeatureReference();
-			case EMV2InstancePackage.POINT_REFERENCE: return createPointReference();
-			case EMV2InstancePackage.BINDING_REFERENCE: return createBindingReference();
+			case EMV2InstancePackage.FEATURE_PROPAGATION: return createFeaturePropagation();
+			case EMV2InstancePackage.POINT_PROPAGATION: return createPointPropagation();
+			case EMV2InstancePackage.BINDING_PROPAGATION: return createBindingPropagation();
 			case EMV2InstancePackage.TYPE_REFERENCE: return createTypeReference();
 			case EMV2InstancePackage.TYPE_SET_INSTANCE: return createTypeSetInstance();
 			case EMV2InstancePackage.TYPE_PRODUCT_INSTANCE: return createTypeProductInstance();
@@ -285,9 +285,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public FeatureReference createFeatureReference() {
-		FeatureReferenceImpl featureReference = new FeatureReferenceImpl();
-		return featureReference;
+	public FeaturePropagation createFeaturePropagation() {
+		FeaturePropagationImpl featurePropagation = new FeaturePropagationImpl();
+		return featurePropagation;
 	}
 
 	/**
@@ -296,9 +296,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public PointReference createPointReference() {
-		PointReferenceImpl pointReference = new PointReferenceImpl();
-		return pointReference;
+	public PointPropagation createPointPropagation() {
+		PointPropagationImpl pointPropagation = new PointPropagationImpl();
+		return pointPropagation;
 	}
 
 	/**
@@ -307,9 +307,9 @@ public class EMV2InstanceFactoryImpl extends EFactoryImpl implements EMV2Instanc
 	 * @generated
 	 */
 	@Override
-	public BindingReference createBindingReference() {
-		BindingReferenceImpl bindingReference = new BindingReferenceImpl();
-		return bindingReference;
+	public BindingPropagation createBindingPropagation() {
+		BindingPropagationImpl bindingPropagation = new BindingPropagationImpl();
+		return bindingPropagation;
 	}
 
 	/**

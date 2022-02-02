@@ -31,24 +31,24 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.aadl2.errormodel.instance.EMV2InstancePackage;
-import org.osate.aadl2.errormodel.instance.FeatureReference;
+import org.osate.aadl2.errormodel.instance.FeaturePropagation;
 
 import org.osate.aadl2.instance.FeatureInstance;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Feature Reference</b></em>'.
+ * An implementation of the model object '<em><b>Feature Propagation</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.instance.impl.FeatureReferenceImpl#getFeature <em>Feature</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.instance.impl.FeaturePropagationImpl#getFeature <em>Feature</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class FeatureReferenceImpl extends ErrorPropagationInstanceImpl implements FeatureReference {
+public class FeaturePropagationImpl extends ErrorPropagationInstanceImpl implements FeaturePropagation {
 	/**
 	 * The cached value of the '{@link #getFeature() <em>Feature</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -64,7 +64,7 @@ public class FeatureReferenceImpl extends ErrorPropagationInstanceImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected FeatureReferenceImpl() {
+	protected FeaturePropagationImpl() {
 		super();
 	}
 
@@ -75,7 +75,7 @@ public class FeatureReferenceImpl extends ErrorPropagationInstanceImpl implement
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return EMV2InstancePackage.Literals.FEATURE_REFERENCE;
+		return EMV2InstancePackage.Literals.FEATURE_PROPAGATION;
 	}
 
 	/**
@@ -90,7 +90,7 @@ public class FeatureReferenceImpl extends ErrorPropagationInstanceImpl implement
 			feature = (FeatureInstance)eResolveProxy(oldFeature);
 			if (feature != oldFeature) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.FEATURE_REFERENCE__FEATURE, oldFeature, feature));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, EMV2InstancePackage.FEATURE_PROPAGATION__FEATURE, oldFeature, feature));
 			}
 		}
 		return feature;
@@ -115,7 +115,7 @@ public class FeatureReferenceImpl extends ErrorPropagationInstanceImpl implement
 		FeatureInstance oldFeature = feature;
 		feature = newFeature;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.FEATURE_REFERENCE__FEATURE, oldFeature, feature));
+			eNotify(new ENotificationImpl(this, Notification.SET, EMV2InstancePackage.FEATURE_PROPAGATION__FEATURE, oldFeature, feature));
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class FeatureReferenceImpl extends ErrorPropagationInstanceImpl implement
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case EMV2InstancePackage.FEATURE_REFERENCE__FEATURE:
+			case EMV2InstancePackage.FEATURE_PROPAGATION__FEATURE:
 				if (resolve) return getFeature();
 				return basicGetFeature();
 		}
@@ -141,7 +141,7 @@ public class FeatureReferenceImpl extends ErrorPropagationInstanceImpl implement
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case EMV2InstancePackage.FEATURE_REFERENCE__FEATURE:
+			case EMV2InstancePackage.FEATURE_PROPAGATION__FEATURE:
 				setFeature((FeatureInstance)newValue);
 				return;
 		}
@@ -156,7 +156,7 @@ public class FeatureReferenceImpl extends ErrorPropagationInstanceImpl implement
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.FEATURE_REFERENCE__FEATURE:
+			case EMV2InstancePackage.FEATURE_PROPAGATION__FEATURE:
 				setFeature((FeatureInstance)null);
 				return;
 		}
@@ -171,10 +171,10 @@ public class FeatureReferenceImpl extends ErrorPropagationInstanceImpl implement
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case EMV2InstancePackage.FEATURE_REFERENCE__FEATURE:
+			case EMV2InstancePackage.FEATURE_PROPAGATION__FEATURE:
 				return feature != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //FeatureReferenceImpl
+} //FeaturePropagationImpl
