@@ -225,22 +225,13 @@ public interface EMV2InstancePackage extends EPackage {
 	int EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 8;
 
 	/**
-	 * The feature id for the '<em><b>In Propagations</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Propagations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EMV2_ANNEX_INSTANCE__IN_PROPAGATIONS = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Out Propagations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EMV2_ANNEX_INSTANCE__OUT_PROPAGATIONS = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 10;
+	int EMV2_ANNEX_INSTANCE__PROPAGATIONS = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>EMV2 Annex Instance</em>' class.
@@ -249,7 +240,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EMV2_ANNEX_INSTANCE_FEATURE_COUNT = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 11;
+	int EMV2_ANNEX_INSTANCE_FEATURE_COUNT = InstancePackage.ANNEX_INSTANCE_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.EMV2InstanceObjectImpl <em>Object</em>}' class.
@@ -1716,22 +1707,40 @@ public interface EMV2InstancePackage extends EPackage {
 	int ERROR_PROPAGATION_INSTANCE__PROPAGATION_KIND = CONSTRAINED_INSTANCE_OBJECT__PROPAGATION_KIND;
 
 	/**
-	 * The feature id for the '<em><b>Error Propagation</b></em>' reference.
+	 * The feature id for the '<em><b>In Error Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 0;
+	int ERROR_PROPAGATION_INSTANCE__IN_ERROR_PROPAGATION = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Tokens</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Out Error Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PROPAGATION_INSTANCE__TOKENS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 1;
+	int ERROR_PROPAGATION_INSTANCE__OUT_ERROR_PROPAGATION = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>In Tokens</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_PROPAGATION_INSTANCE__IN_TOKENS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Out Tokens</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ERROR_PROPAGATION_INSTANCE__OUT_TOKENS = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Error Propagation Instance</em>' class.
@@ -1740,7 +1749,7 @@ public interface EMV2InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 2;
+	int ERROR_PROPAGATION_INSTANCE_FEATURE_COUNT = CONSTRAINED_INSTANCE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.instance.impl.FeatureReferenceImpl <em>Feature Reference</em>}' class.
@@ -1834,22 +1843,40 @@ public interface EMV2InstancePackage extends EPackage {
 	int FEATURE_REFERENCE__PROPAGATION_KIND = ERROR_PROPAGATION_INSTANCE__PROPAGATION_KIND;
 
 	/**
-	 * The feature id for the '<em><b>Error Propagation</b></em>' reference.
+	 * The feature id for the '<em><b>In Error Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_REFERENCE__ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION;
+	int FEATURE_REFERENCE__IN_ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__IN_ERROR_PROPAGATION;
 
 	/**
-	 * The feature id for the '<em><b>Tokens</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Out Error Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_REFERENCE__TOKENS = ERROR_PROPAGATION_INSTANCE__TOKENS;
+	int FEATURE_REFERENCE__OUT_ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__OUT_ERROR_PROPAGATION;
+
+	/**
+	 * The feature id for the '<em><b>In Tokens</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_REFERENCE__IN_TOKENS = ERROR_PROPAGATION_INSTANCE__IN_TOKENS;
+
+	/**
+	 * The feature id for the '<em><b>Out Tokens</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_REFERENCE__OUT_TOKENS = ERROR_PROPAGATION_INSTANCE__OUT_TOKENS;
 
 	/**
 	 * The feature id for the '<em><b>Feature</b></em>' reference.
@@ -1961,22 +1988,40 @@ public interface EMV2InstancePackage extends EPackage {
 	int POINT_REFERENCE__PROPAGATION_KIND = ERROR_PROPAGATION_INSTANCE__PROPAGATION_KIND;
 
 	/**
-	 * The feature id for the '<em><b>Error Propagation</b></em>' reference.
+	 * The feature id for the '<em><b>In Error Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POINT_REFERENCE__ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION;
+	int POINT_REFERENCE__IN_ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__IN_ERROR_PROPAGATION;
 
 	/**
-	 * The feature id for the '<em><b>Tokens</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Out Error Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POINT_REFERENCE__TOKENS = ERROR_PROPAGATION_INSTANCE__TOKENS;
+	int POINT_REFERENCE__OUT_ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__OUT_ERROR_PROPAGATION;
+
+	/**
+	 * The feature id for the '<em><b>In Tokens</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POINT_REFERENCE__IN_TOKENS = ERROR_PROPAGATION_INSTANCE__IN_TOKENS;
+
+	/**
+	 * The feature id for the '<em><b>Out Tokens</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POINT_REFERENCE__OUT_TOKENS = ERROR_PROPAGATION_INSTANCE__OUT_TOKENS;
 
 	/**
 	 * The feature id for the '<em><b>Point</b></em>' reference.
@@ -2088,22 +2133,40 @@ public interface EMV2InstancePackage extends EPackage {
 	int BINDING_REFERENCE__PROPAGATION_KIND = ERROR_PROPAGATION_INSTANCE__PROPAGATION_KIND;
 
 	/**
-	 * The feature id for the '<em><b>Error Propagation</b></em>' reference.
+	 * The feature id for the '<em><b>In Error Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINDING_REFERENCE__ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION;
+	int BINDING_REFERENCE__IN_ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__IN_ERROR_PROPAGATION;
 
 	/**
-	 * The feature id for the '<em><b>Tokens</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Out Error Propagation</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BINDING_REFERENCE__TOKENS = ERROR_PROPAGATION_INSTANCE__TOKENS;
+	int BINDING_REFERENCE__OUT_ERROR_PROPAGATION = ERROR_PROPAGATION_INSTANCE__OUT_ERROR_PROPAGATION;
+
+	/**
+	 * The feature id for the '<em><b>In Tokens</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINDING_REFERENCE__IN_TOKENS = ERROR_PROPAGATION_INSTANCE__IN_TOKENS;
+
+	/**
+	 * The feature id for the '<em><b>Out Tokens</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINDING_REFERENCE__OUT_TOKENS = ERROR_PROPAGATION_INSTANCE__OUT_TOKENS;
 
 	/**
 	 * The feature id for the '<em><b>Binding</b></em>' attribute.
@@ -2600,26 +2663,15 @@ public interface EMV2InstancePackage extends EPackage {
 	EReference getEMV2AnnexInstance_PropagationPaths();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getInPropagations <em>In Propagations</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getPropagations <em>Propagations</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>In Propagations</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getInPropagations()
+	 * @return the meta object for the containment reference list '<em>Propagations</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getPropagations()
 	 * @see #getEMV2AnnexInstance()
 	 * @generated
 	 */
-	EReference getEMV2AnnexInstance_InPropagations();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getOutPropagations <em>Out Propagations</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Out Propagations</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.EMV2AnnexInstance#getOutPropagations()
-	 * @see #getEMV2AnnexInstance()
-	 * @generated
-	 */
-	EReference getEMV2AnnexInstance_OutPropagations();
+	EReference getEMV2AnnexInstance_Propagations();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.EMV2InstanceObject <em>Object</em>}'.
@@ -3201,26 +3253,48 @@ public interface EMV2InstancePackage extends EPackage {
 	EClass getErrorPropagationInstance();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorPropagation <em>Error Propagation</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getInErrorPropagation <em>In Error Propagation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Error Propagation</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getErrorPropagation()
+	 * @return the meta object for the reference '<em>In Error Propagation</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getInErrorPropagation()
 	 * @see #getErrorPropagationInstance()
 	 * @generated
 	 */
-	EReference getErrorPropagationInstance_ErrorPropagation();
+	EReference getErrorPropagationInstance_InErrorPropagation();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getTokens <em>Tokens</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutErrorPropagation <em>Out Error Propagation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Tokens</em>'.
-	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getTokens()
+	 * @return the meta object for the reference '<em>Out Error Propagation</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutErrorPropagation()
 	 * @see #getErrorPropagationInstance()
 	 * @generated
 	 */
-	EReference getErrorPropagationInstance_Tokens();
+	EReference getErrorPropagationInstance_OutErrorPropagation();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getInTokens <em>In Tokens</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>In Tokens</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getInTokens()
+	 * @see #getErrorPropagationInstance()
+	 * @generated
+	 */
+	EReference getErrorPropagationInstance_InTokens();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutTokens <em>Out Tokens</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Out Tokens</em>'.
+	 * @see org.osate.aadl2.errormodel.instance.ErrorPropagationInstance#getOutTokens()
+	 * @see #getErrorPropagationInstance()
+	 * @generated
+	 */
+	EReference getErrorPropagationInstance_OutTokens();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.instance.FeatureReference <em>Feature Reference</em>}'.
@@ -3516,20 +3590,12 @@ public interface EMV2InstancePackage extends EPackage {
 		EReference EMV2_ANNEX_INSTANCE__PROPAGATION_PATHS = eINSTANCE.getEMV2AnnexInstance_PropagationPaths();
 
 		/**
-		 * The meta object literal for the '<em><b>In Propagations</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Propagations</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EMV2_ANNEX_INSTANCE__IN_PROPAGATIONS = eINSTANCE.getEMV2AnnexInstance_InPropagations();
-
-		/**
-		 * The meta object literal for the '<em><b>Out Propagations</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EMV2_ANNEX_INSTANCE__OUT_PROPAGATIONS = eINSTANCE.getEMV2AnnexInstance_OutPropagations();
+		EReference EMV2_ANNEX_INSTANCE__PROPAGATIONS = eINSTANCE.getEMV2AnnexInstance_Propagations();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.EMV2InstanceObjectImpl <em>Object</em>}' class.
@@ -3994,20 +4060,36 @@ public interface EMV2InstancePackage extends EPackage {
 		EClass ERROR_PROPAGATION_INSTANCE = eINSTANCE.getErrorPropagationInstance();
 
 		/**
-		 * The meta object literal for the '<em><b>Error Propagation</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>In Error Propagation</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PROPAGATION_INSTANCE__ERROR_PROPAGATION = eINSTANCE.getErrorPropagationInstance_ErrorPropagation();
+		EReference ERROR_PROPAGATION_INSTANCE__IN_ERROR_PROPAGATION = eINSTANCE.getErrorPropagationInstance_InErrorPropagation();
 
 		/**
-		 * The meta object literal for the '<em><b>Tokens</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Out Error Propagation</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference ERROR_PROPAGATION_INSTANCE__TOKENS = eINSTANCE.getErrorPropagationInstance_Tokens();
+		EReference ERROR_PROPAGATION_INSTANCE__OUT_ERROR_PROPAGATION = eINSTANCE.getErrorPropagationInstance_OutErrorPropagation();
+
+		/**
+		 * The meta object literal for the '<em><b>In Tokens</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ERROR_PROPAGATION_INSTANCE__IN_TOKENS = eINSTANCE.getErrorPropagationInstance_InTokens();
+
+		/**
+		 * The meta object literal for the '<em><b>Out Tokens</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ERROR_PROPAGATION_INSTANCE__OUT_TOKENS = eINSTANCE.getErrorPropagationInstance_OutTokens();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.instance.impl.FeatureReferenceImpl <em>Feature Reference</em>}' class.

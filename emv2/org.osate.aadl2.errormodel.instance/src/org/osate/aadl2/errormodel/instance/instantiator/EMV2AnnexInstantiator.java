@@ -27,6 +27,7 @@ import static org.osate.xtext.aadl2.errormodel.util.EMV2TypeSetUtil.isNoError;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -128,10 +129,8 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			instantiatePropagationPoint(pp, emv2AI);
 		}
 
-		Collection<ErrorPropagation> eps = EMV2Util.getAllErrorPropagations(instance.getComponentClassifier());
-		for (ErrorPropagation ep : eps) {
-			instantiateErrorPropagation(ep, emv2AI);
-		}
+		var eps = EMV2Util.getAllErrorPropagations(instance.getComponentClassifier());
+		instantiateErrorPropagations(eps, emv2AI);
 
 		Collection<ErrorBehaviorEvent> events = EMV2Util.getAllErrorBehaviorEvents(instance);
 		for (ErrorBehaviorEvent ev : events) {
@@ -346,51 +345,67 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 		sti.setTargetState(findStateInstance(annex, st.getState()));
 	}
 
-	public void instantiateErrorPropagation(ErrorPropagation ep, EMV2AnnexInstance annex) {
-		ErrorPropagationInstance epi;
+	private void instantiateErrorPropagations(List<ErrorPropagation> eps, EMV2AnnexInstance annex) {
+		var propagationInstances = new HashMap<String, ErrorPropagationInstance>();
+		for (var ep : eps) {
+			var name = EMV2Util.getName(ep);
+			// TODO Come up with better name.
+			var epiOuter = propagationInstances.computeIfAbsent(name, key -> {
+				ErrorPropagationInstance epi;
 
-		if (ep.getKind() != null) {
-			var propagationInstance = EMV2InstanceFactory.eINSTANCE.createBindingReference();
-			propagationInstance.setBinding(BindingType.get(ep.getKind().toLowerCase()));
-			epi = propagationInstance;
-		} else if (ep.getFeatureorPPRef() != null) {
-			var featureOrPP = ep.getFeatureorPPRef().getFeatureorPP();
-			if (featureOrPP instanceof Feature) {
-				var propagationInstance = EMV2InstanceFactory.eINSTANCE.createFeatureReference();
-				propagationInstance.setFeature(findFeatureInstance(
-						EcoreUtil2.getContainerOfType(annex, ComponentInstance.class), ep.getFeatureorPPRef()));
-				epi = propagationInstance;
-			} else if (featureOrPP instanceof PropagationPoint) {
-				var propagationInstance = EMV2InstanceFactory.eINSTANCE.createPointReference();
-				propagationInstance.setPoint(findPropagationPointInstance(annex, (PropagationPoint) featureOrPP));
-				epi = propagationInstance;
-			} else if (featureOrPP instanceof InternalFeature) {
-				// Propagation not instantiated since InternalFeatures are not instantiated.
-				return;
-			} else {
-				throw new RuntimeException(
-						"featureorPPRef points to something other than a Feature, an InternalFeature, or a PropagationPoint: "
-								+ featureOrPP);
+				if (ep.getKind() != null) {
+					var propagationInstance = EMV2InstanceFactory.eINSTANCE.createBindingReference();
+					propagationInstance.setBinding(BindingType.get(ep.getKind().toLowerCase()));
+					epi = propagationInstance;
+				} else if (ep.getFeatureorPPRef() != null) {
+					var featureOrPP = ep.getFeatureorPPRef().getFeatureorPP();
+					if (featureOrPP instanceof Feature) {
+						var propagationInstance = EMV2InstanceFactory.eINSTANCE.createFeatureReference();
+						propagationInstance.setFeature(findFeatureInstance(
+								EcoreUtil2.getContainerOfType(annex, ComponentInstance.class), ep.getFeatureorPPRef()));
+						epi = propagationInstance;
+					} else if (featureOrPP instanceof PropagationPoint) {
+						var propagationInstance = EMV2InstanceFactory.eINSTANCE.createPointReference();
+						propagationInstance
+								.setPoint(findPropagationPointInstance(annex, (PropagationPoint) featureOrPP));
+						epi = propagationInstance;
+					} else if (featureOrPP instanceof InternalFeature) {
+						// Propagation not instantiated since InternalFeatures are not instantiated.
+						return null;
+					} else {
+						throw new RuntimeException(
+								"featureorPPRef points to something other than a Feature, an InternalFeature, or a PropagationPoint: "
+										+ featureOrPP);
+					}
+				} else {
+					throw new RuntimeException("Both kind and featureOrPPRef are null: " + ep);
+				}
+
+				epi.setName(name);
+				annex.getPropagations().add(epi);
+				return epi;
+			});
+			if (epiOuter == null) {
+				// This can happen if the propagation points to an InternalFeature. In that case, simply skip this one.
+				break;
 			}
-		} else {
-			throw new RuntimeException("Both kind and featureOrPPRef are null: " + ep);
-		}
-
-		epi.setName(EMV2Util.getName(ep));
-		epi.setErrorPropagation(ep);
-
-		epi.getTokens().addAll(createTypeTokenInstances(ep.getTypeSet().getTypeTokens()));
-
-		switch (ep.getDirection()) {
-		case IN:
-			annex.getInPropagations().add(epi);
-			break;
-		case OUT:
-			annex.getOutPropagations().add(epi);
-			break;
-		case IN_OUT:
-			throw new RuntimeException(
-					"Propagation has an in out direction which is not supported by the grammar: " + ep);
+			switch (ep.getDirection()) {
+			case IN:
+				assert epiOuter.getInErrorPropagation() == null && epiOuter.getInTokens().isEmpty()
+						: "In fields are already set.";
+				epiOuter.setInErrorPropagation(ep);
+				epiOuter.getInTokens().addAll(createTypeTokenInstances(ep.getTypeSet().getTypeTokens()));
+				break;
+			case OUT:
+				assert epiOuter.getOutErrorPropagation() == null && epiOuter.getOutTokens().isEmpty()
+						: "Out fields are already set.";
+				epiOuter.setOutErrorPropagation(ep);
+				epiOuter.getOutTokens().addAll(createTypeTokenInstances(ep.getTypeSet().getTypeTokens()));
+				break;
+			case IN_OUT:
+				throw new RuntimeException(
+						"Propagation has an in out direction which is not supported by the grammar: " + ep);
+			}
 		}
 	}
 
@@ -901,52 +916,53 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 
 	private ErrorPropagationInstance findErrorPropagationInstance(EMV2AnnexInstance annex, ConnectionInstanceEnd cie,
 			boolean outgoing) {
-		Collection<ErrorPropagationInstance> eps = outgoing ? annex.getOutPropagations() : annex.getInPropagations();
-		for (ErrorPropagationInstance epi : eps) {
-			if (epi instanceof FeatureReference) {
-				if (((FeatureReference) epi).getFeature() == cie) {
-					return epi;
+		for (ErrorPropagationInstance epi : annex.getPropagations()) {
+			// TODO Replace with operations.
+			if (outgoing ? !epi.getOutTokens().isEmpty() : !epi.getInTokens().isEmpty()) {
+				if (epi instanceof FeatureReference) {
+					if (((FeatureReference) epi).getFeature() == cie) {
+						return epi;
+					}
+				} else if (epi instanceof PointReference) {
+					if (((PointReference) epi).getPoint() == cie) {
+						return epi;
+					}
+				} else if (epi instanceof BindingReference) {
+					/*
+					 * TODO This is probably wrong and needs to be revisited. I added this code to mimic Peter's
+					 * behavior so that his tests will pass.
+					 *
+					 * In his original instantiator, ErrorPropagation.instanceObject is set to the containing
+					 * ComponentInstance for propagations that have a binding reference. Then this method would simply
+					 * search for the first propagation in which the instanceObject field equals cie. This means that if
+					 * cie is a ComponentInstance, then the first propagation with a binding reference is returned. No
+					 * consideration is given to what the binding reference is: "processor", "memory", "connection",
+					 * etc.
+					 *
+					 * This is almost certainly not correct and we will need to revist this method when we figure out
+					 * propagation paths.
+					 */
+					if (EcoreUtil2.getContainerOfType(epi, ComponentInstance.class) == cie) {
+						return epi;
+					}
+				} else {
+					throw new RuntimeException("Unexpected type: " + epi);
 				}
-			} else if (epi instanceof PointReference) {
-				if (((PointReference) epi).getPoint() == cie) {
-					return epi;
-				}
-			} else if (epi instanceof BindingReference) {
-				/*
-				 * TODO This is probably wrong and needs to be revisited. I added this code to mimic Peter's behavior so
-				 * that his tests will pass.
-				 *
-				 * In his original instantiator, ErrorPropagation.instanceObject is set to the containing
-				 * ComponentInstance for propagations that have a binding reference. Then this method would simply
-				 * search for the first propagation in which the instanceObject field equals cie. This means that if cie
-				 * is a ComponentInstance, then the first propagation with a binding reference is returned. No
-				 * consideration is given to what the binding reference is: "processor", "memory", "connection", etc.
-				 *
-				 * This is almost certainly not correct and we will need to revist this method when we figure out
-				 * propagation paths.
-				 */
-				if (EcoreUtil2.getContainerOfType(epi, ComponentInstance.class) == cie) {
-					return epi;
-				}
-			} else {
-				throw new RuntimeException("Unexpected type: " + epi);
-			}
 
-			/*
-			 * The following is Peter's original code for this loop.
-			 */
-//			if (epi.getInstanceObject() == cie) {
-//				return epi;
-//			}
+				/*
+				 * The following is Peter's original code for this loop.
+				 */
+//				if (epi.getInstanceObject() == cie) {
+//					return epi;
+//				}
+			}
 		}
 		return null;
 	}
 
-	private ErrorPropagationInstance findErrorPropagationInstance(EMV2AnnexInstance annex, ErrorPropagation ep,
-			boolean outgoing) {
-		Collection<ErrorPropagationInstance> eps = outgoing ? annex.getOutPropagations() : annex.getInPropagations();
-		for (ErrorPropagationInstance epi : eps) {
-			if (epi.getErrorPropagation() == ep) {
+	private ErrorPropagationInstance findErrorPropagationInstance(EMV2AnnexInstance annex, ErrorPropagation ep) {
+		for (ErrorPropagationInstance epi : annex.getPropagations()) {
+			if (epi.getInErrorPropagation() == ep || epi.getOutErrorPropagation() == ep) {
 				return epi;
 			}
 		}
@@ -1287,7 +1303,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			ErrorPropagation BRsrcprop = EMV2Util.findOutgoingErrorPropagation(boundResource.getComponentClassifier(),
 					"bindings");
 			if (BRsrcprop != null) {
-				ErrorPropagationInstance srcEPI = findErrorPropagationInstance(annex, BRsrcprop, true);
+				ErrorPropagationInstance srcEPI = findErrorPropagationInstance(annex, BRsrcprop);
 				if (srcEPI != null) {
 					PropagationPathInstance srcBindPPI = EcoreUtil.copy(ppi);
 					srcBindPPI.setSource(srcEPI);
@@ -1298,7 +1314,7 @@ public class EMV2AnnexInstantiator implements AnnexInstantiator {
 			ErrorPropagation BRdstprop = EMV2Util.findIncomingErrorPropagation(boundResource.getComponentClassifier(),
 					"bindings");
 			if (BRdstprop != null) {
-				ErrorPropagationInstance dstEPI = findErrorPropagationInstance(annex, BRdstprop, false);
+				ErrorPropagationInstance dstEPI = findErrorPropagationInstance(annex, BRdstprop);
 				if (dstEPI != null) {
 					PropagationPathInstance dstBindPPI = EcoreUtil.copy(ppi);
 					dstBindPPI.setTarget(dstEPI);

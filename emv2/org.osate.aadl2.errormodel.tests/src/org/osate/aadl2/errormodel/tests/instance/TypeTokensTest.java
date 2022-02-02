@@ -33,17 +33,17 @@ public class TypeTokensTest {
 		var pkg = testHelper.parseFile(PATH + "type_reference_test.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		assertEquals(0, annexInstance.getInPropagations().size());
-		assertEquals(1, annexInstance.getOutPropagations().size());
-		with((FeatureReference) annexInstance.getOutPropagations().get(0), propagation -> {
+		assertEquals(1, annexInstance.getPropagations().size());
+		with((FeatureReference) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f", propagation.getName());
-			assertEquals(2, propagation.getTokens().size());
-			with((TypeReference) propagation.getTokens().get(0), token -> {
+			assertEquals(0, propagation.getInTokens().size());
+			assertEquals(2, propagation.getOutTokens().size());
+			with((TypeReference) propagation.getOutTokens().get(0), token -> {
 				assertEquals("ServiceError", token.getName());
 				assertEquals("ServiceError", token.getDeclaredType().getName());
 				assertEquals("ServiceError", token.getResolvedType().getName());
 			});
-			with((TypeReference) propagation.getTokens().get(1), token -> {
+			with((TypeReference) propagation.getOutTokens().get(1), token -> {
 				assertEquals("TimingError", token.getName());
 				assertEquals("TimingError", token.getDeclaredType().getName());
 				assertEquals("ItemTimingError", token.getResolvedType().getName());
@@ -56,12 +56,12 @@ public class TypeTokensTest {
 		var pkg = testHelper.parseFile(PATH + "type_product_test.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		assertEquals(0, annexInstance.getInPropagations().size());
-		assertEquals(1, annexInstance.getOutPropagations().size());
-		with((FeatureReference) annexInstance.getOutPropagations().get(0), propagation -> {
+		assertEquals(1, annexInstance.getPropagations().size());
+		with((FeatureReference) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f", propagation.getName());
-			assertEquals(1, propagation.getTokens().size());
-			with((TypeProductInstance) propagation.getTokens().get(0), token -> {
+			assertEquals(0, propagation.getInTokens().size());
+			assertEquals(1, propagation.getOutTokens().size());
+			with((TypeProductInstance) propagation.getOutTokens().get(0), token -> {
 				assertEquals("ServiceError * TimingError", token.getName());
 				assertEquals(2, token.getTypes().size());
 				with(token.getTypes().get(0), type -> {
@@ -83,12 +83,12 @@ public class TypeTokensTest {
 		var pkg = testHelper.parseFile(PATH + "set_of_types_test.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		assertEquals(0, annexInstance.getInPropagations().size());
-		assertEquals(1, annexInstance.getOutPropagations().size());
-		with((FeatureReference) annexInstance.getOutPropagations().get(0), propagation -> {
+		assertEquals(1, annexInstance.getPropagations().size());
+		with((FeatureReference) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f", propagation.getName());
-			assertEquals(2, propagation.getTokens().size());
-			with((TypeSetInstance) propagation.getTokens().get(0), token -> {
+			assertEquals(0, propagation.getInTokens().size());
+			assertEquals(2, propagation.getOutTokens().size());
+			with((TypeSetInstance) propagation.getOutTokens().get(0), token -> {
 				assertEquals("TimingRelatedError", token.getName());
 				assertEquals("TimingRelatedError", token.getDeclaredSet().getName());
 				assertEquals("TimingRelatedError", token.getResolvedSet().getName());
@@ -109,7 +109,7 @@ public class TypeTokensTest {
 					assertEquals("ServiceTimingError", type.getResolvedType().getName());
 				});
 			});
-			with((TypeSetInstance) propagation.getTokens().get(1), token -> {
+			with((TypeSetInstance) propagation.getOutTokens().get(1), token -> {
 				assertEquals("ValueErrors", token.getName());
 				assertEquals("ValueErrors", token.getDeclaredSet().getName());
 				assertEquals("ValueRelatedError", token.getResolvedSet().getName());
@@ -138,12 +138,12 @@ public class TypeTokensTest {
 		var pkg = testHelper.parseFile(PATH + "set_of_sets_test.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		assertEquals(0, annexInstance.getInPropagations().size());
-		assertEquals(1, annexInstance.getOutPropagations().size());
-		with((FeatureReference) annexInstance.getOutPropagations().get(0), propagation -> {
+		assertEquals(1, annexInstance.getPropagations().size());
+		with((FeatureReference) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f", propagation.getName());
-			assertEquals(1, propagation.getTokens().size());
-			with((TypeSetInstance) propagation.getTokens().get(0), token -> {
+			assertEquals(0, propagation.getInTokens().size());
+			assertEquals(1, propagation.getOutTokens().size());
+			with((TypeSetInstance) propagation.getOutTokens().get(0), token -> {
 				assertEquals("CommonErrors", token.getName());
 				assertEquals("CommonErrors", token.getDeclaredSet().getName());
 				assertEquals("CommonErrors", token.getResolvedSet().getName());
@@ -214,12 +214,12 @@ public class TypeTokensTest {
 		var pkg = testHelper.parseFile(PATH + "set_of_products_test.aadl");
 		var system = (SystemImplementation) pkg.getPublicSection().getOwnedClassifiers().get(1);
 		var annexInstance = (EMV2AnnexInstance) InstantiateModel.instantiate(system).getAnnexInstances().get(0);
-		assertEquals(0, annexInstance.getInPropagations().size());
-		assertEquals(1, annexInstance.getOutPropagations().size());
-		with((FeatureReference) annexInstance.getOutPropagations().get(0), propagation -> {
+		assertEquals(1, annexInstance.getPropagations().size());
+		with((FeatureReference) annexInstance.getPropagations().get(0), propagation -> {
 			assertEquals("f", propagation.getName());
-			assertEquals(1, propagation.getTokens().size());
-			with((TypeSetInstance) propagation.getTokens().get(0), token -> {
+			assertEquals(0, propagation.getInTokens().size());
+			assertEquals(1, propagation.getOutTokens().size());
+			with((TypeSetInstance) propagation.getOutTokens().get(0), token -> {
 				assertEquals("ProductSet", token.getName());
 				assertEquals("ProductSet", token.getDeclaredSet().getName());
 				assertEquals("ProductSet", token.getResolvedSet().getName());

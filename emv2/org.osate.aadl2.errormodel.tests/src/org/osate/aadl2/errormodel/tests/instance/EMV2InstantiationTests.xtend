@@ -93,7 +93,7 @@ class EMV2InstantiationTests {
 		val GPSEMV2 = system.annexInstances.get(0) as EMV2AnnexInstance
 		GPSEMV2 => [
 			assertTrue(5 == errorFlows.size() )
-			assertTrue(20 == propagationPaths.size() )
+			assertEquals(20, propagationPaths.size)
 			assertTrue(1 == errorPropagationConditions.size() )
 			assertTrue(null !== stateMachine )
 			assertTrue(1 == transitions.size())
@@ -102,7 +102,7 @@ class EMV2InstantiationTests {
 		val sensor1EMV2 = sensor1.annexInstances.get(0) as EMV2AnnexInstance
 		sensor1EMV2 => [
 			assertTrue(4 == errorFlows.size() )
-			assertTrue(4 == (inPropagations+outPropagations).size() )
+			assertEquals(4, propagations.size)
 			assertTrue(null !== stateMachine )
 			assertTrue(1 == transitions.size())
 			assertTrue(1 == events.size() )
@@ -126,7 +126,7 @@ class EMV2InstantiationTests {
 		val sensor1EMV2 = sensor1.annexInstances.get(0) as EMV2AnnexInstance
 		sensor1EMV2 => [
 			assertTrue(4 == errorFlows.size() )
-			assertTrue(4 == (inPropagations+outPropagations).size() )
+			assertEquals(4, propagations.size)
 			assertTrue(null !== stateMachine )
 			assertTrue(1 == transitions.size())
 			assertTrue(1 == events.size() )

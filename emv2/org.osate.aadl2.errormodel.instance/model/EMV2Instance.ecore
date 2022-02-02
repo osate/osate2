@@ -20,9 +20,7 @@
         eType="#//CompositeStateInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagationPaths" upperBound="-1"
         eType="#//PropagationPathInstance" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inPropagations" upperBound="-1"
-        eType="#//ErrorPropagationInstance" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="outPropagations" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propagations" upperBound="-1"
         eType="#//ErrorPropagationInstance" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EMV2InstanceObject" abstract="true"
@@ -116,8 +114,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorPropagationInstance" abstract="true"
       eSuperTypes="#//ConstrainedInstanceObject">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="errorPropagation" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorPropagation"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="tokens" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inErrorPropagation" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorPropagation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outErrorPropagation" eType="ecore:EClass ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.ecore#//ErrorPropagation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inTokens" upperBound="-1"
+        eType="#//TypeTokenInstance" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outTokens" upperBound="-1"
         eType="#//TypeTokenInstance" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BindingType">
